@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "status": "frozen_stage_title_replay_passed",
+  "review_date": "2026-09-12",
+  "scope": "Replay the reviewed 4995c0b0 ISO title pictures without rendering; isolated component build uses the reviewed pre-868c42c unit-name corpus to exclude independent later terminology changes.",
+  "build_mode": "locked_indexed_snapshot",
+  "normal_build_rasterization": false,
+  "snapshot": {
+    "path": "config/assets/stage-title-graphics-indexed-snapshot.json",
+    "size": 273617,
+    "sha256": "e499dfdf68d2485a2bf88625ee49d01ea2652559f3a7f9d05f45c0b9f0ab520d"
+  },
+  "implementation": [
+    {
+      "path": "tools/build_full_story_components.py",
+      "size": 503198,
+      "sha256": "c03acf83e98f58f988c5a93fb0d36c039627d42976508016d581e28376dcf8c2"
+    },
+    {
+      "path": "tools/srwz/stage_title_snapshot.py",
+      "size": 3780,
+      "sha256": "d278c18cd6998a7ea823c726a05567f65904b9777d3c621bb55e361603ab681e"
+    },
+    {
+      "path": "tools/freeze_stage_title_graphics.py",
+      "size": 5053,
+      "sha256": "9fda7564dcb74fb54ce2712c3a9356f8a537ed73c2909f38f8cb8e4617353850"
+    }
+  ],
+  "reviewed_iso": {
+    "path": "build/iso/zh-release-full-story/current-original.iso",
+    "size": 3758358528,
+    "sha256": "4995c0b078195c67be2c9c287d2fa2adaae46255f1185cd66f279b5248c5a241",
+    "rebuilt_in_this_verification": false
+  },
+  "title_group": {
+    "start": 11440272,
+    "end": 12413520,
+    "sha256": "691e50e88711d105d2e34da3cd3b888f692faa3366bd6e2edaf688ed907cc758",
+    "texture_count": 107,
+    "matches_reviewed_iso": true
+  },
+  "isolated_component_build": {
+    "config": {
+      "path": "work/verification/stage-title-freeze-20260912/component-config.json",
+      "size": 93266,
+      "sha256": "275d633b26d5cd7bb97c9b1e382123588630eeb65ce0bf7b2054010a82d88a7a"
+    },
+    "report": {
+      "path": "work/verification/stage-title-freeze-20260912/component-manifest.json",
+      "size": 2349180,
+      "sha256": "ae79291d87928ea0e47f276a482c308648586ca73d9fb938d524f6101829142c"
+    },
+    "baseline_manifest": {
+      "path": "work/verification/stage-title-freeze-20260912/baseline-full-story-components-validation.json",
+      "size": 2348707,
+      "sha256": "e5daf0d312d3e284ca42efe7788b9801bb5aa39b7a0e63d24ea689b4a51ffdf1"
+    },
+    "outputs": [
+      {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "86d5abc37147f466c1ea8c94f683e8fa838e3f9ef6eb70ffaac69075059a6ce7",
+        "byte_identical": true
+      },
+      {
+        "member": "DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "13be1c7a00c4cb5473b051a623e7ef102aae27aa35fb19cd12b33592f414c211",
+        "byte_identical": true
+      },
+      {
+        "member": "DATA/COMPDATA.BN",
+        "size": 141046,
+        "sha256": "ec821f7f966823c3ac19391da37f260a8faaa651cedab6f85c36f2bbc61a2499",
+        "byte_identical": true
+      },
+      {
+        "member": "DATA/NISVDATA.BIN",
+        "size": 555056,
+        "sha256": "ba4644a3f1907cd764b100d25223fd9cf748b7053882f4fac04ab6f467552a42",
+        "byte_identical": true
+      },
+      {
+        "member": "DATA/MTV_PROS.BIN",
+        "size": 8352,
+        "sha256": "2ff9de8235a56b6531cd789ee77d505dca571a6845f18188fbe559bc47329ec5",
+        "byte_identical": true
+      },
+      {
+        "member": "DATA/MTV_PROP.BIN",
+        "size": 2232448,
+        "sha256": "78600a85e88e78ff21cfb344e736c9da36a9fb12fe07aec94b404845e89839c3",
+        "byte_identical": true
+      },
+      {
+        "member": "DATA/STAGE.BIN",
+        "size": 3910128,
+        "sha256": "a56c3f67985040ac94e79e8f7d83e38323c5273a1098aa38c2430956c2499425",
+        "byte_identical": true
+      },
+      {
+        "member": "DATA/HSFC.BIN",
+        "size": 250112,
+        "sha256": "1607b8995e827b91c5b98502336b71da91d1d8779ea075a0ffac45120d24dec7",
+        "byte_identical": true
+      },
+      {
+        "member": "HEDBDY/HB.BIN",
+        "size": 31152,
+        "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21",
+        "byte_identical": true
+      },
+      {
+        "member": "KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "343068888b22cca5dab5cf9a2c55204a9dd57f987ffe8539e2318deced83e09c",
+        "byte_identical": true
+      },
+      {
+        "member": "KURODATA/KVPDATA.BIN",
+        "size": 239664,
+        "sha256": "d9250f51eaff4eb5a36a39ea66eb90d3bde2f2a17a69e7b1d21fe01c7661c256",
+        "byte_identical": true
+      },
+      {
+        "member": "BTL/SRVC.BIN",
+        "size": 3313040,
+        "sha256": "f130c49fce43a16ce399a3cd322ed36f4500b47334fb2a3680d2ebfafec1ca52",
+        "byte_identical": true
+      },
+      {
+        "member": "BTL/SRVC.SEG",
+        "size": 1416,
+        "sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987",
+        "byte_identical": true
+      },
+      {
+        "member": "EFF/VEFF2DX.BIN",
+        "size": 36890512,
+        "sha256": "1ac502cecbafa89c62abda3c0fcf38bbfb0edc6d4639becb53858888490a8357",
+        "byte_identical": true
+      },
+      {
+        "member": "MAP/MAPMODEL.BIN",
+        "size": 55136688,
+        "sha256": "0ee0cdf372b32eb255a3fa77967cf7c7bbe7de2c33c7b16a81c85a97a1c5e385",
+        "byte_identical": true
+      },
+      {
+        "member": "MAP/MAPNAME.BIN",
+        "size": 49920,
+        "sha256": "f983e28db3707226530d365a11ea7e3b8267061dc8bfa96e7f634e93564a3eaa",
+        "byte_identical": true
+      },
+      {
+        "member": "BTL/OP0.BIN",
+        "size": 266224,
+        "sha256": "4338048b8a6e05c6b0d4ea520e5d1efaa3d071c0db44babf95ec8a028aabb023",
+        "byte_identical": true
+      },
+      {
+        "member": "BTL/OP1.BIN",
+        "size": 265872,
+        "sha256": "e3a3cada48da284f434f7761d6eab68697f08bf4a9c3777f4ddcadfdcefdb756",
+        "byte_identical": true
+      },
+      {
+        "member": "BTL/OP2.BIN",
+        "size": 266352,
+        "sha256": "d9835799b4575c8a47a5ca16d07174db181c765ad87484a737feeb91bfe7fadf",
+        "byte_identical": true
+      }
+    ]
+  },
+  "checks": {
+    "all_19_component_outputs_byte_identical": true,
+    "raster_and_glyph_access_forbidden_test_passed": true,
+    "python_full_suite_count": 302,
+    "python_full_suite_passed": true,
+    "frozen_snapshot_test_count": 8,
+    "frozen_snapshot_tests_passed": true,
+    "snapshot_changes_invalidate_vt1_cache": true
+  },
+  "runtime": {
+    "new_execution": false,
+    "pcsx2_acceptance": "pending",
+    "best_rebuild": "pending"
+  },
+  "production_manifest_refresh": "Not refreshed from the isolated historical inputs; refresh normally with the next integrated build of current corpus."
+}

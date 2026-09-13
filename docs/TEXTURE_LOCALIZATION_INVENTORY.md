@@ -122,6 +122,7 @@ TIM2 metadata 和 CLUT 保持不变。低层 8-bpp TIM2 解析／写回仍位于
 | 像素顺序 | 线性、low-nibble-first；不是 PSMT4 swizzle |
 | 字形排版 | 24px 原字形横向扩为 48px，advance 50，`y=4`，整体居中 |
 | 拉丁字排版 | 2026-09-12 起 ASCII 范围字符按原版字形墨迹宽度比例推进（字母间距 2、空格 8，24px 域）；汉字单元不变。场间底部跑马灯显示的也是这张贴图。见 `STAGE_TITLE_LAYOUT_20260912.md` |
+| 生产图片来源 | `config/assets/stage-title-graphics-indexed-snapshot.json` 的 107 张定稿索引图；普通构建只注入、压缩、回读，不取字形、不渲染、不重新量化 |
 
 第一张和最后一张当前落点为：
 

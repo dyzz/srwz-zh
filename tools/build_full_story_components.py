@@ -156,14 +156,15 @@ try:
     )
     from srwz.stage import parse_stage_system_dialogues
     from srwz.summary import parse_summary
+    from srwz.stage_title_snapshot import (
+        StageTitleSnapshotError,
+        METADATA_KEYS as STAGE_TITLE_METADATA_KEYS,
+        load_frozen_titles,
+    )
     from srwz.stage_title_graphics import (
-        GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
         TITLE_HEIGHT as STAGE_TITLE_HEIGHT,
         TITLE_IMAGE_SIZE as STAGE_TITLE_IMAGE_SIZE,
         TITLE_WIDTH as STAGE_TITLE_WIDTH,
-        pack_linear_4bpp,
-        render_stage_title,
-        LatinLayout as StageTitleLatinLayout,
         unpack_linear_4bpp,
     )
     from srwz.tim2 import scan_tim2
@@ -348,14 +349,15 @@ except ModuleNotFoundError:
     )
     from tools.srwz.stage import parse_stage_system_dialogues
     from tools.srwz.summary import parse_summary
+    from tools.srwz.stage_title_snapshot import (
+        StageTitleSnapshotError,
+        METADATA_KEYS as STAGE_TITLE_METADATA_KEYS,
+        load_frozen_titles,
+    )
     from tools.srwz.stage_title_graphics import (
-        GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
         TITLE_HEIGHT as STAGE_TITLE_HEIGHT,
         TITLE_IMAGE_SIZE as STAGE_TITLE_IMAGE_SIZE,
         TITLE_WIDTH as STAGE_TITLE_WIDTH,
-        pack_linear_4bpp,
-        render_stage_title,
-        LatinLayout as StageTitleLatinLayout,
         unpack_linear_4bpp,
     )
     from tools.srwz.tim2 import scan_tim2
@@ -735,6 +737,7 @@ INPUT_IMPACTS = {
     "full_story_font_proposal": CONFIG_SECTION_IMPACTS["full_story_font"],
     "stage_names": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
     "stage_title_format": {COMPDATA_MEMBER},
+    "stage_title_graphics_snapshot": {VT1_MEMBER},
     "stage_overviews": {STAGE_MEMBER},
     "world_history_corpus": {SLPS_MEMBER, MTV_PROS_MEMBER},
     "chapter_intertitle_corpus": {MTV_PROP_MEMBER},
@@ -2574,11 +2577,9 @@ def _apply_full_stage_title_graphics(
     stage_entries: list[dict],
     decoded_compdata: bytes,
     parsed_compdata,
-    final_font: bytes,
-    release_by_character: dict,
     raw_config: object,
 ) -> tuple[bytes, dict]:
-    """Replace the 107 playable stage-title textures inside VT1 chunk 8."""
+    """Inject 107 reviewed index planes without accessing glyphs or rasterizing."""
 
     if not isinstance(raw_config, dict):
         raise FullStoryComponentError(
@@ -2687,19 +2688,15 @@ def _apply_full_stage_title_graphics(
             "full stage-title graphic policy drift"
         )
 
-    latin_layout = None
-    if latin_layout_config is not None:
-        try:
-            latin_layout = StageTitleLatinLayout(
-                mode=latin_layout_config["mode"],
-                letter_gap=latin_layout_config["letter_gap"],
-                space_width=latin_layout_config["space_width"],
-            )
-            latin_layout.validate()
-        except (StageTitleGraphicError, KeyError, TypeError) as error:
-            raise FullStoryComponentError(
-                f"stage-title Latin layout policy is invalid: {error}"
-            ) from error
+    if raw_config.get("render_policy") != {
+        "production_source": "locked_indexed_snapshot",
+        "normal_build_rasterization": False,
+        "snapshot_update": "explicit_refreeze_from_reviewed_iso_only",
+    }:
+        raise FullStoryComponentError("stage-title frozen production policy is missing or invalid")
+    snapshot_path, snapshot = _sha_locked_json(
+        raw_config.get("frozen_snapshot"), label="stage-title frozen snapshot"
+    )
 
     try:
         record_base_address = int(scenario_records["base_address"], 0)
@@ -2867,46 +2864,10 @@ def _apply_full_stage_title_graphics(
                 "stage-title texture ordinal mapping drift"
             )
 
-    needed_characters = sorted(
-        set("".join(entry["translation"] for entry in selected_entries))
-    )
-    glyphs = {}
-    for character in needed_characters:
-        release_mapping = release_by_character.get(character)
-        if character == " ":
-            glyph = bytes(STAGE_TITLE_GLYPH_SIZE)
-            glyph_index = None
-        elif (
-            " " < character <= "~"
-            and not character.isalnum()
-            and isinstance(release_mapping, tuple)
-            and len(release_mapping) == 2
-            and isinstance(release_mapping[1], int)
-        ):
-            # ASCII punctuation such as "." has no stock glyph at its raw
-            # ASCII slot; use the glyph the global release ledger binds to
-            # that character. Letters and digits keep the stock glyphs.
-            glyph_index = release_mapping[1]
-            glyph = decode_glyph(final_font, glyph_index)
-        elif " " <= character <= "~":
-            glyph_index = ascii_glyph_index(ord(character))
-            glyph = decode_glyph(final_font, glyph_index)
-        else:
-            if (
-                not isinstance(release_mapping, tuple)
-                or len(release_mapping) != 2
-                or not isinstance(release_mapping[1], int)
-            ):
-                raise FullStoryComponentError(
-                    f"stage-title release glyph is missing: {character!r}"
-                )
-            glyph_index = release_mapping[1]
-            glyph = decode_glyph(final_font, glyph_index)
-        if len(glyph) != STAGE_TITLE_GLYPH_SIZE:
-            raise FullStoryComponentError(
-                f"stage-title glyph geometry drift: {character!r}"
-            )
-        glyphs[character] = glyph
+    try:
+        frozen_titles = load_frozen_titles(snapshot, selected_entries, raster_config)
+    except StageTitleSnapshotError as error:
+        raise FullStoryComponentError(str(error)) from error
 
     output = bytearray(vt1)
     title_reports = []
@@ -2961,47 +2922,32 @@ def _apply_full_stage_title_graphics(
                 f"stage-title source picture is blank: {ordinal}"
             )
 
-        selected = None
-        attempted_sizes = []
-        for levels in quantization_levels:
-            raster = render_stage_title(
-                entry["translation"],
-                glyphs,
-                doubled_glyph_width=doubled_glyph_width,
-                advance=advance,
-                y=raster_y,
-                quantization_levels=levels,
-                latin_layout=latin_layout,
-            )
-            packed = pack_linear_4bpp(raster.indexes)
-            modified_decoded = (
-                source_decoded.output[:image_start]
-                + packed
-                + source_decoded.output[image_end:]
-            )
-            encoded = encode(
-                modified_decoded,
-                strategy=codec_strategy,
-                flags=source_decoded.flags,
-                header_unknown_0=source_decoded.metadata.get(
-                    "header_unknown_0"
-                ),
-                header_unknown_1=source_decoded.metadata["header_unknown_1"],
-                min_match_length=codec_min_match_length,
-                max_match_chain=codec_max_match_chain,
-            )
-            attempted_sizes.append(
-                {"quantization_levels": levels, "encoded_size": len(encoded)}
-            )
-            if len(encoded) <= len(stored):
-                selected = (levels, raster, modified_decoded, encoded)
-                break
-        if selected is None:
-            raise FullStoryComponentError(
-                f"stage-title stream does not fit slot {ordinal}: "
-                f"{attempted_sizes} > {len(stored)}"
-            )
-        levels, raster, modified_decoded, encoded = selected
+        frozen = frozen_titles[ordinal]
+        if (
+            frozen["source_indexes_sha256"] != sha256_bytes(source_indexes)
+            or frozen["stored_start"] != stored_start
+            or frozen["stored_end"] != stored_end
+            or frozen["selector"] != selector
+            or frozen["loader_table_index"] != table_index
+        ):
+            raise FullStoryComponentError(f"stage-title snapshot source/placement drift: {ordinal}")
+        packed = frozen["packed"]
+        frozen_indexes = frozen["indexes"]
+        levels = frozen["quantization_levels"]
+        modified_decoded = (
+            source_decoded.output[:image_start] + packed + source_decoded.output[image_end:]
+        )
+        encoded = encode(
+            modified_decoded,
+            strategy=codec_strategy,
+            flags=source_decoded.flags,
+            header_unknown_0=source_decoded.metadata.get("header_unknown_0"),
+            header_unknown_1=source_decoded.metadata["header_unknown_1"],
+            min_match_length=codec_min_match_length,
+            max_match_chain=codec_max_match_chain,
+        )
+        if len(encoded) > len(stored):
+            raise FullStoryComponentError(f"frozen stage-title stream does not fit slot {ordinal}")
         if (
             modified_decoded[:image_start]
             != source_decoded.output[:image_start]
@@ -3012,6 +2958,8 @@ def _apply_full_stage_title_graphics(
                 f"stage-title non-image bytes changed: {ordinal}"
             )
         padded = encoded + bytes(len(stored) - len(encoded))
+        if sha256_bytes(padded) != frozen["output_stored_sha256"]:
+            raise FullStoryComponentError(f"frozen stage-title encoded bytes drift: {ordinal}")
         output[stored_start:stored_end] = padded
         reread = decode(output[stored_start:stored_end])
         reread_records = scan_tim2(reread.output)
@@ -3023,7 +2971,7 @@ def _apply_full_stage_title_graphics(
         )
         if (
             reread.output != modified_decoded
-            or reread_indexes != raster.indexes
+            or reread_indexes != frozen_indexes
             or any(output[stored_start + reread.consumed : stored_end])
         ):
             raise FullStoryComponentError(
@@ -3043,24 +2991,18 @@ def _apply_full_stage_title_graphics(
                 "output_encoded_size": len(encoded),
                 "padding_size": len(stored) - len(encoded),
                 "quantization_levels": levels,
-                "attempted_sizes": attempted_sizes,
-                "raster_x": raster.x,
-                "raster_y": raster.y,
-                "raster_width": raster.width,
-                "raster_height": raster.height,
-                "natural_width": raster.natural_width,
-                "cell_count": raster.cell_count,
-                "latin_cell_count": raster.latin_cell_count,
-                "layout_mode": raster.layout_mode,
+                "attempted_sizes": [{"quantization_levels": levels, "encoded_size": len(encoded)}],
+                **{key: frozen[key] for key in STAGE_TITLE_METADATA_KEYS},
                 "source_indexes_sha256": sha256_bytes(source_indexes),
-                "output_indexes_sha256": sha256_bytes(raster.indexes),
+                "output_indexes_sha256": sha256_bytes(frozen_indexes),
             }
         )
 
     output_bytes = bytes(output)
     first_title_start = group_start + offsets[loader_table_bias + selector_bias]
     if (
-        len(output_bytes) != len(vt1)
+        sha256_bytes(output_bytes[group_start:group_end]) != snapshot.get("output_group_sha256")
+        or len(output_bytes) != len(vt1)
         or output_bytes[:first_title_start] != vt1[:first_title_start]
         or output_bytes[group_end:] != vt1[group_end:]
         or read_executable_archive_offsets(
@@ -3129,9 +3071,10 @@ def _apply_full_stage_title_graphics(
         ),
         "reduced_precision_ordinals": reduced_ordinals,
         "raster_storage": tim2["storage"],
-        "latin_layout": (
-            None if latin_layout is None else latin_layout.to_metadata()
-        ),
+        "latin_layout": latin_layout_config,
+        "build_mode": "locked_indexed_snapshot",
+        "normal_build_rasterization": False,
+        "frozen_snapshot": _file_lock(snapshot_path, snapshot_path.read_bytes()),
         "proportional_latin_title_count": sum(
             item["latin_cell_count"] > 0 and item["layout_mode"] != "fixed_cells"
             for item in title_reports
@@ -3156,8 +3099,6 @@ def _apply_full_stage_titles(
     reference: dict,
     font_manifest: dict,
     codec: dict,
-    final_font: bytes,
-    release_by_character: dict,
     *,
     workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, bytes, bytes, dict, tuple[Path, Path, Path]]:
@@ -3414,8 +3355,6 @@ def _apply_full_stage_titles(
         stage_entries,
         decoded.output,
         parsed_compdata,
-        final_font,
-        release_by_character,
         reference.get("graphics"),
     )
     return slps_write.data, output_vt1, rebuilt_compdata, {
@@ -3446,7 +3385,8 @@ def _apply_full_stage_titles(
         "compression_deferred_to_workspace": workspace is not None,
         "slps_size_preserved": len(slps_write.data) == len(slps),
         "graphics": graphic_report,
-    }, (stage_path, format_path, descriptor_path)
+    }, (stage_path, format_path, descriptor_path,
+        PROJECT_ROOT / reference["graphics"]["frozen_snapshot"]["path"])
 
 
 def _apply_stage_overviews(
@@ -9775,8 +9715,6 @@ def _build_components(
         config.get("full_stage_titles"),
         font_manifest,
         config["full_pilot_names"]["codec"],
-        final_font,
-        release_by_character,
         workspace=compdata_workspace,
     )
     (
@@ -10976,6 +10914,9 @@ def _build_components(
             ),
             "stage_title_format": _file_lock(
                 stage_title_input_paths[1], stage_title_input_paths[1].read_bytes()
+            ),
+            "stage_title_graphics_snapshot": _file_lock(
+                stage_title_input_paths[3], stage_title_input_paths[3].read_bytes()
             ),
             "stage_overviews": _file_lock(
                 stage_overview_corpus_path,

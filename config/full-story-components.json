@@ -427,6 +427,16 @@
           70,
           92
         ]
+      },
+      "render_policy": {
+        "production_source": "locked_indexed_snapshot",
+        "normal_build_rasterization": false,
+        "snapshot_update": "explicit_refreeze_from_reviewed_iso_only"
+      },
+      "frozen_snapshot": {
+        "path": "config/assets/stage-title-graphics-indexed-snapshot.json",
+        "size": 273617,
+        "sha256": "e499dfdf68d2485a2bf88625ee49d01ea2652559f3a7f9d05f45c0b9f0ab520d"
       }
     }
   },
