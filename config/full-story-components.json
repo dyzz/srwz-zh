@@ -48,7 +48,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73655,
-      "sha256": "8f4ca4669a2ee60c951a3314c467f3de756499d3a1b2bf724229b273a84af0b7"
+      "sha256": "f817cc7722fb7e514d0f565f5bf2dbfece5196e9953602b9c4c2056ac542bb3e"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -67,14 +67,14 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307910,
-      "sha256": "fa1d24ff5228bd10c7de43e9ecbe51270dffe1aa25895004ebfad2cdf59d089b"
+      "sha256": "cbfe6d5913143d9a8fc8cb5ed7e1b0eb3cff17c2cb79e61e57ec247e98828295"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "3377a43bf008150012c70f1e05da29b09b80cdcc6af9c1ab3e9868a740fbe8f0"
+      "sha256": "6f13026a7b1001bdd14b86590e1f2d635d1ebb4ab4f5bb76be580acf94d9ba1d"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -225,8 +225,8 @@
   "reviewed_weapons": {
     "corpus": {
       "path": "corpus/zh/menu/weapons.json",
-      "size": 215768,
-      "sha256": "bc6add64dcdabd01592043e11bde105591deb72fd5ef33e5afb4364b2c4bb865"
+      "size": 215794,
+      "sha256": "38ccda65906a3a4f0577b862f94357696eff1e678463404f36674365d5f7f7a3"
     },
     "expected": {
       "entry_count": 711,
@@ -235,7 +235,9 @@
       "shared_nonweapon_owner_count": 1
     },
     "allow_trailing_zero_padding_entry_ids": [
-      "menu/Compdata/02/0310"
+      "menu/Compdata/02/0310",
+      "menu/Compdata/02/0406",
+      "menu/Compdata/02/0474"
     ]
   },
   "special_abilities": {
@@ -1414,8 +1416,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6980771,
-      "sha256": "c8704be1d4010068b85a9cdc64a2fb0087515ca6737142d4fda53fb291a88d9a"
+      "size": 6980729,
+      "sha256": "2d75753432b1b839be1dc8a7fec354ace953ce362862dc6a3a480bf1b4ba90ab"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -2843,8 +2845,8 @@
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 816145,
-      "sha256": "fb026198e94031215a9a06f68346f8d39a58d37109577843d2200a7d239bd38a"
+      "size": 816146,
+      "sha256": "822162cfc082ae2a5d6ad831c9d0dcb581ead38b041c37f9fbdae84d1f9513bb"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
