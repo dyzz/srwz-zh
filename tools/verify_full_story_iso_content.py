@@ -6946,7 +6946,7 @@ def main() -> int:
                 reported_land_translation = expected_translation
 
             for token, stored_hex in {
-                "ZAFT": "8279826082658273",
+                "FAITH": "82658260826882738267",
                 "PLANT": "826f826b8260826d8273",
             }.items():
                 if token in story_ascii_storage_examples:
@@ -7102,7 +7102,7 @@ def main() -> int:
             f"expected={expected_quote_styles} "
             f"actual={dict(sorted(dialogue_quote_style_counts.items()))}"
         )
-    if set(story_ascii_storage_examples) != {"ZAFT", "PLANT"}:
+    if set(story_ascii_storage_examples) != {"FAITH", "PLANT"}:
         raise SystemExit(
             "final ISO story ASCII examples are incomplete: "
             f"{sorted(story_ascii_storage_examples)!r}"

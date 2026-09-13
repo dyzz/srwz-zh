@@ -642,9 +642,8 @@ def _scan_packed8_groups(
     )
 
 
-_COMPACT_ASCII_FORMATION_TRANSLATIONS: dict[tuple[str, str], str] = {
-    ("packed8-8", "ザフト"): "ZAFT",
-}
+# 扎夫特 fits the normal two-byte encoder, including its terminator, in 8 bytes.
+_COMPACT_ASCII_FORMATION_TRANSLATIONS: dict[tuple[str, str], str] = {}
 
 
 def compact_formation_ascii_replacement(
