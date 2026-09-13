@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "kind": "library-polish-and-wings-iso-build",
+  "source_commit": "e08b3256e3d8e71ed4ef7506af59413b88368bc3",
+  "full_unit_tests": 302,
+  "full_unit_tests_passed": true,
+  "runtime": "not_tested",
+  "original_byte_reproducible": true,
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "48b7808d3b2d47aa6468796850713769467561ecb33297f91b02de9c19197aae",
+      "size": 3758358528
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "75c7145d732c490e791649e920ef3b836fd9c20c1fb7a5a0420726c65cd85bd2",
+      "size": 3755081728
+    }
+  },
+  "evidence_locks": [
+    {
+      "path": "config/full-story-components.json",
+      "sha256": "2c5ce4a34e0dc41635fff3b352c70ae9307fa6f9ee11020b67ce1b5a1e79dd3f"
+    },
+    {
+      "path": "config/iso/zh-release-current-build.json",
+      "sha256": "2ac4f6841e0e94cbcbef7201b936cbdbf6c36d9404999dbda81de7ad73ff3759"
+    },
+    {
+      "path": "manifests/full-story-components-validation.json",
+      "sha256": "54e2a9fb58bfe5dceb87e05ba08140a6d7c00d811f1d1ff74e1044fb4fe69687"
+    },
+    {
+      "path": "manifests/full-story-library-components-validation.json",
+      "sha256": "79a1d620f65657abc7b2cd848039b654839cf1e04701e7a3092ee537236d5ee9"
+    },
+    {
+      "path": "manifests/library-v0.2-reviewed-validation.json",
+      "sha256": "5278d8354ac503626408f6d47487d0d535fb0067dad56f0e1cab7edf4a03afea"
+    },
+    {
+      "path": "manifests/zh-release-font-validation.json",
+      "sha256": "c80caed52fe2f08626a285c162e69b47040098c60962e4d59818bfb2c3b094a9"
+    },
+    {
+      "path": "manifests/zh-release-full-story-iso-content-validation.json",
+      "sha256": "10385bcc298b8cbb0f9ad9dd6564ffc74ea636c1c704122d29e42a54250e54a6"
+    },
+    {
+      "path": "manifests/editions/original/current.json",
+      "sha256": "7a24fdd0511c5fcf88f3be9ac27ae1b0e93cc22367b511b6d71f1ad234601846"
+    },
+    {
+      "path": "manifests/editions/best/current.json",
+      "sha256": "0d066c40f40ee0514b317a1c7b066d37bdab01cc48fe0b0d4892db56e439e55b"
+    }
+  ]
+}

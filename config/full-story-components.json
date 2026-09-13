@@ -48,7 +48,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73655,
-      "sha256": "d48fa9f0c44fc6358a6348309b0ec911a588a31c1094bc6ffd3881f2fe3b7edd"
+      "sha256": "c80caed52fe2f08626a285c162e69b47040098c60962e4d59818bfb2c3b094a9"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -60,21 +60,21 @@
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "87fe4a92b7eb178322f760bc448ac11e42cf7e86847f024b7c2858d55ba9fba7"
+      "sha256": "ee2ee1668b8134ccd9c25b4f572e8e348b4d77c51aa1c346bf173cb467c7e0e6"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18307905,
-      "sha256": "5bb21a644d3ecbb9bba2b3c20a69416176d2c08e5a280fcbb45c6f1bae079c7a"
+      "size": 18307916,
+      "sha256": "d9766b3eb62f8c176c0cc78517892b06b494547cc1f3ab83d69bb175fe51c7fe"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "e760a427aded99d6163ea641f04fac1c5c4d40136f02f964d299f1247f2a5440"
+      "sha256": "5feba34cb675c525a82f8bbedaa29a4e94842b9ab71e8aaab1d4c8d7e29472eb"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -96,7 +96,7 @@
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
       "size": 2989222,
-      "sha256": "01d554ae95eea5422cc31bc6c0c4a282c45877293f44a5a8491fb5a76d489c49"
+      "sha256": "740b821c9cd7f9739d0931520f7b49af2df140d03aedabd93c194fd23e73cb72"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
@@ -143,7 +143,7 @@
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
       "size": 2989222,
-      "sha256": "01d554ae95eea5422cc31bc6c0c4a282c45877293f44a5a8491fb5a76d489c49"
+      "sha256": "740b821c9cd7f9739d0931520f7b49af2df140d03aedabd93c194fd23e73cb72"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
@@ -444,7 +444,7 @@
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
       "size": 89075,
-      "sha256": "9604e76623d2085d71ffdc6e25bf73c45c99103997425eb77a4b77f71fa67768"
+      "sha256": "bde24587bc5e0af24c141b13f8a51dc4a4299e3a861697901f22095576ae753e"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -675,7 +675,7 @@
     "stage_system_dialogue": {
       "path": "corpus/zh/story-system-dialogue.json",
       "size": 137973,
-      "sha256": "7cc539cc0d7fc949f3b938418d55bc643059389c9517c4260c175a512d80aac0"
+      "sha256": "dca6a6ebb47f0e251624534196ab21fa8471e880d16e3a22b0cd309a0a33646b"
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
@@ -1414,8 +1414,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6980493,
-      "sha256": "3229d1cf1a06fd642be83d1947974a7367cd0ae263f32ca36b352351056d70e8"
+      "size": 6980496,
+      "sha256": "1efb14b446b9db81c2cfc6df0659141cb98d73b3380d5c84aa01368267a99337"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -2839,12 +2839,12 @@
     "library_archive": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
       "size": 29936,
-      "sha256": "4d34ef75eda3e0b33e4438e1c375411de32efe92187a5f8b673a9434824cb206"
+      "sha256": "740f98850bfaa4d55810bf56312ebf9f96f33f1f5d5f26c0fd5358d7a60cbbbc"
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 816171,
-      "sha256": "7d56ebd1beb14052d8b1f674a5fe42d938bdaa785306a58ffb994ac527c91622"
+      "size": 816146,
+      "sha256": "5278d8354ac503626408f6d47487d0d535fb0067dad56f0e1cab7edf4a03afea"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2885,7 +2885,7 @@
         "tag": "WORD",
         "source_offset": "0xE9E8",
         "donor_offset": "0xEA30",
-        "relocation_offset": "0xEAA6",
+        "relocation_offset": "0xEAA8",
         "reason": "occupied_current_allocation"
       },
       {
@@ -2912,7 +2912,7 @@
         "tag": "WORD",
         "source_offset": "0x106C8",
         "donor_offset": "0x10700",
-        "relocation_offset": "0x108E6",
+        "relocation_offset": "0x108EA",
         "reason": "fixed_allocation_overflow"
       }
     ],
@@ -2946,13 +2946,13 @@
       "mode": "direct-original-writeback",
       "menu_assignment_count": 1803,
       "menu_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3472,
-      "release_assignment_mapping_sha256": "ee02ca7ac97a2baf4e6fe1d0ec335accb93daade286591160a489c654e3835fc",
-      "release_snapshot_primary_mapping_sha256": "3b0a03eedb179e761d2aca920472e8c1b800cbda5e872ce21c53cd9b26eb8eff",
+      "release_assignment_count": 3475,
+      "release_assignment_mapping_sha256": "1e3abfca5352e9ad2733e0cea6a440ceb9f781c666bca0602b51e6e60e10a2df",
+      "release_snapshot_primary_mapping_sha256": "b85192b5a67bb53b667f00bcdd8470d8973ce41a3eda01a850355d32d1e7779a",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "cc4855d7cb71b879abf977634285c08d41fc8fa6ea5a1a9ec194b609ac3a0096",
-        "snapshot_id": "srwz-zh-release-font-assignments-v1"
+        "size": 1141534,
+        "sha256": "30b8d9e915b8455f6c0366fc5346b6d97b01ec7014a86346b5f3157b928635bc"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."
     },
