@@ -65,6 +65,10 @@ try:
         GameModeUnlockError,
         apply_postgame_mode_unlock,
     )
+    from srwz.text_measure_range import (
+        TextMeasureRangeError,
+        apply_text_measurement_range_patch,
+    )
     from srwz.movement_type_labels import (
         MovementTypeLabelError,
         apply_runtime_movement_type_labels,
@@ -258,6 +262,10 @@ except ModuleNotFoundError:
     from tools.srwz.game_mode_unlock import (
         GameModeUnlockError,
         apply_postgame_mode_unlock,
+    )
+    from tools.srwz.text_measure_range import (
+        TextMeasureRangeError,
+        apply_text_measurement_range_patch,
     )
     from tools.srwz.movement_type_labels import (
         MovementTypeLabelError,
@@ -709,6 +717,7 @@ CONFIG_SECTION_IMPACTS = {
     "runtime_full_name_order": {SLPS_MEMBER},
     "library_protagonist_names": {SLPS_MEMBER},
     "postgame_mode_unlock": {SLPS_MEMBER},
+    "text_measurement_range": {SLPS_MEMBER},
     "runtime_movement_type_labels": {SLPS_MEMBER},
     "dialogue_speaker_colors": {SLPS_MEMBER},
     "runtime_weapon_category_labels": {SLPS_MEMBER},
@@ -10684,6 +10693,18 @@ def _build_components(
         ) from error
 
     try:
+        output_slps, text_measurement_range_report = (
+            apply_text_measurement_range_patch(
+                output_slps,
+                config["text_measurement_range"],
+            )
+        )
+    except (KeyError, ValueError, TextMeasureRangeError) as error:
+        raise FullStoryComponentError(
+            f"text measurement range patch failed: {error}"
+        ) from error
+
+    try:
         output_slps, movement_type_label_report = (
             apply_runtime_movement_type_labels(
                 output_slps,
@@ -11172,6 +11193,7 @@ def _build_components(
         "runtime_full_name_order": full_name_order_report,
         "library_protagonist_names": library_protagonist_names_report,
         "postgame_mode_unlock": postgame_mode_unlock_report,
+        "text_measurement_range": text_measurement_range_report,
         "runtime_movement_type_labels": movement_type_label_report,
         "dialogue_speaker_colors": dialogue_speaker_color_report,
         "runtime_weapon_category_labels": weapon_category_label_report,

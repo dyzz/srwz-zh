@@ -3,7 +3,7 @@
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
   "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes.",
-  "stage_postprocess_signature": "1e3e14b7c81a8a7dd713407776fe5db952b1c69853b2482d59fd5c8c8c7046b1",
+  "stage_postprocess_signature": "5661862bd2b888fca9eceae3dc935156d87e2f9f657335dfd7598e803c99b948",
   "build_groups": [
     {
       "id": "core_runtime_members",
@@ -49,8 +49,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 93034,
-      "sha256": "4c43d94f82697e36735800ad8783d70544b43e11cf5ad8668cdecfd8c7c00d0a"
+      "size": 94362,
+      "sha256": "4ccf993d4100306bae8b67b948875da67febc43e62a824d066901413f3dff778"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -90,17 +90,17 @@
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73655,
-      "sha256": "0a7ee7a9f096197c85a9bd209adfcb2ccc9a4e2f5c236c90b3c0e216633eccf8"
+      "sha256": "d2bc3ace7c1ebb27aba3d6762737958e4581effba4cfe3e00a551562a283a986"
     },
     "reviewed_library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816146,
-      "sha256": "2e02baf220b00b95a0a6a97101692d09b04fd944b5b2cb8ad353338aba07b64c"
+      "sha256": "15818cfa4b48fad7facede4ba528f074a8a78b68e68d475378a64219a6531a09"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307910,
-      "sha256": "12a4ffe2d357d1cdfbe53fb3754eda9f3196530d76dab484d985a3d37cc7a6e5"
+      "sha256": "9fa120253ee179c6642f449aa8a33ed5c009dde79bd63695b4b7f7224629d497"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -114,8 +114,8 @@
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111831,
-      "sha256": "5631579244f84e82661f25f21090c8d6004be5e77188e25160d3059781d26e15"
+      "size": 111889,
+      "sha256": "efdbaa64ccfc62b67539bfa1a3e5d51ded9e221345b05993dcb8e68204cc5fbe"
     },
     "full_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -125,7 +125,7 @@
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
       "size": 3248564,
-      "sha256": "cda6c6b5172654138eae6b1460cfe138a94a2c5c6b67d0bf564302af3db59cf6"
+      "sha256": "dfe5d2f84cf07d97839809422982c89655de90fe4f1dfa2abf807ff4d7d4ba98"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -194,8 +194,8 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111831,
-      "sha256": "5631579244f84e82661f25f21090c8d6004be5e77188e25160d3059781d26e15"
+      "size": 111889,
+      "sha256": "efdbaa64ccfc62b67539bfa1a3e5d51ded9e221345b05993dcb8e68204cc5fbe"
     },
     "stage_default_formation_corpus": {
       "path": "corpus/zh/menu/stage-default-formations.json",
@@ -250,7 +250,7 @@
     "nisv_tutorial_corpus": {
       "path": "corpus/zh/menu/nisv-tutorial-pages.json",
       "size": 14824,
-      "sha256": "27705ff2b4e98746d6a8e70df97051df0d341c647fa10427039f2508e92db33d"
+      "sha256": "8fd58ffe610ee4d07502909c0d7ce320fae3eb5b822bc6b3c5f44ffab9390cf5"
     },
     "nisv_strategy_qa_corpus": {
       "path": "corpus/zh/menu/nisv-strategy-qa.json",
@@ -345,17 +345,17 @@
     "kvmdata": {
       "path": "work/build/ui-headings-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "343068888b22cca5dab5cf9a2c55204a9dd57f987ffe8539e2318deced83e09c"
+      "sha256": "e341d2e5cf26a37988e0bb646f57333cbbc4ef17c2c867fe8f447b6070790884"
     },
     "kvpdata": {
       "path": "work/build/ui-headings-zh/components/KURODATA/KVPDATA.BIN",
       "size": 239664,
-      "sha256": "d9250f51eaff4eb5a36a39ea66eb90d3bde2f2a17a69e7b1d21fe01c7661c256"
+      "sha256": "b62d05b76032b153590dc8b2aad78d2d06786c2b861be875e45a4634b65e1cd9"
     },
     "ui_headings_config": {
       "path": "config/assets/ui-headings-zh.json",
-      "size": 29518,
-      "sha256": "df31d3e0adf7d789b9bc75af7e3458caa363849ccf31ff7d64de22f180679386"
+      "size": 30639,
+      "sha256": "06e81354ecb7d2887aca407db4d6a24cff54b556378b2b966765591a1b28d74b"
     },
     "ui_headings_base_atlas": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
@@ -365,17 +365,17 @@
     "ui_headings_corpus": {
       "path": "corpus/zh/ui-atlas/formation-help-headings.json",
       "size": 1055,
-      "sha256": "18dfd8ac3d0ec6b6309fed7abfcf99573e980adc0f06cf60d61966fd137297a6"
+      "sha256": "24c9ee79fe6d98b192ce1e08535e79e134d5271f02b72efe790d1f0c8642b85c"
     },
     "ui_headings_snapshot": {
       "path": "config/assets/ui-headings-render-snapshot.json",
-      "size": 3712,
-      "sha256": "c26cc19cd14d206c2d1f6053511b000a7eb63acf33355b94f978922d711156a9"
+      "size": 5365,
+      "sha256": "a9d47e5e9585ec64deea723361a0000e967f38dc1afa9975eed069d618cfd46d"
     },
     "ui_headings_manifest": {
       "path": "manifests/ui-headings-zh-validation.json",
       "size": 2023,
-      "sha256": "05051ff3170b857475d20a3bf47432bcf9f6d68fc43bb88cc8c34d55cbe1144c"
+      "sha256": "b50001227f16c7ba910200bde16ee8723ee7065126f848010f63c1421e4ee0b7"
     },
     "original_veff2dx": {
       "path": "work/disc/EFF/VEFF2DX.BIN",
@@ -429,8 +429,8 @@
     },
     "auto_demo_residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111831,
-      "sha256": "5631579244f84e82661f25f21090c8d6004be5e77188e25160d3059781d26e15"
+      "size": 111889,
+      "sha256": "efdbaa64ccfc62b67539bfa1a3e5d51ded9e221345b05993dcb8e68204cc5fbe"
     },
     "auto_demo_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -482,7 +482,7 @@
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 144990,
-      "output_stored_size": 141061,
+      "output_stored_size": 141065,
       "decoded_size": 524032,
       "sector_budget": 145408,
       "stages": [
@@ -619,7 +619,7 @@
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
         "size": 3248564,
-        "sha256": "cda6c6b5172654138eae6b1460cfe138a94a2c5c6b67d0bf564302af3db59cf6"
+        "sha256": "dfe5d2f84cf07d97839809422982c89655de90fe4f1dfa2abf807ff4d7d4ba98"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
@@ -1031,7 +1031,7 @@
       "reread_exact": true
     },
     "source_compressed_size": 144990,
-    "output_compressed_size": 141061,
+    "output_compressed_size": 141065,
     "compressed_sector_budget": 145408,
     "codec": {
       "strategy": "rust-fit",
@@ -4549,7 +4549,7 @@
     },
     "available_surface_safe_aliases_used": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141061,
+    "compdata_output_size": 141065,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
     "slps_size_preserved": true,
@@ -8195,7 +8195,7 @@
     "all_translations_reread_exact": true,
     "release_binary_required_at_build_time": false,
     "compression_deferred_to_workspace": true,
-    "compdata_output_size": 141061,
+    "compdata_output_size": 141065,
     "compdata_round_trip_exact": true
   },
   "stage_overviews": {
@@ -8692,7 +8692,7 @@
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
       "reread_exact": true,
-      "storage_control_prefix_entry_count": 22,
+      "storage_control_prefix_entry_count": 24,
       "storage_control_prefixes": {
         "0x7F0E0": "<width:12><height:0C><space:12>",
         "0x7F120": "<width:12><height:0C><space:12>",
@@ -8715,7 +8715,9 @@
         "0x7F4D0": "<width:12><height:0C><space:12>",
         "0x7F500": "<width:12><height:0C><space:12>",
         "0x7F520": "<width:12><height:0C><space:12>",
-        "0x7F550": "<width:12><height:0C><space:12>"
+        "0x7F550": "<width:12><height:0C><space:12>",
+        "0x7FB70": "<space:18>",
+        "0x7FB80": "<space:1B>"
       }
     },
     "compdata_library_work_titles": {
@@ -9029,8 +9031,8 @@
     "parts": {
       "source_size": 524032,
       "output_size": 524032,
-      "source_sha256": "666c06a202733d8967f160ce475e0ca5a4b9d4cfec3b05e68186760b789b4c15",
-      "output_sha256": "63cd07007d70069107c719639aefa67badf9a977e009a5da27a33b1d2285d433",
+      "source_sha256": "b104c8d0ea6a835f8babb7e89bade1361838803e7868aa61b377c4c067d428bd",
+      "output_sha256": "8cd48b908a550205b036e122602e7e27fe9da4f50640085b36f4575feb36dd3e",
       "entry_count": 132,
       "target_count": 132,
       "payload_size": 3036,
@@ -10096,7 +10098,7 @@
       "patch_plan": {
         "source_name": "remaining UI strengthening parts",
         "source_size": 524032,
-        "source_sha256": "666c06a202733d8967f160ce475e0ca5a4b9d4cfec3b05e68186760b789b4c15",
+        "source_sha256": "b104c8d0ea6a835f8babb7e89bade1361838803e7868aa61b377c4c067d428bd",
         "operation_count": 132,
         "operations": [
           {
@@ -11201,7 +11203,7 @@
       "single_character_regions_untouched": true
     },
     "compdata_source_size": 144990,
-    "compdata_output_size": 141061,
+    "compdata_output_size": 141065,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -77430,7 +77432,7 @@
           },
           {
             "ordinal": 1,
-            "translation": "会显示数据帮助，可查看术语、能力详情及",
+            "translation": "会显示项目说明，可查看术语、能力详情及",
             "source_size": 52,
             "translation_size": 38,
             "style": [
@@ -77914,8 +77916,8 @@
       }
     ],
     "source_stored_size": 2320,
-    "output_encoded_size": 2001,
-    "output_padding_size": 319,
+    "output_encoded_size": 2004,
+    "output_padding_size": 316,
     "archive_size_preserved": true,
     "archive_offsets_preserved": true,
     "non_target_chunks_preserved_byte_exact": true,
@@ -80241,6 +80243,41 @@
     "save_writeback_functions_unchanged": true,
     "executable_size_preserved": true
   },
+  "text_measurement_range": {
+    "member": "SLPS_258.87",
+    "policy": "match_measurement_broad_band_to_renderer",
+    "original_upper_bound": "0x889F",
+    "replacement_upper_bound": "0x829F",
+    "renderer_upper_bound": "0x829E",
+    "site_count": 2,
+    "changed_site_count": 2,
+    "patches": [
+      {
+        "id": "measure_width_broad_bound",
+        "function": "FUN_00139b00",
+        "virtual_address": "0x139CC0",
+        "file_offset": "0x3B740",
+        "original_instruction_hex": "9F880134",
+        "replacement_instruction_hex": "9F820134",
+        "following_instruction_hex": "2A086101",
+        "already_patched": false,
+        "changed": true
+      },
+      {
+        "id": "measure_mixed_width_broad_bound",
+        "function": "FUN_00261650",
+        "virtual_address": "0x2617EC",
+        "file_offset": "0x16326C",
+        "original_instruction_hex": "9F880134",
+        "replacement_instruction_hex": "9F820134",
+        "following_instruction_hex": "2B086100",
+        "already_patched": false,
+        "changed": true
+      }
+    ],
+    "executable_size_preserved": true,
+    "writes_confined_to_sites": true
+  },
   "runtime_movement_type_labels": {
     "policy": "replace_runtime_materialized_stock_dedicated_marker",
     "site_count": 2,
@@ -80447,8 +80484,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "6b536e5b9fd2f8536d8b089b8fdcff1ad7a1ed651c537fcaad7a5a4e3c0d6dd6",
-    "output_sha256": "ccbfb2eb3fadc84b134a9f8e014deea963916eea469b7c19f9319c2ea3d6d66f",
+    "source_sha256": "362d39d70748660869f1ecb3d5a0a85b5aa9374941cfe87eaca19065bfd4b022",
+    "output_sha256": "e29b7f24fd6abf6f88f1bf4806226e10b8084568670e3024832d191f96298ae2",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -80530,8 +80567,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "ccbfb2eb3fadc84b134a9f8e014deea963916eea469b7c19f9319c2ea3d6d66f",
-    "output_sha256": "260b744665ff776cb7ecfcf7a45be025160d351090228a3100c9abd121432001"
+    "source_sha256": "e29b7f24fd6abf6f88f1bf4806226e10b8084568670e3024832d191f96298ae2",
+    "output_sha256": "a4efa65acd68c496d9fb31f805052c11d58ea68a192a7d97c622221d8b203517"
   },
   "bazaar_top_help_alignment": {
     "policy": "shift_purchase_help_left_without_changing_text",
@@ -80613,8 +80650,8 @@
     "all_instruction_replacements_exact": true,
     "text_bytes_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "260b744665ff776cb7ecfcf7a45be025160d351090228a3100c9abd121432001",
-    "output_sha256": "f3f178fc74ba39d1bc00f40eabca06581d973fa5bba763f949e319c546686c1d"
+    "source_sha256": "a4efa65acd68c496d9fb31f805052c11d58ea68a192a7d97c622221d8b203517",
+    "output_sha256": "c554ecca8543a2152035dfeca58eb0bb589a4b3a60b7545b117f3001df480c25"
   },
   "command_status_label_alignment": {
     "policy": "align_chinese_sr_points_with_turn_count",
@@ -80644,8 +80681,8 @@
     "text_bytes_untouched": true,
     "turn_count_coordinate_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "f3f178fc74ba39d1bc00f40eabca06581d973fa5bba763f949e319c546686c1d",
-    "output_sha256": "348a0a77e9f23a7f3c1397cefb363098f8441e1b2255ecf74d9f8348b52b579b"
+    "source_sha256": "c554ecca8543a2152035dfeca58eb0bb589a4b3a60b7545b117f3001df480c25",
+    "output_sha256": "e18bbcc214527ddb3426d0ed02659caf475afacaa36c0c7d6273456089c4a5fd"
   },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -80666,8 +80703,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "348a0a77e9f23a7f3c1397cefb363098f8441e1b2255ecf74d9f8348b52b579b",
-    "output_sha256": "b9fc276fc485a0a3cf5166a05ca109dd9d8137841a740ddd98829c8a056f869b",
+    "source_sha256": "e18bbcc214527ddb3426d0ed02659caf475afacaa36c0c7d6273456089c4a5fd",
+    "output_sha256": "cf7ad5e9fd824fbd9daba49908f8d7ee78aa4b3945ba778fedfcec8cbf3016df",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -80712,8 +80749,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "b9fc276fc485a0a3cf5166a05ca109dd9d8137841a740ddd98829c8a056f869b",
-    "output_sha256": "65b901ae8d163cdf56513957bbb0c516f02e3e62c6557e4f1e6da6ad899d56ed",
+    "source_sha256": "cf7ad5e9fd824fbd9daba49908f8d7ee78aa4b3945ba778fedfcec8cbf3016df",
+    "output_sha256": "b028898a9d9772384d033601ad4441bfaa0b1dfd057e1fceeecef9b07941b4db",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -80752,7 +80789,7 @@
     "all_editorial_statuses_draft": true,
     "target_offset_reread_exact": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141061,
+    "compdata_output_size": 141065,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -80807,8 +80844,8 @@
     ],
     "all_corrected_fields_exact": true,
     "owner_and_duplicate_associations_exact": true,
-    "source_decoded_sha256": "13d4f56f1f08f9a6f24c54242da259e24da6aac99f33db98486052bb6195156e",
-    "output_decoded_sha256": "278dd5a9f15da6e7a9c915b092ce0f17ee9f2f33bd15f11e3c375d1e74c3a3af",
+    "source_decoded_sha256": "d80e71103246e8c0baa6be3235effc1040985afc5a8fe5c011ecee6d112c49f7",
+    "output_decoded_sha256": "408865d7927c6a1d8049a1b4be42d1506f7ce6626ae424e0e0a3d77430861d92",
     "source_preimages_exact": true,
     "changed_byte_count": 4,
     "changed_decoded_offsets": [
@@ -80843,7 +80880,7 @@
     "all_editorial_statuses_reviewed": true,
     "target_offset_reread_exact": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141061,
+    "compdata_output_size": 141065,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true
@@ -88220,7 +88257,7 @@
       "reread_exact": true
     },
     "compdata_source_size": 144990,
-    "compdata_output_size": 141061,
+    "compdata_output_size": 141065,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true
   },
@@ -88270,7 +88307,7 @@
       "all_list_labels_match_library_word": true,
       "pointer_table_reread_exact": true,
       "decoded_size_preserved": true,
-      "compdata_output_size": 141061,
+      "compdata_output_size": 141065,
       "codec_round_trip_exact": true
     },
     "stage": {
@@ -88936,7 +88973,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "77fc5b80db2bea3f2082c31c8b0ed2927f06d1ef086cb91cf9eeb62edcb36b86"
+      "sha256": "8d7aadcb0fe8bf2065ea2d1e191696b10ee1ae4afbf67f7b39ad2aa34cdc6e17"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -88945,13 +88982,13 @@
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 141061,
-      "sha256": "f90645c71cc67c127363d2c51c0838643efcb2880bb82e0d1b1384cece66662b"
+      "size": 141065,
+      "sha256": "a3e6253921de6a941d9bcb697a38d5e69c69f0ade28344d11710ca99c45a28b4"
     },
     "DATA/NISVDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
       "size": 555056,
-      "sha256": "d80fe19fd1ce80914705d74cb9099eefa1910092515a25d7846b8247f78ac761"
+      "sha256": "e8a0a0861b819ed94c161540574c2f5964b4fc44094d6b060684e9c6a0b545f0"
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
@@ -88981,12 +89018,12 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "343068888b22cca5dab5cf9a2c55204a9dd57f987ffe8539e2318deced83e09c"
+      "sha256": "e341d2e5cf26a37988e0bb646f57333cbbc4ef17c2c867fe8f447b6070790884"
     },
     "KURODATA/KVPDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/KURODATA/KVPDATA.BIN",
       "size": 239664,
-      "sha256": "d9250f51eaff4eb5a36a39ea66eb90d3bde2f2a17a69e7b1d21fe01c7661c256"
+      "sha256": "b62d05b76032b153590dc8b2aad78d2d06786c2b861be875e45a4634b65e1cd9"
     },
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",

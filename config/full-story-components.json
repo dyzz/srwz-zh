@@ -48,7 +48,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73655,
-      "sha256": "0a7ee7a9f096197c85a9bd209adfcb2ccc9a4e2f5c236c90b3c0e216633eccf8"
+      "sha256": "d2bc3ace7c1ebb27aba3d6762737958e4581effba4cfe3e00a551562a283a986"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -67,7 +67,7 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307910,
-      "sha256": "12a4ffe2d357d1cdfbe53fb3754eda9f3196530d76dab484d985a3d37cc7a6e5"
+      "sha256": "9fa120253ee179c6642f449aa8a33ed5c009dde79bd63695b4b7f7224629d497"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
@@ -100,8 +100,8 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111831,
-      "sha256": "5631579244f84e82661f25f21090c8d6004be5e77188e25160d3059781d26e15"
+      "size": 111889,
+      "sha256": "efdbaa64ccfc62b67539bfa1a3e5d51ded9e221345b05993dcb8e68204cc5fbe"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -147,8 +147,8 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111831,
-      "sha256": "5631579244f84e82661f25f21090c8d6004be5e77188e25160d3059781d26e15"
+      "size": 111889,
+      "sha256": "efdbaa64ccfc62b67539bfa1a3e5d51ded9e221345b05993dcb8e68204cc5fbe"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -651,8 +651,8 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111831,
-      "sha256": "5631579244f84e82661f25f21090c8d6004be5e77188e25160d3059781d26e15"
+      "size": 111889,
+      "sha256": "efdbaa64ccfc62b67539bfa1a3e5d51ded9e221345b05993dcb8e68204cc5fbe"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -978,8 +978,8 @@
   "nisv_effect_names": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111831,
-      "sha256": "5631579244f84e82661f25f21090c8d6004be5e77188e25160d3059781d26e15"
+      "size": 111889,
+      "sha256": "efdbaa64ccfc62b67539bfa1a3e5d51ded9e221345b05993dcb8e68204cc5fbe"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -1269,7 +1269,7 @@
     "corpus": {
       "path": "corpus/zh/menu/nisv-tutorial-pages.json",
       "size": 14824,
-      "sha256": "27705ff2b4e98746d6a8e70df97051df0d341c647fa10427039f2508e92db33d"
+      "sha256": "8fd58ffe610ee4d07502909c0d7ce320fae3eb5b822bc6b3c5f44ffab9390cf5"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -2264,7 +2264,7 @@
   "kvmdata": {
     "path": "work/build/ui-headings-zh/components/KURODATA/KVMDATA.BIN",
     "size": 3335408,
-    "sha256": "343068888b22cca5dab5cf9a2c55204a9dd57f987ffe8539e2318deced83e09c"
+    "sha256": "e341d2e5cf26a37988e0bb646f57333cbbc4ef17c2c867fe8f447b6070790884"
   },
   "world_map_titles": {
     "original_slps": {
@@ -2750,6 +2750,36 @@
       }
     ]
   },
+  "text_measurement_range": {
+    "member": "SLPS_258.87",
+    "policy": "match_measurement_broad_band_to_renderer",
+    "scope": "FUN_00139b00 and FUN_00261650 measure centred/right-aligned labels; their broad narrow band ends at 0x889F while the glyph renderer FUN_0013a290 narrows 0x8140..0x829E only, so codes 0x8492..0x889E (370 Chinese primaries) were measured narrow but drawn wide and every centred label drifted right by (A-B)/2 px per such character.",
+    "original_upper_bound": "0x889F",
+    "replacement_upper_bound": "0x829F",
+    "renderer_upper_bound": "0x829E",
+    "elf_file_offset_base": "0x1A80",
+    "elf_virtual_address_base": "0x100000",
+    "patches": [
+      {
+        "id": "measure_width_broad_bound",
+        "function": "FUN_00139b00",
+        "virtual_address": "0x139CC0",
+        "file_offset": "0x3B740",
+        "original_instruction_hex": "9F880134",
+        "replacement_instruction_hex": "9F820134",
+        "following_instruction_hex": "2A086101"
+      },
+      {
+        "id": "measure_mixed_width_broad_bound",
+        "function": "FUN_00261650",
+        "virtual_address": "0x2617EC",
+        "file_offset": "0x16326C",
+        "original_instruction_hex": "9F880134",
+        "replacement_instruction_hex": "9F820134",
+        "following_instruction_hex": "2B086100"
+      }
+    ]
+  },
   "runtime_movement_type_labels": {
     "member": "SLPS_258.87",
     "policy": "replace_runtime_materialized_stock_dedicated_marker",
@@ -2846,7 +2876,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816146,
-      "sha256": "2e02baf220b00b95a0a6a97101692d09b04fd944b5b2cb8ad353338aba07b64c"
+      "sha256": "15818cfa4b48fad7facede4ba528f074a8a78b68e68d475378a64219a6531a09"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2987,18 +3017,18 @@
   "kvpdata": {
     "path": "work/build/ui-headings-zh/components/KURODATA/KVPDATA.BIN",
     "size": 239664,
-    "sha256": "d9250f51eaff4eb5a36a39ea66eb90d3bde2f2a17a69e7b1d21fe01c7661c256"
+    "sha256": "b62d05b76032b153590dc8b2aad78d2d06786c2b861be875e45a4634b65e1cd9"
   },
   "ui_headings": {
     "config": {
       "path": "config/assets/ui-headings-zh.json",
-      "size": 29518,
-      "sha256": "df31d3e0adf7d789b9bc75af7e3458caa363849ccf31ff7d64de22f180679386"
+      "size": 30639,
+      "sha256": "06e81354ecb7d2887aca407db4d6a24cff54b556378b2b966765591a1b28d74b"
     },
     "manifest": {
       "path": "manifests/ui-headings-zh-validation.json",
       "size": 2023,
-      "sha256": "05051ff3170b857475d20a3bf47432bcf9f6d68fc43bb88cc8c34d55cbe1144c"
+      "sha256": "b50001227f16c7ba910200bde16ee8723ee7065126f848010f63c1421e4ee0b7"
     }
   }
 }
