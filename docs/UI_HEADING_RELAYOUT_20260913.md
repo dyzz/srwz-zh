@@ -129,6 +129,18 @@ LRPS2（software 渲染，Original 当前工作镜像），与日版原盘同路
 日版对照截图：`work/runtime/lrps2/original-unit-menu-20260914/`、`original-intermission-20260914/`，
 并排图 `work/review/ui-heading-relayout-20260913/compare-*-orig-v7.png`。
 原盘对照：`work/runtime/lrps2/probe-original-options-20260913/`。
+
+Best 当前工作镜像 `build/iso/zh-release-best/current-best.iso`（`81d26c96…8b054a`）用同样三条
+LRPS2 路线复验（ISO 契约 `work/review/ui-heading-relayout-20260913/best-iso-contract.json`）：
+
+| 画面 | 结果 | 截图 |
+| --- | --- | --- |
+| 地图指令菜单 | 八个标签中心 526.5–528，与 Original 逐项相同 | `work/runtime/lrps2/best-measure-range-20260914/frames/02600-map-command.png` |
+| 机体指令菜单 | “阵型”未选中／选中墨迹 545–581，与其他四项一致 | `…/02975-unit-menu-0.png`、`03125-unit-menu-2.png` |
+| 单队阵型 | “选择阵型”“选择排列”“阵型 TRI”与 Original 相同 | `…/03615-squad-formation.png` |
+| 小队编成 SELECT 说明 | “项目说明”“按键说明”与 Original 相同 | `work/runtime/lrps2/best-intermission-20260914/frames/03600-organization-help.png` |
+| 选项标签 | “系统设置”中心 349.0／标签 349.5，“资料库”501.5／503.5 | `work/runtime/lrps2/best-options-20260914/frames/03536-intermission-options-open.png`、`03688-…png` |
+
 配方与度量脚本：`work/review/ui-heading-relayout-20260913/`。
 
 ## 待定项
@@ -139,5 +151,5 @@ LRPS2（software 渲染，Original 当前工作镜像），与日版原盘同路
   Original `8f7b149ce8e600aba892a0c8797ee7616ef8e209707b2b55a9f18c76d09f2110`，
   Best `81d26c96a24aff16b9e6d823f12aa6fc819fda636315f573d0348ed4ea8b054a`
   （批次 `work/editions/362385ab…/original-best.json`）。两版镜像内的 ELF 在
-  0x3B740 与 0x16326C／0x16362C 均读回 `9F820134`。Best 版未做 LRPS2 运行截图。
-- 未执行 PCSX2 人工验收；LRPS2 截图为 640×448 软件渲染。
+  0x3B740 与 0x16326C／0x16362C 均读回 `9F820134`，两版均已完成 LRPS2 运行复验。
+- LRPS2 截图为 640×448 软件渲染；本轮不做 PCSX2 人工验收。
