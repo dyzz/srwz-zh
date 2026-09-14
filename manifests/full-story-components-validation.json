@@ -3,7 +3,7 @@
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
   "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes.",
-  "stage_postprocess_signature": "5661862bd2b888fca9eceae3dc935156d87e2f9f657335dfd7598e803c99b948",
+  "stage_postprocess_signature": "b45c82f6443552c1722a10c8df023cf67239b45afcf19920a13a26d435baf574",
   "build_groups": [
     {
       "id": "core_runtime_members",
@@ -49,8 +49,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 94362,
-      "sha256": "4ccf993d4100306bae8b67b948875da67febc43e62a824d066901413f3dff778"
+      "size": 104239,
+      "sha256": "65731a4832d7968df9ad53758231b01d0b4b050fdf37dcf7209b8cdf5e24cc6b"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -100,7 +100,7 @@
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307910,
-      "sha256": "9fa120253ee179c6642f449aa8a33ed5c009dde79bd63695b4b7f7224629d497"
+      "sha256": "84f6f6058a9ed0e21ceb17002febd5ad616bf8f62a1ec23c17c44f7276248dfd"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -80243,6 +80243,79 @@
     "save_writeback_functions_unchanged": true,
     "executable_size_preserved": true
   },
+  "battle_square_skip": {
+    "policy": "square_skips_to_next_battle_action_with_frozen_frame",
+    "edition": "original",
+    "member": "SLPS_258.87",
+    "cave_virtual_address": "0x3F6000",
+    "cave_file_offset": "0x2F7A80",
+    "cave_size": 1024,
+    "cave_preimage_all_zero": true,
+    "hook_size": 960,
+    "hook_sha256": "226d4496043bac68404a5e2a55434781225126f4e82474bde41c288c47796f31",
+    "state_marker": "0x5A5A0010",
+    "extra_steps_per_frame": 15,
+    "packet_limit_bytes": 196608,
+    "sound_effects_muted_while_skipping": true,
+    "sprites_skipped_in_extra_steps": true,
+    "site_count": 5,
+    "patches": [
+      {
+        "id": "battle_step_world_call",
+        "surface": "per-frame battle step: call of the world-step function",
+        "kind": "jal",
+        "virtual_address": "0x2E3DF4",
+        "file_offset": "0x1E5874",
+        "original_instruction_hex": "ac200c0c",
+        "replacement_instruction_hex": "00d80f0c",
+        "state_before": "pristine"
+      },
+      {
+        "id": "draw_dispatch_sprite_call",
+        "surface": "draw dispatcher: call of the type-0 sprite renderer",
+        "kind": "jal",
+        "virtual_address": "0x2F70EC",
+        "file_offset": "0x1F8B6C",
+        "original_instruction_hex": "0cbe0b0c",
+        "replacement_instruction_hex": "b0d80f0c",
+        "state_before": "pristine"
+      },
+      {
+        "id": "se_request_prologue_0",
+        "surface": "sound-effect request function: first prologue instruction",
+        "kind": "j",
+        "virtual_address": "0x180E80",
+        "file_offset": "0x082900",
+        "original_instruction_hex": "90ffbd27",
+        "replacement_instruction_hex": "c0d80f08",
+        "state_before": "pristine"
+      },
+      {
+        "id": "se_request_prologue_1",
+        "surface": "sound-effect request function: second prologue instruction (replayed by the stub)",
+        "kind": "nop",
+        "virtual_address": "0x180E84",
+        "file_offset": "0x082904",
+        "original_instruction_hex": "5000bfff",
+        "replacement_instruction_hex": "00000000",
+        "state_before": "pristine"
+      },
+      {
+        "id": "main_loop_present_call",
+        "surface": "main loop: per-frame display present call",
+        "kind": "jal",
+        "virtual_address": "0x1438B8",
+        "file_offset": "0x045338",
+        "original_instruction_hex": "fab4050c",
+        "replacement_instruction_hex": "d0d80f0c",
+        "state_before": "pristine"
+      }
+    ],
+    "already_applied": false,
+    "changed_byte_count": 380,
+    "executable_size_preserved": true,
+    "all_replacements_exact": true
+  },
   "text_measurement_range": {
     "member": "SLPS_258.87",
     "policy": "match_measurement_broad_band_to_renderer",
@@ -80484,8 +80557,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "362d39d70748660869f1ecb3d5a0a85b5aa9374941cfe87eaca19065bfd4b022",
-    "output_sha256": "e29b7f24fd6abf6f88f1bf4806226e10b8084568670e3024832d191f96298ae2",
+    "source_sha256": "145b5520e58eb1cacb9e2a222b3479c0a182fd9dbbf9863e59c792e60fea7be4",
+    "output_sha256": "7d7ea022f093ae317e09ecc6b34a443499d6445e8e1897387f13d9fc4c7353df",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -80567,8 +80640,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "e29b7f24fd6abf6f88f1bf4806226e10b8084568670e3024832d191f96298ae2",
-    "output_sha256": "a4efa65acd68c496d9fb31f805052c11d58ea68a192a7d97c622221d8b203517"
+    "source_sha256": "7d7ea022f093ae317e09ecc6b34a443499d6445e8e1897387f13d9fc4c7353df",
+    "output_sha256": "b9314099db4f00dc2685c955b6e75069f50ba0b65e62bf6ad4aa5a32d9928d45"
   },
   "bazaar_top_help_alignment": {
     "policy": "shift_purchase_help_left_without_changing_text",
@@ -80650,8 +80723,8 @@
     "all_instruction_replacements_exact": true,
     "text_bytes_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "a4efa65acd68c496d9fb31f805052c11d58ea68a192a7d97c622221d8b203517",
-    "output_sha256": "c554ecca8543a2152035dfeca58eb0bb589a4b3a60b7545b117f3001df480c25"
+    "source_sha256": "b9314099db4f00dc2685c955b6e75069f50ba0b65e62bf6ad4aa5a32d9928d45",
+    "output_sha256": "43a29d4ccc173de9ff5e6e1588ef9a13996c01804d135d84f4cefba393083488"
   },
   "command_status_label_alignment": {
     "policy": "align_chinese_sr_points_with_turn_count",
@@ -80681,8 +80754,8 @@
     "text_bytes_untouched": true,
     "turn_count_coordinate_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "c554ecca8543a2152035dfeca58eb0bb589a4b3a60b7545b117f3001df480c25",
-    "output_sha256": "e18bbcc214527ddb3426d0ed02659caf475afacaa36c0c7d6273456089c4a5fd"
+    "source_sha256": "43a29d4ccc173de9ff5e6e1588ef9a13996c01804d135d84f4cefba393083488",
+    "output_sha256": "0c87747dd8e82257cf23fe994dd128979093c9a0bff88b7b1f2a76793b7f6f27"
   },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -80703,8 +80776,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "e18bbcc214527ddb3426d0ed02659caf475afacaa36c0c7d6273456089c4a5fd",
-    "output_sha256": "cf7ad5e9fd824fbd9daba49908f8d7ee78aa4b3945ba778fedfcec8cbf3016df",
+    "source_sha256": "0c87747dd8e82257cf23fe994dd128979093c9a0bff88b7b1f2a76793b7f6f27",
+    "output_sha256": "31b8020ded04f5123081de563cab4ec2d64fe5d764019d2c2c68c9742e37f6c6",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -80749,8 +80822,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "cf7ad5e9fd824fbd9daba49908f8d7ee78aa4b3945ba778fedfcec8cbf3016df",
-    "output_sha256": "b028898a9d9772384d033601ad4441bfaa0b1dfd057e1fceeecef9b07941b4db",
+    "source_sha256": "31b8020ded04f5123081de563cab4ec2d64fe5d764019d2c2c68c9742e37f6c6",
+    "output_sha256": "5ce0390b46ae01ba0706aacdef0f4e8ba07a064ad42971bd890208d97096fedb",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -88973,7 +89046,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "8d7aadcb0fe8bf2065ea2d1e191696b10ee1ae4afbf67f7b39ad2aa34cdc6e17"
+      "sha256": "3f14c93257f3f7864feb615855c667c6e79f13746bf92f16742347f0eebb7bc6"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -89082,6 +89155,7 @@
     "library_protagonist_names_custom_preserved": true,
     "runtime_full_name_order_route_specific": true,
     "postgame_ex_and_sp_rows_selectable": true,
+    "battle_square_skip_installed": true,
     "runtime_movement_type_labels_simplified": true,
     "runtime_weapon_category_labels_simplified": true,
     "dialogue_speaker_colors_restored": true,

@@ -67,7 +67,7 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307910,
-      "sha256": "9fa120253ee179c6642f449aa8a33ed5c009dde79bd63695b4b7f7224629d497"
+      "sha256": "84f6f6058a9ed0e21ceb17002febd5ad616bf8f62a1ec23c17c44f7276248dfd"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
@@ -2749,6 +2749,170 @@
         "y": 30
       }
     ]
+  },
+  "battle_square_skip": {
+    "policy": "square_skips_to_next_battle_action_with_frozen_frame",
+    "surface": "battle demo: a new square press skips the rest of the current battle action; the display keeps the pressed frame and cuts to the next action; sound effects are muted while skipping",
+    "hook_source": "tools/native/battle-square-skip/skip_hook.s",
+    "hook_assembler": "tools/native/battle-square-skip/assemble_hook.py",
+    "editions": {
+      "original": {
+        "member": "SLPS_258.87",
+        "elf_file_offset_base": "0x1A80",
+        "elf_virtual_address_base": "0x100000",
+        "cave": {
+          "virtual_address": "0x3F6000",
+          "size": "0x400"
+        },
+        "stub_offsets": {
+          "hook": "0x000",
+          "draw_type0": "0x2C0",
+          "se_request": "0x300",
+          "present": "0x340",
+          "state": "0x380"
+        },
+        "symbols": {
+          "CAVE": "0x3F6000",
+          "DATA": "0x3F6380",
+          "PAD_HELD": "0x59C24C",
+          "PAD_TRIG": "0x59C24E",
+          "CTX": "0x6CEE00",
+          "WORLD": "0x5F9D50",
+          "CURSOR": "0x600ECC",
+          "ACTION_INDEX": "0x6D2BCC",
+          "FN_WORLD_STEP": "0x3082B0",
+          "FN_SPRITE_DRAW": "0x2EF830",
+          "FN_SE_RESUME": "0x180E88",
+          "FN_FLIP": "0x16D3E8"
+        },
+        "hook_hex": "e0ffbd271c00bfaf1800b0af1400b1af1000b2af6000113ccc0e318e3f00123c806352260000498e1a002015000000006000043cac200c0c509d84244f004014000000005a00013c4ec22a9480004a3148004011000000006d000b3c00ee6c91440080150000000003ee6c91410080150000000001000924000049ae6d000d3ccc2bad8d04004dae08004e8e0100ce2508004eae1400508e6d000b3ccc2b6d8d04004e8e2a00ae15000000006d000b3c0100092402ee69a106ee60a134004f8e2c004fae6000043cac200c0c509d84242c0040ae0c004e8e0100ce250c004eae260040140000000060000f3ccc0eef8d2378f1012800588e2bc00f030400001700000000ffff1026e3ff0016000000006d000b3ccc2b6d8d04004e8e0c00ae15000000006d000b3c0100092402ee69a106ee60a16000043cac200c0c509d84240e004014000000000a00001000000000000040ae18004e8e0100ce2518004eae6000043cac200c0c509d842403004014000000000400001021100000000040ae2c0040ae100042ae1c00bf8f1800b08f1400b18f1000b28f0800e0032000bd270000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003f00083cac63088d05000015000000000cbe0b080000000000000000000000000800e003000000000000000000000000000000000000000000000000000000003f00083cb063088d05000011000000003f00083c8063088d050000150000000090ffbd275000bfffa2030608000000000800e0032110000000000000000000003f00083c8063088d0300001500000000fab40508000000000800e00321100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f0000000000000010005a5a0000000000000000000003000000000001000000010000000000000000000000",
+        "hook_sha256": "226d4496043bac68404a5e2a55434781225126f4e82474bde41c288c47796f31",
+        "patches": [
+          {
+            "id": "battle_step_world_call",
+            "surface": "per-frame battle step: call of the world-step function",
+            "kind": "jal",
+            "stub": "hook",
+            "virtual_address": "0x2E3DF4",
+            "original_instruction_hex": "ac200c0c",
+            "replacement_instruction_hex": "00d80f0c"
+          },
+          {
+            "id": "draw_dispatch_sprite_call",
+            "surface": "draw dispatcher: call of the type-0 sprite renderer",
+            "kind": "jal",
+            "stub": "draw_type0",
+            "virtual_address": "0x2F70EC",
+            "original_instruction_hex": "0cbe0b0c",
+            "replacement_instruction_hex": "b0d80f0c"
+          },
+          {
+            "id": "se_request_prologue_0",
+            "surface": "sound-effect request function: first prologue instruction",
+            "kind": "j",
+            "stub": "se_request",
+            "virtual_address": "0x180E80",
+            "original_instruction_hex": "90ffbd27",
+            "replacement_instruction_hex": "c0d80f08"
+          },
+          {
+            "id": "se_request_prologue_1",
+            "surface": "sound-effect request function: second prologue instruction (replayed by the stub)",
+            "kind": "nop",
+            "virtual_address": "0x180E84",
+            "original_instruction_hex": "5000bfff",
+            "replacement_instruction_hex": "00000000"
+          },
+          {
+            "id": "main_loop_present_call",
+            "surface": "main loop: per-frame display present call",
+            "kind": "jal",
+            "stub": "present",
+            "virtual_address": "0x1438B8",
+            "original_instruction_hex": "fab4050c",
+            "replacement_instruction_hex": "d0d80f0c"
+          }
+        ]
+      },
+      "best": {
+        "member": "SLPS_732.70",
+        "elf_file_offset_base": "0x1A80",
+        "elf_virtual_address_base": "0x100000",
+        "cave": {
+          "virtual_address": "0x3F6000",
+          "size": "0x400"
+        },
+        "stub_offsets": {
+          "hook": "0x000",
+          "draw_type0": "0x2C0",
+          "se_request": "0x300",
+          "present": "0x340",
+          "state": "0x380"
+        },
+        "symbols": {
+          "CAVE": "0x3F6000",
+          "DATA": "0x3F6380",
+          "PAD_HELD": "0x59CA4C",
+          "PAD_TRIG": "0x59CA4E",
+          "CTX": "0x6CF600",
+          "WORLD": "0x5FA550",
+          "CURSOR": "0x6016CC",
+          "ACTION_INDEX": "0x6D33CC",
+          "FN_WORLD_STEP": "0x308680",
+          "FN_SPRITE_DRAW": "0x2EFC00",
+          "FN_SE_RESUME": "0x181228",
+          "FN_FLIP": "0x16D788"
+        },
+        "hook_hex": "e0ffbd271c00bfaf1800b0af1400b1af1000b2af6000113ccc16318e3f00123c806352260000498e1a002015000000006000043ca0210c0c50a584244f004014000000005a00013c4eca2a9480004a3148004011000000006d000b3c00f66c91440080150000000003f66c91410080150000000001000924000049ae6d000d3ccc33ad8d04004dae08004e8e0100ce2508004eae1400508e6d000b3ccc336d8d04004e8e2a00ae15000000006d000b3c0100092402f669a106f660a134004f8e2c004fae6000043ca0210c0c50a584242c0040ae0c004e8e0100ce250c004eae260040140000000060000f3ccc16ef8d2378f1012800588e2bc00f030400001700000000ffff1026e3ff0016000000006d000b3ccc336d8d04004e8e0c00ae15000000006d000b3c0100092402f669a106f660a16000043ca0210c0c50a584240e004014000000000a00001000000000000040ae18004e8e0100ce2518004eae6000043ca0210c0c50a5842403004014000000000400001021100000000040ae2c0040ae100042ae1c00bf8f1800b08f1400b18f1000b28f0800e0032000bd270000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003f00083cac63088d050000150000000000bf0b080000000000000000000000000800e003000000000000000000000000000000000000000000000000000000003f00083cb063088d05000011000000003f00083c8063088d050000150000000090ffbd275000bfff8a040608000000000800e0032110000000000000000000003f00083c8063088d0300001500000000e2b50508000000000800e00321100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f0000000000000010005a5a0000000000000000000003000000000001000000010000000000000000000000",
+        "hook_sha256": "0272e690b1c28604bebc4cb55ab11037cec0874c8250f96ecf18af301af7e446",
+        "patches": [
+          {
+            "id": "battle_step_world_call",
+            "surface": "per-frame battle step: call of the world-step function",
+            "kind": "jal",
+            "stub": "hook",
+            "virtual_address": "0x2E41C4",
+            "original_instruction_hex": "a0210c0c",
+            "replacement_instruction_hex": "00d80f0c"
+          },
+          {
+            "id": "draw_dispatch_sprite_call",
+            "surface": "draw dispatcher: call of the type-0 sprite renderer",
+            "kind": "jal",
+            "stub": "draw_type0",
+            "virtual_address": "0x2F74BC",
+            "original_instruction_hex": "00bf0b0c",
+            "replacement_instruction_hex": "b0d80f0c"
+          },
+          {
+            "id": "se_request_prologue_0",
+            "surface": "sound-effect request function: first prologue instruction",
+            "kind": "j",
+            "stub": "se_request",
+            "virtual_address": "0x181220",
+            "original_instruction_hex": "90ffbd27",
+            "replacement_instruction_hex": "c0d80f08"
+          },
+          {
+            "id": "se_request_prologue_1",
+            "surface": "sound-effect request function: second prologue instruction (replayed by the stub)",
+            "kind": "nop",
+            "virtual_address": "0x181224",
+            "original_instruction_hex": "5000bfff",
+            "replacement_instruction_hex": "00000000"
+          },
+          {
+            "id": "main_loop_present_call",
+            "surface": "main loop: per-frame display present call",
+            "kind": "jal",
+            "stub": "present",
+            "virtual_address": "0x1438B8",
+            "original_instruction_hex": "e2b5050c",
+            "replacement_instruction_hex": "d0d80f0c"
+          }
+        ]
+      }
+    }
   },
   "text_measurement_range": {
     "member": "SLPS_258.87",

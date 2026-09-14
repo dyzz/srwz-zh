@@ -24,6 +24,7 @@ from .library_protagonist_names import (
     EDITIONS as LIBRARY_NAME_EDITIONS, FUNCTION_SIZE as LIBRARY_NAME_SIZE,
     apply_library_protagonist_names,
 )
+from .battle_square_skip import apply_battle_square_skip, executable_write_ranges as square_skip_ranges
 
 
 def require(condition, message):
@@ -89,6 +90,7 @@ class BestCompiler:
         self.contract = load_json(root / 'config/editions/best/source-layout.json')
         require(self.contract['schema_version'] == 1, 'BEST layout schema drift')
         self.config = load_json(common / 'config/iso/zh-release-current-build.json')
+        self.square_skip = load_json(common / 'config/full-story-components.json')['battle_square_skip']
         self.names = [r['member'] for r in self.config['replacements']]
         expected_count = 24 + int('KURODATA/KVPDATA.BIN' in self.names)
         require(len(self.names) == len(set(self.names)) == expected_count, 'shared component membership drift')
@@ -263,8 +265,12 @@ class BestCompiler:
         archive_offsets = {o for spec in self.archive_tables.values()
                            for r in (spec, *spec.get('aliases', []))
                            for o in range(r['original_start'], r['original_start']+4*r['count'], 4)}
+        # The square-skip hook is edition-specific code: it is re-applied from
+        # the BEST contract below instead of being projected word by word.
+        square_skip = getattr(self, 'square_skip', None)  # absent only in unit-test fixtures
+        square_skip_offsets = {o for lo, hi in square_skip_ranges(square_skip, 'original') for o in range(lo, hi, 4)} if square_skip else set()
         for offset in range(0, len(c)-3, 4):
-            if a[offset:offset+4] == c[offset:offset+4] or slot['original_start'] <= offset < slot['original_end'] or offset in archive_offsets:
+            if a[offset:offset+4] == c[offset:offset+4] or slot['original_start'] <= offset < slot['original_end'] or offset in archive_offsets or offset in square_skip_offsets:
                 continue
             if library_start <= offset < library_end:
                 continue  # Compile from the independently pinned native function below.
@@ -297,6 +303,11 @@ class BestCompiler:
             out = bytearray(patched)
             start = LIBRARY_NAME_EDITIONS['best']['offset']
             writes.append([start, start + LIBRARY_NAME_SIZE])
+        if square_skip:
+            patched, self.square_skip_proof = apply_battle_square_skip(bytes(out), square_skip, 'best')
+            require(not self.square_skip_proof['already_applied'] and self.square_skip_proof['all_replacements_exact'], 'BEST square-skip preimage drift')
+            out = bytearray(patched)
+            writes.extend([lo, hi] for lo, hi in square_skip_ranges(square_skip, 'best'))
         self.elf_writes = writes
         return out
 
@@ -533,7 +544,7 @@ class BestCompiler:
         report = {'schema_version':1,'edition':'best','input_digest':self.input_digest,'status':'best_components_semantic_readback_passed',
                   'components':rows,'stages':self.stage_proofs,'archives':self.archive_proofs,'srvc':self.srvc_proof,
                   'runtime_archive_tables':archive_table_proofs,'ui_name_tables':name_proof,
-                  'library_protagonist_names':self.library_name_proof,
+                  'library_protagonist_names':self.library_name_proof,'battle_square_skip':self.square_skip_proof,
                   'native_elf_outside_declared_writes_preserved':True,'elf_write_ranges':self.elf_writes,
                   'compdata_native_corrections_preserved':True,'library_policy':'all_valid_entries_without_save_writeback','runtime':'not_tested'}
         write_json(self.work/'component-validation.json',report)

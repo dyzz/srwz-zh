@@ -11,6 +11,7 @@
 tools/*.py                    v0.4.0 构建与回读入口
 tools/srwz/*.py               入口直接依赖的解析、写回和验证模块
 tools/native/srwz-codec-rs/   生产压缩与解压工具
+tools/native/battle-square-skip/  □ 跳段 hook 汇编源与开发期汇编脚本（生产只用配置内字节）
 vendor/upstream-python/       构建链读取的固定静态定义
 ```
 

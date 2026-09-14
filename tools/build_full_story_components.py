@@ -65,6 +65,10 @@ try:
         GameModeUnlockError,
         apply_postgame_mode_unlock,
     )
+    from srwz.battle_square_skip import (
+        BattleSquareSkipError,
+        apply_battle_square_skip,
+    )
     from srwz.text_measure_range import (
         TextMeasureRangeError,
         apply_text_measurement_range_patch,
@@ -262,6 +266,10 @@ except ModuleNotFoundError:
     from tools.srwz.game_mode_unlock import (
         GameModeUnlockError,
         apply_postgame_mode_unlock,
+    )
+    from tools.srwz.battle_square_skip import (
+        BattleSquareSkipError,
+        apply_battle_square_skip,
     )
     from tools.srwz.text_measure_range import (
         TextMeasureRangeError,
@@ -717,6 +725,7 @@ CONFIG_SECTION_IMPACTS = {
     "runtime_full_name_order": {SLPS_MEMBER},
     "library_protagonist_names": {SLPS_MEMBER},
     "postgame_mode_unlock": {SLPS_MEMBER},
+    "battle_square_skip": {SLPS_MEMBER},
     "text_measurement_range": {SLPS_MEMBER},
     "runtime_movement_type_labels": {SLPS_MEMBER},
     "dialogue_speaker_colors": {SLPS_MEMBER},
@@ -10693,6 +10702,17 @@ def _build_components(
         ) from error
 
     try:
+        output_slps, battle_square_skip_report = apply_battle_square_skip(
+            output_slps,
+            config["battle_square_skip"],
+            "original",
+        )
+    except (KeyError, ValueError, BattleSquareSkipError) as error:
+        raise FullStoryComponentError(
+            f"battle square-skip patch failed: {error}"
+        ) from error
+
+    try:
         output_slps, text_measurement_range_report = (
             apply_text_measurement_range_patch(
                 output_slps,
@@ -11193,6 +11213,7 @@ def _build_components(
         "runtime_full_name_order": full_name_order_report,
         "library_protagonist_names": library_protagonist_names_report,
         "postgame_mode_unlock": postgame_mode_unlock_report,
+        "battle_square_skip": battle_square_skip_report,
         "text_measurement_range": text_measurement_range_report,
         "runtime_movement_type_labels": movement_type_label_report,
         "dialogue_speaker_colors": dialogue_speaker_color_report,
@@ -11559,6 +11580,14 @@ def _build_components(
                     "save_writeback_functions_unchanged"
                 ]
                 and postgame_mode_unlock_report["executable_size_preserved"]
+            ),
+            "battle_square_skip_installed": (
+                battle_square_skip_report["edition"] == "original"
+                and battle_square_skip_report["site_count"] == 5
+                and battle_square_skip_report["all_replacements_exact"]
+                and battle_square_skip_report["cave_preimage_all_zero"]
+                and not battle_square_skip_report["already_applied"]
+                and battle_square_skip_report["executable_size_preserved"]
             ),
             "runtime_movement_type_labels_simplified": (
                 movement_type_label_report["site_count"] == 2
