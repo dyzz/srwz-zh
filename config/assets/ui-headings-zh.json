@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "profile_id": "formation-help-headings-zh",
   "source_iso": "rom/original.iso",
   "source_drawings": {
@@ -15,126 +15,175 @@
   "corpus": {
     "path": "corpus/zh/ui-atlas/formation-help-headings.json",
     "size": 1055,
-    "sha256": "18dfd8ac3d0ec6b6309fed7abfcf99573e980adc0f06cf60d61966fd137297a6"
+    "sha256": "24c9ee79fe6d98b192ce1e08535e79e134d5271f02b72efe790d1f0c8642b85c"
   },
-  "texture_chunk": {
-    "index": 4,
-    "start": 133376,
-    "end": 166720,
-    "size": 33344,
-    "sha256": "ce68b63f913664cb6ffe41022c6aa208077c8c92b183b69b97d135e24581a617"
-  },
-  "cells": [
+  "texture_chunks": [
     {
-      "id": "formation",
-      "text": "阵型",
-      "rect": [
-        0,
-        80,
-        28,
-        16
-      ],
-      "source_indices_sha256": "3edcb1b90abaea078ede9628f7a474a83ed1bce234271b67ca97ccc6cced1528",
-      "render": {
-        "point_size": 13,
-        "supersample_factor": 4,
-        "stroke_width": 0.35
-      }
+      "index": 2,
+      "start": 66688,
+      "end": 100032,
+      "size": 33344,
+      "sha256": "65d423b566a0e4290789fb2788ece2d9a1be13708f742292e54371cebbeaa257"
     },
+    {
+      "index": 4,
+      "start": 133376,
+      "end": 166720,
+      "size": 33344,
+      "sha256": "ce68b63f913664cb6ffe41022c6aa208077c8c92b183b69b97d135e24581a617"
+    }
+  ],
+  "cells": [
     {
       "id": "select",
       "text": "选择",
+      "page": 2,
       "rect": [
-        29,
-        80,
-        28,
+        2,
+        56,
+        40,
         16
       ],
-      "source_indices_sha256": "125b52d12397371ffeef86e4b544fc90d62c2803bbeedc512d117e6c9f35c678",
+      "source_indices_sha256": "92a11dfc8d1d0bd555c1d67bcb23fc6a3b8ab24e2029fa02f01ca23ec91e0a18",
       "render": {
-        "point_size": 13,
+        "point_size": 15,
         "supersample_factor": 4,
-        "stroke_width": 0.35
+        "stroke_width": 1.25,
+        "fill_stroke_width": 0.85,
+        "shear": 12
+      }
+    },
+    {
+      "id": "formation",
+      "text": "阵型",
+      "page": 2,
+      "rect": [
+        160,
+        56,
+        38,
+        16
+      ],
+      "source_indices_sha256": "70f29b1666ab93d8dbfe41568a9e918c98ee91f8acfe85954c657edb5ed93824",
+      "render": {
+        "point_size": 15,
+        "supersample_factor": 4,
+        "stroke_width": 1.25,
+        "fill_stroke_width": 0.85,
+        "shear": 12
       }
     },
     {
       "id": "sort",
       "text": "排列",
+      "page": 4,
       "rect": [
-        58,
+        46,
         80,
-        28,
+        40,
         16
       ],
-      "source_indices_sha256": "f48a33081a611a84350cea4414a8125394821ecefff1d748a5c4391691f6a8b6",
+      "source_indices_sha256": "140cb24d7c2433377e43c666bfce3abaf92427751b6919ce756aa539f30b8db5",
       "render": {
-        "point_size": 13,
+        "point_size": 15,
         "supersample_factor": 4,
-        "stroke_width": 0.35
+        "stroke_width": 1.25,
+        "fill_stroke_width": 0.85,
+        "shear": 12
       }
     },
     {
       "id": "key",
       "text": "按键",
+      "page": 4,
       "rect": [
-        2,
-        100,
-        27,
-        17
+        0,
+        80,
+        46,
+        20
       ],
-      "source_indices_sha256": "e0ee29ce7978a33861e6e63545deda9e734ea784ee8e4ba6fd6aa56b775f6ca9",
+      "source_indices_sha256": "9641b02f4708123ebf93ac8c9759b8bd442c1ce297569cc345f00112875c5032",
       "render": {
-        "point_size": 13,
+        "point_size": 19,
         "supersample_factor": 4,
-        "stroke_width": 0.35
+        "stroke_width": 1.1,
+        "fill_stroke_width": 0.5,
+        "shear": 12
       }
     },
     {
       "id": "help",
       "text": "说明",
+      "page": 4,
       "rect": [
-        29,
+        0,
         100,
-        27,
-        17
+        46,
+        20
       ],
-      "source_indices_sha256": "e0ee29ce7978a33861e6e63545deda9e734ea784ee8e4ba6fd6aa56b775f6ca9",
+      "source_indices_sha256": "2211e3d7915507b94bf14efafa3a951cc9a82a3ea4ed0a6f4dc612f640af1ae9",
       "render": {
-        "point_size": 13,
+        "point_size": 19,
         "supersample_factor": 4,
-        "stroke_width": 0.35
+        "stroke_width": 1.1,
+        "fill_stroke_width": 0.5,
+        "shear": 12
       }
     },
     {
       "id": "others",
       "text": "其他",
+      "page": 4,
       "rect": [
-        112,
-        100,
-        27,
-        17
+        120,
+        98,
+        46,
+        20
       ],
-      "source_indices_sha256": "e0ee29ce7978a33861e6e63545deda9e734ea784ee8e4ba6fd6aa56b775f6ca9",
+      "source_indices_sha256": "2211e3d7915507b94bf14efafa3a951cc9a82a3ea4ed0a6f4dc612f640af1ae9",
       "render": {
-        "point_size": 13,
+        "point_size": 19,
         "supersample_factor": 4,
-        "stroke_width": 0.35
+        "stroke_width": 1.1,
+        "fill_stroke_width": 0.5,
+        "shear": 12
       }
     },
     {
-      "id": "data",
-      "text": "数据",
+      "id": "command2",
+      "text": "指令",
+      "page": 4,
       "rect": [
-        139,
-        100,
-        27,
-        17
+        44,
+        234,
+        46,
+        20
       ],
-      "source_indices_sha256": "e0ee29ce7978a33861e6e63545deda9e734ea784ee8e4ba6fd6aa56b775f6ca9",
+      "source_indices_sha256": "010177bcf74364799c79c41b80eab3452719ba4a3f7a25cbcf1d7bf799cf4aa5",
       "render": {
-        "point_size": 13,
+        "point_size": 19,
         "supersample_factor": 4,
-        "stroke_width": 0.35
+        "stroke_width": 1.1,
+        "fill_stroke_width": 0.5,
+        "shear": 12
+      }
+    },
+    {
+      "id": "item",
+      "text": "项目",
+      "page": 4,
+      "rect": [
+        156,
+        234,
+        46,
+        20
+      ],
+      "source_indices_sha256": "5affd6b8ee8bce73ef143b4ffdc89d83159e46ded78fdcb94557b778818b4fc0",
+      "render": {
+        "point_size": 19,
+        "supersample_factor": 4,
+        "stroke_width": 1.1,
+        "fill_stroke_width": 0.5,
+        "shear": 12
       }
     }
   ],
@@ -146,7 +195,7 @@
       "offset": 18416,
       "token": "formation",
       "before_hex": "070000004410000000502e00040004000000020008005a0008005c00000000505860",
-      "after_hex": "070000004410000000502e0004001f00ffff1d0009003f0009004100ffff00501c60"
+      "after_hex": "070000004210000000501500040002000000020008002800080028000000a038c648"
     },
     {
       "chunk_index": 147,
@@ -155,7 +204,7 @@
       "offset": 18450,
       "token": "formation",
       "before_hex": "070000004410000000502a00040000000000feff0800560008005800000000505860",
-      "after_hex": "070000004410000000502a0004001b00ffff190009003b0009003d00ffff00501c60"
+      "after_hex": "0700000042100000005011000400feff0000feff08002400080024000000a038c648"
     },
     {
       "chunk_index": 147,
@@ -164,7 +213,7 @@
       "offset": 18484,
       "token": "formation",
       "before_hex": "070000004410000000502c0003000200ffff00000700580007005a00ffff00505860",
-      "after_hex": "070000004410000000502c0003001d00feff1b0008003d0008003f00feff00501c60"
+      "after_hex": "07000000421000000050130003000000ffff00000700260007002600ffffa038c648"
     },
     {
       "chunk_index": 147,
@@ -173,7 +222,7 @@
       "offset": 18518,
       "token": "formation",
       "before_hex": "070000004410000000502c0005000200010000000900580009005a00010000505860",
-      "after_hex": "070000004410000000502c0005001d0000001b000a003d000a003f00000000501c60"
+      "after_hex": "070000004210000000501300050000000100000009002600090026000100a038c648"
     },
     {
       "chunk_index": 147,
@@ -182,7 +231,7 @@
       "offset": 18552,
       "token": "formation",
       "before_hex": "870000004410248080802c0004000200000000000800580008005a00000000505860",
-      "after_hex": "870000004410248080802c0004001d00ffff1b0009003d0009003f00ffff00501c60"
+      "after_hex": "870000004210248080801300040000000000000008002600080026000000a038c648"
     },
     {
       "chunk_index": 148,
@@ -191,7 +240,7 @@
       "offset": 18592,
       "token": "formation",
       "before_hex": "070000004410000000502e00040004000000020008005a0008005c00000000505860",
-      "after_hex": "070000004410000000502e0004001f00ffff1d0009003f0009004100ffff00501c60"
+      "after_hex": "070000004210000000501500040002000000020008002800080028000000a038c648"
     },
     {
       "chunk_index": 148,
@@ -200,7 +249,7 @@
       "offset": 18626,
       "token": "formation",
       "before_hex": "070000004410000000502a00040000000000feff0800560008005800000000505860",
-      "after_hex": "070000004410000000502a0004001b00ffff190009003b0009003d00ffff00501c60"
+      "after_hex": "0700000042100000005011000400feff0000feff08002400080024000000a038c648"
     },
     {
       "chunk_index": 148,
@@ -209,7 +258,7 @@
       "offset": 18660,
       "token": "formation",
       "before_hex": "070000004410000000502c0003000200ffff00000700580007005a00ffff00505860",
-      "after_hex": "070000004410000000502c0003001d00feff1b0008003d0008003f00feff00501c60"
+      "after_hex": "07000000421000000050130003000000ffff00000700260007002600ffffa038c648"
     },
     {
       "chunk_index": 148,
@@ -218,7 +267,7 @@
       "offset": 18694,
       "token": "formation",
       "before_hex": "070000004410000000502c0005000200010000000900580009005a00010000505860",
-      "after_hex": "070000004410000000502c0005001d0000001b000a003d000a003f00000000501c60"
+      "after_hex": "070000004210000000501300050000000100000009002600090026000100a038c648"
     },
     {
       "chunk_index": 148,
@@ -227,7 +276,7 @@
       "offset": 18728,
       "token": "formation",
       "before_hex": "870000004410825a25802c0004000200000000000800580008005a00000000505860",
-      "after_hex": "870000004410825a25802c0004001d00ffff1b0009003d0009003f00ffff00501c60"
+      "after_hex": "870000004210825a25801300040000000000000008002600080026000000a038c648"
     },
     {
       "chunk_index": 149,
@@ -236,7 +285,7 @@
       "offset": 18768,
       "token": "formation",
       "before_hex": "070000004410000000502e00040004000000020008005a0008005c00000000505860",
-      "after_hex": "070000004410000000502e0004001f00ffff1d0009003f0009004100ffff00501c60"
+      "after_hex": "070000004210000000501500040002000000020008002800080028000000a038c648"
     },
     {
       "chunk_index": 149,
@@ -245,7 +294,7 @@
       "offset": 18802,
       "token": "formation",
       "before_hex": "070000004410000000502a00040000000000feff0800560008005800000000505860",
-      "after_hex": "070000004410000000502a0004001b00ffff190009003b0009003d00ffff00501c60"
+      "after_hex": "0700000042100000005011000400feff0000feff08002400080024000000a038c648"
     },
     {
       "chunk_index": 149,
@@ -254,7 +303,7 @@
       "offset": 18836,
       "token": "formation",
       "before_hex": "070000004410000000502c0003000200ffff00000700580007005a00ffff00505860",
-      "after_hex": "070000004410000000502c0003001d00feff1b0008003d0008003f00feff00501c60"
+      "after_hex": "07000000421000000050130003000000ffff00000700260007002600ffffa038c648"
     },
     {
       "chunk_index": 149,
@@ -263,7 +312,7 @@
       "offset": 18870,
       "token": "formation",
       "before_hex": "070000004410000000502c0005000200010000000900580009005a00010000505860",
-      "after_hex": "070000004410000000502c0005001d0000001b000a003d000a003f00000000501c60"
+      "after_hex": "070000004210000000501300050000000100000009002600090026000100a038c648"
     },
     {
       "chunk_index": 149,
@@ -272,7 +321,7 @@
       "offset": 18904,
       "token": "formation",
       "before_hex": "8700000044107c7c25802c0004000200000000000800580008005a00000000505860",
-      "after_hex": "8700000044107c7c25802c0004001d00ffff1b0009003d0009003f00ffff00501c60"
+      "after_hex": "8700000042107c7c25801300040000000000000008002600080026000000a038c648"
     },
     {
       "chunk_index": 150,
@@ -281,7 +330,7 @@
       "offset": 18944,
       "token": "formation",
       "before_hex": "070000004410000000502e00040004000000020008005a0008005c00000000505860",
-      "after_hex": "070000004410000000502e0004001f00ffff1d0009003f0009004100ffff00501c60"
+      "after_hex": "070000004210000000501500040002000000020008002800080028000000a038c648"
     },
     {
       "chunk_index": 150,
@@ -290,7 +339,7 @@
       "offset": 18978,
       "token": "formation",
       "before_hex": "070000004410000000502a00040000000000feff0800560008005800000000505860",
-      "after_hex": "070000004410000000502a0004001b00ffff190009003b0009003d00ffff00501c60"
+      "after_hex": "0700000042100000005011000400feff0000feff08002400080024000000a038c648"
     },
     {
       "chunk_index": 150,
@@ -299,7 +348,7 @@
       "offset": 19012,
       "token": "formation",
       "before_hex": "070000004410000000502c0003000200ffff00000700580007005a00ffff00505860",
-      "after_hex": "070000004410000000502c0003001d00feff1b0008003d0008003f00feff00501c60"
+      "after_hex": "07000000421000000050130003000000ffff00000700260007002600ffffa038c648"
     },
     {
       "chunk_index": 150,
@@ -308,7 +357,7 @@
       "offset": 19046,
       "token": "formation",
       "before_hex": "070000004410000000502c0005000200010000000900580009005a00010000505860",
-      "after_hex": "070000004410000000502c0005001d0000001b000a003d000a003f00000000501c60"
+      "after_hex": "070000004210000000501300050000000100000009002600090026000100a038c648"
     },
     {
       "chunk_index": 150,
@@ -317,7 +366,7 @@
       "offset": 19080,
       "token": "formation",
       "before_hex": "870000004410258225802c0004000200000000000800580008005a00000000505860",
-      "after_hex": "870000004410258225802c0004001d00ffff1b0009003d0009003f00ffff00501c60"
+      "after_hex": "870000004210258225801300040000000000000008002600080026000000a038c648"
     },
     {
       "chunk_index": 158,
@@ -434,7 +483,7 @@
       "offset": 21376,
       "token": "formation",
       "before_hex": "070000002210ffffff23360003000200fffffeff07006c0007007000ffff9038fe48",
-      "after_hex": "070000002410ffffff23100003000200fefffeff0800220008002600feff00501c60"
+      "after_hex": "070000002210ffffff23e4ff0300d1ffffffd1ff0700f7ff0700f7ffffffa038c648"
     },
     {
       "chunk_index": 164,
@@ -443,7 +492,7 @@
       "offset": 21410,
       "token": "formation",
       "before_hex": "070000002210ffffff233600050002000100feff09006c000900700001009038fe48",
-      "after_hex": "070000002410ffffff231000050002000000feff0a0022000a002600000000501c60"
+      "after_hex": "070000002210ffffff23e4ff0500d1ff0100d1ff0900f7ff0900f7ff0100a038c648"
     },
     {
       "chunk_index": 164,
@@ -452,7 +501,7 @@
       "offset": 21444,
       "token": "formation",
       "before_hex": "070000002210ffffff2332000500feff0100faff0900680009006c0001009038fe48",
-      "after_hex": "070000002410ffffff230c000500feff0000faff0a001e000a002200000000501c60"
+      "after_hex": "070000002210ffffff23e0ff0500cdff0100cdff0900f3ff0900f3ff0100a038c648"
     },
     {
       "chunk_index": 164,
@@ -461,7 +510,7 @@
       "offset": 21478,
       "token": "formation",
       "before_hex": "070000002210ffffff2332000300fefffffffaff0700680007006c00ffff9038fe48",
-      "after_hex": "070000002410ffffff230c000300fefffefffaff08001e0008002200feff00501c60"
+      "after_hex": "070000002210ffffff23e0ff0300cdffffffcdff0700f3ff0700f3ffffffa038c648"
     },
     {
       "chunk_index": 164,
@@ -470,7 +519,7 @@
       "offset": 21512,
       "token": "formation",
       "before_hex": "070000002210ffffff233600040002000000feff08006c000800700000009038fe48",
-      "after_hex": "070000002410ffffff23100004000200fffffeff0900220009002600ffff00501c60"
+      "after_hex": "070000002210ffffff23e4ff0400d1ff0000d1ff0800f7ff0800f7ff0000a038c648"
     },
     {
       "chunk_index": 164,
@@ -479,7 +528,7 @@
       "offset": 21546,
       "token": "formation",
       "before_hex": "070000002210ffffff2332000400feff0000faff0800680008006c0000009038fe48",
-      "after_hex": "070000002410ffffff230c000400fefffffffaff09001e0009002200ffff00501c60"
+      "after_hex": "070000002210ffffff23e0ff0400cdff0000cdff0800f3ff0800f3ff0000a038c648"
     },
     {
       "chunk_index": 164,
@@ -488,7 +537,7 @@
       "offset": 21580,
       "token": "formation",
       "before_hex": "070000002210ffffff23340003000000fffffcff07006a0007006e00ffff9038fe48",
-      "after_hex": "070000002410ffffff230e0003000000fefffcff0800200008002400feff00501c60"
+      "after_hex": "070000002210ffffff23e2ff0300cfffffffcfff0700f5ff0700f5ffffffa038c648"
     },
     {
       "chunk_index": 164,
@@ -497,7 +546,7 @@
       "offset": 21614,
       "token": "formation",
       "before_hex": "070000002210ffffff233400050000000100fcff09006a0009006e0001009038fe48",
-      "after_hex": "070000002410ffffff230e00050000000000fcff0a0020000a002400000000501c60"
+      "after_hex": "070000002210ffffff23e2ff0500cfff0100cfff0900f5ff0900f5ff0100a038c648"
     },
     {
       "chunk_index": 164,
@@ -506,7 +555,7 @@
       "offset": 21648,
       "token": "formation",
       "before_hex": "b70000002211767676803400040000000000fcff08006a0008006e0000009038fe48",
-      "after_hex": "b70000002411767676800e0004000000fffffcff0900200009002400ffff00501c60"
+      "after_hex": "b7000000221176767680e2ff0400cfff0000cfff0800f5ff0800f5ff0000a038c648"
     },
     {
       "chunk_index": 173,
@@ -515,7 +564,7 @@
       "offset": 24256,
       "token": "select",
       "before_hex": "070000002210ffffff23280003000200fffffeff07004e0007005200ffff00005010",
-      "after_hex": "070000002410ffffff233c0003002e00feff2a0008004e0008005200feff1d503960"
+      "after_hex": "070000002210ffffff2312000300fefffffffeff0700260007002600ffff02382a48"
     },
     {
       "chunk_index": 173,
@@ -524,7 +573,7 @@
       "offset": 24290,
       "token": "select",
       "before_hex": "070000002210ffffff232800050002000100feff09004e0009005200010000005010",
-      "after_hex": "070000002410ffffff233c0005002e0000002a000a004e000a00520000001d503960"
+      "after_hex": "070000002210ffffff2312000500feff0100feff0900260009002600010002382a48"
     },
     {
       "chunk_index": 173,
@@ -533,7 +582,7 @@
       "offset": 24324,
       "token": "select",
       "before_hex": "070000002210ffffff2324000500feff0100faff09004a0009004e00010000005010",
-      "after_hex": "070000002410ffffff23380005002a00000026000a004a000a004e0000001d503960"
+      "after_hex": "070000002210ffffff230e000500faff0100faff0900220009002200010002382a48"
     },
     {
       "chunk_index": 173,
@@ -542,7 +591,7 @@
       "offset": 24358,
       "token": "select",
       "before_hex": "070000002210ffffff2324000300fefffffffaff07004a0007004e00ffff00005010",
-      "after_hex": "070000002410ffffff23380003002a00feff260008004a0008004e00feff1d503960"
+      "after_hex": "070000002210ffffff230e000300fafffffffaff0700220007002200ffff02382a48"
     },
     {
       "chunk_index": 173,
@@ -551,7 +600,7 @@
       "offset": 24392,
       "token": "select",
       "before_hex": "070000002210ffffff232800040002000000feff08004e0008005200000000005010",
-      "after_hex": "070000002410ffffff233c0004002e00ffff2a0009004e0009005200ffff1d503960"
+      "after_hex": "070000002210ffffff2312000400feff0000feff0800260008002600000002382a48"
     },
     {
       "chunk_index": 173,
@@ -560,7 +609,7 @@
       "offset": 24426,
       "token": "select",
       "before_hex": "070000002210ffffff2324000400feff0000faff08004a0008004e00000000005010",
-      "after_hex": "070000002410ffffff23380004002a00ffff260009004a0009004e00ffff1d503960"
+      "after_hex": "070000002210ffffff230e000400faff0000faff0800220008002200000002382a48"
     },
     {
       "chunk_index": 173,
@@ -569,7 +618,7 @@
       "offset": 24460,
       "token": "select",
       "before_hex": "070000002210ffffff23260003000000fffffcff07004c0007005000ffff00005010",
-      "after_hex": "070000002410ffffff233a0003002c00feff280008004c0008005000feff1d503960"
+      "after_hex": "070000002210ffffff2310000300fcfffffffcff0700240007002400ffff02382a48"
     },
     {
       "chunk_index": 173,
@@ -578,7 +627,7 @@
       "offset": 24494,
       "token": "select",
       "before_hex": "070000002210ffffff232600050000000100fcff09004c0009005000010000005010",
-      "after_hex": "070000002410ffffff233a0005002c00000028000a004c000a00500000001d503960"
+      "after_hex": "070000002210ffffff2310000500fcff0100fcff0900240009002400010002382a48"
     },
     {
       "chunk_index": 173,
@@ -587,7 +636,7 @@
       "offset": 24528,
       "token": "select",
       "before_hex": "b70000002211767676802600040000000000fcff08004c0008005000000000005010",
-      "after_hex": "b70000002411767676803a0004002c00ffff280009004c0009005000ffff1d503960"
+      "after_hex": "b700000022117676768010000400fcff0000fcff0800240008002400000002382a48"
     },
     {
       "chunk_index": 177,
@@ -596,7 +645,7 @@
       "offset": 25536,
       "token": "sort",
       "before_hex": "070000002210ffffff231e0003000400ffff00000700380007003c00ffff00383848",
-      "after_hex": "070000002410ffffff23120003000400feff00000800240008002800feff3a505660"
+      "after_hex": "070000002410ffffff23e4ff0300d0ffffffd0ff0700f8ff0700f8ffffff2e505660"
     },
     {
       "chunk_index": 177,
@@ -605,7 +654,7 @@
       "offset": 25570,
       "token": "sort",
       "before_hex": "070000002210ffffff231e0005000400010000000900380009003c00010000383848",
-      "after_hex": "070000002410ffffff23120005000400000000000a0024000a00280000003a505660"
+      "after_hex": "070000002410ffffff23e4ff0500d0ff0100d0ff0900f8ff0900f8ff01002e505660"
     },
     {
       "chunk_index": 177,
@@ -614,7 +663,7 @@
       "offset": 25604,
       "token": "sort",
       "before_hex": "070000002210ffffff231a00050000000100fcff0900340009003800010000383848",
-      "after_hex": "070000002410ffffff230e00050000000000fcff0a0020000a00240000003a505660"
+      "after_hex": "070000002410ffffff23e0ff0500ccff0100ccff0900f4ff0900f4ff01002e505660"
     },
     {
       "chunk_index": 177,
@@ -623,7 +672,7 @@
       "offset": 25638,
       "token": "sort",
       "before_hex": "070000002210ffffff231a0003000000fffffcff0700340007003800ffff00383848",
-      "after_hex": "070000002410ffffff230e0003000000fefffcff0800200008002400feff3a505660"
+      "after_hex": "070000002410ffffff23e0ff0300ccffffffccff0700f4ff0700f4ffffff2e505660"
     },
     {
       "chunk_index": 177,
@@ -632,7 +681,7 @@
       "offset": 25672,
       "token": "sort",
       "before_hex": "070000002210ffffff231e0004000400000000000800380008003c00000000383848",
-      "after_hex": "070000002410ffffff23120004000400ffff00000900240009002800ffff3a505660"
+      "after_hex": "070000002410ffffff23e4ff0400d0ff0000d0ff0800f8ff0800f8ff00002e505660"
     },
     {
       "chunk_index": 177,
@@ -641,7 +690,7 @@
       "offset": 25706,
       "token": "sort",
       "before_hex": "070000002210ffffff231a00040000000000fcff0800340008003800000000383848",
-      "after_hex": "070000002410ffffff230e0004000000fffffcff0900200009002400ffff3a505660"
+      "after_hex": "070000002410ffffff23e0ff0400ccff0000ccff0800f4ff0800f4ff00002e505660"
     },
     {
       "chunk_index": 177,
@@ -650,7 +699,7 @@
       "offset": 25740,
       "token": "sort",
       "before_hex": "070000002210ffffff231c0003000200fffffeff0700360007003a00ffff00383848",
-      "after_hex": "070000002410ffffff23100003000200fefffeff0800220008002600feff3a505660"
+      "after_hex": "070000002410ffffff23e2ff0300ceffffffceff0700f6ff0700f6ffffff2e505660"
     },
     {
       "chunk_index": 177,
@@ -659,7 +708,7 @@
       "offset": 25774,
       "token": "sort",
       "before_hex": "070000002210ffffff231c00050002000100feff0900360009003a00010000383848",
-      "after_hex": "070000002410ffffff231000050002000000feff0a0022000a00260000003a505660"
+      "after_hex": "070000002410ffffff23e2ff0500ceff0100ceff0900f6ff0900f6ff01002e505660"
     },
     {
       "chunk_index": 177,
@@ -668,7 +717,7 @@
       "offset": 25808,
       "token": "sort",
       "before_hex": "b70000002211767676801c00040002000000feff0800360008003a00000000383848",
-      "after_hex": "b7000000241176767680100004000200fffffeff0900220009002600ffff3a505660"
+      "after_hex": "b7000000241176767680e2ff0400ceff0000ceff0800f6ff0800f6ff00002e505660"
     },
     {
       "chunk_index": 204,
@@ -677,25 +726,25 @@
       "offset": 30464,
       "token": "others",
       "before_hex": "0700000044106c5e0b803a0008000c00020008000e0068000e006c00020028e888ff",
-      "after_hex": "0700000044106c5e0b803a0008002a00020026000e004e000e005200020070648b75"
+      "after_hex": "0700000044106c5e0b803a0008002300030023000d0051000d00510003007862a676"
     },
     {
       "chunk_index": 204,
       "chunk_start": 30432,
       "chunk_end": 30672,
       "offset": 30498,
-      "token": "command",
+      "token": "command2",
       "before_hex": "0700000044106c5e0b80400016000600100002001c007a001c007e00100088e8ffff",
-      "after_hex": "0700000044106c5e0b8040001600300010002c001c0054001c005800100038645475"
+      "after_hex": "0700000044106c5e0b80400016002900110029001b0057001b00570011002cea5afe"
     },
     {
       "chunk_index": 1167,
       "chunk_start": 137216,
       "chunk_end": 137760,
       "offset": 137216,
-      "token": "data",
+      "token": "item",
       "before_hex": "070000004410371237480c0005000600000002000a0014000a0018000000eee8ffff",
-      "after_hex": "070000004410371237481a0005000a00ffff06000b002e000b003200ffff8b64a675"
+      "after_hex": "07000000441037123748190005000200000002000a0030000a00300000009ceacafe"
     },
     {
       "chunk_index": 1167,
@@ -704,7 +753,7 @@
       "offset": 137250,
       "token": "help",
       "before_hex": "070000004410371237481c0005001600000012000a0024000a0028000000cce8deff",
-      "after_hex": "07000000441037123748440005003400ffff30000b0058000b005c00ffff1d643875"
+      "after_hex": "070000004410371237483f0005002800000028000a0056000a005600000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -713,7 +762,7 @@
       "offset": 137284,
       "token": "help",
       "before_hex": "070000004410371237482c0005002600000022000a0034000a00380000003ae84aff",
-      "after_hex": "0700000044103712374800000000000000000000000000000000000000001d643875"
+      "after_hex": "07000000441037123748000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -722,7 +771,7 @@
       "offset": 137318,
       "token": "help",
       "before_hex": "070000004410371237483a0005003400000030000a0042000a0046000000cce8deff",
-      "after_hex": "0700000044103712374800000000000000000000000000000000000000001d643875"
+      "after_hex": "07000000441037123748000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -731,7 +780,7 @@
       "offset": 137352,
       "token": "help",
       "before_hex": "07000000441037123748540005004e0000004a000a005c000a00600000004ae85aff",
-      "after_hex": "0700000044103712374800000000000000000000000000000000000000001d643875"
+      "after_hex": "07000000441037123748000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -740,7 +789,7 @@
       "offset": 137386,
       "token": "help",
       "before_hex": "0700000044103712374868000500620000005e000a0070000a00740000005be86aff",
-      "after_hex": "0700000044103712374800000000000000000000000000000000000000001d643875"
+      "after_hex": "07000000441037123748000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -749,7 +798,7 @@
       "offset": 137420,
       "token": "help",
       "before_hex": "0700000044103712374878000500720000006e000a0080000a0084000000e0d0f0e8",
-      "after_hex": "0700000044103712374800000000000000000000000000000000000000001d643875"
+      "after_hex": "07000000441037123748000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -758,16 +807,16 @@
       "offset": 137454,
       "token": "help",
       "before_hex": "070000004410371237488a0005008400000080000a0092000a0096000000f0d0ffe8",
-      "after_hex": "0700000044103712374800000000000000000000000000000000000000001d643875"
+      "after_hex": "07000000441037123748000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
       "chunk_start": 137216,
       "chunk_end": 137760,
       "offset": 137488,
-      "token": "data",
+      "token": "item",
       "before_hex": "0700000044107e4d7e7f0a0004000400ffff00000900120009001600ffffeee8ffff",
-      "after_hex": "0700000044107e4d7e7f180004000800feff04000a002c000a003000feff8b64a675"
+      "after_hex": "0700000044107e4d7e7f170004000000ffff000009002e0009002e00ffff9ceacafe"
     },
     {
       "chunk_index": 1167,
@@ -776,7 +825,7 @@
       "offset": 137522,
       "token": "help",
       "before_hex": "0700000044107e4d7e7f1a0004001400ffff10000900220009002600ffffcce8deff",
-      "after_hex": "0700000044107e4d7e7f420004003200feff2e000a0056000a005a00feff1d643875"
+      "after_hex": "0700000044107e4d7e7f3d0004002600ffff26000900540009005400ffff00642e78"
     },
     {
       "chunk_index": 1167,
@@ -785,7 +834,7 @@
       "offset": 137556,
       "token": "help",
       "before_hex": "0700000044107e4d7e7f2a0004002400ffff20000900320009003600ffff3ae84aff",
-      "after_hex": "0700000044107e4d7e7f00000000000000000000000000000000000000001d643875"
+      "after_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -794,7 +843,7 @@
       "offset": 137590,
       "token": "help",
       "before_hex": "0700000044107e4d7e7f380004003200ffff2e000900400009004400ffffcce8deff",
-      "after_hex": "0700000044107e4d7e7f00000000000000000000000000000000000000001d643875"
+      "after_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -803,7 +852,7 @@
       "offset": 137624,
       "token": "help",
       "before_hex": "0700000044107e4d7e7f520004004c00ffff480009005a0009005e00ffff4ae85aff",
-      "after_hex": "0700000044107e4d7e7f00000000000000000000000000000000000000001d643875"
+      "after_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -812,7 +861,7 @@
       "offset": 137658,
       "token": "help",
       "before_hex": "0700000044107e4d7e7f660004006000ffff5c0009006e0009007200ffff5be86aff",
-      "after_hex": "0700000044107e4d7e7f00000000000000000000000000000000000000001d643875"
+      "after_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -821,7 +870,7 @@
       "offset": 137692,
       "token": "help",
       "before_hex": "0700000044107e4d7e7f760004007000ffff6c0009007e0009008200ffffe0d0f0e8",
-      "after_hex": "0700000044107e4d7e7f00000000000000000000000000000000000000001d643875"
+      "after_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1167,
@@ -830,7 +879,7 @@
       "offset": 137726,
       "token": "help",
       "before_hex": "8700000044107e4d7e7f880004008200ffff7e000900900009009400fffff0d0ffe8",
-      "after_hex": "8700000044107e4d7e7f00000000000000000000000000000000000000001d643875"
+      "after_hex": "8700000044107e4d7e7f000000000000000000000000000000000000000000642e78"
     },
     {
       "chunk_index": 1192,
@@ -839,7 +888,7 @@
       "offset": 140860,
       "token": "key",
       "before_hex": "1700000022106f4a5f8026000700120001000e000d003a000d003e00010064e890ff",
-      "after_hex": "1700000024106f4a5f80260007001500010011000d003b000d003f00010002641d75"
+      "after_hex": "1700000024106f4a5f802d0007001600020016000c0044000c004400020000502e64"
     },
     {
       "chunk_index": 1192,
@@ -848,24 +897,24 @@
       "offset": 140894,
       "token": "help",
       "before_hex": "1700000022106f4a5f80560007003e0001003a000d006e000d0072000100cce8ffff",
-      "after_hex": "1700000024106f4a5f80560007004500010041000d006b000d006f0001001d643875"
+      "after_hex": "1700000024106f4a5f80540007003d0002003d000c006b000c006b00020000642e78"
     }
   ],
   "output_root": "work/build/ui-headings-zh/components",
   "manifest": "manifests/ui-headings-zh-validation.json",
   "snapshot": {
     "path": "config/assets/ui-headings-render-snapshot.json",
-    "size": 3712,
-    "sha256": "c26cc19cd14d206c2d1f6053511b000a7eb63acf33355b94f978922d711156a9"
+    "size": 5365,
+    "sha256": "a9d47e5e9585ec64deea723361a0000e967f38dc1afa9975eed069d618cfd46d"
   },
   "expected_outputs": {
     "KURODATA/KVMDATA.BIN": {
       "size": 3335408,
-      "sha256": "343068888b22cca5dab5cf9a2c55204a9dd57f987ffe8539e2318deced83e09c"
+      "sha256": "e341d2e5cf26a37988e0bb646f57333cbbc4ef17c2c867fe8f447b6070790884"
     },
     "KURODATA/KVPDATA.BIN": {
       "size": 239664,
-      "sha256": "d9250f51eaff4eb5a36a39ea66eb90d3bde2f2a17a69e7b1d21fe01c7661c256"
+      "sha256": "b62d05b76032b153590dc8b2aad78d2d06786c2b861be875e45a4634b65e1cd9"
     }
   }
 }

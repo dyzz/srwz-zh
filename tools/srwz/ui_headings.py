@@ -1,9 +1,12 @@
 """Frozen indexed headings and their exact KVPDATA drawing references.
 
 The English UI reuses individual letters from whole atlas words. Keep those
-words intact; Chinese cells occupy the old FORMATION rectangle and the blank
-margins of the already localized COMMAND MENU rectangle. Both the texture and
-the drawing references must be installed together.
+words intact; Chinese cells occupy the old FORMATION rectangle, the blank
+margins of the already localized COMMAND MENU rectangle, the OTHERS/COMMAND
+letters no other heading samples (page 4) and the SORT / "ORM" letters left
+unreferenced after the titles moved (page 2). Every cell is rendered at its
+on-screen size and drawn 1:1. Both the texture and the drawing references
+must be installed together.
 """
 
 from __future__ import annotations
@@ -68,10 +71,9 @@ def apply_draw_patches(source: bytes, patches: list[dict]) -> bytes:
     return bytes(result)
 
 
-def apply_index_cells(archive: bytes, config: dict, snapshot: dict) -> bytes:
-    chunk = config["texture_chunk"]
+def _apply_page_cells(archive: bytes, chunk: dict, cells: list[tuple[dict, dict]]) -> bytes:
     start, end = chunk["start"], chunk["end"]
-    source = checked(archive[start:end], chunk, "heading base texture chunk")
+    source = checked(archive[start:end], chunk, f"heading base texture page {chunk['index']}")
     picture = parse_tim2(source).pictures[0]
     if (picture.width, picture.height, picture.image_type) != (256, 256, 4):
         raise UiHeadingError("heading atlas geometry changed")
@@ -81,9 +83,7 @@ def apply_index_cells(archive: bytes, config: dict, snapshot: dict) -> bytes:
     indices = bytes(v for byte in source[image_start:image_end] for v in (byte & 15, byte >> 4))
     output = bytearray(indices)
     claimed: set[int] = set()
-    if len(snapshot["cells"]) != len(config["cells"]):
-        raise UiHeadingError("heading cell count drift")
-    for spec, frozen in zip(config["cells"], snapshot["cells"]):
+    for spec, frozen in cells:
         x, y, width, height = spec["rect"]
         if not (0 <= x < x + width <= 256 and 0 <= y < y + height <= 256):
             raise UiHeadingError("heading cell is outside the atlas")
@@ -115,6 +115,35 @@ def apply_index_cells(archive: bytes, config: dict, snapshot: dict) -> bytes:
     assert result[start + image_end:] == archive[start + image_end:]
     assert all(output[i] == indices[i] for i in range(65536) if i not in claimed)
     return bytes(result)
+
+
+def apply_index_cells(archive: bytes, config: dict, snapshot: dict) -> bytes:
+    """Write every frozen cell into its own KVMDATA texture page.
+
+    Pages 2 and 4 share the grayscale CLUT bank the heading polygons sample,
+    and pages 0-9 are loaded as one resident group; each cell names its page.
+    """
+
+    chunks = config["texture_chunks"]
+    pages = {chunk["index"]: chunk for chunk in chunks}
+    if len(pages) != len(chunks) or not pages:
+        raise UiHeadingError("heading texture pages must be unique")
+    spans = sorted((chunk["start"], chunk["end"]) for chunk in chunks)
+    if any(a[1] > b[0] for a, b in zip(spans, spans[1:])):
+        raise UiHeadingError("heading texture pages overlap")
+    if len(snapshot["cells"]) != len(config["cells"]):
+        raise UiHeadingError("heading cell count drift")
+    by_page: dict[int, list[tuple[dict, dict]]] = {index: [] for index in pages}
+    for spec, frozen in zip(config["cells"], snapshot["cells"]):
+        page = spec.get("page")
+        if not isinstance(page, int) or isinstance(page, bool) or page not in by_page:
+            raise UiHeadingError(f"heading cell {spec.get('id')!r} names an unregistered page")
+        by_page[page].append((spec, frozen))
+    result = archive
+    for index in sorted(pages):
+        if by_page[index]:
+            result = _apply_page_cells(result, pages[index], by_page[index])
+    return result
 
 
 def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], dict]:
