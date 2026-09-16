@@ -48,7 +48,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73655,
-      "sha256": "dc368cdcd501bafcd806664cd180052fc59f5cd9e78d5ac1c3f03fe48f739488"
+      "sha256": "9d2950d5705e6fe6e2961c47995e03808a68e39c21bcf2d98d16e2df589ce1b3"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -66,15 +66,15 @@
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18307911,
-      "sha256": "fd210beb14e15c2cfc0eed9e3c5fb98c852b7c2d331f697138175994348617fc"
+      "size": 18307912,
+      "sha256": "8f943b43d409629552bb20b91c76e86c91e462329cb4989eabfd38ba215e0e09"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "2771354bcb648ad9ac2bd1128a4e023fd1ddd7c3c60c58928a3e37bf495259a7"
+      "sha256": "b803587dbcc1d9db1ec632948d63c3fe804af5055de32308f19c35bcda364cc1"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -3040,7 +3040,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816144,
-      "sha256": "a637603e3c955dfe76abea8085b83c54b6a7c45633e8e3464c6923d8cd09f7af"
+      "sha256": "e907b31b28818f603dc87cfc35e8c91fa586eacab18b3b8213251cd7b0fb6d3f"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -3141,8 +3141,8 @@
       "release_snapshot_primary_mapping_sha256": "addc77b3955869931556e818ff8e2978c5cc850157bafa53ba1371591f599867",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "8074fe14451088db8113a7e219373afd8a05d4824eff84f3a963cf689cb43f2f",
-        "snapshot_id": "srwz-zh-release-font-assignments-v1"
+        "size": 1142124,
+        "sha256": "8074fe14451088db8113a7e219373afd8a05d4824eff84f3a963cf689cb43f2f"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."
     },
