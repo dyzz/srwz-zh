@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "policy": "After verification retain these eight ISO slots: both v0.4.0 and v0.4.1 release editions, two source discs and two current outputs. Build copies are temporary. Keep reports, components, runtime evidence and saves separately.",
+  "policy": "Retain twelve ISO slots: both v0.4.0 and v0.4.1 editions, four v0.4.2 variants, two source discs and two current outputs. Build copies are temporary; keep reports and runtime evidence separately.",
   "slots": {
     "current-original": {
-      "path": "build/iso/zh-release-full-story/current-original.iso",
+      "path": "build/iso/zh-release-original/current-original.iso",
       "role": "working"
     },
     "current-best": {
@@ -38,6 +38,26 @@
       "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
       "role": "frozen_release",
       "purpose": "Fixed v0.4.1 hotfix ISO for reproducing player reports; preserve the published bytes independently of current development."
+    },
+    "0.4.2-original": {
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original.iso",
+      "role": "frozen_release",
+      "purpose": "Frozen v0.4.2 hotfix; preserve the published bytes independently of current development."
+    },
+    "0.4.2-original-skip": {
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original-skip.iso",
+      "role": "frozen_release",
+      "purpose": "Frozen v0.4.2 hotfix; preserve the published bytes independently of current development."
+    },
+    "0.4.2-best": {
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best.iso",
+      "role": "frozen_release",
+      "purpose": "Frozen v0.4.2 hotfix; preserve the published bytes independently of current development."
+    },
+    "0.4.2-best-skip": {
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best-skip.iso",
+      "role": "frozen_release",
+      "purpose": "Frozen v0.4.2 hotfix; preserve the published bytes independently of current development."
     }
   }
 }

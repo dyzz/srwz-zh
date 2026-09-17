@@ -1,0 +1,64 @@
+{
+  "base_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
+  "edition": "original",
+  "hook": {
+    "all_replacements_exact": true,
+    "already_applied": true,
+    "cave_file_offset": "0x2F7A80",
+    "cave_preimage_all_zero": false,
+    "cave_size": 2048,
+    "cave_virtual_address": "0x3F6000",
+    "changed_byte_count": 0,
+    "configuration_matches_before": true,
+    "edition": "original",
+    "enabled": true,
+    "executable_size_preserved": true,
+    "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
+    "hook_size": 1728,
+    "member": "SLPS_258.87",
+    "native_resource_waits_preserved": true,
+    "native_result_processing_preserved": true,
+    "patches": [
+      {
+        "file_offset": "0x1E5874",
+        "id": "battle_step_world_call",
+        "kind": "jal",
+        "original_instruction_hex": "ac200c0c",
+        "replacement_instruction_hex": "00d80f0c",
+        "state_before": "applied",
+        "surface": "battle step world call",
+        "virtual_address": "0x2E3DF4"
+      },
+      {
+        "file_offset": "0x1ED990",
+        "id": "queue_append_prologue_0",
+        "kind": "j",
+        "original_instruction_hex": "20038290",
+        "replacement_instruction_hex": "40d90f08",
+        "state_before": "applied",
+        "surface": "queue append prologue 0",
+        "virtual_address": "0x2EBF10"
+      },
+      {
+        "file_offset": "0x1ED994",
+        "id": "queue_append_prologue_1",
+        "kind": "nop",
+        "original_instruction_hex": "c0100200",
+        "replacement_instruction_hex": "00000000",
+        "state_before": "applied",
+        "surface": "queue append prologue 1",
+        "virtual_address": "0x2EBF14"
+      }
+    ],
+    "policy": "square_skips_battle_animation_via_native_tail",
+    "site_count": 3,
+    "state_marker": "0x4E540005",
+    "world_steps_per_frame": 1
+  },
+  "native_member_sizes_and_lbas_preserved": true,
+  "only_declared_skip_changes": true,
+  "runtime": "not_tested",
+  "sha256": "83cbf6bd8863c8a8ce22113431b7c40f2c3d61aa383ff7da8fa22047930b8e47",
+  "size": 3758358528,
+  "status": "skip_variant_exact_transform_readback_passed"
+}

@@ -1,0 +1,67 @@
+{
+  "batch_manifest": "work/editions/531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858/original-best.json",
+  "input_digest": "531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858",
+  "outputs": {
+    "best": {
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best.iso",
+      "sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
+      "size": 3755081728
+    },
+    "original": {
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original.iso",
+      "sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
+      "size": 3758358528
+    }
+  },
+  "readbacks": {
+    "best": {
+      "path": "manifests/releases/v0.4.2/best-readback.json",
+      "sha256": "6b9826abdc700e0f1fa50909ab3ac2b6465294c8f42cacebd6b1c26fb3695473",
+      "size": 75260
+    },
+    "original": {
+      "path": "manifests/releases/v0.4.2/original-readback.json",
+      "sha256": "684faddc5cda1b68272c2e21edbea81ed1bd859afc0fcf78c971304d7f1b7fe0",
+      "size": 413247
+    }
+  },
+  "runtime": "targeted_lrps2_checks_passed_see_runtime_json",
+  "status": "dual_edition_build_and_static_readback_passed",
+  "variants": {
+    "best": {
+      "readback": {
+        "path": "manifests/releases/v0.4.2/best-skip-readback.json",
+        "sha256": "3a801676e21cbb164f03e3469a2c0ee805c1b3b84e2e23ba21833f1e9c59188c",
+        "size": 2160
+      },
+      "target_iso": {
+        "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best-skip.iso",
+        "sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb",
+        "size": 3755081728
+      }
+    },
+    "original": {
+      "readback": {
+        "path": "manifests/releases/v0.4.2/original-skip-readback.json",
+        "sha256": "26fa606ca4b868f028539a5e05555b50259399d5e8c3bf3029d1aafdacc07d98",
+        "size": 2168
+      },
+      "target_iso": {
+        "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original-skip.iso",
+        "sha256": "83cbf6bd8863c8a8ce22113431b7c40f2c3d61aa383ff7da8fa22047930b8e47",
+        "size": 3758358528
+      }
+    }
+  },
+  "verification": {
+    "both_editions": true,
+    "input_digest": "531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858",
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes",
+    "status": "edition_batch_receipt_integrity_passed",
+    "verified_editions": [
+      "original",
+      "best"
+    ]
+  }
+}

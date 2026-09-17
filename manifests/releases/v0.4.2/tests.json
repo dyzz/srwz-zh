@@ -1,0 +1,29 @@
+{
+  "initial_suite": {
+    "command": "python3 -m unittest discover -s tests",
+    "passed": 333,
+    "reported_count": 334,
+    "skipped_modules": {
+      "test_battle_square_skip_native": "optional Unicorn MIPS64 runtime not installed"
+    }
+  },
+  "logs": [
+    {
+      "path": "work/release/v0.4.2/tests-final.log",
+      "sha256": "3f86ea9f80f4ee68bab6c97b9d5554d9bd251dd003306de3759d6dd9bf3fe66f"
+    },
+    {
+      "path": "work/release/v0.4.2/unicorn-tests.log",
+      "sha256": "8fcfddb8adcbcf62e0dfde2294eed497a93e9a132baa75b01e1b277bd0e57ed4"
+    }
+  ],
+  "status": "all_discovered_test_cases_passed_after_optional_dependency_installed",
+  "supplemental_suite": {
+    "command": "work/release/v0.4.2/test-env/bin/python -m unittest discover -s tests -p test_battle_square_skip_native.py -v",
+    "dependency": "unicorn==2.1.4",
+    "passed": 34,
+    "skipped": 0
+  },
+  "total_passed_test_cases": 367,
+  "unresolved_skips": 0
+}

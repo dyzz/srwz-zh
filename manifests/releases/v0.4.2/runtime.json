@@ -1,0 +1,150 @@
+{
+  "best_skip": {
+    "evidence": "manifests/releases/v0.4.2/diagnostic-runtime.json",
+    "iso": {
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best-skip.iso",
+      "sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb",
+      "size": 3755081728
+    },
+    "scope": [
+      "stage111 player unit menu",
+      "stage150 opening with stock Best comparison"
+    ],
+    "status": "same_exact_iso_as_runtime_validated_diagnostic"
+  },
+  "full_route_acceptance": false,
+  "original_skip": {
+    "iso": {
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original-skip.iso",
+      "sha256": "83cbf6bd8863c8a8ce22113431b7c40f2c3d61aa383ff7da8fa22047930b8e47",
+      "size": 3758358528
+    },
+    "note": "Exact same ISO as prior current-original; no-skip counterpart tested above; skip hook statically verified.",
+    "status": "not_rerun_for_this_release"
+  },
+  "pcsx2_executed": false,
+  "scope": "stage111 entry and player unit menu on both no-skip releases; stage150 opening on Best; same-image earlier Best skip diagnostic",
+  "sessions": [
+    {
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/v042-original/intermission.png",
+          "sha256": "d7c526f09f20b7d066c81b3837cb6dfe26b99d988ee01dd62d97599cd5cd3d08"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-original/stage111-conditions.png",
+          "sha256": "0f897b62ba57a55c884a1604b6658576a95d023f26be7ab9b95bc042f1682e16"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-original/stage111-dialogue.png",
+          "sha256": "4ef34abe82955b57193704871bec37639a70985012e4334ffc754c95407025b9"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-original/stage111-map.png",
+          "sha256": "dfcaee159ce6d3d3bf73ce5a09234764f5ea3658f31358f6ff44edc80b71a759"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-original/stage111-title.png",
+          "sha256": "edd4fbb9b34cec9e2bcfce0052fed5c31fb0eee8320c005a823ec9ea6a70cf73"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-original/stage111-unit-menu.png",
+          "sha256": "cb1f75f66b51a7023031b4aa0d0fe7b9387d5ef3f20f2e10077f5a6668cab755"
+        }
+      ],
+      "cheats": "disabled",
+      "commands": {
+        "path": "work/runtime/lrps2/v042-original/commands.jsonl",
+        "sha256": "907b1b936e736276a839a8393a25f3374e8772c83bc247fac3652fc10c37a6de"
+      },
+      "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+      "driver_sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83",
+      "iso": {
+        "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original.iso",
+        "sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
+        "size": 3758358528
+      },
+      "limits": [
+        "not full chapter playthrough",
+        "stage150 uses next-stage RAM override on Best",
+        "LRPS2, not PCSX2 manual verification"
+      ],
+      "renderer": "Software (SW)",
+      "source_card_sha256_after": "0ff0c38896eca6d9c738f01a5aa895d78253d079fed7750699ccd862a96c9caa",
+      "source_card_sha256_before": "0ff0c38896eca6d9c738f01a5aa895d78253d079fed7750699ccd862a96c9caa",
+      "source_card_unchanged": true,
+      "status": "passed_after_visual_review",
+      "variant": "original",
+      "visual_review": [
+        "stage111 map dialogue visible",
+        "stage111 player unit menu visible"
+      ]
+    },
+    {
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/v042-best/intermission.png",
+          "sha256": "aec0cc64f8e840233d63ca63a1c82de145836292a6f77a439f7604aa4b8032aa"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-best/stage111-conditions.png",
+          "sha256": "23ce9973e2b2e1ae8a9088829556b0578ca35944e0cf7106dac44e951e7e9167"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-best/stage111-dialogue.png",
+          "sha256": "4ef34abe82955b57193704871bec37639a70985012e4334ffc754c95407025b9"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-best/stage111-map.png",
+          "sha256": "99a4a79b91cf96cc31bd1f132cd6b98ae51c11936c8400469c4129191de9bda4"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-best/stage111-title.png",
+          "sha256": "edd4fbb9b34cec9e2bcfce0052fed5c31fb0eee8320c005a823ec9ea6a70cf73"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-best/stage111-unit-menu.png",
+          "sha256": "e374bbeceb50cff6350b256ff795d7d63fc341d6c09784ba8be0de0ba2beb803"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-best/stage150-after-skip.png",
+          "sha256": "943c3f88c9202cd2e4d0b342b46a5447d6d7a76ff9472813709ec9fb0e64a398"
+        },
+        {
+          "path": "work/runtime/lrps2/v042-best/stage150-opening.png",
+          "sha256": "d57065e31c0a234f83392359d16c2f04d7e0dc4bf99a1c120c3840dcb2fdf47e"
+        }
+      ],
+      "cheats": "disabled",
+      "commands": {
+        "path": "work/runtime/lrps2/v042-best/commands.jsonl",
+        "sha256": "49be76ebbbac850e910ab9ca87fed0e4057fe40c04823b666c6189f4d27547eb"
+      },
+      "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+      "driver_sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83",
+      "iso": {
+        "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best.iso",
+        "sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
+        "size": 3755081728
+      },
+      "limits": [
+        "not full chapter playthrough",
+        "stage150 uses next-stage RAM override on Best",
+        "LRPS2, not PCSX2 manual verification"
+      ],
+      "renderer": "Software (SW)",
+      "source_card_sha256_after": "0ff0c38896eca6d9c738f01a5aa895d78253d079fed7750699ccd862a96c9caa",
+      "source_card_sha256_before": "0ff0c38896eca6d9c738f01a5aa895d78253d079fed7750699ccd862a96c9caa",
+      "source_card_unchanged": true,
+      "status": "passed_after_visual_review",
+      "variant": "best",
+      "visual_review": [
+        "stage111 map dialogue visible",
+        "stage111 player unit menu visible",
+        "stage150 units appeared",
+        "stage150 Gainer dialogue visible"
+      ]
+    }
+  ],
+  "status": "targeted_lrps2_checks_passed"
+}

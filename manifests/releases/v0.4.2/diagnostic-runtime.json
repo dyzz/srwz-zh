@@ -1,0 +1,196 @@
+{
+  "conclusions": {
+    "111": "faulty black after title; diagnostic reaches player turn and opens unit menu",
+    "150": "faulty empty map / omitted scenario; diagnostic and stock Best show matching unit scene and Gainer dialogue"
+  },
+  "core": {
+    "cheats": "disabled",
+    "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+    "renderer": "Software (SW)",
+    "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+  },
+  "diagnostic_build": {
+    "decoded_changed_chunks": [
+      {
+        "changed_decoded_bytes": [
+          1720,
+          135521,
+          135525,
+          135529,
+          135533,
+          135537,
+          135541,
+          135545,
+          135549,
+          135553,
+          135557
+        ],
+        "decoded_sha256": "ac60598b8dc4645f9b7b58601a8fa8c33430989186c1f94950c4c4565be4e046",
+        "stage": 111,
+        "table": 135520,
+        "targets": [
+          7697992,
+          7697992,
+          7697856,
+          7697872,
+          7697888,
+          7697920,
+          7697936,
+          7697968,
+          7697984,
+          7697952
+        ]
+      },
+      {
+        "changed_decoded_bytes": [
+          612,
+          105825,
+          105829,
+          105833,
+          105837,
+          105841,
+          105845,
+          105849,
+          105853,
+          105857,
+          105861
+        ],
+        "decoded_sha256": "b412631e63a97c014df8f654a873b706f96819238da045ad9bfbe6c1d34bc3d8",
+        "stage": 150,
+        "table": 105824,
+        "targets": [
+          7696856,
+          7696856,
+          7696752,
+          7696768,
+          7696856,
+          7696784,
+          7696800,
+          7696832,
+          7696848,
+          7696816
+        ]
+      }
+    ],
+    "diagnostic_iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/stage47-cause-20260917/dispatch-only-best.iso",
+    "modified_members": [
+      "DATA/STAGE.BIN",
+      "HEDBDY/HB.BIN"
+    ],
+    "other_203_chunks_identical": true,
+    "sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb",
+    "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-best/current-best.iso"
+  },
+  "evidence_type": "LRPS2 automatic runtime; not PCSX2 manual acceptance",
+  "limits": [
+    "not a complete chapter playthrough",
+    "other 203 chunks audited statically, not all run",
+    "next-stage RAM field changed for stage150 on all three tested ISOs"
+  ],
+  "memory_card": {
+    "path": "work/analysis/v030-stage47-noimage-20260917/user-Mcd001.ps2",
+    "second_slot_matches_user2_export": true,
+    "sha256_after": "0ff0c38896eca6d9c738f01a5aa895d78253d079fed7750699ccd862a96c9caa",
+    "sha256_before": "0ff0c38896eca6d9c738f01a5aa895d78253d079fed7750699ccd862a96c9caa",
+    "source_unchanged": true
+  },
+  "sessions": [
+    {
+      "captures": [
+        {
+          "frame": 5978,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/best-valid/title-or-black.png",
+          "sha256": "edd4fbb9b34cec9e2bcfce0052fed5c31fb0eee8320c005a823ec9ea6a70cf73"
+        },
+        {
+          "frame": 6878,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/best-valid/black-confirm.png",
+          "sha256": "6f91de3f5c7621e9000e80d9d92c756123fd6bfedc43be322b0df9863508acb4"
+        },
+        {
+          "frame": 7485,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/best-valid/stage150-opening.png",
+          "sha256": "27bdedeb3f4a25d6566cde68bf1a4d8e2da298c3a59aecbe019f96436f439cde"
+        },
+        {
+          "frame": 9075,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/best-valid/stage150-after-skip.png",
+          "sha256": "9e30bd8a0067316143bf0b4f4f887bb353602498800bbc86ed7a3e20a064462a"
+        },
+        {
+          "frame": 10715,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/best-valid/stage150-next-phase.png",
+          "sha256": "9305f887d36c9899fd92be58c767904ede9abeaa6d98af6d6a1c082376b02d43"
+        }
+      ],
+      "commands_sha256": "36dda80a27a3796a66959dbf2b80029c6a62e965caa35a36688c03acd1c422bf",
+      "name": "best-valid",
+      "ram_writes": [
+        {
+          "command": "poke 558d64 9600",
+          "frame": 6878
+        }
+      ]
+    },
+    {
+      "captures": [
+        {
+          "frame": 5433,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/fixed/map-confirm.png",
+          "sha256": "dfcaee159ce6d3d3bf73ce5a09234764f5ea3658f31358f6ff44edc80b71a759"
+        },
+        {
+          "frame": 10975,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/fixed/stage111-continued.png",
+          "sha256": "960f7c5df4b34151efc2c787d8bf1a682e2e0634c72ab300e4eb00b861d393f1"
+        },
+        {
+          "frame": 12290,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/fixed/stage111-unit-menu.png",
+          "sha256": "7aa0c3714dfa9a26b4eb9982217eecbfa1c5ed00ca5460d453af7b7f3764a324"
+        },
+        {
+          "frame": 7570,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/fixed/stage150-opening.png",
+          "sha256": "d57065e31c0a234f83392359d16c2f04d7e0dc4bf99a1c120c3840dcb2fdf47e"
+        },
+        {
+          "frame": 9160,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/fixed/stage150-after-skip.png",
+          "sha256": "943c3f88c9202cd2e4d0b342b46a5447d6d7a76ff9472813709ec9fb0e64a398"
+        }
+      ],
+      "commands_sha256": "555c8a14debe45eb1055baae7a293c42c196cf85c33ba5398b786527e68c2b27",
+      "name": "fixed",
+      "ram_writes": [
+        {
+          "command": "poke 558d64 9600",
+          "frame": 6963
+        }
+      ]
+    },
+    {
+      "captures": [
+        {
+          "frame": 3638,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/stock-best/stage150-opening.png",
+          "sha256": "272cad528b2705277bf7411cf2403dfa12e6c62e6f09489821fc731e635e63dc"
+        },
+        {
+          "frame": 5228,
+          "path": "work/runtime/lrps2/stage47-cause-20260917/stock-best/stage150-after-skip.png",
+          "sha256": "d9acaae5640d634c73f50f37b33d229e4831f011f85fe3c6e92a6bd87f5d8d87"
+        }
+      ],
+      "commands_sha256": "efda889f4352ad1f44cd39dfd5b8dc4df85ca647e5e23a05a1cc076c2455ada8",
+      "name": "stock-best",
+      "ram_writes": [
+        {
+          "command": "poke 558d64 9600",
+          "frame": 3031
+        }
+      ]
+    }
+  ],
+  "source_iso_unchanged": true
+}
