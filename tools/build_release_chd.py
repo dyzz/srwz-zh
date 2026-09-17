@@ -27,7 +27,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.1.json"
+DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.2.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 
 # See module docstring: both values are compatibility choices, not tuning knobs.
@@ -136,23 +136,26 @@ def build_edition(
     version: str,
     verify: bool,
     quiet: bool,
+    variant_suffix: str = "",
+    create_parent: bool = True,
 ) -> dict[str, Any]:
     parent_chd = out_dir / f"srwz-jp-{name}.chd"
-    child_chd = out_dir / f"srwz-zh-v{version}-{name}.chd"
+    child_chd = out_dir / f"srwz-zh-v{version}-{name}{variant_suffix}.chd"
 
-    print(f"  parent: {parent_chd.name}")
-    run_chdman(
-        chdman,
-        [
-            "createdvd",
-            "-i", str(source_iso),
-            "-o", str(parent_chd),
-            "-c", CODEC,
-            "-hs", str(HUNK_SIZE),
-            "-f",
-        ],
-        quiet=quiet,
-    )
+    if create_parent:
+        print(f"  parent: {parent_chd.name}")
+        run_chdman(
+            chdman,
+            [
+                "createdvd",
+                "-i", str(source_iso),
+                "-o", str(parent_chd),
+                "-c", CODEC,
+                "-hs", str(HUNK_SIZE),
+                "-f",
+            ],
+            quiet=quiet,
+        )
 
     print(f"  child : {child_chd.name}")
     run_chdman(
@@ -177,20 +180,25 @@ def build_edition(
     parent_fields = chd_info(chdman, parent_chd)
     wanted = child_fields.get("Parent SHA1", "")
     got = parent_fields.get("SHA1", "")
-    if wanted != got:
+    if not wanted or not got or wanted != got:
         raise ChdBuildError(
             f"{child_chd.name}: parent link {wanted} != parent {got}"
         )
 
+    source_sha1 = sha1_file(source_iso)
+    if parent_fields.get('Data SHA1') != source_sha1:
+        raise ChdBuildError(f'{parent_chd.name}: parent logical content differs from source ISO')
     info: dict[str, Any] = {
         "edition": name,
+        "variant": "skip" if variant_suffix else "no-skip",
         "parent_chd": parent_chd.name,
         "parent_chd_size": parent_chd.stat().st_size,
         "parent_chd_sha1": got,
         "child_chd": child_chd.name,
         "child_chd_size": child_chd.stat().st_size,
         "child_chd_sha256": sha256_file(child_chd),
-        "source_iso_sha1": sha1_file(source_iso),
+        "source_iso_sha1": source_sha1,
+        "target_iso_sha256": sha256_file(target_iso),
     }
 
     if verify:
@@ -214,7 +222,11 @@ def build_edition(
                 raise ChdBuildError(
                     f"{child_chd.name}: restored sha1 {actual} != {expected}"
                 )
+            actual_sha256 = sha256_file(restored)
+            if restored.stat().st_size != target_iso.stat().st_size or actual_sha256 != info['target_iso_sha256']:
+                raise ChdBuildError(f'{child_chd.name}: extracted ISO identity mismatch')
             info["verified_sha1"] = actual
+            info["verified_sha256"] = actual_sha256
         finally:
             restored.unlink(missing_ok=True)
 
@@ -301,6 +313,14 @@ def main(argv: list[str] | None = None) -> int:
                     quiet=args.quiet,
                 )
             )
+
+            if config.get('schema_version') == 3:
+                skip_spec = spec['skip_variant']['target_iso']
+                skip_iso = PROJECT_ROOT / skip_spec['path']
+                verify_source(skip_iso, skip_spec)
+                results.append(build_edition(chdman=chdman, name=name, source_iso=source_iso,
+                    target_iso=skip_iso, out_dir=out_dir, version=version, verify=not args.no_verify,
+                    quiet=args.quiet, variant_suffix='-skip', create_parent=False))
 
         print("\n=== summary ===")
         for info in results:

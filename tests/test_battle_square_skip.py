@@ -49,7 +49,7 @@ class BattleSquareSkipTest(unittest.TestCase):
         config = json.loads(
             (PROJECT_ROOT / "config/full-story-components.json").read_text(encoding="utf-8")
         )
-        self.contract = config["battle_square_skip"]
+        self.contract = {**config["battle_square_skip"], "enabled": True}
 
     def test_contract_declares_both_editions_with_identical_layout(self) -> None:
         editions = self.contract["editions"]

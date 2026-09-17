@@ -19,7 +19,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.1.json"
+DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.2.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 ZIP_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
 
@@ -270,7 +270,7 @@ def write_deterministic_zip(
 
 def build_release(config_path: Path, *, force: bool = False) -> Path:
     config = load_json(config_path)
-    if config.get("schema_version") == 2:
+    if config.get("schema_version") in (2, 3):
         return build_dual_release(config, force=force)
     verify_config_bindings(config)
 
@@ -401,7 +401,7 @@ def build_release(config_path: Path, *, force: bool = False) -> Path:
 def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
     """Bind both patches to edition contracts and frozen final readbacks."""
     tag = config.get("tag", "")
-    if config.get("schema_version") != 2 or tag != f"v{config.get('version')}" or not config.get("version"):
+    if config.get("schema_version") not in (2, 3) or tag != f"v{config.get('version')}" or not config.get("version"):
         raise ReleaseBuildError("invalid dual release version")
     if config.get("output", {}).get("directory") != f"build/release/{tag}":
         raise ReleaseBuildError("invalid dual release output directory")
@@ -440,15 +440,52 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
             raise ReleaseBuildError(f"{edition}: semantic readback does not match target")
         if edition == "best" and proof.get("input_digest") != validation["input_digest"]:
             raise ReleaseBuildError("BEST readback belongs to a different input batch")
+    if config['schema_version'] == 3:
+        if config.get('default_variant') != 'no-skip' or set(validation.get('variants', {})) != set(editions):
+            raise ReleaseBuildError('four-patch release requires two no-skip bases and two skip variants')
+        for edition, item in editions.items():
+            variant = item.get('skip_variant', {})
+            bound = validation['variants'][edition]
+            if (variant.get('target_iso') != bound['target_iso']
+                    or variant.get('patch_filename') != f'srwz-zh-{tag}-{edition}-skip.xdelta'
+                    or variant['target_iso']['path'] != f'build/iso/{tag}/srwz-zh-{tag}-{edition}-skip.iso'):
+                raise ReleaseBuildError(f'{edition}: skip variant binding mismatch')
+            lock = bound['readback']
+            path = project_path(lock['path'])
+            verify_locked_file(path, lock, f'{edition} skip readback')
+            proof = load_json(path)
+            if (proof.get('status') != 'skip_variant_exact_transform_readback_passed'
+                    or proof.get('edition') != edition
+                    or proof.get('base_sha256') != item['target_iso']['sha256']
+                    or any(proof.get(k) != variant['target_iso'][k] for k in ('size', 'sha256'))
+                    or proof.get('only_declared_skip_changes') is not True):
+                raise ReleaseBuildError(f'{edition}: skip readback mismatch')
     return validation
+
+
+def release_targets(config):
+    for edition in ('original', 'best'):
+        item = config['editions'][edition]
+        yield edition, item
+        if config['schema_version'] == 3:
+            yield edition + '-skip', {**item, **item['skip_variant']}
 
 
 def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
     validation = verify_dual_config_bindings(config)
     # Preflight both editions before encoding either patch.
-    for edition, item in config["editions"].items():
+    for edition, item in release_targets(config):
         for role in ("source_iso", "target_iso"):
             verify_locked_file(project_path(item[role]["path"]), item[role], f"{edition} {role}")
+    if config['schema_version'] == 3:
+        # Recheck actual ISO bytes, not just a self-reported transform receipt.
+        import sys
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from srwz.release_variants import verify_variant
+        contract = load_json(project_path('config/full-story-components.json'))['battle_square_skip']
+        for edition, item in config['editions'].items():
+            verify_variant(project_path(item['target_iso']['path']),
+                           project_path(item['skip_variant']['target_iso']['path']), contract, edition)
     xdelta = config["xdelta"]
     version_line = xdelta_version(xdelta["executable"])
     if version_line != xdelta["version_line"]:
@@ -468,8 +505,9 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
         readme = [f"《超级机器人大战 Z》简体中文补丁 {config['tag']}\n",
                   "按日文原盘版本选一个补丁；不要在旧汉化镜像上重复打补丁。",
                   "操作前备份原盘与存档。本项目不提供 ISO、存档或原版游戏数据。\n"]
-        for edition in ("original", "best"):
-            item = config["editions"][edition]
+        if config["schema_version"] == 3:
+            readme.append("默认推荐不带 skip 的补丁；文件名带 -skip 的版本额外启用方块键跳过战斗动画。四份补丁均直接用于对应日文原盘。\n")
+        for edition, item in release_targets(config):
             source = project_path(item["source_iso"]["path"])
             target = project_path(item["target_iso"]["path"])
             patch = temp_dir / item["patch_filename"]
@@ -492,7 +530,7 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
         readme.extend(config.get("known_limitations", []))
         (temp_dir / "README.txt").write_text("\n".join(readme) + "\n", encoding="utf-8")
         evidence = [{"path": value, "sha256": sha256_file(project_path(value))} for value in config["evidence"]]
-        manifest = {"schema_version": 2, "version": config["version"], "tag": config["tag"],
+        manifest = {"schema_version": config["schema_version"], "version": config["version"], "tag": config["tag"],
                     "channel": config["channel"], "format": "xdelta3-vcdiff", "patches": patches,
                     "input_digest": validation["input_digest"], "runtime": validation["runtime"],
                     "tool": xdelta, "iso_in_release_package": False, "evidence": evidence}
@@ -515,7 +553,7 @@ def parse_args() -> argparse.Namespace:
         "--config",
         type=Path,
         default=DEFAULT_CONFIG,
-        help="release config (default: config/release/v0.4.1.json)",
+        help="release config (default: config/release/v0.4.2.json)",
     )
     parser.add_argument(
         "--force",

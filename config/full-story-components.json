@@ -2751,7 +2751,7 @@
     ]
   },
   "battle_square_skip": {
-    "enabled": true,
+    "enabled": false,
     "policy": "square_skips_battle_animation_via_native_tail",
     "surface": "square ends the current animation through native cleanup; resource waits and subsequent result/transition processing remain native",
     "hook_source": "tools/native/battle-square-skip/skip_hook.s",

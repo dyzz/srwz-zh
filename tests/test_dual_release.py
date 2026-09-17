@@ -52,6 +52,52 @@ class DualReleaseTests(unittest.TestCase):
     def test_accepts_two_independently_bound_editions(self):
         self.assertEqual(release.verify_dual_config_bindings(self.config), self.validation)
 
+    def add_skip_variants(self):
+        self.config.update(schema_version=3, default_variant='no-skip')
+        self.validation['variants'] = {}
+        for edition, item in self.config['editions'].items():
+            target = {**item['target_iso'],
+                      'path': item['target_iso']['path'].replace('.iso', '-skip.iso'),
+                      'sha256': ('a' if edition == 'original' else 'b') * 64}
+            item['skip_variant'] = {'target_iso': target,
+                                    'patch_filename': item['patch_filename'].replace('.xdelta', '-skip.xdelta')}
+            path = f'manifests/release/{edition}-skip.json'
+            self.write(path, {'status': 'skip_variant_exact_transform_readback_passed',
+                             'edition': edition, 'base_sha256': item['target_iso']['sha256'],
+                             'size': target['size'], 'sha256': target['sha256'],
+                             'only_declared_skip_changes': True})
+            self.validation['variants'][edition] = {'target_iso': target, 'readback': {
+                'path': path, 'size': (self.root/path).stat().st_size,
+                'sha256': release.sha256_file(self.root/path)}}
+        self.write(self.config['validation'], self.validation)
+
+    def test_four_variants_each_use_the_corresponding_japanese_source(self):
+        self.add_skip_variants()
+        release.verify_dual_config_bindings(self.config)
+        targets = dict(release.release_targets(self.config))
+        self.assertEqual(set(targets), {'original', 'original-skip', 'best', 'best-skip'})
+        for edition in ('original', 'best'):
+            self.assertEqual(targets[edition]['source_iso'], targets[edition+'-skip']['source_iso'])
+            self.assertNotEqual(targets[edition]['target_iso'], targets[edition+'-skip']['target_iso'])
+
+    def test_skip_variant_cannot_use_another_base_or_stale_receipt(self):
+        self.add_skip_variants()
+        path = self.root/'manifests/release/best-skip.json'
+        proof = json.loads(path.read_text())
+        proof['base_sha256'] = self.config['editions']['original']['target_iso']['sha256']
+        self.write(str(path.relative_to(self.root)), proof)
+        lock = self.validation['variants']['best']['readback']
+        lock.update(size=path.stat().st_size, sha256=release.sha256_file(path))
+        self.write(self.config['validation'], self.validation)
+        with self.assertRaisesRegex(release.ReleaseBuildError, 'skip readback mismatch'):
+            release.verify_dual_config_bindings(self.config)
+
+    def test_four_variant_release_rejects_missing_variant(self):
+        self.add_skip_variants()
+        del self.config['editions']['best']['skip_variant']
+        with self.assertRaisesRegex(release.ReleaseBuildError, 'skip variant binding mismatch'):
+            release.verify_dual_config_bindings(self.config)
+
     def test_rejects_best_patch_with_original_source(self):
         config = copy.deepcopy(self.config)
         config["editions"]["best"]["source_iso"] = config["editions"]["original"]["source_iso"]
