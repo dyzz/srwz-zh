@@ -14,6 +14,7 @@ from pathlib import Path
 import struct
 
 from .codec import decode_production as decode, encode
+from .stage_dispatch import check_shared_tail, relocate_dispatch, verify_dispatch
 from .compdata_best_corrections import CORRECTIONS
 from .edition import EditionError, json_bytes, load_json, project_path
 from .iso9660 import member_map, scan_iso9660
@@ -192,15 +193,16 @@ class BestCompiler:
             # Two shortened Japanese pools can use the common compiler's
             # existing allocation, within the unchanged native decoded size.
             tail = min(lo for lo, hi in regions)
-            require(len(original) == len(native) == len(compiled), f'STAGE {index}: native tail capacity')
-            regions = [(tail, len(original))]
-            mask[tail:] = b'\1' * (len(original)-tail)
+            require('event_dispatch' in layout, f'STAGE {index}: missing tail structure contract')
+            text_end = check_shared_tail(original, native, compiled, layout['event_dispatch'], tail, regions)
+            regions = [(tail, text_end)]
+            mask[tail:text_end] = b'\1' * (text_end-tail)
             adjusted = bytearray(native)
-            adjusted[tail:] = original[tail:]
+            adjusted[tail:text_end] = original[tail:text_end]
             for offset in range(0, tail-3, 4):
                 x, y, z = u32(original, offset), u32(native, offset), u32(compiled, offset)
-                if 0x7566F0+tail <= x < 0x7566F0+len(original):
-                    require(y-x in [0x800, 0x7F0, 0x7E0, 0x6B0] and 0x7566F0+tail <= z < 0x7566F0+len(original), f'STAGE {index}: native tail owner drift')
+                if 0x7566F0+tail <= x < 0x7566F0+text_end:
+                    require(y-x in [0x800, 0x7F0, 0x7E0, 0x6B0] and 0x7566F0+tail <= z < 0x7566F0+text_end, f'STAGE {index}: native tail owner drift')
                     struct.pack_into('<I', adjusted, offset, x+0x800)
             for key, entry in entries['original'].items():
                 require(entries['best'][key].pointer_offset == entry.pointer_offset, f'{key}: native owner site drift')
@@ -212,7 +214,7 @@ class BestCompiler:
             out[lo+shift:hi+shift] = compiled[lo:hi]
         if layout.get('shared_text_tail'):
             for offset in range(0, tail-3, 4):
-                if 0x7566F0+tail <= u32(original, offset) < 0x7566F0+len(original):
+                if 0x7566F0+tail <= u32(original, offset) < 0x7566F0+text_end:
                     struct.pack_into('<I', out, offset, u32(compiled, offset)+0x800)
         targets = {}
         for key, entry in entries['original'].items():
@@ -220,6 +222,8 @@ class BestCompiler:
             require(best_entry.pointer_offset == entry.pointer_offset+shift, f'{key}: BEST pointer site drift')
             dest = common_entry.text_offset+shift
             payload = self.text_payload(compiled, common_entry.text_offset)
+            if layout.get('shared_text_tail'):
+                require(tail <= dest and dest+len(payload) <= text_end, f'{key}: text overlaps event table')
             require(out[dest:dest+len(payload)] == payload, f'{key}: compiled payload placement mismatch')
             struct.pack_into('<I', out, best_entry.pointer_offset, 0x756EF0+dest)
             targets[entry.text_offset] = (best_entry.text_offset, common_entry.text_offset)
@@ -233,9 +237,12 @@ class BestCompiler:
                     bt, ct = targets[target]
                     require(u32(native, offset) == 0x756EF0+bt and u32(compiled, offset) == 0x7566F0+ct, f'STAGE {index}: alias preimage drift')
                     struct.pack_into('<I', out, offset, 0x756EF0+ct)
+        if layout.get('shared_text_tail'):
+            relocate_dispatch(out, native, layout['event_dispatch'])
+        event_proof = verify_dispatch(native, out, layout.get('event_dispatch'))
         require(len(out) == len(native), f'STAGE {index}: decoded size changed')
         self.verify_stage_texts(index, bytes(out), compiled)
-        self.stage_proofs.append({'index': index, 'entries': len(entries['best']), 'native_sha256': sha(native), 'decoded_sha256': sha(out), 'compiled_sha256': sha(compiled)})
+        self.stage_proofs.append({'index': index, 'event_dispatch': event_proof, 'entries': len(entries['best']), 'native_sha256': sha(native), 'decoded_sha256': sha(out), 'compiled_sha256': sha(compiled)})
         return bytes(out)
 
     def verify_stage_texts(self, index, output, compiled):
@@ -583,11 +590,32 @@ class BestCompiler:
                 if not block:
                     break
         require(temporary.stat().st_size == source.stat().st_size, 'BEST final ISO size drift')
+        # Independently decode the bytes read from the finished ISO, not the
+        # in-memory compiler outputs. Fail before promoting an invalid image.
+        with temporary.open('rb') as stream:
+            final_members = {}
+            for name in ('HEDBDY/HB.BIN', 'DATA/STAGE.BIN'):
+                row = actual[name]
+                stream.seek(row.extent_lba * 2048)
+                final_members[name] = stream.read(row.size)
+        offsets = words(final_members['HEDBDY/HB.BIN'][30320:31144])
+        native_offsets = self.offsets('DATA/STAGE.BIN', 'best')
+        require(len(offsets) == len(native_offsets) == 206 and offsets[0] == 0
+                and all(a < b for a, b in zip(offsets, offsets[1:]))
+                and offsets[-1] == len(final_members['DATA/STAGE.BIN']), 'STAGE readback offsets')
+        dispatch_proofs = []
+        for index in range(205):
+            native = decode(self.native['best']['DATA/STAGE.BIN'][native_offsets[index]:native_offsets[index+1]]).output
+            final = decode(final_members['DATA/STAGE.BIN'][offsets[index]:offsets[index+1]]).output
+            spec = self.contract['stage_layouts'].get(str(index), {}).get('event_dispatch')
+            dispatch_proofs.append({'index': index, 'dispatchers': verify_dispatch(native, final, spec)})
+        require(sum(bool(p['dispatchers']) for p in dispatch_proofs) == 182
+                and sum(len(p['dispatchers']) for p in dispatch_proofs) == 184, 'STAGE dispatcher coverage drift')
         temporary.replace(target)
         proof = {'schema_version':1,'status':'best_final_iso_static_content_readback_passed','input_digest':self.input_digest,
                  'iso':{'path':target.relative_to(self.root).as_posix(),'size':target.stat().st_size,'sha256':sha256_file(target)},
                  'source_iso_sha256':sha256_file(source),'member_count':len(members),'replacement_count':len(self.outputs),
-                 'stage_chunk_count':len(self.stage_proofs),'stage_text_owner_count':sum(r['entries'] for r in self.stage_proofs),
+                 'stage_event_dispatch':dispatch_proofs,'stage_chunk_count':len(self.stage_proofs),'stage_text_owner_count':sum(r['entries'] for r in self.stage_proofs),
                  'subtitle_record_count':self.srvc_proof['records'],'all_non_replacement_iso_bytes_preserved':True,
                  'native_member_sizes_and_lbas_preserved':True,'runtime':'not_tested',
                  'component_readback':{'path':(self.work/'component-validation.json').relative_to(self.root).as_posix(),'sha256':sha256_file(self.work/'component-validation.json')}}
