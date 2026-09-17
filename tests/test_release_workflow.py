@@ -227,7 +227,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 "　看来你很清楚我们是谁啊”"
             ),
             "story/001/dialogue/02.01/0017": (
-                "“果然，这帮家伙还是更适合‘玩娃娃’”"
+                "“果然，这帮家伙还是更适合玩‘洋娃娃’”"
             ),
             "story/001/dialogue/02.01/0036": (
                 "“我们重要的新人被人找茬，\n"
@@ -258,7 +258,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 "“第二次了，你还敢用那个名字叫我！”"
             ),
             "story/013/dialogue/01.13/0009": (
-                "“我要把你大解体！连螺丝都拆个稀碎！！”"
+                "“我要把你彻底解体！\n　连一颗螺丝都不留地拆开！！”"
             ),
             "story/014/dialogue/01.03/0001": (
                 "“$n！别兴奋过头一下\n"
