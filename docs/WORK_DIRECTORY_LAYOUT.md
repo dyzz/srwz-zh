@@ -18,7 +18,8 @@
 | `work/disc/`、`work/font-source/`、`work/toolchain/` | 构建所需的原版成员缓存、字体及工具链 |
 | 其他现有子目录 | 分析、编辑、写回、审计等专项材料；按用途保留 |
 
-最终 ISO、ZIP 和 xdelta 仍在 `build/`；六个 ISO 槽位及不可覆盖的冻结发布镜像见
+长期镜像改为 `build/chd/` 下的日文父 CHD 与汉化子 CHD，xdelta 和补丁 ZIP 留在
+`build/release/`。ISO / ISO ZIP 仅按需临时生成；保留与还原规则见
 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。
 
 ## 父目录迁移
@@ -62,3 +63,15 @@
 路径在同目录 `permanent-cleanup.json`。这些记录保留历史文件身份，不能再作为从
 回收站恢复已删除大文件的指引；复验历史批次时需从固定输入重建。清理不会增加
 任何运行验收结论。
+
+## 2026-09-17：CHD 保存与构建缓存清理
+
+两份日文父 CHD、v0.4.1 两份子 CHD、v0.4.2 四份子 CHD 全部重新提取并核对
+原 ISO 哈希后，删除本体 ISO、ISO ZIP、重复镜像和旧候选。两代父盘以硬链接共用数据。
+清理旧隔离构建中的生成游戏二进制，以及根工作区和私有工作区的 ISO 装配数据；
+当前组件、共享输入快照、源码、报告、布局、运行截图与存档保留。
+Special Disc 的原盘、候选及正在进行的分析不在此次清理范围。
+
+清理记录、逐文件删除清单、源码保护校验和 ISO 还原脚本位于
+`work/cleanup/chd-only-20260917/`。构建前需按需从父 CHD 还原 `rom/original.iso`
+或 `rom/best.iso`；旧历史 receipt 仍记录原始路径，不意味着临时 ISO 继续存在。

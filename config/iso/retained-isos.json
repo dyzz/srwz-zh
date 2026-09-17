@@ -1,63 +1,118 @@
 {
   "schema_version": 1,
-  "policy": "Retain twelve ISO slots: both v0.4.0 and v0.4.1 editions, four v0.4.2 variants, two source discs and two current outputs. Build copies are temporary; keep reports and runtime evidence separately.",
+  "policy": "Local disc storage is CHD only. Keep two Japanese parent CHDs, six versioned Chinese child CHDs (v0.4.1 and v0.4.2), patches and evidence. Materialize ISO paths only when required for builds or verification, then remove temporary ISO/ISO ZIP copies after checking CHD roundtrips.",
   "slots": {
     "current-original": {
       "path": "build/iso/zh-release-original/current-original.iso",
-      "role": "working"
+      "role": "working",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-original.chd",
+      "parent_chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
+      "iso_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
+      "purpose": "Current image at 2026-09-17 cleanup; a later build must archive its own bytes before cleanup."
     },
     "current-best": {
       "path": "build/iso/zh-release-best/current-best.iso",
       "role": "working",
-      "candidate": "best-current-source-v1; current build identity is recorded in manifests/editions/best/current.json"
+      "candidate": "best-current-source-v1; current build identity is recorded in manifests/editions/best/current.json",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-best.chd",
+      "parent_chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
+      "iso_sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
+      "purpose": "Current image at 2026-09-17 cleanup; a later build must archive its own bytes before cleanup."
     },
     "original": {
       "path": "rom/original.iso",
-      "role": "source"
+      "role": "source",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
+      "parent_chd_path": null,
+      "iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
     },
     "best": {
       "path": "rom/best.iso",
-      "role": "source"
+      "role": "source",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
+      "parent_chd_path": null,
+      "iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77"
     },
     "0.4.0-original": {
       "path": "build/iso/v0.4.0/0.4.0-original.iso",
       "role": "frozen_release",
-      "purpose": "Fixed ISO for reproducing and debugging v0.4.0 player reports; retain the unpacked ISO even when a ZIP exists."
+      "purpose": "Historical path only; no local ISO or CHD existed at the start of this cleanup.",
+      "local_status": "absent_before_2026-09-17_cleanup"
     },
     "0.4.0-best": {
       "path": "build/iso/v0.4.0/0.4.0-best.iso",
       "role": "frozen_release",
-      "purpose": "Fixed ISO for reproducing and debugging v0.4.0 player reports; retain the unpacked ISO even when a ZIP exists."
+      "purpose": "Historical path only; no local ISO or CHD existed at the start of this cleanup.",
+      "local_status": "absent_before_2026-09-17_cleanup"
     },
     "0.4.1-original": {
       "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso",
       "role": "frozen_release",
-      "purpose": "Fixed v0.4.1 hotfix ISO for reproducing player reports; preserve the published bytes independently of current development."
+      "purpose": "Preserve published bytes in the verified CHD; materialize the ISO only when needed.",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.1/srwz-zh-v0.4.1-original.chd",
+      "parent_chd_path": "build/chd/v0.4.1/srwz-jp-original.chd",
+      "iso_sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6"
     },
     "0.4.1-best": {
       "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
       "role": "frozen_release",
-      "purpose": "Fixed v0.4.1 hotfix ISO for reproducing player reports; preserve the published bytes independently of current development."
+      "purpose": "Preserve published bytes in the verified CHD; materialize the ISO only when needed.",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.1/srwz-zh-v0.4.1-best.chd",
+      "parent_chd_path": "build/chd/v0.4.1/srwz-jp-best.chd",
+      "iso_sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c"
     },
     "0.4.2-original": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original.iso",
       "role": "frozen_release",
-      "purpose": "Frozen v0.4.2 hotfix; preserve the published bytes independently of current development."
+      "purpose": "Preserve published bytes in the verified CHD; materialize the ISO only when needed.",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-original.chd",
+      "parent_chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
+      "iso_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c"
     },
     "0.4.2-original-skip": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original-skip.iso",
       "role": "frozen_release",
-      "purpose": "Frozen v0.4.2 hotfix; preserve the published bytes independently of current development."
+      "purpose": "Preserve published bytes in the verified CHD; materialize the ISO only when needed.",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-original-skip.chd",
+      "parent_chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
+      "iso_sha256": "83cbf6bd8863c8a8ce22113431b7c40f2c3d61aa383ff7da8fa22047930b8e47"
     },
     "0.4.2-best": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best.iso",
       "role": "frozen_release",
-      "purpose": "Frozen v0.4.2 hotfix; preserve the published bytes independently of current development."
+      "purpose": "Preserve published bytes in the verified CHD; materialize the ISO only when needed.",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-best.chd",
+      "parent_chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
+      "iso_sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a"
     },
     "0.4.2-best-skip": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best-skip.iso",
       "role": "frozen_release",
-      "purpose": "Frozen v0.4.2 hotfix; preserve the published bytes independently of current development."
+      "purpose": "Preserve published bytes in the verified CHD; materialize the ISO only when needed.",
+      "retention": "chd_only",
+      "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-best-skip.chd",
+      "parent_chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
+      "iso_sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb"
     }
-  }
+  },
+  "updated": "2026-09-17",
+  "exceptions": [
+    {
+      "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+      "reason": "Active Special Disc analysis; outside the main-game cleanup."
+    },
+    {
+      "path": "work/analysis/sp-library-canary-20260912/sp-library-canary.iso",
+      "reason": "Active Special Disc candidate; outside the main-game cleanup."
+    }
+  ]
 }

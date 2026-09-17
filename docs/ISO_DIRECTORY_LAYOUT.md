@@ -7,59 +7,58 @@
 本地工作数据统一放在本仓库的 `work/`，父目录同名目录已合并；分类、存档迁移
 与历史缓存恢复方式见 [work 目录说明](WORK_DIRECTORY_LAYOUT.md)。
 
-## 长期保留的 ISO
+## 本地长期保存 CHD，ISO 按需还原
 
-自 v0.4.2 发布后，本地长期保留以下十二份 ISO：v0.4.0 与 v0.4.1 各两版、
-v0.4.2 四种冻结发布镜像，两版日文原盘、两版 current 工作镜像。原盘使用 `original.iso` 与 `best.iso`。
-机器可读路径见 `config/iso/retained-isos.json`。
+2026-09-17 按用户要求改为只保存 CHD 镜像。本体原盘、汉化发布版、current、
+旧候选的 ISO 及上传用 ISO ZIP 不再长期占用磁盘；xdelta 补丁包、构建和运行证据继续保留。
+机器可读保留与还原映射见 `config/iso/retained-isos.json`。其中 `path` 是按需生成的
+ISO 目标路径，`chd_path` 才是本地长期保留文件，不应据此假定 ISO 已经存在。
 
-| 槽位 | 实际路径 | 用途 |
+| 长期保留文件 | 位置 | 依赖 |
 | --- | --- | --- |
-| `0.4.0-original` | `build/iso/v0.4.0/0.4.0-original.iso` | v0.4.0 初版冻结镜像 |
-| `0.4.0-best` | `build/iso/v0.4.0/0.4.0-best.iso` | v0.4.0 The Best 冻结镜像 |
-| `0.4.1-original` | `build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso` | v0.4.1 初版冻结镜像 |
-| `0.4.1-best` | `build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso` | v0.4.1 The Best 冻结镜像 |
-| `0.4.2-original` | `build/iso/v0.4.2/srwz-zh-v0.4.2-original.iso` | 默认不带 skip 的 Original 紧急修复版 |
-| `0.4.2-best` | `build/iso/v0.4.2/srwz-zh-v0.4.2-best.iso` | 默认不带 skip 的 Best 紧急修复版 |
-| `0.4.2-original-skip` | `build/iso/v0.4.2/srwz-zh-v0.4.2-original-skip.iso` | 带方块 skip 的 Original 可选版 |
-| `0.4.2-best-skip` | `build/iso/v0.4.2/srwz-zh-v0.4.2-best-skip.iso` | 带方块 skip 的 Best 可选版 |
-| `current-original` | `build/iso/zh-release-original/current-original.iso` | 当前双版本构建入口的 Original 中文工作镜像 |
-| `current-best` | `build/iso/zh-release-best/current-best.iso` | 当前 BEST 中文工作镜像；身份及回读记录见 `manifests/editions/best/current.json` |
-| `original` | `rom/original.iso` | Original 原盘，只读输入 |
-| `best` | `rom/best.iso` | BEST 原盘，只读输入 |
+| Original / Best 日文父 CHD | `build/chd/v0.4.2/srwz-jp-{original,best}.chd` | 无 |
+| v0.4.2 四份中文子 CHD | `build/chd/v0.4.2/srwz-zh-v0.4.2-{original,best}[-skip].chd` | 对应日文父盘 |
+| v0.4.1 两份中文子 CHD | `build/chd/v0.4.1/srwz-zh-v0.4.1-{original,best}.chd` | 对应日文父盘 |
 
-v0.3.0、旧 `srwz-zh-current.iso` 与各工作区中的重复 ISO 不再长期保留。两版 current
-可以随后续开发更新；八份版本化镜像保持各自发布时字节不变。两份 0.4.0 未压缩 ISO
-同时作为后续玩家反馈的固定复现与调试基准，打包 ZIP 后也继续保留；不另增调试副本。
-上传用补丁包独立保存，不计入十二个 ISO 槽位。
+v0.4.1 目录中的两个同名日文父盘是指向 v0.4.2 父盘的硬链接，共用一份文件数据；
+父盘视为不可变。每个中文子盘直接依赖对应日文父盘，带 skip 子盘不依赖不带 skip 子盘。
+父盘和子盘须一起保留。日文父盘仅本地使用，不放入公开补丁发布包。
 
-`build/chd/v0.4.2/` 独立保存两个日文父 CHD 与四个中文子 CHD。每个中文子盘直接
-依赖同版本日文父盘；带 skip 子盘不依赖不带 skip 子盘。全部子盘提取回 ISO 后
-必须与四份冻结发布 ISO 的大小及 SHA-256 一致。日文父盘仅本地使用。
+清理前已从两份父盘和六份子盘重新提取 ISO，逐一核对大小、SHA-1、SHA-256，
+确认与现有 ISO 完全一致。v0.4.0 的两份 ISO 在本次清理前已经不在本地，也没有
+对应 CHD；配置中的路径只保留历史记录，不代表可以从本地恢复。
 
-目录仍按构建 profile 隔离；统一文件名不更换底盘、不修改镜像字节。Redump 的规范
-文件名继续保留在来源元数据中，本地原盘路径使用上表名称。
+本次未处理仍在分析中的 Special Disc 原盘及其 canary ISO，也未处理仓库外的第二次 Z 镜像。
 
-构建期间允许在 `work/` 或版本隔离目录生成临时副本。验收、核对哈希并选定当前
-产物后，移除重复 ISO 和旧候选，保留上述槽位；日志、组件、布局、输入快照、
-存档和截图单独保留。阶段 1 的 Original 隔离输出
-`build/iso/zh-release-original/current-original.iso` 属于此类临时副本，
-它与当前生产输出逐字节相同时不重复长期保留。后续 BEST 构建仍写入
-`current-best` 槽位；当前源码构建能力见 [BEST 构建](BEST_CURRENT_BUILD.md)，历史候选身份由新的本版构建记录替换。
+### 构建和复验前还原 ISO
 
-清理先登记旧路径及文件身份，并确认文件未被构建或模拟器使用，再处理上述槽位
-之外的旧 ISO 和重复副本。v0.4.0 本次清理先采用带恢复清单的归档；用户随后要求
-积极清理不必要文件，已核对保留镜像和证据后永久删除清单中的旧 ISO 与缓存。
-原路径的报告与预览继续保留，最终清单见 [work 目录说明](WORK_DIRECTORY_LAYOUT.md)。
-被清理副本的历史 receipt 保留原始路径与哈希；复验历史批次时，从固定输入重建，
-或从哈希一致的保留镜像重新制作所需临时副本。清理不构成新的构建或运行验收。
+现有构建器仍使用 ISO 输入；CHD 保存方式不改变构建器的格式要求。从仓库根目录运行：
 
-发布配置与发布校验清单保留打包时的 `srwz-zh-v0.4.0-<edition>.iso` 路径，作为
-历史构建记录；本地长期保留路径以上表为准，两者的大小与 SHA-256 相同。需要复验
-原发布打包命令时，临时将对应冻结镜像复制回发布配置要求的路径，核验结束后移除
-临时副本。不得覆盖后续已经更新的 current 来复验旧发布。
+```sh
+# 列出本次归档可以还原的槽位
+python3 work/cleanup/chd-only-20260917/restore_iso.py
+# 还原构建所需的两版日文原盘
+python3 work/cleanup/chd-only-20260917/restore_iso.py original
+python3 work/cleanup/chd-only-20260917/restore_iso.py best
+# 按需还原某个冻结发布版本
+python3 work/cleanup/chd-only-20260917/restore_iso.py 0.4.2-best-skip
+```
+
+本地辅助脚本依赖 `chdman`，提取后校验 SHA-256，拒绝覆盖已有目标。
+也可直接执行 `chdman extractdvd -i <子CHD> -ip <父CHD> -o <ISO>`；
+还原日文父盘本身时不传 `-ip`。完成构建或复验后，可移除临时 ISO。
+新构建镜像须先另存为子 CHD，并通过还原校验，才能删除其唯一的 ISO 副本。
+
+`current-original` / `current-best` 的归档映射只记录此次清理时的内容，恰与 v0.4.2
+不带 skip 发布版一致；后续构建会变化，不能用旧发布版代替新 current。
+原发布配置、receipt、ZIP 清单保留历史路径和哈希，不改写成仍有文件的假象。
+源码快照、报告、布局、存档、截图和当前组件继续保留；旧游戏二进制缓存按需重建。
+完整删除清单、CHD 还原证明和恢复映射见 `work/cleanup/chd-only-20260917/`。
+本次清理不构成新的构建或模拟器运行验收。
 
 ## 1. 目录结构
+
+以下 ISO 与装配目录为构建时路径，清理后允许不存在；长期存储以以上 CHD 表格为准。
 
 ```text
 rom/
