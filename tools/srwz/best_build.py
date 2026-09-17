@@ -24,7 +24,7 @@ from .library_protagonist_names import (
     EDITIONS as LIBRARY_NAME_EDITIONS, FUNCTION_SIZE as LIBRARY_NAME_SIZE,
     apply_library_protagonist_names,
 )
-from .battle_square_skip import apply_battle_square_skip, executable_write_ranges as square_skip_ranges
+from .battle_square_skip import apply_battle_square_skip, verify_battle_square_skip, executable_write_ranges as square_skip_ranges
 
 
 def require(condition, message):
@@ -312,6 +312,8 @@ class BestCompiler:
         return out
 
     def verify_elf_policy(self, output):
+        if getattr(self, 'square_skip', None):
+            verify_battle_square_skip(bytes(output), self.square_skip, 'best', self.square_skip_proof)
         native = self.native['best']['SLPS_732.70']
         _, names = apply_library_protagonist_names(bytes(output), 'best')
         require(names['already_patched'], 'BEST LIBRARY name formatter missing')

@@ -11581,9 +11581,9 @@ def _build_components(
                 ]
                 and postgame_mode_unlock_report["executable_size_preserved"]
             ),
-            "battle_square_skip_installed": (
+            "battle_square_skip_configuration_applied": (
                 battle_square_skip_report["edition"] == "original"
-                and battle_square_skip_report["site_count"] == 5
+                and battle_square_skip_report["site_count"] == 3
                 and battle_square_skip_report["all_replacements_exact"]
                 and battle_square_skip_report["cave_preimage_all_zero"]
                 and not battle_square_skip_report["already_applied"]

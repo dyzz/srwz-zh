@@ -13,6 +13,7 @@ from tools.srwz.battle_square_skip import (
     BattleSquareSkipError,
     apply_battle_square_skip,
     executable_write_ranges,
+    verify_battle_square_skip,
 )
 
 
@@ -55,7 +56,7 @@ class BattleSquareSkipTest(unittest.TestCase):
         self.assertEqual(set(editions), {"original", "best"})
         for edition, contract in editions.items():
             blob = bytes.fromhex(contract["hook_hex"])
-            self.assertEqual(len(blob), 0x3C0, edition)
+            self.assertEqual(len(blob), 0x6C0, edition)
             self.assertEqual(hashlib.sha256(blob).hexdigest(), contract["hook_sha256"], edition)
             self.assertEqual(
                 struct.unpack_from("<I", blob, STATE_BLOCK_OFFSET + 0x1C)[0], STATE_MARKER, edition
@@ -63,10 +64,8 @@ class BattleSquareSkipTest(unittest.TestCase):
             self.assertEqual(struct.unpack_from("<I", blob, STATE_BLOCK_OFFSET)[0], 0, edition)
             self.assertEqual([site["id"] for site in contract["patches"]], [
                 "battle_step_world_call",
-                "draw_dispatch_sprite_call",
-                "se_request_prologue_0",
-                "se_request_prologue_1",
-                "main_loop_present_call",
+                "queue_append_prologue_0",
+                "queue_append_prologue_1",
             ], edition)
             self.assertEqual(contract["cave"]["virtual_address"], "0x3F6000", edition)
         # Only addresses differ between the editions; the hook logic is shared.
@@ -87,11 +86,11 @@ class BattleSquareSkipTest(unittest.TestCase):
                 self.assertFalse(report["already_applied"])
                 self.assertTrue(report["cave_preimage_all_zero"])
                 self.assertTrue(report["all_replacements_exact"])
-                self.assertEqual(report["site_count"], 5)
-                self.assertEqual(report["extra_steps_per_frame"], 15)
-                self.assertEqual(report["packet_limit_bytes"], 0x30000)
-                self.assertTrue(report["sound_effects_muted_while_skipping"])
-                self.assertTrue(report["sprites_skipped_in_extra_steps"])
+                self.assertEqual(report["site_count"], 3)
+                self.assertTrue(report["enabled"])
+                self.assertEqual(report["world_steps_per_frame"], 1)
+                self.assertTrue(report["native_resource_waits_preserved"])
+                self.assertTrue(report["native_result_processing_preserved"])
                 contract = self.contract["editions"][edition]
                 cave_offset = int(report["cave_file_offset"], 0)
                 blob = bytes.fromhex(contract["hook_hex"])
@@ -106,6 +105,34 @@ class BattleSquareSkipTest(unittest.TestCase):
                 self.assertEqual(again, patched)
                 self.assertTrue(readback["already_applied"])
                 self.assertEqual(readback["changed_byte_count"], 0)
+
+    def test_switch_defaults_on_and_off_restores_retail_for_both_editions(self):
+        for edition in ("original", "best"):
+            default = dict(self.contract)
+            default.pop("enabled", None)
+            pristine = _synthetic_executable(default, edition)
+            patched, on = apply_battle_square_skip(pristine, default, edition)
+            self.assertTrue(on["enabled"])
+            disabled = {**default, "enabled": False}
+            untouched, off = apply_battle_square_skip(pristine, disabled, edition)
+            self.assertEqual(untouched, pristine)
+            self.assertEqual(off["changed_byte_count"], 0)
+            restored, _ = apply_battle_square_skip(patched, disabled, edition)
+            self.assertEqual(restored, pristine)
+            self.assertTrue(verify_battle_square_skip(patched, default, edition, on)["component_receipt_exact"])
+            self.assertTrue(verify_battle_square_skip(pristine, disabled, edition, off)["component_receipt_exact"])
+            for data, contract in [(patched, disabled), (pristine, default)]:
+                with self.assertRaises(BattleSquareSkipError):
+                    verify_battle_square_skip(data, contract, edition)
+            with self.assertRaises(BattleSquareSkipError):
+                verify_battle_square_skip(pristine, disabled, edition, on)
+            for invalid in [0, 1, "false", None]:
+                with self.assertRaises(BattleSquareSkipError):
+                    apply_battle_square_skip(pristine, {**default, "enabled": invalid}, edition)
+
+    def test_original_matches_manually_accepted_r5(self):
+        self.assertEqual(self.contract["editions"]["original"]["hook_sha256"],
+                         "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f")
 
     def test_replacement_words_encode_jumps_into_the_cave(self) -> None:
         for edition, contract in self.contract["editions"].items():

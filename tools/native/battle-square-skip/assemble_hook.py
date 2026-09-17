@@ -18,10 +18,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SOURCE = Path(__file__).resolve().with_name("skip_hook.s")
 CONFIG = PROJECT_ROOT / "config/full-story-components.json"
-SYMBOLS = (
-    "CAVE", "DATA", "PAD_HELD", "PAD_TRIG", "CTX", "WORLD", "CURSOR", "ACTION_INDEX",
-    "FN_WORLD_STEP", "FN_SPRITE_DRAW", "FN_SE_RESUME", "FN_FLIP",
-)
+SYMBOLS = ('CAVE', 'DATA', 'PAD_TRIG', 'CTX', 'WORLD', 'ACTION_INDEX', 'ACTION_COUNT', 'ACTION_SCENE_COUNT', 'READ_BUSY', 'SCENE_QUEUE', 'FN_WORLD_STEP', 'FN_APPEND_RESUME')
 
 
 def assemble(symbols: dict[str, str]) -> bytes:

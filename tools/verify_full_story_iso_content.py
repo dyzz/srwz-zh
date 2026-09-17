@@ -83,7 +83,7 @@ from srwz.library_unlock import apply_library_default_unlock
 from srwz.full_name_order import apply_route_specific_full_name_order
 from srwz.library_protagonist_names import apply_library_protagonist_names
 from srwz.game_mode_unlock import apply_postgame_mode_unlock
-from srwz.battle_square_skip import apply_battle_square_skip
+from srwz.battle_square_skip import verify_battle_square_skip
 from srwz.movement_type_labels import apply_runtime_movement_type_labels
 from srwz.weapon_category_labels import apply_runtime_weapon_category_labels
 from srwz.search_tab_alignment import apply_search_tab_alignment
@@ -4974,44 +4974,13 @@ def main() -> int:
     battle_square_skip_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["battle_square_skip"]
-    _verified_square_skip_slps, battle_square_skip_readback = (
-        apply_battle_square_skip(
-            members["SLPS_258.87"],
-            battle_square_skip_contract,
-            "original",
-        )
-    )
     battle_square_skip_component = component.get("battle_square_skip")
-    square_skip_site_fields = (
-        "id",
-        "surface",
-        "kind",
-        "virtual_address",
-        "file_offset",
-        "original_instruction_hex",
-        "replacement_instruction_hex",
+    if not isinstance(battle_square_skip_component, dict):
+        raise SystemExit("final ISO battle square-skip receipt missing")
+    battle_square_skip_readback = verify_battle_square_skip(
+        members["SLPS_258.87"], battle_square_skip_contract, "original",
+        battle_square_skip_component,
     )
-    if (
-        not isinstance(battle_square_skip_component, dict)
-        or not isinstance(battle_square_skip_readback.get("patches"), list)
-        or not isinstance(battle_square_skip_component.get("patches"), list)
-        or [
-            tuple(site.get(field) for field in square_skip_site_fields)
-            for site in battle_square_skip_readback["patches"]
-        ]
-        != [
-            tuple(site.get(field) for field in square_skip_site_fields)
-            for site in battle_square_skip_component["patches"]
-        ]
-        or battle_square_skip_readback["already_applied"] is not True
-        or battle_square_skip_readback["changed_byte_count"] != 0
-        or battle_square_skip_readback["site_count"] != 5
-        or battle_square_skip_readback["hook_sha256"]
-        != battle_square_skip_component.get("hook_sha256")
-        or battle_square_skip_readback["all_replacements_exact"] is not True
-    ):
-        raise SystemExit("final ISO battle square-skip readback drift")
-    battle_square_skip_readback["component_receipt_exact"] = True
     movement_type_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["runtime_movement_type_labels"]

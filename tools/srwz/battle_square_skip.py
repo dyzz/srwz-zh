@@ -1,12 +1,9 @@
 """Fail-closed executable patch: square button skips to the next battle action.
 
-The retail battle demo only offers cross (skip the whole demo) and circle
-(2x pacing).  This patch adds a square-button skip: the remaining part of the
-current battle action is executed in the background at up to K logic steps per
-frame with sprites undrawn, sound effects muted and the display frozen on the
-frame shown when square was pressed; the first frame of the next action is then
-presented directly.  All battle-script commands still execute, so no scene
-state is skipped.
+The default-enabled native-tail-r5 hook preserves real resource waits, runs
+one world step per frame, and reuses a recognized native cleanup suffix before
+ending an animation. Unknown queues use native fast mode. Disabling the build
+option restores the retail square-button behavior, with no replacement hook.
 
 The hook is a pre-assembled MIPS blob (source: tools/native/battle-square-skip/
 skip_hook.s) placed in an all-zero code cave, plus a handful of retargeted
@@ -19,16 +16,14 @@ import hashlib
 import struct
 from collections.abc import Mapping, Sequence
 
-POLICY = "square_skips_to_next_battle_action_with_frozen_frame"
+POLICY = "square_skips_battle_animation_via_native_tail"
 SITE_IDS = (
     "battle_step_world_call",
-    "draw_dispatch_sprite_call",
-    "se_request_prologue_0",
-    "se_request_prologue_1",
-    "main_loop_present_call",
+    "queue_append_prologue_0",
+    "queue_append_prologue_1",
 )
-STATE_BLOCK_OFFSET = 0x380
-STATE_MARKER = 0x5A5A0010
+STATE_BLOCK_OFFSET = 0x600
+STATE_MARKER = 0x4E540005
 
 
 class BattleSquareSkipError(ValueError):
@@ -71,6 +66,8 @@ def edition_contract(raw_contract: Mapping[str, object], edition: str) -> Mappin
         raise BattleSquareSkipError("square-skip contract must be an object")
     if raw_contract.get("policy") != POLICY:
         raise BattleSquareSkipError("square-skip policy drift")
+    if not isinstance(raw_contract.get("enabled", True), bool):
+        raise BattleSquareSkipError("square-skip enabled must be a boolean")
     editions = raw_contract.get("editions")
     if not isinstance(editions, Mapping) or edition not in editions:
         raise BattleSquareSkipError(f"square-skip contract lacks edition {edition!r}")
@@ -110,7 +107,7 @@ def apply_battle_square_skip(
     raw_contract: Mapping[str, object],
     edition: str = "original",
 ) -> tuple[bytes, dict[str, object]]:
-    """Install the hook into ``executable`` or verify it is already installed.
+    """Set or verify the configured hook state in ``executable``.
 
     A pristine executable must show all-zero cave bytes and the retail
     instruction at every site; an already patched executable must show the
@@ -118,6 +115,7 @@ def apply_battle_square_skip(
     """
 
     contract = edition_contract(raw_contract, edition)
+    enabled = raw_contract.get("enabled", True)
     member = contract.get("member")
     if not isinstance(member, str) or not member.startswith("SLPS_"):
         raise BattleSquareSkipError("square-skip executable member drift")
@@ -129,7 +127,9 @@ def apply_battle_square_skip(
     cave_address = _number(cave.get("virtual_address"), "cave address")
     cave_size = _number(cave.get("size"), "cave size")
     blob = _hex_bytes(contract.get("hook_hex"), "hook bytes")
-    if len(blob) > cave_size or len(blob) < STATE_BLOCK_OFFSET + 0x38:
+    if cave_address != 0x3F6000 or cave_size != 0x800:
+        raise BattleSquareSkipError("native-tail cave layout drift")
+    if len(blob) != STATE_BLOCK_OFFSET + 0xC0:
         raise BattleSquareSkipError("hook blob does not fit the declared cave")
     if hashlib.sha256(blob).hexdigest() != contract.get("hook_sha256"):
         raise BattleSquareSkipError("hook blob hash drift")
@@ -183,7 +183,7 @@ def apply_battle_square_skip(
         else:
             raise BattleSquareSkipError(f"square-skip site {site.get('id')} preimage drift")
         site_states.append(state)
-        output[offset : offset + 4] = replacement
+        output[offset : offset + 4] = replacement if enabled else original
         site_reports.append(
             {
                 "id": site.get("id"),
@@ -199,11 +199,15 @@ def apply_battle_square_skip(
     if len(set(site_states)) != 1 or (site_states[0] == "applied") != cave_applied:
         raise BattleSquareSkipError("square-skip executable is partially patched")
     already_applied = cave_applied
-    output[cave_offset : cave_offset + len(blob)] = blob
+    output[cave_offset : cave_offset + cave_size] = (
+        blob + bytes(cave_size - len(blob)) if enabled else bytes(cave_size)
+    )
 
     changed = sum(1 for a, b in zip(source, output) if a != b)
     report = {
         "policy": POLICY,
+        "enabled": enabled,
+        "configuration_matches_before": cave_applied == enabled,
         "edition": edition,
         "member": member,
         "cave_virtual_address": f"0x{cave_address:06X}",
@@ -213,10 +217,9 @@ def apply_battle_square_skip(
         "hook_size": len(blob),
         "hook_sha256": contract.get("hook_sha256"),
         "state_marker": f"0x{STATE_MARKER:08X}",
-        "extra_steps_per_frame": struct.unpack_from("<I", blob, STATE_BLOCK_OFFSET + 0x14)[0],
-        "packet_limit_bytes": struct.unpack_from("<I", blob, STATE_BLOCK_OFFSET + 0x28)[0],
-        "sound_effects_muted_while_skipping": bool(struct.unpack_from("<I", blob, STATE_BLOCK_OFFSET + 0x30)[0]),
-        "sprites_skipped_in_extra_steps": bool(struct.unpack_from("<I", blob, STATE_BLOCK_OFFSET + 0x34)[0]),
+        "world_steps_per_frame": 1,
+        "native_resource_waits_preserved": True,
+        "native_result_processing_preserved": True,
         "site_count": len(site_reports),
         "patches": site_reports,
         "already_applied": already_applied,
@@ -224,8 +227,32 @@ def apply_battle_square_skip(
         "executable_size_preserved": len(output) == len(source),
         "all_replacements_exact": all(
             output[int(site["file_offset"], 0) : int(site["file_offset"], 0) + 4].hex()
-            == site["replacement_instruction_hex"]
+            == site["replacement_instruction_hex" if enabled else "original_instruction_hex"]
             for site in site_reports
         ),
     }
     return bytes(output), report
+
+
+def verify_battle_square_skip(
+    executable: bytes,
+    raw_contract: Mapping[str, object],
+    edition: str = "original",
+    component_receipt: Mapping[str, object] | None = None,
+) -> dict[str, object]:
+    """Read-only verification of enabled AND disabled output and its receipt."""
+    output, report = apply_battle_square_skip(executable, raw_contract, edition)
+    if output != executable or not report["configuration_matches_before"]:
+        raise BattleSquareSkipError("square-skip output does not match enabled setting")
+    if component_receipt is not None:
+        for field in ("policy", "enabled", "edition", "member", "hook_sha256", "site_count",
+                      "cave_virtual_address", "cave_size", "state_marker"):
+            if component_receipt.get(field) != report[field]:
+                raise BattleSquareSkipError(f"square-skip receipt drift: {field}")
+        def sites(value):
+            return [{k: v for k, v in site.items() if k != "state_before"}
+                    for site in value.get("patches", [])]
+        if sites(component_receipt) != sites(report):
+            raise BattleSquareSkipError("square-skip receipt site drift")
+        report["component_receipt_exact"] = True
+    return report
