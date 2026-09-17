@@ -3,7 +3,7 @@
   "status": "integrated_global_zh_release_library_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-library-integrated-v1",
   "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes, plus the reviewed v0.2 robot, character and keyword encyclopedia members.",
-  "stage_postprocess_signature": "544b3897034b4639b987b761e94a446819d6a41245eab551499ff986ad4fb40f",
+  "stage_postprocess_signature": "a912afb0c289dd514a37e2a3654bd73f818fff256f3857fdb7a9aa813470ddc5",
   "build_groups": [
     {
       "id": "core_runtime_members",
@@ -55,8 +55,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 104239,
-      "sha256": "bbe216758050bd42379860c6e417a2c74086f1cdc568523f0ee50a645a86fdcc"
+      "size": 105615,
+      "sha256": "ccc5e2b30b92d566589104398d5b3b6754d2106586e1f1263d848ca558bcc0a9"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -106,7 +106,7 @@
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307912,
-      "sha256": "8f943b43d409629552bb20b91c76e86c91e462329cb4989eabfd38ba215e0e09"
+      "sha256": "346e81cc81e199f2a8bba15db112071dbbb6fc3d2b1e39a27f9f61da90f1bb4b"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -80310,25 +80310,26 @@
     "executable_size_preserved": true
   },
   "battle_square_skip": {
-    "policy": "square_skips_to_next_battle_action_with_frozen_frame",
+    "policy": "square_skips_battle_animation_via_native_tail",
+    "enabled": true,
+    "configuration_matches_before": false,
     "edition": "original",
     "member": "SLPS_258.87",
     "cave_virtual_address": "0x3F6000",
     "cave_file_offset": "0x2F7A80",
-    "cave_size": 1024,
+    "cave_size": 2048,
     "cave_preimage_all_zero": true,
-    "hook_size": 960,
-    "hook_sha256": "226d4496043bac68404a5e2a55434781225126f4e82474bde41c288c47796f31",
-    "state_marker": "0x5A5A0010",
-    "extra_steps_per_frame": 15,
-    "packet_limit_bytes": 196608,
-    "sound_effects_muted_while_skipping": true,
-    "sprites_skipped_in_extra_steps": true,
-    "site_count": 5,
+    "hook_size": 1728,
+    "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
+    "state_marker": "0x4E540005",
+    "world_steps_per_frame": 1,
+    "native_resource_waits_preserved": true,
+    "native_result_processing_preserved": true,
+    "site_count": 3,
     "patches": [
       {
         "id": "battle_step_world_call",
-        "surface": "per-frame battle step: call of the world-step function",
+        "surface": "battle step world call",
         "kind": "jal",
         "virtual_address": "0x2E3DF4",
         "file_offset": "0x1E5874",
@@ -80337,48 +80338,28 @@
         "state_before": "pristine"
       },
       {
-        "id": "draw_dispatch_sprite_call",
-        "surface": "draw dispatcher: call of the type-0 sprite renderer",
-        "kind": "jal",
-        "virtual_address": "0x2F70EC",
-        "file_offset": "0x1F8B6C",
-        "original_instruction_hex": "0cbe0b0c",
-        "replacement_instruction_hex": "b0d80f0c",
-        "state_before": "pristine"
-      },
-      {
-        "id": "se_request_prologue_0",
-        "surface": "sound-effect request function: first prologue instruction",
+        "id": "queue_append_prologue_0",
+        "surface": "queue append prologue 0",
         "kind": "j",
-        "virtual_address": "0x180E80",
-        "file_offset": "0x082900",
-        "original_instruction_hex": "90ffbd27",
-        "replacement_instruction_hex": "c0d80f08",
+        "virtual_address": "0x2EBF10",
+        "file_offset": "0x1ED990",
+        "original_instruction_hex": "20038290",
+        "replacement_instruction_hex": "40d90f08",
         "state_before": "pristine"
       },
       {
-        "id": "se_request_prologue_1",
-        "surface": "sound-effect request function: second prologue instruction (replayed by the stub)",
+        "id": "queue_append_prologue_1",
+        "surface": "queue append prologue 1",
         "kind": "nop",
-        "virtual_address": "0x180E84",
-        "file_offset": "0x082904",
-        "original_instruction_hex": "5000bfff",
+        "virtual_address": "0x2EBF14",
+        "file_offset": "0x1ED994",
+        "original_instruction_hex": "c0100200",
         "replacement_instruction_hex": "00000000",
-        "state_before": "pristine"
-      },
-      {
-        "id": "main_loop_present_call",
-        "surface": "main loop: per-frame display present call",
-        "kind": "jal",
-        "virtual_address": "0x1438B8",
-        "file_offset": "0x045338",
-        "original_instruction_hex": "fab4050c",
-        "replacement_instruction_hex": "d0d80f0c",
         "state_before": "pristine"
       }
     ],
     "already_applied": false,
-    "changed_byte_count": 380,
+    "changed_byte_count": 748,
     "executable_size_preserved": true,
     "all_replacements_exact": true
   },
@@ -80623,8 +80604,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "21ab3c5c29d6068c6fb031e0bf16a29ac6feb85c924c343fa8e125e52f722c04",
-    "output_sha256": "12d6c87d1267cbe7218200f93a5c3b8e1c7c0f61f58350d6818fff87d16d066a",
+    "source_sha256": "45ccebe477118594cf1cc99be014c39c566ca26b06a0c8c97077f112c4cd5ed3",
+    "output_sha256": "0c336ae52c4764e65426f7b06867d39ee00b7c44de5e7ed617a72a45ad728ba1",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -80706,8 +80687,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "12d6c87d1267cbe7218200f93a5c3b8e1c7c0f61f58350d6818fff87d16d066a",
-    "output_sha256": "f72b5475728ec8fe0122802cf3c5758521e66c9f3fbc452c03dabe81e53689d5"
+    "source_sha256": "0c336ae52c4764e65426f7b06867d39ee00b7c44de5e7ed617a72a45ad728ba1",
+    "output_sha256": "47a9c9ea34607f6de48e690e921f821e6a340ab1a193301e0c8a753678f187e9"
   },
   "bazaar_top_help_alignment": {
     "policy": "shift_purchase_help_left_without_changing_text",
@@ -80789,8 +80770,8 @@
     "all_instruction_replacements_exact": true,
     "text_bytes_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "f72b5475728ec8fe0122802cf3c5758521e66c9f3fbc452c03dabe81e53689d5",
-    "output_sha256": "7af23f7e8a75a081aea7df121a15744328d8a2066da4c3324c596b411be6333d"
+    "source_sha256": "47a9c9ea34607f6de48e690e921f821e6a340ab1a193301e0c8a753678f187e9",
+    "output_sha256": "e39e1a05f1270fd48b313e920c6064698f04e920f1e53e713b64f509452cdb99"
   },
   "command_status_label_alignment": {
     "policy": "align_chinese_sr_points_with_turn_count",
@@ -80820,8 +80801,8 @@
     "text_bytes_untouched": true,
     "turn_count_coordinate_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "7af23f7e8a75a081aea7df121a15744328d8a2066da4c3324c596b411be6333d",
-    "output_sha256": "fb9a1a2241ee892a8a2e20b953fc65a887c4081c6dad085764f02080e5f6022a"
+    "source_sha256": "e39e1a05f1270fd48b313e920c6064698f04e920f1e53e713b64f509452cdb99",
+    "output_sha256": "6cc0d05100fabb89b9282f406c4d0869f5124b628a96b08b7d8c4295e7bd223f"
   },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -80842,8 +80823,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "fb9a1a2241ee892a8a2e20b953fc65a887c4081c6dad085764f02080e5f6022a",
-    "output_sha256": "94486a98d1a3b2abb553c47286c68923981f4bbebc63bb98f939c19703e1ee78",
+    "source_sha256": "6cc0d05100fabb89b9282f406c4d0869f5124b628a96b08b7d8c4295e7bd223f",
+    "output_sha256": "2dfcaebcbf329f3c62a3564379498831a657276c3e1d6b10b0644d022947ea0c",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -80888,8 +80869,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "94486a98d1a3b2abb553c47286c68923981f4bbebc63bb98f939c19703e1ee78",
-    "output_sha256": "ff6272acbe680614fb852683baec38d5fb6901a3d86858a5647bcc804fedda25",
+    "source_sha256": "2dfcaebcbf329f3c62a3564379498831a657276c3e1d6b10b0644d022947ea0c",
+    "output_sha256": "e3deb1b518e03161eab1f8db32d68463ae89b08cdac94f7f69bc70c5071006cd",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -89112,7 +89093,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "d47f123f7f4832603abd27b1f6ee8f39915ff3c6b04b492e63264109703a8460"
+      "sha256": "4399cf810b7fed38191808f90c45c2c7b2e7a8ab975a927fcf15a0b97e824206"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -89251,7 +89232,7 @@
     "library_protagonist_names_custom_preserved": true,
     "runtime_full_name_order_route_specific": true,
     "postgame_ex_and_sp_rows_selectable": true,
-    "battle_square_skip_installed": true,
+    "battle_square_skip_configuration_applied": true,
     "runtime_movement_type_labels_simplified": true,
     "runtime_weapon_category_labels_simplified": true,
     "dialogue_speaker_colors_restored": true,
