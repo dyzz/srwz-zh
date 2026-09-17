@@ -504,13 +504,11 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
         patches = {}
         readme = [f"《超级机器人大战 Z》简体中文补丁 {config['tag']}\n",
                   "按日文原盘版本选一个补丁；不要在旧汉化镜像上重复打补丁。",
-                  "操作前备份原盘与存档。本项目不提供 ISO、存档或原版游戏数据。\n"]
+                  "操作前备份原盘与存档。本补丁包不包含 ISO 或原版游戏数据。\n"]
         if config["schema_version"] == 3:
             readme.append("默认推荐不带 skip 的补丁；四份补丁均直接用于对应日文原盘。\n"
-                          "带 -skip 版：战斗动画中按住方块键（□），当前演出会尽快收尾并衔接下一次行动；"
-                          "持续按住可继续跳过后续行动的演出，松开后后续行动恢复正常播放。"
-                          "伤害和战斗结果照常结算，必要的加载与收尾等待仍会保留，不保证按下后立即切走。"
-                          "默认不带 skip 的版本保持原有按键行为。\n")
+                          "带 -skip 版：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"
+                          "跳到战斗动画的下一个阶段。\n")
         for edition, item in release_targets(config):
             source = project_path(item["source_iso"]["path"])
             target = project_path(item["target_iso"]["path"])
