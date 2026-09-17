@@ -506,7 +506,11 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
                   "按日文原盘版本选一个补丁；不要在旧汉化镜像上重复打补丁。",
                   "操作前备份原盘与存档。本项目不提供 ISO、存档或原版游戏数据。\n"]
         if config["schema_version"] == 3:
-            readme.append("默认推荐不带 skip 的补丁；文件名带 -skip 的版本额外启用方块键跳过战斗动画。四份补丁均直接用于对应日文原盘。\n")
+            readme.append("默认推荐不带 skip 的补丁；四份补丁均直接用于对应日文原盘。\n"
+                          "带 -skip 版：战斗动画中按住方块键（□），当前演出会尽快收尾并衔接下一次行动；"
+                          "持续按住可继续跳过后续行动的演出，松开后后续行动恢复正常播放。"
+                          "伤害和战斗结果照常结算，必要的加载与收尾等待仍会保留，不保证按下后立即切走。"
+                          "默认不带 skip 的版本保持原有按键行为。\n")
         for edition, item in release_targets(config):
             source = project_path(item["source_iso"]["path"])
             target = project_path(item["target_iso"]["path"])

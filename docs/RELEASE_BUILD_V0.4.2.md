@@ -13,7 +13,7 @@
 最终双版本输入摘要：`531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858`。
 构建快照在上述提交前已经包含实际工作树修改，因此快照的 `source_head` 仍为 `cfa8669`，不能只凭该字段推断构建内容。
 
-逐文件核对确认：编译所用生产工具、语料、字库及版本布局配置与提交后源码一致。随后更新的 `retained-isos.json` 仅增加发布镜像保留槽位。快照还包含一份预先存在、未参与生产构建的只读分析模块 `tools/srwz/stage_events.py`，本次没有将他人的未提交工作纳入提交。详见 [源码绑定](../manifests/releases/v0.4.2/source-binding.json)。
+逐文件核对确认：生成游戏字节所用的工具、语料、字库及版本布局配置与提交后源码一致。随后更新的 `retained-isos.json` 仅增加发布镜像保留槽位，`build_release.py` 仅补充打包 README 的“按住方块”操作说明。快照还包含一份预先存在、未参与生产构建的只读分析模块 `tools/srwz/stage_events.py`，本次没有将他人的未提交工作纳入提交。详见 [源码绑定](../manifests/releases/v0.4.2/source-binding.json)。
 
 ## 冻结镜像
 

@@ -1,6 +1,6 @@
 {
   "input_digest": "531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858",
-  "scope": "All captured production tools, corpus, encoding/font inputs and layout contracts match; release metadata added after compilation.",
+  "scope": "All game-byte-producing tools, corpus, encoding/font inputs and layout contracts match. ISO retention metadata and packaging README instructions changed after compilation.",
   "snapshot_source_head": "cfa86692ec5ac9f8fbec7828fbaece19fe1c5552",
   "source_commits": [
     "d5646c1",
@@ -14,6 +14,12 @@
       "reason": "ISO retention inventory only; does not generate game bytes",
       "release_sha256": "f368c2cdc4515f760e1bf6c34287d331a8d2fffe4a67d3e088ae66962d6f3d77",
       "snapshot_sha256": "6199b81c6b7c2b523515e6e1bca68504904103fd87a43dc7d218f913bd100d29"
+    },
+    {
+      "path": "tools/build_release.py",
+      "reason": "Packaging README hold-square instructions only; no ISO byte changes",
+      "release_sha256": "3cba506863725922d5f5d59d18c41fccffd0078a192950be6a94f62bde61aa44",
+      "snapshot_sha256": "ee7affc7b113241dff741a8394cda899d03d821097eea3300cfcf1872ccd3a3c"
     }
   ],
   "untracked_analysis_inputs": [
