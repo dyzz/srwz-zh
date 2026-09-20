@@ -42,6 +42,7 @@ from srwz.release_font import (
     selected_translation_tree_entries,
 )
 from srwz.text import load_text_table
+from srwz.native_period import PERIOD_CHARACTERS, native_period_metadata
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -316,6 +317,8 @@ def main() -> int:
     raster_grays = {}
 
     def rasterize(character: str) -> tuple[str, dict]:
+        if character in PERIOD_CHARACTERS:
+            return character, native_period_metadata(original_font)
         gray, pixels, packed = rasterize_character(
             rasterizer["executable"],
             fallback_paths.get(character, font_path),
@@ -365,6 +368,11 @@ def main() -> int:
             "[cache] release font rasters reused: "
             f"characters={len(required_raster_characters)}; {raster_cache_reason}"
         )
+
+    # Override after cache loading as well: an older Harmony raster must never
+    # survive a cached rebuild of the approved Japanese period policy.
+    for character in PERIOD_CHARACTERS:
+        rasters[character] = native_period_metadata(original_font)
 
     def expand(
         row: dict,

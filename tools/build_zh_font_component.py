@@ -33,6 +33,9 @@ from srwz.font import (
     standard_glyph_index,
 )
 from srwz.font_profile import FontProfileError, load_font_profile
+from srwz.native_period import (
+    PERIOD_CHARACTERS, native_period_metadata, native_period_raster,
+)
 from srwz.font_source import (
     FontSourceError,
     font_source_metadata,
@@ -208,6 +211,8 @@ def main() -> int:
 
     def rasterize_assignment(assignment: dict) -> tuple[bytes, bytes, bytes]:
         character = assignment["character"]
+        if character in PERIOD_CHARACTERS:
+            return native_period_raster(original_font.decoded)
         if character in raster_grays:
             return _handoff_raster(raster_grays[character], assignment["raster"]["raw_gray_sha256"])
         return rasterize_character(
@@ -334,6 +339,8 @@ def main() -> int:
             }
             if "metrics" in assignment["raster"]:
                 actual_raster["metrics"] = glyph_raster_metrics(pixels)
+            if character in PERIOD_CHARACTERS:
+                actual_raster = native_period_metadata(original_font.decoded)
         if actual_raster != assignment["raster"]:
             raise SystemExit(f"raster lock drift for {character!r}")
         if before == packed:
