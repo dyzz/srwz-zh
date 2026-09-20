@@ -2,45 +2,28 @@
   "adapter": "best-current-source-v1",
   "edition_contract_sha256": "9aa1ca3f6af7b94391303abc1092900ef2ae2ca933b1ba467535061652446686",
   "edition_id": "best",
-  "input_digest": "531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858",
+  "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "size": 3755081728,
-    "sha256": "993f18a02574dafc87474c29adbac4324a364d72a3d5d1ae427cd502f3a50230"
+    "sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
+    "size": 3755081728
   },
   "readback": {
-    "path": "manifests/qa-best-writeback-20260920.json",
-    "sha256": "fc799a04a1e3c424b047ac96a72c937a8e824ffae89ca7e615fc4c312cc016fa",
-    "scope": "Q&A and protected ISO ranges"
+    "path": "work/build/zh-release-best/1bbfee01f8cbd025297ce133bfeb73ff8c852c91128624fcc0f19b34baf1d5ed/project/work/build/best-current/iso-readback.json",
+    "sha256": "e185207631f901e49c25506a0b62df87f049d9626ea5444a436782c614df8471",
+    "stage_count": 205,
+    "translation_entry_count": 84338
   },
-  "runtime": "qa_lrps2_open_scroll_verified",
+  "runtime": "not_tested",
   "schema_version": 1,
   "shared_frontend": {
     "edition": "original",
-    "input_digest": "531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858",
-    "iso_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
-    "readback_sha256": "684faddc5cda1b68272c2e21edbea81ed1bd859afc0fcf78c971304d7f1b7fe0"
+    "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
+    "iso_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+    "readback_sha256": "d6abc996c973752fa18831c98fa59a3dc1c5ba98d422c245f9afad9b86eeb2ac"
   },
-  "source_head": "cfa86692ec5ac9f8fbec7828fbaece19fe1c5552",
+  "source_head": "0d90035e0870e8899cc7b1ab61ed1a6b1ae29db4",
   "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
-  "status": "edition_qa_update_static_and_lrps2_verified",
-  "workspace": "work/build/zh-release-best/1ebc6e3a9aaebd5d9849dd479a700e6a9761ac79903a6ff3acbb2deaf9446546/project",
-  "qa_baseline": {
-    "output": {
-      "path": "build/iso/zh-release-best/current-best.iso",
-      "size": 3755081728,
-      "sha256": "44ee01476bbe24e3cdf7b07a57d04afa8d0b03bc139ef3c1cc3b43448c4d5625"
-    },
-    "readback": {
-      "path": "work/authoring/qa-main-20260920/best/baselines/44ee01476bbe24e3cdf7b07a57d04afa8d0b03bc139ef3c1cc3b43448c4d5625/readback.json",
-      "sha256": "3823765e9c7aa9f63e75e4e6e7069845d42d2dcb96c9a27f32831a692b54371c",
-      "scope": "Q&A and protected ISO ranges"
-    },
-    "status": "edition_qa_update_static_validated_runtime_pending"
-  },
-  "qa_runtime_evidence": {
-    "path": "manifests/qa-main-runtime-20260920.json",
-    "sha256": "fbd6835e00d2be540129e5001f8908b22bfbdfe21083e7e07d5889b12b74f173",
-    "scope": "Q&A only"
-  }
+  "status": "edition_iso_static_validated_runtime_pending",
+  "workspace": "work/build/zh-release-best/1bbfee01f8cbd025297ce133bfeb73ff8c852c91128624fcc0f19b34baf1d5ed/project"
 }

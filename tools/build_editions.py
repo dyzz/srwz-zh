@@ -21,6 +21,7 @@ import sys
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.release_inputs import copy_file, freeze_inputs, seed_original_caches, sha256_file, verify_files
+from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -90,7 +91,10 @@ def prepare_original_members(context: BuildContext) -> None:
     # the private project. Existing CLI behaviour in the legacy tool is intact.
     from build_text_update_iso import collect_original_member_locks
     root = context.project_root
-    locks = collect_original_member_locks(sorted((root / "config").rglob("*.json")))
+    # SP export tables include array-root JSON and describe another disc.
+    configs = (path for path in (root / "config").rglob("*.json")
+               if "special-disc" not in path.relative_to(root / "config").parts)
+    locks = collect_original_member_locks(sorted(configs))
     iso = project_path(root, context.profile.source_iso.path, "rom")
     members = member_map(scan_iso9660(iso))
     with iso.open("rb") as source:
@@ -144,7 +148,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool)
     # dispatcher. Each component still verifies its own frozen asset contract.
     run_phase(context, "components", ["tools/rebuild_zh_font.py", "--skip-fetch", "--refresh-manifests", "--force-rebuild",
                                       "--cache", "work/cache/editions/original/font-chain.json"])
-    run_phase(context, "iso", ["tools/build_iso.py", "--config", LEGACY_CONFIG, "--refresh-output-locks"])
+    run_phase(context, "iso", ["tools/build_iso.py", "--config", LEGACY_CONFIG, "--refresh-output-locks", "--refresh-extraction"])
     run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", "--force",
                                     "--cache", "work/cache/editions/original/iso-content.json"])
     cfg = load_json(root / LEGACY_CONFIG)
@@ -226,6 +230,46 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     }
 
 
+def build_sp(context: BuildContext, snapshot) -> dict:
+    """Rebuild the current SP corpus over its verified native font baseline."""
+    root = context.project_root
+    snapshot.materialize(root)
+    locked_sp_inputs(root)
+    source = context.profile.source_iso.path
+    copy_file(context.root / source, root / source)
+    verify_disc(root, context.profile)
+    run_phase(context, "rust-compressor", ["tools/build_rust_compressor.py", "--force"])
+    run_phase(context, "sp-full-text", ["tools/special_disc/writeback/build_full_text.py"])
+    run_phase(context, "sp-independent-readback", ["tools/special_disc/verification/verify_full_text.py"])
+    proof_path = root / "build/iso/special-disc/sp-current.json"
+    proof = load_json(proof_path)
+    independent = root / "work/build/special-disc/full-text/independent-readback.json"
+    proof["independent_readback"] = {"path": independent.relative_to(root).as_posix(),
+                                     "sha256": sha256_file(independent)}
+    atomic_json(proof_path, proof)
+    validate_sp_readback(root, proof)
+    verify_files(snapshot.project_root, list(snapshot.files))
+    # SP builders must never mutate the captured source/baseline inputs.
+    verify_files(root, list(snapshot.files))
+    built = project_path(root, proof["iso"]["path"], "build/iso/special-disc")
+    context.output_iso.parent.mkdir(parents=True, exist_ok=True)
+    temporary = context.output_iso.with_suffix(".tmp.iso")
+    copy_file(built, temporary)
+    if sha256_file(temporary) != proof["iso"]["sha256"]:
+        raise EditionError("SP promotion copy drift")
+    temporary.replace(context.output_iso)
+    atomic_json(context.output_iso.with_suffix(".json"), proof)
+    return {
+        "schema_version": 1, "edition_id": "sp", "adapter": context.profile.adapter,
+        "status": "edition_iso_static_validated_runtime_pending", "input_digest": snapshot.digest,
+        "source_head": snapshot.source_head, "edition_contract_sha256": context.profile.contract_sha256,
+        "source_iso_sha256": context.profile.source_iso.sha256,
+        "output": {**proof["iso"], "path": context.output_iso.relative_to(context.root).as_posix()},
+        "readback": {"path": proof_path.relative_to(context.root).as_posix(), "sha256": sha256_file(proof_path)},
+        "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
+    }
+
+
 def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False) -> dict:
     root = root.resolve()
     profiles = load_release_profiles(root, config, requested)
@@ -252,7 +296,8 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
     with ExitStack() as stack:
         for profile in sorted(build_profiles.values(), key=lambda p: p.edition_id):
             stack.enter_context(edition_lock(project_path(root, f"work/cache/editions/{profile.edition_id}/build.lock", "work/cache")))
-        snapshot = freeze_inputs(root)
+        additional = locked_sp_inputs(root) if "sp" in build_profiles else ()
+        snapshot = freeze_inputs(root, additional)
         if load_release_profiles(snapshot.project_root, config, tuple(build_profiles)) != tuple(build_profiles.values()):
             raise EditionError("edition contracts changed during input capture")
         contexts = {name: BuildContext(root, profile, snapshot.digest) for name, profile in build_profiles.items()}
@@ -266,13 +311,18 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
         try:
             results = {}
             # One frontend execution even for reversed target order or BEST-only.
-            original = contexts["original"]
-            results["original"] = build_original(original, snapshot, legacy_equivalence=legacy_equivalence)
+            if "original" in contexts:
+                original = contexts["original"]
+                results["original"] = build_original(original, snapshot, legacy_equivalence=legacy_equivalence)
+                atomic_json(original.receipt, results["original"])
             if "best" in contexts:
                 results["best"] = build_best(contexts["best"], snapshot, original, results["original"])
+                atomic_json(contexts["best"].receipt, results["best"])
+            if "sp" in contexts:
+                results["sp"] = build_sp(contexts["sp"], snapshot)
+                atomic_json(contexts["sp"].receipt, results["sp"])
             for name in requested:
                 context, result = contexts[name], results[name]
-                atomic_json(context.receipt, result)
                 batch["results"].append(result)
                 atomic_json(batch_path, batch)
         except Exception as error:
@@ -287,7 +337,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default=DEFAULT_CONFIG)
-    parser.add_argument("--editions", default="original,best")
+    parser.add_argument("--editions", default="original,best,sp")
     parser.add_argument("--plan", action="store_true", help="Show registered targets without writing or building.")
     parser.add_argument("--require-legacy-equivalence", action="store_true", help="Fail before promotion unless all Original component and ISO bytes match the frozen legacy locks.")
     args = parser.parse_args()

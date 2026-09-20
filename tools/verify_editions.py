@@ -11,6 +11,7 @@ import sys
 
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
 from srwz.release_inputs import sha256_file, verify_files
+from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -49,11 +50,14 @@ def verify_batch(root: Path, manifest: Path) -> dict:
         if sha256_file(proof) != result["readback"]["sha256"]:
             raise EditionError("edition semantic readback receipt drift")
         readback = load_json(proof)
-        expected_status = {"original": "full_story_final_iso_static_content_readback_passed", "best": "best_final_iso_static_content_readback_passed"}[profile.edition_id]
+        expected_status = {"original": "full_story_final_iso_static_content_readback_passed", "best": "best_final_iso_static_content_readback_passed", "sp": "all_current_draft_text_written_static_verified_runtime_pending"}[profile.edition_id]
         if (readback["status"] != expected_status
                 or readback["iso"]["sha256"] != result["output"]["sha256"]
                 or readback["iso"]["size"] != result["output"]["size"]):
             raise EditionError("semantic readback belongs to a different ISO")
+        if profile.edition_id == "sp":
+            locked_sp_inputs(source_path.parent / "project")
+            validate_sp_readback(context.project_root, readback)
         if profile.edition_id == "best":
             frontend = result["shared_frontend"]
             if (frontend["edition"] != "original" or frontend["input_digest"] != digest
@@ -73,7 +77,7 @@ def verify_batch(root: Path, manifest: Path) -> dict:
                 or shared["iso_sha256"] != results["original"]["output"]["sha256"]):
             raise EditionError("dual outputs do not share the same frontend")
     return {"status": "edition_batch_receipt_integrity_passed", "input_digest": digest,
-            "verified_editions": list(requested), "both_editions": set(requested) == {"original", "best"},
+            "verified_editions": list(requested), "both_editions": {"original", "best"}.issubset(requested),
             "runtime": "not_tested", "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"}
 
 

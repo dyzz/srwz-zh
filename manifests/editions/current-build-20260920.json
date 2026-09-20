@@ -1,0 +1,94 @@
+{
+  "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
+  "input_snapshot": "work/build/shared/8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e/inputs.json",
+  "release_config": "config/release/dual-current.json",
+  "requested_editions": [
+    "original",
+    "best",
+    "sp"
+  ],
+  "results": [
+    {
+      "adapter": "original-production-v1",
+      "edition_contract_sha256": "a8b5b0d5dd0ae4cb1e4174a268ebb8acad72c66aa9d2f63e928e14467f628f54",
+      "edition_id": "original",
+      "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
+      "legacy_equivalence": {
+        "baseline_iso_sha256": "83cbf6bd8863c8a8ce22113431b7c40f2c3d61aa383ff7da8fa22047930b8e47",
+        "member_count": 25,
+        "passed": false,
+        "required": false
+      },
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+        "size": 3758358528
+      },
+      "readback": {
+        "path": "work/build/zh-release-original/724072d6bcb12da3accb9890a520597c7d02df70bed0bd294eedbc1ba3191004/project/manifests/zh-release-full-story-iso-content-validation.json",
+        "sha256": "d6abc996c973752fa18831c98fa59a3dc1c5ba98d422c245f9afad9b86eeb2ac",
+        "stage_count": 170,
+        "translation_entry_count": 93071
+      },
+      "runtime": "not_tested",
+      "schema_version": 1,
+      "source_head": "0d90035e0870e8899cc7b1ab61ed1a6b1ae29db4",
+      "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+      "status": "edition_iso_static_validated_runtime_pending",
+      "workspace": "work/build/zh-release-original/724072d6bcb12da3accb9890a520597c7d02df70bed0bd294eedbc1ba3191004/project"
+    },
+    {
+      "adapter": "best-current-source-v1",
+      "edition_contract_sha256": "9aa1ca3f6af7b94391303abc1092900ef2ae2ca933b1ba467535061652446686",
+      "edition_id": "best",
+      "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
+        "size": 3755081728
+      },
+      "readback": {
+        "path": "work/build/zh-release-best/1bbfee01f8cbd025297ce133bfeb73ff8c852c91128624fcc0f19b34baf1d5ed/project/work/build/best-current/iso-readback.json",
+        "sha256": "e185207631f901e49c25506a0b62df87f049d9626ea5444a436782c614df8471",
+        "stage_count": 205,
+        "translation_entry_count": 84338
+      },
+      "runtime": "not_tested",
+      "schema_version": 1,
+      "shared_frontend": {
+        "edition": "original",
+        "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
+        "iso_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+        "readback_sha256": "d6abc996c973752fa18831c98fa59a3dc1c5ba98d422c245f9afad9b86eeb2ac"
+      },
+      "source_head": "0d90035e0870e8899cc7b1ab61ed1a6b1ae29db4",
+      "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+      "status": "edition_iso_static_validated_runtime_pending",
+      "workspace": "work/build/zh-release-best/1bbfee01f8cbd025297ce133bfeb73ff8c852c91128624fcc0f19b34baf1d5ed/project"
+    },
+    {
+      "adapter": "sp-full-text-v1",
+      "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
+      "edition_id": "sp",
+      "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "faf9d218816f79545ec703f3669714443baf82e740131cb97fbe9da3bbe217f1",
+        "size": 3791781888
+      },
+      "readback": {
+        "path": "work/build/zh-release-sp/c05abd56911fbf71cbf8c74e240ce2d5be93f75f3d9f0fb006a636fbe6f6b0b7/project/build/iso/special-disc/sp-current.json",
+        "sha256": "da9d986582aab7f3449cd277250477039160faa6f0ee935863671404a9cf038d"
+      },
+      "runtime": "not_tested",
+      "schema_version": 1,
+      "source_head": "0d90035e0870e8899cc7b1ab61ed1a6b1ae29db4",
+      "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+      "status": "edition_iso_static_validated_runtime_pending",
+      "workspace": "work/build/zh-release-sp/c05abd56911fbf71cbf8c74e240ce2d5be93f75f3d9f0fb006a636fbe6f6b0b7/project"
+    }
+  ],
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "status": "requested_editions_static_validated_runtime_pending"
+}

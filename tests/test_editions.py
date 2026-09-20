@@ -46,6 +46,53 @@ class EditionTests(unittest.TestCase):
         self.assertEqual([row["available"] for row in result["targets"]], [True, True])
         self.assertFalse((self.root / "work").exists())
 
+    def test_sp_plan_and_output_keep_native_identity(self):
+        result = build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("original", "best", "sp"), plan=True)
+        self.assertEqual(result["targets"][-1]["executable"], "SLPS_259.20")
+        profile, = load_release_profiles(self.root, build_editions.DEFAULT_CONFIG, ("sp",))
+        context = BuildContext(self.root, profile, "a" * 64)
+        self.assertEqual(context.output_iso, self.root / "build/iso/special-disc/sp-current.iso")
+        self.assertFalse((self.root / "work").exists())
+
+    def test_sp_only_does_not_build_main_game_frontend(self):
+        with patch.object(build_editions, "verify_disc"), patch.object(build_editions, "locked_sp_inputs", return_value=()), \
+                patch.object(build_editions, "build_original") as original, \
+                patch.object(build_editions, "build_sp", return_value={"edition_id": "sp"}) as sp, \
+                patch("srwz.release_inputs.subprocess.check_output", return_value="test-head\n"):
+            batch = build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("sp",))
+        original.assert_not_called()
+        self.assertEqual(sp.call_count, 1)
+        self.assertEqual(batch["results"], [{"edition_id": "sp"}])
+
+    def test_failed_sp_never_reports_successful_batch(self):
+        with patch.object(build_editions, "verify_disc"), patch.object(build_editions, "locked_sp_inputs", return_value=()), \
+                patch.object(build_editions, "build_sp", side_effect=EditionError("SP readback failed")), \
+                patch("srwz.release_inputs.subprocess.check_output", return_value="test-head\n"):
+            with self.assertRaisesRegex(EditionError, "SP readback failed"):
+                build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("sp",))
+        self.assertFalse((self.root / "manifests/editions/sp/current.json").exists())
+        batch = json.loads(next((self.root / "work/editions").glob("*/sp.json")).read_text())
+        self.assertEqual(batch["status"], "failed")
+
+    def test_sp_baseline_lock_rejects_missing_or_changed_input(self):
+        from srwz.sp_edition import locked_sp_inputs
+        with self.assertRaisesRegex(EditionError, "SP locked dependency missing or changed"):
+            locked_sp_inputs(self.root)
+
+    def test_extra_baseline_and_editorial_inputs_are_frozen(self):
+        paths = ("work/build/special-disc/baselines/test.xdelta", "config/editorial/special-disc/test.json")
+        for raw in paths:
+            path = self.root / raw
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"reviewed dependency")
+        with patch("srwz.release_inputs.subprocess.check_output", return_value="test-head\n"):
+            snapshot = freeze_inputs(self.root, paths)
+        (self.root / paths[0]).write_bytes(b"later mutation")
+        target = self.root / "private"
+        snapshot.materialize(target)
+        self.assertEqual((target / paths[0]).read_bytes(), b"reviewed dependency")
+        self.assertEqual((target / paths[1]).read_bytes(), b"reviewed dependency")
+
     def test_best_is_rejected_before_any_disc_read_or_output_write(self):
         path = self.root / "config/editions/best/edition.json"
         profile = json.loads(path.read_text())
@@ -103,6 +150,10 @@ class EditionTests(unittest.TestCase):
         batch = json.loads(next((self.root/"work/editions").glob("*/original-best.json")).read_text())
         self.assertEqual(batch["status"],"failed")
         self.assertFalse((self.root/"manifests/editions/best/current.json").exists())
+        # A later backend failure must not leave the already promoted Original
+        # ISO paired with an older current receipt.
+        self.assertEqual(json.loads((self.root/"manifests/editions/original/current.json").read_text()),
+                         {"edition_id": "original"})
 
     def test_duplicate_keys_and_duplicate_targets_are_rejected(self):
         p = self.root / "config/duplicate.json"

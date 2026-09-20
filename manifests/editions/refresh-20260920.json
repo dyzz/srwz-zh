@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "status": "three_current_editions_static_verified",
+  "batch": {
+    "path": "manifests/editions/current-build-20260920.json",
+    "sha256": "aa53d35685f6796ccd834f354e6bc6ed14f13cd6ed746bc0ae36d9e2760d31b2"
+  },
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+      "size": 3758358528
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
+      "size": 3755081728
+    },
+    "sp": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "faf9d218816f79545ec703f3669714443baf82e740131cb97fbe9da3bbe217f1",
+      "size": 3791781888
+    }
+  },
+  "qa_retention": {
+    "original": {
+      "iso_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+      "slot": [
+        513744,
+        555056
+      ],
+      "before_decoded_sha256": "60bd421801bd77d879a5b5e039b45bf09aa4800a51f2abcfd3fd6a05733410be",
+      "after_decoded_sha256": "60bd421801bd77d879a5b5e039b45bf09aa4800a51f2abcfd3fd6a05733410be",
+      "decoded_bytes_exact": true,
+      "scope": "Q&A text, record geometry, style and control metadata; not a new emulator run"
+    },
+    "best": {
+      "iso_sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
+      "slot": [
+        498256,
+        555056
+      ],
+      "before_decoded_sha256": "60bd421801bd77d879a5b5e039b45bf09aa4800a51f2abcfd3fd6a05733410be",
+      "after_decoded_sha256": "60bd421801bd77d879a5b5e039b45bf09aa4800a51f2abcfd3fd6a05733410be",
+      "decoded_bytes_exact": true,
+      "scope": "Q&A text, record geometry, style and control metadata; not a new emulator run"
+    },
+    "sp": {
+      "iso_sha256": "faf9d218816f79545ec703f3669714443baf82e740131cb97fbe9da3bbe217f1",
+      "slot": [
+        615184,
+        654784
+      ],
+      "before_decoded_sha256": "20223753576a151322015a30c0a6efc26497bb5d31eb75c6a288ec4c498c5fb3",
+      "after_decoded_sha256": "20223753576a151322015a30c0a6efc26497bb5d31eb75c6a288ec4c498c5fb3",
+      "decoded_bytes_exact": true,
+      "scope": "Q&A text, record geometry, style and control metadata; not a new emulator run"
+    }
+  },
+  "sp": {
+    "coverage": {
+      "additional_chart_episode_labels": 128,
+      "additional_chart_key_help": 5,
+      "additional_chart_z_ending_titles": 3,
+      "additional_native_unit_name_pointers": 9,
+      "additional_native_unit_names": 5,
+      "corpora": [
+        {
+          "corpus": "corpus/zh/special-disc/story-dialogue.json",
+          "entries": 5999,
+          "pending": [],
+          "sha256": "ce672ca695f8a68d508439e6eaf1184ac6c498c48b8e023032173d42947a8b48",
+          "targets": 5999
+        },
+        {
+          "corpus": "corpus/zh/special-disc/challenge-dialogue.json",
+          "entries": 831,
+          "pending": [],
+          "sha256": "55fbbe88008afb11dee7351fdd4ae5afa6217749f8b6b4ab19173eb6e980fc44",
+          "targets": 831
+        },
+        {
+          "corpus": "corpus/zh/special-disc/battle-lines.json",
+          "entries": 123,
+          "pending": [],
+          "sha256": "0017e5aa4732f98faa79bfa019779d985eda2693fe3e9f59f0384077d5aa5f85",
+          "targets": 123
+        },
+        {
+          "corpus": "corpus/zh/special-disc/frame-text.json",
+          "entries": 286,
+          "pending": [],
+          "sha256": "554e6faa162a13ad2c62a5c6d8ecaf95b07c8da4a2767f59e7a14ff38a32d97a",
+          "targets": 335
+        },
+        {
+          "corpus": "corpus/zh/special-disc/system-text.json",
+          "entries": 1390,
+          "pending": [],
+          "sha256": "67126b59648e3d44ca2c2e71ca0ce35c2ffcb5444ac94a419c004daabd8f99d8",
+          "targets": 1612
+        }
+      ],
+      "formation_cells": 1338,
+      "frame_bindings": 147,
+      "image_labels": 5,
+      "inherited_world_map_titles": 10,
+      "pending_targets": [],
+      "sp_battle_entries": 123,
+      "sp_battle_records": 269,
+      "sp_title_drawing_records": 16,
+      "stage_bindings": 10464,
+      "stage_chunks": 42,
+      "stage_entry_title_images_rewritten": 20,
+      "stage_entry_title_slots": 21,
+      "total_entries": 8629,
+      "unassigned_display_characters": []
+    },
+    "independent_counts": {
+      "native_unit_names": 5,
+      "native_unit_name_pointers": 9,
+      "inherited_world_map_titles": 10,
+      "stage_entry_title_slots": 21,
+      "stage_entry_title_images_rewritten": 20,
+      "terrain_names": 621,
+      "weapon_detail_runtime_labels": 4,
+      "chart_visibility_instructions": 1,
+      "stage_text_records": 8754,
+      "formation_cells": 1338,
+      "frame_targets": 147,
+      "chart_episode_labels": 128,
+      "chart_final_episode_labels": 5,
+      "chart_empty_labels_preserved": 3,
+      "chart_z_titles_audited": 110,
+      "chart_z_ending_titles": 3,
+      "chart_key_help": 5,
+      "ticker_slots": 35,
+      "ticker_sources": 12,
+      "system_writes": 1679
+    },
+    "hsfc_slot": {
+      "member": "DATA/HSFC.BIN",
+      "chunk": 0,
+      "allocated": 5072,
+      "compressed": 5071
+    },
+    "repeat_build_iso_identical": true
+  },
+  "chd": {
+    "original": {
+      "path": "build/chd/current-20260920/current-original.chd",
+      "size": 34824776,
+      "sha256": "c93efab10edefb2a5474c60403bea2c944f94fcf9bf3bce7932174d174b98836",
+      "parent": {
+        "path": "build/chd/current-20260920/srwz-jp-original.chd",
+        "size": 2567472320,
+        "sha256": "04dda50a4f1d61ba56c873ea46a12f41366490d3480c3ba303a21d984889f0f8"
+      },
+      "roundtrip_iso_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+      "roundtrip_matches_current_iso": true
+    },
+    "best": {
+      "path": "build/chd/current-20260920/current-best.chd",
+      "size": 38074025,
+      "sha256": "2deb938826d2ed6302e67fe2e307f0b11bea4bb24757922f4bf1456c4e4268a1",
+      "parent": {
+        "path": "build/chd/current-20260920/srwz-jp-best.chd",
+        "size": 2564683504,
+        "sha256": "38cc2273c87c1681f6b626caf81ff311f35eb117b2f94613a882dc9c5ce82b0d"
+      },
+      "roundtrip_iso_sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
+      "roundtrip_matches_current_iso": true
+    }
+  },
+  "tests": {
+    "edition_orchestration": {
+      "run": 27,
+      "passed": 27
+    },
+    "special_disc": {
+      "run": 76,
+      "passed": 76
+    },
+    "qa": {
+      "run": 18,
+      "passed": 18
+    },
+    "dual_release": {
+      "run": 10,
+      "passed": 10
+    },
+    "note": "Groups overlap; do not sum these into a unique test count.",
+    "initial_full_suite": {
+      "run": 423,
+      "failures": 2,
+      "errors": 1,
+      "skipped": 1,
+      "failed_tests": [
+        "test_repairer_labels_use_natural_chinese_person_term",
+        "test_v030_042_escape_wording_is_context_bound"
+      ],
+      "error_test": "test_structural_inventory_and_fixed_slots_cover_every_report",
+      "error_reason": "Root legacy work cache has stale codebook allocation registry binding.",
+      "fresh_private_build_z_reports_retest": "1 test passed with the rebuilt font proposal."
+    }
+  },
+  "runtime": "New ISO emulator and manual acceptance not performed; historical Q&A runtime evidence is not promoted to full-ISO acceptance."
+}

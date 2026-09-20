@@ -98,9 +98,11 @@ python3 tools/verify_full_story_iso_content.py --force
 build/iso/zh-release-full-story/current-original.iso
 ```
 
-同批构建 Original 与 BEST 时，另需 `rom/best.iso`，再运行
-`python3 tools/build_editions.py --editions original,best`。此入口冻结同一份中文输入，
-为两版生成独立 ISO 和回读记录；原盘身份、输出位置及运行验证边界见
+统一入口 `python3 tools/build_editions.py` 默认刷新并构建 Original、BEST 与 SP，
+冻结同一批源码与各版依赖，生成独立 ISO 和回读记录。
+只构建本篇可用 `--editions original,best`，只构建 SP 可用 `--editions sp`。
+SP 需要日文原盘、xdelta3 和锁定的字体／基线组件；准备方法、输出路径与验证命令见
+[三版本构建](docs/BUILD_EDITIONS.md)。本篇原盘身份及运行验证边界见
 [当前 BEST 构建](docs/BEST_CURRENT_BUILD.md)。
 
 本地完整 ISO 只用于开发和运行验证，不进入发布包。v0.4.2 发布要求先完成

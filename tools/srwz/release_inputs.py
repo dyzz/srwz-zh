@@ -41,7 +41,7 @@ def copy_file(source: Path | str, target: Path | str) -> str:
     return str(target)
 
 
-def source_inventory(root: Path) -> list[dict]:
+def source_inventory(root: Path, additional_paths: tuple[str, ...] = ()) -> list[dict]:
     root = root.resolve()
     rows = []
     for name in SOURCE_ROOTS:
@@ -62,6 +62,16 @@ def source_inventory(root: Path) -> list[dict]:
                     raise EditionError(f"build input is a symlink: {relative}")
                 rows.append({"path": relative, "size": path.stat().st_size,
                              "sha256": sha256_file(path), "mode": path.stat().st_mode & 0o777})
+    existing = {row["path"] for row in rows}
+    for relative in additional_paths:
+        if relative in existing:
+            continue
+        path = project_path(root, relative)
+        if (root / relative).is_symlink() or not path.is_file():
+            raise EditionError(f"missing or symlinked frozen dependency: {relative}")
+        rows.append({"path": relative, "size": path.stat().st_size,
+                     "sha256": sha256_file(path), "mode": path.stat().st_mode & 0o777})
+        existing.add(relative)
     return sorted(rows, key=lambda row: row["path"])
 
 
@@ -79,6 +89,7 @@ class InputSnapshot:
     digest: str
     source_head: str
     files: tuple[dict, ...]
+    additional_paths: tuple[str, ...] = ()
 
     @property
     def project_root(self) -> Path:
@@ -91,13 +102,13 @@ class InputSnapshot:
         for row in self.files:
             copy_file(self.project_root / row["path"], project_path(target, row["path"]))
         verify_files(target, list(self.files))
-        if source_inventory(target) != list(self.files):
+        if source_inventory(target, self.additional_paths) != list(self.files):
             raise EditionError("private project contains inputs outside the frozen snapshot")
 
 
-def freeze_inputs(root: Path) -> InputSnapshot:
+def freeze_inputs(root: Path, additional_paths: tuple[str, ...] = ()) -> InputSnapshot:
     root = root.resolve()
-    rows = source_inventory(root)
+    rows = source_inventory(root, additional_paths)
     digest = hashlib.sha256(json_bytes(rows)).hexdigest()
     shared = project_path(root, "work/build/shared", "work/build")
     shared.mkdir(parents=True, exist_ok=True)
@@ -106,7 +117,7 @@ def freeze_inputs(root: Path) -> InputSnapshot:
         existing = load_json(destination / "inputs.json")
         if existing.get("input_digest") != digest or existing.get("files") != rows:
             raise EditionError("shared input snapshot identity drift")
-        snapshot = InputSnapshot(destination, digest, existing["source_head"], tuple(rows))
+        snapshot = InputSnapshot(destination, digest, existing["source_head"], tuple(rows), additional_paths)
         verify_files(snapshot.project_root, rows)
         return snapshot
     source_head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
@@ -116,7 +127,7 @@ def freeze_inputs(root: Path) -> InputSnapshot:
             copy_file(root / row["path"], temporary / "project" / row["path"])
         verify_files(temporary / "project", rows)
         # Detect edits and newly added input files during capture, before using it.
-        if source_inventory(root) != rows:
+        if source_inventory(root, additional_paths) != rows:
             raise EditionError("build inputs changed during snapshot capture; retry with the new inputs")
         (temporary / "inputs.json").write_bytes(json_bytes({
             "schema_version": 1, "input_digest": digest, "source_head": source_head,
@@ -132,7 +143,7 @@ def freeze_inputs(root: Path) -> InputSnapshot:
     finally:
         if temporary.exists():
             shutil.rmtree(temporary)
-    return InputSnapshot(destination, digest, source_head, tuple(rows))
+    return InputSnapshot(destination, digest, source_head, tuple(rows), additional_paths)
 
 
 def seed_original_caches(source: Path, target: Path) -> None:
@@ -146,7 +157,7 @@ def seed_original_caches(source: Path, target: Path) -> None:
     build = source / "work/build"
     if build.is_dir():
         directories.extend(path for path in build.iterdir() if path.is_dir()
-                           and not path.name.startswith(("best-", "zh-release-original", "zh-release-best", "shared", "stage-canary")))
+                           and not path.name.startswith(("best-", "zh-release-original", "zh-release-best", "zh-release-sp", "shared", "stage-canary", "special-disc")))
     directories.extend(source / "work/review" / name for name in ("aid-battle-prompts-zh", "tricmn-battle-overlays-zh"))
     for directory in directories:
         if directory.is_dir():

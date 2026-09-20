@@ -2,7 +2,7 @@
   "adapter": "original-production-v1",
   "edition_contract_sha256": "a8b5b0d5dd0ae4cb1e4174a268ebb8acad72c66aa9d2f63e928e14467f628f54",
   "edition_id": "original",
-  "input_digest": "531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858",
+  "input_digest": "8beea19f6c3bf422b79b17cfa1dc41c73bf8405885aee66f79b6e467f411965e",
   "legacy_equivalence": {
     "baseline_iso_sha256": "83cbf6bd8863c8a8ce22113431b7c40f2c3d61aa383ff7da8fa22047930b8e47",
     "member_count": 25,
@@ -11,36 +11,19 @@
   },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "size": 3758358528,
-    "sha256": "a2b02c6820d7f1369ad255ad265dbd8d3eea387b2e116dca6b2c7a695227e79b"
+    "sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+    "size": 3758358528
   },
   "readback": {
-    "path": "manifests/qa-original-writeback-20260920.json",
-    "sha256": "e8c21056561bd0c1b6cdfcb4a130a9d1151cc795a865566ef873848485d4feb5",
-    "scope": "Q&A and protected ISO ranges"
+    "path": "work/build/zh-release-original/724072d6bcb12da3accb9890a520597c7d02df70bed0bd294eedbc1ba3191004/project/manifests/zh-release-full-story-iso-content-validation.json",
+    "sha256": "d6abc996c973752fa18831c98fa59a3dc1c5ba98d422c245f9afad9b86eeb2ac",
+    "stage_count": 170,
+    "translation_entry_count": 93071
   },
-  "runtime": "qa_lrps2_open_scroll_verified",
+  "runtime": "not_tested",
   "schema_version": 1,
-  "source_head": "cfa86692ec5ac9f8fbec7828fbaece19fe1c5552",
+  "source_head": "0d90035e0870e8899cc7b1ab61ed1a6b1ae29db4",
   "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
-  "status": "edition_qa_update_static_and_lrps2_verified",
-  "workspace": "work/build/zh-release-original/388152fa50e72ed8f4edf6887d9eb1f37130dfc5ee92ba7baf3238aaee22c02f/project",
-  "qa_baseline": {
-    "output": {
-      "path": "build/iso/zh-release-original/current-original.iso",
-      "size": 3758358528,
-      "sha256": "77a5c4f317522d397a13c6ee392bde488b61925b2be4613dfa7f5768c4266cc6"
-    },
-    "readback": {
-      "path": "work/authoring/qa-main-20260920/original/baselines/77a5c4f317522d397a13c6ee392bde488b61925b2be4613dfa7f5768c4266cc6/readback.json",
-      "sha256": "9fc8390eb07eb00afe980edab244697a683bd8952e8e0151533118c76e900b4e",
-      "scope": "Q&A and protected ISO ranges"
-    },
-    "status": "edition_qa_update_static_validated_runtime_pending"
-  },
-  "qa_runtime_evidence": {
-    "path": "manifests/qa-main-runtime-20260920.json",
-    "sha256": "fbd6835e00d2be540129e5001f8908b22bfbdfe21083e7e07d5889b12b74f173",
-    "scope": "Q&A only"
-  }
+  "status": "edition_iso_static_validated_runtime_pending",
+  "workspace": "work/build/zh-release-original/724072d6bcb12da3accb9890a520597c7d02df70bed0bd294eedbc1ba3191004/project"
 }

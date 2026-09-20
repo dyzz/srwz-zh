@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "edition_id": "sp",
+  "profile_id": "zh-release-sp",
+  "adapter": "sp-full-text-v1",
+  "source_iso": {
+    "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+    "size": 3791781888,
+    "sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952"
+  },
+  "executable": {
+    "member": "SLPS_259.20",
+    "size": 3982200,
+    "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+  },
+  "layout": {
+    "stage_base": "0x8045F0",
+    "stage_function_table": "0x358980",
+    "compdata_base": "0x764F80"
+  },
+  "compdata_corrections": "preserve_sp_native_fields"
+}

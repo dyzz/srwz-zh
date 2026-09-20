@@ -22,8 +22,10 @@ Git 或发布 ZIP。
 ISO 长期保留 `0.4.0-original`、`0.4.0-best`、`current-original`、`current-best`、
 `original`、`best` 六个槽位，实际路径及清理规则见
 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。普通生产入口
-构建 Original；同批双版本入口为 `python3 tools/build_editions.py --editions original,best`，
-会从当前源码生成 Original 与 BEST，详见 [当前 BEST 构建](BEST_CURRENT_BUILD.md)。
+构建 Original；统一入口 `python3 tools/build_editions.py` 默认构建 Original、BEST 与 SP。
+`--editions original,best` 保留本篇双版本构建，`--editions sp` 单独构建 SP。
+三版依赖、输出与回读方式见 [三版本构建](BUILD_EDITIONS.md)，本篇后端详见
+[当前 BEST 构建](BEST_CURRENT_BUILD.md)。
 
 ## 按物理文件构建
 

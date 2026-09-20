@@ -1,27 +1,27 @@
 {
   "schema_version": 1,
-  "policy": "Local disc storage is CHD only. Keep two Japanese parent CHDs, six versioned Chinese child CHDs (v0.4.1 and v0.4.2), patches and evidence. Materialize ISO paths only when required for builds or verification, then remove temporary ISO/ISO ZIP copies after checking CHD roundtrips.",
+  "policy": "Keep Japanese parent CHDs, versioned releases, accepted Q&A snapshots and current main-game child CHDs. Current ISO paths remain materialized for build review. SP retains one current ISO plus verified baseline deltas.",
   "slots": {
     "current-original": {
       "path": "build/iso/zh-release-original/current-original.iso",
       "role": "working",
       "retention": "chd_only",
-      "chd_path": "build/chd/qa-20260920/current-original.chd",
-      "parent_chd_path": "build/chd/qa-20260920/srwz-jp-original.chd",
-      "iso_sha256": "a2b02c6820d7f1369ad255ad265dbd8d3eea387b2e116dca6b2c7a695227e79b",
-      "purpose": "Current Q&A layout update 2026-09-20; CHD roundtrip verified. ISO remains materialized for review; frozen releases remain separate.",
-      "local_status": "materialized_for_qa_review"
+      "chd_path": "build/chd/current-20260920/current-original.chd",
+      "parent_chd_path": "build/chd/current-20260920/srwz-jp-original.chd",
+      "iso_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+      "purpose": "Current full build 2026-09-20; static readback and CHD roundtrip verified. ISO remains materialized for review; frozen releases remain separate.",
+      "local_status": "materialized_for_build_review"
     },
     "current-best": {
       "path": "build/iso/zh-release-best/current-best.iso",
       "role": "working",
       "candidate": "best-current-source-v1; current build identity is recorded in manifests/editions/best/current.json",
       "retention": "chd_only",
-      "chd_path": "build/chd/qa-20260920/current-best.chd",
-      "parent_chd_path": "build/chd/qa-20260920/srwz-jp-best.chd",
-      "iso_sha256": "993f18a02574dafc87474c29adbac4324a364d72a3d5d1ae427cd502f3a50230",
-      "purpose": "Current Q&A layout update 2026-09-20; CHD roundtrip verified. ISO remains materialized for review; frozen releases remain separate.",
-      "local_status": "materialized_for_qa_review"
+      "chd_path": "build/chd/current-20260920/current-best.chd",
+      "parent_chd_path": "build/chd/current-20260920/srwz-jp-best.chd",
+      "iso_sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
+      "purpose": "Current full build 2026-09-20; static readback and CHD roundtrip verified. ISO remains materialized for review; frozen releases remain separate.",
+      "local_status": "materialized_for_build_review"
     },
     "original": {
       "path": "rom/original.iso",
@@ -29,7 +29,8 @@
       "retention": "chd_only",
       "chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
       "parent_chd_path": null,
-      "iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+      "iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+      "local_status": "materialized_for_build"
     },
     "best": {
       "path": "rom/best.iso",
@@ -37,7 +38,8 @@
       "retention": "chd_only",
       "chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
       "parent_chd_path": null,
-      "iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77"
+      "iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+      "local_status": "materialized_for_build"
     },
     "0.4.0-original": {
       "path": "build/iso/v0.4.0/0.4.0-original.iso",
@@ -104,25 +106,26 @@
       "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-best-skip.chd",
       "parent_chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
       "iso_sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb"
+    },
+    "current-sp": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "role": "working",
+      "retention": "single_current_iso",
+      "iso_sha256": "faf9d218816f79545ec703f3669714443baf82e740131cb97fbe9da3bbe217f1",
+      "receipt": "manifests/editions/sp/current.json",
+      "purpose": "Unified SP full-text build; locked baseline deltas replace historical full baseline ISOs.",
+      "local_status": "materialized_for_build_review"
     }
   },
   "updated": "2026-09-20",
   "exceptions": [
     {
       "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
-      "reason": "Active Special Disc analysis; outside the main-game cleanup."
+      "reason": "Active Special Disc source; outside the main-game CHD retention policy."
     },
     {
-      "path": "build/iso/special-disc/preview/sp-image-preview.iso",
-      "reason": "Pinned input to the SP text-canary builder; keep until the dependency is retired."
-    },
-    {
-      "path": "build/iso/special-disc/text-candidate/sp-text-canary.iso",
-      "reason": "Pinned input to the SP full-text builder; keep until the dependency is retired."
-    },
-    {
-      "path": "build/iso/special-disc/full-text/sp-zh-full-text.iso",
-      "reason": "Current SP Chinese text image; ARMSX2 scans this directory directly. Identity is in its adjacent JSON manifest."
+      "path": "build/iso/special-disc/sp-current.iso",
+      "reason": "Single current SP ISO. Baseline inputs are verified deltas under work/build/special-disc/baselines."
     }
   ]
 }

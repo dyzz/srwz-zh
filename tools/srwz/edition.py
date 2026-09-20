@@ -81,7 +81,7 @@ class EditionProfile:
         if set(d) != required or d["schema_version"] != 1:
             raise EditionError("unknown or missing edition contract fields")
         edition = d["edition_id"]
-        if edition not in {"original", "best"} or d["profile_id"] != f"zh-release-{edition}":
+        if edition not in {"original", "best", "sp"} or d["profile_id"] != f"zh-release-{edition}":
             raise EditionError("edition/profile identity mismatch")
         source = FileIdentity.parse(d["source_iso"])
         executable = FileIdentity.parse(d["executable"], "member")
@@ -96,10 +96,11 @@ class EditionProfile:
         expected = {
             "original": ("SLPS_258.87", (0x7566F0, 0x2FF0B0, 0x6D6800), "apply_original_four_fields"),
             "best": ("SLPS_732.70", (0x756EF0, 0x2FF830, 0x6D7000), "preserve_best_native_fields"),
+            "sp": ("SLPS_259.20", (0x8045F0, 0x358980, 0x764F80), "preserve_sp_native_fields"),
         }[edition]
         if (executable.path, values, d["compdata_corrections"]) != expected:
             raise EditionError("edition member/layout/correction policy mismatch")
-        expected_adapter = {"original": "original-production-v1", "best": "best-current-source-v1"}[edition]
+        expected_adapter = {"original": "original-production-v1", "best": "best-current-source-v1", "sp": "sp-full-text-v1"}[edition]
         if d["adapter"] not in (None, expected_adapter):
             raise EditionError("edition adapter mismatch; Original adapter cannot build BEST")
         return cls(edition, d["profile_id"], d["adapter"], source, executable,
@@ -145,6 +146,8 @@ class BuildContext:
 
     @property
     def output_iso(self) -> Path:
+        if self.profile.edition_id == "sp":
+            return self._path("build/iso/special-disc/sp-current.iso", "build/iso")
         return self._path(f"build/iso/{self.profile.profile_id}/current-{self.profile.edition_id}.iso", "build/iso")
 
     @property
@@ -160,7 +163,7 @@ def load_release_profiles(root: Path, path: str, requested: tuple[str, ...]) -> 
         raise EditionError("shared library/animation policy drift")
     if not requested or len(set(requested)) != len(requested):
         raise EditionError("editions must be nonempty and unique")
-    if not isinstance(d["editions"], dict) or set(d["editions"]) != {"original", "best"}:
+    if not isinstance(d["editions"], dict) or set(d["editions"]) not in ({"original", "best"}, {"original", "best", "sp"}):
         raise EditionError("release must register both edition identities")
     if set(requested) - set(d["editions"]):
         raise EditionError("unknown requested edition")
