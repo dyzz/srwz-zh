@@ -18,7 +18,7 @@ ROOT=Path(__file__).resolve().parents[3]
 sys.path[:0]=[str(ROOT/'tools'),str(Path(__file__).resolve().parent)]
 from build_text_candidate import file_sha,sha,read_member,verify_iso_ranges,write_json,load,require
 from srwz.iso9660 import member_map,scan_iso9660
-from srwz.codec import decode_production
+from srwz.codec import decode_production,reencode_changed_suffix
 from install_font import sp_offsets,VT1_TABLE
 from migrate_stage_dialogue import read_disc_member
 from chart_visibility import apply_chart_visibility
@@ -143,10 +143,18 @@ def assemble():
     require(stage_data[:slot]==base[STAGE][:slot] and frame_stage[slot:]==base[STAGE][slot:],'STAGE chunk-zero overlay escaped its owner')
     patches[STAGE]=frame_stage[:slot]+stage_data[slot:]
     patches[STAGE],chart_report=apply_chart_visibility(patches[STAGE],slot)
-    require(components['system'][CD]==base[CD],'system/frame COMPDATA preimage drift')
     for name,data in components['frame'].items():
         if name==STAGE:continue
         require(sha(base[name])==reports['frame']['base_files'][name],f'frame {name} base drift');patches[name]=data
+    # Compose system and frame edits relative to the preserved canary in
+    # decoded space so later system text fixes survive the frame pass.
+    frame_cd=decode_production(patches[CD])
+    merged_cd,_=merge_delta(frame_cd.output,decode_production(base[CD]).output,decode_production(components['system'][CD]).output)
+    if merged_cd!=frame_cd.output:
+        packed=reencode_changed_suffix(patches[CD],merged_cd,strategy='rust-fit',max_output_size=len(patches[CD]),original_result=frame_cd)
+        require(len(packed)<=len(patches[CD]),'merged COMPDATA exceeds member budget')
+        require(decode_production(packed).output==merged_cd,'merged COMPDATA reread mismatch')
+        patches[CD]=packed+bytes(len(patches[CD])-len(packed))
     for name,data in components['image-labels'].items():
         require(sha(base[name])==reports['image-labels']['base_files'][name],f'image {name} base drift');patches[name]=data
     patches.update(components['srvc'])
