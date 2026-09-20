@@ -22,6 +22,7 @@ from srwz.codec import decode_production,reencode_changed_suffix
 from install_font import sp_offsets,VT1_TABLE
 from migrate_stage_dialogue import read_disc_member
 from chart_visibility import apply_chart_visibility
+from special_disc.writeback.unit_names import apply_unit_names
 from weapon_detail_labels import apply_weapon_detail_labels
 from migrate_slps_text import encoding_tables
 from special_disc.writeback.terrain_names import apply_terrain_names, MEMBER as TERRAIN_MEMBER
@@ -163,6 +164,9 @@ def assemble():
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,menu_overrides,runtime_table)
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
     require(sha(decoded_font)==font_report['font']['decoded_sha256'],'assembled shared font mismatch')
+    patches[CD],unit_report=apply_unit_names(patches[CD],source_table,menu_overrides,runtime_table,decoded_font,proposal)
+    stats['additional_native_unit_names']=unit_report['entries']
+    stats['additional_native_unit_name_pointers']=unit_report['pointer_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso');shutil.copyfile(BASE,temporary)
     with temporary.open('r+b')as stream:
         for name,data in patches.items():
@@ -176,6 +180,7 @@ def assemble():
     report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=DEST.stat().st_size,sha256=file_sha(DEST)),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in patches.items()},protected_iso_ranges=protected,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
     report['weapon_detail_labels']=weapon_report
     report['terrain_names']=terrain_report
+    report['unit_names']=unit_report
     write_json(DEST.with_suffix('.json'),report);write_json(WORK/'coverage.json',stats)
     print(json.dumps(report['iso'],ensure_ascii=False,indent=2))
 

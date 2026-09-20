@@ -1,0 +1,102 @@
+{
+  "status": "unit_name_iso_readback_passed_runtime_pending",
+  "iso": {
+    "path": "build/iso/special-disc/unit-names/sp-zh-unit-names.iso",
+    "sha256": "af2a11e11bda56ead72d871ed7e096dc732b6b7466738a685a3bbb55582785ae",
+    "size": 3791781888
+  },
+  "unit_names": {
+    "labels": [
+      {
+        "id": "sd/compdata/84AC8",
+        "translation": "XAN-斩-",
+        "offset": 543432,
+        "pointer_sites": [
+          388644,
+          388712
+        ]
+      },
+      {
+        "id": "sd/compdata/85198",
+        "translation": "出云舰",
+        "offset": 545176,
+        "pointer_sites": [
+          399728
+        ]
+      },
+      {
+        "id": "sd/compdata/85230",
+        "translation": "巴尔戈拉（Ⅰ号机）",
+        "offset": 545328,
+        "pointer_sites": [
+          400612,
+          400680
+        ]
+      },
+      {
+        "id": "sd/compdata/85270",
+        "translation": "巴尔戈拉（Ⅱ号机）",
+        "offset": 545392,
+        "pointer_sites": [
+          400884,
+          400952
+        ]
+      },
+      {
+        "id": "sd/compdata/85380",
+        "translation": "雷姆雷斯试作型",
+        "offset": 545664,
+        "pointer_sites": [
+          403604,
+          403672
+        ]
+      }
+    ],
+    "entries": 5,
+    "pointer_count": 9,
+    "changed_ids": [
+      "sd/compdata/84AC8",
+      "sd/compdata/85198",
+      "sd/compdata/85230",
+      "sd/compdata/85270",
+      "sd/compdata/85380"
+    ],
+    "compressed_bytes": 174997,
+    "allocated_bytes": 177467,
+    "decoded_sha256": "bc8a2b7843c5d44a9211d9c098eeefc9d6b427e6f8d084b1fa8771ec2c437bea",
+    "non_name_bytes_preserved": true,
+    "preserved_glyphs": [
+      {
+        "character": "Ⅰ",
+        "code": "0x8754",
+        "pixels_sha256": "44cba97839cfb6f4e67aad99c6a31193dbbd70037765092c837e34067745209f"
+      }
+    ],
+    "contract_sha256": "ba318a4b090db13b1da38186e0b74578902329895505e84173141c9fb832f16c",
+    "corpus": {
+      "path": "corpus/zh/special-disc/native-text.json",
+      "sha256": "0008629ecf7dc97d9ba23fefb1bb94ca7fac316dedcbba3bf5336463687a59a6"
+    },
+    "runtime": "pending"
+  },
+  "overlay": {
+    "source_iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/special-disc/full-text/sp-zh-full-text.iso",
+    "source_sha256": "7cf59a242d583692d2550264f186a902b21cd8f71af5a6570207ce01994f5ef1",
+    "protected_iso_ranges": {
+      "bytes": 3791604421,
+      "sha256": "33d2b1175384d41f628b51a3075aca1f586805295d04680c47579107933f42fb"
+    },
+    "member_layout_preserved": true,
+    "runtime": "pending"
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tests -p 'test_special_disc_*.py'",
+    "passed": 43
+  },
+  "full_verifier": {
+    "status": "blocked_by_existing_component_report_drift",
+    "path": "work/build/special-disc/full-text/system/report.json",
+    "scope": "Verifier checked final ISO/member identities, then stopped at source component report lock before text traversal. Targeted nine-pointer readback and all outside-COMPDATA ISO bytes were independently checked by the unit-name writer."
+  },
+  "runtime": "not_tested"
+}

@@ -1,0 +1,311 @@
+{
+  "status": "investigated_no_fix_applied",
+  "date": "2026-09-20",
+  "iso": {
+    "path": "build/iso/special-disc/full-text/sp-zh-full-text.iso",
+    "size": 3791781888,
+    "sha256": "57bbe8444972c0c567dfb50c34e843401a9ad6b9082a2a891e9cbeae242a84eb"
+  },
+  "member_sha256": {
+    "DATA/COMPDATA.BN": "355198f2fb033de3ea63b22126373a47e65e2205cfc4e2e90c774fcdc99979e4",
+    "SLPS_259.20": "aec158804320ac9e5781e6b2163fbadc01874d6feff7cacbf077a46992a2bb31"
+  },
+  "native_corpus_sha256": "5dd5b7c0c24108d394103655e5766eef17c72a3ccab3025975504d54638a8d34",
+  "proposal_sha256": "176ef3a6a308ac7d2f52469b616e17a62c00a40e1f68cb9745c813185291e3c1",
+  "screenshot": "docs/issue-assets/special-disc-unit-names-20260920/bgm-izumo-user.jpg",
+  "screenshot_iso_identity": "not independently established",
+  "izumo_surfaces": [
+    {
+      "surface": "unit",
+      "offset": "0x85198",
+      "output_text": "イズモ艦",
+      "bytes_hex": "8343835983828acd00"
+    },
+    {
+      "surface": "battle_theatre",
+      "offset": "0x9aea8",
+      "output_text": "出云舰",
+      "bytes_hex": "8f6f895d964200"
+    },
+    {
+      "surface": "exe",
+      "offset": "0x375db4",
+      "output_text": "出云舰",
+      "bytes_hex": "8f6f895d964200"
+    }
+  ],
+  "main_game_contains_exact_izumo_source": false,
+  "izumo_expected_bytes": "8f6f895d964200",
+  "scanned_unit_slots": 854,
+  "remaining_kana_records": 14,
+  "remaining_kana_unique_offsets": 10,
+  "remaining_kana": [
+    {
+      "index": 116,
+      "pointer_site": "0x56a64",
+      "source_offset": "0x83c38",
+      "current_offset": "0x83c38",
+      "source_text": "デスカイン",
+      "output_text": "デスカイン",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 117,
+      "pointer_site": "0x56aa8",
+      "source_offset": "0x83c48",
+      "current_offset": "0x83c48",
+      "source_text": "ヘルダイン",
+      "output_text": "ヘルダイン",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 126,
+      "pointer_site": "0x56d0c",
+      "source_offset": "0x83c98",
+      "current_offset": "0x83c98",
+      "source_text": "ビアルⅡ世",
+      "output_text": "ビアルⅡ世",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 127,
+      "pointer_site": "0x56d50",
+      "source_offset": "0x83ca8",
+      "current_offset": "0x83ca8",
+      "source_text": "ビアルⅢ世",
+      "output_text": "ビアルⅢ世",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 685,
+      "pointer_site": "0x60188",
+      "source_offset": "0x84dc8",
+      "current_offset": "0x84dc8",
+      "source_text": "グラン═",
+      "output_text": "グラン═",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 714,
+      "pointer_site": "0x6093c",
+      "source_offset": "0x84ec0",
+      "current_offset": "0x84ec0",
+      "source_text": "アクエリオンデルタ",
+      "output_text": "アクエリオンデルタ",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 717,
+      "pointer_site": "0x60a08",
+      "source_offset": "0x84ec0",
+      "current_offset": "0x84ec0",
+      "source_text": "アクエリオンデルタ",
+      "output_text": "アクエリオンデルタ",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 775,
+      "pointer_site": "0x61970",
+      "source_offset": "0x85198",
+      "current_offset": "0x85198",
+      "source_text": "イズモ艦",
+      "output_text": "イズモ艦",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 788,
+      "pointer_site": "0x61ce4",
+      "source_offset": "0x85230",
+      "current_offset": "0x85230",
+      "source_text": "バルゴラ（Ⅰ号機）",
+      "output_text": "バルゴラ（Ⅰ号機）",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 789,
+      "pointer_site": "0x61d28",
+      "source_offset": "0x85230",
+      "current_offset": "0x85230",
+      "source_text": "バルゴラ（Ⅰ号機）",
+      "output_text": "バルゴラ（Ⅰ号機）",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 792,
+      "pointer_site": "0x61df4",
+      "source_offset": "0x85270",
+      "current_offset": "0x85270",
+      "source_text": "バルゴラ（Ⅱ号機）",
+      "output_text": "バルゴラ（Ⅱ号機）",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 793,
+      "pointer_site": "0x61e38",
+      "source_offset": "0x85270",
+      "current_offset": "0x85270",
+      "source_text": "バルゴラ（Ⅱ号機）",
+      "output_text": "バルゴラ（Ⅱ号機）",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 832,
+      "pointer_site": "0x62894",
+      "source_offset": "0x85380",
+      "current_offset": "0x85380",
+      "source_text": "レムレース試作型",
+      "output_text": "レムレース辑作型",
+      "unchanged_source_bytes": true
+    },
+    {
+      "index": 833,
+      "pointer_site": "0x628d8",
+      "source_offset": "0x85380",
+      "current_offset": "0x85380",
+      "source_text": "レムレース試作型",
+      "output_text": "レムレース辑作型",
+      "unchanged_source_bytes": true
+    }
+  ],
+  "native_unit_entries": [
+    {
+      "id": "sd/compdata/84AC8",
+      "source_text": "ＸＡＮ−斬−",
+      "translation": "XAN-斩-",
+      "output_text": "XAN−跷−",
+      "matches_translation": false,
+      "writeback_status": "binding_and_layout_pending",
+      "unit_records": [
+        {
+          "index": 612,
+          "pointer_site": "0x5ee24",
+          "source_offset": "0x84ac8",
+          "current_offset": "0x84ac8",
+          "source_text": "ＸＡＮ−斬−",
+          "output_text": "XAN−跷−",
+          "unchanged_source_bytes": true
+        },
+        {
+          "index": 613,
+          "pointer_site": "0x5ee68",
+          "source_offset": "0x84ac8",
+          "current_offset": "0x84ac8",
+          "source_text": "ＸＡＮ−斬−",
+          "output_text": "XAN−跷−",
+          "unchanged_source_bytes": true
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/85198",
+      "source_text": "イズモ艦",
+      "translation": "出云舰",
+      "output_text": "イズモ艦",
+      "matches_translation": false,
+      "writeback_status": "binding_and_layout_pending",
+      "unit_records": [
+        {
+          "index": 775,
+          "pointer_site": "0x61970",
+          "source_offset": "0x85198",
+          "current_offset": "0x85198",
+          "source_text": "イズモ艦",
+          "output_text": "イズモ艦",
+          "unchanged_source_bytes": true
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/85230",
+      "source_text": "バルゴラ（Ⅰ号機）",
+      "translation": "巴尔戈拉（Ⅰ号机）",
+      "output_text": "バルゴラ（Ⅰ号機）",
+      "matches_translation": false,
+      "writeback_status": "binding_and_layout_pending",
+      "unit_records": [
+        {
+          "index": 788,
+          "pointer_site": "0x61ce4",
+          "source_offset": "0x85230",
+          "current_offset": "0x85230",
+          "source_text": "バルゴラ（Ⅰ号機）",
+          "output_text": "バルゴラ（Ⅰ号機）",
+          "unchanged_source_bytes": true
+        },
+        {
+          "index": 789,
+          "pointer_site": "0x61d28",
+          "source_offset": "0x85230",
+          "current_offset": "0x85230",
+          "source_text": "バルゴラ（Ⅰ号機）",
+          "output_text": "バルゴラ（Ⅰ号機）",
+          "unchanged_source_bytes": true
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/85270",
+      "source_text": "バルゴラ（Ⅱ号機）",
+      "translation": "巴尔戈拉（Ⅱ号机）",
+      "output_text": "バルゴラ（Ⅱ号機）",
+      "matches_translation": false,
+      "writeback_status": "binding_and_layout_pending",
+      "unit_records": [
+        {
+          "index": 792,
+          "pointer_site": "0x61df4",
+          "source_offset": "0x85270",
+          "current_offset": "0x85270",
+          "source_text": "バルゴラ（Ⅱ号機）",
+          "output_text": "バルゴラ（Ⅱ号機）",
+          "unchanged_source_bytes": true
+        },
+        {
+          "index": 793,
+          "pointer_site": "0x61e38",
+          "source_offset": "0x85270",
+          "current_offset": "0x85270",
+          "source_text": "バルゴラ（Ⅱ号機）",
+          "output_text": "バルゴラ（Ⅱ号機）",
+          "unchanged_source_bytes": true
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/85380",
+      "source_text": "レムレース試作型",
+      "translation": "雷姆雷斯试作型",
+      "output_text": "レムレース辑作型",
+      "matches_translation": false,
+      "writeback_status": "binding_and_layout_pending",
+      "unit_records": [
+        {
+          "index": 832,
+          "pointer_site": "0x62894",
+          "source_offset": "0x85380",
+          "current_offset": "0x85380",
+          "source_text": "レムレース試作型",
+          "output_text": "レムレース辑作型",
+          "unchanged_source_bytes": true
+        },
+        {
+          "index": 833,
+          "pointer_site": "0x628d8",
+          "source_offset": "0x85380",
+          "current_offset": "0x85380",
+          "source_text": "レムレース試作型",
+          "output_text": "レムレース辑作型",
+          "unchanged_source_bytes": true
+        }
+      ]
+    }
+  ],
+  "coverage_corpora": [
+    "corpus/zh/special-disc/story-dialogue.json",
+    "corpus/zh/special-disc/challenge-dialogue.json",
+    "corpus/zh/special-disc/battle-lines.json",
+    "corpus/zh/special-disc/frame-text.json",
+    "corpus/zh/special-disc/system-text.json"
+  ],
+  "runtime": "user screenshot shows Japanese; no new emulator run; BGM access path inferred from unit-table evidence"
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "member": "DATA/COMPDATA.BN",
+  "base_address": 7753600,
+  "decoded_size": 652800,
+  "unit_table": {
+    "start": 347028,
+    "stride": 68,
+    "count": 854
+  },
+  "corpus": "corpus/zh/special-disc/native-text.json",
+  "category": "04-共用名称与能力/机体名",
+  "entries": [
+    {
+      "id": "sd/compdata/84AC8",
+      "source_text": "ＸＡＮ−斬−",
+      "source_text_sha256": "2f93f272bbcb710acd6c2c964a22ccd068e35e9f54c461c0f97db89fd275ab40",
+      "offset": 543432,
+      "capacity": 13,
+      "pointer_sites": [
+        388644,
+        388712
+      ],
+      "source_hex": "82778260826d817c8e61817c00",
+      "accepted_migrated_hex": "82778260826d817c8e61817c00"
+    },
+    {
+      "id": "sd/compdata/85198",
+      "source_text": "イズモ艦",
+      "source_text_sha256": "c8dbd186e5347b6549f6044802d11ba0b75f7ddffdb2af902577976107d5f875",
+      "offset": 545176,
+      "capacity": 9,
+      "pointer_sites": [
+        399728
+      ],
+      "source_hex": "8343835983828acd00",
+      "accepted_migrated_hex": "8343835983828acd00"
+    },
+    {
+      "id": "sd/compdata/85230",
+      "source_text": "バルゴラ（Ⅰ号機）",
+      "source_text_sha256": "fb73cc2dc673cb7855c9599263e1215589d11bb11e404d62a238a436c748a52c",
+      "offset": 545328,
+      "capacity": 19,
+      "pointer_sites": [
+        400612,
+        400680
+      ],
+      "source_hex": "836f838b83538389816987548d868b40816a00",
+      "accepted_migrated_hex": "836f838b83538389816987548d868b40816a00"
+    },
+    {
+      "id": "sd/compdata/85270",
+      "source_text": "バルゴラ（Ⅱ号機）",
+      "source_text_sha256": "c3d3f1a400cfc2caf782fbecb1031a0c6c3862751b0f05b581b864050331aaff",
+      "offset": 545392,
+      "capacity": 19,
+      "pointer_sites": [
+        400884,
+        400952
+      ],
+      "source_hex": "836f838b83538389816987558d868b40816a00",
+      "accepted_migrated_hex": "836f838b83538389816987558d868b40816a00"
+    },
+    {
+      "id": "sd/compdata/85380",
+      "source_text": "レムレース試作型",
+      "source_text_sha256": "93e5670087574547c3be7f3dcaa0c8345686a2a0a1fb5072c18739fa7971ff75",
+      "offset": 545664,
+      "capacity": 17,
+      "pointer_sites": [
+        403604,
+        403672
+      ],
+      "source_hex": "838c8380838c815b83588e8e8dec8c5e00",
+      "accepted_migrated_hex": "838c8380838c815b83588e8e8dec8c5e00"
+    }
+  ],
+  "preserved_glyphs": [
+    {
+      "character": "Ⅰ",
+      "code": "0x8754",
+      "pixels_sha256": "44cba97839cfb6f4e67aad99c6a31193dbbd70037765092c837e34067745209f",
+      "evidence": "Current SP glyph is byte-identical to the original SP glyph; audited 2026-09-20."
+    }
+  ]
+}
