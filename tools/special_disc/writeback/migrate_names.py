@@ -31,8 +31,8 @@ from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
 from srwz.text import decode_text, encode_text  # noqa: E402
 from migrate_slps_text import encoding_tables  # noqa: E402
 
-ISO = ROOT / "rom/Super Robot Taisen Z - Special Disc [J].iso"
-LOCKS = ROOT / "config/products/special-disc/disc-inventory.json"
+from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
+from special_disc.source import DISC_INVENTORY as LOCKS  # noqa: E402
 OG_DISC = ROOT / "work/disc"
 OG_BUILD = ROOT / ("work/build/zh-release-original/388152fa50e72ed8f4edf6887d9eb1f37130dfc5ee92ba7baf3238aaee22c02f"
                    "/project/work/build/zh-release-full-story/components")

@@ -46,8 +46,8 @@ from srwz.codec import decode_production, reencode_changed_suffix  # noqa: E402
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
 from srwz.text import SrwzTextError, decode_text, load_text_table  # noqa: E402
 
-ISO = ROOT / "rom/Super Robot Taisen Z - Special Disc [J].iso"
-LOCKS = ROOT / "config/products/special-disc/disc-inventory.json"
+from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
+from special_disc.source import DISC_INVENTORY as LOCKS  # noqa: E402
 TABLE = ROOT / "vendor/upstream-python/project/tbl_all.json"
 OG_JAPANESE = ROOT / "work/disc/DATA/COMPDATA.BN"
 # the main game's finished Original build (2026-09-17, v0.4.2 release chain)

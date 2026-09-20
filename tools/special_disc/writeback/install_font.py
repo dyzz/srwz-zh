@@ -33,8 +33,8 @@ from srwz.codec import decode_production  # noqa: E402
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
 from srwz.iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets  # noqa: E402
 
-ISO = ROOT / "rom/Super Robot Taisen Z - Special Disc [J].iso"
-LOCKS = ROOT / "config/products/special-disc/disc-inventory.json"
+from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
+from special_disc.source import DISC_INVENTORY as LOCKS  # noqa: E402
 OUT = ROOT / "work/build/special-disc/components/font"
 EXE = "SLPS_259.20"
 VT1 = "DATA/VT1.BIN"

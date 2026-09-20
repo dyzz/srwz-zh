@@ -41,8 +41,8 @@ from srwz.psmt4 import swizzle_psmt4, unswizzle_psmt4  # noqa: E402
 from srwz.tim2_writeback import _csm1_palette_offset, swizzle_psmt8, unswizzle_psmt8  # noqa: E402
 
 KIT = ROOT / "config/assets/special-disc/preview"
-ISO = ROOT / "rom/Super Robot Taisen Z - Special Disc [J].iso"
-LOCKS = ROOT / "config/products/special-disc/disc-inventory.json"
+from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
+from special_disc.source import DISC_INVENTORY as LOCKS  # noqa: E402
 OUT = ROOT / "work/build/special-disc/preview"
 BUILD = ROOT / "build/iso/special-disc/preview"  # where the playable copy is picked up
 # Components built before the pictures, in order; each one names the member bytes it started from.

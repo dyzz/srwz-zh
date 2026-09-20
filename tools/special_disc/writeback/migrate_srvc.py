@@ -31,8 +31,8 @@ from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
 from srwz.srvc import parse_srvc_archive, rebuild_srvc_archive  # noqa: E402
 from migrate_slps_text import encoding_tables  # noqa: E402
 
-ISO = ROOT / "rom/Super Robot Taisen Z - Special Disc [J].iso"
-LOCKS = ROOT / "config/products/special-disc/disc-inventory.json"
+from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
+from special_disc.source import DISC_INVENTORY as LOCKS  # noqa: E402
 CORPUS = ROOT / "corpus/zh/battle/srvc-lines.json"
 OUT = ROOT / "work/build/special-disc/components/srvc"
 BIN, SEG = "BTL/SRVC.BIN", "BTL/SRVC.SEG"

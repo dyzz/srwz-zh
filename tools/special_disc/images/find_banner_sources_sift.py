@@ -30,7 +30,7 @@ from srwz.psmt4 import _validated_layout  # noqa: E402
 from srwz.tim2 import parse_tim2  # noqa: E402
 from srwz.tim2_writeback import _csm1_palette_offset, _psmt8_stored_offset  # noqa: E402
 
-ISO = ROOT / "rom/Super Robot Taisen Z - Special Disc [J].iso"
+from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
 TD = ROOT / "work/analysis/sp-texture-diff-20260912"
 AID = ROOT / "work/analysis/sp-aiddata-images-20260912/images"
 HITS = OUT / "sift-hits"

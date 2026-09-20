@@ -61,8 +61,8 @@ import migrate_compdata as mc  # noqa: E402
 import migrate_slps_text as mst  # noqa: E402
 from special_disc.writeback.exe_data_guard import NON_TEXT_WORDS  # noqa: E402
 
-ISO = ROOT / "rom/Super Robot Taisen Z - Special Disc [J].iso"
-LOCKS = ROOT / "config/products/special-disc/disc-inventory.json"
+from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
+from special_disc.source import DISC_INVENTORY as LOCKS  # noqa: E402
 EXE_STRINGS = ROOT / "config/products/special-disc/ui/exe_strings.json"
 CORPUS = ROOT / "corpus/zh"
 OUT = HERE / "out"

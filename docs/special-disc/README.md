@@ -27,6 +27,8 @@ python3 tools/special_disc/check_workspace.py
 
 当前预览为 `build/iso/special-disc/preview/sp-image-preview.iso`。原盘位置不变，历史 LRPS2 记录也保留原路径。
 
+SP 原盘入口统一读取 `config/products/special-disc/disc-inventory.json` 的 `sp.path`，即当前 `rom/Super Robot Taisen Z - Special Disc [J].iso`。导出、字体安装、资源迁移、预览装配和图片检索共用此路径；本篇复用来源与已汉化候选保持各自版本身份。
+
 ## 2026-09-20 Git 收录验证
 
 本次收录 SP 源码、配置、7 份语料、编辑决定、图片快照与文档，以及共享字库新增的 42 个映射和 SP STAGE 解析支持。ISO、原盘、组件、用户校订 ZIP、作者中间稿和运行证据仍保留在 Git 忽略的本地目录中。当前工具依赖上述本地输入，尚不是只给原盘即可从零复建的发行流水线。

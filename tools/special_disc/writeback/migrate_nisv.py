@@ -42,8 +42,8 @@ from srwz.text import decode_text, load_text_table  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from migrate_textures import blocks, runs  # noqa: E402
 
-ISO = ROOT / "rom/Super Robot Taisen Z - Special Disc [J].iso"
-LOCKS = ROOT / "config/products/special-disc/disc-inventory.json"
+from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
+from special_disc.source import DISC_INVENTORY as LOCKS  # noqa: E402
 TABLE = ROOT / "vendor/upstream-python/project/tbl_all.json"
 OG_DISC = ROOT / "work/disc"
 OG_BUILD = ROOT / ("work/build/zh-release-original/388152fa50e72ed8f4edf6887d9eb1f37130dfc5ee92ba7baf3238aaee22c02f"
