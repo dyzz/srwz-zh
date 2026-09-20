@@ -65,7 +65,10 @@ with iso.open("rb") as source:
         result["member_readback"][name] = {
             "sha256": h.hexdigest(), "matches_manifest": h.hexdigest() == (record if isinstance(record, str) else record["sha256"])}
 
-table, _, overrides, _ = mst.encoding_tables()
+proposal = ROOT/'work/build/special-disc/text-candidate/font/proposal.json'
+if digest(proposal) != manifest['proposal_sha256']:
+    raise ValueError('SP font proposal does not describe the current ISO')
+table, _, overrides, _ = mst.encoding_tables(proposal)
 characters = set()
 for path in sorted((ROOT / "corpus/zh/special-disc").glob("*.json")):
     doc = json.loads(path.read_text())

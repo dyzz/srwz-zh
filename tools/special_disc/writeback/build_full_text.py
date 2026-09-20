@@ -31,7 +31,7 @@ from special_disc.source import CURRENT_ISO
 from special_disc.baselines import baseline_iso
 
 WORK=ROOT/'work/build/special-disc/full-text'
-BASE_SHA='4ecc53fb34dd195fedc4018dbcb09306ee929eaf5d1f1fa1b4859242524ff953'
+BASE_SHA='3617b44b263b1a31f14632d89f3ee456a031349ee892b25c6c8eeb9ae8d5ae73'
 FONT=ROOT/'work/build/special-disc/text-candidate'
 PROPOSAL=FONT/'font/proposal.json'
 DEST=CURRENT_ISO

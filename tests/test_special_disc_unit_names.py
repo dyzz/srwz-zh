@@ -77,10 +77,16 @@ class SpecialDiscUnitNamesTests(unittest.TestCase):
                     names.check_pointers(data, self.contract)
 
     def test_rejects_damaged_preserved_roman_numeral(self):
+        # Exercise the legacy fallback even after I gains a shared-font row.
+        proposal = dict(self.proposal)
+        for key in ('assignments', 'surface_alias_assignments', 'source_compatibility_assignments'):
+            proposal[key] = [row for row in proposal[key] if row['character'] != 'Ⅰ']
+        overrides = dict(self.overrides, **{'Ⅰ': 0x8754})
+        names.verify_unit_name_glyphs(self.font, proposal, self.table, overrides)
         font = bytearray(self.font)
         font[glyph_offset(standard_glyph_index(0x8754))] ^= 1
         with self.assertRaisesRegex(ValueError, 'glyph pixels drift'):
-            names.verify_unit_name_glyphs(bytes(font), self.proposal, self.table, self.overrides)
+            names.verify_unit_name_glyphs(bytes(font), proposal, self.table, overrides)
 
     def test_rejects_overflow_without_truncation(self):
         rows = {key: dict(row) for key, row in self.rows.items()}
