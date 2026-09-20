@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "updated": "2026-09-20",
+  "policy": "ISO-only daily testing; CHD creation is release-only",
+  "expected_count": 7,
+  "groups": {
+    "japanese_sources": 2,
+    "v0.4.2_no_skip": 2,
+    "current_skip_required": 3
+  },
+  "slots": [
+    {
+      "slot": "original",
+      "path": "rom/original.iso",
+      "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+      "verified": true
+    },
+    {
+      "slot": "best",
+      "path": "rom/best.iso",
+      "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+      "verified": true
+    },
+    {
+      "slot": "0.4.2-original",
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original.iso",
+      "sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
+      "verified": true
+    },
+    {
+      "slot": "0.4.2-best",
+      "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best.iso",
+      "sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
+      "verified": true
+    },
+    {
+      "slot": "current-original",
+      "path": "build/iso/daily-test/current-original-skip.iso",
+      "sha256": "e438cd8c11188cf980e1be08e54909e5136930803185279b5e4cfdcf5fef07a6",
+      "base_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+      "skip_enabled": true,
+      "readback": "work/cleanup/daily-isos-20260920/original-skip-readback.json"
+    },
+    {
+      "slot": "current-best",
+      "path": "build/iso/daily-test/current-best-skip.iso",
+      "sha256": "4f82988b1d0b4f3d098af5a72b761ac2180a37a9c28af7dada5f413115182add",
+      "base_sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
+      "skip_enabled": true,
+      "readback": "work/cleanup/daily-isos-20260920/best-skip-readback.json"
+    },
+    {
+      "slot": "current-sp",
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "8019512dab15bf60bf3792b0bfd2f59768b60ecc05af126086adb16b24c6bb24",
+      "skip_enabled": true,
+      "skip_required": true,
+      "status": "skip_enabled_lrps2_smoke_passed",
+      "skip_status": "lrps2_simple_battle_viewer_square_skip_smoke_passed",
+      "receipt": "work/verification/sp-square-skip-20260920/readback.json",
+      "runtime_receipt": "work/runtime/lrps2/sp-square-skip-20260920/runtime-receipt.json"
+    }
+  ]
+}

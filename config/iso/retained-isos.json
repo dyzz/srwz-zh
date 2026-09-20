@@ -1,45 +1,48 @@
 {
   "schema_version": 1,
-  "policy": "Keep Japanese parent CHDs, versioned releases, accepted Q&A snapshots and current main-game child CHDs. Current ISO paths remain materialized for build review. SP retains one current ISO plus verified baseline deltas.",
+  "policy": "Daily testing uses seven ISOs: two Japanese source ISOs, two no-skip v0.4.2 releases, and Original/Best/SP current ISOs targeting square skip. CHDs are created only for final releases; working and Q&A CHDs are not retained in the active workspace.",
   "slots": {
     "current-original": {
-      "path": "build/iso/zh-release-original/current-original.iso",
+      "path": "build/iso/daily-test/current-original-skip.iso",
       "role": "working",
-      "retention": "chd_only",
-      "chd_path": "build/chd/current-20260920/current-original.chd",
-      "parent_chd_path": "build/chd/current-20260920/srwz-jp-original.chd",
-      "iso_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
-      "purpose": "Current full build 2026-09-20; static readback and CHD roundtrip verified. ISO remains materialized for review; frozen releases remain separate.",
-      "local_status": "materialized_for_build_review"
+      "retention": "daily_iso",
+      "iso_sha256": "e438cd8c11188cf980e1be08e54909e5136930803185279b5e4cfdcf5fef07a6",
+      "purpose": "Daily current ISO with verified square-skip derivation; CHD is release-only.",
+      "local_status": "materialized_for_daily_testing",
+      "source_build_path": "build/iso/zh-release-original/current-original.iso",
+      "base_iso_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
+      "receipt": "work/cleanup/daily-isos-20260920/original-skip-readback.json",
+      "skip_enabled": true
     },
     "current-best": {
-      "path": "build/iso/zh-release-best/current-best.iso",
+      "path": "build/iso/daily-test/current-best-skip.iso",
       "role": "working",
-      "candidate": "best-current-source-v1; current build identity is recorded in manifests/editions/best/current.json",
-      "retention": "chd_only",
-      "chd_path": "build/chd/current-20260920/current-best.chd",
-      "parent_chd_path": "build/chd/current-20260920/srwz-jp-best.chd",
-      "iso_sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
-      "purpose": "Current full build 2026-09-20; static readback and CHD roundtrip verified. ISO remains materialized for review; frozen releases remain separate.",
-      "local_status": "materialized_for_build_review"
+      "retention": "daily_iso",
+      "iso_sha256": "4f82988b1d0b4f3d098af5a72b761ac2180a37a9c28af7dada5f413115182add",
+      "purpose": "Daily current ISO with verified square-skip derivation; CHD is release-only.",
+      "local_status": "materialized_for_daily_testing",
+      "source_build_path": "build/iso/zh-release-best/current-best.iso",
+      "base_iso_sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
+      "receipt": "work/cleanup/daily-isos-20260920/best-skip-readback.json",
+      "skip_enabled": true
     },
     "original": {
       "path": "rom/original.iso",
       "role": "source",
-      "retention": "chd_only",
+      "retention": "daily_iso",
       "chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
       "parent_chd_path": null,
       "iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
-      "local_status": "materialized_for_build"
+      "local_status": "materialized_for_daily_testing"
     },
     "best": {
       "path": "rom/best.iso",
       "role": "source",
-      "retention": "chd_only",
+      "retention": "daily_iso",
       "chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
       "parent_chd_path": null,
       "iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
-      "local_status": "materialized_for_build"
+      "local_status": "materialized_for_daily_testing"
     },
     "0.4.0-original": {
       "path": "build/iso/v0.4.0/0.4.0-original.iso",
@@ -74,11 +77,12 @@
     "0.4.2-original": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original.iso",
       "role": "frozen_release",
-      "purpose": "Preserve published bytes in the verified CHD; materialize the ISO only when needed.",
-      "retention": "chd_only",
+      "purpose": "Frozen no-skip v0.4.2 ISO retained for daily regression testing; release CHD remains archived.",
+      "retention": "daily_iso",
       "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-original.chd",
       "parent_chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
-      "iso_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c"
+      "iso_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
+      "local_status": "materialized_for_daily_testing"
     },
     "0.4.2-original-skip": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original-skip.iso",
@@ -92,11 +96,12 @@
     "0.4.2-best": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best.iso",
       "role": "frozen_release",
-      "purpose": "Preserve published bytes in the verified CHD; materialize the ISO only when needed.",
-      "retention": "chd_only",
+      "purpose": "Frozen no-skip v0.4.2 ISO retained for daily regression testing; release CHD remains archived.",
+      "retention": "daily_iso",
       "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-best.chd",
       "parent_chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
-      "iso_sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a"
+      "iso_sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
+      "local_status": "materialized_for_daily_testing"
     },
     "0.4.2-best-skip": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best-skip.iso",
@@ -110,11 +115,15 @@
     "current-sp": {
       "path": "build/iso/special-disc/sp-current.iso",
       "role": "working",
-      "retention": "single_current_iso",
-      "iso_sha256": "faf9d218816f79545ec703f3669714443baf82e740131cb97fbe9da3bbe217f1",
-      "receipt": "manifests/editions/sp/current.json",
+      "retention": "daily_iso",
+      "iso_sha256": "8019512dab15bf60bf3792b0bfd2f59768b60ecc05af126086adb16b24c6bb24",
+      "receipt": "build/iso/special-disc/sp-current.json",
       "purpose": "Unified SP full-text build; locked baseline deltas replace historical full baseline ISOs.",
-      "local_status": "materialized_for_build_review"
+      "local_status": "materialized_for_daily_testing",
+      "skip_enabled": true,
+      "skip_required": true,
+      "skip_status": "lrps2_simple_battle_viewer_square_skip_smoke_passed",
+      "runtime_receipt": "work/runtime/lrps2/sp-square-skip-20260920/runtime-receipt.json"
     }
   },
   "updated": "2026-09-20",
@@ -127,5 +136,6 @@
       "path": "build/iso/special-disc/sp-current.iso",
       "reason": "Single current SP ISO. Baseline inputs are verified deltas under work/build/special-disc/baselines."
     }
-  ]
+  ],
+  "daily_test_manifest": "config/iso/daily-test-isos.json"
 }
