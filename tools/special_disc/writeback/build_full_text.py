@@ -111,6 +111,9 @@ def assemble():
     for k in ('frame','image-labels'):require(file_sha(ROOT/'corpus/zh/special-disc/frame-text.json')==reports[k]['corpus_sha256'],'frame corpus drift')
     for lock in (reports['system']['frame_corpus'],reports['srvc']['sp_corpus'],reports['image-labels']['snapshot']):
         require(file_sha(ROOT/lock['path'])==lock['sha256'],'component input drift')
+    for key, filename in (('command_headings', 'command-headings.json'), ('title_atlas', 'title-atlas.json')):
+        require(file_sha(ROOT/'config/assets/special-disc'/filename)==reports['image-labels'][key]['config_sha256'],
+                f'{key} frozen component input drift')
     components={}
     for k,r in reports.items():
         components[k]={}
@@ -178,6 +181,7 @@ def assemble():
     stats['stage_entry_title_slots']=title_report['count']
     stats['stage_entry_title_images_rewritten']=title_report['rewritten']
     stats['inherited_world_map_titles']=reports['image-labels']['world_map_titles']['count']
+    stats['sp_title_drawing_records']=reports['image-labels']['title_atlas']['drawing_records']
     stats['additional_native_unit_names']=unit_report['entries']
     stats['additional_native_unit_name_pointers']=unit_report['pointer_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso');shutil.copyfile(BASE,temporary)
@@ -197,6 +201,7 @@ def assemble():
     report['unit_names']=unit_report
     report['stage_titles']=title_report
     report['world_map_titles']=reports['image-labels']['world_map_titles']
+    report['title_atlas']=reports['image-labels']['title_atlas']
     write_json(DEST.with_suffix('.json'),report);write_json(WORK/'coverage.json',stats)
     print(json.dumps(report['iso'],ensure_ascii=False,indent=2))
 

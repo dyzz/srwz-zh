@@ -74,6 +74,8 @@ RETARGET_CHUNKS = ((160, 164, 164), (1167, 1198, 1198), (1192, 1223, 1223))
 # atlas still holds. "others" rides along because it shares the "OTHERS COMMAND"
 # bar with command2, and half a translated bar reads worse than none.
 SKIP_TOKENS = ("command2", "item", "others")
+# These skips protect the inherited source atlas. The later SP title_atlas
+# pass supplies independent Chinese cells and references for the skipped titles.
 # The same, per main-game chunk: chunk 204 is SP's "MAP WEAPON" bar, which reads
 # the M of FORMATION out of the 阵型 rect. Other formation patches are real
 # FORMATION headings and keep their Chinese.
@@ -423,6 +425,13 @@ def main() -> None:
                        retargeted_chunks={str(k): v for k, v in sorted(retarget_log.items())},
                        skipped_shared_letter_tokens=dict(skipped_tokens),
                        chunk_moves={str(k): v for k, v in sorted(chunk_of.items())}, not_found=missing[:30])
+
+    from special_disc.writeback.command_headings import apply_command_headings, KVM
+    outputs[KVM], outputs[KVP], report["command_headings"] = apply_command_headings(
+        outputs[KVM], outputs[KVP])
+    from special_disc.writeback.title_atlas import apply_title_atlas
+    outputs[KVM], outputs[KVP], report["title_atlas"] = apply_title_atlas(
+        outputs[KVM], outputs[KVP])
 
     OUT.mkdir(parents=True, exist_ok=True)
     for member, data in outputs.items():

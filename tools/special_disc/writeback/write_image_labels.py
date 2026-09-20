@@ -33,6 +33,7 @@ def render(logical,width,height,box,text,font,max_size):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--refreeze',action='store_true')
+    parser.add_argument('--previews',action='store_true',help='Export optional PNG previews (requires Pillow).')
     parser.add_argument('--output',type=Path,default=ROOT/'work/build/special-disc/full-text/image-labels')
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
     writer=Writer(baseline_iso('text-canary'),ROOT/'work/build/special-disc/text-candidate/font/proposal.json')
@@ -60,8 +61,9 @@ def main():
                 if not any(a<=x<=c and b<=y<=d for _,(a,b,c,d) in patches):
                     require(edited[y*w+x]==logical[y*w+x],'image outside owned rect changed')
         snapshots.append(record)
-        from PIL import Image
-        Image.frombytes('L',(w,h),bytes(i*17 for i in edited)).save(args.output/f'{key}.png')
+        if args.previews:
+            from PIL import Image
+            Image.frombytes('L',(w,h),bytes(i*17 for i in edited)).save(args.output/f'{key}.png')
         return edited
     name='KURODATA/KVMDATA.BIN';base=writer.member(name);arc=bytearray(base);off=sd.table_offsets(writer.exe,0x39DF10,len(base));a,b=off[11:13];data=base[a:b];pic=parse_tim2(data).pictures[0]
     require((pic.width,pic.height,pic.image_type)==(256,256,4),'KVM label atlas format drift')
@@ -72,7 +74,10 @@ def main():
     packed=bytes(edited[i]|(edited[i+1]<<4) for i in range(0,len(edited),2))
     arc[a+start:a+start+len(packed)]=packed
     require(bytes(arc[a:a+start])==data[:start] and bytes(arc[a+start+len(packed):b])==data[start+len(packed):],'KVM headers/palette/trailer changed')
-    outputs[name]=bytes(arc)
+    from special_disc.writeback.command_headings import apply_command_headings, KVP
+    outputs[name], outputs[KVP], command_report = apply_command_headings(bytes(arc), writer.member(KVP))
+    from special_disc.writeback.title_atlas import apply_title_atlas
+    outputs[name], outputs[KVP], title_report = apply_title_atlas(outputs[name], outputs[KVP])
     for target,box in patches:reports.append(dict(target=target,member=name,chunk=11,rect=box))
     name='MAP/MAPMODEL.BIN';base=writer.member(name);arc=bytearray(base);off=sd.table_offsets(writer.exe,0x3542F0,len(base))
     for index in (195,196,197):
@@ -90,10 +95,12 @@ def main():
     outputs[name], world_map_report = apply_world_map_titles(bytes(arc), writer.exe)
     if args.refreeze:SNAPSHOT.write_text(json.dumps(dict(schema_version=1,font=font_lock,records=snapshots),ensure_ascii=False,indent=2)+'\n')
     report=dict(status='static_verified_runtime_pending',bindings=reports,snapshot=dict(path=str(SNAPSHOT.relative_to(ROOT)),sha256=stage.sha256(SNAPSHOT.read_bytes())),files={n:stage.sha256(d)for n,d in outputs.items()},base_files={n:stage.sha256(writer.base[n])for n in outputs},corpus_sha256=stage.sha256((ROOT/'corpus/zh/special-disc/frame-text.json').read_bytes()))
+    report['command_headings'] = command_report
+    report['title_atlas'] = title_report
     report['world_map_titles'] = world_map_report
     for name,data in outputs.items():
         p=args.output/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
     (args.output/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-    print('five SP image labels and ten inherited map titles written; palettes and non-target bytes preserved')
+    print('five SP image labels, ten inherited map titles and SP command/formation headings written; palettes and non-target bytes preserved')
 
 if __name__=='__main__':main()
