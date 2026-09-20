@@ -82,8 +82,8 @@ def coverage(reports):
                 if target not in consumed:pending.append(target)
         require(not pending,f'{kind}: unwritten corpus targets: {pending}')
         rows.append(dict(corpus=str(path.relative_to(ROOT)),sha256=file_sha(path),entries=len(entries),targets=targets_count,pending=pending))
-    require(sum(r['entries']for r in rows)==8629,'SP source corpus scope changed; update explicit contract')
-    return dict(corpora=rows,total_entries=8629,pending_targets=[],stage_chunks=len(CHUNKS),stage_bindings=len([r for c in stage['chunk_reports'] for r in c['bindings']]),formation_cells=sum(len(r.get('writes',[]))for c in stage['chunk_reports']for r in c['bindings']),frame_bindings=len(frame['bindings']),image_labels=len(reports['image-labels']['bindings']),sp_battle_entries=reports['srvc']['sp_corpus']['entries'],sp_battle_records=reports['srvc']['sp_corpus']['records'])
+    require(sum(r['entries']for r in rows)==8630,'SP source corpus scope changed; update explicit contract')
+    return dict(corpora=rows,total_entries=8630,pending_targets=[],stage_chunks=len(CHUNKS),stage_bindings=len([r for c in stage['chunk_reports'] for r in c['bindings']]),formation_cells=sum(len(r.get('writes',[]))for c in stage['chunk_reports']for r in c['bindings']),frame_bindings=len(frame['bindings']),image_labels=len(reports['image-labels']['bindings']),sp_battle_entries=reports['srvc']['sp_corpus']['entries'],sp_battle_records=reports['srvc']['sp_corpus']['records'])
 
 
 def assemble():

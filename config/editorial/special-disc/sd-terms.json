@@ -427,5 +427,67 @@
   "category": "组织",
   "basis": "正篇译法（563 句）；词表 organization/orb 误作“奥布士兵”",
   "note": ""
+ },
+ {
+  "jp": "アンノウン",
+  "variants": [
+   "UNKNOWN",
+   "Unknown",
+   "unknown"
+  ],
+  "zh": "未知目标",
+  "category": "识别状态／情境称呼",
+  "basis": "2026-09-20 用户确认本篇与 SP 共用情境规则",
+  "status": "reviewed",
+  "note": "指尚未辨明身份或归属的对象，不是固定组织名。默认未知目标；明确指机体时用未知机体，概括阵营或部队时用未知势力，明确指战舰时用未知战舰。对象可能是生物或尚未确定种类时不能擅自补成机体。不采用拼错的 UNKOWN，也不因同词而把全部位置机械替换为同一中文。已按用户整体确认将雷的“不知道的机体”一处采用未知机体。",
+  "contextual_translations": {
+   "unspecified_or_biological": "未知目标",
+   "mecha": "未知机体",
+   "faction_or_force": "未知势力",
+   "warship": "未知战舰"
+  },
+  "review_examples": [
+   "story/004/dialogue/01.26/0008",
+   "story/004/dialogue/01.26/0005",
+   "story/002/dialogue/01.01/0010",
+   "story/004/dialogue/02.01/0004",
+   "story/003/dialogue/01.05/0015",
+   "sd/story/001/dialogue/02.02/0031",
+   "sd/story/004/dialogue/01.08/0009"
+  ]
+ },
+ {
+  "jp": "跳ばされる",
+  "variants": [
+   "跳ばされて",
+   "跳ばされた",
+   "跳んだ"
+  ],
+  "zh": "被传送",
+  "category": "空间／时空异常位移",
+  "basis": "2026-09-20 用户明确确认；已核对本篇 92 处、SP 2 处关联对白",
+  "status": "reviewed",
+  "note": "限定被空间扭曲、时空震动等带到另一地点、世界或时代的用法；按句法写“被传送到／被传送过来／被传送走”。原文明示時空転移时仍保留“时空转移”。不用于普通跳跃、弹开、跳ねっ返り等其他词义，不将此词擅自当作主动施展的技术。",
+  "review_examples": [
+   "story/013/dialogue/02.01/0092",
+   "story/015/dialogue/01.01/0012",
+   "story/098/dialogue/01.73/0000",
+   "sd/story/013/dialogue/02.01/0028",
+   "sd/story/029/dialogue/01.02/0000"
+  ]
+ },
+ {
+  "jp": "特命部隊",
+  "zh": "特别命令行动队",
+  "category": "部队名称",
+  "basis": "2026-09-20 用户社区审阅确认",
+  "status": "reviewed"
+ },
+ {
+  "jp": "特機",
+  "zh": "特种机",
+  "category": "机体分类",
+  "basis": "2026-09-20 用户社区审阅确认",
+  "status": "reviewed"
  }
 ]
