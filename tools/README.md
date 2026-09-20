@@ -1,5 +1,7 @@
 # v0.4.0 构建工具
 
+Special Disc 的独立开发工具见 [special_disc/README.md](special_disc/README.md)，不属于下述本篇默认生产入口。
+
 `tools/` 包含当前双版本构建、回读、发布及研究维护入口。发布主链见下表；
 分析和运行工具独立于 ISO 构建。`run_lrps2_validation.py` 不参与发布包生成。
 

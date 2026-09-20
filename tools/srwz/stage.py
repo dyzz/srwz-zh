@@ -10,9 +10,17 @@ from .text import TextTable, decode_text
 
 
 STAGE_BASE_ADDRESS = 0x7566F0
+SPECIAL_DISC_STAGE_BASE_ADDRESS = 0x8045F0
 STAGE_BLOCK_REFERENCE_OFFSET = 0x90
 STAGE_FUNCTION_TABLE_START = 0x2FF0B0
 STAGE_FUNCTION_TABLE_END = 0x2FF3E7
+
+
+def _in_section_controls(base_address: int) -> frozenset[int]:
+    # SP adds 0x63 inside live sections; do not admit it in Original/BEST.
+    if base_address == SPECIAL_DISC_STAGE_BASE_ADDRESS:
+        return frozenset((0x60, 0x61, 0x63))
+    return frozenset((0x60, 0x61))
 
 
 class StageParseError(ValueError):
@@ -256,10 +264,10 @@ def _is_dialogue_block(
                 )
                 if structure_value == 0x7E:
                     break
-                if structure_value >= 0x60 and structure_value not in {
-                    0x60,
-                    0x61,
-                }:
+                if (
+                    structure_value >= 0x60
+                    and structure_value not in _in_section_controls(base_address)
+                ):
                     return False
                 _require_span(data, record_offset, 32, "dialogue record")
                 text_address = _u32(
@@ -307,6 +315,7 @@ def _condition_entries(
     signatures = {
         0x7566F0: ("b05222ac", "b85222ac", "c05222ac"),
         0x756EF0: ("b05a22ac", "b85a22ac", "c05a22ac"),
+        SPECIAL_DISC_STAGE_BASE_ADDRESS: ("b0e122ac", "b8e122ac", "c0e122ac"),
     }
     if base_address not in signatures:
         raise ValueError(f"unsupported STAGE condition layout: 0x{base_address:X}")
@@ -537,10 +546,10 @@ def parse_stage(
                 # section terminator is the dedicated 0x7E record.
                 if structure_value == 0x7E:
                     break
-                if structure_value >= 0x60 and structure_value not in {
-                    0x60,
-                    0x61,
-                }:
+                if (
+                    structure_value >= 0x60
+                    and structure_value not in _in_section_controls(base_address)
+                ):
                     raise StageParseError(
                         "unknown dialogue control or terminator",
                         offset=record_offset,

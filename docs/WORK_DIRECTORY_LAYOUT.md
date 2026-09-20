@@ -1,5 +1,7 @@
 # 本地 work 目录
 
+Special Disc 已于 2026-09-19 收拢到按产品划分的作者、审阅和构建目录；完整位置与兼容映射见 [Special Disc 目录契约](special-disc/LAYOUT.md)。历史研究与运行证据保留原位置。
+
 项目本地工作数据统一放在 `srwz-zh/work/`，即本仓库根目录下的 `work/`。
 父目录 `Super-Robot-Wars-Z/work/` 已合并移除，后续存档、构建缓存和验证记录均使用
 本仓库的目录。`work/` 被 Git 忽略，不提交原盘数据、组件或记忆卡。

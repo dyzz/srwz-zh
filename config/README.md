@@ -1,5 +1,7 @@
 # v0.4.0 配置入口
 
+Special Disc 开发目录登记与研究输入见 [products/special-disc/README.md](products/special-disc/README.md)，其预览图片输入位于 `assets/special-disc/`。
+
 配置树保存当前双版本构建输入、审核契约与版本化发布配置。历史配置按其版本解释，
 不能用旧发布目标哈希替代当前产物身份。
 

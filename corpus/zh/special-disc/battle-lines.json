@@ -1,0 +1,4635 @@
+{
+  "schema_version": 1,
+  "description": "特别篇新增战斗台词机翻初稿，附触发场景与条件，待审",
+  "generated": "2026-09-18",
+  "entry_count": 123,
+  "flagged_count": 0,
+  "entries": [
+    {
+      "id": "sd-battle:000",
+      "source_text": "「ヤーパンのオーバーマンに\\n　劣る私ではない！」",
+      "source_text_sha256": "e0d3f675690c79a536286998f3fe916d99ba65b15ea61e32f5caf256ab8db5a9",
+      "translation": "“我可不比雅邦的超限人\\n　逊色！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アスハム"
+      ],
+      "speaker_guess": "アスハム",
+      "addressee": "ゲイナー",
+      "triggers": [
+        {
+          "chunk": 11,
+          "record": 86,
+          "scene": "回避",
+          "conditions": [
+            "对手是：ゲイナー（盖纳）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "我=アスハム"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:001",
+      "source_text": "「ルナマリア！　\\n　戦いをやめないのなら…！」",
+      "source_text_sha256": "1eafe588533b999066b48f85e8bbb118e3f41b670fdb2cfcde1f5318c75b1c30",
+      "translation": "“露娜玛丽亚！\\n　如果你还要继续战斗……！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アスラン／アレックス"
+      ],
+      "speaker_guess": "アスラン",
+      "addressee": "ルナマリア",
+      "triggers": [
+        {
+          "chunk": 12,
+          "record": 231,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ルナマリア（露娜玛丽亚）",
+            "自身机体是：∞ジャスティスガンダム（无限正义高达）"
+          ]
+        },
+        {
+          "chunk": 12,
+          "record": 286,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手是：ルナマリア（露娜玛丽亚）",
+            "自身机体是：∞ジャスティスガンダム（无限正义高达）"
+          ]
+        },
+        {
+          "chunk": 12,
+          "record": 328,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手是：ルナマリア（露娜玛丽亚）",
+            "自身机体是：∞ジャスティスガンダム（无限正义高达）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=ルナマリア"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:002",
+      "source_text": "「ちいっ！　\\n　あの強大な力が我がチラムにあれば…！」",
+      "source_text_sha256": "d2058eff5598f203e20c88dbfff5350dd81c8aaaa0ac206d6e21671c90af2860",
+      "translation": "“啧！\\n　那股强大的力量要是归我奇拉姆所有……！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アテナ／？？？"
+      ],
+      "speaker_guess": "アテナ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 14,
+          "record": 111,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "自身不是属于标签组 奥格斯#5（1 名，如 アテナ（雅典娜））",
+            "对手属于标签组 （按标签）#1（21 名，如 ビッグオー（BIG-O）、アクエリオンデルタ（アクエリオンデルタ）、グレンダイザー（古连泰沙）、グレートマジンガー（大魔神）、ソーラーアクエリオン（太阳阿克艾里昂））"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "note": "speaker组含雅典娜与？？？，此处按雅典娜口吻译"
+    },
+    {
+      "id": "sd-battle:003",
+      "source_text": "「あんな男の攻撃を\\n　まともに受けてしまうなんて！」",
+      "source_text_sha256": "0da32bc6a5d38cb9cde0c80a675382894377da287c920d7b6d50c302832eb17c",
+      "translation": "“居然结结实实地挨了\\n　那种男人的一击！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アテナ／？？？"
+      ],
+      "speaker_guess": "アテナ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 14,
+          "record": 98,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "自身不是属于标签组 奥格斯#5（1 名，如 アテナ（雅典娜））",
+            "对手是：桂（桂）",
+            "关卡条件：不早于 关卡编号61"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:004",
+      "source_text": "「まだ本艦は沈まん！　\\n　戦闘を続行するぞ！」",
+      "source_text_sha256": "0b5894b97f78f8ce31bbdfd3ac9d775bf1dc38bcfa5777114dd42a30289b48e3",
+      "translation": "“本舰还没沉！\\n　继续战斗！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アフロディア"
+      ],
+      "speaker_guess": "アフロディア",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 18,
+          "record": 61,
+          "scene": "被弹（大伤害 A）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:005",
+      "source_text": "「受け取って、アポロ！　\\n　私の想いを！」",
+      "source_text_sha256": "3b46ef7c3abc5fa7f21154191812da528e73b59f7291d3bcbb617b430ea918a8",
+      "translation": "“收下吧，阿波罗！\\n　收下我的心意！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アポロ"
+      ],
+      "speaker_guess": "シリウス",
+      "addressee": "アポロ",
+      "triggers": [
+        {
+          "chunk": 21,
+          "record": 70,
+          "scene": "武器台词（武器类别 14）",
+          "conditions": [
+            "友军／援护对象是：シリウス（西利乌斯）",
+            "友军／援护对象是：シルヴィア（西尔维娅）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=アポロ"
+      ],
+      "confidence": "high",
+      "note": "武器台词为西利乌斯/西尔维娅对阿波罗所说，发言者为搭档",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:006",
+      "source_text": "「さあ、見せてくれ！　お前の発する光が\\n　世界を黒に染める様を！」",
+      "source_text_sha256": "f57ccd2885a8c9ab585493b4177c14d506b5c8cfc29e5499a19356a0c2330453",
+      "translation": "“来吧，让我看看！你发出的光\\n　将世界染成黑色的样子！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アラン"
+      ],
+      "speaker_guess": "アラン",
+      "addressee": "∀高达等敌方机体驾驶员",
+      "triggers": [
+        {
+          "chunk": 24,
+          "record": 163,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）"
+          ]
+        },
+        {
+          "chunk": 24,
+          "record": 182,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）"
+          ]
+        },
+        {
+          "chunk": 24,
+          "record": 118,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）"
+          ]
+        },
+        {
+          "chunk": 24,
+          "record": 145,
+          "scene": "攻击（武器分级 3）",
+          "conditions": [
+            "对手机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high",
+      "note": "换行数改为2，按中文语义调整断行"
+    },
+    {
+      "id": "sd-battle:007",
+      "source_text": "「そうか！　\\n　そんなに痛い目に遭いたいのか！」",
+      "source_text_sha256": "f70c8a275ac34bbf1d29f436e810cffcffed806e47e73e82bd4320cb25f8d96f",
+      "translation": "“是吗！\\n　你就那么想吃苦头吗！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アラン"
+      ],
+      "speaker_guess": "アラン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 24,
+          "record": 10,
+          "scene": "再攻击",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:008",
+      "source_text": "「この私に当てるなんて\\n　土台、無理な話なんだよぉ！」",
+      "source_text_sha256": "bb5803fbc4ed437004482626b35be325d6c833d9e3f0f2f88a83040d2dac5622",
+      "translation": "“想打中我，\\n　根本就是不可能的事！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "アラン"
+      ],
+      "speaker_guess": "アラン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 24,
+          "record": 38,
+          "scene": "回避",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "我=アラン"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:009",
+      "source_text": "「これで奴もわかっただろう。\\n　己が身の程というものが」",
+      "source_text_sha256": "edeb50bc952fe118589a82da35c061127fef6deeecc0b53aafaa0612516f633c",
+      "translation": "“这下那家伙总该明白了吧。\\n　明白自己有几斤几两。”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "イアン"
+      ],
+      "speaker_guess": "イアン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 30,
+          "record": 118,
+          "scene": "屏障（通用）",
+          "conditions": [
+            "自身属于标签组 高达SEED DESTINY#8（1 名，如 イアン（伊安））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "那家伙=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:010",
+      "source_text": "「わああっ！　落ちる！？」",
+      "source_text_sha256": "abd6c3df4935c852dcbff58dcea98a4dbea72f19a6a1b581c126d9b703fc6bd6",
+      "translation": "“哇啊啊！要坠落了！？”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "エウレカ"
+      ],
+      "speaker_guess": "エウレカ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 37,
+          "record": 98,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:011",
+      "source_text": "「ったく、次は当てられるんじゃねえぞ！」",
+      "source_text_sha256": "ab9cd710f37623d06ca0b58647b88843e3521ebc2fce01b3cdd5c2d70898be83",
+      "translation": "“真是的，下次可别再挨打了！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "エニル",
+        "カリス",
+        "ガロード",
+        "ジャミル",
+        "パーラ",
+        "ランスロー",
+        "ロアビィ"
+      ],
+      "speaker_guess": "エニル",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 39,
+          "record": 91,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "友军／援护对象是：ウィッツ（威兹）"
+          ]
+        },
+        {
+          "chunk": 64,
+          "record": 74,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "友军／援护对象是：ウィッツ（威兹）"
+          ]
+        },
+        {
+          "chunk": 65,
+          "record": 199,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "友军／援护对象是：ウィッツ（威兹）"
+          ]
+        },
+        {
+          "chunk": 118,
+          "record": 133,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "友军／援护对象是：ウィッツ（威兹）"
+          ]
+        },
+        {
+          "chunk": 186,
+          "record": 80,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "友军／援护对象是：ウィッツ（威兹）"
+          ]
+        },
+        {
+          "chunk": 264,
+          "record": 91,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "友军／援护对象是：ウィッツ（威兹）"
+          ]
+        },
+        {
+          "chunk": 281,
+          "record": 111,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "友军／援护对象是：ウィッツ（威兹）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "我=エニル"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。 当てられる为挨打、被打中；是提醒同伴下次别再中招，不是对敌人说“别想打中我”。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:012",
+      "source_text": "「せ、戦闘ではチラムにかなわない…！！」",
+      "source_text_sha256": "8c71d066edbcd47383056c1239d7aac54823e321557150c89540da07f226f092",
+      "translation": "“在、在战斗上果然敌不过奇拉姆……！！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "エマーン兵"
+      ],
+      "speaker_guess": "エマーン兵",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 41,
+          "record": 98,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "对手属于标签组 奥格斯#1（8 名，如 セプテ（セプテ）、ヘンリー（亨利）、チラム兵（奇拉姆士兵）、チラム艦長（奇拉姆舰长）、オルソン（奥尔森））"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:013",
+      "source_text": "「ゴ、ゴッドシグマめ！　奴だけは！」",
+      "source_text_sha256": "89a7957031b924c1199f1453ebd030d8197f10e475f130345d63b30d1f818f68",
+      "translation": "“巨、巨神Σ！唯独那家伙！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "エルダー兵"
+      ],
+      "speaker_guess": "エルダー兵",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 42,
+          "record": 112,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手机体是：ゴッドシグマ（巨神Σ）"
+          ]
+        },
+        {
+          "chunk": 43,
+          "record": 112,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手机体是：ゴッドシグマ（巨神Σ）"
+          ]
+        },
+        {
+          "chunk": 44,
+          "record": 112,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手机体是：ゴッドシグマ（巨神Σ）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "那家伙=ゴッドシグマ"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:014",
+      "source_text": "「すごぉい！　これが文化の力なのね」",
+      "source_text_sha256": "8402a8cc019b4cff3889f37b1a48f4d8b607c9b0e7831b0c494c5316edff5ab0",
+      "translation": "“好厉害～！这就是文化的力量啊！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "エルチ"
+      ],
+      "speaker_guess": "エルチ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 45,
+          "record": 507,
+          "scene": "屏障（特殊）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:015",
+      "source_text": "「ちっ！　\\n　アイアン・ギアーの死角を知ってやがる！」",
+      "source_text_sha256": "c35450786129a78acef0010383b7bae54ba22844104afd8d18f1b01bca04efd2",
+      "translation": "“啧！\\n　这家伙居然知道钢铁齿轮的死角！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "エルチ"
+      ],
+      "speaker_guess": "エルチ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 45,
+          "record": 176,
+          "scene": "攻击（对手无法反击：射程外）",
+          "conditions": [
+            "自身机体是：アイアン・ギアー（ＬＳ）（钢铁齿轮（LS））／アイアン・ギアー（ＷＭ）（钢铁齿轮（WM））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "这家伙=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:016",
+      "source_text": "「ただでは下がらんぞ、フリーダム！」",
+      "source_text_sha256": "d88f699e06cf5dbe47d08ac6d6f3b85a09c2959e57b83272f911549ba16f446b",
+      "translation": "“可不会白白退下，自由高达！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "オーブ兵",
+        "オーブ兵／シジョウ"
+      ],
+      "speaker_guess": "オーブ兵",
+      "addressee": "キラ",
+      "triggers": [
+        {
+          "chunk": 48,
+          "record": 54,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手是：キラ（基拉）",
+            "对手机体是：Ｓフリーダムガンダム（强袭自由高达）"
+          ]
+        },
+        {
+          "chunk": 48,
+          "record": 53,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手是：キラ（基拉）",
+            "对手机体是：フリーダムガンダム（自由高达）"
+          ]
+        },
+        {
+          "chunk": 49,
+          "record": 54,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手是：キラ（基拉）",
+            "对手机体是：Ｓフリーダムガンダム（强袭自由高达）"
+          ]
+        },
+        {
+          "chunk": 49,
+          "record": 53,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手是：キラ（基拉）",
+            "对手机体是：フリーダムガンダム（自由高达）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:019",
+      "source_text": "「くっ！　思い通りにいくと思うなよ！」",
+      "source_text_sha256": "75d79783688702a9f41b33b80a72fd9bedee5b41d67033ed29ad9e4ecb321afe",
+      "translation": "“唔！别以为能事事如愿！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "カツ"
+      ],
+      "speaker_guess": "カツ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 60,
+          "record": 79,
+          "scene": "被弹（轻伤害）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:017",
+      "source_text": "「ぐっ！　まだ逆らうつもりか！」",
+      "source_text_sha256": "7c8960cd11eb69d1597e3109a5661adfce112ca59717d8b25ca91ce88e790654",
+      "translation": "“唔！你还想继续反抗吗！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ガウリ"
+      ],
+      "speaker_guess": "ガウリ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 56,
+          "record": 36,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:018",
+      "source_text": "「虫ケラどもめ！　\\n　最後まで抵抗する気か！」",
+      "source_text_sha256": "74d3243598ec9fbb38b9909e30cd7b17d8eaa32d8c8f31a26018baca14db5a10",
+      "translation": "“虫豸们！\\n　打算抵抗到最后吗！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ガガーン"
+      ],
+      "speaker_guess": "ガガーン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 57,
+          "record": 93,
+          "scene": "被弹（大伤害 A）",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "你们=对手"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:052",
+      "source_text": "「対空砲火！　敵の接近を食い止めてみせよ」",
+      "source_text_sha256": "c24c4d7ffcfc25645b2d286ead4817b6c8a5b50226bb89d22428af0dfde7e10f",
+      "translation": "“对空炮火！把敌人给我挡住！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "キエル／ディアナ"
+      ],
+      "speaker_guess": "キエル",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 163,
+          "record": 5,
+          "scene": "武器台词（武器类别 0）",
+          "conditions": []
+        }
+      ],
+      "confidence": "medium",
+      "note": "人工修正：原文无换行，初稿多加了一行",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:022",
+      "source_text": "「僕にも…覚悟がある…！」",
+      "source_text_sha256": "58530cf7ea09e20c4dad5cc0c2ba6f98cf009eff5d8edd637bb8ff3a3b0587a8",
+      "translation": "“我……也有觉悟……！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "キラ"
+      ],
+      "speaker_guess": "キラ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 71,
+          "record": 2,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "自身机体是：Ｓフリーダムガンダム（强袭自由高达）"
+          ]
+        },
+        {
+          "chunk": 71,
+          "record": 405,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "自身机体是：Ｓフリーダムガンダム（强袭自由高达）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "我=キラ"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:020",
+      "source_text": "「我々の戦闘力を見せつけておかんとな！」",
+      "source_text_sha256": "9a55a9e8713d558610de0950a84c99cd2007d5681b577a16850739c32083a635",
+      "translation": "“得让他们见识见识我们的战斗力！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ギャバン"
+      ],
+      "speaker_guess": "ギャバン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 70,
+          "record": 10,
+          "scene": "攻击（主动）",
+          "conditions": []
+        },
+        {
+          "chunk": 70,
+          "record": 218,
+          "scene": "攻击（武器分级 2）",
+          "conditions": []
+        },
+        {
+          "chunk": 70,
+          "record": 98,
+          "scene": "武器共通台词 A",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "他们=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:021",
+      "source_text": "「バリアとかいうやつを使えば！」",
+      "source_text_sha256": "d579692f5bd08313e597eaac1c642c0d15b0460883d01f8b110d2ae5aad52e71",
+      "translation": "“只要用上那个叫护罩的东西！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ギャバン"
+      ],
+      "speaker_guess": "ギャバン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 70,
+          "record": 55,
+          "scene": "屏障（特殊）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:023",
+      "source_text": "「誰を相手にしているのか\\n　わかっているのか、ハリー・オードッ！！」",
+      "source_text_sha256": "1b9e1af577686e0e5af23327af9ffbf7dfbb7bd90af5b68161fdf6c608be8c71",
+      "translation": "“你知道自己在跟谁作对吗，\\n　哈利·奥德！！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ギンガナム"
+      ],
+      "speaker_guess": "ギンガナム",
+      "addressee": "ハリー",
+      "triggers": [
+        {
+          "chunk": 73,
+          "record": 111,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ハリー（哈利）"
+          ]
+        },
+        {
+          "chunk": 73,
+          "record": 146,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ハリー（哈利）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=ハリー"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:024",
+      "source_text": "「システムの赴くままに共に死す…\\n　それも面白いと思わんか！」",
+      "source_text_sha256": "98915816c715dffe3bc158732db4f4eeb45eecaf68bebfcde8c5ca0cc95d6543",
+      "translation": "“顺应系统的指引一同赴死……\\n　你不觉得这也很有趣吗！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ギンガナム"
+      ],
+      "speaker_guess": "ギンガナム",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 73,
+          "record": 30,
+          "scene": "被弹（大伤害 A）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:025",
+      "source_text": "「どうやってオーバースキルを\\n　破りゃいいんだ！！」",
+      "source_text_sha256": "12e3375aa215d008cfa7720a7559cbca54adc2174f465bf35a75501433ef37c3",
+      "translation": "“到底要怎么才能破掉\\n　超限技啊！！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ケジナン"
+      ],
+      "speaker_guess": "ケジナン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 82,
+          "record": 127,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "对手状态条件：机体状态位 位2"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:026",
+      "source_text": "「エンゲ！　ジャボリ！　\\n　ここらで決めとくぞ！」",
+      "source_text_sha256": "1cafbe7e96fe2a62fc580b6416bc188b026ee554f619d959558934b171f65e49",
+      "translation": "“恩盖！贾博利！\\n　就在这儿做个了断！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ケジナン"
+      ],
+      "speaker_guess": "ケジナン",
+      "addressee": "エンゲ、ジャボリ",
+      "triggers": [
+        {
+          "chunk": 82,
+          "record": 157,
+          "scene": "小队攻击号令（指定队员）",
+          "conditions": [
+            "友军／援护对象是：エンゲ（恩盖）",
+            "友军／援护对象是：ジャボリ（贾博利）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:027",
+      "source_text": "「そうそう！　\\n　このくらい、やってくれなきゃな！」",
+      "source_text_sha256": "77976e63e1f9cd8b1be85ecbd1255518631458096ccfbf11e2ae5027e6cc6fdb",
+      "translation": "“对对！\\n　就得这么来才行啊！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "コレン"
+      ],
+      "speaker_guess": "コレン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 90,
+          "record": 30,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:029",
+      "source_text": "「シンシアのことだから、\\n　手加減してるんでしょうけど…！」",
+      "source_text_sha256": "6db9898ab5d8ee5526a6a830e31188a38c033539ac63f4fe6d6b7f98fa390742",
+      "translation": "“以辛西亚的性子，\\n　她肯定手下留情了……！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "サラ"
+      ],
+      "speaker_guess": "サラ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 101,
+          "record": 138,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "对手是：？？？（？？？）／シンシア（辛西亚）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "她=シンシア"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:030",
+      "source_text": "「もう一度攻撃を行います！」",
+      "source_text_sha256": "c5ec2b463666e85ffa136a8ec726cc9ed8870828ce3bfe6ca6266f40dc4f9a3c",
+      "translation": "“我再攻击一次！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "サラ"
+      ],
+      "speaker_guess": "サラ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 103,
+          "record": 10,
+          "scene": "再攻击",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:031",
+      "source_text": "「あまり私を甘くみないことね！」",
+      "source_text_sha256": "702e7098fa581ca8823b7082f64cf7315cf9f4c46da972b697a9c602a74e1597",
+      "translation": "“可别太小看我！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "サラ"
+      ],
+      "speaker_guess": "サラ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 104,
+          "record": 81,
+          "scene": "回避",
+          "conditions": [
+            "对手是：カミーユ（卡缪）／セツコ（节子）／デンゼル（丹泽尔）／トビー（托比）／ランド（兰德）／メール（梅尔）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:032",
+      "source_text": "「アサキム・ドーウィン…\\n　哀れな放浪者よ…！」",
+      "source_text_sha256": "5112c3aaa74c7ee2dd009eb55b50e3f9b6c97959a5898168e39a0b93809f0c19",
+      "translation": "“阿萨基姆·杜文……\\n　可悲的流浪者啊……！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "サンドマン／ジーク"
+      ],
+      "speaker_guess": "サンドマン",
+      "addressee": "アサキム",
+      "triggers": [
+        {
+          "chunk": 105,
+          "record": 187,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        },
+        {
+          "chunk": 105,
+          "record": 211,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:033",
+      "source_text": "「エゴと虚栄と野心に満ちし毒婦よ！　\\n　消えるがいい！」",
+      "source_text_sha256": "ae8756722914267e8aef988e13a934051a333ac791217de22f3a6e61287db927",
+      "translation": "“满身自私、虚荣与野心的毒妇！\\n　消失吧！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "サンドマン／ジーク"
+      ],
+      "speaker_guess": "サンドマン",
+      "addressee": "エーデル",
+      "triggers": [
+        {
+          "chunk": 105,
+          "record": 189,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 105,
+          "record": 213,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:034",
+      "source_text": "「来い、ゴーマよ！　\\n　まだ私の命の炎は燃えているぞ！」",
+      "source_text_sha256": "75a7a194f2682e118c1026a88c61d36b28c6a9d910013ec1be6b1735262e9eab",
+      "translation": "“来吧，戈玛！\\n　我生命之火还在燃烧！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "サンドマン／ジーク"
+      ],
+      "speaker_guess": "サンドマン",
+      "addressee": "ゴーマ",
+      "triggers": [
+        {
+          "chunk": 105,
+          "record": 169,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "对手是：ゴーマ（戈玛）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:028",
+      "source_text": "「敵機の居所は！？」",
+      "source_text_sha256": "bd2facb1a195345c6fa5e782d2ac08659adedf997b76b1fe59270698d864b5e4",
+      "translation": "“敌机在哪！？”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ザフト兵"
+      ],
+      "speaker_guess": "ザフト兵",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 99,
+          "record": 45,
+          "scene": "攻击（对手无法反击：射程外）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:036",
+      "source_text": "「世界の陰に生きる者め！　真実の\\n　光の下へ、その身をさらすがいい！」",
+      "source_text_sha256": "4f7ecf90548be96e302df812b1e163d471ff1101cb2e39a7adfdde64abf09379",
+      "translation": "“藏身于世界阴影中的家伙！\\n　在真相之光下现身吧！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "シリウス"
+      ],
+      "speaker_guess": "シリウス",
+      "addressee": "アサキム",
+      "triggers": [
+        {
+          "chunk": 127,
+          "record": 211,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        },
+        {
+          "chunk": 127,
+          "record": 224,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=アサキム"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:037",
+      "source_text": "「毒婦よ！　\\n　せめて、散り際ぐらい美しくあれ！」",
+      "source_text_sha256": "00bf411cfbf1bc2fe8350cab75b7334a6980b2ed362006963d0d44f1ef0ae20c",
+      "translation": "“毒妇啊！\\n　至少，临死前美一点吧！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "シリウス"
+      ],
+      "speaker_guess": "シリウス",
+      "addressee": "エーデル",
+      "triggers": [
+        {
+          "chunk": 127,
+          "record": 213,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 127,
+          "record": 226,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:040",
+      "source_text": "「何にもわかってないくせに！　\\n　裏切り者のくせにっ！！」",
+      "source_text_sha256": "b52cba4b093732d005b4f0c47596f8f123aed1ce2773399eb13e8575a16217ad",
+      "translation": "“你什么都不懂！\\n　明明就是个叛徒！！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "シン"
+      ],
+      "speaker_guess": "シン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 131,
+          "record": 208,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "自身不是属于标签组 高达SEED DESTINY#0（1 名，如 シン（真））",
+            "对手机体是：∞ジャスティスガンダム（无限正义高达）",
+            "自身机体是：デスティニーガンダム（命运高达）"
+          ]
+        },
+        {
+          "chunk": 131,
+          "record": 477,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "自身不是属于标签组 高达SEED DESTINY#0（1 名，如 シン（真））",
+            "对手机体是：∞ジャスティスガンダム（无限正义高达）",
+            "自身机体是：デスティニーガンダム（命运高达）"
+          ]
+        },
+        {
+          "chunk": 131,
+          "record": 303,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "自身不是属于标签组 高达SEED DESTINY#0（1 名，如 シン（真））",
+            "对手机体是：∞ジャスティスガンダム（无限正义高达）",
+            "自身机体是：デスティニーガンダム（命运高达）"
+          ]
+        },
+        {
+          "chunk": 131,
+          "record": 387,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "自身不是属于标签组 高达SEED DESTINY#0（1 名，如 シン（真））",
+            "对手机体是：∞ジャスティスガンダム（无限正义高达）",
+            "自身机体是：デスティニーガンダム（命运高达）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=∞ジャスティスガンダム的驾驶员"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:041",
+      "source_text": "「くそっ！　訳わかんない奴なんかに！！」",
+      "source_text_sha256": "5d01dc4e34b719883c8e2e6b0802c7917e9c70d72abc73daa1f77b488917ed2f",
+      "translation": "“可恶！居然输给个莫名其妙的家伙！！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "シン"
+      ],
+      "speaker_guess": "シン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 131,
+          "record": 152,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "自身机体是：ソードインパルスガンダム（巨剑型脉冲高达）／フォースインパルスガンダム（强攻型脉冲高达）／ブラストインパルスガンダム（轰击型脉冲高达）",
+            "对手机体是：フリーダムガンダム（自由高达）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:042",
+      "source_text": "「怖い怖い。ちゃんと殺しに\\n　かかってくるもんね、大人は」",
+      "source_text_sha256": "d4f491daa2a2aff10b4426f701f0f9bb772d2fb9aea51930976636d6e9d28db4",
+      "translation": "“好可怕好可怕。大人下手\\n　还真是招招要命呢。”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "シンシア"
+      ],
+      "speaker_guess": "シンシア",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 134,
+          "record": 7,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ゲイン（该隐）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 9,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ホランド（霍兰德）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 10,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：オルソン（奥尔森）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 11,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ガウリ（高富利）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 12,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：アデット（阿蒂特）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 13,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：クワトロ（克瓦特罗）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 65,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ガウリ（高富利）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 66,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：アデット（阿蒂特）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 64,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：オルソン（奥尔森）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 63,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ホランド（霍兰德）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 61,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ゲイン（该隐）"
+          ]
+        },
+        {
+          "chunk": 134,
+          "record": 67,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：クワトロ（克瓦特罗）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:035",
+      "source_text": "「これ以上、\\n　お前達兄弟の好きにはやらせん！」",
+      "source_text_sha256": "b9e5d4ead803f8c0fc1ca375185b261f8dc25ff8293ed71f307fdd24b92502be",
+      "translation": "“不能再让你们兄弟\\n　为所欲为了！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ジャミル"
+      ],
+      "speaker_guess": "ジャミル",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 118,
+          "record": 38,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手属于标签组 高达X#1（2 名，如 シャギア（夏基亚）、オルバ（奥尔巴））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你们=シャギア、オルバ"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:038",
+      "source_text": "「ジロン、もたないよ！　早くっ！」",
+      "source_text_sha256": "bead69fd882cf1165df925d74acb29296f23b72cbed9c379cecc0c5023c68d8c",
+      "translation": "“吉隆，撑不住了！快点！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ジロン"
+      ],
+      "speaker_guess": "ラグ",
+      "addressee": "ジロン",
+      "triggers": [
+        {
+          "chunk": 130,
+          "record": 187,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "友军／援护对象是：ラグ（拉格）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "note": "发言者为同乘的拉格，非语音组名义的吉隆"
+    },
+    {
+      "id": "sd-battle:039",
+      "source_text": "「女の執念って、ホント怖い！」",
+      "source_text_sha256": "be16bfdf5b8151d7b56e8584684abd215af4d95675ee2699787e29808721fe2c",
+      "translation": "“女人的执念，真的好可怕！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ジロン"
+      ],
+      "speaker_guess": "ジロン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 130,
+          "record": 141,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "对手是：グレタ（格蕾塔）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:043",
+      "source_text": "「連邦の暴走を止めなくては…！」",
+      "source_text_sha256": "84ff089b07e3cacea385c6e1b1eac8931af930ccaf6b8688c1fa1d9140615340",
+      "translation": "“必须阻止联邦的暴走……！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "セツコ"
+      ],
+      "speaker_guess": "セツコ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 142,
+          "record": 48,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 高达系#0（2 名，如 連邦軍兵（联邦军士兵）、連邦軍艦長（联邦军舰长））"
+          ]
+        },
+        {
+          "chunk": 142,
+          "record": 167,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 高达系#0（2 名，如 連邦軍兵（联邦军士兵）、連邦軍艦長（联邦军舰长））"
+          ]
+        },
+        {
+          "chunk": 142,
+          "record": 275,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手属于标签组 高达系#0（2 名，如 連邦軍兵（联邦军士兵）、連邦軍艦長（联邦军舰长））"
+          ]
+        },
+        {
+          "chunk": 142,
+          "record": 327,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 高达系#0（2 名，如 連邦軍兵（联邦军士兵）、連邦軍艦長（联邦军舰长））"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:044",
+      "source_text": "「くっ！　強奪した機体にここまで…！」",
+      "source_text_sha256": "f8676ee4d3bb05566ea50e8c605cc007eb1c580cb02f8997c9bcdd3f28fd033d",
+      "translation": "“唔！居然被抢来的机体打成这样……！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "タリア"
+      ],
+      "speaker_guess": "タリア",
+      "addressee": "深渊高达等三机",
+      "triggers": [
+        {
+          "chunk": 148,
+          "record": 237,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "对手属于标签组 高达SEED DESTINY#0（3 名，如 アビスガンダム（深渊高达）、カオスガンダム（混沌高达）、ガイアガンダム（盖亚高达））",
+            "对手不是是：イザーク（伊扎克）",
+            "对手不是是：バルトフェルド（巴尔特菲尔德）",
+            "对手不是是：ルナマリア（露娜玛丽亚）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。 “强夺的机体”作为造成伤害的一方；不添加它原本属于说话人的推断。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:045",
+      "source_text": "「第７ブロックに整備班を回して！」",
+      "source_text_sha256": "130fe40547be60bce5a20d2942ce0c76d846939ba0b6951f22ad41d768f5875b",
+      "translation": "“把整备班调到第7区块！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "タリア"
+      ],
+      "speaker_guess": "タリア",
+      "addressee": "舰桥乘员",
+      "triggers": [
+        {
+          "chunk": 148,
+          "record": 193,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:046",
+      "source_text": "「やはり、標的をミネルバに絞ってきたか」",
+      "source_text_sha256": "1947c6ad2e4922306a82ea0cbf5b67fb3b58d356fab6cf7709c6dc0887aa3afc",
+      "translation": "“果然，目标锁定在密涅瓦号上了吗”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "タリア"
+      ],
+      "speaker_guess": "タリア",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 148,
+          "record": 153,
+          "scene": "回避",
+          "conditions": [
+            "自身属于标签组 高达SEED DESTINY#4（1 名，如 タリア（塔丽亚））"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:047",
+      "source_text": "「無理です！　この位置ではとても！」",
+      "source_text_sha256": "ece842ae298a01526afa44666b31f610eeb8cd6dd51f95a3501d5bbf60f63dee",
+      "translation": "“不行！在这个位置根本打不到！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "タリア"
+      ],
+      "speaker_guess": "タリア",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 148,
+          "record": 136,
+          "scene": "攻击（对手无法反击：射程外）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:048",
+      "source_text": "「ホランド！　あなたは先に行って！」",
+      "source_text_sha256": "93da9aa4cb7fe8e3e0817e21a11abc211c47ca42164bfcadc32f4518c0adacda",
+      "translation": "“霍兰德！你先走！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "タルホ"
+      ],
+      "speaker_guess": "タルホ",
+      "addressee": "ホランド",
+      "triggers": [
+        {
+          "chunk": 150,
+          "record": 123,
+          "scene": "援护攻击",
+          "conditions": [
+            "自身属于标签组 优莱卡7#6（1 名，如 タルホ（塔尔荷））",
+            "友军／援护对象是：ホランド（霍兰德）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=ホランド"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:049",
+      "source_text": "「りょ、了解！　俺がやらなきゃ…\\n　やらなきゃなんねんだ！」",
+      "source_text_sha256": "abb5042a5f7501ce4a3adfd65bafc6505c95178c417d24453c1d5a3b6e57bf5e",
+      "translation": "“了、了解！我必须做……\\n　必须得做啊！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "タルホ"
+      ],
+      "speaker_guess": "タルホ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 150,
+          "record": 321,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "自身属于标签组 优莱卡7#6（1 名，如 タルホ（塔尔荷））"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:050",
+      "source_text": "「仕掛けるぜ！　俺に続け！」",
+      "source_text_sha256": "fd562a9b22015697c86db0c64891ef6d5b4d9ff437b175454562293b02b93612",
+      "translation": "“动手了！跟我上！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "チャールズ"
+      ],
+      "speaker_guess": "チャールズ",
+      "addressee": "小队成员",
+      "triggers": [
+        {
+          "chunk": 152,
+          "record": 53,
+          "scene": "小队攻击号令",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:051",
+      "source_text": "「ＯＫ！　ハデにいこうか！」",
+      "source_text_sha256": "ab21d5f6968173bfa408b0add6db432f61e2c6e4d8ab31fd9881aa58ee80b2ab",
+      "translation": "“OK！就大干一场吧！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "チャールズ"
+      ],
+      "speaker_guess": "チャールズ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 152,
+          "record": 56,
+          "scene": "小队攻击应答",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:053",
+      "source_text": "「おいおい！　また記憶を失ったら、\\n　どうしてくれるんだよ！」",
+      "source_text_sha256": "10de12b8d157af006332c3f5c4cb3edddb71cb7f4670a0404064fb07d9d87882",
+      "translation": "“喂喂！要是我又失忆了，\\n　你打算怎么办啊！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ネオ／ムウ"
+      ],
+      "speaker_guess": "ムウ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 183,
+          "record": 416,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "自身属于标签组 高达SEED DESTINY#2（1 名，如 ムウ（穆））"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:054",
+      "source_text": "「っと、まだ本調子じゃないようだ」",
+      "source_text_sha256": "2f491fad72313bd7f392d023ff0703e817700e562b6fa366da157a1c3fd7ec13",
+      "translation": "“哎呀，看来还没完全恢复状态啊。”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ネオ／ムウ"
+      ],
+      "speaker_guess": "ムウ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 183,
+          "record": 415,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "自身属于标签组 高达SEED DESTINY#2（1 名，如 ムウ（穆））"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:055",
+      "source_text": "「口ほどにもないな、\\n　マリン・レイガン！」",
+      "source_text_sha256": "0a787d1d544de9d1e1e31a5931eb8f36668bf3ede1ca478a031c07bfa798066b",
+      "translation": "“不过如此嘛，\\n　马林·雷根！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ネグロス"
+      ],
+      "speaker_guess": "ネグロス",
+      "addressee": "マリン・レイガン",
+      "triggers": [
+        {
+          "chunk": 184,
+          "record": 23,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "对手是：マリン（马林）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:057",
+      "source_text": "「さっすが、タルホ！　\\n　いい位置に誘導してくれた！」",
+      "source_text_sha256": "dede79826df461691e947f826157baadb4139807b9e307ce156e95a85003a08f",
+      "translation": "“不愧是塔尔荷！\\n　把我引到了好位置！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ヒルダ"
+      ],
+      "speaker_guess": "ヒルダ",
+      "addressee": "タルホ",
+      "triggers": [
+        {
+          "chunk": 201,
+          "record": 35,
+          "scene": "援护攻击",
+          "conditions": [
+            "友军／援护对象机体是：月光号（月光号）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:056",
+      "source_text": "「今は使うしかねえんだ！！」",
+      "source_text_sha256": "ebdb7bc509e8fd1d40ba652146c944d06f06667b8289013096ca2ea3c27e5d8b",
+      "translation": "“现在只能用了！！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ピエール"
+      ],
+      "speaker_guess": "ピエール",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 196,
+          "record": 35,
+          "scene": "武器台词（武器类别 15）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:058",
+      "source_text": "「あ、あれがゼラバイアの進化の力…！？」",
+      "source_text_sha256": "844b9c934b7eb74540227052296bbf60185232894b873f29c6ea3de651afec61",
+      "translation": "“那、那就是泽拉拜亚进化的力量……！？”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "フェイ"
+      ],
+      "speaker_guess": "フェイ",
+      "addressee": "ゼラバイア",
+      "triggers": [
+        {
+          "chunk": 205,
+          "record": 101,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "对手是：ゼラバイア（泽拉拜亚）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:059",
+      "source_text": "「ジャック・オフ…！」",
+      "source_text_sha256": "42efb45af7333f33bd9d8a9d6ab48c5f429e954981bde2119b9fdb48389ab309",
+      "translation": "“脱离……！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "フェイ"
+      ],
+      "speaker_guess": "フェイ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 205,
+          "record": 38,
+          "scene": "武器台词（武器类别 2）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:060",
+      "source_text": "「て、敵はかなりの力を\\n　持っているようです！」",
+      "source_text_sha256": "cb2324f91976c9815629f93d7b5f263c54c2fcef90d512865c96190d243f37e7",
+      "translation": "“敌、敌人似乎拥有\\n　相当强的力量！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ブッチャー"
+      ],
+      "speaker_guess": "ブッチャー",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 208,
+          "record": 64,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:061",
+      "source_text": "「俺を退屈させないでくれよ…！」",
+      "source_text_sha256": "5f944c7b9d3a68f934614cc0a3b429eddc55fe3c13afbf6e640d73fea4168e10",
+      "translation": "“可别让我觉得无聊啊……！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ブラン"
+      ],
+      "speaker_guess": "ブラン",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 211,
+          "record": 4,
+          "scene": "攻击（主动）",
+          "conditions": []
+        },
+        {
+          "chunk": 211,
+          "record": 83,
+          "scene": "武器共通台词 A",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:067",
+      "source_text": "「あいつ…遊んでいる？　\\n　それとも非力なのか？」",
+      "source_text_sha256": "bb240b80447eaf4d9cb142a99b8bb0d547bf1c2df8cd9ec1ee8150ba842615bd",
+      "translation": "“那家伙……是在玩？\\n　还是说根本没什么力气？”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ヘンリー"
+      ],
+      "speaker_guess": "ヘンリー",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 226,
+          "record": 70,
+          "scene": "被弹（轻伤害）",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "那家伙=对手"
+      ],
+      "ambiguous": true,
+      "confidence": "medium",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:062",
+      "source_text": "「おらおら！　スカしてんじゃねえよ！」",
+      "source_text_sha256": "5ce704623d42c6f4135caf7ed5ee3f8c3fadd1a12d6f3719028ef91da5c1f171",
+      "translation": "“喂喂！别装模作样了！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ベック"
+      ],
+      "speaker_guess": "ベック",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 222,
+          "record": 186,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ゲイン（该隐）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 282,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ネオ（尼奥）／ムウ（穆）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 284,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：サンドマン（桑德曼）／ジーク（齐格）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 170,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：万丈（万丈）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 220,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ゲイン（该隐）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 200,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：万丈（万丈）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 292,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：サンドマン（桑德曼）／ジーク（齐格）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 290,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ネオ（尼奥）／ムウ（穆）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 300,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手是：サンドマン（桑德曼）／ジーク（齐格）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 298,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手是：ネオ（尼奥）／ムウ（穆）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 251,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手是：ゲイン（该隐）"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 234,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手是：万丈（万丈）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:063",
+      "source_text": "「ボ、ボスゥ、どうしましょう！？」",
+      "source_text_sha256": "13d4f9b774ea2fdd2c413f6da7121b2ec2c014223f0f3a10dda76de915a5deea",
+      "translation": "“老、老大，怎么办！？”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ベック"
+      ],
+      "speaker_guess": "ベック",
+      "addressee": "Ｔボーン",
+      "triggers": [
+        {
+          "chunk": 222,
+          "record": 350,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "自身属于标签组 The Big O#0（1 名，如 ベック（贝克））",
+            "关卡条件：不早于 关卡编号0"
+          ]
+        },
+        {
+          "chunk": 222,
+          "record": 134,
+          "scene": "被弹（大伤害 A）",
+          "conditions": [
+            "友军／援护对象是：Ｔボーン（T-Bone）",
+            "关卡条件：不早于 stg_001.bin（第 1 话 発令（アナザーサイド　レコード·第１話））"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:064",
+      "source_text": "「無駄無駄！　そんな攻撃やめちまいな！」",
+      "source_text_sha256": "61cd0206037ff115135d3fe47502a76d5fe71555b6170387a5959e62bc8d7fae",
+      "translation": "“没用的没用的！那种攻击快住手吧！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ベック"
+      ],
+      "speaker_guess": "ベック",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 222,
+          "record": 82,
+          "scene": "被弹（轻伤害）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:065",
+      "source_text": "「前のマシンと一緒と思うなよぉ！」",
+      "source_text_sha256": "28171e976a795dbf46ade75c215410a94bb9722ed19af58f47f9122f8de28502",
+      "translation": "“别以为我和之前那台机器一样啊！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ベック"
+      ],
+      "speaker_guess": "ベック",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 222,
+          "record": 70,
+          "scene": "回避",
+          "conditions": [
+            "自身机体是：ベック・ザ・グレートＲＸ３（大贝克RX3）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:066",
+      "source_text": "「無様だな！　\\n　パラダイム一のネゴシエイターさんよ！」",
+      "source_text_sha256": "04ffff3763fa68175183ce47c7b0a0db348f79418cf15b3db5c07a5dabc6eebb",
+      "translation": "“真难看啊！\\n　帕拉迪姆第一的谈判专家先生！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ベック"
+      ],
+      "speaker_guess": "ベック",
+      "addressee": "ロジャー",
+      "triggers": [
+        {
+          "chunk": 222,
+          "record": 73,
+          "scene": "回避",
+          "conditions": [
+            "对手是：ロジャー（罗杰）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:068",
+      "source_text": "「主役の座はもらったあっ！」",
+      "source_text_sha256": "f47bb024bdd875d09735e26a86d57f0b2e158e49d7c14684c098d369566a8af2",
+      "translation": "“主角的位子我拿下了！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ホーラ"
+      ],
+      "speaker_guess": "ホーラ",
+      "addressee": "对手（万丈、丹泽尔、兰德、兰顿、卡洛德等）",
+      "triggers": [
+        {
+          "chunk": 228,
+          "record": 152,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 （按标签）#12（26 名，如 万丈（万丈）、デンゼル（丹泽尔）、ランド（兰德）、レントン（兰顿）、ガロード（卡洛德））"
+          ]
+        },
+        {
+          "chunk": 228,
+          "record": 153,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 （按标签）#12（26 名，如 万丈（万丈）、デンゼル（丹泽尔）、ランド（兰德）、レントン（兰顿）、ガロード（卡洛德））"
+          ]
+        },
+        {
+          "chunk": 228,
+          "record": 154,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 （按标签）#12（26 名，如 万丈（万丈）、デンゼル（丹泽尔）、ランド（兰德）、レントン（兰顿）、ガロード（卡洛德））"
+          ]
+        },
+        {
+          "chunk": 228,
+          "record": 157,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手属于标签组 （按标签）#12（26 名，如 万丈（万丈）、デンゼル（丹泽尔）、ランド（兰德）、レントン（兰顿）、ガロード（卡洛德））"
+          ]
+        },
+        {
+          "chunk": 228,
+          "record": 156,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 （按标签）#12（26 名，如 万丈（万丈）、デンゼル（丹泽尔）、ランド（兰德）、レントン（兰顿）、ガロード（卡洛德））"
+          ]
+        },
+        {
+          "chunk": 228,
+          "record": 158,
+          "scene": "武器共通台词 B",
+          "conditions": [
+            "对手属于标签组 （按标签）#12（26 名，如 万丈（万丈）、デンゼル（丹泽尔）、ランド（兰德）、レントン（兰顿）、ガロード（卡洛德））"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:069",
+      "source_text": "「うおっ！　\\n　この、こんなもんでやられるか！」",
+      "source_text_sha256": "7c94db5de0de425fd6d52adeebcd1da757e872f114205452c60bdaea035f7d1f",
+      "translation": "“呜哦！\\n　这点东西，怎么可能打倒我！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ホーラ"
+      ],
+      "speaker_guess": "ホーラ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 228,
+          "record": 87,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:070",
+      "source_text": "「うわああっ！　こんちきしょう！！」",
+      "source_text_sha256": "d49f0c36b914787dc95f5595965849a22b35ec1d104674e76ac047fea6caad42",
+      "translation": "“呜哇啊啊！可恶！！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ホーラ"
+      ],
+      "speaker_guess": "ホーラ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 228,
+          "record": 88,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:071",
+      "source_text": "「そんな腕で俺と勝負しようってのか、\\n　笑わせるぜ」",
+      "source_text_sha256": "3a09631d4c5da17a23b9ad025a1dd20df08861714edfeb192312c425b5701eca",
+      "translation": "“就凭那点本事也想跟我较量，\\n　笑死人了。”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ホーラ"
+      ],
+      "speaker_guess": "ホーラ",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 228,
+          "record": 89,
+          "scene": "被弹（轻伤害）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:072",
+      "source_text": "「おう！　軍のやり方は\\n　俺のカメラで記録してやるぜ！」",
+      "source_text_sha256": "8e66bea51f12c38592411aea0020d1489cfed9e64c93eda49e9b18d9d25c42ba",
+      "translation": "“哦！军队的做派\\n　就用我的相机记录下来！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "マシュー"
+      ],
+      "speaker_guess": "マシュー",
+      "addressee": "DC士兵等",
+      "triggers": [
+        {
+          "chunk": 234,
+          "record": 114,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 （按标签）#3（57 名，如 ＤＣ兵（DC士兵）、ＤＣ艦長（DC舰长）、オーネ（オーネ）、シジョウ（シジョウ）、セプテ（セプテ））"
+          ]
+        },
+        {
+          "chunk": 234,
+          "record": 186,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 （按标签）#3（57 名，如 ＤＣ兵（DC士兵）、ＤＣ艦長（DC舰长）、オーネ（オーネ）、シジョウ（シジョウ）、セプテ（セプテ））"
+          ]
+        },
+        {
+          "chunk": 234,
+          "record": 152,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 （按标签）#3（57 名，如 ＤＣ兵（DC士兵）、ＤＣ艦長（DC舰长）、オーネ（オーネ）、シジョウ（シジョウ）、セプテ（セプテ））"
+          ]
+        },
+        {
+          "chunk": 234,
+          "record": 52,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 （按标签）#3（57 名，如 ＤＣ兵（DC士兵）、ＤＣ艦長（DC舰长）、オーネ（オーネ）、シジョウ（シジョウ）、セプテ（セプテ））"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:073",
+      "source_text": "「化け物退治、開始ィっ！」",
+      "source_text_sha256": "f6c04b5181ccb192836d80cdb771c4dbfc0b73442a5411398c377d7e700b8c58",
+      "translation": "“除妖开始咯！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "マシュー"
+      ],
+      "speaker_guess": "マシュー",
+      "addressee": "抗体科拉利安",
+      "triggers": [
+        {
+          "chunk": 234,
+          "record": 117,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 优莱卡7#4（1 名，如 抗体コーラリアン（抗体科拉利安））",
+            "关卡条件：不晚于 关卡编号74"
+          ]
+        },
+        {
+          "chunk": 234,
+          "record": 192,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 优莱卡7#4（1 名，如 抗体コーラリアン（抗体科拉利安））",
+            "关卡条件：不晚于 关卡编号74"
+          ]
+        },
+        {
+          "chunk": 234,
+          "record": 156,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 优莱卡7#4（1 名，如 抗体コーラリアン（抗体科拉利安））",
+            "关卡条件：不晚于 关卡编号74"
+          ]
+        },
+        {
+          "chunk": 234,
+          "record": 54,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 优莱卡7#4（1 名，如 抗体コーラリアン（抗体科拉利安））",
+            "关卡条件：不晚于 关卡编号74"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:074",
+      "source_text": "「心配すんな！　\\n　この程度、マグレに決まってるぜ！」",
+      "source_text_sha256": "44fca2950155aab58f8f3f770d54224e7b2c00626a483afd13b3f626490d9818",
+      "translation": "“别担心！\\n　这点程度，肯定是碰巧的！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "マシュー"
+      ],
+      "speaker_guess": "マシュー",
+      "addressee": "希尔达等同伴",
+      "triggers": [
+        {
+          "chunk": 234,
+          "record": 279,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "自身状态条件：攻击属性位 位1",
+            "对手状态条件：攻击属性位 位9",
+            "对手属于标签组 （按标签）#7（26 名，如 イーゲル（伊格尔）、ガチコ（加奇科）、ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科））"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:075",
+      "source_text": "「大丈夫？」",
+      "source_text_sha256": "cf7d35ceefd3a581f94b69e81ad02678742d3a9ece344829f8df69cbf37e9aab",
+      "translation": "“没事吧？”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "マリア"
+      ],
+      "speaker_guess": "マリア",
+      "addressee": "被援护的同伴",
+      "triggers": [
+        {
+          "chunk": 237,
+          "record": 85,
+          "scene": "援护防御",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:076",
+      "source_text": "「この程度でアークエンジェルは\\n　沈められたりしないわ！」",
+      "source_text_sha256": "30c39d0354e4fdd41df037b6b10d604f9c64339ac9b1250f0460a47005781f86",
+      "translation": "“这点程度可击沉不了\\n　大天使号！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "マリュー"
+      ],
+      "speaker_guess": "マリュー",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 238,
+          "record": 63,
+          "scene": "被弹（轻伤害）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:077",
+      "source_text": "「キラケン！　\\n　お前が相手でも手加減は無しだ！」",
+      "source_text_sha256": "10dc4b177293c55894eb5186570228c38cb94f0452bf87596459592e254f9be3",
+      "translation": "“吉良谦！\\n　就算对手是你，我也不会手下留情！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "マリン"
+      ],
+      "speaker_guess": "マリン",
+      "addressee": "吉良谦",
+      "triggers": [
+        {
+          "chunk": 239,
+          "record": 551,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 239,
+          "record": 550,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 239,
+          "record": 553,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 239,
+          "record": 552,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=キラケン"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:078",
+      "source_text": "「マリン、手ぇ抜くんじゃねえぞ！」",
+      "source_text_sha256": "01828db807e37b3ae8dcae09c8b752cd0c8ecb8a88f9bb8458bd186ac1804fe0",
+      "translation": "“马林，可别放水啊！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "マリン"
+      ],
+      "speaker_guess": "マリン",
+      "addressee": "马林（自身／搭档）",
+      "triggers": [
+        {
+          "chunk": 239,
+          "record": 18,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "自身属于标签组 巴鲁迪奥斯#1（1 名，如 マリン（马林））"
+          ]
+        },
+        {
+          "chunk": 239,
+          "record": 431,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "自身属于标签组 巴鲁迪奥斯#1（1 名，如 マリン（马林））"
+          ]
+        }
+      ],
+      "ambiguous": true,
+      "confidence": "medium",
+      "note": "台词直呼马林之名，疑为搭档或自身语音组收录的他人台词；按字面译出。"
+    },
+    {
+      "id": "sd-battle:079",
+      "source_text": "「ここで決着をつけるわよ、ブライ大帝！」",
+      "source_text_sha256": "a20441d1749c2622c149ae7cdf58b5bd81374cbfaa45394df08df8d353389da9",
+      "translation": "“就在这里做个了断吧，布莱大帝！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ミチル"
+      ],
+      "speaker_guess": "ミチル",
+      "addressee": "布莱大帝",
+      "triggers": [
+        {
+          "chunk": 241,
+          "record": 122,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ブライ（布莱）"
+          ]
+        },
+        {
+          "chunk": 241,
+          "record": 121,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ブライ（布莱）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:080",
+      "source_text": "「これ以上の失態は許さんぞ！」",
+      "source_text_sha256": "b2dc7047e40161fc2cd4e10220e6ed6d8a0be28feaef32baf89a534b8be25c8b",
+      "translation": "“不许再有这等失态！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メサ"
+      ],
+      "speaker_guess": "メサ",
+      "addressee": "部下",
+      "triggers": [
+        {
+          "chunk": 253,
+          "record": 42,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:081",
+      "source_text": "「イノセントの泥臭い機械人形なんかに！」",
+      "source_text_sha256": "02b56606b6c908da3170a4ea2793c3f8be4cccc73db606177695284707470ca5",
+      "translation": "“居然被伊诺森特那种土气的机器木偶给……！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "萨芬格尔系机体",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 185,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 191,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 202,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 208,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:082",
+      "source_text": "「オーバーデビルの眷属め！　\\n　消えろ！！」",
+      "source_text_sha256": "491dc20b2b9168f9f9f763725a3acb564f65732107156cf70af8bf3358d440d0",
+      "translation": "“超限恶魔的走狗！\\n　消失吧！！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "王者盖纳",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 190,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手机体是：キングゲイナー（王者盖纳）"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 196,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手机体是：キングゲイナー（王者盖纳）"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 201,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手机体是：キングゲイナー（王者盖纳）"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 207,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手机体是：キングゲイナー（王者盖纳）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:083",
+      "source_text": "「アハハ、機械天使！　\\n　あたしが相手になってあげるよ！」",
+      "source_text_sha256": "8ed6b51fcabb8087ea783cf90a682bf52e43abc652a72d9e2f3bc9b704d981eb",
+      "translation": "“啊哈哈，机械天使！\\n　我来当你的对手吧！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "创圣机械天使系机体",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 186,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 192,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 197,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 203,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=创圣机械天使"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:084",
+      "source_text": "「ギムが言ってたよ！　\\n　あんたにも悪魔の力があるってね！」",
+      "source_text_sha256": "837edb61936d7876faeef1b82237392a68b3874e2c4a8f90061e116169662bf9",
+      "translation": "“基姆说过了！\\n　你也拥有恶魔的力量呢！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "王者盖纳／创圣机械天使",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 189,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手机体是：キングゲイナー（王者盖纳）"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 188,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 194,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 195,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手机体是：キングゲイナー（王者盖纳）"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 200,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手机体是：キングゲイナー（王者盖纳）"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 199,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 206,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手机体是：キングゲイナー（王者盖纳）"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 205,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。 ギム与本包基姆·金卡拉姆统一，不作吉姆。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:085",
+      "source_text": "「所詮はあんたも堕天翅の仲間！　\\n　だから、消えちゃいなよ！」",
+      "source_text_sha256": "129efce6a33c5e76742ca367f3ff253a8246b1f7dbc1c982d61277253ab61667",
+      "translation": "“说到底，你也是堕天翅的同伙！\\n　那就给我消失吧！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "创圣机械天使系机体",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 187,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 193,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 198,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 204,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:086",
+      "source_text": "「アハハハ！　油断したね！」",
+      "source_text_sha256": "6ea764c81cbfea6027d672910c8a7222617609df2760f48d5f0f5b50d06946b0",
+      "translation": "“啊哈哈哈！大意了吧！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 16,
+          "scene": "援护攻击",
+          "conditions": []
+        },
+        {
+          "chunk": 255,
+          "record": 162,
+          "scene": "再攻击",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:087",
+      "source_text": "「とどめを刺して欲しいって言うんなら！」",
+      "source_text_sha256": "b3bd85a175106ca308eb9c5b90023c07e51d596df2b2147a14bac68f04e413f1",
+      "translation": "“既然你这么想让我给你最后一击！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 210,
+          "scene": "再攻击",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:088",
+      "source_text": "「まだ、あたしと遊んで欲しいのかい！？」",
+      "source_text_sha256": "7aa292d4b17396ca6c6a80f6e4af563b42207f42d07259ce400063453fe77bad",
+      "translation": "“还想让我陪你玩吗！？”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 209,
+          "scene": "再攻击",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:089",
+      "source_text": "「まずはあたしから行くよ！」",
+      "source_text_sha256": "66cbaad3e362791ff08e129e9a851d29e591ddaa95fd272cbabd92eae58455ba",
+      "translation": "“我先上了！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "队友",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 212,
+          "scene": "小队成员攻击（类型A）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:090",
+      "source_text": "「あたしが相手をしてあげるんだ。\\n　楽しませておくれよ！」",
+      "source_text_sha256": "14bed96c7fdfb943560d94bd66c86fb2017f65f269814eee413f5a564f42d67b",
+      "translation": "“我亲自来陪你玩。\\n　可得让我尽兴啊！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 211,
+          "scene": "小队成员攻击（类型B）",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:091",
+      "source_text": "「一斉攻撃だよ！　\\n　あたしの動きに合わせな！」",
+      "source_text_sha256": "175303896872725819b7b03df3c7903812af59c83311364eae474ab4a15c9de1",
+      "translation": "“一齐攻击！\\n　跟上我的动作！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "队友",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 213,
+          "scene": "小队攻击号令",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:092",
+      "source_text": "「お前達は、\\n　あたしの指示通りに動けばいいんだよ！」",
+      "source_text_sha256": "f3077c058f15ece2b0127e61e6fd5d99df2220c8d6d40bcf8f4132160ea32571",
+      "translation": "“你们只要\\n　照我的指示行动就行了！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "队友",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 214,
+          "scene": "小队攻击号令",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "你们=队友"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:093",
+      "source_text": "「そっちこそ遅れたら承知しないよ！」",
+      "source_text_sha256": "d5dca57d211d394f5d1ac9abf9bf26791bff3ec53a2b88a49823076d6d80c223",
+      "translation": "“你才是，跟不上的话我可不饶你！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "队友",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 215,
+          "scene": "小队攻击应答",
+          "conditions": []
+        }
+      ],
+      "pronouns": [
+        "你=队友"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:094",
+      "source_text": "「ほ〜ら…\\n　逃げられるものなら、逃げてみな！」",
+      "source_text_sha256": "528e12220373630f0eb06ba081d10dca3b4e8b5107b16129f9924321b97bad21",
+      "translation": "“来～吧……\\n　能逃的话，就逃逃看啊！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 216,
+          "scene": "武器台词（通用类别 40）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:095",
+      "source_text": "「ハハハ！　楽しいね、これ！」",
+      "source_text_sha256": "44c535ecb8b88705e7f71402067a4d714b0803ca88f95a51931c2c25dc3d92b7",
+      "translation": "“哈哈哈！这个真有意思！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 217,
+          "scene": "武器台词（通用类别 40）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:096",
+      "source_text": "「完璧じゃないけど、\\n　これなら兵器にも使えるか！」",
+      "source_text_sha256": "5127edef1c7f2accaf6494dcf3af6f2b31b4f94ba4a08cf920599b5c8e717a8d",
+      "translation": "“虽然还不完美，\\n　但这样也能当兵器用了吧！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 218,
+          "scene": "武器台词（武器类别 10）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:097",
+      "source_text": "「月光蝶システムを使うよ！！」",
+      "source_text_sha256": "60d82531081a7238054b8f53eb75b26fb35286b89f7c4cff998b3f1a299a0857",
+      "translation": "“要用月光蝶系统了！！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "对手",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 219,
+          "scene": "武器台词（武器类别 10）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:098",
+      "source_text": "「吠えているだけか、小僧！」",
+      "source_text_sha256": "e8e3e7f3bbb7ed20b21003871a0cca191fb94328fbba504de0775456046b7887",
+      "translation": "“只会乱叫吗，小鬼！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ヤザン"
+      ],
+      "speaker_guess": "ヤザン",
+      "addressee": "卡缪／节子／丹泽尔／托比／兰德／梅尔",
+      "triggers": [
+        {
+          "chunk": 257,
+          "record": 88,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "对手是：カミーユ（卡缪）／セツコ（节子）／デンゼル（丹泽尔）／トビー（托比）／ランド（兰德）／メール（梅尔）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:099",
+      "source_text": "「一気に勝負をかけるぞ！　\\n　俺に合わせろ！」",
+      "source_text_sha256": "7d60262d61b96bc4898d94b3e7faa1541f7e36bbe04a31bb6d8ce5b2e2c9821e",
+      "translation": "“一口气决胜负！\\n　跟上我！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ヤッサバ"
+      ],
+      "speaker_guess": "ヤッサバ",
+      "addressee": "队友",
+      "triggers": [
+        {
+          "chunk": 258,
+          "record": 47,
+          "scene": "小队攻击号令",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:100",
+      "source_text": "「あんたにジロンはやらせないよ！」",
+      "source_text_sha256": "3c3489f3411e4f01ffc2692b3ab7a7476b05251d5cd41027e1e2da0211ab1a38",
+      "translation": "“我不会让你动吉隆的！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ラグ"
+      ],
+      "speaker_guess": "ラグ",
+      "addressee": "廷普",
+      "triggers": [
+        {
+          "chunk": 261,
+          "record": 163,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（1 名，如 ティンプ（廷普））"
+          ]
+        },
+        {
+          "chunk": 261,
+          "record": 170,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（1 名，如 ティンプ（廷普））"
+          ]
+        },
+        {
+          "chunk": 261,
+          "record": 43,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（1 名，如 ティンプ（廷普））"
+          ]
+        },
+        {
+          "chunk": 261,
+          "record": 335,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（1 名，如 ティンプ（廷普））"
+          ]
+        },
+        {
+          "chunk": 261,
+          "record": 228,
+          "scene": "武器共通台词 B",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（1 名，如 ティンプ（廷普））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=廷普"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:101",
+      "source_text": "「メール！　\\n　あいつを殴って、すっきりさせるぞ！」",
+      "source_text_sha256": "5cf9a6ed4d8b2af15a9ccdbdd2f7d398cfd3717e827dcffcff343d05c6c536b3",
+      "translation": "“梅尔！\\n　揍那家伙一顿，痛快痛快！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ランド"
+      ],
+      "speaker_guess": "ランド",
+      "addressee": "梅尔",
+      "triggers": [
+        {
+          "chunk": 265,
+          "record": 75,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "自身不是属于标签组 机战Z原创#9（1 名，如 ランド（兰德））",
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        },
+        {
+          "chunk": 265,
+          "record": 575,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "自身不是属于标签组 机战Z原创#9（1 名，如 ランド（兰德））",
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        },
+        {
+          "chunk": 265,
+          "record": 888,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "自身不是属于标签组 机战Z原创#9（1 名，如 ランド（兰德））",
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "那家伙=阿萨基姆／？？？"
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:102",
+      "source_text": "「ダーリン！　\\n　デレデレしたら、許さないからね！」",
+      "source_text_sha256": "ec33c4c6c60d724d71ce8e7882cde87536e08ddbae6af83e8cf3a8de51e3c140",
+      "translation": "“达令！\\n　你要是色眯眯的，我可不饶你！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ランド"
+      ],
+      "speaker_guess": "ラグ",
+      "addressee": "兰德",
+      "triggers": [
+        {
+          "chunk": 265,
+          "record": 96,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "自身不是属于标签组 机战Z原创#9（1 名，如 ランド（兰德））",
+            "对手是：エーデル（艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 265,
+          "record": 596,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "自身不是属于标签组 机战Z原创#9（1 名，如 ランド（兰德））",
+            "对手是：エーデル（艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 265,
+          "record": 909,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "自身不是属于标签组 机战Z原创#9（1 名，如 ランド（兰德））",
+            "对手是：エーデル（艾岱尔）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=兰德"
+      ],
+      "confidence": "high",
+      "note": "此语音组收录搭档拉格的台词，实际发言者为拉格，称兰德为“达令”。",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。 デレデレ指迷恋、色眯眯或一脸痴迷，不是磨磨蹭蹭；保留梅尔对达令吃醋的语气。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:103",
+      "source_text": "「ジ・エーデル！　\\n　あんたの妄想なんか叩き潰してやるわ！」",
+      "source_text_sha256": "e018a2d63f1197cd26a31263bd95d1a94ac4ea2a4e6f96f6b4a78b7acb45c847",
+      "translation": "“极·艾岱尔！\\n　你的妄想就由我来打碎！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ルナマリア"
+      ],
+      "speaker_guess": "ルナマリア",
+      "addressee": "极·艾岱尔",
+      "triggers": [
+        {
+          "chunk": 270,
+          "record": 170,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 270,
+          "record": 216,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 270,
+          "record": 237,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 270,
+          "record": 146,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 270,
+          "record": 117,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=极·艾岱尔"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:104",
+      "source_text": "「いったん下がるしかないか…！」",
+      "source_text_sha256": "02f7112a4eb2772716a26d298b1ae8272ad8721dfbd4a58bfd9920552fe49932",
+      "translation": "“只能先退下了吗……！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ルナマリア"
+      ],
+      "speaker_guess": "ルナマリア",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 270,
+          "record": 54,
+          "scene": "攻击（对手无法反击：EN不足）",
+          "conditions": []
+        },
+        {
+          "chunk": 270,
+          "record": 251,
+          "scene": "攻击（对手无法反击：弹药耗尽）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:105",
+      "source_text": "「セカンドステージシリーズとは言え、\\n　パイロットの腕がそれではな」",
+      "source_text_sha256": "474780830d04e7dfba22176ba522d3ecb10a36080dcd3cfff923dce7a8257200",
+      "translation": "“虽说是第二世代系列，\\n　驾驶员的本事却不过如此啊”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "レイ"
+      ],
+      "speaker_guess": "レイ",
+      "addressee": "敌方驾驶员",
+      "triggers": [
+        {
+          "chunk": 273,
+          "record": 155,
+          "scene": "被弹（轻伤害）",
+          "conditions": [
+            "对手属于标签组 高达SEED DESTINY#0（3 名，如 アビスガンダム（深渊高达）、カオスガンダム（混沌高达）、ガイアガンダム（盖亚高达））",
+            "对手不是是：イザーク（伊扎克）",
+            "对手不是是：バルトフェルド（巴尔特菲尔德）",
+            "对手不是是：ルナマリア（露娜玛丽亚）"
+          ]
+        },
+        {
+          "chunk": 273,
+          "record": 89,
+          "scene": "回避",
+          "conditions": [
+            "对手属于标签组 高达SEED DESTINY#0（3 名，如 アビスガンダム（深渊高达）、カオスガンダム（混沌高达）、ガイアガンダム（盖亚高达））",
+            "对手不是是：イザーク（伊扎克）",
+            "对手不是是：バルトフェルド（巴尔特菲尔德）",
+            "对手不是是：ルナマリア（露娜玛丽亚）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:107",
+      "source_text": "「レントン、まだ行ける！」",
+      "source_text_sha256": "7017c047d0437c5e74dd79e2f80963ff6a66346cc3fc04edc9b105536ccb46c6",
+      "translation": "“兰顿，还能上！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "レントン"
+      ],
+      "speaker_guess": "エウレカ",
+      "addressee": "レントン",
+      "triggers": [
+        {
+          "chunk": 278,
+          "record": 21,
+          "scene": "再攻击",
+          "conditions": [
+            "友军／援护对象属于标签组 优莱卡7#12（1 名，如 エウレカ（优莱卡））"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "note": "语音组为レントン，但台词直呼兰顿之名，判断为搭档优莱卡所言"
+    },
+    {
+      "id": "sd-battle:108",
+      "source_text": "「ひるむもんか！　突っ込むぞ！」",
+      "source_text_sha256": "c78a2f7695e842a3e30cb3acaebd90e03ea9f48e658c97f599ce9eec540ddab5",
+      "translation": "“我才不会退缩！冲进去！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "レントン"
+      ],
+      "speaker_guess": "レントン",
+      "addressee": "敌方",
+      "triggers": [
+        {
+          "chunk": 278,
+          "record": 85,
+          "scene": "被弹（轻伤害）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:106",
+      "source_text": "「お前が倒れれば、士気が下がる！　\\n　覚悟！！」",
+      "source_text_sha256": "19f44eb8926104771f8eb241c22a7be36b2eb2ce758bc3116434b7ac4bc67a10",
+      "translation": "“只要打倒你，士气就会低落！\\n　觉悟吧！！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "レーベン"
+      ],
+      "speaker_guess": "レーベン",
+      "addressee": "敌方驾驶员",
+      "triggers": [
+        {
+          "chunk": 275,
+          "record": 18,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 （按标签）#12（26 名，如 万丈（万丈）、デンゼル（丹泽尔）、ランド（兰德）、レントン（兰顿）、ガロード（卡洛德））"
+          ]
+        },
+        {
+          "chunk": 275,
+          "record": 161,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 （按标签）#12（26 名，如 万丈（万丈）、デンゼル（丹泽尔）、ランド（兰德）、レントン（兰顿）、ガロード（卡洛德））"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=对手"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:109",
+      "source_text": "「な〜んかブルーになっちゃうんだよね、\\n　こういうのって…」",
+      "source_text_sha256": "7a87a8cd4296d44f50a0b6e21f4a51e80bcb28d3cb52963c5b8a175d2219cd32",
+      "translation": "“这种事……\\n　总让人有点郁闷啊。”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ロアビィ"
+      ],
+      "speaker_guess": "ロアビィ",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 281,
+          "record": 42,
+          "scene": "被弹（大伤害 B）",
+          "conditions": []
+        },
+        {
+          "chunk": 281,
+          "record": 146,
+          "scene": "被弹（大伤害 B）",
+          "conditions": [
+            "友军／援护对象是：エニル（艾妮尔）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:110",
+      "source_text": "「さあて、パーティーを始めようか！」",
+      "source_text_sha256": "f2e94e756b956b8a5eba6842d7a0d28d9bb6e46b1437d026d658c64bf485c12b",
+      "translation": "“那么，派对开始吧！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ロアビィ"
+      ],
+      "speaker_guess": "ロアビィ",
+      "addressee": "威兹、卡洛德",
+      "triggers": [
+        {
+          "chunk": 281,
+          "record": 250,
+          "scene": "小队攻击号令（指定队员）",
+          "conditions": [
+            "友军／援护对象是：ウィッツ（威兹）",
+            "友军／援护对象是：ガロード（卡洛德）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:111",
+      "source_text": "「∀なら、ターンＸの兄さんだろ！」",
+      "source_text_sha256": "3de35d83e693284d0eec7a07188e6d1bec1c4138b80f651bfbce7a7493b912d6",
+      "translation": "“既然是∀，那就是倒X的大哥吧！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ロラン／ローラ"
+      ],
+      "speaker_guess": "ロラン",
+      "addressee": "金卡拉姆",
+      "triggers": [
+        {
+          "chunk": 286,
+          "record": 308,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "自身属于标签组 ∀高达#1（1 名，如 ∀ガンダム（∀高达））",
+            "自身机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）",
+            "对手机体是：ターンＸ（倒X）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 319,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "自身属于标签组 ∀高达#1（1 名，如 ∀ガンダム（∀高达））",
+            "自身机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）",
+            "对手机体是：ターンＸ（倒X）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 126,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "自身属于标签组 ∀高达#1（1 名，如 ∀ガンダム（∀高达））",
+            "自身机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）",
+            "对手机体是：ターンＸ（倒X）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 570,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "自身属于标签组 ∀高达#1（1 名，如 ∀ガンダム（∀高达））",
+            "自身机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）",
+            "对手机体是：ターンＸ（倒X）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 430,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手是：ギンガナム（金卡拉姆）",
+            "自身机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 442,
+          "scene": "武器共通台词 B",
+          "conditions": [
+            "对手是：ギンガナム（金卡拉姆）",
+            "自身机体是：∀ガンダム（∀高达）／エールストライクガンダム（翔翼型强袭高达）／キャタレンジャー（阳光号）／グラン═（グラン═）／グラントルーパー（格兰骑警）／グランフォートレス（超重要塞）／コア・スプレンダー（核心飞梭）／ザクウォーリア（扎古勇士）／ザンブル（桑布鲁）／ザンベース（桑贝斯）／スカイフィッシュ（飞鱼）／ストライクルージュ（强袭嫣红）／スヴァロギッチ（斯瓦罗基奇）／ソル═グラヴィオン（炎阳格兰维昂）／ソードシルエット（巨剑魅影）／チェストフライヤー（胸部飞行器）／チェルノボーグ（切尔诺伯格）／ニューパルサバーン（新帕尔萨班）／ニルヴァーシュ　ｓｐｅｃ３（尼尔瓦修　spec3）／ニルヴァーシュ　ｔｈｅ　ＥＮＤ（尼尔瓦修终式）／バッハクロン（巴赫克隆）／バルディプライズ（巴尔迪·普莱兹）／ビアルⅠ世（比亚路I世）／ビアルⅡ世（ビアルⅡ世）／ビアルⅢ世（ビアルⅢ世）／フォースシルエット（强攻魅影）／プレイリードッグ（草原犬鼠）／ベクターアルファ（阿尔法战机）／ベクターオメガ（欧米伽战机）／ベクターソル（太阳战机）／ベクターデルタ（德尔塔战机）／ベクターマーズ（火星战机）／ベクタールナ（月亮战机）／レッグフライヤー（腿部飞行器）／光球（光球）／収穫獣（收获兽）／海鳴王（海鸣王）／白鳥号（白鸟号）／陸震王（陆震王）／Ｇアタッカー（G攻击机）／Ｇシャドウ（G战影）／Ｇストライカー（G打击机）／Ｇドリラー（G钻机）／Ｇｅｏキャリバー（Geo圣剑）／Ｇｅｏジャベリン（Geo投枪）／Ｇｅｏスティンガー（Geo刺针）／Ｇｅｏミラージュ（Geo幻象）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。 按本条日文语法，∀是倒X的兄长，原译把关系倒置；不据其他台词或设定反改本条原文。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:112",
+      "source_text": "「人が安心して眠れる世界を作るために…\\n　あなたを倒します！」",
+      "source_text_sha256": "46231ad35aae7b6c5a1fb2c9907460de87394b11653d54f728330cdffe4d9ab1",
+      "translation": "“为了创造一个人们能安心入睡的世界……\\n　我要打倒你！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "ロラン／ローラ"
+      ],
+      "speaker_guess": "ロラン",
+      "addressee": "极·艾岱尔",
+      "triggers": [
+        {
+          "chunk": 286,
+          "record": 282,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 580,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手机体是：ＸＡＮ−斬−（XAN−跷−）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 351,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 30,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 582,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手机体是：ＸＡＮ−斬−（XAN−跷−）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 553,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 585,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手机体是：ＸＡＮ−斬−（XAN−跷−）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 405,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 474,
+          "scene": "武器共通台词 B",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 286,
+          "record": 586,
+          "scene": "武器共通台词 B",
+          "conditions": [
+            "对手机体是：ＸＡＮ−斬−（XAN−跷−）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=ジ・エーデル"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:122",
+      "source_text": "「そんなバカなぁ！！」",
+      "source_text_sha256": "bf5e8a4eb1c0ef331f90ba025ee7a21adaefef5641532786cc16d52c83881169",
+      "translation": "“怎么会这样！！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "所属不明兵／連合軍兵／連邦軍兵"
+      ],
+      "speaker_guess": "連合軍兵",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 348,
+          "record": 107,
+          "scene": "被击坠",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:116",
+      "source_text": "「アサキム・ドーウィン…\\n　その目論見が何であろうとも…！」",
+      "source_text_sha256": "27492377b6d5bd44487613babd3a398a15867a6663ee23354facf1871c7f8717",
+      "translation": "“阿萨基姆·杜文……\\n　不管你在打什么主意……！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "斗牙"
+      ],
+      "speaker_guess": "斗牙",
+      "addressee": "阿萨基姆",
+      "triggers": [
+        {
+          "chunk": 321,
+          "record": 437,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        },
+        {
+          "chunk": 321,
+          "record": 471,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：アサキム（阿萨基姆）／？？？（？？？）"
+          ]
+        }
+      ],
+      "pronouns": [
+        "你=アサキム"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:117",
+      "source_text": "「ジ・エーデル…決戦の時が来た！」",
+      "source_text_sha256": "97e0cc9ec360814dcadcb96d1205c70034b9caaadb249beb99d687ad83290e7c",
+      "translation": "“极·艾岱尔……决战之时到了！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "斗牙"
+      ],
+      "speaker_guess": "斗牙",
+      "addressee": "极·艾岱尔",
+      "triggers": [
+        {
+          "chunk": 321,
+          "record": 443,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        },
+        {
+          "chunk": 321,
+          "record": 480,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：ジ・エーデル（极·艾岱尔）"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:118",
+      "source_text": "「もう離脱したか」",
+      "source_text_sha256": "7dba0432864b4ae1c7c692a0ea6c646fee0e198a8db73c4ed4bdfd5bc09389e3",
+      "translation": "“已经脱离了吗。”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "斗牙"
+      ],
+      "speaker_guess": "斗牙",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 322,
+          "record": 105,
+          "scene": "攻击（对手无法反击：射程外）",
+          "conditions": [
+            "自身属于标签组 GRAVION#0（3 名，如 ゴッド═グラヴィオン（巨神Σ格兰维昂）、ゴッドグラヴィオン（格兰维昂）、ソルグラヴィオン（炎阳格兰维昂））"
+          ]
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:113",
+      "source_text": "「このボスボロットで！　\\n　…でも、大丈夫かあ？」",
+      "source_text_sha256": "455d4a62d55c4153002c9edbdf08e7522fe9a7aec66dcece85989420638ee63a",
+      "translation": "“用这台波士机器人！\\n　……不过，没问题吧？”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "甲児"
+      ],
+      "speaker_guess": "甲児",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 301,
+          "record": 307,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "自身机体是：ボスボロット（波士机器人）"
+          ]
+        },
+        {
+          "chunk": 301,
+          "record": 315,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "自身机体是：ボスボロット（波士机器人）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:119",
+      "source_text": "「綺麗な花には毒があると\\n　言ったものだが…」",
+      "source_text_sha256": "a53a277d9acb27ab03fe7d67b99f3392bff27887aea6c84d6949537086eb4244",
+      "translation": "“都说美丽的花儿\\n　往往带着毒……”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "闘志也"
+      ],
+      "speaker_guess": "闘志也",
+      "addressee": "艾岱尔",
+      "triggers": [
+        {
+          "chunk": 329,
+          "record": 301,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）",
+            "自身机体是：ゴッドシグマ（巨神Σ）"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 679,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）",
+            "自身机体是：ゴッドシグマ（巨神Σ）"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 372,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）",
+            "自身机体是：ゴッドシグマ（巨神Σ）"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 439,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）",
+            "自身机体是：ゴッドシグマ（巨神Σ）"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 534,
+          "scene": "攻击（武器分级 3）",
+          "conditions": [
+            "对手是：エーデル（艾岱尔）",
+            "自身机体是：ゴッドシグマ（巨神Σ）"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:120",
+      "source_text": "「闘志也！　\\n　奴らの分離と再合体に気をつけろ！」",
+      "source_text_sha256": "4b4ae858f886888d98e9e4457728f17f313244780006d96771291881bcfc7538",
+      "translation": "“斗志也！\\n　当心他们的分离与再合体！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "闘志也"
+      ],
+      "speaker_guess": "風見",
+      "addressee": "斗志也",
+      "triggers": [
+        {
+          "chunk": 329,
+          "record": 316,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 314,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#2（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 335,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#0（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 337,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 646,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#0（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 648,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 629,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#2（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 631,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 404,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#0（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 406,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 385,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#2（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 387,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 471,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#0（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 452,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#2（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 454,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 473,
+          "scene": "攻击（武器分级 2）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 506,
+          "scene": "攻击（武器分级 3）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 504,
+          "scene": "攻击（武器分级 3）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#0（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 关卡编号73"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 491,
+          "scene": "攻击（武器分级 3）",
+          "conditions": [
+            "对手属于标签组 魔神／盖塔系#2（3 名，如 ゲッターポセイドン（盖塔波塞冬）、ゲッターライガー（盖塔狮虎）、ゲッタードラゴン（盖塔龙））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        },
+        {
+          "chunk": 329,
+          "record": 493,
+          "scene": "攻击（武器分级 3）",
+          "conditions": [
+            "对手属于标签组 创圣机械天使#1（7 名，如 アクエリオンデルタ（アクエリオンデルタ）、ソーラーアクエリオン（太阳阿克艾里昂）、アクエリオンアルファ（强攻型机械天使·阿尔法）、アクエリオンルナ（月亮阿克艾里昂）、アクエリオンマーズ（火星阿克艾里昂））",
+            "自身机体是：ゴッドシグマ（巨神Σ）",
+            "关卡条件：不晚于 stg_216.bin（EX-HARD MISSION 5（stg_216.bin））"
+          ]
+        }
+      ],
+      "confidence": "medium",
+      "note": "语音组为斗志也，但台词直呼斗志也之名，判断为风见所言",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:121",
+      "source_text": "「ああ…私のトリニティエネルギー…！」",
+      "source_text_sha256": "903b975a0b4879c76700f520157b64fe2ba82687f07ab6bc32a1d2a91103fd86",
+      "translation": "“啊啊……我的三位一体能量……！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "風見"
+      ],
+      "speaker_guess": "風見",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 336,
+          "record": 53,
+          "scene": "被击坠",
+          "conditions": []
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "审阅保留现有译文或既有专名；无需为润色而改写。"
+      ],
+      "review_terminology_check": false
+    },
+    {
+      "id": "sd-battle:114",
+      "source_text": "「ハハハハ！　\\n　サイコーだよ！　サイコーだ！！」",
+      "source_text_sha256": "86be6682ac85b5f90b1d2aefa22425753b116bde2978880b4e8baf6015fda7a7",
+      "translation": "“哈哈哈哈！\\n　太棒了！太棒了！！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "？？？"
+      ],
+      "speaker_guess": "？？？",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 303,
+          "record": 43,
+          "scene": "被击坠",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sd-battle:115",
+      "source_text": "「そんな攻撃…１万回は食らわなきゃ、\\n　満足出来ないね！」",
+      "source_text_sha256": "11d7a5b938b5c45ed6e6f219651181f923ffa4a0803b329a11698797c648147c",
+      "translation": "“这种攻击……不吃上一万次，\\n　我可不会满足！”",
+      "editorial_status": "draft",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "？？？"
+      ],
+      "speaker_guess": "？？？",
+      "addressee": "",
+      "triggers": [
+        {
+          "chunk": 303,
+          "record": 53,
+          "scene": "被弹（轻伤害）",
+          "conditions": []
+        }
+      ],
+      "confidence": "high"
+    }
+  ]
+}

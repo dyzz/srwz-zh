@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "exe_sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101",
+  "evidence": "SP opcode 0x13AB: dispatch at file 0xC37E4 subtracts 5000 and indexes table VA 0x4AE250. Slot 35 points to VA 0x1C5738 (file 0xC60B8). Consumer splits word +4 into low/high 16-bit integers; high==128 branches to special low==0xF000 handling, setting -1. It never dereferences this word as a STAGE text address.",
+  "consumer_spans": [
+    {
+      "offset": 800740,
+      "hex": "0000838c78ec65244700a12c1d1220102d80c0004b00073c8028050050e2e7242128a7000000a58c0800a0000000000000000000"
+    },
+    {
+      "offset": 3861596,
+      "hex": "38571c00"
+    },
+    {
+      "offset": 811192,
+      "hex": "0400228e08003396ffff52300314020003006016ffff51308100132400000000800002241a00221201000524060025162d2060022d3040022d38a000e004070c2d4000020000000002000524060025162d2060022d3040022d38a000e004070c2d4000020000000003000524120025162d2060022d3040022d400002e004070c2d38a0000c000010000000000000000000f002340200421600000000ffff12242d2060022d3040022d4000022d280000e004070c01000724bf07001001001224"
+    }
+  ],
+  "records": [
+    {
+      "chunk": 21,
+      "record_offset": 30288,
+      "record_hex": "ab13000000f080008000000000000000",
+      "action": "preserve_scalar"
+    },
+    {
+      "chunk": 21,
+      "record_offset": 32256,
+      "record_hex": "ab13000000f080008000000000000000",
+      "action": "preserve_scalar"
+    }
+  ]
+}

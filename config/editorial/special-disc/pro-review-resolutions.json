@@ -1,0 +1,417 @@
+{
+  "status": "resolved_editorial_and_non_text",
+  "scope": "25 flagged records plus one related QA keyword record; original package immutable; no ISO build",
+  "counts": {
+    "flagged_resolved": 25,
+    "related_keyword_resolved": 1,
+    "text_changes": 22,
+    "retained": 4,
+    "excluded_non_text": 7
+  },
+  "decisions": [
+    {
+      "id": "sd/exe/3B5808",
+      "source_text_sha256": "16c3312559d37fad4da741deb7497a5f87732bc187aedc71398ee38c08f3a806",
+      "before": "阿莫斯甜瓜",
+      "after": "阿莫斯甜瓜",
+      "changed": false,
+      "status": "resolved",
+      "decision": "保留阿莫斯甜瓜。原盘中断对话中的吉隆确实说「メロン・アモスだ！」，本篇对应正文已经译为阿莫斯甜瓜，标题与正文一致。",
+      "evidence": [
+        "corpus/zh/story-system-dialogue.json#story/000/system-dialogue/01E420",
+        "work/authoring/special-disc/review-imports/20260919-gpt6-pro/terminology-source-evidence.json"
+      ],
+      "rule": "melon"
+    },
+    {
+      "id": "sd/nisv/squad/047",
+      "source_text_sha256": "50f4d274e88ec1b41013d3bd1757b1f4da8f518a99f67f9d09a94e3d76c3c016",
+      "before": "TURN型",
+      "after": "Turn型",
+      "changed": true,
+      "status": "resolved",
+      "decision": "按本篇Turn X机体图鉴统一为Turn型；保留拉丁系列标识。本篇相同编号的小队名是GX，不按编号套译。",
+      "evidence": [
+        "corpus/zh/library/v0.2-reviewed.json#library-text/826687071b24e7e8"
+      ],
+      "rule": "turn"
+    },
+    {
+      "id": "sd/compdata/7F3C0",
+      "source_text_sha256": "1e36d149616578a509ffa78252e5529c14b527bb96284e8e394705ba03041b98",
+      "before": "航空枪榴弹发射器",
+      "after": "航空枪榴弹发射器",
+      "changed": false,
+      "status": "resolved",
+      "decision": "保留航空枪榴弹发射器及MMI-M182型号。本篇已审定同名同型号武器，SP日文仅省去ガン与ランチャー之间的中点；本轮采用既有译名，不据润色另改设定。",
+      "evidence": [
+        "corpus/glossary/weapons-v1.json#weapon/0391",
+        "corpus/glossary/weapons-v1.json#weapon/0392",
+        "corpus/zh/menu/weapons.json#menu/Compdata/02/0391"
+      ],
+      "rule": "aerial-launcher"
+    },
+    {
+      "id": "sd/compdata/7F3E0",
+      "source_text_sha256": "3c2168ce8fc00c8f31f1368d3a2eaba5d190a6bf10ef80c2309d428cbfe7c563",
+      "before": "MMI-M182　航空枪榴弹发射器",
+      "after": "MMI-M182　航空枪榴弹发射器",
+      "changed": false,
+      "status": "resolved",
+      "decision": "保留航空枪榴弹发射器及MMI-M182型号。本篇已审定同名同型号武器，SP日文仅省去ガン与ランチャー之间的中点；本轮采用既有译名，不据润色另改设定。",
+      "evidence": [
+        "corpus/glossary/weapons-v1.json#weapon/0391",
+        "corpus/glossary/weapons-v1.json#weapon/0392",
+        "corpus/zh/menu/weapons.json#menu/Compdata/02/0391"
+      ],
+      "rule": "aerial-launcher"
+    },
+    {
+      "id": "sd/library/character/047/CHFN",
+      "source_text_sha256": "0dfa822c7bbaf0267da8eb856b1e233e94cfb7c5584fa671fcebf144eb720c7d",
+      "before": "简·西野",
+      "after": "简·西野",
+      "changed": false,
+      "status": "resolved",
+      "decision": "保留简·西野。直接解码SP原盘该字段为ジェーン西野，本篇原盘为ジェーン野口、审定译文简·野口；统一简，保留SP原文姓氏差异，不宣称已判定哪版设定正确。",
+      "evidence": [
+        "corpus/zh/library/v0.2-reviewed.json#library-text/e51fc48bc39438d3",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/e35526c4961e476b",
+        "DATA/MTVZKNPT.BIN:SP chunk 47 CHFN"
+      ],
+      "rule": "jane"
+    },
+    {
+      "id": "sd/library/character/327/DSC2",
+      "source_text_sha256": "e93ebaad86ea5fa1687f0dcaba0a41f2b4d5abff9ee917fb5a0611975f69296f",
+      "before": "就读于元素学校的一军元素能力者，14岁。\n她是旧阿莉西娅王国的公主，继承了阿波罗尼亚斯与塞莉安的血脉。她能将气集中于左臂，施展念力，举起或折弯各种物体。\n或许是因为幼年时便失去了双亲，她对哥哥西利乌斯怀有近乎异常的依恋，对所有接近哥哥的女性都十分警惕，尤其敌视丽花。她继承了塞莉安的前世，曾坚信西利乌斯就是前世恋人“太阳之翼”的转世。然而，突然出现的野孩子阿波罗，才可能是真正的“太阳之翼”。起初，她执意不肯接受，但随着前世记忆逐渐苏醒，终于开始承认这一事实。\n她与西利乌斯的左臂上，都长着与前世有着深刻关联的堕天翅之翅，一直用护腕将其遮掩。西利乌斯投向堕天翅一方后，也曾邀请她加入。然而，阿波罗的话让她下定决心，要以人类的身份活下去，于是拒绝了哥哥。\n最终决战后，世界走向终结之际，她通过塞莉安的记忆，让仍在争斗的阿波罗、西利乌斯与头翅＜托玛＞领悟到：光也可以诞生于黑暗之中。\n无论前世还是今生，她都与阿波罗心意相通。虽然最终不得不与他分离，但她坚信，总有一天，他一定会回到这颗星球。",
+      "after": "就读于元素学校的一军元素能力者，14岁。\n她是旧阿莉西亚王国的公主，继承了阿波罗尼亚斯与瑟利安的血脉。她能将气集中于左臂，施展念力，举起或折弯各种物体。\n或许是因为幼年时便失去了双亲，她对哥哥西利乌斯怀有近乎异常的依恋，对所有接近哥哥的女性都十分警惕，尤其敌视丽花。她继承了瑟利安的前世，曾坚信西利乌斯就是前世恋人“太阳之翼”的转世。然而，突然出现的野孩子阿波罗，才可能是真正的“太阳之翼”。起初，她执意不肯接受，但随着前世记忆逐渐苏醒，终于开始承认这一事实。\n她与西利乌斯的左臂上，都长着与前世有着深刻关联的堕天翅之翅，一直用护腕将其遮掩。西利乌斯投向堕天翅一方后，也曾邀请她加入。然而，阿波罗的话让她下定决心，要以人类的身份活下去，于是拒绝了哥哥。\n最终决战后，世界走向终结之际，她通过瑟利安的记忆，让仍在争斗的阿波罗、西利乌斯与头翅＜托玛＞领悟到：光也可以诞生于黑暗之中。\n无论前世还是今生，她都与阿波罗心意相通。虽然最终不得不与他分离，但她坚信，总有一天，他一定会回到这颗星球。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "与本篇审定地名和人名统一；保留DSCR与DSC2各自的信息范围。",
+      "evidence": [
+        "corpus/glossary/global-variants-v1.json#place/alicia",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/132b8e7512e2f0c5"
+      ],
+      "rule": "silvia"
+    },
+    {
+      "id": "sd/library/character/327/DSCR",
+      "source_text_sha256": "9b048252c0643b5a606ccdb53dbc11fe6bb8e40bdd8d0efeb0e26377d7f0e8af",
+      "before": "就读于元素学校的一军元素能力者，14岁。\n她是旧阿莉西娅王国的公主，继承了阿波罗尼亚斯与塞莉安的血脉。她能将气集中于左臂，施展念力，举起或折弯各种物体。\n或许是因为幼年时便失去了双亲，她对哥哥西利乌斯怀有近乎异常的依恋，对所有接近哥哥的女性都十分警惕，尤其敌视丽花。她继承了塞莉安的前世，曾坚信西利乌斯就是前世恋人“太阳之翼”的转世。然而，突然出现的野孩子阿波罗，才可能是真正的“太阳之翼”。起初，她执意不肯接受，但随着前世记忆逐渐苏醒，终于开始承认这一事实。",
+      "after": "就读于元素学校的一军元素能力者，14岁。\n她是旧阿莉西亚王国的公主，继承了阿波罗尼亚斯与瑟利安的血脉。她能将气集中于左臂，施展念力，举起或折弯各种物体。\n或许是因为幼年时便失去了双亲，她对哥哥西利乌斯怀有近乎异常的依恋，对所有接近哥哥的女性都十分警惕，尤其敌视丽花。她继承了瑟利安的前世，曾坚信西利乌斯就是前世恋人“太阳之翼”的转世。然而，突然出现的野孩子阿波罗，才可能是真正的“太阳之翼”。起初，她执意不肯接受，但随着前世记忆逐渐苏醒，终于开始承认这一事实。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "与本篇审定地名和人名统一；保留DSCR与DSC2各自的信息范围。",
+      "evidence": [
+        "corpus/glossary/global-variants-v1.json#place/alicia",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/132b8e7512e2f0c5"
+      ],
+      "rule": "silvia"
+    },
+    {
+      "id": "sd/nisv/qa/page/015",
+      "source_text_sha256": "0a5d8357b59a969439748f568575f49e6bee888fd02ab06b2407d7ece59c6dc3",
+      "before": "A．灵活运用不同的攻击方式\n选择合适的攻击方式，就能造成比普通攻击更高的伤害。下面介绍几种有代表性的方法。\n\n小队攻击\n小队员使用PLA武器攻击后，或与小队员同时，小队长发动攻击。这样既能增加伤害，也会增加攻击次数，因此敌人的气力往往也更容易上升。\n\n援护攻击\n小队长攻击、敌人反击后，由相邻小队的小队长追加一次攻击。必须具备特殊技能“援护攻击”，但可以选择威力强大的武器。\n\n包围修正\n与前两种方式不同，包围修正不需要在攻击时手动选择。系统会根据目标敌小队上下左右4格中，其他我方小队的数量，给予以下伤害加成。\n有2～3支我方小队与目标相邻：伤害＋5％。\n有4支我方小队与目标相邻：伤害＋10％。\n※发动攻击的小队本身不计入上述数量。\n包围修正生效时，敌小队上方会显示“Pls”及加成数值（＋5％或＋10％）。\n\n此外，使用附带“装甲值下降”效果的武器，可以降低敌人的装甲。在发动强力攻击之前先削弱敌人的装甲，就能造成更大的伤害。",
+      "after": "A．灵活运用不同的攻击方式\n选择合适的攻击方式，就能造成比普通攻击更高的伤害。下面介绍几种有代表性的方法。\n\n小队攻击\n小队员使用PLA武器攻击后，或与小队员同时，小队长发动攻击。这样既能增加伤害，也会增加攻击次数，因此敌人的气力往往也更容易上升。\n\n援护攻击\n小队长攻击、敌人反击后，由相邻小队的小队长追加一次攻击。必须具备特殊技能“援护攻击”，但可以选择威力强大的武器。\n\n站位修正\n与前两种方式不同，站位修正不需要在攻击时手动选择。系统会根据目标敌小队上下左右4格中，其他我方小队的数量，给予以下伤害加成。\n有2～3支我方小队与目标相邻：伤害＋5％。\n有4支我方小队与目标相邻：伤害＋10％。\n※发动攻击的小队本身不计入上述数量。\n站位修正生效时，敌小队上方会显示“Pls”及加成数值（＋5％或＋10％）。\n\n此外，使用附带“装甲值下降”效果的武器，可以降低敌人的装甲。在发动强力攻击之前先削弱敌人的装甲，就能造成更大的伤害。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "统一本篇攻略Q&A术语站位修正，保留小队数量、百分比、Pls及攻击小队不计入的条件。",
+      "evidence": [
+        "corpus/zh/menu/nisv-strategy-qa.json#page/015/record/015"
+      ],
+      "rule": "placement"
+    },
+    {
+      "id": "sd/nisv/qa/page/035",
+      "source_text_sha256": "bc853b29053a909b3074f23f7c3faa2d6d5c384b7567bdfcceecf8297c18dc72",
+      "before": "A．提升命中率，关键在于养成和精神指令\n提高驾驶员的“命中”能力值，就能提升攻击的命中率。此外，也可以学习直接提高命中率的特殊技能。代表性的技能如下。\n\n看破\n气力达到130以上时，最终命中率与最终回避率提高10％。\n\n提升能力值和学习特殊技能，都可以在整备菜单的“驾驶员养成”中进行。养成需要消耗在关卡战斗等过程中获得的PP。\n出击进入战斗地图后，还可以利用精神指令提升命中率。代表性的精神指令如下。\n\n必中\n1回合内，命中率变为100％。\n\n集中\n1回合内，最终命中率与最终回避率提高30％。",
+      "after": "A．提升命中率，关键在于养成和精神指令\n提高驾驶员的“命中”能力值，就能提升攻击的命中率。此外，也可以学习直接提高命中率的特殊技能。代表性的技能如下。\n\n看穿\n气力达到130以上时，最终命中率与最终回避率提高10％。\n\n提升能力值和学习特殊技能，都可以在整备菜单的“驾驶员养成”中进行。养成需要消耗在关卡战斗等过程中获得的PP。\n出击进入战斗地图后，还可以利用精神指令提升命中率。代表性的精神指令如下。\n\n必中\n1回合内，命中率变为100％。\n\n集中\n1回合内，最终命中率与最终回避率提高30％。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "统一本篇已审定技能名看穿，保留所有数值。",
+      "evidence": [
+        "corpus/glossary/skills-v1.json#skill/intuition"
+      ],
+      "rule": "intuition"
+    },
+    {
+      "id": "sd/nisv/qa/page/060",
+      "source_text_sha256": "a9b43611f23f8b58149a1394f1d533ed3d2d5d0e974d0d6e6706f75e345fa1d0",
+      "before": "A．使伤害无效，或减轻所受伤害\n护罩类\n护罩分为“减伤型”和“无效型”两种。\n减伤型护罩在受到符合其对应属性的攻击时，一定会减少最终伤害。\n无效型护罩则会在所受伤害不超过规定值时，将最终伤害变为0。但若伤害超过规定值，护罩便无法挡下攻击，会承受100％的最终伤害。\n无论哪种护罩，EN不足时都无法发动。\n部分护罩也可以作为强化零件装备。代表性的零件如下。\n\nI力场\n减轻1000点射击类光束属性伤害。发动时消耗10 EN。\n\n护罩力场\n减轻1000点所有属性的伤害。发动时消耗5 EN。\n\n※只有选择集中阵型时，护罩的效果才能覆盖全体小队成员。\n\n装甲类\n这类能力同样能够减轻伤害或使伤害无效。除无法扩大作用范围外，其效果与特性与护罩相同。代表性的能力如下。\n\nVPS装甲\n减轻2000点非光束属性伤害。发动时消耗10 EN。\n\n分身类\n气力达到130以上时，有一定概率回避敌方攻击。以下列出代表性的能力、持有机体及发动概率。\n马赫特闪：盖塔狮虎，50％。\n分身：命运高达，50％。\n亚空间突入：巴鲁迪奥斯，25％。\n超越技能：王者盖纳，30％。",
+      "after": "A．使伤害无效，或减轻所受伤害\n护罩类\n护罩分为“减伤型”和“无效型”两种。\n减伤型护罩在受到符合其对应属性的攻击时，一定会减少最终伤害。\n无效型护罩则会在所受伤害不超过规定值时，将最终伤害变为0。但若伤害超过规定值，护罩便无法挡下攻击，会承受100％的最终伤害。\n无论哪种护罩，EN不足时都无法发动。\n部分护罩也可以作为强化零件装备。代表性的零件如下。\n\nI力场\n减轻1000点射击类光束属性伤害。发动时消耗10 EN。\n\n护罩力场\n减轻1000点所有属性的伤害。发动时消耗5 EN。\n\n※只有选择集中阵型时，护罩的效果才能覆盖全体小队成员。\n\n装甲类\n这类能力同样能够减轻伤害或使伤害无效。除无法扩大作用范围外，其效果与特性与护罩相同。代表性的能力如下。\n\nVPS装甲\n减轻2000点非光束属性伤害。发动时消耗10 EN。\n\n分身类\n气力达到130以上时，有一定概率回避敌方攻击。以下列出代表性的能力、持有机体及发动概率。\n马赫特技：盖塔狮虎，50％。\n分身：命运高达，50％。\n亚空间突入：巴鲁迪奥斯，25％。\n超越技能：王者盖纳，30％。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "统一本篇能力名与战斗画面提示马赫特技；不改护罩和回避率说明。",
+      "evidence": [
+        "corpus/glossary/special-abilities-v1.json#ability/mach-special",
+        "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json#tricmn/mach-special"
+      ],
+      "rule": "mach"
+    },
+    {
+      "id": "sd/nisv/qa/page/071",
+      "source_text_sha256": "02efdd5246caabf87d478b35bf26611c4fd1b217c7311169a893e6b1fd119dd9",
+      "before": "A．用于集市交易\nBS是蓝石的简称，是只能用于集市交易的货币。\n部分驾驶员，主要是破坏者和秃鹫，会持有BS。击坠这些驾驶员搭乘的机体，就能获得BS。精神指令“幸运”和“努力”不会影响BS的获得量。",
+      "after": "A．用于集市交易\nBS是蓝石的简称，是只能用于集市交易的货币。\n部分驾驶员，主要是破坏者和秃鹰，会持有BS。击坠这些驾驶员搭乘的机体，就能获得BS。精神指令“幸运”和“努力”不会影响BS的获得量。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "保留破坏者，バルチャー统一为本篇秃鹰；同步同页索引关键词，保留BS规则。",
+      "evidence": [
+        "corpus/glossary/terms-v1.json#role/vulture",
+        "corpus/zh/menu/ui-name-tables.json#ui-name/nisv-squad/034",
+        "corpus/zh/menu/ui-name-tables.json#ui-name/nisv-squad/058"
+      ],
+      "rule": "bs"
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/070",
+      "source_text_sha256": "c62c275372a014f10d1b8bcd4383bd104714a05e2a303bed08d499aa745b1a41",
+      "before": "＜破坏者＞　＜秃鹫＞",
+      "after": "＜破坏者＞　＜秃鹰＞",
+      "changed": true,
+      "status": "resolved",
+      "decision": "保留破坏者，バルチャー统一为本篇秃鹰；同步同页索引关键词，保留BS规则。",
+      "evidence": [
+        "corpus/glossary/terms-v1.json#role/vulture",
+        "corpus/zh/menu/ui-name-tables.json#ui-name/nisv-squad/034",
+        "corpus/zh/menu/ui-name-tables.json#ui-name/nisv-squad/058"
+      ],
+      "rule": "bs"
+    },
+    {
+      "id": "sd/nisv/qa/page/081",
+      "source_text_sha256": "92d4a7d9e31b8893d43de28bfe364a2664b0096376e45548841a8ee3ea2d9a5e",
+      "before": "A．使用小队自动编成指令\n小队编成有无数种搭配。若要兼顾前面介绍的所有因素，光是构思组合就可能花费大量时间。\n为此，游戏准备了“自动编成”指令，帮助你轻松组队。系统提供以下两种不同的编成方式。\n\n基本编成\n优先将同一原作中关系密切的成员编入同一队，因此往往会形成大家熟悉的经典组合。\n执行这一方式时，已经编成的小队会全部解散。\n\n均衡编成\n着重考虑小队的综合能力，在移动力、移动类型和精神指令等方面取得平衡。对于已经编成的小队，可以指定要保留的队伍，只用剩余的机体重新编组。\n\n你可以直接使用系统编好的小队，也可以将其作为参考，再按自己的喜好调整。组建属于自己的部队，争取胜利吧！",
+      "after": "A．使用小队自动编成指令\n小队编成有无数种搭配。若要兼顾前面介绍的所有因素，光是构思组合就可能花费大量时间。\n为此，游戏准备了“自动编成”指令，帮助你轻松组队。系统提供以下两种不同的编成方式。\n\n基本方案\n优先将同一原作中关系密切的成员编入同一队，因此往往会形成大家熟悉的经典组合。\n执行这一方式时，已经编成的小队会全部解散。\n\n均衡方案\n着重考虑小队的综合能力，在移动力、移动类型和精神指令等方面取得平衡。对于已经编成的小队，可以指定要保留的队伍，只用剩余的机体重新编组。\n\n你可以直接使用系统编好的小队，也可以将其作为参考，再按自己的喜好调整。组建属于自己的部队，争取胜利吧！",
+      "changed": true,
+      "status": "resolved",
+      "decision": "以本篇实际菜单选项基本方案／均衡方案为准。原COMPDATA 0x7ED30/0x7ED50直接解码对应两个日文名称；本篇旧Q&A存在基本指令／基础指令等异文，本轮不以旧帮助异文覆盖菜单名。",
+      "evidence": [
+        "corpus/zh/menu/remaining-ui.json#compdata_direct_by_offset/0x7ED30",
+        "corpus/zh/menu/remaining-ui.json#compdata_direct_by_offset/0x7ED50"
+      ],
+      "rule": "orders"
+    },
+    {
+      "id": "sd/library/robot/275/DSC2",
+      "source_text_sha256": "3e710421d9e172b2d303581a8d54fffc9bc4efde3146b2a70827aac4f9058801",
+      "before": "新联合国军与迪娃利用双翅＜双叶＞的翅共同开发的新型阿克艾里昂，又称强攻型阿克艾里昂，已大量生产。驾驶员同样是接受过翅移植的元素能力者，因此仅凭1人就能控制全部功能；另外两架机体则搭载了利用堕天翅之翅制成的操纵单元。\n本形态以矢量德尔塔为头部合体而成，能够将其装备的GUN吊舱当作拐棍使用，进行战斗。\n强攻型阿克艾里昂还能变成原版不具备的形态：可在地面高速移动并拥有飞行能力的“突击步行形态”，以及多足炮台式的“末日决战形态”。",
+      "after": "新联合国军与DEAVA利用双翅的翅共同开发的新型阿克艾里昂，又称强攻型阿克艾里昂，已大量生产。驾驶员同样是接受过翅移植的元素能力者，因此仅凭1人就能控制全部功能；另外两架机体则搭载了利用堕天翅之翅制成的操纵单元。\n本形态以德尔塔战机为头部合体而成，能够将其装备的GUN荚舱当作拐棍使用，进行战斗。\n强攻型阿克艾里昂还能变成原版不具备的形态：可在地面高速移动并拥有飞行能力的“突击步行形态”，以及多足炮台式的“末日形态”。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "矢量战机、双翅、DEAVA、GUN荚舱与末日形态统一本篇；突击步行形态及太阳／火星／月亮阿克艾里昂原译已一致。保留SP新国连军原文含义，不套用本篇德尔塔图鉴的新帝国军旧文。",
+      "evidence": [
+        "corpus/glossary/parts-v1.json#part/vector-delta",
+        "corpus/glossary/parts-v1.json#part/vector-sol",
+        "corpus/glossary/parts-v1.json#part/vector-mars",
+        "corpus/glossary/parts-v1.json#part/vector-luna",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/acec889b264d45e1",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0f63a18e67d4d5bb"
+      ],
+      "rule": "aquarion"
+    },
+    {
+      "id": "sd/library/robot/275/DSCR",
+      "source_text_sha256": "3e710421d9e172b2d303581a8d54fffc9bc4efde3146b2a70827aac4f9058801",
+      "before": "新联合国军与迪娃利用双翅＜双叶＞的翅共同开发的新型阿克艾里昂，又称强攻型阿克艾里昂，已大量生产。驾驶员同样是接受过翅移植的元素能力者，因此仅凭1人就能控制全部功能；另外两架机体则搭载了利用堕天翅之翅制成的操纵单元。\n本形态以矢量德尔塔为头部合体而成，能够将其装备的GUN吊舱当作拐棍使用，进行战斗。\n强攻型阿克艾里昂还能变成原版不具备的形态：可在地面高速移动并拥有飞行能力的“突击步行形态”，以及多足炮台式的“末日决战形态”。",
+      "after": "新联合国军与DEAVA利用双翅的翅共同开发的新型阿克艾里昂，又称强攻型阿克艾里昂，已大量生产。驾驶员同样是接受过翅移植的元素能力者，因此仅凭1人就能控制全部功能；另外两架机体则搭载了利用堕天翅之翅制成的操纵单元。\n本形态以德尔塔战机为头部合体而成，能够将其装备的GUN荚舱当作拐棍使用，进行战斗。\n强攻型阿克艾里昂还能变成原版不具备的形态：可在地面高速移动并拥有飞行能力的“突击步行形态”，以及多足炮台式的“末日形态”。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "矢量战机、双翅、DEAVA、GUN荚舱与末日形态统一本篇；突击步行形态及太阳／火星／月亮阿克艾里昂原译已一致。保留SP新国连军原文含义，不套用本篇德尔塔图鉴的新帝国军旧文。",
+      "evidence": [
+        "corpus/glossary/parts-v1.json#part/vector-delta",
+        "corpus/glossary/parts-v1.json#part/vector-sol",
+        "corpus/glossary/parts-v1.json#part/vector-mars",
+        "corpus/glossary/parts-v1.json#part/vector-luna",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/acec889b264d45e1",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0f63a18e67d4d5bb"
+      ],
+      "rule": "aquarion"
+    },
+    {
+      "id": "sd/library/robot/276/DSC2",
+      "source_text_sha256": "008bfe06b57c6b8e6bcbea67932fc5988c18477c5809121e95bd513535127b62",
+      "before": "3架矢量战机之一，合体时构成太阳阿克艾里昂的头部。\n名为“能量水晶”的动力源，会放大元素能力者的能力，并将其转化为力量。因此，驾驶员的特质与精神状态不同，机体性能也会发生很大变化。\n本机在3架机体中性能较为均衡，主要承担类似制空战斗机的任务。武装只有两门光束枪。\n此形态是矢量索尔单独变形为头部组件的状态。",
+      "after": "3架矢量战机之一，合体时构成太阳阿克艾里昂的头部。\n名为“能量水晶”的动力源，会放大元素能力者的能力，并将其转化为力量。因此，驾驶员的特质与精神状态不同，机体性能也会发生很大变化。\n本机在3架机体中性能较为均衡，主要承担类似制空战斗机的任务。武装只有两门光束枪。\n此形态是太阳战机单独变形为头部组件的状态。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "矢量战机、双翅、DEAVA、GUN荚舱与末日形态统一本篇；突击步行形态及太阳／火星／月亮阿克艾里昂原译已一致。保留SP新国连军原文含义，不套用本篇德尔塔图鉴的新帝国军旧文。",
+      "evidence": [
+        "corpus/glossary/parts-v1.json#part/vector-delta",
+        "corpus/glossary/parts-v1.json#part/vector-sol",
+        "corpus/glossary/parts-v1.json#part/vector-mars",
+        "corpus/glossary/parts-v1.json#part/vector-luna",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/acec889b264d45e1",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0f63a18e67d4d5bb"
+      ],
+      "rule": "aquarion"
+    },
+    {
+      "id": "sd/library/robot/276/DSCR",
+      "source_text_sha256": "008bfe06b57c6b8e6bcbea67932fc5988c18477c5809121e95bd513535127b62",
+      "before": "3架矢量战机之一，合体时构成太阳阿克艾里昂的头部。\n名为“能量水晶”的动力源，会放大元素能力者的能力，并将其转化为力量。因此，驾驶员的特质与精神状态不同，机体性能也会发生很大变化。\n本机在3架机体中性能较为均衡，主要承担类似制空战斗机的任务。武装只有两门光束枪。\n此形态是矢量索尔单独变形为头部组件的状态。",
+      "after": "3架矢量战机之一，合体时构成太阳阿克艾里昂的头部。\n名为“能量水晶”的动力源，会放大元素能力者的能力，并将其转化为力量。因此，驾驶员的特质与精神状态不同，机体性能也会发生很大变化。\n本机在3架机体中性能较为均衡，主要承担类似制空战斗机的任务。武装只有两门光束枪。\n此形态是太阳战机单独变形为头部组件的状态。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "矢量战机、双翅、DEAVA、GUN荚舱与末日形态统一本篇；突击步行形态及太阳／火星／月亮阿克艾里昂原译已一致。保留SP新国连军原文含义，不套用本篇德尔塔图鉴的新帝国军旧文。",
+      "evidence": [
+        "corpus/glossary/parts-v1.json#part/vector-delta",
+        "corpus/glossary/parts-v1.json#part/vector-sol",
+        "corpus/glossary/parts-v1.json#part/vector-mars",
+        "corpus/glossary/parts-v1.json#part/vector-luna",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/acec889b264d45e1",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0f63a18e67d4d5bb"
+      ],
+      "rule": "aquarion"
+    },
+    {
+      "id": "sd/library/robot/277/DSC2",
+      "source_text_sha256": "daf07567676767e33558e14426879b977cc3393dbbeeb72519a80e3f39c0feb6",
+      "before": "3架矢量战机之一，合体时构成火星阿克艾里昂的头部。\n装甲与武装都很强大，能够作为重型战斗机运用。但缺点是对驾驶员体力与精神感应能力的消耗也相当剧烈。\n此形态是矢量玛尔斯单独变形为头部组件的状态。",
+      "after": "3架矢量战机之一，合体时构成火星阿克艾里昂的头部。\n装甲与武装都很强大，能够作为重型战斗机运用。但缺点是对驾驶员体力与精神感应能力的消耗也相当剧烈。\n此形态是火星战机单独变形为头部组件的状态。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "矢量战机、双翅、DEAVA、GUN荚舱与末日形态统一本篇；突击步行形态及太阳／火星／月亮阿克艾里昂原译已一致。保留SP新国连军原文含义，不套用本篇德尔塔图鉴的新帝国军旧文。",
+      "evidence": [
+        "corpus/glossary/parts-v1.json#part/vector-delta",
+        "corpus/glossary/parts-v1.json#part/vector-sol",
+        "corpus/glossary/parts-v1.json#part/vector-mars",
+        "corpus/glossary/parts-v1.json#part/vector-luna",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/acec889b264d45e1",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0f63a18e67d4d5bb"
+      ],
+      "rule": "aquarion"
+    },
+    {
+      "id": "sd/library/robot/277/DSCR",
+      "source_text_sha256": "daf07567676767e33558e14426879b977cc3393dbbeeb72519a80e3f39c0feb6",
+      "before": "3架矢量战机之一，合体时构成火星阿克艾里昂的头部。\n装甲与武装都很强大，能够作为重型战斗机运用。但缺点是对驾驶员体力与精神感应能力的消耗也相当剧烈。\n此形态是矢量玛尔斯单独变形为头部组件的状态。",
+      "after": "3架矢量战机之一，合体时构成火星阿克艾里昂的头部。\n装甲与武装都很强大，能够作为重型战斗机运用。但缺点是对驾驶员体力与精神感应能力的消耗也相当剧烈。\n此形态是火星战机单独变形为头部组件的状态。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "矢量战机、双翅、DEAVA、GUN荚舱与末日形态统一本篇；突击步行形态及太阳／火星／月亮阿克艾里昂原译已一致。保留SP新国连军原文含义，不套用本篇德尔塔图鉴的新帝国军旧文。",
+      "evidence": [
+        "corpus/glossary/parts-v1.json#part/vector-delta",
+        "corpus/glossary/parts-v1.json#part/vector-sol",
+        "corpus/glossary/parts-v1.json#part/vector-mars",
+        "corpus/glossary/parts-v1.json#part/vector-luna",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/acec889b264d45e1",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0f63a18e67d4d5bb"
+      ],
+      "rule": "aquarion"
+    },
+    {
+      "id": "sd/library/robot/278/DSC2",
+      "source_text_sha256": "64df22f919bbaedefd36e511f46c3464fdc21e1beabc21d981e0d7c8e65604e8",
+      "before": "3架矢量战机之一，合体时构成月亮阿克艾里昂的头部。\n本机装甲轻量化，并配备空气动力发生力场，机动性出色，也能用作侦察机。\n此形态是矢量露娜单独变形为头部组件的状态。",
+      "after": "3架矢量战机之一，合体时构成月亮阿克艾里昂的头部。\n本机装甲轻量化，并配备空气动力发生力场，机动性出色，也能用作侦察机。\n此形态是月亮战机单独变形为头部组件的状态。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "矢量战机、双翅、DEAVA、GUN荚舱与末日形态统一本篇；突击步行形态及太阳／火星／月亮阿克艾里昂原译已一致。保留SP新国连军原文含义，不套用本篇德尔塔图鉴的新帝国军旧文。",
+      "evidence": [
+        "corpus/glossary/parts-v1.json#part/vector-delta",
+        "corpus/glossary/parts-v1.json#part/vector-sol",
+        "corpus/glossary/parts-v1.json#part/vector-mars",
+        "corpus/glossary/parts-v1.json#part/vector-luna",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/acec889b264d45e1",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0f63a18e67d4d5bb"
+      ],
+      "rule": "aquarion"
+    },
+    {
+      "id": "sd/library/robot/278/DSCR",
+      "source_text_sha256": "64df22f919bbaedefd36e511f46c3464fdc21e1beabc21d981e0d7c8e65604e8",
+      "before": "3架矢量战机之一，合体时构成月亮阿克艾里昂的头部。\n本机装甲轻量化，并配备空气动力发生力场，机动性出色，也能用作侦察机。\n此形态是矢量露娜单独变形为头部组件的状态。",
+      "after": "3架矢量战机之一，合体时构成月亮阿克艾里昂的头部。\n本机装甲轻量化，并配备空气动力发生力场，机动性出色，也能用作侦察机。\n此形态是月亮战机单独变形为头部组件的状态。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "矢量战机、双翅、DEAVA、GUN荚舱与末日形态统一本篇；突击步行形态及太阳／火星／月亮阿克艾里昂原译已一致。保留SP新国连军原文含义，不套用本篇德尔塔图鉴的新帝国军旧文。",
+      "evidence": [
+        "corpus/glossary/parts-v1.json#part/vector-delta",
+        "corpus/glossary/parts-v1.json#part/vector-sol",
+        "corpus/glossary/parts-v1.json#part/vector-mars",
+        "corpus/glossary/parts-v1.json#part/vector-luna",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/acec889b264d45e1",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0f63a18e67d4d5bb"
+      ],
+      "rule": "aquarion"
+    },
+    {
+      "id": "sd/library/robot/314/DSC2",
+      "source_text_sha256": "e59859e32476c58ef173a94a1659029cd849e8c5936bb0a52facf6e6eee8c14f",
+      "before": "在不存在珠玉的世界中，由荣耀之星进行评估测试的巴尔戈拉。\n机体本身的特性与性能，可以说与另一个世界的巴尔戈拉完全相同。\n它同样装备全领域泛用武装系统“加纳利·卡佛”，但出力不及搭载珠玉的版本，因此更偏重格斗武装的运用。\nⅠ号机的加纳利·卡佛针对近距离格斗战进行了调整，以格斗兵器“杰克·卡佛”为主力。",
+      "after": "在不存在珠玉的世界中，由荣耀之星进行评估测试的巴尔戈拉。\n机体本身的特性与性能，可以说与另一个世界的巴尔戈拉完全相同。\n它同样装备全领域泛用武装系统“加纳利·卡弗”，但出力不及搭载珠玉的版本，因此更偏重格斗武装的运用。\nⅠ号机的加纳利·卡弗针对近距离格斗战进行了调整，以格斗兵器“杰克切割刃”为主力。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "统一本篇武装译名。保留SP平行世界、无珠玉设定、Ⅰ／Ⅱ号机和格斗战定位，不套用本篇机号或炮击用途。",
+      "evidence": [
+        "corpus/zh/library/v0.2-reviewed.json#library-text/2fbec27b44237c76",
+        "corpus/glossary/weapons-v1.json#weapon/0661",
+        "corpus/glossary/weapons-v1.json#weapon/0662"
+      ],
+      "rule": "virgola"
+    },
+    {
+      "id": "sd/library/robot/314/DSCR",
+      "source_text_sha256": "e59859e32476c58ef173a94a1659029cd849e8c5936bb0a52facf6e6eee8c14f",
+      "before": "在不存在珠玉的世界中，由荣耀之星进行评估测试的巴尔戈拉。\n机体本身的特性与性能，可以说与另一个世界的巴尔戈拉完全相同。\n它同样装备全领域泛用武装系统“加纳利·卡佛”，但出力不及搭载珠玉的版本，因此更偏重格斗武装的运用。\nⅠ号机的加纳利·卡佛针对近距离格斗战进行了调整，以格斗兵器“杰克·卡佛”为主力。",
+      "after": "在不存在珠玉的世界中，由荣耀之星进行评估测试的巴尔戈拉。\n机体本身的特性与性能，可以说与另一个世界的巴尔戈拉完全相同。\n它同样装备全领域泛用武装系统“加纳利·卡弗”，但出力不及搭载珠玉的版本，因此更偏重格斗武装的运用。\nⅠ号机的加纳利·卡弗针对近距离格斗战进行了调整，以格斗兵器“杰克切割刃”为主力。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "统一本篇武装译名。保留SP平行世界、无珠玉设定、Ⅰ／Ⅱ号机和格斗战定位，不套用本篇机号或炮击用途。",
+      "evidence": [
+        "corpus/zh/library/v0.2-reviewed.json#library-text/2fbec27b44237c76",
+        "corpus/glossary/weapons-v1.json#weapon/0661",
+        "corpus/glossary/weapons-v1.json#weapon/0662"
+      ],
+      "rule": "virgola"
+    },
+    {
+      "id": "sd/library/robot/315/DSC2",
+      "source_text_sha256": "88113f8029e02157d4cae144bdcbd7083a3996e452c6bf2ae52511ec437be07f",
+      "before": "在不存在珠玉的世界中，由荣耀之星进行评估测试的巴尔戈拉。\n机体本身的特性与性能，可以说与另一个世界的巴尔戈拉完全相同。\n它同样装备全领域泛用武装系统“加纳利·卡佛”，但出力不及搭载珠玉的版本，因此更偏重格斗武装的运用。\nⅡ号机的加纳利·卡佛针对中距离格斗战进行了调整，以高出力光束格斗兵器“巴雷·镰刀”为主力。",
+      "after": "在不存在珠玉的世界中，由荣耀之星进行评估测试的巴尔戈拉。\n机体本身的特性与性能，可以说与另一个世界的巴尔戈拉完全相同。\n它同样装备全领域泛用武装系统“加纳利·卡弗”，但出力不及搭载珠玉的版本，因此更偏重格斗武装的运用。\nⅡ号机的加纳利·卡弗针对中距离格斗战进行了调整，以高出力光束格斗兵器“巴利镰刃”为主力。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "统一本篇武装译名。保留SP平行世界、无珠玉设定、Ⅰ／Ⅱ号机和格斗战定位，不套用本篇机号或炮击用途。",
+      "evidence": [
+        "corpus/zh/library/v0.2-reviewed.json#library-text/2fbec27b44237c76",
+        "corpus/glossary/weapons-v1.json#weapon/0661",
+        "corpus/glossary/weapons-v1.json#weapon/0662"
+      ],
+      "rule": "virgola"
+    },
+    {
+      "id": "sd/library/robot/315/DSCR",
+      "source_text_sha256": "88113f8029e02157d4cae144bdcbd7083a3996e452c6bf2ae52511ec437be07f",
+      "before": "在不存在珠玉的世界中，由荣耀之星进行评估测试的巴尔戈拉。\n机体本身的特性与性能，可以说与另一个世界的巴尔戈拉完全相同。\n它同样装备全领域泛用武装系统“加纳利·卡佛”，但出力不及搭载珠玉的版本，因此更偏重格斗武装的运用。\nⅡ号机的加纳利·卡佛针对中距离格斗战进行了调整，以高出力光束格斗兵器“巴雷·镰刀”为主力。",
+      "after": "在不存在珠玉的世界中，由荣耀之星进行评估测试的巴尔戈拉。\n机体本身的特性与性能，可以说与另一个世界的巴尔戈拉完全相同。\n它同样装备全领域泛用武装系统“加纳利·卡弗”，但出力不及搭载珠玉的版本，因此更偏重格斗武装的运用。\nⅡ号机的加纳利·卡弗针对中距离格斗战进行了调整，以高出力光束格斗兵器“巴利镰刃”为主力。",
+      "changed": true,
+      "status": "resolved",
+      "decision": "统一本篇武装译名。保留SP平行世界、无珠玉设定、Ⅰ／Ⅱ号机和格斗战定位，不套用本篇机号或炮击用途。",
+      "evidence": [
+        "corpus/zh/library/v0.2-reviewed.json#library-text/2fbec27b44237c76",
+        "corpus/glossary/weapons-v1.json#weapon/0661",
+        "corpus/glossary/weapons-v1.json#weapon/0662"
+      ],
+      "rule": "virgola"
+    },
+    {
+      "id": "corpus/chart-summary/029",
+      "source_text_sha256": "eb83fae25aafc658311103bfe5a58a5a72e0e5290681e329515a9aec52930d6b",
+      "before": "格罗玛发现一支遭奇拉姆袭击的埃曼商队。虽然自己也正被埃曼追捕，法克特里仍决意救援。桂等人能否守住商队的船？",
+      "after": "格罗玛发现一支遭奇拉姆袭击的埃曼商队。虽然自己也正被埃曼追捕，工厂众人仍决意救援。桂等人能否守住商队的船？",
+      "changed": true,
+      "status": "resolved",
+      "decision": "纠正校订备注中的人名判断。原文为埃曼商队组织ファクトリー，格罗玛图鉴明确说シャイアの率いるファクトリー，本篇译为工厂；该句采用工厂众人，使主体清楚。",
+      "evidence": [
+        "corpus/glossary/terms-v1.json#faction/factory",
+        "corpus/zh/library/v0.2-reviewed.json#library-text/0ad7488944a68454"
+      ],
+      "rule": "factory"
+    }
+  ],
+  "iso_modified": false,
+  "submitted_text_and_source_identity_preserved": true
+}

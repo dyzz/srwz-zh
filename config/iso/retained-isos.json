@@ -104,15 +104,23 @@
       "iso_sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb"
     }
   },
-  "updated": "2026-09-17",
+  "updated": "2026-09-19",
   "exceptions": [
     {
       "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
       "reason": "Active Special Disc analysis; outside the main-game cleanup."
     },
     {
-      "path": "work/analysis/sp-library-canary-20260912/sp-library-canary.iso",
-      "reason": "Active Special Disc candidate; outside the main-game cleanup."
+      "path": "build/iso/special-disc/preview/sp-image-preview.iso",
+      "reason": "Pinned input to the SP text-canary builder; keep until the dependency is retired."
+    },
+    {
+      "path": "build/iso/special-disc/text-candidate/sp-text-canary.iso",
+      "reason": "Pinned input to the SP full-text builder; keep until the dependency is retired."
+    },
+    {
+      "path": "build/iso/special-disc/full-text/sp-zh-full-text.iso",
+      "reason": "Current SP Chinese text image; ARMSX2 scans this directory directly. Identity is in its adjacent JSON manifest."
     }
   ]
 }

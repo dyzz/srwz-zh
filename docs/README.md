@@ -6,6 +6,9 @@
 | 文档 | 内容 |
 | --- | --- |
 | `../README.md` | 项目介绍、v0.4.1 内容、下载与源码构建 |
+| [Special Disc 总入口](special-disc/README.md) | 当前目录、工具、预览输入与文档导航 |
+| [Special Disc 当前成果与后续计划](special-disc/STATUS.md) | 2026-09-19 核对：预览镜像、8,629 条初稿、剧情写回缺口、实施顺序与验收清单 |
+| [Special Disc 详细规划与研究记录](special-disc/PLAN.md) | 内容盘点、图片范围、格式与迁移方案；阶段进度以当前成果文档为准 |
 | [初版与 The Best 详细差异（面向玩家）](BEST_VERSION_GUIDE.md) | 单篇完整比较：程序、战斗演出、音库细查、文字前后对照、图鉴和片尾修订 |
 | [RELEASE_NOTES_V0.4.1.md](RELEASE_NOTES_V0.4.1.md) | v0.4.1 双版本发布说明、安装与校验 |
 | [RELEASE_BUILD_V0.4.1.md](RELEASE_BUILD_V0.4.1.md) | 冻结镜像、补丁、自动验证和清理范围 |
