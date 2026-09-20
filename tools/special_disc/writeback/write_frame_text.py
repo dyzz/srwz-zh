@@ -30,6 +30,7 @@ EPISODE_LABELS=ROOT/'config/editorial/special-disc/chart-episode-labels.json'
 Z_ENDINGS=ROOT/'config/editorial/special-disc/chart-z-ending-titles.json'
 Z_TITLE_CORPUS=ROOT/'corpus/zh/menu/stage-names.json'
 KEY_HELP=ROOT/'config/editorial/special-disc/chart-key-help.json'
+HSFC_PROTECTED_TERMS=('麦康奈尔','布兰少校','西尔维娅','金卡拉姆')
 
 
 def require(condition,message):
@@ -97,7 +98,9 @@ class Writer:
         source=self.output.get(name,self.member(name));offsets=sd.table_offsets(self.exe,table_start,len(source))
         a,b=offsets[index:index+2];stored=source[a:b];decoded=decode_production(stored)
         require(len(data)==len(decoded.output),f'{name}/{index}: decoded size changed')
-        packed=reencode_changed_suffix(stored,data,strategy='rust-fit',max_output_size=b-a,original_result=decoded)
+        strategy='rust-maximum' if name=='DATA/HSFC.BIN' else 'rust-fit'
+        packed=reencode_changed_suffix(stored,data,strategy=strategy,
+            min_match_length=2 if name=='DATA/HSFC.BIN' else 3,max_output_size=b-a,original_result=decoded)
         require(decode_production(packed).output==data,'codec reread')
         self.output[name]=source[:a]+packed+bytes(b-a-len(packed))+source[b:]
         self.codecs.append(dict(member=name,chunk=index,allocated=b-a,compressed=len(packed)))
@@ -148,7 +151,8 @@ class Writer:
             record=int(target.rsplit('/',1)[1]);at=first+record*cell*cells
             source='\n'.join(decode_text(src,at+j*cell,self.table,end=at+(j+1)*cell).text for j in range(cells))
             self.bind(target,source)
-            text=fit_chinese_dialogue_layout(row['translation'],profile=self.profiles['scenario_chart_overview']).text
+            text=fit_chinese_dialogue_layout(row['translation'],profile=self.profiles['scenario_chart_overview'],
+                protected_terms=HSFC_PROTECTED_TERMS).text
             lines=text.split('\n');require(len(lines)<=3,'HSFC exceeds three lines');lines+=['']*(3-len(lines))
             for j,line in enumerate(lines):self.fixed(data,at+j*cell,cell,line,target)
             self.record(target,text,member=name,chunk=0,offset=at,width=21,lines=3)

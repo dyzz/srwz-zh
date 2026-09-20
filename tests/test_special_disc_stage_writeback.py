@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import collections
+import json
 import struct
 import sys
 import unittest
@@ -116,6 +117,29 @@ class SpecialDiscStageTests(unittest.TestCase):
         for line in lines:
             self.assertLessEqual(len(line)-len(line.lstrip('　'))+rendered_line_width(line),12)
         self.assertEqual(''.join(lines).replace('　',''),'这是一个用于验证固定页首行缩进和换行宽度的文本。')
+
+    def test_current_chart_summaries_fit_native_three_rows_without_splitting_names(self):
+        import write_frame_text as frame
+        profile = frame.load_layout_profiles(frame.stage.PROFILES)['scenario_chart_overview']
+        rows = json.loads((frame.ROOT / 'corpus/zh/special-disc/frame-text.json').read_text())['entries']
+        for row in rows:
+            if not any(t.startswith('sd/hsfc/') for t in row['locations']):
+                continue
+            with self.subTest(entry=row['id']):
+                text = frame.fit_chinese_dialogue_layout(row['translation'], profile=profile,
+                    protected_terms=frame.HSFC_PROTECTED_TERMS).text
+                self.assertLessEqual(len(text.split('\n')), 3)
+                for name in frame.HSFC_PROTECTED_TERMS:
+                    if name in row['translation']:
+                        self.assertIn(name, text)
+
+    def test_current_final_narration_keeps_text_within_thirteen_rows(self):
+        import write_frame_text as frame
+        rows = json.loads((frame.ROOT / 'corpus/zh/special-disc/frame-text.json').read_text())['entries']
+        text = next(row['translation'] for row in rows if 'sd/mtzspros/09/0' in row['locations'])
+        lines = frame.paragraphs(text, 21, max_lines=13, protected_terms=('下达',))
+        self.assertEqual(''.join(lines).replace('　',''), text.replace('\n','').replace('　',''))
+        self.assertIn('', lines)
 
 
 class SpecialDiscBindingTests(unittest.TestCase):
