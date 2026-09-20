@@ -5,16 +5,15 @@
   "input_digest": "531f76bfcc7d981c00c443037822fef5751a692f44cf7a743a5074be2a293858",
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
-    "size": 3755081728
+    "size": 3755081728,
+    "sha256": "993f18a02574dafc87474c29adbac4324a364d72a3d5d1ae427cd502f3a50230"
   },
   "readback": {
-    "path": "work/build/zh-release-best/1ebc6e3a9aaebd5d9849dd479a700e6a9761ac79903a6ff3acbb2deaf9446546/project/work/build/best-current/iso-readback.json",
-    "sha256": "6b9826abdc700e0f1fa50909ab3ac2b6465294c8f42cacebd6b1c26fb3695473",
-    "stage_count": 205,
-    "translation_entry_count": 84338
+    "path": "manifests/qa-best-writeback-20260920.json",
+    "sha256": "fc799a04a1e3c424b047ac96a72c937a8e824ffae89ca7e615fc4c312cc016fa",
+    "scope": "Q&A and protected ISO ranges"
   },
-  "runtime": "not_tested",
+  "runtime": "qa_lrps2_open_scroll_verified",
   "schema_version": 1,
   "shared_frontend": {
     "edition": "original",
@@ -24,6 +23,24 @@
   },
   "source_head": "cfa86692ec5ac9f8fbec7828fbaece19fe1c5552",
   "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
-  "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "work/build/zh-release-best/1ebc6e3a9aaebd5d9849dd479a700e6a9761ac79903a6ff3acbb2deaf9446546/project"
+  "status": "edition_qa_update_static_and_lrps2_verified",
+  "workspace": "work/build/zh-release-best/1ebc6e3a9aaebd5d9849dd479a700e6a9761ac79903a6ff3acbb2deaf9446546/project",
+  "qa_baseline": {
+    "output": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "size": 3755081728,
+      "sha256": "44ee01476bbe24e3cdf7b07a57d04afa8d0b03bc139ef3c1cc3b43448c4d5625"
+    },
+    "readback": {
+      "path": "work/authoring/qa-main-20260920/best/baselines/44ee01476bbe24e3cdf7b07a57d04afa8d0b03bc139ef3c1cc3b43448c4d5625/readback.json",
+      "sha256": "3823765e9c7aa9f63e75e4e6e7069845d42d2dcb96c9a27f32831a692b54371c",
+      "scope": "Q&A and protected ISO ranges"
+    },
+    "status": "edition_qa_update_static_validated_runtime_pending"
+  },
+  "qa_runtime_evidence": {
+    "path": "manifests/qa-main-runtime-20260920.json",
+    "sha256": "fbd6835e00d2be540129e5001f8908b22bfbdfe21083e7e07d5889b12b74f173",
+    "scope": "Q&A only"
+  }
 }

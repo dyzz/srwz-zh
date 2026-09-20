@@ -1,0 +1,2874 @@
+{
+  "issue": {
+    "body": "来源：AL-E 反馈后的 Q&A 扩展检查，承接 #22 的全量排版审计。\n\n#22 的 SR 点数红色提示和句号已在当前工作区修复，Original／Best 目标页 LRPS2 均验收通过。同一规则还修正了 `page/031/record/014` 和 `page/051/record/019` 的纯句号衔接，后二者属于静态回读覆盖。\n\n从最初 47 处行首闭合标点候选扣除上述 3 处，仍有 **30 页、44 处候选**。这是静态坐标扫描结果，不能一律认定为同因缺陷，也不代表已经逐页运行确认。\n\n剩余三个整行只有句号的记录为：\n\n- `page/030/record/018`：驾驶员减伤说明。\n- `page/064/record/052`：有助于攻击的特殊技能说明。\n- `page/100/record/029`：难以通关时的说明。\n\n这些候选涉及固定表格列、超长正文或以标点开头的长记录。本次“短正文与纯标点一起决定换行”规则不强行改写它们。需要逐项核查原始段落和列结构，再选择保留样式的处理方法。\n\n- [ ] 核对 44 处候选，区分真实缺陷与有意的表格／分段布局。\n- [ ] 对确认的缺陷实施格式修复并完整静态回读。\n- [ ] 对实际修改页面执行 LRPS2 运行验收；LRPS2 通过即视为通过，无需 PCSX2 补验。\n\n已发布的原始候选清单：`manifests/qa-punctuation-layout-20260909.json`。\n当前工作区的剩余清单：`manifests/qa-punctuation-fix-20260909.json` → `remaining_candidates`。\n问题当前未修复，保持开放。\n",
+    "comments": [],
+    "labels": [
+      {
+        "id": "LA_kwDOTjAvD88AAAACtOYlhg",
+        "name": "bug",
+        "description": "Something isn't working",
+        "color": "d73a4a"
+      }
+    ],
+    "number": 24,
+    "state": "OPEN",
+    "title": "Q&A 其余行首标点与表格换行候选：44 处待逐项核查",
+    "updatedAt": "2026-09-09T13:13:20Z",
+    "url": "https://github.com/dyzz/srwz-zh/issues/24"
+  },
+  "iso_identities": {
+    "best_iso": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
+      "size": 3755081728
+    },
+    "sp_iso": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "size": 3791781888,
+      "sha256": "b2dc528c6a8f95e537036740e0b733a600647706a93e9194e3910e500b1674a3"
+    }
+  },
+  "original_evidence": "compiled_component_not_iso",
+  "original_corpus_sha256": "6dbe7214e15042ef031eb9799adfdde2ea14226b4c28a71244f4443ceda7a4d0",
+  "baseline_candidate_count": 44,
+  "results": {
+    "original_component": {
+      "count": 44,
+      "pages": 30,
+      "still_present": [
+        "page/002/record/006",
+        "page/013/record/020",
+        "page/016/record/004",
+        "page/016/record/011",
+        "page/019/record/010",
+        "page/020/record/017",
+        "page/026/record/016",
+        "page/027/record/009",
+        "page/028/record/005",
+        "page/030/record/011",
+        "page/030/record/018",
+        "page/030/record/027",
+        "page/038/record/004",
+        "page/039/record/005",
+        "page/044/record/004",
+        "page/045/record/007",
+        "page/054/record/005",
+        "page/054/record/025",
+        "page/058/record/019",
+        "page/059/record/015",
+        "page/059/record/028",
+        "page/064/record/018",
+        "page/064/record/023",
+        "page/064/record/052",
+        "page/065/record/006",
+        "page/066/record/010",
+        "page/070/record/015",
+        "page/070/record/029",
+        "page/074/record/011",
+        "page/076/record/044",
+        "page/076/record/062",
+        "page/079/record/010",
+        "page/079/record/029",
+        "page/079/record/042",
+        "page/085/record/011",
+        "page/086/record/010",
+        "page/088/record/022",
+        "page/093/record/041",
+        "page/093/record/049",
+        "page/093/record/058",
+        "page/094/record/010",
+        "page/100/record/022",
+        "page/100/record/029",
+        "page/102/record/011"
+      ],
+      "missing_from_current": [],
+      "new_ids": [],
+      "previously_resolved_regressions": [],
+      "punctuation_only_rows": [
+        "page/030/record/018",
+        "page/064/record/052",
+        "page/100/record/029"
+      ],
+      "pending_japanese_pages": [],
+      "candidates": [
+        {
+          "id": "page/002/record/006",
+          "ordinal": 6,
+          "text": "，其他",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 2,
+          "punctuation_only_row": false,
+          "row_text": "，其他阵型均无法使用。",
+          "source_record": "を唯",
+          "source_position": [
+            475,
+            47,
+            1
+          ],
+          "previous_id": "page/002/record/005",
+          "previous_text": "TRI攻击",
+          "previous_source": "トライチャージ",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            456,
+            36
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 152,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/013/record/020",
+          "ordinal": 20,
+          "text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。",
+          "x": 19,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 13,
+          "punctuation_only_row": false,
+          "row_text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。",
+          "source_record": "があり、Ｓから順に高いダメージを与えることを、－は",
+          "source_position": [
+            38,
+            124,
+            1
+          ],
+          "previous_id": "page/013/record/019",
+          "previous_text": "级",
+          "previous_source": "階",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            266,
+            91
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 494,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/016/record/004",
+          "ordinal": 4,
+          "text": "。编成小队并选择阵型后，还能使用其他攻击方法。",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 16,
+          "punctuation_only_row": false,
+          "row_text": "。编成小队并选择阵型后，还能使用其他攻击方法。",
+          "source_record": "です。しかし小隊を組んでフォーメーションを使う事で、",
+          "source_position": [
+            19,
+            36,
+            1
+          ],
+          "previous_id": "page/016/record/003",
+          "previous_text": "通常攻击",
+          "previous_source": "通常攻撃",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            399,
+            25
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 513,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/016/record/011",
+          "ordinal": 11,
+          "text": "，以及应对敌方攻击进行的",
+          "x": 19,
+          "y": 69,
+          "style": [
+            2,
+            0
+          ],
+          "page": 16,
+          "punctuation_only_row": false,
+          "row_text": "，以及应对敌方攻击进行的反击。",
+          "source_record": "、および敵からの攻撃に対応して行う",
+          "source_position": [
+            76,
+            91,
+            1
+          ],
+          "previous_id": "page/016/record/010",
+          "previous_text": "护攻击",
+          "previous_source": "護攻撃",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            323,
+            58
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 285,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/019/record/010",
+          "ordinal": 10,
+          "text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。",
+          "x": 19,
+          "y": 58,
+          "style": [
+            2,
+            0
+          ],
+          "page": 19,
+          "punctuation_only_row": false,
+          "row_text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。",
+          "source_record": "に対して攻撃をしかけます。ただし、敵小隊に対応する",
+          "source_position": [
+            38,
+            69,
+            1
+          ],
+          "previous_id": "page/019/record/009",
+          "previous_text": "2",
+          "previous_source": "２",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            475,
+            47
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 513,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/020/record/017",
+          "ordinal": 17,
+          "text": "，且仍有援护次数（＝援",
+          "x": 57,
+          "y": 113,
+          "style": [
+            2,
+            0
+          ],
+          "page": 20,
+          "punctuation_only_row": false,
+          "row_text": "，且仍有援护次数（＝援护攻击等级）。",
+          "source_record": "を修得しており、かつ援護回数",
+          "source_position": [
+            247,
+            146,
+            1
+          ],
+          "previous_id": "page/020/record/016",
+          "previous_text": "援护攻击",
+          "previous_source": "援護攻撃",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            361,
+            102
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 57,
+          "previous_plus_current_last_x": 323,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/026/record/016",
+          "ordinal": 16,
+          "text": "，不受阵型对全体攻击的伤害减少影响。",
+          "x": 19,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 26,
+          "punctuation_only_row": false,
+          "row_text": "，不受阵型对全体攻击的伤害减少影响。",
+          "source_record": "ため、フォーメーションによる全体攻撃の",
+          "source_position": [
+            152,
+            135,
+            1
+          ],
+          "previous_id": "page/026/record/015",
+          "previous_text": "有所不同",
+          "previous_source": "武器とは異なる",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            266,
+            91
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 418,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/027/record/009",
+          "ordinal": 9,
+          "text": "。命中后，除伤害外还会对敌人施加其他效果。效果持",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 27,
+          "punctuation_only_row": false,
+          "row_text": "。命中后，除伤害外还会对敌人施加其他效果。效果持",
+          "source_record": "です。命中すると、ダメージの他に様々な効果を",
+          "source_position": [
+            95,
+            36,
+            1
+          ],
+          "previous_id": "page/027/record/008",
+          "previous_text": "效果武器",
+          "previous_source": "効果武器",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            437,
+            25
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 532,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/028/record/005",
+          "ordinal": 5,
+          "text": "。我方单位被击坠会导致战力下降，可能影响后续战",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 28,
+          "punctuation_only_row": false,
+          "row_text": "。我方单位被击坠会导致战力下降，可能影响后续战斗。此外，",
+          "source_record": "となります。味方ユニットの撃墜は戦力の低下を招",
+          "source_position": [
+            76,
+            36,
+            1
+          ],
+          "previous_id": "page/028/record/003",
+          "previous_text": "HP变为0时，该单位被击坠",
+          "previous_source": "ＨＰが０になると、そのユニット",
+          "previous_style": [
+            2,
+            7
+          ],
+          "previous_output": [
+            171,
+            25
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 684,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/030/record/011",
+          "ordinal": 11,
+          "text": "，视情况可减少受到的伤",
+          "x": 19,
+          "y": 58,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": false,
+          "row_text": "，视情况可减少受到的伤害。以下是代表性特殊技能。",
+          "source_record": "を修得することで、状況",
+          "source_position": [
+            304,
+            80,
+            1
+          ],
+          "previous_id": "page/030/record/010",
+          "previous_text": "特殊技能",
+          "previous_source": "特殊スキル",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            418,
+            47
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 285,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/030/record/018",
+          "ordinal": 18,
+          "text": "。",
+          "x": 190,
+          "y": 91,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": true,
+          "row_text": "。",
+          "source_record": "となります。",
+          "source_position": [
+            190,
+            135,
+            1
+          ],
+          "previous_id": "page/030/record/016",
+          "previous_text": "受到的伤害变为80%",
+          "previous_source": "受けるダメージが８０",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            342,
+            80
+          ],
+          "current_source_row_fixed": true,
+          "previous_source_row_fixed": true,
+          "continuation_x": 171,
+          "previous_plus_current_last_x": 361,
+          "cause": "fixed_column_exclusion"
+        },
+        {
+          "id": "page/030/record/027",
+          "ordinal": 27,
+          "text": "。发动概率取决于",
+          "x": 171,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": false,
+          "row_text": "。发动概率取决于双方的技量差，战斗中选择",
+          "source_record": "が発動します。発動",
+          "source_position": [
+            342,
+            179,
+            1
+          ],
+          "previous_id": "page/030/record/026",
+          "previous_text": "盾牌防御",
+          "previous_source": "シールド防御",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            380,
+            124
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 171,
+          "previous_plus_current_last_x": 380,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/038/record/004",
+          "ordinal": 4,
+          "text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 38,
+          "punctuation_only_row": false,
+          "row_text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻",
+          "source_record": "します。移動後に攻撃可能なＰ属性の武器を使う場合には、",
+          "source_position": [
+            19,
+            36,
+            1
+          ],
+          "previous_id": "page/038/record/003",
+          "previous_text": "距离越近，命中率越高",
+          "previous_source": "距離が近いほど、命中率は上昇",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            152,
+            25
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 703,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/039/record/005",
+          "ordinal": 5,
+          "text": "，队长的最终命中率获得+20%修正。虽然无法使用全体",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 39,
+          "punctuation_only_row": false,
+          "row_text": "，队长的最终命中率获得+20%修正。虽然无法使用全体",
+          "source_record": "使用すると、隊長の最終命中率に＋２０％の修正が入りま",
+          "source_position": [
+            19,
+            36,
+            1
+          ],
+          "previous_id": "page/039/record/004",
+          "previous_text": "时",
+          "previous_source": "を",
+          "previous_style": [
+            2,
+            0
+          ],
+          "previous_output": [
+            266,
+            25
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 513,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/044/record/004",
+          "ordinal": 4,
+          "text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 44,
+          "punctuation_only_row": false,
+          "row_text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围",
+          "source_record": "します。撃墜されたくない小隊は敵から遠くへ、可能であ",
+          "source_position": [
+            19,
+            36,
+            1
+          ],
+          "previous_id": "page/044/record/003",
+          "previous_text": "距离越远，回避率越高",
+          "previous_source": "距離が遠いほど、回避率は上昇",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            114,
+            25
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 684,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/045/record/007",
+          "ordinal": 7,
+          "text": "，就是最可靠的避险方法。",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 45,
+          "punctuation_only_row": false,
+          "row_text": "，就是最可靠的避险方法。",
+          "source_record": "を選択するのがもっとも確実に回避",
+          "source_position": [
+            209,
+            58,
+            1
+          ],
+          "previous_id": "page/045/record/006",
+          "previous_text": "回避",
+          "previous_source": "回避",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            456,
+            36
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 266,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/054/record/005",
+          "ordinal": 5,
+          "text": "。此外，搭载在战舰内的单位也能获得回复。",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 54,
+          "punctuation_only_row": false,
+          "row_text": "。此外，搭载在战舰内的单位也能获得回复。",
+          "source_record": "。また、戦艦に搭載されたユニットも同じように",
+          "source_position": [
+            95,
+            36,
+            1
+          ],
+          "previous_id": "page/054/record/003",
+          "previous_text": "可回复HP或EN的地形",
+          "previous_source": "ＨＰやＥＮを回復してくれる地形が",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            171,
+            25
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 589,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/054/record/025",
+          "ordinal": 25,
+          "text": "。气力不会因此降至100以下。若已低于10",
+          "x": 57,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 54,
+          "punctuation_only_row": false,
+          "row_text": "。气力不会因此降至100以下。若已低于10",
+          "source_record": "されます。この低下によって気力が１００を下",
+          "source_position": [
+            114,
+            234,
+            1
+          ],
+          "previous_id": "page/054/record/023",
+          "previous_text": "在搭载时气力-5",
+          "previous_source": "搭載した時点で気力",
+          "previous_style": [
+            2,
+            7
+          ],
+          "previous_output": [
+            361,
+            135
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 57,
+          "previous_plus_current_last_x": 589,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/058/record/019",
+          "ordinal": 19,
+          "text": "。发动后，对应能力值会更新为最",
+          "x": 228,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 58,
+          "punctuation_only_row": false,
+          "row_text": "。发动后，对应能力值会更新为最",
+          "source_record": "されます。発動後、パイロット",
+          "source_position": [
+            247,
+            179,
+            1
+          ],
+          "previous_id": "page/058/record/017",
+          "previous_text": "高值",
+          "previous_source": "パイロット内で最高値のものが適",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            513,
+            124
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 228,
+          "previous_plus_current_last_x": 532,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/059/record/015",
+          "ordinal": 15,
+          "text": "。发动概率由",
+          "x": 114,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 59,
+          "punctuation_only_row": false,
+          "row_text": "。发动概率由与敌方的技量差决定。",
+          "source_record": "が一定の確率",
+          "source_position": [
+            399,
+            113,
+            1
+          ],
+          "previous_id": "page/059/record/014",
+          "previous_text": "斩击防御",
+          "previous_source": "切り払い",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            437,
+            91
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 114,
+          "previous_plus_current_last_x": 285,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/059/record/028",
+          "ordinal": 28,
+          "text": "。发动概率",
+          "x": 114,
+          "y": 168,
+          "style": [
+            2,
+            0
+          ],
+          "page": 59,
+          "punctuation_only_row": false,
+          "row_text": "。发动概率",
+          "source_record": "が一定の確",
+          "source_position": [
+            418,
+            201,
+            1
+          ],
+          "previous_id": "page/059/record/027",
+          "previous_text": "盾牌防御",
+          "previous_source": "シールド防御",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            475,
+            157
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 114,
+          "previous_plus_current_last_x": 266,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/064/record/018",
+          "ordinal": 18,
+          "text": "。建议让援护攻击技能等级高的驾驶员",
+          "x": 38,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": false,
+          "row_text": "。建议让援护攻击技能等级高的驾驶员习得。",
+          "source_record": "になります。援護攻撃のスキルレベル",
+          "source_position": [
+            190,
+            135,
+            1
+          ],
+          "previous_id": "page/064/record/017",
+          "previous_text": "倍）",
+          "previous_source": "ージ１．２５倍）",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            323,
+            91
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 38,
+          "previous_plus_current_last_x": 380,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/064/record/023",
+          "ordinal": 23,
+          "text": "。作为队员运用的驾驶员习得后效果显著。",
+          "x": 38,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": false,
+          "row_text": "。作为队员运用的驾驶员习得后效果显著。",
+          "source_record": "になります。隊員として運用するパイロットに修得さ",
+          "source_position": [
+            57,
+            190,
+            1
+          ],
+          "previous_id": "page/064/record/021",
+          "previous_text": "参与小队攻击时，对敌伤害+20%",
+          "previous_source": "小隊攻撃に参加する際、敵に与えるダメージが＋２０",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            95,
+            124
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 38,
+          "previous_plus_current_last_x": 684,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/064/record/052",
+          "ordinal": 52,
+          "text": "。",
+          "x": 38,
+          "y": 300,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": true,
+          "row_text": "。",
+          "source_record": "小さい機体（Ｓ～Ｍサイズ）に搭乗するパイロットに修",
+          "source_position": [
+            38,
+            410,
+            1
+          ],
+          "previous_id": "page/064/record/051",
+          "previous_text": "驾驶小型机体（S～M尺寸）的驾驶员习得，有助于提升伤害",
+          "previous_source": "る機体は、このダメージ減少が発生しません。サイズの",
+          "previous_style": [
+            2,
+            0
+          ],
+          "previous_output": [
+            38,
+            289
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 38,
+          "previous_plus_current_last_x": 551,
+          "cause": "previous_plus_punctuation_exceeds_continuation_width"
+        },
+        {
+          "id": "page/065/record/006",
+          "ordinal": 6,
+          "text": "。技能等级越高，需要损失的HP越少便可发",
+          "x": 38,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 65,
+          "punctuation_only_row": false,
+          "row_text": "。技能等级越高，需要损失的HP越少便可发动效果。",
+          "source_record": "していきます。スキルレベルが上昇すると、",
+          "source_position": [
+            152,
+            47,
+            1
+          ],
+          "previous_id": "page/065/record/005",
+          "previous_text": "高",
+          "previous_source": "防御力が上昇",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            456,
+            25
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 38,
+          "previous_plus_current_last_x": 418,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/066/record/010",
+          "ordinal": 10,
+          "text": "。两者发动率均由与敌",
+          "x": 38,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 66,
+          "punctuation_only_row": false,
+          "row_text": "。两者发动率均由与敌方的技量差决定。",
+          "source_record": "が発生する可能性があ",
+          "source_position": [
+            323,
+            58,
+            1
+          ],
+          "previous_id": "page/066/record/009",
+          "previous_text": "盾牌防御",
+          "previous_source": "シールド防御",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            456,
+            36
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 38,
+          "previous_plus_current_last_x": 285,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/070/record/015",
+          "ordinal": 15,
+          "text": "。此外，精神指令",
+          "x": 19,
+          "y": 91,
+          "style": [
+            2,
+            0
+          ],
+          "page": 70,
+          "punctuation_only_row": false,
+          "row_text": "。此外，精神指令幸运或努力不影响PP获得量。",
+          "source_record": "してしまいます。なお、精神コマンド",
+          "source_position": [
+            57,
+            124,
+            1
+          ],
+          "previous_id": "page/070/record/013",
+          "previous_text": "组队时，队员的PP获得量减少至75%",
+          "previous_source": "小隊を組んでいる場合には、隊員のＰＰ入手量は７５％に",
+          "previous_style": [
+            2,
+            7
+          ],
+          "previous_output": [
+            133,
+            80
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 494,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/070/record/029",
+          "ordinal": 29,
+          "text": "。但蓝色修复者的成员中，只有玛琳能成为主驾驶员，",
+          "x": 19,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 70,
+          "punctuation_only_row": false,
+          "row_text": "。但蓝色修复者的成员中，只有玛琳能成为主驾驶员，",
+          "source_record": "。しかしブルーフィクサーのメンバーは、メインパイロ",
+          "source_position": [
+            38,
+            201,
+            1
+          ],
+          "previous_id": "page/070/record/027",
+          "previous_text": "无论何种形态全员都能获得相同PP",
+          "previous_source": "どの形態でも全員が同じ量のＰＰを入手できま",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            19,
+            135
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 760,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/074/record/011",
+          "ordinal": 11,
+          "text": "。小队攻击中武器受限且伤害降低，但可集中火力",
+          "x": 57,
+          "y": 80,
+          "style": [
+            2,
+            0
+          ],
+          "page": 74,
+          "punctuation_only_row": false,
+          "row_text": "。小队攻击中武器受限且伤害降低，但可集中火力",
+          "source_record": "に限られます。小隊攻撃では、使用する武器が限",
+          "source_position": [
+            95,
+            91,
+            1
+          ],
+          "previous_id": "page/074/record/010",
+          "previous_text": "击",
+          "previous_source": "ージ",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            418,
+            69
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 57,
+          "previous_plus_current_last_x": 475,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/076/record/044",
+          "ordinal": 44,
+          "text": "”。这表示空可移动、陆移动困难，意",
+          "x": 95,
+          "y": 300,
+          "style": [
+            2,
+            0
+          ],
+          "page": 76,
+          "punctuation_only_row": false,
+          "row_text": "”。这表示空可移动、陆移动困难，意味着这是",
+          "source_record": "』となります。これは空が移動可能、",
+          "source_position": [
+            209,
+            355,
+            1
+          ],
+          "previous_id": "page/076/record/043",
+          "previous_text": "陆－",
+          "previous_source": "陸－",
+          "previous_style": [
+            2,
+            11
+          ],
+          "previous_output": [
+            456,
+            289
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 95,
+          "previous_plus_current_last_x": 437,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/076/record/062",
+          "ordinal": 62,
+          "text": "”。此时",
+          "x": 95,
+          "y": 399,
+          "style": [
+            2,
+            0
+          ],
+          "page": 76,
+          "punctuation_only_row": false,
+          "row_text": "”。此时陆和空均移动困难，移动起来会非常吃力。",
+          "source_record": "』となります。この場合は",
+          "source_position": [
+            190,
+            465,
+            1
+          ],
+          "previous_id": "page/076/record/061",
+          "previous_text": "空陆－",
+          "previous_source": "空陸－",
+          "previous_style": [
+            2,
+            11
+          ],
+          "previous_output": [
+            437,
+            388
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 95,
+          "previous_plus_current_last_x": 209,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/079/record/010",
+          "ordinal": 10,
+          "text": "，作用于全小",
+          "x": 19,
+          "y": 69,
+          "style": [
+            2,
+            0
+          ],
+          "page": 79,
+          "punctuation_only_row": false,
+          "row_text": "，作用于全小队。",
+          "source_record": "として小隊全",
+          "source_position": [
+            399,
+            69,
+            1
+          ],
+          "previous_id": "page/079/record/009",
+          "previous_text": "小队加成",
+          "previous_source": "小隊ボーナス",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            456,
+            58
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 190,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/079/record/029",
+          "ordinal": 29,
+          "text": "。大型单位容易被命中，建议在同小队编入1台。",
+          "x": 114,
+          "y": 201,
+          "style": [
+            2,
+            0
+          ],
+          "page": 79,
+          "punctuation_only_row": false,
+          "row_text": "。大型单位容易被命中，建议在同小队编入1台。",
+          "source_record": "します。サイズの大きいユニットは被弾する事",
+          "source_position": [
+            114,
+            234,
+            1
+          ],
+          "previous_id": "page/079/record/027",
+          "previous_text": "有机体HP回复（配备修理装置的机体数×10）%",
+          "previous_source": "隊内の全機体のＨＰが（修理装置の所持機体数×１０）",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            57,
+            190
+          ],
+          "current_source_row_fixed": true,
+          "previous_source_row_fixed": false,
+          "continuation_x": 57,
+          "previous_plus_current_last_x": 893,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/079/record/042",
+          "ordinal": 42,
+          "text": "。建议与武器EN消耗较大的单位组队。",
+          "x": 114,
+          "y": 289,
+          "style": [
+            2,
+            0
+          ],
+          "page": 79,
+          "punctuation_only_row": false,
+          "row_text": "。建议与武器EN消耗较大的单位组队。",
+          "source_record": "します。ＥＮ消費の激しい武器を持つユニット",
+          "source_position": [
+            114,
+            344,
+            1
+          ],
+          "previous_id": "page/079/record/040",
+          "previous_text": "有机体EN回复（配备补给装置的机体数×10）%",
+          "previous_source": "隊内の全機体のＥＮが（補給装置の所持機体数×１０）",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            57,
+            278
+          ],
+          "current_source_row_fixed": true,
+          "previous_source_row_fixed": false,
+          "continuation_x": 57,
+          "previous_plus_current_last_x": 817,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/085/record/011",
+          "ordinal": 11,
+          "text": "，达到上限后，便无法再通过升级或",
+          "x": 19,
+          "y": 80,
+          "style": [
+            2,
+            0
+          ],
+          "page": 85,
+          "punctuation_only_row": false,
+          "row_text": "，达到上限后，便无法再通过升级或养成提升。",
+          "source_record": "で、それ以上はレベルア",
+          "source_position": [
+            304,
+            91,
+            1
+          ],
+          "previous_id": "page/085/record/010",
+          "previous_text": "各能力值上限为400",
+          "previous_source": "各能力値の上限は４００",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            95,
+            69
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 494,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/086/record/010",
+          "ordinal": 10,
+          "text": "，会影响命中率、回避率和",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 86,
+          "punctuation_only_row": false,
+          "row_text": "，会影响命中率、回避率和",
+          "source_record": "となり、命中率・回避率・",
+          "source_position": [
+            304,
+            47,
+            1
+          ],
+          "previous_id": "page/086/record/009",
+          "previous_text": "单位的地形适应",
+          "previous_source": "ユニットの地形適応",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            228,
+            36
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 361,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/088/record/022",
+          "ordinal": 22,
+          "text": "，因此也建议为飞行机体改造EN。",
+          "x": 57,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 88,
+          "punctuation_only_row": false,
+          "row_text": "，因此也建议为飞行机体改造EN。",
+          "source_record": "ので、飛行ユニットにもオススメ",
+          "source_position": [
+            228,
+            212,
+            1
+          ],
+          "previous_id": "page/088/record/020",
+          "previous_text": "飞行中的机体每回合消耗10点EN",
+          "previous_source": "空を飛んでいるユニットは毎ターン１",
+          "previous_style": [
+            2,
+            7
+          ],
+          "previous_output": [
+            57,
+            135
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 57,
+          "previous_plus_current_last_x": 646,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/093/record/041",
+          "ordinal": 41,
+          "text": "。此外，我方整体气力也更难提升，进一步增加了难",
+          "x": 95,
+          "y": 289,
+          "style": [
+            2,
+            0
+          ],
+          "page": 93,
+          "punctuation_only_row": false,
+          "row_text": "。此外，我方整体气力也更难提升，进一步增加了难",
+          "source_record": "。また、全体的に味方の気力が上がりにくくな",
+          "source_position": [
+            114,
+            388,
+            1
+          ],
+          "previous_id": "page/093/record/039",
+          "previous_text": "行动模式也更复杂",
+          "previous_source": "れており、思考パターンもより高度になっていま",
+          "previous_style": [
+            2,
+            7
+          ],
+          "previous_output": [
+            95,
+            278
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 95,
+          "previous_plus_current_last_x": 665,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/093/record/049",
+          "ordinal": 49,
+          "text": "。我方整体气力也比困难模式更",
+          "x": 95,
+          "y": 366,
+          "style": [
+            2,
+            0
+          ],
+          "page": 93,
+          "punctuation_only_row": false,
+          "row_text": "。我方整体气力也比困难模式更容易提升。",
+          "source_record": "です。ハードよりも味方",
+          "source_position": [
+            304,
+            476,
+            1
+          ],
+          "previous_id": "page/093/record/048",
+          "previous_text": "困难的1.2倍",
+          "previous_source": "ハードの１．２倍",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            247,
+            355
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 95,
+          "previous_plus_current_last_x": 475,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/093/record/058",
+          "ordinal": 58,
+          "text": "。比普通模式我方整体气力更容易上升。",
+          "x": 95,
+          "y": 443,
+          "style": [
+            2,
+            0
+          ],
+          "page": 93,
+          "punctuation_only_row": false,
+          "row_text": "。比普通模式我方整体气力更容易上升。",
+          "source_record": "です。ノーマルよりも味方全体の気力が上が",
+          "source_position": [
+            133,
+            564,
+            1
+          ],
+          "previous_id": "page/093/record/057",
+          "previous_text": "5倍",
+          "previous_source": "５倍",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            437,
+            432
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 95,
+          "previous_plus_current_last_x": 456,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/094/record/010",
+          "ordinal": 10,
+          "text": "。有时会出现意想不到的好物，建议常备一些B",
+          "x": 19,
+          "y": 80,
+          "style": [
+            2,
+            0
+          ],
+          "page": 94,
+          "punctuation_only_row": false,
+          "row_text": "。有时会出现意想不到的好物，建议常备一些BS。",
+          "source_record": "。時には掘り出し物を見つけることがあるかもし",
+          "source_position": [
+            95,
+            91,
+            1
+          ],
+          "previous_id": "page/094/record/009",
+          "previous_text": "用",
+          "previous_source": "用します",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            418,
+            69
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 418,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/100/record/022",
+          "ordinal": 22,
+          "text": "。因此可利用提升后的驾驶",
+          "x": 57,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 100,
+          "punctuation_only_row": false,
+          "row_text": "。因此可利用提升后的驾驶",
+          "source_record": "することができます。そのため、",
+          "source_position": [
+            247,
+            201,
+            1
+          ],
+          "previous_id": "page/100/record/020",
+          "previous_text": "戏结束前获得的资金、PP、经验值、击坠数",
+          "previous_source": "オーバー直前までに入手した資金・ＰＰ・経験値・撃",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            57,
+            135
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 57,
+          "previous_plus_current_last_x": 646,
+          "cause": "leading_punctuation_with_body_not_attached"
+        },
+        {
+          "id": "page/100/record/029",
+          "ordinal": 29,
+          "text": "。",
+          "x": 456,
+          "y": 190,
+          "style": [
+            2,
+            0
+          ],
+          "page": 100,
+          "punctuation_only_row": true,
+          "row_text": "。",
+          "source_record": "。",
+          "source_position": [
+            456,
+            256,
+            1
+          ],
+          "previous_id": "page/100/record/027",
+          "previous_text": "复挑战强化我方部队，逐步战胜强敌、达成胜利条件",
+          "previous_source": "ため、繰り返す事によって自軍を強化し、いずれは強",
+          "previous_style": [
+            2,
+            3
+          ],
+          "previous_output": [
+            57,
+            179
+          ],
+          "current_source_row_fixed": true,
+          "previous_source_row_fixed": false,
+          "continuation_x": 57,
+          "previous_plus_current_last_x": 494,
+          "cause": "fixed_column_exclusion"
+        },
+        {
+          "id": "page/102/record/011",
+          "ordinal": 11,
+          "text": "。具体内容请在通关后亲自确认。",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 102,
+          "punctuation_only_row": false,
+          "row_text": "。具体内容请在通关后亲自确认。",
+          "source_record": "ことができます。詳細は実際にゲームをクリ",
+          "source_position": [
+            133,
+            58,
+            1
+          ],
+          "previous_id": "page/102/record/010",
+          "previous_text": "始游戏",
+          "previous_source": "ームを始める",
+          "previous_style": [
+            2,
+            14
+          ],
+          "previous_output": [
+            418,
+            36
+          ],
+          "current_source_row_fixed": false,
+          "previous_source_row_fixed": false,
+          "continuation_x": 19,
+          "previous_plus_current_last_x": 342,
+          "cause": "leading_punctuation_with_body_not_attached"
+        }
+      ]
+    },
+    "best_iso": {
+      "count": 44,
+      "pages": 30,
+      "still_present": [
+        "page/002/record/006",
+        "page/013/record/020",
+        "page/016/record/004",
+        "page/016/record/011",
+        "page/019/record/010",
+        "page/020/record/017",
+        "page/026/record/016",
+        "page/027/record/009",
+        "page/028/record/005",
+        "page/030/record/011",
+        "page/030/record/018",
+        "page/030/record/027",
+        "page/038/record/004",
+        "page/039/record/005",
+        "page/044/record/004",
+        "page/045/record/007",
+        "page/054/record/005",
+        "page/054/record/025",
+        "page/058/record/019",
+        "page/059/record/015",
+        "page/059/record/028",
+        "page/064/record/018",
+        "page/064/record/023",
+        "page/064/record/052",
+        "page/065/record/006",
+        "page/066/record/010",
+        "page/070/record/015",
+        "page/070/record/029",
+        "page/074/record/011",
+        "page/076/record/044",
+        "page/076/record/062",
+        "page/079/record/010",
+        "page/079/record/029",
+        "page/079/record/042",
+        "page/085/record/011",
+        "page/086/record/010",
+        "page/088/record/022",
+        "page/093/record/041",
+        "page/093/record/049",
+        "page/093/record/058",
+        "page/094/record/010",
+        "page/100/record/022",
+        "page/100/record/029",
+        "page/102/record/011"
+      ],
+      "missing_from_current": [],
+      "new_ids": [],
+      "previously_resolved_regressions": [],
+      "punctuation_only_rows": [
+        "page/030/record/018",
+        "page/064/record/052",
+        "page/100/record/029"
+      ],
+      "pending_japanese_pages": [],
+      "candidates": [
+        {
+          "id": "page/002/record/006",
+          "ordinal": 6,
+          "text": "，其他",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 2,
+          "punctuation_only_row": false,
+          "row_text": "，其他阵型均无法使用。"
+        },
+        {
+          "id": "page/013/record/020",
+          "ordinal": 20,
+          "text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。",
+          "x": 19,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 13,
+          "punctuation_only_row": false,
+          "row_text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。"
+        },
+        {
+          "id": "page/016/record/004",
+          "ordinal": 4,
+          "text": "。编成小队并选择阵型后，还能使用其他攻击方法。",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 16,
+          "punctuation_only_row": false,
+          "row_text": "。编成小队并选择阵型后，还能使用其他攻击方法。"
+        },
+        {
+          "id": "page/016/record/011",
+          "ordinal": 11,
+          "text": "，以及应对敌方攻击进行的",
+          "x": 19,
+          "y": 69,
+          "style": [
+            2,
+            0
+          ],
+          "page": 16,
+          "punctuation_only_row": false,
+          "row_text": "，以及应对敌方攻击进行的反击。"
+        },
+        {
+          "id": "page/019/record/010",
+          "ordinal": 10,
+          "text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。",
+          "x": 19,
+          "y": 58,
+          "style": [
+            2,
+            0
+          ],
+          "page": 19,
+          "punctuation_only_row": false,
+          "row_text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。"
+        },
+        {
+          "id": "page/020/record/017",
+          "ordinal": 17,
+          "text": "，且仍有援护次数（＝援",
+          "x": 57,
+          "y": 113,
+          "style": [
+            2,
+            0
+          ],
+          "page": 20,
+          "punctuation_only_row": false,
+          "row_text": "，且仍有援护次数（＝援护攻击等级）。"
+        },
+        {
+          "id": "page/026/record/016",
+          "ordinal": 16,
+          "text": "，不受阵型对全体攻击的伤害减少影响。",
+          "x": 19,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 26,
+          "punctuation_only_row": false,
+          "row_text": "，不受阵型对全体攻击的伤害减少影响。"
+        },
+        {
+          "id": "page/027/record/009",
+          "ordinal": 9,
+          "text": "。命中后，除伤害外还会对敌人施加其他效果。效果持",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 27,
+          "punctuation_only_row": false,
+          "row_text": "。命中后，除伤害外还会对敌人施加其他效果。效果持"
+        },
+        {
+          "id": "page/028/record/005",
+          "ordinal": 5,
+          "text": "。我方单位被击坠会导致战力下降，可能影响后续战",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 28,
+          "punctuation_only_row": false,
+          "row_text": "。我方单位被击坠会导致战力下降，可能影响后续战斗。此外，"
+        },
+        {
+          "id": "page/030/record/011",
+          "ordinal": 11,
+          "text": "，视情况可减少受到的伤",
+          "x": 19,
+          "y": 58,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": false,
+          "row_text": "，视情况可减少受到的伤害。以下是代表性特殊技能。"
+        },
+        {
+          "id": "page/030/record/018",
+          "ordinal": 18,
+          "text": "。",
+          "x": 190,
+          "y": 91,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": true,
+          "row_text": "。"
+        },
+        {
+          "id": "page/030/record/027",
+          "ordinal": 27,
+          "text": "。发动概率取决于",
+          "x": 171,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": false,
+          "row_text": "。发动概率取决于双方的技量差，战斗中选择"
+        },
+        {
+          "id": "page/038/record/004",
+          "ordinal": 4,
+          "text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 38,
+          "punctuation_only_row": false,
+          "row_text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻"
+        },
+        {
+          "id": "page/039/record/005",
+          "ordinal": 5,
+          "text": "，队长的最终命中率获得+20%修正。虽然无法使用全体",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 39,
+          "punctuation_only_row": false,
+          "row_text": "，队长的最终命中率获得+20%修正。虽然无法使用全体"
+        },
+        {
+          "id": "page/044/record/004",
+          "ordinal": 4,
+          "text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 44,
+          "punctuation_only_row": false,
+          "row_text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围"
+        },
+        {
+          "id": "page/045/record/007",
+          "ordinal": 7,
+          "text": "，就是最可靠的避险方法。",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 45,
+          "punctuation_only_row": false,
+          "row_text": "，就是最可靠的避险方法。"
+        },
+        {
+          "id": "page/054/record/005",
+          "ordinal": 5,
+          "text": "。此外，搭载在战舰内的单位也能获得回复。",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 54,
+          "punctuation_only_row": false,
+          "row_text": "。此外，搭载在战舰内的单位也能获得回复。"
+        },
+        {
+          "id": "page/054/record/025",
+          "ordinal": 25,
+          "text": "。气力不会因此降至100以下。若已低于10",
+          "x": 57,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 54,
+          "punctuation_only_row": false,
+          "row_text": "。气力不会因此降至100以下。若已低于10"
+        },
+        {
+          "id": "page/058/record/019",
+          "ordinal": 19,
+          "text": "。发动后，对应能力值会更新为最",
+          "x": 228,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 58,
+          "punctuation_only_row": false,
+          "row_text": "。发动后，对应能力值会更新为最"
+        },
+        {
+          "id": "page/059/record/015",
+          "ordinal": 15,
+          "text": "。发动概率由",
+          "x": 114,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 59,
+          "punctuation_only_row": false,
+          "row_text": "。发动概率由与敌方的技量差决定。"
+        },
+        {
+          "id": "page/059/record/028",
+          "ordinal": 28,
+          "text": "。发动概率",
+          "x": 114,
+          "y": 168,
+          "style": [
+            2,
+            0
+          ],
+          "page": 59,
+          "punctuation_only_row": false,
+          "row_text": "。发动概率"
+        },
+        {
+          "id": "page/064/record/018",
+          "ordinal": 18,
+          "text": "。建议让援护攻击技能等级高的驾驶员",
+          "x": 38,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": false,
+          "row_text": "。建议让援护攻击技能等级高的驾驶员习得。"
+        },
+        {
+          "id": "page/064/record/023",
+          "ordinal": 23,
+          "text": "。作为队员运用的驾驶员习得后效果显著。",
+          "x": 38,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": false,
+          "row_text": "。作为队员运用的驾驶员习得后效果显著。"
+        },
+        {
+          "id": "page/064/record/052",
+          "ordinal": 52,
+          "text": "。",
+          "x": 38,
+          "y": 300,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": true,
+          "row_text": "。"
+        },
+        {
+          "id": "page/065/record/006",
+          "ordinal": 6,
+          "text": "。技能等级越高，需要损失的HP越少便可发",
+          "x": 38,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 65,
+          "punctuation_only_row": false,
+          "row_text": "。技能等级越高，需要损失的HP越少便可发动效果。"
+        },
+        {
+          "id": "page/066/record/010",
+          "ordinal": 10,
+          "text": "。两者发动率均由与敌",
+          "x": 38,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 66,
+          "punctuation_only_row": false,
+          "row_text": "。两者发动率均由与敌方的技量差决定。"
+        },
+        {
+          "id": "page/070/record/015",
+          "ordinal": 15,
+          "text": "。此外，精神指令",
+          "x": 19,
+          "y": 91,
+          "style": [
+            2,
+            0
+          ],
+          "page": 70,
+          "punctuation_only_row": false,
+          "row_text": "。此外，精神指令幸运或努力不影响PP获得量。"
+        },
+        {
+          "id": "page/070/record/029",
+          "ordinal": 29,
+          "text": "。但蓝色修复者的成员中，只有玛琳能成为主驾驶员，",
+          "x": 19,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 70,
+          "punctuation_only_row": false,
+          "row_text": "。但蓝色修复者的成员中，只有玛琳能成为主驾驶员，"
+        },
+        {
+          "id": "page/074/record/011",
+          "ordinal": 11,
+          "text": "。小队攻击中武器受限且伤害降低，但可集中火力",
+          "x": 57,
+          "y": 80,
+          "style": [
+            2,
+            0
+          ],
+          "page": 74,
+          "punctuation_only_row": false,
+          "row_text": "。小队攻击中武器受限且伤害降低，但可集中火力"
+        },
+        {
+          "id": "page/076/record/044",
+          "ordinal": 44,
+          "text": "”。这表示空可移动、陆移动困难，意",
+          "x": 95,
+          "y": 300,
+          "style": [
+            2,
+            0
+          ],
+          "page": 76,
+          "punctuation_only_row": false,
+          "row_text": "”。这表示空可移动、陆移动困难，意味着这是"
+        },
+        {
+          "id": "page/076/record/062",
+          "ordinal": 62,
+          "text": "”。此时",
+          "x": 95,
+          "y": 399,
+          "style": [
+            2,
+            0
+          ],
+          "page": 76,
+          "punctuation_only_row": false,
+          "row_text": "”。此时陆和空均移动困难，移动起来会非常吃力。"
+        },
+        {
+          "id": "page/079/record/010",
+          "ordinal": 10,
+          "text": "，作用于全小",
+          "x": 19,
+          "y": 69,
+          "style": [
+            2,
+            0
+          ],
+          "page": 79,
+          "punctuation_only_row": false,
+          "row_text": "，作用于全小队。"
+        },
+        {
+          "id": "page/079/record/029",
+          "ordinal": 29,
+          "text": "。大型单位容易被命中，建议在同小队编入1台。",
+          "x": 114,
+          "y": 201,
+          "style": [
+            2,
+            0
+          ],
+          "page": 79,
+          "punctuation_only_row": false,
+          "row_text": "。大型单位容易被命中，建议在同小队编入1台。"
+        },
+        {
+          "id": "page/079/record/042",
+          "ordinal": 42,
+          "text": "。建议与武器EN消耗较大的单位组队。",
+          "x": 114,
+          "y": 289,
+          "style": [
+            2,
+            0
+          ],
+          "page": 79,
+          "punctuation_only_row": false,
+          "row_text": "。建议与武器EN消耗较大的单位组队。"
+        },
+        {
+          "id": "page/085/record/011",
+          "ordinal": 11,
+          "text": "，达到上限后，便无法再通过升级或",
+          "x": 19,
+          "y": 80,
+          "style": [
+            2,
+            0
+          ],
+          "page": 85,
+          "punctuation_only_row": false,
+          "row_text": "，达到上限后，便无法再通过升级或养成提升。"
+        },
+        {
+          "id": "page/086/record/010",
+          "ordinal": 10,
+          "text": "，会影响命中率、回避率和",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 86,
+          "punctuation_only_row": false,
+          "row_text": "，会影响命中率、回避率和"
+        },
+        {
+          "id": "page/088/record/022",
+          "ordinal": 22,
+          "text": "，因此也建议为飞行机体改造EN。",
+          "x": 57,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 88,
+          "punctuation_only_row": false,
+          "row_text": "，因此也建议为飞行机体改造EN。"
+        },
+        {
+          "id": "page/093/record/041",
+          "ordinal": 41,
+          "text": "。此外，我方整体气力也更难提升，进一步增加了难",
+          "x": 95,
+          "y": 289,
+          "style": [
+            2,
+            0
+          ],
+          "page": 93,
+          "punctuation_only_row": false,
+          "row_text": "。此外，我方整体气力也更难提升，进一步增加了难"
+        },
+        {
+          "id": "page/093/record/049",
+          "ordinal": 49,
+          "text": "。我方整体气力也比困难模式更",
+          "x": 95,
+          "y": 366,
+          "style": [
+            2,
+            0
+          ],
+          "page": 93,
+          "punctuation_only_row": false,
+          "row_text": "。我方整体气力也比困难模式更容易提升。"
+        },
+        {
+          "id": "page/093/record/058",
+          "ordinal": 58,
+          "text": "。比普通模式我方整体气力更容易上升。",
+          "x": 95,
+          "y": 443,
+          "style": [
+            2,
+            0
+          ],
+          "page": 93,
+          "punctuation_only_row": false,
+          "row_text": "。比普通模式我方整体气力更容易上升。"
+        },
+        {
+          "id": "page/094/record/010",
+          "ordinal": 10,
+          "text": "。有时会出现意想不到的好物，建议常备一些B",
+          "x": 19,
+          "y": 80,
+          "style": [
+            2,
+            0
+          ],
+          "page": 94,
+          "punctuation_only_row": false,
+          "row_text": "。有时会出现意想不到的好物，建议常备一些BS。"
+        },
+        {
+          "id": "page/100/record/022",
+          "ordinal": 22,
+          "text": "。因此可利用提升后的驾驶",
+          "x": 57,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 100,
+          "punctuation_only_row": false,
+          "row_text": "。因此可利用提升后的驾驶"
+        },
+        {
+          "id": "page/100/record/029",
+          "ordinal": 29,
+          "text": "。",
+          "x": 456,
+          "y": 190,
+          "style": [
+            2,
+            0
+          ],
+          "page": 100,
+          "punctuation_only_row": true,
+          "row_text": "。"
+        },
+        {
+          "id": "page/102/record/011",
+          "ordinal": 11,
+          "text": "。具体内容请在通关后亲自确认。",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 102,
+          "punctuation_only_row": false,
+          "row_text": "。具体内容请在通关后亲自确认。"
+        }
+      ]
+    },
+    "sp_iso": {
+      "count": 29,
+      "pages": 22,
+      "still_present": [
+        "page/002/record/006",
+        "page/013/record/020",
+        "page/016/record/004",
+        "page/016/record/011",
+        "page/019/record/010",
+        "page/020/record/017",
+        "page/026/record/016",
+        "page/027/record/009",
+        "page/028/record/005",
+        "page/030/record/011",
+        "page/030/record/018",
+        "page/030/record/027",
+        "page/038/record/004",
+        "page/039/record/005",
+        "page/044/record/004",
+        "page/045/record/007",
+        "page/054/record/005",
+        "page/054/record/025",
+        "page/058/record/019",
+        "page/064/record/018",
+        "page/064/record/023",
+        "page/064/record/052",
+        "page/065/record/006",
+        "page/066/record/010",
+        "page/074/record/011",
+        "page/076/record/044",
+        "page/076/record/062",
+        "page/085/record/011",
+        "page/086/record/010"
+      ],
+      "missing_from_current": [
+        "page/059/record/015",
+        "page/059/record/028",
+        "page/070/record/015",
+        "page/070/record/029",
+        "page/079/record/010",
+        "page/079/record/029",
+        "page/079/record/042",
+        "page/088/record/022",
+        "page/093/record/041",
+        "page/093/record/049",
+        "page/093/record/058",
+        "page/094/record/010",
+        "page/100/record/022",
+        "page/100/record/029",
+        "page/102/record/011"
+      ],
+      "new_ids": [],
+      "previously_resolved_regressions": [],
+      "punctuation_only_rows": [
+        "page/030/record/018",
+        "page/064/record/052"
+      ],
+      "pending_japanese_pages": [
+        15,
+        32,
+        35,
+        59,
+        60,
+        70,
+        71,
+        75,
+        79,
+        81,
+        82,
+        88,
+        89,
+        93,
+        94,
+        95,
+        96,
+        97,
+        99,
+        100,
+        101,
+        102
+      ],
+      "candidates": [
+        {
+          "id": "page/002/record/006",
+          "ordinal": 6,
+          "text": "，其他",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 2,
+          "punctuation_only_row": false,
+          "row_text": "，其他阵型均无法使用。"
+        },
+        {
+          "id": "page/013/record/020",
+          "ordinal": 20,
+          "text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。",
+          "x": 19,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 13,
+          "punctuation_only_row": false,
+          "row_text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。"
+        },
+        {
+          "id": "page/016/record/004",
+          "ordinal": 4,
+          "text": "。编成小队并选择阵型后，还能使用其他攻击方法。",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 16,
+          "punctuation_only_row": false,
+          "row_text": "。编成小队并选择阵型后，还能使用其他攻击方法。"
+        },
+        {
+          "id": "page/016/record/011",
+          "ordinal": 11,
+          "text": "，以及应对敌方攻击进行的",
+          "x": 19,
+          "y": 69,
+          "style": [
+            2,
+            0
+          ],
+          "page": 16,
+          "punctuation_only_row": false,
+          "row_text": "，以及应对敌方攻击进行的反击。"
+        },
+        {
+          "id": "page/019/record/010",
+          "ordinal": 10,
+          "text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。",
+          "x": 19,
+          "y": 58,
+          "style": [
+            2,
+            0
+          ],
+          "page": 19,
+          "punctuation_only_row": false,
+          "row_text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。"
+        },
+        {
+          "id": "page/020/record/017",
+          "ordinal": 17,
+          "text": "，且仍有援护次数（＝援",
+          "x": 57,
+          "y": 113,
+          "style": [
+            2,
+            0
+          ],
+          "page": 20,
+          "punctuation_only_row": false,
+          "row_text": "，且仍有援护次数（＝援护攻击等级）。"
+        },
+        {
+          "id": "page/026/record/016",
+          "ordinal": 16,
+          "text": "，不受阵型对全体攻击的伤害减少影响。",
+          "x": 19,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 26,
+          "punctuation_only_row": false,
+          "row_text": "，不受阵型对全体攻击的伤害减少影响。"
+        },
+        {
+          "id": "page/027/record/009",
+          "ordinal": 9,
+          "text": "。命中后，除伤害外还会对敌人施加其他效果。效果持",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 27,
+          "punctuation_only_row": false,
+          "row_text": "。命中后，除伤害外还会对敌人施加其他效果。效果持"
+        },
+        {
+          "id": "page/028/record/005",
+          "ordinal": 5,
+          "text": "。我方单位被击坠会导致战力下降，可能影响后续战",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 28,
+          "punctuation_only_row": false,
+          "row_text": "。我方单位被击坠会导致战力下降，可能影响后续战斗。此外，"
+        },
+        {
+          "id": "page/030/record/011",
+          "ordinal": 11,
+          "text": "，视情况可减少受到的伤",
+          "x": 19,
+          "y": 58,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": false,
+          "row_text": "，视情况可减少受到的伤害。以下是代表性特殊技能。"
+        },
+        {
+          "id": "page/030/record/018",
+          "ordinal": 18,
+          "text": "。",
+          "x": 190,
+          "y": 91,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": true,
+          "row_text": "。"
+        },
+        {
+          "id": "page/030/record/027",
+          "ordinal": 27,
+          "text": "。发动概率取决于",
+          "x": 171,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 30,
+          "punctuation_only_row": false,
+          "row_text": "。发动概率取决于双方的技量差，战斗中选择"
+        },
+        {
+          "id": "page/038/record/004",
+          "ordinal": 4,
+          "text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 38,
+          "punctuation_only_row": false,
+          "row_text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻"
+        },
+        {
+          "id": "page/039/record/005",
+          "ordinal": 5,
+          "text": "，队长的最终命中率获得+20%修正。虽然无法使用全体",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 39,
+          "punctuation_only_row": false,
+          "row_text": "，队长的最终命中率获得+20%修正。虽然无法使用全体"
+        },
+        {
+          "id": "page/044/record/004",
+          "ordinal": 4,
+          "text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 44,
+          "punctuation_only_row": false,
+          "row_text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围"
+        },
+        {
+          "id": "page/045/record/007",
+          "ordinal": 7,
+          "text": "，就是最可靠的避险方法。",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 45,
+          "punctuation_only_row": false,
+          "row_text": "，就是最可靠的避险方法。"
+        },
+        {
+          "id": "page/054/record/005",
+          "ordinal": 5,
+          "text": "。此外，搭载在战舰内的单位也能获得回复。",
+          "x": 19,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 54,
+          "punctuation_only_row": false,
+          "row_text": "。此外，搭载在战舰内的单位也能获得回复。"
+        },
+        {
+          "id": "page/054/record/025",
+          "ordinal": 25,
+          "text": "。气力不会因此降至100以下。若已低于10",
+          "x": 57,
+          "y": 146,
+          "style": [
+            2,
+            0
+          ],
+          "page": 54,
+          "punctuation_only_row": false,
+          "row_text": "。气力不会因此降至100以下。若已低于10"
+        },
+        {
+          "id": "page/058/record/019",
+          "ordinal": 19,
+          "text": "。发动后，对应能力值会更新为最",
+          "x": 228,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 58,
+          "punctuation_only_row": false,
+          "row_text": "。发动后，对应能力值会更新为最"
+        },
+        {
+          "id": "page/064/record/018",
+          "ordinal": 18,
+          "text": "。建议让援护攻击技能等级高的驾驶员",
+          "x": 38,
+          "y": 102,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": false,
+          "row_text": "。建议让援护攻击技能等级高的驾驶员习得。"
+        },
+        {
+          "id": "page/064/record/023",
+          "ordinal": 23,
+          "text": "。作为队员运用的驾驶员习得后效果显著。",
+          "x": 38,
+          "y": 135,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": false,
+          "row_text": "。作为队员运用的驾驶员习得后效果显著。"
+        },
+        {
+          "id": "page/064/record/052",
+          "ordinal": 52,
+          "text": "。",
+          "x": 38,
+          "y": 300,
+          "style": [
+            2,
+            0
+          ],
+          "page": 64,
+          "punctuation_only_row": true,
+          "row_text": "。"
+        },
+        {
+          "id": "page/065/record/006",
+          "ordinal": 6,
+          "text": "。技能等级越高，需要损失的HP越少便可发",
+          "x": 38,
+          "y": 36,
+          "style": [
+            2,
+            0
+          ],
+          "page": 65,
+          "punctuation_only_row": false,
+          "row_text": "。技能等级越高，需要损失的HP越少便可发动效果。"
+        },
+        {
+          "id": "page/066/record/010",
+          "ordinal": 10,
+          "text": "。两者发动率均由与敌",
+          "x": 38,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 66,
+          "punctuation_only_row": false,
+          "row_text": "。两者发动率均由与敌方的技量差决定。"
+        },
+        {
+          "id": "page/074/record/011",
+          "ordinal": 11,
+          "text": "。小队攻击中武器受限且伤害降低，但可集中火力",
+          "x": 57,
+          "y": 80,
+          "style": [
+            2,
+            0
+          ],
+          "page": 74,
+          "punctuation_only_row": false,
+          "row_text": "。小队攻击中武器受限且伤害降低，但可集中火力"
+        },
+        {
+          "id": "page/076/record/044",
+          "ordinal": 44,
+          "text": "”。这表示空可移动、陆移动困难，意",
+          "x": 95,
+          "y": 300,
+          "style": [
+            2,
+            0
+          ],
+          "page": 76,
+          "punctuation_only_row": false,
+          "row_text": "”。这表示空可移动、陆移动困难，意味着这是"
+        },
+        {
+          "id": "page/076/record/062",
+          "ordinal": 62,
+          "text": "”。此时",
+          "x": 95,
+          "y": 399,
+          "style": [
+            2,
+            0
+          ],
+          "page": 76,
+          "punctuation_only_row": false,
+          "row_text": "”。此时陆和空均移动困难，移动起来会非常吃力。"
+        },
+        {
+          "id": "page/085/record/011",
+          "ordinal": 11,
+          "text": "，达到上限后，便无法再通过升级或",
+          "x": 19,
+          "y": 80,
+          "style": [
+            2,
+            0
+          ],
+          "page": 85,
+          "punctuation_only_row": false,
+          "row_text": "，达到上限后，便无法再通过升级或养成提升。"
+        },
+        {
+          "id": "page/086/record/010",
+          "ordinal": 10,
+          "text": "，会影响命中率、回避率和",
+          "x": 19,
+          "y": 47,
+          "style": [
+            2,
+            0
+          ],
+          "page": 86,
+          "punctuation_only_row": false,
+          "row_text": "，会影响命中率、回避率和"
+        }
+      ]
+    }
+  },
+  "runtime": "not_run",
+  "github_modified": false,
+  "game_artifacts_modified": false,
+  "subsequent_main_fix": {
+    "date": "2026-09-20",
+    "status": "static_and_lrps2_verified",
+    "report": "docs/QA_MAIN_LAYOUT_WRITEBACK_20260920.md",
+    "audit": "manifests/qa-main-layout-audit-20260920.json",
+    "resolved_original_candidates": 44,
+    "resolved_best_candidates": 44,
+    "github_modified": true,
+    "runtime_evidence": "manifests/qa-main-runtime-20260920.json"
+  },
+  "closure": {
+    "closedAt": "2026-09-20T09:40:28Z",
+    "number": 24,
+    "state": "CLOSED",
+    "title": "Q&A 其余行首标点与表格换行候选：44 处待逐项核查",
+    "url": "https://github.com/dyzz/srwz-zh/issues/24",
+    "reason": "completed",
+    "authorized_by": "user requested commit and closure",
+    "implementation_commits": [
+      "851017a",
+      "67a2403"
+    ]
+  }
+}

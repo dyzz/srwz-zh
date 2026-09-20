@@ -6,20 +6,22 @@
       "path": "build/iso/zh-release-original/current-original.iso",
       "role": "working",
       "retention": "chd_only",
-      "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-original.chd",
-      "parent_chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
-      "iso_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
-      "purpose": "Current image at 2026-09-17 cleanup; a later build must archive its own bytes before cleanup."
+      "chd_path": "build/chd/qa-20260920/current-original.chd",
+      "parent_chd_path": "build/chd/qa-20260920/srwz-jp-original.chd",
+      "iso_sha256": "a2b02c6820d7f1369ad255ad265dbd8d3eea387b2e116dca6b2c7a695227e79b",
+      "purpose": "Current Q&A layout update 2026-09-20; CHD roundtrip verified. ISO remains materialized for review; frozen releases remain separate.",
+      "local_status": "materialized_for_qa_review"
     },
     "current-best": {
       "path": "build/iso/zh-release-best/current-best.iso",
       "role": "working",
       "candidate": "best-current-source-v1; current build identity is recorded in manifests/editions/best/current.json",
       "retention": "chd_only",
-      "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-best.chd",
-      "parent_chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
-      "iso_sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
-      "purpose": "Current image at 2026-09-17 cleanup; a later build must archive its own bytes before cleanup."
+      "chd_path": "build/chd/qa-20260920/current-best.chd",
+      "parent_chd_path": "build/chd/qa-20260920/srwz-jp-best.chd",
+      "iso_sha256": "993f18a02574dafc87474c29adbac4324a364d72a3d5d1ae427cd502f3a50230",
+      "purpose": "Current Q&A layout update 2026-09-20; CHD roundtrip verified. ISO remains materialized for review; frozen releases remain separate.",
+      "local_status": "materialized_for_qa_review"
     },
     "original": {
       "path": "rom/original.iso",
@@ -104,7 +106,7 @@
       "iso_sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb"
     }
   },
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "exceptions": [
     {
       "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",

@@ -1,0 +1,1627 @@
+{
+  "date": "2026-09-20",
+  "scope": "Original current corpus compiled component and SP current ISO; read-only full layout audit",
+  "page_count_per_edition": 102,
+  "runtime": "not_tested",
+  "findings": {
+    "original": [
+      {
+        "page": 2,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 6,
+        "text": "，其他阵型均无法使用。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 6,
+        "kind": "opening_end",
+        "pending_japanese": false,
+        "y": 80,
+        "record": 12,
+        "text": "多台机体组队时，各机体移动力的平均值（",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 13,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 102,
+        "record": 20,
+        "text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 16,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 4,
+        "text": "。编成小队并选择阵型后，还能使用其他攻击方法。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 16,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 69,
+        "record": 11,
+        "text": "，以及应对敌方攻击进行的反击。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 19,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 58,
+        "record": 10,
+        "text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 20,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 113,
+        "record": 17,
+        "text": "，且仍有援护次数（＝援护攻击等级）。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 24,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "2机",
+        "records": [
+          21,
+          22
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 26,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 102,
+        "record": 16,
+        "text": "，不受阵型对全体攻击的伤害减少影响。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 27,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 9,
+        "text": "。命中后，除伤害外还会对敌人施加其他效果。效果持",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 28,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 5,
+        "text": "。我方单位被击坠会导致战力下降，可能影响后续战斗。此外，",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 29,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "10",
+        "records": [
+          17,
+          18
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 30,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 58,
+        "record": 11,
+        "text": "，视情况可减少受到的伤害。以下是代表性特殊技能。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 30,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 91,
+        "record": 18,
+        "text": "。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 30,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 135,
+        "record": 27,
+        "text": "。发动概率取决于双方的技量差，战斗中选择",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 32,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "SABCD点",
+        "records": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "classification": "false_positive",
+        "reason": "地形等级表的独立列和下一行表头，非连续词组"
+      },
+      {
+        "page": 36,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "S5个",
+        "records": [
+          24,
+          25
+        ],
+        "classification": "false_positive",
+        "reason": "体型枚举的末项 S 与后续 5个等级，非同一词组"
+      },
+      {
+        "page": 37,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "SABCD点",
+        "records": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "classification": "false_positive",
+        "reason": "地形等级表的独立列和下一行表头，非连续词组"
+      },
+      {
+        "page": 38,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 4,
+        "text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 39,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 5,
+        "text": "，队长的最终命中率获得+20%修正。虽然无法使用全体",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 43,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "SABCD点",
+        "records": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "classification": "false_positive",
+        "reason": "地形等级表的独立列和下一行表头，非连续词组"
+      },
+      {
+        "page": 44,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 4,
+        "text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 45,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 7,
+        "text": "，就是最可靠的避险方法。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 54,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 5,
+        "text": "。此外，搭载在战舰内的单位也能获得回复。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 54,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 146,
+        "record": 25,
+        "text": "。气力不会因此降至100以下。若已低于10",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 54,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "100",
+        "records": [
+          25,
+          26
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 58,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 135,
+        "record": 19,
+        "text": "。发动后，对应能力值会更新为最",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 59,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 102,
+        "record": 15,
+        "text": "。发动概率由与敌方的技量差决定。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 59,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 168,
+        "record": 28,
+        "text": "。发动概率",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 60,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "1000",
+        "records": [
+          24,
+          25
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 60,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "2000",
+        "records": [
+          42,
+          43
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 64,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 102,
+        "record": 18,
+        "text": "。建议让援护攻击技能等级高的驾驶员习得。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 64,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 135,
+        "record": 23,
+        "text": "。作为队员运用的驾驶员习得后效果显著。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 64,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 300,
+        "record": 52,
+        "text": "。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 65,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 6,
+        "text": "。技能等级越高，需要损失的HP越少便可发动效果。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 66,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 10,
+        "text": "。两者发动率均由与敌方的技量差决定。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 70,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 91,
+        "record": 15,
+        "text": "。此外，精神指令幸运或努力不影响PP获得量。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 70,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 146,
+        "record": 29,
+        "text": "。但蓝色修复者的成员中，只有玛琳能成为主驾驶员，",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 74,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 80,
+        "record": 11,
+        "text": "。小队攻击中武器受限且伤害降低，但可集中火力",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 76,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 300,
+        "record": 44,
+        "text": "”。这表示空可移动、陆移动困难，意味着这是",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 76,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 399,
+        "record": 62,
+        "text": "”。此时陆和空均移动困难，移动起来会非常吃力。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 78,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "MAP",
+        "records": [
+          19,
+          20
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 79,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 69,
+        "record": 10,
+        "text": "，作用于全小队。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 79,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 201,
+        "record": 29,
+        "text": "。大型单位容易被命中，建议在同小队编入1台。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 79,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 289,
+        "record": 42,
+        "text": "。建议与武器EN消耗较大的单位组队。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 83,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "2MAP",
+        "records": [
+          22,
+          23
+        ],
+        "classification": "false_positive",
+        "reason": "例2标题与下一行 MAP兵器，非同一词组"
+      },
+      {
+        "page": 85,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 80,
+        "record": 11,
+        "text": "，达到上限后，便无法再通过升级或养成提升。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 86,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 10,
+        "text": "，会影响命中率、回避率和",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 87,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "9级",
+        "records": [
+          18,
+          19
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 88,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 146,
+        "record": 22,
+        "text": "，因此也建议为飞行机体改造EN。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 93,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 289,
+        "record": 41,
+        "text": "。此外，我方整体气力也更难提升，进一步增加了难",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 93,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 366,
+        "record": 49,
+        "text": "。我方整体气力也比困难模式更容易提升。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 93,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 443,
+        "record": 58,
+        "text": "。比普通模式我方整体气力更容易上升。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 93,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "SR点",
+        "records": [
+          30,
+          31
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 94,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 80,
+        "record": 10,
+        "text": "。有时会出现意想不到的好物，建议常备一些BS。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 100,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 146,
+        "record": 22,
+        "text": "。因此可利用提升后的驾驶",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 100,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 190,
+        "record": 29,
+        "text": "。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 100,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "SR点",
+        "records": [
+          32,
+          33
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 102,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 11,
+        "text": "。具体内容请在通关后亲自确认。",
+        "classification": "confirmed_static_layout_issue"
+      }
+    ],
+    "sp": [
+      {
+        "page": 2,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 6,
+        "text": "，其他阵型均无法使用。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 6,
+        "kind": "opening_end",
+        "pending_japanese": false,
+        "y": 80,
+        "record": 12,
+        "text": "多台机体组队时，各机体移动力的平均值（",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 13,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 102,
+        "record": 20,
+        "text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 16,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 4,
+        "text": "。编成小队并选择阵型后，还能使用其他攻击方法。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 16,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 69,
+        "record": 11,
+        "text": "，以及应对敌方攻击进行的反击。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 19,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 58,
+        "record": 10,
+        "text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 20,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 113,
+        "record": 17,
+        "text": "，且仍有援护次数（＝援护攻击等级）。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 24,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "2机",
+        "records": [
+          21,
+          22
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 26,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 102,
+        "record": 16,
+        "text": "，不受阵型对全体攻击的伤害减少影响。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 27,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 9,
+        "text": "。命中后，除伤害外还会对敌人施加其他效果。效果持",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 28,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 5,
+        "text": "。我方单位被击坠会导致战力下降，可能影响后续战斗。此外，",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 29,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "10",
+        "records": [
+          17,
+          18
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 30,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 58,
+        "record": 11,
+        "text": "，视情况可减少受到的伤害。以下是代表性特殊技能。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 30,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 91,
+        "record": 18,
+        "text": "。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 30,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 135,
+        "record": 27,
+        "text": "。发动概率取决于双方的技量差，战斗中选择",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 36,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "S5个",
+        "records": [
+          24,
+          25
+        ],
+        "classification": "false_positive",
+        "reason": "体型枚举的末项 S 与后续 5个等级，非同一词组"
+      },
+      {
+        "page": 37,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "SABCD点",
+        "records": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "classification": "false_positive",
+        "reason": "地形等级表的独立列和下一行表头，非连续词组"
+      },
+      {
+        "page": 38,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 4,
+        "text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 39,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 5,
+        "text": "，队长的最终命中率获得+20%修正。虽然无法使用全体",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 43,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "SABCD点",
+        "records": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "classification": "false_positive",
+        "reason": "地形等级表的独立列和下一行表头，非连续词组"
+      },
+      {
+        "page": 44,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 4,
+        "text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 45,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 7,
+        "text": "，就是最可靠的避险方法。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 54,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 5,
+        "text": "。此外，搭载在战舰内的单位也能获得回复。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 54,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 146,
+        "record": 25,
+        "text": "。气力不会因此降至100以下。若已低于10",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 54,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "100",
+        "records": [
+          25,
+          26
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 58,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 135,
+        "record": 19,
+        "text": "。发动后，对应能力值会更新为最",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 64,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 102,
+        "record": 18,
+        "text": "。建议让援护攻击技能等级高的驾驶员习得。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 64,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 135,
+        "record": 23,
+        "text": "。作为队员运用的驾驶员习得后效果显著。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 64,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 300,
+        "record": 52,
+        "text": "。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 65,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 36,
+        "record": 6,
+        "text": "。技能等级越高，需要损失的HP越少便可发动效果。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 66,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 10,
+        "text": "。两者发动率均由与敌方的技量差决定。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 74,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 80,
+        "record": 11,
+        "text": "。小队攻击中武器受限且伤害降低，但可集中火力",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 76,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 300,
+        "record": 44,
+        "text": "”。这表示空可移动、陆移动困难，意味着这是",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 76,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 399,
+        "record": 62,
+        "text": "”。此时陆和空均移动困难，移动起来会非常吃力。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 78,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "MAP",
+        "records": [
+          19,
+          20
+        ],
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 79,
+        "kind": "closing_start",
+        "pending_japanese": true,
+        "y": 234,
+        "record": 28,
+        "text": "％回復します。サイズの大きいユニットは被弾する事",
+        "classification": "source_japanese_not_chinese_acceptance"
+      },
+      {
+        "page": 79,
+        "kind": "closing_start",
+        "pending_japanese": true,
+        "y": 344,
+        "record": 41,
+        "text": "％回復します。ＥＮ消費の激しい武器を持つユニット",
+        "classification": "source_japanese_not_chinese_acceptance"
+      },
+      {
+        "page": 83,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "2MAP",
+        "records": [
+          22,
+          23
+        ],
+        "classification": "false_positive",
+        "reason": "例2标题与下一行 MAP兵器，非同一词组"
+      },
+      {
+        "page": 85,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 80,
+        "record": 11,
+        "text": "，达到上限后，便无法再通过升级或养成提升。",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 86,
+        "kind": "closing_start",
+        "pending_japanese": false,
+        "y": 47,
+        "record": 10,
+        "text": "，会影响命中率、回避率和",
+        "classification": "confirmed_static_layout_issue"
+      },
+      {
+        "page": 87,
+        "kind": "split_token",
+        "pending_japanese": false,
+        "token": "9级",
+        "records": [
+          18,
+          19
+        ],
+        "classification": "confirmed_static_layout_issue"
+      }
+    ]
+  },
+  "summary": {
+    "original": {
+      "closing_start": 44,
+      "opening_end": 1,
+      "split_token": 9,
+      "overflow": 0,
+      "overlap": 0,
+      "pages_with_confirmed_issues": 36,
+      "chinese_pages": 102,
+      "pending_japanese_pages": [],
+      "text_records": 2609,
+      "raw_ascii_spaces_in_chinese_records": []
+    },
+    "sp": {
+      "closing_start": 29,
+      "opening_end": 1,
+      "split_token": 5,
+      "overflow": 0,
+      "overlap": 0,
+      "pages_with_confirmed_issues": 27,
+      "chinese_pages": 80,
+      "pending_japanese_pages": [
+        15,
+        32,
+        35,
+        59,
+        60,
+        70,
+        71,
+        75,
+        79,
+        81,
+        82,
+        88,
+        89,
+        93,
+        94,
+        95,
+        96,
+        97,
+        99,
+        100,
+        101,
+        102
+      ],
+      "text_records": 2488,
+      "raw_ascii_spaces_in_chinese_records": []
+    }
+  },
+  "metadata": {
+    "original": {
+      "entry_count": 264,
+      "coordinate_width_claim": "No runtime anchor/font-width proof for metadata; length scan only.",
+      "groups": {
+        "categories": {
+          "count": 4,
+          "max_translation_line_characters": 3
+        },
+        "topics": {
+          "count": 26,
+          "max_translation_line_characters": 14
+        },
+        "questions": {
+          "count": 102,
+          "max_translation_line_characters": 17
+        },
+        "category_summaries": {
+          "count": 4,
+          "max_translation_line_characters": 21
+        },
+        "topic_summaries": {
+          "count": 26,
+          "max_translation_line_characters": 19
+        },
+        "keyword_summaries": {
+          "count": 102,
+          "max_translation_line_characters": 29
+        }
+      },
+      "parsed_entry_count": 264
+    },
+    "sp": {
+      "entry_count": 264,
+      "coordinate_width_claim": "No runtime anchor/font-width proof for metadata; length scan only.",
+      "parsed_entry_count": 264
+    }
+  },
+  "protected_artifacts": {
+    "corpus/zh/menu/nisv-strategy-qa.json": "6dbe7214e15042ef031eb9799adfdde2ea14226b4c28a71244f4443ceda7a4d0",
+    "config/full-story-components.json": "8fd9eb32a5553be411c8c54fcad29592f24d5e086fd5114ffc9145e1315189c5",
+    "work/analysis/qa-full-layout-20260920/sp-archive-before.bin": "369480fcf2ef126dbf2962460a9ef61f507c768390938fcfa35f03200bf98653",
+    "work/analysis/qa-full-layout-20260920/original-chunk-before.bin": "d54591f119e5e3c9597b4b5ab3168b049f028a72fc2baf2f65f9a722e01d50fe"
+  },
+  "readability_candidates": {
+    "original": [
+      {
+        "page": 2,
+        "term": "援护防御",
+        "records": [
+          9,
+          10
+        ]
+      },
+      {
+        "page": 6,
+        "term": "移动力",
+        "records": [
+          2,
+          3
+        ]
+      },
+      {
+        "page": 6,
+        "term": "移动力",
+        "records": [
+          5,
+          6
+        ]
+      },
+      {
+        "page": 11,
+        "term": "机体",
+        "records": [
+          15,
+          16
+        ]
+      },
+      {
+        "page": 15,
+        "term": "小队",
+        "records": [
+          16,
+          17
+        ]
+      },
+      {
+        "page": 21,
+        "term": "回避率",
+        "records": [
+          15,
+          16
+        ]
+      },
+      {
+        "page": 30,
+        "term": "防御",
+        "records": [
+          29,
+          30
+        ]
+      },
+      {
+        "page": 34,
+        "term": "回避率",
+        "records": [
+          16,
+          17
+        ]
+      },
+      {
+        "page": 36,
+        "term": "命中率",
+        "records": [
+          21,
+          22
+        ]
+      },
+      {
+        "page": 39,
+        "term": "全体攻击",
+        "records": [
+          5,
+          6
+        ]
+      },
+      {
+        "page": 40,
+        "term": "命中率",
+        "records": [
+          20,
+          21
+        ]
+      },
+      {
+        "page": 49,
+        "term": "驾驶员",
+        "records": [
+          52,
+          53
+        ]
+      },
+      {
+        "page": 64,
+        "term": "援护攻击",
+        "records": [
+          14,
+          15
+        ]
+      },
+      {
+        "page": 68,
+        "term": "驾驶员",
+        "records": [
+          23,
+          24
+        ]
+      },
+      {
+        "page": 68,
+        "term": "驾驶员",
+        "records": [
+          34,
+          35
+        ]
+      },
+      {
+        "page": 69,
+        "term": "MAP兵器",
+        "records": [
+          31,
+          32
+        ]
+      },
+      {
+        "page": 76,
+        "term": "小队",
+        "records": [
+          25,
+          26
+        ]
+      },
+      {
+        "page": 76,
+        "term": "机体",
+        "records": [
+          34,
+          35
+        ]
+      },
+      {
+        "page": 76,
+        "term": "机体",
+        "records": [
+          37,
+          38
+        ]
+      },
+      {
+        "page": 76,
+        "term": "机体",
+        "records": [
+          52,
+          53
+        ]
+      },
+      {
+        "page": 76,
+        "term": "机体",
+        "records": [
+          55,
+          56
+        ]
+      },
+      {
+        "page": 76,
+        "term": "移动力",
+        "records": [
+          10,
+          11
+        ]
+      },
+      {
+        "page": 78,
+        "term": "MAP兵器",
+        "records": [
+          19,
+          20
+        ]
+      },
+      {
+        "page": 79,
+        "term": "修理",
+        "records": [
+          22,
+          23
+        ]
+      },
+      {
+        "page": 79,
+        "term": "补给",
+        "records": [
+          35,
+          36
+        ]
+      },
+      {
+        "page": 80,
+        "term": "驾驶员",
+        "records": [
+          7,
+          8
+        ]
+      },
+      {
+        "page": 88,
+        "term": "机体",
+        "records": [
+          25,
+          26
+        ]
+      },
+      {
+        "page": 88,
+        "term": "机体",
+        "records": [
+          33,
+          34
+        ]
+      },
+      {
+        "page": 91,
+        "term": "移动力",
+        "records": [
+          6,
+          7
+        ]
+      },
+      {
+        "page": 93,
+        "term": "SR点数",
+        "records": [
+          30,
+          31
+        ]
+      },
+      {
+        "page": 100,
+        "term": "驾驶员",
+        "records": [
+          22,
+          23
+        ]
+      },
+      {
+        "page": 100,
+        "term": "SR点数",
+        "records": [
+          32,
+          33
+        ]
+      }
+    ],
+    "sp": [
+      {
+        "page": 2,
+        "term": "援护防御",
+        "records": [
+          9,
+          10
+        ]
+      },
+      {
+        "page": 6,
+        "term": "移动力",
+        "records": [
+          2,
+          3
+        ]
+      },
+      {
+        "page": 6,
+        "term": "移动力",
+        "records": [
+          5,
+          6
+        ]
+      },
+      {
+        "page": 11,
+        "term": "机体",
+        "records": [
+          15,
+          16
+        ]
+      },
+      {
+        "page": 21,
+        "term": "回避率",
+        "records": [
+          15,
+          16
+        ]
+      },
+      {
+        "page": 30,
+        "term": "防御",
+        "records": [
+          29,
+          30
+        ]
+      },
+      {
+        "page": 34,
+        "term": "回避率",
+        "records": [
+          16,
+          17
+        ]
+      },
+      {
+        "page": 36,
+        "term": "命中率",
+        "records": [
+          21,
+          22
+        ]
+      },
+      {
+        "page": 39,
+        "term": "全体攻击",
+        "records": [
+          5,
+          6
+        ]
+      },
+      {
+        "page": 40,
+        "term": "命中率",
+        "records": [
+          20,
+          21
+        ]
+      },
+      {
+        "page": 49,
+        "term": "驾驶员",
+        "records": [
+          52,
+          53
+        ]
+      },
+      {
+        "page": 64,
+        "term": "援护攻击",
+        "records": [
+          14,
+          15
+        ]
+      },
+      {
+        "page": 68,
+        "term": "驾驶员",
+        "records": [
+          23,
+          24
+        ]
+      },
+      {
+        "page": 68,
+        "term": "驾驶员",
+        "records": [
+          34,
+          35
+        ]
+      },
+      {
+        "page": 69,
+        "term": "MAP兵器",
+        "records": [
+          31,
+          32
+        ]
+      },
+      {
+        "page": 76,
+        "term": "小队",
+        "records": [
+          25,
+          26
+        ]
+      },
+      {
+        "page": 76,
+        "term": "机体",
+        "records": [
+          34,
+          35
+        ]
+      },
+      {
+        "page": 76,
+        "term": "机体",
+        "records": [
+          37,
+          38
+        ]
+      },
+      {
+        "page": 76,
+        "term": "机体",
+        "records": [
+          52,
+          53
+        ]
+      },
+      {
+        "page": 76,
+        "term": "机体",
+        "records": [
+          55,
+          56
+        ]
+      },
+      {
+        "page": 76,
+        "term": "移动力",
+        "records": [
+          10,
+          11
+        ]
+      },
+      {
+        "page": 78,
+        "term": "MAP兵器",
+        "records": [
+          19,
+          20
+        ]
+      },
+      {
+        "page": 80,
+        "term": "驾驶员",
+        "records": [
+          7,
+          8
+        ]
+      },
+      {
+        "page": 91,
+        "term": "移动力",
+        "records": [
+          6,
+          7
+        ]
+      }
+    ]
+  },
+  "sp_receipt_at_start": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "size": 3791781888,
+    "sha256": "f44d0bdabfe15f8b8cd0ce8fdea053fc4dd13ed365aa44445a2d86c723174bc1"
+  },
+  "previous_page12_fix_still_present": true,
+  "verified_sp_iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "size": 3791781888,
+    "sha256": "b2dc528c6a8f95e537036740e0b733a600647706a93e9194e3910e500b1674a3"
+  },
+  "shared_chinese_pages_byte_exact_to_current_original": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    33,
+    34,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    72,
+    73,
+    74,
+    76,
+    77,
+    78,
+    80,
+    83,
+    84,
+    85,
+    86,
+    87,
+    90,
+    91,
+    92,
+    98
+  ]
+}

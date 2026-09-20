@@ -11,19 +11,36 @@
   },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
-    "size": 3758358528
+    "size": 3758358528,
+    "sha256": "a2b02c6820d7f1369ad255ad265dbd8d3eea387b2e116dca6b2c7a695227e79b"
   },
   "readback": {
-    "path": "work/build/zh-release-original/388152fa50e72ed8f4edf6887d9eb1f37130dfc5ee92ba7baf3238aaee22c02f/project/manifests/zh-release-full-story-iso-content-validation.json",
-    "sha256": "684faddc5cda1b68272c2e21edbea81ed1bd859afc0fcf78c971304d7f1b7fe0",
-    "stage_count": 170,
-    "translation_entry_count": 93071
+    "path": "manifests/qa-original-writeback-20260920.json",
+    "sha256": "e8c21056561bd0c1b6cdfcb4a130a9d1151cc795a865566ef873848485d4feb5",
+    "scope": "Q&A and protected ISO ranges"
   },
-  "runtime": "not_tested",
+  "runtime": "qa_lrps2_open_scroll_verified",
   "schema_version": 1,
   "source_head": "cfa86692ec5ac9f8fbec7828fbaece19fe1c5552",
   "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
-  "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "work/build/zh-release-original/388152fa50e72ed8f4edf6887d9eb1f37130dfc5ee92ba7baf3238aaee22c02f/project"
+  "status": "edition_qa_update_static_and_lrps2_verified",
+  "workspace": "work/build/zh-release-original/388152fa50e72ed8f4edf6887d9eb1f37130dfc5ee92ba7baf3238aaee22c02f/project",
+  "qa_baseline": {
+    "output": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "size": 3758358528,
+      "sha256": "77a5c4f317522d397a13c6ee392bde488b61925b2be4613dfa7f5768c4266cc6"
+    },
+    "readback": {
+      "path": "work/authoring/qa-main-20260920/original/baselines/77a5c4f317522d397a13c6ee392bde488b61925b2be4613dfa7f5768c4266cc6/readback.json",
+      "sha256": "9fc8390eb07eb00afe980edab244697a683bd8952e8e0151533118c76e900b4e",
+      "scope": "Q&A and protected ISO ranges"
+    },
+    "status": "edition_qa_update_static_validated_runtime_pending"
+  },
+  "qa_runtime_evidence": {
+    "path": "manifests/qa-main-runtime-20260920.json",
+    "sha256": "fbd6835e00d2be540129e5001f8908b22bfbdfe21083e7e07d5889b12b74f173",
+    "scope": "Q&A only"
+  }
 }

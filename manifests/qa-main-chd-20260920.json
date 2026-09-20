@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "codec": "zlib",
+  "hunk_size": 16384,
+  "editions": [
+    {
+      "edition": "original",
+      "chd": {
+        "path": "build/chd/qa-20260920/current-original.chd",
+        "sha256": "e3cdfb886ebdc1cdd33fed3c78a24ec255101eabb2caf15133fa9dd8bd4eeeaa",
+        "size": 35634835
+      },
+      "parent_path": "build/chd/qa-20260920/srwz-jp-original.chd",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "size": 3758358528,
+        "sha256": "a2b02c6820d7f1369ad255ad265dbd8d3eea387b2e116dca6b2c7a695227e79b"
+      },
+      "roundtrip_exact": true
+    },
+    {
+      "edition": "best",
+      "chd": {
+        "path": "build/chd/qa-20260920/current-best.chd",
+        "sha256": "400dfc843b0780de1bbaa20c758d2f1945bbaf64ee06019c77ed8a86f3a7fa32",
+        "size": 39023959
+      },
+      "parent_path": "build/chd/qa-20260920/srwz-jp-best.chd",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "size": 3755081728,
+        "sha256": "993f18a02574dafc87474c29adbac4324a364d72a3d5d1ae427cd502f3a50230"
+      },
+      "roundtrip_exact": true
+    }
+  ]
+}

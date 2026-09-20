@@ -1,0 +1,1663 @@
+{
+  "iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "size": 3791781888,
+    "sha256": "e2d95871e0ef66875787d76369d23893f8560cae733cab5105d72f3c5c69133a"
+  },
+  "original_archive": {
+    "path": "work/disc/DATA/NISVDATA.BIN",
+    "size": 555056,
+    "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
+  },
+  "reviewed_corpus": {
+    "path": "corpus/zh/special-disc/native-text.json",
+    "sha256": "0008629ecf7dc97d9ba23fefb1bb94ca7fac316dedcbba3bf5336463687a59a6"
+  },
+  "page_count": 102,
+  "original_identical_pages": 80,
+  "changed_pages": [
+    15,
+    32,
+    35,
+    59,
+    60,
+    70,
+    71,
+    75,
+    79,
+    81,
+    82,
+    88,
+    89,
+    93,
+    94,
+    95,
+    96,
+    97,
+    99,
+    100,
+    101,
+    102
+  ],
+  "metadata_count": 264,
+  "changed_metadata": [
+    "sd/nisv/qa/metadata/questions/001",
+    "sd/nisv/qa/metadata/questions/002",
+    "sd/nisv/qa/metadata/questions/003",
+    "sd/nisv/qa/metadata/keyword_summaries/031",
+    "sd/nisv/qa/metadata/keyword_summaries/050",
+    "sd/nisv/qa/metadata/keyword_summaries/051",
+    "sd/nisv/qa/metadata/keyword_summaries/070",
+    "sd/nisv/qa/metadata/keyword_summaries/092",
+    "sd/nisv/qa/metadata/keyword_summaries/094",
+    "sd/nisv/qa/metadata/keyword_summaries/095",
+    "sd/nisv/qa/metadata/keyword_summaries/096",
+    "sd/nisv/qa/metadata/keyword_summaries/098",
+    "sd/nisv/qa/metadata/keyword_summaries/099",
+    "sd/nisv/qa/metadata/keyword_summaries/100",
+    "sd/nisv/qa/metadata/keyword_summaries/101"
+  ],
+  "reviewed_translation_count": 37,
+  "missing_translation_ids": [],
+  "current_japanese_count": 37,
+  "entries": [
+    {
+      "id": "sd/nisv/qa/page/015",
+      "source_sha256": "0a5d8357b59a969439748f568575f49e6bee888fd02ab06b2407d7ece59c6dc3",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "が",
+          "sp": "を"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/032",
+      "source_sha256": "a964c14608a205a5676178c9dd0e81677dcc5565e5abfcd8296d822d035f951e",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "delete",
+          "original": "\n敵から受けるダメージは、機体とパイロットの地形適応\nから導き出すユニットの地形適応でも変化します。\n地形適応はＳ・Ａ・Ｂ・Ｃ・Ｄ（−）の５段階があり、\nＳから順に高い防御力を発揮できます。\n地形適応ＳＡＢＣＤ\nポイント５４３２１\n上の表に従って機体とパイロットの地形適応をポイント\n化し、合計して２で割った数値と同じポイントの部分がユ\nニットとしての地形適応となります。\n（小数点以下は切り捨てです）",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/035",
+      "source_sha256": "bc853b29053a909b3074f23f7c3faa2d6d5c384b7567bdfcceecf8297c18dc72",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "。"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/059",
+      "source_sha256": "2d862b4655212b7e373162f9198aaf809dc0af645227b47da17671b191dc95fc",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "。"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/060",
+      "source_sha256": "a9b43611f23f8b58149a1394f1d533ed3d2d5d0e974d0d6e6706f75e345fa1d0",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "５",
+          "sp": "１０"
+        },
+        {
+          "operation": "replace",
+          "original": "１０",
+          "sp": "５消"
+        },
+        {
+          "operation": "delete",
+          "original": "消",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "す。\nビームコート射撃のビーム属性によるダメー\nジを７００軽減します。発動時、\nＥＮを５消費しま",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/070",
+      "source_sha256": "49aa2996b2eb35e4f8796e28187ef44375bab547f267ae9046dbd50155325ee7",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "など\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/071",
+      "source_sha256": "02efdd5246caabf87d478b35bf26611c4fd1b217c7311169a893e6b1fd119dd9",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "イ",
+          "sp": "ー"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/075",
+      "source_sha256": "9f785d3b1f29a1e8f3c141feb4a7fda89067ab9a94de3d202b9e7485839b9ded",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "および",
+          "sp": "や"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "など"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/079",
+      "source_sha256": "9dc53c6cf569ec096e9fa4de93273f9e2cf4300a0182725e4bf7a19a82f35b29",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "のおよ",
+          "sp": "を及"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "replace",
+          "original": "およ",
+          "sp": "及"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "き"
+        },
+        {
+          "operation": "delete",
+          "original": "き",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/081",
+      "source_sha256": "92d4a7d9e31b8893d43de28bfe364a2664b0096376e45548841a8ee3ea2d9a5e",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "地形",
+          "sp": "移動"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/082",
+      "source_sha256": "2691fbe56b1ee64155505682c6a9935f7d37073ced8158d802889adb76f042a5",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "乗",
+          "sp": "の"
+        },
+        {
+          "operation": "replace",
+          "original": "替",
+          "sp": "か"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/088",
+      "source_sha256": "299650b198217f7a27c081ba036bef6de9ec7109e7c43b1a7a3b5ee5e54d2014",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "な\nど"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/089",
+      "source_sha256": "08c8102ccb92e7f8249891b1ee98e289b6f3f19133c2f2e8eaabe483ce11d48c",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "など"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/093",
+      "source_sha256": "65885c200d2695c775e1ee27c973eb2a771cc5bc63866bffd8b6f9bc566ce2db",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "ゲームの難易度を決定する数値です",
+          "sp": "本作はＳＲポイントはありません。"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "「"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "ー"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "ー"
+        },
+        {
+          "operation": "replace",
+          "original": "ポイン",
+          "sp": "ッ"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "大戦Ｚ」"
+        },
+        {
+          "operation": "replace",
+          "original": "略称",
+          "sp": "難易度\nを決定する数値"
+        },
+        {
+          "operation": "delete",
+          "original": "各シナリ\nオごとに設定されています。",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "した時点でＳＲポイントを",
+          "sp": "すと\n"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "する事が"
+        },
+        {
+          "operation": "replace",
+          "original": "す",
+          "sp": "した"
+        },
+        {
+          "operation": "replace",
+          "original": "\nＳＲポイントの獲得条件は全体コマンド作戦目的で確認\nできます。ただ",
+          "sp": "しか"
+        },
+        {
+          "operation": "replace",
+          "original": "まだ条件を提示できない状態の場合は\n『？？？』と表示されます。また、ゲームオーバー後の再\nスタートによるプレイ",
+          "sp": "本作"
+        },
+        {
+          "operation": "delete",
+          "original": "を獲得できないた",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "め、『ＳＲポイント獲得不可』と表示されます。\nなお、１つのシナリオ中に複数の戦闘マップが",
+          "sp": "は"
+        },
+        {
+          "operation": "delete",
+          "original": "する\n場合でも、ＳＲポイントの獲得条件はその中の１つの戦闘\nマップに",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "か設定され",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "ボーナスＰＰ\nＳＲポイントを獲得",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "時点で、マップ上に出撃し\nていたパイロット全員に２５ＰＰが与えられます。こ\nれは、困難な条件をクリアした事に対して与えられる\nボーナスです。\n難易度の変化\nＳＲポイントは困難な条件をクリアすると与えられ\nるポイントであるため、獲得し続けるとゲームの難易\n度が徐々に上",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "いきます。難易度は",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "これま",
+          "sp": "本作"
+        },
+        {
+          "operation": "delete",
+          "original": "に\nＳＲポイントを獲得してきた割合によって変動します。\n現在",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "、全体コマンド下部",
+          "sp": "「スーパーロボット大戦\nＺ」"
+        },
+        {
+          "operation": "delete",
+          "original": "データウィンド\nウで確認することができます。\nＨＡＲＤ（ハード）\nＳＲポイントの獲得が全体の８０％以上\n難易度が最も高い状態です。敵の機体も改造さ\nれており、思考パターンもより高度になっていま\nす。また、全体的に味方の気力が上がりにくくな\nっていて、これも難易度上昇に一役買っています。\n",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "\nＳＲポイントの獲得が全体の３０〜７９％\n標準的な難易度で",
+          "sp": "に当たり"
+        },
+        {
+          "operation": "delete",
+          "original": "ゲーム開始時はこの難易度\nから始まります。敵撃墜時に獲得できる資金とＰ\nＰは、ハードの１．２倍です。ハードよりも味方\n全体の",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "が",
+          "sp": "の"
+        },
+        {
+          "operation": "replace",
+          "original": "がりやすく",
+          "sp": "昇の\n仕方"
+        },
+        {
+          "operation": "replace",
+          "original": "っ",
+          "sp": "ども、それに準じ"
+        },
+        {
+          "operation": "delete",
+          "original": "\nＥＡＳＹ（イージー）\nＳＲポイントの獲得が全体の２９％以下\n最も簡単な難易度で、敵を蹴散らして進めます。\n敵撃墜時に獲得できる資金とＰＰは、ハードの１．\n５倍です。ノーマルよりも味方全体の気力が上が\nりやすくなっています。\nもし、ゲームの難易度が高いと感じられるようなら、Ｓ\nＲポイントを獲得しないようにすることで難易度を調整す\nることもできます。",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/094",
+      "source_sha256": "7e2eeebd41413f5d135bf423391034117f6a3bd7566e706db70a6f4fb0eef06a",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "様々なもの",
+          "sp": "強化パーツ"
+        },
+        {
+          "operation": "replace",
+          "original": "でき",
+          "sp": "す"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "やセットアップ"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "強化パーツの"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "強化パーツの売買や機体の購入などは、",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "られ"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/095",
+      "source_sha256": "1bef7488ece1774e8dd11886a3573697f3d8facceaf6e871ed0fb8cb67ae6013",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "本作の"
+        },
+        {
+          "operation": "replace",
+          "original": "、およびＭＳや",
+          "sp": "のみとな"
+        },
+        {
+          "operation": "replace",
+          "original": "ウォーカーマシンなどの機体で",
+          "sp": "りま"
+        },
+        {
+          "operation": "delete",
+          "original": "\nただし消費系強化パーツは、複数個で１つのパックと\nして販売されることもあります。\n機体\n機体は１種類につき１機だけ購入が可能です。その\nため、すでに購入した機体は、以後のバザーでは店頭\nに並ぶことはありません。なお、色違いは別の種類と\nして扱います。\nバザーの品揃えと購入価格は、シナリオごとに変動しま\nす。もし相場よりも安いものを見つけたら、売却用に買っ\nておくといいかもしれません。",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/096",
+      "source_sha256": "6625bce24ddf677298761802eb2412393d60ed1c6d9e99b1402a773c4a701908",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "delete",
+          "original": "\n売却価格はシナリオごとに変動します。もし相場よりも\n高く売れるパーツを見つけたら、不要であると判断した場\n合に限って売却してしまうのがオススメです。\nなお、機体に装備させているパーツはそのままでは売却\nする事ができません。いったん機体から外した上で改めて\n売却しましょう。\n※一度売ってしまった強化パーツは二度と買い戻すことが\nできません。念のために直前にデータをセーブしてから\n売却することをオススメします。",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/097",
+      "source_sha256": "92977efe3bbf56acb440648de3ea9488e410141868b5b1499403e945b116f7f6",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "謎の",
+          "sp": "本作では"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "の販売"
+        },
+        {
+          "operation": "replace",
+          "original": "サブイベン",
+          "sp": "ありません\n「スーパーロボッ"
+        },
+        {
+          "operation": "replace",
+          "original": "への入口",
+          "sp": "大戦Ｚ」"
+        },
+        {
+          "operation": "replace",
+          "original": "す\n",
+          "sp": "は"
+        },
+        {
+          "operation": "delete",
+          "original": "は、たまに",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "販"
+        },
+        {
+          "operation": "delete",
+          "original": "りに出",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "る事\n",
+          "sp": "ていました"
+        },
+        {
+          "operation": "replace",
+          "original": "あります。",
+          "sp": "、本作では"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "の販売"
+        },
+        {
+          "operation": "replace",
+          "original": "装備することや使うことはでき",
+          "sp": "あ\nり"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "が、所持しているだけでサブイベントが発生し、思わ\nぬ方向に話が展開していきます",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "興味がある場合は、見つ\nけたら購入しておくといいでしょう。",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/099",
+      "source_sha256": "cf9185401cde8bc776e2cd4d02cc02eb2bf2d4524d23b78ebad27c0a4ad528b5",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "ラ"
+        },
+        {
+          "operation": "replace",
+          "original": "ＬＩＢＲＡＲＹ",
+          "sp": "イブラリー"
+        },
+        {
+          "operation": "delete",
+          "original": "ライブラリーの",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/100",
+      "source_sha256": "220ed0e2d1be62cce4cf49dfd5ab6b8c545c708d17248b756a435f27d7645d34",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "ＳＲポイントをあきらめ部隊を強化",
+          "sp": "何度でも挑戦"
+        },
+        {
+          "operation": "delete",
+          "original": "ＳＲポイントを獲得しない\nＳＲポイントを獲得していくと、ゲームの難易度は\n上昇してしまいます。ＳＲポイントは各シナリオに１\nポイントずつ設定されていますが、獲得率８０％以上\nで難易度はハードになり、３０％未満でイージーとな\nります。ＳＲポイントを獲得しないまま進めば、難易\n度を抑えた状態で戦う事ができます。\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "（ストーリーモード・チャレンジバトル）"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "、",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "こと",
+          "sp": "事"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "delete",
+          "original": "\n※そのシナリオ限りのゲストパイロットや初登場のパ\nイロットには一切引き継がれません。\nゲームオーバー後の再プレイでは、その戦闘マップ\nに設定されたＳＲポイントは獲得することはできませ\nん。ＳＲポイントを獲得した後にゲームオーバーとな\nって再プレイを始めた場合には、獲得したＳＲポイン\nトは無効になってしまいます。",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/101",
+      "source_sha256": "c979de0fda10177ea181959c1783b5a78f3adc321089d5c7f4da0b061f425c88",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "ゲ",
+          "sp": "スト"
+        },
+        {
+          "operation": "replace",
+          "original": "ム",
+          "sp": "リーモードやチャレンジバトル"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "replace",
+          "original": "こと",
+          "sp": "事"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "replace",
+          "original": "タイ",
+          "sp": "エクス"
+        },
+        {
+          "operation": "replace",
+          "original": "ル",
+          "sp": "ラステージのトップ"
+        },
+        {
+          "operation": "replace",
+          "original": "から",
+          "sp": "でコンティニ"
+        },
+        {
+          "operation": "replace",
+          "original": "ＣＯＮＴＩＮＵＥ",
+          "sp": "ュー"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "事",
+          "sp": "こと"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "replace",
+          "original": "こと",
+          "sp": "事"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/page/102",
+      "source_sha256": "8c2dcb319c8d45e8cd61d21e56101bc43dbc1858581bfb5bd2530b2c00e9f4ae",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "新しいプレイモード",
+          "sp": "様々な特典"
+        },
+        {
+          "operation": "replace",
+          "original": "出現し",
+          "sp": "得られ"
+        },
+        {
+          "operation": "replace",
+          "original": "最終話",
+          "sp": "各エピソード"
+        },
+        {
+          "operation": "replace",
+          "original": "て",
+          "sp": "た状態でストーリーモードを開\n始すると"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "資金やＰＰにボーナ"
+        },
+        {
+          "operation": "replace",
+          "original": "タッフロール",
+          "sp": "を得た状態でプレイする\n事"
+        },
+        {
+          "operation": "delete",
+          "original": "流れ終わった後\nのデータセーブ画面では、ゲームのクリアデータをセーブ\n",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "そ",
+          "sp": "\nまた、全て"
+        },
+        {
+          "operation": "replace",
+          "original": "データをロ",
+          "sp": "エピソ"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "をクリア"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "ストーリーモ\nードの機体・武器は１５段階まで改造する事ができるよう\nになります。\nチャレンジバトルの全ミッションをクリアすると、スペ\nシャルシアターに"
+        },
+        {
+          "operation": "delete",
+          "original": "でゲ\nームを始めること",
+          "sp": ""
+        },
+        {
+          "operation": "replace",
+          "original": "でき",
+          "sp": "追加され"
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        },
+        {
+          "operation": "replace",
+          "original": "ゲーム",
+          "sp": "チャレンジバトル"
+        },
+        {
+          "operation": "delete",
+          "original": "\n",
+          "sp": ""
+        },
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "\n"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/questions/001",
+      "source_sha256": "02a74454af80959b9dfd1fdcb5e9413977ecf9b10cf17bc8a8fd6551f81514a2",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "・"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/questions/002",
+      "source_sha256": "ab78448619e267dd12db6a7d108050a9c8afd22de53dc0443c6aa7ebc591cea3",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "・"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/questions/003",
+      "source_sha256": "ac6bd830547ddf43a99177f6ab1fa24c8314c59a31e79166c20eb319836f8249",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "・"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/031",
+      "source_sha256": "5d5dac6c1c6eb89f9329d37b083b84dd99b5a09567284d2b9b9bed5ed9543d8e",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "適応",
+          "sp": "効果"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/050",
+      "source_sha256": "9cca5426807381ef5be5deff534fd150526de58c8faab5cf31f873e5d1d82dc5",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "小"
+        },
+        {
+          "operation": "delete",
+          "original": "長",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/051",
+      "source_sha256": "fadc8866b7d15087759302aa7ae3ef69af6c16d5366f3087eaddc3596317b033",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "小"
+        },
+        {
+          "operation": "delete",
+          "original": "長",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/070",
+      "source_sha256": "c62c275372a014f10d1b8bcd4383bd104714a05e2a303bed08d499aa745b1a41",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "イ",
+          "sp": "ー"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/092",
+      "source_sha256": "95154c940ad8cf4303f5cc71598bfa25269e0817eff400a25bd6c95de9722f92",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "delete",
+          "original": "　＜ボーナスＰＰ＞　＜難易度の変化＞",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/094",
+      "source_sha256": "bd8a16e8ddff29401aad09f44135f508569bb48f890e881a93ab716ad07ce71e",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "delete",
+          "original": "　＜機体＞",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/095",
+      "source_sha256": "8facd8e524eceb9a2e30082eda778e00ca0f95e50f224d600ef505e512aea34b",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "delete",
+          "original": "　＜売却価格＞　＜相場＞",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/096",
+      "source_sha256": "40895c231554b3803cdc604404b95ffd1024f20981830c252b784adf673cf89e",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "delete",
+          "original": "　＜サブイベント＞",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/098",
+      "source_sha256": "707f1776f223ff7017fa868075e02aac6dd850a5a1786844d900ead935641c31",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "ＬＩＢＲＡＲＹ",
+          "sp": "ライブラリー"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/099",
+      "source_sha256": "4f59cc192b5a4fc22d096c3a17603a3727cab260268d512168f9daad84960a75",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "delete",
+          "original": "＜ＳＲポイント＞　＜難易度＞　",
+          "sp": ""
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/100",
+      "source_sha256": "c6b0c7a223f2bf28c256c5db7146cf6464e4ba03784dcac586e136f2c05ceadf",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "replace",
+          "original": "ＣＯＮＴＩＮＵＥ",
+          "sp": "コンティニュー"
+        }
+      ]
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/101",
+      "source_sha256": "c1c02c326710c6b6ef2a3806e6e0017990a79768441ae4d369e482d419951e14",
+      "editorial_status": "reviewed",
+      "translation_present": true,
+      "writeback_status": "binding_and_layout_pending",
+      "current_equals_sp_japanese": true,
+      "source_diff": [
+        {
+          "operation": "insert",
+          "original": "",
+          "sp": "＜チャレンジバトル＞　"
+        },
+        {
+          "operation": "replace",
+          "original": "しいプレイ",
+          "sp": "たな"
+        },
+        {
+          "operation": "delete",
+          "original": "　＜クリアデータ＞",
+          "sp": ""
+        }
+      ]
+    }
+  ],
+  "page_12_readback": [
+    {
+      "x": 0,
+      "y": 1,
+      "style": [
+        4,
+        0
+      ],
+      "text": "A."
+    },
+    {
+      "x": 46,
+      "y": 1,
+      "style": [
+        4,
+        6
+      ],
+      "text": "通过养成强化驾驶员"
+    },
+    {
+      "x": 38,
+      "y": 25,
+      "style": [
+        2,
+        14
+      ],
+      "text": "能力值上升"
+    },
+    {
+      "x": 133,
+      "y": 25,
+      "style": [
+        2,
+        0
+      ],
+      "text": "可提升驾驶员的格斗或射击，分别增加"
+    },
+    {
+      "x": 19,
+      "y": 36,
+      "style": [
+        2,
+        0
+      ],
+      "text": "格斗武器或射击武器的伤害。能力值每上升1点，"
+    },
+    {
+      "x": 19,
+      "y": 47,
+      "style": [
+        2,
+        0
+      ],
+      "text": "伤害基本增加0.5%。该数值可能因其他因素增减。"
+    },
+    {
+      "x": 19,
+      "y": 47,
+      "style": [
+        2,
+        0
+      ],
+      "text": ""
+    },
+    {
+      "x": 19,
+      "y": 47,
+      "style": [
+        2,
+        0
+      ],
+      "text": ""
+    },
+    {
+      "x": 475,
+      "y": 47,
+      "style": [
+        2,
+        0
+      ],
+      "text": "此外，"
+    },
+    {
+      "x": 19,
+      "y": 58,
+      "style": [
+        2,
+        14
+      ],
+      "text": "特殊技能习得"
+    },
+    {
+      "x": 133,
+      "y": 58,
+      "style": [
+        2,
+        0
+      ],
+      "text": "可让驾驶员学会有助于战斗的技能，在"
+    },
+    {
+      "x": 19,
+      "y": 69,
+      "style": [
+        2,
+        0
+      ],
+      "text": "特定情况下提升伤害。"
+    },
+    {
+      "x": 19,
+      "y": 69,
+      "style": [
+        2,
+        0
+      ],
+      "text": ""
+    },
+    {
+      "x": 209,
+      "y": 69,
+      "style": [
+        2,
+        0
+      ],
+      "text": "以下是代表性的特殊技能。"
+    },
+    {
+      "x": 38,
+      "y": 91,
+      "style": [
+        2,
+        14
+      ],
+      "text": "连携攻击"
+    },
+    {
+      "x": 133,
+      "y": 91,
+      "style": [
+        2,
+        0
+      ],
+      "text": "参加援护攻击时，该攻击必定暴击。"
+    },
+    {
+      "x": 133,
+      "y": 91,
+      "style": [
+        2,
+        0
+      ],
+      "text": ""
+    },
+    {
+      "x": 38,
+      "y": 113,
+      "style": [
+        2,
+        14
+      ],
+      "text": "支援攻击"
+    },
+    {
+      "x": 133,
+      "y": 113,
+      "style": [
+        2,
+        0
+      ],
+      "text": "参加小队攻击时，伤害变为通常小队攻击的"
+    },
+    {
+      "x": 133,
+      "y": 124,
+      "style": [
+        2,
+        0
+      ],
+      "text": "1.2倍。"
+    },
+    {
+      "x": 38,
+      "y": 146,
+      "style": [
+        2,
+        14
+      ],
+      "text": "集束攻击"
+    },
+    {
+      "x": 133,
+      "y": 146,
+      "style": [
+        2,
+        0
+      ],
+      "text": "使用全体攻击时，因敌小队机数而降低的"
+    },
+    {
+      "x": 133,
+      "y": 157,
+      "style": [
+        2,
+        0
+      ],
+      "text": "伤害比例提高15%。"
+    },
+    {
+      "x": 133,
+      "y": 157,
+      "style": [
+        2,
+        0
+      ],
+      "text": ""
+    },
+    {
+      "x": 323,
+      "y": 157,
+      "style": [
+        2,
+        0
+      ],
+      "text": "（2机时80%→95%，"
+    },
+    {
+      "x": 133,
+      "y": 168,
+      "style": [
+        2,
+        0
+      ],
+      "text": "3机时60%→75%）"
+    },
+    {
+      "x": 38,
+      "y": 190,
+      "style": [
+        2,
+        14
+      ],
+      "text": "能力值上升"
+    },
+    {
+      "x": 133,
+      "y": 190,
+      "style": [
+        2,
+        0
+      ],
+      "text": "和"
+    },
+    {
+      "x": 152,
+      "y": 190,
+      "style": [
+        2,
+        14
+      ],
+      "text": "特殊技能习得"
+    },
+    {
+      "x": 266,
+      "y": 190,
+      "style": [
+        2,
+        0
+      ],
+      "text": "可在整备画面的"
+    },
+    {
+      "x": 399,
+      "y": 190,
+      "style": [
+        2,
+        14
+      ],
+      "text": "驾驶员养成"
+    },
+    {
+      "x": 19,
+      "y": 201,
+      "style": [
+        2,
+        0
+      ],
+      "text": "中进行。养成需要地图战斗中获得的"
+    },
+    {
+      "x": 19,
+      "y": 201,
+      "style": [
+        2,
+        0
+      ],
+      "text": ""
+    },
+    {
+      "x": 323,
+      "y": 201,
+      "style": [
+        2,
+        14
+      ],
+      "text": "PP"
+    },
+    {
+      "x": 361,
+      "y": 201,
+      "style": [
+        2,
+        0
+      ],
+      "text": "。"
+    }
+  ],
+  "runtime": "not_tested"
+}
