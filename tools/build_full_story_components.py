@@ -11445,7 +11445,8 @@ def _build_components(
             "nisv_strategy_qa_reread_exact": (
                 nisv_strategy_qa_report["metadata_string_count"] == 264
                 and nisv_strategy_qa_report["page_count"] == 102
-                and nisv_strategy_qa_report["text_record_count"] == 2609
+                and nisv_strategy_qa_report["source_text_record_count"] == 2609
+                and nisv_strategy_qa_report["styled_character_sequence_preserved"]
                 and nisv_strategy_qa_report["archive_size_preserved"]
                 and nisv_strategy_qa_report["archive_offsets_preserved"]
                 and nisv_strategy_qa_report[

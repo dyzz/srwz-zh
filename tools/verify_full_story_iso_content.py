@@ -64,9 +64,10 @@ from srwz.nisv_strategy_qa import (
     QA_METADATA_STRING_COUNT,
     QA_PAGE_COUNT,
     QA_TEXT_RECORD_COUNT,
-    layout_nisv_strategy_qa_page,
+    layout_nisv_strategy_qa_records,
     parse_nisv_strategy_qa,
 )
+from srwz.qa_typography import shared_records, styled_runs, validate_records
 from srwz.nisv_tutorial import parse_nisv_tutorial_pages
 from srwz.psmt4 import unswizzle_psmt4
 from srwz.runtime_keywords import (
@@ -1407,7 +1408,7 @@ def verify_nisv_strategy_qa(
     ):
         raise SystemExit("final ISO Strategy Q&A chunk decode drift")
     final_qa = parse_nisv_strategy_qa(final_decoded.output)
-    source_qa = parse_nisv_strategy_qa(source_decoded.output)
+    source_qa = parse_nisv_strategy_qa(source_decoded.output, expected_record_count=QA_TEXT_RECORD_COUNT)
     if (
         final_qa["entries"] != source_qa["entries"]
         or final_qa["metadata_prefix"] != source_qa["metadata_prefix"]
@@ -1480,7 +1481,6 @@ def verify_nisv_strategy_qa(
         if (
             corpus_page.get("page") != page_index
             or len(corpus_records) != len(source_page["records"])
-            or len(final_page["records"]) != len(source_page["records"])
             or final_page["size"] != source_page["size"]
             or final_page["sprite_size"] != source_page["sprite_size"]
             or final_page["sprite_bytes"] != source_page["sprite_bytes"]
@@ -1488,7 +1488,7 @@ def verify_nisv_strategy_qa(
             raise SystemExit(
                 f"final ISO Strategy Q&A page structure drift: {page_index}"
             )
-        page_layout = layout_nisv_strategy_qa_page(
+        page_layout = layout_nisv_strategy_qa_records(
             source_page,
             corpus_records,
             glyph_advance_px=glyph_advance_px,
@@ -1499,64 +1499,44 @@ def verify_nisv_strategy_qa(
         empty_translation_record_count += page_layout[
             "empty_translation_record_count"
         ]
-        for corpus_record, source_record, final_record, expected_position in zip(
-            corpus_records,
-            source_page["records"],
-            final_page["records"],
-            page_layout["positions"],
-        ):
-            record_id = corpus_record["id"]
+        actual_records = shared_records(final_page, output_table)
+        validate_records(actual_records)
+        expected = page_layout["records"]
+        # Exact ordered characters with their colour/z are the invariant;
+        # the source corpus record IDs do not describe post-reflow boundaries.
+        source_translation = [dict(text=c["translation"],
+                                   style=[r["style0"], r["style1"]],
+                                   position=[r["x"], r["y"], r["z"]])
+                              for c, r in zip(corpus_records, source_page["records"])]
+        if styled_runs(actual_records) != styled_runs(source_translation):
+            raise SystemExit(f"final ISO Strategy Q&A styled text mismatch: {page_index}")
+        normalized_actual = [dict(r, text=normalize_two_byte_visible_spaces(r["text"])) for r in actual_records]
+        if normalized_actual != expected:
+            raise SystemExit(f"final ISO Strategy Q&A positioned layout drift: {page_index}")
+        # Reconstruct source-ID semantic spans from the verified rendered text.
+        text = "".join(r["text"] for r in normalized_actual)
+        cursor = 0
+        for corpus_record, source_record, position in zip(corpus_records, source_page["records"], page_layout["positions"]):
             if source_record["raw"] != corpus_record["source"].encode("cp932"):
-                raise SystemExit(
-                    f"final ISO Strategy Q&A source preimage drift: {record_id}"
-                )
-            actual = normalize_two_byte_visible_spaces(
-                decode_text(final_record["raw"] + b"\x00", 0, output_table).text
-            )
-            if actual != corpus_record["translation"]:
-                raise SystemExit(
-                    f"final ISO Strategy Q&A text mismatch: {record_id}"
-                )
-            if (
-                final_record["style0"] != source_record["style0"]
-                or final_record["style1"] != source_record["style1"]
-                or final_record["z"] != source_record["z"]
-            ):
-                raise SystemExit(
-                    f"final ISO Strategy Q&A visual style drift: {record_id}"
-                )
-            if (
-                final_record["x"],
-                final_record["y"],
-                final_record["z"],
-            ) != expected_position:
-                raise SystemExit(
-                    f"final ISO Strategy Q&A positioned layout drift: {record_id}"
-                )
-            reflowed_record_count += (
-                final_record["x"], final_record["y"]
-            ) != (source_record["x"], source_record["y"])
-            horizontally_reflowed_record_count += (
-                final_record["x"] != source_record["x"]
-            )
-            vertically_reflowed_record_count += (
-                final_record["y"] != source_record["y"]
-            )
+                raise SystemExit(f"final ISO Strategy Q&A source preimage drift: {corpus_record['id']}")
+            length = len(corpus_record["translation"])
+            semantic_records.append((corpus_record, text[cursor:cursor+length]))
+            cursor += length
+            source_style_counts[(source_record["style0"], source_record["style1"])] += 1
+            reflowed_record_count += position[:2] != (source_record["x"], source_record["y"])
+            horizontally_reflowed_record_count += position[0] != source_record["x"]
+            vertically_reflowed_record_count += position[1] != source_record["y"]
+        for final_record in final_page["records"]:
             raw_ascii = raw_visible_ascii_glyphs(final_record["raw"])
             raw_visible_ascii_glyph_count += len(raw_ascii)
             raw_visible_ascii_target_count += bool(raw_ascii)
             raw_space_target_count += b"\x20" in final_record["raw"]
-            source_style_counts[
-                (source_record["style0"], source_record["style1"])
-            ] += 1
-            semantic_records.append((corpus_record, actual))
             text_record_count += 1
         page_count += 1
 
     if (
         metadata_count != QA_METADATA_STRING_COUNT
         or page_count != QA_PAGE_COUNT
-        or text_record_count != QA_TEXT_RECORD_COUNT
         or raw_visible_ascii_glyph_count
         or raw_visible_ascii_target_count
         or raw_space_target_count
@@ -1655,6 +1635,8 @@ def verify_nisv_strategy_qa(
         "metadata_string_count": metadata_count,
         "page_count": page_count,
         "text_record_count": text_record_count,
+        "source_text_record_count": QA_TEXT_RECORD_COUNT,
+        "styled_character_sequence_preserved": True,
         "style_counts": {
             f"{style0:02X}:{style1:02X}": count
             for (style0, style1), count in sorted(source_style_counts.items())
@@ -7775,7 +7757,8 @@ def main() -> int:
             "nisv_strategy_qa_exact": (
                 nisv_strategy_qa["metadata_string_count"] == 264
                 and nisv_strategy_qa["page_count"] == 102
-                and nisv_strategy_qa["text_record_count"] == 2609
+                and nisv_strategy_qa["source_text_record_count"] == 2609
+                and nisv_strategy_qa["styled_character_sequence_preserved"]
                 and nisv_strategy_qa["allocation_table_preserved"]
                 and nisv_strategy_qa["metadata_indexes_preserved"]
                 and nisv_strategy_qa["page_allocations_preserved"]

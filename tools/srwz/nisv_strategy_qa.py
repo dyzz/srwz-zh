@@ -4,7 +4,7 @@ The chunk contains one metadata allocation followed by 102 fixed answer-page
 allocations.  Metadata strings are sequential and answer text is split into
 positioned records whose two style bytes select the runtime colour.  This
 module deliberately rebuilds only the text payloads: the allocation table,
-metadata indexes, page sizes, record styles, coordinates, sprite sections,
+metadata indexes, page sizes, per-character styles, sprite sections,
 and every non-target archive chunk remain source-exact.
 """
 
@@ -14,6 +14,7 @@ import struct
 from collections import Counter, defaultdict
 from typing import Mapping, Sequence
 
+from .qa_typography import MAX_X, PROTECTED, repair_shared, validate_records, pack_page, shared_records
 from .codec import decode_production, reencode_changed_suffix
 from .compressed_workspace import CompressedStreamWorkspace
 from .font import sha256_bytes
@@ -120,7 +121,7 @@ def _parse_page(data: bytes, start: int, size: int) -> dict:
     }
 
 
-def parse_nisv_strategy_qa(data: bytes) -> dict:
+def parse_nisv_strategy_qa(data: bytes, *, expected_record_count: int | None = None) -> dict:
     """Parse chunk 6 without assigning semantics to style-byte values."""
 
     if len(data) < QA_DATA_BASE:
@@ -185,7 +186,7 @@ def parse_nisv_strategy_qa(data: bytes) -> dict:
         for offset, size in entries[1:]
     )
     record_count = sum(len(page["records"]) for page in pages)
-    if len(pages) != QA_PAGE_COUNT or record_count != QA_TEXT_RECORD_COUNT:
+    if len(pages) != QA_PAGE_COUNT or (expected_record_count is not None and record_count != expected_record_count):
         raise NisvStrategyQaError("Strategy Q&A answer-page inventory drift")
     return {
         "allocation_count": allocation_count,
@@ -577,6 +578,39 @@ def _corpus_metadata(corpus: Mapping[str, object]) -> list[tuple[str, Mapping]]:
     return flattened
 
 
+def layout_nisv_strategy_qa_records(source_page, corpus_records, *,
+                                    glyph_advance_px, line_step_y,
+                                    max_last_glyph_x, typography_profile="main"):
+    """Keep the reviewed block/table anchors, then repair character boundaries.
+
+    The first pass retains the historical 532-cell layout as an intermediate.
+    The second pass enforces the actual runtime viewport ending at x=513. This
+    avoids a whole-page reflow of unrelated table anchors and paragraph gaps.
+    Source corpus IDs stay stable; rendered record boundaries may change.
+    """
+    if (glyph_advance_px, line_step_y, max_last_glyph_x) != (19, 11, MAX_X):
+        raise NisvStrategyQaError("Strategy Q&A runtime layout metrics drift")
+    layout = layout_nisv_strategy_qa_page(
+        source_page, corpus_records, glyph_advance_px=glyph_advance_px,
+        line_step_y=line_step_y, max_last_glyph_x=532)
+    records = [dict(text=r["translation"], style=[s["style0"], s["style1"]],
+                    position=list(position))
+               for s, r, position in zip(source_page["records"], corpus_records,
+                                         layout["positions"])]
+    if typography_profile not in ("main", "sp-reviewed-v1"):
+        raise NisvStrategyQaError("Unknown Q&A typography profile")
+    main = typography_profile == "main"
+    records, repairs = repair_shared(
+        records, preserve_table_continuation=main,
+        protected_terms=(PROTECTED + ("防御", "体型", "减少", "重玩", "重复", "改造")) if main else None)
+    validate_records(records)
+    layout.update(records=records, repairs=repairs,
+                  output_max_y=max(r["position"][1] for r in records),
+                  visible_max_y=max(r["position"][1] for r in records if r["text"]),
+                  empty_translation_record_count=sum(not r["text"] for r in records))
+    return layout
+
+
 def _archive_contract(
     slps: bytes,
     source_archive: bytes,
@@ -644,6 +678,7 @@ def build_nisv_strategy_qa(
     encoding_overrides: Mapping[str, int],
     *,
     workspace: CompressedStreamWorkspace | None = None,
+    typography_profile: str = "main",
 ) -> tuple[bytes, dict]:
     """Translate all Strategy Q&A text and preserve its visual record format."""
 
@@ -676,11 +711,11 @@ def build_nisv_strategy_qa(
     ):
         raise NisvStrategyQaError("Strategy Q&A workspace source drift")
 
-    source = parse_nisv_strategy_qa(source_decoded)
+    source = parse_nisv_strategy_qa(source_decoded, expected_record_count=QA_TEXT_RECORD_COUNT)
     format_config = raw_config.get("format")
     if not isinstance(format_config, Mapping) or format_config.get(
         "layout_policy"
-    ) != "mixed_style_compact_v1":
+    ) != "mixed_style_character_reflow_v2":
         raise NisvStrategyQaError("Strategy Q&A layout policy drift")
     glyph_advance_px = _integer(
         format_config.get("glyph_advance_px"), "Strategy Q&A glyph advance"
@@ -775,78 +810,20 @@ def build_nisv_strategy_qa(
                     f"Strategy Q&A record ID drift at {record_id}"
                 )
             _translation(corpus_record, record_id, allow_empty=True)
-        page_layout = layout_nisv_strategy_qa_page(
-            source_page,
-            corpus_records,
-            glyph_advance_px=glyph_advance_px,
-            line_step_y=line_step_y,
-            max_last_glyph_x=max_last_glyph_x,
-        )
-        reflowed_positions = page_layout["positions"]
-        rebuilt_records = bytearray()
-        record_reports = []
-        for ordinal, (source_record, corpus_record, output_position) in enumerate(
-            zip(source_page["records"], corpus_records, reflowed_positions)
-        ):
-            record_id = f"page/{page_index:03d}/record/{ordinal:03d}"
-            if not isinstance(corpus_record, Mapping) or corpus_record.get(
-                "id"
-            ) != record_id:
-                raise NisvStrategyQaError(
-                    f"Strategy Q&A record ID drift at {record_id}"
-                )
-            if source_record["raw"] != _source_preimage(corpus_record, record_id):
-                raise NisvStrategyQaError(
-                    f"Strategy Q&A source preimage drift at {record_id}"
-                )
-            translation = _translation(corpus_record, record_id, allow_empty=True)
-            try:
-                encoded = encoder.encode(
-                    two_byte_visible_spaces(translation), terminate=True
-                )
-            except (SrwzTextEncodeError, ValueError) as error:
-                raise NisvStrategyQaError(
-                    f"Strategy Q&A encoding failed at {record_id}: {error}"
-                ) from error
-            rebuilt_records.extend(
-                struct.pack(
-                    "<BBHHH",
-                    source_record["style0"],
-                    source_record["style1"],
-                    *output_position,
-                )
-            )
-            rebuilt_records.extend(encoded)
-            record_reports.append(
-                {
-                    "id": record_id,
-                    "translation": translation,
-                    "source_size": len(source_record["raw"]),
-                    "translation_size": len(encoded) - 1,
-                    "style": [source_record["style0"], source_record["style1"]],
-                    "position": [
-                        output_position[0],
-                        output_position[1],
-                        output_position[2],
-                    ],
-                    "source_position": [
-                        source_record["x"],
-                        source_record["y"],
-                        source_record["z"],
-                    ],
-                }
-            )
-        page_payload = bytearray(struct.pack("<H", len(rebuilt_records)))
-        page_payload.extend(rebuilt_records)
-        page_payload.extend(struct.pack("<H", source_page["sprite_size"]))
-        page_payload.extend(source_page["sprite_bytes"])
-        if len(page_payload) > source_page["size"]:
-            raise NisvStrategyQaError(
-                f"Strategy Q&A page {page_index} exceeds its allocation by "
-                f"{len(page_payload) - source_page['size']} bytes"
-            )
-        used_size = len(page_payload)
-        page_payload.extend(bytes(source_page["size"] - used_size))
+        for source_record, corpus_record in zip(source_page["records"], corpus_records):
+            if source_record["raw"] != _source_preimage(corpus_record, corpus_record["id"]):
+                raise NisvStrategyQaError(f"Strategy Q&A source preimage drift at {corpus_record['id']}")
+        page_layout = layout_nisv_strategy_qa_records(
+            source_page, corpus_records, glyph_advance_px=glyph_advance_px,
+            line_step_y=line_step_y, max_last_glyph_x=max_last_glyph_x,
+            typography_profile=typography_profile)
+        records = page_layout["records"]
+        page_payload, padding_size = pack_page(source_page, records, encoder, runtime_table)
+        used_size = source_page["size"] - padding_size
+        output_text_size = struct.unpack_from("<H", page_payload)[0]
+        record_reports = [dict(id=f"page/{page_index:03d}/rendered/{i:03d}",
+                               translation=r["text"], style=r["style"], position=r["position"])
+                          for i, r in enumerate(records)]
         page_start = source_page["start"]
         modified[page_start : page_start + source_page["size"]] = page_payload
         page_reports.append(
@@ -855,7 +832,14 @@ def build_nisv_strategy_qa(
                 "record_count": len(record_reports),
                 "allocation_size": source_page["size"],
                 "source_text_size": source_page["text_size"],
-                "output_text_size": len(rebuilt_records),
+                "output_text_size": output_text_size,
+                "layout_repairs": page_layout["repairs"],
+                "source_record_count": len(corpus_records),
+                "legacy_position_changes": {
+                    "total": sum(p != (r["x"], r["y"], r["z"]) for p, r in zip(page_layout["positions"], source_page["records"])),
+                    "horizontal": sum(p[0] != r["x"] for p, r in zip(page_layout["positions"], source_page["records"])),
+                    "vertical": sum(p[1] != r["y"] for p, r in zip(page_layout["positions"], source_page["records"])),
+                },
                 "output_padding_size": source_page["size"] - used_size,
                 "fixed_column_line_count": page_layout[
                     "fixed_column_line_count"
@@ -930,40 +914,13 @@ def build_nisv_strategy_qa(
             raise NisvStrategyQaError(
                 f"Strategy Q&A metadata reread failed at {record_id}"
             )
-    for page_index, (source_page, reread_page, corpus_page) in enumerate(
-        zip(source["pages"], reread_qa["pages"], raw_pages), start=1
-    ):
-        for ordinal, (source_record, record, corpus_record) in enumerate(
-            zip(
-                source_page["records"],
-                reread_page["records"],
-                corpus_page["records"],
-            )
-        ):
-            record_id = f"page/{page_index:03d}/record/{ordinal:03d}"
-            decoded_text = decode_text(record["raw"] + b"\x00", 0, runtime_table).text
-            if normalize_two_byte_visible_spaces(decoded_text) != corpus_record[
-                "translation"
-            ]:
-                raise NisvStrategyQaError(
-                    f"Strategy Q&A translated reread failed at {record_id}"
-                )
-            for field in ("style0", "style1"):
-                if record[field] != source_record[field]:
-                    raise NisvStrategyQaError(
-                        f"Strategy Q&A visual record drift at {record_id}: {field}"
-                    )
-            expected_position = layout_nisv_strategy_qa_page(
-                source_page,
-                corpus_page["records"],
-                glyph_advance_px=glyph_advance_px,
-                line_step_y=line_step_y,
-                max_last_glyph_x=max_last_glyph_x,
-            )["positions"][ordinal]
-            if (record["x"], record["y"], record["z"]) != expected_position:
-                raise NisvStrategyQaError(
-                    f"Strategy Q&A reflow reread failed at {record_id}"
-                )
+    for page_report, reread_page, source_page in zip(page_reports, reread_qa["pages"], source["pages"]):
+        actual = shared_records(reread_page, runtime_table)
+        expected = [dict(text=two_byte_visible_spaces(r["translation"]),
+                         style=r["style"], position=r["position"])
+                    for r in page_report["records"]]
+        if actual != expected or reread_page["sprite_bytes"] != source_page["sprite_bytes"]:
+            raise NisvStrategyQaError(f"Strategy Q&A rendered reread failed at page {page_report['page']}")
     if workspace is None and any(
         output[chunk_start + reread.consumed : chunk_end]
     ):
@@ -1009,21 +966,13 @@ def build_nisv_strategy_qa(
         "glyph_advance_px": glyph_advance_px,
         "line_step_y": line_step_y,
         "max_last_glyph_x": max_last_glyph_x,
-        "reflowed_record_count": sum(
-            record["position"] != record["source_position"]
-            for page in page_reports
-            for record in page["records"]
-        ),
-        "horizontally_reflowed_record_count": sum(
-            record["position"][0] != record["source_position"][0]
-            for page in page_reports
-            for record in page["records"]
-        ),
-        "vertically_reflowed_record_count": sum(
-            record["position"][1] != record["source_position"][1]
-            for page in page_reports
-            for record in page["records"]
-        ),
+        "source_text_record_count": QA_TEXT_RECORD_COUNT,
+        "styled_character_sequence_preserved": True,
+        "layout_policy": "mixed_style_character_reflow_v2",
+        "typography_profile": typography_profile,
+        "reflowed_record_count": sum(p["legacy_position_changes"]["total"] for p in page_reports),
+        "horizontally_reflowed_record_count": sum(p["legacy_position_changes"]["horizontal"] for p in page_reports),
+        "vertically_reflowed_record_count": sum(p["legacy_position_changes"]["vertical"] for p in page_reports),
         "fixed_column_line_count": sum(
             page["fixed_column_line_count"] for page in page_reports
         ),
@@ -1051,5 +1000,6 @@ __all__ = [
     "QA_TEXT_RECORD_COUNT",
     "build_nisv_strategy_qa",
     "layout_nisv_strategy_qa_page",
+    "layout_nisv_strategy_qa_records",
     "parse_nisv_strategy_qa",
 ]
