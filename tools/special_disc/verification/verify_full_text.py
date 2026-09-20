@@ -20,6 +20,7 @@ from srwz.summary import parse_summary
 from special_disc.writeback.unit_names import CONTRACT as UNIT_CONTRACT, verify_unit_names
 from weapon_detail_labels import CONTRACT as WEAPON_CONTRACT, verify_weapon_detail_labels
 from special_disc.writeback.terrain_names import CONTRACT as TERRAIN_CONTRACT, verify_terrain_names, MEMBER as TERRAIN_MEMBER
+from special_disc.writeback.stage_titles import SNAPSHOT as TITLE_SNAPSHOT, verify_stage_titles, verify_title_bindings
 
 
 def main():
@@ -39,6 +40,12 @@ def main():
     counts['native_unit_names']=len(unit_names)
     counts['native_unit_name_pointers']=sum(len(r['pointer_sites']) for r in unit_names)
     exe=member('SLPS_259.20');arc=member(st.STAGE);hb=member(st.HB)
+    title_report=verify_stage_titles(member('DATA/VT1.BIN'),exe)
+    verify_title_bindings(decode_production(member('DATA/COMPDATA.BN')).output)
+    require(all(manifest['stage_titles'][k]==v for k,v in title_report.items()),'stage-title receipt drift')
+    require(file_sha(TITLE_SNAPSHOT)==manifest['stage_titles']['snapshot']['sha256'],'stage-title snapshot drift')
+    counts['stage_entry_title_slots']=title_report['count']
+    counts['stage_entry_title_images_rewritten']=title_report['rewritten']
     terrain=verify_terrain_names(member(TERRAIN_MEMBER),exe,readback)
     require(all(manifest['terrain_names'][k]==v for k,v in terrain.items()),'terrain receipt drift')
     require(file_sha(TERRAIN_CONTRACT)==manifest['terrain_names']['contract_sha256'],'terrain contract drift')

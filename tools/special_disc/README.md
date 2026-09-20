@@ -19,6 +19,9 @@
 | `writeback/build_full_text.py` | 当前 8,629 条译稿全量写回；原子更新 `sp-current.iso`，支持 `--assemble-only` |
 | `writeback/write_frame_text.py` | 固定格、摘要、旁白、梗概、地图名、章节标题池；按文字面限制布局 |
 | `writeback/write_image_labels.py` | 5 处图片文字；默认读取冻结像素，`--refreeze` 才重新绘制 |
+| `writeback/stage_titles.py` | 关卡开场标题的 21 个图片槽，20 个改写、1 个原生英文保留；冻结索引、原槽压缩与分支绑定校验 |
+| `writeback/build_stage_title_candidate.py` | 默认检查或原子更新 `sp-current.iso` 的开场标题，检查非目标范围不变 |
+| `images/freeze_stage_titles.py` | 显式制作开场标题冻结快照及对照图，正常构建不调用；见 `--help` |
 | `writeback/build_text_candidate.py` | 使用共享字库构建流程，生成两关文本组件与差分基线；支持 `--assemble-only` |
 | `writeback/` | 组件写入 `work/build/special-disc/components/`；`build_preview.py` 更新预览差分基线与回执，不保留第二个 ISO |
 | `export/export_sp_only_text.py` | 当前交付：从全量包排除本篇已有原文，生成 SP 新增／修改分类包；仅布局差异也排除 |

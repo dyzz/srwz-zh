@@ -26,6 +26,7 @@ from special_disc.writeback.unit_names import apply_unit_names
 from weapon_detail_labels import apply_weapon_detail_labels
 from migrate_slps_text import encoding_tables
 from special_disc.writeback.terrain_names import apply_terrain_names, MEMBER as TERRAIN_MEMBER
+from special_disc.writeback.stage_titles import apply_stage_titles, verify_title_bindings
 from special_disc.source import CURRENT_ISO
 from special_disc.baselines import baseline_iso
 
@@ -167,6 +168,10 @@ def assemble():
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
     require(sha(decoded_font)==font_report['font']['decoded_sha256'],'assembled shared font mismatch')
     patches[CD],unit_report=apply_unit_names(patches[CD],source_table,menu_overrides,runtime_table,decoded_font,proposal)
+    verify_title_bindings(decode_production(patches[CD]).output)
+    patches[VT1],title_report=apply_stage_titles(patches[VT1],patches[EXE])
+    stats['stage_entry_title_slots']=title_report['count']
+    stats['stage_entry_title_images_rewritten']=title_report['rewritten']
     stats['additional_native_unit_names']=unit_report['entries']
     stats['additional_native_unit_name_pointers']=unit_report['pointer_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso');shutil.copyfile(BASE,temporary)
@@ -183,6 +188,7 @@ def assemble():
     report['weapon_detail_labels']=weapon_report
     report['terrain_names']=terrain_report
     report['unit_names']=unit_report
+    report['stage_titles']=title_report
     write_json(DEST.with_suffix('.json'),report);write_json(WORK/'coverage.json',stats)
     print(json.dumps(report['iso'],ensure_ascii=False,indent=2))
 
