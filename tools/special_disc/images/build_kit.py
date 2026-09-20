@@ -361,8 +361,9 @@ def page(embed: bool) -> str:
            "<title>SP Disc 去字与中文图</title><style>", CSS, "</style></head><body><main>",
            "<h1>Special Disc：带背景图片的中文图</h1>",
            f"<p class=\"lead\">2026-09-18。{len(finished)} 项已做好中文，{len(pending)} 项待处理（标题副标题条为 9-18 追加）。做好的图已写入预览镜像 "
-           "<code>work/build/special-disc/preview/sp-image-preview.iso</code> 并在 LRPS2 里逐屏核对；写入记录见同目录 "
-           "<code>manifest.json</code>（透明度无变化，颜色均为原调色板）。每项左为日文原图，右为目前的中文图。</p>"]
+           "（该历史预览现已归档为差分基线），并在 LRPS2 里逐屏核对；历史写入记录见 "
+           "<code>work/build/special-disc/preview/manifest.json</code>。唯一日常镜像为 "
+           "<code>build/iso/special-disc/sp-current.iso</code>。每项左为日文原图，右为目前的中文图。</p>"]
     out.append(f"<h2 style=\"margin-top:28px\">已做好中文（{len(finished)} 项）</h2>")
     for j in finished:
         folder = f"jobs/{j['slug']}"

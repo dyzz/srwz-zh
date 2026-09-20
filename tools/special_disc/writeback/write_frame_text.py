@@ -23,6 +23,7 @@ from srwz.text import decode_text,encode_text,normalize_original_fullwidth_ascii
 from srwz.summary import parse_summary
 from srwz.writers import apply_summary_replacements
 from stage_bindings import digest
+from special_disc.baselines import baseline_iso
 
 sd=stage.sd
 EPISODE_LABELS=ROOT/'config/editorial/special-disc/chart-episode-labels.json'
@@ -287,10 +288,10 @@ class Writer:
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--iso',type=Path,default=ROOT/'build/iso/special-disc/text-candidate/sp-text-canary.iso')
+    parser.add_argument('--iso',type=Path,help='Optional explicit baseline; defaults to the verified text-canary delta.')
     parser.add_argument('--proposal',type=Path,default=ROOT/'work/build/special-disc/text-candidate/font/proposal.json')
     parser.add_argument('--output',type=Path,default=ROOT/'work/build/special-disc/full-text/frame')
-    args=parser.parse_args();writer=Writer(args.iso,args.proposal);failures=[]
+    args=parser.parse_args();writer=Writer(args.iso or baseline_iso('text-canary'),args.proposal);failures=[]
     for surface in ('vt1','hsfc','narration','flow','mapnames','titles'):
         try:getattr(writer,surface)();print(surface,'OK',flush=True)
         except ValueError as error:failures.append(dict(surface=surface,reason=str(error)));print(surface,str(error),flush=True)

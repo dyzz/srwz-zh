@@ -26,13 +26,14 @@ from special_disc.writeback.unit_names import apply_unit_names
 from weapon_detail_labels import apply_weapon_detail_labels
 from migrate_slps_text import encoding_tables
 from special_disc.writeback.terrain_names import apply_terrain_names, MEMBER as TERRAIN_MEMBER
+from special_disc.source import CURRENT_ISO
+from special_disc.baselines import baseline_iso
 
 WORK=ROOT/'work/build/special-disc/full-text'
-BASE=ROOT/'build/iso/special-disc/text-candidate/sp-text-canary.iso'
 BASE_SHA='4ecc53fb34dd195fedc4018dbcb09306ee929eaf5d1f1fa1b4859242524ff953'
 FONT=ROOT/'work/build/special-disc/text-candidate'
 PROPOSAL=FONT/'font/proposal.json'
-DEST=ROOT/'build/iso/special-disc/full-text/sp-zh-full-text.iso'
+DEST=CURRENT_ISO
 CHUNKS=[1,2,3,4,5,7,8,9,11,13,14,15,16,18,19,20,21,23,24,25,26,27,28,29,*range(39,57)]
 EXE,STAGE,VT1,CD='SLPS_259.20','DATA/STAGE.BIN','DATA/VT1.BIN','DATA/COMPDATA.BN'
 
@@ -82,6 +83,7 @@ def coverage(reports):
 
 
 def assemble():
+    BASE=baseline_iso('text-canary')
     require(file_sha(BASE)==BASE_SHA,'preserved canary ISO identity drift')
     reports={k:load(WORK/k/'report.json')for k in ('system','stage','srvc','frame','image-labels')}
     require(reports['stage']['status']=='static_component_verified_runtime_pending' and reports['stage']['chunks']==CHUNKS,'full STAGE component scope/status')

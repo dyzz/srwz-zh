@@ -8,7 +8,8 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[3]
 sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'tools/special_disc/writeback')]
-from build_full_text import BASE,BASE_SHA,DEST,WORK,PROPOSAL,CHUNKS
+from build_full_text import BASE_SHA,DEST,WORK,PROPOSAL,CHUNKS
+from special_disc.baselines import baseline_iso
 from build_text_candidate import load,sha,file_sha,require,read_member,write_json
 import migrate_stage_dialogue as st
 from write_system_text import tickers,FULLWIDTH_DIGITS
@@ -113,6 +114,7 @@ def main():
             counts['chart_episode_labels' if source else 'chart_empty_labels_preserved']+=1
             if source=='最終話':counts['chart_final_episode_labels']+=1
     # Audit all 110 native titles, including the final three missed by the old 107-record loop.
+    BASE=baseline_iso('text-canary')
     require(file_sha(BASE)==BASE_SHA,'Z title baseline drift')
     base_flow=decode_production(read_member(BASE,member_map(scan_iso9660(BASE)),st.STAGE)).output
     endings=load(ROOT/'config/editorial/special-disc/chart-z-ending-titles.json')

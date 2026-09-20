@@ -17,10 +17,11 @@ from srwz.codec import decode_production
 from srwz.text import decode_text,normalize_original_fullwidth_ascii
 from srwz.chinese_layout import fit_chinese_dialogue_layout,rendered_line_width
 from srwz.summary import parse_summary
+from special_disc.baselines import baseline_iso
 
 def write(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
 def main():
- proposal=ROOT/'work/build/special-disc/text-candidate/font/proposal.json';w=f.Writer(ROOT/'build/iso/special-disc/text-candidate/sp-text-canary.iso',proposal)
+ proposal=ROOT/'work/build/special-disc/text-candidate/font/proposal.json';w=f.Writer(baseline_iso('text-canary'),proposal)
  ledger=json.loads((ROOT/'corpus/zh/special-disc/reviewed-non-stage-text.json').read_text())['entries'];native=json.loads((ROOT/'corpus/zh/special-disc/native-text.json').read_text())['entries']
  p=json.loads(proposal.read_text());chars={a['character']for k in ['assignments','surface_alias_assignments','source_compatibility_assignments']for a in p[k]};missing=collections.defaultdict(list)
  for r in ledger:

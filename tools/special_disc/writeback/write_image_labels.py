@@ -18,6 +18,7 @@ from srwz.world_map_titles import (unpack_vertical_linear_4bpp,pack_vertical_lin
                                     render_title_inside_bbox,replace_title_inside_bbox)
 from srwz.tim2 import parse_tim2
 from srwz.imagemagick import require_imagemagick
+from special_disc.baselines import baseline_iso
 
 SNAPSHOT=ROOT/'config/assets/special-disc/full-text-image-labels.json'
 
@@ -34,7 +35,7 @@ def main():
     parser.add_argument('--refreeze',action='store_true')
     parser.add_argument('--output',type=Path,default=ROOT/'work/build/special-disc/full-text/image-labels')
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
-    writer=Writer(ROOT/'build/iso/special-disc/text-candidate/sp-text-canary.iso',ROOT/'work/build/special-disc/text-candidate/font/proposal.json')
+    writer=Writer(baseline_iso('text-canary'),ROOT/'work/build/special-disc/text-candidate/font/proposal.json')
     frame={r['id']:r for r in writer.frames if r['category']=='image-label'}
     targets={t:r for r in frame.values() for t in r['locations']}
     font_lock=json.loads((ROOT/'config/fonts/harmonyos-sans-sc-light.lock.json').read_text())['font']

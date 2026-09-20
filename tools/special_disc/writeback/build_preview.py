@@ -16,9 +16,9 @@ original bytes) and the SLPS VT1 offset table entries are updated.
 Outputs (work/build/special-disc/preview/):
   archives/<member>      patched archive copies
   SLPS_259.20            executable
-  sp-image-preview.iso   SP disc copy with the members written in place
   manifest.json          component chain, per-picture checks, stream sizes
-The finished ISO and its manifest are also copied to build/iso/special-disc/preview/.
+The assembled input is stored as a verified delta under baselines/; the
+temporary ISO is removed. Only the full builder publishes sp-current.iso.
 """
 from __future__ import annotations
 
@@ -38,13 +38,13 @@ from srwz.codec import decode_production, reencode_changed_suffix  # noqa: E402
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
 from srwz.tim2 import parse_tim2  # noqa: E402
 from srwz.psmt4 import swizzle_psmt4, unswizzle_psmt4  # noqa: E402
+from special_disc.baselines import freeze_baseline, new_temp_iso
 from srwz.tim2_writeback import _csm1_palette_offset, swizzle_psmt8, unswizzle_psmt8  # noqa: E402
 
 KIT = ROOT / "config/assets/special-disc/preview"
 from special_disc.source import SOURCE_ISO as ISO  # noqa: E402
 from special_disc.source import DISC_INVENTORY as LOCKS  # noqa: E402
 OUT = ROOT / "work/build/special-disc/preview"
-BUILD = ROOT / "build/iso/special-disc/preview"  # where the playable copy is picked up
 # Components built before the pictures, in order; each one names the member bytes it started from.
 COMPONENTS = [
     ROOT / "work/build/special-disc/components/font",  # install_font.py: VT1 chunks 2-3 and two table entries
@@ -337,7 +337,7 @@ def main() -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(bytes(data))
     (OUT / EXE).write_bytes(bytes(exe))
-    iso_out = OUT / "sp-image-preview.iso"
+    iso_out = new_temp_iso('preview-build')
     shutil.copyfile(ISO, iso_out)
     with iso_out.open("r+b") as f:
         for name, data in list(archives.items()) + list(extras.items()) + [(EXE, exe)]:
@@ -348,11 +348,9 @@ def main() -> None:
     manifest["files"] = {name: dict(sha256=sha256(bytes(data)), original_sha256=locks[name])
                          for name, data in list(archives.items()) + list(extras.items()) + [(EXE, exe)]}
     manifest["preview_iso"] = str(iso_out.relative_to(ROOT))
-    BUILD.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(iso_out, BUILD / iso_out.name)
-    manifest["build_copy"] = str((BUILD / iso_out.name).relative_to(ROOT))
+    manifest["baseline_delta"] = str(freeze_baseline('preview', iso_out).relative_to(ROOT))
+    iso_out.unlink()
     (OUT / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    shutil.copyfile(OUT / "manifest.json", BUILD / "manifest.json")
     print(json.dumps({k: manifest[k] for k in ("streams", "relocated", "files", "preview_iso")}, ensure_ascii=False, indent=1))
 
 

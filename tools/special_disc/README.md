@@ -1,5 +1,10 @@
 # Special Disc 工具
 
+唯一日常镜像：`build/iso/special-disc/sp-current.iso`，同名 `.json` 为当前回执。
+全量构建原子更新该路径；读盘、导出及专项检查均引用 `special_disc.source.CURRENT_ISO`。
+预览和两关文本只作为构建基线，保存在 `work/build/special-disc/baselines/` 的哈希锁定差分中；
+构建时临时还原，进程退出自动清除。原盘、组件、语料、截图和历史回执保留。
+
 这是从 Claude Opus 的工作目录整理出的开发工具集合，目录契约见 [LAYOUT.md](../../docs/special-disc/LAYOUT.md)。原图片预览已接入 11 个组件；另有当前译稿全量文本候选和保留的两关候选入口，详见 [首批候选](../../docs/special-disc/TEXT_CANDIDATE.md)。
 
 | 目录／入口 | 用途与写入范围 |
@@ -11,11 +16,11 @@
 | `verification/audit_exe_non_text.py` | 独立验证 7 个跳转表误提取项的 MIPS 读取／跳转指令及当前 ISO 原字节 |
 | `writeback/exe_data_guard.py` | 已验证非文本位置的共用排除表及重叠写入保护 |
 | `check_workspace.py` | 标准库只读自检：兼容链接、输入图片哈希、Python 语法 |
-| `writeback/build_full_text.py` | 当前 8,629 条译稿全量写回与独立 ISO；产物在 `full-text/`，支持 `--assemble-only` |
+| `writeback/build_full_text.py` | 当前 8,629 条译稿全量写回；原子更新 `sp-current.iso`，支持 `--assemble-only` |
 | `writeback/write_frame_text.py` | 固定格、摘要、旁白、梗概、地图名、章节标题池；按文字面限制布局 |
 | `writeback/write_image_labels.py` | 5 处图片文字；默认读取冻结像素，`--refreeze` 才重新绘制 |
-| `writeback/build_text_candidate.py` | 使用共享字库构建流程，严格生成两关文本组件和独立候选 ISO；支持 `--assemble-only` |
-| `writeback/` | 组件写入 `work/build/special-disc/components/`；`build_preview.py` 装配到 `work/build/special-disc/preview/` 并复制到 `build/iso/special-disc/preview/` |
+| `writeback/build_text_candidate.py` | 使用共享字库构建流程，生成两关文本组件与差分基线；支持 `--assemble-only` |
+| `writeback/` | 组件写入 `work/build/special-disc/components/`；`build_preview.py` 更新预览差分基线与回执，不保留第二个 ISO |
 | `export/export_sp_only_text.py` | 当前交付：从全量包排除本篇已有原文，生成 SP 新增／修改分类包；仅布局差异也排除 |
 | `export/export_non_stage_text.py` | 当前 SP 非关卡文本完整分类导出；Markdown＋JSON＋ZIP，含复用内容，关卡外围与战斗台词分附录；不覆盖已有导出目录 |
 | `export/export_sd_text.py` | 从本地原盘／组件导出到 `work/review/special-disc/text-export/out/` |
@@ -34,7 +39,7 @@ python3 tools/special_disc/check_workspace.py
 python3 tools/special_disc/verification/audit.py
 ```
 
-预览装配会写镜像，仅在明确需要重建时运行：
+预览装配更新中间差分基线，仅在需要重建输入时运行：
 
 ```sh
 python3 tools/special_disc/writeback/build_preview.py

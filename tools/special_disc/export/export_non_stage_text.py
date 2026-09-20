@@ -31,7 +31,7 @@ from srwz.nisv_strategy_qa import QA_METADATA_GROUPS,_parse_page
 from srwz.nisv_tutorial import parse_nisv_tutorial_pages
 from srwz.image_export import parse_seg_offsets
 
-ISO=ROOT/'build/iso/special-disc/full-text/sp-zh-full-text.iso'
+from special_disc.source import CURRENT_ISO as ISO
 PROPOSAL=ROOT/'work/build/special-disc/text-candidate/font/proposal.json'
 WORK=ROOT/'work/build/special-disc/full-text'
 

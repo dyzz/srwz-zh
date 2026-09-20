@@ -12,6 +12,7 @@ from special_disc.writeback import unit_names as names
 from srwz.codec import decode_production
 from srwz.font import standard_glyph_index, glyph_offset
 from srwz.iso9660 import member_map, scan_iso9660
+from special_disc.source import CURRENT_ISO
 
 
 class SpecialDiscUnitNamesTests(unittest.TestCase):
@@ -19,7 +20,7 @@ class SpecialDiscUnitNamesTests(unittest.TestCase):
     def setUpClass(cls):
         from build_text_candidate import read_member
         from migrate_slps_text import encoding_tables
-        cls.iso = ROOT / 'build/iso/special-disc/full-text/sp-zh-full-text.iso'
+        cls.iso = CURRENT_ISO
         proposal = ROOT / 'work/build/special-disc/text-candidate/font/proposal.json'
         if not cls.iso.exists() or not proposal.exists():
             raise unittest.SkipTest('requires local SP candidate ISO and verified font proposal')

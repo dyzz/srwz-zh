@@ -62,7 +62,8 @@ def main():
     segments = [struct.unpack_from('<8I', data, phoff+i*phsize) for i in range(phcount)]
     seg = next(p for p in segments if p[0] == 1 and p[4] and p[1] <= min(NON_TEXT_WORDS) < p[1]+p[4])
     bias = seg[2] - seg[1]
-    iso = ROOT / 'build/iso/special-disc/full-text/sp-zh-full-text.iso'
+    from special_disc.source import CURRENT_ISO
+    iso = CURRENT_ISO
     member = member_map(scan_iso9660(iso))[sd.EXE]
     with iso.open('rb') as f:
         f.seek(member.extent_lba*2048)

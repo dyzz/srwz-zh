@@ -20,11 +20,10 @@ sys.path[:0] = [str(ROOT / 'tools'), str(Path(__file__).resolve().parent)]
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.codec import decode_production
 from install_font import sp_offsets, VT1_TABLE
+from special_disc.baselines import baseline_iso, freeze_baseline, new_temp_iso
 
 WORK = ROOT / 'work/build/special-disc/text-candidate'
-PREVIEW = ROOT / 'build/iso/special-disc/preview/sp-image-preview.iso'
 PREVIEW_SHA256 = '51a819a426ce049a0ee6ae5c696bb48290445cd8322bf192e2cc45271d1e4a8b'
-DEST = ROOT / 'build/iso/special-disc/text-candidate/sp-text-canary.iso'
 EXE, VT1, STAGE = 'SLPS_259.20', 'DATA/VT1.BIN', 'DATA/STAGE.BIN'
 
 
@@ -99,6 +98,8 @@ def verify_iso_ranges(before, after, patches):
 
 
 def assemble():
+    PREVIEW = baseline_iso('preview')
+    DEST = new_temp_iso('text-canary-build')
     require(file_sha(PREVIEW) == PREVIEW_SHA256, 'preview ISO identity drift')
     stage_report = load(WORK/'stage/report.json')
     font_report = load(WORK/'sp-font/report.json')
@@ -166,8 +167,11 @@ def assemble():
         font=font_report['font'],font_move=font_report['move'],proposal_sha256=file_sha(proposal),
         components={str(p.relative_to(ROOT)):file_sha(p) for p in [WORK/'stage/report.json',WORK/'sp-font/report.json',WORK/'font/manifest.json']},
         range_patch_sites=['0x3B0E0','0x168A1C'])
-    write_json(DEST.with_suffix('.json'),report)
-    print(json.dumps(report['iso'],indent=2))
+    baseline_lock = freeze_baseline('text-canary', DEST)
+    report['baseline_delta'] = str(baseline_lock.relative_to(ROOT))
+    write_json(WORK/'baseline-report.json',report)
+    DEST.unlink()
+    print(json.dumps({'baseline_delta': report['baseline_delta'], 'sha256': report['iso']['sha256']},indent=2))
 
 
 def main():

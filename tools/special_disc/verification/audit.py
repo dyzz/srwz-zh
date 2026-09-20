@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "tools/special_disc/writeback"))
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.text import encode_text, SrwzTextEncodeError
 import migrate_slps_text as mst
+from special_disc.source import CURRENT_ISO, SOURCE_ISO
 
 
 def digest(path):
@@ -30,11 +31,11 @@ def read(path):
     return json.loads((ROOT / path).read_text())
 
 
-manifest_path = ROOT / "build/iso/special-disc/preview/manifest.json"
+manifest_path = CURRENT_ISO.with_suffix('.json')
 manifest = json.loads(manifest_path.read_text())
-iso = ROOT / manifest["build_copy"]
+iso = CURRENT_ISO
 members = member_map(scan_iso9660(iso))
-original_members = member_map(scan_iso9660(ROOT / manifest["iso"]))
+original_members = member_map(scan_iso9660(SOURCE_ISO))
 result = {
     "captured_at": datetime.now(timezone.utc).isoformat(),
     "scope": "current corpus inventory, encoding availability and declared-member ISO hash readback; no rebuild or runtime acceptance",
@@ -42,10 +43,7 @@ result = {
     "iso": {"path": str(iso.relative_to(ROOT)), "size": iso.stat().st_size,
             "sha256": digest(iso)},
     "component_count": len(manifest["components"]),
-    "picture_write_count": len(manifest["pictures"]),
-    "picture_alpha_changes": sum(p["alpha_changed"] for p in manifest["pictures"]),
-    "palette_replaced_pictures": [p["label"] for p in manifest["pictures"] if p.get("palette_entries_changed")],
-    "vt1_relocation": {k: v for k, v in manifest["relocated"]["DATA/VT1.BIN"].items() if k != "moved_entries"},
+    "stage_titles": manifest.get('stage_titles'),
     "same_member_paths": set(members) == set(original_members),
     "layout_mismatches": [name for name in members if name not in original_members or
                           (members[name].extent_lba, members[name].size) !=
@@ -65,7 +63,7 @@ with iso.open("rb") as source:
             remaining -= len(block)
             h.update(block)
         result["member_readback"][name] = {
-            "sha256": h.hexdigest(), "matches_manifest": h.hexdigest() == record["sha256"]}
+            "sha256": h.hexdigest(), "matches_manifest": h.hexdigest() == (record if isinstance(record, str) else record["sha256"])}
 
 table, _, overrides, _ = mst.encoding_tables()
 characters = set()
@@ -75,8 +73,9 @@ for path in sorted((ROOT / "corpus/zh/special-disc").glob("*.json")):
     result["corpora"][path.name] = {
         "entries": len(entries), "sha256": digest(path),
         "editorial_status": dict(Counter(e.get("editorial_status") for e in entries)),
-        "duplicate_ids": len(entries) - len({e["id"] for e in entries}),
-        "bad_source_hashes": [e["id"] for e in entries if
+        "duplicate_ids": len(entries) - len({e.get("id", e.get("source")) for e in entries}),
+        "source_hashes_not_recorded": sum('source_text_sha256' not in e for e in entries),
+        "bad_source_hashes": [e["id"] for e in entries if 'source_text_sha256' in e and
                               hashlib.sha256(e["source_text"].encode()).hexdigest() != e["source_text_sha256"]],
         "flagged_entries": [{"id": e["id"], "flags": e["flags"]} for e in entries if e.get("flags")],
     }
@@ -97,7 +96,7 @@ result["system_corpus_hashes_match"] = (
 stage = read("work/build/special-disc/components/stage-dialogue/report.json")
 result["stage_survey"] = stage
 result["stage_component_binary_exists"] = (ROOT / "work/build/special-disc/components/stage-dialogue/DATA/STAGE.BIN").exists()
-result["stage_component_in_preview"] = any(c["component"].endswith("stage-dialogue") for c in manifest["components"])
+result["stage_component_in_current"] = any('stage/report.json' in c for c in manifest['components'])
 validation = read("work/authoring/special-disc/translation/results/full/validation.json")
 result["historical_mt_validation"] = {
     "stats": validation["stats"],
