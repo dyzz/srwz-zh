@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "status": "static_iso_and_limited_lrps2_verified",
+  "iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "size": 3791781888,
+    "sha256": "8019512dab15bf60bf3792b0bfd2f59768b60ecc05af126086adb16b24c6bb24"
+  },
+  "previous_iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "size": 3791781888,
+    "sha256": "015240db92db0c0a72604257adecc52662d92b0393e79e90e7f9fe60a1067c6e"
+  },
+  "patch": {
+    "edition": "sp",
+    "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+    "changed_executable_bytes": 749,
+    "iso_size_and_lbas_preserved": true,
+    "protected_iso_ranges": {
+      "bytes": 3791779828,
+      "sha256": "b379f8b57c87268302b7a48d569a45b8c16c6e1b5d2ea4fe332428db73abc1f1"
+    }
+  },
+  "tests": {
+    "count": 66,
+    "passed": 66,
+    "scope": "Original/Best/SP native hook, patch guards, existing publication tests; worktree execution"
+  },
+  "runtime": {
+    "status": "lrps2_simple_battle_viewer_square_skip_smoke_passed",
+    "iso": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "size": 3791781888,
+      "sha256": "8019512dab15bf60bf3792b0bfd2f59768b60ecc05af126086adb16b24c6bb24"
+    },
+    "renderer": "LRPS2 Software (SW)",
+    "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+    "memory_card_policy": "private copy; source card not written by runner",
+    "source_card": {
+      "path": "work/runtime/lrps2/sp-battle-viewer-20260917/save/Super Robot Taisen Z - Special Disc [J].ps2",
+      "sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21"
+    },
+    "scenario": "Battle Viewer simple mode; Gunleon and Lemures; square during attack and counterattack; return to viewer menu",
+    "start_frame": 3520,
+    "world_finished_frame": 5895,
+    "final_frame": 6065,
+    "immutable_code_checks": 4866,
+    "code_range": [
+      "0x450780",
+      "0x450D80"
+    ],
+    "square_requests": 2,
+    "native_cleanup_redirects": 2,
+    "terminal_advances": 2,
+    "resource_wait_frames": 27,
+    "stale_tickets": 0,
+    "queue_generations": [
+      15,
+      1,
+      5
+    ],
+    "returned_to_viewer": true,
+    "observed_damage_display": 56000,
+    "runtime_ram_patching": false,
+    "trace": {
+      "path": "work/runtime/lrps2/sp-square-skip-20260920/skip-trace.jsonl",
+      "sha256": "a745fbae8c733d6a68aebc34edf88fbd74b765d126ee8534ffa4ca3f1eaf386f"
+    },
+    "commands": {
+      "path": "work/runtime/lrps2/sp-square-skip-20260920/input-command-log.jsonl",
+      "sha256": "53d52b719f753e0ae49fdfa9259b6a3ddc2196c605cad0d9dc3c8b020a480d11"
+    },
+    "screenshots": [
+      "battle-started.png",
+      "after-square.png",
+      "after-skip-transition.png",
+      "result-or-counter.png",
+      "counter-skipped.png",
+      "counter-damage.png",
+      "returned-viewer-final.png"
+    ],
+    "limits": [
+      "one simple Battle Viewer battle only",
+      "no passive or retail controlled run in this task",
+      "story and Battle Theater not run",
+      "normal Battle Viewer not run",
+      "PCSX2 manual acceptance pending"
+    ]
+  },
+  "verification_scope": "This receipt records the local incrementally patched ISO, including pre-existing local changes; it is not an assertion that a clean checkout of this commit rebuilds this whole ISO byte-for-byte.",
+  "commit_validation": {
+    "staged_snapshot_focused_tests": {
+      "passed": 63,
+      "skipped": 0,
+      "scope": "Original/Best/SP native hook and patch guards; isolated index snapshot"
+    },
+    "working_tree_full_suite": {
+      "passed": 489,
+      "skipped": 0,
+      "scope": "Full working tree, including unrelated changes; not a clean checkout claim"
+    },
+    "staged_compileall": {
+      "status": "passed",
+      "python": "3.14"
+    }
+  }
+}

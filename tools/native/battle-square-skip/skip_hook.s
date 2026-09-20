@@ -1,4 +1,4 @@
-/* native-tail-r5: shared Original / Best build source.
+/* native-tail-r5: shared Original / Best / Special Disc build source.
  * Exactly one world update per display frame. Real resource waits untouched.
  * Reuse only a verified native [21,1e,1f] suffix, let 21 execute normally,
  * then bypass animation wait 1e after object updates. Never clear busy flags.
@@ -9,6 +9,12 @@
 .set noat
 .set mips3
 .text
+.ifndef CTX_SHIFT
+.set CTX_SHIFT,0
+.endif
+.ifndef SCENE_STRIDE
+.set SCENE_STRIDE,0x1160
+.endif
 .org 0
 hook:
     addiu $sp,$sp,-0x30
@@ -22,8 +28,8 @@ hook:
     addiu $t0,$t0,1
     sw $t0,0x20($s2)
     lui $t3,%hi(CTX)
-    lbu $t0,%lo(CTX)($t3)
-    lbu $t1,%lo(CTX+3)($t3)
+    lbu $t0,%lo(CTX+CTX_SHIFT)($t3)
+    lbu $t1,%lo(CTX+CTX_SHIFT+3)($t3)
     or $t0,$t0,$t1
     bnez $t0,cancel
     nop
@@ -52,15 +58,15 @@ press:
     sw $t0,8($s2)
 active:
     /* Never accelerate or redirect while resources are busy. */
-    lbu $t0,%lo(CTX+1)($t3)
+    lbu $t0,%lo(CTX+CTX_SHIFT+1)($t3)
     lui $t1,%hi(READ_BUSY)
     lw $t1,%lo(READ_BUSY)($t1)
     or $t0,$t0,$t1
     bnez $t0,load_wait
     nop
     addiu $t0,$zero,1
-    sb $t0,%lo(CTX+2)($t3)            /* native fast flag */
-    sb $zero,%lo(CTX+6)($t3)          /* full tick, one world call only */
+    sb $t0,%lo(CTX+CTX_SHIFT+2)($t3)            /* native fast flag */
+    sb $zero,%lo(CTX+CTX_SHIFT+6)($t3)          /* full tick, one world call only */
     lw $t0,0x14($s2)
     addiu $t0,$t0,1
     sw $t0,0x14($s2)
@@ -130,7 +136,7 @@ both:
     bne $s0,$t0,step
     nop
 scene1:
-    addiu $a0,$s1,0x4be0
+    addiu $a0,$s1,(0x3a80+SCENE_STRIDE)
     addiu $a1,$s2,0xa0
     lw $a2,0x44($s2)
     bal close_scene
@@ -321,10 +327,10 @@ queue_append:
     addiu $a3,$a3,%lo(SCENE_QUEUE)
     beq $v0,$a3,gen0
     nop
-    addiu $a3,$a3,0x1160
+    addiu $a3,$a3,SCENE_STRIDE
     beq $v0,$a3,gen1
     nop
-    addiu $a3,$a3,-0x4b18
+    addiu $a3,$a3,-(SCENE_STRIDE+0x39b8)
     bne $v0,$a3,append_pass
     nop
     lui $a3,%hi(DATA)

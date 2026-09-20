@@ -127,7 +127,8 @@ def apply_battle_square_skip(
     cave_address = _number(cave.get("virtual_address"), "cave address")
     cave_size = _number(cave.get("size"), "cave size")
     blob = _hex_bytes(contract.get("hook_hex"), "hook bytes")
-    if cave_address != 0x3F6000 or cave_size != 0x800:
+    expected_cave = 0x450780 if edition == 'sp' else 0x3F6000
+    if cave_address != expected_cave or cave_size != 0x800:
         raise BattleSquareSkipError("native-tail cave layout drift")
     if len(blob) != STATE_BLOCK_OFFSET + 0xC0:
         raise BattleSquareSkipError("hook blob does not fit the declared cave")

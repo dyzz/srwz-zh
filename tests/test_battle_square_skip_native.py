@@ -48,12 +48,17 @@ class OriginalNativeTailTests(unittest.TestCase):
     edition = "original"
 
     def setUp(self):
-        global HOOK, WORLD, SCENE, CTX, WORLD_STEP, ACTION_INDEX, ACTION_COUNT
+        global HOOK, WORLD, SCENE, CTX, WORLD_STEP, ACTION_INDEX, ACTION_COUNT, BASE, DATA, SCENE_STRIDE
         global ACTION_SCENE_COUNT, PAD_TRIG, READ_BUSY, APPEND_RESUME, APPEND_ENTRY
-        contract = json.loads((ROOT / "config/full-story-components.json").read_text())["battle_square_skip"]["editions"][self.edition]
+        if self.edition == "sp":
+            contract = json.loads((ROOT / "config/products/special-disc/battle-square-skip.json").read_text())["editions"]["sp"]
+        else:
+            contract = json.loads((ROOT / "config/full-story-components.json").read_text())["battle_square_skip"]["editions"][self.edition]
         syms = {k: int(v, 0) for k, v in contract["symbols"].items()}
         HOOK = bytes.fromhex(contract["hook_hex"])
-        WORLD, CTX = syms["WORLD"], syms["CTX"]
+        BASE, DATA = syms["CAVE"], syms["DATA"]
+        SCENE_STRIDE = syms.get("SCENE_STRIDE", 0x1160)
+        WORLD, CTX = syms["WORLD"], syms["CTX"] + syms.get("CTX_SHIFT", 0)
         SCENE = WORLD + 0x3a80
         WORLD_STEP, APPEND_RESUME = syms["FN_WORLD_STEP"], syms["FN_APPEND_RESUME"]
         APPEND_ENTRY = APPEND_RESUME - 8
@@ -109,14 +114,14 @@ class OriginalNativeTailTests(unittest.TestCase):
             self.assertEqual(m.rw(DATA),0);self.assertEqual(m.rb(SCENE+0x33a),3)
     def test_selected_scene_only(self):
         for tag in [0x2c,0x2e]:
-            m=Machine();m.scene(SCENE+0x1160);m.w(ACTION_SCENE_COUNT+0x1d4,2)
+            m=Machine();m.scene(SCENE+SCENE_STRIDE);m.w(ACTION_SCENE_COUNT+0x1d4,2)
             m.h(WORLD+0xe0,tag);m.w(WORLD+0xe4,0x700000);m.b(0x700000,1);m.frame()
-            self.assertEqual(m.rb(SCENE+0x33a),1);self.assertEqual(m.rb(SCENE+0x1160+0x33a),2)
+            self.assertEqual(m.rb(SCENE+0x33a),1);self.assertEqual(m.rb(SCENE+SCENE_STRIDE+0x33a),2)
     def test_all_scene_wait(self):
-        m=Machine();m.scene(SCENE+0x1160);m.w(ACTION_SCENE_COUNT+0x1d4,2);m.frame()
-        self.assertEqual(m.rb(SCENE+0x33a),2);self.assertEqual(m.rb(SCENE+0x1160+0x33a),2)
+        m=Machine();m.scene(SCENE+SCENE_STRIDE);m.w(ACTION_SCENE_COUNT+0x1d4,2);m.frame()
+        self.assertEqual(m.rb(SCENE+0x33a),2);self.assertEqual(m.rb(SCENE+SCENE_STRIDE+0x33a),2)
     def test_queue_generations_and_append_replay(self):
-        for queue,offset in [(SCENE+0x18,0x40),(SCENE+0x1178,0x44),(WORLD+0xe0,0x48),(0x710000,None)]:
+        for queue,offset in [(SCENE+0x18,0x40),(SCENE+SCENE_STRIDE+0x18,0x44),(WORLD+0xe0,0x48),(0x710000,None)]:
             for index in [0,1]:
                 m=Machine();m.b(queue+0x320,index)
                 before=[m.rw(DATA+o) for o in [0x40,0x44,0x48]]
@@ -142,10 +147,10 @@ class OriginalNativeTailTests(unittest.TestCase):
         for tag in [3,0xb,0x19]:
             m=Machine();m.h(WORLD+0xe0,tag);m.frame();self.assertEqual(m.rb(SCENE+0x33a),1)
     def test_complete_append_matches_original_over_multiple_commands(self):
-        path = ROOT / ("work/disc/SLPS_258.87" if self.edition == "original" else "work/analysis/v040-best-chart-20260909/best/SLPS_732.70")
+        path = ROOT / {"original": "work/disc/SLPS_258.87", "best": "work/analysis/v040-best-chart-20260909/best/SLPS_732.70", "sp": "work/disc/special-disc/SLPS_259.20"}[self.edition]
         if not path.exists():
             self.skipTest("native executable not extracted")
-        offset = APPEND_ENTRY - 0x100000 + 0x1a80
+        offset = APPEND_ENTRY - 0x100000 + (0x980 if self.edition == "sp" else 0x1a80)
         raw = path.read_bytes()[offset:offset+0x64]
         original=Machine();hooked=Machine()
         for machine in [original,hooked]:
@@ -167,7 +172,7 @@ class OriginalNativeTailTests(unittest.TestCase):
         self.assertEqual(hooked.rw(DATA+0x48),12)
     def test_ee_ram_aliases_preserve_pointer_and_track_generation(self):
         for alias in [0x20000000,0x30000000]:
-            for queue,offset in [(SCENE+0x18,0x40),(SCENE+0x1178,0x44),(WORLD+0xe0,0x48)]:
+            for queue,offset in [(SCENE+0x18,0x40),(SCENE+SCENE_STRIDE+0x18,0x44),(WORLD+0xe0,0x48)]:
                 m=Machine();ptr=queue+alias
                 m.u.mem_map(ptr&~0xfff,0x2000);m.b(ptr+0x320,0)
                 old=m.rw(DATA+offset)
@@ -178,6 +183,18 @@ class OriginalNativeTailTests(unittest.TestCase):
                 self.assertEqual(m.rw(DATA+0x50),ptr)
 class BestNativeTailTests(OriginalNativeTailTests):
     edition = "best"
+
+class SpecialDiscNativeTailTests(OriginalNativeTailTests):
+    edition = "sp"
+
+    def test_viewer_playback_selector_is_not_a_cancel_flag(self):
+        m = Machine()
+        m.b(CTX - 1, 0xff)
+        m.frame()
+        self.assertEqual(m.rw(DATA + 8), 1)
+        self.assertEqual(m.rb(SCENE + 0x33a), 2)
+        self.assertEqual(m.rb(CTX - 1), 0xff)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

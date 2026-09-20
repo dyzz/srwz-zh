@@ -1,6 +1,10 @@
 # Special Disc 当前镜像
 
 唯一日常输出是 `build/iso/special-disc/sp-current.iso`，同名 JSON 记录其身份和验证范围。
+
+2026-09-20 已集成方块 skip，完整构建默认安装，现有镜像可用
+`update_current_skip.py` 原子更新。保持原生清理、伤害显示和资源等待；
+[适配与验证记录](SQUARE_SKIP.md) 分别记录静态／ISO 回读与 LRPS2 覆盖范围。
 2026-09-20 从开场标题修复候选提升后，追加 7 个共享字形并修复沿用本篇的世界地图标题。
 随后保留 Q&A 排版更新，将两种汉化点号换为日版原始字形。
 点号更新及编号运行验证时 SHA-256：`f44d0bdabfe15f8b8cd0ce8fdea053fc4dd13ed365aa44445a2d86c723174bc1`。

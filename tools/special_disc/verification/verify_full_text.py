@@ -22,6 +22,7 @@ from weapon_detail_labels import CONTRACT as WEAPON_CONTRACT, verify_weapon_deta
 from special_disc.writeback.terrain_names import CONTRACT as TERRAIN_CONTRACT, verify_terrain_names, MEMBER as TERRAIN_MEMBER
 from special_disc.writeback.stage_titles import SNAPSHOT as TITLE_SNAPSHOT, verify_stage_titles, verify_title_bindings
 from special_disc.writeback.world_map_titles import verify_world_map_titles
+from special_disc.writeback.battle_square_skip import verify_skip
 
 
 def main():
@@ -41,6 +42,10 @@ def main():
     counts['native_unit_names']=len(unit_names)
     counts['native_unit_name_pointers']=sum(len(r['pointer_sites']) for r in unit_names)
     exe=member('SLPS_259.20');arc=member(st.STAGE);hb=member(st.HB)
+    skip_report=verify_skip(exe)
+    require(manifest['battle_square_skip']['hook_sha256']==skip_report['hook_sha256'] and
+            manifest['battle_square_skip']['contract_sha256']==skip_report['contract_sha256'],
+            'square-skip receipt drift')
     world_titles=verify_world_map_titles(member('MAP/MAPMODEL.BIN'),exe)
     require(world_titles==manifest['world_map_titles'],'world-map title receipt drift')
     counts['inherited_world_map_titles']=world_titles['count']
@@ -194,6 +199,7 @@ def main():
             for site in shared.get(target,{}).get('pointer_slots',[]):require(struct.unpack_from('<I',data,int(site,16))[0]==st.sd.COMPDATA_BASE+at,'shared system title pointer')
     result=dict(status='all_bound_text_reread_from_final_iso',iso=manifest['iso'],counts=dict(counts),component_hashes_verified=True,scope='STAGE dialogue/speakers/conditions/formations; frame physical records; system writes/templates/tickers. SRVC and indexed image component readbacks are bound to exact ISO member hashes.')
     result['weapon_detail_labels']=weapon_labels
+    result['battle_square_skip']=skip_report
     result['scope']+=' Weapon category/effect-2 MIPS strings and surrounding native instructions.'
     write_json(WORK/'independent-readback.json',result);print(json.dumps(result,ensure_ascii=False,indent=2))
 

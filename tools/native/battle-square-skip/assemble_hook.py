@@ -30,7 +30,7 @@ def assemble(symbols: dict[str, str]) -> bytes:
         obj = Path(tmp) / "hook.o"
         binary = Path(tmp) / "hook.bin"
         command = [gas, "-EL", "-mips3"]
-        for name in SYMBOLS:
+        for name in (*SYMBOLS, *(k for k in ('CTX_SHIFT', 'SCENE_STRIDE') if k in symbols)):
             command += ["--defsym", f"{name}={int(symbols[name], 0)}"]
         command += ["-o", str(obj), str(SOURCE)]
         subprocess.run(command, check=True)
@@ -41,9 +41,11 @@ def assemble(symbols: dict[str, str]) -> bytes:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--write", action="store_true", help="store assembled bytes into the config")
+    parser.add_argument("--special-disc", action="store_true", help="assemble the separate SP contract")
     args = parser.parse_args()
-    config = json.loads(CONFIG.read_text(encoding="utf-8"))
-    section = config["battle_square_skip"]
+    config_path = PROJECT_ROOT / "config/products/special-disc/battle-square-skip.json" if args.special_disc else CONFIG
+    config = json.loads(config_path.read_text(encoding="utf-8"))
+    section = config if args.special_disc else config["battle_square_skip"]
     changed = False
     for edition, contract in section["editions"].items():
         blob = assemble(contract["symbols"])
@@ -55,7 +57,7 @@ def main() -> int:
             contract["hook_sha256"] = digest
             changed = True
     if changed:
-        CONFIG.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print("config updated")
     return 0
 
