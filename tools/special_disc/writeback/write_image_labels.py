@@ -1,4 +1,4 @@
-"""Write the five translated SP image labels from a locked indexed snapshot.
+"""Write SP image labels and ten inherited world-map titles from frozen pixels.
 
 --refreeze explicitly authors the snapshot with the project's font. Normal
 builds consume frozen pixels and preserve all CLUTs and non-target bytes.
@@ -86,12 +86,14 @@ def main():
         packed=reencode_changed_suffix(stored,rebuilt,strategy='rust-fit',max_output_size=b-a,original_result=decoded)
         require(decode_production(packed).output==rebuilt,'map label codec readback')
         arc[a:b]=packed+bytes(b-a-len(packed));reports.append(dict(target=target,member=name,chunk=index,offset=start,allocated=b-a,compressed=len(packed),english_and_other_bytes_preserved=True))
-    outputs[name]=bytes(arc)
+    from special_disc.writeback.world_map_titles import apply_world_map_titles
+    outputs[name], world_map_report = apply_world_map_titles(bytes(arc), writer.exe)
     if args.refreeze:SNAPSHOT.write_text(json.dumps(dict(schema_version=1,font=font_lock,records=snapshots),ensure_ascii=False,indent=2)+'\n')
     report=dict(status='static_verified_runtime_pending',bindings=reports,snapshot=dict(path=str(SNAPSHOT.relative_to(ROOT)),sha256=stage.sha256(SNAPSHOT.read_bytes())),files={n:stage.sha256(d)for n,d in outputs.items()},base_files={n:stage.sha256(writer.base[n])for n in outputs},corpus_sha256=stage.sha256((ROOT/'corpus/zh/special-disc/frame-text.json').read_bytes()))
+    report['world_map_titles'] = world_map_report
     for name,data in outputs.items():
         p=args.output/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
     (args.output/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-    print('five image labels written; palettes, English subtitle and non-target bytes preserved')
+    print('five SP image labels and ten inherited map titles written; palettes and non-target bytes preserved')
 
 if __name__=='__main__':main()

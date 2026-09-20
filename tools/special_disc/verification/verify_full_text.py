@@ -21,6 +21,7 @@ from special_disc.writeback.unit_names import CONTRACT as UNIT_CONTRACT, verify_
 from weapon_detail_labels import CONTRACT as WEAPON_CONTRACT, verify_weapon_detail_labels
 from special_disc.writeback.terrain_names import CONTRACT as TERRAIN_CONTRACT, verify_terrain_names, MEMBER as TERRAIN_MEMBER
 from special_disc.writeback.stage_titles import SNAPSHOT as TITLE_SNAPSHOT, verify_stage_titles, verify_title_bindings
+from special_disc.writeback.world_map_titles import verify_world_map_titles
 
 
 def main():
@@ -40,6 +41,9 @@ def main():
     counts['native_unit_names']=len(unit_names)
     counts['native_unit_name_pointers']=sum(len(r['pointer_sites']) for r in unit_names)
     exe=member('SLPS_259.20');arc=member(st.STAGE);hb=member(st.HB)
+    world_titles=verify_world_map_titles(member('MAP/MAPMODEL.BIN'),exe)
+    require(world_titles==manifest['world_map_titles'],'world-map title receipt drift')
+    counts['inherited_world_map_titles']=world_titles['count']
     title_report=verify_stage_titles(member('DATA/VT1.BIN'),exe)
     verify_title_bindings(decode_production(member('DATA/COMPDATA.BN')).output)
     require(all(manifest['stage_titles'][k]==v for k,v in title_report.items()),'stage-title receipt drift')

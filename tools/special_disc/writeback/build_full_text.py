@@ -172,6 +172,7 @@ def assemble():
     patches[VT1],title_report=apply_stage_titles(patches[VT1],patches[EXE])
     stats['stage_entry_title_slots']=title_report['count']
     stats['stage_entry_title_images_rewritten']=title_report['rewritten']
+    stats['inherited_world_map_titles']=reports['image-labels']['world_map_titles']['count']
     stats['additional_native_unit_names']=unit_report['entries']
     stats['additional_native_unit_name_pointers']=unit_report['pointer_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso');shutil.copyfile(BASE,temporary)
@@ -189,6 +190,7 @@ def assemble():
     report['terrain_names']=terrain_report
     report['unit_names']=unit_report
     report['stage_titles']=title_report
+    report['world_map_titles']=reports['image-labels']['world_map_titles']
     write_json(DEST.with_suffix('.json'),report);write_json(WORK/'coverage.json',stats)
     print(json.dumps(report['iso'],ensure_ascii=False,indent=2))
 
