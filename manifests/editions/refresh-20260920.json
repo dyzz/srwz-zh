@@ -214,6 +214,22 @@
       "error_test": "test_structural_inventory_and_fixed_slots_cover_every_report",
       "error_reason": "Root legacy work cache has stale codebook allocation registry binding.",
       "fresh_private_build_z_reports_retest": "1 test passed with the rebuilt font proposal."
+    },
+    "resolved_full_suite": {
+      "command": "python3 -m unittest discover -s tests",
+      "run": 425,
+      "passed": 424,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "wording_confirmed": {
+        "battle:00113": "“可恶！快脱出！”",
+        "story/014/dialogue/02.02/0073": "“$n！你是个流浪修理工吧！\n　不能想想办法吗！”"
+      },
+      "cache_refresh_command": "python3 tools/prepare_zh_release_font.py --force",
+      "proposal_sha256": "1fea8d6476bff26a6968f2f2eb1e79cf30bd293f4c28dddc18040b3ca27b5713",
+      "proposal_matches_current_original_build": true,
+      "corpus_and_current_isos_unchanged": true
     }
   },
   "runtime": "New ISO emulator and manual acceptance not performed; historical Q&A runtime evidence is not promoted to full-ISO acceptance."

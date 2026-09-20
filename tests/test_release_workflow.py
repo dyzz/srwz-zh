@@ -493,7 +493,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
         )
 
         battle_expected = {
-            "battle:00113": "“可恶！逃生！”",
+            "battle:00113": "“可恶！快脱出！”",
             "battle:02429": "“到此为止了吗！逃生！！”",
             "battle:02505": "“可恶，不行吗！逃生！”",
             "battle:03190": "“快、快逃生！！”",
@@ -1222,6 +1222,16 @@ class ReleaseWorkflowTest(unittest.TestCase):
         unexpected: list[str] = []
         preserved: set[str] = set()
         preserved_bare: set[str] = set()
+        # This direct appeal to the protagonist's repair skills was reviewed
+        # as an occupation, rather than one of the retained titles below.
+        stage_014 = _load("corpus/zh/story-dialogue/stage-014.json")
+        self.assertEqual(
+            next(
+                entry["translation"] for entry in stage_014["entries"]
+                if entry["id"] == "story/014/dialogue/02.02/0073"
+            ),
+            "“$n！你是个流浪修理工吧！\n　不能想想办法吗！”",
+        )
 
         for path in paths:
             document = json.loads(path.read_text(encoding="utf-8"))
@@ -1245,7 +1255,6 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertEqual(
             preserved,
             {
-                "story/014/dialogue/02.02/0073",
                 "story/017/dialogue/01.06/0005",
                 "story/024/dialogue/01.27/0005",
                 "story/025/dialogue/02.01/0212",
