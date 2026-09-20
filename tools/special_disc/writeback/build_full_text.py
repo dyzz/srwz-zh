@@ -28,6 +28,8 @@ from migrate_slps_text import encoding_tables
 from special_disc.writeback.terrain_names import apply_terrain_names, MEMBER as TERRAIN_MEMBER
 from special_disc.writeback.stage_titles import apply_stage_titles, verify_title_bindings
 from special_disc.source import CURRENT_ISO
+from special_disc.writeback.qa_layout import MEMBER as QA_MEMBER
+from special_disc.writeback.qa_native import apply_reviewed_qa as apply_qa_layout
 from special_disc.baselines import baseline_iso
 
 WORK=ROOT/'work/build/special-disc/full-text'
@@ -162,7 +164,10 @@ def assemble():
     for name,data in components['image-labels'].items():
         require(sha(base[name])==reports['image-labels']['base_files'][name],f'image {name} base drift');patches[name]=data
     patches.update(components['srvc'])
-    source_table,menu_overrides,_,runtime_table=encoding_tables(PROPOSAL)
+    source_table,menu_overrides,stored_overrides,runtime_table=encoding_tables(PROPOSAL)
+    qa_base=patches.get(QA_MEMBER)
+    if qa_base is None:qa_base=read_member(BASE,members,QA_MEMBER)
+    patches[QA_MEMBER],qa_report=apply_qa_layout(qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides)
     patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,menu_overrides,runtime_table)
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,menu_overrides,runtime_table)
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
@@ -187,6 +192,7 @@ def assemble():
     temporary.replace(DEST)
     report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=DEST.stat().st_size,sha256=file_sha(DEST)),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in patches.items()},protected_iso_ranges=protected,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
     report['weapon_detail_labels']=weapon_report
+    report['qa_layout']=qa_report
     report['terrain_names']=terrain_report
     report['unit_names']=unit_report
     report['stage_titles']=title_report
