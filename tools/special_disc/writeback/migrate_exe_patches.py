@@ -16,8 +16,10 @@ Ported (the analysis marks them "direct port"):
   intermission_library_alignment    intermission library x table (SP 0x3A0550)
 
 Not ported here: the post-game mode unlock (SP may not use it), name order,
-weapon labels and effect-2 builders (operands moved), library unlocks and
+library unlocks and
 protagonist names (SP's code differs), the □ skip (a policy decision).
+Weapon labels and effect-2 builders use SP-native contracts in
+weapon_detail_labels.py, applied by build_full_text.py during final assembly.
 
 Outputs (work/build/special-disc/components/exe-patches/): SLPS_259.20 and report.json.
 """

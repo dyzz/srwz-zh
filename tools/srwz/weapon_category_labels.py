@@ -109,7 +109,7 @@ def apply_runtime_weapon_category_labels(
         raise WeaponCategoryLabelError(
             "weapon-category label contract must be an object"
         )
-    if raw_contract.get("member") != "SLPS_258.87":
+    if raw_contract.get("member") not in ("SLPS_258.87", "SLPS_259.20"):
         raise WeaponCategoryLabelError("weapon-category executable member drift")
     if raw_contract.get("policy") != (
         "replace_runtime_materialized_weapon_category_labels"

@@ -16,6 +16,7 @@ from srwz.iso9660 import scan_iso9660,member_map
 from srwz.codec import decode_production
 from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_visible_spaces
 from srwz.summary import parse_summary
+from weapon_detail_labels import CONTRACT as WEAPON_CONTRACT, verify_weapon_detail_labels
 from special_disc.writeback.terrain_names import CONTRACT as TERRAIN_CONTRACT, verify_terrain_names, MEMBER as TERRAIN_MEMBER
 
 
@@ -33,6 +34,10 @@ def main():
     require(all(manifest['terrain_names'][k]==v for k,v in terrain.items()),'terrain receipt drift')
     require(file_sha(TERRAIN_CONTRACT)==manifest['terrain_names']['contract_sha256'],'terrain contract drift')
     counts['terrain_names']=terrain['occurrence_count']
+    weapon_labels=verify_weapon_detail_labels(exe,readback)
+    require(weapon_labels==manifest['weapon_detail_labels']['labels'],'weapon label receipt drift')
+    require(file_sha(WEAPON_CONTRACT)==manifest['weapon_detail_labels']['contract_sha256'],'weapon contract drift')
+    counts['weapon_detail_runtime_labels']=len(weapon_labels)
     off=struct.unpack_from('<69I',hb,st.sd.HB_STAGE_TABLE)
     mod=st.sd.sd_stage_module();functions=mod.read_stage_function_addresses(st.read_disc_member('SLPS_259.20'),start=st.sd.SD_FUNCTION_TABLE[0],end=st.sd.SD_FUNCTION_TABLE[1])
     stage_data={i:decode_production(arc[off[i]:off[i+1]]).output for i in range(68)}
@@ -167,6 +172,8 @@ def main():
             require(decode_text(data,at,readback).text==expected,f'system ISO reread: {target}');counts['system_writes']+=1
             for site in shared.get(target,{}).get('pointer_slots',[]):require(struct.unpack_from('<I',data,int(site,16))[0]==st.sd.COMPDATA_BASE+at,'shared system title pointer')
     result=dict(status='all_bound_text_reread_from_final_iso',iso=manifest['iso'],counts=dict(counts),component_hashes_verified=True,scope='STAGE dialogue/speakers/conditions/formations; frame physical records; system writes/templates/tickers. SRVC and indexed image component readbacks are bound to exact ISO member hashes.')
+    result['weapon_detail_labels']=weapon_labels
+    result['scope']+=' Weapon category/effect-2 MIPS strings and surrounding native instructions.'
     write_json(WORK/'independent-readback.json',result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 if __name__=='__main__':main()

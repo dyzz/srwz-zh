@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "member": "SLPS_259.20",
+  "source_sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101",
+  "runtime_weapon_category_labels": {
+    "member": "SLPS_259.20",
+    "policy": "replace_runtime_materialized_weapon_category_labels",
+    "elf_file_offset_base": "0x980",
+    "elf_virtual_address_base": "0x100000",
+    "sites": [
+      {
+        "id": "melee",
+        "source_text": "格闘武器（　　）",
+        "translation": "格斗武器（　　）",
+        "virtual_address": "0x3ba7d8",
+        "file_offset": "0x2bb158",
+        "source_materialized_hex": "8A6993AC95908AED816981408140816A00",
+        "output_materialized_hex": "8A69936C95908AED816981408140816A00",
+        "original_block_hex": "93AC023C0C0083A68A6943340E0083BA8AED023C95905034110083AA120090BA8140023C81694334150090AA160083BA816A023C190083AA814042341A0082BA1D0082AA160000101E0080A2",
+        "replacement_block_hex": "936C023C0C0083A68A6943340E0083BA8AED023C95905034110083AA120090BA8140023C81694334150090AA160083BA816A023C190083AA814042341A0082BA1D0082AA160000101E0080A2"
+      },
+      {
+        "id": "ranged",
+        "source_text": "射撃武器（　　）",
+        "translation": "射击武器（　　）",
+        "virtual_address": "0x3ba828",
+        "file_offset": "0x2bb1a8",
+        "source_materialized_hex": "8ECB8C8295908AED816981408140816A00",
+        "output_materialized_hex": "8ECB90CA95908AED816981408140816A00",
+        "original_block_hex": "D80102240C0082A68C82023C8ECB43348AED023C0E0083BA95905034110083AA8140023C120090BA81694334150090AA816A023C160083BA81404234190083AA1A0082BA1D0082AA1E0080A200000000",
+        "replacement_block_hex": "D80102240C0082A690CA023C8ECB43348AED023C0E0083BA95905034110083AA8140023C120090BA81694334150090AA816A023C160083BA81404234190083AA1A0082BA1D0082AA1E0080A200000000"
+      }
+    ]
+  },
+  "weapon_special_effect_2": {
+    "strategy": "slps-inline-mips-immediate-strings",
+    "corpus": {
+      "path": "corpus/zh/menu/weapon-special-effect-2.json",
+      "size": 650,
+      "sha256": "e19e722f03dfd17629ef3c5c84886dd1c20f74d41e65eaa0499b968e0cfc5fa3"
+    },
+    "elf_file_offset_base": "0x980",
+    "elf_virtual_address_base": "0x100000",
+    "fields": [
+      {
+        "id": "ignore-size-correction",
+        "condition_flag_mask": "0x2",
+        "capacity_bytes": 16,
+        "word_builders": [
+          {
+            "lui_file_offset": "0x2bbc14",
+            "lui_original_hex": "8343023C",
+            "ori_file_offset": "0x2bbc20",
+            "ori_original_hex": "83544334"
+          },
+          {
+            "lui_file_offset": "0x2bbc28",
+            "lui_original_hex": "95E2023C",
+            "ori_file_offset": "0x2bbc30",
+            "ori_original_hex": "83594334"
+          },
+          {
+            "lui_file_offset": "0x2bbc38",
+            "lui_original_hex": "96B3023C",
+            "ori_file_offset": "0x2bbc40",
+            "ori_original_hex": "90B34334"
+          },
+          {
+            "ori_file_offset": "0x2bbc48",
+            "ori_original_hex": "8E8B0234"
+          }
+        ]
+      },
+      {
+        "id": "barrier-pierce",
+        "condition_flag_mask": "0x1",
+        "capacity_bytes": 12,
+        "word_builders": [
+          {
+            "lui_file_offset": "0x2bbc78",
+            "lui_original_hex": "838A023C",
+            "ori_file_offset": "0x2bbc7c",
+            "ori_original_hex": "836F4434"
+          },
+          {
+            "lui_file_offset": "0x2bbc80",
+            "lui_original_hex": "8AD1023C",
+            "ori_file_offset": "0x2bbc88",
+            "ori_original_hex": "83414334"
+          },
+          {
+            "ori_file_offset": "0x2bbc94",
+            "ori_original_hex": "92CA0234"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "entry_count": 2,
+      "instruction_count": 12,
+      "source_labels": [
+        "サイズ補正無視",
+        "バリア貫通"
+      ],
+      "translated_labels": [
+        "无视体型修正",
+        "屏障贯通"
+      ]
+    }
+  },
+  "effect_contexts": [
+    {
+      "file_offset": "0x2bbbf8",
+      "original_hex": "4E01842621002292BC170200FE170200130040102D200000050003248343023C2C0183A201008424835443342E0183BA95E2023C310183AA83594334320183BA96B3023C350183AA90B34334360183BA8E8B0234390183AA3A0182BA3D0182AA21002292010042301100401005000324211094002C0143A04011040021288202838A023C836F44348AD1023C2E01A4B8834143343101A4A83201A3B892CA02343501A3A83601A2B83901A2A800000000"
+    }
+  ]
+}
