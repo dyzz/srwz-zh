@@ -12,9 +12,8 @@ rewritten inside its own SP slot, so no offset in the executable changes.
            number becomes the main game's Chinese page; the metadata strings
            (sequential, NUL-terminated) are paired by ordinal the same way.
            Pages and strings SP changed keep their Japanese.
-  chunk 4  squad-name suggestions: 28-byte name slots in 286-byte records; a
-           name whose Japanese has exactly one Chinese answer in the main game
-           takes those bytes, every other byte of the record stays.
+  chunk 4  squad-name suggestions: all 113 names from the locked SP corpus,
+           in 28-byte name slots in 286-byte records. Every other byte stays.
   chunk 0  the Library menu container: SP moved the six-label picture to
            another record, byte-identical to the main game's. Every block the
            main build changed in its chunk 0 is found in SP's chunk 0 by its
@@ -26,7 +25,7 @@ Outputs (work/build/special-disc/components/nisv/):
 """
 from __future__ import annotations
 
-import collections
+import argparse
 import hashlib
 import json
 import struct
@@ -38,7 +37,6 @@ sys.path.insert(0, str(ROOT / "tools"))
 from srwz.codec import decode_production, reencode_changed_suffix  # noqa: E402
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets  # noqa: E402
-from srwz.text import decode_text, load_text_table  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from migrate_textures import blocks, runs  # noqa: E402
 
@@ -97,9 +95,12 @@ def metadata_strings(chunk: bytes, start: int, size: int) -> list[bytes]:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=OUT)
+    args = parser.parse_args()
+    out = args.output
     locks = {m["path"]: m["sha256"] for m in json.loads(LOCKS.read_text())["sp"]["members"]}
     members = member_map(scan_iso9660(ISO))
-    table = load_text_table(TABLE)
     og_jp = (OG_DISC / MEMBER).read_bytes()
     og_zh = (OG_BUILD / MEMBER).read_bytes()
     og_jp_table = read_executable_archive_offsets((OG_DISC / "SLPS_258.87").read_bytes(), OG_SPEC, len(og_jp))
@@ -157,30 +158,24 @@ def main() -> None:
                                                                             if sp_meta[k] == jp_meta[k]),
                                             metadata_strings=QA_METADATA_STRINGS)
 
-    # chunk 4: squad-name suggestions
-    jp4, zh4 = og_chunk(og_jp, og_jp_table, 4), og_chunk(og_zh, og_zh_table, 4)
-    answers = collections.defaultdict(set)
-    for index in range(struct.unpack_from("<H", jp4, 0x20)[0]):
-        a = SQUAD_BASE + index * SQUAD_STRIDE
-        japanese = jp4[a:a + SQUAD_NAME].split(b"\0")[0]
-        answers[japanese].add(zh4[a:a + SQUAD_NAME].split(b"\0")[0])
+    # All 113 SP suggestions use the source-locked squad corpus, including
+    # SP-only names and reviewed changes to shared names.
+    from squad_names import load_names, patch_slots, INVENTORY_PATH, CORPUS_PATH
+    from migrate_slps_text import encoding_tables
+    inventory, name_entries = load_names(ROOT)
+    proposal = ROOT / 'work/build/special-disc/text-candidate/font/proposal.json'
+    name_table, _, name_overrides, name_readback = encoding_tables(proposal)
     stored4 = source[sp_table[4]:sp_table[5]]
     result4 = decode_production(stored4)
-    sp4 = bytearray(result4.output)
-    count = struct.unpack_from("<H", sp4, 0x20)[0]
-    written, left = 0, []
-    for index in range(count):
-        a = SQUAD_BASE + index * SQUAD_STRIDE
-        japanese = bytes(sp4[a:a + SQUAD_NAME]).split(b"\0")[0]
-        options = answers.get(japanese)
-        if not options or len(options) != 1:
-            left.append(decode_text(japanese + b"\0", 0, table).text)
-            continue
-        chinese = next(iter(options))
-        sp4[a:a + SQUAD_NAME] = chinese + bytes(SQUAD_NAME - len(chinese))
-        written += 1
-    report["squad names (chunk 4)"] = dict(put(4, bytes(sp4), stored4, result4), names=count,
-                                           in_chinese=written, kept_japanese=left)
+    slots = [r for r in inventory['slots'] if r['member'] == MEMBER]
+    count = struct.unpack_from('<H', result4.output, 0x20)[0]
+    if len(slots) != count or count != 113:
+        raise ValueError('NISV squad coverage drift')
+    sp4 = patch_slots(result4.output, slots, name_entries, name_table, name_overrides, name_readback)
+    report['squad names (chunk 4)'] = dict(put(4, sp4, stored4, result4), names=count,
+        in_chinese=count, kept_japanese=[],
+        inputs={p: sha256((ROOT / p).read_bytes()) for p in (INVENTORY_PATH, CORPUS_PATH)},
+        proposal_sha256=sha256(proposal.read_bytes()))
 
     # chunk 0: the Library menu labels, found by their exact Japanese bytes
     jp0, zh0 = og_chunk(og_jp, og_jp_table, 0), og_chunk(og_zh, og_zh_table, 0)
@@ -206,13 +201,13 @@ def main() -> None:
             assert blob == source[sp_table[index]:sp_table[index + 1]], index
     assert len(output) == len(source)
 
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "DATA").mkdir(exist_ok=True)
-    (OUT / MEMBER).write_bytes(bytes(output))
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "DATA").mkdir(exist_ok=True)
+    (out / MEMBER).write_bytes(bytes(output))
     summary = dict(answer_key=dict(japanese=str((OG_DISC / MEMBER).relative_to(ROOT)),
                                    chinese=str((OG_BUILD / MEMBER).relative_to(ROOT))),
                    chunks=report, files={MEMBER: sha256(bytes(output))}, original_files={MEMBER: locks[MEMBER]})
-    (OUT / "report.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    (out / "report.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=1))
 
 

@@ -4,6 +4,7 @@ Special Disc（SP／SD，暂称“特别篇”）使用共享中文语料、码�
 
 | 入口 | 用途 |
 | --- | --- |
+| [小队名扫描与翻译](SQUAD_NAMES.md) | 266 个名称、1,451 个字段；独立中文组件回读通过，ISO 未更新 |
 | [Pro 校订合并记录](PRO_REVIEW_IMPORT.md) | 校订稿已合入；282 处现有语料文字更新，190 个新增字段待写回；ISO 未更新 |
 | [Pro 校订疑问处理](PRO_REVIEW_RESOLUTION.md) | 25 条术语疑问结案，同步 1 条索引；7 条误提取已证实为跳转表并排除 |
 | [非关卡文本分类导出](NON_STAGE_TEXT_EXPORT.md) | 仅 SP 新增／修改：主目录 1,940 条，含附录 2,282 条；Markdown＋JSON＋ZIP |

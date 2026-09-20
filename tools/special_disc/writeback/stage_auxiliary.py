@@ -4,23 +4,14 @@ No raw value is taken as proof of pointer ownership. Adjacent native records or
 validated formation owner records establish name capacity; scalar exceptions
 also lock the executable consumer and the complete local map-script record.
 """
-from pathlib import Path
 import hashlib
 import json
-import struct
-from srwz import stage_formations as sf
 from srwz.text import decode_text, encode_text, normalize_original_fullwidth_ascii
 
 
 def formation_groups(data, table, index, base):
-    previous = sf.STAGE_BASE_ADDRESS
-    sf.STAGE_BASE_ADDRESS = base
-    try:
-        return (*sf._scan_structural_record_groups(data, table, stage_index=index),
-                *sf._scan_structural_formation_groups(data, table, stage_index=index),
-                *sf._scan_packed8_groups(data, table, stage_index=index, source_texts=None, owner_data=data))
-    finally:
-        sf.STAGE_BASE_ADDRESS = previous
+    from squad_names import locked_stage_groups
+    return locked_stage_groups(data, table, index)
 
 
 def scalar_sites(data, index, root, exe):
@@ -42,18 +33,35 @@ def scalar_sites(data, index, root, exe):
 def write_formations(data, groups, index, bindings, table, overrides, readback, base):
     output=bytearray(data);regions=[];rows=[]
     prefix=f"sd/{'challenge' if 39<=index<=56 else 'story'}/{index:03d}/formation/"
-    for target,source in bindings.direct.items():
-        if not target.startswith(prefix):continue
-        at=int(target.rsplit('/',1)[1],16)
-        matches={cell.offset:(group,cell) for group in groups for cell in group.cells if cell.source_text==source['source_text']}
-        if not matches or min(matches)!=at:raise ValueError(f'{target}: formation ownership/source drift')
-        row=bindings.resolve(target,'formation_name',source['source_text'])
+    from squad_names import CORPUS_PATH
+    by_source = {}
+    for group in groups:
+        for cell in group.cells:
+            by_source.setdefault(cell.source_text, {})[cell.offset] = (group, cell)
+    for source_text, matches in by_source.items():
+        at = min(matches)
+        target = prefix + f"{at:05X}"
+        direct = [(key, value) for key, value in bindings.direct.items()
+                  if key.startswith(prefix) and value['source_text'] == source_text]
+        if direct:
+            if len(direct) != 1 or int(direct[0][0].rsplit('/', 1)[1], 16) not in matches:
+                raise ValueError(f'{target}: formation ownership/source drift')
+            target, source = direct[0]
+            row = bindings.resolve(target, 'formation_name', source_text)
+            if row['translation'] != bindings.squad_names[source_text]['translation']:
+                raise ValueError('SP reviewed formation translation conflict')
+        else:
+            source = bindings.squad_names[source_text]
+            row = dict(target=target, source_text_sha256=source['source_text_sha256'],
+                       translation=source['translation'], route='locked_squad_source',
+                       corpus=CORPUS_PATH, corpus_id=source['id'], kind='formation_name',
+                       editorial_status=source['editorial_status'])
         text=normalize_original_fullwidth_ascii(row['translation'])
         payload=encode_text(text,table,overrides=overrides,terminate=True)
         writes=[]
         for offset,(group,cell) in sorted(matches.items()):
             if len(payload)>group.slot_size:raise ValueError(f'{target}: name exceeds {group.layout} capacity')
-            if decode_text(data,offset,table).text!=source['source_text']:raise ValueError('formation preimage drift')
+            if decode_text(data,offset,table).text!=source_text:raise ValueError('formation preimage drift')
             output[offset:offset+group.slot_size]=payload+bytes(group.slot_size-len(payload))
             if decode_text(bytes(output),offset,readback).text!=text:raise ValueError('formation readback mismatch')
             regions.append((offset,offset+group.slot_size))

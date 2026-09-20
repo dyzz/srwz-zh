@@ -4,6 +4,8 @@
 
 | 目录／入口 | 用途与写入范围 |
 | --- | --- |
+| `verification/scan_squad_names.py` | 按本篇规则扫描 SP 小队名，核对冻结位置；显式 `--freeze` 才更新清单 |
+| `verification/verify_squad_names.py` | 小队名字库、容量、原槽压缩及组件回读检查；`--components` 核对组合后的实际组件 |
 | `translation/import_pro_review.py` | 核验校订 ZIP 的 ID、原文和不可变字段，归并别名并导入；默认只生成计划 |
 | `verification/preflight_pro_review.py` | 校订稿共享字库覆盖及流程图／旁白排版预检，不改写译文 |
 | `verification/audit_exe_non_text.py` | 独立验证 7 个跳转表误提取项的 MIPS 读取／跳转指令及当前 ISO 原字节 |

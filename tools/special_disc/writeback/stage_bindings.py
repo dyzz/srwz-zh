@@ -22,6 +22,10 @@ class StageBindings:
         self.sp_fallback = defaultdict(list)
         self.fallback = defaultdict(list)
         self.inputs = {}
+        from squad_names import load_names, INVENTORY_PATH, CORPUS_PATH
+        _, self.squad_names = load_names(root)
+        for reference in (INVENTORY_PATH, CORPUS_PATH):
+            self.inputs[reference] = hashlib.sha256((root / reference).read_bytes()).hexdigest()
         sp_paths = [root / "corpus/zh/special-disc" / f"{name}.json"
                     for name in ("story-dialogue", "challenge-dialogue", "frame-text")]
         sp_paths.append(root / "config/editorial/special-disc/stage-native-overrides.json")
