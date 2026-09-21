@@ -33,4 +33,26 @@
 合并计划、回稿与前像：`work/authoring/special-disc/beater-service-ep13-16-review-20260921/`。
 完整构建和发布证据：`work/verification/beater-ep13-16-build-publish-20260921/`。
 
-上述为编辑和组件证据；最终ISO及审阅站发布结果在完成后追加。未进行LRPS2或PCSX2运行验收。
+编辑和组件证据之外，最终发布结果如下。未进行LRPS2或PCSX2运行验收。
+
+## 完整ISO构建
+
+- 语料提交：`1731ca8e8e84793bbbb2a1a7b94f97e3863d60d9`；全仓502项测试通过。
+- 输入摘要：`0d0c3560d1976d1b285be66a3054f78b46f58d5a21046a34b39ed3a341aad594`。
+- 镜像：`build/iso/special-disc/sp-current.iso`，3791781888字节。
+- SHA-256：`305b18989c9655074ba6e8000e4d1ea40281f63b99445bc0d316fd4c1ccdeeca`。
+- 统一SP构建、固定成员大小/LBA、独立文本回读及批次回执验证通过；1331条目标与采用稿逐条一致。
+- 七人14个驾驶员字段及7个说话人名正确，66处小队名仍为“013特别小队”。字体解压字节与七人定名版完全相同，本轮没有追加或改动字形。
+- 待确认句保持原译和draft状态；只确认它正确写入，没有将翻译争议标为解决。
+- 本轮只构建SP，未构建Original/Best。未push，未进行LRPS2或PCSX2运行验收，`runtime=not_tested`。
+
+## 审阅站发布
+
+- 已部署 `1731ca8-beater-ep13-16-20260921`，源码为上述语料提交。
+- 本地生产产物1331条目标与采用稿一致；数据检查、55项审阅测试、8项部署测试及生产打包通过。
+- 部署前数据库在线备份完成，完整性检查ok，外键错误0，用户建议2611条。
+- 按用户偏好未打开浏览器检查，未调用CDN连接器或操作控制台；只交付手动清单。
+
+源站8个目标JSON的HTTP响应与生产产物哈希一致；发布后2611条既有用户建议逐条未变。2026-09-21 16:53（UTC+8）公网HTTP核对，8个资产中2个匹配，6个仍为旧缓存。手动刷新清单合并本次修改及检查时未更新的URL，共6条；预热清单10条，CDN状态为`manual_pending`。
+
+下载副本：`/Users/nate/Downloads/beater-ep13-16-cdn-refresh-urls.txt`、`/Users/nate/Downloads/beater-ep13-16-cdn-prefetch-urls.txt`。证据目录保留对应清单和逐项HTTP哈希。
