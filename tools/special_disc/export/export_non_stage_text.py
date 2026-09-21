@@ -33,7 +33,6 @@ from srwz.image_export import parse_seg_offsets
 
 from special_disc.source import CURRENT_ISO as ISO
 PROPOSAL=ROOT/'work/build/special-disc/text-candidate/font/proposal.json'
-WORK=ROOT/'work/build/special-disc/full-text'
 
 def sha(b):return hashlib.sha256(b).hexdigest()
 def file_sha(p):
@@ -60,10 +59,11 @@ class Exporter:
     self.corpus[r['id']]=(rel,r)
     for loc in r.get('locations',[]):
      if isinstance(loc,str):self.corpus[loc]=(rel,r)
-  self.frame=self.input('work/build/special-disc/full-text/frame/report.json')
-  self.system=self.input('work/build/special-disc/full-text/system/report.json')
+  self.component_paths={Path(rel).parent.name:rel for rel in self.manifest['components']}
   for name in ['frame','system','stage','srvc','image-labels']:
-   p=WORK/name/'report.json';need(file_sha(p)==self.manifest['components'][str(p.relative_to(ROOT))],f'{name} report drift')
+   rel=self.component_paths[name];need(file_sha(ROOT/rel)==self.manifest['components'][rel],f'{name} report drift')
+  self.frame=self.input(self.component_paths['frame'])
+  self.system=self.input(self.component_paths['system'])
   self.bound={r['target']:r for r in self.frame['bindings']}
   self.moved={r['id']:r for r in self.system['tail_shared']}
   self.decoded_cache={}
@@ -200,7 +200,7 @@ class Exporter:
    self.add(r['id'],'01-系统界面与帮助/流程图按键说明',r['source_text'],self.text(now,r['offset']),changed=True,locations=[dict(member='DATA/STAGE.BIN',chunk=0,offset=r['offset'])],translation_source='config/editorial/special-disc/chart-key-help.json')
  def extra_corpus(self):
   framecats={'menu':'05-模式介绍与菜单/其他菜单','group-name':'05-模式介绍与菜单/剧情组名称','narration':'05-模式介绍与菜单/开场与结尾旁白','vt1-page':'05-模式介绍与菜单/模式说明与任务简报','chart-summary':'附录A-关卡外围文字/节点简介','image-label':'08-图片文字/已有文字语料','episode-title':'附录A-关卡外围文字/SP-语料话名','synopsis':'附录A-关卡外围文字/SP-语料梗概','map-legend':'附录A-关卡外围文字/地图名称','squad-name':'附录A-关卡外围文字/编队名称','speaker':'附录A-关卡外围文字/说话人名称'}
-  stage=self.input('work/build/special-disc/full-text/stage/report.json');bound=dict(self.bound)
+  stage=self.input(self.component_paths['stage']);bound=dict(self.bound)
   for c in stage['chunk_reports']:
    for r in c['bindings']:bound[r['target']]=r
   represented={r.get('corpus_id') for r in self.rows.values()}

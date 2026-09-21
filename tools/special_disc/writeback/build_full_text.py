@@ -12,6 +12,7 @@ import shutil
 import struct
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[3]
@@ -66,6 +67,27 @@ def merge_delta(current,before,after):
     return bytes(out),count
 
 
+def verify_and_publish(temporary, destination, work, report, original_iso_sha, original_manifest):
+    """Keep the destination intact when verification fails or another writer wins."""
+    manifest_path=destination.with_suffix('.json')
+    write_json(temporary.with_suffix('.json'),report)
+    try:
+        with (work/'verify_full_text.log').open('w') as log:
+            subprocess.run([sys.executable,str(ROOT/'tools/special_disc/verification/verify_full_text.py'),
+                            '--iso',str(temporary),'--work-directory',str(work)],
+                           cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
+        readback=work/'independent-readback.json'
+        report['independent_readback']=dict(path=str(readback.relative_to(ROOT)),sha256=file_sha(readback))
+        report['status']='all_bound_text_reread_from_final_iso_runtime_pending'
+        write_json(temporary.with_suffix('.json'),report)
+        require((file_sha(destination) if destination.exists() else None)==original_iso_sha and
+                (manifest_path.read_bytes() if manifest_path.exists() else None)==original_manifest,
+                'destination ISO/manifest changed during build')
+        temporary.replace(destination);temporary.with_suffix('.json').replace(manifest_path)
+    finally:
+        temporary.unlink(missing_ok=True);temporary.with_suffix('.json').unlink(missing_ok=True)
+
+
 def coverage(reports):
     corpus_root=ROOT/'corpus/zh/special-disc';stage=reports['stage'];frame=reports['frame']
     consumed={row['target'] for c in stage['chunk_reports'] for row in c['bindings']}
@@ -88,6 +110,9 @@ def coverage(reports):
 
 
 def assemble():
+    original_iso_sha=file_sha(DEST) if DEST.exists() else None
+    manifest_path=DEST.with_suffix('.json')
+    original_manifest=manifest_path.read_bytes() if manifest_path.exists() else None
     BASE=baseline_iso('text-canary')
     require(file_sha(BASE)==BASE_SHA,'preserved canary ISO identity drift')
     reports={k:load(WORK/k/'report.json')for k in ('system','stage','srvc','frame','image-labels')}
@@ -189,7 +214,9 @@ def assemble():
     stats['sp_title_drawing_records']=reports['image-labels']['title_atlas']['drawing_records']
     stats['additional_native_unit_names']=unit_report['entries']
     stats['additional_native_unit_name_pointers']=unit_report['pointer_count']
-    DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso');shutil.copyfile(BASE,temporary)
+    DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso')
+    require(not temporary.exists(),'another ISO assembly is in progress')
+    shutil.copyfile(BASE,temporary)
     with temporary.open('r+b')as stream:
         for name,data in patches.items():
             require(len(data)==members[name].size,f'{name} member length changed')
@@ -198,8 +225,7 @@ def assemble():
     require({n:(m.extent_lba,m.size)for n,m in members.items()}=={n:(m.extent_lba,m.size)for n,m in after.items()},'ISO directory/LBA drift')
     for name,data in patches.items():require(read_member(temporary,after,name)==data,f'{name} ISO reread mismatch')
     protected=verify_iso_ranges(BASE,temporary,[(members[n].extent_lba*2048,members[n].extent_lba*2048+len(d))for n,d in patches.items()])
-    temporary.replace(DEST)
-    report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=DEST.stat().st_size,sha256=file_sha(DEST)),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in patches.items()},protected_iso_ranges=protected,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
+    report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=file_sha(temporary)),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in patches.items()},protected_iso_ranges=protected,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
     report['weapon_detail_labels']=weapon_report
     report['data_link_bonus']=link_report
     report['battle_square_skip']=skip_report
@@ -209,12 +235,27 @@ def assemble():
     report['stage_titles']=title_report
     report['world_map_titles']=reports['image-labels']['world_map_titles']
     report['title_atlas']=reports['image-labels']['title_atlas']
-    write_json(DEST.with_suffix('.json'),report);write_json(WORK/'coverage.json',stats)
+    # Verification must finish before either the current ISO or its receipt changes.
+    verify_and_publish(temporary,DEST,WORK,report,original_iso_sha,original_manifest)
+    write_json(WORK/'coverage.json',stats)
     print(json.dumps(report['iso'],ensure_ascii=False,indent=2))
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--assemble-only',action='store_true');args=parser.parse_args()
+    global WORK,DEST
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--assemble-only',action='store_true')
+    parser.add_argument('--work-directory',type=Path)
+    parser.add_argument('--output',type=Path,default=CURRENT_ISO)
+    args=parser.parse_args();DEST=args.output.resolve()
+    if args.work_directory is not None:
+        WORK=args.work_directory.resolve()
+        if not args.assemble_only:require(not WORK.exists(),'build work directory must be new')
+    elif args.assemble_only:
+        parser.error('--assemble-only requires --work-directory for the exact build run')
+    else:
+        runs=WORK/'runs';runs.mkdir(parents=True,exist_ok=True)
+        WORK=Path(tempfile.mkdtemp(prefix='build-',dir=runs))
     if not args.assemble_only:build()
     assemble()
 

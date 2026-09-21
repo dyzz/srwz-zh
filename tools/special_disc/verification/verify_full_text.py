@@ -1,5 +1,6 @@
 """Independently reread every text binding from the assembled SP candidate ISO."""
 from pathlib import Path
+import argparse
 import collections
 import json
 import re
@@ -26,7 +27,16 @@ from special_disc.writeback.data_link_bonus import verify_data_link_bonus, TEXT_
 from special_disc.writeback.battle_square_skip import verify_skip
 
 
-def main():
+def main(iso=None, work=None):
+    global DEST, WORK
+    if iso is not None:DEST=Path(iso).resolve()
+    # Component reports are pinned to the immutable build run in the manifest.
+    manifest=load(DEST.with_suffix('.json'))
+    roots={str((ROOT/path).parent.parent) for path in manifest['components']}
+    require(len(roots)==1,'component reports belong to different build runs')
+    WORK=Path(work).resolve() if work is not None else Path(roots.pop())
+    require({str((WORK/k/'report.json').relative_to(ROOT)) for k in ('system','stage','srvc','frame','image-labels')}==set(manifest['components']),
+            'verification work directory does not match pinned components')
     manifest=load(DEST.with_suffix('.json'));require(file_sha(DEST)==manifest['iso']['sha256'],'ISO identity drift')
     members=member_map(scan_iso9660(DEST));cache={};counts=collections.Counter()
     def member(name):
@@ -209,4 +219,8 @@ def main():
     result['scope']+=' Weapon category/effect-2 MIPS strings and surrounding native instructions.'
     write_json(WORK/'independent-readback.json',result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--iso',type=Path)
+    parser.add_argument('--work-directory',type=Path)
+    args=parser.parse_args();main(args.iso,args.work_directory)

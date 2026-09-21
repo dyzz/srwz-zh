@@ -30,7 +30,9 @@ def locked_sp_inputs(root: Path) -> tuple[str, ...]:
 
 
 def validate_sp_readback(root: Path, proof: dict) -> None:
-    if proof.get("status") != "all_current_draft_text_written_static_verified_runtime_pending":
+    if proof.get("status") not in {
+            "all_current_draft_text_written_static_verified_runtime_pending",
+            "all_bound_text_reread_from_final_iso_runtime_pending"}:
         raise EditionError("SP full-text build did not pass static readback")
     iso = project_path(root, proof["iso"]["path"], "build/iso/special-disc")
     if iso.stat().st_size != proof["iso"]["size"] or sha256_file(iso) != proof["iso"]["sha256"]:
@@ -38,6 +40,9 @@ def validate_sp_readback(root: Path, proof: dict) -> None:
     if proof["coverage"]["pending_targets"] or proof["coverage"]["unassigned_display_characters"]:
         raise EditionError("SP corpus or font coverage incomplete")
     independent = proof["independent_readback"]
+    component_roots = {Path(path).parent.parent for path in proof["components"]}
+    if len(component_roots) != 1 or Path(independent["path"]).parent not in component_roots:
+        raise EditionError("SP readback and components belong to different build runs")
     independent_path = project_path(root, independent["path"], "work/build/special-disc/full-text")
     if sha256_file(independent_path) != independent["sha256"]:
         raise EditionError("SP independent readback receipt drift")

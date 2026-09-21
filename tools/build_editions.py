@@ -243,10 +243,8 @@ def build_sp(context: BuildContext, snapshot) -> dict:
     run_phase(context, "sp-independent-readback", ["tools/special_disc/verification/verify_full_text.py"])
     proof_path = root / "build/iso/special-disc/sp-current.json"
     proof = load_json(proof_path)
-    independent = root / "work/build/special-disc/full-text/independent-readback.json"
-    proof["independent_readback"] = {"path": independent.relative_to(root).as_posix(),
-                                     "sha256": sha256_file(independent)}
-    atomic_json(proof_path, proof)
+    # The SP publisher pins the readback to this immutable build run. Do not
+    # replace that binding with a report from the legacy reusable directory.
     validate_sp_readback(root, proof)
     verify_files(snapshot.project_root, list(snapshot.files))
     # SP builders must never mutate the captured source/baseline inputs.

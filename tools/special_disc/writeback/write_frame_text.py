@@ -11,6 +11,7 @@ import json
 import re
 import struct
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[3]
@@ -290,6 +291,32 @@ class Writer:
         self.output[name]=bytes(data)
 
 
+def publish_component(output, report, files):
+    """Publish a complete successful component; failed attempts stay separate."""
+    output = Path(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    if report['status'] == 'failed':
+        output.with_name(output.name+'.failed.json').write_text(
+            json.dumps(report, ensure_ascii=False, indent=2)+'\n')
+        return False
+    with tempfile.TemporaryDirectory(prefix='.'+output.name+'-', dir=output.parent) as directory:
+        staging = Path(directory)/'component'; staging.mkdir()
+        for name, data in files.items():
+            path = staging/name; path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+        (staging/'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n')
+        previous = Path(directory)/'previous'
+        if output.exists():
+            output.rename(previous)
+        try:
+            staging.rename(output)
+        except OSError:
+            if previous.exists():
+                previous.rename(output)
+            raise
+    return True
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--iso',type=Path,help='Optional explicit baseline; defaults to the verified text-canary delta.')
@@ -299,14 +326,10 @@ def main():
     for surface in ('vt1','hsfc','narration','flow','mapnames','titles'):
         try:getattr(writer,surface)();print(surface,'OK',flush=True)
         except ValueError as error:failures.append(dict(surface=surface,reason=str(error)));print(surface,str(error),flush=True)
-    args.output.mkdir(parents=True,exist_ok=True)
     report=dict(z_ending_titles=writer.z_ending_titles,z_ending_inputs=[dict(path=str(p.relative_to(ROOT)),sha256=stage.sha256(p.read_bytes())) for p in (Z_ENDINGS,Z_TITLE_CORPUS)],episode_labels=writer.episode_labels,episode_label_config=dict(path=str(EPISODE_LABELS.relative_to(ROOT)),sha256=stage.sha256(EPISODE_LABELS.read_bytes())),key_help=writer.key_help,key_help_config=dict(path=str(KEY_HELP.relative_to(ROOT)),sha256=stage.sha256(KEY_HELP.read_bytes())),status='failed' if failures else 'static_verified_runtime_pending',failures=failures,bindings=writer.rows,codec=writer.codecs,
                 files={name:stage.sha256(data) for name,data in writer.output.items()},base_files={name:stage.sha256(writer.base[name]) for name in writer.output},
                 corpus_sha256=stage.sha256((ROOT/'corpus/zh/special-disc/frame-text.json').read_bytes()),proposal_sha256=stage.sha256(args.proposal.read_bytes()))
-    (args.output/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-    if failures:raise SystemExit(1)
-    for name,data in writer.output.items():
-        path=args.output/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(data)
+    if not publish_component(args.output,report,writer.output):raise SystemExit(1)
 
 
 if __name__=='__main__':main()
