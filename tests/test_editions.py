@@ -260,9 +260,9 @@ class EditionTests(unittest.TestCase):
         build_editions.reset_relocated_cmake(self.root.resolve(), {"toolchain": {"source_dir": "work/toolchain/mkps2iso/source"}})
         self.assertTrue(cache.exists())
 
-    def receipt_fixture(self):
+    def receipt_fixture(self, edition="original"):
         snapshot = self.freeze()
-        original, _ = self.profiles()
+        original, = load_release_profiles(self.root, build_editions.DEFAULT_CONFIG, (edition,))
         context = BuildContext(self.root, original, snapshot.digest)
         context.output_iso.parent.mkdir(parents=True)
         context.output_iso.write_bytes(b"fixture for receipt bindings, not ISO parsing")
@@ -274,8 +274,8 @@ class EditionTests(unittest.TestCase):
         batch = {"status": "requested_editions_static_validated_runtime_pending",
                  "input_snapshot": (snapshot.root / "inputs.json").relative_to(self.root).as_posix(),
                  "input_digest": snapshot.digest, "release_config": build_editions.DEFAULT_CONFIG,
-                 "requested_editions": ["original"], "results": [{
-                     "edition_id": "original", "input_digest": snapshot.digest,
+                 "requested_editions": [edition], "results": [{
+                     "edition_id": edition, "input_digest": snapshot.digest,
                      "edition_contract_sha256": original.contract_sha256,
                      "source_iso_sha256": original.source_iso.sha256, "adapter": original.adapter,
                      "status": "edition_iso_static_validated_runtime_pending", "output": output,
@@ -284,6 +284,22 @@ class EditionTests(unittest.TestCase):
         manifest = self.root / "batch.json"
         manifest.write_text(json.dumps(batch))
         return manifest, batch, context, proof
+
+    def test_sp_batch_accepts_published_status_and_still_requires_semantic_validation(self):
+        manifest, batch, context, proof = self.receipt_fixture("sp")
+        readback = json.loads(proof.read_text())
+        readback["status"] = "all_bound_text_reread_from_final_iso_runtime_pending"
+        proof.write_text(json.dumps(readback))
+        batch["results"][0]["readback"]["sha256"] = sha256_file(proof)
+        manifest.write_text(json.dumps(batch))
+        with patch.object(verify_editions, "locked_sp_inputs"), \
+                patch.object(verify_editions, "validate_sp_readback") as validate:
+            result = verify_editions.verify_batch(self.root, manifest)
+            self.assertEqual(result["verified_editions"], ["sp"])
+            validate.assert_called_once_with(context.project_root, readback)
+            validate.side_effect = EditionError("SP corpus or font coverage incomplete")
+            with self.assertRaisesRegex(EditionError, "coverage incomplete"):
+                verify_editions.verify_batch(self.root, manifest)
 
     def test_receipt_verifies_actual_iso_and_does_not_claim_both_editions(self):
         manifest, _, _, _ = self.receipt_fixture()

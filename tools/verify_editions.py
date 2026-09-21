@@ -50,8 +50,13 @@ def verify_batch(root: Path, manifest: Path) -> dict:
         if sha256_file(proof) != result["readback"]["sha256"]:
             raise EditionError("edition semantic readback receipt drift")
         readback = load_json(proof)
-        expected_status = {"original": "full_story_final_iso_static_content_readback_passed", "best": "best_final_iso_static_content_readback_passed", "sp": "all_current_draft_text_written_static_verified_runtime_pending"}[profile.edition_id]
-        if (readback["status"] != expected_status
+        expected_statuses = {
+            "original": {"full_story_final_iso_static_content_readback_passed"},
+            "best": {"best_final_iso_static_content_readback_passed"},
+            "sp": {"all_current_draft_text_written_static_verified_runtime_pending",
+                   "all_bound_text_reread_from_final_iso_runtime_pending"},
+        }[profile.edition_id]
+        if (readback["status"] not in expected_statuses
                 or readback["iso"]["sha256"] != result["output"]["sha256"]
                 or readback["iso"]["size"] != result["output"]["size"]):
             raise EditionError("semantic readback belongs to a different ISO")
