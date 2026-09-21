@@ -2,10 +2,12 @@
 from collections import defaultdict
 import hashlib
 import json
+import struct
 from pathlib import Path
 
 from srwz.stage_formations import FormationCell, FormationGroup
 from srwz.text import decode_text, encode_text, normalize_original_fullwidth_ascii
+from srwz.codec import decode_production, reencode_changed_suffix
 
 ROOT = Path(__file__).resolve().parents[3]
 INVENTORY_PATH = 'config/products/special-disc/squad-name-inventory.json'
@@ -94,3 +96,51 @@ def patch_slots(data, slots, entries, table, overrides, readback):
     if len(output) != len(data) or any(a != b and not allowed[i] for i, (a, b) in enumerate(zip(data, output))):
         raise ValueError('squad write escaped name slots')
     return bytes(output)
+
+
+def nisv_slot(exe, archive):
+    start, end = struct.unpack_from('<II', exe, 0x384A00 + 4 * 4)
+    if not 0 < start < end <= len(archive):
+        raise ValueError('NISV squad chunk boundary drift')
+    return start, end
+
+
+def verify_nisv_names(archive, exe, readback, root=ROOT):
+    inventory, entries = load_names(root)
+    start, end = nisv_slot(exe, archive)
+    data = decode_production(archive[start:end]).output
+    slots = [s for s in inventory['slots'] if s['member'] == 'DATA/NISVDATA.BIN']
+    for slot in slots:
+        if slot['chunk'] != 4:
+            raise ValueError('NISV squad chunk owner drift')
+        actual = decode_text(data, slot['offset'], readback, end=slot['offset'] + slot['capacity'])
+        expected = normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation'])
+        if actual.text != expected or actual.terminator != 'nul' or actual.unknown_code_count:
+            raise ValueError('NISV squad final ISO readback mismatch')
+    return dict(names=len(slots), decoded_sha256=sha(data),
+                inputs={p: sha((root / p).read_bytes()) for p in (INVENTORY_PATH, CORPUS_PATH)})
+
+
+def apply_nisv_names(archive, exe, source, table, overrides, readback, root=ROOT):
+    inventory, entries = load_names(root)
+    start, end = nisv_slot(exe, archive)
+    if len(source) != len(archive):
+        raise ValueError('NISV squad archive size drift')
+    original = decode_production(source[start:end]).output
+    current = decode_production(archive[start:end])
+    if len(original) != len(current.output):
+        raise ValueError('NISV squad decoded size drift')
+    slots = [s for s in inventory['slots'] if s['member'] == 'DATA/NISVDATA.BIN']
+    if any(s['chunk'] != 4 for s in slots):
+        raise ValueError('NISV squad chunk owner drift')
+    translated = patch_slots(original, slots, entries, table, overrides, readback)
+    output = bytearray(current.output)
+    for slot in slots:
+        at, size = slot['offset'], slot['capacity']
+        output[at:at + size] = translated[at:at + size]
+    packed = reencode_changed_suffix(archive[start:end], bytes(output), strategy='rust-maximum',
+                                     max_output_size=end-start, original_result=current)
+    if len(packed) > end-start or decode_production(packed).output != output:
+        raise ValueError('NISV squad compression/readback failed')
+    result = archive[:start] + packed + bytes(end-start-len(packed)) + archive[end:]
+    return result, verify_nisv_names(result, exe, readback, root)

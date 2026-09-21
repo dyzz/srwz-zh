@@ -34,6 +34,7 @@ from special_disc.writeback.qa_native import apply_reviewed_qa as apply_qa_layou
 from special_disc.baselines import baseline_iso
 from special_disc.writeback.data_link_bonus import apply_data_link_bonus
 from special_disc.writeback.battle_square_skip import apply_skip
+from special_disc.writeback.squad_names import apply_nisv_names
 
 WORK=ROOT/'work/build/special-disc/full-text'
 BASE_SHA='3617b44b263b1a31f14632d89f3ee456a031349ee892b25c6c8eeb9ae8d5ae73'
@@ -198,6 +199,7 @@ def assemble():
     qa_base=patches.get(QA_MEMBER)
     if qa_base is None:qa_base=read_member(BASE,members,QA_MEMBER)
     patches[QA_MEMBER],qa_report=apply_qa_layout(qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides)
+    patches[QA_MEMBER],squad_report=apply_nisv_names(patches[QA_MEMBER],patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table)
     patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,menu_overrides,runtime_table)
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,menu_overrides,runtime_table)
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
@@ -230,6 +232,7 @@ def assemble():
     report['data_link_bonus']=link_report
     report['battle_square_skip']=skip_report
     report['qa_layout']=qa_report
+    report['nisv_squad_names']=squad_report
     report['terrain_names']=terrain_report
     report['unit_names']=unit_report
     report['stage_titles']=title_report

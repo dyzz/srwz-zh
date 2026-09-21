@@ -25,6 +25,7 @@ from special_disc.writeback.stage_titles import SNAPSHOT as TITLE_SNAPSHOT, veri
 from special_disc.writeback.world_map_titles import verify_world_map_titles
 from special_disc.writeback.data_link_bonus import verify_data_link_bonus, TEXT_OVERRIDES
 from special_disc.writeback.battle_square_skip import verify_skip
+from special_disc.writeback.squad_names import verify_nisv_names
 
 
 def main(iso=None, work=None):
@@ -53,6 +54,9 @@ def main(iso=None, work=None):
     counts['native_unit_names']=len(unit_names)
     counts['native_unit_name_pointers']=sum(len(r['pointer_sites']) for r in unit_names)
     exe=member('SLPS_259.20');arc=member(st.STAGE);hb=member(st.HB)
+    nisv_squads=verify_nisv_names(member('DATA/NISVDATA.BIN'),exe,readback)
+    require(nisv_squads==manifest['nisv_squad_names'],'NISV squad receipt drift')
+    counts['nisv_squad_names']=nisv_squads['names']
     skip_report=verify_skip(exe)
     require(manifest['battle_square_skip']['hook_sha256']==skip_report['hook_sha256'] and
             manifest['battle_square_skip']['contract_sha256']==skip_report['contract_sha256'],

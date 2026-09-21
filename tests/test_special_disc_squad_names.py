@@ -5,12 +5,14 @@ from pathlib import Path
 import struct
 import sys
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'tools'), str(ROOT / 'tools/special_disc/writeback'),
                str(ROOT / 'tools/special_disc/verification')]
 from scan_squad_names import discover_chunk, indexed_pointer_owners
-from squad_names import load_names, patch_slots, sha, validate_slot
+from squad_names import load_names, patch_slots, sha, validate_slot, apply_nisv_names, verify_nisv_names
+from srwz.codec import encode, decode_production
 from srwz.text import TextTable
 
 
@@ -69,6 +71,30 @@ class SpecialDiscSquadTests(unittest.TestCase):
             validate_slot(b'X' + data[1:], slot, TextTable({}, {}))
         with self.assertRaisesRegex(ValueError, 'overlapping'):
             patch_slots(data, [slot, slot], {'AB': {'translation': 'CD'}}, TextTable({}, {}), {}, TextTable({}, {}))
+
+    def test_nisv_refresh_preserves_other_chunks_and_non_name_edits(self):
+        original, slot = self.slot_fixture()
+        slot.update(member='DATA/NISVDATA.BIN', chunk=4)
+        inventory = dict(slots=[slot])
+        entries = {'AB': {'translation': 'CD'}}
+        def archive(data):
+            packed = encode(data, strategy='literal')
+            return b'PRE!' + packed + bytes(128-len(packed)) + b'POST'
+        source = archive(original)
+        current = archive(original[:-4] + b'EDIT')
+        exe = bytearray(0x384A00 + 24)
+        struct.pack_into('<II', exe, 0x384A00 + 16, 4, 132)
+        table = TextTable({}, {})
+        with patch('squad_names.load_names', return_value=(inventory, entries)):
+            result, report = apply_nisv_names(current, exe, source, table, {}, table)
+            self.assertEqual(result[:4], b'PRE!')
+            self.assertEqual(result[132:], b'POST')
+            self.assertEqual(len(result), len(current))
+            self.assertEqual(decode_production(result[4:132]).output, b'HEADCD\0' + bytes(5) + b'EDIT')
+            self.assertEqual(report['names'], 1)
+            self.assertEqual(verify_nisv_names(result, exe, table), report)
+            with self.assertRaisesRegex(ValueError, 'final ISO readback'):
+                verify_nisv_names(current, exe, table)
 
     def test_frozen_coverage_includes_short_and_populated_tables_and_excludes_debug(self):
         inventory, entries = load_names(ROOT)
