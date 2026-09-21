@@ -270,7 +270,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             ),
             "story/015/dialogue/01.19/0003": (
                 "“$n，梅尔！\n"
-                "　钢铁齿轮，刚刚到达！”"
+                "　钢铁齿轮，现已抵达！”"
             ),
             "story/015/dialogue/02.02/0059": "“……跟我无关啊…”",
             "story/016/dialogue/01.16/0008": (
@@ -278,8 +278,8 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 "让他们承认我的力量！！”"
             ),
             "story/017/dialogue/01.05/0003": (
-                "“真是的！别刚到被弹过来的地方就别拿出噼里啪啦的"
-                "东西啊，混蛋！”"
+                "“真是的！\n"
+                "　别把战火带到被传送来的地方，混蛋！”"
             ),
             "story/108/dialogue/02.01/0035": (
                 "“大致情况我了解。\n"
