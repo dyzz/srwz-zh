@@ -37,4 +37,18 @@
 回包、逐条合并计划、前像和候选证据：`work/authoring/special-disc/secret-epilogue-ep17-21-review-20260921/`。
 完整构建及发布证据：`work/verification/secret-epilogue-ep17-21-build-publish-20260921/`。
 
-完整ISO与审阅站结果在发布后补记。未进行LRPS2或PCSX2运行验收，`runtime=not_tested`。
+## 完整ISO与发布结果
+
+- 语料提交：`a3afd96c2f1d89d8f7645a51516dce34c872e4ed`；全仓502项测试通过。
+- 输入摘要：`39de83c7ab2ec602dc0c23277f632a18aa7538a27e950a775c874844634ead74`。
+- 镜像：`build/iso/special-disc/sp-current.iso`，3791781888字节。
+- SHA-256：`d0e7a6be7ca5c98c5e3a0d44a1deca38ee4f0b91437bb25791bd49a7e40c3280`。
+- 统一SP构建、固定成员大小/LBA、独立文本回读与批次回执验证通过，2481条目标与采用稿一致。
+- 七人14个驾驶员字段、7个说话人名及66处“013特别小队”检查通过。字体解压SHA-256仍为`e014a814952c565ec3e559d91c71a629165b2640b1a3e582491ccccd2c696221`，本轮没有字形修改。
+- 未构建Original/Best。未进行LRPS2或PCSX2运行验收，`runtime=not_tested`。
+
+审阅站已部署`a3afd96-secret-epilogue-ep17-21-20260921`。2481条本地站点目标与采用稿一致；数据检查、55项审阅测试、8项部署测试及生产打包通过。源站11个目标JSON的HTTP哈希与生产产物一致。
+
+发布前完成SQLite在线备份，完整性ok、外键错误0；发布后2611条既有用户建议逐条未变。用户原有未提交文档的哈希保持不变。
+
+按用户偏好未进行网页或浏览器检查，未调用CDN连接器。刷新清单包含7个关卡JSON及4个共用索引/检索JSON，共11条；预热10条，状态`manual_pending`。下载副本为`/Users/nate/Downloads/secret-epilogue-ep17-21-cdn-refresh-urls.txt`和`/Users/nate/Downloads/secret-epilogue-ep17-21-cdn-prefetch-urls.txt`。
