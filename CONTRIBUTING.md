@@ -14,6 +14,18 @@
 
 ## 提交前检查
 
+先将测试依赖安装到运行测试的同一个 Python 环境：
+
+```bash
+python3 -m pip install -r requirements-dev.txt
+python3 -m unittest discover -s tests
+```
+
+`requirements-dev.txt` 固定 Unicorn 版本，用于执行 MIPS 原生指令测试，包括 SP
+默认双路线奖励。安装后这些测试不应再因缺少 Unicorn 而跳过；依赖本地原版文件
+或其他运行条件的测试仍可能跳过。需要隔离环境时，可先用 `python3 -m venv .venv`
+创建环境并执行 `source .venv/bin/activate`，再运行上述命令。
+
 ```bash
 python3 tools/verify_original_disc.py
 python3 -m compileall -q tools

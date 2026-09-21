@@ -22,6 +22,7 @@ from weapon_detail_labels import CONTRACT as WEAPON_CONTRACT, verify_weapon_deta
 from special_disc.writeback.terrain_names import CONTRACT as TERRAIN_CONTRACT, verify_terrain_names, MEMBER as TERRAIN_MEMBER
 from special_disc.writeback.stage_titles import SNAPSHOT as TITLE_SNAPSHOT, verify_stage_titles, verify_title_bindings
 from special_disc.writeback.world_map_titles import verify_world_map_titles
+from special_disc.writeback.data_link_bonus import verify_data_link_bonus, TEXT_OVERRIDES
 from special_disc.writeback.battle_square_skip import verify_skip
 
 
@@ -46,6 +47,8 @@ def main():
     require(manifest['battle_square_skip']['hook_sha256']==skip_report['hook_sha256'] and
             manifest['battle_square_skip']['contract_sha256']==skip_report['contract_sha256'],
             'square-skip receipt drift')
+    link_bonus=verify_data_link_bonus(exe,member('DATA/VT1.BIN'),readback)
+    require(all(manifest['data_link_bonus'][k]==v for k,v in link_bonus.items()),'default Z bonus receipt drift')
     world_titles=verify_world_map_titles(member('MAP/MAPMODEL.BIN'),exe)
     require(world_titles==manifest['world_map_titles'],'world-map title receipt drift')
     counts['inherited_world_map_titles']=world_titles['count']
@@ -103,6 +106,7 @@ def main():
         return decoded_cache[key]
     for row in load(WORK/'frame/report.json')['bindings']:
         target=row['target'];name=row['member'];text=normalize_original_fullwidth_ascii(row['output_text']).replace(' ','　')
+        text=TEXT_OVERRIDES.get(target,text)  # Explicit product behavior overrides.
         if target.startswith(('sd/vt1/','sd/group/')):
             data=decoded(name,row['chunk'],st.sd.VT1_TABLE);per=st.sd.VT1_PAGES[row['chunk']];start=row['page']*per
             lines=[decode_text(data,(start+j)*57,readback,stop_at_newline=True).text.rstrip('　') for j in range(per)]
@@ -181,6 +185,7 @@ def main():
         for at,text in tickers(decode_production(source_stage[off[i]:off[i+1]]).output,table):ticker_places[text].append((i,at))
     for row in rows:
         target=row['id'];expected=two_byte_visible_spaces(normalize_original_fullwidth_ascii(row['translation']))
+        expected=TEXT_OVERRIDES.get(target,expected)
         if target=='sd/exe/wallpaper-names':
             original_exe=st.read_disc_member('SLPS_259.20')
             for at in row['locations']:
@@ -199,6 +204,7 @@ def main():
             for site in shared.get(target,{}).get('pointer_slots',[]):require(struct.unpack_from('<I',data,int(site,16))[0]==st.sd.COMPDATA_BASE+at,'shared system title pointer')
     result=dict(status='all_bound_text_reread_from_final_iso',iso=manifest['iso'],counts=dict(counts),component_hashes_verified=True,scope='STAGE dialogue/speakers/conditions/formations; frame physical records; system writes/templates/tickers. SRVC and indexed image component readbacks are bound to exact ISO member hashes.')
     result['weapon_detail_labels']=weapon_labels
+    result['data_link_bonus']=link_bonus
     result['battle_square_skip']=skip_report
     result['scope']+=' Weapon category/effect-2 MIPS strings and surrounding native instructions.'
     write_json(WORK/'independent-readback.json',result);print(json.dumps(result,ensure_ascii=False,indent=2))

@@ -31,6 +31,7 @@ from special_disc.source import CURRENT_ISO
 from special_disc.writeback.qa_layout import MEMBER as QA_MEMBER
 from special_disc.writeback.qa_native import apply_reviewed_qa as apply_qa_layout
 from special_disc.baselines import baseline_iso
+from special_disc.writeback.data_link_bonus import apply_data_link_bonus
 from special_disc.writeback.battle_square_skip import apply_skip
 
 WORK=ROOT/'work/build/special-disc/full-text'
@@ -179,6 +180,8 @@ def assemble():
     patches[CD],unit_report=apply_unit_names(patches[CD],source_table,menu_overrides,runtime_table,decoded_font,proposal)
     verify_title_bindings(decode_production(patches[CD]).output)
     patches[VT1],title_report=apply_stage_titles(patches[VT1],patches[EXE])
+    patches[EXE],patches[VT1],link_report=apply_data_link_bonus(
+        patches[EXE],patches[VT1],source_table,stored_overrides,runtime_table)
     patches[EXE],skip_report=apply_skip(patches[EXE])
     stats['stage_entry_title_slots']=title_report['count']
     stats['stage_entry_title_images_rewritten']=title_report['rewritten']
@@ -198,6 +201,7 @@ def assemble():
     temporary.replace(DEST)
     report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=DEST.stat().st_size,sha256=file_sha(DEST)),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in patches.items()},protected_iso_ranges=protected,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
     report['weapon_detail_labels']=weapon_report
+    report['data_link_bonus']=link_report
     report['battle_square_skip']=skip_report
     report['qa_layout']=qa_report
     report['terrain_names']=terrain_report
