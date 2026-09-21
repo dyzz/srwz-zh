@@ -33,4 +33,26 @@
 
 完整合并计划、原回稿、写入前备份及 `APPLIED.json` 位于 `work/authoring/special-disc/asr-ep06-08-integration-20260921/`。构建与发布证据位于 `work/verification/asr-ep06-08-build-publish-20260921/`。
 
-此提交完成正式语料整合。全量ISO和审阅站发布结果在完成后追加；组件级校验不冒充ISO或PCSX2运行验收。
+## 全量ISO构建
+
+语料提交：`768ee34fbfc7447d7ccdc54dff1df64945375f20`。全仓494项测试通过。
+
+- 统一入口：`python3 tools/build_editions.py --editions sp`。
+- 输入摘要：`67cf5329f562bd16e1f6b8d4eaf816f1e859e00a0d8fba397bcd870f9fb10e69`。
+- 镜像：`build/iso/special-disc/sp-current.iso`，3,791,781,888字节。
+- SHA-256：`e7f84fb55d313eadf2778136287b6743f97a03971839b1344bb7d34b57431d08`。
+- 全量组件、固定布局、独立文本回读及批次回执验证通过；1015个目标绑定与正式语料一致。
+- 从最终ISO直接解码66处小队名，全部仍为“013特别小队”。
+- 本轮未进行LRPS2或PCSX2运行验收，`runtime=not_tested`。
+
+## 审阅站发布及CDN交接
+
+- 已部署版本：`768ee34-asr-ep06-08-20260921`，译文源码为 `768ee34fbfc7447d7ccdc54dff1df64945375f20`。
+- 站点1015条目标逐条与正式语料一致；数据检查、55项审阅功能测试、8项部署测试及生产构建通过。
+- 部署前SQLite备份完成，完整性检查通过、外键错误0。发布后接口复查，2611条既有建议逐条未变。
+- 通过既有Latitude跳板发布；源站HTTP的站点索引、SP索引及四个目标剧情JSON均与本地生产产物哈希相符。
+- 2026-09-21 15:25（UTC+8）公开HTTP检查：两个索引为新版，四个剧情JSON仍命中CDN旧缓存。源站发布完成不代表这些缓存已刷新。
+- 按用户要求未打开浏览器检查，也未调用CDN连接器或操作控制台。4条精确URL刷新清单与10条新静态资源预热清单已交给用户，CDN状态为 `manual_pending`。
+
+刷新目标：`/data/stages/sp/stage-007.json`、`stage-008.json`、`stage-009.json`、`stage-011.json`，均在 `https://srwz.dreamquest.club` 下。
+完整清单保存在本次证据目录的 `cdn-refresh-urls.txt` 和 `cdn-prefetch-urls.txt`；下载副本分别为 `/Users/nate/Downloads/asr-ep06-08-cdn-refresh-urls.txt`、`/Users/nate/Downloads/asr-ep06-08-cdn-prefetch-urls.txt`。
