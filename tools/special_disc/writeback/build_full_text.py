@@ -20,7 +20,7 @@ sys.path[:0]=[str(ROOT/'tools'),str(Path(__file__).resolve().parent)]
 from build_text_candidate import file_sha,sha,read_member,verify_iso_ranges,write_json,load,require
 from srwz.iso9660 import member_map,scan_iso9660
 from srwz.codec import decode_production,reencode_changed_suffix
-from install_font import sp_offsets,VT1_TABLE
+from install_font import sp_offsets,VT1_TABLE,replace_font_slot
 from migrate_stage_dialogue import read_disc_member
 from chart_visibility import apply_chart_visibility
 from special_disc.writeback.unit_names import apply_unit_names
@@ -203,6 +203,7 @@ def assemble():
     patches[QA_MEMBER],squad_report=apply_nisv_names(patches[QA_MEMBER],patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table)
     patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,menu_overrides,runtime_table)
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,menu_overrides,runtime_table)
+    patches[VT1]=replace_font_slot(patches[VT1],patches[EXE],(FONT/'sp-font/font.bin').read_bytes(),font_report['font']['decoded_sha256'])
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
     require(sha(decoded_font)==font_report['font']['decoded_sha256'],'assembled shared font mismatch')
     patches[CD],unit_report=apply_unit_names(patches[CD],source_table,menu_overrides,runtime_table,decoded_font,proposal)

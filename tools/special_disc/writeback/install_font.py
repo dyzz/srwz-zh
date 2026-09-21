@@ -72,6 +72,24 @@ def sp_offsets(exe: bytes, start: int, size: int) -> list[int]:
             return values
 
 
+def replace_font_slot(vt1: bytes, exe: bytes, font: bytes, expected_sha256: str) -> bytes:
+    """Refresh the font inside an already allocated slot, preserving all offsets."""
+    offsets = sp_offsets(exe, VT1_TABLE, len(vt1))
+    if offsets != sorted(set(offsets)) or offsets[0] != 0:
+        raise ValueError('SP font archive offsets invalid')
+    start, end = offsets[FONT_CHUNK:FONT_CHUNK + 2]
+    decoded = decode_production(font)
+    if len(decoded.output) != FONT_DECODED_SIZE or sha256(decoded.output) != expected_sha256:
+        raise ValueError('SP replacement font identity drift')
+    payload = font[:decoded.consumed]
+    if len(payload) > end - start:
+        raise ValueError('SP replacement font exceeds existing slot; explicit layout migration required')
+    output = vt1[:start] + payload + bytes(end - start - len(payload)) + vt1[end:]
+    if len(output) != len(vt1) or decode_production(output[start:end]).output != decoded.output:
+        raise ValueError('SP replacement font readback drift')
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=ZH_COMPONENTS)
@@ -142,6 +160,7 @@ def main() -> None:
     (output_root / "DATA").mkdir(exist_ok=True)
     (output_root / VT1).write_bytes(bytes(out))
     (output_root / EXE).write_bytes(bytes(exe))
+    (output_root / 'font.bin').write_bytes(font)
     report = dict(
         iso=str(ISO.relative_to(ROOT)),
         font=dict(source=str((source_root / VT1).relative_to(ROOT)), chunk=ZH_FONT_CHUNK,
