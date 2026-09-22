@@ -1,8 +1,70 @@
 {
   "adapter": "original-production-v1",
+  "daily_test": {
+    "battle_square_skip": {
+      "all_replacements_exact": true,
+      "already_applied": true,
+      "cave_file_offset": "0x2F7A80",
+      "cave_preimage_all_zero": false,
+      "cave_size": 2048,
+      "cave_virtual_address": "0x3F6000",
+      "changed_byte_count": 0,
+      "configuration_matches_before": true,
+      "edition": "original",
+      "enabled": true,
+      "executable_size_preserved": true,
+      "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
+      "hook_size": 1728,
+      "member": "SLPS_258.87",
+      "native_resource_waits_preserved": true,
+      "native_result_processing_preserved": true,
+      "patches": [
+        {
+          "file_offset": "0x1E5874",
+          "id": "battle_step_world_call",
+          "kind": "jal",
+          "original_instruction_hex": "ac200c0c",
+          "replacement_instruction_hex": "00d80f0c",
+          "state_before": "applied",
+          "surface": "battle step world call",
+          "virtual_address": "0x2E3DF4"
+        },
+        {
+          "file_offset": "0x1ED990",
+          "id": "queue_append_prologue_0",
+          "kind": "j",
+          "original_instruction_hex": "20038290",
+          "replacement_instruction_hex": "40d90f08",
+          "state_before": "applied",
+          "surface": "queue append prologue 0",
+          "virtual_address": "0x2EBF10"
+        },
+        {
+          "file_offset": "0x1ED994",
+          "id": "queue_append_prologue_1",
+          "kind": "nop",
+          "original_instruction_hex": "c0100200",
+          "replacement_instruction_hex": "00000000",
+          "state_before": "applied",
+          "surface": "queue append prologue 1",
+          "virtual_address": "0x2EBF14"
+        }
+      ],
+      "policy": "square_skips_battle_animation_via_native_tail",
+      "site_count": 3,
+      "state_marker": "0x4E540005",
+      "world_steps_per_frame": 1
+    },
+    "path": "build/iso/daily-test/current-original-skip.iso",
+    "runtime": "not_tested",
+    "sha256": "f3a36c90bad5a4e303ecd4e44b84563ad460909716100fb8fbbe7bf8a4021ced",
+    "size": 3758358528,
+    "skip_enabled": true,
+    "status": "exact_current_copy_and_skip_readback_passed"
+  },
   "edition_contract_sha256": "a8b5b0d5dd0ae4cb1e4174a268ebb8acad72c66aa9d2f63e928e14467f628f54",
   "edition_id": "original",
-  "input_digest": "39aeab724a8062b376974cc8c201e49bc8c41757728bfa86ceb3a32686a9cec6",
+  "input_digest": "086fbca37c31fffde79a21db0df7c8c340ae8c5a83b5c23a393ad534590cec85",
   "legacy_equivalence": {
     "baseline_iso_sha256": "83cbf6bd8863c8a8ce22113431b7c40f2c3d61aa383ff7da8fa22047930b8e47",
     "member_count": 25,
@@ -11,19 +73,19 @@
   },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "sha256": "787a9377b14f68057d1c69e01e804a05eef48a260e8df200afb1f2b0182a04dd",
+    "sha256": "f3a36c90bad5a4e303ecd4e44b84563ad460909716100fb8fbbe7bf8a4021ced",
     "size": 3758358528
   },
   "readback": {
-    "path": "work/build/zh-release-original/e04f47414fe620c83f3d9a8831e9f4369be6ae7ad483c8adc93df708c4226ccc/project/manifests/zh-release-full-story-iso-content-validation.json",
-    "sha256": "b87948daf24bc9123a361bfd59df0e7f8db737f565b2e366756b0208dfc4d751",
+    "path": "build/editions/zh-release-original/dff5901e9f310bf493cd34986e8aa2b1167d4d4b921a8d0d8fbd3a23d338c6a6/project/manifests/zh-release-full-story-iso-content-validation.json",
+    "sha256": "f05a2ad75e50d801a2c93c2ce767a80167a3e236690e7a3e87ccfaaf7a1de0e4",
     "stage_count": 170,
     "translation_entry_count": 93071
   },
   "runtime": "not_tested",
   "schema_version": 1,
-  "source_head": "b1a948490b3469af3e91cf2effd326bec63ee498",
+  "source_head": "182640cf8d1daebeae058b787260aef98f60d508",
   "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "work/build/zh-release-original/e04f47414fe620c83f3d9a8831e9f4369be6ae7ad483c8adc93df708c4226ccc/project"
+  "workspace": "build/editions/zh-release-original/dff5901e9f310bf493cd34986e8aa2b1167d4d4b921a8d0d8fbd3a23d338c6a6/project"
 }
