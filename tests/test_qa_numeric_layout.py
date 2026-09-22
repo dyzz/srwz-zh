@@ -8,7 +8,9 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from srwz.nisv_strategy_qa import layout_nisv_strategy_qa_page
-from srwz.codec import decode_production
+from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.text import PreparedTextEncoder
+from srwz.qa_typography import shared_records, styled_runs, pack_page
 from special_disc.writeback.qa_layout import apply_qa_layout, page
 
 
@@ -50,9 +52,24 @@ class QaNumericLayoutTests(unittest.TestCase):
         exe = read_member(SOURCE_ISO, members, 'SLPS_259.20')
         source = read_member(SOURCE_ISO, members, 'DATA/NISVDATA.BIN')
         archive = (ROOT / 'work/build/special-disc/components/nisv/DATA/NISVDATA.BIN').read_bytes()
-        table, _, overrides, _ = encoding_tables(ROOT / 'work/build/special-disc/text-candidate/font/proposal.json')
-        output, report = apply_qa_layout(archive, exe, source, table, overrides)
+        table, _, overrides, runtime = encoding_tables(ROOT / 'work/build/special-disc/text-candidate/font/proposal.json')
         a, b = struct.unpack_from('<II', exe, 0x384A00 + 24)
+        # This legacy helper only changes layout within an already encoded page.
+        # Bind the old local fixture to current codes before testing that contract;
+        # qa_native tests separately cover primary-to-alias migration.
+        decoded = decode_production(archive[a:b])
+        current = bytearray(decoded.output)
+        target = page(current, 12)
+        records = shared_records(target, runtime)
+        payload, _ = pack_page(target, records, PreparedTextEncoder(table, overrides), runtime)
+        start, size = target['start'], target['size']
+        current[start:start + size] = payload
+        self.assertEqual(styled_runs(shared_records(page(current, 12), runtime)), styled_runs(records))
+        packed = reencode_changed_suffix(archive[a:b], bytes(current), strategy='rust-maximum',
+                                        max_output_size=b-a, original_result=decoded)
+        self.assertEqual(decode_production(packed).output, bytes(current))
+        archive = archive[:a] + packed + bytes(b-a-len(packed)) + archive[b:]
+        output, report = apply_qa_layout(archive, exe, source, table, overrides)
         before, after = [decode_production(data[a:b]).output for data in (archive, output)]
         target = page(before, 12)
         restored = bytearray(after)
