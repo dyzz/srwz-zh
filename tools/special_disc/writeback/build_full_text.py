@@ -201,7 +201,7 @@ def assemble():
     source_table,menu_overrides,stored_overrides,runtime_table=encoding_tables(PROPOSAL)
     qa_base=patches.get(QA_MEMBER)
     if qa_base is None:qa_base=read_member(BASE,members,QA_MEMBER)
-    patches[QA_MEMBER],qa_report=apply_qa_layout(qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides)
+    patches[QA_MEMBER],qa_report=apply_qa_layout(qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table=runtime_table)
     patches[QA_MEMBER],squad_report=apply_nisv_names(patches[QA_MEMBER],patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table)
     patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,menu_overrides,runtime_table)
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,menu_overrides,runtime_table)

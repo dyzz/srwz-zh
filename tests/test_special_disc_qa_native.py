@@ -8,7 +8,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'tools'), str(ROOT / 'tools/special_disc/writeback')]
 from special_disc.writeback.qa_native import (flow, legal_break, native_records,
-    repair_shared, styled_runs, validate_records, apply_reviewed_qa, metadata)
+    repair_shared, styled_runs, shared_records, validate_records, apply_reviewed_qa, metadata)
 from special_disc.writeback.qa_layout import page
 from srwz.codec import decode_production
 
@@ -69,26 +69,35 @@ class SpQaNativeTests(unittest.TestCase):
             self.assertEqual(''.join(r['text'] for r in records),e['translation'].replace('\n',''))
             validate_records(records)
 
-    @unittest.skipUnless((ROOT/'work/authoring/special-disc/qa-20260920/NISVDATA.BIN').exists(), 'Local SP fixture unavailable')
+    @unittest.skipUnless((ROOT/'work/build/special-disc/baselines/text-canary.xdelta').exists(), 'Local SP baseline unavailable')
     def test_full_component_readback_idempotence_and_protected_archive(self):
         from migrate_slps_text import encoding_tables
         from build_text_candidate import read_member
         from special_disc.source import SOURCE_ISO
+        from special_disc.baselines import baseline_iso
         from srwz.iso9660 import scan_iso9660, member_map
         T,_,O,R = encoding_tables(ROOT/'work/build/special-disc/text-candidate/font/proposal.json')
         members = member_map(scan_iso9660(SOURCE_ISO))
         source = read_member(SOURCE_ISO,members,'DATA/NISVDATA.BIN')
         exe = read_member(SOURCE_ISO,members,'SLPS_259.20')
-        fixture = (ROOT/'work/authoring/special-disc/qa-20260920/NISVDATA.BIN').read_bytes()
-        output,report = apply_reviewed_qa(fixture,exe,source,T,O)
-        self.assertEqual(output,fixture)
-        self.assertEqual(report['changed_pages'],[])
+        baseline = baseline_iso('text-canary')
+        fixture = read_member(baseline,member_map(scan_iso9660(baseline)),'DATA/NISVDATA.BIN')
+        output,report = apply_reviewed_qa(fixture,exe,source,T,O,runtime_table=R)
+        rerun,second = apply_reviewed_qa(output,exe,source,T,O,runtime_table=R)
+        self.assertEqual(rerun,output)
+        self.assertEqual(second['changed_pages'],[])
+        with self.assertRaisesRegex(ValueError, 'Concurrent shared Q&A text/style drift'):
+            apply_reviewed_qa(source,exe,source,T,O,runtime_table=R)
         a,b = struct.unpack_from('<II',exe,0x384A00+24)
         chunk = decode_production(output[a:b]).output
         jp = decode_production(source[a:b]).output
+        before = decode_production(fixture[a:b]).output
         self.assertEqual(chunk[:0x476],jp[:0x476])
         self.assertEqual(len(metadata(chunk)),264)
         for n in range(1,103):
+            if n not in report['native_pages']:
+                self.assertEqual(styled_runs(shared_records(page(before,n),R)),
+                                 styled_runs(shared_records(page(chunk,n),R)))
             self.assertEqual(page(chunk,n)['sprite_bytes'],page(jp,n)['sprite_bytes'])
             self.assertEqual(page(chunk,n)['size'],page(jp,n)['size'])
 

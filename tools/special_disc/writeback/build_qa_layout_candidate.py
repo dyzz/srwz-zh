@@ -26,8 +26,8 @@ def main():
     original = read_member(CURRENT_ISO, members, MEMBER)
     source = read_member(SOURCE_ISO, member_map(scan_iso9660(SOURCE_ISO)), MEMBER)
     proposal = ROOT / 'work/build/special-disc/text-candidate/font/proposal.json'
-    table, _, overrides, _ = encoding_tables(proposal)
-    output, report = apply_reviewed_qa(original, exe, source, table, overrides)
+    table, _, overrides, runtime = encoding_tables(proposal)
+    output, report = apply_reviewed_qa(original, exe, source, table, overrides, runtime_table=runtime)
     if output == original:
         print('SP current ISO already contains the reviewed Q&A layout')
         return

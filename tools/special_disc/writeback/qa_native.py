@@ -58,12 +58,12 @@ def metadata(chunk):
     return result
 
 
-def apply_reviewed_chunk(current, source, original_jp, original_zh, table, overrides):
+def apply_reviewed_chunk(current, source, original_jp, original_zh, table, overrides, *, runtime_table=None):
     bindings = json.loads(LAYOUT.read_text())
     require((bindings['glyph_advance'],bindings['line_step'],bindings['max_last_glyph_x']) ==
             (19,11,MAX_X), 'Q&A layout metrics drift')
     native = {e['id']:e for e in json.loads(CORPUS.read_text())['entries']}
-    runtime = project_runtime_text_table(table, overrides)
+    runtime = runtime_table if runtime_table is not None else project_runtime_text_table(table, overrides)
     encoder = PreparedTextEncoder(table, overrides)
     output = bytearray(current)
     report = dict(native_pages=[], shared_layout_repairs=[], metadata=[], page_records=[])
@@ -108,11 +108,13 @@ def apply_reviewed_chunk(current, source, original_jp, original_zh, table, overr
             encoded = encoder.encode(two_byte_visible_spaces(text),terminate=True)
             require(decode_text(encoded,0,runtime).text == two_byte_visible_spaces(text), 'Q&A metadata readback')
             require(b'\x20' not in encoded, 'Metadata raw visible space')
-            require(now in (jp, encoded[:-1]), f'Concurrent native Q&A metadata drift: {id_}')
+            require(now == jp or decode_text(now+b'\0',0,runtime).text == two_byte_visible_spaces(text),
+                    f'Concurrent native Q&A metadata drift: {id_}')
             blob += encoded
             report['metadata'].append(dict(id=id_,translation=text))
         else:
-            require(now == zh, f'Concurrent shared Q&A metadata drift: {id_}')
+            require(decode_text(now+b'\0',0,runtime).text == decode_text(zh+b'\0',0,runtime).text,
+                    f'Concurrent shared Q&A metadata drift: {id_}')
             blob += zh+b'\0'
     end = page(source,1)['start']
     require(len(blob) <= end-0x476, 'Q&A metadata allocation overflow')
@@ -125,13 +127,13 @@ def apply_reviewed_chunk(current, source, original_jp, original_zh, table, overr
     return bytes(output),report
 
 
-def apply_reviewed_qa(archive, exe, source, table, overrides):
+def apply_reviewed_qa(archive, exe, source, table, overrides, *, runtime_table=None):
     a,b = struct.unpack_from('<II',exe,0x384A00+24)
     require(0 < a < b <= len(archive) == len(source), 'SP Q&A slot drift')
     original_jp,original_zh,inputs = compile_original(table,overrides)
     decoded = decode_production(archive[a:b])
     output,report = apply_reviewed_chunk(decoded.output,decode_production(source[a:b]).output,
-                                         original_jp,original_zh,table,overrides)
+                                         original_jp,original_zh,table,overrides,runtime_table=runtime_table)
     changed = [n for n in range(1,103) if
         output[page(output,n)['start']:page(output,n)['start']+page(output,n)['size']] !=
         decoded.output[page(decoded.output,n)['start']:page(decoded.output,n)['start']+page(decoded.output,n)['size']]]
