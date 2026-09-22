@@ -32,6 +32,28 @@ def lock(root, path):
 
 
 class BuildOptimizationTests(unittest.TestCase):
+    def test_library_metadata_rebind_reuses_only_identical_verified_offset_tables(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve()
+            old_lock = write_json(root, 'library.json', {'font_proof':'old'})
+            new_lock = write_json(root, 'library.json', {'font_proof':'new'})
+            tables = {name: {'member':name,'table_start':i*16,'table_end':i*16+8,
+                      'value_count':2,'packed_sha256':str(i),'archive_size':100}
+                      for i,name in enumerate(('a','b','c'))}
+            proof = {'archive_count':3,'offset_table_ranges_disjoint':True,'reread_exact':True,
+                     'archives':[{**r,'reread_exact':True} for r in tables.values()]}
+            config = {'runtime_keywords':{'library_component_manifest':new_lock}}
+            args = dict(baseline_config=config,current_config=config,baseline_remaining_ui={},current_remaining_ui={},
+                        prior_report={'inputs':{'reviewed_library_component_manifest':old_lock},
+                                      'composition':{'library_archive_offset_tables':proof}})
+            with patch.object(full,'PROJECT_ROOT',root), \
+                    patch.object(full,'_library_archive_offset_patches',return_value=(root/'library.json',tables,{})):
+                self.assertEqual(full._plan_incremental_members(**args)[0],set())
+                tables['a'] = {**tables['a'],'table_end':tables['a']['table_end']-1}
+                self.assertEqual(full._plan_incremental_members(**args)[0],set())
+                tables['b'] = {**tables['b'],'packed_sha256':'repacked-offsets'}
+                self.assertEqual(full._plan_incremental_members(**args)[0],{full.SLPS_MEMBER,full.MTV_PROS_MEMBER})
+
     def test_composition_requires_exact_iso_members_including_heading_pair(self):
         config = json.loads((Path(rebuild_zh_font.PROJECT_ROOT) /
                              "config/iso/zh-release-current-build.json").read_text())

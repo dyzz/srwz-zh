@@ -146,7 +146,7 @@ def freeze_inputs(root: Path, additional_paths: tuple[str, ...] = ()) -> InputSn
     return InputSnapshot(destination, digest, source_head, tuple(rows), additional_paths)
 
 
-def seed_original_caches(source: Path, target: Path) -> None:
+def seed_original_caches(source: Path, target: Path, *, overwrite_cache: bool = False) -> None:
     """Optional caches only; production builders still verify their locked inputs.
 
     Seed the legacy production namespaces, excluding edition workspaces,
@@ -162,8 +162,8 @@ def seed_original_caches(source: Path, target: Path) -> None:
     for directory in directories:
         if directory.is_dir():
             destination = target / directory.relative_to(source)
-            if not destination.exists():
-                shutil.copytree(directory, destination, copy_function=copy_file)
+            if overwrite_cache or not destination.exists():
+                shutil.copytree(directory, destination, copy_function=copy_file, dirs_exist_ok=overwrite_cache)
     # Some fixed reviewed inputs are individual JSON/binary locks, not directories.
     def references(value):
         if isinstance(value, dict):

@@ -1176,6 +1176,26 @@ def _plan_incremental_members(
             proposal = _json(_project_path(prior_inputs[label]["path"]))
             if font_binary_signature(proposal) == baseline_font_signature:
                 impact = set()
+        if label == "reviewed_library_component_manifest":
+            previous_tables = prior_report.get("composition", {}).get("library_archive_offset_tables", {})
+            if (previous_tables.get("reread_exact") is True
+                    and previous_tables.get("offset_table_ranges_disjoint") is True
+                    and previous_tables.get("archive_count") == 3):
+                _, patches, _ = _library_archive_offset_patches(
+                    current_config["runtime_keywords"]["library_component_manifest"])
+                fields = ("member", "table_start", "table_end", "value_count", "packed_sha256", "archive_size")
+                before = {r["member"]: {k: r[k] for k in fields}
+                          for r in previous_tables["archives"] if r.get("reread_exact") is True}
+                after = {member: {k: patch[k] for k in fields} for member, patch in patches.items()}
+                # Source specs may use an inclusive final byte; the executable
+                # readback reports the exclusive end of the packed words.
+                for member, patch in patches.items():
+                    after[member]["table_end"] = patch["table_start"] + 4 * patch["value_count"]
+                if len(before) == 3 and before == after:
+                    # Font coverage metadata may rebind the LIBRARY receipt
+                    # without changing a single executable offset-table byte.
+                    # Repacked offsets still invalidate SLPS and MTV_PROS.
+                    impact = set()
 
         if impact is None and label.startswith("auto_demo_original_op") and (
             label.endswith("_bin") or label.endswith("_seg")

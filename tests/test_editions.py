@@ -79,6 +79,25 @@ class EditionTests(unittest.TestCase):
         batch = json.loads(next((self.root / "work/editions").glob("*/sp.json")).read_text())
         self.assertEqual(batch["status"], "failed")
 
+    def test_unchanged_inputs_require_receipt_verification_before_reuse(self):
+        def compiled(context, snapshot, **kwargs):
+            return {"edition_id": "original", "input_digest": snapshot.digest}
+        with patch.object(build_editions, "verify_disc"), patch.object(build_editions, "verify_original_adapter_config"), \
+                patch.object(build_editions, "build_original", side_effect=compiled) as original, \
+                patch("srwz.release_inputs.subprocess.check_output", return_value="test-head\n"), \
+                patch.object(verify_editions, "verify_batch") as verify:
+            build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("original",))
+            again = build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("original",))
+            self.assertEqual(original.call_count, 1)
+            verify.assert_called_once()
+            self.assertEqual(again["timing"]["editions"]["original"]["mode"], "verified_current_reuse")
+            verify.side_effect = EditionError("output hash drift")
+            build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("original",))
+            self.assertEqual(original.call_count, 2)
+            build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("original",), force_rebuild=True)
+            self.assertEqual(original.call_count, 3)
+            self.assertTrue(original.call_args.kwargs['force_rebuild'])
+
     def test_sp_baseline_lock_rejects_missing_or_changed_input(self):
         from srwz.sp_edition import locked_sp_inputs
         with self.assertRaisesRegex(EditionError, "SP locked dependency missing or changed"):

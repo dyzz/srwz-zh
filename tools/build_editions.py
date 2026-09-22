@@ -25,6 +25,7 @@ from srwz.iso9660 import member_map, scan_iso9660
 from srwz.release_inputs import copy_file, freeze_inputs, seed_original_caches, sha256_file, verify_files
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
 from srwz.daily_test import publish_daily_test
+from srwz.edition_incremental import seed_text_update
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -136,10 +137,16 @@ def reset_relocated_cmake(root: Path, config: dict) -> None:
             shutil.rmtree(directory)
 
 
-def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool) -> dict:
+def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool, force_rebuild: bool = False) -> dict:
     root = context.project_root
     root.mkdir(parents=True, exist_ok=True)
     snapshot.materialize(root)
+    atomic_json(root / "work/edition-inputs.json", {
+        "input_digest": snapshot.digest, "source_head": snapshot.source_head,
+        "paths": [r["path"] for r in snapshot.files],
+    })
+    reused = not force_rebuild and seed_text_update(context, snapshot)
+    print(f"[original] previous text-update cache: {'seeded' if reused else 'unavailable'}", flush=True)
     print("[original] prepare private, independently writable caches", flush=True)
     seed_original_caches(context.root, root)
     iso = project_path(root, context.profile.source_iso.path, "rom")
@@ -154,12 +161,12 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool)
     run_phase(context, "codec", ["tools/build_rust_compressor.py", "--force"])
     run_phase(context, "iso-toolchain", ["tools/bootstrap_mkps2iso.py", "--config", LEGACY_CONFIG])
     run_phase(context, "fonts", ["tools/fetch_zh_font.py", "--flavor", chain["font_flavor"]])
-    # Force the full legacy entry to avoid its Git/global-path incremental
-    # dispatcher. Each component still verifies its own frozen asset contract.
-    run_phase(context, "components", ["tools/rebuild_zh_font.py", "--skip-fetch", "--refresh-manifests", "--force-rebuild",
+    run_phase(context, "components", ["tools/rebuild_zh_font.py", "--skip-fetch", "--refresh-manifests",
+                                      *(["--force-rebuild"] if force_rebuild or not reused else []),
                                       "--cache", "work/cache/editions/original/font-chain.json"])
-    run_phase(context, "iso", ["tools/build_iso.py", "--config", LEGACY_CONFIG, "--refresh-output-locks", "--refresh-extraction"])
-    run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", "--force",
+    run_phase(context, "iso", ["tools/build_iso.py", "--config", LEGACY_CONFIG, "--refresh-output-locks",
+                               *(["--refresh-extraction"] if force_rebuild or not reused else ["--incremental"])])
+    run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", *(["--force"] if force_rebuild else []),
                                     "--cache", "work/cache/editions/original/iso-content.json"])
     cfg = load_json(root / LEGACY_CONFIG)
     readback = load_json(root / "manifests/zh-release-full-story-iso-content-validation.json")
@@ -250,7 +257,8 @@ def build_sp(context: BuildContext, snapshot) -> dict:
     verify_disc(root, context.profile)
     run_phase(context, "rust-compressor", ["tools/build_rust_compressor.py", "--force"])
     run_phase(context, "sp-full-text", ["tools/special_disc/writeback/build_full_text.py"])
-    run_phase(context, "sp-independent-readback", ["tools/special_disc/verification/verify_full_text.py"])
+    # build_full_text verifies the temporary ISO before publishing and binds
+    # that independent receipt below; do not execute the same verifier twice.
     proof_path = root / "build/iso/special-disc/sp-current.json"
     proof = load_json(proof_path)
     # The SP publisher pins the readback to this immutable build run. Do not
@@ -278,7 +286,7 @@ def build_sp(context: BuildContext, snapshot) -> dict:
     }
 
 
-def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False) -> dict:
+def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False, force_rebuild: bool = False) -> dict:
     started = time.perf_counter()
     started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
@@ -323,7 +331,30 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             begin = time.perf_counter()
             timing_path = context.run_root / "timing.json"
             timing_path.unlink(missing_ok=True)
+            mode = "build"
             try:
+                if not force_rebuild and not legacy_equivalence and context.receipt.is_file():
+                    previous = load_json(context.receipt)
+                    frontend_matches = context.profile.edition_id != "best" or previous.get("shared_frontend") == {
+                        "edition": "original", "input_digest": snapshot.digest,
+                        "readback_sha256": args[-1].get("readback", {}).get("sha256"),
+                        "iso_sha256": args[-1].get("output", {}).get("sha256"),
+                    }
+                    if previous.get("input_digest") == snapshot.digest and frontend_matches:
+                        from verify_editions import verify_batch
+                        probe = context.run_root / "reuse-check.json"
+                        atomic_json(probe, {**batch, "status": "requested_editions_static_validated_runtime_pending",
+                            "requested_editions": [context.profile.edition_id], "results": [previous]})
+                        try:
+                            verify_batch(root, probe)
+                        except (OSError, ValueError, KeyError):
+                            print(f"[{context.profile.edition_id}] current receipt/copy cannot be reused", flush=True)
+                        else:
+                            if "daily_test" in previous:
+                                mode = "verified_current_reuse"
+                                publication = 0.0
+                                print(f"[{context.profile.edition_id}] unchanged inputs and verified current/daily ISOs reused", flush=True)
+                                return previous
                 result = builder(context, *args, **kwargs)
                 # Bind the promoted current ISO immediately, even if publishing
                 # its daily copy subsequently fails.
@@ -336,6 +367,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             finally:
                 batch["timing"]["editions"][context.profile.edition_id] = {
                     "seconds": round(time.perf_counter() - begin, 3),
+                    "mode": mode,
                     "phases": load_json(timing_path) if timing_path.exists() else {},
                     "daily_test_seconds": locals().get("publication"),
                 }
@@ -344,7 +376,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             # One frontend execution even for reversed target order or BEST-only.
             if "original" in contexts:
                 original = contexts["original"]
-                results["original"] = run_edition(original, build_original, snapshot, legacy_equivalence=legacy_equivalence)
+                results["original"] = run_edition(original, build_original, snapshot, legacy_equivalence=legacy_equivalence, force_rebuild=force_rebuild)
                 atomic_json(original.receipt, results["original"])
             if "best" in contexts:
                 results["best"] = run_edition(contexts["best"], build_best, snapshot, original, results["original"])
@@ -372,11 +404,12 @@ def main() -> int:
     parser.add_argument("--config", default=DEFAULT_CONFIG)
     parser.add_argument("--editions", default="original,best,sp")
     parser.add_argument("--plan", action="store_true", help="Show registered targets without writing or building.")
+    parser.add_argument("--force-rebuild", action="store_true", help="Explicit full Original rebuild and uncached readback; normal builds reuse verified text components.")
     parser.add_argument("--require-legacy-equivalence", action="store_true", help="Fail before promotion unless all Original component and ISO bytes match the frozen legacy locks.")
     args = parser.parse_args()
     try:
         result = build(PROJECT_ROOT, args.config, tuple(x.strip() for x in args.editions.split(",")),
-                       plan=args.plan, legacy_equivalence=args.require_legacy_equivalence)
+                       plan=args.plan, legacy_equivalence=args.require_legacy_equivalence, force_rebuild=args.force_rebuild)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     except (EditionError, OSError, ValueError, subprocess.SubprocessError) as error:

@@ -267,6 +267,12 @@ def _iter_path_references(value: object) -> Iterable[dict]:
 
 
 def _tracked_config_paths() -> tuple[Path, ...]:
+    inventory = PROJECT_ROOT / 'work/edition-inputs.json'
+    if inventory.is_file():
+        return tuple(_project_path(p) for p in _load_object(inventory)['paths']
+                     if p.startswith('config/') and p.endswith('.json')
+                     and not p.startswith('config/editorial/')
+                     and 'special-disc' not in Path(p).parts)
     completed = subprocess.run(
         ["git", "ls-files", "-z", "--", "config"],
         cwd=PROJECT_ROOT,
@@ -298,6 +304,15 @@ def _assert_no_untracked_production_json() -> None:
     production closure.
     """
 
+    inventory = PROJECT_ROOT / 'work/edition-inputs.json'
+    if inventory.is_file():
+        captured = set(_load_object(inventory)['paths'])
+        discovered = {p.relative_to(PROJECT_ROOT).as_posix()
+                      for name in ('config', 'corpus') for p in (PROJECT_ROOT / name).rglob('*.json')}
+        unexpected = sorted(p for p in discovered - captured if not p.startswith('config/editorial/'))
+        if unexpected:
+            raise TextUpdateBuildError('production JSON outside frozen inputs: ' + ', '.join(unexpected))
+        return
     discovered = set()
     for ignored in (False, True):
         command = ["git", "ls-files", "-z", "--others"]
@@ -551,7 +566,14 @@ def _update_full_component_dependencies(*, refresh: bool) -> None:
     if not isinstance(assignments, list):
         raise TextUpdateBuildError("release font proposal assignments are malformed")
     current_compatibility = {
-        "release_snapshot": dict(snapshot_reference),
+        # Match the full builder's profile reference. A manifest lock includes
+        # size but omits snapshot_id; copying it here made a text-only update
+        # appear to change composition and rebuilt SLPS/VT1/MTV_PROS needlessly.
+        "release_snapshot": {
+            "path": snapshot_reference["path"],
+            "sha256": snapshot_reference["sha256"],
+            "snapshot_id": snapshot["snapshot_id"],
+        },
         "release_snapshot_primary_mapping_sha256": snapshot.get(
             "primary_mapping_sha256"
         ),
@@ -731,6 +753,11 @@ def verify_mtv_pros_endpoint(
 
 
 def _git_state() -> dict[str, object]:
+    inventory = PROJECT_ROOT / 'work/edition-inputs.json'
+    if inventory.is_file():
+        snapshot = _load_object(inventory)
+        return {'head': snapshot['source_head'], 'input_digest': snapshot['input_digest'],
+                'scope': 'frozen edition inputs; no parent repository lookup'}
     def output(*arguments: str) -> str:
         return subprocess.run(
             ["git", *arguments],
