@@ -20,6 +20,9 @@ REPO = Path(__file__).resolve().parents[1]
 
 class EditionTests(unittest.TestCase):
     def setUp(self):
+        publisher = patch.object(build_editions, "publish_daily_test", return_value={})
+        self.publisher = publisher.start()
+        self.addCleanup(publisher.stop)
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name).resolve()
@@ -62,7 +65,9 @@ class EditionTests(unittest.TestCase):
             batch = build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("sp",))
         original.assert_not_called()
         self.assertEqual(sp.call_count, 1)
-        self.assertEqual(batch["results"], [{"edition_id": "sp"}])
+        self.assertEqual(batch["results"], [{"edition_id": "sp", "daily_test": {}}])
+        self.publisher.assert_called_once()
+        self.assertGreaterEqual(batch["timing"]["total_seconds"], batch["timing"]["editions"]["sp"]["seconds"])
 
     def test_failed_sp_never_reports_successful_batch(self):
         with patch.object(build_editions, "verify_disc"), patch.object(build_editions, "locked_sp_inputs", return_value=()), \
@@ -153,7 +158,7 @@ class EditionTests(unittest.TestCase):
         # A later backend failure must not leave the already promoted Original
         # ISO paired with an older current receipt.
         self.assertEqual(json.loads((self.root/"manifests/editions/original/current.json").read_text()),
-                         {"edition_id": "original"})
+                         {"edition_id": "original", "daily_test": {}})
 
     def test_duplicate_keys_and_duplicate_targets_are_rejected(self):
         p = self.root / "config/duplicate.json"

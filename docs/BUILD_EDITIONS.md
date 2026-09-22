@@ -1,6 +1,6 @@
 # Original、The Best 与 SP 的统一构建
 
-`python3 tools/build_editions.py` 默认刷新并构建三个当前 ISO。每版都有独立写入锁、
+`python3 tools/build_editions.py` 默认刷新并构建三个当前 ISO，三版均内置方块键跳过战斗动画（skip）。每版都有独立写入锁、
 工作目录、原盘身份和最终回执。旧发布快照不被覆盖，完整 ISO 不提交到 Git。
 
 ```bash
@@ -49,3 +49,21 @@ Pillow。默认统一构建不依赖 Pillow，也不重新栅格化已冻结图�
 
 这些结果只证明静态构建和回读通过。新 ISO 的 LRPS2、PCSX2 人工检查、全剧情及
 存读档回归独立记账；不会把历史 ISO 的运行证据自动归入新镜像。
+
+## 日常测试副本与计时
+
+每版通过内容回读后，构建器自动更新 `build/iso/daily-test/current-{original,best,sp}-skip.iso`。
+副本与该版当前 ISO 逐字节身份一致，不再在构建后另外打 skip 补丁。发布前核对完整 SHA-256、
+大小，并从副本读取本版可执行文件检查 skip 跳转和 hook；失败保留旧日常副本。副本不采用硬链接。
+只构建 SP 时只更新 SP；BEST 单独构建仍会重建并更新其 Original 前端。
+
+`config/iso/daily-test-isos.json` 和 `retained-isos.json` 只保存当前盘的路径及策略，
+其实际身份读取 `manifests/editions/<edition>/current.json` 的 `daily_test` 字段。
+构建生成的哈希不写回输入配置，避免下一轮输入快照因上轮产物而变化。
+`verify_editions.py` 会校验新版批次中的日常副本及 skip；历史无此字段的批次保持兼容。
+已冻结的 v0.4.2 镜像与发布配置不变。
+
+批次 JSON 的 `timing` 保存 UTC 起止时间、完整墙钟耗时、预检/快照耗时、各版总耗时、
+子命令分项耗时及日常副本校验/发布耗时。各版工作区另有 `timing.json`，失败阶段也记录退出码与耗时。
+分项之和之外的耗时包括快照物化、缓存准备、文件哈希、发布当前盘和回执检查；三版总耗时包含这些开销。
+这是现有本地缓存条件下的正常完整构建计时，不能当作空缓存机器的冷启动时间。

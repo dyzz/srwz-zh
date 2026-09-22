@@ -18,7 +18,10 @@ build/
     special-disc/
       sp-current.iso                 # SP 当前构建
       sp-current.json
-    daily-test/                      # 独立派生的日常测试镜像及其既有身份
+    daily-test/                      # 自动更新的三版当前 ISO 精确副本，均内置 skip
+      current-original-skip.iso
+      current-best-skip.iso
+      current-sp-skip.iso
     v0.4.2/                          # 带版本的冻结发布镜像，原位保留
     .tmp/baselines/                   # SP 基线还原临时盘，随进程退出清理
   editions/
@@ -56,7 +59,7 @@ build/
 - 原盘只读，必须匹配各版 `config/editions/<edition>/edition.json` 的大小、SHA-256 与可执行文件身份。
 - 带版本的冻结发布镜像保持路径和内容不变。父目录 `SRWZ2/SRWZ2CHS2.5.iso` 同样属于带版本文件，未移动。
 - 三份当前 ISO 由 `manifests/editions/{original,best,sp}/current.json` 绑定；整理目录不触发重建、不改变镜像字节。
-- `daily-test/` 的独立派生镜像保留自己的清单与哈希。目录整理不表示它们已重新基于最新构建派生；日常测试清单见 `config/iso/daily-test-isos.json`。
+- `daily-test/` 的三版镜像由统一构建器在该版回读通过后自动更新，内容与对应当前 ISO 一致且均含 skip。路径策略见 `config/iso/daily-test-isos.json`，实际身份见各版 `manifests/editions/<edition>/current.json` 的 `daily_test` 字段。
 - 私有工作区和验证候选可能仍被历史回读报告引用；本轮保留其内容及引用关系，不仅凭文件名相同判断重复。
 - 不使用硬链接共享可写的私有构建文件，保留版本之间的写入隔离。
 - 新的完整 ISO 候选使用 `build/iso/`、`build/verification/` 或 `build/editions/`；普通二进制成员缓存继续使用 `work/`。

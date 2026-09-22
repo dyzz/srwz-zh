@@ -17,11 +17,14 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import time
+from datetime import datetime, timezone
 
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.release_inputs import copy_file, freeze_inputs, seed_original_caches, sha256_file, verify_files
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
+from srwz.daily_test import publish_daily_test
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -78,9 +81,16 @@ def run_phase(context: BuildContext, name: str, arguments: list[str]) -> None:
     log = context.run_root / "logs" / f"{name}.log"
     log.parent.mkdir(parents=True, exist_ok=True)
     print(f"[{context.profile.edition_id}] {name}", flush=True)
+    started = time.perf_counter()
     with log.open("wb") as output:
         result = subprocess.run([sys.executable, *arguments], cwd=context.project_root,
                                 stdout=output, stderr=subprocess.STDOUT)
+    elapsed = round(time.perf_counter() - started, 3)
+    timings = context.run_root / "timing.json"
+    phases = load_json(timings) if timings.exists() else {}
+    phases[name] = {"seconds": elapsed, "returncode": result.returncode}
+    atomic_json(timings, phases)
+    print(f"[{context.profile.edition_id}] {name}: {elapsed:.3f}s", flush=True)
     if result.returncode:
         tail = log.read_text(errors="replace")[-2400:]
         raise EditionError(f"{name} failed; {log}\n{tail}")
@@ -269,6 +279,8 @@ def build_sp(context: BuildContext, snapshot) -> dict:
 
 
 def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False) -> dict:
+    started = time.perf_counter()
+    started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
     profiles = load_release_profiles(root, config, requested)
     dependencies = load_release_profiles(root, config, ("original",)) if "best" in requested and "original" not in requested else ()
@@ -304,20 +316,41 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
         batch_path = project_path(root, f"work/editions/{snapshot.digest}/{'-'.join(requested)}.json", "work")
         batch = {"schema_version": 1, "input_digest": snapshot.digest, "requested_editions": list(requested),
                  "release_config": config, "input_snapshot": (snapshot.root / "inputs.json").relative_to(root).as_posix(),
-                 "status": "running", "results": [], "runtime": "not_tested"}
+                 "status": "running", "results": [], "runtime": "not_tested",
+                 "timing": {"started_at": started_at, "preflight_and_snapshot_seconds": round(time.perf_counter() - started, 3), "editions": {}}}
         atomic_json(batch_path, batch)
+        def run_edition(context, builder, *args, **kwargs):
+            begin = time.perf_counter()
+            timing_path = context.run_root / "timing.json"
+            timing_path.unlink(missing_ok=True)
+            try:
+                result = builder(context, *args, **kwargs)
+                # Bind the promoted current ISO immediately, even if publishing
+                # its daily copy subsequently fails.
+                atomic_json(context.receipt, result)
+                publish_begin = time.perf_counter()
+                result["daily_test"] = publish_daily_test(root, snapshot.project_root, result)
+                atomic_json(context.receipt, result)
+                publication = round(time.perf_counter() - publish_begin, 3)
+                return result
+            finally:
+                batch["timing"]["editions"][context.profile.edition_id] = {
+                    "seconds": round(time.perf_counter() - begin, 3),
+                    "phases": load_json(timing_path) if timing_path.exists() else {},
+                    "daily_test_seconds": locals().get("publication"),
+                }
         try:
             results = {}
             # One frontend execution even for reversed target order or BEST-only.
             if "original" in contexts:
                 original = contexts["original"]
-                results["original"] = build_original(original, snapshot, legacy_equivalence=legacy_equivalence)
+                results["original"] = run_edition(original, build_original, snapshot, legacy_equivalence=legacy_equivalence)
                 atomic_json(original.receipt, results["original"])
             if "best" in contexts:
-                results["best"] = build_best(contexts["best"], snapshot, original, results["original"])
+                results["best"] = run_edition(contexts["best"], build_best, snapshot, original, results["original"])
                 atomic_json(contexts["best"].receipt, results["best"])
             if "sp" in contexts:
-                results["sp"] = build_sp(contexts["sp"], snapshot)
+                results["sp"] = run_edition(contexts["sp"], build_sp, snapshot)
                 atomic_json(contexts["sp"].receipt, results["sp"])
             for name in requested:
                 context, result = contexts[name], results[name]
@@ -325,9 +358,11 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                 atomic_json(batch_path, batch)
         except Exception as error:
             batch.update(status="failed", error=str(error))
+            batch["timing"]["total_seconds"] = round(time.perf_counter() - started, 3)
             atomic_json(batch_path, batch)
             raise
         batch["status"] = "requested_editions_static_validated_runtime_pending"
+        batch["timing"].update(total_seconds=round(time.perf_counter() - started, 3), finished_at=datetime.now(timezone.utc).isoformat())
         atomic_json(batch_path, batch)
         return {**batch, "batch_manifest": batch_path.relative_to(root).as_posix()}
 

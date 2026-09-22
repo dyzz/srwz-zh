@@ -1,30 +1,28 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "policy": "Daily testing uses seven ISOs: two Japanese source ISOs, two no-skip v0.4.2 releases, and Original/Best/SP current ISOs targeting square skip. CHDs are created only for final releases; working and Q&A CHDs are not retained in the active workspace.",
   "slots": {
     "current-original": {
       "path": "build/iso/daily-test/current-original-skip.iso",
       "role": "working",
       "retention": "daily_iso",
-      "iso_sha256": "e438cd8c11188cf980e1be08e54909e5136930803185279b5e4cfdcf5fef07a6",
-      "purpose": "Daily current ISO with verified square-skip derivation; CHD is release-only.",
-      "local_status": "materialized_for_daily_testing",
+      "purpose": "Exact copy of the validated current ISO; refreshed automatically by build_editions.py.",
       "source_build_path": "build/iso/zh-release-original/current-original.iso",
-      "base_iso_sha256": "72639bb958258006f3262a911c77da323cf0d809943fa44dacf555831f69d061",
-      "receipt": "work/cleanup/daily-isos-20260920/original-skip-readback.json",
-      "skip_enabled": true
+      "skip_enabled": true,
+      "skip_required": true,
+      "identity_receipt": "manifests/editions/original/current.json",
+      "identity_field": "daily_test"
     },
     "current-best": {
       "path": "build/iso/daily-test/current-best-skip.iso",
       "role": "working",
       "retention": "daily_iso",
-      "iso_sha256": "4f82988b1d0b4f3d098af5a72b761ac2180a37a9c28af7dada5f413115182add",
-      "purpose": "Daily current ISO with verified square-skip derivation; CHD is release-only.",
-      "local_status": "materialized_for_daily_testing",
+      "purpose": "Exact copy of the validated current ISO; refreshed automatically by build_editions.py.",
       "source_build_path": "build/iso/zh-release-best/current-best.iso",
-      "base_iso_sha256": "64215de32db84b1ee69fa86b90f69c0ae127b9f0438f89b4368407e2a6e076bb",
-      "receipt": "work/cleanup/daily-isos-20260920/best-skip-readback.json",
-      "skip_enabled": true
+      "skip_enabled": true,
+      "skip_required": true,
+      "identity_receipt": "manifests/editions/best/current.json",
+      "identity_field": "daily_test"
     },
     "original": {
       "path": "rom/original.iso",
@@ -113,20 +111,18 @@
       "iso_sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb"
     },
     "current-sp": {
-      "path": "build/iso/special-disc/sp-current.iso",
+      "path": "build/iso/daily-test/current-sp-skip.iso",
       "role": "working",
       "retention": "daily_iso",
-      "iso_sha256": "8019512dab15bf60bf3792b0bfd2f59768b60ecc05af126086adb16b24c6bb24",
-      "receipt": "build/iso/special-disc/sp-current.json",
-      "purpose": "Unified SP full-text build; locked baseline deltas replace historical full baseline ISOs.",
-      "local_status": "materialized_for_daily_testing",
+      "purpose": "Exact copy of the validated current ISO; refreshed automatically by build_editions.py.",
       "skip_enabled": true,
       "skip_required": true,
-      "skip_status": "lrps2_simple_battle_viewer_square_skip_smoke_passed",
-      "runtime_receipt": "work/runtime/lrps2/sp-square-skip-20260920/runtime-receipt.json"
+      "identity_receipt": "manifests/editions/sp/current.json",
+      "identity_field": "daily_test",
+      "source_build_path": "build/iso/special-disc/sp-current.iso"
     }
   },
-  "updated": "2026-09-20",
+  "updated": "2026-09-22",
   "exceptions": [
     {
       "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
@@ -134,7 +130,7 @@
     },
     {
       "path": "build/iso/special-disc/sp-current.iso",
-      "reason": "Single current SP ISO. Baseline inputs are verified deltas under work/build/special-disc/baselines."
+      "reason": "Canonical SP build output; daily-test contains an independently writable exact copy."
     }
   ],
   "daily_test_manifest": "config/iso/daily-test-isos.json"
