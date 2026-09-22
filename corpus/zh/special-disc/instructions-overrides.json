@@ -1,0 +1,2729 @@
+{
+  "schema_version": 1,
+  "description": "Reviewed SP instruction overrides applied after inherited components; source and preimage identities are required.",
+  "entries": [
+    {
+      "id": "sd/compdata/958C0",
+      "source_text": "空中に移動します。空中では味方フェイズの開始時にＥＮを１０消費します。",
+      "source_text_sha256": "52e547858ee4a8121e3042942592ca3451c14de401ce0a998958d9fa42d632b2",
+      "baseline_translation": "移动到空中。处于空中时，每次我方回合开始会消耗10EN。",
+      "translation": "移动到空中。处于空中时，每次我方阶段开始会消耗10EN。",
+      "editorial_status": "reviewed",
+      "review_notes": "原文为味方フェイズ開始，指我方阶段，不是完整回合；飞行EN消耗／搭载回复的数值、对象与弹药效果均保留。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 612544,
+          "offset": 612544,
+          "pointer_sites": [
+            433312
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 612544,
+        "capacity": 72,
+        "pointer_sites": [
+          433312
+        ],
+        "source_slot_sha256": "96c8e2c9f22e82d75cef93900282a56b615cae3e7d794c3f2b97ab18bc97f548",
+        "baseline_slot_sha256": "8d6b7245768558245a36dd48ddb257627764b1fc7df03f045e72096afbbc9624"
+      }
+    },
+    {
+      "id": "sd/compdata/95A50",
+      "source_text": "戦艦に搭載します。搭載中は味方フェイズ開始時にＨＰ・ＥＮが１５％、弾数が全回復します。",
+      "source_text_sha256": "6271071caecd51042684d558dac9d32f981ea506182158b18eb5ec0a0967fe81",
+      "baseline_translation": "搭载到战舰。搭载期间，每次我方回合开始恢复15%的HP、EN，弹药全部恢复。",
+      "translation": "搭载到战舰。搭载期间，每次我方阶段开始恢复15%的HP、EN，弹药全部恢复。",
+      "editorial_status": "reviewed",
+      "review_notes": "原文为味方フェイズ開始，指我方阶段，不是完整回合；飞行EN消耗／搭载回复的数值、对象与弹药效果均保留。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 612944,
+          "offset": 612944,
+          "pointer_sites": [
+            433332
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 612944,
+        "capacity": 88,
+        "pointer_sites": [
+          433332
+        ],
+        "source_slot_sha256": "b2fe88a01a072762533a679f0048428a5e81b243a370899a17793668037024e9",
+        "baseline_slot_sha256": "5662add925d54e7e5ab9316b08ab3325214120c5500366962ee30d0c6b47a12b"
+      }
+    },
+    {
+      "id": "sd/compdata/95B70",
+      "source_text": "隣接する味方小隊または自小隊内にいるユニット１機のＥＮと残弾を全回復します。",
+      "source_text_sha256": "ca440b5b7d1a1ba24affab6c18466439219ccafd27ba3f4d889f78ee83c8f49a",
+      "baseline_translation": "完全恢复相邻友方小队或本小队内一台单位的EN和弹药。",
+      "translation": "完全恢复位于相邻友方小队或本小队内的1台机体的EN与剩余弹药。",
+      "editorial_status": "reviewed",
+      "review_notes": "１機统辖两个位置选项，明确无论目标在哪个小队都只作用于一台机体，避免读成相邻小队全体回复。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 613232,
+          "offset": 613232,
+          "pointer_sites": [
+            433344
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 613232,
+        "capacity": 80,
+        "pointer_sites": [
+          433344
+        ],
+        "source_slot_sha256": "2f2abf01ad63c5be1938d1866f36014cb822ea6585077631c430f06252d86503",
+        "baseline_slot_sha256": "71a7081d54624272fcf00e95f9ab7a311bc1ea521e42b30d8039db179772bc84"
+      }
+    },
+    {
+      "id": "sd/compdata/95D30",
+      "source_text": "グランディーヴァと合体してユニットを強化します。合神は３ターン後には解除されます。",
+      "source_text_sha256": "ff4d9702ca71a6513d5cf333a5d8eab4dbf8fa07dd3ef304daa8501f95ac9f7e",
+      "baseline_translation": "与超重机组合神以强化单位。合神将在3回合后解除。",
+      "translation": "与超重机进行合神，强化机体。合神将在3回合后解除。",
+      "editorial_status": "reviewed",
+      "review_notes": "理顺“超重机＋合神”的边界，避免“超重机组合神”误读；保留合神指令及3回合期限。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 613680,
+          "offset": 613680,
+          "pointer_sites": [
+            433364
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 613680,
+        "capacity": 88,
+        "pointer_sites": [
+          433364
+        ],
+        "source_slot_sha256": "dfa830d05961364d01ae8b3c18034a421224e88d1ce1acea109dd57284c6ca42",
+        "baseline_slot_sha256": "bc36992be75b372c217c251bbdeefa987d6e6150a14b005abfeed5735b5ad392"
+      }
+    },
+    {
+      "id": "sd/compdata/7B890",
+      "source_text": "マップ兵器及び射程１以外の\n武器の射程＋１",
+      "source_text_sha256": "a83c48149fcdf3737604ff7db00739a5ed27cbe359f42a2e7b05e486e0f6fdf9",
+      "baseline_translation": "MAP武器及射程1以外的\n武器射程＋1",
+      "translation": "除MAP及射程1武器外，\n其他武器射程＋1",
+      "editorial_status": "reviewed",
+      "review_notes": "排除条件同时涵盖MAP武器与射程为1的武器，不能连读成MAP武器也获益。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 506000,
+          "offset": 506000,
+          "pointer_sites": [
+            9228
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "engineering_note": "固定原位容量内保持原意的短句；明确排除MAP与射程1武器，或保留重复施加不叠加。",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 506000,
+        "capacity": 48,
+        "pointer_sites": [
+          9228
+        ],
+        "source_slot_sha256": "1da5caa7a10134e68c97460be44ab4abb19c607f3a9ee9f306c7f1efdeb872df",
+        "baseline_slot_sha256": "d13c2c5cd42daaa7fc48a2df683b076657aee59d1274266e92715b1168c3bbfc"
+      }
+    },
+    {
+      "id": "sd/compdata/7B8D0",
+      "source_text": "照準値＋２０\nマップ兵器及び射程１以外の\n武器の射程＋１",
+      "source_text_sha256": "79b1c82722dc342df6ae511cc1ea7ce9459b67a1c75a6b04e409a43395255da6",
+      "baseline_translation": "瞄准值＋20\nMAP武器及射程1以外的\n武器射程＋1",
+      "translation": "瞄准值＋20\n除MAP及射程1武器外，\n其他武器射程＋1",
+      "editorial_status": "reviewed",
+      "review_notes": "明确两类排除对象；瞄准＋20和射程＋1仍为不同效果。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 506064,
+          "offset": 506064,
+          "pointer_sites": [
+            9260
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "engineering_note": "固定原位容量内保持原意的短句；明确排除MAP与射程1武器，或保留重复施加不叠加。",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 506064,
+        "capacity": 56,
+        "pointer_sites": [
+          9260
+        ],
+        "source_slot_sha256": "be9f831d261a7155613548ddc5f5b08505a80e6f883b1b996256d88dfe8777dd",
+        "baseline_slot_sha256": "7643456a6f19dc7c03e7b5c8a67eae94c055d7e0db950ef9b8a61ad1c6194bd1"
+      }
+    },
+    {
+      "id": "sd/compdata/7B910",
+      "source_text": "移動力＋２　運動性・照準値＋２５\nマップ兵器及び\n射程１以外の武器の射程＋１",
+      "source_text_sha256": "3aae7f72627e6a3ddbde3c47b1ed0736a7c93a8f706bccc387742d43b372e9e7",
+      "baseline_translation": "移动力＋2　运动性＋25\n瞄准值＋25　MAP武器及\n射程1以外武器射程＋1",
+      "translation": "移动力＋2　运动性、瞄准值＋25\n除MAP及射程1武器外，\n其他武器射程＋1",
+      "editorial_status": "reviewed",
+      "review_notes": "同一＋25同时修饰运动性与瞄准值，射程加成排除MAP和射程为1的武器；保留三项数值含义。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 506128,
+          "offset": 506128,
+          "pointer_sites": [
+            9292
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "engineering_note": "固定原位容量内保持原意的短句；明确排除MAP与射程1武器，或保留重复施加不叠加。",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 506128,
+        "capacity": 80,
+        "pointer_sites": [
+          9292
+        ],
+        "source_slot_sha256": "490ba32def6ec545c895d89127ce935997c934f6182928b9b5f3a926e7d3d24b",
+        "baseline_slot_sha256": "01b17a0f7ea3c687de4e3031f5a9a1d22558fe459f92cb6bd395a7d097c7f19e"
+      }
+    },
+    {
+      "id": "sd/compdata/7BA30",
+      "source_text": "自軍行動開始時にＥＮが\n最大値の１０％回復",
+      "source_text_sha256": "b809c6b353e966156e45afadfeeeb383e86071c1fd60e2244944d76c5bc209d8",
+      "baseline_translation": "自军行动开始时，EN回复\n最大值的10%",
+      "translation": "我方阶段开始时，EN回复\n最大值的10%",
+      "editorial_status": "reviewed",
+      "review_notes": "自軍行動開始指我方行动阶段开始，不能被理解成每个友方单位开始行动便回复一次。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 506416,
+          "offset": 506416,
+          "pointer_sites": [
+            9420
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 506416,
+        "capacity": 48,
+        "pointer_sites": [
+          9420
+        ],
+        "source_slot_sha256": "dd18636ac41da9bca3890951aedaf10e219cdc812b71809041a9d03530b35d0e",
+        "baseline_slot_sha256": "49398c87d6344a15427608a2ad3cd79135ad64253ff04c12123fcf59ace5e0b2"
+      }
+    },
+    {
+      "id": "sd/compdata/7BA80",
+      "source_text": "自軍行動開始時にＨＰが\n最大値の１０％回復",
+      "source_text_sha256": "492872b8f695cd5e5c00cd19c95947252099dbb961d2d070e1063d0671243afa",
+      "baseline_translation": "自军行动开始时，HP回复\n最大值的10%",
+      "translation": "我方阶段开始时，HP回复\n最大值的10%",
+      "editorial_status": "reviewed",
+      "review_notes": "自軍行動開始指我方行动阶段开始，不能被理解成每个友方单位开始行动便回复一次。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 506496,
+          "offset": 506496,
+          "pointer_sites": [
+            9452
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 506496,
+        "capacity": 42,
+        "pointer_sites": [
+          9452
+        ],
+        "source_slot_sha256": "2b705de5920a267e40b1ba5d5504bcffcc91c7abab378bec617b3fd7ba9ce948",
+        "baseline_slot_sha256": "e973a58aa6d7cdf8be8c573916740e0dfdfd01e7c675ee0ab0df41beaa5f764e"
+      }
+    },
+    {
+      "id": "sd/compdata/7BF50",
+      "source_text": "自機のＨＰ、ＥＮ、弾薬を全回復\n使い捨て\n戦艦のみ隣接ユニットに使用可能",
+      "source_text_sha256": "b95522b6b56113074d8a6881d065761751095c179c2ab08c022980c8bbd6a49e",
+      "baseline_translation": "HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "translation": "自机的HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "editorial_status": "reviewed",
+      "review_notes": "补回自機这一默认回复对象，同时保留战舰可对相邻单位使用的例外；不将该短说明扩成“禁止对同小队其他机体使用”，同小队共享消耗品的规则另见Q&A第053页。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 507728,
+          "offset": 507728,
+          "pointer_sites": [
+            9900
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 507728,
+        "capacity": 72,
+        "pointer_sites": [
+          9900
+        ],
+        "source_slot_sha256": "180b35608f64b8cda4b732f70e87fe4d2e16437c3f578f9db2ebd57c178e824d",
+        "baseline_slot_sha256": "8678c39bb3af08d0f5b7a93aca1c016067ac58ab21752d77ac0d4cd3d38cead5"
+      }
+    },
+    {
+      "id": "sd/compdata/7C350",
+      "source_text": "謎のシステム。\n使用方法は不明。",
+      "source_text_sha256": "4a7e484d48bd5baff46faf7099dbe41f80822dcd1f9136223e72a157145bb075",
+      "baseline_translation": "神秘系统。\n用途不明。",
+      "translation": "神秘系统。\n使用方法不明。",
+      "editorial_status": "reviewed",
+      "review_notes": "使用方法未知不等于用途未知，按原文保留不确定性所在。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 508752,
+          "offset": 508752,
+          "pointer_sites": [
+            10316
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 508752,
+        "capacity": 32,
+        "pointer_sites": [
+          10316
+        ],
+        "source_slot_sha256": "fbcdb77e2d05dedf730faf7219376d33ecd14508a14503edbf6f1f791ba4040c",
+        "baseline_slot_sha256": "6762ed57e5322f8cfde08cbf2eb8efcdf63257680c4f3bfc1206275e72ba1642"
+      }
+    },
+    {
+      "id": "sd/compdata/7C600",
+      "source_text": "寒冷地に生息するトカゲのくんせい。\n美味。",
+      "source_text_sha256": "78a483787289ccb162df1a28f6522b74ad6e95b2cc3bebf99bd92f79b7f6e5be",
+      "baseline_translation": "生活在寒冷地区的熏蜥蜴。\n味道不错。",
+      "translation": "用栖息在寒冷地区的蜥蜴熏制而成。\n味道不错。",
+      "editorial_status": "reviewed",
+      "review_notes": "寒冷地区修饰蜥蜴的栖息地，而不是说已经熏制的蜥蜴仍在那里生活。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 509440,
+          "offset": 509440,
+          "pointer_sites": [
+            10636
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 509440,
+        "capacity": 48,
+        "pointer_sites": [
+          10636
+        ],
+        "source_slot_sha256": "28660e043513797128887bfd5968fcb6b19d29ed61ab17ffae4d9ed19992b02d",
+        "baseline_slot_sha256": "bccb79d6105ba84d3b1127877549647782267aef9ca6b3f45fd92da71e2a6d61"
+      }
+    },
+    {
+      "id": "sd/compdata/7C6A0",
+      "source_text": "温暖な気候の土地に生息する\n巨大トカゲのくんせい。すこぶる美味。",
+      "source_text_sha256": "68aece7567583b97a3a526f7077660b29136fa35096d2b76723f80e85dfe07be",
+      "baseline_translation": "生活在气候温暖地区的\n巨蜥熏制品。美味至极。",
+      "translation": "用栖息在温暖地区的巨蜥\n熏制而成。美味至极。",
+      "editorial_status": "reviewed",
+      "review_notes": "整理栖息地—原料—食品的修饰关系，保留与蜥蜴熏制品不同的评价强度。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 509600,
+          "offset": 509600,
+          "pointer_sites": [
+            10700
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 509600,
+        "capacity": 64,
+        "pointer_sites": [
+          10700
+        ],
+        "source_slot_sha256": "c554db7cb14bf5baacb7a5642a089331a8564e8e9c4b4a86378ffa84ab41dbff",
+        "baseline_slot_sha256": "36cd5de2556926f26d2a7a67022a639a5608c1a23556fb954ecb7d39df990a50"
+      }
+    },
+    {
+      "id": "sd/compdata/7C700",
+      "source_text": "ゲッコーステイト編集の雑誌の\n創刊第一号。レアもの。",
+      "source_text_sha256": "081fc6fafff707758a62d362ee2cfe7e4c13c768a5034154da34c5318ba50bb7",
+      "baseline_translation": "月光洲编辑的杂志\n创刊第一号。稀有品。",
+      "translation": "月光洲编辑的杂志创刊号。\n稀有品。",
+      "editorial_status": "reviewed",
+      "review_notes": "“创刊第一号”改为“创刊号”，不改变发行者与稀有品身份。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 509696,
+          "offset": 509696,
+          "pointer_sites": [
+            10732
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 509696,
+        "capacity": 56,
+        "pointer_sites": [
+          10732
+        ],
+        "source_slot_sha256": "c3252c11616fb3ecd9c58e30951575e7f27e7793b116a6a05e01bd5d41ef6d6e",
+        "baseline_slot_sha256": "8b76b723744b4549518b736136f1c410f67cc1368f06e280f69d64b9772bc3c6"
+      }
+    },
+    {
+      "id": "sd/compdata/89CC0",
+      "source_text": "マップ兵器及び射程１以外の全ての武器の\n最長射程を＋１する。",
+      "source_text_sha256": "6efaa01af69ccdc03bfd73c0e30b8263cae652c257e210da8389b08c7a577c2d",
+      "baseline_translation": "MAP武器及射程1以外的所有武器\n最大射程＋1。",
+      "translation": "除MAP武器和射程为1的武器外，\n所有武器的最大射程＋1。",
+      "editorial_status": "reviewed",
+      "review_notes": "明确MAP与射程为1的武器均不享受加成；本条指定最大射程，与一般射程说明区别保留。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 564416,
+          "offset": 564416,
+          "pointer_sites": [
+            430696
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 564416,
+        "capacity": 64,
+        "pointer_sites": [
+          430696
+        ],
+        "source_slot_sha256": "21b5a20bbef764e61127948d24a0e824210dd091027779987e3c362562be7963",
+        "baseline_slot_sha256": "ee7713b888f96853bd36590c8f42652ccb74c434814f00859d477da50f3b9413"
+      }
+    },
+    {
+      "id": "sd/compdata/8A1E0",
+      "source_text": "小隊内に修理機能を持っているユニットがいる場合、\n小隊全機が修理ユニット１機につきＨＰ回復１０％の効果を持つ。",
+      "source_text_sha256": "5226f7ec8e7528f87f0dff9250e538dcd813708a47a1e89b41844d8e21ca8534",
+      "baseline_translation": "小队内有持有修理装置的单位时，\n小队全机每有1台修理单位，获得HP回复10%的效果。",
+      "translation": "小队内每有1台具备修理装置的机体，\n小队全体机体便获得HP回复10%的效果。",
+      "editorial_status": "reviewed",
+      "review_notes": "将每1台修理机带来的小队全体效果说明清楚，不改成仅一台接受回复或只计一次。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 565728,
+          "offset": 565728,
+          "pointer_sites": [
+            430848
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 565728,
+        "capacity": 112,
+        "pointer_sites": [
+          430848
+        ],
+        "source_slot_sha256": "66c17fd195ad84f012199e2ffb999cd568c90f690eea319c860d6137aae66a10",
+        "baseline_slot_sha256": "c17fa3e6249da594f5319c222d8033b0c1bca0742b6942114d3d7d5143e3a73e"
+      }
+    },
+    {
+      "id": "sd/compdata/8C770",
+      "source_text": "効果が継続中の精神コマンドは青く表示されます。略称は以下参照。\n熱：熱血[<color:30>]不：不屈[<color:30>]鉄：鉄壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]覚：覚醒[<color:30>]狙：狙撃[<color:30>]直：直撃[<color:30>]幸：幸運[<color:30>]努：努力\n魂：魂[<color:38>]閃：ひらめき[<color:33>]手：てかげん[<color:34>]乱：かく乱[<color:34>]分：分析",
+      "source_text_sha256": "aafaad2abfc0833deb62cf9a4761c9a708b6c6c69cddd60e80cd143441bb6ad0",
+      "baseline_translation": "持续生效的精神指令以蓝色显示，简称如下。\n热：热血[<color:30>]不：不屈[<color:30>]铁：铁壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]觉：觉醒[<color:30>]狙：狙击[<color:30>]直：直击[<color:30>]幸：幸运[<color:30>]努：努力\n魂：魂[<color:38>]闪：必闪[<color:33>]手：手下留情[<color:34>]扰：扰乱[<color:34>]析：分析",
+      "translation": "持续生效的精神指令以蓝色显示，简称如下。\n热：热血[<color:30>]不：不屈[<color:30>]铁：铁壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]觉：觉醒[<color:30>]狙：狙击[<color:30>]直：直击[<color:30>]幸：幸运[<color:30>]努：努力\n魂：魂[<color:38>]闪：必闪[<color:33>]手：手下留情[<color:34>]乱：扰乱[<color:34>]分：分析",
+      "editorial_status": "reviewed",
+      "review_notes": "对照六条状态简称字串，保留原UI使用的“乱”“分”并在此解释为扰乱／分析，避免帮助写“扰／析”而状态栏显示“乱／分”。颜色和间距控制码完全保留。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 575344,
+          "offset": 575344,
+          "pointer_sites": [
+            431424
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 575344,
+        "capacity": 272,
+        "pointer_sites": [
+          431424
+        ],
+        "source_slot_sha256": "3385790d77f775711649de765eee467701e3406ab48c8be11d95a65f5c43611f",
+        "baseline_slot_sha256": "ca0ad23260d7bc2b61ecc0b0879ccc482ec97d15da147fa0ba088ae5d2ab4f15"
+      }
+    },
+    {
+      "id": "sd/compdata/8D950",
+      "source_text": "小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
+      "source_text_sha256": "e8e65c9651b28b9921365b9d6c3fdcb4df0780f199a40587461e8c0a628cd706",
+      "baseline_translation": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n移动类型：全员可移动时为白字，部分可移动时为灰字，\n全员不可移动时为空白。",
+      "translation": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n移动类型：全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机均不可移动时为空白（移动极难或无法移动）。",
+      "editorial_status": "reviewed",
+      "review_notes": "补回灰字与空白所代表的移动困难程度；并非全机缺少该移动类型就一律禁止移动。平均值舍去小数的规则不变。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 579920,
+          "offset": 579920,
+          "pointer_sites": [
+            431528
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 579920,
+        "capacity": 232,
+        "pointer_sites": [
+          431528
+        ],
+        "source_slot_sha256": "bcc1b22fad2fadc1748dce13753aac4c2241598fbb31c3743fd71fa8e85990da",
+        "baseline_slot_sha256": "fc26c1be44150a7f293d6ecac4ce556b5678d2f1d7ff5ba328e9326b73cc60c2"
+      }
+    },
+    {
+      "id": "sd/compdata/901A0",
+      "source_text": "『現在のレベル→上昇後のレベル』が表示されます。\nレベルの上昇にともなって変化した項目は、\n枠が点滅してそれを知らせます。",
+      "source_text_sha256": "e2fd5216ac0b3390d3c8e003cc5aa06bd1a60d14746e171b58a4b1d607bb5668",
+      "baseline_translation": "显示“当前等级／升级后等级”。\n因升级而变化的项目会闪动提示。",
+      "translation": "显示“当前等级→升级后等级”。\n因升级而变化的项目，其边框会闪烁提示。",
+      "editorial_status": "reviewed",
+      "review_notes": "原文显示格式为前值→后值，不是以斜线表示一对同时存在的数值；闪烁的是项目边框。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 590240,
+          "offset": 590240,
+          "pointer_sites": [
+            432000
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 590240,
+        "capacity": 128,
+        "pointer_sites": [
+          432000
+        ],
+        "source_slot_sha256": "d13fcd66aa084f5f2b8d23907c02eec8365cb9cb68669df578f77b8a07646af6",
+        "baseline_slot_sha256": "058385cfb2bda83bd1f288344c8835d53ca2106ab9fff628e578acf14a229dbf"
+      }
+    },
+    {
+      "id": "sd/compdata/917B0",
+      "source_text": "小隊を構成する機体が所持する武器のうち、\n最も強い武器の攻撃力です。",
+      "source_text_sha256": "82988fcc2aa6f7423ff37a5528afa712fb426a03f43290de471d3f4351000094",
+      "baseline_translation": "组成小队的机体所持武器中，\n攻击力最高的武器。",
+      "translation": "组成小队的机体所持武器中，\n最强武器的攻击力。",
+      "editorial_status": "reviewed",
+      "review_notes": "界面项显示的是最强武器的攻击力数值，而不是武器本身或武器名称。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 595888,
+          "offset": 595888,
+          "pointer_sites": [
+            432304
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 595888,
+        "capacity": 72,
+        "pointer_sites": [
+          432304
+        ],
+        "source_slot_sha256": "2fd47d5dc1a4f5bc7c9b749d8756f2f4f4f7c6d3f54631ab2f51f665e6109bda",
+        "baseline_slot_sha256": "b9704c571dbf6e0583257f78ed932dae540c1c91889b330bceaf71324a919f73"
+      }
+    },
+    {
+      "id": "sd/compdata/919C0",
+      "source_text": "グラヴィオンが重力子臨界に達するまでの残りターン数です。\n残りターン数が０になると合神は解除されてしまい、\n同じ戦闘マップ上では再び合神することはできません。\n敗北条件によっては、ゲームオーバーになる事もあります。",
+      "source_text_sha256": "1e4c8c66f6553c8db242e59ecb66ee0b2fc48a122c1769fab4a022a8841745e3",
+      "baseline_translation": "合神解除前的剩余回合数。\n变为0后合神解除，本地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。",
+      "translation": "超重神达到重力子临界前的剩余回合数。\n变为0后合神解除，本地图内无法再次合神。\n根据败北条件，也可能导致游戏结束。",
+      "editorial_status": "reviewed",
+      "review_notes": "补回重力子临界这一计时原因与原文泛称グラヴィオン的主体，采用明确说明不带形态前缀时的“超重神”；不擅自补成ゴッド形态。合神解除、同图无法再次合神及可能败北的条件保留。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 596416,
+          "offset": 596416,
+          "pointer_sites": [
+            432324
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 596416,
+        "capacity": 216,
+        "pointer_sites": [
+          432324
+        ],
+        "source_slot_sha256": "87121aef8d6b8eab5999dfadc4c0f8814102aacc3a5070eaac09092b055a3e56",
+        "baseline_slot_sha256": "daca099774533665860049ae81a59fe81537894f186f3bb128de8412bcf205c2"
+      }
+    },
+    {
+      "id": "sd/compdata/91D80",
+      "source_text": "ＨＰの『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_text_sha256": "5f9ab7619cd2d59d8887aa8820ad8105baf81030aba641e6136e5bf902bbcf1b",
+      "baseline_translation": "HP的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "translation": "HP的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "editorial_status": "reviewed",
+      "review_notes": "说明中引用的界面显示为改造前→改造后，恢复箭头方向，不改变固定每段增长的规则。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 597376,
+          "offset": 597376,
+          "pointer_sites": [
+            432352
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 597376,
+        "capacity": 128,
+        "pointer_sites": [
+          432352
+        ],
+        "source_slot_sha256": "996b0e9adeac9f4ed5f65023b69dc1e81078616d35dfec25b429d5730fcd301f",
+        "baseline_slot_sha256": "79e8b631e762472e1ba3e7aa183efca9a4db3e3268cf4d47042385e6e98eba8d"
+      }
+    },
+    {
+      "id": "sd/compdata/91E00",
+      "source_text": "ＥＮの『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_text_sha256": "ae8fce4a7c2f877ced0fc9829d6866c2cd9c7529c7baf14d9e14de0498238d86",
+      "baseline_translation": "EN的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "translation": "EN的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "editorial_status": "reviewed",
+      "review_notes": "说明中引用的界面显示为改造前→改造后，恢复箭头方向，不改变固定每段增长的规则。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 597504,
+          "offset": 597504,
+          "pointer_sites": [
+            432356
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 597504,
+        "capacity": 128,
+        "pointer_sites": [
+          432356
+        ],
+        "source_slot_sha256": "22af9d9e3f71c83006e61f1815810845f60955c630ebc032cc64b9dd96559b5a",
+        "baseline_slot_sha256": "0240776e311d2d871c7f50990397fd6ffa08c1e4e530705ab1e150b28c70dbb6"
+      }
+    },
+    {
+      "id": "sd/compdata/91E80",
+      "source_text": "装甲の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_text_sha256": "59f71154c1eac6b353a0fa7054422d88c754f8e010ca62356a1e4653d19a1054",
+      "baseline_translation": "装甲的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "translation": "装甲的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "editorial_status": "reviewed",
+      "review_notes": "说明中引用的界面显示为改造前→改造后，恢复箭头方向，不改变固定每段增长的规则。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 597632,
+          "offset": 597632,
+          "pointer_sites": [
+            432360
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 597632,
+        "capacity": 128,
+        "pointer_sites": [
+          432360
+        ],
+        "source_slot_sha256": "b8a4519b3a13c11a7e7643f336e0a42a4942be55abbceef2252b51a96d1b52dd",
+        "baseline_slot_sha256": "cfda31012ce8dea4ca629c0e85717f245a94adf6a363c74e6e61526c2c0b6540"
+      }
+    },
+    {
+      "id": "sd/compdata/91F00",
+      "source_text": "運動性の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_text_sha256": "31eae772e23983ee14fbcc7109f1232557f1a19f35231e64bf02c2ff76282cd7",
+      "baseline_translation": "运动性的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "translation": "运动性的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "editorial_status": "reviewed",
+      "review_notes": "恢复改造前→改造后的显示方向，与其他改造项目相同；不动成长数值规则。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 597760,
+          "offset": 597760,
+          "pointer_sites": [
+            432364
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 597760,
+        "capacity": 128,
+        "pointer_sites": [
+          432364
+        ],
+        "source_slot_sha256": "502bd804d062fbd43769b6f5864c5c7d8613c82cf91ecbfacb02785335234010",
+        "baseline_slot_sha256": "504a39ae73fa0cd72ffbcac5f7ce547882b8fdc7febfee8e6ee52c77d5c62201"
+      }
+    },
+    {
+      "id": "sd/compdata/91F80",
+      "source_text": "照準値の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_text_sha256": "ac9d65e1d70ab821307f415c0011658c56a9518120b933224dea3698e3c18645",
+      "baseline_translation": "瞄准值的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "translation": "瞄准值的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "editorial_status": "reviewed",
+      "review_notes": "恢复改造前→改造后的显示方向，与其他改造项目相同；不动成长数值规则。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 597888,
+          "offset": 597888,
+          "pointer_sites": [
+            432368
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 597888,
+        "capacity": 128,
+        "pointer_sites": [
+          432368
+        ],
+        "source_slot_sha256": "1d8870166347ded4452a4bb6632a154549f91c918f7dec9ca379cb43aafbca3c",
+        "baseline_slot_sha256": "b6f0747e38717f7855e429696f88ddf66678888af2e49a490ea9df82bbf2d71a"
+      }
+    },
+    {
+      "id": "sd/compdata/92000",
+      "source_text": "攻撃力の『改造前のランク→改造後のランク』です。\n他の項目と違い、武器改造の費用は機体ごとに異なります。\nまた、攻撃力の上昇値は、各武器について個別に設定されています。",
+      "source_text_sha256": "bfa6158e246202d0201c4749314d067278286be68899c5cd6b329a9c003ec202",
+      "baseline_translation": "攻击力的“改造前RANK／改造后RANK”。\n与其他项目不同，武器改造费用因机体而异。\n此外，各武器的攻击力提升值分别设定。",
+      "translation": "攻击力的“改造前RANK→改造后RANK”。\n与其他项目不同，武器改造费用因机体而异。\n此外，各武器的攻击力提升值分别设定。",
+      "editorial_status": "reviewed",
+      "review_notes": "原文是旧RANK到新RANK的变化箭头，非斜线分隔。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 598016,
+          "offset": 598016,
+          "pointer_sites": [
+            432372
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 598016,
+        "capacity": 168,
+        "pointer_sites": [
+          432372
+        ],
+        "source_slot_sha256": "30abdd06b4544bae3d4b61ad2ed337e0fab1737741a93d437f586342d0ce80d1",
+        "baseline_slot_sha256": "73ae0959d66c47d197b9c08d8a6d45d7103c1e61bdff7a5058e058972f1d6959"
+      }
+    },
+    {
+      "id": "sd/compdata/92CB0",
+      "source_text": "カーソル位置のユニットに搭乗するパイロットのレベルです。",
+      "source_text_sha256": "2573bfd3279056ef3a6175204471eb546ec3ed8ea1bb25672ad3b69c2ff1ba20",
+      "baseline_translation": "光标位置单位所搭乘驾驶员的等级。",
+      "translation": "搭乘光标所在单位的驾驶员等级。",
+      "editorial_status": "reviewed",
+      "review_notes": "驾驶员搭乘单位，而不是单位搭乘驾驶员，修正施受关系。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 601264,
+          "offset": 601264,
+          "pointer_sites": [
+            432544
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 601264,
+        "capacity": 64,
+        "pointer_sites": [
+          432544
+        ],
+        "source_slot_sha256": "644467aefe76793afc771948604437e425be168d46913a36603268197c68de3f",
+        "baseline_slot_sha256": "f72e2c2d57d43c5032f51f845ffe7c3b4c028889d0d57e69963a41522002a074"
+      }
+    },
+    {
+      "id": "sd/compdata/92CF0",
+      "source_text": "カーソル位置の小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
+      "source_text_sha256": "9469a88baf9be3d7315470b33c4160bb3fada6bad5026d9ba96cda805611a1d5",
+      "baseline_translation": "光标位置小队的“移动力／移动类型”。\n移动力为各机体的平均值（舍去小数）。\n全员可移动时为白色，部分可移动时为灰色，\n全员无法移动时为空白。",
+      "translation": "光标所在小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机均不可移动时为空白（移动极难或无法移动）。",
+      "editorial_status": "reviewed",
+      "review_notes": "补足颜色／空白对应的困难程度，防止将空白一律误认成绝对禁止移动。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 601328,
+          "offset": 601328,
+          "pointer_sites": [
+            432548
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 601328,
+        "capacity": 248,
+        "pointer_sites": [
+          432548
+        ],
+        "source_slot_sha256": "5e37889bc6b3d12cd8c0ccce7736026d2e692bef0e60b67e08e95c46e3c18b7e",
+        "baseline_slot_sha256": "1b6019b6d4f87476a33fe43f6af40de83c0acee44a5cddcebb0d7e85b778f152"
+      }
+    },
+    {
+      "id": "sd/compdata/92FD0",
+      "source_text": "選択中の小隊にリフター装置を持つユニットがいる事を表します。\n小隊の移動タイプに「空」を追加し、飛行を可能にします。",
+      "source_text_sha256": "295edb0c24bd0b29007c9121457509c727e7783026bf77036151c514c7d0ce4f",
+      "baseline_translation": "表示所选小队中有单位持有升空装置。\n小队移动类型增加“空”，从而可以飞行。",
+      "translation": "表示所选小队中有单位持有升空功能。\n小队移动类型增加“空”，从而可以飞行。",
+      "editorial_status": "reviewed",
+      "review_notes": "所示图标对应已批准的リフター機能“升空功能”；与其完整效果说明一致。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 602064,
+          "offset": 602064,
+          "pointer_sites": [
+            432564
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 602064,
+        "capacity": 120,
+        "pointer_sites": [
+          432564
+        ],
+        "source_slot_sha256": "4fe7f423d4b2617f098c901c3140a6b266b7d9e38c6e28ee74d7bb5503437228",
+        "baseline_slot_sha256": "5c7075e61beaaeecda2bf7f561eb7459b4fd808abe47cbf3d233fab0eeaed626"
+      }
+    },
+    {
+      "id": "sd/compdata/96640",
+      "source_text": "トライチャージ使用可能　小隊攻撃使用不可\n援護防御使用可能　対全体攻撃で小隊員の防御・回避にプラス補正",
+      "source_text_sha256": "fa33b598430efc75d939e64037e4ffea5a43e9f92ae0b3b966cc7f3f4ca06ca3",
+      "baseline_translation": "TRI攻击可用，小队攻击不可用\n可援防，队员抗全体攻击能力提升",
+      "translation": "可使用TRI攻击，不可使用小队攻击，可进行援护防御\n受到全体攻击时，小队员的防御和回避获得有利修正",
+      "editorial_status": "reviewed",
+      "review_notes": "补回防御与回避两个分别生效的属性，不能缩成笼统的“抗全体攻击能力”。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 616000,
+          "offset": 616000,
+          "pointer_sites": [
+            433944
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 616000,
+        "capacity": 104,
+        "pointer_sites": [
+          433944
+        ],
+        "source_slot_sha256": "fb64f074badb32871b898a9d82d2ca845be8f6f61c3370ece594d5dd2949ef57",
+        "baseline_slot_sha256": "20fcaefc8fece31a589eb37c81566129bc2e71723e19380370028e6440850232"
+      }
+    },
+    {
+      "id": "sd/compdata/966B0",
+      "source_text": "小隊攻撃は敵一機を集中攻撃（小隊員の攻撃力５０％）　援護防御使用可能\nバリアが小隊全機に適用　対全体攻撃で小隊長の防御にプラス補正",
+      "source_text_sha256": "aa32022211c19b9d918978269feea5d75a31973a4dd86836e9a692e706b2e476",
+      "baseline_translation": "集中攻击单体，队员攻击力50%\n可援防，共享屏障，队长抗全体攻击",
+      "translation": "小队攻击集中攻击敌方1台机体（队员攻击力50%），可进行援护防御\n屏障作用于小队全体机体；受到全体攻击时，小队长的防御获得有利修正",
+      "editorial_status": "reviewed",
+      "review_notes": "明确小队攻击类别、单体目标、队员攻击力比例、屏障作用范围及队长获得的是防御修正；不补回避加成。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 616112,
+          "offset": 616112,
+          "pointer_sites": [
+            433948
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 616112,
+        "capacity": 136,
+        "pointer_sites": [
+          433948
+        ],
+        "source_slot_sha256": "f926d024053155bcd4cf35582bb86bda4387dbf9896ee708c51957a84c22bb22",
+        "baseline_slot_sha256": "8c1da0c77166e0c8d3eba22e4f8cf64e11e57491c572bbd008199f91ce72dbbd"
+      }
+    },
+    {
+      "id": "sd/compdata/96740",
+      "source_text": "小隊攻撃はそれぞれの敵を攻撃（小隊員の攻撃力８０％）　援護防御使用不可\n対全体攻撃で小隊員の防御にプラス補正",
+      "source_text_sha256": "6ccebc59002bcbc02cd097f7e8e58f1eeb41a167ebdbbba67d26be259a603c59",
+      "baseline_translation": "分散攻击目标，队员攻击力80%\n不可援防，队员抗全体攻击能力提升",
+      "translation": "小队攻击分别攻击对应的敌人（队员攻击力80%），不可进行援护防御\n受到全体攻击时，小队员的防御获得有利修正",
+      "editorial_status": "reviewed",
+      "review_notes": "“分别攻击”保留对应目标关系，并明确加成为防御而非连回避也提高。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 616256,
+          "offset": 616256,
+          "pointer_sites": [
+            433952
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 616256,
+        "capacity": 112,
+        "pointer_sites": [
+          433952
+        ],
+        "source_slot_sha256": "2166ca4a1b125d45a6b828627d180bcb687c23136c25faa96bd8d7960c8b21c6",
+        "baseline_slot_sha256": "f0d8b904fb8b8087623ba243897dac2e98d6f38e648a98bfdcb9e3b83dfd06a6"
+      }
+    },
+    {
+      "id": "sd/compdata/96940",
+      "source_text": "マップ兵器／射程１以外の武器の射程を＋１",
+      "source_text_sha256": "0757fd7670734a887e9aa24ce0f571b8d5f5cf106ed23ff486f2b551c78d1767",
+      "baseline_translation": "MAP武器及射程1以外的武器射程＋1",
+      "translation": "除MAP武器和射程1武器外，射程＋1",
+      "editorial_status": "reviewed",
+      "review_notes": "并列两项均为不适用的武器，明确除外作用范围。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 616768,
+          "offset": 616768,
+          "pointer_sites": [
+            434016
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "engineering_note": "固定原位容量内保持原意的短句；明确排除MAP与射程1武器，或保留重复施加不叠加。",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 616768,
+        "capacity": 48,
+        "pointer_sites": [
+          434016
+        ],
+        "source_slot_sha256": "d1fb2ccd89705e0f799a1b056b4db3fa3a4c375e4e59e4cfb0e40b0884e1e998",
+        "baseline_slot_sha256": "25659dffa82030e7e8bfb4406c4f4bb83da365de4603304bf25141c70ea7eef6"
+      }
+    },
+    {
+      "id": "sd/compdata/969A0",
+      "source_text": "〜【フル改造ボーナス（武器ＣＴ率）】〜",
+      "source_text_sha256": "4da3d7f1e00eb42c50af020166e0c2de60fbbbafcc41a5aff16f205fe70904c4",
+      "baseline_translation": "〜【完全改造奖励（武器暴击率）】〜",
+      "translation": "〜【全改造奖励（武器暴击率）】〜",
+      "editorial_status": "reviewed",
+      "review_notes": "对应同一菜单的“全改造奖励”称呼，避免标题与帮助出现两个名称；保留原有边界波浪符。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 616864,
+          "offset": 616864,
+          "pointer_sites": [
+            434032
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 616864,
+        "capacity": 40,
+        "pointer_sites": [
+          434032
+        ],
+        "source_slot_sha256": "e5f6022e0e40a8f38b7d97843886c7bc6627ac4430e78fa6509b818031332a59",
+        "baseline_slot_sha256": "77a8b2a9a0bd8f8739d4ab3d018dc4af1372d9340e7b80a21d5f40e67281bb5b"
+      }
+    },
+    {
+      "id": "sd/compdata/969D0",
+      "source_text": "〜【フル改造ボーナス（武器射程）】〜",
+      "source_text_sha256": "4bdae53d53ed29d956c18a21eee889b139db40f39f62d1ddcbe899423efb5565",
+      "baseline_translation": "〜【完全改造奖励（武器射程）】〜",
+      "translation": "〜【全改造奖励（武器射程）】〜",
+      "editorial_status": "reviewed",
+      "review_notes": "对应同一菜单的“全改造奖励”称呼，避免标题与帮助出现两个名称；保留原有边界波浪符。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 616912,
+          "offset": 616912,
+          "pointer_sites": [
+            434036
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 616912,
+        "capacity": 40,
+        "pointer_sites": [
+          434036
+        ],
+        "source_slot_sha256": "dfdaaf2a193023f8e2832ef89cde1052635169630e641679e8eb0d8359bc2134",
+        "baseline_slot_sha256": "ff5ae2c77db0feb648005d2bb72b1b898769146c02e5480556ec4e84daffd274"
+      }
+    },
+    {
+      "id": "sd/compdata/96B50",
+      "source_text": "合神して３ターン経過するとゴッドグラヴィオンは\n重力子臨界を迎え、合神は自動的に解除されます。\nその後、同じマップ上では、再合神は出来ません。\n合神しますか？",
+      "source_text_sha256": "a84008ba623b8ca4bcd3b056d2a8912240c62884baecb43cd47848818a5edb63",
+      "baseline_translation": "合神后经过3回合，格兰维昂将达到\n重力子临界，合神会自动解除。\n之后在本地图内无法再次合神。\n要合神吗？",
+      "translation": "合神后经过3回合，超重神将达到\n重力子临界，合神会自动解除。\n之后在本地图内无法再次合神。\n要合神吗？",
+      "editorial_status": "reviewed",
+      "review_notes": "原文是グラヴィオン泛称，采用已批准的“超重神”，不将没有ゴッド前缀的说明擅自具体化。保留3回合、重力子临界及同地图无法再次合神。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 617296,
+          "offset": 617296,
+          "pointer_sites": [
+            434152
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 617296,
+        "capacity": 160,
+        "pointer_sites": [
+          434152
+        ],
+        "source_slot_sha256": "da673cc3e7de59d5e15d624f4c941828622eeb046473b44083e510490a7e951f",
+        "baseline_slot_sha256": "cb61beda0108b88bb425169dc93f9ed9651b8a4e7a0b9d691d1694cdf0b77df5"
+      }
+    },
+    {
+      "id": "sd/compdata/96EA0",
+      "source_text": "ＥＸハードモードでは改造は出来ません。",
+      "source_text_sha256": "3e795c11a42a67f8490a5821bc848ac62759df127bed98be8351fcd8a77d9188",
+      "baseline_translation": "EX困难模式下无法改造。",
+      "translation": "EX-HARD模式下无法改造。",
+      "editorial_status": "reviewed",
+      "review_notes": "保留模式标识EX-HARD，不以“EX困难”混写；本篇共用规则不据SP流程改写。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 618144,
+          "offset": 618144,
+          "pointer_sites": [
+            434240
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 618144,
+        "capacity": 40,
+        "pointer_sites": [
+          434240
+        ],
+        "source_slot_sha256": "b1bcfb4d6e5541be7fefff711758ac4123d0836584d127f74754e15cdb3697a9",
+        "baseline_slot_sha256": "7d8768c19bb501baf5d8378ef880875b6df6b17ee3099900c638a4f2ad02b73a"
+      }
+    },
+    {
+      "id": "sd/compdata/96ED0",
+      "source_text": "ＥＸハードモードでは養成は出来ません。",
+      "source_text_sha256": "a4811e3a0ccecf0cf49ee50643e1b965342368ac5539b47f6004d9dcc73d4688",
+      "baseline_translation": "EX困难模式下无法培养。",
+      "translation": "EX-HARD模式下无法培养。",
+      "editorial_status": "reviewed",
+      "review_notes": "保留模式标识EX-HARD，不以“EX困难”混写；本篇共用规则不据SP流程改写。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 618192,
+          "offset": 618192,
+          "pointer_sites": [
+            434244
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 618192,
+        "capacity": 40,
+        "pointer_sites": [
+          434244
+        ],
+        "source_slot_sha256": "e309f1c2eeeeec6824eed91df698a125ea16983733fd3145f2808be24d310bb9",
+        "baseline_slot_sha256": "0c40ebbf92ec9f7318a3fb4a8f5955ebea11674101316bfc2d623a7128b97c24"
+      }
+    },
+    {
+      "id": "sd/exe/3AE5D0",
+      "source_text": "・敵ユニットは<color:0E>改造済<color:0E>／難易度、<color:0E>常にＨＡＲＤ",
+      "source_text_sha256": "8162f104c8963a57c938d644678fbc29b88dd78d05c4205814c8f69b9401d1df",
+      "baseline_translation": "・敌方机体<color:0E>已改造<color:0E>／难度始终为<color:0E>困难",
+      "translation": "・敌方机体<color:0E>已改造<color:0E>／难度始终为<color:0E>HARD",
+      "editorial_status": "reviewed",
+      "review_notes": "保留原文指向的HARD难度标识，颜色控制码及其顺序不变。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3859920
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3859920,
+        "capacity": 56,
+        "pointer_sites": [],
+        "source_slot_sha256": "3bc4988e2403be551dad9250d0f05f2e24ff4de44902ae718c99ca1c37ad191e",
+        "baseline_slot_sha256": "9be34dbbf890cb30c494782ed985cb54a9ee69a545ac19a5e7765d2cb1a06cfd"
+      }
+    },
+    {
+      "id": "sd/exe/3AE690",
+      "source_text": "・クリアデータの<color:0A>獲得資金＆ＢＳ＆ＰＰを引き継ぎ<color:0D>ます。",
+      "source_text_sha256": "457b7aaab42b57113fd14787f6668922f618cde35e6c3b5e7db7753a36499ac3",
+      "baseline_translation": "・继承通关数据的<color:0A>资金、BS和PP<color:0D>。",
+      "translation": "・继承通关数据的<color:0A>已获得的资金、BS和PP<color:0D>。",
+      "editorial_status": "reviewed",
+      "review_notes": "原文明确獲得，区分累计已获得资源与存档当前剩余资源；各周目的继承比例在下一条保留。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3860112
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3860112,
+        "capacity": 64,
+        "pointer_sites": [],
+        "source_slot_sha256": "dbd1acf7c6ee1ecc2fb97d842d7a27ec3c4a350002cecf00bba51b5e71d78882",
+        "baseline_slot_sha256": "2174a8150ac500312e63a79ee10784616edffb151e96e6101ef72594b3d8b570"
+      }
+    },
+    {
+      "id": "sd/exe/3AE780",
+      "source_text": "<color:0E>・ゲームスタート開始時から<color:0E>強化パーツを全種類所持",
+      "source_text_sha256": "41ed76f26f3a69b56e26bd6f9d4cf9d241e397be734b62c1afb210f791e9879d",
+      "baseline_translation": "<color:0E>・游戏开始时持有<color:0E>全部强化零件",
+      "translation": "<color:0E>・游戏开始时持有<color:0E>所有种类的强化零件",
+      "editorial_status": "reviewed",
+      "review_notes": "全種類是种类齐全，不意味着获得无限数量或所有个体；不擅加每种数量。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3860352
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3860352,
+        "capacity": 56,
+        "pointer_sites": [],
+        "source_slot_sha256": "f6fb32985a53d788d8a7e00392fc2b837b1ed49ff30bcd72885bb4c9a36f5973",
+        "baseline_slot_sha256": "57d1c41030d0170de5841e382a2a4afa7027802bf1c54c506b489efc19efca89"
+      }
+    },
+    {
+      "id": "sd/exe/3AF010",
+      "source_text": "ウォーカーマシン用のエンジンで\n高出力を誇るタイプ。\n同タイプは戦闘用の大型マシンに\n使用されており、かなりの高度まで\nジャンプを可能とする出力を叩き出す。\nザブングルやウォーカーギャリアも\n同タイプのエンジンを使用している。",
+      "source_text_sha256": "0fdc3a71b0517290b4bb6f04ccc20e78df890be7d6a264a936f279a861e6deae",
+      "baseline_translation": "步行机甲用的\n高输出型发动机。\n同型发动机用于大型战斗机，\n输出足以让机体\n跳到相当高的高度。\n萨芬格尔和沃卡加利亚也\n采用同型发动机。",
+      "translation": "步行机甲用的\n高输出型发动机。\n同型发动机用于大型战斗机体，\n输出足以让机体\n跳到相当高的高度。\n萨芬格尔和沃卡加利亚也\n采用同型发动机。",
+      "editorial_status": "reviewed",
+      "review_notes": "原文战斗用大型マシン指步行机甲，不是大型战斗飞机。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3862544
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3862544,
+        "capacity": 224,
+        "pointer_sites": [],
+        "source_slot_sha256": "d1f76f9965f09df6ca6562d9ac49df5536af34fbe331ea5efc656cb086a9398e",
+        "baseline_slot_sha256": "170b607e7caffdc311ca374e94a67f2ec180b6ce6e33d69fc1dfd1d6975bef89"
+      }
+    },
+    {
+      "id": "sd/exe/3AF9B0",
+      "source_text": "南アメリアを中心に生息する\nトカゲのくんせい。\n北半球のものより巨大であり、\n性質も凶暴。\nしかし、その肉は高タンパクで\nあっさりとしながらも\n後を引く美味しさで大人気。\nその美味はくんせいにしても変わらず\n高額で取り引きされる。",
+      "source_text_sha256": "4a5227d92094531c252baf8b730680fcb4190889d9b0694ad306f45174404f09",
+      "baseline_translation": "主要栖息于南阿美利亚的\n熏制蜥蜴。\n比北半球的种类更加巨大，\n性情也更凶猛。\n其肉高蛋白而清爽，\n鲜美回味令人着迷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "translation": "用主要栖息于南阿美利亚的\n蜥蜴熏制而成。\n这种蜥蜴比北半球的种类更加巨大，\n性情也更凶猛。\n其肉高蛋白而清爽，\n鲜美回味令人着迷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "editorial_status": "reviewed",
+      "review_notes": "栖息地、体型与凶猛性情描述的是原料蜥蜴，不是熏制品；保留高蛋白、清爽滋味和高价交易等信息。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3865008
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3865008,
+        "capacity": 224,
+        "pointer_sites": [],
+        "source_slot_sha256": "30fc3e18f2cdd621c24d3a9e6e6d7b22ebd07b6311787314175d481c6ff2e502",
+        "baseline_slot_sha256": "8a957bab1fbb2724b5d3d585f214d615fe33e512cb8964afa0a33d352eb3a02e"
+      }
+    },
+    {
+      "id": "sd/exe/3AFD30",
+      "source_text": "上流階級の婦人が公的な場に\n出かける際に身につける品。\n気品溢れる銀細工で\n大人の女性の小物として\nその美しさに、さらなる華を\n添える一品。",
+      "source_text_sha256": "94ada9d8199ad36a14b07878851a15ba18b1b3ff661d1410b9c7f1dc4f7be573",
+      "baseline_translation": "上流社会的女士\n出席正式场合时佩戴的饰品。\n优雅的银制工艺\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "translation": "上流社会的女士\n出席正式场合时佩戴的饰品。\n这件典雅的银饰\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "editorial_status": "reviewed",
+      "review_notes": "佩戴的是银饰成品而非“银制工艺”本身，理顺主语。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3865904
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3865904,
+        "capacity": 136,
+        "pointer_sites": [],
+        "source_slot_sha256": "d0ffbab157796699c9c9fd4569a936ba0d144ca48510f1c79da685d0bfd62593",
+        "baseline_slot_sha256": "abde335f29ce757a157099999563fc3891fd8a6306fa23bca065487263fa9508"
+      }
+    },
+    {
+      "id": "sd/exe/3B1590",
+      "source_text": "ベーシックオーダーの編成が終了しました。",
+      "source_text_sha256": "7b6de5dacbddd63d5ca282af96b9b6ae5533e08ee2563756cc0df4277de973d6",
+      "baseline_translation": "基础编成已完成。",
+      "translation": "已按基本方案完成编成。",
+      "editorial_status": "reviewed",
+      "review_notes": "同一自动编成方式应对应实际菜单“基本方案”；本包Q&A与只读菜单短标签相互支持，不改只读短标签。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3872144
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3872144,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "bde8fa7461e1a4d2be1d970d3cbb104ea497c99862c5d62327b8515bbade7ddf",
+        "baseline_slot_sha256": "ca3f6b47ec9e94123e8fc89cf3f0a4f2618dbf27864bd91424a7bd4efb5b2a76"
+      }
+    },
+    {
+      "id": "sd/exe/3B1600",
+      "source_text": "バランスオーダーの編成が終了しました。",
+      "source_text_sha256": "23164c9ce01118b79e4b902ab7e6e3caf41bcf8978701748b00c377e343404a1",
+      "baseline_translation": "均衡编成已完成。",
+      "translation": "已按均衡方案完成编成。",
+      "editorial_status": "reviewed",
+      "review_notes": "与Q&A及实际菜单“均衡方案”对应，不把方法名写成另一套“均衡编成”。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3872256
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3872256,
+        "capacity": 40,
+        "pointer_sites": [],
+        "source_slot_sha256": "570b1194f3e983e39e8f46e03d311a5ba53e7532b1efad0fd645ee8073984ed5",
+        "baseline_slot_sha256": "76361ddfd7237f8784586e71d645010aa099f54ad3064091a2a7bd7d4b8df46c"
+      }
+    },
+    {
+      "id": "sd/exe/3B3DB0",
+      "source_text": "〜【パイロット養成】修得先選択〜",
+      "source_text_sha256": "55eaa74b42d86f67c0fa089592fe9b2d64c83ee03981ca6bef27742e3659e5ed",
+      "baseline_translation": "〜【驾驶员培养】选择学习对象〜",
+      "translation": "〜【驾驶员培养】选择技能栏位〜",
+      "editorial_status": "reviewed",
+      "review_notes": "修得先指本次技能要写入／覆盖的栏位，驾驶员已在前面选定，不是再次选择学习对象。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3882416
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3882416,
+        "capacity": 40,
+        "pointer_sites": [],
+        "source_slot_sha256": "84180b0abebbef065313dd88b5682c2e005e9b83bf6305c8fb080552a0137042",
+        "baseline_slot_sha256": "6b0619a5204419f1e0838ec0d35b4e0e299161df674e6d998384609cefbdf0ca"
+      }
+    },
+    {
+      "id": "sd/exe/3BF480",
+      "source_text": "ソート用のテーブルが壊れているのかも…。\n",
+      "source_text_sha256": "4bb6f42c1a99b716453a2b1df4571834620d3f3759440f1790427b74970ed940",
+      "baseline_translation": "ソート用のテーブルが壊れているのかも…。\n",
+      "translation": "排序用表可能损坏了……\n",
+      "editorial_status": "reviewed",
+      "review_notes": "补译仍为日文的诊断提示；与同源已译条目一致，保留“可能”的推测及末尾实际换行。此处只译指定回填目标，不断言提示已在实机触发。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3929216
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3929216,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "d6cdb3e57fea4f5aa5a31b23fca152329a00b98f591707bb532e3bdce2c33d34",
+        "baseline_slot_sha256": "9bf30a9cd82eb5a4bd3d70a3d20a50c370cd8029e7a53d0dfb4e17733c741b43"
+      }
+    },
+    {
+      "id": "sd/exe/3C0A88",
+      "source_text": "強\n化\nパ\n｜\nツ",
+      "source_text_sha256": "9d441d20b8a2eb4905b3e8298c52c010aaa464b7c77068fc9ce0108f5cace59f",
+      "baseline_translation": "强\n化\n部\n件",
+      "translation": "强\n化\n零\n件",
+      "editorial_status": "reviewed",
+      "review_notes": "按已批准术语“强化零件”修正竖排标签；保留每字一行，不能合并成横排。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3934856
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3934856,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "e3f5ed25add58d228f9aaee0931728fe9f0125652d1b1ea55bed9261f305a849",
+        "baseline_slot_sha256": "5cc75f09dab89e49d6f21015b0973cf5a352ef6e1e50845d1d4b0bf411cdedfc"
+      }
+    },
+    {
+      "id": "sd/exe/3C1410",
+      "source_text": "ソート用のテーブルが壊れているのかも…。\n",
+      "source_text_sha256": "4bb6f42c1a99b716453a2b1df4571834620d3f3759440f1790427b74970ed940",
+      "baseline_translation": "ソート用のテーブルが壊れているのかも…。\n",
+      "translation": "排序用表可能损坏了……\n",
+      "editorial_status": "reviewed",
+      "review_notes": "补译仍为日文的诊断提示；与同源已译条目一致，保留“可能”的推测及末尾实际换行。此处只译指定回填目标，不断言提示已在实机触发。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3937296
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3937296,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "d6cdb3e57fea4f5aa5a31b23fca152329a00b98f591707bb532e3bdce2c33d34",
+        "baseline_slot_sha256": "9bf30a9cd82eb5a4bd3d70a3d20a50c370cd8029e7a53d0dfb4e17733c741b43"
+      }
+    },
+    {
+      "id": "sd/exe/3C20A0",
+      "source_text": "ソート用のテーブルが壊れているのかも…。\n",
+      "source_text_sha256": "4bb6f42c1a99b716453a2b1df4571834620d3f3759440f1790427b74970ed940",
+      "baseline_translation": "ソート用のテーブルが壊れているのかも…。\n",
+      "translation": "排序用表可能损坏了……\n",
+      "editorial_status": "reviewed",
+      "review_notes": "补译仍为日文的诊断提示；与同源已译条目一致，保留“可能”的推测及末尾实际换行。此处只译指定回填目标，不断言提示已在实机触发。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3940512
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3940512,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "d6cdb3e57fea4f5aa5a31b23fca152329a00b98f591707bb532e3bdce2c33d34",
+        "baseline_slot_sha256": "9bf30a9cd82eb5a4bd3d70a3d20a50c370cd8029e7a53d0dfb4e17733c741b43"
+      }
+    },
+    {
+      "id": "sd/exe/3C2730",
+      "source_text": "この機体はパイロット未搭乗となるため",
+      "source_text_sha256": "d8a3ccdda83faf59974d4baa5ae0ec569f05424e645b43810fcd48d725419168",
+      "baseline_translation": "由于此机体将变为驾驶员未搭乘状态",
+      "translation": "由于这台机体将没有驾驶员搭乘，",
+      "editorial_status": "reviewed",
+      "review_notes": "与下一条“因此会移出小队”连读，去掉“变为驾驶员未搭乘状态”的名词堆叠。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3942192
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3942192,
+        "capacity": 40,
+        "pointer_sites": [],
+        "source_slot_sha256": "2c4c4b363a47bd61d6268fa5840849f6c6d6a8f20dbbb66f3695406bc877cb1f",
+        "baseline_slot_sha256": "dc90f37e270de99fb2d7001a96b9df961d5173f7114306db3ee76ab4dae73ba1"
+      }
+    },
+    {
+      "id": "sd/exe/3C28B0",
+      "source_text": "ソート用のテーブルが壊れているのかも…。\n",
+      "source_text_sha256": "4bb6f42c1a99b716453a2b1df4571834620d3f3759440f1790427b74970ed940",
+      "baseline_translation": "ソート用のテーブルが壊れているのかも…。\n",
+      "translation": "排序用表可能损坏了……\n",
+      "editorial_status": "reviewed",
+      "review_notes": "补译同源日文诊断文字，与包内已译目标一致；保留推测语气及末尾实际换行。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3942576
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3942576,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "d6cdb3e57fea4f5aa5a31b23fca152329a00b98f591707bb532e3bdce2c33d34",
+        "baseline_slot_sha256": "9bf30a9cd82eb5a4bd3d70a3d20a50c370cd8029e7a53d0dfb4e17733c741b43"
+      }
+    },
+    {
+      "id": "sd/exe/3C2910",
+      "source_text": "この機体はパイロット未搭乗となるため",
+      "source_text_sha256": "d8a3ccdda83faf59974d4baa5ae0ec569f05424e645b43810fcd48d725419168",
+      "baseline_translation": "由于此机体将变为驾驶员未搭乘状态",
+      "translation": "由于这台机体将没有驾驶员搭乘，",
+      "editorial_status": "reviewed",
+      "review_notes": "与下一条合读，简化冗长的状态名词结构；不合并两个独立目标。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3942672
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3942672,
+        "capacity": 40,
+        "pointer_sites": [],
+        "source_slot_sha256": "2c4c4b363a47bd61d6268fa5840849f6c6d6a8f20dbbb66f3695406bc877cb1f",
+        "baseline_slot_sha256": "dc90f37e270de99fb2d7001a96b9df961d5173f7114306db3ee76ab4dae73ba1"
+      }
+    },
+    {
+      "id": "sd/exe/3C2C00",
+      "source_text": "ソート用のテーブルが壊れているのかも…。\n",
+      "source_text_sha256": "4bb6f42c1a99b716453a2b1df4571834620d3f3759440f1790427b74970ed940",
+      "baseline_translation": "ソート用のテーブルが壊れているのかも…。\n",
+      "translation": "排序用表可能损坏了……\n",
+      "editorial_status": "reviewed",
+      "review_notes": "补译同源日文诊断文字，与包内已译目标一致；保留推测语气及末尾实际换行。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3943424
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3943424,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "d6cdb3e57fea4f5aa5a31b23fca152329a00b98f591707bb532e3bdce2c33d34",
+        "baseline_slot_sha256": "9bf30a9cd82eb5a4bd3d70a3d20a50c370cd8029e7a53d0dfb4e17733c741b43"
+      }
+    },
+    {
+      "id": "sd/exe/3C2DB0",
+      "source_text": "ソート用のテーブルが壊れているのかも…。\n",
+      "source_text_sha256": "4bb6f42c1a99b716453a2b1df4571834620d3f3759440f1790427b74970ed940",
+      "baseline_translation": "ソート用のテーブルが壊れているのかも…。\n",
+      "translation": "排序用表可能损坏了……\n",
+      "editorial_status": "reviewed",
+      "review_notes": "补译同源日文诊断文字，与包内已译目标一致；保留推测语气及末尾实际换行。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3943856
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3943856,
+        "capacity": 42,
+        "pointer_sites": [],
+        "source_slot_sha256": "c277429c7f17a7e453c69cae38cfbbdd26fc54b8db7d0f639fe645c23ed7b51f",
+        "baseline_slot_sha256": "1994a37c202f4b3856161b8d7ff9217166995b9a8223202b421d2833cd1656dd"
+      }
+    },
+    {
+      "id": "sd/exe/3A8850",
+      "source_text": "隣接小隊の小隊長の援護攻撃に入る。\n１ターンにスキルレベルと同じ回数、発動可能。",
+      "source_text_sha256": "bcd289655b630e14e843f3504cdabb80b4d45cc8ca24bce7d382500f9bf8d044",
+      "baseline_translation": "可对相邻小队的队长发动援护攻击。\n每回合最多发动与技能等级相同的次数。",
+      "translation": "可为相邻小队的队长进行援护攻击。\n每回合最多发动与技能等级相同的次数。",
+      "editorial_status": "reviewed",
+      "review_notes": "相邻队长是受援者，不是攻击目标；修正“对友军发动攻击”的歧义。次数仍等于技能等级。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3835984
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3835984,
+        "capacity": 80,
+        "pointer_sites": [],
+        "source_slot_sha256": "885c589c613424e0406bcd936ac4316a4afd2b0bb27a6d4c88ddef7bdb9ab60d",
+        "baseline_slot_sha256": "6e22327f7602553312802fbd5ab204ebaca7fe8325e5f066610ffb1779480901"
+      }
+    },
+    {
+      "id": "sd/exe/3A88B0",
+      "source_text": "相手より技量が２０以上ある場合、\n相手の反撃の後、自分に対して援護攻撃を行う。",
+      "source_text_sha256": "e85e9e1fe737089bb845d2d895c6822f9f1a4d903bd9de1a3c61e211a2dacec4",
+      "baseline_translation": "技量比对手高20以上时，\n在对手反击后，对自己进行一次援护攻击。",
+      "translation": "技量比对手高20以上时，\n在对手反击后，由自己再发动一次援护攻击。",
+      "editorial_status": "reviewed",
+      "review_notes": "“自分に対して援護攻撃”指自行追加援护攻击，并非攻击自己；保留敌方反击之后及技量差至少20的前提。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3836080
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3836080,
+        "capacity": 80,
+        "pointer_sites": [],
+        "source_slot_sha256": "0f6c65bee928f113bc086197ec51e005ad64be3a2e91f733298ce07a879c807b",
+        "baseline_slot_sha256": "1de1341c02cdb0cb393d22d5f383e7aa8f547a8512c99e26512acdf372aa6d5e"
+      }
+    },
+    {
+      "id": "sd/exe/3A8D30",
+      "source_text": "ＡＬＬ武器使用時、相手小隊内の機体数が\n２機の時は−２０％、３機の時は−４０％となる\n与ダメージを、それぞれ−５％と−２５％にする。",
+      "source_text_sha256": "bfea542afa8078837f8505c69f34f4cdafb699385ee91542a065cd6d17e376a9",
+      "baseline_translation": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n降低为－5%／－25%。",
+      "translation": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n分别改为－5%／－25%。",
+      "editorial_status": "reviewed",
+      "review_notes": "−20/−40变为−5/−25是减伤幅度缩小，不能把带符号的修正值称为“降低”；数字、顺序和对应目标数量不变。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3837232
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3837232,
+        "capacity": 136,
+        "pointer_sites": [],
+        "source_slot_sha256": "e8f42f2297cba2e89b223dc4fa2c37cab60c5b3f10b1a6f17133220c5306cd97",
+        "baseline_slot_sha256": "1f37650f6433252e0494035dc8a922999b9511291b578db0d3945124adbc2323"
+      }
+    },
+    {
+      "id": "sd/exe/3A9270",
+      "source_text": "気力１３０以上で発動。\n与える最終ダメージが１．１倍になり、\n最終命中率・回避率・クリティカル率＋２０％。",
+      "source_text_sha256": "5f8ed15efb0f90348771b23c7959ec47943acfcb1c701bd4e459fda40df03215",
+      "baseline_translation": "气力达到130以上时发动。\n最终伤害变为1.1倍，\n最终命中率、回避率和暴击率＋20%。",
+      "translation": "气力达到130以上时发动。\n造成的最终伤害变为1.1倍，\n最终命中率、回避率和暴击率＋20%。",
+      "editorial_status": "reviewed",
+      "review_notes": "与造成伤害和受到伤害两类技能区分，明确1.1倍修饰对敌输出。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3838576
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3838576,
+        "capacity": 112,
+        "pointer_sites": [],
+        "source_slot_sha256": "4e367773a2bf7d96082df9de71c4cd68cd1eaeaac95964ba6005c221607122ac",
+        "baseline_slot_sha256": "ab086f392cb1039cdc2575e0ba0241ec734381fe4631530450c06c18e7951b4e"
+      }
+    },
+    {
+      "id": "sd/exe/3A98F0",
+      "source_text": "サイズ差、ユニット数によるＡＬＬ攻撃のダメージ減少と、\n相手の防御に関する特殊能力・スキルを無効化する。",
+      "source_text_sha256": "32064e79160608d4b312c9c607b79a9d526f476a43bab7e9fc4c821f0ef73712",
+      "baseline_translation": "无视尺寸差和单位数量对ALL攻击造成的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "translation": "无视尺寸差造成的伤害衰减，以及ALL攻击因目标数量产生的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "editorial_status": "reviewed",
+      "review_notes": "对照Q&A第077页的三项并列说明，将尺寸差减伤与ALL目标数量减伤分开；不能把前者也限定为仅ALL攻击。保留本界面“尺寸差”用语，不作全项目命名裁定。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3840240
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3840240,
+        "capacity": 104,
+        "pointer_sites": [],
+        "source_slot_sha256": "8b5efcff4c72944b1fe31016ac176bfd2456c991b9be32ac8b6c30a3c17cfa2d",
+        "baseline_slot_sha256": "37f0c432cd3ed1c05cf4827842dd33c26b85674d20b4571fed07f2ef5f8156a8"
+      }
+    },
+    {
+      "id": "sd/exe/3A9A90",
+      "source_text": "自小隊の行動回数を一回増やす。\n重ねがけは無効。",
+      "source_text_sha256": "5c4b30d0b42aef2ca8378402cfb80a9a85d2885de885be7d2fdc498f45006678",
+      "baseline_translation": "本小队可行动次数增加1次。\n不可重复使用。",
+      "translation": "本小队可行动次数增加1次。\n重复施加无叠加效果。",
+      "editorial_status": "reviewed",
+      "review_notes": "重ねがけは無効是重复施加不叠加，不是整张地图或整场游戏只能使用一次。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3840656
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "engineering_note": "固定原位容量内保持原意的短句；明确排除MAP与射程1武器，或保留重复施加不叠加。",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3840656,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "353976e7c6e6a6e21e76033e17abcc2b5c7364edb061876e0a283abdb8a41993",
+        "baseline_slot_sha256": "9f938902cb59cefef54d8bd917cc5e1ce1c97716333664c1c202899b98ce5168"
+      }
+    },
+    {
+      "id": "sd/exe/3A9EA0",
+      "source_text": "指定した味方小隊全パイロットの気力を１０上げて、\n「祝福」「応援」「友情」をかける。",
+      "source_text_sha256": "14d816e27063e619440d97b770b4e3f4953cfd455c25ca249ed925273e2827b3",
+      "baseline_translation": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“声援”和“友情”。",
+      "translation": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“应援”和“友情”。",
+      "editorial_status": "reviewed",
+      "review_notes": "与本包精神指令短标签sd/exe/3A9E08及共用Q&A中的“应援”一致；这只是本包界面对应，不宣称全项目新批准术语。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3841696
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3841696,
+        "capacity": 88,
+        "pointer_sites": [],
+        "source_slot_sha256": "e45ac352461f052fd08953d1740b42cca78321281f03701d13a73c81730cd218",
+        "baseline_slot_sha256": "f26d38bc21db9b35989c73219fdcd9282bed8a52a9fd6528db30ac60c184b13d"
+      }
+    },
+    {
+      "id": "sd/exe/3B8490",
+      "source_text": "戦闘不能のユニットは、\n行動変更できません。",
+      "source_text_sha256": "a732a67c0a6a36399388964961330bfd508f8d48546dec51e4f948952b4cb719",
+      "baseline_translation": "无法更改已无法战斗单位的行动。",
+      "translation": "处于“无法战斗”状态的单位，\n无法更改行动。",
+      "editorial_status": "reviewed",
+      "review_notes": "明确战斗不能是单位的状态，避免“已无法战斗单位”黏连；保留不能更改行动的限制。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3900560
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3900560,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "de54df6be409183918b5566c6033c19f1f6416ce21ca63896764bcb5562dd73c",
+        "baseline_slot_sha256": "9fd7c8fa78e891712c03507cef210ad31993934caa4af88976d66f6663762e16"
+      }
+    },
+    {
+      "id": "sd/exe/3B8840",
+      "source_text": "ソート用のテーブルが壊れているのかも…。\n",
+      "source_text_sha256": "4bb6f42c1a99b716453a2b1df4571834620d3f3759440f1790427b74970ed940",
+      "baseline_translation": "ソート用のテーブルが壊れているのかも…。\n",
+      "translation": "排序用表可能损坏了……\n",
+      "editorial_status": "reviewed",
+      "review_notes": "补译同源诊断文字，不删除程序内部提示；保留末尾换行。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3901504
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3901504,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "d6cdb3e57fea4f5aa5a31b23fca152329a00b98f591707bb532e3bdce2c33d34",
+        "baseline_slot_sha256": "9bf30a9cd82eb5a4bd3d70a3d20a50c370cd8029e7a53d0dfb4e17733c741b43"
+      }
+    },
+    {
+      "id": "sd/nisv/qa/page/012",
+      "source_text": "Ａ．パイロットを養成で強化します\n能力値上昇でパイロットの格闘や射撃を上昇させると、\nそれぞれ格闘武器、射撃武器の与えるダメージを増加させ\nることができます。能力値が１ポイント上昇すると、与え\nるダメージが基本的に０．５％増加します。この数値は、\n他の要因によって増減することがあります。\nまた、特殊スキル修得で戦闘に役立つ特殊スキルを修得\nすることで、特定の状況下において与えるダメージを上昇\nさせることができます。\n以下は、その代表的な特殊スキルです。\n連携攻撃援護攻撃に参加すると、その攻撃が確実にク\nリティカルになります。\n支援攻撃小隊攻撃に参加すると、ダメージが通常の小\n隊攻撃の１．２倍になります。\n集束攻撃全体攻撃を使用する際に、敵小隊の機体数に\n応じて減少するダメージが本来の値に１５％\nが加わります。\n（２機だと８０％→９５％、\n３機だと６０％→７５％となります）\n能力値上昇と特殊スキル修得は、インターミッションの\nパイロット養成で行うことができます。なお、養成にはマ\nップ中の戦闘などで得られるＰＰが必要となります。",
+      "source_text_sha256": "3000e726b9b2fe3b897faef92b43b699f801195fec5ff3897ebd6089fd55a304",
+      "baseline_translation": "A.通过养成强化驾驶员\n能力值上升可提升驾驶员的格斗或射击，分别增加\n格斗武器或射击武器的伤害。能力值每上升1点，\n伤害基本增加0.5%。该数值可能因其他因素增减。此外，\n特殊技能习得可让驾驶员学会有助于战斗的技能，在\n特定情况下提升伤害。以下是代表性的特殊技能。\n连携攻击参加援护攻击时，该攻击必定暴击。\n支援攻击参加小队攻击时，伤害变为通常小队攻击的\n1.2倍。\n集束攻击使用全体攻击时，因敌小队机数而降低的\n伤害比例提高15%。（2机时80%→\n95%，3机时60%→75%）\n能力值上升和特殊技能习得可在整备画面的驾驶员养成\n中进行。养成需要地图战斗中获得的PP。",
+      "translation": "A.通过养成强化驾驶员\n提升驾驶员的格斗或射击能力值，可以分别增加格斗武器或射击武器造成的伤害。能力值每提升1点，伤害基本增加0.5%；实际增幅可能因其他因素而变化。\n学习有助于战斗的特殊技能，也能在特定情况下提高伤害。代表性的技能如下。\n\n连携攻击\n参加援护攻击时，该攻击必定暴击。\n\n支援攻击\n参加小队攻击时，伤害变为通常小队攻击的1.2倍。\n\n集束攻击\n使用全体攻击时，因敌小队机体数量而降低的伤害系数增加15个百分点（2机时80%→95%，3机时60%→75%）。\n\n提升能力值和学习特殊技能，都可以在整备画面的“驾驶员养成”中进行。养成需要消耗在地图战斗等过程中获得的PP。",
+      "editorial_status": "reviewed",
+      "review_notes": "由80→95、60→75的原文例子可确定是加15个百分点，不是乘1.15；拆开技能名称与效果，顺成语义段落，保留0.5%的基本增幅及可能变化这一限定。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 12
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/018",
+      "source_text": "Ａ．１機ずつ狙い撃つのに適した小隊攻撃です\nセンター・フォーメーションは、敵小隊の１機に対して\n攻撃を集中させる小隊攻撃が使えます。隊員によるＰＬＡ\n武器による攻撃に続いて隊長が攻撃を加えるため、通常攻\n撃よりも多くのダメージを与える事ができます。",
+      "source_text_sha256": "9b4511ac4d927adfdc0418a35a80716e72ea34af9f9ac3842f50874626a092e1",
+      "baseline_translation": "A.集中攻击敌方1机的小队攻击\n集中阵型可发动集中攻击敌小队中1机的小队攻击。队员的\nPLA武器\n攻击后队长再追加攻击，因此能比通常攻击造成更多伤害。",
+      "translation": "A.适合集中攻击敌方1机的小队攻击\n集中阵型可以使用小队攻击，将攻击集中在敌方小队的1台机体上。\n小队员先用PLA武器攻击，随后队长追加攻击，因此能比通常攻击造成更多伤害。",
+      "editorial_status": "reviewed",
+      "review_notes": "理顺“小队攻击—目标—PLA先攻—队长后攻”的顺序；去掉把PLA孤立成整行的机械折行，不改攻击机制。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 18
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/021",
+      "source_text": "Ａ．敵の攻撃に対して報復攻撃を行います\n敵軍フェイズに攻撃を受けた際には、攻撃可能な武器を\n所持していれば反撃を選択する事ができます。\n反撃は基本的に隊長が行います。敵の攻撃対象が隊長で\nはなく隊員だった場合は隊員が反撃する事になります。ワ\nイド・フォーメーションの小隊攻撃や全体攻撃で攻撃され\nた他の隊員は反撃には参加しません。\n例外は反撃にトライチャージを使用した場合で、この時\nだけは３機で反撃に参加できます。\nなお反撃には、小隊攻撃やＭＡＰ兵器を選択することは\nできません。\n連続ターゲット補正\n１フェイズ内に連続で攻撃を受けた小隊は、２回目以降\nの敵の攻撃から回避率が−１０％ずつ加算されていきます。\nこれは連続ターゲット補正と呼ばれ、敵味方の双方に発生\nする効果です。\nこの補正値は、次のフェイズに移行することで消滅しま\nす（味方フェイズ→敵フェイズ、またはその逆）。\n連続攻撃回数補正値\n１回目±０％\n２回目−１０％\n３回目−２０％\n４回目−３０％\n・・\n・・\n・・\n２０回目−１９０％\n２１回目−２００％（最大値）\n※２２回目以降も−２００％のままです。\n強敵との戦いで活用すれば有利に働きますが、反撃でダ\nメージを与えようとして敵集団に単独で飛び込むと、攻撃\nされるたびに回避率が低下し続けてしまいます。\n連続で攻撃を受ける状況にならないよう、常に敵と味方\nの位置には気を配りましょう。",
+      "source_text_sha256": "5b7c1a70b243ebcfb6d1d517dd99e3dc20a9de70a846d0c3ead71ff7981f413c",
+      "baseline_translation": "A．受到敌方攻击后进行还击\n敌方阶段受到攻击时，若有武器能攻击对手，就可选\n择反击。\n反击基本由队长进行。若敌方攻击对象不是队长而是队\n员，则由该队员反击。被分散阵型的小队攻击或全体攻击波\n及的其他队员不参与反击。\n但使用TRI攻击反击时是例外，此时3机都能参与反击。\n此外，反击不能选择小队攻击或MAP兵器。\n连续目标修正\n同一阶段内连续受到攻击的小队，从第2次敌方攻击起回\n避率每次－10%。这称为连续目标修正，对敌我双方均有\n效。该修正值在进入下一阶段时消失（我方阶段→敌方阶段，\n或反之）。\n连续攻击次数修正值\n第1次±0%\n第2次－10%\n第3次－20%\n第4次－30%\n・・\n・・\n・・\n第20次－190%\n第21次－200%（最大值）\n※第22次以后仍为－200%。\n善用此机制有助于对付强敌。不过，若为了反击而独自\n冲入敌群，每次受到攻击，回避率都会进一步下降。\n为避免连续受击，请时刻留意敌我位置。",
+      "translation": "A．受到敌方攻击后进行还击\n敌方阶段受到攻击时，若有武器能攻击对手，就可选\n择反击。\n反击基本由队长进行。若敌方攻击对象不是队长而是队\n员，则由该队员反击。被分散阵型的小队攻击或全体攻击波\n及的其他队员不参与反击。\n但使用TRI攻击反击时是例外，此时3机都能参与反击。\n此外，反击不能选择小队攻击或MAP兵器。\n连续目标修正\n同一阶段内连续受到攻击的小队，从第2次敌方攻击起回\n避率每次－10%。这称为连续目标修正，对敌我双方均有\n效。该修正值在进入下一阶段时消失（我方阶段→敌方阶段，\n或反之）。\n连续受攻击次数／回避率修正值\n第1次：±0%\n第2次：－10%\n第3次：－20%\n第4次：－30%\n・・\n・・\n・・\n第20次：－190%\n第21次：－200%（最大值）\n※第22次以后仍为－200%。\n善用此机制有助于对付强敌。不过，若为了反击而独自\n冲入敌群，每次受到攻击，回避率都会进一步下降。\n为避免连续受击，请时刻留意敌我位置。",
+      "editorial_status": "reviewed",
+      "review_notes": "连续目标修正按受攻击次数计算；为原本黏连的表头与每行数值加上分隔，避免误认成自身主动攻击次数。第21次达到−200%、第22次仍维持等原文数值不变。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 21
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/026",
+      "source_text": "Ａ．戦闘マップ上の複数小隊を全て攻撃できます\nＭＡＰ兵器とは、武器毎に設定された範囲内にいる、全\nての小隊を攻撃対象とする武器です。範囲内に入っていれ\nば、敵・味方を問わずにダメージを与えます。\n一部のＭＡＰ兵器は敵・味方の識別が可能であり、この\n場合は範囲内の敵のみが攻撃対象となります。\n命中率は、攻撃範囲選択中にカーソルを敵小隊に合わせ\nることで個別に表示されます。\nＭＡＰ兵器は全体攻撃と異なり、小隊の機数によるダメ\nージの減少は発生しません。また、ＭＡＰ兵器は全体攻撃\n武器とは異なるため、フォーメーションによる全体攻撃の\nダメージ減少の影響は受けません。\nＭＡＰ兵器は、敵から反撃を受けないという大きなメリ\nットを持っています。ただし消費ＥＮが大きかったり、弾\n数が少なめである事が多いため、必然的に使いどころは限\nられてきます。敵が密集しているなどの状況下で使わない\nと有効なダメージは与えられないでしょう。",
+      "source_text_sha256": "396c94e1de7a83ed6ae5ecb82a5bd23cc4b65a4724178af7289832a363d452cc",
+      "baseline_translation": "A.可攻击战斗地图上多个小队\nMAP兵器是指攻击各武器设定范围内所有小队的武器。\n攻击范围内的敌我双方都会受到伤害。\n部分MAP兵器可识别敌我，此时仅攻击范围内敌人。\n选择攻击范围时，将光标对准敌小队，即可查看各自的\n命中率。\nMAP兵器不同于全体攻击，不会因小队机数减少伤害。\n此外，MAP兵器与全体攻击有所不同，\n不受阵型对全体攻击的伤害减少影响。\nMAP兵器具有不受敌人反击的优势。但通常消\n耗EN较多或弹药较少，使用次数有限。应抓住敌人密集等\n时机使用，才能充分发挥效果。",
+      "translation": "A.可攻击战斗地图上多个小队\nMAP兵器是指攻击各武器设定范围内所有小队的武器。\n攻击范围内的敌我双方都会受到伤害。\n部分MAP兵器可识别敌我，此时仅攻击范围内敌人。\n选择攻击范围时，将光标对准敌小队，即可查看各自的\n命中率。\nMAP兵器不同于全体攻击，伤害不会因目标小队的机体数量而降低。\n此外，MAP兵器与全体攻击有所不同，\n不受阵型对全体攻击的伤害减少影响。\nMAP兵器具有不受敌人反击的优势。但通常消\n耗EN较多或弹药较少，使用次数有限。应抓住敌人密集等\n时机使用，才能充分发挥效果。",
+      "editorial_status": "reviewed",
+      "review_notes": "原义是目标机数引起的伤害衰减不存在，不是“机数减少时伤害不变”；同时保留不受阵型的全体攻击减伤修正影响。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 26
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/029",
+      "source_text": "Ａ．影響力の強い気力と精神コマンドを活用します\nパイロットの気力は、攻撃時にはダメージ、防御時には\nダメージ減少に影響を与えます。\n気力は戦闘結果によって増減するため、その変化は非常\nにゆるやかなものです。そこで、早急に気力を高めるのに\n有効なのが精神コマンドです。\n精神コマンドには、気力を上昇させる効果以外にも、直\n接的なダメージ減少が可能なものもあります。以下は、そ\nの代表的なコマンドです。\n気合使用したパイロットの気力を＋１０します。\n不屈攻撃が命中した１戦闘の間だけ、受けるダメー\nジを１０にします。\n鉄壁１ターンの間、受けるダメージを１／４に減少\nします。",
+      "source_text_sha256": "f17626b441d0ff2d2020699b86cd8ee8584adb7e987f522ad4cec9acd077fec0",
+      "baseline_translation": "A.善用气力和精神指令减少伤害\n驾驶员的气力\n既影响攻击时造成的伤害，也影响受到攻击时承受的伤害。\n气力随战斗结果增减，提升较慢。快速提升气力的有效手段是\n精神指令。\n精神指令中，除提升气力外，也有能直接减少伤害的。以\n下是代表性指令。\n气合使用者气力+10。\n不屈仅在下1场被攻击命中的战斗中，所受伤\n害变为10。\n铁壁1回合内，受到的伤害减少为1/4。",
+      "translation": "A.善用气力和精神指令减少伤害\n驾驶员的气力既影响攻击时造成的伤害，也影响受到攻击时承受的伤害。\n气力随战斗结果增减，变动较为缓慢。快速提升气力的有效手段是\n精神指令。\n精神指令中，除提升气力外，也有能直接减少伤害的。以\n下是代表性指令。\n气合使用者气力+10。\n不屈仅在下1场被攻击命中的战斗中，所受伤\n害变为10。\n铁壁1回合内，受到的伤害减少为1/4。",
+      "editorial_status": "reviewed",
+      "review_notes": "ゆるやか描述气力变化速度，不只描述上升；合并被机械拆开的主语。气合、不屈与铁壁的触发和数值不动。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 29
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/037",
+      "source_text": "Ａ．ユニットの得意な地形で戦いましょう\n攻撃の命中率は、機体とパイロットの地形適応から導\nき出すユニットの地形適応でも変化します。地形適応はＳ・\nＡ・Ｂ・Ｃ・Ｄ（−）の５段階があり、Ｓから順に高い命\n中率を発揮できます。\n地形適応ＳＡＢＣＤ\nポイント５４３２１\n上の表に従って機体とパイロットの地形適応をポイント\n化し、合計して２で割った数値と同じポイントの部分がユ\nニットとしての地形適応となります。\n（小数点以下は切り捨てです）\nパイロットの地形適応の上昇は、インターミッションの\nパイロット養成で行うことができます。\nまた、機体の地形適応は、移動タイプと同じく強化パー\nツを装備することで上昇させることができます。",
+      "source_text_sha256": "565699b64af4afa63321c437d7dc3642919cc3ea9d48a6c5961b0345e032e5f7",
+      "baseline_translation": "A.在单位擅长的地形中战斗\n攻击命中率还会受机体与驾驶员地形适应共同决定的\n单位地形适应影响。地形适应分为S·\nA·B·C·D（-）共5级，从S起命中率加成依次降低。\n地形适应SABCD\n点数54321\n按上表将机体与驾驶员的地形适应换算为点数，\n相加并除以2，所得点数对应的等级就是单位地形适应。\n（小数点以下舍去）\n驾驶员地形适应的提升可在整备画面的驾驶员养成中进行。\n此外，机体的地形适应与移动类型一样，可通过装备强化\n零件来提升。",
+      "translation": "A.在单位擅长的地形中战斗\n攻击命中率还会受机体与驾驶员地形适应共同决定的\n单位地形适应影响。地形适应分为S·\nA·B·C·D（-）共5级，从S起命中率加成依次降低。\n地形适应：S／A／B／C／D\n对应点数：5／4／3／2／1\n按上表将机体与驾驶员的地形适应换算为点数，\n相加并除以2，所得点数对应的等级就是单位地形适应。\n（小数点以下舍去）\n驾驶员地形适应的提升可在整备画面的驾驶员养成中进行。\n此外，机体的地形适应与移动类型一样，可通过装备强化\n零件来提升。",
+      "editorial_status": "reviewed",
+      "review_notes": "展开等级—点数的逐项对应，避免SABCD、54321各自被读成一个整体。相加除以2并舍去小数的公式不变，命中率页与回避率页分别保留。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 37
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/039",
+      "source_text": "Ａ．センター・フォーメーションが有効です\nセンター・フォーメーションを選択した上で小隊攻撃を\n使用すると、隊長の最終命中率に＋２０％の修正が入りま\nす。全体攻撃とは併用できませんが、援護攻撃と組み合わ\nせることでダメージ面でも期待が持てます。",
+      "source_text_sha256": "4739079824fc87560ae58c5eb4708ac8133f8f1ac405df2d5ea9c6294bc1be80",
+      "baseline_translation": "A.善用集中阵型\n采用集中阵型进行小队攻击时，\n队长的最终命中率获得+20%修正。虽然无法使用全体\n攻击，但配合援护攻击也能造成可观的伤害。",
+      "translation": "A.善用集中阵型\n采用集中阵型进行小队攻击时，队长的最终命中率获得+20%修正。\n小队攻击不能与全体攻击并用，但可以配合援护攻击，进一步提高伤害。",
+      "editorial_status": "reviewed",
+      "review_notes": "不能并用的对象是小队攻击与全体攻击，并不是采用集中阵型便禁止全体攻击；补明主语并保留最终命中率+20%。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 39
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/043",
+      "source_text": "Ａ．戦闘マップの地形を使用します\n回避率は、機体とパイロットの地形適応から導き出すユ\nニットの地形適応でも変化します。地形適応はＳ・Ａ・Ｂ・\nＣ・Ｄ（−）の５段階があり、Ｓから順に高い回避率を発\n揮できます。\n地形適応ＳＡＢＣＤ\nポイント５４３２１\n上の表に従って機体とパイロットの地形適応をポイント\n化し、合計して２で割った数値と同じポイントの部分がユ\nニットとしての地形適応となります。\n（小数点以下は切り捨てです）\nパイロットの地形適応の上昇は、インターミッションの\nパイロット養成で行うことができます。\nまた、機体の地形適応は、移動タイプと同じく強化パー\nツを装備することで上昇させることができます。",
+      "source_text_sha256": "fc3e6b39857609f9ec5e07f5c661ddec5dad940607d5d0cab3cd68a5745e1782",
+      "baseline_translation": "A.利用有利地形\n回避率还会受机体与驾驶员地形适应共同决定的单\n位的地形适应影响。地形适应分为S·A·B·\nC·D（-）共5个等级，从S起回避率加成依次降低。\n地形适应SABCD\n点数54321\n按上表将机体与驾驶员的地形适应换算为点数，\n相加并除以2，所得点数对应的等级就是单位的地形适应。\n（小数点以下舍去）\n驾驶员地形适应的提升，可在整备画面的驾驶员养成中进\n行。另外，机体的地形适应与移动类型一样，可通过装备强化\n零件来提升。",
+      "translation": "A.利用有利地形\n回避率还会受机体与驾驶员地形适应共同决定的单\n位的地形适应影响。地形适应分为S·A·B·\nC·D（-）共5个等级，从S起回避率加成依次降低。\n地形适应：S／A／B／C／D\n对应点数：5／4／3／2／1\n按上表将机体与驾驶员的地形适应换算为点数，\n相加并除以2，所得点数对应的等级就是单位的地形适应。\n（小数点以下舍去）\n驾驶员地形适应的提升，可在整备画面的驾驶员养成中进\n行。另外，机体的地形适应与移动类型一样，可通过装备强化\n零件来提升。",
+      "editorial_status": "reviewed",
+      "review_notes": "展开等级—点数的逐项对应，避免SABCD、54321各自被读成一个整体。相加除以2并舍去小数的公式不变，命中率页与回避率页分别保留。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 43
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/050",
+      "source_text": "Ａ．修理・補給装置の所持が条件です\n闇雲に相手を攻撃しているだけでは戦闘に勝利すること\nはできません。状況によってはダメージを受けた機体を修\n理し、ＥＮや弾数が消耗したユニットに対して補給を行う\nことが必要となります。\n次項から解説する、味方をバックアップする２つの個別\nコマンド、およびそれ以外の回復手段を全て駆使して部隊\nを勝利に導きましょう。",
+      "source_text_sha256": "bf28cc68108b9c31c9966dc44561c559745a6716ee7db62517482d9c4324ddab",
+      "baseline_translation": "A．配备修理装置或补给装置\n一味攻击并不足以取胜。还需适时修理受损机体，为\nEN或弹药耗尽的单位补给。\n请充分利用下文介绍的2种支援指令及其他回复手段，带\n领部队取胜。",
+      "translation": "A．配备修理装置或补给装置\n一味攻击并不足以取胜。还需适时修理受损机体，为\nEN或弹药不足的单位补给。\n请充分利用下文介绍的2种支援指令及其他回复手段，带\n领部队取胜。",
+      "editorial_status": "reviewed",
+      "review_notes": "消耗した不要求彻底耗尽，修正为不足，避免误导玩家必须等到0才能补给。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 50
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/058",
+      "source_text": "Ａ．与えるダメージ量が増える特殊能力です\n機体が所持する特殊能力の中には、攻撃の役に立つもの\nがあります。以下は、その代表的なものです。\nマジンパワーマジンガーＺとグレートマジンガ\nーが所持している特殊能力です。\n気力１３０以上で発動し、相手に\n与える最終ダメージが１．２５倍\nになります。\nエレメントシステムアクエリオンが所持している特殊\n能力です。気力１３０以上でヘッ\nド（＝メインパイロット）の能力\n値（格闘など）は搭乗する３名の\nパイロット内で最高値のものが適\n用されます。発動後、パイロット\n能力は最高値に書き換えられ、青\n字で表示されます。\n多くの特殊能力は、気力が一定値以上で発動します。そ\nのため、これらの能力を持ったユニットは、優先して気力\nを上げることをオススメします。",
+      "source_text_sha256": "0b0f3b6dbccc7c5fef891f4030312ae63ed5dbee4516d0f35a9e4ed1623bf985",
+      "baseline_translation": "A.能增加伤害的特殊能力\n有些机体的特殊能力有助于攻击。以下是典型例子。\n魔神力魔神Z和伟大魔神所持的特殊能力。\n气力130以上时发动，对敌最\n终伤害1.25倍。\n元素协调系统阿克艾里昂所持的特殊\n能力。气力130以上时机头\n（＝主驾驶员）的能力值（格斗\n等）适用搭乘的3名驾驶员中的\n最高值。发动后，对应能力值会\n更新为最\n高值，以蓝字显示。\n许多特殊能力在气力达到一定值以上时发动。因此，建议\n优先提升拥有这些能力的单位的气力。",
+      "translation": "A.能增加伤害的特殊能力\n有些机体的特殊能力有助于攻击。以下是典型例子。\n\n魔神力\n魔神Z和伟大魔神所持的特殊能力。气力130以上时发动，对敌造成的最终伤害变为1.25倍。\n\n元素协调系统\n阿克艾里昂所持的特殊能力。气力130以上时，主驾驶员的各项能力值（如格斗）均采用3名驾驶员中对应项目的最高值。发动后，相应能力值会更新为最高值，并以蓝字显示。\n\n许多特殊能力在气力达到一定值以上时发动。因此，建议优先提升拥有这些能力的单位的气力。",
+      "editorial_status": "reviewed",
+      "review_notes": "ヘッド在括注中明示为主驾驶员，不是机体的物理机头；明确按各项能力分别取3人中的最高值，并保留蓝字显示、气力门槛及魔神力倍率。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 58
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/061",
+      "source_text": "Ａ．特殊効果を防いでくれる能力です\n対追加効果類\n敵の攻撃に付随する特殊効果を無効化する能力です。\n能力ごとに無効化できる特殊効果の種類は異なります。\n以下は、その代表的なものです。\n・対精神攻撃\n能力半減、気力低下、ＳＰ低下といったパイロット\nに対して影響をおよぼすＰ系の特殊効果を無効にし\nます。\n・オールキャンセラー\n全ての特殊効果を無効にします。",
+      "source_text_sha256": "1e35330321dd431f40cb03d1e5624c5b4b48f7c2cf874e7172b9b93b331c9bad",
+      "baseline_translation": "A.能防御特殊效果的能力\n对追加效果类使敌方攻击附带的特殊效果无效化的能力。\n每种能力可无效化的特殊效果种类不同。以下是代表\n性例子。\n・对精神攻击\n使能力减半、气力降低、SP降低等影响驾驶员的\nP系特殊效果无效。\n・全取消器使所有特殊效果无效。",
+      "translation": "A.能防御特殊效果的能力\n对追加效果类\n这类能力可以使敌方攻击附带的特殊效果无效。每种能力能够防御的特殊效果有所不同。代表性的例子如下。\n\n抗精神攻击\n使能力减半、气力降低、SP降低等影响驾驶员的P系特殊效果无效。\n\n完全抗性\n使所有特殊效果无效。",
+      "editorial_status": "reviewed",
+      "review_notes": "采用本包明确批准的“抗精神攻击”“完全抗性”，并把分类标题与正文分开；不改成无效化攻击本身或所有伤害。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 61
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/064",
+      "source_text": "Ａ．攻撃回数やダメージの増加が見込めます\n援護攻撃\n隣接する小隊の小隊長の攻撃と、それに対する敵の反\n撃に続き、攻撃に参加するためのスキルです。１ターン\nにスキルレベルと同じ回数だけ発動することができます。\n援護攻撃の詳細については、『４．攻撃方法について』\nの『Ｑ５．援護攻撃』の項を参照してください。\n連携攻撃\n特殊スキル援護攻撃と組み合わせて使用する特殊スキ\nルです。参加した援護攻撃が確実にクリティカル（ダメ\nージ１．２５倍）になります。援護攻撃のスキルレベル\nが高いパイロットに修得させることをオススメします。\n支援攻撃\n小隊攻撃に参加する際、敵に与えるダメージが＋２０\n％になります。隊員として運用するパイロットに修得さ\nせると効果的です。\n集束攻撃\n全体攻撃を使用する際、敵小隊の数によって減少する\nダメージを本来の値に＋１５％します。有効に使うには、\n全体攻撃をよく使うパイロットに修得させておくのが最\n適でしょう。\n以下はダメージの減少と補正の一覧です。\n敵小隊機数スキルなしスキルあり\n１機１００％１００％\n２機８０％９５％\n３機６０％７５％\nサイズ差補正無視\nサイズ差補正によるダメージ減少を無視します。通常\nでは自分の機体より相手のサイズが大きい場合、ダメー\nジが減少されますがこの技能を持つパイロットの搭乗す\nる機体は、このダメージ減少が発生しません。サイズの\n小さい機体（Ｓ〜Ｍサイズ）に搭乗するパイロットに修\n得させておくとダメージの向上が期待できます。",
+      "source_text_sha256": "28f2ef86717d3dc1aee4035163b15e1900dbcbb58b213d629f4c75754db7bf2d",
+      "baseline_translation": "A.可增加攻击次数和伤害\n援护攻击可在相邻小队队长攻击及敌方反击后追加攻击的技\n能。每1回合可发动的次数等于技能等级。\n援护攻击的详细说明，请参照“4.关于攻击方法”的\n“Q5.援护攻击”一项。\n连携攻击需与特殊技能援护攻击配合使用。参与的援护\n攻击必定产生暴击（伤害1.25倍）。\n建议让援护攻击技能等级高的驾驶员习得。\n支援攻击参与小队攻击时，对敌伤害+20%。\n作为队员运用的驾驶员习得后效果显著。\n集束攻击使用全体攻击时，因敌小队机数而降低的伤害比例\n+15%。要有效运用，最好让经常\n使用全体攻击的驾驶员习得。以下是伤害比例及其修\n正一览。\n敌小队机数无技能有技能\n1机100%100%\n2机80%95%\n3机60%75%\n无视体型差修正无视体型差修正造成的伤害减少。通常对方体\n型大于己方时伤害会减\n少，但习得此技能后，就不会受到这一影响。让\n驾驶小型机体（S～M尺寸）的驾驶员习得，有助于\n提升伤害。",
+      "translation": "A.可增加攻击次数和伤害\n援护攻击\n在相邻小队队长攻击、敌方反击后，再追加一次攻击的技能。每回合最多发动与技能等级相同的次数。详细说明请参照“4.关于攻击方法”的“Q5.援护攻击”一项。\n\n连携攻击\n需与特殊技能“援护攻击”配合使用。参与的援护攻击必定暴击（伤害1.25倍）。建议让援护攻击技能等级高的驾驶员习得。\n\n支援攻击\n参与小队攻击时，对敌伤害+20%。作为队员运用的驾驶员习得后效果显著。\n\n集束攻击\n使用全体攻击时，因敌小队机体数量而降低的伤害系数增加15个百分点。适合经常使用全体攻击的驾驶员。以下是伤害比例及其修正一览。\n敌小队机数／无技能／有技能\n1机／100%／100%\n2机／80%／95%\n3机／60%／75%\n\n无视体型差修正\n无视体型差修正造成的伤害减少。通常对方体型大于己方时，造成的伤害会减少；习得此技能的驾驶员所驾驶的机体，则不会受到这一影响。让驾驶小型机体（S～M尺寸）的驾驶员习得，有助于提升伤害。",
+      "editorial_status": "reviewed",
+      "review_notes": "明确集束攻击加15个百分点，并补齐三列表格分隔；保留同一页中援护、连携、支援与体型差技能的独立效果。1机100%不受集束攻击额外加成。技能名称的“体型／尺寸”跨作者与共用界面差异另记，未在此自行裁定。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 64
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/066",
+      "source_text": "Ａ．自分と仲間を守れるスキルのことです\nブロッキング\nブロッキングを修得しているパイロットが、特殊能力\n剣装備・盾装備を所持している機体に搭乗すると、前者\nは切り払い、後者はシールド防御が発生する可能性があ\nります。どちらも発動率は、敵との技量差によって決定\nされます。\n切り払い特定の攻撃（剣やミサイル等）を無効\n化します。\nシールド防御敵から受けるダメージを４０％に減少\nします。戦闘で防御を選択すると必ず\n発動します。\n援護防御\nこのスキルを修得しているパイロットの搭乗するユニ\nットが同じ小隊にいると、敵からの攻撃を防御状態で代\nわりに受けてくれます。ただし、全体攻撃に対しては援\n護防御は発動しません。",
+      "source_text_sha256": "231f4ce9b3f916aacf28671c21d6a086f0c77671e3c1b852423cf417a395fb10",
+      "baseline_translation": "A.是能保护自己和同伴的技能\n格挡习得格挡的驾驶员搭乘拥有特殊能力剑装备、盾装备\n的机体时，前者可能发动斩击防御，后者可能发动盾牌防\n御。两者发动率均由与敌方的技量差决定。\n斩击防御无效化特定攻击（剑、导弹等）。\n盾牌防御将所受伤害减少至40%。战斗中选择防\n御时必定发动。\n援护防御习得此技能的驾驶员所在单位可在同一小队内，以防\n御状态替其他单位承受攻击。但无法援护防御全体攻击。",
+      "translation": "A.是能保护自己和同伴的技能\n格挡习得格挡的驾驶员搭乘拥有特殊能力剑装备、盾装备\n的机体时，前者可能发动斩切，后者可能发动盾牌防\n御。两者发动率均由与敌方的技量差决定。\n斩切无效化特定攻击（剑、导弹等）。\n盾牌防御将所受伤害减少至40%。战斗中选择防\n御时必定发动。\n援护防御习得此技能的驾驶员所在单位可在同一小队内，以防\n御状态替其他单位承受攻击。但无法援护防御全体攻击。",
+      "editorial_status": "reviewed",
+      "review_notes": "与SP主审第059页及技能／战斗标签中的“斩切”一致，不另造“斩击防御”技能名；发动概率与盾牌减伤至40%的规则不变。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 66
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/067",
+      "source_text": "Ａ．気力が上昇する場面を増やすスキルです\n気力は武器の使用や、攻撃力・防御力に影響を与える重\n要な要素です。そのためか、特殊スキルの中には毎ターン\n自動的に気力が上がるものや、出撃時の気力を高めるもの\nなど、気力の上昇を助けるものが数多くそろっています。\nＰＰに余裕があれば、ぜひ修得させておきたいスキルの１\nつです。\n気力の増減に関する特殊スキルの内容については、\n『９．気力について』の『Ｑ４．気力を上げるためには？\n（特殊スキル編）』を参照してください。",
+      "source_text_sha256": "3836585ade88c917eb3286379c434350e59926996910b7cbdd0b960562328f2f",
+      "baseline_translation": "A．增加气力上升机会的技能\n气力是影响武器使用、攻击力和防御力的重要要素。因\n此，特殊技能中有每回合自动提升气力的，也有提高出击时\n气力的，帮助气力上升的技能种类繁多。\n若PP充裕，可以考虑从中选择1项技能。\n关于气力增减相关特殊技能的内容，请参阅“9．关于气\n力”的“Q4．如何提升气力？（特殊技能篇）”。",
+      "translation": "A．增加气力上升机会的技能\n气力是影响武器使用、攻击力和防御力的重要要素。因\n此，特殊技能中有每回合自动提升气力的，也有提高出击时\n气力的，帮助气力上升的技能种类繁多。\n若PP充裕，这类技能很值得习得。\n关于气力增减相关特殊技能的内容，请参阅“9．关于气\n力”的“Q4．如何提升气力？（特殊技能篇）”。",
+      "editorial_status": "reviewed",
+      "review_notes": "“ぜひ修得させておきたいスキルの１つ”是在推荐，并非限制只能从中选1项；去掉新增的数量约束。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 67
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/083",
+      "source_text": "Ａ．良い点はさらに伸ばしましょう\nのせかえでは、そのパイロットと機体が持つお互いの長\n所を伸ばすことが肝心です。例えば回避の高いパイロット\nが運動性の高い機体に乗ることで、敵の攻撃をたやすく回\n避できるユニットが誕生します。同じようにして、攻撃力\nや防御力に特化したユニットも作る事ができます。\nさらに小隊を組んだ際の性能も合わせて考えると、限り\nないバリエーションを生む事が可能です。以下にその一例\nを紹介するので、このような組み合わせを自分で探してみ\nてください。\n●例１\n全体攻撃の攻撃力が高い機体\n＋\n格闘・射撃の高い隊長\n＋\n直撃を修得している隊員\n↓\n敵全体に大ダメージを\n与えられる小隊\n●例２\nＭＡＰ兵器を所持する機体\n＋\n熱血を修得している隊長\n＋\n覚醒・幸運を修得している隊員\n↓\n最適の位置から敵を一掃して\nさらに資金まで稼げる小隊\n●例３\n装甲が高い機体\n＋\n隊長効果ダメージ減を\n修得している隊長\n＋\nダメージを無効化する\nバリアを所持する隊員\n↓\nフォーメーション次第で\n敵の攻撃を無力化できる小隊",
+      "source_text_sha256": "e118cd890eb82d339ca9fa27d4b2fad7a298ecbb41de0ad7b63b5284ed4080fd",
+      "baseline_translation": "A.进一步发挥长处\n换乘的关键在于发挥驾驶员与机体各自的长处。例如，\n回避能力高的驾驶员搭乘运动性高的机体，便能更轻松地躲开\n敌方攻击。同样，也可打造专精攻击或防御的单位。\n再考虑小队的整体性能，还能衍生出更多组合。以下举\n出几个例子，供你尝试搭配。\n●例1全体攻击威力高的机体＋格斗・射击高的队长＋习得\n直击的队员↓可对敌全体造成大伤害的小队\n●例2\nMAP兵器机体＋习得\n热血的队长＋习得\n觉醒·幸运的队员↓从最佳位置扫荡敌人并赚取资金的小队\n●例3高装甲机体＋拥有队长效果减伤的队长＋\n配备能抵消伤害的屏障的队员↓选对阵型便能抵消敌方攻击\n的小队",
+      "translation": "A.进一步发挥长处\n换乘的关键在于发挥驾驶员与机体各自的长处。例如，回避能力高的驾驶员搭乘运动性高的机体，便能更轻松地躲开敌方攻击。同样，也可打造专精攻击或防御的单位。\n再考虑小队的整体性能，还能衍生出更多组合。以下举出几个例子，供你尝试搭配。\n\n●例1\n全体攻击威力高的机体\n＋格斗、射击高的队长\n＋习得直击的队员\n↓\n可对敌全体造成大伤害的小队\n\n●例2\n持有MAP兵器的机体\n＋习得热血的队长\n＋习得觉醒、幸运的队员\n↓\n从最佳位置扫荡敌人并赚取资金的小队\n\n●例3\n高装甲机体\n＋拥有减伤队长效果的队长\n＋配备能使伤害无效的屏障的队员\n↓\n选对阵型便能使敌方攻击无效的小队",
+      "editorial_status": "reviewed",
+      "review_notes": "恢复三组“机体＋队长＋队员→效果”的语义层次，不再把各方案挤成一个长句；保留每项精神／能力及最后一组的阵型条件，不增补具体阵型或数值。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 83
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/086",
+      "source_text": "Ａ．主戦場に合わせた強化が肝心です\nパラメータ上昇では、パイロット能力の地形適応を上昇\nさせることができます。地形適応は、機体の地形適応と統\n合することでユニットの地形適応となり、命中率・回避率・\n防御力に影響を与えます。そのパイロットの搭乗する機体\nが、主に戦う地形の地形適応を上げておきましょう。",
+      "source_text_sha256": "e59aa3c87c090474bf6bfe154f42c650ef5df060fa749cacf00f30820cad69bf",
+      "baseline_translation": "A.根据主战场强化是关键\n参数提升可提高驾驶员的地形适应。地形适应与\n机体的地形适应共同决定单位的地形适应，\n会影响命中率、回避率和\n防御力。应提高驾驶员所驾机体主要作战地形的地形适应。",
+      "translation": "A.根据主战场强化是关键\n参数提升可以提高驾驶员的地形适应。驾驶员与机体的地形适应共同决定单位的地形适应，影响命中率、回避率和防御力。\n应针对所驾机体的主要作战地形，提升驾驶员在该地形的适应等级。",
+      "editorial_status": "reviewed",
+      "review_notes": "本页操作是驾驶员能力提升，不是机体改造；末句明确被提升的仍是驾驶员的地形适应。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 86
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/087",
+      "source_text": "Ａ．個性を伸ばすように修得させましょう\n各パイロットは、最大で６つの特殊スキルを修得できま\nす。スキルはどれも強力ですが、パイロットや機体の傾向\nに見合ったものを修得することをオススメします。以下は、\nその修得例です。\nガード高い防御力を活かして攻撃を耐える機体の\nパイロットに向いています\n見切り高い運動性を活かして攻撃を回避する機体\nのパイロットに向いています\n連携攻撃援護攻撃のスキルレベルが高いパイロット\nに向いています\n修理技能修理装置を所持する機体のパイロットに向\nいています\n特殊スキルの中には、レベルアップにともないスキルレ\nベルが成長するものもあります。その上限は９レベルで、\n何レベルまで成長するのかはパイロットごとに異なります。\nこういった特殊スキルをパイロット養成で修得する場合、\n『９−レベルアップで成長する最大スキルレベル』までス\nキルレベルを上昇させることができます。\n例えば、底力が７レベルまで成長するパイロットであれ\nば、『９−７』となり２レベル分を養成で修得させる事が\n可能です。もし修得させる時点での底力が７レベル未満で\nあっても、２レベル分しか上昇させられないことには変わ\nりありません。\n※もしスキル欄に空きがない状態で新たな特殊スキルを修\n得したい場合は、すでに修得している特殊スキルに対し\nて上書きをすることができます。ただし、原作固有の特\n殊スキルのように、上書きができないものがあります。",
+      "source_text_sha256": "23e6ec1e2ac83e4ae8122686fdddfb36615b716ad3d49e6a6cefc8603c75327d",
+      "baseline_translation": "A.选择能发挥驾驶员特长的技能\n每位驾驶员最多可习得6种特殊技能。各种技能各有用途，\n建议根据驾驶员与机体的特点选择。以下是一些搭配建议。\n防护适合利用高防御力承受攻击的机体驾驶员\n看穿适合利用高机动性回避攻击的机体驾驶员\n连携攻击适合援护攻击技能等级高的驾驶员\n修理技能适合持有修理装置的机体驾驶员\n部分特殊技能会随驾驶员升级而提升等级，最高为\n9级。能自然成长到几级，则因驾驶员而异。\n通过养成提升这类技能时，最多可额外提升\n“9－升级可达到的最高技能等级”个技能等级。\n例如，底力可自然成长至7级时，养成最多可提升“9－\n7”，即2级。即使当前底力未满7级，也只能再提升2级。\n※若技能栏无空位又想习得新特殊技能，可覆盖已习得的技\n能。但原作固有特殊技能等部分无法覆盖。",
+      "translation": "A.选择能发挥驾驶员特长的技能\n每位驾驶员最多可习得6种特殊技能。各种技能各有用途，\n建议根据驾驶员与机体的特点选择。以下是一些搭配建议。\n防护适合利用高防御力承受攻击的机体驾驶员\n看穿适合利用高运动性回避攻击的机体驾驶员\n连携攻击适合援护攻击技能等级高的驾驶员\n修理技能适合持有修理装置的机体驾驶员\n部分特殊技能会随驾驶员升级而提升等级，最高为\n9级。能自然成长到几级，则因驾驶员而异。\n通过养成提升这类技能时，最多可额外提升\n“9－升级可达到的最高技能等级”个技能等级。\n例如，底力可自然成长至7级时，养成最多可提升“9－\n7”，即2级。即使当前底力未满7级，也只能再提升2级。\n※若技能栏无空位又想习得新特殊技能，可覆盖已习得的技\n能。但原作固有特殊技能等部分无法覆盖。",
+      "editorial_status": "reviewed",
+      "review_notes": "運動性是机体面板属性“运动性”，与泛称机动性能或移动力区分；6技能上限、9−自然成长上限的算法及7级示例均原样保留。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 87
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/page/092",
+      "source_text": "Ａ．換装パーツを使い機体性能を変更します\n機体によっては、専用の換装パーツを持っているものが\nあります。それをインターミッションの換装パーツで変更\nすることで、別の特性を持つ機体へと変えることができま\nす。多くの場合、換装すると能力の上昇や武器の追加がさ\nれるため、入手した換装パーツは装備させて能力を確認し\nておきましょう。",
+      "source_text_sha256": "a9023cd83f249011a883fb780e230dc6574d012cb3e7009a667ab67b0d164f15",
+      "baseline_translation": "A.使用换装零件变更机体性能\n部分机体拥有专用的换装零件。在整备画面的换装零件中进\n行变更，即可切换为具有不同特性的形态。多数情况下，换\n装可提升能力或增加武器。获得换装零件后，不妨装上并查\n看机体的变化。",
+      "translation": "A.使用换装部件变更机体性能\n部分机体拥有专用的换装部件。在整备画面的换装部件中进\n行变更，即可切换为具有不同特性的形态。多数情况下，换\n装可提升能力或增加武器。获得换装部件后，不妨装上并查\n看机体的变化。",
+      "editorial_status": "reviewed",
+      "review_notes": "与本包整备菜单短标签“换装部件”对应，区分于“强化零件”；只在当前回填目标统一，不改只读标签或宣布全项目术语批准。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "page": 92
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/qa/metadata/category_summaries/003",
+      "source_text": "＜他の項目に含まれない事象について紹介します。＞",
+      "source_text_sha256": "7b0d0d7aaf13fbff801c2fa75c06578ef92041f1f76428a485850573f1396ffb",
+      "baseline_translation": "＜介绍其他实用内容。＞",
+      "translation": "＜介绍其他类别未涵盖的内容。＞",
+      "editorial_status": "reviewed",
+      "review_notes": "恢复“未包含在其他类别”的分类含义，不以原文未强调的“实用”代替。保留全角边界符。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "source_offset": 4515,
+          "offset": 3797
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "metadata"
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/039",
+      "source_text": "　＜精神コマンド＞　＜パイロット養成＞　＜機体改造＞\n＜強化パーツ＞　＜地形効果＞　＜地形適応＞\n＜攻撃相手との距離＞　＜回避方法＞　＜最終回避率＞",
+      "source_text_sha256": "fb752a7b262fc36a3b81d264ed2be9962125cbc151f2ea19b86539b39139092f",
+      "baseline_translation": "＜精神指令＞　＜驾驶员养成＞　＜机体改造＞\n＜强化零件＞　＜地形效果＞　＜地形适应＞\n＜与攻击对象的距离＞　＜回避方法＞　＜最终回避率＞",
+      "translation": "　＜精神指令＞　＜驾驶员养成＞　＜机体改造＞\n＜强化零件＞　＜地形效果＞　＜地形适应＞\n＜与攻击对象的距离＞　＜回避方法＞　＜最终回避率＞",
+      "editorial_status": "reviewed",
+      "review_notes": "恢复日文该元数据条目原有的首行全角缩进；不是新加对齐空格，原有行数及项间空格保留。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "source_offset": 8057,
+          "offset": 6541
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "metadata"
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/058",
+      "source_text": "＜剣装備＞　＜ブロッキング＞　＜切り払い＞\n＜盾装備＞　＜シールド防御＞",
+      "source_text_sha256": "73fe3a7f8477129795b2a05170605f1885e6e6819fafb322f18afb006f911e3d",
+      "baseline_translation": "＜剑装备＞　＜格挡＞　＜斩击防御＞\n＜盾装备＞　＜盾牌防御＞",
+      "translation": "＜剑装备＞　＜格挡＞　＜斩切＞\n＜盾装备＞　＜盾牌防御＞",
+      "editorial_status": "reviewed",
+      "review_notes": "关键词与其说明页、SP主审及界面标签中的“斩切”一致；保留全角括号、项间空格和真实换行。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "source_offset": 9231,
+          "offset": 7573
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "metadata"
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/060",
+      "source_text": "＜特殊効果＞　＜対精神攻撃＞　＜Ｐ系＞\n＜オールキャンセラー＞",
+      "source_text_sha256": "7a67a57f2ed0099de2ab31598de154b410135bf8c85aec40689d59669409aaaa",
+      "baseline_translation": "＜特殊效果＞　＜对精神攻击＞　＜P系＞\n＜全取消器＞",
+      "translation": "＜特殊效果＞　＜抗精神攻击＞　＜P系＞\n＜完全抗性＞",
+      "editorial_status": "reviewed",
+      "review_notes": "同步采用明确批准的两个特殊能力名称，元数据结构与空格不变。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "source_offset": 9444,
+          "offset": 7740
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "metadata"
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/065",
+      "source_text": "＜ブロッキング＞　＜剣装備＞　＜盾装備＞\n＜切り払い＞　＜シールド防御＞　＜援護防御＞",
+      "source_text_sha256": "d14d0c096214388f1c4659a3f2507a3848d677b08a75aa60dd39780554f98c49",
+      "baseline_translation": "＜格挡＞　＜剑装备＞　＜盾装备＞\n＜斩击防御＞　＜盾牌防御＞　＜援护防御＞",
+      "translation": "＜格挡＞　＜剑装备＞　＜盾装备＞\n＜斩切＞　＜盾牌防御＞　＜援护防御＞",
+      "editorial_status": "reviewed",
+      "review_notes": "关键词与其说明页、SP主审及界面标签中的“斩切”一致；保留全角括号、项间空格和真实换行。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "source_offset": 9659,
+          "offset": 7937
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "metadata"
+    },
+    {
+      "id": "sd/nisv/qa/metadata/keyword_summaries/080",
+      "source_text": "＜自動編成＞\n＜ベーシックオーダー＞　＜バランスオーダー＞",
+      "source_text_sha256": "69a1ec4d8aacb7eb25a47272842b38e0f8cd94781e74fe17b616240aecea77bf",
+      "baseline_translation": "＜自动编成＞\n＜基本指令＞　＜平衡指令＞",
+      "translation": "＜自动编成＞\n＜基本方案＞　＜均衡方案＞",
+      "editorial_status": "reviewed",
+      "review_notes": "自动编成方法名与SP作者Q&A、菜单短标签及完成提示统一；不得把ORDER逐字译成“指令”另立菜单项。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "source_offset": 10578,
+          "offset": 8746
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "metadata"
+    },
+    {
+      "id": "sd/nisv/tutorial/00",
+      "source_text": "ＳＲポイントは１シナリオにつき１ポイント設定されている。\n獲得条件は「作戦目的」に記載されている。\nＳＲポイントの獲得状況によって、難易度が以下のように決まる。\n「ＨＡＲＤ（難しい）」全ポイントの約８０％以上獲得\n「ＮＯＲＭＡＬ（普通）」全ポイントの約３０〜７９％獲得\n「ＥＡＳＹ（簡単）」全ポイントの約３０％未満獲得",
+      "source_text_sha256": "03cf7e2401c2a71a1e971ce26bf5494d0f6a6d3196b1b9029c0fc611f8f88d3c",
+      "baseline_translation": "每个剧本可获得1个SR点数。\n获得条件会写在“作战目标”中。\n根据获得的SR点数比例，难度如下变化。\n“HARD（困难）”获得全部点数的80％以上\n“NORMAL（普通）”获得全部点数的30～79％\n“EASY（简单）”获得全部点数不足30％",
+      "translation": "每个剧本可获得1个SR点数。\n获得条件会写在“作战目的”中。\n根据获得的SR点数比例，难度如下变化。\n“HARD（困难）”获得全部点数的约80％以上\n“NORMAL（普通）”获得全部点数的约30～79％\n“EASY（简单）”获得全部点数不足约30％",
+      "editorial_status": "reviewed",
+      "review_notes": "恢复原文三处“约”这一近似限定，不能据教学说明声称已验证精确难度阈值。菜单称呼对应“作战目的”；此为本篇共用教程，不能因SP不使用SR点数而删除。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 5,
+          "page": 0
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/tutorial/03",
+      "source_text": "マップ上に登場した時の基本フォーメーション。\n小隊員が後方に下がり、小隊長がメインで戦闘する。\n小隊員は攻撃に参加できない代わりに、防御に特典を得る。\n特徴は以下の通り。\n・小隊攻撃使用不可\n・援護防御使用可（特殊スキル「援護防御」が必要）\n・対全体攻撃小隊員のダメージ−２０％\n・特記事項小隊員の回避率＋２０％\nトライチャージ使用可",
+      "source_text_sha256": "734c874e1adffa96482cd5a8f87ff40461ea232fe17e4ac7b701a189306e1eb0",
+      "baseline_translation": "进入地图时的基本阵型。\n队员退到后方，由队长进行主要战斗。\n队员无法参与攻击，但可获得防御加成。\n特点如下。\n·小队攻击不可用\n·援护防御可用（需要特殊技能“援护防御”）\n·对全体攻击队员所受伤害−20％\n·特殊事项队员回避率＋20％\n可使用TRI攻击",
+      "translation": "进入地图时的基本阵型。\n队员退到后方，由队长进行主要战斗。\n队员不参与常规攻击，但可获得防御加成。\n特点如下。\n·小队攻击不可用\n·援护防御可用（需要特殊技能“援护防御”）\n·受到全体攻击时：队员所受伤害−20％\n·其他特性：队员回避率＋20％\n可使用TRI攻击",
+      "editorial_status": "reviewed",
+      "review_notes": "结合本条末句可使用TRI攻击，明确不参与的是常规攻击，避免自相矛盾。为抽取后黏连的标题与效果补冒号；两项20%一为减伤一为回避，保留正负号。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 5,
+          "page": 3
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/tutorial/04",
+      "source_text": "小隊長を中心としたフォーメーション。\n小隊員が小隊長の攻撃を補佐する。\n敵一機に攻撃を集中させる場合に向いている。\n特徴は以下の通り。\n・小隊攻撃使用可（敵一機に攻撃小隊員の攻撃力−５０％）\n・援護防御使用可（特殊スキル「援護防御」が必要）\n・対全体攻撃小隊長のダメージ−２０％\n・特記事項小隊攻撃を使用した場合、小隊長の攻撃は\n命中率＋２０％\n小隊内のユニットがバリアを持っていた場合、\n全機に適応される",
+      "source_text_sha256": "d4037c249cffee3c34bb70d82584bd356635f98e3c39c4338ee0c720a7011295",
+      "baseline_translation": "以队长为中心的阵型。\n队员辅助队长攻击。\n适合集中攻击单个敌人。\n特点如下。\n·小队攻击可用（集中攻击单个敌人队员攻击力−50％）\n·援护防御可用（需要特殊技能“援护防御”）\n·对全体攻击队长所受伤害−20％\n·特殊事项使用小队攻击时，队长的攻击\n命中率＋20％\n小队中有机体持有屏障时，\n效果适用于全队",
+      "translation": "以队长为中心的阵型。\n队员辅助队长攻击。\n适合集中攻击单个敌人。\n特点如下。\n·小队攻击可用（集中攻击单个敌人；我方队员攻击力−50％）\n·援护防御可用（需要特殊技能“援护防御”）\n·受到全体攻击时：队长所受伤害−20％\n·其他特性：使用小队攻击时，队长的攻击\n命中率＋20％\n小队中有机体持有屏障时，\n效果适用于全队",
+      "editorial_status": "reviewed",
+      "review_notes": "拆开单个敌人这一目标与我方队员攻击力−50%的代价，避免误读为敌方队员被削弱；保留队长减伤、命中率加成和屏障全队化三个作用对象。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 5,
+          "page": 4
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/tutorial/05",
+      "source_text": "小隊長と小隊員が散開したフォーメーション。\n小隊長と小隊員が各個に敵を攻撃する。\n敵の小隊を一掃したい場合に向いている。\n特徴は以下の通り。\n・小隊攻撃使用可\n（それぞれの相手に攻撃小隊員の攻撃力−２０％）\n・援護防御使用不可\n・対全体攻撃小隊員のダメージ−５０％",
+      "source_text_sha256": "c068da590cc379a6cb21c8d6f13ad1f97a86d601a228325727ae31685f0f938d",
+      "baseline_translation": "队长与队员散开的阵型。\n队长与队员分别攻击敌人。\n适合歼灭敌方小队。\n特点如下。\n·小队攻击可用\n（分别攻击各自的目标队员攻击力−20％）\n·援护防御不可用\n·对全体攻击队员所受伤害−50％",
+      "translation": "队长与队员散开的阵型。\n队长与队员分别攻击敌人。\n适合歼灭敌方小队。\n特点如下。\n·小队攻击可用\n（分别攻击各自的目标；我方队员攻击力−20％）\n·援护防御不可用\n·受到全体攻击时：队员所受伤害−50％",
+      "editorial_status": "reviewed",
+      "review_notes": "明确分别攻击的目标与我方队员攻击力−20%是两项信息，受全体攻击时减伤−50%为另一效果；不可将两种比例混为一谈。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 5,
+          "page": 5
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/tutorial/06",
+      "source_text": "３種のフォーメーションは、それぞれ得意な相手、苦手な相手を持つ。\n３種の関係は「トライ→センター→ワイド→トライ→〜〜」であり、\n得意な相手に対しては攻撃時に特典を得る。\nトライトライチャージが使える小隊攻撃\n×\n援護防御○\nセンター攻撃を一機に集中できる小隊攻撃○援護防御○\nワイド小隊全てに攻撃できる小隊攻撃○援護防御\n×\n戦艦や単機の場合は、フォーメーションを取らないため、\nこの関係から除外されている。",
+      "source_text_sha256": "09d5a7cb9b5d6f787c04cef33f477bdfc44ae0550e2dd87334d24a7345f5d457",
+      "baseline_translation": "三种阵型各有擅长和不擅长的对手。\n克制关系为“TRI克集中、集中克分散、分散克TRI”，\n攻击克制对象时可获得加成。\nTRI可使用TRI攻击小队攻击\n×\n援护防御○\n集中可集中攻击单个敌人小队攻击○援护防御○\n分散可攻击敌方全队小队攻击○援护防御\n×\n战舰或单机不组成阵型，\n不受这种克制关系影响。",
+      "translation": "三种阵型各有擅长和不擅长的对手。\n克制关系为“TRI克集中、集中克分散、分散克TRI”，\n攻击克制对象时可获得加成。\nTRI：可使用TRI攻击；小队攻击×；援护防御○\n集中：可集中攻击单个敌人；小队攻击○；援护防御○\n分散：可攻击敌方全队；小队攻击○；援护防御×\n战舰或单机不组成阵型，\n不受这种克制关系影响。",
+      "editorial_status": "reviewed",
+      "review_notes": "将丢失列边界的三行表格展开为每阵型一行，保留○/×的数量、顺序和各自含义。战舰与单机排除规则不变，未添加对齐空格。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 5,
+          "page": 6
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/nisv/tutorial/09",
+      "source_text": "「攻略Ｑ＆Ａ」には、ゲームの攻略に役立つコツや情報が\nまとめられている。\n参照の手順は以下の２通り。\n{87}{40}タイトル画面で「ＬＩＢＲＡＲＹ」を選択し、\nさらに「攻略Ｑ＆Ａ」を選択する。\n{87}{41}インターミッションで「オプション」から\n「ライブラリー」を選択し、\nさらに「攻略Ｑ＆Ａ」を選択する。",
+      "source_text_sha256": "8e1f39b256a3f7346988ce936d747993dc2d5ac8c8d83225b9162ff8690eb279",
+      "baseline_translation": "“攻略Q&A”中汇集了实用的攻略技巧与信息。\n可通过以下两种方式查看。\n操作方法如下。\n1．在标题画面选择“LIBRARY”，\n再选择“攻略Q&A”。\n2．在场间菜单的“选项”中\n选择“图鉴”，\n再选择“攻略Q&A”。",
+      "translation": "“攻略Q&A”中汇集了实用的攻略技巧与信息。\n可通过以下两种方式查看。\n1．在标题画面选择“LIBRARY”，\n再选择“攻略Q&A”。\n2．在整备菜单的“选项”中\n选择“资料库”，\n再选择“攻略Q&A”。",
+      "editorial_status": "reviewed",
+      "review_notes": "ライブラリー是含Q&A的“资料库”，不是“机体图鉴”；删除重复的“操作方法如下”。源侧{87}{40}/{87}{41}按CP932解码分别为①/②，本轮保持基线1．/2．的两个数字步骤，不将其猜改成运行时控制符或写回另一套转义。",
+      "locations": [
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 5,
+          "page": 9
+        }
+      ],
+      "origin": "user-review:20260922-instructions",
+      "scope": "SP only; Original corpus unchanged",
+      "kind": "page"
+    },
+    {
+      "id": "sd/compdata/91AA0",
+      "source_text": "現在の最大ＨＰ、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_text_sha256": "e76e2e342495f376f75b1412a7d159354a49d37f6f849f9cac6ba0ea7157ee3c",
+      "baseline_translation": "表示当前最大HP和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "translation": "量表显示当前最大HP及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "editorial_status": "reviewed",
+      "review_notes": "用户截图确认尖括号名称直接显示。改为描述亮起格数对应已改造阶段；未声称已确认原生别名解析。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 596640,
+          "offset": 596640,
+          "pointer_sites": [
+            432328
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-upgrade-gauge-screenshot",
+      "scope": "SP fixed-slot counterpart of main-game context help",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 596640,
+        "capacity": 114,
+        "pointer_sites": [
+          432328
+        ],
+        "source_slot_sha256": "2208572bc35ad11de05ea9a2eb945acc64411298bf2ac15c2b92d35d048360f1",
+        "baseline_slot_sha256": "3dd2eead731cf07ad3ffd7901d14329ac3f0f69fc16cf1f4c8ab3fb06ffaff40"
+      }
+    },
+    {
+      "id": "sd/compdata/91B20",
+      "source_text": "現在の最大ＥＮ、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_text_sha256": "5fd46663a2ac9ee21c065030efe1ac6a476ad7114401dd94df42e8b39d71bb13",
+      "baseline_translation": "表示当前最大EN和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "translation": "量表显示当前最大EN及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "editorial_status": "reviewed",
+      "review_notes": "用户截图确认尖括号名称直接显示。改为描述亮起格数对应已改造阶段；未声称已确认原生别名解析。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 596768,
+          "offset": 596768,
+          "pointer_sites": [
+            432332
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-upgrade-gauge-screenshot",
+      "scope": "SP fixed-slot counterpart of main-game context help",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 596768,
+        "capacity": 114,
+        "pointer_sites": [
+          432332
+        ],
+        "source_slot_sha256": "56223f50a433b1562cb5afcf142440039fb8688abab7aecd1442f62f58c4c3e7",
+        "baseline_slot_sha256": "5c2d1700d055bb2052fb2246f09c0d3ac15fde3fc726a9fd72ab266c6a3083fa"
+      }
+    },
+    {
+      "id": "sd/compdata/91BA0",
+      "source_text": "装甲の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_text_sha256": "93eba018a30c2071e689ae5afe5bae24babe94c8442bb2646004d53809401727",
+      "baseline_translation": "表示当前装甲值和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "translation": "量表显示当前装甲值及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "editorial_status": "reviewed",
+      "review_notes": "用户截图确认尖括号名称直接显示。改为描述亮起格数对应已改造阶段；未声称已确认原生别名解析。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 596896,
+          "offset": 596896,
+          "pointer_sites": [
+            432336
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-upgrade-gauge-screenshot",
+      "scope": "SP fixed-slot counterpart of main-game context help",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 596896,
+        "capacity": 112,
+        "pointer_sites": [
+          432336
+        ],
+        "source_slot_sha256": "931eb9023b956c929f9229184f7a62906a5dca91fa61ae6579c99cf98f40386b",
+        "baseline_slot_sha256": "150faf08ed2b40623513f12e8028803b3804d3c895502504f74a9bc188d2960c"
+      }
+    },
+    {
+      "id": "sd/compdata/91C10",
+      "source_text": "運動性の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_text_sha256": "91731e426d8ea7dbb0c141ad55c0db7252febdda74628663ed4719119fe72da7",
+      "baseline_translation": "表示当前运动性和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "translation": "量表显示当前运动性及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "editorial_status": "reviewed",
+      "review_notes": "用户截图确认尖括号名称直接显示。改为描述亮起格数对应已改造阶段；未声称已确认原生别名解析。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 597008,
+          "offset": 597008,
+          "pointer_sites": [
+            432340
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-upgrade-gauge-screenshot",
+      "scope": "SP fixed-slot counterpart of main-game context help",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 597008,
+        "capacity": 114,
+        "pointer_sites": [
+          432340
+        ],
+        "source_slot_sha256": "93c55b5df5fdeef135b7a06a55e39fa8f0c01cecdf19fac7d5ffe9ea37c01f38",
+        "baseline_slot_sha256": "32ab278ad8885c6b1c251f42575521cf88979083b19b54a60d38eaa68173d13a"
+      }
+    },
+    {
+      "id": "sd/compdata/91C90",
+      "source_text": "照準値の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_text_sha256": "fcca141f9131619ec169ef3d8fe5f9956e020d7987f9ed067f91c0fd3e6d5888",
+      "baseline_translation": "表示当前瞄准值和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "translation": "量表显示当前瞄准值及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "editorial_status": "reviewed",
+      "review_notes": "用户截图确认尖括号名称直接显示。改为描述亮起格数对应已改造阶段；未声称已确认原生别名解析。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 597136,
+          "offset": 597136,
+          "pointer_sites": [
+            432344
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-upgrade-gauge-screenshot",
+      "scope": "SP fixed-slot counterpart of main-game context help",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 597136,
+        "capacity": 114,
+        "pointer_sites": [
+          432344
+        ],
+        "source_slot_sha256": "8c39aa72a9c0a01618e09dcc5524c95425738a09ac0843130c77132ce9ac765b",
+        "baseline_slot_sha256": "973ca15711e59d5ce5bd34d24792c6c396516d00a902bd5782399594170092b5"
+      }
+    },
+    {
+      "id": "sd/compdata/91D10",
+      "source_text": "武器の改造済みランクを表すゲージです。\nすでに改造されている段階は＜小武器改造ゲージ明＞で表示されます。",
+      "source_text_sha256": "4af4a04c365b3597a2f594653604a83e02a3f6f355019bacd7a093280dfb557e",
+      "baseline_translation": "表示武器已改造RANK的量表。\n已经改造的阶段以＜小武器改造量表亮＞显示。",
+      "translation": "量表显示武器当前的改造RANK。\n亮起的格数表示已完成的改造阶段。",
+      "editorial_status": "reviewed",
+      "review_notes": "用户截图确认尖括号名称直接显示。改为描述亮起格数对应已改造阶段；未声称已确认原生别名解析。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 597264,
+          "offset": 597264,
+          "pointer_sites": [
+            432348
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-upgrade-gauge-screenshot",
+      "scope": "SP fixed-slot counterpart of main-game context help",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 597264,
+        "capacity": 104,
+        "pointer_sites": [
+          432348
+        ],
+        "source_slot_sha256": "71042fb51531836cf40ea85962acc0e87025fe5b0b820c4ad4d35cba8b6aa498",
+        "baseline_slot_sha256": "98fe1b1732a62149ee77cd04a46e40475e430b34816387b46c07aceadafdd8ad"
+      }
+    }
+  ]
+}

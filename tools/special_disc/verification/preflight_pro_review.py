@@ -42,10 +42,10 @@ def main():
   except ValueError as e:issues.append(dict(target=target,corpus_id=w.targets[target]['id'],reason=str(e),translation=w.targets[target]['translation']))
  for target,r in w.targets.items():
   if target.startswith('sd/hsfc/'):
-   check(target,None,lambda r=r:fit_chinese_dialogue_layout(r['translation'],profile=w.profiles['scenario_chart_overview']).text)
+   check(target,None,lambda r=r:fit_chinese_dialogue_layout(r['translation'],profile=w.profiles['sp_hsfc_summary']).text)
   elif target.startswith('sd/flow/synopsis/'):
    i=int(target.rsplit('/',1)[1])-1;at=struct.unpack_from('<I',source_flow,f.sd.FLOW_SYNOPSES[0]+i*4)[0]-f.sd.SD_STAGE_BASE;size=decode_text(source_flow,at,w.table).consumed
-   check(target,size,lambda r=r:'\n'.join(f.paragraphs(r['translation'],29)))
+   check(target,size,lambda r=r:f.flow_synopsis(r['translation']))
   elif target.startswith('sd/flow/episode/'):
    check(target,64,lambda r=r:r['translation'])
   elif target.startswith('sd/mtzspros/'):

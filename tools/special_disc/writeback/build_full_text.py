@@ -36,6 +36,7 @@ from special_disc.writeback.qa_native import apply_reviewed_qa as apply_qa_layou
 from special_disc.baselines import baseline_iso
 from special_disc.writeback.data_link_bonus import apply_data_link_bonus
 from special_disc.writeback.battle_square_skip import apply_skip
+from special_disc.writeback.instruction_overrides import apply_overrides
 from special_disc.writeback.squad_names import apply_nisv_names
 
 WORK=ROOT/'work/build/special-disc/full-text'
@@ -215,6 +216,8 @@ def assemble():
     patches[EXE],patches[VT1],link_report=apply_data_link_bonus(
         patches[EXE],patches[VT1],source_table,stored_overrides,runtime_table)
     patches[EXE],skip_report=apply_skip(patches[EXE])
+    patches,instruction_report=apply_overrides(patches,read_disc_member,source_table,stored_overrides,runtime_table)
+    stats['reviewed_instruction_overrides']=instruction_report['targets']
     stats['stage_entry_title_slots']=title_report['count']
     stats['stage_entry_title_images_rewritten']=title_report['rewritten']
     stats['inherited_world_map_titles']=reports['image-labels']['world_map_titles']['count']
@@ -239,6 +242,7 @@ def assemble():
     report['data_link_bonus']=link_report
     report['battle_square_skip']=skip_report
     report['qa_layout']=qa_report
+    report['instruction_overrides']=instruction_report
     report['nisv_squad_names']=squad_report
     report['terrain_names']=terrain_report
     report['unit_names']=unit_report

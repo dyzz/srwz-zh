@@ -1,0 +1,794 @@
+{
+  "schema_version": 1,
+  "width": 29,
+  "maximum_lines": 11,
+  "minimum_tail_width": 8,
+  "protected_terms": [
+    "BLOCK WORD",
+    "013特别小队",
+    "南阿美利亚大陆",
+    "尼奥·罗阿诺克",
+    "巴尔戈拉·荣耀",
+    "施瓦兹·瓦尔德",
+    "泽奥·加特勒",
+    "特雷泽阿技研",
+    "贝尔弗莱斯特",
+    "阿美利亚大陆",
+    "UN空间站",
+    "乌鲁古斯克",
+    "加利亚大陆",
+    "北阿美利亚",
+    "圣日耳曼城",
+    "执行者系统",
+    "阿克艾里昂",
+    "露娜玛丽亚",
+    "黑色超限人",
+    "不合群者",
+    "坦帕古达",
+    "多元世界",
+    "多米尼克",
+    "布兰少校",
+    "控制系统",
+    "特雷泽阿",
+    "玛尔奇诺",
+    "直布罗陀",
+    "蒙·多吉",
+    "西尔维娅",
+    "金卡拉姆",
+    "阿克塞尔",
+    "阿尼莫奈",
+    "阿斯哈姆",
+    "阿萨基姆",
+    "麦康奈尔",
+    "丹泽尔",
+    "优莱卡",
+    "加特勒",
+    "卡洛德",
+    "多萝西",
+    "执行者",
+    "斗志也",
+    "施瓦兹",
+    "桑德曼",
+    "梅黛尤",
+    "泰克斯",
+    "玛丽亚",
+    "环形山",
+    "皮耶尔",
+    "破坏者",
+    "约瑟夫",
+    "萨斯顿",
+    "超限人",
+    "辛西亚",
+    "迪拉尔",
+    "阿斯兰",
+    "阿波罗",
+    "阿蒂特",
+    "黑历史",
+    "万丈",
+    "不动",
+    "兰顿",
+    "古拉",
+    "哈普",
+    "城镇",
+    "基拉",
+    "多吉",
+    "奥尔",
+    "安娜",
+    "尼奥",
+    "布彻",
+    "希德",
+    "往事",
+    "扎奇",
+    "托比",
+    "杜威",
+    "极艾",
+    "梅尔",
+    "理惠",
+    "盖纳",
+    "科伦",
+    "米莎",
+    "罗兰",
+    "罗杰",
+    "肯刚",
+    "英司",
+    "贝克",
+    "身份",
+    "雷文",
+    "露娜",
+    "马修",
+    "高安"
+  ],
+  "basis": "SP 640x448 LRPS2 detail panel: column 31 crosses border and row 12 is not displayed. Names and places matched against existing glossary; no wording changes.",
+  "term_sources": {
+    "UN空间站": [
+      {
+        "path": "corpus/glossary/story-dialogue-full-v1.json",
+        "id": "place/un-station",
+        "category": "place",
+        "status": "approved"
+      }
+    ],
+    "万丈": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/banjo",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "不动": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-545cd45a0ba7",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "丹泽尔": [
+      {
+        "path": "corpus/glossary/story-dialogue-stage-002-v1.json",
+        "id": "people/denzel-short",
+        "category": "people",
+        "status": "researched"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-decf724cc995",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "乌鲁古斯克": [
+      {
+        "path": "corpus/glossary/story-dialogue-full-v1.json",
+        "id": "place/urugsk",
+        "category": "place",
+        "status": "approved"
+      }
+    ],
+    "优莱卡": [
+      {
+        "path": "corpus/glossary/battle-lines-v1.json",
+        "id": "people/eureka",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "兰顿": [
+      {
+        "path": "corpus/glossary/stage-titles-v1.json",
+        "id": "people/renton",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "加利亚大陆": [
+      {
+        "path": "corpus/glossary/terms-v1.json",
+        "id": "place/gallia-continent",
+        "category": "place",
+        "status": "proposed"
+      }
+    ],
+    "加特勒": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-0fb8d52aeaf0",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-0fb8d52aeaf0",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "卡洛德": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/garrod",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "古拉": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-13cee73c14bf",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-13cee73c14bf",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "哈普": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-e34a61115dfb",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "圣日耳曼城": [
+      {
+        "path": "corpus/glossary/story-dialogue-stage-008-v1.json",
+        "id": "place/saint-germain-castle",
+        "category": "place",
+        "status": "researched"
+      }
+    ],
+    "基拉": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/kira",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "多元世界": [
+      {
+        "path": "corpus/glossary/terms-v1.json",
+        "id": "place/multiverse",
+        "category": "place",
+        "status": "approved"
+      }
+    ],
+    "多吉": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/moondoggie-short",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "多米尼克": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-d247bdd8af41",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "多萝西": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-7a098615626f",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "奥尔": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/auel",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "安娜": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-9a619496c559",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-9a619496c559",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "尼奥": [
+      {
+        "path": "corpus/glossary/battle-lines-v1.json",
+        "id": "people/neo",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "尼奥·罗阿诺克": [
+      {
+        "path": "corpus/glossary/story-dialogue-stage-003-v1.json",
+        "id": "people/neo-roanoke-full",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "布彻": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-a52075c737b1",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "希德": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-5cf2a20e0254",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "扎奇": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-f2a1fdf0f799",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-f2a1fdf0f799",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "托比": [
+      {
+        "path": "corpus/glossary/story-dialogue-stage-002-v1.json",
+        "id": "people/toby-short",
+        "category": "people",
+        "status": "researched"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-bdc0fa70d514",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "斗志也": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/toshiya",
+        "category": "people",
+        "status": "researched"
+      },
+      {
+        "path": "corpus/glossary/story-dialogue-stage-009-v1.json",
+        "id": "people/dan-toshiya",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "施瓦兹": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-c73cffcd87d5",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-c73cffcd87d5",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "施瓦兹·瓦尔德": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/schwarzwald-full",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "杜威": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-96eedf25cbff",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-96eedf25cbff",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "极艾": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-6bbd330691da",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-6bbd330691da",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "桑德曼": [
+      {
+        "path": "corpus/glossary/battle-lines-v1.json",
+        "id": "people/sandman",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "梅尔": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-e547903f3879",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-e547903f3879",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "梅黛尤": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-71462da7547f",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "泰克斯": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-975911a13e87",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "特雷泽阿": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "location/trezoa",
+        "category": "location",
+        "status": "approved"
+      }
+    ],
+    "特雷泽阿技研": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "location/trezoa-lab",
+        "category": "location",
+        "status": "approved"
+      }
+    ],
+    "玛丽亚": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-c9c663346fa6",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-c9c663346fa6",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "玛尔奇诺": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-674a17f322f9",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-674a17f322f9",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "环形山": [
+      {
+        "path": "corpus/glossary/story-dialogue-full-v1.json",
+        "id": "place/mountain-cycle",
+        "category": "place",
+        "status": "approved"
+      }
+    ],
+    "理惠": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-82abdde1d865",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "皮耶尔": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-1f75f72fc076",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-1f75f72fc076",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "盖纳": [
+      {
+        "path": "corpus/glossary/battle-lines-v1.json",
+        "id": "people/gainer",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "直布罗陀": [
+      {
+        "path": "corpus/glossary/stage-titles-v1.json",
+        "id": "place/gibraltar",
+        "category": "place",
+        "status": "researched"
+      }
+    ],
+    "破坏者": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-438059a318cd",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-438059a318cd",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "科伦": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/corin",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "米莎": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-87e0535edbc2",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "约瑟夫": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-56b61e9ee8f2",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "罗兰": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/loran",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "罗杰": [
+      {
+        "path": "corpus/glossary/menu-terms-v1.json",
+        "id": "people/roger",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "肯刚": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-a413aea80ba3",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-a413aea80ba3",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "英司": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-e00210e47303",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "萨斯顿": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/thurston-surname",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "蒙·多吉": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-b3a6e71cada9",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "西尔维娅": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-33500871d27d",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-33500871d27d",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "贝克": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/beck",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "贝尔弗莱斯特": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "location/bellforest",
+        "category": "location",
+        "status": "approved"
+      }
+    ],
+    "辛西亚": [
+      {
+        "path": "corpus/glossary/battle-lines-v1.json",
+        "id": "people/cynthia",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "迪拉尔": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/teral",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "金卡拉姆": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/ghingham",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "阿克塞尔": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-3859a704bfc0",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "阿尼莫奈": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/anemone",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "阿斯兰": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/athrun",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "阿斯哈姆": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/asuham",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "阿波罗": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/apollo",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "阿美利亚大陆": [
+      {
+        "path": "corpus/glossary/terms-v1.json",
+        "id": "place/ameria-continent",
+        "category": "place",
+        "status": "proposed"
+      }
+    ],
+    "阿蒂特": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/adette",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "雷文": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-8e548add9178",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-8e548add9178",
+        "category": "people",
+        "status": "proposed"
+      }
+    ],
+    "露娜": [
+      {
+        "path": "corpus/glossary/story-dialogue-stage-002-v1.json",
+        "id": "people/lunamaria-short",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "露娜玛丽亚": [
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "id": "people/lunamaria",
+        "category": "people",
+        "status": "approved"
+      }
+    ],
+    "马修": [
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-6d045a678e53",
+        "category": "people",
+        "status": "researched"
+      }
+    ],
+    "高安": [
+      {
+        "path": "corpus/glossary/global-variants-v1.json",
+        "id": "people/speaker-75872b1833fc",
+        "category": "people",
+        "status": "approved"
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "id": "people/speaker-75872b1833fc",
+        "category": "people",
+        "status": "proposed"
+      }
+    ]
+  }
+}

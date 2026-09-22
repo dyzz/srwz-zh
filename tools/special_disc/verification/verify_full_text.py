@@ -27,7 +27,12 @@ from special_disc.writeback.stage_titles import SNAPSHOT as TITLE_SNAPSHOT, veri
 from special_disc.writeback.world_map_titles import verify_world_map_titles
 from special_disc.writeback.data_link_bonus import verify_data_link_bonus, TEXT_OVERRIDES
 from special_disc.writeback.battle_square_skip import verify_skip
+from special_disc.writeback.instruction_overrides import verify_overrides
+from special_disc.writeback.qa_native import native_records
+from special_disc.writeback.qa_layout import page as qa_page
+from srwz.qa_typography import shared_records
 from special_disc.writeback.squad_names import verify_nisv_names
+from write_frame_text import validate_flow_layout
 
 
 def main(iso=None, work=None):
@@ -48,6 +53,10 @@ def main(iso=None, work=None):
     for name,expected in manifest['files'].items():require(sha(member(name))==expected,f'ISO member drift: {name}')
     for path,expected in manifest['components'].items():require(file_sha(ROOT/path)==expected,f'component report drift: {path}')
     table,_,overrides,readback=st.mst.encoding_tables(PROPOSAL)
+    instructions=verify_overrides(member,readback)
+    require(all(instructions[k]==manifest['instruction_overrides'][k] for k in ('targets','corpus_sha256','layout_sha256')),
+            'instruction override receipt drift')
+    counts['reviewed_instruction_overrides']=instructions['targets']
     unit_names=verify_unit_names(member('DATA/COMPDATA.BN'),readback)
     require(unit_names==manifest['unit_names']['labels'],'unit-name receipt drift')
     require(file_sha(UNIT_CONTRACT)==manifest['unit_names']['contract_sha256'],'unit-name contract drift')
@@ -68,6 +77,16 @@ def main(iso=None, work=None):
     require(file_sha(ROOT/keyword_corpus['path'])==keyword_corpus['sha256'],'keyword corpus drift')
     counts['keyword_list_names']=len(keyword_names)
     exe=member('SLPS_259.20');arc=member(st.STAGE);hb=member(st.HB)
+    qa_layout=load(ROOT/'config/products/special-disc/qa-layout.json')
+    native_entries={r['id']:r for r in load(ROOT/'corpus/zh/special-disc/native-text.json')['entries']}
+    qa_start,qa_end=struct.unpack_from('<II',exe,0x384A00+6*4)
+    qa_chunk=decode_production(member('DATA/NISVDATA.BIN')[qa_start:qa_end]).output
+    for binding in qa_layout['pages']:
+        expected=[dict(r,text=two_byte_visible_spaces(r['text']))
+                  for r in native_records(binding,native_entries[binding['id']])]
+        actual=shared_records(qa_page(qa_chunk,binding['page']),readback)
+        require(actual==expected,f'native Q&A final text/style/position drift: {binding["id"]}')
+        counts['native_qa_pages']+=1
     nisv_squads=verify_nisv_names(member('DATA/NISVDATA.BIN'),exe,readback)
     require(nisv_squads==manifest['nisv_squad_names'],'NISV squad receipt drift')
     counts['nisv_squad_names']=nisv_squads['names']
@@ -150,6 +169,8 @@ def main(iso=None, work=None):
             actual=decode_text(data,row['offset'],readback).text
             for site in row.get('pointer_sites',[]):require(struct.unpack_from('<I',data,site)[0]==st.sd.COMPDATA_BASE+row['offset'],'chapter title pointer ISO reread')
         require(actual==text,f'frame ISO reread: {target}: {actual!r} != {text!r}')
+        if target.startswith('sd/flow/synopsis/'):
+            validate_flow_layout(actual)
         counts['frame_targets']+=1
     source_flow=decode_production(st.read_disc_member(st.STAGE)).output
     for start,total in ((0x7510,21),(0x14B20,110)):
@@ -231,6 +252,8 @@ def main(iso=None, work=None):
             require(decode_text(data,at,readback).text==expected,f'system ISO reread: {target}');counts['system_writes']+=1
             for site in shared.get(target,{}).get('pointer_slots',[]):require(struct.unpack_from('<I',data,int(site,16))[0]==st.sd.COMPDATA_BASE+at,'shared system title pointer')
     result=dict(status='all_bound_text_reread_from_final_iso',iso=manifest['iso'],counts=dict(counts),component_hashes_verified=True,scope='STAGE dialogue/speakers/conditions/formations; frame physical records; system writes/templates/tickers. SRVC and indexed image component readbacks are bound to exact ISO member hashes.')
+    result['instruction_overrides']=instructions
+    result['scope']+=' Reviewed fixed instructions, Q&A metadata and explicit tutorial/Q&A page records.'
     result['weapon_detail_labels']=weapon_labels
     result['data_link_bonus']=link_bonus
     result['battle_square_skip']=skip_report

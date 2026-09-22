@@ -26,6 +26,7 @@ from terms import all_terms
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "tools/special_disc/writeback"))
 from srwz.chinese_layout import load_layout_profiles, partition_chinese_text, reflow_chinese_paragraph  # noqa: E402
+from write_frame_text import flow_synopsis
 from srwz.text import encode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces  # noqa: E402
 
 PROFILES = load_layout_profiles(ROOT / "config/text-layout/zh-layout-profiles.json")
@@ -38,8 +39,8 @@ CATEGORIES = {  # category -> (Chinese label, export kinds, rule)
                       "话名（关卡标题）。字数不能超过上限（与日文同宽）；英文歌名、英文原文照《机战Z》正篇惯例保留英文（半角）。"),
     "speaker": ("说话人名", ("speaker",), "对话框的说话人名，简短。"),
     "group-name": ("剧情组名", ("group_name",), "五个剧情组的组名，按 terms 中已定的译名。"),
-    "chart-summary": ("剧情流程图节点简介", ("chart_summary",),
-                      "流程图节点说明：一段话，不超过 60 字（显示为 3 行×21 字），比日文更精炼，只保留核心情节；段首不加空格。"),
+    "chart-summary": ("HSFC短简介（独立固定槽）", ("chart_summary",),
+                      "HSFC短简介：独立于STAGE流程图详情长梗概，一段话排入3个固定槽，每槽最多32个全角字（66字节含结束符）。完整保留该简介的信息；段首不加空格。槽容量不代表详情窗口的显示上限。"),
     "synopsis": ("剧情梗概（资料库「剧情流程」）", ("synopsis",),
                  "本话梗概：保留原文分段，每段以一个全角空格开头，段与段之间用 \\n 分隔，段内不要换行；总字数不超过日文字数。"),
     "vt1-page": ("固定格说明页：剧情组简介、数据链接说明、挑战模式任务简报", ("vt1_page",),
@@ -220,11 +221,16 @@ def checks(item: dict, zh: str, table, story, terms: list[dict]) -> tuple[list[s
         flags.append("条件行数不一致")
     if item["kind"] == "chart_summary":
         try:
-            laid = reflow_chinese_paragraph(zh.replace("\n", ""), profile=PROFILES["scenario_chart_overview"],
+            laid = reflow_chinese_paragraph(zh.replace("\n", ""), profile=PROFILES["sp_hsfc_summary"],
                                             exact_lines=3).text
         except Exception:  # noqa: BLE001
-            flags.append("排不进 3 行×21 字")
-    if item["kind"] in ("synopsis", "vt1_page", "narration"):
+            flags.append("排不进 3 行×32 字")
+    if item["kind"] == "synopsis":
+        try:
+            laid = flow_synopsis(zh)
+        except ValueError as error:
+            flags.append(f"流程详情排版超限：{error}")
+    if item["kind"] in ("vt1_page", "narration"):
         width = {"synopsis": 29, "vt1_page": 28, "narration": 21}[item["kind"]]
         out = []
         for para in zh.split("\n"):

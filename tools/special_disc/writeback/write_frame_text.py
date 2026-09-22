@@ -31,14 +31,20 @@ EPISODE_LABELS=ROOT/'config/editorial/special-disc/chart-episode-labels.json'
 Z_ENDINGS=ROOT/'config/editorial/special-disc/chart-z-ending-titles.json'
 Z_TITLE_CORPUS=ROOT/'corpus/zh/menu/stage-names.json'
 KEY_HELP=ROOT/'config/editorial/special-disc/chart-key-help.json'
-HSFC_PROTECTED_TERMS=('麦康奈尔','布兰少校','西尔维娅','金卡拉姆')
+HSFC_PROTECTED_TERMS=('麦康奈尔','布兰少校','西尔维娅','金卡拉姆','不合群者')
+# The 640x448 SP detail panel displays 11 rows. A 31st full-width
+# character crosses its right border; keep the established 29-cell margin.
+FLOW_LAYOUT_PATH=ROOT/'config/products/special-disc/flow-layout.json'
+FLOW_LAYOUT=json.loads(FLOW_LAYOUT_PATH.read_text())
+FLOW_WIDTH, FLOW_MAX_LINES=FLOW_LAYOUT['width'], FLOW_LAYOUT['maximum_lines']
+FLOW_PROTECTED_TERMS=tuple(FLOW_LAYOUT['protected_terms'])
 
 
 def require(condition,message):
     if not condition: raise ValueError(message)
 
 
-def paragraphs(text,width,*,max_lines=None,protected_terms=()):
+def paragraphs(text,width,*,max_lines=None,protected_terms=(),minimum_line_width=0):
     """Keep authored paragraphs and blank separators, wrap within each paragraph."""
     lines=[]
     for paragraph in normalize_original_fullwidth_ascii(text).split('\n'):
@@ -47,11 +53,34 @@ def paragraphs(text,width,*,max_lines=None,protected_terms=()):
         indent='　' if paragraph.startswith(('　',' ')) else ''
         profile=ChineseLayoutProfile(profile_id='sp-fixed-paragraph',maximum_width=width-len(indent),
             first_line_maximum_width=None,maximum_lines=None,
-            line_count_mode='minimum',line_packing='fill',allow_oversized_token_split=True)
+            line_count_mode='minimum',line_packing='fill',allow_oversized_token_split=True,
+            minimum_line_width=minimum_line_width)
         fitted=reflow_chinese_paragraph(paragraph.strip(),profile=profile,protected_terms=protected_terms).text.split('\n')
         fitted[0]=indent+fitted[0];lines.extend(fitted)
     require(max_lines is None or len(lines)<=max_lines,f'paragraph overflow: {len(lines)}/{max_lines} lines')
     return lines
+
+
+def validate_flow_layout(text):
+    visible=normalize_original_fullwidth_ascii(text).replace(' ','　')
+    lines=visible.split('\n')
+    require(len(lines)<=FLOW_MAX_LINES and all(len(line)<=FLOW_WIDTH for line in lines),
+            'flow detail exceeds verified visible panel')
+    flat=''.join(lines);boundaries=[];offset=0
+    for line in lines[:-1]:
+        offset+=len(line);boundaries.append(offset)
+    for term in FLOW_PROTECTED_TERMS:
+        term=normalize_original_fullwidth_ascii(term).replace(' ','　')
+        for match in re.finditer(re.escape(term),flat):
+            require(not any(match.start()<at<match.end() for at in boundaries),
+                    f'flow detail splits protected term: {term}')
+
+
+def flow_synopsis(text):
+    result='\n'.join(paragraphs(text,FLOW_WIDTH,max_lines=FLOW_MAX_LINES,
+        minimum_line_width=FLOW_LAYOUT['minimum_tail_width'],protected_terms=FLOW_PROTECTED_TERMS))
+    validate_flow_layout(result)
+    return result
 
 
 class Writer:
@@ -152,11 +181,11 @@ class Writer:
             record=int(target.rsplit('/',1)[1]);at=first+record*cell*cells
             source='\n'.join(decode_text(src,at+j*cell,self.table,end=at+(j+1)*cell).text for j in range(cells))
             self.bind(target,source)
-            text=fit_chinese_dialogue_layout(row['translation'],profile=self.profiles['scenario_chart_overview'],
+            text=fit_chinese_dialogue_layout(row['translation'],profile=self.profiles['sp_hsfc_summary'],
                 protected_terms=HSFC_PROTECTED_TERMS).text
             lines=text.split('\n');require(len(lines)<=3,'HSFC exceeds three lines');lines+=['']*(3-len(lines))
             for j,line in enumerate(lines):self.fixed(data,at+j*cell,cell,line,target)
-            self.record(target,text,member=name,chunk=0,offset=at,width=21,lines=3)
+            self.record(target,text,member=name,chunk=0,offset=at,width=32,lines=3)
         self.compressed(name,0,bytes(data),sd.HSFC_TABLE)
 
     def narration(self):
@@ -186,7 +215,7 @@ class Writer:
             elif target.startswith('sd/flow/synopsis/'):
                 k=int(target.rsplit('/',1)[1])-1;site=sd.FLOW_SYNOPSES[0]+k*4;at=struct.unpack_from('<I',src,site)[0]-sd.SD_STAGE_BASE
                 original=decode_text(src,at,self.table);self.bind(target,original.text)
-                text='\n'.join(paragraphs(row['translation'],29))
+                text=flow_synopsis(row['translation'])
                 self.fixed(data,at,original.consumed,text,target);self.record(target,text,member=name,chunk=0,offset=at,width=29)
         labels=json.loads(EPISODE_LABELS.read_text())
         require(labels['member']==name and labels['chunk']==0 and labels['label_bytes']==16 and labels['record_stride']==112,'episode label layout drift')
