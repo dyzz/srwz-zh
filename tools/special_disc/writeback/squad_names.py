@@ -7,6 +7,7 @@ from pathlib import Path
 
 from srwz.stage_formations import FormationCell, FormationGroup
 from srwz.text import decode_text, encode_text, normalize_original_fullwidth_ascii
+from special_disc.writeback.slot_codec import encode_slot
 from srwz.codec import decode_production, reencode_changed_suffix
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -138,7 +139,7 @@ def apply_nisv_names(archive, exe, source, table, overrides, readback, root=ROOT
     for slot in slots:
         at, size = slot['offset'], slot['capacity']
         output[at:at + size] = translated[at:at + size]
-    packed = reencode_changed_suffix(archive[start:end], bytes(output), strategy='rust-maximum',
+    packed = encode_slot(archive[start:end], bytes(output),
                                      max_output_size=end-start, original_result=current)
     if len(packed) > end-start or decode_production(packed).output != output:
         raise ValueError('NISV squad compression/readback failed')

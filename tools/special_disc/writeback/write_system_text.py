@@ -46,6 +46,7 @@ from srwz.text import (  # noqa: E402
     normalize_original_fullwidth_ascii,
     two_byte_visible_spaces,
 )
+from special_disc.writeback.slot_codec import encode_slot
 import migrate_compdata as mc  # noqa: E402
 import migrate_slps_text as mst  # noqa: E402
 from special_disc.writeback.exe_data_guard import require_text_range  # noqa: E402
@@ -224,7 +225,7 @@ def main() -> None:
         shared.append(dict(id=e["id"], pointer_slots=[hex(s) for s in pointers[offset]], now=hex(target),
                            ending_of=hex(host[0])))
         writer.log["tail shared"] += 1
-    cd_encoded = reencode_changed_suffix(cd_stored[:cd_result.consumed], bytes(cd), strategy="rust-maximum",
+    cd_encoded = encode_slot(cd_stored[:cd_result.consumed], bytes(cd), max_output_size=len(cd_stored),
                                          original_result=cd_result)
     assert decode_production(cd_encoded).output == bytes(cd), "COMPDATA does not read back"
     assert len(cd_encoded) <= len(cd_stored), f"COMPDATA grew: {len(cd_encoded)} > {len(cd_stored)}"
@@ -258,7 +259,7 @@ def main() -> None:
             assert decode_text(bytes(data), offset, readback).text == two_byte_visible_spaces(
                 normalize_original_fullwidth_ascii(ticker_zh[text])
             )
-        encoded = reencode_changed_suffix(bytes(stage[a:a + result.consumed]), bytes(data), strategy="rust-maximum",
+        encoded = encode_slot(bytes(stage[a:a + result.consumed]), bytes(data), max_output_size=b-a,
                                           original_result=result)
         assert decode_production(encoded).output == bytes(data), index
         if len(encoded) > b - a:

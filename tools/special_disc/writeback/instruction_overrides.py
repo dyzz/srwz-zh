@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 import struct
 
+from special_disc.writeback.slot_codec import encode_slot
 from srwz.codec import decode_production, reencode_changed_suffix
 from srwz.text import PreparedTextEncoder, decode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces
 from srwz.nisv_tutorial import parse_nisv_tutorial_pages
@@ -179,7 +180,7 @@ def apply_overrides(patches, original, table, overrides, runtime, root=ROOT):
         targets = [r for r in rows if r['kind'] == 'fixed' and r['location']['member'] == name]
         after = apply_fixed(data, source, targets, encoder, table, runtime)
         if name == CD:
-            packed = reencode_changed_suffix(before, after, strategy='rust-maximum', max_output_size=len(before), original_result=decoded)
+            packed = encode_slot(before, after, max_output_size=len(before), original_result=decoded)
             require(len(packed) <= len(before) and decode_production(packed).output == after, 'Instruction COMPDATA compression drift')
             result[name] = packed + bytes(len(before) - len(packed))
         else:
@@ -192,7 +193,7 @@ def apply_overrides(patches, original, table, overrides, runtime, root=ROOT):
         require(struct.unpack_from('<II', original(EXE), TABLE + chunk * 4) == (a, b), 'Instruction NISV offsets changed')
         stored = archive[a:b]; decoded = decode_production(stored); source = decode_production(original_archive[a:b]).output
         after = apply_pages(decoded.output, source, chunk, rows, layouts, encoder, table, runtime)
-        packed = reencode_changed_suffix(stored, after, strategy='rust-maximum', max_output_size=b-a, original_result=decoded)
+        packed = encode_slot(stored, after, max_output_size=b-a, original_result=decoded)
         require(len(packed) <= b-a and decode_production(packed).output == after, 'Instruction page compression drift')
         archive = archive[:a] + packed + bytes(b-a-len(packed)) + archive[b:]
         reports.append(dict(member=NISV,chunk=chunk,stored_size=len(packed),budget=b-a,decoded_sha256=sha(after)))

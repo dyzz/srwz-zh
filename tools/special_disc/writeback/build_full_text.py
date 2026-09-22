@@ -13,6 +13,7 @@ import struct
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[3]
@@ -46,6 +47,17 @@ PROPOSAL=FONT/'font/proposal.json'
 DEST=CURRENT_ISO
 CHUNKS=[1,2,3,4,5,7,8,9,11,13,14,15,16,18,19,20,21,23,24,25,26,27,28,29,*range(39,57)]
 EXE,STAGE,VT1,CD='SLPS_259.20','DATA/STAGE.BIN','DATA/VT1.BIN','DATA/COMPDATA.BN'
+TIMINGS = {}
+
+
+def timed(name, function, *args, **kwargs):
+    started = time.perf_counter()
+    try:
+        return function(*args, **kwargs)
+    finally:
+        TIMINGS[name] = round(time.perf_counter() - started, 3)
+        write_json(WORK/'timing.json', TIMINGS)
+        print(f'{name}: {TIMINGS[name]:.3f}s', flush=True)
 
 
 def build():
@@ -53,7 +65,7 @@ def build():
     def run(script,*args):
         print(script,flush=True)
         with (WORK/f'{Path(script).stem}.log').open('w') as log:
-            subprocess.run([sys.executable,str(ROOT/'tools/special_disc/writeback'/script),*map(str,args)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
+            timed(script, subprocess.run, [sys.executable,str(ROOT/'tools/special_disc/writeback'/script),*map(str,args)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
     run('write_system_text.py','--proposal',PROPOSAL,'--output',WORK/'system')
     run('migrate_stage_dialogue.py','--allow-draft','--include-formations','--chunks',*CHUNKS,'--proposal',PROPOSAL,'--base',WORK/'system','--output',WORK/'stage')
     run('migrate_srvc.py','--include-sp','--allow-draft','--proposal',PROPOSAL,'--output',WORK/'srvc')
@@ -201,7 +213,7 @@ def assemble():
     source_table,menu_overrides,stored_overrides,runtime_table=encoding_tables(PROPOSAL)
     qa_base=patches.get(QA_MEMBER)
     if qa_base is None:qa_base=read_member(BASE,members,QA_MEMBER)
-    patches[QA_MEMBER],qa_report=apply_qa_layout(qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table=runtime_table)
+    patches[QA_MEMBER],qa_report=timed('qa',apply_qa_layout,qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table=runtime_table)
     patches[QA_MEMBER],squad_report=apply_nisv_names(patches[QA_MEMBER],patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table)
     patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,menu_overrides,runtime_table)
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,menu_overrides,runtime_table)
@@ -212,11 +224,11 @@ def assemble():
     patches[CD],pilot_report=apply_pilot_names(patches[CD],source_table,menu_overrides,runtime_table)
     patches[CD],keyword_report=apply_keyword_names(patches[CD],source_table,stored_overrides,runtime_table)
     verify_title_bindings(decode_production(patches[CD]).output)
-    patches[VT1],title_report=apply_stage_titles(patches[VT1],patches[EXE])
+    patches[VT1],title_report=timed('stage-titles',apply_stage_titles,patches[VT1],patches[EXE])
     patches[EXE],patches[VT1],link_report=apply_data_link_bonus(
         patches[EXE],patches[VT1],source_table,stored_overrides,runtime_table)
     patches[EXE],skip_report=apply_skip(patches[EXE])
-    patches,instruction_report=apply_overrides(patches,read_disc_member,source_table,stored_overrides,runtime_table)
+    patches,instruction_report=timed('instructions',apply_overrides,patches,read_disc_member,source_table,stored_overrides,runtime_table)
     stats['reviewed_instruction_overrides']=instruction_report['targets']
     stats['stage_entry_title_slots']=title_report['count']
     stats['stage_entry_title_images_rewritten']=title_report['rewritten']
@@ -252,7 +264,7 @@ def assemble():
     report['world_map_titles']=reports['image-labels']['world_map_titles']
     report['title_atlas']=reports['image-labels']['title_atlas']
     # Verification must finish before either the current ISO or its receipt changes.
-    verify_and_publish(temporary,DEST,WORK,report,original_iso_sha,original_manifest)
+    timed('independent-readback-and-publication',verify_and_publish,temporary,DEST,WORK,report,original_iso_sha,original_manifest)
     write_json(WORK/'coverage.json',stats)
     print(json.dumps(report['iso'],ensure_ascii=False,indent=2))
 
@@ -272,7 +284,7 @@ def main():
     else:
         runs=WORK/'runs';runs.mkdir(parents=True,exist_ok=True)
         WORK=Path(tempfile.mkdtemp(prefix='build-',dir=runs))
-    if not args.assemble_only:build()
-    assemble()
+    if not args.assemble_only:timed('components',build)
+    timed('assembly-including-readback',assemble)
 
 if __name__=='__main__':main()

@@ -6,6 +6,7 @@ import struct
 from srwz.text import PreparedTextEncoder, decode_text, project_runtime_text_table, two_byte_visible_spaces
 from srwz.nisv_strategy_qa import QA_METADATA_GROUPS
 from special_disc.writeback.qa_layout import ROOT, page, require, sha, compile_original
+from special_disc.writeback.slot_codec import encode_slot
 from srwz.codec import decode_production, reencode_changed_suffix
 
 LAYOUT = ROOT / 'config/products/special-disc/qa-layout.json'
@@ -141,7 +142,7 @@ def apply_reviewed_qa(archive, exe, source, table, overrides, *, runtime_table=N
                   metadata_changed=output[0x476:page(output,1)['start']] != decoded.output[0x476:page(output,1)['start']])
     if output == decoded.output:
         return archive,report
-    packed = reencode_changed_suffix(archive[a:b],output,strategy='rust-maximum',
+    packed = encode_slot(archive[a:b],output,
                                      max_output_size=b-a,original_result=decoded)
     require(len(packed) <= b-a and decode_production(packed).output == output, 'SP Q&A compressed readback')
     report.update(stored_size=len(packed),stored_budget=b-a)
