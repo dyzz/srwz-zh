@@ -820,9 +820,6 @@ def audit_runtime_generated_glyph_compatibility(
         raise ReleaseFontError(
             "runtime-generated glyph relocation contract is invalid"
         )
-    active_by_character = {
-        character: code for code, character in active_by_code.items()
-    }
     relocation_rows = []
     for relocation in relocations:
         if not isinstance(relocation, dict):
@@ -842,7 +839,7 @@ def audit_runtime_generated_glyph_compatibility(
             or len(character) != 1
             or from_code not in seen_codes
             or to_code in seen_codes
-            or active_by_character.get(character) != to_code
+            or active_by_code.get(to_code) != character
         ):
             raise ReleaseFontError(
                 "runtime-generated glyph relocation contract is invalid"
@@ -1045,9 +1042,6 @@ def audit_sound_select_title_glyph_compatibility(
             )
         )
 
-    active_by_character = {
-        character: code for code, character in active_by_code.items()
-    }
     relocation_rows = []
     for row in relocations:
         if not isinstance(row, Mapping):
@@ -1067,7 +1061,7 @@ def audit_sound_select_title_glyph_compatibility(
             or len(character) != 1
             or from_code not in observed_codes
             or to_code in observed_codes
-            or active_by_character.get(character) != to_code
+            or active_by_code.get(to_code) != character
         ):
             raise ReleaseFontError(
                 "sound-select title glyph relocation contract is invalid"

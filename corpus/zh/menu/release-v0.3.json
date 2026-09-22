@@ -40,7 +40,7 @@
       "Compdata": 334
     },
     "strictly_nested_parser_artifact_count": 1,
-    "selection_sha256": "e45448052bad269b2962edaab6c2667ba69400fd9bcf6842915cbe8181a9f7d9",
+    "selection_sha256": "6293f298db185841397959870e5a0939ff665322b6e8643ec6b9cf553e5b57f1",
     "raw_ascii_compatible_entry_count": 1
   },
   "entries": [
@@ -167,7 +167,7 @@
       "id": "menu/Compdata/01/0017",
       "member": "Compdata",
       "source_text_sha256": "a83c48149fcdf3737604ff7db00739a5ed27cbe359f42a2e7b05e486e0f6fdf9",
-      "translation": "MAP武器及射程1以外的\n武器射程＋1",
+      "translation": "武器射程＋1\n（MAP及射程1武器除外）",
       "target_count": 1
     },
     {
@@ -181,7 +181,7 @@
       "id": "menu/Compdata/01/0019",
       "member": "Compdata",
       "source_text_sha256": "79b1c82722dc342df6ae511cc1ea7ce9459b67a1c75a6b04e409a43395255da6",
-      "translation": "瞄准值＋20\nMAP武器及射程1以外的\n武器射程＋1",
+      "translation": "瞄准值＋20\n射程＋1\n（MAP及射程1武器除外）",
       "target_count": 1
     },
     {
@@ -195,7 +195,7 @@
       "id": "menu/Compdata/01/0021",
       "member": "Compdata",
       "source_text_sha256": "3aae7f72627e6a3ddbde3c47b1ed0736a7c93a8f706bccc387742d43b372e9e7",
-      "translation": "移动力＋2　运动性＋25\n瞄准值＋25　MAP武器及\n射程1以外武器射程＋1",
+      "translation": "移动力＋2　运动性＋25\n瞄准值＋25　射程＋1\n（MAP及射程1武器除外）",
       "target_count": 1
     },
     {
@@ -440,7 +440,7 @@
       "id": "menu/Compdata/01/0059",
       "member": "Compdata",
       "source_text_sha256": "b95522b6b56113074d8a6881d065761751095c179c2ab08c022980c8bbd6a49e",
-      "translation": "HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "translation": "自机HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
       "target_count": 1
     },
     {
@@ -622,7 +622,7 @@
       "id": "menu/Compdata/01/0085",
       "member": "Compdata",
       "source_text_sha256": "4a7e484d48bd5baff46faf7099dbe41f80822dcd1f9136223e72a157145bb075",
-      "translation": "神秘系统。\n用途不明。",
+      "translation": "神秘系统。\n使用方法不明。",
       "target_count": 1
     },
     {
@@ -762,7 +762,7 @@
       "id": "menu/Compdata/01/0105",
       "member": "Compdata",
       "source_text_sha256": "78a483787289ccb162df1a28f6522b74ad6e95b2cc3bebf99bd92f79b7f6e5be",
-      "translation": "生活在寒冷地区的熏蜥蜴。\n味道不错。",
+      "translation": "用寒冷地区的蜥蜴熏制而成。\n味道鲜美。",
       "target_count": 1
     },
     {
@@ -790,7 +790,7 @@
       "id": "menu/Compdata/01/0109",
       "member": "Compdata",
       "source_text_sha256": "68aece7567583b97a3a526f7077660b29136fa35096d2b76723f80e85dfe07be",
-      "translation": "生活在气候温暖地区的\n巨蜥熏制品。美味至极。",
+      "translation": "用栖息于温暖地区的巨蜥\n熏制而成，美味至极。",
       "target_count": 1
     },
     {
@@ -1357,7 +1357,7 @@
       "id": "menu/Compdata/04/0067",
       "member": "Compdata",
       "source_text_sha256": "64036cd0cc2888e20b2bd201b16237be1e263bc72fc3c9ccee4f83808c67a0ed",
-      "translation": "气力130以上时发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "translation": "气力130以上时可发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
       "target_count": 1
     },
     {
@@ -1602,7 +1602,7 @@
       "id": "menu/Compdata/04/0102",
       "member": "Compdata",
       "source_text_sha256": "6efaa01af69ccdc03bfd73c0e30b8263cae652c257e210da8389b08c7a577c2d",
-      "translation": "MAP武器及射程1以外的所有武器\n最大射程＋1。",
+      "translation": "除MAP武器、射程仅为1的武器外，\n所有武器最大射程＋1。",
       "target_count": 1
     },
     {
@@ -2141,7 +2141,7 @@
       "id": "menu/Compdata/06/0008",
       "member": "Compdata",
       "source_text_sha256": "7af2745be45d649c8f21fae794716feccd4139c8f5c1ea7f015a06ff1d5a5c92",
-      "translation": "～【搜索】使用状态～",
+      "translation": "～【搜索】指定使用～",
       "target_count": 1
     },
     {
@@ -2162,7 +2162,7 @@
       "id": "menu/Compdata/06/0012",
       "member": "Compdata",
       "source_text_sha256": "c6a1a3f28412c649954ed761c44ebd48f2031462dd43567374d7d8604ceb198c",
-      "translation": "飞行功能",
+      "translation": "升空功能",
       "target_count": 1
     },
     {
@@ -2575,7 +2575,7 @@
       "id": "menu/SLPS/00/0032",
       "member": "SLPS",
       "source_text_sha256": "0b4f6fee3923d58e9b3e2fb8a4a50c17ce73e620c57edd8105be0a58b90851bd",
-      "translation": "・记忆排序和子信息",
+      "translation": "・记忆排序和附加信息",
       "target_count": 1
     },
     {
@@ -2771,7 +2771,7 @@
       "id": "menu/SLPS/00/0077",
       "member": "SLPS",
       "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
-      "translation": "强化部件",
+      "translation": "强化零件",
       "target_count": 3
     },
     {
@@ -2967,7 +2967,7 @@
       "id": "menu/SLPS/00/0112",
       "member": "SLPS",
       "source_text_sha256": "4bb6f42c1a99b716453a2b1df4571834620d3f3759440f1790427b74970ed940",
-      "translation": "ソート用のテーブルが壊れているのかも…。\n",
+      "translation": "排序用表可能损坏了……\n",
       "target_count": 7
     },
     {
@@ -3198,7 +3198,7 @@
       "id": "menu/SLPS/00/0154",
       "member": "SLPS",
       "source_text_sha256": "f34a074a3b88fefb34f28cdb733817e6c713bb344372056be7915442a259c0d8",
-      "translation": "条件。",
+      "translation": "。",
       "target_count": 1
     },
     {
@@ -3303,7 +3303,7 @@
       "id": "menu/SLPS/00/0170",
       "member": "SLPS",
       "source_text_sha256": "5a2b8ef057f3fe6bc985e39fa852c4f6c1d978b101348b892128da06e0a5b8fa",
-      "translation": "・合体攻击对象",
+      "translation": "・合体攻击搭档",
       "target_count": 1
     },
     {
@@ -3759,7 +3759,7 @@
       "id": "menu/SLPS/00/0244",
       "member": "SLPS",
       "source_text_sha256": "d8a3ccdda83faf59974d4baa5ae0ec569f05424e645b43810fcd48d725419168",
-      "translation": "由于此机体将变为驾驶员未搭乘状态",
+      "translation": "由于该机体将无人驾驶",
       "target_count": 2
     },
     {
@@ -4270,7 +4270,7 @@
       "id": "menu/SLPS/00/0351",
       "member": "SLPS",
       "source_text_sha256": "8bd0ddba472cc6cc6b81520cc99f5d376c7034009cbd1e9d438710488fb4633b",
-      "translation": "～【强化部件】＜卸下＞选择～",
+      "translation": "～【强化零件】选择＜卸下＞～",
       "target_count": 1
     },
     {
@@ -4480,14 +4480,14 @@
       "id": "menu/SLPS/01/0004",
       "member": "SLPS",
       "source_text_sha256": "6f89a5416ce63a7eb829e78b16ce1c5ee2b9e8f3bf80631f3c9ee640bc399e26",
-      "translation": "西式读法",
+      "translation": "西式顺序",
       "target_count": 1
     },
     {
       "id": "menu/SLPS/01/0005",
       "member": "SLPS",
       "source_text_sha256": "606c8bbb166bd800264882e2f4c42bf3b2f755a855fb0b1bc8a779dc6b6211b0",
-      "translation": "日式读法",
+      "translation": "日式顺序",
       "target_count": 1
     },
     {
@@ -4669,7 +4669,7 @@
       "id": "menu/SLPS/03/0001",
       "member": "SLPS",
       "source_text_sha256": "c8118ac0711dce72d4684d2e8c88f3cfd889d4a8033c4e27022377eb53a30e12",
-      "translation": "强化部件『",
+      "translation": "强化零件『",
       "target_count": 1
     },
     {
@@ -4697,7 +4697,7 @@
       "id": "menu/SLPS/03/0006",
       "member": "SLPS",
       "source_text_sha256": "a81b11ae7a276ccc51d846dbb1b90ce2dee09622cbe828b745623946bbb6d3df",
-      "translation": "获得强化部件",
+      "translation": "获得强化零件",
       "target_count": 1
     },
     {
@@ -4718,14 +4718,14 @@
       "id": "menu/SLPS/03/0010",
       "member": "SLPS",
       "source_text_sha256": "f5697d170b1a10e99a14a765ecc2169117df57227df96d39be3e82e600f89e41",
-      "translation": "资金　%s　获得",
+      "translation": "获得资金　%s　",
       "target_count": 1
     },
     {
       "id": "menu/SLPS/03/0011",
       "member": "SLPS",
       "source_text_sha256": "b4511b9db8620741c952c30a820e25c5142bf439671ed0da1d47d839939de061",
-      "translation": "BS　%s　获得",
+      "translation": "获得BS　%s　",
       "target_count": 1
     },
     {
@@ -5194,7 +5194,7 @@
       "id": "menu/SLPS/04/0064",
       "member": "SLPS",
       "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
-      "translation": "强化部件",
+      "translation": "强化零件",
       "target_count": 1
     },
     {
@@ -5600,7 +5600,7 @@
       "id": "menu/SLPS/08/0040",
       "member": "SLPS",
       "source_text_sha256": "32064e79160608d4b312c9c607b79a9d526f476a43bab7e9fc4c821f0ef73712",
-      "translation": "无视尺寸差和单位数量对ALL攻击造成的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "translation": "无视体型差造成的减伤、单位数量造成的ALL攻击伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
       "target_count": 1
     },
     {
@@ -5663,7 +5663,7 @@
       "id": "menu/SLPS/08/0054",
       "member": "SLPS",
       "source_text_sha256": "5c4b30d0b42aef2ca8378402cfb80a9a85d2885de885be7d2fdc498f45006678",
-      "translation": "本小队可行动次数增加1次。\n不可重复使用。",
+      "translation": "本小队可行动次数增加1次。\n重复施加不叠加。",
       "target_count": 1
     },
     {
@@ -5838,7 +5838,7 @@
       "id": "menu/SLPS/08/0088",
       "member": "SLPS",
       "source_text_sha256": "14d816e27063e619440d97b770b4e3f4953cfd455c25ca249ed925273e2827b3",
-      "translation": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“声援”和“友情”。",
+      "translation": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“应援”和“友情”。",
       "target_count": 1
     },
     {
@@ -6181,7 +6181,7 @@
       "id": "menu/SLPS/09/0009",
       "member": "SLPS",
       "source_text_sha256": "bcd289655b630e14e843f3504cdabb80b4d45cc8ca24bce7d382500f9bf8d044",
-      "translation": "可对相邻小队的队长发动援护攻击。\n每回合最多发动与技能等级相同的次数。",
+      "translation": "可为相邻小队的队长进行援护攻击。\n每回合最多发动与技能等级相同的次数。",
       "target_count": 1
     },
     {
@@ -6405,21 +6405,21 @@
       "id": "menu/SLPS/09/0041",
       "member": "SLPS",
       "source_text_sha256": "bfea542afa8078837f8505c69f34f4cdafb699385ee91542a065cd6d17e376a9",
-      "translation": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n降低为－5%／－25%。",
+      "translation": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n分别改为－5%／－25%。",
       "target_count": 1
     },
     {
       "id": "menu/SLPS/09/0042",
       "member": "SLPS",
       "source_text_sha256": "857c7690bea2a8b6d795ea9d22a3fce78becff93bb920cbd7e922a29ef6c58eb",
-      "translation": "无视尺寸差修正",
+      "translation": "无视体型差修正",
       "target_count": 1
     },
     {
       "id": "menu/SLPS/09/0043",
       "member": "SLPS",
       "source_text_sha256": "f9f37ae7144cd7a7645e1b42fccc43786360bcf1bb0f6011e0547a1fe1b095d3",
-      "translation": "无视尺寸差修正造成的伤害降低。",
+      "translation": "无视体型差修正造成的伤害降低。",
       "target_count": 1
     },
     {
@@ -6804,7 +6804,7 @@
       "id": "menu/SLPS/10/0015",
       "member": "SLPS",
       "source_text_sha256": "a81b11ae7a276ccc51d846dbb1b90ce2dee09622cbe828b745623946bbb6d3df",
-      "translation": "获得强化部件",
+      "translation": "获得强化零件",
       "target_count": 1
     },
     {
@@ -6867,7 +6867,7 @@
       "id": "menu/SLPS/11/0008",
       "member": "SLPS",
       "source_text_sha256": "2d1c39c5057fe07cd74d208e89a9cfda7cab36e5c65115d86ff9db2d5f583514",
-      "translation": "行动不能（P系）",
+      "translation": "无法战斗（P系）",
       "target_count": 1
     },
     {
@@ -7070,7 +7070,7 @@
       "id": "menu/SLPS/11/0051",
       "member": "SLPS",
       "source_text_sha256": "9d441d20b8a2eb4905b3e8298c52c010aaa464b7c77068fc9ce0108f5cace59f",
-      "translation": "强\n化\n部\n件",
+      "translation": "强\n化\n零\n件",
       "target_count": 1
     },
     {
@@ -7105,7 +7105,7 @@
       "id": "menu/SLPS/11/0066",
       "member": "SLPS",
       "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
-      "translation": "强化部件",
+      "translation": "强化零件",
       "target_count": 1
     },
     {

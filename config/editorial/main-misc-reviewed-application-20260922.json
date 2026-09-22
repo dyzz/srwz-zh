@@ -1,0 +1,4110 @@
+{
+  "schema_version": 1,
+  "source_archive": {
+    "path": "/Users/nate/Downloads/main-misc-reviewed.zip",
+    "sha256": "01225b11893753862664cf3a6ccbf301fc8b162cc33334afdb8b4304ed4b64dc"
+  },
+  "scope": "本篇/BEST菜单、系统与说明、教程及图片文字；不写入ISO",
+  "actions": {
+    "retain_user_wording": 18,
+    "apply": 91,
+    "preserve_newer_fix": 6,
+    "apply_adjusted": 13,
+    "exclude_misaligned_source": 1,
+    "retain_current": 7,
+    "defer_image_composition": 1
+  },
+  "changed_text_locations": 133,
+  "entries": [
+    {
+      "id": "ui/compdata/0007AA60",
+      "category": "01-system",
+      "category_label": "系统、设置与存读档",
+      "source_original": "ＭＥＭＯＲＹ　ＣＡＲＤ差込口１に差し込まれている\nメモリーカード（ＰＳ２）内にある空き容量です。",
+      "source_best": "ＭＥＭＯＲＹ　ＣＡＲＤ差込口１に差し込まれている\nメモリーカード（ＰＳ２）内にある空き容量です。",
+      "baseline": "插在MEMORY CARD插槽1中的\n记忆卡（PS2）剩余容量。",
+      "proposal": "插在MEMORY CARD插槽1中的\n存储卡（PS2）剩余容量。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7AA60"
+        }
+      ],
+      "proposal_reason": "与同一菜单的存读档提示统一为“存储卡”，保留MEMORY CARD及插槽编号。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“记忆卡”；撤回本轮术语替换，保留送审原译。",
+      "final": "插在MEMORY CARD插槽1中的\n记忆卡（PS2）剩余容量。"
+    },
+    {
+      "id": "ui/compdata/0007DFA0",
+      "category": "01-system",
+      "category_label": "系统、设置与存读档",
+      "source_original": "クイックコマンドの設定やＢＧＭ選択など、各種システム設定を行います。",
+      "source_best": "クイックコマンドの設定やＢＧＭ選択など、各種システム設定を行います。",
+      "baseline": "设置快捷指令、选择BGM等各项系统设置。",
+      "proposal": "设置快捷指令、选择BGM等各项系统选项。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7DFA0"
+        }
+      ],
+      "proposal_reason": "去掉“设置……各项系统设置”的重复。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。去掉“设置……各项系统设置”的重复。",
+      "final": "设置快捷指令、选择BGM等各项系统选项。"
+    },
+    {
+      "id": "ui/elf/00344520",
+      "category": "01-system",
+      "category_label": "系统、设置与存读档",
+      "source_original": "全体コマンドの『途中セーブ』を開始します。",
+      "source_best": "全体コマンドの『途中セーブ』を開始します。",
+      "baseline": "启动全体指令中的『中途保存』。",
+      "proposal": "启动全体指令中的『中断保存』。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x344520"
+        }
+      ],
+      "proposal_reason": "与菜单按钮及同组帮助中的“中断保存”一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与菜单按钮及同组帮助中的“中断保存”一致。",
+      "final": "启动全体指令中的『中断保存』。"
+    },
+    {
+      "id": "menu/SLPS/01/0004",
+      "category": "02-opening",
+      "category_label": "开局选择与命名",
+      "source_original": "欧米読み",
+      "source_best": "欧米読み",
+      "baseline": "西式读法",
+      "proposal": "西式顺序",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/01/0004"
+        }
+      ],
+      "proposal_reason": "姓名的西式／日式展示顺序，不是将姓名改成另一种发音；与汉字音训输入区的“読み切替”分别处理。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。姓名的西式／日式展示顺序，不是将姓名改成另一种发音；与汉字音训输入区的“読み切替”分别处理。",
+      "final": "西式顺序"
+    },
+    {
+      "id": "menu/SLPS/01/0005",
+      "category": "02-opening",
+      "category_label": "开局选择与命名",
+      "source_original": "日本読み",
+      "source_best": "日本読み",
+      "baseline": "日式读法",
+      "proposal": "日式顺序",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/01/0005"
+        }
+      ],
+      "proposal_reason": "姓名的西式／日式展示顺序，不是将姓名改成另一种发音；与汉字音训输入区的“読み切替”分别处理。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。姓名的西式／日式展示顺序，不是将姓名改成另一种发音；与汉字音训输入区的“読み切替”分别处理。",
+      "final": "日式顺序"
+    },
+    {
+      "id": "ui/compdata/0007FD20",
+      "category": "02-opening",
+      "category_label": "开局选择与命名",
+      "source_original": "荒廃した大地でパートナーと共に修理屋を営む男。\n「ザ・ヒート」を自称する豪放磊落な熱血漢であるが、\n暑苦しいのが珠にキズ。",
+      "source_best": "荒廃した大地でパートナーと共に修理屋を営む男。\n「ザ・ヒート」を自称する豪放磊落な熱血漢であるが、\n暑苦しいのが珠にキズ。",
+      "baseline": "与同伴在荒野当修理店老板的男人。\n自称“烈焰”，豪爽而有血性。\n但有时会冲得太猛。",
+      "proposal": "与搭档在荒芜的大地上经营修理店的男人。\n自称“烈焰”，是个豪爽磊落的热血汉，\n美中不足的是热情过头，让人有些招架不住。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7FD20"
+        },
+        {
+          "path": "corpus/zh/menu/opening-protagonist-profile.json",
+          "id": "menu/Compdata/direct/opening-male-profile"
+        }
+      ],
+      "proposal_reason": "暑苦しい指过度热情令人吃不消，不是行事冲动；恢复“经营修理店”、搭档关系与自称，保留三行。",
+      "action": "apply",
+      "reason": "用户接受“与搭档在荒芜的大地上经营修理店……”完整措辞，并授权添加“芜”的字库支持。",
+      "final": "与搭档在荒芜的大地上经营修理店的男人。\n自称“烈焰”，是个豪爽磊落的热血汉，\n美中不足的是热情过头，让人有些招架不住。"
+    },
+    {
+      "id": "ui/elf/0033BD00",
+      "category": "02-opening",
+      "category_label": "开局选择与命名",
+      "source_original": "<color:0E>・ゲームスタート開始時から<color:0E>強化パーツを全種類所持",
+      "source_best": "<color:0E>・ゲームスタート開始時から<color:0E>強化パーツを全種類所持",
+      "baseline": "<color:0E>・游戏开始时持有<color:0E>全部强化零件",
+      "proposal": "<color:0E>・游戏开始时持有<color:0E>所有种类的强化零件",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33BD00"
+        }
+      ],
+      "proposal_reason": "全種類强调种类齐全，不表示各件库存无限或持有世上全部零件；控制标签原样保留。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。全種類强调种类齐全，不表示各件库存无限或持有世上全部零件；控制标签原样保留。",
+      "final": "<color:0E>・游戏开始时持有<color:0E>所有种类的强化零件"
+    },
+    {
+      "id": "ui/compdata/0007B570",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "現在の最大ＨＰ、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_best": "現在の最大ＨＰ、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "baseline": "表示当前最大HP和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "proposal": "表示当前最大HP和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B570"
+        }
+      ],
+      "proposal_reason": "源文的＜小改造ゲージ明＞／＜小武器改造ゲージ明＞可能为图形量表控制别名，基线已汉化。包内无别名注册表或渲染器，不能判断汉化名称能否解析；正文保留基线，待原生界面验证。",
+      "final": "量表显示当前最大HP及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "action": "preserve_newer_fix",
+      "reason": "当前语料已按用户截图修正；保留送审后新稿，不回滚量表占位名。见 docs/UPGRADE_GAUGE_HELP_20260922.md。"
+    },
+    {
+      "id": "ui/compdata/0007B5F0",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "現在の最大ＥＮ、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_best": "現在の最大ＥＮ、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "baseline": "表示当前最大EN和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "proposal": "表示当前最大EN和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B5F0"
+        }
+      ],
+      "proposal_reason": "源文的＜小改造ゲージ明＞／＜小武器改造ゲージ明＞可能为图形量表控制别名，基线已汉化。包内无别名注册表或渲染器，不能判断汉化名称能否解析；正文保留基线，待原生界面验证。",
+      "final": "量表显示当前最大EN及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "action": "preserve_newer_fix",
+      "reason": "当前语料已按用户截图修正；保留送审后新稿，不回滚量表占位名。见 docs/UPGRADE_GAUGE_HELP_20260922.md。"
+    },
+    {
+      "id": "ui/compdata/0007B670",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "装甲の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_best": "装甲の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "baseline": "表示当前装甲值和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "proposal": "表示当前装甲值和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B670"
+        }
+      ],
+      "proposal_reason": "源文的＜小改造ゲージ明＞／＜小武器改造ゲージ明＞可能为图形量表控制别名，基线已汉化。包内无别名注册表或渲染器，不能判断汉化名称能否解析；正文保留基线，待原生界面验证。",
+      "final": "量表显示当前装甲值及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "action": "preserve_newer_fix",
+      "reason": "当前语料已按用户截图修正；保留送审后新稿，不回滚量表占位名。见 docs/UPGRADE_GAUGE_HELP_20260922.md。"
+    },
+    {
+      "id": "ui/compdata/0007B6E0",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "運動性の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_best": "運動性の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "baseline": "表示当前运动性和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "proposal": "表示当前运动性和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B6E0"
+        }
+      ],
+      "proposal_reason": "源文的＜小改造ゲージ明＞／＜小武器改造ゲージ明＞可能为图形量表控制别名，基线已汉化。包内无别名注册表或渲染器，不能判断汉化名称能否解析；正文保留基线，待原生界面验证。",
+      "final": "量表显示当前运动性及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "action": "preserve_newer_fix",
+      "reason": "当前语料已按用户截图修正；保留送审后新稿，不回滚量表占位名。见 docs/UPGRADE_GAUGE_HELP_20260922.md。"
+    },
+    {
+      "id": "ui/compdata/0007B760",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "照準値の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "source_best": "照準値の現在値、および改造済み段階を表すゲージです。\nすでに改造されている段階は＜小改造ゲージ明＞で表示されます。",
+      "baseline": "表示当前瞄准值和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "proposal": "表示当前瞄准值和已改造阶段的量表。\n已经改造的阶段以＜小改造量表亮＞显示。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B760"
+        }
+      ],
+      "proposal_reason": "源文的＜小改造ゲージ明＞／＜小武器改造ゲージ明＞可能为图形量表控制别名，基线已汉化。包内无别名注册表或渲染器，不能判断汉化名称能否解析；正文保留基线，待原生界面验证。",
+      "final": "量表显示当前瞄准值及改造进度。\n亮起的格数表示已完成的改造阶段。",
+      "action": "preserve_newer_fix",
+      "reason": "当前语料已按用户截图修正；保留送审后新稿，不回滚量表占位名。见 docs/UPGRADE_GAUGE_HELP_20260922.md。"
+    },
+    {
+      "id": "ui/compdata/0007B7E0",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "武器の改造済みランクを表すゲージです。\nすでに改造されている段階は＜小武器改造ゲージ明＞で表示されます。",
+      "source_best": "武器の改造済みランクを表すゲージです。\nすでに改造されている段階は＜小武器改造ゲージ明＞で表示されます。",
+      "baseline": "表示武器已改造RANK的量表。\n已经改造的阶段以＜小武器改造量表亮＞显示。",
+      "proposal": "表示武器已改造RANK的量表。\n已经改造的阶段以＜小武器改造量表亮＞显示。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B7E0"
+        }
+      ],
+      "proposal_reason": "源文的＜小改造ゲージ明＞／＜小武器改造ゲージ明＞可能为图形量表控制别名，基线已汉化。包内无别名注册表或渲染器，不能判断汉化名称能否解析；正文保留基线，待原生界面验证。",
+      "final": "量表显示武器当前的改造RANK。\n亮起的格数表示已完成的改造阶段。",
+      "action": "preserve_newer_fix",
+      "reason": "当前语料已按用户截图修正；保留送审后新稿，不回滚量表占位名。见 docs/UPGRADE_GAUGE_HELP_20260922.md。"
+    },
+    {
+      "id": "ui/compdata/0007B850",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "ＨＰの『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_best": "ＨＰの『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "baseline": "HP的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "proposal": "HP的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B850"
+        }
+      ],
+      "proposal_reason": "原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "final": "HP的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "id": "ui/compdata/0007B8D0",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "ＥＮの『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_best": "ＥＮの『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "baseline": "EN的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "proposal": "EN的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B8D0"
+        }
+      ],
+      "proposal_reason": "原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "final": "EN的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "id": "ui/compdata/0007B950",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "装甲の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_best": "装甲の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "baseline": "装甲的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "proposal": "装甲的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B950"
+        }
+      ],
+      "proposal_reason": "原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "final": "装甲的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "id": "ui/compdata/0007B9D0",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "運動性の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_best": "運動性の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "baseline": "运动性的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "proposal": "运动性的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B9D0"
+        }
+      ],
+      "proposal_reason": "原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "final": "运动性的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "id": "ui/compdata/0007BA50",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "照準値の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "source_best": "照準値の『改造前の値→改造後の値』です。\n１段階ごとに上昇する値は機体ごとに異なりますが、\nどの段階でも伸びる値は一定です。",
+      "baseline": "瞄准值的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "proposal": "瞄准值的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7BA50"
+        }
+      ],
+      "proposal_reason": "原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "final": "瞄准值的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "id": "ui/compdata/0007BAD0",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "攻撃力の『改造前のランク→改造後のランク』です。\n他の項目と違い、武器改造の費用は機体ごとに異なります。\nまた、攻撃力の上昇値は、各武器について個別に設定されています。",
+      "source_best": "攻撃力の『改造前のランク→改造後のランク』です。\n他の項目と違い、武器改造の費用は機体ごとに異なります。\nまた、攻撃力の上昇値は、各武器について個別に設定されています。",
+      "baseline": "攻击力的“改造前RANK／改造后RANK”。\n与其他项目不同，武器改造费用因机体而异。\n此外，各武器的攻击力提升值分别设定。",
+      "proposal": "攻击力的“改造前RANK→改造后RANK”。\n与其他项目不同，武器改造费用因机体而异。\n此外，各武器的攻击力提升值分别设定。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7BAD0"
+        }
+      ],
+      "proposal_reason": "原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。原文用箭头标示改造前→改造后，恢复方向性，避免误作并列或比值；需字库支持箭头。",
+      "final": "攻击力的“改造前RANK→改造后RANK”。\n与其他项目不同，武器改造费用因机体而异。\n此外，各武器的攻击力提升值分别设定。"
+    },
+    {
+      "id": "ui/compdata/0007E7F0",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "〜【フル改造ボーナス（武器ＣＴ率）】〜",
+      "source_best": "〜【フル改造ボーナス（武器ＣＴ率）】〜",
+      "baseline": "〜【完全改造奖励（武器暴击率）】〜",
+      "proposal": "〜【全改造奖励（武器暴击率）】〜",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7E7F0"
+        }
+      ],
+      "proposal_reason": "与本包菜单主体的“全改造奖励”统一；边界波浪符保留。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与本包菜单主体的“全改造奖励”统一；边界波浪符保留。",
+      "final": "〜【全改造奖励（武器暴击率）】〜"
+    },
+    {
+      "id": "ui/compdata/0007E820",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "〜【フル改造ボーナス（武器射程）】〜",
+      "source_best": "〜【フル改造ボーナス（武器射程）】〜",
+      "baseline": "〜【完全改造奖励（武器射程）】〜",
+      "proposal": "〜【全改造奖励（武器射程）】〜",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7E820"
+        }
+      ],
+      "proposal_reason": "与本包菜单主体的“全改造奖励”统一；边界波浪符保留。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与本包菜单主体的“全改造奖励”统一；边界波浪符保留。",
+      "final": "〜【全改造奖励（武器射程）】〜"
+    },
+    {
+      "id": "ui/elf/00340E40",
+      "category": "03-management",
+      "category_label": "整备与养成操作",
+      "source_original": "〜【パイロット養成】乗員の選択〜",
+      "source_best": "〜【パイロット養成】乗員の選択〜",
+      "baseline": "〜【驾驶员培养】选择成员〜",
+      "proposal": "〜【驾驶员培养】选择驾驶员〜",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x340E40"
+        }
+      ],
+      "proposal_reason": "乗員在培养界面指被培养的驾驶员，与其他帮助一致；边界符保留。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。乗員在培养界面指被培养的驾驶员，与其他帮助一致；边界符保留。",
+      "final": "〜【驾驶员培养】选择驾驶员〜"
+    },
+    {
+      "id": "menu/Compdata/06/0008",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "〜【検索】使用指定〜",
+      "source_best": "〜【検索】使用指定〜",
+      "baseline": "～【搜索】使用状态～",
+      "proposal": "～【搜索】指定使用～",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/06/0008"
+        }
+      ],
+      "proposal_reason": "使用指定是选择要使用的项目，不是显示状态。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。使用指定是选择要使用的项目，不是显示状态。",
+      "final": "～【搜索】指定使用～"
+    },
+    {
+      "id": "menu/Compdata/06/0012",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "リフター機能",
+      "source_best": "リフター機能",
+      "baseline": "飞行功能",
+      "proposal": "升空功能",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/06/0012"
+        }
+      ],
+      "proposal_reason": "与对应小队奖励正文及能力名“升空功能”统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与对应小队奖励正文及能力名“升空功能”统一。",
+      "final": "升空功能"
+    },
+    {
+      "id": "menu/SLPS/00/0032",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "・ソート・サブ情報の記憶",
+      "source_best": "・ソート・サブ情報の記憶",
+      "baseline": "・记忆排序和子信息",
+      "proposal": "・记忆排序和附加信息",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/00/0032"
+        }
+      ],
+      "proposal_reason": "与该选项的开／关帮助统一，不直译sub为“子信息”。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与该选项的开／关帮助统一，不直译sub为“子信息”。",
+      "final": "・记忆排序和附加信息"
+    },
+    {
+      "id": "ui/compdata/00073DE0",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "小隊内に修理機能を持っているユニットがいる場合、\n小隊全機が修理ユニット１機につきＨＰ回復１０％の効果を持つ。",
+      "source_best": "小隊内に修理機能を持っているユニットがいる場合、\n小隊全機が修理ユニット１機につきＨＰ回復１０％の効果を持つ。",
+      "baseline": "小队内有持有修理装置的单位时，\n小队全机每有1台修理单位，获得HP回复10%的效果。",
+      "proposal": "小队内每有1台持有修理装置的单位，\n小队全机便获得HP回复10%的效果。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x73DE0"
+        }
+      ],
+      "proposal_reason": "明确“每有1台修理单位，全队获得10%回复”的叠加基数，与补给说明句式对应。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。明确“每有1台修理单位，全队获得10%回复”的叠加基数，与补给说明句式对应。",
+      "final": "小队内每有1台持有修理装置的单位，\n小队全机便获得HP回复10%的效果。"
+    },
+    {
+      "id": "ui/compdata/00077580",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
+      "source_best": "小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
+      "baseline": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n移动类型：全员可移动时为白字，部分可移动时为灰字，\n全员不可移动时为空白。",
+      "proposal": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x77580"
+        }
+      ],
+      "proposal_reason": "同时保留全机／部分／无机体适配的判定和移动难度，不把空白一律解释为绝对无法移动；保留四行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。同时保留全机／部分／无机体适配的判定和移动难度，不把空白一律解释为绝对无法移动；保留四行。",
+      "final": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。"
+    },
+    {
+      "id": "ui/compdata/0007B280",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "小隊を構成する機体が所持する武器のうち、\n最も強い武器の攻撃力です。",
+      "source_best": "小隊を構成する機体が所持する武器のうち、\n最も強い武器の攻撃力です。",
+      "baseline": "组成小队的机体所持武器中，\n攻击力最高的武器。",
+      "proposal": "组成小队的机体所持武器中，\n最高的攻击力数值。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B280"
+        }
+      ],
+      "proposal_reason": "此栏显示最高攻击力“数值”，不是该武器的名称。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。此栏显示最高攻击力“数值”，不是该武器的名称。",
+      "final": "组成小队的机体所持武器中，\n最高的攻击力数值。"
+    },
+    {
+      "id": "ui/compdata/0007C7C0",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "カーソル位置の小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
+      "source_best": "カーソル位置の小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
+      "baseline": "光标位置小队的“移动力／移动类型”。\n移动力为各机体的平均值（舍去小数）。\n全员可移动时为白色，部分可移动时为灰色，\n全员无法移动时为空白。",
+      "proposal": "表示光标所在小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7C7C0"
+        }
+      ],
+      "proposal_reason": "补回原文括注：移动类型的空白不必然等于小队完全不能移动；保留四行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。补回原文括注：移动类型的空白不必然等于小队完全不能移动；保留四行。",
+      "final": "表示光标所在小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。"
+    },
+    {
+      "id": "ui/compdata/0007D9A0",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "隣接する味方小隊または自小隊内にいるユニット１機のＥＮと残弾を全回復します。",
+      "source_best": "隣接する味方小隊または自小隊内にいるユニット１機のＥＮと残弾を全回復します。",
+      "baseline": "完全恢复相邻友方小队或本小队内一台单位的EN和弹药。",
+      "proposal": "为本小队或相邻我方小队中的1台单位补满EN和弹药。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7D9A0"
+        }
+      ],
+      "proposal_reason": "限定对象始终是“1台单位”，避免读成补满相邻整支小队；不增补本条未写出的气力规则。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。限定对象始终是“1台单位”，避免读成补满相邻整支小队；不增补本条未写出的气力规则。",
+      "final": "为本小队或相邻我方小队中的1台单位补满EN和弹药。"
+    },
+    {
+      "id": "ui/compdata/0007E490",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "トライチャージ使用可能　小隊攻撃使用不可\n援護防御使用可能　対全体攻撃で小隊員の防御・回避にプラス補正",
+      "source_best": "トライチャージ使用可能　小隊攻撃使用不可\n援護防御使用可能　対全体攻撃で小隊員の防御・回避にプラス補正",
+      "baseline": "TRI攻击可用，小队攻击不可用\n可援防，队员抗全体攻击能力提升",
+      "proposal": "TRI攻击可用，小队攻击不可用；可援护防御\n受到全体攻击时，队员的防御、回避获得加成",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7E490"
+        }
+      ],
+      "proposal_reason": "恢复防御、回避两种加成的区别，不用笼统的“抗全体攻击能力”。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。恢复防御、回避两种加成的区别，不用笼统的“抗全体攻击能力”。",
+      "final": "TRI攻击可用，小队攻击不可用；可援护防御\n受到全体攻击时，队员的防御、回避获得加成"
+    },
+    {
+      "id": "ui/compdata/0007E500",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "小隊攻撃は敵一機を集中攻撃（小隊員の攻撃力５０％）　援護防御使用可能\nバリアが小隊全機に適用　対全体攻撃で小隊長の防御にプラス補正",
+      "source_best": "小隊攻撃は敵一機を集中攻撃（小隊員の攻撃力５０％）　援護防御使用可能\nバリアが小隊全機に適用　対全体攻撃で小隊長の防御にプラス補正",
+      "baseline": "集中攻击单体，队员攻击力50%\n可援防，共享屏障，队长抗全体攻击",
+      "proposal": "小队攻击集中于敌单机（队员攻击力50%）；可援护防御\n屏障对小队全机生效；受到全体攻击时，队长防御获得加成",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7E500"
+        }
+      ],
+      "proposal_reason": "恢复全机屏障、队长防御加成及集中单体的对应关系；保留50%数值与两行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。恢复全机屏障、队长防御加成及集中单体的对应关系；保留50%数值与两行。",
+      "final": "小队攻击集中于敌单机（队员攻击力50%）；可援护防御\n屏障对小队全机生效；受到全体攻击时，队长防御获得加成"
+    },
+    {
+      "id": "ui/compdata/0007E590",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "小隊攻撃はそれぞれの敵を攻撃（小隊員の攻撃力８０％）　援護防御使用不可\n対全体攻撃で小隊員の防御にプラス補正",
+      "source_best": "小隊攻撃はそれぞれの敵を攻撃（小隊員の攻撃力８０％）　援護防御使用不可\n対全体攻撃で小隊員の防御にプラス補正",
+      "baseline": "分散攻击目标，队员攻击力80%\n不可援防，队员抗全体攻击能力提升",
+      "proposal": "小队攻击分别攻击对应敌机（队员攻击力80%）；不可援护防御\n受到全体攻击时，队员的防御获得加成",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7E590"
+        }
+      ],
+      "proposal_reason": "分散阵型只有队员防御加成，不写成兼含回避的笼统能力；保留80%与两行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。分散阵型只有队员防御加成，不写成兼含回避的笼统能力；保留80%与两行。",
+      "final": "小队攻击分别攻击对应敌机（队员攻击力80%）；不可援护防御\n受到全体攻击时，队员的防御获得加成"
+    },
+    {
+      "id": "ui/compdata/0007F640",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "＜一括フォーメーション＞　部隊内の隊形を選択します。",
+      "source_best": "＜一括フォーメーション＞　部隊内の隊形を選択します。",
+      "baseline": "＜统一阵型＞　选择部队内各小队的阵型。",
+      "proposal": "＜批量设置阵型＞　选择部队内各小队的阵型。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7F640"
+        }
+      ],
+      "proposal_reason": "与同名全体指令标签统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与同名全体指令标签统一。",
+      "final": "＜批量设置阵型＞　选择部队内各小队的阵型。"
+    },
+    {
+      "id": "ui/compdata/0007F970",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "〜『　　　　：トライ』小隊指定〜",
+      "source_best": "〜『　　　　：トライ』小隊指定〜",
+      "baseline": "〜『　　　：三角』指定小队〜",
+      "proposal": "〜『　　　：TRI』指定小队〜",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7F970"
+        }
+      ],
+      "proposal_reason": "TRI阵型的简称，不译成未使用的“三角”；动态占位空白、边界及引号不动。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。TRI阵型的简称，不译成未使用的“三角”；动态占位空白、边界及引号不动。",
+      "final": "〜『　　　：TRI』指定小队〜"
+    },
+    {
+      "id": "ui/elf/0033E910",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "ベーシックオーダーの編成が終了しました。",
+      "source_best": "ベーシックオーダーの編成が終了しました。",
+      "baseline": "基础编成已完成。",
+      "proposal": "已按基本方案完成编成。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33E910"
+        }
+      ],
+      "proposal_reason": "对应本包方案按钮“基本方案”，不另称“基础编成”。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。对应本包方案按钮“基本方案”，不另称“基础编成”。",
+      "final": "已按基本方案完成编成。"
+    },
+    {
+      "id": "ui/elf/0033E960",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "バランスオーダーで編成します。",
+      "source_best": "バランスオーダーで編成します。",
+      "baseline": "按均衡编成进行编组。",
+      "proposal": "按均衡方案进行编成。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33E960"
+        }
+      ],
+      "proposal_reason": "与本包方案按钮“均衡方案”统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与本包方案按钮“均衡方案”统一。",
+      "final": "按均衡方案进行编成。"
+    },
+    {
+      "id": "ui/elf/0033E980",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "バランスオーダーの編成が終了しました。",
+      "source_best": "バランスオーダーの編成が終了しました。",
+      "baseline": "均衡编成已完成。",
+      "proposal": "已按均衡方案完成编成。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33E980"
+        }
+      ],
+      "proposal_reason": "与本包方案按钮“均衡方案”统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与本包方案按钮“均衡方案”统一。",
+      "final": "已按均衡方案完成编成。"
+    },
+    {
+      "id": "ui/elf/0033FC50",
+      "category": "04-formation-search",
+      "category_label": "小队编成与搜索",
+      "source_original": "【バランス・オーダー】",
+      "source_best": "【バランス・オーダー】",
+      "baseline": "【均衡编成】",
+      "proposal": "【均衡方案】",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33FC50"
+        }
+      ],
+      "proposal_reason": "与同方案按钮及执行提示统一，括号保留。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与同方案按钮及执行提示统一，括号保留。",
+      "final": "【均衡方案】"
+    },
+    {
+      "id": "menu/SLPS/00/0170",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "・合体攻撃相手",
+      "source_best": "・合体攻撃相手",
+      "baseline": "・合体攻击对象",
+      "proposal": "・合体攻击搭档",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/00/0170"
+        }
+      ],
+      "proposal_reason": "条件项中的相手是参加合体攻击的搭档，不是受攻击的敌方目标。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。条件项中的相手是参加合体攻击的搭档，不是受攻击的敌方目标。",
+      "final": "・合体攻击搭档"
+    },
+    {
+      "id": "menu/SLPS/10/0015",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "獲得強化パーツ",
+      "source_best": "獲得強化パーツ",
+      "baseline": "获得强化部件",
+      "proposal": "获得强化零件",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/10/0015"
+        }
+      ],
+      "proposal_reason": "与强化零件名称及商品栏统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与强化零件名称及商品栏统一。",
+      "final": "获得强化零件"
+    },
+    {
+      "id": "ui/compdata/00078AC0",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "戦闘マップを終了させるための条件です。\n条件を満たす、またはターンの進行によってイベントが発生し、\n更なる条件に変更、または新たに条件が追加されることがあります。\nその場合は、最新の条件が記載された作戦目的画面が表示されます。",
+      "source_best": "戦闘マップを終了させるための条件です。\n条件を満たす、またはターンの進行によってイベントが発生し、\n更なる条件に変更、または新たに条件が追加されることがあります。\nその場合は、最新の条件が記載された作戦目的画面が表示されます。",
+      "baseline": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目的画面。",
+      "proposal": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x78AC0"
+        }
+      ],
+      "proposal_reason": "与菜单按钮“作战目标”一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与菜单按钮“作战目标”一致。",
+      "final": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。"
+    },
+    {
+      "id": "ui/compdata/00078BA0",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "ゲームオーバーになってしまう条件です。\n条件を満たす、またはターンの進行によってイベントが発生し、\n更なる条件に変更、または新たに条件が追加されることがあります。\nその場合は、最新の条件が記載された作戦目的画面が表示されます。",
+      "source_best": "ゲームオーバーになってしまう条件です。\n条件を満たす、またはターンの進行によってイベントが発生し、\n更なる条件に変更、または新たに条件が追加されることがあります。\nその場合は、最新の条件が記載された作戦目的画面が表示されます。",
+      "baseline": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目的画面。",
+      "proposal": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x78BA0"
+        }
+      ],
+      "proposal_reason": "与菜单按钮“作战目标”一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与菜单按钮“作战目标”一致。",
+      "final": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。"
+    },
+    {
+      "id": "ui/compdata/0007B490",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "グラヴィオンが重力子臨界に達するまでの残りターン数です。\n残りターン数が０になると合神は解除されてしまい、\n同じ戦闘マップ上では再び合神することはできません。\n敗北条件によっては、ゲームオーバーになる事もあります。",
+      "source_best": "グラヴィオンが重力子臨界に達するまでの残りターン数です。\n残りターン数が０になると合神は解除されてしまい、\n同じ戦闘マップ上では再び合神することはできません。\n敗北条件によっては、ゲームオーバーになる事もあります。",
+      "baseline": "合神解除前的剩余回合数。\n变为0后合神解除，本地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。",
+      "proposal": "格兰维昂达到重力子临界前的剩余回合数。\n减至0后合神解除，且本战斗地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7B490"
+        }
+      ],
+      "proposal_reason": "补回重力子临界的含义，并与同包合神确认和能力说明所用机体名“格兰维昂”一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。补回重力子临界的含义，并与同包合神确认和能力说明所用机体名“格兰维昂”一致。",
+      "final": "格兰维昂达到重力子临界前的剩余回合数。\n减至0后合神解除，且本战斗地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。"
+    },
+    {
+      "id": "ui/compdata/0007F520",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "＜援護防御に入れる機体がいたら入ります。＞",
+      "source_best": "＜援護防御に入れる機体がいたら入ります。＞",
+      "baseline": "＜若有可进行援护防御的机体，便会加入。＞",
+      "proposal": "＜有可援护防御的机体时，自动进行援护防御。＞",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7F520"
+        }
+      ],
+      "proposal_reason": "与“援护防御初始设置”对应，明确是否自动援护，而非是否加入小队。",
+      "action": "apply_adjusted",
+      "reason": "候选超过43字节槽位，压缩措辞并保留自动设置含义。",
+      "final": "＜有可援防的机体时，自动援护防御。＞"
+    },
+    {
+      "id": "ui/compdata/0007F550",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "＜援護防御に入れる機体がいても入りません。＞",
+      "source_best": "＜援護防御に入れる機体がいても入りません。＞",
+      "baseline": "＜即使有可进行援护防御的机体也不加入。＞",
+      "proposal": "＜即使有可援护防御的机体，也不自动进行援护防御。＞",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7F550"
+        }
+      ],
+      "proposal_reason": "这是默认选择开／关，不表示机体不能援护或不能入队。",
+      "action": "apply_adjusted",
+      "reason": "候选超过45字节槽位，压缩措辞并保留不自动援防含义。",
+      "final": "＜有可援防的机体时，也不自动援防。＞"
+    },
+    {
+      "id": "ui/elf/0033FD68",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "：移動元選択",
+      "source_best": "：移動元選択",
+      "baseline": "：选择移动源",
+      "proposal": "：选择起始位置",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33FD68"
+        }
+      ],
+      "proposal_reason": "将“移动元”译为起始位置，与目标位置配对；不把规则初分类当成实际地图移动语境。",
+      "action": "apply_adjusted",
+      "reason": "候选超过13字节槽位；改为紧凑起点提示。",
+      "final": "：选择起点"
+    },
+    {
+      "id": "ui/elf/0033FD78",
+      "category": "05-tactical",
+      "category_label": "地图与战术指令",
+      "source_original": "：移動先選択",
+      "source_best": "：移動先選択",
+      "baseline": "：移动目标",
+      "proposal": "：选择目标位置",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33FD78"
+        }
+      ],
+      "proposal_reason": "将“移动先”译为目标位置，与起始位置配对；保留冒号及动态按钮拼接。",
+      "action": "apply_adjusted",
+      "reason": "候选超过13字节槽位；改为紧凑终点提示。",
+      "final": "：选择终点"
+    },
+    {
+      "id": "menu/SLPS/11/0008",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "戦闘不能（Ｐ系）",
+      "source_best": "戦闘不能（Ｐ系）",
+      "baseline": "行动不能（P系）",
+      "proposal": "无法战斗（P系）",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/11/0008"
+        },
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x346300"
+        }
+      ],
+      "proposal_reason": "戦闘不能并非完全不能行动；与同包状态图标和说明（仍可回避、防御）统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。戦闘不能并非完全不能行动；与同包状态图标和说明（仍可回避、防御）统一。",
+      "final": "无法战斗（P系）"
+    },
+    {
+      "id": "menu/SLPS/11/0051",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "強\n化\nパ\n｜\nツ",
+      "source_best": "強\n化\nパ\n｜\nツ",
+      "baseline": "强\n化\n部\n件",
+      "proposal": "强\n化\n零\n件",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/11/0051"
+        }
+      ],
+      "proposal_reason": "与“强化零件”统一，保留竖排的一字一行结构及原有四行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与“强化零件”统一，保留竖排的一字一行结构及原有四行。",
+      "final": "强\n化\n零\n件"
+    },
+    {
+      "id": "menu/SLPS/11/0066",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "強化パーツ",
+      "source_best": "強化パーツ",
+      "baseline": "强化部件",
+      "proposal": "强化零件",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/11/0066"
+        }
+      ],
+      "proposal_reason": "同类菜单统一“强化零件”。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。同类菜单统一“强化零件”。",
+      "final": "强化零件"
+    },
+    {
+      "id": "ui/compdata/00076CE0",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "武器の攻撃可能回数で、『現在の弾数／最大弾数』と表記されます。\n武器を使用すると１ずつ消費し、０になると使用不能になります。\n「補給」コマンドかカートリッジの使用、\nまたは戦艦に搭載することで最大弾数まで回復します。",
+      "source_best": "武器の攻撃可能回数で、『現在の弾数／最大弾数』と表記されます。\n武器を使用すると１ずつ消費し、０になると使用不能になります。\n「補給」コマンドかカートリッジの使用、\nまたは戦艦に搭載することで最大弾数まで回復します。",
+      "baseline": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n可通过“补给”指令、使用弹药筒，\n或搭载战舰回复至最大弹数。",
+      "proposal": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n通过“补给”指令、使用弹药筒，\n或让机体搭载于战舰，可回复至最大弹数。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x76CE0"
+        }
+      ],
+      "proposal_reason": "“搭载战舰”容易主客倒置；是机体进入战舰恢复弹药。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。“搭载战舰”容易主客倒置；是机体进入战舰恢复弹药。",
+      "final": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n通过“补给”指令、使用弹药筒，\n或让机体搭载于战舰，可回复至最大弹数。"
+    },
+    {
+      "id": "ui/compdata/0007D6F0",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "空中に移動します。空中では味方フェイズの開始時にＥＮを１０消費します。",
+      "source_best": "空中に移動します。空中では味方フェイズの開始時にＥＮを１０消費します。",
+      "baseline": "移动到空中。处于空中时，每次我方回合开始会消耗10EN。",
+      "proposal": "移动到空中。处于空中时，每次我方阶段开始会消耗10EN。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7D6F0"
+        }
+      ],
+      "proposal_reason": "统一フェイズ为“阶段”，区别一回合内双方阶段。",
+      "action": "retain_user_wording",
+      "reason": "用户确认保留“回合”；本组保留送审原译，不采用阶段替换及关联改写，审阅已结案。",
+      "final": "移动到空中。处于空中时，每次我方回合开始会消耗10EN。"
+    },
+    {
+      "id": "ui/compdata/0007D880",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "戦艦に搭載します。搭載中は味方フェイズ開始時にＨＰ・ＥＮが１５％、弾数が全回復します。",
+      "source_best": "戦艦に搭載します。搭載中は味方フェイズ開始時にＨＰ・ＥＮが１５％、弾数が全回復します。",
+      "baseline": "搭载到战舰。搭载期间，每次我方回合开始恢复15%的HP、EN，弹药全部恢复。",
+      "proposal": "搭载到战舰。搭载期间，每次我方阶段开始恢复15%的HP、EN，弹药全部恢复。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7D880"
+        }
+      ],
+      "proposal_reason": "统一フェイズ为“阶段”，保留15%的HP／EN和弹药全回满的区别。",
+      "action": "retain_user_wording",
+      "reason": "用户确认保留“回合”；本组保留送审原译，不采用阶段替换及关联改写，审阅已结案。",
+      "final": "搭载到战舰。搭载期间，每次我方回合开始恢复15%的HP、EN，弹药全部恢复。"
+    },
+    {
+      "id": "ui/compdata/0007DB00",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "複数ユニットが１機に合体します。ＨＰとＥＮは合体前の割合を平均化した値になります。",
+      "source_best": "複数ユニットが１機に合体します。ＨＰとＥＮは合体前の割合を平均化した値になります。",
+      "baseline": "多台单位合体成一台。合体后的HP、EN为合体前各自比例的平均值。",
+      "proposal": "多台单位合体成一台。合体后的HP、EN比例，分别取合体前各单位相应比例的平均值。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7DB00"
+        }
+      ],
+      "proposal_reason": "平均的是HP／EN剩余比例，不是把绝对数值直接平均。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。平均的是HP／EN剩余比例，不是把绝对数值直接平均。",
+      "final": "多台单位合体成一台。合体后的HP、EN比例，分别取合体前各单位相应比例的平均值。"
+    },
+    {
+      "id": "ui/compdata/0007E790",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "マップ兵器／射程１以外の武器の射程を＋１",
+      "source_best": "マップ兵器／射程１以外の武器の射程を＋１",
+      "baseline": "MAP武器及射程1以外的武器射程＋1",
+      "proposal": "武器射程＋1（MAP武器、射程仅为1的武器除外）",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7E790"
+        }
+      ],
+      "proposal_reason": "明确MAP与射程仅1两项均为排除条件，避免把MAP误读为加成对象。",
+      "action": "apply_adjusted",
+      "reason": "候选超过41字节槽位；明确两类排除条件后压缩。",
+      "final": "射程＋1（MAP及射程1武器除外）"
+    },
+    {
+      "id": "ui/elf/0033F290",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "パイロット・ＬＶ",
+      "source_best": "パイロット・ＬＶ",
+      "baseline": "机师·Lv",
+      "proposal": "驾驶员·Lv",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x33F290"
+        }
+      ],
+      "proposal_reason": "与同包主菜单用语“驾驶员”统一；较基线多一字，需回写行宽验收。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“机师”；撤回本轮术语替换，保留送审原译。",
+      "final": "机师·Lv"
+    },
+    {
+      "id": "ui/elf/00341360",
+      "category": "06-parameters",
+      "category_label": "能力、属性与状态字段",
+      "source_original": "パイロット・ＬＶ",
+      "source_best": "パイロット・ＬＶ",
+      "baseline": "机师·Lv",
+      "proposal": "驾驶员·Lv",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x341360"
+        }
+      ],
+      "proposal_reason": "与同包主菜单用语“驾驶员”统一；较基线多一字，需回写行宽验收。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“机师”；撤回本轮术语替换，保留送审原译。",
+      "final": "机师·Lv"
+    },
+    {
+      "id": "menu/SLPS/08/0040",
+      "category": "07-spirit",
+      "category_label": "精神指令",
+      "source_original": "サイズ差、ユニット数によるＡＬＬ攻撃のダメージ減少と、\n相手の防御に関する特殊能力・スキルを無効化する。",
+      "source_best": "サイズ差、ユニット数によるＡＬＬ攻撃のダメージ減少と、\n相手の防御に関する特殊能力・スキルを無効化する。",
+      "baseline": "无视尺寸差和单位数量对ALL攻击造成的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "proposal": "无视体型差造成的减伤、单位数量造成的ALL攻击伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/08/0040"
+        }
+      ],
+      "proposal_reason": "分开体型差造成的减伤与单位数量造成的ALL攻击减伤；限定为减伤而非笼统取消一切体型差影响。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。分开体型差造成的减伤与单位数量造成的ALL攻击减伤；限定为减伤而非笼统取消一切体型差影响。",
+      "final": "无视体型差造成的减伤、单位数量造成的ALL攻击伤害衰减，\n并使对手的防御类特殊能力和技能无效。"
+    },
+    {
+      "id": "menu/SLPS/08/0054",
+      "category": "07-spirit",
+      "category_label": "精神指令",
+      "source_original": "自小隊の行動回数を一回増やす。\n重ねがけは無効。",
+      "source_best": "自小隊の行動回数を一回増やす。\n重ねがけは無効。",
+      "baseline": "本小队可行动次数增加1次。\n不可重复使用。",
+      "proposal": "本小队可行动次数增加1次。\n重复施加时，效果不叠加。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/08/0054"
+        }
+      ],
+      "proposal_reason": "重ねがけ无效不等于只能使用一次；区分重复施加与叠加效果。",
+      "action": "apply_adjusted",
+      "reason": "原建议超过48字节槽位，压缩第二行，保留可再次使用但不叠加的区别。",
+      "final": "本小队可行动次数增加1次。\n重复施加不叠加。"
+    },
+    {
+      "id": "menu/SLPS/08/0088",
+      "category": "07-spirit",
+      "category_label": "精神指令",
+      "source_original": "指定した味方小隊全パイロットの気力を１０上げて、\n「祝福」「応援」「友情」をかける。",
+      "source_best": "指定した味方小隊全パイロットの気力を１０上げて、\n「祝福」「応援」「友情」をかける。",
+      "baseline": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“声援”和“友情”。",
+      "proposal": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“应援”和“友情”。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/08/0088"
+        }
+      ],
+      "proposal_reason": "与精神指令“応援”的实际菜单名称“应援”一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与精神指令“応援”的实际菜单名称“应援”一致。",
+      "final": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“应援”和“友情”。"
+    },
+    {
+      "id": "ui/compdata/00076370",
+      "category": "07-spirit",
+      "category_label": "精神指令",
+      "source_original": "効果が継続中の精神コマンドは青く表示されます。略称は以下参照。\n熱：熱血[<color:30>]不：不屈[<color:30>]鉄：鉄壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]覚：覚醒[<color:30>]狙：狙撃[<color:30>]直：直撃[<color:30>]幸：幸運[<color:30>]努：努力\n魂：魂[<color:38>]閃：ひらめき[<color:33>]手：てかげん[<color:34>]乱：かく乱[<color:34>]分：分析",
+      "source_best": "効果が継続中の精神コマンドは青く表示されます。略称は以下参照。\n熱：熱血[<color:30>]不：不屈[<color:30>]鉄：鉄壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]覚：覚醒[<color:30>]狙：狙撃[<color:30>]直：直撃[<color:30>]幸：幸運[<color:30>]努：努力\n魂：魂[<color:38>]閃：ひらめき[<color:33>]手：てかげん[<color:34>]乱：かく乱[<color:34>]分：分析",
+      "baseline": "持续生效的精神指令以蓝色显示，简称如下。\n热：热血[<color:30>]不：不屈[<color:30>]铁：铁壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]觉：觉醒[<color:30>]狙：狙击[<color:30>]直：直击[<color:30>]幸：幸运[<color:30>]努：努力\n魂：魂[<color:38>]闪：必闪[<color:33>]手：手下留情[<color:34>]扰：扰乱[<color:34>]析：分析",
+      "proposal": "持续生效的精神指令以蓝色显示，简称如下。\n热：热血[<color:30>]不：不屈[<color:30>]铁：铁壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]觉：觉醒[<color:30>]狙：狙击[<color:30>]直：直击[<color:30>]幸：幸运[<color:30>]努：努力\n魂：魂[<color:38>]闪：必闪[<color:33>]手：手下留情[<color:34>]乱：扰乱[<color:34>]分：分析",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x76370"
+        }
+      ],
+      "proposal_reason": "说明中的简称必须对应实际状态栏“乱／分”，不能另造“扰／析”；保留全部排版标签与四行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。说明中的简称必须对应实际状态栏“乱／分”，不能另造“扰／析”；保留全部排版标签与四行。",
+      "final": "持续生效的精神指令以蓝色显示，简称如下。\n热：热血[<color:30>]不：不屈[<color:30>]铁：铁壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]觉：觉醒[<color:30>]狙：狙击[<color:30>]直：直击[<color:30>]幸：幸运[<color:30>]努：努力\n魂：魂[<color:38>]闪：必闪[<color:33>]手：手下留情[<color:34>]乱：扰乱[<color:34>]分：分析"
+    },
+    {
+      "id": "menu/Compdata/04/0058",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "空中にいても、毎ターンのＥＮ消費が発生しない。",
+      "source_best": "空中にいても、毎ターンのＥＮ消費が発生しない。",
+      "baseline": "处于空中时，每回合不会消耗EN。",
+      "proposal": "处于空中时，不消耗每回合维持飞行所需的EN。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/04/0058"
+        }
+      ],
+      "proposal_reason": "免除的是维持飞行的固定消耗，不是飞行期间所有武器等EN消耗。",
+      "action": "retain_user_wording",
+      "reason": "用户确认保留“回合”；本组保留送审原译，不采用阶段替换及关联改写，审阅已结案。",
+      "final": "处于空中时，每回合不会消耗EN。"
+    },
+    {
+      "id": "menu/Compdata/04/0067",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "気力１３０以上で発動可能。\n命中率とは無関係に、敵の攻撃を完全に回避する。\n発動確率は能力毎に異なる。",
+      "source_best": "気力１３０以上で発動可能。\n命中率とは無関係に、敵の攻撃を完全に回避する。\n発動確率は能力毎に異なる。",
+      "baseline": "气力130以上时发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "proposal": "气力130以上时可发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/04/0067"
+        }
+      ],
+      "proposal_reason": "発動可能是满足发动条件，不是必定完全回避；概率仍由第三句说明。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。発動可能是满足发动条件，不是必定完全回避；概率仍由第三句说明。",
+      "final": "气力130以上时可发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。"
+    },
+    {
+      "id": "menu/Compdata/04/0102",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "マップ兵器及び射程１以外の全ての武器の\n最長射程を＋１する。",
+      "source_best": "マップ兵器及び射程１以外の全ての武器の\n最長射程を＋１する。",
+      "baseline": "MAP武器及射程1以外的所有武器\n最大射程＋1。",
+      "proposal": "除MAP武器、射程仅为1的武器外，\n所有武器最大射程＋1。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/04/0102"
+        }
+      ],
+      "proposal_reason": "明确MAP与射程仅1均不适用射程加成；保留两行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。明确MAP与射程仅1均不适用射程加成；保留两行。",
+      "final": "除MAP武器、射程仅为1的武器外，\n所有武器最大射程＋1。"
+    },
+    {
+      "id": "menu/SLPS/09/0009",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "隣接小隊の小隊長の援護攻撃に入る。\n１ターンにスキルレベルと同じ回数、発動可能。",
+      "source_best": "隣接小隊の小隊長の援護攻撃に入る。\n１ターンにスキルレベルと同じ回数、発動可能。",
+      "baseline": "可对相邻小队的队长发动援护攻击。\n每回合最多发动与技能等级相同的次数。",
+      "proposal": "可为相邻小队的队长进行援护攻击。\n每回合最多发动与技能等级相同的次数。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/09/0009"
+        }
+      ],
+      "proposal_reason": "修正援护对象与攻击对象关系；并非攻击我方队长。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。修正援护对象与攻击对象关系；并非攻击我方队长。",
+      "final": "可为相邻小队的队长进行援护攻击。\n每回合最多发动与技能等级相同的次数。"
+    },
+    {
+      "id": "menu/SLPS/09/0011",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "相手より技量が２０以上ある場合、\n相手の反撃の後、自分に対して援護攻撃を行う。",
+      "source_best": "相手より技量が２０以上ある場合、\n相手の反撃の後、自分に対して援護攻撃を行う。",
+      "baseline": "技量比对手高20以上时，\n在对手反击后，对自己进行一次援护攻击。",
+      "proposal": "技量比对手高20以上时，\n在对手反击后，由自身再发动一次援护攻击。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/09/0011"
+        }
+      ],
+      "proposal_reason": "自分に対して援護意为自己提供追加援护攻击，不是攻击自己；保留技量差20及反击后时点。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“对自己进行一次援护攻击”。",
+      "final": "技量比对手高20以上时，\n在对手反击后，对自己进行一次援护攻击。"
+    },
+    {
+      "id": "menu/SLPS/09/0041",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "ＡＬＬ武器使用時、相手小隊内の機体数が\n２機の時は−２０％、３機の時は−４０％となる\n与ダメージを、それぞれ−５％と−２５％にする。",
+      "source_best": "ＡＬＬ武器使用時、相手小隊内の機体数が\n２機の時は−２０％、３機の時は−４０％となる\n与ダメージを、それぞれ−５％と−２５％にする。",
+      "baseline": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n降低为－5%／－25%。",
+      "proposal": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n分别改为－5%／－25%。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/09/0041"
+        }
+      ],
+      "proposal_reason": "－20%→－5%、－40%→－25%是惩罚减轻，但修正数值增加；用“改为”避免方向歧义。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。－20%→－5%、－40%→－25%是惩罚减轻，但修正数值增加；用“改为”避免方向歧义。",
+      "final": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n分别改为－5%／－25%。"
+    },
+    {
+      "id": "menu/SLPS/09/0042",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "サイズ差補正無視",
+      "source_best": "サイズ差補正無視",
+      "baseline": "无视尺寸差修正",
+      "proposal": "无视体型差修正",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/09/0042"
+        }
+      ],
+      "proposal_reason": "与单位体型及武器体型修正说明统一；保留技能名中的“差”。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与单位体型及武器体型修正说明统一；保留技能名中的“差”。",
+      "final": "无视体型差修正"
+    },
+    {
+      "id": "menu/SLPS/09/0043",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "サイズ差補正による与えるダメージの減少を\n無視する。",
+      "source_best": "サイズ差補正による与えるダメージの減少を\n無視する。",
+      "baseline": "无视尺寸差修正造成的伤害降低。",
+      "proposal": "无视体型差修正造成的伤害降低。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/09/0043"
+        }
+      ],
+      "proposal_reason": "与单位体型及武器体型修正说明统一；保留技能名中的“差”。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与单位体型及武器体型修正说明统一；保留技能名中的“差”。",
+      "final": "无视体型差修正造成的伤害降低。"
+    },
+    {
+      "id": "ui/compdata/00075F70",
+      "category": "08-abilities",
+      "category_label": "特殊技能、能力与武器效果",
+      "source_original": "機体が特殊装甲を所持していると、このアイコンが点灯します。\n<<width:31>>と同様に敵の攻撃を防いでくれますが、\n対象はダメージだけではなく特殊効果の場合もあります。",
+      "source_best": "機体が特殊装甲を所持していると、このアイコンが点灯します。\n<<width:31>>と同様に敵の攻撃を防いでくれますが、\n対象はダメージだけではなく特殊効果の場合もあります。",
+      "baseline": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n但有时抵御的不是伤害，而是特殊效果。",
+      "proposal": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n作用对象不仅是伤害，有时还包括特殊效果。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x75F70"
+        }
+      ],
+      "proposal_reason": "“不仅……也包括”不是“不是A而是B”的排他关系。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。“不仅……也包括”不是“不是A而是B”的排他关系。",
+      "final": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n作用对象不仅是伤害，有时还包括特殊效果。"
+    },
+    {
+      "id": "ui/compdata/000722F0",
+      "category": "09-bonuses",
+      "category_label": "队长效果与小队奖励",
+      "source_original": "マップ兵器及び射程１以外の\n武器の射程＋１",
+      "source_best": "マップ兵器及び射程１以外の\n武器の射程＋１",
+      "baseline": "MAP武器及射程1以外的\n武器射程＋1",
+      "proposal": "武器射程＋1\n（MAP武器、射程仅为1的武器除外）",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/leadership_effect_by_offset/0x722F0"
+        }
+      ],
+      "proposal_reason": "明确MAP武器与射程仅为1的武器均不受射程加成，避免“MAP武器及射程1以外的”歧义。",
+      "action": "apply_adjusted",
+      "reason": "候选超过42字节槽位；保持两行并与同源零件说明同步。",
+      "final": "武器射程＋1\n（MAP及射程1武器除外）"
+    },
+    {
+      "id": "ui/compdata/00072410",
+      "category": "09-bonuses",
+      "category_label": "队长效果与小队奖励",
+      "source_original": "敵フェイズ回避率＋２０％",
+      "source_best": "敵フェイズ回避率＋２０％",
+      "baseline": "敌方回合回避率＋20%",
+      "proposal": "敌方阶段回避率＋20%",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/leadership_effect_by_offset/0x72410"
+        }
+      ],
+      "proposal_reason": "原文是敵フェイズ，区别单方阶段与双方构成的完整回合。",
+      "action": "retain_user_wording",
+      "reason": "用户确认保留“回合”；本组保留送审原译，不采用阶段替换及关联改写，审阅已结案。",
+      "final": "敌方回合回避率＋20%"
+    },
+    {
+      "id": "ui/compdata/00072510",
+      "category": "09-bonuses",
+      "category_label": "队长效果与小队奖励",
+      "source_original": "自軍フェイズでの攻撃力\n＋１０％",
+      "source_best": "自軍フェイズでの攻撃力\n＋１０％",
+      "baseline": "我方回合的攻击力\n＋10%",
+      "proposal": "我方阶段的攻击力\n＋10%",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/leadership_effect_by_offset/0x72510"
+        }
+      ],
+      "proposal_reason": "原文是自軍フェイズ，只在我方阶段生效。",
+      "action": "retain_user_wording",
+      "reason": "用户确认保留“回合”；本组保留送审原译，不采用阶段替换及关联改写，审阅已结案。",
+      "final": "我方回合的攻击力\n＋10%"
+    },
+    {
+      "id": "ui/compdata/00072910",
+      "category": "09-bonuses",
+      "category_label": "队长效果与小队奖励",
+      "source_original": "パイロット系の\n特殊効果武器無効",
+      "source_best": "パイロット系の\n特殊効果武器無効",
+      "baseline": "使驾驶员类的\n特殊效果武器无效",
+      "proposal": "使针对驾驶员的\n武器特殊效果无效",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/leadership_effect_by_offset/0x72910"
+        }
+      ],
+      "proposal_reason": "与同包P系效果说明对照：免疫的是武器附加的驾驶员类特殊效果，不是该武器的全部伤害。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与同包P系效果说明对照：免疫的是武器附加的驾驶员类特殊效果，不是该武器的全部伤害。",
+      "final": "使针对驾驶员的\n武器特殊效果无效"
+    },
+    {
+      "id": "ui/compdata/00072930",
+      "category": "09-bonuses",
+      "category_label": "队长效果与小队奖励",
+      "source_original": "全ての特殊効果武器無効",
+      "source_best": "全ての特殊効果武器無効",
+      "baseline": "使全部特殊效果武器无效",
+      "proposal": "使武器附加的所有特殊效果无效",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/leadership_effect_by_offset/0x72930"
+        }
+      ],
+      "proposal_reason": "与完整特殊效果说明对照，避免误解为免疫含特殊效果武器的全部伤害。",
+      "action": "apply_adjusted",
+      "reason": "候选超过23字节槽位；保留效果免疫而非伤害免疫的区别。",
+      "final": "武器特殊效果全部无效"
+    },
+    {
+      "id": "menu/Compdata/01/0017",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "マップ兵器及び射程１以外の\n武器の射程＋１",
+      "source_best": "マップ兵器及び射程１以外の\n武器の射程＋１",
+      "baseline": "MAP武器及射程1以外的\n武器射程＋1",
+      "proposal": "武器射程＋1\n（MAP武器、射程仅为1的武器除外）",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0017"
+        }
+      ],
+      "proposal_reason": "明确MAP武器与射程仅为1的武器均不受射程加成，避免“MAP武器及射程1以外的”歧义。",
+      "action": "apply_adjusted",
+      "reason": "与 ui/compdata/000722F0 共用源字符串，采用同一份符合容量的译文。",
+      "final": "武器射程＋1\n（MAP及射程1武器除外）"
+    },
+    {
+      "id": "menu/Compdata/01/0019",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "照準値＋２０\nマップ兵器及び射程１以外の\n武器の射程＋１",
+      "source_best": "照準値＋２０\nマップ兵器及び射程１以外の\n武器の射程＋１",
+      "baseline": "瞄准值＋20\nMAP武器及射程1以外的\n武器射程＋1",
+      "proposal": "瞄准值＋20\n武器射程＋1\n（MAP武器、射程仅为1的武器除外）",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0019"
+        }
+      ],
+      "proposal_reason": "明确射程加成的两类排除对象，保留三行和原数值。",
+      "action": "apply_adjusted",
+      "reason": "原建议超过55字节槽位，精简同时保留属性、数值及双重排除。",
+      "final": "瞄准值＋20\n射程＋1\n（MAP及射程1武器除外）"
+    },
+    {
+      "id": "menu/Compdata/01/0021",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "移動力＋２　運動性・照準値＋２５\nマップ兵器及び\n射程１以外の武器の射程＋１",
+      "source_best": "移動力＋２　運動性・照準値＋２５\nマップ兵器及び\n射程１以外の武器の射程＋１",
+      "baseline": "移动力＋2　运动性＋25\n瞄准值＋25　MAP武器及\n射程1以外武器射程＋1",
+      "proposal": "移动力＋2　运动性＋25\n瞄准值＋25　武器射程＋1\n（MAP武器、射程仅为1的武器除外）",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0021"
+        }
+      ],
+      "proposal_reason": "重新组织三行说明，完整保留移动力、运动性、瞄准值、射程数值和两类排除对象。",
+      "action": "apply_adjusted",
+      "reason": "原建议超过75字节槽位，精简同时保留全部属性、数值及双重排除。",
+      "final": "移动力＋2　运动性＋25\n瞄准值＋25　射程＋1\n（MAP及射程1武器除外）"
+    },
+    {
+      "id": "menu/Compdata/01/0029",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "自軍行動開始時にＥＮが\n最大値の１０％回復",
+      "source_best": "自軍行動開始時にＥＮが\n最大値の１０％回復",
+      "baseline": "自军行动开始时，EN回复\n最大值的10%",
+      "proposal": "我方阶段开始时，EN回复\n最大值的10%",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0029"
+        }
+      ],
+      "proposal_reason": "明确每次我方阶段开始时的自动回复，而非任意单台单位开始行动。",
+      "action": "retain_user_wording",
+      "reason": "用户确认保留“回合”；本组保留送审原译，不采用阶段替换及关联改写，审阅已结案。",
+      "final": "自军行动开始时，EN回复\n最大值的10%"
+    },
+    {
+      "id": "menu/Compdata/01/0031",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "自軍行動開始時にＨＰが\n最大値の１０％回復",
+      "source_best": "自軍行動開始時にＨＰが\n最大値の１０％回復",
+      "baseline": "自军行动开始时，HP回复\n最大值的10%",
+      "proposal": "我方阶段开始时，HP回复\n最大值的10%",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0031"
+        }
+      ],
+      "proposal_reason": "明确每次我方阶段开始时的自动回复，而非任意单台单位开始行动。",
+      "action": "retain_user_wording",
+      "reason": "用户确认保留“回合”；本组保留送审原译，不采用阶段替换及关联改写，审阅已结案。",
+      "final": "自军行动开始时，HP回复\n最大值的10%"
+    },
+    {
+      "id": "menu/Compdata/01/0059",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "自機のＨＰ、ＥＮ、弾薬を全回復\n使い捨て\n戦艦のみ隣接ユニットに使用可能",
+      "source_best": "自機のＨＰ、ＥＮ、弾薬を全回復\n使い捨て\n戦艦のみ隣接ユニットに使用可能",
+      "baseline": "HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "proposal": "自机HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0059"
+        }
+      ],
+      "proposal_reason": "补足默认作用对象为自机；仅战舰可对相邻单位使用的例外保持。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。补足默认作用对象为自机；仅战舰可对相邻单位使用的例外保持。",
+      "final": "自机HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用"
+    },
+    {
+      "id": "menu/Compdata/01/0085",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "謎のシステム。\n使用方法は不明。",
+      "source_best": "謎のシステム。\n使用方法は不明。",
+      "baseline": "神秘系统。\n用途不明。",
+      "proposal": "神秘系统。\n使用方法不明。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0085"
+        }
+      ],
+      "proposal_reason": "使用方法不明不等于用途不明。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。使用方法不明不等于用途不明。",
+      "final": "神秘系统。\n使用方法不明。"
+    },
+    {
+      "id": "menu/Compdata/01/0105",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "寒冷地に生息するトカゲのくんせい。\n美味。",
+      "source_best": "寒冷地に生息するトカゲのくんせい。\n美味。",
+      "baseline": "生活在寒冷地区的熏蜥蜴。\n味道不错。",
+      "proposal": "用寒冷地区的蜥蜴熏制而成。\n味道鲜美。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0105"
+        }
+      ],
+      "proposal_reason": "理顺修饰关系：栖息于寒冷地区的是蜥蜴，不是成品熏蜥蜴。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。理顺修饰关系：栖息于寒冷地区的是蜥蜴，不是成品熏蜥蜴。",
+      "final": "用寒冷地区的蜥蜴熏制而成。\n味道鲜美。"
+    },
+    {
+      "id": "menu/Compdata/01/0109",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "温暖な気候の土地に生息する\n巨大トカゲのくんせい。すこぶる美味。",
+      "source_best": "温暖な気候の土地に生息する\n巨大トカゲのくんせい。すこぶる美味。",
+      "baseline": "生活在气候温暖地区的\n巨蜥熏制品。美味至极。",
+      "proposal": "用栖息于温暖地区的巨蜥\n熏制而成，美味至极。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/Compdata/01/0109"
+        }
+      ],
+      "proposal_reason": "理顺栖息地与食物加工的修饰关系，保留巨大蜥蜴与强烈赞美。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。理顺栖息地与食物加工的修饰关系，保留巨大蜥蜴与强烈赞美。",
+      "final": "用栖息于温暖地区的巨蜥\n熏制而成，美味至极。"
+    },
+    {
+      "id": "menu/SLPS/00/0077",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "強化パーツ",
+      "source_best": "強化パーツ",
+      "baseline": "强化部件",
+      "proposal": "强化零件",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/00/0077"
+        }
+      ],
+      "proposal_reason": "与本包主要菜单及对应帮助文字中的“强化零件”统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与本包主要菜单及对应帮助文字中的“强化零件”统一。",
+      "final": "强化零件"
+    },
+    {
+      "id": "menu/SLPS/00/0351",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "〜【強化パーツ】＜外し＞選択〜",
+      "source_best": "〜【強化パーツ】＜外し＞選択〜",
+      "baseline": "～【强化部件】＜卸下＞选择～",
+      "proposal": "～【强化零件】选择＜卸下＞～",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/00/0351"
+        }
+      ],
+      "proposal_reason": "统一强化零件用语及同源标题的中文语序；保留本条原有全角波浪边界，不强行归一字符宽度。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。统一强化零件用语及同源标题的中文语序；保留本条原有全角波浪边界，不强行归一字符宽度。",
+      "final": "～【强化零件】选择＜卸下＞～"
+    },
+    {
+      "id": "menu/SLPS/04/0064",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "強化パーツ",
+      "source_best": "強化パーツ",
+      "baseline": "强化部件",
+      "proposal": "强化零件",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/04/0064"
+        }
+      ],
+      "proposal_reason": "与本包主要菜单及对应帮助文字中的“强化零件”统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与本包主要菜单及对应帮助文字中的“强化零件”统一。",
+      "final": "强化零件"
+    },
+    {
+      "id": "ui/elf/003400D0",
+      "category": "10-parts",
+      "category_label": "强化零件",
+      "source_original": "〜【強化パーツ】パーツの選択〜",
+      "source_best": "〜【強化パーツ】パーツの選択〜",
+      "baseline": "〜【强化零件】选择部件〜",
+      "proposal": "〜【强化零件】选择零件〜",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x3400D0"
+        }
+      ],
+      "proposal_reason": "与强化零件选择界面的上级名称统一。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与强化零件选择界面的上级名称统一。",
+      "final": "〜【强化零件】选择零件〜"
+    },
+    {
+      "id": "ui/elf/0033C590",
+      "category": "11-bazaar",
+      "category_label": "交易所与商品介绍",
+      "source_original": "ウォーカーマシン用のエンジンで\n高出力を誇るタイプ。\n同タイプは戦闘用の大型マシンに\n使用されており、かなりの高度まで\nジャンプを可能とする出力を叩き出す。\nザブングルやウォーカーギャリアも\n同タイプのエンジンを使用している。",
+      "source_best": "ウォーカーマシン用のエンジンで\n高出力を誇るタイプ。\n同タイプは戦闘用の大型マシンに\n使用されており、かなりの高度まで\nジャンプを可能とする出力を叩き出す。\nザブングルやウォーカーギャリアも\n同タイプのエンジンを使用している。",
+      "baseline": "步行机甲用的\n高输出型发动机。\n同型发动机用于大型战斗机，\n输出足以让机体\n跳到相当高的高度。\n萨芬格尔和沃卡加利亚也\n采用同型发动机。",
+      "proposal": "步行机甲用的\n高输出型发动机。\n同型发动机用于大型战斗机体，\n输出足以让机体\n跳到相当高的高度。\n萨芬格尔和沃卡加利亚也\n采用同型发动机。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33C590"
+        }
+      ],
+      "proposal_reason": "这里的マシン是步行机甲，不是航空意义的战斗机。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。这里的マシン是步行机甲，不是航空意义的战斗机。",
+      "final": "步行机甲用的\n高输出型发动机。\n同型发动机用于大型战斗机体，\n输出足以让机体\n跳到相当高的高度。\n萨芬格尔和沃卡加利亚也\n采用同型发动机。"
+    },
+    {
+      "id": "ui/elf/0033C960",
+      "category": "11-bazaar",
+      "category_label": "交易所与商品介绍",
+      "source_original": "軍が開発した強攻型アクエリオンを\n構成するマシン。\n計３種類のベクターマシンが\n存在するが、このバザーでは\nベクターアルファが販売されている。\nなお、乗りこなすには\n特定の能力が必要と思われる。",
+      "source_best": "軍が開発した強攻型アクエリオンを\n構成するマシン。\n計３種類のベクターマシンが\n存在するが、このバザーでは\nベクターアルファが販売されている。\nなお、乗りこなすには\n特定の能力が必要と思われる。",
+      "baseline": "构成军方开发的\n强攻型阿克艾里昂的机体。\n矢量战机共有3种，\n本集市出售的是\n阿尔法战机。\n若要驾驭它，\n似乎需要特定能力。",
+      "proposal": "构成军方开发的\n强攻型阿克艾里昂的机体。\n矢量战机共有3种，\n本交易所出售的是\n阿尔法战机。\n若要驾驭它，\n似乎需要特定能力。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33C960"
+        }
+      ],
+      "proposal_reason": "与本包交易所菜单称谓统一，机体种类和出售对象保持不变。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“集市”；撤回本轮术语替换，保留送审原译。",
+      "final": "构成军方开发的\n强攻型阿克艾里昂的机体。\n矢量战机共有3种，\n本集市出售的是\n阿尔法战机。\n若要驾驭它，\n似乎需要特定能力。"
+    },
+    {
+      "id": "ui/elf/0033CA20",
+      "category": "11-bazaar",
+      "category_label": "交易所与商品介绍",
+      "source_original": "軍が開発した強攻型アクエリオンを\n構成するマシン。\n計３種類のベクターマシンが\n存在するが、このバザーでは\nベクターオメガが販売されている。\nなお、乗りこなすには\n特定の能力が必要と思われる。",
+      "source_best": "軍が開発した強攻型アクエリオンを\n構成するマシン。\n計３種類のベクターマシンが\n存在するが、このバザーでは\nベクターオメガが販売されている。\nなお、乗りこなすには\n特定の能力が必要と思われる。",
+      "baseline": "构成军方开发的\n强攻型阿克艾里昂的机体。\n矢量战机共有3种，\n本集市出售的是\n欧米伽战机。\n若要驾驭它，\n似乎需要特定能力。",
+      "proposal": "构成军方开发的\n强攻型阿克艾里昂的机体。\n矢量战机共有3种，\n本交易所出售的是\n欧米伽战机。\n若要驾驭它，\n似乎需要特定能力。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33CA20"
+        }
+      ],
+      "proposal_reason": "与本包交易所菜单称谓统一，机体种类和出售对象保持不变。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“集市”；撤回本轮术语替换，保留送审原译。",
+      "final": "构成军方开发的\n强攻型阿克艾里昂的机体。\n矢量战机共有3种，\n本集市出售的是\n欧米伽战机。\n若要驾驭它，\n似乎需要特定能力。"
+    },
+    {
+      "id": "ui/elf/0033CCC0",
+      "category": "11-bazaar",
+      "category_label": "交易所与商品介绍",
+      "source_original": "高出力のビーム兵器を\n稼動させるために必要なパーツ。\n高いエネルギーを蓄電させるだけの\n容量を持つ。",
+      "source_best": "高出力のビーム兵器を\n稼動させるために必要なパーツ。\n高いエネルギーを蓄電させるだけの\n容量を持つ。",
+      "baseline": "启动高输出光束武器\n所需的部件。\n拥有足以储存\n高能量的容量。",
+      "proposal": "驱动高输出光束武器\n所需的部件。\n容量很大，足以储存\n大量电能。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33CCC0"
+        }
+      ],
+      "proposal_reason": "理顺“高能量的容量”这一生硬表达，保留电容器的储能功能。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。理顺“高能量的容量”这一生硬表达，保留电容器的储能功能。",
+      "final": "驱动高输出光束武器\n所需的部件。\n容量很大，足以储存\n大量电能。"
+    },
+    {
+      "id": "ui/elf/0033CF30",
+      "category": "11-bazaar",
+      "category_label": "交易所与商品介绍",
+      "source_original": "南アメリアを中心に生息する\nトカゲのくんせい。\n北半球のものより巨大であり、\n性質も凶暴。\nしかし、その肉は高タンパクで\nあっさりとしながらも\n後を引く美味しさで大人気。\nその美味はくんせいにしても変わらず\n高額で取り引きされる。",
+      "source_best": "南アメリアを中心に生息する\nトカゲのくんせい。\n北半球のものより巨大であり、\n性質も凶暴。\nしかし、その肉は高タンパクで\nあっさりとしながらも\n後を引く美味しさで大人気。\nその美味はくんせいにしても変わらず\n高額で取り引きされる。",
+      "baseline": "主要栖息于南阿美利亚的\n熏制蜥蜴。\n比北半球的种类更加巨大，\n性情也更凶猛。\n其肉高蛋白而清爽，\n鲜美回味令人着迷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "proposal": "用主要栖息于南阿美利亚的\n蜥蜴熏制而成。\n这种蜥蜴比北半球的种类更大，\n性情也更凶猛。\n其肉富含蛋白质，口味清淡，\n却鲜美得令人回味无穷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33CF30"
+        }
+      ],
+      "proposal_reason": "理顺栖息地、体型和凶猛性情均修饰活体蜥蜴，不修饰熏制成品；保留九行结构。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。理顺栖息地、体型和凶猛性情均修饰活体蜥蜴，不修饰熏制成品；保留九行结构。",
+      "final": "用主要栖息于南阿美利亚的\n蜥蜴熏制而成。\n这种蜥蜴比北半球的种类更大，\n性情也更凶猛。\n其肉富含蛋白质，口味清淡，\n却鲜美得令人回味无穷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。"
+    },
+    {
+      "id": "ui/elf/0033D2B0",
+      "category": "11-bazaar",
+      "category_label": "交易所与商品介绍",
+      "source_original": "上流階級の婦人が公的な場に\n出かける際に身につける品。\n気品溢れる銀細工で\n大人の女性の小物として\nその美しさに、さらなる華を\n添える一品。",
+      "source_best": "上流階級の婦人が公的な場に\n出かける際に身につける品。\n気品溢れる銀細工で\n大人の女性の小物として\nその美しさに、さらなる華を\n添える一品。",
+      "baseline": "上流社会的女士\n出席正式场合时佩戴的饰品。\n优雅的银制工艺\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "proposal": "上流社会的女士\n出席正式场合时佩戴的饰品。\n这件银饰做工雅致，\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33D2B0"
+        }
+      ],
+      "proposal_reason": "将“优雅的银制工艺作为配饰”的生硬结构改为自然的商品介绍，保留六行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。将“优雅的银制工艺作为配饰”的生硬结构改为自然的商品介绍，保留六行。",
+      "final": "上流社会的女士\n出席正式场合时佩戴的饰品。\n这件银饰做工雅致，\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。"
+    },
+    {
+      "id": "ui/elf/0033D8E0",
+      "category": "11-bazaar",
+      "category_label": "交易所与商品介绍",
+      "source_original": "ただいま品不足のため、強化パーツの販売が出来ません。",
+      "source_best": "ただいま品不足のため、強化パーツの販売が出来ません。",
+      "baseline": "目前商品不足，无法出售强化零件。",
+      "proposal": "目前缺货，暂不供应强化零件。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33D8E0"
+        }
+      ],
+      "proposal_reason": "这是商店缺货、不能向玩家售货的提示，不是玩家无法卖出持有零件。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。这是商店缺货、不能向玩家售货的提示，不是玩家无法卖出持有零件。",
+      "final": "目前缺货，暂不供应强化零件。"
+    },
+    {
+      "id": "ui/elf/0033D930",
+      "category": "11-bazaar",
+      "category_label": "交易所与商品介绍",
+      "source_original": "：搭乗可能者",
+      "source_best": "：搭乗可能者",
+      "baseline": "　可搭乘者",
+      "proposal": "　可驾驶者",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33D930"
+        }
+      ],
+      "proposal_reason": "商品机体的搭乗可能者指可驾驶该机体的人，不是可乘坐的乘客。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。商品机体的搭乗可能者指可驾驶该机体的人，不是可乘坐的乘客。",
+      "final": "　可驾驶者"
+    },
+    {
+      "id": "menu/SLPS/03/0001",
+      "category": "12-results",
+      "category_label": "结算、奖励与成长通知",
+      "source_original": "強化パーツ『",
+      "source_best": "強化パーツ『",
+      "baseline": "强化部件『",
+      "proposal": "强化零件『",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/03/0001"
+        }
+      ],
+      "proposal_reason": "与强化零件菜单及结果帮助统一；片段引号保留。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与强化零件菜单及结果帮助统一；片段引号保留。",
+      "final": "强化零件『"
+    },
+    {
+      "id": "menu/SLPS/03/0006",
+      "category": "12-results",
+      "category_label": "结算、奖励与成长通知",
+      "source_original": "獲得強化パーツ",
+      "source_best": "獲得強化パーツ",
+      "baseline": "获得强化部件",
+      "proposal": "获得强化零件",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/03/0006"
+        }
+      ],
+      "proposal_reason": "与强化零件菜单及结果帮助统一；片段引号保留。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与强化零件菜单及结果帮助统一；片段引号保留。",
+      "final": "获得强化零件"
+    },
+    {
+      "id": "menu/SLPS/03/0010",
+      "category": "12-results",
+      "category_label": "结算、奖励与成长通知",
+      "source_original": "資金　%s　入手",
+      "source_best": "資金　%s　入手",
+      "baseline": "资金　%s　获得",
+      "proposal": "获得资金　%s　",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/03/0010"
+        }
+      ],
+      "proposal_reason": "调整为自然中文语序，%s参数数量和顺序不变，两段全角空白保留（第二段改为句尾留白）。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。调整为自然中文语序，%s参数数量和顺序不变，两段全角空白保留（第二段改为句尾留白）。",
+      "final": "获得资金　%s　"
+    },
+    {
+      "id": "menu/SLPS/03/0011",
+      "category": "12-results",
+      "category_label": "结算、奖励与成长通知",
+      "source_original": "ＢＳ　%s　入手",
+      "source_best": "ＢＳ　%s　入手",
+      "baseline": "BS　%s　获得",
+      "proposal": "获得BS　%s　",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/03/0011"
+        }
+      ],
+      "proposal_reason": "与资金获得提示统一，%s参数数量和顺序不变，两段全角空白保留（第二段改为句尾留白）。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与资金获得提示统一，%s参数数量和顺序不变，两段全角空白保留（第二段改为句尾留白）。",
+      "final": "获得BS　%s　"
+    },
+    {
+      "id": "ui/compdata/00079C30",
+      "category": "12-results",
+      "category_label": "结算、奖励与成长通知",
+      "source_original": "現在のパイロットレベルが表示されます。\nただし、ＥＸＰを入手した結果レベルが上昇すると、\n『現在のレベル→上昇後のレベル』と表示されます。\n<<width:37>>を押すと、レベルアップ画面に進みます。",
+      "source_best": "現在のパイロットレベルが表示されます。\nただし、ＥＸＰを入手した結果レベルが上昇すると、\n『現在のレベル→上昇後のレベル』と表示されます。\n<<width:37>>を押すと、レベルアップ画面に進みます。",
+      "baseline": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级／升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "proposal": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x79C30"
+        }
+      ],
+      "proposal_reason": "原文明确采用变化箭头，不应写成当前值/最大值式的斜杠。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。原文明确采用变化箭头，不应写成当前值/最大值式的斜杠。",
+      "final": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。"
+    },
+    {
+      "id": "ui/compdata/00079CF0",
+      "category": "12-results",
+      "category_label": "结算、奖励与成长通知",
+      "source_original": "『現在のレベル→上昇後のレベル』が表示されます。\nレベルの上昇にともなって変化した項目は、\n枠が点滅してそれを知らせます。",
+      "source_best": "『現在のレベル→上昇後のレベル』が表示されます。\nレベルの上昇にともなって変化した項目は、\n枠が点滅してそれを知らせます。",
+      "baseline": "显示“当前等级／升级后等级”。\n因升级而变化的项目会闪动提示。",
+      "proposal": "显示“当前等级→升级后等级”。\n因升级而变化的项目会闪动提示。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x79CF0"
+        }
+      ],
+      "proposal_reason": "原文明确采用变化箭头，不应写成当前值/最大值式的斜杠。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。原文明确采用变化箭头，不应写成当前值/最大值式的斜杠。",
+      "final": "显示“当前等级→升级后等级”。\n因升级而变化的项目会闪动提示。"
+    },
+    {
+      "id": "ui/elf/003411B0",
+      "category": "12-results",
+      "category_label": "结算、奖励与成长通知",
+      "source_original": "＜パイロットにスキルを修得します。＞",
+      "source_best": "＜パイロットにスキルを修得します。＞",
+      "baseline": "＜为驾驶员习得技能。＞",
+      "proposal": "＜让驾驶员习得技能。＞",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x3411B0"
+        }
+      ],
+      "proposal_reason": "“为驾驶员习得”搭配不自然，改为让驾驶员习得；保留外层全角括号。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。“为驾驶员习得”搭配不自然，改为让驾驶员习得；保留外层全角括号。",
+      "final": "＜让驾驶员习得技能。＞"
+    },
+    {
+      "id": "menu/SLPS/00/0083",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "刀z%s〜",
+      "source_best": "刀z%s〜",
+      "baseline": "刀z%s〜",
+      "proposal": "刀z%s〜",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/unclassified.json",
+          "id": "menu/SLPS/00/0083"
+        }
+      ],
+      "proposal_reason": "两版都解码为“刀z%s〜”，不像可自然理解的菜单句。可能含未识别控制字节或字符串起始位置问题；仅凭导出串不能判定。保留基线和%s，需核对原始字节、指针及调用画面，不以猜测补译。",
+      "final": "刀z%s〜",
+      "action": "exclude_misaligned_source",
+      "reason": "2026-09-22 原盘复核：描述符取址 0x34729D 落在 0x34729C 的 Shift-JIS 字符ン（83 93）第二字节上；完整原串从 0x347290 开始，为〜【オプション】%s〜，正确条目 menu/SLPS/00/0335 已译为～【选项】%s～。本项为错位提取记录，不是可见句子的翻译，继续 preserve 且不进入正式写入清单。"
+    },
+    {
+      "id": "menu/SLPS/00/0112",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "ソート用のテーブルが壊れているのかも…。\n",
+      "source_best": "ソート用のテーブルが壊れているのかも…。\n",
+      "baseline": "ソート用のテーブルが壊れているのかも…。\n",
+      "proposal": "排序用表可能损坏了……\n",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/00/0112"
+        }
+      ],
+      "proposal_reason": "补译仍为日文的诊断提示，并与同包同源条目menu/SLPS/08/0100一致；保留末尾真实换行。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。补译仍为日文的诊断提示，并与同包同源条目menu/SLPS/08/0100一致；保留末尾真实换行。",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "id": "menu/SLPS/00/0153",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "下記の",
+      "source_best": "下記の",
+      "baseline": "未满足",
+      "proposal": "未满足下列",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/00/0153"
+        }
+      ],
+      "proposal_reason": "与后接条件名称及句尾共同组成“未满足下列……。”，保留“下列”指向。",
+      "action": "retain_current",
+      "reason": "保留前缀“未满足”：槽位仅7字节，“未满足下列”需11字节。后缀改为句号后仍可与条件名称组成完整提示。",
+      "final": "未满足"
+    },
+    {
+      "id": "menu/SLPS/00/0154",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "を満たしていません。",
+      "source_best": "を満たしていません。",
+      "baseline": "条件。",
+      "proposal": "。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/00/0154"
+        }
+      ],
+      "proposal_reason": "满足条件的否定动作已放在前缀；不再在后缀重复“条件”，避免“未满足使用条件条件”。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。满足条件的否定动作已放在前缀；不再在后缀重复“条件”，避免“未满足使用条件条件”。",
+      "final": "。"
+    },
+    {
+      "id": "menu/SLPS/00/0244",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "この機体はパイロット未搭乗となるため",
+      "source_best": "この機体はパイロット未搭乗となるため",
+      "baseline": "由于此机体将变为驾驶员未搭乘状态",
+      "proposal": "由于该机体将无人驾驶",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "id": "menu/SLPS/00/0244"
+        }
+      ],
+      "proposal_reason": "将“驾驶员未搭乘状态”改为自然中文，保持未完成的因果前缀，不补逗号或结论。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。将“驾驶员未搭乘状态”改为自然中文，保持未完成的因果前缀，不补逗号或结论。",
+      "final": "由于该机体将无人驾驶"
+    },
+    {
+      "id": "ui/compdata/0007CF88",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "サブ情報切換え",
+      "source_best": "サブ情報切換え",
+      "baseline": "切换辅助信息",
+      "proposal": "切换附加信息",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_context_help_by_offset/0x7CF88"
+        }
+      ],
+      "proposal_reason": "与同包排序/附加信息记忆选项一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与同包排序/附加信息记忆选项一致。",
+      "final": "切换附加信息"
+    },
+    {
+      "id": "ui/compdata/0007D130",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "デモ：ＯＮ／ＯＦＦ切換え",
+      "source_best": "デモ：ＯＮ／ＯＦＦ切換え",
+      "baseline": "演示：开／关切换",
+      "proposal": "演出：ON／OFF切换",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7D130"
+        }
+      ],
+      "proposal_reason": "与实际战斗菜单“演出：ON／OFF”标签对应，不把帮助写成另一名称；保留开关方向。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与实际战斗菜单“演出：ON／OFF”标签对应，不把帮助写成另一名称；保留开关方向。",
+      "final": "演出：ON／OFF切换"
+    },
+    {
+      "id": "ui/compdata/0007D560",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "確定へ",
+      "source_best": "確定へ",
+      "baseline": "去确认",
+      "proposal": "转到确认",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/compdata_direct_by_offset/0x7D560"
+        }
+      ],
+      "proposal_reason": "改善“去确认”的提示语；仍为转到确认项而不是直接提交。",
+      "action": "apply_adjusted",
+      "reason": "候选超过7字节槽位；保留转至确认项的含义。",
+      "final": "至确认"
+    },
+    {
+      "id": "ui/elf/0033F1E0",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "パイロット",
+      "source_best": "パイロット",
+      "baseline": "机师",
+      "proposal": "驾驶员",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x33F1E0"
+        }
+      ],
+      "proposal_reason": "与本包同类能力与编成界面的驾驶员标题一致；从两字增为三字，回写前须复核栏宽。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“机师”；撤回本轮术语替换，保留送审原译。",
+      "final": "机师"
+    },
+    {
+      "id": "ui/elf/0033FC80",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "%<width:64>隊",
+      "source_best": "%<width:64>隊",
+      "baseline": "%<width:64>",
+      "proposal": "%<width:64>队",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x33FC80"
+        }
+      ],
+      "proposal_reason": "恢复原文动态数量之后的“队”单位，保留特殊编码序列%<width:64>，不擅自转成%d。",
+      "action": "retain_current",
+      "reason": "既有绘制契约将前缀、数字、后缀分别绘制；后缀已为“个小队）”，数字串再加“队”会重复。保留数字串。证据：config/full-story-components.json remaining_squad_count_alignment。",
+      "final": "%<width:64>"
+    },
+    {
+      "id": "ui/elf/003412B0",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "パイロット",
+      "source_best": "パイロット",
+      "baseline": "机师",
+      "proposal": "驾驶员",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x3412B0"
+        }
+      ],
+      "proposal_reason": "与本包同类能力与编成界面的驾驶员标题一致；从两字增为三字，回写前须复核栏宽。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“机师”；撤回本轮术语替换，保留送审原译。",
+      "final": "机师"
+    },
+    {
+      "id": "ui/elf/00341510",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "パイロット",
+      "source_best": "パイロット",
+      "baseline": "机师",
+      "proposal": "驾驶员",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x341510"
+        }
+      ],
+      "proposal_reason": "与本包同类能力与编成界面的驾驶员标题一致；从两字增为三字，回写前须复核栏宽。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“机师”；撤回本轮术语替换，保留送审原译。",
+      "final": "机师"
+    },
+    {
+      "id": "ui/elf/00345E30",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "空専用",
+      "source_best": "空専用",
+      "baseline": "空中用",
+      "proposal": "空专用",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x345E30"
+        }
+      ],
+      "proposal_reason": "恢复“专用”的限制，并与其他同源移动类型标签一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。恢复“专用”的限制，并与其他同源移动类型标签一致。",
+      "final": "空专用"
+    },
+    {
+      "id": "ui/elf/00345E38",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "陸専用",
+      "source_best": "陸専用",
+      "baseline": "陆地用",
+      "proposal": "陆专用",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_by_offset/0x345E38"
+        }
+      ],
+      "proposal_reason": "恢复“专用”的限制，并与其他同源移动类型标签一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。恢复“专用”的限制，并与其他同源移动类型标签一致。",
+      "final": "陆专用"
+    },
+    {
+      "id": "ui/elf/003460F0",
+      "category": "13-common-help",
+      "category_label": "按键帮助与共通提示",
+      "source_original": "離脱",
+      "source_best": "離脱",
+      "baseline": "离脱",
+      "proposal": "离队",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "json_pointer": "/slps_context_ui_by_offset/0x3460F0"
+        }
+      ],
+      "proposal_reason": "离脱在部队管理中指离队，避免日式“离脱”。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。离脱在部队管理中指离队，避免日式“离脱”。",
+      "final": "离队"
+    },
+    {
+      "id": "tutorial/01/000",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "ＳＲポイントは１シナリオにつき１ポイント設定されている。",
+      "source_best": "ＳＲポイントは１シナリオにつき１ポイント設定されている。",
+      "baseline": "每个剧本可获得1个SR点数。",
+      "proposal": "每个剧情关卡设有1点SR点数。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/0/records/0"
+        }
+      ],
+      "proposal_reason": "シナリオ是剧情关卡而非脚本文档；保留每个剧情关卡1点，不误改成每张战斗地图1点。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。シナリオ是剧情关卡而非脚本文档；保留每个剧情关卡1点，不误改成每张战斗地图1点。",
+      "final": "每个剧情关卡设有1点SR点数。"
+    },
+    {
+      "id": "tutorial/01/004",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "全ポイントの約８０％以上獲得",
+      "source_best": "全ポイントの約８０％以上獲得",
+      "baseline": "获得全部点数的80％以上",
+      "proposal": "获得全部点数的约80％以上",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/0/records/4"
+        }
+      ],
+      "proposal_reason": "保留原文“約”，不把教学中的近似难度阈值写成精确程序公式。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。保留原文“約”，不把教学中的近似难度阈值写成精确程序公式。",
+      "final": "获得全部点数的约80％以上"
+    },
+    {
+      "id": "tutorial/01/006",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "全ポイントの約３０〜７９％獲得",
+      "source_best": "全ポイントの約３０〜７９％獲得",
+      "baseline": "获得全部点数的30～79％",
+      "proposal": "获得全部点数的约30～79％",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/0/records/6"
+        }
+      ],
+      "proposal_reason": "保留原文“約”及区间，不更改数字或扩大端点。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。保留原文“約”及区间，不更改数字或扩大端点。",
+      "final": "获得全部点数的约30～79％"
+    },
+    {
+      "id": "tutorial/01/008",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "全ポイントの約３０％未満獲得",
+      "source_best": "全ポイントの約３０％未満獲得",
+      "baseline": "获得全部点数不足30％",
+      "proposal": "获得全部点数不足约30％",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/0/records/8"
+        }
+      ],
+      "proposal_reason": "保留原文“約”与“未满”的严格方向。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。保留原文“約”与“未满”的严格方向。",
+      "final": "获得全部点数不足约30％"
+    },
+    {
+      "id": "tutorial/03/001",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "保存できる。",
+      "source_best": "保存できる。",
+      "baseline": "记忆卡（PS2）。",
+      "proposal": "存储卡（PS2）。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/2/records/1"
+        }
+      ],
+      "proposal_reason": "与本包系统保存帮助的存储卡称谓一致；PS2保持。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“记忆卡”；撤回本轮术语替换，保留送审原译。",
+      "final": "记忆卡（PS2）。"
+    },
+    {
+      "id": "tutorial/10/003",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "まとめられている。",
+      "source_best": "まとめられている。",
+      "baseline": "可通过以下两种方式查看。",
+      "proposal": "查阅方式共有两种。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/9/records/3"
+        }
+      ],
+      "proposal_reason": "沿用基线已在前三个定位片段完成第一句翻译的编排，只精简承上提示，避免连续两句“以下/如下”重复。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。沿用基线已在前三个定位片段完成第一句翻译的编排，只精简承上提示，避免连续两句“以下/如下”重复。",
+      "final": "查阅方式共有两种。"
+    },
+    {
+      "id": "tutorial/10/004",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "参照の手順は以下の２通り。",
+      "source_best": "参照の手順は以下の２通り。",
+      "baseline": "操作方法如下。",
+      "proposal": "具体步骤如下。",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/9/records/4"
+        }
+      ],
+      "proposal_reason": "承接上一定位片段的“两种方式”，不再重复宣布查阅方式；保留定位和样式。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。承接上一定位片段的“两种方式”，不再重复宣布查阅方式；保留定位和样式。",
+      "final": "具体步骤如下。"
+    },
+    {
+      "id": "tutorial/10/005",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "タイトル画面で「ＬＩＢＲＡＲＹ」を選択し、",
+      "source_best": "タイトル画面で「ＬＩＢＲＡＲＹ」を選択し、",
+      "baseline": "1．在标题画面选择“LIBRARY”，",
+      "proposal": "1．在标题画面选择“资料库”，",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/9/records/5"
+        }
+      ],
+      "proposal_reason": "与本包标题画面LIBRARY已采用的“资料库”图像标签对应。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。与本包标题画面LIBRARY已采用的“资料库”图像标签对应。",
+      "final": "1．在标题画面选择“资料库”，"
+    },
+    {
+      "id": "tutorial/10/007",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "インターミッションで「オプション」から",
+      "source_best": "インターミッションで「オプション」から",
+      "baseline": "2．在场间菜单的“选项”中",
+      "proposal": "2．在幕间整备的“选项”中",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/9/records/7"
+        }
+      ],
+      "proposal_reason": "与本篇系统帮助的“幕间整备”称谓一致。",
+      "action": "apply_adjusted",
+      "reason": "与当前实际图片入口“中场休息”对应，避免说明指向不存在的“幕间整备”菜单标题。",
+      "final": "2．在中场休息的“选项”中"
+    },
+    {
+      "id": "tutorial/10/008",
+      "category": "C1-tutorial",
+      "category_label": "教程页面",
+      "source_original": "「ライブラリー」を選択し、",
+      "source_best": "「ライブラリー」を選択し、",
+      "baseline": "选择“图鉴”，",
+      "proposal": "选择“资料库”，",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+          "json_pointer": "/pages/9/records/8"
+        }
+      ],
+      "proposal_reason": "ライブラリー是包含攻略Q&A等内容的资料库，不是机体图鉴。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。ライブラリー是包含攻略Q&A等内容的资料库，不是机体图鉴。",
+      "final": "选择“资料库”，"
+    },
+    {
+      "id": "image/heading/select-sort",
+      "category": "D1-ui-images",
+      "category_label": "界面图片文字",
+      "source_original": "SELECT-SORT",
+      "source_best": "SELECT-SORT",
+      "baseline": "选择排列",
+      "proposal": "选择排序",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/ui-atlas/formation-help-headings.json",
+          "id": "select-sort"
+        }
+      ],
+      "proposal_reason": "SORT是排序而非泛指排列，与各排序指令一致。",
+      "action": "apply",
+      "reason": "日文、中文语义及上下文复核通过。SORT是排序而非泛指排列，与各排序指令一致。",
+      "final": "选择排序"
+    },
+    {
+      "id": "image/scenario_select_effect/1",
+      "category": "D1-ui-images",
+      "category_label": "界面图片文字",
+      "source_original": "ガイダンスシナリオ",
+      "source_best": "ガイダンスシナリオ",
+      "baseline": "教学剧情",
+      "proposal": "教学关卡",
+      "corpus_references": [
+        {
+          "path": "config/full-story-components.json",
+          "json_pointer": "/scenario_select_effect/composed_labels/1"
+        }
+      ],
+      "proposal_reason": "与本包系统文字“ガイダンスシナリオ／教学关卡”对应；不自行改变主篇剧情模式名。",
+      "action": "defer_image_composition",
+      "reason": "暂缓“教学关卡”图片改名。composed_labels 仅为描述元数据，实际正篇／教学标题共享“剧情”纹理片段；只改此字段不会改变图片，需连同纹理与绘制引用另作修改。",
+      "final": "教学剧情"
+    },
+    {
+      "id": "image/ui-atlas/kvm2/ship",
+      "category": "D1-ui-images",
+      "category_label": "界面图片文字",
+      "source_original": "SHIP",
+      "source_best": "SHIP",
+      "baseline": "机体",
+      "proposal": "战舰",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/ui-atlas/info-v1.json",
+          "id": "ui-atlas/kvm2/ship"
+        }
+      ],
+      "proposal_reason": "按所提供SHIP标注译为战舰，不与普通机体混同。仅校订标注文字，未取得原贴图复核标注。",
+      "action": "retain_current",
+      "reason": "保留“机体”。现有语料以 SHIP 作贴图定位标记，但 source_refs 指向机体信息界面；配置明确运行时映射尚待确认，不能仅凭英语定位标记改为战舰。",
+      "final": "机体"
+    },
+    {
+      "id": "image/ui-atlas/kvm5/personality",
+      "category": "D1-ui-images",
+      "category_label": "界面图片文字",
+      "source_original": "性格",
+      "source_best": "性格",
+      "baseline": "姓名",
+      "proposal": "性格",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/ui-atlas/bazaar-v2.json",
+          "id": "ui-atlas/kvm5/personality"
+        }
+      ],
+      "proposal_reason": "原标注为“性格”，不是姓名；避免开局命名/性格字段混淆。仅按提供标注校订。",
+      "action": "retain_current",
+      "reason": "保留“姓名”。现有语料 notes 明确该右侧槽位的玩家字段为姓名；送审包未含像素或调用画面，性格标注不能推翻既有定位决定。",
+      "final": "姓名"
+    },
+    {
+      "id": "image/ui-atlas/kvm6/bazaar",
+      "category": "D1-ui-images",
+      "category_label": "界面图片文字",
+      "source_original": "バザー",
+      "source_best": "バザー",
+      "baseline": "集市",
+      "proposal": "交易所",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+          "id": "ui-atlas/kvm6/bazaar"
+        }
+      ],
+      "proposal_reason": "与同包另一处バザー图像菜单的“交易所”统一。",
+      "action": "retain_user_wording",
+      "reason": "用户明确要求保留“集市”；图片既有译文保持不变。",
+      "final": "集市"
+    },
+    {
+      "id": "image/ui-atlas/kvm6/intermission",
+      "category": "D1-ui-images",
+      "category_label": "界面图片文字",
+      "source_original": "インターミッション",
+      "source_best": "インターミッション",
+      "baseline": "中场休息",
+      "proposal": "幕间整备",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+          "id": "ui-atlas/kvm6/intermission"
+        }
+      ],
+      "proposal_reason": "与本包系统说明已用的“幕间整备”统一，避免“中场休息”的体育语境。",
+      "action": "retain_current",
+      "reason": "保留“中场休息”。现有菜单标题已明确采用该译法；仅因其他说明采用幕间整备而改名，依据不足。",
+      "final": "中场休息"
+    },
+    {
+      "id": "image/ui-atlas/kvm6/squad-formation",
+      "category": "D1-ui-images",
+      "category_label": "界面图片文字",
+      "source_original": "小隊編成",
+      "source_best": "小隊編成",
+      "baseline": "小队",
+      "proposal": "小队编成",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+          "id": "ui-atlas/kvm6/squad-formation"
+        }
+      ],
+      "proposal_reason": "恢复这项菜单执行“编成”的功能，不仅泛称“小队”；原标注为四字小隊編成，几何范围保持。",
+      "action": "retain_current",
+      "reason": "保留“小队”。现有 notes 明确保留紧凑菜单标签；不将菜单名自动扩展为功能全称。",
+      "final": "小队"
+    },
+    {
+      "id": "image/tricmn/support",
+      "category": "D2-battle-images",
+      "category_label": "战斗界面图片文字",
+      "source_original": "援護",
+      "source_best": "援護",
+      "baseline": "防御",
+      "proposal": "援护",
+      "corpus_references": [
+        {
+          "path": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
+          "id": "tricmn/support"
+        }
+      ],
+      "proposal_reason": "援護不是防御，应与援护攻击/援护防御共同使用的上位提示对应。仅按提供标注校订。",
+      "action": "retain_current",
+      "reason": "保留“防御”。docs/TRICMN_BATTLE_OVERLAY_LOCALIZATION.md 记录已作出这一编辑决定，测试亦锁定该词；旧 source_text 援護不足以撤销既有决定。",
+      "final": "防御"
+    }
+  ],
+  "writes": [
+    {
+      "id": "ui/compdata/0007DFA0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7DFA0"
+      },
+      "before": "设置快捷指令、选择BGM等各项系统设置。",
+      "after": "设置快捷指令、选择BGM等各项系统选项。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/00344520",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x344520"
+      },
+      "before": "启动全体指令中的『中途保存』。",
+      "after": "启动全体指令中的『中断保存』。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/01/0004",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/01/0004"
+      },
+      "before": "西式读法",
+      "after": "西式顺序",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/01/0004",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-name-screen.json",
+        "id": "menu/SLPS/01/0004"
+      },
+      "before": "西式读法",
+      "after": "西式顺序",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/01/0005",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/01/0005"
+      },
+      "before": "日式读法",
+      "after": "日式顺序",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/01/0005",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-name-screen.json",
+        "id": "menu/SLPS/01/0005"
+      },
+      "before": "日式读法",
+      "after": "日式顺序",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007FD20",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7FD20"
+      },
+      "before": "与同伴在荒野当修理店老板的男人。\n自称“烈焰”，豪爽而有血性。\n但有时会冲得太猛。",
+      "after": "与搭档在荒芜的大地上经营修理店的男人。\n自称“烈焰”，是个豪爽磊落的热血汉，\n美中不足的是热情过头，让人有些招架不住。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007FD20",
+      "reference": {
+        "path": "corpus/zh/menu/opening-protagonist-profile.json",
+        "id": "menu/Compdata/direct/opening-male-profile"
+      },
+      "before": "与同伴在荒野当修理店老板的男人。\n自称“烈焰”，豪爽而有血性。\n但有时会冲得太猛。",
+      "after": "与搭档在荒芜的大地上经营修理店的男人。\n自称“烈焰”，是个豪爽磊落的热血汉，\n美中不足的是热情过头，让人有些招架不住。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033BD00",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33BD00"
+      },
+      "before": "<color:0E>・游戏开始时持有<color:0E>全部强化零件",
+      "after": "<color:0E>・游戏开始时持有<color:0E>所有种类的强化零件",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007B850",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7B850"
+      },
+      "before": "HP的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "after": "HP的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007B8D0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7B8D0"
+      },
+      "before": "EN的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "after": "EN的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007B950",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7B950"
+      },
+      "before": "装甲的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "after": "装甲的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007B9D0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7B9D0"
+      },
+      "before": "运动性的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "after": "运动性的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007BA50",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7BA50"
+      },
+      "before": "瞄准值的“改造前数值／改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "after": "瞄准值的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007BAD0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7BAD0"
+      },
+      "before": "攻击力的“改造前RANK／改造后RANK”。\n与其他项目不同，武器改造费用因机体而异。\n此外，各武器的攻击力提升值分别设定。",
+      "after": "攻击力的“改造前RANK→改造后RANK”。\n与其他项目不同，武器改造费用因机体而异。\n此外，各武器的攻击力提升值分别设定。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007E7F0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7E7F0"
+      },
+      "before": "〜【完全改造奖励（武器暴击率）】〜",
+      "after": "〜【全改造奖励（武器暴击率）】〜",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007E820",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7E820"
+      },
+      "before": "〜【完全改造奖励（武器射程）】〜",
+      "after": "〜【全改造奖励（武器射程）】〜",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/00340E40",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_by_offset/0x340E40"
+      },
+      "before": "〜【驾驶员培养】选择成员〜",
+      "after": "〜【驾驶员培养】选择驾驶员〜",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/06/0008",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/06/0008"
+      },
+      "before": "～【搜索】使用状态～",
+      "after": "～【搜索】指定使用～",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/06/0008",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-search.json",
+        "id": "menu/Compdata/06/0008"
+      },
+      "before": "～【搜索】使用状态～",
+      "after": "～【搜索】指定使用～",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/06/0012",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/06/0012"
+      },
+      "before": "飞行功能",
+      "after": "升空功能",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0032",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/00/0032"
+      },
+      "before": "・记忆排序和子信息",
+      "after": "・记忆排序和附加信息",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0032",
+      "reference": {
+        "path": "corpus/zh/menu/unclassified.json",
+        "id": "menu/SLPS/00/0032"
+      },
+      "before": "・记忆排序和子信息",
+      "after": "・记忆排序和附加信息",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00073DE0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x73DE0"
+      },
+      "before": "小队内有持有修理装置的单位时，\n小队全机每有1台修理单位，获得HP回复10%的效果。",
+      "after": "小队内每有1台持有修理装置的单位，\n小队全机便获得HP回复10%的效果。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00077580",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x77580"
+      },
+      "before": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n移动类型：全员可移动时为白字，部分可移动时为灰字，\n全员不可移动时为空白。",
+      "after": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007B280",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7B280"
+      },
+      "before": "组成小队的机体所持武器中，\n攻击力最高的武器。",
+      "after": "组成小队的机体所持武器中，\n最高的攻击力数值。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007C7C0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7C7C0"
+      },
+      "before": "光标位置小队的“移动力／移动类型”。\n移动力为各机体的平均值（舍去小数）。\n全员可移动时为白色，部分可移动时为灰色，\n全员无法移动时为空白。",
+      "after": "表示光标所在小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007D9A0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7D9A0"
+      },
+      "before": "完全恢复相邻友方小队或本小队内一台单位的EN和弹药。",
+      "after": "为本小队或相邻我方小队中的1台单位补满EN和弹药。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007E490",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7E490"
+      },
+      "before": "TRI攻击可用，小队攻击不可用\n可援防，队员抗全体攻击能力提升",
+      "after": "TRI攻击可用，小队攻击不可用；可援护防御\n受到全体攻击时，队员的防御、回避获得加成",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007E500",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7E500"
+      },
+      "before": "集中攻击单体，队员攻击力50%\n可援防，共享屏障，队长抗全体攻击",
+      "after": "小队攻击集中于敌单机（队员攻击力50%）；可援护防御\n屏障对小队全机生效；受到全体攻击时，队长防御获得加成",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007E590",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7E590"
+      },
+      "before": "分散攻击目标，队员攻击力80%\n不可援防，队员抗全体攻击能力提升",
+      "after": "小队攻击分别攻击对应敌机（队员攻击力80%）；不可援护防御\n受到全体攻击时，队员的防御获得加成",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007F640",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7F640"
+      },
+      "before": "＜统一阵型＞　选择部队内各小队的阵型。",
+      "after": "＜批量设置阵型＞　选择部队内各小队的阵型。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007F970",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7F970"
+      },
+      "before": "〜『　　　：三角』指定小队〜",
+      "after": "〜『　　　：TRI』指定小队〜",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033E910",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33E910"
+      },
+      "before": "基础编成已完成。",
+      "after": "已按基本方案完成编成。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033E960",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33E960"
+      },
+      "before": "按均衡编成进行编组。",
+      "after": "按均衡方案进行编成。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033E980",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33E980"
+      },
+      "before": "均衡编成已完成。",
+      "after": "已按均衡方案完成编成。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033FC50",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33FC50"
+      },
+      "before": "【均衡编成】",
+      "after": "【均衡方案】",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0170",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/00/0170"
+      },
+      "before": "・合体攻击对象",
+      "after": "・合体攻击搭档",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0170",
+      "reference": {
+        "path": "corpus/zh/menu/unclassified.json",
+        "id": "menu/SLPS/00/0170"
+      },
+      "before": "・合体攻击对象",
+      "after": "・合体攻击搭档",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/10/0015",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/10/0015"
+      },
+      "before": "获得强化部件",
+      "after": "获得强化零件",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00078AC0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x78AC0"
+      },
+      "before": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目的画面。",
+      "after": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00078BA0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x78BA0"
+      },
+      "before": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目的画面。",
+      "after": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007B490",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7B490"
+      },
+      "before": "合神解除前的剩余回合数。\n变为0后合神解除，本地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。",
+      "after": "格兰维昂达到重力子临界前的剩余回合数。\n减至0后合神解除，且本战斗地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007F520",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7F520"
+      },
+      "before": "＜若有可进行援护防御的机体，便会加入。＞",
+      "after": "＜有可援防的机体时，自动援护防御。＞",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007F550",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7F550"
+      },
+      "before": "＜即使有可进行援护防御的机体也不加入。＞",
+      "after": "＜有可援防的机体时，也不自动援防。＞",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033FD68",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33FD68"
+      },
+      "before": "：选择移动源",
+      "after": "：选择起点",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033FD78",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33FD78"
+      },
+      "before": "：移动目标",
+      "after": "：选择终点",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/11/0008",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/11/0008"
+      },
+      "before": "行动不能（P系）",
+      "after": "无法战斗（P系）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/11/0008",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_by_offset/0x346300"
+      },
+      "before": "行动不能（P系）",
+      "after": "无法战斗（P系）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/11/0008",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-unit-mech-pilot-weapons.json",
+        "id": "menu/SLPS/11/0008"
+      },
+      "before": "行动不能（P系）",
+      "after": "无法战斗（P系）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/11/0051",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/11/0051"
+      },
+      "before": "强\n化\n部\n件",
+      "after": "强\n化\n零\n件",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/11/0051",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-unit-mech-pilot-weapons.json",
+        "id": "menu/SLPS/11/0051"
+      },
+      "before": "强\n化\n部\n件",
+      "after": "强\n化\n零\n件",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/11/0066",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/11/0066"
+      },
+      "before": "强化部件",
+      "after": "强化零件",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00076CE0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x76CE0"
+      },
+      "before": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n可通过“补给”指令、使用弹药筒，\n或搭载战舰回复至最大弹数。",
+      "after": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n通过“补给”指令、使用弹药筒，\n或让机体搭载于战舰，可回复至最大弹数。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007DB00",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7DB00"
+      },
+      "before": "多台单位合体成一台。合体后的HP、EN为合体前各自比例的平均值。",
+      "after": "多台单位合体成一台。合体后的HP、EN比例，分别取合体前各单位相应比例的平均值。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007E790",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7E790"
+      },
+      "before": "MAP武器及射程1以外的武器射程＋1",
+      "after": "射程＋1（MAP及射程1武器除外）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/08/0040",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/08/0040"
+      },
+      "before": "无视尺寸差和单位数量对ALL攻击造成的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "after": "无视体型差造成的减伤、单位数量造成的ALL攻击伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/08/0040",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-spirit-commands.json",
+        "id": "menu/SLPS/08/0040"
+      },
+      "before": "无视尺寸差和单位数量对ALL攻击造成的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "after": "无视体型差造成的减伤、单位数量造成的ALL攻击伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/08/0054",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/08/0054"
+      },
+      "before": "本小队可行动次数增加1次。\n不可重复使用。",
+      "after": "本小队可行动次数增加1次。\n重复施加不叠加。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/08/0054",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-spirit-commands.json",
+        "id": "menu/SLPS/08/0054"
+      },
+      "before": "本小队可行动次数增加1次。\n不可叠加使用。",
+      "after": "本小队可行动次数增加1次。\n重复施加不叠加。",
+      "reviewed_canonical_divergence": true
+    },
+    {
+      "id": "menu/SLPS/08/0088",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/08/0088"
+      },
+      "before": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“声援”和“友情”。",
+      "after": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“应援”和“友情”。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00076370",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x76370"
+      },
+      "before": "持续生效的精神指令以蓝色显示，简称如下。\n热：热血[<color:30>]不：不屈[<color:30>]铁：铁壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]觉：觉醒[<color:30>]狙：狙击[<color:30>]直：直击[<color:30>]幸：幸运[<color:30>]努：努力\n魂：魂[<color:38>]闪：必闪[<color:33>]手：手下留情[<color:34>]扰：扰乱[<color:34>]析：分析",
+      "after": "持续生效的精神指令以蓝色显示，简称如下。\n热：热血[<color:30>]不：不屈[<color:30>]铁：铁壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]觉：觉醒[<color:30>]狙：狙击[<color:30>]直：直击[<color:30>]幸：幸运[<color:30>]努：努力\n魂：魂[<color:38>]闪：必闪[<color:33>]手：手下留情[<color:34>]乱：扰乱[<color:34>]分：分析",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/04/0067",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/04/0067"
+      },
+      "before": "气力130以上时发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "after": "气力130以上时可发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/04/0067",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-special-abilities.json",
+        "id": "menu/Compdata/04/0067"
+      },
+      "before": "气力130以上时发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "after": "气力130以上时可发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/04/0102",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/04/0102"
+      },
+      "before": "MAP武器及射程1以外的所有武器\n最大射程＋1。",
+      "after": "除MAP武器、射程仅为1的武器外，\n所有武器最大射程＋1。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/04/0102",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-special-abilities.json",
+        "id": "menu/Compdata/04/0102"
+      },
+      "before": "MAP武器及射程1以外的所有武器\n最大射程＋1。",
+      "after": "除MAP武器、射程仅为1的武器外，\n所有武器最大射程＋1。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/09/0009",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/09/0009"
+      },
+      "before": "可对相邻小队的队长发动援护攻击。\n每回合最多发动与技能等级相同的次数。",
+      "after": "可为相邻小队的队长进行援护攻击。\n每回合最多发动与技能等级相同的次数。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/09/0041",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/09/0041"
+      },
+      "before": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n降低为－5%／－25%。",
+      "after": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n分别改为－5%／－25%。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/09/0041",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-skills.json",
+        "id": "menu/SLPS/09/0041"
+      },
+      "before": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n降低为－5%／－25%。",
+      "after": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n分别改为－5%／－25%。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/09/0042",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/09/0042"
+      },
+      "before": "无视尺寸差修正",
+      "after": "无视体型差修正",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/09/0042",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-skills.json",
+        "id": "menu/SLPS/09/0042"
+      },
+      "before": "无视尺寸差修正",
+      "after": "无视体型差修正",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/09/0043",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/09/0043"
+      },
+      "before": "无视尺寸差修正造成的伤害降低。",
+      "after": "无视体型差修正造成的伤害降低。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/09/0043",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-skills.json",
+        "id": "menu/SLPS/09/0043"
+      },
+      "before": "无视尺寸差修正造成的伤害降低。",
+      "after": "无视体型差修正造成的伤害降低。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00075F70",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x75F70"
+      },
+      "before": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n但有时抵御的不是伤害，而是特殊效果。",
+      "after": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n作用对象不仅是伤害，有时还包括特殊效果。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/000722F0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/leadership_effect_by_offset/0x722F0"
+      },
+      "before": "MAP武器及射程1以外的\n武器射程＋1",
+      "after": "武器射程＋1\n（MAP及射程1武器除外）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00072910",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/leadership_effect_by_offset/0x72910"
+      },
+      "before": "使驾驶员类的\n特殊效果武器无效",
+      "after": "使针对驾驶员的\n武器特殊效果无效",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00072930",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/leadership_effect_by_offset/0x72930"
+      },
+      "before": "使全部特殊效果武器无效",
+      "after": "武器特殊效果全部无效",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0017",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/01/0017"
+      },
+      "before": "MAP武器及射程1以外的\n武器射程＋1",
+      "after": "武器射程＋1\n（MAP及射程1武器除外）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0017",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-parts.json",
+        "id": "menu/Compdata/01/0017"
+      },
+      "before": "MAP武器及射程1以外的\n武器射程＋1",
+      "after": "武器射程＋1\n（MAP及射程1武器除外）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0019",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/01/0019"
+      },
+      "before": "瞄准值＋20\nMAP武器及射程1以外的\n武器射程＋1",
+      "after": "瞄准值＋20\n射程＋1\n（MAP及射程1武器除外）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0019",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-parts.json",
+        "id": "menu/Compdata/01/0019"
+      },
+      "before": "瞄准值＋20\nMAP武器及射程1以外的\n武器射程＋1",
+      "after": "瞄准值＋20\n射程＋1\n（MAP及射程1武器除外）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0021",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/01/0021"
+      },
+      "before": "移动力＋2　运动性＋25\n瞄准值＋25　MAP武器及\n射程1以外武器射程＋1",
+      "after": "移动力＋2　运动性＋25\n瞄准值＋25　射程＋1\n（MAP及射程1武器除外）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0021",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-parts.json",
+        "id": "menu/Compdata/01/0021"
+      },
+      "before": "移动力＋2　运动性＋25\n瞄准值＋25　MAP武器及\n射程1以外武器射程＋1",
+      "after": "移动力＋2　运动性＋25\n瞄准值＋25　射程＋1\n（MAP及射程1武器除外）",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0059",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/01/0059"
+      },
+      "before": "HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "after": "自机HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0059",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-parts.json",
+        "id": "menu/Compdata/01/0059"
+      },
+      "before": "HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "after": "自机HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0085",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/01/0085"
+      },
+      "before": "神秘系统。\n用途不明。",
+      "after": "神秘系统。\n使用方法不明。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0085",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-parts.json",
+        "id": "menu/Compdata/01/0085"
+      },
+      "before": "神秘系统。\n用途不明。",
+      "after": "神秘系统。\n使用方法不明。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0105",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/01/0105"
+      },
+      "before": "生活在寒冷地区的熏蜥蜴。\n味道不错。",
+      "after": "用寒冷地区的蜥蜴熏制而成。\n味道鲜美。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0105",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-parts.json",
+        "id": "menu/Compdata/01/0105"
+      },
+      "before": "生活在寒冷地区的熏蜥蜴。\n味道不错。",
+      "after": "用寒冷地区的蜥蜴熏制而成。\n味道鲜美。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0109",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/Compdata/01/0109"
+      },
+      "before": "生活在气候温暖地区的\n巨蜥熏制品。美味至极。",
+      "after": "用栖息于温暖地区的巨蜥\n熏制而成，美味至极。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/Compdata/01/0109",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-parts.json",
+        "id": "menu/Compdata/01/0109"
+      },
+      "before": "生活在气候温暖地区的\n巨蜥熏制品。美味至极。",
+      "after": "用栖息于温暖地区的巨蜥\n熏制而成，美味至极。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0077",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/00/0077"
+      },
+      "before": "强化部件",
+      "after": "强化零件",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0351",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/00/0351"
+      },
+      "before": "～【强化部件】＜卸下＞选择～",
+      "after": "～【强化零件】选择＜卸下＞～",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0351",
+      "reference": {
+        "path": "corpus/zh/menu/unclassified.json",
+        "id": "menu/SLPS/00/0351"
+      },
+      "before": "～【强化零件】＜卸下＞选择～",
+      "after": "～【强化零件】选择＜卸下＞～",
+      "reviewed_canonical_divergence": true
+    },
+    {
+      "id": "menu/SLPS/04/0064",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/04/0064"
+      },
+      "before": "强化部件",
+      "after": "强化零件",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/003400D0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x3400D0"
+      },
+      "before": "〜【强化零件】选择部件〜",
+      "after": "〜【强化零件】选择零件〜",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033C590",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33C590"
+      },
+      "before": "步行机甲用的\n高输出型发动机。\n同型发动机用于大型战斗机，\n输出足以让机体\n跳到相当高的高度。\n萨芬格尔和沃卡加利亚也\n采用同型发动机。",
+      "after": "步行机甲用的\n高输出型发动机。\n同型发动机用于大型战斗机体，\n输出足以让机体\n跳到相当高的高度。\n萨芬格尔和沃卡加利亚也\n采用同型发动机。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033CCC0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33CCC0"
+      },
+      "before": "启动高输出光束武器\n所需的部件。\n拥有足以储存\n高能量的容量。",
+      "after": "驱动高输出光束武器\n所需的部件。\n容量很大，足以储存\n大量电能。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033CF30",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33CF30"
+      },
+      "before": "主要栖息于南阿美利亚的\n熏制蜥蜴。\n比北半球的种类更加巨大，\n性情也更凶猛。\n其肉高蛋白而清爽，\n鲜美回味令人着迷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "after": "用主要栖息于南阿美利亚的\n蜥蜴熏制而成。\n这种蜥蜴比北半球的种类更大，\n性情也更凶猛。\n其肉富含蛋白质，口味清淡，\n却鲜美得令人回味无穷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033D2B0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33D2B0"
+      },
+      "before": "上流社会的女士\n出席正式场合时佩戴的饰品。\n优雅的银制工艺\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "after": "上流社会的女士\n出席正式场合时佩戴的饰品。\n这件银饰做工雅致，\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033D8E0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33D8E0"
+      },
+      "before": "目前商品不足，无法出售强化零件。",
+      "after": "目前缺货，暂不供应强化零件。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/0033D930",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x33D930"
+      },
+      "before": "　可搭乘者",
+      "after": "　可驾驶者",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/03/0001",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/03/0001"
+      },
+      "before": "强化部件『",
+      "after": "强化零件『",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/03/0006",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/03/0006"
+      },
+      "before": "获得强化部件",
+      "after": "获得强化零件",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/03/0010",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/03/0010"
+      },
+      "before": "资金　%s　获得",
+      "after": "获得资金　%s　",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/03/0010",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-results.json",
+        "id": "menu/SLPS/03/0010"
+      },
+      "before": "资金　%s　获得",
+      "after": "获得资金　%s　",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/03/0011",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/03/0011"
+      },
+      "before": "BS　%s　获得",
+      "after": "获得BS　%s　",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/03/0011",
+      "reference": {
+        "path": "corpus/zh/menu/system-ui-results.json",
+        "id": "menu/SLPS/03/0011"
+      },
+      "before": "BS　%s　获得",
+      "after": "获得BS　%s　",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00079C30",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x79C30"
+      },
+      "before": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级／升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "after": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/00079CF0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x79CF0"
+      },
+      "before": "显示“当前等级／升级后等级”。\n因升级而变化的项目会闪动提示。",
+      "after": "显示“当前等级→升级后等级”。\n因升级而变化的项目会闪动提示。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/003411B0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x3411B0"
+      },
+      "before": "＜为驾驶员习得技能。＞",
+      "after": "＜让驾驶员习得技能。＞",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0112",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/00/0112"
+      },
+      "before": "ソート用のテーブルが壊れているのかも…。\n",
+      "after": "排序用表可能损坏了……\n",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0112",
+      "reference": {
+        "path": "corpus/zh/menu/unclassified.json",
+        "id": "menu/SLPS/00/0112"
+      },
+      "before": "排序表可能损坏了……。\n",
+      "after": "排序用表可能损坏了……\n",
+      "reviewed_canonical_divergence": true
+    },
+    {
+      "id": "menu/SLPS/00/0154",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/00/0154"
+      },
+      "before": "条件。",
+      "after": "。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0154",
+      "reference": {
+        "path": "corpus/zh/menu/unclassified.json",
+        "id": "menu/SLPS/00/0154"
+      },
+      "before": "条件。",
+      "after": "。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0244",
+      "reference": {
+        "path": "corpus/zh/menu/release-v0.3.json",
+        "id": "menu/SLPS/00/0244"
+      },
+      "before": "由于此机体将变为驾驶员未搭乘状态",
+      "after": "由于该机体将无人驾驶",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "menu/SLPS/00/0244",
+      "reference": {
+        "path": "corpus/zh/menu/unclassified.json",
+        "id": "menu/SLPS/00/0244"
+      },
+      "before": "由于此机体将变为驾驶员未搭乘状态",
+      "after": "由于该机体将无人驾驶",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007CF88",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_context_help_by_offset/0x7CF88"
+      },
+      "before": "切换辅助信息",
+      "after": "切换附加信息",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007D130",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7D130"
+      },
+      "before": "演示：开／关切换",
+      "after": "演出：ON／OFF切换",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/compdata/0007D560",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/compdata_direct_by_offset/0x7D560"
+      },
+      "before": "去确认",
+      "after": "至确认",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/00345E30",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_by_offset/0x345E30"
+      },
+      "before": "空中用",
+      "after": "空专用",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/00345E38",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_by_offset/0x345E38"
+      },
+      "before": "陆地用",
+      "after": "陆专用",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "ui/elf/003460F0",
+      "reference": {
+        "path": "corpus/zh/menu/remaining-ui.json",
+        "json_pointer": "/slps_context_ui_by_offset/0x3460F0"
+      },
+      "before": "离脱",
+      "after": "离队",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/01/000",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/0/records/0"
+      },
+      "before": "每个剧本可获得1个SR点数。",
+      "after": "每个剧情关卡设有1点SR点数。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/01/004",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/0/records/4"
+      },
+      "before": "获得全部点数的80％以上",
+      "after": "获得全部点数的约80％以上",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/01/006",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/0/records/6"
+      },
+      "before": "获得全部点数的30～79％",
+      "after": "获得全部点数的约30～79％",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/01/008",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/0/records/8"
+      },
+      "before": "获得全部点数不足30％",
+      "after": "获得全部点数不足约30％",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/10/003",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/9/records/3"
+      },
+      "before": "可通过以下两种方式查看。",
+      "after": "查阅方式共有两种。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/10/004",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/9/records/4"
+      },
+      "before": "操作方法如下。",
+      "after": "具体步骤如下。",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/10/005",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/9/records/5"
+      },
+      "before": "1．在标题画面选择“LIBRARY”，",
+      "after": "1．在标题画面选择“资料库”，",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/10/007",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/9/records/7"
+      },
+      "before": "2．在场间菜单的“选项”中",
+      "after": "2．在中场休息的“选项”中",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "tutorial/10/008",
+      "reference": {
+        "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+        "json_pointer": "/pages/9/records/8"
+      },
+      "before": "选择“图鉴”，",
+      "after": "选择“资料库”，",
+      "reviewed_canonical_divergence": false
+    },
+    {
+      "id": "image/heading/select-sort",
+      "reference": {
+        "path": "corpus/zh/ui-atlas/formation-help-headings.json",
+        "id": "select-sort"
+      },
+      "before": "选择排列",
+      "after": "选择排序",
+      "reviewed_canonical_divergence": false
+    }
+  ],
+  "files": {
+    "corpus/zh/menu/remaining-ui.json": {
+      "before_sha256": "f72ac9518208d2a9a7c7c96111b847c6db4cce334e182bb97e2f8e6785540595",
+      "after_sha256": "729248eb61ce1dacb850b75439dce7a77678356bce496a60d02345e28071b644"
+    },
+    "corpus/zh/menu/release-v0.3.json": {
+      "before_sha256": "27cf77ac85b4932ffc69359b637915b112001d6622ce99dde069b9a27f4285ea",
+      "after_sha256": "68b18357d391c22a449750630acf8a5a6257ee3096716f50f94a2267fefabd05"
+    },
+    "corpus/zh/menu/nisv-tutorial-pages.json": {
+      "before_sha256": "8fd58ffe610ee4d07502909c0d7ce320fae3eb5b822bc6b3c5f44ffab9390cf5",
+      "after_sha256": "59b79738dc467d64391e7458b1ef28fd7ddf2df33bee2f8b60d5d3b25d447fac"
+    },
+    "corpus/zh/menu/opening-protagonist-profile.json": {
+      "before_sha256": "425209556571f7a04acb333610c95f07465449f4e516abf937293403d6d75e29",
+      "after_sha256": "ebd7f9150a6b9546f13f6f83a7f2bdf1520e0b2dcf08e1099b20da720bd92124"
+    },
+    "corpus/zh/menu/system-ui-name-screen.json": {
+      "before_sha256": "0b71544bccf2e78d6ea6873bec50f6d0bab4b91479c78029efcada200d1e0af2",
+      "after_sha256": "99f10292696d83c5e7d7d1237b550ec96c15d7d040fb1853dcce465ab5777016"
+    },
+    "corpus/zh/menu/system-ui-parts.json": {
+      "before_sha256": "aba3fef18277c881c5fa919c33f02534b15865cec0fb9bf2e0014b8fe1f9eb6d",
+      "after_sha256": "8ddab2b6d81c746b93b27c406b6c288857828b55e650d799cf44390f440ead75"
+    },
+    "corpus/zh/menu/system-ui-results.json": {
+      "before_sha256": "76ee139dfc9ac9c8e69e9feede1e1bb4974b54f537fc2d178ebe9f42c3f7f067",
+      "after_sha256": "bd3caca8cca178fdbaceb4577122efbe55ae2c1336bb150089d9b049e3f24348"
+    },
+    "corpus/zh/menu/system-ui-search.json": {
+      "before_sha256": "a9ae22d3b8ca427338464c2d2aa0ec622783f47e8d968c05e52ecb488463b098",
+      "after_sha256": "7c16f492112967f3ff290a1f51b64b592be15d630c4940070c93d9156ae37d57"
+    },
+    "corpus/zh/menu/system-ui-skills.json": {
+      "before_sha256": "52c8b72aefbd76a71068d73e2c15854bd3c5042f8467600850928e9fa68547f1",
+      "after_sha256": "99c3a7c54616114ca405fca38309994428aee45364f54ec8c1cd1b5105698eb3"
+    },
+    "corpus/zh/menu/system-ui-special-abilities.json": {
+      "before_sha256": "3458dd1eb342833021218285463253ac6509b11f21843a635987cf8cf3198c18",
+      "after_sha256": "17734b4b04df2309e741ff3ff88a29f7854fd5ee58bc69c035ec3f7d766a42ee"
+    },
+    "corpus/zh/menu/system-ui-spirit-commands.json": {
+      "before_sha256": "6320217e73076b578f7c5ef4027588d6d85d831c03a76a43c816f6f89c55c02d",
+      "after_sha256": "7fd03f25932b4208ae30de8685d0e8972b4d17cf1e41f5d04e16da1a853fb105"
+    },
+    "corpus/zh/menu/system-ui-unit-mech-pilot-weapons.json": {
+      "before_sha256": "337d3e144471e4956be41f02b0134d31fe1306819c2bd232fe20dc286efe5661",
+      "after_sha256": "f98a4d450cd0e47e200027bb7b3146c3e1d38d6cf944eb447e6d96387ccfab21"
+    },
+    "corpus/zh/menu/unclassified.json": {
+      "before_sha256": "61cbce5f8d0ded32235ace8ff18feff0508d93b3dec0d0bba396c86a7ffca4b8",
+      "after_sha256": "8dea46467f99788625ed78e1484f71e9db4ff59f2fb73a50d818924fb04504af"
+    },
+    "corpus/zh/ui-atlas/formation-help-headings.json": {
+      "before_sha256": "24c9ee79fe6d98b192ce1e08535e79e134d5271f02b72efe790d1f0c8642b85c",
+      "after_sha256": "71dd2721d105d452a5851e70a3c551f8eeab45d90503b6b76d6bdc90a7020941"
+    },
+    "config/full-story-components.json": {
+      "before_sha256": "62d76541fe2341d97043c30d030796b4a3a46cd944aa22c67ab12d5cdeac8adf",
+      "after_sha256": "fefe1b779d98672c31cdbddb4264f7f5c0f3b8c81f96d487f1fd28d07bef0325"
+    },
+    "config/assets/ui-headings-zh.json": {
+      "before_sha256": "06e81354ecb7d2887aca407db4d6a24cff54b556378b2b966765591a1b28d74b",
+      "after_sha256": "1b5ebf6481525176cc9a23f26473af9cacfdc4d76dc870f4cca66c0054a72b60"
+    },
+    "config/assets/ui-headings-render-snapshot.json": {
+      "before_sha256": "a9d47e5e9585ec64deea723361a0000e967f38dc1afa9975eed069d618cfd46d",
+      "after_sha256": "1d77b2c900f2ffd85b64701ebf053ff59281c1568c92a792cbd988e98350f95b"
+    },
+    "manifests/ui-headings-zh-validation.json": {
+      "before_sha256": "b50001227f16c7ba910200bde16ee8723ee7065126f848010f63c1421e4ee0b7",
+      "after_sha256": "f8597e9e33a64191441f8601b506c9d4523503fee4baad3479cf8d17cec390a7"
+    },
+    "config/encoding/zh-release-font-assignments.json": {
+      "before_sha256": "c6a20e3228c8ebec1b78a3596248dd271ce623973c52b0c36943648134ee70dd",
+      "after_sha256": "e44319258c3d6bb9b5e9d4a832cf484e22dee0196834e05a6572e67ba1f510de"
+    },
+    "config/fonts/zh-release-font.json": {
+      "before_sha256": "d4f3a1a94a2586fbc8cc8e53c2260a96d1882f9e73050e7f1a83922c475417b4",
+      "after_sha256": "ade1197917cfef21336bb8c0aa4b35e619ff1e7e310c8449c2ff739c4cb4ffd9"
+    },
+    "manifests/zh-release-font-validation.json": {
+      "before_sha256": "ab85327b814f9232d40d0ebb5f3f898f4984784330e99fd5e8ebb0f2a8a4b1a0",
+      "after_sha256": "e2a2e1bb1a379fd1a5f08cc3facf1c687514612aeb79f321fc55f28d168a6ab7"
+    }
+  },
+  "validation": {
+    "package": "work/reviews/main-misc-reviewed-20260922/rerun-validation.json",
+    "native_text": "work/reviews/main-misc-reviewed-20260922/probe.py",
+    "tutorial": "work/reviews/main-misc-reviewed-20260922/tutorial-validation.json",
+    "iso_rebuilt": false,
+    "runtime_verified": false,
+    "final": "work/reviews/main-misc-reviewed-20260922/final-validation.json",
+    "image": "work/reviews/main-misc-reviewed-20260922/image-validation.json",
+    "tests_passed": 18,
+    "font_component": "manifests/zh-release-font-validation.json",
+    "new_glyph": {
+      "character": "芜",
+      "code": "97DA",
+      "glyph_index": 4378,
+      "existing_primary_assignments_unchanged": true,
+      "font_component_missing_glyph_count": 0
+    }
+  },
+  "user_revision": {
+    "requests": [
+      "保留对自己进行一次援护攻击",
+      "荒芜完整措辞接受增加字形",
+      "保留记忆卡、回合、机师、集市；回合／阶段组保留原译并结案"
+    ],
+    "pending_ids": [],
+    "retained_terms": [
+      "记忆卡",
+      "回合",
+      "机师",
+      "集市"
+    ],
+    "term_reverted_ids": [
+      "tutorial/03/001",
+      "ui/compdata/0007AA60",
+      "ui/elf/0033C960",
+      "ui/elf/0033CA20",
+      "ui/elf/0033F1E0",
+      "ui/elf/0033F290",
+      "ui/elf/003412B0",
+      "ui/elf/00341360",
+      "ui/elf/00341510"
+    ],
+    "phase_review_closed_ids": [
+      "ui/compdata/0007D6F0",
+      "ui/compdata/0007D880",
+      "menu/Compdata/04/0058",
+      "ui/compdata/00072410",
+      "ui/compdata/00072510",
+      "menu/Compdata/01/0029",
+      "menu/Compdata/01/0031"
+    ]
+  },
+  "metadata_updates": [
+    {
+      "path": "corpus/zh/menu/unclassified.json",
+      "id": "menu/SLPS/00/0083",
+      "field": "notes",
+      "before": "疑似开发期损坏或未完成的格式片段；保留原字节语义及 %s 占位符，禁止猜译。",
+      "after": "2026-09-22 原盘复核：描述符取址 0x34729D 落在 0x34729C 的 Shift-JIS 字符ン（83 93）第二字节上；完整原串从 0x347290 开始，为〜【オプション】%s〜，正确条目 menu/SLPS/00/0335 已译为～【选项】%s～。本项为错位提取记录，不是可见句子的翻译，继续 preserve 且不进入正式写入清单。"
+    }
+  ]
+}

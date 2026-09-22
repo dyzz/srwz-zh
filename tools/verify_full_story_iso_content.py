@@ -2982,7 +2982,7 @@ def verify_final_compdata(
         "0x3462A0": "SP降低（P系）",
         "0x3462C0": "运动性降低（R系）",
         "0x3462E0": "气力降低（P系）",
-        "0x346300": "行动不能（P系）",
+        "0x346300": "无法战斗（P系）",
         "0x346320": "装甲值降低（R系）",
         "0x346340": "能力减半（P系）",
         "0x346360": "瞄准值降低（R系）",
@@ -3076,9 +3076,9 @@ def verify_final_compdata(
         "0x7FD20"
     )
     expected_profile = (
-        "与同伴在荒野当修理店老板的男人。\n"
-        "自称“烈焰”，豪爽而有血性。\n"
-        "但有时会冲得太猛。"
+        "与搭档在荒芜的大地上经营修理店的男人。\n"
+        "自称“烈焰”，是个豪爽磊落的热血汉，\n"
+        "美中不足的是热情过头，让人有些招架不住。"
     )
     if male_profile != expected_profile:
         raise SystemExit("male new-game profile contract drift")

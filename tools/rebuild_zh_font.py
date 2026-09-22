@@ -523,6 +523,10 @@ def _build_assets(
         (integrated["ui_headings"]["config"], integrated["ui_headings"]["config"]["path"]),
         (integrated["ui_headings"]["manifest"], integrated["ui_headings"]["manifest"]["path"]),
         (
+            integrated["runtime_keywords"]["library_archive"],
+            integrated["runtime_keywords"]["library_archive"]["path"],
+        ),
+        (
             integrated["runtime_keywords"]["library_component_manifest"],
             integrated["runtime_keywords"]["library_component_manifest"][
                 "path"
