@@ -8,7 +8,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'tools'), str(ROOT / 'tools/special_disc/writeback')]
 from special_disc.writeback.qa_native import (flow, legal_break, native_records,
-    repair_shared, styled_runs, shared_records, validate_records, apply_reviewed_qa, metadata)
+    repair_shared, styled_runs, shared_records, validate_records, apply_reviewed_qa, metadata,
+    approved_shared_update, shared_identity)
 from special_disc.writeback.qa_layout import page
 from srwz.codec import decode_production
 
@@ -18,6 +19,21 @@ def record(text, x, y, color=0):
 
 
 class SpQaNativeTests(unittest.TestCase):
+    def test_shared_update_requires_exact_before_after_and_style(self):
+        before = [((2,14,1), 'TRI兵器')]
+        after = [((2,14,1), 'TRI武器')]
+        updates = {'page/017': {'before_sha256': shared_identity(before),
+                               'after_sha256': shared_identity(after)}}
+        self.assertTrue(approved_shared_update(before, after, 'page/017', updates))
+        self.assertFalse(approved_shared_update(after, after, 'page/017', updates))
+        for current, desired, key in [
+                ([((2,14,1), '其他兵器')], after, 'page/017'),
+                (before, [((2,14,1), '其他武器')], 'page/017'),
+                (before, [((2,7,1), 'TRI武器')], 'page/017'),
+                (before, after, 'page/018')]:
+            with self.assertRaisesRegex(ValueError, 'Concurrent shared Q&A'):
+                approved_shared_update(current, desired, key, updates)
+
     def test_color_boundary_never_splits_numeric_unit_or_latin(self):
         records,y = flow([dict(text='甲'*22+'10 ',style=[2,0]),
                           dict(text='EN，SR点数和MAP兵器。',style=[2,7])],38,19,25)
@@ -96,7 +112,11 @@ class SpQaNativeTests(unittest.TestCase):
         self.assertEqual(len(metadata(chunk)),264)
         for n in range(1,103):
             if n not in report['native_pages']:
-                self.assertEqual(styled_runs(shared_records(page(before,n),R)),
+                expected = styled_runs(shared_records(page(before,n),R))
+                if n in (17,25):
+                    expected = [(style, text.replace('TRI兵器','TRI武器'))
+                                for style,text in expected]
+                self.assertEqual(expected,
                                  styled_runs(shared_records(page(chunk,n),R)))
             self.assertEqual(page(chunk,n)['sprite_bytes'],page(jp,n)['sprite_bytes'])
             self.assertEqual(page(chunk,n)['size'],page(jp,n)['size'])

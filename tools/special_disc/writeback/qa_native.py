@@ -11,11 +11,28 @@ from srwz.codec import decode_production, reencode_changed_suffix
 
 LAYOUT = ROOT / 'config/products/special-disc/qa-layout.json'
 CORPUS = ROOT / 'corpus/zh/special-disc/native-text.json'
+SHARED_UPDATES = ROOT / 'config/editorial/special-disc/qa-shared-updates.json'
 from srwz.qa_typography import (
     MAX_X, CLOSE, OPEN, ATOMIC, PROTECTED, legal_break, split_glyphs,
     emit, flow, styled_runs, shared_records, repair_shared, validate_records,
     pack_page,
 )
+
+
+def shared_identity(value):
+    return sha(json.dumps(value, ensure_ascii=False, sort_keys=True,
+                          separators=(',', ':')).encode())
+
+
+def approved_shared_update(current, desired, key, updates):
+    """Allow only a reviewed transition; preserve the concurrent-edit guard."""
+    if current == desired:
+        return False
+    binding = updates.get(key, {})
+    require(binding.get('before_sha256') == shared_identity(current) and
+            binding.get('after_sha256') == shared_identity(desired),
+            f'Concurrent shared Q&A text/style drift: {key}')
+    return True
 
 
 def native_records(binding, entry):
@@ -68,6 +85,10 @@ def apply_reviewed_chunk(current, source, original_jp, original_zh, table, overr
     encoder = PreparedTextEncoder(table, overrides)
     output = bytearray(current)
     report = dict(native_pages=[], shared_layout_repairs=[], metadata=[], page_records=[])
+    updates = json.loads(SHARED_UPDATES.read_text())
+    require(updates['schema_version'] == 1, 'Shared Q&A update schema drift')
+    report['shared_text_updates'] = []
+    report['shared_updates_sha256'] = sha(SHARED_UPDATES.read_bytes())
     by_page = {e['page']:e for e in bindings['pages']}
     for n in range(1,103):
         jp, og, zh, now = [page(chunk,n) for chunk in (source,original_jp,original_zh,current)]
@@ -87,8 +108,10 @@ def apply_reviewed_chunk(current, source, original_jp, original_zh, table, overr
         else:
             require(source[jp['start']:jp['start']+jp['size']] == original_jp[og['start']:og['start']+og['size']], 'Unreviewed SP answer differs')
             require(jp['size'] == zh['size'], 'Shared Q&A allocation size drift')
-            require(styled_runs(shared_records(now,runtime)) == styled_runs(shared_records(zh,runtime)),
-                    f'Concurrent shared Q&A text/style drift: {n}')
+            if approved_shared_update(styled_runs(shared_records(now,runtime)),
+                                      styled_runs(shared_records(zh,runtime)),
+                                      f'page/{n:03d}', updates['updates']):
+                report['shared_text_updates'].append(f'page/{n:03d}')
             records, fixes = repair_shared(shared_records(zh,runtime))
             if fixes:
                 report['shared_layout_repairs'].append(dict(page=n,repairs=fixes))
@@ -114,8 +137,11 @@ def apply_reviewed_chunk(current, source, original_jp, original_zh, table, overr
             blob += encoded
             report['metadata'].append(dict(id=id_,translation=text))
         else:
-            require(decode_text(now+b'\0',0,runtime).text == decode_text(zh+b'\0',0,runtime).text,
-                    f'Concurrent shared Q&A metadata drift: {id_}')
+            key = f'metadata/{group}/{index:03d}'
+            if approved_shared_update(decode_text(now+b'\0',0,runtime).text,
+                                      decode_text(zh+b'\0',0,runtime).text,
+                                      key, updates['updates']):
+                report['shared_text_updates'].append(key)
             blob += zh+b'\0'
     end = page(source,1)['start']
     require(len(blob) <= end-0x476, 'Q&A metadata allocation overflow')
