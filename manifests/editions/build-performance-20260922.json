@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "status": "performance_regressions_fixed_static_verified_runtime_not_tested",
+  "commits": [
+    "3c0a323",
+    "294f320"
+  ],
+  "benchmark_root": "build/benchmarks/default-skip-performance/project",
+  "baseline_input_digest": "086fbca37c31fffde79a21db0df7c8c340ae8c5a83b5c23a393ad534590cec85",
+  "scope": "same frozen corpus as the previous default-skip build; temporary one-line edit in an isolated benchmark only",
+  "measurements": {
+    "baseline_three_editions_seconds": 374.181,
+    "full_three_editions_seconds": 239.325,
+    "no_change_three_editions_seconds": 15.16,
+    "one_line_original_seconds": 61.558,
+    "forced_original_seconds": 100.016,
+    "incremental_iso_equals_forced": true,
+    "original_sha256": "4c2938e473a0e407582837e59eddfb464d9035212eb5708091eb34faaf083765",
+    "one_line_component_seconds": 19.05,
+    "restored_iso_equals_original_full_baseline": true,
+    "restored_iso_sha256": "f3a36c90bad5a4e303ecd4e44b84563ad460909716100fb8fbbe7bf8a4021ced"
+  },
+  "full_timing": {
+    "started_at": "2026-09-22T12:19:52.601846+00:00",
+    "preflight_and_snapshot_seconds": 4.74,
+    "editions": {
+      "original": {
+        "seconds": 107.85,
+        "mode": "build",
+        "phases": {
+          "codec": {
+            "returncode": 0,
+            "seconds": 0.122
+          },
+          "components": {
+            "returncode": 0,
+            "seconds": 63.657
+          },
+          "fonts": {
+            "returncode": 0,
+            "seconds": 0.09
+          },
+          "iso": {
+            "returncode": 0,
+            "seconds": 11.126
+          },
+          "iso-toolchain": {
+            "returncode": 0,
+            "seconds": 7.493
+          },
+          "readback": {
+            "returncode": 0,
+            "seconds": 17.565
+          }
+        },
+        "daily_test_seconds": 1.627
+      },
+      "best": {
+        "seconds": 28.464,
+        "mode": "build",
+        "phases": {
+          "native-components-and-iso": {
+            "returncode": 0,
+            "seconds": 21.597
+          }
+        },
+        "daily_test_seconds": 1.566
+      },
+      "sp": {
+        "seconds": 98.268,
+        "mode": "build",
+        "phases": {
+          "rust-compressor": {
+            "returncode": 0,
+            "seconds": 2.408
+          },
+          "sp-full-text": {
+            "returncode": 0,
+            "seconds": 88.951
+          }
+        },
+        "daily_test_seconds": 1.519
+      }
+    },
+    "total_seconds": 239.325,
+    "finished_at": "2026-09-22T12:23:51.929303+00:00"
+  },
+  "unchanged_timing": {
+    "started_at": "2026-09-22T12:24:15.532125+00:00",
+    "preflight_and_snapshot_seconds": 4.584,
+    "editions": {
+      "original": {
+        "seconds": 2.946,
+        "mode": "verified_current_reuse",
+        "phases": {},
+        "daily_test_seconds": 0.0
+      },
+      "best": {
+        "seconds": 3.006,
+        "mode": "verified_current_reuse",
+        "phases": {},
+        "daily_test_seconds": 0.0
+      },
+      "sp": {
+        "seconds": 4.621,
+        "mode": "verified_current_reuse",
+        "phases": {},
+        "daily_test_seconds": 0.0
+      }
+    },
+    "total_seconds": 15.16,
+    "finished_at": "2026-09-22T12:24:30.692408+00:00"
+  },
+  "one_line_original_timing": {
+    "started_at": "2026-09-22T12:45:39.441760+00:00",
+    "preflight_and_snapshot_seconds": 1.817,
+    "editions": {
+      "original": {
+        "seconds": 59.74,
+        "mode": "build",
+        "phases": {
+          "codec": {
+            "returncode": 0,
+            "seconds": 0.117
+          },
+          "components": {
+            "returncode": 0,
+            "seconds": 19.05
+          },
+          "fonts": {
+            "returncode": 0,
+            "seconds": 0.091
+          },
+          "iso": {
+            "returncode": 0,
+            "seconds": 10.259
+          },
+          "iso-toolchain": {
+            "returncode": 0,
+            "seconds": 4.995
+          },
+          "readback": {
+            "returncode": 0,
+            "seconds": 17.202
+          }
+        },
+        "daily_test_seconds": 1.572
+      }
+    },
+    "total_seconds": 61.558,
+    "finished_at": "2026-09-22T12:46:41.000519+00:00"
+  },
+  "sp_decoded_equivalence": {
+    "status": "all_changed_sp_members_decode_identically",
+    "old_iso_sha256": "cd4e8ae3ba23d6974cfe896caf250af54a55014645990e8fe6556acdc6ede3e5",
+    "new_iso_sha256": "5cc6e625b1835b6d1c4c9f59a3c415fff84cdfbadb639ea0800a64f651ed2e83",
+    "changed_members": [
+      "DATA/COMPDATA.BN",
+      "DATA/STAGE.BIN",
+      "DATA/NISVDATA.BIN"
+    ],
+    "stage_recompressed_chunks": [
+      60,
+      61
+    ],
+    "nisv_chunks": [
+      4,
+      5,
+      6
+    ],
+    "all_other_sp_output_members_identical": true
+  },
+  "tests": {
+    "related_frozen_snapshot_tests": 106,
+    "status": "passed"
+  },
+  "evidence_directory": "work/reviews/build-performance-20260922",
+  "runtime": "not_tested"
+}

@@ -1,6 +1,6 @@
 # Original、The Best 与 SP 的统一构建
 
-`python3 tools/build_editions.py` 默认刷新并构建三个当前 ISO，三版均内置方块键跳过战斗动画（skip）。每版都有独立写入锁、
+`python3 tools/build_editions.py` 默认更新三个当前 ISO，三版均内置方块键跳过战斗动画（skip）。输入未变且回执、ISO 与日常副本验证通过时直接复用；Original 语料更新使用已验证的组件缓存。每版都有独立写入锁、
 工作目录、原盘身份和最终回执。旧发布快照不被覆盖，完整 ISO 不提交到 Git。
 
 ```bash
@@ -8,6 +8,7 @@ python3 tools/build_editions.py --plan
 python3 tools/build_editions.py
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
+python3 tools/build_editions.py --force-rebuild
 python3 tools/verify_editions.py --manifest work/editions/<input_digest>/original-best-sp.json
 ```
 
@@ -67,3 +68,15 @@ Pillow。默认统一构建不依赖 Pillow，也不重新栅格化已冻结图�
 子命令分项耗时及日常副本校验/发布耗时。各版工作区另有 `timing.json`，失败阶段也记录退出码与耗时。
 分项之和之外的耗时包括快照物化、缓存准备、文件哈希、发布当前盘和回执检查；三版总耗时包含这些开销。
 这是现有本地缓存条件下的正常完整构建计时，不能当作空缓存机器的冷启动时间。
+
+## 日常更新与强制复验
+
+- 相同输入：核对冻结输入、ISO 全盘哈希、内容回读回执与日常副本后直接复用，计时标记 `verified_current_reuse`。
+- Original 仅语料变化：只有前一批次的工具、配置、字体与基线身份一致时，才将其组件缓存独立复制到新私有工作区。格式化后的生成配置先按缓存哈希验证；封盘后刷新过的 ISO 输出锁不当成组件缓存。缓存缺失或工具／配置变化则完整重建。切换构建目标导致冻结依赖集合变化时同样保守回退。
+- 私有工作区用 `work/edition-inputs.json` 中的冻结清单提供配置列表和源码身份，不向父目录 Git 查询文件。
+- `--force-rebuild` 跳过当前镜像复用，并强制 Original 全组件、原盘布局重提取及完整内容回读。
+- SP 保留发布前独立语义回读；外层验证该回执、最终成员与 ISO 的绑定，取消同一验收脚本的第二次完整执行。
+- SP 可变文本块先使用 `rust-fit`，只有原定槽位容纳不下才回退 `rust-maximum`。已冻结图像的压缩字节契约不变。
+
+目前语料变更后的 SP 仍走完整 SP 构建；无变化三版复用、Original 组件增量、三版全量计时分别报告。
+性能修复及复测见 [2026-09-22 构建性能复核](BUILD_PERFORMANCE_20260922.md)。
