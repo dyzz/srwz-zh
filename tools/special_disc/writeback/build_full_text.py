@@ -25,6 +25,7 @@ from migrate_stage_dialogue import read_disc_member
 from chart_visibility import apply_chart_visibility
 from special_disc.writeback.unit_names import apply_unit_names
 from special_disc.writeback.pilot_names import apply_pilot_names
+from special_disc.writeback.keyword_list_names import apply_keyword_names
 from weapon_detail_labels import apply_weapon_detail_labels
 from migrate_slps_text import encoding_tables
 from special_disc.writeback.terrain_names import apply_terrain_names, MEMBER as TERRAIN_MEMBER
@@ -208,6 +209,7 @@ def assemble():
     require(sha(decoded_font)==font_report['font']['decoded_sha256'],'assembled shared font mismatch')
     patches[CD],unit_report=apply_unit_names(patches[CD],source_table,menu_overrides,runtime_table,decoded_font,proposal)
     patches[CD],pilot_report=apply_pilot_names(patches[CD],source_table,menu_overrides,runtime_table)
+    patches[CD],keyword_report=apply_keyword_names(patches[CD],source_table,stored_overrides,runtime_table)
     verify_title_bindings(decode_production(patches[CD]).output)
     patches[VT1],title_report=apply_stage_titles(patches[VT1],patches[EXE])
     patches[EXE],patches[VT1],link_report=apply_data_link_bonus(
@@ -219,6 +221,7 @@ def assemble():
     stats['sp_title_drawing_records']=reports['image-labels']['title_atlas']['drawing_records']
     stats['additional_native_unit_names']=unit_report['entries']
     stats['additional_native_pilot_name_fields']=pilot_report['entries']
+    stats['repaired_keyword_list_names']=keyword_report['repaired_entries']
     stats['additional_native_unit_name_pointers']=unit_report['pointer_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso')
     require(not temporary.exists(),'another ISO assembly is in progress')
@@ -240,6 +243,7 @@ def assemble():
     report['terrain_names']=terrain_report
     report['unit_names']=unit_report
     report['pilot_names']=pilot_report
+    report['keyword_list_names']=keyword_report
     report['stage_titles']=title_report
     report['world_map_titles']=reports['image-labels']['world_map_titles']
     report['title_atlas']=reports['image-labels']['title_atlas']

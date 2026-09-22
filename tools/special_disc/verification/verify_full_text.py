@@ -20,6 +20,7 @@ from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_vi
 from srwz.summary import parse_summary
 from special_disc.writeback.unit_names import CONTRACT as UNIT_CONTRACT, verify_unit_names
 from special_disc.writeback.pilot_names import CONTRACT as PILOT_CONTRACT, verify_pilot_names
+from special_disc.writeback.keyword_list_names import CONTRACT as KEYWORD_CONTRACT, verify_keyword_names
 from weapon_detail_labels import CONTRACT as WEAPON_CONTRACT, verify_weapon_detail_labels
 from special_disc.writeback.terrain_names import CONTRACT as TERRAIN_CONTRACT, verify_terrain_names, MEMBER as TERRAIN_MEMBER
 from special_disc.writeback.stage_titles import SNAPSHOT as TITLE_SNAPSHOT, verify_stage_titles, verify_title_bindings
@@ -60,6 +61,12 @@ def main(iso=None, work=None):
     pilot_corpus=manifest['pilot_names']['corpus']
     require(file_sha(ROOT/pilot_corpus['path'])==pilot_corpus['sha256'],'pilot-name corpus drift')
     counts['native_pilot_name_fields']=len(pilot_names)
+    keyword_names=verify_keyword_names(member('DATA/COMPDATA.BN'),readback)
+    require(keyword_names==manifest['keyword_list_names']['labels'],'keyword-list receipt drift')
+    require(file_sha(KEYWORD_CONTRACT)==manifest['keyword_list_names']['contract_sha256'],'keyword-list contract drift')
+    keyword_corpus=manifest['keyword_list_names']['corpus']
+    require(file_sha(ROOT/keyword_corpus['path'])==keyword_corpus['sha256'],'keyword corpus drift')
+    counts['keyword_list_names']=len(keyword_names)
     exe=member('SLPS_259.20');arc=member(st.STAGE);hb=member(st.HB)
     nisv_squads=verify_nisv_names(member('DATA/NISVDATA.BIN'),exe,readback)
     require(nisv_squads==manifest['nisv_squad_names'],'NISV squad receipt drift')
