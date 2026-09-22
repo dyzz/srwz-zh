@@ -11,6 +11,7 @@ import tempfile
 from special_disc.source import ROOT, SOURCE_ISO
 
 DIRECTORY = ROOT / 'work/build/special-disc/baselines'
+ISO_TEMP_DIRECTORY = ROOT / 'build/iso/.tmp/baselines'
 _CACHE = {}
 _TEMPS = []
 
@@ -24,8 +25,8 @@ def digest(path):
 
 
 def new_temp_iso(label):
-    DIRECTORY.mkdir(parents=True, exist_ok=True)
-    directory = tempfile.TemporaryDirectory(prefix=f'.{label}-', dir=DIRECTORY)
+    ISO_TEMP_DIRECTORY.mkdir(parents=True, exist_ok=True)
+    directory = tempfile.TemporaryDirectory(prefix=f'.{label}-', dir=ISO_TEMP_DIRECTORY)
     _TEMPS.append(directory)
     atexit.register(directory.cleanup)
     return Path(directory.name) / 'temporary.iso'

@@ -134,11 +134,11 @@ class BuildContext:
 
     @property
     def run_root(self) -> Path:
-        return self._path(f"work/build/{self.profile.profile_id}/{self.run_key}", "work/build")
+        return self._path(f"build/editions/{self.profile.profile_id}/{self.run_key}", "build/editions")
 
     @property
     def project_root(self) -> Path:
-        return self._path(f"work/build/{self.profile.profile_id}/{self.run_key}/project", "work/build")
+        return self._path(f"build/editions/{self.profile.profile_id}/{self.run_key}/project", "build/editions")
 
     @property
     def cache_root(self) -> Path:

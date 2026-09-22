@@ -15,12 +15,11 @@ v0.4.1 双版本冻结与打包步骤见 [发布记录](RELEASE_BUILD_V0.4.1.md)
   `ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2`；
 - 构建工具按 `config/upstream.lock.json` 与 ISO 配置锁定版本。
 
-`rom/` 只读；`work/` 是可重建的提取与组件目录；`build/` 保存本地 ISO 和发布包。
+`rom/` 是只读原盘的兼容入口，实体位于 `build/iso/sources/`；`work/` 保存提取成员、组件和证据。非版本 ISO 统一存放在 `build/`，三版私有工作区使用 `build/editions/`。
 不得在旧汉化 ISO 上重复打补丁，也不得让 `rom/`、完整 ISO、存档或本地运行记录进入
 Git 或发布 ZIP。
 
-ISO 长期保留 `0.4.0-original`、`0.4.0-best`、`current-original`、`current-best`、
-`original`、`best` 六个槽位，实际路径及清理规则见
+带版本的 ISO 原位保留；三份原盘、Original／BEST／SP 当前镜像及私有构建 ISO 按用途集中到 `build/`，实际路径及清理规则见
 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。普通生产入口
 构建 Original；统一入口 `python3 tools/build_editions.py` 默认构建 Original、BEST 与 SP。
 `--editions original,best` 保留本篇双版本构建，`--editions sp` 单独构建 SP。

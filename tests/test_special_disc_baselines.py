@@ -25,6 +25,7 @@ class BaselineTests(unittest.TestCase):
         data = bytearray(self.source.read_bytes());data[101:111]=b'0123456789'
         self.edited.write_bytes(data)
         self.patches = [patch.object(baselines, 'DIRECTORY', self.directory/'inputs'),
+                        patch.object(baselines, 'ISO_TEMP_DIRECTORY', self.directory/'build/iso/.tmp/baselines'),
                         patch.object(baselines, 'SOURCE_ISO', self.source),
                         patch.object(baselines, '_CACHE', {})]
         for item in self.patches:
@@ -40,6 +41,7 @@ class BaselineTests(unittest.TestCase):
         self.assertEqual(baselines.digest(restored), json.loads(lock.read_text())['iso_sha256'])
         self.assertEqual(baselines.baseline_iso('text-canary'), restored)
         self.assertNotEqual(restored, CURRENT_ISO)
+        self.assertTrue(restored.is_relative_to(baselines.ISO_TEMP_DIRECTORY))
 
     def test_changed_source_fails_closed(self):
         self.freeze();self.source.write_bytes(b'wrong')

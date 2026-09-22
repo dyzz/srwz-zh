@@ -20,6 +20,8 @@ python3 tools/verify_editions.py --manifest work/editions/<input_digest>/origina
 | The Best | `rom/best.iso` | `build/iso/zh-release-best/current-best.iso` |
 | SP | `rom/Super Robot Taisen Z - Special Disc [J].iso` | `build/iso/special-disc/sp-current.iso` |
 
+原盘实体统一位于 `build/iso/sources/`，表中的 `rom/` 为兼容入口。各版私有工作区位于 `build/editions/<profile>/<run-key>/project/`；包含原盘副本和临时 ISO 的目录不再新建于 `work/build/`。目录说明及历史路径兼容见 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。
+
 本篇构建工具要求见 [构建与运行](BUILD_AND_RUNTIME.md)。三份日文原盘必须匹配各版
 `config/editions/<edition>/edition.json` 中的大小、SHA-256 与可执行文件身份。
 

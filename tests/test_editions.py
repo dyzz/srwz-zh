@@ -171,6 +171,13 @@ class EditionTests(unittest.TestCase):
         self.assertNotEqual(a.run_root, BuildContext(self.root, original, "b" * 64).run_root)
         self.assertNotEqual(a.output_iso, self.root / "build/iso/zh-release-full-story/current-original.iso")
 
+    def test_all_iso_bearing_workspaces_are_under_build(self):
+        for profile in load_release_profiles(self.root, build_editions.DEFAULT_CONFIG, ("original", "best", "sp")):
+            context = BuildContext(self.root, profile, "a" * 64)
+            self.assertTrue(context.project_root.is_relative_to(self.root / "build/editions"))
+            self.assertEqual(context.project_root.parent, context.run_root)
+            self.assertTrue(context.output_iso.is_relative_to(self.root / "build/iso"))
+
     def test_symlinked_output_root_cannot_escape_project(self):
         with tempfile.TemporaryDirectory() as external:
             (self.root / "work").symlink_to(external, target_is_directory=True)
