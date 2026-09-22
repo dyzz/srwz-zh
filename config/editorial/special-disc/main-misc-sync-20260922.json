@@ -1,0 +1,1905 @@
+{
+  "schema_version": 1,
+  "main_review_sha256": "e095c2615dd4a17d36ed14ae928805a86cf25c982cb5307d2097af50cba08137",
+  "changes": [
+    {
+      "main_id": "ui/compdata/0007DFA0",
+      "sp_id": "sd/compdata/96150",
+      "source": "クイックコマンドの設定やＢＧＭ選択など、各種システム設定を行います。",
+      "before": "设置快捷指令、选择BGM等各项系统设置。",
+      "after": "设置快捷指令、选择BGM等各项系统选项。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/00344520",
+      "sp_id": "sd/exe/3BFB00",
+      "source": "全体コマンドの『途中セーブ』を開始します。",
+      "before": "启动全体指令中的『中途保存』。",
+      "after": "启动全体指令中的『中断保存』。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/01/0004",
+      "sp_id": "sd/exe/3B4EB8",
+      "source": "欧米読み",
+      "before": "西式读法",
+      "after": "西式顺序",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/01/0005",
+      "sp_id": "sd/exe/3B4E90",
+      "source": "日本読み",
+      "before": "日式读法",
+      "after": "日式顺序",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/00340E40",
+      "sp_id": "sd/exe/3B3B50",
+      "source": "〜【パイロット養成】乗員の選択〜",
+      "before": "〜【驾驶员培养】选择成员〜",
+      "after": "〜【驾驶员培养】选择驾驶员〜",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/06/0008",
+      "sp_id": "sd/compdata/8A1C0",
+      "source": "〜【検索】使用指定〜",
+      "before": "～【搜索】使用状态～",
+      "after": "～【搜索】指定使用～",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/06/0012",
+      "sp_id": "sd/compdata/8A608",
+      "source": "リフター機能",
+      "before": "飞行功能",
+      "after": "升空功能",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/00/0032",
+      "sp_id": "sd/exe/3C0F60",
+      "source": "・ソート・サブ情報の記憶",
+      "before": "・记忆排序和子信息",
+      "after": "・记忆排序和附加信息",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00073DE0",
+      "sp_id": "sd/compdata/8A1E0",
+      "source": "小隊内に修理機能を持っているユニットがいる場合、\n小隊全機が修理ユニット１機につきＨＰ回復１０％の効果を持つ。",
+      "before": "小队内每有1台具备修理装置的机体，\n小队全体机体便获得HP回复10%的效果。",
+      "after": "小队内每有1台持有修理装置的单位，\n小队全机便获得HP回复10%的效果。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00077580",
+      "sp_id": "sd/compdata/8D950",
+      "source": "小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
+      "before": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n移动类型：全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机均不可移动时为空白（移动极难或无法移动）。",
+      "after": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007B280",
+      "sp_id": "sd/compdata/917B0",
+      "source": "小隊を構成する機体が所持する武器のうち、\n最も強い武器の攻撃力です。",
+      "before": "组成小队的机体所持武器中，\n最强武器的攻击力。",
+      "after": "组成小队的机体所持武器中，\n最高的攻击力数值。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007C7C0",
+      "sp_id": "sd/compdata/92CF0",
+      "source": "カーソル位置の小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
+      "before": "光标所在小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机均不可移动时为空白（移动极难或无法移动）。",
+      "after": "表示光标所在小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007D9A0",
+      "sp_id": "sd/compdata/95B70",
+      "source": "隣接する味方小隊または自小隊内にいるユニット１機のＥＮと残弾を全回復します。",
+      "before": "完全恢复位于相邻友方小队或本小队内的1台机体的EN与剩余弹药。",
+      "after": "为本小队或相邻我方小队中的1台单位补满EN和弹药。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007E490",
+      "sp_id": "sd/compdata/96640",
+      "source": "トライチャージ使用可能　小隊攻撃使用不可\n援護防御使用可能　対全体攻撃で小隊員の防御・回避にプラス補正",
+      "before": "可使用TRI攻击，不可使用小队攻击，可进行援护防御\n受到全体攻击时，小队员的防御和回避获得有利修正",
+      "after": "TRI攻击可用，小队攻击不可用；可援护防御\n受到全体攻击时，队员的防御、回避获得加成",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007E500",
+      "sp_id": "sd/compdata/966B0",
+      "source": "小隊攻撃は敵一機を集中攻撃（小隊員の攻撃力５０％）　援護防御使用可能\nバリアが小隊全機に適用　対全体攻撃で小隊長の防御にプラス補正",
+      "before": "小队攻击集中攻击敌方1台机体（队员攻击力50%），可进行援护防御\n屏障作用于小队全体机体；受到全体攻击时，小队长的防御获得有利修正",
+      "after": "小队攻击集中于敌单机（队员攻击力50%）；可援护防御\n屏障对小队全机生效；受到全体攻击时，队长防御获得加成",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007E590",
+      "sp_id": "sd/compdata/96740",
+      "source": "小隊攻撃はそれぞれの敵を攻撃（小隊員の攻撃力８０％）　援護防御使用不可\n対全体攻撃で小隊員の防御にプラス補正",
+      "before": "小队攻击分别攻击对应的敌人（队员攻击力80%），不可进行援护防御\n受到全体攻击时，小队员的防御获得有利修正",
+      "after": "小队攻击分别攻击对应敌机（队员攻击力80%）；不可援护防御\n受到全体攻击时，队员的防御获得加成",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007F640",
+      "sp_id": "sd/compdata/97810",
+      "source": "＜一括フォーメーション＞　部隊内の隊形を選択します。",
+      "before": "＜统一阵型＞　选择部队内各小队的阵型。",
+      "after": "＜批量设置阵型＞　选择部队内各小队的阵型。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007F970",
+      "sp_id": "sd/compdata/97B40",
+      "source": "〜『　　　　：トライ』小隊指定〜",
+      "before": "〜『　　　：三角』指定小队〜",
+      "after": "〜『　　　：TRI』指定小队〜",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033E960",
+      "sp_id": "sd/exe/3B15E0",
+      "source": "バランスオーダーで編成します。",
+      "before": "按均衡编成进行编组。",
+      "after": "按均衡方案进行编成。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/00/0170",
+      "sp_id": "sd/exe/3BF9A8",
+      "source": "・合体攻撃相手",
+      "before": "・合体攻击对象",
+      "after": "・合体攻击搭档",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/10/0015",
+      "sp_id": "sd/exe/3BE8E0",
+      "source": "獲得強化パーツ",
+      "before": "获得强化部件",
+      "after": "获得强化零件",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/10/0015",
+      "sp_id": "sd/exe/3C0348",
+      "source": "獲得強化パーツ",
+      "before": "获得强化部件",
+      "after": "获得强化零件",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00078AC0",
+      "sp_id": "sd/compdata/8EF70",
+      "source": "戦闘マップを終了させるための条件です。\n条件を満たす、またはターンの進行によってイベントが発生し、\n更なる条件に変更、または新たに条件が追加されることがあります。\nその場合は、最新の条件が記載された作戦目的画面が表示されます。",
+      "before": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目的画面。",
+      "after": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00078BA0",
+      "sp_id": "sd/compdata/8F050",
+      "source": "ゲームオーバーになってしまう条件です。\n条件を満たす、またはターンの進行によってイベントが発生し、\n更なる条件に変更、または新たに条件が追加されることがあります。\nその場合は、最新の条件が記載された作戦目的画面が表示されます。",
+      "before": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目的画面。",
+      "after": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007B490",
+      "sp_id": "sd/compdata/919C0",
+      "source": "グラヴィオンが重力子臨界に達するまでの残りターン数です。\n残りターン数が０になると合神は解除されてしまい、\n同じ戦闘マップ上では再び合神することはできません。\n敗北条件によっては、ゲームオーバーになる事もあります。",
+      "before": "超重神达到重力子临界前的剩余回合数。\n变为0后合神解除，本地图内无法再次合神。\n根据败北条件，也可能导致游戏结束。",
+      "after": "格兰维昂达到重力子临界前的剩余回合数。\n减至0后合神解除，且本战斗地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007F520",
+      "sp_id": "sd/compdata/976F0",
+      "source": "＜援護防御に入れる機体がいたら入ります。＞",
+      "before": "<width:12><height:0C><space:12>＜有可进行援护防御的机体时，便会加入。＞",
+      "after": "<width:12><height:0C><space:12>＜有可援防的机体时，自动援护防御。＞",
+      "path": "corpus/zh/special-disc/system-text.json"
+    },
+    {
+      "main_id": "ui/compdata/0007F550",
+      "sp_id": "sd/compdata/97720",
+      "source": "＜援護防御に入れる機体がいても入りません。＞",
+      "before": "<width:12><height:0C><space:12>＜即使有可进行援护防御的机体也不加入。＞",
+      "after": "<width:12><height:0C><space:12>＜有可援防的机体时，也不自动援防。＞",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033FD68",
+      "sp_id": "sd/exe/3B2A28",
+      "source": "：移動元選択",
+      "before": "：选择移动源",
+      "after": "：选择起点",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033FD78",
+      "sp_id": "sd/exe/3B2A38",
+      "source": "：移動先選択",
+      "before": "：移动目标",
+      "after": "：选择终点",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/11/0008",
+      "sp_id": "sd/exe/3C1A60",
+      "source": "戦闘不能（Ｐ系）",
+      "before": "行动不能（P系）",
+      "after": "无法战斗（P系）",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3B8A00",
+      "source": "強化パーツ",
+      "before": "强化部件",
+      "after": "强化零件",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3BF2F8",
+      "source": "強化パーツ",
+      "before": "强化部件",
+      "after": "强化零件",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3C0B48",
+      "source": "強化パーツ",
+      "before": "强化部件",
+      "after": "强化零件",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3C24B8",
+      "source": "強化パーツ",
+      "before": "强化部件",
+      "after": "强化零件",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3C2558",
+      "source": "強化パーツ",
+      "before": "强化部件",
+      "after": "强化零件",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00076CE0",
+      "sp_id": "sd/compdata/8D0E0",
+      "source": "武器の攻撃可能回数で、『現在の弾数／最大弾数』と表記されます。\n武器を使用すると１ずつ消費し、０になると使用不能になります。\n「補給」コマンドかカートリッジの使用、\nまたは戦艦に搭載することで最大弾数まで回復します。",
+      "before": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n可通过“补给”指令、使用弹药筒，\n或搭载战舰回复至最大弹数。",
+      "after": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n通过“补给”指令、使用弹药筒，\n或让机体搭载于战舰，可回复至最大弹数。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007D6F0",
+      "sp_id": "sd/compdata/958C0",
+      "source": "空中に移動します。空中では味方フェイズの開始時にＥＮを１０消費します。",
+      "before": "移动到空中。处于空中时，每次我方阶段开始会消耗10EN。",
+      "after": "移动到空中。处于空中时，每次我方回合开始会消耗10EN。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007D880",
+      "sp_id": "sd/compdata/95A50",
+      "source": "戦艦に搭載します。搭載中は味方フェイズ開始時にＨＰ・ＥＮが１５％、弾数が全回復します。",
+      "before": "搭载到战舰。搭载期间，每次我方阶段开始恢复15%的HP、EN，弹药全部恢复。",
+      "after": "搭载到战舰。搭载期间，每次我方回合开始恢复15%的HP、EN，弹药全部恢复。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007DB00",
+      "sp_id": "sd/compdata/95CD0",
+      "source": "複数ユニットが１機に合体します。ＨＰとＥＮは合体前の割合を平均化した値になります。",
+      "before": "多台单位合体成一台。合体后的HP、EN为合体前各自比例的平均值。",
+      "after": "多台单位合体成一台。合体后的HP、EN比例，分别取合体前各单位相应比例的平均值。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007E790",
+      "sp_id": "sd/compdata/96940",
+      "source": "マップ兵器／射程１以外の武器の射程を＋１",
+      "before": "除MAP武器和射程1武器外，射程＋1",
+      "after": "射程＋1（MAP及射程1武器除外）",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/08/0040",
+      "sp_id": "sd/exe/3A98F0",
+      "source": "サイズ差、ユニット数によるＡＬＬ攻撃のダメージ減少と、\n相手の防御に関する特殊能力・スキルを無効化する。",
+      "before": "无视尺寸差造成的伤害衰减，以及ALL攻击因目标数量产生的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "after": "无视体型差造成的减伤、单位数量造成的ALL攻击伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/08/0054",
+      "sp_id": "sd/exe/3A9A90",
+      "source": "自小隊の行動回数を一回増やす。\n重ねがけは無効。",
+      "before": "本小队可行动次数增加1次。\n重复施加无叠加效果。",
+      "after": "本小队可行动次数增加1次。\n重复施加不叠加。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/04/0067",
+      "sp_id": "sd/compdata/826D0",
+      "source": "気力１３０以上で発動可能。\n命中率とは無関係に、敵の攻撃を完全に回避する。\n発動確率は能力毎に異なる。",
+      "before": "气力130以上时发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "after": "气力130以上时可发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/04/0102",
+      "sp_id": "sd/compdata/89CC0",
+      "source": "マップ兵器及び射程１以外の全ての武器の\n最長射程を＋１する。",
+      "before": "除MAP武器和射程为1的武器外，\n所有武器的最大射程＋1。",
+      "after": "除MAP武器、射程仅为1的武器外，\n所有武器最大射程＋1。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/09/0011",
+      "sp_id": "sd/exe/3A88B0",
+      "source": "相手より技量が２０以上ある場合、\n相手の反撃の後、自分に対して援護攻撃を行う。",
+      "before": "技量比对手高20以上时，\n在对手反击后，由自己再发动一次援护攻击。",
+      "after": "技量比对手高20以上时，\n在对手反击后，对自己进行一次援护攻击。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/09/0042",
+      "sp_id": "sd/exe/3A8DC0",
+      "source": "サイズ差補正無視",
+      "before": "无视尺寸差修正",
+      "after": "无视体型差修正",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/09/0043",
+      "sp_id": "sd/exe/3A8DE0",
+      "source": "サイズ差補正による与えるダメージの減少を\n無視する。",
+      "before": "无视尺寸差修正造成的伤害降低。",
+      "after": "无视体型差修正造成的伤害降低。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00075F70",
+      "sp_id": "sd/compdata/8C370",
+      "source": "機体が特殊装甲を所持していると、このアイコンが点灯します。\n<<width:31>>と同様に敵の攻撃を防いでくれますが、\n対象はダメージだけではなく特殊効果の場合もあります。",
+      "before": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n但有时抵御的不是伤害，而是特殊效果。",
+      "after": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n作用对象不仅是伤害，有时还包括特殊效果。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/000722F0",
+      "sp_id": "sd/compdata/7B890",
+      "source": "マップ兵器及び射程１以外の\n武器の射程＋１",
+      "before": "除MAP及射程1武器外，\n其他武器射程＋1",
+      "after": "武器射程＋1\n（MAP及射程1武器除外）",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/000722F0",
+      "sp_id": "sd/compdata/88D20",
+      "source": "マップ兵器及び射程１以外の\n武器の射程＋１",
+      "before": "MAP武器及射程1以外的\n武器射程＋1",
+      "after": "武器射程＋1\n（MAP及射程1武器除外）",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00072910",
+      "sp_id": "sd/compdata/89340",
+      "source": "パイロット系の\n特殊効果武器無効",
+      "before": "使驾驶员类的\n特殊效果武器无效",
+      "after": "使针对驾驶员的\n武器特殊效果无效",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00072930",
+      "sp_id": "sd/compdata/89360",
+      "source": "全ての特殊効果武器無効",
+      "before": "使全部特殊效果武器无效",
+      "after": "武器特殊效果全部无效",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/01/0019",
+      "sp_id": "sd/compdata/7B8D0",
+      "source": "照準値＋２０\nマップ兵器及び射程１以外の\n武器の射程＋１",
+      "before": "瞄准值＋20\n除MAP及射程1武器外，\n其他武器射程＋1",
+      "after": "瞄准值＋20\n射程＋1\n（MAP及射程1武器除外）",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/01/0021",
+      "sp_id": "sd/compdata/7B910",
+      "source": "移動力＋２　運動性・照準値＋２５\nマップ兵器及び\n射程１以外の武器の射程＋１",
+      "before": "移动力＋2　运动性、瞄准值＋25\n除MAP及射程1武器外，\n其他武器射程＋1",
+      "after": "移动力＋2　运动性＋25\n瞄准值＋25　射程＋1\n（MAP及射程1武器除外）",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/01/0029",
+      "sp_id": "sd/compdata/7BA30",
+      "source": "自軍行動開始時にＥＮが\n最大値の１０％回復",
+      "before": "我方阶段开始时，EN回复\n最大值的10%",
+      "after": "自军行动开始时，EN回复\n最大值的10%",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/01/0031",
+      "sp_id": "sd/compdata/7BA80",
+      "source": "自軍行動開始時にＨＰが\n最大値の１０％回復",
+      "before": "我方阶段开始时，HP回复\n最大值的10%",
+      "after": "自军行动开始时，HP回复\n最大值的10%",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/01/0059",
+      "sp_id": "sd/compdata/7BF50",
+      "source": "自機のＨＰ、ＥＮ、弾薬を全回復\n使い捨て\n戦艦のみ隣接ユニットに使用可能",
+      "before": "自机的HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "after": "自机HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/01/0105",
+      "sp_id": "sd/compdata/7C600",
+      "source": "寒冷地に生息するトカゲのくんせい。\n美味。",
+      "before": "用栖息在寒冷地区的蜥蜴熏制而成。\n味道不错。",
+      "after": "用寒冷地区的蜥蜴熏制而成。\n味道鲜美。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/Compdata/01/0109",
+      "sp_id": "sd/compdata/7C6A0",
+      "source": "温暖な気候の土地に生息する\n巨大トカゲのくんせい。すこぶる美味。",
+      "before": "用栖息在温暖地区的巨蜥\n熏制而成。美味至极。",
+      "after": "用栖息于温暖地区的巨蜥\n熏制而成，美味至极。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/00/0351",
+      "sp_id": "sd/exe/3B2F10",
+      "source": "〜【強化パーツ】＜外し＞選択〜",
+      "before": "〜【强化零件】选择＜卸下＞〜",
+      "after": "～【强化零件】选择＜卸下＞～",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/00/0351",
+      "sp_id": "sd/exe/3B3060",
+      "source": "〜【強化パーツ】＜外し＞選択〜",
+      "before": "〜【强化零件】选择＜卸下＞〜",
+      "after": "～【强化零件】选择＜卸下＞～",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/00/0351",
+      "sp_id": "sd/exe/3B4F40",
+      "source": "〜【強化パーツ】＜外し＞選択〜",
+      "before": "〜【强化零件】选择＜卸下＞〜",
+      "after": "～【强化零件】选择＜卸下＞～",
+      "path": "corpus/zh/special-disc/system-text.json"
+    },
+    {
+      "main_id": "ui/elf/003400D0",
+      "sp_id": "sd/exe/3B2D90",
+      "source": "〜【強化パーツ】パーツの選択〜",
+      "before": "〜【强化零件】选择部件〜",
+      "after": "〜【强化零件】选择零件〜",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033CCC0",
+      "sp_id": "sd/exe/3AF740",
+      "source": "高出力のビーム兵器を\n稼動させるために必要なパーツ。\n高いエネルギーを蓄電させるだけの\n容量を持つ。",
+      "before": "启动高输出光束武器\n所需的部件。\n拥有足以储存\n高能量的容量。",
+      "after": "驱动高输出光束武器\n所需的部件。\n容量很大，足以储存\n大量电能。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033CF30",
+      "sp_id": "sd/exe/3AF9B0",
+      "source": "南アメリアを中心に生息する\nトカゲのくんせい。\n北半球のものより巨大であり、\n性質も凶暴。\nしかし、その肉は高タンパクで\nあっさりとしながらも\n後を引く美味しさで大人気。\nその美味はくんせいにしても変わらず\n高額で取り引きされる。",
+      "before": "用主要栖息于南阿美利亚的\n蜥蜴熏制而成。\n这种蜥蜴比北半球的种类更加巨大，\n性情也更凶猛。\n其肉高蛋白而清爽，\n鲜美回味令人着迷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "after": "用主要栖息于南阿美利亚的\n蜥蜴熏制而成。\n这种蜥蜴比北半球的种类更大，\n性情也更凶猛。\n其肉富含蛋白质，口味清淡，\n却鲜美得令人回味无穷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033D2B0",
+      "sp_id": "sd/exe/3AFD30",
+      "source": "上流階級の婦人が公的な場に\n出かける際に身につける品。\n気品溢れる銀細工で\n大人の女性の小物として\nその美しさに、さらなる華を\n添える一品。",
+      "before": "上流社会的女士\n出席正式场合时佩戴的饰品。\n这件典雅的银饰\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "after": "上流社会的女士\n出席正式场合时佩戴的饰品。\n这件银饰做工雅致，\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033D8E0",
+      "sp_id": "sd/exe/3B0360",
+      "source": "ただいま品不足のため、強化パーツの販売が出来ません。",
+      "before": "目前商品不足，无法出售强化零件。",
+      "after": "目前缺货，暂不供应强化零件。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033D930",
+      "sp_id": "sd/exe/3B03B0",
+      "source": "：搭乗可能者",
+      "before": "　可搭乘者",
+      "after": "　可驾驶者",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/03/0001",
+      "sp_id": "sd/exe/3BE800",
+      "source": "強化パーツ『",
+      "before": "强化部件『",
+      "after": "强化零件『",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/03/0010",
+      "sp_id": "sd/exe/3BE7C8",
+      "source": "資金　%s　入手",
+      "before": "资金　%s　获得",
+      "after": "获得资金　%s　",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/03/0011",
+      "sp_id": "sd/exe/3BE7D8",
+      "source": "ＢＳ　%s　入手",
+      "before": "BS　%s　获得",
+      "after": "获得BS　%s　",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/00079C30",
+      "sp_id": "sd/compdata/900E0",
+      "source": "現在のパイロットレベルが表示されます。\nただし、ＥＸＰを入手した結果レベルが上昇すると、\n『現在のレベル→上昇後のレベル』と表示されます。\n<<width:37>>を押すと、レベルアップ画面に進みます。",
+      "before": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级／升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "after": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/003411B0",
+      "sp_id": "sd/exe/3B3EC0",
+      "source": "＜パイロットにスキルを修得します。＞",
+      "before": "＜为驾驶员习得技能。＞",
+      "after": "＜让驾驶员习得技能。＞",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/00/0154",
+      "sp_id": "sd/exe/3BF880",
+      "source": "を満たしていません。",
+      "before": "条件。",
+      "after": "。",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/00/0244",
+      "sp_id": "sd/exe/3C2730",
+      "source": "この機体はパイロット未搭乗となるため",
+      "before": "由于这台机体将没有驾驶员搭乘，",
+      "after": "由于该机体将无人驾驶",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "menu/SLPS/00/0244",
+      "sp_id": "sd/exe/3C2910",
+      "source": "この機体はパイロット未搭乗となるため",
+      "before": "由于这台机体将没有驾驶员搭乘，",
+      "after": "由于该机体将无人驾驶",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007CF88",
+      "sp_id": "sd/compdata/94E98",
+      "source": "サブ情報切換え",
+      "before": "切换辅助信息",
+      "after": "切换附加信息",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007D130",
+      "sp_id": "sd/compdata/95040",
+      "source": "デモ：ＯＮ／ＯＦＦ切換え",
+      "before": "演示：开／关切换",
+      "after": "演出：ON／OFF切换",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/compdata/0007D560",
+      "sp_id": "sd/compdata/95490",
+      "source": "確定へ",
+      "before": "去确认",
+      "after": "至确认",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B2CF0",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B2FF8",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B3158",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B32A8",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B3BB0",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B5028",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/system-text.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B8718",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3BF3E0",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3BFF48",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3C1E88",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3C2898",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3C2B08",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3C2CA8",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3C4100",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/system-text.json"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/compdata/96F48",
+      "source": "パイロット",
+      "before": "驾驶员",
+      "after": "机师",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3C15A0",
+      "source": "空専用",
+      "before": "空中用",
+      "after": "空专用",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3C15A8",
+      "source": "陸専用",
+      "before": "陆地用",
+      "after": "陆专用",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "main_id": "ui/elf/003460F0",
+      "sp_id": "sd/exe/3C1860",
+      "source": "離脱",
+      "before": "离脱",
+      "after": "离队",
+      "path": "corpus/zh/special-disc/instructions-overrides.json"
+    },
+    {
+      "sp_id": "sd/nisv/tutorial/00",
+      "path": "corpus/zh/special-disc/instructions-overrides.json",
+      "before": "每个剧本可获得1个SR点数。\n获得条件会写在“作战目的”中。\n根据获得的SR点数比例，难度如下变化。\n“HARD（困难）”获得全部点数的约80％以上\n“NORMAL（普通）”获得全部点数的约30～79％\n“EASY（简单）”获得全部点数不足约30％",
+      "after": "每个剧情关卡设有1点SR点数。\n获得条件会写在“作战目标”中。\n根据获得的SR点数比例，难度如下变化。\n“HARD（困难）”获得全部点数的约80％以上\n“NORMAL（普通）”获得全部点数的约30～79％\n“EASY（简单）”获得全部点数不足约30％",
+      "source": "ＳＲポイントは１シナリオにつき１ポイント設定されている。\n獲得条件は「作戦目的」に記載されている。\nＳＲポイントの獲得状況によって、難易度が以下のように決まる。\n「ＨＡＲＤ（難しい）」全ポイントの約８０％以上獲得\n「ＮＯＲＭＡＬ（普通）」全ポイントの約３０〜７９％獲得\n「ＥＡＳＹ（簡単）」全ポイントの約３０％未満獲得",
+      "main_id": "tutorial shared sentences"
+    },
+    {
+      "sp_id": "sd/nisv/tutorial/09",
+      "path": "corpus/zh/special-disc/instructions-overrides.json",
+      "before": "“攻略Q&A”中汇集了实用的攻略技巧与信息。\n可通过以下两种方式查看。\n1．在标题画面选择“LIBRARY”，\n再选择“攻略Q&A”。\n2．在整备菜单的“选项”中\n选择“资料库”，\n再选择“攻略Q&A”。",
+      "after": "“攻略Q&A”中汇集了实用的攻略技巧与信息。\n查阅方式共有两种。\n1．在标题画面选择“资料库”，\n再选择“攻略Q&A”。\n2．在中场休息的“选项”中\n选择“资料库”，\n再选择“攻略Q&A”。",
+      "source": "「攻略Ｑ＆Ａ」には、ゲームの攻略に役立つコツや情報が\nまとめられている。\n参照の手順は以下の２通り。\n{87}{40}タイトル画面で「ＬＩＢＲＡＲＹ」を選択し、\nさらに「攻略Ｑ＆Ａ」を選択する。\n{87}{41}インターミッションで「オプション」から\n「ライブラリー」を選択し、\nさらに「攻略Ｑ＆Ａ」を選択する。",
+      "main_id": "tutorial shared sentences"
+    },
+    {
+      "sp_id": "image/heading/select-sort",
+      "main_id": "image/heading/select-sort",
+      "path": "config/assets/special-disc/command-headings.json",
+      "before": "选择排列",
+      "after": "选择排序"
+    }
+  ],
+  "already_current": [
+    {
+      "main_id": "ui/compdata/0007AA60",
+      "sp_id": "sd/compdata/90FF0",
+      "final": "插在MEMORY CARD插槽1中的\n记忆卡（PS2）剩余容量。"
+    },
+    {
+      "main_id": "ui/elf/0033BD00",
+      "sp_id": "sd/exe/3AE780",
+      "final": "<color:0E>・游戏开始时持有<color:0E>所有种类的强化零件"
+    },
+    {
+      "main_id": "ui/compdata/0007B570",
+      "sp_id": "sd/compdata/91AA0",
+      "final": "量表显示当前最大HP及改造进度。\n亮起的格数表示已完成的改造阶段。"
+    },
+    {
+      "main_id": "ui/compdata/0007B5F0",
+      "sp_id": "sd/compdata/91B20",
+      "final": "量表显示当前最大EN及改造进度。\n亮起的格数表示已完成的改造阶段。"
+    },
+    {
+      "main_id": "ui/compdata/0007B670",
+      "sp_id": "sd/compdata/91BA0",
+      "final": "量表显示当前装甲值及改造进度。\n亮起的格数表示已完成的改造阶段。"
+    },
+    {
+      "main_id": "ui/compdata/0007B6E0",
+      "sp_id": "sd/compdata/91C10",
+      "final": "量表显示当前运动性及改造进度。\n亮起的格数表示已完成的改造阶段。"
+    },
+    {
+      "main_id": "ui/compdata/0007B760",
+      "sp_id": "sd/compdata/91C90",
+      "final": "量表显示当前瞄准值及改造进度。\n亮起的格数表示已完成的改造阶段。"
+    },
+    {
+      "main_id": "ui/compdata/0007B7E0",
+      "sp_id": "sd/compdata/91D10",
+      "final": "量表显示武器当前的改造RANK。\n亮起的格数表示已完成的改造阶段。"
+    },
+    {
+      "main_id": "ui/compdata/0007B850",
+      "sp_id": "sd/compdata/91D80",
+      "final": "HP的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "main_id": "ui/compdata/0007B8D0",
+      "sp_id": "sd/compdata/91E00",
+      "final": "EN的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "main_id": "ui/compdata/0007B950",
+      "sp_id": "sd/compdata/91E80",
+      "final": "装甲的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "main_id": "ui/compdata/0007B9D0",
+      "sp_id": "sd/compdata/91F00",
+      "final": "运动性的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "main_id": "ui/compdata/0007BA50",
+      "sp_id": "sd/compdata/91F80",
+      "final": "瞄准值的“改造前数值→改造后数值”。\n每阶段提升值因机体而异，\n但各阶段的提升幅度相同。"
+    },
+    {
+      "main_id": "ui/compdata/0007BAD0",
+      "sp_id": "sd/compdata/92000",
+      "final": "攻击力的“改造前RANK→改造后RANK”。\n与其他项目不同，武器改造费用因机体而异。\n此外，各武器的攻击力提升值分别设定。"
+    },
+    {
+      "main_id": "ui/compdata/0007E7F0",
+      "sp_id": "sd/compdata/969A0",
+      "final": "〜【全改造奖励（武器暴击率）】〜"
+    },
+    {
+      "main_id": "ui/compdata/0007E820",
+      "sp_id": "sd/compdata/969D0",
+      "final": "〜【全改造奖励（武器射程）】〜"
+    },
+    {
+      "main_id": "menu/Compdata/06/0012",
+      "sp_id": "sd/compdata/81BD0",
+      "final": "升空功能"
+    },
+    {
+      "main_id": "ui/elf/0033E910",
+      "sp_id": "sd/exe/3B1590",
+      "final": "已按基本方案完成编成。"
+    },
+    {
+      "main_id": "ui/elf/0033E980",
+      "sp_id": "sd/exe/3B1600",
+      "final": "已按均衡方案完成编成。"
+    },
+    {
+      "main_id": "ui/elf/0033FC50",
+      "sp_id": "sd/exe/3B2910",
+      "final": "【均衡方案】"
+    },
+    {
+      "main_id": "menu/SLPS/11/0051",
+      "sp_id": "sd/exe/3C0A88",
+      "final": "强\n化\n零\n件"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3B01F0",
+      "final": "强化零件"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3B2BE8",
+      "final": "强化零件"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3B2D38",
+      "final": "强化零件"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3B3A40",
+      "final": "强化零件"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/exe/3BF3C8",
+      "final": "强化零件"
+    },
+    {
+      "main_id": "menu/SLPS/11/0066",
+      "sp_id": "sd/compdata/8A8E0",
+      "final": "强化零件"
+    },
+    {
+      "main_id": "ui/elf/0033F290",
+      "sp_id": "sd/exe/3B1F10",
+      "final": "机师·Lv"
+    },
+    {
+      "main_id": "ui/elf/0033F290",
+      "sp_id": "sd/exe/3B4070",
+      "final": "机师·Lv"
+    },
+    {
+      "main_id": "menu/SLPS/08/0088",
+      "sp_id": "sd/exe/3A9EA0",
+      "final": "指定友方小队全体驾驶员气力提高10，\n并赋予“祝福”“应援”和“友情”。"
+    },
+    {
+      "main_id": "ui/compdata/00076370",
+      "sp_id": "sd/compdata/8C770",
+      "final": "持续生效的精神指令以蓝色显示，简称如下。\n热：热血[<color:30>]不：不屈[<color:30>]铁：铁壁[<color:30>]集：集中[<color:30>]必：必中[<color:30>]加：加速\n迅：迅速[<color:30>]觉：觉醒[<color:30>]狙：狙击[<color:30>]直：直击[<color:30>]幸：幸运[<color:30>]努：努力\n魂：魂[<color:38>]闪：必闪[<color:33>]手：手下留情[<color:34>]乱：扰乱[<color:34>]分：分析"
+    },
+    {
+      "main_id": "menu/Compdata/04/0058",
+      "sp_id": "sd/compdata/823A0",
+      "final": "处于空中时，每回合不会消耗EN。"
+    },
+    {
+      "main_id": "menu/SLPS/09/0009",
+      "sp_id": "sd/exe/3A8850",
+      "final": "可为相邻小队的队长进行援护攻击。\n每回合最多发动与技能等级相同的次数。"
+    },
+    {
+      "main_id": "menu/SLPS/09/0041",
+      "sp_id": "sd/exe/3A8D30",
+      "final": "使用ALL武器时，敌方小队有2机／3机时，\n原本分别为－20%／－40%的伤害修正，\n分别改为－5%／－25%。"
+    },
+    {
+      "main_id": "ui/compdata/00072410",
+      "sp_id": "sd/compdata/88E40",
+      "final": "敌方回合回避率＋20%"
+    },
+    {
+      "main_id": "ui/compdata/00072510",
+      "sp_id": "sd/compdata/88F40",
+      "final": "我方回合的攻击力\n＋10%"
+    },
+    {
+      "main_id": "menu/Compdata/01/0085",
+      "sp_id": "sd/compdata/7C350",
+      "final": "神秘系统。\n使用方法不明。"
+    },
+    {
+      "main_id": "ui/elf/0033C590",
+      "sp_id": "sd/exe/3AF010",
+      "final": "步行机甲用的\n高输出型发动机。\n同型发动机用于大型战斗机体，\n输出足以让机体\n跳到相当高的高度。\n萨芬格尔和沃卡加利亚也\n采用同型发动机。"
+    },
+    {
+      "main_id": "ui/elf/0033C960",
+      "sp_id": "sd/exe/3AF3E0",
+      "final": "构成军方开发的\n强攻型阿克艾里昂的机体。\n矢量战机共有3种，\n本集市出售的是\n阿尔法战机。\n若要驾驭它，\n似乎需要特定能力。"
+    },
+    {
+      "main_id": "ui/elf/0033CA20",
+      "sp_id": "sd/exe/3AF4A0",
+      "final": "构成军方开发的\n强攻型阿克艾里昂的机体。\n矢量战机共有3种，\n本集市出售的是\n欧米伽战机。\n若要驾驭它，\n似乎需要特定能力。"
+    },
+    {
+      "main_id": "menu/SLPS/00/0112",
+      "sp_id": "sd/exe/3B8840",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "main_id": "menu/SLPS/00/0112",
+      "sp_id": "sd/exe/3BF480",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "main_id": "menu/SLPS/00/0112",
+      "sp_id": "sd/exe/3C0080",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "main_id": "menu/SLPS/00/0112",
+      "sp_id": "sd/exe/3C1410",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "main_id": "menu/SLPS/00/0112",
+      "sp_id": "sd/exe/3C20A0",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "main_id": "menu/SLPS/00/0112",
+      "sp_id": "sd/exe/3C28B0",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "main_id": "menu/SLPS/00/0112",
+      "sp_id": "sd/exe/3C2C00",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "main_id": "menu/SLPS/00/0112",
+      "sp_id": "sd/exe/3C2DB0",
+      "final": "排序用表可能损坏了……\n"
+    },
+    {
+      "main_id": "menu/SLPS/00/0153",
+      "sp_id": "sd/exe/3BF878",
+      "final": "未满足"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B1E60",
+      "final": "机师"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B3FC0",
+      "final": "机师"
+    },
+    {
+      "main_id": "ui/elf/0033F1E0",
+      "sp_id": "sd/exe/3B4220",
+      "final": "机师"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3B2E90",
+      "final": "空专用"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3B3010",
+      "final": "空专用"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3B3170",
+      "final": "空专用"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3B32D0",
+      "final": "空专用"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3B4238",
+      "final": "空专用"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3B5040",
+      "final": "空专用"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3BECA0",
+      "final": "空专用"
+    },
+    {
+      "main_id": "ui/elf/00345E30",
+      "sp_id": "sd/exe/3BFE18",
+      "final": "空专用"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3B2E98",
+      "final": "陆专用"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3B3018",
+      "final": "陆专用"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3B3178",
+      "final": "陆专用"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3B32D8",
+      "final": "陆专用"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3B4240",
+      "final": "陆专用"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3B5048",
+      "final": "陆专用"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3BECA8",
+      "final": "陆专用"
+    },
+    {
+      "main_id": "ui/elf/00345E38",
+      "sp_id": "sd/exe/3BFE20",
+      "final": "陆专用"
+    }
+  ],
+  "preserved_sp_decisions": [
+    {
+      "main_id": "ui/compdata/00079CF0",
+      "sp_id": "sd/compdata/901A0",
+      "reason": "保留SP此前已确认的边框闪烁说明及烁字，避免撤销更具体的语义。",
+      "final": "显示“当前等级→升级后等级”。\n因升级而变化的项目，其边框会闪烁提示。"
+    }
+  ],
+  "missing": [
+    "ui/compdata/0007FD20",
+    "menu/SLPS/00/0083",
+    "ui/elf/0033FC80"
+  ],
+  "errors": [],
+  "files": {
+    "corpus/zh/special-disc/instructions-overrides.json": {
+      "before_sha256": "54a982f17b0bae1a009c089ae426cc06ce2ea47e83d8648b4b8aea3c137ad55f",
+      "after_sha256": "a79e745f8c19c9022bdf94f4fd8e015276f0b5b153a0bba2e4b29e0a01132700"
+    },
+    "corpus/zh/special-disc/system-text.json": {
+      "before_sha256": "e84d85d54fde40b6317337b108a333d65178179d8a13e9bbd72e517014595379",
+      "after_sha256": "4f2852f1c49aceee568f9f768f41b8e0ba59611b282a54f78b78089e5bde9ddc"
+    },
+    "config/assets/special-disc/command-headings.json": {
+      "before_sha256": "0443ec34e562e0d0443018f679761551ed722b6b497c7959daca0ae872afebb0",
+      "after_sha256": "ec03d0c9dca86c7bd62eaf7958c24545560811ac4acdb34dae2ef9174bdc1569"
+    },
+    "config/editorial/special-disc/instructions-layout.json": {
+      "before_sha256": "8f5548f6694d6b9f101a26cd9eaf9cf7a9fa119bf2d99d6243914822f5552c26",
+      "after_sha256": "121a174c2f3b13444330a0925c39b69bee2ef84e7b2d27445c5d9974d64b674a"
+    }
+  },
+  "validation": {
+    "instructions": {
+      "corpus_sha256": "a79e745f8c19c9022bdf94f4fd8e015276f0b5b153a0bba2e4b29e0a01132700",
+      "layout_sha256": "121a174c2f3b13444330a0925c39b69bee2ef84e7b2d27445c5d9974d64b674a",
+      "targets": 167,
+      "components": [
+        {
+          "member": "SLPS_259.20",
+          "targets": 72,
+          "decoded_sha256": "d2410a90cf7f234950a05624474e8ba49423ee3bef4f4348cda561c6b061b904"
+        },
+        {
+          "member": "DATA/COMPDATA.BN",
+          "targets": 65,
+          "decoded_sha256": "81c04dc9f112074c8345301e06538ac2c6a0e1c76c37ac04d10b50d5e1fa49ce"
+        },
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 5,
+          "stored_size": 1941,
+          "budget": 2320,
+          "decoded_sha256": "e5413e319d37d5cf5c22e202e2a194c04df73e289cc85dabb4c7393b07c418ba"
+        },
+        {
+          "member": "DATA/NISVDATA.BIN",
+          "chunk": 6,
+          "stored_size": 34748,
+          "budget": 39600,
+          "decoded_sha256": "9b1ad0522e050f1fcfe7ba459d8823203a936b5c40f94494f19595f233a2027b"
+        }
+      ],
+      "runtime": "not_tested"
+    },
+    "readback": {
+      "targets": 167,
+      "entries": [
+        {
+          "id": "sd/compdata/958C0",
+          "text_sha256": "8ca6f0f32a69989ab9266025e2c44d7c56b19210b5017f68fcac8fb775388044"
+        },
+        {
+          "id": "sd/compdata/95A50",
+          "text_sha256": "e8254ada996c50db5a848e8daacd956f33db32fd09f82944d0fab59af01f109d"
+        },
+        {
+          "id": "sd/compdata/95B70",
+          "text_sha256": "28a7970fa06faee6ac813cc92fae46889eae78fd7ba55fd01c995f6d8ddd2b31"
+        },
+        {
+          "id": "sd/compdata/95D30",
+          "text_sha256": "a8c34fa3938935c7a7683ba533fd08c7222bb4ad2a5a0e2ff1bd44187258a87a"
+        },
+        {
+          "id": "sd/compdata/7B890",
+          "text_sha256": "023f3143c10e88a2f6f5c25c7dd8f9dc5761b0242b1d9dac0a2d8ab08fcc3a18"
+        },
+        {
+          "id": "sd/compdata/7B8D0",
+          "text_sha256": "2baf415d3ef2738017eac03dad330363a93b27cb99370fb54592e5cdc484b7ca"
+        },
+        {
+          "id": "sd/compdata/7B910",
+          "text_sha256": "2f88c4aee3135092a136f9a80c18571be93f7b8ae0700ccd50c45fcb46391a87"
+        },
+        {
+          "id": "sd/compdata/7BA30",
+          "text_sha256": "8ad342f9365d8deacd7d5d069766a60a85bb80093dd919a2f2875e1298e16d4a"
+        },
+        {
+          "id": "sd/compdata/7BA80",
+          "text_sha256": "820ee3488f8e3c3c2f738d127fbca49128d2e6acc17d45595178b28638be5079"
+        },
+        {
+          "id": "sd/compdata/7BF50",
+          "text_sha256": "6bf7a7d435c30a3cc5442337de74989e53d04b4871b12445302f473b4e57cda7"
+        },
+        {
+          "id": "sd/compdata/7C350",
+          "text_sha256": "e0130507c87155b7e3b7732bff25cbf9e020011761a6a3f29ca154d15d1adeaf"
+        },
+        {
+          "id": "sd/compdata/7C600",
+          "text_sha256": "2afe68f454ce38bd6af5c1198d48cda323a2046fcfe97a3b8195572bfd50080a"
+        },
+        {
+          "id": "sd/compdata/7C6A0",
+          "text_sha256": "42087c820851d1afd300ffce058b5a16e332d6e50a12f8bade313405f4a5c271"
+        },
+        {
+          "id": "sd/compdata/7C700",
+          "text_sha256": "067b2813ffe5c9e9d7432990db02c522739e54b092bb3449bb3754c5fcf77448"
+        },
+        {
+          "id": "sd/compdata/89CC0",
+          "text_sha256": "b5b23f676711f908aa44146a22f810bbf83d34df3c09646ded021d748b89d23d"
+        },
+        {
+          "id": "sd/compdata/8A1E0",
+          "text_sha256": "88871f649226699614abd68977914187bc108e5ed820c366c70d19d4ee8ba04d"
+        },
+        {
+          "id": "sd/compdata/8C770",
+          "text_sha256": "ecb6c5a4200c5d075b15389ce9778de8fbe59283a6f2d43c6ca98aa3cc940f19"
+        },
+        {
+          "id": "sd/compdata/8D950",
+          "text_sha256": "4a88a74c3f50e6a721263dcbf96dbdfba1ee645655e258b3c42c9a192caf5cd2"
+        },
+        {
+          "id": "sd/compdata/901A0",
+          "text_sha256": "b47344e1533ba1105f0e28e8f44df927c2d1b6dd2c73667803a6ec730f275548"
+        },
+        {
+          "id": "sd/compdata/917B0",
+          "text_sha256": "9ed85cd98a0dec1e2cba6301a984917d7f9eb0d58e7790c70bfc6ef9319a48cd"
+        },
+        {
+          "id": "sd/compdata/919C0",
+          "text_sha256": "48ed8f5e283d9350c186b4ff2a7662046d3745508c8dd74484cb3d98e62d4a45"
+        },
+        {
+          "id": "sd/compdata/91D80",
+          "text_sha256": "42fd6c52ad4af19ff7f24a2dfd4678a9fd4f180e946d4fb1b1e86e78ee30e72e"
+        },
+        {
+          "id": "sd/compdata/91E00",
+          "text_sha256": "e10c8dacd7ab1f1dba08ed7fad34b76208143c7f9744eb3a16a046ec6e5f3bf2"
+        },
+        {
+          "id": "sd/compdata/91E80",
+          "text_sha256": "aa421a42e25bc6f533d7295efd72695e51ab43a4e46270f2749bfadee520d29b"
+        },
+        {
+          "id": "sd/compdata/91F00",
+          "text_sha256": "691301d29c74d368af2f4a46904a7b3359f98bc8b2a46c5cad320cf335e6f282"
+        },
+        {
+          "id": "sd/compdata/91F80",
+          "text_sha256": "951366e483af8cc61f7ac3e312656e01027ef7b5ce69a617d41fc2c506336eca"
+        },
+        {
+          "id": "sd/compdata/92000",
+          "text_sha256": "fb962ad8921738c61812d7a6b283c2d88df95b916d7f9133a137fcd1be6a7263"
+        },
+        {
+          "id": "sd/compdata/92CB0",
+          "text_sha256": "eef4da8e9f634690fce15d9fb692d5ed18c849f6e82b6c854345b4049161b3f6"
+        },
+        {
+          "id": "sd/compdata/92CF0",
+          "text_sha256": "5b33322624b103fe57be68922121675fc2c6f2484c900229d572a38dc365746d"
+        },
+        {
+          "id": "sd/compdata/92FD0",
+          "text_sha256": "c66ed5c0eaed9f6e8ad0b8b8d6d4ea66729197ef60171759de2ac65f04c9012f"
+        },
+        {
+          "id": "sd/compdata/96640",
+          "text_sha256": "ec0e8278b49d8811cdf84d6a474647a8d6b3f3999653d7450b87df707aa05f96"
+        },
+        {
+          "id": "sd/compdata/966B0",
+          "text_sha256": "8d1a66fdc8423e47a590c69931ccd48fe458847672491859363b27effe031dbf"
+        },
+        {
+          "id": "sd/compdata/96740",
+          "text_sha256": "b7af4998278d61d49f0e2918ca3be622f2ec22bbe0d0bd7a2f2f9a4bd590ce7b"
+        },
+        {
+          "id": "sd/compdata/96940",
+          "text_sha256": "56260ffd2b57a2e2aa99ad2a178da78909d059748088f8cd3ce91c9626df7431"
+        },
+        {
+          "id": "sd/compdata/969A0",
+          "text_sha256": "e0795db304352297c963aaf2c151ce014152ffa244d86825fa712bbbe4b41065"
+        },
+        {
+          "id": "sd/compdata/969D0",
+          "text_sha256": "fe9d5e39786ae849f96a00974372348224bfb2e00576080e427cf4f64030b0b5"
+        },
+        {
+          "id": "sd/compdata/96B50",
+          "text_sha256": "9db9eb39188f07dba1cf51ebb4de807c00aa6db593eb1117d19a5139ccb6ed33"
+        },
+        {
+          "id": "sd/compdata/96EA0",
+          "text_sha256": "f0fcae391b4a92fc8df5b27e8b495c721f1e15bb1c9c5be1822d6f644a958cb5"
+        },
+        {
+          "id": "sd/compdata/96ED0",
+          "text_sha256": "52dbcfc43342a284f3d0d0bc071e6dd9308229d663cfb4755480d96a9542a5a2"
+        },
+        {
+          "id": "sd/exe/3AE5D0",
+          "text_sha256": "c7b4c4300dc50c89cf0ad719101f4de20c5c77a1b7bdf9e294241a36625f8f32"
+        },
+        {
+          "id": "sd/exe/3AE690",
+          "text_sha256": "8c5fd449f80e1449475111c80e81b1c5eb1740cec9123d89b7fface1899fd288"
+        },
+        {
+          "id": "sd/exe/3AE780",
+          "text_sha256": "afbdd6d4d66a23815523c695346857bb41b29cbf4c39834ff4849d473d19ed62"
+        },
+        {
+          "id": "sd/exe/3AF010",
+          "text_sha256": "518998aa4609d8d437a84fa8880b52a63b156fe5ad6c95d49ad18ad9c9b66308"
+        },
+        {
+          "id": "sd/exe/3AF9B0",
+          "text_sha256": "0a8badcb14d1575fefd9051123ad8b13b8443349c31b51d8316a8dc835857b53"
+        },
+        {
+          "id": "sd/exe/3AFD30",
+          "text_sha256": "55cb938b6aaf5f9fe39eef4f2bcaf02f63566afe74fbc22b7d9526bd3fcaa6ea"
+        },
+        {
+          "id": "sd/exe/3B1590",
+          "text_sha256": "acf87553e30fa1a00741869709a631842f278da6da9a3a716fb175954c818a5a"
+        },
+        {
+          "id": "sd/exe/3B1600",
+          "text_sha256": "baacc64dd57945adff686c7c21d23c6208dedc0a2279ebb773e46df0dc849c9f"
+        },
+        {
+          "id": "sd/exe/3B3DB0",
+          "text_sha256": "a8bfaaafd8e3eb994fdf605ca688093b19c64617e24df922b05ca110bb9134ac"
+        },
+        {
+          "id": "sd/exe/3BF480",
+          "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+        },
+        {
+          "id": "sd/exe/3C0A88",
+          "text_sha256": "2797517fa7e78fd92bfd2db75ccd3858148b16c5fd832733345724f3c6836996"
+        },
+        {
+          "id": "sd/exe/3C1410",
+          "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+        },
+        {
+          "id": "sd/exe/3C20A0",
+          "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+        },
+        {
+          "id": "sd/exe/3C2730",
+          "text_sha256": "65c86189c848537af2108c6f3c3df56faccfd301dd0e4e259ebc5862e8736edd"
+        },
+        {
+          "id": "sd/exe/3C28B0",
+          "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+        },
+        {
+          "id": "sd/exe/3C2910",
+          "text_sha256": "65c86189c848537af2108c6f3c3df56faccfd301dd0e4e259ebc5862e8736edd"
+        },
+        {
+          "id": "sd/exe/3C2C00",
+          "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+        },
+        {
+          "id": "sd/exe/3C2DB0",
+          "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+        },
+        {
+          "id": "sd/exe/3A8850",
+          "text_sha256": "985f4b1e31a35581ceb6d0f8c1cab74f8baa7f6cd4419106db72122e44a2ca1c"
+        },
+        {
+          "id": "sd/exe/3A88B0",
+          "text_sha256": "58a663663c442b1761d7d9ef9b4923422accac0ed86def0d8805c557c1bd74f3"
+        },
+        {
+          "id": "sd/exe/3A8D30",
+          "text_sha256": "9b8c43d68fc9c1b335c5209b679287d46f145fa5572901f323a2d7f35a5afe25"
+        },
+        {
+          "id": "sd/exe/3A9270",
+          "text_sha256": "8d22bb44929c72e77817d83d20b3342db79c5c1f8ca512ce59f8b270d196eb5b"
+        },
+        {
+          "id": "sd/exe/3A98F0",
+          "text_sha256": "41db9005c2856ddd30c73fb1d83aa708c8d0817b24fbf49b6fb64967be2218e4"
+        },
+        {
+          "id": "sd/exe/3A9A90",
+          "text_sha256": "761549a79713199c830fab48f74717a2b2a8d363d62726f619e9b1c844468bc0"
+        },
+        {
+          "id": "sd/exe/3A9EA0",
+          "text_sha256": "5bd6a7aba2f7ed10d472d3f0514fc086c49602c74a52df8ade65cf5ad54413d3"
+        },
+        {
+          "id": "sd/exe/3B8490",
+          "text_sha256": "24bfd072d76ad2e9103fb62f722300474800b26450109ed760c68ae00b02b177"
+        },
+        {
+          "id": "sd/exe/3B8840",
+          "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+        },
+        {
+          "id": "sd/nisv/qa/page/012",
+          "text_sha256": "1d71392f12c4883a41dda4a18f23bfa2b5c828c4aa5c2575ef51458d3814f265"
+        },
+        {
+          "id": "sd/nisv/qa/page/018",
+          "text_sha256": "53227a7769c6f94798ac495fd8182a5a4fd0c0f0bbb59f9f836d8dd27eeb7c8a"
+        },
+        {
+          "id": "sd/nisv/qa/page/021",
+          "text_sha256": "ebe30af5c5a4a6e1d21bf0e392245df64a755c22df0f7e04096d16bb6ecfce70"
+        },
+        {
+          "id": "sd/nisv/qa/page/026",
+          "text_sha256": "decd0945317f75d9f0f470df73125f7df2de4b90ad7f33d3c65ec5eb67167ec2"
+        },
+        {
+          "id": "sd/nisv/qa/page/029",
+          "text_sha256": "08428d0fb1f6b647cef56e9d6cec257ac029e2cbc5cd1c9e085f8d57e6741dba"
+        },
+        {
+          "id": "sd/nisv/qa/page/037",
+          "text_sha256": "84ed6051f48dd42e12e69fb64257989a37c17cb8926d85b656f7b0ea5df1b95f"
+        },
+        {
+          "id": "sd/nisv/qa/page/039",
+          "text_sha256": "cacd551a6a044765fa38b042a53c3f937d7bb49665849d09a705980f288bc822"
+        },
+        {
+          "id": "sd/nisv/qa/page/043",
+          "text_sha256": "a9530bb0ee804c6448ca86e38b1924342efd6b06acfbb2e0c7e1717ada6a652c"
+        },
+        {
+          "id": "sd/nisv/qa/page/050",
+          "text_sha256": "634b988ef2a90560711b36f726f16e528c32b17884ccf39c88c4143f89a19c8b"
+        },
+        {
+          "id": "sd/nisv/qa/page/058",
+          "text_sha256": "bd908f638bebecfb1d973d7f0528b27094db92aaeb91f4f0780fa563c1b24b12"
+        },
+        {
+          "id": "sd/nisv/qa/page/061",
+          "text_sha256": "8782d1d77b7dff740bf4440b4e3e9c10aea8df06cc30ccc33ca5dd53542874bf"
+        },
+        {
+          "id": "sd/nisv/qa/page/064",
+          "text_sha256": "284f4d97bd0665bf72c81df6cfdb7be70ce6bb1434a8edf6952bd68d2a36d1bd"
+        },
+        {
+          "id": "sd/nisv/qa/page/066",
+          "text_sha256": "c1af8b0992093256d5db09a94ef9472d013b025f2a3aaa0a34961b9ca3d87da6"
+        },
+        {
+          "id": "sd/nisv/qa/page/067",
+          "text_sha256": "82afcfc7a3d38dc2218c28de75d0d8baac1e02cb850d5bbf335bf037212f34ee"
+        },
+        {
+          "id": "sd/nisv/qa/page/083",
+          "text_sha256": "31096e9bde1529c9dfcbe4d51ee83dda188e2151cd2830f8082fdbbbdbb8a618"
+        },
+        {
+          "id": "sd/nisv/qa/page/086",
+          "text_sha256": "3a6cc7dac0d8f7a1a533a7f9145f02da6e2a23c2b8bba6c5a3b40619f1ee4e0c"
+        },
+        {
+          "id": "sd/nisv/qa/page/087",
+          "text_sha256": "33fc426ef51221da4a9532ecad4cb41026fab1ed75e68399543131490adb7c8c"
+        },
+        {
+          "id": "sd/nisv/qa/page/092",
+          "text_sha256": "477a6cb8973223b43f5c10d96351c47f842b096271df3167b9fc2a8c849d48a0"
+        },
+        {
+          "id": "sd/nisv/qa/metadata/category_summaries/003",
+          "text_sha256": "3424a27e3270ec5ef0cfee145af1717bcc9521a731038a1b6a5d740cdc15b93f"
+        },
+        {
+          "id": "sd/nisv/qa/metadata/keyword_summaries/039",
+          "text_sha256": "62de322a4748c81bc38131db14b3f57b127b44c1eb168cd2224d3e49452a3a49"
+        },
+        {
+          "id": "sd/nisv/qa/metadata/keyword_summaries/058",
+          "text_sha256": "a8db456451b6a15ac4c94f6f8f4df7860249039eecf8a68e7e96e883635d70a4"
+        },
+        {
+          "id": "sd/nisv/qa/metadata/keyword_summaries/060",
+          "text_sha256": "9a6bcc6235a4503ea1891927880aab6307a42b998481f7f603c9d7d4069d4be9"
+        },
+        {
+          "id": "sd/nisv/qa/metadata/keyword_summaries/065",
+          "text_sha256": "2fa5d1da24f3a7b936a09d2b2c73588764b32529f5b3c23761c999a7af7dfef5"
+        },
+        {
+          "id": "sd/nisv/qa/metadata/keyword_summaries/080",
+          "text_sha256": "1df41fef19230d8e9670cc8ac5de6c8115855150771d49b897edbe1652765a52"
+        },
+        {
+          "id": "sd/nisv/tutorial/00",
+          "text_sha256": "42a401b45d8a5421acc4f292a3b12eec21c2f4cb88170f552d09922141ad9c1f"
+        },
+        {
+          "id": "sd/nisv/tutorial/03",
+          "text_sha256": "958a1a490fd25879d9b2d16ae35bbdfce2821747f229295781ab9aabe299066b"
+        },
+        {
+          "id": "sd/nisv/tutorial/04",
+          "text_sha256": "621829016753559a093cbcccd72e9e0b356f69018e13a4f94dbb5f8730ae79e0"
+        },
+        {
+          "id": "sd/nisv/tutorial/05",
+          "text_sha256": "15739cef41479ed9fa880eb8bd9268be38bfa1998cb39b09f99940173d2e3f36"
+        },
+        {
+          "id": "sd/nisv/tutorial/06",
+          "text_sha256": "dea317af3b0b18caf9bbbcfca5838975dbc297ffe79857d4978ee0c9bd40e6c6"
+        },
+        {
+          "id": "sd/nisv/tutorial/09",
+          "text_sha256": "9c79f605a218c4a1e0a696701ad4d197f590142a8eacc5b117b2797654a93b02"
+        },
+        {
+          "id": "sd/compdata/91AA0",
+          "text_sha256": "680f38d72c1717d3e2addb7a133166892197e33bd30557067c4b76ac8ddf7527"
+        },
+        {
+          "id": "sd/compdata/91B20",
+          "text_sha256": "c8ec5ceb594bed2058f0bca55dcae0520ee482b0cd63f5eca9ddb838337edaf6"
+        },
+        {
+          "id": "sd/compdata/91BA0",
+          "text_sha256": "fc4c776429f9564e9346a174cc7b635c38e0f02f082df0a678a77dae9234c3c9"
+        },
+        {
+          "id": "sd/compdata/91C10",
+          "text_sha256": "c68c490c3d66f766e311806d396a6b351f16a3fc6aa1c3faef3e635a6319ef27"
+        },
+        {
+          "id": "sd/compdata/91C90",
+          "text_sha256": "7752aae8a594640dfbe7f52a8fbe40d4c1d97bfbacbe2b7fe3754b7032d45d60"
+        },
+        {
+          "id": "sd/compdata/91D10",
+          "text_sha256": "e941e5cff315d19cfb851d5ef33105bfa3f145b9a483ead25ca92045316b7277"
+        },
+        {
+          "id": "sd/compdata/96150",
+          "text_sha256": "1ae8bfd962cdd26cce65733b6d601538df1b7f32190bf4515967244f6785c859"
+        },
+        {
+          "id": "sd/exe/3BFB00",
+          "text_sha256": "d67e1c982297a5897eb2686624170b3c8e89db4cc111fe8a26169cf89be3e72a"
+        },
+        {
+          "id": "sd/exe/3B4EB8",
+          "text_sha256": "fb0630b8351a1073df267d4cacec6f0d92af27196014c4ac3daf55cdf7347132"
+        },
+        {
+          "id": "sd/exe/3B4E90",
+          "text_sha256": "3a4b3c9ac38f3e5eabc9a09e475ac4d5afd8dfbfdd9f60864bfe7d8685642010"
+        },
+        {
+          "id": "sd/exe/3B3B50",
+          "text_sha256": "a7c3b08df3a864d1db70a4e1f043878215a0434887a124d493140532049eee32"
+        },
+        {
+          "id": "sd/compdata/8A1C0",
+          "text_sha256": "a929f65586b4cdea0f41be6d50daa2c19ae52d12a1a09fd41cfa3ded59f0a5ca"
+        },
+        {
+          "id": "sd/compdata/8A608",
+          "text_sha256": "e6618fade76933f272617da324a4cdfa8044568ee7b7484396ad59497d0bc9b7"
+        },
+        {
+          "id": "sd/exe/3C0F60",
+          "text_sha256": "358d995c1e4e4d7856a86cffa7044024700a1c1d10e9926665bc27a20dfced07"
+        },
+        {
+          "id": "sd/compdata/97810",
+          "text_sha256": "dde893323c4235b688ac89e33e6287abcdc26cfca94f6fec03e112af6b27c867"
+        },
+        {
+          "id": "sd/compdata/97B40",
+          "text_sha256": "5456ef63ec02b68e02efd80164374594303a9fb6bce26efa28cea126ea62f08b"
+        },
+        {
+          "id": "sd/exe/3B15E0",
+          "text_sha256": "c17a50b9894b0029ad991c5692b3775c318ae8ac62e05281a483b431d3af2da6"
+        },
+        {
+          "id": "sd/exe/3BF9A8",
+          "text_sha256": "2acddf85e3f172e140266a5891a7e6cb11eebc817d9ddd45454050abbe0d5e7f"
+        },
+        {
+          "id": "sd/exe/3BE8E0",
+          "text_sha256": "aedb674afee62295a8bdb8ab644022b2263421e08258f54298514bc7c9d2860b"
+        },
+        {
+          "id": "sd/exe/3C0348",
+          "text_sha256": "aedb674afee62295a8bdb8ab644022b2263421e08258f54298514bc7c9d2860b"
+        },
+        {
+          "id": "sd/compdata/8EF70",
+          "text_sha256": "2be28c4ca0cf4780f557b88f1950312fad741b3d736079be61244f6987c74c01"
+        },
+        {
+          "id": "sd/compdata/8F050",
+          "text_sha256": "3b53333a81fcb73cf35db8b31c49da6e2766889acf7b422baa1f73e7e8ab8d1e"
+        },
+        {
+          "id": "sd/compdata/97720",
+          "text_sha256": "9df655ae3efddc1f330a73d6babe81d66b31877adfb40ea94d7e23bc998fa45c"
+        },
+        {
+          "id": "sd/exe/3B2A28",
+          "text_sha256": "40d087ccc8d0e8816c7f28ebd3e4d193cbb355211fe570f4497990e839c60244"
+        },
+        {
+          "id": "sd/exe/3B2A38",
+          "text_sha256": "aaefbc1a15a910cd5e577790c5c51ea2b89ec0fb22eb4f13f407cd31957b3a7f"
+        },
+        {
+          "id": "sd/exe/3C1A60",
+          "text_sha256": "58a17c2ce9431167c18a2ba5fe45d13d568880b03d0f1b2e62679497f9dfc5ab"
+        },
+        {
+          "id": "sd/exe/3B8A00",
+          "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+        },
+        {
+          "id": "sd/exe/3BF2F8",
+          "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+        },
+        {
+          "id": "sd/exe/3C0B48",
+          "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+        },
+        {
+          "id": "sd/exe/3C24B8",
+          "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+        },
+        {
+          "id": "sd/exe/3C2558",
+          "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+        },
+        {
+          "id": "sd/compdata/8D0E0",
+          "text_sha256": "ca15f6e1c70a3fd8aa48e126dc89a6ac8f3543c6d53b320e3f87ea210f846152"
+        },
+        {
+          "id": "sd/compdata/95CD0",
+          "text_sha256": "8c51b5ec28ecf27a8f2c626c08bf37f472803a221c71eb3a474eac3077d6156d"
+        },
+        {
+          "id": "sd/compdata/826D0",
+          "text_sha256": "bea3d04d4e2f81fcebb96d2532a5d2ba8035648aa3fab8240e1f3a7355963f65"
+        },
+        {
+          "id": "sd/exe/3A8DC0",
+          "text_sha256": "9aecc433607dd6d351056bee3a7bd2ec791b23a4ffbe2ce2e8beba163cd64ada"
+        },
+        {
+          "id": "sd/exe/3A8DE0",
+          "text_sha256": "799b60dac214ba45806a88c06f333568cf84aaca240e221bc5aa8754de4b4882"
+        },
+        {
+          "id": "sd/compdata/8C370",
+          "text_sha256": "660928a1860c864fd379c26e80e56259060fcbaad9126372854efd2eed809bff"
+        },
+        {
+          "id": "sd/compdata/88D20",
+          "text_sha256": "023f3143c10e88a2f6f5c25c7dd8f9dc5761b0242b1d9dac0a2d8ab08fcc3a18"
+        },
+        {
+          "id": "sd/compdata/89340",
+          "text_sha256": "55c2779302f1b52cb23027ccf55da679b6fd523da368f47622ac24484ed95bec"
+        },
+        {
+          "id": "sd/compdata/89360",
+          "text_sha256": "a80c0fd0d3048d6b156f279d80a6c19be20baa2248879edd7578b477d3e7c120"
+        },
+        {
+          "id": "sd/exe/3B2F10",
+          "text_sha256": "fa9ae7479c79403582a6f164f562324ff83957c3c6f8efb082bbb06761a6a5bd"
+        },
+        {
+          "id": "sd/exe/3B3060",
+          "text_sha256": "fa9ae7479c79403582a6f164f562324ff83957c3c6f8efb082bbb06761a6a5bd"
+        },
+        {
+          "id": "sd/exe/3B2D90",
+          "text_sha256": "c3b9583cd2c2d1b9434c264d0ad30f2fff9e8a85d5fbefd545c56bc2b06d0298"
+        },
+        {
+          "id": "sd/exe/3AF740",
+          "text_sha256": "985a44c2326a6298f9baca0c0cabf2abb89b77e703d62804513fdca030c56d0b"
+        },
+        {
+          "id": "sd/exe/3B0360",
+          "text_sha256": "6ebfdf945a31654a417a5367c9029f1380f6f8017285b6307f91bc226227a813"
+        },
+        {
+          "id": "sd/exe/3B03B0",
+          "text_sha256": "2572a16952876473bafc4d5a482d2d6045a1682acaac974c9acb144e346c3633"
+        },
+        {
+          "id": "sd/exe/3BE800",
+          "text_sha256": "55e5f97d2e3d3945ff46609d651ee523bc7ffbcbd12c6443093b7d0198201728"
+        },
+        {
+          "id": "sd/exe/3BE7C8",
+          "text_sha256": "467fe4b8c2c8e28e900c1b1f65fdf87349be73ec70693b68291da918e4c99093"
+        },
+        {
+          "id": "sd/exe/3BE7D8",
+          "text_sha256": "c5c0c077c787eb30921ad08f1d0d7a3376513608e0ed7e7bce5ea9839c8d09b0"
+        },
+        {
+          "id": "sd/compdata/900E0",
+          "text_sha256": "662fb2677400731e5f46f5b4f8ef62755fa2d9f00bbba2f4d2dc272320bc7a0e"
+        },
+        {
+          "id": "sd/exe/3B3EC0",
+          "text_sha256": "89bcdbe93a1a549f12a68b7325cf966392eedd21630f86696824be4766c15439"
+        },
+        {
+          "id": "sd/exe/3BF880",
+          "text_sha256": "eb0d5884569b398e475b89e77a068c6c575a0064ff6a72fafc173102c4cfcd57"
+        },
+        {
+          "id": "sd/compdata/94E98",
+          "text_sha256": "3094c287737cf926c6e76f563215ee0d57954417847c481c9179e55fe2912f37"
+        },
+        {
+          "id": "sd/compdata/95040",
+          "text_sha256": "af7992c274ff62675bb0929445344672f9e6cf168162289962c78ffb3f515c9f"
+        },
+        {
+          "id": "sd/compdata/95490",
+          "text_sha256": "83e5f730c3c3aea1aa45f5a78d4ae769dcc038c75caa129ea92fb68b3735723b"
+        },
+        {
+          "id": "sd/exe/3B2CF0",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3B2FF8",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3B3158",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3B32A8",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3B3BB0",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3B8718",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3BF3E0",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3BFF48",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3C1E88",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3C2898",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3C2B08",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3C2CA8",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/compdata/96F48",
+          "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+        },
+        {
+          "id": "sd/exe/3C15A0",
+          "text_sha256": "50d071aaa79eca21b8a81b84412991f3d76ea1b31ed35ae4edee62f0742eee50"
+        },
+        {
+          "id": "sd/exe/3C15A8",
+          "text_sha256": "fa065a82ff3d95e47c3a817e4c65e0f66b7d1ffced211bc0428371aa34c6821b"
+        },
+        {
+          "id": "sd/exe/3C1860",
+          "text_sha256": "6f4a0a4be310266c6cfbd08e7a26b9c7e64b52f45e6588fb2d144ed171db9217"
+        }
+      ],
+      "corpus_sha256": "a79e745f8c19c9022bdf94f4fd8e015276f0b5b153a0bba2e4b29e0a01132700",
+      "layout_sha256": "121a174c2f3b13444330a0925c39b69bee2ef84e7b2d27445c5d9974d64b674a"
+    },
+    "system_corpus_changes": 4,
+    "sort": {
+      "changed_bytes": 111,
+      "non_target_pixels_clut_headers_and_drawings_unchanged": true
+    },
+    "all_planned_texts_reread": true,
+    "iso_rebuilt": false,
+    "runtime_verified": false,
+    "system_component": {
+      "path": "work/reviews/main-sp-misc-sync-20260922/system-component/report.json",
+      "sha256": "03b56f263384508157d298880166ea507c445174d9b7460170619685386f5e29",
+      "all_sources_consumed": true,
+      "four_changed_sources_reread": true
+    },
+    "later_title_atlas_preserves_sort": true,
+    "tests_passed": 8
+  },
+  "scope": "本篇已审定的菜单、系统说明、教程及图片文字同步SP；不包含剧情、战斗台词、图鉴正文、Q&A、BGM曲名、小队名及地形名。"
+}

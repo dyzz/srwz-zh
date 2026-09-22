@@ -7,9 +7,9 @@
       "source_text": "空中に移動します。空中では味方フェイズの開始時にＥＮを１０消費します。",
       "source_text_sha256": "52e547858ee4a8121e3042942592ca3451c14de401ce0a998958d9fa42d632b2",
       "baseline_translation": "移动到空中。处于空中时，每次我方回合开始会消耗10EN。",
-      "translation": "移动到空中。处于空中时，每次我方阶段开始会消耗10EN。",
+      "translation": "移动到空中。处于空中时，每次我方回合开始会消耗10EN。",
       "editorial_status": "reviewed",
-      "review_notes": "原文为味方フェイズ開始，指我方阶段，不是完整回合；飞行EN消耗／搭载回复的数值、对象与弹药效果均保留。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -39,9 +39,9 @@
       "source_text": "戦艦に搭載します。搭載中は味方フェイズ開始時にＨＰ・ＥＮが１５％、弾数が全回復します。",
       "source_text_sha256": "6271071caecd51042684d558dac9d32f981ea506182158b18eb5ec0a0967fe81",
       "baseline_translation": "搭载到战舰。搭载期间，每次我方回合开始恢复15%的HP、EN，弹药全部恢复。",
-      "translation": "搭载到战舰。搭载期间，每次我方阶段开始恢复15%的HP、EN，弹药全部恢复。",
+      "translation": "搭载到战舰。搭载期间，每次我方回合开始恢复15%的HP、EN，弹药全部恢复。",
       "editorial_status": "reviewed",
-      "review_notes": "原文为味方フェイズ開始，指我方阶段，不是完整回合；飞行EN消耗／搭载回复的数值、对象与弹药效果均保留。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -71,9 +71,9 @@
       "source_text": "隣接する味方小隊または自小隊内にいるユニット１機のＥＮと残弾を全回復します。",
       "source_text_sha256": "ca440b5b7d1a1ba24affab6c18466439219ccafd27ba3f4d889f78ee83c8f49a",
       "baseline_translation": "完全恢复相邻友方小队或本小队内一台单位的EN和弹药。",
-      "translation": "完全恢复位于相邻友方小队或本小队内的1台机体的EN与剩余弹药。",
+      "translation": "为本小队或相邻我方小队中的1台单位补满EN和弹药。",
       "editorial_status": "reviewed",
-      "review_notes": "１機统辖两个位置选项，明确无论目标在哪个小队都只作用于一台机体，避免读成相邻小队全体回复。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -135,9 +135,9 @@
       "source_text": "マップ兵器及び射程１以外の\n武器の射程＋１",
       "source_text_sha256": "a83c48149fcdf3737604ff7db00739a5ed27cbe359f42a2e7b05e486e0f6fdf9",
       "baseline_translation": "MAP武器及射程1以外的\n武器射程＋1",
-      "translation": "除MAP及射程1武器外，\n其他武器射程＋1",
+      "translation": "武器射程＋1\n（MAP及射程1武器除外）",
       "editorial_status": "reviewed",
-      "review_notes": "排除条件同时涵盖MAP武器与射程为1的武器，不能连读成MAP武器也获益。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -168,9 +168,9 @@
       "source_text": "照準値＋２０\nマップ兵器及び射程１以外の\n武器の射程＋１",
       "source_text_sha256": "79b1c82722dc342df6ae511cc1ea7ce9459b67a1c75a6b04e409a43395255da6",
       "baseline_translation": "瞄准值＋20\nMAP武器及射程1以外的\n武器射程＋1",
-      "translation": "瞄准值＋20\n除MAP及射程1武器外，\n其他武器射程＋1",
+      "translation": "瞄准值＋20\n射程＋1\n（MAP及射程1武器除外）",
       "editorial_status": "reviewed",
-      "review_notes": "明确两类排除对象；瞄准＋20和射程＋1仍为不同效果。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -201,9 +201,9 @@
       "source_text": "移動力＋２　運動性・照準値＋２５\nマップ兵器及び\n射程１以外の武器の射程＋１",
       "source_text_sha256": "3aae7f72627e6a3ddbde3c47b1ed0736a7c93a8f706bccc387742d43b372e9e7",
       "baseline_translation": "移动力＋2　运动性＋25\n瞄准值＋25　MAP武器及\n射程1以外武器射程＋1",
-      "translation": "移动力＋2　运动性、瞄准值＋25\n除MAP及射程1武器外，\n其他武器射程＋1",
+      "translation": "移动力＋2　运动性＋25\n瞄准值＋25　射程＋1\n（MAP及射程1武器除外）",
       "editorial_status": "reviewed",
-      "review_notes": "同一＋25同时修饰运动性与瞄准值，射程加成排除MAP和射程为1的武器；保留三项数值含义。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -234,9 +234,9 @@
       "source_text": "自軍行動開始時にＥＮが\n最大値の１０％回復",
       "source_text_sha256": "b809c6b353e966156e45afadfeeeb383e86071c1fd60e2244944d76c5bc209d8",
       "baseline_translation": "自军行动开始时，EN回复\n最大值的10%",
-      "translation": "我方阶段开始时，EN回复\n最大值的10%",
+      "translation": "自军行动开始时，EN回复\n最大值的10%",
       "editorial_status": "reviewed",
-      "review_notes": "自軍行動開始指我方行动阶段开始，不能被理解成每个友方单位开始行动便回复一次。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -266,9 +266,9 @@
       "source_text": "自軍行動開始時にＨＰが\n最大値の１０％回復",
       "source_text_sha256": "492872b8f695cd5e5c00cd19c95947252099dbb961d2d070e1063d0671243afa",
       "baseline_translation": "自军行动开始时，HP回复\n最大值的10%",
-      "translation": "我方阶段开始时，HP回复\n最大值的10%",
+      "translation": "自军行动开始时，HP回复\n最大值的10%",
       "editorial_status": "reviewed",
-      "review_notes": "自軍行動開始指我方行动阶段开始，不能被理解成每个友方单位开始行动便回复一次。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -298,9 +298,9 @@
       "source_text": "自機のＨＰ、ＥＮ、弾薬を全回復\n使い捨て\n戦艦のみ隣接ユニットに使用可能",
       "source_text_sha256": "b95522b6b56113074d8a6881d065761751095c179c2ab08c022980c8bbd6a49e",
       "baseline_translation": "HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
-      "translation": "自机的HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
+      "translation": "自机HP、EN、弹药完全回复\n消耗品\n仅战舰可对相邻单位使用",
       "editorial_status": "reviewed",
-      "review_notes": "补回自機这一默认回复对象，同时保留战舰可对相邻单位使用的例外；不将该短说明扩成“禁止对同小队其他机体使用”，同小队共享消耗品的规则另见Q&A第053页。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -362,9 +362,9 @@
       "source_text": "寒冷地に生息するトカゲのくんせい。\n美味。",
       "source_text_sha256": "78a483787289ccb162df1a28f6522b74ad6e95b2cc3bebf99bd92f79b7f6e5be",
       "baseline_translation": "生活在寒冷地区的熏蜥蜴。\n味道不错。",
-      "translation": "用栖息在寒冷地区的蜥蜴熏制而成。\n味道不错。",
+      "translation": "用寒冷地区的蜥蜴熏制而成。\n味道鲜美。",
       "editorial_status": "reviewed",
-      "review_notes": "寒冷地区修饰蜥蜴的栖息地，而不是说已经熏制的蜥蜴仍在那里生活。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -394,9 +394,9 @@
       "source_text": "温暖な気候の土地に生息する\n巨大トカゲのくんせい。すこぶる美味。",
       "source_text_sha256": "68aece7567583b97a3a526f7077660b29136fa35096d2b76723f80e85dfe07be",
       "baseline_translation": "生活在气候温暖地区的\n巨蜥熏制品。美味至极。",
-      "translation": "用栖息在温暖地区的巨蜥\n熏制而成。美味至极。",
+      "translation": "用栖息于温暖地区的巨蜥\n熏制而成，美味至极。",
       "editorial_status": "reviewed",
-      "review_notes": "整理栖息地—原料—食品的修饰关系，保留与蜥蜴熏制品不同的评价强度。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -458,9 +458,9 @@
       "source_text": "マップ兵器及び射程１以外の全ての武器の\n最長射程を＋１する。",
       "source_text_sha256": "6efaa01af69ccdc03bfd73c0e30b8263cae652c257e210da8389b08c7a577c2d",
       "baseline_translation": "MAP武器及射程1以外的所有武器\n最大射程＋1。",
-      "translation": "除MAP武器和射程为1的武器外，\n所有武器的最大射程＋1。",
+      "translation": "除MAP武器、射程仅为1的武器外，\n所有武器最大射程＋1。",
       "editorial_status": "reviewed",
-      "review_notes": "明确MAP与射程为1的武器均不享受加成；本条指定最大射程，与一般射程说明区别保留。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -490,9 +490,9 @@
       "source_text": "小隊内に修理機能を持っているユニットがいる場合、\n小隊全機が修理ユニット１機につきＨＰ回復１０％の効果を持つ。",
       "source_text_sha256": "5226f7ec8e7528f87f0dff9250e538dcd813708a47a1e89b41844d8e21ca8534",
       "baseline_translation": "小队内有持有修理装置的单位时，\n小队全机每有1台修理单位，获得HP回复10%的效果。",
-      "translation": "小队内每有1台具备修理装置的机体，\n小队全体机体便获得HP回复10%的效果。",
+      "translation": "小队内每有1台持有修理装置的单位，\n小队全机便获得HP回复10%的效果。",
       "editorial_status": "reviewed",
-      "review_notes": "将每1台修理机带来的小队全体效果说明清楚，不改成仅一台接受回复或只计一次。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -554,9 +554,9 @@
       "source_text": "小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
       "source_text_sha256": "e8e65c9651b28b9921365b9d6c3fdcb4df0780f199a40587461e8c0a628cd706",
       "baseline_translation": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n移动类型：全员可移动时为白字，部分可移动时为灰字，\n全员不可移动时为空白。",
-      "translation": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n移动类型：全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机均不可移动时为空白（移动极难或无法移动）。",
+      "translation": "表示小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。",
       "editorial_status": "reviewed",
-      "review_notes": "补回灰字与空白所代表的移动困难程度；并非全机缺少该移动类型就一律禁止移动。平均值舍去小数的规则不变。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -618,9 +618,9 @@
       "source_text": "小隊を構成する機体が所持する武器のうち、\n最も強い武器の攻撃力です。",
       "source_text_sha256": "82988fcc2aa6f7423ff37a5528afa712fb426a03f43290de471d3f4351000094",
       "baseline_translation": "组成小队的机体所持武器中，\n攻击力最高的武器。",
-      "translation": "组成小队的机体所持武器中，\n最强武器的攻击力。",
+      "translation": "组成小队的机体所持武器中，\n最高的攻击力数值。",
       "editorial_status": "reviewed",
-      "review_notes": "界面项显示的是最强武器的攻击力数值，而不是武器本身或武器名称。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -650,9 +650,9 @@
       "source_text": "グラヴィオンが重力子臨界に達するまでの残りターン数です。\n残りターン数が０になると合神は解除されてしまい、\n同じ戦闘マップ上では再び合神することはできません。\n敗北条件によっては、ゲームオーバーになる事もあります。",
       "source_text_sha256": "1e4c8c66f6553c8db242e59ecb66ee0b2fc48a122c1769fab4a022a8841745e3",
       "baseline_translation": "合神解除前的剩余回合数。\n变为0后合神解除，本地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。",
-      "translation": "超重神达到重力子临界前的剩余回合数。\n变为0后合神解除，本地图内无法再次合神。\n根据败北条件，也可能导致游戏结束。",
+      "translation": "格兰维昂达到重力子临界前的剩余回合数。\n减至0后合神解除，且本战斗地图内无法再次合神。\n根据失败条件，也可能导致游戏结束。",
       "editorial_status": "reviewed",
-      "review_notes": "补回重力子临界这一计时原因与原文泛称グラヴィオン的主体，采用明确说明不带形态前缀时的“超重神”；不擅自补成ゴッド形态。合神解除、同图无法再次合神及可能败北的条件保留。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -906,9 +906,9 @@
       "source_text": "カーソル位置の小隊の『移動力／移動タイプ』を表します。\n移動力は、各機体の移動力の平均値（端数切り捨て）となります。\n移動タイプは全機が移動可能なら白（移動可能）、一部が移動可能なら\n灰（移動困難）、全機移動不可なら空欄（移動至難か不能）です。",
       "source_text_sha256": "9469a88baf9be3d7315470b33c4160bb3fada6bad5026d9ba96cda805611a1d5",
       "baseline_translation": "光标位置小队的“移动力／移动类型”。\n移动力为各机体的平均值（舍去小数）。\n全员可移动时为白色，部分可移动时为灰色，\n全员无法移动时为空白。",
-      "translation": "光标所在小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机均不可移动时为空白（移动极难或无法移动）。",
+      "translation": "表示光标所在小队的“移动力／移动类型”。\n移动力取各机体移动力的平均值（舍去小数）。\n全机可移动时为白字（可移动），部分可移动时为灰字（移动困难），\n全机不可移动时为空白（移动极难或无法移动）。",
       "editorial_status": "reviewed",
-      "review_notes": "补足颜色／空白对应的困难程度，防止将空白一律误认成绝对禁止移动。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -970,9 +970,9 @@
       "source_text": "トライチャージ使用可能　小隊攻撃使用不可\n援護防御使用可能　対全体攻撃で小隊員の防御・回避にプラス補正",
       "source_text_sha256": "fa33b598430efc75d939e64037e4ffea5a43e9f92ae0b3b966cc7f3f4ca06ca3",
       "baseline_translation": "TRI攻击可用，小队攻击不可用\n可援防，队员抗全体攻击能力提升",
-      "translation": "可使用TRI攻击，不可使用小队攻击，可进行援护防御\n受到全体攻击时，小队员的防御和回避获得有利修正",
+      "translation": "TRI攻击可用，小队攻击不可用；可援护防御\n受到全体攻击时，队员的防御、回避获得加成",
       "editorial_status": "reviewed",
-      "review_notes": "补回防御与回避两个分别生效的属性，不能缩成笼统的“抗全体攻击能力”。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -1002,9 +1002,9 @@
       "source_text": "小隊攻撃は敵一機を集中攻撃（小隊員の攻撃力５０％）　援護防御使用可能\nバリアが小隊全機に適用　対全体攻撃で小隊長の防御にプラス補正",
       "source_text_sha256": "aa32022211c19b9d918978269feea5d75a31973a4dd86836e9a692e706b2e476",
       "baseline_translation": "集中攻击单体，队员攻击力50%\n可援防，共享屏障，队长抗全体攻击",
-      "translation": "小队攻击集中攻击敌方1台机体（队员攻击力50%），可进行援护防御\n屏障作用于小队全体机体；受到全体攻击时，小队长的防御获得有利修正",
+      "translation": "小队攻击集中于敌单机（队员攻击力50%）；可援护防御\n屏障对小队全机生效；受到全体攻击时，队长防御获得加成",
       "editorial_status": "reviewed",
-      "review_notes": "明确小队攻击类别、单体目标、队员攻击力比例、屏障作用范围及队长获得的是防御修正；不补回避加成。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -1034,9 +1034,9 @@
       "source_text": "小隊攻撃はそれぞれの敵を攻撃（小隊員の攻撃力８０％）　援護防御使用不可\n対全体攻撃で小隊員の防御にプラス補正",
       "source_text_sha256": "6ccebc59002bcbc02cd097f7e8e58f1eeb41a167ebdbbba67d26be259a603c59",
       "baseline_translation": "分散攻击目标，队员攻击力80%\n不可援防，队员抗全体攻击能力提升",
-      "translation": "小队攻击分别攻击对应的敌人（队员攻击力80%），不可进行援护防御\n受到全体攻击时，小队员的防御获得有利修正",
+      "translation": "小队攻击分别攻击对应敌机（队员攻击力80%）；不可援护防御\n受到全体攻击时，队员的防御获得加成",
       "editorial_status": "reviewed",
-      "review_notes": "“分别攻击”保留对应目标关系，并明确加成为防御而非连回避也提高。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -1066,9 +1066,9 @@
       "source_text": "マップ兵器／射程１以外の武器の射程を＋１",
       "source_text_sha256": "0757fd7670734a887e9aa24ce0f571b8d5f5cf106ed23ff486f2b551c78d1767",
       "baseline_translation": "MAP武器及射程1以外的武器射程＋1",
-      "translation": "除MAP武器和射程1武器外，射程＋1",
+      "translation": "射程＋1（MAP及射程1武器除外）",
       "editorial_status": "reviewed",
-      "review_notes": "并列两项均为不适用的武器，明确除外作用范围。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "DATA/COMPDATA.BN",
@@ -1363,9 +1363,9 @@
       "source_text": "南アメリアを中心に生息する\nトカゲのくんせい。\n北半球のものより巨大であり、\n性質も凶暴。\nしかし、その肉は高タンパクで\nあっさりとしながらも\n後を引く美味しさで大人気。\nその美味はくんせいにしても変わらず\n高額で取り引きされる。",
       "source_text_sha256": "4a5227d92094531c252baf8b730680fcb4190889d9b0694ad306f45174404f09",
       "baseline_translation": "主要栖息于南阿美利亚的\n熏制蜥蜴。\n比北半球的种类更加巨大，\n性情也更凶猛。\n其肉高蛋白而清爽，\n鲜美回味令人着迷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
-      "translation": "用主要栖息于南阿美利亚的\n蜥蜴熏制而成。\n这种蜥蜴比北半球的种类更加巨大，\n性情也更凶猛。\n其肉高蛋白而清爽，\n鲜美回味令人着迷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
+      "translation": "用主要栖息于南阿美利亚的\n蜥蜴熏制而成。\n这种蜥蜴比北半球的种类更大，\n性情也更凶猛。\n其肉富含蛋白质，口味清淡，\n却鲜美得令人回味无穷，\n因此大受欢迎。\n熏制后依旧美味，\n交易价格很高。",
       "editorial_status": "reviewed",
-      "review_notes": "栖息地、体型与凶猛性情描述的是原料蜥蜴，不是熏制品；保留高蛋白、清爽滋味和高价交易等信息。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "SLPS_259.20",
@@ -1389,9 +1389,9 @@
       "source_text": "上流階級の婦人が公的な場に\n出かける際に身につける品。\n気品溢れる銀細工で\n大人の女性の小物として\nその美しさに、さらなる華を\n添える一品。",
       "source_text_sha256": "94ada9d8199ad36a14b07878851a15ba18b1b3ff661d1410b9c7f1dc4f7be573",
       "baseline_translation": "上流社会的女士\n出席正式场合时佩戴的饰品。\n优雅的银制工艺\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
-      "translation": "上流社会的女士\n出席正式场合时佩戴的饰品。\n这件典雅的银饰\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
+      "translation": "上流社会的女士\n出席正式场合时佩戴的饰品。\n这件银饰做工雅致，\n作为成熟女性的配饰，\n更能为她的美丽\n增添光彩。",
       "editorial_status": "reviewed",
-      "review_notes": "佩戴的是银饰成品而非“银制工艺”本身，理顺主语。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "SLPS_259.20",
@@ -1597,9 +1597,9 @@
       "source_text": "この機体はパイロット未搭乗となるため",
       "source_text_sha256": "d8a3ccdda83faf59974d4baa5ae0ec569f05424e645b43810fcd48d725419168",
       "baseline_translation": "由于此机体将变为驾驶员未搭乘状态",
-      "translation": "由于这台机体将没有驾驶员搭乘，",
+      "translation": "由于该机体将无人驾驶",
       "editorial_status": "reviewed",
-      "review_notes": "与下一条“因此会移出小队”连读，去掉“变为驾驶员未搭乘状态”的名词堆叠。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "SLPS_259.20",
@@ -1649,9 +1649,9 @@
       "source_text": "この機体はパイロット未搭乗となるため",
       "source_text_sha256": "d8a3ccdda83faf59974d4baa5ae0ec569f05424e645b43810fcd48d725419168",
       "baseline_translation": "由于此机体将变为驾驶员未搭乘状态",
-      "translation": "由于这台机体将没有驾驶员搭乘，",
+      "translation": "由于该机体将无人驾驶",
       "editorial_status": "reviewed",
-      "review_notes": "与下一条合读，简化冗长的状态名词结构；不合并两个独立目标。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "SLPS_259.20",
@@ -1753,9 +1753,9 @@
       "source_text": "相手より技量が２０以上ある場合、\n相手の反撃の後、自分に対して援護攻撃を行う。",
       "source_text_sha256": "e85e9e1fe737089bb845d2d895c6822f9f1a4d903bd9de1a3c61e211a2dacec4",
       "baseline_translation": "技量比对手高20以上时，\n在对手反击后，对自己进行一次援护攻击。",
-      "translation": "技量比对手高20以上时，\n在对手反击后，由自己再发动一次援护攻击。",
+      "translation": "技量比对手高20以上时，\n在对手反击后，对自己进行一次援护攻击。",
       "editorial_status": "reviewed",
-      "review_notes": "“自分に対して援護攻撃”指自行追加援护攻击，并非攻击自己；保留敌方反击之后及技量差至少20的前提。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "SLPS_259.20",
@@ -1831,9 +1831,9 @@
       "source_text": "サイズ差、ユニット数によるＡＬＬ攻撃のダメージ減少と、\n相手の防御に関する特殊能力・スキルを無効化する。",
       "source_text_sha256": "32064e79160608d4b312c9c607b79a9d526f476a43bab7e9fc4c821f0ef73712",
       "baseline_translation": "无视尺寸差和单位数量对ALL攻击造成的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
-      "translation": "无视尺寸差造成的伤害衰减，以及ALL攻击因目标数量产生的伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
+      "translation": "无视体型差造成的减伤、单位数量造成的ALL攻击伤害衰减，\n并使对手的防御类特殊能力和技能无效。",
       "editorial_status": "reviewed",
-      "review_notes": "对照Q&A第077页的三项并列说明，将尺寸差减伤与ALL目标数量减伤分开；不能把前者也限定为仅ALL攻击。保留本界面“尺寸差”用语，不作全项目命名裁定。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "SLPS_259.20",
@@ -1857,9 +1857,9 @@
       "source_text": "自小隊の行動回数を一回増やす。\n重ねがけは無効。",
       "source_text_sha256": "5c4b30d0b42aef2ca8378402cfb80a9a85d2885de885be7d2fdc498f45006678",
       "baseline_translation": "本小队可行动次数增加1次。\n不可重复使用。",
-      "translation": "本小队可行动次数增加1次。\n重复施加无叠加效果。",
+      "translation": "本小队可行动次数增加1次。\n重复施加不叠加。",
       "editorial_status": "reviewed",
-      "review_notes": "重ねがけは無効是重复施加不叠加，不是整张地图或整场游戏只能使用一次。",
+      "review_notes": "同步本篇当前审定结果；保留记忆卡、回合、机师、集市及再攻击的用户决定。",
       "locations": [
         {
           "member": "SLPS_259.20",
@@ -2424,9 +2424,9 @@
       "source_text": "ＳＲポイントは１シナリオにつき１ポイント設定されている。\n獲得条件は「作戦目的」に記載されている。\nＳＲポイントの獲得状況によって、難易度が以下のように決まる。\n「ＨＡＲＤ（難しい）」全ポイントの約８０％以上獲得\n「ＮＯＲＭＡＬ（普通）」全ポイントの約３０〜７９％獲得\n「ＥＡＳＹ（簡単）」全ポイントの約３０％未満獲得",
       "source_text_sha256": "03cf7e2401c2a71a1e971ce26bf5494d0f6a6d3196b1b9029c0fc611f8f88d3c",
       "baseline_translation": "每个剧本可获得1个SR点数。\n获得条件会写在“作战目标”中。\n根据获得的SR点数比例，难度如下变化。\n“HARD（困难）”获得全部点数的80％以上\n“NORMAL（普通）”获得全部点数的30～79％\n“EASY（简单）”获得全部点数不足30％",
-      "translation": "每个剧本可获得1个SR点数。\n获得条件会写在“作战目的”中。\n根据获得的SR点数比例，难度如下变化。\n“HARD（困难）”获得全部点数的约80％以上\n“NORMAL（普通）”获得全部点数的约30～79％\n“EASY（简单）”获得全部点数不足约30％",
+      "translation": "每个剧情关卡设有1点SR点数。\n获得条件会写在“作战目标”中。\n根据获得的SR点数比例，难度如下变化。\n“HARD（困难）”获得全部点数的约80％以上\n“NORMAL（普通）”获得全部点数的约30～79％\n“EASY（简单）”获得全部点数不足约30％",
       "editorial_status": "reviewed",
-      "review_notes": "恢复原文三处“约”这一近似限定，不能据教学说明声称已验证精确难度阈值。菜单称呼对应“作战目的”；此为本篇共用教程，不能因SP不使用SR点数而删除。",
+      "review_notes": "恢复原文三处“约”这一近似限定，不能据教学说明声称已验证精确难度阈值。菜单称呼对应“作战目的”；此为本篇共用教程，不能因SP不使用SR点数而删除。；同步本篇审定的剧情关卡、作战目标、资料库与中场休息用词。",
       "locations": [
         {
           "member": "DATA/NISVDATA.BIN",
@@ -2519,9 +2519,9 @@
       "source_text": "「攻略Ｑ＆Ａ」には、ゲームの攻略に役立つコツや情報が\nまとめられている。\n参照の手順は以下の２通り。\n{87}{40}タイトル画面で「ＬＩＢＲＡＲＹ」を選択し、\nさらに「攻略Ｑ＆Ａ」を選択する。\n{87}{41}インターミッションで「オプション」から\n「ライブラリー」を選択し、\nさらに「攻略Ｑ＆Ａ」を選択する。",
       "source_text_sha256": "8e1f39b256a3f7346988ce936d747993dc2d5ac8c8d83225b9162ff8690eb279",
       "baseline_translation": "“攻略Q&A”中汇集了实用的攻略技巧与信息。\n可通过以下两种方式查看。\n操作方法如下。\n1．在标题画面选择“LIBRARY”，\n再选择“攻略Q&A”。\n2．在场间菜单的“选项”中\n选择“图鉴”，\n再选择“攻略Q&A”。",
-      "translation": "“攻略Q&A”中汇集了实用的攻略技巧与信息。\n可通过以下两种方式查看。\n1．在标题画面选择“LIBRARY”，\n再选择“攻略Q&A”。\n2．在整备菜单的“选项”中\n选择“资料库”，\n再选择“攻略Q&A”。",
+      "translation": "“攻略Q&A”中汇集了实用的攻略技巧与信息。\n查阅方式共有两种。\n1．在标题画面选择“资料库”，\n再选择“攻略Q&A”。\n2．在中场休息的“选项”中\n选择“资料库”，\n再选择“攻略Q&A”。",
       "editorial_status": "reviewed",
-      "review_notes": "ライブラリー是含Q&A的“资料库”，不是“机体图鉴”；删除重复的“操作方法如下”。源侧{87}{40}/{87}{41}按CP932解码分别为①/②，本轮保持基线1．/2．的两个数字步骤，不将其猜改成运行时控制符或写回另一套转义。",
+      "review_notes": "ライブラリー是含Q&A的“资料库”，不是“机体图鉴”；删除重复的“操作方法如下”。源侧{87}{40}/{87}{41}按CP932解码分别为①/②，本轮保持基线1．/2．的两个数字步骤，不将其猜改成运行时控制符或写回另一套转义。；同步本篇审定的剧情关卡、作战目标、资料库与中场休息用词。",
       "locations": [
         {
           "member": "DATA/NISVDATA.BIN",
@@ -2723,6 +2723,1822 @@
         ],
         "source_slot_sha256": "71042fb51531836cf40ea85962acc0e87025fe5b0b820c4ad4d35cba8b6aa498",
         "baseline_slot_sha256": "98fe1b1732a62149ee77cd04a46e40475e430b34816387b46c07aceadafdd8ad"
+      }
+    },
+    {
+      "id": "sd/compdata/96150",
+      "source_text": "クイックコマンドの設定やＢＧＭ選択など、各種システム設定を行います。",
+      "source_text_sha256": "e03143b9982c900c4bf20a9855fe115b0058d2d7ca03473b3d6a4772876282f3",
+      "baseline_translation": "设置快捷指令、选择BGM等各项系统设置。",
+      "translation": "设置快捷指令、选择BGM等各项系统选项。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 614736,
+          "offset": 614736,
+          "pointer_sites": [
+            433416
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 614736,
+        "capacity": 72,
+        "pointer_sites": [
+          433416
+        ],
+        "source_slot_sha256": "86edc4c248f2ee1582a561240df4aa657649afcec6b6640ae19e3a382de45f9e",
+        "baseline_slot_sha256": "0ae325d9d0b0288185850c6b79ac48516a3efa7957586562e2ceac8f932989a8"
+      }
+    },
+    {
+      "id": "sd/exe/3BFB00",
+      "source_text": "全体コマンドの『途中セーブ』を開始します。",
+      "source_text_sha256": "8e6d64b853df21e49ecab70dccad87e433af432192ae902b02a3cee89a176a17",
+      "baseline_translation": "启动全体指令中的『中途保存』。",
+      "translation": "启动全体指令中的『中断保存』。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3930880
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3930880,
+        "capacity": 48,
+        "pointer_sites": [],
+        "source_slot_sha256": "fb6b470e6f327a18bbc05116d44801c6d30182a22d49068938e9ade626df1c7e",
+        "baseline_slot_sha256": "d9ca4725edcba184c5af36382cbdc494f8151fc3047c0a5199f3e401a738bb22"
+      }
+    },
+    {
+      "id": "sd/exe/3B4EB8",
+      "source_text": "欧米読み",
+      "source_text_sha256": "6f89a5416ce63a7eb829e78b16ce1c5ee2b9e8f3bf80631f3c9ee640bc399e26",
+      "baseline_translation": "西式读法",
+      "translation": "西式顺序",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3886776
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3886776,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "dc49da8c62de0b8120d5b46a280dc9b97a8f50c0f78ed4aea3a4e7d0c45b2cb4",
+        "baseline_slot_sha256": "27be44216b2a30a40310273263a58b8d0423c6ec7866e1b12a783154ca3e1437"
+      }
+    },
+    {
+      "id": "sd/exe/3B4E90",
+      "source_text": "日本読み",
+      "source_text_sha256": "606c8bbb166bd800264882e2f4c42bf3b2f755a855fb0b1bc8a779dc6b6211b0",
+      "baseline_translation": "日式读法",
+      "translation": "日式顺序",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3886736
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3886736,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "dd972316b47237ea71c665b003ffa90c272be7db845918c4c756b334588595ce",
+        "baseline_slot_sha256": "f8f541fbdde0827acc9f55437016dc5a5f3ef53ed0a864af86500c9ff3a866ed"
+      }
+    },
+    {
+      "id": "sd/exe/3B3B50",
+      "source_text": "〜【パイロット養成】乗員の選択〜",
+      "source_text_sha256": "62aee82eac30d9235b0d3e4e598ee9473ba6438df91ac92500714bbaf7c9af50",
+      "baseline_translation": "〜【驾驶员培养】选择成员〜",
+      "translation": "〜【驾驶员培养】选择驾驶员〜",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3881808
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3881808,
+        "capacity": 40,
+        "pointer_sites": [],
+        "source_slot_sha256": "818f6e3e9b2f6d4e4d4f4346e5792a2343584f9b4b4524563b6ecaf6700d231b",
+        "baseline_slot_sha256": "ab31df9d554b6c6ef98f78017e7b0ff9a26427667848a56b942a611b1900c4d6"
+      }
+    },
+    {
+      "id": "sd/compdata/8A1C0",
+      "source_text": "〜【検索】使用指定〜",
+      "source_text_sha256": "7af2745be45d649c8f21fae794716feccd4139c8f5c1ea7f015a06ff1d5a5c92",
+      "baseline_translation": "～【搜索】使用状态～",
+      "translation": "～【搜索】指定使用～",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 565696,
+          "offset": 565696,
+          "pointer_sites": [
+            430832,
+            431172
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 565696,
+        "capacity": 24,
+        "pointer_sites": [
+          430832,
+          431172
+        ],
+        "source_slot_sha256": "d3a93bc3476abf23a819538e1a1517c64e4ed84301316cc0812da9e8566b08cf",
+        "baseline_slot_sha256": "aca97150eda8e19799acdc06716a585ce63edf6c7f7e20ec3c62e9cc48b97362"
+      }
+    },
+    {
+      "id": "sd/compdata/8A608",
+      "source_text": "リフター機能",
+      "source_text_sha256": "c6a1a3f28412c649954ed761c44ebd48f2031462dd43567374d7d8604ceb198c",
+      "baseline_translation": "飞行功能",
+      "translation": "升空功能",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 566792,
+          "offset": 566792,
+          "pointer_sites": [
+            430992,
+            431164
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 566792,
+        "capacity": 16,
+        "pointer_sites": [
+          430992,
+          431164
+        ],
+        "source_slot_sha256": "a7aafe7ce6775891f5cd0e7bd5c2c2cd4c70138a333ad411e753f09cbdb274c8",
+        "baseline_slot_sha256": "543a3b9862971b36c02d6a7d4ed4bab5135b21f23c62ed171e9cd036a4b54174"
+      }
+    },
+    {
+      "id": "sd/exe/3C0F60",
+      "source_text": "・ソート・サブ情報の記憶",
+      "source_text_sha256": "0b4f6fee3923d58e9b3e2fb8a4a50c17ce73e620c57edd8105be0a58b90851bd",
+      "baseline_translation": "・记忆排序和子信息",
+      "translation": "・记忆排序和附加信息",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3936096
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3936096,
+        "capacity": 32,
+        "pointer_sites": [],
+        "source_slot_sha256": "c6a3a3ef428461901e71855be31b44d80c8b36feca6a833afd684c1ba6747ec8",
+        "baseline_slot_sha256": "b17b8b38fb73ae40676f4642918ff0b00944eb080d81e3a317fba040da5241be"
+      }
+    },
+    {
+      "id": "sd/compdata/97810",
+      "source_text": "＜一括フォーメーション＞　部隊内の隊形を選択します。",
+      "source_text_sha256": "778ec376b64510cfa7b80afc89810a480808b5256805535d3828fa454c3f418a",
+      "baseline_translation": "＜统一阵型＞　选择部队内各小队的阵型。",
+      "translation": "＜批量设置阵型＞　选择部队内各小队的阵型。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 620560,
+          "offset": 620560,
+          "pointer_sites": [
+            434584
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 620560,
+        "capacity": 56,
+        "pointer_sites": [
+          434584
+        ],
+        "source_slot_sha256": "515a9d9211ca541ba37858d443a4493159eb5f9936166d921a730d2799893839",
+        "baseline_slot_sha256": "eb4743581f1939fa269b496585111f4fa4613bca5c1daa415eadf37b5fe2ee3f"
+      }
+    },
+    {
+      "id": "sd/compdata/97B40",
+      "source_text": "〜『　　　　：トライ』小隊指定〜",
+      "source_text_sha256": "b052427cbb89b3966083c2698cea19c8f538df868982e1bd4047169e7458a431",
+      "baseline_translation": "〜『　　　：三角』指定小队〜",
+      "translation": "〜『　　　：TRI』指定小队〜",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 621376,
+          "offset": 621376,
+          "pointer_sites": [
+            434672
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 621376,
+        "capacity": 40,
+        "pointer_sites": [
+          434672
+        ],
+        "source_slot_sha256": "032ff4c962d913d06a355167b3118f6255250298f1cc8f29d52155c12154fcb9",
+        "baseline_slot_sha256": "4ba5f64d32f48a1b702317c406b0d292beb8957568523f65474b17d82eb9ef67"
+      }
+    },
+    {
+      "id": "sd/exe/3B15E0",
+      "source_text": "バランスオーダーで編成します。",
+      "source_text_sha256": "8b27142ccaedab32b08e823f45fa4509e6f4c1dc1958fdb008e4c511403c3961",
+      "baseline_translation": "按均衡编成进行编组。",
+      "translation": "按均衡方案进行编成。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3872224
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3872224,
+        "capacity": 32,
+        "pointer_sites": [],
+        "source_slot_sha256": "71ec736c7123f3d8216424d090450b82c5b449df1e101ec0ae2a947fb100707a",
+        "baseline_slot_sha256": "751723b2837d199fc57c4b38ba5e3da524b5a2b2097d977a64e1c80f7505dd71"
+      }
+    },
+    {
+      "id": "sd/exe/3BF9A8",
+      "source_text": "・合体攻撃相手",
+      "source_text_sha256": "5a2b8ef057f3fe6bc985e39fa852c4f6c1d978b101348b892128da06e0a5b8fa",
+      "baseline_translation": "・合体攻击对象",
+      "translation": "・合体攻击搭档",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3930536
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3930536,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "fb43cc3eabdbe355fbc76c350dacd81cb4a025bdeeea6f68e77073322935502f",
+        "baseline_slot_sha256": "106e79b744a86ebce844258940e68048b839ae4b574389c060d2f31ad02c2edf"
+      }
+    },
+    {
+      "id": "sd/exe/3BE8E0",
+      "source_text": "獲得強化パーツ",
+      "source_text_sha256": "a81b11ae7a276ccc51d846dbb1b90ce2dee09622cbe828b745623946bbb6d3df",
+      "baseline_translation": "获得强化部件",
+      "translation": "获得强化零件",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3926240
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3926240,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "b275eb5d6158ae7cb98f93c905fdc12e97d2e9f4541f7658860b0642aec272d7",
+        "baseline_slot_sha256": "6f53c9f99abaa707caac21b00dad2b8b7f453f264567397a17ac5d127d9fb9d6"
+      }
+    },
+    {
+      "id": "sd/exe/3C0348",
+      "source_text": "獲得強化パーツ",
+      "source_text_sha256": "a81b11ae7a276ccc51d846dbb1b90ce2dee09622cbe828b745623946bbb6d3df",
+      "baseline_translation": "获得强化部件",
+      "translation": "获得强化零件",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3933000
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3933000,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "b275eb5d6158ae7cb98f93c905fdc12e97d2e9f4541f7658860b0642aec272d7",
+        "baseline_slot_sha256": "6f53c9f99abaa707caac21b00dad2b8b7f453f264567397a17ac5d127d9fb9d6"
+      }
+    },
+    {
+      "id": "sd/compdata/8EF70",
+      "source_text": "戦闘マップを終了させるための条件です。\n条件を満たす、またはターンの進行によってイベントが発生し、\n更なる条件に変更、または新たに条件が追加されることがあります。\nその場合は、最新の条件が記載された作戦目的画面が表示されます。",
+      "source_text_sha256": "92f6993e8b2e0190a2f653d954d0615e55bdbf817c65bc8ead65e905bbfe30df",
+      "baseline_translation": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目的画面。",
+      "translation": "结束战斗地图所需满足的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 585584,
+          "offset": 585584,
+          "pointer_sites": [
+            431808
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 585584,
+        "capacity": 224,
+        "pointer_sites": [
+          431808
+        ],
+        "source_slot_sha256": "e28db0b376cf5f56f3175dd8c198750a78f99f585a7e9779bca0a79672e0b436",
+        "baseline_slot_sha256": "d06fedd2b37b07a14b36fa5a661b4c71979ba22c8f0de1505a92cfbcf9db0e92"
+      }
+    },
+    {
+      "id": "sd/compdata/8F050",
+      "source_text": "ゲームオーバーになってしまう条件です。\n条件を満たす、またはターンの進行によってイベントが発生し、\n更なる条件に変更、または新たに条件が追加されることがあります。\nその場合は、最新の条件が記載された作戦目的画面が表示されます。",
+      "source_text_sha256": "0713cde993f6d843259d86aa3ff64cbc6faa7763a7575455d7703a4f78ba81d1",
+      "baseline_translation": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目的画面。",
+      "translation": "导致游戏结束的条件。\n满足条件或回合推进后可能触发事件，\n变更现有条件或增加新条件。\n此时会显示记载最新条件的作战目标画面。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 585808,
+          "offset": 585808,
+          "pointer_sites": [
+            431812
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 585808,
+        "capacity": 224,
+        "pointer_sites": [
+          431812
+        ],
+        "source_slot_sha256": "6401b55291cbc5170fcb222b406deb51a3b3b6d3bc2aa72c690d9632ccd543f8",
+        "baseline_slot_sha256": "0ee7a8ac6e0fcc1d4f5936d3a6d08ef28d2d8094cec9bc0a5ae37aa199420d6e"
+      }
+    },
+    {
+      "id": "sd/compdata/97720",
+      "source_text": "＜援護防御に入れる機体がいても入りません。＞",
+      "source_text_sha256": "c4d500deb434b210948eca08d3b7c47960b46cebb02f5f3a3a2fff579234faf4",
+      "baseline_translation": "<width:12><height:0C><space:12>＜即使有可进行援护防御的机体也不加入。＞",
+      "translation": "<width:12><height:0C><space:12>＜有可援防的机体时，也不自动援防。＞",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 620320,
+          "offset": 620320,
+          "pointer_sites": [
+            434536
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 620320,
+        "capacity": 48,
+        "pointer_sites": [
+          434536
+        ],
+        "source_slot_sha256": "0f60ca19dbdb36301413587825b081484b6c46c8b6b96b8b7b7d537c7fce47aa",
+        "baseline_slot_sha256": "6df82cd6ac33da3bf7089ca35d1790b48b1657e488cbe0d66b829be75621a442"
+      }
+    },
+    {
+      "id": "sd/exe/3B2A28",
+      "source_text": "：移動元選択",
+      "source_text_sha256": "3b985fb2806394ef3c576f1c4e101959f280361e8dc8b1a0c87bd113755b0f80",
+      "baseline_translation": "：选择移动源",
+      "translation": "：选择起点",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3877416
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3877416,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "391db5a235ad2f11f349e0fd72823ecb34fbfd43444e73833d0f0b7c9f41696f",
+        "baseline_slot_sha256": "230de9e957c648d366848ea9c0e9dd4164a4b6f0396e6422d8d2328ec2c1763c"
+      }
+    },
+    {
+      "id": "sd/exe/3B2A38",
+      "source_text": "：移動先選択",
+      "source_text_sha256": "ca67be91c19acf70a1c0e03d9d7da04591dbe10c29f28ce9ba91e83fb0276464",
+      "baseline_translation": "：移动目标",
+      "translation": "：选择终点",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3877432
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3877432,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "d0f7ec5b2b4cf391cce017a421cbf8059388af995677e923d87dff3c10b9f765",
+        "baseline_slot_sha256": "ea00a161b1f2a5282b25a57ee5781112ad444e7635117a1cfb8655ac7ea1f789"
+      }
+    },
+    {
+      "id": "sd/exe/3C1A60",
+      "source_text": "戦闘不能（Ｐ系）",
+      "source_text_sha256": "2d1c39c5057fe07cd74d208e89a9cfda7cab36e5c65115d86ff9db2d5f583514",
+      "baseline_translation": "行动不能（P系）",
+      "translation": "无法战斗（P系）",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3938912
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3938912,
+        "capacity": 24,
+        "pointer_sites": [],
+        "source_slot_sha256": "71bc9af31f6973bcde5f2f061616c3fbb4beaec30ee94c42ed87012ab82933fd",
+        "baseline_slot_sha256": "2c21112932242d8dd43686e9a8f6ce98618a869d516fa28b958d4c38fdf6c262"
+      }
+    },
+    {
+      "id": "sd/exe/3B8A00",
+      "source_text": "強化パーツ",
+      "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
+      "baseline_translation": "强化部件",
+      "translation": "强化零件",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3901952
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3901952,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "8db07dd16bb2b010a6f3fb58add756592cc65d48bf26a0d9f24d3e3a24ab6d5c",
+        "baseline_slot_sha256": "add26caa3327fa74cc2c2eda4e94000f0bd228718a141aad79c420010cc2717d"
+      }
+    },
+    {
+      "id": "sd/exe/3BF2F8",
+      "source_text": "強化パーツ",
+      "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
+      "baseline_translation": "强化部件",
+      "translation": "强化零件",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3928824
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3928824,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "8db07dd16bb2b010a6f3fb58add756592cc65d48bf26a0d9f24d3e3a24ab6d5c",
+        "baseline_slot_sha256": "add26caa3327fa74cc2c2eda4e94000f0bd228718a141aad79c420010cc2717d"
+      }
+    },
+    {
+      "id": "sd/exe/3C0B48",
+      "source_text": "強化パーツ",
+      "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
+      "baseline_translation": "强化部件",
+      "translation": "强化零件",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3935048
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3935048,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "8db07dd16bb2b010a6f3fb58add756592cc65d48bf26a0d9f24d3e3a24ab6d5c",
+        "baseline_slot_sha256": "add26caa3327fa74cc2c2eda4e94000f0bd228718a141aad79c420010cc2717d"
+      }
+    },
+    {
+      "id": "sd/exe/3C24B8",
+      "source_text": "強化パーツ",
+      "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
+      "baseline_translation": "强化部件",
+      "translation": "强化零件",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3941560
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3941560,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "8db07dd16bb2b010a6f3fb58add756592cc65d48bf26a0d9f24d3e3a24ab6d5c",
+        "baseline_slot_sha256": "add26caa3327fa74cc2c2eda4e94000f0bd228718a141aad79c420010cc2717d"
+      }
+    },
+    {
+      "id": "sd/exe/3C2558",
+      "source_text": "強化パーツ",
+      "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
+      "baseline_translation": "强化部件",
+      "translation": "强化零件",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3941720
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3941720,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "8db07dd16bb2b010a6f3fb58add756592cc65d48bf26a0d9f24d3e3a24ab6d5c",
+        "baseline_slot_sha256": "add26caa3327fa74cc2c2eda4e94000f0bd228718a141aad79c420010cc2717d"
+      }
+    },
+    {
+      "id": "sd/compdata/8D0E0",
+      "source_text": "武器の攻撃可能回数で、『現在の弾数／最大弾数』と表記されます。\n武器を使用すると１ずつ消費し、０になると使用不能になります。\n「補給」コマンドかカートリッジの使用、\nまたは戦艦に搭載することで最大弾数まで回復します。",
+      "source_text_sha256": "77e781ad2ea2ec915c45ca8cfd7622b08c7c34341db90b551d0b146b824b668c",
+      "baseline_translation": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n可通过“补给”指令、使用弹药筒，\n或搭载战舰回复至最大弹数。",
+      "translation": "武器可攻击次数，显示为“当前弹数／最大弹数”。\n每次使用消耗1发，降为0后无法使用。\n通过“补给”指令、使用弹药筒，\n或让机体搭载于战舰，可回复至最大弹数。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 577760,
+          "offset": 577760,
+          "pointer_sites": [
+            431480
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 577760,
+        "capacity": 216,
+        "pointer_sites": [
+          431480
+        ],
+        "source_slot_sha256": "5cf085885f4112f1988fda7e043fad3cae04ca0d5fbfc0055e34eb8da97b69bf",
+        "baseline_slot_sha256": "2adee60dd271f180e1f0717c8afccaa52c057717005a7af76ead85c1c22f73f9"
+      }
+    },
+    {
+      "id": "sd/compdata/95CD0",
+      "source_text": "複数ユニットが１機に合体します。ＨＰとＥＮは合体前の割合を平均化した値になります。",
+      "source_text_sha256": "07eee8d9a89091bdf31a5a67a185ad5279ad9e73db8b4b49ceebf1b173f5cc1b",
+      "baseline_translation": "多台单位合体成一台。合体后的HP、EN为合体前各自比例的平均值。",
+      "translation": "多台单位合体成一台。合体后的HP、EN比例，分别取合体前各单位相应比例的平均值。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 613584,
+          "offset": 613584,
+          "pointer_sites": [
+            433360
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 613584,
+        "capacity": 88,
+        "pointer_sites": [
+          433360
+        ],
+        "source_slot_sha256": "3f260004c1b7caee807e88f664a443c3f0afc619000d63df25e6a5c5644ff3b3",
+        "baseline_slot_sha256": "782b1d8e9154f8d85df3a46c6bbe594d082cdc655372dceb105a638b0d43fbfe"
+      }
+    },
+    {
+      "id": "sd/compdata/826D0",
+      "source_text": "気力１３０以上で発動可能。\n命中率とは無関係に、敵の攻撃を完全に回避する。\n発動確率は能力毎に異なる。",
+      "source_text_sha256": "64036cd0cc2888e20b2bd201b16237be1e263bc72fc3c9ccee4f83808c67a0ed",
+      "baseline_translation": "气力130以上时发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "translation": "气力130以上时可发动。\n无论命中率高低，均可完全回避敌方攻击。\n发动概率因能力而异。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 534224,
+          "offset": 534224,
+          "pointer_sites": [
+            346816
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 534224,
+        "capacity": 104,
+        "pointer_sites": [
+          346816
+        ],
+        "source_slot_sha256": "f383eb1f9ec20f88f004228ce2c32967cb3dd647ec3978b90793dfc751b163ed",
+        "baseline_slot_sha256": "3f4232d35bb9d327007a611e9d8048869a01c852b646eb47f1c8862cf6c0f86f"
+      }
+    },
+    {
+      "id": "sd/exe/3A8DC0",
+      "source_text": "サイズ差補正無視",
+      "source_text_sha256": "857c7690bea2a8b6d795ea9d22a3fce78becff93bb920cbd7e922a29ef6c58eb",
+      "baseline_translation": "无视尺寸差修正",
+      "translation": "无视体型差修正",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3837376
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3837376,
+        "capacity": 24,
+        "pointer_sites": [],
+        "source_slot_sha256": "da744f31d59010c9b0f5e93562e88297ff0137086813d5d1c270602761adf0ac",
+        "baseline_slot_sha256": "18b5a1217c96f8c5ba167269aa31106cac18c7a030808b7ac1c006f0b905a4f4"
+      }
+    },
+    {
+      "id": "sd/exe/3A8DE0",
+      "source_text": "サイズ差補正による与えるダメージの減少を\n無視する。",
+      "source_text_sha256": "f9f37ae7144cd7a7645e1b42fccc43786360bcf1bb0f6011e0547a1fe1b095d3",
+      "baseline_translation": "无视尺寸差修正造成的伤害降低。",
+      "translation": "无视体型差修正造成的伤害降低。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3837408
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3837408,
+        "capacity": 56,
+        "pointer_sites": [],
+        "source_slot_sha256": "4d28c8ceacc68ba0d512cab7d54f54d861b300a541bf3845971973dab84c9bfb",
+        "baseline_slot_sha256": "12abe00d1707428241628af968cd20f5a81c4f8f668b65a02a03830d59e9bb35"
+      }
+    },
+    {
+      "id": "sd/compdata/8C370",
+      "source_text": "機体が特殊装甲を所持していると、このアイコンが点灯します。\n<<width:31>>と同様に敵の攻撃を防いでくれますが、\n対象はダメージだけではなく特殊効果の場合もあります。",
+      "source_text_sha256": "ef4e3eb439d82d7ab5d64331bd3f5a098dc37d2af20ec55f3d91a8b4067977db",
+      "baseline_translation": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n但有时抵御的不是伤害，而是特殊效果。",
+      "translation": "机体持有特殊装甲时，此图标会亮起。\n与<<width:31>>一样可抵御敌方攻击，\n作用对象不仅是伤害，有时还包括特殊效果。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "offset": 574320,
+          "source_offset": 574320,
+          "pointer_sites": [
+            431404
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 574320,
+        "capacity": 160,
+        "pointer_sites": [
+          431404
+        ],
+        "source_slot_sha256": "f36b59dd74bd72c38188c1f452c44ee0267112d00b079f29136792e56e515503",
+        "baseline_slot_sha256": "28c26138e40be6d30044c35c3a63b4cc363df8210f8785c9f5a381b5016bfa86"
+      }
+    },
+    {
+      "id": "sd/compdata/88D20",
+      "source_text": "マップ兵器及び射程１以外の\n武器の射程＋１",
+      "source_text_sha256": "a83c48149fcdf3737604ff7db00739a5ed27cbe359f42a2e7b05e486e0f6fdf9",
+      "baseline_translation": "MAP武器及射程1以外的\n武器射程＋1",
+      "translation": "武器射程＋1\n（MAP及射程1武器除外）",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 560416,
+          "offset": 560416,
+          "pointer_sites": [
+            427220
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 560416,
+        "capacity": 48,
+        "pointer_sites": [
+          427220
+        ],
+        "source_slot_sha256": "1da5caa7a10134e68c97460be44ab4abb19c607f3a9ee9f306c7f1efdeb872df",
+        "baseline_slot_sha256": "d13c2c5cd42daaa7fc48a2df683b076657aee59d1274266e92715b1168c3bbfc"
+      }
+    },
+    {
+      "id": "sd/compdata/89340",
+      "source_text": "パイロット系の\n特殊効果武器無効",
+      "source_text_sha256": "bdb229cc826dcc1fc229f3a84c0cdf9a17873d2e623d4f81470c94d9293e8b2b",
+      "baseline_translation": "使驾驶员类的\n特殊效果武器无效",
+      "translation": "使针对驾驶员的\n武器特殊效果无效",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 561984,
+          "offset": 561984,
+          "pointer_sites": [
+            427416
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 561984,
+        "capacity": 32,
+        "pointer_sites": [
+          427416
+        ],
+        "source_slot_sha256": "1ba0474d5b0081c4dd92a14c0bb155f0b1cb24a2140f764f6cb5b78f993fbdc6",
+        "baseline_slot_sha256": "03b31bce7588d240729a3d1e701ad864b35eb23898c521de424bf9e24b7511f4"
+      }
+    },
+    {
+      "id": "sd/compdata/89360",
+      "source_text": "全ての特殊効果武器無効",
+      "source_text_sha256": "00f6b1fb5d7abf8758d0ffc082e1f12bd007ab4fa6b3a2050ca528357ecb77b0",
+      "baseline_translation": "使全部特殊效果武器无效",
+      "translation": "武器特殊效果全部无效",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 562016,
+          "offset": 562016,
+          "pointer_sites": [
+            427420
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 562016,
+        "capacity": 24,
+        "pointer_sites": [
+          427420
+        ],
+        "source_slot_sha256": "a39c967cab749a2f4a3d35efcfa520abf0183a4a5bca75353a272c9696944b9e",
+        "baseline_slot_sha256": "ce0403325763b189ab6aeffc9fdf306ab55efe64ebbbea2628e1714f975b0fb3"
+      }
+    },
+    {
+      "id": "sd/exe/3B2F10",
+      "source_text": "〜【強化パーツ】＜外し＞選択〜",
+      "source_text_sha256": "8bd0ddba472cc6cc6b81520cc99f5d376c7034009cbd1e9d438710488fb4633b",
+      "baseline_translation": "〜【强化零件】选择＜卸下＞〜",
+      "translation": "～【强化零件】选择＜卸下＞～",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3878672
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3878672,
+        "capacity": 32,
+        "pointer_sites": [],
+        "source_slot_sha256": "4b9e088d27b151cdeb77596a507e0911318b157e21daaa0c9b7261723ec333f6",
+        "baseline_slot_sha256": "176c241cec2fae610707d8a0603ef451c783648b166debe02f4841d2b8a17b8b"
+      }
+    },
+    {
+      "id": "sd/exe/3B3060",
+      "source_text": "〜【強化パーツ】＜外し＞選択〜",
+      "source_text_sha256": "8bd0ddba472cc6cc6b81520cc99f5d376c7034009cbd1e9d438710488fb4633b",
+      "baseline_translation": "〜【强化零件】选择＜卸下＞〜",
+      "translation": "～【强化零件】选择＜卸下＞～",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3879008
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3879008,
+        "capacity": 32,
+        "pointer_sites": [],
+        "source_slot_sha256": "4b9e088d27b151cdeb77596a507e0911318b157e21daaa0c9b7261723ec333f6",
+        "baseline_slot_sha256": "176c241cec2fae610707d8a0603ef451c783648b166debe02f4841d2b8a17b8b"
+      }
+    },
+    {
+      "id": "sd/exe/3B2D90",
+      "source_text": "〜【強化パーツ】パーツの選択〜",
+      "source_text_sha256": "ae1dab0253fe3307a702b3b19c2cb7233e4d89d9cff747985fa0b836d98eb6dd",
+      "baseline_translation": "〜【强化零件】选择部件〜",
+      "translation": "〜【强化零件】选择零件〜",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3878288
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3878288,
+        "capacity": 32,
+        "pointer_sites": [],
+        "source_slot_sha256": "f1c3d6e59e3eefd78bc88971befb323b91ca8395afe6870cf8dafa1b6904ebb8",
+        "baseline_slot_sha256": "41043b8a4ed49c7f5a490f313d5587a16e0775e0176cc9909ec949a78dbbbb6c"
+      }
+    },
+    {
+      "id": "sd/exe/3AF740",
+      "source_text": "高出力のビーム兵器を\n稼動させるために必要なパーツ。\n高いエネルギーを蓄電させるだけの\n容量を持つ。",
+      "source_text_sha256": "511860b29019b4ecb3a9511c5d45a2393b093728f1951e713dc651134987f7d3",
+      "baseline_translation": "启动高输出光束武器\n所需的部件。\n拥有足以储存\n高能量的容量。",
+      "translation": "驱动高输出光束武器\n所需的部件。\n容量很大，足以储存\n大量电能。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3864384
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3864384,
+        "capacity": 104,
+        "pointer_sites": [],
+        "source_slot_sha256": "1a55c0f1b9b772eb849b2e584d00a5ac8684a0f0aeeead1941045f18b1fe020a",
+        "baseline_slot_sha256": "2e35b2761c6916713e573ffb6f34ac607f3d9f2fbe2faf869e8966eaa0c0f23b"
+      }
+    },
+    {
+      "id": "sd/exe/3B0360",
+      "source_text": "ただいま品不足のため、強化パーツの販売が出来ません。",
+      "source_text_sha256": "a5fcb1c7a4973e785e7a7985266e28d7bb45a16fbcbe531dda0cb328f0f777fc",
+      "baseline_translation": "目前商品不足，无法出售强化零件。",
+      "translation": "目前缺货，暂不供应强化零件。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3867488
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3867488,
+        "capacity": 56,
+        "pointer_sites": [],
+        "source_slot_sha256": "8d4be2d22062f800bfe05b15a23af46dcb99406d0d0f462c46478a397456fee2",
+        "baseline_slot_sha256": "a514896b242630c173672cade5ab8ff741fb5179a59023cc1848e40b6084ee03"
+      }
+    },
+    {
+      "id": "sd/exe/3B03B0",
+      "source_text": "：搭乗可能者",
+      "source_text_sha256": "37e531c2308a7202c892b78fb757514413dffc3e9cdd8d2f6ab1a341a9a0fbcb",
+      "baseline_translation": "　可搭乘者",
+      "translation": "　可驾驶者",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3867568
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3867568,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "4b31e9d0674e9289b240955fba336d7baf7595972ea621f641a34f3088309d90",
+        "baseline_slot_sha256": "db742054102c95ef932bfc12d611501248ef5cb7f1c09c9698cc3d23d2721a5a"
+      }
+    },
+    {
+      "id": "sd/exe/3BE800",
+      "source_text": "強化パーツ『",
+      "source_text_sha256": "c8118ac0711dce72d4684d2e8c88f3cfd889d4a8033c4e27022377eb53a30e12",
+      "baseline_translation": "强化部件『",
+      "translation": "强化零件『",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3926016
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3926016,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "5b9fad10e43725a8764cc05fbf222690a843ff38133f25a66919e2eb42328e06",
+        "baseline_slot_sha256": "f0ca8f07e74d939b176ff8754384814ffbb0dedd0da84727633704596c950039"
+      }
+    },
+    {
+      "id": "sd/exe/3BE7C8",
+      "source_text": "資金　%s　入手",
+      "source_text_sha256": "f5697d170b1a10e99a14a765ecc2169117df57227df96d39be3e82e600f89e41",
+      "baseline_translation": "资金　%s　获得",
+      "translation": "获得资金　%s　",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3925960
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3925960,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "d9f7f82cd83ccebb693598c44e8216837d2fd8a1fe3113371a60a34ede9bd6d6",
+        "baseline_slot_sha256": "837a930e143f0846d7dc48949577b1551c66709b8ba1f1bc8d0f72c233af8e41"
+      }
+    },
+    {
+      "id": "sd/exe/3BE7D8",
+      "source_text": "ＢＳ　%s　入手",
+      "source_text_sha256": "b4511b9db8620741c952c30a820e25c5142bf439671ed0da1d47d839939de061",
+      "baseline_translation": "BS　%s　获得",
+      "translation": "获得BS　%s　",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3925976
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3925976,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6e77a9069f0296432ff8b1aa21d0579194da45624a21201c2e1cf32ec4e8889c",
+        "baseline_slot_sha256": "251f1c35b20017dd919f10c0d2d5c47838b834301237c28ce8f79d668e66bee6"
+      }
+    },
+    {
+      "id": "sd/compdata/900E0",
+      "source_text": "現在のパイロットレベルが表示されます。\nただし、ＥＸＰを入手した結果レベルが上昇すると、\n『現在のレベル→上昇後のレベル』と表示されます。\n<<width:37>>を押すと、レベルアップ画面に進みます。",
+      "source_text_sha256": "425942e9d5c4cf4adcdb7ef1016f99a9834a340de9777ac20e1dcdb1b1fa1174",
+      "baseline_translation": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级／升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "translation": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "offset": 590048,
+          "source_offset": 590048,
+          "pointer_sites": [
+            431996
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 590048,
+        "capacity": 184,
+        "pointer_sites": [
+          431996
+        ],
+        "source_slot_sha256": "05b58ff84b3cbddfbdfa97c5d571935940244b300fb46afe2908cdd692270a8f",
+        "baseline_slot_sha256": "f7f906909ea930d72213eb70cc151646c7462880ecd2439942422dbb0b4cc9ec"
+      }
+    },
+    {
+      "id": "sd/exe/3B3EC0",
+      "source_text": "＜パイロットにスキルを修得します。＞",
+      "source_text_sha256": "b96d305656bdd70dcc4de51f05cbce7b7efc74e864731ccd4b1070fc83a5868d",
+      "baseline_translation": "＜为驾驶员习得技能。＞",
+      "translation": "＜让驾驶员习得技能。＞",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3882688
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3882688,
+        "capacity": 40,
+        "pointer_sites": [],
+        "source_slot_sha256": "2614fdb0c688e47a62743a051f2b69e203213f23d4382d61c6f20fa026a625a3",
+        "baseline_slot_sha256": "f953b266b0d430a7563afeaec0af62cd164b211461b58de413a26cae54da4084"
+      }
+    },
+    {
+      "id": "sd/exe/3BF880",
+      "source_text": "を満たしていません。",
+      "source_text_sha256": "f34a074a3b88fefb34f28cdb733817e6c713bb344372056be7915442a259c0d8",
+      "baseline_translation": "条件。",
+      "translation": "。",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3930240
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3930240,
+        "capacity": 24,
+        "pointer_sites": [],
+        "source_slot_sha256": "69a1f92692ad2a0ac6db82151ab36f425e5003282263495ef8bc63f0b9e253dd",
+        "baseline_slot_sha256": "67efceaaa1665dce333ac9a9a5e1a46fa4cf71b797a9518b89676b1f03236893"
+      }
+    },
+    {
+      "id": "sd/compdata/94E98",
+      "source_text": "サブ情報切換え",
+      "source_text_sha256": "d92e8c45ad2f8e11b958a1906409ae82a6626427c26c80b8973e5f9ed7c4b1e4",
+      "baseline_translation": "切换辅助信息",
+      "translation": "切换附加信息",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 609944,
+          "offset": 609944,
+          "pointer_sites": [
+            432872
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 609944,
+        "capacity": 16,
+        "pointer_sites": [
+          432872
+        ],
+        "source_slot_sha256": "93bb780fc4946d3703624fb3baaf16b631dbb33aadaeccdd2a32fd3dbc4f19d8",
+        "baseline_slot_sha256": "5a74a74f938116e9a7c1cfe984e99912da28f2add03a05d41d85853e0146089d"
+      }
+    },
+    {
+      "id": "sd/compdata/95040",
+      "source_text": "デモ：ＯＮ／ＯＦＦ切換え",
+      "source_text_sha256": "3aafd8bbc76266fd7c2ddd602ba87e332c8eee4fd562dd755445308f79b66766",
+      "baseline_translation": "演示：开／关切换",
+      "translation": "演出：ON／OFF切换",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 610368,
+          "offset": 610368,
+          "pointer_sites": [
+            432960
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 610368,
+        "capacity": 32,
+        "pointer_sites": [
+          432960
+        ],
+        "source_slot_sha256": "da0efdd62881202cfb0cb585e3f2c2a5e64a98a0efaddbc5ab2472d45af9b3e3",
+        "baseline_slot_sha256": "765c84d81effca02fc1f17b808b7095db113149fe25ac950981817b2245fe5ef"
+      }
+    },
+    {
+      "id": "sd/compdata/95490",
+      "source_text": "確定へ",
+      "source_text_sha256": "e65b75f4b3d23ab98c61069d9e776cc0fbe12ef410f32d0632456d8d5b771674",
+      "baseline_translation": "去确认",
+      "translation": "至确认",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 611472,
+          "offset": 611472,
+          "pointer_sites": [
+            433168
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 611472,
+        "capacity": 8,
+        "pointer_sites": [
+          433168
+        ],
+        "source_slot_sha256": "0241fdcfa90485f177c8fa976b582b59c338270eb4c55cf13b4039fc6ec973a9",
+        "baseline_slot_sha256": "b33c795f0ebfb901edc19bcabbffc779f64cb4e7f325bd0b54d2ac385fe1d7bd"
+      }
+    },
+    {
+      "id": "sd/exe/3B2CF0",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3878128
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3878128,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3B2FF8",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3878904
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3878904,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3B3158",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3879256
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3879256,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3B32A8",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3879592
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3879592,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3B3BB0",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3881904
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3881904,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3B8718",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3901208
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3901208,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3BF3E0",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3929056
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3929056,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3BFF48",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3931976
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3931976,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3C1E88",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3939976
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3939976,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3C2898",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3942552
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3942552,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3C2B08",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3943176
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3943176,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3C2CA8",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3943592
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3943592,
+        "capacity": 16,
+        "pointer_sites": [],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/compdata/96F48",
+      "source_text": "パイロット",
+      "source_text_sha256": "964ee7633195c2430e2353cc0055e31bf15fbe82b3ea6c1308f9328056f8fe54",
+      "baseline_translation": "驾驶员",
+      "translation": "机师",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "DATA/COMPDATA.BN",
+          "source_offset": 618312,
+          "offset": 618312,
+          "pointer_sites": [
+            434268,
+            434964
+          ]
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "DATA/COMPDATA.BN",
+        "offset": 618312,
+        "capacity": 16,
+        "pointer_sites": [
+          434268,
+          434964
+        ],
+        "source_slot_sha256": "6a2b8b42f7ba525a0f0facdde970196ed36560c3ae05be265cd845dd14b11bd0",
+        "baseline_slot_sha256": "b43eb8dd6edd119db8cb8b3e7e0454b7bc397133f1a218b31008544817b8686d"
+      }
+    },
+    {
+      "id": "sd/exe/3C15A0",
+      "source_text": "空専用",
+      "source_text_sha256": "5811e65a8179bd38714cdf9d35f586de173bc1332e12bde8640ff823ff57473e",
+      "baseline_translation": "空中用",
+      "translation": "空专用",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3937696
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3937696,
+        "capacity": 8,
+        "pointer_sites": [],
+        "source_slot_sha256": "a12cebc633ee9f6fe8d1cd05e88b2af8de1589c6942f61ec30b5558e718cb027",
+        "baseline_slot_sha256": "035a5b156c97ee1b59ea39a7bc6cea1e37066c068106fa424e9a4e8e594cc792"
+      }
+    },
+    {
+      "id": "sd/exe/3C15A8",
+      "source_text": "陸専用",
+      "source_text_sha256": "884cc2b098b99f9d857c984ea4d09c9564580d12b0acf3f3d8d851123f56fcfd",
+      "baseline_translation": "陆地用",
+      "translation": "陆专用",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3937704
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3937704,
+        "capacity": 8,
+        "pointer_sites": [],
+        "source_slot_sha256": "e04e49422006960481861890a998d04352ffe10099d5cc071fff7572aadbf25c",
+        "baseline_slot_sha256": "d2724f8745d5fdc677fb08c3beefff2a697545b0641ddf237956bb72b02db60f"
+      }
+    },
+    {
+      "id": "sd/exe/3C1860",
+      "source_text": "離脱",
+      "source_text_sha256": "b5509eb9339960e338220ed7d97806fe5a1dde29e6ffa97ced3a85b2776563ca",
+      "baseline_translation": "离脱",
+      "translation": "离队",
+      "editorial_status": "reviewed",
+      "review_notes": "按原生日文及明确位置同步本篇审定文本。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3938400
+        }
+      ],
+      "origin": "user-review:20260922-main-misc-sync",
+      "scope": "Shared menu/system text; excludes dialogue, name tables and Q&A",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3938400,
+        "capacity": 8,
+        "pointer_sites": [],
+        "source_slot_sha256": "52fa1e8352c49f73010a3bc4bad5fa4100ccfb18d705ff4e2432b263cc45e882",
+        "baseline_slot_sha256": "4d0e06152e934cd209365c0c42eaf75adfdc209662896c9ee30c1b2bd8c38829"
       }
     }
   ]
