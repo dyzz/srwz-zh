@@ -48,33 +48,33 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 76391,
-      "sha256": "e2a2e1bb1a379fd1a5f08cc3facf1c687514612aeb79f321fc55f28d168a6ab7"
+      "sha256": "9ebe644dd7560ef721d2b55d0aea1534d95187fabad33e967f0dc56ff5b1f317"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "62a633b76a5dccc2847bb1ae47384dc4f9f570b34a8a0cb894258cf112bdba7d"
+      "sha256": "454ff6ab165b971e83e8bf59d5238ba4bcaeab9b62e5568b5997c20730562812"
     },
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "ae8daa8f8b3f70c9b86316e2cb3584956fe53d9a44855972c8a857a761970442"
+      "sha256": "93c329481c10f29c476d00478425de2da6040fd12a37054c444e72607e7daa41"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18307912,
-      "sha256": "3daf254f715ddc44d926580c1105b5fde4de4da4d7ac3422e345e9c590aa012f"
+      "size": 18307918,
+      "sha256": "69048a607dbbf293910e4cef77d1f5df98335c18b3df649d3047daf2925c4ada"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "08876a1a899da003af7485aa59fbb975c52cf22ee3587d38f5939412e8b2f4c4"
+      "sha256": "8539fd5815a1c6ff702e7adff5262f89c1b9aa0266254526afce519dfff3ca79"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -1019,7 +1019,7 @@
     "corpus": {
       "path": "corpus/zh/menu/nisv-strategy-qa.json",
       "size": 902568,
-      "sha256": "6dbe7214e15042ef031eb9799adfdde2ea14226b4c28a71244f4443ceda7a4d0"
+      "sha256": "c876f4b52c38ac7e92c37b392f58fcac2ac94e415f132c4d0894347707b8e46f"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -2998,12 +2998,12 @@
     "library_archive": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
       "size": 29936,
-      "sha256": "37d89c83b27904652aa502ab74ff08c74be685ef10e258e3700a4a8b9a5d3a3c"
+      "sha256": "9c1e19a3f691f06a888d47f6d4212eb91466e97e1138531599ecb18ed562dd8a"
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816144,
-      "sha256": "2ce3d8d47657fd7f93041d610849989c3e9772acf4d78b7f1b8307da784fc603"
+      "sha256": "c1175e08e3f1d27765e8d0b215c6b6d64af97e7e6c04aae8d62c9134f153671d"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -3104,7 +3104,7 @@
       "release_snapshot_primary_mapping_sha256": "bbe8e58da89a3dff21ca8b3e8c82e1b7e3ab895c6f30d3108cad59fe62d9e551",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "e44319258c3d6bb9b5e9d4a832cf484e22dee0196834e05a6572e67ba1f510de",
+        "sha256": "f16ba7c9d5212e61ffca8d0b00285c96c4f8b6530beec0c2ce844160cd3b68bd",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."
