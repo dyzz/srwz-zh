@@ -23,6 +23,7 @@ from srwz.font import (
     GLYPH_HEIGHT,
     GLYPH_WIDTH,
     ascii_glyph_index,
+    decode_glyph,
     decode_vt1_font_segment,
     encode_glyph,
     glyph_raster_metrics,
@@ -202,6 +203,8 @@ def main() -> int:
         assignment
         for assignment in all_assignments
         if assignment.get("preserve_source_glyph") is not True
+        and assignment.get("raster", {}).get("mode")
+        != "copy_original_iso_glyph"
     ]
 
     raster_grays = {}
@@ -320,6 +323,24 @@ def main() -> int:
                 preserved_source_compatibility_glyphs.add(glyph_index)
             else:
                 preserved_stock_primary_glyphs.add(glyph_index)
+        elif assignment.get("raster", {}).get("mode") == "copy_original_iso_glyph":
+            source_code = assignment["raster"].get("source_code")
+            if (
+                assignment not in surface_alias_assignments
+                or source_code != assignment.get("primary_code")
+            ):
+                raise SystemExit("stock glyph copy is not a matching alias")
+            source_index = standard_glyph_index(int(source_code, 16))
+            source_packed = original_font.decoded[
+                source_index * GLYPH_SIZE : (source_index + 1) * GLYPH_SIZE
+            ]
+            pixels = decode_glyph(original_font.decoded, source_index)
+            packed = source_packed
+            actual_raster = {
+                "mode": "copy_original_iso_glyph",
+                "source_code": source_code,
+                "packed_glyph_sha256": sha256_bytes(source_packed),
+            }
         else:
             assignment_rasterizer = rasterizer
             gray, pixels, packed = raster_results_by_assignment[id(assignment)]

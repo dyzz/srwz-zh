@@ -17,6 +17,7 @@ from srwz.font import (
     glyph_index_for_code,
     read_extended_glyph_table,
     sha256_bytes,
+    standard_glyph_index,
 )
 from srwz.font_profile import FontProfileError, load_font_profile
 from srwz.font_source import (
@@ -139,7 +140,10 @@ def _reusable_rasters(
             not isinstance(character, str)
             or len(character) != 1
             or not isinstance(raster, dict)
-            or raster.get("mode") == "preserve_original_iso_glyph"
+            or raster.get("mode") in {
+                "preserve_original_iso_glyph",
+                "copy_original_iso_glyph",
+            }
         ):
             continue
         prior = rasters.setdefault(character, raster)
@@ -303,6 +307,47 @@ def main() -> int:
     extended_entries = read_extended_glyph_table(source_slps)
     rasterizer = profile["rasterizer"]
     font_path = locked_paths["font"]
+    stock_alias_copies = config.get("stock_glyph_alias_copies", [])
+    if not isinstance(stock_alias_copies, list) or any(
+        not isinstance(item, dict)
+        or set(item) != {"character", "alias_code", "source_code"}
+        for item in stock_alias_copies
+    ):
+        raise SystemExit("stock glyph alias copy policy is malformed")
+    copy_by_alias_code = {}
+    for item in stock_alias_copies:
+        character = item["character"]
+        alias_code = item["alias_code"]
+        source_code = item["source_code"]
+        matching_aliases = [
+            row for row in alias_rows
+            if row.get("character") == character
+            and row.get("code") == alias_code
+            and row.get("primary_code") == source_code
+        ]
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or not isinstance(alias_code, str)
+            or not isinstance(source_code, str)
+            or alias_code in copy_by_alias_code
+            or len(matching_aliases) != 1
+        ):
+            raise SystemExit("stock glyph alias copy has no unique primary")
+        try:
+            source_index = standard_glyph_index(int(source_code, 16))
+        except ValueError as error:
+            raise SystemExit("stock glyph alias copy source is invalid") from error
+        if text_table.characters.get(int(source_code, 16)) != character:
+            raise SystemExit("stock glyph alias copy source is not original")
+        source_glyph = original_font[
+            source_index * GLYPH_SIZE : (source_index + 1) * GLYPH_SIZE
+        ]
+        copy_by_alias_code[alias_code] = {
+            "mode": "copy_original_iso_glyph",
+            "source_code": source_code,
+            "packed_glyph_sha256": sha256_bytes(source_glyph),
+        }
 
     characters = sorted(
         {
@@ -358,7 +403,10 @@ def main() -> int:
             and text_table.characters.get(int(row["code"], 16))
             == row["character"]
         )
-    } | {row["character"] for row in alias_rows}
+    } | {
+        row["character"] for row in alias_rows
+        if row["code"] not in copy_by_alias_code
+    }
     if not required_raster_characters <= set(rasters):
         with ThreadPoolExecutor(max_workers=8) as executor:
             rasters = dict(executor.map(rasterize, characters))
@@ -484,6 +532,8 @@ def main() -> int:
                     "packed_glyph_sha256": sha256_bytes(preimage),
                 }
                 if preserve_original_glyph
+                else copy_by_alias_code[code_text]
+                if alias and code_text in copy_by_alias_code
                 else rasters[character]
             ),
         }

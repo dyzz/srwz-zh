@@ -12,6 +12,7 @@ from srwz.font import (
     decode_vt1_font_segment,
     read_extended_glyph_table,
     sha256_bytes,
+    standard_glyph_index,
 )
 from srwz.release_font_policy import (
     ReleaseFontPolicyError,
@@ -164,6 +165,19 @@ def main() -> int:
             raise SystemExit(
                 f"release glyph raster drift: {assignment['character']!r}"
             )
+        if assignment["raster"].get("mode") == "copy_original_iso_glyph":
+            source_code = assignment["raster"].get("source_code")
+            if (
+                assignment not in aliases
+                or source_code != assignment.get("primary_code")
+            ):
+                raise SystemExit("stock glyph copy is not a matching alias")
+            source_index = standard_glyph_index(int(source_code, 16))
+            source_start = source_index * GLYPH_SIZE
+            if candidate_glyph != source_font[
+                source_start : source_start + GLYPH_SIZE
+            ]:
+                raise SystemExit("stock glyph alias copy differs from original")
 
     try:
         entries, _entry_scenes, selection = (
