@@ -350,6 +350,9 @@ class TextUpdateIsoTests(unittest.TestCase):
                 "path": "corpus/zh/sample.json", "size": len(payload),
                 "sha256": hashlib.sha256(payload).hexdigest(),
             }}), encoding="utf-8")
+            special_disc = root / "config/products/special-disc/ui/menu_map.json"
+            special_disc.parent.mkdir(parents=True)
+            special_disc.write_text("[]\n", encoding="utf-8")
             subprocess.run(["git", "init", "-q", str(root)], check=True)
             subprocess.run(["git", "-C", str(root), "add", "config"], check=True)
             with patch.object(build_text_update_iso, "PROJECT_ROOT", root):

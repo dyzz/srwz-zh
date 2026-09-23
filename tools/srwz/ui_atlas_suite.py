@@ -355,7 +355,7 @@ def build_ui_atlas_suite(
         "scope": config.get("scope"),
         "inputs": {
             "config": _file_lock(root, config_path),
-            "source_iso": _file_lock(root, iso_path),
+            "source_iso": {**_file_lock(root, iso_path), "path": source_iso["path"]},
             "source_member": source_member_report,
             "components": components,
         },
