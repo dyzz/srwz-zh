@@ -56,7 +56,7 @@
     "config": {
       "path": "config/full-story-components.json",
       "size": 105661,
-      "sha256": "67026835a2f31820b2983a99a395ad1de6ce3c596f60d2a84d658e143d698935"
+      "sha256": "6f856feab3eec65be78128aa9b8c5869d30478d9660137448ad9ef74331f9c9f"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -96,17 +96,17 @@
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 76391,
-      "sha256": "9ebe644dd7560ef721d2b55d0aea1534d95187fabad33e967f0dc56ff5b1f317"
+      "sha256": "3e436a7f96137d7a65e7c0e1916d2471861c96dd41ebd6db165762b2b1a06cfd"
     },
     "reviewed_library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816144,
-      "sha256": "c1175e08e3f1d27765e8d0b215c6b6d64af97e7e6c04aae8d62c9134f153671d"
+      "sha256": "41f7f92f3456498ac6160eb631993f4e0d19f563bd50e05c38fb0975ba68a3d5"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307918,
-      "sha256": "69048a607dbbf293910e4cef77d1f5df98335c18b3df649d3047daf2925c4ada"
+      "sha256": "a3af76310fa0dbf1a08652bb025c3a974f87e44a5887998185c240d99ec5d118"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -130,8 +130,8 @@
     },
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
-      "size": 3311239,
-      "sha256": "36593a3245533658d857bafca95c83b02cd257a0eb87008b56e8147f071c7baa"
+      "size": 3311094,
+      "sha256": "6d5c18656d78f65bbabd1ab7c1b3cacc77f4dc23d0d97e2d6488e6220a3af81a"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -326,17 +326,17 @@
     "font_slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "454ff6ab165b971e83e8bf59d5238ba4bcaeab9b62e5568b5997c20730562812"
+      "sha256": "08452b6739549ff5baec03d66b706d87e20dee07acb0789c3899733b656cbe72"
     },
     "font_vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "93c329481c10f29c476d00478425de2da6040fd12a37054c444e72607e7daa41"
+      "sha256": "9a2be8c761a39f6ae3b86ed492827b1abc6e4a99ee4c53a25783863102de4213"
     },
     "font_component_report": {
       "path": "work/build/zh-release-font/components/font-validation.json",
-      "size": 1786373,
-      "sha256": "a917ac09d36abe7237d6ca6bcb5b68db5fdb0121ec3d657bf051ba2de1e7c713"
+      "size": 1786230,
+      "sha256": "f408a90234bf37e528b23900dbb483a4aadac8f77dc98d32690bc9c4886d46d8"
     },
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
@@ -476,7 +476,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816144,
-      "sha256": "c1175e08e3f1d27765e8d0b215c6b6d64af97e7e6c04aae8d62c9134f153671d"
+      "sha256": "41f7f92f3456498ac6160eb631993f4e0d19f563bd50e05c38fb0975ba68a3d5"
     },
     "aid_battle_prompt_component_manifest": {
       "path": "manifests/aid-battle-prompts-zh-validation.json",
@@ -666,10 +666,10 @@
   },
   "composition": {
     "font_chunk_index": 2,
-    "font_encoded_size": 625658,
-    "font_decoded_sha256": "b1d1c158336a085beca864457cfbaaf73ae11ee91e7d232fdedb458547bcdfe2",
-    "font_padding_size": 6,
-    "additional_borrowed_preceding_zero_slack": 26320,
+    "font_encoded_size": 625646,
+    "font_decoded_sha256": "f06c9ab54e07dc61fb3d9eef107ca72f2c17bdf5aa20678fe13d5dfeb1fdad19",
+    "font_padding_size": 2,
+    "additional_borrowed_preceding_zero_slack": 26304,
     "preserved_non_font_vt1_chunk_count": 13,
     "archive_size_preserved": true,
     "slps_offset_reread_exact": true,
@@ -684,8 +684,8 @@
       "mode": "direct-original-writeback",
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
-        "size": 3311239,
-        "sha256": "36593a3245533658d857bafca95c83b02cd257a0eb87008b56e8147f071c7baa"
+        "size": 3311094,
+        "sha256": "6d5c18656d78f65bbabd1ab7c1b3cacc77f4dc23d0d97e2d6488e6220a3af81a"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
@@ -8416,7 +8416,7 @@
     "offset_patch_plan": {
       "source_name": "SLPS_258.87",
       "source_size": 3471624,
-      "source_sha256": "739b2cfceb48755b4ece1993ae6119af74dc43cbc95298a2d0e88b6f2718b1c8",
+      "source_sha256": "b049ed36c0b4e9983e75ba3d85891de6099782969db5d9e7ffaa270873294ee9",
       "operation_count": 1,
       "operations": [
         {
@@ -59877,8 +59877,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "796e42bc5f779eb9b4791432f800ddbd42c447a2613c98d49e255cd37da52b78",
-    "output_sha256": "3cbe22320ead539962de64bddb0623b63002a6a1308a206223527a8c08d86345",
+    "source_sha256": "1a2e38e04cb201145477b2caf171bb676e9a13e263bb7fa9be1ee2afb2be876c",
+    "output_sha256": "b2cc52a6704a4e522287e70b76b8aa38b56603fc62e5d4853005f56ea3e266e5",
     "instruction_replacement_exact": true,
     "executable_size_preserved": true,
     "metadata": {
@@ -59959,8 +59959,8 @@
     "changed_byte_count": 4,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "3cbe22320ead539962de64bddb0623b63002a6a1308a206223527a8c08d86345",
-    "output_sha256": "b7d9c923f6e41a2f82ad826a4093357b5948210a875e49e3df3cdea317cf3c1d",
+    "source_sha256": "b2cc52a6704a4e522287e70b76b8aa38b56603fc62e5d4853005f56ea3e266e5",
+    "output_sha256": "84b6a2806a391f42f48f2463cb9490931bc501f09aad8237d3f5b96e26d24152",
     "all_instruction_replacements_exact": true,
     "save_writeback_functions_unchanged": true,
     "executable_size_preserved": true
@@ -59990,8 +59990,8 @@
     "changed_byte_count": 16,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "b7d9c923f6e41a2f82ad826a4093357b5948210a875e49e3df3cdea317cf3c1d",
-    "output_sha256": "8e359569c337540836613429f13ddf1fef5b27517e20f0fefb1b621df34eaf6a",
+    "source_sha256": "84b6a2806a391f42f48f2463cb9490931bc501f09aad8237d3f5b96e26d24152",
+    "output_sha256": "66781535141742ee2efcaafc9816e0aee0b440dbd65155a27e02a0bac253e9a2",
     "instruction_replacement_exact": true,
     "save_preview_formatter": {
       "virtual_address": "0x3E403C",
@@ -60586,8 +60586,8 @@
     "changed_byte_count": 33,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "0adb01dc5a4fa6db9be1ef2e3cbcccdd1751ba750d7c71fcd21a3cea2d89d4ba",
-    "output_sha256": "7bfb32c2bc9b81c510ad004ff3408e6454180adc28921cdc9a2806461a60a39e",
+    "source_sha256": "2eafbcda690721f030c3d6eca47497f76d47e71b457fefa738f45a180b5c1cca",
+    "output_sha256": "3b7456872d9ef3b96bb8ecc15d8fe49db00d4441e86102056d89e9646b61b3cd",
     "all_instruction_replacements_exact": true,
     "all_text_layout_replacements_exact": true,
     "all_runtime_color_retargets_exact": true,
@@ -60894,8 +60894,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "43a7a586710e786d66dcefe8f199584cc54ba6e1e879530890f98014e4e5adbd",
-    "output_sha256": "ab0b0b1ebd4e39c9f4f7544c3d0b66e887ea3d930af999713a752ee03ebda6ba",
+    "source_sha256": "57993b27ccde8da114c9d3a57a8cda6d02aef363a48d41ac7d4a9fbd62bab061",
+    "output_sha256": "abf3106f195e537d0117c50f1e0d1b4dcd17955baa2e27028c740b5c3a0677a7",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -60977,8 +60977,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "ab0b0b1ebd4e39c9f4f7544c3d0b66e887ea3d930af999713a752ee03ebda6ba",
-    "output_sha256": "a9cea3132bb3ee5c57aece99a9843eb970f3f934c609220dc36c7f3d335d9adc"
+    "source_sha256": "abf3106f195e537d0117c50f1e0d1b4dcd17955baa2e27028c740b5c3a0677a7",
+    "output_sha256": "07c62d0b6bbeb911e47e3e47efc3e6bdc8e6ed9ada7b5708e848fbca103ca0cc"
   },
   "bazaar_top_help_alignment": {
     "policy": "shift_purchase_help_left_without_changing_text",
@@ -61060,8 +61060,8 @@
     "all_instruction_replacements_exact": true,
     "text_bytes_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "a9cea3132bb3ee5c57aece99a9843eb970f3f934c609220dc36c7f3d335d9adc",
-    "output_sha256": "e9dbda9c1701d6aeb9fcc1471becb64b33902518159522700538c90c8b96d7b5"
+    "source_sha256": "07c62d0b6bbeb911e47e3e47efc3e6bdc8e6ed9ada7b5708e848fbca103ca0cc",
+    "output_sha256": "95eec26f25598ab3085a1873aa203d8161577ee91bc7b45ad67688701fa29585"
   },
   "command_status_label_alignment": {
     "policy": "align_chinese_sr_points_with_turn_count",
@@ -61091,8 +61091,8 @@
     "text_bytes_untouched": true,
     "turn_count_coordinate_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "e9dbda9c1701d6aeb9fcc1471becb64b33902518159522700538c90c8b96d7b5",
-    "output_sha256": "c5787cc34e89912363d73a21f347a727a20f3e4d30c8fcb2b7401b8e4e964e69"
+    "source_sha256": "95eec26f25598ab3085a1873aa203d8161577ee91bc7b45ad67688701fa29585",
+    "output_sha256": "e00f5c624f9da6509866fd0a2fcc2cd7c13128ca667aef73296b8409966690ec"
   },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -61113,8 +61113,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "c5787cc34e89912363d73a21f347a727a20f3e4d30c8fcb2b7401b8e4e964e69",
-    "output_sha256": "ab7434afc49609d34384ea400e0b7bbb6738866e23cf26f36bfe6514903f4389",
+    "source_sha256": "e00f5c624f9da6509866fd0a2fcc2cd7c13128ca667aef73296b8409966690ec",
+    "output_sha256": "9118afc7f5d46906dc53bd7310ab0637819eb74fbe1ac40ab3d4298254a96805",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -61159,8 +61159,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "ab7434afc49609d34384ea400e0b7bbb6738866e23cf26f36bfe6514903f4389",
-    "output_sha256": "b3becfe85e67d234d2f2dc4687d5019ff84db2602f28833be7dd250d526bd0dd",
+    "source_sha256": "9118afc7f5d46906dc53bd7310ab0637819eb74fbe1ac40ab3d4298254a96805",
+    "output_sha256": "4325d84a091930c9b29123ecc1a03161db5f12fbd6cdb6bd640fd447b44bd3bf",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -69383,12 +69383,12 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "4804eb2cb3395d379b56a6655a940f5d6d29f4eb50ea9e4b3e0e1e8386d3306b"
+      "sha256": "12e9540c07f70d93d4dbc5523e48a8b0f42333f976416674c267db07934415bd"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "54565b16e2309b0f1d73faf007aae93f397c6231719aff4ecb6c9f39fb6455e6"
+      "sha256": "bebb2668ea6dbecae3fa78f86d9ab8205e1fa1d4c057eb501fa264e27fc72038"
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",

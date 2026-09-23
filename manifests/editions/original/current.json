@@ -57,35 +57,35 @@
     },
     "path": "build/iso/daily-test/current-original-skip.iso",
     "runtime": "not_tested",
-    "sha256": "02c007dd082eb42321dc098b78bdd6a9c589a5bc98cfdb184790b8fe08ec4b58",
+    "sha256": "abf9699cda869e77a0f00453f645e5bc7f797b1b467990111c869d66e7c203a1",
     "size": 3758358528,
     "skip_enabled": true,
     "status": "exact_current_copy_and_skip_readback_passed"
   },
   "edition_contract_sha256": "a8b5b0d5dd0ae4cb1e4174a268ebb8acad72c66aa9d2f63e928e14467f628f54",
   "edition_id": "original",
-  "input_digest": "907ed6fc06017202205a9a0e33beb91f4e125d9d051dabbc62a9c04012555c99",
+  "input_digest": "de40ce2643422780fdd4cdb7f81ba653938a890fa8292c0da5e6c209ecf1ca02",
   "legacy_equivalence": {
-    "baseline_iso_sha256": "83cbf6bd8863c8a8ce22113431b7c40f2c3d61aa383ff7da8fa22047930b8e47",
+    "baseline_iso_sha256": "abf9699cda869e77a0f00453f645e5bc7f797b1b467990111c869d66e7c203a1",
     "member_count": 25,
-    "passed": false,
+    "passed": true,
     "required": false
   },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "sha256": "02c007dd082eb42321dc098b78bdd6a9c589a5bc98cfdb184790b8fe08ec4b58",
+    "sha256": "abf9699cda869e77a0f00453f645e5bc7f797b1b467990111c869d66e7c203a1",
     "size": 3758358528
   },
   "readback": {
-    "path": "build/editions/zh-release-original/793ee74e040d28ccb746dff9961fbc52d389017fe6794761326ad58b640ba787/project/manifests/zh-release-full-story-iso-content-validation.json",
-    "sha256": "1ec596c6af63c9ce65f80f51ec66bfb9958646270ed32d6d0f79c5b06d66af1e",
+    "path": "build/editions/zh-release-original/04f80aa1435242fe3c969be61a01fbd145c0b44c460760eb2ce8941a908cc0e1/project/manifests/zh-release-full-story-iso-content-validation.json",
+    "sha256": "6c0ec91e297d54fac47b4787ab2c952bbeab0edfdd7b75d8914186d69b71475a",
     "stage_count": 170,
     "translation_entry_count": 93071
   },
   "runtime": "not_tested",
   "schema_version": 1,
-  "source_head": "962d73da06646b87f92d9b8c0f082f0832ff809f",
+  "source_head": "97ce03beb4bdbd0cd7b288950803cced1326bd8a",
   "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-original/793ee74e040d28ccb746dff9961fbc52d389017fe6794761326ad58b640ba787/project"
+  "workspace": "build/editions/zh-release-original/04f80aa1435242fe3c969be61a01fbd145c0b44c460760eb2ce8941a908cc0e1/project"
 }
