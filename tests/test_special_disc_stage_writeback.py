@@ -120,7 +120,7 @@ class SpecialDiscStageTests(unittest.TestCase):
 
     def test_current_chart_summaries_fit_native_three_rows_without_splitting_names(self):
         import write_frame_text as frame
-        profile = frame.load_layout_profiles(frame.stage.PROFILES)['scenario_chart_overview']
+        profile = frame.load_layout_profiles(frame.stage.PROFILES)['sp_hsfc_summary']
         rows = json.loads((frame.ROOT / 'corpus/zh/special-disc/frame-text.json').read_text())['entries']
         for row in rows:
             if not any(t.startswith('sd/hsfc/') for t in row['locations']):
@@ -129,6 +129,7 @@ class SpecialDiscStageTests(unittest.TestCase):
                 text = frame.fit_chinese_dialogue_layout(row['translation'], profile=profile,
                     protected_terms=frame.HSFC_PROTECTED_TERMS).text
                 self.assertLessEqual(len(text.split('\n')), 3)
+                self.assertTrue(all(frame.rendered_line_width(line) <= 32 for line in text.split('\n')))
                 for name in frame.HSFC_PROTECTED_TERMS:
                     if name in row['translation']:
                         self.assertIn(name, text)
