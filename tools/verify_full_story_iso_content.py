@@ -847,7 +847,7 @@ def verify_targeted_ui_glyphs(
         "formation_action_labels": "攻击反击参与攻击",
         "formation_names": "TRI集中分散",
         "spirit_acronyms": "热魂闪不铁集必加迅觉手狙直幸努乱分",
-        "reported_land_dialogue": "哦把自己机器弄坏的那家伙罚你帮忙修理",
+        "reported_land_dialogue": "哦把自己机体弄坏的那家伙罚你帮忙修理",
         "reported_kejinan_retreat": "今今天只是身体不舒服你们给我记住",
     }
     extended = read_extended_glyph_table(slps)
@@ -7135,7 +7135,7 @@ def main() -> int:
             f"{sorted(set(player_choice_readbacks) ^ player_choice_entry_ids)!r}"
         )
     expected_land_translation = (
-        "“哦！把自己机器弄坏的那家伙，\n　罚你帮忙修理。”"
+        "“哦！把自己机体弄坏的那家伙，\n　罚你帮忙修理。”"
     )
     if reported_land_translation != expected_land_translation:
         raise SystemExit(

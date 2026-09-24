@@ -3,7 +3,7 @@
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
   "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes.",
-  "stage_postprocess_signature": "e575e8dac076f73b23b9e8e03db158321b35a90a244015ed974e70d4b5d8a74a",
+  "stage_postprocess_signature": "b4105a19cc8b7ae659d5e007c5a2dfe63646c4e4dd196492012dcd26e26b6b60",
   "build_groups": [
     {
       "id": "core_runtime_members",
@@ -50,7 +50,7 @@
     "config": {
       "path": "config/full-story-components.json",
       "size": 105661,
-      "sha256": "6f856feab3eec65be78128aa9b8c5869d30478d9660137448ad9ef74331f9c9f"
+      "sha256": "3ccd9c401a7da1cd1ab8a3c6e123253ec85a15512213fce322dd7f5db652f81c"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -90,17 +90,17 @@
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 76391,
-      "sha256": "3e436a7f96137d7a65e7c0e1916d2471861c96dd41ebd6db165762b2b1a06cfd"
+      "sha256": "ad1e43f1f8163b11e774464dfc33c324dcfbca2b310bb82c2452ffbff6485b00"
     },
     "reviewed_library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816144,
-      "sha256": "41f7f92f3456498ac6160eb631993f4e0d19f563bd50e05c38fb0975ba68a3d5"
+      "sha256": "ea53b7eda438e08e6b6880949aa39c40c512b939185abdee7ea7cb712f24bbe7"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307918,
-      "sha256": "a3af76310fa0dbf1a08652bb025c3a974f87e44a5887998185c240d99ec5d118"
+      "sha256": "bff60ec95b17c85fc6dc721ae102e482e02111c06d2fbad57d587fef9dccee41"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -125,7 +125,7 @@
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
       "size": 3311094,
-      "sha256": "6d5c18656d78f65bbabd1ab7c1b3cacc77f4dc23d0d97e2d6488e6220a3af81a"
+      "sha256": "1b40b963669114951a6320d28a73ae01dc6e29557754d7cde2b83850fbfa430a"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -304,8 +304,8 @@
     },
     "srvc_battle_text_corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6981991,
-      "sha256": "23c80d0b6d934090ebb722cac63186f95bedf99413cb29d8fa4fae6ecdec52d5"
+      "size": 6982015,
+      "sha256": "3b55a3e653aafc79499132e5da709e3b7a108cb2e9604e40540a17a4526dec3b"
     },
     "original_srvc_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -335,7 +335,7 @@
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "8539fd5815a1c6ff702e7adff5262f89c1b9aa0266254526afce519dfff3ca79"
+      "sha256": "6e4c97dac2be4a2818ccb7b4c618ef1bf863e5e5c793c407771374bc4ce4931f"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -619,7 +619,7 @@
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
         "size": 3311094,
-        "sha256": "6d5c18656d78f65bbabd1ab7c1b3cacc77f4dc23d0d97e2d6488e6220a3af81a"
+        "sha256": "1b40b963669114951a6320d28a73ae01dc6e29557754d7cde2b83850fbfa430a"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
@@ -648,7 +648,7 @@
           "table_start": 3319824,
           "table_end": 3321468,
           "value_count": 411,
-          "packed_sha256": "518771b1d1cc78ca03c85a334acb404ebab0d83787c253fef7a4ba2096b40016",
+          "packed_sha256": "a7cec29a7237e3aba0e96b63035d62f9afa349d3abd7ef69b8120469637ba60f",
           "archive_size": 293696,
           "reread_exact": true
         },
@@ -12965,10 +12965,10 @@
           "stage_index": 16,
           "entry_count": 28,
           "source_stored_size": 26448,
-          "source_encoded_size": 23982,
-          "output_encoded_size": 23924,
-          "output_encoded_sha256": "b6b540c599f38ebb342f47f4b98b42e750a9c13085d1504fc565fddfb7645473",
-          "output_padding_size": 2524,
+          "source_encoded_size": 24178,
+          "output_encoded_size": 24125,
+          "output_encoded_sha256": "12330c6e20d42756ce28fb55c58e9b3df1b261582a84416c1e93e6a1b4cb65e6",
+          "output_padding_size": 2323,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 279,
@@ -13580,10 +13580,10 @@
           "stage_index": 57,
           "entry_count": 19,
           "source_stored_size": 19232,
-          "source_encoded_size": 17757,
-          "output_encoded_size": 17683,
-          "output_encoded_sha256": "36ac9a4fdd8c1811adc31b6e20addb6f28942f429af63071d45bd3aaa49dc736",
-          "output_padding_size": 1549,
+          "source_encoded_size": 17838,
+          "output_encoded_size": 17767,
+          "output_encoded_sha256": "a5743d0a9f1a8c91cae5881c7f04c9889585b14c980eb4e45ecddad182d011c7",
+          "output_padding_size": 1465,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 216,
@@ -15410,10 +15410,10 @@
           "stage_index": 186,
           "entry_count": 9,
           "source_stored_size": 19296,
-          "source_encoded_size": 17292,
-          "output_encoded_size": 17263,
-          "output_encoded_sha256": "ede8a2759fcef6dff8dbf1da71a13c24393c904bbcc6b205d31960169e4c6b6d",
-          "output_padding_size": 2033,
+          "source_encoded_size": 17284,
+          "output_encoded_size": 17256,
+          "output_encoded_sha256": "436755a166001020aa3640572e802b043199dbe15048db3160a8b2bd95814a11",
+          "output_padding_size": 2040,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 72,
@@ -61272,11 +61272,11 @@
     "pool": {
       "translated_record_count": 58740,
       "original_indexed_pool_bytes": 2165802,
-      "output_indexed_pool_bytes": 1654288,
-      "released_indexed_pool_bytes": 511514,
+      "output_indexed_pool_bytes": 1654352,
+      "released_indexed_pool_bytes": 511450,
       "minimum_record_headroom": -24,
       "minimum_chunk_headroom": 0,
-      "expanded_record_count": 137
+      "expanded_record_count": 141
     },
     "translated_reread_count": 58740,
     "translated_reread_exact": true,
@@ -69294,11 +69294,11 @@
         {
           "stage_index": 186,
           "record_count": 1,
-          "source_encoded_size": 17263,
-          "output_encoded_size": 17184,
-          "output_encoded_sha256": "729c2c41c760c0a9d3faccacb36422767bf781e9341700056e3dc7422abbcde2",
+          "source_encoded_size": 17256,
+          "output_encoded_size": 17177,
+          "output_encoded_sha256": "bbdee442aef9e40e5d9a18928b0b865e85f29700b440576072dadfe2d1f289ff",
           "slot_size": 19296,
-          "output_headroom": 2112,
+          "output_headroom": 2119,
           "changed_byte_count": 256,
           "pretranslated_pointer_count": 0,
           "codec_strategy": "rust-fit",
@@ -69317,7 +69317,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "12e9540c07f70d93d4dbc5523e48a8b0f42333f976416674c267db07934415bd"
+      "sha256": "43adeda08925abc66df56b44dba8452d2f5bad5326beb13f06d5227db84e2d51"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -69347,7 +69347,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "c01167c7e41f79182254e54876feb2349aef439900fd30fefe9d6213f03c6095"
+      "sha256": "943a1a7155456eebf6b4d4c7801ccafaaad097ac5a53faf614b286c5c0077786"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -69372,7 +69372,7 @@
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "dc0d8b8b01d30ca0eb7a0cdb74a42345fd05a292b46e281edc23fe3d5dad2f2e"
+      "sha256": "462b75f54a38486f0b78bf98d7ac612b27bf524d71245a32fa4643d3314ce9b5"
     },
     "BTL/SRVC.SEG": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",
