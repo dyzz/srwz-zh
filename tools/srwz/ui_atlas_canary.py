@@ -222,9 +222,9 @@ def _json_object(path: Path) -> dict:
 def _project_path(root: Path, raw: object) -> Path:
     if not isinstance(raw, str) or not raw:
         raise UiAtlasCanaryError("project path must be a non-empty string")
-    path = (root / raw).resolve()
+    path = root / raw
     try:
-        path.relative_to(root)
+        path.resolve().relative_to(root)
     except ValueError as error:
         raise UiAtlasCanaryError(
             f"path escapes the project root: {raw}"
