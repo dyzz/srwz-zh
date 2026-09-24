@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "batch_id": "episode32-subtitle-20260924",
+  "translation_commit": "e9f915fa1f2e167f11de0310776486e599d84267",
+  "confirmation_manifest": "config/editorial/episode32-subtitle-confirmed-20260924.json",
+  "changed_records": 15,
+  "custom_records": 3,
+  "batch_manifest": "work/editions/86d8576a17d19b345fe0f91637f35ccb83a130d61df56a31b428a6e39a52e642/original-best.json",
+  "input_digest": "86d8576a17d19b345fe0f91637f35ccb83a130d61df56a31b428a6e39a52e642",
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "86d8576a17d19b345fe0f91637f35ccb83a130d61df56a31b428a6e39a52e642",
+    "verified_editions": [
+      "original",
+      "best"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "tests": {
+    "run": 487,
+    "skipped": 6,
+    "status": "passed"
+  },
+  "editions": [
+    {
+      "edition_id": "original",
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "651e2eae49faa55235c8adb485f910108fb82df106b725680d09aaf1886f0a20",
+        "size": 3758358528
+      },
+      "readback": {
+        "path": "build/editions/zh-release-original/32b38ed48c1e660bd11ec03f6d69dc13658e000c97e14ccfe3d744a2b0df47f6/project/manifests/zh-release-full-story-iso-content-validation.json",
+        "sha256": "7178d4cd21f26d7da76fc0ca2e7f3dfe8c6edc0441233e7faf4a5f498eef16b5",
+        "stage_count": 170,
+        "translation_entry_count": 93071
+      },
+      "runtime": "not_tested"
+    },
+    {
+      "edition_id": "best",
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "32f34fe14e090e459defcf819a19646ac5d95631437907188fd6259bb5ad4036",
+        "size": 3755081728
+      },
+      "readback": {
+        "path": "build/editions/zh-release-best/5d7316d9ce7a198d0e86fd611c262e46c9cd4a9c44d26b9bac5228815f65e414/project/work/build/best-current/iso-readback.json",
+        "sha256": "c72dc0889751e740fc5607ae2dc2abe6fb93dbced5834cedf0869aaa9f657ece",
+        "stage_count": 205,
+        "translation_entry_count": 84338
+      },
+      "runtime": "not_tested"
+    }
+  ]
+}
