@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "batch_id": "episode32-subtitle-20260924",
+  "source_commit": "e03ec3c9dba2254728eadf791146593460cb372d",
+  "review_fingerprint": "7b7977cf29221c979ca62a0c4f4882ca6f7d0da0e04fa5c9aef2d1a6a00736bb",
+  "decisions_sha256": "0ed105232d800ebea2b87f734015e9cc14153547bf4c25e88103330b53efb0a6",
+  "reference": {
+    "filename": "Z1-32_字幕.srt",
+    "sha256": "4ce882b4311af1bc6dcca21c3287bcac6b5edf451da318c30996ba4deb9e9bd2"
+  },
+  "changed_translation_records": 15,
+  "decisions": [
+    {
+      "review_id": "ep32-srt-531",
+      "target_id": "story/057/dialogue/02.01/0009",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "90b7bdd874f86333e53c2640a205a00bcfd0e439a09e84036cf132e44f4bd2b6",
+      "before": "“我知道啦！……那，你们想要什么谢礼？\n　艾岱尔准将亲笔签名的火辣照片？”",
+      "after": "“我知道啦！……那，你们想要什么谢礼？\n　艾岱尔准将的亲笔签名照？”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:07:42.054842+00:00",
+      "line_widths": [
+        19,
+        13
+      ],
+      "analysis": "生写真在这里是照片，并无“火辣”含义。笑点来自索要准将签名照及约会、掏耳朵券，不能自行把照片内容色情化。同段SRT #535、story/057/dialogue/02.01/0013重复了同一增译。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-535",
+      "target_id": "story/057/dialogue/02.01/0013",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "c4a4fd0441f480b8c16bc182fe974b1283673bf2a0e4bfc335cadd9a6cbdeaac",
+      "before": "（我们倒是想要艾岱尔准将的火辣照片啊……）",
+      "after": "（我们倒是想要艾岱尔准将的照片啊……）",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:07:47.292863+00:00",
+      "line_widths": [
+        19
+      ],
+      "analysis": "同段第二次出现生写真，也没有“火辣”含义。与前一句一起改为普通照片；此处原文没有再次说签名，不额外补入。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-543",
+      "target_id": "story/057/dialogue/02.01/0021",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "3b8016782951cf139e8afd47151eb4ea8e8152feda2bcadebba015506fd60d33",
+      "before": "“巴尔戈拉本身并不是普通的机体。\n　扩展性虽高，但目前的规格嘛，算中上吧？”",
+      "after": "“巴尔戈拉本身是架普通的机体喵。\n　扩展性虽高，但目前的性能嘛，\n　也就是中上水平吧？”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:07:52.559946+00:00",
+      "line_widths": [
+        16,
+        14,
+        10
+      ],
+      "analysis": "プレーンな機体じゃにゃ中的じゃ是判断助动词的口吻，末尾にゃ延续博士的说话习惯，并不是否定。这里说机体本体普通，后文才转入扩展性和异常冗余。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-573",
+      "target_id": "story/057/dialogue/02.01/0051",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "3e406d830b667197d57e159fec9477051f3429c108a81840dcdc425626f04ba7",
+      "before": "“所以是那黑箱让它拥有那种功能吗。”",
+      "after": "“是指那全方位的泛用性吗？”",
+      "choice": "custom",
+      "confirmed_at": "2026-09-24T14:39:40.042699+00:00",
+      "line_widths": [
+        14
+      ],
+      "analysis": "原文あのマルチな汎用性ですか承接前句的功能响应，询问的是那种多用途性能；当前漏掉这一关键词，并新增“黑箱让它拥有”的因果解释。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-637",
+      "target_id": "story/057/dialogue/01.11/0005",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "e773d9b926178c14a0ddbab75cc32ce86f79884cf56e919040bfebba6eba9c34",
+      "before": "“因为荣耀之星是我们重要的地方。”",
+      "after": "“因为荣耀之星是我们珍视的归宿。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:16:14.030270+00:00",
+      "line_widths": [
+        17
+      ],
+      "analysis": "UP的“归宿”很好地表达了这里的情感落点。原文是私達，仍应保留“我们”，不能沿用UP的“对我来说”。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-662",
+      "target_id": "story/057/dialogue/01.18/0001",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "bdc8bd12a09fc8a1371b7a4e053e74b7d0d358709cab382c0989c8f53476c380",
+      "before": "“觉醒吧。然后，你的灵魂将被狩狼牙吞噬。\n　让你从所有世界中消失。”",
+      "after": "“觉醒吧。然后，狩狼牙会吞噬你的灵魂，\n　让所有世界都不再有你的容身之处。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:16:22.604931+00:00",
+      "line_widths": [
+        19,
+        17
+      ],
+      "analysis": "なくす的对象是居場所，当前“让你从所有世界中消失”把落点变成存在被抹除。UP保留了“所有世界都不再有容身之地”，更贴近原句。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-177",
+      "target_id": "battle:11210",
+      "source_file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "9769b21c6619a93d81bda070a74b6136338afa172441b14ed82967475e7b7b56",
+      "before": "“如果这份悲伤能化为力量，\\n　我就用它砸向你！”",
+      "after": "“如果这份悲伤能化为力量，\\n　我就把这股力量全都倾泻在你身上！”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:22:49.857721+00:00",
+      "line_widths": [
+        13,
+        17
+      ],
+      "analysis": "ぶつける在这里是将悲伤转化的力量倾泻给对手。保留力量指向，让“砸向你”更自然；不改变武器或招式名。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-724",
+      "target_id": "story/057/dialogue/01.35/0000",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "ca8da002518ecd9eeb12efbc3fe92e088b79a9d342d7b3ae147905ad35be7d42",
+      "before": "“很好，$n。你心中阴暗\n　潮湿的感情，连我都感受到了……！”",
+      "after": "“很好，$n。\n　你心中那股阴暗郁结的情绪，\n　连我都感受到了……！”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:22:57.969291+00:00",
+      "line_widths": [
+        11,
+        13,
+        11
+      ],
+      "analysis": "暗く湿った感情有阴暗、郁结、黏滞之感。UP的“泥泞般的黑暗”更能让中文读者感受到这层情绪；这是修辞取舍，不应简单判当前为错译。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-751",
+      "target_id": "story/057/dialogue/01.30/0008",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "a7facb0173d14657a4954251f7a62c2eab0d1e878fe9ce158a66aa1c506c8a65",
+      "before": "“不是为了阻止悲伤而战斗的吗！”",
+      "after": "“为了终结心中的悲伤而战不是吗！”",
+      "choice": "custom",
+      "confirmed_at": "2026-09-24T14:23:40.126771+00:00",
+      "line_widths": [
+        17
+      ],
+      "analysis": "与战后#795的「悲しみを止める」采用相同表达。原文未限定“心中”，避免将不让别人再经历悲伤的主题缩成个人止痛。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-793",
+      "target_id": "story/057/dialogue/02.02/0035",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "fc7b62d1b74ee29737d4ecdb63b8ca9e8b72a4da0b5fcf08e147460fdd9c8394",
+      "before": "“但是，我……明白了……从失去父\n　母的那天起，我就一直与悲伤共存……”",
+      "after": "“可是，我……明白了……\n　从双亲在战争中离世的那天起，\n　我就一直与悲伤相伴……”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:28:07.205618+00:00",
+      "line_widths": [
+        12,
+        14,
+        12
+      ],
+      "analysis": "原文明确是戦争で両親を失った。当前保留失去父母，却删掉“战争”，削弱其后“不让别人再遭受相同痛苦”的动机。UP保留了这点；不过わかったんです的领悟语气，我们的“明白了”更好。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-794",
+      "target_id": "story/057/dialogue/02.02/0036",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "944daf64fe1eaffd111dbbc050297915804415717dbcc49472ce32161fd61840",
+      "before": "“所以……我……\n　想阻止有人像我那天一样痛苦……”",
+      "after": "“所以……我……\n　不想再让任何人，\n　承受我那天经历过的痛苦……”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:28:33.281007+00:00",
+      "line_widths": [
+        8,
+        8,
+        14
+      ],
+      "analysis": "“想阻止有人像我那天一样痛苦”读起来不自然。UP更顺，但“变得和那时的我一样”较含糊，可保留原文遭受同样感受的重点。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-795",
+      "target_id": "story/057/dialogue/02.02/0037",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "13543042ee844783d5211af1de47f4333e0ef422305673e8f7eb4507a9bad200",
+      "before": "“阻止悲伤……”",
+      "after": "“让悲伤终结…”",
+      "choice": "custom",
+      "confirmed_at": "2026-09-24T14:29:15.943401+00:00",
+      "line_widths": [
+        8
+      ],
+      "analysis": "“阻止悲伤”是直译；UP的“让悲伤终结”更自然。可与#751的悲しみを止める呼应，但不要加入原文没有的“心中”，将保护他人的主题限缩为个人止痛。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-801",
+      "target_id": "story/057/dialogue/02.02/0043",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "5405dcedef832210825cf020f27978d94698d0025328c54f27601c5adb2c8371",
+      "before": "“不过，小心点……\n　有一天你可能会变得有点不一样。”",
+      "after": "“不过，你得小心……\n　你……接下来会渐渐变得不一样。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:29:30.960040+00:00",
+      "line_widths": [
+        10,
+        16
+      ],
+      "analysis": "その内、変わっていく强调今后会发生变化；我们的“有一天”“有点”把过程和力度削弱了，UP的“最近”“可能”也不是逐字对应。结合下一句可能不再是人类，适合更直接。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-821",
+      "target_id": "story/057/dialogue/02.02/0063",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "4aabe0ee6811f94012c34150af108a8946d7036ef55fbd86004e146adf7977f7",
+      "before": "“不过，作为替代，我会与你并肩作战。”",
+      "after": "“虽说这代替不了安慰的话，\n　但我会和你并肩作战。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:29:43.620518+00:00",
+      "line_widths": [
+        13,
+        11
+      ],
+      "analysis": "その代わりというわけではありませんが明确表示“虽说这不能作为替代”，当前却说“作为替代”。UP保留了否定，但中文还可以更顺。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep32-srt-860",
+      "target_id": "story/057/dialogue/02.02/0108",
+      "source_file": "corpus/zh/story-dialogue/stage-057.json",
+      "source_text_sha256": "1216785fc8e8134c29c5b3d66ff6d56c483158422434e450d47139eb42104e62",
+      "before": "“请放心。新联邦内部\n　似乎也已做好阻止他们浅薄计谋的准备。”",
+      "after": "“请放心。新联邦内部似乎也已在准备，\n　要阻止他们那番浅薄的盘算。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-24T14:30:06.479447+00:00",
+      "line_widths": [
+        18,
+        14
+      ],
+      "analysis": "既に進んでいるようです是“似乎已经在推进”，并不等于准备工作已经完成。UP的“推进着”更准确；宜保留原文ようです的不确定性。",
+      "user_note": ""
+    }
+  ]
+}
