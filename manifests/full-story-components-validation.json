@@ -50,7 +50,7 @@
     "config": {
       "path": "config/full-story-components.json",
       "size": 105661,
-      "sha256": "3ccd9c401a7da1cd1ab8a3c6e123253ec85a15512213fce322dd7f5db652f81c"
+      "sha256": "8aac58a1a1fbb21738cd14aacbffd2d581be38ba57aa444f057094a7e8899f43"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -90,17 +90,17 @@
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 76391,
-      "sha256": "ad1e43f1f8163b11e774464dfc33c324dcfbca2b310bb82c2452ffbff6485b00"
+      "sha256": "1092bdd939553672ced2cdd3ae8d95b2cc969af0d2bbeff54e61caf30baa0387"
     },
     "reviewed_library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816144,
-      "sha256": "ea53b7eda438e08e6b6880949aa39c40c512b939185abdee7ea7cb712f24bbe7"
+      "sha256": "0ee65847cf7833f611754488c9f203c7948b0f8049ee2a491a66a62ba901a92b"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307918,
-      "sha256": "bff60ec95b17c85fc6dc721ae102e482e02111c06d2fbad57d587fef9dccee41"
+      "sha256": "8de40ba646ba7ab0239335692e9684de7ce189e1c61c74f493ec8e19738492b8"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -125,7 +125,7 @@
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
       "size": 3311094,
-      "sha256": "1b40b963669114951a6320d28a73ae01dc6e29557754d7cde2b83850fbfa430a"
+      "sha256": "8b35fe78fe13f50123357af6addb65f48b343a4476222193b7a4919582f2cbfb"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -335,7 +335,7 @@
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "6e4c97dac2be4a2818ccb7b4c618ef1bf863e5e5c793c407771374bc4ce4931f"
+      "sha256": "a56fe2274ebfc126215ffe32c114bb02b39c44c669e5cde86e0ad28d7fce196a"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -619,7 +619,7 @@
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
         "size": 3311094,
-        "sha256": "1b40b963669114951a6320d28a73ae01dc6e29557754d7cde2b83850fbfa430a"
+        "sha256": "8b35fe78fe13f50123357af6addb65f48b343a4476222193b7a4919582f2cbfb"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
@@ -12815,10 +12815,10 @@
           "stage_index": 5,
           "entry_count": 34,
           "source_stored_size": 17216,
-          "source_encoded_size": 16195,
-          "output_encoded_size": 16195,
-          "output_encoded_sha256": "3f3a33a26ee3ff229f81024426e9dda3d3eb009b0dc337e58942b231de9df9df",
-          "output_padding_size": 1021,
+          "source_encoded_size": 16199,
+          "output_encoded_size": 16199,
+          "output_encoded_sha256": "918440ae043b01cd672d827975b323d6a0112fe9f04c78c3f4357703102f1d5f",
+          "output_padding_size": 1017,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 290,
@@ -12965,10 +12965,10 @@
           "stage_index": 16,
           "entry_count": 28,
           "source_stored_size": 26448,
-          "source_encoded_size": 24178,
-          "output_encoded_size": 24125,
-          "output_encoded_sha256": "12330c6e20d42756ce28fb55c58e9b3df1b261582a84416c1e93e6a1b4cb65e6",
-          "output_padding_size": 2323,
+          "source_encoded_size": 24209,
+          "output_encoded_size": 24154,
+          "output_encoded_sha256": "71d6ba91eea18f67c3f9359f30ba85c677ddf1dca6a144e12f517c7967cb9130",
+          "output_padding_size": 2294,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 279,
@@ -68774,11 +68774,11 @@
         {
           "stage_index": 5,
           "record_count": 4,
-          "source_encoded_size": 16195,
-          "output_encoded_size": 15772,
-          "output_encoded_sha256": "7179a7fbda1373aed94cb8227f01f56f324d4ef4cf98752366a68790e271c356",
+          "source_encoded_size": 16199,
+          "output_encoded_size": 15776,
+          "output_encoded_sha256": "2ce0635ba451e8e49168bb9809ec8b2c91f15bf263417aa574e900f1f5e4b191",
           "slot_size": 17216,
-          "output_headroom": 1444,
+          "output_headroom": 1440,
           "changed_byte_count": 1727,
           "pretranslated_pointer_count": 1,
           "codec_strategy": "rust-fit",
@@ -69347,7 +69347,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "943a1a7155456eebf6b4d4c7801ccafaaad097ac5a53faf614b286c5c0077786"
+      "sha256": "93e10f7192f83aec24dec3fa88edbafbf1682e3cf79958812988446e367519a5"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
