@@ -1255,17 +1255,12 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertEqual(
             preserved,
             {
-                "story/017/dialogue/01.06/0005",
-                "story/024/dialogue/01.27/0005",
-                "story/025/dialogue/02.01/0212",
-                "story/026/dialogue/02.01/0121",
                 "story/083/dialogue/01.17/0002",
                 "story/111/dialogue/02.01/0273",
                 "story/149/dialogue/01.35/0026",
                 "story/150/dialogue/02.01/0363",
                 "story/150/dialogue/02.01/0749",
                 "story/150/dialogue/02.01/1142",
-                "story/150/dialogue/02.01/1414",
                 "story/150/dialogue/02.01/1433",
             },
         )
