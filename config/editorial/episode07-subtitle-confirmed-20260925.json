@@ -1,0 +1,442 @@
+{
+  "schema_version": 1,
+  "batch_id": "episode07-subtitle-20260925",
+  "source_commit": "637e98ce257ffab03260b6bfb0f6ce46f4bf702d",
+  "review_fingerprint": "40c4073b53fdf1dcf41f199b0c6fb0eac92519a96362cb747eb39bc786b7e080",
+  "decisions_sha256": "34522df4e86a238ef1d22a028a49f2a50a4297ab9d0c52343ff7695622b104a9",
+  "reference": {
+    "filename": "Z1-7(1).srt",
+    "sha256": "4a39ba7576ff9637bb93cf0ca554ffb231ba22024d0e9d0bf8209817aa83603f"
+  },
+  "changed_translation_records": 22,
+  "choice_counts": {
+    "keep": 4,
+    "up": 4,
+    "recommended": 13,
+    "custom": 5
+  },
+  "decisions": [
+    {
+      "review_id": "ep07-srt-22",
+      "target_id": "story/008/dialogue/02.01/0016",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "029bb8d374cef2ec22d06cbdd606a7a7d4e8243d72d24e9ae640fef355f0d9be",
+      "before": "“你在说什么呀！我只是……”",
+      "after": "“你在说什么呀！我只是……”",
+      "choice": "keep",
+      "confirmed_at": "2026-09-25T01:47:33.803768+00:00",
+      "line_widths": [
+        14
+      ],
+      "analysis": "だいたいねえ接着责备胜平，原文没有“我只是”的自我辩解。保持话没说完、被下一句打断的语气。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-28",
+      "target_id": "story/008/dialogue/02.01/0027",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "b252a879e84dfac8ceec7805b87f3ff09fb7d00cc070455c6bb3a45fc56969b2",
+      "before": "“风真好……”",
+      "after": "“这海风真舒服啊…”",
+      "choice": "up",
+      "confirmed_at": "2026-09-25T01:47:47.622650+00:00",
+      "line_widths": [
+        10
+      ],
+      "analysis": "いい風だ是人在甲板上感叹风吹着舒服。“风真好”意思能懂，中文口语略生硬；海风可由明确的甲板场景补足。",
+      "user_note": "",
+      "confirmed_text": "这海风真舒服啊…",
+      "format_adaptation": "Add required spoken-dialogue outer quotes; reflow only if required, wording unchanged."
+    },
+    {
+      "review_id": "ep07-srt-30",
+      "target_id": "story/008/dialogue/02.01/0029",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "8ee322f3ef0bc9b0738065f68a967d4fb624c9f5a612d9826c5214dabd3286d7",
+      "before": "“谢谢你，船长。你把在太平洋渔港不知\n　所措的陌生人，也就是我，带上了船。”",
+      "after": "“谢谢你，船长。\n　我这个素不相识的人困在太平洋渔港，\n　正不知如何是好，多亏你让我上了船。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T01:48:22.060546+00:00",
+      "line_widths": [
+        8,
+        17,
+        18
+      ],
+      "analysis": "日文是感谢船长让素不相识、困在渔港的自己上船。现译插入自我解释，影响口语；保留陌生人、太平洋渔港和无计可施的信息。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-34",
+      "target_id": "story/008/dialogue/02.01/0033",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "fdb52f868364328719a2ff87a4523f962d320680c7c91f8139078c10654312b3",
+      "before": "“这就是出门靠旅伴，世道讲人情吧。\n　呵呵……船长说的话，和我父亲一模一样。”",
+      "after": "“在家靠父母，出门靠朋友是吧。嘿嘿…\n船长说的话和我老爹一模一样呢”",
+      "choice": "up",
+      "confirmed_at": "2026-09-25T01:48:54.905929+00:00",
+      "line_widths": [
+        18,
+        15
+      ],
+      "analysis": "旅は道連れ、世は情け强调旅途有同伴、人与人相互照应。建议作功能对等的表达，避免“世道讲人情”显得像评论世风；仍保留后半句对父亲的联想。",
+      "user_note": "",
+      "confirmed_text": "在家靠父母，出门靠朋友是吧。嘿嘿…\n船长说的话和我老爹一模一样呢",
+      "format_adaptation": "Add required spoken-dialogue outer quotes; reflow only if required, wording unchanged."
+    },
+    {
+      "review_id": "ep07-srt-41",
+      "target_id": "story/008/dialogue/02.01/0040",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "fa6ac027de4ca1252c47ee1111dbc93537206436c0619e564663dee643dcd616",
+      "before": "“我通过父亲的关系得到了消息……\n　听说那里正在开发一台新机器人。”",
+      "after": "“我通过父亲的关系得到了消息……\n　听说那里新开发了一台机器人。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T01:49:26.641822+00:00",
+      "line_widths": [
+        16,
+        15
+      ],
+      "analysis": "開発された是已经新近开发出来；后文也明确空雷王刚完成。现译“正在开发”改变了时态，按原文改回。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-87",
+      "target_id": "story/008/dialogue/02.01/0091",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "ed13c7c3da4dc109b1b3450907252d37ac2ea1ea5fd118eea9e00cb61ea639cc",
+      "before": "“住手吧，英司。\n　对琉菜来说，父亲是她的敏感点。”",
+      "after": "“别说了，英司。\n　父亲的事，可是琉菜的软肋。”",
+      "choice": "custom",
+      "confirmed_at": "2026-09-25T03:44:10.241065+00:00",
+      "line_widths": [
+        8,
+        14
+      ],
+      "analysis": "此处英司仍在口头抱怨，ストップよ是让他停止说下去。父亲是琉菜敏感的话题，建议说得自然些，并与下一句的调侃一起看。",
+      "user_note": "用户在对话中指定定稿；两句配套使用“软肋／堡垒”。"
+    },
+    {
+      "review_id": "ep07-srt-88",
+      "target_id": "story/008/dialogue/02.01/0092",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "a6d85e5dc14d778cf645a84469faf2ef4a54d2fd999810bdf8868ccb95784035",
+      "before": "“敏感点？你确定不是‘屏障’吗？”",
+      "after": "“软肋？\n　我看她是座堡垒才对吧！”",
+      "choice": "custom",
+      "confirmed_at": "2026-09-25T03:44:10.307229+00:00",
+      "line_widths": [
+        4,
+        12
+      ],
+      "analysis": "日文利用デリケート／バリケード的近音，调侃琉菜平时强硬。直译“敏感点／屏障”失去中文联系；建议保留调侃功能，以“刀枪不入”承接。这个方案是意译，不能同时复制日文谐音，需按上下文确认。",
+      "user_note": "用户在对话中指定定稿；两句配套使用“软肋／堡垒”。"
+    },
+    {
+      "review_id": "ep07-srt-96",
+      "target_id": "story/008/dialogue/02.01/0100",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "227c04b8ad8447d594771af871181259bfbf7c0353f3c9bb3cc4c01e2a071e88",
+      "before": "“所以你才帮胜平去见他父亲？”",
+      "after": "“所以她才会帮胜平去见父亲啊。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:49:10.125409+00:00",
+      "line_widths": [
+        16
+      ],
+      "analysis": "琉菜在前面已被桑德曼叫走，甲儿是在理解她帮助胜平的动机，现译“所以你才”错成当面问琉菜。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-168",
+      "target_id": "story/008/dialogue/01.01/0003",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "593acf2fa5387a2977166e304a8dff5d6186c06d1b477342ec7b054594f6ee70",
+      "before": "“可是，博士，这样真的好吗？我们本来应该在\n　太平洋上空和1号机器人的试飞员会合……”",
+      "after": "“但是这样好吗，博士？1号机的测\n　试驾驶员应该还在太平洋上等待合流”",
+      "choice": "custom",
+      "confirmed_at": "2026-09-25T03:02:28.384222+00:00",
+      "line_widths": [
+        16,
+        17
+      ],
+      "analysis": "太平洋上在海上都市与乘船来访的语境中指太平洋海面一带，没有“上空”的意思。保留现有“试飞员”和1号编号。",
+      "user_note": "",
+      "confirmed_text": "但是这样好吗，博士？\n　1号机的测试驾驶员应该还在太平洋上等待合流",
+      "format_adaptation": "Add required spoken-dialogue outer quotes; reflow only if required, wording unchanged."
+    },
+    {
+      "review_id": "ep07-srt-170",
+      "target_id": "story/008/dialogue/01.01/0005",
+      "source_file": "corpus/zh/story-dialogue/stage-008.json",
+      "source_text_sha256": "f3f58047b299b58bf9695117e4e46550f5a6381cfacf607466aeb7dfff75e978",
+      "before": "“月影长官委托我们分析一件疑似外\n　星人的武器。这也是没办法的事。”",
+      "after": "“月影长官委托我们分析一件\n　疑似来自外星人的武器。\n　这也是没办法的事。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:02:41.898554+00:00",
+      "line_widths": [
+        13,
+        11,
+        10
+      ],
+      "analysis": "保留“疑似”所表达的不确定性，同时重排为完整词组，避免“外／星人”的断词。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-195",
+      "target_id": "story/009/dialogue/02.01/0016",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "4041056de86621d7c9a0ac43644d855a629f9a4df5c2a27fda38ebf08baca8cd",
+      "before": "“不管你们是在调查什么，港口还开来\n　了一艘来路不明的船！你们就是瘟神！”",
+      "after": "“也不知道是不是来调查事件的，最近还有不知\n　道哪里来的大船靠港，你们一家子就是瘟神！”",
+      "choice": "up",
+      "confirmed_at": "2026-09-25T03:03:01.748565+00:00",
+      "line_widths": [
+        21,
+        21
+      ],
+      "analysis": "事件の調査だか何だか知らねえが是在猜测来路不明船只到港的原因，并未明确说神家族正在调查。现译添加“你们”让调查主体变了。",
+      "user_note": "",
+      "confirmed_text": "也不知道是不是来调查事件的，最近还有不知\n　道哪里来的大船靠港，你们一家子就是瘟神！",
+      "format_adaptation": "Add required spoken-dialogue outer quotes; reflow only if required, wording unchanged."
+    },
+    {
+      "review_id": "ep07-srt-290",
+      "target_id": "story/009/dialogue/01.09/0007",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "42054379a3dd572ae453d46baa0b696fba884602bf0145577a2af3969a8d185a",
+      "before": "“这是迫不得已……杰利！”",
+      "after": "“没办法了……杰利……！”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:03:11.980633+00:00",
+      "line_widths": [
+        13
+      ],
+      "analysis": "紧接理惠质问军方牺牲城镇，风见转而叫杰利准备出击。“这是迫不得已”容易被读成认可军方牺牲城镇；改成当下作出决定的口气。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-296",
+      "target_id": "story/009/dialogue/02.02/0007",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "dd8bcf480f8b1b6ab4d33d018042f2919ac8b49bd6358c348e9a73ccee1db908",
+      "before": "“这么说，你就是博士要求的\n　试飞员（驾驶员）……！？”",
+      "after": "“这么说，你就是博士请来的\n　试飞员……！？”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:31:07.299425+00:00",
+      "line_widths": [
+        13,
+        8
+      ],
+      "analysis": "テストパイロット就是前面已提到的试飞员，原文没有括号解释。“试飞员（驾驶员）”像翻译备注混入台词；保留同段用语，删去括注。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-324",
+      "target_id": "story/009/dialogue/01.13/0003",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "675eea043055b401388b2e9a240a5a21e92de12989970003056e954c643dfb71",
+      "before": "“大概是我在现场磨炼出的野性感觉吧。”",
+      "after": "“大概是在一线磨炼出来的\n　那股野性的直觉吧。”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:31:28.846528+00:00",
+      "line_widths": [
+        12,
+        10
+      ],
+      "analysis": "前一句杰利惊叹斗志也初次驾驶就能发挥实力，这一句继续评价他的现场经验。原文省略主语，现译凭空添加“我”，把本领归给了杰利；“野性感觉”也不自然。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-331",
+      "target_id": "story/009/dialogue/01.17/0002",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "43a9e1ab5e4598e8d79ea7025cd14f1566d0415392308cedbf64cb4c5af983e5",
+      "before": "“源五郎叔叔好像受你们照顾了。\n　让我向你们道声谢。”",
+      "after": "“源五郎叔叔受你关照了。多谢了”",
+      "choice": "up",
+      "confirmed_at": "2026-09-25T03:31:38.553760+00:00",
+      "line_widths": [
+        16
+      ],
+      "analysis": "宇宙太是在向斗志也道谢，不是向多个人致谢。源文省略代词，现译两次“你们”误增了复数。",
+      "user_note": "",
+      "confirmed_text": "源五郎叔叔受你关照了。多谢了",
+      "format_adaptation": "Add required spoken-dialogue outer quotes; reflow only if required, wording unchanged."
+    },
+    {
+      "review_id": "ep07-srt-335",
+      "target_id": "story/009/dialogue/01.18/0001",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "00e2cb7d465ab0c2202792bbf8a519cf2af0a2a6beaafd4b148d170c6d8e0479",
+      "before": "“宇宙太！前面那台像寄居蟹的机械战士，\n　和以前的不是一类！”",
+      "after": "“宇宙太！前面那台像寄居蟹的机械战士，\n　和以前的不是一类！”",
+      "choice": "keep",
+      "confirmed_at": "2026-09-25T03:31:53.814116+00:00",
+      "line_widths": [
+        19,
+        10
+      ],
+      "analysis": "これまでの奴とは違う是警告眼前敌人不同于之前的敌人，后续证据是其力量远强于先前。“不是一类”把警告限定成了类别判断。保留机械战士的项目用语。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-374",
+      "target_id": "story/009/dialogue/01.27/0000",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "9cc04c99045300949520487ad2a05abaa9cd460eef020cda0bca79cbd2d0531a",
+      "before": "“嘿嘿，成功了！完成了，赞波特3！！”",
+      "after": "“嘿嘿，成功了！\n　这就是赞波特3！！”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:37:04.126397+00:00",
+      "line_widths": [
+        8,
+        10
+      ],
+      "analysis": "出来た是合体成功后的欢呼，现译“完成了，赞波特3”读来拗口。保留赞波特3，不把肯定感叹改成疑问。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-398",
+      "target_id": "story/009/dialogue/01.29/0000",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "6b587422e703381d6c0beb754bc71a6d9be074528283c8b7044989e22abba8f5",
+      "before": "“格兰骑士团以及各位协力者，参上！”",
+      "after": "“格兰骑士团以及其他，登场！”",
+      "choice": "custom",
+      "confirmed_at": "2026-09-25T03:40:55.347162+00:00",
+      "line_widths": [
+        15
+      ],
+      "analysis": "プラスα被英司拿来把其他协力者说成附加部分，下一句甲儿立即抗议“别把我们当附赠品”，胜平还会照着学。现译用礼貌的“各位协力者”抹掉了铺垫；这里不能套用桑德曼后面正式称呼协力者的台词。",
+      "user_note": "",
+      "confirmed_text": "格兰骑士团以及其他，登场！",
+      "format_adaptation": "Add required spoken-dialogue outer quotes; reflow only if required, wording unchanged."
+    },
+    {
+      "review_id": "ep07-srt-407",
+      "target_id": "story/009/dialogue/01.29/0009",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "3cc7400651ebd0a9db40172d2adf4481369a075d2b1d0b17989079ca030ecb57",
+      "before": "“这台叫空雷王。我是驾驶员斗志也！”",
+      "after": "“这台叫空雷王。\n　我是驾驶员坛斗志也！”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:41:11.846554+00:00",
+      "line_widths": [
+        8,
+        11
+      ],
+      "analysis": "原文明确自报坛斗志也全名。现译省略了姓，与此前自报姓名的句子不一致；使用项目已有姓名，不按参考字幕另改专名。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-432",
+      "target_id": "story/009/dialogue/01.30/0003",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "0c8d926ab4ce77944c9cd157913203aa124277202972c588b4b70ca7da05ffd6",
+      "before": "“上吧，坏蛋们！\n　你们能为所欲为的时间到此为止了！”",
+      "after": "“来吧，坏蛋们！\n　你们休想再为所欲为！”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:41:21.662638+00:00",
+      "line_widths": [
+        8,
+        11
+      ],
+      "analysis": "行くぜ是英司自己准备行动时向敌人喊话，现译“上吧，坏蛋们”容易变成指挥对方行动。改成中文挑战语气，并压缩后半句译腔。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-443",
+      "target_id": "story/009/dialogue/01.43/0001",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "50f5c17a8c28019c80bc0a87e34fbc2effa146298c3031d5c4f4f38623a59395",
+      "before": "“哦……烧起来了，$n！”",
+      "after": "“好…好燃啊，$n！”",
+      "choice": "custom",
+      "confirmed_at": "2026-09-25T03:41:57.443732+00:00",
+      "line_widths": [
+        15
+      ],
+      "analysis": "托比在回应节子不愿看到城镇被焚毁的激动发言。此处是形容斗志旺盛，现译“烧起来了”会与上一句的火灾混淆；姓名变量$n必须保留。",
+      "user_note": "",
+      "confirmed_text": "好…好燃啊，$n！",
+      "format_adaptation": "Add required spoken-dialogue outer quotes; reflow only if required, wording unchanged."
+    },
+    {
+      "review_id": "ep07-srt-452",
+      "target_id": "battle:22850",
+      "source_file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "f3e2b4fc3006a6b58dfaa8ed0d677730a62b82950e4b524b17e83ba919f04724",
+      "before": "“死了吗！？”",
+      "after": "“死了吗！？”",
+      "choice": "keep",
+      "confirmed_at": "2026-09-25T03:42:17.772675+00:00",
+      "line_widths": [
+        7
+      ],
+      "analysis": "战斗台词语料的やったか！？是攻击后确认是否打倒对手。“死了吗”过于直白；建议“干掉了吗”更符合战斗喊话。这一条依据字幕语境及赞波特武器台词组作文本对应，未核对视频语音。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-460",
+      "target_id": "story/009/dialogue/01.36/0000",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "27e766e8dda3b8a6c890ec2956a4948714c544841a8a1d24bf2fb0a08f02a680",
+      "before": "“好！让你们见识一下合神后\n　格兰维昂的力量！”",
+      "after": "“好！让他们见识一下\n　合神后格兰维昂的力量！”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:42:31.977663+00:00",
+      "line_widths": [
+        10,
+        12
+      ],
+      "analysis": "見せてやろうぜ是英司号召同伴让敌人见识合神的力量。现译“让你们见识”换成对敌人说话，建议恢复原来的指向。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-461",
+      "target_id": "story/009/dialogue/01.36/0001",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "8e661b2fd6b062ab6631b14f1edccc2182ec8ea2b03dbd61b7f8c65c99bd6ec3",
+      "before": "“爱娜，拜托你倒数重力子临界。”",
+      "after": "“爱娜，拜托你倒数重力子临界。”",
+      "choice": "keep",
+      "confirmed_at": "2026-09-25T03:42:57.398071+00:00",
+      "line_widths": [
+        16
+      ],
+      "analysis": "“倒数重力子临界”缺少倒计时的时间对象。改成请爱娜负责临界倒计时，保持战斗指令简洁。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-534",
+      "target_id": "story/009/dialogue/01.33/0002",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "324af42ce919ada9015288f1d721b79cf131720198fd15a519d998bc6362e6f3",
+      "before": "“那是调整者居住的宇宙殖民地！”",
+      "after": "“那是调整者曾经居住的宇宙殖民地！”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:43:16.539071+00:00",
+      "line_widths": [
+        18
+      ],
+      "analysis": "下一句明确殖民地已在两年前被摧毁。两版都漏掉了过去时，建议补“曾经”，避免看起来现在仍有居民。",
+      "user_note": ""
+    },
+    {
+      "review_id": "ep07-srt-550",
+      "target_id": "story/009/dialogue/01.34/0001",
+      "source_file": "corpus/zh/story-dialogue/stage-009.json",
+      "source_text_sha256": "0e05bac5010e8e383082523f9d818923297ecfd39959e033ed354862ee6372e0",
+      "before": "“那艘船……难道不只是爷爷他们在里面！？”",
+      "after": "“那种船……\n　不是只有爷爷他们才有吗！？”",
+      "choice": "recommended",
+      "confirmed_at": "2026-09-25T03:43:36.628540+00:00",
+      "line_widths": [
+        6,
+        14
+      ],
+      "analysis": "下一句分别解释II世由神江家发现、III世由神北家发现。胜平此时惊讶的是“原来不只是爷爷他们有这种船”；现译补出“在里面”误成了船员构成问题。",
+      "user_note": ""
+    }
+  ]
+}
