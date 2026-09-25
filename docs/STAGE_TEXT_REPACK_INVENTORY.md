@@ -88,7 +88,7 @@
 
 | STAGE | 源资源 | Stage Name 标题 | 物理记录 | 移动物理记录 | 移动 placement | 超槽 placement |
 | ---: | --- | --- | ---: | ---: | ---: | ---: |
-| 001 | <code>stg_001.bin</code> | [000] 太空先锋 | 317 | 315 | 292 | 3 |
+| 001 | <code>stg_001.bin</code> | [000] 可造之材 | 317 | 315 | 292 | 3 |
 | 002 | <code>stg_002.bin</code> | [001] 愤怒的眼眸 | 549 | 548 | 334 | 4 |
 | 003 | <code>stg_003a.bin</code> | [002] 两个世界 | 36 | 33 | 33 | 1 |
 | 004 | <code>stg_003b.bin</code> | [002] 两个世界 | 530 | 528 | 488 | 2 |
@@ -260,7 +260,7 @@
 下表只收录 payload 大于严格原槽的 placement。“原 → 新”是 decoded STAGE 内偏移，
 不是 ISO LBA；多个稳定 ID 共用同一 placement 时合并显示，但物理记录数仍单列。
 
-### STAGE 001 · <code>stg_001.bin</code> · [000] 太空先锋
+### STAGE 001 · <code>stg_001.bin</code> · [000] 可造之材
 
 3 个超槽 placement，3 个物理记录。
 

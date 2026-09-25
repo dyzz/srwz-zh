@@ -128,7 +128,7 @@ TIM2 metadata 和 CLUT 保持不变。低层 8-bpp TIM2 解析／写回仍位于
 
 | 标题 | ordinal / selector / loader index | VT1 槽位 |
 | --- | --- | --- |
-| 太空先锋 | `0 / 1 / 9` | `[0xBA8500, 0xBA8BF0)` |
+| 可造之材 | `0 / 1 / 9` | `[0xBA8500, 0xBA8BF0)` |
 | 走向无尽战斗的轮回 | `106 / 107 / 115` | `[0xBD6070, 0xBD6A50)` |
 
 用户重点检查的第 38 话标题“被安排的决战”（2026-09-12 起改为“被设计的决战”，构建脚本的对应锁已同步）对应 Stage Name ordinal 72、selector 73、
