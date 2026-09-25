@@ -7,3 +7,5 @@
 [确认清单](../config/editorial/episode07-subtitle-confirmed-20260925.json)记录源文本哈希、前后译文、选择与确认时间。写回前完成来源及旧译冲突检查、三行每行 21 格及变量检查，写回后核对最终文本与 26 项选择一致（7 条仅适配外层引号与换行）。
 
 本次为文本更新，使用统一增量构建的 Original、Best 两版及其内置 ISO 内容回读；不重复全量构建，不额外运行与本次文本无关的全套测试。未执行 PCSX2 人工运行验收。
+
+Original / Best 均已构建并通过内置语义回读，日常 skip 副本随构建更新。具体 ISO 路径、哈希及耗时见[构建回执](../manifests/editions/episode07-subtitle-20260925.json)。完整 ISO 仅保存在本机。
