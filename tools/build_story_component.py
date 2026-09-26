@@ -14,7 +14,11 @@ from pathlib import Path
 from typing import Mapping
 
 from srwz.codec import decode_production as decode, reencode_changed_suffix
-from srwz.chinese_layout import fit_chinese_dialogue_layout
+from srwz.chinese_layout import (
+    dialogue_layout_issues,
+    fit_chinese_dialogue_layout,
+    load_layout_profiles,
+)
 from srwz.diagnostics import require_work_output
 from srwz.font import sha256_bytes
 from srwz.release_font_policy import DEFAULT_WIDTH_CLASS, allocation_width_class
@@ -51,7 +55,22 @@ from srwz.build_fingerprints import font_binary_signature
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
 DEFAULT_CONFIG = PROJECT_ROOT / "config/story-component.json"
+LAYOUT_PROFILES_PATH = PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
+STORY_UNBROKEN_WORDS_PATH = (
+    PROJECT_ROOT / "config/text-layout/zh-story-unbroken-words.json"
+)
+STORY_LAYOUT_PROFILE_ID = "story_dialogue"
 _STAGE_NAME = re.compile(r"stage-(\d{3})\.json$")
+
+
+def story_layout_profile():
+    """Return the production dialogue layout profile (21 cells x 3 lines).
+
+    The profile references the generated unbroken word list, so line breaks
+    chosen at build time never fall inside a common word or a proper name.
+    """
+
+    return load_layout_profiles(LAYOUT_PROFILES_PATH)[STORY_LAYOUT_PROFILE_ID]
 TICKER_RUNTIME_POINTER_MIN = 0x00750000
 TICKER_RUNTIME_POINTER_MAX = 0x0076FFFF
 Z_REPORT_RECORD_SIGNATURE = (0x00000006, 0xFFFFFFFF, 0xFFFFFFFF)
@@ -1081,6 +1100,7 @@ def build(
         "files": {str(path.relative_to(PROJECT_ROOT)): _sha256(path) for path in [
             Path(__file__), *sorted((PROJECT_ROOT / "tools/srwz").glob("*.py")),
             conditions_path, speakers_path, allocation_path,
+            LAYOUT_PROFILES_PATH, STORY_UNBROKEN_WORDS_PATH,
         ]},
     }, sort_keys=True, ensure_ascii=False).encode())
     dialogue_hashes = {str(stage): _sha256(path) for stage, path in stage_files.items()}
@@ -1203,6 +1223,7 @@ def build(
         }
         fitted_dialogue = {}
         dialogue_layout_reflowed_count = 0
+        layout_profile = story_layout_profile()
         for entry in parsed_source.entries:
             if entry.kind != "dialogue":
                 continue
@@ -1212,8 +1233,23 @@ def build(
                     f"missing translated dialogue entry: {entry.entry_id}"
                 )
             has_keyword_links = "《" in entry.text
+            layout_issues = dialogue_layout_issues(
+                translated,
+                profile=layout_profile,
+                stage_keyword_links=has_keyword_links,
+            )
+            if layout_issues:
+                # The corpus must already hold the displayed layout; silent
+                # build-time reflow is not allowed.  Fix the corpus with
+                # tools/text_layout/rebalance_story_dialogue.py.
+                raise SystemExit(
+                    f"{entry.entry_id} dialogue layout is not final: "
+                    f"{'; '.join(layout_issues)} "
+                    "(run tools/text_layout/rebalance_story_dialogue.py)"
+                )
             fitted = fit_chinese_dialogue_layout(
                 translated,
+                profile=layout_profile,
                 stage_keyword_links=has_keyword_links,
             )
             translated = fitted.text
@@ -1666,6 +1702,8 @@ def build(
             "allocation_registry": {"path": str(allocation_path.relative_to(PROJECT_ROOT)), "sha256": _sha256(allocation_path)},
             "conditions": {"path": str(conditions_path.relative_to(PROJECT_ROOT)), "sha256": _sha256(conditions_path)},
             "speakers": {"path": str(speakers_path.relative_to(PROJECT_ROOT)), "sha256": _sha256(speakers_path)},
+            "layout_profiles": {"path": str(LAYOUT_PROFILES_PATH.relative_to(PROJECT_ROOT)), "sha256": _sha256(LAYOUT_PROFILES_PATH)},
+            "layout_unbroken_words": {"path": str(STORY_UNBROKEN_WORDS_PATH.relative_to(PROJECT_ROOT)), "sha256": _sha256(STORY_UNBROKEN_WORDS_PATH)},
             "runtime_keywords": {
                 "path": translations["runtime_keywords"]["path"],
                 "sha256": translations["runtime_keywords"]["sha256"],

@@ -18,8 +18,10 @@ from srwz.archive import sha256_file
 from srwz.chinese_layout import (
     DEFAULT_LINE_WIDTH,
     DEFAULT_MAX_LINES,
+    dialogue_layout_issues,
     dialogue_line_widths,
     fit_chinese_dialogue_layout,
+    load_layout_profiles,
 )
 from srwz.codec import decode_production as decode
 from srwz.ui_name_tables import NISV_SPEC, verify_name_table
@@ -147,6 +149,15 @@ from srwz.verified_cache import (
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+STORY_LAYOUT_PROFILES_PATH = (
+    PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
+)
+
+
+def story_layout_profile():
+    """Same 21x3 dialogue profile (with the unbroken word list) as the builder."""
+
+    return load_layout_profiles(STORY_LAYOUT_PROFILES_PATH)["story_dialogue"]
 DEFAULT_ISO = (
     PROJECT_ROOT
     / "build/iso/zh-release-full-story/current-original.iso"
@@ -6431,15 +6442,44 @@ def main() -> int:
     player_choice_readbacks = {}
     reported_land_entry_id = "story/016/dialogue/02.03/0027"
     reported_land_translation = None
+    layout_profile = story_layout_profile()
     for stage in stages:
+        source_chunk = source_stage_archive[
+            offsets[stage]:offsets[stage + 1]
+        ]
+        source_decoded = decode(source_chunk)
+        source_parsed = parse_stage(
+            source_decoded.output,
+            source_table,
+            stage_index=stage,
+            function_address=source_functions[stage],
+        )
+        source_keyword_link_ids = {
+            entry.entry_id
+            for entry in source_parsed.entries
+            if entry.kind == "dialogue" and "《" in entry.text
+        }
         dialogue = load_translations(
             PROJECT_ROOT
             / f"corpus/zh/story-dialogue/stage-{stage:03d}.json"
         )
+        for entry_id, translation in dialogue.items():
+            # Same gate as the builder: the corpus stores the displayed layout.
+            layout_issues = dialogue_layout_issues(
+                translation,
+                profile=layout_profile,
+                stage_keyword_links=entry_id in source_keyword_link_ids,
+            )
+            if layout_issues:
+                raise SystemExit(
+                    f"{entry_id} dialogue layout is not final: "
+                    f"{'; '.join(layout_issues)}"
+                )
         dialogue = {
             entry_id: fit_chinese_dialogue_layout(
                 translation,
-                stage_keyword_links=("《" in translation),
+                profile=layout_profile,
+                stage_keyword_links=entry_id in source_keyword_link_ids,
             ).text
             for entry_id, translation in dialogue.items()
         }
@@ -6579,16 +6619,6 @@ def main() -> int:
             stage_raw_visible_ascii_target_count
         )
 
-        source_chunk = source_stage_archive[
-            offsets[stage]:offsets[stage + 1]
-        ]
-        source_decoded = decode(source_chunk)
-        source_parsed = parse_stage(
-            source_decoded.output,
-            source_table,
-            stage_index=stage,
-            function_address=source_functions[stage],
-        )
         source_condition_entries = {
             entry.entry_id: entry
             for entry in source_parsed.entries

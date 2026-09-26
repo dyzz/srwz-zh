@@ -13,9 +13,10 @@ from .text import RUNTIME_FORMAT_TOKEN
 
 
 # Continuation lines gain one full-width ideographic-space indent at writeback.
-# The production story-dialogue profile therefore gives the first line 21
-# content cells and continuation lines 20 content cells, keeping every visible
-# line inside the same 21-cell boundary after indentation is rendered.
+# Widths below count content cells after that indent.  The original Japanese
+# script has 915 continuation lines with 21 characters after the indent (47 of
+# them plain kana/kanji), so the message window renders 21 content cells on
+# every line; the production story-dialogue profile uses 21/21/3 accordingly.
 DEFAULT_LINE_WIDTH = 21
 DEFAULT_CONTINUATION_LINE_WIDTH = 20
 DEFAULT_MAX_LINES = 3
@@ -119,6 +120,31 @@ class ChineseLayoutProfile:
             raise ChineseLayoutError("layout profile minimum width is invalid")
 
 
+def load_unbroken_terms_file(path: Path) -> tuple[str, ...]:
+    """Load one generated word list referenced by a layout profile.
+
+    The document holds ``common_words`` (ordinary vocabulary that must not be
+    split across lines) and ``proper_names`` (names collected from the corpus).
+    Both groups become indivisible layout tokens for the referencing profile.
+    """
+
+    document = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(document, dict) or document.get("schema_version") != 1:
+        raise ChineseLayoutError(f"unsupported unbroken term file schema: {path}")
+    terms: list[str] = []
+    for key in ("common_words", "proper_names"):
+        rows = document.get(key, [])
+        if not isinstance(rows, list) or any(
+            not isinstance(term, str) or len(term) < 2 or "\n" in term
+            for term in rows
+        ):
+            raise ChineseLayoutError(f"malformed {key} in unbroken term file: {path}")
+        terms.extend(rows)
+    if len(terms) != len(set(terms)):
+        raise ChineseLayoutError(f"duplicate unbroken terms in {path}")
+    return tuple(terms)
+
+
 def load_layout_profiles(path: Path) -> dict[str, ChineseLayoutProfile]:
     """Load the checked-in, dependency-free Chinese layout profile set."""
 
@@ -152,12 +178,21 @@ def load_layout_profiles(path: Path) -> dict[str, ChineseLayoutProfile]:
         raw_weights = raw.get("weights", {})
         if not isinstance(raw_weights, dict):
             raise ChineseLayoutError(f"malformed layout weights: {profile_id}")
-        profile_unbroken_terms = raw.get("unbroken_terms", [])
+        profile_unbroken_terms = list(raw.get("unbroken_terms", []))
         if not isinstance(profile_unbroken_terms, list) or any(
             not isinstance(term, str) or len(term) < 2 or "\n" in term
             for term in profile_unbroken_terms
         ):
             raise ChineseLayoutError(f"malformed unbroken terms for {profile_id}")
+        term_files = raw.get("unbroken_terms_files", [])
+        if not isinstance(term_files, list) or any(
+            not isinstance(name, str) or not name for name in term_files
+        ):
+            raise ChineseLayoutError(f"malformed unbroken term files for {profile_id}")
+        for name in term_files:
+            profile_unbroken_terms.extend(
+                load_unbroken_terms_file(path.parent / name)
+            )
         unknown_weights = set(raw_weights) - allowed_weight_keys
         if unknown_weights:
             raise ChineseLayoutError(
@@ -876,6 +911,66 @@ def reflow_chinese_dialogue(
         preserved_reason="",
         line_widths=widths,
     )
+
+
+def split_unbroken_terms(
+    text: str,
+    *,
+    profile: ChineseLayoutProfile,
+    stage_keyword_links: bool = False,
+) -> tuple[str, ...]:
+    """Return the profile's unbroken terms that the stored line breaks cut."""
+
+    if "\n" not in text:
+        return ()
+    logical = logical_dialogue_text(text)
+    offsets = _original_break_offsets(text)
+    hits = []
+    position = 0
+    for token in tokenize_dialogue(
+        logical,
+        protected_terms=profile.unbroken_terms,
+        stage_keyword_links=stage_keyword_links,
+    ):
+        start, end = position, position + len(token.text)
+        position = end
+        if len(token.text) >= 2 and any(start < offset < end for offset in offsets):
+            hits.append(token.text)
+    return tuple(hits)
+
+
+def dialogue_layout_issues(
+    text: str,
+    *,
+    profile: ChineseLayoutProfile,
+    stage_keyword_links: bool = False,
+) -> tuple[str, ...]:
+    """Describe why a stored dialogue is not already in its final layout.
+
+    The production corpus must store exactly what the game displays: every
+    line within the profile's width and line count, and no break inside an
+    unbroken term.  An empty result means the text passes.
+    """
+
+    issues = []
+    widths = dialogue_line_widths(
+        text,
+        protected_terms=profile.unbroken_terms,
+        stage_keyword_links=stage_keyword_links,
+    )
+    first_limit = profile.first_line_maximum_width or profile.maximum_width
+    if profile.maximum_lines is not None and len(widths) > profile.maximum_lines:
+        issues.append(f"{len(widths)} lines exceed {profile.maximum_lines}")
+    if widths and widths[0] > first_limit:
+        issues.append(f"first line {widths[0]} cells exceeds {first_limit}")
+    for index, width in enumerate(widths[1:], start=2):
+        if width > profile.maximum_width:
+            issues.append(f"line {index} {width} cells exceeds {profile.maximum_width}")
+    for term in split_unbroken_terms(
+        text, profile=profile, stage_keyword_links=stage_keyword_links
+    ):
+        issues.append(f"line break inside {term!r}")
+    return tuple(issues)
 
 
 def fit_chinese_dialogue_layout(

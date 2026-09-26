@@ -36,6 +36,7 @@ from build_story_component import (
     _project_path,
     _read_iso_member,
     _speaker_translations,
+    story_layout_profile,
 )
 
 
@@ -190,9 +191,11 @@ def build_canary(
             f"stage-001 stress canary corpus entries are missing: {missing_canary_ids}"
         )
 
+    layout_profile = story_layout_profile()
     fitted_corpus_dialogue = {
         entry_id: fit_chinese_dialogue_layout(
             translation,
+            profile=layout_profile,
             stage_keyword_links="《" in next(
                 entry.text for entry in parsed.entries if entry.entry_id == entry_id
             ),
@@ -205,6 +208,7 @@ def build_canary(
     fitted_dialogue = {
         entry_id: fit_chinese_dialogue_layout(
             translation,
+            profile=layout_profile,
             stage_keyword_links="《" in next(
                 entry.text for entry in parsed.entries if entry.entry_id == entry_id
             ),

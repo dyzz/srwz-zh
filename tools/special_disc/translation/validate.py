@@ -3,8 +3,8 @@
   python3 validate.py [--tag pilot]  -> results/<tag>/validation.json, results/<tag>/review.md
 
 Checks: every todo ID answered; no kana; $-variables and <..> codes kept; quote style (“” for 「」,
-（） kept); story lines have no manual breaks and fit the message window (21/20 cells x 3 lines,
-the production reflow); battle lines keep the \\n count and indent after each break; required glossary
+（） kept); story lines have no manual breaks and fit the message window (21 cells x 3 lines,
+the production story_dialogue profile shared with the main game); battle lines keep the \\n count and indent after each break; required glossary
 terms used; pronouns consistent with the known genders; $n lines attributed to the group's protagonist.
 """
 from __future__ import annotations
@@ -92,7 +92,7 @@ def check(batch: dict, item: dict, row: dict, genders: dict[str, str]) -> list[s
             try:
                 fit_chinese_dialogue_layout(zh.replace("\\n", ""), profile=PROFILE)
             except (ChineseLayoutError, AssertionError):
-                flags.append("超出对话框（21/20字×3行）")
+                flags.append("超出对话框（21字×3行）")
         if row.get("speaker") == "$n":
             group = batch["payload"]["episode"].get("group_jp", "")
             want = GROUP_PROTAGONIST.get(group) or FILE_PROTAGONIST.get(batch.get("episode_file", ""))

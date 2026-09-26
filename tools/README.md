@@ -28,6 +28,7 @@ vendor/upstream-python/       构建链读取的固定静态定义
 | 最终组合 | `compose_full_story_library_components.py` |
 | ISO | `build_iso.py` |
 | 静态回读 | `verify_zh_release_font.py`、`verify_full_story_iso_content.py` |
+| 剧情断行门禁 | `text_layout/check_story_dialogue_layout.py`（写回后检查 21 格 × 3 行与词内断行，构建器执行同一检查）、`text_layout/rebalance_story_dialogue.py`（重排并记录批次）、`text_layout/build_story_unbroken_words.py`（生成词库） |
 | 文本审阅候选 | `build_text_update_iso.py`（受控输入准备、成员级增量重建、单次结构化 ISO；`--release-proof` 执行完整回读和确定性复建） |
 | 自动运行验证（构建闭包外） | `run_lrps2_validation.py` |
 | 同批双版本 | `build_editions.py`、`verify_editions.py` |
