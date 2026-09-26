@@ -1,0 +1,996 @@
+{
+  "schema_version": 1,
+  "batch_id": "story-layout-indent-20260926",
+  "recorded_at": "2026-09-26T15:24:35.861768+00:00",
+  "reason": "修正社区写回对白的续行缩进：将顶格或半角空格统一为一个全角空格；不改正文、断行位置或独立选项菜单。",
+  "layout_profile": {
+    "id": "story_dialogue",
+    "first_line_maximum_width": 21,
+    "maximum_width": 21,
+    "maximum_lines": 3,
+    "profiles_sha256": "2f00333e7fa4a64d0616757ffb4cfd955f74a7d59ed339cbd0f2e29029a1d4b6",
+    "unbroken_words_sha256": "1c1a1be88c58ccd15e92927c791b29ed0dbe4a059c9178f67c169428d8630f9f",
+    "unbroken_term_count": 2519
+  },
+  "counts": {
+    "changed": 48,
+    "by_kind": {
+      "indent_fix": 48
+    },
+    "skipped": 0,
+    "files_touched": 13
+  },
+  "changes": [
+    {
+      "id": "story/008/dialogue/02.01/0033",
+      "file": "corpus/zh/story-dialogue/stage-008.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“在家靠父母，出门靠朋友是吧。嘿嘿…\n船长说的话和我老爹一模一样呢”",
+      "after": "“在家靠父母，出门靠朋友是吧。嘿嘿…\n　船长说的话和我老爹一模一样呢”",
+      "line_widths_before": [
+        18,
+        15
+      ],
+      "line_widths_after": [
+        18,
+        15
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "fdb52f868364328719a2ff87a4523f962d320680c7c91f8139078c10654312b3"
+    },
+    {
+      "id": "story/013/dialogue/01.04/0000",
+      "file": "corpus/zh/story-dialogue/stage-013.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“如火焰般热血的MS驾驶员，\n卡洛德·兰参上！”",
+      "after": "“如火焰般热血的MS驾驶员，\n　卡洛德·兰参上！”",
+      "line_widths_before": [
+        14,
+        9
+      ],
+      "line_widths_after": [
+        14,
+        9
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "bc8dd07e41942bce015f6e1cd6ea557196f2706a80984693bda1b86ce5ced7cd"
+    },
+    {
+      "id": "story/016/dialogue/01.10/0006",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“你应该知道我平时总揣着一大笔钱吧？\n  全都给你！”",
+      "after": "“你应该知道我平时总揣着一大笔钱吧？\n　全都给你！”",
+      "line_widths_before": [
+        18,
+        6
+      ],
+      "line_widths_after": [
+        18,
+        6
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "10826904f8cc1e84c60fd212fa72e28500969556eff53547416c4b24eb4dee6c"
+    },
+    {
+      "id": "story/016/dialogue/01.10/0008",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“如果你肯放过我，\n我再也不会出现在你面前！”",
+      "after": "“如果你肯放过我，\n　我再也不会出现在你面前！”",
+      "line_widths_before": [
+        9,
+        13
+      ],
+      "line_widths_after": [
+        9,
+        13
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "47de334b94eaa776d25758e10be99bf7fa1cef04d5958a35122e2300f4c78d17"
+    },
+    {
+      "id": "story/016/dialogue/01.14/0001",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“这可不是你的！是我的！！\n记住了，凯吉南！！”",
+      "after": "“这可不是你的！是我的！！\n　记住了，凯吉南！！”",
+      "line_widths_before": [
+        13,
+        10
+      ],
+      "line_widths_after": [
+        13,
+        10
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "541bf118169bd1dba883bca96a0061cf0f847b8ec4ddffc70c1f449580feb271"
+    },
+    {
+      "id": "story/016/dialogue/01.15/0005",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“让我在你去做掉亚萨巴的时候，\n拖住那些平民的不就是你吗！”",
+      "after": "“让我在你去做掉亚萨巴的时候，\n　拖住那些平民的不就是你吗！”",
+      "line_widths_before": [
+        15,
+        14
+      ],
+      "line_widths_after": [
+        15,
+        14
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "bea5cc131cb61b70ebcadf8409dfd6763c71732a1e65fa80aa5e0fe10465829c"
+    },
+    {
+      "id": "story/016/dialogue/01.16/0004",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“高达、THE CRUSHER、\n高富利队和破坏者们！\n你们这帮家伙由我来对付！！”",
+      "after": "“高达、THE CRUSHER、\n　高富利队和破坏者们！\n　你们这帮家伙由我来对付！！”",
+      "line_widths_before": [
+        16,
+        10,
+        14
+      ],
+      "line_widths_after": [
+        16,
+        10,
+        14
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "ab02d63dce3706b14d2a0d4d6dbbe9ed5e77f300858e3a1dc26f32a21a101b3f"
+    },
+    {
+      "id": "story/016/dialogue/01.16/0011",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“西伯利亚铁路局……！\n 我要跟你们做个了断……！”",
+      "after": "“西伯利亚铁路局……！\n　我要跟你们做个了断……！”",
+      "line_widths_before": [
+        11,
+        13
+      ],
+      "line_widths_after": [
+        11,
+        13
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "a63b68e47bd89ac0762dec2688d68f3302a3ca0659c61d4289ad62874c2386cf"
+    },
+    {
+      "id": "story/016/dialogue/01.29/0000",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“说什么呢！\n 我们也是在这块土地上大逃亡啊！”",
+      "after": "“说什么呢！\n　我们也是在这块土地上大逃亡啊！”",
+      "line_widths_before": [
+        6,
+        16
+      ],
+      "line_widths_after": [
+        6,
+        16
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "00cd776204fa0ce2a0f9a824cf525a81015676c8526c19ad5a564997a3849908"
+    },
+    {
+      "id": "story/016/dialogue/01.30/0001",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“辛苦你一次次特地来招惹我，\n但今天就是最后一次了……！\n竖起耳朵给我听好了！！”",
+      "after": "“辛苦你一次次特地来招惹我，\n　但今天就是最后一次了……！\n　竖起耳朵给我听好了！！”",
+      "line_widths_before": [
+        14,
+        13,
+        12
+      ],
+      "line_widths_after": [
+        14,
+        13,
+        12
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "c44e563a44cc6abddc7e733a420b27995b9d26d21a2bab751bf8694181731f76"
+    },
+    {
+      "id": "story/016/dialogue/01.33/0000",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“长头发的超限人！\n 我要靠打倒你来证明我的强大！”",
+      "after": "“长头发的超限人！\n　我要靠打倒你来证明我的强大！”",
+      "line_widths_before": [
+        9,
+        15
+      ],
+      "line_widths_after": [
+        9,
+        15
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "a63b9854cb235a1b1449d30d761ab94dde6a777f9d95b53df0f6416f5b2ccc6c"
+    },
+    {
+      "id": "story/016/dialogue/02.02/0020",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“不过，父亲好像在我出生前就跑去\n  大逃亡了……”",
+      "after": "“不过，父亲好像在我出生前就跑去\n　大逃亡了……”",
+      "line_widths_before": [
+        16,
+        7
+      ],
+      "line_widths_after": [
+        16,
+        7
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "aea24c63f01a2b0c210a5cb82e932b33a72a35326cd7d98f5a5ec7748b651e4d"
+    },
+    {
+      "id": "story/016/dialogue/02.03/0093",
+      "file": "corpus/zh/story-dialogue/stage-016.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“话说，驾驶舱的舱门坏了。\n你觉得冷吗，小姑娘？”",
+      "after": "“话说，驾驶舱的舱门坏了。\n　你觉得冷吗，小姑娘？”",
+      "line_widths_before": [
+        13,
+        11
+      ],
+      "line_widths_after": [
+        13,
+        11
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "47279d2e42a71862a774887f53d6856603798a146fc1e6c844eefa50113660de"
+    },
+    {
+      "id": "story/017/dialogue/01.04/0001",
+      "file": "corpus/zh/story-dialogue/stage-017.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“理所当然吧。我们月光洲对\n军队来说，就是神出鬼没的眼中钉。”",
+      "after": "“理所当然吧。我们月光洲对\n　军队来说，就是神出鬼没的眼中钉。”",
+      "line_widths_before": [
+        13,
+        17
+      ],
+      "line_widths_after": [
+        13,
+        17
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "f6cbd3daef615d1670ed657ac48c79f963183cceaff4c4228f78f90aec0128e7"
+    },
+    {
+      "id": "story/017/dialogue/02.01/0059",
+      "file": "corpus/zh/story-dialogue/stage-017.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“什么什么……我看看……\n　堪萨斯的桃乐稀……泥小姐，\n被龙卷风卷走了……”",
+      "after": "“什么什么……我看看……\n　堪萨斯的桃乐稀……泥小姐，\n　被龙卷风卷走了……”",
+      "line_widths_before": [
+        12,
+        13,
+        10
+      ],
+      "line_widths_after": [
+        12,
+        13,
+        10
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "c6aa85d2e5568881176e3a2240e95936982eb432e531da938d7a9aa872b19eb3"
+    },
+    {
+      "id": "story/024/dialogue/01.31/0004",
+      "file": "corpus/zh/story-dialogue/stage-024.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“BIG-DUO！\nEs gibt Showzeit！\n（表演时间到了！）”",
+      "after": "“BIG-DUO！\n　Es gibt Showzeit！\n　（表演时间到了！）”",
+      "line_widths_before": [
+        9,
+        17,
+        10
+      ],
+      "line_widths_after": [
+        9,
+        17,
+        10
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "9a7240f17fc5f01fb211e2fbda04ea373fb0951d2028f55da8db71e883fb7221"
+    },
+    {
+      "id": "story/024/dialogue/01.35/0004",
+      "file": "corpus/zh/story-dialogue/stage-024.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“BIG-DUO！\nEs gibt Showzeit！\n（表演时间到了！）”",
+      "after": "“BIG-DUO！\n　Es gibt Showzeit！\n　（表演时间到了！）”",
+      "line_widths_before": [
+        9,
+        17,
+        10
+      ],
+      "line_widths_after": [
+        9,
+        17,
+        10
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "9a7240f17fc5f01fb211e2fbda04ea373fb0951d2028f55da8db71e883fb7221"
+    },
+    {
+      "id": "story/057/dialogue/01.08/0001",
+      "file": "corpus/zh/story-dialogue/stage-057.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“嘿！就算你长了翅膀，\n只要想打下来就跟拍苍蝇没两样！”",
+      "after": "“嘿！就算你长了翅膀，\n　只要想打下来就跟拍苍蝇没两样！”",
+      "line_widths_before": [
+        11,
+        16
+      ],
+      "line_widths_after": [
+        11,
+        16
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "10930e78fc0ccf17dab4ae33e2790177d9b5b6feb7982e5f7a63759f8534c3e0"
+    },
+    {
+      "id": "story/057/dialogue/02.01/0029",
+      "file": "corpus/zh/story-dialogue/stage-057.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“当所有不可能被排除，\n那就只能这么判断了。”",
+      "after": "“当所有不可能被排除，\n　那就只能这么判断了。”",
+      "line_widths_before": [
+        11,
+        11
+      ],
+      "line_widths_after": [
+        11,
+        11
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "36a888a0af338ebdacef95cfcb3a46a03c69b125c8b6dce3490e7d5347561c0f"
+    },
+    {
+      "id": "story/107/dialogue/01.39/0012",
+      "file": "corpus/zh/story-dialogue/stage-107.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“也就是说……不对。\n月亮上的那个我就是我……没错！”",
+      "after": "“也就是说……不对。\n　月亮上的那个我就是我……没错！”",
+      "line_widths_before": [
+        10,
+        16
+      ],
+      "line_widths_after": [
+        10,
+        16
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "8cec23eee1f752c595cf4d31f1500e8d0c0dbf94c1e8e2f93c6807de9f56d8f9"
+    },
+    {
+      "id": "story/107/dialogue/02.03/0054",
+      "file": "corpus/zh/story-dialogue/stage-107.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“然后，我一直惦记着你……\n一直想为那天的事跟你说声对不起……”",
+      "after": "“然后，我一直惦记着你……\n　一直想为那天的事跟你说声对不起……”",
+      "line_widths_before": [
+        13,
+        18
+      ],
+      "line_widths_after": [
+        13,
+        18
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "32306c60ba961efa20b04f10562df45cf0c78cb43ec8c16de337c8318003fb69"
+    },
+    {
+      "id": "story/108/dialogue/01.01/0000",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“想来就来吧……！\n这座天堂基地，就是我等东山再起的起点！”",
+      "after": "“想来就来吧……！\n　这座天堂基地，就是我等东山再起的起点！”",
+      "line_widths_before": [
+        9,
+        20
+      ],
+      "line_widths_after": [
+        9,
+        20
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "e8fcf8fc3091f7ffb8cda192cbed9e15b3f94ba47e41a816e18d7bbc72acda2d"
+    },
+    {
+      "id": "story/108/dialogue/01.01/0003",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“集结了这么多战力……\n估计连万分之一的使用机会都没有吧。”",
+      "after": "“集结了这么多战力……\n　估计连万分之一的使用机会都没有吧。”",
+      "line_widths_before": [
+        11,
+        18
+      ],
+      "line_widths_after": [
+        11,
+        18
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "b857784349deb5ea4a67e2e8a4b75cefdf5b10242f43cacdbe3df10134f306e2"
+    },
+    {
+      "id": "story/108/dialogue/01.01/0004",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“而且，最坏的情况下，\n就用那个为攻击PLANT而准备的东西吧。”",
+      "after": "“而且，最坏的情况下，\n　就用那个为攻击PLANT而准备的东西吧。”",
+      "line_widths_before": [
+        11,
+        21
+      ],
+      "line_widths_after": [
+        11,
+        21
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "e94669c5747df568376e3d718ee14ee18d48b6f2b62c54b6d6ff50de21eb634b"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0035",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“大致情况我了解。\n但这件事，应该直接去问奎因斯坦博士本人。”",
+      "after": "“大致情况我了解。\n　但这件事，应该直接去问奎因斯坦博士本人。”",
+      "line_widths_before": [
+        9,
+        21
+      ],
+      "line_widths_after": [
+        9,
+        21
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "d9e1038e1265010eed07a5f02495948e6344d9e10568b48ba9ec0d58a7c3b9d8"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0102",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“恐怕连阿尔德巴朗那边，\n在第二次崩坏发生前，都没察觉这个事实吧。”",
+      "after": "“恐怕连阿尔德巴朗那边，\n　在第二次崩坏发生前，都没察觉这个事实吧。”",
+      "line_widths_before": [
+        12,
+        21
+      ],
+      "line_widths_after": [
+        12,
+        21
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "abf361dda924730cd55aa8f9ee7c62b47d8cc7442a0efb0d5ae012c32cd3fb07"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0129",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“只是足以震动时空的力量……\n没错，那应该就是所谓的次元力了……”",
+      "after": "“只是足以震动时空的力量……\n　没错，那应该就是所谓的次元力了……”",
+      "line_widths_before": [
+        14,
+        18
+      ],
+      "line_widths_after": [
+        14,
+        18
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "a8b59fb491ff95ef95b9ac3aea37e8eeae073092713388b677b2b98070dbf73b"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0130",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“等等！我们和盖纳他们的世界原本是一体的，\n会分裂开来，难道就是因为那个次元力吗！？”",
+      "after": "“等等！我们和盖纳他们的世界原本是一体的，\n　会分裂开来，难道就是因为那个次元力吗！？”",
+      "line_widths_before": [
+        21,
+        21
+      ],
+      "line_widths_after": [
+        21,
+        21
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "d69e1fa44e8f5a3a0886fc5cce61cd9f1059574917fb691fdc3e283cf812f021"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0151",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“那股力量说不定能拯救人类啊……！\n你为什么不理解！？”",
+      "after": "“那股力量说不定能拯救人类啊……！\n　你为什么不理解！？”",
+      "line_widths_before": [
+        17,
+        10
+      ],
+      "line_widths_after": [
+        17,
+        10
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "3de243861fa8e0b413924c4c664fdba8ba6fcb51f3a0ca69a00ceac3b21254ac"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0164",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“卡洛德说得对。与其坐以待毙，\n这样心里反而更痛快吧。”",
+      "after": "“卡洛德说得对。与其坐以待毙，\n　这样心里反而更痛快吧。”",
+      "line_widths_before": [
+        15,
+        12
+      ],
+      "line_widths_after": [
+        15,
+        12
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "942962e95472cda9242c3987ffdc5d67950148d1fc17157e3e3df1c6df4fe2f5"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0176",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“今早，这座三位一体城收到了通信，\n内容是告知黑历史继承者的所在地。”",
+      "after": "“今早，这座三位一体城收到了通信，\n　内容是告知黑历史继承者的所在地。”",
+      "line_widths_before": [
+        17,
+        17
+      ],
+      "line_widths_after": [
+        17,
+        17
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "56bbfbb95b14ad55d648f3d3d9886d945e913f26fe63f21fb695f05f21a732e1"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0269",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“利用历史权威来支配动摇的人心……\n这种目的，我不打算协助。”",
+      "after": "“利用历史权威来支配动摇的人心……\n　这种目的，我不打算协助。”",
+      "line_widths_before": [
+        17,
+        13
+      ],
+      "line_widths_after": [
+        17,
+        13
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "572f04266071da13736147962e4150be8d327b51adeed4b0345be0bb55882a11"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0280",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“告诉我那个东西沉睡的地点……！\n借助那股力量，我们要再次将世界握在手中！”",
+      "after": "“告诉我那个东西沉睡的地点……！\n　借助那股力量，我们要再次将世界握在手中！”",
+      "line_widths_before": [
+        16,
+        21
+      ],
+      "line_widths_after": [
+        16,
+        21
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "bc9b7c40cc86c315f53d27f502de8235cddf0dee98f7aec58b117e7c0448b44c"
+    },
+    {
+      "id": "story/108/dialogue/02.02/0043",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“失败的是你。想成为人形科拉利安的伴侣……\n结果，却害得所爱之人被毁，不是吗。”",
+      "after": "“失败的是你。想成为人形科拉利安的伴侣……\n　结果，却害得所爱之人被毁，不是吗。”",
+      "line_widths_before": [
+        21,
+        18
+      ],
+      "line_widths_after": [
+        21,
+        18
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "56b70bb5054a8a8e43bf191007365ca47ae0e76474389e8a6cc49e19d75e8e1e"
+    },
+    {
+      "id": "story/108/dialogue/02.02/0059",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“这个老人心中只剩放弃的念头了。\n他内心一定很清楚这一点……”",
+      "after": "“这个老人心中只剩放弃的念头了。\n　他内心一定很清楚这一点……”",
+      "line_widths_before": [
+        16,
+        14
+      ],
+      "line_widths_after": [
+        16,
+        14
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "7c63b70cfba308491a7f0a8b317cecab91a0b04fbd659e9f2cc96b374b69258f"
+    },
+    {
+      "id": "story/108/dialogue/02.02/0074",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“再去刺激一下那些愚民们那点可怜的自尊心，\n比起真相，他们自然会去选择赝品。”",
+      "after": "“再去刺激一下那些愚民们那点可怜的自尊心，\n　比起真相，他们自然会去选择赝品。”",
+      "line_widths_before": [
+        21,
+        17
+      ],
+      "line_widths_after": [
+        21,
+        17
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "bcebaed1d35db6615371c33ed2256695ea975dd92f6ce3e9fd5c8b159191dc23"
+    },
+    {
+      "id": "story/108/dialogue/02.03/0008",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“但他们自认为是新世界的创造者，\n关于过去，似乎隐藏了大部分。”",
+      "after": "“但他们自认为是新世界的创造者，\n　关于过去，似乎隐藏了大部分。”",
+      "line_widths_before": [
+        16,
+        15
+      ],
+      "line_widths_after": [
+        16,
+        15
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "6bb0d60fe3c85c7fba271d7a1a085c38191d47000611c7489c9696d34889d062"
+    },
+    {
+      "id": "story/108/dialogue/02.03/0030",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“在北半球，加利亚和北阿美利亚的人，\n生活方式也有很大差异。这有什么原因吗？”",
+      "after": "“在北半球，加利亚和北阿美利亚的人，\n　生活方式也有很大差异。这有什么原因吗？”",
+      "line_widths_before": [
+        18,
+        20
+      ],
+      "line_widths_after": [
+        18,
+        20
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "046feef5f0f2a0d2684dd3dce0c95240c45060880d397824e05bda0aee77eb6b"
+    },
+    {
+      "id": "story/108/dialogue/02.03/0038",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“黑历史末期，人类确实与堕天翅交战过，\n但结局并未被告知……”",
+      "after": "“黑历史末期，人类确实与堕天翅交战过，\n　但结局并未被告知……”",
+      "line_widths_before": [
+        19,
+        11
+      ],
+      "line_widths_after": [
+        19,
+        11
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "865489de45736d0e770793b76acb29e1719301ffa2aaff23581faf7f7b4e4f37"
+    },
+    {
+      "id": "story/109/dialogue/02.01/0269",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "““不可饶恕……不可饶恕！\n无论是谁，都不能妨碍老夫的科学！！”",
+      "after": "““不可饶恕……不可饶恕！\n　无论是谁，都不能妨碍老夫的科学！！”",
+      "line_widths_before": [
+        13,
+        18
+      ],
+      "line_widths_after": [
+        13,
+        18
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "791233a9443d335b7f357de061c968f8d734a2d4f802cb93bac4d5d11a8474ee"
+    },
+    {
+      "id": "story/109/dialogue/02.01/0342",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“那大叔也是，没叫他时别随便过来，\n这种时候才该出现嘛。”",
+      "after": "“那大叔也是，没叫他时别随便过来，\n　这种时候才该出现嘛。”",
+      "line_widths_before": [
+        17,
+        11
+      ],
+      "line_widths_after": [
+        17,
+        11
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "ffcdc74205f22bdf1891adc901cbb05bc92fe157b21819f10f9a0cb95d3316f9"
+    },
+    {
+      "id": "story/119/dialogue/02.02/0183",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“完、完了……\n果然，我们正在滑向毁灭……”",
+      "after": "“完、完了……\n　果然，我们正在滑向毁灭……”",
+      "line_widths_before": [
+        7,
+        14
+      ],
+      "line_widths_after": [
+        7,
+        14
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "af464b173eccb8e3a80718e1e4fd00e0a033e84f34c0e089417a34d5ff12490c"
+    },
+    {
+      "id": "story/127/dialogue/02.01/0021",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“润泽你的喉咙，然后干涸……凋零吧……\n不……不要凋零……”",
+      "after": "“润泽你的喉咙，然后干涸……凋零吧……\n　不……不要凋零……”",
+      "line_widths_before": [
+        19,
+        10
+      ],
+      "line_widths_after": [
+        19,
+        10
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "304b13e4e306bea3bb14a36b4971323a4bc99f4e4361d0dba7ed0931fd2a3bdb"
+    },
+    {
+      "id": "story/127/dialogue/02.02/0183",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“完、完了……\n果然，我们正在滑向毁灭……”",
+      "after": "“完、完了……\n　果然，我们正在滑向毁灭……”",
+      "line_widths_before": [
+        7,
+        14
+      ],
+      "line_widths_after": [
+        7,
+        14
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "af464b173eccb8e3a80718e1e4fd00e0a033e84f34c0e089417a34d5ff12490c"
+    },
+    {
+      "id": "story/131/dialogue/02.01/0122",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“我觉得大概不是。\n不过，那是个与世界隔绝的特别地方……”",
+      "after": "“我觉得大概不是。\n　不过，那是个与世界隔绝的特别地方……”",
+      "line_widths_before": [
+        9,
+        19
+      ],
+      "line_widths_after": [
+        9,
+        19
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "66eabee8dc15232d4278c7c55fc705ec42962c36484033cc342323c60702f8f1"
+    },
+    {
+      "id": "story/131/dialogue/02.01/0206",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“但是，在那之前得先补充一下物资。\n和超限恶魔的战斗，我们这边的损耗也不小。”",
+      "after": "“但是，在那之前得先补充一下物资。\n　和超限恶魔的战斗，我们这边的损耗也不小。”",
+      "line_widths_before": [
+        17,
+        21
+      ],
+      "line_widths_after": [
+        17,
+        21
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "62c19174a7ec31d90222f4f6da77535b5a8d8e7813a0a9de69090237679d7c55"
+    },
+    {
+      "id": "story/186/dialogue/01.01/0014",
+      "file": "corpus/zh/story-dialogue/stage-186.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“等等，修理工。\n 这周围可没有敌人给你揍啊，连影都没有。”",
+      "after": "“等等，修理工。\n　这周围可没有敌人给你揍啊，连影都没有。”",
+      "line_widths_before": [
+        8,
+        20
+      ],
+      "line_widths_after": [
+        8,
+        20
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "7c3f032347acdb17233e83366d647147a39ec7539d4a4d6b6ad16882cfbe53d7"
+    },
+    {
+      "id": "story/186/dialogue/02.01/0021",
+      "file": "corpus/zh/story-dialogue/stage-186.json",
+      "kind": "indent_fix",
+      "indent_normalized": true,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“不懂就听听嘛。\n  这样游戏玩起来才更有意思。”",
+      "after": "“不懂就听听嘛。\n　这样游戏玩起来才更有意思。”",
+      "line_widths_before": [
+        8,
+        14
+      ],
+      "line_widths_after": [
+        8,
+        14
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "3111732736a5a52a4b81221715d0ac091a68bc0c1eaf4870ac7180e52f73b0e9"
+    }
+  ],
+  "skipped": []
+}

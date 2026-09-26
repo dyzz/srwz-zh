@@ -172,7 +172,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
         expected = {
             "story/107/dialogue/02.03/0054": (
                 "“然后，我一直惦记着你……\n"
-                "一直想为那天的事跟你说声对不起……”"
+                "　一直想为那天的事跟你说声对不起……”"
             ),
             "story/107/dialogue/02.03/0091": (
                 "“然后，我一直惦记着你……\n"
@@ -285,7 +285,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             ),
             "story/108/dialogue/02.01/0035": (
                 "“大致情况我了解。\n"
-                "但这件事，应该直接去问奎因斯坦博士本人。”"
+                "　但这件事，应该直接去问奎因斯坦博士本人。”"
             ),
             "story/108/dialogue/02.01/0100": (
                 "“那时，S-1星人应该是在那场\n"

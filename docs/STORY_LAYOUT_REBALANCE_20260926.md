@@ -39,7 +39,9 @@ python3 tools/text_layout/build_story_unbroken_words.py --check
 
 ## 排版门禁
 
-语料必须存最终显示的断行，构建不再静默重排。三处使用同一个检查 `dialogue_layout_issues`：行数超过 3、任一行超过 21 格、断点落在词库单元内部，任一条成立即失败并指向重排工具。
+语料必须存最终显示的断行，构建不再静默重排。三处使用同一个检查 `dialogue_layout_issues`：行数超过 3、任一行超过 21 格、断点落在词库单元内部，或普通对白续行没有恰好一个全角缩进，任一条成立即失败并指向重排工具。独立的编号选项行保留顶格。
+
+后续检查发现 48 条社区写回对白的续行顶格或使用半角空格，涉及 13 个关卡文件。已将这些续行统一为一个全角空格，不改正文及断点；前后文本和日文源哈希见 [story-layout-indent-20260926.json](../config/editorial/story-layout-indent-20260926.json)。
 
 | 位置 | 行为 |
 | --- | --- |

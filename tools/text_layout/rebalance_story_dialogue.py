@@ -7,7 +7,8 @@ finds records whose stored break falls inside an unbroken term of the
 ``story_dialogue`` layout profile (a common word or a proper name) and lets the
 engine choose a new break with the same logical text.  Records that overflow
 the window are refitted the same way the builder already does at build time,
-so the corpus stores what the game displays.
+so the corpus stores what the game displays.  Missing or half-width
+continuation indentation is normalized to one full-width space.
 
 Every change is recorded with before/after text, line widths and the source
 hash in a batch document under ``config/editorial``.
@@ -39,6 +40,7 @@ from srwz.chinese_layout import (  # noqa: E402
     ChineseLayoutError,
     dialogue_line_widths,
     fit_chinese_dialogue_layout,
+    is_choice_menu_continuation,
     load_layout_profiles,
     logical_dialogue_text,
     reflow_chinese_dialogue,
@@ -110,6 +112,21 @@ def split_terms(text: str, profile, *, stage_keyword_links: bool) -> list[str]:
     )
 
 
+def normalize_indent(text: str, indent: str) -> str:
+    """Indent prose continuations without touching independent menu options."""
+
+    if not indent or "\n" not in text:
+        return text
+    lines = text.split("\n")
+    out = [lines[0]]
+    for previous, line in zip(lines, lines[1:]):
+        if is_choice_menu_continuation(previous, line):
+            out.append(line)
+        else:
+            out.append(indent + line.lstrip("　 "))
+    return "\n".join(out)
+
+
 def fits(text: str, profile, *, stage_keyword_links: bool) -> bool:
     widths = dialogue_line_widths(
         text,
@@ -135,18 +152,24 @@ def process(profile, *, write: bool, link_ids: frozenset[str]) -> dict:
         for entry in document["entries"]:
             text = entry["translation"]
             links = entry["id"] in link_ids
-            hits = split_terms(text, profile, stage_keyword_links=links)
-            overflow = not fits(text, profile, stage_keyword_links=links)
-            if not hits and not overflow:
+            indented = normalize_indent(text, profile.continuation_indent)
+            indent_fix = indented != text
+            hits = split_terms(indented, profile, stage_keyword_links=links)
+            overflow = not fits(indented, profile, stage_keyword_links=links)
+            if not hits and not overflow and not indent_fix:
                 continue
             try:
                 if overflow:
                     result = fit_chinese_dialogue_layout(
-                        text, profile=profile, stage_keyword_links=links
+                        indented, profile=profile, stage_keyword_links=links
+                    )
+                elif hits:
+                    result = reflow_chinese_dialogue(
+                        indented, profile=profile, stage_keyword_links=links
                     )
                 else:
-                    result = reflow_chinese_dialogue(
-                        text, profile=profile, stage_keyword_links=links
+                    result = fit_chinese_dialogue_layout(
+                        indented, profile=profile, stage_keyword_links=links
                     )
             except (ChineseLayoutError, AssertionError) as error:
                 skipped.append({"id": entry["id"], "reason": str(error)})
@@ -163,7 +186,8 @@ def process(profile, *, write: bool, link_ids: frozenset[str]) -> dict:
             changes.append({
                 "id": entry["id"],
                 "file": str(path.relative_to(PROJECT_ROOT)),
-                "kind": "overflow_refit" if overflow else "split_word",
+                "kind": "overflow_refit" if overflow else "split_word" if hits else "indent_fix",
+                "indent_normalized": indent_fix,
                 "runtime_keyword_links": links,
                 "split_terms": hits,
                 "before": text,
@@ -218,8 +242,8 @@ def main() -> int:
         "batch_id": args.batch_id,
         "recorded_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "reason": (
-            "剧情对白断行落在词或专名内部；用 story_dialogue 档（21 格 × 3 行，"
-            "含不可拆分词表）重新选择断点。逻辑文本不变，只改换行位置。"
+            "修正剧情对白的断行、溢出或续行缩进；用 story_dialogue 档"
+            "（21 格 × 3 行，含不可拆分词表）生成最终排版。逻辑文本不变。"
         ),
         "layout_profile": {
             "id": profile.profile_id,

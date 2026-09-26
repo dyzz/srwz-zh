@@ -939,6 +939,12 @@ def split_unbroken_terms(
     return tuple(hits)
 
 
+def is_choice_menu_continuation(previous: str, line: str) -> bool:
+    """Choice options are separate quoted lines, not indented dialogue prose."""
+
+    return previous.endswith("”") and re.match(r"^“[0-9０-９]+[．.]", line) is not None
+
+
 def dialogue_layout_issues(
     text: str,
     *,
@@ -948,8 +954,9 @@ def dialogue_layout_issues(
     """Describe why a stored dialogue is not already in its final layout.
 
     The production corpus must store exactly what the game displays: every
-    line within the profile's width and line count, and no break inside an
-    unbroken term.  An empty result means the text passes.
+    line within the profile's width and line count, no break inside an
+    unbroken term, and one full-width indent on each prose continuation.
+    An empty result means the text passes.
     """
 
     issues = []
@@ -970,6 +977,14 @@ def dialogue_layout_issues(
         text, profile=profile, stage_keyword_links=stage_keyword_links
     ):
         issues.append(f"line break inside {term!r}")
+    indent = profile.continuation_indent
+    if indent and "\n" in text:
+        lines = text.split("\n")
+        for index, (previous, line) in enumerate(zip(lines, lines[1:]), start=2):
+            if is_choice_menu_continuation(previous, line):
+                continue
+            if not line.startswith(indent) or line[len(indent):].startswith((" ", "　")):
+                issues.append(f"line {index} lacks one full-width continuation indent")
     return tuple(issues)
 
 

@@ -93,6 +93,29 @@ class StoryDialogueLayoutWordsTest(unittest.TestCase):
         four = "“一。\n　二。\n　三。\n　四。”"
         self.assertIn("4 lines exceed 3", dialogue_layout_issues(four, profile=self.profile))
 
+    def test_continuation_indent_gate_and_repair(self) -> None:
+        import rebalance_story_dialogue as tool
+
+        for source in ("“第一句。\n第二句。”", "“第一句。\n 第二句。”", "“第一句。\n　 第二句。”"):
+            with self.subTest(source=source):
+                self.assertIn(
+                    "line 2 lacks one full-width continuation indent",
+                    dialogue_layout_issues(source, profile=self.profile),
+                )
+                fixed = tool.normalize_indent(source, self.profile.continuation_indent)
+                self.assertEqual(fixed, "“第一句。\n　第二句。”")
+                self.assertEqual(logical_dialogue_text(fixed), logical_dialogue_text(source))
+                self.assertEqual(dialogue_layout_issues(fixed, profile=self.profile), ())
+
+        choices = "“要怎么做？”\n“1．继续”\n“2．返回”"
+        self.assertEqual(dialogue_layout_issues(choices, profile=self.profile), ())
+        self.assertEqual(tool.normalize_indent(choices, self.profile.continuation_indent), choices)
+        quoted_prose = "“他说完了。”\n“然后我们出发。”"
+        self.assertIn(
+            "line 2 lacks one full-width continuation indent",
+            dialogue_layout_issues(quoted_prose, profile=self.profile),
+        )
+
     def test_check_tool_reports_no_problems_for_current_corpus(self) -> None:
         import check_story_dialogue_layout as checker
 
