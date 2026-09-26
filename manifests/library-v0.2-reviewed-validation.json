@@ -17,17 +17,17 @@
     "corpus": {
       "path": "corpus/zh/library/v0.2-reviewed.json",
       "size": 1948310,
-      "sha256": "087509801651a3848ab0fc7d97a4cf9b8ee78175a2253509ad5da31cbec864cc"
+      "sha256": "d459af7ae462bb430c2e116781e3d3fcc88898d48840f4a5833ad76bc0ff9971"
     },
     "font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 76391,
-      "sha256": "ef817271a4b7bb2a047b9c377e6d14075989b288f07f80dc1ed3254f03610737"
+      "sha256": "3baae78a2f0cb398d7e68207f2866097688c0849ba01a06bd81dfdddc92bdcfc"
     },
     "font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
       "size": 3311094,
-      "sha256": "beb867e190695e167ee4b25200e68ae01f871086f6c8126087575bb7b3e23449"
+      "sha256": "c326d7b35b57b3fe2bc79f7119f01eb5be502820f64424b63e5de4f73c8eec46"
     },
     "executable": {
       "path": "work/disc/SLPS_258.87",
@@ -106,8 +106,8 @@
     },
     "layout_glossary_006": {
       "path": "corpus/glossary/weapons-v1.json",
-      "size": 297588,
-      "sha256": "aca1699a3df39fca42ecb78c497d0ba3996d95bb3111fef5caba047c5aa2c29f"
+      "size": 297805,
+      "sha256": "c5a23e98a779cc53bc6a6ee2d9dc794233f33f94518519ca175f1cb8179d8012"
     },
     "layout_glossary_007": {
       "path": "corpus/glossary/menu-terms-v1.json",
@@ -126,8 +126,8 @@
     },
     "layout_glossary_010": {
       "path": "corpus/glossary/story-speakers-v1.json",
-      "size": 124448,
-      "sha256": "b9dfa7318f013b984376f95b90245dcfb78aca11e6a971e192473353615c1dc5"
+      "size": 124523,
+      "sha256": "bc4aa7eb58981fcb550646842ceaab1127117e06452fdcb7f12791fd793bf2f2"
     },
     "layout_glossary_011": {
       "path": "corpus/glossary/story-dialogue-stage-001-v1.json",
@@ -789,7 +789,7 @@
       "source_size": 185600,
       "output_size": 185600,
       "source_sha256": "e78306a1c1a5591bc0869d30f656578307c33543e146fb35a0fa16b177d0dd75",
-      "output_sha256": "23099fe256627f4fa7016e91c8607e4027c9b0b4009e490185d2b1623e833589",
+      "output_sha256": "e86540f0a961cf344e3cf692e0a067452e67235c83315e3bc2927bcc5df49afe",
       "minimum_repacked_size_16": 154064,
       "repack_headroom_16": 31536,
       "minimum_chunk_headroom": 0,
@@ -9819,9 +9819,9 @@
       "source_size": 293696,
       "output_size": 293696,
       "source_sha256": "5dc3e8277d39a0f7a57e78b5e95a0ba74a24c2c9d9db93ad75a77a1775ad78b7",
-      "output_sha256": "c75422fc1d3a17c5c10455dcddac1e305fdd4b880002eb77532c5db1bbcfecda",
-      "minimum_repacked_size_16": 261504,
-      "repack_headroom_16": 32192,
+      "output_sha256": "ee7a5d0464a0a4b3c517d0b69246fb1fc54fe97294502412f94192e3ea248d78",
+      "minimum_repacked_size_16": 261456,
+      "repack_headroom_16": 32240,
       "minimum_chunk_headroom": 0,
       "maximum_body_line_width": 16,
       "dense_body_layout_entry_count": 411,
@@ -10241,14 +10241,14 @@
           256640,
           256960,
           257616,
-          258160,
-          258896,
-          259296,
-          259872,
-          260432,
-          261072
+          258144,
+          258864,
+          259248,
+          259824,
+          260384,
+          261024
         ],
-        "packed_sha256": "a7cec29a7237e3aba0e96b63035d62f9afa349d3abd7ef69b8120469637ba60f",
+        "packed_sha256": "51a8840f30b232dfa7cf0f071d5bcab32de8c40abbffe77026333950fa1400b3",
         "archive_size": 293696,
         "alignment": 16
       },
@@ -21148,8 +21148,8 @@
           "slot_size": 656,
           "source_slot_size": 736,
           "source_encoded_size": 725,
-          "output_encoded_size": 655,
-          "headroom": 1,
+          "output_encoded_size": 649,
+          "headroom": 7,
           "source_decoded_size": 1264,
           "output_decoded_size": 960,
           "text_field_count": 6,
@@ -21172,11 +21172,11 @@
         },
         {
           "entry_index": 404,
-          "slot_size": 544,
+          "slot_size": 528,
           "source_slot_size": 624,
           "source_encoded_size": 623,
-          "output_encoded_size": 530,
-          "headroom": 14,
+          "output_encoded_size": 524,
+          "headroom": 4,
           "source_decoded_size": 832,
           "output_decoded_size": 656,
           "text_field_count": 6,
@@ -21195,15 +21195,15 @@
           "raw_visible_ascii_bytes": {},
           "all_visible_ascii_two_byte": true,
           "repacked_start": 257616,
-          "repacked_end": 258160
+          "repacked_end": 258144
         },
         {
           "entry_index": 405,
-          "slot_size": 736,
+          "slot_size": 720,
           "source_slot_size": 752,
           "source_encoded_size": 737,
-          "output_encoded_size": 723,
-          "headroom": 13,
+          "output_encoded_size": 718,
+          "headroom": 2,
           "source_decoded_size": 1440,
           "output_decoded_size": 1024,
           "text_field_count": 6,
@@ -21221,16 +21221,16 @@
           "raw_visible_ascii_count": 0,
           "raw_visible_ascii_bytes": {},
           "all_visible_ascii_two_byte": true,
-          "repacked_start": 258160,
-          "repacked_end": 258896
+          "repacked_start": 258144,
+          "repacked_end": 258864
         },
         {
           "entry_index": 406,
-          "slot_size": 400,
+          "slot_size": 384,
           "source_slot_size": 432,
           "source_encoded_size": 430,
-          "output_encoded_size": 386,
-          "headroom": 14,
+          "output_encoded_size": 379,
+          "headroom": 5,
           "source_decoded_size": 736,
           "output_decoded_size": 592,
           "text_field_count": 6,
@@ -21248,8 +21248,8 @@
           "raw_visible_ascii_count": 0,
           "raw_visible_ascii_bytes": {},
           "all_visible_ascii_two_byte": true,
-          "repacked_start": 258896,
-          "repacked_end": 259296
+          "repacked_start": 258864,
+          "repacked_end": 259248
         },
         {
           "entry_index": 407,
@@ -21277,8 +21277,8 @@
           "raw_visible_ascii_count": 0,
           "raw_visible_ascii_bytes": {},
           "all_visible_ascii_two_byte": true,
-          "repacked_start": 259296,
-          "repacked_end": 259872
+          "repacked_start": 259248,
+          "repacked_end": 259824
         },
         {
           "entry_index": 408,
@@ -21306,8 +21306,8 @@
           "raw_visible_ascii_count": 0,
           "raw_visible_ascii_bytes": {},
           "all_visible_ascii_two_byte": true,
-          "repacked_start": 259872,
-          "repacked_end": 260432
+          "repacked_start": 259824,
+          "repacked_end": 260384
         },
         {
           "entry_index": 409,
@@ -21333,16 +21333,16 @@
           "raw_visible_ascii_count": 0,
           "raw_visible_ascii_bytes": {},
           "all_visible_ascii_two_byte": true,
-          "repacked_start": 260432,
-          "repacked_end": 261072
+          "repacked_start": 260384,
+          "repacked_end": 261024
         },
         {
           "entry_index": 410,
-          "slot_size": 32624,
+          "slot_size": 32672,
           "source_slot_size": 496,
           "source_encoded_size": 491,
           "output_encoded_size": 428,
-          "headroom": 32196,
+          "headroom": 32244,
           "source_decoded_size": 560,
           "output_decoded_size": 464,
           "text_field_count": 6,
@@ -21360,7 +21360,7 @@
           "raw_visible_ascii_count": 0,
           "raw_visible_ascii_bytes": {},
           "all_visible_ascii_two_byte": true,
-          "repacked_start": 261072,
+          "repacked_start": 261024,
           "repacked_end": 293696
         }
       ]
@@ -22877,12 +22877,12 @@
     "DATA/MTVZKNRT.BIN": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNRT.BIN",
       "size": 185600,
-      "sha256": "23099fe256627f4fa7016e91c8607e4027c9b0b4009e490185d2b1623e833589"
+      "sha256": "e86540f0a961cf344e3cf692e0a067452e67235c83315e3bc2927bcc5df49afe"
     },
     "DATA/MTVZKNPT.BIN": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNPT.BIN",
       "size": 293696,
-      "sha256": "c75422fc1d3a17c5c10455dcddac1e305fdd4b880002eb77532c5db1bbcfecda"
+      "sha256": "ee7a5d0464a0a4b3c517d0b69246fb1fc54fe97294502412f94192e3ea248d78"
     },
     "DATA/MTVZKNKW.BIN": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
