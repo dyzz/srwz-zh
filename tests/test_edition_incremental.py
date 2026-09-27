@@ -25,7 +25,8 @@ class IncrementalSeedTests(unittest.TestCase):
                    {'files': [{'path':'config/derived.json','size':p.stat().st_size,'sha256':sha256_file(p)}]})
         self.write('build/editions/previous/project/manifests/proof.json', {'passed':True})
         self.files = [{'path':'config/derived.json','sha256':'source-definition'}, {'path':'corpus/line.json','sha256':'before'},
-                      {'path':'tools/compiler.py','sha256':'compiler'}]
+                      {'path':'tools/srwz/compiler.py','sha256':'compiler'}, {'path':'tools/build_editions.py','sha256':'orchestration'},
+                      {'path':'manifests/receipt.json','sha256':'old-receipt','size':1}]
         self.write('work/build/shared/old/inputs.json', {'files':self.files})
         self.write('manifests/editions/original/current.json', {'status':'edition_iso_static_validated_runtime_pending',
             'input_digest':'old','edition_contract_sha256':'contract','workspace':'build/editions/previous/project',
@@ -45,10 +46,31 @@ class IncrementalSeedTests(unittest.TestCase):
         self.assertNotEqual((self.source/'config/derived.json').stat().st_ino,(self.target/'config/derived.json').stat().st_ino)
 
     def test_tool_or_config_edit_cannot_reuse_old_generated_config(self):
-        for name in ('tools/compiler.py','config/derived.json'):
+        for name in ('tools/srwz/compiler.py','config/derived.json','manifests/receipt.json'):
             rows=[dict(r,sha256='changed') if r['path']==name else r for r in self.files]
             self.assertFalse(seed_text_update(self.context,SimpleNamespace(files=rows)))
         self.assertFalse((self.target/'config').exists())
+
+    def test_non_component_tool_or_doc_edit_still_seeds(self):
+        rows=[dict(r,sha256='edited') if r['path']=='tools/build_editions.py' else r for r in self.files]
+        rows.append({'path':'tools/verify_full_story_iso_content.py','sha256':'new-verifier'})
+        with patch('srwz.edition_incremental.seed_original_caches'):
+            self.assertTrue(seed_text_update(self.context,SimpleNamespace(files=rows)))
+
+    def test_receipt_equal_to_previous_run_output_still_seeds(self):
+        produced=self.source/'manifests/receipt.json';produced.write_text('{"refreshed": true}')
+        rows=[dict(r,sha256=sha256_file(produced),size=produced.stat().st_size) if r['path']=='manifests/receipt.json' else r for r in self.files]
+        with patch('srwz.edition_incremental.seed_original_caches'):
+            self.assertTrue(seed_text_update(self.context,SimpleNamespace(files=rows)))
+        rows=[dict(r,sha256='hand-edited',size=3) if r['path']=='manifests/receipt.json' else r for r in self.files]
+        self.assertFalse(seed_text_update(self.context,SimpleNamespace(files=rows)))
+
+    def test_previous_iso_baseline_is_cloned_for_incremental_iso_builds(self):
+        for name in ('current-original.iso','iso-validation-current.json','iso-validation-current.incremental.json'):
+            p=self.source/'build/iso/zh-release-full-story'/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(name.encode())
+        with patch('srwz.edition_incremental.seed_original_caches'):
+            self.assertTrue(seed_text_update(self.context,SimpleNamespace(files=self.files)))
+        self.assertEqual((self.target/'build/iso/zh-release-full-story/current-original.iso').read_bytes(),b'current-original.iso')
 
     def test_corrupt_generated_metadata_rejects_seed(self):
         (self.source/'config/derived.json').write_text('{}')

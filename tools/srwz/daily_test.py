@@ -4,6 +4,7 @@ from pathlib import Path
 from .battle_square_skip import verify_battle_square_skip
 from .edition import EditionError, load_json, project_path
 from .iso9660 import member_map, scan_iso9660
+from .file_identity import publish_verified
 from .release_inputs import copy_file, sha256_file
 
 
@@ -52,7 +53,7 @@ def publish_daily_test(root: Path, inputs: Path, result: dict) -> dict:
                 or sha256_file(pending) != result['output']['sha256']):
             raise EditionError('daily-test copy differs from validated current ISO')
         hook = verify_skip(pending, inputs, edition)
-        pending.replace(target)
+        publish_verified(pending, target, result['output']['sha256'])
     finally:
         pending.unlink(missing_ok=True)
     return {

@@ -53,6 +53,22 @@ class BaselineTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'patch/source hash drift'):
             baselines.baseline_iso('text-canary')
 
+    def test_exported_baseline_is_shared_only_with_exact_identity(self):
+        lock = self.freeze()
+        exported = self.directory/'shared.iso'
+        exported.write_bytes(self.edited.read_bytes())
+        with patch.dict(baselines.os.environ, {baselines.environment_name('text-canary'): str(exported)}):
+            self.assertEqual(baselines.baseline_iso('text-canary'), exported)
+        baselines._CACHE.clear()
+        exported.write_bytes(b'not the baseline')
+        with patch.dict(baselines.os.environ, {baselines.environment_name('text-canary'): str(exported)}):
+            with self.assertRaisesRegex(ValueError, 'exported SP baseline identity drift'):
+                baselines.baseline_iso('text-canary')
+        baselines._CACHE.clear()
+        restored = baselines.export_baseline('text-canary')
+        self.assertEqual(baselines.os.environ.pop(baselines.environment_name('text-canary')), str(restored))
+        self.assertEqual(baselines.digest(restored), json.loads(lock.read_text())['iso_sha256'])
+
     def test_unknown_baseline_rejected(self):
         with self.assertRaisesRegex(ValueError, 'unknown SP baseline'):
             baselines.baseline_iso('../arbitrary')

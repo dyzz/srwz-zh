@@ -12,6 +12,8 @@ import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from srwz.build_fingerprints import COMPONENT_BUILD_DEFINITION_ROOTS
+from srwz.file_identity import sha256_file as _identity_sha256
 from srwz.ui_atlas_suite import build_ui_atlas_suite
 from srwz.verified_cache import (
     collect_locked_paths,
@@ -31,30 +33,7 @@ DEFAULT_ATLAS_WORKERS = min(
 )
 DEFAULT_CACHE = PROJECT_ROOT / "work/cache/zh-font-build-chain.json"
 CACHE_KIND = "zh-font-full-consumer-chain-v1"
-BUILD_DEFINITION_ROOTS = (
-    "tools/srwz",
-    "tools/native/srwz-codec-rs/Cargo.toml",
-    "tools/native/srwz-codec-rs/Cargo.lock",
-    "tools/native/srwz-codec-rs/src",
-    "tools/rebuild_zh_font.py",
-    "tools/prepare_zh_release_font.py",
-    "tools/update_zh_release_font_snapshot.py",
-    "tools/build_zh_font_component.py",
-    "tools/verify_zh_release_font.py",
-    "tools/build_library_v02_component.py",
-    "tools/build_story_component.py",
-    "tools/build_text_update_iso.py",
-    "tools/ui_atlas.py",
-    "tools/build_ui_headings.py",
-    "tools/build_full_story_components.py",
-    "tools/build_aid_battle_prompts.py",
-    "tools/build_tricmn_battle_overlays.py",
-    "tools/compose_full_story_library_components.py",
-    "config",
-    "corpus/ja",
-    "corpus/zh",
-    "corpus/glossary",
-)
+BUILD_DEFINITION_ROOTS = COMPONENT_BUILD_DEFINITION_ROOTS
 
 
 def parse_args() -> argparse.Namespace:
@@ -140,11 +119,8 @@ def _write(path: Path, document: dict) -> None:
 
 
 def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(4 * 1024 * 1024):
-            digest.update(chunk)
-    return digest.hexdigest()
+    """Identity-cached SHA-256; see srwz.file_identity."""
+    return _identity_sha256(path)
 
 
 def _file_lock(reference: str) -> dict:
@@ -788,8 +764,12 @@ def main() -> int:
     # Allocation changes remain an explicit source update, never a cache fix.
     _run("tools/update_zh_release_font_snapshot.py", "--config", release_reference)
     raster_handoff = str(Path(outputs["proposal"]).with_suffix(".rasters.json"))
+    # Per-glyph rasters are reused only when the prior proposal's font source,
+    # flavor, fallbacks, rasterizer and allocation registry match exactly; an
+    # explicit --force-rebuild still re-rasterizes everything.
     _run("tools/prepare_zh_release_font.py", "--config", release_reference,
-         "--raster-output", raster_handoff, "--force")
+         "--raster-output", raster_handoff, "--force",
+         *([] if args.force_rebuild else ["--reuse-raster-cache"]))
     _run(
         "tools/build_zh_font_component.py",
         "--font-config",

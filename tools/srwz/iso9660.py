@@ -14,6 +14,8 @@ from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import BinaryIO, Iterable
 
+from .file_identity import sha256_range
+
 
 SECTOR_SIZE = 2048
 PRIMARY_VOLUME_DESCRIPTOR_SECTOR = 16
@@ -250,17 +252,11 @@ def scan_iso9660(path: Path) -> IsoImage:
 
 
 def sha256_member(image: Path, member: IsoMember) -> str:
-    digest = hashlib.sha256()
-    remaining = member.size
-    with image.open("rb") as source:
-        source.seek(member.extent_lba * SECTOR_SIZE)
-        while remaining:
-            chunk = source.read(min(remaining, HASH_CHUNK_SIZE))
-            if not chunk:
-                raise Iso9660Error(f"short read while hashing {member.path}")
-            digest.update(chunk)
-            remaining -= len(chunk)
-    return digest.hexdigest()
+    """Member digest bound to the image's file identity, so unchanged discs are read once."""
+    try:
+        return sha256_range(image, member.extent_lba * SECTOR_SIZE, member.size)
+    except OSError as error:
+        raise Iso9660Error(f"short read while hashing {member.path}") from error
 
 
 def member_map(image: IsoImage) -> dict[str, IsoMember]:

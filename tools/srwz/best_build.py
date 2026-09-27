@@ -18,6 +18,7 @@ from .stage_dispatch import check_shared_tail, relocate_dispatch, verify_dispatc
 from .compdata_best_corrections import CORRECTIONS
 from .edition import EditionError, json_bytes, load_json, project_path
 from .iso9660 import member_map, scan_iso9660
+from .file_identity import publish_verified
 from .release_inputs import copy_file, sha256_file
 from .text import TextTable, decode_text, load_text_table, original_fullwidth_ascii_overrides, project_runtime_text_table
 from .ui_name_tables import verify_name_table
@@ -611,9 +612,10 @@ class BestCompiler:
             dispatch_proofs.append({'index': index, 'dispatchers': verify_dispatch(native, final, spec)})
         require(sum(bool(p['dispatchers']) for p in dispatch_proofs) == 182
                 and sum(len(p['dispatchers']) for p in dispatch_proofs) == 184, 'STAGE dispatcher coverage drift')
-        temporary.replace(target)
+        final_sha256 = sha256_file(temporary)
+        publish_verified(temporary, target, final_sha256)
         proof = {'schema_version':1,'status':'best_final_iso_static_content_readback_passed','input_digest':self.input_digest,
-                 'iso':{'path':target.relative_to(self.root).as_posix(),'size':target.stat().st_size,'sha256':sha256_file(target)},
+                 'iso':{'path':target.relative_to(self.root).as_posix(),'size':target.stat().st_size,'sha256':final_sha256},
                  'source_iso_sha256':sha256_file(source),'member_count':len(members),'replacement_count':len(self.outputs),
                  'stage_event_dispatch':dispatch_proofs,'stage_chunk_count':len(self.stage_proofs),'stage_text_owner_count':sum(r['entries'] for r in self.stage_proofs),
                  'subtitle_record_count':self.srvc_proof['records'],'all_non_replacement_iso_bytes_preserved':True,

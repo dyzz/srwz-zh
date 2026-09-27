@@ -69,6 +69,21 @@ def first_output_line(executable: Path) -> str:
     )
 
 
+def executables_ready(toolchain: dict) -> bool:
+    """Both pinned executables exist and report their locked version lines."""
+    for name in ("mkps2iso", "dumps2iso"):
+        item = toolchain[name]
+        executable = project_path(item["default_path"])
+        if not executable.is_file():
+            return False
+        try:
+            if first_output_line(executable) != item["version_line"]:
+                return False
+        except OSError:
+            return False
+    return True
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Build the pinned open-source mkps2iso toolchain."
@@ -122,11 +137,14 @@ def main() -> int:
             )
         print(f"[OK] pinned source commit: {commit}")
 
-        run([cmake, "--preset", "release"], cwd=source_dir)
-        run(
-            [cmake, "--build", "--preset", "release", "--parallel"],
-            cwd=source_dir,
-        )
+        if executables_ready(toolchain):
+            print("[OK] pinned executables already built; CMake not run")
+        else:
+            run([cmake, "--preset", "release"], cwd=source_dir)
+            run(
+                [cmake, "--build", "--preset", "release", "--parallel"],
+                cwd=source_dir,
+            )
 
         for name in ("mkps2iso", "dumps2iso"):
             item = toolchain[name]
