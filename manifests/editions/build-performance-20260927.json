@@ -1,0 +1,170 @@
+{
+  "baseline": {
+    "no_change_three_editions_seconds_20260922": 15.16,
+    "one_line_original_seconds_20260922": 61.558,
+    "original_best_batch": "work/editions/9d9f525e771028c3ed95164cfc0b599216aa4813f28f3651a61fa2d0f37ebfde/original-best.json",
+    "original_best_tooling_change_seconds": 154.162,
+    "sp_batch": "work/editions/a70810ace641daea64137e51cc860d9605afaebe0e643215f8ca80d7e384396a/sp.json",
+    "sp_seconds": 108.928
+  },
+  "corpus_only_timing": {
+    "editions": {
+      "best": {
+        "daily_test_seconds": 0.044,
+        "mode": "build",
+        "phases": {
+          "native-components-and-iso": {
+            "returncode": 0,
+            "seconds": 17.068
+          }
+        },
+        "seconds": 18.815
+      },
+      "original": {
+        "daily_test_seconds": 0.044,
+        "mode": "build",
+        "phases": {
+          "codec": {
+            "returncode": 0,
+            "seconds": 0.109
+          },
+          "components": {
+            "returncode": 0,
+            "seconds": 6.64
+          },
+          "fonts": {
+            "returncode": 0,
+            "seconds": 0.079
+          },
+          "iso": {
+            "returncode": 0,
+            "seconds": 0.098
+          },
+          "iso-toolchain": {
+            "returncode": 0,
+            "seconds": 0.144
+          },
+          "readback": {
+            "returncode": 0,
+            "seconds": 20.063
+          }
+        },
+        "seconds": 28.591
+      }
+    },
+    "finished_at": "2026-09-27T01:31:14.398537+00:00",
+    "preflight_and_snapshot_seconds": 0.337,
+    "started_at": "2026-09-27T01:30:26.654143+00:00",
+    "total_seconds": 47.744
+  },
+  "date": "2026-09-27",
+  "document": "docs/BUILD_PERFORMANCE_20260927.md",
+  "measurements": {
+    "best_sha256": "3f4da20dd7db8fda883571b217335893530f9bd47fc34d02ad142cfe34d62ed3",
+    "original_best_corpus_only_seconds": 47.744,
+    "original_best_no_change_first_seconds": 5.58,
+    "original_best_no_change_in_process_seconds": 0.57,
+    "original_best_tooling_change_seconds": 111.338,
+    "original_sha256": "59f1b1779a8efcb8982461101c449ff3fb4284cd46be27447add98f35188dd08",
+    "sp_full_seconds": 53.39,
+    "sp_parallel_writers_equal_serial": true,
+    "sp_sha256": "892689dba632ed355b885eae42caa3fccd7a78646fccc991bda3f52a889bac61",
+    "sp_unchanged_components_equal_20260923": [
+      "system",
+      "frame",
+      "image-labels"
+    ]
+  },
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "scope": "same working tree as the 2026-09-26 story reflow build plus uncommitted story-dialogue edits; SP inputs include the 2026-09-25/26 shared corpus updates",
+  "sp_phase_seconds": {
+    "assembly_including_readback": 19.564,
+    "components": 29.678,
+    "independent_readback_and_publication": 0.992,
+    "migrate_srvc": 2.624,
+    "migrate_stage_dialogue": 6.093,
+    "write_frame_text": 2.599,
+    "write_image_labels": 3.109,
+    "write_system_text": 16.765
+  },
+  "sp_timing": {
+    "editions": {
+      "sp": {
+        "daily_test_seconds": 0.057,
+        "mode": "build",
+        "phases": {
+          "rust-compressor": {
+            "returncode": 0,
+            "seconds": 0.114
+          },
+          "sp-full-text": {
+            "returncode": 0,
+            "seconds": 49.419
+          }
+        },
+        "seconds": 51.559
+      }
+    },
+    "finished_at": "2026-09-27T01:32:29.326344+00:00",
+    "preflight_and_snapshot_seconds": 1.831,
+    "started_at": "2026-09-27T01:31:35.935512+00:00",
+    "total_seconds": 53.39
+  },
+  "status": "build_flow_standardized_static_verified_runtime_not_tested",
+  "tooling_change_timing": {
+    "editions": {
+      "best": {
+        "daily_test_seconds": 1.44,
+        "mode": "build",
+        "phases": {
+          "native-components-and-iso": {
+            "returncode": 0,
+            "seconds": 17.042
+          }
+        },
+        "seconds": 20.201
+      },
+      "original": {
+        "daily_test_seconds": 1.438,
+        "mode": "build",
+        "phases": {
+          "codec": {
+            "returncode": 0,
+            "seconds": 0.118
+          },
+          "components": {
+            "returncode": 0,
+            "seconds": 59.863
+          },
+          "fonts": {
+            "returncode": 0,
+            "seconds": 0.083
+          },
+          "iso": {
+            "returncode": 0,
+            "seconds": 6.453
+          },
+          "iso-toolchain": {
+            "returncode": 0,
+            "seconds": 0.125
+          },
+          "readback": {
+            "returncode": 0,
+            "seconds": 20.053
+          }
+        },
+        "seconds": 90.802
+      }
+    },
+    "finished_at": "2026-09-27T01:26:09.702212+00:00",
+    "preflight_and_snapshot_seconds": 0.335,
+    "started_at": "2026-09-27T01:24:18.363017+00:00",
+    "total_seconds": 111.338
+  },
+  "unit_tests": {
+    "ran": 501,
+    "skipped": 6,
+    "status": "passed"
+  }
+}

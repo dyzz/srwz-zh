@@ -7,12 +7,14 @@ claim that every game surface has been translated or manually accepted.
 from __future__ import annotations
 import argparse
 import collections
+from concurrent.futures import ThreadPoolExecutor
 import json
-import shutil
+import os
 import struct
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 from pathlib import Path
 
@@ -34,11 +36,14 @@ from special_disc.writeback.stage_titles import apply_stage_titles, verify_title
 from special_disc.source import CURRENT_ISO
 from special_disc.writeback.qa_layout import MEMBER as QA_MEMBER
 from special_disc.writeback.qa_native import apply_reviewed_qa as apply_qa_layout
-from special_disc.baselines import baseline_iso
+from special_disc.baselines import baseline_iso, export_baseline
+from srwz.file_identity import publish_verified
+from srwz.release_inputs import copy_file
 from special_disc.writeback.data_link_bonus import apply_data_link_bonus
 from special_disc.writeback.battle_square_skip import apply_skip
 from special_disc.writeback.instruction_overrides import apply_overrides
 from special_disc.writeback.squad_names import apply_nisv_names
+from special_disc.writeback.incremental import CACHE_PATH, ComponentCache, seed_components
 
 WORK=ROOT/'work/build/special-disc/full-text'
 BASE_SHA='3617b44b263b1a31f14632d89f3ee456a031349ee892b25c6c8eeb9ae8d5ae73'
@@ -48,6 +53,8 @@ DEST=CURRENT_ISO
 CHUNKS=[1,2,3,4,5,7,8,9,11,13,14,15,16,18,19,20,21,23,24,25,26,27,28,29,*range(39,57)]
 EXE,STAGE,VT1,CD='SLPS_259.20','DATA/STAGE.BIN','DATA/VT1.BIN','DATA/COMPDATA.BN'
 TIMINGS = {}
+_TIMING_LOCK = threading.Lock()
+COMPONENT_CACHE = None
 
 
 def timed(name, function, *args, **kwargs):
@@ -55,22 +62,42 @@ def timed(name, function, *args, **kwargs):
     try:
         return function(*args, **kwargs)
     finally:
-        TIMINGS[name] = round(time.perf_counter() - started, 3)
-        write_json(WORK/'timing.json', TIMINGS)
+        with _TIMING_LOCK:
+            TIMINGS[name] = round(time.perf_counter() - started, 3)
+            write_json(WORK/'timing.json', TIMINGS)
         print(f'{name}: {TIMINGS[name]:.3f}s', flush=True)
 
 
-def build():
+def build(*, force_rebuild=False):
+    """Run the component writers; independent writers run concurrently.
+
+    Only the STAGE writer consumes another writer's output (the system text
+    component). SRVC, frame and image writers read the shared proposal and the
+    preserved baseline only, and each writes its own directory, so they run in
+    parallel with the system->stage chain. The baseline ISO is restored once by
+    this process and shared with every child through the environment.
+    """
+    global COMPONENT_CACHE
     WORK.mkdir(parents=True,exist_ok=True)
+    export_baseline('text-canary')
+    previous = DEST.with_suffix('.json')
+    if not force_rebuild and previous.is_file():
+        seed_components(ROOT, previous, file_sha(previous), ROOT / CACHE_PATH)
+    COMPONENT_CACHE = ComponentCache(ROOT, WORK, force=force_rebuild)
     def run(script,*args):
         print(script,flush=True)
         with (WORK/f'{Path(script).stem}.log').open('w') as log:
-            timed(script, subprocess.run, [sys.executable,str(ROOT/'tools/special_disc/writeback'/script),*map(str,args)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
-    run('write_system_text.py','--proposal',PROPOSAL,'--output',WORK/'system')
-    run('migrate_stage_dialogue.py','--allow-draft','--include-formations','--chunks',*CHUNKS,'--proposal',PROPOSAL,'--base',WORK/'system','--output',WORK/'stage')
-    run('migrate_srvc.py','--include-sp','--allow-draft','--proposal',PROPOSAL,'--output',WORK/'srvc')
-    run('write_frame_text.py','--proposal',PROPOSAL,'--output',WORK/'frame')
-    run('write_image_labels.py','--output',WORK/'image-labels')
+            timed(script, subprocess.run, [sys.executable,str(ROOT/'tools/special_disc/writeback'/script),*map(str,args)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True,env=os.environ.copy())
+    def system_then_stage():
+        COMPONENT_CACHE.run('system', lambda: run('write_system_text.py','--proposal',PROPOSAL,'--output',WORK/'system'))
+        COMPONENT_CACHE.run('stage', lambda: run('migrate_stage_dialogue.py','--allow-draft','--include-formations','--chunks',*CHUNKS,'--proposal',PROPOSAL,'--base',WORK/'system','--output',WORK/'stage'))
+    jobs=[system_then_stage,
+          lambda:COMPONENT_CACHE.run('srvc',lambda:run('migrate_srvc.py','--include-sp','--allow-draft','--proposal',PROPOSAL,'--output',WORK/'srvc')),
+          lambda:COMPONENT_CACHE.run('frame',lambda:run('write_frame_text.py','--proposal',PROPOSAL,'--output',WORK/'frame')),
+          lambda:COMPONENT_CACHE.run('image-labels',lambda:run('write_image_labels.py','--output',WORK/'image-labels'))]
+    with ThreadPoolExecutor(max_workers=len(jobs)) as executor:
+        for future in [executor.submit(job) for job in jobs]:
+            future.result()
 
 
 def merge_delta(current,before,after):
@@ -91,7 +118,7 @@ def verify_and_publish(temporary, destination, work, report, original_iso_sha, o
         with (work/'verify_full_text.log').open('w') as log:
             subprocess.run([sys.executable,str(ROOT/'tools/special_disc/verification/verify_full_text.py'),
                             '--iso',str(temporary),'--work-directory',str(work)],
-                           cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
+                           cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True,env=os.environ.copy())
         readback=work/'independent-readback.json'
         report['independent_readback']=dict(path=str(readback.relative_to(ROOT)),sha256=file_sha(readback))
         report['status']='all_bound_text_reread_from_final_iso_runtime_pending'
@@ -99,7 +126,7 @@ def verify_and_publish(temporary, destination, work, report, original_iso_sha, o
         require((file_sha(destination) if destination.exists() else None)==original_iso_sha and
                 (manifest_path.read_bytes() if manifest_path.exists() else None)==original_manifest,
                 'destination ISO/manifest changed during build')
-        temporary.replace(destination);temporary.with_suffix('.json').replace(manifest_path)
+        publish_verified(temporary,destination,report.get('iso',{}).get('sha256') or file_sha(temporary));temporary.with_suffix('.json').replace(manifest_path)
     finally:
         temporary.unlink(missing_ok=True);temporary.with_suffix('.json').unlink(missing_ok=True)
 
@@ -129,7 +156,7 @@ def assemble():
     original_iso_sha=file_sha(DEST) if DEST.exists() else None
     manifest_path=DEST.with_suffix('.json')
     original_manifest=manifest_path.read_bytes() if manifest_path.exists() else None
-    BASE=baseline_iso('text-canary')
+    BASE=export_baseline('text-canary')
     require(file_sha(BASE)==BASE_SHA,'preserved canary ISO identity drift')
     reports={k:load(WORK/k/'report.json')for k in ('system','stage','srvc','frame','image-labels')}
     require(reports['stage']['status']=='static_component_verified_runtime_pending' and reports['stage']['chunks']==CHUNKS,'full STAGE component scope/status')
@@ -240,7 +267,7 @@ def assemble():
     stats['additional_native_unit_name_pointers']=unit_report['pointer_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso')
     require(not temporary.exists(),'another ISO assembly is in progress')
-    shutil.copyfile(BASE,temporary)
+    copy_file(BASE,temporary)
     with temporary.open('r+b')as stream:
         for name,data in patches.items():
             require(len(data)==members[name].size,f'{name} member length changed')
@@ -263,6 +290,8 @@ def assemble():
     report['stage_titles']=title_report
     report['world_map_titles']=reports['image-labels']['world_map_titles']
     report['title_atlas']=reports['image-labels']['title_atlas']
+    if COMPONENT_CACHE is not None:
+        report['incremental'] = COMPONENT_CACHE.receipt()
     # Verification must finish before either the current ISO or its receipt changes.
     timed('independent-readback-and-publication',verify_and_publish,temporary,DEST,WORK,report,original_iso_sha,original_manifest)
     write_json(WORK/'coverage.json',stats)
@@ -273,6 +302,7 @@ def main():
     global WORK,DEST
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--assemble-only',action='store_true')
+    parser.add_argument('--force-rebuild',action='store_true',help='Rebuild every component without reusing prior outputs.')
     parser.add_argument('--work-directory',type=Path)
     parser.add_argument('--output',type=Path,default=CURRENT_ISO)
     args=parser.parse_args();DEST=args.output.resolve()
@@ -284,7 +314,7 @@ def main():
     else:
         runs=WORK/'runs';runs.mkdir(parents=True,exist_ok=True)
         WORK=Path(tempfile.mkdtemp(prefix='build-',dir=runs))
-    if not args.assemble_only:timed('components',build)
+    if not args.assemble_only:timed('components',build,force_rebuild=args.force_rebuild)
     timed('assembly-including-readback',assemble)
 
 if __name__=='__main__':main()

@@ -14,7 +14,9 @@
 | [RELEASE_BUILD_V0.4.1.md](RELEASE_BUILD_V0.4.1.md) | 冻结镜像、补丁、自动验证和清理范围 |
 | [RELEASE_NOTES_V0.4.0.md](RELEASE_NOTES_V0.4.0.md) | v0.4.0 历史发布说明 |
 | `RELEASE_NOTES_V0.3.0.md` | v0.3.0 历史发布说明 |
-| `BUILD_AND_RUNTIME.md` | ISO、发布包和运行验收边界 |
+| [BUILD_EDITIONS.md](BUILD_EDITIONS.md) | 统一构建入口：三版依赖、缓存承接规则、输出与计时 |
+| `BUILD_AND_RUNTIME.md` | ISO、发布包和运行验收边界；统一入口内部子步骤的排错命令 |
+| [BUILD_PERFORMANCE_20260927.md](BUILD_PERFORMANCE_20260927.md) | 2026-09-27 构建流程整理：文件身份哈希缓存、缓存承接范围、SP 并行与实测 |
 | `BUILD_TIME_ANALYSIS.md` | 冷/热构建计时、内容寻址缓存方案与验证边界 |
 | `AUTOMATED_RUNTIME.md` | LRPS2/libretro.py 逐帧按键、截图与本地 receipt |
 | `PRODUCTION_PIPELINE.md` | 生产事实源、构建顺序与失败门 |

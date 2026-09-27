@@ -1,0 +1,284 @@
+{
+  "benchmark_project": "build/benchmarks/sp-incremental-20260927/project",
+  "benchmark_script": "work/benchmarks/sp-incremental-20260927/run.py",
+  "benchmark_script_sha256": "4013fca45a598c6612a3aef3fe1d608a49966ccdf508f780b4866925ab1576ac",
+  "cases": {
+    "battle-full": {
+      "component_modes": {
+        "frame": "rebuilt",
+        "image-labels": "rebuilt",
+        "srvc": "rebuilt",
+        "stage": "rebuilt",
+        "system": "rebuilt"
+      },
+      "files": {
+        "BTL/SRVC.BIN": "5a847b6d1643f8b8fc70a3a3d9a92a3d3cd8a0aa9c81b00f9a05bcecef48df77",
+        "DATA/COMPDATA.BN": "3c4640b446c9280a718261bfab3c5ade50889a01298ae29682c71d5bf36f8398",
+        "DATA/HSFC.BIN": "d9108311fdd033eacb8cdb0d94fb5858d7225454eb93e5e8c7fccb3199540856",
+        "DATA/MTZSPROS.BIN": "d00836204353015e5d5c333f5fe1ca752608192e781d19db9e962a43aa777471",
+        "DATA/NISVDATA.BIN": "e6980f3e3032839dfd5a77921fedf19b7b44fbc32bf445eec43031434e1321ab",
+        "DATA/STAGE.BIN": "dfb83a56c26bd66d519f07df771dea2aaa3c369fc0b0a3c41269b56064ceeeb6",
+        "DATA/VT1.BIN": "47e7fef158fe3a7844ceafe0cd51d0bd4314f4e140afe5af8ece4dd194003a2c",
+        "KURODATA/KVMDATA.BIN": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+        "KURODATA/KVPDATA.BIN": "8ef04457b4e148d78f5e39f51acb9021924ef5d108aedc8b222021a0b7984bdf",
+        "MAP/MAPMODEL.BIN": "1559bfd7744fdecf5fb82f8cdb7735a72a53808d0d9f0b33b2c201f7f889c4ba",
+        "MAP/MAPNAME.BIN": "d34202210aeb8f0728e4acf7a2b140cd038de752d14c0cf18684fa985c7865ca",
+        "SLPS_259.20": "95a4647da2d2f99468bed9205327f96140b92a1deb69d4b0d14c13e50f57d778"
+      },
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "763372cfd5a1dc9e4ee1f66aec37c12d3f007da85b2a30f30d0112a77f745a47",
+        "size": 3791781888
+      },
+      "seconds": 53.446,
+      "status": "all_bound_text_reread_from_final_iso_runtime_pending",
+      "timing": {
+        "assembly-including-readback": 21.015,
+        "components": 32.312,
+        "independent-readback-and-publication": 1.252,
+        "instructions": 0.169,
+        "migrate_srvc.py": 4.237,
+        "migrate_stage_dialogue.py": 7.842,
+        "qa": 0.316,
+        "stage-titles": 2.014,
+        "write_frame_text.py": 2.773,
+        "write_image_labels.py": 3.36,
+        "write_system_text.py": 17.264
+      }
+    },
+    "battle-incremental": {
+      "component_modes": {
+        "frame": "reused",
+        "image-labels": "reused",
+        "srvc": "rebuilt",
+        "stage": "reused",
+        "system": "reused"
+      },
+      "files": {
+        "BTL/SRVC.BIN": "5a847b6d1643f8b8fc70a3a3d9a92a3d3cd8a0aa9c81b00f9a05bcecef48df77",
+        "DATA/COMPDATA.BN": "3c4640b446c9280a718261bfab3c5ade50889a01298ae29682c71d5bf36f8398",
+        "DATA/HSFC.BIN": "d9108311fdd033eacb8cdb0d94fb5858d7225454eb93e5e8c7fccb3199540856",
+        "DATA/MTZSPROS.BIN": "d00836204353015e5d5c333f5fe1ca752608192e781d19db9e962a43aa777471",
+        "DATA/NISVDATA.BIN": "e6980f3e3032839dfd5a77921fedf19b7b44fbc32bf445eec43031434e1321ab",
+        "DATA/STAGE.BIN": "dfb83a56c26bd66d519f07df771dea2aaa3c369fc0b0a3c41269b56064ceeeb6",
+        "DATA/VT1.BIN": "47e7fef158fe3a7844ceafe0cd51d0bd4314f4e140afe5af8ece4dd194003a2c",
+        "KURODATA/KVMDATA.BIN": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+        "KURODATA/KVPDATA.BIN": "8ef04457b4e148d78f5e39f51acb9021924ef5d108aedc8b222021a0b7984bdf",
+        "MAP/MAPMODEL.BIN": "1559bfd7744fdecf5fb82f8cdb7735a72a53808d0d9f0b33b2c201f7f889c4ba",
+        "MAP/MAPNAME.BIN": "d34202210aeb8f0728e4acf7a2b140cd038de752d14c0cf18684fa985c7865ca",
+        "SLPS_259.20": "95a4647da2d2f99468bed9205327f96140b92a1deb69d4b0d14c13e50f57d778"
+      },
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "763372cfd5a1dc9e4ee1f66aec37c12d3f007da85b2a30f30d0112a77f745a47",
+        "size": 3791781888
+      },
+      "seconds": 32.782,
+      "status": "all_bound_text_reread_from_final_iso_runtime_pending",
+      "timing": {
+        "assembly-including-readback": 21.056,
+        "components": 11.607,
+        "independent-readback-and-publication": 1.256,
+        "instructions": 0.164,
+        "migrate_srvc.py": 4.236,
+        "qa": 0.313,
+        "stage-titles": 1.995
+      }
+    },
+    "component-reuse": {
+      "component_modes": {
+        "frame": "reused",
+        "image-labels": "reused",
+        "srvc": "reused",
+        "stage": "reused",
+        "system": "reused"
+      },
+      "files": {
+        "BTL/SRVC.BIN": "8b6a29f63917829072c1df5d80ef7ad9cb007d25e0c542e2b571fe2ba83b7f28",
+        "DATA/COMPDATA.BN": "3c4640b446c9280a718261bfab3c5ade50889a01298ae29682c71d5bf36f8398",
+        "DATA/HSFC.BIN": "d9108311fdd033eacb8cdb0d94fb5858d7225454eb93e5e8c7fccb3199540856",
+        "DATA/MTZSPROS.BIN": "d00836204353015e5d5c333f5fe1ca752608192e781d19db9e962a43aa777471",
+        "DATA/NISVDATA.BIN": "e6980f3e3032839dfd5a77921fedf19b7b44fbc32bf445eec43031434e1321ab",
+        "DATA/STAGE.BIN": "8c31056aa3b2badc84e6ea23379827d34f4886f24cf2e7b36844ed10666a5b8a",
+        "DATA/VT1.BIN": "47e7fef158fe3a7844ceafe0cd51d0bd4314f4e140afe5af8ece4dd194003a2c",
+        "KURODATA/KVMDATA.BIN": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+        "KURODATA/KVPDATA.BIN": "8ef04457b4e148d78f5e39f51acb9021924ef5d108aedc8b222021a0b7984bdf",
+        "MAP/MAPMODEL.BIN": "1559bfd7744fdecf5fb82f8cdb7735a72a53808d0d9f0b33b2c201f7f889c4ba",
+        "MAP/MAPNAME.BIN": "d34202210aeb8f0728e4acf7a2b140cd038de752d14c0cf18684fa985c7865ca",
+        "SLPS_259.20": "95a4647da2d2f99468bed9205327f96140b92a1deb69d4b0d14c13e50f57d778"
+      },
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "892689dba632ed355b885eae42caa3fccd7a78646fccc991bda3f52a889bac61",
+        "size": 3791781888
+      },
+      "seconds": 32.534,
+      "status": "all_bound_text_reread_from_final_iso_runtime_pending",
+      "timing": {
+        "assembly-including-readback": 22.958,
+        "components": 9.364,
+        "independent-readback-and-publication": 1.277,
+        "instructions": 0.173,
+        "qa": 0.315,
+        "stage-titles": 2.012
+      }
+    },
+    "story-full": {
+      "component_modes": {
+        "frame": "rebuilt",
+        "image-labels": "rebuilt",
+        "srvc": "rebuilt",
+        "stage": "rebuilt",
+        "system": "rebuilt"
+      },
+      "files": {
+        "BTL/SRVC.BIN": "8b6a29f63917829072c1df5d80ef7ad9cb007d25e0c542e2b571fe2ba83b7f28",
+        "DATA/COMPDATA.BN": "3c4640b446c9280a718261bfab3c5ade50889a01298ae29682c71d5bf36f8398",
+        "DATA/HSFC.BIN": "d9108311fdd033eacb8cdb0d94fb5858d7225454eb93e5e8c7fccb3199540856",
+        "DATA/MTZSPROS.BIN": "d00836204353015e5d5c333f5fe1ca752608192e781d19db9e962a43aa777471",
+        "DATA/NISVDATA.BIN": "e6980f3e3032839dfd5a77921fedf19b7b44fbc32bf445eec43031434e1321ab",
+        "DATA/STAGE.BIN": "dfb83a56c26bd66d519f07df771dea2aaa3c369fc0b0a3c41269b56064ceeeb6",
+        "DATA/VT1.BIN": "47e7fef158fe3a7844ceafe0cd51d0bd4314f4e140afe5af8ece4dd194003a2c",
+        "KURODATA/KVMDATA.BIN": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+        "KURODATA/KVPDATA.BIN": "8ef04457b4e148d78f5e39f51acb9021924ef5d108aedc8b222021a0b7984bdf",
+        "MAP/MAPMODEL.BIN": "1559bfd7744fdecf5fb82f8cdb7735a72a53808d0d9f0b33b2c201f7f889c4ba",
+        "MAP/MAPNAME.BIN": "d34202210aeb8f0728e4acf7a2b140cd038de752d14c0cf18684fa985c7865ca",
+        "SLPS_259.20": "95a4647da2d2f99468bed9205327f96140b92a1deb69d4b0d14c13e50f57d778"
+      },
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "c7037fd4ef9e03e043d077fb92fd6adf6e4ed57d9c13eb4eb6f3a2c87efc6dc1",
+        "size": 3791781888
+      },
+      "seconds": 53.687,
+      "status": "all_bound_text_reread_from_final_iso_runtime_pending",
+      "timing": {
+        "assembly-including-readback": 21.221,
+        "components": 32.345,
+        "independent-readback-and-publication": 1.278,
+        "instructions": 0.169,
+        "migrate_srvc.py": 4.247,
+        "migrate_stage_dialogue.py": 7.788,
+        "qa": 0.323,
+        "stage-titles": 2.017,
+        "write_frame_text.py": 2.787,
+        "write_image_labels.py": 3.397,
+        "write_system_text.py": 17.212
+      }
+    },
+    "story-incremental": {
+      "component_modes": {
+        "frame": "reused",
+        "image-labels": "reused",
+        "srvc": "reused",
+        "stage": "rebuilt",
+        "system": "reused"
+      },
+      "files": {
+        "BTL/SRVC.BIN": "8b6a29f63917829072c1df5d80ef7ad9cb007d25e0c542e2b571fe2ba83b7f28",
+        "DATA/COMPDATA.BN": "3c4640b446c9280a718261bfab3c5ade50889a01298ae29682c71d5bf36f8398",
+        "DATA/HSFC.BIN": "d9108311fdd033eacb8cdb0d94fb5858d7225454eb93e5e8c7fccb3199540856",
+        "DATA/MTZSPROS.BIN": "d00836204353015e5d5c333f5fe1ca752608192e781d19db9e962a43aa777471",
+        "DATA/NISVDATA.BIN": "e6980f3e3032839dfd5a77921fedf19b7b44fbc32bf445eec43031434e1321ab",
+        "DATA/STAGE.BIN": "dfb83a56c26bd66d519f07df771dea2aaa3c369fc0b0a3c41269b56064ceeeb6",
+        "DATA/VT1.BIN": "47e7fef158fe3a7844ceafe0cd51d0bd4314f4e140afe5af8ece4dd194003a2c",
+        "KURODATA/KVMDATA.BIN": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+        "KURODATA/KVPDATA.BIN": "8ef04457b4e148d78f5e39f51acb9021924ef5d108aedc8b222021a0b7984bdf",
+        "MAP/MAPMODEL.BIN": "1559bfd7744fdecf5fb82f8cdb7735a72a53808d0d9f0b33b2c201f7f889c4ba",
+        "MAP/MAPNAME.BIN": "d34202210aeb8f0728e4acf7a2b140cd038de752d14c0cf18684fa985c7865ca",
+        "SLPS_259.20": "95a4647da2d2f99468bed9205327f96140b92a1deb69d4b0d14c13e50f57d778"
+      },
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "c7037fd4ef9e03e043d077fb92fd6adf6e4ed57d9c13eb4eb6f3a2c87efc6dc1",
+        "size": 3791781888
+      },
+      "seconds": 37.003,
+      "status": "all_bound_text_reread_from_final_iso_runtime_pending",
+      "timing": {
+        "assembly-including-readback": 21.416,
+        "components": 15.464,
+        "independent-readback-and-publication": 1.299,
+        "instructions": 0.168,
+        "migrate_stage_dialogue.py": 7.985,
+        "qa": 0.32,
+        "stage-titles": 2.022
+      }
+    }
+  },
+  "date": "2026-09-27",
+  "edition_integration": {
+    "batch": "work/editions/13ed58056ab65e57d47e99f262a9b1ab77b1be5f07f724097f60a2381c1668a6/sp.json",
+    "batch_verification": "passed",
+    "component_modes": {
+      "frame": "reused",
+      "image-labels": "reused",
+      "srvc": "reused",
+      "stage": "reused",
+      "system": "reused"
+    },
+    "iso": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "892689dba632ed355b885eae42caa3fccd7a78646fccc991bda3f52a889bac61",
+      "size": 3791781888
+    },
+    "timing": {
+      "editions": {
+        "sp": {
+          "daily_test_seconds": 0.083,
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 0.131
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 29.67
+            }
+          },
+          "seconds": 32.37
+        }
+      },
+      "finished_at": "2026-09-27T02:30:33.775133+00:00",
+      "preflight_and_snapshot_seconds": 0.472,
+      "started_at": "2026-09-27T02:30:00.932036+00:00",
+      "total_seconds": 32.843
+    }
+  },
+  "equivalence": {
+    "battle": {
+      "all_replaced_members_equal": true,
+      "iso_sha256": "763372cfd5a1dc9e4ee1f66aec37c12d3f007da85b2a30f30d0112a77f745a47",
+      "seconds_saved": 20.664,
+      "whole_iso_sha256_equal": true
+    },
+    "story": {
+      "all_replaced_members_equal": true,
+      "iso_sha256": "c7037fd4ef9e03e043d077fb92fd6adf6e4ed57d9c13eb4eb6f3a2c87efc6dc1",
+      "seconds_saved": 16.684,
+      "whole_iso_sha256_equal": true
+    }
+  },
+  "implementation": {
+    "tools/build_editions.py": "3a6a653ae08dd98cdcb4c47caeb2bc550bcb07041a1454ad6a3f5fe66663db31",
+    "tools/special_disc/writeback/build_full_text.py": "ae04f833c4a5267c7f33e820234b5e8be465aec3cdc8f8a42c1a81df382fe993",
+    "tools/special_disc/writeback/incremental.py": "c5dcc6df84bea2188b9835e3c8b47d62bbc15250ec78ee44d460c15d5d26dacf"
+  },
+  "measurement_notes": [
+    "Warm local filesystem, font/baseline and toolchain caches; not cold-machine timings.",
+    "Direct build_full_text.py timings include baseline restoration, components, assembly and independent readback; exclude outer edition orchestration and release packaging.",
+    "Early component-reuse/story runs overlapped the unit-test process; later full/battle runs did not.",
+    "Benchmark punctuation edits exist only in the isolated project; production corpus is unchanged."
+  ],
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "scope": "SP component-level incremental; full assembly and independent final readback retained",
+  "status": "component_incremental_matches_full_rebuilds",
+  "validation": {
+    "full_suite_status": "passed",
+    "full_suite_tests": 569,
+    "latest_incremental_unit_status": "passed",
+    "latest_incremental_unit_tests": 7
+  }
+}

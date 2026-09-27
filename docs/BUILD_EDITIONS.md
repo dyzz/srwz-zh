@@ -12,8 +12,13 @@ python3 tools/build_editions.py --force-rebuild
 python3 tools/verify_editions.py --manifest work/editions/<input_digest>/original-best-sp.json
 ```
 
-注册表沿用 `config/release/dual-current.json` 路径，现已注册三版。现有发布打包配置
-仍明确选择 Original／The Best；加入 SP 构建不自动扩大已冻结的发布包范围。
+注册表沿用 `config/release/dual-current.json` 路径，现已注册三版。后续 release 固定包含
+Original、The Best 和 SP，三版发布镜像全部内置方块 skip：
+`python3 tools/freeze_release.py --manifest <批次 JSON> --version <x.y.z>` 复制已验证的
+三版当前 ISO、回读其 skip hook 并写出 schema 4 发布配置，之后 `build_release.py`
+为每版生成一份补丁。冻结器要求同一批次包含全部三版（`original-best-sp.json`），缺少任一版
+即拒绝冻结。SP 的独立语义回读报告一并冻结，发布校验不依赖可清理的私有工作区。
+三份补丁分别绑定各自日文原盘，生成后逐一实际还原并核对目标哈希；不再生成 skip 变体。
 
 | 版本 | 日文输入 | 当前输出 |
 | --- | --- | --- |
@@ -72,11 +77,51 @@ Pillow。默认统一构建不依赖 Pillow，也不重新栅格化已冻结图�
 ## 日常更新与强制复验
 
 - 相同输入：核对冻结输入、ISO 全盘哈希、内容回读回执与日常副本后直接复用，计时标记 `verified_current_reuse`。
-- Original 仅语料变化：只有前一批次的工具、配置、字体与基线身份一致时，才将其组件缓存独立复制到新私有工作区。格式化后的生成配置先按缓存哈希验证；封盘后刷新过的 ISO 输出锁不当成组件缓存。缓存缺失或工具／配置变化则完整重建。切换构建目标导致冻结依赖集合变化时同样保守回退。
+- 输入快照只包含真正的构建定义（`tools/srwz/release_inputs.py::is_build_input`）：文档、
+  写作辅助脚本、运行验证工具和模板不进入快照，改动它们不改变输入摘要，也不触发重建。
+- Original 语料或非组件文件变化：从上一批次复制已验证的组件缓存、生成配置与 ISO 基线到新私有工作区。
+  只有 `COMPONENT_BUILD_DEFINITION_ROOTS`（`tools/srwz`、组件构建脚本、codec 源码、`config`、
+  `corpus`、`vendor`、`manifests`）中的文件发生了“不是上一批次自身刷新”的变化时才拒绝承接；
+  与上一批次输出逐字节一致的回执／锁同步回仓库不算变化。改动 `build_editions.py`、`build_iso.py`、
+  回读脚本或文档都不会让组件缓存失效。
+- 承接后组件层按自身逐消费者指纹判断重建范围；未承接时组件层仍使用自己的已验证缓存并复用
+  逐字形字体栅格。统一入口不再因缓存不可承接而自动升级为 `--force-rebuild`。
+- Original 封盘使用 `build_iso.py --incremental`：上一批次的已验证镜像按内容哈希重新绑定后克隆，只改写
+  变更成员并复验；镜像、配置或实现不匹配时自动回退完整 mkps2iso。
+- 所有 SHA-256 经 `srwz/file_identity.py`：同一文件身份（设备、inode、大小、mtime、ctime）
+  只哈希一次，APFS 克隆继承已验证摘要，同一构建的全部子进程共享
+  `work/cache/file-identity.json`。校验点不变，只去掉重复计算。
+- `--force-rebuild` 跳过当前镜像复用，强制 Original 全组件、字体重栅格、原盘布局重提取、
+  SP 五组组件全部重建、完整内容回读，并禁用持久文件身份缓存（等价于 `SRWZ_REHASH=1`）。
 - 私有工作区用 `work/edition-inputs.json` 中的冻结清单提供配置列表和源码身份，不向父目录 Git 查询文件。
-- `--force-rebuild` 跳过当前镜像复用，并强制 Original 全组件、原盘布局重提取及完整内容回读。
-- SP 保留发布前独立语义回读；外层验证该回执、最终成员与 ISO 的绑定，取消同一验收脚本的第二次完整执行。
+- mkps2iso 工具链在私有工作区内直接复用已按固定 commit 构建、版本行匹配的可执行文件，不重跑 CMake。
+- SP 只还原一次基线镜像并通过环境变量交给各写入器与回读脚本；system→STAGE 链与 SRVC、frame、
+  图像写入器并行执行；临时 ISO 用 APFS 克隆而非整盘复制。SP 保留发布前独立语义回读；外层验证
+  该回执、最终成员与 ISO 的绑定，取消同一验收脚本的第二次完整执行。
 - SP 可变文本块先使用 `rust-fit`，只有原定槽位容纳不下才回退 `rust-maximum`。已冻结图像的压缩字节契约不变。
+- 历次私有工作区与输入快照不会自动删除；`python3 tools/prune_edition_workspaces.py` 列出未被
+  当前回执引用且不在最近 N 个之内的目录，加 `--apply` 才删除。
 
-目前语料变更后的 SP 仍走完整 SP 构建；无变化三版复用、Original 组件增量、三版全量计时分别报告。
-性能修复及复测见 [2026-09-22 构建性能复核](BUILD_PERFORMANCE_20260922.md)。
+SP 支持组件级增量。统一入口从上一份已通过独立回读的 SP 回执承接组件，逐一核对
+输入指纹、报告和输出文件的大小／SHA-256；缓存损坏、缺失或依赖变化时重建对应组件。
+直接运行 `build_full_text.py` 也可从其当前 SP 回执承接，`--force-rebuild` 可禁用复用。
+
+| 语料变化 | 需要重建的组件 |
+| --- | --- |
+| SP 剧情／挑战台词、编队名，本篇剧情／说话人／条件回退语料 | STAGE |
+| 本篇或 SP 战斗字幕 | SRVC |
+| 本篇关卡名称 | frame |
+| SP system-text | system；其 STAGE 输出字节变化时再重建 STAGE |
+| SP frame-text | system、STAGE、frame、image-labels |
+| 不被 SP 写入器读取的其他语料 | 复用五组组件 |
+
+配置、锁定基线／字体、共享编解码器或 SP 工具源码变化采取保守策略，重建全部组件。
+新缓存只随最终独立回读通过的报告发布；失败构建不会成为下一批次的已验证缓存。
+每次组件增量后仍完整执行 ISO 合成、非目标区域校验和独立语义回读。
+回执的 `incremental.components` 记录每组输入、依赖、`reused`／`rebuilt` 和原因；
+统一 SP 回执的 `component_modes` 提供摘要。STAGE 当前以整个组件为单位，尚未细化到单块。
+
+无变化整盘复用、组件增量和强制全量的计时分别报告。
+真实文本修改的增量／全量等价结果见 [SP 增量构建实测](SP_INCREMENTAL_BUILD_20260927.md)。
+本轮流程整理与实测见 [2026-09-27 构建流程整理](BUILD_PERFORMANCE_20260927.md)，上一轮见
+[2026-09-22 构建性能复核](BUILD_PERFORMANCE_20260922.md)。
