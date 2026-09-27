@@ -61,14 +61,8 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
-    """IDs of dialogue whose Japanese source carries runtime keyword links.
-
-    The builder decides ``stage_keyword_links`` from the Japanese text, not the
-    translation: ``《…》`` in a translation without a Japanese link is a plain
-    book-title mark that occupies display cells.  This tool must measure the
-    same way, so it decodes the locked source STAGE archive like the builder.
-    """
+def source_dialogue_index(config_path: Path = DEFAULT_CONFIG) -> dict[str, dict]:
+    """Decode the locked source STAGE archive into source text and speaker data."""
 
     config = _json(config_path)
     source = config["source"]
@@ -85,7 +79,7 @@ def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
     offsets = read_executable_archive_offsets(source_hb, offset_spec, len(source_stage))
     functions = read_stage_function_addresses(source_slps)
     table = load_text_table(table_path)
-    linked = set()
+    index: dict[str, dict] = {}
     for stage in range(len(offsets) - 1):
         chunk = source_stage[offsets[stage] : offsets[stage + 1]]
         if not chunk:
@@ -96,10 +90,58 @@ def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
             stage_index=stage,
             function_address=functions[stage],
         )
+        speakers = {
+            entry.speaker_id: entry.text
+            for entry in parsed.entries
+            if entry.kind == "speaker"
+        }
         for entry in parsed.entries:
-            if entry.kind == "dialogue" and "《" in entry.text:
-                linked.add(entry.entry_id)
-    return frozenset(linked)
+            if entry.kind == "dialogue":
+                index[entry.entry_id] = {
+                    "text": entry.text,
+                    "speaker": speakers.get(entry.speaker_id),
+                    "keyword_links": "《" in entry.text,
+                }
+    return index
+
+
+def source_stage_ordinals(
+    index: dict[str, dict] | None = None,
+    config_path: Path = DEFAULT_CONFIG,
+) -> dict[int, dict]:
+    """Map stage file numbers to their source resource and Stage Name ordinal."""
+
+    config = _json(config_path)
+    source = config["source"]
+    _stage_path, source_stage = _locked_file(source["stage"], label="source STAGE")
+    source_hb = _read_iso_member(_project_path(source["iso"]), source["hb"])
+    offset_spec = ExecutableOffsetSpec(
+        name="HEDBDY/HB.BIN STAGE offsets",
+        member=source["hb"]["member"],
+        table_start=30320,
+        table_end=31144,
+    )
+    offsets = read_executable_archive_offsets(source_hb, offset_spec, len(source_stage))
+    result = {}
+    for stage in range(len(offsets) - 1):
+        chunk = source_stage[offsets[stage] : offsets[stage + 1]]
+        if not chunk:
+            continue
+        name = decode(chunk).output[0x30:0x50].split(b"\0", 1)[0].decode("ascii", "replace")
+        digits = "".join(ch for ch in name if ch.isdigit())
+        if digits:
+            result[stage] = {"resource": name, "stage_ordinal": int(digits) - 1}
+    return result
+
+
+def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
+    """IDs whose Japanese source carries runtime keyword links."""
+
+    return frozenset(
+        entry_id
+        for entry_id, meta in source_dialogue_index(config_path).items()
+        if meta["keyword_links"]
+    )
 
 
 def split_terms(text: str, profile, *, stage_keyword_links: bool) -> list[str]:

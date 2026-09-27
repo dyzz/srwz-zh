@@ -1,0 +1,778 @@
+{
+  "schema_version": 1,
+  "batch_id": "same-source-unify-20260927",
+  "recorded_at": "2026-09-27T01:45:30.095817+00:00",
+  "reason": "同一日文原句在不同路线／场景的译文措辞不一致；按 决定稿 > reviewed > 出现次数 > 最早关卡 的顺序选出统一措辞，复制给同源的其他记录。",
+  "rules": {
+    "applied_classes": [
+      "A"
+    ],
+    "applied_when_decided": [
+      "B",
+      "E"
+    ],
+    "ignored_stages": [
+      185
+    ],
+    "attention_min": 5,
+    "short_limit": 6,
+    "near_similarity": 0.85,
+    "winner_order": [
+      "decided",
+      "reviewed",
+      "majority",
+      "earliest_stage"
+    ]
+  },
+  "counts": {
+    "groups_by_class": {
+      "A": 52,
+      "A-conflict": 34,
+      "B": 132,
+      "D": 273,
+      "E": 1647,
+      "ignored-185": 19
+    },
+    "changed": 71,
+    "changed_by_class": {
+      "B": 4,
+      "A": 60,
+      "E": 7
+    },
+    "changed_by_reason": {
+      "reviewed": 11,
+      "decided": 60
+    },
+    "files_touched": 23,
+    "candidates_not_applied": 2095
+  },
+  "changes": [
+    {
+      "id": "story/012/dialogue/02.01/0049",
+      "file": "corpus/zh/story-dialogue/stage-012.json",
+      "class": "B",
+      "reason": "reviewed",
+      "winner_id": "story/001/dialogue/02.01/0118",
+      "before": "“是、是的！长官！”",
+      "after": "“长、长官！是，长官！”",
+      "source_text_sha256": "b8a7eebc298096d0819c3db7457ad48af4e39a73eaab8754a334baef435a4492"
+    },
+    {
+      "id": "story/002/dialogue/01.68/0002",
+      "file": "corpus/zh/story-dialogue/stage-002.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/002/dialogue/01.48/0002",
+      "before": "“我怎么会这样——！！”",
+      "after": "“我怎么会被这种货色——！！”",
+      "source_text_sha256": "c9873b9ecb8132824b2e9cc60388717b0a8ba8a1aabda76552a2136fe69d4985"
+    },
+    {
+      "id": "story/010/dialogue/01.23/0004",
+      "file": "corpus/zh/story-dialogue/stage-010.json",
+      "class": "B",
+      "reason": "reviewed",
+      "winner_id": "story/002/dialogue/02.02/0025",
+      "before": "“这倒没什么……”",
+      "after": "“这倒没关系，但……”",
+      "source_text_sha256": "8f7218a3364cd59e6b615e86ab7cb72b73e66bfd3eca6b1e5bd5a279cd5e4eed"
+    },
+    {
+      "id": "story/004/dialogue/01.33/0006",
+      "file": "corpus/zh/story-dialogue/stage-004.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/004/dialogue/01.36/0006",
+      "before": "“接下来才是真正的问题……”",
+      "after": "“那么，接下来才是真正的问题……”",
+      "source_text_sha256": "b276566181049c65b9f1bd5d307bb4552b6cb22365ee7cccfdf7cd139cc06e98"
+    },
+    {
+      "id": "story/025/dialogue/01.44/0001",
+      "file": "corpus/zh/story-dialogue/stage-025.json",
+      "class": "B",
+      "reason": "reviewed",
+      "winner_id": "story/004/dialogue/01.46/0001",
+      "before": "“捷利特中尉！”",
+      "after": "“捷利特中尉吗！”",
+      "source_text_sha256": "89cfe2b2d8c76ca089a4006d7ecac7f419275ee9d0a8d9b002cf68d317cfefc8"
+    },
+    {
+      "id": "story/090/dialogue/01.22/0003",
+      "file": "corpus/zh/story-dialogue/stage-090.json",
+      "class": "B",
+      "reason": "reviewed",
+      "winner_id": "story/005/dialogue/01.01/0009",
+      "before": "“能让你得逞吗！”",
+      "after": "“休想得逞！”",
+      "source_text_sha256": "114bfe9b51926b5726de320fcbce7ade6982699deb94730c4d22df854ea91426"
+    },
+    {
+      "id": "story/015/dialogue/01.20/0014",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/015/dialogue/01.19/0015",
+      "before": "“真是丢人的事啊！”",
+      "after": "“真是太丢人了！”",
+      "source_text_sha256": "d506d6b00597979eb1a454a500d566ec1befb18022fea3e555db810480df8f81"
+    },
+    {
+      "id": "story/055/dialogue/01.22/0003",
+      "file": "corpus/zh/story-dialogue/stage-055.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/055/dialogue/01.49/0003",
+      "before": "“怎么会……这种蠢事……！”",
+      "after": "“怎么会……怎么会有这种蠢事……！”",
+      "source_text_sha256": "e9172cf8faea70c2cef1ae780fcea09a339139ec1f36d58b9207e15a93c24330"
+    },
+    {
+      "id": "story/084/dialogue/02.03/0007",
+      "file": "corpus/zh/story-dialogue/stage-084.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/057/dialogue/02.02/0095",
+      "before": "“真是讽刺啊。\n　要解开这被诅咒之身与因果之锁……”",
+      "after": "“真是讽刺啊。\n　想要把这被诅咒的身躯\n　从因果之链中解放出来……”",
+      "source_text_sha256": "700957b64203b1c8e0a23f7ce31b74c580fd9059d878790eb461ae4a24b0ccf4"
+    },
+    {
+      "id": "story/062/dialogue/02.01/0008",
+      "file": "corpus/zh/story-dialogue/stage-062.json",
+      "class": "E",
+      "reason": "reviewed",
+      "winner_id": "story/059/dialogue/01.01/0008",
+      "before": "“那个国家，是由因时空破坏导致时间轴偏移、\n　提前20年被传送到多元世界的人们\n　建立起来的。”",
+      "after": "“那是由时空破坏导致时间轴偏移，被提前\n　20年传送到多元世界的人们建立的国家啊。”",
+      "source_text_sha256": "ad1ee155c909e4615a1e1f7dad40979995ab28a372b7bb4ee31cae3ddecb5da8"
+    },
+    {
+      "id": "story/081/dialogue/01.01/0008",
+      "file": "corpus/zh/story-dialogue/stage-081.json",
+      "class": "E",
+      "reason": "reviewed",
+      "winner_id": "story/059/dialogue/01.01/0008",
+      "before": "“那个国家，是因时空破坏导致时间轴错乱，\n　被提前20年传送到多元世界的人们\n　建立起来的。”",
+      "after": "“那是由时空破坏导致时间轴偏移，被提前\n　20年传送到多元世界的人们建立的国家啊。”",
+      "source_text_sha256": "ad1ee155c909e4615a1e1f7dad40979995ab28a372b7bb4ee31cae3ddecb5da8"
+    },
+    {
+      "id": "story/101/dialogue/01.27/0004",
+      "file": "corpus/zh/story-dialogue/stage-101.json",
+      "class": "E",
+      "reason": "reviewed",
+      "winner_id": "story/072/dialogue/01.28/0004",
+      "before": "“不用那么着急，还会再见的！\n　前提是你们没被传送到次元彼岸去！”",
+      "after": "“别急，还会再见的！\n　只要你们没被传送到次元的彼岸去！”",
+      "source_text_sha256": "c538dc0ec7415c498f0739c934f5dc2a0ab9847a8061e4b68fe3a7f4a47aff24"
+    },
+    {
+      "id": "story/108/dialogue/01.10/0013",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/108/dialogue/01.09/0014",
+      "before": "“这是任务，捷利特。\n　为了得到西罗克的信任，必须确实执行。”",
+      "after": "“这是任务，捷利特。\n　为了得到西罗克的信任，必须拿出成绩。”",
+      "source_text_sha256": "2bc87536bae3c43dbcedd5ef764562500378798d6cf2219ba076f12213740ae2"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0221",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/108/dialogue/02.01/0179",
+      "before": "“但是，时机也太巧了……\n　发送那个通信的是谁？”",
+      "after": "“但是，时机也太巧了……\n　发来这个通信的是什么人？”",
+      "source_text_sha256": "f99b3619613e5d60db250e65383aa244c30d95b08d4280ae458a6298f3a79fb2"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0205",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/108/dialogue/02.01/0247",
+      "before": "“奎因斯坦博士，\n　那家伙说的他们的所在地是哪里？”",
+      "after": "“奎因斯坦博士，\n　那家伙说的他们的位置在哪里？”",
+      "source_text_sha256": "b676a004f486c0de06ce143b07488ce3219bbd87893c5dae7a02d32b3029cb5c"
+    },
+    {
+      "id": "story/108/dialogue/02.01/0206",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/108/dialogue/02.01/0248",
+      "before": "“北大西洋的天堂基地……\n　据说两人被软禁在那里。”",
+      "after": "“北大西洋的天堂基地……\n　据说两人正被软禁在那里。”",
+      "source_text_sha256": "640793e3d17de0d9ebce07850c74f164c8c5997ddba7c6b587442a60ed40b576"
+    },
+    {
+      "id": "story/110/dialogue/01.31/0006",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/01.34/0004",
+      "before": "“听说你们那里有伊诺森特的阿瑟·兰克！”",
+      "after": "“听说伊诺森特的阿瑟·兰克在你们那里！”",
+      "source_text_sha256": "26fbaacccb74e20c6dbb78a83d0d87785954c22434a8f1654e6052c20c5b4259"
+    },
+    {
+      "id": "story/111/dialogue/01.36/0007",
+      "file": "corpus/zh/story-dialogue/stage-111.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/01.34/0004",
+      "before": "“听说你们那里有伊诺森特的阿瑟·兰克！”",
+      "after": "“听说伊诺森特的阿瑟·兰克在你们那里！”",
+      "source_text_sha256": "26fbaacccb74e20c6dbb78a83d0d87785954c22434a8f1654e6052c20c5b4259"
+    },
+    {
+      "id": "story/110/dialogue/01.50/0003",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/01.46/0003",
+      "before": "“艾岱尔·贝尔纳尔的野心，\n　我们一定会粉碎！”",
+      "after": "“我们一定会粉碎艾岱尔·贝尔纳尔的野心！”",
+      "source_text_sha256": "45d4dbfa4be65cebf26f6f1cc623cb97496cdcf118527f0200c8dea89c89f70c"
+    },
+    {
+      "id": "story/110/dialogue/02.01/0041",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.01/0041",
+      "before": "“那他的目的是什么……？\n　难道只是个单纯的愉快犯？”",
+      "after": "“那目的是什么……？\n　难道你只是个愉快犯吗？”",
+      "source_text_sha256": "c89cf704765cf5b135168455d776118284997888d9015eb369ae9b89a8ac0dbb"
+    },
+    {
+      "id": "story/110/dialogue/02.01/0085",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.01/0085",
+      "before": "“我在许多自治都市在联邦压力\n　下被强行合并的过程中……”",
+      "after": "“在联邦的强压下，许多自治都市正被\n　强行吞并，我就在那时……”",
+      "source_text_sha256": "953bc2bf96fd8768654832274fcaa304fea3fbdbba966311f34bc44e64e23545"
+    },
+    {
+      "id": "story/110/dialogue/02.01/0086",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.01/0086",
+      "before": "“为了确认其对抗势力PLANT的真意，\n　前往了奥布。”",
+      "after": "“为了确认作为对抗势力的PLANT\n　有何意图，我当时正前往奥布。”",
+      "source_text_sha256": "b8622e0068aee34e6d367d89b1a4ce1fe449566a97069d81034b10005c493c1b"
+    },
+    {
+      "id": "story/110/dialogue/02.01/0087",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.01/0087",
+      "before": "“在那里遇到了被怪物高达袭击的和平号。”",
+      "after": "“所以，你是在那里遇到了被怪物高达袭击的\n　和平号吧。”",
+      "source_text_sha256": "01263e800a645d52bb06a846140347daf5650fb6bc857584ece7d2574490b601"
+    },
+    {
+      "id": "story/110/dialogue/02.01/0091",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.01/0091",
+      "before": "“卡洛德……我知道蒂珐被掳到哪里去了。”",
+      "after": "“卡洛德……查到蒂珐的下落了。”",
+      "source_text_sha256": "1af29df9f3ce7d9b317989f190b75e7a01803451122ac08b61e5ea8d7af45b47"
+    },
+    {
+      "id": "story/110/dialogue/02.01/0098",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.01/0098",
+      "before": "“那句话……可以理解为是指接触\n　迪安娜·索雷尔与黑历史的真相吧。”",
+      "after": "“那个故事……可以理解为\n　触及迪安娜·索雷尔和黑历史的真相。”",
+      "source_text_sha256": "3c9eecda7aec2e25f09d1957bd4c1164decc32d5785338e65aacf11a55a058d7"
+    },
+    {
+      "id": "story/110/dialogue/02.01/0100",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.01/0100",
+      "before": "“冷静点，卡洛德。\n　就算你在这里发火，情况也不会改变。”",
+      "after": "“冷静点，卡洛德。\n　你在这里发火，事情也不会有任何改变。”",
+      "source_text_sha256": "c5696eb8d4435dfdee48fbb8edf825278096b5bffedd46200bbc1fa5d2a39947"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0083",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0100",
+      "before": "“所以无法与和他们联手\n　的PLANT合作吗……”",
+      "after": "“所以，跟他们联手的PLANT\n　也就没法合作了吧……”",
+      "source_text_sha256": "95a1e2880d7a2f3b800ce3d6dc5bae76ca8e39fe25453ddd23abeaf8915b1198"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0200",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0100",
+      "before": "“所以无法与和他们联手\n　的PLANT合作吗……”",
+      "after": "“所以，跟他们联手的PLANT\n　也就没法合作了吧……”",
+      "source_text_sha256": "95a1e2880d7a2f3b800ce3d6dc5bae76ca8e39fe25453ddd23abeaf8915b1198"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0123",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0142",
+      "before": "（一切上了月球就会清楚……\n　蒂珐……请等到那一天……）",
+      "after": "（上了月球，一切就都清楚了……\n　蒂珐……在那一天到来之前，\n　等着我们……）",
+      "source_text_sha256": "6e5965394c4a8aaea6185973bd3dee766f0e5e95f6dabbe31766d0a520c79b47"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0174",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0142",
+      "before": "（一切上了月球就会清楚……\n　蒂珐……请等到那一天……）",
+      "after": "（上了月球，一切就都清楚了……\n　蒂珐……在那一天到来之前，\n　等着我们……）",
+      "source_text_sha256": "6e5965394c4a8aaea6185973bd3dee766f0e5e95f6dabbe31766d0a520c79b47"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0239",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0142",
+      "before": "（一切上了月球就会清楚……\n　蒂珐……请等到那一天……）",
+      "after": "（上了月球，一切就都清楚了……\n　蒂珐……在那一天到来之前，\n　等着我们……）",
+      "source_text_sha256": "6e5965394c4a8aaea6185973bd3dee766f0e5e95f6dabbe31766d0a520c79b47"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0290",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0142",
+      "before": "（一切上了月球就会清楚……\n　蒂珐……请等到那一天……）",
+      "after": "（上了月球，一切就都清楚了……\n　蒂珐……在那一天到来之前，\n　等着我们……）",
+      "source_text_sha256": "6e5965394c4a8aaea6185973bd3dee766f0e5e95f6dabbe31766d0a520c79b47"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0297",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0350",
+      "before": "“这架机器没有限制器，\n　会给骑手带来过度负担。”",
+      "after": "“这台没有限制器的机器，\n　会给驾驶员带来过度负担。”",
+      "source_text_sha256": "f8d3052e57009edb2f980be81c6809fd735e2204411be198565ce1307a898cd7"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0306",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0359",
+      "before": "“别那副表情。\n　我也没打算连自己的孩子都不看一眼就死。”",
+      "after": "“别露出那种表情。\n　我可没打算没见到自己的孩子就死。”",
+      "source_text_sha256": "656407e717a4f81a508085cee3cfc0bf9e34a9a7df1faa94696ba875acc28c58"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0309",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0362",
+      "before": "“所以你也该下决心了，兰顿……不要哀求。”",
+      "after": "“所以，你也做好觉悟吧，兰顿。\n　……不要哀求。”",
+      "source_text_sha256": "f9b24c16bd3f4104509921328212372903129c430d40f85bad584588a98d7a56"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0489",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0402",
+      "before": "“害得我的立场变差了！\n　去死谢罪！你这无能！！”",
+      "after": "“害得我的处境变糟了！\n　以死谢罪吧！你这个废物！！”",
+      "source_text_sha256": "88e87c1347836c88982094934ab010e86061c70266929ccbde611a69eaabdac7"
+    },
+    {
+      "id": "story/110/dialogue/02.02/0494",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/111/dialogue/02.02/0407",
+      "before": "“说了闭嘴！别献媚，你这肮脏的垃圾！！”",
+      "after": "“我叫你闭嘴！少来献媚，\n　你这肮脏的垃圾！！”",
+      "source_text_sha256": "ca619c91756ab489a43582c977a2750f51b659d25dff94d5a1d956db49a72155"
+    },
+    {
+      "id": "story/117/dialogue/01.02/0001",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/01.02/0001",
+      "before": "“少说无聊的恭维话，把盖纳他们交出来。”",
+      "after": "“少说废话，把盖纳他们交出来。”",
+      "source_text_sha256": "a16d8c2844c8ba0094534e6f6807e100d24d8e92a6aab921241c41d48f2f2aa5"
+    },
+    {
+      "id": "story/117/dialogue/01.125/0002",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/01.99/0002",
+      "before": "“哈哈哈，随你怎么说！\n　在被这基亚·基亚的巨体压扁之前！”",
+      "after": "“哈哈哈，随你怎么说！\n　在被这基亚·基亚的巨体压扁之前尽管说吧！”",
+      "source_text_sha256": "69594166970b706f096c4d54ca4fe9250b6df0ddc9521fb71c0874f10ec6d01b"
+    },
+    {
+      "id": "story/117/dialogue/01.131/0000",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/01.49/0000",
+      "before": "“那么为了纪念胜利，今天开祭典！\n　大家一起跳舞吧！”",
+      "after": "“那么，为了庆祝胜利，今天举办祭典！\n　大家一起跳舞吧！”",
+      "source_text_sha256": "6891d90595d9c5789a16ab18eef00f88140618ff3649aee669957b9faa521602"
+    },
+    {
+      "id": "story/117/dialogue/01.39/0008",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/01.15/0008",
+      "before": "“恩盖是副总裁，\n　贾博利准备总公司的局长职位。”",
+      "after": "“恩盖任副总裁，\n　贾博利就任总公司的局长。”",
+      "source_text_sha256": "fe7876ec0de74cb633211d06fc8afef85896f01c317b35a4762414fe4fef5856"
+    },
+    {
+      "id": "story/117/dialogue/01.41/0005",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/01.21/0001",
+      "before": "“了解！赏他一发热辣辣的一击！”",
+      "after": "“明白！就赏他这炽热的一击！”",
+      "source_text_sha256": "e45435c1afca953346643065b9ece63f8db4b4b326c3ee330c7a0aee15b170f9"
+    },
+    {
+      "id": "story/117/dialogue/01.88/0000",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/01.72/0000",
+      "before": "“为、为什么！告诉我，\n　超限恶魔！为什么我会败！”",
+      "after": "“为、为什么！告诉我，\n　超限恶魔！为什么我竟然会败！”",
+      "source_text_sha256": "3773ef41a2ce36197bbeb9e3aecfe62b8cfb33f2a5f1847ee24b542096e4d8d0"
+    },
+    {
+      "id": "story/117/dialogue/01.88/0002",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/01.72/0002",
+      "before": "“莎尔蕾·费里维！！你竟然！！”",
+      "after": "“夏尔·费里贝！！你！！”",
+      "source_text_sha256": "fe8d35178b5e990b9a9bfd5190566b60c3e45652c845bb1eafca16aca201137d"
+    },
+    {
+      "id": "story/117/dialogue/02.01/0020",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/02.01/0020",
+      "before": "“不是的！我是来把不好好听\n　人话就突击的哥哥带回去的！”",
+      "after": "“不是啦！我是来把不好好听\n　人说话就冲出去的哥哥带回去的！”",
+      "source_text_sha256": "eee84da8a86210b0e8549dddf065f498bf19b367c3dfdabefbf09b37b27e1f87"
+    },
+    {
+      "id": "story/117/dialogue/02.01/0035",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/02.01/0035",
+      "before": "“莎尔蕾大人也请多保重。\n　我会在远方为您祈祷，祝您更加活跃”",
+      "after": "“夏尔大人也请多保重。\n　我会在远方祝愿您今后大展身手。”",
+      "source_text_sha256": "df45c1026d9c232ebade32ebefedc332a91e8a1d2ce0a9218152cf459a668ec8"
+    },
+    {
+      "id": "story/117/dialogue/02.01/0074",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/02.01/0100",
+      "before": "“$c，嘿！嘿！哦——！！”",
+      "after": "“$c，嘿！嘿！噢——！！”",
+      "source_text_sha256": "2fca697ba72c1322f5ebfd97f46520601c69f59deee5c7b0b57283fe734a8a6e"
+    },
+    {
+      "id": "story/117/dialogue/02.01/0110",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/02.01/0100",
+      "before": "“$c，嘿！嘿！哦——！！”",
+      "after": "“$c，嘿！嘿！噢——！！”",
+      "source_text_sha256": "2fca697ba72c1322f5ebfd97f46520601c69f59deee5c7b0b57283fe734a8a6e"
+    },
+    {
+      "id": "story/130/dialogue/02.01/0069",
+      "file": "corpus/zh/story-dialogue/stage-130.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/02.01/0100",
+      "before": "“$c，嘿！嘿！哦——！！”",
+      "after": "“$c，嘿！嘿！噢——！！”",
+      "source_text_sha256": "2fca697ba72c1322f5ebfd97f46520601c69f59deee5c7b0b57283fe734a8a6e"
+    },
+    {
+      "id": "story/118/dialogue/02.02/0048",
+      "file": "corpus/zh/story-dialogue/stage-118.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/122/dialogue/02.02/0013",
+      "before": "“……那次广播中没有公开的事，真正的\n　拉克丝小姐曾遭到调整者暗杀者的袭击。”",
+      "after": "“……那次广播中有件事没有公开：\n　真正的拉克丝小姐曾遭到一名\n　调整者暗杀者的袭击。”",
+      "source_text_sha256": "61b504eb55d0addb16f7afc3d6343efb550424f1f0c998e38e0c9e910bdcc718"
+    },
+    {
+      "id": "story/118/dialogue/02.02/0049",
+      "file": "corpus/zh/story-dialogue/stage-118.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/122/dialogue/02.02/0014",
+      "before": "“调整者的暗杀者，那意味着……”",
+      "after": "“身为调整者的暗杀者……也就是说……”",
+      "source_text_sha256": "97a0486291bc3556262b5dd1cbd39d75191eeb630d6691d1fcf0dad01dbbfcd7"
+    },
+    {
+      "id": "story/119/dialogue/01.50/0000",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "class": "E",
+      "reason": "reviewed",
+      "winner_id": "story/127/dialogue/01.68/0000",
+      "before": "“不可能！作为新人类觉醒的我，怎么会输！”",
+      "after": "“不可能！觉醒为新人类的我怎么可能会输！”",
+      "source_text_sha256": "16fc356fd95d42c976635dc830a1b5d0b39f28a03c7cce6484fe9308f695551d"
+    },
+    {
+      "id": "story/119/dialogue/02.03/0057",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/122/dialogue/02.02/0170",
+      "before": "“但是，难以置信……\n　博士明明也为了地球的和平一起战斗过……”",
+      "after": "“但是，真不敢相信……博士明明\n　一直为了地球和平与我们并肩作战……”",
+      "source_text_sha256": "8ff4f2a0534152908c383b78f3344b4f02f705e6aee9e7496e1605efaae022ac"
+    },
+    {
+      "id": "story/120/dialogue/01.14/0005",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/01.26/0003",
+      "before": "“在宇宙中飞舞的双═……\n　高贵、美丽……而且雄壮！”",
+      "after": "“在宇宙中飞舞的双Σ……\n　高贵而美丽……而且雄壮！”",
+      "source_text_sha256": "e089081372ad74403d873625c209b03cdb901f8b85e611c4a5fe1fde8fc2d8ee"
+    },
+    {
+      "id": "story/120/dialogue/01.14/0006",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/01.26/0004",
+      "before": "“桑德曼！你也要妨碍我吗！”",
+      "after": "“桑德曼！你也要来妨碍老夫吗！”",
+      "source_text_sha256": "0bfa7ea82d88f72c19f1f7c2659a322435a9189dc78c5b809b92a0d51d6515c6"
+    },
+    {
+      "id": "story/120/dialogue/01.14/0008",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/01.26/0006",
+      "before": "“因此，我也提供了巨神Σ的开发资金。”",
+      "after": "“所以我也一直为巨神Σ的开发提供资金。”",
+      "source_text_sha256": "75ab6fe42bbd9abd71f83d323a4e6f42e2e19dfab70473f8724b974e30b27639"
+    },
+    {
+      "id": "story/120/dialogue/01.14/0009",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/01.26/0007",
+      "before": "“但如今你误入歧途，\n　沦为亡者，我打倒你毫无犹豫！”",
+      "after": "“但你已误入歧途，沦为亡者。\n　要打倒你，我不会有丝毫犹豫！”",
+      "source_text_sha256": "c7a740719f6152ff268eba0ef858faa450abecf9b70f5a14bcda74e2389fa4e1"
+    },
+    {
+      "id": "story/120/dialogue/02.01/0043",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/130/dialogue/02.01/0157",
+      "before": "“加根、风见！你们的野心，斗志也……\n　$c一定会粉碎！”",
+      "after": "“加根、风见！你们的野心，斗志也……\n　$c一定会将它们粉碎的！”",
+      "source_text_sha256": "04edbc92091bfd06bd5f29c1c04064df5d07d1b64057788149c21519f7a17104"
+    },
+    {
+      "id": "story/120/dialogue/02.01/0077",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/02.01/0024",
+      "before": "“连杀手布彻也因接连失败而感到焦躁。”",
+      "after": "“就连杀手布彻也因接连失败而感到焦躁。”",
+      "source_text_sha256": "d9d4fbbfff57816329acee63e2efb2bc3c2fd6049e011909e8128cb84291d987"
+    },
+    {
+      "id": "story/120/dialogue/02.04/0010",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/02.03/0010",
+      "before": "“博士！你居然拿枪对着我们！”",
+      "after": "“博士！您竟然把枪口对准我们！”",
+      "source_text_sha256": "03d1a87f0da1dc6cab2d1b2a1ab248fd27bcad122beb557f81f2008a8dfab00d"
+    },
+    {
+      "id": "story/120/dialogue/02.04/0126",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/02.03/0126",
+      "before": "“这让您很高兴吧，男士们”",
+      "after": "“这就是男士们高兴的原因吗”",
+      "source_text_sha256": "87f6195f42d20ace44cc90bf4c6e7c75f670c92836201c7b9f94932d291d2037"
+    },
+    {
+      "id": "story/131/dialogue/01.13/0007",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/01.10/0002",
+      "before": "“爸！”",
+      "after": "“父亲！”",
+      "source_text_sha256": "75f27050a26d015914a8d621ee4f7786d176589b909214a29bcb0112ef824a80"
+    },
+    {
+      "id": "story/131/dialogue/01.11/0004",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/01.10/0004",
+      "before": "“……我明白了，爸！”",
+      "after": "“……我明白了，父亲！”",
+      "source_text_sha256": "08ae78dd4694aa0d18dfcfed6031a282549a216e1d8b7cb14394465e09f73511"
+    },
+    {
+      "id": "story/131/dialogue/01.10/0007",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/01.13/0012",
+      "before": "“唔……唔噢噢！！”",
+      "after": "“唔……唔唔唔！！”",
+      "source_text_sha256": "9f579961c23ab959aadb51b2f574de29b683ecf706f22a08e9c485e2c93c8612"
+    },
+    {
+      "id": "story/131/dialogue/01.11/0007",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/01.13/0012",
+      "before": "“唔……唔噢噢！！”",
+      "after": "“唔……唔唔唔！！”",
+      "source_text_sha256": "9f579961c23ab959aadb51b2f574de29b683ecf706f22a08e9c485e2c93c8612"
+    },
+    {
+      "id": "story/131/dialogue/02.01/0163",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/02.01/0120",
+      "before": "“那条街应有的位置，在地图上并不存在。\n　但事实上，它确实存在。”",
+      "after": "“那座城市本应存在的位置，在地图上却\n　什么都没有。但事实上，它确实存在。”",
+      "source_text_sha256": "98f77cfb0a3e3018a304cb647d2a3b3e1a6c6b43c8c9c13af12a4786a00d5866"
+    },
+    {
+      "id": "story/131/dialogue/02.01/0164",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/02.01/0121",
+      "before": "“那条街是……大特异点吗？”",
+      "after": "“那座城是……大特异点吗？”",
+      "source_text_sha256": "080352ec641783ff51720a85c750739a30908a74382fe8be4d73ff3a39cd796b"
+    },
+    {
+      "id": "story/131/dialogue/02.01/0165",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "class": "A",
+      "reason": "decided",
+      "winner_id": "story/131/dialogue/02.01/0122",
+      "before": "“大概，我觉得不是。但是，\n　那是一个与世界隔绝的特别之地……”",
+      "after": "“我觉得大概不是。\n　不过，那是个与世界隔绝的特别地方……”",
+      "source_text_sha256": "66eabee8dc15232d4278c7c55fc705ec42962c36484033cc342323c60702f8f1"
+    },
+    {
+      "id": "story/136/dialogue/01.54/0020",
+      "file": "corpus/zh/story-dialogue/stage-136.json",
+      "class": "E",
+      "reason": "reviewed",
+      "winner_id": "story/139/dialogue/01.74/0020",
+      "before": "“荒唐……！我怎么会是瑟利安……！？”",
+      "after": "“不可能……！我怎么会是瑟利安！？”",
+      "source_text_sha256": "95fe4119e6bc8e3b542e0eff920f5dc9d199e6bd4fb2f2f03e59c0e3b3e8defa"
+    },
+    {
+      "id": "story/148/dialogue/01.17/0000",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "class": "E",
+      "reason": "reviewed",
+      "winner_id": "story/143/dialogue/01.17/0000",
+      "before": "“不、不可能！你引爆了能量吗！？”",
+      "after": "“不、不可能！竟然让能量暴走了吗！？”",
+      "source_text_sha256": "161df8b7526c6dbfcf3a39a0db3e5f787021f4fe0fbdea6f44ac828d18746375"
+    },
+    {
+      "id": "story/148/dialogue/01.31/0000",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "class": "E",
+      "reason": "reviewed",
+      "winner_id": "story/143/dialogue/01.28/0000",
+      "before": "“不可能……！我不能接受这种结果！”",
+      "after": "“不可能……！我不承认这种结果！”",
+      "source_text_sha256": "96f7963f603a45f65b1c21ac5d29199f5c3460e8779487f55dff4b1fa0b982ab"
+    }
+  ],
+  "reverted_different_context_on_20260927": {
+    "reason": "收口阶段限定为同一说话人在同一场景（前后各 3 句中至少 3 句同源）中的同一句日文。这些记录与胜出记录只是同一句台词在不同场景重复出现（通用喊话、场景标题、不同话数里的同类段落），已恢复原文。",
+    "count": 11,
+    "ids": [
+      "story/010/dialogue/01.23/0004",
+      "story/012/dialogue/02.01/0049",
+      "story/015/dialogue/01.20/0014",
+      "story/025/dialogue/01.44/0001",
+      "story/084/dialogue/02.03/0007",
+      "story/090/dialogue/01.22/0003",
+      "story/117/dialogue/01.131/0000",
+      "story/117/dialogue/02.01/0074",
+      "story/117/dialogue/02.01/0110",
+      "story/118/dialogue/02.02/0049",
+      "story/130/dialogue/02.01/0069"
+    ]
+  }
+}

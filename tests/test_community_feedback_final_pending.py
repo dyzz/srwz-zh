@@ -93,14 +93,14 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         self.assertEqual(menu_entries["menu/SLPS/09/0069"]["translation"], "F类")
 
         expected_story = {
-            "story/068/dialogue/02.01/0213": "“情报部的特工吗……我记得是被\n　称为F类的失败的新人类……”",
+            "story/068/dialogue/02.01/0213": "“情报部的特工吗……\n　听说是什么F类的新人类残次品……”",
             "story/076/dialogue/02.04/0012": "“F类！”",
             "story/076/dialogue/02.04/0015": "“创造未来的不是新人类。\n　而是被称为F类的我们。”",
             "story/097/dialogue/02.01/0226": "“情报部的特工吗……\n　听说是什么F类的新人类残次品……”",
             "story/119/dialogue/01.15/0002": "“F类！你们这些失败的新人类！”",
             "story/119/dialogue/01.15/0004": "“F类……没能成为新人类的人……”",
-            "story/119/dialogue/01.19/0042": "“仅仅因为这个理由，我们被称为F类，\n　被打上了无能的烙印！”",
-            "story/127/dialogue/01.17/0002": "“F类！不成器的新人类！”",
+            "story/119/dialogue/01.19/0042": "“仅仅因为那个理由，我们就被称为F类，\n　被打上了无能的烙印！”",
+            "story/127/dialogue/01.17/0002": "“F类！你们这些失败的新人类！”",
             "story/127/dialogue/01.17/0004": "“F类……没能成为新人类的人……”",
             "story/127/dialogue/01.21/0043": "“仅仅因为那个理由，我们就被称为F类，\n　被打上了无能的烙印！”",
             "story/127/dialogue/01.38/0015": "“我对你们这些不成器的家伙可\n　没抱过分的期待，F类。”",

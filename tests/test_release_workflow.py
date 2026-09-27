@@ -176,15 +176,15 @@ class ReleaseWorkflowTest(unittest.TestCase):
             ),
             "story/107/dialogue/02.03/0091": (
                 "“然后，我一直惦记着你……\n"
-                "　一直想为那时的事跟你说声对不起……”"
+                "　一直想为那天的事跟你说声对不起……”"
             ),
             "story/107/dialogue/02.03/0053": (
-                "“胜平……胜平……我被外星人追杀，\n"
+                "“胜平……我被外星人追杀，\n"
                 "　落到了他们手里，眼睁睁看着好多人死掉”"
             ),
             "story/107/dialogue/02.03/0090": (
-                "“胜平……我被外星人追捕，落到了他们手里，\n"
-                "　眼睁睁看着好多人死掉”"
+                "“胜平……我被外星人追杀，\n"
+                "　落到了他们手里，眼睁睁看着好多人死掉”"
             ),
             "story/107/dialogue/01.26/0007": (
                 "“就靠巨大的身躯撞过去，\n"
@@ -195,8 +195,8 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 "　人工太阳正利用能量扭曲着周围的时空！”"
             ),
             "story/107/dialogue/01.69/0002": (
-                "“是亚空间力场……！人工太阳正\n"
-                "　利用过剩的能量扭曲着周围的时空！”"
+                "“是亚空间力场……！\n"
+                "　人工太阳正利用能量扭曲着周围的时空！”"
             ),
             "story/107/dialogue/01.25/0000": (
                 "“这样磨磨蹭蹭地打下去，\n"
@@ -272,7 +272,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             ),
             "story/015/dialogue/01.19/0003": (
                 "“$n，梅尔！\n"
-                "　钢铁齿轮，现已抵达！”"
+                "　钢铁齿轮，刚刚到达！”"
             ),
             "story/015/dialogue/02.02/0059": "“……跟我无关啊…”",
             "story/016/dialogue/01.16/0008": (
@@ -1270,7 +1270,6 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 "story/150/dialogue/02.01/0363",
                 "story/150/dialogue/02.01/0749",
                 "story/150/dialogue/02.01/1142",
-                "story/150/dialogue/02.01/1433",
             },
         )
 

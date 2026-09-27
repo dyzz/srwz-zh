@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "batch_id": "same-source-unify-B2-20260927",
+  "recorded_at": "2026-09-27T03:05:10.540750+00:00",
+  "reason": "用户裁定：阿波罗「詩翅、てめえ！！」与雷本「貴様らーっ！！」取\"混蛋\"。",
+  "decisions_file": "work/review/same-source-unify-20260927/decisions-B2.json",
+  "counts": {
+    "decisions": 2,
+    "changed": 4,
+    "by_reason": {
+      "user": 4
+    },
+    "skipped": 0,
+    "files_touched": 2
+  },
+  "changes": [
+    {
+      "id": "story/128/dialogue/01.49/0001",
+      "file": "corpus/zh/story-dialogue/stage-128.json",
+      "source_text_sha256": "107dff9d47f205c20bbbe82ebbc171c1800b97d1a533b83611b1dc2608c38a8e",
+      "source_text": "「詩翅、てめえ！！」",
+      "speaker": "アポロ",
+      "reason": "user",
+      "note": "詩翅、てめえ！！",
+      "before": "“诗翅，你这家伙！！”",
+      "after": "“诗翅，你这混蛋！！”",
+      "anchor_id": "story/117/dialogue/01.16/0001"
+    },
+    {
+      "id": "story/142/dialogue/01.17/0018",
+      "file": "corpus/zh/story-dialogue/stage-142.json",
+      "source_text_sha256": "3d7d3f6c5adc02482e862526888bc6b45202d81bdce23d70f5280cd0f92e5b6a",
+      "source_text": "「貴様らーっ！！」",
+      "speaker": "レーベン",
+      "reason": "user",
+      "note": "貴様らーっ！！",
+      "before": "“你们这些家伙！！”",
+      "after": "“你们这些混蛋！！”",
+      "anchor_id": "story/147/dialogue/01.17/0019"
+    },
+    {
+      "id": "story/142/dialogue/01.28/0018",
+      "file": "corpus/zh/story-dialogue/stage-142.json",
+      "source_text_sha256": "3d7d3f6c5adc02482e862526888bc6b45202d81bdce23d70f5280cd0f92e5b6a",
+      "source_text": "「貴様らーっ！！」",
+      "speaker": "レーベン",
+      "reason": "user",
+      "note": "貴様らーっ！！",
+      "before": "“你们这些家伙！！”",
+      "after": "“你们这些混蛋！！”",
+      "anchor_id": "story/147/dialogue/01.17/0019"
+    },
+    {
+      "id": "story/142/dialogue/01.37/0018",
+      "file": "corpus/zh/story-dialogue/stage-142.json",
+      "source_text_sha256": "3d7d3f6c5adc02482e862526888bc6b45202d81bdce23d70f5280cd0f92e5b6a",
+      "source_text": "「貴様らーっ！！」",
+      "speaker": "レーベン",
+      "reason": "user",
+      "note": "貴様らーっ！！",
+      "before": "“你们这些家伙！！”",
+      "after": "“你们这些混蛋！！”",
+      "anchor_id": "story/147/dialogue/01.17/0019"
+    }
+  ],
+  "skipped": []
+}

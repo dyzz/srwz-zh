@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "batch_id": "same-source-unify-C2-20260927",
+  "recorded_at": "2026-09-27T03:16:03.419846+00:00",
+  "reason": "同一日文原句在不同路线／场景的译文措辞不一致；按 决定稿 > reviewed > 出现次数 > 最早关卡 的顺序选出统一措辞，复制给同源的其他记录。",
+  "rules": {
+    "applied_classes": [
+      "C"
+    ],
+    "applied_when_decided": [],
+    "trust_reviewed_route": false,
+    "ignored_stages": [
+      185
+    ],
+    "attention_min": 5,
+    "short_limit": 6,
+    "near_similarity": 0.85,
+    "winner_order": [
+      "decided",
+      "reviewed",
+      "majority",
+      "earliest_stage"
+    ]
+  },
+  "counts": {
+    "groups_by_class": {
+      "A-conflict": 30,
+      "C": 3,
+      "D": 8,
+      "different-context": 653,
+      "ignored-185": 33
+    },
+    "changed": 6,
+    "changed_by_class": {
+      "C": 6
+    },
+    "changed_by_reason": {
+      "earliest_stage": 6
+    },
+    "files_touched": 1,
+    "candidates_not_applied": 724
+  },
+  "changes": [
+    {
+      "id": "story/148/dialogue/02.01/0126",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "class": "C",
+      "reason": "earliest_stage",
+      "winner_id": "story/143/dialogue/02.01/0126",
+      "before": "“不是啦！老夫……真心发誓协助你们！”",
+      "after": "“不是啦！老夫……\n　是真心发誓要协助你们的！”",
+      "source_text_sha256": "d2dcc66ee34d941d99095989737b202f85e180a6cf6b2cc144df2ba3eb6dc491"
+    },
+    {
+      "id": "story/148/dialogue/02.01/0217",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "class": "C",
+      "reason": "earliest_stage",
+      "winner_id": "story/143/dialogue/02.01/0126",
+      "before": "“不是啦！老夫……真心发誓协助你们！”",
+      "after": "“不是啦！老夫……\n　是真心发誓要协助你们的！”",
+      "source_text_sha256": "d2dcc66ee34d941d99095989737b202f85e180a6cf6b2cc144df2ba3eb6dc491"
+    },
+    {
+      "id": "story/148/dialogue/02.01/0127",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "class": "C",
+      "reason": "earliest_stage",
+      "winner_id": "story/143/dialogue/02.01/0127",
+      "before": "“知道这事的艾岱尔大人，\n　一定会给老夫最棒最厉害的惩罚！”",
+      "after": "“知道这件事的艾岱尔大人，\n　一定会给老夫一个最棒最强烈的惩罚！”",
+      "source_text_sha256": "bd613cc275773a3f942f7e05c5babda5353a70743e1a2ea5a6e2c51779c37918"
+    },
+    {
+      "id": "story/148/dialogue/02.01/0218",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "class": "C",
+      "reason": "earliest_stage",
+      "winner_id": "story/143/dialogue/02.01/0127",
+      "before": "“知道这事的艾岱尔大人，\n　一定会给老夫最棒最厉害的惩罚！”",
+      "after": "“知道这件事的艾岱尔大人，\n　一定会给老夫一个最棒最强烈的惩罚！”",
+      "source_text_sha256": "bd613cc275773a3f942f7e05c5babda5353a70743e1a2ea5a6e2c51779c37918"
+    },
+    {
+      "id": "story/148/dialogue/02.01/0137",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "class": "C",
+      "reason": "earliest_stage",
+      "winner_id": "story/143/dialogue/02.01/0137",
+      "before": "“当然！因为是老夫造的！”",
+      "after": "“当然！因为是老夫造的嘛！”",
+      "source_text_sha256": "bac3e4ae3c93c1dbd6ee9ab333a49fbb73eb5cd337f263578457c3026f9752fb"
+    },
+    {
+      "id": "story/148/dialogue/02.01/0226",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "class": "C",
+      "reason": "earliest_stage",
+      "winner_id": "story/143/dialogue/02.01/0137",
+      "before": "“当然！因为是老夫造的！”",
+      "after": "“当然！因为是老夫造的嘛！”",
+      "source_text_sha256": "bac3e4ae3c93c1dbd6ee9ab333a49fbb73eb5cd337f263578457c3026f9752fb"
+    }
+  ]
+}
