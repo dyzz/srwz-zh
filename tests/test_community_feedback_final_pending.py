@@ -112,7 +112,7 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
             "story/127/dialogue/01.38/0015": "“我对你们这些不成器的家伙可\n　没抱过分的期待，F类。”",
             "story/130/dialogue/01.09/0003": "“人类就是这样啊。也难怪西利乌斯\n　和F类的兄弟们会绝望。”",
             "story/135/dialogue/02.01/0175": "“关于所谓F类者的报告，我也听说过。”",
-            "story/138/dialogue/02.01/0179": "“关于所谓F类者的报告，我也听说过”",
+            "story/138/dialogue/02.01/0179": "“关于所谓F类者的报告，我也听说过。”",
         }
         actual_story = {}
         for stage_index in (68, 76, 97, 119, 127, 130, 135, 138):

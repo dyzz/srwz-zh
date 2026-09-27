@@ -1,0 +1,834 @@
+{
+  "schema_version": 1,
+  "batch_id": "story-punctuation-numerals-20260927",
+  "scope": "corpus/zh/story-dialogue entries[].translation",
+  "policy": {
+    "ending_periods": "Omitted when tone or 21x3 layout calls for it; no period sweep.",
+    "wave_marks": "Left unchanged as requested.",
+    "large_numbers": "Narrative 1万2000 and 1亿2000 become 一万两千 and 一亿零两千; other measured quantities remain numeric.",
+    "ellipsis": "Single marks become the normal two-mark pause; merged four-mark pauses become two; source three-mark silences keep three; one source eight-mark ending keeps four.",
+    "ascii": "Only prose punctuation and scene dividers change; runtime placeholders, identifiers, titles, time, percentages, and ratios retain exact symbols."
+  },
+  "change_count": 81,
+  "reason_counts": {
+    "merged_pause": 24,
+    "single_ellipsis": 12,
+    "source_three_mark_silence": 12,
+    "scene_divider": 6,
+    "narrative_duration_numerals": 23,
+    "typographic_apostrophe": 2,
+    "fullwidth_comma": 2
+  },
+  "changes": [
+    {
+      "id": "story/002/dialogue/01.40/0006",
+      "source_text_sha256": "b31ed9205de7b45465884fb79a178b58fc6d15dddc289212691128472523181e",
+      "source_ja": "「それしかないようっスね、こいつは…。\n　…コックピットを狙ってない所を\n　向こうさんが評価してくれる事を祈るぜ」",
+      "before": "“看来也只能这样了…………\n　但愿对方能看在我们没有瞄准驾驶舱的份上，\n　相信我们没有敌意”",
+      "after": "“看来也只能这样了……\n　但愿对方能看在我们没有瞄准驾驶舱的份上，\n　相信我们没有敌意”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/002/dialogue/01.45/0006",
+      "source_text_sha256": "4c453cfcdedb1ba7eed3e2a96d6756d1556ace800c07dd9a3790938d2e2c2c9a",
+      "source_ja": "「それしかないよっスね、こいつは…。\n　…コックピットを狙ってない所を\n　向こうさんが評価してくれる事を祈るぜ」",
+      "before": "“看来也只能这样了…………\n　但愿对方能看在我们没有瞄准驾驶舱的份上，\n　相信我们没有敌意”",
+      "after": "“看来也只能这样了……\n　但愿对方能看在我们没有瞄准驾驶舱的份上，\n　相信我们没有敌意”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/002/dialogue/01.51/0006",
+      "source_text_sha256": "b31ed9205de7b45465884fb79a178b58fc6d15dddc289212691128472523181e",
+      "source_ja": "「それしかないようっスね、こいつは…。\n　…コックピットを狙ってない所を\n　向こうさんが評価してくれる事を祈るぜ」",
+      "before": "“看来也只能这样了…………\n　但愿对方能看在我们没有瞄准驾驶舱的份上，\n　相信我们没有敌意”",
+      "after": "“看来也只能这样了……\n　但愿对方能看在我们没有瞄准驾驶舱的份上，\n　相信我们没有敌意”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/007/dialogue/02.01/0095",
+      "source_text_sha256": "b63b28bf8cc6128fabae245fbf04ee3f47f7e59c32c50d58c1e2fe3f0172a7a8",
+      "source_ja": "「しかし…」",
+      "before": "“但…”",
+      "after": "“但……”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/007/dialogue/02.01/0141",
+      "source_text_sha256": "21840e44e13d9f1e4594fe17e8ede963130be1866b9e2e9b37ea492307ea5cb7",
+      "source_ja": "「何だと…！？」",
+      "before": "“什么…！？”",
+      "after": "“什么……！？”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/007/dialogue/02.01/0211",
+      "source_text_sha256": "3e212674b1f6e89ad844461b9ddc3a60b4be74e2090ecf24dc8dbb93144b09da",
+      "source_ja": "「君は…」",
+      "before": "“你…”",
+      "after": "“你……”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/007/dialogue/02.02/0060",
+      "source_text_sha256": "b662c5f563f303f77a1e45cc0245b60a6e45330ad2a4791876cbf1d45463ec48",
+      "source_ja": "「俺が…！？」",
+      "before": "“我…！？”",
+      "after": "“我……！？”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/008/dialogue/02.01/0027",
+      "source_text_sha256": "b252a879e84dfac8ceec7805b87f3ff09fb7d00cc070455c6bb3a45fc56969b2",
+      "source_ja": "「いい風だ…」",
+      "before": "“这海风真舒服啊…”",
+      "after": "“这海风真舒服啊……”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/008/dialogue/02.01/0033",
+      "source_text_sha256": "fdb52f868364328719a2ff87a4523f962d320680c7c91f8139078c10654312b3",
+      "source_ja": "「旅は道連れ、世は情け…ってやつですね。\n　へへ…キャプテンの言ってる事、\n　うちの親父と同じですよ」",
+      "before": "“在家靠父母，出门靠朋友是吧。嘿嘿…\n　船长说的话和我老爹一模一样呢”",
+      "after": "“在家靠父母，出门靠朋友是吧。嘿嘿……\n　船长说的话和我老爹一模一样呢”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/009/dialogue/01.43/0001",
+      "source_text_sha256": "50f5c17a8c28019c80bc0a87e34fbc2effa146298c3031d5c4f4f38623a59395",
+      "source_ja": "「お…燃えてるな、$n！」",
+      "before": "“好…好燃啊，$n！”",
+      "after": "“好……好燃啊，$n！”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/015/dialogue/02.02/0059",
+      "source_text_sha256": "f537f51bbe4402dc032b83af0d1f83b55e22c505bb2f95aa81d3762862ba8282",
+      "source_ja": "「…関係ないよ…」",
+      "before": "“……跟我无关啊…”",
+      "after": "“……跟我无关啊……”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/016/dialogue/02.01/0175",
+      "source_text_sha256": "c2cb0528c65add03a6ce0755a5260ebc158fca0788ed3fe21f6703ab99a85456",
+      "source_ja": "「それで…！？」",
+      "before": "“怎么样…！？”",
+      "after": "“怎么样……！？”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/016/dialogue/02.02/0028",
+      "source_text_sha256": "29f9210052a7b27c9a9e6a8fa032a5ddcfd3eb0db2b1bf926782980b1233a94d",
+      "source_ja": "「私…稼ぎが悪いですから…」",
+      "before": "“因为…我生意一直不好……”",
+      "after": "“因为……我生意一直不好……”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/017/dialogue/02.01/0021",
+      "source_text_sha256": "5913671fa096ace4e6a9ab4b3765196bf0d89f81d4ed1ceaee46fedf650abe12",
+      "source_ja": "「…ごもっともで…」",
+      "before": "“…你所言极是…”",
+      "after": "“……你所言极是……”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/021/dialogue/02.02/0033",
+      "source_text_sha256": "1f8362bdb31590f2035a53452588c9e3a9cf5283aab10bbd06a4034fafa077b9",
+      "source_ja": "「お前には負けたよ…。\n　…腹、まだ減ってるか？」",
+      "before": "“我服了你了…………肚子还饿吗？”",
+      "after": "“我服了你了……肚子还饿吗？”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/030/dialogue/02.01/0188",
+      "source_text_sha256": "974271925697fa22fbd6d3c68cb75cd10bda83d5d4ddaa0751687bac8b7e8e7d",
+      "source_ja": "「そうだったな…。\n　…仕方ない…！\n　今日は恩人のお前の顔を立ててやる」",
+      "before": "“是啊…………没办法……！\n　今天就给你这个恩人面子。”",
+      "after": "“是啊……没办法……！\n　今天就给你这个恩人面子。”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/031/dialogue/02.01/0078",
+      "source_text_sha256": "6f6f218dbb310a4ef619c66a7c6d72e90b4966db647373d4aef623da376cdf9f",
+      "source_ja": "「…黒に挟まれた駒はひっくり返って黒になる。\n　速やかに脱出しろ、ミネルバ…。\n　…これは誰から？」",
+      "before": "“……被黑色夹住的棋子会翻过来变成黑色。\n　迅速撤离，密涅瓦号…………这是谁给的？”",
+      "after": "“……被黑色夹住的棋子会翻过来变成黑色。\n　迅速撤离，密涅瓦号……这是谁给的？”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/038/dialogue/02.01/0011",
+      "source_text_sha256": "8743ce1e6fd17d9c10ce9863ce0a5671766a10417d11637f373ddbf79961e301",
+      "source_ja": "「カテズか…。\n　…丁度いいかも…」",
+      "before": "“卡泰兹啊…………也许正好……”",
+      "after": "“卡泰兹啊……也许正好……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/01.05/0002",
+      "source_text_sha256": "aa4f4accfffad2cf286d7947fb2d7f105f2da3e1db4788c3062a11393df3f8df",
+      "source_ja": "「そりゃ、あれだけ暴れればね…。\n　…ちょっぴり、昔の事、\n　思い出した？」",
+      "before": "“那倒是，闹成那样嘛…………\n　有没有稍微想起以前的事？”",
+      "after": "“那倒是，闹成那样嘛……\n　有没有稍微想起以前的事？”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/01.14/0001",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/01.20/0002",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.01/0009",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.01/0029",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.01/0037",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.01/0046",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.01/0127",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.02/0053",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.02/0056",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.02/0072",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/042/dialogue/02.02/0101",
+      "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+      "source_ja": "「………」",
+      "before": "“…………”",
+      "after": "“………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/053/dialogue/02.01/0000",
+      "source_text_sha256": "e83d6d5e3d0b7212138c22c86c72c82f5c7efeda7a6ef373916281fb0a2a55dc",
+      "source_ja": "−−−",
+      "before": "---",
+      "after": "——",
+      "reasons": [
+        "scene_divider"
+      ]
+    },
+    {
+      "id": "story/053/dialogue/02.01/0001",
+      "source_text_sha256": "e83d6d5e3d0b7212138c22c86c72c82f5c7efeda7a6ef373916281fb0a2a55dc",
+      "source_ja": "−−−",
+      "before": "---",
+      "after": "——",
+      "reasons": [
+        "scene_divider"
+      ]
+    },
+    {
+      "id": "story/053/dialogue/02.01/0002",
+      "source_text_sha256": "e83d6d5e3d0b7212138c22c86c72c82f5c7efeda7a6ef373916281fb0a2a55dc",
+      "source_ja": "−−−",
+      "before": "---",
+      "after": "——",
+      "reasons": [
+        "scene_divider"
+      ]
+    },
+    {
+      "id": "story/053/dialogue/02.02/0000",
+      "source_text_sha256": "e83d6d5e3d0b7212138c22c86c72c82f5c7efeda7a6ef373916281fb0a2a55dc",
+      "source_ja": "−−−",
+      "before": "---",
+      "after": "——",
+      "reasons": [
+        "scene_divider"
+      ]
+    },
+    {
+      "id": "story/053/dialogue/02.02/0001",
+      "source_text_sha256": "e83d6d5e3d0b7212138c22c86c72c82f5c7efeda7a6ef373916281fb0a2a55dc",
+      "source_ja": "−−−",
+      "before": "---",
+      "after": "——",
+      "reasons": [
+        "scene_divider"
+      ]
+    },
+    {
+      "id": "story/053/dialogue/02.02/0002",
+      "source_text_sha256": "e83d6d5e3d0b7212138c22c86c72c82f5c7efeda7a6ef373916281fb0a2a55dc",
+      "source_ja": "−−−",
+      "before": "---",
+      "after": "——",
+      "reasons": [
+        "scene_divider"
+      ]
+    },
+    {
+      "id": "story/054/dialogue/02.01/0055",
+      "source_text_sha256": "f53d6a676419c0ffcf91a79fd12a3067e5ddf143e0aabbfc649396940b6a14a3",
+      "source_ja": "「大丈夫よ、ロザミア…。\n　…ネオ大佐、ご忠告ありがとうございます」",
+      "before": "“我没事，罗莎米娅…………\n　尼奥上校，谢谢您的忠告。”",
+      "after": "“我没事，罗莎米娅……\n　尼奥上校，谢谢您的忠告。”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/057/dialogue/02.02/0037",
+      "source_text_sha256": "13543042ee844783d5211af1de47f4333e0ef422305673e8f7eb4507a9bad200",
+      "source_ja": "「悲しみを止める…」",
+      "before": "“让悲伤终结…”",
+      "after": "“让悲伤终结……”",
+      "reasons": [
+        "single_ellipsis"
+      ]
+    },
+    {
+      "id": "story/062/dialogue/02.02/0057",
+      "source_text_sha256": "da62985ddf2e8f629ba7439ce5542d8fac844d0eb285a12c68003fb67373ebb9",
+      "source_ja": "「…ど、どうせ…父ちゃんも母ちゃんも\n　戦いでいなくなっちまった…。\n　…俺だってすぐに母ちゃんのとこへ…」",
+      "before": "“……反、反正……爸爸和妈妈都在战斗中死\n　了…………我很快也要去妈妈那里了……”",
+      "after": "“……反、反正……爸爸和妈妈都在战斗中死\n　了……我很快也要去妈妈那里了……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/064/dialogue/02.02/0060",
+      "source_text_sha256": "ce239e418d084d1d665de8f25c3a1f34d8d73b0d47c8c14969eea6f5ab9b2543",
+      "source_ja": "「ありがとう…。\n　…だが私には、まだ隠している事実が\n　あるのだ…」",
+      "before": "“谢谢你们…………但是，\n　我还有隐瞒的事实……”",
+      "after": "“谢谢你们……但是，\n　我还有隐瞒的事实……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/078/dialogue/02.01/0033",
+      "source_text_sha256": "ef2e35d2925e8ea9d5b7e790ce371d2a153780be59f1de9ec99321639c6c0e8e",
+      "source_ja": "「詳しい事情はわかりませんが、\n　これは今より１万２０００年前の\n　出来事のようです」",
+      "before": "“详细情况不明，\n　但这似乎是距今1万2000年前发生的事。”",
+      "after": "“详细情况不明，\n　但这似乎是距今一万两千年前发生的事。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/078/dialogue/02.01/0038",
+      "source_text_sha256": "ee6ed27b9783b67dcb60aae38b2b2ec7f0011080265081bc2e6424a933c5ae12",
+      "source_ja": "「１万２０００年前に\n　奴らの機体が存在していたとは…」",
+      "before": "“1万2000年前就有\n　他们的机体存在吗……”",
+      "after": "“一万两千年前就有\n　他们的机体存在吗……”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/083/dialogue/02.03/0090",
+      "source_text_sha256": "9e2a2081a4891795596db03d478de7669945d871fee07d1ec5338bb0fa794f8b",
+      "source_ja": "「厳しいねえ、お嬢さん方は…。\n　…じゃあな、$n」",
+      "before": "“真严格啊，两位小姐…………\n　那么，再见了，$n。”",
+      "after": "“真严格啊，两位小姐……\n　那么，再见了，$n。”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/084/dialogue/02.01/0208",
+      "source_text_sha256": "4aa0971ba18903ea52350835b59efde7ee9060f8eb0a20e78a8ebe991132eaf2",
+      "source_ja": "「キョーレツ、モーレツ、ハレツ、サクレツ！\n　レッツゴー天国！」",
+      "before": "“强烈、猛烈、破裂、炸裂！\n　LET'S GO天国！”",
+      "after": "“强烈、猛烈、破裂、炸裂！\n　LET’S GO天国！”",
+      "reasons": [
+        "typographic_apostrophe"
+      ]
+    },
+    {
+      "id": "story/091/dialogue/02.03/0042",
+      "source_text_sha256": "d73ed6ae4ccd31e1871959cf102382c5b02bf8f6cf88321275ad3bd4124d1fe4",
+      "source_ja": "「そんなんじゃねえよ…。\n　…俺も俺なりに色んなものに決着を\n　つけなきゃならねえのさ…」",
+      "before": "“不是那样…………我也得用自己的方式，\n　给各种事情做个了断……”",
+      "after": "“不是那样……我也得用自己的方式，\n　给各种事情做个了断……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/093/dialogue/01.01/0025",
+      "source_text_sha256": "e8b917baa1d8e20f33b595ed56136a02be9cc026995efa51dbc2bc9be99c63f2",
+      "source_ja": "「選ばれたのはお前だ…。\n　…さっきなぜチャールズ達と戦ったのか\n　聞いたな？」",
+      "before": "“被选中的人是你…………\n　刚才你问我为什么和查尔斯他们战斗吧？”",
+      "after": "“被选中的人是你……\n　刚才你问我为什么和查尔斯他们战斗吧？”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/104/dialogue/01.30/0022",
+      "source_text_sha256": "2690cee2d719d0527d85d514d3ec5f284a7e66193480f6c0726a0b33565116ca",
+      "source_ja": "「私なら…。\n　…私はサンドマン様に創っていただいた\n　プロトグランディーヴァですから」",
+      "before": "“我可以…………\n　因为我是桑德曼大人创造的原型超重机组”",
+      "after": "“我可以……\n　因为我是桑德曼大人创造的原型超重机组”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/109/dialogue/02.01/0284",
+      "source_text_sha256": "390358751b864e6e5624839f25e9e9f5a72b94f9cc51fb287cf31e1c1bbaf589",
+      "source_ja": "「やめろ、アフロディア…。\n　…地球人とＳ−１星人は…本当なら\n　出会ってはいけない存在だったんだ…」",
+      "before": "“住口，阿芙罗蒂亚…………地球人和\n　S-1星人……本来是不该相遇的存在……”",
+      "after": "“住口，阿芙罗蒂亚……地球人和\n　S-1星人……本来是不该相遇的存在……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/109/dialogue/02.01/0308",
+      "source_text_sha256": "390358751b864e6e5624839f25e9e9f5a72b94f9cc51fb287cf31e1c1bbaf589",
+      "source_ja": "「やめろ、アフロディア…。\n　…地球人とＳ−１星人は…本当なら\n　出会ってはいけない存在だったんだ…」",
+      "before": "“住口，阿芙罗蒂亚…………地球人和\n　S-1星人……本来是不该相遇的存在……”",
+      "after": "“住口，阿芙罗蒂亚……地球人和\n　S-1星人……本来是不该相遇的存在……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/109/dialogue/02.01/0380",
+      "source_text_sha256": "6b2ec62daf1549c5a884bb5aea71e6423848877c2e4de40feb53a213158e52e4",
+      "source_ja": "「そうだな…。\n　…俺は…いや、俺達は何度も同じ過ちを繰り返す\n　大馬鹿だ…」",
+      "before": "“是啊…………我……不，\n　我们真是反复犯同样错误的大笨蛋……”",
+      "after": "“是啊……我……不，\n　我们真是反复犯同样错误的大笨蛋……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/114/dialogue/02.01/0030",
+      "source_text_sha256": "7f4e928a1c4c867142adc3e1b5d392822446361e1fce6b44b62a8d46b3ef52da",
+      "source_ja": "「だが、あの時から１万２０００年の時を経て\n　ついに変化が訪れようとしている。\n　あの時空震が因果に亀裂を入れた事で」",
+      "before": "“但是，从那时起经过1万2000年，\n　终于要迎来变化了。\n　因为那次时空震在因果上撕开了裂痕。”",
+      "after": "“但是，从那时起经过一万两千年，\n　终于要迎来变化了。\n　因为那次时空震在因果上撕开了裂痕。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/117/dialogue/01.09/0011",
+      "source_text_sha256": "7cbf09edf0411e504f901034d36bfdc92e4bcbaf283ac9b1b71a933cf1fedb28",
+      "source_ja": "「１億と２０００年前の過去生に目覚めた\n　詩翅（シリウス）だ」",
+      "before": "“而是觉醒了1亿2000年前\n　前世记忆的诗翅（西利乌斯）。”",
+      "after": "“而是觉醒了一亿零两千年前\n　前世记忆的诗翅（西利乌斯）。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/117/dialogue/01.09/0012",
+      "source_text_sha256": "b0856fdcc16db666dd196378c25b70bacc4c1ad014aabde86564a76ca8184e0c",
+      "source_ja": "「１億２０００年前…？\n　１万２０００年前じゃないのか…」",
+      "before": "“1亿2000年前……？\n　不是1万2000年前吗……”",
+      "after": "“一亿零两千年前……？\n　不是一万两千年前吗……”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/117/dialogue/01.09/0033",
+      "source_text_sha256": "a2df6b5304041e24912c91cef82b721f9d8ffd7bda74bfda6bf2c42605ec86d6",
+      "source_ja": "「我らの１億と２０００年の責め苦には\n　遠く及ばぬが、ここをお前達の\n　墓場としてくれる！」",
+      "before": "“虽然远不及我们1亿2000年的苦难，\n　但这里就做你们的坟墓吧！”",
+      "after": "“虽然远不及我们一亿零两千年的苦难，\n　但这里就做你们的坟墓吧！”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/128/dialogue/01.10/0011",
+      "source_text_sha256": "7cbf09edf0411e504f901034d36bfdc92e4bcbaf283ac9b1b71a933cf1fedb28",
+      "source_ja": "「１億と２０００年前の過去生に目覚めた\n　詩翅（シリウス）だ」",
+      "before": "“而是觉醒了1亿2000年前\n　前世记忆的诗翅（西利乌斯）。”",
+      "after": "“而是觉醒了一亿零两千年前\n　前世记忆的诗翅（西利乌斯）。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/128/dialogue/01.10/0012",
+      "source_text_sha256": "b0856fdcc16db666dd196378c25b70bacc4c1ad014aabde86564a76ca8184e0c",
+      "source_ja": "「１億２０００年前…？\n　１万２０００年前じゃないのか…」",
+      "before": "“1亿2000年前……？\n　不是1万2000年前吗……”",
+      "after": "“一亿零两千年前……？\n　不是一万两千年前吗……”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/128/dialogue/02.01/0030",
+      "source_text_sha256": "7f4e928a1c4c867142adc3e1b5d392822446361e1fce6b44b62a8d46b3ef52da",
+      "source_ja": "「だが、あの時から１万２０００年の時を経て\n　ついに変化が訪れようとしている。\n　あの時空震が因果に亀裂を入れた事で」",
+      "before": "“但是，从那时起经过1万2000年，\n　终于要迎来变化了。\n　因为那次时空震在因果上撕开了裂痕。”",
+      "after": "“但是，从那时起经过一万两千年，\n　终于要迎来变化了。\n　因为那次时空震在因果上撕开了裂痕。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/133/dialogue/01.40/0011",
+      "source_text_sha256": "c1f7bdce176fc167a2493d6f2bfae7ddd9524cc52ab1595c9155b8a1bc8c26b7",
+      "source_ja": "「…最後に…もう一度だけ…\n　アスランに会って…あの人のために…\n　歌いたかった…な………」",
+      "before": "“……最后……想再见一次……\n　阿斯兰……为他……唱一首歌啊…………”",
+      "after": "“……最后……想再见一次……\n　阿斯兰……为他……唱一首歌啊………”",
+      "reasons": [
+        "source_three_mark_silence"
+      ]
+    },
+    {
+      "id": "story/134/dialogue/01.13/0008",
+      "source_text_sha256": "048a46b3f214ceb80fe9c26a6cf075d7b7a2017623208535599b797ef1e2a7ca",
+      "source_ja": "「だけど、あいつの言ってる事を\n　絶対に認めたくなかった…。\n　…だから、戦えたんだ」",
+      "before": "“但是，我绝对不想承认那家伙说\n　的话…………所以，才能战斗。”",
+      "after": "“但是，我绝对不想承认那家伙说\n　的话……所以，才能战斗。”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/137/dialogue/01.01/0000",
+      "source_text_sha256": "5a8566c18c4c3f5235072c14baf5d384649ec4ba1434777958ff2a5528d6ee8a",
+      "source_ja": "「ここが…デューイの指示した地点…。\n　…あの要塞を落とした場所…\n　コーラリアンの核…」",
+      "before": "“这里就是……杜威指示的地点…………\n　那座要塞坠落的地方……科拉利安的核心……”",
+      "after": "“这里就是……杜威指示的地点……\n　那座要塞坠落的地方……科拉利安的核心……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/139/dialogue/01.03/0010",
+      "source_text_sha256": "61db24a8c79f20d4dead8f37cd5a26f21854d8d1c9d3fc410e930a34619e6b8d",
+      "source_ja": "「アトランディアは\n　１億と２０００年前に大いなる力により、\n　無限の牢獄と化した」",
+      "before": "“亚特兰迪亚在1亿2000年前\n　被伟大之力化为了无限牢狱。”",
+      "after": "“亚特兰迪亚在一亿零两千年前\n　被伟大之力化为了无限牢狱。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/139/dialogue/01.03/0011",
+      "source_text_sha256": "b159c230e019d0315546f8d3e3796143c1e4d66d9a2c0be0b6a24a5917d12069",
+      "source_ja": "（まただ…！\n　１万２０００年前ではなく\n　１億と２０００年前と言った…！）",
+      "before": "（又是这样……！说的是1亿2000年前，\n　而不是1万2000年前……！）",
+      "after": "（又是这样……！说的是一亿零两千年前，\n　而不是一万两千年前……！）",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.03/0019",
+      "source_text_sha256": "1f76bc934dde8505bb23c89975969fef5c70f3f9d0df25b72adb7c7bf9ebe708",
+      "source_ja": "「この僕にふざけた口を…！\n　ビッグファウ、アクション！\n　イッツ・グランドフィナーレ！」",
+      "before": "“竟敢对我这么放肆……！\n　BIG-FAU，Action！\n　It's Grand Finale！”",
+      "after": "“竟敢对我这么放肆……！\n　BIG-FAU，Action！\n　It’s Grand Finale！”",
+      "reasons": [
+        "typographic_apostrophe"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.30/0031",
+      "source_text_sha256": "e8358296dd0bde4139607ae4d37422b76699944559b1398f2fc4562f67a76fb7",
+      "source_ja": "「堕天翅達は１億２０００年前…\n　この宇宙が一度崩壊の危機に\n　陥った時、太極の呪いを受けた…」",
+      "before": "“堕天翅们在1亿2000年前……这个宇宙\n　一度面临崩溃危机时，受到了太极的诅咒”",
+      "after": "“堕天翅们在一亿零两千年前……这个宇宙\n　一度面临崩溃危机时，受到了太极的诅咒”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.30/0033",
+      "source_text_sha256": "452171f9053c8420560071fb52dd7a8b3e8800dafa791c201968b230ff5a926b",
+      "source_ja": "「１万２０００年の周期で\n　少しずつ位相がずれていく世界…\n　その中で幾度も戦いを繰り返す…」",
+      "before": "“以1万2000年为周期，相位逐渐\n　偏移的世界……在其中反复战斗……”",
+      "after": "“以一万两千年为周期，相位逐渐\n　偏移的世界……在其中反复战斗……”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.30/0034",
+      "source_text_sha256": "6ed94ca37f51e31b5dbbf0a94a2c0afac95b89953ebe62777911558c2ee0eec2",
+      "source_ja": "「そう…１万２０００年前、\n　黒歴史と呼ばれる時代において\n　別の君達と戦った記憶も忘れて」",
+      "before": "“没错……连1万2000年前，\n　在被称为黑历史的时代与另\n　一个你们战斗的记忆也忘记了”",
+      "after": "“没错……连一万两千年前，\n　在被称为黑历史的时代与另\n　一个你们战斗的记忆也忘记了”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.30/0036",
+      "source_text_sha256": "3aa6088c1ea8d89640fa861e27de4ba3e7fa827ff85570fad8239086372ddfe8",
+      "source_ja": "「じゃあ、アポロニアスの裏切りは\n　本当は１億２０００年前に\n　起きたの！？」",
+      "before": "“那么，阿波罗尼亚斯的背叛其实\n　发生在1亿2000年前吗！？”",
+      "after": "“那么，阿波罗尼亚斯的背叛其实\n　发生在一亿零两千年前吗！？”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.38/0031",
+      "source_text_sha256": "6c5c93b69feea7b7adbc4168d948043ce87b777eafecf8eca93d36126bef6157",
+      "source_ja": "「堕天翅達は１億２０００年前…\n　この宇宙が一度崩壊の危機に\n　陥った時、太極の呪いを受けた」",
+      "before": "“堕天翅们在1亿2000年前……这个宇宙\n　一度面临崩溃危机时，受到了太极的诅咒”",
+      "after": "“堕天翅们在一亿零两千年前……这个宇宙\n　一度面临崩溃危机时，受到了太极的诅咒”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.38/0033",
+      "source_text_sha256": "91a5428bf521adcf39fddaca54d91c4f7c33a06a1be668ad04dc5b2e901ae52d",
+      "source_ja": "「１万２０００年の周期で\n　少しずつ位相がずれていく世界…\n　その中で幾度も戦いを繰り返す」",
+      "before": "“以1万2000年为周期，\n　相位逐渐偏移的世界……在其中反复战斗”",
+      "after": "“以一万两千年为周期，\n　相位逐渐偏移的世界……在其中反复战斗”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.38/0034",
+      "source_text_sha256": "6ed94ca37f51e31b5dbbf0a94a2c0afac95b89953ebe62777911558c2ee0eec2",
+      "source_ja": "「そう…１万２０００年前、\n　黒歴史と呼ばれる時代において\n　別の君達と戦った記憶も忘れて」",
+      "before": "“没错……连1万2000年前，\n　在被称为黑历史的时代与另\n　一个你们战斗的记忆也忘记了”",
+      "after": "“没错……连一万两千年前，\n　在被称为黑历史的时代与另\n　一个你们战斗的记忆也忘记了”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/140/dialogue/01.38/0036",
+      "source_text_sha256": "3aa6088c1ea8d89640fa861e27de4ba3e7fa827ff85570fad8239086372ddfe8",
+      "source_ja": "「じゃあ、アポロニアスの裏切りは\n　本当は１億２０００年前に\n　起きたの！？」",
+      "before": "“那么，阿波罗尼亚斯的背叛其实\n　发生在1亿2000年前吗！？”",
+      "after": "“那么，阿波罗尼亚斯的背叛其实\n　发生在一亿零两千年前吗！？”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/141/dialogue/02.01/0268",
+      "source_text_sha256": "bcd6269cc0b65bb3dcee17be9b3b7af0403611044069992cb1a6c8e9552b1fa7",
+      "source_ja": "「元気出して、ツィーネちゃん…。\n　…ワシ、腹踊りでもしようか？」",
+      "before": "“打起精神来，兹妮酱…………\n　要老夫跳个肚皮舞吗？”",
+      "after": "“打起精神来，兹妮酱……\n　要老夫跳个肚皮舞吗？”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/144/dialogue/01.21/0015",
+      "source_text_sha256": "308d48d42372910a5096b84c68b8380814840898797cfa651334af8b1397ce48",
+      "source_ja": "「アイラブミー、フォーエバー！\n　君が去ろうと、死のうと\n　ボクはボクだけがいればいいんだよ」",
+      "before": "“I love me,forever！\n　不管你是离开还是死掉，\n　我只要有我自己就够了。”",
+      "after": "“I love me，forever！\n　不管你是离开还是死掉，\n　我只要有我自己就够了。”",
+      "reasons": [
+        "fullwidth_comma"
+      ]
+    },
+    {
+      "id": "story/144/dialogue/01.56/0001",
+      "source_text_sha256": "30bdbfeef67fc3406e68040603f1749c1310a1bdc581e3954786d421beb3fb11",
+      "source_ja": "「１億２０００年前に宇宙を崩壊させた力が\n　よみがえれば、この世界を救う事も\n　出来たかも知れないのにね」",
+      "before": "“如果让1亿2000年前毁灭宇宙的\n　力量复苏，或许也能拯救这个世界。”",
+      "after": "“如果让一亿零两千年前毁灭宇宙的\n　力量复苏，或许也能拯救这个世界。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/146/dialogue/02.01/0268",
+      "source_text_sha256": "bcd6269cc0b65bb3dcee17be9b3b7af0403611044069992cb1a6c8e9552b1fa7",
+      "source_ja": "「元気出して、ツィーネちゃん…。\n　…ワシ、腹踊りでもしようか？」",
+      "before": "“打起精神来，兹妮酱…………\n　要老夫跳个肚皮舞吗？”",
+      "after": "“打起精神来，兹妮酱……\n　要老夫跳个肚皮舞吗？”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/149/dialogue/01.114/0001",
+      "source_text_sha256": "30bdbfeef67fc3406e68040603f1749c1310a1bdc581e3954786d421beb3fb11",
+      "source_ja": "「１億２０００年前に宇宙を崩壊させた力が\n　よみがえれば、この世界を救う事も\n　出来たかも知れないのにね」",
+      "before": "“如果让1亿2000年前毁灭宇宙的\n　力量复苏，或许也能拯救这个世界。”",
+      "after": "“如果让一亿零两千年前毁灭宇宙的\n　力量复苏，或许也能拯救这个世界。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/149/dialogue/01.151/0001",
+      "source_text_sha256": "30bdbfeef67fc3406e68040603f1749c1310a1bdc581e3954786d421beb3fb11",
+      "source_ja": "「１億２０００年前に宇宙を崩壊させた力が\n　よみがえれば、この世界を救う事も\n　出来たかも知れないのにね」",
+      "before": "“如果让1亿2000年前毁灭宇宙的\n　力量复苏，或许也能拯救这个世界。”",
+      "after": "“如果让一亿零两千年前毁灭宇宙的\n　力量复苏，或许也能拯救这个世界。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/149/dialogue/01.18/0015",
+      "source_text_sha256": "37082af38171037e76779dc476bb4243968378e8c7cfc0b5f2602c6e6a0abba4",
+      "source_ja": "「アイラブミー、フォーエバー！\n　君が去ろうと、死のうと\n　ボクはボクだけがいればいいんだよ！」",
+      "before": "“I love me,forever！\n　就算你要离开，要死掉，\n　我只要有我自己就够了！”",
+      "after": "“I love me，forever！\n　就算你要离开，要死掉，\n　我只要有我自己就够了！”",
+      "reasons": [
+        "fullwidth_comma"
+      ]
+    },
+    {
+      "id": "story/149/dialogue/01.77/0001",
+      "source_text_sha256": "30bdbfeef67fc3406e68040603f1749c1310a1bdc581e3954786d421beb3fb11",
+      "source_ja": "「１億２０００年前に宇宙を崩壊させた力が\n　よみがえれば、この世界を救う事も\n　出来たかも知れないのにね」",
+      "before": "“如果让1亿2000年前毁灭宇宙的\n　力量复苏，或许也能拯救这个世界。”",
+      "after": "“如果让一亿零两千年前毁灭宇宙的\n　力量复苏，或许也能拯救这个世界。”",
+      "reasons": [
+        "narrative_duration_numerals"
+      ]
+    },
+    {
+      "id": "story/155/dialogue/00.02/0009",
+      "source_text_sha256": "bef0a9a99b98bd0b8315aa5e32d30e4f032f4269582fc44a83b0435d5ff5b7e4",
+      "source_ja": "「当分の間は格納庫のコヤシか…。\n　…ブライト艦長に見つかったら\n　大目玉だろうな…」",
+      "before": "“暂时只能当机库里的摆设了…………要是被\n　布莱德舰长发现，肯定要挨一顿臭骂吧……”",
+      "after": "“暂时只能当机库里的摆设了……要是被\n　布莱德舰长发现，肯定要挨一顿臭骂吧……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    },
+    {
+      "id": "story/156/dialogue/00.02/0009",
+      "source_text_sha256": "bef0a9a99b98bd0b8315aa5e32d30e4f032f4269582fc44a83b0435d5ff5b7e4",
+      "source_ja": "「当分の間は格納庫のコヤシか…。\n　…ブライト艦長に見つかったら\n　大目玉だろうな…」",
+      "before": "“暂时只能当机库里的摆设了…………要是被\n　布莱德舰长发现，肯定要挨一顿臭骂吧……”",
+      "after": "“暂时只能当机库里的摆设了……要是被\n　布莱德舰长发现，肯定要挨一顿臭骂吧……”",
+      "reasons": [
+        "merged_pause"
+      ]
+    }
+  ]
+}

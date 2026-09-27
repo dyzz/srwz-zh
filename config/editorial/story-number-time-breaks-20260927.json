@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "batch_id": "story-number-time-breaks-20260927",
+  "scope": "corpus/zh/story-dialogue entries[].translation",
+  "change_count": 11,
+  "changed_stage_file_count": 9,
+  "reason_counts": {
+    "large_number_split": 1,
+    "time_split": 8,
+    "narrative_duration_split": 2
+  },
+  "policy": "Keep numbers and time values intact across stored line breaks; spell the two 1亿2000 narrative durations as 一亿零两千 and preserve numeric headcounts and times.",
+  "changes": [
+    {
+      "id": "story/030/dialogue/02.01/0145",
+      "source_text_sha256": "b4675b5e40fc014b16cf99cd4fc4a2e08c0244978da8cf1699a1af8ff8548c7e",
+      "source_ja": "「そして、ガットラーは自ら総統を名乗り、\n　全住民３億２０００万人を連れ、\n　母なる星Ｓ−１星を捨てた…」",
+      "before": "“然后，加特勒自称总帅，带着全部3亿\n　2000万居民，抛弃了母星S-1星……”",
+      "after": "“然后，加特勒自称总帅，\n　带着全部3亿2000万居民，\n　抛弃了母星S-1星……”",
+      "reason": "large_number_split"
+    },
+    {
+      "id": "story/072/dialogue/02.01/0133",
+      "source_text_sha256": "dcd2ddfa9c18bfdc6f7ff5afaeecc5efaad3f6ce643ab9754be606e8fd3ab67a",
+      "source_ja": "「テストの日時は\n　２日後の１８：００から…。\n　場所はポイントＸ１３Ｙ２４だ」",
+      "before": "“测试时间是两天后的18:\n　00……地点是X13Y24。”",
+      "after": "“测试时间是两天后的18:00……\n　地点是X13Y24。”",
+      "reason": "time_split"
+    },
+    {
+      "id": "story/114/dialogue/02.01/0022",
+      "source_text_sha256": "06bef260b516fde6747d3babbe176aabd3cf32979dc8049b352fc1e26e6a431a",
+      "source_ja": "「その時、大いなる力は再び降臨する。\n　１億と２０００年前に楽園崩壊を引き起こした\n　あの力が…」",
+      "before": "“那时，伟大之力将再次降临。那在1亿\n　2000年前引发乐园崩溃的力量……”",
+      "after": "“那时，伟大之力将再次降临。\n　那在一亿零两千年前引发乐园崩溃的力量……”",
+      "reason": "narrative_duration_split"
+    },
+    {
+      "id": "story/128/dialogue/02.01/0022",
+      "source_text_sha256": "06bef260b516fde6747d3babbe176aabd3cf32979dc8049b352fc1e26e6a431a",
+      "source_ja": "「その時、大いなる力は再び降臨する。\n　１億と２０００年前に楽園崩壊を引き起こした\n　あの力が…」",
+      "before": "“那时，伟大之力将再次降临。那在1亿\n　2000年前引发乐园崩溃的力量……”",
+      "after": "“那时，伟大之力将再次降临。\n　那在一亿零两千年前引发乐园崩溃的力量……”",
+      "reason": "narrative_duration_split"
+    },
+    {
+      "id": "story/142/dialogue/02.01/0047",
+      "source_text_sha256": "9a1e42b88405ba58b1890d462360b0a83d877f2819717f1a33038829124b4b4c",
+      "source_ja": "「それを考慮したギリギリの時間が\n　明日の２３：００という結論なのだろう」",
+      "before": "“考虑到这一点，明天23:\n　00就是极限时间了吧。”",
+      "after": "“考虑到这一点，\n　明天23:00就是极限时间了吧。”",
+      "reason": "time_split"
+    },
+    {
+      "id": "story/142/dialogue/02.01/0167",
+      "source_text_sha256": "0a596cc9e62417d38891a055c1f28676f77c06f8094c4254d8e14cb626a5450a",
+      "source_ja": "「時刻は標準時で明日の２３：００。\n　そこがタイムリミットです」",
+      "before": "“时间是标准时间明天23:\n　00。那是最后期限。”",
+      "after": "“时间是标准时间明天23:00。\n　那是最后期限。”",
+      "reason": "time_split"
+    },
+    {
+      "id": "story/143/dialogue/01.01/0013",
+      "source_text_sha256": "1d1151cbb99b9e2fc31a3565c1e96d4b61a05d59fd1516579a17851913ddd8c0",
+      "source_ja": "「各員へ。\n　大特異点へ接触する２３：００まで、\n　残り３時間となった」",
+      "before": "“各位注意。距离23:\n　00接触大特异点，还剩3小时。”",
+      "after": "“各位注意。距离23:00接触大特异点，\n　还剩3小时。”",
+      "reason": "time_split"
+    },
+    {
+      "id": "story/147/dialogue/02.01/0047",
+      "source_text_sha256": "9a1e42b88405ba58b1890d462360b0a83d877f2819717f1a33038829124b4b4c",
+      "source_ja": "「それを考慮したギリギリの時間が\n　明日の２３：００という結論なのだろう」",
+      "before": "“考虑到这一点，明天23:\n　00就是极限时间了吧。”",
+      "after": "“考虑到这一点，\n　明天23:00就是极限时间了吧。”",
+      "reason": "time_split"
+    },
+    {
+      "id": "story/147/dialogue/02.01/0167",
+      "source_text_sha256": "0a596cc9e62417d38891a055c1f28676f77c06f8094c4254d8e14cb626a5450a",
+      "source_ja": "「時刻は標準時で明日の２３：００。\n　そこがタイムリミットです」",
+      "before": "“时间是标准时间明天23:\n　00。那是最后期限。”",
+      "after": "“时间是标准时间明天23:00。\n　那是最后期限。”",
+      "reason": "time_split"
+    },
+    {
+      "id": "story/148/dialogue/01.01/0013",
+      "source_text_sha256": "1d1151cbb99b9e2fc31a3565c1e96d4b61a05d59fd1516579a17851913ddd8c0",
+      "source_ja": "「各員へ。\n　大特異点へ接触する２３：００まで、\n　残り３時間となった」",
+      "before": "“各位注意。距离23:\n　00接触大特异点，还剩3小时。”",
+      "after": "“各位注意。距离23:00接触大特异点，\n　还剩3小时。”",
+      "reason": "time_split"
+    },
+    {
+      "id": "story/151/dialogue/01.01/0001",
+      "source_text_sha256": "96400c99d160981fdda5004df3933c1f21dd42c15aea6cc2abd8c68c5f8285f2",
+      "source_ja": "「大特異点へ接触する\n　２３：００まで、残り２時間…」",
+      "before": "“接触大特异点的时间是23:\n　00，还剩2小时……”",
+      "after": "“接触大特异点的时间是23:00，\n　还剩2小时……”",
+      "reason": "time_split"
+    }
+  ]
+}
