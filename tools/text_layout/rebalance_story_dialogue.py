@@ -7,7 +7,8 @@ finds records whose stored break falls inside an unbroken term of the
 ``story_dialogue`` layout profile (a common word or a proper name) and lets the
 engine choose a new break with the same logical text.  Records that overflow
 the window are refitted the same way the builder already does at build time,
-so the corpus stores what the game displays.
+so the corpus stores what the game displays.  Missing or half-width
+continuation indentation is normalized to one full-width space.
 
 Every change is recorded with before/after text, line widths and the source
 hash in a batch document under ``config/editorial``.
@@ -39,6 +40,7 @@ from srwz.chinese_layout import (  # noqa: E402
     ChineseLayoutError,
     dialogue_line_widths,
     fit_chinese_dialogue_layout,
+    is_choice_menu_continuation,
     load_layout_profiles,
     logical_dialogue_text,
     reflow_chinese_dialogue,
@@ -60,14 +62,7 @@ def _sha256(path: Path) -> str:
 
 
 def source_dialogue_index(config_path: Path = DEFAULT_CONFIG) -> dict[str, dict]:
-    """Decode the locked source STAGE archive like the builder.
-
-    Returns ``{entry_id: {"text": japanese, "speaker": japanese speaker name,
-    "keyword_links": bool}}`` for every dialogue entry.  The builder decides
-    ``stage_keyword_links`` from the Japanese text, not the translation:
-    ``《…》`` in a translation without a Japanese link is a plain book-title
-    mark that occupies display cells, so every corpus tool measures the same way.
-    """
+    """Decode the locked source STAGE archive into source text and speaker data."""
 
     config = _json(config_path)
     source = config["source"]
@@ -110,12 +105,11 @@ def source_dialogue_index(config_path: Path = DEFAULT_CONFIG) -> dict[str, dict]
     return index
 
 
-def source_stage_ordinals(index: dict[str, dict] | None = None, config_path: Path = DEFAULT_CONFIG) -> dict[int, dict]:
-    """Stage file number -> {"resource": "stg_104a.bin", "stage_ordinal": 103}.
-
-    The decoded chunk header keeps the original resource name; its number is
-    the Stage Name ordinal plus one, and ``a/b/c`` suffixes share one ordinal.
-    """
+def source_stage_ordinals(
+    index: dict[str, dict] | None = None,
+    config_path: Path = DEFAULT_CONFIG,
+) -> dict[int, dict]:
+    """Map stage file numbers to their source resource and Stage Name ordinal."""
 
     config = _json(config_path)
     source = config["source"]
@@ -141,7 +135,7 @@ def source_stage_ordinals(index: dict[str, dict] | None = None, config_path: Pat
 
 
 def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
-    """IDs of dialogue whose Japanese source carries runtime keyword links."""
+    """IDs whose Japanese source carries runtime keyword links."""
 
     return frozenset(
         entry_id
@@ -160,24 +154,18 @@ def split_terms(text: str, profile, *, stage_keyword_links: bool) -> list[str]:
     )
 
 
-def normalize_indent(text: str) -> str:
-    """Give every continuation line the full-width indent the game expects.
+def normalize_indent(text: str, indent: str) -> str:
+    """Indent prose continuations without touching independent menu options."""
 
-    Site submissions arrive with no indent or with half-width spaces; the
-    original script always indents continuation lines with one ideographic
-    space.  Choice menus (separate quoted lines) and leading-alignment text
-    are left alone.
-    """
-
-    if "\n" not in text or text.startswith(("　", " ")):
+    if not indent or "\n" not in text:
         return text
     lines = text.split("\n")
     out = [lines[0]]
     for previous, line in zip(lines, lines[1:]):
-        if previous.endswith("”") and line.startswith("“"):
+        if is_choice_menu_continuation(previous, line):
             out.append(line)
-            continue
-        out.append("　" + line.lstrip("　 "))
+        else:
+            out.append(indent + line.lstrip("　 "))
     return "\n".join(out)
 
 
@@ -206,23 +194,23 @@ def process(profile, *, write: bool, link_ids: frozenset[str]) -> dict:
         for entry in document["entries"]:
             text = entry["translation"]
             links = entry["id"] in link_ids
-            indented = normalize_indent(text)
+            indented = normalize_indent(text, profile.continuation_indent)
             indent_fix = indented != text
             hits = split_terms(indented, profile, stage_keyword_links=links)
             overflow = not fits(indented, profile, stage_keyword_links=links)
             if not hits and not overflow and not indent_fix:
                 continue
             try:
-                if not hits and not overflow:
+                if overflow:
                     result = fit_chinese_dialogue_layout(
                         indented, profile=profile, stage_keyword_links=links
                     )
-                elif overflow:
-                    result = fit_chinese_dialogue_layout(
+                elif hits:
+                    result = reflow_chinese_dialogue(
                         indented, profile=profile, stage_keyword_links=links
                     )
                 else:
-                    result = reflow_chinese_dialogue(
+                    result = fit_chinese_dialogue_layout(
                         indented, profile=profile, stage_keyword_links=links
                     )
             except (ChineseLayoutError, AssertionError) as error:
@@ -240,11 +228,7 @@ def process(profile, *, write: bool, link_ids: frozenset[str]) -> dict:
             changes.append({
                 "id": entry["id"],
                 "file": str(path.relative_to(PROJECT_ROOT)),
-                "kind": (
-                    "overflow_refit" if overflow
-                    else "split_word" if hits
-                    else "indent_fix"
-                ),
+                "kind": "overflow_refit" if overflow else "split_word" if hits else "indent_fix",
                 "indent_normalized": indent_fix,
                 "runtime_keyword_links": links,
                 "split_terms": hits,
@@ -300,8 +284,8 @@ def main() -> int:
         "batch_id": args.batch_id,
         "recorded_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "reason": (
-            "剧情对白断行落在词或专名内部；用 story_dialogue 档（21 格 × 3 行，"
-            "含不可拆分词表）重新选择断点。逻辑文本不变，只改换行位置。"
+            "修正剧情对白的断行、溢出或续行缩进；用 story_dialogue 档"
+            "（21 格 × 3 行，含不可拆分词表）生成最终排版。逻辑文本不变。"
         ),
         "layout_profile": {
             "id": profile.profile_id,

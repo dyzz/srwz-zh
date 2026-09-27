@@ -2,8 +2,8 @@
 """Unify diverging translations of identical Japanese story lines.
 
 The same Japanese dialogue recurs across route branches and repeated scenes.
-Where its Chinese translations drifted apart, this tool groups every corpus
-record by its source hash, classifies each group, and copies one winning
+Where its Chinese translations drifted apart, this tool groups corpus records
+by source hash, speaker, protagonist and neighbouring scene, then copies one winning
 translation to the other members of the classes selected with ``--apply``.
 
 Classes (decided per group, in this order):
@@ -12,14 +12,8 @@ Classes (decided per group, in this order):
   editorial batch (community, subtitle, 2026-09-07 applications) or pinned by
   a regression test; that wording wins.  ``A-conflict``: two or more variants
   are decided, so the difference is deliberate and the group is left alone.
-* ``different-context``: the neighbouring lines differ, so this is the same
-  sentence in another scene (a stock shout, a caption, a similar speech in a
-  later episode); never unified.
-* ``protagonist-differs``: spoken by ``$n`` in Setsuko's and Rand's own route
-  stages, which are different people; never unified.
-* ``D`` different speakers: the Japanese source is spoken by more than one
-  character, so wording may differ on purpose; never applied automatically,
-  and checked before ``A`` so a decision never crosses speakers.
+Different scenes, speakers, protagonist routes, and stage 185 are partitioned
+before classification, so one unrelated occurrence cannot hide a valid pair.
 * ``B`` short: every variant is at most 6 content characters.
 * ``C`` near-identical: variants differ only slightly (similarity >= 0.85).
 * ``E`` longer differences that need editorial judgment.
@@ -44,6 +38,7 @@ import collections
 import datetime as dt
 import difflib
 import glob
+import itertools
 import json
 import random
 import re
@@ -211,6 +206,64 @@ def load_corpus() -> dict[Path, dict]:
     }
 
 
+def scene_components(
+    corpus: dict[Path, dict],
+    source_index: dict,
+    stage_ordinals: dict[int, int],
+) -> list[list[dict]]:
+    """Partition matching source lines by speaker, protagonist, and scene.
+
+    A source line can occur in several unrelated scenes.  Classifying the
+    entire source-hash group as different-context discards valid route twins
+    within it.  Connected neighbouring-source matches identify each scene;
+    no decision crosses a speaker, a protagonist's own route, or stage 185.
+    """
+
+    context = ContextIndex(corpus)
+    by_owner: dict[tuple[str, str, str], list[dict]] = collections.defaultdict(list)
+    for path, document in corpus.items():
+        for entry in document["entries"]:
+            entry_id = entry["id"]
+            if stage_of(entry_id) in IGNORED_STAGES:
+                continue
+            speaker = source_index.get(entry_id, {}).get("speaker") or ""
+            route = (
+                protagonist_of(stage_ordinals.get(stage_of(entry_id)))
+                if speaker == "$n"
+                else ""
+            )
+            by_owner[(entry["source_text_sha256"], speaker, route)].append(
+                {**entry, "_path": path}
+            )
+
+    components: list[list[dict]] = []
+    for members in by_owner.values():
+        if len(members) < 2:
+            continue
+        by_id = {member["id"]: member for member in members}
+        neighbours: dict[str, set[str]] = {entry_id: set() for entry_id in by_id}
+        for left, right in itertools.combinations(by_id, 2):
+            if context.shared_neighbours(left, right) >= CONTEXT_MIN_SHARED:
+                neighbours[left].add(right)
+                neighbours[right].add(left)
+        seen: set[str] = set()
+        for first in sorted(by_id):
+            if first in seen:
+                continue
+            pending = [first]
+            component_ids = []
+            while pending:
+                entry_id = pending.pop()
+                if entry_id in seen:
+                    continue
+                seen.add(entry_id)
+                component_ids.append(entry_id)
+                pending.extend(sorted(neighbours[entry_id] - seen, reverse=True))
+            if len(component_ids) > 1:
+                components.append([by_id[i] for i in sorted(component_ids)])
+    return components
+
+
 def build_groups(
     corpus: dict[Path, dict],
     source_index: dict,
@@ -218,14 +271,10 @@ def build_groups(
     pinned: frozenset[str],
     stage_ordinals: dict[int, int] | None = None,
 ) -> list[dict]:
-    context = ContextIndex(corpus)
     stage_ordinals = stage_ordinals or {}
-    by_source: dict[str, list[dict]] = collections.defaultdict(list)
-    for path, document in corpus.items():
-        for entry in document["entries"]:
-            by_source[entry["source_text_sha256"]].append({**entry, "_path": path})
     groups = []
-    for sha, members in by_source.items():
+    for members in scene_components(corpus, source_index, stage_ordinals):
+        sha = members[0]["source_text_sha256"]
         variants: dict[str, list[dict]] = collections.defaultdict(list)
         for member in members:
             variants[core(member["translation"])].append(member)
@@ -260,25 +309,7 @@ def build_groups(
             for b in cores[i + 1 :]
         )
         decided_variants = sum(1 for row in rows if row["decided"])
-        member_ids = [m["id"] for m in members]
-        protagonists = {
-            protagonist_of(stage_ordinals.get(stage_of(i))) for i in member_ids
-        } - {"shared"}
-        if any(stage_of(m["id"]) in IGNORED_STAGES for m in members):
-            klass = "ignored-185"
-        elif not context.identical_situation(member_ids):
-            # The same Japanese line in a different scene (stock shouts,
-            # location captions, similar speeches in other episodes) is not
-            # the same line; never unified.
-            klass = "different-context"
-        elif speakers == ["$n"] and len(protagonists) > 1:
-            klass = "protagonist-differs"
-        elif len(speakers) > 1:
-            # Different characters can say the same Japanese in different
-            # senses (「ワン！」 is a bark for a dog and "one!" for a person),
-            # so even a recorded decision must not travel across speakers.
-            klass = "D"
-        elif decided_variants > 1:
+        if decided_variants > 1:
             klass = "A-conflict"
         elif decided_variants == 1:
             klass = "A"

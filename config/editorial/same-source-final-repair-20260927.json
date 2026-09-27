@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "batch_id": "same-source-final-repair-20260927",
+  "recorded_at": "2026-09-27T05:10:21.506476+00:00",
+  "reason": "恢复审阅站采用稿并同步场景孪生句；去除日文原句没有的重复呼名；恢复排除的第 185 话。",
+  "counts": {
+    "changed": 9,
+    "by_reason": {
+      "restore-site-adopted": 6,
+      "source-fidelity-or-stage-185": 3
+    }
+  },
+  "changes": [
+    {
+      "id": "story/015/dialogue/01.19/0002",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "source_text_sha256": "6b596f9e9e0cedbd2dc6f3e3082355fd7ebd4117e78d7c7434ce3b95ad08bdec",
+      "source_text": "「せっかく来たんだから\n　まずはサービス…って奴？」",
+      "speaker": "エルチ",
+      "before": "“既然难得来了，\n　就当给对面先来个上门服务之类的吧？”",
+      "after": "“既然难得来了，就先来个服务…这样？”",
+      "reason": "restore-site-adopted"
+    },
+    {
+      "id": "story/015/dialogue/01.19/0003",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "source_text_sha256": "199a431ba7262a48bd318a74ac041e21c34e5e4d76e22108a759edbba6c2fb02",
+      "source_text": "「$n、メール！\n　アイアン・ギアー、ただ今到着だ！」",
+      "speaker": "ジロン",
+      "before": "“$n，梅尔！\n　钢铁齿轮，现已抵达！”",
+      "after": "“$n，梅尔！\n　钢铁齿轮，刚刚到达！”",
+      "reason": "restore-site-adopted"
+    },
+    {
+      "id": "story/015/dialogue/01.20/0002",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "source_text_sha256": "6b596f9e9e0cedbd2dc6f3e3082355fd7ebd4117e78d7c7434ce3b95ad08bdec",
+      "source_text": "「せっかく来たんだから\n　まずはサービス…って奴？」",
+      "speaker": "エルチ",
+      "before": "“既然难得来了，\n　就当给对面先来个上门服务之类的吧？”",
+      "after": "“既然难得来了，就先来个服务…这样？”",
+      "reason": "restore-site-adopted"
+    },
+    {
+      "id": "story/015/dialogue/01.20/0003",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "source_text_sha256": "199a431ba7262a48bd318a74ac041e21c34e5e4d76e22108a759edbba6c2fb02",
+      "source_text": "「$n、メール！\n　アイアン・ギアー、ただ今到着だ！」",
+      "speaker": "ジロン",
+      "before": "“$n，梅尔！\n　钢铁齿轮，现已抵达！”",
+      "after": "“$n，梅尔！\n　钢铁齿轮，刚刚到达！”",
+      "reason": "restore-site-adopted"
+    },
+    {
+      "id": "story/107/dialogue/01.26/0002",
+      "file": "corpus/zh/story-dialogue/stage-107.json",
+      "source_text_sha256": "c1647e61a5c447ba562704f5705d9c10471dde7d2764a19dccc8971af79a5888",
+      "source_text": "「亜空間フィールドだ…！\n　人工太陽は有り余るエネルギーで\n　周辺の時空を歪めている！」",
+      "speaker": "マリン",
+      "before": "“是亚空间力场……！人工太阳正\n　利用过剩的能量扭曲着周围的时空！”",
+      "after": "“是亚空间力场……！\n　人工太阳正利用能量扭曲着周围的时空！”",
+      "reason": "restore-site-adopted"
+    },
+    {
+      "id": "story/107/dialogue/01.69/0002",
+      "file": "corpus/zh/story-dialogue/stage-107.json",
+      "source_text_sha256": "c1647e61a5c447ba562704f5705d9c10471dde7d2764a19dccc8971af79a5888",
+      "source_text": "「亜空間フィールドだ…！\n　人工太陽は有り余るエネルギーで\n　周辺の時空を歪めている！」",
+      "speaker": "マリン",
+      "before": "“是亚空间力场……！人工太阳正\n　利用过剩的能量扭曲着周围的时空！”",
+      "after": "“是亚空间力场……！\n　人工太阳正利用能量扭曲着周围的时空！”",
+      "reason": "restore-site-adopted"
+    },
+    {
+      "id": "story/107/dialogue/02.03/0053",
+      "file": "corpus/zh/story-dialogue/stage-107.json",
+      "source_text_sha256": "da07bcc7eff83f78bb49f1c6b21997d0a6020d66996e5d2f7a67f2a04825e8ac",
+      "source_text": "「勝平…俺は異星人に追われて捕まって\n　色んな人間が死んでいくのを見た」",
+      "speaker": "香月",
+      "before": "“胜平……胜平……我被外星人追杀，\n　落到了他们手里，眼睁睁看着好多人死掉”",
+      "after": "“胜平……我被外星人追杀，\n　落到了他们手里，眼睁睁看着好多人死掉”",
+      "reason": "source-fidelity-or-stage-185"
+    },
+    {
+      "id": "story/107/dialogue/02.03/0090",
+      "file": "corpus/zh/story-dialogue/stage-107.json",
+      "source_text_sha256": "da07bcc7eff83f78bb49f1c6b21997d0a6020d66996e5d2f7a67f2a04825e8ac",
+      "source_text": "「勝平…俺は異星人に追われて捕まって\n　色んな人間が死んでいくのを見た」",
+      "speaker": "香月",
+      "before": "“胜平……胜平……我被外星人追杀，\n　落到了他们手里，眼睁睁看着好多人死掉”",
+      "after": "“胜平……我被外星人追杀，\n　落到了他们手里，眼睁睁看着好多人死掉”",
+      "reason": "source-fidelity-or-stage-185"
+    },
+    {
+      "id": "story/185/dialogue/02.02/0013",
+      "file": "corpus/zh/story-dialogue/stage-185.json",
+      "source_text_sha256": "37a6606f71f08bf83aaf95f9d5b2d5707771a303a9ce27020a0d3a4e25e6b0b2",
+      "source_text": "「そんなに大雑把でいいの…！？」",
+      "speaker": "メール",
+      "before": "“这么随便糊弄就可以吗……！？”",
+      "after": "“这么随便也行吗……！？”",
+      "reason": "source-fidelity-or-stage-185"
+    }
+  ]
+}

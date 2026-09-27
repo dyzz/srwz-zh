@@ -1,0 +1,2454 @@
+{
+  "schema_version": 1,
+  "batch_id": "same-source-scene-completion-20260927",
+  "reason": "补齐同源分组被其他场景成员遮蔽的同人同句同场景差异；逐组核对日文与译文，明确每组目标 ID。",
+  "decisions": [
+    {
+      "source_text_sha256": "6fabd32f4374540741642ed446234b3357d188a0822fe8a2101731d7363bef2b",
+      "source_text": "「え…」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/163/dialogue/00.02/0010",
+      "target_ids": [
+        "story/040/dialogue/02.05/0010",
+        "story/163/dialogue/00.02/0010",
+        "story/164/dialogue/00.02/0010"
+      ],
+      "chosen": "“诶……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 000; B; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "8c19d33d58b9ffd44d67432a8add50727b4faaadf240142130b9c6fc5756ac9c",
+      "source_text": "　　　　　〜新地球連邦本部　賢人会議〜",
+      "speaker": "　　",
+      "anchor_id": "story/062/dialogue/02.01/0003",
+      "target_ids": [
+        "story/059/dialogue/01.01/0003",
+        "story/062/dialogue/02.01/0003",
+        "story/081/dialogue/01.01/0003"
+      ],
+      "chosen": "〜新地球联邦本部　贤人会议〜",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 001; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "1911d6611db8ae37478430ee4842698162a3c8d63d9b8406b9753ce6cbbee39d",
+      "source_text": "「そして、それが完全に作動するという\n　確信も持っていないだろう」",
+      "speaker": "ジャミトフ",
+      "anchor_id": "story/062/dialogue/02.01/0014",
+      "target_ids": [
+        "story/059/dialogue/01.01/0014",
+        "story/062/dialogue/02.01/0014"
+      ],
+      "chosen": "“而且他们也没有完全确信它能正常运作。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 002; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "a7cb3ad22ff9edb19b464a43b7010b0d3f42f65643114090cd75b363935dfe48",
+      "source_text": "「うわあああああああっ！！」",
+      "speaker": "ステラ",
+      "anchor_id": "story/066/dialogue/01.33/0002",
+      "target_ids": [
+        "story/066/dialogue/01.33/0002",
+        "story/066/dialogue/01.44/0002",
+        "story/095/dialogue/01.16/0002"
+      ],
+      "chosen": "“呜啊啊啊啊啊啊啊！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 003; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "a7cb3ad22ff9edb19b464a43b7010b0d3f42f65643114090cd75b363935dfe48",
+      "source_text": "「うわあああああああっ！！」",
+      "speaker": "ステラ",
+      "anchor_id": "story/066/dialogue/01.34/0002",
+      "target_ids": [
+        "story/066/dialogue/01.34/0002",
+        "story/066/dialogue/01.45/0002",
+        "story/095/dialogue/01.17/0002"
+      ],
+      "chosen": "“呜啊啊啊啊啊啊啊！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 004; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "c882f777491ec1a06ccc797d30ac502b391412694fc195856d945e325b3cecba",
+      "source_text": "「もう！　やめろぉぉぉっ！！」",
+      "speaker": "キラ",
+      "anchor_id": "story/066/dialogue/01.34/0003",
+      "target_ids": [
+        "story/066/dialogue/01.34/0003",
+        "story/066/dialogue/01.45/0003",
+        "story/095/dialogue/01.17/0003"
+      ],
+      "chosen": "“够了！快住手啊啊啊！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 005; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "8c19d33d58b9ffd44d67432a8add50727b4faaadf240142130b9c6fc5756ac9c",
+      "source_text": "　　　　　〜新地球連邦本部　賢人会議〜",
+      "speaker": "　　",
+      "anchor_id": "story/066/dialogue/02.02/0072",
+      "target_ids": [
+        "story/066/dialogue/02.02/0072",
+        "story/095/dialogue/02.02/0116"
+      ],
+      "chosen": "〜新地球联邦本部　贤人会议〜",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 006; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "e898cd0167052bb76b07af7d5d69e13a32981527b9d350ffb09467e0c9ac677a",
+      "source_text": "「その名は賢人会議…！\n　彼らこそ平和を望む私達全ての真の敵です！」",
+      "speaker": "デュランダル",
+      "anchor_id": "story/066/dialogue/02.02/0073",
+      "target_ids": [
+        "story/066/dialogue/02.02/0073",
+        "story/095/dialogue/02.02/0117"
+      ],
+      "chosen": "“其名为贤人会议……！他们才是\n　我们所有渴望和平之人的真正敌人！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 007; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "9a64ad0740c07ab82839e230ec765e1cb31197b318c49ef3ac89719534431e13",
+      "source_text": "「と、おっしゃられますと？」",
+      "speaker": "ウェズリィ",
+      "anchor_id": "story/067/dialogue/01.01/0007",
+      "target_ids": [
+        "story/067/dialogue/01.01/0007",
+        "story/096/dialogue/01.01/0007"
+      ],
+      "chosen": "“您的意思是？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 008; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "2caa08afc6415f50eaa844e510fbb7c3b4b084969a1d9938e2bdb5bb98bb72ae",
+      "source_text": "「し、しかし…」",
+      "speaker": "ユウナ",
+      "anchor_id": "story/068/dialogue/02.01/0220",
+      "target_ids": [
+        "story/068/dialogue/02.01/0220",
+        "story/097/dialogue/02.01/0233"
+      ],
+      "chosen": "“但、但是……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 009; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "765ab3616b297b99fa454b696b7b584f7a3c13ecf002543153faab05cb46286b",
+      "source_text": "「は、はい…！」",
+      "speaker": "ユウナ",
+      "anchor_id": "story/068/dialogue/02.01/0222",
+      "target_ids": [
+        "story/068/dialogue/02.01/0222",
+        "story/097/dialogue/02.01/0235"
+      ],
+      "chosen": "“是、是的……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 010; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "81876ba54b455603491d101ea9aaa357423d707c8cb1d5a8450d6632f33ab875",
+      "source_text": "「了解です！」",
+      "speaker": "ノイマン",
+      "anchor_id": "story/069/dialogue/01.15/0005",
+      "target_ids": [
+        "story/069/dialogue/01.15/0005",
+        "story/098/dialogue/01.14/0005"
+      ],
+      "chosen": "“了解！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 011; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "6fabd32f4374540741642ed446234b3357d188a0822fe8a2101731d7363bef2b",
+      "source_text": "「え…」",
+      "speaker": "レントン",
+      "anchor_id": "story/088/dialogue/02.02/0033",
+      "target_ids": [
+        "story/088/dialogue/02.02/0033",
+        "story/093/dialogue/01.01/0015"
+      ],
+      "chosen": "“呃……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 012; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "6fabd32f4374540741642ed446234b3357d188a0822fe8a2101731d7363bef2b",
+      "source_text": "「え…」",
+      "speaker": "レントン",
+      "anchor_id": "story/088/dialogue/02.02/0037",
+      "target_ids": [
+        "story/088/dialogue/02.02/0037",
+        "story/093/dialogue/01.01/0019"
+      ],
+      "chosen": "“呃……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 013; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "6fabd32f4374540741642ed446234b3357d188a0822fe8a2101731d7363bef2b",
+      "source_text": "「え…」",
+      "speaker": "レントン",
+      "anchor_id": "story/088/dialogue/02.02/0060",
+      "target_ids": [
+        "story/088/dialogue/02.02/0060",
+        "story/093/dialogue/01.01/0042"
+      ],
+      "chosen": "“呃……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 014; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "b99e823dd313b44e7e864f094f9903ba6cf54647b75961b1d5a98093f175ab0c",
+      "source_text": "「ぐ…」",
+      "speaker": "アスハム",
+      "anchor_id": "story/093/dialogue/01.01/0065",
+      "target_ids": [
+        "story/088/dialogue/02.02/0088",
+        "story/093/dialogue/01.01/0065"
+      ],
+      "chosen": "“唔……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 015; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "955b73dab3c70f38a45894e425999d11aafaf6cc4c73e0cb2db264a5802c7414",
+      "source_text": "「どうせ、私達が手を下さなくても\n　こいつらは自分で破滅の中に\n　首を突っ込んでいくだろうしね」",
+      "speaker": "ツィーネ",
+      "anchor_id": "story/110/dialogue/01.27/0003",
+      "target_ids": [
+        "story/110/dialogue/01.27/0003",
+        "story/110/dialogue/01.28/0004",
+        "story/110/dialogue/01.29/0004",
+        "story/111/dialogue/01.22/0004",
+        "story/111/dialogue/01.24/0003",
+        "story/111/dialogue/01.27/0004",
+        "story/111/dialogue/01.30/0004"
+      ],
+      "chosen": "“反正，就算我们不动手，\n　这些家伙也会自己把头伸进毁灭之中吧”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 016; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "0785a528d2d7dc18108e6b55e77777a311f653bc179af401261e24edd5280fef",
+      "source_text": "「ハハハハハハ！\n　報われない戦いの中で死んでいきな、\n　$c！」",
+      "speaker": "ツィーネ",
+      "anchor_id": "story/110/dialogue/01.27/0005",
+      "target_ids": [
+        "story/110/dialogue/01.27/0005",
+        "story/110/dialogue/01.28/0006",
+        "story/110/dialogue/01.29/0006",
+        "story/111/dialogue/01.22/0006",
+        "story/111/dialogue/01.24/0005",
+        "story/111/dialogue/01.27/0006",
+        "story/111/dialogue/01.30/0006"
+      ],
+      "chosen": "“哈哈哈哈哈哈！在得不到回报的\n　战斗中死去吧，$c！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 017; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "6fabd32f4374540741642ed446234b3357d188a0822fe8a2101731d7363bef2b",
+      "source_text": "「え…」",
+      "speaker": "ロラン",
+      "anchor_id": "story/111/dialogue/02.01/0060",
+      "target_ids": [
+        "story/110/dialogue/02.01/0060",
+        "story/111/dialogue/02.01/0060"
+      ],
+      "chosen": "“诶……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 018; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "1630c5dd312339b58e402dc7de2505dd482d53ee03f8c05234c1bfcb0d9b8454",
+      "source_text": "「だけど…！」",
+      "speaker": "ガロード",
+      "anchor_id": "story/111/dialogue/02.01/0101",
+      "target_ids": [
+        "story/110/dialogue/02.01/0101",
+        "story/111/dialogue/02.01/0101"
+      ],
+      "chosen": "“但是……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 019; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "ac8d854ab46c4c53404213d6fd2c0f45d36ccd5f3e126eac2a54d5a9eb46655f",
+      "source_text": "「それは？」",
+      "speaker": "シャイア",
+      "anchor_id": "story/111/dialogue/02.02/0114",
+      "target_ids": [
+        "story/110/dialogue/02.02/0097",
+        "story/110/dialogue/02.02/0213",
+        "story/111/dialogue/02.02/0114",
+        "story/111/dialogue/02.02/0234"
+      ],
+      "chosen": "“是什么？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 020; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "b301c1af45a6481e9f1800c51660dd39cb0b6c964cf31c213f43e6cc86df2706",
+      "source_text": "「…エーデル准将が\n　あのクーデターの首謀者だったとは…」",
+      "speaker": "ブライト",
+      "anchor_id": "story/111/dialogue/02.02/0196",
+      "target_ids": [
+        "story/110/dialogue/02.02/0175",
+        "story/111/dialogue/02.02/0196"
+      ],
+      "chosen": "“……没想到艾岱尔准将是\n　那次政变的幕后主谋……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 021; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "cc43765fb42e533b69262c365cb94f4f108327d550ff643bd55b09614140f099",
+      "source_text": "「はぁい…」",
+      "speaker": "ジエー",
+      "anchor_id": "story/111/dialogue/02.02/0426",
+      "target_ids": [
+        "story/110/dialogue/02.02/0513",
+        "story/111/dialogue/02.02/0426"
+      ],
+      "chosen": "“好〜”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 022; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "d17b0d24605e1fd6da57e337f9c180c2ff666bc939d74aee40f98ee2ea9dc459",
+      "source_text": "「さらに人類は堕天翅の力まで\n　自分達の戦力として使おうとしている！」",
+      "speaker": "グラー",
+      "anchor_id": "story/112/dialogue/01.08/0006",
+      "target_ids": [
+        "story/112/dialogue/01.08/0006",
+        "story/112/dialogue/01.09/0006",
+        "story/128/dialogue/01.11/0006",
+        "story/128/dialogue/01.12/0006"
+      ],
+      "chosen": "“而且人类甚至想把堕天翅\n　的力量也当作自己的战力！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 023; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "ee445a90a39d7db797ead50e7a8ac22b81e88afddb8a4aa0a341e9fea6e7be46",
+      "source_text": "「何だと！？」",
+      "speaker": "アポロ",
+      "anchor_id": "story/127/dialogue/01.53/0015",
+      "target_ids": [
+        "story/112/dialogue/01.30/0015",
+        "story/127/dialogue/01.53/0015"
+      ],
+      "chosen": "“你说什么！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 024; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "1044a1605b31070f255381281e0cbbf57177c37d93b5feee369dfb141246921d",
+      "source_text": "「あ…ああ…」",
+      "speaker": "麗花",
+      "anchor_id": "story/127/dialogue/01.58/0004",
+      "target_ids": [
+        "story/112/dialogue/01.35/0004",
+        "story/127/dialogue/01.58/0004"
+      ],
+      "chosen": "“啊……啊啊……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 025; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "81876ba54b455603491d101ea9aaa357423d707c8cb1d5a8450d6632f33ab875",
+      "source_text": "「了解です！」",
+      "speaker": "$n",
+      "anchor_id": "story/128/dialogue/01.19/0002",
+      "target_ids": [
+        "story/112/dialogue/01.45/0002",
+        "story/128/dialogue/01.19/0002"
+      ],
+      "chosen": "“了解！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 026; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "d5a353d05a7a90ad2460da9ef97bd4b9974a52e73c3158c3382dec039166a466",
+      "source_text": "「はあ…」",
+      "speaker": "レントン",
+      "anchor_id": "story/128/dialogue/02.01/0208",
+      "target_ids": [
+        "story/112/dialogue/02.01/0115",
+        "story/128/dialogue/02.01/0208"
+      ],
+      "chosen": "“啊……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 027; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "ee1c34b84233d1e364968c53644eca376b8a05334df10095b58d5e6b3ceab035",
+      "source_text": "「でも…」",
+      "speaker": "レントン",
+      "anchor_id": "story/128/dialogue/02.02/0038",
+      "target_ids": [
+        "story/112/dialogue/02.02/0038",
+        "story/128/dialogue/02.02/0038"
+      ],
+      "chosen": "“但是……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 028; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "ee1c34b84233d1e364968c53644eca376b8a05334df10095b58d5e6b3ceab035",
+      "source_text": "「でも…」",
+      "speaker": "エウレカ",
+      "anchor_id": "story/128/dialogue/02.02/0123",
+      "target_ids": [
+        "story/112/dialogue/02.02/0123",
+        "story/128/dialogue/02.02/0123"
+      ],
+      "chosen": "“但是……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 029; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "6fabd32f4374540741642ed446234b3357d188a0822fe8a2101731d7363bef2b",
+      "source_text": "「え…」",
+      "speaker": "麗花",
+      "anchor_id": "story/128/dialogue/02.01/0151",
+      "target_ids": [
+        "story/113/dialogue/02.01/0090",
+        "story/128/dialogue/02.01/0151"
+      ],
+      "chosen": "“诶……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 030; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "555df43fa91ebdd7d8f799b15ecf9bbf3445ac131aa82483eb620bc1bb03d597",
+      "source_text": "「あの強化百鬼兵もそうだが、\n　ヒドラーの死の間際の言葉が気になる」",
+      "speaker": "隼人",
+      "anchor_id": "story/113/dialogue/02.01/0115",
+      "target_ids": [
+        "story/113/dialogue/02.01/0115",
+        "story/113/dialogue/02.01/0168",
+        "story/131/dialogue/02.01/0175",
+        "story/131/dialogue/02.01/0222"
+      ],
+      "chosen": "“那些强化百鬼兵也是，\n　但希德拉临死前的话更让人在意。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 031; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "35d77ff3bf6a286eac771a825bbbcfe5c1f5ac7188b5b6d68d0f09bb24b9f3c4",
+      "source_text": "「とんでもない事なんだな、\n　時空の制御ってのは…」",
+      "speaker": "弁慶",
+      "anchor_id": "story/113/dialogue/02.01/0134",
+      "target_ids": [
+        "story/113/dialogue/02.01/0134",
+        "story/113/dialogue/02.01/0187",
+        "story/131/dialogue/02.01/0194",
+        "story/131/dialogue/02.01/0241"
+      ],
+      "chosen": "“控制时空，真是不得了的事啊……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 032; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "5d8af41140d18de1830c6d9836b2db18a52d17283c9d47559c26f2915841f5d0",
+      "source_text": "「ククク…３４０号…。\n　もう私はユニオンの人間ではない。\n　それは、お前も同じだろうがな」",
+      "speaker": "アラン",
+      "anchor_id": "story/131/dialogue/01.20/0015",
+      "target_ids": [
+        "story/113/dialogue/02.02/0084",
+        "story/113/dialogue/02.02/0157",
+        "story/131/dialogue/01.20/0015",
+        "story/131/dialogue/01.22/0012"
+      ],
+      "chosen": "“呵呵呵……340号……\n　我已经不是Union的人了。\n　你也是一样吧。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 033; A-conflict; original heuristic decided"
+    },
+    {
+      "source_text_sha256": "61e3337644dab0610657fe2da5d92960861f1812bb51a0f803e2c564d633dcdb",
+      "source_text": "「う…！」",
+      "speaker": "メール",
+      "anchor_id": "story/131/dialogue/01.22/0000",
+      "target_ids": [
+        "story/113/dialogue/02.02/0146",
+        "story/131/dialogue/01.22/0000"
+      ],
+      "chosen": "“呃……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 034; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "e69281c7c2a95f849a34cc675202f79e925b4c80dc2510f78db8578238b3c59a",
+      "source_text": "「想像力がある…とでも言えばいいのかね。\n　時代が変わったようだ」",
+      "speaker": "マルチナ",
+      "anchor_id": "story/116/dialogue/02.01/0066",
+      "target_ids": [
+        "story/116/dialogue/02.01/0066",
+        "story/116/dialogue/02.01/0130",
+        "story/129/dialogue/02.02/0074",
+        "story/129/dialogue/02.02/0148"
+      ],
+      "chosen": "“该说他有想象力吗……时代变了吧。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 035; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "009cc6741e785aa52ea5404c591bfa8d23fa15a623d81ff4351ded28741827e9",
+      "source_text": "「彼の心の中に潜む自信の無さ…。\n　その隙をオーバーデビルに\n　突かれたというわけか」",
+      "speaker": "ジャミル",
+      "anchor_id": "story/116/dialogue/02.01/0088",
+      "target_ids": [
+        "story/116/dialogue/02.01/0088",
+        "story/129/dialogue/02.02/0096"
+      ],
+      "chosen": "“他内心潜藏的不自信……\n　被超限恶魔钻了空子吧。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 036; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "1068b4f5614f800a583015c820ca3966d1968cf413c5256cabb6e386855d78c6",
+      "source_text": "「ありえるな。\n　ゲイナーの奴…何だかんだ言って、\n　考え込んじまうタイプだからな」",
+      "speaker": "ガロード",
+      "anchor_id": "story/129/dialogue/02.02/0164",
+      "target_ids": [
+        "story/116/dialogue/02.01/0146",
+        "story/129/dialogue/02.02/0164"
+      ],
+      "chosen": "“有可能。盖纳那家伙……不管怎么说，\n　是那种会钻牛角尖的类型。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 037; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "009cc6741e785aa52ea5404c591bfa8d23fa15a623d81ff4351ded28741827e9",
+      "source_text": "「彼の心の中に潜む自信の無さ…。\n　その隙をオーバーデビルに\n　突かれたというわけか」",
+      "speaker": "ジャミル",
+      "anchor_id": "story/116/dialogue/02.01/0148",
+      "target_ids": [
+        "story/116/dialogue/02.01/0148",
+        "story/129/dialogue/02.02/0166"
+      ],
+      "chosen": "“他内心潜藏的不自信……\n　被超限恶魔钻了空子吧。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 038; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "a0311f4cabc4555db5521a7d235efdc76057d13e9e7dcb241fe14e97352b83c6",
+      "source_text": "「そんな事は…！」",
+      "speaker": "レントン",
+      "anchor_id": "story/130/dialogue/01.85/0002",
+      "target_ids": [
+        "story/117/dialogue/01.108/0002",
+        "story/130/dialogue/01.85/0002"
+      ],
+      "chosen": "“我才没有……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 039; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "444a23a59d236236d2483571b2ccbac77ab5fe9c7fb506eba2a68d5a2bf98417",
+      "source_text": "「くうっ！」",
+      "speaker": "グレン",
+      "anchor_id": "story/128/dialogue/01.52/0000",
+      "target_ids": [
+        "story/117/dialogue/01.19/0000",
+        "story/128/dialogue/01.52/0000"
+      ],
+      "chosen": "“呃！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 040; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "c7244a24f5a8b97cefea0ad170b576182e5094ea007adca23b187bd2f38f9024",
+      "source_text": "「うおおおおっ！！」",
+      "speaker": "ガウリ",
+      "anchor_id": "story/130/dialogue/01.18/0001",
+      "target_ids": [
+        "story/117/dialogue/01.33/0001",
+        "story/130/dialogue/01.18/0001",
+        "story/130/dialogue/01.61/0001"
+      ],
+      "chosen": "“呜噢噢噢噢！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 041; B; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "153ef8626a522cce92201f53c9cdffad33c9e81f280ec6c6c6424669eb2c2c16",
+      "source_text": "「へえ…」",
+      "speaker": "ケジナン",
+      "anchor_id": "story/117/dialogue/01.39/0005",
+      "target_ids": [
+        "story/117/dialogue/01.39/0005",
+        "story/130/dialogue/01.15/0005"
+      ],
+      "chosen": "“嘿……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 042; A; original heuristic decided"
+    },
+    {
+      "source_text_sha256": "e296274ea1af1329466d3740a87ba4c27f9a369ce90df9dfa78cf7880d626060",
+      "source_text": "「みんな！　まずはゲイナーに\n　お灸をすえるわよ！」",
+      "speaker": "サラ",
+      "anchor_id": "story/117/dialogue/01.40/0004",
+      "target_ids": [
+        "story/117/dialogue/01.40/0004",
+        "story/117/dialogue/01.41/0004",
+        "story/130/dialogue/01.20/0000",
+        "story/130/dialogue/01.21/0000"
+      ],
+      "chosen": "“大家！先给盖纳一点教训！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 043; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "cf1e8d5bae5e700c3de6a45653efc10d17fea446c97855f3041514c82c582741",
+      "source_text": "「そんな馬鹿な！\n　チャンプである僕が負けるのか！」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/130/dialogue/01.22/0000",
+      "target_ids": [
+        "story/117/dialogue/01.42/0000",
+        "story/130/dialogue/01.22/0000"
+      ],
+      "chosen": "“开什么玩笑！身为冠军的我怎么会输！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 044; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "cf1e8d5bae5e700c3de6a45653efc10d17fea446c97855f3041514c82c582741",
+      "source_text": "「そんな馬鹿な！\n　チャンプである僕が負けるのか！」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/130/dialogue/01.23/0000",
+      "target_ids": [
+        "story/117/dialogue/01.43/0000",
+        "story/130/dialogue/01.23/0000"
+      ],
+      "chosen": "“开什么玩笑！身为冠军的我怎么会输！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 045; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "defc53c3a301c4b3365bc93d1c75690dad0177ee16f30348adfe0e845ade1605",
+      "source_text": "「行くぞぉぉぉぉっ！！」",
+      "speaker": "ホーラ",
+      "anchor_id": "story/130/dialogue/01.63/0002",
+      "target_ids": [
+        "story/117/dialogue/01.79/0002",
+        "story/130/dialogue/01.63/0002"
+      ],
+      "chosen": "“上吧啊啊啊啊！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 046; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "0d91a314b033979eb4094119f363ab95f586c1e02f8616210be928ae99edc3b2",
+      "source_text": "「あの程度で奴はくたばらんよ。\n　コンビを組んでいた俺が言うから\n　間違いないさ」",
+      "speaker": "ゲイン",
+      "anchor_id": "story/130/dialogue/01.73/0002",
+      "target_ids": [
+        "story/117/dialogue/01.89/0002",
+        "story/130/dialogue/01.73/0002"
+      ],
+      "chosen": "“那种程度还弄不死那家伙。\n　我和他搭档过，所以错不了。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 047; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "0d91a314b033979eb4094119f363ab95f586c1e02f8616210be928ae99edc3b2",
+      "source_text": "「あの程度で奴はくたばらんよ。\n　コンビを組んでいた俺が言うから\n　間違いないさ」",
+      "speaker": "ゲイン",
+      "anchor_id": "story/130/dialogue/01.74/0002",
+      "target_ids": [
+        "story/117/dialogue/01.90/0002",
+        "story/130/dialogue/01.74/0002"
+      ],
+      "chosen": "“那种程度还弄不死那家伙。\n　我和他搭档过，所以错不了。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 048; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "093e3006c0ba6843ef727e361378846ed6132db7d5b232a8a31ae3a3eb97b166",
+      "source_text": "「さあ、オーバーデビル！\n　私を取り込んでくれ！\n　私と一つになるのだあああっ！！」",
+      "speaker": "キッズ",
+      "anchor_id": "story/130/dialogue/01.76/0002",
+      "target_ids": [
+        "story/117/dialogue/01.92/0002",
+        "story/130/dialogue/01.76/0002"
+      ],
+      "chosen": "“来吧，超限恶魔！把我吞噬掉！\n　和我合为一体吧啊啊啊！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 049; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "a30c19503b1d737f7bd760ca0126cf20fcdcf355f98533e99f0b54889d6ee8c0",
+      "source_text": "「また会おう、$c。\n　お前達は楽しめる」",
+      "speaker": "シュラン",
+      "anchor_id": "story/126/dialogue/01.56/0006",
+      "target_ids": [
+        "story/117/dialogue/01.95/0006",
+        "story/126/dialogue/01.56/0006"
+      ],
+      "chosen": "“再会了，$c。你们很有趣。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 050; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "92f8225552948abdcc79326fc76751d1af69b82d0d8ee61649921fd766c6ca45",
+      "source_text": "「伝心のオーバースキル！？」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/130/dialogue/02.01/0052",
+      "target_ids": [
+        "story/117/dialogue/02.01/0052",
+        "story/130/dialogue/02.01/0052"
+      ],
+      "chosen": "“传心超限技！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 051; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "964c2a9bc8a46648238e33c2a963324c23fb83a71faa7af115d80791d76bdb29",
+      "source_text": "「サラ…顔真っ赤」",
+      "speaker": "エウレカ",
+      "anchor_id": "story/130/dialogue/02.01/0056",
+      "target_ids": [
+        "story/117/dialogue/02.01/0056",
+        "story/117/dialogue/02.01/0090",
+        "story/130/dialogue/02.01/0056",
+        "story/130/dialogue/02.01/0085"
+      ],
+      "chosen": "“莎拉……脸红了。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 052; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "2578df3d56257d7e0e08babccc7390d093430c5cb0bdb7509b969374977f55da",
+      "source_text": "「おーっ！」",
+      "speaker": "シンシア",
+      "anchor_id": "story/130/dialogue/02.01/0101",
+      "target_ids": [
+        "story/117/dialogue/02.01/0075",
+        "story/117/dialogue/02.01/0111",
+        "story/130/dialogue/02.01/0070",
+        "story/130/dialogue/02.01/0101"
+      ],
+      "chosen": "“噢——！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 053; A; original heuristic decided"
+    },
+    {
+      "source_text_sha256": "2578df3d56257d7e0e08babccc7390d093430c5cb0bdb7509b969374977f55da",
+      "source_text": "「おーっ！」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/130/dialogue/02.01/0102",
+      "target_ids": [
+        "story/117/dialogue/02.01/0076",
+        "story/117/dialogue/02.01/0112",
+        "story/130/dialogue/02.01/0071",
+        "story/130/dialogue/02.01/0102"
+      ],
+      "chosen": "“噢——！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 054; A; original heuristic decided"
+    },
+    {
+      "source_text_sha256": "92f8225552948abdcc79326fc76751d1af69b82d0d8ee61649921fd766c6ca45",
+      "source_text": "「伝心のオーバースキル！？」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/130/dialogue/02.01/0081",
+      "target_ids": [
+        "story/117/dialogue/02.01/0086",
+        "story/130/dialogue/02.01/0081"
+      ],
+      "chosen": "“传心超限技！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 055; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "0cb06c5dc1165fe93d5cc589a43e480b301a92e7460cff026bd37df6f4ce26fa",
+      "source_text": "「う…」",
+      "speaker": "カミーユ",
+      "anchor_id": "story/126/dialogue/01.16/0000",
+      "target_ids": [
+        "story/118/dialogue/01.07/0000",
+        "story/126/dialogue/01.16/0000"
+      ],
+      "chosen": "“唔……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 056; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "5fb244f1ed392d07894b1bf6d1007e0051687a1becd6af9a68148698a35f13da",
+      "source_text": "「それを止めるために\n　俺達はここにいる。\n　オーブで待つカガリの想いと共に」",
+      "speaker": "アスラン",
+      "anchor_id": "story/122/dialogue/01.14/0020",
+      "target_ids": [
+        "story/118/dialogue/01.11/0024",
+        "story/118/dialogue/01.12/0028",
+        "story/122/dialogue/01.14/0020",
+        "story/122/dialogue/01.15/0023"
+      ],
+      "chosen": "“我们在这里，就是为了阻止这一切。\n　带着在奥布等待的卡嘉莉的心意。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 057; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "e441600513d59e9537c7a2fa3c5865cb1805b8fc0ff8680afdfd956fc1f45690",
+      "source_text": "「お前らの手助けなんかいるかよ！\n　邪魔だから、とっとと帰れ！」",
+      "speaker": "エイジ",
+      "anchor_id": "story/122/dialogue/01.14/0011",
+      "target_ids": [
+        "story/118/dialogue/01.12/0012",
+        "story/122/dialogue/01.14/0011",
+        "story/122/dialogue/01.15/0011"
+      ],
+      "chosen": "“谁要你们的帮忙！别碍事，赶紧滚回去！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 058; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "ef08998e3ed2a7d4b2e09386bf2ba88bf5a012004918b07187866cb4c1a21c1f",
+      "source_text": "「久しぶりだな、$c。\n　先日はシュランが世話になった」",
+      "speaker": "レーベン",
+      "anchor_id": "story/127/dialogue/01.36/0001",
+      "target_ids": [
+        "story/118/dialogue/01.14/0001",
+        "story/127/dialogue/01.36/0001"
+      ],
+      "chosen": "“好久不见了，$c。\n　前几天承蒙你照顾休兰了。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 059; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "ef08998e3ed2a7d4b2e09386bf2ba88bf5a012004918b07187866cb4c1a21c1f",
+      "source_text": "「久しぶりだな、$c。\n　先日はシュランが世話になった」",
+      "speaker": "レーベン",
+      "anchor_id": "story/127/dialogue/01.37/0001",
+      "target_ids": [
+        "story/118/dialogue/01.15/0001",
+        "story/127/dialogue/01.37/0001"
+      ],
+      "chosen": "“好久不见了，$c。\n　前几天承蒙你照顾休兰了。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 060; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "ea607921cf50c70427261d65ffa1ea95264640b5198bafa5e4531a2559b73a03",
+      "source_text": "「ゼータが…カミーユの意思を\n　力にしている…！？」",
+      "speaker": "アムロ",
+      "anchor_id": "story/118/dialogue/01.36/0001",
+      "target_ids": [
+        "story/118/dialogue/01.36/0001",
+        "story/126/dialogue/01.43/0001",
+        "story/135/dialogue/01.40/0001",
+        "story/138/dialogue/01.44/0001"
+      ],
+      "chosen": "“Z高达……\n　把卡缪的意志变成了力量……！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 061; E; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "f23806d5d4dfa09f4571289cf491da055f39977196990e15d556224242537dcb",
+      "source_text": "「これがゼータの…\n　カミーユの意思の力か…」",
+      "speaker": "アムロ",
+      "anchor_id": "story/126/dialogue/01.46/0002",
+      "target_ids": [
+        "story/118/dialogue/01.39/0002",
+        "story/126/dialogue/01.46/0002"
+      ],
+      "chosen": "“这就是Z高达的……\n　卡缪的意志的力量吗……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 062; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "6fabd32f4374540741642ed446234b3357d188a0822fe8a2101731d7363bef2b",
+      "source_text": "「え…」",
+      "speaker": "カミーユ",
+      "anchor_id": "story/118/dialogue/02.02/0144",
+      "target_ids": [
+        "story/118/dialogue/02.02/0144",
+        "story/118/dialogue/02.02/0287",
+        "story/122/dialogue/02.02/0084"
+      ],
+      "chosen": "“诶……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 063; B; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "f63b56a1f3807e91275f5e0c6842d5173056ffe42648fc9abe0ef5173f604b00",
+      "source_text": "「俺やカミーユやみんなと同じように\n　傷つきながら戦っていたんですね」",
+      "speaker": "シン",
+      "anchor_id": "story/118/dialogue/02.02/0161",
+      "target_ids": [
+        "story/118/dialogue/02.02/0161",
+        "story/118/dialogue/02.02/0304",
+        "story/139/dialogue/02.01/0086"
+      ],
+      "chosen": "“您也和我、卡缪以及大家一样，\n　一边受伤一边战斗着啊。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 064; E; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "e430a645a376bf2d3de7b95d57a5111b2f4dcf8e6065da8352e57f8d4be98cfa",
+      "source_text": "「…だが、約束を破ったのは事実だ。\n　思い切りやってくれ、坊主」",
+      "speaker": "ネオ",
+      "anchor_id": "story/118/dialogue/02.02/0211",
+      "target_ids": [
+        "story/118/dialogue/02.02/0211",
+        "story/118/dialogue/02.02/0250",
+        "story/139/dialogue/02.01/0171"
+      ],
+      "chosen": "“……但是，违背约定是事实。\n　尽管动手吧，小子。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 065; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "c616bfec4b0118a049a2239ae5be18fe2c0326f3f8ef817e87b27619d55315d8",
+      "source_text": "「憎まれてるのは事実なわけね。\n　…当然の話だが、面と向かって言われるのは\n　やっぱりキツいな」",
+      "speaker": "ネオ",
+      "anchor_id": "story/118/dialogue/02.02/0213",
+      "target_ids": [
+        "story/118/dialogue/02.02/0213",
+        "story/118/dialogue/02.02/0252",
+        "story/139/dialogue/02.01/0173"
+      ],
+      "chosen": "“被憎恨是事实啊。……理所当然，\n　但当面说出来还是很难受。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 066; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "efee1b199eb23c0427c1b17be2edabd8726f7b906e41f43d5fdc5fe1c584eeea",
+      "source_text": "「くうっ！！」",
+      "speaker": "ロラン",
+      "anchor_id": "story/127/dialogue/01.25/0000",
+      "target_ids": [
+        "story/119/dialogue/01.22/0000",
+        "story/127/dialogue/01.25/0000"
+      ],
+      "chosen": "“呃啊！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 067; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "c1771d953e44a831078f8f8c4a0381b5b6da74f4b30ff5f42dd4d5e550f0eae7",
+      "source_text": "「これが僕らの求めた戦争だ」",
+      "speaker": "オルバ",
+      "anchor_id": "story/127/dialogue/01.33/0000",
+      "target_ids": [
+        "story/119/dialogue/01.25/0000",
+        "story/127/dialogue/01.33/0000"
+      ],
+      "chosen": "“这就是我们渴望的战争。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 068; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "c1771d953e44a831078f8f8c4a0381b5b6da74f4b30ff5f42dd4d5e550f0eae7",
+      "source_text": "「これが僕らの求めた戦争だ」",
+      "speaker": "オルバ",
+      "anchor_id": "story/127/dialogue/01.34/0001",
+      "target_ids": [
+        "story/119/dialogue/01.26/0001",
+        "story/127/dialogue/01.34/0001"
+      ],
+      "chosen": "“这就是我们渴望的战争。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 069; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "681bf5cc89e1a19b815f84fb6e324cce3820398e3f521a913d099070788fcc10",
+      "source_text": "「さあ行くぞ、オルバ！\n　最後に勝利するのは我々だ！」",
+      "speaker": "シャギア",
+      "anchor_id": "story/127/dialogue/01.34/0002",
+      "target_ids": [
+        "story/119/dialogue/01.26/0002",
+        "story/127/dialogue/01.34/0002"
+      ],
+      "chosen": "“上吧，奥尔巴！最后胜利的是我们！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 070; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "444a23a59d236236d2483571b2ccbac77ab5fe9c7fb506eba2a68d5a2bf98417",
+      "source_text": "「くうっ！」",
+      "speaker": "シャギア",
+      "anchor_id": "story/127/dialogue/01.45/0000",
+      "target_ids": [
+        "story/119/dialogue/01.27/0000",
+        "story/127/dialogue/01.45/0000"
+      ],
+      "chosen": "“呃啊！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 071; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "8e637a6eb73e9024d1140d247b22d87c27e35216c8aad466ae08ab8bc9cb1af6",
+      "source_text": "「黙れ、ガロード・ラン！\n　我ら兄弟こそが真の勝利者となる！\n　この世界の全てを滅ぼしてな！」",
+      "speaker": "シャギア",
+      "anchor_id": "story/119/dialogue/01.27/0003",
+      "target_ids": [
+        "story/119/dialogue/01.27/0003",
+        "story/119/dialogue/01.28/0003",
+        "story/127/dialogue/01.45/0003",
+        "story/127/dialogue/01.46/0003"
+      ],
+      "chosen": "“闭嘴，卡洛德·兰！我们兄弟才是真正\n　的胜利者！还要毁灭这个世界的一切！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 072; E; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "7213bf2002d4e1e53459b89e2aa00eb7fdad49c96c80d3b89d77421a95a05924",
+      "source_text": "「ああっ！」",
+      "speaker": "オルバ",
+      "anchor_id": "story/127/dialogue/01.46/0000",
+      "target_ids": [
+        "story/119/dialogue/01.28/0000",
+        "story/127/dialogue/01.46/0000"
+      ],
+      "chosen": "“啊！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 073; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "0927512208f09f13a0d67a35e0f30863d8842b52363bdda9cb3f1eae6efac709",
+      "source_text": "「…それは…」",
+      "speaker": "アグリッパ",
+      "anchor_id": "story/127/dialogue/02.01/0065",
+      "target_ids": [
+        "story/119/dialogue/02.01/0045",
+        "story/127/dialogue/02.01/0065"
+      ],
+      "chosen": "“……那是……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 074; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "9d2a62617b8e5869dd792fb6466cebae18e69e00bd2af3d1736c0bda0fb9eaef",
+      "source_text": "「…っ！」",
+      "speaker": "ブラッドマン",
+      "anchor_id": "story/127/dialogue/02.02/0080",
+      "target_ids": [
+        "story/119/dialogue/02.02/0079",
+        "story/127/dialogue/02.02/0080"
+      ],
+      "chosen": "“……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 075; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "358535af5641e7bd50fa40795f829303a79e83c7a21da2be6b20dd3afaf44eb6",
+      "source_text": "「はい…」",
+      "speaker": "ティファ",
+      "anchor_id": "story/127/dialogue/02.02/0105",
+      "target_ids": [
+        "story/119/dialogue/02.02/0104",
+        "story/127/dialogue/02.02/0105"
+      ],
+      "chosen": "“好的……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 076; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "369f7e0d439ee3012b202af0d4f5212b6881594b438ae3bb88a930ee40b1dd56",
+      "source_text": "「何だって！？」",
+      "speaker": "甲児",
+      "anchor_id": "story/127/dialogue/02.02/0162",
+      "target_ids": [
+        "story/119/dialogue/02.02/0162",
+        "story/127/dialogue/02.02/0162"
+      ],
+      "chosen": "“你说什么！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 077; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "f64aae37f09270ce6dd2da02a736d83a8fd01b675b2bb7ff2d78867cdb999943",
+      "source_text": "「ああ…！」",
+      "speaker": "ガロード",
+      "anchor_id": "story/127/dialogue/02.02/0260",
+      "target_ids": [
+        "story/119/dialogue/02.02/0302",
+        "story/127/dialogue/02.02/0260"
+      ],
+      "chosen": "“嗯……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 078; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "60067bee7299f4f81b3eb646a19b8911982a27d5fc4efb97175a69498c0270bf",
+      "source_text": "「君もニュータイプの呪縛を超えたんだね」",
+      "speaker": "Ｄ．Ｏ．Ｍ．Ｅ．",
+      "anchor_id": "story/127/dialogue/02.03/0086",
+      "target_ids": [
+        "story/119/dialogue/02.03/0036",
+        "story/127/dialogue/02.03/0086",
+        "story/127/dialogue/02.03/0124"
+      ],
+      "chosen": "“你也超越了新人类的咒缚呢。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 079; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "358535af5641e7bd50fa40795f829303a79e83c7a21da2be6b20dd3afaf44eb6",
+      "source_text": "「はい…」",
+      "speaker": "ティファ",
+      "anchor_id": "story/127/dialogue/02.03/0125",
+      "target_ids": [
+        "story/119/dialogue/02.03/0037",
+        "story/127/dialogue/02.03/0125"
+      ],
+      "chosen": "“好的……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 080; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "f7cea6b4824e563f362158c68baed4ac0b0dfb6d8eea77bf81a0b0ebdef7274f",
+      "source_text": "「ベガ大王…！\n　自ら前線に出てきたか！」",
+      "speaker": "デューク",
+      "anchor_id": "story/131/dialogue/01.05/0001",
+      "target_ids": [
+        "story/120/dialogue/01.04/0001",
+        "story/131/dialogue/01.05/0001"
+      ],
+      "chosen": "“贝加大王……！竟亲自上前线了！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 081; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "729704e961d3cc3b05cce1bf0fc13bb6e70a5f81a7b60441a5d579722d8c6f98",
+      "source_text": "「その通りだ」",
+      "speaker": "サンドマン",
+      "anchor_id": "story/131/dialogue/01.25/0003",
+      "target_ids": [
+        "story/120/dialogue/01.13/0003",
+        "story/131/dialogue/01.25/0003"
+      ],
+      "chosen": "“没错。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 082; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "f1216bd4e0514def5e876ff41721f1fe918a94162821921cad86a4c25f6c4c2b",
+      "source_text": "「ベガ大王、\n　この宇宙に必要なのは支配者ではない。\n　共に未来を迎える友人だ」",
+      "speaker": "デューク",
+      "anchor_id": "story/131/dialogue/01.47/0000",
+      "target_ids": [
+        "story/120/dialogue/01.26/0000",
+        "story/131/dialogue/01.47/0000"
+      ],
+      "chosen": "“贝加大王，这个宇宙需要的不是统治者。\n　而是一同迎接未来的朋友。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 083; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "d96de034dbceb8384368451611076f08ee57a5d534202cf9638f9ee4ab1136df",
+      "source_text": "「そうはさせない！」",
+      "speaker": "闘志也",
+      "anchor_id": "story/131/dialogue/02.03/0006",
+      "target_ids": [
+        "story/120/dialogue/02.04/0006",
+        "story/131/dialogue/02.03/0006"
+      ],
+      "chosen": "“我不会让你得逞！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 084; C; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "6f541c403ddb7ad1ba23949146b4fe32d0f8d33d7e41269fdb30e70566cdf210",
+      "source_text": "「くっ…！」",
+      "speaker": "ジュリィ",
+      "anchor_id": "story/131/dialogue/02.03/0023",
+      "target_ids": [
+        "story/120/dialogue/02.04/0023",
+        "story/131/dialogue/02.03/0023"
+      ],
+      "chosen": "“呃……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 085; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "729704e961d3cc3b05cce1bf0fc13bb6e70a5f81a7b60441a5d579722d8c6f98",
+      "source_text": "「その通りだ」",
+      "speaker": "不動",
+      "anchor_id": "story/131/dialogue/02.03/0148",
+      "target_ids": [
+        "story/120/dialogue/02.04/0150",
+        "story/131/dialogue/02.03/0148"
+      ],
+      "chosen": "“没错。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 086; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "2111541678522eae5706ce93525b6bcda94daa4467cb2e66586cf9329a1f8024",
+      "source_text": "「それは…」",
+      "speaker": "ＤＣ兵",
+      "anchor_id": "story/131/dialogue/02.03/0180",
+      "target_ids": [
+        "story/120/dialogue/02.04/0176",
+        "story/131/dialogue/02.03/0180"
+      ],
+      "chosen": "“这……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 087; B; original heuristic reviewed_route"
+    },
+    {
+      "source_text_sha256": "ea607921cf50c70427261d65ffa1ea95264640b5198bafa5e4531a2559b73a03",
+      "source_text": "「ゼータが…カミーユの意思を\n　力にしている…！？」",
+      "speaker": "アムロ",
+      "anchor_id": "story/138/dialogue/01.52/0001",
+      "target_ids": [
+        "story/135/dialogue/01.48/0001",
+        "story/138/dialogue/01.52/0001"
+      ],
+      "chosen": "“Z高达……\n　把卡缪的意志变成了力量……！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 088; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "c2841ff48ce055e7b2bef74d76abf755872c3978cfe1e540108c4d1969dddc9b",
+      "source_text": "「シロッコを倒すために\n　無数の魂が力を貸してくれたような\n　気がした…」",
+      "speaker": "カミーユ",
+      "anchor_id": "story/135/dialogue/01.56/0006",
+      "target_ids": [
+        "story/135/dialogue/01.56/0006",
+        "story/138/dialogue/01.60/0006"
+      ],
+      "chosen": "“感觉为了打倒西罗克，\n　无数的灵魂借给了我力量……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 089; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "d7dbb269bb480142264b6c58ffe013b046b1c72206e3708600437e2ead24d454",
+      "source_text": "「そして、シロッコは…\n　自分の肉体が崩壊する時に\n　俺もそこへ連れて行こうとした…」",
+      "speaker": "カミーユ",
+      "anchor_id": "story/135/dialogue/01.56/0007",
+      "target_ids": [
+        "story/135/dialogue/01.56/0007",
+        "story/138/dialogue/01.60/0007"
+      ],
+      "chosen": "“然后，西罗克……在肉体崩溃时，\n　也想把我一起带走……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 090; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "4a53661ea57fd66f3742590bf9b811260ea86c735b7870c732daf2903cb00d8e",
+      "source_text": "「くっ！」",
+      "speaker": "タリア",
+      "anchor_id": "story/135/dialogue/01.61/0001",
+      "target_ids": [
+        "story/135/dialogue/01.61/0001",
+        "story/138/dialogue/01.65/0001"
+      ],
+      "chosen": "“呃！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 091; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "6add9f8efa58f78aafdfd2d2bb8b79ab8fbdbc25b95cad9a4df8895f39348a53",
+      "source_text": "「…すまない」",
+      "speaker": "アスラン",
+      "anchor_id": "story/135/dialogue/01.76/0006",
+      "target_ids": [
+        "story/135/dialogue/01.76/0006",
+        "story/138/dialogue/01.101/0006"
+      ],
+      "chosen": "“……抱歉。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 092; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "358535af5641e7bd50fa40795f829303a79e83c7a21da2be6b20dd3afaf44eb6",
+      "source_text": "「はい…」",
+      "speaker": "ラクス",
+      "anchor_id": "story/135/dialogue/02.01/0004",
+      "target_ids": [
+        "story/135/dialogue/02.01/0004",
+        "story/138/dialogue/02.01/0004"
+      ],
+      "chosen": "“是的……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 093; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "0f40efb9e6040f6ad4511635231300b7b2ed2b9bc3ecbf8f5930fc4b242d23a2",
+      "source_text": "「ああ…」",
+      "speaker": "アスラン",
+      "anchor_id": "story/135/dialogue/02.01/0011",
+      "target_ids": [
+        "story/135/dialogue/02.01/0011",
+        "story/138/dialogue/02.01/0011"
+      ],
+      "chosen": "“嗯……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 094; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "c636c141b5b4ded3b266d9b8b7c6ca016c1a6f557a241679e0c2f5b70f284089",
+      "source_text": "「でも…！」",
+      "speaker": "ソシエ",
+      "anchor_id": "story/135/dialogue/02.01/0031",
+      "target_ids": [
+        "story/135/dialogue/02.01/0031",
+        "story/138/dialogue/02.01/0031"
+      ],
+      "chosen": "“但是……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 095; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "aab99809a2c40f432ec2833bb6390b838664815944bb97b600d704d26ead3461",
+      "source_text": "「どういう事だ？」",
+      "speaker": "マリン",
+      "anchor_id": "story/135/dialogue/02.01/0093",
+      "target_ids": [
+        "story/135/dialogue/02.01/0093",
+        "story/138/dialogue/02.01/0088"
+      ],
+      "chosen": "“什么意思？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 096; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "358535af5641e7bd50fa40795f829303a79e83c7a21da2be6b20dd3afaf44eb6",
+      "source_text": "「はい…」",
+      "speaker": "ディアナ",
+      "anchor_id": "story/135/dialogue/02.01/0279",
+      "target_ids": [
+        "story/135/dialogue/02.01/0279",
+        "story/138/dialogue/02.01/0284"
+      ],
+      "chosen": "“是的……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 097; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "dd407964883ce077e7528dfc857ed8cfabd0b67460e0ff9cd87738b6f78a1805",
+      "source_text": "「うう…」",
+      "speaker": "レイ",
+      "anchor_id": "story/135/dialogue/02.02/0178",
+      "target_ids": [
+        "story/135/dialogue/02.02/0178",
+        "story/138/dialogue/02.02/0074"
+      ],
+      "chosen": "“呜呜……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 098; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "5cea26b3b8c98a5dc5a676f1b0e92da0433f65479ffab625de2535633bdc0490",
+      "source_text": "「未来のために僕達は戦います！\n　誰が相手でも！」",
+      "speaker": "ロラン",
+      "anchor_id": "story/136/dialogue/01.10/0001",
+      "target_ids": [
+        "story/136/dialogue/01.10/0001",
+        "story/136/dialogue/01.11/0003",
+        "story/139/dialogue/01.09/0001",
+        "story/139/dialogue/01.10/0003"
+      ],
+      "chosen": "“我们为了未来而战！不管对手是谁！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 099; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "e3660bfca89a4e368c0a8b0133181bb02da41d193f43592ee32e2fa62e4098a9",
+      "source_text": "「まさか…！\n　そのためにデューイ・ノヴァクに\n　力を貸している！」",
+      "speaker": "ツィーネ",
+      "anchor_id": "story/139/dialogue/01.135/0003",
+      "target_ids": [
+        "story/136/dialogue/01.118/0003",
+        "story/139/dialogue/01.135/0003"
+      ],
+      "chosen": "“怎么可能……！\n　我们正是为了阻止世界毁灭，\n　才帮杜威·诺瓦克的！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 100; A; original heuristic decided"
+    },
+    {
+      "source_text_sha256": "9ab248930bcd7e584f7ac6077918eacf300b4c7705be3db4526246d57b370fd8",
+      "source_text": "「だけど、お前だけは別だよ！\n　あの人のためにも、お前だけは\n　この手で倒す！！」",
+      "speaker": "ツィーネ",
+      "anchor_id": "story/136/dialogue/01.118/0007",
+      "target_ids": [
+        "story/136/dialogue/01.118/0007",
+        "story/139/dialogue/01.135/0007"
+      ],
+      "chosen": "“但只有你例外！\n　为了那个人，我要亲手打倒你！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 101; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "e2514d6020ac8a4a771dd0386e3a14d029adbfbb452609090aba1ed48c1d771e",
+      "source_text": "「援護するぜ、リーダー！」",
+      "speaker": "ゲイン",
+      "anchor_id": "story/136/dialogue/01.21/0000",
+      "target_ids": [
+        "story/136/dialogue/01.21/0000",
+        "story/139/dialogue/01.22/0000"
+      ],
+      "chosen": "“我来掩护你，老大！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 102; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "e2514d6020ac8a4a771dd0386e3a14d029adbfbb452609090aba1ed48c1d771e",
+      "source_text": "「援護するぜ、リーダー！」",
+      "speaker": "ゲイン",
+      "anchor_id": "story/136/dialogue/01.22/0000",
+      "target_ids": [
+        "story/136/dialogue/01.22/0000",
+        "story/139/dialogue/01.23/0000"
+      ],
+      "chosen": "“我来掩护你，老大！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 103; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "e622c44719e508384992dd7c85e9281e42a7f85754291f7c0fe92f6351f304bb",
+      "source_text": "「未来のために\n　過去に決着をつけてこい！」",
+      "speaker": "ジャミル",
+      "anchor_id": "story/136/dialogue/01.22/0001",
+      "target_ids": [
+        "story/136/dialogue/01.22/0001",
+        "story/139/dialogue/01.23/0001"
+      ],
+      "chosen": "“为了未来，去给过去做个了断吧！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 104; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "aa9712f94dbeccec4385041c73d94d379d6dca4c06440cfe5323a002c4ffcf0f",
+      "source_text": "「過ちは繰り返させない！\n　俺は…俺達は！！」",
+      "speaker": "ガロード",
+      "anchor_id": "story/136/dialogue/01.30/0012",
+      "target_ids": [
+        "story/136/dialogue/01.30/0012",
+        "story/136/dialogue/01.37/0012",
+        "story/136/dialogue/01.42/0012",
+        "story/139/dialogue/01.62/0011",
+        "story/139/dialogue/01.64/0013"
+      ],
+      "chosen": "“我不会让错误重演！我……我们！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 105; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "6a92b51478e20854dc9f185f1191c090cc9c22c478132356979ad38f7b711034",
+      "source_text": "（シャギア、オルバ…。\n　みんな、未来を信じて戦ってるんだ）",
+      "speaker": "ガロード",
+      "anchor_id": "story/136/dialogue/01.32/0004",
+      "target_ids": [
+        "story/136/dialogue/01.32/0004",
+        "story/136/dialogue/01.33/0003",
+        "story/136/dialogue/01.39/0004",
+        "story/136/dialogue/01.40/0003",
+        "story/136/dialogue/01.44/0004",
+        "story/136/dialogue/01.45/0003",
+        "story/139/dialogue/01.65/0000"
+      ],
+      "chosen": "（夏基亚、奥尔巴……\n　大家都在相信着未来而战。）",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 106; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "5d4e0d243044b399504199b9e04cc10b31e786c74bbc4457efb88c7db0f88d6a",
+      "source_text": "「そんなああっ！！」",
+      "speaker": "メリーベル",
+      "anchor_id": "story/136/dialogue/01.46/0001",
+      "target_ids": [
+        "story/136/dialogue/01.46/0001",
+        "story/139/dialogue/01.66/0001"
+      ],
+      "chosen": "“怎么会这样！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 107; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "e53130ff791d5023e42e9c56cdeebc3af0b451f68df36551d55cdaac959c04c9",
+      "source_text": "「お兄様！」",
+      "speaker": "シルヴィア",
+      "anchor_id": "story/139/dialogue/01.73/0002",
+      "target_ids": [
+        "story/136/dialogue/01.53/0002",
+        "story/139/dialogue/01.73/0002"
+      ],
+      "chosen": "“哥哥！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 108; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "93657208016d2ab922880397b3672b99cff5660043ef9421ce38dab7b9c7356c",
+      "source_text": "「お兄様！！」",
+      "speaker": "シルヴィア",
+      "anchor_id": "story/139/dialogue/01.76/0001",
+      "target_ids": [
+        "story/136/dialogue/01.56/0001",
+        "story/139/dialogue/01.76/0001"
+      ],
+      "chosen": "“哥哥！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 109; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "6945c6f7e740ea594247ef46b26558ecbed0d8d02234c450ffb5277cc8ac3509",
+      "source_text": "「うおおおおおおおっ！！」",
+      "speaker": "アポロ",
+      "anchor_id": "story/136/dialogue/01.58/0000",
+      "target_ids": [
+        "story/136/dialogue/01.58/0000",
+        "story/139/dialogue/01.78/0000"
+      ],
+      "chosen": "“呜哦哦哦哦哦哦！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 110; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "8c45edf4242c6b5e6959fd040085053fdd035c925869f46acdcf342410e9146d",
+      "source_text": "「アポロ！\n　堕天翅との戦いも大事だけど、\n　私達の地球を守らないと！」",
+      "speaker": "シルヴィア",
+      "anchor_id": "story/136/dialogue/01.68/0002",
+      "target_ids": [
+        "story/136/dialogue/01.68/0002",
+        "story/136/dialogue/01.72/0002",
+        "story/139/dialogue/01.88/0002",
+        "story/139/dialogue/01.92/0002"
+      ],
+      "chosen": "“阿波罗！和堕天翅的战斗固然重要，\n　但我们得先保护我们的地球！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 111; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "090dfa878a19d417bb187b9b76d6437e21adf75cc557a07608e11516b605a32f",
+      "source_text": "「わかっている！\n　とっととこいつらを倒して、\n　頭翅の野郎を追うぞ！」",
+      "speaker": "アポロ",
+      "anchor_id": "story/136/dialogue/01.68/0003",
+      "target_ids": [
+        "story/136/dialogue/01.68/0003",
+        "story/136/dialogue/01.72/0003",
+        "story/139/dialogue/01.88/0003",
+        "story/139/dialogue/01.92/0003"
+      ],
+      "chosen": "“我知道！赶紧干掉这些家伙，\n　去追头翅那混蛋！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 112; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "b8d95e980f1de329a851c00cf8eb5801c037450eac44cbff0356536771228a21",
+      "source_text": "「生命の樹の受胎は\n　新たな天翅…新たな世界を生み出す」",
+      "speaker": "音翅",
+      "anchor_id": "story/136/dialogue/01.70/0006",
+      "target_ids": [
+        "story/136/dialogue/01.70/0006",
+        "story/139/dialogue/01.90/0002"
+      ],
+      "chosen": "“生命之树的受胎，\n　将孕育出新的天翅……新的世界。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 113; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "d1f9db13a3254926789d450e207e95b4a7c16078ea73f4319f4bf57b113794ad",
+      "source_text": "「スフィアがお前に教えてくれるだろ？\n　時空の崩壊が近い事を」",
+      "speaker": "ツィーネ",
+      "anchor_id": "story/139/dialogue/01.93/0002",
+      "target_ids": [
+        "story/136/dialogue/01.73/0002",
+        "story/139/dialogue/01.93/0002"
+      ],
+      "chosen": "“珠玉会告诉你的吧？时空的崩溃即将来临。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 114; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "e18fa2105b7e695887d2df4b5db37118207158a7a1158275f67f1c511aef66dd",
+      "source_text": "「え…その…それは…」",
+      "speaker": "メール",
+      "anchor_id": "story/136/dialogue/01.75/0002",
+      "target_ids": [
+        "story/136/dialogue/01.75/0002",
+        "story/139/dialogue/01.95/0002"
+      ],
+      "chosen": "“呃……那个……那是……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 115; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "d1f9db13a3254926789d450e207e95b4a7c16078ea73f4319f4bf57b113794ad",
+      "source_text": "「スフィアがお前に教えてくれるだろ？\n　時空の崩壊が近い事を」",
+      "speaker": "ツィーネ",
+      "anchor_id": "story/139/dialogue/01.95/0005",
+      "target_ids": [
+        "story/136/dialogue/01.75/0005",
+        "story/139/dialogue/01.95/0005"
+      ],
+      "chosen": "“珠玉会告诉你的吧？时空的崩溃即将来临。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 116; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "8e23b5ed6dfd7edf0e7cd4b3acf8a703d12ed25d68e8378ed1886b62736b3ac4",
+      "source_text": "「う、うん…」",
+      "speaker": "エウレカ",
+      "anchor_id": "story/136/dialogue/02.01/0090",
+      "target_ids": [
+        "story/136/dialogue/02.01/0090",
+        "story/139/dialogue/02.01/0262"
+      ],
+      "chosen": "“呃、嗯……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 117; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "a4f0994412f34d36c3aab7e0e2618dd85d11f0d0d306d48672c0b5f3436a0162",
+      "source_text": "「しかし…！」",
+      "speaker": "アゲハ隊",
+      "anchor_id": "story/136/dialogue/02.02/0007",
+      "target_ids": [
+        "story/136/dialogue/02.02/0007",
+        "story/139/dialogue/02.02/0007"
+      ],
+      "chosen": "“可是……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 118; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "86906f07a28e6811549c67c867ea44123c98fc5daa6bf0d07b0cf46f50449f63",
+      "source_text": "「うわっ！」",
+      "speaker": "ドミニク",
+      "anchor_id": "story/137/dialogue/01.07/0000",
+      "target_ids": [
+        "story/137/dialogue/01.07/0000",
+        "story/139/dialogue/01.32/0000"
+      ],
+      "chosen": "“哇啊！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 119; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "75533eebb211a98756e2f92178b9a152fa9c50cbc12175883f97d61eee296437",
+      "source_text": "「う…うう…！」",
+      "speaker": "エウレカ",
+      "anchor_id": "story/137/dialogue/01.26/0003",
+      "target_ids": [
+        "story/137/dialogue/01.26/0003",
+        "story/139/dialogue/01.49/0003"
+      ],
+      "chosen": "“呜……呜呜……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 120; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "0f40efb9e6040f6ad4511635231300b7b2ed2b9bc3ecbf8f5930fc4b242d23a2",
+      "source_text": "「ああ…」",
+      "speaker": "クワトロ",
+      "anchor_id": "story/142/dialogue/01.08/0006",
+      "target_ids": [
+        "story/142/dialogue/01.08/0006",
+        "story/142/dialogue/01.09/0006",
+        "story/147/dialogue/01.08/0006",
+        "story/147/dialogue/01.09/0006"
+      ],
+      "chosen": "“嗯……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 121; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "fdf56e72059f8c1adac7f15ecaad7212f2dfd0a8d4171f9327e54a909fa1e890",
+      "source_text": "「ドクターベアの考案した方法が\n　上手くいけばの話だけどね」",
+      "speaker": "ヒルダ",
+      "anchor_id": "story/142/dialogue/01.10/0002",
+      "target_ids": [
+        "story/142/dialogue/01.10/0002",
+        "story/142/dialogue/01.13/0002",
+        "story/142/dialogue/01.14/0002",
+        "story/147/dialogue/01.10/0002",
+        "story/147/dialogue/01.13/0002",
+        "story/147/dialogue/01.14/0002"
+      ],
+      "chosen": "“前提是熊博士设计的方法能顺利实施。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 122; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "57f94e20a70fcc677ecbc5609eb53ca9ffc9ec8899e79db5aa643d49f23d8003",
+      "source_text": "「いい加減にしやがれ！！\n　人の自由を奪うような世界を作って\n　何が楽しい！？」",
+      "speaker": "ガロード",
+      "anchor_id": "story/142/dialogue/01.17/0002",
+      "target_ids": [
+        "story/142/dialogue/01.17/0002",
+        "story/142/dialogue/01.28/0002",
+        "story/142/dialogue/01.37/0002",
+        "story/147/dialogue/01.17/0002",
+        "story/147/dialogue/01.28/0002",
+        "story/147/dialogue/01.37/0002"
+      ],
+      "chosen": "“适可而止吧！！创造一个剥夺\n　他人自由的世界，有什么乐趣！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 123; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "8b4346da643175e3345f738e8f974b087a9d577ee9c39add96343702877eb70e",
+      "source_text": "「俺のエーデル准将への愛が、\n　お前達を叩き潰す！！」",
+      "speaker": "レーベン",
+      "anchor_id": "story/142/dialogue/01.17/0013",
+      "target_ids": [
+        "story/142/dialogue/01.17/0013",
+        "story/142/dialogue/01.28/0013",
+        "story/147/dialogue/01.17/0014",
+        "story/147/dialogue/01.37/0014"
+      ],
+      "chosen": "“我对艾岱尔准将的爱，\n　会把你们统统粉碎！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 124; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "8482c04766ad88c6650df6fc04f91636354ac8eb44dcf79f0f6f90c77be7a12d",
+      "source_text": "「いきなり愛の告白かよ！\n　お呼びじゃねえんだよ！」",
+      "speaker": "エイジ",
+      "anchor_id": "story/142/dialogue/01.21/0005",
+      "target_ids": [
+        "story/142/dialogue/01.21/0005",
+        "story/142/dialogue/01.25/0017",
+        "story/142/dialogue/01.34/0006",
+        "story/147/dialogue/01.21/0005",
+        "story/147/dialogue/01.25/0017",
+        "story/147/dialogue/01.34/0006"
+      ],
+      "chosen": "“突然告白啊！谁要听这个！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 125; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "7c94008186d830b1a2eb20cda0b25954b42abcc25e1a096f67d7b6cc9f1a7fcb",
+      "source_text": "「愛…？\n　この感情がそんなありふれた言葉で\n　表せるものか…」",
+      "speaker": "シュラン",
+      "anchor_id": "story/142/dialogue/01.21/0006",
+      "target_ids": [
+        "story/142/dialogue/01.21/0006",
+        "story/142/dialogue/01.25/0018",
+        "story/142/dialogue/01.34/0007",
+        "story/147/dialogue/01.21/0006",
+        "story/147/dialogue/01.25/0018",
+        "story/147/dialogue/01.34/0007"
+      ],
+      "chosen": "“爱……？\n　这种感情能用那么俗气的词语来表达吗……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 126; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "444a23a59d236236d2483571b2ccbac77ab5fe9c7fb506eba2a68d5a2bf98417",
+      "source_text": "「くうっ！」",
+      "speaker": "シュラン",
+      "anchor_id": "story/147/dialogue/01.25/0000",
+      "target_ids": [
+        "story/142/dialogue/01.25/0000",
+        "story/142/dialogue/01.33/0000",
+        "story/147/dialogue/01.25/0000",
+        "story/147/dialogue/01.33/0000"
+      ],
+      "chosen": "“呃！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 127; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "9e395ff4bed38a9a0edc1fc700b0030ad047d37842419d2f78afe7ffe5dfeadf",
+      "source_text": "「フフフ…アハハハハハハハ！\n　レーベン！　僕は…僕はね！\n　君になりたかったんだよっ！！」",
+      "speaker": "シュラン",
+      "anchor_id": "story/142/dialogue/01.26/0003",
+      "target_ids": [
+        "story/142/dialogue/01.26/0003",
+        "story/142/dialogue/01.35/0003",
+        "story/147/dialogue/01.26/0003",
+        "story/147/dialogue/01.35/0003"
+      ],
+      "chosen": "“呼呼呼……啊哈哈哈哈哈哈！\n　雷本！我……我啊！想成为你啊！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 128; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "c6212cb3b0b8bb95afe2ed378cf4af524716e76f047d8d6367092b00ebb0eab6",
+      "source_text": "「奴の凶行は弱さの裏返しだ。\n　そんなものは覚悟でも信念でも\n　無い…」",
+      "speaker": "アムロ",
+      "anchor_id": "story/147/dialogue/01.40/0004",
+      "target_ids": [
+        "story/142/dialogue/01.32/0005",
+        "story/142/dialogue/01.40/0005",
+        "story/147/dialogue/01.32/0004",
+        "story/147/dialogue/01.40/0004"
+      ],
+      "chosen": "“他的暴行是软弱的表现。\n　那不是觉悟也不是信念……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 129; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "8c9d44e4d67f91eb9112e18be39e260bf2d5e8c9263c9003bcb0d47350b6a81d",
+      "source_text": "「ゴングを鳴らせ！\n　決戦の幕開けじゃあっ！！」",
+      "speaker": "ジエー",
+      "anchor_id": "story/143/dialogue/01.02/0001",
+      "target_ids": [
+        "story/143/dialogue/01.02/0001",
+        "story/148/dialogue/01.02/0001",
+        "story/151/dialogue/01.01/0016"
+      ],
+      "chosen": "“敲响铜锣！决战开幕了！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 130; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "aad5b061ec934135dbb951dcf84cb53b24f600f76f8210a560351c4d69509bc4",
+      "source_text": "「お前達ごときに出来るものか！\n　この私はエーデル・ベルナルだ！」",
+      "speaker": "エーデル",
+      "anchor_id": "story/143/dialogue/01.05/0018",
+      "target_ids": [
+        "story/143/dialogue/01.05/0018",
+        "story/148/dialogue/01.05/0018"
+      ],
+      "chosen": "“就凭你们这些家伙能做到吗！\n　我可是艾岱尔·贝尔纳尔！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 131; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "c3d2a7a69c37a95e65cd9f07431d53510378323a39b83eedb00272bc2370d6ce",
+      "source_text": "「うっ…」",
+      "speaker": "ミムジィ",
+      "anchor_id": "story/143/dialogue/01.12/0000",
+      "target_ids": [
+        "story/143/dialogue/01.12/0000",
+        "story/148/dialogue/01.12/0000"
+      ],
+      "chosen": "“呃……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 132; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "b5ec974fe15c8e89abcb27ba24028c16649bd75fa1d38650051740a222dc2af8",
+      "source_text": "「ああ！」",
+      "speaker": "レントン",
+      "anchor_id": "story/148/dialogue/01.29/0009",
+      "target_ids": [
+        "story/143/dialogue/01.27/0005",
+        "story/148/dialogue/01.29/0009",
+        "story/148/dialogue/01.30/0005"
+      ],
+      "chosen": "“嗯！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 133; B; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "a86f1f045067eb4cf90fa70d516eb5dd91ff9b9de1c515a4dfa9f21985479415",
+      "source_text": "「アーイ・キャーン・\n　フラァァァァァイ！！」",
+      "speaker": "レントン",
+      "anchor_id": "story/148/dialogue/01.29/0024",
+      "target_ids": [
+        "story/143/dialogue/01.27/0019",
+        "story/148/dialogue/01.29/0024",
+        "story/148/dialogue/01.30/0020"
+      ],
+      "chosen": "“I·CAN·FLYYYYYYYY！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 134; E; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "0aa65485b636c2594399ce3896b377229708f8fc066155bceba76c18ef7b8bd4",
+      "source_text": "「$c、各員は帰還せよ！\n　フリーデン、アイアン・ギアーの\n　乗員は各艦へ搭乗！」",
+      "speaker": "兵左衛門",
+      "anchor_id": "story/143/dialogue/01.34/0013",
+      "target_ids": [
+        "story/143/dialogue/01.34/0013",
+        "story/148/dialogue/01.39/0001"
+      ],
+      "chosen": "“$c，各员归舰！\n　和平号、钢铁齿轮的乘员搭乘各舰！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 135; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "ee445a90a39d7db797ead50e7a8ac22b81e88afddb8a4aa0a341e9fea6e7be46",
+      "source_text": "「何だと！？」",
+      "speaker": "エーデル",
+      "anchor_id": "story/143/dialogue/01.47/0003",
+      "target_ids": [
+        "story/143/dialogue/01.47/0003",
+        "story/148/dialogue/01.52/0003"
+      ],
+      "chosen": "“你说什么！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 136; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "62b8c6ab2b776257c55918c163a0f073900686a18b92e896442026bc013009e7",
+      "source_text": "「で、でも…」",
+      "speaker": "市民",
+      "anchor_id": "story/143/dialogue/02.01/0021",
+      "target_ids": [
+        "story/143/dialogue/02.01/0021",
+        "story/148/dialogue/02.01/0021"
+      ],
+      "chosen": "“可、可是……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 137; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "5a2e1dfa0830c078b16c64fc3af724223e72fdeac8a28cd0e7a1bf476a2e6a15",
+      "source_text": "「ニホホホホホホ！\n　協力するって約束した以上、\n　ワシだって頑張っちゃうもんね！」",
+      "speaker": "ジエー",
+      "anchor_id": "story/148/dialogue/02.01/0082",
+      "target_ids": [
+        "story/143/dialogue/02.01/0082",
+        "story/148/dialogue/02.01/0082",
+        "story/148/dialogue/02.01/0174"
+      ],
+      "chosen": "“尼嚯嚯嚯嚯嚯嚯！\n　既然约定了要协助，老夫也会努力的！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 138; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "00bb7244347ee9c272736c85669a8fb880eef5ba6daf51573062757070e08b65",
+      "source_text": "「感謝してるよ、カイ。\n　君達ジャーナリストグループの提供してくれた\n　情報が、俺達の発表を後押ししてくれる」",
+      "speaker": "アムロ",
+      "anchor_id": "story/143/dialogue/02.01/0084",
+      "target_ids": [
+        "story/143/dialogue/02.01/0084",
+        "story/148/dialogue/02.01/0084",
+        "story/148/dialogue/02.01/0176"
+      ],
+      "chosen": "“我很感谢，凯。你们记者团提供的信息，\n　为我们的声明提供了支持。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 139; E; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "47fbc655c1b2f00742643c223f1d69cd97b45e41ef97dbaa506635e47b3c701c",
+      "source_text": "「ちょいと納得出来ない所もあるがな」",
+      "speaker": "ホランド",
+      "anchor_id": "story/143/dialogue/02.01/0088",
+      "target_ids": [
+        "story/143/dialogue/02.01/0088",
+        "story/148/dialogue/02.01/0088",
+        "story/148/dialogue/02.01/0180"
+      ],
+      "chosen": "“不过，我也有点不能接受的地方。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 140; E; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "3d9f5cfd5184ead1518d39441721504752b98dc10d24031c482eec3f42367dab",
+      "source_text": "「どうだろうな…。\n　だが、俺達はやるべき事はやった」",
+      "speaker": "カミーユ",
+      "anchor_id": "story/143/dialogue/02.01/0544",
+      "target_ids": [
+        "story/143/dialogue/02.01/0544",
+        "story/143/dialogue/02.01/0564",
+        "story/148/dialogue/02.01/0546",
+        "story/148/dialogue/02.01/0568"
+      ],
+      "chosen": "“谁知道呢……不过，我们该做的都做了。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 141; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "955f4082864ccbf6a9817a8a41ea0facd69e101222c40daceb53b9dd0a68eb89",
+      "source_text": "「最後の戦いの前なのに、\n　エレメントのみんなに緊張はないみたいね」",
+      "speaker": "ミチル",
+      "anchor_id": "story/143/dialogue/02.01/0675",
+      "target_ids": [
+        "story/143/dialogue/02.01/0675",
+        "story/148/dialogue/02.01/0683"
+      ],
+      "chosen": "“明明决战在即，\n　元素小队的大家好像一点都不紧张呢。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 142; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "ee1c34b84233d1e364968c53644eca376b8a05334df10095b58d5e6b3ceab035",
+      "source_text": "「でも…」",
+      "speaker": "キラ",
+      "anchor_id": "story/143/dialogue/02.01/0768",
+      "target_ids": [
+        "story/143/dialogue/02.01/0768",
+        "story/148/dialogue/02.01/0775"
+      ],
+      "chosen": "“可是……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 143; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "b5ec974fe15c8e89abcb27ba24028c16649bd75fa1d38650051740a222dc2af8",
+      "source_text": "「ああ！」",
+      "speaker": "レントン",
+      "anchor_id": "story/148/dialogue/02.02/0015",
+      "target_ids": [
+        "story/143/dialogue/02.02/0014",
+        "story/148/dialogue/02.02/0015",
+        "story/148/dialogue/02.02/0031"
+      ],
+      "chosen": "“嗯！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 144; B; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "8187641ada4107f6f10304744e230c2d15a1e0483318f83d9420150a54c33b6a",
+      "source_text": "「あ、ああ…」",
+      "speaker": "桂",
+      "anchor_id": "story/143/dialogue/02.03/0038",
+      "target_ids": [
+        "story/143/dialogue/02.03/0038",
+        "story/148/dialogue/02.03/0038"
+      ],
+      "chosen": "“啊，嗯……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 145; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "0f40efb9e6040f6ad4511635231300b7b2ed2b9bc3ecbf8f5930fc4b242d23a2",
+      "source_text": "「ああ…」",
+      "speaker": "ホランド",
+      "anchor_id": "story/149/dialogue/01.21/0002",
+      "target_ids": [
+        "story/144/dialogue/01.07/0002",
+        "story/149/dialogue/01.21/0002",
+        "story/149/dialogue/01.24/0002"
+      ],
+      "chosen": "“啊……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 146; B; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "7236b2f1db4f6ff187fd365e5fcef22bede29ee4f9bc1a2d65fd9a48eb030d92",
+      "source_text": "「いかにも。\n　パラダイムシティ以来ですね」",
+      "speaker": "黒のカリスマ",
+      "anchor_id": "story/144/dialogue/01.12/0001",
+      "target_ids": [
+        "story/144/dialogue/01.12/0001",
+        "story/149/dialogue/01.09/0001"
+      ],
+      "chosen": "“正是。自帕拉迪姆城以来就没见过了呢。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 147; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "7deb662a7e25351bb1a0ab056e0ba35bb16974853dbc091cd69472caf9182e99",
+      "source_text": "「誤解するのも無理はありません。\n　そう思わせるように仕向けてきたの\n　ですから」",
+      "speaker": "黒のカリスマ",
+      "anchor_id": "story/144/dialogue/01.12/0003",
+      "target_ids": [
+        "story/144/dialogue/01.12/0003",
+        "story/149/dialogue/01.09/0003"
+      ],
+      "chosen": "“会误解也难怪。\n　因为是我故意让你们那么以为的。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 148; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "cbb79bd0a893ad67789bbe2228c76ea453ec1438724283827ab6771115fc50e1",
+      "source_text": "「な、何だ…！？」",
+      "speaker": "エーデル",
+      "anchor_id": "story/144/dialogue/01.16/0009",
+      "target_ids": [
+        "story/144/dialogue/01.16/0009",
+        "story/149/dialogue/01.13/0009"
+      ],
+      "chosen": "“什、什么……！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 149; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "34c8fcf6342b1923340929b6873781847601b416bbb63e885c299590beb5e3ae",
+      "source_text": "「その通りだ！」",
+      "speaker": "頭翅",
+      "anchor_id": "story/144/dialogue/01.38/0007",
+      "target_ids": [
+        "story/144/dialogue/01.38/0007",
+        "story/149/dialogue/01.49/0007"
+      ],
+      "chosen": "“说得没错！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 150; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "9267a7e725ac7eb94fd646670201847080b56ecdeb88a8db573539cd1ac48726",
+      "source_text": "「うおおおおおおっ！！」",
+      "speaker": "アポロ",
+      "anchor_id": "story/144/dialogue/01.42/0000",
+      "target_ids": [
+        "story/144/dialogue/01.42/0000",
+        "story/149/dialogue/01.53/0000"
+      ],
+      "chosen": "“呜噢噢噢噢噢！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 151; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "b5ec974fe15c8e89abcb27ba24028c16649bd75fa1d38650051740a222dc2af8",
+      "source_text": "「ああ！」",
+      "speaker": "レントン",
+      "anchor_id": "story/144/dialogue/01.43/0007",
+      "target_ids": [
+        "story/144/dialogue/01.43/0007",
+        "story/149/dialogue/01.54/0007"
+      ],
+      "chosen": "“嗯！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 152; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "6481544aa88a0beef072cdc0714d173c14b73c520aa8d0d04f50f94502ad9472",
+      "source_text": "「お前はっ！\n　誰もが必死になって生きているのに、\n　そうやって遊び半分で！！」",
+      "speaker": "カミーユ",
+      "anchor_id": "story/144/dialogue/01.59/0000",
+      "target_ids": [
+        "story/144/dialogue/01.59/0000",
+        "story/149/dialogue/01.117/0000",
+        "story/149/dialogue/01.154/0000",
+        "story/149/dialogue/01.80/0000"
+      ],
+      "chosen": "“你这家伙！明明大家都在拼命活着，\n　你却这样半开玩笑！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 153; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "ad687a54382629409fb03945e150e03c3fed216f42b01a1ff9b72cc6d750ac0b",
+      "source_text": "「お前が戦争を望むのなら、\n　俺が相手になってやる！！」",
+      "speaker": "シン",
+      "anchor_id": "story/149/dialogue/01.122/0012",
+      "target_ids": [
+        "story/144/dialogue/01.64/0012",
+        "story/149/dialogue/01.122/0012",
+        "story/149/dialogue/01.159/0012",
+        "story/149/dialogue/01.85/0012"
+      ],
+      "chosen": "“如果你渴望战争，那我就奉陪！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 154; E; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "ce0347426cf77010ddf0e6a54c20a9244b39409f9b6545fcc9debaa2ffc42558",
+      "source_text": "「デュランダル議長には\n　ブレイク・ザ・ワールドの前に\n　並行世界の存在を教えてあげたけど…」",
+      "speaker": "ジ・エーデル",
+      "anchor_id": "story/144/dialogue/01.65/0000",
+      "target_ids": [
+        "story/144/dialogue/01.65/0000",
+        "story/149/dialogue/01.123/0000",
+        "story/149/dialogue/01.160/0000",
+        "story/149/dialogue/01.86/0000"
+      ],
+      "chosen": "“虽然在世界崩坏前，\n　我告诉了迪兰达尔议长平行世界的存在……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 155; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "ad687a54382629409fb03945e150e03c3fed216f42b01a1ff9b72cc6d750ac0b",
+      "source_text": "「お前が戦争を望むのなら、\n　俺が相手になってやる！！」",
+      "speaker": "シン",
+      "anchor_id": "story/149/dialogue/01.123/0011",
+      "target_ids": [
+        "story/144/dialogue/01.65/0011",
+        "story/149/dialogue/01.123/0011",
+        "story/149/dialogue/01.160/0011",
+        "story/149/dialogue/01.86/0011"
+      ],
+      "chosen": "“如果你渴望战争，那我就奉陪！！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 156; E; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "8b8b856be1bf83c4d13183788c0c581512b7c6c18f1a06c985ee6ce069e81090",
+      "source_text": "「ラクス様…」",
+      "speaker": "メイリン",
+      "anchor_id": "story/149/dialogue/01.100/0004",
+      "target_ids": [
+        "story/144/dialogue/01.79/0004",
+        "story/149/dialogue/01.100/0004",
+        "story/149/dialogue/01.137/0004",
+        "story/149/dialogue/01.174/0004"
+      ],
+      "chosen": "“拉克丝大人……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 157; B; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "8b79297073a7fe0275ac78fee612cffb33c39a68a919e958449ba24f98358fcf",
+      "source_text": "「ありがとう…」",
+      "speaker": "？？？",
+      "anchor_id": "story/144/dialogue/02.01/0022",
+      "target_ids": [
+        "story/144/dialogue/02.01/0022",
+        "story/149/dialogue/02.01/0022"
+      ],
+      "chosen": "“谢谢你……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 158; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "287f1e18490f0f69ab02c04554396617f010c6dbd1800d56f2854823f6928582",
+      "source_text": "「そういうわけじゃないけど…」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/145/dialogue/02.01/0028",
+      "target_ids": [
+        "story/145/dialogue/02.01/0028",
+        "story/145/dialogue/02.01/0398",
+        "story/145/dialogue/02.01/0795",
+        "story/150/dialogue/02.01/0348",
+        "story/150/dialogue/02.01/0734",
+        "story/150/dialogue/02.01/1127"
+      ],
+      "chosen": "“倒也不是那样……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 159; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "2689d8b8abe03d309e022e17b29193255c4ce7fb0936f46ba4c8b4a77c878818",
+      "source_text": "「マーケットの準備に入ってるんですよ。\n　二人共、手伝ってください」",
+      "speaker": "ジャビー",
+      "anchor_id": "story/145/dialogue/02.01/0085",
+      "target_ids": [
+        "story/145/dialogue/02.01/0085",
+        "story/145/dialogue/02.01/0459",
+        "story/145/dialogue/02.01/0856",
+        "story/150/dialogue/02.01/0211",
+        "story/150/dialogue/02.01/0596",
+        "story/150/dialogue/02.01/1001"
+      ],
+      "chosen": "“市场准备要开始了。两位也来帮忙。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 160; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "7bf12d24dc212c18b20ae677688a1887871c03eb901540260a63ceb90b10f7f4",
+      "source_text": "「言わないのか？\n　綺麗事はアスハのお家芸だな…って」",
+      "speaker": "アスラン",
+      "anchor_id": "story/145/dialogue/02.01/0274",
+      "target_ids": [
+        "story/145/dialogue/02.01/0274",
+        "story/145/dialogue/02.01/0299",
+        "story/145/dialogue/02.01/0653",
+        "story/145/dialogue/02.01/0680",
+        "story/145/dialogue/02.01/1037",
+        "story/145/dialogue/02.01/1064",
+        "story/150/dialogue/02.01/0068",
+        "story/150/dialogue/02.01/0093",
+        "story/150/dialogue/02.01/0451",
+        "story/150/dialogue/02.01/0477",
+        "story/150/dialogue/02.01/0856",
+        "story/150/dialogue/02.01/0882"
+      ],
+      "chosen": "“不说吗？\n　‘漂亮话是阿斯哈家的拿手好戏’……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 161; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "1d3d883002f9eb035b9e5e287e53bca34499561c55889a80dbc91cdfee6727be",
+      "source_text": "「ああ…。\n　それが俺達の新たな戦いだ」",
+      "speaker": "シン",
+      "anchor_id": "story/145/dialogue/02.01/0279",
+      "target_ids": [
+        "story/145/dialogue/02.01/0279",
+        "story/145/dialogue/02.01/0304",
+        "story/145/dialogue/02.01/0658",
+        "story/145/dialogue/02.01/0685",
+        "story/145/dialogue/02.01/1042",
+        "story/145/dialogue/02.01/1069",
+        "story/150/dialogue/02.01/0073",
+        "story/150/dialogue/02.01/0098",
+        "story/150/dialogue/02.01/0456",
+        "story/150/dialogue/02.01/0482",
+        "story/150/dialogue/02.01/0861",
+        "story/150/dialogue/02.01/0887"
+      ],
+      "chosen": "“啊……那是我们新的战斗。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 162; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "7089f6224787c12c4c844714abd93867ce2133bb3cf6590b6c277c52bcee8549",
+      "source_text": "　　　　　　〜月　ルテチウム基地〜",
+      "speaker": "　",
+      "anchor_id": "story/145/dialogue/02.01/0330",
+      "target_ids": [
+        "story/145/dialogue/02.01/0330",
+        "story/145/dialogue/02.01/0712",
+        "story/145/dialogue/02.01/1096",
+        "story/145/dialogue/02.01/1356",
+        "story/150/dialogue/02.01/0027",
+        "story/150/dialogue/02.01/0411",
+        "story/150/dialogue/02.01/0816",
+        "story/150/dialogue/02.01/1204"
+      ],
+      "chosen": "〜月球卢特提姆基地〜",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 163; C; original heuristic majority"
+    },
+    {
+      "source_text_sha256": "c1343c5c84e2ba44cafdd2cf87aec9e65de91bf696a37b6e2928a75ae31ef5cb",
+      "source_text": "「はい…！」",
+      "speaker": "カミーユ",
+      "anchor_id": "story/145/dialogue/02.01/0346",
+      "target_ids": [
+        "story/145/dialogue/02.01/0346",
+        "story/145/dialogue/02.01/0728",
+        "story/145/dialogue/02.01/1112",
+        "story/150/dialogue/02.01/0043",
+        "story/150/dialogue/02.01/0427",
+        "story/150/dialogue/02.01/0832"
+      ],
+      "chosen": "“是的……！”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 164; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "a3fe31e157c15aa4d5651745e30dffdabac20607ea4f888717556b1a2366d8f8",
+      "source_text": "「どういう事です！？」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/145/dialogue/02.01/1143",
+      "target_ids": [
+        "story/145/dialogue/02.01/1143",
+        "story/150/dialogue/02.01/1180"
+      ],
+      "chosen": "“怎么回事！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 165; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "6e83daa88a659296e0073058cacc72902e7fb0632c33c34f0f5cf99b96638a73",
+      "source_text": "「また、別の世界から\n　人類を襲う敵が現れるかもしれないね」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/150/dialogue/02.01/1391",
+      "target_ids": [
+        "story/145/dialogue/02.01/1164",
+        "story/150/dialogue/02.01/1391"
+      ],
+      "chosen": "“也许还会有来自其他世界、\n　袭击人类的敌人出现。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 166; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "287f1e18490f0f69ab02c04554396617f010c6dbd1800d56f2854823f6928582",
+      "source_text": "「そういうわけじゃないけど…」",
+      "speaker": "ゲイナー",
+      "anchor_id": "story/145/dialogue/02.01/1171",
+      "target_ids": [
+        "story/145/dialogue/02.01/1171",
+        "story/150/dialogue/02.01/1398"
+      ],
+      "chosen": "“倒也不是那样……”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 167; B; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "52bbceb33d823acff474247f7d7d73792ee46f338dd12a10ae273440d2b9b033",
+      "source_text": "「ありがとう、ガロード。\n　…また会えるよね」",
+      "speaker": "ロラン",
+      "anchor_id": "story/145/dialogue/02.01/1205",
+      "target_ids": [
+        "story/145/dialogue/02.01/1205",
+        "story/150/dialogue/02.01/1378"
+      ],
+      "chosen": "“谢谢你，卡洛德。……我们还会再见的吧。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 168; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "48254f47cf0787c4a23b7adb2b325cdd23dde48677d58babe426ea786b0dc51f",
+      "source_text": "「桂様もオルソン様も\n　こんな所で何してるんですか！？」",
+      "speaker": "モーム",
+      "anchor_id": "story/145/dialogue/02.01/1215",
+      "target_ids": [
+        "story/145/dialogue/02.01/1215",
+        "story/150/dialogue/02.01/1300"
+      ],
+      "chosen": "“桂大人和奥尔森大人，\n　在这种地方干什么呢！？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 169; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "2689d8b8abe03d309e022e17b29193255c4ce7fb0936f46ba4c8b4a77c878818",
+      "source_text": "「マーケットの準備に入ってるんですよ。\n　二人共、手伝ってください」",
+      "speaker": "ジャビー",
+      "anchor_id": "story/145/dialogue/02.01/1216",
+      "target_ids": [
+        "story/145/dialogue/02.01/1216",
+        "story/150/dialogue/02.01/1301"
+      ],
+      "chosen": "“市场准备要开始了。两位也来帮忙。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 170; E; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "231e4761af683a9485a02cdea37fbddcc6fe983e5bef39690e0cdf4551eaee31",
+      "source_text": "（そういうわけだ、レントン。\n　ワシ達は待っているぞ…）",
+      "speaker": "アクセル",
+      "anchor_id": "story/145/dialogue/02.01/1264",
+      "target_ids": [
+        "story/145/dialogue/02.01/1264",
+        "story/150/dialogue/02.01/1349"
+      ],
+      "chosen": "（就是这样，兰顿。我们在等着……）",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 171; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "371371a3662999057c6b1acd5ec7357d31dec91642917382a8a7422ee463e93c",
+      "source_text": "（お前とエウレカさんが、\n　この街へ帰ってくる日をな）",
+      "speaker": "アクセル",
+      "anchor_id": "story/145/dialogue/02.01/1265",
+      "target_ids": [
+        "story/145/dialogue/02.01/1265",
+        "story/150/dialogue/02.01/1350"
+      ],
+      "chosen": "（等着你和优莱卡小姐\n　回到这座城镇的那一天。）",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 172; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "a5e616d24ecc5fcce078a1811edbfddbce43edf0420bcfb57fde4ad1533c0da6",
+      "source_text": "「ああ…。\n　明日を救うための新たな旅だ」",
+      "speaker": "マリン",
+      "anchor_id": "story/150/dialogue/02.01/1257",
+      "target_ids": [
+        "story/145/dialogue/02.01/1284",
+        "story/150/dialogue/02.01/1257"
+      ],
+      "chosen": "“啊……为了拯救明天的新旅程。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 173; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "4a0a2ccbd8b550669073c92452fd033ccc089e63f076bf6aefc5519c73a27d7f",
+      "source_text": "「サンドマン。\n　あなたの旅は、もう終わったのか？」",
+      "speaker": "源五郎",
+      "anchor_id": "story/145/dialogue/02.01/1303",
+      "target_ids": [
+        "story/145/dialogue/02.01/1303",
+        "story/150/dialogue/02.01/1276"
+      ],
+      "chosen": "“桑德曼。你的旅途已经结束了吗？”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 174; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "e5a8ad9b8c9b1ace08a2326d2de17ab8ce0b6e71c94daae77c1a82532a07ba16",
+      "source_text": "「…私、正直に言えば、\n　軍の一員になる事…迷ってるの」",
+      "speaker": "ファ",
+      "anchor_id": "story/145/dialogue/02.01/1362",
+      "target_ids": [
+        "story/145/dialogue/02.01/1362",
+        "story/150/dialogue/02.01/1210"
+      ],
+      "chosen": "“……说实话，\n　对于成为军队的一员……我很犹豫。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 175; C; original heuristic earliest_stage"
+    },
+    {
+      "source_text_sha256": "378a9c9a78307825ed6bafda6ffe31f8c5f7e6ea908ca6414c53d8b6d3fc9994",
+      "source_text": "「火事場の馬鹿力みたいなもんだな」",
+      "speaker": "ランド",
+      "anchor_id": "story/186/dialogue/01.12/0006",
+      "target_ids": [
+        "story/186/dialogue/01.12/0006",
+        "story/186/dialogue/01.20/0006"
+      ],
+      "chosen": "“就像危急关头爆发出的怪力吧。”",
+      "reason": "manual-source-and-context-review",
+      "note": "candidate 176; A-conflict; original heuristic decided"
+    }
+  ]
+}

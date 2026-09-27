@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "batch_id": "same-source-user-decisions-20260927",
+  "recorded_at": "2026-09-27T13:33:17.593969+00:00",
+  "reason": "将本地 17 组人工点选应用于全部同源位置；两处确定性修正另附说明。",
+  "decisions_file": "config/editorial/same-source-user-decisions-20260927-input.json",
+  "counts": {
+    "decisions": 17,
+    "changed": 10,
+    "by_reason": {
+      "user-group-selection": 8,
+      "selected-proposal-layout-reflow": 2
+    },
+    "skipped": 0,
+    "files_touched": 6
+  },
+  "changes": [
+    {
+      "id": "story/015/dialogue/01.19/0002",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "source_text_sha256": "6b596f9e9e0cedbd2dc6f3e3082355fd7ebd4117e78d7c7434ce3b95ad08bdec",
+      "source_text": "「せっかく来たんだから\n　まずはサービス…って奴？」",
+      "speaker": "エルチ",
+      "reason": "user-group-selection",
+      "note": "",
+      "before": "“既然难得来了，就先来个服务…这样？”",
+      "after": "“既然好不容易来了，\n　就当送个见面礼之类的吧？”",
+      "anchor_id": "story/015/dialogue/01.19/0002"
+    },
+    {
+      "id": "story/015/dialogue/01.20/0002",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "source_text_sha256": "6b596f9e9e0cedbd2dc6f3e3082355fd7ebd4117e78d7c7434ce3b95ad08bdec",
+      "source_text": "「せっかく来たんだから\n　まずはサービス…って奴？」",
+      "speaker": "エルチ",
+      "reason": "user-group-selection",
+      "note": "",
+      "before": "“既然难得来了，就先来个服务…这样？”",
+      "after": "“既然好不容易来了，\n　就当送个见面礼之类的吧？”",
+      "anchor_id": "story/015/dialogue/01.19/0002"
+    },
+    {
+      "id": "story/015/dialogue/01.19/0003",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "source_text_sha256": "199a431ba7262a48bd318a74ac041e21c34e5e4d76e22108a759edbba6c2fb02",
+      "source_text": "「$n、メール！\n　アイアン・ギアー、ただ今到着だ！」",
+      "speaker": "ジロン",
+      "reason": "user-group-selection",
+      "note": "",
+      "before": "“$n，梅尔！\n　钢铁齿轮，刚刚到达！”",
+      "after": "“$n，梅尔！\n　钢铁齿轮，现已抵达！”",
+      "anchor_id": "story/015/dialogue/01.19/0003"
+    },
+    {
+      "id": "story/015/dialogue/01.20/0003",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "source_text_sha256": "199a431ba7262a48bd318a74ac041e21c34e5e4d76e22108a759edbba6c2fb02",
+      "source_text": "「$n、メール！\n　アイアン・ギアー、ただ今到着だ！」",
+      "speaker": "ジロン",
+      "reason": "user-group-selection",
+      "note": "",
+      "before": "“$n，梅尔！\n　钢铁齿轮，刚刚到达！”",
+      "after": "“$n，梅尔！\n　钢铁齿轮，现已抵达！”",
+      "anchor_id": "story/015/dialogue/01.19/0003"
+    },
+    {
+      "id": "story/186/dialogue/01.12/0006",
+      "file": "corpus/zh/story-dialogue/stage-186.json",
+      "source_text_sha256": "378a9c9a78307825ed6bafda6ffe31f8c5f7e6ea908ca6414c53d8b6d3fc9994",
+      "source_text": "「火事場の馬鹿力みたいなもんだな」",
+      "speaker": "ランド",
+      "reason": "user-group-selection",
+      "note": "",
+      "before": "“就像危急关头爆发出的怪力吧。”",
+      "after": "“就像危急关头爆发出的洪荒之力吧。”",
+      "anchor_id": "story/186/dialogue/01.12/0006"
+    },
+    {
+      "id": "story/186/dialogue/01.20/0006",
+      "file": "corpus/zh/story-dialogue/stage-186.json",
+      "source_text_sha256": "378a9c9a78307825ed6bafda6ffe31f8c5f7e6ea908ca6414c53d8b6d3fc9994",
+      "source_text": "「火事場の馬鹿力みたいなもんだな」",
+      "speaker": "ランド",
+      "reason": "user-group-selection",
+      "note": "",
+      "before": "“就像危急关头爆发出的怪力吧。”",
+      "after": "“就像危急关头爆发出的洪荒之力吧。”",
+      "anchor_id": "story/186/dialogue/01.12/0006"
+    },
+    {
+      "id": "story/117/dialogue/01.39/0005",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "source_text_sha256": "153ef8626a522cce92201f53c9cdffad33c9e81f280ec6c6c6424669eb2c2c16",
+      "source_text": "「へえ…」",
+      "speaker": "ケジナン",
+      "reason": "user-group-selection",
+      "note": "",
+      "before": "“嘿……”",
+      "after": "“是……”",
+      "anchor_id": "story/117/dialogue/01.39/0005"
+    },
+    {
+      "id": "story/130/dialogue/01.15/0005",
+      "file": "corpus/zh/story-dialogue/stage-130.json",
+      "source_text_sha256": "153ef8626a522cce92201f53c9cdffad33c9e81f280ec6c6c6424669eb2c2c16",
+      "source_text": "「へえ…」",
+      "speaker": "ケジナン",
+      "reason": "user-group-selection",
+      "note": "",
+      "before": "“嘿……”",
+      "after": "“是……”",
+      "anchor_id": "story/117/dialogue/01.39/0005"
+    },
+    {
+      "id": "story/118/dialogue/02.02/0048",
+      "file": "corpus/zh/story-dialogue/stage-118.json",
+      "source_text_sha256": "61b504eb55d0addb16f7afc3d6343efb550424f1f0c998e38e0c9e910bdcc718",
+      "source_text": "「…あの放送では明かさなかった事ですが、\n　本物のラクスさんはコーディネイターの暗殺者に\n　襲われた事があります」",
+      "speaker": "マリュー",
+      "reason": "selected-proposal-layout-reflow",
+      "note": "保留所选投稿字词；只按剧情对白 21 格行宽重排并加入全角续行缩进。线上投稿原文与定稿排版不完全相同。",
+      "before": "“……那次广播中有件事没有公开：\n　真正的拉克丝小姐曾遭到一名\n　调整者暗杀者的袭击。”",
+      "after": "“……那是那次广播中没有公开的事，\n　真正的拉克丝小姐曾被一个\n　身为调整者的暗杀者袭击过。”",
+      "anchor_id": "story/118/dialogue/02.02/0048"
+    },
+    {
+      "id": "story/122/dialogue/02.02/0013",
+      "file": "corpus/zh/story-dialogue/stage-122.json",
+      "source_text_sha256": "61b504eb55d0addb16f7afc3d6343efb550424f1f0c998e38e0c9e910bdcc718",
+      "source_text": "「…あの放送では明かさなかった事ですが、\n　本物のラクスさんはコーディネイターの暗殺者に\n　襲われた事があります」",
+      "speaker": "マリュー",
+      "reason": "selected-proposal-layout-reflow",
+      "note": "保留所选投稿字词；只按剧情对白 21 格行宽重排并加入全角续行缩进。线上投稿原文与定稿排版不完全相同。",
+      "before": "“……那次广播中有件事没有公开：\n　真正的拉克丝小姐曾遭到一名\n　调整者暗杀者的袭击。”",
+      "after": "“……那是那次广播中没有公开的事，\n　真正的拉克丝小姐曾被一个\n　身为调整者的暗杀者袭击过。”",
+      "anchor_id": "story/118/dialogue/02.02/0048"
+    }
+  ],
+  "skipped": []
+}
