@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Build and verify a deterministic xdelta release package.
 
-The full source and target ISOs remain local. Schema 2 packages both editions
-as separate patches; schema 1 preserves the historical single-patch ZIP format.
+The full source and target ISOs remain local. Schema 4 packages Original, BEST
+and SP with one patch per edition and the battle square skip built in; schema 3 kept the
+historical no-skip bases plus derived skip variants; schema 2 packaged both
+editions without skip; schema 1 preserves the single-patch ZIP format.
 """
 
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import shutil
 import subprocess
@@ -29,11 +30,13 @@ class ReleaseBuildError(RuntimeError):
 
 
 def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(HASH_CHUNK_SIZE):
-            digest.update(chunk)
-    return digest.hexdigest()
+    """Identity-cached SHA-256; see srwz.file_identity."""
+    try:
+        from srwz.file_identity import sha256_file as identity_sha256
+    except ModuleNotFoundError:
+        from tools.srwz.file_identity import sha256_file as identity_sha256
+
+    return identity_sha256(path)
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -270,7 +273,7 @@ def write_deterministic_zip(
 
 def build_release(config_path: Path, *, force: bool = False) -> Path:
     config = load_json(config_path)
-    if config.get("schema_version") in (2, 3):
+    if config.get("schema_version") in (2, 3, 4):
         return build_dual_release(config, force=force)
     verify_config_bindings(config)
 
@@ -399,22 +402,30 @@ def build_release(config_path: Path, *, force: bool = False) -> Path:
 
 
 def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
-    """Bind both patches to edition contracts and frozen final readbacks."""
+    """Bind historical dual releases or current three-edition releases to their proofs."""
     tag = config.get("tag", "")
-    if config.get("schema_version") not in (2, 3) or tag != f"v{config.get('version')}" or not config.get("version"):
+    if config.get("schema_version") not in (2, 3, 4) or tag != f"v{config.get('version')}" or not config.get("version"):
         raise ReleaseBuildError("invalid dual release version")
     if config.get("output", {}).get("directory") != f"build/release/{tag}":
         raise ReleaseBuildError("invalid dual release output directory")
     editions = config.get("editions", {})
-    if set(editions) != {"original", "best"}:
+    current = config['schema_version'] == 4
+    expected_editions = {"original", "best", "sp"} if current else {"original", "best"}
+    if current and set(editions) != expected_editions:
+        raise ReleaseBuildError("release requires exactly original, best and sp")
+    if not current and set(editions) != expected_editions:
         raise ReleaseBuildError("dual release requires exactly original and best")
     validation = load_json(project_path(config["validation"]))
-    if (validation.get("status") != "dual_edition_build_and_static_readback_passed"
+    expected_status = ("edition_build_and_static_readback_passed" if current
+                       else "dual_edition_build_and_static_readback_passed")
+    if (validation.get("status") != expected_status
             or not validation.get("verification", {}).get("both_editions")
             or validation.get("verification", {}).get("status") != "edition_batch_receipt_integrity_passed"):
-        raise ReleaseBuildError("dual build verification is incomplete")
+        raise ReleaseBuildError("edition build verification is incomplete")
+    if current and set(validation['verification'].get('verified_editions', [])) != expected_editions:
+        raise ReleaseBuildError("release verification must include original, best and sp")
     if set(validation.get("outputs", {})) != set(editions):
-        raise ReleaseBuildError("release validation must cover both outputs")
+        raise ReleaseBuildError("release validation must cover every output")
     for edition, item in editions.items():
         contract_path = f"config/editions/{edition}/edition.json"
         if item["edition_config"] != contract_path:
@@ -433,13 +444,28 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
         verify_locked_file(proof_path, lock, f"{edition} readback")
         proof = load_json(proof_path)
         expected = {"original": "full_story_final_iso_static_content_readback_passed",
-                    "best": "best_final_iso_static_content_readback_passed"}[edition]
+                    "best": "best_final_iso_static_content_readback_passed",
+                    "sp": "all_bound_text_reread_from_final_iso_runtime_pending"}[edition]
         if (proof.get("status") != expected or any(
                 proof.get("iso", {}).get(key) != item["target_iso"][key]
                 for key in ("size", "sha256"))):
             raise ReleaseBuildError(f"{edition}: semantic readback does not match target")
         if edition == "best" and proof.get("input_digest") != validation["input_digest"]:
             raise ReleaseBuildError("BEST readback belongs to a different input batch")
+        if edition == 'sp':
+            independent = validation.get('sp_independent_readback', {})
+            if (not independent.get('path') or independent.get('sha256') is None
+                    or independent['sha256'] != proof.get('independent_readback', {}).get('sha256')):
+                raise ReleaseBuildError('SP independent readback is missing or misbound')
+            independent_path = project_path(independent['path'])
+            verify_locked_file(independent_path, independent, 'SP independent readback')
+            semantic = load_json(independent_path)
+            if (semantic.get('status') != 'all_bound_text_reread_from_final_iso'
+                    or semantic.get('iso') != proof.get('iso')
+                    or semantic.get('component_hashes_verified') is not True
+                    or proof.get('coverage', {}).get('pending_targets') != []
+                    or proof.get('coverage', {}).get('unassigned_display_characters') != []):
+                raise ReleaseBuildError('SP independent readback or coverage mismatch')
     if config['schema_version'] == 3:
         if config.get('default_variant') != 'no-skip' or set(validation.get('variants', {})) != set(editions):
             raise ReleaseBuildError('four-patch release requires two no-skip bases and two skip variants')
@@ -460,11 +486,39 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
                     or any(proof.get(k) != variant['target_iso'][k] for k in ('size', 'sha256'))
                     or proof.get('only_declared_skip_changes') is not True):
                 raise ReleaseBuildError(f'{edition}: skip readback mismatch')
+    if config['schema_version'] == 4:
+        # Every shipped image has the square skip compiled in; the frozen
+        # validation must carry an executable hook proof for each target.
+        if config.get('skip') != 'built_in' or validation.get('skip') != 'built_in':
+            raise ReleaseBuildError('schema 4 release requires skip built into every target')
+        if set(validation.get('skip_readbacks', {})) != set(editions):
+            raise ReleaseBuildError('skip hook proof is required for every edition')
+        for edition, item in editions.items():
+            if 'skip_variant' in item:
+                raise ReleaseBuildError(f'{edition}: built-in skip releases have no separate skip variant')
+            lock = validation['skip_readbacks'][edition]
+            path = project_path(lock['path'])
+            verify_locked_file(path, lock, f'{edition} skip hook proof')
+            proof = load_json(path)
+            if (proof.get('status') != 'built_in_skip_hook_readback_passed'
+                    or proof.get('edition') != edition
+                    or any(proof.get('iso', {}).get(k) != item['target_iso'][k] for k in ('size', 'sha256'))
+                    or proof.get('skip_enabled') is not True):
+                raise ReleaseBuildError(f'{edition}: skip hook proof does not match target')
     return validation
 
 
+def verify_built_in_skip(target: Path, edition: str) -> dict:
+    """Reread the frozen ISO's executable and prove the square-skip hook is present."""
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from srwz.daily_test import verify_skip
+    return verify_skip(target, PROJECT_ROOT, edition)
+
+
 def release_targets(config):
-    for edition in ('original', 'best'):
+    editions = ('original', 'best', 'sp') if config['schema_version'] == 4 else ('original', 'best')
+    for edition in editions:
         item = config['editions'][edition]
         yield edition, item
         if config['schema_version'] == 3:
@@ -473,7 +527,7 @@ def release_targets(config):
 
 def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
     validation = verify_dual_config_bindings(config)
-    # Preflight both editions before encoding either patch.
+    # Preflight every edition before encoding any patch.
     for edition, item in release_targets(config):
         for role in ("source_iso", "target_iso"):
             verify_locked_file(project_path(item[role]["path"]), item[role], f"{edition} {role}")
@@ -486,6 +540,9 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
         for edition, item in config['editions'].items():
             verify_variant(project_path(item['target_iso']['path']),
                            project_path(item['skip_variant']['target_iso']['path']), contract, edition)
+    if config['schema_version'] == 4:
+        for edition, item in config['editions'].items():
+            verify_built_in_skip(project_path(item['target_iso']['path']), edition)
     xdelta = config["xdelta"]
     version_line = xdelta_version(xdelta["executable"])
     if version_line != xdelta["version_line"]:
@@ -509,6 +566,9 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
             readme.append("默认推荐不带 skip 的补丁；四份补丁均直接用于对应日文原盘。\n"
                           "带 -skip 版：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"
                           "跳到战斗动画的下一个阶段。\n")
+        if config["schema_version"] == 4:
+            readme.append("Original、The Best 和 SP 三份补丁均内置战斗动画快进：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"
+                          "跳到战斗动画的下一个阶段。不再提供不带 skip 的版本。\n")
         for edition, item in release_targets(config):
             source = project_path(item["source_iso"]["path"])
             target = project_path(item["target_iso"]["path"])
