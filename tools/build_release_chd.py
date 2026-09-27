@@ -137,6 +137,7 @@ def build_edition(
     verify: bool,
     quiet: bool,
     variant_suffix: str = "",
+    variant: str | None = None,
     create_parent: bool = True,
 ) -> dict[str, Any]:
     parent_chd = out_dir / f"srwz-jp-{name}.chd"
@@ -190,7 +191,7 @@ def build_edition(
         raise ChdBuildError(f'{parent_chd.name}: parent logical content differs from source ISO')
     info: dict[str, Any] = {
         "edition": name,
-        "variant": "skip" if variant_suffix else "no-skip",
+        "variant": variant or ("skip" if variant_suffix else "no-skip"),
         "parent_chd": parent_chd.name,
         "parent_chd_size": parent_chd.stat().st_size,
         "parent_chd_sha1": got,
@@ -252,7 +253,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--edition",
         action="append",
-        choices=["original", "best"],
+        choices=["original", "best", "sp"],
         help="build only this edition (repeatable; default: all)",
     )
     parser.add_argument(
@@ -311,6 +312,7 @@ def main(argv: list[str] | None = None) -> int:
                     version=version,
                     verify=not args.no_verify,
                     quiet=args.quiet,
+                    variant="skip" if config.get("schema_version") == 4 else None,
                 )
             )
 
