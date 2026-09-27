@@ -59,13 +59,14 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
-    """IDs of dialogue whose Japanese source carries runtime keyword links.
+def source_dialogue_index(config_path: Path = DEFAULT_CONFIG) -> dict[str, dict]:
+    """Decode the locked source STAGE archive like the builder.
 
-    The builder decides ``stage_keyword_links`` from the Japanese text, not the
-    translation: ``《…》`` in a translation without a Japanese link is a plain
-    book-title mark that occupies display cells.  This tool must measure the
-    same way, so it decodes the locked source STAGE archive like the builder.
+    Returns ``{entry_id: {"text": japanese, "speaker": japanese speaker name,
+    "keyword_links": bool}}`` for every dialogue entry.  The builder decides
+    ``stage_keyword_links`` from the Japanese text, not the translation:
+    ``《…》`` in a translation without a Japanese link is a plain book-title
+    mark that occupies display cells, so every corpus tool measures the same way.
     """
 
     config = _json(config_path)
@@ -83,7 +84,7 @@ def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
     offsets = read_executable_archive_offsets(source_hb, offset_spec, len(source_stage))
     functions = read_stage_function_addresses(source_slps)
     table = load_text_table(table_path)
-    linked = set()
+    index: dict[str, dict] = {}
     for stage in range(len(offsets) - 1):
         chunk = source_stage[offsets[stage] : offsets[stage + 1]]
         if not chunk:
@@ -94,10 +95,59 @@ def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
             stage_index=stage,
             function_address=functions[stage],
         )
+        speakers = {
+            entry.speaker_id: entry.text
+            for entry in parsed.entries
+            if entry.kind == "speaker"
+        }
         for entry in parsed.entries:
-            if entry.kind == "dialogue" and "《" in entry.text:
-                linked.add(entry.entry_id)
-    return frozenset(linked)
+            if entry.kind == "dialogue":
+                index[entry.entry_id] = {
+                    "text": entry.text,
+                    "speaker": speakers.get(entry.speaker_id),
+                    "keyword_links": "《" in entry.text,
+                }
+    return index
+
+
+def source_stage_ordinals(index: dict[str, dict] | None = None, config_path: Path = DEFAULT_CONFIG) -> dict[int, dict]:
+    """Stage file number -> {"resource": "stg_104a.bin", "stage_ordinal": 103}.
+
+    The decoded chunk header keeps the original resource name; its number is
+    the Stage Name ordinal plus one, and ``a/b/c`` suffixes share one ordinal.
+    """
+
+    config = _json(config_path)
+    source = config["source"]
+    _stage_path, source_stage = _locked_file(source["stage"], label="source STAGE")
+    source_hb = _read_iso_member(_project_path(source["iso"]), source["hb"])
+    offset_spec = ExecutableOffsetSpec(
+        name="HEDBDY/HB.BIN STAGE offsets",
+        member=source["hb"]["member"],
+        table_start=30320,
+        table_end=31144,
+    )
+    offsets = read_executable_archive_offsets(source_hb, offset_spec, len(source_stage))
+    result = {}
+    for stage in range(len(offsets) - 1):
+        chunk = source_stage[offsets[stage] : offsets[stage + 1]]
+        if not chunk:
+            continue
+        name = decode(chunk).output[0x30:0x50].split(b"\0", 1)[0].decode("ascii", "replace")
+        digits = "".join(ch for ch in name if ch.isdigit())
+        if digits:
+            result[stage] = {"resource": name, "stage_ordinal": int(digits) - 1}
+    return result
+
+
+def keyword_link_ids(config_path: Path = DEFAULT_CONFIG) -> frozenset[str]:
+    """IDs of dialogue whose Japanese source carries runtime keyword links."""
+
+    return frozenset(
+        entry_id
+        for entry_id, meta in source_dialogue_index(config_path).items()
+        if meta["keyword_links"]
+    )
 
 
 def split_terms(text: str, profile, *, stage_keyword_links: bool) -> list[str]:
@@ -108,6 +158,27 @@ def split_terms(text: str, profile, *, stage_keyword_links: bool) -> list[str]:
             text, profile=profile, stage_keyword_links=stage_keyword_links
         )
     )
+
+
+def normalize_indent(text: str) -> str:
+    """Give every continuation line the full-width indent the game expects.
+
+    Site submissions arrive with no indent or with half-width spaces; the
+    original script always indents continuation lines with one ideographic
+    space.  Choice menus (separate quoted lines) and leading-alignment text
+    are left alone.
+    """
+
+    if "\n" not in text or text.startswith(("　", " ")):
+        return text
+    lines = text.split("\n")
+    out = [lines[0]]
+    for previous, line in zip(lines, lines[1:]):
+        if previous.endswith("”") and line.startswith("“"):
+            out.append(line)
+            continue
+        out.append("　" + line.lstrip("　 "))
+    return "\n".join(out)
 
 
 def fits(text: str, profile, *, stage_keyword_links: bool) -> bool:
@@ -135,18 +206,24 @@ def process(profile, *, write: bool, link_ids: frozenset[str]) -> dict:
         for entry in document["entries"]:
             text = entry["translation"]
             links = entry["id"] in link_ids
-            hits = split_terms(text, profile, stage_keyword_links=links)
-            overflow = not fits(text, profile, stage_keyword_links=links)
-            if not hits and not overflow:
+            indented = normalize_indent(text)
+            indent_fix = indented != text
+            hits = split_terms(indented, profile, stage_keyword_links=links)
+            overflow = not fits(indented, profile, stage_keyword_links=links)
+            if not hits and not overflow and not indent_fix:
                 continue
             try:
-                if overflow:
+                if not hits and not overflow:
                     result = fit_chinese_dialogue_layout(
-                        text, profile=profile, stage_keyword_links=links
+                        indented, profile=profile, stage_keyword_links=links
+                    )
+                elif overflow:
+                    result = fit_chinese_dialogue_layout(
+                        indented, profile=profile, stage_keyword_links=links
                     )
                 else:
                     result = reflow_chinese_dialogue(
-                        text, profile=profile, stage_keyword_links=links
+                        indented, profile=profile, stage_keyword_links=links
                     )
             except (ChineseLayoutError, AssertionError) as error:
                 skipped.append({"id": entry["id"], "reason": str(error)})
@@ -163,7 +240,12 @@ def process(profile, *, write: bool, link_ids: frozenset[str]) -> dict:
             changes.append({
                 "id": entry["id"],
                 "file": str(path.relative_to(PROJECT_ROOT)),
-                "kind": "overflow_refit" if overflow else "split_word",
+                "kind": (
+                    "overflow_refit" if overflow
+                    else "split_word" if hits
+                    else "indent_fix"
+                ),
+                "indent_normalized": indent_fix,
                 "runtime_keyword_links": links,
                 "split_terms": hits,
                 "before": text,

@@ -970,6 +970,14 @@ def dialogue_layout_issues(
         text, profile=profile, stage_keyword_links=stage_keyword_links
     ):
         issues.append(f"line break inside {term!r}")
+    indent = profile.continuation_indent
+    if indent and "\n" in text and not text.startswith(("　", " ")):
+        lines = text.split("\n")
+        for index, (previous, line) in enumerate(zip(lines, lines[1:]), start=2):
+            if previous.endswith("”") and line.startswith("“"):
+                continue  # separate quoted lines (choice menus) carry no indent
+            if not line.startswith(indent):
+                issues.append(f"line {index} lacks continuation indent")
     return tuple(issues)
 
 
