@@ -11,8 +11,8 @@ from __future__ import annotations
 import argparse
 from contextlib import ExitStack, contextmanager
 import fcntl
-import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -21,6 +21,7 @@ import time
 from datetime import datetime, timezone
 
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
+from srwz.file_identity import ENV_REHASH, ENV_STORE, publish_verified, sha256_range
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.release_inputs import copy_file, freeze_inputs, seed_original_caches, sha256_file, verify_files
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
@@ -62,10 +63,7 @@ def verify_disc(root: Path, profile) -> None:
     exe = members.get(profile.executable.path)
     if exe is None or exe.size != profile.executable.size:
         raise EditionError(f"{profile.edition_id}: executable member mismatch")
-    with path.open("rb") as source:
-        source.seek(exe.extent_lba * 2048)
-        digest = hashlib.sha256(source.read(exe.size)).hexdigest()
-    if digest != profile.executable.sha256:
+    if sha256_range(path, exe.extent_lba * 2048, exe.size) != profile.executable.sha256:
         raise EditionError(f"{profile.edition_id}: executable identity mismatch")
 
 
@@ -78,6 +76,13 @@ def verify_original_adapter_config(root: Path, profile) -> None:
         raise EditionError("Original adapter has no matching executable output")
 
 
+def phase_environment(root: Path) -> dict[str, str]:
+    """Every subprocess of one build shares the root's verified file-identity store."""
+    environment = dict(os.environ)
+    environment.setdefault(ENV_STORE, str(project_path(root, "work/cache/file-identity.json", "work/cache")))
+    return environment
+
+
 def run_phase(context: BuildContext, name: str, arguments: list[str]) -> None:
     log = context.run_root / "logs" / f"{name}.log"
     log.parent.mkdir(parents=True, exist_ok=True)
@@ -85,7 +90,7 @@ def run_phase(context: BuildContext, name: str, arguments: list[str]) -> None:
     started = time.perf_counter()
     with log.open("wb") as output:
         result = subprocess.run([sys.executable, *arguments], cwd=context.project_root,
-                                stdout=output, stderr=subprocess.STDOUT)
+                                stdout=output, stderr=subprocess.STDOUT, env=phase_environment(context.root))
     elapsed = round(time.perf_counter() - started, 3)
     timings = context.run_root / "timing.json"
     phases = load_json(timings) if timings.exists() else {}
@@ -132,9 +137,12 @@ def reset_relocated_cmake(root: Path, config: dict) -> None:
         text = cache.read_text(errors="replace")
         if (f"CMAKE_HOME_DIRECTORY:INTERNAL={source}\n" not in text
                 or f"CMAKE_CACHEFILE_DIR:INTERNAL={directory}\n" not in text):
-            # Only a generated build directory inside this private project.
-            # A relocated CMake cache must never direct writes to the old root.
-            shutil.rmtree(directory)
+            # Only generated CMake state inside this private project. A relocated
+            # cache must never direct writes to the old root; the already built
+            # executables are inert files that the bootstrap re-verifies by
+            # pinned commit and version line before reusing them.
+            cache.unlink()
+            shutil.rmtree(directory / "CMakeFiles", ignore_errors=True)
 
 
 def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool, force_rebuild: bool = False) -> dict:
@@ -145,8 +153,12 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
         "input_digest": snapshot.digest, "source_head": snapshot.source_head,
         "paths": [r["path"] for r in snapshot.files],
     })
+    # The previous validated run's component caches, generated locks and ISO
+    # baseline are carried forward unless a component build definition changed.
+    # When they are unavailable the component pipeline still applies its own
+    # per-consumer verified caches; only an explicit --force-rebuild disables them.
     reused = not force_rebuild and seed_text_update(context, snapshot)
-    print(f"[original] previous text-update cache: {'seeded' if reused else 'unavailable'}", flush=True)
+    print(f"[original] previous validated component caches: {'seeded' if reused else 'unavailable'}", flush=True)
     print("[original] prepare private, independently writable caches", flush=True)
     seed_original_caches(context.root, root)
     iso = project_path(root, context.profile.source_iso.path, "rom")
@@ -162,10 +174,10 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     run_phase(context, "iso-toolchain", ["tools/bootstrap_mkps2iso.py", "--config", LEGACY_CONFIG])
     run_phase(context, "fonts", ["tools/fetch_zh_font.py", "--flavor", chain["font_flavor"]])
     run_phase(context, "components", ["tools/rebuild_zh_font.py", "--skip-fetch", "--refresh-manifests",
-                                      *(["--force-rebuild"] if force_rebuild or not reused else []),
+                                      *(["--force-rebuild"] if force_rebuild else []),
                                       "--cache", "work/cache/editions/original/font-chain.json"])
     run_phase(context, "iso", ["tools/build_iso.py", "--config", LEGACY_CONFIG, "--refresh-output-locks",
-                               *(["--refresh-extraction"] if force_rebuild or not reused else ["--incremental"])])
+                               *(["--refresh-extraction"] if force_rebuild else ["--incremental"])])
     run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", *(["--force"] if force_rebuild else []),
                                     "--cache", "work/cache/editions/original/iso-content.json"])
     cfg = load_json(root / LEGACY_CONFIG)
@@ -187,7 +199,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     if sha256_file(pending) != actual_hash:
         pending.unlink()
         raise EditionError("published ISO copy mismatch")
-    pending.replace(context.output_iso)
+    publish_verified(pending, context.output_iso, actual_hash)
     return {
         "schema_version": 1, "edition_id": context.profile.edition_id,
         "status": "edition_iso_static_validated_runtime_pending",
@@ -232,7 +244,7 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     if sha256_file(pending) != proof["iso"]["sha256"]:
         pending.unlink()
         raise EditionError("BEST published copy mismatch")
-    pending.replace(context.output_iso)
+    publish_verified(pending, context.output_iso, proof["iso"]["sha256"])
     return {
         "schema_version": 1, "edition_id": "best", "adapter": context.profile.adapter,
         "status": "edition_iso_static_validated_runtime_pending", "input_digest": snapshot.digest,
@@ -247,7 +259,7 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     }
 
 
-def build_sp(context: BuildContext, snapshot) -> dict:
+def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) -> dict:
     """Rebuild the current SP corpus over its verified native font baseline."""
     root = context.project_root
     snapshot.materialize(root)
@@ -255,8 +267,22 @@ def build_sp(context: BuildContext, snapshot) -> dict:
     source = context.profile.source_iso.path
     copy_file(context.root / source, root / source)
     verify_disc(root, context.profile)
+    if not force_rebuild and context.receipt.is_file():
+        from special_disc.writeback.incremental import CACHE_PATH, seed_components
+        previous = load_json(context.receipt)
+        if (previous.get('status') == 'edition_iso_static_validated_runtime_pending'
+                and previous.get('edition_contract_sha256') == context.profile.contract_sha256):
+            previous_root = project_path(context.root, previous['workspace'], 'build/editions')
+            previous_report = project_path(context.root, previous['readback']['path'], previous['workspace'])
+            seeded = seed_components(previous_root, previous_report, previous['readback']['sha256'], root / CACHE_PATH)
+            print(f'[sp] previous verified components: {"seeded" if seeded else "unavailable"}', flush=True)
+    codec_target = context.root / "work/toolchain/srwz-compressor-rs"
+    if codec_target.is_dir() and not (root / "work/toolchain/srwz-compressor-rs").exists():
+        # Optional warm Cargo target only; cargo --locked still rebuilds anything stale.
+        shutil.copytree(codec_target, root / "work/toolchain/srwz-compressor-rs", copy_function=copy_file)
     run_phase(context, "rust-compressor", ["tools/build_rust_compressor.py", "--force"])
-    run_phase(context, "sp-full-text", ["tools/special_disc/writeback/build_full_text.py"])
+    run_phase(context, "sp-full-text", ["tools/special_disc/writeback/build_full_text.py",
+                                      *(["--force-rebuild"] if force_rebuild else [])])
     # build_full_text verifies the temporary ISO before publishing and binds
     # that independent receipt below; do not execute the same verifier twice.
     proof_path = root / "build/iso/special-disc/sp-current.json"
@@ -273,7 +299,7 @@ def build_sp(context: BuildContext, snapshot) -> dict:
     copy_file(built, temporary)
     if sha256_file(temporary) != proof["iso"]["sha256"]:
         raise EditionError("SP promotion copy drift")
-    temporary.replace(context.output_iso)
+    publish_verified(temporary, context.output_iso, proof["iso"]["sha256"])
     atomic_json(context.output_iso.with_suffix(".json"), proof)
     return {
         "schema_version": 1, "edition_id": "sp", "adapter": context.profile.adapter,
@@ -283,6 +309,7 @@ def build_sp(context: BuildContext, snapshot) -> dict:
         "output": {**proof["iso"], "path": context.output_iso.relative_to(context.root).as_posix()},
         "readback": {"path": proof_path.relative_to(context.root).as_posix(), "sha256": sha256_file(proof_path)},
         "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
+        "component_modes": {name: row['mode'] for name, row in proof.get('incremental', {}).get('components', {}).items()},
     }
 
 
@@ -290,6 +317,8 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
     started = time.perf_counter()
     started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
+    if force_rebuild:
+        os.environ[ENV_REHASH] = "1"
     profiles = load_release_profiles(root, config, requested)
     dependencies = load_release_profiles(root, config, ("original",)) if "best" in requested and "original" not in requested else ()
     build_profiles = {p.edition_id: p for p in (*dependencies, *profiles)}
@@ -382,7 +411,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                 results["best"] = run_edition(contexts["best"], build_best, snapshot, original, results["original"])
                 atomic_json(contexts["best"].receipt, results["best"])
             if "sp" in contexts:
-                results["sp"] = run_edition(contexts["sp"], build_sp, snapshot)
+                results["sp"] = run_edition(contexts["sp"], build_sp, snapshot, force_rebuild=force_rebuild)
                 atomic_json(contexts["sp"].receipt, results["sp"])
             for name in requested:
                 context, result = contexts[name], results[name]
@@ -404,7 +433,7 @@ def main() -> int:
     parser.add_argument("--config", default=DEFAULT_CONFIG)
     parser.add_argument("--editions", default="original,best,sp")
     parser.add_argument("--plan", action="store_true", help="Show registered targets without writing or building.")
-    parser.add_argument("--force-rebuild", action="store_true", help="Explicit full Original rebuild and uncached readback; normal builds reuse verified text components.")
+    parser.add_argument("--force-rebuild", action="store_true", help="Explicit full Original and SP component rebuild, disc re-extraction, uncached readback and re-hashing of every input; normal builds reuse verified components and file identities.")
     parser.add_argument("--require-legacy-equivalence", action="store_true", help="Fail before promotion unless all Original component and ISO bytes match the frozen legacy locks.")
     args = parser.parse_args()
     try:

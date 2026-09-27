@@ -1,5 +1,12 @@
 {
   "adapter": "sp-full-text-v1",
+  "component_modes": {
+    "frame": "reused",
+    "image-labels": "reused",
+    "srvc": "reused",
+    "stage": "reused",
+    "system": "reused"
+  },
   "daily_test": {
     "battle_square_skip": {
       "all_replacements_exact": true,
@@ -57,27 +64,27 @@
     },
     "path": "build/iso/daily-test/current-sp-skip.iso",
     "runtime": "not_tested",
-    "sha256": "67491a94bf3b5f734c1489bd1f1a391ae43af6c24b39303f51ab9413369da3f5",
+    "sha256": "892689dba632ed355b885eae42caa3fccd7a78646fccc991bda3f52a889bac61",
     "size": 3791781888,
     "skip_enabled": true,
     "status": "exact_current_copy_and_skip_readback_passed"
   },
   "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
   "edition_id": "sp",
-  "input_digest": "a70810ace641daea64137e51cc860d9605afaebe0e643215f8ca80d7e384396a",
+  "input_digest": "13ed58056ab65e57d47e99f262a9b1ab77b1be5f07f724097f60a2381c1668a6",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "67491a94bf3b5f734c1489bd1f1a391ae43af6c24b39303f51ab9413369da3f5",
+    "sha256": "892689dba632ed355b885eae42caa3fccd7a78646fccc991bda3f52a889bac61",
     "size": 3791781888
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/cbbbb984155ed6457706feaf9c6e83c0f18b371798fee8afa95a5189f739237c/project/build/iso/special-disc/sp-current.json",
-    "sha256": "7e7fa409edef33adc59fa9ba5e174c75213367c3532f931ba6b17a8cd20db51f"
+    "path": "build/editions/zh-release-sp/abc8473d74a5624dcf110f5ec7c62289e9713e1cb714250a95db3c66f025a645/project/build/iso/special-disc/sp-current.json",
+    "sha256": "647ffd8aeeb367642718c32e73956bfe77775575070f3a0b7595849361283725"
   },
   "runtime": "not_tested",
   "schema_version": 1,
-  "source_head": "97ce03beb4bdbd0cd7b288950803cced1326bd8a",
+  "source_head": "32205b3a4bed621cb3bb6752866125c22f3a7ba9",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-sp/cbbbb984155ed6457706feaf9c6e83c0f18b371798fee8afa95a5189f739237c/project"
+  "workspace": "build/editions/zh-release-sp/abc8473d74a5624dcf110f5ec7c62289e9713e1cb714250a95db3c66f025a645/project"
 }

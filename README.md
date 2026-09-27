@@ -4,8 +4,12 @@
 
 当前版本为 **v0.4.2 紧急修复版**，同时支持 Original（初版）和 The Best（廉价版）。
 本次修复 The Best 第 47 话标题后黑屏及另一关卡段落的地图事件失效。
-**旧版 The Best 汉化用户请升级。** 默认推荐不带方块 skip 的版本，另提供可选 skip 版本。
+**旧版 The Best 汉化用户请升级。** v0.4.2 发布时默认推荐不带方块 skip 的版本，另提供可选 skip 版本。
 完整内容见 [v0.4.2 发布说明](docs/RELEASE_NOTES_V0.4.2.md)。
+
+**后续 release 固定包含 Original、The Best 和 SP，三版统一默认内置方块 skip，每种原盘只提供一份补丁，不再区分带／不带 skip。**
+当前源码构建的 Original、The Best 和 SP 均已内置；战斗动画中按住方块键（□）可跳到下一个阶段。
+下方四补丁下载说明仅对应已发布的 v0.4.2，后续构建与发布流程见[统一构建说明](docs/BUILD_EDITIONS.md)。
 
 想了解官方原盘改了什么，见 [初版与 The Best 详细差异（面向玩家）](docs/BEST_VERSION_GUIDE.md)，
 一篇看完程序、战斗演出、音库修正，以及剧情、字幕、说明和图鉴的前后差异。
@@ -66,55 +70,45 @@ Redump 校验值为 CRC-32 `0d9deb37`、MD5
 `b8ea8ff82ce2d6e09aa550635a5f61b4`、SHA-1
 `e8dbe37e88afe8f82d48889b0775274ccde3cf99`。
 
-在项目工作区中执行：
+唯一的生产构建入口是统一入口，它会自行完成原盘校验、成员提取、工具链、字体、
+组件、封盘和整盘回读，并按版本写出独立 ISO 与回执：
 
 ```bash
-python3 tools/verify_original_disc.py
-python3 tools/extract_iso_member.py --force \
-  SLPS_258.87 \
-  MAP/MAPMODEL.BIN EFF/VEFF2DX.BIN \
-  BTL/OP0.BIN BTL/OP0.SEG BTL/OP1.BIN BTL/OP1.SEG \
-  BTL/OP2.BIN BTL/OP2.SEG BTL/SRVC.BIN BTL/SRVC.SEG \
-  DATA/COMPDATA.BN DATA/HSFC.BIN DATA/JTIM.BIN \
-  DATA/MTV_PROP.BIN DATA/MTV_PROS.BIN \
-  DATA/MTVZKNKW.BIN DATA/MTVZKNPT.BIN DATA/MTVZKNRT.BIN \
-  DATA/NISVDATA.BIN DATA/STAGE.BIN DATA/VT1.BIN
-python3 tools/bootstrap_mkps2iso.py
-python3 tools/build_rust_compressor.py
-
-python3 tools/fetch_zh_font.py
-python3 tools/fetch_zh_font.py \
-  --flavor config/fonts/zh-localization-font-light.json
-python3 tools/rebuild_zh_font.py --skip-fetch --force-rebuild
-
-python3 tools/build_iso.py \
-  --config config/iso/zh-release-current-build.json
-python3 tools/verify_full_story_iso_content.py --force
+python3 tools/build_editions.py                      # Original、BEST 与 SP
+python3 tools/build_editions.py --editions original,best
+python3 tools/build_editions.py --editions sp
+python3 tools/build_editions.py --force-rebuild      # 忽略全部缓存，完整重算与重哈希
 ```
 
-构建成功后，镜像位于：
+输入未变时直接复用已验证的当前 ISO；只改语料时沿用上一批的已验证组件缓存，
+只重建受影响组件。Original 支持成员级增量封盘，SP 仍完整合成 ISO 并独立回读。
+三版当前 ISO 位于：
 
 ```text
-build/iso/zh-release-full-story/current-original.iso
+build/iso/zh-release-original/current-original.iso
+build/iso/zh-release-best/current-best.iso
+build/iso/special-disc/sp-current.iso
 ```
 
-统一入口 `python3 tools/build_editions.py` 默认刷新并构建 Original、BEST 与 SP，
-冻结同一批源码与各版依赖，生成独立 ISO 和回读记录。
-只构建本篇可用 `--editions original,best`，只构建 SP 可用 `--editions sp`。
-SP 需要日文原盘、xdelta3 和锁定的字体／基线组件；准备方法、输出路径与验证命令见
-[三版本构建](docs/BUILD_EDITIONS.md)。本篇原盘身份及运行验证边界见
-[当前 BEST 构建](docs/BEST_CURRENT_BUILD.md)。
+SP 需要日文原盘、xdelta3 和锁定的字体／基线组件；准备方法、输出路径、缓存规则与
+验证命令见 [三版本构建](docs/BUILD_EDITIONS.md)。本篇原盘身份及运行验证边界见
+[当前 BEST 构建](docs/BEST_CURRENT_BUILD.md)。统一入口内部调用的分步工具
+（`rebuild_zh_font.py`、`build_iso.py`、`verify_full_story_iso_content.py` 等）
+只用于排错和资源维护，见 [构建与运行验收](docs/BUILD_AND_RUNTIME.md)。
 
-本地完整 ISO 只用于开发和运行验证，不进入发布包。v0.4.2 发布要求先完成
-不带 skip 的同批双版本构建，冻结后生成并核验两份可选 skip 镜像；具体命令及
-验证边界见 [v0.4.2 构建与发布记录](docs/RELEASE_BUILD_V0.4.2.md)。
+本地完整 ISO 只用于开发和运行验证，不进入发布包。从下一版起 release 固定包含
+Original、The Best 和 SP，三版全部内置方块 skip，每版一份补丁。先冻结同一批次的
+三版已验证镜像并回读 skip hook，再生成发布包：
 
 ```bash
-python3 tools/build_release.py --config config/release/v0.4.2.json
+python3 tools/freeze_release.py --manifest work/editions/<摘要>/original-best-sp.json --version <x.y.z>
+python3 tools/build_release.py --config config/release/v<x.y.z>.json
 ```
 
-可分发补丁位于 `build/release/v0.4.2/`。发布工具逐个从对应日文原盘实际还原并
-验证成品哈希，目录中只保留四个 xdelta、说明、清单和 SHA-256 校验值。
+可分发补丁位于 `build/release/v<x.y.z>/`，文件名分别以 `-original.xdelta`、`-best.xdelta`、
+`-sp.xdelta` 结尾。发布工具逐个从对应日文原盘实际还原并验证成品哈希，目录中只保留
+三个 xdelta、说明、清单和 SHA-256 校验值。SP 补丁必须用于 SP 日文原盘。
+v0.4.2 的历史四补丁配置仍可重建，流程见 [v0.4.2 构建与发布记录](docs/RELEASE_BUILD_V0.4.2.md)。
 
 当前构建采用固定原版和一次性组件组合，不应在旧汉化镜像上重复打补丁。首次环境
 准备、原版成员提取、构建缓存和详细验证规则见

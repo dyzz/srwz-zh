@@ -1,7 +1,9 @@
 # 当前构建与验收
 
-本文记录当前可执行的 ISO、静态回读、发布包和运行验收边界。
-v0.4.1 双版本冻结与打包步骤见 [发布记录](RELEASE_BUILD_V0.4.1.md)。LRPS2 自动
+本文记录当前可执行的 ISO、静态回读、发布包和运行验收边界。日常生产入口是
+`python3 tools/build_editions.py`（见 [三版本构建](BUILD_EDITIONS.md)）；下文的分步
+命令是该入口在私有工作区内调用的子步骤，单独运行只用于排错和资源维护。
+v0.4.2 双版本冻结与打包步骤见 [发布记录](RELEASE_BUILD_V0.4.2.md)。LRPS2 自动
 验证与 PCSX2 手工验收都不属于生产构建闭包；前者由仓库内独立 runner 执行，后者
 只由测试者人工完成。
 
@@ -220,26 +222,31 @@ python3 tools/build_iso.py \
 
 ## 固定输出
 
-最终 ISO：
+统一入口发布的三版当前 ISO：
 
 ```text
-build/iso/zh-release-full-story/current-original.iso
+build/iso/zh-release-original/current-original.iso
+build/iso/zh-release-best/current-best.iso
+build/iso/special-disc/sp-current.iso
 ```
 
-当前工作镜像的大小和 SHA-256 由 `config/iso/zh-release-current-build.json` 锁定，
-与版本化发布镜像分别保存。双版本工作输出及 v0.4.1 冻结路径见
-[ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。
+单独运行 `build_iso.py` 时，Original 的工作镜像写到
+`build/iso/zh-release-full-story/current-original.iso`（统一入口只在私有工作区内使用
+该路径），其大小和 SHA-256 由 `config/iso/zh-release-current-build.json` 锁定，
+与版本化发布镜像分别保存。目录归属见 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。
 
-可分发补丁为：
+后续 release 固定包含三版，均默认内置方块 skip，可分发补丁为：
 
 ```text
-build/release/v0.4.1/srwz-zh-v0.4.1-original.xdelta
-build/release/v0.4.1/srwz-zh-v0.4.1-best.xdelta
+build/release/v<x.y.z>/srwz-zh-v<x.y.z>-original.xdelta
+build/release/v<x.y.z>/srwz-zh-v<x.y.z>-best.xdelta
+build/release/v<x.y.z>/srwz-zh-v<x.y.z>-sp.xdelta
 ```
 
-发布工具核对两版原盘契约、冻结目标和最终回读证据，使用锁定的 xdelta3 分别生成
+发布工具核对三版原盘契约、冻结目标、最终回读证据及 skip hook；SP 还要求冻结的独立语义
+回读证据。使用锁定的 xdelta3 分别生成
 补丁，再从对应原盘实际还原目标 ISO 并复核哈希。发布目录只包含 xdelta、说明、
-清单与校验文件，不包含完整 ISO。
+清单与校验文件，不包含完整 ISO。v0.4.2 的历史四补丁配置仍可原样重建。
 
 ## 构建硬门
 

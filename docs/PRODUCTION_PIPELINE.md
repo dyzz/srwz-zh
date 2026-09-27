@@ -33,19 +33,17 @@
 对应入口：
 
 ```bash
-python3 tools/verify_original_disc.py
-python3 tools/extract_iso_member.py --force <主链成员...>
-python3 tools/bootstrap_mkps2iso.py
-python3 tools/build_rust_compressor.py
-python3 tools/rebuild_zh_font.py --skip-fetch --force-rebuild
-python3 tools/build_iso.py
-python3 tools/verify_full_story_iso_content.py --force
-python3 tools/build_release.py
+python3 tools/build_editions.py            # 三版：原盘校验→提取→工具链→字体→组件→封盘→回读
+python3 tools/build_release.py --config config/release/<版本>.json
 ```
 
-完整的成员列表见 [构建与验收](BUILD_AND_RUNTIME.md)。`rebuild_zh_font.py` 会从锁定
-原版成员按依赖顺序构建 reviewed LIBRARY、STAGE、菜单和 UI 图集，并在结束时生成
-21 个最终成员的组合收据。发布用 xdelta 只在最后生成可分发补丁，不参与组件构建。
+统一入口在每版私有工作区内依次执行 `build_rust_compressor.py`、
+`bootstrap_mkps2iso.py`、`fetch_zh_font.py`、`rebuild_zh_font.py`、`build_iso.py` 与
+`verify_full_story_iso_content.py`，BEST 与 SP 分别走各自的原生后端；这些分步
+工具只在排错和资源维护时单独运行，命令见 [构建与验收](BUILD_AND_RUNTIME.md)。
+`rebuild_zh_font.py` 会从锁定原版成员按依赖顺序构建 reviewed LIBRARY、STAGE、菜单
+和 UI 图集，并在结束时生成 25 个最终成员的组合收据。发布用 xdelta 只在最后生成
+可分发补丁，不参与组件构建。
 
 ## 字体、文本与图集
 

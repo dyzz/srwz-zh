@@ -27,20 +27,22 @@ python3 -m unittest discover -s tests
 创建环境并执行 `source .venv/bin/activate`，再运行上述命令。
 
 ```bash
-python3 tools/verify_original_disc.py
-python3 -m compileall -q tools
-python3 tools/build_iso.py --help
-python3 tools/build_release.py --help
+python3 tools/build_editions.py --plan
 git diff --check
 ```
 
-涉及最终组件或 ISO 时，还要完成实际构建和对应 verifier，并把结论绑定到精确制品哈希。
+单元测试已导入全部生产链模块，不必再单独执行 `compileall` 或各入口的 `--help`；
+原盘校验由每次构建自行完成。涉及最终组件或 ISO 时，运行
+`python3 tools/build_editions.py`（必要时加 `--editions`），并用
+`python3 tools/verify_editions.py --manifest <批次 JSON>` 把结论绑定到精确制品哈希。
 静态回读、模拟器启动、目标流程和画面验收是不同证据层，不能互相替代。
 
-准备补丁包时运行：
+准备补丁包时先冻结同一批次已验证的 Original、The Best 和 SP，再生成补丁
+（后续 release 必须包含三版，全部内置 skip，每版一份）：
 
 ```bash
-python3 tools/build_release.py --config config/release/v0.4.1.json
+python3 tools/freeze_release.py --manifest work/editions/<摘要>/original-best-sp.json --version <x.y.z>
+python3 tools/build_release.py --config config/release/v<x.y.z>.json
 ```
 
 完整 ISO 只保留在本地 `build/iso/`。`build/release/` 只能包含 xdelta 补丁、说明、

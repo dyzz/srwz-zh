@@ -79,6 +79,13 @@ class EditionTests(unittest.TestCase):
         batch = json.loads(next((self.root / "work/editions").glob("*/sp.json")).read_text())
         self.assertEqual(batch["status"], "failed")
 
+    def test_force_rebuild_reaches_sp_component_builder(self):
+        with patch.object(build_editions, "verify_disc"), patch.object(build_editions, "locked_sp_inputs", return_value=()), \
+                patch.object(build_editions, "build_sp", return_value={"edition_id": "sp"}) as sp, \
+                patch("srwz.release_inputs.subprocess.check_output", return_value="test-head\n"):
+            build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("sp",), force_rebuild=True)
+        self.assertTrue(sp.call_args.kwargs['force_rebuild'])
+
     def test_unchanged_inputs_require_receipt_verification_before_reuse(self):
         def compiled(context, snapshot, **kwargs):
             return {"edition_id": "original", "input_digest": snapshot.digest}
@@ -277,9 +284,15 @@ class EditionTests(unittest.TestCase):
         build.mkdir(parents=True)
         (source / "CMakeLists.txt").write_text("source retained")
         (build / "CMakeCache.txt").write_text("CMAKE_HOME_DIRECTORY:INTERNAL=/old/source\n")
+        (build / "CMakeFiles").mkdir()
+        (build / "CMakeFiles" / "Makefile.cmake").write_text("stale generator state")
+        (build / "Release").mkdir()
+        (build / "Release" / "mkps2iso").write_bytes(b"built executable")
         config = {"toolchain": {"source_dir": "work/toolchain/mkps2iso/source"}}
         build_editions.reset_relocated_cmake(self.root.resolve(), config)
-        self.assertFalse(build.exists())
+        self.assertFalse((build / "CMakeCache.txt").exists())
+        self.assertFalse((build / "CMakeFiles").exists())
+        self.assertEqual((build / "Release" / "mkps2iso").read_bytes(), b"built executable")
         self.assertTrue((source / "CMakeLists.txt").is_file())
 
     def test_valid_cmake_cache_is_reused(self):
