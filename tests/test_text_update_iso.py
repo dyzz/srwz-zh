@@ -124,9 +124,10 @@ class TextUpdateIsoTests(unittest.TestCase):
                     source, reference, cache_path=cache
                 )
             self.assertFalse(first["reused"])
+            self.assertEqual(first["reason"], "locked SHA-256 verified for this file identity")
             self.assertTrue(second["reused"])
             self.assertFalse(third["reused"])
-            self.assertEqual(len(commands), 2)
+            self.assertEqual(len(commands), 1)
 
     def test_font_binary_signature_ignores_only_text_selection(self):
         first = {"assignments": [{"character": "中"}], "ui_selection": {"a": 1}}

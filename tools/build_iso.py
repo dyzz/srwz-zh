@@ -32,6 +32,8 @@ try:
         scan_iso9660,
         sha256_member,
     )
+    from srwz.file_identity import publish_verified, sha256_file as identity_sha256
+    from srwz.release_inputs import copy_file
 except ModuleNotFoundError:
     from tools.srwz.iso_config import (
         IsoBuildError,
@@ -49,6 +51,8 @@ except ModuleNotFoundError:
         scan_iso9660,
         sha256_member,
     )
+    from tools.srwz.file_identity import publish_verified, sha256_file as identity_sha256
+    from tools.srwz.release_inputs import copy_file
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -66,13 +70,8 @@ def validate_directory_contract(config: dict) -> None:
 
 
 def sha256_file(path: Path) -> tuple[int, str]:
-    digest = hashlib.sha256()
-    size = 0
-    with path.open("rb") as source:
-        while chunk := source.read(HASH_CHUNK_SIZE):
-            size += len(chunk)
-            digest.update(chunk)
-    return size, digest.hexdigest()
+    """Size and identity-cached SHA-256; see srwz.file_identity."""
+    return path.stat().st_size, identity_sha256(path)
 
 def resolve_project_path(value: str) -> Path:
     path = (PROJECT_ROOT / value).resolve()
@@ -1019,12 +1018,17 @@ def _iso_implementation_signature() -> str:
 def _record_iso_cache(config: dict, report_path: Path) -> None:
     if config.get("release_tag") is not None:
         return
+    source_iso = resolve_project_path(config["source_iso"]["path"])
+    output_iso = resolve_project_path(config["output"]["path"])
+    # The baseline is bound by content. A relocated or cloned workspace whose
+    # source and previous output still hash to the recorded values may update
+    # that image in place; identity-cached hashing makes this check cheap.
     receipt = {
-        "schema_version": 1,
+        "schema_version": 2,
         "implementation": _iso_implementation_signature(),
         "policy": _incremental_policy(config),
-        "source_stat": _stat_identity(resolve_project_path(config["source_iso"]["path"])),
-        "output_stat": _stat_identity(resolve_project_path(config["output"]["path"])),
+        "source_sha256": sha256_file(source_iso)[1],
+        "output_sha256": sha256_file(output_iso)[1],
         "report_sha256": sha256_file(report_path)[1],
     }
     _iso_cache_path(config).write_text(json.dumps(receipt, ensure_ascii=False) + "\n")
@@ -1036,12 +1040,12 @@ def _load_iso_cache(config: dict) -> dict | None:
     try:
         cache = json.loads(_iso_cache_path(config).read_text())
         report_path = resolve_project_path(config["output"]["report"])
-        if (cache.get("schema_version") != 1
+        if (cache.get("schema_version") != 2
                 or cache.get("implementation") != _iso_implementation_signature()
                 or cache.get("policy") != _incremental_policy(config)
-                or cache.get("source_stat") != _stat_identity(resolve_project_path(config["source_iso"]["path"]))
-                or cache.get("output_stat") != _stat_identity(resolve_project_path(config["output"]["path"]))
-                or cache.get("report_sha256") != sha256_file(report_path)[1]):
+                or cache.get("report_sha256") != sha256_file(report_path)[1]
+                or cache.get("source_sha256") != sha256_file(resolve_project_path(config["source_iso"]["path"]))[1]
+                or cache.get("output_sha256") != sha256_file(resolve_project_path(config["output"]["path"]))[1]):
             return None
         report = json.loads(report_path.read_text())
         if not isinstance(report.get("member_hashes"), dict):
@@ -1080,12 +1084,7 @@ def _build_incremental_iso(config: dict, component_binding: dict) -> dict | None
     # A size change therefore falls back before touching the previous ISO.
     with tempfile.TemporaryDirectory(prefix=".iso-update-", dir=output_path.parent) as temporary:
         candidate = Path(temporary) / output_path.name
-        if sys.platform == "darwin":
-            cloned = subprocess.run(["cp", "-c", str(output_path), str(candidate)], capture_output=True)
-            if cloned.returncode:
-                shutil.copyfile(output_path, candidate)
-        else:
-            shutil.copyfile(output_path, candidate)
+        copy_file(output_path, candidate)
         with candidate.open("r+b") as target:
             for row in changed:
                 source = resolve_project_path(row["source"])
@@ -1102,7 +1101,7 @@ def _build_incremental_iso(config: dict, component_binding: dict) -> dict | None
             cached_udf_hashes={key: value for key, value in previous["independent_udf_reads"].items() if key not in changed_members})
         if _stat_identity(output_path) != source_identity:
             raise IsoBuildError("previous ISO changed during incremental build")
-        candidate.replace(output_path)
+        publish_verified(candidate, output_path, report["output_iso"]["sha256"])
     report["output_iso"]["path"] = output_path.relative_to(PROJECT_ROOT).as_posix()
     report["component_binding"] = component_binding
     report["sector_budget"] = sector_budget

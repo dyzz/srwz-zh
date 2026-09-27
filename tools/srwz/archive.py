@@ -7,11 +7,12 @@ offsets. It intentionally contains no SRWZ compression logic.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Iterator, Mapping, Sequence
+
+from .file_identity import sha256_file as _sha256_file
 
 
 class ArchiveLayoutError(ValueError):
@@ -112,11 +113,8 @@ def slice_archive(data: bytes, layout: OffsetLayout) -> Iterator[bytes]:
 
 
 def sha256_file(path: Path, chunk_size: int = 4 * 1024 * 1024) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(chunk_size):
-            digest.update(chunk)
-    return digest.hexdigest()
+    """Identity-cached SHA-256; see srwz.file_identity."""
+    return _sha256_file(path)
 
 
 def verify_archive(path: Path, layout: OffsetLayout) -> None:

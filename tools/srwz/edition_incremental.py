@@ -1,8 +1,41 @@
-"""Seed private Original text updates only from a same-tooling validated run."""
+"""Seed private Original workspaces from the previous validated run.
+
+Only files that can change produced component bytes block the seed: the
+component build definitions (see ``COMPONENT_BUILD_DEFINITION_ROOTS``). Corpus
+edits are rebound by the component pipeline's own per-consumer checks, and a
+config or manifest that now equals exactly what the previous validated run
+wrote (its refreshed locks synced back into the repository) is the same input
+that run already validated. Edits to orchestration, ISO building, verifiers or
+documentation never invalidate component caches.
+"""
 import shutil
 
+from .build_fingerprints import is_component_build_definition
 from .edition import load_json, project_path
-from .release_inputs import copy_file, seed_original_caches, sha256_file
+from .release_inputs import copy_file, is_build_input, seed_original_caches, sha256_file
+
+ISO_BASELINE_FILES = (
+    'build/iso/zh-release-full-story/current-original.iso',
+    'build/iso/zh-release-full-story/iso-validation-current.json',
+    'build/iso/zh-release-full-story/iso-validation-current.incremental.json',
+)
+
+
+def component_inputs_changed(old: dict, new: dict, produced_root) -> bool:
+    """True when a component build definition differs beyond what the previous run produced."""
+    for path in old.keys() | new.keys():
+        if old.get(path) == new.get(path) or path.startswith('corpus/'):
+            continue
+        if not is_build_input(path) or not is_component_build_definition(path):
+            continue
+        row = new.get(path)
+        if row is not None and path.startswith(('config/', 'manifests/')):
+            produced = produced_root / path
+            if (produced.is_file() and row.get('size', produced.stat().st_size) == produced.stat().st_size
+                    and sha256_file(produced) == row['sha256']):
+                continue
+        return True
+    return False
 
 
 def seed_text_update(context, snapshot):
@@ -16,17 +49,14 @@ def seed_text_update(context, snapshot):
         f"work/build/shared/{previous['input_digest']}/inputs.json", 'work/build/shared')
     if not old_snapshot.is_file():
         return False
-    old = {r['path']: r for r in load_json(old_snapshot)['files']}
-    new = {r['path']: r for r in snapshot.files}
-    # The generated locks can be carried forward only if their source configs,
-    # tools, fonts and baseline inputs did not change. Corpus edits are rebound
-    # by the normal component pipeline, including per-STAGE dependency checks.
-    if any(old.get(p) != new.get(p) and not p.startswith('corpus/') for p in old.keys() | new.keys()):
-        return False
     source = project_path(context.root, previous['workspace'], 'build/editions')
     if source == context.project_root:
         # materialize() has restored source inputs; overlay verified generated
         # metadata below, without copying a directory onto itself.
+        return False
+    old = {r['path']: r for r in load_json(old_snapshot)['files']}
+    new = {r['path']: r for r in snapshot.files}
+    if component_inputs_changed(old, new, source):
         return False
     proof = project_path(context.root, previous['readback']['path'], previous['workspace'])
     cache = source / 'work/cache/editions/original/font-chain.json'
@@ -53,4 +83,9 @@ def seed_text_update(context, snapshot):
                         copy_function=copy_file, dirs_exist_ok=True)
     for p in metadata:
         copy_file(source / p, context.project_root / p)
+    # The previous validated image lets build_iso --incremental clone it and
+    # rewrite only changed members; build_iso rebinds it by content hash.
+    if all((source / p).is_file() for p in ISO_BASELINE_FILES):
+        for p in ISO_BASELINE_FILES:
+            copy_file(source / p, context.project_root / p)
     return True

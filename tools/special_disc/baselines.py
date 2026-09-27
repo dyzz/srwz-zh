@@ -1,27 +1,37 @@
 """Keep build baselines as verified deltas, materializing disposable ISO inputs."""
 from __future__ import annotations
 import atexit
-import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
 
 from special_disc.source import ROOT, SOURCE_ISO
+from srwz.file_identity import sha256_file
 
 DIRECTORY = ROOT / 'work/build/special-disc/baselines'
 ISO_TEMP_DIRECTORY = ROOT / 'build/iso/.tmp/baselines'
+ENV_PREFIX = 'SRWZ_SP_BASELINE_'
 _CACHE = {}
 _TEMPS = []
 
 
 def digest(path):
-    result = hashlib.sha256()
-    with path.open('rb') as stream:
-        for block in iter(lambda: stream.read(4 * 1024 * 1024), b''):
-            result.update(block)
-    return result.hexdigest()
+    """Identity-cached SHA-256; see srwz.file_identity."""
+    return sha256_file(path)
+
+
+def environment_name(name):
+    return ENV_PREFIX + name.upper().replace('-', '_')
+
+
+def export_baseline(name):
+    """Restore once and let every child process of this build reuse the same verified file."""
+    restored = baseline_iso(name)
+    os.environ[environment_name(name)] = str(restored)
+    return restored
 
 
 def new_temp_iso(label):
@@ -70,6 +80,16 @@ def baseline_iso(name):
     if name in _CACHE:
         return _CACHE[name]
     record = json.loads((DIRECTORY / f'{name}.json').read_text())
+    exported = os.environ.get(environment_name(name))
+    if exported:
+        # A parent build already restored and verified this baseline. The file
+        # keeps its exact size and hash; the parent owns its lifetime.
+        shared = Path(exported)
+        if (not shared.is_file() or shared.stat().st_size != record['iso_size']
+                or digest(shared) != record['iso_sha256']):
+            raise ValueError('exported SP baseline identity drift')
+        _CACHE[name] = shared
+        return shared
     patch = DIRECTORY / f'{name}.xdelta'
     if digest(patch) != record['patch_sha256'] or digest(SOURCE_ISO) != record['source_sha256']:
         raise ValueError('SP baseline patch/source hash drift')

@@ -13,29 +13,53 @@ import sys
 import tempfile
 
 from .edition import EditionError, json_bytes, load_json, project_path
+from .file_identity import record_clone, sha256_file
 
 
 SOURCE_ROOTS = ("config", "corpus", "manifests", "tools", "vendor/upstream-python")
 SKIP_PARTS = {".git", "__pycache__", "target", ".DS_Store", ".pytest_cache"}
 SKIP_PREFIXES = ("config/editorial/", "manifests/editions/")
+# Build definitions only. Documentation, authoring aids and runtime tooling
+# under the source roots do not change any produced byte; keeping them out of
+# the frozen input set stops a README edit from forcing a full rebuild.
+SKIP_SUFFIXES = (".md", ".DS_Store")
+SKIP_SOURCE_PREFIXES = (
+    "tools/editorial_review/",
+    "tools/templates/",
+    "tools/native/battle-square-skip/",
+    "tools/text_layout/rebalance_story_dialogue.py",
+    "tools/text_layout/build_story_unbroken_words.py",
+    "tools/export_explanatory_text.py",
+    "tools/export_misc_text.py",
+    "tools/select_misc_text_export.py",
+    "tools/render_misc_review.py",
+    "tools/run_lrps2_validation.py",
+    "tools/srwz/lrps2_runtime.py",
+    "tools/prune_edition_workspaces.py",
+)
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while block := source.read(8 * 1024 * 1024):
-            digest.update(block)
-    return digest.hexdigest()
+def is_build_input(relative: str) -> bool:
+    """True for files that belong in the frozen build-definition snapshot."""
+    name = relative.rsplit("/", 1)[-1]
+    if name in SKIP_PARTS or name.endswith((".pyc", ".pyo")) or relative.endswith(SKIP_SUFFIXES):
+        return False
+    return not relative.startswith(SKIP_PREFIXES + SKIP_SOURCE_PREFIXES)
 
 
 def copy_file(source: Path | str, target: Path | str) -> str:
-    """APFS clone when available; copying fallback, never a writable hardlink."""
+    """APFS clone when available; copying fallback, never a writable hardlink.
+
+    A kernel clone is byte-identical by construction, so the digests already
+    verified for the source are carried to the clone instead of being recomputed.
+    """
     source, target = Path(source), Path(target)
     target.parent.mkdir(parents=True, exist_ok=True)
     if source.stat().st_size >= 1024 * 1024 and sys.platform == "darwin":
         result = subprocess.run(["cp", "-c", str(source), str(target)], capture_output=True)
         if result.returncode == 0:
             shutil.copystat(source, target)
+            record_clone(source, target)
             return str(target)
     shutil.copy2(source, target)
     return str(target)
@@ -56,7 +80,7 @@ def source_inventory(root: Path, additional_paths: tuple[str, ...] = ()) -> list
             for name in sorted(files):
                 path = Path(directory) / name
                 relative = path.relative_to(root).as_posix()
-                if name in SKIP_PARTS or name.endswith((".pyc", ".pyo")) or relative.startswith(SKIP_PREFIXES):
+                if not is_build_input(relative):
                     continue
                 if path.is_symlink():
                     raise EditionError(f"build input is a symlink: {relative}")

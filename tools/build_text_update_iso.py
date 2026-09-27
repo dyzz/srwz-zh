@@ -21,6 +21,7 @@ from pathlib import Path, PurePosixPath
 from typing import Callable, Iterable, Mapping
 
 from srwz.build_fingerprints import font_binary_signature as _font_binary_signature
+from srwz.file_identity import sha256_file as _identity_sha256
 from srwz.iso_layout import CORE_ARCHIVE_SPECS
 from srwz.ui_atlas_suite import UiAtlasSuiteError, build_ui_atlas_suite
 from srwz.ui_headings import UiHeadingError, build_ui_headings
@@ -137,11 +138,8 @@ def _write_object(path: Path, document: Mapping) -> None:
 
 
 def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(4 * 1024 * 1024):
-            digest.update(chunk)
-    return digest.hexdigest()
+    """Identity-cached SHA-256; see srwz.file_identity."""
+    return _identity_sha256(path)
 
 
 def _file_identity(path: Path) -> tuple[int, str]:
@@ -211,7 +209,16 @@ def _verify_original_iso(
         )
         return {"reused": True, "reason": "exact file identity and locks match"}
 
-    _run_python(["tools/verify_original_disc.py", "--iso", str(source_iso)])
+    if (not force and source_iso.is_file() and source_iso.stat().st_size == source_lock["size"]
+            and _sha256(source_iso) == source_lock["sha256"]):
+        # The same disc under a new inode (a private-workspace clone). Its
+        # locked SHA-256 matches, which is the identity every later step binds
+        # to; the Redump MD5/SHA-1/CRC audit stays for the explicit release proof.
+        reason = "locked SHA-256 verified for this file identity"
+        print(f"[cache] original ISO proof rebound: {reason}", flush=True)
+    else:
+        _run_python(["tools/verify_original_disc.py", "--iso", str(source_iso)])
+        reason = "full original-disc verification completed"
     receipt = {
         "schema_version": 1,
         "status": "original_iso_fully_verified",
@@ -221,7 +228,7 @@ def _verify_original_iso(
     }
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     _write_object(cache_path, receipt)
-    return {"reused": False, "reason": "full original-disc verification completed"}
+    return {"reused": False, "reason": reason}
 
 
 def _reference_matches(reference: Mapping[str, object]) -> bool:

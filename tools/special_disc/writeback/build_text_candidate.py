@@ -18,6 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path[:0] = [str(ROOT / 'tools'), str(Path(__file__).resolve().parent)]
 from srwz.iso9660 import member_map, scan_iso9660
+from srwz.file_identity import sha256_file
 from srwz.codec import decode_production
 from install_font import sp_offsets, VT1_TABLE
 from special_disc.baselines import baseline_iso, freeze_baseline, new_temp_iso
@@ -32,11 +33,8 @@ def sha(data):
 
 
 def file_sha(path):
-    digest = hashlib.sha256()
-    with path.open('rb') as stream:
-        for data in iter(lambda: stream.read(4 * 1024 * 1024), b''):
-            digest.update(data)
-    return digest.hexdigest()
+    """Identity-cached SHA-256; see srwz.file_identity."""
+    return sha256_file(path)
 
 
 def write_json(path, value):

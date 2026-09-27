@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
+
+from .file_identity import sha256_file as _sha256_file
 
 
 CACHE_SCHEMA_VERSION = 1
@@ -31,11 +32,8 @@ class CacheValidation:
 
 
 def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(HASH_CHUNK_SIZE):
-            digest.update(chunk)
-    return digest.hexdigest()
+    """Identity-cached SHA-256; see srwz.file_identity."""
+    return _sha256_file(path)
 
 
 def _project_path(project_root: Path, path: Path | str) -> Path:
