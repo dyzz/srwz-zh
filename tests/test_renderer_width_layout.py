@@ -82,6 +82,19 @@ class RendererWidthLayoutTest(unittest.TestCase):
         with self.assertRaises(ChineseLayoutError):
             fit_chinese_dialogue_layout(text,profile=replace(self.profile,maximum_width=5))
 
+    def test_hyphenated_identifier_has_one_closed_scope(self):
+        for identifier in ('BIG-DUO', 'MA-BAR72', 'M7045/F7'):
+            text=compact_latin_runs(identifier+'中文',default_advance_px=22)
+            self.assertEqual(text, '<width:0E><space:0C>'+identifier+'<width:16><space:16>中文')
+            tokens=tokenize_dialogue(text,default_advance_px=22)
+            self.assertTrue(tokens[0].atomic)
+            self.assertIn(identifier,tokens[0].text)
+
+    def test_unicode_punctuation_does_not_join_latin_scopes(self):
+        text=compact_latin_runs('BIG、DUO',default_advance_px=22)
+        self.assertEqual(text.count('<width:0E>'),2)
+        self.assertIn('<width:16><space:16>、<width:0E>',text)
+
     def test_authoring_retains_alignment_outside_latin_runs(self):
         text='　ＭＳ，Black　Gale\n　第二行'
         result=compact_latin_runs(text,default_advance_px=22)

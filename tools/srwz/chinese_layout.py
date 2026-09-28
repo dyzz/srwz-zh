@@ -46,7 +46,7 @@ _STRUCTURAL_TOKEN = re.compile(
 )
 _COMPACT_LATIN_SCOPE = re.compile(
     r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
-    r"([A-Za-z0-9Ａ-Ｚａ-ｚ０-９ ._'/-　]+)"
+    r"([A-Za-z0-9Ａ-Ｚａ-ｚ０-９ ._'/　-]+)"
     r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
 )
 _LATIN_TERM = re.compile(r"[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+(?:[.·_-][A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+)*[ 　]?")

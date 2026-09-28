@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from .text import CONTROL_NOTATION, normalize_original_fullwidth_ascii
 
 _DIMENSION = re.compile(r"<(width|space):([0-9A-Fa-f]{2})>\Z")
-_LATIN_RUN = re.compile(r"[A-Za-z0-9]+(?:[ ._'/-　][A-Za-z0-9]+)*")
+_LATIN_RUN = re.compile(r"[A-Za-z0-9]+(?:[ ._'/　-][A-Za-z0-9]+)*")
 
 
 @dataclass(frozen=True)
