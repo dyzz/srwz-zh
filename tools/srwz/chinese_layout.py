@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 from .text import RUNTIME_FORMAT_TOKEN, CONTROL_NOTATION
-from .renderer_metrics import RendererState, text_extent
+from .renderer_metrics import RendererState, text_extent, COMPACT_SCOPE_CHARACTERS
 
 
 # Continuation lines gain one full-width ideographic-space indent at writeback.
@@ -44,10 +44,11 @@ _STRUCTURAL_TOKEN = re.compile(
     r"|\{[0-9A-Fa-f]{2}\}"
     r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
-_COMPACT_LATIN_SCOPE = re.compile(
+_COMPACT_VISIBLE_SCOPE = re.compile(
     r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
-    r"([A-Za-z0-9Ａ-Ｚａ-ｚ０-９ ._'/　-]+)"
-    r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
+    rf"([{COMPACT_SCOPE_CHARACTERS}]+)"
+    r"(?:<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
+    r"|<space:[0-9A-Fa-f]{2}><width:[0-9A-Fa-f]{2}>)"
 )
 _LATIN_TERM = re.compile(r"[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+(?:[.·_-][A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+)*[ 　]?")
 _NUMBER_WITH_UNIT = re.compile(
@@ -403,6 +404,22 @@ def _tokenize_dialogue_cells(
     terms = _normalize_protected_terms(
         (*tuple(protected_terms), *COMMON_PROTECTED_WORDS)
     )
+    if re.search(r'<(?:width|space):', text):
+        # Visible names can include a compact scope, e.g. tagged 013 followed
+        # by 特别小队. Preserve the complete protected name across those tags.
+        dimensions = r'(?:<(?:width|space):[0-9A-Fa-f]{2}>)*'
+        scope_spans = tuple((m.start(),m.end()) for m in _COMPACT_VISIBLE_SCOPE.finditer(text))
+        controlled_terms = []
+        for term in terms:
+            pattern = dimensions + dimensions.join(re.escape(c) for c in term) + dimensions
+            controlled_terms.extend(
+                match.group() for match in re.finditer(pattern, text)
+                if re.search(r'<(?:width|space):', match.group())
+                and all(not (match.start()<end and start<match.end())
+                        or (match.start()<=start and end<=match.end())
+                        for start,end in scope_spans)
+            )
+        terms = _normalize_protected_terms((*terms, *controlled_terms))
     term_index = _protected_term_index(terms)
     keyword_links_by_start = (
         {span.start: span for span in stage_keyword_link_spans(text)}
@@ -412,9 +429,14 @@ def _tokenize_dialogue_cells(
     tokens = []
     offset = 0
     while offset < len(text):
+        protected = _protected_match(text, offset, term_index)
+        if protected and re.search(r'<(?:width|space):', protected):
+            tokens.append(LayoutToken(protected, len(_visible_edges(protected)), atomic=True))
+            offset += len(protected)
+            continue
         # Closed authoring scopes are names/identifiers, so a break must not
         # separate their control prefix, words or restore pair.
-        scope = (_COMPACT_LATIN_SCOPE.match(text, offset)
+        scope = (_COMPACT_VISIBLE_SCOPE.match(text, offset)
                  if text.startswith('<width:', offset) else None)
         if scope is not None:
             tokens.append(LayoutToken(scope.group(), len(scope[1]), atomic=True))
@@ -447,7 +469,6 @@ def _tokenize_dialogue_cells(
             continue
 
         candidates = []
-        protected = _protected_match(text, offset, term_index)
         if protected:
             candidates.append(protected)
         # Paired quotation and title marks obey opening/closing punctuation

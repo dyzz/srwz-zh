@@ -7,7 +7,15 @@ from dataclasses import dataclass
 from .text import CONTROL_NOTATION, normalize_original_fullwidth_ascii
 
 _DIMENSION = re.compile(r"<(width|space):([0-9A-Fa-f]{2})>\Z")
-_LATIN_RUN = re.compile(r"[A-Za-z0-9]+(?:[ ._'/　-][A-Za-z0-9]+)*")
+# Only expression/identifier punctuation belongs to compact scopes. Chinese
+# sentence punctuation remains outside; in particular U+FF0C is not a digit
+# grouping separator. Keep this alphabet shared with the layout tokenizer.
+COMPACT_SCOPE_CHARACTERS = r"A-Za-z0-9Ａ-Ｚａ-ｚ０-９ .,:：．_'/／＋+％%~～〜×÷±＝=　－-"
+_COMPACT_ALNUM = r"(?:[0-9]{1,3}(?:,[0-9]{3})+|[A-Za-z0-9]+)"
+COMPACT_VISIBLE_RUN = re.compile(
+    rf"[+＋－±-]?{_COMPACT_ALNUM}"
+    rf"(?:[ .:：．_'/／＋+~～〜×÷±＝=　－-]{_COMPACT_ALNUM})*[%％]?"
+)
 
 
 @dataclass(frozen=True)
@@ -68,25 +76,38 @@ def text_extent(text: str, *, default_advance_px: int,
     return TextExtent(advance, max(advance, occupied), current)
 
 
-def compact_latin_runs(text: str, *, default_advance_px: int,
+def compact_visible_runs(text: str, *, default_advance_px: int,
                        minimum_characters: int = 3,
                        glyph_width_px: int = 14,
                        advance_px: int = 12) -> str:
-    """Author explicit width scopes for long Latin identifiers/phrases.
+    """Author closed width scopes for Latin, numbers and expression symbols.
 
-    Latin runs longer than two visible characters are compacted by default.
-    Short IDs and digits alone retain their logical values. Controlled text
-    must be authored separately. This helper is not a production-wide rewrite.
+    Runs longer than two visible characters are compacted by default, including
+    pure numbers, times, decimals, percentages and fractions. Logical values
+    and sentence punctuation are retained. Controlled text must be authored
+    separately. This helper is not a production-wide rewrite.
     """
     if CONTROL_NOTATION.search(text):
         raise ValueError('compact authoring requires plain text without controls')
     if minimum_characters < 2 or not 1 <= advance_px <= glyph_width_px <= default_advance_px <= 63:
-        raise ValueError('invalid compact Latin metrics')
+        raise ValueError('invalid compact visible-text metrics')
     folded = normalize_original_fullwidth_ascii(text)
     def replace(match):
         run = match.group().replace('　', ' ')
-        if len(run) < minimum_characters or not any(c.isalpha() for c in run):
+        # The division bar loses legibility in the tested 14px rendering.
+        # Preserve its whole expression until a readable surface metric is set.
+        if len(run) < minimum_characters or '÷' in run:
             return run
+        # "%<width:XX>" is an existing lossless runtime-format notation.
+        # Restore advance first after a literal percent so its visible glyph
+        # cannot be mistaken for that token. Both orders restore the same state.
+        restore = (f'<space:{default_advance_px:02X}><width:{default_advance_px:02X}>'
+                   if run.endswith('%') else
+                   f'<width:{default_advance_px:02X}><space:{default_advance_px:02X}>')
         return (f'<width:{glyph_width_px:02X}><space:{advance_px:02X}>' + run +
-                f'<width:{default_advance_px:02X}><space:{default_advance_px:02X}>')
-    return _LATIN_RUN.sub(replace, folded)
+                restore)
+    return COMPACT_VISIBLE_RUN.sub(replace, folded)
+
+
+# Existing callers use the historical name; both entry points share one rule.
+compact_latin_runs = compact_visible_runs

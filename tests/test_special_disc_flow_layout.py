@@ -6,9 +6,33 @@ import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'tools/special_disc/writeback')]
 from write_frame_text import flow_synopsis, FLOW_PROTECTED_TERMS, validate_flow_layout
+from srwz.renderer_metrics import compact_visible_runs,text_extent
+from srwz.text import CONTROL_NOTATION
 
 
 class SpFlowLayoutTests(unittest.TestCase):
+    def test_controlled_synopsis_uses_body_pixels_and_complete_names(self):
+        text='　'+'甲'*24+'013特别小队也赶来支援，奥尔因BLOCK WORD受到刺激。'
+        tagged=compact_visible_runs(text,default_advance_px=16)
+        result=flow_synopsis(tagged)
+        self.assertEqual(result.replace('\n',''),tagged)
+        visible=[CONTROL_NOTATION.sub('',line) for line in result.splitlines()]
+        self.assertTrue(any('013特别小队' in line for line in visible))
+        self.assertTrue(any('BLOCK WORD' in line for line in visible))
+        self.assertTrue(all(text_extent(line,default_advance_px=16).occupied_px<=29*16 for line in result.splitlines()))
+
+    def test_readback_checks_indentation_and_glyph_overhang(self):
+        validate_flow_layout('　'+'甲'*24+compact_visible_runs('100',default_advance_px=16))
+        with self.assertRaisesRegex(ValueError,'visible panel'):
+            validate_flow_layout('　'+'甲'*28+'乙')
+        with self.assertRaisesRegex(ValueError,'visible panel'):
+            validate_flow_layout('甲'*28+'<width:18><space:10>乙')
+
+    def test_readback_checks_name_boundaries_through_controls(self):
+        tagged=compact_visible_runs('013',default_advance_px=16)
+        with self.assertRaisesRegex(ValueError,'013特别小队'):
+            validate_flow_layout(tagged+'特别\n小队赶来。')
+
     def test_orphan_tail_is_reflowed_without_rewriting(self):
         text='　罗杰与万丈讲起在贝尔弗莱斯特遇见兰顿的祖父阿克塞尔时的往事。'
         lines=flow_synopsis(text).splitlines()

@@ -8,13 +8,20 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from srwz.chinese_layout import (ChineseLayoutProfile, ChineseLayoutError,
     partition_chinese_text, reflow_chinese_dialogue, dialogue_line_widths,
     fit_chinese_dialogue_layout, logical_dialogue_text, tokenize_dialogue)
-from srwz.renderer_metrics import RendererState, text_extent, compact_latin_runs
+from srwz.renderer_metrics import RendererState, text_extent, compact_latin_runs, compact_visible_runs
+from srwz.text import TextTable, encode_text
 
 
 class RendererWidthLayoutTest(unittest.TestCase):
     def setUp(self):
         self.profile = ChineseLayoutProfile('sp-probe', 10, None, 3, 'minimum',
             continuation_indent='　', default_advance_px=22)
+
+    def test_protected_word_cannot_truncate_a_larger_compact_identifier(self):
+        tagged=compact_visible_runs('ABC-DEF',default_advance_px=22)
+        tokens=tokenize_dialogue(tagged,protected_terms=('ABC',),default_advance_px=22)
+        self.assertEqual(len(tokens),1)
+        self.assertEqual(tokens[0].text,tagged)
 
     def test_storage_character_width_does_not_determine_advance(self):
         a = text_extent('<width:0C><space:0C>MAX 56000', default_advance_px=22)
@@ -67,11 +74,13 @@ class RendererWidthLayoutTest(unittest.TestCase):
     def test_authoring_preserves_short_ids_and_numeric_values(self):
         text='Z高达、MS、40000、56000；MAX、ＺＡＦＴ；Black Gale'
         tagged=compact_latin_runs(text,default_advance_px=22)
-        self.assertTrue(tagged.startswith('Z高达、MS、40000、56000；'))
+        self.assertTrue(tagged.startswith('Z高达、MS、'))
+        for number in ('40000','56000'):
+            self.assertIn('<width:0E><space:0C>'+number+'<width:16><space:16>',tagged)
         self.assertIn('<width:0E><space:0C>MAX<width:16><space:16>',tagged)
         self.assertIn('<width:0E><space:0C>ZAFT<width:16><space:16>',tagged)
         self.assertIn('<width:0E><space:0C>Black Gale<width:16><space:16>',tagged)
-        self.assertEqual(tagged.count('<width:0E>'),3)
+        self.assertEqual(tagged.count('<width:0E>'),5)
         with self.assertRaises(ValueError):compact_latin_runs('<color:01>Black Gale',default_advance_px=22)
 
     def test_closed_identifier_scope_is_not_split_between_words(self):
@@ -94,6 +103,44 @@ class RendererWidthLayoutTest(unittest.TestCase):
         text=compact_latin_runs('BIG、DUO',default_advance_px=22)
         self.assertEqual(text.count('<width:0E>'),2)
         self.assertIn('<width:16><space:16>、<width:0E>',text)
+
+    def test_numeric_expressions_have_one_closed_scope(self):
+        for expression in ('100','40000','18:00','0.5%','1/10','1～3','-10','+10','±10','3×4','1,000'):
+            text=compact_visible_runs(expression+'中文',default_advance_px=22)
+            restore='<space:16><width:16>' if expression.endswith('%') else '<width:16><space:16>'
+            self.assertEqual(text,'<width:0E><space:0C>'+expression+restore+'中文')
+            tokens=tokenize_dialogue(text,default_advance_px=22)
+            self.assertTrue(tokens[0].atomic)
+            self.assertIn(expression,tokens[0].text)
+
+    def test_fullwidth_numbers_and_expression_punctuation(self):
+        text=compact_visible_runs('１８：００、０．５％',default_advance_px=22)
+        self.assertIn('<width:0E><space:0C>18：00<width:16><space:16>',text)
+        self.assertIn('<width:0E><space:0C>0．5％<width:16><space:16>',text)
+        self.assertEqual(len(tokenize_dialogue(text,default_advance_px=22)),3)
+
+    def test_short_numbers_and_sentence_punctuation_stay_outside(self):
+        text=compact_visible_runs('“1、20，100，200。！？……”',default_advance_px=22)
+        self.assertTrue(text.startswith('“1、20，'))
+        self.assertIn('<width:16><space:16>，<width:0E>',text)
+        self.assertTrue(text.endswith('<width:16><space:16>。！？……”'))
+        self.assertIn('<width:16><space:16>,<width:0E>',
+                      compact_visible_runs('ABC,DEF',default_advance_px=22))
+
+    def test_compatibility_entry_point_uses_numeric_rule(self):
+        self.assertEqual(compact_visible_runs('100%',default_advance_px=22),
+                         compact_latin_runs('100%',default_advance_px=22))
+
+    def test_literal_percent_before_restore_is_encoded_as_visible_glyph(self):
+        table=TextTable(characters={0x8258:'９',0x9865:'%'},tags={0x32:'width',0x34:'space'})
+        text=compact_visible_runs('99%',default_advance_px=22)
+        payload=encode_text(text,table,overrides={'9':0x8258,'%':0x9865},terminate=True)
+        self.assertEqual(payload,bytes.fromhex('320e340c8258825898653416321600'))
+        self.assertEqual(text_extent(text,default_advance_px=22).state,RendererState(22,22))
+
+    def test_division_expression_keeps_default_width_for_legibility(self):
+        for expression in ('3÷4','100÷200','100÷200×300'):
+            self.assertEqual(compact_visible_runs(expression,default_advance_px=22),expression)
 
     def test_authoring_retains_alignment_outside_latin_runs(self):
         text='　ＭＳ，Black　Gale\n　第二行'

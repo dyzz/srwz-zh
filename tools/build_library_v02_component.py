@@ -6,7 +6,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import struct
+from dataclasses import replace
 from concurrent.futures import ThreadPoolExecutor
 from itertools import combinations
 from pathlib import Path
@@ -67,6 +69,9 @@ BODY_TAGS = frozenset({"DSCR", "DSC2"})
 BREAK_END = frozenset("。！？!?，、；：,;:…—")
 CLOSING = frozenset("，。！？；：、,.!?;:％%”’）》】〕〉」』…—")
 OPENING = frozenset("“‘（《【〔〈「『")
+# Current-SP ROBO/CHAR/KYWD body renderer uses 22 px. Plain legacy prose
+# keeps its existing path; controlled prose must use these surface metrics.
+LIBRARY_BODY_ADVANCE_PX = 22
 
 
 def parse_args() -> argparse.Namespace:
@@ -171,6 +176,15 @@ def reflow_body(
     profile: ChineseLayoutProfile | None = None,
     protected_terms: tuple[str, ...] = (),
 ) -> tuple[str, tuple[int, ...]]:
+    if re.search(r"<(?:width|space):", text):
+        if profile is None:
+            profile = ChineseLayoutProfile(
+                "library-controlled-body", width, None, None, "minimum",
+                line_packing="fill", allow_oversized_token_split=True,
+                default_advance_px=LIBRARY_BODY_ADVANCE_PX,
+            )
+        else:
+            profile = replace(profile, default_advance_px=LIBRARY_BODY_ADVANCE_PX)
     if profile is not None:
         if profile.maximum_width != width or profile.line_count_mode != "minimum":
             raise LibraryScopeError(
@@ -246,9 +260,16 @@ def reflow_body(
     return result, widths
 
 
-def reflow_body_legacy(text: str, width: int) -> tuple[str, tuple[int, ...]]:
+def reflow_body_legacy(
+    text: str, width: int, *, profile: ChineseLayoutProfile | None = None,
+    protected_terms: tuple[str, ...] = (),
+) -> tuple[str, tuple[int, ...]]:
     """Preserve the older punctuation-biased wrap as a capacity fallback."""
 
+    if re.search(r"<(?:width|space):", text):
+        # The character-splitting legacy fallback cannot divide control tags
+        # or closed compact scopes. Use the same verified pixel path instead.
+        return reflow_body(text, width, profile=profile, protected_terms=protected_terms)
     logical = text.replace("\r", "").replace("\n", "")
     tokens = list(tokenize_dialogue(logical))
     lines: list[str] = []
@@ -665,6 +686,8 @@ def main() -> int:
                         legacy_text, legacy_widths = reflow_body_legacy(
                             translation,
                             int(widths[expected_kind]),
+                            profile=layout_profiles[expected_kind],
+                            protected_terms=protected_terms,
                         )
                     except LibraryScopeError as error:
                         raise LibraryScopeError(
