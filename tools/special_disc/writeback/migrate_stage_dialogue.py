@@ -24,7 +24,7 @@ from srwz.chinese_layout import fit_chinese_dialogue_layout, load_layout_profile
 from srwz.codec import decode_production, reencode_changed_suffix
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
-from srwz.text import decode_text, normalize_original_fullwidth_ascii, encode_text
+from srwz.text import decode_text, normalize_original_fullwidth_ascii, encode_text, two_byte_visible_spaces
 from srwz.writers import repack_stage_texts_in_place
 from srwz.writeback import WritebackError
 
@@ -91,6 +91,11 @@ def check_unowned_bytes(before, after, regions, pointer_sites):
     return dict(bytes=len(protected), sha256=sha256(protected))
 
 
+def stored_stage_translation(text):
+    """Keep logical Latin/digits and encode visible separators as two bytes."""
+    return two_byte_visible_spaces(normalize_original_fullwidth_ascii(text))
+
+
 def build_chunk(index, stored, function_address, bindings, table, overrides, readback, profile, *, exe=None, include_formations=False):
     decoded = decode_production(stored)
     data = decoded.output
@@ -107,7 +112,7 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
     for entry in parsed.entries:
         target = native_id(index, entry.entry_id)
         row = bindings.resolve(target, entry.kind, entry.text)
-        text = normalize_original_fullwidth_ascii(row["translation"])
+        text = stored_stage_translation(row["translation"])
         op = struct.unpack_from("<I", data, entry.pointer_offset - 16)[0] if entry.kind == "dialogue" and entry.pointer_offset is not None else None
         if (
             entry.kind == "dialogue"

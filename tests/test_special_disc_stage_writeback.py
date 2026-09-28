@@ -10,11 +10,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT/'tools'), str(ROOT/'tools/special_disc/writeback')]
 from srwz.stage import parse_stage
-from srwz.text import TextTable
+from srwz.text import TextTable, load_text_table, original_fullwidth_ascii_overrides
 from srwz.writers import repack_stage_texts_in_place
 from srwz.writeback import WritebackError
 from stage_bindings import StageBindings, BindingError, digest
-from migrate_stage_dialogue import reject_interior_references, check_unowned_bytes, native_id
+from migrate_stage_dialogue import reject_interior_references, check_unowned_bytes, native_id, stored_stage_translation
 
 
 class SpecialDiscStageTests(unittest.TestCase):
@@ -64,6 +64,23 @@ class SpecialDiscStageTests(unittest.TestCase):
             self.assertTrue(result.data[0x200:].startswith(b'Pilot\n'+text.encode()+b'\0'))
             check_unowned_bytes(data,result.data,result.owned_regions,[a.pointer_offset for a in result.allocations])
             if text=='Hi': self.assertEqual(result.data,data)
+
+    def test_visible_english_space_uses_8140_in_the_stored_stage_payload(self):
+        fixture = bytearray(self.fixture())
+        fixture[0x200:0x260] = b'Pilot\nThis is a sufficiently long original dialogue\0'.ljust(0x60, b'\0')
+        data = bytes(fixture)
+        table = load_text_table(ROOT/'vendor/upstream-python/project/tbl_all.json')
+        codes = original_fullwidth_ascii_overrides(table)
+        replacement = stored_stage_translation('Black Gale')
+        self.assertEqual(replacement, 'Black　Gale')
+        result = repack_stage_texts_in_place(data, table, stage_index=1,
+            function_address=0, base_address=0x8045F0,
+            replacements={'story/001/dialogue/01.01/0000': replacement}, overrides=codes)
+        at = struct.unpack_from('<I', result.data, 0x1B0)[0] - 0x8045F0
+        message = result.data[at:].split(b'\n', 1)[1].split(b'\0', 1)[0]
+        self.assertEqual(message, 'Ｂｌａｃｋ　Ｇａｌｅ'.encode('cp932'))
+        self.assertNotIn(b'\x20', message)
+        self.assertEqual(result.data[0x260:], data[0x260:])
 
     def test_unknown_interior_reference_blocks_relocation(self):
         data=bytearray(self.fixture());struct.pack_into('<I',data,0x50,0x8045F0+0x202)
