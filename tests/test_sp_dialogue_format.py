@@ -9,6 +9,7 @@ from normalize_sp_dialogue import (
     normalize_dialogue, profile_for, visible_ascii_identity,
 )
 from srwz.chinese_layout import dialogue_layout_issues, load_layout_profiles, logical_dialogue_text
+from srwz.text import encode_text, load_text_table, original_fullwidth_ascii_overrides
 
 
 class SpDialogueFormatTest(unittest.TestCase):
@@ -21,6 +22,27 @@ class SpDialogueFormatTest(unittest.TestCase):
         after, _, _ = normalize_dialogue(text, self.profile)
         self.assertEqual(STRUCTURAL.findall(text), STRUCTURAL.findall(after))
         self.assertEqual(logical_dialogue_text(after), text)
+
+    def test_ascii_identity_and_fullwidth_forms_have_same_two_byte_storage(self):
+        table = load_text_table(ROOT/'vendor/upstream-python/project/tbl_all.json')
+        codes = original_fullwidth_ascii_overrides(table)
+        self.assertEqual(len(codes), 62)
+        for char, code in codes.items():
+            with self.subTest(char=char):
+                fullwidth = chr(ord(char) + 0xFEE0)
+                self.assertEqual(encode_text(char, table, overrides=codes), code.to_bytes(2, 'big'))
+                self.assertEqual(encode_text(fullwidth, table, overrides=codes), code.to_bytes(2, 'big'))
+        self.assertEqual(encode_text('MAX56000', table, overrides=codes).hex(),
+                         '826c8260827782548255824f824f824f')
+
+    def test_visible_letters_use_two_bytes_and_runtime_tokens_remain_exact(self):
+        table = load_text_table(ROOT/'vendor/upstream-python/project/tbl_all.json')
+        codes = original_fullwidth_ascii_overrides(table)
+        self.assertEqual(encode_text('MAX', table, overrides=codes), bytes.fromhex('826c82608277'))
+        self.assertEqual(encode_text('$n%s', table, overrides=codes), b'$n%s')
+        # The unconfigured generic encoder accepts single bytes. Production
+        # must supply the fullwidth overrides for these renderer surfaces.
+        self.assertEqual(encode_text('MAX', table), b'MAX')
 
     def test_real_split_name_is_repaired_without_wording_change(self):
         text = '“听说这台加布斯雷是西罗\n　克上校亲自设计的机体。”'

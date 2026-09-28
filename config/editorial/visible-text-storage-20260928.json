@@ -1,0 +1,162 @@
+{
+  "sp_iso_sha256": "cf12a313493d545bd89120d71bb93d9f6b8818c259809b889889ba15a1984322",
+  "sp_stage_unique_text_payloads": 7895,
+  "sp_raw_visible_ascii_findings": [],
+  "six_entries": [
+    {
+      "target": "sd/challenge/040/dialogue/01.08/0002",
+      "tokens": {
+        "MAX": "826c82608277",
+        "40000": "8253824f824f824f824f"
+      },
+      "raw_single_byte_visible_ascii": false,
+      "logical_text": "“按我的计算，\n　能造成的MAX伤害超过40000。”",
+      "payload_sha256": "ca2762a3b67b08f02877a41bb6610cebb6ffb98f01e60167db873769acec83db"
+    },
+    {
+      "target": "sd/challenge/040/dialogue/01.09/0003",
+      "tokens": {
+        "MAX": "826c82608277",
+        "40000": "8253824f824f824f824f"
+      },
+      "raw_single_byte_visible_ascii": false,
+      "logical_text": "“按我的计算，\n　能造成的MAX伤害超过40000。”",
+      "payload_sha256": "ca2762a3b67b08f02877a41bb6610cebb6ffb98f01e60167db873769acec83db"
+    },
+    {
+      "target": "sd/challenge/045/dialogue/02.01/0047",
+      "tokens": {
+        "4": "8253",
+        "150": "82508254824f",
+        "MS": "826c8272"
+      },
+      "raw_single_byte_visible_ascii": false,
+      "logical_text": "“目标是在作战时间4分钟\n　内击坠150架MS。”",
+      "payload_sha256": "433e18a961b5534e3381f3b6d928db1d8ae59e795a5b5882c31da46a5d1a0d67"
+    },
+    {
+      "target": "sd/challenge/046/dialogue/01.09/0002",
+      "tokens": {
+        "MAX": "826c82608277",
+        "56000": "82548255824f824f824f"
+      },
+      "raw_single_byte_visible_ascii": false,
+      "logical_text": "“按我的计算，\n　能打出的MAX伤害超过56000。”",
+      "payload_sha256": "f4479275026c3b0c28017841532666baf559b1a59c5cae63d4ca94700d028027"
+    },
+    {
+      "target": "sd/challenge/046/dialogue/01.09/0003",
+      "tokens": {
+        "MAX": "826c82608277"
+      },
+      "raw_single_byte_visible_ascii": false,
+      "logical_text": "“也就是说，我们打出了接近MAX的数值。”",
+      "payload_sha256": "a3393829797b17a9bf1fbe5cfe7c1bc92cefb17806cc3a2ed3a887fc6aa9e210"
+    },
+    {
+      "target": "sd/challenge/046/dialogue/01.10/0002",
+      "tokens": {
+        "MAX": "826c82608277",
+        "56000": "82548255824f824f824f"
+      },
+      "raw_single_byte_visible_ascii": false,
+      "logical_text": "“不过，按我的计算，\n　能打出的MAX伤害超过56000。”",
+      "payload_sha256": "9b0dc89c5f194a044b9fe2f5998fd245800bb9803588b69b7f41e457745f8fb5"
+    }
+  ],
+  "main_policy": {
+    "mode": "surface-aware-original-game-glyphs",
+    "stock_alphanumeric_glyph_count": 62,
+    "stock_alphanumeric_glyphs_byte_exact": true,
+    "raw_and_fullwidth_codes_share_glyph_slots": true,
+    "story_and_display_name_storage": "original_fullwidth_two_byte",
+    "stage_title_storage": "original_fullwidth_two_byte",
+    "runtime_tokens_raw_ascii": true,
+    "source_decoded_font_sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd",
+    "story_storage_examples": {
+      "PLANT": {
+        "entry_id": "story/002/dialogue/01.74/0000",
+        "stored_hex": "826f826b8260826d8273",
+        "raw_single_byte_ascii": false
+      },
+      "FAITH": {
+        "entry_id": "story/032/dialogue/02.01/0016",
+        "stored_hex": "82658260826882738267",
+        "raw_single_byte_ascii": false
+      }
+    },
+    "story_storage_examples_exact": true
+  },
+  "main_raw_visible_ascii_storage": {
+    "story_glyph_count": 0,
+    "story_target_count": 0,
+    "world_history_glyph_count": 0,
+    "world_history_entry_count": 0,
+    "srvc_glyph_count": 0,
+    "srvc_record_count": 0,
+    "special_ability_glyph_count": 0,
+    "special_ability_target_count": 0,
+    "pilot_skill_glyph_count": 0,
+    "pilot_skill_target_count": 0,
+    "unit_mech_pilot_weapon_ui_glyph_count": 0,
+    "unit_mech_pilot_weapon_ui_target_count": 0,
+    "weapon_effect_1_glyph_count": 0,
+    "weapon_effect_1_target_count": 0,
+    "weapon_effect_help_glyph_count": 0,
+    "weapon_effect_help_target_count": 0,
+    "weapon_effect_2_glyph_count": 0,
+    "weapon_effect_2_target_count": 0,
+    "runtime_substitution_tokens_excluded": true,
+    "all_stored_visible_ascii_uses_two_byte_glyphs": true
+  },
+  "main_visible_space_storage": {
+    "display_name_raw_space_entry_count": 0,
+    "compdata_menu_raw_space_target_count": 0,
+    "slps_menu_raw_space_target_count": 0,
+    "raw_space_count_zero": true,
+    "keyword_field_count": 208,
+    "keyword_raw_visible_space_count": 0,
+    "keyword_two_byte_visible_space_count": 82,
+    "story_raw_space_target_count": 0,
+    "stage_overview_raw_space_entry_count": 0,
+    "world_history_raw_space_entry_count": 0,
+    "hsfc_raw_space_cell_count": 0,
+    "srvc_raw_space_record_count": 0,
+    "srvc_pollution_record_count": 0,
+    "srvc_pollution_absent": true
+  },
+  "original_best_final_iso_examples": [
+    {
+      "edition": "original",
+      "stage": 2,
+      "text": "PLANT",
+      "stored_hex": "826f826b8260826d8273",
+      "decoded_offset": 56310,
+      "iso_sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245"
+    },
+    {
+      "edition": "original",
+      "stage": 32,
+      "text": "FAITH",
+      "stored_hex": "82658260826882738267",
+      "decoded_offset": 43185,
+      "iso_sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245"
+    },
+    {
+      "edition": "best",
+      "stage": 2,
+      "text": "PLANT",
+      "stored_hex": "826f826b8260826d8273",
+      "decoded_offset": 56310,
+      "iso_sha256": "bd90e036f7de18804c1173c200f198fa0e0dff87bd775ba4af75f71b12498c90"
+    },
+    {
+      "edition": "best",
+      "stage": 32,
+      "text": "FAITH",
+      "stored_hex": "82658260826882738267",
+      "decoded_offset": 43185,
+      "iso_sha256": "bd90e036f7de18804c1173c200f198fa0e0dff87bd775ba4af75f71b12498c90"
+    }
+  ]
+}
