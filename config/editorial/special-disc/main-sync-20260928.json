@@ -1,0 +1,689 @@
+{
+  "schema_version": 1,
+  "batch_id": "sp-main-sync-20260928",
+  "policy": "Refresh explicit main-context bindings changed since the previous verified SP snapshot; retain earlier independent SP editorial decisions.",
+  "previous_sp_receipt": {
+    "adapter": "sp-full-text-v1",
+    "component_modes": {
+      "frame": "reused",
+      "image-labels": "reused",
+      "srvc": "reused",
+      "stage": "reused",
+      "system": "reused"
+    },
+    "daily_test": {
+      "battle_square_skip": {
+        "all_replacements_exact": true,
+        "already_applied": true,
+        "cave_file_offset": "0x351100",
+        "cave_preimage_all_zero": false,
+        "cave_size": 2048,
+        "cave_virtual_address": "0x450780",
+        "changed_byte_count": 0,
+        "configuration_matches_before": true,
+        "edition": "sp",
+        "enabled": true,
+        "executable_size_preserved": true,
+        "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+        "hook_size": 1728,
+        "member": "SLPS_259.20",
+        "native_resource_waits_preserved": true,
+        "native_result_processing_preserved": true,
+        "patches": [
+          {
+            "file_offset": "0x1EA5C8",
+            "id": "battle_step_world_call",
+            "kind": "jal",
+            "original_instruction_hex": "ec390c0c",
+            "replacement_instruction_hex": "e041110c",
+            "state_before": "applied",
+            "surface": "battle step world call",
+            "virtual_address": "0x2E9C48"
+          },
+          {
+            "file_offset": "0x1F2C00",
+            "id": "queue_append_prologue_0",
+            "kind": "j",
+            "original_instruction_hex": "20038290",
+            "replacement_instruction_hex": "20431108",
+            "state_before": "applied",
+            "surface": "queue append prologue 0",
+            "virtual_address": "0x2F2280"
+          },
+          {
+            "file_offset": "0x1F2C04",
+            "id": "queue_append_prologue_1",
+            "kind": "nop",
+            "original_instruction_hex": "c0100200",
+            "replacement_instruction_hex": "00000000",
+            "state_before": "applied",
+            "surface": "queue append prologue 1",
+            "virtual_address": "0x2F2284"
+          }
+        ],
+        "policy": "square_skips_battle_animation_via_native_tail",
+        "site_count": 3,
+        "state_marker": "0x4E540005",
+        "world_steps_per_frame": 1
+      },
+      "path": "build/iso/daily-test/current-sp-skip.iso",
+      "runtime": "not_tested",
+      "sha256": "892689dba632ed355b885eae42caa3fccd7a78646fccc991bda3f52a889bac61",
+      "size": 3791781888,
+      "skip_enabled": true,
+      "status": "exact_current_copy_and_skip_readback_passed"
+    },
+    "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
+    "edition_id": "sp",
+    "input_digest": "13ed58056ab65e57d47e99f262a9b1ab77b1be5f07f724097f60a2381c1668a6",
+    "output": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "892689dba632ed355b885eae42caa3fccd7a78646fccc991bda3f52a889bac61",
+      "size": 3791781888
+    },
+    "readback": {
+      "path": "build/editions/zh-release-sp/abc8473d74a5624dcf110f5ec7c62289e9713e1cb714250a95db3c66f025a645/project/build/iso/special-disc/sp-current.json",
+      "sha256": "647ffd8aeeb367642718c32e73956bfe77775575070f3a0b7595849361283725"
+    },
+    "runtime": "not_tested",
+    "schema_version": 1,
+    "source_head": "32205b3a4bed621cb3bb6752866125c22f3a7ba9",
+    "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+    "status": "edition_iso_static_validated_runtime_pending",
+    "workspace": "build/editions/zh-release-sp/abc8473d74a5624dcf110f5ec7c62289e9713e1cb714250a95db3c66f025a645/project"
+  },
+  "changes": [
+    {
+      "id": "sd/story/023/dialogue/02.01/0356",
+      "source_text_sha256": "c1343c5c84e2ba44cafdd2cf87aec9e65de91bf696a37b6e2928a75ae31ef5cb",
+      "before": "“是……！”",
+      "after": "“是的……！”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+      "main_id": "story/150/dialogue/02.01/0427",
+      "main_before": "“是……！”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0448",
+      "source_text_sha256": "529b9c02173283a34089db6e16dd4004a4900ffeb14bc8efea23e4992edc367f",
+      "before": "“打架我不参加，但饭团我可要尝尝！”",
+      "after": "“虽然不参与打架，但饭团我可要尝尝！”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+      "main_id": "story/150/dialogue/02.01/0582",
+      "main_before": "“打架我不参加，但饭团我可要尝尝！”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0385",
+      "source_text_sha256": "1d3d883002f9eb035b9e5e287e53bca34499561c55889a80dbc91cdfee6727be",
+      "before": "“啊……那就是我们新的战斗。”",
+      "after": "“啊……那是我们新的战斗。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+      "main_id": "story/150/dialogue/02.01/0098",
+      "main_before": "“啊……那就是我们新的战斗。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0387",
+      "source_text_sha256": "849236401dd9cdcd0aea1f9f76eaa30126320fc772c404f2e954274c2ec6c34c",
+      "before": "（为了不让在$c\n　战斗的每一天白费……）",
+      "after": "（为了不让在$c\n　战斗的日子白费……）",
+      "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+      "main_id": "story/150/dialogue/02.01/0100",
+      "main_before": "（为了不让在$c\n　战斗的每一天白费……）"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0320",
+      "source_text_sha256": "bda5af3947487b1d1d0699073abe1023fd0a20f40d7d9fccd229d023bbbb3703",
+      "before": "“甲儿君，各位……我出发了。”",
+      "after": "“甲儿君，大家……我走了。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+      "main_id": "story/150/dialogue/02.01/0391",
+      "main_before": "“甲儿君，各位……我出发了。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0355",
+      "source_text_sha256": "17020f4cf2e7921765e32b28109d9ce295537bc1360486579d8c5d4dc0ba0b0f",
+      "before": "“不过，若有一天需要我这点力量，\n　我也会考虑的。就像那个男人一样。”",
+      "after": "“但是，如果有一天需要我这样的力量，\n　我会考虑的。就像那个男人一样。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+      "main_id": "story/150/dialogue/02.01/0426",
+      "main_before": "“不过，如果有一天连我这样的力量也被\n　需要的话，我会考虑的。就像那家伙一样。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0099",
+      "source_text_sha256": "0ecc2f8e5bf68239763b54dcd8ddd72be51609a438b3f4e8705f27d75e8c1dd6",
+      "before": "“……又在看天空吗？”",
+      "after": "“……又在看天空了？”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0094",
+      "main_before": "“……又在看天空吗？”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0471",
+      "source_text_sha256": "0ecc2f8e5bf68239763b54dcd8ddd72be51609a438b3f4e8705f27d75e8c1dd6",
+      "before": "“……又在看天空吗？”",
+      "after": "“……又在看天空了？”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0094",
+      "main_before": "“……又在看天空吗？”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0118",
+      "source_text_sha256": "34bd609cd3f309e692be245e029b1f037af86b410bbf7d151a3d33504ee9d427",
+      "before": "“刚刚。而且回来的不止我一个。”",
+      "after": "“就在刚才。而且回来的不止我一个。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0113",
+      "main_before": "“刚刚。而且回来的不止我一个。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0490",
+      "source_text_sha256": "34bd609cd3f309e692be245e029b1f037af86b410bbf7d151a3d33504ee9d427",
+      "before": "“刚刚。而且回来的不止我一个。”",
+      "after": "“就在刚才。而且回来的不止我一个。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0113",
+      "main_before": "“刚刚。而且回来的不止我一个。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0166",
+      "source_text_sha256": "05d2144c5a64d31bcabb3cf9e340efa9158765644fb340c51297e0170a8c7609",
+      "before": "“我们也陪你一起去，\n　为S-1星人寻找第二故乡。”",
+      "after": "“我们也陪你一起去。\n　去寻找S-1星人的第二故乡之旅。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0159",
+      "main_before": "“我们也陪你。\n　去找S-1星人的第二故乡的旅途。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0396",
+      "source_text_sha256": "05d2144c5a64d31bcabb3cf9e340efa9158765644fb340c51297e0170a8c7609",
+      "before": "“我们也陪你一起去，\n　为S-1星人寻找第二故乡。”",
+      "after": "“我们也陪你一起去。\n　去寻找S-1星人的第二故乡之旅。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0159",
+      "main_before": "“我们也陪你。\n　去找S-1星人的第二故乡的旅途。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0193",
+      "source_text_sha256": "1745da2029b0f67efd86b6447d5f44ed654772494fb3a6a77f45f80c187a003b",
+      "before": "“他们还真是不厌其烦啊……”",
+      "after": "“他们还真是乐此不疲啊……”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0185",
+      "main_before": "“他们还真是不厌其烦啊……”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0422",
+      "source_text_sha256": "1745da2029b0f67efd86b6447d5f44ed654772494fb3a6a77f45f80c187a003b",
+      "before": "“他们还真是不厌其烦啊……”",
+      "after": "“他们还真是乐此不疲啊……”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0185",
+      "main_before": "“他们还真是不厌其烦啊……”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0209",
+      "source_text_sha256": "de27484e77a4ac01189a0f87ec831a4c660991465a5a1855f23958762723e26e",
+      "before": "“别受伤了哦。”",
+      "after": "“小心别受伤了。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0200",
+      "main_before": "“别受伤了哦。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0438",
+      "source_text_sha256": "de27484e77a4ac01189a0f87ec831a4c660991465a5a1855f23958762723e26e",
+      "before": "“别受伤了哦。”",
+      "after": "“小心别受伤了。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0200",
+      "main_before": "“别受伤了哦。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0283",
+      "source_text_sha256": "f08fd3d0e2ebaac14590bd18ca1353403e1214fb8c546d5b5164f77d2b46afe3",
+      "before": "“总觉得有种不可思议的感觉。\n　我们也要成为联邦军的一员了。”",
+      "after": "“感觉真不可思议啊。\n　我们也要成为联邦军的一员了。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0335",
+      "main_before": "“总觉得有种不可思议的感觉。\n　我们也要成为联邦军的一员了。”"
+    },
+    {
+      "id": "sd/story/023/dialogue/02.01/0345",
+      "source_text_sha256": "f08fd3d0e2ebaac14590bd18ca1353403e1214fb8c546d5b5164f77d2b46afe3",
+      "before": "“总觉得有种不可思议的感觉。\n　我们也要成为联邦军的一员了。”",
+      "after": "“感觉真不可思议啊。\n　我们也要成为联邦军的一员了。”",
+      "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+      "main_id": "story/145/dialogue/02.01/0335",
+      "main_before": "“总觉得有种不可思议的感觉。\n　我们也要成为联邦军的一员了。”"
+    }
+  ],
+  "source_files": {
+    "config/editorial/special-disc/stage-context-reuse.json": "b5157cb30f335f1960a430dfc92cd26e3cb62013db3d33ec6ab558033a768405",
+    "corpus/zh/battle/srvc-lines.json": "f7b5af903e533c7a3e0eaa5d9b3ca0e54c87356da4ca68ea6d375b5efb9e67dd",
+    "corpus/zh/special-disc/system-text.json": "26ce68a5dc51a2e6237b3a6b029746f9f654c520d7b034118a267a1111d6df17",
+    "corpus/zh/story-dialogue/stage-145.json": "9996b0810c9af36ed9fc7fa2debf7533036de2eb19debfe2e789e3880d893ecc",
+    "corpus/zh/story-dialogue/stage-150.json": "d3155eaa591d7ef6cfa2f83109bb14794527debc4bf6ee105c1e44276f4ade7f"
+  },
+  "runtime": "pending",
+  "validation": {
+    "stage_writeback_tests": 16,
+    "changed_stage_bindings": 18,
+    "all_changed_bindings_match_main": true,
+    "unrelated_stage_binding_changes": 0,
+    "targets": [
+      {
+        "id": "sd/story/023/dialogue/02.01/0356",
+        "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+        "main_id": "story/150/dialogue/02.01/0427",
+        "translation": "“是的……！”",
+        "output_text": "“是的……！”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0448",
+        "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+        "main_id": "story/150/dialogue/02.01/0582",
+        "translation": "“虽然不参与打架，但饭团我可要尝尝！”",
+        "output_text": "“虽然不参与打架，但饭团我可要尝尝！”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0385",
+        "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+        "main_id": "story/150/dialogue/02.01/0098",
+        "translation": "“啊……那是我们新的战斗。”",
+        "output_text": "“啊……那是我们新的战斗。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0387",
+        "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+        "main_id": "story/150/dialogue/02.01/0100",
+        "translation": "（为了不让在$c\n　战斗的日子白费……）",
+        "output_text": "（为了不让在$c\n　战斗的日子白费……）",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0320",
+        "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+        "main_id": "story/150/dialogue/02.01/0391",
+        "translation": "“甲儿君，大家……我走了。”",
+        "output_text": "“甲儿君，大家……我走了。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0355",
+        "main_corpus": "corpus/zh/story-dialogue/stage-150.json",
+        "main_id": "story/150/dialogue/02.01/0426",
+        "translation": "“但是，如果有一天需要我这样的力量，\n　我会考虑的。就像那个男人一样。”",
+        "output_text": "“但是，如果有一天需要我这样的力量，\n　我会考虑的。就像那个男人一样。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0099",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0094",
+        "translation": "“……又在看天空了？”",
+        "output_text": "“……又在看天空了？”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0471",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0094",
+        "translation": "“……又在看天空了？”",
+        "output_text": "“……又在看天空了？”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0118",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0113",
+        "translation": "“就在刚才。而且回来的不止我一个。”",
+        "output_text": "“就在刚才。而且回来的不止我一个。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0490",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0113",
+        "translation": "“就在刚才。而且回来的不止我一个。”",
+        "output_text": "“就在刚才。而且回来的不止我一个。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0166",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0159",
+        "translation": "“我们也陪你一起去。\n　去寻找S-1星人的第二故乡之旅。”",
+        "output_text": "“我们也陪你一起去。\n　去寻找S-1星人的第二故乡之旅。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0396",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0159",
+        "translation": "“我们也陪你一起去。\n　去寻找S-1星人的第二故乡之旅。”",
+        "output_text": "“我们也陪你一起去。\n　去寻找S-1星人的第二故乡之旅。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0193",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0185",
+        "translation": "“他们还真是乐此不疲啊……”",
+        "output_text": "“他们还真是乐此不疲啊……”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0422",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0185",
+        "translation": "“他们还真是乐此不疲啊……”",
+        "output_text": "“他们还真是乐此不疲啊……”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0209",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0200",
+        "translation": "“小心别受伤了。”",
+        "output_text": "“小心别受伤了。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0438",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0200",
+        "translation": "“小心别受伤了。”",
+        "output_text": "“小心别受伤了。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0283",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0335",
+        "translation": "“感觉真不可思议啊。\n　我们也要成为联邦军的一员了。”",
+        "output_text": "“感觉真不可思议啊。\n　我们也要成为联邦军的一员了。”",
+        "route": "sp_native_id"
+      },
+      {
+        "id": "sd/story/023/dialogue/02.01/0345",
+        "main_corpus": "corpus/zh/story-dialogue/stage-145.json",
+        "main_id": "story/145/dialogue/02.01/0335",
+        "translation": "“感觉真不可思议啊。\n　我们也要成为联邦军的一员了。”",
+        "output_text": "“感觉真不可思议啊。\n　我们也要成为联邦军的一员了。”",
+        "route": "sp_native_id"
+      }
+    ],
+    "batch_manifest": "work/editions/ab48af8c777c5b3687766ac3e99d669c2f8733fd75c94e2ffb74b22e45a9b72d/original-best-sp.json",
+    "input_digest": "ab48af8c777c5b3687766ac3e99d669c2f8733fd75c94e2ffb74b22e45a9b72d",
+    "timing_seconds": 199.681,
+    "editions": [
+      {
+        "edition_id": "original",
+        "output": {
+          "path": "build/iso/zh-release-original/current-original.iso",
+          "sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245",
+          "size": 3758358528
+        },
+        "daily_test": {
+          "battle_square_skip": {
+            "all_replacements_exact": true,
+            "already_applied": true,
+            "cave_file_offset": "0x2F7A80",
+            "cave_preimage_all_zero": false,
+            "cave_size": 2048,
+            "cave_virtual_address": "0x3F6000",
+            "changed_byte_count": 0,
+            "configuration_matches_before": true,
+            "edition": "original",
+            "enabled": true,
+            "executable_size_preserved": true,
+            "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
+            "hook_size": 1728,
+            "member": "SLPS_258.87",
+            "native_resource_waits_preserved": true,
+            "native_result_processing_preserved": true,
+            "patches": [
+              {
+                "file_offset": "0x1E5874",
+                "id": "battle_step_world_call",
+                "kind": "jal",
+                "original_instruction_hex": "ac200c0c",
+                "replacement_instruction_hex": "00d80f0c",
+                "state_before": "applied",
+                "surface": "battle step world call",
+                "virtual_address": "0x2E3DF4"
+              },
+              {
+                "file_offset": "0x1ED990",
+                "id": "queue_append_prologue_0",
+                "kind": "j",
+                "original_instruction_hex": "20038290",
+                "replacement_instruction_hex": "40d90f08",
+                "state_before": "applied",
+                "surface": "queue append prologue 0",
+                "virtual_address": "0x2EBF10"
+              },
+              {
+                "file_offset": "0x1ED994",
+                "id": "queue_append_prologue_1",
+                "kind": "nop",
+                "original_instruction_hex": "c0100200",
+                "replacement_instruction_hex": "00000000",
+                "state_before": "applied",
+                "surface": "queue append prologue 1",
+                "virtual_address": "0x2EBF14"
+              }
+            ],
+            "policy": "square_skips_battle_animation_via_native_tail",
+            "site_count": 3,
+            "state_marker": "0x4E540005",
+            "world_steps_per_frame": 1
+          },
+          "path": "build/iso/daily-test/current-original-skip.iso",
+          "runtime": "not_tested",
+          "sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245",
+          "size": 3758358528,
+          "skip_enabled": true,
+          "status": "exact_current_copy_and_skip_readback_passed"
+        },
+        "readback": {
+          "path": "build/editions/zh-release-original/eb47a535cb7659bacfae57bfb06a71f0215b5eb8b48597deee4acd602ff604eb/project/manifests/zh-release-full-story-iso-content-validation.json",
+          "sha256": "1a068d4e6cc678578913320a95195d7067d15e93d32110c53505bedb83f0b4c0",
+          "stage_count": 170,
+          "translation_entry_count": 93071
+        }
+      },
+      {
+        "edition_id": "best",
+        "output": {
+          "path": "build/iso/zh-release-best/current-best.iso",
+          "sha256": "bd90e036f7de18804c1173c200f198fa0e0dff87bd775ba4af75f71b12498c90",
+          "size": 3755081728
+        },
+        "daily_test": {
+          "battle_square_skip": {
+            "all_replacements_exact": true,
+            "already_applied": true,
+            "cave_file_offset": "0x2F7A80",
+            "cave_preimage_all_zero": false,
+            "cave_size": 2048,
+            "cave_virtual_address": "0x3F6000",
+            "changed_byte_count": 0,
+            "configuration_matches_before": true,
+            "edition": "best",
+            "enabled": true,
+            "executable_size_preserved": true,
+            "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+            "hook_size": 1728,
+            "member": "SLPS_732.70",
+            "native_resource_waits_preserved": true,
+            "native_result_processing_preserved": true,
+            "patches": [
+              {
+                "file_offset": "0x1E5C44",
+                "id": "battle_step_world_call",
+                "kind": "jal",
+                "original_instruction_hex": "a0210c0c",
+                "replacement_instruction_hex": "00d80f0c",
+                "state_before": "applied",
+                "surface": "battle step world call",
+                "virtual_address": "0x2E41C4"
+              },
+              {
+                "file_offset": "0x1EDD60",
+                "id": "queue_append_prologue_0",
+                "kind": "j",
+                "original_instruction_hex": "20038290",
+                "replacement_instruction_hex": "40d90f08",
+                "state_before": "applied",
+                "surface": "queue append prologue 0",
+                "virtual_address": "0x2EC2E0"
+              },
+              {
+                "file_offset": "0x1EDD64",
+                "id": "queue_append_prologue_1",
+                "kind": "nop",
+                "original_instruction_hex": "c0100200",
+                "replacement_instruction_hex": "00000000",
+                "state_before": "applied",
+                "surface": "queue append prologue 1",
+                "virtual_address": "0x2EC2E4"
+              }
+            ],
+            "policy": "square_skips_battle_animation_via_native_tail",
+            "site_count": 3,
+            "state_marker": "0x4E540005",
+            "world_steps_per_frame": 1
+          },
+          "path": "build/iso/daily-test/current-best-skip.iso",
+          "runtime": "not_tested",
+          "sha256": "bd90e036f7de18804c1173c200f198fa0e0dff87bd775ba4af75f71b12498c90",
+          "size": 3755081728,
+          "skip_enabled": true,
+          "status": "exact_current_copy_and_skip_readback_passed"
+        },
+        "readback": {
+          "path": "build/editions/zh-release-best/3baad6abfae81df965e772d48d97bc4acc5f5019f0a4b32c1f4f51ea668e3104/project/work/build/best-current/iso-readback.json",
+          "sha256": "c7492f7c8b1ee1a6e7d1119fd69a885342315915876d71172d9842ccb3eb8e95",
+          "stage_count": 205,
+          "translation_entry_count": 84338
+        }
+      },
+      {
+        "edition_id": "sp",
+        "output": {
+          "path": "build/iso/special-disc/sp-current.iso",
+          "sha256": "30abf27210a72ab424cc7ae5d7ce15fccfa62cc67f4cd9836059e888882a387f",
+          "size": 3791781888
+        },
+        "daily_test": {
+          "battle_square_skip": {
+            "all_replacements_exact": true,
+            "already_applied": true,
+            "cave_file_offset": "0x351100",
+            "cave_preimage_all_zero": false,
+            "cave_size": 2048,
+            "cave_virtual_address": "0x450780",
+            "changed_byte_count": 0,
+            "configuration_matches_before": true,
+            "edition": "sp",
+            "enabled": true,
+            "executable_size_preserved": true,
+            "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+            "hook_size": 1728,
+            "member": "SLPS_259.20",
+            "native_resource_waits_preserved": true,
+            "native_result_processing_preserved": true,
+            "patches": [
+              {
+                "file_offset": "0x1EA5C8",
+                "id": "battle_step_world_call",
+                "kind": "jal",
+                "original_instruction_hex": "ec390c0c",
+                "replacement_instruction_hex": "e041110c",
+                "state_before": "applied",
+                "surface": "battle step world call",
+                "virtual_address": "0x2E9C48"
+              },
+              {
+                "file_offset": "0x1F2C00",
+                "id": "queue_append_prologue_0",
+                "kind": "j",
+                "original_instruction_hex": "20038290",
+                "replacement_instruction_hex": "20431108",
+                "state_before": "applied",
+                "surface": "queue append prologue 0",
+                "virtual_address": "0x2F2280"
+              },
+              {
+                "file_offset": "0x1F2C04",
+                "id": "queue_append_prologue_1",
+                "kind": "nop",
+                "original_instruction_hex": "c0100200",
+                "replacement_instruction_hex": "00000000",
+                "state_before": "applied",
+                "surface": "queue append prologue 1",
+                "virtual_address": "0x2F2284"
+              }
+            ],
+            "policy": "square_skips_battle_animation_via_native_tail",
+            "site_count": 3,
+            "state_marker": "0x4E540005",
+            "world_steps_per_frame": 1
+          },
+          "path": "build/iso/daily-test/current-sp-skip.iso",
+          "runtime": "not_tested",
+          "sha256": "30abf27210a72ab424cc7ae5d7ce15fccfa62cc67f4cd9836059e888882a387f",
+          "size": 3791781888,
+          "skip_enabled": true,
+          "status": "exact_current_copy_and_skip_readback_passed"
+        },
+        "readback": {
+          "path": "build/editions/zh-release-sp/55124acac984986a3106fd4507a6cf6907ef9c5277df9b6be9919390882f5914/project/build/iso/special-disc/sp-current.json",
+          "sha256": "f0eeed653b59adfc823820e25a3e8f9b1ae53c30674e320149d1726179afc918"
+        }
+      }
+    ],
+    "batch_verification": {
+      "status": "edition_batch_receipt_integrity_passed",
+      "input_digest": "ab48af8c777c5b3687766ac3e99d669c2f8733fd75c94e2ffb74b22e45a9b72d",
+      "verified_editions": [
+        "original",
+        "best",
+        "sp"
+      ],
+      "both_editions": true,
+      "runtime": "not_tested",
+      "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+    },
+    "sp_independent_readback": {
+      "path": "work/build/special-disc/full-text/runs/build-o6ee603k/independent-readback.json",
+      "sha256": "f131bd81c543142adae9f54d4e46a26eb064aada6a4dcadff171bbabab94de35"
+    },
+    "unassigned_display_characters": [],
+    "latest_main_battle_lines_final_iso": {
+      "battle:10583": {
+        "records": 4,
+        "status": "final_iso_readback_matches"
+      },
+      "battle:19508": {
+        "records": 4,
+        "status": "final_iso_readback_matches"
+      },
+      "battle:19511": {
+        "records": 4,
+        "status": "final_iso_readback_matches"
+      },
+      "battle:20163": {
+        "records": 0,
+        "status": "source_not_present_in_sp_srvc"
+      }
+    },
+    "weapon_names_final_iso": {
+      "sd/compdata/809A0": "恶薙之剑",
+      "sd/compdata/7CB10": "三重魔神剑"
+    }
+  }
+}
