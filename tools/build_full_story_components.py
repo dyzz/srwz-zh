@@ -81,6 +81,7 @@ try:
         WeaponCategoryLabelError,
         apply_runtime_weapon_category_labels,
     )
+    from srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
     from srwz.dialogue_speaker_colors import (
         DialogueSpeakerColorError,
         apply_dialogue_speaker_quote_constant,
@@ -283,6 +284,7 @@ except ModuleNotFoundError:
         WeaponCategoryLabelError,
         apply_runtime_weapon_category_labels,
     )
+    from tools.srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
     from tools.srwz.dialogue_speaker_colors import (
         DialogueSpeakerColorError,
         apply_dialogue_speaker_quote_constant,
@@ -730,6 +732,7 @@ CONFIG_SECTION_IMPACTS = {
     "runtime_movement_type_labels": {SLPS_MEMBER},
     "dialogue_speaker_colors": {SLPS_MEMBER},
     "runtime_weapon_category_labels": {SLPS_MEMBER},
+    "weapon_detail_parentheses": {SLPS_MEMBER},
     "runtime_keywords": {COMPDATA_MEMBER, STAGE_MEMBER},
     "composition": {SLPS_MEMBER, VT1_MEMBER},
     "intermission_list_font_geometry": {SLPS_MEMBER},
@@ -8764,6 +8767,8 @@ def _build_incremental_fixed_slps(
         raise FullStoryComponentError(
             f"incremental remaining squad-count alignment failed: {error}"
         ) from error
+    output_slps, weapon_detail_parentheses_report = apply_weapon_detail_parentheses(
+        output_slps, policy=config["weapon_detail_parentheses"])
     changed_byte_offsets = {
         index
         for index, (before, after) in enumerate(zip(current_slps, output_slps))
@@ -8796,6 +8801,7 @@ def _build_incremental_fixed_slps(
         )
 
     report = json.loads(json.dumps(prior_report))
+    report["weapon_detail_parentheses"] = weapon_detail_parentheses_report
     report["inputs"]["config"] = _file_lock(
         config_path, config_path.read_bytes()
     )
@@ -10879,6 +10885,9 @@ def _build_components(
             f"weapon special-effect-2 write failed: {error}"
         ) from error
 
+    output_slps, weapon_detail_parentheses_report = apply_weapon_detail_parentheses(
+        output_slps, policy=config["weapon_detail_parentheses"])
+
     output_slps, library_offset_table_report = (
         _apply_library_archive_offset_patches(
             output_slps,
@@ -11238,6 +11247,7 @@ def _build_components(
         "runtime_movement_type_labels": movement_type_label_report,
         "dialogue_speaker_colors": dialogue_speaker_color_report,
         "runtime_weapon_category_labels": weapon_category_label_report,
+        "weapon_detail_parentheses": weapon_detail_parentheses_report,
         "search_tab_alignment": search_tab_alignment_report,
         "intermission_library_alignment": (
             intermission_library_alignment_report

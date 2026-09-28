@@ -34,6 +34,7 @@ from srwz.qa_typography import shared_records
 from special_disc.writeback.squad_names import verify_nisv_names
 from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
+from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
 
 
 def main(iso=None, work=None):
@@ -117,6 +118,9 @@ def main(iso=None, work=None):
     require(file_sha(TERRAIN_CONTRACT)==manifest['terrain_names']['contract_sha256'],'terrain contract drift')
     counts['terrain_names']=terrain['occurrence_count']
     weapon_labels=verify_weapon_detail_labels(exe,readback)
+    weapon_parentheses=verify_weapon_detail_parentheses(exe,'sp')
+    for key,value in weapon_parentheses.items():
+        require(manifest['weapon_detail_parentheses'][key]==value,'weapon parenthesis receipt drift')
     require(weapon_labels==manifest['weapon_detail_labels']['labels'],'weapon label receipt drift')
     require(file_sha(WEAPON_CONTRACT)==manifest['weapon_detail_labels']['contract_sha256'],'weapon contract drift')
     counts['weapon_detail_runtime_labels']=len(weapon_labels)
@@ -262,6 +266,7 @@ def main(iso=None, work=None):
     result['instruction_overrides']=instructions
     result['scope']+=' Reviewed fixed instructions, Q&A metadata and explicit tutorial/Q&A page records.'
     result['weapon_detail_labels']=weapon_labels
+    result['weapon_detail_parentheses']=weapon_parentheses
     result['native_parentheses']=native_parentheses
     result['data_link_bonus']=link_bonus
     result['battle_square_skip']=skip_report

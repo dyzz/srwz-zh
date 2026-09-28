@@ -44,6 +44,7 @@ from special_disc.writeback.battle_square_skip import apply_skip
 from special_disc.writeback.instruction_overrides import apply_overrides
 from special_disc.writeback.squad_names import apply_nisv_names
 from parenthesis_glyphs import apply_parentheses
+from srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
 from srwz.font_profile import load_font_profile
 from special_disc.writeback.incremental import CACHE_PATH, ComponentCache, seed_components
 
@@ -246,6 +247,7 @@ def assemble():
     patches[QA_MEMBER],squad_report=apply_nisv_names(patches[QA_MEMBER],patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table)
     patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,menu_overrides,runtime_table)
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,menu_overrides,runtime_table)
+    patches[EXE],weapon_parentheses_report=apply_weapon_detail_parentheses(patches[EXE],'sp')
     patches[VT1]=replace_font_slot(patches[VT1],patches[EXE],(FONT/'sp-font/font.bin').read_bytes(),font_report['font']['decoded_sha256'])
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
     require(sha(decoded_font)==font_report['font']['decoded_sha256'],'assembled shared font mismatch')
@@ -286,6 +288,7 @@ def assemble():
     protected=verify_iso_ranges(BASE,temporary,[(members[n].extent_lba*2048,members[n].extent_lba*2048+len(d))for n,d in patches.items()])
     report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=file_sha(temporary)),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in patches.items()},protected_iso_ranges=protected,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
     report['weapon_detail_labels']=weapon_report
+    report['weapon_detail_parentheses']=weapon_parentheses_report
     report['native_parentheses']=parenthesis_report
     report['data_link_bonus']=link_report
     report['battle_square_skip']=skip_report
