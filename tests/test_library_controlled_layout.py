@@ -14,7 +14,7 @@ class LibraryControlledLayoutTests(unittest.TestCase):
     def test_numeric_prose_fits_with_22_pixel_body_restore(self):
         tagged=compact_visible_runs('甲'*12+'150吨的握力。',default_advance_px=22)
         result,widths=reflow_body(tagged,16)
-        self.assertEqual(result.replace('\n',''),tagged)
+        self.assertEqual(result.replace('\n',''),'<width:16><space:16>'+tagged)
         self.assertIn('150吨',CONTROL_NOTATION.sub('',result).splitlines()[0])
         self.assertTrue(all(w<=16 for w in widths))
         self.assertTrue(all(text_extent(line,default_advance_px=22).occupied_px<=16*22 for line in result.splitlines()))
@@ -29,7 +29,7 @@ class LibraryControlledLayoutTests(unittest.TestCase):
     def test_percent_restore_and_following_chinese_survive_fallback(self):
         tagged=compact_visible_runs('甲'*13+'99%完成，中文保持原宽。',default_advance_px=22)
         result,widths=reflow_body_legacy(tagged,16)
-        self.assertEqual(result.replace('\n',''),tagged)
+        self.assertEqual(result.replace('\n',''),'<width:16><space:16>'+tagged)
         self.assertIn('99%<space:16><width:16>',result)
         self.assertTrue(all(w<=16 for w in widths))
 

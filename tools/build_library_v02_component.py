@@ -177,6 +177,12 @@ def reflow_body(
     protected_terms: tuple[str, ...] = (),
 ) -> tuple[str, tuple[int, ...]]:
     if re.search(r"<(?:width|space):", text):
+        # Native measuring mutates shared font state. If the first physical
+        # row has no compact scope, it still needs an explicit body baseline;
+        # otherwise the short-row runtime probe can omit that first row.
+        baseline = f"<width:{LIBRARY_BODY_ADVANCE_PX:02X}><space:{LIBRARY_BODY_ADVANCE_PX:02X}>"
+        if not text.startswith(baseline):
+            text = baseline + text
         if profile is None:
             profile = ChineseLayoutProfile(
                 "library-controlled-body", width, None, None, "minimum",

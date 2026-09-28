@@ -113,10 +113,10 @@ class ChineseLayoutProfile:
             raise ChineseLayoutError("layout profile width must be positive")
         if (
             self.first_line_maximum_width is not None
-            and self.first_line_maximum_width < self.maximum_width
+            and self.first_line_maximum_width <= 0
         ):
             raise ChineseLayoutError(
-                "layout profile first-line width must not be narrower"
+                "layout profile first-line width must be positive"
             )
         if self.maximum_lines is not None and self.maximum_lines <= 0:
             raise ChineseLayoutError("layout profile maximum lines must be positive")
@@ -409,8 +409,11 @@ def _tokenize_dialogue_cells(
         # by 特别小队. Preserve the complete protected name across those tags.
         dimensions = r'(?:<(?:width|space):[0-9A-Fa-f]{2}>)*'
         scope_spans = tuple((m.start(),m.end()) for m in _COMPACT_VISIBLE_SCOPE.finditer(text))
+        visible_text = CONTROL_NOTATION.sub('', text)
         controlled_terms = []
         for term in terms:
+            if term not in visible_text:
+                continue
             pattern = dimensions + dimensions.join(re.escape(c) for c in term) + dimensions
             controlled_terms.extend(
                 match.group() for match in re.finditer(pattern, text)

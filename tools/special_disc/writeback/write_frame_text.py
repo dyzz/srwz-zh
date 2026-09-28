@@ -19,7 +19,7 @@ sys.path[:0]=[str(ROOT/'tools'),str(Path(__file__).resolve().parent)]
 import migrate_stage_dialogue as stage
 from srwz.codec import decode_production,reencode_changed_suffix
 from srwz.iso9660 import member_map,scan_iso9660
-from srwz.chinese_layout import ChineseLayoutProfile,fit_chinese_dialogue_layout,load_layout_profiles,rendered_line_width,reflow_chinese_paragraph
+from srwz.chinese_layout import ChineseLayoutProfile,fit_chinese_dialogue_layout,load_layout_profiles,load_unbroken_terms_file,rendered_line_width,reflow_chinese_paragraph
 from srwz.text import CONTROL_NOTATION,decode_text,encode_text,normalize_original_fullwidth_ascii
 from srwz.renderer_metrics import text_extent
 from srwz.summary import parse_summary
@@ -41,23 +41,27 @@ FLOW_WIDTH, FLOW_MAX_LINES=FLOW_LAYOUT['width'], FLOW_LAYOUT['maximum_lines']
 FLOW_PROTECTED_TERMS=tuple(FLOW_LAYOUT['protected_terms'])
 # Current-SP natural detail-body crop is pixel-identical to explicit 10/10.
 FLOW_BODY_ADVANCE_PX=16
+PROSE_UNBROKEN_TERMS=tuple(dict.fromkeys(
+    load_unbroken_terms_file(ROOT/'config/text-layout/zh-story-unbroken-words.json')+
+    load_unbroken_terms_file(ROOT/'config/text-layout/zh-prose-extra-words.json')))
 
 
 def require(condition,message):
     if not condition: raise ValueError(message)
 
 
-def paragraphs(text,width,*,max_lines=None,protected_terms=(),minimum_line_width=0,default_advance_px=24):
+def paragraphs(text,width,*,max_lines=None,protected_terms=(),minimum_line_width=0,default_advance_px=24,line_packing='fill'):
     """Keep authored paragraphs and blank separators, wrap within each paragraph."""
     lines=[]
     for paragraph in normalize_original_fullwidth_ascii(text).split('\n'):
         if not paragraph.strip():
             lines.append('');continue
         indent='　' if paragraph.startswith(('　',' ')) else ''
-        profile=ChineseLayoutProfile(profile_id='sp-fixed-paragraph',maximum_width=width-len(indent),
-            first_line_maximum_width=None,maximum_lines=None,
-            line_count_mode='minimum',line_packing='fill',allow_oversized_token_split=True,
-            minimum_line_width=minimum_line_width,default_advance_px=default_advance_px)
+        profile=ChineseLayoutProfile(profile_id='sp-fixed-paragraph',maximum_width=width,
+            first_line_maximum_width=width-len(indent),maximum_lines=None,
+            line_count_mode='minimum',line_packing=line_packing,allow_oversized_token_split=True,
+            minimum_line_width=minimum_line_width,default_advance_px=default_advance_px,
+            unbroken_terms=PROSE_UNBROKEN_TERMS if line_packing=='balanced' else ())
         fitted=reflow_chinese_paragraph(paragraph.strip(),profile=profile,protected_terms=protected_terms).text.split('\n')
         fitted[0]=indent+fitted[0];lines.extend(fitted)
     require(max_lines is None or len(lines)<=max_lines,f'paragraph overflow: {len(lines)}/{max_lines} lines')
@@ -88,7 +92,7 @@ def validate_flow_layout(text):
 def flow_synopsis(text):
     result='\n'.join(paragraphs(text,FLOW_WIDTH,max_lines=FLOW_MAX_LINES,
         minimum_line_width=FLOW_LAYOUT['minimum_tail_width'],protected_terms=FLOW_PROTECTED_TERMS,
-        default_advance_px=FLOW_BODY_ADVANCE_PX))
+        default_advance_px=FLOW_BODY_ADVANCE_PX,line_packing='balanced'))
     validate_flow_layout(result)
     return result
 
@@ -208,7 +212,7 @@ class Writer:
             for j,entry in enumerate(parsed.entries):
                 target=f'sd/mtzspros/{index:02d}/{j}';row=self.bind(target,entry.text)
                 width=max(len(line)-len(line.lstrip('　'))+rendered_line_width(line) for line in entry.text.split('\n'))
-                text='\n'.join(paragraphs(row['translation'],width,max_lines=len(entry.text.split('\n')),protected_terms=('下达',))).replace(' ','　')
+                text='\n'.join(paragraphs(row['translation'],width,max_lines=len(entry.text.split('\n')),protected_terms=('下达',),line_packing='balanced')).replace(' ','　')
                 replacements[entry.entry_id]=text;self.record(target,text,member=name,chunk=index,width=width,lines=len(text.split('\n')))
             rebuilt=apply_summary_replacements(data,self.table,chunk_index=index,replacements=replacements,overrides=self.codes)
             self.compressed(name,index,rebuilt,sd.MTZSPROS_TABLE)

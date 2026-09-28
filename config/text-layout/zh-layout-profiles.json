@@ -107,27 +107,51 @@
       "maximum_lines": null,
       "line_count_mode": "minimum",
       "minimum_line_width": 10,
-      "allow_oversized_token_split": true
+      "allow_oversized_token_split": true,
+      "weights": {
+        "arbitrary_break": 240,
+        "manual_break_max": 80
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ]
     },
     "library_character": {
       "maximum_width": 16,
       "maximum_lines": null,
       "line_count_mode": "minimum",
       "minimum_line_width": 7,
-      "allow_oversized_token_split": true
+      "allow_oversized_token_split": true,
+      "weights": {
+        "arbitrary_break": 240,
+        "manual_break_max": 80
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ]
     },
     "library_glossary": {
       "maximum_width": 24,
       "maximum_lines": null,
       "line_count_mode": "minimum",
       "minimum_line_width": 9,
-      "allow_oversized_token_split": true
+      "allow_oversized_token_split": true,
+      "weights": {
+        "arbitrary_break": 240,
+        "manual_break_max": 80
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ]
     },
     "stage_scroll_overview": {
       "maximum_width": 29,
       "maximum_lines": null,
       "line_count_mode": "minimum",
-      "line_packing": "fill",
+      "line_packing": "balanced",
       "minimum_line_width": 8,
       "allow_oversized_token_split": true,
       "unbroken_terms": [
@@ -164,7 +188,11 @@
       "weights": {
         "manual_break_max": 5,
         "raggedness": 1
-      }
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ]
     },
     "world_history_scroll": {
       "maximum_width": 22,
@@ -175,7 +203,11 @@
       "weights": {
         "manual_break_max": 120,
         "raggedness": 20
-      }
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ]
     },
     "scenario_chart_overview": {
       "maximum_width": 21,
