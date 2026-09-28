@@ -1,0 +1,972 @@
+{
+  "schema_version": 1,
+  "batch_id": "compact-visible-count-20260928",
+  "source_head": "b839fd750bef35e831aac3ed51a40983ca6fe7e6",
+  "applied": false,
+  "rule": "At least 3 visible characters; fullwidth two-byte storage; Latin, digits and contextual expression punctuation; entire division expressions protected. Compact width 14 px, advance 12 px; restore per surface, space before width after literal percent.",
+  "counting": {
+    "minimum_characters": 3,
+    "pure_numbers": true,
+    "counting": "Corpus owner IDs for dialogue; unique native string pointers for name tables. BEST shares main corpus. Candidate counts are not applied or layout/capacity acceptance."
+  },
+  "main_shared_dialogue": {
+    "scanned_entries": 83668,
+    "matching_entries": 2040,
+    "matching_runs": 2145,
+    "latin_runs": 2015,
+    "numeric_runs": 130,
+    "expression_punctuation_runs": 69,
+    "threshold_8_entries": 332,
+    "threshold_8_runs": 341,
+    "new_threshold_only_entries": 1708,
+    "status_entries": {
+      "plain_candidate": 2002,
+      "other_controls": 38
+    }
+  },
+  "sp_bound_dialogue": {
+    "scanned_entries": 7853,
+    "matching_entries": 196,
+    "matching_runs": 212,
+    "latin_runs": 151,
+    "numeric_runs": 61,
+    "expression_punctuation_runs": 1,
+    "threshold_8_entries": 14,
+    "threshold_8_runs": 14,
+    "new_threshold_only_entries": 182,
+    "status_entries": {
+      "plain_candidate": 191,
+      "other_controls": 3,
+      "template_contract": 2
+    },
+    "matching_bindings": 199,
+    "borrowed_main_matching_entries": 8,
+    "additional_matching_entries": 188
+  },
+  "unique_dialogue_matching_entries": 2228,
+  "unique_dialogue_matching_runs": 2347,
+  "unique_status_entries": {
+    "plain_candidate": 2185,
+    "other_controls": 41,
+    "template_contract": 2
+  },
+  "names": [
+    {
+      "edition": "original",
+      "kind": "unit-name",
+      "iso_path": "build/iso/zh-release-original/current-original.iso",
+      "decoded_compdata_sha256": "8c91894d99c31098f4a22f87799932bc4fc2a6953d3b405db3ac9a8146cf8970",
+      "scanned_entries": 348,
+      "matching_entries": 23,
+      "matching_runs": 23,
+      "latin_runs": 19,
+      "numeric_runs": 4,
+      "expression_punctuation_runs": 0,
+      "threshold_8_entries": 1,
+      "threshold_8_runs": 1,
+      "new_threshold_only_entries": 22,
+      "status_entries": {
+        "plain_candidate": 23
+      }
+    },
+    {
+      "edition": "original",
+      "kind": "weapon-table-text",
+      "iso_path": "build/iso/zh-release-original/current-original.iso",
+      "decoded_compdata_sha256": "8c91894d99c31098f4a22f87799932bc4fc2a6953d3b405db3ac9a8146cf8970",
+      "scanned_entries": 711,
+      "matching_entries": 110,
+      "matching_runs": 117,
+      "latin_runs": 100,
+      "numeric_runs": 17,
+      "expression_punctuation_runs": 5,
+      "threshold_8_entries": 30,
+      "threshold_8_runs": 30,
+      "new_threshold_only_entries": 80,
+      "status_entries": {
+        "plain_candidate": 110
+      }
+    },
+    {
+      "edition": "best",
+      "kind": "unit-name",
+      "iso_path": "build/iso/zh-release-best/current-best.iso",
+      "decoded_compdata_sha256": "de35fd266b1df73f9436a5d7ecbef2782825af663143770281b45ead7fd7b681",
+      "scanned_entries": 348,
+      "matching_entries": 23,
+      "matching_runs": 23,
+      "latin_runs": 19,
+      "numeric_runs": 4,
+      "expression_punctuation_runs": 0,
+      "threshold_8_entries": 1,
+      "threshold_8_runs": 1,
+      "new_threshold_only_entries": 22,
+      "status_entries": {
+        "plain_candidate": 23
+      }
+    },
+    {
+      "edition": "best",
+      "kind": "weapon-table-text",
+      "iso_path": "build/iso/zh-release-best/current-best.iso",
+      "decoded_compdata_sha256": "de35fd266b1df73f9436a5d7ecbef2782825af663143770281b45ead7fd7b681",
+      "scanned_entries": 711,
+      "matching_entries": 110,
+      "matching_runs": 117,
+      "latin_runs": 100,
+      "numeric_runs": 17,
+      "expression_punctuation_runs": 5,
+      "threshold_8_entries": 30,
+      "threshold_8_runs": 30,
+      "new_threshold_only_entries": 80,
+      "status_entries": {
+        "plain_candidate": 110
+      }
+    },
+    {
+      "edition": "sp",
+      "kind": "unit-name",
+      "iso_path": "build/iso/special-disc/sp-current.iso",
+      "decoded_compdata_sha256": "4485c7573b3d998e128e513285c1a58f24a57570cf578d31f77affcca305c198",
+      "scanned_entries": 340,
+      "matching_entries": 22,
+      "matching_runs": 22,
+      "latin_runs": 18,
+      "numeric_runs": 4,
+      "expression_punctuation_runs": 0,
+      "threshold_8_entries": 1,
+      "threshold_8_runs": 1,
+      "new_threshold_only_entries": 21,
+      "status_entries": {
+        "plain_candidate": 22
+      }
+    },
+    {
+      "edition": "sp",
+      "kind": "weapon-table-text",
+      "iso_path": "build/iso/special-disc/sp-current.iso",
+      "decoded_compdata_sha256": "4485c7573b3d998e128e513285c1a58f24a57570cf578d31f77affcca305c198",
+      "scanned_entries": 726,
+      "matching_entries": 111,
+      "matching_runs": 118,
+      "latin_runs": 101,
+      "numeric_runs": 17,
+      "expression_punctuation_runs": 5,
+      "threshold_8_entries": 31,
+      "threshold_8_runs": 31,
+      "new_threshold_only_entries": 80,
+      "status_entries": {
+        "plain_candidate": 111
+      }
+    }
+  ],
+  "input_sha256": {
+    "corpus/zh/story-dialogue/stage-001.json": "33c7491362d95fb717f4420411dfbf0a4075a6ec7fd82f90d5187a708b3985a6",
+    "corpus/zh/story-dialogue/stage-002.json": "f8c2808b42d276206663546bfedee4800ce2304e5d64678850d9f9e674cd757c",
+    "corpus/zh/story-dialogue/stage-003.json": "b0d504e56a49ff6abbd21b966350907b75fbb0902a9e64e0b9d6202fa8b87be1",
+    "corpus/zh/story-dialogue/stage-004.json": "2db6d197fee5308ef9335d1c7cc30bd45c7f1b7d7175b7e49e9751e406c9e58e",
+    "corpus/zh/story-dialogue/stage-005.json": "572ee98bbd9b500bb5c5d80d3c36e053566fe6fd0b56a5fe6d93b45545401fe1",
+    "corpus/zh/story-dialogue/stage-006.json": "cda9432b39575fd682c1524563df486b6609b15fcf589ce8ef34fe37d5b471c7",
+    "corpus/zh/story-dialogue/stage-007.json": "34588cb0165c8972b0636fd3cc63a4cf6560e50a119f86a0e1765182e03e2e57",
+    "corpus/zh/story-dialogue/stage-008.json": "3c65266af752beae037694b961466d4e39e412e5f8038d98bc9daae91fbb5dde",
+    "corpus/zh/story-dialogue/stage-009.json": "a61d6ce898769423ceb5fe1dc7dfbd3219ae3e91db8029096182c82ef554d274",
+    "corpus/zh/story-dialogue/stage-010.json": "20815baf4418143427fed37b269fdb5d21bb9fa91b4d6638cb2ca32f3fbbfb34",
+    "corpus/zh/story-dialogue/stage-011.json": "4fe979e0d630c1a3db514162ba78f5b6c53756aff59561c6f9edede7d898ce76",
+    "corpus/zh/story-dialogue/stage-012.json": "5e2a2a2b357fca02963cf3a97a079bf0c92b8481af65e72661fb4f193d5b9e2b",
+    "corpus/zh/story-dialogue/stage-013.json": "42c80a67ae98a00e2de88e5577a6593382a72b3f9af5e56424cad93102020589",
+    "corpus/zh/story-dialogue/stage-014.json": "d6378cf782abdc1fbc09be859410b4f72ed422161a000dc4e91ede74fb33005a",
+    "corpus/zh/story-dialogue/stage-015.json": "d19aa97a53c125bdaa75312199d739954e51991cfb4c7fc97c4b0c0e867beba9",
+    "corpus/zh/story-dialogue/stage-016.json": "ad2d2f6dbd6232b5c097c59415e3978e09e87c5d55ae69f3317331e82bc18447",
+    "corpus/zh/story-dialogue/stage-017.json": "102fb472ff0ad89a3afc636d889da9aeeb0e080c90e10ffa7a6ad5f5b3a71a9a",
+    "corpus/zh/story-dialogue/stage-018.json": "85032836d312ecf1b8e801acd48240755f3e980eb59e9a55a530d4c1cd053b1e",
+    "corpus/zh/story-dialogue/stage-019.json": "79c79df22bd6922efc5dad386a5e2038659791683bf16c13247c141b7759c7e9",
+    "corpus/zh/story-dialogue/stage-020.json": "29d00878b5c87f3c27403deae3bd3df0c81894e34ec0f9c3c9204875dee29863",
+    "corpus/zh/story-dialogue/stage-021.json": "b9d8c80546ad8e5c4f1d159edf51cbc226cb4656108e384a23d3e0d1c1ac5d21",
+    "corpus/zh/story-dialogue/stage-022.json": "a9039dee7bd6690888012c8669185dc37f1c36c704ca9cc0d39753617576bf72",
+    "corpus/zh/story-dialogue/stage-023.json": "ad83a8e77e7de582d492b4c63b0407af5ad57a462facf317a0a344dd0c054734",
+    "corpus/zh/story-dialogue/stage-024.json": "0e2f2e477e477ec3b10f57563a50794601ce45877308410d314f83cf5023c965",
+    "corpus/zh/story-dialogue/stage-025.json": "c04ee012b41b12c19a5f1df23f5019c11e575fdb47974049de9202bef06b2a7f",
+    "corpus/zh/story-dialogue/stage-026.json": "05891cb279943d3bcc4621718d5bafa0955a1d8a4936d0b333323150b5727f7e",
+    "corpus/zh/story-dialogue/stage-027.json": "dd6f6bcd7f3f1b5f35479021133b134de8858843c0bca6d3d0a6535f84a5afde",
+    "corpus/zh/story-dialogue/stage-028.json": "5b800c8215c80415d072df3138a0a76d0a2ef2144dff488fdc3becb25a6ace53",
+    "corpus/zh/story-dialogue/stage-029.json": "5c2b8d270b9dfd9ce3b18a61597fef0f02bd0a67302e90cb7f734d8cab13fb05",
+    "corpus/zh/story-dialogue/stage-030.json": "cec95f822b90cb68ad96814d0343aa7c24048d605159d78b59d2aff6997bc6f4",
+    "corpus/zh/story-dialogue/stage-031.json": "3f696a5629f8e5c6e9a929c5d51e88248eed60de69e60f07fad2469a970638ca",
+    "corpus/zh/story-dialogue/stage-032.json": "3be9e885f7cea2627ddd4b1d60ca2351fb80343b2b947600fa7e326c50fa1fcc",
+    "corpus/zh/story-dialogue/stage-033.json": "40e11376b79e4f8669e0ba422f2b3f2799d98f9dadfc7f4c5ca6786c700141af",
+    "corpus/zh/story-dialogue/stage-034.json": "0b31720ec556c094e32b35ba6b87759834737393581f0925a2e5be26997469b0",
+    "corpus/zh/story-dialogue/stage-035.json": "b472f02b39244fcd7c1473ad04101bc01e89a94021cd0f0de5bfe87e808143c7",
+    "corpus/zh/story-dialogue/stage-036.json": "ed6169c5a2d89261a48c2ff601d90b3cb463d3e5e2e08b872cc81d570e03456a",
+    "corpus/zh/story-dialogue/stage-037.json": "502adf2eac0f042197bf7060ff04062e7ffc881c29c1b27811cfbc7508c3f409",
+    "corpus/zh/story-dialogue/stage-038.json": "0d693696652b446496a31a8dabba329eebb4dc2d804a90fcf6c83123f36413c7",
+    "corpus/zh/story-dialogue/stage-039.json": "f2cfe1ec1a17e07fc1595b337cd0994e0e374423add5bb1368478768b8aff297",
+    "corpus/zh/story-dialogue/stage-040.json": "45febf30adfe4cf340ad3d2dba282797b03463a4e53948059928fd18bc3c84fa",
+    "corpus/zh/story-dialogue/stage-041.json": "7e31ea407da28cd514b1663f399bdc3ed0d14ec3dac3582a99767645a1d2078a",
+    "corpus/zh/story-dialogue/stage-042.json": "ff723cdfb49c007b01a7b11a7dde840ae9e0887b25d550f9df1e68f8a4656a89",
+    "corpus/zh/story-dialogue/stage-043.json": "c7aeff9f253441d7e136d1d2292f48e5e845ab6a4c1cff0fba6a5bc68be3d02a",
+    "corpus/zh/story-dialogue/stage-044.json": "afb87351f65fb2a061f91a483c0b849578960a3c5d4a24abe01ea913077b6230",
+    "corpus/zh/story-dialogue/stage-045.json": "f6c9ddeff289f37c0f75bca59837b283a9cee14c1147d121a2aa2e46977b6802",
+    "corpus/zh/story-dialogue/stage-046.json": "f1af7ff8d8f73b11f9674831edca33809dbaf368cd1b9315a5e288efc73caa19",
+    "corpus/zh/story-dialogue/stage-047.json": "591f539dd8b6214d6b16592e2556b21c55aa9054959afbbf52d4eb704126b2da",
+    "corpus/zh/story-dialogue/stage-048.json": "e8c74f660414e1f6a098dbf8a18a0d6f1a1df524f1e10ad11daab19271681650",
+    "corpus/zh/story-dialogue/stage-049.json": "8a8d86138f8c3dc51a84dd185a13d92d0ed6648412a06f6b2da8fdb4cd1418c9",
+    "corpus/zh/story-dialogue/stage-050.json": "54b064b4e3216169e3965e7257bf936df6677c0ce4ac33ccc98c75316ad922d6",
+    "corpus/zh/story-dialogue/stage-051.json": "f45357eb34bea0663d5dde19ff08897ffe160cc0fb40471d8fd72c93df22bd35",
+    "corpus/zh/story-dialogue/stage-052.json": "0458c46d43c15927d1905c89c8fc18f8e9f7fd4e3f5a1a896a8fca7ee4fbe007",
+    "corpus/zh/story-dialogue/stage-053.json": "942845e6e32307f739ad10df3264b042685fc0b4e2295e025704430e1042b778",
+    "corpus/zh/story-dialogue/stage-054.json": "7fe48cf31137260931de81e0985e1f46b43a891ce55b70737eca071b8a273135",
+    "corpus/zh/story-dialogue/stage-055.json": "20c3a83f0d247c213feac552943d209c26a33cc87a76be441745eaaafa87c1af",
+    "corpus/zh/story-dialogue/stage-056.json": "1b65402aef7238180803af846fc9bae8bac92dad956909c3b17886b9658b1068",
+    "corpus/zh/story-dialogue/stage-057.json": "48fa061a84dc8962f7762e1a92dd004a90980fc0cdcdaabeca4ff98e84f3ae67",
+    "corpus/zh/story-dialogue/stage-058.json": "0f551b555468b1824d637589ee9d120250e62811110a5b85bef8e7e60c0be8a0",
+    "corpus/zh/story-dialogue/stage-059.json": "f70a477a2b4b87264f593a717cb83bc73bda292c335a0d80c8f1572f5d5befa4",
+    "corpus/zh/story-dialogue/stage-060.json": "3b7e17ef9b66dfd6a19e290b4525b26e8e0c16738387f373a5e847546fece271",
+    "corpus/zh/story-dialogue/stage-061.json": "3b4467880cb8ba96b2492dfaef01daf89e39e6f46fb34867e629b1579296513d",
+    "corpus/zh/story-dialogue/stage-062.json": "2cca8712a3537b6a8ffe558c13ff03d23186f8dc32ca07a8529c0aa467a24f7a",
+    "corpus/zh/story-dialogue/stage-063.json": "835743cd431af9b5f9c5278a097a9c0a0ec798a71c0459bedc5c86b093956744",
+    "corpus/zh/story-dialogue/stage-064.json": "d1b71cf366e2c9c3570b4d05baff737819bddedd1db281c51add73f0e9e888a9",
+    "corpus/zh/story-dialogue/stage-065.json": "46bde400e8087b389f9ecf5d5bfc83fc3aa33be9f8d0410df4ec53b7e770d05b",
+    "corpus/zh/story-dialogue/stage-066.json": "1ccee397e608e52af9971230d95722a70d4b2f473865a1a8f8c9e62ece6859a3",
+    "corpus/zh/story-dialogue/stage-067.json": "e174ffee681be122777d3dbfc467eb9551c445701b3eef9e1d74c30705d5a57f",
+    "corpus/zh/story-dialogue/stage-068.json": "8f317dd858e47ff566cb56715336717158ac55648b2f0e7907f354831c8f80d9",
+    "corpus/zh/story-dialogue/stage-069.json": "0621cd53c314a3bf22d445616af674cee41f806ed310fe69234fe30ce0b83c1e",
+    "corpus/zh/story-dialogue/stage-070.json": "801b4e9ba9946ef143deaf4b0014400321c592f17d3635d0ba1c70ccf97649af",
+    "corpus/zh/story-dialogue/stage-071.json": "dfb5c94a3afcc1d1c50377ff4e1c70ebfec8388f0c637ed0cc72eff9701c5e01",
+    "corpus/zh/story-dialogue/stage-072.json": "745d8870f2312d392f4b9fb972733ae2d6d669ec7cd43ab1d765018991fdfb5e",
+    "corpus/zh/story-dialogue/stage-073.json": "782b50538e4f632360769586c557ecc8d645220643c27b3ab27fa9726d23dd27",
+    "corpus/zh/story-dialogue/stage-074.json": "2fff28102327594138b43b4da7739fd39e9b8530c868104201b0e9f311fd4fee",
+    "corpus/zh/story-dialogue/stage-075.json": "ec76c6ba47a35e9aa9fc0006a153ea5627fc616ab389abb88947c2871b16b75e",
+    "corpus/zh/story-dialogue/stage-076.json": "a63a9f35392e965b70a26388257bb4e67ba9e1690af1d838279941378662f512",
+    "corpus/zh/story-dialogue/stage-077.json": "fb83817ed660e380046ecda9f87530ee0bb0873f4c3f568366277df87a4ecdd1",
+    "corpus/zh/story-dialogue/stage-078.json": "78e3c72884fd8f584f83a67d1dd417f02307230f11ad94d520078f1fc315294d",
+    "corpus/zh/story-dialogue/stage-079.json": "add898f79e9b9c71c2d32cfce5cfd3014728f6350bb7bb44adbeb8ae9bab3a72",
+    "corpus/zh/story-dialogue/stage-080.json": "c4959835101bfe0292319f30dcc1758a1d59f8a08da9edb5b269937723330eef",
+    "corpus/zh/story-dialogue/stage-081.json": "0372f2540b004ee9b1c9add330681df57b2db905d392fdacb7a8447ffb9c52c0",
+    "corpus/zh/story-dialogue/stage-082.json": "9bbb20e1db804e067532d1f76590ce1d0d2e0c0160a6adec2bb28612399a1325",
+    "corpus/zh/story-dialogue/stage-083.json": "e9081d55ad0a4da338bf4fa881c3af249222cd36e4e66c154370f985b44dddfc",
+    "corpus/zh/story-dialogue/stage-084.json": "8e21d7f80c6861e61d192a2d7c8533b1e52471f122d14074b97a57ed65f82af1",
+    "corpus/zh/story-dialogue/stage-085.json": "0c84814e65d261370c5a89944f8356e2df4e50d3649d7e9c19b930c0a9a2652f",
+    "corpus/zh/story-dialogue/stage-086.json": "91eabddf6cd43d6facc4e89dade7b1244ef1526fd0f8f12aeed0d5169e1be3cc",
+    "corpus/zh/story-dialogue/stage-087.json": "ca6d59fdad90af54d016ce4b4f7f4dd394cbe125d0bcd2d31fc71b37f33814c7",
+    "corpus/zh/story-dialogue/stage-088.json": "c1ba4fe0e28d70cc9bb94bce407b8dd93f5feb4a22d036722331775a9daf42a0",
+    "corpus/zh/story-dialogue/stage-089.json": "1c3cffe973a25cd80d268de0cadba0a5c4090432eafb54acbc3b105f966e054b",
+    "corpus/zh/story-dialogue/stage-090.json": "0113c9e209a9e160b55a72f79922b1d3a0c19731f2eb3688dd6d924edede8fb4",
+    "corpus/zh/story-dialogue/stage-091.json": "c087117e360f1b6360e969f870986887521e5986793ad7afbac6bf8797ab94e7",
+    "corpus/zh/story-dialogue/stage-092.json": "000834851f503936ade76a7c9cdcac00782656caccaf6c3d1461bbf3847d7711",
+    "corpus/zh/story-dialogue/stage-093.json": "999e3508c2cd188b2981155b31f630e98225bd53d5f1a04c48a3c439e6c479af",
+    "corpus/zh/story-dialogue/stage-094.json": "f52b4c6c9d2026bec7f52c72534a4a06dc26694545cc2c15996890468370245c",
+    "corpus/zh/story-dialogue/stage-095.json": "3377c7f79c9c3d6d22c33dfab2d778e02420fb159e859da81ebce33556f812ab",
+    "corpus/zh/story-dialogue/stage-096.json": "937e3f793270ca9d18e8c3ba7ef5ebcd8625eb96dccd3215522c40ec1cb52c74",
+    "corpus/zh/story-dialogue/stage-097.json": "1b2e5631b9963de083aa005001fab509c0ff54af04cd9a9e65f653d225b6a18f",
+    "corpus/zh/story-dialogue/stage-098.json": "da1c362710e4387bdc452a1079b2c88140766df56d3f65d2a4a8a4666e871cdf",
+    "corpus/zh/story-dialogue/stage-099.json": "108db84cbe01ee13e23af9e1acd9194fe5b3dce6376abb40280888ab4244a948",
+    "corpus/zh/story-dialogue/stage-100.json": "adfca017529f6319625fb1af5e413af1bdde785c6031bbd3b33090059d306f23",
+    "corpus/zh/story-dialogue/stage-101.json": "68a85de85e2acc8befd47f99c07e961e960322af5b6c9bf74d238715b04a7564",
+    "corpus/zh/story-dialogue/stage-102.json": "6ee982ca75319c013c4deace6eaded011556a1fbf2477f1f050410277b980159",
+    "corpus/zh/story-dialogue/stage-103.json": "5bd962620cd54b27c1f32b148fac526992b9dd9653815f60896719c69301275f",
+    "corpus/zh/story-dialogue/stage-104.json": "24960423168624946366d49a289b43f88d32b08ccb3e36eb6d6d7aa2aa6ce2f7",
+    "corpus/zh/story-dialogue/stage-105.json": "95688c6447abde55d9627bdc15138d8f70fd19b26357e6247d5510bdfb3be8a0",
+    "corpus/zh/story-dialogue/stage-106.json": "4affd74f0870e3b35f0a246ece42ac59dcb52acf86280d9ba1aa3cafd49f207b",
+    "corpus/zh/story-dialogue/stage-107.json": "1c9727430814e9860f77f930a431af1622480a9762307f7f57dd30553103a04d",
+    "corpus/zh/story-dialogue/stage-108.json": "16a899dc4b158e91919a1a50cbab86003ab494e8d583b542623e9b9ad1813fa6",
+    "corpus/zh/story-dialogue/stage-109.json": "f1cd0170b58343940490a1f57c6e581b41b0df63148ce2ea0340e4ec90a2ceb2",
+    "corpus/zh/story-dialogue/stage-110.json": "55b97496dabe1152c338e02f26c319188b6991373ca32d5cef879e5abec953dc",
+    "corpus/zh/story-dialogue/stage-111.json": "078693d0f4700b548784daf8890db00d115311b2b55a7f6ff3cda90ee77d4e4b",
+    "corpus/zh/story-dialogue/stage-112.json": "f68ad579f06ec3287ce72339d0e7f8d00cabb0e83799a9727f5ab9784544f45b",
+    "corpus/zh/story-dialogue/stage-113.json": "16627ec279a392a402775936bbfe49dc5efde02411bbffcd8b230491b90717b0",
+    "corpus/zh/story-dialogue/stage-114.json": "222ef95978862d59f23e1f37dc452a5c5daaf5190f1f9e7235148d59302fcde2",
+    "corpus/zh/story-dialogue/stage-115.json": "343c4feabe467c753d395dd86da6bd9eab54061cca698f701b990ac813e7d948",
+    "corpus/zh/story-dialogue/stage-116.json": "bca63f925ea6a0624cdb7e9349b750534913b66a52acafe90c6571caadd638cb",
+    "corpus/zh/story-dialogue/stage-117.json": "063eb810922e3cb715ebf0706731ee3b82054e4f8985145664bced776663f2ba",
+    "corpus/zh/story-dialogue/stage-118.json": "306ea175a6eb2979d89106d45c261789b684c8052c1b56d0df6ab36be7daf7d8",
+    "corpus/zh/story-dialogue/stage-119.json": "dc32463cfc2ce56014029818babe2260790ee4d267a9d867da503c9430095dfe",
+    "corpus/zh/story-dialogue/stage-120.json": "122156b612e82cadecfa31df31bfafaffa055a96a09fa0ea7723d342204cb86d",
+    "corpus/zh/story-dialogue/stage-121.json": "de2ae5310145eea2f488695317ce19ca956f7ede577d3619b39d33f7b19c8f66",
+    "corpus/zh/story-dialogue/stage-122.json": "aba2069a5ba32ef8d4265a457c96a82aeabd965b34d48a20f8a63e645e2cfec9",
+    "corpus/zh/story-dialogue/stage-123.json": "f38f89a547f182e4bccdf678f30902d66d46368d3cc466cb0a5b671875858604",
+    "corpus/zh/story-dialogue/stage-124.json": "dafa4ced301a09d0b1bea3144291174a90a4cd465dccdad54751aef62645b8b2",
+    "corpus/zh/story-dialogue/stage-125.json": "ee653e349df5bcc05fddabf5695fdf1737caf10fc0865620758b6c2eeee25a7b",
+    "corpus/zh/story-dialogue/stage-126.json": "474d2739b81de32218415d82f1c26f85e11937ab64739118225b23a6f2387876",
+    "corpus/zh/story-dialogue/stage-127.json": "b3da948fc6e472b192a9b35b344af0ae4c016cb54de6639eef421326bbede406",
+    "corpus/zh/story-dialogue/stage-128.json": "824b206162dc0f96c106efa8fc290a9eb629bde621fd5a928d7f53c91b6db874",
+    "corpus/zh/story-dialogue/stage-129.json": "f000e5bd05b3fd9ebd04d5b6a5a83007620868e1adbcfd3d8c53cdd044a8e38e",
+    "corpus/zh/story-dialogue/stage-130.json": "4e28632e4d912d114e9b8c51d726c00350abcb29c91632d4d26a6e6ad63a6b49",
+    "corpus/zh/story-dialogue/stage-131.json": "f6d9c0cab6545e683cbb83ad976471f0cd5389c651ee13d131e30eb124d991d9",
+    "corpus/zh/story-dialogue/stage-132.json": "8750e08c284e30bd98c69e47767a9e1b8a36428d97208e27150cd0c90b625e6f",
+    "corpus/zh/story-dialogue/stage-133.json": "2327d98d40b18662485109acf997c13fde9e8a3e395be845a5891d6bc7f8c90e",
+    "corpus/zh/story-dialogue/stage-134.json": "636ad0399b2bd0556c7872f188ee9d54a3c74e372a0a206c610022384376525b",
+    "corpus/zh/story-dialogue/stage-135.json": "16e8050d10d9d04ea1d4c8d6ca79da2c29543515260139a11c6d699322b39851",
+    "corpus/zh/story-dialogue/stage-136.json": "2f105e6ddb098cda71d40c66781ac38cb4fc0fd8a9dadc0e7274d7ea63cf9763",
+    "corpus/zh/story-dialogue/stage-137.json": "1b9a51aad6774812571e4e73c650ab8edbcb5b35115695a997fe961e5aa0f2f4",
+    "corpus/zh/story-dialogue/stage-138.json": "ce68dee2db78e3c2a9758b3be9fb9be927f9f86b31b264c05db716dd02553b13",
+    "corpus/zh/story-dialogue/stage-139.json": "9238a872900861b4fec27cca4acf0de8f2365e8ee1bb13c81c89b4cdb5ff2478",
+    "corpus/zh/story-dialogue/stage-140.json": "0fb7378039be0dfc0be9776f7b2fe788ae86c9b9bae2088b9bb355fb1395de8d",
+    "corpus/zh/story-dialogue/stage-141.json": "524b78e8c72ef4411bae9e68de9a422a279a1f2722f806b77d8a5ee65cd3f40d",
+    "corpus/zh/story-dialogue/stage-142.json": "51602686d515376d46f555ef12efab6eeff0695800f72ef73fc183c0ad76ec33",
+    "corpus/zh/story-dialogue/stage-143.json": "bc9fcb658d4b6e2dfcd7e412ada7d636ecec1ea35650412ab45b5653a3962c09",
+    "corpus/zh/story-dialogue/stage-144.json": "892877a241c75a76376873911312dd5331e2e454694bef1feb93b528df8df177",
+    "corpus/zh/story-dialogue/stage-145.json": "9996b0810c9af36ed9fc7fa2debf7533036de2eb19debfe2e789e3880d893ecc",
+    "corpus/zh/story-dialogue/stage-146.json": "caa11316f0e5401cc1890aaf56ba0c963815249e48fa8c77098dc1f60401c14b",
+    "corpus/zh/story-dialogue/stage-147.json": "46d69ac7b2b006c3c729cf9956e3877a57b0c07b9c14494ff9eaa9eca5bf59f7",
+    "corpus/zh/story-dialogue/stage-148.json": "8a5b9b89a24c1408c3a3bd2a91d4c83ccc6edc067a7b53172952e800bac7e3d1",
+    "corpus/zh/story-dialogue/stage-149.json": "7a295dedc8e422c30ff2be083b69682a49016fc0c159e91ce44fc4af0185b39f",
+    "corpus/zh/story-dialogue/stage-150.json": "d3155eaa591d7ef6cfa2f83109bb14794527debc4bf6ee105c1e44276f4ade7f",
+    "corpus/zh/story-dialogue/stage-151.json": "6d1ed3e32e42b7ee76d9a54f4f3d5a66a75fd9e34c4db0899a10e047adeb5fbe",
+    "corpus/zh/story-dialogue/stage-152.json": "8704c99018795e8b415da796b9f362e5e87468eac539dc46bf96de176e9a1031",
+    "corpus/zh/story-dialogue/stage-153.json": "94a0c3b2090979c7c4be94cac11ec1f12b448d8b4336f814d678e79a0fa86146",
+    "corpus/zh/story-dialogue/stage-154.json": "234b852bf3127a7b2b8b356766a74aecd9cc54cbf7b729d6e658706083e6222c",
+    "corpus/zh/story-dialogue/stage-155.json": "a52fab8c20b9a9e144356bf95a274f7518efb0f2f99197846974174245997aa3",
+    "corpus/zh/story-dialogue/stage-156.json": "2acd5449f945fa90caadd22eedf25be8c0a14ba5c9e9eda69f821a0445d1c839",
+    "corpus/zh/story-dialogue/stage-157.json": "9ca34df9484cc44847f50e900916fc9c994536a606b4cccb69a3085d2f839338",
+    "corpus/zh/story-dialogue/stage-160.json": "55b8da338536a8b408cd6be3283988040d91523d4174baf695fb6a497a14b32e",
+    "corpus/zh/story-dialogue/stage-163.json": "03f24e562f13d65d27d999bf8b9314ff0a7df2845eda9fa4d45eff192d99b8e2",
+    "corpus/zh/story-dialogue/stage-164.json": "fe118dce11f8b2e401f1ca18f7b70989a04c310ea775dd54bea8911f0be914fc",
+    "corpus/zh/story-dialogue/stage-169.json": "133ad6cef5dc887fdefac154f980df88e41a439703097dd7b483900fd491101f",
+    "corpus/zh/story-dialogue/stage-170.json": "a1181fee8db95f4558975e124a87eea7ad7bd9cfcf26ff64c29ce7ed8ab4b180",
+    "corpus/zh/story-dialogue/stage-175.json": "37ebcd46ec4320227503ea3001d3d8376ac94279104cc0455fbbf654a0865827",
+    "corpus/zh/story-dialogue/stage-176.json": "6aa4c4c2c6f0d1be3d35edcc319c5d9dbca1a05e679e156d674b8759d4c410ad",
+    "corpus/zh/story-dialogue/stage-177.json": "96b43514be3aec294120a0eaf06c1687f2f909d74cb1afcecc6de00d251729a3",
+    "corpus/zh/story-dialogue/stage-178.json": "13f7a02f9afc40a388fe313453f96848c7224ad519f3635626eaf144f8867418",
+    "corpus/zh/story-dialogue/stage-179.json": "fa6cd53a7a21b87a794180adfd8b4aff1db288dd3a26dba862296617b2a278b7",
+    "corpus/zh/story-dialogue/stage-180.json": "de7a20a8aa42e616204cbb3d7273cef17af51176f0e9b5536121af25924c2dc5",
+    "corpus/zh/story-dialogue/stage-185.json": "f95b76172309ec14c543bea32ffd8b4102b94e149e22fd78af601baf3a4870f7",
+    "corpus/zh/story-dialogue/stage-186.json": "ee9a48f1b0e939833a477ab67f26491253b375e84f48b9032e124155b8a61db7",
+    "manifests/editions/sp/current.json": "b5a170e7f150eafe1d64cf61c92c812bd69fb738c72351907003305d6a9dc0ff",
+    "build/editions/zh-release-sp/3df531d31cfab1a542bf0b0a4ccdbee9f73408a7a3d0680508db63ad8def5fc6/project/build/iso/special-disc/sp-current.json": "95bca9acd25ad0c89f0057857b9c02fc63640e10f25f202b4214ae950a3b5f38",
+    "build/editions/zh-release-sp/3df531d31cfab1a542bf0b0a4ccdbee9f73408a7a3d0680508db63ad8def5fc6/project/work/build/special-disc/full-text/runs/build-hr_62v9d/stage/report.json": "f1c63a35c7f561756d1aa35a7a6ac2eab00dc8c07adce5e9749b1c4f022caadd",
+    "corpus/zh/special-disc/story-dialogue.json": "7d5cbec958b8457a34486c070a3ce0a904536e30a36bbd60a6c5ffbbc6fa3367",
+    "config/editorial/special-disc/stage-native-overrides.json": "f1c5766162105aa6e10dc50d0ec0e4e7981813d8bd3f72eca77aedaa155b144a",
+    "config/editorial/special-disc/stage-context-reuse.json": "6257d2074d402a1b539376bbb991d1b6857ae402496c6bcf7c401fa22e4a73ea",
+    "corpus/zh/special-disc/challenge-dialogue.json": "1692654617313abd4a730b81a50808d63aa41f88bbd601aa38813dcea2109c14",
+    "manifests/editions/original/current.json": "606ff45e458d138fe7731d3bd36855f18b82f7a669d8509085581a09ce6cb799",
+    "manifests/editions/best/current.json": "dec506afad480ce01450ee1e16ee90498700640e4a4a9c0c7580b3e22c39e711"
+  },
+  "runtime": {
+    "type": "Current SP isolated RAM probe; seven real numeric dialogue candidates, two synthetic punctuation probes, two real name pairs. Not natural source-scene acceptance.",
+    "iso_sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700",
+    "source_card_sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+    "source_card_unchanged": true,
+    "renderer": "LRPS2 Software",
+    "cases": [
+      {
+        "case": "dialogue-01-default",
+        "term": "40000",
+        "source": {
+          "term": "40000",
+          "path": "corpus/zh/special-disc/challenge-dialogue.json",
+          "id": "sd/challenge/040/dialogue/01.08/0002",
+          "translation": "“按我的计算，\n　能造成的MAX伤害超过40000。”",
+          "targets": [
+            "sd/challenge/040/dialogue/01.08/0002"
+          ],
+          "runs": [
+            "MAX",
+            "40000"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [
+            "MAX"
+          ],
+          "numeric_runs": [
+            "40000"
+          ]
+        },
+        "stored_text": "“按我的计算，\n　能造成的MAX伤害超过40000。”",
+        "line_widths": [
+          7,
+          18
+        ],
+        "encoded_hex": "914188c289e4934987ba8e5a8fd30a8140945c91a290ac9349826c8260827792c08a5192b497ef8253824f824f824f824f8fd28fe700",
+        "encoded_bytes": 54
+      },
+      {
+        "case": "dialogue-01-compact",
+        "term": "40000",
+        "source": {
+          "term": "40000",
+          "path": "corpus/zh/special-disc/challenge-dialogue.json",
+          "id": "sd/challenge/040/dialogue/01.08/0002",
+          "translation": "“按我的计算，\n　能造成的MAX伤害超过40000。”",
+          "targets": [
+            "sd/challenge/040/dialogue/01.08/0002"
+          ],
+          "runs": [
+            "MAX",
+            "40000"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [
+            "MAX"
+          ],
+          "numeric_runs": [
+            "40000"
+          ]
+        },
+        "stored_text": "“按我的计算，\n　能造成的<width:0E><space:0C>MAX<width:16><space:16>伤害超过<width:0E><space:0C>40000<width:16><space:16>。”",
+        "line_widths": [
+          7,
+          15
+        ],
+        "encoded_hex": "914188c289e4934987ba8e5a8fd30a8140945c91a290ac9349320e340c826c826082773216341692c08a5192b497ef320e340c8253824f824f824f824f321634168fd28fe700",
+        "encoded_bytes": 70
+      },
+      {
+        "case": "dialogue-02-default",
+        "term": "56000",
+        "source": {
+          "term": "56000",
+          "path": "corpus/zh/special-disc/challenge-dialogue.json",
+          "id": "sd/challenge/046/dialogue/01.09/0002",
+          "translation": "“按我的计算，\n　能打出的MAX伤害超过56000。”",
+          "targets": [
+            "sd/challenge/046/dialogue/01.09/0002"
+          ],
+          "runs": [
+            "MAX",
+            "56000"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [
+            "MAX"
+          ],
+          "numeric_runs": [
+            "56000"
+          ]
+        },
+        "stored_text": "“按我的计算，\n　能打出的MAX伤害超过56000。”",
+        "line_widths": [
+          7,
+          18
+        ],
+        "encoded_hex": "914188c289e4934987ba8e5a8fd30a8140945c91c58f6f9349826c8260827792c08a5192b497ef82548255824f824f824f8fd28fe700",
+        "encoded_bytes": 54
+      },
+      {
+        "case": "dialogue-02-compact",
+        "term": "56000",
+        "source": {
+          "term": "56000",
+          "path": "corpus/zh/special-disc/challenge-dialogue.json",
+          "id": "sd/challenge/046/dialogue/01.09/0002",
+          "translation": "“按我的计算，\n　能打出的MAX伤害超过56000。”",
+          "targets": [
+            "sd/challenge/046/dialogue/01.09/0002"
+          ],
+          "runs": [
+            "MAX",
+            "56000"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [
+            "MAX"
+          ],
+          "numeric_runs": [
+            "56000"
+          ]
+        },
+        "stored_text": "“按我的计算，\n　能打出的<width:0E><space:0C>MAX<width:16><space:16>伤害超过<width:0E><space:0C>56000<width:16><space:16>。”",
+        "line_widths": [
+          7,
+          15
+        ],
+        "encoded_hex": "914188c289e4934987ba8e5a8fd30a8140945c91c58f6f9349320e340c826c826082773216341692c08a5192b497ef320e340c82548255824f824f824f321634168fd28fe700",
+        "encoded_bytes": 70
+      },
+      {
+        "case": "dialogue-03-default",
+        "term": "23:00",
+        "source": {
+          "term": "23:00",
+          "path": "corpus/zh/story-dialogue/stage-143.json",
+          "id": "story/143/dialogue/02.01/0030",
+          "translation": "“今晚23:00……那就是时限吗。”",
+          "runs": [
+            "23:00"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "23:00"
+          ]
+        },
+        "stored_text": "“今晚23:00……那就是时限吗。”",
+        "line_widths": [
+          18
+        ],
+        "encoded_hex": "91418da184ed82518252e5a5824f824f8fe08fe093df8f4190a592cb8cc094ea8fd28fe700",
+        "encoded_bytes": 37
+      },
+      {
+        "case": "dialogue-03-compact",
+        "term": "23:00",
+        "source": {
+          "term": "23:00",
+          "path": "corpus/zh/story-dialogue/stage-143.json",
+          "id": "story/143/dialogue/02.01/0030",
+          "translation": "“今晚23:00……那就是时限吗。”",
+          "runs": [
+            "23:00"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "23:00"
+          ]
+        },
+        "stored_text": "“今晚<width:0E><space:0C>23:00<width:16><space:16>……那就是时限吗。”",
+        "line_widths": [
+          16
+        ],
+        "encoded_hex": "91418da184ed320e340c82518252e5a5824f824f321634168fe08fe093df8f4190a592cb8cc094ea8fd28fe700",
+        "encoded_bytes": 45
+      },
+      {
+        "case": "dialogue-04-default",
+        "term": "0.8",
+        "source": {
+          "term": "0.8",
+          "path": "corpus/zh/story-dialogue/stage-111.json",
+          "id": "story/111/dialogue/01.05/0002",
+          "translation": "“干得好，梅尔！你也算0.8个人了！”",
+          "runs": [
+            "0.8"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "0.8"
+          ]
+        },
+        "stored_text": "“干得好，梅尔！你也算0.8个人了！”",
+        "line_widths": [
+          19
+        ],
+        "encoded_hex": "91418ab193be8d448fd3947e92478fda92c296e78e5a824f9873825797e9906c97b98fda8fe700",
+        "encoded_bytes": 39
+      },
+      {
+        "case": "dialogue-04-compact",
+        "term": "0.8",
+        "source": {
+          "term": "0.8",
+          "path": "corpus/zh/story-dialogue/stage-111.json",
+          "id": "story/111/dialogue/01.05/0002",
+          "translation": "“干得好，梅尔！你也算0.8个人了！”",
+          "runs": [
+            "0.8"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "0.8"
+          ]
+        },
+        "stored_text": "“干得好，梅尔！你也算<width:0E><space:0C>0.8<width:16><space:16>个人了！”",
+        "line_widths": [
+          18
+        ],
+        "encoded_hex": "91418ab193be8d448fd3947e92478fda92c296e78e5a320e340c824f987382573216341697e9906c97b98fda8fe700",
+        "encoded_bytes": 47
+      },
+      {
+        "case": "dialogue-05-default",
+        "term": "99%",
+        "source": {
+          "term": "99%",
+          "path": "corpus/zh/story-dialogue/stage-142.json",
+          "id": "story/142/dialogue/01.51/0000",
+          "translation": "“就算你们得到了世界的99%，\n　只要我们在，你们就别想赢！”",
+          "runs": [
+            "99%"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "99%"
+          ]
+        },
+        "stored_text": "“就算你们得到了世界的99%，\n　只要我们在，你们就别想赢！”",
+        "line_widths": [
+          15,
+          14
+        ],
+        "encoded_hex": "91418f418e5a92c292b693be939e97b990a28a4593498258825898658fd30a814091fc977689e492b68ddd8fd392c292b68f4194a4917a87f08fda8fe700",
+        "encoded_bytes": 62
+      },
+      {
+        "case": "dialogue-05-compact",
+        "term": "99%",
+        "source": {
+          "term": "99%",
+          "path": "corpus/zh/story-dialogue/stage-142.json",
+          "id": "story/142/dialogue/01.51/0000",
+          "translation": "“就算你们得到了世界的99%，\n　只要我们在，你们就别想赢！”",
+          "runs": [
+            "99%"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "99%"
+          ]
+        },
+        "stored_text": "“就算你们得到了世界的<width:0E><space:0C>99%<space:16><width:16>，\n　只要我们在，你们就别想赢！”",
+        "line_widths": [
+          14,
+          14
+        ],
+        "encoded_hex": "91418f418e5a92c292b693be939e97b990a28a459349320e340c825882589865341632168fd30a814091fc977689e492b68ddd8fd392c292b68f4194a4917a87f08fda8fe700",
+        "encoded_bytes": 70
+      },
+      {
+        "case": "dialogue-06-default",
+        "term": "1/10",
+        "source": {
+          "term": "1/10",
+          "path": "corpus/zh/story-dialogue/stage-076.json",
+          "id": "story/076/dialogue/02.04/0049",
+          "translation": "（我……自以为尽力了，\n　但连霍兰德觉悟的1/10都不到……）",
+          "runs": [
+            "1/10"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "1/10"
+          ]
+        },
+        "stored_text": "（我……自以为尽力了，\n　但连霍兰德觉悟的1/10都不到……）",
+        "line_widths": [
+          11,
+          18
+        ],
+        "encoded_hex": "8fe889e48fe08fe08ea988c89268907397cd97b98fd30a81409241918994ae909e927087b98ce5934982508fff8250824f93739573939e8fe08fe08feb00",
+        "encoded_bytes": 62
+      },
+      {
+        "case": "dialogue-06-compact",
+        "term": "1/10",
+        "source": {
+          "term": "1/10",
+          "path": "corpus/zh/story-dialogue/stage-076.json",
+          "id": "story/076/dialogue/02.04/0049",
+          "translation": "（我……自以为尽力了，\n　但连霍兰德觉悟的1/10都不到……）",
+          "runs": [
+            "1/10"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "1/10"
+          ]
+        },
+        "stored_text": "（我……自以为尽力了，\n　但连霍兰德觉悟的<width:0E><space:0C>1/10<width:16><space:16>都不到……）",
+        "line_widths": [
+          11,
+          17
+        ],
+        "encoded_hex": "8fe889e48fe08fe08ea988c89268907397cd97b98fd30a81409241918994ae909e927087b98ce59349320e340c82508fff8250824f3216341693739573939e8fe08fe08feb00",
+        "encoded_bytes": 70
+      },
+      {
+        "case": "dialogue-07-default",
+        "term": "1～3",
+        "source": {
+          "term": "1～3",
+          "path": "corpus/zh/story-dialogue/stage-186.json",
+          "id": "story/186/dialogue/02.02/0013",
+          "translation": "“没错。小队由1～3机组成，\n　但基本是三机组队。”",
+          "runs": [
+            "1～3"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "1～3"
+          ]
+        },
+        "stored_text": "“没错。小队由1～3机组成，\n　但基本是三机组队。”",
+        "line_widths": [
+          14,
+          10
+        ],
+        "encoded_hex": "91419676885a8fd28fac97c497528250985f82528af795a990ac8fd30a814092418aee967b90a58e4f8af795a997c48fd28fe700",
+        "encoded_bytes": 52
+      },
+      {
+        "case": "dialogue-07-compact",
+        "term": "1～3",
+        "source": {
+          "term": "1～3",
+          "path": "corpus/zh/story-dialogue/stage-186.json",
+          "id": "story/186/dialogue/02.02/0013",
+          "translation": "“没错。小队由1～3机组成，\n　但基本是三机组队。”",
+          "runs": [
+            "1～3"
+          ],
+          "status": "plain_candidate",
+          "latin_runs": [],
+          "numeric_runs": [
+            "1～3"
+          ]
+        },
+        "stored_text": "“没错。小队由<width:0E><space:0C>1～3<width:16><space:16>机组成，\n　但基本是三机组队。”",
+        "line_widths": [
+          13,
+          10
+        ],
+        "encoded_hex": "91419676885a8fd28fac97c49752320e340c8250985f8252321634168af795a990ac8fd30a814092418aee967b90a58e4f8af795a997c48fd28fe700",
+        "encoded_bytes": 60
+      },
+      {
+        "case": "dialogue-08-default",
+        "term": "signed-arithmetic",
+        "source": {
+          "term": "signed-arithmetic",
+          "translation": "“数值为-10、+10、3×4、3÷4。”",
+          "experimental": true
+        },
+        "stored_text": "“数值为-10、+10、3×4、3÷4。”",
+        "line_widths": [
+          21
+        ],
+        "encoded_hex": "914190949369926898688250824f8fd18eff8250824f8fd18252817e82538fd18252818082538fd28fe700",
+        "encoded_bytes": 43
+      },
+      {
+        "case": "dialogue-08-compact",
+        "term": "signed-arithmetic",
+        "source": {
+          "term": "signed-arithmetic",
+          "translation": "“数值为-10、+10、3×4、3÷4。”",
+          "experimental": true
+        },
+        "stored_text": "“数值为<width:0E><space:0C>-10<width:16><space:16>、<width:0E><space:0C>+10<width:16><space:16>、<width:0E><space:0C>3×4<width:16><space:16>、<width:0E><space:0C>3÷4<width:16><space:16>。”",
+        "line_widths": [
+          16
+        ],
+        "encoded_hex": "9141909493699268320e340c98688250824f321634168fd1320e340c8eff8250824f321634168fd1320e340c8252817e8253321634168fd1320e340c825281808253321634168fd28fe700",
+        "encoded_bytes": 75
+      },
+      {
+        "case": "dialogue-09-default",
+        "term": "fullwidth-punctuation",
+        "source": {
+          "term": "fullwidth-punctuation",
+          "translation": "“时间１８：００，比例０．５％。”",
+          "experimental": true
+        },
+        "stored_text": "“时间１８：００，比例０．５％。”",
+        "line_widths": [
+          17
+        ],
+        "encoded_hex": "914192cb8867825082578fd6824f824f8fd394e497e1824f8fd4825481938fd28fe700",
+        "encoded_bytes": 35
+      },
+      {
+        "case": "dialogue-09-compact",
+        "term": "fullwidth-punctuation",
+        "source": {
+          "term": "fullwidth-punctuation",
+          "translation": "“时间１８：００，比例０．５％。”",
+          "experimental": true
+        },
+        "stored_text": "“时间<width:0E><space:0C>18：00<width:16><space:16>，比例<width:0E><space:0C>0．5％<width:16><space:16>。”",
+        "line_widths": [
+          13
+        ],
+        "encoded_hex": "914192cb8867320e340c825082578fd6824f824f321634168fd394e497e1320e340c824f8fd482548193321634168fd28fe700",
+        "encoded_bytes": 51
+      },
+      {
+        "case": "names-01-default",
+        "unit": "塔米纳斯606",
+        "weapon": "200毫米连装炮",
+        "labels": {
+          "unit": {
+            "text": "塔米纳斯606",
+            "encoded_bytes": 15,
+            "encoded_hex": "938395c495988e7a8255824f825500"
+          },
+          "weapon": {
+            "text": "200毫米连装炮",
+            "encoded_bytes": 17,
+            "encoded_hex": "8251824f824f85a695c491899195946500"
+          }
+        }
+      },
+      {
+        "case": "names-01-compact",
+        "unit": "塔米纳斯606",
+        "weapon": "200毫米连装炮",
+        "labels": {
+          "unit": {
+            "text": "塔米纳斯<width:0E><space:0C>606<width:12><space:12>",
+            "encoded_bytes": 23,
+            "encoded_hex": "938395c495988e7a320e340c8255824f82553212341200"
+          },
+          "weapon": {
+            "text": "<width:0E><space:0C>200<width:12><space:12>毫米连装炮",
+            "encoded_bytes": 25,
+            "encoded_hex": "320e340c8251824f824f3212341285a695c491899195946500"
+          }
+        }
+      },
+      {
+        "case": "names-02-default",
+        "unit": "塔米纳斯909",
+        "weapon": "12.5毫米CIWS",
+        "labels": {
+          "unit": {
+            "text": "塔米纳斯909",
+            "encoded_bytes": 15,
+            "encoded_hex": "938395c495988e7a8258824f825800"
+          },
+          "weapon": {
+            "text": "12.5毫米CIWS",
+            "encoded_bytes": 21,
+            "encoded_hex": "825082519873825485a695c4826282688276827200"
+          }
+        }
+      },
+      {
+        "case": "names-02-compact",
+        "unit": "塔米纳斯909",
+        "weapon": "12.5毫米CIWS",
+        "labels": {
+          "unit": {
+            "text": "塔米纳斯<width:0E><space:0C>909<width:12><space:12>",
+            "encoded_bytes": 23,
+            "encoded_hex": "938395c495988e7a320e340c8258824f82583212341200"
+          },
+          "weapon": {
+            "text": "<width:0E><space:0C>12.5<width:12><space:12>毫米<width:0E><space:0C>CIWS<width:12><space:12>",
+            "encoded_bytes": 37,
+            "encoded_hex": "320e340c82508251987382543212341285a695c4320e340c82628268827682723212341200"
+          }
+        }
+      }
+    ],
+    "division_protected": {
+      "type": "Followup isolated RAM probe for division legibility safeguard",
+      "iso_sha256": "f6935e848d632d6221cbf1bff29366e3d252173eac003b1da1a30bcec1ef1c5d",
+      "stored_text": "“数值为<width:0E><space:0C>-10<width:16><space:16>、<width:0E><space:0C>+10<width:16><space:16>、<width:0E><space:0C>3×4<width:16><space:16>、3÷4。”",
+      "encoded_bytes": 67,
+      "encoded_hex": "9141909493699268320e340c98688250824f321634168fd1320e340c8eff8250824f321634168fd1320e340c8252817e8253321634168fd18252818082538fd28fe700",
+      "line_widths": [
+        17
+      ],
+      "source_card_unchanged": true
+    },
+    "screenshots": [
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-01-compact.png",
+        "sha256": "72e02b325408926ae55fc75de878640310c94289bf89737d65b1d4bd638e450c"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-01-default.png",
+        "sha256": "19479e3e3c859e649662cb9cac808b82d9ab50cbf04da7adc26dd2262958f30a"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-02-compact.png",
+        "sha256": "097ca8739f6ac4c9091eace57685bddafde82da458258825bec2d38f1871d0ab"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-02-default.png",
+        "sha256": "72f11bf1d88339b8fb3cdaa9bdb617918a04fe3daa2690b7577c9681cf486380"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-03-compact.png",
+        "sha256": "d735cdfd3de3cbda8e48c860d333c9ee55b9a255ca68c8e290e43c8e073f9596"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-03-default.png",
+        "sha256": "4b2d14c5c9baad3d835f71555b6283b3ccb60c426cccc07adcf4d35f63d1778b"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-04-compact.png",
+        "sha256": "58a845b21510528b136bb57ea2a7d2c3d7934e919b33fc1ce0ffbbce999d4f8b"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-04-default.png",
+        "sha256": "2c51b19df467955de44cc92baa09d7bc7cee76841c2227ae666d9b54b1c6b361"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-05-compact.png",
+        "sha256": "7be4a906dba3b85d9019d478e9c1d1ed0b3aad65e225cf5d195313d0f6298f12"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-05-default.png",
+        "sha256": "3601d687a079fa96f01280d1321070e825e2cdd8d3fc5f4d4a2419a1e40ff0e7"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-06-compact.png",
+        "sha256": "06971f772c9be96eefaf9b23ac66d914cd764f01ff7bd11ef2b8d58db1b1cbdf"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-06-default.png",
+        "sha256": "004a3761fca2670667d199889cf2d8d24f72c3d05c9a6aeff93d0877a47caa5f"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-07-compact.png",
+        "sha256": "d1c06d25c270088885ac747b6f0387d7b1d7e521755c9b939dc0902c7cf2dc3d"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-07-default.png",
+        "sha256": "85b24ccc4fa2ea1796197f38ffd731b7902949dac6f3fac8ce41f6fc5100f4ee"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-08-compact.png",
+        "sha256": "a3fab6357b40211114e434e70245ff95e55119f26253340030de681a01e72f27"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-08-default.png",
+        "sha256": "25a3e9d4291037b6c622a6068bb1a6cc1a694a6fda9d81128dd7a9bb57f076c0"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-08-division-protected.png",
+        "sha256": "7c71f3cef18e3f5a4c685834d04190858ad9524f2da6cb67bda780ace4067820"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-09-compact.png",
+        "sha256": "f824a2cbf76d6981e7948384913f8d98546d0389c8ba88f3f70003f90aafcfdc"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/dialogue-09-default.png",
+        "sha256": "420a678f4ae298ee28403b2448085f61be6ad73470e889d8d6fcd02d8de1e127"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/names-01-compact.png",
+        "sha256": "e48149a6d7aeae60303d7cbe74835e910a17266e89099dcdeb6bf7c6a7fc69a1"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/names-01-default.png",
+        "sha256": "9fcf94c6ba1ae1515fd7ad22e8903196b031f1a36bb0c01638ea2263b41d9a6a"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/names-02-compact.png",
+        "sha256": "fd7013537d8490a88902e9815fa12a2e8a9659aeb343cadceb06e6280245c6a6"
+      },
+      {
+        "path": "work/reviews/compact-visible-count-20260928/runtime/names-02-default.png",
+        "sha256": "01b8bcfead8f5d9f0eb0dd1c2936963d22e34920e1ca9779aee7692ee02fa8e2"
+      }
+    ]
+  },
+  "tests": {
+    "renderer_width": 21,
+    "story_dialogue_layout_words": 10,
+    "sp_stage_writeback": 17
+  },
+  "evidence": {
+    "audit_path": "work/reviews/compact-visible-count-20260928/audit.json",
+    "audit_sha256": "c0c0f9934f0eb39147ebe7e24e060e0ee6bc70fccd08abb4dbdfbf11108b72a1"
+  },
+  "limitations": [
+    "Count first; corpus and ISO not modified.",
+    "Natural menu label consumer limits remain; long weapon-column overlap is unresolved.",
+    "Main text borrowed into SP RAM is not current Original/BEST scene acceptance.",
+    "No PCSX2/manual acceptance."
+  ],
+  "implementation_commit": "a29a5dd8e9074d36d754e9807762abf764742ef5"
+}
