@@ -37,7 +37,7 @@
 第二行及下一条对白正常。本篇当前 Original 的英文标题亦重新跑过冷启动读档详情。
 Original／BEST／SP 的两个控制处理块逐字节相同；本轮 BEST 只有静态代码证据。
 后续已接入参数计宽、字形边界、跨行状态和闭合名称段保护；长英文作者规则为
-达到 8 个可见字符时提供 `width:0E/space:0C`，纯数字和短 ID 保留。
+超过 2 个可见字符（至少 3 个）时提供 `width:0E/space:0C`，纯数字和 1～2 字符短 ID 保留。
 机体名、武器名的列表与详情也已在当前 Original／SP 的 LRPS2 中检查。
 算法、规则和名称测试见 [`TEXT_WIDTH_LAYOUT_POLICY_20260928.md`](TEXT_WIDTH_LAYOUT_POLICY_20260928.md)。
 首轮结论、恢复值和测试边界见

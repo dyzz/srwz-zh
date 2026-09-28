@@ -65,10 +65,13 @@ class RendererWidthLayoutTest(unittest.TestCase):
         self.assertEqual(fit_chinese_dialogue_layout('<width:0C><space:0C>ABCDEFGHI',profile=profile).line_widths,(5,))
 
     def test_authoring_preserves_short_ids_and_numeric_values(self):
-        text='Z高达、MS、40000、56000；Black Gale'
+        text='Z高达、MS、40000、56000；MAX、ＺＡＦＴ；Black Gale'
         tagged=compact_latin_runs(text,default_advance_px=22)
         self.assertTrue(tagged.startswith('Z高达、MS、40000、56000；'))
+        self.assertIn('<width:0E><space:0C>MAX<width:16><space:16>',tagged)
+        self.assertIn('<width:0E><space:0C>ZAFT<width:16><space:16>',tagged)
         self.assertIn('<width:0E><space:0C>Black Gale<width:16><space:16>',tagged)
+        self.assertEqual(tagged.count('<width:0E>'),3)
         with self.assertRaises(ValueError):compact_latin_runs('<color:01>Black Gale',default_advance_px=22)
 
     def test_closed_identifier_scope_is_not_split_between_words(self):

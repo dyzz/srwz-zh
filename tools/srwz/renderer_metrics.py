@@ -69,11 +69,12 @@ def text_extent(text: str, *, default_advance_px: int,
 
 
 def compact_latin_runs(text: str, *, default_advance_px: int,
-                       minimum_characters: int = 8,
+                       minimum_characters: int = 3,
                        glyph_width_px: int = 14,
                        advance_px: int = 12) -> str:
     """Author explicit width scopes for long Latin identifiers/phrases.
 
+    Latin runs longer than two visible characters are compacted by default.
     Short IDs and digits alone retain their logical values. Controlled text
     must be authored separately. This helper is not a production-wide rewrite.
     """
