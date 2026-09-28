@@ -1,0 +1,56 @@
+--- a/srwz-community-web/scripts/cache_manifest.mjs
++++ b/srwz-community-web/scripts/cache_manifest.mjs
+@@ -8 +8 @@
+-  { directory: 'data/stages', extension: '.json' },
++  { directory: 'data', extension: '.json' },
+@@ -100 +100 @@
+-    /^\/(?:portraits-web\/.*\.webp|data\/stages\/.*\.json)$/,
++    /^\/(?:portraits-web\/.*\.webp|data\/.*\.json)$/,
+--- a/srwz-community-web/scripts/cache_manifest.test.mjs
++++ b/srwz-community-web/scripts/cache_manifest.test.mjs
+@@ -15 +15 @@
+-test('buildCacheManifest includes only cacheable portraits and stage JSON', async () => {
++test('buildCacheManifest includes portraits and every published JSON data tree', async () => {
+@@ -19,0 +20,2 @@
++    await mkdir(join(root, 'data/library'), { recursive: true });
++    await mkdir(join(root, 'data/sp-stages'), { recursive: true });
+@@ -24 +26,5 @@
+-    await writeFile(join(root, 'data/site-index.json'), '{"ignored":true}');
++    await writeFile(join(root, 'data/site-index.json'), '{"index":true}');
++    await writeFile(join(root, 'data/sp-topic.json'), '{"sp":true}');
++    await writeFile(join(root, 'data/library/robot.json'), '{"robot":true}');
++    await writeFile(join(root, 'data/sp-stages/stage-001.json'), '{"stage":1}');
++    await writeFile(join(root, 'data/ignored.txt'), 'not published JSON');
+@@ -27,0 +34,4 @@
++      '/data/library/robot.json',
++      '/data/site-index.json',
++      '/data/sp-stages/stage-001.json',
++      '/data/sp-topic.json',
+--- a/srwz-community-web/deploy/aliyun/README.md
++++ b/srwz-community-web/deploy/aliyun/README.md
+@@ -69,2 +69,4 @@
+-`/data/stages/` for 7 days. Every standalone build includes
+-`cache-manifest.tsv`, which hashes only those WebP and stage JSON files. Before
++`/data/stages/` for 7 days. Other exported JSON data can also be cached by the
++CDN for one hour. Every standalone build includes
++`cache-manifest.tsv`, which hashes the WebP files and every exported `/data/`
++JSON file, including SP, encyclopedia, search and history indexes. Before
+--- a/srwz-community-web/scripts/test_review_translation_updates.py
++++ b/srwz-community-web/scripts/test_review_translation_updates.py
+@@ -63 +63 @@
+-        for target_id in ('battle:07155', 'robot/217/DSCR', 'robot/215/RBTN',
++        for target_id in ('battle:07155', 'robot/215/RBTN',
+@@ -68,0 +69,13 @@
++
++    def test_relaid_library_body_uses_its_actual_source_commit_date(self):
++        updates = json.loads((DATA / 'review-translation-updates.json').read_text())
++        target = 'robot/217/DSCR'
++        update = updates['entries'][target]
++        fields, _ = __import__('export_commit_history').library_context()
++        path = 'corpus/zh/library/v0.2-reviewed.json'
++        before = library_field_translations(git_json(update['commit'] + '^', path), fields)
++        after = library_field_translations(git_json(update['commit'], path), fields)
++        self.assertNotEqual(before[target], after[target])
++        self.assertEqual(update['translation'], after[target])
++        self.assertEqual(update['updatedAt'], git('show', '-s', '--format=%cI',
++                                                 update['commit']).strip())
