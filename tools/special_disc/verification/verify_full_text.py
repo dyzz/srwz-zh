@@ -35,6 +35,7 @@ from special_disc.writeback.squad_names import verify_nisv_names
 from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
+from special_disc.writeback.shared_library import verify_shared_library
 
 
 def main(iso=None, work=None):
@@ -55,6 +56,14 @@ def main(iso=None, work=None):
     for name,expected in manifest['files'].items():require(sha(member(name))==expected,f'ISO member drift: {name}')
     for path,expected in manifest['components'].items():require(file_sha(ROOT/path)==expected,f'component report drift: {path}')
     table,_,overrides,readback=st.mst.encoding_tables(PROPOSAL)
+    library_base = baseline_iso('text-canary')
+    library_base_members = member_map(scan_iso9660(library_base))
+    library_counts = verify_shared_library(
+        member('SLPS_259.20'), member,
+        lambda name: read_member(library_base, library_base_members, name),
+        st.read_disc_member, table, overrides, manifest['current_shared_library'])
+    for key, value in library_counts.items():
+        counts['current_library_' + key] = value
     proposal=load(PROPOSAL)
     font_assignments=[r for key in ('assignments','surface_alias_assignments',
                                   'source_compatibility_assignments') for r in proposal[key]]

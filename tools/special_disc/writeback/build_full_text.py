@@ -47,6 +47,7 @@ from parenthesis_glyphs import apply_parentheses
 from srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
 from srwz.font_profile import load_font_profile
 from special_disc.writeback.incremental import CACHE_PATH, ComponentCache, seed_components
+from special_disc.writeback.shared_library import apply_shared_library
 
 WORK=ROOT/'work/build/special-disc/full-text'
 BASE_SHA='3617b44b263b1a31f14632d89f3ee456a031349ee892b25c6c8eeb9ae8d5ae73'
@@ -241,6 +242,11 @@ def assemble():
         require(sha(base[name])==reports['image-labels']['base_files'][name],f'image {name} base drift');patches[name]=data
     patches.update(components['srvc'])
     source_table,menu_overrides,stored_overrides,runtime_table=encoding_tables(PROPOSAL)
+    patches[EXE], library_members, library_report = timed(
+        'current-shared-library', apply_shared_library, patches[EXE],
+        lambda name: read_member(BASE, members, name), read_disc_member,
+        source_table, stored_overrides)
+    patches.update(library_members)
     qa_base=patches.get(QA_MEMBER)
     if qa_base is None:qa_base=read_member(BASE,members,QA_MEMBER)
     patches[QA_MEMBER],qa_report=timed('qa',apply_qa_layout,qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table=runtime_table)
@@ -288,6 +294,7 @@ def assemble():
     protected=verify_iso_ranges(BASE,temporary,[(members[n].extent_lba*2048,members[n].extent_lba*2048+len(d))for n,d in patches.items()])
     report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=file_sha(temporary)),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in patches.items()},protected_iso_ranges=protected,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
     report['weapon_detail_labels']=weapon_report
+    report['current_shared_library']=library_report
     report['weapon_detail_parentheses']=weapon_parentheses_report
     report['native_parentheses']=parenthesis_report
     report['data_link_bonus']=link_report
