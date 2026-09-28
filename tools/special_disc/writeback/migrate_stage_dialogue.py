@@ -7,6 +7,7 @@ This is a development component, not a complete Special Disc release builder.
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 import collections
 import hashlib
 import json
@@ -123,7 +124,8 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
             row["layout"] = "story_dialogue"
         else:
             # Labels/conditions retain their explicit line structure, without dialogue indentation.
-            if entry.kind != "speaker" and max(map(rendered_line_width, text.split('\n')), default=0) > max(21, max(map(rendered_line_width, entry.text.split('\n')), default=0)):
+            measure = lambda line: rendered_line_width(line, default_advance_px=profile.default_advance_px)
+            if entry.kind != "speaker" and max(map(measure, text.split('\n')), default=0) > max(21, max(map(measure, entry.text.split('\n')), default=0)):
                 raise WritebackError(f"{target}: explicit-layout width exceeds source envelope")
             row["layout"] = (
                 "speaker" if entry.kind == "speaker"
@@ -184,7 +186,7 @@ def main():
     bindings = StageBindings(ROOT, allow_draft=args.allow_draft)
     for contract in ('config/products/special-disc/stage-scalar-contracts.json',):
         bindings.inputs[contract] = sha256((ROOT/contract).read_bytes())
-    profile = load_layout_profiles(PROFILES)['story_dialogue']
+    profile = replace(load_layout_profiles(PROFILES)['story_dialogue'], default_advance_px=22)
     source = (args.base / STAGE).read_bytes()
     base_report = json.loads((args.base / 'report.json').read_text())
     if sha256(source) != base_report['files'][STAGE]:

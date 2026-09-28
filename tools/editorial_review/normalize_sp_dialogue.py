@@ -123,7 +123,7 @@ def run(*, apply=False, batch_id='sp-format-layout-20260928'):
     if sha(stage_path) != proof['components'][component]:
         raise ValueError('SP stage component drift')
     bindings = [r for c in read(stage_path)['chunk_reports'] for r in c['bindings'] if r.get('layout') == 'story_dialogue']
-    profile = load_layout_profiles(ROOT / 'config/text-layout/zh-layout-profiles.json')['story_dialogue']
+    profile = replace(load_layout_profiles(ROOT / 'config/text-layout/zh-layout-profiles.json')['story_dialogue'], default_advance_px=22)
     documents, rows, references = {}, {}, defaultdict(list)
     for b in bindings:
         key = b['corpus'], b['corpus_id']

@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from dataclasses import dataclass
+from fractions import Fraction
 from functools import lru_cache
 from pathlib import Path
 from typing import Iterable, Sequence
 
-from .text import RUNTIME_FORMAT_TOKEN
+from .text import RUNTIME_FORMAT_TOKEN, CONTROL_NOTATION
+from .renderer_metrics import RendererState, text_extent
 
 
 # Continuation lines gain one full-width ideographic-space indent at writeback.
@@ -41,7 +44,12 @@ _STRUCTURAL_TOKEN = re.compile(
     r"|\{[0-9A-Fa-f]{2}\}"
     r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
-_LATIN_TERM = re.compile(r"[A-Za-z0-9]+(?:[.·_-][A-Za-z0-9]+)* ?")
+_COMPACT_LATIN_SCOPE = re.compile(
+    r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
+    r"([A-Za-z0-9Ａ-Ｚａ-ｚ０-９ ._'/-　]+)"
+    r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
+)
+_LATIN_TERM = re.compile(r"[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+(?:[.·_-][A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+)*[ 　]?")
 _NUMBER_WITH_UNIT = re.compile(
     r"(?:第[0-9０-９]+(?:话|章|关|幕|次|号|代|阶段|批)?|"
     r"[0-9０-９]+(?:[.,][0-9０-９]+)*(?:%|％|岁|年|月|日|时|分|秒|"
@@ -93,8 +101,11 @@ class ChineseLayoutProfile:
     allow_oversized_token_split: bool = False
     unbroken_terms: tuple[str, ...] = ()
     weights: LayoutWeights = LayoutWeights()
+    default_advance_px: int = 24
 
     def __post_init__(self) -> None:
+        if not 1 <= self.default_advance_px <= 63:
+            raise ChineseLayoutError('profile default advance must be between 1 and 63 pixels')
         if not self.profile_id:
             raise ChineseLayoutError("layout profile id must not be empty")
         if self.maximum_width <= 0:
@@ -224,6 +235,7 @@ def load_layout_profiles(path: Path) -> dict[str, ChineseLayoutProfile]:
                     dict.fromkeys((*common_unbroken_terms, *profile_unbroken_terms))
                 ),
                 weights=weights,
+                default_advance_px=int(raw.get("default_advance_px", 24)),
             )
         except (KeyError, TypeError, ValueError) as error:
             raise ChineseLayoutError(
@@ -266,8 +278,9 @@ def load_release_protected_terms(
 @dataclass(frozen=True)
 class LayoutToken:
     text: str
-    width: int
+    width: int | Fraction
     atomic: bool = False
+    overhang: Fraction = Fraction(0)
 
 
 @dataclass(frozen=True)
@@ -379,7 +392,7 @@ def _protected_match(
     return ""
 
 
-def tokenize_dialogue(
+def _tokenize_dialogue_cells(
     text: str,
     *,
     protected_terms: Iterable[str] = (),
@@ -399,11 +412,19 @@ def tokenize_dialogue(
     tokens = []
     offset = 0
     while offset < len(text):
+        # Closed authoring scopes are names/identifiers, so a break must not
+        # separate their control prefix, words or restore pair.
+        scope = (_COMPACT_LATIN_SCOPE.match(text, offset)
+                 if text.startswith('<width:', offset) else None)
+        if scope is not None:
+            tokens.append(LayoutToken(scope.group(), len(scope[1]), atomic=True))
+            offset = scope.end()
+            continue
         keyword_link = keyword_links_by_start.get(offset)
         if keyword_link is not None:
             body_width = sum(
                 token.width
-                for token in tokenize_dialogue(
+                for token in _tokenize_dialogue_cells(
                     keyword_link.body,
                     protected_terms=terms,
                     stage_keyword_links=False,
@@ -449,46 +470,94 @@ def tokenize_dialogue(
     return tuple(tokens)
 
 
+def tokenize_dialogue(
+    text: str, *, protected_terms: Iterable[str] = (),
+    stage_keyword_links: bool = False, default_advance_px: int = 24,
+    initial_state: RendererState | None = None,
+) -> tuple[LayoutToken, ...]:
+    """Tokenize with exact rational advances when renderer dimensions occur."""
+    tokens = _tokenize_dialogue_cells(text, protected_terms=protected_terms,
+                                    stage_keyword_links=stage_keyword_links)
+    if initial_state is None and not re.search(r'<(?:width|space):', text):
+        return tokens
+    state = initial_state or RendererState(default_advance_px, default_advance_px)
+    output = []
+    pending = ''
+    for token in tokens:
+        extent = text_extent(token.text, default_advance_px=default_advance_px,
+                             state=state, stage_keyword_links=stage_keyword_links)
+        state = extent.state
+        if token.width == 0:
+            pending += token.text
+            continue
+        output.append(LayoutToken(pending + token.text,
+            Fraction(extent.advance_px, default_advance_px), token.atomic,
+            Fraction(extent.occupied_px - extent.advance_px, default_advance_px)))
+        pending = ''
+    if pending:
+        if output:
+            last = output[-1]
+            output[-1] = LayoutToken(last.text + pending, last.width, last.atomic, last.overhang)
+        else:
+            output.append(LayoutToken(pending, 0))
+    return tuple(output)
+
+
+def _occupied_width(tokens: Sequence[LayoutToken]) -> int | Fraction:
+    advance = occupied = 0
+    for token in tokens:
+        advance += token.width
+        occupied = max(occupied, advance + token.overhang)
+    return max(advance, occupied)
+
+
+def _visible_edges(text: str) -> str:
+    if not any(c in text for c in '<{$%'):
+        return text
+    return CONTROL_NOTATION.sub(lambda m: '名' if m.group().startswith(('$', '%')) else '', text)
+
+
 def rendered_line_width(
     text: str,
     *,
     protected_terms: Iterable[str] = (),
     stage_keyword_links: bool = False,
+    default_advance_px: int = 24,
 ) -> int:
-    """Return fixed-cell width, expanding runtime string placeholders."""
+    """Return a conservative cell budget after summing exact controlled advances."""
 
-    content = text.lstrip("　 ")
-    return sum(
-        token.width
-        for token in tokenize_dialogue(
-            content,
-            protected_terms=protected_terms,
-            stage_keyword_links=stage_keyword_links,
-        )
-    )
+    widths = dialogue_line_widths(text, protected_terms=protected_terms,
+        stage_keyword_links=stage_keyword_links,
+        default_advance_px=default_advance_px)
+    return widths[0] if widths else 0
 
 
 def dialogue_line_widths(
-    text: str,
-    *,
-    protected_terms: Iterable[str] = (),
-    stage_keyword_links: bool = False,
+    text: str, *, protected_terms: Iterable[str] = (),
+    stage_keyword_links: bool = False, default_advance_px: int = 24,
 ) -> tuple[int, ...]:
-    return tuple(
-        rendered_line_width(
-            line,
-            protected_terms=protected_terms,
+    terms = tuple(protected_terms)
+    state = None
+    widths = []
+    for line in text.splitlines():
+        content = line.lstrip("　 ")
+        tokens = tokenize_dialogue(content, protected_terms=terms,
             stage_keyword_links=stage_keyword_links,
-        )
-        for line in text.splitlines()
-    )
+            default_advance_px=default_advance_px, initial_state=state)
+        widths.append(math.ceil(_occupied_width(tokens)))
+        if state is not None or re.search(r'<(?:width|space):', content):
+            state = text_extent(content, default_advance_px=default_advance_px,
+                                state=state, stage_keyword_links=stage_keyword_links).state
+    return tuple(widths)
 
 
 def _valid_break(tokens: Sequence[LayoutToken], index: int) -> bool:
     """Apply the strict CLReq/UAX #14 punctuation prohibitions."""
 
-    previous = tokens[index - 1].text
-    following = tokens[index].text
+    previous = _visible_edges(tokens[index - 1].text)
+    following = _visible_edges(tokens[index].text)
+    if not previous or not following:
+        return True
     if previous[-1] in _OPENING_PUNCTUATION:
         return False
     if following[0] in _CLOSING_PUNCTUATION:
@@ -502,6 +571,9 @@ def _break_penalty(
     *,
     weights: LayoutWeights,
 ) -> int:
+    previous, following = _visible_edges(previous), _visible_edges(following)
+    if not previous or not following:
+        return 0
     last = previous[-1]
     if last in _STRONG_BREAK_END:
         penalty = weights.strong_break
@@ -532,7 +604,7 @@ def _split_oversized_tokens(
         if (
             token.atomic
             or not allow_split
-            or token.text.startswith(("$", "%", "{", "<"))
+            or CONTROL_NOTATION.search(token.text)
         ):
             raise ChineseLayoutError(
                 f"indivisible term exceeds {line_width} cells: {token.text!r}"
@@ -573,16 +645,20 @@ def _partition_tokens(
     for token in tokens:
         prefix.append(prefix[-1] + token.width)
         character_offsets.append(character_offsets[-1] + len(token.text))
-    total_width = prefix[-1]
+    total_width = _occupied_width(tokens)
     first_line_width = first_line_width or line_width
     minimum_lines = (
         1
         if total_width <= first_line_width
-        else 1 + (total_width - first_line_width + line_width - 1) // line_width
+        else 1 + math.ceil((total_width - first_line_width) / line_width)
     )
 
-    def width(start: int, end: int) -> int:
-        return prefix[end] - prefix[start]
+    has_overhang = any(token.overhang for token in tokens)
+
+    def width(start: int, end: int) -> int | Fraction:
+        if not has_overhang:
+            return prefix[end] - prefix[start]
+        return _occupied_width(tokens[start:end])
 
     if exact_lines is not None:
         if not minimum_lines <= exact_lines <= max_lines:
@@ -727,6 +803,7 @@ def partition_chinese_text(
     minimum_line_width: int = 0,
     allow_oversized_token_split: bool = False,
     stage_keyword_links: bool = False,
+    default_advance_px: int = 24,
 ) -> tuple[str, ...]:
     """Partition one logical Chinese string without adding indentation."""
 
@@ -739,6 +816,7 @@ def partition_chinese_text(
             text,
             protected_terms=protected_terms,
             stage_keyword_links=stage_keyword_links,
+            default_advance_px=default_advance_px,
         ),
         line_width=max(line_width, first_line_width or line_width),
         allow_split=allow_oversized_token_split,
@@ -789,6 +867,7 @@ def reflow_chinese_paragraph(
                 text,
                 protected_terms=protected_terms,
                 stage_keyword_links=False,
+                default_advance_px=profile.default_advance_px,
             ),
         )
     effective_protected_terms = (*profile.unbroken_terms, *protected_terms)
@@ -805,12 +884,14 @@ def reflow_chinese_paragraph(
         minimum_line_width=profile.minimum_line_width,
         allow_oversized_token_split=profile.allow_oversized_token_split,
         stage_keyword_links=False,
+        default_advance_px=profile.default_advance_px,
     )
     result = "\n".join(lines)
     widths = dialogue_line_widths(
         result,
         protected_terms=effective_protected_terms,
         stage_keyword_links=False,
+        default_advance_px=profile.default_advance_px,
     )
     return ReflowResult(
         original=text,
@@ -862,6 +943,7 @@ def reflow_chinese_dialogue(
                 text,
                 protected_terms=protected_terms,
                 stage_keyword_links=stage_keyword_links,
+                default_advance_px=(profile.default_advance_px if profile is not None else 24),
             ),
         )
     if _SEPARATE_QUOTED_LINES.search(text):
@@ -873,6 +955,7 @@ def reflow_chinese_dialogue(
                 text,
                 protected_terms=protected_terms,
                 stage_keyword_links=stage_keyword_links,
+                default_advance_px=(profile.default_advance_px if profile is not None else 24),
             ),
         )
 
@@ -889,6 +972,7 @@ def reflow_chinese_dialogue(
         minimum_line_width=minimum_line_width,
         allow_oversized_token_split=allow_oversized_token_split,
         stage_keyword_links=stage_keyword_links,
+        default_advance_px=(profile.default_advance_px if profile is not None else 24),
     )
     reflowed = ("\n" + continuation_indent).join(lines)
     if logical_dialogue_text(reflowed) != logical:
@@ -897,6 +981,7 @@ def reflow_chinese_dialogue(
         reflowed,
         protected_terms=protected_terms,
         stage_keyword_links=stage_keyword_links,
+        default_advance_px=(profile.default_advance_px if profile is not None else 24),
     )
     first_limit = first_line_width or line_width
     if (
@@ -964,6 +1049,7 @@ def dialogue_layout_issues(
         text,
         protected_terms=profile.unbroken_terms,
         stage_keyword_links=stage_keyword_links,
+        default_advance_px=(profile.default_advance_px if profile is not None else 24),
     )
     first_limit = profile.first_line_maximum_width or profile.maximum_width
     if profile.maximum_lines is not None and len(widths) > profile.maximum_lines:
@@ -1016,6 +1102,7 @@ def fit_chinese_dialogue_layout(
         text,
         protected_terms=effective_terms,
         stage_keyword_links=stage_keyword_links,
+        default_advance_px=(profile.default_advance_px if profile is not None else 24),
     )
     if (
         len(widths) <= max_lines
