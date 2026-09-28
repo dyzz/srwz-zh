@@ -1,0 +1,634 @@
+{
+  "schema_version": 1,
+  "batch_id": "visible-text-width-runtime-20260928",
+  "conclusion": "Two-byte fullwidth glyph storage can coexist with independent glyph-width (0x32) and advancement (0x34) controls. Ordinary SP dialogue feasibility verified through isolated current-ISO RAM probes; no global dialogue-width change has been applied.",
+  "inputs": {
+    "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/special-disc/sp-current.iso",
+    "iso_sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700",
+    "elf_sha256": "95a4647da2d2f99468bed9205327f96140b92a1deb69d4b0d14c13e50f57d778",
+    "elf_file_to_va_delta": "0xff680",
+    "input_card_sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+    "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+    "payloads": {
+      "default": {
+        "text": "MAX 56000，中文。",
+        "hex": "826c82608277814082548255824f824f824f8fd3928695b68fd200"
+      },
+      "width-only": {
+        "text": "<width:0C>MAX 56000<width:16>，中文。",
+        "hex": "320c826c82608277814082548255824f824f824f32168fd3928695b68fd200"
+      },
+      "width-space": {
+        "text": "<width:0C><space:0C>MAX 56000<width:16><space:16>，中文。",
+        "hex": "320c340c826c82608277814082548255824f824f824f321634168fd3928695b68fd200"
+      },
+      "black-gale": {
+        "text": "Black Gale，中文。",
+        "hex": "8261828c82818283828b814082668281828c82858fd3928695b68fd200"
+      },
+      "black-gale-narrow": {
+        "text": "<width:0E><space:0C>Black Gale<width:16><space:16>，中文。",
+        "hex": "320e340c8261828c82818283828b814082668281828c8285321634168fd3928695b68fd200"
+      },
+      "block-word": {
+        "text": "BLOCK WORD，中文。",
+        "hex": "8261826b826e8262826a81408276826e827182638fd3928695b68fd200"
+      },
+      "the-big": {
+        "text": "The Big，中文。",
+        "hex": "82738288828581408261828982878fd3928695b68fd200"
+      }
+    }
+  },
+  "source_iso_and_memory_card_unchanged": true,
+  "code_comparison": [
+    {
+      "edition": "original",
+      "iso_sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245",
+      "elf_sha256": "eee43a31c4e2a6104bcddf7d2185a512a7fabc89b410699dc27065a87b23bb0e",
+      "handlers": {
+        "width-handler": {
+          "file_offset": "0x3bef0",
+          "bytes": "000082920070013c140022a601009426340022a4c2ff0010480020a6",
+          "identical_to_sp": true
+        },
+        "advance-handler": {
+          "file_offset": "0x3bf30",
+          "bytes": "000082920070013c180022a601009426380022a4b2ff0010480020a6",
+          "identical_to_sp": true
+        }
+      }
+    },
+    {
+      "edition": "best",
+      "iso_sha256": "bd90e036f7de18804c1173c200f198fa0e0dff87bd775ba4af75f71b12498c90",
+      "elf_sha256": "80f3173541f73e2c51630d3bb48d2eccb6d227d0ec57a98486fedc051d6197c5",
+      "handlers": {
+        "width-handler": {
+          "file_offset": "0x3bef0",
+          "bytes": "000082920070013c140022a601009426340022a4c2ff0010480020a6",
+          "identical_to_sp": true
+        },
+        "advance-handler": {
+          "file_offset": "0x3bf30",
+          "bytes": "000082920070013c180022a601009426380022a4b2ff0010480020a6",
+          "identical_to_sp": true
+        }
+      }
+    },
+    {
+      "edition": "sp",
+      "iso_sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700",
+      "elf_sha256": "95a4647da2d2f99468bed9205327f96140b92a1deb69d4b0d14c13e50f57d778",
+      "handlers": {
+        "width-handler": {
+          "file_offset": "0x3b890",
+          "bytes": "000082920070013c140022a601009426340022a4c2ff0010480020a6",
+          "identical_to_sp": true
+        },
+        "advance-handler": {
+          "file_offset": "0x3b8d0",
+          "bytes": "000082920070013c180022a601009426380022a4b2ff0010480020a6",
+          "identical_to_sp": true
+        }
+      }
+    }
+  ],
+  "fullwidth_unicode_equivalence": {
+    "canonical": "<width:0C><space:0C>MAX 56000<width:16><space:16>",
+    "fullwidth": "<width:0C><space:0C>ＭＡＸ　５６０００<width:16><space:16>",
+    "stored_hex": "320c340c826c82608277814082548255824f824f824f32163416",
+    "identical": true,
+    "visible_glyphs": 9,
+    "glyph_bytes": 18,
+    "four_control_tags_bytes": 8
+  },
+  "pixel_measurements": {
+    "default": {
+      "ink_x_ranges_body_y348_366": [
+        [
+          82,
+          98
+        ],
+        [
+          104,
+          118
+        ],
+        [
+          125,
+          139
+        ],
+        [
+          168,
+          180
+        ],
+        [
+          188,
+          201
+        ],
+        [
+          209,
+          223
+        ],
+        [
+          230,
+          244
+        ],
+        [
+          251,
+          265
+        ],
+        [
+          273,
+          274
+        ],
+        [
+          292,
+          307
+        ],
+        [
+          313,
+          329
+        ],
+        [
+          335,
+          339
+        ]
+      ]
+    },
+    "width-only": {
+      "ink_x_ranges_body_y348_366": [
+        [
+          82,
+          90
+        ],
+        [
+          104,
+          111
+        ],
+        [
+          126,
+          133
+        ],
+        [
+          171,
+          177
+        ],
+        [
+          192,
+          199
+        ],
+        [
+          214,
+          221
+        ],
+        [
+          236,
+          243
+        ],
+        [
+          258,
+          265
+        ],
+        [
+          282,
+          283
+        ],
+        [
+          303,
+          318
+        ],
+        [
+          324,
+          341
+        ],
+        [
+          347,
+          351
+        ]
+      ]
+    },
+    "width-space": {
+      "ink_x_ranges_body_y348_366": [
+        [
+          82,
+          90
+        ],
+        [
+          94,
+          101
+        ],
+        [
+          106,
+          113
+        ],
+        [
+          131,
+          137
+        ],
+        [
+          142,
+          149
+        ],
+        [
+          154,
+          161
+        ],
+        [
+          166,
+          173
+        ],
+        [
+          178,
+          185
+        ],
+        [
+          192,
+          193
+        ],
+        [
+          213,
+          228
+        ],
+        [
+          234,
+          251
+        ],
+        [
+          257,
+          261
+        ]
+      ]
+    },
+    "black-gale": {
+      "ink_x_ranges_body_y348_366": [
+        [
+          84,
+          97
+        ],
+        [
+          111,
+          112
+        ],
+        [
+          127,
+          137
+        ],
+        [
+          149,
+          158
+        ],
+        [
+          170,
+          179
+        ],
+        [
+          209,
+          223
+        ],
+        [
+          232,
+          242
+        ],
+        [
+          258,
+          259
+        ],
+        [
+          274,
+          284
+        ],
+        [
+          294,
+          295
+        ],
+        [
+          313,
+          328
+        ],
+        [
+          334,
+          350
+        ],
+        [
+          356,
+          360
+        ]
+      ]
+    },
+    "black-gale-narrow": {
+      "ink_x_ranges_body_y348_366": [
+        [
+          83,
+          91
+        ],
+        [
+          99,
+          99
+        ],
+        [
+          108,
+          114
+        ],
+        [
+          120,
+          126
+        ],
+        [
+          132,
+          138
+        ],
+        [
+          154,
+          163
+        ],
+        [
+          168,
+          174
+        ],
+        [
+          183,
+          183
+        ],
+        [
+          192,
+          198
+        ],
+        [
+          204,
+          205
+        ],
+        [
+          225,
+          240
+        ],
+        [
+          246,
+          263
+        ],
+        [
+          269,
+          273
+        ]
+      ]
+    },
+    "block-word": {
+      "ink_x_ranges_body_y348_366": [
+        [
+          84,
+          97
+        ],
+        [
+          106,
+          117
+        ],
+        [
+          125,
+          139
+        ],
+        [
+          146,
+          160
+        ],
+        [
+          169,
+          180
+        ],
+        [
+          207,
+          225
+        ],
+        [
+          230,
+          244
+        ],
+        [
+          252,
+          265
+        ],
+        [
+          273,
+          286
+        ],
+        [
+          294,
+          295
+        ],
+        [
+          313,
+          328
+        ],
+        [
+          334,
+          350
+        ],
+        [
+          356,
+          360
+        ]
+      ]
+    },
+    "the-big": {
+      "ink_x_ranges_body_y348_366": [
+        [
+          83,
+          97
+        ],
+        [
+          107,
+          116
+        ],
+        [
+          127,
+          137
+        ],
+        [
+          168,
+          181
+        ],
+        [
+          194,
+          196
+        ],
+        [
+          211,
+          221
+        ],
+        [
+          231,
+          232
+        ],
+        [
+          250,
+          265
+        ],
+        [
+          271,
+          287
+        ],
+        [
+          293,
+          297
+        ]
+      ]
+    }
+  },
+  "visual_review": [
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/actual-first-story.png",
+      "sha256": "2b41bdd037e327b5eed5e2e816fe593ea0c833e0aa26d3e8f72fe8d9e1ee4c02",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Current SP cold boot: two-line dialogue, Chinese quotation marks and continuation indentation are legible and inside the window."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/next-natural-dialogue.png",
+      "sha256": "7466b02e2776608592bc2ec3dc6a633883b20cff24b90f65048f05dc93c06409",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Natural next dialogue after restoring the clean current-ISO state. Chinese text is normal; this is not the format-leak test."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/probe-default.png",
+      "sha256": "66f02c03402467c450a443ba1d1db6e5540b7f2246564d4515a24c2a0c39bc79",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Isolated RAM probe: MAX 56000 and Chinese punctuation/text are legible at default width."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/probe-width-only.png",
+      "sha256": "3e022a4137376c1815ab4d927e7be7795f9f2dbbaadf3c5d00e194ec75b842a2",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Isolated RAM probe: glyphs narrow but inter-glyph advancement remains about 22 px."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/probe-width-space.png",
+      "sha256": "00d583580cfb438329898833a417a5dfa95281fb7f6460e32dd56ae184103c74",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Isolated RAM probe: MAX and digits narrow; MAX glyph starts advance 12 px. Chinese suffix is restored to normal width."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/probe-black-gale.png",
+      "sha256": "765276556fb1a4877b13180dc91628b44cc7c09ca4391675d517301969422bb3",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Isolated RAM probe: Black Gale plus 0x8140 separator is legible."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/probe-black-gale-narrow.png",
+      "sha256": "f19f6c59270104ba7d37bb8a3674e6ce5bfb4a6f519f0f579f047b06ef794dd4",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Isolated RAM probe: width 0E and advance 0C render Black Gale compactly; Chinese suffix restored."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/probe-block-word.png",
+      "sha256": "ddcf7171b13915e41271253465152ca49d5e938fa618017c0462fa18bd7979be",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Isolated RAM probe: BLOCK WORD plus 0x8140 separator is legible."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/run/probe-the-big.png",
+      "sha256": "72f689a5fb9c29a533cf96d61931eb630a773bb39975551800f8913ec3e8662f",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Isolated RAM probe: The Big plus 0x8140 separator is legible."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/restore-initialized-run/restored-baseline.png",
+      "sha256": "2b41bdd037e327b5eed5e2e816fe593ea0c833e0aa26d3e8f72fe8d9e1ee4c02",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "After 1800 core-initialization frames, the state created from this current ISO restores correctly."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/restore-initialized-run/narrow-with-restored-second-line.png",
+      "sha256": "9ab568efb6495b90e67dcb976b8ee03b1b3cd3ca97aecb7f96cf948d814a8e21",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Isolated RAM probe with original quotation structure: MAX 56000 is compact, Chinese suffix and second line restore correctly; speaker remains blue."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/restore-initialized-run/next-dialogue-after-narrow.png",
+      "sha256": "7466b02e2776608592bc2ec3dc6a633883b20cff24b90f65048f05dc93c06409",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Without restoring again, circle advances to the next natural dialogue; normal Chinese glyph size, spacing and speaker color are preserved."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/main-current-load/frames/02220-populated-load-list.png",
+      "sha256": "d49922c57ea6c92b4ed9731d480d77ca21634c626a2da231756a66acb45b2989",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Current Original ISO cold boot: Blue Sky Fish is compact; enclosing quotation marks and Chinese synopsis render correctly."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/challenge-current/frames/03240-briefing.png",
+      "sha256": "a9138fd0c2a7073f1aefbf1aceb117c9e7250f302d382baf466a289d803a54f0",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Current SP cold boot: briefing room caption appears centered and legible."
+    },
+    {
+      "path": "work/runtime/lrps2/sp-text-width-20260928/challenge-current/frames/04200-challenge-entry.png",
+      "sha256": "31f1576c2c6af8c71eaf9405c072f5bdf1910065d6aecb463eed0c67cf4c8f3d",
+      "width": 640,
+      "height": 448,
+      "visually_inspected": true,
+      "finding": "Current SP cold boot: challenge dialogue appears correctly. This screenshot does not contain MAX/40000."
+    }
+  ],
+  "cold_boot_runs": {
+    "original": {
+      "receipt": "work/runtime/lrps2/sp-text-width-20260928/main-current-load/receipt.json",
+      "status": "passed",
+      "iso_sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245"
+    },
+    "sp_challenge": {
+      "receipt": "work/runtime/lrps2/sp-text-width-20260928/challenge-current/receipt.json",
+      "status": "passed"
+    }
+  },
+  "probe_receipts": [
+    "work/runtime/lrps2/sp-text-width-20260928/probe-receipt.json",
+    "work/runtime/lrps2/sp-text-width-20260928/restore-initialized-probe-receipt.json"
+  ],
+  "invalid_captures": {
+    "fresh_session_state_restore_before_initialization": [
+      "restore-run/narrow-with-restored-second-line.png",
+      "restore-run/next-dialogue-after-narrow.png"
+    ],
+    "reason": "Both screenshots are black; restoring before any emulated initialization frame is not valid visual proof. Re-tested after 1800 initialization frames.",
+    "challenge_frame_3060": "Transition black frame, not a briefing-text pass."
+  },
+  "static_tests": {
+    "test_sp_dialogue_format": 8,
+    "test_stage_title_text_width": 3,
+    "passed": true
+  },
+  "limitations": [
+    "BEST handler code compared, but no new BEST LRPS2 run in this batch.",
+    "Black Gale, BLOCK WORD, The Big and MAX/56000 were RAM probes, not natural completion of their respective source scenes.",
+    "17 dynamic tm templates remain unverified in natural gameplay.",
+    "Current ordinary dialogue layout still counts fixed cells and does not model numeric width/space parameters.",
+    "No PCSX2/manual acceptance."
+  ],
+  "ram_probe_original_capacity_bytes": 76
+}
