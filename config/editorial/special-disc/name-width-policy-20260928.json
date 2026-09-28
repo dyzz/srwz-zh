@@ -1,0 +1,498 @@
+{
+  "schema_version": 1,
+  "batch_id": "name-width-policy-20260928",
+  "rules": {
+    "storage": "Visible Latin/digits are stock two-byte fullwidth glyphs; visible spaces are 0x8140; punctuation uses the released codebook.",
+    "compact_latin_minimum_characters": 8,
+    "compact_glyph_width_hex": "0E",
+    "compact_advance_hex": "0C",
+    "sp_dialogue_restore_hex": [
+      "16",
+      "16"
+    ],
+    "tested_sp_name_menu_restore_hex": [
+      "12",
+      "12"
+    ],
+    "pure_numbers_and_short_ids": "Retain logical identity; no automatic pure-number compaction.",
+    "scopes": "Closed Latin scopes are indivisible; restore dimensions before subsequent Chinese. Oversized indivisible scopes are rejected rather than silently truncated.",
+    "adoption": "Authoring helper creates tags explicitly; ordinary fit/writeback measures them. Shared name pools still require slot-capacity and consumer review before production insertion."
+  },
+  "production_isos": [
+    {
+      "edition": "original",
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245",
+      "production_iso_unchanged": true
+    },
+    {
+      "edition": "best",
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "bd90e036f7de18804c1173c200f198fa0e0dff87bd775ba4af75f71b12498c90",
+      "production_iso_unchanged": true
+    },
+    {
+      "edition": "sp",
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700",
+      "production_iso_unchanged": true
+    }
+  ],
+  "source_cards_unchanged": true,
+  "storage_scan": [
+    {
+      "edition": "original",
+      "kind": "unit-name",
+      "iso_sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245",
+      "unique_targets": 348,
+      "unknown_targets": [],
+      "unsafe_raw_ascii_or_spaces": [],
+      "latin_digit_samples": [
+        {
+          "offset": "0x6d0c0",
+          "text": "魔神Z",
+          "hex": "9682905f827900"
+        },
+        {
+          "offset": "0x6d0d0",
+          "text": "戴安娜A",
+          "hex": "91d588c093cc826000"
+        },
+        {
+          "offset": "0x6d0f8",
+          "text": "维纳斯A",
+          "hex": "95cf95988e7a826000"
+        },
+        {
+          "offset": "0x6d138",
+          "text": "TFO",
+          "hex": "82738265826e00"
+        },
+        {
+          "offset": "0x6d2e8",
+          "text": "菲克萨1号",
+          "hex": "94828d8e964c82508d8600"
+        },
+        {
+          "offset": "0x6d460",
+          "text": "赞波特3",
+          "hex": "955a946793c1825200"
+        },
+        {
+          "offset": "0x6d518",
+          "text": "比亚路I世",
+          "hex": "94e4907b9848826890a200"
+        },
+        {
+          "offset": "0x6d528",
+          "text": "比亚路II世",
+          "hex": "94e4907b98488268826890a200"
+        }
+      ]
+    },
+    {
+      "edition": "original",
+      "kind": "weapon-table-text",
+      "iso_sha256": "4af4b17c673509595f171333b907eb69dfbd5e795fc4446f92e92985196c8245",
+      "unique_targets": 711,
+      "unknown_targets": [],
+      "unsafe_raw_ascii_or_spaces": [],
+      "latin_digit_samples": [
+        {
+          "offset": "0x674f0",
+          "text": "90毫米速射榴弹炮",
+          "hex": "8258824f85a695c491ac8ecb9ed69262946500"
+        },
+        {
+          "offset": "0x67670",
+          "text": "投掷ICBM",
+          "hex": "938ae0a0826882628261826c00"
+        },
+        {
+          "offset": "0x67680",
+          "text": "76毫米速射炮",
+          "hex": "8256825585a695c491ac8ecb946500"
+        },
+        {
+          "offset": "0x676c0",
+          "text": "200毫米炮",
+          "hex": "8251824f824f85a695c4946500"
+        },
+        {
+          "offset": "0x67870",
+          "text": "三连装36厘米火箭弹荚舱",
+          "hex": "8e4f918991958252825597d095c489ce90fb9262e15387a600"
+        },
+        {
+          "offset": "0x678a0",
+          "text": "76毫米单装加农炮",
+          "hex": "8256825585a695c49157919589c19483946500"
+        },
+        {
+          "offset": "0x678c8",
+          "text": "76毫米连装炮",
+          "hex": "8256825585a695c491899195946500"
+        },
+        {
+          "offset": "0x678e0",
+          "text": "127毫米连装炮",
+          "hex": "82508251825685a695c491899195946500"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "kind": "unit-name",
+      "iso_sha256": "bd90e036f7de18804c1173c200f198fa0e0dff87bd775ba4af75f71b12498c90",
+      "unique_targets": 348,
+      "unknown_targets": [],
+      "unsafe_raw_ascii_or_spaces": [],
+      "latin_digit_samples": [
+        {
+          "offset": "0x6d0c0",
+          "text": "魔神Z",
+          "hex": "9682905f827900"
+        },
+        {
+          "offset": "0x6d0d0",
+          "text": "戴安娜A",
+          "hex": "91d588c093cc826000"
+        },
+        {
+          "offset": "0x6d0f8",
+          "text": "维纳斯A",
+          "hex": "95cf95988e7a826000"
+        },
+        {
+          "offset": "0x6d138",
+          "text": "TFO",
+          "hex": "82738265826e00"
+        },
+        {
+          "offset": "0x6d2e8",
+          "text": "菲克萨1号",
+          "hex": "94828d8e964c82508d8600"
+        },
+        {
+          "offset": "0x6d460",
+          "text": "赞波特3",
+          "hex": "955a946793c1825200"
+        },
+        {
+          "offset": "0x6d518",
+          "text": "比亚路I世",
+          "hex": "94e4907b9848826890a200"
+        },
+        {
+          "offset": "0x6d528",
+          "text": "比亚路II世",
+          "hex": "94e4907b98488268826890a200"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "kind": "weapon-table-text",
+      "iso_sha256": "bd90e036f7de18804c1173c200f198fa0e0dff87bd775ba4af75f71b12498c90",
+      "unique_targets": 711,
+      "unknown_targets": [],
+      "unsafe_raw_ascii_or_spaces": [],
+      "latin_digit_samples": [
+        {
+          "offset": "0x674f0",
+          "text": "90毫米速射榴弹炮",
+          "hex": "8258824f85a695c491ac8ecb9ed69262946500"
+        },
+        {
+          "offset": "0x67670",
+          "text": "投掷ICBM",
+          "hex": "938ae0a0826882628261826c00"
+        },
+        {
+          "offset": "0x67680",
+          "text": "76毫米速射炮",
+          "hex": "8256825585a695c491ac8ecb946500"
+        },
+        {
+          "offset": "0x676c0",
+          "text": "200毫米炮",
+          "hex": "8251824f824f85a695c4946500"
+        },
+        {
+          "offset": "0x67870",
+          "text": "三连装36厘米火箭弹荚舱",
+          "hex": "8e4f918991958252825597d095c489ce90fb9262e15387a600"
+        },
+        {
+          "offset": "0x678a0",
+          "text": "76毫米单装加农炮",
+          "hex": "8256825585a695c49157919589c19483946500"
+        },
+        {
+          "offset": "0x678c8",
+          "text": "76毫米连装炮",
+          "hex": "8256825585a695c491899195946500"
+        },
+        {
+          "offset": "0x678e0",
+          "text": "127毫米连装炮",
+          "hex": "82508251825685a695c491899195946500"
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "kind": "unit-name",
+      "iso_sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700",
+      "unique_targets": 340,
+      "unknown_targets": [],
+      "unsafe_raw_ascii_or_spaces": [],
+      "latin_digit_samples": [
+        {
+          "offset": "0x83830",
+          "text": "魔神Z",
+          "hex": "9682905f827900"
+        },
+        {
+          "offset": "0x83840",
+          "text": "戴安娜A",
+          "hex": "91d588c093cc826000"
+        },
+        {
+          "offset": "0x83868",
+          "text": "维纳斯A",
+          "hex": "95cf95988e7a826000"
+        },
+        {
+          "offset": "0x838a8",
+          "text": "TFO",
+          "hex": "82738265826e00"
+        },
+        {
+          "offset": "0x83a58",
+          "text": "菲克萨1号",
+          "hex": "94828d8e964c82508d8600"
+        },
+        {
+          "offset": "0x83bd0",
+          "text": "赞波特3",
+          "hex": "955a946793c1825200"
+        },
+        {
+          "offset": "0x83c88",
+          "text": "比亚路I世",
+          "hex": "94e4907b9848826890a200"
+        },
+        {
+          "offset": "0x83cc8",
+          "text": "泰坦3",
+          "hex": "91d79252825200"
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "kind": "weapon-table-text",
+      "iso_sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700",
+      "unique_targets": 726,
+      "unknown_targets": [],
+      "unsafe_raw_ascii_or_spaces": [],
+      "latin_digit_samples": [
+        {
+          "offset": "0x7db30",
+          "text": "90毫米速射榴弹炮",
+          "hex": "8258824f85a695c491ac8ecb9ed69262946500"
+        },
+        {
+          "offset": "0x7dcb0",
+          "text": "投掷ICBM",
+          "hex": "938ae0a0826882628261826c00"
+        },
+        {
+          "offset": "0x7dcc0",
+          "text": "76毫米速射炮",
+          "hex": "8256825585a695c491ac8ecb946500"
+        },
+        {
+          "offset": "0x7dd00",
+          "text": "200毫米炮",
+          "hex": "8251824f824f85a695c4946500"
+        },
+        {
+          "offset": "0x7deb0",
+          "text": "三连装36厘米火箭弹荚舱",
+          "hex": "8e4f918991958252825597d095c489ce90fb9262e15387a600"
+        },
+        {
+          "offset": "0x7dee0",
+          "text": "76毫米单装加农炮",
+          "hex": "8256825585a695c49157919589c19483946500"
+        },
+        {
+          "offset": "0x7df08",
+          "text": "76毫米连装炮",
+          "hex": "8256825585a695c491899195946500"
+        },
+        {
+          "offset": "0x7df20",
+          "text": "127毫米连装炮",
+          "hex": "82508251825685a695c491899195946500"
+        }
+      ]
+    }
+  ],
+  "visual_review": [
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/sp/natural-melee.png",
+      "sha256": "efd19d4397a38bad016621c1559842575a4059b01fb02b32ba49d473e45c53ac",
+      "visually_inspected": true,
+      "finding": "Current SP cold boot: Z Gundam and six Chinese weapon names are legible in the list."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/sp/natural-ranged.png",
+      "sha256": "e332590967ee69ae9d9ec46c62190dbb13c3f9bd74905d7b58190365e1f43e58",
+      "visually_inspected": true,
+      "finding": "Current SP: unit header, weapon list and beam-rifle detail name render correctly."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/sp/cached-names-default.png",
+      "sha256": "3ebd274d8a15249ff583ccab4298573344f2cc54708d6393e4f10fbac87264c9",
+      "visually_inspected": true,
+      "finding": "RAM probe: long fullwidth-stored Latin names render in unit header, weapon list and detail."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/sp/cached-names-compact-restore-12.png",
+      "sha256": "a554a48c1ff63e0e0d3a86657d95becac559993218798aab5fcfd0329214aba7",
+      "visually_inspected": true,
+      "finding": "RAM probe: long Latin names compact, Chinese suffixes and adjacent PLA description look normal with menu restoration 12/12."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/sp/cached-names-compact-restore-16.png",
+      "sha256": "7a642e5b0f7c00f88cde91a82baf422d5ef378578efc867120227696333963dc",
+      "visually_inspected": true,
+      "finding": "Negative parameter comparison: 16/16 widens Chinese suffixes; following PLA legend is visually distorted. Dialogue restoration values are unsuitable here."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/sp/compact-unit-ability.png",
+      "sha256": "b5d4e5e1df94cdf8a6161b22ed8cee3a9820f5d4a42db56791c027f6d328058e",
+      "visually_inspected": true,
+      "finding": "RAM probe: compact unit name fits above HP/EN without overlapping adjacent content."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/sp/compact-unit-list.png",
+      "sha256": "59516d3f08a53d4127ce05e5e77e110ecc32b73d091564d1a9704e6da35068c1",
+      "visually_inspected": true,
+      "finding": "RAM probe: compact unit name fits its list column; squad and pilot columns remain legible."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/sp/pixel-layout-over-21-characters.png",
+      "sha256": "f99d3fb0f0172d94d6a1515d8b96a5cb843a176458f728ea5434b83e30b4c414",
+      "visually_inspected": true,
+      "finding": "Authoring helper plus production fit algorithm: all 33 visible characters appear on one row; no 21-character hard wrap or truncation observed."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/main-current/frames/06518-v030-040-ranged-weapon-page-stable.png",
+      "sha256": "a00a5dfc9cae02a52396aceb736719f6c3d56addaf6234b2e28d65f0d44c9406",
+      "visually_inspected": true,
+      "finding": "Current Original cold boot: Z Gundam and six Chinese weapon names render normally."
+    },
+    {
+      "path": "work/runtime/lrps2/name-width-20260928/main-current/frames/07061-v030-040-ranged-detail-stable.png",
+      "sha256": "17774cfe64f509af9f9ced58ba01242d45a3d15916691eaaf3631df07e19a1e1",
+      "visually_inspected": true,
+      "finding": "Current Original: Vulcan Gun name and ranged detail render normally."
+    }
+  ],
+  "layout_probe": {
+    "original": "“ABCDEFGHIJKLMNOABCDEFGHIJKLM中文。”",
+    "stored_text": "“<width:0E><space:0C>ABCDEFGHIJKLMNOABCDEFGHIJKLM<width:16><space:16>中文。”",
+    "visible_character_count": 33,
+    "encoded_bytes": 75,
+    "extent_px": 446,
+    "profile_cell_budget_px": 462,
+    "line_widths": [
+      21
+    ],
+    "type": "current-ISO RAM probe; authoring helper and production fit algorithm used"
+  },
+  "runtime_name_probe": {
+    "type": "isolated RAM pointer-redirection experiment",
+    "iso_sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700",
+    "probes": [
+      {
+        "case": "default",
+        "labels": {
+          "unit": "Black Gale高达",
+          "weapon": "Beam Saber光束"
+        },
+        "pointer_counts": {
+          "unit": 9,
+          "weapon": 152
+        },
+        "state_restored_before_variant": true
+      },
+      {
+        "case": "compact-restore-12",
+        "labels": {
+          "unit": "<width:0E><space:0C>Black Gale<width:12><space:12>高达",
+          "weapon": "<width:0E><space:0C>Beam Saber<width:12><space:12>光束"
+        },
+        "pointer_counts": {
+          "unit": 9,
+          "weapon": 152
+        },
+        "state_restored_before_variant": true
+      },
+      {
+        "case": "compact-restore-16",
+        "labels": {
+          "unit": "<width:0E><space:0C>Black Gale<width:16><space:16>高达",
+          "weapon": "<width:0E><space:0C>Beam Saber<width:16><space:16>光束"
+        },
+        "pointer_counts": {
+          "unit": 9,
+          "weapon": 152
+        },
+        "state_restored_before_variant": true
+      }
+    ]
+  },
+  "native_measurement_code": {
+    "sp_function_va": "0x13A5A0",
+    "width_parameter_va": "0x13A640",
+    "advance_parameter_va": "0x13A668",
+    "width_state_va": "0x4ED5C4",
+    "advance_state_va": "0x4ED5C8",
+    "explicit_advance_accumulation_va": "0x13A798",
+    "measurement_mutates_shared_style_state": true,
+    "reference": "work/runtime/lrps2/name-width-20260928/measure-disasm.txt"
+  },
+  "corpus_stability": {
+    "native_dialogue_bindings": 8069,
+    "unique_dialogue_owners": 7853,
+    "battle_entries": 123,
+    "changed": 0,
+    "failures": 0
+  },
+  "validation": {
+    "complete_suite_log": "work/runtime/lrps2/name-width-20260928/tests-final.log",
+    "new_width_layout_tests": 12,
+    "original_cold_boot_receipt": "work/runtime/lrps2/name-width-20260928/main-current/receipt.json",
+    "complete_suite_tests": 592,
+    "complete_suite_passed": true,
+    "final_authoring_helper_tests": 12,
+    "stage_writeback_tests": 17,
+    "final_targeted_tests_passed": true
+  },
+  "excluded_attempts": [
+    "Table-only RAM pointer changes did not alter already cached names. Only the later table/cache-aware probe is counted as controlled-name evidence.",
+    "Original run first used an obsolete card path and stopped before emulation. The successful run uses a retained isolated card with expected SHA-256 8d88ecdbc79505f3fb180235f53a27e52629ac9c272fc0f06276af55458b4b1a."
+  ],
+  "limitations": [
+    "No new BEST LRPS2 run; final ISO name storage checked.",
+    "Artificial long names were isolated RAM probes, not corpus changes.",
+    "No global name-pool tag insertion or production ISO rebuild was required for this algorithm/policy change.",
+    "17 dynamic tm templates remain outside this contract.",
+    "No PCSX2/manual acceptance."
+  ]
+}
