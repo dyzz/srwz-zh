@@ -1,0 +1,364 @@
+--- /dev/null
++++ b/app/review-text.ts
+@@ -0,0 +1,15 @@
++// Presentation only. Keep exported JSON and review base text byte-for-byte intact.
++// Doubled brackets are icon/control notation, not native layout instructions.
++const LAYOUT_TAG = /(?<!<)<(?:width|space):[0-9a-f]{2}>(?!>)/giu;
++
++export function readableReviewText(value: string): string {
++  return value.replace(LAYOUT_TAG, '');
++}
++
++export function sameReviewText(left: string, right: string): boolean {
++  return readableReviewText(left).trim() === readableReviewText(right).trim();
++}
++
++export function reviewSearchText(value: string): string {
++  return readableReviewText(value).trim().toLocaleLowerCase();
++}
+--- /dev/null
++++ b/app/raw-layout-text.tsx
+@@ -0,0 +1,15 @@
++import { readableReviewText } from './review-text';
++
++export default function RawLayoutText({ texts }: {
++  texts: Array<{ label: string; value: string }>;
++}) {
++  if (!texts.some(({ value }) => readableReviewText(value) !== value)) return null;
++  return (
++    <details className="raw-layout-text">
++      <summary>查看排版原文</summary>
++      {texts.map(({ label, value }) => (
++        <div key={label}><span>{label}</span><pre>{value}</pre></div>
++      ))}
++    </details>
++  );
++}
+--- a/app/translation-diff.tsx
++++ b/app/translation-diff.tsx
+@@ -5,0 +6,2 @@
++import { readableReviewText } from './review-text';
++import RawLayoutText from './raw-layout-text';
+@@ -19 +21 @@
+-    () => buildCharacterDiff(current, proposed),
++    () => buildCharacterDiff(readableReviewText(current), readableReviewText(proposed)),
+@@ -24,0 +27,3 @@
++      {current !== proposed && readableReviewText(current) === readableReviewText(proposed) && (
++        <p className="layout-only-change">仅排版标签不同，文字未变。</p>
++      )}
+@@ -46,0 +52 @@
++      <RawLayoutText texts={[{ label: beforeLabel, value: current }, { label: afterLabel, value: proposed }]} />
+--- a/app/translation-length.ts
++++ b/app/translation-length.ts
+@@ -11 +11 @@
+-  return Array.from(value.replace(LINE_BREAK_PATTERN, '\n')).length;
++  return Array.from(readableReviewText(value).replace(LINE_BREAK_PATTERN, '\n')).length;
+@@ -27,0 +28 @@
++import { readableReviewText } from './review-text.ts';
+--- /dev/null
++++ b/app/review-text.test.ts
+@@ -0,0 +1,36 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import { readableReviewText, reviewSearchText, sameReviewText } from './review-text.ts';
++import { countGameTextCharacters } from './translation-length.ts';
++import { buildCharacterDiff } from './translation-diff-parts.ts';
++
++test('hides native typography while retaining fullwidth text and paragraph boundaries', () => {
++  const raw = '贝克的部下。与<width:0E><space:0C>Ｄｏｖｅ<width:16><space:16>\n一起帮助贝克越狱。';
++  assert.equal(readableReviewText(raw), '贝克的部下。与Ｄｏｖｅ\n一起帮助贝克越狱。');
++  assert.equal(readableReviewText('<WIDTH:0e><SPACE:0c>１２３，ＡＢＣ！'), '１２３，ＡＢＣ！');
++  assert.equal(readableReviewText(raw), readableReviewText(readableReviewText(raw)));
++  assert.ok(raw.includes('<width:0E>'), 'display conversion never mutates its input');
++});
++
++test('preserves variables, icons, other controls and malformed tags', () => {
++  const controls = '$n $N {player} %s <<width:0E>> <<space:0C>> <color:01> <wait:10> <width:F> <width:000> <space:ZZ> <width:0E>>';
++  assert.equal(readableReviewText(controls), controls);
++  assert.equal(readableReviewText('<<width:0E> <space:0C>>'), '<<width:0E> <space:0C>>');
++});
++
++test('ignores typography in editorial differences and unchanged-proposal checks', () => {
++  const raw = '<width:0E><space:0C>ＡＢＣ<width:16><space:16>计划';
++  const clean = 'ＡＢＣ计划';
++  assert.ok(sameReviewText(raw, clean));
++  assert.deepEqual(buildCharacterDiff(readableReviewText(raw), clean), [{ kind: 'same', text: clean }]);
++  assert.equal(sameReviewText(raw, 'ＡＢＣ作战'), false);
++  assert.equal(sameReviewText('$n出发', '$N出发'), false);
++  assert.equal(sameReviewText('甲\n乙', '甲乙'), false);
++});
++
++test('search and visible counts work across injected tag boundaries', () => {
++  const raw = '新<width:0E><space:0C>UN<space:16><width:16>军';
++  assert.equal(reviewSearchText(raw), '新un军');
++  assert.equal(countGameTextCharacters(raw), 4);
++  assert.ok(reviewSearchText(raw).includes(reviewSearchText('新UN军')));
++});
+--- a/app/stage/page.tsx
++++ b/app/stage/page.tsx
+@@ -1,0 +2,3 @@
++
++import { readableReviewText, sameReviewText, reviewSearchText } from '../review-text';
++import RawLayoutText from '../raw-layout-text';
+@@ -137 +140 @@
+-  return value.trim().toLocaleLowerCase();
++  return reviewSearchText(value);
+@@ -140,0 +144 @@
++  value = readableReviewText(value);
+@@ -168 +172 @@
+-  const lines = value.split('\n').map((line) => line.replace(/^　+/, ''));
++  const lines = readableReviewText(value).split('\n').map((line) => line.replace(/^　+/, ''));
+@@ -718 +722 @@
+-        const searchableText = [
++        const searchableText = reviewSearchText([
+@@ -725,2 +729 @@
+-          .join('\n')
+-          .toLocaleLowerCase();
++          .join('\n'));
+@@ -763 +766 @@
+-    setProposedTranslation(dialogue.translation);
++    setProposedTranslation(readableReviewText(dialogue.translation));
+@@ -775,0 +779,4 @@
++    if (sameReviewText(proposedTranslation, dialogue.translation)) {
++      setSaveMessage('请修改译文后再提交。');
++      return;
++    }
+@@ -1269 +1276 @@
+-              {proposedTranslation !== selectedDialogue.dialogue.translation && (
++              {!sameReviewText(proposedTranslation, selectedDialogue.dialogue.translation) && (
+@@ -1295 +1302 @@
+-              <button className="submit-button" type="submit">
++              <button className="submit-button" type="submit" disabled={sameReviewText(proposedTranslation, selectedDialogue.dialogue.translation)}>
+@@ -1536,0 +1544 @@
++        {!(showInlineDiff && dialogue.changedSinceV030) && <RawLayoutText texts={[{ label: '当前', value: dialogue.translation }, { label: baselineLabel, value: dialogue.v030Translation || '' }]} />}
+--- a/app/sp/topic-browser.tsx
++++ b/app/sp/topic-browser.tsx
+@@ -1,0 +2,3 @@
++
++import { readableReviewText, sameReviewText } from '../review-text';
++import RawLayoutText from '../raw-layout-text';
+@@ -10,0 +14 @@
++  text = readableReviewText(text);
+@@ -31 +35 @@
+-    [entry.title, entry.sourceTitle, ...entry.fields.flatMap(field => [field.sourceText, field.translation]), ...(entry.weapons || []).flatMap(weapon => [weapon.title, weapon.sourceTitle, ...weapon.fields.flatMap(field => [field.sourceText, field.translation])]), ...entry.triggers.flatMap(trigger => [trigger.scene, ...trigger.conditions])].join('\n').toLocaleLowerCase().includes(query)));
++    [entry.title, entry.sourceTitle, ...entry.fields.flatMap(field => [field.sourceText, field.translation]), ...(entry.weapons || []).flatMap(weapon => [weapon.title, weapon.sourceTitle, ...weapon.fields.flatMap(field => [field.sourceText, field.translation])]), ...entry.triggers.flatMap(trigger => [trigger.scene, ...trigger.conditions])].map(readableReviewText).join('\n').toLocaleLowerCase().includes(query)));
+@@ -62 +66 @@
+-    if (!editor || saving) return;
++    if (!editor || saving || sameReviewText(proposed, editor.field.translation)) return;
+@@ -75,2 +79,2 @@
+-            <header><h4>{field.label}</h4><span className={field.translation ? 'sp-draft-badge' : 'sp-pending-badge'}>{field.changedSinceBaseline ? '相对基准更新' : field.translation ? '译稿待审' : '待翻译'}</span><button type="button" onClick={() => { setEditor({ entry, field }); setProposed(field.translation); setReason(''); setError(''); }}>{field.translation ? '提出修改' : '提交译文'}</button></header>
+-            <div className="sp-text-pair"><div><span>中文译稿</span>{field.changedSinceBaseline ? <TranslationDiff beforeLabel={baselineLabel} afterLabel="当前" current={readingText(field, field.baselineTranslation || '')} proposed={readingText(field, field.translation)} /> : field.translation ? <p>{readingText(field, field.translation)}</p> : <p className="sp-untranslated">暂无中文译稿，可根据日文原文提交译文建议。</p>}</div><div><span>日文原文</span><p lang="ja">{readingText(field, field.sourceText, true)}</p></div></div>
++            <header><h4>{field.label}</h4><span className={field.translation ? 'sp-draft-badge' : 'sp-pending-badge'}>{field.changedSinceBaseline ? '相对基准更新' : field.translation ? '译稿待审' : '待翻译'}</span><button type="button" onClick={() => { setEditor({ entry, field }); setProposed(readableReviewText(field.translation)); setReason(''); setError(''); }}>{field.translation ? '提出修改' : '提交译文'}</button></header>
++            <div className="sp-text-pair"><div><span>中文译稿</span>{field.changedSinceBaseline ? <TranslationDiff beforeLabel={baselineLabel} afterLabel="当前" current={field.baselineTranslation || ''} proposed={field.translation} /> : field.translation ? <><p>{readingText(field, field.translation)}</p><RawLayoutText texts={[{ label: '当前', value: field.translation }]} /></> : <p className="sp-untranslated">暂无中文译稿，可根据日文原文提交译文建议。</p>}</div><div><span>日文原文</span><p lang="ja">{readingText(field, field.sourceText, true)}</p></div></div>
+@@ -92 +96 @@
+-      <label className="sp-topic-mobile-select"><span>选择条目</span><select aria-label="选择 SP 条目" value={selected.id} onChange={event => select(event.target.value)}>{entries.map((entry, i) => <option key={entry.id} value={entry.id}>{i + 1}. {entry.title}{section.id === 'battle' ? ` · ${entry.fields[0].translation.slice(0, 18)}` : ''}</option>)}</select></label>
++      <label className="sp-topic-mobile-select"><span>选择条目</span><select aria-label="选择 SP 条目" value={selected.id} onChange={event => select(event.target.value)}>{entries.map((entry, i) => <option key={entry.id} value={entry.id}>{i + 1}. {readableReviewText(entry.title)}{section.id === 'battle' ? ` · ${readableReviewText(entry.fields[0].translation).slice(0, 18)}` : ''}</option>)}</select></label>
+@@ -96 +100 @@
+-            <strong>{entry.title}</strong><small>{section.id === 'battle' ? entry.fields[0].translation.slice(0, 48) : entry.sourceTitle}</small><span>{entry.category}{entry.weapons?.length ? ` · ${entry.weapons.length} 处武器名称` : ''}{entry.fields.some(field => !field.translation) && ' · 待翻译'}</span>
++            <strong>{readableReviewText(entry.title)}</strong><small>{section.id === 'battle' ? readableReviewText(entry.fields[0].translation).slice(0, 48) : entry.sourceTitle}</small><span>{entry.category}{entry.weapons?.length ? ` · ${entry.weapons.length} 处武器名称` : ''}{entry.fields.some(field => !field.translation) && ' · 待翻译'}</span>
+@@ -102 +106 @@
+-            <div><p className="eyebrow">{selected.category}</p><h3>{selected.title}</h3>{selected.sourceTitle && <p lang="ja">{selected.sourceTitle}</p>}{selected.mainGameHref && <a href={selected.mainGameHref}>查看本篇图鉴 →</a>}</div>
++            <div><p className="eyebrow">{selected.category}</p><h3>{readableReviewText(selected.title)}</h3>{selected.sourceTitle && <p lang="ja">{readableReviewText(selected.sourceTitle)}</p>}{selected.mainGameHref && <a href={selected.mainGameHref}>查看本篇图鉴 →</a>}</div>
+@@ -109 +113 @@
+-              <h5>{weapon.title}</h5>
++              <h5>{readableReviewText(weapon.title)}</h5>
+@@ -117,2 +121,2 @@
+-      <header><div><h2>{editor.entry.title} · {editor.field.label}</h2><p>SP {section.title}</p></div><button type="button" disabled={saving} onClick={() => dialog.current?.close()}>关闭</button></header>
+-      <blockquote><span>日文原文</span>{editor.field.sourceText}</blockquote>
++      <header><div><h2>{readableReviewText(editor.entry.title)} · {editor.field.label}</h2><p>SP {section.title}</p></div><button type="button" disabled={saving} onClick={() => dialog.current?.close()}>关闭</button></header>
++      <blockquote><span>日文原文</span>{readableReviewText(editor.field.sourceText)}</blockquote>
+@@ -120 +124 @@
+-        {editor.field.translation && proposed !== editor.field.translation && <TranslationDiff current={editor.field.translation} proposed={proposed} />}
++        {editor.field.translation && !sameReviewText(proposed, editor.field.translation) && <TranslationDiff current={editor.field.translation} proposed={proposed} />}
+@@ -122 +126 @@
+-        <button className="submit-button" type="submit" disabled={saving || !proposed.trim() || proposed.trim() === editor.field.translation.trim()}>{saving ? '正在保存…' : '保存到服务器'}</button>
++        <button className="submit-button" type="submit" disabled={saving || !proposed.trim() || sameReviewText(proposed, editor.field.translation)}>{saving ? '正在保存…' : '保存到服务器'}</button>
+--- a/app/library/page.tsx
++++ b/app/library/page.tsx
+@@ -1,0 +2,3 @@
++
++import { readableReviewText, sameReviewText, reviewSearchText } from '../review-text';
++import RawLayoutText from '../raw-layout-text';
+@@ -84 +87 @@
+-      [field.translation, field.sourceText, field.v030Translation].some((value) => value.toLocaleLowerCase().includes(query)),
++      [field.translation, field.sourceText, field.v030Translation].some((value) => reviewSearchText(value).includes(query)),
+@@ -125 +128 @@
+-    if (!editor || saving) return;
++    if (!editor || saving || sameReviewText(proposed, editor.field.translation)) return;
+@@ -181 +184 @@
+-                  <strong>{entry.title}</strong><small>{domain === 'glossary' ? entry.workTitle : entry.sourceTitle}</small>{entry.changedSinceV030 && <span>有改动</span>}
++                  <strong>{readableReviewText(entry.title)}</strong><small>{domain === 'glossary' ? entry.workTitle : entry.sourceTitle}</small>{entry.changedSinceV030 && <span>有改动</span>}
+@@ -186 +189 @@
+-              <header><p>{active.category.title}{selected.workTitle && ` · ${selected.workTitle}`}</p><h2>{selected.title}</h2><p lang="ja">{selected.sourceTitle}</p></header>
++              <header><p>{active.category.title}{selected.workTitle && ` · ${selected.workTitle}`}</p><h2>{readableReviewText(selected.title)}</h2><p lang="ja">{readableReviewText(selected.sourceTitle)}</p></header>
+@@ -189 +192 @@
+-                <header><h3>{field.label}</h3>{field.changedSinceV030 && <span>已更新</span>}<button type="button" onClick={() => { setEditor({ entry: selected, field, category: active.category.title }); setProposed(field.translation); setReason(''); setSaveError(''); }}>提出修改</button></header>
++                <header><h3>{field.label}</h3>{field.changedSinceV030 && <span>已更新</span>}<button type="button" onClick={() => { setEditor({ entry: selected, field, category: active.category.title }); setProposed(readableReviewText(field.translation)); setReason(''); setSaveError(''); }}>提出修改</button></header>
+@@ -192,2 +195,2 @@
+-                  : <div className="library-current"><span>{showDiff ? '两版相同' : '当前'}</span><p>{field.translation}</p></div>}
+-                <details className="library-source"><summary>日文原文</summary><p lang="ja">{field.sourceText}</p></details>
++                  : <div className="library-current"><span>{showDiff ? '两版相同' : '当前'}</span><p>{readableReviewText(field.translation)}</p><RawLayoutText texts={[{ label: '当前', value: field.translation }]} /></div>}
++                <details className="library-source"><summary>日文原文</summary><p lang="ja">{readableReviewText(field.sourceText)}</p></details>
+@@ -200,2 +203,2 @@
+-        <header><div><h2>{editor.entry.title} · {editor.field.label}</h2><p>{editor.category}</p></div><button type="button" disabled={saving} onClick={() => dialog.current?.close()}>关闭</button></header>
+-        <blockquote><span>日文原文</span>{editor.field.sourceText}</blockquote>
++        <header><div><h2>{readableReviewText(editor.entry.title)} · {editor.field.label}</h2><p>{editor.category}</p></div><button type="button" disabled={saving} onClick={() => dialog.current?.close()}>关闭</button></header>
++        <blockquote><span>日文原文</span>{readableReviewText(editor.field.sourceText)}</blockquote>
+@@ -205 +208 @@
+-          {proposed !== editor.field.translation && <TranslationDiff current={editor.field.translation} proposed={proposed} />}
++          {!sameReviewText(proposed, editor.field.translation) && <TranslationDiff current={editor.field.translation} proposed={proposed} />}
+@@ -207 +210 @@
+-          <button className="submit-button" type="submit" disabled={saving || !proposed.trim() || proposed.trim() === editor.field.translation.trim()}>{saving ? '正在保存…' : '保存到服务器'}</button>
++          <button className="submit-button" type="submit" disabled={saving || !proposed.trim() || sameReviewText(proposed, editor.field.translation)}>{saving ? '正在保存…' : '保存到服务器'}</button>
+--- a/app/catalog-browser.tsx
++++ b/app/catalog-browser.tsx
+@@ -1,0 +2,3 @@
++
++import { readableReviewText, sameReviewText, reviewSearchText } from './review-text';
++import RawLayoutText from './raw-layout-text';
+@@ -72 +75 @@
+-  return value.trim().toLocaleLowerCase('zh-CN');
++  return reviewSearchText(value);
+@@ -179 +182 @@
+-          alt={size === 'large' ? `${person.translation}头像` : ''}
++          alt={size === 'large' ? `${readableReviewText(person.translation)}头像` : ''}
+@@ -203 +206 @@
+-    String(value ?? '').toLocaleLowerCase('zh-CN').includes(query),
++    reviewSearchText(String(value ?? '')).includes(query),
+@@ -257 +260 @@
+-            <span className="person-tag" key={ref.id}>{ref.translation}</span>
++            <span className="person-tag" key={ref.id}>{readableReviewText(ref.translation)}</span>
+@@ -268,2 +271,2 @@
+-      <p className="catalog-line-zh">{line.translation}</p>
+-      <p className="catalog-line-ja">{line.sourceText}</p>
++      <p className="catalog-line-zh">{readableReviewText(line.translation)}</p><RawLayoutText texts={[{ label: '当前', value: line.translation }]} />
++      <p className="catalog-line-ja">{readableReviewText(line.sourceText)}</p>
+@@ -328 +331 @@
+-            <span className="unit-tag" key={ref.id}>机体 · {ref.translation}</span>
++            <span className="unit-tag" key={ref.id}>机体 · {readableReviewText(ref.translation)}</span>
+@@ -332 +335 @@
+-            <span className="weapon-tag" key={ref.id}>武器 · {ref.translation}</span>
++            <span className="weapon-tag" key={ref.id}>武器 · {readableReviewText(ref.translation)}</span>
+@@ -362 +365 @@
+-        <strong>{person.translation}</strong>
++        <strong>{readableReviewText(person.translation)}</strong>
+@@ -387 +390 @@
+-        <strong>{unit.translation}</strong>
++        <strong>{readableReviewText(unit.translation)}</strong>
+@@ -728 +731 @@
+-    setProposedTranslation(target.currentTranslation);
++    setProposedTranslation(readableReviewText(target.currentTranslation));
+@@ -753,0 +757,4 @@
++      return;
++    }
++    if (sameReviewText(proposedTranslation, editTarget.currentTranslation)) {
++      setSaveMessage('请修改译文后再提交。');
+@@ -962 +969 @@
+-                            <h3>{selectedPerson.translation}</h3>
++                            <h3>{readableReviewText(selectedPerson.translation)}</h3>
+@@ -1053 +1060 @@
+-                            <h3>{selectedUnit.translation}</h3>
++                            <h3>{readableReviewText(selectedUnit.translation)}</h3>
+@@ -1116 +1123 @@
+-                                <strong>{weapon.translation}</strong>
++                                <strong>{readableReviewText(weapon.translation)}</strong>
+@@ -1128 +1135 @@
+-                            <strong>{selectedWeapon.translation}</strong>
++                            <strong>{readableReviewText(selectedWeapon.translation)}</strong>
+@@ -1154 +1161 @@
+-                          <h4>{selectedWeapon ? `${selectedWeapon.translation} · 战斗台词` : '机体关联战斗台词'}</h4>
++                          <h4>{selectedWeapon ? `${readableReviewText(selectedWeapon.translation)} · 战斗台词` : '机体关联战斗台词'}</h4>
+@@ -1178 +1185 @@
+-                            ? `${selectedUnit.translation}／${selectedWeapon.translation}`
++                            ? `${readableReviewText(selectedUnit.translation)}／${readableReviewText(selectedWeapon.translation)}`
+@@ -1219 +1226 @@
+-              {editTarget.sourceText}
++              {readableReviewText(editTarget.sourceText)}
+@@ -1232 +1239 @@
+-                  sourceText={editTarget.sourceText}
++                  sourceText={readableReviewText(editTarget.sourceText)}
+@@ -1235 +1242 @@
+-              {proposedTranslation !== editTarget.currentTranslation && (
++              {!sameReviewText(proposedTranslation, editTarget.currentTranslation) && (
+@@ -1253 +1260 @@
+-              <button className="submit-button" type="submit">
++              <button className="submit-button" type="submit" disabled={sameReviewText(proposedTranslation, editTarget.currentTranslation)}>
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -1,0 +2,2 @@
++
++import { readableReviewText, reviewSearchText } from './review-text';
+@@ -83 +85 @@
+-  return value.trim().toLocaleLowerCase();
++  return reviewSearchText(value);
+@@ -86,0 +89 @@
++  value = readableReviewText(value);
+@@ -788 +791 @@
+-                                            {update.sourceText}
++                                            {readableReviewText(update.sourceText)}
+@@ -800 +803 @@
+-                                                <span key={`unit-${ref.id}`}>机体 · {ref.translation}</span>
++                                                <span key={`unit-${ref.id}`}>机体 · {readableReviewText(ref.translation)}</span>
+@@ -803 +806 @@
+-                                                <span key={`weapon-${ref.id}`}>武器 · {ref.translation}</span>
++                                                <span key={`weapon-${ref.id}`}>武器 · {readableReviewText(ref.translation)}</span>
+@@ -825 +828 @@
+-                                      {update.sourceText}
++                                      {readableReviewText(update.sourceText)}
+@@ -838 +841 @@
+-                                          <span key={`person-${ref.id}`}>人物 · {ref.translation}</span>
++                                          <span key={`person-${ref.id}`}>人物 · {readableReviewText(ref.translation)}</span>
+@@ -841 +844 @@
+-                                          <span key={`unit-${ref.id}`}>机体 · {ref.translation}</span>
++                                          <span key={`unit-${ref.id}`}>机体 · {readableReviewText(ref.translation)}</span>
+@@ -844 +847 @@
+-                                          <span key={`weapon-${ref.id}`}>武器 · {ref.translation}</span>
++                                          <span key={`weapon-${ref.id}`}>武器 · {readableReviewText(ref.translation)}</span>
+--- a/app/my-reviews/page.tsx
++++ b/app/my-reviews/page.tsx
+@@ -1,0 +2,2 @@
++
++import { readableReviewText, sameReviewText } from '../review-text';
+@@ -465 +467 @@
+-        editTranslation,
++        sameReviewText(editTranslation, editing.proposedTranslation) ? editing.proposedTranslation : editTranslation,
+@@ -673 +675 @@
+-                        <header><div><div className="review-item-meta"><span className="review-type">{typeLabels[item.targetType]}</span><b>{item.targetType === 'dialogue' ? item.context.speaker?.trim() || '场景文字' : item.context.targetLabel || item.currentTranslation}</b><time>{formatDate(item.updatedAt)}</time>{resolution !== 'pending' && <span className={`review-resolution-status ${resolution}`}>{resolution === 'adopted' ? '直接采纳' : resolution === 'alternative' ? '最终方案' : resolution === 'questioned' ? '有疑问' : '不处理'}</span>}</div><strong>{item.targetType === 'dialogue' ? item.context.stageTitle || item.context.resourceName : item.context.workTitle}</strong><small>commit {item.baseCommit.slice(0, 7)}</small></div>{item.ownedByViewer && <div className="review-item-actions"><button onClick={() => { setEditing(item); setEditTranslation(item.proposedTranslation); setEditReason(item.reason); }} type="button">编辑</button><button className="danger" onClick={() => removeSuggestion(item.id)} type="button">删除</button></div>}</header>
++                        <header><div><div className="review-item-meta"><span className="review-type">{typeLabels[item.targetType]}</span><b>{item.targetType === 'dialogue' ? item.context.speaker?.trim() || '场景文字' : readableReviewText(item.context.targetLabel || item.currentTranslation)}</b><time>{formatDate(item.updatedAt)}</time>{resolution !== 'pending' && <span className={`review-resolution-status ${resolution}`}>{resolution === 'adopted' ? '直接采纳' : resolution === 'alternative' ? '最终方案' : resolution === 'questioned' ? '有疑问' : '不处理'}</span>}</div><strong>{item.targetType === 'dialogue' ? item.context.stageTitle || item.context.resourceName : item.context.workTitle}</strong><small>commit {item.baseCommit.slice(0, 7)}</small></div>{item.ownedByViewer && <div className="review-item-actions"><button onClick={() => { setEditing(item); setEditTranslation(readableReviewText(item.proposedTranslation)); setEditReason(item.reason); }} type="button">编辑</button><button className="danger" onClick={() => removeSuggestion(item.id)} type="button">删除</button></div>}</header>
+--- a/app/updates/page.tsx
++++ b/app/updates/page.tsx
+@@ -1,0 +2,2 @@
++
++import { readableReviewText } from '../review-text';
+@@ -120 +122 @@
+-          {!detail ? <p className="history-loading">正在读取这个 commit 的具体差异…</p> : <div className="history-change-groups">{changeGroups.map((group) => <section className="history-scope-group" key={group.key}><header><div><span>{group.kind === 'stage' ? '关卡修改' : group.kind === 'library' ? '图鉴修改' : '作品资料'}</span><h3>{group.label}</h3></div><strong>{group.changes.length} 处</strong></header><div className="history-change-list">{group.changes.map((change) => <article key={`${change.category}-${change.stableId}`}><header><span>{labels[change.category]}</span><strong>{change.label}</strong><code>{change.stableId}</code></header>{change.sourceText && <p className="history-source">日文　{change.sourceText}</p>}<TranslationDiff beforeLabel="原译" current={change.before ?? ''} afterLabel="更新" proposed={change.after ?? ''} />{change.href && <a href={change.href}>查看对应内容 →</a>}</article>)}</div></section>)}</div>}
++          {!detail ? <p className="history-loading">正在读取这个 commit 的具体差异…</p> : <div className="history-change-groups">{changeGroups.map((group) => <section className="history-scope-group" key={group.key}><header><div><span>{group.kind === 'stage' ? '关卡修改' : group.kind === 'library' ? '图鉴修改' : '作品资料'}</span><h3>{group.label}</h3></div><strong>{group.changes.length} 处</strong></header><div className="history-change-list">{group.changes.map((change) => <article key={`${change.category}-${change.stableId}`}><header><span>{labels[change.category]}</span><strong>{readableReviewText(change.label)}</strong><code>{change.stableId}</code></header>{change.sourceText && <p className="history-source">日文　{readableReviewText(change.sourceText)}</p>}<TranslationDiff beforeLabel="原译" current={change.before ?? ''} afterLabel="更新" proposed={change.after ?? ''} />{change.href && <a href={change.href}>查看对应内容 →</a>}</article>)}</div></section>)}</div>}
+--- a/app/api/story-search/route.ts
++++ b/app/api/story-search/route.ts
+@@ -0,0 +1,2 @@
++
++import { reviewSearchText } from '../../review-text';
+@@ -18 +20 @@
+-  return value.trim().toLocaleLowerCase();
++  return reviewSearchText(value);
+@@ -37 +39 @@
+-          return [
++          return reviewSearchText([
+@@ -46,2 +48 @@
+-            .join('\n')
+-            .toLocaleLowerCase();
++            .join('\n'));
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -3532,0 +3533,6 @@
++
++/* Raw native typography remains available without cluttering editorial reading. */
++.raw-layout-text { margin: .6rem 0; color: var(--muted, #94a3b8); font-size: .85rem; }
++.raw-layout-text summary { cursor: pointer; }
++.raw-layout-text pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: .5rem; font-size: .8rem; }
++.layout-only-change { color: var(--muted, #94a3b8); font-size: .85rem; }
+--- a/package.json
++++ b/package.json
+@@ -15 +15 @@
+-    "review:test": "node --test app/translation-diff-parts.test.ts scripts/library-review.test.ts app/translation-length-hint.test.ts scripts/review-store.test.ts scripts/review-export.test.ts scripts/review-groups.test.ts scripts/recent-review-results.test.ts scripts/runtime-report.test.ts scripts/special-disc-review.test.ts scripts/sp-topic-review.test.ts scripts/sp-baseline.test.ts",
++    "review:test": "node --test app/review-text.test.ts app/translation-diff-parts.test.ts scripts/library-review.test.ts app/translation-length-hint.test.ts scripts/review-store.test.ts scripts/review-export.test.ts scripts/review-groups.test.ts scripts/recent-review-results.test.ts scripts/runtime-report.test.ts scripts/special-disc-review.test.ts scripts/sp-topic-review.test.ts scripts/sp-baseline.test.ts",

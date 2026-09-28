@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-29",
+  "scope": "Review-site presentation only",
+  "releaseId": "4763e99-readable-text-20260929",
+  "site": "https://srwz.dreamquest.club/",
+  "corpusBaseCommit": "0ca88c43111b1d3ccbb5aac86634217c4f3d7c3d",
+  "implementation": "srwz-community-web/app/review-text.ts",
+  "sourcePatch": "config/editorial/community-site-readable-text-20260929.patch",
+  "rules": {
+    "hidden": "Single-angle width/space tags with exactly two hexadecimal digits",
+    "preserved": [
+      "Fullwidth and ASCII characters",
+      "Newlines and indentation",
+      "Variables",
+      "Doubled-angle icon/control notation",
+      "Other and malformed controls"
+    ],
+    "rawText": "Collapsed 查看排版原文; authoritative JSON and suggestion base stay raw"
+  },
+  "sourceFiles": {
+    "app/review-text.ts": {
+      "before": null,
+      "after": "96402373656027aa593610e9acf4aa6dd21ddf867cd58ddaac16e5ddc1d48221"
+    },
+    "app/raw-layout-text.tsx": {
+      "before": null,
+      "after": "1ed00ba6cc00095c68be268b793a97bbbdece7b7082afe974e04385165c5732a"
+    },
+    "app/translation-diff.tsx": {
+      "before": "66074fa121e7b09c7c1b53f1610c824d21ce499e658cb5c3293466132ab4c0b6",
+      "after": "ccb6e8bf7c83e40c688eb2952867ef1d924a667715441fb21240900715888232"
+    },
+    "app/translation-length.ts": {
+      "before": "5a061c74b4c03e2bd7bb5629844b590d395b49f48608ab60c2428b501ce25c4e",
+      "after": "23749cb515cf00358973e6e36afa966e70771a60cb90c0dc3c7a69df4d292f53"
+    },
+    "app/review-text.test.ts": {
+      "before": null,
+      "after": "8187312fd0fea582a8ad4fc4398447eb1f6897f919075b5fa37f29a4f4fcdc94"
+    },
+    "app/stage/page.tsx": {
+      "before": "e171f7ce06628d31a6ff726033b4bbafc3ef92a6dcbb4304b87cf7c98f51bff7",
+      "after": "6fd6581ca15e64246c864dd601c4debefb8ea1e997df6e30c5f39bcf6a241732"
+    },
+    "app/sp/topic-browser.tsx": {
+      "before": "4cdbaa851053c34000dcd58a6c849fb558404926ed9139a61cf4d95b2bc7eef8",
+      "after": "671f925882549d3db7279e2eeff5e09b28fb198771c5b61d349debe8d84eafca"
+    },
+    "app/library/page.tsx": {
+      "before": "0f4fc5702b9c73fa0c051a477570542d88618ab9490e5a52075d6dd0424da30e",
+      "after": "43b53a26acf7819a148af843a970588036ba67845607250c6a99fbaa11c84471"
+    },
+    "app/catalog-browser.tsx": {
+      "before": "61a780beac87d9e59ceb808831fdd825e1b8888fe1770bc541d1adda5947a939",
+      "after": "61ace1fec6a076e8500de45e1b53aece337eb3a419beb90f47e2e89edc94c06f"
+    },
+    "app/page.tsx": {
+      "before": "fa4d79cf4c87da743c57147746e12f93bdf9b4390ef73e1026ccd9c44f303b86",
+      "after": "a8dda3797e73bc61e876f21f8535c57c10f9ef6c487c2acd1f5906ecd22585e3"
+    },
+    "app/my-reviews/page.tsx": {
+      "before": "9710028a706be2a7846eafaf18d6a8ec5e719241a6f531b44e3dca308be7f7d3",
+      "after": "856e2d635798f13ae927b0f491d24fc3e8eceafecb582aadb5001e2e6a512e4b"
+    },
+    "app/updates/page.tsx": {
+      "before": "b52d013c7ba9e50370ee9617d6b28f963d0a49996afdb1c735861ce518c8ccc4",
+      "after": "639b1bca3775052a79885a8fc9758475613cc8de3c13fcade6ffdc2cb8a3909e"
+    },
+    "app/api/story-search/route.ts": {
+      "before": "b582ee8c8cfd56c82a4883c3ccb83cbe5a8091cc12e238e3323ad5d3888a316a",
+      "after": "415bdbd40cc9ac59b6d617760cc25cd01e7aecfffa63adb4fec723c23a9e860e"
+    },
+    "app/globals.css": {
+      "before": "6c4b4df20d5ca50c9b5047b357500697e51a1049b91334c4839b8d3bedab4c5c",
+      "after": "8b939546fa882df323b772a391a793a97590a00c2f523b815922caff345db8e9"
+    },
+    "package.json": {
+      "before": "49a3a359c534b0066c408e5b72315a422541103c0ff1b46f518100dbb9e452cb",
+      "after": "e60a7909da961bb8a11e33285c203c74449dff2d727bd7dc5bb28f7e97e5121b"
+    }
+  },
+  "validation": {
+    "reviewTests": {
+      "passed": 62,
+      "failed": 0
+    },
+    "dataTests": {
+      "passed": 43,
+      "failed": 0
+    },
+    "deploymentTests": {
+      "passed": 8,
+      "failed": 0
+    },
+    "productionBuild": "passed",
+    "jsonFilesUnchanged": 278,
+    "jsonTreeSha256": "0bf302bfe642f6394b0156397dc04f9e29d9f50f68cc2c768a43776a89caccc6",
+    "patchBaselineCheck": "git apply --check --unidiff-zero passed",
+    "typecheck": "Only five existing unknown-response errors in unchanged scripts/review-store.test.ts at lines 751,752,754,757; app implementation has no diagnostics",
+    "browser": [
+      {
+        "scope": "local library comparison",
+        "visibleLayoutTags": false,
+        "rawPanels": 2,
+        "rawPreserved": true
+      },
+      {
+        "scope": "local library editor",
+        "visibleLayoutTags": false,
+        "unchangedSubmitDisabled": true
+      },
+      {
+        "scope": "local stage-000 episode 1",
+        "visibleLayoutTags": false,
+        "rawPanels": 5,
+        "Mk-IIVisible": true
+      },
+      {
+        "scope": "public library comparison and current-only view",
+        "visibleLayoutTags": false,
+        "rawPanels": 2,
+        "rawPreserved": true
+      }
+    ]
+  },
+  "publication": {
+    "deployment": "succeeded",
+    "preReleaseReviewDbBackup": "created and verified by deploy script",
+    "changedJsonCacheUrls": 0,
+    "newWarmupUrls": 17,
+    "cdnPushTaskId": "33489687661",
+    "cdnWarmupStatus": "submitted; completion query not confirmed",
+    "publicScreenshot": "work/verification/review-display-tags-20260928/public-library.png"
+  },
+  "iso": "unchanged; no rebuild needed for website presentation"
+}
