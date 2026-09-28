@@ -710,7 +710,11 @@ def _partition_tokens(
                 else (current_limit - current_width) ** 2
             )
         else:
-            raggedness = (current_width * requested_lines - total_width) ** 2 // (
+            # Balance occupied rows including the paragraph's first-row
+            # indent, rather than making its text as wide as later rows.
+            occupied = current_width + line_width - current_limit
+            occupied_total = total_width + line_width - first_line_width
+            raggedness = (occupied * requested_lines - occupied_total) ** 2 // (
                 requested_lines * requested_lines
             )
         shortfall = max(0, minimum_line_width - current_width)

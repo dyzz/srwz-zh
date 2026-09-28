@@ -1,0 +1,1694 @@
+{
+  "schema_version": 1,
+  "kind": "user_confirmed_special_typography_decisions",
+  "review_revision": 57,
+  "review_fingerprint": "6588f3ae8abafa9044443d2519b92497bcbfb7bceb55ae2a6f86501e76edeab9",
+  "source_commit": "0f12edbca59d812f1a33a0fb3cba827f05819512",
+  "evidence": {
+    "dataset_path": "work/reviews/compact-inventory-20260928/special-confirmation/data.json",
+    "dataset_sha256": "fa839b5efc0a4912af5f7ba86bffc2ef26854366c794738d60e7c0d4afcbcba6",
+    "decisions_path": "work/reviews/compact-inventory-20260928/special-confirmation/decisions.json",
+    "decisions_sha256": "c724564feb1f3069ef9995d5e94fa71c1c70f47fce6618df43ea3bb1d024e908"
+  },
+  "counts": {
+    "approved": 44,
+    "keep": 11
+  },
+  "category_counts": {
+    "symbol_review": {
+      "approved": 42
+    },
+    "existing_dimensions_review": {
+      "keep": 5
+    },
+    "dynamic_template": {
+      "approved": 2
+    },
+    "texture_glyph_review": {
+      "keep": 6
+    }
+  },
+  "boundary_convention": "Unicode code point offsets [start, end) in display_text; literal backslash-n is normalized to newline; not raw byte offsets",
+  "execution_policy": {
+    "approved": "Use exactly the confirmed spans after per-surface encoding, width, capacity and runtime checks.",
+    "keep": "Exclude the entire record from this compact-width batch; preserve existing text, controls and image pixels.",
+    "dynamic_template": "Preserve tm template verbatim; only the confirmed fixed 100 or 150 is eligible.",
+    "scope": "Decision record only. No corpus writeback, image edit or ISO build in this confirmation step."
+  },
+  "records": [
+    {
+      "key": "8a0c39983c02c6241dd4",
+      "id": "battle:01612",
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "json_pointer": "/entries/1612/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "270f4fa73226aad88d1ba1d73b75ea82fc0d3b937eb5cb359ea5e3c8ee6ee07b",
+      "source_raw": "“Fire——……”",
+      "display_text": "“Fire——……”",
+      "decision": "approved",
+      "annotation": "“[[Fire]]——……”",
+      "spans": [
+        [
+          1,
+          5
+        ]
+      ],
+      "compact_segments": [
+        "Fire"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:11.850114+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "e34ee0b6bd5b4bf2164f",
+      "id": "battle:01613",
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "json_pointer": "/entries/1613/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "e6e7a0ee01478a29c5e645fb49117d55831edaf5c74eba8acc838cb6a7e89814",
+      "source_raw": "“Fist——！！”",
+      "display_text": "“Fist——！！”",
+      "decision": "approved",
+      "annotation": "“[[Fist]]——！！”",
+      "spans": [
+        [
+          1,
+          5
+        ]
+      ],
+      "compact_segments": [
+        "Fist"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:16.272713+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "7f4054c925fed20bdbad",
+      "id": "battle:21268",
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "json_pointer": "/entries/21268/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "ac03400d11b31aeb67e769628019acd9f7ab75b7a65e278e718558f782fb94af",
+      "source_raw": "“BIG-O！\\n　Final Stage—！！”",
+      "display_text": "“BIG-O！\n　Final Stage—！！”",
+      "decision": "approved",
+      "annotation": "“[[BIG-O]]！\n　[[Final Stage]]—！！”",
+      "spans": [
+        [
+          1,
+          6
+        ],
+        [
+          9,
+          20
+        ]
+      ],
+      "compact_segments": [
+        "BIG-O",
+        "Final Stage"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:22.378312+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "55e619a177339f3efe44",
+      "id": "battle:06061",
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "json_pointer": "/entries/6061/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "d5d8d408ea56b568c6f47b2c043eee00bd51592401839688cf11ed07646d0907",
+      "source_raw": "“上吧！King…Gainer——！！”",
+      "display_text": "“上吧！King…Gainer——！！”",
+      "decision": "approved",
+      "annotation": "“上吧！[[King]]…[[Gainer]]——！！”",
+      "spans": [
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          15
+        ]
+      ],
+      "compact_segments": [
+        "King",
+        "Gainer"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:26.566122+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "382d5c20b9d14fc5028e",
+      "id": "battle:06210",
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "json_pointer": "/entries/6210/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "ff6c36c5edc1e63a61e0127d3a314c4e7d2eceaf6aa0890f31d2384f5f40a657",
+      "source_raw": "“你是最后一个！\\n　上吧！King Gainer——！！”",
+      "display_text": "“你是最后一个！\n　上吧！King Gainer——！！”",
+      "decision": "approved",
+      "annotation": "“你是最后一个！\n　上吧！[[King Gainer]]——！！”",
+      "spans": [
+        [
+          13,
+          24
+        ]
+      ],
+      "compact_segments": [
+        "King Gainer"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:31.185643+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "a820af6fdfded91afbf2",
+      "id": "library-text/6830ef167a185c3d",
+      "path": "corpus/zh/library/v0.2-reviewed.json",
+      "json_pointer": "/entries/1111/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best",
+        "sp"
+      ],
+      "source_sha256": "f230b2f18c16850561a158f66e863782e4fc571aae20d24526ab0a4b73c9c542",
+      "source_raw": "由蒂莫西·韦恩莱特按照他女儿的模样制造的机器人。不过体重相当重，达130公斤。由于没有钱支付围绕韦恩莱特遗产事件的报酬，她决定在罗杰的宅邸当女仆。她不仅作为机器人的完成度很高，还会对韦恩莱特露出丰富的表情、关爱猫咪、向罗杰提出恋爱问题等，被制造得非常接近人类。因此罗杰有时会忘记她是机器人。另外，“R”是“Robot”的R。她冷淡无礼的态度时常让罗杰哑口无言，但随着时间推移，她逐渐成为了他的好搭档。头部的发箍部分是记忆驱动器，也常被用作光源。她爱好弹钢琴，但最初的曲目都是激烈的曲调。不过在钢琴家机器人R.因斯特尔的指导下，演奏范围逐渐扩大。虽然被亚历克斯取走记忆驱动器而停止运作，但在罗杰危急时复活。作为BIG-O的接口，成为了发动“Big O·Final Stage”的关键。",
+      "display_text": "由蒂莫西·韦恩莱特按照他女儿的模样制造的机器人。不过体重相当重，达130公斤。由于没有钱支付围绕韦恩莱特遗产事件的报酬，她决定在罗杰的宅邸当女仆。她不仅作为机器人的完成度很高，还会对韦恩莱特露出丰富的表情、关爱猫咪、向罗杰提出恋爱问题等，被制造得非常接近人类。因此罗杰有时会忘记她是机器人。另外，“R”是“Robot”的R。她冷淡无礼的态度时常让罗杰哑口无言，但随着时间推移，她逐渐成为了他的好搭档。头部的发箍部分是记忆驱动器，也常被用作光源。她爱好弹钢琴，但最初的曲目都是激烈的曲调。不过在钢琴家机器人R.因斯特尔的指导下，演奏范围逐渐扩大。虽然被亚历克斯取走记忆驱动器而停止运作，但在罗杰危急时复活。作为BIG-O的接口，成为了发动“Big O·Final Stage”的关键。",
+      "decision": "approved",
+      "annotation": "由蒂莫西·韦恩莱特按照他女儿的模样制造的机器人。不过体重相当重，达[[130]]公斤。由于没有钱支付围绕韦恩莱特遗产事件的报酬，她决定在罗杰的宅邸当女仆。她不仅作为机器人的完成度很高，还会对韦恩莱特露出丰富的表情、关爱猫咪、向罗杰提出恋爱问题等，被制造得非常接近人类。因此罗杰有时会忘记她是机器人。另外，“R”是“[[Robot]]”的R。她冷淡无礼的态度时常让罗杰哑口无言，但随着时间推移，她逐渐成为了他的好搭档。头部的发箍部分是记忆驱动器，也常被用作光源。她爱好弹钢琴，但最初的曲目都是激烈的曲调。不过在钢琴家机器人R.因斯特尔的指导下，演奏范围逐渐扩大。虽然被亚历克斯取走记忆驱动器而停止运作，但在罗杰危急时复活。作为[[BIG-O]]的接口，成为了发动“[[Big O·Final Stage]]”的关键。",
+      "spans": [
+        [
+          33,
+          36
+        ],
+        [
+          153,
+          158
+        ],
+        [
+          304,
+          309
+        ],
+        [
+          319,
+          336
+        ]
+      ],
+      "compact_segments": [
+        "130",
+        "Robot",
+        "BIG-O",
+        "Big O·Final Stage"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:39.588215+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "0b9ea77a913c08c94f58",
+      "id": "library-text/9b19c6f3f44489aa",
+      "path": "corpus/zh/library/v0.2-reviewed.json",
+      "json_pointer": "/entries/1669/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best",
+        "sp"
+      ],
+      "source_sha256": "cf56b5fd55cd81b45701f1a7c52deb7f41d791779757b336094dcea4d122ab29",
+      "source_raw": "兰顿的祖父。顽固之气溢于外表，是个工匠气质的老人。他真心为孙子担忧，对隐瞒儿子死讯的军队感到愤怒，对年幼的孩子展现温柔，是个充满人情味的性格。他在发掘者中似乎颇有名气，在那个圈子里比英雄阿德罗克还要有名。他发挥了也遗传给孙子的独特技术——将机器“调校得过于激进”，让请他修理摩托车的多米尼克为之叹息。实际上，他过去曾是隶属于特雷泽阿技研的机械师。当尼尔瓦修·spec2需要滑空板时，他倾尽全力制作，在遭到军队包围的情况下仍将滑空板送上对流波发射出去。在尾声中，兰顿和优莱卡离开后，他收养了莫里斯等3名孤儿。",
+      "display_text": "兰顿的祖父。顽固之气溢于外表，是个工匠气质的老人。他真心为孙子担忧，对隐瞒儿子死讯的军队感到愤怒，对年幼的孩子展现温柔，是个充满人情味的性格。他在发掘者中似乎颇有名气，在那个圈子里比英雄阿德罗克还要有名。他发挥了也遗传给孙子的独特技术——将机器“调校得过于激进”，让请他修理摩托车的多米尼克为之叹息。实际上，他过去曾是隶属于特雷泽阿技研的机械师。当尼尔瓦修·spec2需要滑空板时，他倾尽全力制作，在遭到军队包围的情况下仍将滑空板送上对流波发射出去。在尾声中，兰顿和优莱卡离开后，他收养了莫里斯等3名孤儿。",
+      "decision": "approved",
+      "annotation": "兰顿的祖父。顽固之气溢于外表，是个工匠气质的老人。他真心为孙子担忧，对隐瞒儿子死讯的军队感到愤怒，对年幼的孩子展现温柔，是个充满人情味的性格。他在发掘者中似乎颇有名气，在那个圈子里比英雄阿德罗克还要有名。他发挥了也遗传给孙子的独特技术——将机器“调校得过于激进”，让请他修理摩托车的多米尼克为之叹息。实际上，他过去曾是隶属于特雷泽阿技研的机械师。当尼尔瓦修·[[spec2]]需要滑空板时，他倾尽全力制作，在遭到军队包围的情况下仍将滑空板送上对流波发射出去。在尾声中，兰顿和优莱卡离开后，他收养了莫里斯等3名孤儿。",
+      "spans": [
+        [
+          179,
+          184
+        ]
+      ],
+      "compact_segments": [
+        "spec2"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:44.036681+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "022a6297b92ce36f7994",
+      "id": "library-text/cd2dc84ffe4d2d22",
+      "path": "corpus/zh/library/v0.2-reviewed.json",
+      "json_pointer": "/entries/2206/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best",
+        "sp"
+      ],
+      "source_sha256": "c0fcfcf23be87d84862828af40623deea3f4c73de7c89484504a5a7c54d45662",
+      "source_raw": "亚历克斯操纵的白色The Big。因在异国被发现时全身零件散落，亚历克斯委托Union回收。将各部件装入三台巨神，运至帕拉迪姆城。在帕拉迪姆公司地下工厂集结科学部门全部技术组装完成，但因缺少核心记忆体，初战时暴走并陷入机能不全。后来装入从多萝西体内取出的记忆回路，代行核心记忆体功能后，亚历克斯得以完全操控BIG-FAU。武器包括背部伸出的触手状光束炮、肩部突出的加农炮，以及旋转臂部转子攻击的螺旋飞拳。利用转子作为螺旋桨，可在海中自由移动。一度压制BIG-O，但被“Big O·Final Stage”击毁半边机身，随后被突然出现的BIG-VENUS消灭。",
+      "display_text": "亚历克斯操纵的白色The Big。因在异国被发现时全身零件散落，亚历克斯委托Union回收。将各部件装入三台巨神，运至帕拉迪姆城。在帕拉迪姆公司地下工厂集结科学部门全部技术组装完成，但因缺少核心记忆体，初战时暴走并陷入机能不全。后来装入从多萝西体内取出的记忆回路，代行核心记忆体功能后，亚历克斯得以完全操控BIG-FAU。武器包括背部伸出的触手状光束炮、肩部突出的加农炮，以及旋转臂部转子攻击的螺旋飞拳。利用转子作为螺旋桨，可在海中自由移动。一度压制BIG-O，但被“Big O·Final Stage”击毁半边机身，随后被突然出现的BIG-VENUS消灭。",
+      "decision": "approved",
+      "annotation": "亚历克斯操纵的白色[[The Big]]。因在异国被发现时全身零件散落，亚历克斯委托[[Union]]回收。将各部件装入三台巨神，运至帕拉迪姆城。在帕拉迪姆公司地下工厂集结科学部门全部技术组装完成，但因缺少核心记忆体，初战时暴走并陷入机能不全。后来装入从多萝西体内取出的记忆回路，代行核心记忆体功能后，亚历克斯得以完全操控[[BIG-FAU]]。武器包括背部伸出的触手状光束炮、肩部突出的加农炮，以及旋转臂部转子攻击的螺旋飞拳。利用转子作为螺旋桨，可在海中自由移动。一度压制[[BIG-O]]，但被“[[Big O·Final Stage]]”击毁半边机身，随后被突然出现的[[BIG-VENUS]]消灭。",
+      "spans": [
+        [
+          9,
+          16
+        ],
+        [
+          38,
+          43
+        ],
+        [
+          153,
+          160
+        ],
+        [
+          225,
+          230
+        ],
+        [
+          234,
+          251
+        ],
+        [
+          267,
+          276
+        ]
+      ],
+      "compact_segments": [
+        "The Big",
+        "Union",
+        "BIG-FAU",
+        "BIG-O",
+        "Big O·Final Stage",
+        "BIG-VENUS"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:47.877536+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "f917f2356a23325a6937",
+      "id": "library-text/d2d2a9c02660cddb",
+      "path": "corpus/zh/library/v0.2-reviewed.json",
+      "json_pointer": "/entries/2258/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best",
+        "sp"
+      ],
+      "source_sha256": "0bbbd45985e858d2fde746cb3e9d79e05b49f8044eb640f14a08a833a6892e14",
+      "source_raw": "罗杰·史密斯驾驶的黑色巨神。罗杰对着左手腕的手表喊出“BIG-O，SHOW TIME”后从地下出现，与他一同迎战敌人。罗杰搭乘时，正面显示器上显示出“CAST IN THE NAME OF GOD YE NOT GUILTY（我以神之名铸造此机，汝等无罪）”的咒文。平时收纳在罗杰宅邸的地下。但一旦罗杰发出召唤，就会通过专用的运输车“草原犬鼠”在被废弃的地下交通系统中疾驰，被运往目的地。隐藏着从眼部放出的光线“电弧线”、从胸部和腹部放出的“加农派对”“导弹派对”等内藏火器，但最大的必杀技是以手臂打击桩轰出一击的打击技“铁腕猛击”。此外，BIG-O、BIG-DUO、BIG-FAU三机统称“The Big”，根据其外观，BIG-O被称为黑色巨神，BIG-DUO被称为红色巨神，BIG-FAU被称为白色巨神。在与BIG-FAU的决战终盘，多萝西让自身充当BIG-O的界面，使机体各部展开，从胸部释放高输出光线，发动了最终必杀技“Big O·Final Stage”。BIG-O时常像有意志般自发行动。它是在何时、何地、由何人制造的呢？就连搭乘者罗杰也不得而知。",
+      "display_text": "罗杰·史密斯驾驶的黑色巨神。罗杰对着左手腕的手表喊出“BIG-O，SHOW TIME”后从地下出现，与他一同迎战敌人。罗杰搭乘时，正面显示器上显示出“CAST IN THE NAME OF GOD YE NOT GUILTY（我以神之名铸造此机，汝等无罪）”的咒文。平时收纳在罗杰宅邸的地下。但一旦罗杰发出召唤，就会通过专用的运输车“草原犬鼠”在被废弃的地下交通系统中疾驰，被运往目的地。隐藏着从眼部放出的光线“电弧线”、从胸部和腹部放出的“加农派对”“导弹派对”等内藏火器，但最大的必杀技是以手臂打击桩轰出一击的打击技“铁腕猛击”。此外，BIG-O、BIG-DUO、BIG-FAU三机统称“The Big”，根据其外观，BIG-O被称为黑色巨神，BIG-DUO被称为红色巨神，BIG-FAU被称为白色巨神。在与BIG-FAU的决战终盘，多萝西让自身充当BIG-O的界面，使机体各部展开，从胸部释放高输出光线，发动了最终必杀技“Big O·Final Stage”。BIG-O时常像有意志般自发行动。它是在何时、何地、由何人制造的呢？就连搭乘者罗杰也不得而知。",
+      "decision": "approved",
+      "annotation": "罗杰·史密斯驾驶的黑色巨神。罗杰对着左手腕的手表喊出“[[BIG-O]]，[[SHOW TIME]]”后从地下出现，与他一同迎战敌人。罗杰搭乘时，正面显示器上显示出“[[CAST IN THE NAME OF GOD YE NOT GUILTY]]（我以神之名铸造此机，汝等无罪）”的咒文。平时收纳在罗杰宅邸的地下。但一旦罗杰发出召唤，就会通过专用的运输车“草原犬鼠”在被废弃的地下交通系统中疾驰，被运往目的地。隐藏着从眼部放出的光线“电弧线”、从胸部和腹部放出的“加农派对”“导弹派对”等内藏火器，但最大的必杀技是以手臂打击桩轰出一击的打击技“铁腕猛击”。此外，[[BIG-O]]、[[BIG-DUO]]、[[BIG-FAU]]三机统称“[[The Big]]”，根据其外观，[[BIG-O]]被称为黑色巨神，[[BIG-DUO]]被称为红色巨神，[[BIG-FAU]]被称为白色巨神。在与[[BIG-FAU]]的决战终盘，多萝西让自身充当[[BIG-O]]的界面，使机体各部展开，从胸部释放高输出光线，发动了最终必杀技“[[Big O·Final Stage]]”。[[BIG-O]]时常像有意志般自发行动。它是在何时、何地、由何人制造的呢？就连搭乘者罗杰也不得而知。",
+      "spans": [
+        [
+          27,
+          32
+        ],
+        [
+          33,
+          42
+        ],
+        [
+          75,
+          112
+        ],
+        [
+          270,
+          275
+        ],
+        [
+          276,
+          283
+        ],
+        [
+          284,
+          291
+        ],
+        [
+          296,
+          303
+        ],
+        [
+          311,
+          316
+        ],
+        [
+          324,
+          331
+        ],
+        [
+          339,
+          346
+        ],
+        [
+          356,
+          363
+        ],
+        [
+          377,
+          382
+        ],
+        [
+          414,
+          431
+        ],
+        [
+          433,
+          438
+        ]
+      ],
+      "compact_segments": [
+        "BIG-O",
+        "SHOW TIME",
+        "CAST IN THE NAME OF GOD YE NOT GUILTY",
+        "BIG-O",
+        "BIG-DUO",
+        "BIG-FAU",
+        "The Big",
+        "BIG-O",
+        "BIG-DUO",
+        "BIG-FAU",
+        "BIG-FAU",
+        "BIG-O",
+        "Big O·Final Stage",
+        "BIG-O"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T11:59:55.229175+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "cd002389608386658d86",
+      "id": "library-text/f229565305866034",
+      "path": "corpus/zh/library/v0.2-reviewed.json",
+      "json_pointer": "/entries/2564/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best",
+        "sp"
+      ],
+      "source_sha256": "2ea6c93a5664748c69cccf8aab2b1bea32c315b5067b126427ce92304a0806fe",
+      "source_raw": "PLANT最高决策机构——PLANT最高评议会的最高负责人。尤尼乌斯条约缔结后，由吉尔伯特·迪兰达尔就任。过去，帕特里克·萨拉曾兼任国防委员长，他的憎恨与疯狂使战争陷入泥潭。吸取这一教训后，如今已禁止兼任这两个职务。",
+      "display_text": "PLANT最高决策机构——PLANT最高评议会的最高负责人。尤尼乌斯条约缔结后，由吉尔伯特·迪兰达尔就任。过去，帕特里克·萨拉曾兼任国防委员长，他的憎恨与疯狂使战争陷入泥潭。吸取这一教训后，如今已禁止兼任这两个职务。",
+      "decision": "approved",
+      "annotation": "[[PLANT]]最高决策机构——[[PLANT]]最高评议会的最高负责人。尤尼乌斯条约缔结后，由吉尔伯特·迪兰达尔就任。过去，帕特里克·萨拉曾兼任国防委员长，他的憎恨与疯狂使战争陷入泥潭。吸取这一教训后，如今已禁止兼任这两个职务。",
+      "spans": [
+        [
+          0,
+          5
+        ],
+        [
+          13,
+          18
+        ]
+      ],
+      "compact_segments": [
+        "PLANT",
+        "PLANT"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:00.608402+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "29fc908eeb44531328ac",
+      "id": "library-text/3d080df4eb8da6b1",
+      "path": "corpus/zh/library/v0.2-reviewed.json",
+      "json_pointer": "/entries/650/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best",
+        "sp"
+      ],
+      "source_sha256": "4e9361939f06fd9f4c1f9d99fce30dd304839e5dc9454a6dcd131b28b5197286",
+      "source_raw": "在帕拉迪姆城屡屡作恶的罪犯。22岁。总是带着粗俗的笑声出现，从事银行抢劫、绑架、诈骗等一切犯罪活动。言行举止完全是小混混做派，用罗杰的话说就是“没有职业资格的罪犯”。他保有对巨神操纵至关重要的接口替代技术的记忆，因此不断弄来巨神用于犯罪。在索尔达诺千金绑架事件中被罗杰送进监狱后，他称罗杰为“乌鸦混蛋”并誓言复仇。之后反复越狱，多次设下计谋想给罗杰送终，但全部失败。后来被判处死刑，但作为撤销判决的条件被强迫协助帕拉迪姆公司，于是不情愿地出手相助。他对即使被夺走存储单元仍能行动的多萝西感到不可思议，但最后仍为多萝西提供了发动“Big O·Final Stage”的建议，目送她走向战斗。",
+      "display_text": "在帕拉迪姆城屡屡作恶的罪犯。22岁。总是带着粗俗的笑声出现，从事银行抢劫、绑架、诈骗等一切犯罪活动。言行举止完全是小混混做派，用罗杰的话说就是“没有职业资格的罪犯”。他保有对巨神操纵至关重要的接口替代技术的记忆，因此不断弄来巨神用于犯罪。在索尔达诺千金绑架事件中被罗杰送进监狱后，他称罗杰为“乌鸦混蛋”并誓言复仇。之后反复越狱，多次设下计谋想给罗杰送终，但全部失败。后来被判处死刑，但作为撤销判决的条件被强迫协助帕拉迪姆公司，于是不情愿地出手相助。他对即使被夺走存储单元仍能行动的多萝西感到不可思议，但最后仍为多萝西提供了发动“Big O·Final Stage”的建议，目送她走向战斗。",
+      "decision": "approved",
+      "annotation": "在帕拉迪姆城屡屡作恶的罪犯。22岁。总是带着粗俗的笑声出现，从事银行抢劫、绑架、诈骗等一切犯罪活动。言行举止完全是小混混做派，用罗杰的话说就是“没有职业资格的罪犯”。他保有对巨神操纵至关重要的接口替代技术的记忆，因此不断弄来巨神用于犯罪。在索尔达诺千金绑架事件中被罗杰送进监狱后，他称罗杰为“乌鸦混蛋”并誓言复仇。之后反复越狱，多次设下计谋想给罗杰送终，但全部失败。后来被判处死刑，但作为撤销判决的条件被强迫协助帕拉迪姆公司，于是不情愿地出手相助。他对即使被夺走存储单元仍能行动的多萝西感到不可思议，但最后仍为多萝西提供了发动“[[Big O·Final Stage]]”的建议，目送她走向战斗。",
+      "spans": [
+        [
+          264,
+          281
+        ]
+      ],
+      "compact_segments": [
+        "Big O·Final Stage"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:03.981090+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "bfe692e16c7aee1f8ce6",
+      "id": null,
+      "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "json_pointer": "/pages/2/records/7/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "6dcb8d596bca0eb34a60ef89c78926a8c6db40074a9d6676b9c56a6167594dc6",
+      "source_raw": "START键·SELECT键（按住）",
+      "display_text": "START键·SELECT键（按住）",
+      "decision": "approved",
+      "annotation": "[[START]]键·[[SELECT]]键（按住）",
+      "spans": [
+        [
+          0,
+          5
+        ],
+        [
+          7,
+          13
+        ]
+      ],
+      "compact_segments": [
+        "START",
+        "SELECT"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:07.328357+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "c80ea80688dc347495ce",
+      "id": null,
+      "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "json_pointer": "/pages/3/records/9/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "16b46903c8edcbc002b3de7769ae07041841b225810d2e886b8aec760b5e1d8a",
+      "source_raw": "队员所受伤害−20％",
+      "display_text": "队员所受伤害−20％",
+      "decision": "approved",
+      "annotation": "队员所受伤害[[−20％]]",
+      "spans": [
+        [
+          6,
+          10
+        ]
+      ],
+      "compact_segments": [
+        "−20％"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:10.841460+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "a5afc913729c1f53e278",
+      "id": null,
+      "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "json_pointer": "/pages/4/records/10/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "bcad089105ab0811d1c6c5088bcb464cff893798600fd85aa6a52983e338cf2f",
+      "source_raw": "队长所受伤害−20％",
+      "display_text": "队长所受伤害−20％",
+      "decision": "approved",
+      "annotation": "队长所受伤害[[−20％]]",
+      "spans": [
+        [
+          6,
+          10
+        ]
+      ],
+      "compact_segments": [
+        "−20％"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:13.126705+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "747ea64b0aa6e85bbd26",
+      "id": null,
+      "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "json_pointer": "/pages/4/records/6/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "e9f733deb0f074e034a73c113d9083369d701b517a56d696201a2a6c31dd1dcb",
+      "source_raw": "队员攻击力−50％）",
+      "display_text": "队员攻击力−50％）",
+      "decision": "approved",
+      "annotation": "队员攻击力[[−50％]]）",
+      "spans": [
+        [
+          5,
+          9
+        ]
+      ],
+      "compact_segments": [
+        "−50％"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:16.946307+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "398964b35378b9adc8dc",
+      "id": null,
+      "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "json_pointer": "/pages/5/records/11/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "8c289d3b279773e5692b6e563774292ea2f5a42c83d1934d9e5d7be25d9e2933",
+      "source_raw": "队员所受伤害−50％",
+      "display_text": "队员所受伤害−50％",
+      "decision": "approved",
+      "annotation": "队员所受伤害[[−50％]]",
+      "spans": [
+        [
+          6,
+          10
+        ]
+      ],
+      "compact_segments": [
+        "−50％"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:19.345972+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "3c88cb52f86d5ef3ba48",
+      "id": null,
+      "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "json_pointer": "/pages/5/records/7/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "df1c55fddf1281c8fd26cf611f77faedd6c52f46ae3fe9db138b41566fed1b69",
+      "source_raw": "队员攻击力−20％）",
+      "display_text": "队员攻击力−20％）",
+      "decision": "approved",
+      "annotation": "队员攻击力[[−20％]]）",
+      "spans": [
+        [
+          5,
+          9
+        ]
+      ],
+      "compact_segments": [
+        "−20％"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:21.982013+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "d043fa4d2c64966617f4",
+      "id": "menu/Compdata/04/0099",
+      "path": "corpus/zh/menu/release-v0.3.json",
+      "json_pointer": "/entries/219/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "8c1f0a691bc4aefc3d905811061c935a50143350dfbe6ccd030542e9cdf31dc2",
+      "source_raw": "驾驶员超限感应Lv5以上、气力130以上时发动。\n周围5格内敌方单位的命中率、回避率−50%。\n周围5格内敌方单位的攻击力、防御力−20%。",
+      "display_text": "驾驶员超限感应Lv5以上、气力130以上时发动。\n周围5格内敌方单位的命中率、回避率−50%。\n周围5格内敌方单位的攻击力、防御力−20%。",
+      "decision": "approved",
+      "annotation": "驾驶员超限感应[[Lv5]]以上、气力[[130]]以上时发动。\n周围5格内敌方单位的命中率、回避率[[−50%]]。\n周围5格内敌方单位的攻击力、防御力[[−20%]]。",
+      "spans": [
+        [
+          7,
+          10
+        ],
+        [
+          15,
+          18
+        ],
+        [
+          42,
+          46
+        ],
+        [
+          65,
+          69
+        ]
+      ],
+      "compact_segments": [
+        "Lv5",
+        "130",
+        "−50%",
+        "−20%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:25.479033+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "d7d13526432a814346f3",
+      "id": "menu/Compdata/04/0138",
+      "path": "corpus/zh/menu/release-v0.3.json",
+      "json_pointer": "/entries/257/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "4a062e16ef0c8caa9071d3e64b08b7eaabd9532fbcd29e5ae9868e9728321296",
+      "source_raw": "对男性＋20%·对女性−",
+      "display_text": "对男性＋20%·对女性−",
+      "decision": "approved",
+      "annotation": "对男性[[＋20%]]·对女性−",
+      "spans": [
+        [
+          3,
+          7
+        ]
+      ],
+      "compact_segments": [
+        "＋20%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:28.720121+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "107af4be1957840dff59",
+      "id": "compdata_context_help_by_offset/0x768C0",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/compdata_context_help_by_offset/0x768C0",
+      "category": "existing_dimensions_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "db746cb32b453086ff9f952f0d448c12f1984f44a70f5b91346388b4c92f323a",
+      "source_raw": "表示武器种类。除攻击单台机体的普通武器外，\n还有用于小队攻击的<9>、攻击敌方小队全体的<<color:30>>、\n用于TRI攻击的<8>、攻击范围内所有目标的<<color:31>>，\n以及多台单位同时攻击的<<width:32>>。",
+      "display_text": "表示武器种类。除攻击单台机体的普通武器外，\n还有用于小队攻击的<9>、攻击敌方小队全体的<<color:30>>、\n用于TRI攻击的<8>、攻击范围内所有目标的<<color:31>>，\n以及多台单位同时攻击的<<width:32>>。",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:37.987702+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "a8114f0d10ff9843f6b5",
+      "id": "compdata_context_help_by_offset/0x78440",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/compdata_context_help_by_offset/0x78440",
+      "category": "existing_dimensions_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "3daedd356655b6b8b8dfaafe485a331b42386212c2aef95d8a38b063535ab86a",
+      "source_raw": "按小队内机体的当前HP合计值从高到低排序。\n每按一次<<width:38>>，量表最大值会在\n10000／20000／40000／80000四档之间切换。",
+      "display_text": "按小队内机体的当前HP合计值从高到低排序。\n每按一次<<width:38>>，量表最大值会在\n10000／20000／40000／80000四档之间切换。",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:00:57.309292+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "294e98ada72fb318e956",
+      "id": "compdata_context_help_by_offset/0x79C30",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/compdata_context_help_by_offset/0x79C30",
+      "category": "existing_dimensions_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "662fb2677400731e5f46f5b4f8ef62755fa2d9f00bbba2f4d2dc272320bc7a0e",
+      "source_raw": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "display_text": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:04.064554+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "5225f6a582fa713a7073",
+      "id": "leadership_effect_by_offset/0x72330",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x72330",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "7da336c5b12b6a996f15686626f10c3f999b2acb99eb562df9c05c2275ea399d",
+      "source_raw": "武器EN消耗−10%",
+      "display_text": "武器EN消耗−10%",
+      "decision": "approved",
+      "annotation": "武器EN消耗[[−10%]]",
+      "spans": [
+        [
+          6,
+          10
+        ]
+      ],
+      "compact_segments": [
+        "−10%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:08.261624+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "789da3103cc219d57610",
+      "id": "leadership_effect_by_offset/0x72350",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x72350",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "925c7c74822e14f19e4a83808a7232e358a6dc4ba153d296b66a2cea1f0bcca6",
+      "source_raw": "武器EN消耗−20%",
+      "display_text": "武器EN消耗−20%",
+      "decision": "approved",
+      "annotation": "武器EN消耗[[−20%]]",
+      "spans": [
+        [
+          6,
+          10
+        ]
+      ],
+      "compact_segments": [
+        "−20%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:12.034248+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "9b593405d016e7548599",
+      "id": "leadership_effect_by_offset/0x72370",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x72370",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "8b7da2c5b857710d2f2961d102b6ef763ced543c4f6025f7fda741f3a81ce7db",
+      "source_raw": "相邻友方的武器EN消耗\n−10%",
+      "display_text": "相邻友方的武器EN消耗\n−10%",
+      "decision": "approved",
+      "annotation": "相邻友方的武器EN消耗\n[[−10%]]",
+      "spans": [
+        [
+          12,
+          16
+        ]
+      ],
+      "compact_segments": [
+        "−10%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:15.663207+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "efb99164595c781414d5",
+      "id": "leadership_effect_by_offset/0x725D0",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x725D0",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "6e234cd68fc2aeb23d720ec932e32d057ca8c05c81845c2ddcb62108fb2b70bf",
+      "source_raw": "对男性攻击力＋20%\n对女性攻击力−20%",
+      "display_text": "对男性攻击力＋20%\n对女性攻击力−20%",
+      "decision": "approved",
+      "annotation": "对男性攻击力[[＋20%]]\n对女性攻击力[[−20%]]",
+      "spans": [
+        [
+          6,
+          10
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "compact_segments": [
+        "＋20%",
+        "−20%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:19.084458+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "6e141012b1661e039d70",
+      "id": "leadership_effect_by_offset/0x726B0",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x726B0",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "1137507d7a53db9429f6f00466ad1f100054fb3e94540a68d56e46ae8ccfa343",
+      "source_raw": "所受伤害−10%",
+      "display_text": "所受伤害−10%",
+      "decision": "approved",
+      "annotation": "所受伤害[[−10%]]",
+      "spans": [
+        [
+          4,
+          8
+        ]
+      ],
+      "compact_segments": [
+        "−10%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:21.901918+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "6fc235e552349674f026",
+      "id": "leadership_effect_by_offset/0x726D0",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x726D0",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "c92f843894be5305533f7a6c860bf4e9c08d9d64449bbd8cd87302b420e6c22e",
+      "source_raw": "所受伤害−20%",
+      "display_text": "所受伤害−20%",
+      "decision": "approved",
+      "annotation": "所受伤害[[−20%]]",
+      "spans": [
+        [
+          4,
+          8
+        ]
+      ],
+      "compact_segments": [
+        "−20%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:24.387407+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "cc15d7dab43be3e3aee9",
+      "id": "leadership_effect_by_offset/0x726F0",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x726F0",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "e62c30c9c97546b7321adfdde81e000f1e9a18dd42fd6f437d6a09947dae9775",
+      "source_raw": "所受伤害−30%",
+      "display_text": "所受伤害−30%",
+      "decision": "approved",
+      "annotation": "所受伤害[[−30%]]",
+      "spans": [
+        [
+          4,
+          8
+        ]
+      ],
+      "compact_segments": [
+        "−30%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:26.329772+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "93b195e6b0e4951551fb",
+      "id": "leadership_effect_by_offset/0x72710",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x72710",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "37ba265650a80278a883d55df642adea565f626f24af1d948a14760f157bf056",
+      "source_raw": "援护防御时所受伤害−30%",
+      "display_text": "援护防御时所受伤害−30%",
+      "decision": "approved",
+      "annotation": "援护防御时所受伤害[[−30%]]",
+      "spans": [
+        [
+          9,
+          13
+        ]
+      ],
+      "compact_segments": [
+        "−30%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:28.897327+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "853d628f1653b3f7b7df",
+      "id": "leadership_effect_by_offset/0x72730",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x72730",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "8ea3904e3db9b3edc0566d962feb274591b78b6a81b03eb7d3e5d13f5f6cc8d8",
+      "source_raw": "相邻友方受到的伤害\n−10%",
+      "display_text": "相邻友方受到的伤害\n−10%",
+      "decision": "approved",
+      "annotation": "相邻友方受到的伤害\n[[−10%]]",
+      "spans": [
+        [
+          10,
+          14
+        ]
+      ],
+      "compact_segments": [
+        "−10%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:30.528021+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "7edded4645aa205a1372",
+      "id": "leadership_effect_by_offset/0x72750",
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "json_pointer": "/leadership_effect_by_offset/0x72750",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "4b5bfd406108b89787996174ec7ddc34c5ce83e0131989c167f71213843386a5",
+      "source_raw": "相邻友方受到的伤害\n−20%",
+      "display_text": "相邻友方受到的伤害\n−20%",
+      "decision": "approved",
+      "annotation": "相邻友方受到的伤害\n[[−20%]]",
+      "spans": [
+        [
+          10,
+          14
+        ]
+      ],
+      "compact_segments": [
+        "−20%"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:32.215292+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "3058ee0a3502e94c52af",
+      "id": "menu/Compdata/02/0553",
+      "path": "corpus/zh/menu/weapons.json",
+      "json_pointer": "/entries/553/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "9b6ac53033c58cfdefe2f01c5776c961c82d716d81fd67fa955fd5cdd9a4ea0e",
+      "source_raw": "Big O·最终舞台",
+      "display_text": "Big O·最终舞台",
+      "decision": "approved",
+      "annotation": "[[Big O]]·最终舞台",
+      "spans": [
+        [
+          0,
+          5
+        ]
+      ],
+      "compact_segments": [
+        "Big O"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:35.759754+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "d710e603933f597051cd",
+      "id": "sd/challenge/039/dialogue/01.03/0001",
+      "path": "corpus/zh/special-disc/challenge-dialogue.json",
+      "json_pointer": "/entries/11/translation",
+      "category": "dynamic_template",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "418e19bf857c58c6fbad4fdc46baa6d8253c1f2e93258e6a213ea539c1e8d472",
+      "source_raw": "“不、不行！敌机击坠数为＜ｔｍ＞击坠数＜／ｔｍ＞！还没达到100架！”",
+      "display_text": "“不、不行！敌机击坠数为＜ｔｍ＞击坠数＜／ｔｍ＞！还没达到100架！”",
+      "decision": "approved",
+      "annotation": "“不、不行！敌机击坠数为＜ｔｍ＞击坠数＜／ｔｍ＞！还没达到[[100]]架！”",
+      "spans": [
+        [
+          29,
+          32
+        ]
+      ],
+      "compact_segments": [
+        "100"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:42.152678+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "823a81c4a61da8e60eb0",
+      "id": "sd/challenge/045/dialogue/01.04/0001",
+      "path": "corpus/zh/special-disc/challenge-dialogue.json",
+      "json_pointer": "/entries/320/translation",
+      "category": "dynamic_template",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "9b28d8707e0a83a8dfb75ee5fd334dac1522c883756634c6456d1e1f8842e53e",
+      "source_raw": "“不行！敌机击坠数＜ｔｍ＞击坠数＜／ｔｍ＞！没有达到150架！”",
+      "display_text": "“不行！敌机击坠数＜ｔｍ＞击坠数＜／ｔｍ＞！没有达到150架！”",
+      "decision": "approved",
+      "annotation": "“不行！敌机击坠数＜ｔｍ＞击坠数＜／ｔｍ＞！没有达到[[150]]架！”",
+      "spans": [
+        [
+          26,
+          29
+        ]
+      ],
+      "compact_segments": [
+        "150"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:45.599345+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "cecb860c5978dfcc3e45",
+      "id": "sd/compdata/900E0",
+      "path": "corpus/zh/special-disc/instructions-overrides.json",
+      "json_pointer": "/entries/145/translation",
+      "category": "existing_dimensions_review",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "662fb2677400731e5f46f5b4f8ef62755fa2d9f00bbba2f4d2dc272320bc7a0e",
+      "source_raw": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "display_text": "显示驾驶员当前等级。\n获得EXP并升级后，会显示为“当前等级→升级后等级”。\n按<<width:37>>可进入升级画面。",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:52.220662+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "5bba5e28ae96267fa6df",
+      "id": "sd/nisv/tutorial/03",
+      "path": "corpus/zh/special-disc/instructions-overrides.json",
+      "json_pointer": "/entries/91/translation",
+      "category": "symbol_review",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "399b5ab8d6395c07c3be1ba474f14bc411da34ea1536c0302e85e71ae4513a7c",
+      "source_raw": "进入地图时的基本阵型。\n队员退到后方，由队长进行主要战斗。\n队员不参与常规攻击，但可获得防御加成。\n特点如下。\n·小队攻击不可用\n·援护防御可用（需要特殊技能“援护防御”）\n·受到全体攻击时：队员所受伤害−20％\n·其他特性：队员回避率＋20％\n可使用TRI攻击",
+      "display_text": "进入地图时的基本阵型。\n队员退到后方，由队长进行主要战斗。\n队员不参与常规攻击，但可获得防御加成。\n特点如下。\n·小队攻击不可用\n·援护防御可用（需要特殊技能“援护防御”）\n·受到全体攻击时：队员所受伤害−20％\n·其他特性：队员回避率＋20％\n可使用TRI攻击",
+      "decision": "approved",
+      "annotation": "进入地图时的基本阵型。\n队员退到后方，由队长进行主要战斗。\n队员不参与常规攻击，但可获得防御加成。\n特点如下。\n·小队攻击不可用\n·援护防御可用（需要特殊技能“援护防御”）\n·受到全体攻击时：队员所受伤害[[−20％]]\n·其他特性：队员回避率[[＋20％]]\n可使用[[TRI]]攻击",
+      "spans": [
+        [
+          102,
+          106
+        ],
+        [
+          118,
+          122
+        ],
+        [
+          126,
+          129
+        ]
+      ],
+      "compact_segments": [
+        "−20％",
+        "＋20％",
+        "TRI"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:01:58.763032+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "e10793ee2ee56e2b2bd6",
+      "id": "sd/nisv/tutorial/04",
+      "path": "corpus/zh/special-disc/instructions-overrides.json",
+      "json_pointer": "/entries/92/translation",
+      "category": "symbol_review",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "9a9c5036597d369004cd5f6448bf5d9e0bbde24cf1c630013db78c4a9d07810f",
+      "source_raw": "以队长为中心的阵型。\n队员辅助队长攻击。\n适合集中攻击单个敌人。\n特点如下。\n·小队攻击可用（集中攻击单个敌人；我方队员攻击力−50％）\n·援护防御可用（需要特殊技能“援护防御”）\n·受到全体攻击时：队长所受伤害−20％\n·其他特性：使用小队攻击时，队长的攻击\n命中率＋20％\n小队中有机体持有屏障时，\n效果适用于全队",
+      "display_text": "以队长为中心的阵型。\n队员辅助队长攻击。\n适合集中攻击单个敌人。\n特点如下。\n·小队攻击可用（集中攻击单个敌人；我方队员攻击力−50％）\n·援护防御可用（需要特殊技能“援护防御”）\n·受到全体攻击时：队长所受伤害−20％\n·其他特性：使用小队攻击时，队长的攻击\n命中率＋20％\n小队中有机体持有屏障时，\n效果适用于全队",
+      "decision": "approved",
+      "annotation": "以队长为中心的阵型。\n队员辅助队长攻击。\n适合集中攻击单个敌人。\n特点如下。\n·小队攻击可用（集中攻击单个敌人；我方队员攻击力[[−50％]]）\n·援护防御可用（需要特殊技能“援护防御”）\n·受到全体攻击时：队长所受伤害[[−20％]]\n·其他特性：使用小队攻击时，队长的攻击\n命中率[[＋20％]]\n小队中有机体持有屏障时，\n效果适用于全队",
+      "spans": [
+        [
+          63,
+          67
+        ],
+        [
+          106,
+          110
+        ],
+        [
+          134,
+          138
+        ]
+      ],
+      "compact_segments": [
+        "−50％",
+        "−20％",
+        "＋20％"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:01.631256+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "4c357939315b9fba4de7",
+      "id": "sd/nisv/tutorial/05",
+      "path": "corpus/zh/special-disc/instructions-overrides.json",
+      "json_pointer": "/entries/93/translation",
+      "category": "symbol_review",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "c60b5ccd68150de669b9cb9e9ea4f67063384f950cb802fa0558e56fd72f55a6",
+      "source_raw": "队长与队员散开的阵型。\n队长与队员分别攻击敌人。\n适合歼灭敌方小队。\n特点如下。\n·小队攻击可用\n（分别攻击各自的目标；我方队员攻击力−20％）\n·援护防御不可用\n·受到全体攻击时：队员所受伤害−50％",
+      "display_text": "队长与队员散开的阵型。\n队长与队员分别攻击敌人。\n适合歼灭敌方小队。\n特点如下。\n·小队攻击可用\n（分别攻击各自的目标；我方队员攻击力−20％）\n·援护防御不可用\n·受到全体攻击时：队员所受伤害−50％",
+      "decision": "approved",
+      "annotation": "队长与队员散开的阵型。\n队长与队员分别攻击敌人。\n适合歼灭敌方小队。\n特点如下。\n·小队攻击可用\n（分别攻击各自的目标；我方队员攻击力[[−20％]]）\n·援护防御不可用\n·受到全体攻击时：队员所受伤害[[−50％]]",
+      "spans": [
+        [
+          67,
+          71
+        ],
+        [
+          97,
+          101
+        ]
+      ],
+      "compact_segments": [
+        "−20％",
+        "−50％"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:04.626178+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "38d8aab497e554762da5",
+      "id": "sd/story/028/dialogue/01.34/0000",
+      "path": "corpus/zh/special-disc/story-dialogue.json",
+      "json_pointer": "/entries/5288/translation",
+      "category": "symbol_review",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "9f5807d6be15713d7ce9a10461f9934139e6934700693615bee9309a3345c5ec",
+      "source_raw": "“WE——CAN——”",
+      "display_text": "“WE——CAN——”",
+      "decision": "approved",
+      "annotation": "“WE——[[CAN]]——”",
+      "spans": [
+        [
+          5,
+          8
+        ]
+      ],
+      "compact_segments": [
+        "CAN"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:12.268086+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "53baeac1ef1dc0340465",
+      "id": "sd/story/028/dialogue/01.34/0001",
+      "path": "corpus/zh/special-disc/story-dialogue.json",
+      "json_pointer": "/entries/5289/translation",
+      "category": "symbol_review",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "0a2d5701effaaa06b0022ab7ddbbd7765fff33ffdfa98e34f18de8632c368917",
+      "source_raw": "“FLY——！！”",
+      "display_text": "“FLY——！！”",
+      "decision": "approved",
+      "annotation": "“[[FLY]]——！！”",
+      "spans": [
+        [
+          1,
+          4
+        ]
+      ],
+      "compact_segments": [
+        "FLY"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:15.197861+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "787d604386e6a9354480",
+      "id": "sd/story/004/dialogue/01.04/0004",
+      "path": "corpus/zh/special-disc/story-dialogue.json",
+      "json_pointer": "/entries/735/translation",
+      "category": "symbol_review",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "44de9d11c81e1235055fb08defb8a896ac534f42485c7a098ce214ceb2456b47",
+      "source_raw": "“大人物得讲究TPO——时间、\n　地点、场合。那就拜托各位啦。”",
+      "display_text": "“大人物得讲究TPO——时间、\n　地点、场合。那就拜托各位啦。”",
+      "decision": "approved",
+      "annotation": "“大人物得讲究[[TPO]]——时间、\n　地点、场合。那就拜托各位啦。”",
+      "spans": [
+        [
+          7,
+          10
+        ]
+      ],
+      "compact_segments": [
+        "TPO"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:18.428193+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "af985dfc344dfd05e581",
+      "id": "sd/compdata/944A0",
+      "path": "corpus/zh/special-disc/system-text.json",
+      "json_pointer": "/entries/353/translation",
+      "category": "existing_dimensions_review",
+      "editions": [
+        "sp"
+      ],
+      "source_sha256": "65b1e7afa1e867cfbc61cb1de27dacab7f6b4c3d759128da05084e5062b58023",
+      "source_raw": "表示武器的种类，除攻击单机的普通武器外，\n还有小队攻击用的<9>、攻击小队全机的<<color:30>>、\nTRI攻击用的<8>，\n以及多个单位同时攻击的<<width:32>>。",
+      "display_text": "表示武器的种类，除攻击单机的普通武器外，\n还有小队攻击用的<9>、攻击小队全机的<<color:30>>、\nTRI攻击用的<8>，\n以及多个单位同时攻击的<<width:32>>。",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:22.893809+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "0b3ea1e007852c3168a0",
+      "id": "story/075/dialogue/02.02/0041",
+      "path": "corpus/zh/story-dialogue/stage-075.json",
+      "json_pointer": "/entries/405/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "915beef7d3e4c12c636127a55036bcdcbfc4566ec186339111027d8639f848c0",
+      "source_raw": "“注册卫星系统只是其中一部分，\n　原本用于远程操控多架\n　无人MS·G-Bit。”",
+      "display_text": "“注册卫星系统只是其中一部分，\n　原本用于远程操控多架\n　无人MS·G-Bit。”",
+      "decision": "approved",
+      "annotation": "“注册卫星系统只是其中一部分，\n　原本用于远程操控多架\n　无人MS·[[G-Bit]]。”",
+      "spans": [
+        [
+          34,
+          39
+        ]
+      ],
+      "compact_segments": [
+        "G-Bit"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:26.080397+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "95ca3e1470debdc759f0",
+      "id": "story/143/dialogue/01.27/0019",
+      "path": "corpus/zh/story-dialogue/stage-143.json",
+      "json_pointer": "/entries/311/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "ab8fc8ffca415c7e68df70922c156af5b306cf39d9a6980b5e74fbef3f5f6384",
+      "source_raw": "“I·CAN·FLYYYYYYYY！！”",
+      "display_text": "“I·CAN·FLYYYYYYYY！！”",
+      "decision": "approved",
+      "annotation": "“I·[[CAN]]·[[FLYYYYYYYY]]！！”",
+      "spans": [
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          17
+        ]
+      ],
+      "compact_segments": [
+        "CAN",
+        "FLYYYYYYYY"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:29.189910+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "06580fff77f84825db69",
+      "id": "story/148/dialogue/01.29/0024",
+      "path": "corpus/zh/story-dialogue/stage-148.json",
+      "json_pointer": "/entries/349/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "ab8fc8ffca415c7e68df70922c156af5b306cf39d9a6980b5e74fbef3f5f6384",
+      "source_raw": "“I·CAN·FLYYYYYYYY！！”",
+      "display_text": "“I·CAN·FLYYYYYYYY！！”",
+      "decision": "approved",
+      "annotation": "“I·[[CAN]]·[[FLYYYYYYYY]]！！”",
+      "spans": [
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          17
+        ]
+      ],
+      "compact_segments": [
+        "CAN",
+        "FLYYYYYYYY"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:32.079863+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "7da5cd99f7860183c319",
+      "id": "story/148/dialogue/01.30/0020",
+      "path": "corpus/zh/story-dialogue/stage-148.json",
+      "json_pointer": "/entries/370/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "ab8fc8ffca415c7e68df70922c156af5b306cf39d9a6980b5e74fbef3f5f6384",
+      "source_raw": "“I·CAN·FLYYYYYYYY！！”",
+      "display_text": "“I·CAN·FLYYYYYYYY！！”",
+      "decision": "approved",
+      "annotation": "“I·[[CAN]]·[[FLYYYYYYYY]]！！”",
+      "spans": [
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          17
+        ]
+      ],
+      "compact_segments": [
+        "CAN",
+        "FLYYYYYYYY"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:33.928627+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "2902fde30b102b1d7410",
+      "id": "story/185/dialogue/01.11/0010",
+      "path": "corpus/zh/story-dialogue/stage-185.json",
+      "json_pointer": "/entries/111/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "392e29596cfb458ebdba1fa454b142be813eca34e37da5af12e5ed5fec435e91",
+      "source_raw": "“然后在游戏中同时按\n　R1·R2·L1·L2·START、\n　SELECT（按住）……”",
+      "display_text": "“然后在游戏中同时按\n　R1·R2·L1·L2·START、\n　SELECT（按住）……”",
+      "decision": "approved",
+      "annotation": "“然后在游戏中同时按\n　R1·R2·L1·L2·[[START]]、\n　[[SELECT]]（按住）……”",
+      "spans": [
+        [
+          24,
+          29
+        ],
+        [
+          32,
+          38
+        ]
+      ],
+      "compact_segments": [
+        "START",
+        "SELECT"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:37.913990+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "26f814f12e2c60d44036",
+      "id": "story/185/dialogue/01.16/0010",
+      "path": "corpus/zh/story-dialogue/stage-185.json",
+      "json_pointer": "/entries/166/translation",
+      "category": "symbol_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "392e29596cfb458ebdba1fa454b142be813eca34e37da5af12e5ed5fec435e91",
+      "source_raw": "“然后在游戏中同时按\n　R1·R2·L1·L2·START、\n　SELECT（按住）……”",
+      "display_text": "“然后在游戏中同时按\n　R1·R2·L1·L2·START、\n　SELECT（按住）……”",
+      "decision": "approved",
+      "annotation": "“然后在游戏中同时按\n　R1·R2·L1·L2·[[START]]、\n　[[SELECT]]（按住）……”",
+      "spans": [
+        [
+          24,
+          29
+        ],
+        [
+          32,
+          38
+        ]
+      ],
+      "compact_segments": [
+        "START",
+        "SELECT"
+      ],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:40.295263+00:00",
+      "implementation": "pending"
+    },
+    {
+      "key": "25faf6bc7bbfee936c5a",
+      "id": "aid/tri-attack",
+      "path": "corpus/zh/ui-atlas/aid-battle-prompts-v1.json",
+      "json_pointer": "/entries/9/translation",
+      "category": "texture_glyph_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "715d95062a92b736f6dd1f8cb7d035358660b774562e8eb4278034223e4e45ca",
+      "source_raw": "TRI攻击",
+      "display_text": "TRI攻击",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:44.757774+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "9c802d518ad033f64f4b",
+      "id": "tricmn/tri-formation",
+      "path": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
+      "json_pointer": "/entries/0/translation",
+      "category": "texture_glyph_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "dfeab31816dc708e2d5e3854464157190bdbc8339bff601661381ce4a49b6793",
+      "source_raw": "TRI阵型",
+      "display_text": "TRI阵型",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:46.919729+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "438a469100ca8ea6554a",
+      "id": "tricmn/vps-armor",
+      "path": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
+      "json_pointer": "/entries/42/translation",
+      "category": "texture_glyph_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "893d9ffbd6de25aaac38a000697599fe6eeb1a6f89514670faae94aa86acbc55",
+      "source_raw": "VPS装甲",
+      "display_text": "VPS装甲",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:49.602704+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "3d90dfa3b7c945632423",
+      "id": "tricmn/tri-attack",
+      "path": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
+      "json_pointer": "/entries/8/translation",
+      "category": "texture_glyph_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "715d95062a92b736f6dd1f8cb7d035358660b774562e8eb4278034223e4e45ca",
+      "source_raw": "TRI攻击",
+      "display_text": "TRI攻击",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:51.603000+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "ed6ba35a2eda3a7add51",
+      "id": "world-map/title/113",
+      "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
+      "json_pointer": "/entries/26/translation",
+      "category": "texture_glyph_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "339190cb19d9e57eb9251a41f9435df2e9fb890eff227bd117dc8bdba0fc7fb3",
+      "source_raw": "L5宙域 PLANT首都阿普里琉斯市",
+      "display_text": "L5宙域 PLANT首都阿普里琉斯市",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:55.209678+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    },
+    {
+      "key": "f57770d67ebe4a6718be",
+      "id": "world-map/title/178",
+      "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
+      "json_pointer": "/entries/67/translation",
+      "category": "texture_glyph_review",
+      "editions": [
+        "original",
+        "best"
+      ],
+      "source_sha256": "46c6a299ed2d8832c70b50eb97a264813856b61ad0f706768c89343dbf44cd35",
+      "source_raw": "加利亚大陆西部 DEAVA司令部",
+      "display_text": "加利亚大陆西部 DEAVA司令部",
+      "decision": "keep",
+      "annotation": null,
+      "spans": [],
+      "compact_segments": [],
+      "note": "",
+      "confirmed_at": "2026-09-28T12:02:57.597048+00:00",
+      "implementation": "excluded_from_this_compact_batch"
+    }
+  ]
+}

@@ -5,6 +5,9 @@ import unittest
 from pathlib import Path
 
 
+from tools.srwz.compact_authoring import unscoped_text
+
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -15,7 +18,7 @@ class CommunityFeedbackBattleRound4Test(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        entries = {entry["id"]: entry["translation"] for entry in payload["entries"]}
+        entries = {entry["id"]: unscoped_text(entry["translation"]) for entry in payload["entries"]}
         expected = {
             "battle:02221": "“BIG-FAU，行动！”",
             "battle:09144": "“不疼…只是痛苦而已！”",

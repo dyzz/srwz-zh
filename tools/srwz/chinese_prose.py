@@ -4,6 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 from .chinese_layout import ChineseLayoutError, ChineseLayoutProfile, reflow_chinese_paragraph
 from .renderer_metrics import text_extent
+from .text import CONTROL_NOTATION
 
 
 @dataclass(frozen=True)
@@ -59,6 +60,8 @@ def reflow_chinese_prose(
     result='\n'.join(lines)
     if logical_prose_text(result)!=logical_prose_text(text):
         raise ChineseLayoutError('prose reflow changed visible content')
+    if CONTROL_NOTATION.findall(result) != CONTROL_NOTATION.findall(text):
+        raise ChineseLayoutError('prose reflow changed controls or variables')
     state=None
     widths=[]
     for line in lines:

@@ -3458,7 +3458,7 @@ def _apply_stage_overviews(
         or policy.get("preserve_pointer_table") is not True
         or policy.get("preserve_fixed_allocations") is not True
         or policy.get("reflow_profile_id") != "stage_scroll_overview"
-        or policy.get("maximum_line_width") != 29
+        or policy.get("maximum_line_width") != 30
         or policy.get("source_line_count_is_upper_bound") is not True
         or policy.get("preserve_paragraph_indents") is not True
         or not isinstance(expected, dict)
@@ -5044,7 +5044,8 @@ def _apply_hsfc_overviews(
 
 
 def _control_signature(text: str) -> tuple[tuple[str, str], ...]:
-    return tuple((token.kind, token.text) for token in control_notation_tokens(text))
+    from srwz.compact_authoring import unscoped_text
+    return tuple((token.kind, token.text) for token in control_notation_tokens(unscoped_text(text)))
 
 
 def _apply_fixed_span_translations(
@@ -11866,8 +11867,8 @@ def _build_components(
                 stage_overview_report["translated_readback_exact"]
                 and stage_overview_report["fixed_allocations_preserved"]
                 and stage_overview_report["untranslated_allocations_preserved"]
-                and stage_overview_report["line_width_limit"] == 29
-                and stage_overview_report["maximum_output_line_width"] <= 29
+                and stage_overview_report["line_width_limit"] == 30
+                and stage_overview_report["maximum_output_line_width"] <= 30
                 and stage_overview_report["line_counts_within_source_height"]
                 and stage_overview_report["paragraph_indents_present"]
                 and stage_overview_report["paragraph_indent_count"] > 0

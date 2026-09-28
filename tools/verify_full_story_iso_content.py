@@ -15,6 +15,7 @@ from srwz.scoped_translations import (
     verify_scoped_translation_coverage,
 )
 from srwz.archive import sha256_file
+from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
     DEFAULT_LINE_WIDTH,
     DEFAULT_MAX_LINES,
@@ -126,6 +127,7 @@ from srwz.summary import parse_summary
 from srwz.tim2 import scan_tim2
 from srwz.tim2_writeback import unswizzle_psmt8
 from srwz.veff_tutorial_titles import audit_tutorial_effect_binding
+from srwz.compact_authoring import unscoped_text
 from srwz.text import (
     ORIGINAL_FULLWIDTH_ASCII,
     RUNTIME_SUBSTITUTION_TOKEN,
@@ -530,6 +532,14 @@ def raw_visible_ascii_glyphs(payload: bytes) -> tuple[tuple[int, str], ...]:
             break
         if value == 0x0A:
             cursor += 1
+            continue
+        if 0x31 <= value <= 0x35:
+            # These bytes introduce the native two-byte text tags (including
+            # width/space), just as decode_text handles them. Their opcode or
+            # parameter may look like ASCII; neither is a visible glyph.
+            if cursor + 1 >= len(payload):
+                raise ValueError(f"truncated native text tag at {cursor}")
+            cursor += 2
             continue
         if (
             value == ord("$")
@@ -1759,7 +1769,7 @@ def verify_stage_fixed_formation(
         )
         target_tokens = tuple(
             (token.kind, token.text)
-            for token in control_notation_tokens(translation)
+            for token in control_notation_tokens(unscoped_text(translation))
         )
         if source_tokens != target_tokens:
             raise SystemExit(
@@ -2025,7 +2035,7 @@ def verify_stage_default_formation(
         )
         target_tokens = tuple(
             (token.kind, token.text)
-            for token in control_notation_tokens(translation)
+            for token in control_notation_tokens(unscoped_text(translation))
         )
         if source_tokens != target_tokens:
             raise SystemExit(
@@ -2652,7 +2662,7 @@ def verify_final_compdata(
             )
             target_tokens = tuple(
                 (token.kind, token.text)
-                for token in control_notation_tokens(translation)
+                for token in control_notation_tokens(unscoped_text(translation))
             )
             if source_tokens != target_tokens:
                 raise SystemExit(
@@ -2757,7 +2767,7 @@ def verify_final_compdata(
             )
             target_tokens = tuple(
                 (token.kind, token.text)
-                for token in control_notation_tokens(translation)
+                for token in control_notation_tokens(unscoped_text(translation))
             )
             if source_tokens != target_tokens:
                 raise SystemExit(
@@ -5857,7 +5867,7 @@ def main() -> int:
     if (
         overview_policy.get("reflow_profile_id")
         != "stage_scroll_overview"
-        or overview_line_width_limit != 29
+        or overview_line_width_limit != 30
         or overview_policy.get("source_line_count_is_upper_bound") is not True
         or overview_policy.get("preserve_paragraph_indents") is not True
     ):
@@ -5902,7 +5912,7 @@ def main() -> int:
                 f"final ISO stage-overview mismatch: {row.get('id')}"
             )
         overview_lines = entry.source_text.rstrip("\n").splitlines()
-        overview_widths = dialogue_line_widths(entry.source_text.rstrip("\n"))
+        overview_widths = tuple((text_extent(line,default_advance_px=16).occupied_px+15)//16 for line in overview_lines)
         if (
             not overview_lines
             or not overview_lines[0].startswith("　")
@@ -8045,8 +8055,8 @@ def main() -> int:
             ]
             and overview_report["fixed_pointer_entries_exact"]
             and overview_report["layout_policy_exact"]
-            and overview_report["line_width_limit"] == 29
-            and overview_report["maximum_output_line_width"] <= 29,
+            and overview_report["line_width_limit"] == 30
+            and overview_report["maximum_output_line_width"] <= 30,
             "world_history_exact": (
                 world_history_report["translated_readback_exact"]
                 and world_history_report[

@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import struct
+import math
 from dataclasses import dataclass
 from typing import Mapping
 
-from .chinese_layout import dialogue_line_widths
+from .renderer_metrics import text_extent
 from .font import sha256_bytes
 from .stage import STAGE_BASE_ADDRESS
 from .text import (
@@ -21,7 +22,7 @@ from .text import project_runtime_text_table
 OVERVIEW_POINTER_TABLE_START = 0x10DD4
 OVERVIEW_POINTER_TABLE_END_INCLUSIVE = 0x10F88
 OVERVIEW_ENTRY_COUNT = 110
-STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH = 29
+STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH = 30
 
 
 class StageOverviewError(ValueError):
@@ -151,7 +152,8 @@ def replace_stage_overviews_in_place(
             else []
         )
         translated_widths = (
-            dialogue_line_widths(translation.rstrip("\n"))
+            tuple(math.ceil(text_extent(line,default_advance_px=16).occupied_px/16)
+                  for line in translation.rstrip("\n").splitlines())
             if isinstance(translation, str)
             else ()
         )

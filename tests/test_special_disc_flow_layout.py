@@ -5,7 +5,7 @@ import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'tools/special_disc/writeback')]
-from write_frame_text import flow_synopsis, FLOW_PROTECTED_TERMS, validate_flow_layout
+from write_frame_text import flow_synopsis, FLOW_PROTECTED_TERMS, FLOW_WIDTH, validate_flow_layout
 from srwz.renderer_metrics import compact_visible_runs,text_extent
 from srwz.text import CONTROL_NOTATION
 
@@ -19,14 +19,14 @@ class SpFlowLayoutTests(unittest.TestCase):
         visible=[CONTROL_NOTATION.sub('',line) for line in result.splitlines()]
         self.assertTrue(any('013特别小队' in line for line in visible))
         self.assertTrue(any('BLOCK WORD' in line for line in visible))
-        self.assertTrue(all(text_extent(line,default_advance_px=16).occupied_px<=29*16 for line in result.splitlines()))
+        self.assertTrue(all(text_extent(line,default_advance_px=16).occupied_px<=FLOW_WIDTH*16 for line in result.splitlines()))
 
     def test_readback_checks_indentation_and_glyph_overhang(self):
         validate_flow_layout('　'+'甲'*24+compact_visible_runs('100',default_advance_px=16))
         with self.assertRaisesRegex(ValueError,'visible panel'):
-            validate_flow_layout('　'+'甲'*28+'乙')
+            validate_flow_layout('　'+'甲'*(FLOW_WIDTH-1)+'乙')
         with self.assertRaisesRegex(ValueError,'visible panel'):
-            validate_flow_layout('甲'*28+'<width:18><space:10>乙')
+            validate_flow_layout('甲'*(FLOW_WIDTH-1)+'<width:18><space:10>乙')
 
     def test_readback_checks_name_boundaries_through_controls(self):
         tagged=compact_visible_runs('013',default_advance_px=16)
@@ -41,7 +41,7 @@ class SpFlowLayoutTests(unittest.TestCase):
         self.assertTrue(any('往事' in line for line in lines))
         self.assertTrue(any('阿克塞尔' in line for line in lines))
         self.assertTrue(any('贝尔弗莱斯特' in line for line in lines))
-        self.assertTrue(all(len(line)<=29 for line in lines))
+        self.assertTrue(all(len(line)<=FLOW_WIDTH for line in lines))
 
     def test_configured_terms_survive_wrap_boundaries(self):
         for term in FLOW_PROTECTED_TERMS:
@@ -60,8 +60,16 @@ class SpFlowLayoutTests(unittest.TestCase):
     def test_detail_allows_eleven_lines_but_rejects_invisible_twelfth(self):
         text='\n'.join(['　完整保留这一段。']*11)
         self.assertEqual(flow_synopsis(text),text)
-        with self.assertRaisesRegex(ValueError,'12/11'):
+        with self.assertRaisesRegex(ValueError,'11 physical rows: 12'):
             flow_synopsis(text+'\n　这一段不能消失。')
+
+    def test_reflow_keeps_existing_physical_wraps_in_the_same_paragraph(self):
+        raw='　'+'甲'*41+'。'
+        rendered=flow_synopsis(raw)
+        self.assertEqual(flow_synopsis(rendered),rendered)
+        widths=[text_extent(row,default_advance_px=16).occupied_px for row in rendered.splitlines()]
+        self.assertLessEqual(max(widths)-min(widths),16)
+        self.assertEqual(len(widths),2)
 
     def test_readback_rejects_a_split_person_name(self):
         with self.assertRaisesRegex(ValueError,'斗志也'):

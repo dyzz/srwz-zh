@@ -10,7 +10,7 @@ _DIMENSION = re.compile(r"<(width|space):([0-9A-Fa-f]{2})>\Z")
 # Only expression/identifier punctuation belongs to compact scopes. Chinese
 # sentence punctuation remains outside; in particular U+FF0C is not a digit
 # grouping separator. Keep this alphabet shared with the layout tokenizer.
-COMPACT_SCOPE_CHARACTERS = r"A-Za-z0-9Ａ-Ｚａ-ｚ０-９ .,:：．_'/／＋+％%~～〜×÷±＝=　－-"
+COMPACT_SCOPE_CHARACTERS = r"A-Za-z0-9Ａ-Ｚａ-ｚ０-９ .,:：．_'/／＋+％%~～〜×÷±＝=　－−·《》-"
 _COMPACT_ALNUM = r"(?:[0-9]{1,3}(?:,[0-9]{3})+|[A-Za-z0-9]+)"
 COMPACT_VISIBLE_RUN = re.compile(
     rf"[+＋－±-]?{_COMPACT_ALNUM}"
@@ -79,13 +79,18 @@ def text_extent(text: str, *, default_advance_px: int,
 def compact_visible_runs(text: str, *, default_advance_px: int,
                        minimum_characters: int = 3,
                        glyph_width_px: int = 14,
-                       advance_px: int = 12) -> str:
+                       advance_px: int = 12,
+                       breakable_phrases: tuple[str, ...] = ()) -> str:
     """Author closed width scopes for Latin, numbers and expression symbols.
 
     Runs longer than two visible characters are compacted by default, including
     pure numbers, times, decimals, percentages and fractions. Logical values
     and sentence punctuation are retained. Controlled text must be authored
     separately. This helper is not a production-wide rewrite.
+
+    Explicitly selected English full names may have independently closed word
+    scopes. This offers word boundaries to the layout solver while preserving
+    every letter and space. Other identifiers remain indivisible.
     """
     if CONTROL_NOTATION.search(text):
         raise ValueError('compact authoring requires plain text without controls')
@@ -104,8 +109,9 @@ def compact_visible_runs(text: str, *, default_advance_px: int,
         restore = (f'<space:{default_advance_px:02X}><width:{default_advance_px:02X}>'
                    if run.endswith('%') else
                    f'<width:{default_advance_px:02X}><space:{default_advance_px:02X}>')
-        return (f'<width:{glyph_width_px:02X}><space:{advance_px:02X}>' + run +
-                restore)
+        pieces = re.findall(r'\S+[ ]*', run) if run in breakable_phrases else [run]
+        return ''.join(f'<width:{glyph_width_px:02X}><space:{advance_px:02X}>' + piece +
+                       restore for piece in pieces)
     return COMPACT_VISIBLE_RUN.sub(replace, folded)
 
 

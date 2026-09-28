@@ -25,6 +25,7 @@ from tools.srwz.title_menu import (
     UNSELECTED_RAMP_BASE,
     apply_title_menu_masks,
 )
+from tools.srwz.compact_authoring import unscoped_text
 from tools.srwz.stage import STAGE_BASE_ADDRESS
 from tools.srwz.stage_formations import _scan_packed8_groups
 from tools.srwz.text import encode_text, load_text_table
@@ -245,7 +246,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 f"corpus/zh/story-dialogue/stage-{stage_index:03d}.json"
             )
             translations.update(
-                {entry["id"]: entry["translation"] for entry in stage["entries"]}
+                {entry["id"]: unscoped_text(entry["translation"]) for entry in stage["entries"]}
             )
 
         expected = {
@@ -587,7 +588,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "story/109/dialogue/01.50/0003",
             "story/109/dialogue/01.57/0002",
         ):
-            self.assertIn("Turn型", entries_109[entry_id])
+            self.assertIn("Turn型", unscoped_text(entries_109[entry_id]))
             self.assertNotIn("倒转类型", entries_109[entry_id])
 
         message_ids = (
@@ -901,7 +902,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
     def test_latest_community_polish_keeps_source_meaning_and_natural_chinese(self) -> None:
         battle = _load("corpus/zh/battle/srvc-lines.json")
         battle_entries = {
-            entry["id"]: entry["translation"] for entry in battle["entries"]
+            entry["id"]: unscoped_text(entry["translation"]) for entry in battle["entries"]
         }
         expected_battle = {
             "battle:01955": "“这招能行吗！？”",
@@ -966,7 +967,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
         for stage in (27, 55, 111, 115, 119, 122, 125):
             payload = _load(f"corpus/zh/story-dialogue/stage-{stage:03d}.json")
             story_entries.update(
-                {entry["id"]: entry["translation"] for entry in payload["entries"]}
+                {entry["id"]: unscoped_text(entry["translation"]) for entry in payload["entries"]}
             )
         self.assertEqual(
             {entry_id: story_entries[entry_id] for entry_id in expected_story},

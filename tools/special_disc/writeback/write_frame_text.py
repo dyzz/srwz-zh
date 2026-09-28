@@ -22,6 +22,7 @@ from srwz.iso9660 import member_map,scan_iso9660
 from srwz.chinese_layout import ChineseLayoutProfile,fit_chinese_dialogue_layout,load_layout_profiles,load_unbroken_terms_file,rendered_line_width,reflow_chinese_paragraph
 from srwz.text import CONTROL_NOTATION,decode_text,encode_text,normalize_original_fullwidth_ascii
 from srwz.renderer_metrics import text_extent
+from srwz.chinese_prose import reflow_chinese_prose
 from srwz.summary import parse_summary
 from srwz.writers import apply_summary_replacements
 from stage_bindings import digest
@@ -34,7 +35,7 @@ Z_TITLE_CORPUS=ROOT/'corpus/zh/menu/stage-names.json'
 KEY_HELP=ROOT/'config/editorial/special-disc/chart-key-help.json'
 HSFC_PROTECTED_TERMS=('麦康奈尔','布兰少校','西尔维娅','金卡拉姆','不合群者')
 # The 640x448 SP detail panel displays 11 rows. A 31st full-width
-# character crosses its right border; keep the established 29-cell margin.
+# character crosses its right border; the checked budget is 30 cells.
 FLOW_LAYOUT_PATH=ROOT/'config/products/special-disc/flow-layout.json'
 FLOW_LAYOUT=json.loads(FLOW_LAYOUT_PATH.read_text())
 FLOW_WIDTH, FLOW_MAX_LINES=FLOW_LAYOUT['width'], FLOW_LAYOUT['maximum_lines']
@@ -90,9 +91,10 @@ def validate_flow_layout(text):
 
 
 def flow_synopsis(text):
-    result='\n'.join(paragraphs(text,FLOW_WIDTH,max_lines=FLOW_MAX_LINES,
-        minimum_line_width=FLOW_LAYOUT['minimum_tail_width'],protected_terms=FLOW_PROTECTED_TERMS,
-        default_advance_px=FLOW_BODY_ADVANCE_PX,line_packing='balanced'))
+    profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['stage_scroll_overview']
+    require(profile.maximum_width==FLOW_WIDTH,'flow profile/config width drift')
+    result=reflow_chinese_prose(normalize_original_fullwidth_ascii(text),profile=profile,
+        protected_terms=FLOW_PROTECTED_TERMS,maximum_lines=FLOW_MAX_LINES).text
     validate_flow_layout(result)
     return result
 
@@ -211,8 +213,9 @@ class Writer:
             replacements={}
             for j,entry in enumerate(parsed.entries):
                 target=f'sd/mtzspros/{index:02d}/{j}';row=self.bind(target,entry.text)
-                width=max(len(line)-len(line.lstrip('　'))+rendered_line_width(line) for line in entry.text.split('\n'))
-                text='\n'.join(paragraphs(row['translation'],width,max_lines=len(entry.text.split('\n')),protected_terms=('下达',),line_packing='balanced')).replace(' ','　')
+                profile=self.profiles['sp_narration_scroll'];width=profile.maximum_width
+                text=reflow_chinese_prose(normalize_original_fullwidth_ascii(row['translation']),profile=profile,
+                    protected_terms=('下达',),maximum_lines=len(entry.text.split('\n'))).text.replace(' ','　')
                 replacements[entry.entry_id]=text;self.record(target,text,member=name,chunk=index,width=width,lines=len(text.split('\n')))
             rebuilt=apply_summary_replacements(data,self.table,chunk_index=index,replacements=replacements,overrides=self.codes)
             self.compressed(name,index,rebuilt,sd.MTZSPROS_TABLE)
@@ -230,7 +233,7 @@ class Writer:
                 k=int(target.rsplit('/',1)[1])-1;site=sd.FLOW_SYNOPSES[0]+k*4;at=struct.unpack_from('<I',src,site)[0]-sd.SD_STAGE_BASE
                 original=decode_text(src,at,self.table);self.bind(target,original.text)
                 text=flow_synopsis(row['translation'])
-                self.fixed(data,at,original.consumed,text,target);self.record(target,text,member=name,chunk=0,offset=at,width=29)
+                self.fixed(data,at,original.consumed,text,target);self.record(target,text,member=name,chunk=0,offset=at,width=FLOW_WIDTH)
         labels=json.loads(EPISODE_LABELS.read_text())
         require(labels['member']==name and labels['chunk']==0 and labels['label_bytes']==16 and labels['record_stride']==112,'episode label layout drift')
         require([(x['offset'],x['count'])for x in labels['tables']]==[(0x7510,21),(0x14B20,110)],'episode label table drift')
