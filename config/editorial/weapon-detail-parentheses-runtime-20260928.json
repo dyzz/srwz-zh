@@ -1,0 +1,660 @@
+{
+  "schema_version": 1,
+  "status": "three_editions_native_glyphs_and_weapon_template_codes_static_and_lrps2_verified",
+  "input_digest": "60b77e1c36113ecbfe2f641d08ebb0d4ef00a1dfb8f30112f4a410a22541ab03",
+  "batch_manifest": "work/editions/60b77e1c36113ecbfe2f641d08ebb0d4ef00a1dfb8f30112f4a410a22541ab03/original-best-sp.json",
+  "static": [
+    {
+      "edition": "original",
+      "input_digest": "60b77e1c36113ecbfe2f641d08ebb0d4ef00a1dfb8f30112f4a410a22541ab03",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "c5ad79319c158de072f2615a11b6271d055d40fefeb9098512f0d26ac473558c",
+        "size": 3758358528
+      },
+      "daily_test": {
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x2F7A80",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x3F6000",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "original",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
+          "hook_size": 1728,
+          "member": "SLPS_258.87",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1E5874",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "ac200c0c",
+              "replacement_instruction_hex": "00d80f0c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E3DF4"
+            },
+            {
+              "file_offset": "0x1ED990",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "40d90f08",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2EBF10"
+            },
+            {
+              "file_offset": "0x1ED994",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2EBF14"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "path": "build/iso/daily-test/current-original-skip.iso",
+        "runtime": "not_tested",
+        "sha256": "c5ad79319c158de072f2615a11b6271d055d40fefeb9098512f0d26ac473558c",
+        "size": 3758358528,
+        "skip_enabled": true,
+        "status": "exact_current_copy_and_skip_readback_passed"
+      },
+      "native_glyphs": [
+        {
+          "code": "8169",
+          "glyph_index": 41,
+          "packed_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa",
+          "byte_exact_original": true
+        },
+        {
+          "code": "816A",
+          "glyph_index": 42,
+          "packed_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717",
+          "byte_exact_original": true
+        },
+        {
+          "code": "8FE8",
+          "glyph_index": 2856,
+          "packed_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa",
+          "byte_exact_original": true
+        },
+        {
+          "code": "8FEB",
+          "glyph_index": 2859,
+          "packed_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717",
+          "byte_exact_original": true
+        }
+      ],
+      "weapon_detail_parentheses": {
+        "edition": "original",
+        "template_count": 7,
+        "templates": [
+          {
+            "id": "map",
+            "file_offset": "0x3454c0",
+            "parenthesis_offset": "0x3454ca",
+            "output_hex": "826c8260826f95908aed8169814081408140816a"
+          },
+          {
+            "id": "tri",
+            "file_offset": "0x3454e0",
+            "parenthesis_offset": "0x3454ea",
+            "output_hex": "82738271826895908aed8169814081408140816a"
+          },
+          {
+            "id": "all",
+            "file_offset": "0x345500",
+            "parenthesis_offset": "0x34550c",
+            "output_hex": "915391cc8d5590ca95908aed8169814081408140816a"
+          },
+          {
+            "id": "pla",
+            "file_offset": "0x345520",
+            "parenthesis_offset": "0x34552e",
+            "output_hex": "826f826b82608d5590ca95908aed8169814081408140816a"
+          },
+          {
+            "id": "one-icon",
+            "file_offset": "0x345578",
+            "parenthesis_offset": "0x345578",
+            "output_hex": "81698140816a"
+          },
+          {
+            "id": "two-icons",
+            "file_offset": "0x345580",
+            "parenthesis_offset": "0x345580",
+            "output_hex": "816981408140816a"
+          },
+          {
+            "id": "three-icons",
+            "file_offset": "0x345590",
+            "parenthesis_offset": "0x345590",
+            "output_hex": "8169814081408140816a"
+          }
+        ],
+        "native_codes": [
+          "8169",
+          "816A"
+        ],
+        "all_native_templates_exact": true
+      }
+    },
+    {
+      "edition": "best",
+      "input_digest": "60b77e1c36113ecbfe2f641d08ebb0d4ef00a1dfb8f30112f4a410a22541ab03",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "47ba9f9a3145748090a26a0f6ebdd0c00ebf8951f90e53be786885546e0da86e",
+        "size": 3755081728
+      },
+      "daily_test": {
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x2F7A80",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x3F6000",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "best",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+          "hook_size": 1728,
+          "member": "SLPS_732.70",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1E5C44",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "a0210c0c",
+              "replacement_instruction_hex": "00d80f0c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E41C4"
+            },
+            {
+              "file_offset": "0x1EDD60",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "40d90f08",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2EC2E0"
+            },
+            {
+              "file_offset": "0x1EDD64",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2EC2E4"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "path": "build/iso/daily-test/current-best-skip.iso",
+        "runtime": "not_tested",
+        "sha256": "47ba9f9a3145748090a26a0f6ebdd0c00ebf8951f90e53be786885546e0da86e",
+        "size": 3755081728,
+        "skip_enabled": true,
+        "status": "exact_current_copy_and_skip_readback_passed"
+      },
+      "native_glyphs": [
+        {
+          "code": "8169",
+          "glyph_index": 41,
+          "packed_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa",
+          "byte_exact_original": true
+        },
+        {
+          "code": "816A",
+          "glyph_index": 42,
+          "packed_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717",
+          "byte_exact_original": true
+        },
+        {
+          "code": "8FE8",
+          "glyph_index": 2856,
+          "packed_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa",
+          "byte_exact_original": true
+        },
+        {
+          "code": "8FEB",
+          "glyph_index": 2859,
+          "packed_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717",
+          "byte_exact_original": true
+        }
+      ],
+      "weapon_detail_parentheses": {
+        "edition": "best",
+        "template_count": 7,
+        "templates": [
+          {
+            "id": "map",
+            "file_offset": "0x345cb0",
+            "parenthesis_offset": "0x345cba",
+            "output_hex": "826c8260826f95908aed8169814081408140816a"
+          },
+          {
+            "id": "tri",
+            "file_offset": "0x345cd0",
+            "parenthesis_offset": "0x345cda",
+            "output_hex": "82738271826895908aed8169814081408140816a"
+          },
+          {
+            "id": "all",
+            "file_offset": "0x345cf0",
+            "parenthesis_offset": "0x345cfc",
+            "output_hex": "915391cc8d5590ca95908aed8169814081408140816a"
+          },
+          {
+            "id": "pla",
+            "file_offset": "0x345d10",
+            "parenthesis_offset": "0x345d1e",
+            "output_hex": "826f826b82608d5590ca95908aed8169814081408140816a"
+          },
+          {
+            "id": "one-icon",
+            "file_offset": "0x345d68",
+            "parenthesis_offset": "0x345d68",
+            "output_hex": "81698140816a"
+          },
+          {
+            "id": "two-icons",
+            "file_offset": "0x345d70",
+            "parenthesis_offset": "0x345d70",
+            "output_hex": "816981408140816a"
+          },
+          {
+            "id": "three-icons",
+            "file_offset": "0x345d80",
+            "parenthesis_offset": "0x345d80",
+            "output_hex": "8169814081408140816a"
+          }
+        ],
+        "native_codes": [
+          "8169",
+          "816A"
+        ],
+        "all_native_templates_exact": true
+      }
+    },
+    {
+      "edition": "sp",
+      "input_digest": "60b77e1c36113ecbfe2f641d08ebb0d4ef00a1dfb8f30112f4a410a22541ab03",
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "f77ad4df09d541629050a45fbfc82a749b1899f2b678e78a1c4e0c90b2d0e462",
+        "size": 3791781888
+      },
+      "daily_test": {
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x351100",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x450780",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "sp",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+          "hook_size": 1728,
+          "member": "SLPS_259.20",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1EA5C8",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "ec390c0c",
+              "replacement_instruction_hex": "e041110c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E9C48"
+            },
+            {
+              "file_offset": "0x1F2C00",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "20431108",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2F2280"
+            },
+            {
+              "file_offset": "0x1F2C04",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2F2284"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "path": "build/iso/daily-test/current-sp-skip.iso",
+        "runtime": "not_tested",
+        "sha256": "f77ad4df09d541629050a45fbfc82a749b1899f2b678e78a1c4e0c90b2d0e462",
+        "size": 3791781888,
+        "skip_enabled": true,
+        "status": "exact_current_copy_and_skip_readback_passed"
+      },
+      "native_glyphs": [
+        {
+          "code": "8169",
+          "glyph_index": 41,
+          "packed_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa",
+          "byte_exact_original": true
+        },
+        {
+          "code": "816A",
+          "glyph_index": 42,
+          "packed_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717",
+          "byte_exact_original": true
+        },
+        {
+          "code": "8FE8",
+          "glyph_index": 2856,
+          "packed_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa",
+          "byte_exact_original": true
+        },
+        {
+          "code": "8FEB",
+          "glyph_index": 2859,
+          "packed_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717",
+          "byte_exact_original": true
+        }
+      ],
+      "weapon_detail_parentheses": {
+        "edition": "sp",
+        "template_count": 7,
+        "templates": [
+          {
+            "id": "map",
+            "file_offset": "0x3c0c30",
+            "parenthesis_offset": "0x3c0c3a",
+            "output_hex": "826c8260826f95908aed8169814081408140816a"
+          },
+          {
+            "id": "tri",
+            "file_offset": "0x3c0c50",
+            "parenthesis_offset": "0x3c0c5a",
+            "output_hex": "82738271826895908aed8169814081408140816a"
+          },
+          {
+            "id": "all",
+            "file_offset": "0x3c0c70",
+            "parenthesis_offset": "0x3c0c7c",
+            "output_hex": "915391cc8d5590ca95908aed8169814081408140816a"
+          },
+          {
+            "id": "pla",
+            "file_offset": "0x3c0c90",
+            "parenthesis_offset": "0x3c0c9e",
+            "output_hex": "826f826b82608d5590ca95908aed8169814081408140816a"
+          },
+          {
+            "id": "one-icon",
+            "file_offset": "0x3c0ce8",
+            "parenthesis_offset": "0x3c0ce8",
+            "output_hex": "81698140816a"
+          },
+          {
+            "id": "two-icons",
+            "file_offset": "0x3c0cf0",
+            "parenthesis_offset": "0x3c0cf0",
+            "output_hex": "816981408140816a"
+          },
+          {
+            "id": "three-icons",
+            "file_offset": "0x3c0d00",
+            "parenthesis_offset": "0x3c0d00",
+            "output_hex": "8169814081408140816a"
+          }
+        ],
+        "native_codes": [
+          "8169",
+          "816A"
+        ],
+        "all_native_templates_exact": true
+      }
+    }
+  ],
+  "runtime": [
+    {
+      "edition": "original",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "c5ad79319c158de072f2615a11b6271d055d40fefeb9098512f0d26ac473558c",
+        "size": 3758358528
+      },
+      "renderer": "LRPS2 Software",
+      "cold_boot": true,
+      "old_savestate_restore": false,
+      "ram_edits": false,
+      "visual_status": "weapon_detail_verified",
+      "verified_combinations": [
+        "PLA/PB",
+        "normal/PB",
+        "TRI/B",
+        "ALL/B",
+        "normal/S-P"
+      ],
+      "runtime_binding": {
+        "path": "work/runtime/lrps2/parentheses-production-20260928/original/receipt.json",
+        "sha256": "b968456e64f0b3dce3b494e97af09546b51eeb55ccf874d7773cd7008959d7c8"
+      },
+      "screenshots": [
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/original/frames/07217-native-parentheses-pla-pb.png",
+          "sha256": "f88edd141c86700e7dd984a7d356eb52e3aa9bdebc9e425b90350812cb8754d9"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/original/frames/07310-plain-pb.png",
+          "sha256": "81b5e5917660307a61746864699f0bc9af04ab46592fa77ad6515b1497682775"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/original/frames/07403-tri-b.png",
+          "sha256": "f90105e88ef54d26fdc6399fef66dac6ae02f4eb9d4a32829e0853245c8dc0d4"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/original/frames/07496-all-b.png",
+          "sha256": "eefa701e6b79ad4328eae1b9da64cdbc5b1c742d379de6f6dea858ebd01436a4"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/original/frames/07721-plain-p.png",
+          "sha256": "16023dfe82c09a306b9c56d3f5f10037da69cb4a1e2ffb9093643d4b26bf8657"
+        }
+      ],
+      "pb_native_reference": {
+        "reference": "work/runtime/lrps2/parentheses-20260928/sp-japanese/natural-ranged.png",
+        "reference_crop": [
+          335,
+          394,
+          387,
+          416
+        ],
+        "actual_crop": [
+          299,
+          394,
+          351,
+          416
+        ],
+        "method": "black/white/background mask; excludes varying background brightness",
+        "different_mask_pixels": 0,
+        "mask_pixel_count": 1144
+      }
+    },
+    {
+      "edition": "best",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "47ba9f9a3145748090a26a0f6ebdd0c00ebf8951f90e53be786885546e0da86e",
+        "size": 3755081728
+      },
+      "renderer": "LRPS2 Software",
+      "cold_boot": true,
+      "old_savestate_restore": false,
+      "ram_edits": false,
+      "visual_status": "weapon_detail_verified",
+      "verified_combinations": [
+        "PLA/PB",
+        "normal/PB",
+        "TRI/B",
+        "ALL/B",
+        "normal/S-P"
+      ],
+      "runtime_binding": {
+        "path": "work/runtime/lrps2/parentheses-production-20260928/best-native-run/receipt.json",
+        "sha256": "143eaee880b87b58439b7a7ff8156cf3e27060040fbbd2c02e773ab15fe80bd7"
+      },
+      "screenshots": [
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/best-native-run/frames/07217-native-parentheses-pla-pb.png",
+          "sha256": "f88edd141c86700e7dd984a7d356eb52e3aa9bdebc9e425b90350812cb8754d9"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/best-native-run/frames/07310-plain-pb.png",
+          "sha256": "81b5e5917660307a61746864699f0bc9af04ab46592fa77ad6515b1497682775"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/best-native-run/frames/07403-tri-b.png",
+          "sha256": "f90105e88ef54d26fdc6399fef66dac6ae02f4eb9d4a32829e0853245c8dc0d4"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/best-native-run/frames/07496-all-b.png",
+          "sha256": "eefa701e6b79ad4328eae1b9da64cdbc5b1c742d379de6f6dea858ebd01436a4"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/best-native-run/frames/07721-plain-p.png",
+          "sha256": "16023dfe82c09a306b9c56d3f5f10037da69cb4a1e2ffb9093643d4b26bf8657"
+        }
+      ],
+      "pb_native_reference": {
+        "reference": "work/runtime/lrps2/parentheses-20260928/sp-japanese/natural-ranged.png",
+        "reference_crop": [
+          335,
+          394,
+          387,
+          416
+        ],
+        "actual_crop": [
+          299,
+          394,
+          351,
+          416
+        ],
+        "method": "black/white/background mask; excludes varying background brightness",
+        "different_mask_pixels": 0,
+        "mask_pixel_count": 1144
+      }
+    },
+    {
+      "edition": "sp",
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "f77ad4df09d541629050a45fbfc82a749b1899f2b678e78a1c4e0c90b2d0e462",
+        "size": 3791781888
+      },
+      "renderer": "LRPS2 Software",
+      "cold_boot": true,
+      "old_savestate_restore": false,
+      "ram_edits": false,
+      "visual_status": "weapon_detail_verified",
+      "verified_combinations": [
+        "PLA/PB",
+        "normal/PB",
+        "TRI/B",
+        "ALL/B",
+        "normal/S-P"
+      ],
+      "runtime_binding": {
+        "path": "work/runtime/lrps2/parentheses-production-20260928/sp/commands.jsonl",
+        "sha256": "50060ac48ba5578f276fd246be1b8ea71bf434719404dafe7aaa6ea457c85cf5"
+      },
+      "screenshots": [
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/sp/natural-ranged.png",
+          "sha256": "1a19116152ba6191e88799b63a45489bddddb55b24b939443b256fac3bae7783"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/sp/plain-pb.png",
+          "sha256": "bd806c67aaebb5af114a4aa82b8b94c27c43588a1175ab33f7bc7d433be0b88c"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/sp/tri-b.png",
+          "sha256": "600be87a0516fba9cd6ce3f13792bd0ff33a8d67e4387e59834fc88514c655ac"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/sp/all-b.png",
+          "sha256": "9716e74a7018f405f4852644c33cb650da22056ce3c4d858fa42569db2839c12"
+        },
+        {
+          "path": "work/runtime/lrps2/parentheses-production-20260928/sp/plain-p.png",
+          "sha256": "a1bcb6b5883212750f2043ca65d974909b1627550b60586214b41bbd5ee5f8fa"
+        }
+      ],
+      "pb_native_reference": {
+        "reference": "work/runtime/lrps2/parentheses-20260928/sp-japanese/natural-ranged.png",
+        "reference_crop": [
+          335,
+          394,
+          387,
+          416
+        ],
+        "actual_crop": [
+          299,
+          394,
+          351,
+          416
+        ],
+        "method": "black/white/background mask; excludes varying background brightness",
+        "different_mask_pixels": 0,
+        "mask_pixel_count": 1144
+      }
+    }
+  ],
+  "source_memory_cards_unchanged": true,
+  "related_unit_tests": 65,
+  "not_verified": [
+    "MAP runtime",
+    "standalone P runtime",
+    "PCSX2 manual acceptance",
+    "all game surfaces"
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "status": "native_parentheses_static_and_lrps2_weapon_detail_verified",
+  "font": {
+    "status": "full_decoded_font_two_parentheses_only",
+    "source_iso": {
+      "path": "work/review/parentheses-sp-20260928/sp-before.iso",
+      "sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700"
+    },
+    "output_iso": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "f6935e848d632d6221cbf1bff29366e3d252173eac003b1da1a30bcec1ef1c5d",
+      "size": 3791781888
+    },
+    "glyph_count": 4480,
+    "changed_glyph_indices": [
+      2856,
+      2859
+    ],
+    "all_other_glyphs_byte_exact": true,
+    "native_parentheses": {
+      "changed_glyphs": [
+        2856,
+        2859
+      ],
+      "codes_unchanged": true,
+      "copies": [
+        {
+          "character": "（",
+          "glyph_index": 41,
+          "packed_glyph_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa",
+          "source_code": "8169"
+        },
+        {
+          "character": "）",
+          "glyph_index": 42,
+          "packed_glyph_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717",
+          "source_code": "816A"
+        },
+        {
+          "character": "（",
+          "glyph_index": 2856,
+          "packed_glyph_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa",
+          "source_code": "8169"
+        },
+        {
+          "character": "）",
+          "glyph_index": 2859,
+          "packed_glyph_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717",
+          "source_code": "816A"
+        }
+      ],
+      "decoded_font_sha256": "6899ee8dff6c7c0973b741185407432a6798d36d58ff69d3b75ffc937127830f",
+      "mode": "copy_original_sp_parentheses",
+      "renderer_widths_unchanged": true,
+      "source_decoded_font_sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd"
+    }
+  },
+  "current_isos": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "3fe887bbc31f9fdf51514fbe9f2aa929c46fabdc4c885721703ed9c5ac6ae129",
+      "size": 3758358528
+    },
+    "sp": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "f6935e848d632d6221cbf1bff29366e3d252173eac003b1da1a30bcec1ef1c5d",
+      "size": 3791781888
+    }
+  },
+  "renderer": "LRPS2 Software (SW)",
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "source_card_sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+  "source_card_unchanged": true,
+  "isolated_card_copies": true,
+  "sp_runtime_commands": {
+    "before": {
+      "path": "work/review/parentheses-sp-20260928/before-runtime/commands.jsonl",
+      "sha256": "b73205778e25412971b50d1f64a340a783c5492c32c4c6e93e0daf01b7e1cddb",
+      "cold_boot": true,
+      "ram_edits": false,
+      "saved_state_restoration": false,
+      "pla_capture_frame": 7705
+    },
+    "after": {
+      "path": "work/runtime/lrps2/parentheses-20260928/sp-after/commands.jsonl",
+      "sha256": "b52171e37f3881c4c2a7f770813991f1d160da980d2398145551fdf9317cb7e9",
+      "cold_boot": true,
+      "ram_edits": false,
+      "saved_state_restoration": false,
+      "pla_capture_frame": 7705
+    }
+  },
+  "main_cold_boot_receipt": {
+    "path": "work/runtime/lrps2/parentheses-20260928/main/receipt.json",
+    "sha256": "6075f69036b1ec8948e763769c8043d7a18308b42b3376c5cd6b753a406ae2fc"
+  },
+  "screenshots": [
+    {
+      "path": "work/review/parentheses-sp-20260928/before-runtime/natural-ranged.png",
+      "sha256": "e332590967ee69ae9d9ec46c62190dbb13c3f9bd74905d7b58190365e1f43e58"
+    },
+    {
+      "path": "work/runtime/lrps2/parentheses-20260928/sp-after/natural-ranged.png",
+      "sha256": "44007ed402b54445ceeee084d64eb2fb5473477eabcba14e062c41a0cc9196c0"
+    },
+    {
+      "path": "work/runtime/lrps2/parentheses-20260928/sp-after/tri-b.png",
+      "sha256": "489cbaf94ba2eeba6cdc847bafee449a7f7cb4a6c03da14cd0579661b238e84e"
+    },
+    {
+      "path": "work/runtime/lrps2/parentheses-20260928/sp-after/all-b.png",
+      "sha256": "3dd30617a8400a35658ac0e14b1feff0fea7277bfe59b226ff69a98bc761a98f"
+    },
+    {
+      "path": "work/runtime/lrps2/parentheses-20260928/main/frames/07217-native-parentheses-pla-pb.png",
+      "sha256": "022bb85815e7581c7cda717d3b598c101b10a8c59bc487cba2ffbc4b5bcbfe9c"
+    },
+    {
+      "path": "work/runtime/lrps2/parentheses-20260928/sp-detail-before-after.png",
+      "sha256": "f4e63a42186df3ca13eb0c6033047044647e64ac7b81d1baf2e6e49259318ecb"
+    }
+  ],
+  "visual_findings": [
+    "PLA and PB icons remain fully visible with a distinct closing parenthesis.",
+    "Category parentheses retain the original glyph and existing icon placement.",
+    "TRI/B and ALL/B templates inspected after natural menu navigation."
+  ],
+  "tests": {
+    "native_parentheses": 2,
+    "special_disc_font_refresh": 3,
+    "sp_edition_readback": 3,
+    "special_disc_build_publication": 3
+  },
+  "limitations": [
+    "LRPS2 Software screenshots; no new PCSX2 manual acceptance.",
+    "This changes font pixels; dynamic icon placement and text advancement are unchanged."
+  ]
+}
