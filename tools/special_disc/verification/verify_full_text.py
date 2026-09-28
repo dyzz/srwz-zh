@@ -33,6 +33,7 @@ from special_disc.writeback.qa_layout import page as qa_page
 from srwz.qa_typography import shared_records
 from special_disc.writeback.squad_names import verify_nisv_names
 from write_frame_text import validate_flow_layout
+from parenthesis_glyphs import verify_parentheses
 
 
 def main(iso=None, work=None):
@@ -53,6 +54,12 @@ def main(iso=None, work=None):
     for name,expected in manifest['files'].items():require(sha(member(name))==expected,f'ISO member drift: {name}')
     for path,expected in manifest['components'].items():require(file_sha(ROOT/path)==expected,f'component report drift: {path}')
     table,_,overrides,readback=st.mst.encoding_tables(PROPOSAL)
+    proposal=load(PROPOSAL)
+    font_assignments=[r for key in ('assignments','surface_alias_assignments',
+                                  'source_compatibility_assignments') for r in proposal[key]]
+    native_parentheses=verify_parentheses(
+        member('DATA/VT1.BIN'),member('SLPS_259.20'),st.read_disc_member('DATA/VT1.BIN'),
+        st.read_disc_member('SLPS_259.20'),font_assignments,manifest['native_parentheses'])
     instructions=verify_overrides(member,readback)
     require(all(instructions[k]==manifest['instruction_overrides'][k] for k in ('targets','corpus_sha256','layout_sha256')),
             'instruction override receipt drift')
@@ -255,6 +262,7 @@ def main(iso=None, work=None):
     result['instruction_overrides']=instructions
     result['scope']+=' Reviewed fixed instructions, Q&A metadata and explicit tutorial/Q&A page records.'
     result['weapon_detail_labels']=weapon_labels
+    result['native_parentheses']=native_parentheses
     result['data_link_bonus']=link_bonus
     result['battle_square_skip']=skip_report
     result['scope']+=' Weapon category/effect-2 MIPS strings and surrounding native instructions.'
