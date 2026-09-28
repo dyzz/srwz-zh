@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全角与正文排版调整清单 · 2026-09-28</title>
+<style>
+:root{color-scheme:light;font:16px/1.7 system-ui,sans-serif;color:#183140;background:#f2f5f4}*{box-sizing:border-box}body{margin:0}main{max-width:1250px;margin:auto;padding:35px 28px}h1{font-size:30px;margin:0}h2{font-size:21px;margin:22px 0 8px}p{margin:8px 0}.muted{color:#5f737b;font-size:14px}.card{background:white;border:1px solid #d8e2df;border-radius:12px;padding:20px;margin:18px 0}.metrics{display:flex;gap:32px;flex-wrap:wrap}.metrics strong{font-size:28px;display:block}.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}.compare img{width:100%;display:block;border-radius:6px}label{display:inline-block;margin:4px 10px 4px 0}select,input,button{font:inherit;padding:6px 9px;border:1px solid #becdc8;border-radius:6px;background:white}input{width:280px}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}table{border-collapse:collapse;width:100%;font-size:14px}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #e0e8e5;padding:12px 8px}th{background:#eef4f1}pre{white-space:pre-wrap;font:15px/1.7 system-ui,sans-serif;margin:6px 0;overflow-wrap:anywhere}.badge{color:#256756;font-size:12px}.path{font:12px/1.5 monospace;color:#637780;overflow-wrap:anywhere}.warn{color:#9a4c2b}details summary{cursor:pointer}.pages{display:flex;gap:12px;align-items:center;margin:12px 0}.scroll{overflow-x:auto}@media(max-width:700px){main{padding:20px 12px}.compare{grid-template-columns:1fr}input{width:100%}}
+</style>
+<main>
+<h1>全角字符与正文排版调整清单</h1>
+<p class="muted">本体 / BEST / SP · 2026-09-28 · 源文本候选与排版预览</p>
+<section class="card"><div class="metrics"><div><strong>233</strong>已扫描语料文件</div><div><strong id="count"></strong>收窄候选文本</div><div><strong id="runs"></strong>英数表达式段</div><div><strong>4</strong>预览待处理项</div></div>
+<p>可见英文、数字和空格最终使用全角双字节字形码。连续表达式超过 2 个可见字符时，考虑 14 px 字形 / 12 px 推进；中文标点保留原宽。各页面恢复值分别验证。</p>
+<p>正文先保护词语、专名、句意和段落，再在段内尽量均匀分行。以下是审查清单，尚未批量修改语料或完成三版生产验收。</p>
+<p class="muted">候选按源文本所有者统计。本体与 BEST 共用语料，不重复相加；实际绑定、固定槽容量、名称缓存和动态数值仍需逐显示面检查。</p></section>
+<h2>甲儿面板中的测试正文</h2><p class="muted">将已审校的 Dove 介绍借入甲儿面板验证排版，截图不代表甲儿本人的图鉴内容。显式恢复正文初始宽度后，两行完整显示。</p>
+<div class="compare"><div><p>原分行</p><img src="runtime/character-before.png" alt="Dove 与一起被拆行"></div><div><p>句意优先后的分行</p><img src="runtime/character-explicit-body-start.png" alt="完整显示两行，句子分行"></div></div>
+<h2>SP 剧情流程</h2><div class="compare"><div><p>原分行</p><img src="runtime/flow-before.png" alt="战斗结束拆词"></div><div><p>词语保护与段内平衡</p><img src="runtime/flow-balanced.png" alt="结束不拆词，末段平衡"></div></div>
+<p class="muted">LRPS2 Software 隔离 RAM 对照；当前实现的角色正文载荷已逐字节核对。原版 / BEST 流程及三版滚动字幕仍待各自原生显示与滚动时序验证。</p>
+<section class="card"><h2>逐条清单</h2>
+<label>类别 <select id="queue"><option value="compact">英数收窄候选</option><option value="prose">正文排版预览</option><option value="symbols">特殊符号复核</option><option value="dynamic">动态模板与姓名变量</option></select></label>
+<label>版本 <select id="edition"><option value="">全部</option><option value="original">本体</option><option value="best">BEST</option><option value="sp">SP</option></select></label>
+<label>显示面 <select id="group"></select></label><label>状态 <select id="status"></select></label>
+<label>搜索 <input id="search" placeholder="正文、ID、表达式或来源路径"></label>
+<p class="muted" id="note"></p><div class="pages"><button id="prev">上一页</button><span id="page"></span><button id="next">下一页</button></div>
+<div class="scroll"><table><thead><tr><th style="width:25%">显示面与来源</th><th>文本 / 排版对照</th><th style="width:20%">表达式 / 状态</th></tr></thead><tbody id="rows"></tbody></table></div>
+</section>
+</main>
+<script id="data" type="application/json">__REVIEW_DATA__</script>
+<script>
+const data=JSON.parse(document.getElementById('data').textContent), $=id=>document.getElementById(id);
+const labels={main_dialogue:'本篇对白',main_system_dialogue:'系统对白',library_body:'图鉴正文',library_metadata:'图鉴字段',main_battle_text:'战斗文本',main_menu_and_help:'菜单与帮助',main_fixed_help_qa:'固定帮助与 Q&A',main_flow_long:'本篇流程长梗概',main_flow_short:'本篇流程短摘要',main_world_history_scroll:'本篇世界观滚动字幕',sp_flow_long:'SP 流程长梗概',sp_flow_short:'SP 流程短摘要',sp_narration_scroll:'SP 滚动字幕',sp_stage_source:'SP 剧情源文本',sp_native_ui:'SP 原生界面',sp_conditions:'SP 条件',sp_fixed_pages:'SP 固定页面',sp_names:'SP 名称',name_authoring_sources:'机体 / 武器名源文本',texture_labels:'图片字形',library_character:'人物图鉴正文',library_robot:'机体图鉴正文',library_glossary:'术语图鉴正文',main_flow:'本篇流程',main_scroll:'本篇滚动字幕',sp_flow:'SP 流程',sp_scroll:'SP 滚动字幕'};
+Object.assign(labels,{main_conditions:'本篇条件',main_z_reports:'Z 报告',sp_stage_titles:'SP 关卡标题',speaker_and_pilot_names:'说话者 / 驾驶员名',stage_and_chapter_titles:'关卡 / 章节标题',work_titles:'作品标题'});
+const statuses={plain_candidate:'无标签候选',symbol_review:'含待审符号',existing_dimensions_review:'已有宽度标签',other_controls_review:'含其他控制码',dynamic_template:'动态模板',texture_glyph_review:'图片字形',blocked:'超过当前布局约束',changed:'分行变化',unchanged:'分行未变化'};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let page=0;const size=80;
+function selectors(){const rows=data.queues[$('queue').value];for(const id of ['group','status']){const values=[...new Set(rows.map(r=>r[id]||''))].filter(Boolean).sort();$(id).innerHTML='<option value="">全部</option>'+values.map(x=>`<option value="${esc(x)}">${esc((id==='group'?labels:statuses)[x]||x)}</option>`).join('');}}
+function render(){let rows=data.queues[$('queue').value],q=$('search').value.toLowerCase();rows=rows.filter(r=>(!$('edition').value||r.editions.includes($('edition').value))&&(!$('group').value||r.group===$('group').value)&&(!$('status').value||r.status===$('status').value)&&(!q||JSON.stringify(r).toLowerCase().includes(q)));const max=Math.max(1,Math.ceil(rows.length/size));page=Math.min(page,max-1);$('page').textContent=`${rows.length.toLocaleString()} 条 · ${page+1} / ${max} 页`;$('prev').disabled=page===0;$('next').disabled=page+1>=max;
+$('note').textContent={compact:'候选表示需要检查，已有标签、动态模板和图片字形不能直接批量加入文本控制码。',symbols:'此表包含已存在的中点、破折号等字形，表示覆盖范围；不表示这些标点都必须修改。',dynamic:'变量和格式串需检查展开后的最长文本与原生格式契约。运行时生成的 HP、EN、命中率等数值另列在调整计划。',prose:'每条对照保留可见内容与段落。预览通过不等于固定槽容量、滚动时序或生产运行已验收。'}[$('queue').value];
+$('rows').innerHTML=rows.slice(page*size,(page+1)*size).map(r=>`<tr><td><strong>${esc(labels[r.group]||r.group)}</strong><div class="badge">${esc(r.editions.join(' / '))}</div><div class="path">${esc(r.id)}<br>${esc(r.path)}</div></td><td>${$('queue').value==='prose'?`<div class="compare"><div><span class="badge">原分行</span><pre>${esc(r.before)}</pre></div><div><span class="badge">候选分行</span><pre>${esc(r.after||r.error)}</pre></div></div>`:`<pre>${esc(r.text)}</pre>`}</td><td><span class="${r.error?'warn':'badge'}">${esc(statuses[r.status]||r.template||'字形复核')}</span><pre>${esc((r.runs||[]).map(x=>x.text).join(' / ')||(r.symbols||[]).join(' '))}</pre>${r.error?`<p class="warn">${esc(r.error)}</p>`:''}${r.variant?`<div class="path">${esc(({balanced_plain:'段内平衡 · 原宽',balanced_compact:'段内平衡 · 英数收窄'})[r.variant]||r.variant)}</div>`:''}</td></tr>`).join('');}
+$('count').textContent=data.count.toLocaleString();$('runs').textContent=data.runs.toLocaleString();$('queue').addEventListener('change',()=>{page=0;selectors();render()});for(const id of ['edition','group','status','search'])$(id).addEventListener(id==='search'?'input':'change',()=>{page=0;render()});$('prev').onclick=()=>{page--;render()};$('next').onclick=()=>{page++;render()};selectors();render();
+</script></html>
