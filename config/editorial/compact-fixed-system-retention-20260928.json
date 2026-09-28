@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "applied": true,
+  "publication": "local_only",
+  "scope": "fixed_stage_system_capacity",
+  "sources": {
+    "corpus/zh/story-system-dialogue.json": {
+      "before_sha256": "e2625747d0ccb930c0bd45efa9b087164c8eef8705d3f548648aaa3a36d48769",
+      "after_sha256": "39b608458b09b6e93388981f283008ae4b20200402452d5eaa213debfd188851",
+      "snapshot": "work/reviews/compact-inventory-20260928/compact-execution/before-fixed-system-retention/corpus/zh/story-system-dialogue.json"
+    }
+  },
+  "changes": [
+    {
+      "path": "corpus/zh/story-system-dialogue.json",
+      "id": "story/000/system-dialogue/01E9C0",
+      "json_pointer": "/entries/360/translation",
+      "group": "main_system_dialogue",
+      "before": "“<width:0E><space:0C>Attention<width:16><space:16>！（立正！）”",
+      "after": "“Attention！（立正！）”",
+      "after_sha256": "d9e36ec97b9ba7bb22d14467d433bad3638318a69588e01e273105437af64c79",
+      "outcome": "retained_due_fixed_allocation",
+      "reason": "Closed compact scope requires 50 bytes in a 48-byte native system dialogue slot. Original complete text retained."
+    },
+    {
+      "path": "corpus/zh/story-system-dialogue.json",
+      "id": "story/000/system-dialogue/01EAC0",
+      "json_pointer": "/entries/362/translation",
+      "group": "main_system_dialogue",
+      "before": "“<width:0E><space:0C>Parade<width:16><space:16>！<width:0E><space:0C>Rest<width:16><space:16>！\n　（列队！稍息！）”",
+      "after": "“Parade！Rest！\n　（列队！稍息！）”",
+      "after_sha256": "eecaf21715ddfd9dcb85e329fd052c5e567309fd8db0e45b7886c7eac3d7b926",
+      "outcome": "retained_due_fixed_allocation",
+      "reason": "Closed compact scope requires 71 bytes in a 64-byte native system dialogue slot. Original complete text retained."
+    },
+    {
+      "path": "corpus/zh/story-system-dialogue.json",
+      "id": "story/000/system-dialogue/01EE40",
+      "json_pointer": "/entries/369/translation",
+      "group": "main_system_dialogue",
+      "before": "“别管托比的玩笑话，少尉。\n　那么，<width:0E><space:0C>Dismissed<width:16><space:16>！（解散！）”",
+      "after": "“别管托比的玩笑话，少尉。\n　那么，Dismissed！（解散！）”",
+      "after_sha256": "277bbfdd01d3300d9e1d5a01ed07edab4e46cf90c581802f4ebac98e2502999b",
+      "outcome": "retained_due_fixed_allocation",
+      "reason": "Closed compact scope requires 83 bytes in a 80-byte native system dialogue slot. Original complete text retained."
+    }
+  ],
+  "validation": {
+    "entries": 379,
+    "overflow_retained": 3,
+    "native_writer_roundtrip": "passed"
+  }
+}

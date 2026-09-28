@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "applied": true,
+  "publication": "local_only",
+  "scope": "mixed_keyword_catalog_guards",
+  "sources": {
+    "corpus/zh/story-dialogue/stage-005.json": {
+      "before_sha256": "160e738fdee5c10b2ee02586d2230230ee64df115f1688638a712e6093d2e063",
+      "after_sha256": "ff9c4ac14c24782e6dbd6587ffb9aace60c09386eaaf6ac729d6aaff58021025",
+      "snapshot": "work/reviews/compact-inventory-20260928/compact-execution/before-keyword-repair/corpus/zh/story-dialogue/stage-005.json"
+    }
+  },
+  "changes": [
+    {
+      "path": "corpus/zh/story-dialogue/stage-005.json",
+      "id": "story/005/dialogue/02.02/0031",
+      "json_pointer": "/entries/222/translation",
+      "group": "main_dialogue",
+      "before": "（《<width:0E><space:0C>PLANT<width:16><space:16>评议会议长》这个头衔……\n　从刚才的话判断，可以说他是把世界一分为二\n　的两大阵营之一的最高领袖，但是……）",
+      "after": "（《PLANT评议会议长》这个头衔……\n　从刚才的话判断，可以说他是把世界一分为二\n　的两大阵营之一的最高领袖，但是……）",
+      "after_sha256": "5769ecf57f6d47e2e7d36428b392c2a896326d8a7c00010aa448304409ae88a7",
+      "outcome": "catalog_link_preserved",
+      "reason": "Mixed-language catalog label kept byte-for-byte; surrounding dialogue rechecked at the original width."
+    }
+  ]
+}
