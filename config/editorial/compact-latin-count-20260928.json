@@ -1,0 +1,520 @@
+{
+  "schema_version": 1,
+  "batch_id": "compact-latin-count-20260928",
+  "source_head": "5ab876dfc199d40d8459e157e6def67c3ff05547",
+  "applied": false,
+  "rule": "At least three visible characters in a Latin/alphanumeric phrase including internal separators. Pure numbers and control syntax excluded. Hyphen and slash belong to the same identifier.",
+  "coverage": "Current main ordinary dialogue corpus shared by Original/BEST; current SP native ordinary dialogue bindings; unique final-ISO unit/weapon-table string pointers. Other menus, battle subtitles, library descriptions and texture labels are outside this count.",
+  "counting": "Dialogue edit count is corpus path plus entry ID; runtime bindings count separately. Name count is unique physical payload, not a count of source edit records. BEST shared corpus is not counted as a second edit.",
+  "main_shared_dialogue": {
+    "scanned_entries": 83668,
+    "matching_entries": 1937,
+    "matching_runs": 2044,
+    "old_threshold_8_entries": 329,
+    "old_threshold_8_runs": 338,
+    "new_threshold_only_entries": 1608,
+    "status_entries": {
+      "plain_candidate": 1900,
+      "other_controls": 37
+    }
+  },
+  "sp_bound_dialogue": {
+    "scanned_entries": 7853,
+    "matching_entries": 142,
+    "matching_runs": 151,
+    "old_threshold_8_entries": 14,
+    "old_threshold_8_runs": 14,
+    "new_threshold_only_entries": 128,
+    "status_entries": {
+      "plain_candidate": 140,
+      "other_controls": 2
+    },
+    "matching_bindings": 145,
+    "borrowed_main_matching_entries": 8,
+    "additional_matching_entries": 134
+  },
+  "unique_dialogue_matching_entries": 2071,
+  "unique_dialogue_matching_runs": 2185,
+  "unique_plain_dialogue_candidates": 2032,
+  "unique_dialogue_candidates_with_other_controls": 39,
+  "names": [
+    {
+      "edition": "original",
+      "kind": "unit-name",
+      "iso_path": "build/iso/zh-release-original/current-original.iso",
+      "decoded_compdata_sha256": "8c91894d99c31098f4a22f87799932bc4fc2a6953d3b405db3ac9a8146cf8970",
+      "scanned_entries": 348,
+      "matching_entries": 18,
+      "matching_runs": 18,
+      "old_threshold_8_entries": 1,
+      "old_threshold_8_runs": 1,
+      "new_threshold_only_entries": 17,
+      "status_entries": {
+        "plain_candidate": 18
+      },
+      "top_runs": [
+        [
+          "Geo",
+          4
+        ],
+        [
+          "BIG-DUO",
+          2
+        ],
+        [
+          "TFO",
+          1
+        ],
+        [
+          "III",
+          1
+        ],
+        [
+          "Mk-II",
+          1
+        ]
+      ]
+    },
+    {
+      "edition": "original",
+      "kind": "weapon-table-text",
+      "iso_path": "build/iso/zh-release-original/current-original.iso",
+      "decoded_compdata_sha256": "8c91894d99c31098f4a22f87799932bc4fc2a6953d3b405db3ac9a8146cf8970",
+      "scanned_entries": 711,
+      "matching_entries": 97,
+      "matching_runs": 100,
+      "old_threshold_8_entries": 30,
+      "old_threshold_8_runs": 30,
+      "new_threshold_only_entries": 67,
+      "status_entries": {
+        "plain_candidate": 97
+      },
+      "top_runs": [
+        [
+          "CIWS",
+          7
+        ],
+        [
+          "GUN",
+          3
+        ],
+        [
+          "MA-BAR72",
+          2
+        ],
+        [
+          "MMI-M633",
+          2
+        ],
+        [
+          "M181SE",
+          2
+        ]
+      ]
+    },
+    {
+      "edition": "best",
+      "kind": "unit-name",
+      "iso_path": "build/iso/zh-release-best/current-best.iso",
+      "decoded_compdata_sha256": "de35fd266b1df73f9436a5d7ecbef2782825af663143770281b45ead7fd7b681",
+      "scanned_entries": 348,
+      "matching_entries": 18,
+      "matching_runs": 18,
+      "old_threshold_8_entries": 1,
+      "old_threshold_8_runs": 1,
+      "new_threshold_only_entries": 17,
+      "status_entries": {
+        "plain_candidate": 18
+      },
+      "top_runs": [
+        [
+          "Geo",
+          4
+        ],
+        [
+          "BIG-DUO",
+          2
+        ],
+        [
+          "TFO",
+          1
+        ],
+        [
+          "III",
+          1
+        ],
+        [
+          "Mk-II",
+          1
+        ]
+      ]
+    },
+    {
+      "edition": "best",
+      "kind": "weapon-table-text",
+      "iso_path": "build/iso/zh-release-best/current-best.iso",
+      "decoded_compdata_sha256": "de35fd266b1df73f9436a5d7ecbef2782825af663143770281b45ead7fd7b681",
+      "scanned_entries": 711,
+      "matching_entries": 97,
+      "matching_runs": 100,
+      "old_threshold_8_entries": 30,
+      "old_threshold_8_runs": 30,
+      "new_threshold_only_entries": 67,
+      "status_entries": {
+        "plain_candidate": 97
+      },
+      "top_runs": [
+        [
+          "CIWS",
+          7
+        ],
+        [
+          "GUN",
+          3
+        ],
+        [
+          "MA-BAR72",
+          2
+        ],
+        [
+          "MMI-M633",
+          2
+        ],
+        [
+          "M181SE",
+          2
+        ]
+      ]
+    },
+    {
+      "edition": "sp",
+      "kind": "unit-name",
+      "iso_path": "build/iso/special-disc/sp-current.iso",
+      "decoded_compdata_sha256": "4485c7573b3d998e128e513285c1a58f24a57570cf578d31f77affcca305c198",
+      "scanned_entries": 340,
+      "matching_entries": 17,
+      "matching_runs": 17,
+      "old_threshold_8_entries": 1,
+      "old_threshold_8_runs": 1,
+      "new_threshold_only_entries": 16,
+      "status_entries": {
+        "plain_candidate": 17
+      },
+      "top_runs": [
+        [
+          "Geo",
+          4
+        ],
+        [
+          "BIG-DUO",
+          2
+        ],
+        [
+          "TFO",
+          1
+        ],
+        [
+          "Mk-II",
+          1
+        ],
+        [
+          "D.O.M.E.G-Bit",
+          1
+        ]
+      ]
+    },
+    {
+      "edition": "sp",
+      "kind": "weapon-table-text",
+      "iso_path": "build/iso/special-disc/sp-current.iso",
+      "decoded_compdata_sha256": "4485c7573b3d998e128e513285c1a58f24a57570cf578d31f77affcca305c198",
+      "scanned_entries": 726,
+      "matching_entries": 98,
+      "matching_runs": 101,
+      "old_threshold_8_entries": 31,
+      "old_threshold_8_runs": 31,
+      "new_threshold_only_entries": 67,
+      "status_entries": {
+        "plain_candidate": 98
+      },
+      "top_runs": [
+        [
+          "CIWS",
+          7
+        ],
+        [
+          "GUN",
+          3
+        ],
+        [
+          "MA-BAR72",
+          2
+        ],
+        [
+          "MMI-M633",
+          2
+        ],
+        [
+          "M181SE",
+          2
+        ]
+      ]
+    }
+  ],
+  "runtime": {
+    "type": "Selected real candidate text in isolated current-SP RAM probes; not natural source scene acceptance",
+    "iso_sha256": "dcc04fb9aa5ef9555597f0e2dd5083e6c05e9c2d1f16c1d088b4f2bcc390e700",
+    "card_sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+    "source_card_unchanged": true,
+    "renderer": "LRPS2 Software",
+    "cases": [
+      {
+        "case": "names-short-default",
+        "source_unit": "TFO",
+        "source_weapon": "M68　连装炮",
+        "labels": {
+          "unit": {
+            "text": "TFO",
+            "encoded_bytes": 7,
+            "occupied_px": 54
+          },
+          "weapon": {
+            "text": "M68　连装炮",
+            "encoded_bytes": 15,
+            "occupied_px": 126
+          }
+        }
+      },
+      {
+        "case": "names-short-compact",
+        "source_unit": "TFO",
+        "source_weapon": "M68　连装炮",
+        "labels": {
+          "unit": {
+            "text": "<width:0E><space:0C>TFO<width:12><space:12>",
+            "encoded_bytes": 15,
+            "occupied_px": 38
+          },
+          "weapon": {
+            "text": "<width:0E><space:0C>M68<width:12><space:12>　连装炮",
+            "encoded_bytes": 23,
+            "occupied_px": 108
+          }
+        }
+      },
+      {
+        "case": "names-hyphen-default",
+        "source_unit": "BIG-DUO地狱",
+        "source_weapon": "MA-BAR72　高能光束步枪（连射）",
+        "labels": {
+          "unit": {
+            "text": "BIG-DUO地狱",
+            "encoded_bytes": 19,
+            "occupied_px": 162
+          },
+          "weapon": {
+            "text": "MA-BAR72　高能光束步枪（连射）",
+            "encoded_bytes": 39,
+            "occupied_px": 342
+          }
+        }
+      },
+      {
+        "case": "names-hyphen-compact",
+        "source_unit": "BIG-DUO地狱",
+        "source_weapon": "MA-BAR72　高能光束步枪（连射）",
+        "labels": {
+          "unit": {
+            "text": "<width:0E><space:0C>BIG-DUO<width:12><space:12>地狱",
+            "encoded_bytes": 27,
+            "occupied_px": 120
+          },
+          "weapon": {
+            "text": "<width:0E><space:0C>MA-BAR72<width:12><space:12>　高能光束步枪（连射）",
+            "encoded_bytes": 47,
+            "occupied_px": 294
+          }
+        }
+      },
+      {
+        "case": "names-mixed-default",
+        "source_unit": "大贝克RX3",
+        "source_weapon": "MMI-GAU25A　20毫米CIWS",
+        "labels": {
+          "unit": {
+            "text": "大贝克RX3",
+            "encoded_bytes": 13,
+            "occupied_px": 108
+          },
+          "weapon": {
+            "text": "MMI-GAU25A　20毫米CIWS",
+            "encoded_bytes": 39,
+            "occupied_px": 342
+          }
+        }
+      },
+      {
+        "case": "names-mixed-compact",
+        "source_unit": "大贝克RX3",
+        "source_weapon": "MMI-GAU25A　20毫米CIWS",
+        "labels": {
+          "unit": {
+            "text": "大贝克<width:0E><space:0C>RX3<width:12><space:12>",
+            "encoded_bytes": 21,
+            "occupied_px": 92
+          },
+          "weapon": {
+            "text": "<width:0E><space:0C>MMI-GAU25A 20<width:12><space:12>毫米<width:0E><space:0C>CIWS<width:12><space:12>",
+            "encoded_bytes": 55,
+            "occupied_px": 242
+          }
+        }
+      },
+      {
+        "case": "names-long-default",
+        "source_unit": "D.O.M.E.G-Bit",
+        "source_weapon": "HEAT　CRUSHER",
+        "labels": {
+          "unit": {
+            "text": "D.O.M.E.G-Bit",
+            "encoded_bytes": 27,
+            "occupied_px": 234
+          },
+          "weapon": {
+            "text": "HEAT　CRUSHER",
+            "encoded_bytes": 25,
+            "occupied_px": 216
+          }
+        }
+      },
+      {
+        "case": "names-long-compact",
+        "source_unit": "D.O.M.E.G-Bit",
+        "source_weapon": "HEAT　CRUSHER",
+        "labels": {
+          "unit": {
+            "text": "<width:0E><space:0C>D.O.M.E.G-Bit<width:12><space:12>",
+            "encoded_bytes": 35,
+            "occupied_px": 158
+          },
+          "weapon": {
+            "text": "<width:0E><space:0C>HEAT CRUSHER<width:12><space:12>",
+            "encoded_bytes": 33,
+            "occupied_px": 146
+          }
+        }
+      },
+      {
+        "case": "dialogue-max-default",
+        "source_path": "corpus/zh/special-disc/challenge-dialogue.json",
+        "source_id": "sd/challenge/046/dialogue/01.09/0003",
+        "source_text": "“也就是说，我们打出了接近MAX的数值。”",
+        "stored_text": "“也就是说，我们打出了接近MAX的数值。”",
+        "line_widths": [
+          21
+        ],
+        "encoded_bytes": 43
+      },
+      {
+        "case": "dialogue-max-compact",
+        "source_path": "corpus/zh/special-disc/challenge-dialogue.json",
+        "source_id": "sd/challenge/046/dialogue/01.09/0003",
+        "source_text": "“也就是说，我们打出了接近MAX的数值。”",
+        "stored_text": "“也就是说，我们打出了接近<width:0E><space:0C>MAX<width:16><space:16>的数值。”",
+        "line_widths": [
+          20
+        ],
+        "encoded_bytes": 51
+      },
+      {
+        "case": "dialogue-plant-default",
+        "source_path": "corpus/zh/special-disc/story-dialogue.json",
+        "source_id": "sd/story/011/dialogue/01.15/0001",
+        "source_text": "“这种家伙，窝在PLANT里可遇不上。”",
+        "stored_text": "“这种家伙，窝在PLANT里可遇不上。”",
+        "line_widths": [
+          20
+        ],
+        "encoded_bytes": 41
+      },
+      {
+        "case": "dialogue-plant-compact",
+        "source_path": "corpus/zh/special-disc/story-dialogue.json",
+        "source_id": "sd/story/011/dialogue/01.15/0001",
+        "source_text": "“这种家伙，窝在PLANT里可遇不上。”",
+        "stored_text": "“这种家伙，窝在<width:0E><space:0C>PLANT<width:16><space:16>里可遇不上。”",
+        "line_widths": [
+          18
+        ],
+        "encoded_bytes": 49
+      },
+      {
+        "case": "dialogue-rx3-default",
+        "source_path": "corpus/zh/special-disc/story-dialogue.json",
+        "source_id": "sd/story/004/dialogue/01.04/0002",
+        "source_text": "“大贝克RX3的首次登场，\n　我还在考虑更合适的舞台呢。”",
+        "stored_text": "“大贝克RX3的首次登场，\n　我还在考虑更合适的舞台呢。”",
+        "line_widths": [
+          13,
+          14
+        ],
+        "encoded_bytes": 58
+      },
+      {
+        "case": "dialogue-rx3-compact",
+        "source_path": "corpus/zh/special-disc/story-dialogue.json",
+        "source_id": "sd/story/004/dialogue/01.04/0002",
+        "source_text": "“大贝克RX3的首次登场，\n　我还在考虑更合适的舞台呢。”",
+        "stored_text": "“大贝克<width:0E><space:0C>RX3<width:16><space:16>的首次登场，\n　我还在考虑更合适的舞台呢。”",
+        "line_widths": [
+          12,
+          14
+        ],
+        "encoded_bytes": 66
+      }
+    ]
+  },
+  "findings": {
+    "dialogue_samples": "MAX/PLANT/RX3 remain readable; restored Chinese and following physical row render normally.",
+    "name_samples": "TFO/M68, BIG-DUO with Chinese suffix/MA-BAR72, mixed RX3/MMI-GAU25A and long D.O.M.E.G-Bit/HEAT CRUSHER inspected.",
+    "long_weapon_list": "MMI-GAU25A 20mm CIWS equivalent Chinese name still enters the fixed type column with 14/12 metrics. MA-BAR72 high-energy beam rifle with continuous-fire suffix remains partially covered in the list. Both details display the full names. These are not list acceptance passes.",
+    "production_adoption": "Candidate counts do not constitute layout, byte capacity or all-consumer acceptance. No corpus or ISO changes."
+  },
+  "tests": {
+    "renderer_width_layout": 14,
+    "story_dialogue_layout_words": 10,
+    "passed": true
+  },
+  "evidence": {
+    "audit_path": "work/reviews/compact-latin-count-20260928/audit.json",
+    "audit_sha256": "5aa060923c2d55b5aa4d3916c9c2f705123535e17d962991fbb06a35bacc9d2a",
+    "count_script_path": "work/reviews/compact-latin-count-20260928/count.py",
+    "count_script_sha256": "3e7dd9e2eea76b17923cf53da6bdbc911066029b5507bdbf66338723afb02b4c",
+    "probe_script_path": "work/reviews/compact-latin-count-20260928/probe.py",
+    "probe_script_sha256": "7db0da8c39a5ae3b262f3dbb759e36a3fa15cff1fc0cd07789be4e10715258a3",
+    "images": {
+      "work/reviews/compact-latin-count-20260928/runtime/dialogue-max-compact.png": "42e50f61bf1c638a5d6ddf2b5beef0717cdd2517c32c5137f9634dad12bbdec0",
+      "work/reviews/compact-latin-count-20260928/runtime/dialogue-max-default.png": "0c4f38a778c3e2173dd6a6b2e532c4d47c54fa6e0bd21b4ade825a2761bc7cab",
+      "work/reviews/compact-latin-count-20260928/runtime/dialogue-plant-compact.png": "74b64ea1391a4a975febf34ace498ed6efa8ec5ab2d5ce18005b436ab156cc4f",
+      "work/reviews/compact-latin-count-20260928/runtime/dialogue-plant-default.png": "4beaa54b1fa37c2c1fb980ceeb2e92ef9402ec9e1e1a801b1fec7d831afc992f",
+      "work/reviews/compact-latin-count-20260928/runtime/dialogue-rx3-compact.png": "f1929db732322a5c53c0a00cd30e9027c10ecc33514d06332bec3728aec706ae",
+      "work/reviews/compact-latin-count-20260928/runtime/dialogue-rx3-default.png": "23a680500332f24224667fc0690c6846e9b69afa541d7b18b9919512e2ec0cac",
+      "work/reviews/compact-latin-count-20260928/runtime/names-hyphen-compact.png": "a0d9a9403c5a85c9d7ea057f79e17f5bca0d2f721f4fdd7febce3a69939bc099",
+      "work/reviews/compact-latin-count-20260928/runtime/names-hyphen-default.png": "ecd9bbd61570cec154e07e4692bdd7197c9dcee81a8e838d30428a95f143506b",
+      "work/reviews/compact-latin-count-20260928/runtime/names-long-compact.png": "e07f12c771f2147470a4cd5d2ace10a25cf91b817140d32c0a85abddc535c77f",
+      "work/reviews/compact-latin-count-20260928/runtime/names-long-default.png": "844e7319602814b3737efbfa0be6e773188a0a83daf16f3949f3e9d96cf978cd",
+      "work/reviews/compact-latin-count-20260928/runtime/names-mixed-compact.png": "8c0e3483406283e607ab6ce9c0a4022ad84a08b8dbdc8342995a92f68d5d491d",
+      "work/reviews/compact-latin-count-20260928/runtime/names-mixed-default.png": "f1e1296700cb6d019cdf4c55118e8afb4b7a2d5773118a82aa92bbb124861c81",
+      "work/reviews/compact-latin-count-20260928/runtime/names-short-compact.png": "fcb5124746474401b98304bc98bf121cb7d42c68756bdb1f7087d48cb736fc6b",
+      "work/reviews/compact-latin-count-20260928/runtime/names-short-default.png": "892225c8d2b3812deda0ff128ebafbf36b0bcdffb47d419d26c732e3c03842fe",
+      "work/reviews/compact-latin-count-20260928/runtime/unit-ability-hyphen-compact.png": "16569944e48caa8084058d3f2d5e127562ac75238ba88261c36d0825b6bf6990",
+      "work/reviews/compact-latin-count-20260928/runtime/unit-list-hyphen-compact.png": "4213719cbf0d5bf219edb73e33470916f804fe81984f46f9a399ca6c16ed9893"
+    },
+    "images_inspected": 16
+  },
+  "limitations": [
+    "LRPS2 Software on exact current SP ISO using isolated RAM pointer/cached-name replacements and dialogue-slot probes; selected source text is real but source scenes were not reached naturally.",
+    "No new Original/BEST runtime or PCSX2 manual validation.",
+    "Source memory card unchanged; driver uses isolated card copy."
+  ]
+}
