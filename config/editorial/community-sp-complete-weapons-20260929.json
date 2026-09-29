@@ -54,8 +54,31 @@
     "dataTests": 44,
     "reviewTests": 63,
     "deployTests": 8,
-    "typescript": "Only 5 pre-existing unknown-body errors in unchanged scripts/review-store.test.ts; no errors in modified files"
+    "typescript": "Only 5 pre-existing unknown-body errors in unchanged scripts/review-store.test.ts; no errors in modified files",
+    "publicDataMatchesRelease": true,
+    "userSuggestionsUnchanged": 2996,
+    "productionBuild": "passed",
+    "browser": [
+      "XAN shows all four names in slot order",
+      "Photon Mat is marked shared with main game and other units",
+      "Shared weapon opens the correct review dialog; no suggestion submitted"
+    ]
   },
-  "publication": "pending",
-  "patchApply": "git apply --unidiff-zero"
+  "publication": "succeeded",
+  "patchApply": "git apply --unidiff-zero",
+  "releaseId": "4deee8a-sp-complete-weapons-20260929",
+  "siteImplementationCommit": "4deee8a",
+  "cdn": {
+    "refreshTaskId": "33494206742",
+    "refreshUrls": 1,
+    "refreshStatus": "Complete",
+    "pushTaskId": "33494214841",
+    "warmupUrls": 11,
+    "warmupStatus": "Complete"
+  },
+  "proofDirectory": "docs/issue-assets/special-disc-complete-weapons-20260929",
+  "databaseBackup": {
+    "status": "created_and_verified",
+    "path": "/srv/srwz/backups/reviews/reviews-20260929T073020Z-2a875e54.sqlite3"
+  }
 }

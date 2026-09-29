@@ -12,6 +12,8 @@
 
 验证：44 项数据测试、63 项审阅测试、8 项部署测试通过；新增原盘检查逐机体覆盖全部非空槽的两个文本指针，故意删掉光子垫名称时导出必须失败。修改文件的 ESLint 与生产构建通过。完整 TypeScript 检查仍报告未修改的 `scripts/review-store.test.ts` 中 5 处既有 unknown-body 错误，本次修改文件没有类型错误。
 
-本地生产浏览器已确认 XAN 四项、共用标记、全称／简称及审阅入口。发布与公网验证待补。
+发布版本：`4deee8a-sp-complete-weapons-20260929`。部署前在线备份及数据库完整性检查通过，原子切换后公网 JSON 与发布包逐字节一致。发布前后 2,996 条用户建议逐条哈希一致。CDN 刷新 1 个数据 URL、预热 11 个前端资源，均为 Complete。
+
+公网浏览器确认 XAN 四项按槽位顺序显示，共用标记及中日文正常；点击光子垫攻击的“提出修改”打开正确的审阅弹窗，未提交测试意见。[线上 XAN](https://srwz.dreamquest.club/sp?section=units&entry=sd%2Fcompdata%2F84AC8)、[公网回读](../issue-assets/special-disc-complete-weapons-20260929/public-readback.json)、[CDN 回执](../issue-assets/special-disc-complete-weapons-20260929/cdn.json)、[上线截图](../issue-assets/special-disc-complete-weapons-20260929/xan-live.png)。
 
 [源码增量补丁](../../config/editorial/community-sp-complete-weapons-20260929.patch)在修改前快照上通过 `git apply --unidiff-zero --check`；[源文件哈希和验证记录](../../config/editorial/community-sp-complete-weapons-20260929.json)。
