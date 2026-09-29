@@ -1,0 +1,123 @@
+--- a/scripts/export_sp_topic.py
++++ b/scripts/export_sp_topic.py
+@@ -22,0 +23,3 @@
++NATIVE_NAMES = 'corpus/zh/special-disc/native-text.json'
++NAME_CONTRACTS = {'people': 'config/products/special-disc/pilot-names.json',
++                  'units': 'config/products/special-disc/unit-names.json'}
+@@ -34,0 +38,30 @@
++
++
++def bind_native_names(full_rows, selected, native, contracts):
++    """Include source-verified writeback slots even when the old filter omitted them."""
++    bound = {}
++    for section, contract in contracts.items():
++        additions = []
++        existing = {row['id'] for row in selected[section]}
++        for slot in contract['entries']:
++            key = slot['id']
++            if key in bound or key not in full_rows or key not in native:
++                raise ValueError(f'SP name binding missing or duplicated: {key}')
++            row, author = full_rows[key], native[key]
++            for source in (slot, author):
++                if (source['source_text'] != row['source_text'] or
++                        source['source_text_sha256'] != row['source_text_sha256'] or
++                        sha(source['source_text'].encode()) != source['source_text_sha256']):
++                    raise ValueError(f'SP name binding source drift: {key}')
++            if row['category'] not in CATEGORIES[section] or not author.get('translation'):
++                raise ValueError(f'SP name binding category/translation drift: {key}')
++            if not any(loc.get('member') == 'DATA/COMPDATA.BN' and
++                       loc.get('source_offset', loc.get('offset')) == slot['offset']
++                       for loc in row['locations']):
++                raise ValueError(f'SP name binding location drift: {key}')
++            bound[key] = dict(row, corpus_path=NATIVE_NAMES, corpus_id=key)
++            full_rows[key] = bound[key]
++            if key not in existing:
++                additions.append(bound[key])
++        selected[section] = [bound.get(row['id'], row) for row in selected[section]] + additions
++    return bound
+@@ -78,0 +112,4 @@
++    native = {row['id']: row for row in read(ROOT / NATIVE_NAMES)['entries']}
++    name_bindings = bind_native_names(full_rows, selected, native,
++                                     {section: read(ROOT / path) for section, path in NAME_CONTRACTS.items()})
++    corpus_cache[NATIVE_NAMES] = native
+@@ -117 +154 @@
+-        binding = accepted if accepted and accepted.get('corpus_path') else row
++        binding = name_bindings.get(row['id']) or (accepted if accepted and accepted.get('corpus_path') else row)
+@@ -185 +222 @@
+-                entry.update(title=current(title_row)[0] or display(title_row['source_text']), sourceTitle=display(title_row['source_text']), category='新增人物名称')
++                entry.update(title=current(title_row)[0] or display(title_row['source_text']), sourceTitle=display(title_row['source_text']), category='机师名称')
+@@ -191 +228 @@
+-                entry.update(title=current(row)[0] or display(row['source_text']), sourceTitle=display(row['source_text']), category='新增机体名称')
++                entry.update(title=current(row)[0] or display(row['source_text']), sourceTitle=display(row['source_text']), category='机体名称')
+@@ -257 +294 @@
+-                  scope='SP 新增或修订的原文；排除本篇已有内容及仅排版差异',
++                  scope='SP 新增或修订的原文，以及已绑定 SP 写回的机体和机师名称；其余本篇共用内容与仅排版差异排除',
+--- a/scripts/sp-topic-review.test.ts
++++ b/scripts/sp-topic-review.test.ts
+@@ -22 +22 @@
+-    ['people', 11, 22], ['units', 5, 6], ['weapons', 91, 91], ['library', 39, 79], ['battle', 76, 76],
++    ['people', 20, 40], ['units', 15, 16], ['weapons', 91, 91], ['library', 39, 79], ['battle', 76, 76],
+@@ -42 +42 @@
+-  assert.equal(ids.size, 274);
++  assert.equal(ids.size, 302);
+@@ -45,0 +46,26 @@
++});
++
++test('every native SP roster writeback slot is reviewable with its current author translation', () => {
++  const native = JSON.parse(readFileSync('../srwz-zh/corpus/zh/special-disc/native-text.json', 'utf8')) as {
++    entries: Array<{ id: string; source_text: string; source_text_sha256: string; translation: string }> };
++  for (const [sectionId, contractName] of [['people', 'pilot'], ['units', 'unit']]) {
++    const contract = JSON.parse(readFileSync(`../srwz-zh/config/products/special-disc/${contractName}-names.json`, 'utf8')) as {
++      entries: Array<{ id: string; source_text_sha256: string }> };
++    const section = topic.sections.find(section => section.id === sectionId)!;
++    for (const slot of contract.entries) {
++      const fields = section.entries.flatMap(entry => entry.fields).filter(field => field.id === slot.id);
++      assert.equal(fields.length, 1, slot.id);
++      const field = fields[0], author = native.entries.find(row => row.id === slot.id)!;
++      assert.equal(field.sourceText, author.source_text.replace(/\\n/g, '\n').trim());
++      assert.equal(field.sourceTextSha256, slot.source_text_sha256);
++      assert.equal(field.translation, author.translation.replace(/\\n/g, '\n').trim());
++      assert.equal(data.currentTranslationFor(field.targetType, field.id, {}), field.translation);
++    }
++  }
++  const people = topic.sections.find(section => section.id === 'people')!;
++  for (let pilot = 0x331; pilot <= 0x339; pilot++) {
++    const entry = people.entries.find(entry => entry.id === `sd/compdata/pilot/${pilot}`)!;
++    assert.equal(entry.title, '提坦斯');
++    assert.equal(entry.fields.length, 2);
++    assert(entry.fields.every(field => field.translation === '提坦斯'));
++  }
+@@ -121,2 +147,2 @@
+-  assert.equal(combined.entryCount, 36);
+-  assert.equal(combined.fieldCount, 97);
++  assert.equal(combined.entryCount, 46);
++  assert.equal(combined.fieldCount, 107);
+@@ -126 +152 @@
+-  assert.equal(targets.size, 97);
++  assert.equal(targets.size, 107);
+@@ -146,0 +173,3 @@
++  const native = JSON.parse(readFileSync('../srwz-zh/corpus/zh/special-disc/native-text.json', 'utf8')) as { entries: Author[] };
++  const nameIds = new Set(['unit', 'pilot'].flatMap(kind => JSON.parse(readFileSync(
++    `../srwz-zh/config/products/special-disc/${kind}-names.json`, 'utf8')).entries.map((row: Author) => row.id)));
+@@ -149 +178 @@
+-    const accepted = ledger.entries.find(row => row.id === field.snapshotId)!;
++    const accepted = nameIds.has(field.id) ? native.entries.find(row => row.id === field.id)! : ledger.entries.find(row => row.id === field.snapshotId)!;
+--- a/scripts/sp-baseline.test.ts
++++ b/scripts/sp-baseline.test.ts
+@@ -56,0 +57,2 @@
++  const baselineNames = new Set(readGit('corpus/zh/special-disc/native-text.json').entries.map((row: any) => row.id));
++  const boundNames = new Set(['unit', 'pilot'].flatMap(kind => read(`../srwz-zh/config/products/special-disc/${kind}-names.json`).entries.map((row: any) => row.id)));
+@@ -64,2 +66,6 @@
+-      assert.equal(typeof f.baselineTranslation, 'string');
+-      assert.equal(f.changedSinceBaseline, f.baselineTranslation !== f.translation);
++      if (f.baselineTranslation === null) {
++        assert(boundNames.has(f.id) && !baselineNames.has(f.id), f.id);
++      } else {
++        assert.equal(typeof f.baselineTranslation, 'string');
++      }
++      assert.equal(f.changedSinceBaseline, (f.baselineTranslation || '') !== f.translation);
+--- a/app/sp/page.tsx
++++ b/app/sp/page.tsx
+@@ -14 +14 @@
+-  people: '新增人物名称与头像，核对显示名、姓氏和名字。',
++  people: 'SP 机师名称与头像，核对显示名、姓氏和名字。',
