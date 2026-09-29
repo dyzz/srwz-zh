@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-29",
+  "site": "https://srwz.dreamquest.club/",
+  "scope": "Include every native SP unit/pilot writeback field in the review topic",
+  "sourcePatch": "config/editorial/community-sp-roster-completion-20260929.patch",
+  "sourceFiles": {
+    "scripts/export_sp_topic.py": {
+      "before": "2c49978c54b4a5c8e870cbc951aab34f71ddaa46bb4ef288cfe1b20d184ead98",
+      "after": "5f9e3ed192e5c6c7e92f7135228c5b079d83fc34bd860643e3b50a2c6466f83b"
+    },
+    "scripts/sp-topic-review.test.ts": {
+      "before": "dd3b695a0c40517cbc65de001793472ebcdfe088a26669babc5cbd0cc452194f",
+      "after": "c6d1c6a599259a5d7f8b842abac5cd53808c1a7a6e33baeb0fb99b1ccf62988b"
+    },
+    "scripts/sp-baseline.test.ts": {
+      "before": "d006b4c3aa018a1b32c5f9bb4547044843af7e9a724eceabe86a0270353ef11a",
+      "after": "4125a4f7acfc23438ce03d34e83c6dc363ca789a8c5c72441aaeb5bd8fc3778c"
+    },
+    "app/sp/page.tsx": {
+      "before": "fe7e43ce339150bd981f168e7453e3e81dfd5a78b23af91b86da5b71ae2e89c5",
+      "after": "68f49b7c830ba242545aaa4c8c34f7f7301ebc63c7392cb4d2a81729e7a32d08"
+    }
+  },
+  "addedFields": {
+    "unit": 10,
+    "pilot": 18
+  },
+  "sections": {
+    "people": {
+      "entries": 20,
+      "fields": 40
+    },
+    "units": {
+      "entries": 15,
+      "fields": 16
+    }
+  },
+  "preserved": "Existing review target IDs and Japanese source hashes; no moderation actions",
+  "publication": "succeeded",
+  "releaseId": "c0b4033-sp-roster-20260929",
+  "corpusBaseCommit": "cf54c1effbbab7eb96f1f2cdf1598ba495e74efd",
+  "siteImplementationCommit": "c0b4033",
+  "patchApply": "git apply --unidiff-zero",
+  "validation": {
+    "dataTests": 43,
+    "reviewTests": 63,
+    "deploymentTests": 8,
+    "productionBuild": "passed",
+    "existingReviewFieldsPreserved": 274,
+    "addedReviewFields": 28,
+    "totalReviewFields": 302,
+    "publicJsonByteMatches": 9,
+    "unchangedUserSuggestions": 2996,
+    "browser": [
+      "New unit: 赤骑士死神凯恩, Japanese source and review action visible",
+      "Pilot 0331: 提坦斯, portrait and both name fields visible"
+    ]
+  },
+  "cdn": {
+    "refreshTaskId": "33494073189",
+    "refreshUrls": 9,
+    "refreshStatus": "Complete",
+    "pushTaskId": "33494073192",
+    "warmupUrls": 10,
+    "warmupStatus": "Complete"
+  },
+  "databaseBackup": {
+    "status": "created_and_verified",
+    "manifestPath": "/srv/srwz/backups/reviews/reviews-20260929T070610Z-808d6244.sqlite3.manifest.json"
+  },
+  "proofDirectory": "docs/issue-assets/special-disc-name-audit-20260929/site"
+}
