@@ -1,0 +1,93 @@
+{
+  "status": "canonical_encoding_and_final_iso_glyph_readback_passed",
+  "before_iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "eab435242a87baf76c8e14b038a9d14693cff8f830076ba97a047257ac8bad27",
+    "size": 3791781888
+  },
+  "iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "2afa98bb0e64db3c1a0467e2a16e99f274c33c3f260cb0d378bf0342ebec1744",
+    "size": 3791781888
+  },
+  "shared_mapping_counts": {
+    "assignments": 3532,
+    "surface_alias_assignments": 54,
+    "source_compatibility_assignments": 36
+  },
+  "changed_members": [
+    "MAP/MAPMODEL.BIN",
+    "SLPS_259.20"
+  ],
+  "changed_executable_offsets": [
+    "0x2bbc20",
+    "0x2bbc21"
+  ],
+  "terrain_changes": [
+    {
+      "member": 76,
+      "offset": 2056,
+      "translation": "军事设施",
+      "before_hex": "827d8e9687c78e7b00",
+      "after_hex": "90c48e9687c78e7b00"
+    },
+    {
+      "member": 76,
+      "offset": 2084,
+      "translation": "军事设施",
+      "before_hex": "827d8e9687c78e7b00",
+      "after_hex": "90c48e9687c78e7b00"
+    },
+    {
+      "member": 77,
+      "offset": 2676,
+      "translation": "废墟",
+      "before_hex": "897f9ad000",
+      "after_hex": "92ab9ad000"
+    },
+    {
+      "member": 77,
+      "offset": 2704,
+      "translation": "废墟",
+      "before_hex": "897f9ad000",
+      "after_hex": "92ab9ad000"
+    }
+  ],
+  "decoded_terrain_changed_bytes": 8,
+  "terrain_verified": {
+    "occurrence_count": 621,
+    "member_count": 200
+  },
+  "weapon_labels_verified": {
+    "melee": "格斗武器（　　）",
+    "ranged": "射击武器（　　）",
+    "ignore-size-correction": "无视体型修正",
+    "barrier-pierce": "屏障贯通"
+  },
+  "name_tables": {
+    "blank_nonspace_glyphs": 0,
+    "inventory_sha256": "56bf33b573605062eaa7608efe603f20bbfa8fdc4ab2784a0d3d484c1ba5cc0b",
+    "kana_residue": 0,
+    "pilot_fields": 2907,
+    "pilot_nonempty_fields": 2552,
+    "pilot_records": 969,
+    "reference_sha256": "8bd56f11dc607a4e6460df764fe93c674db40a259bc2eb3d1fa1cfc4619c41e2",
+    "runtime": "pending",
+    "scope": "All COMPDATA unit/pilot record names; shared main-game reference plus SP-native contracts.",
+    "translation_mismatches": 0,
+    "unbound_names": 0,
+    "unique_glyph_codes": 661,
+    "unit_records": 854,
+    "unit_unique_targets": 340,
+    "unknown_codes": 0
+  },
+  "font_unchanged": true,
+  "name_tables_unchanged": true,
+  "member_layout_preserved": true,
+  "protected_iso_ranges": {
+    "bytes": 3748237736,
+    "sha256": "da1c91f895641cc7d08fde9d520bed5c17b87461cfcb262a32f9ec69f84a28ba"
+  },
+  "non_text_map_bytes_preserved": true,
+  "runtime": "pending"
+}

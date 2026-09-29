@@ -1,0 +1,734 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "scope": "read-only; no build or text writeback",
+  "runtime": "pending; no emulator validation",
+  "current_iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "a9eb00d09bd351410787e148a47203cdad1f009d327979319124cac4f0d99d7c",
+    "size": 3791781888
+  },
+  "source_compdata_sha256": "baadfcba3f3c65af2375e17903c7c24c985acbfd8e751c21e5b0af5afdc44959",
+  "current_compdata_sha256": "439208c1f928fc0ea0c1e4b75cf74b3ec9ccd6e8bbb857cf9568f281ceb0ed01",
+  "current_decoded_compdata_sha256": "332801102b04b5f99ce626008ff46a2a8801aa1b0ac249fdc843a0d2bc6ea280",
+  "current_decoded_font_sha256": "6899ee8dff6c7c0973b741185407432a6798d36d58ff69d3b75ffc937127830f",
+  "font_proposal": {
+    "path": "work/build/special-disc/text-candidate/font/proposal.json",
+    "sha256": "6d5c18656d78f65bbabd1ab7c1b3cacc77f4dc23d0d97e2d6488e6220a3af81a"
+  },
+  "numbering": "hexadecimal zero-based table index, verified against adjacent records",
+  "unit_table": {
+    "start": "0x54b94",
+    "stride": 68,
+    "count": 854
+  },
+  "pilot_table": {
+    "start": "0x2b50",
+    "stride": 178,
+    "count": 969,
+    "fields": [
+      {
+        "name": "display",
+        "delta": 2,
+        "capacity": 21
+      },
+      {
+        "name": "family",
+        "delta": 23,
+        "capacity": 23
+      },
+      {
+        "name": "given",
+        "delta": 46,
+        "capacity": 23
+      }
+    ]
+  },
+  "summary": {
+    "unit_kana_records": 7,
+    "unit_kana_unique_targets": 6,
+    "pilot_kana_records": 10,
+    "pilot_kana_fields": 20
+  },
+  "reported_and_adjacent_units": [
+    {
+      "code": "0074",
+      "index": 116,
+      "pointer_site": "0x56a64",
+      "source_target": "0x83c38",
+      "current_target": "0x83c38",
+      "source_text": "デスカイン",
+      "current_text": "デスカイン",
+      "current_hex": "83668358834a8343839300",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 12,
+      "next_discovered_reference_target": "0x83c48",
+      "observed_source_span_with_zero_tail": 16,
+      "main_answers": [
+        {
+          "text": "赤骑士死神凯恩",
+          "bytes_with_nul": 15,
+          "hex": "90d4e6698e6d8e80905f94d689b6"
+        }
+      ]
+    },
+    {
+      "code": "0075",
+      "index": 117,
+      "pointer_site": "0x56aa8",
+      "source_target": "0x83c48",
+      "current_target": "0x83c48",
+      "source_text": "ヘルダイン",
+      "current_text": "ヘルダイン",
+      "current_hex": "8377838b835f8343839300",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 12,
+      "next_discovered_reference_target": "0x83c58",
+      "observed_source_span_with_zero_tail": 16,
+      "main_answers": [
+        {
+          "text": "青骑士地狱戴恩",
+          "bytes_with_nul": 15,
+          "hex": "90c2e6698e6d926e918391d589b6"
+        }
+      ]
+    },
+    {
+      "code": "007E",
+      "index": 126,
+      "pointer_site": "0x56d0c",
+      "source_target": "0x83c98",
+      "current_target": "0x83c98",
+      "source_text": "ビアルⅡ世",
+      "current_text": "ビアルⅡ世",
+      "current_hex": "83728341838b875590a200",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 12,
+      "next_discovered_reference_target": "0x83ca8",
+      "observed_source_span_with_zero_tail": 16,
+      "main_answers": [
+        {
+          "text": "比亚路II世",
+          "bytes_with_nul": 13,
+          "hex": "94e4907b98488268826890a2"
+        }
+      ]
+    },
+    {
+      "code": "007F",
+      "index": 127,
+      "pointer_site": "0x56d50",
+      "source_target": "0x83ca8",
+      "current_target": "0x83ca8",
+      "source_text": "ビアルⅢ世",
+      "current_text": "ビアルⅢ世",
+      "current_hex": "83728341838b875690a200",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 12,
+      "next_discovered_reference_target": "0x83cb8",
+      "observed_source_span_with_zero_tail": 16,
+      "main_answers": [
+        {
+          "text": "比亚路III世",
+          "bytes_with_nul": 15,
+          "hex": "94e4907b984882688268826890a2"
+        }
+      ]
+    },
+    {
+      "code": "02AD",
+      "index": 685,
+      "pointer_site": "0x60188",
+      "source_target": "0x84dc8",
+      "current_target": "0x84dc8",
+      "source_text": "グラン═",
+      "current_text": "グラン═",
+      "current_hex": "834f83898393879400",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 12,
+      "next_discovered_reference_target": "0x84de0",
+      "observed_source_span_with_zero_tail": 24,
+      "main_answers": [
+        {
+          "text": "Gran　Σ",
+          "bytes_with_nul": 13,
+          "hex": "826682928281828e814090dd"
+        }
+      ]
+    },
+    {
+      "code": "02CA",
+      "index": 714,
+      "pointer_site": "0x6093c",
+      "source_target": "0x84ec0",
+      "current_target": "0x84ec0",
+      "source_text": "アクエリオンデルタ",
+      "current_text": "アクエリオンデルタ",
+      "current_hex": "8341834e8347838a834983938366838b835e00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x84ed8",
+      "observed_source_span_with_zero_tail": 24,
+      "main_answers": [
+        {
+          "text": "强攻型机械天使·德尔塔",
+          "bytes_with_nul": 23,
+          "hex": "949d8d558c5e8af78a4293568e67904b927092479383"
+        }
+      ]
+    },
+    {
+      "code": "02CD",
+      "index": 717,
+      "pointer_site": "0x60a08",
+      "source_target": "0x84ec0",
+      "current_target": "0x84ec0",
+      "source_text": "アクエリオンデルタ",
+      "current_text": "アクエリオンデルタ",
+      "current_hex": "8341834e8347838a834983938366838b835e00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x84ed8",
+      "observed_source_span_with_zero_tail": 24,
+      "main_answers": [
+        {
+          "text": "强攻型机械天使·德尔塔",
+          "bytes_with_nul": 23,
+          "hex": "949d8d558c5e8af78a4293568e67904b927092479383"
+        }
+      ]
+    },
+    {
+      "code": "0313",
+      "index": 787,
+      "pointer_site": "0x61ca0",
+      "source_target": "0x85210",
+      "current_target": "0x85210",
+      "source_text": "バルゴラ（１号機）",
+      "current_text": "巴尔戈拉（1号机）",
+      "current_hex": "9462924793db9d668fe882508d868af78feb00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x85230",
+      "observed_source_span_with_zero_tail": 32,
+      "main_answers": []
+    },
+    {
+      "code": "0314",
+      "index": 788,
+      "pointer_site": "0x61ce4",
+      "source_target": "0x85230",
+      "current_target": "0x85230",
+      "source_text": "バルゴラ（Ⅰ号機）",
+      "current_text": "巴尔戈拉（Ⅰ号机）",
+      "current_hex": "9462846d85909d668fe897b88d868af78feb00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x85250",
+      "observed_source_span_with_zero_tail": 32,
+      "main_answers": []
+    },
+    {
+      "code": "0315",
+      "index": 789,
+      "pointer_site": "0x61d28",
+      "source_target": "0x85230",
+      "current_target": "0x85230",
+      "source_text": "バルゴラ（Ⅰ号機）",
+      "current_text": "巴尔戈拉（Ⅰ号机）",
+      "current_hex": "9462846d85909d668fe897b88d868af78feb00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x85250",
+      "observed_source_span_with_zero_tail": 32,
+      "main_answers": []
+    },
+    {
+      "code": "0316",
+      "index": 790,
+      "pointer_site": "0x61d6c",
+      "source_target": "0x85250",
+      "current_target": "0x85250",
+      "source_text": "バルゴラ（２号機）",
+      "current_text": "巴尔戈拉（2号机）",
+      "current_hex": "9462924793db9d668fe882518d868af78feb00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x85270",
+      "observed_source_span_with_zero_tail": 32,
+      "main_answers": []
+    },
+    {
+      "code": "0317",
+      "index": 791,
+      "pointer_site": "0x61db0",
+      "source_target": "0x85250",
+      "current_target": "0x85250",
+      "source_text": "バルゴラ（２号機）",
+      "current_text": "巴尔戈拉（2号机）",
+      "current_hex": "9462924793db9d668fe882518d868af78feb00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x85270",
+      "observed_source_span_with_zero_tail": 32,
+      "main_answers": []
+    },
+    {
+      "code": "0318",
+      "index": 792,
+      "pointer_site": "0x61df4",
+      "source_target": "0x85270",
+      "current_target": "0x85270",
+      "source_text": "バルゴラ（Ⅱ号機）",
+      "current_text": "巴尔戈拉（Ⅱ号机）",
+      "current_hex": "9462846d85909d668fe887558d868af78feb00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x85290",
+      "observed_source_span_with_zero_tail": 32,
+      "main_answers": []
+    },
+    {
+      "code": "0319",
+      "index": 793,
+      "pointer_site": "0x61e38",
+      "source_target": "0x85270",
+      "current_target": "0x85270",
+      "source_text": "バルゴラ（Ⅱ号機）",
+      "current_text": "巴尔戈拉（Ⅱ号机）",
+      "current_hex": "9462846d85909d668fe887558d868af78feb00",
+      "unknown_codes": 0,
+      "migration_capacity_bytes": 20,
+      "next_discovered_reference_target": "0x85290",
+      "observed_source_span_with_zero_tail": 32,
+      "main_answers": []
+    }
+  ],
+  "kana_unit_codes": [
+    "0074",
+    "0075",
+    "007E",
+    "007F",
+    "02AD",
+    "02CA",
+    "02CD"
+  ],
+  "kana_pilot_fields": [
+    {
+      "code": "0304",
+      "index": 772,
+      "field": "display",
+      "offset": "0x2441a",
+      "capacity": 21,
+      "source_text": "ニュースキャスター",
+      "current_text": "ニュースキャスター",
+      "current_hex": "836a8385815b8358834c83838358835e815b00",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0304",
+      "index": 772,
+      "field": "given",
+      "offset": "0x24446",
+      "capacity": 23,
+      "source_text": "ニュースキャスター",
+      "current_text": "ニュースキャスター",
+      "current_hex": "836a8385815b8358834c83838358835e815b00",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0331",
+      "index": 817,
+      "field": "display",
+      "offset": "0x26364",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0331",
+      "index": 817,
+      "field": "given",
+      "offset": "0x26390",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0332",
+      "index": 818,
+      "field": "display",
+      "offset": "0x26416",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0332",
+      "index": 818,
+      "field": "given",
+      "offset": "0x26442",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0333",
+      "index": 819,
+      "field": "display",
+      "offset": "0x264c8",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0333",
+      "index": 819,
+      "field": "given",
+      "offset": "0x264f4",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0334",
+      "index": 820,
+      "field": "display",
+      "offset": "0x2657a",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0334",
+      "index": 820,
+      "field": "given",
+      "offset": "0x265a6",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0335",
+      "index": 821,
+      "field": "display",
+      "offset": "0x2662c",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0335",
+      "index": 821,
+      "field": "given",
+      "offset": "0x26658",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0336",
+      "index": 822,
+      "field": "display",
+      "offset": "0x266de",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0336",
+      "index": 822,
+      "field": "given",
+      "offset": "0x2670a",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0337",
+      "index": 823,
+      "field": "display",
+      "offset": "0x26790",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0337",
+      "index": 823,
+      "field": "given",
+      "offset": "0x267bc",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0338",
+      "index": 824,
+      "field": "display",
+      "offset": "0x26842",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0338",
+      "index": 824,
+      "field": "given",
+      "offset": "0x2686e",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0339",
+      "index": 825,
+      "field": "display",
+      "offset": "0x268f4",
+      "capacity": 21,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    },
+    {
+      "code": "0339",
+      "index": 825,
+      "field": "given",
+      "offset": "0x26920",
+      "capacity": 23,
+      "source_text": "ティターンズ",
+      "current_text": "ティターンズ",
+      "current_hex": "83658342835e815b8393835900",
+      "unknown_codes": 0
+    }
+  ],
+  "pilot_main_game_variants": {
+    "ティターンズ": {
+      "提坦斯": [
+        {
+          "index": 784,
+          "field": "display"
+        },
+        {
+          "index": 784,
+          "field": "given"
+        },
+        {
+          "index": 785,
+          "field": "display"
+        },
+        {
+          "index": 785,
+          "field": "given"
+        },
+        {
+          "index": 786,
+          "field": "display"
+        },
+        {
+          "index": 786,
+          "field": "given"
+        },
+        {
+          "index": 787,
+          "field": "display"
+        },
+        {
+          "index": 787,
+          "field": "given"
+        },
+        {
+          "index": 788,
+          "field": "display"
+        },
+        {
+          "index": 788,
+          "field": "given"
+        },
+        {
+          "index": 789,
+          "field": "display"
+        },
+        {
+          "index": 789,
+          "field": "given"
+        },
+        {
+          "index": 790,
+          "field": "display"
+        },
+        {
+          "index": 790,
+          "field": "given"
+        },
+        {
+          "index": 791,
+          "field": "display"
+        },
+        {
+          "index": 791,
+          "field": "given"
+        },
+        {
+          "index": 792,
+          "field": "display"
+        },
+        {
+          "index": 792,
+          "field": "given"
+        }
+      ],
+      "奥古士兵": [
+        {
+          "index": 796,
+          "field": "given"
+        },
+        {
+          "index": 797,
+          "field": "given"
+        }
+      ]
+    }
+  },
+  "separate_battle_viewer_names": [
+    {
+      "id": "sd/compdata/98D80",
+      "source_text": "デスカイン",
+      "translation": "赤骑士死神凯恩",
+      "current_text": "赤骑士死神凯恩",
+      "editorial_status": "draft"
+    },
+    {
+      "id": "sd/compdata/98D90",
+      "source_text": "ヘルダイン",
+      "translation": "青骑士地狱戴恩",
+      "current_text": "青骑士地狱戴恩",
+      "editorial_status": "draft"
+    },
+    {
+      "id": "sd/compdata/9AB20",
+      "source_text": "アクエリオンデルタ",
+      "translation": "强攻型机械天使·德尔塔",
+      "current_text": "强攻型机械天使·德尔塔",
+      "editorial_status": "draft"
+    }
+  ],
+  "migration_report_left": {
+    "no answer in the main game": 1612,
+    "already the same bytes": 501,
+    "settled by copy order": 10,
+    "does not fit": 17,
+    "settled by table": 2,
+    "single character, single reference": 4,
+    "translated two ways in the main game": 1,
+    "pilot name translated two ways": 18
+  },
+  "migration_report_does_not_fit": [
+    "デスカイン",
+    "ヘルダイン",
+    "ビアルⅡ世",
+    "ビアルⅢ世",
+    "グラン═",
+    "アクエリオンデルタ",
+    "超重神グラヴィオン",
+    "超重神グラヴィオンツヴァイ",
+    "サイド３",
+    "ロゴス",
+    "プラント評議会議長",
+    "ブロックワード",
+    "オーバーコート",
+    "＜援護防御に入れる機体がいたら入ります。＞",
+    "デスカイン",
+    "ヘルダイン",
+    "アクエリオンデルタ"
+  ],
+  "glyphs": [
+    {
+      "code": "9247",
+      "pixels_sha256": "8da471a965aab17c75417bd51b07cfd976205d68edc0c1b10998b73822193fff",
+      "nonzero_pixels": 189
+    },
+    {
+      "code": "846D",
+      "pixels_sha256": "1a0295f4bf5986c5f74eca9153a6a4cb10b073a01a76ba4a457fd862c78966a4",
+      "nonzero_pixels": 0
+    },
+    {
+      "code": "93DB",
+      "pixels_sha256": "2897c94e1c8ff3b117eca61ae59915907900fc95f47403752be864baedca9ad6",
+      "nonzero_pixels": 186
+    },
+    {
+      "code": "8590",
+      "pixels_sha256": "1a0295f4bf5986c5f74eca9153a6a4cb10b073a01a76ba4a457fd862c78966a4",
+      "nonzero_pixels": 0
+    },
+    {
+      "code": "8145",
+      "pixels_sha256": "3411e47600a7007889ece0849a01deb878ee109f33c73bd16d175b2bc5158e03",
+      "nonzero_pixels": 32
+    },
+    {
+      "code": "8794",
+      "pixels_sha256": "53ae910051a16449a5dfd1cb1b239087324f4813a1d78cfe4736d233b092dd2a",
+      "nonzero_pixels": 88
+    },
+    {
+      "code": "90DD",
+      "pixels_sha256": "d35d591c6de0b5f4bbde00adbe6885f97c117a92f512139a8d098d85b08670ad",
+      "nonzero_pixels": 93
+    }
+  ],
+  "blank_alias_unit_codes": {
+    "846D": [
+      "0314",
+      "0315",
+      "0318",
+      "0319"
+    ],
+    "8590": [
+      "0314",
+      "0315",
+      "0318",
+      "0319"
+    ]
+  },
+  "glyph_comparisons": {
+    "er_primary_equals_alias": false,
+    "ge_primary_equals_alias": false,
+    "legacy_sigma_equals_canonical_sigma": false
+  }
+}
