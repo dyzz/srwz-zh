@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-29",
+  "site": "https://srwz.dreamquest.club/sp?section=units",
+  "scope": "Complete native weapon names for the existing SP topic units and label shared names",
+  "sourcePatch": "config/editorial/community-sp-complete-weapons-20260929.patch",
+  "sourceFiles": {
+    "app/globals.css": {
+      "before": "8b939546fa882df323b772a391a793a97590a00c2f523b815922caff345db8e9",
+      "after": "3787bbf97a2e699cd63c5bbb59d05f16277e4b0560720f85d86534993044182c"
+    },
+    "app/sp/page.tsx": {
+      "before": "68f49b7c830ba242545aaa4c8c34f7f7301ebc63c7392cb4d2a81729e7a32d08",
+      "after": "f3778c7d111c5df5694113de3db54d5213b3278755342bb5d156c4aca8aba943"
+    },
+    "app/sp/topic-browser.tsx": {
+      "before": "671f925882549d3db7279e2eeff5e09b28fb198771c5b61d349debe8d84eafca",
+      "after": "65c89432f9a4962c51c6e2e105bc404afa499fa89d980fdd6247c59463754585"
+    },
+    "app/sp/topic-types.ts": {
+      "before": "3ebfb27638e625f6390e57aca0c591ea39141f2c06bbe55a0ff1289460c7d345",
+      "after": "4a93764e44e908cbc8e0babc99991371a2fc0572c273eab70201baa904fc662b"
+    },
+    "app/sp/unit-weapons.ts": {
+      "before": "c2b4e08c513781eb1b88581a7378fdc8736df4419eb1a02bd1ff94d6bef8054c",
+      "after": "6bdca70deae90f9e2bbdc4e00f855ba0058da378aca999fca172d9a93ab43ef0"
+    },
+    "scripts/export_sp_topic.py": {
+      "before": "5f9e3ed192e5c6c7e92f7135228c5b079d83fc34bd860643e3b50a2c6466f83b",
+      "after": "1b6fa5c0014f3c6060566cd3434f9a49132696cc26a869536ed33b5d64b71b02"
+    },
+    "scripts/sp-topic-review.test.ts": {
+      "before": "c6d1c6a599259a5d7f8b842abac5cd53808c1a7a6e33baeb0fb99b1ccf62988b",
+      "after": "ca85225d9e54c53fd8b57658ffaa7e30c21b69174f35544c3d97c3c6749019fb"
+    },
+    "scripts/sp_weapon_bindings.py": {
+      "before": "65e77fb4bc0129a5d9d6823eb1e7762cd62c2816682ab1608c3c1c4173976ef9",
+      "after": "b8ad806d37141f467a9a7aab7fd7b86af9b6bbadc8514c9e776ebd7251209a8b"
+    },
+    "scripts/test_sp_weapon_bindings.py": {
+      "before": "3ca53edf5648dbfee77bdcab8e436582e13dde8d0a2060d2b679eb0039e2bf83",
+      "after": "e84c439b77e0aa8b4704212d0b3125645439a7f1c8d4756b9c94e205f6a2426f"
+    }
+  },
+  "validation": {
+    "nativeSlotCoverage": "All 21 slots and both name pointers, every included unit record",
+    "unitEntries": 46,
+    "weaponFieldsBefore": 91,
+    "weaponFieldsAfter": 220,
+    "addedWeaponFields": 129,
+    "preservedExistingFields": 302,
+    "totalTopicFields": 431,
+    "authorTranslations": "Shared names bind by exact source hash to corpus/zh/menu/weapons.json; existing SP overrides retain priority",
+    "dataTests": 44,
+    "reviewTests": 63,
+    "deployTests": 8,
+    "typescript": "Only 5 pre-existing unknown-body errors in unchanged scripts/review-store.test.ts; no errors in modified files"
+  },
+  "publication": "pending",
+  "patchApply": "git apply --unidiff-zero"
+}

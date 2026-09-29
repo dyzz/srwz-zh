@@ -1,0 +1,202 @@
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -3523,0 +3524,2 @@
++.sp-weapon-sharing { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #596f79; font-size: 12px; margin: 0 0 10px; }
++.sp-weapon-sharing > span { border-radius: 4px; padding: 3px 7px; color: #476572; background: #e9f0f3; font-weight: 600; }
+--- a/app/sp/page.tsx
++++ b/app/sp/page.tsx
+@@ -15,2 +15,2 @@
+-  units: '按机体查看名称与相关武器，在同一页逐项对照审阅。',
+-  weapons: '新增或修订的武器简称与全称，可按使用机体查找。',
++  units: '按机体查看全部武器，共用名称保留并标注，在同一页逐项审阅。',
++  weapons: '所收录机体的全部武器简称与全称，共用名称保留并标注。',
+--- a/app/sp/topic-browser.tsx
++++ b/app/sp/topic-browser.tsx
+@@ -87 +87 @@
+-    {section.id === 'units' && <p className="sp-section-context">按机体查看名称与武器。收录 {section.weaponCount} 处新增或修订的武器名称，简称与全称可分别提出修改。</p>}
++    {section.id === 'units' && <p className="sp-section-context">列出所收录机体的全部武器名称，按游戏中的武器顺序排列。与本篇或其他机体共用的名称保留并标注；同一名称的修改意见共用一处。共 {section.weaponCount} 处名称，简称与全称可分别审阅。</p>}
+@@ -113,0 +114 @@
++              {weapon.nameSharing && (weapon.nameSharing.mainGame || weapon.nameSharing.unitCount > 1) && <p className="sp-weapon-sharing"><span>共用名称</span>{weapon.nameSharing.mainGame ? (weapon.nameSharing.unitCount > 1 ? '与本篇及其他机体共用' : '与本篇共用') : '多个机体共用'}</p>}
+@@ -115 +116 @@
+-            </div>) : <p className="sp-section-context">该机体暂无需要单独审阅的新增或修订武器名称。</p>}
++            </div>) : <p className="sp-section-context">原始数据中未配置武器。</p>}
+--- a/app/sp/topic-types.ts
++++ b/app/sp/topic-types.ts
+@@ -27 +27,2 @@
+-  relatedUnits?: Array<{ id: string; title: string; sourceTitle: string; unitRecords: number[]; weaponRecords: number[] }>;
++  relatedUnits?: Array<{ id: string; title: string; sourceTitle: string; unitRecords: number[]; weaponRecords: number[]; weaponSlots: number[] }>;
++  nameSharing?: { mainGame: boolean; unitCount: number };
+--- a/app/sp/unit-weapons.ts
++++ b/app/sp/unit-weapons.ts
+@@ -15,0 +16,4 @@
++  for (const unit of entries.values()) unit.weapons!.sort((a, b) => {
++    const slot = (weapon: SpTopicEntry) => weapon.relatedUnits!.find(owner => owner.id === unit.id)?.weaponSlots?.[0] ?? 21;
++    return slot(a) - slot(b);
++  });
+--- a/scripts/export_sp_topic.py
++++ b/scripts/export_sp_topic.py
+@@ -202 +202 @@
+-    from sp_weapon_bindings import weapon_bindings
++    from sp_weapon_bindings import complete_weapon_roster
+@@ -204,2 +204,22 @@
+-    weapon_owners, weapon_variants = weapon_bindings(decode_production(native_compdata).output, portraits.exe,
+-        selected['weapons'], [row for row in full_rows.values() if row['category'] == '04-共用名称与能力/机体名'])
++    selected['weapons'], weapon_owners, weapon_variants, weapon_owner_counts = complete_weapon_roster(
++        decode_production(native_compdata).output, portraits.exe, selected['weapons'],
++        [row for row in full_rows.values() if row['category'] in CATEGORIES['weapons']],
++        [row for row in full_rows.values() if row['category'] == '04-共用名称与能力/机体名'],
++        [row['id'] for row in selected['units']])
++    # Reused names follow the current main-game author corpus and its immutable
++    # baseline, not the older ISO readback stored in the discovery snapshot.
++    main_weapon_path = 'corpus/zh/menu/weapons.json'
++    main_weapons = read(ROOT / main_weapon_path)['entries']
++    main_by_hash = defaultdict(list)
++    for row in main_weapons:
++        main_by_hash[row['source_text_sha256']].append(row)
++    corpus_cache[main_weapon_path] = {row['id']: row for row in main_weapons}
++    reused_weapon_ids = set()
++    for row in selected['weapons']:
++        if row.get('corpus_path'):
++            continue
++        matches = main_by_hash[row['source_text_sha256']]
++        if len(matches) != 1:
++            raise ValueError(f'SP shared weapon author missing or ambiguous: {row["id"]}')
++        reused_weapon_ids.add(row['id'])
++        row.update(corpus_path=main_weapon_path, corpus_id=matches[0]['id'])
+@@ -233,0 +254 @@
++                entry['nameSharing'] = dict(mainGame=row['id'] in reused_weapon_ids, unitCount=weapon_owner_counts[row['id']])
+@@ -286,0 +308 @@
++        name_ids = {f['id'] for f in unit['fields']}
+@@ -288 +310,3 @@
+-            for weapon in weapons_section['entries'] if any(owner['id'] in {f['id'] for f in unit['fields']} for owner in weapon['relatedUnits'])]
++            for weapon in sorted(weapons_section['entries'], key=lambda weapon: min(
++                (owner['weaponSlots'][0] for owner in weapon['relatedUnits'] if owner['id'] in name_ids), default=21))
++            if any(owner['id'] in name_ids for owner in weapon['relatedUnits'])]
+@@ -294 +318 @@
+-                  scope='SP 新增或修订的原文，以及已绑定 SP 写回的机体和机师名称；其余本篇共用内容与仅排版差异排除',
++                  scope='SP 新增或修订的原文、已绑定 SP 写回的机体和机师名称，以及所收录机体的全部武器名称；共用武器名保留并标注',
+--- a/scripts/sp-topic-review.test.ts
++++ b/scripts/sp-topic-review.test.ts
+@@ -22 +22 @@
+-    ['people', 20, 40], ['units', 15, 16], ['weapons', 91, 91], ['library', 39, 79], ['battle', 76, 76],
++    ['people', 20, 40], ['units', 15, 16], ['weapons', 220, 220], ['library', 39, 79], ['battle', 76, 76],
+@@ -42 +42 @@
+-  assert.equal(ids.size, 302);
++  assert.equal(ids.size, 431);
+@@ -122 +122,2 @@
+-  assert.deepEqual(weapons.entries.map(entry => entry.id), source.entries.map(row => row.id));
++  assert.deepEqual(weapons.entries.slice(0, source.entries.length).map(entry => entry.id), source.entries.map(row => row.id));
++  const full = JSON.parse(readFileSync('../srwz-zh/work/review/special-disc/non-stage-text-20260919/04-共用名称与能力/武器名.json', 'utf8')) as typeof source;
+@@ -127 +128,2 @@
+-    assert.equal(entry.fields[0].sourceText, source.entries.find(row => row.id === entry.id)!.source_text);
++    assert.equal(entry.fields[0].sourceText, full.entries.find(row => row.id === entry.id)!.source_text);
++    assert(entry.nameSharing);
+@@ -137 +139 @@
+-  assert.equal(ownerIds.size, 33);
++  assert.equal(ownerIds.size, 43);
+@@ -139 +141 @@
+-  assert.deepEqual(xan.relatedWeapons?.map(weapon => weapon.id), ['sd/compdata/80998', 'sd/compdata/809A0', 'sd/compdata/809C0']);
++  assert.deepEqual(xan.relatedWeapons?.map(weapon => weapon.id), ['sd/compdata/80998', 'sd/compdata/806D8', 'sd/compdata/809A0', 'sd/compdata/809C0']);
+@@ -148,2 +150,2 @@
+-  assert.equal(combined.fieldCount, 107);
+-  assert.equal(combined.weaponCount, 91);
++  assert.equal(combined.fieldCount, 236);
++  assert.equal(combined.weaponCount, 220);
+@@ -152 +154,5 @@
+-  assert.equal(targets.size, 107);
++  assert.equal(targets.size, 236);
++  const xan = combined.entries.find(entry => entry.id === 'sd/compdata/84AC8')!;
++  assert.deepEqual(xan.weapons!.map(weapon => weapon.fields[0].sourceText), ['クナイ', 'フォトンマット', 'アクナギノツルギ', 'ヤーパンニンポー']);
++  assert.deepEqual(xan.weapons![1].nameSharing, {mainGame: true, unitCount: 8});
++  assert.equal(xan.weapons![0].nameSharing!.mainGame, false);
+@@ -176,0 +183 @@
++  const mainWeapons = JSON.parse(readFileSync('../srwz-zh/corpus/zh/menu/weapons.json', 'utf8')).entries as Author[];
+@@ -178 +185,2 @@
+-    const accepted = nameIds.has(field.id) ? native.entries.find(row => row.id === field.id)! : ledger.entries.find(row => row.id === field.snapshotId)!;
++    const accepted = nameIds.has(field.id) ? native.entries.find(row => row.id === field.id)! :
++      ledger.entries.find(row => row.id === field.snapshotId) || (entry.nameSharing?.mainGame ? mainWeapons.find(row => row.source_text_sha256 === field.sourceTextSha256) : undefined);
+--- a/scripts/sp_weapon_bindings.py
++++ b/scripts/sp_weapon_bindings.py
+@@ -12 +12 @@
+-def weapon_bindings(compdata, executable, weapon_rows, unit_rows):
++def weapon_bindings(compdata, executable, weapon_rows, unit_rows, *, allow_unowned=False):
+@@ -31 +31 @@
+-    owners = defaultdict(lambda: defaultdict(lambda: dict(unitRecords=set(), weaponRecords=set())))
++    owners = defaultdict(lambda: defaultdict(lambda: dict(unitRecords=set(), weaponRecords=set(), weaponSlots=set())))
+@@ -35 +35 @@
+-        for weapon in struct.unpack_from('<21H', compdata, SLOTS[0] + unit * SLOTS[1]):
++        for slot, weapon in enumerate(struct.unpack_from('<21H', compdata, SLOTS[0] + unit * SLOTS[1])):
+@@ -44 +44,2 @@
+-    if set(owners) != {row['id'] for row in weapon_rows}:
++                evidence['weaponSlots'].add(slot)
++    if not allow_unowned and set(owners) != {row['id'] for row in weapon_rows}:
+@@ -47,0 +49,29 @@
++
++
++def complete_weapon_roster(compdata, executable, scoped_rows, full_rows, unit_rows, name_ids):
++    """Freeze the topic's unit roster first, then include every native weapon name.
++
++    Shared names must not recursively pull unrelated main-game units into the
++    topic. Keep one review target per text pointer and retain native slot order.
++    """
++    scoped_owners, _ = weapon_bindings(compdata, executable, scoped_rows, unit_rows)
++    unit_ids = set(name_ids) | {unit for owners in scoped_owners.values() for unit in owners}
++    owners, variants = weapon_bindings(compdata, executable, full_rows, unit_rows, allow_unowned=True)
++    selected_ids = {target for target, units in owners.items() if unit_ids.intersection(units)}
++    # Independently cover both name pointers of every nonempty slot, including
++    # slot 21. A missing export row must fail rather than silently truncate a unit.
++    for unit in range(SLOTS[2]):
++        pointer = struct.unpack_from('<I', compdata, UNITS[0] + unit * UNITS[1])[0] - BASE
++        if f'sd/compdata/{pointer:X}' not in unit_ids:
++            continue
++        for weapon in struct.unpack_from('<21H', compdata, SLOTS[0] + unit * SLOTS[1]):
++            if weapon:
++                for pointer in struct.unpack_from('<2I', compdata, WEAPONS[0] + weapon * WEAPONS[1]):
++                    if f'sd/compdata/{pointer - BASE:X}' not in selected_ids:
++                        raise ValueError(f'SP unit weapon name missing: unit {unit}, weapon {weapon}')
++    scoped_ids = {row['id'] for row in scoped_rows}
++    selected = list(scoped_rows) + [row for row in full_rows if row['id'] in selected_ids - scoped_ids]
++    return (selected,
++            {target: {unit: evidence for unit, evidence in owners[target].items() if unit in unit_ids}
++             for target in selected_ids},
++            variants, {target: len(owners[target]) for target in selected_ids})
+--- a/scripts/test_sp_weapon_bindings.py
++++ b/scripts/test_sp_weapon_bindings.py
+@@ -7 +7 @@
+-from sp_weapon_bindings import BASE, SLOTS, WEAPONS, weapon_bindings
++from sp_weapon_bindings import BASE, SLOTS, WEAPONS, UNITS, weapon_bindings, complete_weapon_roster
+@@ -23,0 +24,34 @@
++        cls.full_weapons = json.loads((review / 'non-stage-text-20260919/04-共用名称与能力/武器名.json').read_text())['entries']
++
++    def test_complete_roster_covers_every_native_slot_without_expanding_shared_owners(self):
++        topic = json.loads((ROOT.parent / 'srwz-community-web/public/data/sp-topic.json').read_text())
++        names = [f['id'] for s in topic['sections'] if s['id'] == 'units' for e in s['entries'] for f in e['fields']]
++        original, _ = weapon_bindings(self.cd, self.exe, self.weapons, self.units)
++        expected_units = set(names) | {unit for owners in original.values() for unit in owners}
++        selected, owners, _, counts = complete_weapon_roster(self.cd, self.exe, self.weapons, self.full_weapons, self.units, names)
++        expected = {}
++        for unit in range(SLOTS[2]):
++            pointer = struct.unpack_from('<I', self.cd, UNITS[0] + unit * UNITS[1])[0] - BASE
++            key = f'sd/compdata/{pointer:X}'
++            if key not in expected_units:
++                continue
++            for slot, record in enumerate(struct.unpack_from('<21H', self.cd, SLOTS[0] + unit * SLOTS[1])):
++                if record:
++                    for pointer in struct.unpack_from('<2I', self.cd, WEAPONS[0] + record * WEAPONS[1]):
++                        target = f'sd/compdata/{pointer - BASE:X}'
++                        expected.setdefault(target, {}).setdefault(key, set()).add(slot)
++        self.assertEqual({r['id'] for r in selected}, set(expected))
++        self.assertEqual({target: {unit: set(e['weaponSlots']) for unit, e in units.items()} for target, units in owners.items()}, expected)
++        photon = 'sd/compdata/806D8'
++        self.assertIn('sd/compdata/84AC8', owners[photon])
++        self.assertGreater(counts[photon], len(owners[photon]))
++        published = next(s for s in topic['sections'] if s['id'] == 'weapons')['entries']
++        self.assertEqual({r['id'] for r in published}, set(expected))
++        for row in published:
++            self.assertEqual(row['fields'][0]['sourceText'], sd.decode_text(
++                self.cd, int(row['id'].rsplit('/', 1)[1], 16), self.table).text)
++            self.assertEqual({owner['id']: {key: owner[key] for key in ('unitRecords', 'weaponRecords', 'weaponSlots')}
++                              for owner in row['relatedUnits']}, owners[row['id']])
++        incomplete = [r for r in self.full_weapons if r['id'] != photon]
++        with self.assertRaisesRegex(ValueError, 'unit weapon name missing'):
++            complete_weapon_roster(self.cd, self.exe, self.weapons, incomplete, self.units, names)
