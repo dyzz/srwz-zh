@@ -1,11 +1,11 @@
 {
   "adapter": "sp-full-text-v1",
   "component_modes": {
-    "frame": "rebuilt",
-    "image-labels": "rebuilt",
-    "srvc": "rebuilt",
+    "frame": "reused",
+    "image-labels": "reused",
+    "srvc": "reused",
     "stage": "rebuilt",
-    "system": "rebuilt"
+    "system": "reused"
   },
   "daily_test": {
     "battle_square_skip": {
@@ -64,27 +64,27 @@
     },
     "path": "build/iso/daily-test/current-sp-skip.iso",
     "runtime": "not_tested",
-    "sha256": "2afa98bb0e64db3c1a0467e2a16e99f274c33c3f260cb0d378bf0342ebec1744",
+    "sha256": "5036dfc7218d131c9bca4b58b13aa0b89c19884739bbd24bddf1c524dcf68e52",
     "size": 3791781888,
     "skip_enabled": true,
     "status": "exact_current_copy_and_skip_readback_passed"
   },
   "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
   "edition_id": "sp",
-  "input_digest": "bf6cafc83940fba424fe1e1054273218c6fd8e281874c06fb5de714b75179609",
+  "input_digest": "ac115af2d8c6115d3c7f90112eb5c1bb910ec696ef957a03b764c1f9182965ab",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "2afa98bb0e64db3c1a0467e2a16e99f274c33c3f260cb0d378bf0342ebec1744",
+    "sha256": "5036dfc7218d131c9bca4b58b13aa0b89c19884739bbd24bddf1c524dcf68e52",
     "size": 3791781888
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/3b87c319f5742b7bb19ac855208dad63467ecfd16f6381ac350b4d2457d48807/project/build/iso/special-disc/sp-current.json",
-    "sha256": "762acc68f32e891a1f609280cbec34b19053b6d0547b4f46b9569eee012d8a43"
+    "path": "build/editions/zh-release-sp/c121385e379ae2dd991fa627d2583fbd34d8266a79bbf4609c399180ea3fec13/project/build/iso/special-disc/sp-current.json",
+    "sha256": "dfdcb9debcb9a51190e9b331c841490630c56bad9fe5d02e0af2c84011d856c8"
   },
   "runtime": "not_tested",
   "schema_version": 1,
-  "source_head": "63181669a5d2d28eda657c6e7a2385a0fabe0243",
+  "source_head": "6e66a1c2364da04c73098e53934a3e05a8dc4a0a",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-sp/3b87c319f5742b7bb19ac855208dad63467ecfd16f6381ac350b4d2457d48807/project"
+  "workspace": "build/editions/zh-release-sp/c121385e379ae2dd991fa627d2583fbd34d8266a79bbf4609c399180ea3fec13/project"
 }
