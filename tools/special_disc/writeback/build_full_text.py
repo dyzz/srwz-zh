@@ -30,9 +30,9 @@ from special_disc.writeback.unit_names import apply_unit_names
 from special_disc.writeback.pilot_names import apply_pilot_names
 from special_disc.verification.name_tables import verify_name_tables
 from special_disc.writeback.keyword_list_names import apply_keyword_names
-from weapon_detail_labels import apply_weapon_detail_labels
+from weapon_detail_labels import apply_weapon_detail_labels, verify_weapon_detail_labels
 from migrate_slps_text import encoding_tables
-from special_disc.writeback.terrain_names import apply_terrain_names, MEMBER as TERRAIN_MEMBER
+from special_disc.writeback.terrain_names import apply_terrain_names, verify_terrain_names, MEMBER as TERRAIN_MEMBER
 from special_disc.writeback.stage_titles import apply_stage_titles, verify_title_bindings
 from special_disc.source import CURRENT_ISO
 from special_disc.writeback.qa_layout import MEMBER as QA_MEMBER
@@ -242,7 +242,7 @@ def assemble():
     for name,data in components['image-labels'].items():
         require(sha(base[name])==reports['image-labels']['base_files'][name],f'image {name} base drift');patches[name]=data
     patches.update(components['srvc'])
-    source_table,menu_overrides,stored_overrides,runtime_table=encoding_tables(PROPOSAL)
+    source_table,_,stored_overrides,runtime_table=encoding_tables(PROPOSAL)
     patches[EXE], library_members, library_report = timed(
         'current-shared-library', apply_shared_library, patches[EXE],
         lambda name: read_member(BASE, members, name), read_disc_member,
@@ -252,8 +252,8 @@ def assemble():
     if qa_base is None:qa_base=read_member(BASE,members,QA_MEMBER)
     patches[QA_MEMBER],qa_report=timed('qa',apply_qa_layout,qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table=runtime_table)
     patches[QA_MEMBER],squad_report=apply_nisv_names(patches[QA_MEMBER],patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table)
-    patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,menu_overrides,runtime_table)
-    patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,menu_overrides,runtime_table)
+    patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,stored_overrides,runtime_table)
+    patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,stored_overrides,runtime_table)
     patches[EXE],weapon_parentheses_report=apply_weapon_detail_parentheses(patches[EXE],'sp')
     patches[VT1]=replace_font_slot(patches[VT1],patches[EXE],(FONT/'sp-font/font.bin').read_bytes(),font_report['font']['decoded_sha256'])
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
@@ -264,6 +264,8 @@ def assemble():
         patches[VT1],patches[EXE],read_disc_member(VT1),read_disc_member(EXE),font_assignments,
         load_font_profile(ROOT,ROOT/'config/fonts/zh-release-font.json')['codec'])
     decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
+    verify_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],runtime_table,source_table,stored_overrides,font=decoded_font,proposal=proposal)
+    verify_weapon_detail_labels(patches[EXE],runtime_table,source_table,stored_overrides,font=decoded_font,proposal=proposal)
     patches[CD],unit_report=apply_unit_names(patches[CD],source_table,stored_overrides,runtime_table,decoded_font,proposal)
     patches[CD],pilot_report=apply_pilot_names(patches[CD],source_table,stored_overrides,runtime_table)
     name_table_report=verify_name_tables(patches[CD],read_disc_member(CD),decoded_font,proposal,runtime_table,source_table,patches[EXE])

@@ -130,11 +130,11 @@ def main(iso=None, work=None):
     require(file_sha(TITLE_SNAPSHOT)==manifest['stage_titles']['snapshot']['sha256'],'stage-title snapshot drift')
     counts['stage_entry_title_slots']=title_report['count']
     counts['stage_entry_title_images_rewritten']=title_report['rewritten']
-    terrain=verify_terrain_names(member(TERRAIN_MEMBER),exe,readback)
+    terrain=verify_terrain_names(member(TERRAIN_MEMBER),exe,readback,table,overrides,font=name_font,proposal=proposal)
     require(all(manifest['terrain_names'][k]==v for k,v in terrain.items()),'terrain receipt drift')
     require(file_sha(TERRAIN_CONTRACT)==manifest['terrain_names']['contract_sha256'],'terrain contract drift')
     counts['terrain_names']=terrain['occurrence_count']
-    weapon_labels=verify_weapon_detail_labels(exe,readback)
+    weapon_labels=verify_weapon_detail_labels(exe,readback,table,overrides,font=name_font,proposal=proposal)
     weapon_parentheses=verify_weapon_detail_parentheses(exe,'sp')
     for key,value in weapon_parentheses.items():
         require(manifest['weapon_detail_parentheses'][key]==value,'weapon parenthesis receipt drift')

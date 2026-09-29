@@ -58,7 +58,6 @@ OG_EXE = ROOT / "work/disc/SLPS_258.87"
 OG_CHINESE_EXE = ROOT / ("work/build/zh-release-original/388152fa50e72ed8f4edf6887d9eb1f37130dfc5ee92ba7baf3238aaee22c02f"
                          "/project/work/build/zh-release-full-story/components/SLPS_258.87")
 FONT_MANIFEST = ROOT / "manifests/zh-release-font-validation.json"
-MENU_CODEBOOK = ROOT / "config/encoding/release-menu-codebook.json"
 TABLE = ROOT / "vendor/upstream-python/project/tbl_all.json"
 CORPUS = ROOT / "corpus"
 BASE = ROOT / "work/build/special-disc/components/font"  # executable to build on, if present
@@ -76,7 +75,11 @@ def sha256_text(text: str) -> str:
 
 
 def encoding_tables(proposal_path: Path | None = None):
-    """The main game's stored-text codebook: font assignments over the base table."""
+    """Use the installed shared font for every SP writer and runtime readback.
+
+    Keep the four-value API for existing callers. The former menu position is
+    now a copy of the canonical stored-text mapping, not a legacy overlay.
+    """
     table = load_text_table(TABLE)
     if proposal_path is None:
         manifest = json.loads(FONT_MANIFEST.read_text(encoding="utf-8"))
@@ -85,19 +88,17 @@ def encoding_tables(proposal_path: Path | None = None):
     primary = {a["character"]: int(a["code"], 16) for a in proposal["assignments"]}
     aliases = {a["character"]: int(a["code"], 16)
                for a in proposal.get("surface_alias_assignments", [])}
-    codebook = json.loads(MENU_CODEBOOK.read_text(encoding="utf-8"))
-    release = {a["character"]: int(a["code"], 16) for a in codebook["assignments"]}
     story = dict(primary)
     story.update(aliases)
     story.update(original_fullwidth_ascii_overrides(table))
     story[" "] = ord(" ")
-    # menu text keeps the historical menu assignments on top (main build: _apply_release_menu_text)
-    overrides = dict(story)
-    overrides.update(release)
-    readback = project_runtime_text_table(table, release)
+    # Only aliases backed by actual installed glyphs may affect readback.
+    readback = table
+    for row in proposal.get("source_compatibility_assignments", []):
+        readback = project_runtime_text_table(readback, {row["character"]: int(row["code"], 16)})
     for extra in (primary, aliases, original_fullwidth_ascii_overrides(table)):
         readback = project_runtime_text_table(readback, extra)
-    return table, overrides, story, readback
+    return table, dict(story), story, readback
 
 
 def corpus_index(table) -> tuple[dict[str, str], dict]:

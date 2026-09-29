@@ -9,6 +9,8 @@ from pathlib import Path
 
 from srwz.codec import SrwzEncodeError, decode_production, reencode_changed_suffix
 from srwz.text import PreparedTextEncoder, decode_text
+from srwz.font import read_extended_glyph_table
+from special_disc.verification.name_tables import verify_encoded_glyphs, EXTENDED_TABLE
 
 ROOT = Path(__file__).resolve().parents[3]
 MEMBER = 'MAP/MAPMODEL.BIN'
@@ -44,8 +46,11 @@ def inputs(exe, archive):
     return contract, offsets, translations, grouped
 
 
-def verify_terrain_names(archive, exe, readback):
+def verify_terrain_names(archive, exe, readback, table, overrides, *, font=None, proposal=None):
     contract, offsets, translations, grouped = inputs(exe, archive)
+    encoder = PreparedTextEncoder(table, overrides)
+    extended = read_extended_glyph_table(exe, table_offset=EXTENDED_TABLE) if font is not None else None
+    codes = set()
     for index, rows in grouped.items():
         data = decode_production(archive[offsets[index]:offsets[index + 1]]).output
         for row in rows:
@@ -53,6 +58,11 @@ def verify_terrain_names(archive, exe, readback):
             actual = decode_text(data, at, readback, end=at + 24)
             require(actual.text == translations[row['source']] and actual.terminator == 'nul',
                     f'SP terrain readback mismatch: member {index} offset {at:#x}')
+            expected = encoder.encode(translations[row['source']], terminate=True).ljust(row['source_consumed'], b'\0')
+            require(data[at:at + row['source_consumed']] == expected,
+                    f'SP terrain canonical encoding drift: member {index} offset {at:#x}')
+            if font is not None:
+                verify_encoded_glyphs(expected, font, proposal, extended=extended, cache=codes)
     return dict(contract['expected'])
 
 
@@ -76,11 +86,15 @@ def apply_terrain_names(archive, exe, source, table, overrides, readback):
             encoded = encoder.encode(translations[row['source']], terminate=True)
             require(len(encoded) <= size, f'SP terrain text overflow: {index}/{at:#x}')
             replacement = encoded + bytes(size - len(encoded))
-            current = decode_text(bytes(data), at, readback, end=at + size)
-            require(bytes(data[at:at + size]) == original[at:at + size]
-                    or (current.text == translations[row['source']] and current.terminator == 'nul'),
+            accepted = {original[at:at + size], replacement}
+            previous = contract.get('accepted_previous_hex', {}).get(translations[row['source']])
+            if previous is not None:
+                prior = bytes.fromhex(previous)
+                require(len(prior) <= size, 'SP terrain previous encoding overflow')
+                accepted.add(prior.ljust(size, b'\0'))
+            require(bytes(data[at:at + size]) in accepted,
                     f'SP terrain preimage drift: {index}/{at:#x}')
-            if current.text == translations[row['source']] and current.terminator == 'nul':
+            if bytes(data[at:at + size]) == replacement:
                 continue
             data[at:at + size] = replacement
         if data == decoded.output:
@@ -97,6 +111,6 @@ def apply_terrain_names(archive, exe, source, table, overrides, readback):
         output[a:b] = packed + bytes(b-a-len(packed))
         changed.append(index)
     output = bytes(output)
-    counts = verify_terrain_names(output, exe, readback)
+    counts = verify_terrain_names(output, exe, readback, table, overrides)
     return output, dict(**counts, changed_members=changed, contract_sha256=sha(CONTRACT.read_bytes()),
                         corpus=contract['corpus'], runtime='pending')

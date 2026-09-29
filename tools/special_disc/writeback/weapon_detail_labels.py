@@ -5,7 +5,9 @@ import hashlib
 import json
 from pathlib import Path
 
-from srwz.text import decode_text
+from srwz.text import PreparedTextEncoder, decode_text
+from srwz.font import read_extended_glyph_table
+from special_disc.verification.name_tables import verify_encoded_glyphs, EXTENDED_TABLE
 from srwz.weapon_category_labels import apply_runtime_weapon_category_labels
 from srwz.weapon_special_effects import apply_weapon_special_effect_2
 
@@ -30,23 +32,66 @@ def inputs():
     return contract, json.loads(corpus_bytes)
 
 
+def effect_bytes(executable, field):
+    """Read the materialized string while checking every builder's opcode."""
+    data = bytearray()
+    for builder in field['word_builders']:
+        low = int(builder['ori_file_offset'], 0)
+        high = builder.get('lui_file_offset')
+        for key in ('lui', 'ori'):
+            if key + '_file_offset' in builder:
+                at = int(builder[key + '_file_offset'], 0)
+                require(executable[at+2:at+4] == bytes.fromhex(builder[key+'_original_hex'])[2:],
+                        'SP effect ISO opcode/register drift')
+        data.extend(executable[low:low+2])
+        data.extend(executable[int(high, 0):int(high, 0)+2] if high else b'\0\0')
+    return bytes(data)
+
+
 def apply_weapon_detail_labels(executable, table, overrides, readback):
     contract, corpus = inputs()
     output, category = apply_runtime_weapon_category_labels(
         executable, contract['runtime_weapon_category_labels'])
+    # Upgrade only the pinned old materialization; arbitrary instruction or
+    # text changes must still fail the shared writer's exact preimage guard.
+    upgraded = []
+    output = bytearray(output)
+    for field in contract['weapon_special_effect_2']['fields']:
+        previous = field.get('accepted_previous_hex')
+        if previous is None or effect_bytes(output, field) != bytes.fromhex(previous):
+            continue
+        for builder in field['word_builders']:
+            for key in ('lui', 'ori'):
+                if key + '_file_offset' in builder:
+                    at = int(builder[key + '_file_offset'], 0)
+                    output[at:at+4] = bytes.fromhex(builder[key + '_original_hex'])
+        upgraded.append(field['id'])
     output, effects = apply_weapon_special_effect_2(
-        output, contract['weapon_special_effect_2'], corpus,
+        bytes(output), contract['weapon_special_effect_2'], corpus,
         source_table=table, encoding_overrides=overrides)
-    labels = verify_weapon_detail_labels(output, readback)
+    labels = verify_weapon_detail_labels(output, readback, table, overrides)
     return output, dict(category=category, effects=effects, labels=labels,
+                        migrated_legacy_labels=upgraded,
                         changed_byte_count=sum(a != b for a, b in zip(executable, output)),
                         contract_sha256=hashlib.sha256(CONTRACT.read_bytes()).hexdigest(),
                         executable_size_preserved=len(executable) == len(output), runtime='pending')
 
 
-def verify_weapon_detail_labels(executable, readback):
+def verify_weapon_detail_labels(executable, readback, table, overrides, *, font=None, proposal=None):
     """Independently assemble actual MIPS immediates from the final ISO ELF."""
     contract, corpus = inputs()
+    encoder = PreparedTextEncoder(table, overrides)
+    # The category renderer has a separately guarded native-parenthesis hook;
+    # its fixed instruction blocks intentionally retain these source codes.
+    category_encoder = PreparedTextEncoder(table, dict(overrides, **{'（': 0x8169, '）': 0x816A}))
+    extended = read_extended_glyph_table(executable, table_offset=EXTENDED_TABLE) if font is not None else None
+    codes = set()
+
+    def check_encoding(data, translation, selected_encoder=encoder):
+        expected = selected_encoder.encode(translation, terminate=True).ljust(len(data), b'\0')
+        require(data == expected, 'SP weapon label canonical encoding drift')
+        if font is not None:
+            verify_encoded_glyphs(data, font, proposal, extended=extended, cache=codes)
     # Protect SP-specific stores, icon IDs, flag tests and branches, including
     # instructions between the individual LUI/ORI builders.
     allowed = {int(builder[key], 0) + i
@@ -70,23 +115,15 @@ def verify_weapon_detail_labels(executable, readback):
                         executable[at+lui*4:at+lui*4+2] for lui, ori in pairs) + b'\0'
         text = decode_text(data, 0, readback).text
         require(text == site['translation'], 'SP category ISO text drift')
+        check_encoding(data, site['translation'], category_encoder)
         labels[site['id']] = text
     for field, row in zip(contract['weapon_special_effect_2']['fields'], corpus['entries']):
-        data = bytearray()
-        for builder in field['word_builders']:
-            low = int(builder['ori_file_offset'], 0)
-            high = builder.get('lui_file_offset')
-            for key in ('lui', 'ori'):
-                if key + '_file_offset' in builder:
-                    at = int(builder[key + '_file_offset'], 0)
-                    require(executable[at+2:at+4] == bytes.fromhex(builder[key+'_original_hex'])[2:],
-                            'SP effect ISO opcode/register drift')
-            data.extend(executable[low:low+2])
-            data.extend(executable[int(high, 0):int(high, 0)+2] if high else b'\0\0')
+        data = effect_bytes(executable, field)
         decoded = decode_text(bytes(data), 0, readback)
         require(field['id'] == row['id'] and decoded.text == row['translation'] and
                 decoded.terminator == 'nul' and not any(data[decoded.consumed:]),
                 'SP effect ISO text/padding drift')
+        check_encoding(data, row['translation'])
         labels[field['id']] = decoded.text
     return labels
 
@@ -114,7 +151,7 @@ def main():
     members = member_map(scan_iso9660(source))
     require('SLPS_259.20' in members, 'weapon candidate requires Special Disc')
     before = read_member(source, members, 'SLPS_259.20')
-    table, overrides, _, readback = encoding_tables(args.proposal)
+    table, _, overrides, readback = encoding_tables(args.proposal)
     after, report = apply_weapon_detail_labels(before, table, overrides, readback)
     require(len(before) == len(after), 'weapon candidate executable size drift')
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -131,7 +168,7 @@ def main():
             {n: (m.extent_lba, m.size) for n, m in output_members.items()}, 'weapon candidate ISO layout drift')
     reread = read_member(temporary, output_members, 'SLPS_259.20')
     require(reread == after, 'weapon candidate executable reread drift')
-    labels = verify_weapon_detail_labels(reread, readback)
+    labels = verify_weapon_detail_labels(reread, readback, table, overrides)
     protected = verify_iso_ranges(source, temporary, [(start, start + len(after))])
     report.update(status='weapon_detail_iso_readback_passed_runtime_pending',
                   source_iso=dict(path=str(source), sha256=args.source_sha256),

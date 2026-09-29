@@ -1,4 +1,5 @@
 """Exercise SP keyword relocation, protected data, and fail-closed preimages."""
+import json
 import struct
 import sys
 import unittest
@@ -69,8 +70,9 @@ class SpecialDiscKeywordNamesTests(unittest.TestCase):
             names.patch_decoded(bytes(raw), self.table, self.overrides)
 
     def test_rejects_menu_codes_missing_from_library_font(self):
-        from migrate_slps_text import encoding_tables
-        _, menu, _, _ = encoding_tables(ROOT/'work/build/special-disc/text-candidate/font/proposal.json')
+        legacy = json.loads((ROOT / 'config/encoding/release-menu-codebook.json').read_text())
+        menu = dict(self.overrides)
+        menu.update({r['character']: int(r['code'], 16) for r in legacy['assignments']})
         with self.assertRaisesRegex(ValueError, 'library stored-text encoding'):
             names.patch_decoded(self.raw, self.table, menu)
 

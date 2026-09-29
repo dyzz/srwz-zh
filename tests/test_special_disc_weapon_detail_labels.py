@@ -11,6 +11,7 @@ from special_disc.writeback.weapon_detail_labels import (
     apply_weapon_detail_labels, inputs, verify_weapon_detail_labels,
 )
 from srwz.text import load_text_table, project_runtime_text_table
+from srwz.weapon_special_effects import apply_weapon_special_effect_2
 
 
 class SpecialDiscWeaponDetailTest(unittest.TestCase):
@@ -23,7 +24,8 @@ class SpecialDiscWeaponDetailTest(unittest.TestCase):
         cls.overrides = {r['character']: int(r['code'], 16)
                          for key in ('primary_assignments', 'surface_alias_assignments')
                          for r in assignments[key]}
-        cls.overrides.update({r['character']: int(r['code'], 16) for r in codebook['assignments']})
+        cls.legacy_overrides = dict(cls.overrides)
+        cls.legacy_overrides.update({r['character']: int(r['code'], 16) for r in codebook['assignments']})
         cls.readback = project_runtime_text_table(cls.table, cls.overrides)
         for key in ('primary_assignments', 'surface_alias_assignments'):
             cls.readback = project_runtime_text_table(cls.readback,
@@ -69,16 +71,36 @@ class SpecialDiscWeaponDetailTest(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     self.apply(bytes(damaged))
 
+    def test_migrates_pinned_legacy_effect_and_rejects_false_readback(self):
+        _, corpus = inputs()
+        legacy, _ = apply_weapon_special_effect_2(
+            self.source, self.contract['weapon_special_effect_2'], corpus,
+            source_table=self.table, encoding_overrides=self.legacy_overrides)
+        output, report = self.apply(legacy)
+        canonical, _ = self.apply(self.source)
+        self.assertEqual(output, canonical)
+        self.assertEqual(report['migrated_legacy_labels'], ['ignore-size-correction'])
+        # Give the decoder an intentionally misleading old alias. The raw
+        # canonical-byte check must still reject the retired encoding.
+        damaged = bytearray(output)
+        damaged[0x2BBC20:0x2BBC22] = bytes.fromhex('859f')
+        permissive = project_runtime_text_table(self.readback, {'无': 0x859F})
+        with self.assertRaisesRegex(ValueError, 'canonical encoding drift'):
+            verify_weapon_detail_labels(bytes(damaged), permissive, self.table, self.overrides)
+        damaged[0x2BBC20] ^= 1
+        with self.assertRaisesRegex(ValueError, 'preimage drift'):
+            self.apply(bytes(damaged))
+
     def test_iso_verifier_rejects_unpatched_and_damaged_output(self):
         with self.assertRaises(ValueError):
-            verify_weapon_detail_labels(self.source, self.readback)
+            verify_weapon_detail_labels(self.source, self.readback, self.table, self.overrides)
         output, _ = self.apply(self.source)
         for at in (0x2BB159, 0x2BBC60, 0x2BBC7C, 0x2BBC96):
             with self.subTest(offset=hex(at)):
                 damaged = bytearray(output)
                 damaged[at] ^= 1
                 with self.assertRaises(ValueError):
-                    verify_weapon_detail_labels(bytes(damaged), self.readback)
+                    verify_weapon_detail_labels(bytes(damaged), self.readback, self.table, self.overrides)
 
 
 if __name__ == '__main__':
