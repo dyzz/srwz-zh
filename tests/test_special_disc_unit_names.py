@@ -25,7 +25,10 @@ class SpecialDiscUnitNamesTests(unittest.TestCase):
         if not cls.iso.exists() or not proposal.exists():
             raise unittest.SkipTest('requires local SP candidate ISO and verified font proposal')
         cls.proposal = json.loads(proposal.read_text())
-        cls.table, cls.overrides, _, cls.readback = encoding_tables(proposal)
+        cls.table, _, cls.overrides, cls.readback = encoding_tables(proposal)
+        legacy = json.loads((ROOT / 'config/encoding/release-menu-codebook.json').read_text())
+        cls.legacy_overrides = dict(cls.overrides)
+        cls.legacy_overrides.update({r['character']: int(r['code'], 16) for r in legacy['assignments']})
         members = member_map(scan_iso9660(cls.iso))
         cls.before = read_member(cls.iso, members, names.MEMBER)
         exe = read_member(cls.iso, members, 'SLPS_259.20')
@@ -41,13 +44,13 @@ class SpecialDiscUnitNamesTests(unittest.TestCase):
         return names.apply_unit_names(archive, cls.table, cls.overrides, cls.readback,
                                       cls.font, cls.proposal)
 
-    def test_all_five_names_and_nine_pointers(self):
+    def test_all_names_and_shared_pointers(self):
         labels = names.verify_unit_names(self.output, self.readback)
-        self.assertEqual([r['translation'] for r in labels],
+        self.assertEqual([r['translation'] for r in labels[:5]],
                          ['XAN-斩-', '出云舰', '巴尔戈拉（Ⅰ号机）',
                           '巴尔戈拉（Ⅱ号机）', '雷姆雷斯试作型'])
-        self.assertEqual(self.report['entries'], 5)
-        self.assertEqual(self.report['pointer_count'], 9)
+        self.assertEqual(self.report['entries'], 15)
+        self.assertEqual(self.report['pointer_count'], 23)
         self.assertLessEqual(self.report['compressed_bytes'], len(self.before))
 
     def test_only_name_spans_change_and_archive_size_is_fixed(self):
@@ -63,6 +66,17 @@ class SpecialDiscUnitNamesTests(unittest.TestCase):
         output, report = self.apply(self.output)
         self.assertEqual(output, self.output)
         self.assertEqual(report['changed_ids'], [])
+
+    def test_old_menu_codes_cannot_pass_glyph_validation(self):
+        with self.assertRaisesRegex(ValueError, 'blank glyph'):
+            names.verify_unit_name_glyphs(self.font, self.proposal, self.table, self.legacy_overrides)
+
+    def test_rejects_reference_into_reclaimed_padding(self):
+        data = bytearray(decode_production(self.output).output)
+        at = next(s['offset'] for s in self.contract['entries'] if s['source_text'] == 'デスカイン')
+        struct.pack_into('<I', data, 0, self.contract['base_address'] + at + 14)
+        with self.assertRaisesRegex(ValueError, 'interior pointer drift'):
+            names.check_pointers(data, self.contract)
 
     def test_rejects_missing_duplicate_and_redirected_pointers(self):
         original = decode_production(self.output).output

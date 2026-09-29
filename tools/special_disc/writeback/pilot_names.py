@@ -1,4 +1,4 @@
-"""Write the seven reviewed Noir names into fixed SP pilot fields."""
+"""Write reviewed SP pilot names into source-bound fixed record fields."""
 from __future__ import annotations
 
 import hashlib
@@ -11,7 +11,7 @@ from srwz.text import decode_text, encode_text
 ROOT = Path(__file__).resolve().parents[3]
 CONTRACT = ROOT / 'config/products/special-disc/pilot-names.json'
 MEMBER = 'DATA/COMPDATA.BN'
-PILOTS = {797, 827, 845, 899, 909, 914, 931}
+PILOTS = {770, 771, 772, 797, 827, 845, 899, 909, 914, 931, *range(0x331, 0x33A)}
 FIELDS = {'display': (2, 21), 'given': (46, 23)}
 
 
@@ -37,6 +37,9 @@ def inputs():
     entries = [r for r in json.loads(corpus_path.read_text())['entries'] if r['id'] in expected]
     rows = {r['id']: r for r in entries}
     require(len(entries) == len(rows) == len(expected), 'SP pilot-name corpus coverage drift')
+    all_names = {r['id'] for r in json.loads(corpus_path.read_text())['entries']
+                 if r['category'] == '04-共用名称与能力/驾驶员名称字段'}
+    require(all_names == expected, 'SP native pilot-name coverage drift')
     for slot in slots:
         row = rows[slot['id']]
         index, field = int(slot['id'].split('/')[3]), slot['id'].split('/')[4]
@@ -85,7 +88,9 @@ def apply_pilot_names(archive, table, overrides, readback):
         require(len(encoded) <= size, f"SP pilot-name overflow: {slot['id']}")
         replacement = encoded + bytes(size - len(encoded))
         before = bytes(data[at:at + size])
-        require(before in (source, replacement), f"SP pilot-name preimage drift: {slot['id']}")
+        accepted = [bytes.fromhex(raw) for raw in slot.get('accepted_previous_hex', [])]
+        require(all(len(raw) == size for raw in accepted), 'SP pilot-name accepted span drift')
+        require(before in (source, replacement, *accepted), f"SP pilot-name preimage drift: {slot['id']}")
         if before != replacement:
             changed.append(slot['id'])
         data[at:at + size] = replacement

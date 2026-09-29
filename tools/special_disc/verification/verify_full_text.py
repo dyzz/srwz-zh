@@ -20,6 +20,7 @@ from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_vi
 from srwz.summary import parse_summary
 from special_disc.writeback.unit_names import CONTRACT as UNIT_CONTRACT, verify_unit_names
 from special_disc.writeback.pilot_names import CONTRACT as PILOT_CONTRACT, verify_pilot_names
+from special_disc.verification.name_tables import verify_name_tables
 from special_disc.writeback.keyword_list_names import CONTRACT as KEYWORD_CONTRACT, verify_keyword_names
 from weapon_detail_labels import CONTRACT as WEAPON_CONTRACT, verify_weapon_detail_labels
 from special_disc.writeback.terrain_names import CONTRACT as TERRAIN_CONTRACT, verify_terrain_names, MEMBER as TERRAIN_MEMBER
@@ -87,6 +88,13 @@ def main(iso=None, work=None):
     pilot_corpus=manifest['pilot_names']['corpus']
     require(file_sha(ROOT/pilot_corpus['path'])==pilot_corpus['sha256'],'pilot-name corpus drift')
     counts['native_pilot_name_fields']=len(pilot_names)
+    name_font_start,name_font_end=struct.unpack_from('<II',member('SLPS_259.20'),0x353790+12)
+    name_font=decode_production(member('DATA/VT1.BIN')[name_font_start:name_font_end]).output
+    name_tables=verify_name_tables(member('DATA/COMPDATA.BN'),st.read_disc_member('DATA/COMPDATA.BN'),
+        name_font,proposal,readback,table,member('SLPS_259.20'))
+    require(name_tables==manifest['name_tables'],'full name-table receipt drift')
+    counts['all_unit_name_records']=name_tables['unit_records']
+    counts['all_pilot_name_fields']=name_tables['pilot_fields']
     keyword_names=verify_keyword_names(member('DATA/COMPDATA.BN'),readback)
     require(keyword_names==manifest['keyword_list_names']['labels'],'keyword-list receipt drift')
     require(file_sha(KEYWORD_CONTRACT)==manifest['keyword_list_names']['contract_sha256'],'keyword-list contract drift')

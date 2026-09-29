@@ -28,6 +28,7 @@ from migrate_stage_dialogue import read_disc_member
 from chart_visibility import apply_chart_visibility
 from special_disc.writeback.unit_names import apply_unit_names
 from special_disc.writeback.pilot_names import apply_pilot_names
+from special_disc.verification.name_tables import verify_name_tables
 from special_disc.writeback.keyword_list_names import apply_keyword_names
 from weapon_detail_labels import apply_weapon_detail_labels
 from migrate_slps_text import encoding_tables
@@ -263,8 +264,9 @@ def assemble():
         patches[VT1],patches[EXE],read_disc_member(VT1),read_disc_member(EXE),font_assignments,
         load_font_profile(ROOT,ROOT/'config/fonts/zh-release-font.json')['codec'])
     decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
-    patches[CD],unit_report=apply_unit_names(patches[CD],source_table,menu_overrides,runtime_table,decoded_font,proposal)
-    patches[CD],pilot_report=apply_pilot_names(patches[CD],source_table,menu_overrides,runtime_table)
+    patches[CD],unit_report=apply_unit_names(patches[CD],source_table,stored_overrides,runtime_table,decoded_font,proposal)
+    patches[CD],pilot_report=apply_pilot_names(patches[CD],source_table,stored_overrides,runtime_table)
+    name_table_report=verify_name_tables(patches[CD],read_disc_member(CD),decoded_font,proposal,runtime_table,source_table,patches[EXE])
     patches[CD],keyword_report=apply_keyword_names(patches[CD],source_table,stored_overrides,runtime_table)
     verify_title_bindings(decode_production(patches[CD]).output)
     patches[VT1],title_report=timed('stage-titles',apply_stage_titles,patches[VT1],patches[EXE])
@@ -305,6 +307,7 @@ def assemble():
     report['terrain_names']=terrain_report
     report['unit_names']=unit_report
     report['pilot_names']=pilot_report
+    report['name_tables']=name_table_report
     report['keyword_list_names']=keyword_report
     report['stage_titles']=title_report
     report['world_map_titles']=reports['image-labels']['world_map_titles']

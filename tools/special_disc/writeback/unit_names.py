@@ -4,11 +4,13 @@ from __future__ import annotations
 import hashlib
 import json
 import struct
+import string
 from pathlib import Path
 
 from srwz.codec import decode_production, reencode_changed_suffix
 from srwz.font import decode_glyph, standard_glyph_index
-from srwz.text import decode_text, encode_text
+from srwz.text import decode_text, encode_text, two_byte_visible_spaces
+from special_disc.verification.name_tables import verify_encoded_glyphs
 
 ROOT = Path(__file__).resolve().parents[3]
 CONTRACT = ROOT / 'config/products/special-disc/unit-names.json'
@@ -54,6 +56,13 @@ def check_pointers(data, contract):
         actual = [table['start'] + i * table['stride'] for i in range(table['count'])
                   if struct.unpack_from('<I', data, table['start'] + i * table['stride'])[0] == pointer]
         require(actual == slot['pointer_sites'], f"SP unit-name pointer drift: {slot['id']}")
+        references = []
+        for site in range(0, len(data) - 3, 4):
+            target = struct.unpack_from('<I', data, site)[0] - contract['base_address']
+            if slot['offset'] <= target < slot['offset'] + slot['capacity']:
+                require(target == slot['offset'], f"SP unit-name interior pointer drift: {slot['id']}")
+                references.append(site)
+        require(references == slot['reference_sites'], f"SP unit-name reference drift: {slot['id']}")
 
 
 def verify_unit_names(archive, readback):
@@ -66,7 +75,7 @@ def verify_unit_names(archive, readback):
         for site in slot['pointer_sites']:
             at = struct.unpack_from('<I', data, site)[0] - contract['base_address']
             actual = decode_text(data, at, readback, end=at + slot['capacity'])
-            require(actual.text == expected and actual.terminator == 'nul' and
+            require(actual.text == two_byte_visible_spaces(expected) and actual.terminator == 'nul' and
                     not any(data[at + actual.consumed:at + slot['capacity']]),
                     f"SP unit-name readback mismatch: {slot['id']}")
         labels.append(dict(id=slot['id'], translation=expected, offset=slot['offset'],
@@ -79,7 +88,9 @@ def verify_unit_name_glyphs(font, proposal, table, overrides):
     registered = {a['character'] for key in ('assignments', 'surface_alias_assignments',
                   'source_compatibility_assignments') for a in proposal[key]}
     used = {ch for r in rows.values() for ch in r['translation']}
-    missing = used - registered
+    # ASCII letters may be encoded through preserved fullwidth source glyphs.
+    # Their actual encoded slots are still checked below.
+    missing = used - registered - set(string.ascii_letters + string.digits)
     preserved = []
     for glyph in contract['preserved_glyphs']:
         char, code = glyph['character'], int(glyph['code'], 0)
@@ -92,6 +103,9 @@ def verify_unit_name_glyphs(font, proposal, table, overrides):
         preserved.append(dict(character=char, code=glyph['code'], pixels_sha256=sha(pixels)))
         missing.remove(char)
     require(not missing, f'SP unit-name unverified glyphs: {sorted(missing)}')
+    for row in rows.values():
+        encoded = encode_text(two_byte_visible_spaces(row['translation']), table, overrides=overrides, terminate=True)
+        verify_encoded_glyphs(encoded, font, proposal)
     return preserved
 
 
@@ -107,11 +121,13 @@ def apply_unit_names(archive, table, overrides, readback, font, proposal):
         source = bytes.fromhex(slot['source_hex'])
         require(len(source) == size and decode_text(source, 0, table).text == slot['source_text'],
                 'SP unit-name source bytes drift')
-        encoded = encode_text(rows[slot['id']]['translation'], table, overrides=overrides, terminate=True)
+        encoded = encode_text(two_byte_visible_spaces(rows[slot['id']]['translation']), table, overrides=overrides, terminate=True)
         require(len(encoded) <= size, f"SP unit-name overflow: {slot['id']}")
         replacement = encoded + bytes(size - len(encoded))
         before = bytes(data[at:at + size])
-        require(before in (source, bytes.fromhex(slot['accepted_migrated_hex']), replacement),
+        accepted = [bytes.fromhex(raw) for raw in slot.get('accepted_previous_hex', [])]
+        require(all(len(raw) == size for raw in accepted), 'SP unit-name accepted span drift')
+        require(before in (source, bytes.fromhex(slot['accepted_migrated_hex']), replacement, *accepted),
                 f"SP unit-name preimage drift: {slot['id']}")
         if before != replacement:
             changed.append(slot['id'])
@@ -167,7 +183,7 @@ def main():
         stream.seek(vt.extent_lba * 2048 + a)
         font = decode_production(stream.read(b - a)).output
     require(sha(font) == manifest['decoded_font_sha256'], 'SP source font drift')
-    table, overrides, _, readback = encoding_tables(args.proposal)
+    table, _, overrides, readback = encoding_tables(args.proposal)
     after, report = apply_unit_names(before, table, overrides, readback, font,
                                      json.loads(args.proposal.read_text()))
     dest.parent.mkdir(parents=True, exist_ok=True)

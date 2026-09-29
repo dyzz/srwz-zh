@@ -1,4 +1,4 @@
-"""Pilot name writeback must stay inside the seven reviewed records."""
+"""Pilot name writeback must stay inside the reviewed, source-bound records."""
 import copy
 import json
 import sys
@@ -23,7 +23,7 @@ class SpecialDiscPilotNamesTests(unittest.TestCase):
         base = CURRENT_ISO
         if not proposal.exists() or not base.exists():
             raise unittest.SkipTest('requires local SP component and verified font proposal')
-        cls.table, cls.overrides, _, cls.readback = encoding_tables(proposal)
+        cls.table, _, cls.overrides, cls.readback = encoding_tables(proposal)
         cls.before = read_member(base, member_map(scan_iso9660(base)), names.MEMBER)
         cls.contract, cls.rows, cls.corpus_path = names.inputs()
         cls.output, cls.report = cls.apply(cls.before)
@@ -33,9 +33,10 @@ class SpecialDiscPilotNamesTests(unittest.TestCase):
         return names.apply_pilot_names(archive, cls.table, cls.overrides, cls.readback)
 
     def test_names_roundtrip_and_other_bytes_preserved(self):
-        self.assertEqual(self.report['entries'], 14)
+        self.assertEqual(self.report['entries'], 38)
         self.assertEqual({r['translation'] for r in self.report['labels']},
-                         {'伊内', '贰威', '叁洛', '四条', '伍克', '陆克斯', '柒普特'})
+                         {'伊内', '贰威', '叁洛', '四条', '伍克', '陆克斯', '柒普特',
+                          '镇长', '自警团团长', '新闻主播', '提坦斯'})
         original = decode_production(self.before).output
         restored = bytearray(decode_production(self.output).output)
         for slot in self.contract['entries']:
