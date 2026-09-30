@@ -48,6 +48,12 @@ class StoryDialogueLayoutWordsTest(unittest.TestCase):
         self.assertEqual(len(load_unbroken_terms_file(WORDS_PATH)),
                          len(document["common_words"]) + len(document["proper_names"]))
 
+    def test_ameria_continent_can_break_before_continent(self) -> None:
+        terms = set(self.profile.unbroken_terms)
+        self.assertNotIn("阿美利亚大陆", terms)
+        text = "“那座城市应该在北阿美利亚\n　大陆的东海岸……”"
+        self.assertEqual(dialogue_layout_issues(text, profile=self.profile), ())
+
     def test_reflow_keeps_common_words_intact(self) -> None:
         # Without the word list the cheapest balanced break splits 炸弹.
         source = "“盖佐克把抓来的地球人身体里埋入炸\n　弹送回去，进行无差别恐怖袭击……”"

@@ -38,6 +38,8 @@ GLOSSARY_DIR = PROJECT_ROOT / "corpus/glossary"
 # ideographs, optionally joined by the interpunct used in transliterated names.
 _NAME_PATTERN = re.compile(r"[一-鿿]+(?:·[一-鿿]+)*")
 MAX_NAME_LENGTH = 12
+# User-reviewed compound: allow a break before 大陆 in this compound name.
+SPLITTABLE_COMPOUND_NAMES = {"阿美利亚大陆"}
 
 
 def read_word_file(path: Path) -> list[str]:
@@ -112,7 +114,7 @@ def build_document() -> dict:
     proper_names = set(manual_names)
     for names in corpus_sources.values():
         proper_names.update(names)
-    proper_names -= set(common_words)
+    proper_names -= set(common_words) | SPLITTABLE_COMPOUND_NAMES
     return {
         "schema_version": 1,
         "purpose": (
