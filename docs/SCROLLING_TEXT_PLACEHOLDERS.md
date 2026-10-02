@@ -57,3 +57,11 @@ python3 tools/build_editions.py
 
 完整 ISO、本地录像、存档和运行捕获不进入 Git。生产 ISO 的静态构建／回读与新镜像
 的 LRPS2／PCSX2 人工运行验收独立记账；issue #29 在运行验收完成前保持开放。
+
+
+2026-10-02 已按用户指定的本地 LRPS2 验收方式验证新生产镜像：Original／Best 的
+`summary/01/000` 完整自然滚动，以及 SP 的 `narration/000` 自然入场／离场。
+LRPS2 v2.0.0-16e520b、Software (SW)，冷启动、隔离记忆卡、关闭金手指，
+每例 221 张截图、间隔 15 游戏帧；正文可见期间无内部空白。
+运行收据为 `manifests/editions/scroll-placeholders-20261002-lrps2.json`。
+其他修复记录已逐条完成原盘占位行字节回读，未逐条运行遍历；这份结果不代表整部游戏的运行验收。

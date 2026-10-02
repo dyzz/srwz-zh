@@ -74,6 +74,13 @@
       "passed": true
     }
   },
-  "runtime": "new_production_isos_not_tested",
-  "scope": "Fresh full production builds and static readback; previous Best single-record LRPS2 canary only binds decoded target chunk, not complete new-ISO runtime acceptance."
+  "runtime": "reported_dropout_lrps2_runtime_passed",
+  "scope": "Fresh full production builds and static readback; reported dropout now verified on fresh Original/Best production ISOs in LRPS2, plus SP opening narration. Remaining repaired records are individually covered by static native-byte readback.",
+  "runtime_validation": {
+    "path": "manifests/editions/scroll-placeholders-20261002-lrps2.json",
+    "sha256": "bda84f1c52f82853d63ab6c62ed44c596762ab57d24898c6829eb94daae10845",
+    "cases": 3,
+    "samples_per_case": 221,
+    "scope": "LRPS2 Software validation of summary/01/000 on actual Original and Best production ISOs, plus SP narration/000. Other repaired records have complete native-byte placeholder readback but were not individually traversed at runtime; this is not a full-game runtime acceptance."
+  }
 }

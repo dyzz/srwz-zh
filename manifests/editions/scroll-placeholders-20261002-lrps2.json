@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-02",
+  "emulator": "LRPS2",
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "source_card_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+  "cases": [
+    {
+      "edition": "best",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "a2e08f3c4434eb0bf5725feb246cb7c34bf3cb7806d71af92ecd9f85581355de",
+        "size": 3755081728
+      },
+      "renderer": "Software (SW)",
+      "cold_boot": true,
+      "cheats_enabled": false,
+      "ram_pokes_or_foreign_savestates": false,
+      "record": "summary/01/000",
+      "capture_start_game_frame": 3045,
+      "sample_interval_frames": 15,
+      "sample_count": 221,
+      "text_region_xyxy": [
+        30,
+        40,
+        610,
+        415
+      ],
+      "bright_text_threshold": {
+        "min_rgb": 130,
+        "max_channel_spread": 50,
+        "visible_pixel_min": 100
+      },
+      "first_visible_relative_frame": 120,
+      "last_visible_relative_frame": 2310,
+      "analysis_window_basis": "text arrival through normal scroll exit, visually inspected",
+      "internal_empty_samples": [],
+      "status": "passed",
+      "visible_window_min_text_pixels": 296,
+      "runtime_flow": "new Rand game opening world history, natural scroll entry and normal exit",
+      "capture_set_sha256": "ec4a48ed856e97b674ab3b806cb7bfba1ba104b56d58ab3ecb228b17921a3024",
+      "local_artifacts": {
+        "path": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/best",
+        "commands_sha256": "1d79ca18682f9aa3cdb88c6de8bb645267bc75302ff5ccd3ecaa0bad3f6a2518",
+        "capture_hashes_file": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/best/capture-hashes.json"
+      }
+    },
+    {
+      "edition": "original",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "c8886012c368d1b9aab1d7cda2a3cead4705a0b28ec4ca9389b5e1426989c5c4",
+        "size": 3758358528
+      },
+      "renderer": "Software (SW)",
+      "cold_boot": true,
+      "cheats_enabled": false,
+      "ram_pokes_or_foreign_savestates": false,
+      "record": "summary/01/000",
+      "capture_start_game_frame": 3045,
+      "sample_interval_frames": 15,
+      "sample_count": 221,
+      "text_region_xyxy": [
+        30,
+        40,
+        610,
+        415
+      ],
+      "bright_text_threshold": {
+        "min_rgb": 130,
+        "max_channel_spread": 50,
+        "visible_pixel_min": 100
+      },
+      "first_visible_relative_frame": 120,
+      "last_visible_relative_frame": 2310,
+      "analysis_window_basis": "text arrival through normal scroll exit, visually inspected",
+      "internal_empty_samples": [],
+      "status": "passed",
+      "visible_window_min_text_pixels": 296,
+      "runtime_flow": "new Rand game opening world history, natural scroll entry and normal exit",
+      "capture_set_sha256": "ec4a48ed856e97b674ab3b806cb7bfba1ba104b56d58ab3ecb228b17921a3024",
+      "local_artifacts": {
+        "path": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/original",
+        "commands_sha256": "176f477da65f7c3129cc581a827a65870005a8b5936d97c1a0da791d905ca1ee",
+        "capture_hashes_file": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/original/capture-hashes.json"
+      }
+    },
+    {
+      "edition": "sp",
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "f24e1fc40a0519d074b76bb18557fc5e546208fd080fef6aec3918937244724f",
+        "size": 3791781888
+      },
+      "renderer": "Software (SW)",
+      "cold_boot": true,
+      "cheats_enabled": false,
+      "ram_pokes_or_foreign_savestates": false,
+      "record": "narration/000",
+      "capture_start_game_frame": 4460,
+      "sample_interval_frames": 15,
+      "sample_count": 221,
+      "text_region_xyxy": [
+        30,
+        40,
+        610,
+        415
+      ],
+      "bright_text_threshold": {
+        "min_rgb": 130,
+        "max_channel_spread": 50,
+        "visible_pixel_min": 100
+      },
+      "first_visible_relative_frame": 315,
+      "last_visible_relative_frame": 2940,
+      "analysis_window_basis": "manually inspected narrative page; initial blue transition bloom excluded",
+      "internal_empty_samples": [],
+      "status": "passed",
+      "visible_window_min_text_pixels": 1431,
+      "runtime_flow": "another-side opening narrative, natural entry and normal exit",
+      "capture_set_sha256": "cad90769014d66a204a6645906d1ec679a7f1755b6717f11aebd794a0d36e654",
+      "local_artifacts": {
+        "path": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/sp",
+        "commands_sha256": "b7fdead0bc82d35b6450eba07777a24f2649d40005bcfb418caa60628fd897f4",
+        "capture_hashes_file": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/sp/capture-hashes.json"
+      }
+    }
+  ],
+  "scope": "Actual fresh production ISOs; cold-boot natural input and 15-frame screenshots. Other repaired records retain native-byte static coverage only.",
+  "issue": "https://github.com/dyzz/srwz-zh/issues/29",
+  "reported_by": "黑泽小皮",
+  "source_fix_commit": "111a8c992513af7843fdfb03c7bd6b483453b26f",
+  "production_build_commit": "ed67a2cb59ba6eb9a7a88c405a015ee44f226553",
+  "core": {
+    "library_name": "LRPS2",
+    "library_version": "v2.0.0-16e520b"
+  },
+  "source_card_unchanged": true,
+  "actual_iso_hashes_verified": true,
+  "user_acceptance_method": "Local LRPS2 accepted for this issue by user on 2026-10-02",
+  "status": "reported_dropout_lrps2_runtime_passed",
+  "validation_scripts": [
+    {
+      "path": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/drive.py",
+      "sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83"
+    },
+    {
+      "path": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/route.py",
+      "sha256": "ad289acda557ef5d5ba8901c18dbf8a508238f5b6e5beaf603be6e6ad8ebb2cf"
+    },
+    {
+      "path": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/route-sp-complete.py",
+      "sha256": "b29ff83e6ff31af76431a37f45b2550624fa93377da96dee6924f88c816f06fa"
+    },
+    {
+      "path": "work/feedback/aethersx2-text-dropout-20261002/production-lrps2/analyze.py",
+      "sha256": "59f650210501d62d4a3110fb334d1ee0a800d14834b26124ccb87ee667b7b0c4"
+    }
+  ],
+  "evidence_boundary": "LRPS2 Software validation of summary/01/000 on actual Original and Best production ISOs, plus SP narration/000. Other repaired records have complete native-byte placeholder readback but were not individually traversed at runtime; this is not a full-game runtime acceptance."
+}
