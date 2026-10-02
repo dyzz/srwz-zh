@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "purpose": "Three user-requested standalone CHDs of the repaired 2026-10-02 current production ISOs",
+  "input_digest": "4d7c7af54abdf68166d2884d75e29f5f58b18844359c9017bbedb0f92fbc3649",
+  "compression": "zlib",
+  "hunk_bytes": 16384,
+  "standalone": true,
+  "results": [
+    {
+      "edition": "original",
+      "source_iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "c8886012c368d1b9aab1d7cda2a3cead4705a0b28ec4ca9389b5e1426989c5c4",
+        "size": 3758358528
+      },
+      "chd": "build/chd/20261002-scroll-placeholders/srwz-zh-20261002-original-skip.chd",
+      "chd_bytes": 2560016927,
+      "chd_sha256": "b18e14caa76486d9e8e1c9e4166e08e70fc4be891abd6433035f3112af51dc30",
+      "standalone": true,
+      "chd_verify": "passed",
+      "roundtrip_iso_bytes": 3758358528,
+      "roundtrip_iso_sha256": "c8886012c368d1b9aab1d7cda2a3cead4705a0b28ec4ca9389b5e1426989c5c4",
+      "runtime": "ISO LRPS2 validation recorded separately; CHD container not directly run",
+      "seconds": 64.525
+    },
+    {
+      "edition": "best",
+      "source_iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "a2e08f3c4434eb0bf5725feb246cb7c34bf3cb7806d71af92ecd9f85581355de",
+        "size": 3755081728
+      },
+      "chd": "build/chd/20261002-scroll-placeholders/srwz-zh-20261002-best-skip.chd",
+      "chd_bytes": 2557265155,
+      "chd_sha256": "792528d1b846d22c458f2329420a302c055ed5b3f17df9b2f14b91574c4f3d10",
+      "standalone": true,
+      "chd_verify": "passed",
+      "roundtrip_iso_bytes": 3755081728,
+      "roundtrip_iso_sha256": "a2e08f3c4434eb0bf5725feb246cb7c34bf3cb7806d71af92ecd9f85581355de",
+      "runtime": "ISO LRPS2 validation recorded separately; CHD container not directly run",
+      "seconds": 63.534
+    },
+    {
+      "edition": "sp",
+      "source_iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "f24e1fc40a0519d074b76bb18557fc5e546208fd080fef6aec3918937244724f",
+        "size": 3791781888
+      },
+      "chd": "build/chd/20261002-scroll-placeholders/srwz-zh-20261002-sp-skip.chd",
+      "chd_bytes": 2608436495,
+      "chd_sha256": "d911622fbb6838c81ac0f96893b9fa4e0b19a1f44978ff410a470ada735a1758",
+      "standalone": true,
+      "chd_verify": "passed",
+      "roundtrip_iso_bytes": 3791781888,
+      "roundtrip_iso_sha256": "f24e1fc40a0519d074b76bb18557fc5e546208fd080fef6aec3918937244724f",
+      "runtime": "ISO LRPS2 validation recorded separately; CHD container not directly run",
+      "seconds": 63.338
+    }
+  ],
+  "generated_at": "2026-10-02T15:23:50.160968+00:00",
+  "chdman_version": "0.289",
+  "source_fix_commit": "111a8c992513af7843fdfb03c7bd6b483453b26f",
+  "iso_batch_manifest": "manifests/editions/scroll-placeholders-20261002.json",
+  "iso_lrps2_receipt": "manifests/editions/scroll-placeholders-20261002-lrps2.json",
+  "status": "three_standalone_chds_integrity_and_exact_iso_roundtrip_passed",
+  "uploaded_to_baidu": false
+}
