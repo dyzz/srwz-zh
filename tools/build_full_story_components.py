@@ -164,7 +164,7 @@ try:
         load_locked_stage_default_formations,
     )
     from srwz.stage import parse_stage_system_dialogues
-    from srwz.summary import parse_summary
+    from srwz.summary import parse_summary, validate_scroll_placeholders
     from srwz.stage_title_snapshot import (
         StageTitleSnapshotError,
         METADATA_KEYS as STAGE_TITLE_METADATA_KEYS,
@@ -4728,6 +4728,7 @@ def _apply_world_history_layout(
             or entry_id in replacements_by_chunk.setdefault(chunk_index, {})
         ):
             raise FullStoryComponentError("world-history entry contract drift")
+        validate_scroll_placeholders(source.text, translation, label=entry_id + ' corpus')
         # MTV_PROS is consumed as a two-byte text stream.  Keep the corpus's
         # logical ASCII identity (for example ``Side 3``), but store every
         # visible separator through the stock 0x8140 ideographic-space glyph.

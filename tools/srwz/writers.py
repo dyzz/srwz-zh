@@ -15,7 +15,7 @@ from .stage import (
     parse_stage,
     parse_stage_system_dialogues,
 )
-from .summary import parse_summary
+from .summary import parse_summary, validate_scroll_placeholders
 from .text import PreparedTextEncoder, TextTable, decode_text, encode_text
 from .writeback import (
     AllocationPool,
@@ -1234,11 +1234,13 @@ def build_summary_patch_plan(
     operations = []
     for entry_id in sorted(replacements):
         entry = entries[entry_id]
+        validate_scroll_placeholders(entry.text, replacements[entry_id], label=entry_id)
         payload = encode_text(
             replacements[entry_id],
             table,
             overrides=overrides,
         )
+        validate_scroll_placeholders(entry.text, replacements[entry_id], label=entry_id, payload=payload)
         after = fit_fixed_allocation(
             payload,
             entry.allocated_length,

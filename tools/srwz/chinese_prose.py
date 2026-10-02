@@ -5,6 +5,7 @@ from dataclasses import dataclass, replace
 from .chinese_layout import ChineseLayoutError, ChineseLayoutProfile, reflow_chinese_paragraph
 from .renderer_metrics import text_extent
 from .text import CONTROL_NOTATION
+from .summary import validate_scroll_placeholders
 
 
 @dataclass(frozen=True)
@@ -29,14 +30,14 @@ def reflow_chinese_prose(
     preceding paragraph. This is an authoring operation, not an implicit change
     to fixed production fields or scrolling timing controls.
     """
-    groups: list[tuple[str,str] | None] = []
+    groups: list[tuple[str,str] | str] = []
     for line in text.replace('\r','').split('\n'):
         if not line.strip('　 '):
-            groups.append(None)
+            groups.append(line)
             continue
         indent=line[:len(line)-len(line.lstrip('　 '))]
         body=line[len(indent):]
-        if groups and groups[-1] is not None and not indent:
+        if groups and isinstance(groups[-1],tuple) and not indent:
             old_indent,old_body=groups[-1]
             groups[-1]=(old_indent,old_body+body)
         else:
@@ -44,8 +45,11 @@ def reflow_chinese_prose(
     lines=[]
     count=0
     for group in groups:
-        if group is None:
-            lines.append('')
+        if isinstance(group,str):
+            # Preserve authored placeholders, including multi-space native
+            # rows. MTV_PROS/MTZSPROS also need a glyph for an empty separator.
+            scroll = profile.profile_id in ('world_history_scroll','sp_narration_scroll')
+            lines.append(group.replace(' ','　') or ('　' if scroll else ''))
             continue
         indent,body=group
         count+=1
@@ -58,6 +62,8 @@ def reflow_chinese_prose(
     if maximum_lines is not None and len(lines)>maximum_lines:
         raise ChineseLayoutError(f'prose exceeds {maximum_lines} physical rows: {len(lines)}')
     result='\n'.join(lines)
+    if profile.profile_id in ('world_history_scroll','sp_narration_scroll'):
+        validate_scroll_placeholders(text,result,label=profile.profile_id+' reflow')
     if logical_prose_text(result)!=logical_prose_text(text):
         raise ChineseLayoutError('prose reflow changed visible content')
     if CONTROL_NOTATION.findall(result) != CONTROL_NOTATION.findall(text):

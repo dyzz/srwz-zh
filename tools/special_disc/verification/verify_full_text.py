@@ -17,7 +17,7 @@ from write_system_text import tickers,FULLWIDTH_DIGITS
 from srwz.iso9660 import scan_iso9660,member_map
 from srwz.codec import decode_production
 from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_visible_spaces
-from srwz.summary import parse_summary
+from srwz.summary import parse_summary, validate_scroll_placeholders
 from special_disc.writeback.unit_names import CONTRACT as UNIT_CONTRACT, verify_unit_names
 from special_disc.writeback.pilot_names import CONTRACT as PILOT_CONTRACT, verify_pilot_names
 from special_disc.verification.name_tables import verify_name_tables
@@ -191,7 +191,13 @@ def main(iso=None, work=None):
             actual='\n'.join(decode_text(data,row['offset']+j*cell,readback).text for j in range(3)).rstrip('\n');text=text.rstrip('\n')
         elif target.startswith('sd/mtzspros/'):
             data=decoded(name,row['chunk'],st.sd.MTZSPROS_TABLE);entries=parse_summary(data,readback,chunk_index=row['chunk']).entries
-            actual=entries[int(target.rsplit('/',1)[1])].text
+            entry=entries[int(target.rsplit('/',1)[1])];actual=entry.text
+            native_archive=st.read_disc_member(name)
+            native_offsets=st.sd.table_offsets(st.read_disc_member('SLPS_259.20'),st.sd.MTZSPROS_TABLE,len(native_archive))
+            a,b=native_offsets[row['chunk']:row['chunk']+2]
+            native_entries=parse_summary(decode_production(native_archive[a:b]).output,table,chunk_index=row['chunk']).entries
+            validate_scroll_placeholders(native_entries[entry.ordinal].text,actual,label=target+' ISO',
+                                         payload=data[entry.text_offset:entry.text_offset+entry.allocated_length])
         else:
             data=stage_data[0] if name==st.STAGE else decode_production(member(name)).output if name=='DATA/COMPDATA.BN' else member(name)
             actual=decode_text(data,row['offset'],readback).text

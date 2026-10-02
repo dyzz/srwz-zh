@@ -16,6 +16,7 @@ from pathlib import Path,PurePosixPath
 ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'tools'))
 from srwz.text import normalize_original_fullwidth_ascii
+from srwz.summary import validate_scroll_placeholders
 
 BASE=ROOT/'work/review/special-disc/sp-only-non-stage-text-20260919'
 AREA=ROOT/'work/authoring/special-disc/review-imports/20260919-gpt6-pro'
@@ -78,6 +79,8 @@ def run(archive,apply):
     if len(options)==1:key=options[0]
    if key:
     target=by_key[key];need(target['source_text_sha256']==r['source_text_sha256'],'corpus source drift')
+    if target.get('kind')=='narration':
+     validate_scroll_placeholders(r['source_text'],effective,label=id_+' review import')
     need(norm(target['translation'])==norm(r['translation']or r['current_text'])or not r.get('corpus_path'),f'corpus edited after export: {id_}')
     if key in plans:need(norm(plans[key]['translation'])==norm(effective),f'conflicting alias reviews: {id_}, {plans[key]["ids"]}')
     else:plans[key]=dict(translation=effective,ids=[],notes=[],terminology_check=False)

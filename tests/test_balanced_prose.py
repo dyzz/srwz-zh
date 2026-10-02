@@ -1,5 +1,6 @@
 """Natural prose breaks, paragraph boundaries and per-row pixel budgets."""
 import sys
+import json
 import unittest
 from dataclasses import replace
 from pathlib import Path
@@ -9,12 +10,61 @@ sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'tools/special_disc/writeback')]
 from srwz.chinese_layout import ChineseLayoutProfile,load_layout_profiles
 from srwz.chinese_prose import logical_prose_text,reflow_chinese_prose
 from srwz.renderer_metrics import compact_visible_runs
-from srwz.text import CONTROL_NOTATION
+from srwz.text import CONTROL_NOTATION,encode_text,load_text_table
 from build_library_v02_component import reflow_body
 from write_frame_text import paragraphs,flow_synopsis
 
 
 class BalancedProseTests(unittest.TestCase):
+    def test_world_history_separators_keep_native_drawable_space_rows(self):
+        profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['world_history_scroll']
+        text='　甲\n\n　乙\n　\n　丙\n\n　丁'
+        result=reflow_chinese_prose(text,profile=profile)
+        self.assertEqual(result.text,'　甲\n　\n　乙\n　\n　丙\n　\n　丁')
+        self.assertEqual(logical_prose_text(result.text),logical_prose_text(text))
+        table=load_text_table(ROOT/'vendor/upstream-python/project/tbl_all.json')
+        self.assertEqual(encode_text('\n　\n',table,terminate=False),b'\x0a\x81\x40\x0a')
+
+    def test_world_history_corpus_retains_all_fourteen_native_separators(self):
+        document=json.loads((ROOT/'corpus/zh/summary.json').read_text())
+        separators={}
+        for entry in document['entries']:
+            lines=entry['translation'].split('\n')
+            self.assertNotIn('',lines,entry['id'])
+            count=lines.count('　')
+            if count:separators[entry['id']]=count
+        self.assertEqual(separators,{'summary/00/000':4,'summary/01/000':2,
+                                    'summary/05/000':4,'summary/07/000':4})
+
+    def test_sp_narration_keeps_native_single_and_multispace_rows(self):
+        from srwz.summary import validate_scroll_placeholders
+        profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['sp_narration_scroll']
+        rows=json.loads((ROOT/'corpus/zh/special-disc/frame-text.json').read_text())['entries']
+        for row in rows:
+            if row.get('kind')!='narration':continue
+            with self.subTest(entry=row['id']):
+                validate_scroll_placeholders(row['source_text'],row['translation'],label=row['id'])
+                result=reflow_chinese_prose(row['translation'],profile=profile,
+                                           maximum_lines=len(row['source_text'].split('\n')))
+                validate_scroll_placeholders(row['source_text'],result.text,label=row['id'])
+        result=reflow_chinese_prose('　甲\n'+'　'*21+'\n　乙',profile=profile)
+        self.assertIn('\n'+'　'*21+'\n',result.text)
+
+    def test_generic_prose_keeps_existing_placeholder_rows_and_empty_rows(self):
+        profile=ChineseLayoutProfile('prose',24,None,None,'minimum')
+        text='　甲\n　　\n　乙\n\n　丙'
+        self.assertEqual(reflow_chinese_prose(text,profile=profile).text,text)
+        self.assertEqual(paragraphs('　甲\n　　\n　乙\n\n　丙',24),text.split('\n'))
+
+    def test_reviewed_sp_authoring_rows_keep_native_placeholders(self):
+        from srwz.summary import validate_scroll_placeholders
+        rows=json.loads((ROOT/'corpus/zh/special-disc/reviewed-non-stage-text.json').read_text())['entries']
+        targets=[row for row in rows if row.get('corpus_id','').startswith('narration/')]
+        self.assertEqual(len(targets),10)
+        for row in targets:
+            with self.subTest(entry=row['id']):
+                validate_scroll_placeholders(row['source_text'],row['translation'],label=row['id'])
+
     def test_short_character_body_breaks_at_sentence_before_name_phrase(self):
         profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['library_character']
         tagged=compact_visible_runs('贝克的部下。与Dove一起帮助贝克越狱。',default_advance_px=22)

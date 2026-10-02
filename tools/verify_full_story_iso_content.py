@@ -123,7 +123,7 @@ from srwz.stage_formations import (
     has_stage_formation_pointer_owner,
     load_locked_stage_default_formations,
 )
-from srwz.summary import parse_summary
+from srwz.summary import parse_summary, validate_scroll_placeholders
 from srwz.tim2 import scan_tim2
 from srwz.tim2_writeback import unswizzle_psmt8
 from srwz.veff_tutorial_titles import audit_tutorial_effect_binding
@@ -585,6 +585,17 @@ def verify_world_history(
     if len(expected_by_id) != expected.get("entry_count"):
         raise SystemExit("world-history corpus inventory drift")
 
+    source_archive = project_path(Path(reference['original']['path'])).read_bytes()
+    source_elf = project_path(Path(reference['original_slps']['path'])).read_bytes()
+    source_offsets = read_executable_archive_offsets(
+        source_elf, CORE_ARCHIVE_SPECS['MTV_PROS.BIN'], len(source_archive))
+    source_by_id = {
+        entry.entry_id: entry.text
+        for index, (start, end) in enumerate(zip(source_offsets, source_offsets[1:]))
+        for entry in parse_summary(decode(source_archive[start:end]).output,
+                                   table, chunk_index=index).entries
+    }
+
     offsets = read_executable_archive_offsets(
         slps,
         CORE_ARCHIVE_SPECS["MTV_PROS.BIN"],
@@ -622,6 +633,11 @@ def verify_world_history(
                     f"unexpected final ISO world-history entry: {entry.entry_id}"
                 )
             stored_expected_text = expected_text.replace(" ", "\u3000")
+            validate_scroll_placeholders(source_by_id[entry.entry_id], expected_by_id[entry.entry_id],
+                                         label=entry.entry_id + ' corpus')
+            validate_scroll_placeholders(
+                source_by_id[entry.entry_id], entry.text, label=entry.entry_id + ' ISO',
+                payload=decoded.output[entry.text_offset:entry.text_offset + entry.allocated_length])
             if entry.text != stored_expected_text:
                 raise SystemExit(
                     f"final ISO world-history mismatch: {entry.entry_id}"

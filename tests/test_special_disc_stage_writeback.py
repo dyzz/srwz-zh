@@ -157,7 +157,8 @@ class SpecialDiscStageTests(unittest.TestCase):
         text = next(row['translation'] for row in rows if 'sd/mtzspros/09/0' in row['locations'])
         lines = frame.paragraphs(text, 21, max_lines=13, protected_terms=('下达',))
         self.assertEqual(''.join(lines).replace('　',''), text.replace('\n','').replace('　',''))
-        self.assertIn('', lines)
+        self.assertIn('　', lines)
+        self.assertNotIn('', lines)
 
 
 class SpecialDiscBindingTests(unittest.TestCase):

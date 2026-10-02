@@ -23,7 +23,7 @@ from srwz.chinese_layout import ChineseLayoutProfile,fit_chinese_dialogue_layout
 from srwz.text import CONTROL_NOTATION,decode_text,encode_text,normalize_original_fullwidth_ascii
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_prose import reflow_chinese_prose
-from srwz.summary import parse_summary
+from srwz.summary import parse_summary, validate_scroll_placeholders
 from srwz.writers import apply_summary_replacements
 from stage_bindings import digest
 from special_disc.baselines import baseline_iso
@@ -56,7 +56,7 @@ def paragraphs(text,width,*,max_lines=None,protected_terms=(),minimum_line_width
     lines=[]
     for paragraph in normalize_original_fullwidth_ascii(text).split('\n'):
         if not paragraph.strip():
-            lines.append('');continue
+            lines.append(paragraph.replace(' ','　'));continue
         indent='　' if paragraph.startswith(('　',' ')) else ''
         profile=ChineseLayoutProfile(profile_id='sp-fixed-paragraph',maximum_width=width,
             first_line_maximum_width=width-len(indent),maximum_lines=None,
@@ -213,6 +213,7 @@ class Writer:
             replacements={}
             for j,entry in enumerate(parsed.entries):
                 target=f'sd/mtzspros/{index:02d}/{j}';row=self.bind(target,entry.text)
+                validate_scroll_placeholders(entry.text,row['translation'],label=target)
                 profile=self.profiles['sp_narration_scroll'];width=profile.maximum_width
                 text=reflow_chinese_prose(normalize_original_fullwidth_ascii(row['translation']),profile=profile,
                     protected_terms=('下达',),maximum_lines=len(entry.text.split('\n'))).text.replace(' ','　')

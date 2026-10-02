@@ -6,6 +6,40 @@ import struct
 from dataclasses import dataclass
 
 from .text import TextTable, decode_text
+from .writeback import WritebackError
+
+
+def scroll_placeholder_rows(text: str) -> tuple[str, ...]:
+    """Return blank physical rows, including invalid zero-length rows."""
+    return tuple(line for line in text.split('\n') if not line.strip('　 '))
+
+
+def validate_scroll_placeholders(
+    source: str, text: str, *, label: str, payload: bytes | None = None,
+) -> None:
+    """Keep native blank-row glyphs independently of visible prose identity.
+
+    Only MTV_PROS/MTZSPROS scrolling records use this contract. Fixed text
+    grids and Q&A cells have their own padding and empty-cell semantics.
+    Physical row numbers may change when prose wraps; separator order and
+    each native row's space count must survive.
+    """
+    rows = scroll_placeholder_rows(text)
+    if any(not row or set(row) != {'　'} for row in rows):
+        raise WritebackError(f'{label}: scroll placeholder row must contain U+3000, not an empty/ASCII-space row')
+    expected = tuple('　' * max(1, len(row)) for row in scroll_placeholder_rows(source))
+    if rows != expected:
+        raise WritebackError(f'{label}: native scroll placeholder rows changed: '
+                             f'{tuple(map(len, rows))} != {tuple(map(len, expected))}')
+    if payload is not None:
+        stored_rows = payload.rstrip(b'\0').split(b'\n')
+        # Empty rows are checked in decoded text above; a tag parameter can
+        # itself be 0x0A, so do not treat every empty byte split as a text row.
+        blank_bytes = tuple(row for row in stored_rows
+                            if row and len(row) % 2 == 0 and
+                            all(row[i:i+2] == b'\x81\x40' for i in range(0, len(row), 2)))
+        if blank_bytes != tuple(b'\x81\x40' * len(row) for row in rows):
+            raise WritebackError(f'{label}: encoded scroll placeholder rows must use 0x8140')
 
 
 class SummaryParseError(ValueError):
@@ -164,4 +198,6 @@ __all__ = [
     "SummaryParseResult",
     "SummaryTextEntry",
     "parse_summary",
+    "scroll_placeholder_rows",
+    "validate_scroll_placeholders",
 ]
