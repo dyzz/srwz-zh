@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/dyzz/srwz-zh/issues/29",
+  "reported_by": "黑泽小皮",
+  "source_fix_commit": "111a8c992513af7843fdfb03c7bd6b483453b26f",
+  "batch_manifest": "manifests/editions/scroll-placeholders-20261002.json",
+  "input_digest": "4d7c7af54abdf68166d2884d75e29f5f58b18844359c9017bbedb0f92fbc3649",
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "4d7c7af54abdf68166d2884d75e29f5f58b18844359c9017bbedb0f92fbc3649",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "placeholder_readback": [
+    {
+      "edition": "original",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "c8886012c368d1b9aab1d7cda2a3cead4705a0b28ec4ca9389b5e1426989c5c4",
+        "size": 3758358528
+      },
+      "archive_sha256": "f56a3d2664ced9da9975e2460b0b82fa3ada75ec91dc5c6ea046a92044a34d5b",
+      "archive_size": 8352,
+      "entries_checked": 28,
+      "all_native_placeholders_and_8140_exact": true,
+      "separator_rows_checked": 14,
+      "placeholder_glyphs_checked": 14
+    },
+    {
+      "edition": "best",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "a2e08f3c4434eb0bf5725feb246cb7c34bf3cb7806d71af92ecd9f85581355de",
+        "size": 3755081728
+      },
+      "archive_sha256": "8f5cc76eae12fcac9e198227c80d1b2b4ca4d84b5a989ad2dd13a681be8257b2",
+      "archive_size": 9056,
+      "entries_checked": 28,
+      "all_native_placeholders_and_8140_exact": true,
+      "separator_rows_checked": 14,
+      "placeholder_glyphs_checked": 14,
+      "decoded_chunk1_sha256": "fa3a97b398567de15d67dac6e9032289048d89a333b77a264cec391b7387863b",
+      "previous_runtime_canary_chunk1_sha256": "fa3a97b398567de15d67dac6e9032289048d89a333b77a264cec391b7387863b",
+      "target_chunk_matches_previous_runtime_canary": true
+    },
+    {
+      "edition": "sp",
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "f24e1fc40a0519d074b76bb18557fc5e546208fd080fef6aec3918937244724f",
+        "size": 3791781888
+      },
+      "archive_sha256": "f1c0baeda8c64b07f48cde41d1563bf01061bf8c284fb0430630f24337cf8a6b",
+      "archive_size": 6592,
+      "entries_checked": 10,
+      "all_native_placeholders_and_8140_exact": true,
+      "separator_rows_checked": 8,
+      "placeholder_glyphs_checked": 28
+    }
+  ],
+  "tests": {
+    "full_suite": {
+      "count": 671,
+      "passed": true
+    },
+    "archive_lock_change_release_workflow": {
+      "count": 30,
+      "passed": true
+    }
+  },
+  "runtime": "new_production_isos_not_tested",
+  "scope": "Fresh full production builds and static readback; previous Best single-record LRPS2 canary only binds decoded target chunk, not complete new-ISO runtime acceptance."
+}
