@@ -914,7 +914,43 @@
     },
     "KURODATA/KVPDATA.BIN": {
       "size": 239664,
-      "sha256": "b62d05b76032b153590dc8b2aad78d2d06786c2b861be875e45a4634b65e1cd9"
+      "sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640"
     }
-  }
+  },
+  "shared_letters": [
+    {
+      "id": "pilot-i",
+      "source_word": "PILOT",
+      "page": 2,
+      "rect": [
+        14,
+        16,
+        5,
+        16
+      ],
+      "indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+      "original_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+      "note": "I body matches SHIP I exactly; omit the empty left column to avoid the adjacent P, and advance the left vertex by one pixel."
+    }
+  ],
+  "shared_letter_patches": [
+    {
+      "chunk_index": 1088,
+      "chunk_start": 122368,
+      "chunk_end": 122752,
+      "offset": 122616,
+      "token": "pilot-i",
+      "before_hex": "3500000022110e0e0e8088ffffff8eff07006a007010",
+      "after_hex": "3500000022110e0e0e8089ffffff8eff07000e101320"
+    },
+    {
+      "chunk_index": 1088,
+      "chunk_start": 122368,
+      "chunk_end": 122752,
+      "offset": 122660,
+      "token": "pilot-i",
+      "before_hex": "3500000022110e0e0e809affffffa0ff07006a007010",
+      "after_hex": "3500000022110e0e0e809bffffffa0ff07000e101320"
+    }
+  ]
 }

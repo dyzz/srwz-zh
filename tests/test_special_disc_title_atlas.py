@@ -123,9 +123,20 @@ class SpecialDiscTitleAtlasTests(unittest.TestCase):
         c = json.loads(CONFIG.read_text())
         self.assertEqual({t['chunk'] for t in c['titles']}, {1198})
         self.assertEqual({r['word'] for r in c['cells']}, {'item'})
-        self.assertEqual({r['id'] for r in c['reused_cells']}, {'help'})
-        restored = [p for p in c['patches'] if p['chunk'] != 1198]
-        self.assertEqual(len(restored), 196)
+        self.assertEqual({r['id'] for r in c['reused_cells']}, {'help', 'pilot-i'})
+        repaired = [p for p in c['patches'] if p['token'] == 'pilot-i']
+        self.assertEqual(len(repaired), 4)
+        import struct
+        for p in repaired:
+            self.assertEqual(p['chunk'], 1115)
+            self.assertEqual(p['operation'], 'retarget')
+            before, after = bytes.fromhex(p['before_hex']), bytes.fromhex(p['after_hex'])
+            expected = bytearray(before)
+            struct.pack_into('<h', expected, 10, struct.unpack_from('<h', before, 10)[0] + 1)
+            expected[-4:] = bytes((14, 16, 19, 32))
+            self.assertEqual(after, expected)
+        restored = [p for p in c['patches'] if p['chunk'] != 1198 and p['token'] != 'pilot-i']
+        self.assertEqual(len(restored), 192)
         self.assertTrue(all(p['operation'] == 'restore' and p['after_hex'] == p['before_hex'] for p in restored))
         self.assertEqual(len(c['retired_cells']), 44)
 

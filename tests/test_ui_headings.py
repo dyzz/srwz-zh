@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import base64
 import json
+import struct
 import sys
 import unittest
 import zlib
@@ -12,7 +13,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from srwz.ui_headings import UiHeadingError, apply_draw_patches, apply_index_cells, lock, sha
+from srwz.ui_headings import UiHeadingError, apply_draw_patches, apply_index_cells, apply_shared_letter_patches, lock, sha
 
 
 class UiHeadingTests(unittest.TestCase):
@@ -164,6 +165,54 @@ class UiHeadingTests(unittest.TestCase):
         with patch("srwz.ui_headings.parse_tim2", return_value=SimpleNamespace(pictures=[picture])):
             with self.assertRaisesRegex(UiHeadingError, "unique"):
                 apply_index_cells(archive, config, snapshot)
+
+    def test_robot_title_reuses_pilot_I_without_touching_pixels_or_other_records(self):
+        # PILOT's I has the same indexed glyph as SHIP's I; the preceding P
+        # occupies four pixels in the sixth column we deliberately omit.
+        donor = bytes.fromhex("0000000000" * 2 + "00080b0200" + "000b0f0400" * 11
+                              + "0002040000" + "0000000000")
+        self.assertEqual(len(donor), 80)
+        self.assertEqual(sha(donor), self.config['shared_letters'][0]['indices_sha256'])
+        atlas = bytearray(100032)
+        for y in range(16):
+            for x in range(5):
+                pixel = (y + 16) * 256 + x + 14
+                atlas[66688 + 64 + pixel // 2] |= donor[y * 5 + x] << (4 * (pixel % 2))
+        source = bytearray(self.source)
+        for p in self.config['shared_letter_patches']:
+            source[p['offset']:p['offset'] + 22] = bytes.fromhex(p['before_hex'])
+        picture = SimpleNamespace(width=256, height=256, image_type=4, offset=16,
+                                  header_size=48, image_size=32768)
+        original_atlas = bytes(atlas)
+        with patch('srwz.ui_headings.parse_tim2', return_value=SimpleNamespace(pictures=[picture])):
+            output = apply_shared_letter_patches(atlas, source, self.config)
+            self.assertEqual(bytes(atlas), original_atlas)
+            self.assertEqual(len(output), len(source))
+            expected = bytearray(source)
+            for p in self.config['shared_letter_patches']:
+                off = p['offset']
+                expected[off + 10] += 1
+                expected[off + 18:off + 22] = bytes((14, 16, 19, 32))
+                self.assertEqual(struct.unpack_from('<h', output, off + 14),
+                                 struct.unpack_from('<h', source, off + 14))
+            self.assertEqual(output, expected)
+            self.assertEqual(sum(a != b for a, b in zip(source, output)), 10)
+            bad = copy.deepcopy(self.config)
+            raw = bytearray.fromhex(bad['shared_letter_patches'][0]['after_hex'])
+            raw[6] ^= 1
+            bad['shared_letter_patches'][0]['after_hex'] = raw.hex()
+            with self.assertRaisesRegex(UiHeadingError, 'geometry/material'):
+                apply_shared_letter_patches(atlas, source, bad)
+            bad = copy.deepcopy(self.config)
+            bad['shared_letter_patches'] *= 2
+            with self.assertRaisesRegex(UiHeadingError, 'overlaps'):
+                apply_shared_letter_patches(atlas, source, bad)
+            source[self.config['shared_letter_patches'][0]['offset'] + 6] ^= 1
+            with self.assertRaisesRegex(UiHeadingError, 'preimage'):
+                apply_shared_letter_patches(atlas, source, self.config)
+            atlas[66688 + 64 + 16 * 128 + 7] ^= 1
+            with self.assertRaisesRegex(UiHeadingError, 'donor pixels'):
+                apply_shared_letter_patches(atlas, source, self.config)
 
 
 if __name__ == "__main__":

@@ -171,6 +171,17 @@
       ],
       "sha256": "4649728317c39ad76164e0b1d8f128aa24aa8b84c02d96f2f0bc17f3d3f4e84f",
       "read_only": true
+    },
+    {
+      "id": "pilot-i",
+      "page": 2,
+      "rect": [
+        14,
+        16,
+        5,
+        16
+      ],
+      "sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948"
     }
   ],
   "patches": [
@@ -2176,9 +2187,9 @@
       "offset": 132986,
       "type": 5,
       "before_hex": "150000002211513320808aff000090ff08006a007010",
-      "after_hex": "150000002211513320808aff000090ff08006a007010",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "150000002211513320808bff000090ff08000e101320",
+      "token": "pilot-i",
+      "operation": "retarget",
       "previous_hex": [
         "150000002811513320803eff04004eff08008cf59cfd",
         "15000000281151332080cbff0400dbff08008cf59cfd"
@@ -2201,9 +2212,9 @@
       "offset": 133074,
       "type": 5,
       "before_hex": "150000002211513320809cff0000a2ff08006a007010",
-      "after_hex": "150000002211513320809cff0000a2ff08006a007010",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "150000002211513320809dff0000a2ff08000e101320",
+      "token": "pilot-i",
+      "operation": "retarget",
       "previous_hex": [
         "1500000022115133208000000000000000006a007010"
       ]
@@ -2340,9 +2351,9 @@
       "offset": 133008,
       "type": 5,
       "before_hex": "3500000022111818198088ff01008eff09006a007010",
-      "after_hex": "3500000022111818198088ff01008eff09006a007010",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "3500000022111818198089ff01008eff09000e101320",
+      "token": "pilot-i",
+      "operation": "retarget",
       "previous_hex": [
         "350000002811181819803cff05004cff09008cf59cfd",
         "35000000281118181980c9ff0500d9ff09008cf59cfd"
@@ -2365,9 +2376,9 @@
       "offset": 133096,
       "type": 5,
       "before_hex": "350000002211181819809aff0100a0ff09006a007010",
-      "after_hex": "350000002211181819809aff0100a0ff09006a007010",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "350000002211181819809bff0100a0ff09000e101320",
+      "token": "pilot-i",
+      "operation": "retarget",
       "previous_hex": [
         "3500000022111818198000000000000000006a007010"
       ]
@@ -4347,7 +4358,7 @@
       "label": "ROBOTS SPECIFICATIONS",
       "chunk": 1115,
       "assembly": "letters_and_word_fragments",
-      "status": "withdrawn_restored_baseline",
+      "status": "native_title_with_shared_I_repair",
       "records": [
         {
           "offset": 132678,

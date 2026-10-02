@@ -14,6 +14,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import struct
 import zlib
 from pathlib import Path
 
@@ -146,6 +147,54 @@ def apply_index_cells(archive: bytes, config: dict, snapshot: dict) -> bytes:
     return result
 
 
+def apply_shared_letter_patches(atlas: bytes, drawings: bytes, config: dict) -> bytes:
+    """Reuse intact PILOT I samples without rewriting the SHIP Chinese cell."""
+    result = bytearray(drawings)
+    letters = {}
+    for cell in config.get("shared_letters", []):
+        chunk = next(c for c in config["texture_chunks"] if c["index"] == cell["page"])
+        data = atlas[chunk["start"]:chunk["end"]]
+        picture = parse_tim2(data).pictures[0]
+        if (picture.width, picture.height, picture.image_type) != (256, 256, 4):
+            raise UiHeadingError("shared letter atlas format drift")
+        start = picture.offset + picture.header_size
+        indices = bytes(v for b in data[start:start + picture.image_size] for v in (b & 15, b >> 4))
+        x, y, w, h = cell["rect"]
+        if not (0 <= x < x + w <= 256 and 0 <= y < y + h <= 256):
+            raise UiHeadingError("shared letter rectangle bounds")
+        pixels = bytes(indices[yy * 256 + xx] for yy in range(y, y + h) for xx in range(x, x + w))
+        restored = b"".join(b"\0" + pixels[row * w:(row + 1) * w] for row in range(h))
+        if sha(pixels) != cell["indices_sha256"] or sha(restored) != cell["original_indices_sha256"]:
+            raise UiHeadingError("shared letter donor pixels drift")
+        if cell["id"] in letters:
+            raise UiHeadingError("duplicate shared letter")
+        letters[cell["id"]] = (cell["page"], bytes((x, y, x + w, y + h)))
+    claimed = set()
+    for patch in config.get("shared_letter_patches", []):
+        start = patch["offset"]
+        before, after = bytes.fromhex(patch["before_hex"]), bytes.fromhex(patch["after_hex"])
+        if len(before) != 22 or len(after) != 22 or before[0] & 15 != 5 or not 0 <= start <= len(drawings) - 22:
+            raise UiHeadingError("shared letter sprite bounds/type drift")
+        positions = set(range(start, start + 22))
+        if positions & claimed:
+            raise UiHeadingError("shared letter ownership overlaps")
+        claimed.update(positions)
+        if drawings[start:start + 22] != before:
+            raise UiHeadingError("shared letter drawing preimage drift")
+        page, uv = letters[patch["token"]]
+        expected = bytearray(before)
+        # Omit the empty left column and move only the left vertex by one pixel.
+        # The glyph body and its right edge retain their original screen positions.
+        struct.pack_into("<h", expected, 10, struct.unpack_from("<h", before, 10)[0] + 1)
+        expected[-4:] = uv
+        x1, y1, x2, y2 = struct.unpack_from("<4h", after, 10)
+        if (after != expected or after[4] & 15 != page
+                or x2 - x1 != uv[2] - uv[0] or (y2 - y1) * 2 != uv[3] - uv[1]):
+            raise UiHeadingError("shared letter geometry/material/UV drift")
+        result[start:start + 22] = after
+    return bytes(result)
+
+
 def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], dict]:
     config_data = config_path.read_bytes()
     config = json.loads(config_data)
@@ -171,6 +220,7 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
         "KURODATA/KVMDATA.BIN": apply_index_cells(values["base_atlas"], config, snapshot),
         member: apply_draw_patches(drawings, config["draw_patches"]),
     }
+    outputs[member] = apply_shared_letter_patches(outputs["KURODATA/KVMDATA.BIN"], outputs[member], config)
     for name, payload in outputs.items():
         checked(payload, config["expected_outputs"][name], name)
     report = {
@@ -182,6 +232,7 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
         "heading_count": len(corpus["entries"]),
         "cell_count": len(config["cells"]),
         "drawing_patch_count": len(config["draw_patches"]),
+        "shared_letter_patch_count": len(config.get("shared_letter_patches", [])),
         "outputs": {name: {"path": f"{config['output_root']}/{name}", **lock(payload)} for name, payload in outputs.items()},
         "acceptance": {
             "locked_translation_and_index_snapshot": True,

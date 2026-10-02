@@ -31,7 +31,7 @@ def main() -> None:
             raise SystemExit(f"UI heading readback differs: {member}")
     if args.refresh_manifest:
         manifest.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-    print(f"UI headings: {report['heading_count']} headings, {report['drawing_patch_count']} drawing references; static readback passed, runtime pending")
+    print(f"UI headings: {report['heading_count']} headings, {report['drawing_patch_count']} drawing references, {report['shared_letter_patch_count']} shared-letter repairs; static readback passed, runtime pending")
 
 
 if __name__ == "__main__":
