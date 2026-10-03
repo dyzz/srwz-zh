@@ -80,6 +80,8 @@ def main():
     outputs[name], outputs[KVP], title_report = apply_title_atlas(outputs[name], outputs[KVP])
     from special_disc.writeback.bazaar_heading import apply_bazaar_heading
     outputs[name], bazaar_report = apply_bazaar_heading(outputs[name])
+    from srwz.ui_menu_restore import apply_menu_restore
+    outputs[name], outputs[KVP], menu_report = apply_menu_restore(outputs[name], outputs[KVP], ROOT, 'sp')
     for target,box in patches:reports.append(dict(target=target,member=name,chunk=11,rect=box))
     name='MAP/MAPMODEL.BIN';base=writer.member(name);arc=bytearray(base);off=sd.table_offsets(writer.exe,0x3542F0,len(base))
     for index in (195,196,197):
@@ -100,6 +102,7 @@ def main():
     report['command_headings'] = command_report
     report['title_atlas'] = title_report
     report['bazaar_heading'] = bazaar_report
+    report['menu_restore'] = menu_report
     report['world_map_titles'] = world_map_report
     for name,data in outputs.items():
         p=args.output/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)

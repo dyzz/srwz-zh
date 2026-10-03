@@ -1,0 +1,960 @@
+{
+  "schema_version": 1,
+  "description": "Native menu restoration and blank-cell relocation, frozen palette indices; runtime pending.",
+  "profiles": {
+    "original": {
+      "atlas_size": 3335408,
+      "drawings_size": 239664,
+      "before": {
+        "atlas": "aa11f39a72f21cad353190696753b2a79577a35898c919b27025802fc6dbeb59",
+        "drawings": "82d08d1253fc4016c477e24b9075b46a7942f426a222ac89c6d204d58f42ab41"
+      },
+      "after": {
+        "atlas": "845a2f691a2b192532e8d7dd397bcdfc56e693a5468fa5c2adce86b96f772cc9",
+        "drawings": "33a4d7eeee9cb0650c7f89750c6360eb40cac5e65a7639b1c76cbb08481a5d65"
+      },
+      "pages": [
+        {
+          "index": 3,
+          "start": 100032,
+          "end": 133376,
+          "container_sha256": "46ac1b56d206cdbe184bbff75f2f79bd741b85333a957a9aabbe60a6ec5fd6c2",
+          "protected_uv_zlib_base64": "eNrtwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB"
+        },
+        {
+          "index": 4,
+          "start": 133376,
+          "end": 166720,
+          "container_sha256": "2644c00adf6e699626666ce09f5a4a96ea6c5d6d5bd0d2eb8b6dfb246f9cbb68",
+          "protected_uv_zlib_base64": "eNrtwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB"
+        }
+      ],
+      "cells": [
+        {
+          "id": "key",
+          "kind": "relocate",
+          "page": 3,
+          "rect": [
+            180,
+            213,
+            46,
+            20
+          ],
+          "source_page": 4,
+          "source_rect": [
+            0,
+            80,
+            46,
+            20
+          ],
+          "before_sha256": "2211e3d7915507b94bf14efafa3a951cc9a82a3ea4ed0a6f4dc612f640af1ae9",
+          "sha256": "35a7eba569fd7a3bfb9845d65965e82825ca8321f6e73109a92753ce5b43ce67",
+          "indices_zlib_base64": "eNqdUkl2xTAI87fjV2buf9sv7EztsiwSh8ggCVrb0UWp3mxOZ0pczhOZfto7KGOjM3lnhqd0FhGakjbneKElvbMiMg1PrkzUV0bkCn4qs6ax5h3cqEBuke6Ow9l6gfd1x98VmdS1PoTRQCQSjfhBAx4eyZZ6skL94yjuVzu90H2ixg+5b43q2rQIo4uRiIENDm+RRsSMJK8YVOWsRDp6oje/LDEk4hEZ9IGlU5DzK3PTFjt57zugQAKVoqapzBHo9iqMEBoA0IACHn1rKwr+RyNUgchoDKMagfqaem6jTW0Z+5oNSgFSNkD/ZjgiZzVVqwHB+V8i0Yk0nglzOmO4fhLJF3psg2ithfRtaSRuh3CNkblf2OOAMshbxpQgUOm21qngEjon3QZaubpYhBCkpo9aXAzSKZ41ewyM2j+XWmGYIvWULlgkjMIxg7B7u4kIxYTu7V1SwGZn+sB29faP+ALp9hvc"
+        },
+        {
+          "id": "help",
+          "kind": "relocate",
+          "page": 3,
+          "rect": [
+            132,
+            213,
+            46,
+            20
+          ],
+          "source_page": 4,
+          "source_rect": [
+            0,
+            100,
+            46,
+            20
+          ],
+          "before_sha256": "2211e3d7915507b94bf14efafa3a951cc9a82a3ea4ed0a6f4dc612f640af1ae9",
+          "sha256": "4649728317c39ad76164e0b1d8f128aa24aa8b84c02d96f2f0bc17f3d3f4e84f",
+          "indices_zlib_base64": "eNqVU9luBDEIyyablivw/39bQ2amaR8qFWmjEYcxhm1tGzOeIfk2ldH+NPFF7WWxOr7DqerLuto2PrIjpF5u7PnZ3h5pRnEZfWf3lYDIUFqhPaEjHAXC4QBG+GTHsdiWx1qBH2Wf9Z4erLGqt30jz/kpxHfP8IlREZ8R00LHGHifbHN3Q3xJ2kZbYA/84SCUlJ4hayCteNUmDmDNcoyj3UWEGZmo4TdsVtVFSyAnZJSS9jZCZonwdEVcNXLIHE+PIRPJhzxDrrHpwItGpqo3yXs51oi0dkFEpT8n/rObY5OJJIqM3MUYKj21K2/txo4hcU3YShgiIwliUb02iBPYFKQ0fYas8fM+MpoVuvvr1uLcTeuILSQbpYqloGiagW+n+fFjyIFDygLKJlDQr3PDNeorXY9nM5FuQEYXy7VdQOnrxdLl19+B+VVtoN84QFBzev5nX9URGL0="
+        },
+        {
+          "id": "others",
+          "kind": "relocate",
+          "page": 3,
+          "rect": [
+            132,
+            235,
+            46,
+            20
+          ],
+          "source_page": 4,
+          "source_rect": [
+            120,
+            98,
+            46,
+            20
+          ],
+          "before_sha256": "2211e3d7915507b94bf14efafa3a951cc9a82a3ea4ed0a6f4dc612f640af1ae9",
+          "sha256": "11c824b8f9cfe64c83417bbcae1797b9136723d229ce99072211e81967f63c75",
+          "indices_zlib_base64": "eNqdUlmypDAMy0aPd9//ts82nWb5HFUZAhFCltPaF4sFnovWEI+4AvNqL6AbPBdtqVPcyHU8qSLqJoVaYDtpJNTY+SnM/kJqojmF+sg/LMSbNrM5nzAX5vAyxAXMMYpy964OvtnupwzFAqIHuv72A10u7Ph+bp/vWw0JuLPFdTcpRbYgWX4bJnr0eyf3IFFByyFoEtMAZJPysm3PPCg1Cc8mq16z2UbKIVoOKWphNWo/2x0R2RULsRHXNYKpk6IHKkOXkcPes/F/OTApu9G+mTLt4aMWLMtqKT1DoqmOWcfiM6hyMucENoMJZoLxFDofc4jIPyCyMrFrOB0l04U8GWER9knMWmPMA2/DwcxWMI0B2S9CHZiZp7+Qmvf0sO/gwxK2s0mQ3bVecQM9zgDUDlLcJlSqAL39D/4AZaUY/Q=="
+        },
+        {
+          "id": "command",
+          "kind": "relocate",
+          "page": 3,
+          "rect": [
+            180,
+            235,
+            28,
+            17
+          ],
+          "source_page": 4,
+          "source_rect": [
+            56,
+            100,
+            28,
+            17
+          ],
+          "before_sha256": "d51c15401c9d321e95a53bb9f69ab1546bc108efffeac4cbaa4ead352869d7d6",
+          "sha256": "7396bcc0d7648587f053e5b05a03e669770e7f3319a3c5f3601876be079f6dee",
+          "indices_zlib_base64": "eNqdUEkOAzEIi9JRxe7//7YmSUftpYf6EEEMGDPGL5gP9cfnj/s7ihqGJ/mMQwGbnDNqGqKAtD0HGbAdEYF0E4Gy1lEquTrFosxghLNak2Uwkqmtl8KwkdJSnelcotQr21C2qYho2nqMS4SvNsSR30OYRLYHua6rPegZkYjbXxIndWmLKTcXRDXHRSoC0ZTMxTlR+y4aoMXjPb9mHlaXdxMms+9o97XV5/gfL/cHDCI="
+        },
+        {
+          "id": "native-command-menu",
+          "kind": "native_restore",
+          "page": 4,
+          "rect": [
+            0,
+            96,
+            168,
+            24
+          ],
+          "before_sha256": "3f0dea3fb22203fd3baf963fe29452906563b1b506e16d2c8b4c4f9c7f57e7a2",
+          "sha256": "fb8b738b9be8e0a0678698f14d7c50c51d5eb3283c5a04e42ead54abf8ab25c7",
+          "source_indices_sha256": "fb8b738b9be8e0a0678698f14d7c50c51d5eb3283c5a04e42ead54abf8ab25c7",
+          "indices_zlib_base64": "eNrtlssW4yAIQKvxkcQo//+3w0vFJJ0zy1nURasoeBGCfj6/9mv/e3O9PUZTKv2n4FtvrjYaOmF7bq4xqp91MG2HEAxaH73irwLpbVvvWQcfKovn7q0t8vWgnPMHUDsETUenpyU7nMPsBfEp4E4CCGI2QtXjaA1NNbJ0HcFslkpUgq0k52LRFnEmsaov2blcvBgssW+3obUzI13DU6FRO/LRZFQGgcsA+SngXgWlJ1kRTgBa0UrBSZL13Qp5olqFhlfnLLzlxwWRBzWYu2aFywvghX+NtsR2QhPOMswq5yKgTgT01DMectKqwZnJVGLLgxMSLwjQebThzMVZ98bJQeMQ43wj01XVqmIBO0nL3gSydS6UNWy2gexsOOkIUk9gdbR3Fs7GufeFU7egBPA0Sq4nXRm6fHpNOFcBqaGjiXwUsxgIbzg1RU7DyWgBnpyJ/fnCCdNXNS8R8tQtsMtxI8gunKsAtQ4CrxJuMls5fIaTbLXJyetJy+ZnZLRIKfqVM5iqMTmdcIbKZpEjC+cqUAOSL2IWz3e/cQ6zbKChox5qeHJiObm+c8bX8+ycHFLK3c65CvC3iGJ0mpGZ+n/hzOjHATk84h6o1h2G05q4yPtRX2d+xr6cQorhHpyrwHGNBC0+IqIUXfIz9g9eDLTmsby+cmLJ1XyQsrEPzswFiEsR1vYstcERv2Lh+UXKyfwqwM9eCiCnrX7hmKKDUxB2y3kAufrKiS6xxxolPIWtx7dJ/URtqjhSG2jUum6Vb3xwLoJL17vaRVICbF06uARMTjxsdEo5c+C2SajpBBmxQUkhV63W5j6qcnPe76MgldJbTiMI7JxzGpesJTUrZ8kZayu0ZOp8oMQ4tP6cPWugc6LndNNsZV7m6/1+Rd6v3/Z+xqJR2AynEeTusIRoZCRfZ1ERzs1sxnGWHy9vHj1PH/Sh1DNhPo7u7yV3fy+JVfll/YcgjEeT32QoJhliE4LbZh+3vvrWV5XhuL0J//7+tJrfBJbAPN/c2wP0137tX9sfnyYz5w==",
+          "source_iso": {
+            "path": "rom/original.iso",
+            "size": 3758358528,
+            "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+          }
+        }
+      ],
+      "patches": [
+        {
+          "chunk": 1192,
+          "offset": 140860,
+          "token": "key",
+          "operation": "relocate",
+          "before_hex": "1700000024106f4a5f802d0007001600020016000c0044000c004400020000502e64",
+          "after_hex": "1700000023106f4a5f802d0007001600020016000c0044000c0044000200b4d5e2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137250,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "070000004410371237483f0005002800000028000a0056000a005600000000642e78",
+          "after_hex": "070000004310371237483f0005002800000028000a0056000a005600000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137284,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "07000000441037123748000000000000000000000000000000000000000000642e78",
+          "after_hex": "07000000431037123748000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137318,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "07000000441037123748000000000000000000000000000000000000000000642e78",
+          "after_hex": "07000000431037123748000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137352,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "07000000441037123748000000000000000000000000000000000000000000642e78",
+          "after_hex": "07000000431037123748000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137386,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "07000000441037123748000000000000000000000000000000000000000000642e78",
+          "after_hex": "07000000431037123748000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137420,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "07000000441037123748000000000000000000000000000000000000000000642e78",
+          "after_hex": "07000000431037123748000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137454,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "07000000441037123748000000000000000000000000000000000000000000642e78",
+          "after_hex": "07000000431037123748000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137522,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "0700000044107e4d7e7f3d0004002600ffff26000900540009005400ffff00642e78",
+          "after_hex": "0700000043107e4d7e7f3d0004002600ffff26000900540009005400ffff84d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137556,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78",
+          "after_hex": "0700000043107e4d7e7f000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137590,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78",
+          "after_hex": "0700000043107e4d7e7f000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137624,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78",
+          "after_hex": "0700000043107e4d7e7f000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137658,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78",
+          "after_hex": "0700000043107e4d7e7f000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137692,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "0700000044107e4d7e7f000000000000000000000000000000000000000000642e78",
+          "after_hex": "0700000043107e4d7e7f000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137726,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "8700000044107e4d7e7f000000000000000000000000000000000000000000642e78",
+          "after_hex": "8700000043107e4d7e7f000000000000000000000000000000000000000084d5b2e9"
+        },
+        {
+          "chunk": 1192,
+          "offset": 140894,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "1700000024106f4a5f80540007003d0002003d000c006b000c006b00020000642e78",
+          "after_hex": "1700000023106f4a5f80540007003d0002003d000c006b000c006b00020084d5b2e9"
+        },
+        {
+          "chunk": 204,
+          "offset": 30464,
+          "token": "others",
+          "operation": "relocate",
+          "before_hex": "0700000044106c5e0b803a0008002300030023000d0051000d00510003007862a676",
+          "after_hex": "0700000043106c5e0b803a0008002300030023000d0051000d005100030084ebb2ff"
+        },
+        {
+          "chunk": 158,
+          "offset": 20272,
+          "token": "command",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050340007002a00010026000c0042000c004600010038645475",
+          "after_hex": "07000000431000000050340007002a00010026000c0042000c0046000100b4ebd0fc"
+        },
+        {
+          "chunk": 158,
+          "offset": 20306,
+          "token": "command",
+          "operation": "relocate",
+          "before_hex": "0700000044106a6a6a80320006002800000024000b0040000b004400000038645475",
+          "after_hex": "0700000043106a6a6a80320006002800000024000b0040000b0044000000b4ebd0fc"
+        },
+        {
+          "chunk": 159,
+          "offset": 20384,
+          "operation": "native_restore",
+          "before_hex": "070000004410000000503a000700300001002c000d0048000d004c00010038645475",
+          "after_hex": "070000004410000000503a0007000400010000000d0070000d007400010000607078",
+          "native_hex": "070000004410000000503a0007000400010000000d0070000d007400010000607078"
+        },
+        {
+          "chunk": 159,
+          "offset": 20418,
+          "operation": "native_restore",
+          "before_hex": "07000000441068686880380006002e0000002a000c0046000c004a00000038645475",
+          "after_hex": "070000004410686868803800060002000000feff0c006e000c007200000000607078",
+          "native_hex": "070000004410686868803800060002000000feff0c006e000c007200000000607078"
+        },
+        {
+          "chunk": 160,
+          "offset": 20596,
+          "operation": "native_restore",
+          "before_hex": "070000004410000000503c000f00320009002e0014004a0014004e00090038645475",
+          "after_hex": "070000004410000000503c000f000c000900080014006c0014007000090000607078",
+          "native_hex": "070000004410000000503c000f000c000900080014006c0014007000090000607078"
+        },
+        {
+          "chunk": 160,
+          "offset": 20630,
+          "operation": "native_restore",
+          "before_hex": "07000000441038447d803a000e00300008002c001300480013004c00080038645475",
+          "after_hex": "07000000441038447d803a000e000a000800060013006a0013006e00080000607078",
+          "native_hex": "07000000441038447d803a000e000a000800060013006a0013006e00080000607078"
+        },
+        {
+          "chunk": 161,
+          "offset": 20736,
+          "operation": "native_restore",
+          "before_hex": "07000000441000000050200007001600010012000d002e000d003200010054647075",
+          "after_hex": "07000000441000000050200007000800010004000d003a000d003e0001007060a878",
+          "native_hex": "07000000441000000050200007000800010004000d003a000d003e0001007060a878"
+        },
+        {
+          "chunk": 161,
+          "offset": 20770,
+          "operation": "native_restore",
+          "before_hex": "0700000044106c6c6c801e0006001400000010000c002c000c003000000054647075",
+          "after_hex": "0700000044106c6c6c801e0006000600000002000c0038000c003c0000007060a878",
+          "native_hex": "0700000044106c6c6c801e0006000600000002000c0038000c003c0000007060a878"
+        },
+        {
+          "chunk": 161,
+          "offset": 20836,
+          "operation": "native_restore",
+          "before_hex": "07000000441000000050780007006e0001006a000c0086000c008a00010038645475",
+          "after_hex": "07000000441000000050780007004a00010046000c00a8000c00ac00010000607078",
+          "native_hex": "07000000441000000050780007004a00010046000c00a8000c00ac00010000607078"
+        },
+        {
+          "chunk": 161,
+          "offset": 20870,
+          "operation": "native_restore",
+          "before_hex": "0700000044106a6a6a80760006006c00000068000b0084000b008800000038645475",
+          "after_hex": "0700000044106a6a6a80760006004800000044000b00a6000b00aa00000000607078",
+          "native_hex": "0700000044106a6a6a80760006004800000044000b00a6000b00aa00000000607078"
+        },
+        {
+          "chunk": 162,
+          "offset": 20960,
+          "operation": "native_restore",
+          "before_hex": "07000000441000000050220007001800010014000d0030000d003400010054647075",
+          "after_hex": "07000000441000000050220007000800010004000d003c000d00400001007060a878",
+          "native_hex": "07000000441000000050220007000800010004000d003c000d00400001007060a878"
+        },
+        {
+          "chunk": 162,
+          "offset": 20994,
+          "operation": "native_restore",
+          "before_hex": "0700000044106c6c6c80200006001600000012000c002e000c003200000054647075",
+          "after_hex": "0700000044106c6c6c80200006000600000002000c003a000c003e0000007060a878",
+          "native_hex": "0700000044106c6c6c80200006000600000002000c003a000c003e0000007060a878"
+        }
+      ],
+      "restored_chunks": [
+        159,
+        160,
+        161,
+        162
+      ]
+    },
+    "sp": {
+      "atlas_size": 4720512,
+      "drawings_size": 287456,
+      "before": {
+        "atlas": "bc318a271988ef973751d30ad23a2f7c63468143b9f70309b3c50ba4e4d05748",
+        "drawings": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e"
+      },
+      "after": {
+        "atlas": "143d3ba17a0d1828b39912cae00de70da435be38e594140a6df8be9b3fc588d4",
+        "drawings": "c4cd26a013974296d088d5c80b8d2504923704bbc37ded1ced54e0d358daf62a"
+      },
+      "pages": [
+        {
+          "index": 1,
+          "start": 33344,
+          "end": 66688,
+          "container_sha256": "ab8186d3a23f98a65b44f4d0fe523b943b3896722b5a980f7a1e7819dd841b4d",
+          "protected_uv_zlib_base64": "eNrt29sOgyAMAFD5/59e4l62mE1EFFpPX9XaUzVewFIujmWN3vn2ojpT4efn5+fn5+fn5+fn5+fn5+fn5+fn558h+Pn5+fn5+fn5c/n36ufn5+fn5+fn5+fn5+fn5+ev9R9oFD8/Pz8/Pz8/Pz8/P/+w/vDz8/Pz8/Pzt3z/XpPxp/RXtoSfn5+fn5//+ucNfn5+fv5g/vbl/Pz8/Pz8/PxT+av3xz/a/97Lcjb4+fn5+fn5+YM9//Hz8/Pf/RY4OpZewT+1j5+fn5+fv9X/c+sA93f+O/3z9ISfn5+fn5+fn5+fn5+fn5+fn5+fP6v/bH+as2b0/zkXos6H4Ofn5+d/pv/QPEt+fn5+fn7+R/vz/A/Az8/Pz88fyd+rDH5+fn5+fn7+tu8fm1X5k/mP5Y3m7/27Lz8/Pz8//zj9Z51L1+Dn5+fn5+fn5+fn5+fn58/vHz3+xc/Pz5/X37uMm6cn8PPz8/Pz8/Pz8/Pz8/PzD/BHC35+fn5+/if6t/0oX8PK/Pz8/Pz8/Pz8/Pz8/Dn9be/H/Pyu/zzHm5+fn59/cv/puoKPf7wA0Fe+kQ=="
+        },
+        {
+          "index": 4,
+          "start": 133376,
+          "end": 166720,
+          "container_sha256": "48c344bd324ec5ff53eba5662873a3f71d7f3939dacac30144323e067798097b",
+          "protected_uv_zlib_base64": "eNrtwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB"
+        },
+        {
+          "index": 6,
+          "start": 200064,
+          "end": 233408,
+          "container_sha256": "2f97f602a0df86683d3a4a97d104f49fad5115f4486c8e0f279104a7e9f54a3a",
+          "protected_uv_zlib_base64": "eNrt3MkNgDAMAMG4/6apgAcRiXzMNkDGIuJjETGi9Vbw8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/M3mAQ/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/f07nuP1Xfn5+fn5+fn5+fn5+fn5+fn5+fn5+/gaO3fj5+fn5ff/4+fn5+fn5JUmSJEmSJEmSNLJqayh/P5ifn5+fn5+fn5+fn5+fn5+fn5+fv6tfpUv/Ahy+L/z8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8Xf3Bz3/N8VHZ6bdV/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/B3862rb5+Hn5+fn5+fn5+fn5+fn5+fn5+fn5089D/7Z/oOD4+fn5+fn5+fn5+fn5+fn5+fn5+fnr+h/AELHyxU="
+        },
+        {
+          "index": 8,
+          "start": 266752,
+          "end": 300096,
+          "container_sha256": "d53516e68a9514212b53cfdd4258bf1ad1531e8f58fbbe24b9f8ea4d2d69bd88",
+          "protected_uv_zlib_base64": "eNrt3csNgEAIBcC1/6btQQX5DBUw72IWEjwnpK5yldUoPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/f09/1eLn5+fn5+fn5+fn5+fn5+fn5+fn5+fnX5MDPz8/Pz8/Pz8/Pz8/Pz8/P3/t/ucdauTn5+fn5+fn5+fn5+ePSJOfn5+fn5+fn5+fn5+fn5+f/6/OUsZY/Pz8/Pz8/Pz8/Pz8/N6//Pz8/Pz8/Pz8/Pz8/Pz8/PwlBMvnX/z8/Pz8/Pz8/Pz8/Pz8Ff21jlLw8/Pz8/Pzf9V/n6NU/Pz81fx5ifGPeP7y8/Pz8/Pz8/Pz8/Pz8/Pz84/zb59/8fPz8/Pzv/C3/S3UlA0sPz8/P/8Tf1SM2/1dip+fn58//ntTMVh+fn5+fn5+fv5d/rwA+fn5+bf6e+4x+HMGaPz8/Pz8/JH+eXt4fn5+fn5+fn5+fn5+fn7+cP8NLE/VJw=="
+        }
+      ],
+      "cells": [
+        {
+          "id": "formation",
+          "kind": "relocate",
+          "page": 1,
+          "rect": [
+            159,
+            188,
+            38,
+            16
+          ],
+          "source_page": 4,
+          "source_rect": [
+            120,
+            100,
+            38,
+            16
+          ],
+          "before_sha256": "4beb641f77c3df2749a5dffc0a23f4270dc4b94e1e940287fc3ebfa05b720662",
+          "sha256": "8d0f084c2f1a31978769835a710079c96740055346490d07a802a72bf0ced979",
+          "indices_zlib_base64": "eNp1UtuSxSAIY9Tdlfv//+0J9mh92UynDDZADCUqjD+gE4fPStt40IjEmL5onoAMS/8do5PFA3P1lM2akRe87dTTIk+vmSEvy2haGh4EzeibJaumiMHMU5A5HgRN3ySy6o2xts76HhgZ6HaJR5VlIKryhGR8Dpz4Lau6nAsoDEmpUVLd5mZxOg4MgiHaSp829BFZNRuaJunQnYlX58DcuoC6a7/Ex2WYID94fVgmHlr8kNqebsf45alMrA3bwH7EC6ha0V5PvT3sdW2/t5Uvy/VryPojWG4cuw5ao3/wAcBEE5c="
+        },
+        {
+          "id": "help",
+          "kind": "relocate",
+          "page": 6,
+          "rect": [
+            135,
+            185,
+            46,
+            20
+          ],
+          "source_page": 4,
+          "source_rect": [
+            0,
+            100,
+            46,
+            20
+          ],
+          "before_sha256": "2211e3d7915507b94bf14efafa3a951cc9a82a3ea4ed0a6f4dc612f640af1ae9",
+          "sha256": "4649728317c39ad76164e0b1d8f128aa24aa8b84c02d96f2f0bc17f3d3f4e84f",
+          "indices_zlib_base64": "eNqVU9luBDEIyyablivw/39bQ2amaR8qFWmjEYcxhm1tGzOeIfk2ldH+NPFF7WWxOr7DqerLuto2PrIjpF5u7PnZ3h5pRnEZfWf3lYDIUFqhPaEjHAXC4QBG+GTHsdiWx1qBH2Wf9Z4erLGqt30jz/kpxHfP8IlREZ8R00LHGHifbHN3Q3xJ2kZbYA/84SCUlJ4hayCteNUmDmDNcoyj3UWEGZmo4TdsVtVFSyAnZJSS9jZCZonwdEVcNXLIHE+PIRPJhzxDrrHpwItGpqo3yXs51oi0dkFEpT8n/rObY5OJJIqM3MUYKj21K2/txo4hcU3YShgiIwliUb02iBPYFKQ0fYas8fM+MpoVuvvr1uLcTeuILSQbpYqloGiagW+n+fFjyIFDygLKJlDQr3PDNeorXY9nM5FuQEYXy7VdQOnrxdLl19+B+VVtoN84QFBzev5nX9URGL0="
+        },
+        {
+          "id": "key",
+          "kind": "relocate",
+          "page": 6,
+          "rect": [
+            105,
+            209,
+            46,
+            20
+          ],
+          "source_page": 4,
+          "source_rect": [
+            0,
+            80,
+            46,
+            20
+          ],
+          "before_sha256": "2211e3d7915507b94bf14efafa3a951cc9a82a3ea4ed0a6f4dc612f640af1ae9",
+          "sha256": "35a7eba569fd7a3bfb9845d65965e82825ca8321f6e73109a92753ce5b43ce67",
+          "indices_zlib_base64": "eNqdUkl2xTAI87fjV2buf9sv7EztsiwSh8ggCVrb0UWp3mxOZ0pczhOZfto7KGOjM3lnhqd0FhGakjbneKElvbMiMg1PrkzUV0bkCn4qs6ax5h3cqEBuke6Ow9l6gfd1x98VmdS1PoTRQCQSjfhBAx4eyZZ6skL94yjuVzu90H2ixg+5b43q2rQIo4uRiIENDm+RRsSMJK8YVOWsRDp6oje/LDEk4hEZ9IGlU5DzK3PTFjt57zugQAKVoqapzBHo9iqMEBoA0IACHn1rKwr+RyNUgchoDKMagfqaem6jTW0Z+5oNSgFSNkD/ZjgiZzVVqwHB+V8i0Yk0nglzOmO4fhLJF3psg2ithfRtaSRuh3CNkblf2OOAMshbxpQgUOm21qngEjon3QZaubpYhBCkpo9aXAzSKZ41ewyM2j+XWmGYIvWULlgkjMIxg7B7u4kIxYTu7V1SwGZn+sB29faP+ALp9hvc"
+        },
+        {
+          "id": "command",
+          "kind": "relocate",
+          "page": 8,
+          "rect": [
+            129,
+            223,
+            38,
+            20
+          ],
+          "source_page": 4,
+          "source_rect": [
+            46,
+            100,
+            38,
+            20
+          ],
+          "before_sha256": "4f30fcacbfd63bac8e76d8a4e97e451d48353631dfa7064250df934b872232f5",
+          "sha256": "7b833f4afcf9d7171a6cb72e12bca5957131fd13928db2a11612728216f35afe",
+          "indices_zlib_base64": "eNqtUtmOxDAIizLVLBgI//+3a5J0Jns87MNaahWKa3Oktb/iMjQx/fZVHV/ij4wm6a11tbjJOjL1FxacibT1TUZGDnlxxCyHgYQcYWaylUI8x0tNK5+eYfpszacNSHItGvrWAjKgfKBgWlh3MqLQxYPfcsK6rsiFuMrcHt3o2XFUyoJASRYFUCpno49prpFYjl51xUZldjDqBZ3tWDWH0qtE/dlv93z7ccZrXhdhU190I45ZyGRtYI2rWpOTtFlvR86rKuVUDtJmuRDLsRZS2zo2pO4/HG9eHFVVI9RzIhLHgsc76grt9/3i+bgsYtL+HZ+NvxJF"
+        },
+        {
+          "id": "native-command-menu",
+          "kind": "native_restore",
+          "page": 4,
+          "rect": [
+            0,
+            96,
+            168,
+            24
+          ],
+          "before_sha256": "a3023e5ea75f3b47d8bedaa35c8158142ca287579ea55b4ad98bbe449dbdf576",
+          "sha256": "fb8b738b9be8e0a0678698f14d7c50c51d5eb3283c5a04e42ead54abf8ab25c7",
+          "source_indices_sha256": "fb8b738b9be8e0a0678698f14d7c50c51d5eb3283c5a04e42ead54abf8ab25c7",
+          "indices_zlib_base64": "eNrtlssW4yAIQKvxkcQo//+3w0vFJJ0zy1nURasoeBGCfj6/9mv/e3O9PUZTKv2n4FtvrjYaOmF7bq4xqp91MG2HEAxaH73irwLpbVvvWQcfKovn7q0t8vWgnPMHUDsETUenpyU7nMPsBfEp4E4CCGI2QtXjaA1NNbJ0HcFslkpUgq0k52LRFnEmsaov2blcvBgssW+3obUzI13DU6FRO/LRZFQGgcsA+SngXgWlJ1kRTgBa0UrBSZL13Qp5olqFhlfnLLzlxwWRBzWYu2aFywvghX+NtsR2QhPOMswq5yKgTgT01DMectKqwZnJVGLLgxMSLwjQebThzMVZ98bJQeMQ43wj01XVqmIBO0nL3gSydS6UNWy2gexsOOkIUk9gdbR3Fs7GufeFU7egBPA0Sq4nXRm6fHpNOFcBqaGjiXwUsxgIbzg1RU7DyWgBnpyJ/fnCCdNXNS8R8tQtsMtxI8gunKsAtQ4CrxJuMls5fIaTbLXJyetJy+ZnZLRIKfqVM5iqMTmdcIbKZpEjC+cqUAOSL2IWz3e/cQ6zbKChox5qeHJiObm+c8bX8+ycHFLK3c65CvC3iGJ0mpGZ+n/hzOjHATk84h6o1h2G05q4yPtRX2d+xr6cQorhHpyrwHGNBC0+IqIUXfIz9g9eDLTmsby+cmLJ1XyQsrEPzswFiEsR1vYstcERv2Lh+UXKyfwqwM9eCiCnrX7hmKKDUxB2y3kAufrKiS6xxxolPIWtx7dJ/URtqjhSG2jUum6Vb3xwLoJL17vaRVICbF06uARMTjxsdEo5c+C2SajpBBmxQUkhV63W5j6qcnPe76MgldJbTiMI7JxzGpesJTUrZ8kZayu0ZOp8oMQ4tP6cPWugc6LndNNsZV7m6/1+Rd6v3/Z+xqJR2AynEeTusIRoZCRfZ1ERzs1sxnGWHy9vHj1PH/Sh1DNhPo7u7yV3fy+JVfll/YcgjEeT32QoJhliE4LbZh+3vvrWV5XhuL0J//7+tJrfBJbAPN/c2wP0137tX9sfnyYz5w==",
+          "source_iso": {
+            "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+            "size": 3791781888,
+            "sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952"
+          }
+        }
+      ],
+      "patches": [
+        {
+          "chunk": 150,
+          "offset": 20192,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050150004000200000002000800280008002800000078649e74",
+          "after_hex": "0700000041100000005015000400020000000200080028000800280000009fbcc5cc"
+        },
+        {
+          "chunk": 150,
+          "offset": 20226,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "0700000044100000005011000400feff0000feff0800240008002400000078649e74",
+          "after_hex": "0700000041100000005011000400feff0000feff080024000800240000009fbcc5cc"
+        },
+        {
+          "chunk": 150,
+          "offset": 20260,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050130003000000ffff00000700260007002600ffff78649e74",
+          "after_hex": "07000000411000000050130003000000ffff00000700260007002600ffff9fbcc5cc"
+        },
+        {
+          "chunk": 150,
+          "offset": 20294,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050130005000000010000000900260009002600010078649e74",
+          "after_hex": "0700000041100000005013000500000001000000090026000900260001009fbcc5cc"
+        },
+        {
+          "chunk": 150,
+          "offset": 20328,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "87000000441024808080130004000000000000000800260008002600000078649e74",
+          "after_hex": "8700000041102480808013000400000000000000080026000800260000009fbcc5cc"
+        },
+        {
+          "chunk": 151,
+          "offset": 20368,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050150004000200000002000800280008002800000078649e74",
+          "after_hex": "0700000041100000005015000400020000000200080028000800280000009fbcc5cc"
+        },
+        {
+          "chunk": 151,
+          "offset": 20402,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "0700000044100000005011000400feff0000feff0800240008002400000078649e74",
+          "after_hex": "0700000041100000005011000400feff0000feff080024000800240000009fbcc5cc"
+        },
+        {
+          "chunk": 151,
+          "offset": 20436,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050130003000000ffff00000700260007002600ffff78649e74",
+          "after_hex": "07000000411000000050130003000000ffff00000700260007002600ffff9fbcc5cc"
+        },
+        {
+          "chunk": 151,
+          "offset": 20470,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050130005000000010000000900260009002600010078649e74",
+          "after_hex": "0700000041100000005013000500000001000000090026000900260001009fbcc5cc"
+        },
+        {
+          "chunk": 151,
+          "offset": 20504,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "870000004410825a2580130004000000000000000800260008002600000078649e74",
+          "after_hex": "870000004110825a258013000400000000000000080026000800260000009fbcc5cc"
+        },
+        {
+          "chunk": 152,
+          "offset": 20544,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050150004000200000002000800280008002800000078649e74",
+          "after_hex": "0700000041100000005015000400020000000200080028000800280000009fbcc5cc"
+        },
+        {
+          "chunk": 152,
+          "offset": 20578,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "0700000044100000005011000400feff0000feff0800240008002400000078649e74",
+          "after_hex": "0700000041100000005011000400feff0000feff080024000800240000009fbcc5cc"
+        },
+        {
+          "chunk": 152,
+          "offset": 20612,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050130003000000ffff00000700260007002600ffff78649e74",
+          "after_hex": "07000000411000000050130003000000ffff00000700260007002600ffff9fbcc5cc"
+        },
+        {
+          "chunk": 152,
+          "offset": 20646,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050130005000000010000000900260009002600010078649e74",
+          "after_hex": "0700000041100000005013000500000001000000090026000900260001009fbcc5cc"
+        },
+        {
+          "chunk": 152,
+          "offset": 20680,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "8700000044107c7c2580130004000000000000000800260008002600000078649e74",
+          "after_hex": "8700000041107c7c258013000400000000000000080026000800260000009fbcc5cc"
+        },
+        {
+          "chunk": 153,
+          "offset": 20720,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050150004000200000002000800280008002800000078649e74",
+          "after_hex": "0700000041100000005015000400020000000200080028000800280000009fbcc5cc"
+        },
+        {
+          "chunk": 153,
+          "offset": 20754,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "0700000044100000005011000400feff0000feff0800240008002400000078649e74",
+          "after_hex": "0700000041100000005011000400feff0000feff080024000800240000009fbcc5cc"
+        },
+        {
+          "chunk": 153,
+          "offset": 20788,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050130003000000ffff00000700260007002600ffff78649e74",
+          "after_hex": "07000000411000000050130003000000ffff00000700260007002600ffff9fbcc5cc"
+        },
+        {
+          "chunk": 153,
+          "offset": 20822,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050130005000000010000000900260009002600010078649e74",
+          "after_hex": "0700000041100000005013000500000001000000090026000900260001009fbcc5cc"
+        },
+        {
+          "chunk": 153,
+          "offset": 20856,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "87000000441025822580130004000000000000000800260008002600000078649e74",
+          "after_hex": "8700000041102582258013000400000000000000080026000800260000009fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25552,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "070000002410ffffff23e4ff0300d1ffffffd1ff0700f7ff0700f7ffffff78649e74",
+          "after_hex": "070000002110ffffff23e4ff0300d1ffffffd1ff0700f7ff0700f7ffffff9fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25586,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "070000002410ffffff23e4ff0500d1ff0100d1ff0900f7ff0900f7ff010078649e74",
+          "after_hex": "070000002110ffffff23e4ff0500d1ff0100d1ff0900f7ff0900f7ff01009fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25620,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "070000002410ffffff23e0ff0500cdff0100cdff0900f3ff0900f3ff010078649e74",
+          "after_hex": "070000002110ffffff23e0ff0500cdff0100cdff0900f3ff0900f3ff01009fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25654,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "070000002410ffffff23e0ff0300cdffffffcdff0700f3ff0700f3ffffff78649e74",
+          "after_hex": "070000002110ffffff23e0ff0300cdffffffcdff0700f3ff0700f3ffffff9fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25688,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "070000002410ffffff23e4ff0400d1ff0000d1ff0800f7ff0800f7ff000078649e74",
+          "after_hex": "070000002110ffffff23e4ff0400d1ff0000d1ff0800f7ff0800f7ff00009fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25722,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "070000002410ffffff23e0ff0400cdff0000cdff0800f3ff0800f3ff000078649e74",
+          "after_hex": "070000002110ffffff23e0ff0400cdff0000cdff0800f3ff0800f3ff00009fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25756,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "070000002410ffffff23e2ff0300cfffffffcfff0700f5ff0700f5ffffff78649e74",
+          "after_hex": "070000002110ffffff23e2ff0300cfffffffcfff0700f5ff0700f5ffffff9fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25790,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "070000002410ffffff23e2ff0500cfff0100cfff0900f5ff0900f5ff010078649e74",
+          "after_hex": "070000002110ffffff23e2ff0500cfff0100cfff0900f5ff0900f5ff01009fbcc5cc"
+        },
+        {
+          "chunk": 171,
+          "offset": 25824,
+          "token": "formation",
+          "operation": "relocate",
+          "before_hex": "b7000000241176767680e2ff0400cfff0000cfff0800f5ff0800f5ff000078649e74",
+          "after_hex": "b7000000211176767680e2ff0400cfff0000cfff0800f5ff0800f5ff00009fbcc5cc"
+        },
+        {
+          "chunk": 1198,
+          "offset": 148664,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "070000004410102d2d485f0005004800000048000a0076000a007600000000642e78",
+          "after_hex": "070000004610102d2d485f0005004800000048000a0076000a007600000087b9b5cd"
+        },
+        {
+          "chunk": 1198,
+          "offset": 148936,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "0700000044101e6f3c7f5d0004004600ffff46000900740009007400ffff00642e78",
+          "after_hex": "0700000046101e6f3c7f5d0004004600ffff46000900740009007400ffff87b9b5cd"
+        },
+        {
+          "chunk": 1223,
+          "offset": 152206,
+          "token": "help",
+          "operation": "relocate",
+          "before_hex": "1700000024106f4a5f80540007003d0002003d000c006b000c006b00020000642e78",
+          "after_hex": "1700000026106f4a5f80540007003d0002003d000c006b000c006b00020087b9b5cd"
+        },
+        {
+          "chunk": 1223,
+          "offset": 152172,
+          "token": "key",
+          "operation": "relocate",
+          "before_hex": "1700000024106f4a5f802d0007001600020016000c0044000c004400020000502e64",
+          "after_hex": "1700000026106f4a5f802d0007001600020016000c0044000c004400020069d197e5"
+        },
+        {
+          "chunk": 162,
+          "offset": 24032,
+          "token": "command",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050340007002100020021000c0047000c00470002002e645478",
+          "after_hex": "07000000481000000050340007002100020021000c0047000c004700020081dfa7f3"
+        },
+        {
+          "chunk": 162,
+          "offset": 24066,
+          "token": "command",
+          "operation": "relocate",
+          "before_hex": "0700000044106a6a6a80320006001f0001001f000b0045000b00450001002e645478",
+          "after_hex": "0700000048106a6a6a80320006001f0001001f000b0045000b004500010081dfa7f3"
+        },
+        {
+          "chunk": 167,
+          "offset": 24912,
+          "token": "command",
+          "operation": "relocate",
+          "before_hex": "07000000441000000050340007002100020021000c0047000c00470002002e645478",
+          "after_hex": "07000000481000000050340007002100020021000c0047000c004700020081dfa7f3"
+        },
+        {
+          "chunk": 167,
+          "offset": 24946,
+          "token": "command",
+          "operation": "relocate",
+          "before_hex": "0700000044109b672f80320006001f0001001f000b0045000b00450001002e645478",
+          "after_hex": "0700000048109b672f80320006001f0001001f000b0045000b004500010081dfa7f3"
+        },
+        {
+          "chunk": 168,
+          "offset": 25024,
+          "token": "command",
+          "operation": "relocate",
+          "before_hex": "070000004410000000503a0007002700020027000c004d000c004d0002002e645478",
+          "after_hex": "070000004810000000503a0007002700020027000c004d000c004d00020081dfa7f3"
+        },
+        {
+          "chunk": 168,
+          "offset": 25058,
+          "token": "command",
+          "operation": "relocate",
+          "before_hex": "070000004410857d3280380006002500010025000b004b000b004b0001002e645478",
+          "after_hex": "070000004810857d3280380006002500010025000b004b000b004b00010081dfa7f3"
+        },
+        {
+          "chunk": 163,
+          "offset": 24144,
+          "operation": "native_restore",
+          "before_hex": "070000004410000000503a0007002700020027000c004d000c004d0002002e645478",
+          "after_hex": "070000004410000000503a0007000400010000000d0070000d007400010000607078",
+          "native_hex": "070000004410000000503a0007000400010000000d0070000d007400010000607078"
+        },
+        {
+          "chunk": 163,
+          "offset": 24178,
+          "operation": "native_restore",
+          "before_hex": "07000000441068686880380006002500010025000b004b000b004b0001002e645478",
+          "after_hex": "070000004410686868803800060002000000feff0c006e000c007200000000607078",
+          "native_hex": "070000004410686868803800060002000000feff0c006e000c007200000000607078"
+        },
+        {
+          "chunk": 164,
+          "offset": 24256,
+          "operation": "native_restore",
+          "before_hex": "0700000027100000005000000000000000000000000000000000000000008830a098",
+          "after_hex": "0700000027100000005032000700620001000600010002000c005e000c008830a098",
+          "native_hex": "0700000027100000005032000700620001000600010002000c005e000c008830a098"
+        },
+        {
+          "chunk": 164,
+          "offset": 24290,
+          "operation": "native_restore",
+          "before_hex": "0700000027104744848000000000000000000000000000000000000000008830a098",
+          "after_hex": "0700000027104744848030000600600000000400000000000b005c000b008830a098",
+          "native_hex": "0700000027104744848030000600600000000400000000000b005c000b008830a098"
+        },
+        {
+          "chunk": 164,
+          "offset": 24324,
+          "operation": "native_restore",
+          "before_hex": "01030000000000680000000000000000",
+          "after_hex": "010300000000006802000d000c001000",
+          "native_hex": "010300000000006802000d000c001000"
+        },
+        {
+          "chunk": 164,
+          "offset": 24340,
+          "operation": "native_restore",
+          "before_hex": "01030000474484800000000000000000",
+          "after_hex": "010300004744848004000e000a000f00",
+          "native_hex": "010300004744848004000e000a000f00"
+        },
+        {
+          "chunk": 164,
+          "offset": 24356,
+          "operation": "native_restore",
+          "before_hex": "07000000441000000050320007001f0002001f000c0045000c00450002002e645478",
+          "after_hex": "070000004410000000503c000f000c000900080014006c0014007000090000607078",
+          "native_hex": "070000004410000000503c000f000c000900080014006c0014007000090000607078"
+        },
+        {
+          "chunk": 164,
+          "offset": 24390,
+          "operation": "native_restore",
+          "before_hex": "07000000441047448480300006001d0001001d000b0043000b00430001002e645478",
+          "after_hex": "070000004410474484803a000e000a000800060013006a0013006e00080000607078",
+          "native_hex": "070000004410474484803a000e000a000800060013006a0013006e00080000607078"
+        },
+        {
+          "chunk": 165,
+          "offset": 24496,
+          "operation": "native_restore",
+          "before_hex": "07000000441000000050200007000e0002000e000c0032000c003200020054647878",
+          "after_hex": "07000000441000000050200007000800010004000d003a000d003e0001007060a878",
+          "native_hex": "07000000441000000050200007000800010004000d003a000d003e0001007060a878"
+        },
+        {
+          "chunk": 165,
+          "offset": 24530,
+          "operation": "native_restore",
+          "before_hex": "0700000044106c6c6c801e0006000c0001000c000b0030000b003000010054647878",
+          "after_hex": "0700000044106c6c6c801e0006000600000002000c0038000c003c0000007060a878",
+          "native_hex": "0700000044106c6c6c801e0006000600000002000c0038000c003c0000007060a878"
+        },
+        {
+          "chunk": 165,
+          "offset": 24596,
+          "operation": "native_restore",
+          "before_hex": "07000000441000000050780007006500020065000c008b000c008b0002002e645478",
+          "after_hex": "07000000441000000050780007004a00010046000c00a8000c00ac00010000607078",
+          "native_hex": "07000000441000000050780007004a00010046000c00a8000c00ac00010000607078"
+        },
+        {
+          "chunk": 165,
+          "offset": 24630,
+          "operation": "native_restore",
+          "before_hex": "0700000044106a6a6a80760006006300010063000b0089000b00890001002e645478",
+          "after_hex": "0700000044106a6a6a80760006004800000044000b00a6000b00aa00000000607078",
+          "native_hex": "0700000044106a6a6a80760006004800000044000b00a6000b00aa00000000607078"
+        },
+        {
+          "chunk": 169,
+          "offset": 25136,
+          "operation": "native_restore",
+          "before_hex": "07000000441000000050220007001000020010000c0034000c003400020054647878",
+          "after_hex": "07000000441000000050220007000800010004000d003c000d00400001007060a878",
+          "native_hex": "07000000441000000050220007000800010004000d003c000d00400001007060a878"
+        },
+        {
+          "chunk": 169,
+          "offset": 25170,
+          "operation": "native_restore",
+          "before_hex": "0700000044106c6c6c80200006000e0001000e000b0032000b003200010054647878",
+          "after_hex": "0700000044106c6c6c80200006000600000002000c003a000c003e0000007060a878",
+          "native_hex": "0700000044106c6c6c80200006000600000002000c003a000c003e0000007060a878"
+        }
+      ],
+      "restored_chunks": [
+        163,
+        164,
+        165,
+        169
+      ]
+    }
+  }
+}

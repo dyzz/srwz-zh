@@ -190,6 +190,8 @@ def assemble():
                           ('bazaar_heading', 'bazaar-heading.json')):
         require(file_sha(ROOT/'config/assets/special-disc'/filename)==reports['image-labels'][key]['config_sha256'],
                 f'{key} frozen component input drift')
+    require(file_sha(ROOT/'config/assets/ui-menu-native-restore.json')==reports['image-labels']['menu_restore']['config_sha256'],
+            'menu restoration frozen input drift')
     components={}
     for k,r in reports.items():
         components[k]={}

@@ -221,6 +221,12 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
         member: apply_draw_patches(drawings, config["draw_patches"]),
     }
     outputs[member] = apply_shared_letter_patches(outputs["KURODATA/KVMDATA.BIN"], outputs[member], config)
+    from .ui_menu_restore import apply_menu_restore
+    reference = config["menu_restore"]
+    checked(_path(root, reference["path"]).read_bytes(), reference, "menu restoration config")
+    inputs["menu_restore"] = reference
+    outputs["KURODATA/KVMDATA.BIN"], outputs[member], menu_report = apply_menu_restore(
+        outputs["KURODATA/KVMDATA.BIN"], outputs[member], root)
     for name, payload in outputs.items():
         checked(payload, config["expected_outputs"][name], name)
     report = {
@@ -229,6 +235,7 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
         "status": "static_component_validated_runtime_pending",
         "inputs": inputs,
         "source_drawings": config["source_drawings"],
+        "menu_restore": menu_report,
         "heading_count": len(corpus["entries"]),
         "cell_count": len(config["cells"]),
         "drawing_patch_count": len(config["draw_patches"]),

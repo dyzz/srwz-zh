@@ -68,7 +68,7 @@ class UiHeadingTests(unittest.TestCase):
         # CLUT bank 0 is the grayscale ramp, both inside the resident 0-9 group.
         page_by_id = {c["id"]: c["page"] for c in self.config["cells"]}
         page_by_id.update(command=4, menu=4)
-        self.assertEqual({c["page"] for c in self.config["cells"]}, {2, 4})
+        self.assertEqual({c["page"] for c in self.config["cells"]}, {1, 2, 4})
         for p in self.patches:
             self.assertEqual(int(p["after_hex"][9], 16), page_by_id[p["token"]], p["token"])
             uv = bytes.fromhex(p["after_hex"])[30:34]
@@ -90,6 +90,7 @@ class UiHeadingTests(unittest.TestCase):
         # margins, dead OTHERS/COMMAND letters (page 4) and the SORT / "ORM"
         # letters that no polygon samples any more (page 2).
         allowed = {
+            1: [(159, 188, 197, 204)],
             2: [(0, 56, 56, 72), (159, 56, 198, 72)],
             4: [(0, 80, 88, 96), (0, 96, 56, 120), (112, 96, 168, 120), (40, 232, 91, 256), (152, 232, 204, 256)],
         }

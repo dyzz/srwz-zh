@@ -38,6 +38,7 @@ from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
 from special_disc.writeback.shared_library import verify_shared_library
 from special_disc.writeback.bazaar_heading import verify_bazaar_heading
+from srwz.ui_menu_restore import verify_menu_restore
 
 
 def main(iso=None, work=None):
@@ -61,6 +62,9 @@ def main(iso=None, work=None):
     require(verify_bazaar_heading(member('KURODATA/KVMDATA.BIN')) == image_report['bazaar_heading'],
             'SP bazaar independent readback receipt drift')
     counts['enlarged_bazaar_headings'] = 1
+    require(verify_menu_restore(member('KURODATA/KVMDATA.BIN'), member('KURODATA/KVPDATA.BIN'), ROOT, 'sp')
+            == image_report['menu_restore'], 'SP native menu independent readback receipt drift')
+    counts['restored_native_menu_chunks'] = 4
     table,_,overrides,readback=st.mst.encoding_tables(PROPOSAL)
     library_base = baseline_iso('text-canary')
     library_base_members = member_map(scan_iso9660(library_base))

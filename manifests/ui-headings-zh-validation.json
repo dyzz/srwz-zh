@@ -5,8 +5,8 @@
   "inputs": {
     "config": {
       "path": "config/assets/ui-headings-zh.json",
-      "size": 31746,
-      "sha256": "0723ecd50f31831e2833f7afdd004c7771ba8228c71774148f68fad37c8ddd76"
+      "size": 32106,
+      "sha256": "684ed32e6204647b7a2fde6f50db94cc97d5ef9e8d752a782831dd27f75bafe2"
     },
     "base_atlas": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
@@ -21,13 +21,30 @@
     "snapshot": {
       "path": "config/assets/ui-headings-render-snapshot.json",
       "size": 5353,
-      "sha256": "1d77b2c900f2ffd85b64701ebf053ff59281c1568c92a792cbd988e98350f95b"
+      "sha256": "c1f974363de54ff2dd77de42132b57d47775901ef1bdf83024d01ec9d6c6f5dc"
+    },
+    "menu_restore": {
+      "path": "config/assets/ui-menu-native-restore.json",
+      "size": 44116,
+      "sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f"
     }
   },
   "source_drawings": {
     "member": "KURODATA/KVPDATA.BIN",
     "size": 239664,
     "sha256": "39caf7f108b6f98226d9bd5860fc6287389e5ba69a69f3e443434ccec55c5e2a"
+  },
+  "menu_restore": {
+    "config_sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f",
+    "profile": "original",
+    "restored_chunks": [
+      159,
+      160,
+      161,
+      162
+    ],
+    "moved_cells": 4,
+    "runtime": "pending"
   },
   "heading_count": 6,
   "cell_count": 8,
@@ -37,12 +54,12 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/ui-headings-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "96b78195d5fe7fba1e7363b9bd4b48fa6f4d7937249cc3e7369df16edf33c5c0"
+      "sha256": "845a2f691a2b192532e8d7dd397bcdfc56e693a5468fa5c2adce86b96f772cc9"
     },
     "KURODATA/KVPDATA.BIN": {
       "path": "work/build/ui-headings-zh/components/KURODATA/KVPDATA.BIN",
       "size": 239664,
-      "sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640"
+      "sha256": "33a4d7eeee9cb0650c7f89750c6360eb40cac5e65a7639b1c76cbb08481a5d65"
     }
   },
   "acceptance": {
