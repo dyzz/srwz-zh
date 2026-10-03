@@ -1,0 +1,948 @@
+{
+  "input_digest": "4579af084268edb763f2193418d53443e80c1ad65cb868a0639b98c66b98ee3b",
+  "input_snapshot": "work/build/shared/4579af084268edb763f2193418d53443e80c1ad65cb868a0639b98c66b98ee3b/inputs.json",
+  "release_config": "config/release/dual-current.json",
+  "requested_editions": [
+    "original",
+    "best",
+    "sp"
+  ],
+  "results": [
+    {
+      "adapter": "original-production-v1",
+      "daily_test": {
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x2F7A80",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x3F6000",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "original",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
+          "hook_size": 1728,
+          "member": "SLPS_258.87",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1E5874",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "ac200c0c",
+              "replacement_instruction_hex": "00d80f0c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E3DF4"
+            },
+            {
+              "file_offset": "0x1ED990",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "40d90f08",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2EBF10"
+            },
+            {
+              "file_offset": "0x1ED994",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2EBF14"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "path": "build/iso/daily-test/current-original-skip.iso",
+        "runtime": "not_tested",
+        "sha256": "7fe44eec06c789ade6895f8c27a9aa1306b5b0ada5a7517ea576fcdf9c9f008c",
+        "size": 3758358528,
+        "skip_enabled": true,
+        "status": "exact_current_copy_and_skip_readback_passed"
+      },
+      "edition_contract_sha256": "a8b5b0d5dd0ae4cb1e4174a268ebb8acad72c66aa9d2f63e928e14467f628f54",
+      "edition_id": "original",
+      "input_digest": "4579af084268edb763f2193418d53443e80c1ad65cb868a0639b98c66b98ee3b",
+      "legacy_equivalence": {
+        "baseline_iso_sha256": "3fe887bbc31f9fdf51514fbe9f2aa929c46fabdc4c885721703ed9c5ac6ae129",
+        "member_count": 25,
+        "passed": false,
+        "required": false
+      },
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "7fe44eec06c789ade6895f8c27a9aa1306b5b0ada5a7517ea576fcdf9c9f008c",
+        "size": 3758358528
+      },
+      "readback": {
+        "path": "build/editions/zh-release-original/69514589df121011feafa23ffa65a259cd06abcdea3789020abe82632cf9f78b/project/manifests/zh-release-full-story-iso-content-validation.json",
+        "sha256": "2f6aa8951a87bda93a855cc7318bdb9708c31aaacd9fc6b464c62eaf3476fdc5",
+        "stage_count": 170,
+        "translation_entry_count": 93071
+      },
+      "runtime": "not_tested",
+      "schema_version": 1,
+      "source_head": "6696e9ecde8136c2da47bd73da68a9167373125f",
+      "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+      "status": "edition_iso_static_validated_runtime_pending",
+      "workspace": "build/editions/zh-release-original/69514589df121011feafa23ffa65a259cd06abcdea3789020abe82632cf9f78b/project"
+    },
+    {
+      "adapter": "best-current-source-v1",
+      "daily_test": {
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x2F7A80",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x3F6000",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "best",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+          "hook_size": 1728,
+          "member": "SLPS_732.70",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1E5C44",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "a0210c0c",
+              "replacement_instruction_hex": "00d80f0c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E41C4"
+            },
+            {
+              "file_offset": "0x1EDD60",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "40d90f08",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2EC2E0"
+            },
+            {
+              "file_offset": "0x1EDD64",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2EC2E4"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "path": "build/iso/daily-test/current-best-skip.iso",
+        "runtime": "not_tested",
+        "sha256": "1871c77bebcdc080808f13bc1e05c2c5fb46daae7c5ec9229271a4aa14e9c1c6",
+        "size": 3755081728,
+        "skip_enabled": true,
+        "status": "exact_current_copy_and_skip_readback_passed"
+      },
+      "edition_contract_sha256": "9aa1ca3f6af7b94391303abc1092900ef2ae2ca933b1ba467535061652446686",
+      "edition_id": "best",
+      "input_digest": "4579af084268edb763f2193418d53443e80c1ad65cb868a0639b98c66b98ee3b",
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "1871c77bebcdc080808f13bc1e05c2c5fb46daae7c5ec9229271a4aa14e9c1c6",
+        "size": 3755081728
+      },
+      "readback": {
+        "path": "build/editions/zh-release-best/cba45d5bfbf015f106f21a96f8aa87bcfa10f5c5adbabe00ac753bb4a41083c9/project/work/build/best-current/iso-readback.json",
+        "sha256": "7d431fe4afff0dbea231ce90f6cc6bc2e281751fa21def858c8f4ae0d77aa9fd",
+        "stage_count": 205,
+        "translation_entry_count": 84338
+      },
+      "runtime": "not_tested",
+      "schema_version": 1,
+      "shared_frontend": {
+        "edition": "original",
+        "input_digest": "4579af084268edb763f2193418d53443e80c1ad65cb868a0639b98c66b98ee3b",
+        "iso_sha256": "7fe44eec06c789ade6895f8c27a9aa1306b5b0ada5a7517ea576fcdf9c9f008c",
+        "readback_sha256": "2f6aa8951a87bda93a855cc7318bdb9708c31aaacd9fc6b464c62eaf3476fdc5"
+      },
+      "source_head": "6696e9ecde8136c2da47bd73da68a9167373125f",
+      "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+      "status": "edition_iso_static_validated_runtime_pending",
+      "workspace": "build/editions/zh-release-best/cba45d5bfbf015f106f21a96f8aa87bcfa10f5c5adbabe00ac753bb4a41083c9/project"
+    },
+    {
+      "adapter": "sp-full-text-v1",
+      "component_modes": {
+        "frame": "rebuilt",
+        "image-labels": "rebuilt",
+        "srvc": "rebuilt",
+        "stage": "rebuilt",
+        "system": "rebuilt"
+      },
+      "daily_test": {
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x351100",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x450780",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "sp",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+          "hook_size": 1728,
+          "member": "SLPS_259.20",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1EA5C8",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "ec390c0c",
+              "replacement_instruction_hex": "e041110c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E9C48"
+            },
+            {
+              "file_offset": "0x1F2C00",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "20431108",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2F2280"
+            },
+            {
+              "file_offset": "0x1F2C04",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2F2284"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "path": "build/iso/daily-test/current-sp-skip.iso",
+        "runtime": "not_tested",
+        "sha256": "5cdf8234e0bc9eff148cd1e14dc8b395e6a9c936345b9b0217b1c50766952b62",
+        "size": 3791781888,
+        "skip_enabled": true,
+        "status": "exact_current_copy_and_skip_readback_passed"
+      },
+      "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
+      "edition_id": "sp",
+      "input_digest": "4579af084268edb763f2193418d53443e80c1ad65cb868a0639b98c66b98ee3b",
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "5cdf8234e0bc9eff148cd1e14dc8b395e6a9c936345b9b0217b1c50766952b62",
+        "size": 3791781888
+      },
+      "readback": {
+        "path": "build/editions/zh-release-sp/88131d7e868dab3def66f0fd26570083bc77f6ffbb28eb68a34f77a0a291f95e/project/build/iso/special-disc/sp-current.json",
+        "sha256": "824857a464cd41219fe2c2f1024400eae83b1f0d8c54848a45194ea316135cfa"
+      },
+      "runtime": "not_tested",
+      "schema_version": 1,
+      "source_head": "6696e9ecde8136c2da47bd73da68a9167373125f",
+      "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+      "status": "edition_iso_static_validated_runtime_pending",
+      "workspace": "build/editions/zh-release-sp/88131d7e868dab3def66f0fd26570083bc77f6ffbb28eb68a34f77a0a291f95e/project"
+    }
+  ],
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "status": "requested_editions_static_validated_runtime_pending",
+  "timing": {
+    "editions": {
+      "best": {
+        "daily_test_seconds": 0.069,
+        "mode": "build",
+        "phases": {
+          "native-components-and-iso": {
+            "returncode": 0,
+            "seconds": 22.757
+          }
+        },
+        "seconds": 24.799
+      },
+      "original": {
+        "daily_test_seconds": 0.068,
+        "mode": "build",
+        "phases": {
+          "codec": {
+            "returncode": 0,
+            "seconds": 2.457
+          },
+          "components": {
+            "returncode": 0,
+            "seconds": 294.108
+          },
+          "fonts": {
+            "returncode": 0,
+            "seconds": 0.091
+          },
+          "iso": {
+            "returncode": 0,
+            "seconds": 6.665
+          },
+          "iso-toolchain": {
+            "returncode": 0,
+            "seconds": 0.789
+          },
+          "readback": {
+            "returncode": 0,
+            "seconds": 35.984
+          }
+        },
+        "seconds": 343.264
+      },
+      "sp": {
+        "daily_test_seconds": 0.077,
+        "mode": "build",
+        "phases": {
+          "rust-compressor": {
+            "returncode": 0,
+            "seconds": 1.883
+          },
+          "sp-full-text": {
+            "returncode": 0,
+            "seconds": 291.957
+          }
+        },
+        "seconds": 296.071
+      }
+    },
+    "finished_at": "2026-10-03T01:40:03.826686+00:00",
+    "preflight_and_snapshot_seconds": 4.571,
+    "started_at": "2026-10-03T01:28:55.110756+00:00",
+    "total_seconds": 668.707
+  },
+  "repair_readback": {
+    "status": "all_three_editions_shared_I_readback_passed",
+    "editions": {
+      "original": {
+        "iso": "build/iso/zh-release-original/current-original.iso",
+        "iso_sha256": "7fe44eec06c789ade6895f8c27a9aa1306b5b0ada5a7517ea576fcdf9c9f008c",
+        "member_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+        "atlas_sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 122616,
+            "raw_hex": "3500000022110e0e0e8089ffffff8eff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 122660,
+            "raw_hex": "3500000022110e0e0e809bffffffa0ff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true,
+        "only_expected_KVP_records_changed": true,
+        "changed_KVP_bytes": 10,
+        "atlas_byte_exact_before": true
+      },
+      "best": {
+        "iso": "build/iso/zh-release-best/current-best.iso",
+        "iso_sha256": "1871c77bebcdc080808f13bc1e05c2c5fb46daae7c5ec9229271a4aa14e9c1c6",
+        "member_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+        "atlas_sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 122616,
+            "raw_hex": "3500000022110e0e0e8089ffffff8eff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 122660,
+            "raw_hex": "3500000022110e0e0e809bffffffa0ff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true,
+        "only_expected_KVP_records_changed": true,
+        "changed_KVP_bytes": 10,
+        "atlas_byte_exact_before": true
+      },
+      "sp": {
+        "iso": "build/iso/special-disc/sp-current.iso",
+        "iso_sha256": "5cdf8234e0bc9eff148cd1e14dc8b395e6a9c936345b9b0217b1c50766952b62",
+        "member_sha256": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e",
+        "atlas_sha256": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 132986,
+            "raw_hex": "150000002211513320808bff000090ff08000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133074,
+            "raw_hex": "150000002211513320809dff0000a2ff08000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133008,
+            "raw_hex": "3500000022111818198089ff01008eff09000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133096,
+            "raw_hex": "350000002211181819809bff0100a0ff09000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true,
+        "only_expected_KVP_records_changed": true,
+        "changed_KVP_bytes": 20,
+        "atlas_byte_exact_before": true
+      }
+    },
+    "runtime": "LRPS2 target scene passed; PCSX2/manual pending"
+  },
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "4579af084268edb763f2193418d53443e80c1ad65cb868a0639b98c66b98ee3b",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "target_scene_runtime": {
+    "scope": "LRPS2 Software cold boot and natural inputs to Mazinger Z robot specifications on these exact current ISO bytes",
+    "status": "all_three_current_ISO_target_scenes_passed_lrps2",
+    "PCSX2_manual": "pending",
+    "CHD_emulator": "not_separately_run",
+    "results": [
+      {
+        "edition": "original",
+        "iso": "build/iso/zh-release-original/current-original.iso",
+        "driver_sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83",
+        "card_sha256_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+        "commands": [
+          {
+            "command": "run 1800",
+            "response": [
+              "OK frame=1800"
+            ]
+          },
+          {
+            "command": "press start 3",
+            "response": [
+              "OK frame=1805"
+            ]
+          },
+          {
+            "command": "run 240",
+            "response": [
+              "OK frame=2045"
+            ]
+          },
+          {
+            "command": "shot title",
+            "response": [
+              "SHOT work/runtime/lrps2/specifications-current-20261003/original/title.png 640x448 luma=122.6",
+              "OK frame=2045"
+            ]
+          },
+          {
+            "command": "press down 3",
+            "response": [
+              "OK frame=2050"
+            ]
+          },
+          {
+            "command": "run 60",
+            "response": [
+              "OK frame=2110"
+            ]
+          },
+          {
+            "command": "press down 3",
+            "response": [
+              "OK frame=2115"
+            ]
+          },
+          {
+            "command": "run 60",
+            "response": [
+              "OK frame=2175"
+            ]
+          },
+          {
+            "command": "press down 3",
+            "response": [
+              "OK frame=2180"
+            ]
+          },
+          {
+            "command": "run 60",
+            "response": [
+              "OK frame=2240"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2245"
+            ]
+          },
+          {
+            "command": "run 180",
+            "response": [
+              "OK frame=2425"
+            ]
+          },
+          {
+            "command": "shot library",
+            "response": [
+              "SHOT work/runtime/lrps2/specifications-current-20261003/original/library.png 640x448 luma=75.8",
+              "OK frame=2425"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2430"
+            ]
+          },
+          {
+            "command": "run 180",
+            "response": [
+              "OK frame=2610"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2615"
+            ]
+          },
+          {
+            "command": "run 180",
+            "response": [
+              "OK frame=2795"
+            ]
+          },
+          {
+            "command": "shot robot-fixed",
+            "response": [
+              "SHOT work/runtime/lrps2/specifications-current-20261003/original/robot-fixed.png 640x448 luma=39.2",
+              "OK frame=2795"
+            ]
+          },
+          {
+            "command": "dump robot-fixed",
+            "response": [
+              "DUMP work/runtime/lrps2/specifications-current-20261003/original/robot-fixed.ram 33570816 sha256=8069266bac98a6b6eb2a48ff58a4285f529f64f8148168a733e73de8b9255e2c",
+              "OK frame=2795"
+            ]
+          },
+          {
+            "command": "quit",
+            "response": [
+              "OK"
+            ]
+          }
+        ],
+        "runtime": "LRPS2 Software target scene; PCSX2/manual pending",
+        "no_savestate_restore": true,
+        "no_ram_writes": true,
+        "status": "passed_current_iso_target_scene_lrps2",
+        "live_drawing_records": [
+          {
+            "member_offset": 122616,
+            "ram_offset": 12321976,
+            "old_record_count": 0,
+            "new_record_count": 1
+          },
+          {
+            "member_offset": 122660,
+            "ram_offset": 12322020,
+            "old_record_count": 0,
+            "new_record_count": 1
+          }
+        ],
+        "screenshot": "docs/issue-assets/specifications-production-20261003/original-lrps2.png",
+        "screenshot_sha256": "2529163d5d1a87b5c6f8359ab6fe1c12fb99b62c0dd1bd9fad0edd9f9e1e5cc3",
+        "card_sha256_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+        "tested_iso_path": "work/isolated/specifications-20261003/build/iso/zh-release-original/current-original.iso",
+        "iso_sha256": "7fe44eec06c789ade6895f8c27a9aa1306b5b0ada5a7517ea576fcdf9c9f008c",
+        "tested_and_promoted_iso_byte_identity": true
+      },
+      {
+        "edition": "best",
+        "iso": "build/iso/zh-release-best/current-best.iso",
+        "driver_sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83",
+        "card_sha256_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+        "commands": [
+          {
+            "command": "run 1800",
+            "response": [
+              "OK frame=1800"
+            ]
+          },
+          {
+            "command": "press start 3",
+            "response": [
+              "OK frame=1805"
+            ]
+          },
+          {
+            "command": "run 240",
+            "response": [
+              "OK frame=2045"
+            ]
+          },
+          {
+            "command": "press down 3",
+            "response": [
+              "OK frame=2050"
+            ]
+          },
+          {
+            "command": "run 60",
+            "response": [
+              "OK frame=2110"
+            ]
+          },
+          {
+            "command": "press down 3",
+            "response": [
+              "OK frame=2115"
+            ]
+          },
+          {
+            "command": "run 60",
+            "response": [
+              "OK frame=2175"
+            ]
+          },
+          {
+            "command": "press down 3",
+            "response": [
+              "OK frame=2180"
+            ]
+          },
+          {
+            "command": "run 60",
+            "response": [
+              "OK frame=2240"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2245"
+            ]
+          },
+          {
+            "command": "run 180",
+            "response": [
+              "OK frame=2425"
+            ]
+          },
+          {
+            "command": "shot library",
+            "response": [
+              "SHOT work/runtime/lrps2/specifications-current-20261003/best/library.png 640x448 luma=75.8",
+              "OK frame=2425"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2430"
+            ]
+          },
+          {
+            "command": "run 180",
+            "response": [
+              "OK frame=2610"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2615"
+            ]
+          },
+          {
+            "command": "run 180",
+            "response": [
+              "OK frame=2795"
+            ]
+          },
+          {
+            "command": "shot robot-fixed",
+            "response": [
+              "SHOT work/runtime/lrps2/specifications-current-20261003/best/robot-fixed.png 640x448 luma=39.2",
+              "OK frame=2795"
+            ]
+          },
+          {
+            "command": "dump robot-fixed",
+            "response": [
+              "DUMP work/runtime/lrps2/specifications-current-20261003/best/robot-fixed.ram 33570816 sha256=d81df9b582362e8de0cb8206519e77cb9258556c0204a0dc03796be3ec5122ae",
+              "OK frame=2795"
+            ]
+          },
+          {
+            "command": "quit",
+            "response": [
+              "OK"
+            ]
+          }
+        ],
+        "runtime": "LRPS2 Software target scene; PCSX2/manual pending",
+        "no_savestate_restore": true,
+        "no_ram_writes": true,
+        "status": "passed_current_iso_target_scene_lrps2",
+        "live_drawing_records": [
+          {
+            "member_offset": 122616,
+            "ram_offset": 12324024,
+            "old_record_count": 0,
+            "new_record_count": 1
+          },
+          {
+            "member_offset": 122660,
+            "ram_offset": 12324068,
+            "old_record_count": 0,
+            "new_record_count": 1
+          }
+        ],
+        "screenshot": "docs/issue-assets/specifications-production-20261003/best-lrps2.png",
+        "screenshot_sha256": "2529163d5d1a87b5c6f8359ab6fe1c12fb99b62c0dd1bd9fad0edd9f9e1e5cc3",
+        "card_sha256_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+        "tested_iso_path": "work/isolated/specifications-20261003/build/iso/zh-release-best/current-best.iso",
+        "iso_sha256": "1871c77bebcdc080808f13bc1e05c2c5fb46daae7c5ec9229271a4aa14e9c1c6",
+        "tested_and_promoted_iso_byte_identity": true
+      },
+      {
+        "edition": "sp",
+        "iso": "build/iso/special-disc/sp-current.iso",
+        "driver_sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83",
+        "card_sha256_before": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+        "commands": [
+          {
+            "command": "run 1800",
+            "response": [
+              "OK frame=1800"
+            ]
+          },
+          {
+            "command": "press start 3",
+            "response": [
+              "OK frame=1805"
+            ]
+          },
+          {
+            "command": "run 195",
+            "response": [
+              "OK frame=2000"
+            ]
+          },
+          {
+            "command": "press right 3",
+            "response": [
+              "OK frame=2005"
+            ]
+          },
+          {
+            "command": "run 20",
+            "response": [
+              "OK frame=2025"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2030"
+            ]
+          },
+          {
+            "command": "run 220",
+            "response": [
+              "OK frame=2250"
+            ]
+          },
+          {
+            "command": "shot library",
+            "response": [
+              "SHOT work/runtime/lrps2/specifications-current-20261003/sp/library.png 640x448 luma=45.8",
+              "OK frame=2250"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2255"
+            ]
+          },
+          {
+            "command": "run 160",
+            "response": [
+              "OK frame=2415"
+            ]
+          },
+          {
+            "command": "press circle 3",
+            "response": [
+              "OK frame=2420"
+            ]
+          },
+          {
+            "command": "run 160",
+            "response": [
+              "OK frame=2580"
+            ]
+          },
+          {
+            "command": "shot robot-fixed",
+            "response": [
+              "SHOT work/runtime/lrps2/specifications-current-20261003/sp/robot-fixed.png 640x448 luma=28.9",
+              "OK frame=2580"
+            ]
+          },
+          {
+            "command": "dump robot-fixed",
+            "response": [
+              "DUMP work/runtime/lrps2/specifications-current-20261003/sp/robot-fixed.ram 33570816 sha256=97c0710912b69da8bfad8301979990d11c2eeb0ea3184237f3c84bfca39053f2",
+              "OK frame=2580"
+            ]
+          },
+          {
+            "command": "quit",
+            "response": [
+              "OK"
+            ]
+          }
+        ],
+        "runtime": "LRPS2 Software target scene; PCSX2/manual pending",
+        "no_savestate_restore": true,
+        "no_ram_writes": true,
+        "status": "passed_current_iso_target_scene_lrps2",
+        "live_drawing_records": [
+          {
+            "member_offset": 132986,
+            "ram_offset": 12922810,
+            "old_record_count": 0,
+            "new_record_count": 1
+          },
+          {
+            "member_offset": 133074,
+            "ram_offset": 12922898,
+            "old_record_count": 0,
+            "new_record_count": 1
+          },
+          {
+            "member_offset": 133008,
+            "ram_offset": 12922832,
+            "old_record_count": 0,
+            "new_record_count": 1
+          },
+          {
+            "member_offset": 133096,
+            "ram_offset": 12922920,
+            "old_record_count": 0,
+            "new_record_count": 1
+          }
+        ],
+        "screenshot": "docs/issue-assets/specifications-production-20261003/sp-lrps2.png",
+        "screenshot_sha256": "9d311ed7a44ff1efea0fe8814974a6050f029743a8d61e7aa61b5c028fb29088",
+        "card_sha256_after": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+        "tested_iso_path": "work/isolated/specifications-20261003/build/iso/special-disc/sp-current.iso",
+        "iso_sha256": "5cdf8234e0bc9eff148cd1e14dc8b395e6a9c936345b9b0217b1c50766952b62",
+        "tested_and_promoted_iso_byte_identity": true
+      }
+    ]
+  },
+  "chd_verification": {
+    "path": "docs/issue-assets/specifications-production-20261003/chds.json",
+    "sha256": "11bd796c8ff7927dd921870cdd0fe04e2dd5449606ccdaa9fc096f7c7276de13",
+    "status": "all_three_parentless_CHDs_verified_and_extracted_ISO_SHA256_identical",
+    "CHD_emulator": "not_separately_run"
+  }
+}

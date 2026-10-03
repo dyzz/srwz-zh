@@ -1,0 +1,128 @@
+{
+  "status": "all_three_editions_shared_I_readback_passed",
+  "editions": {
+    "original": {
+      "iso": "build/iso/zh-release-original/current-original.iso",
+      "iso_sha256": "7fe44eec06c789ade6895f8c27a9aa1306b5b0ada5a7517ea576fcdf9c9f008c",
+      "member_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+      "atlas_sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+      "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+      "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+      "references": [
+        {
+          "offset": 122616,
+          "raw_hex": "3500000022110e0e0e8089ffffff8eff07000e101320",
+          "uv": [
+            14,
+            16,
+            19,
+            32
+          ]
+        },
+        {
+          "offset": 122660,
+          "raw_hex": "3500000022110e0e0e809bffffffa0ff07000e101320",
+          "uv": [
+            14,
+            16,
+            19,
+            32
+          ]
+        }
+      ],
+      "member_lbas_preserved": true,
+      "only_expected_KVP_records_changed": true,
+      "changed_KVP_bytes": 10,
+      "atlas_byte_exact_before": true
+    },
+    "best": {
+      "iso": "build/iso/zh-release-best/current-best.iso",
+      "iso_sha256": "1871c77bebcdc080808f13bc1e05c2c5fb46daae7c5ec9229271a4aa14e9c1c6",
+      "member_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+      "atlas_sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+      "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+      "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+      "references": [
+        {
+          "offset": 122616,
+          "raw_hex": "3500000022110e0e0e8089ffffff8eff07000e101320",
+          "uv": [
+            14,
+            16,
+            19,
+            32
+          ]
+        },
+        {
+          "offset": 122660,
+          "raw_hex": "3500000022110e0e0e809bffffffa0ff07000e101320",
+          "uv": [
+            14,
+            16,
+            19,
+            32
+          ]
+        }
+      ],
+      "member_lbas_preserved": true,
+      "only_expected_KVP_records_changed": true,
+      "changed_KVP_bytes": 10,
+      "atlas_byte_exact_before": true
+    },
+    "sp": {
+      "iso": "build/iso/special-disc/sp-current.iso",
+      "iso_sha256": "5cdf8234e0bc9eff148cd1e14dc8b395e6a9c936345b9b0217b1c50766952b62",
+      "member_sha256": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e",
+      "atlas_sha256": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+      "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+      "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+      "references": [
+        {
+          "offset": 132986,
+          "raw_hex": "150000002211513320808bff000090ff08000e101320",
+          "uv": [
+            14,
+            16,
+            19,
+            32
+          ]
+        },
+        {
+          "offset": 133074,
+          "raw_hex": "150000002211513320809dff0000a2ff08000e101320",
+          "uv": [
+            14,
+            16,
+            19,
+            32
+          ]
+        },
+        {
+          "offset": 133008,
+          "raw_hex": "3500000022111818198089ff01008eff09000e101320",
+          "uv": [
+            14,
+            16,
+            19,
+            32
+          ]
+        },
+        {
+          "offset": 133096,
+          "raw_hex": "350000002211181819809bff0100a0ff09000e101320",
+          "uv": [
+            14,
+            16,
+            19,
+            32
+          ]
+        }
+      ],
+      "member_lbas_preserved": true,
+      "only_expected_KVP_records_changed": true,
+      "changed_KVP_bytes": 20,
+      "atlas_byte_exact_before": true
+    }
+  },
+  "runtime": "LRPS2 target scene passed; PCSX2/manual pending"
+}

@@ -1,0 +1,450 @@
+{
+  "scope": "LRPS2 Software cold boot and natural inputs to Mazinger Z robot specifications on these exact current ISO bytes",
+  "status": "all_three_current_ISO_target_scenes_passed_lrps2",
+  "PCSX2_manual": "pending",
+  "CHD_emulator": "not_separately_run",
+  "results": [
+    {
+      "edition": "original",
+      "iso": "build/iso/zh-release-original/current-original.iso",
+      "driver_sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83",
+      "card_sha256_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "commands": [
+        {
+          "command": "run 1800",
+          "response": [
+            "OK frame=1800"
+          ]
+        },
+        {
+          "command": "press start 3",
+          "response": [
+            "OK frame=1805"
+          ]
+        },
+        {
+          "command": "run 240",
+          "response": [
+            "OK frame=2045"
+          ]
+        },
+        {
+          "command": "shot title",
+          "response": [
+            "SHOT work/runtime/lrps2/specifications-current-20261003/original/title.png 640x448 luma=122.6",
+            "OK frame=2045"
+          ]
+        },
+        {
+          "command": "press down 3",
+          "response": [
+            "OK frame=2050"
+          ]
+        },
+        {
+          "command": "run 60",
+          "response": [
+            "OK frame=2110"
+          ]
+        },
+        {
+          "command": "press down 3",
+          "response": [
+            "OK frame=2115"
+          ]
+        },
+        {
+          "command": "run 60",
+          "response": [
+            "OK frame=2175"
+          ]
+        },
+        {
+          "command": "press down 3",
+          "response": [
+            "OK frame=2180"
+          ]
+        },
+        {
+          "command": "run 60",
+          "response": [
+            "OK frame=2240"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2245"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=2425"
+          ]
+        },
+        {
+          "command": "shot library",
+          "response": [
+            "SHOT work/runtime/lrps2/specifications-current-20261003/original/library.png 640x448 luma=75.8",
+            "OK frame=2425"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2430"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=2610"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2615"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=2795"
+          ]
+        },
+        {
+          "command": "shot robot-fixed",
+          "response": [
+            "SHOT work/runtime/lrps2/specifications-current-20261003/original/robot-fixed.png 640x448 luma=39.2",
+            "OK frame=2795"
+          ]
+        },
+        {
+          "command": "dump robot-fixed",
+          "response": [
+            "DUMP work/runtime/lrps2/specifications-current-20261003/original/robot-fixed.ram 33570816 sha256=8069266bac98a6b6eb2a48ff58a4285f529f64f8148168a733e73de8b9255e2c",
+            "OK frame=2795"
+          ]
+        },
+        {
+          "command": "quit",
+          "response": [
+            "OK"
+          ]
+        }
+      ],
+      "runtime": "LRPS2 Software target scene; PCSX2/manual pending",
+      "no_savestate_restore": true,
+      "no_ram_writes": true,
+      "status": "passed_current_iso_target_scene_lrps2",
+      "live_drawing_records": [
+        {
+          "member_offset": 122616,
+          "ram_offset": 12321976,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 122660,
+          "ram_offset": 12322020,
+          "old_record_count": 0,
+          "new_record_count": 1
+        }
+      ],
+      "screenshot": "docs/issue-assets/specifications-production-20261003/original-lrps2.png",
+      "screenshot_sha256": "2529163d5d1a87b5c6f8359ab6fe1c12fb99b62c0dd1bd9fad0edd9f9e1e5cc3",
+      "card_sha256_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "tested_iso_path": "work/isolated/specifications-20261003/build/iso/zh-release-original/current-original.iso",
+      "iso_sha256": "7fe44eec06c789ade6895f8c27a9aa1306b5b0ada5a7517ea576fcdf9c9f008c",
+      "tested_and_promoted_iso_byte_identity": true
+    },
+    {
+      "edition": "best",
+      "iso": "build/iso/zh-release-best/current-best.iso",
+      "driver_sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83",
+      "card_sha256_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "commands": [
+        {
+          "command": "run 1800",
+          "response": [
+            "OK frame=1800"
+          ]
+        },
+        {
+          "command": "press start 3",
+          "response": [
+            "OK frame=1805"
+          ]
+        },
+        {
+          "command": "run 240",
+          "response": [
+            "OK frame=2045"
+          ]
+        },
+        {
+          "command": "press down 3",
+          "response": [
+            "OK frame=2050"
+          ]
+        },
+        {
+          "command": "run 60",
+          "response": [
+            "OK frame=2110"
+          ]
+        },
+        {
+          "command": "press down 3",
+          "response": [
+            "OK frame=2115"
+          ]
+        },
+        {
+          "command": "run 60",
+          "response": [
+            "OK frame=2175"
+          ]
+        },
+        {
+          "command": "press down 3",
+          "response": [
+            "OK frame=2180"
+          ]
+        },
+        {
+          "command": "run 60",
+          "response": [
+            "OK frame=2240"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2245"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=2425"
+          ]
+        },
+        {
+          "command": "shot library",
+          "response": [
+            "SHOT work/runtime/lrps2/specifications-current-20261003/best/library.png 640x448 luma=75.8",
+            "OK frame=2425"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2430"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=2610"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2615"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=2795"
+          ]
+        },
+        {
+          "command": "shot robot-fixed",
+          "response": [
+            "SHOT work/runtime/lrps2/specifications-current-20261003/best/robot-fixed.png 640x448 luma=39.2",
+            "OK frame=2795"
+          ]
+        },
+        {
+          "command": "dump robot-fixed",
+          "response": [
+            "DUMP work/runtime/lrps2/specifications-current-20261003/best/robot-fixed.ram 33570816 sha256=d81df9b582362e8de0cb8206519e77cb9258556c0204a0dc03796be3ec5122ae",
+            "OK frame=2795"
+          ]
+        },
+        {
+          "command": "quit",
+          "response": [
+            "OK"
+          ]
+        }
+      ],
+      "runtime": "LRPS2 Software target scene; PCSX2/manual pending",
+      "no_savestate_restore": true,
+      "no_ram_writes": true,
+      "status": "passed_current_iso_target_scene_lrps2",
+      "live_drawing_records": [
+        {
+          "member_offset": 122616,
+          "ram_offset": 12324024,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 122660,
+          "ram_offset": 12324068,
+          "old_record_count": 0,
+          "new_record_count": 1
+        }
+      ],
+      "screenshot": "docs/issue-assets/specifications-production-20261003/best-lrps2.png",
+      "screenshot_sha256": "2529163d5d1a87b5c6f8359ab6fe1c12fb99b62c0dd1bd9fad0edd9f9e1e5cc3",
+      "card_sha256_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "tested_iso_path": "work/isolated/specifications-20261003/build/iso/zh-release-best/current-best.iso",
+      "iso_sha256": "1871c77bebcdc080808f13bc1e05c2c5fb46daae7c5ec9229271a4aa14e9c1c6",
+      "tested_and_promoted_iso_byte_identity": true
+    },
+    {
+      "edition": "sp",
+      "iso": "build/iso/special-disc/sp-current.iso",
+      "driver_sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83",
+      "card_sha256_before": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+      "commands": [
+        {
+          "command": "run 1800",
+          "response": [
+            "OK frame=1800"
+          ]
+        },
+        {
+          "command": "press start 3",
+          "response": [
+            "OK frame=1805"
+          ]
+        },
+        {
+          "command": "run 195",
+          "response": [
+            "OK frame=2000"
+          ]
+        },
+        {
+          "command": "press right 3",
+          "response": [
+            "OK frame=2005"
+          ]
+        },
+        {
+          "command": "run 20",
+          "response": [
+            "OK frame=2025"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2030"
+          ]
+        },
+        {
+          "command": "run 220",
+          "response": [
+            "OK frame=2250"
+          ]
+        },
+        {
+          "command": "shot library",
+          "response": [
+            "SHOT work/runtime/lrps2/specifications-current-20261003/sp/library.png 640x448 luma=45.8",
+            "OK frame=2250"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2255"
+          ]
+        },
+        {
+          "command": "run 160",
+          "response": [
+            "OK frame=2415"
+          ]
+        },
+        {
+          "command": "press circle 3",
+          "response": [
+            "OK frame=2420"
+          ]
+        },
+        {
+          "command": "run 160",
+          "response": [
+            "OK frame=2580"
+          ]
+        },
+        {
+          "command": "shot robot-fixed",
+          "response": [
+            "SHOT work/runtime/lrps2/specifications-current-20261003/sp/robot-fixed.png 640x448 luma=28.9",
+            "OK frame=2580"
+          ]
+        },
+        {
+          "command": "dump robot-fixed",
+          "response": [
+            "DUMP work/runtime/lrps2/specifications-current-20261003/sp/robot-fixed.ram 33570816 sha256=97c0710912b69da8bfad8301979990d11c2eeb0ea3184237f3c84bfca39053f2",
+            "OK frame=2580"
+          ]
+        },
+        {
+          "command": "quit",
+          "response": [
+            "OK"
+          ]
+        }
+      ],
+      "runtime": "LRPS2 Software target scene; PCSX2/manual pending",
+      "no_savestate_restore": true,
+      "no_ram_writes": true,
+      "status": "passed_current_iso_target_scene_lrps2",
+      "live_drawing_records": [
+        {
+          "member_offset": 132986,
+          "ram_offset": 12922810,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 133074,
+          "ram_offset": 12922898,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 133008,
+          "ram_offset": 12922832,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 133096,
+          "ram_offset": 12922920,
+          "old_record_count": 0,
+          "new_record_count": 1
+        }
+      ],
+      "screenshot": "docs/issue-assets/specifications-production-20261003/sp-lrps2.png",
+      "screenshot_sha256": "9d311ed7a44ff1efea0fe8814974a6050f029743a8d61e7aa61b5c028fb29088",
+      "card_sha256_after": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+      "tested_iso_path": "work/isolated/specifications-20261003/build/iso/special-disc/sp-current.iso",
+      "iso_sha256": "5cdf8234e0bc9eff148cd1e14dc8b395e6a9c936345b9b0217b1c50766952b62",
+      "tested_and_promoted_iso_byte_identity": true
+    }
+  ]
+}

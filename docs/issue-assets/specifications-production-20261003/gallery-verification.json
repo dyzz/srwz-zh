@@ -1,0 +1,136 @@
+{
+  "source_inputs": [
+    {
+      "edition": "original",
+      "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/rom/original.iso",
+      "current": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-original/current-original.iso",
+      "source_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+      "current_sha256": "7fe44eec06c789ade6895f8c27a9aa1306b5b0ada5a7517ea576fcdf9c9f008c",
+      "current_mtime": 1790991241.4513915
+    },
+    {
+      "edition": "best",
+      "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/rom/best.iso",
+      "current": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-best/current-best.iso",
+      "source_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+      "current_sha256": "1871c77bebcdc080808f13bc1e05c2c5fb46daae7c5ec9229271a4aa14e9c1c6",
+      "current_mtime": 1790991302.4928002
+    },
+    {
+      "edition": "sp",
+      "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/rom/Super Robot Taisen Z - Special Disc [J].iso",
+      "current": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/special-disc/sp-current.iso",
+      "source_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+      "current_sha256": "5cdf8234e0bc9eff148cd1e14dc8b395e6a9c936345b9b0217b1c50766952b62",
+      "current_mtime": 1790991479.0644848
+    }
+  ],
+  "gallery_count": 561,
+  "extraction_errors": [],
+  "triage_summary": {
+    "measured": 478,
+    "flagged": 192,
+    "flags": {
+      "宽度变化": 122,
+      "暗层占比变化": 73,
+      "高度变化": 22,
+      "笔画粗细候选": 64
+    },
+    "priority_groups": 12,
+    "shared_records": 326,
+    "shared_resources": 176,
+    "shared_resource_status": {
+      "confirmed": 6,
+      "intentional": 135,
+      "candidate": 18,
+      "runtime": 17
+    },
+    "unique_affected_uvs": 120,
+    "draw_effect_resources": 183,
+    "draw_color_changed_records": 2
+  },
+  "specifications_finding": {
+    "id": "F01",
+    "title": "SPECIFICATIONS：已修复，三版当前成品已核对",
+    "kind": "共享 I 修复已进入生产成品",
+    "explanation": "9 月 29 日修复曾进入 current，随后因未提交的修复被构建输入排除而回退。10 月 3 日已提交修复 6696e9e，并重新构建 Original、The Best、SP：8 条引用均改取 PILOT [14,16,19,32]，补回透明左列后与原版 I 的索引逐像素一致。相较修复前 current，KVP 仅变化 10／10／20 字节，KVM 图集完整字节不变；三版当前 ISO 的 LRPS2 目标场景也已复核。",
+    "suggested_review": "生产成品与目标场景验证通过；PCSX2／人工验收仍待复核。其他 FORMATION 借字问题继续单独审阅。",
+    "examples": [
+      {
+        "id": "original-1088",
+        "label": "ROBOTS SPECIFICATIONS",
+        "editions": [
+          "original"
+        ],
+        "jp": "composite-images/original-1088-jp.png",
+        "zh": "composite-images/original-1088-zh.png",
+        "native": null,
+        "current": null,
+        "layers": null
+      },
+      {
+        "id": "sp-1115",
+        "label": "ROBOTS SPECIFICATIONS",
+        "editions": [
+          "sp"
+        ],
+        "jp": "composite-images/sp-1115-jp.png",
+        "zh": "composite-images/sp-1115-zh.png",
+        "native": null,
+        "current": null,
+        "layers": null
+      }
+    ],
+    "resolved": true
+  },
+  "remaining_confirmed_shared_resources": [
+    {
+      "edition": "best",
+      "chunk": 20,
+      "label": "TROOP NAME SELECT"
+    },
+    {
+      "edition": "best",
+      "chunk": 192,
+      "label": "Report / MAP WEAPON"
+    },
+    {
+      "edition": "best",
+      "chunk": 730,
+      "label": "MAP WEAPON"
+    },
+    {
+      "edition": "original",
+      "chunk": 20,
+      "label": "TROOP NAME SELECT"
+    },
+    {
+      "edition": "original",
+      "chunk": 192,
+      "label": "Report / MAP WEAPON"
+    },
+    {
+      "edition": "original",
+      "chunk": 730,
+      "label": "MAP WEAPON"
+    }
+  ],
+  "browser_check": {
+    "F01_repair_visible": true,
+    "confirmed_filter_count": 6,
+    "broken_visible_images": 0,
+    "horizontal_overflow": false
+  },
+  "batch_integrity_after_isolated_worktree_removal": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "4579af084268edb763f2193418d53443e80c1ad65cb868a0639b98c66b98ee3b",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  }
+}
