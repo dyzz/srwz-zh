@@ -4,7 +4,7 @@
   "source_commit": "25ceee4c5abd2a11a4f42384e5f3b6159c84869d",
   "live_snapshot_sha256": "80e075335393f0a1c2cc110448c83392a3a7db0b1c3f35512dfe23987fdea38c",
   "auto_accepted_count": 15,
-  "user_confirmed_count": 2,
+  "user_confirmed_count": 5,
   "decisions": [
     {
       "suggestionId": "4832979f-a571-4db5-aab5-a0f35455d101",
@@ -38,6 +38,30 @@
       "choice": "auto-accepted-submission",
       "reason": "上手くなった是在肯定驾驶进步；接送小姐抵达诺克斯的上下文中，‘开车越来越稳’是自然的具体表达，保留姬艾尔温和夸奖的语气。",
       "encodedSize": 42
+    },
+    {
+      "suggestionId": "d37aae56-4522-4fa9-9434-80cf50d8887e",
+      "targetId": "story/019/dialogue/02.01/0006",
+      "kind": "dialogue",
+      "sourceTextSha256": "c43ce9b21e9fc02edc97205b13c71b09af26352e17bfda792b7909b7e63d87b0",
+      "previousTranslation": "“谢谢。既然老爷让我接送小姐们，\n　我就练习过了。”",
+      "finalTranslation": "“感谢您的夸奖。\n　既然老爷让我接送小姐们，\n　自然不能怠慢，我就好好练习了。”",
+      "choice": "submitted",
+      "reason": "用户在本轮审阅页确认：submitted",
+      "confirmedAt": "2026-10-02T16:16:53.129952+00:00",
+      "encodedSize": 79
+    },
+    {
+      "suggestionId": "625f8abb-5f4e-4f4b-bf02-72c90f45b679",
+      "targetId": "battle:24510",
+      "kind": "battle-line",
+      "sourceTextSha256": "06988916f38d2a67632021410ee995b4e9ac08f600fa371a9253f01452b5ac5d",
+      "previousTranslation": "“切换——波塞冬！！\\n　启动！！”",
+      "finalTranslation": "“切换——波塞冬！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+      "choice": "submitted",
+      "reason": "用户在本轮审阅页确认：submitted",
+      "confirmedAt": "2026-10-02T16:17:07.592548+00:00",
+      "encodedSize": 58
     },
     {
       "suggestionId": "61225c21-c482-4888-96cb-cc950cd7cc28",
@@ -93,6 +117,18 @@
       "choice": "auto-accepted-submission",
       "reason": "参与当地成人式意味着被认可为本地的一员，‘被这片土地接纳’在当前上下文中自然表达同一层意思，也符合姬艾尔的温和语气。",
       "encodedSize": 41
+    },
+    {
+      "suggestionId": "99a28931-6b89-492c-b2c5-a2049335dfe6",
+      "targetId": "story/019/dialogue/02.01/0014",
+      "kind": "dialogue",
+      "sourceTextSha256": "35b495810dd669fb362c8768ac6661e2f1829390043aaf9ce4502c5ed6ecb5fa",
+      "previousTranslation": "“早上好，姬艾尔·海姆。还有妹妹和罗拉。”",
+      "finalTranslation": "“早上好，姬艾尔·海姆。\n　令妹和罗拉也早。”",
+      "choice": "custom",
+      "reason": "用户在本轮审阅页确认：custom",
+      "confirmedAt": "2026-10-02T16:18:07.759157+00:00",
+      "encodedSize": 46
     },
     {
       "suggestionId": "cebf0556-3e10-436f-9879-03c9f055deca",
@@ -211,5 +247,77 @@
     "dialogue_layout": "passed",
     "runtime": "not_tested",
     "online_processing": "pending"
-  }
+  },
+  "confirmed_phases": [
+    {
+      "phase": 1,
+      "decisions": [
+        {
+          "suggestionId": "d37aae56-4522-4fa9-9434-80cf50d8887e",
+          "targetId": "story/019/dialogue/02.01/0006",
+          "kind": "dialogue",
+          "sourceTextSha256": "c43ce9b21e9fc02edc97205b13c71b09af26352e17bfda792b7909b7e63d87b0",
+          "previousTranslation": "“谢谢。既然老爷让我接送小姐们，\n　我就练习过了。”",
+          "finalTranslation": "“感谢您的夸奖。\n　既然老爷让我接送小姐们，\n　自然不能怠慢，我就好好练习了。”",
+          "choice": "submitted",
+          "reason": "用户在本轮审阅页确认：submitted",
+          "confirmedAt": "2026-10-02T16:16:53.129952+00:00",
+          "encodedSize": 79
+        },
+        {
+          "suggestionId": "625f8abb-5f4e-4f4b-bf02-72c90f45b679",
+          "targetId": "battle:24510",
+          "kind": "battle-line",
+          "sourceTextSha256": "06988916f38d2a67632021410ee995b4e9ac08f600fa371a9253f01452b5ac5d",
+          "previousTranslation": "“切换——波塞冬！！\\n　启动！！”",
+          "finalTranslation": "“切换——波塞冬！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+          "choice": "submitted",
+          "reason": "用户在本轮审阅页确认：submitted",
+          "confirmedAt": "2026-10-02T16:17:07.592548+00:00",
+          "encodedSize": 58
+        },
+        {
+          "suggestionId": "99a28931-6b89-492c-b2c5-a2049335dfe6",
+          "targetId": "story/019/dialogue/02.01/0014",
+          "kind": "dialogue",
+          "sourceTextSha256": "35b495810dd669fb362c8768ac6661e2f1829390043aaf9ce4502c5ed6ecb5fa",
+          "previousTranslation": "“早上好，姬艾尔·海姆。还有妹妹和罗拉。”",
+          "finalTranslation": "“早上好，姬艾尔·海姆。\n　令妹和罗拉也早。”",
+          "choice": "custom",
+          "reason": "用户在本轮审阅页确认：custom",
+          "confirmedAt": "2026-10-02T16:18:07.759157+00:00",
+          "encodedSize": 46
+        }
+      ],
+      "linked_changes": [
+        {
+          "id": "battle:24515",
+          "source_text_sha256": "c9939f6c146530304847e6d55387a8f91c1b49644e5af067a8826d37b0aff92b",
+          "previousTranslation": "“切换·狮虎！！\\n　启动！！”",
+          "finalTranslation": "“切换·狮虎！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+          "authorization": "与审阅页已选 SWITCH ON 根卡及公开联动候选统一"
+        },
+        {
+          "id": "battle:24960",
+          "source_text_sha256": "a19f57a658a8d07ebfc6bec285054b54887a9c3f413019c946f5aec802b7b39d",
+          "previousTranslation": "“切——换·盖塔龙！！\\n　启动！”",
+          "finalTranslation": "“切——换·盖塔龙！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！”",
+          "authorization": "与审阅页已选 SWITCH ON 根卡及公开联动候选统一"
+        }
+      ],
+      "source_changes": [
+        {
+          "path": "corpus/zh/story-dialogue/stage-019.json",
+          "beforeSha256": "1583a630d73c3cb6ada72962a7d8fb93f84401ea328f40200be099746d4a2c52",
+          "afterSha256": "cc04cc10690a3c0c8a454bdc48de672cab891f5cf381a281be60ac7670d9b63e"
+        },
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "beforeSha256": "26d2d1e6bcd9be211d9c9d5912655d4c839295b159de52499fc3a2cd21beb4a5",
+          "afterSha256": "902f5a5345c63d04cd9c88a09953870ebaa4daa36ae655c276047e1e6013e80a"
+        }
+      ]
+    }
+  ],
+  "pending_count": 1
 }
