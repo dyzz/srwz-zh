@@ -37,6 +37,7 @@ from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
 from special_disc.writeback.shared_library import verify_shared_library
+from special_disc.writeback.bazaar_heading import verify_bazaar_heading
 
 
 def main(iso=None, work=None):
@@ -56,6 +57,10 @@ def main(iso=None, work=None):
         return cache[name]
     for name,expected in manifest['files'].items():require(sha(member(name))==expected,f'ISO member drift: {name}')
     for path,expected in manifest['components'].items():require(file_sha(ROOT/path)==expected,f'component report drift: {path}')
+    image_report = load(WORK/'image-labels/report.json')
+    require(verify_bazaar_heading(member('KURODATA/KVMDATA.BIN')) == image_report['bazaar_heading'],
+            'SP bazaar independent readback receipt drift')
+    counts['enlarged_bazaar_headings'] = 1
     table,_,overrides,readback=st.mst.encoding_tables(PROPOSAL)
     library_base = baseline_iso('text-canary')
     library_base_members = member_map(scan_iso9660(library_base))

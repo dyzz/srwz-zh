@@ -186,7 +186,8 @@ def assemble():
     for k in ('frame','image-labels'):require(file_sha(ROOT/'corpus/zh/special-disc/frame-text.json')==reports[k]['corpus_sha256'],'frame corpus drift')
     for lock in (reports['system']['frame_corpus'],reports['srvc']['sp_corpus'],reports['image-labels']['snapshot']):
         require(file_sha(ROOT/lock['path'])==lock['sha256'],'component input drift')
-    for key, filename in (('command_headings', 'command-headings.json'), ('title_atlas', 'title-atlas.json')):
+    for key, filename in (('command_headings', 'command-headings.json'), ('title_atlas', 'title-atlas.json'),
+                          ('bazaar_heading', 'bazaar-heading.json')):
         require(file_sha(ROOT/'config/assets/special-disc'/filename)==reports['image-labels'][key]['config_sha256'],
                 f'{key} frozen component input drift')
     components={}

@@ -78,6 +78,8 @@ def main():
     outputs[name], outputs[KVP], command_report = apply_command_headings(bytes(arc), writer.member(KVP))
     from special_disc.writeback.title_atlas import apply_title_atlas
     outputs[name], outputs[KVP], title_report = apply_title_atlas(outputs[name], outputs[KVP])
+    from special_disc.writeback.bazaar_heading import apply_bazaar_heading
+    outputs[name], bazaar_report = apply_bazaar_heading(outputs[name])
     for target,box in patches:reports.append(dict(target=target,member=name,chunk=11,rect=box))
     name='MAP/MAPMODEL.BIN';base=writer.member(name);arc=bytearray(base);off=sd.table_offsets(writer.exe,0x3542F0,len(base))
     for index in (195,196,197):
@@ -97,6 +99,7 @@ def main():
     report=dict(status='static_verified_runtime_pending',bindings=reports,snapshot=dict(path=str(SNAPSHOT.relative_to(ROOT)),sha256=stage.sha256(SNAPSHOT.read_bytes())),files={n:stage.sha256(d)for n,d in outputs.items()},base_files={n:stage.sha256(writer.base[n])for n in outputs},corpus_sha256=stage.sha256((ROOT/'corpus/zh/special-disc/frame-text.json').read_bytes()))
     report['command_headings'] = command_report
     report['title_atlas'] = title_report
+    report['bazaar_heading'] = bazaar_report
     report['world_map_titles'] = world_map_report
     for name,data in outputs.items():
         p=args.output/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
