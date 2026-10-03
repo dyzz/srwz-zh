@@ -1,0 +1,210 @@
+{
+  "batch_manifest": "work/editions/72fbdd5563813e730819f7ee6269ade11b6158f4f97afcc7fe00f71dcd9c9c81/original-best-sp.json",
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "72fbdd5563813e730819f7ee6269ade11b6158f4f97afcc7fe00f71dcd9c9c81",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "bazaar_readback": {
+    "status": "all_three_bazaar_titles_readback_passed",
+    "editions": {
+      "original": {
+        "iso": "build/iso/zh-release-original/current-original.iso",
+        "iso_sha256": "1c7abd15ad10786b523f2fe95f84fda6671e6f3c04bb18e187d52f8db33708d0",
+        "KVM_sha256": "96b78195d5fe7fba1e7363b9bd4b48fa6f4d7937249cc3e7369df16edf33c5c0",
+        "KVP_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+        "KVP_byte_exact_before": true,
+        "all_ISO_bytes_outside_KVM_byte_exact_before": true,
+        "only_title_mask_index_pixels_changed": true,
+        "changed_index_pixels": 3737,
+        "changed_KVM_bytes": 2035,
+        "header_CLUT_other_pixels_and_tail_byte_exact_before": true,
+        "new_title_ink_size": [
+          120,
+          58
+        ],
+        "source_title_ink_size": [
+          137,
+          61
+        ],
+        "previous_title_ink_size": [
+          82,
+          41
+        ]
+      },
+      "best": {
+        "iso": "build/iso/zh-release-best/current-best.iso",
+        "iso_sha256": "4dff46525c6f19c679b66e251945d2b18100bbc5da019098e865959d67e4c339",
+        "KVM_sha256": "96b78195d5fe7fba1e7363b9bd4b48fa6f4d7937249cc3e7369df16edf33c5c0",
+        "KVP_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+        "KVP_byte_exact_before": true,
+        "all_ISO_bytes_outside_KVM_byte_exact_before": true,
+        "only_title_mask_index_pixels_changed": true,
+        "changed_index_pixels": 3737,
+        "changed_KVM_bytes": 2035,
+        "header_CLUT_other_pixels_and_tail_byte_exact_before": true,
+        "new_title_ink_size": [
+          120,
+          58
+        ],
+        "source_title_ink_size": [
+          137,
+          61
+        ],
+        "previous_title_ink_size": [
+          82,
+          41
+        ]
+      },
+      "sp": {
+        "iso": "build/iso/special-disc/sp-current.iso",
+        "iso_sha256": "1bb49eb32061727208220c605a3daccd1a1903d0dc43cda795b40f10a249c955",
+        "KVM_sha256": "bc318a271988ef973751d30ad23a2f7c63468143b9f70309b3c50ba4e4d05748",
+        "KVP_sha256": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e",
+        "KVP_byte_exact_before": true,
+        "all_ISO_bytes_outside_KVM_byte_exact_before": true,
+        "only_title_mask_index_pixels_changed": true,
+        "changed_index_pixels": 3737,
+        "changed_KVM_bytes": 2035,
+        "header_CLUT_other_pixels_and_tail_byte_exact_before": true,
+        "new_title_ink_size": [
+          120,
+          58
+        ],
+        "source_title_ink_size": [
+          137,
+          61
+        ],
+        "previous_title_ink_size": [
+          82,
+          41
+        ]
+      }
+    },
+    "runtime": "PCSX2/manual pending",
+    "specifications_shared_I_retained": {
+      "original": {
+        "iso": "build/iso/zh-release-original/current-original.iso",
+        "iso_sha256": "1c7abd15ad10786b523f2fe95f84fda6671e6f3c04bb18e187d52f8db33708d0",
+        "member_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+        "atlas_sha256": "96b78195d5fe7fba1e7363b9bd4b48fa6f4d7937249cc3e7369df16edf33c5c0",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 122616,
+            "raw_hex": "3500000022110e0e0e8089ffffff8eff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 122660,
+            "raw_hex": "3500000022110e0e0e809bffffffa0ff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true
+      },
+      "best": {
+        "iso": "build/iso/zh-release-best/current-best.iso",
+        "iso_sha256": "4dff46525c6f19c679b66e251945d2b18100bbc5da019098e865959d67e4c339",
+        "member_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+        "atlas_sha256": "96b78195d5fe7fba1e7363b9bd4b48fa6f4d7937249cc3e7369df16edf33c5c0",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 122616,
+            "raw_hex": "3500000022110e0e0e8089ffffff8eff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 122660,
+            "raw_hex": "3500000022110e0e0e809bffffffa0ff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true
+      },
+      "sp": {
+        "iso": "build/iso/special-disc/sp-current.iso",
+        "iso_sha256": "1bb49eb32061727208220c605a3daccd1a1903d0dc43cda795b40f10a249c955",
+        "member_sha256": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e",
+        "atlas_sha256": "bc318a271988ef973751d30ad23a2f7c63468143b9f70309b3c50ba4e4d05748",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 132986,
+            "raw_hex": "150000002211513320808bff000090ff08000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133074,
+            "raw_hex": "150000002211513320809dff0000a2ff08000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133008,
+            "raw_hex": "3500000022111818198089ff01008eff09000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133096,
+            "raw_hex": "350000002211181819809bff0100a0ff09000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true
+      }
+    }
+  },
+  "source_commit": "deb0873e0e7902f9a4b6dddbfc3de80073616463",
+  "isolated_project": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/isolated/bazaar-20261003"
+}
