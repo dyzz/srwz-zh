@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "purpose": "Standalone CHDs of the latest three current ISOs with native menus restored and shared source glyphs preserved",
+  "generated_at": "2026-10-03T10:02:30.067665+00:00",
+  "batch_manifest": "work/editions/452bd59b0fb446046bc8f789795cb89cb1efa66bc45573a12bd0c7466802fb62/original-best-sp.json",
+  "input_digest": "452bd59b0fb446046bc8f789795cb89cb1efa66bc45573a12bd0c7466802fb62",
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "452bd59b0fb446046bc8f789795cb89cb1efa66bc45573a12bd0c7466802fb62",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "seconds": 79.621,
+  "results": [
+    {
+      "edition": "original",
+      "source_iso": "build/iso/daily-test/current-original-skip.iso",
+      "source_bytes": 3758358528,
+      "source_sha256": "b6519bbf5d7e4ac369fe388cd2ef0c14213e10d5d9e4dd33dfa89c4578986840",
+      "chd": "build/iso/daily-test/current-original-skip.chd",
+      "chd_bytes": 2560018247,
+      "chd_sha256": "0424a82dceadf31a03f5d916710bbad062cbaf1057f51810e94e79a49850c341",
+      "compression": "zlib",
+      "hunk_bytes": 16384,
+      "standalone": true,
+      "chd_verify": "passed",
+      "extracted_iso_sha256": "b6519bbf5d7e4ac369fe388cd2ef0c14213e10d5d9e4dd33dfa89c4578986840",
+      "shared_I_repair_records": 2,
+      "donor_pixels_verified": true,
+      "native_menu_restore_verified": {
+        "config_sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f",
+        "profile": "original",
+        "restored_chunks": [
+          159,
+          160,
+          161,
+          162
+        ],
+        "moved_cells": 4,
+        "runtime": "pending"
+      },
+      "enlarged_bazaar_pixels_verified": true,
+      "bazaar_indices_sha256": "8a052791fe3c244bed1fa426cc2c72a6a780b91c920a29e0f07bf35ce49a075c",
+      "seconds": 78.385,
+      "runtime": "not_tested_for_final_ISO_or_CHD"
+    },
+    {
+      "edition": "best",
+      "source_iso": "build/iso/daily-test/current-best-skip.iso",
+      "source_bytes": 3755081728,
+      "source_sha256": "b423207b2767790480b032ecfe322082de41e39ede9b37a8d0146486b4f092cd",
+      "chd": "build/iso/daily-test/current-best-skip.chd",
+      "chd_bytes": 2557266286,
+      "chd_sha256": "1cec747babd75446e00497db2753c1716fa4dcb7ee4987a7e33d26e08262af8f",
+      "compression": "zlib",
+      "hunk_bytes": 16384,
+      "standalone": true,
+      "chd_verify": "passed",
+      "extracted_iso_sha256": "b423207b2767790480b032ecfe322082de41e39ede9b37a8d0146486b4f092cd",
+      "shared_I_repair_records": 2,
+      "donor_pixels_verified": true,
+      "native_menu_restore_verified": {
+        "config_sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f",
+        "profile": "original",
+        "restored_chunks": [
+          159,
+          160,
+          161,
+          162
+        ],
+        "moved_cells": 4,
+        "runtime": "pending"
+      },
+      "enlarged_bazaar_pixels_verified": true,
+      "bazaar_indices_sha256": "8a052791fe3c244bed1fa426cc2c72a6a780b91c920a29e0f07bf35ce49a075c",
+      "seconds": 78.444,
+      "runtime": "not_tested_for_final_ISO_or_CHD"
+    },
+    {
+      "edition": "sp",
+      "source_iso": "build/iso/daily-test/current-sp-skip.iso",
+      "source_bytes": 3791781888,
+      "source_sha256": "9b569f14ca31f54f56bc4bfc788ed50f016d628671af2d5b0fc2c41d85a587f6",
+      "chd": "build/iso/daily-test/current-sp-skip.chd",
+      "chd_bytes": 2608437658,
+      "chd_sha256": "92f0f7a5b7378f552d706cb92129ec0cfa6dd23ac1334251a08ac28b12ee0804",
+      "compression": "zlib",
+      "hunk_bytes": 16384,
+      "standalone": true,
+      "chd_verify": "passed",
+      "extracted_iso_sha256": "9b569f14ca31f54f56bc4bfc788ed50f016d628671af2d5b0fc2c41d85a587f6",
+      "shared_I_repair_records": 4,
+      "donor_pixels_verified": true,
+      "native_menu_restore_verified": {
+        "config_sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f",
+        "profile": "sp",
+        "restored_chunks": [
+          163,
+          164,
+          165,
+          169
+        ],
+        "moved_cells": 4,
+        "runtime": "pending"
+      },
+      "enlarged_bazaar_pixels_verified": true,
+      "bazaar_indices_sha256": "8a052791fe3c244bed1fa426cc2c72a6a780b91c920a29e0f07bf35ce49a075c",
+      "seconds": 79.011,
+      "runtime": "not_tested_for_final_ISO_or_CHD"
+    }
+  ]
+}

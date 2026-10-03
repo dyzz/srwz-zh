@@ -1,0 +1,248 @@
+{
+  "batch_manifest": "work/editions/452bd59b0fb446046bc8f789795cb89cb1efa66bc45573a12bd0c7466802fb62/original-best-sp.json",
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "452bd59b0fb446046bc8f789795cb89cb1efa66bc45573a12bd0c7466802fb62",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "menu_readback": {
+    "status": "all_three_native_menu_and_shared_source_readback_passed",
+    "editions": {
+      "original": {
+        "iso": "build/iso/zh-release-original/current-original.iso",
+        "iso_sha256": "b6519bbf5d7e4ac369fe388cd2ef0c14213e10d5d9e4dd33dfa89c4578986840",
+        "restored_native_chunks": [
+          159,
+          160,
+          161,
+          162
+        ],
+        "menu_recipe": {
+          "config_sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f",
+          "profile": "original",
+          "restored_chunks": [
+            159,
+            160,
+            161,
+            162
+          ],
+          "moved_cells": 4,
+          "runtime": "pending"
+        },
+        "native_menu_all_sampled_pixels_exact": true,
+        "moved_chinese_indices_geometry_and_colours_exact": [
+          "key",
+          "help",
+          "others",
+          "command"
+        ],
+        "shared_borrower_chunks_native_exact": [
+          20,
+          192,
+          730
+        ],
+        "headers_CLUT_tail_and_non_target_indices_exact": true,
+        "all_ISO_bytes_outside_KVM_KVP_exact": true,
+        "changed_KVM_bytes": 2961,
+        "changed_KVP_bytes": 321
+      },
+      "best": {
+        "iso": "build/iso/zh-release-best/current-best.iso",
+        "iso_sha256": "b423207b2767790480b032ecfe322082de41e39ede9b37a8d0146486b4f092cd",
+        "restored_native_chunks": [
+          159,
+          160,
+          161,
+          162
+        ],
+        "menu_recipe": {
+          "config_sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f",
+          "profile": "original",
+          "restored_chunks": [
+            159,
+            160,
+            161,
+            162
+          ],
+          "moved_cells": 4,
+          "runtime": "pending"
+        },
+        "native_menu_all_sampled_pixels_exact": true,
+        "moved_chinese_indices_geometry_and_colours_exact": [
+          "key",
+          "help",
+          "others",
+          "command"
+        ],
+        "shared_borrower_chunks_native_exact": [
+          20,
+          192,
+          730
+        ],
+        "headers_CLUT_tail_and_non_target_indices_exact": true,
+        "all_ISO_bytes_outside_KVM_KVP_exact": true,
+        "changed_KVM_bytes": 2961,
+        "changed_KVP_bytes": 321
+      },
+      "sp": {
+        "iso": "build/iso/special-disc/sp-current.iso",
+        "iso_sha256": "9b569f14ca31f54f56bc4bfc788ed50f016d628671af2d5b0fc2c41d85a587f6",
+        "restored_native_chunks": [
+          163,
+          164,
+          165,
+          169
+        ],
+        "menu_recipe": {
+          "config_sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f",
+          "profile": "sp",
+          "restored_chunks": [
+            163,
+            164,
+            165,
+            169
+          ],
+          "moved_cells": 4,
+          "runtime": "pending"
+        },
+        "native_menu_all_sampled_pixels_exact": true,
+        "moved_chinese_indices_geometry_and_colours_exact": [
+          "formation",
+          "help",
+          "key",
+          "command"
+        ],
+        "shared_borrower_chunks_native_exact": [],
+        "headers_CLUT_tail_and_non_target_indices_exact": true,
+        "all_ISO_bytes_outside_KVM_KVP_exact": true,
+        "changed_KVM_bytes": 2404,
+        "changed_KVP_bytes": 331
+      }
+    },
+    "runtime": "PCSX2/manual pending",
+    "specifications_shared_I_retained": {
+      "original": {
+        "iso": "build/iso/zh-release-original/current-original.iso",
+        "iso_sha256": "b6519bbf5d7e4ac369fe388cd2ef0c14213e10d5d9e4dd33dfa89c4578986840",
+        "member_sha256": "33a4d7eeee9cb0650c7f89750c6360eb40cac5e65a7639b1c76cbb08481a5d65",
+        "atlas_sha256": "845a2f691a2b192532e8d7dd397bcdfc56e693a5468fa5c2adce86b96f772cc9",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 122616,
+            "raw_hex": "3500000022110e0e0e8089ffffff8eff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 122660,
+            "raw_hex": "3500000022110e0e0e809bffffffa0ff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true
+      },
+      "best": {
+        "iso": "build/iso/zh-release-best/current-best.iso",
+        "iso_sha256": "b423207b2767790480b032ecfe322082de41e39ede9b37a8d0146486b4f092cd",
+        "member_sha256": "33a4d7eeee9cb0650c7f89750c6360eb40cac5e65a7639b1c76cbb08481a5d65",
+        "atlas_sha256": "845a2f691a2b192532e8d7dd397bcdfc56e693a5468fa5c2adce86b96f772cc9",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 122616,
+            "raw_hex": "3500000022110e0e0e8089ffffff8eff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 122660,
+            "raw_hex": "3500000022110e0e0e809bffffffa0ff07000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true
+      },
+      "sp": {
+        "iso": "build/iso/special-disc/sp-current.iso",
+        "iso_sha256": "9b569f14ca31f54f56bc4bfc788ed50f016d628671af2d5b0fc2c41d85a587f6",
+        "member_sha256": "c4cd26a013974296d088d5c80b8d2504923704bbc37ded1ced54e0d358daf62a",
+        "atlas_sha256": "143d3ba17a0d1828b39912cae00de70da435be38e594140a6df8be9b3fc588d4",
+        "donor_indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
+        "restored_I_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+        "references": [
+          {
+            "offset": 132986,
+            "raw_hex": "150000002211513320808bff000090ff08000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133074,
+            "raw_hex": "150000002211513320809dff0000a2ff08000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133008,
+            "raw_hex": "3500000022111818198089ff01008eff09000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          },
+          {
+            "offset": 133096,
+            "raw_hex": "350000002211181819809bff0100a0ff09000e101320",
+            "uv": [
+              14,
+              16,
+              19,
+              32
+            ]
+          }
+        ],
+        "member_lbas_preserved": true
+      }
+    }
+  },
+  "source_commit": "b5af70d809557756b0f94572aafa49b24bc9a998",
+  "isolated_project": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/isolated/menu-restore-20261003"
+}

@@ -1,0 +1,14 @@
+2026-10-03, source b5af70d
+All listed suites passed after the final test fix.
+
+python3 -m unittest discover -s tests -p test_ui_headings.py: 7 passed
+python3 -m unittest discover -s tests -p test_special_disc_command_headings.py: 4 passed (included in *headings*.py run)
+python3 -m unittest discover -s tests -p test_special_disc_title_atlas.py: 8 passed
+python3 -m unittest discover -s tests -p *bazaar*.py: 7 passed
+python3 -m unittest discover -s tests -p test_ui_menu_restore.py: 6 passed
+
+Total: 32 related tests.
+Production builds: Original, The Best, SP passed.
+Independent readback: requested native chunks, every native sampled menu region, relocated Chinese pixels/geometry/colour, shared M/MA consumers, non-target byte preservation passed.
+CHD: integrity and complete extracted ISO SHA-256 for all three passed.
+LRPS2: Original battlefield/help/formation and SP SUPPORT COMMAND/help switch screenshots inspected; Best runtime and PCSX2/manual pending.

@@ -1,0 +1,502 @@
+{
+  "schema_version": 1,
+  "scenario_id": "sp-native-menu-restored-20261003",
+  "base_scenario": {
+    "scenario_id": "sp-native-menu-restored-20261003",
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/review/menu-restore-20261003/sp-runtime-scenario.json",
+    "size": 7163,
+    "sha256": "3e62ce0edb883c683c03de71ac69934e99ca35ae74f0c17d1bd144134076e0f1"
+  },
+  "description": "Cold boot production ISO; inspect relocated formation and HELP, native SUPPORT COMMAND, close and reopen HELP.",
+  "status": "passed",
+  "started_at": "2026-10-03T09:59:00.990856+00:00",
+  "output_directory": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/menu-native-restored-20261003/sp",
+  "environment": {
+    "system": "Darwin",
+    "machine": "x86_64",
+    "python": "3.12.14",
+    "libretro_py": "0.8.3"
+  },
+  "core_options": {
+    "pcsx2_renderer": "Software (SW)",
+    "pcsx2_shared_memory_cards": "disabled",
+    "pcsx2_fastboot": "enabled"
+  },
+  "custom_input_sequences": [],
+  "input_actions": [
+    {
+      "frame": 1801,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "skip-opening"
+    },
+    {
+      "frame": 2001,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "enter-title-menu"
+    },
+    {
+      "frame": 2221,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "challenge-row"
+    },
+    {
+      "frame": 2321,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "challenge-mode"
+    },
+    {
+      "frame": 2601,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "normal"
+    },
+    {
+      "frame": 2901,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "mission-one"
+    },
+    {
+      "frame": 3401,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "briefing-confirm"
+    },
+    {
+      "frame": 4301,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4381,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4461,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4541,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4621,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4701,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4781,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4861,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4941,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5021,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5101,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5181,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5261,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5341,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5421,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5501,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5581,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5661,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5741,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5821,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5901,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5981,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6061,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6141,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6221,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6301,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6381,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6461,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6660,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "back-to-deployment"
+    },
+    {
+      "frame": 6860,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "back-to-deployment"
+    },
+    {
+      "frame": 7060,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "back-to-deployment"
+    },
+    {
+      "frame": 7300,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 7360,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 7420,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "circle"
+    },
+    {
+      "frame": 7740,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "circle"
+    },
+    {
+      "frame": 8201,
+      "button": "select",
+      "duration_frames": 120,
+      "label": "hold-data-help"
+    },
+    {
+      "frame": 8400,
+      "button": "select",
+      "duration_frames": 120,
+      "label": "reopen-data-help"
+    },
+    {
+      "frame": 8560,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "support-after-help"
+    },
+    {
+      "frame": 8740,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "close-support"
+    },
+    {
+      "frame": 8820,
+      "button": "select",
+      "duration_frames": 120,
+      "label": "help-after-page-switch"
+    }
+  ],
+  "captures": [
+    {
+      "id": "setup-title",
+      "frame": 7170,
+      "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/menu-native-restored-20261003/sp/frames/07170-setup-title.png",
+      "width": 640,
+      "height": 448,
+      "pixel_format": "XRGB8888",
+      "mean_luma": 40.650153,
+      "dhash": "4d584e4a584218ac",
+      "dhash_region": null,
+      "assertion_dhash": "4d584e4a584218ac",
+      "rgba_sha256": "64cb0f4c5b4f0c7f6bb02c0c0ad2f76dc474cfba23f1fe1f427ad53dd99d5dae",
+      "png_sha256": "e340a21d61bf6b3fee9464db940344ffeb4b9c392e245d210234d3ea4ae3696d",
+      "assertions": [
+        {
+          "assertion": "expected_width",
+          "passed": true,
+          "detail": "actual=640 expected=640"
+        },
+        {
+          "assertion": "expected_height",
+          "passed": true,
+          "detail": "actual=448 expected=448"
+        }
+      ]
+    },
+    {
+      "id": "data-help",
+      "frame": 8300,
+      "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/menu-native-restored-20261003/sp/frames/08300-data-help.png",
+      "width": 640,
+      "height": 448,
+      "pixel_format": "XRGB8888",
+      "mean_luma": 11.370762,
+      "dhash": "70ad15070b20b0c6",
+      "dhash_region": null,
+      "assertion_dhash": "70ad15070b20b0c6",
+      "rgba_sha256": "695d82539e9c7c1961e03002808a85431d50f5b4c332e54be927cdb4550fb112",
+      "png_sha256": "275ab865906b86f571fbe71c10b37d8489b00d25f36000bbf7623cd693d12225",
+      "assertions": [
+        {
+          "assertion": "expected_width",
+          "passed": true,
+          "detail": "actual=640 expected=640"
+        },
+        {
+          "assertion": "expected_height",
+          "passed": true,
+          "detail": "actual=448 expected=448"
+        }
+      ]
+    },
+    {
+      "id": "closed",
+      "frame": 8360,
+      "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/menu-native-restored-20261003/sp/frames/08360-closed.png",
+      "width": 640,
+      "height": 448,
+      "pixel_format": "XRGB8888",
+      "mean_luma": 11.911827,
+      "dhash": "708d15070720b0c6",
+      "dhash_region": null,
+      "assertion_dhash": "708d15070720b0c6",
+      "rgba_sha256": "981e7cd236354524782e447caf9996a4ea9b5afc01544a84a534b07011ed9573",
+      "png_sha256": "d296f861e773fecaac1b5f631a8db893cb5cea20b359365be3fe8fbf5d5b3270",
+      "assertions": [
+        {
+          "assertion": "expected_width",
+          "passed": true,
+          "detail": "actual=640 expected=640"
+        },
+        {
+          "assertion": "expected_height",
+          "passed": true,
+          "detail": "actual=448 expected=448"
+        }
+      ]
+    },
+    {
+      "id": "data-help-reopen",
+      "frame": 8500,
+      "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/menu-native-restored-20261003/sp/frames/08500-data-help-reopen.png",
+      "width": 640,
+      "height": 448,
+      "pixel_format": "XRGB8888",
+      "mean_luma": 22.446844,
+      "dhash": "73af151707038a6e",
+      "dhash_region": null,
+      "assertion_dhash": "73af151707038a6e",
+      "rgba_sha256": "12eb78bd38b0e58a11fe8777c89fb252b1767b9a92f2948be3dbeb73498c06d3",
+      "png_sha256": "c7eea93b08d4036dae40890b0e579e8d902ef238541dd7404ddf00ed9ea9180d",
+      "assertions": [
+        {
+          "assertion": "expected_width",
+          "passed": true,
+          "detail": "actual=640 expected=640"
+        },
+        {
+          "assertion": "expected_height",
+          "passed": true,
+          "detail": "actual=448 expected=448"
+        }
+      ]
+    },
+    {
+      "id": "support-after-help",
+      "frame": 8680,
+      "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/menu-native-restored-20261003/sp/frames/08680-support-after-help.png",
+      "width": 640,
+      "height": 448,
+      "pixel_format": "XRGB8888",
+      "mean_luma": 16.609515,
+      "dhash": "0e0e0f0f0d152125",
+      "dhash_region": null,
+      "assertion_dhash": "0e0e0f0f0d152125",
+      "rgba_sha256": "fa4ec6629ab231443e994d137dea8c1c1603d2d7de3d3b68fe9db857a0355662",
+      "png_sha256": "e35864d44b10ebb601182cdc0cdf909f43ecc2b2c5fae54897a3809b5533b702",
+      "assertions": [
+        {
+          "assertion": "expected_width",
+          "passed": true,
+          "detail": "actual=640 expected=640"
+        },
+        {
+          "assertion": "expected_height",
+          "passed": true,
+          "detail": "actual=448 expected=448"
+        }
+      ]
+    },
+    {
+      "id": "data-help-after-switch",
+      "frame": 8920,
+      "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/menu-native-restored-20261003/sp/frames/08920-data-help-after-switch.png",
+      "width": 640,
+      "height": 448,
+      "pixel_format": "XRGB8888",
+      "mean_luma": 11.91762,
+      "dhash": "70af15070b20b0c6",
+      "dhash_region": null,
+      "assertion_dhash": "70af15070b20b0c6",
+      "rgba_sha256": "674078c8bd81f223bd72e1f052b0cbb121c05702e3013f7b2c8a113539b243fe",
+      "png_sha256": "427935fdc76e22416998df948fbf52c14c52161fdd41bbeba6f47d783452ba35",
+      "assertions": [
+        {
+          "assertion": "expected_width",
+          "passed": true,
+          "detail": "actual=640 expected=640"
+        },
+        {
+          "assertion": "expected_height",
+          "passed": true,
+          "detail": "actual=448 expected=448"
+        }
+      ]
+    }
+  ],
+  "core": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+    "size": 11447720,
+    "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+    "library_name": "LRPS2",
+    "library_version": "v2.0.0-16e520b",
+    "valid_extensions": "elf|iso|ciso|cue|gz|chd|cso|zso|m3u",
+    "need_fullpath": true
+  },
+  "system_directory": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/system",
+    "bios_file_count": 16
+  },
+  "iso": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/review/menu-restore-20261003/sp-runtime.iso",
+    "size": 3791781888,
+    "sha256": "9b569f14ca31f54f56bc4bfc788ed50f016d628671af2d5b0fc2c41d85a587f6",
+    "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/review/menu-restore-20261003/sp-runtime-contract.json"
+  },
+  "memory_card": {
+    "source_path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/sd-final-20260918/save/sp-image-preview.ps2",
+    "source_size": 8650752,
+    "source_sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+    "expected_sha256": null,
+    "isolated_path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/menu-native-restored-20261003/sp/save/sp-runtime.ps2",
+    "isolated_size_before": 8650752,
+    "isolated_sha256_before": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+    "copy_verified": true,
+    "source_sha256_after": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+    "source_unchanged": true,
+    "isolated_size_after": 8650752,
+    "isolated_sha256_after": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21"
+  },
+  "finished_at": "2026-10-03T10:01:33.357543+00:00"
+}

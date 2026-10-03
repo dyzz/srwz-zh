@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "scenario_id": "original-native-menu-restored-20261003",
+  "description": "Current production battlefield menu, relocated KEY HELP and formation cells, after cold boot and normal continue inputs.",
+  "environment": {
+    "required_system": "Darwin",
+    "required_machine": "x86_64",
+    "minimum_python": "3.12",
+    "libretro_py_version": "0.8.3",
+    "core": {
+      "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+      "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    },
+    "system_directory": "work/runtime/lrps2/system"
+  },
+  "iso": {
+    "build_config": "work/review/menu-restore-20261003/original-runtime-contract.json"
+  },
+  "memory_card": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/headings-v6-map-20260914/save/current-original.ps2",
+    "sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0"
+  },
+  "core_options": {
+    "pcsx2_renderer": "Software (SW)",
+    "pcsx2_shared_memory_cards": "disabled",
+    "pcsx2_fastboot": "enabled"
+  },
+  "actions": [
+    {
+      "frame": 1801,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "skip-opening-cg"
+    },
+    {
+      "frame": 1981,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "move-to-load"
+    },
+    {
+      "frame": 2041,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "select-continue"
+    },
+    {
+      "frame": 2101,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "open-continue"
+    },
+    {
+      "frame": 2520,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "circle"
+    },
+    {
+      "frame": 2550,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 2577,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 2604,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "circle"
+    },
+    {
+      "frame": 2774,
+      "button": "select",
+      "duration_frames": 180,
+      "label": "hold-select-roster-help"
+    },
+    {
+      "frame": 3014,
+      "button": "select",
+      "duration_frames": 3,
+      "label": "close-help"
+    },
+    {
+      "frame": 3104,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 3134,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 3164,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 3204,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "jump-to-unit"
+    },
+    {
+      "frame": 3344,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "open-unit-menu"
+    },
+    {
+      "frame": 3454,
+      "button": "select",
+      "duration_frames": 180,
+      "label": "hold-select-command-help"
+    },
+    {
+      "frame": 3694,
+      "button": "select",
+      "duration_frames": 3,
+      "label": "close-command-help"
+    },
+    {
+      "frame": 3784,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 3859,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 3934,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4009,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4084,
+      "button": "up",
+      "duration_frames": 3,
+      "label": "up"
+    },
+    {
+      "frame": 4114,
+      "button": "up",
+      "duration_frames": 3,
+      "label": "up"
+    },
+    {
+      "frame": 4144,
+      "button": "up",
+      "duration_frames": 3,
+      "label": "up"
+    },
+    {
+      "frame": 4174,
+      "button": "up",
+      "duration_frames": 3,
+      "label": "up"
+    },
+    {
+      "frame": 4204,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4234,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4264,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "open-formation"
+    },
+    {
+      "frame": 4424,
+      "button": "right",
+      "duration_frames": 3,
+      "label": "right"
+    },
+    {
+      "frame": 4529,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "cross"
+    },
+    {
+      "frame": 4564,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "cross"
+    },
+    {
+      "frame": 4599,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "cross"
+    },
+    {
+      "frame": 4634,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "cross"
+    },
+    {
+      "frame": 4694,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "map-command"
+    },
+    {
+      "frame": 4724,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4754,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4784,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4814,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4844,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 4874,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "bulk-formation"
+    },
+    {
+      "frame": 5034,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "cross"
+    },
+    {
+      "frame": 5064,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "cross"
+    }
+  ],
+  "captures": [
+    {
+      "id": "roster",
+      "frame": 2744,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "roster-help",
+      "frame": 2894,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "roster-after-help",
+      "frame": 3074,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "unit-jump",
+      "frame": 3314,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "unit-menu-0",
+      "frame": 3424,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "unit-command-help",
+      "frame": 3574,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "unit-menu-0b",
+      "frame": 3754,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "unit-menu-1",
+      "frame": 3829,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "unit-menu-2",
+      "frame": 3904,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "unit-menu-3",
+      "frame": 3979,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "unit-menu-4",
+      "frame": 4054,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "squad-formation",
+      "frame": 4394,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "squad-formation-sort",
+      "frame": 4494,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "bulk-formation",
+      "frame": 5004,
+      "expected_width": 640,
+      "expected_height": 448
+    }
+  ],
+  "terminal_frame": 5087
+}

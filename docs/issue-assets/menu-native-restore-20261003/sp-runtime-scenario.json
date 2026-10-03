@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "scenario_id": "sp-native-menu-restored-20261003",
+  "description": "Cold boot production ISO; inspect relocated formation and HELP, native SUPPORT COMMAND, close and reopen HELP.",
+  "environment": {
+    "required_system": "Darwin",
+    "required_machine": "x86_64",
+    "minimum_python": "3.12",
+    "libretro_py_version": "0.8.3",
+    "core": {
+      "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+      "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    },
+    "system_directory": "work/runtime/lrps2/system"
+  },
+  "iso": {
+    "build_config": "work/review/menu-restore-20261003/sp-runtime-contract.json"
+  },
+  "memory_card": {
+    "path": "work/runtime/lrps2/sd-final-20260918/save/sp-image-preview.ps2",
+    "sha256": null
+  },
+  "core_options": {
+    "pcsx2_renderer": "Software (SW)",
+    "pcsx2_shared_memory_cards": "disabled",
+    "pcsx2_fastboot": "enabled"
+  },
+  "actions": [
+    {
+      "frame": 1801,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "skip-opening"
+    },
+    {
+      "frame": 2001,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "enter-title-menu"
+    },
+    {
+      "frame": 2221,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "challenge-row"
+    },
+    {
+      "frame": 2321,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "challenge-mode"
+    },
+    {
+      "frame": 2601,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "normal"
+    },
+    {
+      "frame": 2901,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "mission-one"
+    },
+    {
+      "frame": 3401,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "briefing-confirm"
+    },
+    {
+      "frame": 4301,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4381,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4461,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4541,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4621,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4701,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4781,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4861,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 4941,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5021,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5101,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5181,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5261,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5341,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5421,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5501,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5581,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5661,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5741,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5821,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5901,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 5981,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6061,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6141,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6221,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6301,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6381,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6461,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "advance"
+    },
+    {
+      "frame": 6660,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "back-to-deployment"
+    },
+    {
+      "frame": 6860,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "back-to-deployment"
+    },
+    {
+      "frame": 7060,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "back-to-deployment"
+    },
+    {
+      "frame": 7300,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 7360,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "down"
+    },
+    {
+      "frame": 7420,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "circle"
+    },
+    {
+      "frame": 7740,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "circle"
+    },
+    {
+      "frame": 8201,
+      "button": "select",
+      "duration_frames": 120,
+      "label": "hold-data-help"
+    },
+    {
+      "frame": 8400,
+      "button": "select",
+      "duration_frames": 120,
+      "label": "reopen-data-help"
+    },
+    {
+      "frame": 8560,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "support-after-help"
+    },
+    {
+      "frame": 8740,
+      "button": "cross",
+      "duration_frames": 3,
+      "label": "close-support"
+    },
+    {
+      "frame": 8820,
+      "button": "select",
+      "duration_frames": 120,
+      "label": "help-after-page-switch"
+    }
+  ],
+  "captures": [
+    {
+      "id": "setup-title",
+      "frame": 7170,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "data-help",
+      "frame": 8300,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "closed",
+      "frame": 8360,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "data-help-reopen",
+      "frame": 8500,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "support-after-help",
+      "frame": 8680,
+      "expected_width": 640,
+      "expected_height": 448
+    },
+    {
+      "id": "data-help-after-switch",
+      "frame": 8920,
+      "expected_width": 640,
+      "expected_height": 448
+    }
+  ],
+  "terminal_frame": 8960
+}
