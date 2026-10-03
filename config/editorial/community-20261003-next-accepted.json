@@ -3,7 +3,7 @@
   "batch_id": "community-20261003-next",
   "source_commit": "4d1cdd88cd98f5a15d7cf3b9421d62b2af41c2af",
   "live_snapshot_sha256": "694c0e79618c0255de1d6502d4174b0ff1777c3fc952909b45d77d4f3a0d1ad0",
-  "auto_accepted_count": 18,
+  "auto_accepted_count": 20,
   "user_confirmed_count": 1,
   "decisions": [
     {
@@ -214,6 +214,30 @@
       "choice": "auto-accepted-submission",
       "reason": "まったくだぜ承接布鲁梅抱怨罗兰不机灵，‘可不是嘛’表达附和。让带吃的却只有面包的抱怨及随意口吻都保留。$n为原资源动态说话人标记，本次只改台词正文。",
       "encodedSize": 54
+    },
+    {
+      "suggestionId": "1295f2d1-bba0-4f2c-a415-aff0174e96e7",
+      "targetId": "story/019/dialogue/01.01/0002",
+      "kind": "dialogue",
+      "sourceTextSha256": "d3b366fb002db371bd47f8fdc4497d9d06a92ee15e0792dcb355fc5b96431ad1",
+      "previousTranslation": "“嘛……遇上被传送到这里的我们，\n　也算是他倒霉了。”",
+      "finalTranslation": "“唉……不过遇上被扔到这里的我们，\n　也算是他倒霉了。”",
+      "choice": "auto-accepted-submission",
+      "reason": "跳ばされてきた说明一行人被迫来到此地，投稿“被扔到这里”用口语表达这种非自愿位移。前后文是对罗兰只带面包的抱怨，“唉……不过”自然转向罗兰遇上他们很倒霉的感叹。本次只采纳这句正文，不改动其他“传送”用语。",
+      "confirmedAt": null,
+      "encodedSize": 56
+    },
+    {
+      "suggestionId": "2ce43370-1fa8-42e1-83db-3be9e3fe7c92",
+      "targetId": "story/019/dialogue/01.01/0003",
+      "kind": "dialogue",
+      "sourceTextSha256": "73162ca6f71ed629e80cc8df02274fa29c750ab72cd093df8ed27def341465f3",
+      "previousTranslation": "“嘴上抱怨个不停，\n　可大家不都吃得津津有味吗？”",
+      "finalTranslation": "“嘴上抱怨个不停，\n　可大家不都吃得很香吗？”",
+      "choice": "auto-accepted-submission",
+      "reason": "梦中で食べてる是吃得投入、津津有味；“吃得很香”是自然的中文口语。投稿保留嘴上抱怨却一直吃的反差。",
+      "confirmedAt": null,
+      "encodedSize": 46
     }
   ],
   "source_changes": [
@@ -228,5 +252,56 @@
     "dialogue_layout": "passed",
     "runtime": "not_tested",
     "online_processing": "pending"
-  }
+  },
+  "additional_snapshots": [
+    {
+      "path": "pending-late.json",
+      "sha256": "0951849fe0493a20090ff7d290cc7d62076312b7e25b642e39a82832052f6b03",
+      "addedIds": [
+        "1295f2d1-bba0-4f2c-a415-aff0174e96e7",
+        "df2eb7a5-b389-4722-9fb5-28ec3f34205a",
+        "2ce43370-1fa8-42e1-83db-3be9e3fe7c92"
+      ]
+    }
+  ],
+  "confirmed_phases": [
+    {
+      "phase": 1,
+      "decisions": [
+        {
+          "suggestionId": "1295f2d1-bba0-4f2c-a415-aff0174e96e7",
+          "targetId": "story/019/dialogue/01.01/0002",
+          "kind": "dialogue",
+          "sourceTextSha256": "d3b366fb002db371bd47f8fdc4497d9d06a92ee15e0792dcb355fc5b96431ad1",
+          "previousTranslation": "“嘛……遇上被传送到这里的我们，\n　也算是他倒霉了。”",
+          "finalTranslation": "“唉……不过遇上被扔到这里的我们，\n　也算是他倒霉了。”",
+          "choice": "auto-accepted-submission",
+          "reason": "跳ばされてきた说明一行人被迫来到此地，投稿“被扔到这里”用口语表达这种非自愿位移。前后文是对罗兰只带面包的抱怨，“唉……不过”自然转向罗兰遇上他们很倒霉的感叹。本次只采纳这句正文，不改动其他“传送”用语。",
+          "confirmedAt": null,
+          "encodedSize": 56
+        },
+        {
+          "suggestionId": "2ce43370-1fa8-42e1-83db-3be9e3fe7c92",
+          "targetId": "story/019/dialogue/01.01/0003",
+          "kind": "dialogue",
+          "sourceTextSha256": "73162ca6f71ed629e80cc8df02274fa29c750ab72cd093df8ed27def341465f3",
+          "previousTranslation": "“嘴上抱怨个不停，\n　可大家不都吃得津津有味吗？”",
+          "finalTranslation": "“嘴上抱怨个不停，\n　可大家不都吃得很香吗？”",
+          "choice": "auto-accepted-submission",
+          "reason": "梦中で食べてる是吃得投入、津津有味；“吃得很香”是自然的中文口语。投稿保留嘴上抱怨却一直吃的反差。",
+          "confirmedAt": null,
+          "encodedSize": 46
+        }
+      ],
+      "linked_changes": [],
+      "source_changes": [
+        {
+          "path": "corpus/zh/story-dialogue/stage-019.json",
+          "beforeSha256": "2aea6c49486d365d80d646ceaf0cada28bcc59aae597ed6966356ae03744a4b3",
+          "afterSha256": "1997a035b1c9c29d1c4b794051b50b0698a4d5c57bc07e2d8890d6047772f905"
+        }
+      ]
+    }
+  ],
+  "pending_count": 4
 }
