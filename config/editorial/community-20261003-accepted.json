@@ -4,7 +4,7 @@
   "source_commit": "25ceee4c5abd2a11a4f42384e5f3b6159c84869d",
   "live_snapshot_sha256": "80e075335393f0a1c2cc110448c83392a3a7db0b1c3f35512dfe23987fdea38c",
   "auto_accepted_count": 15,
-  "user_confirmed_count": 5,
+  "user_confirmed_count": 6,
   "decisions": [
     {
       "suggestionId": "4832979f-a571-4db5-aab5-a0f35455d101",
@@ -62,6 +62,18 @@
       "reason": "用户在本轮审阅页确认：submitted",
       "confirmedAt": "2026-10-02T16:17:07.592548+00:00",
       "encodedSize": 58
+    },
+    {
+      "suggestionId": "5a11e9b5-c5a8-4c4a-8de6-1961112910e3",
+      "targetId": "battle:07346",
+      "kind": "battle-line",
+      "sourceTextSha256": "0e7ce27128695d2002952019e3e84753cc3500f58cfdf4dc01282f9bb27ab660",
+      "previousTranslation": "“组合，交叉！”",
+      "finalTranslation": "“交叉合体！”",
+      "choice": "submitted",
+      "reason": "用户在本轮审阅页确认：submitted",
+      "confirmedAt": "2026-10-03T13:17:50.796256+00:00",
+      "encodedSize": 15
     },
     {
       "suggestionId": "61225c21-c482-4888-96cb-cc950cd7cc28",
@@ -317,7 +329,32 @@
           "afterSha256": "902f5a5345c63d04cd9c88a09953870ebaa4daa36ae655c276047e1e6013e80a"
         }
       ]
+    },
+    {
+      "phase": 2,
+      "decisions": [
+        {
+          "suggestionId": "5a11e9b5-c5a8-4c4a-8de6-1961112910e3",
+          "targetId": "battle:07346",
+          "kind": "battle-line",
+          "sourceTextSha256": "0e7ce27128695d2002952019e3e84753cc3500f58cfdf4dc01282f9bb27ab660",
+          "previousTranslation": "“组合，交叉！”",
+          "finalTranslation": "“交叉合体！”",
+          "choice": "submitted",
+          "reason": "用户在本轮审阅页确认：submitted",
+          "confirmedAt": "2026-10-03T13:17:50.796256+00:00",
+          "encodedSize": 15
+        }
+      ],
+      "linked_changes": [],
+      "source_changes": [
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "beforeSha256": "902f5a5345c63d04cd9c88a09953870ebaa4daa36ae655c276047e1e6013e80a",
+          "afterSha256": "64c7f25adeb5c237afcc2075630de4589a6b2a0b3c897cfa57b601e0b1fd3f2b"
+        }
+      ]
     }
   ],
-  "pending_count": 1
+  "pending_count": 0
 }
