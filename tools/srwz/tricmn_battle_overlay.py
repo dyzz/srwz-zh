@@ -1652,6 +1652,29 @@ def _distance_to_mask(
     return maximum + 1
 
 
+def _coherent_ability_indexes(outline_mask: bytes, fill_mask: bytes) -> bytes:
+    """Use the ability route's opaque dark core and continuous reflective rim.
+
+    Runtime colour strips identify 14 as the solid black face, 15/11 as
+    coverage transitions, and 13 as the white rim. Numeric index order is
+    not opacity order; histogram assignment scattered translucent texels
+    through Chinese strokes. These thresholds are the reviewed 19-label
+    SP candidate, with the shared CLUT left intact.
+    """
+    if len(outline_mask) != len(fill_mask):
+        raise TricmnBattleOverlayError("ability material mask geometry drift")
+    output = bytearray(len(fill_mask))
+    for local, (outline, fill) in enumerate(zip(outline_mask, fill_mask)):
+        f, o = fill / 255, outline / 255
+        output[local] = (
+            14 if f >= .93 else 15 if f >= .65 else 11 if f >= .30
+            else (13 if o > .65 else 12) if f > 0
+            else 13 if o >= .92 else 10 if o >= .65 else 8 if o >= .4
+            else 6 if o >= .2 else 4 if o >= .10 else 2 if o >= .035 else 0
+        )
+    return bytes(output)
+
+
 def _coherent_status_indexes(outline_mask: bytes, fill_mask: bytes) -> bytes:
     """Keep the native status material bands spatially continuous.
 
@@ -1798,6 +1821,28 @@ def _paint_indexed_masks(
     fill_max = max(visible_fill)
     layer_counts = {"outline": Counter(), "fill": Counter()}
     output_ink = bytearray(expected)
+    if render_style == "coherent_ability_dark_core":
+        if outline_indexes != tuple(range(1, 8)) or fill_indexes != tuple(range(8, 16)):
+            raise TricmnBattleOverlayError("ability material requires the native index roles")
+        material = _coherent_ability_indexes(outline_mask, fill_mask)
+        for local, palette_index in enumerate(material):
+            indexes[(y + local // width) * picture_width + x + local % width] = palette_index
+            output_ink[local] = bool(palette_index)
+            if palette_index:
+                layer_counts["outline" if palette_index < 8 else "fill"][palette_index] += 1
+        return {
+            "render_style": render_style,
+            "opaque_dark_core": True,
+            "histogram_rank_assignment": False,
+            "outline_mask_sha256": sha256_bytes(outline_mask),
+            "fill_mask_sha256": sha256_bytes(fill_mask),
+            "output_ink_mask_sha256": sha256_bytes(output_ink),
+            "output_ink_pixel_count": sum(output_ink),
+            "indexed_layer_counts": {
+                layer: {str(index): count for index, count in sorted(counts.items())}
+                for layer, counts in layer_counts.items()
+            },
+        }
     if render_style == "coherent_status_dark_core":
         if outline_indexes != tuple(range(1, 8)) or fill_indexes != tuple(range(8, 16)):
             raise TricmnBattleOverlayError("status material requires the native index roles")

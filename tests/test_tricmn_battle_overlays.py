@@ -107,7 +107,7 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
         self.assertTrue(all(report["acceptance"].values()))
         self.assertEqual(
             report["outputs"]["BTL/TRICMN.BIN"]["sha256"],
-            "00b6de888086ea5198bbf166612c7961cc818288f11cebff3de64d283691253b",
+            "b4e46757798ed19150d8817fe26a7425f819e3fff541fd5896b7b51e4ec1a092",
         )
         self.assertEqual(len(payload), 677424)
 
@@ -645,93 +645,22 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
                 "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
             )
             self.assertEqual(render["point_size"], 19)
-            self.assertEqual(render["outline_stroke_width"], 1.2)
-            self.assertEqual(render["fill_stroke_width"], 0.8)
-            self.assertEqual(render["character_spacing"], 0.6)
-            self.assertEqual(render["italic_shear_degrees"], 0)
-            self.assertEqual(render["glow_radius"], 2)
-            self.assertEqual(render["shadow_offset"], [0, 1])
-            self.assertEqual(
-                item["render_style"],
-                "source_wordart_tight_down_dark_core_layers",
-            )
-            self.assertTrue(item["dark_core_material_layout"])
+            self.assertEqual(render["outline_stroke_width"], 0.8)
+            self.assertEqual(render["fill_stroke_width"], 0.65)
+            self.assertEqual(render["glow_radius"], 1)
+            self.assertEqual(item["render_style"], "coherent_ability_dark_core")
+            self.assertTrue(item["opaque_dark_core"])
+            self.assertFalse(item["histogram_rank_assignment"])
             self.assertEqual(render["horizontal_alignment"], "center")
             self.assertTrue(render["match_source_ink_width"])
             self.assertEqual(render["supersample_factor"], 8)
-            self.assertTrue(item["vector_effects_before_downsample"])
-            self.assertTrue(item["indexed_edge_filter_enabled"])
-            self.assertEqual(item["indexed_edge_filter_radius"], 1)
-            source_width = (
-                item["source_ink_bounds"][2] - item["source_ink_bounds"][0]
-            )
+            source_width = item["source_ink_bounds"][2] - item["source_ink_bounds"][0]
             expected_width = min(source_width, item["rect"][2] - 2)
-            output_width = (
-                item["render_ink_bounds"][2] - item["render_ink_bounds"][0]
-            )
+            output_width = item["render_ink_bounds"][2] - item["render_ink_bounds"][0]
             self.assertEqual(item["source_target_ink_width"], expected_width)
             self.assertLessEqual(abs(output_width - expected_width), 1)
-            self.assertIsInstance(item["effective_character_spacing"], float)
-            self.assertGreater(item["indexed_edge_filter_added_pixel_count"], 0)
-            self.assertGreater(item["output_zone_pixel_counts"]["anti_alias"], 0)
             self.assertGreater(item["fill_mask_partial_coverage_pixel_count"], 0)
-            self.assertTrue(item["semantic_index_roles_locked"])
-            self.assertTrue(
-                item["semantic_halo_uses_source_boundary_depth_profile"]
-            )
-            self.assertEqual(
-                set(item["semantic_halo_source_boundary_index_counts"]),
-                {"1", "2", "3", "4"},
-            )
-            self.assertEqual(
-                set(item["semantic_halo_outer_fringe_index_counts"]),
-                {"1", "2", "3"},
-            )
-            self.assertEqual(item["semantic_halo_reserved_inner_index"], 4)
-            self.assertGreater(
-                item["semantic_outer_boundary_reassigned_count"], 0
-            )
-            self.assertEqual(
-                item["semantic_index_roles"],
-                {
-                    "transparent": [0],
-                    "attached_halo": [1, 2, 3, 4],
-                    "dark_stroke": [1, 2, 3, 4, 5, 6, 7],
-                    "raised_face": [8, 9, 10, 11, 12, 13, 14, 15],
-                },
-            )
-            self.assertEqual(
-                item["index_layer_sequence"],
-                [
-                    "transparent:0",
-                    "attached-halo:1..4",
-                    "dark-stroke:1..7",
-                    "raised-face:8..15",
-                ],
-            )
-            self.assertEqual(
-                set(item["output_zone_index_counts"]["halo"]),
-                {"1", "2", "3", "4"},
-            )
-            self.assertLessEqual(
-                set(item["output_zone_index_counts"]["anti_alias"]),
-                {"1", "2", "3"},
-            )
-            self.assertEqual(
-                set(item["output_zone_index_counts"]["side"]),
-                {str(index) for index in range(1, 8)},
-            )
-            self.assertEqual(
-                set(item["output_zone_index_counts"]["face"]),
-                {str(index) for index in range(8, 16)},
-            )
-            self.assertTrue(item["outer_boundary_uses_semantic_halo_only"])
-            self.assertLessEqual(
-                set(item["outer_boundary_output_index_counts"]),
-                {"1", "2", "3"},
-            )
-            self.assertTrue(item["source_histogram_used_as_zone_quantile_reference"])
-            self.assertEqual(item["dark_speckle_pixels_converted_to_light"], 0)
+            self.assertTrue(item["frame_template"]["output_frame_matches_empty_template_byte_exact"])
             left, _top, right, _bottom = item["render_ink_bounds"]
             self.assertEqual(left, (128 - (right - left)) // 2)
         self.assertTrue(
