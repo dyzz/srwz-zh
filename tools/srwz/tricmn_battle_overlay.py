@@ -1652,6 +1652,95 @@ def _distance_to_mask(
     return maximum + 1
 
 
+def _coherent_status_indexes(outline_mask: bytes, fill_mask: bytes) -> bytes:
+    """Keep the native status material bands spatially continuous.
+
+    The status draw route uses a non-monotonic CLUT: 1..6 are the opaque
+    purple core, 13/15 are the light rim, and 7..12 carry its soft fringe.
+    Source-histogram assignment can scatter the light rim through thin
+    Chinese strokes and put translucent indexes inside them. Coverage must
+    choose the material before any within-material tone variation.
+    """
+    if len(outline_mask) != len(fill_mask):
+        raise TricmnBattleOverlayError("status material mask geometry drift")
+    output = bytearray(len(fill_mask))
+    for local, (outline, fill) in enumerate(zip(outline_mask, fill_mask)):
+        if fill:
+            index = 1 if fill >= 237 else 2 if fill >= 166 else 3 if fill >= 77 else 5
+        else:
+            index = (
+                15 if outline >= 166 else 13 if outline >= 77
+                else 9 if outline >= 40 else 8 if outline >= 15
+                else 10 if outline >= 8 else 0
+            )
+        output[local] = index
+    return bytes(output)
+
+
+def _en_prompt_soft_indexes(outline_mask: bytes, fill_mask: bytes) -> bytes:
+    """Keep the EN-style prompt flat, with a luminous radial fringe.
+
+    Full stroke coverage has one flat face index. Partial coverage follows
+    its fixed ramp, without directional lighting, extrusion or histogram
+    ranks. The native EN fringe spans intermediate luminance indexes as
+    well as the low-alpha 1..3 tail; restricting it to 1..7 makes a hard,
+    dark border instead of a glow. Only the stroke can reach face index 15.
+    """
+    if len(outline_mask) != len(fill_mask):
+        raise TricmnBattleOverlayError("EN prompt mask geometry drift")
+    output = bytearray(len(fill_mask))
+    for local, (outline, fill) in enumerate(zip(outline_mask, fill_mask)):
+        if fill >= 8:
+            output[local] = 8 + min(7, (fill * 7 + 127) // 255)
+        else:
+            output[local] = (
+                12 if outline >= 237 else 11 if outline >= 200
+                else 10 if outline >= 166 else 8 if outline >= 128
+                else 6 if outline >= 96 else 4 if outline >= 64
+                else 3 if outline >= 48 else 2 if outline >= 16
+                else 1 if outline >= 4 else 0
+            )
+    return bytes(output)
+
+
+def _native_title_soft_indexes(
+    surface: Mapping[str, object], *, width: int, height: int
+) -> bytes:
+    """Keep title strokes solid under the native non-monotonic title CLUT.
+
+    A runtime colour-strip fixture identifies 8/10/13/15 as the solid face,
+    1/2/3/5/6 as the recessed side, and 4/7/9/11/12/14 as soft transitions.
+    Coverage selects those materials before tone variation; a source
+    histogram must not place a translucent material inside a full stroke.
+    """
+    full = surface["full_silhouette"]
+    core = surface["core_silhouette"]
+    fill = surface["face_mask"]
+    if any(len(values) != width * height for values in (full, core, fill)):
+        raise TricmnBattleOverlayError("native title surface geometry drift")
+    output = bytearray(width * height)
+    for local, coverage in enumerate(full):
+        face = fill[local]
+        if face >= 16:
+            output[local] = 15 if face >= 237 else 13 if face >= 166 else 10 if face >= 77 else 8
+        elif core[local] >= 237:
+            distance = _distance_to_mask(
+                fill, width=width, height=height,
+                x=local % width, y=local // width,
+            )
+            output[local] = 6 if distance == 1 else 3 if distance == 2 else 2 if distance == 3 else 1
+        elif core[local] >= 166:
+            output[local] = 7
+        elif core[local] >= 77:
+            output[local] = 4
+        else:
+            output[local] = (
+                14 if coverage >= 166 else 11 if coverage >= 77
+                else 9 if coverage >= 32 else 12 if coverage >= 8 else 0
+            )
+    return bytes(output)
+
+
 def _paint_indexed_masks(
     indexes: bytearray,
     *,
@@ -1709,6 +1798,119 @@ def _paint_indexed_masks(
     fill_max = max(visible_fill)
     layer_counts = {"outline": Counter(), "fill": Counter()}
     output_ink = bytearray(expected)
+    if render_style == "coherent_status_dark_core":
+        if outline_indexes != tuple(range(1, 8)) or fill_indexes != tuple(range(8, 16)):
+            raise TricmnBattleOverlayError("status material requires the native index roles")
+        material = _coherent_status_indexes(outline_mask, fill_mask)
+        for local, palette_index in enumerate(material):
+            indexes[(y + local // width) * picture_width + x + local % width] = palette_index
+            output_ink[local] = bool(palette_index)
+            if palette_index:
+                layer = "outline" if palette_index in outline_indexes else "fill"
+                layer_counts[layer][palette_index] += 1
+        return {
+            "render_style": render_style,
+            "dark_core_material_layout": True,
+            "status_material_roles": {
+                "opaque_stroke": [1, 2, 3, 5],
+                "light_rim": [13, 15],
+                "soft_fringe": [8, 9, 10],
+                "transparent": [0],
+            },
+            "fill_strokes_use_only_opaque_material": all(
+                not fill or material[local] in (1, 2, 3, 5)
+                for local, fill in enumerate(fill_mask)
+            ),
+            "outline_mask_sha256": sha256_bytes(outline_mask),
+            "outline_mask_nonzero_pixel_count": sum(value > 0 for value in outline_mask),
+            "outline_only_pixel_count": len(outline_only),
+            "fill_mask_sha256": sha256_bytes(fill_mask),
+            "fill_mask_nonzero_pixel_count": len(visible_fill),
+            "output_ink_mask_sha256": sha256_bytes(output_ink),
+            "output_ink_pixel_count": sum(output_ink),
+            "vector_effects_before_downsample": vector_outline_mask is not None,
+            "indexed_layer_counts": {
+                layer: {str(index): count for index, count in sorted(counts.items())}
+                for layer, counts in layer_counts.items()
+            },
+        }
+    if render_style == "en_prompt_soft_layers":
+        if outline_indexes != tuple(range(1, 8)) or fill_indexes != tuple(range(8, 16)):
+            raise TricmnBattleOverlayError("EN prompt requires the native index roles")
+        if shadow_offset_x or shadow_offset_y:
+            raise TricmnBattleOverlayError("flat EN prompt must not have an extrusion")
+        material = _en_prompt_soft_indexes(outline_mask, fill_mask)
+        for local, palette_index in enumerate(material):
+            indexes[(y + local // width) * picture_width + x + local % width] = palette_index
+            output_ink[local] = bool(palette_index)
+            if palette_index:
+                layer_counts["outline" if palette_index < 8 else "fill"][palette_index] += 1
+        return {
+            "render_style": render_style,
+            "en_material_roles": {"soft_border": list(range(1, 13)),
+                                  "flat_face": list(range(8, 16)), "transparent": [0]},
+            "histogram_rank_assignment": False,
+            "directional_lighting": False,
+            "extrusion": False,
+            "solid_face_uses_only_face_material": all(
+                material[i] == 15 for i, value in enumerate(fill_mask) if value == 255
+            ),
+            "outline_mask_sha256": sha256_bytes(outline_mask),
+            "outline_mask_nonzero_pixel_count": sum(value > 0 for value in outline_mask),
+            "outline_only_pixel_count": len(outline_only),
+            "fill_mask_sha256": sha256_bytes(fill_mask),
+            "fill_mask_nonzero_pixel_count": len(visible_fill),
+            "output_ink_mask_sha256": sha256_bytes(output_ink),
+            "output_ink_pixel_count": sum(output_ink),
+            "vector_effects_before_downsample": vector_outline_mask is not None,
+            "indexed_layer_counts": {
+                layer: {str(index): count for index, count in sorted(counts.items())}
+                for layer, counts in layer_counts.items()
+            },
+        }
+    if render_style == "native_title_soft_layers":
+        if outline_indexes != tuple(range(1, 8)) or fill_indexes != tuple(range(8, 16)):
+            raise TricmnBattleOverlayError("native title requires the original index roles")
+        if vector_outline_mask is None or vector_fill_mask is None:
+            raise TricmnBattleOverlayError("native title requires supersampled masks")
+        surface = _heightfield_wordart_surface(
+            vector_outline_mask, vector_fill_mask, width=width, height=height,
+            factor=vector_effect_scale, shadow_offset_x=shadow_offset_x,
+            shadow_offset_y=shadow_offset_y, glow_radius=glow_radius,
+            bevel_width=heightfield_bevel_width, relief_strength=heightfield_relief_strength,
+            ambient=heightfield_ambient, diffuse=heightfield_diffuse,
+            specular=heightfield_specular,
+        )
+        material = _native_title_soft_indexes(surface, width=width, height=height)
+        for local, palette_index in enumerate(material):
+            indexes[(y + local // width) * picture_width + x + local % width] = palette_index
+            output_ink[local] = bool(palette_index)
+            if palette_index:
+                layer_counts["outline" if palette_index < 8 else "fill"][palette_index] += 1
+        return {
+            "render_style": render_style,
+            "title_material_roles": {"solid_face": [8, 10, 13, 15],
+                                     "solid_side": [1, 2, 3, 5, 6],
+                                     "soft_transition": [4, 7, 9, 11, 12, 14], "transparent": [0]},
+            "solid_face_cannot_use_translucent_material": all(
+                material[i] == 15 for i, value in enumerate(surface["face_mask"]) if value == 255
+            ),
+            "histogram_rank_assignment": False,
+            "shadow_offset": [shadow_offset_x, shadow_offset_y],
+            "outline_mask_sha256": sha256_bytes(outline_mask),
+            "outline_mask_nonzero_pixel_count": sum(value > 0 for value in outline_mask),
+            "outline_only_pixel_count": len(outline_only),
+            "fill_mask_sha256": sha256_bytes(fill_mask),
+            "fill_mask_nonzero_pixel_count": len(visible_fill),
+            "output_ink_mask_sha256": sha256_bytes(output_ink),
+            "output_ink_pixel_count": sum(output_ink),
+            "vector_effects_before_downsample": True,
+            "vector_effect_scale": vector_effect_scale,
+            "indexed_layer_counts": {
+                layer: {str(index): count for index, count in sorted(counts.items())}
+                for layer, counts in layer_counts.items()
+            },
+        }
     layered_heightfield = render_style == "source_wordart_3d_index_layers"
     dark_core_wordart = render_style in {
         "source_wordart_3d_dark_core",

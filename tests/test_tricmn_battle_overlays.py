@@ -9,6 +9,9 @@ from tools.srwz.tricmn_battle_overlay import (
     _add_indexed_glow,
     _boundary_depths,
     _connected_mask_fringe,
+    _coherent_status_indexes,
+    _en_prompt_soft_indexes,
+    _native_title_soft_indexes,
     _coverage_floor,
     _directional_bevel_scores,
     _directional_mask_gradient,
@@ -40,6 +43,56 @@ CONFIG = PROJECT_ROOT / "config/assets/tricmn-battle-overlays-zh.json"
 
 
 class TricmnBattleOverlaysTest(unittest.TestCase):
+    def test_native_title_full_strokes_exclude_soft_transition_materials(self) -> None:
+        surface = {
+            'full_silhouette': bytes([255]*8 + [180, 110, 40, 10, 0]),
+            'core_silhouette': bytes([255]*8 + [0]*5),
+            'face_mask': bytes([255, 255, 240, 180, 100, 30, 0, 0] + [0]*5),
+        }
+        material = _native_title_soft_indexes(surface, width=13, height=1)
+        self.assertEqual(material[:3], bytes([15]*3))
+        self.assertLessEqual(set(material[:6]), {8, 10, 13, 15})
+        self.assertLessEqual(set(material[6:8]), {1, 2, 3, 6})
+        self.assertLessEqual(set(material[8:12]), {9, 11, 12, 14})
+        self.assertEqual(material[-1], 0)
+        # A glyph's stroke tones must not depend on unrelated histogram changes.
+        expanded = {key: value + bytes([255]*20) for key, value in surface.items()}
+        self.assertEqual(_native_title_soft_indexes(expanded, width=33, height=1)[:6],
+                         material[:6])
+
+    def test_en_prompt_has_flat_strokes_and_a_separate_soft_border(self) -> None:
+        outline = bytes([255, 255, 255, 128, 32, 0])
+        fill = bytes([255, 255, 160, 0, 0, 0])
+        material = _en_prompt_soft_indexes(outline, fill)
+        self.assertEqual(material[0], 15)
+        self.assertEqual(material[0], material[1])
+        self.assertGreaterEqual(material[2], 8)
+        self.assertTrue(all(1 <= index < 15 for index in material[3:5]))
+        # EN's glow needs an intermediate bright fringe and a faint tail;
+        # neither may become an opaque face outside the actual glyph.
+        fringe = _en_prompt_soft_indexes(bytes([255, 166, 96, 16, 4, 0]), bytes(6))
+        self.assertTrue(all(a > b for a, b in zip(fringe, fringe[1:])))
+        self.assertGreaterEqual(fringe[0], 8)
+        self.assertEqual(fringe[-2:], bytes([1, 0]))
+        self.assertEqual(material[5], 0)
+        # Adding unrelated glyph pixels must not change existing stroke tones.
+        expanded = _en_prompt_soft_indexes(outline + bytes([255] * 20),
+                                           fill + bytes([80] * 20))
+        self.assertEqual(expanded[:len(material)], material)
+
+    def test_status_strokes_cannot_inherit_translucent_or_white_fringe(self) -> None:
+        # The old histogram mapper could put soft fringe or white speckles
+        # inside otherwise continuous strokes. Keep those material sets apart
+        # even when neighboring stroke pixels have different coverage.
+        outline = bytes([255] * 5 + [255, 128, 32, 0])
+        fill = bytes([255, 240, 180, 100, 30, 0, 0, 0, 0])
+        material = _coherent_status_indexes(outline, fill)
+        self.assertLessEqual(set(material[:5]), {1, 2, 3, 5})
+        self.assertEqual(material[0], material[1])
+        self.assertLessEqual(set(material[5:7]), {13, 15})
+        self.assertIn(material[7], {8, 9, 10})
+        self.assertEqual(material[8], 0)
+
     def test_release_component_consumes_the_reviewed_frozen_snapshot(self) -> None:
         payload, report = _frozen_component(PROJECT_ROOT, CONFIG)
 
@@ -54,7 +107,7 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
         self.assertTrue(all(report["acceptance"].values()))
         self.assertEqual(
             report["outputs"]["BTL/TRICMN.BIN"]["sha256"],
-            "10d5ad0d907e7e1038c35206b6a586cf093f96b017011be8a055a5a7021347f8",
+            "00b6de888086ea5198bbf166612c7961cc818288f11cebff3de64d283691253b",
         )
         self.assertEqual(len(payload), 677424)
 
@@ -433,278 +486,23 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
             ]
         )
         self.assertNotIn("tricmn/en-reason", labels)
-        single_attack = labels["tricmn/single-attack"]
-        self.assertEqual(
-            single_attack["render_style"],
-            "source_wordart_3d_index_layers",
-        )
-        self.assertFalse(
-            single_attack[
-                "heightfield_palette_quantization_uses_source_zones"
-            ]
-        )
-        self.assertEqual(
-            single_attack["heightfield_surface"][
-                "bevel_width_supersampled_pixels"
-            ],
-            8,
-        )
-        self.assertEqual(
-            single_attack["heightfield_surface"][
-                "extrusion_depth_supersampled_pixels"
-            ],
-            16,
-        )
-        self.assertEqual(
-            single_attack["heightfield_surface"][
-                "halo_width_supersampled_pixels"
-            ],
-            8,
-        )
-        self.assertTrue(single_attack["heightfield_flat_top_rim"])
-        self.assertTrue(single_attack["heightfield_flat_face"])
-        self.assertEqual(single_attack["heightfield_flat_top_palette_index"], 14)
-        self.assertEqual(single_attack["heightfield_face_rim_palette_index"], 13)
-        self.assertEqual(single_attack["heightfield_flat_face_palette_index"], 15)
-        self.assertGreater(
-            single_attack["heightfield_flat_face_output_pixel_count"],
-            0,
-        )
-        self.assertLess(
-            single_attack["heightfield_flat_face_output_pixel_count"],
-            sum(single_attack["output_zone_index_counts"]["face"].values()),
-        )
-        self.assertEqual(
-            single_attack["heightfield_face_rim_output_pixel_count"]
-            + single_attack["heightfield_flat_face_output_pixel_count"],
-            sum(single_attack["output_zone_index_counts"]["face"].values()),
-        )
-        self.assertEqual(
-            single_attack["output_zone_index_counts"]["face"],
-            {
-                "13": single_attack["heightfield_face_rim_output_pixel_count"],
-                "15": single_attack["heightfield_flat_face_output_pixel_count"],
-            },
-        )
-        self.assertFalse(single_attack["inverse_tex1_enabled"])
-        self.assertIsNone(single_attack["inverse_tex1"])
-        self.assertGreater(
-            single_attack["heightfield_flat_top_output_pixel_count"],
-            0,
-        )
-        self.assertEqual(
-            len(single_attack["heightfield_surface"]["light_vector"]),
-            3,
-        )
-        self.assertEqual(
-            set(single_attack["source_index_boundary_depth_counts"]),
-            {str(index) for index in range(1, 16)},
-        )
-        self.assertIn(
-            "1",
-            single_attack["source_index_boundary_depth_counts"]["14"],
-        )
-        self.assertIn(
-            "4",
-            single_attack["source_index_boundary_depth_counts"]["1"],
-        )
-        self.assertEqual(
-            set(single_attack["source_zone_index_counts"]["halo"]),
-            {"9", "11", "12", "14"},
-        )
-        self.assertEqual(
-            single_attack["output_zone_index_counts"]["halo"],
-            {"14": single_attack["output_zone_pixel_counts"]["halo"]},
-        )
-        self.assertFalse(single_attack["anti_alias_uses_source_soft_coverage_ramp"])
-        self.assertTrue(single_attack["indexed_edge_filter_enabled"])
-        self.assertEqual(single_attack["indexed_edge_filter_radius"], 1)
-        self.assertGreater(
-            single_attack["indexed_edge_filter_added_pixel_count"], 0
-        )
-        self.assertGreater(
-            single_attack["indexed_edge_filter_changed_coverage_pixel_count"],
-            0,
-        )
-        self.assertTrue(
-            single_attack["heightfield_side_uses_continuous_source_ramp"]
-        )
-        side_counts = {
-            int(index): count
-            for index, count in single_attack["output_zone_index_counts"][
-                "side"
-            ].items()
-            if 1 <= int(index) <= 7
-        }
-        self.assertGreaterEqual(len(side_counts), 5)
-        self.assertLess(
-            max(side_counts.values()),
-            sum(side_counts.values()) * 3 // 4,
-        )
-        self.assertEqual(
-            single_attack["index_layer_sequence"],
-            [
-                "transparent:0",
-                "extrusion:1..7",
-                "soft-fringe:12",
-                "hard-rim:14",
-                "face-rim:13",
-                "flat-face:15",
-            ],
-        )
-        self.assertTrue(
-            single_attack["index_layers_constructed_before_writeback"]
-        )
-        self.assertFalse(single_attack["result_level_pixel_repair_enabled"])
-        self.assertTrue(single_attack["outer_boundary_uses_light_indexes_only"])
-        self.assertTrue(
-            set(single_attack["outer_boundary_output_index_counts"])
-            <= {"12", "14"}
-        )
-        self.assertGreaterEqual(
-            single_attack["dark_index_minimum_boundary_depth"], 2
-        )
-        self.assertEqual(
-            sum(single_attack["output_zone_index_counts"]["face"].values()),
-            single_attack["output_zone_pixel_counts"]["face"],
-        )
-        self.assertGreater(
-            single_attack["output_zone_pixel_counts"]["side"], 0
-        )
-        self.assertGreater(
-            single_attack["output_zone_pixel_counts"]["face"], 0
-        )
-        large = labels["tricmn/tri-formation"]["render"]
-        self.assertEqual(
-            large["render_style"],
-            "source_wordart_3d_index_layers",
-        )
-        self.assertEqual(large["glow_radius"], 1)
-        self.assertEqual(large["point_size"], 31)
-        self.assertEqual(large["outline_stroke_width"], 3.0)
-        self.assertEqual(large["fill_stroke_width"], 0.8)
-        self.assertEqual(large["coverage_floor"], 20)
-        self.assertEqual(large["side_direction_weight"], 3)
-        self.assertEqual(large["halo_direction_weight"], 0)
-        self.assertEqual(large["supersample_factor"], 8)
-        self.assertEqual(large["italic_shear_degrees"], 8)
-        self.assertTrue(large["vector_effects_before_downsample"])
-        self.assertEqual(large["character_spacing"], 5.0)
-        self.assertTrue(large["heightfield_flat_top_rim"])
-        self.assertTrue(large["heightfield_flat_face"])
-        self.assertEqual(large["indexed_edge_filter_radius"], 1)
-        self.assertEqual(large["heightfield_bevel_width"], 1.0)
-        self.assertNotIn("outline_palette_indexes", large)
-        self.assertNotIn("fill_palette_indexes", large)
-        self.assertEqual(
-            labels["tricmn/single-attack"]["render"]["character_spacing"],
-            7.0,
-        )
-        self.assertEqual(
-            labels["tricmn/single-attack"]["render"]["point_size"],
-            30,
-        )
-        self.assertEqual(
-            labels["tricmn/single-attack"]["render"]["italic_shear_degrees"],
-            8,
-        )
-        self.assertEqual(
-            labels["tricmn/single-attack"]["render"]["heightfield_bevel_width"],
-            1.0,
-        )
-        for entry_id in (
-            "tricmn/tri-formation",
-            "tricmn/single-attack",
-            "tricmn/wide-formation",
-            "tricmn/squad-attack",
-            "tricmn/center-formation",
-            "tricmn/all-attack",
-            "tricmn/counter",
-            "tricmn/support-attack",
-            "tricmn/tri-attack",
-            "tricmn/attack-again",
-            "tricmn/support-defense",
-            "tricmn/combined-attack",
-        ):
-            self.assertEqual(
-                labels[entry_id]["render_style"],
-                "source_wordart_3d_index_layers",
-            )
-            self.assertTrue(labels[entry_id]["heightfield_flat_top_rim"])
-            self.assertTrue(labels[entry_id]["heightfield_flat_face"])
-            self.assertEqual(
-                labels[entry_id]["heightfield_flat_top_palette_index"],
-                14,
-            )
-            self.assertEqual(
-                labels[entry_id]["heightfield_flat_face_palette_index"],
-                15,
-            )
-            self.assertEqual(
-                labels[entry_id]["heightfield_face_rim_palette_index"],
-                13,
-            )
-            self.assertTrue(
-                labels[entry_id]["index_layers_constructed_before_writeback"]
-            )
-            self.assertFalse(
-                labels[entry_id]["result_level_pixel_repair_enabled"]
-            )
-            self.assertFalse(labels[entry_id]["inverse_tex1_enabled"])
-            self.assertTrue(
-                set(labels[entry_id]["outer_boundary_output_index_counts"])
-                <= {"12", "13", "14"}
-            )
-            self.assertTrue(
-                set(labels[entry_id]["output_zone_index_counts"]["side"])
-                <= {str(index) for index in range(1, 8)}
-            )
-            self.assertEqual(
-                set(labels[entry_id]["output_zone_index_counts"]["face"]),
-                {"13", "15"},
-            )
-            self.assertEqual(
-                labels[entry_id]["heightfield_flat_face_output_pixel_count"],
-                labels[entry_id]["output_zone_index_counts"]["face"]["15"],
-            )
-            self.assertEqual(
-                labels[entry_id]["heightfield_face_rim_output_pixel_count"],
-                labels[entry_id]["output_zone_index_counts"]["face"]["13"],
-            )
-        self.assertTrue(
-            labels["tricmn/single-attack"]["vector_effects_before_downsample"]
-        )
-        self.assertEqual(
-            labels["tricmn/single-attack"]["vector_effect_scale"],
-            8,
-        )
-        self.assertEqual(
-            labels["tricmn/attack-again"]["render"]["character_spacing"],
-            6.0,
-        )
-        self.assertEqual(
-            labels["tricmn/support-attack"]["render"]["character_spacing"],
-            6.0,
-        )
-        self.assertEqual(
-            labels["tricmn/support-defense"]["render"]["character_spacing"],
-            6.0,
-        )
-        self.assertEqual(
-            labels["tricmn/tri-attack"]["index_layer_sequence"],
-            [
-                "transparent:0",
-                "extrusion:1..7",
-                "soft-fringe:12",
-                "hard-rim:14",
-                "face-rim:13",
-                "flat-face:15",
-            ],
-        )
-        self.assertNotIn(
-            "13",
-            labels["tricmn/tri-attack"]["outer_boundary_output_index_counts"],
-        )
+        titles = [item for item in labels.values() if item["picture_index"] == 0]
+        self.assertEqual(len(titles), 12)
+        for title in titles:
+            self.assertEqual(title["render_style"], "native_title_soft_layers")
+            self.assertTrue(title["solid_face_cannot_use_translucent_material"])
+            self.assertFalse(title["histogram_rank_assignment"])
+            self.assertEqual(title["shadow_offset"], [2, 2])
+            self.assertTrue(title["vector_effects_before_downsample"])
+            self.assertEqual(title["vector_effect_scale"], 8)
+            self.assertGreater(title["indexed_layer_counts"]["fill"]["15"], 0)
+            profile = title["render"]
+            self.assertEqual(profile["italic_shear_degrees"], 8)
+            self.assertEqual(profile["fill_stroke_width"], 1.4)
+            self.assertEqual(profile["indexed_edge_filter_radius"], 0)
+        self.assertEqual(labels["tricmn/single-attack"]["render"]["character_spacing"], 7.0)
+        self.assertEqual(labels["tricmn/tri-formation"]["render"]["point_size"], 31)
+        self.assertEqual(labels["tricmn/attack-again"]["render"]["point_size"], 30)
         bank_four = report["atlas"]["palette_audit"][4]
         self.assertEqual(len(bank_four["indexes"]), 16)
         self.assertEqual(bank_four["indexes"][0]["role"], "transparent")
@@ -725,7 +523,7 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
         ):
             prompt = labels[entry_id]["render"]
             self.assertEqual(prompt["italic_shear_degrees"], 0)
-            self.assertEqual(prompt["glow_radius"], 1)
+            self.assertEqual(prompt["glow_radius"], 4)
             self.assertNotIn("outline_palette_indexes", prompt)
             self.assertNotIn("fill_palette_indexes", prompt)
         for entry_id in (
@@ -739,8 +537,8 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
             reason = labels[entry_id]["render"]
             self.assertEqual(reason["point_size"], 28)
             self.assertEqual(reason["italic_shear_degrees"], 0)
-            self.assertEqual(reason["glow_radius"], 1)
-            self.assertEqual(reason["fill_stroke_width"], 0.0)
+            self.assertEqual(reason["glow_radius"], 4)
+            self.assertGreater(reason["fill_stroke_width"], 0.0)
         blue_gradient_ids = (
             "tricmn/wait",
             "tricmn/no-target",
@@ -771,28 +569,13 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
         )
         for entry_id in blue_gradient_ids:
             item = labels[entry_id]
-            self.assertEqual(item["render_style"], "source_wordart_3d")
-            self.assertEqual(
-                set(item["source_zone_index_counts"]["face"]),
-                {str(index) for index in range(8, 16)},
-            )
-            self.assertEqual(
-                set(item["output_zone_index_counts"]["face"]),
-                {str(index) for index in range(8, 16)},
-            )
-            self.assertEqual(
-                set(item["output_zone_index_counts"]["anti_alias"]),
-                {"1"},
-            )
-            self.assertTrue(item["source_histogram_used_as_zone_quantile_reference"])
-            self.assertTrue(item["equal_spatial_score_groups_share_one_index"])
+            self.assertEqual(item["render_style"], "en_prompt_soft_layers")
+            self.assertTrue(item["solid_face_uses_only_face_material"])
+            self.assertFalse(item["histogram_rank_assignment"])
+            self.assertFalse(item["directional_lighting"])
+            self.assertFalse(item["extrusion"])
+            self.assertEqual(item["render"]["shadow_offset"], [0, 0])
             self.assertTrue(item["vector_effects_before_downsample"])
-            self.assertTrue(item["indexed_edge_filter_enabled"])
-            self.assertGreater(item["indexed_edge_filter_added_pixel_count"], 0)
-            self.assertFalse(item["heightfield_flat_face"])
-            self.assertFalse(item["inverse_tex1_enabled"])
-            self.assertEqual(item["dark_component_minimum_pixels"], 1)
-            self.assertEqual(item["dark_speckle_pixels_converted_to_light"], 0)
         status_ids = (
             "tricmn/mobility-down",
             "tricmn/armor-down",
@@ -810,30 +593,27 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
             self.assertEqual(item["rect"], [399, row * 24, 113, 24])
             self.assertEqual(
                 item["render_style"],
-                "source_wordart_3d_dark_core",
+                "coherent_status_dark_core",
             )
             self.assertTrue(item["dark_core_material_layout"])
             self.assertEqual(item["render"]["point_size"], 19)
-            self.assertEqual(item["render"]["outline_stroke_width"], 1.2)
-            self.assertEqual(item["render"]["fill_stroke_width"], 0.0)
+            self.assertEqual(item["render"]["outline_stroke_width"], 2.4)
+            self.assertEqual(item["render"]["fill_stroke_width"], 0.65)
             self.assertEqual(item["render"]["character_spacing"], 0.6)
             self.assertEqual(item["render"]["italic_shear_degrees"], 0)
-            self.assertEqual(item["render"]["glow_radius"], 2)
+            self.assertEqual(item["render"]["glow_radius"], 1)
             self.assertEqual(item["render"]["ink_left"], 0)
             self.assertEqual(item["render_ink_bounds"][0], 0)
             self.assertTrue(item["vector_effects_before_downsample"])
-            self.assertTrue(item["indexed_edge_filter_enabled"])
-            self.assertGreater(item["indexed_edge_filter_added_pixel_count"], 0)
-            self.assertTrue(item["source_histogram_used_as_zone_quantile_reference"])
-            self.assertEqual(item["dark_speckle_pixels_converted_to_light"], 0)
-            expected_anti_alias_indexes = (
-                {"11", "14"}
-                if entry_id == "tricmn/status-disabled"
-                else {"12", "14"}
-            )
+            self.assertTrue(item["fill_strokes_use_only_opaque_material"])
             self.assertEqual(
-                set(item["output_zone_index_counts"]["anti_alias"]),
-                expected_anti_alias_indexes,
+                item["status_material_roles"],
+                {
+                    "opaque_stroke": [1, 2, 3, 5],
+                    "light_rim": [13, 15],
+                    "soft_fringe": [8, 9, 10],
+                    "transparent": [0],
+                },
             )
             marker = item["marker"]
             self.assertEqual(marker["slot_rect"], [384, row * 24, 128, 24])
@@ -849,34 +629,6 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
             self.assertEqual(
                 marker["source_template_resolution"],
                 "per_pixel_majority_with_higher_index_tiebreak",
-            )
-        self.assertEqual(
-            labels["tricmn/en-down"]["bright_edge_character_indexes"], [1]
-        )
-        self.assertEqual(
-            labels["tricmn/en-down"]["bright_edge_selected_spans"], [[13, 27]]
-        )
-        self.assertGreater(
-            labels["tricmn/en-down"]["bright_edge_promoted_pixel_count"], 0
-        )
-        self.assertEqual(
-            labels["tricmn/sp-down"]["bright_edge_character_indexes"], [0]
-        )
-        self.assertEqual(
-            labels["tricmn/sp-down"]["bright_edge_selected_spans"], [[0, 14]]
-        )
-        self.assertGreater(
-            labels["tricmn/sp-down"]["bright_edge_promoted_pixel_count"], 0
-        )
-        for entry_id in set(status_ids) - {
-            "tricmn/en-down",
-            "tricmn/sp-down",
-        }:
-            self.assertEqual(
-                labels[entry_id]["bright_edge_character_indexes"], []
-            )
-            self.assertEqual(
-                labels[entry_id]["bright_edge_promoted_pixel_count"], 0
             )
         ability_labels = [
             item for item in labels.values() if item["frame_template"] is not None
