@@ -485,8 +485,8 @@
     },
     "tricmn_battle_overlay_component_manifest": {
       "path": "manifests/tricmn-battle-overlays-zh-validation.json",
-      "size": 5848,
-      "sha256": "aa288e2c241cca257ebb13ebfb10625267faf15533619342dff588b4e044e139"
+      "size": 6144,
+      "sha256": "b5c2b62aa668a4d52aa8db5b6f3cce5f62445873b2cf53fc26a928cc3b507bbf"
     },
     "aid_battle_prompt_config": {
       "path": "config/assets/aid-battle-prompts-zh.json",
@@ -510,8 +510,8 @@
     },
     "tricmn_battle_overlay_config": {
       "path": "config/assets/tricmn-battle-overlays-zh.json",
-      "size": 15786,
-      "sha256": "2e74d7708afc2d14f11b7acdf361527ca5f9abac35e34f6729bc3ee85ea99be3"
+      "size": 15771,
+      "sha256": "76725ba149dd1ef4745a1664f0a2b587599473cbc00a86c189d4e483482c04ea"
     },
     "tricmn_battle_overlay_source_bin": {
       "path": "work/disc/BTL/TRICMN.BIN",
@@ -530,8 +530,8 @@
     },
     "tricmn_battle_overlay_frozen_snapshot": {
       "path": "config/assets/tricmn-battle-overlays-zh-render-snapshot.json",
-      "size": 123891,
-      "sha256": "71791d097ed2e480707533a5f3c12bc179f951ef42ae23d0f6fe2e07dff7de0f"
+      "size": 115307,
+      "sha256": "d2e151af82c3c5c6d545a855f3db7ee8ffc8b8b1e92d41d62db9a987977a5213"
     }
   },
   "compression": {
@@ -69503,7 +69503,7 @@
     "BTL/TRICMN.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/TRICMN.BIN",
       "size": 677424,
-      "sha256": "00b6de888086ea5198bbf166612c7961cc818288f11cebff3de64d283691253b"
+      "sha256": "b4e46757798ed19150d8817fe26a7425f819e3fff541fd5896b7b51e4ec1a092"
     }
   },
   "acceptance": {
@@ -93219,10 +93219,10 @@
       "output_picture_indexes_sha256": [
         "0ed8960a87b84bec7bed3c59ca5c8148e276fbd37a7176513ed39d5596af38d1",
         "d6286c09d110fbca6277dc3af9f2681b6a3dd56b6c5e870cbdde274ab4e3ff90",
-        "df451bcf1321d0b08e8b7ffa704ff47e6085430ff432c66349e6c6daca9f58c1",
+        "5e3b485a7a185e2196915b8b6f21e80ba5609949f0618c2f619b29f44c4c2cd4",
         "549e15e866401e2585e238db76ed1caa1e30b084cf5bcf5a17d20c64f0f9bcb2"
       ],
-      "output_member_sha256": "00b6de888086ea5198bbf166612c7961cc818288f11cebff3de64d283691253b",
+      "output_member_sha256": "b4e46757798ed19150d8817fe26a7425f819e3fff541fd5896b7b51e4ec1a092",
       "frozen_range_count": 3,
       "frozen_snapshot_consumed": true
     },
@@ -93259,6 +93259,12 @@
         "renderer": "LRPS2 Software (SW)",
         "ten_prompt_fixtures": "borrowed naturally triggered main no-target slot; no RAM edits",
         "evidence": "work/runtime/lrps2/sp-prompts-en-glow-20261004",
+        "pcsx2_acceptance": "pending"
+      },
+      "ability_review": {
+        "renderer": "LRPS2 Software (SW)",
+        "fixture": "19 labels borrowed into naturally triggered I-field slot; 38 runs, 76 frames; no RAM edits",
+        "receipt": "work/analysis/sp-effect-slot-sweep-20261004/summary.json",
         "pcsx2_acceptance": "pending"
       }
     }

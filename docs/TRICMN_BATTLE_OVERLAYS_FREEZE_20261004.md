@@ -1,46 +1,65 @@
-# TRICMN 战斗文字定稿与当前 ISO 写入
+# TRICMN 战斗文字定稿与三个 current ISO 写入
 
-2026-10-04 用户确认这组贴图改动冻结。定稿包含本轮状态／抵抗文字 10 条、阵型／攻击标题 12 条，以及补上 EN 风格光晕的提示／原因文字 10 条。其余 19 条能力／防御文字沿用此前冻结的索引像素。
+2026-10-04 用户确认全部文字冻结并写入 Original、BEST、SP 三个 current ISO。本次补齐先前仍留在实验目录的 19 条能力／防御修正版；状态／抵抗 10 条、阵型／攻击标题 12 条、EN 风格提示／原因 10 条保持上一轮定稿像素，合计 **51 条**。
 
-普通构建继续使用 `locked-indexed-snapshot`，不重新读取字体或栅格化。快照保持 `reviewed_locked`、`explicit_refreeze_only`；下一次视觉调整必须明确进入作者渲染及重新冻结流程。定稿不将 LRPS2 证据提升为 PCSX2 手工验收，运行状态仍为 pending。
+能力文字采用已逐项借用 I 力场槽检查的候选：19px HarmonyOS Sans SC，8 倍矢量覆盖，连续黑色字芯和灰阶过渡，白色反光边。运行色条确认的索引角色决定覆盖映射，避免按数值顺序或直方图把半透明、亮边散布到笔画内部。当前作者渲染与候选 19 个文字矩形逐像素一致。
 
-## 定稿身份
+主篇与 SP 的原生括号像素不同，因此仅迁移文字矩形。未把 SP 整张 picture 2 复制到主篇，也未把主篇整张图复制到 SP。括号、CLUT、TIM2 头、其他图片、动画及尾部保持各版本原有字节。
+
+普通构建继续消费 `locked_indexed_snapshot`，不读取字体或重新栅格化。快照为 `reviewed_locked`／`explicit_refreeze_only`。SP 全量构建与独立验证器现在覆盖四组全部 51 条，包含新增的 `battle_ability_labels` 19 条。
+
+## 冻结身份
 
 | 文件 | SHA-256 |
 | --- | --- |
-| 冻结索引快照 | `71791d097ed2e480707533a5f3c12bc179f951ef42ae23d0f6fe2e07dff7de0f` |
-| 主篇 `BTL/TRICMN.BIN`，677,424 字节 | `00b6de888086ea5198bbf166612c7961cc818288f11cebff3de64d283691253b` |
-| SP `BTL/TRICMN.BIN`，677,456 字节 | `9e2031d7d190ea5c2a7405b147ca6ba11ff35d9a87953718fc131f86755c241f` |
-| 主篇当前 ISO | `f3ee8e64a24f34fc4ef2207c9f9648844710bc931cbf1df20d90f2c1b649cc98` |
-| SP 当前 ISO | `3265643bfd1f9a488a7a7805a1914d1ddcf08af6ad2543750f794ff005884c69` |
+| 冻结索引快照 | `d2e151af82c3c5c6d545a855f3db7ee8ffc8b8b1e92d41d62db9a987977a5213` |
+| 主篇 `BTL/TRICMN.BIN`，677,424 字节 | `b4e46757798ed19150d8817fe26a7425f819e3fff541fd5896b7b51e4ec1a092` |
+| SP `BTL/TRICMN.BIN`，677,456 字节 | `3dd1a6e66bb498b5cbf3ae96ab81509d066bedd132a441a20d4d0e769c898076` |
 
-主篇当前路径为 `build/iso/zh-release-full-story/current-original.iso`，SP 当前路径为 `build/iso/special-disc/sp-current.iso`。不生成新的发行快照，ISO 二进制留在本地。
+## 当前 ISO
+
+| 版本 | 路径 | SHA-256 |
+| --- | --- | --- |
+| Original | `build/iso/zh-release-original/current-original.iso` | `c6bc48d3c230216b7f2f6616d5708e0c4ae55d2fda85654b7404353b4b931e4f` |
+| BEST | `build/iso/zh-release-best/current-best.iso` | `bb39e762c6057d83d5f1b839c6e72f4c2879c90ddb312e9c9eb4f942928f14c6` |
+| SP | `build/iso/special-disc/sp-current.iso` | `98b33f9d5f7e201fd17783dad68002b5956a1f996f424625df032ba13bae9f3b` |
+
+保留三个统一 current 入口，默认方块 skip 已核对；不发布 daily-test 或其他 current 副本。以上是本次写入时的身份，后续文本构建可能改变整盘哈希。最新身份以各版本 current 收据为准。
 
 ## 写入与回读
 
-主篇只更新成员内 picture 0、1 两个 65,536 字节图像区，写入完整冻结成员之前检查其他图像、所有头、CLUT 与动画尾部均与当前镜像一致。写入后成员目录、大小、LBA 保持一致；成员 LBA 为 1,312,883。
+本次在已有且已验证的三个文本镜像上，仅更新成员内 picture 2 的 `[355584,421120)` 图像区。每版实际改变 32,231 个逻辑像素，变化只落在 19 个能力文字矩形。另 32 个文字单元逐项回读与冻结快照一致。
 
-其余 **3,758,227,456 字节**镜像内容与写入前逐字节比较一致。所有成员按 ISO9660 回读，并对配置中的 24 个成员进行独立 UDF 回读；`BTL/TRICMN.BIN` 与冻结成员完全一致。主篇集成组件及 ISO 配置只刷新 TRICMN 相关锁。旧文本输入锁保持原记录；本次没有将其他未提交文本改动重建入 ISO，也不宣称旧文本输入与当前工作区一致。
+写入前后全盘逐字节比较保护区；Original 的 3,758,292,992 字节、BEST 的 3,755,016,192 字节、SP 的 3,791,716,352 字节均保持一致。成员目录、大小、LBA 均未改变，ISO9660 成员回读和独立 7z UDF 成员回读一致。既有文本语义验证通过保护区字节一致继承，本次没有从其他未提交语料重建文本。
 
-SP 镜像已是定稿版本，本轮重复刷新提示文字不产生修改。另从当前 ISO 独立回读 10 个状态、10 个提示和 12 个标题单元，逐个核对冻结索引字节，保留 SP 自身其他区域和 CLUT。
+三版 current 收据、继承的语义回读和新增资源回读均已重新绑定整盘哈希，统一版本收据验证通过。根目录组件合同仅刷新 TRICMN 相关锁；已退役的独立主篇构建输出锁按同一资源差异计算，没有重建第四张 ISO。
 
-复现入口：
+证据位于 `work/analysis/tricmn-ability-freeze-20261004/`：
+
+- `authoring.json`：正式作者渲染合同；19 条与已审候选一致，其他像素保护检查。
+- `original-production-readback.json`、`best-production-readback.json`、`sp-production-readback.json`：全盘范围保护、51 条逐项回读、UDF、成员大小和 LBA。
+- `three-current-verification.json`：三版收据完整性验证。
+- `tests.log`：30 项相关测试通过，含 SP 能力组迁移、幂等性、越界保护及损坏单元拒绝。
+
+正常冻结组件复现：
 
 ```sh
 python3 tools/build_tricmn_battle_overlays.py --force
-python3 tools/refresh_tricmn_battle_overlays.py --evidence work/analysis/<新的主篇证据目录>
-python3 tools/special_disc/writeback/refresh_battle_prompts.py --evidence work/analysis/<新的SP证据目录>
 ```
 
-当前已匹配冻结成员时，更新器直接返回。SP 后续全量构建按状态、提示、标题三组复制冻结单元，独立验证器核对同样的单元。32 个单元共用迁移／回读实现，禁止修改单元以外像素。
+## 更新后 SP 的运行复测
 
-证据：
+直接运行上表的 `sp-current.iso`，在简易战斗鉴赏以 Z 高达／卡缪／光束步枪攻击 Turn A／罗兰。使用进入战斗前的 checkpoint，以正常按键进入战斗；没有 RAM 修改或能力调用替换。
 
-- `work/analysis/tricmn-freeze-20261004/main-production/production-readback.json`：主篇 ISO 回读、范围保护及继承的旧组件绑定。
-- `work/analysis/tricmn-freeze-20261004/sp-production/frozen-readback.json`：SP 当前镜像 32 个冻结单元独立回读。
-- `work/analysis/tricmn-freeze-20261004/tests.log`：30 项定稿相关测试全部通过，包含冻结快照、三组 SP 单元迁移／回读、PSMT4 及主篇写入的元数据／越界保护。
+帧 5225 自然显示新 I 力场；第二场选择防御后，帧 7545 同时自然显示新 I 力场和盾牌防御，帧 7575 保存暗背景画面。文字笔画连续，字芯透底和碎亮边较旧正式版改善。
 
-## 当前主篇镜像运行检查
+![新冻结 SP I 力场](issue-assets/battle-prompts-20261004/frozen-sp-ability-visible.png)
+
+![新冻结 SP I 力场与盾牌防御](issue-assets/battle-prompts-20261004/frozen-sp-ability-shield-dark.png)
+
+运行证据为 LRPS2 Software (SW)，位于 `work/runtime/lrps2/tricmn-ability-freeze-20261004/runs/production/51-frozen-labels/receipt.json`。其余 17 条保留此前统一 I 力场槽的文字显示夹具证据，不宣称全部自然触发。源记忆卡保持不变；PCSX2 手工验收及完整淡入淡出检查仍 pending。
+
+## 前次主篇运行证据
 
 使用之前都市关卡第 2 回合 Continue 的私有记忆卡副本，王者盖纳以“超限冻弹”攻击凯鲁宾兵，选择分散阵型并打开完整演出。没有修改 RAM、程序或运行事件。
 
@@ -56,4 +75,4 @@ python3 tools/special_disc/writeback/refresh_battle_prompts.py --evidence work/a
 
 运行证据为 LRPS2 Software (SW)。源记忆卡 SHA-256 保持 `8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0`，记录在 `work/runtime/lrps2/tricmn-freeze-20261004/production-native/receipt.json`。PCSX2 手工验收及完整淡入淡出检查仍待补。
 
-前序修订与画面对照：[状态文字](SP_BATTLE_STATUS_TEXTURE_20261004.md)、[阵型／攻击标题](SP_BATTLE_TITLES_TEXTURE_20261004.md)、[提示文字与 EN 光晕](SP_BATTLE_PROMPTS_TEXTURE_20261004.md)。上述记录内旧 ISO 哈希属于各次历史修订，最终定稿身份以本文件为准。
+前序修订与画面对照：[状态文字](SP_BATTLE_STATUS_TEXTURE_20261004.md)、[阵型／攻击标题](SP_BATTLE_TITLES_TEXTURE_20261004.md)、[提示文字与 EN 光晕](SP_BATTLE_PROMPTS_TEXTURE_20261004.md)。上述记录内旧 ISO 哈希属于各次历史修订，本次定稿身份以上表为准。

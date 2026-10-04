@@ -88,9 +88,9 @@ def main() -> None:
     if before == frozen:
         print('Current Original TRICMN already matches the frozen snapshot')
         return
-    # These two images own the status, prompt and title revisions. The other
-    # pictures must already match; replacing a whole member cannot hide drift.
-    ranges = validate_member_delta(before, frozen, asset['tim2']['pictures'][:2])
+    # All three localized images are frozen: titles, status/prompts and
+    # abilities. Other pictures, metadata and palettes must already match.
+    ranges = validate_member_delta(before, frozen, asset['tim2']['pictures'][:3])
     previous_iso = work / 'previous-original.iso'
     if previous_iso.exists():
         raise ValueError('evidence directory already contains an ISO revision')
