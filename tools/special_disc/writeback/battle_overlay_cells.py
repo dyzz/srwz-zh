@@ -20,7 +20,7 @@ def _inputs(profiles, group):
     config = json.loads(CONFIG.read_text())
     payload, _ = _frozen_component(ROOT, CONFIG)
     picture_index, label_count = {'status': (1, 10), 'prompt': (1, 10),
-                                  'title': (0, 12)}[group]
+                                  'title': (0, 12), 'ability': (2, 19)}[group]
     picture = config['tim2']['pictures'][picture_index]
     labels = [row for row in config['labels'] if row['render_profile'] in profiles]
     if len(labels) != label_count or any(row['picture_index'] != picture_index for row in labels):

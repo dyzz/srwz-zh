@@ -8,6 +8,7 @@ sys.path.insert(0, str(ROOT / 'tools'))
 from special_disc.writeback.battle_status import apply_status_labels, verify_status_labels
 from special_disc.writeback.battle_prompts import apply_prompt_labels, verify_prompt_labels
 from special_disc.writeback.battle_titles import apply_title_labels, verify_title_labels
+from special_disc.writeback.battle_abilities import apply_ability_labels, verify_ability_labels
 from srwz.iso9660 import scan_iso9660, member_map
 from srwz.psmt4 import unswizzle_psmt4, swizzle_psmt4
 
@@ -100,3 +101,31 @@ class SpecialDiscBattleStatusTest(unittest.TestCase):
         corrupted = output[:222624] + swizzle_psmt4(indexes, 512, 256, row_major_pages=True) + output[288160:]
         with self.assertRaisesRegex(ValueError, 'title cell readback drift'):
             verify_title_labels(corrupted)
+
+    def test_ability_migration_preserves_brackets_palette_and_other_groups(self):
+        source, _ = apply_status_labels(self.source)
+        source, _ = apply_prompt_labels(source)
+        source, _ = apply_title_labels(source)
+        output, receipt = apply_ability_labels(source)
+        self.assertEqual(output[:355584], source[:355584])
+        self.assertEqual(output[421120:], source[421120:])
+        before = unswizzle_psmt4(source[355584:421120], 512, 256, row_major_pages=True)
+        after = unswizzle_psmt4(output[355584:421120], 512, 256, row_major_pages=True)
+        config = json.loads((ROOT / 'config/assets/tricmn-battle-overlays-zh.json').read_text())
+        owned = set()
+        for label in config['labels']:
+            if label['render_profile'] == 'ability':
+                x, y, w, h = label['rect']
+                owned.update((y+j)*512+x+i for j in range(h) for i in range(w))
+        self.assertTrue(all(a == b or i in owned for i, (a, b) in enumerate(zip(before, after))))
+        self.assertEqual(len(receipt['labels']), 19)
+        self.assertGreater(receipt['changed_texels'], 0)
+        verify_status_labels(output)
+        verify_prompt_labels(output)
+        verify_title_labels(output)
+        self.assertEqual(apply_ability_labels(output)[0], output)
+        indexes = bytearray(after)
+        indexes[24*512+336] ^= 1
+        corrupted = output[:355584] + swizzle_psmt4(indexes, 512, 256, row_major_pages=True) + output[421120:]
+        with self.assertRaisesRegex(ValueError, 'ability cell readback drift'):
+            verify_ability_labels(corrupted)

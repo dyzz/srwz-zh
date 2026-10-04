@@ -52,6 +52,7 @@ from special_disc.writeback.shared_library import apply_shared_library
 from special_disc.writeback.battle_status import apply_status_labels, MEMBER as STATUS_MEMBER
 from special_disc.writeback.battle_prompts import apply_prompt_labels
 from special_disc.writeback.battle_titles import apply_title_labels
+from special_disc.writeback.battle_abilities import apply_ability_labels
 
 WORK=ROOT/'work/build/special-disc/full-text'
 BASE_SHA='3617b44b263b1a31f14632d89f3ee456a031349ee892b25c6c8eeb9ae8d5ae73'
@@ -298,6 +299,8 @@ def assemble():
     stats['battle_prompt_labels'] = len(prompt_report['labels'])
     patches[STATUS_MEMBER], title_labels_report = apply_title_labels(patches[STATUS_MEMBER])
     stats['battle_title_labels'] = len(title_labels_report['labels'])
+    patches[STATUS_MEMBER], ability_labels_report = apply_ability_labels(patches[STATUS_MEMBER])
+    stats['battle_ability_labels'] = len(ability_labels_report['labels'])
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso')
     require(not temporary.exists(),'another ISO assembly is in progress')
     copy_file(BASE,temporary)
@@ -330,6 +333,7 @@ def assemble():
     report['battle_status_labels']=status_report
     report['battle_prompt_labels']=prompt_report
     report['battle_title_labels']=title_labels_report
+    report['battle_ability_labels']=ability_labels_report
     if COMPONENT_CACHE is not None:
         report['incremental'] = COMPONENT_CACHE.receipt()
     # Verification must finish before either the current ISO or its receipt changes.

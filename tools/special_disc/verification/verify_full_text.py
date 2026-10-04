@@ -42,6 +42,7 @@ from srwz.ui_menu_restore import verify_menu_restore
 from special_disc.writeback.battle_status import verify_status_labels, MEMBER as STATUS_MEMBER
 from special_disc.writeback.battle_prompts import verify_prompt_labels
 from special_disc.writeback.battle_titles import verify_title_labels
+from special_disc.writeback.battle_abilities import verify_ability_labels
 
 
 def main(iso=None, work=None):
@@ -76,6 +77,11 @@ def main(iso=None, work=None):
         require(all(title_labels[k] == manifest['battle_title_labels'][k]
                     for k in title_labels), 'SP battle title independent readback drift')
         counts['battle_title_labels'] = len(title_labels['labels'])
+    if 'battle_ability_labels' in manifest:
+        ability_labels = verify_ability_labels(member(STATUS_MEMBER))
+        require(all(ability_labels[k] == manifest['battle_ability_labels'][k]
+                    for k in ability_labels), 'SP battle ability independent readback drift')
+        counts['battle_ability_labels'] = len(ability_labels['labels'])
     image_report = load(WORK/'image-labels/report.json')
     require(verify_bazaar_heading(member('KURODATA/KVMDATA.BIN')) == image_report['bazaar_heading'],
             'SP bazaar independent readback receipt drift')
