@@ -485,8 +485,8 @@
     },
     "tricmn_battle_overlay_component_manifest": {
       "path": "manifests/tricmn-battle-overlays-zh-validation.json",
-      "size": 4866,
-      "sha256": "194ade721800737bace3409f979010e56031fb8f548379916470bea89bf4dc84"
+      "size": 5848,
+      "sha256": "aa288e2c241cca257ebb13ebfb10625267faf15533619342dff588b4e044e139"
     },
     "aid_battle_prompt_config": {
       "path": "config/assets/aid-battle-prompts-zh.json",
@@ -510,8 +510,8 @@
     },
     "tricmn_battle_overlay_config": {
       "path": "config/assets/tricmn-battle-overlays-zh.json",
-      "size": 15941,
-      "sha256": "6930639661aa6d4020df5d20b5f83bc8d7123eae422c75ba4a8a6ebc1210648f"
+      "size": 15786,
+      "sha256": "2e74d7708afc2d14f11b7acdf361527ca5f9abac35e34f6729bc3ee85ea99be3"
     },
     "tricmn_battle_overlay_source_bin": {
       "path": "work/disc/BTL/TRICMN.BIN",
@@ -530,8 +530,8 @@
     },
     "tricmn_battle_overlay_frozen_snapshot": {
       "path": "config/assets/tricmn-battle-overlays-zh-render-snapshot.json",
-      "size": 123379,
-      "sha256": "425d181dd5bc58ecf3e1740d0b32b31a21d88193c8787b70740420be36e396c7"
+      "size": 123891,
+      "sha256": "71791d097ed2e480707533a5f3c12bc179f951ef42ae23d0f6fe2e07dff7de0f"
     }
   },
   "compression": {
@@ -69503,7 +69503,7 @@
     "BTL/TRICMN.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/TRICMN.BIN",
       "size": 677424,
-      "sha256": "10d5ad0d907e7e1038c35206b6a586cf093f96b017011be8a055a5a7021347f8"
+      "sha256": "00b6de888086ea5198bbf166612c7961cc818288f11cebff3de64d283691253b"
     }
   },
   "acceptance": {
@@ -93217,12 +93217,12 @@
         3
       ],
       "output_picture_indexes_sha256": [
-        "ada3988233172bf018f54ee66fb1df25d82ef4f2cf3bedf9e41c7b135fcb415e",
-        "98712021c913a3b9e12b4eec29c2195a96e18c9d752abb6ee560526b940d4679",
+        "0ed8960a87b84bec7bed3c59ca5c8148e276fbd37a7176513ed39d5596af38d1",
+        "d6286c09d110fbca6277dc3af9f2681b6a3dd56b6c5e870cbdde274ab4e3ff90",
         "df451bcf1321d0b08e8b7ffa704ff47e6085430ff432c66349e6c6daca9f58c1",
         "549e15e866401e2585e238db76ed1caa1e30b084cf5bcf5a17d20c64f0f9bcb2"
       ],
-      "output_member_sha256": "10d5ad0d907e7e1038c35206b6a586cf093f96b017011be8a055a5a7021347f8",
+      "output_member_sha256": "00b6de888086ea5198bbf166612c7961cc818288f11cebff3de64d283691253b",
       "frozen_range_count": 3,
       "frozen_snapshot_consumed": true
     },
@@ -93238,7 +93238,29 @@
     },
     "runtime": {
       "status": "pending",
-      "reason": "New rasterized text requires review in the exact rebuilt ISO."
+      "reason": "New rasterized text requires review in the exact rebuilt ISO.",
+      "status_diagnostic": {
+        "renderer": "LRPS2 Software (SW)",
+        "natural_trigger": false,
+        "ram_injection_bytes": 3,
+        "labels_captured": 10,
+        "member_sha256": "431c9f84b45c6c181e7ef9e766f95cdf91bf3cefbc8594b063bb47ad2703f6b7",
+        "receipt": "work/analysis/sp-status-native-20261004/candidate-status-receipt.json",
+        "pcsx2_acceptance": "pending"
+      },
+      "title_review": {
+        "renderer": "LRPS2 Software (SW)",
+        "natural_center_formation": true,
+        "twelve_title_fixtures": "borrowed center formation slot; no RAM edits",
+        "receipt": "work/runtime/lrps2/sp-titles-original-adjust-20261004/candidate/receipt.json",
+        "pcsx2_acceptance": "pending"
+      },
+      "prompt_glow_review": {
+        "renderer": "LRPS2 Software (SW)",
+        "ten_prompt_fixtures": "borrowed naturally triggered main no-target slot; no RAM edits",
+        "evidence": "work/runtime/lrps2/sp-prompts-en-glow-20261004",
+        "pcsx2_acceptance": "pending"
+      }
     }
   }
 }
