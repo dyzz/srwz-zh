@@ -39,6 +39,9 @@ from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
 from special_disc.writeback.shared_library import verify_shared_library
 from special_disc.writeback.bazaar_heading import verify_bazaar_heading
 from srwz.ui_menu_restore import verify_menu_restore
+from special_disc.writeback.battle_status import verify_status_labels, MEMBER as STATUS_MEMBER
+from special_disc.writeback.battle_prompts import verify_prompt_labels
+from special_disc.writeback.battle_titles import verify_title_labels
 
 
 def main(iso=None, work=None):
@@ -58,6 +61,21 @@ def main(iso=None, work=None):
         return cache[name]
     for name,expected in manifest['files'].items():require(sha(member(name))==expected,f'ISO member drift: {name}')
     for path,expected in manifest['components'].items():require(file_sha(ROOT/path)==expected,f'component report drift: {path}')
+    if 'battle_status_labels' in manifest:
+        status_labels = verify_status_labels(member(STATUS_MEMBER))
+        require(all(status_labels[k] == manifest['battle_status_labels'][k]
+                    for k in status_labels), 'SP battle status independent readback drift')
+        counts['battle_status_labels'] = len(status_labels['labels'])
+    if 'battle_prompt_labels' in manifest:
+        prompt_labels = verify_prompt_labels(member(STATUS_MEMBER))
+        require(all(prompt_labels[k] == manifest['battle_prompt_labels'][k]
+                    for k in prompt_labels), 'SP battle prompt independent readback drift')
+        counts['battle_prompt_labels'] = len(prompt_labels['labels'])
+    if 'battle_title_labels' in manifest:
+        title_labels = verify_title_labels(member(STATUS_MEMBER))
+        require(all(title_labels[k] == manifest['battle_title_labels'][k]
+                    for k in title_labels), 'SP battle title independent readback drift')
+        counts['battle_title_labels'] = len(title_labels['labels'])
     image_report = load(WORK/'image-labels/report.json')
     require(verify_bazaar_heading(member('KURODATA/KVMDATA.BIN')) == image_report['bazaar_heading'],
             'SP bazaar independent readback receipt drift')
