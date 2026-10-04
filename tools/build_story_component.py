@@ -13,6 +13,11 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping
 
+from srwz.bazaar_tickers import (
+    BAZAAR_TICKER_ALLOCATION_SIZE,
+    BAZAAR_TICKER_INVENTORY_CONTRACT,
+    discover_bazaar_ticker_owners,
+)
 from srwz.codec import decode_production as decode, reencode_changed_suffix
 from srwz.chinese_layout import (
     dialogue_layout_issues,
@@ -71,8 +76,6 @@ def story_layout_profile():
     """
 
     return load_layout_profiles(LAYOUT_PROFILES_PATH)[STORY_LAYOUT_PROFILE_ID]
-TICKER_RUNTIME_POINTER_MIN = 0x00750000
-TICKER_RUNTIME_POINTER_MAX = 0x0076FFFF
 Z_REPORT_RECORD_SIGNATURE = (0x00000006, 0xFFFFFFFF, 0xFFFFFFFF)
 
 
@@ -419,16 +422,7 @@ def _load_story_tickers(
         raise SystemExit("story ticker corpus identity or entry count drift")
 
     inventory = document.get("inventory")
-    if inventory != {
-        "selection_authority": "structural_stage_scan",
-        "decoded_alignment": 4,
-        "prefix_ff_bytes": 6,
-        "prefix_payload_bytes": 4,
-        "prefix_payload_kinds": ["zero", "runtime_pointer"],
-        "runtime_pointer_min": f"0x{TICKER_RUNTIME_POINTER_MIN:08X}",
-        "runtime_pointer_max": f"0x{TICKER_RUNTIME_POINTER_MAX:08X}",
-        "slot_allocation_size": 140,
-    }:
+    if inventory != BAZAAR_TICKER_INVENTORY_CONTRACT:
         raise SystemExit("story ticker inventory contract is invalid")
 
     by_source: dict[str, dict] = {}
@@ -748,91 +742,56 @@ def _discover_story_tickers(
     table,
     entries_by_source: Mapping[str, dict],
     reference: Mapping[str, object],
+    *,
+    functions: tuple[int, ...],
 ) -> tuple[dict[int, list[dict]], dict]:
-    """Discover every fixed 140-byte bazaar ticker slot in STAGE.BIN.
-
-    The ticker is not part of the ordinary dialogue pointer graph.  Each
-    occurrence is nevertheless identified by a stable decoded layout: a
-    four-byte-aligned string follows six 0xFF bytes and a four-byte payload.
-    Most payloads are zero, while eight slots store a runtime pointer there.
-    The NUL-terminated text plus zero padding occupies exactly 140 bytes.
-    Scan the full archive so pointer-prefixed and ticker-only stage chunks
-    cannot escape coverage.
-    """
+    """Resolve ticker fields from script owners, then require full corpus coverage."""
 
     by_stage: dict[int, list[dict]] = {}
     inventory = []
     unknown_sources = set()
-    allocation_size = 140
-    japanese = re.compile(r"[\u3040-\u30ff\u3400-\u9fff]")
-    for stage_index, data in enumerate(decoded_chunks):
-        for offset in range(12, len(data), 4):
-            if offset + allocation_size > len(data):
-                continue
-            if data[offset - 10 : offset - 4] != b"\xFF" * 6:
-                continue
-            try:
-                source = decode_text(
-                    data,
-                    offset,
-                    table,
-                    end=offset + allocation_size,
-                )
-            except Exception:
-                continue
-            if (
-                source.terminator != "nul"
-                or source.unknown_code_count
-                or not japanese.search(source.text)
-                or any(data[source.end : offset + allocation_size])
-                or (
-                    offset + allocation_size < len(data)
-                    and data[offset + allocation_size] == 0
-                )
-            ):
-                continue
-            prefix_word = int.from_bytes(
-                data[offset - 4 : offset], byteorder="little"
+    allocation_size = BAZAAR_TICKER_ALLOCATION_SIZE
+    owners = discover_bazaar_ticker_owners(decoded_chunks, functions)
+    for owner in owners:
+        stage_index = owner.stage_index
+        data = decoded_chunks[stage_index]
+        offset = owner.text_offset
+        try:
+            source = decode_text(data, offset, table, end=offset + allocation_size)
+        except Exception as error:
+            raise SystemExit(
+                f"invalid owned story ticker: stage={stage_index} offset=0x{offset:X}: {error}"
+            ) from error
+        if (source.terminator != "nul" or source.unknown_code_count or not source.text
+                or any(data[source.end:offset + allocation_size])):
+            raise SystemExit(
+                f"invalid owned story ticker termination or padding: "
+                f"stage={stage_index} offset=0x{offset:X}"
             )
-            if prefix_word == 0:
-                prefix_kind = "zero"
-            elif (
-                TICKER_RUNTIME_POINTER_MIN
-                <= prefix_word
-                <= TICKER_RUNTIME_POINTER_MAX
-            ):
-                prefix_kind = "runtime_pointer"
-            else:
-                raise SystemExit(
-                    "story ticker candidate has an unknown prefix payload: "
-                    f"stage={stage_index} offset=0x{offset:X} "
-                    f"value=0x{prefix_word:08X}"
-                )
-            entry = entries_by_source.get(source.text)
-            if entry is None:
-                unknown_sources.add(source.text)
-                continue
-            target = {
-                **entry,
-                "decoded_offset": offset,
-                "source_slot_size": source.consumed,
-                "slot_prefix_kind": prefix_kind,
-                "slot_prefix_word": prefix_word,
-            }
-            by_stage.setdefault(stage_index, []).append(target)
-            inventory.append(
-                {
-                    "stage_index": stage_index,
-                    "decoded_offset": offset,
-                    "source_slot_size": source.consumed,
-                    "source_text_sha256": entry["source_text_sha256"],
-                    "slot_prefix_kind": prefix_kind,
-                    "slot_prefix_word": prefix_word,
-                }
-            )
+        # This is an optional post-bazaar event pointer, retained as evidence;
+        # it is deliberately not a selection criterion.
+        prefix_word = int.from_bytes(data[offset - 4:offset], "little")
+        prefix_kind = "runtime_pointer" if prefix_word else "zero"
+        entry = entries_by_source.get(source.text)
+        if entry is None:
+            unknown_sources.add((stage_index, offset, source.text))
+            continue
+        owner_fields = {
+            "script_root_offset": owner.script_root_offset,
+            "command_offset": owner.command_offset,
+            "record_offset": owner.record_offset,
+            "decoded_offset": offset,
+            "source_slot_size": allocation_size,
+            "slot_prefix_kind": prefix_kind,
+            "slot_prefix_word": prefix_word,
+        }
+        target = {**entry, **owner_fields}
+        by_stage.setdefault(stage_index, []).append(target)
+        inventory.append({"stage_index": stage_index, **owner_fields,
+                          "source_text_sha256": entry["source_text_sha256"]})
     if unknown_sources:
         raise SystemExit(
-            "unregistered structural story ticker sources: "
+            "unregistered owned story ticker sources: "
             + repr(sorted(unknown_sources))
         )
     discovered_sources = {
@@ -859,7 +818,7 @@ def _discover_story_tickers(
         or any(len(targets) != 1 for targets in by_stage.values())
     ):
         raise SystemExit(
-            "story ticker structural inventory drift: "
+            "story ticker owner inventory drift: "
             f"entries={len(discovered_sources)} targets={len(inventory)} "
             f"stages={len(by_stage)} missing={missing_sources} "
             f"sha256={inventory_sha256}"
@@ -874,6 +833,8 @@ def _discover_story_tickers(
         ),
         "inventory_sha256": inventory_sha256,
         "structural_slots_exact": True,
+        "owner_slots_exact": len(inventory) == len(owners),
+        "selection_authority": "initialized_intermission_script",
     }
 
 
@@ -910,7 +871,7 @@ def _write_story_tickers(
         source = decode_text(data, offset, table, end=end)
         if (
             source.terminator != "nul"
-            or source.end != end
+            or any(data[source.end:end])
             or source.text != target["source_text"]
             or sha256_bytes(source.text.encode("utf-8"))
             != target["source_text_sha256"]
@@ -1161,6 +1122,9 @@ def build(
         table,
         ticker_entries_by_source,
         translations["tickers"],
+        # The native table reader includes the following word; archive bounds
+        # determine the actual number of stage initializers.
+        functions=functions[:len(decoded_source_chunks)],
     )
     z_reports_by_stage, z_report_inventory = _discover_z_reports(
         decoded_source_chunks,
@@ -1770,6 +1734,8 @@ def build(
         "story_ticker_structural_slots_exact": ticker_inventory[
             "structural_slots_exact"
         ],
+        "story_ticker_owner_slots_exact": ticker_inventory["owner_slots_exact"],
+        "story_ticker_selection_authority": ticker_inventory["selection_authority"],
         "story_ticker_fixed_slots_exact": all(
             item["story_ticker_fixed_slots_exact"]
             for item in all_ticker_reports

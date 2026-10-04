@@ -8889,6 +8889,8 @@ def _story_summary(stage_report: dict) -> dict:
             "ticker_structural_slots_exact": stage_report[
                 "story_ticker_structural_slots_exact"
             ],
+            "ticker_owner_slots_exact": stage_report["story_ticker_owner_slots_exact"],
+            "ticker_selection_authority": stage_report["story_ticker_selection_authority"],
             "ticker_fixed_slots_exact": stage_report[
                 "story_ticker_fixed_slots_exact"
             ],
@@ -9190,14 +9192,17 @@ def _build_components(
         or stage_report.get("runtime_keyword_link_count") != 122
         or stage_report.get("runtime_keyword_source_count") != 52
         or stage_report.get("runtime_keyword_links_exact") is not True
-        or stage_report.get("story_ticker_count") != 97
-        or stage_report.get("story_ticker_source_count") != 48
-        or stage_report.get("story_ticker_stage_count") != 97
+        or stage_report.get("story_ticker_count") != 98
+        or stage_report.get("story_ticker_source_count") != 49
+        or stage_report.get("story_ticker_stage_count") != 98
         or stage_report.get("story_ticker_prefix_kind_counts")
-        != {"runtime_pointer": 8, "zero": 89}
+        != {"runtime_pointer": 9, "zero": 89}
         or stage_report.get("story_ticker_inventory_sha256")
-        != "51406cc957f2d596cef9ea658776faf7f43e0f5f3f09bd20ab855321b6f77ad5"
+        != "e50caa4a218c6d63a8e9e487b0b6b69d6948217cd546ff1a7ae570442bb507dc"
         or stage_report.get("story_ticker_structural_slots_exact") is not True
+        or stage_report.get("story_ticker_owner_slots_exact") is not True
+        or stage_report.get("story_ticker_selection_authority")
+        != "initialized_intermission_script"
         or stage_report.get("story_ticker_fixed_slots_exact") is not True
         or stage_report.get("story_ticker_translated_reread_exact") is not True
         or stage_report.get("z_report_count") != 6

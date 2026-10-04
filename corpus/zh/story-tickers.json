@@ -2,19 +2,16 @@
   "schema_version": 1,
   "batch_id": "v1-story-tickers",
   "language": "zh-Hans",
-  "scope": "Complete reviewed Chinese inventory for structurally identified non-dialogue bazaar scrolling tickers embedded in decoded STAGE chunks.",
+  "scope": "Complete reviewed Chinese inventory for bazaar scrolling ticker fields owned by initialized intermission script records.",
   "inventory": {
-    "selection_authority": "structural_stage_scan",
-    "decoded_alignment": 4,
-    "prefix_ff_bytes": 6,
-    "prefix_payload_bytes": 4,
-    "prefix_payload_kinds": [
-      "zero",
-      "runtime_pointer"
-    ],
-    "runtime_pointer_min": "0x00750000",
-    "runtime_pointer_max": "0x0076FFFF",
-    "slot_allocation_size": 140
+    "selection_authority": "initialized_intermission_script",
+    "command_size": 12,
+    "intermission_opcode": 10,
+    "record_pointer_offset": 8,
+    "record_size": 544,
+    "ticker_offset": 404,
+    "slot_allocation_size": 140,
+    "expected_records_per_stage": 1
   },
   "entries": [
     {
@@ -504,6 +501,17 @@
       "glossary_refs": [
         "system/sell"
       ]
+    },
+    {
+      "id": "story-ticker/heavens-base-thruster-sale",
+      "source_text": "ヘブンズベースから大放出！　スラスターモジュール、大幅値下げ！　",
+      "source_text_sha256": "8aceecaa3ddea960ae622fdf6d8fd1e39421f5024974acca543b7648b3a668cd",
+      "translation": "天堂基地库存大放送！喷射模组大特惠！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/thruster-module"
+      ],
+      "notes": "用户于 2026-10-05 采用“大放送／大特惠”的广告表达。天堂基地沿用 story/108/dialogue/01.01/0000 等剧情译名；喷射模组按已批准零件术语。"
     }
   ]
 }
