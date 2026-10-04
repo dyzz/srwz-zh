@@ -310,7 +310,10 @@ class ReleaseWorkflowTest(unittest.TestCase):
             entry["id"]: entry["translation"] for entry in battle["entries"]
         }
         battle_expected = {
-            "battle:24510": "“切换——波塞冬！！\\n　启动！！”",
+            "battle:24510": (
+                "“切换——波塞冬！！\\n　"
+                "<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”"
+            ),
             "battle:24481": "“毕竟是对上我的狮虎，没办法啊。”",
             "battle:22668": "“你对上了兜甲儿！”",
             "battle:22157": "“先拿你开始血祭！”",
