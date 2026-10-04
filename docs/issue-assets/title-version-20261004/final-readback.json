@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "status": "two_edition_title_version_static_readback_and_lrps2_passed",
+  "outputs": [
+    {
+      "edition": "original",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "daa210c2afa5539ae4ffaa0fe04d6254fa95b0eecc9140964544869debabb79b",
+        "size": 3758358528
+      },
+      "title_decoded_sha256": "260bbfee2cae3a8c23aa99d647db491bab395a2d05190f0cfd153391c8a017f2",
+      "text": "v0.4.2+20261004",
+      "size_px": 10,
+      "fixed_slot_size": 468320,
+      "compressed_bytes": 457246,
+      "padding_zero": true,
+      "readback_matches_contract": true
+    },
+    {
+      "edition": "best",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "34e37e902745b8be6e3671e80ea7bc7a47cf588a66e48370c5a05a77b3bcd9e5",
+        "size": 3755081728
+      },
+      "title_decoded_sha256": "260bbfee2cae3a8c23aa99d647db491bab395a2d05190f0cfd153391c8a017f2",
+      "text": "v0.4.2+20261004",
+      "size_px": 10,
+      "fixed_slot_size": 468320,
+      "compressed_bytes": 457246,
+      "padding_zero": true,
+      "readback_matches_contract": true
+    }
+  ],
+  "original_runtime_binding": {
+    "receipt": "original-lrps2-receipt.json",
+    "captured_candidate_is_byte_identical_to_final_current": true,
+    "iso_sha256": "daa210c2afa5539ae4ffaa0fe04d6254fa95b0eecc9140964544869debabb79b"
+  },
+  "best_runtime_binding": {
+    "receipt": "best-lrps2-receipt.json",
+    "iso_sha256": "34e37e902745b8be6e3671e80ea7bc7a47cf588a66e48370c5a05a77b3bcd9e5"
+  },
+  "pcsx2": "not_run",
+  "targeted_tests": {
+    "passed": 71,
+    "log": "work/version-title-20261004/tests-all.log"
+  }
+}

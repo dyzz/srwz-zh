@@ -37,6 +37,7 @@ class TitleMenuEditResult:
     changed_image_byte_count: int
     masks: tuple[dict, ...]
     edited_slots: tuple[dict, ...]
+    version_badge: dict | None = None
 
     def to_metadata(self) -> dict:
         return {
@@ -44,6 +45,7 @@ class TitleMenuEditResult:
             "changed_image_byte_count": self.changed_image_byte_count,
             "masks": list(self.masks),
             "edited_slots": list(self.edited_slots),
+            "version_badge": self.version_badge,
         }
 
 
@@ -169,6 +171,9 @@ def build_title_menu(decoded_chunk: bytes, contract: dict) -> TitleMenuEditResul
     except Tim2WritebackError as error:
         raise TitleMenuError(str(error)) from error
     output = source[: record.offset] + injection.data + source[record.end :]
+    version_badge = None
+    if "version_badge" in contract:
+        output, version_badge = apply_version_badge(output, contract["version_badge"])
     if len(output) != len(source):
         raise TitleMenuError("title-menu writeback changed the decoded chunk size")
     mask_report = tuple(
@@ -186,7 +191,60 @@ def build_title_menu(decoded_chunk: bytes, contract: dict) -> TitleMenuEditResul
         changed_image_byte_count=injection.changed_image_byte_count,
         masks=mask_report,
         edited_slots=slots,
+        version_badge=version_badge,
     )
+
+
+def apply_version_badge(decoded_chunk: bytes, badge: dict) -> tuple[bytes, dict]:
+    """Apply a frozen glyph/outline mask to the linear title background.
+
+    Mask zero preserves the original pixel, including texture behind glyphs.
+    The existing CLUT, TIM2 headers and every byte outside glyphs are retained.
+    """
+    records = scan_tim2(decoded_chunk)
+    if not isinstance(badge, dict) or badge.get("record_index") != 2 or len(records) <= 2:
+        raise TitleMenuError("title version background identity drift")
+    record = records[2]
+    picture = record.pictures[0]
+    if (len(record.pictures), picture.width, picture.height, picture.image_type,
+        picture.image_size, picture.clut_size) != (1, 640, 448, 5, 640 * 448, 1024):
+        raise TitleMenuError("title version background layout drift")
+    if _sha256(decoded_chunk[record.offset:record.end]) != badge.get("source_record_sha256"):
+        raise TitleMenuError("title version background source drift")
+    try:
+        x, y, width, height = badge["rectangle"]
+        mask = zlib.decompress(base64.b64decode(badge["mask_zlib_base64"], validate=True))
+        indexes = badge["palette_indexes"]
+    except (KeyError, TypeError, ValueError, zlib.error) as error:
+        raise TitleMenuError("title version mask is invalid") from error
+    if (not all(isinstance(v, int) for v in (x, y, width, height))
+        or min(x, y) < 0 or min(width, height) <= 0
+        or x + width > 640 or y + height > 448
+        or len(mask) != width * height or _sha256(mask) != badge.get("mask_sha256")
+        or set(mask) - {0, 1, 2} or not isinstance(indexes, list) or len(indexes) != 2
+        or not isinstance(badge.get("text"), str) or not badge["text"]):
+        raise TitleMenuError("title version mask contract drift")
+    image_start = picture.offset + picture.header_size
+    original = decoded_chunk[image_start:image_start + picture.image_size]
+    if any(not isinstance(v, int) or v not in set(original) for v in indexes):
+        raise TitleMenuError("title version palette index is absent from source")
+    output = bytearray(decoded_chunk)
+    changed = 0
+    for offset, value in enumerate(mask):
+        if value:
+            target = image_start + (y + offset // width) * 640 + x + offset % width
+            replacement = indexes[value - 1]
+            changed += output[target] != replacement
+            output[target] = replacement
+    image_after = output[image_start:image_start + picture.image_size]
+    if _sha256(image_after) != badge.get("output_image_sha256"):
+        raise TitleMenuError("title version output drift")
+    return bytes(output), {
+        "text": badge["text"], "rectangle": badge["rectangle"],
+        "record_index": 2, "changed_pixel_count": changed,
+        "palette_preserved": True, "non_glyph_pixels_preserved": True,
+        "output_image_sha256": badge["output_image_sha256"],
+    }
 
 
 __all__ = [

@@ -433,10 +433,18 @@ def main() -> int:
     parser.add_argument("--config", default=DEFAULT_CONFIG)
     parser.add_argument("--editions", default="original,best,sp")
     parser.add_argument("--plan", action="store_true", help="Show registered targets without writing or building.")
+    parser.add_argument("--release-version", help="Official release version for the title badge, e.g. 0.5.0; defaults to HEAD tag or latest release + date.")
     parser.add_argument("--force-rebuild", action="store_true", help="Explicit full Original and SP component rebuild, disc re-extraction, uncached readback and re-hashing of every input; normal builds reuse verified components and file identities.")
     parser.add_argument("--require-legacy-equivalence", action="store_true", help="Fail before promotion unless all Original component and ISO bytes match the frozen legacy locks.")
     args = parser.parse_args()
     try:
+        if not args.plan and any(x.strip() in ('original', 'best') for x in args.editions.split(',')):
+            from freeze_title_version import refresh_current_badge
+            import re
+            if args.release_version and not re.fullmatch(r'\d+\.\d+\.\d+', args.release_version):
+                raise ValueError('release version must be x.y.z')
+            text = f'v{args.release_version}' if args.release_version else None
+            print(f'[title] version: {refresh_current_badge(PROJECT_ROOT, text=text)}', flush=True)
         result = build(PROJECT_ROOT, args.config, tuple(x.strip() for x in args.editions.split(",")),
                        plan=args.plan, legacy_equivalence=args.require_legacy_equivalence, force_rebuild=args.force_rebuild)
         print(json.dumps(result, ensure_ascii=False, indent=2))

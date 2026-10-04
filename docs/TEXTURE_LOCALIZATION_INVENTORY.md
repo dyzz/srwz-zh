@@ -74,6 +74,24 @@ selector、动画 quad 和文本位置等伴随数据，不是贴图本体。当
 目标 TIM2 前像和输出索引哈希锁在 `config/assets/title-menu-zh.json`；最终组件不依赖
 旧汉化 VT1 或中间补丁。
 
+主菜单右下角的汉化版本号也由同一合同的 `version_badge` 写入 chunk 6：
+record 2 的线性 `640×448` 背景，在 `(464,416,160,20)` 内仅替换字形和一像素
+描边覆盖的索引。原 CLUT、透明度、背景其余像素、TIM2 头以及菜单按钮保持不变。
+文字使用冻结的 10 像素字形。`build_editions.py` 在捕获构建输入前自动更新：
+HEAD 有版本 tag 时仅显示该版本号；没有 tag 时从最近一次 GitHub release 取得版本号，
+加新加坡时区的构建日期，例如 `v0.4.2+20261004`。离线时使用合同中最近核验的 release
+版本。正式发版也可以通过 `--release-version 0.5.0` 明确指定 `v0.5.0`；冻结器会检查
+镜像标题中的版本号与发布版本一致。
+Original 与 The Best 使用相同的原生 VT1；SP 的标题资源布局不同，不应用本合同。
+
+普通构建用冻结的数字、`v`、加号和点字形组合掩码并同步组件输入锁，不加载系统字体。
+只有改变字体或字号时才使用作者工具的 `--font`（需要 Pillow）：
+
+```bash
+python3 tools/build_editions.py --editions original,best
+python3 tools/build_editions.py --release-version 0.5.0
+```
+
 | 项目 | 当前值 |
 | --- | --- |
 | VT1 顶层 chunk | `6` |
@@ -98,7 +116,7 @@ TIM2 metadata 和 CLUT 保持不变。低层 8-bpp TIM2 解析／写回仍位于
 `tools/srwz/tim2_writeback.py`。
 
 当前生产入口是 `tools/srwz/title_menu.py`。它核对原版 decoded chunk、TIM2 record、
-源索引和每张掩码哈希，只替换前八个标题槽，再使用生产 Rust codec 重压并回读。
+源索引和每张掩码哈希，替换前八个标题槽及版本号字形，再使用生产 Rust codec 重压并回读。
 构建 manifest 记录实际变化像素、压缩大小和非目标字节保持结果。历史截图只证明当时
 候选的画面效果；当前精确 ISO 的运行证据仍需按 ISO 哈希单独记录。
 

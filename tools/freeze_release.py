@@ -43,6 +43,11 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
     if set(verification.get('verified_editions', [])) != set(RELEASE_EDITIONS):
         raise ValueError('release requires original, best and sp in one verified batch')
     batch = json.loads(batch_path.read_text(encoding='utf-8'))
+    inputs = ROOT / batch['input_snapshot']
+    inputs = inputs.parent / 'project'
+    badge = json.loads((inputs / 'config/assets/title-menu-zh.json').read_text())['version_badge']
+    if badge['text'] != tag:
+        raise ValueError(f"title badge is {badge['text']}; rebuild with --release-version {version} before freezing")
     frozen = ROOT / f'build/iso/{tag}'
     evidence = ROOT / f'manifests/releases/{tag}'
     config_path = ROOT / f'config/release/{tag}.json'
@@ -58,8 +63,6 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
               'validation': f'manifests/releases/{tag}/validation.json', 'editions': {},
               'xdelta': xdelta or latest_xdelta_contract(),
               'output': {'directory': f'build/release/{tag}'}, 'known_limitations': [], 'evidence': []}
-    inputs = ROOT / batch['input_snapshot']
-    inputs = inputs.parent / 'project'
     for result in batch['results']:
         edition = result['edition_id']
         print(f'[{edition}] freeze verified image and reread its skip hook', flush=True)

@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "scenario_id": "title-version-20261004",
+  "base_scenario": {
+    "scenario_id": "title-version-20261004",
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/version-title-20261004/runtime-small-scenario.json",
+    "size": 1523,
+    "sha256": "99df7cebd857934e93bdcf7d778b04a5f7a9ab350b104376e84b1ba90ca4430d"
+  },
+  "description": "Skip the opening CG and prove that the SRWZ title menu is ready for deterministic input.",
+  "status": "passed",
+  "started_at": "2026-10-04T14:09:55.464092+00:00",
+  "output_directory": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/version-title-20261004-small",
+  "environment": {
+    "system": "Darwin",
+    "machine": "x86_64",
+    "python": "3.12.14",
+    "libretro_py": "0.8.3"
+  },
+  "core_options": {
+    "pcsx2_renderer": "Software (SW)",
+    "pcsx2_shared_memory_cards": "disabled",
+    "pcsx2_fastboot": "enabled"
+  },
+  "custom_input_sequences": [],
+  "input_actions": [
+    {
+      "frame": 1801,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "skip-opening-cg"
+    }
+  ],
+  "captures": [
+    {
+      "id": "title-main-menu",
+      "frame": 1920,
+      "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/version-title-20261004-small/frames/01920-title-main-menu.png",
+      "width": 640,
+      "height": 448,
+      "pixel_format": "XRGB8888",
+      "mean_luma": 122.433883,
+      "dhash": "432f2b8287092955",
+      "dhash_region": null,
+      "assertion_dhash": "432f2b8287092955",
+      "rgba_sha256": "3e8a0a612565b34d36b4dc96e20e7cd61e6e7cd55ab3f07f22e6205f80a0577e",
+      "png_sha256": "102208acb3746d33565a7dacad830f5ee134ea7e9def293e945022f2ab9de136",
+      "assertions": [
+        {
+          "assertion": "expected_width",
+          "passed": true,
+          "detail": "actual=640 expected=640"
+        },
+        {
+          "assertion": "expected_height",
+          "passed": true,
+          "detail": "actual=448 expected=448"
+        },
+        {
+          "assertion": "min_mean_luma",
+          "passed": true,
+          "detail": "actual=122.433883 minimum=80.0"
+        },
+        {
+          "assertion": "max_mean_luma",
+          "passed": true,
+          "detail": "actual=122.433883 maximum=180.0"
+        },
+        {
+          "assertion": "dhash_distance",
+          "passed": true,
+          "detail": "actual=432f2b8287092955 expected=432f2b8287092955 distance=0 maximum=2"
+        }
+      ]
+    }
+  ],
+  "core": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+    "size": 11447720,
+    "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+    "library_name": "LRPS2",
+    "library_version": "v2.0.0-16e520b",
+    "valid_extensions": "elf|iso|ciso|cue|gz|chd|cso|zso|m3u",
+    "need_fullpath": true
+  },
+  "system_directory": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/system",
+    "bios_file_count": 16
+  },
+  "iso": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/version-title-20261004/title-version-original.iso",
+    "size": 3758358528,
+    "sha256": "daa210c2afa5539ae4ffaa0fe04d6254fa95b0eecc9140964544869debabb79b",
+    "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/config/iso/zh-release-current-build.json"
+  },
+  "memory_card": {
+    "source_path": "/Users/nate/Library/Application Support/ARMSX2/memcards/Mcd001.ps2",
+    "source_size": 8650752,
+    "source_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+    "expected_sha256": null,
+    "isolated_path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/version-title-20261004-small/save/title-version-original.ps2",
+    "isolated_size_before": 8650752,
+    "isolated_sha256_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+    "copy_verified": true,
+    "source_sha256_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+    "source_unchanged": true,
+    "isolated_size_after": 8650752,
+    "isolated_sha256_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0"
+  },
+  "finished_at": "2026-10-04T14:10:23.785400+00:00"
+}
