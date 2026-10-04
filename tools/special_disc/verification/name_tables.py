@@ -11,6 +11,7 @@ from srwz.codec import decode_production
 from srwz.font import (ascii_glyph_index, decode_glyph, glyph_index_for_code,
                        read_extended_glyph_table, standard_glyph_index)
 from srwz.text import decode_text, normalize_original_fullwidth_ascii
+from srwz.library_work_titles import compact_library_list_name
 
 ROOT = Path(__file__).resolve().parents[3]
 REFERENCE = ROOT / 'config/products/special-disc/shared-name-reference.json'
@@ -122,6 +123,7 @@ def verify_name_tables(archive, source_archive, font, proposal, readback, source
                 require(bool(re.fullmatch('[A-Za-z0-9 ?!.-]*', latin)),
                         f'SP name has no translation binding: {kind}/{index:04X}/{field}: {old.text}')
                 expected = [latin]
+        expected=[compact_library_list_name(value) for value in expected]
         require(text in expected, f'SP name translation mismatch: {kind}/{index:04X}/{field}: {text!r} != {expected!r}')
         verify_encoded_glyphs(data[at:at + actual.consumed], font, proposal, extended=extended, cache=codes)
         inventory.append(dict(kind=kind, index=index, field=field, offset=at,

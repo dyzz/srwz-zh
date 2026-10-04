@@ -37,6 +37,7 @@ from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
 from special_disc.writeback.shared_library import verify_shared_library
+from srwz.library_work_titles import verify_work_title_pool
 from special_disc.writeback.bazaar_heading import verify_bazaar_heading
 from srwz.ui_menu_restore import verify_menu_restore
 from special_disc.writeback.battle_status import verify_status_labels, MEMBER as STATUS_MEMBER
@@ -95,7 +96,7 @@ def main(iso=None, work=None):
     library_counts = verify_shared_library(
         member('SLPS_259.20'), member,
         lambda name: read_member(library_base, library_base_members, name),
-        st.read_disc_member, table, overrides, manifest['current_shared_library'])
+        st.read_disc_member, table, overrides, manifest['current_shared_library'], readback=readback)
     for key, value in library_counts.items():
         counts['current_library_' + key] = value
     proposal=load(PROPOSAL)
@@ -290,6 +291,8 @@ def main(iso=None, work=None):
         counts['chart_key_help']+=1
     # System text: account for every template expansion and every ticker source.
     system=load(WORK/'system/report.json');cd=decode_production(member('DATA/COMPDATA.BN')).output
+    work_title_proof=verify_work_title_pool(cd,decode_production(st.read_disc_member('DATA/COMPDATA.BN')).output,readback,edition='sp')
+    work_title_locations={r['source_offset']:r for r in work_title_proof['titles']}
     shared={r['id']:r for r in system['tail_shared']}
     rows=load(ROOT/'corpus/zh/special-disc/system-text.json')['entries']
     for row in load(ROOT/'corpus/zh/special-disc/frame-text.json')['entries']:
@@ -316,6 +319,10 @@ def main(iso=None, work=None):
             require(target.startswith(('sd/exe/','sd/compdata/')),'unknown system source kind')
             at=int(shared[target]['now'],16) if target in shared else int(target.rsplit('/',1)[1],16)
             data=exe if target.startswith('sd/exe/') else cd
+            if target.startswith('sd/compdata/') and at in work_title_locations:
+                binding=work_title_locations[at]
+                # This source binding now resolves through its locked relocated table.
+                at=binding['offset'];expected=binding['stored_translation']
             require(decode_text(data,at,readback).text==expected,f'system ISO reread: {target}');counts['system_writes']+=1
             for site in shared.get(target,{}).get('pointer_slots',[]):require(struct.unpack_from('<I',data,int(site,16))[0]==st.sd.COMPDATA_BASE+at,'shared system title pointer')
     result=dict(status='all_bound_text_reread_from_final_iso',iso=manifest['iso'],counts=dict(counts),component_hashes_verified=True,scope='STAGE dialogue/speakers/conditions/formations; frame physical records; system writes/templates/tickers. SRVC and indexed image component readbacks are bound to exact ISO member hashes.')

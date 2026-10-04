@@ -40,6 +40,7 @@ from srwz.library import (
     validate_library_scope_mapping,
     verify_sound_title_source,
 )
+from srwz.library_typography import library_typography
 from srwz.library_unlock import apply_library_default_unlock
 from srwz.nisv_library_menu import (
     build_nisv_library_menu,
@@ -681,6 +682,8 @@ def main() -> int:
                     )
                     chunk_scoped_fields.append(field_id)
                 translation = normalize_original_fullwidth_ascii(translation)
+                if domain in {'robot', 'character'}:
+                    translation = library_typography(translation, field.tag)
                 if field.tag in BODY_TAGS:
                     try:
                         dense_text, dense_widths = reflow_body(
@@ -1136,6 +1139,7 @@ def main() -> int:
             "config": file_lock(config_path),
             "scope_config": file_lock(scope_path),
             "corpus": file_lock(corpus_path),
+            "typography": file_lock(PROJECT_ROOT / "tools/srwz/library_typography.py"),
             "font_manifest": file_lock(font_manifest_path),
             "font_proposal": file_lock(proposal_path),
             "executable": file_lock(executable_path, executable),

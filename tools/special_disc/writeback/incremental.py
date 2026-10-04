@@ -18,7 +18,7 @@ COMPONENTS = ('system', 'stage', 'srvc', 'frame', 'image-labels')
 CACHE_PATH = 'work/cache/sp-components'
 SCHEMA = 1
 CORPORA = {
-    'system': ('corpus/zh/special-disc/system-text.json', 'corpus/zh/special-disc/frame-text.json'),
+    'system': ('corpus/zh/library/v0.2-reviewed.json', 'corpus/zh/library/sp-reviewed-supplement.json', 'corpus/zh/special-disc/system-text.json', 'corpus/zh/special-disc/frame-text.json'),
     'stage': ('corpus/zh/special-disc/story-dialogue.json', 'corpus/zh/special-disc/challenge-dialogue.json',
               'corpus/zh/special-disc/frame-text.json', 'corpus/zh/special-disc/squad-names.json',
               'corpus/zh/story-dialogue/', 'corpus/zh/story-speakers.json', 'corpus/zh/story-conditions.json'),

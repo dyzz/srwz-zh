@@ -2227,9 +2227,10 @@ def _apply_full_pilot_names(
             raise FullStoryComponentError(
                 f"unit-name structure drift: {original.entry_id}"
             )
-        translation = normalize_original_fullwidth_ascii(
+        from srwz.library_work_titles import compact_library_list_name
+        translation = compact_library_list_name(normalize_original_fullwidth_ascii(
             decision["translation"]
-        )
+        ))
         try:
             encoded = encode_text(
                 translation,
@@ -2462,9 +2463,9 @@ def _apply_full_pilot_names(
     for original in original_names.unit_entries:
         if (
             reread_by_id[original.entry_id].text.replace("\u3000", " ")
-            != normalize_original_fullwidth_ascii(
+            != compact_library_list_name(normalize_original_fullwidth_ascii(
                 unit_decisions[original.entry_id]["translation"]
-            )
+            ))
         ):
             raise FullStoryComponentError(
                 f"unit-name readback mismatch: {original.entry_id}"
@@ -5642,199 +5643,16 @@ def _apply_library_work_title_slots(
     output_table,
     encoding_overrides: dict[str, int],
 ) -> tuple[bytes, dict]:
-    """Write the LIBRARY detail-page work-title table into locked slots."""
-
-    if not isinstance(references, dict) or not references:
-        raise FullStoryComponentError(
-            "LIBRARY work-title slot map is invalid"
-        )
-    if not isinstance(canonical_document, dict):
-        raise FullStoryComponentError(
-            "canonical LIBRARY work-title corpus is invalid"
-        )
-    canonical_entries = canonical_document.get("entries")
-    if (
-        canonical_document.get("language") != "zh-Hans"
-        or canonical_document.get("scope", {}).get("surface")
-        != "title-idle-auto-demo"
-        or not isinstance(canonical_entries, list)
-        or not canonical_entries
-    ):
-        raise FullStoryComponentError(
-            "canonical LIBRARY work-title corpus drift"
-        )
-
-    canonical_by_id = {}
-    for ordinal, entry in enumerate(canonical_entries):
-        expected_id = f"auto-demo/title/{ordinal:02d}"
-        if (
-            not isinstance(entry, dict)
-            or entry.get("id") != expected_id
-            or entry.get("editorial_status") != "reviewed"
-            or not isinstance(entry.get("source_text"), str)
-            or not entry["source_text"]
-            or entry.get("source_text_sha256")
-            != sha256_bytes(entry["source_text"].encode("utf-8"))
-            or not isinstance(entry.get("translation"), str)
-            or not entry["translation"]
-        ):
-            raise FullStoryComponentError(
-                f"canonical LIBRARY work-title entry drift: {expected_id}"
-            )
-        canonical_by_id[expected_id] = entry
-
-    output = bytearray(current)
-    ranges = []
-    title_reports = []
-    referenced_ids = set()
-    changed_offsets = set()
-    minimum_headroom = None
-    write_count = 0
-    no_op_count = 0
-    for raw_offset, reference in sorted(
-        references.items(), key=lambda item: int(item[0], 16)
-    ):
-        try:
-            offset = int(raw_offset, 16)
-        except (TypeError, ValueError) as error:
-            raise FullStoryComponentError(
-                f"LIBRARY work-title offset is invalid: {raw_offset!r}"
-            ) from error
-        if (
-            not isinstance(raw_offset, str)
-            or raw_offset != f"0x{offset:X}"
-            or not isinstance(reference, dict)
-            or set(reference)
-            != {"title_id", "capacity", "source_span_sha256"}
-            or not isinstance(reference.get("title_id"), str)
-            or not isinstance(reference.get("capacity"), int)
-            or isinstance(reference.get("capacity"), bool)
-            or reference["capacity"] <= 0
-            or not isinstance(reference.get("source_span_sha256"), str)
-            or len(reference["source_span_sha256"]) != 64
-        ):
-            raise FullStoryComponentError(
-                f"LIBRARY work-title slot is invalid at {raw_offset!r}"
-            )
-        title_id = reference["title_id"]
-        if title_id in referenced_ids or title_id not in canonical_by_id:
-            raise FullStoryComponentError(
-                f"LIBRARY work-title reference drift: {title_id!r}"
-            )
-        referenced_ids.add(title_id)
-        capacity = reference["capacity"]
-        end = offset + capacity
-        if end > len(original) or end > len(current):
-            raise FullStoryComponentError(
-                f"LIBRARY work-title slot is outside COMPDATA: {raw_offset}"
-            )
-        if ranges and offset < ranges[-1][1]:
-            raise FullStoryComponentError(
-                f"LIBRARY work-title slots overlap at {raw_offset}"
-            )
-        ranges.append((offset, end))
-
-        canonical = canonical_by_id[title_id]
-        source_span = original[offset:end]
-        terminator = source_span.find(b"\0")
-        try:
-            source_text = source_span[:terminator].decode("cp932")
-        except UnicodeDecodeError as error:
-            raise FullStoryComponentError(
-                f"LIBRARY work-title source cannot decode: {title_id}"
-            ) from error
-        if (
-            terminator <= 0
-            or source_text != canonical["source_text"]
-            or any(source_span[terminator + 1 :])
-            or sha256_bytes(source_span)
-            != reference["source_span_sha256"]
-        ):
-            raise FullStoryComponentError(
-                f"LIBRARY work-title source preimage drift: {title_id}"
-            )
-        stored_translation = _two_byte_visible_spaces(
-            normalize_original_fullwidth_ascii(canonical["translation"])
-        )
-        try:
-            encoded = encode_text(
-                stored_translation,
-                table,
-                overrides=encoding_overrides,
-                terminate=True,
-            )
-        except (SrwzTextEncodeError, ValueError) as error:
-            raise FullStoryComponentError(
-                f"LIBRARY work-title encoding failed: {title_id}: {error}"
-            ) from error
-        if len(encoded) > capacity:
-            raise FullStoryComponentError(
-                f"LIBRARY work-title overflow: {title_id} "
-                f"({len(encoded)} > {capacity})"
-            )
-        replacement = encoded + bytes(capacity - len(encoded))
-        current_span = current[offset:end]
-        if current_span not in {source_span, replacement}:
-            raise FullStoryComponentError(
-                f"LIBRARY work-title current preimage drift: {title_id}"
-            )
-        if current_span != replacement:
-            output[offset:end] = replacement
-            write_count += 1
-            changed_offsets.update(
-                index
-                for index, (before, after) in enumerate(
-                    zip(current_span, replacement), start=offset
-                )
-                if before != after
-            )
-        else:
-            no_op_count += 1
-        reread = decode_text(bytes(output), offset, output_table, end=end)
-        if (
-            reread.text != stored_translation
-            or any(output[offset + reread.consumed : end])
-        ):
-            raise FullStoryComponentError(
-                f"LIBRARY work-title reread mismatch: {title_id}"
-            )
-        headroom = capacity - len(encoded)
-        minimum_headroom = (
-            headroom
-            if minimum_headroom is None
-            else min(minimum_headroom, headroom)
-        )
-        title_reports.append(
-            {
-                "id": title_id,
-                "offset": offset,
-                "capacity": capacity,
-                "source_text": source_text,
-                "translation": canonical["translation"],
-                "stored_translation": stored_translation,
-                "encoded_size": len(encoded),
-                "headroom": headroom,
-            }
-        )
-
-    if referenced_ids != set(canonical_by_id):
-        raise FullStoryComponentError(
-            "LIBRARY work-title slot coverage drift"
-        )
-    return bytes(output), {
-        "entry_count": len(title_reports),
-        "write_entry_count": write_count,
-        "no_op_entry_count": no_op_count,
-        "minimum_output_headroom": minimum_headroom,
-        "changed_byte_count": len(changed_offsets),
-        "titles": title_reports,
-        "canonical_title_corpus_reused": True,
-        "source_preimages_sha256_exact": True,
-        "fixed_spans_preserved": True,
-        "pointer_bytes_unchanged": True,
-        "zero_padding_preserved": True,
-        "reread_exact": True,
-    }
+    """Compile the actual COMPDATA detail-page work-title pool."""
+    from srwz.library_work_titles import apply_work_title_pool, verify_work_title_pool
+    try:
+        output, report = apply_work_title_pool(current, original, table, encoding_overrides,
+                                               canonical=canonical_document)
+        verified = verify_work_title_pool(output, original, output_table, canonical=canonical_document)
+    except ValueError as error:
+        raise FullStoryComponentError(str(error)) from error
+    report['reread_exact'] = verified['readback_exact']
+    return output, report
 
 
 def _apply_remaining_ui(
@@ -12106,8 +11924,10 @@ def _build_components(
                     "source_preimages_sha256_exact"
                 ]
                 and remaining_ui_report["compdata_library_work_titles"][
-                    "pointer_bytes_unchanged"
+                    "pointer_targets_reread_exact"
                 ]
+                and remaining_ui_report["compdata_library_work_titles"]["pool_bounds_preserved"]
+                and remaining_ui_report["compdata_library_work_titles"]["pointer_count"] == 55
                 and remaining_ui_report["compdata_context_help"][
                     "placeholder_control_tokens_preserved"
                 ]

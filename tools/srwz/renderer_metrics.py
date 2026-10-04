@@ -10,7 +10,7 @@ _DIMENSION = re.compile(r"<(width|space):([0-9A-Fa-f]{2})>\Z")
 # Only expression/identifier punctuation belongs to compact scopes. Chinese
 # sentence punctuation remains outside; in particular U+FF0C is not a digit
 # grouping separator. Keep this alphabet shared with the layout tokenizer.
-COMPACT_SCOPE_CHARACTERS = r"A-Za-z0-9Ａ-Ｚａ-ｚ０-９ .,:：．_'/／＋+％%~～〜×÷±＝=　－−·《》-"
+COMPACT_SCOPE_CHARACTERS = r"A-Za-z0-9Ａ-Ｚａ-ｚ０-９Σσ∀αβγδΩⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ()（）\[\]［］ .,:：．_'/／＋+％%~～〜×÷±＝=　－−·《》-"
 _COMPACT_ALNUM = r"(?:[0-9]{1,3}(?:,[0-9]{3})+|[A-Za-z0-9]+)"
 COMPACT_VISIBLE_RUN = re.compile(
     rf"[+＋－±-]?{_COMPACT_ALNUM}"

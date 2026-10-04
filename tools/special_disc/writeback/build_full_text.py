@@ -253,7 +253,7 @@ def assemble():
     patches[EXE], library_members, library_report = timed(
         'current-shared-library', apply_shared_library, patches[EXE],
         lambda name: read_member(BASE, members, name), read_disc_member,
-        source_table, stored_overrides)
+        source_table, stored_overrides, compdata=patches[CD])
     patches.update(library_members)
     qa_base=patches.get(QA_MEMBER)
     if qa_base is None:qa_base=read_member(BASE,members,QA_MEMBER)

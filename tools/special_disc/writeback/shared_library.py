@@ -15,11 +15,14 @@ import struct
 from build_library_v02_component import BODY_TAGS, load_production_layout, reflow_body
 from special_disc.writeback.migrate_library import raw_fields, serialize, sp_offsets
 from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.library_typography import library_typography
+from srwz.library_work_titles import CONTRACT as WORK_TITLE_CONTRACT, apply_work_title_pool, verify_work_title_pool
 from srwz.library import parse_zkn_decoded_chunk
 from srwz.text import encode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces
 
 ROOT = Path(__file__).resolve().parents[3]
 CORPUS = ROOT / 'corpus/zh/library/v0.2-reviewed.json'
+SUPPLEMENT = ROOT / 'corpus/zh/library/sp-reviewed-supplement.json'
 CONFIG = ROOT / 'config/library/v0.2-reviewed-writeback.json'
 ARCHIVES = {
     'DATA/MTVZKNRT.BIN': ('robot', 'ROBO', 0x387160),
@@ -70,15 +73,39 @@ def field_translation(rows, scoped, domain, document, field):
     return normalize_original_fullwidth_ascii(text)
 
 
+def extend_shared_scopes(rows, supplement):
+    """Bind exact SP duplicate text whose field tag differs from the main game."""
+    for binding in supplement.get('shared_scope_extensions', []):
+        key = binding['source_text_sha256']
+        row = rows.get(key)
+        if (row is None or row['id'] != binding['shared_id']
+                or row['domains'] != binding['domains']
+                or row['tags'] != binding['shared_tags']
+                or binding['tags'] != ['DSC2'] or row['tags'] != ['DSCR']):
+            raise ValueError('SP shared scope extension identity drift')
+        rows[key] = {**row, 'tags': row['tags'] + binding['tags']}
+    return rows
+
+
 def authoring():
     corpus = json.loads(CORPUS.read_text())
     config = json.loads(CONFIG.read_text())
     layout = config['layout']
     widths = layout['body_line_widths']
     profiles, terms, profile_path, release_path, glossary_paths = load_production_layout(layout, widths)
-    inputs = [CORPUS, CONFIG, profile_path, release_path, *glossary_paths]
+    inputs = [WORK_TITLE_CONTRACT, ROOT / 'corpus/zh/auto-demo-work-titles.json', ROOT / 'tools/srwz/library_work_titles.py', CORPUS, SUPPLEMENT, ROOT / 'tools/srwz/library_typography.py', CONFIG, profile_path, release_path, *glossary_paths]
     locks = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in inputs}
-    return translations(corpus), corpus.get('field_translation_overrides', []), widths, profiles, terms, locks
+    rows = translations(corpus)
+    supplement = json.loads(SUPPLEMENT.read_text())
+    if supplement.get('status') != 'reviewed' or not supplement.get('release_eligible'):
+        raise ValueError('SP supplemental library is not reviewed')
+    for row in supplement['entries']:
+        key = sha(row['source_text'].encode())
+        if key != row['source_text_sha256'] or key in rows or not row['translation']:
+            raise ValueError('SP supplemental source identity drift')
+        rows[key] = row
+    extend_shared_scopes(rows, supplement)
+    return rows, corpus.get('field_translation_overrides', []), widths, profiles, terms, locks
 
 
 def replacement_fields(native, baseline_decoded, domain, author, table, overrides):
@@ -98,6 +125,8 @@ def replacement_fields(native, baseline_decoded, domain, author, table, override
             output.append((tag, old))
             counts['canary_fields_preserved'] += 1
             continue
+        if domain in {'robot', 'character'}:
+            text = library_typography(text, tag)
         if tag in BODY_TAGS:
             text, _ = reflow_body(text, widths[kind], profile=profiles[kind], protected_terms=terms)
             counts['current_body_fields'] += 1
@@ -108,7 +137,7 @@ def replacement_fields(native, baseline_decoded, domain, author, table, override
     return output, counts
 
 
-def apply_shared_library(executable, current_member, source_member, table, overrides):
+def apply_shared_library(executable, current_member, source_member, table, overrides, *, compdata=None):
     """Return archives + executable with only the three owned offset tables edited."""
     author = authoring()
     original_exe = source_member('SLPS_259.20')
@@ -157,10 +186,19 @@ def apply_shared_library(executable, current_member, source_member, table, overr
                                native_sha256=sha(source), canary_sha256=sha(base), **counts)
     report = dict(schema_version=1, inputs=author[-1], archives=reports,
                   policy='current_reviewed_shared_fields_with_sp_canary_fallback')
+    if compdata is not None:
+        decoded = decode_production(compdata)
+        native = decode_production(source_member('DATA/COMPDATA.BN')).output
+        data, title_report = apply_work_title_pool(decoded.output, native, table, overrides, edition='sp')
+        packed = reencode_changed_suffix(compdata, data, strategy='rust-fit', max_output_size=len(compdata), original_result=decoded)
+        if len(packed) > len(compdata) or decode_production(packed).output != data:
+            raise ValueError('SP library work title compression mismatch')
+        outputs['DATA/COMPDATA.BN'] = packed + bytes(len(compdata)-len(packed))
+        report['work_title_table'] = title_report
     return bytes(exe), outputs, report
 
 
-def verify_shared_library(executable, actual_member, baseline_member, source_member, table, overrides, report):
+def verify_shared_library(executable, actual_member, baseline_member, source_member, table, overrides, report, *, readback=None):
     """Reread every final field against current source and preserved canary fields."""
     author = authoring()
     if author[-1] != report['inputs']:
@@ -185,4 +223,11 @@ def verify_shared_library(executable, actual_member, baseline_member, source_mem
                 raise ValueError(f'SP final library field mismatch: {member}/{index}')
             counts.update(tally)
             counts['documents'] += 1
+    if 'work_title_table' in report:
+        # Semantic reread uses the projected runtime table supplied by the caller.
+        actual = decode_production(actual_member('DATA/COMPDATA.BN')).output
+        native = decode_production(source_member('DATA/COMPDATA.BN')).output
+        proof = verify_work_title_pool(actual, native, readback or table, edition='sp')
+        counts['work_titles'] = proof['entry_count']
+        counts['work_title_pointers'] = proof['pointer_count']
     return dict(counts)

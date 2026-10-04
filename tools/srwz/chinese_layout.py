@@ -45,10 +45,10 @@ _STRUCTURAL_TOKEN = re.compile(
     r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
 _COMPACT_VISIBLE_SCOPE = re.compile(
-    r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
+    r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>(?:<height:[0-9A-Fa-f]{2}>)?"
     rf"([{COMPACT_SCOPE_CHARACTERS}]+)"
     r"(?:<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
-    r"|<space:[0-9A-Fa-f]{2}><width:[0-9A-Fa-f]{2}>)"
+    r"|<space:[0-9A-Fa-f]{2}><width:[0-9A-Fa-f]{2}>)(?:<height:[0-9A-Fa-f]{2}>)?"
 )
 _LATIN_TERM = re.compile(r"[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+(?:[.·_-][A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+)*[ 　]?")
 _NUMBER_WITH_UNIT = re.compile(

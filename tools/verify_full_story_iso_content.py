@@ -2311,9 +2311,10 @@ def verify_final_compdata(
                         f"{source_entry.entry_id}"
                     )
                 relocated_pointer_count += 1
-        expected_unit = normalize_original_fullwidth_ascii(
+        from srwz.library_work_titles import compact_library_list_name
+        expected_unit = compact_library_list_name(normalize_original_fullwidth_ascii(
             unit_decisions[source_entry.entry_id]["translation"]
-        )
+        ))
         actual_unit = (
             None
             if actual_entry is None
@@ -2819,90 +2820,11 @@ def verify_final_compdata(
         references: dict[str, dict],
         canonical: dict,
     ) -> dict:
-        entries = canonical.get("entries")
-        if not isinstance(entries, list) or not entries:
-            raise SystemExit("canonical LIBRARY work-title corpus drift")
-        canonical_by_id = {entry.get("id"): entry for entry in entries}
-        if (
-            len(canonical_by_id) != len(entries)
-            or set(canonical_by_id)
-            != {f"auto-demo/title/{index:02d}" for index in range(len(entries))}
-        ):
-            raise SystemExit("canonical LIBRARY work-title IDs drift")
-        if {
-            reference.get("title_id") for reference in references.values()
-        } != set(canonical_by_id):
-            raise SystemExit("LIBRARY work-title slot coverage drift")
-
-        minimum_headroom = None
-        titles = []
-        ranges = []
-        for raw_offset, reference in sorted(
-            references.items(), key=lambda item: int(item[0], 16)
-        ):
-            offset = int(raw_offset, 16)
-            capacity = reference["capacity"]
-            end = offset + capacity
-            if ranges and offset < ranges[-1][1]:
-                raise SystemExit(
-                    f"LIBRARY work-title overlap at {raw_offset}"
-                )
-            ranges.append((offset, end))
-            title_id = reference["title_id"]
-            entry = canonical_by_id[title_id]
-            source_span = original[offset:end]
-            terminator = source_span.find(b"\0")
-            try:
-                source_text = source_span[:terminator].decode("cp932")
-            except UnicodeDecodeError as error:
-                raise SystemExit(
-                    f"LIBRARY work-title source cannot decode: {title_id}"
-                ) from error
-            if (
-                terminator <= 0
-                or source_text != entry.get("source_text")
-                or sha256_bytes(source_span)
-                != reference.get("source_span_sha256")
-                or any(source_span[terminator + 1 :])
-            ):
-                raise SystemExit(
-                    f"LIBRARY work-title source preimage drift: {title_id}"
-                )
-            expected = normalize_original_fullwidth_ascii(
-                entry["translation"]
-            ).replace(" ", "\u3000")
-            actual = decode_text(data, offset, output_table, end=end)
-            if actual.text != expected or any(data[offset + actual.consumed : end]):
-                raise SystemExit(
-                    f"LIBRARY work-title mismatch: {title_id}: "
-                    f"expected={expected!r} actual={actual.text!r}"
-                )
-            headroom = capacity - actual.consumed
-            minimum_headroom = (
-                headroom
-                if minimum_headroom is None
-                else min(minimum_headroom, headroom)
-            )
-            titles.append(
-                {
-                    "id": title_id,
-                    "offset": offset,
-                    "capacity": capacity,
-                    "translation": entry["translation"],
-                    "stored_translation": actual.text,
-                    "headroom": headroom,
-                }
-            )
-        return {
-            "entry_count": len(titles),
-            "minimum_output_headroom": minimum_headroom,
-            "titles": titles,
-            "canonical_title_corpus_reused": True,
-            "source_preimages_sha256_exact": True,
-            "fixed_spans_preserved": True,
-            "zero_padding_preserved": True,
-            "readback_exact": True,
-        }
+        from srwz.library_work_titles import verify_work_title_pool
+        try:
+            return verify_work_title_pool(data, original, output_table, canonical=canonical)
+        except ValueError as error:
+            raise SystemExit(str(error)) from error
 
     direct_report = verify_offset_map(
         decoded_compdata.output,
