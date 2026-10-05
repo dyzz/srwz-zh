@@ -3,8 +3,8 @@
   "batch_id": "community-20261005",
   "source_commit": "cd4278841c7525cb846c513a6578c036b958fa41",
   "live_snapshot_sha256": "f6a07dc1208ab8a8bd630ceb2cd148d8e53375c60f9cc955da56f7a570da2ed3",
-  "auto_accepted_count": 39,
-  "user_confirmed_count": 7,
+  "auto_accepted_count": 38,
+  "user_confirmed_count": 8,
   "decisions": [
     {
       "suggestionId": "53b4f552-b538-426d-b378-5367e21fa262",
@@ -435,11 +435,12 @@
       "targetId": "battle:16686",
       "kind": "battle-line",
       "sourceTextSha256": "7585413b68a878fdeb3b5db138826bd6d6d79f067515c69dfc3569f43b89348a",
-      "previousTranslation": "“多令人不快的家伙！”",
-      "finalTranslation": "“多么令人不快的家伙！”",
-      "choice": "auto-accepted-submission",
-      "reason": "补“么”修正现译不自然的感叹句，对应何て不愉快的强烈不满。",
-      "encodedSize": 25
+      "previousTranslation": "“多么令人不快的家伙！”",
+      "finalTranslation": "“怎么会有如此令人不快的家伙！”",
+      "choice": "nero",
+      "reason": "用户在本轮聊天明确指定：battle:16686 采纳“怎么会有如此令人不快的家伙！”",
+      "confirmedAt": "2026-10-05T13:27:28.022946+00:00",
+      "encodedSize": 33
     },
     {
       "suggestionId": "3f7bcd07-9069-4f71-8815-1d0a7daf5612",
@@ -653,6 +654,31 @@
           "path": "corpus/zh/battle/srvc-lines.json",
           "beforeSha256": "8f2713510528cb7bd9e26f5338f46f525f83e8c8058a3b75e67c4d9cd8bcccbf",
           "afterSha256": "5560e11d553d92a9f1dfbc3462aca81c146dba25435077a5aad99e81a942f6b5"
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "decisions": [
+        {
+          "suggestionId": "01713dd4-2b05-4aa2-9ad4-9ad580a5dc4d",
+          "targetId": "battle:16686",
+          "kind": "battle-line",
+          "sourceTextSha256": "7585413b68a878fdeb3b5db138826bd6d6d79f067515c69dfc3569f43b89348a",
+          "previousTranslation": "“多么令人不快的家伙！”",
+          "finalTranslation": "“怎么会有如此令人不快的家伙！”",
+          "choice": "nero",
+          "reason": "用户在本轮聊天明确指定：battle:16686 采纳“怎么会有如此令人不快的家伙！”",
+          "confirmedAt": "2026-10-05T13:27:28.022946+00:00",
+          "encodedSize": 33
+        }
+      ],
+      "linked_changes": [],
+      "source_changes": [
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "beforeSha256": "5560e11d553d92a9f1dfbc3462aca81c146dba25435077a5aad99e81a942f6b5",
+          "afterSha256": "c1df792e528381260bb34b085ec6888be2e12c19f0ed5d079688de3088e5ed6c"
         }
       ]
     }
