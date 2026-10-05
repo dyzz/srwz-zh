@@ -1,0 +1,149 @@
+{
+  "batch_id": "name-unification-20261005",
+  "decidedBy": "user",
+  "decidedAt": "2026-10-05",
+  "rules": {
+    "kuladis": "グラディス 统一为“库拉迪斯”（塔丽亚·库拉迪斯）",
+    "diana-sama": "ディアナ様＝迪安娜大人（默认；有明确语境理由才设例外）",
+    "diana-kakka": "ディアナ閣下＝迪安娜阁下（保留原文特意使用的另一称谓）"
+  },
+  "scope": "仅替换上述名称/称谓字串；字数不变，断行与其余文字未改；未提交 git。",
+  "generatedAt": "2026-10-05T15:35:57.466863+00:00",
+  "files": [
+    {
+      "path": "corpus/zh/story-dialogue/stage-010.json",
+      "rule": "kuladis",
+      "before": "格拉迪斯",
+      "after": "库拉迪斯",
+      "occurrences": 1,
+      "beforeSha256": "a6ae22654cfbbc7c125f4b262843df86ac56efc78b47d8a4f2d06019937dfdb6",
+      "afterSha256": "04a568961ea11a040e36b3a9ca6eb512652ea77b7925b7008eb8582ca615e9a6"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-049.json",
+      "rule": "kuladis",
+      "before": "格拉迪斯",
+      "after": "库拉迪斯",
+      "occurrences": 1,
+      "beforeSha256": "8a8d86138f8c3dc51a84dd185a13d92d0ed6648412a06f6b2da8fdb4cd1418c9",
+      "afterSha256": "eb5cbcb999516b11131cfdf7156fb683b18a5e2082143bb6e8ee12a0d885892f"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-060.json",
+      "rule": "kuladis",
+      "before": "格拉迪斯",
+      "after": "库拉迪斯",
+      "occurrences": 1,
+      "beforeSha256": "63c32f2926c8b41091b3af17831271a68038a37861e07a022f3aad0ea6ada388",
+      "afterSha256": "78043dd897ec387d31aafaa0cb40aa91ead75133f6f970d36dc070a333183ddf"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-108.json",
+      "rule": "kuladis",
+      "before": "格拉迪斯",
+      "after": "库拉迪斯",
+      "occurrences": 2,
+      "beforeSha256": "b234de93c7c386d7d60e615666bb3602a5bfc6f5ed3ec3a791f583ea993e5db3",
+      "afterSha256": "2bfeaf0923e594f16c9bcc997d6b902e1a566ad7e4c38f6ef456712c5fee7e48"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-144.json",
+      "rule": "kuladis",
+      "before": "格拉迪斯",
+      "after": "库拉迪斯",
+      "occurrences": 1,
+      "beforeSha256": "d961898623be1d3b61ae35efcdb879d6081f9c63caee83215dd260e5eb43896d",
+      "afterSha256": "1f6f74d26d8a4161d936003ad3791dfd70ddd754dee109e661ae719a2db603dc"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-149.json",
+      "rule": "kuladis",
+      "before": "格拉迪斯",
+      "after": "库拉迪斯",
+      "occurrences": 3,
+      "beforeSha256": "f7507f2aea8029844ac6d76d2d757b65786475d3b50141541f57ad5b4bbe2a9d",
+      "afterSha256": "9a63155f07e6c1ea877e4c63853a2d04be37257447187004c7d962fc6895a4e3"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-119.json",
+      "rule": "diana-sama",
+      "before": "迪安娜殿下",
+      "after": "迪安娜大人",
+      "occurrences": 2,
+      "beforeSha256": "a96ca28c2e96d56f0c1cbf20442cead5e59bfc286a3a4e7dd9751a96fa141e80",
+      "afterSha256": "7ea114cdb346369622cd883a8b1f86ffb1fb2a9af3cf7a01a4b6b5301919d8b0"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-127.json",
+      "rule": "diana-sama",
+      "before": "迪安娜殿下",
+      "after": "迪安娜大人",
+      "occurrences": 1,
+      "beforeSha256": "a9eb1e976e9d2be2931e8804fe060b35457fefc0cf040eaa719072ccb9520c89",
+      "afterSha256": "8ba3afd6a69178053215db6a1ea4d20781f2270aa2ffff513b19a26fa61c82fd"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-145.json",
+      "rule": "diana-kakka",
+      "before": "迪安娜殿下",
+      "after": "迪安娜阁下",
+      "occurrences": 4,
+      "beforeSha256": "0f8351ccbadd5170d45cd670275136d1ebdb70f17361d3a8de72c0c2ca950736",
+      "afterSha256": "9c0b47f19e7a8f8a7a0bfb072e2e98a5b76bea14634a203f44d700b66bb4f0a3"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-150.json",
+      "rule": "diana-kakka",
+      "before": "迪安娜殿下",
+      "after": "迪安娜阁下",
+      "occurrences": 4,
+      "beforeSha256": "5d3a6ae4ae1512bdf15f9ca7496ea7151325f5f0ad0e6ae7e5c0b16d15b40bd4",
+      "afterSha256": "23225dac5077094c78a1e722e2f7647c3a1c5969460607e49c8d34b77fe88ac1"
+    },
+    {
+      "path": "corpus/zh/library/v0.2-reviewed.json",
+      "rule": "kuladis",
+      "before": "塔丽亚·格拉迪斯",
+      "after": "塔丽亚·库拉迪斯",
+      "occurrences": 1,
+      "beforeSha256": "4a4b1fbd8ffb27cbb8ae6d19a7e4ce78372c40ce0f05ec1650eba4c6746ebb06",
+      "afterSha256": "5be6c309b4b50ef88a55848ff3b611f9fdb9d808b14ce00be6205e8d819cb676"
+    },
+    {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "rule": "kuladis",
+      "before": "\"グラディス\": \"格拉迪斯\"",
+      "after": "\"グラディス\": \"库拉迪斯\"",
+      "occurrences": 1,
+      "beforeSha256": "27961802e00ea45a5f602b73be74d6ab31a4e94647b55f8dcd55ae48f52e0091",
+      "afterSha256": "69e439f5c48d436025905125419a47b8a2d90fcd17d486d969aa07ee9b376220"
+    },
+    {
+      "path": "config/products/special-disc/shared-name-reference.json",
+      "rule": "kuladis",
+      "before": "\"格拉迪斯\"",
+      "after": "\"库拉迪斯\"",
+      "occurrences": 1,
+      "beforeSha256": "8bd56f11dc607a4e6460df764fe93c674db40a259bc2eb3d1fa1cfc4619c41e2",
+      "afterSha256": "84cd09a32f05a3871bdb11c2b35c6ef0daa11b111c819be2829cd7dc77831d97"
+    },
+    {
+      "path": "corpus/glossary/story-dialogue-stage-002-v1.json",
+      "rule": "kuladis",
+      "before": "真对塔丽亚·格拉迪斯的军中称呼",
+      "after": "真对塔丽亚·库拉迪斯的军中称呼",
+      "occurrences": 1,
+      "beforeSha256": "cb511d8d0d8bc18784d44ea3285926fb39e226d0e5d83c11bcc0630ad803ebdb",
+      "afterSha256": "7a9a1391de0332687d59c57d10c360abc6aebea17030de7a0673a067d8530cce"
+    },
+    {
+      "path": "corpus/glossary/story-speakers-v1.json",
+      "rule": "kuladis",
+      "before": "塔丽亚·格拉迪斯。",
+      "after": "塔丽亚·库拉迪斯。",
+      "occurrences": 1,
+      "beforeSha256": "bc4aa7eb58981fcb550646842ceaab1127117e06452fdcb7f12791fd793bf2f2",
+      "afterSha256": "2081e924a12f53b8235845aac53f965621e9bb3a70141e5ac9a66e26e2b3af47"
+    }
+  ]
+}
