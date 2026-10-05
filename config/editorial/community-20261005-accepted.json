@@ -4,7 +4,7 @@
   "source_commit": "cd4278841c7525cb846c513a6578c036b958fa41",
   "live_snapshot_sha256": "f6a07dc1208ab8a8bd630ceb2cd148d8e53375c60f9cc955da56f7a570da2ed3",
   "auto_accepted_count": 38,
-  "user_confirmed_count": 8,
+  "user_confirmed_count": 9,
   "decisions": [
     {
       "suggestionId": "53b4f552-b538-426d-b378-5367e21fa262",
@@ -488,6 +488,18 @@
       "encodedSize": 32
     },
     {
+      "suggestionId": "04774eaa-9455-46c6-b1ba-c54ee5e5ad42",
+      "targetId": "battle:16711",
+      "kind": "battle-line",
+      "sourceTextSha256": "27083f04f61295455f0287e5365a8ef1e1e888646a64db83219f5fcb54cfb69b",
+      "previousTranslation": "“冒牌球！别乱窜！”",
+      "finalTranslation": "“像球一样的东西！别乱窜！”",
+      "choice": "submitted",
+      "reason": "用户在本轮审阅页确认：submitted",
+      "confirmedAt": "2026-10-05T13:29:43.195428+00:00",
+      "encodedSize": 29
+    },
+    {
       "suggestionId": "ff1eb9f3-a754-4f10-8be2-e2e0ae2b7cc1",
       "targetId": "battle:16717",
       "kind": "battle-line",
@@ -539,7 +551,7 @@
     "runtime": "not_tested",
     "online_processing": "pending"
   },
-  "pending_count": 1,
+  "pending_count": 0,
   "additional_snapshots": [],
   "confirmed_phases": [
     {
@@ -679,6 +691,31 @@
           "path": "corpus/zh/battle/srvc-lines.json",
           "beforeSha256": "5560e11d553d92a9f1dfbc3462aca81c146dba25435077a5aad99e81a942f6b5",
           "afterSha256": "c1df792e528381260bb34b085ec6888be2e12c19f0ed5d079688de3088e5ed6c"
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "decisions": [
+        {
+          "suggestionId": "04774eaa-9455-46c6-b1ba-c54ee5e5ad42",
+          "targetId": "battle:16711",
+          "kind": "battle-line",
+          "sourceTextSha256": "27083f04f61295455f0287e5365a8ef1e1e888646a64db83219f5fcb54cfb69b",
+          "previousTranslation": "“冒牌球！别乱窜！”",
+          "finalTranslation": "“像球一样的东西！别乱窜！”",
+          "choice": "submitted",
+          "reason": "用户在本轮审阅页确认：submitted",
+          "confirmedAt": "2026-10-05T13:29:43.195428+00:00",
+          "encodedSize": 29
+        }
+      ],
+      "linked_changes": [],
+      "source_changes": [
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "beforeSha256": "c1df792e528381260bb34b085ec6888be2e12c19f0ed5d079688de3088e5ed6c",
+          "afterSha256": "74718685994e93720f13649a5bfc3c2257997e1ad9d2fc3c8d889f37432c99a0"
         }
       ]
     }
