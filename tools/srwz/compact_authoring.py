@@ -26,7 +26,11 @@ def unscoped_text(text: str) -> str:
         space = int(match['s'] or match['rs'], 16)
         if not 14 <= width <= 63 or not 12 <= space <= 63:
             return match.group()
-        if len(match['visible'].replace('《', '').replace('》', '')) < 3:
+        visible = match['visible'].replace('《', '').replace('》', '')
+        # Explicit authoring supports two-character identifiers such as MS.
+        # Keep the automatic >=3-character rule and leave short punctuation,
+        # single glyphs and incomplete native dimension sequences untouched.
+        if len(visible) < 3 and not re.fullmatch(r'[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]{2}', visible):
             return match.group()
         return match['visible']
     return SCOPE.sub(remove, text)

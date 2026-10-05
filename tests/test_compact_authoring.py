@@ -4,6 +4,8 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from srwz.compact_authoring import compact_controlled_text, unscoped_text
+from srwz.renderer_metrics import compact_visible_runs
+from build_full_story_components import _control_signature
 
 
 class CompactAuthoringTests(unittest.TestCase):
@@ -47,6 +49,22 @@ class CompactAuthoringTests(unittest.TestCase):
 
     def test_native_dimension_change_is_not_ignored(self):
         self.assertEqual(unscoped_text('<width:10>中文'), '<width:10>中文')
+
+    def test_explicit_ms_scope_preserves_srvc_native_control_signature(self):
+        text = '“<color:03>长着胡子的MS！\\n　$n！”'
+        scoped = text.replace('MS', compact_visible_runs('MS', default_advance_px=22, minimum_characters=2))
+        self.assertEqual(unscoped_text(scoped), text)
+        self.assertEqual(_control_signature(scoped), _control_signature(text))
+        self.assertNotEqual(_control_signature(scoped.replace('<color:03>', '<color:04>')), _control_signature(text))
+        self.assertNotEqual(_control_signature(scoped.replace('$n', '$r')), _control_signature(text))
+
+    def test_short_or_unclosed_scopes_remain_native_controls(self):
+        for text in ['<width:0E><space:0C>M<width:16><space:16>',
+                     '<width:0E><space:0C>M <width:16><space:16>',
+                     '<width:0E><space:0C>MS',
+                     '<width:0E><space:0C>MS<width:00><space:16>']:
+            with self.subTest(text=text):
+                self.assertEqual(unscoped_text(text), text)
 
 
 if __name__ == '__main__':
