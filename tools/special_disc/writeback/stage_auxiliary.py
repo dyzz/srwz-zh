@@ -6,7 +6,7 @@ also lock the executable consumer and the complete local map-script record.
 """
 import hashlib
 import json
-from srwz.text import decode_text, encode_text, normalize_original_fullwidth_ascii
+from srwz.text import decode_text, encode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces
 
 
 def formation_groups(data, table, index, base):
@@ -56,7 +56,7 @@ def write_formations(data, groups, index, bindings, table, overrides, readback, 
                        translation=source['translation'], route='locked_squad_source',
                        corpus=CORPUS_PATH, corpus_id=source['id'], kind='formation_name',
                        editorial_status=source['editorial_status'])
-        text=normalize_original_fullwidth_ascii(row['translation'])
+        text=two_byte_visible_spaces(normalize_original_fullwidth_ascii(row['translation']))
         payload=encode_text(text,table,overrides=overrides,terminate=True)
         writes=[]
         for offset,(group,cell) in sorted(matches.items()):

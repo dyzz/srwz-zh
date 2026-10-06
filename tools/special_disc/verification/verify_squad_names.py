@@ -17,7 +17,7 @@ from stage_bindings import StageBindings
 from squad_names import load_names, patch_slots, sha, INVENTORY_PATH, CORPUS_PATH
 from scan_squad_names import stage_offsets
 from srwz.codec import decode_production, reencode_changed_suffix
-from srwz.text import decode_text, normalize_original_fullwidth_ascii
+from srwz.text import decode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces
 
 
 def verify():
@@ -64,7 +64,7 @@ def verify():
         for slot in slots:
             at, size = slot['offset'], slot['capacity']
             allowed[at:at + size] = b'\1' * size
-            expected = normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation'])
+            expected = two_byte_visible_spaces(normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation']))
             if decode_text(reread, at, readback).text != expected:
                 raise ValueError('squad independent decoded readback mismatch')
         if len(reread) != len(original.output) or any(a != b and not allowed[i]
@@ -115,7 +115,7 @@ def verify_components(directory):
             if chunk not in cache:
                 cache[chunk] = decode_production(data[offsets[chunk]:offsets[chunk + 1]]).output
             text = decode_text(cache[chunk], slot['offset'], readback).text
-            if text != normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation']):
+            if text != two_byte_visible_spaces(normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation'])):
                 raise ValueError('combined component squad readback mismatch')
             count += 1
     return dict(status='combined_components_reread', slots=count,

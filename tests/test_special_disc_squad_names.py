@@ -13,7 +13,7 @@ sys.path[:0] = [str(ROOT / 'tools'), str(ROOT / 'tools/special_disc/writeback'),
 from scan_squad_names import discover_chunk, indexed_pointer_owners
 from squad_names import load_names, patch_slots, sha, validate_slot, apply_nisv_names, verify_nisv_names
 from srwz.codec import encode, decode_production
-from srwz.text import TextTable
+from srwz.text import TextTable, decode_text
 
 
 class SpecialDiscSquadTests(unittest.TestCase):
@@ -71,6 +71,26 @@ class SpecialDiscSquadTests(unittest.TestCase):
             validate_slot(b'X' + data[1:], slot, TextTable({}, {}))
         with self.assertRaisesRegex(ValueError, 'overlapping'):
             patch_slots(data, [slot, slot], {'AB': {'translation': 'CD'}}, TextTable({}, {}), {}, TextTable({}, {}))
+
+    def test_latin_squad_separator_uses_native_two_byte_space(self):
+        data, slot = self.slot_fixture()
+        slot['capacity'] = 20
+        data = b'HEADAB\0' + bytes(17) + b'TAIL'
+        slot['source_slot_sha256'] = sha(data[4:24])
+        table = TextTable({0x8140: '　', 0x8273: 'T', 0x8267: 'H',
+                           0x8264: 'E', 0x8260: 'A'}, {})
+        overrides = {ch: code for code, ch in table.characters.items()}
+        overrides[' '] = 0x20  # The SP shared mapping deliberately allows ASCII elsewhere.
+        result = patch_slots(data, [slot], {'AB': {'translation': 'THE HEAT'}},
+                             table, overrides, table)
+        self.assertEqual(result[4:21], bytes.fromhex('8273826782648140826782648260827300'))
+        self.assertEqual(decode_text(result, 4, table).text, 'THE　HEAT')
+        self.assertEqual(result[:4], b'HEAD')
+        self.assertEqual(result[24:], b'TAIL')
+        with self.assertRaisesRegex(ValueError, 'capacity'):
+            patch_slots(data, [dict(slot, capacity=16, source_slot_sha256=sha(data[4:20]),
+                                   trailer_hex=data[20:].hex())],
+                        {'AB': {'translation': 'THE HEAT'}}, table, overrides, table)
 
     def test_nisv_refresh_preserves_other_chunks_and_non_name_edits(self):
         original, slot = self.slot_fixture()

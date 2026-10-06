@@ -6,7 +6,7 @@ import struct
 from pathlib import Path
 
 from srwz.stage_formations import FormationCell, FormationGroup
-from srwz.text import decode_text, encode_text, normalize_original_fullwidth_ascii
+from srwz.text import decode_text, encode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces
 from special_disc.writeback.slot_codec import encode_slot
 from srwz.codec import decode_production, reencode_changed_suffix
 
@@ -86,7 +86,7 @@ def patch_slots(data, slots, entries, table, overrides, readback):
         at, size = slot['offset'], slot['capacity']
         if any(allowed[at:at + size]):
             raise ValueError('overlapping squad slots')
-        text = normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation'])
+        text = two_byte_visible_spaces(normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation']))
         payload = encode_text(text, table, overrides=overrides, terminate=True)
         if len(payload) > size:
             raise ValueError(f'squad name exceeds capacity: {text!r}')
@@ -115,7 +115,7 @@ def verify_nisv_names(archive, exe, readback, root=ROOT):
         if slot['chunk'] != 4:
             raise ValueError('NISV squad chunk owner drift')
         actual = decode_text(data, slot['offset'], readback, end=slot['offset'] + slot['capacity'])
-        expected = normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation'])
+        expected = two_byte_visible_spaces(normalize_original_fullwidth_ascii(entries[slot['source_text']]['translation']))
         if actual.text != expected or actual.terminator != 'nul' or actual.unknown_code_count:
             raise ValueError('NISV squad final ISO readback mismatch')
     return dict(names=len(slots), decoded_sha256=sha(data),
