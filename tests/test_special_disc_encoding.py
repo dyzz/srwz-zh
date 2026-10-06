@@ -9,10 +9,22 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from special_disc.writeback.migrate_slps_text import encoding_tables
-from srwz.text import encode_text, decode_text
+from srwz.text import encode_text, decode_text, load_text_table, control_notation_tokens
 
 
 class SpecialDiscEncodingTests(unittest.TestCase):
+    def test_native_button_selectors_survive_visible_minus_override(self):
+        table = load_text_table(ROOT / 'vendor/upstream-python/project/tbl_all.json')
+        # Native <-3> selects the triangle button. A localized minus glyph must not be
+        # substituted inside it, even though lossless decoding splits 0x33.
+        for raw in (b'<-1>', b'<-2>', b'<-3>', b'<-4>', b'<-5>'):
+            text = decode_text(raw + b'\0', 0, table).text
+            self.assertEqual(encode_text(text, table, overrides={'-': 0x9868}, terminate=True), raw + b'\0')
+            tokens = control_notation_tokens(text)
+            self.assertEqual([(t.kind, t.start, t.end) for t in tokens],
+                             [('runtime_substitution', 0, len(text))])
+        self.assertEqual(encode_text('-', table, overrides={'-': 0x9868}), bytes.fromhex('9868'))
+
     def test_all_writer_positions_use_shared_assignments_without_legacy_reads(self):
         registry = json.loads((ROOT / 'config/encoding/zh-release-font-assignments.json').read_text())
         proposal = dict(assignments=registry['primary_assignments'],

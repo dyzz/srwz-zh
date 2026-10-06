@@ -16,7 +16,7 @@ import migrate_stage_dialogue as st
 from write_system_text import tickers,FULLWIDTH_DIGITS
 from srwz.iso9660 import scan_iso9660,member_map
 from srwz.codec import decode_production
-from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_visible_spaces
+from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_visible_spaces,verify_runtime_control_bytes
 from srwz.summary import parse_summary, validate_scroll_placeholders
 from special_disc.writeback.unit_names import CONTRACT as UNIT_CONTRACT, verify_unit_names
 from special_disc.writeback.pilot_names import CONTRACT as PILOT_CONTRACT, verify_pilot_names
@@ -309,11 +309,17 @@ def main(iso=None, work=None):
             original_exe=st.read_disc_member('SLPS_259.20')
             for at in row['locations']:
                 source=decode_text(original_exe,at,table).text;number=int(source.translate(FULLWIDTH_DIGITS)[-3:])
-                require(decode_text(exe,at,readback).text==expected.format(n=number),'wallpaper template ISO reread');counts['system_writes']+=1
+                actual=decode_text(exe,at,readback);formatted=expected.format(n=number)
+                require(actual.text==formatted,'wallpaper template ISO reread')
+                counts['system_native_controls']+=len(verify_runtime_control_bytes(exe[at:actual.end],readback,formatted))
+                counts['system_writes']+=1
         elif target.startswith('sd/ticker/'):
             places=ticker_places[row['source_text']];require(bool(places),f'ticker has no native occurrence: {target}')
             for i,at in places:
-                require(decode_text(stage_data[i],at,readback).text==expected,'ticker ISO reread');counts['ticker_slots']+=1
+                actual=decode_text(stage_data[i],at,readback)
+                require(actual.text==expected,'ticker ISO reread')
+                counts['system_native_controls']+=len(verify_runtime_control_bytes(stage_data[i][at:actual.end],readback,expected))
+                counts['ticker_slots']+=1
             counts['ticker_sources']+=1
         else:
             require(target.startswith(('sd/exe/','sd/compdata/')),'unknown system source kind')
@@ -323,7 +329,11 @@ def main(iso=None, work=None):
                 binding=work_title_locations[at]
                 # This source binding now resolves through its locked relocated table.
                 at=binding['offset'];expected=binding['stored_translation']
-            require(decode_text(data,at,readback).text==expected,f'system ISO reread: {target}');counts['system_writes']+=1
+            actual=decode_text(data,at,readback)
+            require(actual.text==expected,f'system ISO reread: {target}')
+            controls=verify_runtime_control_bytes(data[at:actual.end],readback,expected)
+            counts['system_native_controls']+=len(controls)
+            counts['system_writes']+=1
             for site in shared.get(target,{}).get('pointer_slots',[]):require(struct.unpack_from('<I',data,int(site,16))[0]==st.sd.COMPDATA_BASE+at,'shared system title pointer')
     result=dict(status='all_bound_text_reread_from_final_iso',iso=manifest['iso'],counts=dict(counts),component_hashes_verified=True,scope='STAGE dialogue/speakers/conditions/formations; frame physical records; system writes/templates/tickers. SRVC and indexed image component readbacks are bound to exact ISO member hashes.')
     result['instruction_overrides']=instructions

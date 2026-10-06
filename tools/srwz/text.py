@@ -21,13 +21,41 @@ RUNTIME_FORMAT_TOKEN = re.compile(
 )
 RUNTIME_FORMAT_TAG_TOKEN = re.compile(r"%<width:([0-9A-Fa-f]{2})>")
 RUNTIME_SUBSTITUTION_TOKEN = re.compile(r"\$[cflnF]")
-RUNTIME_ICON_SLOT_TOKEN = re.compile(r"<[0-9]>")
+# A decoder tag can represent two ASCII characters *inside* a native control.
+# For example <-3>, <10>, {4.4.0}, %02d become <-<height:3E>,
+# <<color:30>>, {<space:2E><space:2E>0}, %0<width:64>.
+_NATIVE_TAG_NAME = r"(?:color|width|height|space|3[1-5])"
+_NATIVE_DIGIT_PAIR = rf"<{_NATIVE_TAG_NAME}:3[0-9]>"
+RUNTIME_ICON_SLOT_TOKEN = re.compile(
+    rf"<[+-]?(?:(?:[0-9]|{_NATIVE_DIGIT_PAIR})+>"
+    rf"|(?:[0-9]|{_NATIVE_DIGIT_PAIR})*<{_NATIVE_TAG_NAME}:3[Ee]>)"
+)
+RUNTIME_PARAMETER_TOKEN = re.compile(
+    rf"\{{(?=[0-9]|<{_NATIVE_TAG_NAME}:)"
+    rf"(?:[0-9.]|<{_NATIVE_TAG_NAME}:(?:3[0-9]|2[Ee])>)*"
+    rf"(?:\}}|<{_NATIVE_TAG_NAME}:7[Dd]>)"
+)
+# Prefix parameters may include digits, flags, width/precision and '$'.
+_RUNTIME_FORMAT_PREFIX_PAIR = rf"<{_NATIVE_TAG_NAME}:(?:2[034ABDEabde]|3[0-9])>"
+_RUNTIME_CONVERSION_PAIR = rf"<{_NATIVE_TAG_NAME}:(?:[4567][0-9A-Fa-f])>"
+RUNTIME_FORMAT_NOTATION_TOKEN = re.compile(
+    rf"%(?:[-+#0-9 .*\$]|{_RUNTIME_FORMAT_PREFIX_PAIR})*"
+    rf"(?:[diouxXeEfFgGcrsa]|{_RUNTIME_CONVERSION_PAIR})"
+)
+_NATIVE_RUNTIME_TOKEN = re.compile(
+    rf"(?:<[+-]?[0-9]+>|\{{[0-9]+(?:\.[0-9]+)*\}}"
+    rf"|{RUNTIME_FORMAT_TOKEN.pattern}|{RUNTIME_SUBSTITUTION_TOKEN.pattern})"
+)
+_NATIVE_TAG_CODES = {"color": 0x31, "width": 0x32, "height": 0x33, "space": 0x34}
+_NATIVE_TAG = re.compile(rf"<({_NATIVE_TAG_NAME}):([0-9A-Fa-f]{{2}})>")
+_RAW_BYTE = re.compile(r"\{[0-9A-Fa-f]{2}\}")
 CONTROL_NOTATION = re.compile(
-    rf"{RUNTIME_FORMAT_TAG_TOKEN.pattern}"
-    rf"|{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
-    rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
+    # Keep raw-byte notation ahead of numeric parameters: {12} means byte 0x12.
+    rf"{_RAW_BYTE.pattern}"
     rf"|{RUNTIME_ICON_SLOT_TOKEN.pattern}"
-    r"|\{[0-9A-Fa-f]{2}\}"
+    rf"|{RUNTIME_PARAMETER_TOKEN.pattern}"
+    rf"|{RUNTIME_FORMAT_NOTATION_TOKEN.pattern}"
+    rf"|{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
     r"|@?<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
 POTENTIAL_CONTROL_NOTATION_START = re.compile(
@@ -263,7 +291,9 @@ def two_byte_visible_spaces(text: str) -> str:
 
     if not isinstance(text, str):
         raise TypeError("visible text must be a string")
-    return text.replace(" ", "\u3000")
+    protected = control_notation_positions(text)
+    return "".join("\u3000" if ch == " " and i not in protected else ch
+                   for i, ch in enumerate(text))
 
 
 def normalize_two_byte_visible_spaces(text: str) -> str:
@@ -385,33 +415,92 @@ def _validated_overrides(
     return MappingProxyType(validated)
 
 
+def _native_runtime_bytes(token: str) -> bytes:
+    """Recover a complete native control, independent of visible glyph overrides."""
+
+    def expand(match: re.Match) -> str:
+        name = match.group(1)
+        code = _NATIVE_TAG_CODES.get(name)
+        if code is None:
+            code = int(name, 16)
+        return chr(code) + chr(int(match.group(2), 16))
+
+    native = _NATIVE_TAG.sub(expand, token)
+    if _NATIVE_RUNTIME_TOKEN.fullmatch(native) is None:
+        raise SrwzTextEncodeError(
+            f"invalid native runtime control {token!r}", character_index=0
+        )
+    return native.encode("ascii")
+
+
 def control_notation_tokens(text: str) -> tuple[ControlNotationToken, ...]:
-    """Classify placeholders and control notation without splitting them."""
+    """Classify complete controls using the same grammar as the byte encoder."""
 
     if not isinstance(text, str):
         raise TypeError("control notation source must be a string")
     tokens = []
     for match in CONTROL_NOTATION.finditer(text):
         token = match.group(0)
-        if RUNTIME_FORMAT_TOKEN.fullmatch(token) or RUNTIME_FORMAT_TAG_TOKEN.fullmatch(
-            token
-        ):
-            kind = "runtime_format"
-        elif RUNTIME_SUBSTITUTION_TOKEN.fullmatch(token) or RUNTIME_ICON_SLOT_TOKEN.fullmatch(token):
-            kind = "runtime_substitution"
-        elif token.startswith("{"):
+        if _RAW_BYTE.fullmatch(token):
             kind = "raw_byte"
+        elif (RUNTIME_ICON_SLOT_TOKEN.fullmatch(token)
+              or RUNTIME_PARAMETER_TOKEN.fullmatch(token)
+              or RUNTIME_FORMAT_NOTATION_TOKEN.fullmatch(token)
+              or RUNTIME_SUBSTITUTION_TOKEN.fullmatch(token)):
+            _native_runtime_bytes(token)  # Reject malformed composite parameters.
+            kind = "runtime_format" if token.startswith("%") else "runtime_substitution"
         else:
             kind = "text_tag"
-        tokens.append(
-            ControlNotationToken(
-                kind=kind,
-                text=token,
-                start=match.start(),
-                end=match.end(),
-            )
-        )
+        tokens.append(ControlNotationToken(kind, token, match.start(), match.end()))
     return tuple(tokens)
+
+
+def runtime_control_bytes(text: str) -> tuple[bytes, ...]:
+    """Return ordered native controls; ordinary text/layout tags are excluded."""
+
+    return tuple(_native_runtime_bytes(t.text) for t in control_notation_tokens(text)
+                 if t.kind in ("runtime_format", "runtime_substitution"))
+
+
+def verify_runtime_control_bytes(data: bytes, table: TextTable,
+                                 expected_text: str) -> tuple[bytes, ...]:
+    """Reject glyph-encoded control bytes even when decoded text is identical.
+
+    Track source byte ranges for decoder units, then compare the actual bytes
+    under each runtime control against its native spelling. This does not call
+    the production encoder to derive actual bytes.
+    """
+
+    decoded = decode_text(data, 0, table, allow_end=True)
+    tokens = [t for t in control_notation_tokens(decoded.text)
+              if t.kind in ("runtime_format", "runtime_substitution")]
+    expected = runtime_control_bytes(expected_text)
+    if runtime_control_bytes(decoded.text) != expected:
+        raise ValueError("runtime control sequence/order differs from expected text")
+    if not tokens:
+        return ()
+    boundaries = {0: 0}
+    offset = position = 0
+    while offset < decoded.end:
+        byte = data[offset]
+        if byte == 0:
+            break
+        size = 2 if (0x31 <= byte <= 0x35 or 0x80 <= byte <= 0x9F
+                     or 0xE0 <= byte <= 0xEA) else 1
+        piece = decode_text(data[offset:offset + size], 0, table, allow_end=True).text
+        position += len(piece)
+        offset += size
+        boundaries[position] = offset
+    actual = []
+    for token, native in zip(tokens, expected):
+        if token.start not in boundaries or token.end not in boundaries:
+            raise ValueError("runtime control splits a decoder byte unit")
+        raw = data[boundaries[token.start]:boundaries[token.end]]
+        if raw != native:
+            raise ValueError(f"runtime control bytes drift: {token.text!r}: "
+                             f"{raw.hex()} != {native.hex()}")
+        actual.append(raw)
+    return tuple(actual)
 
 
 def control_notation_positions(text: str) -> frozenset[int]:
@@ -451,6 +540,8 @@ def _encode_text_prepared(
     inverse_characters = table.inverse_characters
     inverse_tags = table.inverse_tags
     output = bytearray()
+    runtime_tokens = {t.start: t for t in control_notation_tokens(text)
+                      if t.kind in ("runtime_format", "runtime_substitution")}
     index = 0
 
     while index < len(text):
@@ -461,47 +552,10 @@ def _encode_text_prepared(
             index += 1
             continue
 
-        runtime_format_tag_match = RUNTIME_FORMAT_TAG_TOKEN.match(text, index)
-        if runtime_format_tag_match:
-            width_tag = inverse_tags.get("width")
-            if width_tag is None:
-                raise SrwzTextEncodeError(
-                    "text table has no width tag",
-                    character_index=index,
-                )
-            raw_format = bytes(
-                (
-                    ord("%"),
-                    width_tag,
-                    int(runtime_format_tag_match.group(1), 16),
-                )
-            )
-            try:
-                decoded_format = raw_format.decode("ascii")
-            except UnicodeDecodeError as error:
-                raise SrwzTextEncodeError(
-                    "lossless runtime format is not ASCII",
-                    character_index=index,
-                ) from error
-            if RUNTIME_FORMAT_TOKEN.fullmatch(decoded_format) is None:
-                raise SrwzTextEncodeError(
-                    f"invalid lossless runtime format {decoded_format!r}",
-                    character_index=index,
-                )
-            output.extend(raw_format)
-            index = runtime_format_tag_match.end()
-            continue
-
-        runtime_substitution_match = RUNTIME_SUBSTITUTION_TOKEN.match(text, index)
-        if runtime_substitution_match:
-            output.extend(runtime_substitution_match.group(0).encode("ascii"))
-            index = runtime_substitution_match.end()
-            continue
-
-        runtime_format_match = RUNTIME_FORMAT_TOKEN.match(text, index)
-        if runtime_format_match:
-            output.extend(runtime_format_match.group(0).encode("ascii"))
-            index = runtime_format_match.end()
+        runtime_token = runtime_tokens.get(index)
+        if runtime_token is not None:
+            output.extend(_native_runtime_bytes(runtime_token.text))
+            index = runtime_token.end
             continue
 
         raw_match = re.match(r"\{([0-9A-Fa-f]{2})\}", text[index:])
@@ -686,5 +740,7 @@ __all__ = [
     "original_fullwidth_ascii_overrides",
     "project_runtime_text_table",
     "two_byte_visible_spaces",
+    "runtime_control_bytes",
+    "verify_runtime_control_bytes",
     "unrecognized_control_notation_offsets",
 ]
