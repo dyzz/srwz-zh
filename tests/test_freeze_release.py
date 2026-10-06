@@ -39,7 +39,10 @@ class FreezeReleaseTests(unittest.TestCase):
             results.append({'edition_id': edition, 'workspace': f'build/editions/{edition}',
                             'output': output,
                             'readback': {'path': str(proof.relative_to(self.root))}})
-        (self.root / 'work/build/shared/digest/project').mkdir(parents=True)
+        # Freeze validates the title badge from the captured build inputs.
+        self.badge_path = self.write_json(
+            'work/build/shared/digest/project/config/assets/title-menu-zh.json',
+            {'version_badge': {'text': 'v0.5.0'}})
         self.batch = self.write_json('work/editions/digest/original-best-sp.json', {
             'input_digest': 'digest', 'input_snapshot': 'work/build/shared/digest/inputs.json', 'results': results})
         self.verification = {'both_editions': True, 'verified_editions': ['original', 'best', 'sp'],
@@ -82,6 +85,26 @@ class FreezeReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'release already exists'), \
                 patch.object(freeze_release, 'verify_batch', return_value=self.verification):
             freeze_release.freeze(self.batch, '0.5.0', xdelta={})
+
+    def test_badge_failures_do_not_fall_back_to_mutable_config_or_create_release(self):
+        self.write_json('config/assets/title-menu-zh.json',
+                        {'version_badge': {'text': 'v0.5.0'}})
+        for badge, error, message in (
+            (None, FileNotFoundError, 'title-menu-zh.json'),
+            ('v0.4.2', ValueError, 'rebuild with --release-version 0.5.0'),
+            ('v0.5.0+20261006', ValueError, 'rebuild with --release-version 0.5.0'),
+        ):
+            with self.subTest(frozen_badge=badge):
+                if badge is None:
+                    self.badge_path.unlink()
+                else:
+                    self.badge_path.write_text(json.dumps({'version_badge': {'text': badge}}))
+                with patch.object(freeze_release, 'verify_batch', return_value=self.verification), \
+                        self.assertRaisesRegex(error, message):
+                    freeze_release.freeze(self.batch, '0.5.0', xdelta={})
+                for path in ('build/iso/v0.5.0', 'manifests/releases/v0.5.0',
+                             'config/release/v0.5.0.json'):
+                    self.assertFalse((self.root / path).exists(), path)
 
     def test_freeze_requires_all_three_editions(self):
         for missing in freeze_release.RELEASE_EDITIONS:

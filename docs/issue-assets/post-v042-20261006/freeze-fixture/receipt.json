@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-06",
+  "scope": "test fixture repair only; production badge guard and ISO bytes unchanged",
+  "cause": "Frozen-input title badge was required by freeze_release but omitted from the synthetic test snapshot",
+  "fixture_badge": "v0.5.0",
+  "negative_cases": [
+    "missing frozen-input config",
+    "mismatched release version",
+    "date-stamped current badge"
+  ],
+  "negative_contract": "Mutable root config cannot substitute for the frozen snapshot; failure creates no release ISO, evidence directory or release config",
+  "targeted_tests": {
+    "tests": 4,
+    "result": "passed",
+    "committed_HEAD_with_only_fixture_patch": "passed"
+  },
+  "full_suite": {
+    "command": "python3 -m unittest discover -s tests",
+    "tests": 740,
+    "errors": 0,
+    "failures": 0,
+    "seconds": 138.665
+  },
+  "files": {
+    "tests/test_freeze_release.py": {
+      "size": 9284,
+      "sha256": "3818eebb54fb2d5154a06f4e1ff22a62bf14e4d4fb9f96b36f5fb656fe3f2f3f"
+    },
+    "docs/issue-assets/post-v042-20261006/freeze-fixture/full-tests.log": {
+      "size": 6584,
+      "sha256": "62a454c22aa59365c90e43c967ef5f01b039ed1e52b734af6c7f8bfd331c4fb1"
+    }
+  }
+}
