@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "scope": "native control encoding repair plus SP squad spaces; scoped LRPS2 evidence, not full-game/PCSX2 acceptance",
+  "implementation_commits": [
+    "080e2b4",
+    "3f9f6e8"
+  ],
+  "frozen_input_digest": "f038630cb25398594d29c5e579b7cf2e9d1fc55ae9fef9b8c491e124c60e8e4d",
+  "snapshot_source_head": "b0783847a3f8b0185fed4ea047da690799b2f092",
+  "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+  "final_iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "12e5ad220c32dbddcf9a1913a7a0f2bd212e1b572f94b014fb044173fe64973e",
+    "size": 3791781888
+  },
+  "runtime_candidate": {
+    "path": "build/iso/post-v042-20261006/sp-control-fixed-candidate.iso",
+    "sha256": "12e5ad220c32dbddcf9a1913a7a0f2bd212e1b572f94b014fb044173fe64973e",
+    "binding": "independently hashed candidate and promoted current are byte-identical"
+  },
+  "proposal": {
+    "path": "build/editions/zh-release-sp/29ed431e32f259fdec02516ceab89b07b45db87d257e45642ff56fcb54a39ca5/project/work/build/special-disc/text-candidate/font/proposal.json",
+    "sha256": "6d5c18656d78f65bbabd1ab7c1b3cacc77f4dc23d0d97e2d6488e6220a3af81a"
+  },
+  "build_readback": {
+    "path": "build/editions/zh-release-sp/29ed431e32f259fdec02516ceab89b07b45db87d257e45642ff56fcb54a39ca5/project/build/iso/special-disc/sp-current.json",
+    "sha256": "f9443d26aa129a60b3e1c24fdab4f10f041d0388beeb0191e22aa232450d2f6a"
+  },
+  "independent_readback": {
+    "path": "build/editions/zh-release-sp/29ed431e32f259fdec02516ceab89b07b45db87d257e45642ff56fcb54a39ca5/project/work/build/special-disc/full-text/runs/build-a78oc139/independent-readback.json",
+    "sha256": "96cdfd8ed228032add7974c17d871d70cc1d4f84b404b2037cc114202320cae2",
+    "system_native_controls": 67
+  },
+  "source_files": {
+    "tools/srwz/text.py": "b68d47e96437b8c1f36c3388d777a4a2862168c4b8acbe2bc3393a1ccd15050a",
+    "tools/special_disc/verification/verify_full_text.py": "efe611c933ac06c2985691570c620387abf35722140d74a587bb978e561e103c",
+    "tools/special_disc/writeback/squad_names.py": "4c3dd745cddfffec23a90cd7a2b0adc5fb0ec682dbc6045927410b1e5d6795e0",
+    "tools/special_disc/writeback/stage_auxiliary.py": "f192aa16a0dd5b6077b4c5b61d9d511959b5f761904c0e6c3c3325a412cce3d1",
+    "tools/special_disc/verification/verify_squad_names.py": "3da89b7f0f641aa77779a5f9500ba98d45e252faa8de1f6f3edc2b48c8398afe"
+  },
+  "byte_contract": {
+    "before_rejected_entries": 21,
+    "before_changed_controls": 22,
+    "after_compdata_entries": 33,
+    "after_compdata_controls": 66,
+    "after_compdata_failures": 0
+  },
+  "tests": {
+    "full_total": 739,
+    "passed": 737,
+    "errors": 2,
+    "errors_scope": "pre-existing freeze_release test snapshots lack config/assets/title-menu-zh.json",
+    "new_methods": 4,
+    "new_control_vectors": 27,
+    "sp_targeted": 161
+  },
+  "runtime": {
+    "driver": "work/runtime/lrps2/stage47-cause-20260917/drive.py",
+    "core": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+    "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+    "renderer": "Software (SW)",
+    "cold_boot": true,
+    "cheats": false,
+    "ram_injection": false,
+    "cross_iso_states": false,
+    "source_card_sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+    "source_card_unchanged": true,
+    "button": {
+      "display": "triangle",
+      "triangle_action": "opens pilot report",
+      "cross_action": "closes weapon list",
+      "style_observation": "pilot term shows cyan italic emphasis; screenshots byte-identical to first signed-icon fix; no visible-regression claim for brace repair",
+      "identical_to_first_fix_screenshots": [
+        "button-fixed.png",
+        "triangle-action.png"
+      ]
+    },
+    "name": {
+      "keyword": "The Big",
+      "committed_squad": "The Big",
+      "ability_page": "The Big",
+      "squad_ram_address": "0x616768",
+      "squad_ram_hex": "827382888285814082618289828700000000000000000000",
+      "the_heat_resource_address": "0xE9219A",
+      "the_heat_resource_hex": "82738267826481408267826482608273000000000000000000000000"
+    },
+    "remaining": "PLA/TRI and <0> help pages; second brace hint at 9F440; THE HEAT player battle event; existing saved bad names; PCSX2/manual; Original/BEST final ISOs"
+  },
+  "files": {
+    "after-corpus-audit.json": {
+      "size": 171835,
+      "sha256": "5afaab641a2f6cd656694ecd1db2fc77af746df31fb20acc0e16a1ef3a58f587"
+    },
+    "after-readback.json": {
+      "size": 8344,
+      "sha256": "61e5a664fff68f0c3f8607ac5a9d313efc89f5b53f4a19a3c1b6f657a3b0b9d2"
+    },
+    "before-readback.json": {
+      "size": 8567,
+      "sha256": "c196ae0f89267982173d6fb04fe35ea5e0a964f68e850bb9029fd1d3753021bd"
+    },
+    "big-exact-committed.png": {
+      "size": 94408,
+      "sha256": "eea26485fb21a181e7177d45113ffe2981481861bde6e078332bab9526a32e38"
+    },
+    "big-keywords.png": {
+      "size": 82164,
+      "sha256": "f01bec02cec5c5fa6e1c7c963c943c088508ad784a0aa9cf4fd815e05cb6fa29"
+    },
+    "big-status.png": {
+      "size": 71860,
+      "sha256": "ce8cba51776de3b9b1f3e6e5888bb5f6bf8b39dddb63c807950e6663fa568461"
+    },
+    "button-fixed.png": {
+      "size": 162745,
+      "sha256": "bc8d76343184656ce2049692fa8b3fe5fbc92fd24e5dd7be985f8fcf1bd30c88"
+    },
+    "commands.jsonl": {
+      "size": 28614,
+      "sha256": "f5e1c3e7c4d21956584443d0330413b1c8593f57dbfac9d18d22c60a00aa85d1"
+    },
+    "full-tests.log": {
+      "size": 9248,
+      "sha256": "37030bbe45fddafbb1f7abf9e765257f5608c205cf1a59a57d32d41368dc3879"
+    },
+    "independent-readback-counts.json": {
+      "size": 2000,
+      "sha256": "4a1169d947385c0c163073b2fe15377da2b6e36801a9015c27f560402a3fc8f4"
+    },
+    "readback.py": {
+      "size": 3326,
+      "sha256": "8d91dd6cfae859fd6b11ce55d34be79165e7220cb2676dbcf2c402c61c9da1c7"
+    },
+    "runtime-name-route.json": {
+      "size": 2496,
+      "sha256": "965d93090aa8b939e2a57bb9407a5621ab1f399a4e3cb523a066a53b9e62cd6b"
+    },
+    "runtime-viewer-route.json": {
+      "size": 1841,
+      "sha256": "1a6dab6e6026b3f3dd48b1fc7c4e85a48601381ce32076483e14486a5c1b340a"
+    },
+    "targeted-tests.log": {
+      "size": 102,
+      "sha256": "d094b1bd2c8318c96097f80c50da282add5b2972970a77046de8db6c8935f6ca"
+    },
+    "triangle-action.png": {
+      "size": 103944,
+      "sha256": "5532733b8ddf11904df607fcd0e609db2b650e10cc38e892fb944d150128db99"
+    }
+  }
+}

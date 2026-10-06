@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "issues": [
+    "V042-005",
+    "V042-006"
+  ],
+  "edition": "sp",
+  "source_head": "b0783847a3f8b0185fed4ea047da690799b2f092",
+  "input_digest": "894b83df2fba9fff6124a890eade153e0d5bfd92b7149df6707def3dc80c2fcc",
+  "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+  "before_iso": {
+    "path": "build/iso/post-v042-20261006/sp-before.iso",
+    "sha256": "707cf56ae14211b2846870b2ab09b45f09f27e4be5cbe9ab154a7fa094bfaaa4",
+    "size": 3791781888
+  },
+  "after_iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "fb4a1c1f2cb22eeecbdad5bf4276bccf4f0c00c78bbbe4eff331fb834cc48844",
+    "size": 3791781888
+  },
+  "runtime_iso": {
+    "path": "build/iso/post-v042-20261006/sp-fixed-candidate.iso",
+    "sha256": "fb4a1c1f2cb22eeecbdad5bf4276bccf4f0c00c78bbbe4eff331fb834cc48844",
+    "size": 3791781888,
+    "binding": "candidate sha256 verified equal to promoted final current"
+  },
+  "build_readback": {
+    "path": "build/editions/zh-release-sp/4678cb36b50b1cc34c6a79d92363ea1bb324c4ffcf637532882899d51c684643/project/build/iso/special-disc/sp-current.json",
+    "sha256": "452062c1585cc1782f68cd930b9fbfacb522e629a735a759738243aba35a991d"
+  },
+  "independent_readback": {
+    "path": "work/build/special-disc/full-text/runs/build-mvw2pdiu/independent-readback.json",
+    "sha256": "789c8649c0f4595b18d66bf319c82d16de693121e5676222fb32615c055b9e6c"
+  },
+  "coverage": {
+    "total_entries": 8631,
+    "formation_cells": 1338,
+    "stage_chunks": 42,
+    "pending_targets": [],
+    "unassigned_display_characters": []
+  },
+  "nisv_names": 113,
+  "before_readback": {
+    "iso_path": "build/iso/post-v042-20261006/sp-before.iso",
+    "iso_size": 3791781888,
+    "name_hex": "82738267826420826782648260827300000000000000000000000000",
+    "name_decoded": "THE HEAT",
+    "button_hex": "81835b345d3c9868333e8fd689c2876787bb945c8e6797708d9f95908aed93497b342e342e824f7d88888886917d7b317d8fd281840000000000000000000000000000000000000000000000000000005b345d3c9868333e8fd6",
+    "button_decoded": "＜[<space:5D><-<height:3E>：可确认能使用此武器的{<space:2E><space:2E>0}驾驶员{<color:7D>。＞",
+    "iso_sha256": "707cf56ae14211b2846870b2ab09b45f09f27e4be5cbe9ab154a7fa094bfaaa4"
+  },
+  "after_readback": {
+    "iso": {
+      "path": "build/iso/post-v042-20261006/sp-fixed-candidate.iso",
+      "sha256": "fb4a1c1f2cb22eeecbdad5bf4276bccf4f0c00c78bbbe4eff331fb834cc48844",
+      "size": 3791781888,
+      "source": "build/editions/zh-release-sp/4678cb36b50b1cc34c6a79d92363ea1bb324c4ffcf637532882899d51c684643/project/build/iso/special-disc/sp-current.tmp.iso"
+    },
+    "name_hex": "82738267826481408267826482608273000000000000000000000000",
+    "name_decoded": "THE　HEAT",
+    "icon_hex": "81835b345d3c2d333e8fd689c2876787bb945c8e6797708d9f95908aed93497b342e342e824f7d88888886917d7b317d8fd281840000000000000000000000000000000000000000",
+    "icon_decoded": "＜[<space:5D><-<height:3E>：可确认能使用此武器的{<space:2E><space:2E>0}驾驶员{<color:7D>。＞"
+  },
+  "icon_audit": [
+    {
+      "id": "sd/compdata/95540",
+      "tokens": [
+        {
+          "notation": "<-<color:3E>",
+          "hex": "3c2d313e"
+        },
+        {
+          "notation": "<-<width:3E>",
+          "hex": "3c2d323e"
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/9F3C0",
+      "tokens": [
+        {
+          "notation": "<-<height:3E>",
+          "hex": "3c2d333e"
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/9F3F0",
+      "tokens": [
+        {
+          "notation": "<-<height:3E>",
+          "hex": "3c2d333e"
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/9F440",
+      "tokens": [
+        {
+          "notation": "<-<height:3E>",
+          "hex": "3c2d333e"
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/9F4F0",
+      "tokens": [
+        {
+          "notation": "<-<height:3E>",
+          "hex": "3c2d333e"
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/9F5A0",
+      "tokens": [
+        {
+          "notation": "<-<height:3E>",
+          "hex": "3c2d333e"
+        }
+      ]
+    },
+    {
+      "id": "sd/compdata/985D0",
+      "tokens": [
+        {
+          "notation": "<-<color:3E>",
+          "hex": "3c2d313e"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "engine": "local LRPS2 libretro x86_64",
+    "renderer": "Software (SW)",
+    "inputs": {
+      "work/runtime/lrps2/sp-battle-viewer-20260917/save/Super Robot Taisen Z - Special Disc [J].ps2": {
+        "size": 8650752,
+        "sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21"
+      },
+      "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib": {
+        "size": 11447720,
+        "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+      }
+    },
+    "button": "cold boot before/original/after; native triangle display and opens pilot report; own-ISO state only",
+    "name": "THE HEAT final ISO and RAM resource matched; The Big native keyword list and committed squad-name field before/after verified; exact player THE HEAT combat event pending; same squad ability/status page before/after verified",
+    "pcsx2": "not_tested",
+    "full_game": "not_tested",
+    "diagnostic_exclusion": "before RAM poke experiment excluded; restored pre-poke own-ISO button state before later verification",
+    "name_ram": {
+      "before": {
+        "THE_HEAT": {
+          "hex": "827382678264208267826482608273",
+          "ram_locations": [
+            "0xe9219a"
+          ]
+        },
+        "The_Big": {
+          "hex": "82738288828520826182898287",
+          "ram_locations": [
+            "0xe8aca7",
+            "0xe90d7e",
+            "0xe93f6f"
+          ]
+        }
+      },
+      "after": {
+        "THE_HEAT": {
+          "hex": "82738267826481408267826482608273",
+          "ram_locations": [
+            "0xe9219a"
+          ]
+        },
+        "The_Big": {
+          "hex": "8273828882858140826182898287",
+          "ram_locations": [
+            "0x4ac160",
+            "0x4b6bd0",
+            "0x7ed74e",
+            "0xe8aca7",
+            "0xe90d7e",
+            "0xe93f6f"
+          ]
+        }
+      }
+    },
+    "name_committed_ram": {
+      "before": [
+        {
+          "offset": "0x4ac160",
+          "hex": "82738288828581408261828982878140826e00000000000000000000"
+        },
+        {
+          "offset": "0x4b6bd0",
+          "hex": "82738288828581408261828982878140826e00000000000000000000"
+        },
+        {
+          "offset": "0x616768",
+          "hex": "82738288828520826182898200000000000000000000000001000000"
+        },
+        {
+          "offset": "0x7ed74e",
+          "hex": "82738288828581408261828982878140826e32153415330a000092b4"
+        },
+        {
+          "offset": "0xe8aca7",
+          "hex": "8273828882852082618289828700b0ab000b04f1bdcddb102e2602f0"
+        },
+        {
+          "offset": "0xe90d7e",
+          "hex": "82738288828520826182898287000000000000000000000000000000"
+        },
+        {
+          "offset": "0xe93f6f",
+          "hex": "82738288828520826182898287043b04212897ea9d6694a593c80264"
+        }
+      ],
+      "after": [
+        {
+          "offset": "0x4ac160",
+          "hex": "82738288828581408261828982878140826e00000000000000000000"
+        },
+        {
+          "offset": "0x4b6bd0",
+          "hex": "82738288828581408261828982878140826e00000000000000000000"
+        },
+        {
+          "offset": "0x616768",
+          "hex": "82738288828581408261828982870000000000000000000001000000"
+        },
+        {
+          "offset": "0x7ed74e",
+          "hex": "82738288828581408261828982878140826e32153415330a000092b4"
+        },
+        {
+          "offset": "0xe8aca7",
+          "hex": "827382888285814082618289828700ab000b04f1bdcddb102e2602f0"
+        },
+        {
+          "offset": "0xe90d7e",
+          "hex": "82738288828581408261828982870000000000000000000000000000"
+        },
+        {
+          "offset": "0xe93f6f",
+          "hex": "8273828882858140826182898287043b041f2897ea9d6694a593c802"
+        }
+      ]
+    },
+    "before_iso_open": "runtime opened previous sp-current.iso before atomic promotion; frozen sp-before.iso binds that previous file content",
+    "command_logs": {
+      "before": {
+        "path": "work/runtime/lrps2/post-v042-20261006/before/commands.jsonl",
+        "sha256": "0a2ee37e75a26eca92d531438e6162e69035d3c3da38dcaf8fc9f36aff1d0308"
+      },
+      "japanese": {
+        "path": "work/runtime/lrps2/post-v042-20261006/japanese/commands.jsonl",
+        "sha256": "32e336bd965df892a2bcbcd326390a0fa37e14139ee0bcb1f62a35c444ab5c49"
+      },
+      "after": {
+        "path": "work/runtime/lrps2/post-v042-20261006/after/commands.jsonl",
+        "sha256": "8a25814d2a86e3471fca9f0af0852e8b68b09dde48947029222a9959bd7eb2a1"
+      }
+    },
+    "source_card_unchanged_after_shutdown": true
+  },
+  "tests": {
+    "targeted": {
+      "run": 49,
+      "passed": 49,
+      "log": "work/analysis/post-v042-20261006/targeted-tests.log"
+    },
+    "full": {
+      "run": 735,
+      "passed": 733,
+      "errors": 2,
+      "reason": "freeze-release fixtures lack config/assets/title-menu-zh.json in synthetic snapshot; unrelated to touched encoders",
+      "log": "work/analysis/post-v042-20261006/tests.log"
+    }
+  },
+  "artifacts": {
+    "button-after.png": {
+      "size": 162745,
+      "sha256": "bc8d76343184656ce2049692fa8b3fe5fbc92fd24e5dd7be985f8fcf1bd30c88"
+    },
+    "button-before.png": {
+      "size": 162761,
+      "sha256": "163773384f4268b598dbea29347793b72b2a2d7c2b3f424de693f4591bf0aa3f"
+    },
+    "button-japanese.png": {
+      "size": 167157,
+      "sha256": "5e32467228515a1b560c4aed74e35e4b653c926cea8c88adeaa19405d6832f32"
+    },
+    "name-committed-after.png": {
+      "size": 94162,
+      "sha256": "093fe6565cb3df2aece9e064594894fc11c5d9bb77b8e5537d247c1ffcf9c491"
+    },
+    "name-committed-before.png": {
+      "size": 93558,
+      "sha256": "448dc43e07d3f1e92635be17dc883de161b077c83e9a2e64932d92596772d933"
+    },
+    "name-keywords-after.png": {
+      "size": 82215,
+      "sha256": "7448eb567dd753a02723b97349e6d799364bc3ea6fe7417d1945d43c35b28220"
+    },
+    "name-keywords-before.png": {
+      "size": 82215,
+      "sha256": "e832e1a724764b4dffc707e7f28e3f651e9e4bd445247fbe884861aa4c3bbd3a"
+    },
+    "name-status-after.png": {
+      "size": 71903,
+      "sha256": "6c47f04d37b5e7dbe4a440eb0a55c61110d802949738a50c97ffbdd55b04942a"
+    },
+    "name-status-before.png": {
+      "size": 70988,
+      "sha256": "2d2f09395848243fea5b0bed076bf0080d9f13ddd53a1d1aa9298c55f3481b55"
+    },
+    "triangle-action.png": {
+      "size": 103944,
+      "sha256": "5532733b8ddf11904df607fcd0e609db2b650e10cc38e892fb944d150128db99"
+    }
+  }
+}

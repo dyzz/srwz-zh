@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "scope": "analysis only; no additional encoder or ISO modification",
+  "fixed_iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "fb4a1c1f2cb22eeecbdad5bf4276bccf4f0c00c78bbbe4eff331fb834cc48844",
+    "size": 3791781888
+  },
+  "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+  "proposal": {
+    "path": "build/editions/zh-release-sp/4678cb36b50b1cc34c6a79d92363ea1bb324c4ffcf637532882899d51c684643/project/work/build/special-disc/text-candidate/font/proposal.json",
+    "sha256": "6d5c18656d78f65bbabd1ab7c1b3cacc77f4dc23d0d97e2d6488e6220a3af81a"
+  },
+  "files_scanned": 234,
+  "fields_scanned": 154377,
+  "sp_summary": {
+    "control_occurrences": 213,
+    "drift_occurrences": 22,
+    "families": {
+      "angle_button": {
+        "occurrences": 62,
+        "drifts": 20,
+        "patterns": {
+          "<0>": 18,
+          "<38>": 4,
+          "<39>": 4,
+          "<40>": 7,
+          "<41>": 7,
+          "<23>": 7,
+          "<42>": 1,
+          "<43>": 1,
+          "<9>": 1,
+          "<10>": 1,
+          "<8>": 1,
+          "<22>": 1,
+          "<44>": 1,
+          "<-1>": 2,
+          "<-2>": 1,
+          "<-3>": 5
+        }
+      },
+      "brace_numeric": {
+        "occurrences": 4,
+        "drifts": 2,
+        "patterns": {
+          "{4.4.0}": 2,
+          "{1}": 2
+        }
+      },
+      "format": {
+        "occurrences": 1,
+        "drifts": 0,
+        "patterns": {
+          "%s": 1
+        }
+      },
+      "dollar": {
+        "occurrences": 146,
+        "drifts": 0,
+        "patterns": {
+          "$c": 97,
+          "$n": 35,
+          "$F": 5,
+          "$f": 1,
+          "$l": 8
+        }
+      }
+    }
+  },
+  "unique_sp_entries_with_drift": 21,
+  "runtime_new_risks": "not_verified; UI exploration did not reach target help surface; no new visible-failure claim",
+  "main_best_final_iso": "not_verified in this audit",
+  "tests": "49 relevant existing tests passed; minimal byte probes and final SP COMPDATA control reread independently performed",
+  "files": {
+    "audit.py": {
+      "size": 3952,
+      "sha256": "d0fbc49ec75056b044d85dde129ed72702e48ac24bc7119026bbeeb8472fd1ff"
+    },
+    "corpus-audit.json": {
+      "size": 209528,
+      "sha256": "a37f6f40b2799ad7c16041a1c682adb81eeaa871903e5e82d96896781eea1e5b"
+    },
+    "iso-control-audit.json": {
+      "size": 25233,
+      "sha256": "30cd94d3bb1f34cd72992c64c96792c723c7119762e7b651eafbe79bbf25e8b5"
+    },
+    "minimal-examples.json": {
+      "size": 2472,
+      "sha256": "e8a232e89aaf30095cb6d0a9e0f21ee014c0c3d1834069d96b643d4bc6ec80dd"
+    },
+    "targeted-tests.log": {
+      "size": 148,
+      "sha256": "030184c9ded4898c646a394ae5972d16174dc02c1db9d349039397d83e9240fc"
+    }
+  }
+}
