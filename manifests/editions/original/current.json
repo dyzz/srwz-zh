@@ -1,70 +1,62 @@
 {
   "adapter": "original-production-v1",
-  "daily_test": {
-    "battle_square_skip": {
-      "all_replacements_exact": true,
-      "already_applied": true,
-      "cave_file_offset": "0x2F7A80",
-      "cave_preimage_all_zero": false,
-      "cave_size": 2048,
-      "cave_virtual_address": "0x3F6000",
-      "changed_byte_count": 0,
-      "configuration_matches_before": true,
-      "edition": "original",
-      "enabled": true,
-      "executable_size_preserved": true,
-      "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
-      "hook_size": 1728,
-      "member": "SLPS_258.87",
-      "native_resource_waits_preserved": true,
-      "native_result_processing_preserved": true,
-      "patches": [
-        {
-          "file_offset": "0x1E5874",
-          "id": "battle_step_world_call",
-          "kind": "jal",
-          "original_instruction_hex": "ac200c0c",
-          "replacement_instruction_hex": "00d80f0c",
-          "state_before": "applied",
-          "surface": "battle step world call",
-          "virtual_address": "0x2E3DF4"
-        },
-        {
-          "file_offset": "0x1ED990",
-          "id": "queue_append_prologue_0",
-          "kind": "j",
-          "original_instruction_hex": "20038290",
-          "replacement_instruction_hex": "40d90f08",
-          "state_before": "applied",
-          "surface": "queue append prologue 0",
-          "virtual_address": "0x2EBF10"
-        },
-        {
-          "file_offset": "0x1ED994",
-          "id": "queue_append_prologue_1",
-          "kind": "nop",
-          "original_instruction_hex": "c0100200",
-          "replacement_instruction_hex": "00000000",
-          "state_before": "applied",
-          "surface": "queue append prologue 1",
-          "virtual_address": "0x2EBF14"
-        }
-      ],
-      "policy": "square_skips_battle_animation_via_native_tail",
-      "site_count": 3,
-      "state_marker": "0x4E540005",
-      "world_steps_per_frame": 1
-    },
-    "path": "build/iso/daily-test/current-original-skip.iso",
-    "runtime": "not_tested",
-    "sha256": "c33c027208da90e36c60da0e55a0833f2a54c1920968768d96b25c315c1b1c6e",
-    "size": 3758358528,
-    "skip_enabled": true,
-    "status": "exact_current_copy_and_skip_readback_passed"
+  "battle_square_skip": {
+    "all_replacements_exact": true,
+    "already_applied": true,
+    "cave_file_offset": "0x2F7A80",
+    "cave_preimage_all_zero": false,
+    "cave_size": 2048,
+    "cave_virtual_address": "0x3F6000",
+    "changed_byte_count": 0,
+    "configuration_matches_before": true,
+    "edition": "original",
+    "enabled": true,
+    "executable_size_preserved": true,
+    "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
+    "hook_size": 1728,
+    "member": "SLPS_258.87",
+    "native_resource_waits_preserved": true,
+    "native_result_processing_preserved": true,
+    "patches": [
+      {
+        "file_offset": "0x1E5874",
+        "id": "battle_step_world_call",
+        "kind": "jal",
+        "original_instruction_hex": "ac200c0c",
+        "replacement_instruction_hex": "00d80f0c",
+        "state_before": "applied",
+        "surface": "battle step world call",
+        "virtual_address": "0x2E3DF4"
+      },
+      {
+        "file_offset": "0x1ED990",
+        "id": "queue_append_prologue_0",
+        "kind": "j",
+        "original_instruction_hex": "20038290",
+        "replacement_instruction_hex": "40d90f08",
+        "state_before": "applied",
+        "surface": "queue append prologue 0",
+        "virtual_address": "0x2EBF10"
+      },
+      {
+        "file_offset": "0x1ED994",
+        "id": "queue_append_prologue_1",
+        "kind": "nop",
+        "original_instruction_hex": "c0100200",
+        "replacement_instruction_hex": "00000000",
+        "state_before": "applied",
+        "surface": "queue append prologue 1",
+        "virtual_address": "0x2EBF14"
+      }
+    ],
+    "policy": "square_skips_battle_animation_via_native_tail",
+    "site_count": 3,
+    "state_marker": "0x4E540005",
+    "world_steps_per_frame": 1
   },
   "edition_contract_sha256": "a8b5b0d5dd0ae4cb1e4174a268ebb8acad72c66aa9d2f63e928e14467f628f54",
   "edition_id": "original",
-  "input_digest": "bdee59c405fd861842a6b785b5d278cf539e70b171dfb2b2512df15a178853a8",
+  "input_digest": "21dd32dceb85c0a48d66851466a7447ce70916f5eb0067bf43a689ad77768a8d",
   "legacy_equivalence": {
     "baseline_iso_sha256": "6ae9b61605a0491adb6a07c4204bb1cd66563a067bed4fb4faf679a0afcb1b8e",
     "member_count": 25,
@@ -73,19 +65,20 @@
   },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "sha256": "c33c027208da90e36c60da0e55a0833f2a54c1920968768d96b25c315c1b1c6e",
+    "sha256": "3cf68c57801825efbef906d9b68646ab731dd6c7ea3f2ba59bfdb17e2a70c1e9",
     "size": 3758358528
   },
   "readback": {
-    "path": "build/editions/zh-release-original/4d5651d97b29fa03c25453096ac2f7faba7bd4100060029701d7b124a3931dc8/project/manifests/zh-release-full-story-iso-content-validation.json",
-    "sha256": "73d23747611a90db391d23dbd440fcd410675294c03cb955ace71eee05d42380",
+    "path": "build/editions/zh-release-original/2fc42aa05fbe4215cac687fc82d7be2720fc0bc512f763105f0b7a42fc3f033d/project/manifests/zh-release-full-story-iso-content-validation.json",
+    "sha256": "1bb06e4e757ac8008b01798d794fc2999807d4b2ccbcbd68fd114c39ec572de8",
     "stage_count": 170,
     "translation_entry_count": 93071
   },
   "runtime": "not_tested",
   "schema_version": 1,
-  "source_head": "99c486f183c90896aa53662f19d40f28ed081dc0",
+  "skip_enabled": true,
+  "source_head": "04bef60cf9faec50f2019f1b7eec45c45fb70814",
   "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-original/4d5651d97b29fa03c25453096ac2f7faba7bd4100060029701d7b124a3931dc8/project"
+  "workspace": "build/editions/zh-release-original/2fc42aa05fbe4215cac687fc82d7be2720fc0bc512f763105f0b7a42fc3f033d/project"
 }

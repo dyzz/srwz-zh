@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-07",
+  "authorization": "这部分写入ISO，commit&push",
+  "version": "v0.4.2+20261007",
+  "scope": "已定稿的超重神机体、武器、武器全名及关联战斗台词、剧情台词、图鉴",
+  "source_commits": [
+    "7df238e",
+    "d367031",
+    "04bef60"
+  ],
+  "input_digest": "21dd32dceb85c0a48d66851466a7447ce70916f5eb0067bf43a689ad77768a8d",
+  "source_head": "04bef60cf9faec50f2019f1b7eec45c45fb70814",
+  "workspace_policy": "ISOs built from the frozen current workspace including preserved pre-existing local changes; source commits contain only the Gravion scope and necessary SP font dependency refresh.",
+  "batch_manifest": {
+    "path": "work/editions/21dd32dceb85c0a48d66851466a7447ce70916f5eb0067bf43a689ad77768a8d/original-best-sp.json",
+    "sha256": "a36056df8ce45d427011c6617330e1883410ea2df2c698b206accc3084fe1848"
+  },
+  "validation": {
+    "batch_receipt": "edition_batch_receipt_integrity_passed",
+    "regression_unique_tests": 757,
+    "regression_execution": "756 tests passed in 146.219s; all 4 SP name-table tests passed on the new candidate and promoted current ISO (3 overlap).",
+    "sp_gravion_label_locations": 18,
+    "sp_unit_records": 854,
+    "sp_pilot_records": 969,
+    "runtime": "not_tested"
+  },
+  "editions": [
+    {
+      "edition_id": "original",
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "3cf68c57801825efbef906d9b68646ab731dd6c7ea3f2ba59bfdb17e2a70c1e9",
+        "size": 3758358528
+      },
+      "readback": {
+        "path": "build/editions/zh-release-original/2fc42aa05fbe4215cac687fc82d7be2720fc0bc512f763105f0b7a42fc3f033d/project/manifests/zh-release-full-story-iso-content-validation.json",
+        "sha256": "1bb06e4e757ac8008b01798d794fc2999807d4b2ccbcbd68fd114c39ec572de8",
+        "stage_count": 170,
+        "translation_entry_count": 93071
+      },
+      "skip_enabled": true
+    },
+    {
+      "edition_id": "best",
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "e950438e597c579ba5b3bdc82be374a0895200bffa83d70896d954f05fc9ea82",
+        "size": 3755081728
+      },
+      "readback": {
+        "path": "build/editions/zh-release-best/5c7ca60d985f7a7d939c681623222acad4f72b6017ea72ec6030898d9ae300eb/project/work/build/best-current/iso-readback.json",
+        "sha256": "6ed1a7068ee25854394d9e88a8a68a126dddebaa5b70ce026d609e9b3fa85748",
+        "stage_count": 205,
+        "translation_entry_count": 84338
+      },
+      "skip_enabled": true
+    },
+    {
+      "edition_id": "sp",
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "8e796122e7d77b1d9697059e8e83a3c8712d6d5b81512b2116f8a04890fedc86",
+        "size": 3791781888
+      },
+      "readback": {
+        "path": "build/editions/zh-release-sp/ff7c14c0dc56c08afb46fc07f471569825a83aa1dffee68c6801f458ce85575a/project/build/iso/special-disc/sp-current.json",
+        "sha256": "e1f6d830870838f661103e3c47f2b30ec904f4f46156875dafeabf1f87ec8b55"
+      },
+      "skip_enabled": true
+    }
+  ]
+}

@@ -1,78 +1,70 @@
 {
   "adapter": "best-current-source-v1",
-  "daily_test": {
-    "battle_square_skip": {
-      "all_replacements_exact": true,
-      "already_applied": true,
-      "cave_file_offset": "0x2F7A80",
-      "cave_preimage_all_zero": false,
-      "cave_size": 2048,
-      "cave_virtual_address": "0x3F6000",
-      "changed_byte_count": 0,
-      "configuration_matches_before": true,
-      "edition": "best",
-      "enabled": true,
-      "executable_size_preserved": true,
-      "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
-      "hook_size": 1728,
-      "member": "SLPS_732.70",
-      "native_resource_waits_preserved": true,
-      "native_result_processing_preserved": true,
-      "patches": [
-        {
-          "file_offset": "0x1E5C44",
-          "id": "battle_step_world_call",
-          "kind": "jal",
-          "original_instruction_hex": "a0210c0c",
-          "replacement_instruction_hex": "00d80f0c",
-          "state_before": "applied",
-          "surface": "battle step world call",
-          "virtual_address": "0x2E41C4"
-        },
-        {
-          "file_offset": "0x1EDD60",
-          "id": "queue_append_prologue_0",
-          "kind": "j",
-          "original_instruction_hex": "20038290",
-          "replacement_instruction_hex": "40d90f08",
-          "state_before": "applied",
-          "surface": "queue append prologue 0",
-          "virtual_address": "0x2EC2E0"
-        },
-        {
-          "file_offset": "0x1EDD64",
-          "id": "queue_append_prologue_1",
-          "kind": "nop",
-          "original_instruction_hex": "c0100200",
-          "replacement_instruction_hex": "00000000",
-          "state_before": "applied",
-          "surface": "queue append prologue 1",
-          "virtual_address": "0x2EC2E4"
-        }
-      ],
-      "policy": "square_skips_battle_animation_via_native_tail",
-      "site_count": 3,
-      "state_marker": "0x4E540005",
-      "world_steps_per_frame": 1
-    },
-    "path": "build/iso/daily-test/current-best-skip.iso",
-    "runtime": "not_tested",
-    "sha256": "b93b2c3517309ba25086e8733d18ecf58f70139fef8647d753f8bf802746f27e",
-    "size": 3755081728,
-    "skip_enabled": true,
-    "status": "exact_current_copy_and_skip_readback_passed"
+  "battle_square_skip": {
+    "all_replacements_exact": true,
+    "already_applied": true,
+    "cave_file_offset": "0x2F7A80",
+    "cave_preimage_all_zero": false,
+    "cave_size": 2048,
+    "cave_virtual_address": "0x3F6000",
+    "changed_byte_count": 0,
+    "configuration_matches_before": true,
+    "edition": "best",
+    "enabled": true,
+    "executable_size_preserved": true,
+    "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+    "hook_size": 1728,
+    "member": "SLPS_732.70",
+    "native_resource_waits_preserved": true,
+    "native_result_processing_preserved": true,
+    "patches": [
+      {
+        "file_offset": "0x1E5C44",
+        "id": "battle_step_world_call",
+        "kind": "jal",
+        "original_instruction_hex": "a0210c0c",
+        "replacement_instruction_hex": "00d80f0c",
+        "state_before": "applied",
+        "surface": "battle step world call",
+        "virtual_address": "0x2E41C4"
+      },
+      {
+        "file_offset": "0x1EDD60",
+        "id": "queue_append_prologue_0",
+        "kind": "j",
+        "original_instruction_hex": "20038290",
+        "replacement_instruction_hex": "40d90f08",
+        "state_before": "applied",
+        "surface": "queue append prologue 0",
+        "virtual_address": "0x2EC2E0"
+      },
+      {
+        "file_offset": "0x1EDD64",
+        "id": "queue_append_prologue_1",
+        "kind": "nop",
+        "original_instruction_hex": "c0100200",
+        "replacement_instruction_hex": "00000000",
+        "state_before": "applied",
+        "surface": "queue append prologue 1",
+        "virtual_address": "0x2EC2E4"
+      }
+    ],
+    "policy": "square_skips_battle_animation_via_native_tail",
+    "site_count": 3,
+    "state_marker": "0x4E540005",
+    "world_steps_per_frame": 1
   },
   "edition_contract_sha256": "9aa1ca3f6af7b94391303abc1092900ef2ae2ca933b1ba467535061652446686",
   "edition_id": "best",
-  "input_digest": "bdee59c405fd861842a6b785b5d278cf539e70b171dfb2b2512df15a178853a8",
+  "input_digest": "21dd32dceb85c0a48d66851466a7447ce70916f5eb0067bf43a689ad77768a8d",
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "b93b2c3517309ba25086e8733d18ecf58f70139fef8647d753f8bf802746f27e",
+    "sha256": "e950438e597c579ba5b3bdc82be374a0895200bffa83d70896d954f05fc9ea82",
     "size": 3755081728
   },
   "readback": {
-    "path": "build/editions/zh-release-best/acb05e3e11c1c2c1010ab0c7c386552209c0672b8d3101088646706e8b65bec6/project/work/build/best-current/iso-readback.json",
-    "sha256": "4d987a8aced8173adca3bda92d580e81b80bcdd090814a49c511bffde41575e4",
+    "path": "build/editions/zh-release-best/5c7ca60d985f7a7d939c681623222acad4f72b6017ea72ec6030898d9ae300eb/project/work/build/best-current/iso-readback.json",
+    "sha256": "6ed1a7068ee25854394d9e88a8a68a126dddebaa5b70ce026d609e9b3fa85748",
     "stage_count": 205,
     "translation_entry_count": 84338
   },
@@ -80,12 +72,13 @@
   "schema_version": 1,
   "shared_frontend": {
     "edition": "original",
-    "input_digest": "bdee59c405fd861842a6b785b5d278cf539e70b171dfb2b2512df15a178853a8",
-    "iso_sha256": "c33c027208da90e36c60da0e55a0833f2a54c1920968768d96b25c315c1b1c6e",
-    "readback_sha256": "73d23747611a90db391d23dbd440fcd410675294c03cb955ace71eee05d42380"
+    "input_digest": "21dd32dceb85c0a48d66851466a7447ce70916f5eb0067bf43a689ad77768a8d",
+    "iso_sha256": "3cf68c57801825efbef906d9b68646ab731dd6c7ea3f2ba59bfdb17e2a70c1e9",
+    "readback_sha256": "1bb06e4e757ac8008b01798d794fc2999807d4b2ccbcbd68fd114c39ec572de8"
   },
-  "source_head": "99c486f183c90896aa53662f19d40f28ed081dc0",
+  "skip_enabled": true,
+  "source_head": "04bef60cf9faec50f2019f1b7eec45c45fb70814",
   "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-best/acb05e3e11c1c2c1010ab0c7c386552209c0672b8d3101088646706e8b65bec6/project"
+  "workspace": "build/editions/zh-release-best/5c7ca60d985f7a7d939c681623222acad4f72b6017ea72ec6030898d9ae300eb/project"
 }
