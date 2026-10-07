@@ -1,0 +1,271 @@
+{
+  "date": "2026-10-02",
+  "status": "native_blank_row_placeholder_regression_fixed_in_source_single_record_runtime_passed",
+  "source_head": "bf9e30352ceeebdc16fb043a959d09ebff96caf3",
+  "reported_version": "AetherSX2 1.5-4248; approximately 2026-09-22 current-best-skip per user recollection",
+  "current_iso": {
+    "path": "build/iso/daily-test/current-best-skip.iso",
+    "sha256": "38fc5a7c1097aa91512cfc276b1a48956be4b49f69ff06b007708969b6c39f11",
+    "size": 3755081728
+  },
+  "native_best_iso": {
+    "path": "rom/best.iso",
+    "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77"
+  },
+  "local_core": {
+    "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+    "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+    "renderer": "Software (SW)",
+    "capture_start_game_frame": 3021,
+    "sample_every_game_frames": 15,
+    "sample_count_each": 221
+  },
+  "card_source": {
+    "sha256_before_and_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+    "isolated_copies": true
+  },
+  "witnesses": [
+    {
+      "emulator": "AetherSX2 1.5-3668",
+      "device": "Seeker",
+      "android": "16",
+      "iso_hash_verified_on_device": true,
+      "renderer": "OpenGL",
+      "observation": "User confirmed visually; captured ~1.18-second blank in excerpt before all phone testing stopped."
+    },
+    {
+      "emulator": "Armsx2 on local machine",
+      "observation": "User confirmed same problem; no host video supplied."
+    }
+  ],
+  "phone_testing_stopped_on_user_request": true,
+  "phone_setting_last_changed": "AetherSX2 GPU Renderer changed from OpenGL to Software before stop request; Software not run on phone. User informed. No further phone operations after stop.",
+  "evidence_boundary": "Same current program/font/timing with only two separator rows restored eliminates both blank intervals in a 161-sample Software scan. Other three records are statically repaired; their runtime acceptance and repaired Armsx2/PCSX2 acceptance remain pending.",
+  "artifacts": [
+    {
+      "path": "blank-row-diagnostic-build.json",
+      "sha256": "3abf41876f72dcc7d0e8dcc46abfa7cfb648a2e7419a8755ead908176fe87c22",
+      "size": 565
+    },
+    {
+      "path": "blank-row-fix-ab.png",
+      "sha256": "c3f1223c44faab23134f45ee35ad7469c7624076746307fe511f4f4588b94d40",
+      "size": 1715609
+    },
+    {
+      "path": "current-1335.png",
+      "sha256": "f2d6538bbb09d3dd434d7fddf49e6e90c603267fbab8670428378a7a70957634",
+      "size": 550128
+    },
+    {
+      "path": "current-1350.png",
+      "sha256": "4aca9ead740585cba20764fe2434551d3597adea19066121c4488cefe2a3b5ef",
+      "size": 506170
+    },
+    {
+      "path": "current-1425.png",
+      "sha256": "95f78554016dbaec5d3f8710657bcd9115aa8af0adae5f888d43dd8626a1f599",
+      "size": 543882
+    },
+    {
+      "path": "current-1980.png",
+      "sha256": "0f550daa725f2fb4b06e0f10614b931328b493fa368312a70cb7c5276c93780b",
+      "size": 504157
+    },
+    {
+      "path": "current-1995.png",
+      "sha256": "4aca9ead740585cba20764fe2434551d3597adea19066121c4488cefe2a3b5ef",
+      "size": 506170
+    },
+    {
+      "path": "current-2070.png",
+      "sha256": "2deaaf0927de4a1133b04b67fdfd4560a1be971bc56e46c8e452d805337d702c",
+      "size": 500935
+    },
+    {
+      "path": "diagnostic-builds.json",
+      "sha256": "60c6e3a94855dcab3550652516c0b54bf02dd0f5aacf072111715eaca166f83f",
+      "size": 561
+    },
+    {
+      "path": "diagnostic-results.json",
+      "sha256": "ac1dcac7544cae7c3c2a177bff4c7871c781739777d8ee0ee39168e52feadf3d",
+      "size": 14027
+    },
+    {
+      "path": "dropout-boundaries.png",
+      "sha256": "f1aad32383bc4d79534cad3ebc2691ff7c2d2c053cb41c554c82b13b103dedfc",
+      "size": 1459425
+    },
+    {
+      "path": "fixed-1350.png",
+      "sha256": "afaa722f90dbf691ef10d712a860873225a76b4da9268327cf22666907c25b5f",
+      "size": 533070
+    },
+    {
+      "path": "fixed-1380.png",
+      "sha256": "5aee0495c8f3c33cf6abc5ec483f0aac7fc488f25d55c746791de1b0cbbd7530",
+      "size": 530447
+    },
+    {
+      "path": "fixed-1410.png",
+      "sha256": "17ae7315ccb733dee1639e5bd71527bae5afb7cdd581eeb1c694082b4b838823",
+      "size": 528371
+    },
+    {
+      "path": "fixed-1995.png",
+      "sha256": "fc54250c9ff0bdb40ca6e39483cf353579b21c012fc0095e994ec80d65b85394",
+      "size": 507717
+    },
+    {
+      "path": "fixed-2025.png",
+      "sha256": "8eaeee7a6f68561ec0a91c53293a8c22c129b8b059ec78e365cdf4777a003ec8",
+      "size": 505869
+    },
+    {
+      "path": "fixed-2055.png",
+      "sha256": "94aa2af182d0e376c7641930d5840a2199dbd2975d454add256ebb4cd51e9ad3",
+      "size": 504890
+    },
+    {
+      "path": "full-candidate.json",
+      "sha256": "9f55c11f992abe3b158f4dcd8bbb630a629c8939693c917f34961ddae936908f",
+      "size": 1493
+    },
+    {
+      "path": "japanese-1335.png",
+      "sha256": "6b736ae3f6e01b80bbc70b50214e0c08f3262f09f87852991ebbe15414725bd0",
+      "size": 555565
+    },
+    {
+      "path": "japanese-1350.png",
+      "sha256": "9f7501feee299c29c9573cdb77d097b28eb15c86769058779df0f317f8e304c0",
+      "size": 538469
+    },
+    {
+      "path": "japanese-1425.png",
+      "sha256": "b3421007abc864d161a4176dbd3a199b97040cd24f5368d90f7a512dd2dca739",
+      "size": 537086
+    },
+    {
+      "path": "japanese-1980.png",
+      "sha256": "9c9f1f292705df4bcdcc6c7bc40fbaf95fc840b05e12e8468e1646b9e2ac153e",
+      "size": 538832
+    },
+    {
+      "path": "japanese-1995.png",
+      "sha256": "0fd5e01687cc7d45faa1acec652c3e3c51fa63ac0f5cac674c45879a75de0478",
+      "size": 526642
+    },
+    {
+      "path": "japanese-2070.png",
+      "sha256": "856318050803d59ab4ca9d7fd60b0e217ab0a97f2b96440908120e22b21ff3e4",
+      "size": 529343
+    },
+    {
+      "path": "native-blank-row-audit.json",
+      "sha256": "07b631edd1988ae927d4b8de118950242fc5ad6aa6d47ec8675b6d8ea1139aae",
+      "size": 3751
+    },
+    {
+      "path": "phone-scroll-opengl-excerpt.mp4",
+      "sha256": "f60ccd6040b07aa5c964ea7885583b0c3d7320e063169fd38863d8fbca69ed15",
+      "size": 1829858
+    },
+    {
+      "path": "software-ab-first-gap.png",
+      "sha256": "aa971b27a8d2691c86581ef106a2eca9253138fa3b2e3c6f8cdc7648a4f79cbd",
+      "size": 1748777
+    },
+    {
+      "path": "software-scan.json",
+      "sha256": "8e57bcba4288500d285f5a9b6182fc75027afe7286d17061cfa9a250b16ab0b5",
+      "size": 45750
+    },
+    {
+      "path": "source-fix.json",
+      "sha256": "7e8f98dc30eb8008c1d5dcf035c2d78b7292bb3d4aca5e75b37eae00380de9f1",
+      "size": 10380
+    },
+    {
+      "path": "summary-readback.json",
+      "sha256": "6ad3943cde7533cdbe0eab48a737627d506caeb56063dfd40275f4c4ffa59d15",
+      "size": 7923
+    },
+    {
+      "path": "user-report.mp4",
+      "sha256": "fd23ec7e0fbc62e75bf0ba9ac94ffe833f1d5da4f858102156b326113d329581",
+      "size": 1274717
+    },
+    {
+      "path": "video-analysis.json",
+      "sha256": "54015e027239d930879a0847b9bf8ab4bb5e0f2d52b692036d3d2ddb99baf019",
+      "size": 2810
+    }
+  ],
+  "validation": {
+    "unit_tests_passed": 63,
+    "python_compile": "passed",
+    "git_diff_check": "passed"
+  },
+  "source_fix": {
+    "path": "corpus/zh/summary.json",
+    "records": 4,
+    "separator_rows": 14,
+    "sha256": "c5d3a8c9c498724f83d006a8d1ddc0b68a3c2f938cda2309a53cb4db5e6de79f"
+  },
+  "candidate": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/feedback/aethersx2-text-dropout-20261002/current-best-blank-row-fix.iso",
+    "size": 3755081728,
+    "sha256": "d03f66ab8540fad39b3915143d1271bd7ad04e35288a0491b93223efd30dd192",
+    "source_sha256": "38fc5a7c1097aa91512cfc276b1a48956be4b49f69ff06b007708969b6c39f11",
+    "all_bytes_outside_planned_slots_equal": true,
+    "changed_byte_count": 3569,
+    "changed_slots": [
+      [
+        3219109888,
+        3219111152
+      ],
+      [
+        3219111152,
+        3219111936
+      ],
+      [
+        3219113760,
+        3219114800
+      ],
+      [
+        3219115056,
+        3219115920
+      ]
+    ],
+    "fixed_entries": [
+      {
+        "id": "summary/00/000",
+        "fixed_blank_rows": 4,
+        "allocated_length": 1489,
+        "payload_bytes": 1157
+      },
+      {
+        "id": "summary/01/000",
+        "fixed_blank_rows": 2,
+        "allocated_length": 809,
+        "payload_bytes": 583
+      },
+      {
+        "id": "summary/05/000",
+        "fixed_blank_rows": 4,
+        "allocated_length": 812,
+        "payload_bytes": 653
+      },
+      {
+        "id": "summary/07/000",
+        "fixed_blank_rows": 4,
+        "allocated_length": 886,
+        "payload_bytes": 676
+      }
+    ],
+    "corpus_sha256": "c5d3a8c9c498724f83d006a8d1ddc0b68a3c2f938cda2309a53cb4db5e6de79f",
+    "scope": "Local diagnostic candidate; four MTV_PROS chunks only. No program, font, timing/header, archive offset, size or other ISO byte changed. The single-chunk runtime canary binds its entire decoded chunk 1 exactly to this candidate."
+  }
+}

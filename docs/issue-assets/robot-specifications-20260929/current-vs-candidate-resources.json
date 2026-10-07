@@ -1,0 +1,106 @@
+{
+  "status": "current_vs_lrps2_candidate_member_comparison",
+  "input_digest": "a16e102efc02093e31d3e636c92ee614e61cefd8069052ca19a5d812928e647b",
+  "results": [
+    {
+      "edition": "original",
+      "current_iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "fe9f242fdb5912bc9f899fd254d9c43605913eafd303154dda8f67fdfe2bd985",
+        "size": 3758358528
+      },
+      "candidate_iso": "build/iso/robot-specifications-20260929/original.iso",
+      "members": {
+        "KURODATA/KVPDATA.BIN": {
+          "current": {
+            "sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+            "size": 239664
+          },
+          "lrps2_candidate": {
+            "sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+            "size": 239664
+          },
+          "identical": true
+        },
+        "KURODATA/KVMDATA.BIN": {
+          "current": {
+            "sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+            "size": 3335408
+          },
+          "lrps2_candidate": {
+            "sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+            "size": 3335408
+          },
+          "identical": true
+        }
+      }
+    },
+    {
+      "edition": "best",
+      "current_iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "a3c19eacef7ab2af16364e067e4d5902f034899abf909a3c4105fc84bfad95b5",
+        "size": 3755081728
+      },
+      "candidate_iso": "build/iso/robot-specifications-20260929/best.iso",
+      "members": {
+        "KURODATA/KVPDATA.BIN": {
+          "current": {
+            "sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+            "size": 239664
+          },
+          "lrps2_candidate": {
+            "sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+            "size": 239664
+          },
+          "identical": true
+        },
+        "KURODATA/KVMDATA.BIN": {
+          "current": {
+            "sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+            "size": 3335408
+          },
+          "lrps2_candidate": {
+            "sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+            "size": 3335408
+          },
+          "identical": true
+        }
+      }
+    },
+    {
+      "edition": "sp",
+      "current_iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "a71f417addb861c4d5833398280fed52ae5097c1b1703f3a2c0d4b36f0d36e17",
+        "size": 3791781888
+      },
+      "candidate_iso": "build/iso/robot-specifications-20260929/sp.iso",
+      "members": {
+        "KURODATA/KVPDATA.BIN": {
+          "current": {
+            "sha256": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e",
+            "size": 287456
+          },
+          "lrps2_candidate": {
+            "sha256": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e",
+            "size": 287456
+          },
+          "identical": true
+        },
+        "KURODATA/KVMDATA.BIN": {
+          "current": {
+            "sha256": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+            "size": 4720512
+          },
+          "lrps2_candidate": {
+            "sha256": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+            "size": 4720512
+          },
+          "identical": true
+        }
+      }
+    }
+  ],
+  "scope": "Resource equality only; final ISO and CHD runtime not retested"
+}

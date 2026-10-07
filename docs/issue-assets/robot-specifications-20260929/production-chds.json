@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "purpose": "User-requested standalone CHDs of the latest three current ISOs with the shared I repair",
+  "generated_at": "2026-09-29T13:07:57.631575+00:00",
+  "batch_manifest": "work/editions/a16e102efc02093e31d3e636c92ee614e61cefd8069052ca19a5d812928e647b/original-best-sp.json",
+  "input_digest": "a16e102efc02093e31d3e636c92ee614e61cefd8069052ca19a5d812928e647b",
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "a16e102efc02093e31d3e636c92ee614e61cefd8069052ca19a5d812928e647b",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "seconds": 176.583,
+  "results": [
+    {
+      "edition": "original",
+      "source_iso": "build/iso/daily-test/current-original-skip.iso",
+      "source_bytes": 3758358528,
+      "source_sha256": "fe9f242fdb5912bc9f899fd254d9c43605913eafd303154dda8f67fdfe2bd985",
+      "chd": "build/iso/daily-test/current-original-skip.chd",
+      "chd_bytes": 2560016376,
+      "chd_sha256": "5980794cfc8c09bc94b4cdc6a66e18435ae63a6256b5a5213959618535b1b864",
+      "compression": "zlib",
+      "hunk_bytes": 16384,
+      "standalone": true,
+      "chd_verify": "passed",
+      "extracted_iso_sha256": "fe9f242fdb5912bc9f899fd254d9c43605913eafd303154dda8f67fdfe2bd985",
+      "shared_I_repair_records": 2,
+      "donor_pixels_verified": true,
+      "seconds": 59.317,
+      "runtime": "not_tested_for_final_ISO_or_CHD"
+    },
+    {
+      "edition": "best",
+      "source_iso": "build/iso/daily-test/current-best-skip.iso",
+      "source_bytes": 3755081728,
+      "source_sha256": "a3c19eacef7ab2af16364e067e4d5902f034899abf909a3c4105fc84bfad95b5",
+      "chd": "build/iso/daily-test/current-best-skip.chd",
+      "chd_bytes": 2557265262,
+      "chd_sha256": "4be5212dc9987fbfc2646e3f8d42f8b8c2ba802269f28af41b1e117bce4e46e9",
+      "compression": "zlib",
+      "hunk_bytes": 16384,
+      "standalone": true,
+      "chd_verify": "passed",
+      "extracted_iso_sha256": "a3c19eacef7ab2af16364e067e4d5902f034899abf909a3c4105fc84bfad95b5",
+      "shared_I_repair_records": 2,
+      "donor_pixels_verified": true,
+      "seconds": 58.332,
+      "runtime": "not_tested_for_final_ISO_or_CHD"
+    },
+    {
+      "edition": "sp",
+      "source_iso": "build/iso/daily-test/current-sp-skip.iso",
+      "source_bytes": 3791781888,
+      "source_sha256": "a71f417addb861c4d5833398280fed52ae5097c1b1703f3a2c0d4b36f0d36e17",
+      "chd": "build/iso/daily-test/current-sp-skip.chd",
+      "chd_bytes": 2608436088,
+      "chd_sha256": "c876f5918c0bc02c9a2ea552aa5a45c0457f9f48989e39847bc18be02ed9331b",
+      "compression": "zlib",
+      "hunk_bytes": 16384,
+      "standalone": true,
+      "chd_verify": "passed",
+      "extracted_iso_sha256": "a71f417addb861c4d5833398280fed52ae5097c1b1703f3a2c0d4b36f0d36e17",
+      "shared_I_repair_records": 4,
+      "donor_pixels_verified": true,
+      "seconds": 58.468,
+      "runtime": "not_tested_for_final_ISO_or_CHD"
+    }
+  ]
+}

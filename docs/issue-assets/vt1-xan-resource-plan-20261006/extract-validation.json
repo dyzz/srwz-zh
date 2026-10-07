@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-06",
+  "extractor": "tools/extract_vt1_portraits.py",
+  "extractor_sha256": "dc4ceca2f8805900c37fdaf1bd5c183f3c06791b6c2c4cf0a53c5cf2afe9273c",
+  "positive_cases": [
+    {
+      "case": "best-story",
+      "record_id": 2515,
+      "decoded_sha256": "0b21b1fb820136d5a1a5f4585aac551b04f826c5ad3693eaa90e0a082d437a43",
+      "dimensions": [
+        512,
+        512
+      ],
+      "hashes_and_native_slices_verified": true
+    },
+    {
+      "case": "original-battle",
+      "record_id": 1741,
+      "decoded_sha256": "f093d0cc1bd1a4e159539d9f797530e4e91821385ab5d7a7aba245c88f0392fc",
+      "dimensions": [
+        128,
+        128
+      ],
+      "hashes_and_native_slices_verified": true
+    },
+    {
+      "case": "original-native-story",
+      "record_id": 2515,
+      "decoded_sha256": "0b21b1fb820136d5a1a5f4585aac551b04f826c5ad3693eaa90e0a082d437a43",
+      "dimensions": [
+        512,
+        512
+      ],
+      "hashes_and_native_slices_verified": true
+    },
+    {
+      "case": "sp-battle",
+      "record_id": 1094,
+      "decoded_sha256": "fa2812acd2504f76db7f3f04c2547e0adf1ea204cc0bfdd263c8506c38ae8c06",
+      "dimensions": [
+        128,
+        128
+      ],
+      "hashes_and_native_slices_verified": true
+    },
+    {
+      "case": "sp-story",
+      "record_id": 1550,
+      "decoded_sha256": "f39ee33677e155728053c80c70a6546bcce603fc3053edb152425101ce3d1f6e",
+      "dimensions": [
+        512,
+        512
+      ],
+      "hashes_and_native_slices_verified": true
+    }
+  ],
+  "negative_cases": [
+    {
+      "case": "reserved ID",
+      "expected_exit_code": 2,
+      "passed": true
+    },
+    {
+      "case": "wrong ISO edition",
+      "expected_exit_code": 1,
+      "passed": true
+    },
+    {
+      "case": "existing outputs",
+      "expected_exit_code": 1,
+      "passed": true
+    }
+  ],
+  "sp_existing_png_comparison": "battle full and story cropped preview byte-identical",
+  "best_original_story_comparison": "decoded bytes identical",
+  "visual_validation": "not_verified_in_game"
+}

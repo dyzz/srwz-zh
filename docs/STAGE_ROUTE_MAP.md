@@ -1,7 +1,7 @@
 # SRWZ 章节顺序与路线图
 
-> 技术参考：本文保留章节、路线、ordinal 和资源号映射；已移除的攻略生成器引用
-> 只表示该离线攻略形成时的历史校验流程。
+> 技术参考：本文保留章节、路线、ordinal 和资源号映射。独立攻略生成器
+> `guide/build.py` 复核映射并生成离线单页；它不参与游戏补丁和 ISO 构建。
 
 本表把游戏内 `COMPDATA.BN` 的 `Stage Name` 文本按实际游玩顺序整理。
 标题以本地 clean-room 解析结果
@@ -15,7 +15,7 @@
 解压后的 STAGE 覆盖块头部会保留 `stg_001.bin`、`stg_003a.bin` 这类原始
 资源名。其三位编号与标题 `ordinal + 1` 精确对应；同编号的 `a/b/c` 后缀块
 属于同一章节。一个章节仍可能使用多个覆盖块，覆盖块的 archive index 也不等于
-标题 ordinal。`tools/build_stage_guide.py` 会按这个关系独立复核 107 个可玩标题。
+标题 ordinal。`guide/build.py` 会按这个关系独立复核 107 个可玩标题。
 
 主流程概览：
 

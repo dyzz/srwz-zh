@@ -1,0 +1,54 @@
+{
+  "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/feedback/aethersx2-text-dropout-20261002/current-best-blank-row-fix.iso",
+  "size": 3755081728,
+  "sha256": "d03f66ab8540fad39b3915143d1271bd7ad04e35288a0491b93223efd30dd192",
+  "source_sha256": "38fc5a7c1097aa91512cfc276b1a48956be4b49f69ff06b007708969b6c39f11",
+  "all_bytes_outside_planned_slots_equal": true,
+  "changed_byte_count": 3569,
+  "changed_slots": [
+    [
+      3219109888,
+      3219111152
+    ],
+    [
+      3219111152,
+      3219111936
+    ],
+    [
+      3219113760,
+      3219114800
+    ],
+    [
+      3219115056,
+      3219115920
+    ]
+  ],
+  "fixed_entries": [
+    {
+      "id": "summary/00/000",
+      "fixed_blank_rows": 4,
+      "allocated_length": 1489,
+      "payload_bytes": 1157
+    },
+    {
+      "id": "summary/01/000",
+      "fixed_blank_rows": 2,
+      "allocated_length": 809,
+      "payload_bytes": 583
+    },
+    {
+      "id": "summary/05/000",
+      "fixed_blank_rows": 4,
+      "allocated_length": 812,
+      "payload_bytes": 653
+    },
+    {
+      "id": "summary/07/000",
+      "fixed_blank_rows": 4,
+      "allocated_length": 886,
+      "payload_bytes": 676
+    }
+  ],
+  "corpus_sha256": "c5d3a8c9c498724f83d006a8d1ddc0b68a3c2f938cda2309a53cb4db5e6de79f",
+  "scope": "Local diagnostic candidate; four MTV_PROS chunks only. No program, font, timing/header, archive offset, size or other ISO byte changed. The single-chunk runtime canary binds its entire decoded chunk 1 exactly to this candidate."
+}

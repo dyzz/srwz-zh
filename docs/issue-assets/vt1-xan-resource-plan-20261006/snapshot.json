@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-06",
+  "timezone": "Asia/Singapore",
+  "status": "research_plan_not_implemented",
+  "vt1_sha256": "bb43ed66fc32ee6cc7f0244e706c54ed245c53631258fae8cdb9e5b82ed17fd5",
+  "versions": {
+    "original": {
+      "iso": "build/iso/zh-release-original/current-original.iso",
+      "iso_size": 3758358528,
+      "members": {
+        "SLPS_258.87": {
+          "size": 3471624,
+          "lba": 455,
+          "sha256": "69b7597bf4c1856a40b644c22d863088ebc32c84f2c7974c250e5d2fe16247d4"
+        },
+        "DATA/VT1.BIN": {
+          "size": 127500736,
+          "lba": 1588772,
+          "sha256": "bb43ed66fc32ee6cc7f0244e706c54ed245c53631258fae8cdb9e5b82ed17fd5"
+        }
+      },
+      "vt1_outer_offsets": [
+        0,
+        431616,
+        10302448,
+        10927968,
+        10939472,
+        10953920,
+        10965424,
+        11433744,
+        11440272,
+        12413520,
+        40804656,
+        59902032,
+        125916880,
+        127099152,
+        127500736
+      ],
+      "portrait_member_tables": {
+        "battle": {
+          "table_file_offset": "0x30e8f0",
+          "record_count": 1742,
+          "last_record_id": 1741,
+          "table_end_file_offset": "0x31042c",
+          "observed_zero_bytes_after_table": 8,
+          "first_offset": 0,
+          "last_offset": 19097371
+        },
+        "story": {
+          "table_file_offset": "0x310430",
+          "record_count": 2516,
+          "last_record_id": 2515,
+          "table_end_file_offset": "0x312b84",
+          "observed_zero_bytes_after_table": 12,
+          "first_offset": 0,
+          "last_offset": 66014843
+        }
+      }
+    },
+    "best": {
+      "iso": "build/iso/zh-release-best/current-best.iso",
+      "iso_size": 3755081728,
+      "members": {
+        "SLPS_732.70": {
+          "size": 3473672,
+          "lba": 455,
+          "sha256": "cea2f75a62d2f5a9c98c9359f2441ea31a444c81257ff9c3c23cfdfcb5eb6e0d"
+        },
+        "DATA/VT1.BIN": {
+          "size": 127500736,
+          "lba": 1587166,
+          "sha256": "bb43ed66fc32ee6cc7f0244e706c54ed245c53631258fae8cdb9e5b82ed17fd5"
+        }
+      },
+      "vt1_outer_offsets": [
+        0,
+        431616,
+        10302448,
+        10927968,
+        10939472,
+        10953920,
+        10965424,
+        11433744,
+        11440272,
+        12413520,
+        40804656,
+        59902032,
+        125916880,
+        127099152,
+        127500736
+      ],
+      "portrait_member_tables": {
+        "battle": {
+          "table_file_offset": "0x30f070",
+          "record_count": 1742,
+          "last_record_id": 1741,
+          "table_end_file_offset": "0x310bac",
+          "observed_zero_bytes_after_table": 8,
+          "first_offset": 0,
+          "last_offset": 19097371
+        },
+        "story": {
+          "table_file_offset": "0x310bb0",
+          "record_count": 2516,
+          "last_record_id": 2515,
+          "table_end_file_offset": "0x313304",
+          "observed_zero_bytes_after_table": 12,
+          "first_offset": 0,
+          "last_offset": 66014843
+        }
+      }
+    }
+  },
+  "scope": "VT1 portrait resource records and paired executable member-offset tables only; compression handling documented separately",
+  "xan_visual_identity_status": "native table binding observed; game-screen visual confirmation pending",
+  "source_reports": [
+    "xan-format-proof.json"
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "status": "isolated_candidates_static_verified_runtime_pending",
+  "editions": {
+    "original": {
+      "source": "build/iso/zh-release-original/current-original.iso",
+      "source_sha256": "71d378b916b54c128cb8b6bc039a72ecaee41df6e0366f82ef8b2eb3abb5aff4",
+      "candidate": "build/iso/robot-specifications-20260929/original.iso",
+      "candidate_sha256": "fe9f242fdb5912bc9f899fd254d9c43605913eafd303154dda8f67fdfe2bd985",
+      "size": 3758358528,
+      "drawing_member_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+      "changed_bytes": 10,
+      "changed_member_offsets": [
+        122626,
+        122634,
+        122635,
+        122636,
+        122637,
+        122670,
+        122678,
+        122679,
+        122680,
+        122681
+      ],
+      "atlas_unchanged": true,
+      "geometry": "left edge +1; right edge unchanged",
+      "donor_uv": [
+        14,
+        16,
+        19,
+        32
+      ],
+      "iso_layout_unchanged": true,
+      "protected_iso_ranges": {
+        "bytes": 3758118864,
+        "sha256": "bb39043f93d4e8ca668cb5622ebc81c383af5622f916dcc2f6b3b5a97e8d72e5"
+      }
+    },
+    "best": {
+      "source": "build/iso/zh-release-best/current-best.iso",
+      "source_sha256": "5cfb486c7b9b67dd676718a73945a4bcf035c1d004f4170853099ab4ff173b7d",
+      "candidate": "build/iso/robot-specifications-20260929/best.iso",
+      "candidate_sha256": "a3c19eacef7ab2af16364e067e4d5902f034899abf909a3c4105fc84bfad95b5",
+      "size": 3755081728,
+      "drawing_member_sha256": "511e9605052e41d5a1aeb8926f7a4e160396bbd35325f8d3d0a12010b48d1640",
+      "changed_bytes": 10,
+      "changed_member_offsets": [
+        122626,
+        122634,
+        122635,
+        122636,
+        122637,
+        122670,
+        122678,
+        122679,
+        122680,
+        122681
+      ],
+      "atlas_unchanged": true,
+      "geometry": "left edge +1; right edge unchanged",
+      "donor_uv": [
+        14,
+        16,
+        19,
+        32
+      ],
+      "iso_layout_unchanged": true,
+      "protected_iso_ranges": {
+        "bytes": 3754842064,
+        "sha256": "f43612bccdfa85448a8ca0336a137c84681c42a7544bc6344feb08f86d7a47cc"
+      }
+    },
+    "sp": {
+      "source": "build/iso/special-disc/sp-current.iso",
+      "source_sha256": "2afa98bb0e64db3c1a0467e2a16e99f274c33c3f260cb0d378bf0342ebec1744",
+      "candidate": "build/iso/robot-specifications-20260929/sp.iso",
+      "candidate_sha256": "a71f417addb861c4d5833398280fed52ae5097c1b1703f3a2c0d4b36f0d36e17",
+      "size": 3791781888,
+      "drawing_member_sha256": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e",
+      "changed_bytes": 20,
+      "changed_member_offsets": [
+        132996,
+        133004,
+        133005,
+        133006,
+        133007,
+        133018,
+        133026,
+        133027,
+        133028,
+        133029,
+        133084,
+        133092,
+        133093,
+        133094,
+        133095,
+        133106,
+        133114,
+        133115,
+        133116,
+        133117
+      ],
+      "atlas_unchanged": true,
+      "geometry": "left edge +1; right edge unchanged",
+      "donor_uv": [
+        14,
+        16,
+        19,
+        32
+      ],
+      "iso_layout_unchanged": true,
+      "protected_iso_ranges": {
+        "bytes": 3791494432,
+        "sha256": "3e233067b8e25a3aabf856de2be04b1e21031365587efab3c8a377667aeb5ef2"
+      }
+    }
+  },
+  "build_sources": {
+    "config/assets/ui-headings-zh.json": "cebf4d732c8843a75109ff41f0f8c0a0de476edf6d06aa6ca9ec637c62593e3a",
+    "config/assets/special-disc/title-atlas.json": "4b0c121f10c1745e9176aa3b956ff7e27d0a1143f210c8f6a887dcd5a8ed59fd",
+    "tools/srwz/ui_headings.py": "82850c33c52a76ef84db425cbcca0c468d1910a10b8506c2dabd9f26d2db7f79",
+    "tools/special_disc/writeback/title_atlas.py": "b14f7800406b5fcc7d17037b6fb8fce6c430931605503f030d900375536c70bc",
+    "manifests/ui-headings-zh-validation.json": "90d1d85ada38eef9b8978950452d3d75cc90d814208edc84c92cddc09e460227"
+  },
+  "validation": {
+    "test_command": "python3 -m unittest -v tests.test_ui_headings tests.test_special_disc_title_atlas tests.test_special_disc_command_headings",
+    "tests_passed": 19,
+    "source_glyph_equivalence": "PILOT UV [14,16,19,32], preceded by one transparent column, equals original SHIP I [106,0,112,16] in all 96 indexed pixels",
+    "source_glyph_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+    "source_donor_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948"
+  }
+}

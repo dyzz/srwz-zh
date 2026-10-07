@@ -1,0 +1,312 @@
+{
+  "status": "passed_target_scene_lrps2",
+  "scope": "fresh process boot to Library, robot encyclopedia, Mazinger Z; no savestate restore or RAM writes",
+  "pcsx2_manual": "pending",
+  "core": {
+    "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+    "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+  },
+  "driver": {
+    "path": "work/runtime/lrps2/name-width-20260928/drive.py",
+    "sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83"
+  },
+  "editions": {
+    "original": {
+      "iso": "build/iso/robot-specifications-20260929/original.iso",
+      "iso_sha256": "fe9f242fdb5912bc9f899fd254d9c43605913eafd303154dda8f67fdfe2bd985",
+      "screenshot": "docs/issue-assets/robot-specifications-20260929/original-lrps2.png",
+      "screenshot_sha256": "2529163d5d1a87b5c6f8359ab6fe1c12fb99b62c0dd1bd9fad0edd9f9e1e5cc3",
+      "commands": [
+        {
+          "frame": 0,
+          "command": "run 1800"
+        },
+        {
+          "frame": 1800,
+          "command": "press start 3"
+        },
+        {
+          "frame": 1805,
+          "command": "run 240"
+        },
+        {
+          "frame": 2045,
+          "command": "shot title"
+        },
+        {
+          "frame": 2045,
+          "command": "press down 3"
+        },
+        {
+          "frame": 2050,
+          "command": "run 60"
+        },
+        {
+          "frame": 2110,
+          "command": "press down 3"
+        },
+        {
+          "frame": 2115,
+          "command": "run 60"
+        },
+        {
+          "frame": 2175,
+          "command": "press down 3"
+        },
+        {
+          "frame": 2180,
+          "command": "run 60"
+        },
+        {
+          "frame": 2240,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2245,
+          "command": "run 180"
+        },
+        {
+          "frame": 2425,
+          "command": "shot library"
+        },
+        {
+          "frame": 2425,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2430,
+          "command": "run 180"
+        },
+        {
+          "frame": 2610,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2615,
+          "command": "run 180"
+        },
+        {
+          "frame": 2795,
+          "command": "shot robot-fixed"
+        },
+        {
+          "frame": 2795,
+          "command": "dump robot-fixed"
+        },
+        {
+          "frame": 2795,
+          "command": "quit"
+        }
+      ],
+      "live_drawing_records": [
+        {
+          "member_offset": 122616,
+          "ram_offset": 12321976,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 122660,
+          "ram_offset": 12322020,
+          "old_record_count": 0,
+          "new_record_count": 1
+        }
+      ],
+      "visual_result": "SPECIFICATIONS has two intact I glyphs; naturally reached Mazinger Z page"
+    },
+    "best": {
+      "iso": "build/iso/robot-specifications-20260929/best.iso",
+      "iso_sha256": "a3c19eacef7ab2af16364e067e4d5902f034899abf909a3c4105fc84bfad95b5",
+      "screenshot": "docs/issue-assets/robot-specifications-20260929/best-lrps2.png",
+      "screenshot_sha256": "2529163d5d1a87b5c6f8359ab6fe1c12fb99b62c0dd1bd9fad0edd9f9e1e5cc3",
+      "commands": [
+        {
+          "frame": 0,
+          "command": "run 1800"
+        },
+        {
+          "frame": 1800,
+          "command": "press start 3"
+        },
+        {
+          "frame": 1805,
+          "command": "run 240"
+        },
+        {
+          "frame": 2045,
+          "command": "press down 3"
+        },
+        {
+          "frame": 2050,
+          "command": "run 60"
+        },
+        {
+          "frame": 2110,
+          "command": "press down 3"
+        },
+        {
+          "frame": 2115,
+          "command": "run 60"
+        },
+        {
+          "frame": 2175,
+          "command": "press down 3"
+        },
+        {
+          "frame": 2180,
+          "command": "run 60"
+        },
+        {
+          "frame": 2240,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2245,
+          "command": "run 180"
+        },
+        {
+          "frame": 2425,
+          "command": "shot library"
+        },
+        {
+          "frame": 2425,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2430,
+          "command": "run 180"
+        },
+        {
+          "frame": 2610,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2615,
+          "command": "run 180"
+        },
+        {
+          "frame": 2795,
+          "command": "shot robot-fixed"
+        },
+        {
+          "frame": 2795,
+          "command": "dump robot-fixed"
+        },
+        {
+          "frame": 2795,
+          "command": "quit"
+        }
+      ],
+      "live_drawing_records": [
+        {
+          "member_offset": 122616,
+          "ram_offset": 12324024,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 122660,
+          "ram_offset": 12324068,
+          "old_record_count": 0,
+          "new_record_count": 1
+        }
+      ],
+      "visual_result": "SPECIFICATIONS has two intact I glyphs; naturally reached Mazinger Z page"
+    },
+    "sp": {
+      "iso": "build/iso/robot-specifications-20260929/sp.iso",
+      "iso_sha256": "a71f417addb861c4d5833398280fed52ae5097c1b1703f3a2c0d4b36f0d36e17",
+      "screenshot": "docs/issue-assets/robot-specifications-20260929/sp-lrps2.png",
+      "screenshot_sha256": "9d311ed7a44ff1efea0fe8814974a6050f029743a8d61e7aa61b5c028fb29088",
+      "commands": [
+        {
+          "frame": 0,
+          "command": "run 1800"
+        },
+        {
+          "frame": 1800,
+          "command": "press start 3"
+        },
+        {
+          "frame": 1805,
+          "command": "run 195"
+        },
+        {
+          "frame": 2000,
+          "command": "press right 3"
+        },
+        {
+          "frame": 2005,
+          "command": "run 20"
+        },
+        {
+          "frame": 2025,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2030,
+          "command": "run 220"
+        },
+        {
+          "frame": 2250,
+          "command": "shot library"
+        },
+        {
+          "frame": 2250,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2255,
+          "command": "run 160"
+        },
+        {
+          "frame": 2415,
+          "command": "press circle 3"
+        },
+        {
+          "frame": 2420,
+          "command": "run 160"
+        },
+        {
+          "frame": 2580,
+          "command": "shot robot-fixed"
+        },
+        {
+          "frame": 2580,
+          "command": "dump robot-fixed"
+        },
+        {
+          "frame": 2580,
+          "command": "quit"
+        }
+      ],
+      "live_drawing_records": [
+        {
+          "member_offset": 132986,
+          "ram_offset": 12922810,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 133074,
+          "ram_offset": 12922898,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 133008,
+          "ram_offset": 12922832,
+          "old_record_count": 0,
+          "new_record_count": 1
+        },
+        {
+          "member_offset": 133096,
+          "ram_offset": 12922920,
+          "old_record_count": 0,
+          "new_record_count": 1
+        }
+      ],
+      "visual_result": "SPECIFICATIONS has two intact I glyphs; naturally reached Mazinger Z page"
+    }
+  }
+}

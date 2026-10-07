@@ -1,0 +1,851 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-09-29T11:26:10.664063+00:00",
+  "status": "regression_confirmed_by_static_iso_readback; repair_not_applied",
+  "screenshot_iso_identity": "not supplied by user",
+  "glyph": {
+    "letter": "I",
+    "page": 2,
+    "uv": [
+      106,
+      0,
+      112,
+      16
+    ],
+    "unique_pixel_count": 96
+  },
+  "editions": {
+    "original": {
+      "source": {
+        "path": "rom/original.iso",
+        "size": 3758358528,
+        "mtime_ns": 1789901912470230124,
+        "members": {
+          "KURODATA/KVMDATA.BIN": {
+            "size": 3335408,
+            "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8",
+            "extent_lba": 1289810
+          },
+          "KURODATA/KVPDATA.BIN": {
+            "size": 239664,
+            "sha256": "39caf7f108b6f98226d9bd5860fc6287389e5ba69a69f3e443434ccec55c5e2a",
+            "extent_lba": 1291439
+          }
+        },
+        "identity_scope": "actual member readback; full ISO hash not computed"
+      },
+      "current": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "size": 3758358528,
+        "mtime_ns": 1790609988342743520,
+        "members": {
+          "KURODATA/KVMDATA.BIN": {
+            "size": 3335408,
+            "sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+            "extent_lba": 1289810
+          },
+          "KURODATA/KVPDATA.BIN": {
+            "size": 239664,
+            "sha256": "b62d05b76032b153590dc8b2aad78d2d06786c2b861be875e45a4634b65e1cd9",
+            "extent_lba": 1291439
+          }
+        },
+        "identity_scope": "actual member readback; full ISO hash not computed"
+      },
+      "page2_container_unchanged": true,
+      "source_I_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+      "current_I_sha256": "0baecaff6da1db3819e7be4d4986acd6f934a9a6bd68ce5905c5da3a635e1aaf",
+      "changed_unique_I_pixels": 72,
+      "title_records": [
+        {
+          "offset": 122462,
+          "offset_hex": "0x1de5e",
+          "raw_hex": "3500000022110e0e0e8004ffffff3cff070038107020",
+          "uv": [
+            56,
+            16,
+            112,
+            32
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122484,
+          "offset_hex": "0x1de74",
+          "raw_hex": "3500000022110e0e0e8038ffffff50ff0700e600fe10",
+          "uv": [
+            230,
+            0,
+            254,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122506,
+          "offset_hex": "0x1de8a",
+          "raw_hex": "3500000022110e0e0e8050ffffff56ff070048005010",
+          "uv": [
+            72,
+            0,
+            80,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122528,
+          "offset_hex": "0x1dea0",
+          "raw_hex": "3500000022110e0e0e8056ffffff64ff070048485658",
+          "uv": [
+            72,
+            72,
+            86,
+            88
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122550,
+          "offset_hex": "0x1deb6",
+          "raw_hex": "3500000022110e0e0e8062ffffff70ff0700c000ce10",
+          "uv": [
+            192,
+            0,
+            206,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122572,
+          "offset_hex": "0x1decc",
+          "raw_hex": "3500000022110e0e0e8070ffffff7cff0700b200c010",
+          "uv": [
+            178,
+            0,
+            192,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122594,
+          "offset_hex": "0x1dee2",
+          "raw_hex": "3500000022110e0e0e807affffff88ff0700c3b8d1c8",
+          "uv": [
+            195,
+            184,
+            209,
+            200
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122616,
+          "offset_hex": "0x1def8",
+          "raw_hex": "3500000022110e0e0e8088ffffff8eff07006a007010",
+          "uv": [
+            106,
+            0,
+            112,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 72
+        },
+        {
+          "offset": 122638,
+          "offset_hex": "0x1df0e",
+          "raw_hex": "3500000022110e0e0e808effffff9cff070091389f48",
+          "uv": [
+            145,
+            56,
+            159,
+            72
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122660,
+          "offset_hex": "0x1df24",
+          "raw_hex": "3500000022110e0e0e809affffffa0ff07006a007010",
+          "uv": [
+            106,
+            0,
+            112,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 72
+        },
+        {
+          "offset": 122682,
+          "offset_hex": "0x1df3a",
+          "raw_hex": "3500000022110e0e0e80a0ffffffaeff0700c3b8d1c8",
+          "uv": [
+            195,
+            184,
+            209,
+            200
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122704,
+          "offset_hex": "0x1df50",
+          "raw_hex": "3500000022110e0e0e80acffffffe4ff0700c638fe48",
+          "uv": [
+            198,
+            56,
+            254,
+            72
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122726,
+          "offset_hex": "0x1df66",
+          "raw_hex": "b500000022110e0e0e80e0ffffffeeff070048485658",
+          "uv": [
+            72,
+            72,
+            86,
+            88
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        }
+      ]
+    },
+    "best": {
+      "source": {
+        "path": "rom/best.iso",
+        "size": 3755081728,
+        "mtime_ns": 1789901913711665728,
+        "members": {
+          "KURODATA/KVMDATA.BIN": {
+            "size": 3335408,
+            "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8",
+            "extent_lba": 1288201
+          },
+          "KURODATA/KVPDATA.BIN": {
+            "size": 239664,
+            "sha256": "39caf7f108b6f98226d9bd5860fc6287389e5ba69a69f3e443434ccec55c5e2a",
+            "extent_lba": 1289830
+          }
+        },
+        "identity_scope": "actual member readback; full ISO hash not computed"
+      },
+      "current": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "size": 3755081728,
+        "mtime_ns": 1790610051925103017,
+        "members": {
+          "KURODATA/KVMDATA.BIN": {
+            "size": 3335408,
+            "sha256": "00c1ddbda6984e4cd200d9ae983f76ee0cbd986364f618596f19732fa8fa9fc4",
+            "extent_lba": 1288201
+          },
+          "KURODATA/KVPDATA.BIN": {
+            "size": 239664,
+            "sha256": "b62d05b76032b153590dc8b2aad78d2d06786c2b861be875e45a4634b65e1cd9",
+            "extent_lba": 1289830
+          }
+        },
+        "identity_scope": "actual member readback; full ISO hash not computed"
+      },
+      "page2_container_unchanged": true,
+      "source_I_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+      "current_I_sha256": "0baecaff6da1db3819e7be4d4986acd6f934a9a6bd68ce5905c5da3a635e1aaf",
+      "changed_unique_I_pixels": 72,
+      "title_records": [
+        {
+          "offset": 122462,
+          "offset_hex": "0x1de5e",
+          "raw_hex": "3500000022110e0e0e8004ffffff3cff070038107020",
+          "uv": [
+            56,
+            16,
+            112,
+            32
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122484,
+          "offset_hex": "0x1de74",
+          "raw_hex": "3500000022110e0e0e8038ffffff50ff0700e600fe10",
+          "uv": [
+            230,
+            0,
+            254,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122506,
+          "offset_hex": "0x1de8a",
+          "raw_hex": "3500000022110e0e0e8050ffffff56ff070048005010",
+          "uv": [
+            72,
+            0,
+            80,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122528,
+          "offset_hex": "0x1dea0",
+          "raw_hex": "3500000022110e0e0e8056ffffff64ff070048485658",
+          "uv": [
+            72,
+            72,
+            86,
+            88
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122550,
+          "offset_hex": "0x1deb6",
+          "raw_hex": "3500000022110e0e0e8062ffffff70ff0700c000ce10",
+          "uv": [
+            192,
+            0,
+            206,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122572,
+          "offset_hex": "0x1decc",
+          "raw_hex": "3500000022110e0e0e8070ffffff7cff0700b200c010",
+          "uv": [
+            178,
+            0,
+            192,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122594,
+          "offset_hex": "0x1dee2",
+          "raw_hex": "3500000022110e0e0e807affffff88ff0700c3b8d1c8",
+          "uv": [
+            195,
+            184,
+            209,
+            200
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122616,
+          "offset_hex": "0x1def8",
+          "raw_hex": "3500000022110e0e0e8088ffffff8eff07006a007010",
+          "uv": [
+            106,
+            0,
+            112,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 72
+        },
+        {
+          "offset": 122638,
+          "offset_hex": "0x1df0e",
+          "raw_hex": "3500000022110e0e0e808effffff9cff070091389f48",
+          "uv": [
+            145,
+            56,
+            159,
+            72
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122660,
+          "offset_hex": "0x1df24",
+          "raw_hex": "3500000022110e0e0e809affffffa0ff07006a007010",
+          "uv": [
+            106,
+            0,
+            112,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 72
+        },
+        {
+          "offset": 122682,
+          "offset_hex": "0x1df3a",
+          "raw_hex": "3500000022110e0e0e80a0ffffffaeff0700c3b8d1c8",
+          "uv": [
+            195,
+            184,
+            209,
+            200
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122704,
+          "offset_hex": "0x1df50",
+          "raw_hex": "3500000022110e0e0e80acffffffe4ff0700c638fe48",
+          "uv": [
+            198,
+            56,
+            254,
+            72
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 122726,
+          "offset_hex": "0x1df66",
+          "raw_hex": "b500000022110e0e0e80e0ffffffeeff070048485658",
+          "uv": [
+            72,
+            72,
+            86,
+            88
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        }
+      ]
+    },
+    "sp": {
+      "source": {
+        "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+        "size": 3791781888,
+        "mtime_ns": 1236093990062500000,
+        "members": {
+          "KURODATA/KVMDATA.BIN": {
+            "size": 4720512,
+            "sha256": "e6cca493d595c990c0da8dd2020f6dc99db5d3abb055adf615e4328349e88300",
+            "extent_lba": 1228678
+          },
+          "KURODATA/KVPDATA.BIN": {
+            "size": 287456,
+            "sha256": "9d6387df14156dd0d5ac919c28fabcbc26ddd03a3397ca34be458a42888c429e",
+            "extent_lba": 1230983
+          }
+        },
+        "identity_scope": "actual member readback; full ISO hash not computed"
+      },
+      "current": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "size": 3791781888,
+        "mtime_ns": 1790664677565328956,
+        "members": {
+          "KURODATA/KVMDATA.BIN": {
+            "size": 4720512,
+            "sha256": "737027cb9781bf2a7ead3b1b1a5c62dba6ac664995fa96e4cb7957e32750de07",
+            "extent_lba": 1228678
+          },
+          "KURODATA/KVPDATA.BIN": {
+            "size": 287456,
+            "sha256": "8ef04457b4e148d78f5e39f51acb9021924ef5d108aedc8b222021a0b7984bdf",
+            "extent_lba": 1230983
+          }
+        },
+        "identity_scope": "actual member readback; full ISO hash not computed"
+      },
+      "page2_container_unchanged": true,
+      "source_I_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
+      "current_I_sha256": "0baecaff6da1db3819e7be4d4986acd6f934a9a6bd68ce5905c5da3a635e1aaf",
+      "changed_unique_I_pixels": 72,
+      "title_records": [
+        {
+          "offset": 132678,
+          "offset_hex": "0x20646",
+          "raw_hex": "1500000022115133208006ff00003eff080038107020",
+          "uv": [
+            56,
+            16,
+            112,
+            32
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132700,
+          "offset_hex": "0x2065c",
+          "raw_hex": "3500000022111818198004ff01003cff090038107020",
+          "uv": [
+            56,
+            16,
+            112,
+            32
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132722,
+          "offset_hex": "0x20672",
+          "raw_hex": "150000002211513320803aff000052ff0800e600fe10",
+          "uv": [
+            230,
+            0,
+            254,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132744,
+          "offset_hex": "0x20688",
+          "raw_hex": "3500000022111818198038ff010050ff0900e600fe10",
+          "uv": [
+            230,
+            0,
+            254,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132766,
+          "offset_hex": "0x2069e",
+          "raw_hex": "1500000022115b351a8052ff000058ff080048005010",
+          "uv": [
+            72,
+            0,
+            80,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132788,
+          "offset_hex": "0x206b4",
+          "raw_hex": "3500000022111818198050ff010056ff090048005010",
+          "uv": [
+            72,
+            0,
+            80,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132810,
+          "offset_hex": "0x206ca",
+          "raw_hex": "1500000022115133208058ff000066ff080048485658",
+          "uv": [
+            72,
+            72,
+            86,
+            88
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132832,
+          "offset_hex": "0x206e0",
+          "raw_hex": "3500000022111818198056ff010064ff090048485658",
+          "uv": [
+            72,
+            72,
+            86,
+            88
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132854,
+          "offset_hex": "0x206f6",
+          "raw_hex": "1500000022115133208064ff000072ff0800c000ce10",
+          "uv": [
+            192,
+            0,
+            206,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132876,
+          "offset_hex": "0x2070c",
+          "raw_hex": "3500000022111818198062ff010070ff0900c000ce10",
+          "uv": [
+            192,
+            0,
+            206,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132898,
+          "offset_hex": "0x20722",
+          "raw_hex": "1500000022115133208072ff00007eff0800b200c010",
+          "uv": [
+            178,
+            0,
+            192,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132920,
+          "offset_hex": "0x20738",
+          "raw_hex": "3500000022111818198070ff01007cff0900b200c010",
+          "uv": [
+            178,
+            0,
+            192,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132942,
+          "offset_hex": "0x2074e",
+          "raw_hex": "150000002211513320807cff00008aff0800c3b8d1c8",
+          "uv": [
+            195,
+            184,
+            209,
+            200
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132964,
+          "offset_hex": "0x20764",
+          "raw_hex": "350000002211181819807aff010088ff0900c3b8d1c8",
+          "uv": [
+            195,
+            184,
+            209,
+            200
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 132986,
+          "offset_hex": "0x2077a",
+          "raw_hex": "150000002211513320808aff000090ff08006a007010",
+          "uv": [
+            106,
+            0,
+            112,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 72
+        },
+        {
+          "offset": 133008,
+          "offset_hex": "0x20790",
+          "raw_hex": "3500000022111818198088ff01008eff09006a007010",
+          "uv": [
+            106,
+            0,
+            112,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 72
+        },
+        {
+          "offset": 133030,
+          "offset_hex": "0x207a6",
+          "raw_hex": "1500000022115133208090ff00009eff080091389f48",
+          "uv": [
+            145,
+            56,
+            159,
+            72
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 133052,
+          "offset_hex": "0x207bc",
+          "raw_hex": "350000002211181819808eff01009cff090091389f48",
+          "uv": [
+            145,
+            56,
+            159,
+            72
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 133074,
+          "offset_hex": "0x207d2",
+          "raw_hex": "150000002211513320809cff0000a2ff08006a007010",
+          "uv": [
+            106,
+            0,
+            112,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 72
+        },
+        {
+          "offset": 133096,
+          "offset_hex": "0x207e8",
+          "raw_hex": "350000002211181819809aff0100a0ff09006a007010",
+          "uv": [
+            106,
+            0,
+            112,
+            16
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 72
+        },
+        {
+          "offset": 133118,
+          "offset_hex": "0x207fe",
+          "raw_hex": "15000000221151332080a2ff0000b0ff0800c3b8d1c8",
+          "uv": [
+            195,
+            184,
+            209,
+            200
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 133140,
+          "offset_hex": "0x20814",
+          "raw_hex": "35000000221118181980a0ff0100aeff0900c3b8d1c8",
+          "uv": [
+            195,
+            184,
+            209,
+            200
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 133162,
+          "offset_hex": "0x2082a",
+          "raw_hex": "15000000221151332080aeff0000e6ff0800c638fe48",
+          "uv": [
+            198,
+            56,
+            254,
+            72
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 133184,
+          "offset_hex": "0x20840",
+          "raw_hex": "35000000221118181980acff0100e4ff0900c638fe48",
+          "uv": [
+            198,
+            56,
+            254,
+            72
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 133206,
+          "offset_hex": "0x20856",
+          "raw_hex": "15000000221151332080e2ff0000f0ff080048485658",
+          "uv": [
+            72,
+            72,
+            86,
+            88
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        },
+        {
+          "offset": 133228,
+          "offset_hex": "0x2086c",
+          "raw_hex": "b5000000221118181980e0ff0100eeff090048485658",
+          "uv": [
+            72,
+            72,
+            86,
+            88
+          ],
+          "drawing_unchanged": true,
+          "changed_index_pixels": 0
+        }
+      ]
+    }
+  },
+  "user_evidence": {
+    "path": "docs/issue-assets/robot-specifications-20260929/user-report.png",
+    "sha256": "8a8f3ddfc94a37bdc74cd9e7175079128669f1414b510a5a6507e05716352e85"
+  },
+  "audit_script_sha256": "869069cda51c5d4d90f3e82bdc5ca6098588ffb57e35bf84ccb6de806f2b47c4",
+  "responsible_component": {
+    "path": "work/build/ui-info-atlas-zh/components/KURODATA/KVMDATA.BIN",
+    "sha256": "9dd16938c988512f9df06ff16c37aeb1e0bca49572b036f9b7bd26de64a0f9e2",
+    "config": "config/assets/ui-info-atlas-zh.json",
+    "source_text": "SHIP",
+    "translation": "机体",
+    "write_rect": [
+      80,
+      0,
+      49,
+      16
+    ],
+    "current_I_matches_component_exactly": true
+  },
+  "comparison": {
+    "path": "docs/issue-assets/robot-specifications-20260929/comparison.png",
+    "kind": "offline indexed sample reconstruction; neutral gray ramp; nearest sampling",
+    "runtime_validation": false
+  }
+}

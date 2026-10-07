@@ -1,0 +1,99 @@
+{
+  "sp_component_archive_sha256": "f1c0baeda8c64b07f48cde41d1563bf01061bf8c284fb0430630f24337cf8a6b",
+  "sp_component_readback": [
+    {
+      "target": "sd/mtzspros/00/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/01/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/02/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/03/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/04/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/05/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/06/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/07/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/08/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    },
+    {
+      "target": "sd/mtzspros/09/0",
+      "checked_native_rows": true,
+      "checked_encoded_8140": true
+    }
+  ],
+  "known_artifact_guard_results": [
+    {
+      "edition": "original",
+      "records_checked": 28,
+      "rejected_records": 4,
+      "failures": [
+        "summary/00/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/01/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/05/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/07/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row"
+      ]
+    },
+    {
+      "edition": "best",
+      "records_checked": 28,
+      "rejected_records": 4,
+      "failures": [
+        "summary/00/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/01/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/05/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/07/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row"
+      ]
+    },
+    {
+      "edition": "best_fixed_candidate",
+      "records_checked": 28,
+      "rejected_records": 0,
+      "failures": []
+    },
+    {
+      "edition": "sp",
+      "records_checked": 10,
+      "rejected_records": 6,
+      "failures": [
+        "summary/00/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/01/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/02/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/03/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/08/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row",
+        "summary/09/000: scroll placeholder row must contain U+3000, not an empty/ASCII-space row"
+      ]
+    }
+  ],
+  "runtime": "not_tested"
+}

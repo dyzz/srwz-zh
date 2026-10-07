@@ -16,6 +16,7 @@
 | `RELEASE_NOTES_V0.3.0.md` | v0.3.0 历史发布说明 |
 | [BUILD_EDITIONS.md](BUILD_EDITIONS.md) | 统一构建入口：三版依赖、缓存承接规则、输出与计时 |
 | `BUILD_AND_RUNTIME.md` | ISO、发布包和运行验收边界；统一入口内部子步骤的排错命令 |
+| [BUILD_PERFORMANCE_20261007.md](BUILD_PERFORMANCE_20261007.md) | 2026-10-07 全量构建提速：排版切片宽度退化、压缩结果缓存、去掉重复排版检查，三版全量 1337 → 159 秒 |
 | [BUILD_PERFORMANCE_20260927.md](BUILD_PERFORMANCE_20260927.md) | 2026-09-27 构建流程整理：文件身份哈希缓存、缓存承接范围、SP 并行与实测 |
 | `BUILD_TIME_ANALYSIS.md` | 冷/热构建计时、内容寻址缓存方案与验证边界 |
 | `AUTOMATED_RUNTIME.md` | LRPS2/libretro.py 逐帧按键、截图与本地 receipt |
@@ -34,6 +35,7 @@
 | --- | --- |
 | `SRWZ_COMPRESSION.md` | SRWZ 压缩格式、Rust codec 和容量约束 |
 | `FONT_ANALYSIS.md` | VT1 字库结构、码位与 glyph 映射 |
+| [VT1_XAN_RESOURCE_HANDOFF_20261006.md](VT1_XAN_RESOURCE_HANDOFF_20261006.md) | 面向 AI 的 VT1／头像格式与 Extract：图片 ID、成员偏移表、原生纹理结构及 XAN 资源新增契约 |
 | `WRITEBACK_CONTRACT.md` | 文本、指针、归档和前像写回契约 |
 | [TEXT_CAPACITY_SAFETY_AUDIT_20260905.md](TEXT_CAPACITY_SAFETY_AUDIT_20260905.md) | 2026-09-05 扩容审计快照及未闭合检查 |
 | `TEXT_CAPACITY_EXPANSION.md` | STAGE 剧情与 SRVC 战斗文本扩容方案、安全门和 canary 证据 |

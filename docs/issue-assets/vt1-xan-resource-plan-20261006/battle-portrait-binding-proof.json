@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "status": "static_source_disassembly_verified_runtime_candidate_pending",
+  "original_elf": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/disc/SLPS_258.87",
+    "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+    "file_to_ram_delta": "0xFE580"
+  },
+  "sp_elf": {
+    "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/disc/special-disc/SLPS_259.20",
+    "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101",
+    "file_to_ram_delta": "0xFF680"
+  },
+  "original_chain": [
+    {
+      "call_ram": "0x2F8744",
+      "target_ram": "0x1805E0"
+    },
+    {
+      "call_ram": "0x180634",
+      "target_ram": "0x180090"
+    }
+  ],
+  "sp_chain": [
+    {
+      "call_ram": "0x2FE794",
+      "target_ram": "0x181FD0"
+    },
+    {
+      "call_ram": "0x182024",
+      "target_ram": "0x181A80"
+    }
+  ],
+  "small_map": {
+    "original_file": "0x2FFFB0",
+    "original_ram": "0x3FE530",
+    "rows": 933,
+    "expressions_per_row": 16,
+    "storage": "little-endian uint16; loader uses signed lh",
+    "sp_file": "0x3596D0",
+    "sp_xan_visual_id": 553,
+    "sp_xan_row": [
+      1094,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "sipi": {
+    "iso_member": "BTL/SIPI.BIN",
+    "stride": 16,
+    "original_rows": 933,
+    "sp_rows": 969,
+    "sp_xan_record_u16": [
+      65535,
+      0,
+      0,
+      65535,
+      259,
+      64,
+      0,
+      0
+    ],
+    "sp_xan_record_hex": "ffff00000000ffff0301400000000000",
+    "direct_tici_index_offset": 6,
+    "caution": "TICI field is FFFF for native XAN; its flag 0040 role is not established by this proof."
+  },
+  "runtime_debug": {
+    "breakpoint_ram": "0x2F8744",
+    "visual_id": "signed16 at address in a1; may subsequently pass visual remap helper unless global mode == 2",
+    "expression": "signed16 at address in a2",
+    "selector": "a2 becomes 0 and a3 becomes 0 for shared loader",
+    "render_upload_function_ram": "0x2F87C0",
+    "render_draw_function_ram": "0x2F8970"
+  },
+  "unverified": [
+    "candidate XAN visual ID",
+    "candidate ELF table relocation or expansion",
+    "candidate VT1 resource ID",
+    "PCSX2 same-screen rendering"
+  ],
+  "current_original_iso_readback": {
+    "path": "build/iso/zh-release-original/current-original.iso",
+    "verified_equal_source_ranges_file": [
+      [
+        "0x1FA190",
+        "0x1FA1DC"
+      ],
+      [
+        "0x082060",
+        "0x0820BC"
+      ],
+      [
+        "0x081B10",
+        "0x081DC0"
+      ],
+      [
+        "0x2FFFB0",
+        "0x30E8F0"
+      ]
+    ],
+    "meaning": "Source call chain and portrait maps are also present unchanged in current Original ISO; this is static readback, not runtime proof."
+  }
+}
