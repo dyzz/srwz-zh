@@ -162,6 +162,21 @@ class SpecialDiscStageTests(unittest.TestCase):
 
 
 class SpecialDiscBindingTests(unittest.TestCase):
+    def test_confirmed_diana_title_reaches_both_sp_ending_copies(self):
+        bindings = StageBindings(ROOT, allow_draft=True)
+        targets = ('sd/story/023/dialogue/02.01/0064',
+                   'sd/story/023/dialogue/02.01/0557')
+        for target in targets:
+            with self.subTest(target=target):
+                row = bindings.direct[target]
+                main = json.loads((ROOT / row['main_corpus']).read_text())['entries']
+                main_row = next(entry for entry in main if entry['id'] == row['main_id'])
+                self.assertEqual(row['source_text_sha256'], main_row['source_text_sha256'])
+                result = bindings.resolve(target, 'dialogue', row['source_text'])
+                self.assertEqual(result['route'], 'sp_native_id')
+                self.assertEqual(result['translation'], main_row['translation'])
+                self.assertIn('迪安娜阁下', result['translation'])
+
     def binder(self):
         result=StageBindings.__new__(StageBindings)
         result.allow_draft=True;result.direct={};result.fallback=collections.defaultdict(list)

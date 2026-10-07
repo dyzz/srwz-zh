@@ -33,10 +33,10 @@ class SpecialDiscPilotNamesTests(unittest.TestCase):
         return names.apply_pilot_names(archive, cls.table, cls.overrides, cls.readback)
 
     def test_names_roundtrip_and_other_bytes_preserved(self):
-        self.assertEqual(self.report['entries'], 38)
+        self.assertEqual(self.report['entries'], 43)
         self.assertEqual({r['translation'] for r in self.report['labels']},
                          {'伊内', '贰威', '叁洛', '四条', '伍克', '陆克斯', '柒普特',
-                          '镇长', '自警团团长', '新闻主播', '提坦斯'})
+                          '镇长', '自警团团长', '新闻主播', '提坦斯', '库拉迪斯'})
         original = decode_production(self.before).output
         restored = bytearray(decode_production(self.output).output)
         for slot in self.contract['entries']:
@@ -44,6 +44,17 @@ class SpecialDiscPilotNamesTests(unittest.TestCase):
             restored[at:at + size] = original[at:at + size]
         self.assertEqual(restored, original)
         self.assertEqual(len(self.output), len(self.before))
+
+    def test_confirmed_shared_surname_is_written_from_the_frozen_preimage(self):
+        shared = json.loads((ROOT / 'corpus/zh/menu/remaining-ui.json').read_text())
+        surname = shared['display_names_by_source_text']['グラディス']
+        for index in range(396, 401):
+            target = f'sd/compdata/pilot/{index}/family'
+            with self.subTest(target=target):
+                self.assertEqual(self.rows[target]['translation'], surname)
+                label = next(row for row in self.report['labels'] if row['id'] == target)
+                self.assertEqual(label['translation'], surname)
+                self.assertEqual(label['capacity'], 23)
 
     def test_idempotent(self):
         output, report = self.apply(self.output)

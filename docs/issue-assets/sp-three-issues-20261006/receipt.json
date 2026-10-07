@@ -1,0 +1,440 @@
+{
+  "date": "2026-10-06",
+  "before_iso_sha256": "12e5ad220c32dbddcf9a1913a7a0f2bd212e1b572f94b014fb044173fe64973e",
+  "final_iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "b8b9cc01b9539be0a62a457c7177f0fdb14eff91589ff9efd3eb90d678ee27d1",
+    "size": 3791781888
+  },
+  "runtime_candidate_sha256": "b8b9cc01b9539be0a62a457c7177f0fdb14eff91589ff9efd3eb90d678ee27d1",
+  "independent_readback": {
+    "path": "build/editions/zh-release-sp/5a5f78ea9990fc5d52e146d5d90d9530cb959a79704069d3601cdd538cf6af77/project/work/build/special-disc/full-text/runs/build-slift_g8/independent-readback.json",
+    "sha256": "01ba08786fb8f35fa20d82b4164b54cd1a7ea6fefb1d5727d1d0cbed5c762c5f",
+    "counts": {
+      "battle_status_labels": 10,
+      "battle_prompt_labels": 10,
+      "battle_title_labels": 12,
+      "battle_ability_labels": 19,
+      "enlarged_bazaar_headings": 1,
+      "restored_native_menu_chunks": 4,
+      "current_library_current_shared_fields": 4993,
+      "current_library_fields_changed_from_canary": 2529,
+      "current_library_current_body_fields": 1587,
+      "current_library_documents": 795,
+      "current_library_canary_fields_preserved": 4,
+      "current_library_work_titles": 22,
+      "current_library_work_title_pointers": 55,
+      "reviewed_instruction_overrides": 167,
+      "native_unit_names": 15,
+      "native_unit_name_pointers": 23,
+      "native_pilot_name_fields": 43,
+      "all_unit_name_records": 854,
+      "all_pilot_name_fields": 2907,
+      "keyword_list_names": 52,
+      "native_qa_pages": 22,
+      "nisv_squad_names": 113,
+      "inherited_world_map_titles": 10,
+      "stage_entry_title_slots": 21,
+      "stage_entry_title_images_rewritten": 20,
+      "terrain_names": 621,
+      "weapon_detail_runtime_labels": 4,
+      "chart_visibility_instructions": 1,
+      "stage_text_records": 8754,
+      "formation_cells": 1338,
+      "frame_targets": 147,
+      "chart_episode_labels": 128,
+      "chart_final_episode_labels": 5,
+      "chart_empty_labels_preserved": 3,
+      "chart_z_titles_audited": 110,
+      "chart_z_ending_titles": 3,
+      "chart_key_help": 5,
+      "current_shared_labels": 5,
+      "system_native_controls": 67,
+      "ticker_slots": 35,
+      "ticker_sources": 12,
+      "battle_viewer_name_substitutions": 44,
+      "system_writes": 1680
+    }
+  },
+  "shared_labels": {
+    "labels": [
+      {
+        "offset": 511456,
+        "capacity": 32,
+        "translation": "双重斯派扎风暴",
+        "reference_sites": [
+          223496,
+          223500,
+          223896,
+          223900,
+          224256,
+          224260,
+          224696,
+          224700,
+          225376,
+          225380,
+          225416,
+          225420
+        ]
+      },
+      {
+        "offset": 511488,
+        "capacity": 32,
+        "translation": "海洋斯派扎风暴",
+        "reference_sites": [
+          223536,
+          223540,
+          223936,
+          223940,
+          224296,
+          224300,
+          224736,
+          224740,
+          225616,
+          225620,
+          225656,
+          225660
+        ]
+      },
+      {
+        "offset": 511520,
+        "capacity": 32,
+        "translation": "钻头斯派扎风暴",
+        "reference_sites": [
+          223576,
+          223580,
+          223976,
+          223980,
+          224336,
+          224340,
+          224776,
+          224780,
+          226016,
+          226020,
+          226056,
+          226060
+        ]
+      },
+      {
+        "offset": 624776,
+        "capacity": 24,
+        "translation": "斯派扎",
+        "reference_sites": [
+          435692
+        ]
+      },
+      {
+        "offset": 624864,
+        "capacity": 32,
+        "translation": "双重斯派扎",
+        "reference_sites": [
+          435932
+        ]
+      }
+    ],
+    "inputs": {
+      "config/products/special-disc/shared-label-updates.json": "8825983ee66d4117c82450e07570bf51d815b9223e2e5af88ef14e2415aeeedd",
+      "corpus/zh/menu/weapons.json": "668daee15b42d8be09224d56488b7edf5c6fefc99b3ada8ce01aa3bbedb02f66",
+      "corpus/zh/special-disc/native-text.json": "26cd37a2d5da4c6f89deb27708436fd602b563eb53797402478da0be0ac2681d"
+    },
+    "non_owned_bytes_preserved": true
+  },
+  "name_substitutions": [
+    {
+      "id": "sd/compdata/98730",
+      "offset": 624432,
+      "hex": "8dec9268974690c4936f91bb934981a68fd200",
+      "translation": "作为友军登场的※。"
+    },
+    {
+      "id": "sd/compdata/98770",
+      "offset": 624496,
+      "hex": "8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/99270",
+      "offset": 627312,
+      "hex": "8d829767826c828b9868826882689349826696688ce48ed2964f91958c6084c58fd20a8dec9268974690c4936f91bb934981a68fd200",
+      "translation": "高达Mk-II的G防御者换装形态。\n作为友军登场的※。"
+    },
+    {
+      "id": "sd/compdata/992E0",
+      "offset": 627424,
+      "hex": "8d829767826c828b9868826882689349826696688ce48ed2964f91958c6084c58fd20a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "高达Mk-II的G防御者换装形态。\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/994D0",
+      "offset": 627920,
+      "hex": "89c28e6797708d8791cc8d5590ca8fe892779a998aff8feb934981a68fd200",
+      "translation": "可使用合体攻击（蜘蛛网）的※。"
+    },
+    {
+      "id": "sd/compdata/99D70",
+      "offset": 630128,
+      "hex": "9487938d8d8297679349949d8d558c5e856f8965964f91958c6084c58fd20a8dec9268974690c4936f91bb934981a68fd200",
+      "translation": "脉冲高达的强攻型剪影换装形态。\n作为友军登场的※。"
+    },
+    {
+      "id": "sd/compdata/99DE0",
+      "offset": 630240,
+      "hex": "9487938d8d829767934990d69195856f8965964f91958c6084c58fd20a8dec9268974690c4936f91bb934981a68fd200",
+      "translation": "脉冲高达的剑装剪影换装形态。\n作为友军登场的※。"
+    },
+    {
+      "id": "sd/compdata/99EB0",
+      "offset": 630448,
+      "hex": "9487938d8d829767934990d69195856f8965964f91958c6084c58fd20a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "脉冲高达的剑装剪影换装形态。\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/99F30",
+      "offset": 630576,
+      "hex": "9487938d8d8297679349949d8d558c5e856f8965964f91958c6084c58fd20a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "脉冲高达的强攻型剪影换装形态。\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9A380",
+      "offset": 631680,
+      "hex": "81a6934991e5e1c1964f91958c6084c58fd200",
+      "translation": "※的大鹫换装形态。"
+    },
+    {
+      "id": "sd/compdata/9A3B0",
+      "offset": 631728,
+      "hex": "81a693499573926d89ce964f91958c6084c58fd200",
+      "translation": "※的不知火换装形态。"
+    },
+    {
+      "id": "sd/compdata/9B030",
+      "offset": 634928,
+      "hex": "97888ea991b491bc90a28a458fd188c884eb95fb9067908c936f91bb934981a68fd200",
+      "translation": "来自其他世界、以敌方身份登场的※。"
+    },
+    {
+      "id": "sd/compdata/9B080",
+      "offset": 635008,
+      "hex": "97888ea991b491bc90a28a458fd188c8974690c49067908c936f91bb934981a68fd200",
+      "translation": "来自其他世界、以友军身份登场的※。"
+    },
+    {
+      "id": "sd/compdata/9B8E0",
+      "offset": 637152,
+      "hex": "8179959b88888886917d817a8946928891be8fd192de8e710a937b957389c294ce934981a68fd200",
+      "translation": "【副驾驶员】宇宙太、惠子\n怒不可遏的※。"
+    },
+    {
+      "id": "sd/compdata/9B930",
+      "offset": 637232,
+      "hex": "8179959b88888886917d817a8946928891be8fd192de8e710a8d8e959e97b98bb09c9c934981a68fd200",
+      "translation": "【副驾驶员】宇宙太、惠子\n克服了恐惧的※。"
+    },
+    {
+      "id": "sd/compdata/9BA10",
+      "offset": 637456,
+      "hex": "8179827282958282817a93f398490a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "【Sub】琪露\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9BA90",
+      "offset": 637584,
+      "hex": "817993af855d8ed2817a89c893c18dc793c18fd1964093c193c40a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "【同乘者】科特塞特、法特曼\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9BB10",
+      "offset": 637712,
+      "hex": "8179827282958282817a957a984b947e0a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "【Sub】布鲁梅\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9BBC0",
+      "offset": 637888,
+      "hex": "817993af855d8ed2817a8a699d6694620a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "【同乘者】格拉巴\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9BC80",
+      "offset": 638080,
+      "hex": "906790fa89a9904688888886959e934981a68fd200",
+      "translation": "身穿黄色驾驶服的※。"
+    },
+    {
+      "id": "sd/compdata/9BCC0",
+      "offset": 638144,
+      "hex": "906790fa9492904688888886959e934981a68fd200",
+      "translation": "身穿白色驾驶服的※。"
+    },
+    {
+      "id": "sd/compdata/9C580",
+      "offset": 640384,
+      "hex": "94a5909e9767924793af855d8fd20a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "迪兰达尔同乘。\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9C5D0",
+      "offset": 640464,
+      "hex": "817993af855d8ed2817a94fc97e60a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "【同乘者】美玲\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9C9B0",
+      "offset": 641456,
+      "hex": "8dec926884eb906c938b855d94dc95418d829767934981a68fd200",
+      "translation": "作为敌人搭乘毁灭高达的※。"
+    },
+    {
+      "id": "sd/compdata/9C9F0",
+      "offset": 641520,
+      "hex": "8dec926884eb906c938b855d94dc95418d8297678fd184e08e8088ea929e934981a68fd200",
+      "translation": "作为敌人搭乘毁灭高达、拼死一战的※。"
+    },
+    {
+      "id": "sd/compdata/9CC20",
+      "offset": 642080,
+      "hex": "8dec926884eb906c936f91bb8fd186e991aee6c8978b8daa934981a68fd200",
+      "translation": "作为敌人登场、隶属圣雷根的※。"
+    },
+    {
+      "id": "sd/compdata/9CC70",
+      "offset": 642160,
+      "hex": "8dec926884eb906c936f91bb8fd186e991ae90bc948c9798907b97959848934981a68fd200",
+      "translation": "作为敌人登场、隶属西伯利亚铁路的※。"
+    },
+    {
+      "id": "sd/compdata/9CDD0",
+      "offset": 642512,
+      "hex": "817993af855d8ed2817a827398688261828f828e82858fd18263828f829682850a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "【同乘者】T-Bone、Dove\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9CEA0",
+      "offset": 642720,
+      "hex": "8fae96a290ac97ab926893c6939688ea96ca929e8e6d934981a68fd200",
+      "translation": "尚未成长为独当一面战士的※。"
+    },
+    {
+      "id": "sd/compdata/9CEE0",
+      "offset": 642784,
+      "hex": "8179959b88888886917d817a89708e698fd197ae8dd88fd1954693cc8fd19b5a8c8e8fd1948b98490a8fae96a290ac97ab926893c6939688ea96ca929e8e6d934981a68fd200",
+      "translation": "【副驾驶员】英司、琉菜、爱娜、媚月、莉露\n尚未成长为独当一面战士的※。"
+    },
+    {
+      "id": "sd/compdata/9CF40",
+      "offset": 642880,
+      "hex": "8179959b88888886917d817a89708e698fd197ae8dd88fd1954693cc8fd19b5a8c8e8fd1948b98490a90679268929e8e6d8588974c8f8a90ac97ab934981a68fd200",
+      "translation": "【副驾驶员】英司、琉菜、爱娜、媚月、莉露\n身为战士已有所成长的※。"
+    },
+    {
+      "id": "sd/compdata/9D000",
+      "offset": 643072,
+      "hex": "90539cdf8ef3939e94d192c0934981a68fd200",
+      "translation": "心灵受到创伤的※。"
+    },
+    {
+      "id": "sd/compdata/9D030",
+      "offset": 643120,
+      "hex": "8179959b88888886917d817a89708e698fd197ae8dd88fd1954693cc0a90539cdf8ef3939e94d192c0934981a68fd200",
+      "translation": "【副驾驶员】英司、琉菜、爱娜\n心灵受到创伤的※。"
+    },
+    {
+      "id": "sd/compdata/9D080",
+      "offset": 643200,
+      "hex": "89708e698fd197ae8dd88fd1954693cc93af855d8fd20a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "英司、琉菜、爱娜同乘。\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9DF00",
+      "offset": 646912,
+      "hex": "817993af855d8ed2817a90bc979890758e7a8fd190bc924795cf91f60a8dec926884eb906c936f91bb934981a600",
+      "translation": "【同乘者】西利乌斯、西尔维娅\n作为敌人登场的※"
+    },
+    {
+      "id": "sd/compdata/9DF90",
+      "offset": 647056,
+      "hex": "8179959b88888886917d817a908e978991580a884895739cc9929388888886826b8265826e934981a68fd200",
+      "translation": "【副驾驶员】优莱卡\n还不习惯驾驶LFO的※。"
+    },
+    {
+      "id": "sd/compdata/9DFE0",
+      "offset": 647136,
+      "hex": "93be88d396598c60934981a68fd200",
+      "translation": "得意忘形的※。"
+    },
+    {
+      "id": "sd/compdata/9E010",
+      "offset": 647184,
+      "hex": "89ba92e8856b9053934981a68fd200",
+      "translation": "下定决心的※。"
+    },
+    {
+      "id": "sd/compdata/9E2A0",
+      "offset": 647840,
+      "hex": "91bd95c493f28d8e8fe8906790fa9858904690a7959e8fd390c487b28fad88d18feb93af855d8fd20a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "多米尼克（身穿黑色制服，军衔少尉）同乘。\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9E320",
+      "offset": 647968,
+      "hex": "91bd95c493f28d8e8fe8906790fa9492904690a7959e8fd390c487b28fe388d18feb93af855d8fd20a8dec926884eb906c936f91bb934981a68fd200",
+      "translation": "多米尼克（身穿白色制服，军衔上尉）同乘。\n作为敌人登场的※。"
+    },
+    {
+      "id": "sd/compdata/9E3A0",
+      "offset": 648096,
+      "hex": "8179959b88888886917d817a91bd95c493f28d8e8fe8906790fa9858904690a7959e8fd390c487b28fe388d18feb0a8dec9268974690c4936f91bb934981a68fd200",
+      "translation": "【副驾驶员】多米尼克（身穿黑色制服，军衔上尉）\n作为友军登场的※。"
+    },
+    {
+      "id": "sd/compdata/9E420",
+      "offset": 648224,
+      "hex": "8179959b88888886917d817a91bd95c493f28d8e8fe8906790fa9492904690a7959e8fd390c487b28fe388d18feb0a8dec9268974690c4936f91bb934981a68fd200",
+      "translation": "【副驾驶员】多米尼克（身穿白色制服，军衔上尉）\n作为友军登场的※。"
+    },
+    {
+      "id": "sd/compdata/9E4A0",
+      "offset": 648352,
+      "hex": "8dec926884eb906c936f91bb8fd195b3855ee3c8889b8ff384c5934981a68fd200",
+      "translation": "作为敌人登场、处于亢奋状态的※。"
+    },
+    {
+      "id": "sd/compdata/9E4E0",
+      "offset": 648416,
+      "hex": "8dec926884eb906c936f91bb8fd190538a4488d397e2934981a68fd200",
+      "translation": "作为敌人登场、心灰意冷的※。"
+    }
+  ],
+  "tests": {
+    "sp": 165,
+    "full": 747,
+    "result": "passed"
+  },
+  "runtime": {
+    "natural_cold_boot": [
+      "robot name substitution",
+      "Spazer viewer list"
+    ],
+    "the_heat": "isolated RAM probe on the earlier space-fixed ISO, through game keyword copy, squad commit, ability view, map information and battle command header; full THE HEAT throughout; original Rand event and player save remain unverified",
+    "PCSX2": "not tested",
+    "the_heat_battle_probe": {
+      "input_iso_sha256": "12e5ad220c32dbddcf9a1913a7a0f2bd212e1b572f94b014fb044173fe64973e",
+      "squad_field": {
+        "address": "0x616768",
+        "hex": "827382678264814082678264826082730000000000000000"
+      },
+      "full_name_ram_addresses": [
+        "0x5DBE98",
+        "0x616768",
+        "0x761F28",
+        "0xE90D3E",
+        "0xE9215A"
+      ],
+      "ram_sha256": "1b27e9250577fc233419c625ae9901bbc148b426803d8f9fe5cfeef2ea4ff8b8",
+      "screenshot": "heat-battle-command-probe.png",
+      "screenshot_sha256": "c023090935e6c941536e3d5a521797e5d5696e372dac871af991659e3843c9a8",
+      "natural_rand_reproduction": false
+    },
+    "source_card_sha256_unchanged": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21"
+  }
+}

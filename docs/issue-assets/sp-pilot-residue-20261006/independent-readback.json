@@ -1,0 +1,891 @@
+{
+  "status": "all_bound_text_reread_from_final_iso",
+  "iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "size": 3791781888,
+    "sha256": "bcdb74f5da5525721e5bd147562cb56148ebed1e7c97c4f8c285cf1b8df03f25"
+  },
+  "counts": {
+    "battle_status_labels": 10,
+    "battle_prompt_labels": 10,
+    "battle_title_labels": 12,
+    "battle_ability_labels": 19,
+    "enlarged_bazaar_headings": 1,
+    "restored_native_menu_chunks": 4,
+    "current_library_current_shared_fields": 4993,
+    "current_library_fields_changed_from_canary": 2529,
+    "current_library_current_body_fields": 1587,
+    "current_library_documents": 795,
+    "current_library_canary_fields_preserved": 4,
+    "current_library_work_titles": 22,
+    "current_library_work_title_pointers": 55,
+    "reviewed_instruction_overrides": 167,
+    "native_unit_names": 15,
+    "native_unit_name_pointers": 23,
+    "native_pilot_name_fields": 43,
+    "all_unit_name_records": 854,
+    "all_pilot_name_fields": 2907,
+    "keyword_list_names": 52,
+    "native_qa_pages": 22,
+    "nisv_squad_names": 113,
+    "inherited_world_map_titles": 10,
+    "stage_entry_title_slots": 21,
+    "stage_entry_title_images_rewritten": 20,
+    "terrain_names": 621,
+    "weapon_detail_runtime_labels": 4,
+    "chart_visibility_instructions": 1,
+    "stage_text_records": 8754,
+    "formation_cells": 1338,
+    "frame_targets": 147,
+    "chart_episode_labels": 128,
+    "chart_final_episode_labels": 5,
+    "chart_empty_labels_preserved": 3,
+    "chart_z_titles_audited": 110,
+    "chart_z_ending_titles": 3,
+    "chart_key_help": 5,
+    "current_shared_labels": 63,
+    "viewer_pilot_list_records": 554,
+    "system_native_controls": 67,
+    "ticker_slots": 35,
+    "ticker_sources": 12,
+    "battle_viewer_name_substitutions": 44,
+    "system_writes": 1680
+  },
+  "component_hashes_verified": true,
+  "scope": "STAGE dialogue/speakers/conditions/formations; frame physical records; system writes/templates/tickers. SRVC and indexed image component readbacks are bound to exact ISO member hashes. Reviewed fixed instructions, Q&A metadata and explicit tutorial/Q&A page records. Weapon category/effect-2 MIPS strings and surrounding native instructions.",
+  "instruction_overrides": {
+    "targets": 167,
+    "entries": [
+      {
+        "id": "sd/compdata/958C0",
+        "text_sha256": "8ca6f0f32a69989ab9266025e2c44d7c56b19210b5017f68fcac8fb775388044"
+      },
+      {
+        "id": "sd/compdata/95A50",
+        "text_sha256": "e8254ada996c50db5a848e8daacd956f33db32fd09f82944d0fab59af01f109d"
+      },
+      {
+        "id": "sd/compdata/95B70",
+        "text_sha256": "28a7970fa06faee6ac813cc92fae46889eae78fd7ba55fd01c995f6d8ddd2b31"
+      },
+      {
+        "id": "sd/compdata/95D30",
+        "text_sha256": "a8c34fa3938935c7a7683ba533fd08c7222bb4ad2a5a0e2ff1bd44187258a87a"
+      },
+      {
+        "id": "sd/compdata/7B890",
+        "text_sha256": "023f3143c10e88a2f6f5c25c7dd8f9dc5761b0242b1d9dac0a2d8ab08fcc3a18"
+      },
+      {
+        "id": "sd/compdata/7B8D0",
+        "text_sha256": "2baf415d3ef2738017eac03dad330363a93b27cb99370fb54592e5cdc484b7ca"
+      },
+      {
+        "id": "sd/compdata/7B910",
+        "text_sha256": "2f88c4aee3135092a136f9a80c18571be93f7b8ae0700ccd50c45fcb46391a87"
+      },
+      {
+        "id": "sd/compdata/7BA30",
+        "text_sha256": "8ad342f9365d8deacd7d5d069766a60a85bb80093dd919a2f2875e1298e16d4a"
+      },
+      {
+        "id": "sd/compdata/7BA80",
+        "text_sha256": "820ee3488f8e3c3c2f738d127fbca49128d2e6acc17d45595178b28638be5079"
+      },
+      {
+        "id": "sd/compdata/7BF50",
+        "text_sha256": "6bf7a7d435c30a3cc5442337de74989e53d04b4871b12445302f473b4e57cda7"
+      },
+      {
+        "id": "sd/compdata/7C350",
+        "text_sha256": "e0130507c87155b7e3b7732bff25cbf9e020011761a6a3f29ca154d15d1adeaf"
+      },
+      {
+        "id": "sd/compdata/7C600",
+        "text_sha256": "2afe68f454ce38bd6af5c1198d48cda323a2046fcfe97a3b8195572bfd50080a"
+      },
+      {
+        "id": "sd/compdata/7C6A0",
+        "text_sha256": "42087c820851d1afd300ffce058b5a16e332d6e50a12f8bade313405f4a5c271"
+      },
+      {
+        "id": "sd/compdata/7C700",
+        "text_sha256": "067b2813ffe5c9e9d7432990db02c522739e54b092bb3449bb3754c5fcf77448"
+      },
+      {
+        "id": "sd/compdata/89CC0",
+        "text_sha256": "b5b23f676711f908aa44146a22f810bbf83d34df3c09646ded021d748b89d23d"
+      },
+      {
+        "id": "sd/compdata/8A1E0",
+        "text_sha256": "88871f649226699614abd68977914187bc108e5ed820c366c70d19d4ee8ba04d"
+      },
+      {
+        "id": "sd/compdata/8C770",
+        "text_sha256": "ecb6c5a4200c5d075b15389ce9778de8fbe59283a6f2d43c6ca98aa3cc940f19"
+      },
+      {
+        "id": "sd/compdata/8D950",
+        "text_sha256": "4a88a74c3f50e6a721263dcbf96dbdfba1ee645655e258b3c42c9a192caf5cd2"
+      },
+      {
+        "id": "sd/compdata/901A0",
+        "text_sha256": "b47344e1533ba1105f0e28e8f44df927c2d1b6dd2c73667803a6ec730f275548"
+      },
+      {
+        "id": "sd/compdata/917B0",
+        "text_sha256": "9ed85cd98a0dec1e2cba6301a984917d7f9eb0d58e7790c70bfc6ef9319a48cd"
+      },
+      {
+        "id": "sd/compdata/919C0",
+        "text_sha256": "48ed8f5e283d9350c186b4ff2a7662046d3745508c8dd74484cb3d98e62d4a45"
+      },
+      {
+        "id": "sd/compdata/91D80",
+        "text_sha256": "42fd6c52ad4af19ff7f24a2dfd4678a9fd4f180e946d4fb1b1e86e78ee30e72e"
+      },
+      {
+        "id": "sd/compdata/91E00",
+        "text_sha256": "e10c8dacd7ab1f1dba08ed7fad34b76208143c7f9744eb3a16a046ec6e5f3bf2"
+      },
+      {
+        "id": "sd/compdata/91E80",
+        "text_sha256": "aa421a42e25bc6f533d7295efd72695e51ab43a4e46270f2749bfadee520d29b"
+      },
+      {
+        "id": "sd/compdata/91F00",
+        "text_sha256": "691301d29c74d368af2f4a46904a7b3359f98bc8b2a46c5cad320cf335e6f282"
+      },
+      {
+        "id": "sd/compdata/91F80",
+        "text_sha256": "951366e483af8cc61f7ac3e312656e01027ef7b5ce69a617d41fc2c506336eca"
+      },
+      {
+        "id": "sd/compdata/92000",
+        "text_sha256": "fb962ad8921738c61812d7a6b283c2d88df95b916d7f9133a137fcd1be6a7263"
+      },
+      {
+        "id": "sd/compdata/92CB0",
+        "text_sha256": "eef4da8e9f634690fce15d9fb692d5ed18c849f6e82b6c854345b4049161b3f6"
+      },
+      {
+        "id": "sd/compdata/92CF0",
+        "text_sha256": "5b33322624b103fe57be68922121675fc2c6f2484c900229d572a38dc365746d"
+      },
+      {
+        "id": "sd/compdata/92FD0",
+        "text_sha256": "c66ed5c0eaed9f6e8ad0b8b8d6d4ea66729197ef60171759de2ac65f04c9012f"
+      },
+      {
+        "id": "sd/compdata/96640",
+        "text_sha256": "ec0e8278b49d8811cdf84d6a474647a8d6b3f3999653d7450b87df707aa05f96"
+      },
+      {
+        "id": "sd/compdata/966B0",
+        "text_sha256": "8d1a66fdc8423e47a590c69931ccd48fe458847672491859363b27effe031dbf"
+      },
+      {
+        "id": "sd/compdata/96740",
+        "text_sha256": "b7af4998278d61d49f0e2918ca3be622f2ec22bbe0d0bd7a2f2f9a4bd590ce7b"
+      },
+      {
+        "id": "sd/compdata/96940",
+        "text_sha256": "56260ffd2b57a2e2aa99ad2a178da78909d059748088f8cd3ce91c9626df7431"
+      },
+      {
+        "id": "sd/compdata/969A0",
+        "text_sha256": "e0795db304352297c963aaf2c151ce014152ffa244d86825fa712bbbe4b41065"
+      },
+      {
+        "id": "sd/compdata/969D0",
+        "text_sha256": "fe9d5e39786ae849f96a00974372348224bfb2e00576080e427cf4f64030b0b5"
+      },
+      {
+        "id": "sd/compdata/96B50",
+        "text_sha256": "9db9eb39188f07dba1cf51ebb4de807c00aa6db593eb1117d19a5139ccb6ed33"
+      },
+      {
+        "id": "sd/compdata/96EA0",
+        "text_sha256": "f0fcae391b4a92fc8df5b27e8b495c721f1e15bb1c9c5be1822d6f644a958cb5"
+      },
+      {
+        "id": "sd/compdata/96ED0",
+        "text_sha256": "52dbcfc43342a284f3d0d0bc071e6dd9308229d663cfb4755480d96a9542a5a2"
+      },
+      {
+        "id": "sd/exe/3AE5D0",
+        "text_sha256": "c7b4c4300dc50c89cf0ad719101f4de20c5c77a1b7bdf9e294241a36625f8f32"
+      },
+      {
+        "id": "sd/exe/3AE690",
+        "text_sha256": "8c5fd449f80e1449475111c80e81b1c5eb1740cec9123d89b7fface1899fd288"
+      },
+      {
+        "id": "sd/exe/3AE780",
+        "text_sha256": "afbdd6d4d66a23815523c695346857bb41b29cbf4c39834ff4849d473d19ed62"
+      },
+      {
+        "id": "sd/exe/3AF010",
+        "text_sha256": "518998aa4609d8d437a84fa8880b52a63b156fe5ad6c95d49ad18ad9c9b66308"
+      },
+      {
+        "id": "sd/exe/3AF9B0",
+        "text_sha256": "0a8badcb14d1575fefd9051123ad8b13b8443349c31b51d8316a8dc835857b53"
+      },
+      {
+        "id": "sd/exe/3AFD30",
+        "text_sha256": "55cb938b6aaf5f9fe39eef4f2bcaf02f63566afe74fbc22b7d9526bd3fcaa6ea"
+      },
+      {
+        "id": "sd/exe/3B1590",
+        "text_sha256": "acf87553e30fa1a00741869709a631842f278da6da9a3a716fb175954c818a5a"
+      },
+      {
+        "id": "sd/exe/3B1600",
+        "text_sha256": "baacc64dd57945adff686c7c21d23c6208dedc0a2279ebb773e46df0dc849c9f"
+      },
+      {
+        "id": "sd/exe/3B3DB0",
+        "text_sha256": "a8bfaaafd8e3eb994fdf605ca688093b19c64617e24df922b05ca110bb9134ac"
+      },
+      {
+        "id": "sd/exe/3BF480",
+        "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+      },
+      {
+        "id": "sd/exe/3C0A88",
+        "text_sha256": "2797517fa7e78fd92bfd2db75ccd3858148b16c5fd832733345724f3c6836996"
+      },
+      {
+        "id": "sd/exe/3C1410",
+        "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+      },
+      {
+        "id": "sd/exe/3C20A0",
+        "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+      },
+      {
+        "id": "sd/exe/3C2730",
+        "text_sha256": "65c86189c848537af2108c6f3c3df56faccfd301dd0e4e259ebc5862e8736edd"
+      },
+      {
+        "id": "sd/exe/3C28B0",
+        "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+      },
+      {
+        "id": "sd/exe/3C2910",
+        "text_sha256": "65c86189c848537af2108c6f3c3df56faccfd301dd0e4e259ebc5862e8736edd"
+      },
+      {
+        "id": "sd/exe/3C2C00",
+        "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+      },
+      {
+        "id": "sd/exe/3C2DB0",
+        "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+      },
+      {
+        "id": "sd/exe/3A8850",
+        "text_sha256": "985f4b1e31a35581ceb6d0f8c1cab74f8baa7f6cd4419106db72122e44a2ca1c"
+      },
+      {
+        "id": "sd/exe/3A88B0",
+        "text_sha256": "58a663663c442b1761d7d9ef9b4923422accac0ed86def0d8805c557c1bd74f3"
+      },
+      {
+        "id": "sd/exe/3A8D30",
+        "text_sha256": "9b8c43d68fc9c1b335c5209b679287d46f145fa5572901f323a2d7f35a5afe25"
+      },
+      {
+        "id": "sd/exe/3A9270",
+        "text_sha256": "8d22bb44929c72e77817d83d20b3342db79c5c1f8ca512ce59f8b270d196eb5b"
+      },
+      {
+        "id": "sd/exe/3A98F0",
+        "text_sha256": "41db9005c2856ddd30c73fb1d83aa708c8d0817b24fbf49b6fb64967be2218e4"
+      },
+      {
+        "id": "sd/exe/3A9A90",
+        "text_sha256": "761549a79713199c830fab48f74717a2b2a8d363d62726f619e9b1c844468bc0"
+      },
+      {
+        "id": "sd/exe/3A9EA0",
+        "text_sha256": "5bd6a7aba2f7ed10d472d3f0514fc086c49602c74a52df8ade65cf5ad54413d3"
+      },
+      {
+        "id": "sd/exe/3B8490",
+        "text_sha256": "24bfd072d76ad2e9103fb62f722300474800b26450109ed760c68ae00b02b177"
+      },
+      {
+        "id": "sd/exe/3B8840",
+        "text_sha256": "07e522ff1c09a1297ed0e0b001b13a5e5df516a2949a1194e9be0d366c93b84f"
+      },
+      {
+        "id": "sd/nisv/qa/page/012",
+        "text_sha256": "1d71392f12c4883a41dda4a18f23bfa2b5c828c4aa5c2575ef51458d3814f265"
+      },
+      {
+        "id": "sd/nisv/qa/page/018",
+        "text_sha256": "53227a7769c6f94798ac495fd8182a5a4fd0c0f0bbb59f9f836d8dd27eeb7c8a"
+      },
+      {
+        "id": "sd/nisv/qa/page/021",
+        "text_sha256": "ebe30af5c5a4a6e1d21bf0e392245df64a755c22df0f7e04096d16bb6ecfce70"
+      },
+      {
+        "id": "sd/nisv/qa/page/026",
+        "text_sha256": "decd0945317f75d9f0f470df73125f7df2de4b90ad7f33d3c65ec5eb67167ec2"
+      },
+      {
+        "id": "sd/nisv/qa/page/029",
+        "text_sha256": "08428d0fb1f6b647cef56e9d6cec257ac029e2cbc5cd1c9e085f8d57e6741dba"
+      },
+      {
+        "id": "sd/nisv/qa/page/037",
+        "text_sha256": "84ed6051f48dd42e12e69fb64257989a37c17cb8926d85b656f7b0ea5df1b95f"
+      },
+      {
+        "id": "sd/nisv/qa/page/039",
+        "text_sha256": "cacd551a6a044765fa38b042a53c3f937d7bb49665849d09a705980f288bc822"
+      },
+      {
+        "id": "sd/nisv/qa/page/043",
+        "text_sha256": "a9530bb0ee804c6448ca86e38b1924342efd6b06acfbb2e0c7e1717ada6a652c"
+      },
+      {
+        "id": "sd/nisv/qa/page/050",
+        "text_sha256": "634b988ef2a90560711b36f726f16e528c32b17884ccf39c88c4143f89a19c8b"
+      },
+      {
+        "id": "sd/nisv/qa/page/058",
+        "text_sha256": "bd908f638bebecfb1d973d7f0528b27094db92aaeb91f4f0780fa563c1b24b12"
+      },
+      {
+        "id": "sd/nisv/qa/page/061",
+        "text_sha256": "8782d1d77b7dff740bf4440b4e3e9c10aea8df06cc30ccc33ca5dd53542874bf"
+      },
+      {
+        "id": "sd/nisv/qa/page/064",
+        "text_sha256": "284f4d97bd0665bf72c81df6cfdb7be70ce6bb1434a8edf6952bd68d2a36d1bd"
+      },
+      {
+        "id": "sd/nisv/qa/page/066",
+        "text_sha256": "c1af8b0992093256d5db09a94ef9472d013b025f2a3aaa0a34961b9ca3d87da6"
+      },
+      {
+        "id": "sd/nisv/qa/page/067",
+        "text_sha256": "82afcfc7a3d38dc2218c28de75d0d8baac1e02cb850d5bbf335bf037212f34ee"
+      },
+      {
+        "id": "sd/nisv/qa/page/083",
+        "text_sha256": "31096e9bde1529c9dfcbe4d51ee83dda188e2151cd2830f8082fdbbbdbb8a618"
+      },
+      {
+        "id": "sd/nisv/qa/page/086",
+        "text_sha256": "3a6cc7dac0d8f7a1a533a7f9145f02da6e2a23c2b8bba6c5a3b40619f1ee4e0c"
+      },
+      {
+        "id": "sd/nisv/qa/page/087",
+        "text_sha256": "33fc426ef51221da4a9532ecad4cb41026fab1ed75e68399543131490adb7c8c"
+      },
+      {
+        "id": "sd/nisv/qa/page/092",
+        "text_sha256": "477a6cb8973223b43f5c10d96351c47f842b096271df3167b9fc2a8c849d48a0"
+      },
+      {
+        "id": "sd/nisv/qa/metadata/category_summaries/003",
+        "text_sha256": "3424a27e3270ec5ef0cfee145af1717bcc9521a731038a1b6a5d740cdc15b93f"
+      },
+      {
+        "id": "sd/nisv/qa/metadata/keyword_summaries/039",
+        "text_sha256": "62de322a4748c81bc38131db14b3f57b127b44c1eb168cd2224d3e49452a3a49"
+      },
+      {
+        "id": "sd/nisv/qa/metadata/keyword_summaries/058",
+        "text_sha256": "a8db456451b6a15ac4c94f6f8f4df7860249039eecf8a68e7e96e883635d70a4"
+      },
+      {
+        "id": "sd/nisv/qa/metadata/keyword_summaries/060",
+        "text_sha256": "9a6bcc6235a4503ea1891927880aab6307a42b998481f7f603c9d7d4069d4be9"
+      },
+      {
+        "id": "sd/nisv/qa/metadata/keyword_summaries/065",
+        "text_sha256": "2fa5d1da24f3a7b936a09d2b2c73588764b32529f5b3c23761c999a7af7dfef5"
+      },
+      {
+        "id": "sd/nisv/qa/metadata/keyword_summaries/080",
+        "text_sha256": "1df41fef19230d8e9670cc8ac5de6c8115855150771d49b897edbe1652765a52"
+      },
+      {
+        "id": "sd/nisv/tutorial/00",
+        "text_sha256": "42a401b45d8a5421acc4f292a3b12eec21c2f4cb88170f552d09922141ad9c1f"
+      },
+      {
+        "id": "sd/nisv/tutorial/03",
+        "text_sha256": "958a1a490fd25879d9b2d16ae35bbdfce2821747f229295781ab9aabe299066b"
+      },
+      {
+        "id": "sd/nisv/tutorial/04",
+        "text_sha256": "621829016753559a093cbcccd72e9e0b356f69018e13a4f94dbb5f8730ae79e0"
+      },
+      {
+        "id": "sd/nisv/tutorial/05",
+        "text_sha256": "15739cef41479ed9fa880eb8bd9268be38bfa1998cb39b09f99940173d2e3f36"
+      },
+      {
+        "id": "sd/nisv/tutorial/06",
+        "text_sha256": "dea317af3b0b18caf9bbbcfca5838975dbc297ffe79857d4978ee0c9bd40e6c6"
+      },
+      {
+        "id": "sd/nisv/tutorial/09",
+        "text_sha256": "9c79f605a218c4a1e0a696701ad4d197f590142a8eacc5b117b2797654a93b02"
+      },
+      {
+        "id": "sd/compdata/91AA0",
+        "text_sha256": "680f38d72c1717d3e2addb7a133166892197e33bd30557067c4b76ac8ddf7527"
+      },
+      {
+        "id": "sd/compdata/91B20",
+        "text_sha256": "c8ec5ceb594bed2058f0bca55dcae0520ee482b0cd63f5eca9ddb838337edaf6"
+      },
+      {
+        "id": "sd/compdata/91BA0",
+        "text_sha256": "fc4c776429f9564e9346a174cc7b635c38e0f02f082df0a678a77dae9234c3c9"
+      },
+      {
+        "id": "sd/compdata/91C10",
+        "text_sha256": "c68c490c3d66f766e311806d396a6b351f16a3fc6aa1c3faef3e635a6319ef27"
+      },
+      {
+        "id": "sd/compdata/91C90",
+        "text_sha256": "7752aae8a594640dfbe7f52a8fbe40d4c1d97bfbacbe2b7fe3754b7032d45d60"
+      },
+      {
+        "id": "sd/compdata/91D10",
+        "text_sha256": "e941e5cff315d19cfb851d5ef33105bfa3f145b9a483ead25ca92045316b7277"
+      },
+      {
+        "id": "sd/compdata/96150",
+        "text_sha256": "1ae8bfd962cdd26cce65733b6d601538df1b7f32190bf4515967244f6785c859"
+      },
+      {
+        "id": "sd/exe/3BFB00",
+        "text_sha256": "d67e1c982297a5897eb2686624170b3c8e89db4cc111fe8a26169cf89be3e72a"
+      },
+      {
+        "id": "sd/exe/3B4EB8",
+        "text_sha256": "fb0630b8351a1073df267d4cacec6f0d92af27196014c4ac3daf55cdf7347132"
+      },
+      {
+        "id": "sd/exe/3B4E90",
+        "text_sha256": "3a4b3c9ac38f3e5eabc9a09e475ac4d5afd8dfbfdd9f60864bfe7d8685642010"
+      },
+      {
+        "id": "sd/exe/3B3B50",
+        "text_sha256": "a7c3b08df3a864d1db70a4e1f043878215a0434887a124d493140532049eee32"
+      },
+      {
+        "id": "sd/compdata/8A1C0",
+        "text_sha256": "a929f65586b4cdea0f41be6d50daa2c19ae52d12a1a09fd41cfa3ded59f0a5ca"
+      },
+      {
+        "id": "sd/compdata/8A608",
+        "text_sha256": "e6618fade76933f272617da324a4cdfa8044568ee7b7484396ad59497d0bc9b7"
+      },
+      {
+        "id": "sd/exe/3C0F60",
+        "text_sha256": "358d995c1e4e4d7856a86cffa7044024700a1c1d10e9926665bc27a20dfced07"
+      },
+      {
+        "id": "sd/compdata/97810",
+        "text_sha256": "dde893323c4235b688ac89e33e6287abcdc26cfca94f6fec03e112af6b27c867"
+      },
+      {
+        "id": "sd/compdata/97B40",
+        "text_sha256": "5456ef63ec02b68e02efd80164374594303a9fb6bce26efa28cea126ea62f08b"
+      },
+      {
+        "id": "sd/exe/3B15E0",
+        "text_sha256": "c17a50b9894b0029ad991c5692b3775c318ae8ac62e05281a483b431d3af2da6"
+      },
+      {
+        "id": "sd/exe/3BF9A8",
+        "text_sha256": "2acddf85e3f172e140266a5891a7e6cb11eebc817d9ddd45454050abbe0d5e7f"
+      },
+      {
+        "id": "sd/exe/3BE8E0",
+        "text_sha256": "aedb674afee62295a8bdb8ab644022b2263421e08258f54298514bc7c9d2860b"
+      },
+      {
+        "id": "sd/exe/3C0348",
+        "text_sha256": "aedb674afee62295a8bdb8ab644022b2263421e08258f54298514bc7c9d2860b"
+      },
+      {
+        "id": "sd/compdata/8EF70",
+        "text_sha256": "2be28c4ca0cf4780f557b88f1950312fad741b3d736079be61244f6987c74c01"
+      },
+      {
+        "id": "sd/compdata/8F050",
+        "text_sha256": "3b53333a81fcb73cf35db8b31c49da6e2766889acf7b422baa1f73e7e8ab8d1e"
+      },
+      {
+        "id": "sd/compdata/97720",
+        "text_sha256": "9df655ae3efddc1f330a73d6babe81d66b31877adfb40ea94d7e23bc998fa45c"
+      },
+      {
+        "id": "sd/exe/3B2A28",
+        "text_sha256": "40d087ccc8d0e8816c7f28ebd3e4d193cbb355211fe570f4497990e839c60244"
+      },
+      {
+        "id": "sd/exe/3B2A38",
+        "text_sha256": "aaefbc1a15a910cd5e577790c5c51ea2b89ec0fb22eb4f13f407cd31957b3a7f"
+      },
+      {
+        "id": "sd/exe/3C1A60",
+        "text_sha256": "58a17c2ce9431167c18a2ba5fe45d13d568880b03d0f1b2e62679497f9dfc5ab"
+      },
+      {
+        "id": "sd/exe/3B8A00",
+        "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+      },
+      {
+        "id": "sd/exe/3BF2F8",
+        "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+      },
+      {
+        "id": "sd/exe/3C0B48",
+        "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+      },
+      {
+        "id": "sd/exe/3C24B8",
+        "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+      },
+      {
+        "id": "sd/exe/3C2558",
+        "text_sha256": "bc5834f73eef37342b68902610a09bbb1dc35f7a4602b1aaa971a3aa6a726ad0"
+      },
+      {
+        "id": "sd/compdata/8D0E0",
+        "text_sha256": "ca15f6e1c70a3fd8aa48e126dc89a6ac8f3543c6d53b320e3f87ea210f846152"
+      },
+      {
+        "id": "sd/compdata/95CD0",
+        "text_sha256": "8c51b5ec28ecf27a8f2c626c08bf37f472803a221c71eb3a474eac3077d6156d"
+      },
+      {
+        "id": "sd/compdata/826D0",
+        "text_sha256": "bea3d04d4e2f81fcebb96d2532a5d2ba8035648aa3fab8240e1f3a7355963f65"
+      },
+      {
+        "id": "sd/exe/3A8DC0",
+        "text_sha256": "9aecc433607dd6d351056bee3a7bd2ec791b23a4ffbe2ce2e8beba163cd64ada"
+      },
+      {
+        "id": "sd/exe/3A8DE0",
+        "text_sha256": "799b60dac214ba45806a88c06f333568cf84aaca240e221bc5aa8754de4b4882"
+      },
+      {
+        "id": "sd/compdata/8C370",
+        "text_sha256": "660928a1860c864fd379c26e80e56259060fcbaad9126372854efd2eed809bff"
+      },
+      {
+        "id": "sd/compdata/88D20",
+        "text_sha256": "023f3143c10e88a2f6f5c25c7dd8f9dc5761b0242b1d9dac0a2d8ab08fcc3a18"
+      },
+      {
+        "id": "sd/compdata/89340",
+        "text_sha256": "55c2779302f1b52cb23027ccf55da679b6fd523da368f47622ac24484ed95bec"
+      },
+      {
+        "id": "sd/compdata/89360",
+        "text_sha256": "a80c0fd0d3048d6b156f279d80a6c19be20baa2248879edd7578b477d3e7c120"
+      },
+      {
+        "id": "sd/exe/3B2F10",
+        "text_sha256": "fa9ae7479c79403582a6f164f562324ff83957c3c6f8efb082bbb06761a6a5bd"
+      },
+      {
+        "id": "sd/exe/3B3060",
+        "text_sha256": "fa9ae7479c79403582a6f164f562324ff83957c3c6f8efb082bbb06761a6a5bd"
+      },
+      {
+        "id": "sd/exe/3B2D90",
+        "text_sha256": "c3b9583cd2c2d1b9434c264d0ad30f2fff9e8a85d5fbefd545c56bc2b06d0298"
+      },
+      {
+        "id": "sd/exe/3AF740",
+        "text_sha256": "985a44c2326a6298f9baca0c0cabf2abb89b77e703d62804513fdca030c56d0b"
+      },
+      {
+        "id": "sd/exe/3B0360",
+        "text_sha256": "6ebfdf945a31654a417a5367c9029f1380f6f8017285b6307f91bc226227a813"
+      },
+      {
+        "id": "sd/exe/3B03B0",
+        "text_sha256": "2572a16952876473bafc4d5a482d2d6045a1682acaac974c9acb144e346c3633"
+      },
+      {
+        "id": "sd/exe/3BE800",
+        "text_sha256": "55e5f97d2e3d3945ff46609d651ee523bc7ffbcbd12c6443093b7d0198201728"
+      },
+      {
+        "id": "sd/exe/3BE7C8",
+        "text_sha256": "467fe4b8c2c8e28e900c1b1f65fdf87349be73ec70693b68291da918e4c99093"
+      },
+      {
+        "id": "sd/exe/3BE7D8",
+        "text_sha256": "c5c0c077c787eb30921ad08f1d0d7a3376513608e0ed7e7bce5ea9839c8d09b0"
+      },
+      {
+        "id": "sd/compdata/900E0",
+        "text_sha256": "662fb2677400731e5f46f5b4f8ef62755fa2d9f00bbba2f4d2dc272320bc7a0e"
+      },
+      {
+        "id": "sd/exe/3B3EC0",
+        "text_sha256": "89bcdbe93a1a549f12a68b7325cf966392eedd21630f86696824be4766c15439"
+      },
+      {
+        "id": "sd/exe/3BF880",
+        "text_sha256": "eb0d5884569b398e475b89e77a068c6c575a0064ff6a72fafc173102c4cfcd57"
+      },
+      {
+        "id": "sd/compdata/94E98",
+        "text_sha256": "3094c287737cf926c6e76f563215ee0d57954417847c481c9179e55fe2912f37"
+      },
+      {
+        "id": "sd/compdata/95040",
+        "text_sha256": "af7992c274ff62675bb0929445344672f9e6cf168162289962c78ffb3f515c9f"
+      },
+      {
+        "id": "sd/compdata/95490",
+        "text_sha256": "83e5f730c3c3aea1aa45f5a78d4ae769dcc038c75caa129ea92fb68b3735723b"
+      },
+      {
+        "id": "sd/exe/3B2CF0",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3B2FF8",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3B3158",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3B32A8",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3B3BB0",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3B8718",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3BF3E0",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3BFF48",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3C1E88",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3C2898",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3C2B08",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3C2CA8",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/compdata/96F48",
+        "text_sha256": "01e867b8d2070e65e7ef7e72ab7b138200a7e73400d94e8d0ca6cb511d38e3d8"
+      },
+      {
+        "id": "sd/exe/3C15A0",
+        "text_sha256": "50d071aaa79eca21b8a81b84412991f3d76ea1b31ed35ae4edee62f0742eee50"
+      },
+      {
+        "id": "sd/exe/3C15A8",
+        "text_sha256": "fa065a82ff3d95e47c3a817e4c65e0f66b7d1ffced211bc0428371aa34c6821b"
+      },
+      {
+        "id": "sd/exe/3C1860",
+        "text_sha256": "6f4a0a4be310266c6cfbd08e7a26b9c7e64b52f45e6588fb2d144ed171db9217"
+      }
+    ],
+    "corpus_sha256": "a79e745f8c19c9022bdf94f4fd8e015276f0b5b153a0bba2e4b29e0a01132700",
+    "layout_sha256": "121a174c2f3b13444330a0925c39b69bee2ef84e7b2d27445c5d9974d64b674a"
+  },
+  "weapon_detail_labels": {
+    "melee": "格斗武器（　　）",
+    "ranged": "射击武器（　　）",
+    "ignore-size-correction": "无视体型修正",
+    "barrier-pierce": "屏障贯通"
+  },
+  "weapon_detail_parentheses": {
+    "edition": "sp",
+    "template_count": 7,
+    "templates": [
+      {
+        "id": "map",
+        "file_offset": "0x3c0c30",
+        "parenthesis_offset": "0x3c0c3a",
+        "output_hex": "826c8260826f95908aed8169814081408140816a"
+      },
+      {
+        "id": "tri",
+        "file_offset": "0x3c0c50",
+        "parenthesis_offset": "0x3c0c5a",
+        "output_hex": "82738271826895908aed8169814081408140816a"
+      },
+      {
+        "id": "all",
+        "file_offset": "0x3c0c70",
+        "parenthesis_offset": "0x3c0c7c",
+        "output_hex": "915391cc8d5590ca95908aed8169814081408140816a"
+      },
+      {
+        "id": "pla",
+        "file_offset": "0x3c0c90",
+        "parenthesis_offset": "0x3c0c9e",
+        "output_hex": "826f826b82608d5590ca95908aed8169814081408140816a"
+      },
+      {
+        "id": "one-icon",
+        "file_offset": "0x3c0ce8",
+        "parenthesis_offset": "0x3c0ce8",
+        "output_hex": "81698140816a"
+      },
+      {
+        "id": "two-icons",
+        "file_offset": "0x3c0cf0",
+        "parenthesis_offset": "0x3c0cf0",
+        "output_hex": "816981408140816a"
+      },
+      {
+        "id": "three-icons",
+        "file_offset": "0x3c0d00",
+        "parenthesis_offset": "0x3c0d00",
+        "output_hex": "8169814081408140816a"
+      }
+    ],
+    "native_codes": [
+      "8169",
+      "816A"
+    ],
+    "all_native_templates_exact": true
+  },
+  "native_parentheses": {
+    "all_native_parentheses_byte_exact": true,
+    "copies": [
+      {
+        "character": "（",
+        "glyph_index": 41,
+        "source_code": "8169",
+        "packed_glyph_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa"
+      },
+      {
+        "character": "）",
+        "glyph_index": 42,
+        "source_code": "816A",
+        "packed_glyph_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717"
+      },
+      {
+        "character": "（",
+        "glyph_index": 2856,
+        "source_code": "8169",
+        "packed_glyph_sha256": "16dd389a2baf0769d9e303505519310359e4f546fb0425c6698d9633346cdffa"
+      },
+      {
+        "character": "）",
+        "glyph_index": 2859,
+        "source_code": "816A",
+        "packed_glyph_sha256": "32f648d1e58709913676f233547748a4b15682dc45d4ed8a78e4896319408717"
+      }
+    ]
+  },
+  "data_link_bonus": {
+    "policy": "default_both_z_routes_without_z_save_io",
+    "z_routes": [
+      "male",
+      "female"
+    ],
+    "z_save_io": false,
+    "sp_clear_checks": "unchanged",
+    "rewards": "native_table_and_opt_in_unchanged",
+    "explanation": "sd/vt1/40/0",
+    "explanation_text": "　数据链接\n　本作已默认启用《超级机器人大战Z》\n男、女主角路线的通关奖励。\n　无需读取本篇存档。开始各组剧情时，\n可选择领取资金、BS、PP和强化零件奖励。\n　两条路线的奖励可以同时获得。\n　特别篇自身的通关奖励仍按实际进度获得。\n\n　　　返回剧情选择吗？",
+    "menu_hints": {
+      "sd/exe/3C46C0": "　已默认启用《超级机器人大战Z》双路线通关奖励。",
+      "sd/exe/3C4710": "无需读取本篇存档，开始各组剧情时可选择领取。",
+      "sd/exe/3C4750": "查看奖励说明。"
+    }
+  },
+  "battle_square_skip": {
+    "policy": "square_skips_battle_animation_via_native_tail",
+    "enabled": true,
+    "configuration_matches_before": true,
+    "edition": "sp",
+    "member": "SLPS_259.20",
+    "cave_virtual_address": "0x450780",
+    "cave_file_offset": "0x351100",
+    "cave_size": 2048,
+    "cave_preimage_all_zero": false,
+    "hook_size": 1728,
+    "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+    "state_marker": "0x4E540005",
+    "world_steps_per_frame": 1,
+    "native_resource_waits_preserved": true,
+    "native_result_processing_preserved": true,
+    "site_count": 3,
+    "patches": [
+      {
+        "id": "battle_step_world_call",
+        "surface": "battle step world call",
+        "kind": "jal",
+        "virtual_address": "0x2E9C48",
+        "file_offset": "0x1EA5C8",
+        "original_instruction_hex": "ec390c0c",
+        "replacement_instruction_hex": "e041110c",
+        "state_before": "applied"
+      },
+      {
+        "id": "queue_append_prologue_0",
+        "surface": "queue append prologue 0",
+        "kind": "j",
+        "virtual_address": "0x2F2280",
+        "file_offset": "0x1F2C00",
+        "original_instruction_hex": "20038290",
+        "replacement_instruction_hex": "20431108",
+        "state_before": "applied"
+      },
+      {
+        "id": "queue_append_prologue_1",
+        "surface": "queue append prologue 1",
+        "kind": "nop",
+        "virtual_address": "0x2F2284",
+        "file_offset": "0x1F2C04",
+        "original_instruction_hex": "c0100200",
+        "replacement_instruction_hex": "00000000",
+        "state_before": "applied"
+      }
+    ],
+    "already_applied": true,
+    "changed_byte_count": 0,
+    "executable_size_preserved": true,
+    "all_replacements_exact": true,
+    "contract_sha256": "ea77f46791f4ef9b456e07ee5cb60ca4b00066674a58d7adc7f7f5488bfe5040"
+  }
+}

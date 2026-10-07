@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parents[3]
 CONTRACT = ROOT / 'config/products/special-disc/pilot-names.json'
 MEMBER = 'DATA/COMPDATA.BN'
 PILOTS = {770, 771, 772, 797, 827, 845, 899, 909, 914, 931, *range(0x331, 0x33A)}
-FIELDS = {'display': (2, 21), 'given': (46, 23)}
+FIELDS = {'display': (2, 21), 'family': (23, 23), 'given': (46, 23)}
+FAMILY_PILOTS = set(range(396, 401))
 
 
 def require(condition, message):
@@ -29,7 +30,8 @@ def inputs():
     require(contract['schema_version'] == 1 and contract['member'] == MEMBER and
             contract['pilot_table'] == dict(start=0x2B50, stride=178, count=969) and
             contract['decoded_size'] == 652800, 'SP pilot-name contract drift')
-    expected = {f'sd/compdata/pilot/{i}/{f}' for i in PILOTS for f in FIELDS}
+    expected = {f'sd/compdata/pilot/{i}/{f}' for i in PILOTS for f in ('display', 'given')}
+    expected.update(f'sd/compdata/pilot/{i}/family' for i in FAMILY_PILOTS)
     slots = contract['entries']
     require(len(slots) == len(expected) and {s['id'] for s in slots} == expected,
             'SP pilot-name coverage drift')
@@ -103,7 +105,7 @@ def apply_pilot_names(archive, table, overrides, readback):
         require(decode_production(packed).output == data, 'SP pilot-name compression roundtrip mismatch')
         output, packed_size = packed + bytes(len(archive) - len(packed)), len(packed)
     labels = verify_pilot_names(output, readback)
-    return output, dict(labels=labels, entries=len(labels), pilots=len(PILOTS), changed_ids=changed,
+    return output, dict(labels=labels, entries=len(labels), pilots=len(PILOTS | FAMILY_PILOTS), changed_ids=changed,
         compressed_bytes=packed_size, allocated_bytes=len(archive), decoded_sha256=sha(data),
         non_name_bytes_preserved=True, contract_sha256=sha(CONTRACT.read_bytes()),
         corpus=dict(path=str(corpus_path.relative_to(ROOT)), sha256=sha(corpus_path.read_bytes())),

@@ -65,3 +65,15 @@ class SpEditionReadbackTests(unittest.TestCase):
             proof['components']['work/build/special-disc/full-text/runs/other/frame/report.json'] = '0'*64
             with self.assertRaisesRegex(EditionError, 'different build runs'):
                 validate_sp_readback(root, proof)
+
+    def test_promoted_current_can_replace_cleaned_private_duplicate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / 'private'
+            proof = self.fixture(root)
+            current = Path(directory) / 'sp-current.iso'
+            (root / proof['iso']['path']).rename(current)
+            with patch('srwz.sp_edition.scan_iso9660'), patch('srwz.sp_edition.member_map', return_value={}):
+                validate_sp_readback(root, proof, iso_path=current)
+                current.write_bytes(b'changed')
+                with self.assertRaisesRegex(EditionError, 'ISO identity mismatch'):
+                    validate_sp_readback(root, proof, iso_path=current)

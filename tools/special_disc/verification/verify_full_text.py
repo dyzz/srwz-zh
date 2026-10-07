@@ -34,6 +34,7 @@ from special_disc.writeback.qa_native import native_records
 from special_disc.writeback.qa_layout import page as qa_page
 from srwz.qa_typography import shared_records
 from special_disc.writeback.squad_names import verify_nisv_names
+from special_disc.writeback.shared_label_updates import verify_shared_labels, audit_viewer_pilot_labels
 from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
@@ -291,6 +292,11 @@ def main(iso=None, work=None):
         for site in row['pointer_sites']:
             require(struct.unpack_from('<I',data,site)[0]==st.sd.SD_STAGE_BASE+at,'chart help final pointer changed')
         counts['chart_key_help']+=1
+    shared_labels=verify_shared_labels(member('DATA/COMPDATA.BN'),readback)
+    require(shared_labels==manifest['shared_label_updates'],'SP shared-label receipt drift')
+    counts['current_shared_labels']=len(shared_labels['labels'])
+    counts['viewer_pilot_list_records']=audit_viewer_pilot_labels(
+        decode_production(member('DATA/COMPDATA.BN')).output,readback)['records']
     # System text: account for every template expansion and every ticker source.
     system=load(WORK/'system/report.json');cd=decode_production(member('DATA/COMPDATA.BN')).output
     work_title_proof=verify_work_title_pool(cd,decode_production(st.read_disc_member('DATA/COMPDATA.BN')).output,readback,edition='sp')
@@ -333,6 +339,9 @@ def main(iso=None, work=None):
                 at=binding['offset'];expected=binding['stored_translation']
             actual=decode_text(data,at,readback)
             require(actual.text==expected,f'system ISO reread: {target}')
+            from special_disc.writeback.battle_viewer_descriptions import verify_name_marker
+            counts['battle_viewer_name_substitutions']+=verify_name_marker(
+                data[at:actual.end],target,row['source_text'],expected)
             controls=verify_runtime_control_bytes(data[at:actual.end],readback,expected)
             counts['system_native_controls']+=len(controls)
             counts['system_writes']+=1

@@ -47,6 +47,7 @@ from srwz.text import (  # noqa: E402
     two_byte_visible_spaces,
 )
 from special_disc.writeback.slot_codec import encode_slot
+from special_disc.writeback.battle_viewer_descriptions import description_overrides, verify_name_marker
 import migrate_compdata as mc  # noqa: E402
 import migrate_slps_text as mst  # noqa: E402
 from special_disc.writeback.exe_data_guard import require_text_range  # noqa: E402
@@ -95,12 +96,13 @@ class Writer:
         self.log = collections.Counter()
         self.skipped = []
 
-    def encode(self, text: str) -> bytes:
+    def encode(self, text: str, label: str = '', source: str = '') -> bytes:
         # Visible word separators must be stored as the stock 0x8140 glyph: these
         # renderers consume text as two-byte codes, so a raw one-byte 0x20 shifts
         # the pairing of every glyph that follows it (see srwz.text).
         return encode_text(two_byte_visible_spaces(normalize_original_fullwidth_ascii(text)),
-                           self.table, overrides=self.overrides, terminate=True)
+                           self.table, overrides=description_overrides(label, source, text, self.overrides),
+                           terminate=True)
 
     def put(self, data: bytearray, offset: int, source: str, chinese: str, starts, label: str) -> bytes | None:
         """Write one string in place; returns its bytes, or None when it does not fit."""
@@ -108,7 +110,7 @@ class Writer:
             require_text_range(offset, 1)
         decoded = decode_text(bytes(data), offset, self.table)
         assert decoded.text == source, f"{label}: preimage drift at 0x{offset:X}: {decoded.text!r}"
-        payload = self.encode(chinese)
+        payload = self.encode(chinese, label, source)
         room = capacity(data, starts, offset, decoded.consumed)
         if label.startswith("sd/exe/"):
             require_text_range(offset, room)
@@ -119,6 +121,7 @@ class Writer:
         assert shown.text == two_byte_visible_spaces(
             normalize_original_fullwidth_ascii(chinese)
         ) and shown.terminator == "nul", (label, shown.text)
+        self.log['native name substitutions'] += verify_name_marker(payload, label, source, chinese)
         self.log["written"] += 1
         return payload
 
@@ -210,7 +213,7 @@ def main() -> None:
             written_cd[offset] = payload
     shared, cd_left = [], []
     for offset, e in overflow:
-        want = writer.encode(e["translation"])  # ends with its NUL
+        want = writer.encode(e["translation"], e['id'], e['source_text'])  # ends with its NUL
         host = next(((o, p) for o, p in sorted(written_cd.items()) if p.endswith(want)), None)
         if host is None:
             cd_left.append(dict(id=e["id"], reason="does not fit, no written string ends with it"))
