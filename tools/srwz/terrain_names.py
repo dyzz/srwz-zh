@@ -304,8 +304,8 @@ def build_terrain_names(
         or dict(actual_counts) != expected_counts
     ):
         raise TerrainNameError("terrain-name corpus coverage drift")
-    if codec.get("strategy") != "rust-fit":
-        raise TerrainNameError("terrain-name codec must be rust-fit")
+    if codec.get("strategy") not in {"rust-fit", "rust-patch"}:
+        raise TerrainNameError("terrain-name codec must be rust-fit or rust-patch")
 
     rows_by_member: dict[int, list[dict]] = {}
     for row in inventory:
@@ -365,7 +365,7 @@ def build_terrain_names(
         encoded_stored = reencode_changed_suffix(
             current_stored[: decoded.consumed],
             bytes(modified),
-            strategy="rust-fit",
+            strategy=codec["strategy"],
             min_match_length=_integer(
                 codec.get("min_match_length"), label="minimum match length"
             ),

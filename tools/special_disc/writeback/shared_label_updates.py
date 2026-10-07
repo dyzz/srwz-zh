@@ -5,7 +5,7 @@ import re
 import struct
 from pathlib import Path
 
-from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.compressed_workspace import CompressedStreamWorkspace, decoded_view, write_decoded
 from srwz.text import decode_text, encode_text, two_byte_visible_spaces
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -103,7 +103,7 @@ def patch_decoded(data, table, overrides, readback):
 
 
 def verify_shared_labels(archive, readback):
-    data = decode_production(archive).output
+    data = decoded_view(archive).output
     contract, labels, locks = inputs()
     if len(data) != contract['decoded_size']:
         raise ValueError('SP shared-label final size drift')
@@ -121,16 +121,9 @@ def verify_shared_labels(archive, readback):
 
 
 def apply_shared_labels(archive, table, overrides, readback):
-    decoded = decode_production(archive)
+    decoded = decoded_view(archive)
     data, report = patch_decoded(decoded.output, table, overrides, readback)
-    if data == decoded.output:
-        output = archive
-    else:
-        packed = reencode_changed_suffix(archive, data, strategy='rust-fit',
-                                        max_output_size=len(archive), original_result=decoded)
-        if len(packed) > len(archive) or decode_production(packed).output != data:
-            raise ValueError('SP shared-label compression roundtrip failed')
-        output = packed + bytes(len(archive) - len(packed))
+    output = write_decoded(archive, decoded, data, stage='shared labels', label='SP shared-label')
     if verify_shared_labels(output, readback) != report:
         raise ValueError('SP shared-label receipt drift')
     return output, report

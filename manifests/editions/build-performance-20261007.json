@@ -1,0 +1,392 @@
+{
+  "after": {
+    "batch": "work/editions/0db444598a970070bdd79493a410765e27e4454e1c205c9d0aee6722fd5b4453/original-best-sp.json",
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 18.383
+            }
+          },
+          "seconds": 20.685
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 0.277
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 101.476
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.113
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 8.149
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 1.014
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 26.084
+            }
+          },
+          "seconds": 141.176
+        },
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 0.13
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 93.572
+            }
+          },
+          "seconds": 96.603
+        }
+      },
+      "finished_at": "2026-10-07T12:11:35.250156+00:00",
+      "preflight_and_snapshot_seconds": 0.706,
+      "started_at": "2026-10-07T12:07:16.073964+00:00",
+      "total_seconds": 259.173
+    }
+  },
+  "before": {
+    "batch": "work/editions/21dd32dceb85c0a48d66851466a7447ce70916f5eb0067bf43a689ad77768a8d/original-best-sp.json",
+    "sp_steps_seconds": {
+      "current-shared-library": 280.427,
+      "independent-readback-and-publication": 268.107
+    },
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 27.078
+            }
+          },
+          "seconds": 29.736
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 0.121
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 629.539
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.082
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 10.444
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 0.612
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 42.673
+            }
+          },
+          "seconds": 687.558
+        },
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 0.262
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 615.598
+            }
+          },
+          "seconds": 618.836
+        }
+      },
+      "finished_at": "2026-10-07T11:20:55.989316+00:00",
+      "preflight_and_snapshot_seconds": 0.748,
+      "started_at": "2026-10-07T10:58:39.092984+00:00",
+      "total_seconds": 1336.881
+    }
+  },
+  "change": "tools/srwz/chinese_layout.py: _occupied_width_index (prefix sums + sparse-table range max) replaces per-slice _occupied_width in _partition_tokens",
+  "date": "2026-10-07",
+  "library_component_seconds": {
+    "after": 48.11,
+    "before_approx": 550,
+    "outputs_identical": true
+  },
+  "outputs": {
+    "best": "e950438e597c579ba5b3bdc82be374a0895200bffa83d70896d954f05fc9ea82",
+    "original": "3cf68c57801825efbef906d9b68646ab731dd6c7ea3f2ba59bfdb17e2a70c1e9",
+    "sp": "8e796122e7d77b1d9697059e8e83a3c8712d6d5b81512b2116f8a04890fedc86"
+  },
+  "outputs_identical_to_before": true,
+  "root_cause": {
+    "function": "srwz.chinese_layout._partition_tokens.width",
+    "profile_fraction_add_calls": 572405571,
+    "profile_occupied_width_calls": 5479503,
+    "profile_solve_share": 0.84,
+    "regressions": [
+      {
+        "commit": "ce6d64d",
+        "components_seconds": [
+          75,
+          290
+        ],
+        "date": "2026-09-28",
+        "sp_seconds": [
+          55,
+          295
+        ]
+      },
+      {
+        "commit": "38ab9fa",
+        "components_seconds": [
+          290,
+          600
+        ],
+        "date": "2026-10-04",
+        "sp_seconds": [
+          295,
+          600
+        ]
+      }
+    ]
+  },
+  "round_2": {
+    "batch": "work/editions/88c53b8a30dd2c4377a2754e3c71117605d51a6f46ed54d348e7a7a742ce61dc/original-best-sp.json",
+    "changes": [
+      "srwz/codec.py: content-addressed Rust payload cache (SRWZ_COMPRESSION_CACHE, work/cache/compression, 2 GiB LRU)",
+      "srwz/codec.py: _rust_compressor_path resolved once",
+      "build_library_v02_component.py: legacy capacity-fallback layout computed on demand",
+      "build_story_component.py: no fit after passing layout gate (identical predicate)",
+      "verify_full_story_iso_content.py: corpus layout gate and fit removed (builder enforces it on the same frozen inputs)"
+    ],
+    "cold_cache_batch": "work/editions/de96c6de6bec7cbdf4b8bad385d670d63069f87fca5bcc8e4d519c5a85b13f45/original-best-sp.json",
+    "cold_cache_total_seconds": 272.144,
+    "compression_cache_bytes_approx": 71303168,
+    "library_seconds": {
+      "after": 15.62,
+      "before": 28.0,
+      "outputs_identical": true
+    },
+    "outputs": {
+      "best": "e950438e597c579ba5b3bdc82be374a0895200bffa83d70896d954f05fc9ea82",
+      "original": "3cf68c57801825efbef906d9b68646ab731dd6c7ea3f2ba59bfdb17e2a70c1e9",
+      "sp": "8e796122e7d77b1d9697059e8e83a3c8712d6d5b81512b2116f8a04890fedc86"
+    },
+    "outputs_identical_to_before": true,
+    "readback_manifest_sha256": "1bb06e4e757ac8008b01798d794fc2999807d4b2ccbcbd68fd114c39ec572de8",
+    "scenario": "component build definition changed (timestamped comment appended to tools/srwz/chinese_prose.py, then reverted); compression cache warm",
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 17.511
+            }
+          },
+          "seconds": 19.826
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 0.205
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 46.394
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.127
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 8.424
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 0.148
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 14.354
+            }
+          },
+          "seconds": 75.044
+        },
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 0.125
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 60.644
+            }
+          },
+          "seconds": 63.534
+        }
+      },
+      "finished_at": "2026-10-07T12:56:02.102880+00:00",
+      "preflight_and_snapshot_seconds": 0.975,
+      "started_at": "2026-10-07T12:53:22.703972+00:00",
+      "total_seconds": 159.397
+    },
+    "unit_tests": {
+      "failed": 0,
+      "ran": 714,
+      "skipped": 6
+    }
+  },
+  "round_3": {
+    "batch": "work/editions/cad6455c49a869383a1c6b81d6c46c2708f9246993602cdcd48057962516fd65/original-best-sp.json",
+    "changes": [
+      "CompressedArchiveWorkspace + SRWZOVL1 decoded overlays (decode once, write all, compress once)",
+      "story component hands STAGE as overlay; full-story owns one compression per chunk; readback uses compression.stage_archive",
+      "SP COMPDATA single workspace through assembly; system text hands COMPDATA/STAGE overlays; stage dialogue owns SP STAGE compression",
+      "Rust worker op 2 patch_stream + strategy rust-patch for MAPMODEL world-map titles and terrain names"
+    ],
+    "cold_cache_total_seconds": 171.796,
+    "incremental_equals_force_rebuild_stage_sha256": "d05e3a1f659e515729082c6d3878269ed1267ac6810f76e3652315616357ac32",
+    "intermediate_compression_cpu_seconds_removed": {
+      "original_stage": 34.9,
+      "sp_compdata_chain": 1.0,
+      "sp_image_labels": 1.5,
+      "sp_system_stage_compdata": 16.3
+    },
+    "iso_member_changes_vs_round_2": {
+      "best": [
+        "MAP/MAPMODEL.BIN"
+      ],
+      "original": [
+        "MAP/MAPMODEL.BIN"
+      ],
+      "sp": []
+    },
+    "mapmodel": {
+      "fallbacks": 0,
+      "members_patched": 181,
+      "wall_seconds_after": 1.8,
+      "wall_seconds_before_cold": 22.3
+    },
+    "mapmodel_decoded_identical_members": 196,
+    "outputs": {
+      "best": "56ab0f2cddc70f5769d5fcb8151e7431cc762f4c8d1bb2d4d4cfb409f3557b98",
+      "original": "a1b9290e85a3232bad6000a9affb97d86145732489a26720c619d1ecab71a495",
+      "sp": "8e796122e7d77b1d9697059e8e83a3c8712d6d5b81512b2116f8a04890fedc86"
+    },
+    "runtime": {
+      "emulator": "LRPS2 x86_64 SW renderer, no audio",
+      "evidence": "work/runtime/lrps2/mapmodel-patch-20261007/",
+      "mapmodel_member_9_terrain_strings_in_ee_ram": "8/8 strings, 7/8 64-byte windows exact",
+      "world_map_title": "亚特兰迪亚 rendered"
+    },
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 16.821
+            }
+          },
+          "seconds": 19.001
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 0.131
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 43.169
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.109
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 8.107
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 0.713
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 13.873
+            }
+          },
+          "seconds": 69.819
+        },
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 0.115
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 58.998
+            }
+          },
+          "seconds": 61.948
+        }
+      },
+      "finished_at": "2026-10-07T14:43:20.071292+00:00",
+      "preflight_and_snapshot_seconds": 0.706,
+      "started_at": "2026-10-07T14:40:48.556858+00:00",
+      "total_seconds": 151.513
+    },
+    "unit_tests": {
+      "failed": 0,
+      "ran": 723,
+      "skipped": 6
+    }
+  },
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "unit_tests": {
+    "failed": 0,
+    "ran": 708,
+    "skipped": 6
+  }
+}

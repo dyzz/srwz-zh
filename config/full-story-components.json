@@ -72,9 +72,9 @@
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
-      "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
-      "size": 3910128,
-      "sha256": "54db03158d12db16751a3fb346e6b5e735b941dd2f865e6aa07aa601f510b489"
+      "path": "work/build/full-story-stage/components/DATA/STAGE.BIN.overlay",
+      "size": 11541267,
+      "sha256": "feb0bf80cd3c2de2ee7b61132a4af07860a632d93903e61fd575a8d2102ac42e"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -2334,7 +2334,7 @@
         "inventory_sha256": "257e61814e21a72a1f855182efa76223ea5c73ca5fac6a5a6a7fb507f4153e0c"
       },
       "codec": {
-        "strategy": "rust-fit",
+        "strategy": "rust-patch",
         "min_match_length": 2,
         "max_match_chain": 1024,
         "lazy_matching": false,
@@ -2370,7 +2370,7 @@
       "canvas_height": 64
     },
     "codec": {
-      "strategy": "rust-fit",
+      "strategy": "rust-patch",
       "min_match_length": 2,
       "max_match_chain": 1024
     },

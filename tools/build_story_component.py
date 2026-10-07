@@ -18,10 +18,10 @@ from srwz.bazaar_tickers import (
     BAZAAR_TICKER_INVENTORY_CONTRACT,
     discover_bazaar_ticker_owners,
 )
-from srwz.codec import decode_production as decode, reencode_changed_suffix
+from srwz.codec import decode_production as decode
+from srwz.compressed_workspace import CompressedArchiveWorkspace
 from srwz.chinese_layout import (
     dialogue_layout_issues,
-    fit_chinese_dialogue_layout,
     load_layout_profiles,
 )
 from srwz.diagnostics import require_work_output
@@ -45,7 +45,6 @@ from srwz.text import (
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
 )
-from srwz.writeback import rebuild_aligned_archive
 from srwz.writers import (
     PreparedStageMessageEncoders,
     StageExactAddressContract,
@@ -994,6 +993,15 @@ def _load_overrides(
     return overrides, proposal
 
 
+STAGE_OVERLAY = "DATA/STAGE.BIN.overlay"
+
+
+def archive_overlay_chunks(outputs: dict) -> list:
+    payload = next(data for path, data in outputs.items() if path.name.endswith(".overlay"))
+    (size,) = struct.unpack_from("<Q", payload, 8)
+    return json.loads(payload[16 : 16 + size])["chunks"]
+
+
 def build(
     config_path: Path,
     *,
@@ -1066,7 +1074,7 @@ def build(
     }, sort_keys=True, ensure_ascii=False).encode())
     dialogue_hashes = {str(stage): _sha256(path) for stage, path in stage_files.items()}
     cached_reports = {}
-    cached_stage = b""
+    cached_overlay = b""
     output_root = require_work_output(
         _project_path(config["outputs"]["component_root"]), WORK_ROOT
     )
@@ -1074,9 +1082,9 @@ def build(
         try:
             previous = _json(output_root / "component-validation.json")
             receipt = previous["chunk_cache"]
-            cached_stage = (output_root / "DATA/STAGE.BIN").read_bytes()
+            cached_overlay = (output_root / STAGE_OVERLAY).read_bytes()
             if (receipt["shared_signature"] == cache_signature
-                    and sha256_bytes(cached_stage) == previous["outputs"]["stage"]["sha256"]):
+                    and sha256_bytes(cached_overlay) == previous["outputs"]["stage"]["sha256"]):
                 cached_reports = {
                     row["stage_index"]: row for row in
                     previous["stages"] + previous["auxiliary_only_stages"]
@@ -1211,16 +1219,9 @@ def build(
                     f"{'; '.join(layout_issues)} "
                     "(run tools/text_layout/rebalance_story_dialogue.py)"
                 )
-            fitted = fit_chinese_dialogue_layout(
-                translated,
-                profile=layout_profile,
-                stage_keyword_links=has_keyword_links,
-            )
-            translated = fitted.text
+            # Passing the gate already proves the stored text fits this
+            # profile, so fitting it again would return it unchanged.
             fitted_dialogue[entry.entry_id] = translated
-            dialogue_layout_reflowed_count += (
-                fitted.preserved_reason == "reflowed_to_fit"
-            )
             verdict = evaluate_story_quote(
                 entry.text,
                 translated,
@@ -1384,18 +1385,7 @@ def build(
                 "story corpus includes a STAGE without source dialogue: "
                 f"{stage:03d}"
             )
-        encoded = reencode_changed_suffix(
-            source_chunks[stage],
-            stage_data,
-            strategy="rust-fit",
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=False,
-            max_output_size=len(source_chunks[stage]),
-            original_result=decoded,
-        )
-        output_chunk = encoded + bytes(len(source_chunks[stage]) - len(encoded))
-        return stage, output_chunk, {
+        return stage, stage_data, {
             **write.to_metadata(),
             **ticker_report,
             **z_report_report,
@@ -1416,18 +1406,16 @@ def build(
             "dialogue_quote_style_counts": dict(sorted(quote_style_counts.items())),
             "dialogue_outer_punctuation_exact": True,
             "source_encoded_size": decoded.consumed,
-            "output_encoded_size": len(encoded),
             "source_chunk_size": len(source_chunks[stage]),
-            "output_chunk_size": len(output_chunk),
             "chunk_span_preserved": True,
-            "output_encoded_sha256": sha256_bytes(encoded),
+            "output_decoded_sha256": sha256_bytes(stage_data),
             "codec_strategy": "rust-fit",
             "codec_options": {
                 "min_match_length": codec["min_match_length"],
                 "max_match_chain": codec["max_match_chain"],
                 "lazy_matching": False,
             },
-            "codec_round_trip_exact": True,
+            "compression_deferred_to_archive": True,
             "translated_reread_exact": True,
         }
 
@@ -1447,36 +1435,39 @@ def build(
             targets=z_reports_by_stage.get(stage, []),
             overrides=overrides,
         )
-        encoded = reencode_changed_suffix(
-            source_chunks[stage],
-            stage_data,
-            strategy="rust-fit",
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=False,
-            max_output_size=len(source_chunks[stage]),
-            original_result=decoded,
-        )
-        output_chunk = encoded + bytes(len(source_chunks[stage]) - len(encoded))
-        return stage, output_chunk, {
+        return stage, stage_data, {
             **ticker_report,
             **z_report_report,
             "stage_index": stage,
             "source_encoded_size": decoded.consumed,
-            "output_encoded_size": len(encoded),
             "source_chunk_size": len(source_chunks[stage]),
-            "output_chunk_size": len(output_chunk),
             "chunk_span_preserved": True,
-            "output_encoded_sha256": sha256_bytes(encoded),
+            "output_decoded_sha256": sha256_bytes(stage_data),
             "codec_strategy": "rust-fit",
-            "codec_round_trip_exact": True,
+            "codec_options": {
+                "min_match_length": codec["min_match_length"],
+                "max_match_chain": codec["max_match_chain"],
+                "lazy_matching": False,
+            },
+            "compression_deferred_to_archive": True,
             "translated_reread_exact": True,
         }
 
     ordered_stages = sorted(stages)
+    archive = CompressedArchiveWorkspace(
+        "DATA/STAGE.BIN", source_stage, offsets, decoded=dict(enumerate(source_decodes))
+    )
+    cached_archive = None
+    if cached_reports:
+        cached_archive = CompressedArchiveWorkspace("DATA/STAGE.BIN", source_stage, offsets)
+        cached_archive.import_overlay(cached_overlay, stage="previous story component")
+
+    def cached_chunk(stage):
+        return cached_archive.view(stage).output
+
     def build_or_reuse(stage):
         if stage in cached_reports:
-            return stage, cached_stage[offsets[stage]:offsets[stage + 1]], cached_reports[stage]
+            return stage, cached_chunk(stage), cached_reports[stage]
         return build_stage(stage)
 
     if workers == 1:
@@ -1488,11 +1479,10 @@ def build(
             thread_name_prefix="srwz-stage",
         )
         built_stages = executor.map(build_or_reuse, ordered_stages)
-    output_chunks = list(source_chunks)
     stage_reports = []
     try:
-        for stage, output_chunk, stage_report in built_stages:
-            output_chunks[stage] = output_chunk
+        for stage, stage_data, stage_report in built_stages:
+            archive.replace(stage, stage_data, stage="story component")
             stage_reports.append(stage_report)
     finally:
         if executor is not None:
@@ -1502,11 +1492,11 @@ def build(
     auxiliary_only_stage_reports = []
     for stage in sorted(auxiliary_stages - stages):
         if stage in cached_reports:
-            output_chunk = cached_stage[offsets[stage]:offsets[stage + 1]]
+            stage_data = cached_chunk(stage)
             stage_report = cached_reports[stage]
         else:
-            stage, output_chunk, stage_report = build_auxiliary_only_stage(stage)
-        output_chunks[stage] = output_chunk
+            stage, stage_data, stage_report = build_auxiliary_only_stage(stage)
+        archive.replace(stage, stage_data, stage="story component")
         auxiliary_only_stage_reports.append(stage_report)
 
     runtime_keyword_link_count = sum(
@@ -1624,9 +1614,10 @@ def build(
             f"sources={len(runtime_keyword_source_hashes)}"
         )
 
-    rebuilt_stage, rebuilt_offsets = rebuild_aligned_archive(output_chunks, alignment=16)
-    if tuple(rebuilt_offsets) != tuple(offsets):
-        raise SystemExit("fixed-size STAGE layout drift")
+    # The decoded chunks are handed to the full-story archive owner, which
+    # compresses each chunk once after every STAGE writer.
+    rebuilt_overlay = archive.export_overlay()
+    rebuilt_offsets = offsets
     plan = build_executable_offset_patch_plan(
         source_hb,
         offset_spec,
@@ -1635,7 +1626,7 @@ def build(
     )
     rebuilt_hb = plan.apply(source_hb)
     if read_executable_archive_offsets(
-        rebuilt_hb, offset_spec, len(rebuilt_stage)
+        rebuilt_hb, offset_spec, len(source_stage)
     ) != rebuilt_offsets:
         raise SystemExit("rebuilt HB offset reread mismatch")
 
@@ -1643,7 +1634,7 @@ def build(
         _project_path(config["outputs"]["component_root"]), WORK_ROOT
     )
     outputs = {
-        output_root / "DATA/STAGE.BIN": rebuilt_stage,
+        output_root / STAGE_OVERLAY: rebuilt_overlay,
         output_root / "HEDBDY/HB.BIN": rebuilt_hb,
     }
     report = {
@@ -1698,14 +1689,11 @@ def build(
             if item["story_ticker_count"]
         ],
         "outputs": {
-            "stage": {"size": len(rebuilt_stage), "sha256": sha256_bytes(rebuilt_stage)},
+            "stage": {"size": len(rebuilt_overlay), "sha256": sha256_bytes(rebuilt_overlay),
+                      "kind": "decoded_archive_overlay", "source_sha256": sha256_bytes(source_stage)},
             "hb": {"size": len(rebuilt_hb), "sha256": sha256_bytes(rebuilt_hb)},
         },
-        "minimum_compressed_chunk_headroom": min(
-            item["source_chunk_size"] - item["output_encoded_size"]
-            for item in stage_reports
-        ),
-        "unchanged_chunk_count": len(output_chunks)
+        "unchanged_chunk_count": len(source_chunks)
         - len(stages | auxiliary_stages),
         "stage_layout_preserved": True,
         "source_dialogue_stage_coverage_exact": True,
@@ -1794,6 +1782,8 @@ def main() -> int:
     for path, payload in outputs.items():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(payload)
+    # Earlier builds wrote a compressed STAGE.BIN here; nothing reads it now.
+    (report_path.parent / "DATA/STAGE.BIN").unlink(missing_ok=True)
     report_path.write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -1802,8 +1792,8 @@ def main() -> int:
         "story component:",
         f"stages={len(report['stage_indices'])}",
         f"records={sum(item['allocation_count'] for item in report['stages'])}",
-        f"headroom={report['minimum_compressed_chunk_headroom']}",
-        "codec=rust-fit",
+        f"changed_chunks={len(archive_overlay_chunks(outputs))}",
+        "compression=deferred-to-full-story",
         "runtime=pending",
     )
     print(f"report: {report_path}")

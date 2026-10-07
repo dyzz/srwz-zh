@@ -7,7 +7,8 @@ import struct
 import string
 from pathlib import Path
 
-from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.codec import decode_production
+from srwz.compressed_workspace import CompressedStreamWorkspace, decoded_view, write_decoded
 from srwz.font import decode_glyph, standard_glyph_index
 from srwz.text import decode_text, encode_text, two_byte_visible_spaces
 from special_disc.verification.name_tables import verify_encoded_glyphs
@@ -67,7 +68,7 @@ def check_pointers(data, contract):
 
 def verify_unit_names(archive, readback):
     contract, rows, _ = inputs()
-    data = decode_production(archive).output
+    data = decoded_view(archive).output
     check_pointers(data, contract)
     labels = []
     for slot in contract['entries']:
@@ -112,7 +113,7 @@ def verify_unit_name_glyphs(font, proposal, table, overrides):
 def apply_unit_names(archive, table, overrides, readback, font, proposal):
     contract, rows, corpus_path = inputs()
     preserved = verify_unit_name_glyphs(font, proposal, table, overrides)
-    decoded = decode_production(archive)
+    decoded = decoded_view(archive)
     check_pointers(decoded.output, contract)
     data = bytearray(decoded.output)
     changed = []
@@ -133,18 +134,14 @@ def apply_unit_names(archive, table, overrides, readback, font, proposal):
             changed.append(slot['id'])
         data[at:at + size] = replacement
     require(len(data) == len(decoded.output), 'SP unit-name decoded size changed')
-    if data == decoded.output:
-        output, packed_size = archive, decoded.consumed
-    else:
-        packed = reencode_changed_suffix(archive, bytes(data), strategy='rust-fit',
-                                        max_output_size=len(archive), original_result=decoded)
-        require(len(packed) <= len(archive), 'SP unit-name compressed member overflow')
-        require(decode_production(packed).output == data, 'SP unit-name compression roundtrip mismatch')
-        output, packed_size = packed + bytes(len(archive) - len(packed)), len(packed)
+    output = write_decoded(archive, decoded, data, stage='unit names', label='SP unit-name')
+    staged = isinstance(output, CompressedStreamWorkspace)
+    packed_size = None if staged else (decoded.consumed if output is archive else
+                                       decoded_view(output).consumed)
     labels = verify_unit_names(output, readback)
     return output, dict(labels=labels, entries=len(labels),
         pointer_count=sum(len(r['pointer_sites']) for r in labels), changed_ids=changed,
-        compressed_bytes=packed_size, allocated_bytes=len(archive),
+        compressed_bytes=packed_size, allocated_bytes=None if staged else len(archive),
         decoded_sha256=sha(data), non_name_bytes_preserved=True, preserved_glyphs=preserved,
         contract_sha256=sha(CONTRACT.read_bytes()),
         corpus=dict(path=contract['corpus'], sha256=sha(corpus_path.read_bytes())), runtime='pending')

@@ -107,8 +107,10 @@ member:      81
    尝试，选择第一组能完整装入原包围框的参数；
 6. 把中文紧包围框居中写入原包围框，量化回 16 级索引；
 7. 重新翻转行并按 low-nibble-first 打包，只替换 decoded 日文 raw 区间；
-8. 使用 `rust-fit`、`min_match_length=2`、`max_match_chain=1024` 重压完整
-   decoded payload；超过原 allocation 时失败，绝不截断；
+8. 使用 `rust-patch`（2026-10-07 起，地形名同）：保留原盘仍产出相同字节的压缩记号，只改写
+   被改字节影响的记号；放不进原 allocation 时，以改动处为中心逐级放大窗口、以
+   `min_match_length=2`、`max_match_chain=1024` 重压窗口，仍放不下才整段 `rust-fit` 重压；
+   超过原 allocation 时失败，绝不截断（见 [BUILD_PERFORMANCE_20261007.md](BUILD_PERFORMANCE_20261007.md)）；
 9. 在原 allocation 尾部补零，并由 Rust decoder 完整回读。
 
 同文 no-op 标题不经过渲染或重压。重复 raw 共用同一个冻结重绘结果，但每个 member

@@ -24,7 +24,7 @@ try:
         rewrite_auto_demo_names,
     )
     from srwz.codec import decode_production as decode, encode, reencode_changed_suffix
-    from srwz.compressed_workspace import CompressedStreamWorkspace
+    from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from srwz.diagnostics import require_work_output
     from srwz.display_names import (
         DisplayNameError,
@@ -228,7 +228,7 @@ except ModuleNotFoundError:
         encode,
         reencode_changed_suffix,
     )
-    from tools.srwz.compressed_workspace import CompressedStreamWorkspace
+    from tools.srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.display_names import (
         DisplayNameError,
@@ -1154,9 +1154,14 @@ def _plan_incremental_members(
         path = _project_path(lock["path"])
         try:
             payload = path.read_bytes()
+        except FileNotFoundError:
+            # A retired or relocated input changed by definition; rebuild
+            # every member it feeds rather than trusting the prior output.
+            changed_input_labels.append(label)
+            continue
         except OSError as error:
             raise FullStoryComponentError(
-                f"incremental input is missing: {label}"
+                f"incremental input is unreadable: {label}"
             ) from error
         if _file_lock(path, payload) != lock:
             changed_input_labels.append(label)
@@ -1292,9 +1297,10 @@ def _validate_metadata_proofs(config: dict) -> None:
         or not stage.get("stages")
         or not all(
             item.get("translated_reread_exact") is True
-            and item.get("codec_round_trip_exact") is True
+            and item.get("compression_deferred_to_archive") is True
             for item in stage["stages"]
         )
+        or stage.get("outputs", {}).get("stage", {}).get("kind") != "decoded_archive_overlay"
     ):
         raise FullStoryComponentError("STAGE metadata proof failed")
 
@@ -3747,8 +3753,13 @@ def _apply_stage_default_formation_names(
     changed_stages: set[int] | None = None,
     prior_default_report: dict | None = None,
     prior_fixed_report: dict | None = None,
+    archive: CompressedArchiveWorkspace | None = None,
 ) -> tuple[bytes, dict, dict, Path, Path, Path]:
-    """Rewrite only reviewed, fixed-position default formation names."""
+    """Rewrite only reviewed, fixed-position default formation names.
+
+    With ``archive`` the decoded chunks are rewritten in place and compressed
+    once by the archive owner; encoded fields are filled after finalization.
+    """
 
     if not isinstance(reference, dict):
         raise FullStoryComponentError("remaining UI configuration is invalid")
@@ -3951,7 +3962,9 @@ def _apply_stage_default_formation_names(
         start, end = offsets[stage_index : stage_index + 2]
         stored = bytes(output[start:end])
         original_stored = original_stage[start:end]
-        current_decoded = decode(stored)
+        current_decoded = (
+            decode(stored) if archive is None else archive.view(stage_index)
+        )
         original_decoded = original_decoded_cache[stage_index]
         if (
             any(stored[current_decoded.consumed :])
@@ -4159,6 +4172,19 @@ def _apply_stage_default_formation_names(
                 f"default formation-name metadata changed: {stage_index}"
             )
         rewritten_bytes = bytes(rewritten)
+        if archive is not None:
+            archive.replace(stage_index, rewritten_bytes, stage="default formation names")
+            chunk_reports.append({
+                "stage_index": stage_index,
+                "entry_count": chunk_entry_count,
+                "rewrite_summary": {
+                    "changed_byte_count": changed_byte_count - before_changed,
+                    "compact_ascii_entry_count": compact_ascii_entry_count - before_compact,
+                    "minimum_slot_headroom": chunk_minimum_headroom,
+                },
+                "compression_deferred_to_archive": True,
+            })
+            continue
         compression_future = compression_executor.submit(
             reencode_changed_suffix,
             stored[: current_decoded.consumed],
@@ -4253,6 +4279,11 @@ def _apply_stage_default_formation_names(
             raise FullStoryComponentError(
                 f"default formation-name changed non-target chunk: {index}"
             )
+    if archive is not None and fixed_chunk_report is None:
+        fixed_chunk_report = next(
+            (row for row in chunk_reports if row["stage_index"] == fixed_stage_index),
+            None,
+        )
     if fixed_chunk_report is None and changed_stages is not None:
         fixed_chunk_report = prior_chunks[fixed_stage_index]
     if fixed_chunk_report is None:
@@ -4270,11 +4301,11 @@ def _apply_stage_default_formation_names(
         "chunk_index": fixed_stage_index,
         "source_text": "別働隊",
         "translation": translations_by_source["別働隊"],
-        "source_stored_size": fixed_chunk_report["source_stored_size"],
-        "source_encoded_size": fixed_chunk_report["source_encoded_size"],
-        "output_encoded_size": fixed_chunk_report["output_encoded_size"],
-        "output_encoded_sha256": fixed_chunk_report["output_encoded_sha256"],
-        "output_padding_size": fixed_chunk_report["output_padding_size"],
+        "source_stored_size": fixed_chunk_report.get("source_stored_size"),
+        "source_encoded_size": fixed_chunk_report.get("source_encoded_size"),
+        "output_encoded_size": fixed_chunk_report.get("output_encoded_size"),
+        "output_encoded_sha256": fixed_chunk_report.get("output_encoded_sha256"),
+        "output_padding_size": fixed_chunk_report.get("output_padding_size"),
         "codec_strategy": codec["strategy"],
         "codec_round_trip_exact": True,
         "archive_size_preserved": True,
@@ -4320,6 +4351,78 @@ def _apply_stage_default_formation_names(
         original_stage_path,
         corpus_path,
         inventory_path,
+    )
+
+
+def _bind_stage_archive_reports(
+    chunk_reports: dict[int, dict],
+    *,
+    chunk0_reports=(),
+    stage_overview_report: dict | None = None,
+    default_formation_report: dict,
+    fixed_formation_report: dict,
+    runtime_keyword_report: dict,
+) -> None:
+    """Record each writer's chunk with the archive's single final encoding.
+
+    Only rows written in this build are rebound; rows reused from a previous
+    build already carry that build's final encoding.
+    """
+
+    def final(index: int) -> dict:
+        row = chunk_reports.get(index)
+        if row is None:
+            raise FullStoryComponentError(f"STAGE chunk {index} has no final encoding")
+        return row
+
+    if chunk0_reports:
+        chunk0 = final(0)
+        for report in chunk0_reports:
+            report.update({
+                "output_encoded_size": chunk0["output_encoded_size"],
+                "codec_round_trip_exact": True,
+            })
+        stage_overview_report.update({
+            "output_encoded_sha256": chunk0["output_encoded_sha256"],
+            "output_padding_size": chunk0["output_padding_size"],
+        })
+    for row in default_formation_report["chunks"]:
+        if not row.pop("compression_deferred_to_archive", False):
+            continue
+        encoded = final(row["stage_index"])
+        row.update({
+            "source_stored_size": encoded["source_stored_size"],
+            "source_encoded_size": encoded["source_encoded_size"],
+            "output_encoded_size": encoded["output_encoded_size"],
+            "output_encoded_sha256": encoded["output_encoded_sha256"],
+            "output_padding_size": encoded["output_padding_size"],
+            "codec_round_trip_exact": True,
+        })
+    fixed = chunk_reports.get(fixed_formation_report["chunk_index"])
+    if fixed is not None:
+        fixed_formation_report.update({
+            key: fixed[key]
+            for key in (
+                "source_stored_size",
+                "source_encoded_size",
+                "output_encoded_size",
+                "output_encoded_sha256",
+                "output_padding_size",
+            )
+        })
+    for row in runtime_keyword_report["chunks"]:
+        if not row.pop("compression_deferred_to_archive", False):
+            continue
+        encoded = final(row["stage_index"])
+        row.update({
+            "source_encoded_size": encoded["source_encoded_size"],
+            "output_encoded_size": encoded["output_encoded_size"],
+            "output_encoded_sha256": encoded["output_encoded_sha256"],
+            "output_headroom": encoded["output_padding_size"],
+            "codec_round_trip_exact": True,
+        })
+    runtime_keyword_report["minimum_output_headroom"] = min(
+        row["output_headroom"] for row in runtime_keyword_report["chunks"]
     )
 
 
@@ -8762,16 +8865,114 @@ def _build_incremental_fixed_slps(
     return {SLPS_MEMBER: output_slps}, report
 
 
+def _story_stage_rows(stage_report: dict) -> dict[int, dict]:
+    return {
+        row["stage_index"]: row
+        for row in [*stage_report["stages"], *stage_report.get("auxiliary_only_stages", [])]
+    }
+
+
+def _overlay_header(overlay: bytes) -> dict:
+    if overlay[:8] != b"SRWZOVL1":
+        raise FullStoryComponentError("story STAGE overlay header is invalid")
+    (size,) = struct.unpack_from("<Q", overlay, 8)
+    return json.loads(overlay[16 : 16 + size])
+
+
+def _open_stage_archive(
+    base_payload: bytes,
+    overlay: bytes,
+    stage_report: dict,
+    native_stage: bytes,
+    offsets,
+    *,
+    only: set[int] | None = None,
+) -> CompressedArchiveWorkspace:
+    """Open STAGE once and apply the story component's decoded chunks.
+
+    ``base_payload`` is the native STAGE for a full build, or the previous
+    final STAGE for an incremental build that replaces only ``only`` chunks.
+    """
+
+    expected = stage_report.get("outputs", {}).get("stage", {})
+    if (
+        expected.get("kind") != "decoded_archive_overlay"
+        or expected.get("size") != len(overlay)
+        or expected.get("sha256") != sha256_bytes(overlay)
+        or expected.get("source_sha256") != sha256_bytes(native_stage)
+    ):
+        raise FullStoryComponentError("story STAGE overlay report drift")
+    story = CompressedArchiveWorkspace("DATA/STAGE.BIN", native_stage, offsets)
+    try:
+        story.import_overlay(overlay, stage="story component")
+    except ValueError as error:
+        raise FullStoryComponentError(f"story STAGE overlay rejected: {error}") from error
+    if only is None and base_payload == native_stage:
+        return story
+    archive = CompressedArchiveWorkspace("DATA/STAGE.BIN", base_payload, offsets)
+    for index in sorted(only or ()):
+        archive.replace(index, story.view(index).output, stage="story component")
+    return archive
+
+
+def _finalize_stage_archive(
+    archive: CompressedArchiveWorkspace,
+    stage_report: dict,
+    codec: dict,
+) -> tuple[bytes, dict[int, dict]]:
+    """Compress each changed STAGE chunk once.
+
+    A chunk only the story component wrote keeps the story codec profile; a
+    chunk any later STAGE writer touched uses the full-story profile.
+    """
+
+    story_rows = _story_stage_rows(stage_report)
+
+    def codec_for(index: int, stages: list[str]) -> tuple[int, int]:
+        if set(stages) == {"story component"}:
+            options = story_rows[index]["codec_options"]
+            return options["min_match_length"], options["max_match_chain"]
+        return codec["min_match_length"], codec["max_match_chain"]
+
+    try:
+        return archive.finalize(
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            codec_for=codec_for,
+        )
+    except (RuntimeError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"final STAGE archive compression failed: {error}"
+        ) from error
+
+
+def _stage_archive_report(chunk_reports: dict[int, dict], prior: dict | None = None) -> dict:
+    rows = {row["chunk_index"]: row for row in (prior or {}).get("chunks", [])}
+    rows.update(chunk_reports)
+    return {
+        "physical_stream": "DATA/STAGE.BIN",
+        "workflow": "decode_once_write_all_check_then_compress_once",
+        "decoder_backend": "rust",
+        "compressor_backend": "rust-fit",
+        "changed_chunk_count": len(rows),
+        "chunks": [rows[index] for index in sorted(rows)],
+    }
+
+
 def _stage_postprocess_signature() -> str:
     paths = [Path(__file__), *sorted((PROJECT_ROOT / "tools/srwz").glob("*.py"))]
     return sha256_bytes(b"".join(path.read_bytes() for path in paths))
 
 
 def _stage_chunk_hashes(config: dict) -> list[str]:
-    stage = _project_path(config["full_story_stage"]["stage"]["path"]).read_bytes()
-    hb = _project_path(config["full_story_stage"]["hb"]["path"]).read_bytes()
-    offsets = read_executable_archive_offsets(hb, STAGE_OFFSET_SPEC, len(stage))
-    return [sha256_bytes(stage[start:end]) for start, end in zip(offsets, offsets[1:])]
+    """Per-chunk identity of the story component's decoded STAGE overlay."""
+
+    overlay = _project_path(config["full_story_stage"]["stage"]["path"]).read_bytes()
+    header = _overlay_header(overlay)
+    decoded = {row["index"]: row["decoded_sha256"] for row in header["chunks"]}
+    return [decoded.get(index, "native") for index in range(len(header["offsets"]) - 1)]
 
 
 def _incremental_stage_indices(config: dict, state: dict, prior_report: dict,
@@ -8802,25 +9003,28 @@ def _build_incremental_stage(config_path: Path, config: dict, output_root: Path,
                              prior_report: dict, changed_stages: set[int]) -> tuple[dict, dict]:
     _validate_metadata_proofs(config)
     stage_config = config["full_story_stage"]
-    _, stage = _locked_file(stage_config["stage"], label="STAGE")
+    _, overlay = _locked_file(stage_config["stage"], label="STAGE overlay")
     _, hb = _locked_file(stage_config["hb"], label="HB")
     _, stage_report = _manifest(stage_config["report"], label="STAGE report")
-    for name, data in (("stage", stage), ("hb", hb)):
-        if stage_report["outputs"][name] != {"size": len(data), "sha256": sha256_bytes(data)}:
-            raise FullStoryComponentError(f"STAGE report output drift: {name}")
+    if stage_report["outputs"]["hb"] != {"size": len(hb), "sha256": sha256_bytes(hb)}:
+        raise FullStoryComponentError("STAGE report output drift: hb")
     _, font_manifest = _manifest(config["full_story_font"]["manifest"], label="font manifest")
-    offsets = read_executable_archive_offsets(hb, STAGE_OFFSET_SPEC, len(stage))
-    merged = bytearray(_prior_output_payload(output_root, STAGE_MEMBER))
-    for index in sorted(changed_stages):
-        start, end = offsets[index:index + 2]
-        merged[start:end] = stage[start:end]
-    stage = bytes(merged)
+    _, original_stage = _locked_file(config["remaining_ui"]["original_stage"], label="original STAGE")
+    offsets = read_executable_archive_offsets(hb, STAGE_OFFSET_SPEC, len(original_stage))
+    prior_stage = _prior_output_payload(output_root, STAGE_MEMBER)
+    # Unchanged chunks keep the previous final bytes; each changed chunk takes
+    # the story component's decoded data, every STAGE writer, one compression.
+    archive = _open_stage_archive(prior_stage, overlay, stage_report, original_stage,
+                                  offsets, only=changed_stages)
+    stage = prior_stage
     remaining = prior_report["remaining_ui"]
+    codec = config["full_pilot_names"]["codec"]
     stage, defaults, fixed, _, _, _ = _apply_stage_default_formation_names(
         stage, hb, config["remaining_ui"], font_manifest,
-        config["full_pilot_names"]["codec"], changed_stages=changed_stages,
+        codec, changed_stages=changed_stages,
         prior_default_report=remaining["stage_default_formation"],
         prior_fixed_report=remaining["stage_fixed_formation"],
+        archive=archive,
     )
 
     keyword_report = prior_report["runtime_keywords"]["stage"]
@@ -8840,14 +9044,23 @@ def _build_incremental_stage(config_path: Path, config: dict, output_root: Path,
             table_start=int(str(reference["keyword_table_start"]), 0),
             table_end=int(str(reference["keyword_table_end"]), 0),
             expected_count=reference["expected"]["keyword_count"])
-        _, original_stage = _locked_file(config["remaining_ui"]["original_stage"], label="original STAGE")
         stage, keyword_report = apply_stage_keyword_popups(
             stage, original_stage, hb, authority, table, reference,
-            config["full_pilot_names"]["codec"], changed_stages=changed_stages,
-            prior_report=keyword_report,
+            codec, changed_stages=changed_stages,
+            prior_report=keyword_report, archive=archive,
         )
+    stage, chunk_reports = _finalize_stage_archive(archive, stage_report, codec)
+    _bind_stage_archive_reports(
+        chunk_reports,
+        default_formation_report=defaults,
+        fixed_formation_report=fixed,
+        runtime_keyword_report=keyword_report,
+    )
     report = _rebind_metadata_report(config_path, prior_report)
-    report["story"] = _story_summary(stage_report)
+    report["compression"]["stage_archive"] = _stage_archive_report(
+        chunk_reports, prior_report["compression"]["stage_archive"]
+    )
+    report["story"] = _story_summary(stage_report, report["compression"]["stage_archive"])
     report["compression"]["stage_strategies"] = sorted({row["codec_strategy"] for row in stage_report["stages"]})
     report["remaining_ui"]["stage_default_formation"] = defaults
     report["remaining_ui"]["stage_fixed_formation"] = fixed
@@ -8857,8 +9070,9 @@ def _build_incremental_stage(config_path: Path, config: dict, output_root: Path,
     return {STAGE_MEMBER: stage}, report
 
 
-def _story_summary(stage_report: dict) -> dict:
-    stage_headrooms = [row["source_chunk_size"] - row["output_encoded_size"]
+def _story_summary(stage_report: dict, stage_archive: dict) -> dict:
+    final = {row["chunk_index"]: row for row in stage_archive["chunks"]}
+    stage_headrooms = [final[row["stage_index"]]["output_padding_size"]
                        for row in stage_report["stages"]]
     return {
             "stage_count": len(stage_report["stage_indices"]),
@@ -8875,7 +9089,8 @@ def _story_summary(stage_report: dict) -> dict:
                 item["translated_reread_exact"] for item in stage_report["stages"]
             ),
             "codec_round_trip_exact": all(
-                item["codec_round_trip_exact"] for item in stage_report["stages"]
+                final[item["stage_index"]]["codec_round_trip_exact"]
+                for item in stage_report["stages"]
             ),
             "ticker_source_count": stage_report["story_ticker_source_count"],
             "ticker_target_count": stage_report["story_ticker_count"],
@@ -9252,6 +9467,12 @@ def _build_components(
             or expected.get("sha256") != sha256_bytes(payload)
         ):
             raise FullStoryComponentError(f"full-story {name} report drift")
+    # The story component hands over decoded chunks of the native STAGE; this
+    # builder owns the archive and compresses each chunk once.
+    stage_overlay_path, stage_overlay = stage_path, stage_payload
+    _native_stage_path, native_stage_payload = _locked_file(
+        config["remaining_ui"]["original_stage"], label="native STAGE.BIN"
+    )
     kvm_path, kvm_payload = _locked_file(
         config["kvmdata"], label="localized KVMDATA.BIN"
     )
@@ -10108,16 +10329,8 @@ def _build_components(
 
     if reuse_group({STAGE_MEMBER}):
         output_stage = _prior_output_payload(output_root, STAGE_MEMBER)
-        stage_chunk0_workspace_report = json.loads(
-            json.dumps(
-                prior_report.get("compression", {}).get(
-                    "stage_chunk_0_workspace",
-                    {
-                        "physical_stream": "DATA/STAGE.BIN chunk 0",
-                        "workflow": "legacy_prior_manifest",
-                    },
-                )
-            )
+        stage_archive_report = json.loads(
+            json.dumps(prior_report["compression"]["stage_archive"])
         )
         stage_overview_report = json.loads(json.dumps(prior_report["stage_overviews"]))
         stage_overview_corpus_path = _prior_input_path(prior_report, "stage_overviews")
@@ -10157,18 +10370,18 @@ def _build_components(
             table_start=30320,
             table_end=31144,
         )
+        stage_payload = native_stage_payload
         stage_offsets = read_executable_archive_offsets(
             hb_payload,
             stage_offset_spec,
             len(stage_payload),
         )
-        stage_chunk0_end = stage_offsets[1]
-        stage_chunk0_workspace = (
-            CompressedStreamWorkspace.open_zero_padded_allocation(
-                "DATA/STAGE.BIN chunk 0",
-                stage_payload[:stage_chunk0_end],
-            )
+        # Every STAGE writer edits one decoded view per chunk; the archive is
+        # compressed once after the last writer (decode once, compress once).
+        stage_archive = _open_stage_archive(
+            stage_payload, stage_overlay, stage_report, stage_payload, stage_offsets
         )
+        stage_chunk0_workspace = stage_archive.chunk(0)
         (
             output_stage,
             stage_overview_report,
@@ -10194,6 +10407,7 @@ def _build_components(
             config.get("remaining_ui"),
             font_manifest,
             config["full_pilot_names"]["codec"],
+            archive=stage_archive,
         )
         (
             output_stage,
@@ -10217,61 +10431,6 @@ def _build_components(
             font_manifest,
             chunk_workspace=stage_chunk0_workspace,
         )
-        try:
-            stage_chunk0_encoded, stage_chunk0_workspace_report = (
-                stage_chunk0_workspace.finalize(
-                    strategy=config["full_pilot_names"]["codec"]["strategy"],
-                    min_match_length=config["full_pilot_names"]["codec"][
-                        "min_match_length"
-                    ],
-                    max_match_chain=config["full_pilot_names"]["codec"][
-                        "max_match_chain"
-                    ],
-                    lazy_matching=config["full_pilot_names"]["codec"][
-                        "lazy_matching"
-                    ],
-                    max_output_size=stage_chunk0_end,
-                )
-            )
-        except (RuntimeError, ValueError) as error:
-            raise FullStoryComponentError(
-                f"final STAGE chunk 0 workspace compression failed: {error}"
-            ) from error
-        stage_chunk0_stored = stage_chunk0_encoded + bytes(
-            stage_chunk0_end - len(stage_chunk0_encoded)
-        )
-        output_stage = stage_chunk0_stored + output_stage[stage_chunk0_end:]
-        if (
-            len(output_stage) != len(stage_payload)
-            or read_executable_archive_offsets(
-                hb_payload,
-                stage_offset_spec,
-                len(output_stage),
-            )
-            != stage_offsets
-        ):
-            raise FullStoryComponentError(
-                "final STAGE chunk 0 workspace layout changed"
-            )
-        for chunk0_report in (
-            stage_overview_report,
-            stage_system_dialogue_report,
-            stage_scenario_chart_prompt_report,
-        ):
-            chunk0_report.update(
-                {
-                    "output_encoded_size": len(stage_chunk0_encoded),
-                    "codec_round_trip_exact": True,
-                }
-            )
-        stage_overview_report.update(
-            {
-                "output_encoded_sha256": sha256_bytes(stage_chunk0_encoded),
-                "output_padding_size": (
-                    stage_chunk0_end - len(stage_chunk0_encoded)
-                ),
-            }
-        )
         (
             runtime_keyword_original_stage_path,
             runtime_keyword_original_stage,
@@ -10293,12 +10452,37 @@ def _build_components(
                     runtime_keyword_source_table,
                     runtime_keyword_reference,
                     config["full_pilot_names"]["codec"],
+                    archive=stage_archive,
                 )
             )
         except (KeyError, TypeError, ValueError, RuntimeKeywordError) as error:
             raise FullStoryComponentError(
                 f"runtime-keyword STAGE write failed: {error}"
             ) from error
+        output_stage, stage_chunk_reports = _finalize_stage_archive(
+            stage_archive, stage_report, config["full_pilot_names"]["codec"]
+        )
+        if (
+            len(output_stage) != len(stage_payload)
+            or read_executable_archive_offsets(
+                hb_payload, stage_offset_spec, len(output_stage)
+            )
+            != stage_offsets
+        ):
+            raise FullStoryComponentError("final STAGE archive layout changed")
+        _bind_stage_archive_reports(
+            stage_chunk_reports,
+            chunk0_reports=(
+                stage_overview_report,
+                stage_system_dialogue_report,
+                stage_scenario_chart_prompt_report,
+            ),
+            stage_overview_report=stage_overview_report,
+            default_formation_report=stage_default_formation_report,
+            fixed_formation_report=stage_fixed_formation_report,
+            runtime_keyword_report=runtime_keyword_stage_report,
+        )
+        stage_archive_report = _stage_archive_report(stage_chunk_reports)
     remaining_ui_report["stage_fixed_formation"] = stage_fixed_formation_report
     remaining_ui_report["stage_default_formation"] = stage_default_formation_report
     remaining_ui_report["stage_system_dialogue"] = stage_system_dialogue_report
@@ -10746,10 +10930,6 @@ def _build_components(
         for member in ALL_COMPONENT_MEMBERS - affected_members:
             payloads[member] = _prior_output_payload(output_root, member)
     output_paths = {name: output_root / name for name in payloads}
-    stage_headrooms = [
-        item["source_chunk_size"] - item["output_encoded_size"]
-        for item in stage_report["stages"]
-    ]
     report = {
         "schema_version": 1,
         "status": "integrated_global_zh_release_components_validated_runtime_pending",
@@ -10954,7 +11134,7 @@ def _build_components(
                 font_component_report_path,
                 font_component_report_path.read_bytes(),
             ),
-            "stage": _file_lock(stage_path, stage_payload),
+            "stage": _file_lock(stage_overlay_path, stage_overlay),
             "hb": _file_lock(hb_path, hb_payload),
             "kvmdata": _file_lock(kvm_path, kvm_payload),
             "kvpdata": _file_lock(kvp_path, kvp_payload),
@@ -10999,7 +11179,7 @@ def _build_components(
             "python_decoder_used": False,
             "compdata_workspace": compdata_workspace_report,
             "nisv_chunk_6_workspace": nisv_chunk6_workspace_report,
-            "stage_chunk_0_workspace": stage_chunk0_workspace_report,
+            "stage_archive": stage_archive_report,
             "font_strategy": font_codec_strategy,
             "stage_strategies": sorted(stage_codec_strategies),
             "component_strategy": config["full_pilot_names"]["codec"][
@@ -11050,7 +11230,7 @@ def _build_components(
             },
             "library_archive_offset_tables": library_offset_table_report,
         },
-        "story": _story_summary(stage_report),
+        "story": _story_summary(stage_report, stage_archive_report),
         "pilot_names": pilot_name_report,
         "stage_titles": stage_title_report,
         "title_menu": title_menu_report,
@@ -11137,7 +11317,7 @@ def _build_components(
                 and stage_fixed_formation_report["codec_strategy"]
                 == "rust-fit"
                 and world_map_title_report["codec"]["strategy"]
-                == "rust-fit"
+                in {"rust-fit", "rust-patch"}
                 and world_history_report["codec"]["strategy"]
                 == "rust-fit"
                 and chapter_intertitle_report["codec_strategy"]

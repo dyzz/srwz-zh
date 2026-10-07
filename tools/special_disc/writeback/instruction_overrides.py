@@ -12,6 +12,7 @@ import struct
 
 from special_disc.writeback.slot_codec import encode_slot
 from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.compressed_workspace import CompressedStreamWorkspace, decoded_view
 from srwz.text import PreparedTextEncoder, decode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces
 from srwz.nisv_tutorial import parse_nisv_tutorial_pages
 from srwz.qa_typography import pack_page, shared_records, validate_records
@@ -174,12 +175,14 @@ def apply_overrides(patches, original, table, overrides, runtime, root=ROOT):
     for name in (EXE, CD):
         source = original(name); before = result[name]; decoded = None
         if name == CD:
-            source = decode_production(source).output; decoded = decode_production(before); data = decoded.output
+            source = decode_production(source).output; decoded = decoded_view(before); data = decoded.output
         else:
             data = before
         targets = [r for r in rows if r['kind'] == 'fixed' and r['location']['member'] == name]
         after = apply_fixed(data, source, targets, encoder, table, runtime)
-        if name == CD:
+        if name == CD and isinstance(before, CompressedStreamWorkspace):
+            before.replace(after, stage='instruction overrides')
+        elif name == CD:
             packed = encode_slot(before, after, max_output_size=len(before), original_result=decoded)
             require(len(packed) <= len(before) and decode_production(packed).output == after, 'Instruction COMPDATA compression drift')
             result[name] = packed + bytes(len(before) - len(packed))

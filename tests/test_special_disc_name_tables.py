@@ -57,7 +57,7 @@ class SpecialDiscNameTablesTests(unittest.TestCase):
         at = 0x2B50 + 770 * 178 + 2
         raw = encode_text('亲徜', self.table, overrides=self.overrides, terminate=True)
         broken[at:at+21] = raw + bytes(21-len(raw))
-        with patch.object(audit, 'decode_production', side_effect=[replace(decoded, output=bytes(broken)), decode_production(self.source)]):
+        with patch.object(audit, 'decoded_view', side_effect=[replace(decoded, output=bytes(broken)), decode_production(self.source)]):
             with self.assertRaisesRegex(ValueError, 'translation mismatch'):
                 self.verify()
 

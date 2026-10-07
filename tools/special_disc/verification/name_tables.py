@@ -8,6 +8,7 @@ import struct
 from pathlib import Path
 
 from srwz.codec import decode_production
+from srwz.compressed_workspace import decoded_view
 from srwz.font import (ascii_glyph_index, decode_glyph, glyph_index_for_code,
                        read_extended_glyph_table, standard_glyph_index)
 from srwz.text import decode_text, normalize_original_fullwidth_ascii
@@ -94,7 +95,7 @@ def verify_name_tables(archive, source_archive, font, proposal, readback, source
     from special_disc.writeback.unit_names import inputs as unit_inputs
     from special_disc.writeback.pilot_names import inputs as pilot_inputs
 
-    data, source = (decode_production(b).output for b in (archive, source_archive))
+    data, source = (decoded_view(b).output for b in (archive, source_archive))
     require(len(data) == len(source) == 652800, 'SP name-table decoded size drift')
     reference = json.loads(REFERENCE.read_text())
     require(reference['schema_version'] == 1 and

@@ -779,8 +779,13 @@ def apply_stage_keyword_popups(
     verify_only: bool = False,
     changed_stages: set[int] | None = None,
     prior_report: Mapping[str, object] | None = None,
+    archive=None,
 ) -> tuple[bytes, dict[str, object]]:
-    """Rewrite or verify all 77 embedded story-popup records."""
+    """Rewrite or verify all 77 embedded story-popup records.
+
+    With ``archive`` (a CompressedArchiveWorkspace) the decoded chunks are
+    rewritten in place and the archive owner compresses each chunk once.
+    """
 
     expected = reference.get("expected")
     if not isinstance(expected, dict):
@@ -810,7 +815,7 @@ def apply_stage_keyword_popups(
     output = bytearray(stage)
     chunk_jobs = []
     executor = None
-    if not verify_only:
+    if not verify_only and archive is None:
         if codec.get("strategy") != "rust-fit":
             raise RuntimeKeywordError("STAGE keyword codec must be rust-fit")
         executor = ThreadPoolExecutor(
@@ -825,7 +830,9 @@ def apply_stage_keyword_popups(
             continue
         start, end = offsets[stage_index : stage_index + 2]
         stored = stage[start:end]
-        current_decoded = decode_production(stored)
+        current_decoded = (
+            decode_production(stored) if archive is None else archive.view(stage_index)
+        )
         original_decoded = original_decoded_by_stage[stage_index]
         if (
             any(stored[current_decoded.consumed :])
@@ -862,6 +869,24 @@ def apply_stage_keyword_popups(
                         "pretranslated_pointer_count"
                     ],
                     "codec_round_trip_exact": True,
+                }
+            )
+            continue
+        if archive is not None:
+            archive.replace(stage_index, rewritten, stage="runtime keyword popups")
+            chunk_reports.append(
+                {
+                    "stage_index": stage_index,
+                    "record_count": sum(
+                        record.stage_index == stage_index for record in records
+                    ),
+                    "slot_size": end - start,
+                    "changed_byte_count": decoded_report["changed_byte_count"],
+                    "pretranslated_pointer_count": decoded_report[
+                        "pretranslated_pointer_count"
+                    ],
+                    "codec_strategy": codec["strategy"],
+                    "compression_deferred_to_archive": True,
                 }
             )
             continue
@@ -960,8 +985,9 @@ def apply_stage_keyword_popups(
             row["pretranslated_pointer_count"] for row in chunk_reports
         ),
         "chunks": sorted(chunk_reports, key=lambda row: row["stage_index"]),
-        "minimum_output_headroom": min(
-            row["output_headroom"] for row in chunk_reports
+        "minimum_output_headroom": (
+            None if archive is not None
+            else min(row["output_headroom"] for row in chunk_reports)
         ),
         "all_four_fields_match_library": True,
         "archive_size_preserved": True,

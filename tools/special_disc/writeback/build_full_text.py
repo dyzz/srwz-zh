@@ -23,6 +23,9 @@ sys.path[:0]=[str(ROOT/'tools'),str(Path(__file__).resolve().parent)]
 from build_text_candidate import file_sha,sha,read_member,verify_iso_ranges,write_json,load,require
 from srwz.iso9660 import member_map,scan_iso9660
 from srwz.codec import decode_production,reencode_changed_suffix
+from srwz.compressed_workspace import CompressedStreamWorkspace,decoded_view
+from special_disc.writeback.slot_codec import encode_slot
+from write_system_text import OVERLAY, overlay_member
 from install_font import sp_offsets,VT1_TABLE,replace_font_slot
 from migrate_stage_dialogue import read_disc_member
 from chart_visibility import apply_chart_visibility
@@ -100,7 +103,7 @@ def build(*, force_rebuild=False):
         with (WORK/f'{Path(script).stem}.log').open('w') as log:
             timed(script, subprocess.run, [sys.executable,str(ROOT/'tools/special_disc/writeback'/script),*map(str,args)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True,env=os.environ.copy())
     def system_then_stage():
-        COMPONENT_CACHE.run('system', lambda: run('write_system_text.py','--proposal',PROPOSAL,'--output',WORK/'system'))
+        COMPONENT_CACHE.run('system', lambda: run('write_system_text.py','--proposal',PROPOSAL,'--output',WORK/'system','--decoded-overlays'))
         COMPONENT_CACHE.run('stage', lambda: run('migrate_stage_dialogue.py','--allow-draft','--include-formations','--chunks',*CHUNKS,'--proposal',PROPOSAL,'--base',WORK/'system','--output',WORK/'stage'))
     jobs=[system_then_stage,
           lambda:COMPONENT_CACHE.run('srvc',lambda:run('migrate_srvc.py','--include-sp','--allow-draft','--proposal',PROPOSAL,'--output',WORK/'srvc')),
@@ -119,6 +122,19 @@ def merge_delta(current,before,after):
             require(current[i]==a,f'component delta preimage mismatch at {i:X}')
             out[i]=b;count+=1
     return bytes(out),count
+
+
+def compress_compdata(workspace,allocation,reports):
+    """Compress the shared COMPDATA view once, with the writers' slot codec."""
+    current=workspace.view().output
+    if current==workspace.source.output:
+        packed=allocation[:workspace.source.consumed]
+    else:
+        packed=encode_slot(allocation,current,max_output_size=len(allocation),original_result=workspace.source)
+    require(len(packed)<=len(allocation) and decode_production(packed).output==current,'final COMPDATA compression roundtrip failed')
+    for report in reports:
+        report.update(compressed_bytes=len(packed),allocated_bytes=len(allocation))
+    return packed+bytes(len(allocation)-len(packed))
 
 
 def verify_and_publish(temporary, destination, work, report, original_iso_sha, original_manifest):
@@ -223,13 +239,13 @@ def assemble():
     missing=sorted({ch for text in displayed for ch in text if ord(ch)>127 and ch!='　' and ch not in verified_chars})
     require(not missing,f'display characters outside verified shared font: {missing}')
     stats['unassigned_display_characters']=missing
-    members=member_map(scan_iso9660(BASE));base={n:read_member(BASE,members,n)for n in {n for c in components.values()for n in c}|{EXE,VT1}}
+    members=member_map(scan_iso9660(BASE));base={n:read_member(BASE,members,n)for n in {n for c in components.values()for n in c if not n.endswith(OVERLAY)}|{EXE,VT1}}
     patches={}
     old_system=ROOT/'work/build/special-disc/components/system-text';old_report=load(old_system/'report.json');old_exe=(old_system/EXE).read_bytes()
     require(sha(old_exe)==old_report['files'][EXE],'old system executable drift')
     patches[EXE],delta_count=merge_delta(base[EXE],old_exe,components['system'][EXE])
     for site in (0x3B0E0,0x168A1C):require(patches[EXE][site:site+4]==bytes.fromhex('9f820134'),'special-range patch missing')
-    require(reports['stage']['baseline']['sha256']==reports['system']['files'][STAGE],'stage/system composition drift')
+    require(reports['stage']['baseline']['sha256']==reports['system']['files'][STAGE+OVERLAY],'stage/system composition drift')
     stage_data=components['stage'][STAGE];frame_stage=components['frame'][STAGE]
     require(sha(base[STAGE])==reports['frame']['base_files'][STAGE],'frame stage base drift')
     slot=struct.unpack_from('<I',read_disc_member('HEDBDY/HB.BIN'),0x5174)[0]
@@ -241,13 +257,14 @@ def assemble():
         require(sha(base[name])==reports['frame']['base_files'][name],f'frame {name} base drift');patches[name]=data
     # Compose system and frame edits relative to the preserved canary in
     # decoded space so later system text fixes survive the frame pass.
-    frame_cd=decode_production(patches[CD])
-    merged_cd,_=merge_delta(frame_cd.output,decode_production(base[CD]).output,decode_production(components['system'][CD]).output)
-    if merged_cd!=frame_cd.output:
-        packed=reencode_changed_suffix(patches[CD],merged_cd,strategy='rust-fit',max_output_size=len(patches[CD]),original_result=frame_cd)
-        require(len(packed)<=len(patches[CD]),'merged COMPDATA exceeds member budget')
-        require(decode_production(packed).output==merged_cd,'merged COMPDATA reread mismatch')
-        patches[CD]=packed+bytes(len(patches[CD])-len(packed))
+    # COMPDATA is decoded once here; every later writer edits this view and
+    # it is compressed once after the instruction overrides.
+    cd_allocation=patches[CD]
+    cd_workspace=CompressedStreamWorkspace.open_zero_padded_allocation(CD,cd_allocation)
+    system_cd=overlay_member(WORK/'system',CD).view(0).output
+    merged_cd,_=merge_delta(cd_workspace.view().output,decode_production(base[CD]).output,system_cd)
+    cd_workspace.replace(merged_cd,stage='system/frame merge')
+    patches[CD]=cd_workspace
     for name,data in components['image-labels'].items():
         require(sha(base[name])==reports['image-labels']['base_files'][name],f'image {name} base drift');patches[name]=data
     patches.update(components['srvc'])
@@ -281,12 +298,14 @@ def assemble():
     name_table_report=verify_name_tables(patches[CD],read_disc_member(CD),decoded_font,proposal,runtime_table,source_table,patches[EXE])
     patches[CD],keyword_report=apply_keyword_names(patches[CD],source_table,stored_overrides,runtime_table)
     patches[CD],shared_labels_report=apply_shared_labels(patches[CD],source_table,stored_overrides,runtime_table)
-    verify_title_bindings(decode_production(patches[CD]).output)
+    verify_title_bindings(decoded_view(patches[CD]).output)
     patches[VT1],title_report=timed('stage-titles',apply_stage_titles,patches[VT1],patches[EXE])
     patches[EXE],patches[VT1],link_report=apply_data_link_bonus(
         patches[EXE],patches[VT1],source_table,stored_overrides,runtime_table)
     patches[EXE],skip_report=apply_skip(patches[EXE])
     patches,instruction_report=timed('instructions',apply_overrides,patches,read_disc_member,source_table,stored_overrides,runtime_table)
+    require(patches[CD] is cd_workspace,'COMPDATA left its decoded workspace')
+    patches[CD]=compress_compdata(cd_workspace,cd_allocation,(unit_report,pilot_report,keyword_report))
     stats['reviewed_instruction_overrides']=instruction_report['targets']
     stats['stage_entry_title_slots']=title_report['count']
     stats['stage_entry_title_images_rewritten']=title_report['rewritten']

@@ -32,12 +32,14 @@ class SpIncrementalTests(unittest.TestCase):
     def builder(self, work, name, value=None):
         def run():
             self.calls.append(name)
-            path = work / name / 'DATA/STAGE.BIN'
+            # The system writer hands STAGE to the stage writer as a decoded overlay.
+            member = 'DATA/STAGE.BIN.overlay' if name == 'system' else 'DATA/STAGE.BIN'
+            path = work / name / member
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(value or name.encode())
             status = 'static_component_verified_runtime_pending' if name == 'stage' else 'static_verified_runtime_pending'
             (work / name / 'report.json').write_bytes(json_bytes({
-                'status': status, 'files': {'DATA/STAGE.BIN': sha256_file(path)},
+                'status': status, 'files': {member: sha256_file(path)},
                 'baseline': {'path': str(work / 'system')}, 'proposal': {'path': 'old'}}))
         return run
 

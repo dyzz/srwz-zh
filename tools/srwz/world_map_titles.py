@@ -649,8 +649,9 @@ def build_world_map_titles(
     )
     if canvas_width < width or canvas_height < height:
         raise WorldMapTitleError("world-map render canvas is too small")
-    if codec.get("strategy") != "rust-fit":
-        raise WorldMapTitleError("world-map production codec must be rust-fit")
+    if codec.get("strategy") not in {"rust-fit", "rust-patch"}:
+        raise WorldMapTitleError("world-map production codec must be rust-fit or rust-patch")
+    strategy = codec["strategy"]
     min_match_length = _integer(
         codec.get("min_match_length"), label="minimum match length"
     )
@@ -856,7 +857,7 @@ def build_world_map_titles(
             encoded = reencode_changed_suffix(
                 stored,
                 bytes(modified),
-                strategy="rust-fit",
+                strategy=strategy,
                 min_match_length=min_match_length,
                 max_match_chain=max_match_chain,
                 max_output_size=len(stored),
@@ -1053,7 +1054,7 @@ def build_world_map_titles(
             "placement_policy": "center_tight_target_bbox_inside_source_bbox",
         },
         "codec": {
-            "strategy": "rust-fit",
+            "strategy": strategy,
             "min_match_length": min_match_length,
             "max_match_chain": max_match_chain,
             "minimum_translated_member_headroom": min(translated_headrooms),

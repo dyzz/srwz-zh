@@ -38,6 +38,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from srwz.codec import decode_production, reencode_changed_suffix  # noqa: E402
+from srwz.compressed_workspace import CompressedArchiveWorkspace  # noqa: E402
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
 from srwz.text import (  # noqa: E402
     SrwzTextError,
@@ -57,6 +58,7 @@ FRAME_CORPUS = ROOT / "corpus/zh/special-disc/frame-text.json"
 LOCKS = ROOT / "config/products/special-disc/disc-inventory.json"
 OUT = ROOT / "work/build/special-disc/components/system-text"
 EXE, COMPDATA, STAGE, HB = "SLPS_259.20", "DATA/COMPDATA.BN", "DATA/STAGE.BIN", "HEDBDY/HB.BIN"
+OVERLAY = ".overlay"
 BASES = {
     EXE: ROOT / "work/build/special-disc/components/exe-patches",
     COMPDATA: ROOT / "work/build/special-disc/components/compdata",
@@ -76,6 +78,17 @@ def base(name: str) -> bytes:
     data = (component / name).read_bytes()
     assert sha256(data) == report["files"][name], f"{component.name}: {name} drift"
     return data
+
+
+def overlay_member(component: Path, name: str) -> CompressedArchiveWorkspace:
+    """Decoded view of a member this writer handed over as an overlay."""
+    report = json.loads((component / "report.json").read_text())
+    base_lock = report["overlay_bases"][name]
+    base_payload = (ROOT / base_lock["path"]).read_bytes()
+    overlay = (component / (name + OVERLAY)).read_bytes()
+    assert sha256(base_payload) == base_lock["sha256"], f"{name} overlay base drift"
+    assert sha256(overlay) == report["files"][name + OVERLAY], f"{name} overlay drift"
+    return CompressedArchiveWorkspace.from_overlay(base_payload, overlay, stage="system text")
 
 
 def capacity(data, starts: list[int], offset: int, span: int) -> int:
@@ -149,6 +162,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--proposal', type=Path)
     parser.add_argument('--output', type=Path, default=OUT)
+    parser.add_argument('--decoded-overlays', action='store_true',
+                        help='hand COMPDATA and STAGE edits to the next writer decoded; '
+                             'the final archive owner compresses them once')
     args = parser.parse_args(); OUT = args.output
     locks = {m["path"]: m["sha256"] for m in json.loads(LOCKS.read_text())["sp"]["members"]}
     table, _menu, story, readback = mst.encoding_tables(args.proposal)
@@ -228,11 +244,17 @@ def main() -> None:
         shared.append(dict(id=e["id"], pointer_slots=[hex(s) for s in pointers[offset]], now=hex(target),
                            ending_of=hex(host[0])))
         writer.log["tail shared"] += 1
-    cd_encoded = encode_slot(cd_stored[:cd_result.consumed], bytes(cd), max_output_size=len(cd_stored),
-                                         original_result=cd_result)
-    assert decode_production(cd_encoded).output == bytes(cd), "COMPDATA does not read back"
-    assert len(cd_encoded) <= len(cd_stored), f"COMPDATA grew: {len(cd_encoded)} > {len(cd_stored)}"
-    cd_out = cd_encoded + bytes(len(cd_stored) - len(cd_encoded))
+    if args.decoded_overlays:
+        cd_archive = CompressedArchiveWorkspace(COMPDATA, cd_stored, (0, len(cd_stored)),
+                                                decoded={0: cd_result})
+        cd_archive.replace(0, bytes(cd), stage="system text")
+        cd_encoded = None
+    else:
+        cd_encoded = encode_slot(cd_stored[:cd_result.consumed], bytes(cd), max_output_size=len(cd_stored),
+                                             original_result=cd_result)
+        assert decode_production(cd_encoded).output == bytes(cd), "COMPDATA does not read back"
+        assert len(cd_encoded) <= len(cd_stored), f"COMPDATA grew: {len(cd_encoded)} > {len(cd_stored)}"
+        cd_out = cd_encoded + bytes(len(cd_stored) - len(cd_encoded))
 
     # ---- STAGE: intermission tickers
     stage_base = base(STAGE)
@@ -248,9 +270,12 @@ def main() -> None:
             break
     ticker_zh = {e["source_text"]: e["translation"] for e in by_kind["ticker"]}
     stage_report, ticker_left = [], []
+    stage_archive = (CompressedArchiveWorkspace(STAGE, stage_base, offsets)
+                     if args.decoded_overlays else None)
     for index in range(1, len(offsets) - 1):
         a, b = offsets[index], offsets[index + 1]
-        result = decode_production(bytes(stage[a:b]))
+        result = (decode_production(bytes(stage[a:b])) if stage_archive is None
+                  else stage_archive.view(index))
         data = bytearray(result.output)
         slots = [(o, t) for o, t in tickers(bytes(data), table) if t in ticker_zh]
         if not slots:
@@ -262,6 +287,12 @@ def main() -> None:
             assert decode_text(bytes(data), offset, readback).text == two_byte_visible_spaces(
                 normalize_original_fullwidth_ascii(ticker_zh[text])
             )
+        if stage_archive is not None:
+            # The allocation fit is enforced by the single final compression.
+            stage_archive.replace(index, bytes(data), stage="system text tickers")
+            writer.log["ticker slots"] += len(slots)
+            stage_report.append(dict(chunk=index, slots=len(slots), slot=b - a, encoded=None))
+            continue
         encoded = encode_slot(bytes(stage[a:a + result.consumed]), bytes(data), max_output_size=b-a,
                                           original_result=result)
         assert decode_production(encoded).output == bytes(data), index
@@ -274,7 +305,13 @@ def main() -> None:
 
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "DATA").mkdir(exist_ok=True)
-    outputs = {EXE: bytes(exe), COMPDATA: cd_out, STAGE: bytes(stage)}
+    if args.decoded_overlays:
+        outputs = {EXE: bytes(exe), COMPDATA + OVERLAY: cd_archive.export_overlay(),
+                   STAGE + OVERLAY: stage_archive.export_overlay()}
+        for name in (COMPDATA, STAGE):
+            (OUT / name).unlink(missing_ok=True)
+    else:
+        outputs = {EXE: bytes(exe), COMPDATA: cd_out, STAGE: bytes(stage)}
     for name, data in outputs.items():
         (OUT / name).write_bytes(data)
     report = dict(
@@ -285,12 +322,19 @@ def main() -> None:
         written=dict(writer.log),
         left=dict(executable=exe_left, compdata=cd_left, tickers=ticker_left),
         tail_shared=shared,
-        compdata_codec=dict(original=len(cd_stored), encoded=len(cd_encoded), padding=len(cd_stored) - len(cd_encoded)),
+        compdata_codec=(dict(original=len(cd_stored), compression_deferred_to_archive=True)
+                        if cd_encoded is None else
+                        dict(original=len(cd_stored), encoded=len(cd_encoded), padding=len(cd_stored) - len(cd_encoded))),
         stage_chunks=stage_report,
         files={name: sha256(data) for name, data in outputs.items()},
         base_files={EXE: sha256(exe_base), COMPDATA: sha256(cd_stored), STAGE: sha256(stage_base)},
-        original_files={name: locks[name] for name in outputs},
+        original_files={name: locks[name] for name in (EXE, COMPDATA, STAGE)},
     )
+    if args.decoded_overlays:
+        report["overlay_bases"] = {
+            COMPDATA: dict(path=str((BASES[COMPDATA] / COMPDATA).relative_to(ROOT)), sha256=sha256(cd_stored)),
+            STAGE: dict(path=str((BASES[STAGE] / STAGE).relative_to(ROOT)), sha256=sha256(stage_base)),
+        }
     (OUT / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(json.dumps({k: report[k] for k in ("written", "left", "tail_shared", "compdata_codec", "stage_chunks")},
                      ensure_ascii=False, indent=1))

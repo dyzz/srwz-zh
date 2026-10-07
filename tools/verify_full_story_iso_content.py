@@ -19,10 +19,7 @@ from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
     DEFAULT_LINE_WIDTH,
     DEFAULT_MAX_LINES,
-    dialogue_layout_issues,
     dialogue_line_widths,
-    fit_chinese_dialogue_layout,
-    load_layout_profiles,
 )
 from srwz.codec import decode_production as decode
 from srwz.ui_name_tables import NISV_SPEC, verify_name_table
@@ -154,15 +151,6 @@ from srwz.verified_cache import (
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-STORY_LAYOUT_PROFILES_PATH = (
-    PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
-)
-
-
-def story_layout_profile():
-    """Same 21x3 dialogue profile (with the unbroken word list) as the builder."""
-
-    return load_layout_profiles(STORY_LAYOUT_PROFILES_PATH)["story_dialogue"]
 DEFAULT_ISO = (
     PROJECT_ROOT
     / "build/iso/zh-release-full-story/current-original.iso"
@@ -6333,22 +6321,13 @@ def main() -> int:
     }
     if set(component_stages) != set(stages):
         raise SystemExit("component stage details do not match stage selection")
-    fixed_formation_metadata = component.get("remaining_ui", {}).get(
-        "stage_fixed_formation", {}
-    )
-    default_formation_metadata = {
-        item.get("stage_index"): item
-        for item in component.get("remaining_ui", {})
-        .get("stage_default_formation", {})
+    # The full-story builder compresses each STAGE chunk once after every
+    # writer; its archive report is the single expected final encoding.
+    final_stage_chunks = {
+        item["chunk_index"]: item
+        for item in component.get("compression", {})
+        .get("stage_archive", {})
         .get("chunks", [])
-        if isinstance(item, dict)
-    }
-    runtime_keyword_stage_metadata = {
-        item.get("stage_index"): item
-        for item in component.get("runtime_keywords", {})
-        .get("stage", {})
-        .get("chunks", [])
-        if isinstance(item, dict)
     }
 
     stage_reports = []
@@ -6400,7 +6379,6 @@ def main() -> int:
     player_choice_readbacks = {}
     reported_land_entry_id = "story/016/dialogue/02.03/0027"
     reported_land_translation = None
-    layout_profile = story_layout_profile()
     for stage in stages:
         source_chunk = source_stage_archive[
             offsets[stage]:offsets[stage + 1]
@@ -6412,35 +6390,10 @@ def main() -> int:
             stage_index=stage,
             function_address=source_functions[stage],
         )
-        source_keyword_link_ids = {
-            entry.entry_id
-            for entry in source_parsed.entries
-            if entry.kind == "dialogue" and "《" in entry.text
-        }
         dialogue = load_translations(
             PROJECT_ROOT
             / f"corpus/zh/story-dialogue/stage-{stage:03d}.json"
         )
-        for entry_id, translation in dialogue.items():
-            # Same gate as the builder: the corpus stores the displayed layout.
-            layout_issues = dialogue_layout_issues(
-                translation,
-                profile=layout_profile,
-                stage_keyword_links=entry_id in source_keyword_link_ids,
-            )
-            if layout_issues:
-                raise SystemExit(
-                    f"{entry_id} dialogue layout is not final: "
-                    f"{'; '.join(layout_issues)}"
-                )
-        dialogue = {
-            entry_id: fit_chinese_dialogue_layout(
-                translation,
-                profile=layout_profile,
-                stage_keyword_links=entry_id in source_keyword_link_ids,
-            ).text
-            for entry_id, translation in dialogue.items()
-        }
         stage_conditions = {
             entry_id: translation
             for entry_id, translation in conditions.items()
@@ -6461,29 +6414,14 @@ def main() -> int:
         chunk = stage_archive[offsets[stage]:offsets[stage + 1]]
         decoded = decode(chunk)
         expected_stage = component_stages[stage]
-        expected_encoded_size = expected_stage["output_encoded_size"]
-        expected_encoded_sha256 = expected_stage["output_encoded_sha256"]
-        if stage == fixed_formation_metadata.get("chunk_index"):
-            expected_encoded_size = fixed_formation_metadata.get(
-                "output_encoded_size"
-            )
-            expected_encoded_sha256 = fixed_formation_metadata.get(
-                "output_encoded_sha256"
-            )
-        if stage in default_formation_metadata:
-            expected_encoded_size = default_formation_metadata[stage].get(
-                "output_encoded_size"
-            )
-            expected_encoded_sha256 = default_formation_metadata[stage].get(
-                "output_encoded_sha256"
-            )
-        if stage in runtime_keyword_stage_metadata:
-            expected_encoded_size = runtime_keyword_stage_metadata[stage].get(
-                "output_encoded_size"
-            )
-            expected_encoded_sha256 = runtime_keyword_stage_metadata[stage].get(
-                "output_encoded_sha256"
-            )
+        final_chunk = final_stage_chunks.get(stage)
+        if final_chunk is None:
+            source_chunk = source_stage_archive[offsets[stage]:offsets[stage + 1]]
+            expected_encoded_size = decode(source_chunk).consumed
+            expected_encoded_sha256 = sha256_bytes(source_chunk[:expected_encoded_size])
+        else:
+            expected_encoded_size = final_chunk["output_encoded_size"]
+            expected_encoded_sha256 = final_chunk["output_encoded_sha256"]
         encoded = chunk[:decoded.consumed]
         padding = chunk[decoded.consumed:]
         if any(padding):

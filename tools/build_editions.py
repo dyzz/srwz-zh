@@ -21,6 +21,7 @@ import time
 from datetime import datetime, timezone
 
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
+from srwz.codec import ENV_COMPRESSION_CACHE, prune_compression_cache
 from srwz.file_identity import ENV_REHASH, ENV_STORE, publish_verified, sha256_range
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.release_inputs import copy_file, freeze_inputs, seed_original_caches, sha256_file, verify_files
@@ -77,9 +78,10 @@ def verify_original_adapter_config(root: Path, profile) -> None:
 
 
 def phase_environment(root: Path) -> dict[str, str]:
-    """Every subprocess of one build shares the root's verified file-identity store."""
+    """Every subprocess of one build shares the root's identity and payload stores."""
     environment = dict(os.environ)
     environment.setdefault(ENV_STORE, str(project_path(root, "work/cache/file-identity.json", "work/cache")))
+    environment.setdefault(ENV_COMPRESSION_CACHE, str(project_path(root, "work/cache/compression", "work/cache")))
     return environment
 
 
@@ -420,6 +422,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             batch["timing"]["total_seconds"] = round(time.perf_counter() - started, 3)
             atomic_json(batch_path, batch)
             raise
+        prune_compression_cache(project_path(root, "work/cache/compression", "work/cache"))
         batch["status"] = "requested_editions_static_validated_runtime_pending"
         batch["timing"].update(total_seconds=round(time.perf_counter() - started, 3), finished_at=datetime.now(timezone.utc).isoformat())
         atomic_json(batch_path, batch)

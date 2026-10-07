@@ -21,8 +21,9 @@ import export_sd_text as sd
 import migrate_slps_text as mst
 from stage_bindings import StageBindings, BindingError
 from stage_auxiliary import formation_groups, scalar_sites, write_formations
+from write_system_text import OVERLAY, overlay_member
 from srwz.chinese_layout import fit_chinese_dialogue_layout, load_layout_profiles, rendered_line_width
-from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.codec import DEFAULT_MAX_MATCH_CHAIN, DEFAULT_MIN_MATCH_LENGTH, decode_production, reencode_changed_suffix
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from srwz.text import decode_text, normalize_original_fullwidth_ascii, encode_text, two_byte_visible_spaces
@@ -97,8 +98,8 @@ def stored_stage_translation(text):
     return two_byte_visible_spaces(normalize_original_fullwidth_ascii(text))
 
 
-def build_chunk(index, stored, function_address, bindings, table, overrides, readback, profile, *, exe=None, include_formations=False):
-    decoded = decode_production(stored)
+def build_chunk(index, stored, function_address, bindings, table, overrides, readback, profile, *, exe=None, include_formations=False, archive=None):
+    decoded = decode_production(stored) if archive is None else archive.view(index)
     data = decoded.output
     module = sd.sd_stage_module()
     parsed = module.parse_stage(data, table, stage_index=index, function_address=function_address,
@@ -161,6 +162,14 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
     for entry_id, expected in replacements.items():
         if actual[entry_id].text != expected:
             raise WritebackError(f"full reparse mismatch: {entry_id}")
+    if archive is not None:
+        # The archive owner compresses this chunk once, after every writer.
+        archive.replace(index, rebuilt, stage="stage dialogue")
+        return None, dict(chunk=index, name=data[0x30:0x50].split(b'\0', 1)[0].decode('ascii'),
+            input_sha256=sha256(stored), output_sha256=None, decoded_sha256=sha256(rebuilt),
+            decoded_size=len(data), allocated=len(stored), compressed=None,
+            protected=protected, owned_regions=result.owned_regions, formation_regions=name_regions, preserved_scalar_sites=scalars,
+            allocations=[a.to_metadata() for a in result.allocations], bindings=rows)
     packed = reencode_changed_suffix(stored, rebuilt, strategy="rust-fit", max_output_size=len(stored), original_result=decoded)
     if len(packed) > len(stored) or decode_production(packed).output != rebuilt:
         raise WritebackError("compressed slot/readback failed")
@@ -187,10 +196,19 @@ def main():
     for contract in ('config/products/special-disc/stage-scalar-contracts.json',):
         bindings.inputs[contract] = sha256((ROOT/contract).read_bytes())
     profile = replace(load_layout_profiles(PROFILES)['story_dialogue'], default_advance_px=22)
-    source = (args.base / STAGE).read_bytes()
     base_report = json.loads((args.base / 'report.json').read_text())
-    if sha256(source) != base_report['files'][STAGE]:
-        raise ValueError('base STAGE drift')
+    archive = None
+    if STAGE + OVERLAY in base_report['files']:
+        # The system writer handed STAGE over decoded; this writer owns the
+        # final compression of every chunk either of them changed.
+        archive = overlay_member(args.base, STAGE)
+        source = archive.payload
+        baseline_sha = base_report['files'][STAGE + OVERLAY]
+    else:
+        source = (args.base / STAGE).read_bytes()
+        if sha256(source) != base_report['files'][STAGE]:
+            raise ValueError('base STAGE drift')
+        baseline_sha = sha256(source)
     hb = read_disc_member(HB)
     exe = read_disc_member('SLPS_259.20')
     offsets = read_executable_archive_offsets(hb, ExecutableOffsetSpec(name='SP STAGE', member=HB,
@@ -204,14 +222,27 @@ def main():
     for index in selected:
         start, end = offsets[index:index+2]
         try:
-            packed, report = build_chunk(index, source[start:end], functions[index], bindings, table, overrides, readback, profile, exe=exe, include_formations=args.include_formations)
-            output[start:end] = packed
+            packed, report = build_chunk(index, source[start:end], functions[index], bindings, table, overrides, readback, profile, exe=exe, include_formations=args.include_formations, archive=archive)
+            if packed is not None:
+                output[start:end] = packed
             reports.append(report)
             print(f"chunk {index:03d}: {len(report['bindings'])} bindings; {report['compressed']}/{report['allocated']} bytes", flush=True)
         except (ValueError, RuntimeError) as error:
             failures.append(dict(chunk=index, reason=str(error)))
+    if archive is not None and not failures:
+        try:
+            final, encoded = archive.finalize(strategy='rust-fit', min_match_length=DEFAULT_MIN_MATCH_LENGTH,
+                max_match_chain=DEFAULT_MAX_MATCH_CHAIN, lazy_matching=False, fallback_strategy='rust-maximum')
+        except (ValueError, RuntimeError) as error:
+            failures.append(dict(chunk=None, reason=f'final STAGE compression failed: {error}'))
+        else:
+            output[:] = final
+            for report in reports:
+                start, end = offsets[report['chunk']:report['chunk'] + 2]
+                report['output_sha256'] = sha256(final[start:end])
+                report['compressed'] = encoded[report['chunk']]['output_encoded_size']
     report = dict(schema_version=1, status='failed' if failures else 'static_component_verified_runtime_pending',
-        allow_draft=args.allow_draft, chunks=selected, baseline=dict(path=str(args.base), sha256=sha256(source)),
+        allow_draft=args.allow_draft, chunks=selected, baseline=dict(path=str(args.base), sha256=baseline_sha),
         proposal=dict(path=str(args.proposal), sha256=sha256(args.proposal.read_bytes())),
         inputs=bindings.inputs, hb_sha256=sha256(hb), chunk_reports=reports, failures=failures,
         files={} if failures else {STAGE: sha256(output)})

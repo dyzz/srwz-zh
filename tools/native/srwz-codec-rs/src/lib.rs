@@ -887,6 +887,331 @@ pub fn encode_stream(
     Ok(output)
 }
 
+struct PatchMatch {
+    start: usize,
+    end: usize,
+    output: usize,
+    distance: usize,
+    length: usize,
+}
+
+fn touches(changed: &[usize], start: usize, length: usize) -> bool {
+    let index = changed.partition_point(|&position| position < start);
+    index < changed.len() && changed[index] < start + length
+}
+
+fn match_token(distance: usize, length: usize) -> Vec<u8> {
+    let (distance_bits, distance_extension) = distance_encoding(distance);
+    let length_value = length - 1;
+    let (length_bits, length_extension) = if (1..=0x0f).contains(&length_value) {
+        ((length_value as u8) << 4, Vec::new())
+    } else {
+        (0, encode_coded_integer(length_value))
+    };
+    let mut token = vec![length_bits | distance_bits];
+    token.extend(distance_extension);
+    token.extend(length_extension);
+    token
+}
+
+/// Offsets inside a back-reference whose output or source byte changed.
+fn changed_offsets(changed: &[usize], item: &PatchMatch) -> Vec<usize> {
+    let mut offsets = Vec::new();
+    for base in [item.output, item.output - item.distance] {
+        let first = changed.partition_point(|&position| position < base);
+        offsets.extend(
+            changed[first..]
+                .iter()
+                .take_while(|&&position| position < base + item.length)
+                .map(|&position| position - base),
+        );
+    }
+    offsets.sort_unstable();
+    offsets.dedup();
+    offsets
+}
+
+fn push_patched_block(output: &mut Vec<u8>, literals: &[u8], tokens: &[Vec<u8>]) {
+    let literal_nibble = if literals.len() <= 0x0f { literals.len() as u8 } else { 0 };
+    let match_nibble = if !tokens.is_empty() && tokens.len() <= 0x0f { tokens.len() as u8 } else { 0 };
+    output.push((match_nibble << 4) | literal_nibble);
+    if literal_nibble == 0 {
+        output.extend(encode_coded_integer(literals.len()));
+    }
+    if match_nibble == 0 {
+        output.extend(encode_coded_integer(tokens.len()));
+    }
+    output.extend_from_slice(literals);
+    for token in tokens {
+        output.extend_from_slice(token);
+    }
+}
+
+struct PatchBlock {
+    start: usize,
+    literal_start: usize,
+    literal_count: usize,
+    end: usize,
+    output: usize,
+    output_end: usize,
+    matches: Vec<PatchMatch>,
+}
+
+fn parse_patch_blocks(
+    stream: &[u8],
+    header_size: usize,
+    total: usize,
+) -> Result<Vec<PatchBlock>, EncodeError> {
+    let error = |error: DecodeError| EncodeError::new(format!("patch parse: {error}"));
+    let mut reader = ByteReader::new(stream);
+    reader.offset = header_size;
+    let mut position = 0usize;
+    let mut blocks = Vec::new();
+    while position < total {
+        let start = reader.offset;
+        let control = reader.read_byte("block control").map_err(error)?;
+        let mut literal_count = (control & 0x0f) as usize;
+        let mut match_count = (control >> 4) as usize;
+        if literal_count == 0 {
+            literal_count = decode_coded_integer(&mut reader, 0, 10, "literal count").map_err(error)?;
+        }
+        if match_count == 0 {
+            match_count = decode_coded_integer(&mut reader, 0, 10, "match count").map_err(error)?;
+        }
+        let literal_start = reader.offset;
+        reader.read_bytes(literal_count, "literal run").map_err(error)?;
+        let output = position;
+        position += literal_count;
+        let mut matches = Vec::new();
+        if position < total {
+            for _ in 0..match_count {
+                let token_start = reader.offset;
+                let token = reader.read_byte("back-reference token").map_err(error)?;
+                let mut distance_value = ((token & 0x0f) >> 1) as usize;
+                if token & 1 == 0 {
+                    distance_value =
+                        decode_coded_integer(&mut reader, distance_value, 10, "distance").map_err(error)?;
+                }
+                let mut length_value = (token >> 4) as usize;
+                if length_value == 0 {
+                    length_value = decode_coded_integer(&mut reader, 0, 10, "length").map_err(error)?;
+                }
+                let length = length_value + 1;
+                matches.push(PatchMatch {
+                    start: token_start,
+                    end: reader.offset,
+                    output: position,
+                    distance: distance_value + 1,
+                    length,
+                });
+                position += length;
+            }
+        }
+        blocks.push(PatchBlock {
+            start,
+            literal_start,
+            literal_count,
+            end: reader.offset,
+            output,
+            output_end: position,
+            matches,
+        });
+    }
+    Ok(blocks)
+}
+
+/// Append blocks, keeping each original token that still produces the
+/// modified bytes. `carry` holds literals that must open the next block.
+fn emit_patched_blocks(
+    output: &mut Vec<u8>,
+    stream: &[u8],
+    modified: &[u8],
+    changed: &[usize],
+    blocks: &[PatchBlock],
+    carry: &mut Vec<u8>,
+) {
+    let total = modified.len();
+    for block in blocks {
+        let invalid: Vec<bool> = block
+            .matches
+            .iter()
+            .map(|item| {
+                touches(changed, item.output, item.length)
+                    || touches(changed, item.output - item.distance, item.length)
+            })
+            .collect();
+        let literal_end = block.output + block.literal_count;
+        if carry.is_empty() && !invalid.contains(&true) {
+            output.extend_from_slice(&stream[block.start..block.literal_start]);
+            output.extend_from_slice(&modified[block.output..literal_end]);
+            output.extend_from_slice(&stream[block.literal_start + block.literal_count..block.end]);
+            continue;
+        }
+        let mut literals = std::mem::take(carry);
+        literals.extend_from_slice(&modified[block.output..literal_end]);
+        let mut tokens: Vec<Vec<u8>> = Vec::new();
+        let mut add_literals = |literals: &mut Vec<u8>, tokens: &mut Vec<Vec<u8>>, bytes: &[u8]| {
+            if !tokens.is_empty() {
+                push_patched_block(output, literals, tokens);
+                literals.clear();
+                tokens.clear();
+            }
+            literals.extend_from_slice(bytes);
+        };
+        for (item, bad) in block.matches.iter().zip(invalid) {
+            if !bad {
+                tokens.push(stream[item.start..item.end].to_vec());
+                continue;
+            }
+            // Keep every still-valid stretch at the same distance; changed
+            // offsets and stretches too short for a token become literals.
+            let mut cursor = 0usize;
+            let mut stops = changed_offsets(changed, item);
+            stops.push(item.length);
+            for stop in stops {
+                if stop > cursor {
+                    let run = stop - cursor;
+                    let at = item.output + cursor;
+                    if run >= 3 {
+                        tokens.push(match_token(item.distance, run));
+                    } else {
+                        add_literals(&mut literals, &mut tokens, &modified[at..at + run]);
+                    }
+                }
+                if stop < item.length {
+                    let at = item.output + stop;
+                    add_literals(&mut literals, &mut tokens, &modified[at..at + 1]);
+                }
+                cursor = stop + 1;
+            }
+        }
+        if tokens.is_empty() && block.output_end < total {
+            *carry = literals;
+        } else {
+            push_patched_block(output, &literals, &tokens);
+        }
+    }
+}
+
+/// Split a payload's trailing literal-only block off as carried literals.
+fn take_trailing_literal_block(payload: &mut Vec<u8>) -> Result<Vec<u8>, EncodeError> {
+    let error = |error: DecodeError| EncodeError::new(format!("window parse: {error}"));
+    let mut reader = ByteReader::new(payload);
+    let mut last = None;
+    while reader.offset < payload.len() {
+        let start = reader.offset;
+        let control = reader.read_byte("block control").map_err(error)?;
+        let mut literal_count = (control & 0x0f) as usize;
+        let mut match_count = (control >> 4) as usize;
+        if literal_count == 0 {
+            literal_count = decode_coded_integer(&mut reader, 0, 10, "literal count").map_err(error)?;
+        }
+        if match_count == 0 {
+            match_count = decode_coded_integer(&mut reader, 0, 10, "match count").map_err(error)?;
+        }
+        let literal_start = reader.offset;
+        reader.read_bytes(literal_count, "literal run").map_err(error)?;
+        for _ in 0..match_count {
+            let token = reader.read_byte("back-reference token").map_err(error)?;
+            if token & 1 == 0 {
+                decode_coded_integer(&mut reader, 0, 10, "distance").map_err(error)?;
+            }
+            if token >> 4 == 0 {
+                decode_coded_integer(&mut reader, 0, 10, "length").map_err(error)?;
+            }
+        }
+        last = Some((start, literal_start, literal_count, match_count));
+    }
+    match last {
+        Some((start, literal_start, literal_count, 0)) => {
+            let literals = payload[literal_start..literal_start + literal_count].to_vec();
+            payload.truncate(start);
+            Ok(literals)
+        }
+        _ => Ok(Vec::new()),
+    }
+}
+
+/// Re-encode a same-size decoded edit without recompressing the stream.
+///
+/// Original tokens are kept byte for byte wherever they still produce the
+/// modified bytes. When the patched stream does not fit `max_size`, a
+/// growing window around the edit is re-encoded with the fit profile, using
+/// the preceding output as history, until it fits. The result decodes to
+/// `modified` by construction; callers still verify it.
+pub fn patch_stream(
+    stream: &[u8],
+    modified: &[u8],
+    max_size: Option<usize>,
+    min_match_length: usize,
+    max_match_chain: usize,
+) -> Result<Vec<u8>, EncodeError> {
+    let original = decode_stream(stream, 256 * 1024 * 1024, 10, 10_000_000)
+        .map_err(|error| EncodeError::new(format!("patch source: {error}")))?;
+    if original.output.len() != modified.len() {
+        return Err(EncodeError::new("patch requires the same decoded size"));
+    }
+    let changed: Vec<usize> = original
+        .output
+        .iter()
+        .zip(modified)
+        .enumerate()
+        .filter_map(|(index, (before, after))| (before != after).then_some(index))
+        .collect();
+    let stream = &stream[..original.consumed];
+    if changed.is_empty() {
+        return Ok(stream.to_vec());
+    }
+    let total = modified.len();
+    let blocks = parse_patch_blocks(stream, original.header_size, total)?;
+    let fits = |candidate: &Vec<u8>| max_size.is_none_or(|limit| candidate.len() <= limit);
+    let first = changed[0];
+    let last = *changed.last().unwrap();
+    for margin in [0usize, 16 << 10, 64 << 10, 256 << 10, 1 << 20, 4 << 20] {
+        let mut output = stream[..original.header_size].to_vec();
+        let mut carry = Vec::new();
+        if margin == 0 {
+            emit_patched_blocks(&mut output, stream, modified, &changed, &blocks, &mut carry);
+        } else {
+            let window_start = first.saturating_sub(margin);
+            let window_end = (last + 1 + margin).min(total);
+            let left = blocks.partition_point(|block| block.output <= window_start) - 1;
+            let right = blocks.partition_point(|block| block.output_end < window_end);
+            let right = right.min(blocks.len() - 1);
+            output.extend_from_slice(&stream[blocks[0].start..blocks[left].start]);
+            let mut window = encode_payload(
+                &modified[..blocks[right].output_end],
+                EncodeOptions {
+                    window_size: original.window_size,
+                    prefix_size: blocks[left].output,
+                    min_match_length,
+                    max_match_chain,
+                    lazy_bias: Some(1),
+                },
+            )?;
+            if blocks[right].output_end < total {
+                carry = take_trailing_literal_block(&mut window)?;
+            }
+            output.extend(window);
+            emit_patched_blocks(
+                &mut output,
+                stream,
+                modified,
+                &changed,
+                &blocks[right + 1..],
+                &mut carry,
+            );
+        }
+        if !carry.is_empty() {
+            return Err(EncodeError::new("patch left literal bytes without a block"));
+        }
+        if fits(&output) {
+            return Ok(output);
+        }
+    }
+    Err(EncodeError::new("patched stream does not fit its allocation"))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -987,5 +1312,39 @@ mod tests {
             error.to_string(),
             "lazy bias must be between zero and eight"
         );
+    }
+    #[test]
+    fn patch_stream_keeps_tokens_and_decodes_to_the_edit() {
+        let words: [&[u8]; 12] = [
+            b"plain ", b"forest ", b"mountain ", b"sea ", b"city ", b"base ",
+            b"desert ", b"space ", b"river ", b"road ", b"bridge ", b"ruins ",
+        ];
+        let mut state = 0x2545_f491u32;
+        let mut data = Vec::new();
+        while data.len() < 400_000 {
+            state = state.wrapping_mul(1_103_515_245).wrapping_add(12_345);
+            data.extend_from_slice(words[(state >> 16) as usize % words.len()]);
+            if state & 0x700 == 0 {
+                data.extend_from_slice(&state.to_le_bytes());
+            }
+        }
+        let flags = flags_for_size(data.len());
+        let stream = encode_stream(&data, flags, None, 0, 3, 64, None).unwrap();
+        let mut modified = data.clone();
+        modified[7..12].copy_from_slice(b"99999");
+        modified[40_000..40_004].copy_from_slice(b"SEA!");
+        let patched = patch_stream(&stream, &modified, None, 2, 1024).unwrap();
+        let reread = decode_stream(&patched, 256 * 1024 * 1024, 10, 10_000_000).unwrap();
+        assert_eq!(reread.output, modified);
+        assert_eq!(reread.consumed, patched.len());
+        assert!(patched.len() <= stream.len() + 256);
+        assert_eq!(patch_stream(&stream, &data, None, 2, 1024).unwrap(), stream);
+        // A weaker native stream with no spare allocation: the edit only fits
+        // once a window around it is re-encoded with the fit profile.
+        let native = encode_stream(&data, flags, None, 0, 6, 2, None).unwrap();
+        assert!(patch_stream(&native, &modified, None, 2, 1024).unwrap().len() > native.len());
+        let tight = patch_stream(&native, &modified, Some(native.len()), 2, 1024).unwrap();
+        assert!(tight.len() <= native.len());
+        assert_eq!(decode_stream(&tight, 256 * 1024 * 1024, 10, 10_000_000).unwrap().output, modified);
     }
 }

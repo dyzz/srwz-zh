@@ -15,6 +15,7 @@ import struct
 from build_library_v02_component import BODY_TAGS, load_production_layout, reflow_body
 from special_disc.writeback.migrate_library import raw_fields, serialize, sp_offsets
 from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.compressed_workspace import decoded_view, write_decoded
 from srwz.library_typography import library_typography
 from srwz.library_work_titles import CONTRACT as WORK_TITLE_CONTRACT, apply_work_title_pool, verify_work_title_pool
 from srwz.library import parse_zkn_decoded_chunk
@@ -187,13 +188,11 @@ def apply_shared_library(executable, current_member, source_member, table, overr
     report = dict(schema_version=1, inputs=author[-1], archives=reports,
                   policy='current_reviewed_shared_fields_with_sp_canary_fallback')
     if compdata is not None:
-        decoded = decode_production(compdata)
+        decoded = decoded_view(compdata)
         native = decode_production(source_member('DATA/COMPDATA.BN')).output
         data, title_report = apply_work_title_pool(decoded.output, native, table, overrides, edition='sp')
-        packed = reencode_changed_suffix(compdata, data, strategy='rust-fit', max_output_size=len(compdata), original_result=decoded)
-        if len(packed) > len(compdata) or decode_production(packed).output != data:
-            raise ValueError('SP library work title compression mismatch')
-        outputs['DATA/COMPDATA.BN'] = packed + bytes(len(compdata)-len(packed))
+        outputs['DATA/COMPDATA.BN'] = write_decoded(compdata, decoded, data, stage='library work titles',
+                                                    label='SP library work title')
         report['work_title_table'] = title_report
     return bytes(exe), outputs, report
 

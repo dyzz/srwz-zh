@@ -39,6 +39,7 @@ from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
 from special_disc.writeback.shared_library import verify_shared_library
+from write_system_text import overlay_member
 from srwz.library_work_titles import verify_work_title_pool
 from special_disc.writeback.bazaar_heading import verify_bazaar_heading
 from srwz.ui_menu_restore import verify_menu_restore
@@ -193,8 +194,8 @@ def main(iso=None, work=None):
         i=chunk['chunk'];data=stage_data[i];parsed=mod.parse_stage(data,readback,stage_index=i,function_address=functions[i],base_address=st.sd.SD_STAGE_BASE)
         actual={e.entry_id:e for e in parsed.entries if e.kind!='speaker'}
         speakers={int(r['target'].rsplit('/',1)[1]):r['output_text'] for r in chunk['bindings'] if '/speaker/'in r['target']}
-        original=(WORK/'system'/st.STAGE).read_bytes() if i==CHUNKS[0] else original
-        before=mod.parse_stage(decode_production(original[off[i]:off[i+1]]).output,table,stage_index=i,function_address=functions[i],base_address=st.sd.SD_STAGE_BASE)
+        system_stage=overlay_member(WORK/'system',st.STAGE) if i==CHUNKS[0] else system_stage
+        before=mod.parse_stage(system_stage.view(i).output,table,stage_index=i,function_address=functions[i],base_address=st.sd.SD_STAGE_BASE)
         source={e.entry_id:e for e in before.entries}
         for row in chunk['bindings']:
             if row['layout']=='formation_name':

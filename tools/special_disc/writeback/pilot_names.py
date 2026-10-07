@@ -5,7 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.compressed_workspace import CompressedStreamWorkspace, decoded_view, write_decoded
 from srwz.text import decode_text, encode_text
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -61,7 +61,7 @@ def inputs():
 
 def verify_pilot_names(archive, readback):
     contract, rows, _ = inputs()
-    data = decode_production(archive).output
+    data = decoded_view(archive).output
     require(len(data) == contract['decoded_size'], 'SP pilot-name decoded size drift')
     labels = []
     for slot in contract['entries']:
@@ -77,7 +77,7 @@ def verify_pilot_names(archive, readback):
 
 def apply_pilot_names(archive, table, overrides, readback):
     contract, rows, corpus_path = inputs()
-    decoded = decode_production(archive)
+    decoded = decoded_view(archive)
     require(len(decoded.output) == contract['decoded_size'], 'SP pilot-name decoded size drift')
     data = bytearray(decoded.output)
     changed = []
@@ -96,17 +96,13 @@ def apply_pilot_names(archive, table, overrides, readback):
         if before != replacement:
             changed.append(slot['id'])
         data[at:at + size] = replacement
-    if data == decoded.output:
-        output, packed_size = archive, decoded.consumed
-    else:
-        packed = reencode_changed_suffix(archive, bytes(data), strategy='rust-fit',
-                                        max_output_size=len(archive), original_result=decoded)
-        require(len(packed) <= len(archive), 'SP pilot-name compressed member overflow')
-        require(decode_production(packed).output == data, 'SP pilot-name compression roundtrip mismatch')
-        output, packed_size = packed + bytes(len(archive) - len(packed)), len(packed)
+    output = write_decoded(archive, decoded, data, stage='pilot names', label='SP pilot-name')
+    staged = isinstance(output, CompressedStreamWorkspace)
+    packed_size = None if staged else (decoded.consumed if output is archive else
+                                       decoded_view(output).consumed)
     labels = verify_pilot_names(output, readback)
     return output, dict(labels=labels, entries=len(labels), pilots=len(PILOTS | FAMILY_PILOTS), changed_ids=changed,
-        compressed_bytes=packed_size, allocated_bytes=len(archive), decoded_sha256=sha(data),
+        compressed_bytes=packed_size, allocated_bytes=None if staged else len(archive), decoded_sha256=sha(data),
         non_name_bytes_preserved=True, contract_sha256=sha(CONTRACT.read_bytes()),
         corpus=dict(path=str(corpus_path.relative_to(ROOT)), sha256=sha(corpus_path.read_bytes())),
         runtime='pending')

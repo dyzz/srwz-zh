@@ -112,7 +112,7 @@ class ComponentCache:
         inputs = component_inputs(self.rows, name)
         dependencies = {}
         if name == 'stage':
-            dependencies['system_stage_sha256'] = sha256_file(self.work / 'system/DATA/STAGE.BIN')
+            dependencies['system_stage_sha256'] = sha256_file(self.work / 'system/DATA/STAGE.BIN.overlay')
         digest = hashlib.sha256(json_bytes(dict(schema_version=SCHEMA, component=name,
                                                 inputs=inputs, dependencies=dependencies))).hexdigest()
         return digest, inputs, dependencies

@@ -4,7 +4,7 @@ use std::io::{Read, Write};
 use std::path::PathBuf;
 use std::process::ExitCode;
 
-use srwz_compress::{decode_stream, encode_payload, encode_stream, flags_for_size, EncodeOptions};
+use srwz_compress::{decode_stream, encode_payload, encode_stream, flags_for_size, patch_stream, EncodeOptions};
 
 #[derive(Debug)]
 struct Arguments {
@@ -239,6 +239,15 @@ fn run_worker() -> Result<(), String> {
                 },
             )
             .map_err(|error| error.to_string()),
+            // Field 2 splits the frame into the original stream and the
+            // same-size decoded edit.
+            2 if field(2) as usize <= data.len() => {
+                let (stream, modified) = data.split_at(field(2) as usize);
+                // Field 3 is the allocation limit (0: none); 4/5 the fit profile.
+                let limit = (field(3) != 0).then_some(field(3) as usize);
+                patch_stream(stream, modified, limit, field(4) as usize, field(5) as usize)
+                    .map_err(|error| error.to_string())
+            }
             _ => Err("invalid worker operation or lazy bias".to_owned()),
         };
         let (status, body) = match result {

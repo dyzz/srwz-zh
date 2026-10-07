@@ -115,7 +115,7 @@ class SpecialDiscUnitNamesTests(unittest.TestCase):
         decoded = decode_production(self.before)
         data = bytearray(decoded.output)
         data[0x85198] ^= 1
-        with patch.object(names, 'decode_production', return_value=replace(decoded, output=bytes(data))):
+        with patch.object(names, 'decoded_view', return_value=replace(decoded, output=bytes(data))):
             with self.assertRaisesRegex(ValueError, 'preimage drift'):
                 self.apply(self.before)
 

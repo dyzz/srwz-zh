@@ -10,7 +10,7 @@ import json
 import struct
 from pathlib import Path
 
-from srwz.codec import decode_production, reencode_changed_suffix
+from srwz.compressed_workspace import CompressedStreamWorkspace, decoded_view, write_decoded
 from srwz.text import decode_text, encode_text
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -57,7 +57,7 @@ def payload(text, table, overrides):
 
 def verify_keyword_names(archive, readback):
     c, rows, _ = inputs()
-    data = decode_production(archive).output
+    data = decoded_view(archive).output
     require(len(data) == c['decoded_size'], 'SP keyword decoded size drift')
     for s in c['writes']:
         target = bytes.fromhex(s['target_hex'])
@@ -119,20 +119,17 @@ def patch_decoded(original, table, overrides):
 
 
 def apply_keyword_names(archive, table, overrides, readback):
-    decoded = decode_production(archive)
+    decoded = decoded_view(archive)
     data, plans = patch_decoded(decoded.output, table, overrides)
-    if data == decoded.output:
-        output, packed_size = archive, decoded.consumed
-    else:
-        packed = reencode_changed_suffix(archive, data, strategy='rust-fit',
-                                        max_output_size=len(archive), original_result=decoded)
-        require(len(packed) <= len(archive) and decode_production(packed).output == data,
-                'SP keyword compression roundtrip failed')
-        output, packed_size = packed + bytes(len(archive)-len(packed)), len(packed)
+    output = write_decoded(archive, decoded, data, stage='keyword list names', label='SP keyword')
+    staged = isinstance(output, CompressedStreamWorkspace)
+    packed_size = None if staged else (decoded.consumed if output is archive else
+                                       decoded_view(output).consumed)
     labels = verify_keyword_names(output, readback)
     _, _, path = inputs()
     return output, dict(labels=labels, repaired_entries=5, verified_entries=len(labels),
-        changed=data != decoded.output, compressed_bytes=packed_size, allocated_bytes=len(archive),
+        changed=data != decoded.output, compressed_bytes=packed_size,
+        allocated_bytes=None if staged else len(archive),
         decoded_sha256=sha(data), owned_ranges=[dict(offset=a, size=len(b)) for a, b in plans],
         non_owned_bytes_preserved=True, contract_sha256=sha(CONTRACT.read_bytes()),
         corpus=dict(path=str(path.relative_to(ROOT)), sha256=sha(path.read_bytes())), runtime='pending')

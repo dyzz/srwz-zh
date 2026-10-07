@@ -8,14 +8,19 @@ meaning.
 
 from __future__ import annotations
 
+import functools
+import hashlib
+import os
 import struct
 import sys
+import threading
 from array import array
 from collections import defaultdict, deque
 from pathlib import Path
 from typing import Callable, Deque, Dict, Mapping, Optional, Union
 
 from .codec_worker import request as _worker_request, CodecWorkerError
+from .file_identity import ENV_REHASH, sha256_file as _identity_sha256
 
 from .codec_contract import (
     CodedInteger,
@@ -23,6 +28,9 @@ from .codec_contract import (
     SrwzCodecError,
     SrwzEncodeError,
 )
+
+# Shared content-addressed store for Rust payloads (set by build_editions).
+ENV_COMPRESSION_CACHE = "SRWZ_COMPRESSION_CACHE"
 
 
 DEFAULT_MAX_OUTPUT_SIZE = 256 * 1024 * 1024
@@ -746,6 +754,7 @@ def _maximum_payload(
     return min(candidates, key=lambda candidate: (len(candidate), candidate))
 
 
+@functools.cache
 def _rust_compressor_path() -> Path:
     project_root = Path(__file__).resolve().parents[2]
     return (
@@ -835,10 +844,62 @@ def _rust_payload(
             "Rust compressor is not built; run "
             "`python3 tools/build_rust_compressor.py --force`"
         )
-    return _worker_request(binary, 1, data, window_size=window_size,
-                           min_match_length=min_match_length,
-                           search_chain=search_chain, prefix_size=prefix_size,
-                           lazy_bias=lazy_bias)
+    parameters = dict(window_size=window_size, min_match_length=min_match_length,
+                      search_chain=search_chain, prefix_size=prefix_size,
+                      lazy_bias=lazy_bias)
+    cache_root = os.environ.get(ENV_COMPRESSION_CACHE)
+    if not cache_root:
+        return _worker_request(binary, 1, data, **parameters)
+    # The compressor is deterministic: the same binary, parameters and input
+    # always produce the same payload, so a full rebuild after a tooling edit
+    # reuses unchanged payloads instead of recompressing them. Each entry
+    # carries its own digest; callers keep their decoded round-trip checks.
+    key = hashlib.sha256()
+    key.update(f"srwz-rust-payload-v1 {_identity_sha256(binary)} {sorted(parameters.items())}\n".encode())
+    key.update(data)
+    digest = key.hexdigest()
+    path = Path(cache_root) / digest[:2] / digest
+    if os.environ.get(ENV_REHASH) != "1":
+        try:
+            entry = path.read_bytes()
+        except OSError:
+            entry = b""
+        if len(entry) >= 32 and hashlib.sha256(entry[32:]).digest() == entry[:32]:
+            try:
+                os.utime(path)
+            except OSError:
+                pass
+            return entry[32:]
+    payload = _worker_request(binary, 1, data, **parameters)
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        pending = path.with_name(f".{digest}.{os.getpid()}.{threading.get_ident()}.tmp")
+        pending.write_bytes(hashlib.sha256(payload).digest() + payload)
+        pending.replace(path)
+    except OSError:
+        pass
+    return payload
+
+
+def prune_compression_cache(root: Path, *, max_bytes: int = 2 * 1024 ** 3) -> int:
+    """Drop least recently used payload entries beyond ``max_bytes``."""
+
+    entries = []
+    for path in Path(root).glob("??/*"):
+        try:
+            stat = path.stat()
+        except OSError:
+            continue
+        entries.append((stat.st_mtime_ns, stat.st_size, path))
+    total = sum(size for _mtime, size, _path in entries)
+    removed = 0
+    for _mtime, size, path in sorted(entries):
+        if total <= max_bytes:
+            break
+        path.unlink(missing_ok=True)
+        total -= size
+        removed += 1
+    return removed
 
 
 def _rust_maximum_payload(
@@ -880,6 +941,47 @@ def _rust_fit_payload(
     )
 
 
+def _rust_patch_or_fit(
+    original_stream: BytesLike,
+    modified_output: BytesLike,
+    *,
+    min_match_length: int,
+    max_match_chain: int,
+    lazy_matching: bool,
+    max_output_size: Optional[int],
+    original_result: Optional[DecodeResult],
+) -> bytes:
+    source = memoryview(original_stream).cast("B").tobytes()
+    replacement = memoryview(modified_output).cast("B").tobytes()
+    original = original_result or decode_production(source)
+    stream = source[: original.consumed]
+    if len(replacement) == len(original.output):
+        try:
+            patched = _worker_request(
+                _rust_compressor_path(), 2, stream + replacement,
+                window_size=len(stream), prefix_size=max_output_size or 0,
+                min_match_length=min_match_length, search_chain=max_match_chain,
+            )
+        except CodecWorkerError:
+            patched = None  # no patch fits the allocation; recompress below
+        if patched is not None:
+            reread = decode_production(patched)
+            if reread.output != replacement or reread.consumed != len(patched):
+                raise ValueError("Rust token patch failed its decoded round-trip")
+            if max_output_size is None or len(patched) <= max_output_size:
+                return patched
+    return reencode_changed_suffix(
+        stream,
+        replacement,
+        strategy="rust-fit",
+        min_match_length=min_match_length,
+        max_match_chain=max_match_chain,
+        lazy_matching=lazy_matching,
+        max_output_size=max_output_size,
+        original_result=original,
+    )
+
+
 def reencode_changed_suffix(
     original_stream: BytesLike,
     modified_output: BytesLike,
@@ -896,8 +998,23 @@ def reencode_changed_suffix(
     Production Rust strategies always re-compress the complete payload.  This
     deliberately avoids carrying forward blocks emitted by an older Python
     compressor through the historical suffix-preservation path.
+
+    ``rust-patch`` is for a few changed bytes in a large native stream: the
+    Rust worker keeps every original token that still produces the same
+    bytes and rewrites only invalidated ones. A size change, or a patched
+    stream over ``max_output_size``, falls back to ``rust-fit``.
     """
 
+    if strategy == "rust-patch":
+        return _rust_patch_or_fit(
+            original_stream,
+            modified_output,
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+            lazy_matching=lazy_matching,
+            max_output_size=max_output_size,
+            original_result=original_result,
+        )
     if strategy not in {
         "greedy",
         "literal",

@@ -692,20 +692,16 @@ def main() -> int:
                             profile=layout_profiles[expected_kind],
                             protected_terms=protected_terms,
                         )
-                        legacy_text, legacy_widths = reflow_body_legacy(
-                            translation,
-                            int(widths[expected_kind]),
-                            profile=layout_profiles[expected_kind],
-                            protected_terms=protected_terms,
-                        )
                     except LibraryScopeError as error:
                         raise LibraryScopeError(
                             f"localized LIBRARY layout failed: "
                             f"{domain}/{index:03d}/{field.tag}: {error}"
                         ) from error
+                    # The legacy wrap is only a capacity fallback; it is laid
+                    # out on demand when the dense chunk does not fit.
                     body_variants[field.tag] = {
                         "dense": (dense_text, dense_widths),
-                        "legacy": (legacy_text, legacy_widths),
+                        "source": translation,
                     }
                     translation = dense_text
                 replacements[field.tag] = translation
@@ -724,6 +720,23 @@ def main() -> int:
                     overrides=encoding_overrides,
                     alignment=alignment,
                 )
+
+            def legacy_variant(tag: str) -> tuple[str, tuple[int, ...]]:
+                variant = body_variants[tag]
+                if "legacy" not in variant:
+                    try:
+                        variant["legacy"] = reflow_body_legacy(
+                            variant["source"],
+                            int(widths[expected_kind]),
+                            profile=layout_profiles[expected_kind],
+                            protected_terms=protected_terms,
+                        )
+                    except LibraryScopeError as error:
+                        raise LibraryScopeError(
+                            f"localized LIBRARY layout failed: "
+                            f"{domain}/{index:03d}/{tag}: {error}"
+                        ) from error
+                return variant["legacy"]
 
             def compress(candidate_decoded: bytes) -> bytes:
                 return reencode_changed_suffix(
@@ -759,9 +772,7 @@ def main() -> int:
                     ):
                         candidate_replacements = dict(replacements)
                         for tag in candidate_tags:
-                            candidate_replacements[tag] = body_variants[tag][
-                                "legacy"
-                            ][0]
+                            candidate_replacements[tag] = legacy_variant(tag)[0]
                         candidate_decoded = rebuild(candidate_replacements)
                         try:
                             candidate_encoded = compress(candidate_decoded)
@@ -778,9 +789,8 @@ def main() -> int:
                     dense_error = None
 
             selected_body_widths = {
-                tag: body_variants[tag][
-                    "legacy" if tag in fallback_body_tags else "dense"
-                ][1]
+                tag: (legacy_variant(tag) if tag in fallback_body_tags
+                      else body_variants[tag]["dense"])[1]
                 for tag in body_variants
             }
             body_line_count = sum(

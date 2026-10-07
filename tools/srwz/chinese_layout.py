@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from fractions import Fraction
 from functools import lru_cache
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Callable, Iterable, Sequence
 
 from .text import RUNTIME_FORMAT_TOKEN, CONTROL_NOTATION
 from .renderer_metrics import RendererState, text_extent, COMPACT_SCOPE_CHARACTERS
@@ -535,6 +535,42 @@ def _occupied_width(tokens: Sequence[LayoutToken]) -> int | Fraction:
     return max(advance, occupied)
 
 
+def _occupied_width_index(
+    tokens: Sequence[LayoutToken],
+) -> Callable[[int, int], int | Fraction]:
+    """Return an O(1) ``_occupied_width(tokens[start:end])`` for repeated slices.
+
+    The occupied width of a slice is the larger of its advance and its furthest
+    overhang reach, ``max(prefix[k + 1] + overhang_k) - prefix[start]``.  A
+    sparse table answers that range maximum exactly, so the layout search does
+    not re-add every token's ``Fraction`` advance for each candidate line.
+    """
+
+    prefix = [0]
+    for token in tokens:
+        prefix.append(prefix[-1] + token.width)
+    if not any(token.overhang for token in tokens):
+        return lambda start, end: prefix[end] - prefix[start]
+    reach_table = [[prefix[k + 1] + token.overhang for k, token in enumerate(tokens)]]
+    span = 1
+    while span * 2 <= len(tokens):
+        previous = reach_table[-1]
+        reach_table.append(
+            [max(previous[k], previous[k + span]) for k in range(len(previous) - span)]
+        )
+        span *= 2
+
+    def width(start: int, end: int) -> int | Fraction:
+        if end <= start:
+            return 0
+        level = (end - start).bit_length() - 1
+        row = reach_table[level]
+        reach = max(row[start], row[end - (1 << level)])
+        return max(prefix[end] - prefix[start], reach - prefix[start], 0)
+
+    return width
+
+
 def _visible_edges(text: str) -> str:
     if not any(c in text for c in '<{$%'):
         return text
@@ -664,10 +700,8 @@ def _partition_tokens(
     if line_packing not in {"balanced", "fill"}:
         raise ChineseLayoutError(f"unsupported line-packing mode: {line_packing}")
 
-    prefix = [0]
     character_offsets = [0]
     for token in tokens:
-        prefix.append(prefix[-1] + token.width)
         character_offsets.append(character_offsets[-1] + len(token.text))
     total_width = _occupied_width(tokens)
     first_line_width = first_line_width or line_width
@@ -677,12 +711,7 @@ def _partition_tokens(
         else 1 + math.ceil((total_width - first_line_width) / line_width)
     )
 
-    has_overhang = any(token.overhang for token in tokens)
-
-    def width(start: int, end: int) -> int | Fraction:
-        if not has_overhang:
-            return prefix[end] - prefix[start]
-        return _occupied_width(tokens[start:end])
+    width = _occupied_width_index(tokens)
 
     if exact_lines is not None:
         if not minimum_lines <= exact_lines <= max_lines:
