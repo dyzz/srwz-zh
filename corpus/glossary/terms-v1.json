@@ -4,6 +4,31 @@
   "language": "zh-Hans",
   "terms": [
     {
+      "id": "place/fort-severn",
+      "source_terms": [
+        "フォートセバーン"
+      ],
+      "translation": "塞文堡",
+      "deprecated_translations": [
+        "福特塞班",
+        "福特塞文",
+        "塞瓦堡",
+        "福特\n　塞班"
+      ],
+      "variant_scope": "source_bound",
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle",
+        "library",
+        "menu",
+        "summary"
+      ],
+      "enforce": true,
+      "notes": "2026-09-28 用户确认统一为“塞文堡”，并要求加入术语、后续全部统一。同一地点适用于剧情、梗概、图鉴、地图标题及特别盘；原文带市时保留为“塞文堡市”。旧译跨行形式同样纳入统一范围。本次仅登记术语，正文待统一写回。"
+    },
+    {
       "id": "era/universal-century",
       "source_terms": [
         "宇宙世紀"
@@ -751,6 +776,33 @@
       ],
       "enforce": true,
       "notes": "SRWZ 核心世界观术语，指世界崩坏后多个世界混合形成的新世界。"
+    },
+    {
+      "id": "place/north-ameria",
+      "source_terms": [
+        "北アメリア"
+      ],
+      "translation": "北阿美利亚",
+      "deprecated_translations": [
+        "北美利亚",
+        "北亚美利亚",
+        "北亚美利加",
+        "北阿梅利亚",
+        "北美洲",
+        "北美"
+      ],
+      "variant_scope": "source_bound",
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle",
+        "library",
+        "menu",
+        "summary"
+      ],
+      "enforce": true,
+      "notes": "2026-09-28 用户确认北アメリア统一为北阿美利亚。仅按日文地名绑定处理，原句带大陆时保留大陆；不将北米或现实北美自动替换。本轮更新词表、UP预处理副本及本地校订显示，正文待后续统一写回。"
     },
     {
       "id": "place/ameria-continent",

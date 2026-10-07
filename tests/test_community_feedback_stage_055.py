@@ -33,7 +33,7 @@ class CommunityFeedbackStage055Test(unittest.TestCase):
                 "　奥布绝不能攻击他们！”"
             ),
             "story/055/dialogue/01.47/0004": (
-                "“……不许停止战斗！\n　这是命令……！”"
+                "“……我不可能中途脱离战斗！\n　这可是命令啊……！”"
             ),
             "story/055/dialogue/01.47/0005": (
                 "“我国现任领导人\n　尤纳·罗马·塞兰的命令！”"

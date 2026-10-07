@@ -150,22 +150,25 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         )
         unit_terms = {entry["id"]: entry for entry in unit_glossary["terms"]}
         expected_units = {
-            "unit/spazer": "飞天神机",
-            "unit/double-spazer": "双重飞天神机",
-            "unit/marine-spazer": "海洋飞天神机",
-            "unit/drill-spazer": "钻头飞天神机",
+            "unit/spazer": "斯派扎",
+            "unit/double-spazer": "双重斯派扎",
+            "unit/marine-spazer": "海洋斯派扎",
+            "unit/drill-spazer": "钻头斯派扎",
         }
         self.assertEqual(
             {entry_id: unit_terms[entry_id]["translation"] for entry_id in expected_units},
             expected_units,
         )
-        self.assertIn("斯派扎", unit_terms["unit/spazer"]["deprecated_translations"])
+        self.assertIn("飞天神机", unit_terms["unit/spazer"]["deprecated_translations"])
         self.assertIn(
-            "双重斯派扎",
+            "双重飞天神机",
             unit_terms["unit/double-spazer"]["deprecated_translations"],
         )
-        for marker in ("专用圆盘型机械", "合体形态", "不与“斯派扎”音译混用"):
+        for marker in ("专用圆盘型机械", "合体形态", "community-20260928-night.json"):
             self.assertIn(marker, unit_terms["unit/spazer"]["notes"])
+
+        for term_id, canonical in expected_units.items():
+            self.assertNotIn(canonical, unit_terms[term_id]["deprecated_translations"])
 
         weapon_glossary = load_payload("corpus/glossary/weapons-v1.json")
         weapon_terms = {entry["id"]: entry for entry in weapon_glossary["terms"]}

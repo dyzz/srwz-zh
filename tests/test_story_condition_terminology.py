@@ -6,6 +6,8 @@ import unittest
 from pathlib import Path
 
 from tools.srwz.glossary import (
+    apply_glossary_variants,
+    relevant_glossary_terms,
     deprecated_translation_conflicts,
     global_glossary_by_id,
     load_global_glossary,
@@ -16,6 +18,16 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class StoryConditionTerminologyTest(unittest.TestCase):
+    def test_coralian_and_scub_coral_keep_distinct_names_in_one_source(self) -> None:
+        registry = load_global_glossary(PROJECT_ROOT / "corpus/glossary")
+        active = relevant_glossary_terms("コーラリアンとスカブコーラル", registry)
+        text = "科拉利安及其母体珊瑚岩"
+        self.assertEqual(apply_glossary_variants(text, active), (text, []))
+        self.assertEqual(deprecated_translation_conflicts(text, active), [])
+        normalized, changes = apply_glossary_variants("柯拉利安及其母体斯库布珊瑚", active)
+        self.assertEqual(normalized, text)
+        self.assertEqual(len(changes), 2)
+
     def test_retired_aquarion_name_is_absent_from_chinese_corpus(self) -> None:
         def strings(value):
             if isinstance(value, str):

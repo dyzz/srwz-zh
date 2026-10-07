@@ -187,7 +187,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             ),
             "story/107/dialogue/01.26/0007": (
                 "“就靠巨大的身躯撞过去，\n"
-                "　连同亚空间护盾一起碾碎……！”"
+                "　连同亚空间力场一起碾碎……！”"
             ),
             "story/107/dialogue/01.26/0002": (
                 "“是亚空间力场……！人工太阳正\n　利用过剩的能量扭曲着周围的时空！”"
