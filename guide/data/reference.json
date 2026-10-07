@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "updated_on": "2026-10-05",
   "source_policy": {
     "primary": "Game UI text extracted from the original disc and the project's global terminology.",
     "references": [
@@ -93,25 +94,25 @@
     "SPECIAL模式开放15段改造，但全改造奖励仍按完整改满机体能力后取得。"
   ],
   "rare_pilot_skills": [
-    {"name": "天才", "holders": ["{{people/sandman}}（我方常驻）"]},
-    {"name": "极", "holders": ["{{people/ghingham}}（客串友军；无常驻我方持有者）"]},
-    {"name": "强化人", "holders": ["{{people/rosamia}}", "{{people/speaker-242048308cbb}}"]},
-    {"name": "新人类（X）", "holders": ["{{people/speaker-73fc8638fc0c}}", "{{people/lancerow}}", "{{people/speaker-b388eaad3e0f}}"]},
-    {"name": "人工新人类", "holders": ["{{people/speaker-a1763505f7f3}}"]},
-    {"name": "伪新人类", "holders": ["{{people/shagia}}", "{{people/olba}}"]},
-    {"name": "SEED", "holders": ["{{people/shinn}}", "{{people/athrun}}", "{{people/kira}}", "{{people/speaker-58ffc6397f82}}"]},
-    {"name": "扩展人", "holders": ["{{people/sting}}", "{{people/auel}}", "{{people/stella}}"]},
-    {"name": "游戏玩家", "holders": ["{{people/gainer}}（升级前）", "{{people/cynthia}}"]},
-    {"name": "游戏冠军", "holders": ["{{people/gainer}}（剧情升级后）"]},
-    {"name": "谈判专家", "holders": ["{{people/roger}}"]},
-    {"name": "强运", "holders": ["{{people/kei}}", "{{people/speaker-5b924f0e102e}}", "{{people/garrod}}", "{{people/speaker-ea256a1b288e}}（客串友军）", "{{people/beck}}（客串友军）"]}
+    {"name": "{{skill/genius}}", "holders": ["{{people/sandman}}（我方常驻）"]},
+    {"name": "{{skill/extreme}}", "holders": ["{{people/ghingham}}（客串友军；无常驻我方持有者）"]},
+    {"name": "{{skill/cyber-newtype}}", "holders": ["{{people/rosamia}}", "{{people/speaker-242048308cbb}}"]},
+    {"name": "{{skill/newtype-x}}", "holders": ["{{people/speaker-73fc8638fc0c}}", "{{people/lancerow}}", "{{people/speaker-b388eaad3e0f}}"]},
+    {"name": "{{skill/artificial-newtype}}", "holders": ["{{people/speaker-a1763505f7f3}}"]},
+    {"name": "{{skill/category-f}}", "holders": ["{{people/shagia}}", "{{people/olba}}"]},
+    {"name": "{{skill/seed}}", "holders": ["{{people/shinn}}", "{{people/athrun}}", "{{people/kira}}", "{{people/speaker-58ffc6397f82}}"]},
+    {"name": "{{skill/extended}}", "holders": ["{{people/sting}}", "{{people/auel}}", "{{people/stella}}"]},
+    {"name": "{{skill/gamer}}", "holders": ["{{people/gainer}}（升级前）", "{{people/cynthia}}"]},
+    {"name": "{{skill/game-champ}}", "holders": ["{{people/gainer}}（剧情升级后）"]},
+    {"name": "{{skill/negotiator}}", "holders": ["{{people/roger}}"]},
+    {"name": "{{skill/very-lucky}}", "holders": ["{{people/kei}}", "{{people/speaker-5b924f0e102e}}", "{{people/garrod}}", "{{people/speaker-ea256a1b288e}}（客串友军）", "{{people/beck}}（客串友军）"]}
   ],
   "pilot_skill_notes": [
-    {"name": "二次行动", "label": "敌方专用", "text": "我方常驻与可控客串角色均无人持有，不计入稀有技能的持有人数。"}
+    {"name": "{{skill/two-actions}}", "label": "敌方专用", "text": "我方常驻与可控客串角色均无人持有，不计入稀有技能的持有人数。"}
   ],
   "pilot_skill_levels": [
     {
-      "name": "底力",
+      "name": "{{skill/potential}}",
       "columns": ["等级", "开始生效", "HP10%时命中／回避", "HP10%时暴击", "HP10%时装甲"],
       "rows": [
         ["L1", "HP≤10%", "+5%", "+8%", "+10%"],
@@ -127,7 +128,7 @@
       "note": "生效后，HP每再降低10%，命中／回避＋5%、暴击＋8%、装甲＋10%；表中末三列是HP降至10%时的最大补正。"
     },
     {
-      "name": "先手反击",
+      "name": "{{skill/counter}}",
       "columns": ["等级", "双方技量相同时的发动率"],
       "rows": [
         ["L1", "6.25%"], ["L2", "12.5%"], ["L3", "18.75%"],
@@ -137,17 +138,17 @@
       "note": "发动率＝〔技能等级＋（己方技量－敌方技量）÷10〕÷16；表中按双方技量相同计算。"
     },
     {
-      "name": "援护攻击",
+      "name": "{{skill/support-attack}}",
       "columns": ["等级", "每回合次数"],
       "rows": [["L1", "1次"], ["L2", "2次"], ["L3", "3次"], ["L4", "4次"]]
     },
     {
-      "name": "援护防御",
+      "name": "{{skill/support-defense}}",
       "columns": ["等级", "每回合次数"],
       "rows": [["L1", "1次"], ["L2", "2次"], ["L3", "3次"], ["L4", "4次"]]
     },
     {
-      "name": "SP提升",
+      "name": "{{skill/sp-up}}",
       "columns": ["等级", "最大SP"],
       "rows": [
         ["L1", "+5"], ["L2", "+10"], ["L3", "+15"],
@@ -156,7 +157,7 @@
       ]
     },
     {
-      "name": "指挥官",
+      "name": "{{skill/commander}}",
       "columns": ["等级", "同小队", "距离1", "距离2", "距离3", "距离4", "距离5"],
       "rows": [
         ["L1", "+12%", "+10%", "+8%", "—", "—", "—"],
@@ -167,7 +168,7 @@
       "note": "命中与回避使用同一补正；多个指挥范围重叠时不叠加，只取较高效果。"
     },
     {
-      "name": "超能力",
+      "name": "{{skill/psychic-power}}",
       "columns": ["等级", "命中／回避"],
       "rows": [
         ["L1", "+2%"], ["L2", "+4%"], ["L3", "+6%"],
@@ -176,7 +177,7 @@
       ]
     },
     {
-      "name": "新人类",
+      "name": "{{skill/newtype}}",
       "columns": ["等级", "命中／回避", "特定武器射程"],
       "rows": [
         ["L1", "+0%", "+0"], ["L2", "+5%", "+0"], ["L3", "+10%", "+0"],
@@ -185,7 +186,7 @@
       ]
     },
     {
-      "name": "强化人",
+      "name": "{{skill/cyber-newtype}}",
       "columns": ["等级", "命中／回避", "特定武器射程"],
       "rows": [
         ["L1", "+0%", "+0"], ["L2", "+4%", "+0"], ["L3", "+8%", "+0"],
@@ -195,7 +196,7 @@
       "note": "本作没有L9数据，最高为L8。"
     },
     {
-      "name": "新人类（X）",
+      "name": "{{skill/newtype-x}}",
       "columns": ["等级", "命中／回避"],
       "rows": [
         ["L1", "+0%"], ["L2", "+5%"], ["L3", "+10%"],
@@ -205,7 +206,7 @@
       "note": "与新人类使用同一命中／回避补正，但不提供武器射程加成。"
     },
     {
-      "name": "人工新人类",
+      "name": "{{skill/artificial-newtype}}",
       "columns": ["等级", "命中／回避", "特定武器射程"],
       "rows": [
         ["L1", "+0%", "+0"], ["L2", "+4%", "+0"], ["L3", "+8%", "+0"],
@@ -215,7 +216,7 @@
       "note": "本作没有L9数据，最高为L8。"
     },
     {
-      "name": "伪新人类",
+      "name": "{{skill/category-f}}",
       "columns": ["等级", "命中／回避", "暴击"],
       "rows": [
         ["L1", "+0%", "+0%"], ["L2", "+4%", "+3%"], ["L3", "+8%", "+6%"],
@@ -224,7 +225,7 @@
       ]
     },
     {
-      "name": "扩展人",
+      "name": "{{skill/extended}}",
       "columns": ["等级", "命中／回避", "暴击"],
       "rows": [
         ["L1", "+3%", "+2%"], ["L2", "+6%", "+4%"], ["L3", "+9%", "+6%"],
@@ -234,7 +235,7 @@
       "note": "本作没有L8、L9数据，最高为L7。"
     },
     {
-      "name": "滑空技巧",
+      "name": "{{skill/lift-technique}}",
       "columns": ["等级", "命中", "暴击", "完全回避率"],
       "rows": [
         ["L1", "+2%", "+3%", "4%"], ["L2", "+4%", "+6%", "8%"], ["L3", "+6%", "+9%", "12%"],
@@ -244,7 +245,7 @@
       "note": "完全回避会独立判定，即使机体本身没有分身能力也能发动，且没有气力门槛。"
     },
     {
-      "name": "超限感应",
+      "name": "{{skill/oversense}}",
       "columns": ["等级", "命中／回避", "特定武器攻击力", "光子垫减伤"],
       "rows": [
         ["L1", "+2%", "+50", "+100"], ["L2", "+4%", "+50", "+200"], ["L3", "+6%", "+100", "+300"],
@@ -258,25 +259,25 @@
     "Akurasu 把扩展人概括为最高L9；本作实际只有L1～L7，L8、L9没有效果数据。"
   ],
   "rare_leadership_effects": [
-    {"effect": "命中率＋30%", "holders": ["{{people/ghingham}}"]},
-    {"effect": "敌方回合回避率＋20%", "holders": ["{{people/speaker-2548f866db58}}"]},
-    {"effect": "反击时攻击力＋30%", "holders": ["{{people/beck}}"]},
-    {"effect": "我方回合的攻击力\n＋10%", "holders": ["{{people/speaker-03754cfe760d}}"]},
-    {"effect": "射击武器攻击力＋10%", "holders": ["{{people/setsuko}}"]},
-    {"effect": "相邻友方对盖佐克的\n攻击力＋40%", "holders": ["{{people/speaker-ec24b8d9e164}}"]},
-    {"effect": "对泽拉拜亚攻击力＋20%", "holders": ["{{people/sandman}}"]},
-    {"effect": "对堕天翅攻击力＋40%", "holders": ["{{people/apollo}}"]},
-    {"effect": "所受伤害−20%", "holders": ["{{people/speaker-52bd0a2936b4}}"]},
-    {"effect": "所受伤害−30%", "holders": ["{{people/speaker-d337215d0c0f}}"]},
-    {"effect": "援护时暴击率\n＋20%", "holders": ["{{people/speaker-bdc0fa70d514}}"]},
-    {"effect": "小队全机的空中地形适应\n变为S", "holders": ["{{people/speaker-9f0da37da623}}"]},
-    {"effect": "小队全机的陆地地形适应\n变为S", "holders": ["{{people/speaker-ce2a3c67ca70}}"]},
-    {"effect": "小队全机的海中地形适应\n变为S", "holders": ["{{people/speaker-ce1e8aeca780}}"]},
-    {"effect": "小队全机的地形适应\n“空陆海”变为A", "holders": ["{{people/speaker-d34010c02035}}"]},
-    {"effect": "格挡发动率＋40%", "holders": ["{{people/toshiya}}"]},
-    {"effect": "使全部特殊效果武器无效", "holders": ["{{people/rand}}"]},
-    {"effect": "小队全员获得\n“战意高扬”效果", "holders": ["{{people/jiron}}"]},
-    {"effect": "小队全员获得\n“气力＋（伤害）”效果", "holders": ["{{people/kappei}}"]}
+    {"effect": "{{leadership-effect/0x723B8}}", "holders": ["{{people/ghingham}}"]},
+    {"effect": "{{leadership-effect/0x72410}}", "holders": ["{{people/speaker-2548f866db58}}"]},
+    {"effect": "{{leadership-effect/0x724B0}}", "holders": ["{{people/beck}}"]},
+    {"effect": "{{leadership-effect/0x72510}}", "holders": ["{{people/speaker-03754cfe760d}}"]},
+    {"effect": "{{leadership-effect/0x72570}}", "holders": ["{{people/setsuko}}"]},
+    {"effect": "{{leadership-effect/0x72600}}", "holders": ["{{people/speaker-ec24b8d9e164}}"]},
+    {"effect": "{{leadership-effect/0x72630}}", "holders": ["{{people/sandman}}"]},
+    {"effect": "{{leadership-effect/0x72650}}", "holders": ["{{people/apollo}}"]},
+    {"effect": "{{leadership-effect/0x726D0}}", "holders": ["{{people/speaker-52bd0a2936b4}}"]},
+    {"effect": "{{leadership-effect/0x726F0}}", "holders": ["{{people/speaker-d337215d0c0f}}"]},
+    {"effect": "{{leadership-effect/0x727D0}}", "holders": ["{{people/speaker-bdc0fa70d514}}"]},
+    {"effect": "{{leadership-effect/0x727F0}}", "holders": ["{{people/speaker-9f0da37da623}}"]},
+    {"effect": "{{leadership-effect/0x72820}}", "holders": ["{{people/speaker-ce2a3c67ca70}}"]},
+    {"effect": "{{leadership-effect/0x72850}}", "holders": ["{{people/speaker-ce1e8aeca780}}"]},
+    {"effect": "{{leadership-effect/0x72880}}", "holders": ["{{people/speaker-d34010c02035}}"]},
+    {"effect": "{{leadership-effect/0x728F0}}", "holders": ["{{people/toshiya}}"]},
+    {"effect": "{{leadership-effect/0x72930}}", "holders": ["{{people/rand}}"]},
+    {"effect": "{{leadership-effect/0x72950}}", "holders": ["{{people/jiron}}"]},
+    {"effect": "{{leadership-effect/0x729A0}}", "holders": ["{{people/kappei}}"]}
   ],
   "leadership_akurasu_issues": [
     "Akurasu 的 Pilot Database 把拉克丝的舰长效果写成相邻友方命中率＋10%；其 Squad Leader Bonus 页及实际效果应为相邻友方攻击力＋10%。",
