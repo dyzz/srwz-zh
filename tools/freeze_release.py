@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 import re
 
-from srwz.daily_test import verify_skip
+from srwz.current_iso import verify_skip
 from srwz.edition import json_bytes
 from srwz.release_inputs import copy_file, sha256_file
 from verify_editions import verify_batch

@@ -230,6 +230,8 @@ build/iso/zh-release-best/current-best.iso
 build/iso/special-disc/sp-current.iso
 ```
 
+三版均默认内置方块 skip，日常测试直接使用这三份 current，不再自动生成额外 skip 副本。
+
 单独运行 `build_iso.py` 时，Original 的工作镜像写到
 `build/iso/zh-release-full-story/current-original.iso`（统一入口只在私有工作区内使用
 该路径），其大小和 SHA-256 由 `config/iso/zh-release-current-build.json` 锁定，

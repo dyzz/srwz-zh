@@ -512,7 +512,7 @@ def verify_built_in_skip(target: Path, edition: str) -> dict:
     """Reread the frozen ISO's executable and prove the square-skip hook is present."""
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from srwz.daily_test import verify_skip
+    from srwz.current_iso import verify_skip
     return verify_skip(target, PROJECT_ROOT, edition)
 
 

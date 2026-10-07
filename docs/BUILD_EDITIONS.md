@@ -56,21 +56,22 @@ Pillow。默认统一构建不依赖 Pillow，也不重新栅格化已冻结图�
 这些结果只证明静态构建和回读通过。新 ISO 的 LRPS2、PCSX2 人工检查、全剧情及
 存读档回归独立记账；不会把历史 ISO 的运行证据自动归入新镜像。
 
-## 日常测试副本与计时
+## 当前镜像与计时
 
-每版通过内容回读后，构建器自动更新 `build/iso/daily-test/current-{original,best,sp}-skip.iso`。
-副本与该版当前 ISO 逐字节身份一致，不再在构建后另外打 skip 补丁。发布前核对完整 SHA-256、
-大小，并从副本读取本版可执行文件检查 skip 跳转和 hook；失败保留旧日常副本。副本不采用硬链接。
-只构建 SP 时只更新 SP；BEST 单独构建仍会重建并更新其 Original 前端。
+Original、BEST、SP 各保留一个正式 current ISO，均默认内置方块 skip。统一构建器直接从
+当前镜像读取本版可执行文件，检查 skip 跳转和 hook，不再自动生成 `daily-test/*-skip.iso` 副本。
+只构建 SP 时只更新 SP；BEST 单独构建仍会更新其 Original 前端。
 
-`config/iso/daily-test-isos.json` 和 `retained-isos.json` 只保存当前盘的路径及策略，
-其实际身份读取 `manifests/editions/<edition>/current.json` 的 `daily_test` 字段。
+`config/iso/current-isos.json` 和 `retained-isos.json` 只保存当前盘的路径及策略，
+其实际身份读取配置指定回执中的 `output` 字段；SP 资源增量更新以镜像旁回执的 `iso` 字段为准。
 构建生成的哈希不写回输入配置，避免下一轮输入快照因上轮产物而变化。
-`verify_editions.py` 会校验新版批次中的日常副本及 skip；历史无此字段的批次保持兼容。
+`verify_editions.py` 校验当前镜像中的 skip；历史 `daily_test` 字段不再要求副本存在。
+SP 批次校验直接回读已发布的 current ISO，并核对私有工作区中的组件与独立回读报告；
+私有工作区的 ISO 副本可以清理，不影响这条验证链。
 已冻结的 v0.4.2 镜像与发布配置不变。
 
 批次 JSON 的 `timing` 保存 UTC 起止时间、完整墙钟耗时、预检/快照耗时、各版总耗时、
-子命令分项耗时及日常副本校验/发布耗时。各版工作区另有 `timing.json`，失败阶段也记录退出码与耗时。
+子命令分项耗时。各版工作区另有 `timing.json`，失败阶段也记录退出码与耗时。
 分项之和之外的耗时包括快照物化、缓存准备、文件哈希、发布当前盘和回执检查；三版总耗时包含这些开销。
 这是现有本地缓存条件下的正常完整构建计时，不能当作空缓存机器的冷启动时间。
 

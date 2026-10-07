@@ -1,46 +1,44 @@
 {
-  "schema_version": 2,
-  "policy": "Daily testing uses seven ISOs: two Japanese source ISOs, two no-skip v0.4.2 releases, and Original/Best/SP current ISOs targeting square skip. CHDs are created only for final releases; working and Q&A CHDs are not retained in the active workspace.",
+  "schema_version": 3,
+  "policy": "Daily testing uses exactly three current ISOs (Original, BEST and SP), each with default square skip. Immutable source ISOs and versioned release archives are retained separately. No duplicate skip current ISOs.",
   "slots": {
     "current-original": {
-      "path": "build/iso/daily-test/current-original-skip.iso",
+      "path": "build/iso/zh-release-original/current-original.iso",
       "role": "working",
-      "retention": "daily_iso",
-      "purpose": "Exact copy of the validated current ISO; refreshed automatically by build_editions.py.",
-      "source_build_path": "build/iso/zh-release-original/current-original.iso",
+      "retention": "current_iso",
+      "purpose": "Validated native current ISO with default square skip; no daily copy.",
       "skip_enabled": true,
       "skip_required": true,
       "identity_receipt": "manifests/editions/original/current.json",
-      "identity_field": "daily_test"
+      "identity_field": "output"
     },
     "current-best": {
-      "path": "build/iso/daily-test/current-best-skip.iso",
+      "path": "build/iso/zh-release-best/current-best.iso",
       "role": "working",
-      "retention": "daily_iso",
-      "purpose": "Exact copy of the validated current ISO; refreshed automatically by build_editions.py.",
-      "source_build_path": "build/iso/zh-release-best/current-best.iso",
+      "retention": "current_iso",
+      "purpose": "Validated native current ISO with default square skip; no daily copy.",
       "skip_enabled": true,
       "skip_required": true,
       "identity_receipt": "manifests/editions/best/current.json",
-      "identity_field": "daily_test"
+      "identity_field": "output"
     },
     "original": {
       "path": "rom/original.iso",
       "role": "source",
-      "retention": "daily_iso",
+      "retention": "source_iso",
       "chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
       "parent_chd_path": null,
       "iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
-      "local_status": "materialized_for_daily_testing"
+      "local_status": "materialized_build_input"
     },
     "best": {
       "path": "rom/best.iso",
       "role": "source",
-      "retention": "daily_iso",
+      "retention": "source_iso",
       "chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
       "parent_chd_path": null,
       "iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
-      "local_status": "materialized_for_daily_testing"
+      "local_status": "materialized_build_input"
     },
     "0.4.0-original": {
       "path": "build/iso/v0.4.0/0.4.0-original.iso",
@@ -75,12 +73,12 @@
     "0.4.2-original": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original.iso",
       "role": "frozen_release",
-      "purpose": "Frozen no-skip v0.4.2 ISO retained for daily regression testing; release CHD remains archived.",
-      "retention": "daily_iso",
+      "purpose": "Preserve the published release in its verified CHD; materialize its historical ISO only when needed.",
+      "retention": "chd_only",
       "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-original.chd",
       "parent_chd_path": "build/chd/v0.4.2/srwz-jp-original.chd",
       "iso_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
-      "local_status": "materialized_for_daily_testing"
+      "local_status": "iso_not_materialized"
     },
     "0.4.2-original-skip": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-original-skip.iso",
@@ -94,12 +92,12 @@
     "0.4.2-best": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best.iso",
       "role": "frozen_release",
-      "purpose": "Frozen no-skip v0.4.2 ISO retained for daily regression testing; release CHD remains archived.",
-      "retention": "daily_iso",
+      "purpose": "Preserve the published release in its verified CHD; materialize its historical ISO only when needed.",
+      "retention": "chd_only",
       "chd_path": "build/chd/v0.4.2/srwz-zh-v0.4.2-best.chd",
       "parent_chd_path": "build/chd/v0.4.2/srwz-jp-best.chd",
       "iso_sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a",
-      "local_status": "materialized_for_daily_testing"
+      "local_status": "iso_not_materialized"
     },
     "0.4.2-best-skip": {
       "path": "build/iso/v0.4.2/srwz-zh-v0.4.2-best-skip.iso",
@@ -111,18 +109,23 @@
       "iso_sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb"
     },
     "current-sp": {
-      "path": "build/iso/daily-test/current-sp-skip.iso",
+      "path": "build/iso/special-disc/sp-current.iso",
       "role": "working",
-      "retention": "daily_iso",
-      "purpose": "Exact copy of the validated current ISO; refreshed automatically by build_editions.py.",
+      "retention": "current_iso",
+      "purpose": "Validated native current ISO with default square skip; no daily copy.",
       "skip_enabled": true,
       "skip_required": true,
-      "identity_receipt": "manifests/editions/sp/current.json",
-      "identity_field": "daily_test",
-      "source_build_path": "build/iso/special-disc/sp-current.iso"
+      "identity_receipt": "build/iso/special-disc/sp-current.json",
+      "identity_field": "iso"
+    },
+    "sp-source": {
+      "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+      "role": "source",
+      "retention": "source_iso",
+      "iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952"
     }
   },
-  "updated": "2026-09-22",
+  "updated": "2026-10-07",
   "exceptions": [
     {
       "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
@@ -130,8 +133,8 @@
     },
     {
       "path": "build/iso/special-disc/sp-current.iso",
-      "reason": "Canonical SP build output; daily-test contains an independently writable exact copy."
+      "reason": "Canonical SP current output; testing uses this image directly without a daily-test copy."
     }
   ],
-  "daily_test_manifest": "config/iso/daily-test-isos.json"
+  "current_manifest": "config/iso/current-isos.json"
 }

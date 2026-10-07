@@ -12,7 +12,7 @@ import sys
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
 from srwz.release_inputs import sha256_file, verify_files
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
-from srwz.daily_test import verify_daily_test
+from srwz.current_iso import verify_skip
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -47,8 +47,9 @@ def verify_batch(root: Path, manifest: Path) -> dict:
         if (output != context.output_iso or output.stat().st_size != result["output"]["size"]
                 or sha256_file(output) != result["output"]["sha256"]):
             raise EditionError("edition output is missing, stale or misbound")
-        if "daily_test" in result:
-            verify_daily_test(root, source_path.parent / "project", result, result["daily_test"])
+        hook = verify_skip(output, source_path.parent / "project", profile.edition_id)
+        if "battle_square_skip" in result and hook != result["battle_square_skip"]:
+            raise EditionError("current edition square skip receipt drift")
         proof = project_path(root, result["readback"]["path"], context.project_root.relative_to(root).as_posix())
         if sha256_file(proof) != result["readback"]["sha256"]:
             raise EditionError("edition semantic readback receipt drift")
@@ -65,7 +66,7 @@ def verify_batch(root: Path, manifest: Path) -> dict:
             raise EditionError("semantic readback belongs to a different ISO")
         if profile.edition_id == "sp":
             locked_sp_inputs(source_path.parent / "project")
-            validate_sp_readback(context.project_root, readback)
+            validate_sp_readback(context.project_root, readback, iso_path=output)
         if profile.edition_id == "best":
             frontend = result["shared_frontend"]
             if (frontend["edition"] != "original" or frontend["input_digest"] != digest

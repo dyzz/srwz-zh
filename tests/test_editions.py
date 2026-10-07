@@ -20,9 +20,12 @@ REPO = Path(__file__).resolve().parents[1]
 
 class EditionTests(unittest.TestCase):
     def setUp(self):
-        publisher = patch.object(build_editions, "publish_daily_test", return_value={})
-        self.publisher = publisher.start()
-        self.addCleanup(publisher.stop)
+        skip = patch.object(build_editions, "verify_skip", return_value={"enabled": True})
+        self.skip_verifier = skip.start()
+        self.addCleanup(skip.stop)
+        receipt_skip = patch.object(verify_editions, "verify_skip", return_value={"enabled": True})
+        self.receipt_skip_verifier = receipt_skip.start()
+        self.addCleanup(receipt_skip.stop)
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name).resolve()
@@ -65,8 +68,9 @@ class EditionTests(unittest.TestCase):
             batch = build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("sp",))
         original.assert_not_called()
         self.assertEqual(sp.call_count, 1)
-        self.assertEqual(batch["results"], [{"edition_id": "sp", "daily_test": {}}])
-        self.publisher.assert_called_once()
+        self.assertEqual(batch["results"], [{"edition_id": "sp", "battle_square_skip": {"enabled": True}, "skip_enabled": True}])
+        self.skip_verifier.assert_called_once()
+        self.assertFalse((self.root / "build/iso/daily-test").exists())
         self.assertGreaterEqual(batch["timing"]["total_seconds"], batch["timing"]["editions"]["sp"]["seconds"])
 
     def test_failed_sp_never_reports_successful_batch(self):
@@ -184,7 +188,7 @@ class EditionTests(unittest.TestCase):
         # A later backend failure must not leave the already promoted Original
         # ISO paired with an older current receipt.
         self.assertEqual(json.loads((self.root/"manifests/editions/original/current.json").read_text()),
-                         {"edition_id": "original", "daily_test": {}})
+                         {"edition_id": "original", "battle_square_skip": {"enabled": True}, "skip_enabled": True})
 
     def test_duplicate_keys_and_duplicate_targets_are_rejected(self):
         p = self.root / "config/duplicate.json"
@@ -340,7 +344,7 @@ class EditionTests(unittest.TestCase):
                 patch.object(verify_editions, "validate_sp_readback") as validate:
             result = verify_editions.verify_batch(self.root, manifest)
             self.assertEqual(result["verified_editions"], ["sp"])
-            validate.assert_called_once_with(context.project_root, readback)
+            validate.assert_called_once_with(context.project_root, readback, iso_path=context.output_iso)
             validate.side_effect = EditionError("SP corpus or font coverage incomplete")
             with self.assertRaisesRegex(EditionError, "coverage incomplete"):
                 verify_editions.verify_batch(self.root, manifest)
@@ -351,6 +355,17 @@ class EditionTests(unittest.TestCase):
         self.assertEqual(result["verified_editions"], ["original"])
         self.assertFalse(result["both_editions"])
         self.assertEqual(result["runtime"], "not_tested")
+
+    def test_retired_daily_copy_is_not_required_but_current_skip_is_checked(self):
+        manifest, batch, context, proof = self.receipt_fixture()
+        batch['results'][0]['daily_test'] = {'path': 'build/iso/daily-test/removed.iso'}
+        batch['results'][0]['battle_square_skip'] = {'enabled': True}
+        manifest.write_text(json.dumps(batch))
+        verify_editions.verify_batch(self.root, manifest)
+        self.receipt_skip_verifier.assert_called_once()
+        self.receipt_skip_verifier.return_value = {'enabled': False}
+        with self.assertRaisesRegex(EditionError, 'square skip receipt drift'):
+            verify_editions.verify_batch(self.root, manifest)
 
     def test_incomplete_or_cross_input_results_are_rejected(self):
         manifest, baseline, _, _ = self.receipt_fixture()

@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "updated": "2026-10-04",
+  "policy": "Use the three native current ISOs; square skip is built in by default. No duplicate skip ISOs.",
+  "expected_count": 3,
+  "groups": {
+    "current_skip_required": 3
+  },
+  "slots": [
+    {
+      "slot": "current-original",
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "skip_enabled": true,
+      "skip_required": true,
+      "identity_receipt": "manifests/editions/original/current.json",
+      "identity_field": "output"
+    },
+    {
+      "slot": "current-best",
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "skip_enabled": true,
+      "skip_required": true,
+      "identity_receipt": "manifests/editions/best/current.json",
+      "identity_field": "output"
+    },
+    {
+      "slot": "current-sp",
+      "path": "build/iso/special-disc/sp-current.iso",
+      "skip_enabled": true,
+      "skip_required": true,
+      "identity_receipt": "build/iso/special-disc/sp-current.json",
+      "identity_field": "iso"
+    }
+  ]
+}

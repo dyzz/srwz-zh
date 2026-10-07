@@ -18,10 +18,6 @@ build/
     special-disc/
       sp-current.iso                 # SP 当前构建
       sp-current.json
-    daily-test/                      # 自动更新的三版当前 ISO 精确副本，均内置 skip
-      current-original-skip.iso
-      current-best-skip.iso
-      current-sp-skip.iso
     v0.4.2/                          # 带版本的冻结发布镜像，原位保留
     .tmp/baselines/                   # SP 基线还原临时盘，随进程退出清理
   editions/
@@ -59,13 +55,19 @@ build/
 - 原盘只读，必须匹配各版 `config/editions/<edition>/edition.json` 的大小、SHA-256 与可执行文件身份。
 - 带版本的冻结发布镜像保持路径和内容不变。父目录 `SRWZ2/SRWZ2CHS2.5.iso` 同样属于带版本文件，未移动。
 - 三份当前 ISO 由 `manifests/editions/{original,best,sp}/current.json` 绑定；整理目录不触发重建、不改变镜像字节。
-- `daily-test/` 的三版镜像由统一构建器在该版回读通过后自动更新，内容与对应当前 ISO 一致且均含 skip。路径策略见 `config/iso/daily-test-isos.json`，实际身份见各版 `manifests/editions/<edition>/current.json` 的 `daily_test` 字段。
-- 私有工作区和验证候选可能仍被历史回读报告引用；本轮保留其内容及引用关系，不仅凭文件名相同判断重复。
+- 日常测试直接使用三版 current，均默认内置 skip；统一构建器不再生成 `daily-test/*-skip.iso`。路径策略见 `config/iso/current-isos.json`；Original／BEST 身份见 edition 回执的 `output`，SP 资源更新身份见镜像旁 `sp-current.json` 的 `iso`。
+- 多余测试 ISO、旧候选、备份和私有工作区 ISO 可清理；组件、回读报告、截图、存档与源配置保留。2026-10-04 的清理清单在 `work/reviews/iso-cleanup-20261004/`，移出的 ISO 在用户废纸篓内可恢复。
 - 不使用硬链接共享可写的私有构建文件，保留版本之间的写入隔离。
 - 新的完整 ISO 候选使用 `build/iso/`、`build/verification/` 或 `build/editions/`；普通二进制成员缓存继续使用 `work/`。
 - 正式发布 CHD 的父子依赖保持原样。ISO、原盘成员、CHD、存档和私有构建文件均不进入 Git。
 
-## 本轮检查
+## 2026-10-04 清理
+
+Original、BEST、SP 三个正式 current 均已核验默认 skip 及最新 TRICMN 冻结贴图。257 个旧测试、备份及私有工作区 ISO 移入用户废纸篓；整个 `daily-test/` 连同三个旧 CHD 副本和清单移除。原盘来源、发行 CHD、组件、回读报告、截图与存档保留。
+
+当前路径策略改为 `config/iso/current-isos.json`，默认构建不再产生额外 skip 副本。三版批次回执在清理后重新验证通过；SP 校验使用已发布 current，保留完整 ISO 哈希、成员及组件回读检查。47 项相关测试通过。清单、恢复位置与最终三盘身份见 `work/reviews/iso-cleanup-20261004/cleanup.json`；回执核验见同目录 `three-current-proof.json`。
+
+## 2026-09-22 历史整理记录
 
 工作区及父目录共盘点 54 个 ISO：51 个非版本 ISO 全部位于本仓库 `build/` 内；3 个带版本 ISO 保持原位。其中 46 个 ISO 原先位于 `build/` 外，通过同卷目录移动完成整理。
 

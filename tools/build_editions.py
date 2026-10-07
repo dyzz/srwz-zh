@@ -25,7 +25,7 @@ from srwz.file_identity import ENV_REHASH, ENV_STORE, publish_verified, sha256_r
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.release_inputs import copy_file, freeze_inputs, seed_original_caches, sha256_file, verify_files
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
-from srwz.daily_test import publish_daily_test
+from srwz.current_iso import verify_skip
 from srwz.edition_incremental import seed_text_update
 
 
@@ -379,26 +379,24 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                         except (OSError, ValueError, KeyError):
                             print(f"[{context.profile.edition_id}] current receipt/copy cannot be reused", flush=True)
                         else:
-                            if "daily_test" in previous:
-                                mode = "verified_current_reuse"
-                                publication = 0.0
-                                print(f"[{context.profile.edition_id}] unchanged inputs and verified current/daily ISOs reused", flush=True)
-                                return previous
+                            previous.pop("daily_test", None)
+                            mode = "verified_current_reuse"
+                            print(f"[{context.profile.edition_id}] unchanged inputs and verified current ISO reused", flush=True)
+                            return previous
                 result = builder(context, *args, **kwargs)
-                # Bind the promoted current ISO immediately, even if publishing
-                # its daily copy subsequently fails.
+                # Keep one current image per edition. Square skip is already
+                # part of its build; verify that image instead of cloning it.
                 atomic_json(context.receipt, result)
-                publish_begin = time.perf_counter()
-                result["daily_test"] = publish_daily_test(root, snapshot.project_root, result)
+                result["battle_square_skip"] = verify_skip(
+                    context.output_iso, snapshot.project_root, context.profile.edition_id)
+                result["skip_enabled"] = True
                 atomic_json(context.receipt, result)
-                publication = round(time.perf_counter() - publish_begin, 3)
                 return result
             finally:
                 batch["timing"]["editions"][context.profile.edition_id] = {
                     "seconds": round(time.perf_counter() - begin, 3),
                     "mode": mode,
                     "phases": load_json(timing_path) if timing_path.exists() else {},
-                    "daily_test_seconds": locals().get("publication"),
                 }
         try:
             results = {}

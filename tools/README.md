@@ -51,6 +51,7 @@ v0.4.2 的四补丁配置（schema 3）仍可原样重建。CHD 工具也支持 
 | 静态回读 | `verify_zh_release_font.py`、`verify_full_story_iso_content.py` |
 | BEST 原生后端 | `build_best_current.py` |
 | 剧情断行门禁 | `text_layout/check_story_dialogue_layout.py`（构建器执行同一检查）、`text_layout/rebalance_story_dialogue.py`、`text_layout/build_story_unbroken_words.py`（写作辅助） |
+| 同源异译收口 | `editorial_review/unify_same_source_dialogue.py`（写作辅助） |
 | 文本审阅候选（根工作区） | `build_text_update_iso.py`（`--release-proof` 执行完整回读和确定性复建） |
 | 自动运行验证（构建闭包外） | `run_lrps2_validation.py` |
 | 发布归档 | `build_release_chd.py` |
@@ -86,7 +87,7 @@ vendor/upstream-python/       构建链读取的固定静态定义
 
 - `build_best_candidate.py`（实验性二进制移植）已由 `build_best_current.py` 取代。
 - `update_qa_editions.py`（2026-09-20 的一次性 Q&A 热修）生成的回执不带
-  `daily_test` 与新的输入摘要，统一入口无法复用；Q&A 修正走正常构建。
+  默认 skip 回读与新的输入摘要，统一入口无法复用；Q&A 修正走正常构建。
 - `prepare_release_variants.py`（不带 skip 基底 + 派生 skip 变体的四补丁冻结）已由
   `freeze_release.py` 取代：发布全部内置 skip，每版一份补丁。`srwz/release_variants.py`
   只为重建已冻结的 v0.4.2 保留。

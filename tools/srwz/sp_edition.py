@@ -29,12 +29,15 @@ def locked_sp_inputs(root: Path) -> tuple[str, ...]:
     return tuple(paths)
 
 
-def validate_sp_readback(root: Path, proof: dict) -> None:
+def validate_sp_readback(root: Path, proof: dict, *, iso_path=None) -> None:
     if proof.get("status") not in {
             "all_current_draft_text_written_static_verified_runtime_pending",
             "all_bound_text_reread_from_final_iso_runtime_pending"}:
         raise EditionError("SP full-text build did not pass static readback")
-    iso = project_path(root, proof["iso"]["path"], "build/iso/special-disc")
+    # The build checks its private candidate; later verification checks the
+    # promoted current image, so its private duplicate can be cleaned up.
+    iso = (project_path(root, proof["iso"]["path"], "build/iso/special-disc")
+           if iso_path is None else Path(iso_path))
     if iso.stat().st_size != proof["iso"]["size"] or sha256_file(iso) != proof["iso"]["sha256"]:
         raise EditionError("SP readback ISO identity mismatch")
     if proof["coverage"]["pending_targets"] or proof["coverage"]["unassigned_display_characters"]:
