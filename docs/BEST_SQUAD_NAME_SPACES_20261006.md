@@ -1,5 +1,7 @@
 # BEST 兰德 THE HEAT 编队名：2026-10-06
 
+GitHub：[#31：小队名 THE HEAT 乱码及 BEST 固定槽截断（黑泽小皮反馈）](https://github.com/dyzz/srwz-zh/issues/31)，2026-10-07 补录后以 `completed` 关闭。
+
 用户明确最新截图来自 BEST，并指定用 ArmsX2 当前记忆卡读取、小队编成左下角复现。
 截图只作证据，未作为写入输入。本文将本篇生产写入修复、旧存档修复副本和运行验证分别记账。
 
