@@ -18,6 +18,7 @@ from srwz.iso9660 import scan_iso9660,member_map
 from srwz.codec import decode_production
 from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_visible_spaces,verify_runtime_control_bytes
 from srwz.summary import parse_summary, validate_scroll_placeholders
+from special_disc.writeback.gravion_labels import verify_gravion_labels
 from special_disc.writeback.unit_names import CONTRACT as UNIT_CONTRACT, verify_unit_names
 from special_disc.writeback.pilot_names import CONTRACT as PILOT_CONTRACT, verify_pilot_names
 from special_disc.verification.name_tables import verify_name_tables
@@ -91,6 +92,7 @@ def main(iso=None, work=None):
             == image_report['menu_restore'], 'SP native menu independent readback receipt drift')
     counts['restored_native_menu_chunks'] = 4
     table,_,overrides,readback=st.mst.encoding_tables(PROPOSAL)
+    require(verify_gravion_labels(member('DATA/COMPDATA.BN'),readback)==manifest['gravion_labels'], 'SP Gravion label independent readback drift')
     library_base = baseline_iso('text-canary')
     library_base_members = member_map(scan_iso9660(library_base))
     library_counts = verify_shared_library(

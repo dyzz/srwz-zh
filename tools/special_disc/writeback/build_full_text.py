@@ -26,6 +26,7 @@ from srwz.codec import decode_production,reencode_changed_suffix
 from install_font import sp_offsets,VT1_TABLE,replace_font_slot
 from migrate_stage_dialogue import read_disc_member
 from chart_visibility import apply_chart_visibility
+from special_disc.writeback.gravion_labels import apply_gravion_labels
 from special_disc.writeback.unit_names import apply_unit_names
 from special_disc.writeback.pilot_names import apply_pilot_names
 from special_disc.verification.name_tables import verify_name_tables
@@ -273,6 +274,7 @@ def assemble():
     decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
     verify_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],runtime_table,source_table,stored_overrides,font=decoded_font,proposal=proposal)
     verify_weapon_detail_labels(patches[EXE],runtime_table,source_table,stored_overrides,font=decoded_font,proposal=proposal)
+    patches[CD],gravion_report=apply_gravion_labels(patches[CD],source_table,stored_overrides,runtime_table)
     patches[CD],unit_report=apply_unit_names(patches[CD],source_table,stored_overrides,runtime_table,decoded_font,proposal)
     patches[CD],pilot_report=apply_pilot_names(patches[CD],source_table,stored_overrides,runtime_table)
     name_table_report=verify_name_tables(patches[CD],read_disc_member(CD),decoded_font,proposal,runtime_table,source_table,patches[EXE])
@@ -323,6 +325,7 @@ def assemble():
     report['instruction_overrides']=instruction_report
     report['nisv_squad_names']=squad_report
     report['terrain_names']=terrain_report
+    report['gravion_labels']=gravion_report
     report['unit_names']=unit_report
     report['pilot_names']=pilot_report
     report['name_tables']=name_table_report
