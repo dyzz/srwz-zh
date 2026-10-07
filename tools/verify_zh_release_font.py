@@ -7,6 +7,7 @@ import argparse
 import json
 from pathlib import Path
 
+from srwz.squad_name_ligature import (CHARACTER as SQUAD_LIGATURE, ligature_raster, ligature_metadata, validate_ligature_assignment)
 from srwz.font import (
     GLYPH_SIZE,
     decode_vt1_font_segment,
@@ -184,6 +185,11 @@ def main() -> int:
             raise SystemExit(
                 f"release glyph raster drift: {assignment['character']!r}"
             )
+        if assignment["character"] == SQUAD_LIGATURE:
+            validate_ligature_assignment(assignment)
+            if (candidate_glyph != ligature_raster(source_font)[2]
+                    or assignment["raster"] != ligature_metadata(source_font)):
+                raise SystemExit("squad ligature differs from approved stock-derived bitmap")
         if assignment["raster"].get("mode") == "copy_original_iso_glyph":
             source_code = assignment["raster"].get("source_code")
             if (

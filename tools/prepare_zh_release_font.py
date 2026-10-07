@@ -42,6 +42,7 @@ from srwz.release_font import (
     rendered_characters,
     selected_translation_tree_entries,
 )
+from srwz.squad_name_ligature import (CHARACTER as SQUAD_LIGATURE, ligature_metadata, validate_ligature_assignment)
 from srwz.text import load_text_table
 from srwz.native_period import PERIOD_CHARACTERS, native_period_metadata
 
@@ -362,6 +363,8 @@ def main() -> int:
     raster_grays = {}
 
     def rasterize(character: str) -> tuple[str, dict]:
+        if character == SQUAD_LIGATURE:
+            return character, ligature_metadata(original_font)
         if character in PERIOD_CHARACTERS:
             return character, native_period_metadata(original_font)
         gray, pixels, packed = rasterize_character(
@@ -429,6 +432,8 @@ def main() -> int:
         source_compatibility: bool = False,
     ) -> dict:
         character = row.get("character")
+        if character == SQUAD_LIGATURE:
+            validate_ligature_assignment(row)
         code_text = row.get("code")
         glyph_index = row.get("glyph_index")
         if (

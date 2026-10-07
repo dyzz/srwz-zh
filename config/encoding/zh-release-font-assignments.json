@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1912,
+  "allocation_assignment_count": 1913,
   "reraster_existing_assignment_count": 1620,
-  "primary_assignment_count": 3532,
+  "primary_assignment_count": 3533,
   "surface_alias_assignment_count": 54,
-  "primary_mapping_sha256": "bbe8e58da89a3dff21ca8b3e8c82e1b7e3ab895c6f30d3108cad59fe62d9e551",
+  "primary_mapping_sha256": "f6062430d166748fbfb187b535e730d44a51fcec078f1b93d1d5d2b4ed67120f",
   "surface_alias_mapping_sha256": "9144c1571b3ee85e66bf339f9d07ae46bca14ede427f91fc52c62d2c432b9133",
   "source_compatibility_assignment_count": 36,
   "source_compatibility_mapping_sha256": "2a01296e8138d6343232359cb3818de870d704222de0d26a0ba53a38319beb62",
-  "remaining_allocation_candidate_count": 13,
-  "remaining_allocation_candidates_sha256": "198bf5a95590f6eca73b7ea0bec5e95d52ab2d85d2ea4f7a4b33610bf163714c",
+  "remaining_allocation_candidate_count": 12,
+  "remaining_allocation_candidates_sha256": "dd859404a6fc46d71e0c5a39c03f2392a3e6f9881569c07a3e09ce75f7f98847",
   "primary_assignments": [
     {
       "character": "、",
@@ -23837,6 +23837,17 @@
       "mapping": "reclaimed_unique_default_width_candidate",
       "source_character": "瑠",
       "allocation_width_class": "default_width"
+    },
+    {
+      "character": "",
+      "code": "97F0",
+      "glyph_index": 4400,
+      "mapping": "source_bound_squad_name_ligature",
+      "logical_expansion": "E ",
+      "allocation_scope": [
+        "squad_name"
+      ],
+      "user_authority": "config/editorial/land-squad-ligature-user-approved-20261007.json"
     }
   ],
   "surface_alias_assignments": [
@@ -24565,12 +24576,6 @@
   ],
   "remaining_allocation_candidates": [
     {
-      "code": "97F0",
-      "glyph_index": 4400,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "歴"
-    },
-    {
       "code": "97F8",
       "glyph_index": 4408,
       "mapping": "reclaimed_unique_default_width_candidate",
@@ -24647,7 +24652,7 @@
     "mode": "flattened_release_baseline_with_legacy_save_compatibility",
     "preserved_historical_primary_assignment_count": 3158,
     "preserved_historical_primary_mapping_sha256": "b4a9efad8c9c4636503572dc8d38ea4d147938af26c8f309fc7cdbd4b374a183",
-    "added_global_assignment_count": 48,
+    "added_global_assignment_count": 49,
     "active_build_dependency": false,
     "reason": "The active release build consumes this self-contained snapshot. All 192 original glyphs used by the 248 locked stock formation names, plus confirmed legacy-only name glyphs, are protected from Chinese font reuse.",
     "clean_default_width_cjk_primary_migration": true
@@ -41535,6 +41540,26 @@
           "allocation_width_class": "default_width"
         }
       ]
+    },
+    {
+      "selection_sha256": "1c5aa43468ab46138acab1f7c718b01b93b8c1899ba9334308fada2c76983d39",
+      "assignment_count": 1,
+      "allocation_assignment_count": 1,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "",
+          "code": "97F0",
+          "glyph_index": 4400,
+          "mapping": "source_bound_squad_name_ligature",
+          "logical_expansion": "E ",
+          "allocation_scope": [
+            "squad_name"
+          ],
+          "user_authority": "config/editorial/land-squad-ligature-user-approved-20261007.json"
+        }
+      ],
+      "reason": "User-approved stock-derived E plus blank ligature for sixteen-byte Land squad-name slots; no ordinary text rewrite"
     }
   ],
   "candidate_pool": {

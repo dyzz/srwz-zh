@@ -91,6 +91,7 @@ try:
         build_nisv_library_menu,
         build_nisv_sound_select,
     )
+    from srwz.squad_name_ligature import stored_squad_name
     from srwz.ui_name_tables import build_ui_name_tables
     from srwz.nisv_tutorial import (
         NisvTutorialError,
@@ -294,6 +295,7 @@ except ModuleNotFoundError:
         build_nisv_library_menu,
         build_nisv_sound_select,
     )
+    from tools.srwz.squad_name_ligature import stored_squad_name
     from tools.srwz.ui_name_tables import build_ui_name_tables
     from tools.srwz.nisv_tutorial import (
         NisvTutorialError,
@@ -422,6 +424,7 @@ try:
 except ModuleNotFoundError:
     from tools.srwz.build_fingerprints import font_binary_signature
     from tools.srwz.compdata_best_corrections import apply_compdata_best_corrections
+
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -4013,8 +4016,8 @@ def _apply_stage_default_formation_names(
                     "default formation-name pointer owner drift at "
                     f"stage {stage_index} {raw_offset}"
                 )
-            translation = normalize_original_fullwidth_ascii(
-                translations_by_source[source.text]
+            translation = stored_squad_name(
+                source.text, translations_by_source[source.text]
             )
             if _control_signature(source.text) != _control_signature(
                 translation

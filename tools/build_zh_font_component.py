@@ -10,6 +10,7 @@ import struct
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from srwz.squad_name_ligature import (CHARACTER as SQUAD_LIGATURE, ligature_raster, ligature_metadata, validate_ligature_assignment)
 from srwz.font_rasterizer import (
     quantize_gray_4bpp,
     rasterize_character,
@@ -214,6 +215,9 @@ def main() -> int:
 
     def rasterize_assignment(assignment: dict) -> tuple[bytes, bytes, bytes]:
         character = assignment["character"]
+        if character == SQUAD_LIGATURE:
+            validate_ligature_assignment(assignment)
+            return ligature_raster(original_font.decoded)
         if character in PERIOD_CHARACTERS:
             return native_period_raster(original_font.decoded)
         if character in raster_grays:
@@ -360,6 +364,8 @@ def main() -> int:
             }
             if "metrics" in assignment["raster"]:
                 actual_raster["metrics"] = glyph_raster_metrics(pixels)
+            if character == SQUAD_LIGATURE:
+                actual_raster = ligature_metadata(original_font.decoded)
             if character in PERIOD_CHARACTERS:
                 actual_raster = native_period_metadata(original_font.decoded)
         if actual_raster != assignment["raster"]:

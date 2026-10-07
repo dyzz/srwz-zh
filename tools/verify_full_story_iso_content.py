@@ -140,7 +140,9 @@ from srwz.text import (
     normalize_two_byte_visible_spaces,
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
+    two_byte_visible_spaces,
 )
+from srwz.squad_name_ligature import stored_squad_name
 from srwz.writers import PreparedStageMessageEncoders, encode_stage_message
 from srwz.verified_cache import (
     collect_locked_paths,
@@ -1984,8 +1986,8 @@ def verify_stage_default_formation(
             original, decoded_offset, source_table, end=slot_end
         )
         actual = decode_text(decoded, decoded_offset, output_table)
-        translation = normalize_original_fullwidth_ascii(
-            translations_by_source[cell.source_text]
+        translation = stored_squad_name(
+            cell.source_text, translations_by_source[cell.source_text]
         )
         expected_compact = compact_formation_ascii_replacement(
             source_text=source.text,
@@ -1999,6 +2001,7 @@ def verify_stage_default_formation(
             or any(original[decoded_offset + source.consumed : slot_end])
             or actual.text != translation
             or actual.consumed > slot_size
+            or b"\x20" in decoded[decoded_offset : decoded_offset + actual.consumed]
             or any(decoded[decoded_offset + actual.consumed : slot_end])
         ):
             raise SystemExit(
@@ -2091,6 +2094,8 @@ def verify_stage_default_formation(
         "slot_padding_zero": True,
         "archive_padding_zero": True,
         "placeholder_control_tokens_preserved": True,
+        "raw_single_byte_space_count": 0,
+        "two_byte_spaces_exact": True,
         "readback_exact": True,
     }
 

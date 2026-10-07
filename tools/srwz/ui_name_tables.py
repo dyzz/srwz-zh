@@ -7,6 +7,7 @@ import struct
 
 from .codec import decode_production, reencode_changed_suffix
 from .iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
+from .squad_name_ligature import stored_squad_name
 from .text import PreparedTextEncoder, decode_text, project_runtime_text_table
 
 
@@ -63,7 +64,7 @@ def translate_names(source, current, entries, *, kind, table, overrides):
     preserved_source, preserved_current = bytearray(source), bytearray(current)
     rows = []
     for offset, capacity, row in name_slots(source, entries, kind=kind, table=table):
-        encoded = encoder.encode(row["translation"].replace(" ", "\u3000"), terminate=True)
+        encoded = encoder.encode((stored_squad_name(row["source"], row["translation"]) if kind == "squad" else row["translation"].replace(" ", "\u3000")), terminate=True)
         _require(len(encoded) <= capacity, f"{kind}/{row['index']} name exceeds {capacity} bytes")
         replacement = encoded + bytes(capacity - len(encoded))
         old = current[offset:offset + capacity]
@@ -73,7 +74,7 @@ def translate_names(source, current, entries, *, kind, table, overrides):
         preserved_source[offset:offset + capacity] = bytes(capacity)
         preserved_current[offset:offset + capacity] = bytes(capacity)
         _require(decode_text(output, offset, runtime, end=offset + capacity).text
-                 == row["translation"].replace(" ", "\u3000"), "name reread mismatch")
+                 == (stored_squad_name(row["source"], row["translation"]) if kind == "squad" else row["translation"].replace(" ", "\u3000")), "name reread mismatch")
         rows.append({"index": row["index"], "offset": offset, "capacity": capacity,
                      "encoded_size": len(encoded), "translation": row["translation"]})
     _require(preserved_source == preserved_current, f"{kind} non-name data drift")
@@ -125,7 +126,7 @@ def verify_name_table(source, actual, entries, *, kind, source_table, runtime_ta
     before, after = bytearray(source), bytearray(actual)
     for offset, capacity, row in name_slots(source, entries, kind=kind, table=source_table):
         text = decode_text(actual, offset, runtime_table, end=offset + capacity)
-        _require(text.text == row["translation"].replace(" ", "\u3000") and not text.unknown_code_count,
+        _require(text.text == (stored_squad_name(row["source"], row["translation"]) if kind == "squad" else row["translation"].replace(" ", "\u3000")) and not text.unknown_code_count,
                  f"{kind}/{row['index']} final ISO text mismatch")
         _require(not any(actual[text.end:offset + capacity]), "nonzero name-slot padding")
         before[offset:offset + capacity] = bytes(capacity)
