@@ -31,12 +31,31 @@ from srwz.release_font import (
     rendered_characters,
     selected_translation_tree_entries,
 )
-from srwz.text import RUNTIME_FORMAT_TOKEN, encode_text, load_text_table
+from srwz.text import (
+    RUNTIME_FORMAT_TOKEN,
+    encode_text,
+    load_text_table,
+    verify_runtime_control_bytes,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
 DEFAULT_CONFIG = PROJECT_ROOT / "config/fonts/zh-release-font.json"
+
+
+def runtime_placeholder_bytes_are_exact(token, table) -> bool:
+    """Check native bytes, including lossless decoder tags inside a control."""
+    encoded = encode_text(token, table)
+    try:
+        controls = verify_runtime_control_bytes(encoded, table, token)
+    except ValueError:
+        return False
+    if len(controls) != 1 or encoded != controls[0]:
+        return False
+    return not token.startswith("%") or RUNTIME_FORMAT_TOKEN.fullmatch(
+        controls[0].decode("ascii")
+    ) is not None
 
 
 def parse_args() -> argparse.Namespace:
@@ -306,16 +325,7 @@ def main() -> int:
                 runtime_placeholder_occurrence_count += kind_report["forms"][
                     token
                 ]
-                encoded_token = encode_text(token, baseline["table"])
-                if kind == "runtime_format":
-                    try:
-                        decoded_token = encoded_token.decode("ascii")
-                    except UnicodeDecodeError:
-                        runtime_placeholder_bytes_exact = False
-                        continue
-                    if RUNTIME_FORMAT_TOKEN.fullmatch(decoded_token) is None:
-                        runtime_placeholder_bytes_exact = False
-                elif encoded_token != token.encode("ascii"):
+                if not runtime_placeholder_bytes_are_exact(token, baseline["table"]):
                     runtime_placeholder_bytes_exact = False
         control_occurrence_count += kind_report["occurrence_count"]
     if (
