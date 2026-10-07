@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "authority": "user_selected_capacity_fallback",
+  "user_text": "如果写入不了是不是可以改成热血男儿",
+  "scope": "Original and The Best squad names; SP retains THE HEAT in its 28-byte slot",
+  "source": "ザ・ヒート",
+  "before": "THE HEAT",
+  "after": "热血男儿",
+  "reason": "Ten locked main-game STAGE allocations have capacity 16; complete two-byte THE HEAT plus NUL needs 17. The selected four-character name needs 9 and preserves the allocations and pointers.",
+  "bindings": [
+    {"path": "corpus/zh/menu/ui-name-tables.json", "id": "ui-name/nisv-squad/097"},
+    {"path": "corpus/zh/menu/stage-default-formations.json", "source": "ザ・ヒート", "occurrences": 11}
+  ]
+}

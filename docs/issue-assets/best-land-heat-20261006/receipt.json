@@ -1,0 +1,87 @@
+{
+  "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/sp-armsx2-land-20261006/armsx2-current-card.ps2",
+  "source_sha256": "a126d7ecce0f6af8e77acab9fed36776a3051a7786dc86f26cdb3f903237496a",
+  "output": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/sp-armsx2-land-20261006/BEST-Land-slot1-repaired.ps2",
+  "output_sha256": "0c3abae0021b69c33cb41ee225aca156bbbe05f87009d68bfad28191dfaec8f4",
+  "changed_file": "/BISLPS-25887S0/BISLPS-25887S0",
+  "changed_offsets": [
+    "0x1cf8",
+    "0x1cf9",
+    "0x1cfa",
+    "0x1cfb",
+    "0x1cfc",
+    "0x1cfd",
+    "0x1cfe",
+    "0x1cff",
+    "0x1d00",
+    "0x1d01",
+    "0x1d02",
+    "0x1d03",
+    "0x1d04",
+    "0x1d05",
+    "0x1d06",
+    "0xf59a",
+    "0xf59b"
+  ],
+  "slot_offset": "0x1cf8",
+  "slot_capacity": 24,
+  "old_hex": "82738267826420826782648260827300",
+  "new_hex": "874e8c8c926a938800",
+  "translation": "热血男儿",
+  "checksum_calculated": 26519,
+  "checksum_stored": 26519,
+  "other_files_byte_exact": true,
+  "suspend_save_preserved": true,
+  "runtime": "passed final BEST cold load from repaired ordinary slot 1",
+  "original_card_modified": false,
+  "runtime_before_iso_rebuild": {
+    "status": "passed cold load from repaired ordinary slot 1",
+    "iso_sha256": "28e7a3d04225e6e01e0580d112a6ec95e4ed0878f093204876aad6f487aed6a1",
+    "renderer": "LRPS2 Software (SW)",
+    "screenshot": "work/runtime/lrps2/sp-armsx2-land-20261006/heat-man-card-before-build/land-heat-man-card.png",
+    "ram_fields": [
+      "0x57E0B8",
+      "0x590918"
+    ],
+    "all_fields_exact": true,
+    "ram_pokes": false
+  },
+  "player_source_card": "/Users/nate/Super-Robot-Wars-Z/work/Mcd001.ps2",
+  "tests": {
+    "count": 751,
+    "status": "passed",
+    "log": "work/runtime/lrps2/sp-armsx2-land-20261006/tests-final.log"
+  },
+  "scope": {
+    "sp": "THE HEAT unchanged in 28-byte NISV slot",
+    "main": "user-selected 热血男儿 in NISV name table and all 11 locked STAGE fields; two-byte visible spaces for other names"
+  },
+  "runtime_final": {
+    "status": "passed",
+    "iso_sha256": "63decf029564de61bf86110f057ae6b34973a8f8bea76ebf90647d39691773c8",
+    "renderer": "LRPS2 Software (SW)",
+    "screenshot": "docs/issue-assets/best-land-heat-20261006/land-final.png",
+    "ram_fields": {
+      "0x57e0b8": "874e8c8c926a938800000000000000000000000000000000",
+      "0x590918": "874e8c8c926a938800000000000000000000000000000000"
+    },
+    "stage_resource_address": "0x75FFD8",
+    "stage_resource_name_hex": "97ec8c8c926a938800",
+    "stage_uses_reviewed_hot_character_alias": true,
+    "ram_pokes": false
+  },
+  "armsx2_selectable_repaired_card": "/Users/nate/Super-Robot-Wars-Z/work/Mcd001-Land-Heat-Man-fixed.ps2",
+  "final_outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "58a9b0b92ed14c97a5cf2f73d2d055c55d35792997672fedefc03a2a7f3bfcc5",
+      "size": 3758358528
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "63decf029564de61bf86110f057ae6b34973a8f8bea76ebf90647d39691773c8",
+      "size": 3755081728
+    }
+  },
+  "broad_space_audit": "docs/issue-assets/best-land-heat-20261006/space-audit-summary.json"
+}
