@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-09",
+  "issue": "V042-011",
+  "reporter": "bgcnh",
+  "runtime": "LRPS2 Software renderer, separate cold boots and isolated cards",
+  "entry_id": "story/001/dialogue/02.01/0047",
+  "speaker": "卡克利孔",
+  "found": {
+    "advance_count": 44,
+    "raw_hex": "91588d8e97988d450a8fe88849855c926a906c8f4190a5924f94ee9247904b93b594b48fe388d18fe08fe00a8140817396489773945690af8174934997c497ab94ea8fe08fe08feb",
+    "RAM_modified": false
+  },
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "memory_card_source_sha256_at_end": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+  "logs": [
+    {
+      "path": "work/runtime/lrps2/v042-parenthetical-20261009/commands.jsonl",
+      "sha256": "4b2e99185abcdfd7c523c675402dedda3880dcd7582511079ce8b6149f8dba3d",
+      "command_count": 169,
+      "frame_at_dialogue": "OK frame=14292",
+      "frame_at_backlog": "OK frame=14417",
+      "RAM_modified": false,
+      "cross_iso_savestate_used": false
+    },
+    {
+      "path": "work/runtime/lrps2/v042-parenthetical-candidate-20261009/commands.jsonl",
+      "sha256": "248b54fb23c8e934ab15ef03465353e01fe56920c12668c8291b5b0cee701839",
+      "command_count": 169,
+      "frame_at_dialogue": "OK frame=14292",
+      "frame_at_backlog": "OK frame=14417",
+      "RAM_modified": false,
+      "cross_iso_savestate_used": false
+    }
+  ],
+  "images": [
+    {
+      "capture": "ordinary-quote",
+      "changed_pixel_count": 0,
+      "difference_bbox_xyxy": null,
+      "images": [
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/baseline-ordinary-quote.png",
+          "sha256": "5b35d3632174b071624b81181b084822b0502c242c1bd2276f13cca1b2338c19"
+        },
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/candidate-ordinary-quote.png",
+          "sha256": "5b35d3632174b071624b81181b084822b0502c242c1bd2276f13cca1b2338c19"
+        }
+      ]
+    },
+    {
+      "capture": "parenthetical-dialogue",
+      "changed_pixel_count": 978,
+      "difference_bbox_xyxy": [
+        81,
+        318,
+        163,
+        342
+      ],
+      "images": [
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/baseline-parenthetical-dialogue.png",
+          "sha256": "a65e72db50c7fbb74bd44bac081baea8011b738b5289572e2636c5e1e2582636"
+        },
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/candidate-parenthetical-dialogue.png",
+          "sha256": "8c66338689c56e2e6753ccecfdb04f3029f434a1f56f1540aca69f45905829f0"
+        }
+      ]
+    },
+    {
+      "capture": "parenthetical-backlog",
+      "changed_pixel_count": 1428,
+      "difference_bbox_xyxy": [
+        41,
+        236,
+        157,
+        332
+      ],
+      "images": [
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/baseline-parenthetical-backlog.png",
+          "sha256": "0d5f03ef8ca68f5da2132c5c6134c3746e4e6ab662452cbf83c108327cffcdfb"
+        },
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/candidate-parenthetical-backlog.png",
+          "sha256": "14e70654a9c27786ea3cd64d55385b359371995d1ed5760523f9c42e85a3ecc5"
+        }
+      ]
+    }
+  ],
+  "candidate": {
+    "source_sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c",
+    "output_sha256": "37586225bda2fbae1b9e6be9a3be02f60ff0450a74d51d5937f67429fa85af32",
+    "changed_iso_offsets": [
+      "0x421a60",
+      "0x421a61"
+    ],
+    "changed_slps_offsets": [
+      "0x33E260",
+      "0x33E261"
+    ],
+    "virtual_address": "0x43C7E0",
+    "before": "8169",
+    "after": "8FE8",
+    "scope": "diagnostic candidate only; no production source or current ISO modified",
+    "size": 3758358528
+  },
+  "status": "baseline reproduced; candidate ordinary dialogue and backlog speaker colors restored; pixel changes confined to speaker names; no production changes; PCSX2/manual not tested"
+}

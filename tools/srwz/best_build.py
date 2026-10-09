@@ -28,6 +28,8 @@ from .library_protagonist_names import (
 )
 from .battle_square_skip import apply_battle_square_skip, verify_battle_square_skip, executable_write_ranges as square_skip_ranges
 from .weapon_detail_parentheses import verify_weapon_detail_parentheses
+from .dialogue_speaker_colors import verify_dialogue_speaker_prefixes
+from .text import PreparedTextEncoder
 
 
 def require(condition, message):
@@ -127,6 +129,12 @@ class BestCompiler:
         for key in ['primary_assignments', 'surface_alias_assignments', 'source_compatibility_assignments']:
             chars.update({int(r['code'], 16): r['character'] for r in assignments[key]})
         self.zh_table = TextTable(chars, self.table.tags)
+        dialogue_overrides = {r['character']: int(r['code'], 16)
+                              for key in ('primary_assignments', 'surface_alias_assignments')
+                              for r in assignments[key]}
+        dialogue_encoder = PreparedTextEncoder(self.table, dialogue_overrides)
+        self.dialogue_prefixes = {text: dialogue_encoder.encode(text, terminate=False)
+                                 for text in ('“', '（')}
         self.spans = self.contract['elf_spans']
         self.span_starts = [r[0] for r in self.spans]
         require(all(a[1] <= b[0] for a, b in zip(self.spans, self.spans[1:])), 'overlapping ELF layout spans')
@@ -321,6 +329,7 @@ class BestCompiler:
         return out
 
     def verify_elf_policy(self, output):
+        verify_dialogue_speaker_prefixes(bytes(output), 'best', encoded_prefixes=self.dialogue_prefixes)
         if getattr(self, 'square_skip', None):
             verify_battle_square_skip(bytes(output), self.square_skip, 'best', self.square_skip_proof)
         native = self.native['best']['SLPS_732.70']
@@ -532,6 +541,7 @@ class BestCompiler:
         self.outputs['SLPS_732.70'] = bytes(elf)
         self.verify_elf_policy(elf)
         weapon_parentheses = verify_weapon_detail_parentheses(bytes(elf), 'best')
+        dialogue_colors = verify_dialogue_speaker_prefixes(bytes(elf), 'best', encoded_prefixes=self.dialogue_prefixes)
         name_corpus = load_json(self.common / 'corpus/zh/menu/ui-name-tables.json')
         name_table = project_runtime_text_table(self.zh_table, original_fullwidth_ascii_overrides(self.table))
         original_offsets = self.offsets('DATA/NISVDATA.BIN', 'original')
@@ -558,6 +568,7 @@ class BestCompiler:
                   'runtime_archive_tables':archive_table_proofs,'ui_name_tables':name_proof,
                   'library_protagonist_names':self.library_name_proof,'battle_square_skip':self.square_skip_proof,
                   'weapon_detail_parentheses':weapon_parentheses,
+                  'dialogue_speaker_colors':dialogue_colors,
                   'native_elf_outside_declared_writes_preserved':True,'elf_write_ranges':self.elf_writes,
                   'compdata_native_corrections_preserved':True,'library_policy':'all_valid_entries_without_save_writeback','runtime':'not_tested'}
         write_json(self.work/'component-validation.json',report)
@@ -617,6 +628,7 @@ class BestCompiler:
                 and sum(len(p['dispatchers']) for p in dispatch_proofs) == 184, 'STAGE dispatcher coverage drift')
         final_sha256 = sha256_file(temporary)
         weapon_parentheses = verify_weapon_detail_parentheses(final_members['SLPS_732.70'], 'best')
+        dialogue_colors = verify_dialogue_speaker_prefixes(final_members['SLPS_732.70'], 'best', encoded_prefixes=self.dialogue_prefixes)
         publish_verified(temporary, target, final_sha256)
         proof = {'schema_version':1,'status':'best_final_iso_static_content_readback_passed','input_digest':self.input_digest,
                  'iso':{'path':target.relative_to(self.root).as_posix(),'size':target.stat().st_size,'sha256':final_sha256},
@@ -625,6 +637,7 @@ class BestCompiler:
                  'subtitle_record_count':self.srvc_proof['records'],'all_non_replacement_iso_bytes_preserved':True,
                  'native_member_sizes_and_lbas_preserved':True,'runtime':'not_tested',
                  'weapon_detail_parentheses':weapon_parentheses,
+                 'dialogue_speaker_colors':dialogue_colors,
                  'component_readback':{'path':(self.work/'component-validation.json').relative_to(self.root).as_posix(),'sha256':sha256_file(self.work/'component-validation.json')}}
         write_json(self.work/'iso-readback.json',proof)
         return proof

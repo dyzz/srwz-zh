@@ -10779,6 +10779,13 @@ def _build_components(
             apply_dialogue_speaker_quote_constant(
                 output_slps,
                 config["dialogue_speaker_colors"],
+                encoded_prefixes={
+                    text: PreparedTextEncoder(
+                        runtime_keyword_source_table,
+                        {**runtime_keyword_primary, **runtime_keyword_aliases},
+                    ).encode(text, terminate=False)
+                    for text in ("“", "（")
+                },
             )
         )
     except (KeyError, ValueError, DialogueSpeakerColorError) as error:
@@ -11664,11 +11671,11 @@ def _build_components(
                 dialogue_speaker_color_report["source_quote"] == "「"
                 and dialogue_speaker_color_report["output_quote"] == "“"
                 and dialogue_speaker_color_report[
-                    "preserved_parenthetical_quote"
+                    "parenthetical_quote"
                 ]
                 == "（"
                 and dialogue_speaker_color_report[
-                    "parenthetical_quote_preserved_byte_exact"
+                    "prefixes_match_production_encoding"
                 ]
                 and dialogue_speaker_color_report[
                     "replacement_reread_exact"

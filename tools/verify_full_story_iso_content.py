@@ -22,6 +22,8 @@ from srwz.chinese_layout import (
     dialogue_line_widths,
 )
 from srwz.codec import decode_production as decode
+from srwz.dialogue_speaker_colors import verify_dialogue_speaker_prefixes
+from srwz.text import PreparedTextEncoder
 from srwz.ui_name_tables import NISV_SPEC, verify_name_table
 from srwz.compdata_best_corrections import audit_compdata_best_corrections
 from srwz.display_names import (
@@ -5493,6 +5495,12 @@ def main() -> int:
     overrides, surface_aliases, proposal = load_overrides(
         project_path(args.codebook_proposal)
     )
+    dialogue_encoder = PreparedTextEncoder(source_table, {**overrides, **surface_aliases})
+    dialogue_speaker_colors = verify_dialogue_speaker_prefixes(
+        slps, "original",
+        encoded_prefixes={text: dialogue_encoder.encode(text, terminate=False)
+                          for text in ("“", "（")},
+    )
     table = project_runtime_text_table(source_table, overrides)
     compdata_table = project_runtime_text_table(table, surface_aliases)
     ascii_overrides = original_fullwidth_ascii_overrides(source_table)
@@ -7275,6 +7283,7 @@ def main() -> int:
         "condition_count": total_conditions,
         "speaker_count": total_speakers,
         "post_release_runtime_surfaces": post_release_runtime_surfaces,
+        "dialogue_speaker_colors": dialogue_speaker_colors,
         "issue_036_tutorial": issue_036_tutorial,
         "weapon_special_effect_2": weapon_effect_2_readback,
         "runtime_full_name_order": full_name_order_readback,

@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-09",
+  "issue": "V042-011",
+  "runtime": "LRPS2 Software",
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "editions": {
+    "best": {
+      "iso_sha256": "bfbbf4671d44e4ddad993510d5ad2258f796ecf001af3647c266fca7108137cf",
+      "entry_id": "story/001/dialogue/02.01/0047",
+      "advance_count": 44,
+      "raw_hex": "91588d8e97988d450a8fe8884997e9926a906c8f4190a5924f94ee9247904b93b594b48fe388d18fe08fe00a8140817396489773945690af8174934997c497ab94ea8fe08fe08feb",
+      "RAM_modified": false,
+      "cross_iso_savestate_used": false,
+      "status": "natural parenthetical dialogue and Back Log speaker colors blue; prior blue/orange preserved",
+      "commands": {
+        "path": "work/runtime/lrps2/speaker-fix-current-best-20261009/client.jsonl",
+        "sha256": "bdb406a6ba460e3901549cb180a2bfb5c51d7734669c99050d616fadde70fd30"
+      },
+      "unused_diagnostic_RAM_probe": "client read 0x43CFD8 instead of 0x43CFC8; excluded from constant verification; final ISO block independently verified at native file offset 0x33EA48",
+      "images": [
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/current-best-ordinary-quote.png",
+          "sha256": "5b35d3632174b071624b81181b084822b0502c242c1bd2276f13cca1b2338c19"
+        },
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/current-best-parenthetical-dialogue.png",
+          "sha256": "ce08743347bd4a5d32dd44a8c9a11bbcf8221bd2bd1b5903b894b542ee543e5f"
+        },
+        {
+          "path": "docs/issue-assets/speaker-color-20261009/current-best-parenthetical-backlog.png",
+          "sha256": "548e0e6331d9b3066a54d00065d47fa2e3aa3e60f9c779a025e493a683204243"
+        }
+      ]
+    },
+    "original": {
+      "status": "incomplete: agent terminated both attempts while a bulk run after frame 3328 was outstanding; no evidence distinguishing slow execution from hang; no passing formal-current runtime claim",
+      "attempts": [
+        {
+          "path": "work/runtime/lrps2/speaker-fix-current-original-20261009",
+          "client_log_sha256": "e1d6000e4beae4f80de07b1ed414ea07940673df21683c1dc1a3a984d053b7e4",
+          "last_completed_frame": 3328,
+          "status": "incomplete; terminated"
+        },
+        {
+          "path": "work/runtime/lrps2/speaker-fix-current-original-retry-20261009",
+          "client_log_sha256": "e1d6000e4beae4f80de07b1ed414ea07940673df21683c1dc1a3a984d053b7e4",
+          "last_completed_frame": 3328,
+          "status": "incomplete; terminated"
+        }
+      ],
+      "diagnostic_candidate_evidence": "runtime-receipt.json is separately bound to frozen v0.4.2 and its two-byte candidate"
+    },
+    "sp": {
+      "first_attempt": {
+        "path": "work/runtime/lrps2/speaker-fix-current-sp-20261009",
+        "status": "invalid detector buffer offset F26180; actual text begins F2618C; client stopped and driver ended with BrokenPipe; no passing runtime claim"
+      },
+      "retest": {
+        "path": "work/runtime/lrps2/speaker-fix-current-sp-retry-20261009",
+        "status": "natural parenthetical dialogue speaker blue; Back Log speaker orange with alternating blue/orange preserved",
+        "entry_id": "story/001/dialogue/02.01/0014",
+        "text": "（西罗克这家伙……\n　仗着统帅的威势得意忘形……走着瞧吧……）",
+        "raw_hex": "89e5907a89c10a8fe890bc95e38d8e884989c692bb8fe08fe00a81408560928595c0924d934988d094c393be88d396598c608fe08fe091969285876594f48fe08fe08feb",
+        "advance_count": 9,
+        "dialogue_frame": 11025,
+        "backlog_frame": 11150,
+        "RAM_modified": false,
+        "cross_iso_savestate_used": false,
+        "constant_RAM_address": "0x4B0558",
+        "constant_RAM_hex": "91410000000000008fe8000000000000",
+        "iso_sha256": "b415eac5935108f1b8de5b157cc78d666ffce9d15ae4f5f92819916e1f427b1a",
+        "commands_sha256": "985ec32c23536e1cebfa533d727cf54bc062074d95dbc8c9a6038827bffbf17a",
+        "images": [
+          {
+            "path": "docs/issue-assets/speaker-color-20261009/current-sp-ordinary-quote.png",
+            "sha256": "2b41bdd037e327b5eed5e2e816fe593ea0c833e0aa26d3e8f72fe8d9e1ee4c02"
+          },
+          {
+            "path": "docs/issue-assets/speaker-color-20261009/current-sp-parenthetical-dialogue.png",
+            "sha256": "24eab518c6bfe5f145dda6ce60b89c839553efc93dd509f767f1f1da3949f533"
+          },
+          {
+            "path": "docs/issue-assets/speaker-color-20261009/current-sp-parenthetical-backlog.png",
+            "sha256": "fa775053b00c61a85a813cf31eddf560d9228557da6e42cac4b76abc34d79050"
+          }
+        ]
+      }
+    }
+  },
+  "PCSX2_manual": "not_tested"
+}

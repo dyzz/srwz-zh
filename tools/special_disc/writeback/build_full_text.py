@@ -51,6 +51,8 @@ from special_disc.writeback.instruction_overrides import apply_overrides
 from special_disc.writeback.squad_names import apply_nisv_names
 from parenthesis_glyphs import apply_parentheses
 from srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
+from srwz.dialogue_speaker_colors import apply_dialogue_speaker_prefixes
+from srwz.text import PreparedTextEncoder
 from srwz.font_profile import load_font_profile
 from special_disc.writeback.incremental import CACHE_PATH, ComponentCache, seed_components
 from special_disc.writeback.shared_library import apply_shared_library
@@ -269,6 +271,10 @@ def assemble():
         require(sha(base[name])==reports['image-labels']['base_files'][name],f'image {name} base drift');patches[name]=data
     patches.update(components['srvc'])
     source_table,_,stored_overrides,runtime_table=encoding_tables(PROPOSAL)
+    dialogue_encoder=PreparedTextEncoder(source_table,stored_overrides)
+    patches[EXE],dialogue_color_report=apply_dialogue_speaker_prefixes(
+        patches[EXE],'sp',encoded_prefixes={text:dialogue_encoder.encode(text,terminate=False)
+                                         for text in ('“','（')})
     patches[EXE], library_members, library_report = timed(
         'current-shared-library', apply_shared_library, patches[EXE],
         lambda name: read_member(BASE, members, name), read_disc_member,
@@ -339,6 +345,7 @@ def assemble():
     report['weapon_detail_labels']=weapon_report
     report['current_shared_library']=library_report
     report['weapon_detail_parentheses']=weapon_parentheses_report
+    report['dialogue_speaker_colors']=dialogue_color_report
     report['native_parentheses']=parenthesis_report
     report['data_link_bonus']=link_report
     report['battle_square_skip']=skip_report

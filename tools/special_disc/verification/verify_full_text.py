@@ -38,6 +38,8 @@ from special_disc.writeback.shared_label_updates import verify_shared_labels, au
 from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
+from srwz.dialogue_speaker_colors import verify_dialogue_speaker_prefixes
+from srwz.text import PreparedTextEncoder
 from special_disc.writeback.shared_library import verify_shared_library
 from write_system_text import overlay_member
 from srwz.library_work_titles import verify_work_title_pool
@@ -174,6 +176,12 @@ def main(iso=None, work=None):
     counts['terrain_names']=terrain['occurrence_count']
     weapon_labels=verify_weapon_detail_labels(exe,readback,table,overrides,font=name_font,proposal=proposal)
     weapon_parentheses=verify_weapon_detail_parentheses(exe,'sp')
+    dialogue_encoder=PreparedTextEncoder(table,overrides)
+    dialogue_colors=verify_dialogue_speaker_prefixes(
+        exe,'sp',encoded_prefixes={text:dialogue_encoder.encode(text,terminate=False)
+                                  for text in ('“','（')})
+    for key,value in dialogue_colors.items():
+        require(manifest['dialogue_speaker_colors'][key]==value,'SP dialogue speaker-color receipt drift')
     for key,value in weapon_parentheses.items():
         require(manifest['weapon_detail_parentheses'][key]==value,'weapon parenthesis receipt drift')
     require(weapon_labels==manifest['weapon_detail_labels']['labels'],'weapon label receipt drift')

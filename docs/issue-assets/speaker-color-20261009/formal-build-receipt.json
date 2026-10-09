@@ -1,0 +1,171 @@
+{
+  "date": "2026-10-09",
+  "issue": "V042-011",
+  "scope": "staged source inputs only; unrelated working-tree SRVC edits excluded",
+  "input_digest": "107431dc34e84dc26dc6395d59bccc3fb522074ac69501b940c1f68740d00347",
+  "batch_manifest": "work/editions/107431dc34e84dc26dc6395d59bccc3fb522074ac69501b940c1f68740d00347/original-best-sp.json",
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "107431dc34e84dc26dc6395d59bccc3fb522074ac69501b940c1f68740d00347",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "editions": {
+    "original": {
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "9eea345eb403ec29dc5514490bdfec57d9ddb04177d211094db9c0f97ea7e631",
+        "size": 3758358528
+      },
+      "readback": {
+        "path": "build/editions/zh-release-original/6309074302d7e74b26736b825adbd4c9717dc919436c6bd60309daba2c4530d2/project/manifests/zh-release-full-story-iso-content-validation.json",
+        "sha256": "64ba348d5ab7371b4ba42249053470039b77c818edbb4fe8d93cb7cf3f565e1b",
+        "stage_count": 170,
+        "translation_entry_count": 93071
+      },
+      "readback_status": "full_story_final_iso_static_content_readback_passed",
+      "dialogue_speaker_colors": {
+        "edition": "original",
+        "member": "SLPS_258.87",
+        "file_offset": 3400280,
+        "replacement_block_hex": "91410000000000008FE8000000000000",
+        "encoded_prefix_hex": {
+          "“": "9141",
+          "（": "8FE8"
+        },
+        "prefixes_match_production_encoding": true,
+        "replacement_reread_exact": true
+      },
+      "raw_prefix_audit": {
+        "iso_sha256": "9eea345eb403ec29dc5514490bdfec57d9ddb04177d211094db9c0f97ea7e631",
+        "executable_sha256": "55652f5274ff7284ee6a61c3e766a909aee31ba5442773c05b27b9bee82681e7",
+        "quote_block_hex": "91410000000000008fe8000000000000",
+        "counts": {
+          "jp_1_zh_1": 79788,
+          "dialogue": 83668,
+          "jp_0_zh_0": 3880
+        },
+        "lost": [],
+        "named_unrecognized": [],
+        "evidence": "static raw-byte model of shared recognizer; not runtime or visual validation",
+        "scope": "speaker recognition only; frozen-corpus visible text differences are expected current edits and are outside this check"
+      }
+    },
+    "best": {
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "bfbbf4671d44e4ddad993510d5ad2258f796ecf001af3647c266fca7108137cf",
+        "size": 3755081728
+      },
+      "readback": {
+        "path": "build/editions/zh-release-best/986b4e0c9a49ef3398b46edbbe7caa66115498a94d3d4f1819075438a14f943f/project/work/build/best-current/iso-readback.json",
+        "sha256": "94a3faacd9bb02266e56a1ccc31c67edafb92898b8b925b4110b7ba28806dc87",
+        "stage_count": 205,
+        "translation_entry_count": 84338
+      },
+      "readback_status": "best_final_iso_static_content_readback_passed",
+      "dialogue_speaker_colors": {
+        "edition": "best",
+        "encoded_prefix_hex": {
+          "“": "9141",
+          "（": "8FE8"
+        },
+        "file_offset": 3402312,
+        "member": "SLPS_732.70",
+        "prefixes_match_production_encoding": true,
+        "replacement_block_hex": "91410000000000008FE8000000000000",
+        "replacement_reread_exact": true
+      },
+      "raw_prefix_audit": {
+        "iso_sha256": "bfbbf4671d44e4ddad993510d5ad2258f796ecf001af3647c266fca7108137cf",
+        "executable_sha256": "7a6c722c255217bf6ea1968edd625f2fbc1b5b05fc6c1aeba61365431caafcd1",
+        "quote_block_hex": "91410000000000008fe8000000000000",
+        "counts": {
+          "jp_1_zh_1": 79788,
+          "dialogue": 83668,
+          "jp_0_zh_0": 3880
+        },
+        "lost": [],
+        "named_unrecognized": [],
+        "evidence": "static raw-byte model of shared recognizer; not runtime or visual validation",
+        "scope": "speaker recognition only; frozen-corpus visible text differences are expected current edits and are outside this check"
+      }
+    },
+    "sp": {
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "b415eac5935108f1b8de5b157cc78d666ffce9d15ae4f5f92819916e1f427b1a",
+        "size": 3791781888
+      },
+      "readback": {
+        "path": "build/editions/zh-release-sp/5b9ca08304aee30245db24d121a87c626731a7010c6f4c4d358f151b90896a76/project/build/iso/special-disc/sp-current.json",
+        "sha256": "47d4ee433ea8c3906c6a3252614c9142352fd3ca1e11c8cab298f337fd998dab"
+      },
+      "readback_status": "all_bound_text_reread_from_final_iso_runtime_pending",
+      "dialogue_speaker_colors": {
+        "edition": "sp",
+        "member": "SLPS_259.20",
+        "file_offset": 3870424,
+        "replacement_block_hex": "91410000000000008FE8000000000000",
+        "encoded_prefix_hex": {
+          "“": "9141",
+          "（": "8FE8"
+        },
+        "prefixes_match_production_encoding": true,
+        "replacement_reread_exact": true,
+        "original_block_hex": "81750000000000008169000000000000",
+        "observed_block_hex": "91410000000000008FE8000000000000",
+        "changed_offsets": [],
+        "changed_byte_count": 0,
+        "already_patched": true,
+        "migrated_spoken_quote_only_patch": false,
+        "executable_size_preserved": true
+      },
+      "executable_sha256": "1a5408e6db5997f45f71f99012d64c48bc87acad15e9824dc92f8d7e6eb8e698",
+      "executable_identical_before_after": true
+    }
+  },
+  "tests": {
+    "focused": {
+      "command": "python3 -m unittest discover -s tests -p test_dialogue_speaker_colors.py -v",
+      "ran": 6,
+      "status": "OK"
+    },
+    "full": {
+      "command": "/opt/homebrew/bin/python3 -m unittest discover -s tests -v",
+      "ran": 726,
+      "skipped": 6,
+      "status": "OK",
+      "skip_reason": "optional Unicorn unavailable"
+    },
+    "system_python_full": "exit 132 in optional Unicorn MIPS64 native execution; not counted as passed",
+    "focused-tests.log": {
+      "sha256": "9e96527150daea5a68632a0f4ad098c3630f383970ba4b35fa668ef017eb74f7"
+    },
+    "full_log": {
+      "sha256": "8da242f5ffee5dd472c6af928b95ecc3f063f5bd6578f4bd140d799b1a8c705a",
+      "path": "work/speaker-color-full-suite-homebrew-20261009.log"
+    },
+    "committed_summary": "full-tests-summary.log"
+  },
+  "original_changes_from_previous_current": [
+    {
+      "member": "SLPS_258.87",
+      "sizes": [
+        3471624,
+        3471624
+      ],
+      "changed_bytes": 2,
+      "first_offsets": [
+        "0x33e260",
+        "0x33e261"
+      ]
+    }
+  ]
+}
