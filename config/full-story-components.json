@@ -29,7 +29,7 @@
   "title_menu": {
     "path": "config/assets/title-menu-zh.json",
     "size": 8032,
-    "sha256": "98dff908342e58c569a2b60945edeaede8f9d2785c0823a2c63392bba364dd8a"
+    "sha256": "fab60b08c9396a488b8d7a8603bd3241ca37ee70fed955c677c1c37e46b25e18"
   },
   "menu_text_release": {
     "corpus": {
@@ -2962,7 +2962,12 @@
   "spirit_cost_templates": {
     "mode": "native_spirit_cost_templates",
     "template_count": 2,
-    "native_codes": ["8169", "8148", "8140", "816A"]
+    "native_codes": [
+      "8169",
+      "8148",
+      "8140",
+      "816A"
+    ]
   },
   "weapon_detail_parentheses": {
     "mode": "native_icon_template_parentheses",
@@ -3005,8 +3010,8 @@
   "runtime_keywords": {
     "catalog": {
       "path": "corpus/runtime/stage-keywords-v1.json",
-      "size": 9704,
-      "sha256": "19fd1a4914753d032a0082e19317a5a20967e68f234abcc609a60816374ae130"
+      "size": 9700,
+      "sha256": "afd095d19091000a69a135411414094760acda01d6eb102f73c20854bae52b5c"
     },
     "library_archive": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
@@ -3064,15 +3069,6 @@
         "reason": "fixed_allocation_overflow"
       },
       {
-        "stage_index": 55,
-        "keyword_index": 36,
-        "tag": "WORD",
-        "source_offset": "0x13C30",
-        "donor_offset": "0x13C70",
-        "relocation_offset": "0x13d4e",
-        "reason": "fixed_allocation_overflow"
-      },
-      {
         "stage_index": 95,
         "keyword_index": 19,
         "tag": "WORD",
@@ -3091,7 +3087,7 @@
       "stage_field_reference_count": 308,
       "stage_allocation_count": 233,
       "stage_shared_reference_count": 75,
-      "stage_relocation_count": 4,
+      "stage_relocation_count": 3,
       "stage_occupied_source_relocation_count": 1,
       "story_link_occurrence_count": 122,
       "compdata_empty_label_relocation_count": 1
