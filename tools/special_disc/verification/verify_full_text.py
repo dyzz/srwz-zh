@@ -38,6 +38,7 @@ from special_disc.writeback.shared_label_updates import verify_shared_labels, au
 from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
+from srwz.spirit_cost_templates import verify_spirit_cost_templates
 from srwz.dialogue_speaker_colors import verify_dialogue_speaker_prefixes
 from srwz.text import PreparedTextEncoder
 from special_disc.writeback.shared_library import verify_shared_library
@@ -176,6 +177,9 @@ def main(iso=None, work=None):
     counts['terrain_names']=terrain['occurrence_count']
     weapon_labels=verify_weapon_detail_labels(exe,readback,table,overrides,font=name_font,proposal=proposal)
     weapon_parentheses=verify_weapon_detail_parentheses(exe,'sp')
+    spirit_costs=verify_spirit_cost_templates(exe,'sp')
+    for key,value in spirit_costs.items():
+        require(manifest['spirit_cost_templates'][key]==value,'SP spirit-cost template receipt drift')
     dialogue_encoder=PreparedTextEncoder(table,overrides)
     dialogue_colors=verify_dialogue_speaker_prefixes(
         exe,'sp',encoded_prefixes={text:dialogue_encoder.encode(text,terminate=False)
@@ -360,6 +364,7 @@ def main(iso=None, work=None):
     result['scope']+=' Reviewed fixed instructions, Q&A metadata and explicit tutorial/Q&A page records.'
     result['weapon_detail_labels']=weapon_labels
     result['weapon_detail_parentheses']=weapon_parentheses
+    result['spirit_cost_templates']=spirit_costs
     result['native_parentheses']=native_parentheses
     result['data_link_bonus']=link_bonus
     result['battle_square_skip']=skip_report

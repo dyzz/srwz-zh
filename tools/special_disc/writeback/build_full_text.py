@@ -51,6 +51,7 @@ from special_disc.writeback.instruction_overrides import apply_overrides
 from special_disc.writeback.squad_names import apply_nisv_names
 from parenthesis_glyphs import apply_parentheses
 from srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
+from srwz.spirit_cost_templates import apply_spirit_cost_templates
 from srwz.dialogue_speaker_colors import apply_dialogue_speaker_prefixes
 from srwz.text import PreparedTextEncoder
 from srwz.font_profile import load_font_profile
@@ -287,6 +288,7 @@ def assemble():
     patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,stored_overrides,runtime_table)
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,stored_overrides,runtime_table)
     patches[EXE],weapon_parentheses_report=apply_weapon_detail_parentheses(patches[EXE],'sp')
+    patches[EXE],spirit_cost_templates_report=apply_spirit_cost_templates(patches[EXE],'sp')
     patches[VT1]=replace_font_slot(patches[VT1],patches[EXE],(FONT/'sp-font/font.bin').read_bytes(),font_report['font']['decoded_sha256'])
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
     require(sha(decoded_font)==font_report['font']['decoded_sha256'],'assembled shared font mismatch')
@@ -345,6 +347,7 @@ def assemble():
     report['weapon_detail_labels']=weapon_report
     report['current_shared_library']=library_report
     report['weapon_detail_parentheses']=weapon_parentheses_report
+    report['spirit_cost_templates']=spirit_cost_templates_report
     report['dialogue_speaker_colors']=dialogue_color_report
     report['native_parentheses']=parenthesis_report
     report['data_link_bonus']=link_report

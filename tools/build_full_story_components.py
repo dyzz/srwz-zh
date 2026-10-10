@@ -82,6 +82,7 @@ try:
         apply_runtime_weapon_category_labels,
     )
     from srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
+    from srwz.spirit_cost_templates import apply_spirit_cost_templates
     from srwz.dialogue_speaker_colors import (
         DialogueSpeakerColorError,
         apply_dialogue_speaker_quote_constant,
@@ -286,6 +287,7 @@ except ModuleNotFoundError:
         apply_runtime_weapon_category_labels,
     )
     from tools.srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
+    from tools.srwz.spirit_cost_templates import apply_spirit_cost_templates
     from tools.srwz.dialogue_speaker_colors import (
         DialogueSpeakerColorError,
         apply_dialogue_speaker_quote_constant,
@@ -736,6 +738,7 @@ CONFIG_SECTION_IMPACTS = {
     "dialogue_speaker_colors": {SLPS_MEMBER},
     "runtime_weapon_category_labels": {SLPS_MEMBER},
     "weapon_detail_parentheses": {SLPS_MEMBER},
+    "spirit_cost_templates": {SLPS_MEMBER},
     "runtime_keywords": {COMPDATA_MEMBER, STAGE_MEMBER},
     "composition": {SLPS_MEMBER, VT1_MEMBER},
     "intermission_list_font_geometry": {SLPS_MEMBER},
@@ -8695,12 +8698,17 @@ def _build_incremental_fixed_slps(
         ) from error
     output_slps, weapon_detail_parentheses_report = apply_weapon_detail_parentheses(
         output_slps, policy=config["weapon_detail_parentheses"])
+    output_slps, spirit_cost_templates_report = apply_spirit_cost_templates(
+        output_slps, policy=config["spirit_cost_templates"])
     changed_byte_offsets = {
         index
         for index, (before, after) in enumerate(zip(current_slps, output_slps))
         if before != after
     }
     allowed_byte_offsets = set()
+    allowed_byte_offsets.update(
+        int(offset, 16) for offset in spirit_cost_templates_report["changed_offsets"]
+    )
     for raw_offset in all_changed_offsets:
         offset = int(raw_offset, 16)
         source = decode_text(original_slps, offset, table)
@@ -8728,6 +8736,7 @@ def _build_incremental_fixed_slps(
 
     report = json.loads(json.dumps(prior_report))
     report["weapon_detail_parentheses"] = weapon_detail_parentheses_report
+    report["spirit_cost_templates"] = spirit_cost_templates_report
     report["inputs"]["config"] = _file_lock(
         config_path, config_path.read_bytes()
     )
@@ -10906,6 +10915,8 @@ def _build_components(
 
     output_slps, weapon_detail_parentheses_report = apply_weapon_detail_parentheses(
         output_slps, policy=config["weapon_detail_parentheses"])
+    output_slps, spirit_cost_templates_report = apply_spirit_cost_templates(
+        output_slps, policy=config["spirit_cost_templates"])
 
     output_slps, library_offset_table_report = (
         _apply_library_archive_offset_patches(
@@ -11263,6 +11274,7 @@ def _build_components(
         "dialogue_speaker_colors": dialogue_speaker_color_report,
         "runtime_weapon_category_labels": weapon_category_label_report,
         "weapon_detail_parentheses": weapon_detail_parentheses_report,
+        "spirit_cost_templates": spirit_cost_templates_report,
         "search_tab_alignment": search_tab_alignment_report,
         "intermission_library_alignment": (
             intermission_library_alignment_report

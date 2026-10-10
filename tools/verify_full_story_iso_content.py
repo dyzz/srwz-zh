@@ -90,6 +90,7 @@ from srwz.battle_square_skip import verify_battle_square_skip
 from srwz.movement_type_labels import apply_runtime_movement_type_labels
 from srwz.weapon_category_labels import apply_runtime_weapon_category_labels
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
+from srwz.spirit_cost_templates import verify_spirit_cost_templates
 from srwz.search_tab_alignment import apply_search_tab_alignment
 from srwz.intermission_library_alignment import (
     apply_intermission_library_alignment,
@@ -4977,6 +4978,10 @@ def main() -> int:
         raise SystemExit("final ISO runtime movement-type label readback drift")
     movement_type_readback["component_receipt_exact"] = True
     weapon_detail_parentheses_readback = verify_weapon_detail_parentheses(members["SLPS_258.87"])
+    spirit_cost_templates_readback = verify_spirit_cost_templates(members["SLPS_258.87"])
+    for key, value in spirit_cost_templates_readback.items():
+        if component.get("spirit_cost_templates", {}).get(key) != value:
+            raise SystemExit("final ISO spirit-cost template receipt drift")
     for key, value in weapon_detail_parentheses_readback.items():
         if component.get("weapon_detail_parentheses", {}).get(key) != value:
             raise SystemExit("final ISO weapon-detail parenthesis receipt drift")
@@ -7293,6 +7298,7 @@ def main() -> int:
         "runtime_movement_type_labels": movement_type_readback,
         "runtime_weapon_category_labels": weapon_category_readback,
         "weapon_detail_parentheses": weapon_detail_parentheses_readback,
+        "spirit_cost_templates": spirit_cost_templates_readback,
         "search_tab_alignment": search_tab_alignment_readback,
         "intermission_library_alignment": (
             intermission_library_alignment_readback
