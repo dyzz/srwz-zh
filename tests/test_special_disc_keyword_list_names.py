@@ -44,10 +44,11 @@ class SpecialDiscKeywordNamesTests(unittest.TestCase):
 
     def test_two_byte_spaces_and_empty_label(self):
         data = decode_production(self.output).output
-        for at in (0x88980, 0x88B78):
+        for at in (0x88980,):
             text = data[at:data.index(0, at)]
             self.assertIn(b'\x81\x40', text)
             self.assertNotIn(b'\x20', text)
+        self.assertEqual(data[0x88B78:0x88B78+5], names.payload('禁语', self.table, self.overrides))
         target = struct.unpack_from('<I', data, names.EMPTY['pointer_offset'])[0] - names.BASE
         self.assertEqual(data[target], 0)
 
