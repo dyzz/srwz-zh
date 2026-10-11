@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1913,
+  "allocation_assignment_count": 1914,
   "reraster_existing_assignment_count": 1620,
-  "primary_assignment_count": 3533,
+  "primary_assignment_count": 3534,
   "surface_alias_assignment_count": 54,
-  "primary_mapping_sha256": "f6062430d166748fbfb187b535e730d44a51fcec078f1b93d1d5d2b4ed67120f",
+  "primary_mapping_sha256": "018f18e1274f5f85a758b3737afac6debad556fda63465a3ddebec752cffd8b8",
   "surface_alias_mapping_sha256": "9144c1571b3ee85e66bf339f9d07ae46bca14ede427f91fc52c62d2c432b9133",
   "source_compatibility_assignment_count": 36,
   "source_compatibility_mapping_sha256": "2a01296e8138d6343232359cb3818de870d704222de0d26a0ba53a38319beb62",
-  "remaining_allocation_candidate_count": 12,
-  "remaining_allocation_candidates_sha256": "dd859404a6fc46d71e0c5a39c03f2392a3e6f9881569c07a3e09ce75f7f98847",
+  "remaining_allocation_candidate_count": 11,
+  "remaining_allocation_candidates_sha256": "14cc43db77760fd3284129429f06235080ab8b8745b1be0f2bed963bedfdf741",
   "primary_assignments": [
     {
       "character": "、",
@@ -23848,6 +23848,14 @@
         "squad_name"
       ],
       "user_authority": "config/editorial/land-squad-ligature-user-approved-20261007.json"
+    },
+    {
+      "character": "纬",
+      "code": "97F8",
+      "glyph_index": 4408,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "漣",
+      "allocation_width_class": "default_width"
     }
   ],
   "surface_alias_assignments": [
@@ -24575,12 +24583,6 @@
     }
   ],
   "remaining_allocation_candidates": [
-    {
-      "code": "97F8",
-      "glyph_index": 4408,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "漣"
-    },
     {
       "code": "97F9",
       "glyph_index": 4409,
@@ -41560,6 +41562,22 @@
         }
       ],
       "reason": "User-approved stock-derived E plus blank ligature for sixteen-byte Land squad-name slots; no ordinary text rewrite"
+    },
+    {
+      "selection_sha256": "70795f9f1746c0fb21c8af5598b79ae85fea5173aadc4eb6a85c28030be62b92",
+      "assignment_count": 1,
+      "allocation_assignment_count": 1,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "纬",
+          "code": "97F8",
+          "glyph_index": 4408,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "漣",
+          "allocation_width_class": "default_width"
+        }
+      ]
     }
   ],
   "candidate_pool": {
