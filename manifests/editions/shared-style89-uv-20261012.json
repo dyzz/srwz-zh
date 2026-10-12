@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "status": "three_edition_final_iso_uv_readback_passed",
+  "patch": "nine left U1 endpoints 24 to 23 per edition",
+  "editions": [
+    {
+      "edition": "original",
+      "input_digest": "98470fac07a0a1240021f05b8d57b116e4f355d9b0d6cdae13de8f7e3793cd91",
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "adaaac45d31fcb29f8e843d0e8f2356bdd16b4ad77e2467a84bc04cf4fcd03c8",
+        "size": 3758358528
+      },
+      "kvpdata": {
+        "size": 239664,
+        "sha256": "de01691be46f2e70d97d03b4ea17bd42b3149594b18bc2d74ba94e417bbb983d",
+        "lba": 1291439
+      },
+      "source_chunk_sha256": "905d8676d65816bf51c075eead697a0b2d65adda18822580b864d3dbb221f585",
+      "style_id": 89,
+      "chunk_index": 1401,
+      "byte_offsets": [
+        193780,
+        193802,
+        193912,
+        193934,
+        194022,
+        194044,
+        194182,
+        194248,
+        194292
+      ],
+      "byte_count": 9,
+      "patched_chunk_sha256": "6138c61bb629d22da4f7dd23968b02f9f6ba8e7eeca2472b9e23a15db2b48148",
+      "member_lba_and_size_preserved": true,
+      "non_target_chunk_bytes_exact": true,
+      "runtime": "not_retested"
+    },
+    {
+      "edition": "best",
+      "input_digest": "98470fac07a0a1240021f05b8d57b116e4f355d9b0d6cdae13de8f7e3793cd91",
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "f36879b5d141a20a9c4a8f9bb330035b84e71e29eccad338ea65bf91918f2590",
+        "size": 3755081728
+      },
+      "kvpdata": {
+        "size": 239664,
+        "sha256": "de01691be46f2e70d97d03b4ea17bd42b3149594b18bc2d74ba94e417bbb983d",
+        "lba": 1289830
+      },
+      "source_chunk_sha256": "905d8676d65816bf51c075eead697a0b2d65adda18822580b864d3dbb221f585",
+      "style_id": 89,
+      "chunk_index": 1401,
+      "byte_offsets": [
+        193780,
+        193802,
+        193912,
+        193934,
+        194022,
+        194044,
+        194182,
+        194248,
+        194292
+      ],
+      "byte_count": 9,
+      "patched_chunk_sha256": "6138c61bb629d22da4f7dd23968b02f9f6ba8e7eeca2472b9e23a15db2b48148",
+      "member_lba_and_size_preserved": true,
+      "non_target_chunk_bytes_exact": true,
+      "runtime": "not_retested"
+    },
+    {
+      "edition": "sp",
+      "input_digest": "98470fac07a0a1240021f05b8d57b116e4f355d9b0d6cdae13de8f7e3793cd91",
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "20414b4f10e5c46e1622e548447633ebcb3848998a544ef5ac03c022224996ba",
+        "size": 3791781888
+      },
+      "kvpdata": {
+        "size": 287456,
+        "sha256": "90ed6dcdf510e2dc15d07e2fd7f5b907e29cf0effefbb195c0acff47ef7ea976",
+        "lba": 1230983
+      },
+      "source_chunk_sha256": "905d8676d65816bf51c075eead697a0b2d65adda18822580b864d3dbb221f585",
+      "style_id": 89,
+      "chunk_index": 1569,
+      "byte_offsets": [
+        235748,
+        235770,
+        235880,
+        235902,
+        235990,
+        236012,
+        236150,
+        236216,
+        236260
+      ],
+      "byte_count": 9,
+      "patched_chunk_sha256": "6138c61bb629d22da4f7dd23968b02f9f6ba8e7eeca2472b9e23a15db2b48148",
+      "member_lba_and_size_preserved": true,
+      "non_target_chunk_bytes_exact": true,
+      "runtime": "not_retested"
+    }
+  ],
+  "tests": {
+    "ran": 787,
+    "skipped": 0,
+    "result": "OK",
+    "unicorn": "2.1.4",
+    "python": "3.12.14",
+    "log": "../work/blackline-iso-uv-20261012/shared-style89/three-edition-tests-final.log",
+    "log_sha256": "c47da31c59651ec844122d3e464290c6d2721cd1680e6580038e784665fb3e14"
+  },
+  "runtime": "Original candidate previously GPU validated and accepted; these three rebuilt ISOs not runtime retested",
+  "build": {
+    "command": "RUSTC_WRAPPER= python3 tools/build_editions.py --force-rebuild",
+    "batch_manifest": "work/editions/98470fac07a0a1240021f05b8d57b116e4f355d9b0d6cdae13de8f7e3793cd91/original-best-sp.json",
+    "batch_manifest_sha256": "141d8c49681fa3c293fb4bc5b63ec1a6bdc5d9f792848ae19ac6cbf74cb6d273",
+    "verification": "edition_batch_receipt_integrity_passed"
+  }
+}

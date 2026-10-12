@@ -921,7 +921,7 @@
     },
     "KURODATA/KVPDATA.BIN": {
       "size": 239664,
-      "sha256": "33a4d7eeee9cb0650c7f89750c6360eb40cac5e65a7639b1c76cbb08481a5d65"
+      "sha256": "de01691be46f2e70d97d03b4ea17bd42b3149594b18bc2d74ba94e417bbb983d"
     }
   },
   "shared_letters": [
@@ -964,5 +964,65 @@
     "path": "config/assets/ui-menu-native-restore.json",
     "size": 44116,
     "sha256": "f6963c2fdabb4f3a617ca226a24359cdf3e0ef930399a574cf2147ed2c39172f"
+  },
+  "shared_frame_uv": {
+    "style_id": 89,
+    "member_size": 239664,
+    "reason": "Keep the final pixel of the 24-pixel-wide left pieces on filled atlas column U=22 instead of transparent U=23 by changing endpoint U1 from 24 to 23. Apply to all three palette layers and every style 89 caller. Mirrored right pieces and all vertices/V remain unchanged.",
+    "chunk": {
+      "index": 1401,
+      "start": 193728,
+      "end": 194352,
+      "size": 624,
+      "sha256": "905d8676d65816bf51c075eead697a0b2d65adda18822580b864d3dbb221f585",
+      "output_sha256": "6138c61bb629d22da4f7dd23968b02f9f6ba8e7eeca2472b9e23a15db2b48148"
+    },
+    "patches": [
+      {
+        "offset": 193760,
+        "before_hex": "05001000110f80808040000000001800080000c018d0",
+        "after_hex": "05001000110f80808040000000001800080000c017d0"
+      },
+      {
+        "offset": 193782,
+        "before_hex": "05001000110780808080000000001800080000c018d0",
+        "after_hex": "05001000110780808080000000001800080000c017d0"
+      },
+      {
+        "offset": 193892,
+        "before_hex": "05201300110f80808040000000001800080000d218d3",
+        "after_hex": "05201300110f80808040000000001800080000d217d3"
+      },
+      {
+        "offset": 193914,
+        "before_hex": "05201300110780808080000000001800080000d218d3",
+        "after_hex": "05201300110780808080000000001800080000d217d3"
+      },
+      {
+        "offset": 194002,
+        "before_hex": "05001600110f808080400000000018000c0000d018e8",
+        "after_hex": "05001600110f808080400000000018000c0000d017e8"
+      },
+      {
+        "offset": 194024,
+        "before_hex": "050016001107808080800000000018000c0000d018e8",
+        "after_hex": "050016001107808080800000000018000c0000d017e8"
+      },
+      {
+        "offset": 194162,
+        "before_hex": "05001000110a80808028000000001800080000c018d0",
+        "after_hex": "05001000110a80808028000000001800080000c017d0"
+      },
+      {
+        "offset": 194228,
+        "before_hex": "05201300110a80808028000000001800080000d218d3",
+        "after_hex": "05201300110a80808028000000001800080000d217d3"
+      },
+      {
+        "offset": 194272,
+        "before_hex": "05001600110a808080280000000018000c0000d018e8",
+        "after_hex": "05001600110a808080280000000018000c0000d017e8"
+      }
+    ]
   }
 }

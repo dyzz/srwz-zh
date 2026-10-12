@@ -82,6 +82,8 @@ def main():
     outputs[name], bazaar_report = apply_bazaar_heading(outputs[name])
     from srwz.ui_menu_restore import apply_menu_restore
     outputs[name], outputs[KVP], menu_report = apply_menu_restore(outputs[name], outputs[KVP], ROOT, 'sp')
+    from srwz.ui_frame_uv import apply_frame_uv_patches, load_frame_uv_contract
+    outputs[KVP], frame_uv_report = apply_frame_uv_patches(outputs[KVP], load_frame_uv_contract(ROOT, 'sp'))
     for target,box in patches:reports.append(dict(target=target,member=name,chunk=11,rect=box))
     name='MAP/MAPMODEL.BIN';base=writer.member(name);arc=bytearray(base);off=sd.table_offsets(writer.exe,0x3542F0,len(base))
     for index in (195,196,197):
@@ -103,6 +105,7 @@ def main():
     report['title_atlas'] = title_report
     report['bazaar_heading'] = bazaar_report
     report['menu_restore'] = menu_report
+    report['shared_frame_uv'] = frame_uv_report
     report['world_map_titles'] = world_map_report
     for name,data in outputs.items():
         p=args.output/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)

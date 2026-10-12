@@ -1,0 +1,60 @@
+{
+  "style_id": 89,
+  "member_size": 287456,
+  "reason": "Keep the final pixel of the 24-pixel-wide left pieces on filled atlas column U=22 instead of transparent U=23 by changing endpoint U1 from 24 to 23. Apply to all three palette layers and every style 89 caller. Mirrored right pieces and all vertices/V remain unchanged.",
+  "chunk": {
+    "index": 1569,
+    "start": 235696,
+    "end": 236320,
+    "size": 624,
+    "sha256": "905d8676d65816bf51c075eead697a0b2d65adda18822580b864d3dbb221f585",
+    "output_sha256": "6138c61bb629d22da4f7dd23968b02f9f6ba8e7eeca2472b9e23a15db2b48148"
+  },
+  "patches": [
+    {
+      "offset": 235728,
+      "before_hex": "05001000110f80808040000000001800080000c018d0",
+      "after_hex": "05001000110f80808040000000001800080000c017d0"
+    },
+    {
+      "offset": 235750,
+      "before_hex": "05001000110780808080000000001800080000c018d0",
+      "after_hex": "05001000110780808080000000001800080000c017d0"
+    },
+    {
+      "offset": 235860,
+      "before_hex": "05201300110f80808040000000001800080000d218d3",
+      "after_hex": "05201300110f80808040000000001800080000d217d3"
+    },
+    {
+      "offset": 235882,
+      "before_hex": "05201300110780808080000000001800080000d218d3",
+      "after_hex": "05201300110780808080000000001800080000d217d3"
+    },
+    {
+      "offset": 235970,
+      "before_hex": "05001600110f808080400000000018000c0000d018e8",
+      "after_hex": "05001600110f808080400000000018000c0000d017e8"
+    },
+    {
+      "offset": 235992,
+      "before_hex": "050016001107808080800000000018000c0000d018e8",
+      "after_hex": "050016001107808080800000000018000c0000d017e8"
+    },
+    {
+      "offset": 236130,
+      "before_hex": "05001000110a80808028000000001800080000c018d0",
+      "after_hex": "05001000110a80808028000000001800080000c017d0"
+    },
+    {
+      "offset": 236196,
+      "before_hex": "05201300110a80808028000000001800080000d218d3",
+      "after_hex": "05201300110a80808028000000001800080000d217d3"
+    },
+    {
+      "offset": 236240,
+      "before_hex": "05001600110a808080280000000018000c0000d018e8",
+      "after_hex": "05001600110a808080280000000018000c0000d017e8"
+    }
+  ]
+}

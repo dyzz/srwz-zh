@@ -227,6 +227,8 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
     inputs["menu_restore"] = reference
     outputs["KURODATA/KVMDATA.BIN"], outputs[member], menu_report = apply_menu_restore(
         outputs["KURODATA/KVMDATA.BIN"], outputs[member], root)
+    from .ui_frame_uv import apply_frame_uv_patches
+    outputs[member], frame_uv_report = apply_frame_uv_patches(outputs[member], config["shared_frame_uv"])
     for name, payload in outputs.items():
         checked(payload, config["expected_outputs"][name], name)
     report = {
@@ -236,6 +238,7 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
         "inputs": inputs,
         "source_drawings": config["source_drawings"],
         "menu_restore": menu_report,
+        "shared_frame_uv": frame_uv_report,
         "heading_count": len(corpus["entries"]),
         "cell_count": len(config["cells"]),
         "drawing_patch_count": len(config["draw_patches"]),

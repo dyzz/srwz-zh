@@ -46,6 +46,7 @@ from write_system_text import overlay_member
 from srwz.library_work_titles import verify_work_title_pool
 from special_disc.writeback.bazaar_heading import verify_bazaar_heading
 from srwz.ui_menu_restore import verify_menu_restore
+from srwz.ui_frame_uv import load_frame_uv_contract, verify_frame_uv_patches, frame_uv_preimage_for_verification
 from special_disc.writeback.battle_status import verify_status_labels, MEMBER as STATUS_MEMBER
 from special_disc.writeback.battle_prompts import verify_prompt_labels
 from special_disc.writeback.battle_titles import verify_title_labels
@@ -93,9 +94,17 @@ def main(iso=None, work=None):
     require(verify_bazaar_heading(member('KURODATA/KVMDATA.BIN')) == image_report['bazaar_heading'],
             'SP bazaar independent readback receipt drift')
     counts['enlarged_bazaar_headings'] = 1
-    require(verify_menu_restore(member('KURODATA/KVMDATA.BIN'), member('KURODATA/KVPDATA.BIN'), ROOT, 'sp')
+    frame_contract = load_frame_uv_contract(ROOT, 'sp')
+    frame_uv = verify_frame_uv_patches(member('KURODATA/KVPDATA.BIN'), frame_contract)
+    # The menu receipt seals the complete member before the following UV pass.
+    # Verify both stages exactly, using a reconstructed copy for the earlier one.
+    menu_drawings = frame_uv_preimage_for_verification(member('KURODATA/KVPDATA.BIN'), frame_contract)
+    require(verify_menu_restore(member('KURODATA/KVMDATA.BIN'), menu_drawings, ROOT, 'sp')
             == image_report['menu_restore'], 'SP native menu independent readback receipt drift')
     counts['restored_native_menu_chunks'] = 4
+    require(all(image_report['shared_frame_uv'][k] == v for k, v in frame_uv.items()),
+            'SP shared frame UV independent readback drift')
+    counts['shared_frame_uv_endpoints'] = frame_uv['byte_count']
     table,_,overrides,readback=st.mst.encoding_tables(PROPOSAL)
     require(verify_gravion_labels(member('DATA/COMPDATA.BN'),readback)==manifest['gravion_labels'], 'SP Gravion label independent readback drift')
     library_base = baseline_iso('text-canary')
