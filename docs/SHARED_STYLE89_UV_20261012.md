@@ -1,5 +1,7 @@
 # 共享样式 89 的拼接黑线资源修复
 
+问题记录：[GitHub #32](https://github.com/dyzz/srwz-zh/issues/32)，用户确认修复后于 2026-10-12 以 `completed` 关闭。
+
 用户确认统一修改该样式的所有引用。修改接入 `build_ui_headings()` 的 KVPDATA
 资源输出阶段，契约在 `config/assets/ui-headings-zh.json` 的 `shared_frame_uv` 中。
 构建器 `tools/srwz/ui_frame_uv.py` 先校验完整样式块及每条记录的前像，随后只允许
