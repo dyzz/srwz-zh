@@ -1,0 +1,16 @@
+{
+  "status": "debug experiment stopped; user will manually play stage2",
+  "finding": "forced A370 test lacked target pilots 457/461/465 in active roster; entering AB40 did not establish them in the observed sample",
+  "prior_stage_root": {
+    "original": "0x761230",
+    "best": "0x761a30"
+  },
+  "effect_root": {
+    "original": "0x760a60",
+    "best": "0x761260"
+  },
+  "test_entry_only": true,
+  "production_stage_scripts_changed": false,
+  "production_candidate_subtitle_code_changed_by_test": false,
+  "warning": "AB40 prerequisite/phase3 interpretation was not established; do not treat the experiment as verified stage reproduction"
+}

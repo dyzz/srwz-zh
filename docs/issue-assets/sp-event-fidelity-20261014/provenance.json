@@ -1,0 +1,46 @@
+{
+ "date": "2026-10-14",
+ "candidate": {
+  "path": "work/iso/sp-event-gallery-fidelity-review.iso",
+  "sha256": "c163bac907102785ced658f8569c791f06dee23e2e277d775949ba25d46fb7be",
+  "elf_sha256": "ed648f6596045b9fcd3d893f766efc8d457b13b691b02b95a8d3041abd711340"
+ },
+ "source": {
+  "path": "build/iso/special-disc/sp-current.iso",
+  "sha256": "20414b4f10e5c46e1622e548447633ebcb3848998a544ef5ac03c022224996ba"
+ },
+ "v7_unchanged": {
+  "path": "build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v7.iso",
+  "sha256": "c54b6a51a0042a22597a432b09a941b6078985b56b1dc56a2a7f0d23789595e7"
+ },
+ "config": {
+  "event-gallery.json": "bfa3f717ec1f0eff2e7502c0a649307bd98a9900653849169f6c65e5ab4e43fe",
+  "event-subtitles.json": "5c5596a643b2b6911f7feba81b60e0322f16d6151385d80e3dc60a76af1215e8"
+ },
+ "code": {
+  "runtime.S": "50574bb50b3a8657cdc09061d3d1524c82762b1fc0c4358a0ed4a06875eb089e",
+  "runtime.py": "0d70a0edf06b463c95d68fa88b398c03af281dadafa9ff8de6b4b46a362ff972",
+  "fidelity.py": "09b328bca05647ab18ad5798579f654ebcd72eb3dd694f40b018c71c0e7e2914",
+  "build.py": "9596de3a4ddc4e7c8ac3c3ff3843266bb7102d2f4b784111e7681df603347bf9"
+ },
+ "runtime_binary_bytes": 25472,
+ "relocated_members": {
+  "SLPS_259.20": [
+   1851456,
+   4050944
+  ],
+  "AID_DATA/AIDDATA.BIN": [
+   1853434,
+   79488704
+  ],
+  "EFF/VEFF2DX.BIN": [
+   1892247,
+   38146432
+  ]
+ },
+ "original_disc": {
+  "path": "rom/original.iso",
+  "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+ },
+ "runtime_binary_sha256": "de7ab4789347df4f02b2114b7311934737205408c49598eb71be5491fd047dde"
+}

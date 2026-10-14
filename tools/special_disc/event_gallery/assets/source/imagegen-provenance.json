@@ -1,0 +1,22 @@
+{
+  "mode": "built-in image_gen",
+  "use_case": "compositing",
+  "date": "2026-10-13",
+  "background": "meyrin-impulse-background.png",
+  "generated_file": "/Users/nate/.codex/generated_images/01a1306d-767e-7502-a49c-3c42b60a0135/exec-1847eba3-58bc-4fa9-a85e-a2685ee1ca50.png",
+  "prompts": [
+    "Use case: compositing.\nAsset type: replacement banner artwork for the PS2 game Super Robot Wars Z Special Disc, Chinese \"Special Theater\" menu.\nEdit target: image 1, the current \"事件演出\" banner. Replace its entire artwork and title treatment. Reference image 2 is Meyrin Hawke's in-game face, red/pink hair, green ZAFT headset and green uniform. Reference image 3 is the existing \"战斗剧场\" banner and is the typography/layout style to match.\nMake ONE very wide horizontal menu banner, approximately 8:1 aspect ratio, with no surrounding mockup or screen. Meyrin Hawke's expressive face in the left quarter, facing right and calling the launch. Beside her, clearly show Force Impulse Gundam launching out of the Minerva hangar, white armor, blue chest, red details, yellow V-fin, blue Force silhouette wing pack, energetic departure light and pale exhaust. Use crisp 2000s mecha anime / PS2 game menu painted artwork, recognizable character and robot, readable at a tiny 620x78 menu size. Keep both face and Gundam head/chest visible within the narrow strip; avoid a distant tiny robot or cropped-out face.\nUse the native menu composition: colorful character/mecha action on the left and middle; a pale warm-gray illuminated title area on the right, smoothly integrated into the scene. Match the reference's thick solid black Chinese title, squat heavy sans-serif glyph shapes, size, baseline, right alignment, and thin black underline. Text exactly: \"事件演出\", four characters, no other text. This title should visually belong to the same set as \"战斗剧场\": NO white letters, NO white outline, NO blue title panel.\nKeep an opaque full-bleed rectangular image inside the banner. No extra characters, no logos, no captions, no watermarks, no outer border. Preserve the very wide, low horizontal silhouette with the native diagonal clipped lower-right corner. The large blank padding of image 1 is not part of the desired composition: return just the finished banner strip.",
+    "Use case: precise-object-edit. Edit this exact banner image.\nRemove ONLY the four black Chinese title characters \"事件演出\" and their black underline from the right side. Seamlessly reconstruct the pale warm-gray launch smoke / illuminated hangar background behind those letters and underline.\nKeep all other pixels and composition as close as possible: Meyrin Hawke on the left, Force Impulse Gundam launching in the center, the hangar, colors, crop, size, transparent padding and diagonal right corner. Do not redraw the face or robot. No replacement text, no symbols, no logos. Return the same very wide banner image with a clean pale right-side title space."
+  ],
+  "reference_roles": {
+    "event-banner.png": "previous banner edit target",
+    "impulse-caption-2.png": "Meyrin in-game identity reference",
+    "aid-banner-4/final-zh.png": "native Special Theater style and composition reference"
+  },
+  "integration": "Generated title removed; native deterministic title rendering and indexed texture authoring follow.",
+  "reference_sha256": {
+    "previous_event_banner": "90564a781b198f56530bf4b60fabf81c4a679a38aa52144b1c0d7caf2e66395c",
+    "meyrin_in_game": "f7188fa6724bca4a37f50d34ea59777d95623ee3032b446a17a1df3fecc4bfdb",
+    "battle_theater_banner": "e857bd5a616efe3f9aef1ce7d4dccdb90d047030bc328151947517d47b796629"
+  }
+}

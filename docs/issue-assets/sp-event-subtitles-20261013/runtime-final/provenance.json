@@ -1,0 +1,27 @@
+{
+  "emulator": "LRPS2 x86_64, software renderer",
+  "startup": "Cold boot, isolated copy of SP memory card, native controller input only",
+  "source_iso": "work/iso/sp-event-gallery-feedback-probe.iso",
+  "canonical_candidate": "work/iso/sp-event-gallery-review.iso (historical V3 symlink, now pointing to archive)",
+  "iso_sha256": "b2f496cf49b95d4ec0d48fa27ddf2720029bcef76ccd8f17508f499a92c0870e",
+  "canonical_candidate_byte_identical": true,
+  "elf_sha256": "40c842ad1dcef988e43ec6ac11c219c42150f8eecfb9e2eb208e014d66e2aedf",
+  "runtime_folder": "work/analysis/sp-gallery-subtitles-20261013/feedback-alternate-runtime",
+  "acceptance_status": "14 natural completed runs covering all 12 scenes; no host state intervention",
+  "manual_armsx2_acceptance": "Partial, see ../armsx2-final/provenance.json",
+  "completed_runs": 14,
+  "configured_scenes": 12,
+  "runtime_audio_clip": {
+    "file": "impulse-runtime-16k.wav",
+    "source_start_seconds": 79,
+    "duration_seconds": 43,
+    "purpose": "Check four Meyrin speech cues in runtime output; local Whisper is corroboration, not playback count proof",
+    "sha256": "b2be3cf92658f089909dc6465d5919fec4b67a96828488606790399ac48f7db9",
+    "asr_engine": "local whisper.cpp, ggml-large-v3.bin, ja",
+    "asr_result": "Contains all four Meyrin cues; final cue repeated in ASR text, not proof of runtime repetition"
+  },
+  "installed_candidate": "build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v3.iso",
+  "candidate_now_archived_at": "work/iso/archive/sp-event-gallery-subtitles-v3.iso",
+  "superseded_by": "../v4-fixes/provenance.json",
+  "original_texture_preservation_claim_limit": "V3 unused-picture check omitted 0x19 draw records and overwrote an original effect256 picture; corrected in V4"
+}

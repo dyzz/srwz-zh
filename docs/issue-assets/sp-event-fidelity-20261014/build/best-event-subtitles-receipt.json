@@ -1,0 +1,665 @@
+{
+ "output": {
+  "path": "build/iso/zh-release-best/current-best.iso",
+  "sha256": "24a9f080d04318c7eec368d68379f525cbe7e0aa7fb9c5fd4c8ef7556556f0cf",
+  "size": 3796135936
+ },
+ "base_output": {
+  "path": "build/iso/zh-release-best/current-best.iso",
+  "sha256": "5f100d7c7ad84d20dad4fd312ee52756fa317856cb3cd82f739a44cefd5bae83",
+  "size": 3755081728
+ },
+ "event_subtitles": {
+  "base_iso": {
+   "path": "build/iso/zh-release-best/current-best.iso",
+   "sha256": "5f100d7c7ad84d20dad4fd312ee52756fa317856cb3cd82f739a44cefd5bae83",
+   "size": 3755081728
+  },
+  "iso": {
+   "path": "build/iso/zh-release-best/current-best-captioned.iso",
+   "sha256": "24a9f080d04318c7eec368d68379f525cbe7e0aa7fb9c5fd4c8ef7556556f0cf",
+   "size": 3796135936
+  },
+  "member_readback": {
+   "executable_words": 7,
+   "payload_offset": 3477504,
+   "subtitled_chunks": 12
+  },
+  "members": {
+   "EFF/VEFF2DX.BIN": "ccdaef5b864dc4ffdeae83b9addca6c68b9dc0e8c2006b5a0812b269a0dc7112",
+   "SLPS_732.70": "37b04085ad7cd88bd25db9b13a409e22a43be7c3b7b848d2b90c92e00de0c766"
+  },
+  "relocation": {
+   "appended_bytes": 40527872,
+   "appended_sha256": "c7795e80f1fea21304777b9836d2947731ed153f28a64c0125cae268a3313e5e",
+   "catalog": {
+    "edits": [
+     {
+      "new_lba": 1835266,
+      "new_sectors": 18059,
+      "old_lba": 1289973,
+      "old_sectors": 18013,
+      "path": "EFF/VEFF2DX.BIN",
+      "record_offset": 624
+     }
+    ],
+    "inherited_non_target_catalog_differences": [],
+    "member": "VMAP.DAT",
+    "not_catalogued": [
+     "SLPS_732.70"
+    ],
+    "policy": "inherit",
+    "records_checked": 63,
+    "sha256": "1175b8ceabfe226b4b24bdc4119df53af9ab24e6c1365cd6e429f653bff3ad9f"
+   },
+   "changes": {
+    "EFF/VEFF2DX.BIN": [
+     1835266,
+     36983264
+    ],
+    "SLPS_732.70": [
+     1833536,
+     3543040
+    ]
+   },
+   "new_size": 3796135936,
+   "old_size": 3755081728,
+   "touched_spans": [
+    [
+     32848,
+     32856
+    ],
+    [
+     34896,
+     34904
+    ],
+    [
+     69632,
+     71680
+    ],
+    [
+     102400,
+     104448
+    ],
+    [
+     131072,
+     133120
+    ],
+    [
+     535430,
+     535446
+    ],
+    [
+     553058,
+     553074
+    ],
+    [
+     622592,
+     624640
+    ],
+    [
+     651264,
+     653312
+    ],
+    [
+     921600,
+     924672
+    ]
+   ],
+   "udf": {
+    "anchors_written": [
+     1853325,
+     1853581
+    ],
+    "files": [
+     {
+      "ad_offset": 308,
+      "fe_lba": 304,
+      "new_lba": 1833536,
+      "new_size": 3543040,
+      "path": "SLPS_732.70",
+      "previous_lba": 455,
+      "previous_size": 3473672
+     },
+     {
+      "ad_offset": 308,
+      "fe_lba": 318,
+      "new_lba": 1835266,
+      "new_size": 36983264,
+      "path": "EFF/VEFF2DX.BIN",
+      "previous_lba": 1289973,
+      "previous_size": 36890512
+     }
+    ],
+    "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-best/5be73b7bd8fd7133ab569ec5a7828d0c57581144b8846cb14dcb0ebab0216060/project/build/iso/zh-release-best/current-best-captioned.iso",
+    "image_blocks": 1853582,
+    "metadata_blocks_written": [
+     34,
+     50,
+     64,
+     304,
+     318,
+     1853325,
+     1853581
+    ],
+    "partition_extended": true,
+    "partition_length": 1853307,
+    "partition_start": 274,
+    "previous_partition_length": 1833261,
+    "unchanged_members_preserved": 64
+   }
+  },
+  "relocation_readback": {
+   "relocated_members": [
+    "EFF/VEFF2DX.BIN",
+    "SLPS_732.70"
+   ],
+   "tail_bytes": 41054208,
+   "unchanged_members": 64,
+   "verified": true
+  },
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "subtitles": {
+   "all_stage_scripts_maps_and_audio_members_unchanged": true,
+   "caption_count": 38,
+   "caption_sources": {
+    "config/event-subtitles/main-only-captions.json": "87e8524cba7bd83805b92151477d2badb95bb7bb043d984bc54fb461fd2057ba",
+    "config/products/special-disc/event-subtitles.json": "5c5596a643b2b6911f7feba81b60e0322f16d6151385d80e3dc60a76af1215e8"
+   },
+   "edition": "best",
+   "effects": [
+    255,
+    256,
+    257,
+    258,
+    259,
+    264,
+    265,
+    266,
+    267,
+    269,
+    273,
+    282
+   ],
+   "elf_sha256": "37b04085ad7cd88bd25db9b13a409e22a43be7c3b7b848d2b90c92e00de0c766",
+   "font": {
+    "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+    "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
+   },
+   "gallery_menu_or_scene_driver_added": false,
+   "input_elf_sha256": "9c62cd71f9c65f983ba95d93958ea2831dae436c1c05bce42249ffbf0e69d445",
+   "input_veff_sha256": "125e7365e3762163e3cc80d477c3b00b5445305dede2bb99d5914836d2efa8c7",
+   "payload": {
+    "address": "0x790000",
+    "offset": 3477504,
+    "size": 65536
+   },
+   "profile": {
+    "path": "config/event-subtitles/best.json",
+    "sha256": "cfa3394eb37bf4111c497c9bbc4534862841a0677f6556726be9a15f12f0744a"
+   },
+   "source_files": {
+    "tools/event_subtitles/apply.py": "ed85768f5ab7c22952ac3637e2ad167c1e896f6da5d24dbcc7b0f5b53f958e69",
+    "tools/event_subtitles/runtime.S": "5f5e3707789a1121e7a248c1f35b5580b9bd4162f920bde91c63457c96325fcf"
+   },
+   "subtitles": [
+    {
+     "effect": 255,
+     "chunk": 256,
+     "decoded_sha256": "61937adf0b7308628d3c7476ff814cb706d5fed342add643e345949ea77bce23",
+     "packed_sha256": "11a1be48126f97371ef54274b4b7e109bfab186533929623d02fb3a153746ccb",
+     "caption_count": 1
+    },
+    {
+     "effect": 256,
+     "chunk": 257,
+     "decoded_sha256": "136cb093d156e96b61b2dbf0cb7c5bd900ae18fce0bc92fbf7c5366df541c249",
+     "packed_sha256": "d1460b7e2f49d90970d0e6001b9e3e7abbea766f9ebb400615189cec0b8eb6fa",
+     "caption_count": 9
+    },
+    {
+     "effect": 257,
+     "chunk": 258,
+     "decoded_sha256": "76ad741a26231ad8f0a752851e90b5ba3c0ef2833051478d6757c868f14685df",
+     "packed_sha256": "ac6458a792c26eea91c5582f9f2ae9ad70292f8b407d728dd5034c752b1533ee",
+     "caption_count": 2
+    },
+    {
+     "effect": 258,
+     "chunk": 259,
+     "decoded_sha256": "9443c492c17ff26fa1360c15dfa456869df6b6e9ea1dfa19f7344380811d7e35",
+     "packed_sha256": "7cf711835d016638e75853deedbc20eb45cfbf0c7097192ef6f6e4cae45d1e92",
+     "caption_count": 6
+    },
+    {
+     "effect": 259,
+     "chunk": 260,
+     "decoded_sha256": "b531bb8c8794b4472ddf3a411d58055380f2857f99979d9b890add1ea855ffde",
+     "packed_sha256": "0770394d532a2136a82f467154aa328c149c0f686c4b38fdfe77c7b7d646dcc7",
+     "caption_count": 3
+    },
+    {
+     "effect": 264,
+     "chunk": 265,
+     "decoded_sha256": "d77cda299c7f9aaa214213f07d3b548aa3b09fc3ebe896251ac4d64410eb93bb",
+     "packed_sha256": "cd6a7b21ddf65db02585e9895dbf82b4aadb64300a057cad14893c215f22c4d8",
+     "caption_count": 2
+    },
+    {
+     "effect": 265,
+     "chunk": 266,
+     "decoded_sha256": "7684206ec70a3489334dde1f53327a35340b54be7676e05b2e9c9102c3cdf3c0",
+     "packed_sha256": "302d92da312f50463fd3d6a441a59d4fe3ee170a651c535e7e655be5c422d10c",
+     "caption_count": 3
+    },
+    {
+     "effect": 266,
+     "chunk": 267,
+     "decoded_sha256": "64c205b359467510e8543bc19105fa212b234117eeb230f088a31ab0d54ee761",
+     "packed_sha256": "ac2c16a15e6fffb47b1c7aa6141e6b26455317b7ecf90a3eb4131f0fadc0ad72",
+     "caption_count": 3
+    },
+    {
+     "effect": 267,
+     "chunk": 268,
+     "decoded_sha256": "9afee6d3ace588f0e18aed4ca29178233607719cd39dcdff26fbf76261a47a0f",
+     "packed_sha256": "c92a04f2b4bd9eec826009b6a77a04cf3ddb92022eff92058f9bf7376b29b68f",
+     "caption_count": 1
+    },
+    {
+     "effect": 269,
+     "chunk": 270,
+     "decoded_sha256": "700f867fdff64ced950c630743c112ed166175f2a6cceaaf41f169e990c8525d",
+     "packed_sha256": "cabc35615c3b0134c469015ffaf1122adccc1466772bc094798372d1c982e466",
+     "caption_count": 2
+    },
+    {
+     "effect": 273,
+     "chunk": 274,
+     "decoded_sha256": "09817f272e89e173a7dfbad27cc9f6a102150e6abd271c21561b34c51d896af7",
+     "packed_sha256": "6a04f95b54ae438499e4f626ecef4721c8e63f4e07fb107899e999a9fb3bb35a",
+     "caption_count": 4
+    },
+    {
+     "effect": 282,
+     "chunk": 283,
+     "decoded_sha256": "2263d551d218a90682e5f30895bfa98c9611d9628789ffe803c8dad81db3c3d9",
+     "packed_sha256": "fd9e6da95e6ee4152904899854b90b766841469c99b295550d85becc8b6f6ec2",
+     "caption_count": 2
+    }
+   ],
+   "veff": {
+    "bytes": 36983264,
+    "edited_chunks": [
+     256,
+     257,
+     258,
+     259,
+     260,
+     265,
+     266,
+     267,
+     268,
+     270,
+     274,
+     283
+    ],
+    "offsets": [
+     0,
+     49936,
+     51056,
+     57584,
+     70800,
+     84016,
+     97232,
+     112592,
+     117824,
+     125600,
+     137920,
+     154384,
+     167904,
+     178624,
+     191920,
+     195360,
+     198784,
+     201680,
+     203296,
+     203408,
+     203520,
+     241248,
+     305024,
+     364032,
+     423952,
+     480720,
+     547984,
+     615232,
+     671632,
+     734368,
+     797120,
+     853344,
+     909376,
+     965424,
+     1014688,
+     1066208,
+     1113408,
+     1160176,
+     1206672,
+     1253440,
+     1308336,
+     1338560,
+     1384512,
+     1434512,
+     1484512,
+     1537952,
+     1590400,
+     1646448,
+     1709264,
+     1768656,
+     1831568,
+     1906688,
+     1944416,
+     1948272,
+     1952208,
+     1958448,
+     1961664,
+     1967904,
+     1973408,
+     1977952,
+     1985504,
+     1994832,
+     2004352,
+     2013024,
+     2020464,
+     2027904,
+     2038000,
+     2048096,
+     2068784,
+     2072624,
+     2082320,
+     2090512,
+     2098704,
+     2106896,
+     2110016,
+     2115792,
+     2120320,
+     2127232,
+     2137200,
+     2154112,
+     2163792,
+     2174160,
+     2187536,
+     2213520,
+     2218176,
+     2226368,
+     2238544,
+     2251232,
+     2312304,
+     2400800,
+     2489376,
+     2576176,
+     2662720,
+     2729872,
+     2797184,
+     2864432,
+     2931680,
+     3050224,
+     3169248,
+     3288272,
+     3406816,
+     3590000,
+     3773184,
+     3956368,
+     4139552,
+     4258208,
+     4376864,
+     4495520,
+     4614176,
+     4732256,
+     4850800,
+     4969344,
+     5087424,
+     5205600,
+     5323776,
+     5441952,
+     5560128,
+     5609696,
+     5659152,
+     5708528,
+     5757824,
+     5816544,
+     5875136,
+     5933712,
+     5992176,
+     6173664,
+     6355216,
+     6530512,
+     6704816,
+     6816608,
+     6938432,
+     7060048,
+     7181872,
+     7303536,
+     7454176,
+     7604624,
+     7755536,
+     7906304,
+     8054992,
+     8203280,
+     8351888,
+     8500736,
+     8560128,
+     8619488,
+     8678912,
+     8738288,
+     8759568,
+     8780848,
+     8802080,
+     8823312,
+     8897008,
+     8977616,
+     9058256,
+     9138864,
+     9219456,
+     9349840,
+     9481264,
+     9612976,
+     9743856,
+     9845952,
+     9948480,
+     10050336,
+     10153296,
+     10270576,
+     10387856,
+     10505216,
+     10622608,
+     10687344,
+     10748720,
+     10809760,
+     10877040,
+     11019216,
+     11082112,
+     11144784,
+     11207472,
+     11270256,
+     11473104,
+     11675952,
+     11878800,
+     12081632,
+     12236224,
+     12391264,
+     12544912,
+     12698528,
+     12917344,
+     13136112,
+     13354704,
+     13573120,
+     13664160,
+     13792160,
+     14079584,
+     14367040,
+     14655344,
+     14943680,
+     15157360,
+     15500240,
+     15843152,
+     16186384,
+     16529632,
+     16813120,
+     16969328,
+     17125488,
+     17282128,
+     17438720,
+     17501712,
+     17598144,
+     17678320,
+     17853360,
+     18013104,
+     18144400,
+     18271984,
+     18399376,
+     18531584,
+     18675824,
+     18819840,
+     18969120,
+     19109152,
+     19254496,
+     19399696,
+     19556816,
+     19719760,
+     19882416,
+     20040704,
+     20215904,
+     20335040,
+     20434368,
+     20533744,
+     20633040,
+     20732384,
+     20831728,
+     20930912,
+     21030112,
+     21129456,
+     21228736,
+     21327920,
+     21429328,
+     21532672,
+     21740160,
+     21767424,
+     22198512,
+     22585168,
+     22644816,
+     22792928,
+     23077264,
+     23228928,
+     23354880,
+     23747504,
+     24028368,
+     24150384,
+     24240224,
+     24404864,
+     24433280,
+     24526080,
+     24573328,
+     24771248,
+     24818112,
+     24857472,
+     25132080,
+     25891200,
+     26321184,
+     26747728,
+     27204336,
+     27713136,
+     27805936,
+     27868208,
+     28288784,
+     28894080,
+     29329760,
+     29923024,
+     30155376,
+     30464592,
+     30694592,
+     30696768,
+     30738576,
+     30771936,
+     31034672,
+     31370384,
+     31428464,
+     31474704,
+     31511104,
+     31550624,
+     31676224,
+     31948128,
+     32117296,
+     32419376,
+     32472240,
+     32586592,
+     32703888,
+     32805536,
+     32999408,
+     33394768,
+     33825616,
+     34428992,
+     34706992,
+     34984656,
+     35262368,
+     35540064,
+     35570320,
+     35602688,
+     36331008,
+     36771792,
+     36983264
+    ],
+    "source_bytes": 36890512,
+    "unmodified_effect_chunks_preserved": true
+   },
+   "veff_sha256": "ccdaef5b864dc4ffdeae83b9addca6c68b9dc0e8c2006b5a0812b269a0dc7112"
+  },
+  "untouched_base_bytes": {
+   "base_bytes": 3755081728,
+   "compared_bytes": 3755068368,
+   "sha256": "5323c76e038e07c95fb1be9979574b6dfaf82f22468677cee033dfbf48704f3c",
+   "spans": [
+    [
+     32848,
+     32856
+    ],
+    [
+     34896,
+     34904
+    ],
+    [
+     69632,
+     71680
+    ],
+    [
+     102400,
+     104448
+    ],
+    [
+     131072,
+     133120
+    ],
+    [
+     535430,
+     535446
+    ],
+    [
+     553058,
+     553074
+    ],
+    [
+     622592,
+     624640
+    ],
+    [
+     651264,
+     653312
+    ],
+    [
+     921600,
+     924672
+    ]
+   ]
+  }
+ }
+}

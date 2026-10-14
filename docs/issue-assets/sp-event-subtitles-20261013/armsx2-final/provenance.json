@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-13",
+  "emulator": "ARMSX2 2.7.2-2-g2c1062b, native ARM64 JIT",
+  "renderer": "Metal, 6x (3840x2688), original user settings",
+  "startup": "cold boot via System > Boot File, no save-state loading",
+  "launched_iso": "work/iso/sp-event-gallery-review.iso",
+  "installed_iso": "build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v3.iso",
+  "iso_sha256": "b2f496cf49b95d4ec0d48fa27ddf2720029bcef76ccd8f17508f499a92c0870e",
+  "serial": "SLPS-25920",
+  "crc": "DD1EEC14",
+  "checked": [
+    "Theater fifth event banner and revised help",
+    "12 items on one page, 1/1",
+    "Impulse native playback including latter half and bottom centered outlined caption",
+    "Impulse natural return retaining selected row",
+    "Tsugumi second caption visible with white fill and black outline",
+    "Tsugumi natural return observed",
+    "Tsugumi Metal feedback warp: clear caption at seven-second playback sample",
+    "Tsugumi caption removed without residual text at following sample",
+    "Tsugumi natural return retaining row 3 on installed V3 cold boot",
+    "Installed V3 found and launched from native game list"
+  ],
+  "not_yet_verified": [
+    "All 12 scenes hardware full caption review",
+    "Original stage versus gallery full visual fidelity"
+  ],
+  "controller_keys": "Return start; L circle; K cross; arrows navigation; F8 native screenshots; Space temporary pause",
+  "final_ui_action": "Returned to gallery list; investigating newly reported list border jitter",
+  "settings_changed": false,
+  "screenshots": [
+    {
+      "file": "theater-entry.png",
+      "original": "/Users/nate/Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175133.png",
+      "sha256": "242e8992d84f64402621707cc64baf2ded54b38f7b5d4007231971ff58c7b8e2"
+    },
+    {
+      "file": "list-12.png",
+      "original": "/Users/nate/Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175141.png",
+      "sha256": "4c4a0c9ed4062b74a872881dba58b8e02593147620cb32789708deff375778bd"
+    },
+    {
+      "file": "impulse-subtitle.png",
+      "original": "/Users/nate/Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175156.png",
+      "sha256": "01cc14e8c2be3e5c42846781e62abbefb9036a65791653fd59b504bb687390f5"
+    },
+    {
+      "file": "impulse-returned.png",
+      "original": "/Users/nate/Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175245.png",
+      "sha256": "ecda75fc0c69756a366e07fdd9473b635d5a601a44bdf64b757aeb35f04dea4f"
+    },
+    {
+      "file": "tsugumi-subtitle.png",
+      "original": "/Users/nate/Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175410.png",
+      "sha256": "42571dfd5a649cd9da2508ed3b426cccc30c462ac4788dca07410fa61adb99b3"
+    },
+    {
+      "file": "tsugumi-feedback-caption.png",
+      "original": "/Users/nate/Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013182409.png",
+      "sha256": "3b4042dd07c868cfbe6e700cbf2086dd022bc3deab636e76e3317050e302bb0f"
+    },
+    {
+      "file": "tsugumi-after-caption.png",
+      "original": "/Users/nate/Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013182424.png",
+      "sha256": "0bfa30eb60f9742d671bfc05f76946e43ea03d0b49788d40e545c0b1f81c6cdd"
+    },
+    {
+      "file": "tsugumi-returned.png",
+      "original": "/Users/nate/Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013182513.png",
+      "sha256": "fdf663cd9b4272e8e581610414ed7916b1ad754d779904837f71ed9ca6b9dfca"
+    }
+  ],
+  "boundary": "Screenshots verify sampled visual states; this is not all-scene manual acceptance. Automated 14-run proof is LRPS2 only.",
+  "resumed_run": {
+    "startup": "Cold boot installed V3 from scanned game list",
+    "renderer": "Metal 6x",
+    "temporary_pause": true,
+    "memory_write_or_save_state_load": false
+  },
+  "user_reported_open_issues": [
+    {
+      "symptom": "Clicking any gallery entry to enter playback briefly makes list text smear or distort downward",
+      "status": "User clarified common trigger across entries; unresolved; earlier label of opening gallery list was inaccurate"
+    },
+    {
+      "symptom": "Gold list border and corners intermittently jitter after playback return",
+      "status": "reproduced in sampled captures; triggering scenes and root cause unconfirmed"
+    }
+  ],
+  "investigation_status": "Paused at user request while user checks each scene; no ISO modifications"
+}

@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-13",
+  "method": "filesystem rename with compatibility symlinks",
+  "current_iso": "build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v6.iso",
+  "iso_sha256": "4d67dc1ac0533e44c4f5c6673b46c9e4e931fda632d84b839ae582a136eb4dba",
+  "rollback_iso": "work/iso/archive/sp-event-gallery-subtitles-v5.iso",
+  "rollback_sha256": "e9927ca213574e8519f3efc00a4f837b50f5899b4253f8d245205605a84aaf76",
+  "compatibility_links": {
+    "work/iso/sp-event-gallery-v6-review.iso": "../../build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v6.iso",
+    "work/iso/sp-event-gallery-mazinger-v5-review.iso": "archive/sp-event-gallery-subtitles-v5.iso",
+    "work/iso/sp-event-gallery-review.iso": "../../build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v6.iso"
+  },
+  "removed_diagnostic_isos": [
+    {
+      "path": "work/iso/sp-event-gallery-v6-prototype.iso",
+      "bytes": 3914031104,
+      "sha256": "23b89f6876e48fcf74b9f3a56a85f1bd0cec3672383934fc69a6bcb5631aeecf",
+      "purpose": "failed diagnostic-only prototype; no acceptance use"
+    }
+  ],
+  "production_sp_current_untouched": true,
+  "scan_directory_files": [
+    "sp-event-gallery-subtitles-v6.iso"
+  ]
+}

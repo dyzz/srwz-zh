@@ -41,6 +41,24 @@ Original 为 BEST 提供同一快照的公共编译结果。SP 独立使用自�
 重新运行 system、42 个 STAGE 块、战斗字幕、frame 与图像写入器，再合成当前 Q&A、
 地形、武器效果、机体名和标题组件。不会用本篇 Q&A 覆盖 SP 专有条目。
 
+Original 与 The Best 在各自的原生封盘和语义回读之后，还有最后一个阶段：原关卡事件演出的中文字幕
+（`tools/event_subtitles/apply.py`，`build_editions.apply_main_event_subtitles`）。它把 13 个 effect 块加上
+字幕贴图、给可执行文件加挂绘制钩子和私有段，两个成员超出原盘分配，同样由 `special_disc/iso_relocation.py`
+追加到已验证镜像之后（目录记录、卷描述符、`VMAP.DAT` 保留既有的非目标差异、UDF）。语义回读仍绑定追加前的
+基础镜像；版本回执的 `output` 是最终镜像，`base_output` 是基础镜像，`event_subtitles` 回执把两者绑定，
+并记录基础镜像内除声明写入点外每个字节未变的校验、两个成员的哈希与钩子回读。`verify_editions.py`、
+`freeze_release.py`、`build_release.py` 都按这两层绑定核对：回读对基础镜像，字幕回执对发布镜像，并在发布镜像上
+重读两个成员和钩子。`tools/event_subtitles/build.py` 只保留为隔离实验包装。
+
+SP 合成的最后一个可执行阶段是特别剧场“事件演出”（`special_disc/event_gallery/apply.py`）：
+在全部文本补丁之后，对可执行文件加挂原生钩子与私有段、在 AID 块 2 追加横幅、给 12 个
+effect 块追加字幕贴图。这三个成员超出原盘分配，由 `special_disc/iso_relocation.py` 追加到
+基线镜像之后，并同步 ISO9660 目录记录、两份卷描述符、原生 `VMAP.DAT` 扇区目录和 UDF 文件项；
+其余成员仍保持原 LBA 与大小。受保护区域校验覆盖基线长度内除这些声明写入点之外的每个字节，
+尾部必须恰好是三个成员载荷加 UDF 元数据块。配置、字幕稿、字体、代码与资源的哈希写入回执的
+`event_gallery`，独立回读另行核对钩子、载荷段和 12 个字幕块的解码哈希。
+鉴赏的机体、镜头与 BGM 对齐证据见 [SP_EVENT_FIDELITY_20261014.md](SP_EVENT_FIDELITY_20261014.md)。
+
 SP 在替换当前 ISO 前验证原盘、组件报告、码表、语料覆盖、字体覆盖、成员大小与 LBA、
 ISO 非目标区域以及最终成员回读。统一回执位于 `manifests/editions/sp/current.json`，
 完整 SP 组件回执同时保留在 ISO 旁的 `sp-current.json`。批次验证还核对输入快照、
@@ -93,10 +111,29 @@ SP 批次校验直接回读已发布的 current ISO，并核对私有工作区�
   只哈希一次，APFS 克隆继承已验证摘要，同一构建的全部子进程共享
   `work/cache/file-identity.json`。校验点不变，只去掉重复计算。
 - `--force-rebuild` 跳过当前镜像复用，强制 Original 全组件、字体重栅格、原盘布局重提取、
-  SP 五组组件全部重建、完整内容回读，并禁用持久文件身份缓存（等价于 `SRWZ_REHASH=1`）。
+  SP 五组组件全部重建、完整内容回读。文件身份不信任批次之前的记录：该批次从空的
+  `work/cache/file-identity-rebuild.json` 开始，本批次自己验证过的摘要（还原的基线、刚封好的镜像）
+  仍经它交给子进程，不再重复整盘哈希。压缩结果缓存按“压缩器字节 + 参数 + 输入内容”入键、
+  条目自带摘要，强制全量也照常读取（2026-10-14 起；此前 `SRWZ_REHASH=1` 连它一起绕过）。
+- 纯 Python 的 CPU 密集阶段（LIBRARY／SP 图鉴正文排版、剧情 STAGE 对白排版、事件字幕贴图、
+  Original 回读的逐关卡循环、Best 的逐块编译）经 `srwz/parallel.py::map_processes` 分到工作进程：
+  调用进程单线程时 fork（闭包可直接使用），否则 spawn；结果按输入顺序返回，字节与串行完全一致。
+  `SRWZ_WORKERS=1` 回到串行参考路径，默认每 CPU 一个、至多 8 个。回读循环按连续关卡分片，
+  各分片从相同初值出发，`merge_shard_values` 按类型合并计数、列表、集合、字典与单次赋值。
+- SP 与 Original→Best 链互不依赖，`build_editions` 把 SP 放在线程里与主线并行（2026-10-14 起，
+  用户确认）；两者只共享按内容寻址的压缩缓存与带文件锁的身份存储。`--force-rebuild` 下原盘布局
+  重提取（`build_iso.py --extract-only --refresh-extraction`）与 Original 组件阶段并行，封盘阶段
+  直接复用并逐字节复验这份提取。
+- 字体链三个脚本共用的翻译树选择结果按内容缓存在身份存储旁的 `work/cache/translation-tree-selection/`；
+  封盘后一次顺序读取记录整盘与逐成员摘要，回读与成员校验不再重读镜像；本篇字幕阶段与回读并行。
+- 字形栅格每个 ImageMagick 进程渲染 64 个字形、3 个进程并行（`font_rasterizer.rasterize_characters`，
+  像素与逐字渲染逐字节相同；`MAGICK_THREAD_LIMIT=1` 避免 OpenMP 空转）。
 - 私有工作区用 `work/edition-inputs.json` 中的冻结清单提供配置列表和源码身份，不向父目录 Git 查询文件。
 - mkps2iso 工具链在私有工作区内直接复用已按固定 commit 构建、版本行匹配的可执行文件，不重跑 CMake。
-- SP 只还原一次基线镜像并通过环境变量交给各写入器与回读脚本；system→STAGE 链与 SRVC、frame、
+- SP 基线镜像首次仍由 xdelta 还原，同时把与原盘不同的 64 KiB 粒度区间记成稀疏边车
+  `work/build/special-disc/baselines/<name>.sparse.{json,bin}`（text-canary 约 111 MB）；之后每批
+  用 APFS 克隆原盘再只写这些区间，整盘哈希仍须等于锁定值，不符即丢弃边车回退 xdelta。
+  SP 只还原一次基线镜像并通过环境变量交给各写入器与回读脚本；system→STAGE 链与 SRVC、frame、
   图像写入器并行执行；临时 ISO 用 APFS 克隆而非整盘复制。SP 保留发布前独立语义回读；外层验证
   该回执、最终成员与 ISO 的绑定，取消同一验收脚本的第二次完整执行。
 - SP 可变文本块先使用 `rust-fit`，只有原定槽位容纳不下才回退 `rust-maximum`。已冻结图像的压缩字节契约不变。
@@ -116,7 +153,9 @@ SP 支持组件级增量。统一入口从上一份已通过独立回读的 SP �
 | SP frame-text | system、STAGE、frame、image-labels |
 | 不被 SP 写入器读取的其他语料 | 复用五组组件 |
 
-配置、锁定基线／字体、共享编解码器或 SP 工具源码变化采取保守策略，重建全部组件。
+配置、锁定基线／字体、共享编解码器或 SP 工具源码变化采取保守策略，重建全部组件；
+只有事件演出专用的 `event-gallery.json`、`event-subtitles.json`、`tools/special_disc/event_gallery/`
+和字幕字体（`incremental.ASSEMBLY_ONLY`）例外——它们只被每次都执行的合成阶段读取，改动不触发组件重建。
 新缓存只随最终独立回读通过的报告发布；失败构建不会成为下一批次的已验证缓存。
 每次组件增量后仍完整执行 ISO 合成、非目标区域校验和独立语义回读。
 回执的 `incremental.components` 记录每组输入、依赖、`reused`／`rebuilt` 和原因；

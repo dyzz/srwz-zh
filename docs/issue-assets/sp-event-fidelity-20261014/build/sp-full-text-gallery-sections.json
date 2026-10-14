@@ -1,0 +1,702 @@
+{
+ "iso": {
+  "path": "build/iso/special-disc/sp-current.iso",
+  "sha256": "43f3202236de9bf56b11b38734ef7fd5ef5eba8125e9a7ca64e0ffbeb47b0bd4",
+  "size": 3913996288
+ },
+ "baseline": {
+  "path": "build/iso/.tmp/baselines/.text-canary-1gkg6_oi/temporary.iso",
+  "sha256": "3617b44b263b1a31f14632d89f3ee456a031349ee892b25c6c8eeb9ae8d5ae73"
+ },
+ "relocated_members": {
+  "appended_bytes": 121688064,
+  "appended_sha256": "bf19b7745f776107309e10535e3ae02c1c6174b5c34704560c166791cf8537b4",
+  "catalog": {
+   "edits": [
+    {
+     "new_lba": 1853434,
+     "new_sectors": 38813,
+     "old_lba": 1231124,
+     "old_sectors": 38793,
+     "path": "AID_DATA/AIDDATA.BIN",
+     "record_offset": 576
+    },
+    {
+     "new_lba": 1892247,
+     "new_sectors": 18627,
+     "old_lba": 1269917,
+     "old_sectors": 18581,
+     "path": "EFF/VEFF2DX.BIN",
+     "record_offset": 624
+    }
+   ],
+   "member": "VMAP.DAT",
+   "not_catalogued": [
+    "SLPS_259.20"
+   ],
+   "records_checked": 62
+  },
+  "changes": {
+   "AID_DATA/AIDDATA.BIN": [
+    1853434,
+    79488704
+   ],
+   "EFF/VEFF2DX.BIN": [
+    1892247,
+    38146432
+   ],
+   "SLPS_259.20": [
+    1851456,
+    4050944
+   ]
+  },
+  "new_size": 3913996288,
+  "old_size": 3791781888,
+  "touched_spans": [
+   [
+    32848,
+    32856
+   ],
+   [
+    34896,
+    34904
+   ],
+   [
+    69632,
+    71680
+   ],
+   [
+    102400,
+    104448
+   ],
+   [
+    131072,
+    133120
+   ],
+   [
+    535430,
+    535446
+   ],
+   [
+    551010,
+    551026
+   ],
+   [
+    553058,
+    553074
+   ],
+   [
+    622592,
+    624640
+   ],
+   [
+    649216,
+    653312
+   ],
+   [
+    921600,
+    924624
+   ]
+  ],
+  "udf": {
+   "anchors_written": [
+    1910874,
+    1911130
+   ],
+   "files": [
+    {
+     "ad_offset": 308,
+     "fe_lba": 304,
+     "new_lba": 1851456,
+     "new_size": 4050944,
+     "path": "SLPS_259.20",
+     "previous_lba": 455,
+     "previous_size": 3982200
+    },
+    {
+     "ad_offset": 308,
+     "fe_lba": 317,
+     "new_lba": 1853434,
+     "new_size": 79488704,
+     "path": "AID_DATA/AIDDATA.BIN",
+     "previous_lba": 1231124,
+     "previous_size": 79447152
+    },
+    {
+     "ad_offset": 308,
+     "fe_lba": 318,
+     "new_lba": 1892247,
+     "new_size": 38146432,
+     "path": "EFF/VEFF2DX.BIN",
+     "previous_lba": 1269917,
+     "previous_size": 38053520
+    }
+   ],
+   "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-sp/82c420e6717823c5a2a17c69da339647be956bf8fd0208dc333e479c5006ffd8/project/build/iso/special-disc/sp-current.tmp.iso",
+   "image_blocks": 1911131,
+   "metadata_blocks_written": [
+    34,
+    50,
+    64,
+    304,
+    317,
+    318,
+    1910874,
+    1911130
+   ],
+   "partition_extended": true,
+   "partition_length": 1910856,
+   "partition_start": 274,
+   "previous_partition_length": 1851181,
+   "unchanged_members_preserved": 62
+  }
+ },
+ "relocation_readback": {
+  "relocated_members": [
+   "AID_DATA/AIDDATA.BIN",
+   "EFF/VEFF2DX.BIN",
+   "SLPS_259.20"
+  ],
+  "tail_bytes": 122214400,
+  "unchanged_members": 62,
+  "verified": true
+ },
+ "event_gallery_readback": {
+  "hooks": 9,
+  "payload_offset": 3985408,
+  "subtitled_chunks": 12
+ },
+ "protected_iso_ranges": {
+  "bytes": 3534887349,
+  "sha256": "6247ddd74773f4ad29e7dc974c82d29df8936f4059c07bd77761fdbe1756912c"
+ },
+ "status": "all_bound_text_reread_from_final_iso_runtime_pending",
+ "independent_readback": {
+  "path": "work/build/special-disc/full-text/runs/build-j5gw8h5v/independent-readback.json",
+  "sha256": "eace68106c49b8e3ef0a968024e25c6c254eb24f3d14c4f38ed60fe3938edcd0"
+ },
+ "files": {
+  "AID_DATA/AIDDATA.BIN": "40fb09ddfca9fb2730427fe2ed35e3ce5d80c00f09f02c551060906987f55047",
+  "BTL/SRVC.BIN": "6e7d90b68d55324f90ddc102eeda0b1d99209701a11796164e826054ad3b4113",
+  "BTL/TRICMN.BIN": "3dd1a6e66bb498b5cbf3ae96ab81509d066bedd132a441a20d4d0e769c898076",
+  "DATA/COMPDATA.BN": "f557922b49a03d4dfa183575d841c4b8144322c13755af2a9f77325b50ccb9e5",
+  "DATA/HSFC.BIN": "d9108311fdd033eacb8cdb0d94fb5858d7225454eb93e5e8c7fccb3199540856",
+  "DATA/MTVZKNKW.BIN": "d4ccd79b94b287588b608515a267701fd2f72310dad39b01f5ac957206ddeef8",
+  "DATA/MTVZKNPT.BIN": "c06c68e7fe6f8b56b419a4ffa1dc7454e59d499224f738a97edef9afd757ed68",
+  "DATA/MTVZKNRT.BIN": "553ed48ee550a65dbbfbc8b40d6d4b56423634259dba58b39f347a550e06f580",
+  "DATA/MTZSPROS.BIN": "f1c0baeda8c64b07f48cde41d1563bf01061bf8c284fb0430630f24337cf8a6b",
+  "DATA/NISVDATA.BIN": "75ae9ccf1efe73798538a9109f6e5d460906389a96fe6dfb8455fefb72e8cc5a",
+  "DATA/STAGE.BIN": "56770a7be3cc4ba98b53bb99816aafe9b225f1ca0c93a021fc66bcb510cc9430",
+  "DATA/VT1.BIN": "7dbac01431bb975fca62dd3b7d83c02ec3d6ec3194439ac5d7117b19a64b911c",
+  "EFF/VEFF2DX.BIN": "37290067f6effc8e83251bacf9f93207c8644d0b12a7fdd4ca76aa536da5755a",
+  "KURODATA/KVMDATA.BIN": "143d3ba17a0d1828b39912cae00de70da435be38e594140a6df8be9b3fc588d4",
+  "KURODATA/KVPDATA.BIN": "90ed6dcdf510e2dc15d07e2fd7f5b907e29cf0effefbb195c0acff47ef7ea976",
+  "MAP/MAPMODEL.BIN": "549655ab3f26fa7b6e881c8a5213cb348d1f4f217c31f79baa93ecb0c44a04e8",
+  "MAP/MAPNAME.BIN": "d34202210aeb8f0728e4acf7a2b140cd038de752d14c0cf18684fa985c7865ca",
+  "SLPS_259.20": "ed648f6596045b9fcd3d893f766efc8d457b13b691b02b95a8d3041abd711340"
+ },
+ "event_gallery": {
+  "caption_count": 37,
+  "config": {
+   "path": "config/products/special-disc/event-gallery.json",
+   "sha256": "bfa3f717ec1f0eff2e7502c0a649307bd98a9900653849169f6c65e5ab4e43fe"
+  },
+  "elf_sha256": "ed648f6596045b9fcd3d893f766efc8d457b13b691b02b95a8d3041abd711340",
+  "font": {
+   "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+   "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
+  },
+  "hooks": [
+   {
+    "address": "0x143ea8",
+    "words": 1
+   },
+   {
+    "address": "0x144b30",
+    "words": 1
+   },
+   {
+    "address": "0x144b00",
+    "words": 1
+   },
+   {
+    "address": "0x320f30",
+    "words": 2
+   },
+   {
+    "address": "0x1001d0",
+    "words": 1
+   },
+   {
+    "address": "0x1001d8",
+    "words": 1
+   },
+   {
+    "address": "0x44e734",
+    "words": 1
+   },
+   {
+    "address": "0x1410f4",
+    "words": 1
+   },
+   {
+    "address": "0x141100",
+    "words": 1
+   }
+  ],
+  "input_aid_sha256": "17991e3c2bd939c07266b309be77321cbeb5fc65ca54140bd22bd7c79d6f2549",
+  "input_elf_sha256": "71480201a1ab430fa0f6229a39f0c2bd5d9e48a3f060addea0fe0cda9424392f",
+  "input_veff_sha256": "8199c6765f3e9cff5f049bbb722c272ba242f4b9836bd501d8c6d2a1b00dd16b",
+  "payload": {
+   "address": "0x820000",
+   "offset": 3985408,
+   "private_end": "0x8b0000",
+   "size": 65536
+  },
+  "proposal": {
+   "path": "work/build/special-disc/text-candidate/font/proposal.json",
+   "sha256": "399c9f641f5220021ff1b5d8f3561af0394401b22e48bbff711f381d54c9e134"
+  },
+  "runtime_acceptance": "LRPS2 cold-start evidence is recorded separately per candidate identity",
+  "scene_count": 12,
+  "source_files": {
+   "tools/special_disc/event_gallery/aid.py": "b8bc4daeeb095874ea215e9928e1e9941f40efc0bad87902c00016bb38e3f1d4",
+   "tools/special_disc/event_gallery/apply.py": "59f68b1de687c97e6f33cf5169aa37c03a0a39ba454d955954f15e3838daa37b",
+   "tools/special_disc/event_gallery/assets/event-banner-clut.bin": "1970e3299e6e84f28e1768a2cdcada866dc0cb50ca03c817954ecc8ecfb61cc5",
+   "tools/special_disc/event_gallery/assets/event-banner-picture.bin": "fdd5c9b734e697a7817f7f47fab81a1da53924d4c387ab2a01a3186645880a0f",
+   "tools/special_disc/event_gallery/assets/manifest.json": "4ff2410926865e6375b4dd7eb7c90bb4757d1ab8688e80adfe7af827e80b4907",
+   "tools/special_disc/event_gallery/author_banner.py": "aedc0e187bd59d8eb93ffb8648558517d038cd64f7b2206ec009d64b6885d7e1",
+   "tools/special_disc/event_gallery/banner.py": "1b7057d0eeae771efe00c93fe3c19686652ad975dbf6db0b08665e99779ba288",
+   "tools/special_disc/event_gallery/build.py": "c70a1825e0e7b59e46521f464bdac5dfa9ceff377c3f651eeb34fdfee5871cb9",
+   "tools/special_disc/event_gallery/disc_catalog.py": "7af0e7e4e62fd2dd8d3629baa3942475fa537957cba80066bb232da3ce3b62e4",
+   "tools/special_disc/event_gallery/fidelity.py": "09b328bca05647ab18ad5798579f654ebcd72eb3dd694f40b018c71c0e7e2914",
+   "tools/special_disc/event_gallery/menu.py": "7054157e5b2d5cf00ee2264f5a0c9293365a6e8e265884dc64fd329331c4e905",
+   "tools/special_disc/event_gallery/render_review.py": "1b3098dc59dfc92cae618f4cd622464eb93004e66d45517b6bdd0d0926fb852d",
+   "tools/special_disc/event_gallery/runtime.S": "50574bb50b3a8657cdc09061d3d1524c82762b1fc0c4358a0ed4a06875eb089e",
+   "tools/special_disc/event_gallery/runtime.py": "0d70a0edf06b463c95d68fa88b398c03af281dadafa9ff8de6b4b46a362ff972",
+   "tools/special_disc/event_gallery/subtitles.py": "33ba8975b38d6072f03853752c6b71d73ef2d72ba328bff66800b1afd66521a9",
+   "tools/special_disc/event_gallery/transcribe.py": "a99d99e57d475c584d4e336ba528aa10829afb41b24eae7e4c15230cd0c8e38c",
+   "tools/special_disc/event_gallery/udf.py": "4d1fce0eaec47933c87bcaa98c5be272635a585269d4280afc3b1e7caae495d5",
+   "tools/special_disc/event_gallery/verify_flow.py": "305d077d4472a5d47b3a31a39e0c827d7e841d2819bcfbfd9a8342cbe0ce75bb"
+  },
+  "subtitle_source": {
+   "path": "config/products/special-disc/event-subtitles.json",
+   "sha256": "5c5596a643b2b6911f7feba81b60e0322f16d6151385d80e3dc60a76af1215e8"
+  },
+  "veff": {
+   "bytes": 38146432,
+   "edited_chunks": [
+    256,
+    257,
+    258,
+    259,
+    260,
+    265,
+    266,
+    267,
+    268,
+    270,
+    274,
+    283
+   ],
+   "offsets": [
+    0,
+    49936,
+    51056,
+    57584,
+    70800,
+    84016,
+    97232,
+    112592,
+    117824,
+    125600,
+    137920,
+    154384,
+    167904,
+    178624,
+    191920,
+    195360,
+    198784,
+    201680,
+    203296,
+    203408,
+    203520,
+    241248,
+    305024,
+    364032,
+    423952,
+    480720,
+    547984,
+    615232,
+    671632,
+    734368,
+    797120,
+    853344,
+    909376,
+    965424,
+    1014688,
+    1066208,
+    1113408,
+    1160176,
+    1206672,
+    1253440,
+    1308336,
+    1338560,
+    1384512,
+    1434512,
+    1484512,
+    1537952,
+    1590400,
+    1646448,
+    1709264,
+    1768656,
+    1831568,
+    1906688,
+    1944416,
+    1948272,
+    1952208,
+    1958448,
+    1961664,
+    1967904,
+    1973408,
+    1977952,
+    1985504,
+    1994832,
+    2004352,
+    2013024,
+    2020464,
+    2027904,
+    2038000,
+    2048096,
+    2068784,
+    2072624,
+    2082320,
+    2090512,
+    2098704,
+    2106896,
+    2110016,
+    2115792,
+    2120320,
+    2127232,
+    2137200,
+    2154112,
+    2163792,
+    2174160,
+    2187536,
+    2213520,
+    2218176,
+    2226368,
+    2238544,
+    2251232,
+    2312304,
+    2400800,
+    2489376,
+    2576176,
+    2662720,
+    2729872,
+    2797184,
+    2864432,
+    2931680,
+    3050224,
+    3169248,
+    3288272,
+    3406816,
+    3590000,
+    3773184,
+    3956368,
+    4139552,
+    4258208,
+    4376864,
+    4495520,
+    4614176,
+    4732256,
+    4850800,
+    4969344,
+    5087424,
+    5205600,
+    5323776,
+    5441952,
+    5560128,
+    5609696,
+    5659152,
+    5708528,
+    5757824,
+    5816544,
+    5875136,
+    5933712,
+    5992176,
+    6173664,
+    6355216,
+    6530512,
+    6704816,
+    6816608,
+    6938432,
+    7060048,
+    7181872,
+    7303536,
+    7454176,
+    7604624,
+    7755536,
+    7906304,
+    8054992,
+    8203280,
+    8351888,
+    8500736,
+    8560128,
+    8619488,
+    8678912,
+    8738288,
+    8759568,
+    8780848,
+    8802080,
+    8823312,
+    8897008,
+    8977616,
+    9058256,
+    9138864,
+    9219456,
+    9349840,
+    9481264,
+    9612976,
+    9743856,
+    9845952,
+    9948480,
+    10050336,
+    10153296,
+    10270576,
+    10387856,
+    10505216,
+    10622608,
+    10687344,
+    10748720,
+    10809760,
+    10877040,
+    11019216,
+    11082112,
+    11144784,
+    11207472,
+    11270256,
+    11473104,
+    11675952,
+    11878800,
+    12081632,
+    12236224,
+    12391264,
+    12544912,
+    12698528,
+    12917344,
+    13136112,
+    13354704,
+    13573120,
+    13664160,
+    13792160,
+    14079584,
+    14367040,
+    14655344,
+    14943680,
+    15157360,
+    15500240,
+    15843152,
+    16186384,
+    16529632,
+    16813120,
+    16969328,
+    17125488,
+    17282128,
+    17438720,
+    17501712,
+    17598144,
+    17678320,
+    17853360,
+    18013104,
+    18144400,
+    18271984,
+    18399376,
+    18531584,
+    18675824,
+    18819840,
+    18969120,
+    19109152,
+    19254496,
+    19399696,
+    19556816,
+    19719760,
+    19882416,
+    20040704,
+    20215904,
+    20335040,
+    20434368,
+    20533744,
+    20633040,
+    20732384,
+    20831728,
+    20930912,
+    21030112,
+    21129456,
+    21228736,
+    21327920,
+    21429328,
+    21532672,
+    21740160,
+    21767424,
+    22198512,
+    22585168,
+    22644816,
+    22792928,
+    23077264,
+    23228928,
+    23354880,
+    23747504,
+    24028368,
+    24150384,
+    24240224,
+    24404864,
+    24433280,
+    24526080,
+    24573328,
+    24771248,
+    24818112,
+    24857472,
+    25132080,
+    25890768,
+    26320752,
+    26747296,
+    27203904,
+    27746352,
+    27839152,
+    27901424,
+    28322000,
+    28927904,
+    29363584,
+    29956848,
+    30189200,
+    30498416,
+    30728416,
+    30730592,
+    30772400,
+    30805760,
+    31068496,
+    31404208,
+    31462288,
+    31508528,
+    31544928,
+    31584448,
+    31772992,
+    32044896,
+    32214064,
+    32516144,
+    32569008,
+    32740016,
+    32914112,
+    33113120,
+    33306992,
+    33702352,
+    34133200,
+    34736576,
+    35014576,
+    35292240,
+    35569952,
+    35847648,
+    35878304,
+    35910912,
+    36639232,
+    37080016,
+    37224576,
+    37401920,
+    37591104,
+    38146416,
+    38146432
+   ],
+   "sha256": "37290067f6effc8e83251bacf9f93207c8644d0b12a7fdd4ca76aa536da5755a",
+   "source_bytes": 38053520,
+   "unrelated_encoded_chunks_preserved": true
+  },
+  "subtitles": [
+   {
+    "effect": 273,
+    "chunk": 274,
+    "decoded_sha256": "b577c7932c9d694647cdec43459bfd8fce53b3d82e84c251af866399193df30c",
+    "packed_sha256": "70f5cc9a490896a6277786d9cd6e8d30ae196333babd73438aa2a8a16618c12b",
+    "caption_count": 4
+   },
+   {
+    "effect": 255,
+    "chunk": 256,
+    "decoded_sha256": "49d2d13d565741ea2cb1c79cf134360b800d2bde5b060c8570dc8eb6cdceadd1",
+    "packed_sha256": "63f899df924e78b352e2fa5d2bcd3f88095aaf38f7a8bac3b1bf8bfeb8263d63",
+    "caption_count": 1
+   },
+   {
+    "effect": 256,
+    "chunk": 257,
+    "decoded_sha256": "f147d0082539d0607a3e2e3f8b3ccf3d34d94ecde7fd60976f2b13f43af490be",
+    "packed_sha256": "f272e89438ea8457558b2cf2dd8ac09259023d7a1229692ec69a5eadd8349da7",
+    "caption_count": 8
+   },
+   {
+    "effect": 257,
+    "chunk": 258,
+    "decoded_sha256": "e4f2071c44b6f452d107269c192f511d5f21f20348136cb9d98682851125ec72",
+    "packed_sha256": "a9147a8514208d480dabf4858095d722abce0fb446f83d08f79f1a4ee8e9fd25",
+    "caption_count": 2
+   },
+   {
+    "effect": 258,
+    "chunk": 259,
+    "decoded_sha256": "46a741d6b168fc5dd8e69e7de09d6cee654c40451eed3b92759d361483888473",
+    "packed_sha256": "585f087c185c5822f9e11f025e5c9ac2be08b10f7bb6968809402fb9278c21bb",
+    "caption_count": 6
+   },
+   {
+    "effect": 259,
+    "chunk": 260,
+    "decoded_sha256": "0b87d3f9464ed41a19263ddef3b3a383d70b709b006120556cb22a12c8b81f91",
+    "packed_sha256": "6527c3cb8f4571eba73d90e469c4d7c4214cd6cdd3390726d2cdeb8c1d5afa4e",
+    "caption_count": 3
+   },
+   {
+    "effect": 264,
+    "chunk": 265,
+    "decoded_sha256": "ff598f360ce7e8abd8a751174a308506612fe645fbf83d1173d9a6019e147a33",
+    "packed_sha256": "064b519da4cdf047c1c924de95e195276c6b4337991277664d34d1963a4859ed",
+    "caption_count": 2
+   },
+   {
+    "effect": 265,
+    "chunk": 266,
+    "decoded_sha256": "5487ee01b2e3bb51c019388f1d7f64cc2b788ccdd9c1e9a9d50111e2313a3d9b",
+    "packed_sha256": "478a0eb3a879ce1d8e758d5184a8a0eb3bc429023bcbd6b2d7c8d726c31cd9a8",
+    "caption_count": 3
+   },
+   {
+    "effect": 266,
+    "chunk": 267,
+    "decoded_sha256": "0b09fadd60b16eded4e7c2d20f24df6fc638d14250d8e2664606f0f2fa74ae7c",
+    "packed_sha256": "d29c5c29e9b447cb7f3d4d6cac2f4a4c523049e14534a96d2ae8fda18b62e1d1",
+    "caption_count": 3
+   },
+   {
+    "effect": 267,
+    "chunk": 268,
+    "decoded_sha256": "27bde38900fe7da902b903c89f3f18a6f5dd6538c47b6d97b35d8e4417ee8608",
+    "packed_sha256": "c7e53d14f73454532b1314b5acf68460052da1da4fb03a75eb38f2e868b82cfa",
+    "caption_count": 1
+   },
+   {
+    "effect": 269,
+    "chunk": 270,
+    "decoded_sha256": "700f867fdff64ced950c630743c112ed166175f2a6cceaaf41f169e990c8525d",
+    "packed_sha256": "cabc35615c3b0134c469015ffaf1122adccc1466772bc094798372d1c982e466",
+    "caption_count": 2
+   },
+   {
+    "effect": 282,
+    "chunk": 283,
+    "decoded_sha256": "2263d551d218a90682e5f30895bfa98c9611d9628789ffe803c8dad81db3c3d9",
+    "packed_sha256": "fd9e6da95e6ee4152904899854b90b766841469c99b295550d85becc8b6f6ec2",
+    "caption_count": 2
+   }
+  ]
+ },
+ "timing": null
+}

@@ -26,7 +26,9 @@ class SpIncrementalTests(unittest.TestCase):
             'corpus/zh/special-disc/system-text.json', 'corpus/zh/special-disc/frame-text.json',
             'corpus/zh/special-disc/story-dialogue.json', 'corpus/zh/special-disc/battle-lines.json',
             'corpus/zh/story-dialogue/stage-001.json', 'corpus/zh/battle/srvc-lines.json',
-            'corpus/zh/menu/stage-names.json', 'corpus/zh/library/unused.json', 'tools/build_release.py')]
+            'corpus/zh/menu/stage-names.json', 'corpus/zh/library/unused.json', 'tools/build_release.py',
+            'config/products/special-disc/event-gallery.json', 'tools/special_disc/event_gallery/apply.py',
+            'work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf')]
         self.calls = []
 
     def builder(self, work, name, value=None):
@@ -72,6 +74,10 @@ class SpIncrementalTests(unittest.TestCase):
             'corpus/zh/special-disc/frame-text.json': {'system', 'stage', 'frame', 'image-labels'},
             'corpus/zh/library/unused.json': set(), 'tools/build_release.py': set(),
             'config/fonts/test.json': set(COMPONENTS), 'tools/srwz/codec.py': set(COMPONENTS),
+            # Assembly-only gallery inputs never change writer output bytes.
+            'config/products/special-disc/event-gallery.json': set(),
+            'tools/special_disc/event_gallery/apply.py': set(),
+            'work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf': set(),
         }
         for path, affected in cases.items():
             for mutation in ('edit', 'delete', 'add'):
@@ -86,6 +92,10 @@ class SpIncrementalTests(unittest.TestCase):
                                                  'corpus/zh/menu/stage-names.json',
                                                  'corpus/zh/special-disc/frame-text.json'):
                     affected_now = set()
+                elif mutation == 'add' and path == 'config/products/special-disc/event-gallery.json':
+                    # Only the named gallery files are assembly-only; an unknown
+                    # config sibling stays a conservative input of every writer.
+                    affected_now = set(COMPONENTS)
                 else: affected_now = affected
                 with self.subTest(path=path, mutation=mutation): self.assertEqual(actual, affected_now)
 

@@ -1,0 +1,20 @@
+{
+  "native_record_length_function": "0x1ca690: offset[i+1] - offset[i]",
+  "root_cause": "Missing end-offset sentinel after the last wrapper record; native CCC-table copy reads payload or padding as the end offset.",
+  "sigma_old_first_word": "0x01f80063",
+  "sigma_old_last_record_offset": "0x235910",
+  "sigma_bogus_copy_bytes_before_16byte_rounding": 30713683,
+  "impulse_old_last_end_offset": 0,
+  "impulse_result": "Negative last-record length skips native CCC initialization.",
+  "native_decoder_evidence": {
+    "folder": "work/analysis/sp-gallery-subtitles-20261013/decoder-probe/runtime-bounds",
+    "packed_ram_matches_candidate": true,
+    "decoded_ram_matches_candidate": true,
+    "decoded_sha256": "5e5b0ab8a380508ea49ce8d7e12761480b19b7d74ec21aa6d473a83fd4349006",
+    "return_frame": 2961,
+    "subsequent_corruption_frame": 2962
+  },
+  "repair": "Reserve n+1 offset/size pairs, write final payload end and zero metadata, preserve 16-byte record alignment.",
+  "regression_tests": "tests/test_sp_event_gallery_records.py: seven/eight records and unaligned logical record sizes",
+  "diagnostic_hooks_removed_from_candidate": true
+}

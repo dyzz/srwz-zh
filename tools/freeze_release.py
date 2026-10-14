@@ -84,6 +84,10 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
             if independent_lock['sha256'] != independent['sha256']:
                 raise ValueError('SP independent readback changed during freeze')
             validation['sp_independent_readback'] = independent_lock
+        if 'event_subtitles' in result:
+            # Original/Best readbacks bind the pre-caption image; the caption
+            # receipt binds it to the frozen target and is checked by the release builder.
+            validation.setdefault('event_subtitles', {})[edition] = result['event_subtitles']
         hook = verify_skip(target, inputs, edition)
         skip_proof = {'schema_version': 1, 'status': 'built_in_skip_hook_readback_passed', 'edition': edition,
                       'iso': target_lock, 'skip_enabled': True, 'battle_square_skip': hook, 'runtime': 'not_tested'}

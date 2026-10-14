@@ -60,10 +60,21 @@ def verify_batch(root: Path, manifest: Path) -> dict:
             "sp": {"all_current_draft_text_written_static_verified_runtime_pending",
                    "all_bound_text_reread_from_final_iso_runtime_pending"},
         }[profile.edition_id]
+        # Original/Best captions are appended after the semantically verified
+        # image; their receipt binds that base image to the published one.
+        bound = result.get("base_output") or result["output"]
         if (readback["status"] not in expected_statuses
-                or readback["iso"]["sha256"] != result["output"]["sha256"]
-                or readback["iso"]["size"] != result["output"]["size"]):
+                or readback["iso"]["sha256"] != bound["sha256"]
+                or readback["iso"]["size"] != bound["size"]):
             raise EditionError("semantic readback belongs to a different ISO")
+        subtitles = result.get("event_subtitles")
+        if "base_output" in result:
+            from event_subtitles.apply import verify_subtitled_iso
+            if (not subtitles or subtitles["base_iso"]["sha256"] != bound["sha256"]
+                    or subtitles["iso"]["sha256"] != result["output"]["sha256"]
+                    or subtitles["iso"]["size"] != result["output"]["size"]):
+                raise EditionError("event subtitle receipt does not bind base and published images")
+            verify_subtitled_iso(output, subtitles, source_path.parent / "project")
         if profile.edition_id == "sp":
             locked_sp_inputs(source_path.parent / "project")
             validate_sp_readback(context.project_root, readback, iso_path=output)
@@ -82,8 +93,9 @@ def verify_batch(root: Path, manifest: Path) -> dict:
     if "best" in requested and "original" in requested:
         results = {r["edition_id"]: r for r in batch["results"]}
         shared = results["best"]["shared_frontend"]
+        original_base = results["original"].get("base_output") or results["original"]["output"]
         if (shared["readback_sha256"] != results["original"]["readback"]["sha256"]
-                or shared["iso_sha256"] != results["original"]["output"]["sha256"]):
+                or shared["iso_sha256"] != original_base["sha256"]):
             raise EditionError("dual outputs do not share the same frontend")
     return {"status": "edition_batch_receipt_integrity_passed", "input_digest": digest,
             "verified_editions": list(requested), "both_editions": {"original", "best"}.issubset(requested),

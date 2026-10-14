@@ -12,7 +12,8 @@ removes them, so they accumulate. This tool keeps:
 * the ``--keep`` most recent other workspaces per profile;
 * every snapshot still referenced by a kept workspace.
 
-Without ``--apply`` it only prints the plan. Sizes are apparent sizes; APFS
+``build_editions`` calls ``prune`` after every successful build for the
+editions it holds locks on. Without ``--apply`` it only prints the plan. Sizes are apparent sizes; APFS
 clones share blocks with the current ISOs, so the reclaimed space is smaller.
 """
 
@@ -23,10 +24,11 @@ import json
 from pathlib import Path
 import shutil
 import sys
+import time
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-EDITIONS_ROOT = PROJECT_ROOT / "build/editions"
-SNAPSHOTS_ROOT = PROJECT_ROOT / "work/build/shared"
+EDITIONS_DIR = "build/editions"
+SNAPSHOTS_DIR = "work/build/shared"
 
 
 def apparent_size(path: Path) -> int:
@@ -47,13 +49,13 @@ def load_json(path: Path) -> dict:
         return {}
 
 
-def referenced_by_receipts() -> tuple[set[Path], set[str]]:
+def referenced_by_receipts(root: Path) -> tuple[set[Path], set[str]]:
     runs, digests = set(), set()
-    for receipt in (PROJECT_ROOT / "manifests/editions").glob("*/current.json"):
+    for receipt in (root / "manifests/editions").glob("*/current.json"):
         document = load_json(receipt)
         workspace = document.get("workspace")
         if isinstance(workspace, str):
-            run = (PROJECT_ROOT / workspace).resolve()
+            run = (root / workspace).resolve()
             if run.name == "project":
                 run = run.parent
             runs.add(run)
@@ -63,18 +65,23 @@ def referenced_by_receipts() -> tuple[set[Path], set[str]]:
     return runs, digests
 
 
-def plan(keep: int) -> dict:
-    keep_runs, keep_digests = referenced_by_receipts()
+def plan(keep: int, *, root: Path = PROJECT_ROOT, profiles: set[str] | None = None,
+         snapshot_min_age: float = 0) -> dict:
+    """Plan a prune. ``profiles`` limits workspace removal to those profile
+    directories; snapshots younger than ``snapshot_min_age`` seconds are kept
+    because a concurrent build may not have referenced them yet."""
+    editions_root, snapshots_root = root / EDITIONS_DIR, root / SNAPSHOTS_DIR
+    keep_runs, keep_digests = referenced_by_receipts(root)
     stale_runs = []
-    if EDITIONS_ROOT.is_dir():
-        for profile in sorted(p for p in EDITIONS_ROOT.iterdir() if p.is_dir()):
+    if editions_root.is_dir():
+        for profile in sorted(p for p in editions_root.iterdir() if p.is_dir()):
             runs = sorted((r for r in profile.iterdir() if r.is_dir()),
                           key=lambda r: r.stat().st_mtime, reverse=True)
             recent = 0
             for run in runs:
                 if run.resolve() in keep_runs:
                     continue
-                if recent < keep:
+                if recent < keep or (profiles is not None and profile.name not in profiles):
                     recent += 1
                     keep_runs.add(run.resolve())
                     continue
@@ -84,12 +91,26 @@ def plan(keep: int) -> dict:
         if isinstance(inputs.get("input_digest"), str):
             keep_digests.add(inputs["input_digest"])
     stale_snapshots = []
-    if SNAPSHOTS_ROOT.is_dir():
-        for snapshot in sorted(SNAPSHOTS_ROOT.iterdir()):
-            if snapshot.is_dir() and snapshot.name not in keep_digests and not snapshot.name.startswith("."):
+    cutoff = time.time() - snapshot_min_age
+    if snapshots_root.is_dir():
+        for snapshot in sorted(snapshots_root.iterdir()):
+            if (snapshot.is_dir() and snapshot.name not in keep_digests and not snapshot.name.startswith(".")
+                    and snapshot.stat().st_mtime <= cutoff):
                 stale_snapshots.append(snapshot)
-    return {"keep_runs": sorted(str(r.relative_to(PROJECT_ROOT)) for r in keep_runs),
+    return {"keep_runs": sorted(str(r.relative_to(root.resolve())) for r in keep_runs),
             "stale_runs": stale_runs, "stale_snapshots": stale_snapshots}
+
+
+def prune(root: Path, keep: int, *, profiles: set[str] | None = None, snapshot_min_age: float = 0) -> dict:
+    """Delete what ``plan`` lists; return the counts and apparent bytes."""
+    result = plan(keep, root=root, profiles=profiles, snapshot_min_age=snapshot_min_age)
+    removed = {"workspaces": 0, "snapshots": 0, "apparent_bytes": 0}
+    for label, items in (("workspaces", result["stale_runs"]), ("snapshots", result["stale_snapshots"])):
+        for item in items:
+            removed["apparent_bytes"] += apparent_size(item)
+            shutil.rmtree(item)
+            removed[label] += 1
+    return removed
 
 
 def main() -> int:

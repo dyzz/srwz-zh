@@ -61,6 +61,8 @@ from special_disc.writeback.battle_status import apply_status_labels, MEMBER as 
 from special_disc.writeback.battle_prompts import apply_prompt_labels
 from special_disc.writeback.battle_titles import apply_title_labels
 from special_disc.writeback.battle_abilities import apply_ability_labels
+from special_disc.event_gallery.apply import MEMBERS as GALLERY_MEMBERS, apply_event_gallery, load_config as load_gallery_config, verify_gallery_members
+from special_disc.iso_relocation import append_members, merge_spans, verify_relocation
 
 WORK=ROOT/'work/build/special-disc/full-text'
 BASE_SHA='3617b44b263b1a31f14632d89f3ee456a031349ee892b25c6c8eeb9ae8d5ae73'
@@ -186,8 +188,8 @@ def assemble():
     original_iso_sha=file_sha(DEST) if DEST.exists() else None
     manifest_path=DEST.with_suffix('.json')
     original_manifest=manifest_path.read_bytes() if manifest_path.exists() else None
-    BASE=export_baseline('text-canary')
-    require(file_sha(BASE)==BASE_SHA,'preserved canary ISO identity drift')
+    BASE=timed('export-baseline',export_baseline,'text-canary')
+    require(timed('baseline-hash',file_sha,BASE)==BASE_SHA,'preserved canary ISO identity drift')
     reports={k:load(WORK/k/'report.json')for k in ('system','stage','srvc','frame','image-labels')}
     require(reports['stage']['status']=='static_component_verified_runtime_pending' and reports['stage']['chunks']==CHUNKS,'full STAGE component scope/status')
     require(not reports['stage']['pending_native_targets'],'unconsumed STAGE targets')
@@ -242,7 +244,7 @@ def assemble():
     missing=sorted({ch for text in displayed for ch in text if ord(ch)>127 and ch!='　' and ch not in verified_chars})
     require(not missing,f'display characters outside verified shared font: {missing}')
     stats['unassigned_display_characters']=missing
-    members=member_map(scan_iso9660(BASE));base={n:read_member(BASE,members,n)for n in {n for c in components.values()for n in c if not n.endswith(OVERLAY)}|{EXE,VT1}}
+    members=member_map(scan_iso9660(BASE));base=timed('read-base-members',lambda:{n:read_member(BASE,members,n)for n in {n for c in components.values()for n in c if not n.endswith(OVERLAY)}|{EXE,VT1}})
     patches={}
     old_system=ROOT/'work/build/special-disc/components/system-text';old_report=load(old_system/'report.json');old_exe=(old_system/EXE).read_bytes()
     require(sha(old_exe)==old_report['files'][EXE],'old system executable drift')
@@ -313,7 +315,7 @@ def assemble():
     patches[EXE],skip_report=apply_skip(patches[EXE])
     patches,instruction_report=timed('instructions',apply_overrides,patches,read_disc_member,source_table,stored_overrides,runtime_table)
     require(patches[CD] is cd_workspace,'COMPDATA left its decoded workspace')
-    patches[CD]=compress_compdata(cd_workspace,cd_allocation,(unit_report,pilot_report,keyword_report))
+    patches[CD]=timed('compress-compdata',compress_compdata,cd_workspace,cd_allocation,(unit_report,pilot_report,keyword_report))
     stats['reviewed_instruction_overrides']=instruction_report['targets']
     stats['stage_entry_title_slots']=title_report['count']
     stats['stage_entry_title_images_rewritten']=title_report['rewritten']
@@ -332,18 +334,35 @@ def assemble():
     stats['battle_title_labels'] = len(title_labels_report['labels'])
     patches[STATUS_MEMBER], ability_labels_report = apply_ability_labels(patches[STATUS_MEMBER])
     stats['battle_ability_labels'] = len(ability_labels_report['labels'])
+    # The Special Theater event gallery is the last executable stage: it hooks
+    # the fully text-patched executable, grows AID block 2 and the subtitled
+    # effect chunks. Those three members outgrow their native allocation and
+    # are relocated after the baseline image instead of written in place.
+    AID,VEFF=GALLERY_MEMBERS[1],GALLERY_MEMBERS[2]
+    require(AID not in patches and VEFF not in patches,'gallery members must still be native before the gallery stage')
+    gallery=timed('event-gallery',apply_event_gallery,patches[EXE],read_member(BASE,members,AID),read_member(BASE,members,VEFF),
+                  config=load_gallery_config(),workdir=WORK/'event-gallery')
+    relocated=gallery['members'];del patches[EXE]
+    stats['event_gallery_scenes']=gallery['receipt']['scene_count']
+    stats['event_gallery_captions']=gallery['receipt']['caption_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso')
     require(not temporary.exists(),'another ISO assembly is in progress')
-    copy_file(BASE,temporary)
-    with temporary.open('r+b')as stream:
-        for name,data in patches.items():
-            require(len(data)==members[name].size,f'{name} member length changed')
-            stream.seek(members[name].extent_lba*2048);stream.write(data)
+    timed('clone-baseline',copy_file,BASE,temporary)
+    def write_members():
+        with temporary.open('r+b')as stream:
+            for name,data in patches.items():
+                require(len(data)==members[name].size,f'{name} member length changed')
+                stream.seek(members[name].extent_lba*2048);stream.write(data)
+    timed('write-members',write_members)
+    relocation=timed('relocate-gallery-members',append_members,temporary,members,relocated)
     after=member_map(scan_iso9660(temporary))
-    require({n:(m.extent_lba,m.size)for n,m in members.items()}=={n:(m.extent_lba,m.size)for n,m in after.items()},'ISO directory/LBA drift')
+    require({n:(m.extent_lba,m.size)for n,m in members.items()if n not in relocated}=={n:(m.extent_lba,m.size)for n,m in after.items()if n not in relocated},'ISO directory/LBA drift')
     for name,data in patches.items():require(read_member(temporary,after,name)==data,f'{name} ISO reread mismatch')
-    protected=verify_iso_ranges(BASE,temporary,[(members[n].extent_lba*2048,members[n].extent_lba*2048+len(d))for n,d in patches.items()])
-    report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=file_sha(temporary)),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in patches.items()},protected_iso_ranges=protected,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
+    relocation_readback=verify_relocation(temporary,members,relocated,relocation)
+    gallery_readback=verify_gallery_members(relocated[EXE],relocated[VEFF],gallery['receipt'])
+    spans=[(members[n].extent_lba*2048,members[n].extent_lba*2048+len(d))for n,d in patches.items()]+[tuple(x)for x in relocation['touched_spans']]
+    protected=timed('protected-ranges',verify_iso_ranges,BASE,temporary,merge_spans(spans))
+    report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=protected['after_sha256']),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in {**patches,**relocated}.items()},protected_iso_ranges=protected,relocated_members=relocation,relocation_readback=relocation_readback,event_gallery=gallery['receipt'],event_gallery_readback=gallery_readback,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
     report['weapon_detail_labels']=weapon_report
     report['current_shared_library']=library_report
     report['weapon_detail_parentheses']=weapon_parentheses_report

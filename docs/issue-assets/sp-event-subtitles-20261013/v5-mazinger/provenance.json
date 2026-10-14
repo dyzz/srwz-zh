@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-13",
+  "installed_iso": "build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v5.iso",
+  "iso_sha256": "e9927ca213574e8519f3efc00a4f837b50f5899b4253f8d245205605a84aaf76",
+  "elf_sha256": "f9536c9c0472d5771142d9856beb5d243783bbef61b43858b89714e322ac4893",
+  "rollback_iso": "work/iso/archive/sp-event-gallery-subtitles-v4.iso",
+  "rollback_sha256": "a06f826c492353aef85b86162ef9d4c069693e006c05114c0a4dae7feb46639f",
+  "method": "filesystem rename and compatibility symlinks",
+  "production_sp_current_untouched": true,
+  "subtitle_source_sha256": "b9acbbdfc0baf82b819772eaf70870c795aa8e9c3dd86f96461de9cfc38fe864",
+  "requested_acceptance": "LRPS2 targeted runs passed; all-12 V4 flow remains historical, not V5 all-12 acceptance",
+  "renderer": "LRPS2 Software",
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "cold_boot": true,
+  "isolated_memory_card": true,
+  "host_state_writes_or_savestate_restores": false,
+  "completed_runs": 4,
+  "scenes": [
+    269,
+    269,
+    273,
+    256
+  ],
+  "mazinger_visual_verified": [
+    "Pilder appears",
+    "pool opens",
+    "Mazinger rises",
+    "standing combined model remains"
+  ],
+  "caption_style": "unchanged: size 26, lower center, white with black outline/shadow, transparent background",
+  "other_scene_scope": "Impulse caption/play/return; Aquarion play/return. No V5 screenshot sampled the former Silvia overwritten-image window; non-ELF byte identity proves original-image resource unchanged from V4.",
+  "native_unit_handoff": "Original hides object5 and spawns tactical unit at STAGE047 0xa310/0xa320; V5 retains standing object5 instead. Not full tactical-state restoration.",
+  "armsx2": "not performed; user selected LRPS2"
+}

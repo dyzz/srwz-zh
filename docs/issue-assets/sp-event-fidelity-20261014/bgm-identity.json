@@ -1,0 +1,30 @@
+{
+ "bgm_bin_sha256_original_iso": "0f277113b854e6730edd27b6d734812744837e3670d7f61eaeda2a48e30da362",
+ "bgm_bin_sha256_sp_current_iso": "0f277113b854e6730edd27b6d734812744837e3670d7f61eaeda2a48e30da362",
+ "id_remap_table": {
+  "original": {
+   "address": "0x411b20",
+   "sha256": "dd383ea8f8cc28695b6473642d57564eb1c3a15752f83895e1023ab4420bedd8"
+  },
+  "sp": {
+   "address": "0x46ccb0",
+   "sha256": "dd383ea8f8cc28695b6473642d57564eb1c3a15752f83895e1023ab4420bedd8"
+  },
+  "identity_mapping": true,
+  "equal": true
+ },
+ "offset_table": {
+  "original": {
+   "address": "0x411b88",
+   "sha256": "a2f91529572e4ea44cb19c973ba2516f458f10447704916fcf55154154cfed36"
+  },
+  "sp": {
+   "address": "0x46cd18",
+   "sha256": "a2f91529572e4ea44cb19c973ba2516f458f10447704916fcf55154154cfed36"
+  },
+  "equal": true
+ },
+ "loader": "SP FUN_0018b7e0 state 1: index = remap[0x5dbb98]; stream = offsets[...] in BGM.BIN; Original FUN_00189b70 identical structure",
+ "request": "script op 0x43 a -> FUN_00182fc0(a, b, c, 1, 3, 0); current id 0x5dbb98; effect header +8 BGM via FUN_001ad000 (SP) / FUN_001a9270 (Original), +10 start delay",
+ "sound_select_titles": "COMPDATA sound-select tables (Original 0x5A180, SP 0x62e70) give identical id->title for all 102 records"
+}

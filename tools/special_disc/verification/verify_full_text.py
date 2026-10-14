@@ -70,6 +70,12 @@ def main(iso=None, work=None):
         return cache[name]
     for name,expected in manifest['files'].items():require(sha(member(name))==expected,f'ISO member drift: {name}')
     for path,expected in manifest['components'].items():require(file_sha(ROOT/path)==expected,f'component report drift: {path}')
+    gallery=None
+    if 'event_gallery' in manifest:
+        from special_disc.event_gallery.apply import verify_gallery_members
+        gallery=verify_gallery_members(member('SLPS_259.20'),member('EFF/VEFF2DX.BIN'),manifest['event_gallery'])
+        require(gallery==manifest['event_gallery_readback'],'SP event gallery independent readback drift')
+        counts['event_gallery_subtitled_chunks']=gallery['subtitled_chunks']
     if 'battle_status_labels' in manifest:
         status_labels = verify_status_labels(member(STATUS_MEMBER))
         require(all(status_labels[k] == manifest['battle_status_labels'][k]
@@ -169,7 +175,11 @@ def main(iso=None, work=None):
     require(manifest['battle_square_skip']['hook_sha256']==skip_report['hook_sha256'] and
             manifest['battle_square_skip']['contract_sha256']==skip_report['contract_sha256'],
             'square-skip receipt drift')
-    link_bonus=verify_data_link_bonus(exe,member('DATA/VT1.BIN'),readback)
+    # The gallery appends a program segment after the native executable image;
+    # the Data Link verifier models the native-size code region only.
+    native_exe_size=len(st.read_disc_member('SLPS_259.20'))
+    require(exe[native_exe_size:]==b'' or 'event_gallery' in manifest,'executable grew without a gallery receipt')
+    link_bonus=verify_data_link_bonus(exe[:native_exe_size],member('DATA/VT1.BIN'),readback)
     require(all(manifest['data_link_bonus'][k]==v for k,v in link_bonus.items()),'default Z bonus receipt drift')
     world_titles=verify_world_map_titles(member('MAP/MAPMODEL.BIN'),exe)
     require(world_titles==manifest['world_map_titles'],'world-map title receipt drift')
@@ -377,6 +387,9 @@ def main(iso=None, work=None):
     result['native_parentheses']=native_parentheses
     result['data_link_bonus']=link_bonus
     result['battle_square_skip']=skip_report
+    if gallery is not None:
+        result['event_gallery']=gallery
+        result['scope']+=' Event gallery hooks, payload segment and subtitled effect chunks.'
     result['scope']+=' Weapon category/effect-2 MIPS strings and surrounding native instructions.'
     write_json(WORK/'independent-readback.json',result);print(json.dumps(result,ensure_ascii=False,indent=2))
 

@@ -1,0 +1,1374 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "row": 0,
+      "id": "effect-273",
+      "map": 30,
+      "camera_tile": [
+        13,
+        13
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        20,
+        12
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        273,
+        274
+      ],
+      "stage_objects": [
+        {
+          "model": 0,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 2,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 3,
+          "frame": 0,
+          "mode": 2,
+          "visible": 1
+        }
+      ],
+      "stage_object_initialization": "explicit Original native model frames, modes and visibility from stage_objects",
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 30,
+          "title": "ＩＧＮＩＴＥＤ",
+          "source": "STAGE002 0xa790 op0x43 0x1e immediately before effect 273"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "no zoom op in the event; Original map default -11 (restored by later events)"
+        },
+        "units": {
+          "field": [
+            {
+              "unit": 483,
+              "pilot": 472,
+              "tile": [
+                13,
+                13
+              ],
+              "facing": 3,
+              "side": 4,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 450,
+                "pilot": 457
+              },
+              "source": "Sting/Chaos: placed (15,15) at 0xa3a0, then moved next to Alex at 0xa6f0 (runtime position); gallery uses the tile east of Alex"
+            },
+            {
+              "unit": 447,
+              "pilot": 405,
+              "tile": [
+                12,
+                13
+              ],
+              "facing": 1,
+              "side": 12,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 419,
+                "pilot": 391
+              },
+              "source": "Alex/Zaku Warrior: deployment group 2 tile (12,13), facing 1, side 12, altitude 0 (moves with play; deployment tile used); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            },
+            {
+              "unit": 488,
+              "pilot": 477,
+              "tile": [
+                13,
+                15
+              ],
+              "facing": 3,
+              "side": 4,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 454,
+                "pilot": 461
+              },
+              "source": "Auel/Abyss: 0xa3c0 move to (13,15), 0xa410 facing 3; group 1 side 4, altitude 1"
+            },
+            {
+              "unit": 493,
+              "pilot": 482,
+              "tile": [
+                13,
+                16
+              ],
+              "facing": 3,
+              "side": 4,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 458,
+                "pilot": 465
+              },
+              "source": "Stella/Gaia: 0xa3b0 move to (13,16), 0xa400 facing 3; group 1 side 4, altitude 1"
+            }
+          ]
+        },
+        "excluded": [
+          {
+            "what": "ZAFT GuAIZ R squads (deployment groups 0/6), Setsuko and player units",
+            "reason": "not referenced by the 0xa7c0-0xaa90 effect block; presence depends on play"
+          },
+          {
+            "what": "battle dialogues 0xf 0x0e-0x10 and SE 0x4b",
+            "reason": "gallery plays the effect clip without dialogue windows"
+          },
+          {
+            "what": "Sword Impulse arrival (spawn group 5 at 0xaaa0)",
+            "reason": "after END_EFFECT_BLOCK 0xaa90, outside the selected clip"
+          }
+        ],
+        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions",
+        "compiled": {
+          "records": 36,
+          "unit_groups": [
+            "field"
+          ],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 1,
+      "id": "effect-255",
+      "map": 3,
+      "camera_tile": [
+        20,
+        23
+      ],
+      "map_view": 0,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        20,
+        23
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        255
+      ],
+      "stage_objects": [
+        {
+          "model": 0,
+          "frame": 0,
+          "mode": 1,
+          "visible": 1
+        },
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 2,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 3,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 4,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        }
+      ],
+      "stage_object_initialization": "explicit Original native model frames, modes and visibility from stage_objects",
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 25,
+          "title": "サテライト・キャノン",
+          "source": "STAGE126 0xb770 op0x43 0x19"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "STAGE126 0xb730 op0x13b9 -11 after map switch 0xb710 (map 3, (20,23), view 1)"
+        },
+        "view_source": "0xb710 op0x13bc map 3 view 1, then 0xb820 op0x41 0 rotates to view 0 before the effect",
+        "excluded": [
+          {
+            "what": "GX Double X/G-Falcon squad spawned by list 0x8840",
+            "reason": "hidden by 0xb860 (910e Garrod=0) for the whole effect and removed by 0xb930 after it; never visible in the clip"
+          }
+        ],
+        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions",
+        "compiled": {
+          "records": 14,
+          "unit_groups": [],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 2,
+      "id": "effect-256",
+      "map": 13,
+      "camera_tile": [
+        11,
+        4
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        11,
+        4
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        256
+      ],
+      "stage_objects": [],
+      "stage_object_initialization": "no additional native model initializer found",
+      "fidelity": {
+        "bgm": {
+          "mode": "effect_header",
+          "id": 46,
+          "title": "創聖のアクエリオン",
+          "source": "VEFF 257 header +8=0x2e, +10 start delay 1; script also plays 0x2e at STAGE021 0x8670",
+          "lead_in": "theater BGM paused at scene start; the effect header loads its BGM paused and starts it after the header delay"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "no zoom op in the event"
+        },
+        "units": {
+          "vectors": [
+            {
+              "unit": 735,
+              "pilot": 949,
+              "tile": [
+                11,
+                4
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 684,
+                "pilot": 908
+              },
+              "source": "Vector Sol 0x87e0 move (11,4), 0x8840 facing 1; group 3 side 1 altitude 0; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            },
+            {
+              "unit": 737,
+              "pilot": 951,
+              "tile": [
+                12,
+                3
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 686,
+                "pilot": 910
+              },
+              "source": "Vector Mars 0x87f0 (12,3), facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            },
+            {
+              "unit": 739,
+              "pilot": 953,
+              "tile": [
+                10,
+                3
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 688,
+                "pilot": 912
+              },
+              "source": "Vector Luna 0x8800 (10,3), facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            }
+          ],
+          "aquarion": [
+            {
+              "unit": 691,
+              "pilot": 623,
+              "tile": [
+                11,
+                16
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 5,
+              "original": {
+                "unit": 642,
+                "pilot": 602
+              },
+              "source": "spawn list 0x75d480 (0x6d90) at 0x8900: Solar Aquarion/Apollo (11,16) facing 1 appear 1"
+            }
+          ]
+        },
+        "excluded": [
+          {
+            "what": "0x88e0 op0x13c0 / 0x88f0 op0x13b5 squad registration",
+            "reason": "roster/formation bookkeeping without map display; snapshot-restored roster not needed for the clip"
+          }
+        ],
+        "hold_after_effect": {
+          "frames": 60,
+          "reason": "Original spawns Solar Aquarion 2 frames before the 1540-frame effect ends and continues with dialogue over the map; the gallery holds 60 frames so the native handoff is visible before returning"
+        },
+        "compiled": {
+          "records": 15,
+          "unit_groups": [
+            "vectors",
+            "aquarion"
+          ],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 3,
+      "id": "effect-257",
+      "map": 74,
+      "camera_tile": [
+        13,
+        7
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        13,
+        7
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        257
+      ],
+      "stage_objects": [],
+      "stage_object_initialization": "no additional native model initializer found",
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 47,
+          "title": "Ｇｏ　Ｔｉｇｈｔ！",
+          "source": "STAGE117 0x12b80 op0x43 0x2f"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "no zoom op in the event"
+        },
+        "excluded": [
+          {
+            "what": "Tsugumi's unit (anchor, pilot 616)",
+            "reason": "hidden at 0x12c90 for the whole effect; its runtime tile is play-dependent, gallery keeps the documented (13,7) anchor"
+          }
+        ],
+        "compiled": {
+          "records": 13,
+          "unit_groups": [],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 4,
+      "id": "effect-258",
+      "map": 70,
+      "camera_tile": [
+        13,
+        6
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        13,
+        5
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        258
+      ],
+      "stage_objects": [],
+      "stage_object_initialization": "no additional native model initializer found",
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 47,
+          "title": "Ｇｏ　Ｔｉｇｈｔ！",
+          "source": "STAGE128 0x10770 op0x43 0x2f"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "no zoom op in the event"
+        },
+        "excluded": [
+          {
+            "what": "Aquarion Angel (Pierre, (13,5)) and Cherubim Mars (Shiba, (13,7))",
+            "reason": "both hidden at 0x10940/0x10950 for the whole effect and shown only after END_EFFECT_BLOCK"
+          }
+        ],
+        "compiled": {
+          "records": 9,
+          "unit_groups": [],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 5,
+      "id": "effect-259",
+      "map": 63,
+      "camera_tile": [
+        8,
+        26
+      ],
+      "map_view": 2,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        8,
+        26
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        259
+      ],
+      "stage_objects": [],
+      "stage_object_initialization": "no additional native model initializer found",
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 47,
+          "title": "Ｇｏ　Ｔｉｇｈｔ！",
+          "source": "STAGE107 0x14460 op0x43 0x2f"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "no zoom op in the event"
+        },
+        "view_source": "STAGE107 0x141d0 op0x41 2 inside the IF enclosing the call",
+        "units": {
+          "orb": [
+            {
+              "unit": 848,
+              "pilot": 655,
+              "tile": [
+                10,
+                26
+              ],
+              "facing": 0,
+              "side": 12,
+              "appear": 255,
+              "class": 4,
+              "original": {
+                "unit": 787,
+                "pilot": 633
+              },
+              "source": "spawn group 14 at 0x14530 (frame 640): 光球/双翅, placement 106 (10,26) facing 0 side 12"
+            }
+          ]
+        },
+        "excluded": [
+          {
+            "what": "Apollo's Aquarion (6,26) and 双翅 Cherubim (10,26)",
+            "reason": "hidden from the call (0x144c0/0x14500); 双翅 is removed at frame 640 before the orb appears"
+          }
+        ],
+        "compiled": {
+          "records": 9,
+          "unit_groups": [
+            "orb"
+          ],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 6,
+      "id": "effect-264",
+      "map": 8,
+      "camera_tile": [
+        11,
+        6
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        11,
+        6
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        264
+      ],
+      "stage_objects": [],
+      "stage_object_initialization": "no additional native model initializer found",
+      "fidelity": {
+        "bgm": {
+          "mode": "effect_header",
+          "id": 41,
+          "title": "合神！　ゴッドグラヴィオン",
+          "source": "VEFF 265 header +8=0x29, delay 1; script 0x9170 plays 0x29 earlier",
+          "lead_in": "theater BGM paused at scene start; the effect header loads its BGM paused and starts it after the header delay"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "no zoom op in the event"
+        },
+        "units": {
+          "gknights": [
+            {
+              "unit": 677,
+              "pilot": 947,
+              "tile": [
+                10,
+                5
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 628,
+                "pilot": 906
+              },
+              "source": "G-Attacker 0x9370 (10,5) facing 1 (0x93b0); group 4 side 1 altitude 0; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            },
+            {
+              "unit": 678,
+              "pilot": 948,
+              "tile": [
+                12,
+                5
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 629,
+                "pilot": 907
+              },
+              "source": "G-Striker 0x9200 (12,5) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            },
+            {
+              "unit": 679,
+              "pilot": 949,
+              "tile": [
+                11,
+                4
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 630,
+                "pilot": 908
+              },
+              "source": "G-Driller 0x9210 (11,4) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            },
+            {
+              "unit": 680,
+              "pilot": 950,
+              "tile": [
+                11,
+                8
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 631,
+                "pilot": 909
+              },
+              "source": "G-Shadow 0x9380 (11,8) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            }
+          ],
+          "toga": [
+            {
+              "unit": 645,
+              "pilot": 577,
+              "tile": [
+                11,
+                6
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 601,
+                "pilot": 557
+              },
+              "source": "Toga/Gran Kaiser 0x9100 move (11,6); hidden 0x9460, shown 0x94c0 with Gravion combination 0x94d0"
+            }
+          ]
+        },
+        "excluded": [
+          {
+            "what": "Shouhei/Duke/Koji/Denzel squads moved at 0x8f50-0x8f80 and Zerabaia groups 4/5",
+            "reason": "not referenced in the effect block 0x9440-0x94e0"
+          }
+        ],
+        "compiled": {
+          "records": 19,
+          "unit_groups": [
+            "gknights",
+            "toga"
+          ],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 7,
+      "id": "effect-265",
+      "map": 63,
+      "camera_tile": [
+        18,
+        3
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        18,
+        3
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        265
+      ],
+      "stage_objects": [],
+      "stage_object_initialization": "no additional native model initializer found",
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 40,
+          "title": "嘆きのロザリオ",
+          "source": "STAGE107 0x15620 op0x43 0x28"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "STAGE107 0x15330 0x29 -16 then 0x15360 0x29 -11 before the call"
+        },
+        "ghost_table": {
+          "source": "STAGE107 placeholder table 0x76a3f0 installed via FUN_001bdb20 (SP FUN_001c0f70); placed by 0x15560 loop (mode 1 + stage flag set)",
+          "groups": [
+            [
+              {
+                "unit": 671,
+                "original_unit": 623,
+                "tile": [
+                  13,
+                  4
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 30
+              },
+              {
+                "unit": 671,
+                "original_unit": 623,
+                "tile": [
+                  12,
+                  2
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 31
+              },
+              {
+                "unit": 671,
+                "original_unit": 623,
+                "tile": [
+                  11,
+                  1
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 32
+              },
+              {
+                "unit": 671,
+                "original_unit": 623,
+                "tile": [
+                  10,
+                  3
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 33
+              },
+              {
+                "unit": 671,
+                "original_unit": 623,
+                "tile": [
+                  11,
+                  6
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 34
+              },
+              {
+                "unit": 671,
+                "original_unit": 623,
+                "tile": [
+                  8,
+                  6
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 35
+              },
+              {
+                "unit": 668,
+                "original_unit": 621,
+                "tile": [
+                  8,
+                  4
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 36
+              },
+              {
+                "unit": 668,
+                "original_unit": 621,
+                "tile": [
+                  7,
+                  1
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 37
+              },
+              {
+                "unit": 668,
+                "original_unit": 621,
+                "tile": [
+                  5,
+                  2
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 38
+              },
+              {
+                "unit": 668,
+                "original_unit": 621,
+                "tile": [
+                  4,
+                  4
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 39
+              },
+              {
+                "unit": 668,
+                "original_unit": 621,
+                "tile": [
+                  4,
+                  1
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 40
+              },
+              {
+                "unit": 668,
+                "original_unit": 621,
+                "tile": [
+                  2,
+                  3
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 40
+              },
+              {
+                "unit": 668,
+                "original_unit": 621,
+                "tile": [
+                  14,
+                  1
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 41
+              },
+              {
+                "unit": 668,
+                "original_unit": 621,
+                "tile": [
+                  12,
+                  0
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 42
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  10,
+                  5
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 43
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  7,
+                  3
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 44
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  7,
+                  5
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 45
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  5,
+                  6
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 46
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  2,
+                  1
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 47
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  2,
+                  5
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 48
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  13,
+                  6
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 49
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  11,
+                  4
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 50
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  9,
+                  2
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 51
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  9,
+                  0
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 52
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  6,
+                  0
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 53
+              },
+              {
+                "unit": 659,
+                "original_unit": 615,
+                "tile": [
+                  6,
+                  4
+                ],
+                "side": 12,
+                "b8": 0,
+                "facing": 2,
+                "flag": 54
+              }
+            ]
+          ],
+          "visible_flags": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54
+          ]
+        },
+        "excluded": [
+          {
+            "what": "Toga/Gran Kaiser and Breaker 774 units",
+            "reason": "hidden at 0x156c0/0x156d0 for the whole effect"
+          }
+        ],
+        "compiled": {
+          "records": 110,
+          "unit_groups": [],
+          "ghost_table": true
+        }
+      }
+    },
+    {
+      "row": 8,
+      "id": "effect-266",
+      "map": 45,
+      "camera_tile": [
+        18,
+        18
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        18,
+        18
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        266
+      ],
+      "stage_objects": [
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 1,
+          "visible": 1
+        }
+      ],
+      "stage_object_initialization": "explicit Original native model frames, modes and visibility from stage_objects",
+      "fidelity": {
+        "bgm": {
+          "mode": "effect_header",
+          "id": 6,
+          "title": "がんばれ！宇宙の戦士",
+          "source": "VEFF 267 header +8=0x06, delay 1; script also plays 0x06 at STAGE026 0xa3b0",
+          "lead_in": "theater BGM paused at scene start; the effect header loads its BGM paused and starts it after the header delay"
+        },
+        "zoom": {
+          "value": -19,
+          "source": "STAGE026 0xa340 op0x29 -19 before the call"
+        },
+        "units": {
+          "sigma": [
+            {
+              "unit": 85,
+              "pilot": 64,
+              "tile": [
+                17,
+                19
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 255,
+              "class": 7,
+              "original": {
+                "unit": 83,
+                "pilot": 64
+              },
+              "source": "spawn list 0x75ef20 (0x8830) at 0xa4f0 (frame 2699): God Sigma/Toshiya (17,19) facing 1 animated appear"
+            }
+          ]
+        },
+        "excluded": [
+          {
+            "what": "0xa4c0 op0x13b4 and 0xa4d0/0xa4e0 op0x13c1 pilot links (Julie, Kiraken)",
+            "reason": "squad bookkeeping; the spawn record carries only the main pilot, as in the Original list"
+          }
+        ],
+        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions",
+        "compiled": {
+          "records": 14,
+          "unit_groups": [
+            "sigma"
+          ],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 9,
+      "id": "effect-267",
+      "map": 26,
+      "camera_tile": [
+        25,
+        30
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        28,
+        23
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        267
+      ],
+      "stage_objects": [
+        {
+          "model": 0,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        }
+      ],
+      "stage_object_initialization": "explicit Original native model frames, modes and visibility from stage_objects",
+      "fidelity": {
+        "bgm": {
+          "mode": "effect_header",
+          "id": 5,
+          "title": "われらのゲッターロボ",
+          "source": "VEFF 268 header +8=0x05, delay 1; script also plays 0x05 at STAGE043 0xb8b0",
+          "lead_in": "theater BGM paused at scene start; the effect header loads its BGM paused and starts it after the header delay"
+        },
+        "zoom": {
+          "value": -18,
+          "source": "STAGE043 0xb810 op0x13b9 -18 (120-frame move) before the call"
+        },
+        "units": {
+          "getter": [
+            {
+              "unit": 34,
+              "pilot": 43,
+              "tile": [
+                14,
+                23
+              ],
+              "facing": 2,
+              "side": 0,
+              "appear": 255,
+              "class": 3,
+              "original": {
+                "unit": 33,
+                "pilot": 43
+              },
+              "source": "spawn list 0x75f2d0 (0x8be0) at 0xb9b0: Getter Dragon/Ryoma (14,23) facing 2 animated appear"
+            }
+          ]
+        },
+        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions",
+        "compiled": {
+          "records": 18,
+          "unit_groups": [
+            "getter"
+          ],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 10,
+      "id": "effect-269",
+      "map": 72,
+      "camera_tile": [
+        19,
+        25
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        19,
+        25
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        269
+      ],
+      "stage_objects": [
+        {
+          "model": 1,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 2,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 3,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 4,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 0
+        },
+        {
+          "model": 5,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        }
+      ],
+      "stage_object_initialization": "explicit Original native model frames, modes and visibility from stage_objects",
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 70,
+          "title": "ＢＬＡＣＫ　ＡＬＡＲＭ",
+          "source": "STAGE047 0x9f00 op0x43 0x46 at the event start; next BGM change 0xa260 is after the clip"
+        },
+        "zoom": {
+          "value": -8,
+          "source": "STAGE047 0x9f50 op0x29 -8 before the call"
+        },
+        "units": {
+          "mazinger": [
+            {
+              "unit": 0,
+              "pilot": 2,
+              "tile": [
+                32,
+                13
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 0,
+                "pilot": 2
+              },
+              "source": "STAGE047 spawn list 0x7930 at 0xa320 (32,13) facing 1"
+            }
+          ]
+        },
+        "compiled": {
+          "records": 39,
+          "unit_groups": [
+            "mazinger"
+          ],
+          "ghost_table": false
+        }
+      }
+    },
+    {
+      "row": 11,
+      "id": "effect-282",
+      "map": 22,
+      "camera_tile": [
+        18,
+        17
+      ],
+      "map_view": 3,
+      "camera_view_defaulted_to_3": false,
+      "effect_tile": [
+        18,
+        17
+      ],
+      "effect_anchor_uses_camera_placeholder": false,
+      "effects": [
+        282
+      ],
+      "stage_objects": [],
+      "stage_object_initialization": "no additional native model initializer found",
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 15,
+          "title": "カムヒア！　ダイターン３",
+          "source": "STAGE069 0x12e80 op0x43 0x0f"
+        },
+        "zoom": {
+          "value": -11,
+          "source": "no zoom op in the event"
+        },
+        "units": {
+          "arrivals": [
+            {
+              "unit": 130,
+              "pilot": 164,
+              "tile": [
+                18,
+                17
+              ],
+              "facing": 0,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 127,
+                "pilot": 164
+              },
+              "source": "Banjo: spawn list 0xec50 as Daifighter, moved (18,17) at 0x12d10, form 0x1d -> Daitarn 3 (127) at 0x12eb0, facing 0 at 0x12f20"
+            },
+            {
+              "unit": 168,
+              "pilot": 112,
+              "tile": [
+                18,
+                19
+              ],
+              "facing": 2,
+              "side": 12,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 163,
+                "pilot": 112
+              },
+              "source": "Orson Naikick: group 10 side 12 altitude 0, moved (18,19) at 0x12d20, facing 2 at 0x12d90; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            }
+          ]
+        },
+        "excluded": [
+          {
+            "what": "Four/Gaplant (18,15)",
+            "reason": "0x12d30 IF gflag 0x1a0; save-dependent, omitted"
+          },
+          {
+            "what": "enemy groups 10/11 and Archangel/Minerva actions",
+            "reason": "not referenced by the effect call; Archangel removed before (0x12a70)"
+          }
+        ],
+        "compiled": {
+          "records": 8,
+          "unit_groups": [
+            "arrivals"
+          ],
+          "ghost_table": false
+        }
+      }
+    }
+  ],
+  "voice_timeline_initialization": "Source CCC schedules copied into the native shared voice table during gallery playback",
+  "boundary": "Static native runtime configuration compiled from per-scene Original STAGE timelines. Runtime fidelity must be verified independently in the emulator."
+}

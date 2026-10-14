@@ -1,0 +1,16 @@
+{
+  "source": "work/analysis/overcoat-runtime-20260907/Mcd001-before.ps2",
+  "source_sha256": "184b6106324f04520fb25eac36a25e93225766ed9692f789a2d2ad70030d4059",
+  "fixture": "work/analysis/main-event-subtitles-20261013/stage002-native-entry.ps2",
+  "fixture_sha256": "5216a78112c60ea76faa119a7fb6f033f2e979d3acb47d35e1a0c63842be16d2",
+  "slot": 6,
+  "next_stage_before": 44,
+  "next_stage_after": 2,
+  "route_byte_unchanged": 0,
+  "changed_save_offsets": [
+    "0x4",
+    "0xf59a"
+  ],
+  "all_other_save_bytes_and_files_unchanged": true,
+  "purpose": "isolated normal native STAGE002 entry; no stage script or effect trigger modification"
+}

@@ -1,0 +1,1143 @@
+{
+  "schema_version": 1,
+  "status": "draft_for_user_review",
+  "asr": {
+    "engine": "local whisper.cpp 1.7.4",
+    "model": "ggml-large-v3.bin",
+    "language": "ja",
+    "independent_clips": 37,
+    "context_effects": [
+      256,
+      258,
+      265,
+      282
+    ]
+  },
+  "subtitle_style": {
+    "font_point_size": 32,
+    "screen_rect": [
+      64,
+      388,
+      576,
+      428
+    ],
+    "white_face": true,
+    "black_outline": true,
+    "shadow": true,
+    "background": "transparent",
+    "supersample_factor": 4,
+    "texture_sampling": "nearest",
+    "native_row_height": 20,
+    "authoring_canvas_height": 40,
+    "downsample_to_native": "4x8 box average before palette quantization; 1:1 native texture sampling"
+  },
+  "glossary_source_hashes": {
+    "corpus/glossary/global-variants-v1.json": "d41b33a8c8a27fa9d5fd294642d0c7698b654ff26318c2e0b903f7c068b8d2bc",
+    "corpus/glossary/story-dialogue-stage-004-v1.json": "c2aacd79a8ea3346efdd70209ccc8d72301188a82a5446582287862d10754eb0",
+    "corpus/glossary/story-speakers-v1.json": "2081e924a12f53b8235845aac53f965621e9bb3a70141e5ac9a66e26e2b3af47",
+    "corpus/glossary/special-abilities-v1.json": "5905b20c7f3b468eca447cf6ebe59bb25e4d132fe7fbb3036960b796ef0478e2",
+    "corpus/glossary/story-dialogue-full-v1.json": "d03924e01986fe2d1f6e48af30b0d2a8c129e64a5e087cb2d1e9cd0af8f0340c",
+    "corpus/glossary/weapons-v1.json": "294ebd040ec589a9055c91fb6ab6c27186331c064b5927a26851db3d7d77993d",
+    "corpus/glossary/story-dialogue-stage-002-v1.json": "7a9a1391de0332687d59c57d10c360abc6aebea17030de7a0673a067d8530cce"
+  },
+  "captions": [
+    {
+      "id": "effect-273/ccc-339/frame-176",
+      "scene_id": "effect-273",
+      "scene_name": "脉冲高达出击",
+      "effect": 273,
+      "ccc_id": 339,
+      "effect_frame": 176,
+      "start_frame": 176,
+      "end_frame": 310,
+      "start_seconds": 2.933333333333333,
+      "end_seconds": 5.166666666666667,
+      "japanese_whisper": "コアスプレンダー発進、どうぞ!",
+      "japanese_candidate": "コアスプレンダー発進、どうぞ！",
+      "chinese_draft": "核心飞梭，准许起飞！",
+      "glossary_refs": [
+        "unit/core-splendor"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "unit/core-splendor",
+          "translation": "核心飞梭",
+          "status": "approved",
+          "source_file": "corpus/glossary/story-dialogue-stage-002-v1.json"
+        }
+      ],
+      "review_note": "用户指出并采纳：どうぞ是出击放行口令，译为“准许起飞”，不是礼貌请求。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "a011f624d0e2dc1380231e806a37523065f640c92d5d2b936b9a9d258adac14e",
+      "audio_duration_seconds": 2.099047619047619,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "impulse"
+      ]
+    },
+    {
+      "id": "effect-273/ccc-340/frame-438",
+      "scene_id": "effect-273",
+      "scene_name": "脉冲高达出击",
+      "effect": 273,
+      "ccc_id": 340,
+      "effect_frame": 438,
+      "start_frame": 438,
+      "end_frame": 592,
+      "start_seconds": 7.3,
+      "end_seconds": 9.866666666666667,
+      "japanese_whisper": "シルエットフライヤー射出、どうぞ!",
+      "japanese_candidate": "シルエットフライヤー射出、どうぞ！",
+      "chinese_draft": "剪影飞行器，准许弹射！",
+      "glossary_refs": [
+        "unit/silhouette-flyer"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "unit/silhouette-flyer",
+          "translation": "剪影飞行器",
+          "status": "researched",
+          "source_file": "corpus/glossary/story-dialogue-stage-002-v1.json"
+        }
+      ],
+      "review_note": "どうぞ按放行口令译为“准许弹射”；沿用剪影飞行器。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "3c79c5dfef87ed3bd83ad482a0ffb49fb1198d4bc0ac0569cc4fe34fa8fa4f3e",
+      "audio_duration_seconds": 2.434285714285714,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "impulse"
+      ]
+    },
+    {
+      "id": "effect-273/ccc-341/frame-720",
+      "scene_id": "effect-273",
+      "scene_name": "脉冲高达出击",
+      "effect": 273,
+      "ccc_id": 341,
+      "effect_frame": 720,
+      "start_frame": 720,
+      "end_frame": 905,
+      "start_seconds": 12.0,
+      "end_seconds": 15.083333333333334,
+      "japanese_whisper": "続いて、チェストフライヤー射出。どうぞ。",
+      "japanese_candidate": "続いて、チェストフライヤー射出。どうぞ。",
+      "chinese_draft": "接下来，胸部飞行器，准许弹射！",
+      "glossary_refs": [
+        "unit/chest-flyer"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "unit/chest-flyer",
+          "translation": "胸部飞行器",
+          "status": "researched",
+          "source_file": "corpus/glossary/story-dialogue-stage-004-v1.json"
+        }
+      ],
+      "review_note": "続いて承接上一部件；どうぞ按放行口令译为“准许弹射”。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "839c6f36ceb2561b52956df858088d68841f67c31d97df18ca40072eb1af1ad1",
+      "audio_duration_seconds": 2.9561904761904763,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "impulse"
+      ]
+    },
+    {
+      "id": "effect-273/ccc-342/frame-1034",
+      "scene_id": "effect-273",
+      "scene_name": "脉冲高达出击",
+      "effect": 273,
+      "ccc_id": 342,
+      "effect_frame": 1034,
+      "start_frame": 1034,
+      "end_frame": 1185,
+      "start_seconds": 17.233333333333334,
+      "end_seconds": 19.75,
+      "japanese_whisper": "レッグフライヤー射出、どうぞ!",
+      "japanese_candidate": "レッグフライヤー射出、どうぞ！",
+      "chinese_draft": "腿部飞行器，准许弹射！",
+      "glossary_refs": [
+        "unit/leg-flyer"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "unit/leg-flyer",
+          "translation": "腿部飞行器",
+          "status": "researched",
+          "source_file": "corpus/glossary/story-dialogue-stage-004-v1.json"
+        }
+      ],
+      "review_note": "どうぞ按放行口令译为“准许弹射”；沿用腿部飞行器。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "caecad1534f5d1b5f06c3b1b6ddd0ac9e1ff664c6bd4620c0182e057437d0b6e",
+      "audio_duration_seconds": 2.388571428571429,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "impulse"
+      ]
+    },
+    {
+      "id": "effect-255/ccc-42/frame-270",
+      "scene_id": "effect-255",
+      "scene_name": "双卫星加农炮发射",
+      "effect": 255,
+      "ccc_id": 42,
+      "effect_frame": 270,
+      "start_frame": 270,
+      "end_frame": 503,
+      "start_seconds": 4.5,
+      "end_seconds": 8.383333333333333,
+      "japanese_whisper": "ツインサテライトキャノン、行けー!",
+      "japanese_candidate": "ツインサテライトキャノン、行けー！",
+      "chinese_draft": "双卫星加农炮，发射！",
+      "glossary_refs": [
+        "weapon/0325"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "weapon/0325",
+          "translation": "双卫星加农炮",
+          "status": "approved",
+          "source_file": "corpus/glossary/weapons-v1.json"
+        }
+      ],
+      "review_note": "行け是攻击时的喊话，按发炮语境保留“发射”；现有战斗语料也有“去吧”的译法，不据此认定为同一段录音。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "e55f93141e73f99515fb7635112de68de6a429369c89f432d854cdde28fd23a1",
+      "audio_duration_seconds": 3.744761904761905,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-256/ccc-33/frame-110",
+      "scene_id": "effect-256",
+      "scene_name": "阿克艾里昂合体",
+      "effect": 256,
+      "ccc_id": 33,
+      "effect_frame": 110,
+      "start_frame": 110,
+      "end_frame": 300,
+      "start_seconds": 1.8333333333333333,
+      "end_seconds": 5.0,
+      "japanese_whisper": "ううううううううううう!!",
+      "japanese_candidate": "［叫喊声，待听校］",
+      "chinese_draft": "呜啊——！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "Whisper仅输出重复元音，拟声需听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "a6072ad17e810f660d5e102ff092eb45afb2a0fd50d693d50460960df0618bb4",
+      "audio_duration_seconds": 3.149206349206349,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-256/ccc-54/frame-300",
+      "scene_id": "effect-256",
+      "scene_name": "阿克艾里昂合体",
+      "effect": 256,
+      "ccc_id": 54,
+      "effect_frame": 300,
+      "start_frame": 300,
+      "end_frame": 371,
+      "start_seconds": 5.0,
+      "end_seconds": 6.183333333333334,
+      "japanese_whisper": "うわあああああ",
+      "japanese_candidate": "［叫喊声，待听校］",
+      "chinese_draft": "啊——！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "Whisper输出重复元音，拟声需听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "d6b15778a953103d4f42051a911d77247f06933ac32908634dff1efd0caca073",
+      "audio_duration_seconds": 1.05015873015873,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-256/ccc-227/frame-400",
+      "scene_id": "effect-256",
+      "scene_name": "阿克艾里昂合体",
+      "effect": 256,
+      "ccc_id": 227,
+      "effect_frame": 400,
+      "start_frame": 400,
+      "end_frame": 521,
+      "start_seconds": 6.666666666666667,
+      "end_seconds": 8.683333333333334,
+      "japanese_whisper": "なんだ!この動き!",
+      "japanese_candidate": "何だ、この動き！",
+      "chinese_draft": "这是什么动作！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "按何だ表达惊讶，不额外补出“是……”等未完结语义；仍须对照录音确认语气。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "3cc8d1f7725146dfa9727a5b8577a8f9036fa1f42415051c0b96bc60958a5f5a",
+      "audio_duration_seconds": 1.878095238095238,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-256/ccc-34/frame-830",
+      "scene_id": "effect-256",
+      "scene_name": "阿克艾里昂合体",
+      "effect": 256,
+      "ccc_id": 34,
+      "effect_frame": 830,
+      "start_frame": 830,
+      "end_frame": 990,
+      "start_seconds": 13.833333333333334,
+      "end_seconds": 16.5,
+      "japanese_whisper": "はあ…はあ…",
+      "japanese_candidate": "はあ……はあ……",
+      "chinese_draft": "哈……哈……",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "1c153faf4484ed376a525acdb0a49160bbad972604a11fc942732001e2481c7d",
+      "audio_duration_seconds": 2.648888888888889,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-256/ccc-229/frame-990",
+      "scene_id": "effect-256",
+      "scene_name": "阿克艾里昂合体",
+      "effect": 256,
+      "ccc_id": 229,
+      "effect_frame": 990,
+      "start_frame": 990,
+      "end_frame": 1090,
+      "start_seconds": 16.5,
+      "end_seconds": 18.166666666666668,
+      "japanese_whisper": "なんという…力…",
+      "japanese_candidate": "何という……力……",
+      "chinese_draft": "好强大的……力量……",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "c492363f15186283543a54eca24ac355eba83f4cf626781a069d25318674c9cd",
+      "audio_duration_seconds": 1.6838095238095239,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-256/ccc-56/frame-1090",
+      "scene_id": "effect-256",
+      "scene_name": "阿克艾里昂合体",
+      "effect": 256,
+      "ccc_id": 56,
+      "effect_frame": 1090,
+      "start_frame": 1090,
+      "end_frame": 1264,
+      "start_seconds": 18.166666666666668,
+      "end_seconds": 21.066666666666666,
+      "japanese_whisper": "うそ、気持ちいい",
+      "japanese_candidate": "うそ、気持ちいい……",
+      "chinese_draft": "不会吧……好舒服……",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "2b2e6412f814b1a3caccfbf308353ee0328c2aeae53fa77fa742bd8efe9a3de8",
+      "audio_duration_seconds": 2.761904761904762,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-256/ccc-60/frame-1300",
+      "scene_id": "effect-256",
+      "scene_name": "阿克艾里昂合体",
+      "effect": 256,
+      "ccc_id": 60,
+      "effect_frame": 1300,
+      "start_frame": 1300,
+      "end_frame": 1360,
+      "start_seconds": 21.666666666666668,
+      "end_seconds": 22.666666666666668,
+      "japanese_whisper": "",
+      "japanese_candidate": "アポロニアス……",
+      "chinese_draft": "阿波罗尼亚斯……",
+      "glossary_refs": [
+        "people/speaker-1a64cfdb8c43"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "people/speaker-1a64cfdb8c43",
+          "translation": "阿波罗尼亚斯",
+          "status": "researched",
+          "source_file": "corpus/glossary/story-speakers-v1.json"
+        }
+      ],
+      "review_note": "独立片段Whisper未出字；拼接原时间轴后识别为アポロニアス，请重点听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "b8afb29f3db14115faec18a558ec7353f07dc982643b4cd3670f9bbacc6cd1a0",
+      "audio_duration_seconds": 0.9028571428571428,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-256/ccc-40/frame-1360",
+      "scene_id": "effect-256",
+      "scene_name": "阿克艾里昂合体",
+      "effect": 256,
+      "ccc_id": 40,
+      "effect_frame": 1360,
+      "start_frame": 1360,
+      "end_frame": 1540,
+      "start_seconds": 22.666666666666668,
+      "end_seconds": 25.666666666666668,
+      "japanese_whisper": "行くぞ! セリア!",
+      "japanese_candidate": "行くぞ、セリアン！［人名待听校］",
+      "chinese_draft": "上了，瑟利安！",
+      "glossary_refs": [
+        "people/speaker-132b8e7512e2"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "people/speaker-132b8e7512e2",
+          "translation": "瑟利安",
+          "status": "approved",
+          "source_file": "corpus/glossary/global-variants-v1.json"
+        }
+      ],
+      "review_note": "Whisper识别为セリア；人名候选仍为セリアン／瑟利安，未找到可靠的原作逐字证据。行くぞ改为同伴行动前的“上了”。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "14167443e1f0d9e2e736a596bff2f709de90b9f6c5bfe24a36ae39fd94446625",
+      "audio_duration_seconds": 3.565714285714286,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-257/ccc-216/frame-0",
+      "scene_id": "effect-257",
+      "scene_name": "爆爱无限光",
+      "effect": 257,
+      "ccc_id": 216,
+      "effect_frame": 0,
+      "start_frame": 0,
+      "end_frame": 217,
+      "start_seconds": 0.0,
+      "end_seconds": 3.6166666666666667,
+      "japanese_whisper": "辛いことも悲しいことも全部ひっくるめて",
+      "japanese_candidate": "辛いことも悲しいことも全部ひっくるめて",
+      "chinese_draft": "连痛苦和悲伤也算在内——",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "与下一句连读，保留“连痛苦与悲伤也一并包括”的含义；原作第24话二手记录支持这一表达。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "6a671054179208de0abd23ecbb71bbaf79be978c8e277d527b249711e53aeb35",
+      "audio_duration_seconds": 3.476825396825397,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "aquarion24"
+      ]
+    },
+    {
+      "id": "effect-257/ccc-217/frame-230",
+      "scene_id": "effect-257",
+      "scene_name": "爆爱无限光",
+      "effect": 257,
+      "ccc_id": 217,
+      "effect_frame": 230,
+      "start_frame": 230,
+      "end_frame": 485,
+      "start_seconds": 3.8333333333333335,
+      "end_seconds": 8.083333333333334,
+      "japanese_whisper": "私は人間が大好きだー!",
+      "japanese_candidate": "私は人間が大好きだー！",
+      "chinese_draft": "我最喜欢人类了——！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "原作第24话二手记录支持大好きだー的呐喊；不套用剧情语料大好きです的平静语气。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "6a96789f22cf565939c9046c9fb5dc386275cef6584b012d43cfa6cd8d0620ae",
+      "audio_duration_seconds": 4.121904761904762,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "aquarion24"
+      ]
+    },
+    {
+      "id": "effect-258/ccc-29/frame-155",
+      "scene_id": "effect-258",
+      "scene_name": "天使剑",
+      "effect": 258,
+      "ccc_id": 29,
+      "effect_frame": 155,
+      "start_frame": 155,
+      "end_frame": 200,
+      "start_seconds": 2.5833333333333335,
+      "end_seconds": 3.3333333333333335,
+      "japanese_whisper": "",
+      "japanese_candidate": "行くぜ！",
+      "chinese_draft": "上了！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "行くぜ是自己即将行动的喊话，改为“上了”；独立Whisper未出字，拼接识别仍待听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "62aa84e97fd6c63f15621ce9b8bd314905a4818efb179d80ccdf38fb77d3b61b",
+      "audio_duration_seconds": 0.5396825396825397,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-258/ccc-398/frame-205",
+      "scene_id": "effect-258",
+      "scene_name": "天使剑",
+      "effect": 258,
+      "ccc_id": 398,
+      "effect_frame": 205,
+      "start_frame": 205,
+      "end_frame": 275,
+      "start_seconds": 3.4166666666666665,
+      "end_seconds": 4.583333333333333,
+      "japanese_whisper": "三味一体!",
+      "japanese_candidate": "三位一体！",
+      "chinese_draft": "三位一体！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "Whisper误识为三味一体；第23话二手记录支持三位一体，并与后两句同属一次攻击。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "a635a077e13aa7cef40e990a4252447d68565ee7c13e05aa434d729d531c76bb",
+      "audio_duration_seconds": 1.0831746031746032,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "aquarion23"
+      ]
+    },
+    {
+      "id": "effect-258/ccc-51/frame-275",
+      "scene_id": "effect-258",
+      "scene_name": "天使剑",
+      "effect": 258,
+      "ccc_id": 51,
+      "effect_frame": 275,
+      "start_frame": 275,
+      "end_frame": 344,
+      "start_seconds": 4.583333333333333,
+      "end_seconds": 5.733333333333333,
+      "japanese_whisper": "悲しみの",
+      "japanese_candidate": "悲しみの……",
+      "chinese_draft": "悲伤的……",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "与CCC 59连读为“悲伤的……天使剑！”，不是独立陈述。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "39d37be47a297760cfa2137eed7c3927c29e4279ee70325fb0f1608c411e08f0",
+      "audio_duration_seconds": 1.0247619047619048,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "aquarion23"
+      ]
+    },
+    {
+      "id": "effect-258/ccc-59/frame-360",
+      "scene_id": "effect-258",
+      "scene_name": "天使剑",
+      "effect": 258,
+      "ccc_id": 59,
+      "effect_frame": 360,
+      "start_frame": 360,
+      "end_frame": 495,
+      "start_seconds": 6.0,
+      "end_seconds": 8.25,
+      "japanese_whisper": "エンジェルソード!",
+      "japanese_candidate": "エンジェルソード！",
+      "chinese_draft": "天使剑！",
+      "glossary_refs": [
+        "weapon/0615"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "weapon/0615",
+          "translation": "天使剑",
+          "status": "approved",
+          "source_file": "corpus/glossary/weapons-v1.json"
+        }
+      ],
+      "review_note": "沿用已批准的天使剣／天使剑。第23话二手资料另记汉字技名哀・天使劍，当前不把该写法重复加进语音字幕，也不改全局术语。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "ef67cb64616cd7fc3b013b1e56d454508bb7c67812a1f84f91bf5f9e7502be2c",
+      "audio_duration_seconds": 2.1104761904761906,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "aquarion23"
+      ]
+    },
+    {
+      "id": "effect-258/ccc-52/frame-520",
+      "scene_id": "effect-258",
+      "scene_name": "天使剑",
+      "effect": 258,
+      "ccc_id": 52,
+      "effect_frame": 520,
+      "start_frame": 520,
+      "end_frame": 673,
+      "start_seconds": 8.666666666666666,
+      "end_seconds": 11.216666666666667,
+      "japanese_whisper": "今よ!\nはああああああああああああああああああああああああああああああああああああ",
+      "japanese_candidate": "今よ！はあああ！",
+      "chinese_draft": "就是现在！哈——！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "6704a20e9218bdf8842b6812721a4770b0fc326adc7af1f5c8dcc943e2f459d2",
+      "audio_duration_seconds": 2.419047619047619,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-258/ccc-53/frame-680",
+      "scene_id": "effect-258",
+      "scene_name": "天使剑",
+      "effect": 258,
+      "ccc_id": 53,
+      "effect_frame": 680,
+      "start_frame": 680,
+      "end_frame": 729,
+      "start_seconds": 11.333333333333334,
+      "end_seconds": 12.15,
+      "japanese_whisper": "",
+      "japanese_candidate": "［叫喊声，待听校］",
+      "chinese_draft": "哈——！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "独立片段Whisper未出字；需听校拟声。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "729db60afccc1c583785e6a3758856f8b5549b45c0f3ad1b9c01a94a6d70db9e",
+      "audio_duration_seconds": 0.686984126984127,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-259/ccc-221/frame-100",
+      "scene_id": "effect-259",
+      "scene_name": "无限叱责掌",
+      "effect": 259,
+      "ccc_id": 221,
+      "effect_frame": 100,
+      "start_frame": 100,
+      "end_frame": 320,
+      "start_seconds": 1.6666666666666667,
+      "end_seconds": 5.333333333333333,
+      "japanese_whisper": "こっちだよ!こっち!",
+      "japanese_candidate": "こっちだよ！こっち！",
+      "chinese_draft": "这边，这边！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "保留重复招呼、引诱对手的口气；现有近同句为“这边哦，这边！”，此处采用简洁的“这边，这边！”。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "4dbea907f6bbcd3b06a099bce314928a18e98abf8b8bde43c6d8bfc8addd07a8",
+      "audio_duration_seconds": 3.9453968253968252,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-259/ccc-27/frame-320",
+      "scene_id": "effect-259",
+      "scene_name": "无限叱责掌",
+      "effect": 259,
+      "ccc_id": 27,
+      "effect_frame": 320,
+      "start_frame": 320,
+      "end_frame": 531,
+      "start_seconds": 5.333333333333333,
+      "end_seconds": 8.85,
+      "japanese_whisper": "無限ビンタ!",
+      "japanese_candidate": "無限ビンタ！",
+      "chinese_draft": "无限叱责掌！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "原作第20话二手记录将喊法むげんビンタ对应到汉字技名無限叱責掌，本稿采用“无限叱责掌”。尚未直接核对原作画面，不新增或修改全局术语。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "6da71465c7d457ac769e44faf59628d419b73c718c274f51d326a4ca84c31d1f",
+      "audio_duration_seconds": 3.387936507936508,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "aquarion20"
+      ]
+    },
+    {
+      "id": "effect-259/ccc-222/frame-580",
+      "scene_id": "effect-259",
+      "scene_name": "无限叱责掌",
+      "effect": 259,
+      "ccc_id": 222,
+      "effect_frame": 580,
+      "start_frame": 580,
+      "end_frame": 800,
+      "start_seconds": 9.666666666666666,
+      "end_seconds": 13.333333333333334,
+      "japanese_whisper": "うわああああああああああああああああああああああああああ",
+      "japanese_candidate": "［叫喊声，待听校］",
+      "chinese_draft": "哇啊——！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "Whisper输出重复元音，拟声需听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "86ce86a3a2d79fac6e16883c0c8ce928bad9a38672348a6fdfa135116f22b844",
+      "audio_duration_seconds": 3.5873015873015874,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-264/ccc-352/frame-308",
+      "scene_id": "effect-264",
+      "scene_name": "格兰维昂合神",
+      "effect": 264,
+      "ccc_id": 352,
+      "effect_frame": 308,
+      "start_frame": 308,
+      "end_frame": 460,
+      "start_seconds": 5.133333333333334,
+      "end_seconds": 7.666666666666667,
+      "japanese_whisper": "エルゴ!フォーム!",
+      "japanese_candidate": "エルゴ・フォーム！",
+      "chinese_draft": "埃尔戈形态！",
+      "glossary_refs": [
+        "technology/ergo-form-system"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "technology/ergo-form-system",
+          "translation": "埃尔戈形态系统",
+          "status": "approved",
+          "source_file": "corpus/glossary/global-variants-v1.json"
+        }
+      ],
+      "review_note": "授权专题确认エルゴ・フォーム；中文沿用已批准“埃尔戈形态系统”的词根。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "3bb6d9bcd2a0ef165b88bc15b1f4d32bd4ed7d07bce1b45409c1c89919bd2c1c",
+      "audio_duration_seconds": 2.3936507936507936,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "gravion"
+      ]
+    },
+    {
+      "id": "effect-264/ccc-353/frame-872",
+      "scene_id": "effect-264",
+      "scene_name": "格兰维昂合神",
+      "effect": 264,
+      "ccc_id": 353,
+      "effect_frame": 872,
+      "start_frame": 872,
+      "end_frame": 1001,
+      "start_seconds": 14.533333333333333,
+      "end_seconds": 16.683333333333334,
+      "japanese_whisper": "長寿合心!",
+      "japanese_candidate": "超重合神！",
+      "chinese_draft": "超重合神！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "授权专题明确写作超重合神，纠正此前超獣合神／超兽合神；Whisper的長寿合心不采用。文本纠错不等于完成原音听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "4a6d80b98414027cbef9f1dca5dac753efd3a5b22970133be0fadf40efd28783",
+      "audio_duration_seconds": 2.024126984126984,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "gravion"
+      ]
+    },
+    {
+      "id": "effect-265/ccc-252/frame-136",
+      "scene_id": "effect-265",
+      "scene_name": "真·超重斩",
+      "effect": 265,
+      "ccc_id": 252,
+      "effect_frame": 136,
+      "start_frame": 136,
+      "end_frame": 223,
+      "start_seconds": 2.2666666666666666,
+      "end_seconds": 3.716666666666667,
+      "japanese_whisper": "行くぜ、トガ!",
+      "japanese_candidate": "行くぜ、斗牙！",
+      "chinese_draft": "上了，斗牙！",
+      "glossary_refs": [
+        "people/speaker-03754cfe760d"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "people/speaker-03754cfe760d",
+          "translation": "斗牙",
+          "status": "researched",
+          "source_file": "corpus/glossary/story-speakers-v1.json"
+        }
+      ],
+      "review_note": "行くぜ、斗牙按同伴共同出招的语气译为“上了，斗牙”。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "646e1ede9452a09ee1fb7b16da5559ad0751f0bc67ef0840c24ac7a790f2ded1",
+      "audio_duration_seconds": 1.3104761904761906,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-265/ccc-366/frame-240",
+      "scene_id": "effect-265",
+      "scene_name": "真·超重斩",
+      "effect": 265,
+      "ccc_id": 366,
+      "effect_frame": 240,
+      "start_frame": 240,
+      "end_frame": 285,
+      "start_seconds": 4.0,
+      "end_seconds": 4.75,
+      "japanese_whisper": "",
+      "japanese_candidate": "うん！［待听校］",
+      "chinese_draft": "嗯！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "独立片段Whisper未出字；原时间轴拼接识别为うん，请重点确认。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "08cb5b4cf8b51b164b734df3333512bf7745179e47522874540e91f2ec290427",
+      "audio_duration_seconds": 0.19047619047619047,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": []
+    },
+    {
+      "id": "effect-265/ccc-368/frame-760",
+      "scene_id": "effect-265",
+      "scene_name": "真·超重斩",
+      "effect": 265,
+      "ccc_id": 368,
+      "effect_frame": 760,
+      "start_frame": 760,
+      "end_frame": 1136,
+      "start_seconds": 12.666666666666666,
+      "end_seconds": 18.933333333333334,
+      "japanese_whisper": "ごーっしんちょーちゅーざん",
+      "japanese_candidate": "合神！超重斬！［待听校］",
+      "chinese_draft": "合神——超重斩！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "高优先级待听校：授权资料只能确认招式名真・超重斬，不能证明录音开头是合神。Whisper独立结果为ごーっしんちょーちゅーざん，拼接为ゴー！新！蝶柱山！；本行日文及“合神——超重斩”仅暂存旧候选，不可视为定稿。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "dda00b713cfb993e76ea5c5ee48d6a7b290c190b87f6bd15361c4f7b15a7a179",
+      "audio_duration_seconds": 6.126984126984127,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "gravion"
+      ]
+    },
+    {
+      "id": "effect-266/ccc-381/frame-160",
+      "scene_id": "effect-266",
+      "scene_name": "巨神Σ合体",
+      "effect": 266,
+      "ccc_id": 381,
+      "effect_frame": 160,
+      "start_frame": 160,
+      "end_frame": 360,
+      "start_seconds": 2.6666666666666665,
+      "end_seconds": 6.0,
+      "japanese_whisper": "シグマフォーメーション",
+      "japanese_candidate": "シグマフォーメーション！",
+      "chinese_draft": "Σ阵形！",
+      "glossary_refs": [
+        "unit/god-sigma"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "unit/god-sigma",
+          "translation": "巨神Σ",
+          "status": "approved",
+          "source_file": "corpus/glossary/story-dialogue-full-v1.json"
+        }
+      ],
+      "review_note": "非官方作品资料支持シグマフォーメーション；Σ沿用巨神Σ，阵形口号仍待听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "1c44c389ddc2235f1e2d6edb49b02aefe5730f1b408c6dcd645cc96ffb8580f2",
+      "audio_duration_seconds": 4.011428571428572,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "sigma"
+      ]
+    },
+    {
+      "id": "effect-266/ccc-383/frame-360",
+      "scene_id": "effect-266",
+      "scene_name": "巨神Σ合体",
+      "effect": 266,
+      "ccc_id": 383,
+      "effect_frame": 360,
+      "start_frame": 360,
+      "end_frame": 519,
+      "start_seconds": 6.0,
+      "end_seconds": 8.65,
+      "japanese_whisper": "トリミティチャージ!",
+      "japanese_candidate": "トリニティ・チャージ！",
+      "chinese_draft": "充能！",
+      "glossary_refs": [
+        "ability/trinity-charge"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "ability/trinity-charge",
+          "translation": "充能",
+          "status": "approved",
+          "source_file": "corpus/glossary/special-abilities-v1.json"
+        }
+      ],
+      "review_note": "资料支持完整喊法トリニティ・チャージ；中文字幕沿用已批准能力名“充能”，并非原音省略了トリニティ。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "8f29318a4107a6c4e1a8c0aa51b44c330c3d328d062a9a0045210d7af7d1f1b5",
+      "audio_duration_seconds": 2.5244444444444443,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "sigma"
+      ]
+    },
+    {
+      "id": "effect-266/ccc-382/frame-1800",
+      "scene_id": "effect-266",
+      "scene_name": "巨神Σ合体",
+      "effect": 266,
+      "ccc_id": 382,
+      "effect_frame": 1800,
+      "start_frame": 1800,
+      "end_frame": 2083,
+      "start_seconds": 30.0,
+      "end_seconds": 34.71666666666667,
+      "japanese_whisper": "宇宙大帝 ゴッドシグマン",
+      "japanese_candidate": "宇宙大帝、ゴッドシグマ！",
+      "chinese_draft": "宇宙大帝，巨神Σ！",
+      "glossary_refs": [
+        "unit/god-sigma"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "unit/god-sigma",
+          "translation": "巨神Σ",
+          "status": "approved",
+          "source_file": "corpus/glossary/story-dialogue-full-v1.json"
+        }
+      ],
+      "review_note": "作品资料支持ゴッドシグマ，Whisper末尾的ゴッドシグマン不采用；机体名沿用巨神Σ。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "32bd24f18c21ebccc3630804d166fe3d95aea2493a1c8ad29d6a248e89a15e0a",
+      "audio_duration_seconds": 4.59047619047619,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "sigma"
+      ]
+    },
+    {
+      "id": "effect-267/ccc-6/frame-176",
+      "scene_id": "effect-267",
+      "scene_name": "盖塔龙合体",
+      "effect": 267,
+      "ccc_id": 6,
+      "effect_frame": 176,
+      "start_frame": 176,
+      "end_frame": 465,
+      "start_seconds": 2.933333333333333,
+      "end_seconds": 7.75,
+      "japanese_whisper": "チェーンジドラゴン!スイッチオン!",
+      "japanese_candidate": "チェーンジ、ドラゴン！スイッチオン！",
+      "chinese_draft": "变形，盖塔龙！启动！",
+      "glossary_refs": [
+        "unit/getter-g-dragon-form"
+      ],
+      "glossary_bindings": [
+        {
+          "id": "unit/getter-g-dragon-form",
+          "translation": "盖塔龙",
+          "status": "approved",
+          "source_file": "corpus/glossary/global-variants-v1.json"
+        }
+      ],
+      "review_note": "保留机体名盖塔龙，将生硬的“开关启动”改为口令“启动”；日文喊法有爱好者记录佐证，仍待原音听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "54bd0ee6c9b82b62a7ddc7e9a2af7ea25e39eb90fb57fffbb277a5e25f75b2f2",
+      "audio_duration_seconds": 4.690793650793651,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "getter"
+      ]
+    },
+    {
+      "id": "effect-269/ccc-3/frame-728",
+      "scene_id": "effect-269",
+      "scene_name": "魔神Z出击",
+      "effect": 269,
+      "ccc_id": 3,
+      "effect_frame": 728,
+      "start_frame": 728,
+      "end_frame": 940,
+      "start_seconds": 12.133333333333333,
+      "end_seconds": 15.666666666666666,
+      "japanese_whisper": "マリンゴー!",
+      "japanese_candidate": "マジン・ゴー！",
+      "chinese_draft": "魔神，出击！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "演员活动报道支持マジン・ゴー这一出击口号；Whisper的マリンゴー不采用。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "1814105e669cc1d9cc3c0b2f44be49bf956789f16e2156947103b9571a71b655",
+      "audio_duration_seconds": 3.401904761904762,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "mazinger"
+      ]
+    },
+    {
+      "id": "effect-269/ccc-4/frame-1220",
+      "scene_id": "effect-269",
+      "scene_name": "魔神Z出击",
+      "effect": 269,
+      "ccc_id": 4,
+      "effect_frame": 1220,
+      "start_frame": 1220,
+      "end_frame": 1421,
+      "start_seconds": 20.333333333333332,
+      "end_seconds": 23.683333333333334,
+      "japanese_whisper": "ファイナーオン!",
+      "japanese_candidate": "パイルダー・オン！",
+      "chinese_draft": "飞行器，合体！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "演员活动报道支持パイルダー・オン，意为驾驶舱飞行器与魔神合体。中文专名未确认，现有剧情仅有Jet Pilder；“飞行器，合体”仍为暂译，不视为正式专名。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "2b5891630ee480155e38c92d7ad06940e46dee86c4d966989cf42c3812698d70",
+      "audio_duration_seconds": 3.219047619047619,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "mazinger"
+      ]
+    },
+    {
+      "id": "effect-282/ccc-1/frame-40",
+      "scene_id": "effect-282",
+      "scene_name": "泰坦3登场",
+      "effect": 282,
+      "ccc_id": 1,
+      "effect_frame": 40,
+      "start_frame": 40,
+      "end_frame": 210,
+      "start_seconds": 0.6666666666666666,
+      "end_seconds": 3.5,
+      "japanese_whisper": "この日々の輝きを恐れるなら",
+      "japanese_candidate": "この日輪の輝きを恐れぬなら……",
+      "chinese_draft": "若不畏惧这日轮的光辉——",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "动画官网明确使用恐れぬのなら，确认原作口号是否定语义，Whisper的恐れるなら不采用。游戏这一段有无の及具体读音仍待听校。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "4e20b8a334de087fa33c86e51b6ff0932e2ced73365c583e78060526cb1ff385",
+      "audio_duration_seconds": 2.7377777777777776,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "daitarn"
+      ]
+    },
+    {
+      "id": "effect-282/ccc-2/frame-210",
+      "scene_id": "effect-282",
+      "scene_name": "泰坦3登场",
+      "effect": 282,
+      "ccc_id": 2,
+      "effect_frame": 210,
+      "start_frame": 210,
+      "end_frame": 355,
+      "start_seconds": 3.5,
+      "end_seconds": 5.916666666666667,
+      "japanese_whisper": "かかってこい!",
+      "japanese_candidate": "かかってこい！",
+      "chinese_draft": "尽管放马过来！",
+      "glossary_refs": [],
+      "glossary_bindings": [],
+      "review_note": "承接前句挑战对手，保留“尽管放马过来”；官网支持整句口号。",
+      "review_status": "awaiting_user_listening_review",
+      "audio_sha256": "de67051f53fc9e7873eebee8ab89d9437dfd630d291f04c880c21a84f731c651",
+      "audio_duration_seconds": 2.2768253968253966,
+      "editorial_status": "text_reviewed_listening_pending",
+      "editorial_source_refs": [
+        "daitarn"
+      ]
+    }
+  ],
+  "boundary": "All captions are drafts, not human-approved translations. Corpus/glossary entries are referenced read-only.",
+  "editorial_review": {
+    "date": "2026-10-13",
+    "status": "text_polished_listening_pending",
+    "scope": "通读37句；统一出击放行口令、修正超重合神、润色语气并补充查证记录。未进行本轮逐句人工听音。",
+    "artifact_scope": "仅更新字幕源和听校材料；现有ISO、运行截图及历史验证记录不代表本次文字修订。",
+    "pending_ccc_ids": [
+      33,
+      54,
+      60,
+      40,
+      29,
+      53,
+      222,
+      366,
+      368,
+      4
+    ],
+    "sources": {
+      "gravion": {
+        "title": "Good Smile：GRAVION授权专题（日文）",
+        "url": "https://special.goodsmile.info/gravion/",
+        "kind": "licensed_product",
+        "supports": "支持エルゴ・フォーム、超重合神及技名真・超重斬；未提供CCC 368的逐字喊法。"
+      },
+      "daitarn": {
+        "title": "泰坦3动画官网：MECHANICAL",
+        "url": "https://www.daitarn3.net/mechanical/",
+        "kind": "official_anime",
+        "supports": "官方口号含恐れぬのなら，支持否定语义；游戏录音有无の仍须听校。"
+      },
+      "impulse": {
+        "title": "SEED DESTINY HD Remaster第1话观后记录",
+        "url": "https://datenoba.exblog.jp/32869330/",
+        "kind": "secondary_episode_record",
+        "supports": "记录四个部件的出击口令及どうぞ；属于二手记录，未代替原音听校。"
+      },
+      "aquarion20": {
+        "title": "阿克艾里昂第20话同期观后记录",
+        "url": "https://ozozoz.exblog.jp/2522149/",
+        "kind": "secondary_episode_record",
+        "supports": "记录無限ビンタ与無限叱責掌的对应；尚未直接核对原作画面。"
+      },
+      "aquarion23": {
+        "title": "阿克艾里昂第23话同期观后记录",
+        "url": "https://grancodyleon.doorblog.jp/archives/50062704.html",
+        "kind": "secondary_episode_record",
+        "supports": "记录三位一体、悲しみの、エンジェルソード及汉字技名哀・天使劍。"
+      },
+      "aquarion24": {
+        "title": "阿克艾里昂观后记录：第24话鸫的台词",
+        "url": "https://filmarks.com/animes/1549/2067/reviews/1053020",
+        "kind": "secondary_episode_record",
+        "supports": "记录痛苦、悲伤全部包括在内及大好きだー的喊话版本。"
+      },
+      "mazinger": {
+        "title": "Animate Times：魔神Z演员活动报道",
+        "url": "https://www.animatetimes.com/news/details.php?id=1516535507",
+        "kind": "cast_event_report",
+        "supports": "报道两句出击、合体口号以及参照初代配音的说明；不提供中文专名。"
+      },
+      "sigma": {
+        "title": "宇宙大帝God Sigma作品资料",
+        "url": "https://w.atwiki.jp/aniwotawiki/pages/45431.html",
+        "kind": "secondary_reference",
+        "supports": "按顺序记录三个合体口号；非官方逐字脚本。"
+      },
+      "getter": {
+        "title": "盖塔G口号记录",
+        "url": "https://plaza.rakuten.co.jp/ussyamato/backnumber/201108/",
+        "kind": "secondary_reference",
+        "supports": "爱好者记录チェーンジ、ドラゴン、スイッチオン；仍待游戏原音核对。"
+      }
+    }
+  },
+  "review_storage_compatible_source_hashes": [
+    "ca36e431d15b2c32724b4b2cc8813518a1601e6ec888dd9c4801eaa26a8a0da4",
+    "b9acbbdfc0baf82b819772eaf70870c795aa8e9c3dd86f96461de9cfc38fe864"
+  ]
+}

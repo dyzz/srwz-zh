@@ -1,0 +1,369 @@
+{
+ "candidate": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/special-disc/sp-current.iso",
+ "flow": {
+  "evidence_type": "LRPS2 recorded native UI flow",
+  "journal": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-event-fidelity-20261013/runtime-integrated/commands.jsonl",
+  "journal_sha256": "dbb3add580dfb091a5ea1c249ec409ba5035ed111fdf3100e3d86685fad3fb74",
+  "configured_scenes": 12,
+  "completed_runs": 2,
+  "missing_scenes": [
+   {
+    "row": 1,
+    "id": "effect-255",
+    "name": "双卫星加农炮发射",
+    "effects": [
+     255
+    ],
+    "map": 3
+   },
+   {
+    "row": 2,
+    "id": "effect-256",
+    "name": "阿克艾里昂合体",
+    "effects": [
+     256
+    ],
+    "map": 13
+   },
+   {
+    "row": 3,
+    "id": "effect-257",
+    "name": "爆爱无限光",
+    "effects": [
+     257
+    ],
+    "map": 74
+   },
+   {
+    "row": 4,
+    "id": "effect-258",
+    "name": "天使剑",
+    "effects": [
+     258
+    ],
+    "map": 70
+   },
+   {
+    "row": 5,
+    "id": "effect-259",
+    "name": "无限叱责掌",
+    "effects": [
+     259
+    ],
+    "map": 63
+   },
+   {
+    "row": 6,
+    "id": "effect-264",
+    "name": "格兰维昂合神",
+    "effects": [
+     264
+    ],
+    "map": 8
+   },
+   {
+    "row": 7,
+    "id": "effect-265",
+    "name": "真·超重斩",
+    "effects": [
+     265
+    ],
+    "map": 63
+   },
+   {
+    "row": 8,
+    "id": "effect-266",
+    "name": "巨神Σ合体",
+    "effects": [
+     266
+    ],
+    "map": 45
+   },
+   {
+    "row": 9,
+    "id": "effect-267",
+    "name": "盖塔龙合体",
+    "effects": [
+     267
+    ],
+    "map": 26
+   },
+   {
+    "row": 11,
+    "id": "effect-282",
+    "name": "泰坦3登场",
+    "effects": [
+     282
+    ],
+    "map": 22
+   }
+  ],
+  "pending_run": null,
+  "all_scenes_completed_and_returned": false,
+  "natural_completion_without_host_state_intervention": false,
+  "boundary": "WATCH proves the request/play/finish/return state chain and retained completed row. Phase zero indicates an idle gallery player; it does not distinguish the list from the theater root after leaving the list. Native row is the last played item, not the current UI highlight. Screenshot filenames are not scene evidence. Cold-start provenance, original list object identity, visual fidelity and PCSX2 manual acceptance require separate evidence."
+ },
+ "runs": [
+  {
+   "run": 0,
+   "row": 10,
+   "id": "effect-269",
+   "name": "魔神Z出击",
+   "request_frame": 2886,
+   "play_frame": 2887,
+   "finish_frame": 4787,
+   "return_frame": 4788,
+   "expected_bgm": 70,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    70
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -8,
+   "zoom_after_setup": -8.0,
+   "actors": {
+    "1000": [],
+    "1880": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5b9500",
+      "x": 32,
+      "y": 13,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 0,
+      "pilot_id": 2
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 10,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     32,
+     13
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run00-effect-269.wav"
+  },
+  {
+   "run": 1,
+   "row": 0,
+   "id": "effect-273",
+   "name": "脉冲高达出击",
+   "request_frame": 5099,
+   "play_frame": 5100,
+   "finish_frame": 7450,
+   "return_frame": 7451,
+   "expected_bgm": 30,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    30
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "60": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ],
+    "1500": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ],
+    "2300": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 0,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     9,
+     13
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run01-effect-273.wav"
+  }
+ ]
+}

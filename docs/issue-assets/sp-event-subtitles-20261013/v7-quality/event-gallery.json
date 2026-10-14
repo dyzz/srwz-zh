@@ -1,0 +1,496 @@
+{
+  "schema_version": 1,
+  "base": "SP Chinese current",
+  "payload_base": "0x820000",
+  "entries": [
+    {
+      "id": "effect-273",
+      "name": "脉冲高达出击",
+      "effects": [
+        273,
+        274
+      ],
+      "map": 30,
+      "camera": {
+        "tile": [
+          6,
+          2
+        ],
+        "map_view": 3,
+        "status": "map_load_initial_view"
+      },
+      "effect_tile": [
+        20,
+        12
+      ],
+      "position_source": "resource_header",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [
+        {
+          "model": 0,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 2,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 3,
+          "frame": 0,
+          "mode": 2,
+          "visible": 1
+        }
+      ],
+      "source_context": {
+        "stage_index": 2,
+        "call_offset": "0xa7c0",
+        "script_roots": [
+          "0xa370"
+        ],
+        "native_init_offset": "0x930",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-255",
+      "name": "双卫星加农炮发射",
+      "effects": [
+        255
+      ],
+      "map": 3,
+      "camera": {
+        "tile": [
+          20,
+          23
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        20,
+        23
+      ],
+      "position_source": "spawn_list_literal",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "position_note": "STAGE126 0xb750 spawn list 0x8840 sets unit320 tile(20,23); native FUN_001b0f50 confirmed.",
+      "stage_objects": [
+        {
+          "model": 0,
+          "frame": 0,
+          "mode": 1,
+          "visible": 1
+        },
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 2,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 3,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 4,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        }
+      ],
+      "source_context": {
+        "stage_index": 126,
+        "call_offset": "0xb850",
+        "script_roots": [
+          "0xb340"
+        ],
+        "native_init_offset": "0xe90",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-256",
+      "name": "阿克艾里昂合体",
+      "effects": [
+        256
+      ],
+      "map": 13,
+      "camera": {
+        "tile": [
+          11,
+          4
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        11,
+        4
+      ],
+      "position_source": "script_literal",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [],
+      "source_context": {
+        "stage_index": 21,
+        "call_offset": "0x8890",
+        "script_roots": [
+          "0x7d60"
+        ],
+        "native_init_offset": "0x7b0",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-257",
+      "name": "爆爱无限光",
+      "effects": [
+        257
+      ],
+      "map": 74,
+      "camera": {
+        "tile": [
+          13,
+          7
+        ],
+        "map_view": 3,
+        "status": "gallery_camera_chosen_from_map_load_initial_view"
+      },
+      "effect_tile": [
+        13,
+        7
+      ],
+      "position_source": "gallery_chosen_anchor",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "position_note": "Original STAGE117 inherits unit616 runtime position; gallery deterministically chooses map74 initial camera center(13,7).",
+      "stage_objects": [],
+      "source_context": {
+        "stage_index": 117,
+        "call_offset": "0x12c80",
+        "script_roots": [
+          "0x12440"
+        ],
+        "native_init_offset": "0x1230",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-258",
+      "name": "天使剑",
+      "effects": [
+        258
+      ],
+      "map": 70,
+      "camera": {
+        "tile": [
+          13,
+          6
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        13,
+        5
+      ],
+      "position_source": "prior_script_move",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [],
+      "source_context": {
+        "stage_index": 128,
+        "call_offset": "0x10930",
+        "script_roots": [
+          "0xfe40"
+        ],
+        "native_init_offset": "0x970",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-259",
+      "name": "无限叱责掌",
+      "effects": [
+        259
+      ],
+      "map": 63,
+      "camera": {
+        "tile": [
+          8,
+          26
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        8,
+        26
+      ],
+      "position_source": "script_literal",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [],
+      "source_context": {
+        "stage_index": 107,
+        "call_offset": "0x144a0",
+        "script_roots": [
+          "0x13d30"
+        ],
+        "native_init_offset": "0xfc0",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-264",
+      "name": "格兰维昂合神",
+      "effects": [
+        264
+      ],
+      "map": 8,
+      "camera": {
+        "tile": [
+          11,
+          6
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        11,
+        6
+      ],
+      "position_source": "resource_header",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [],
+      "source_context": {
+        "stage_index": 7,
+        "call_offset": "0x9440",
+        "script_roots": [
+          "0x8ef0"
+        ],
+        "native_init_offset": "0x810",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-265",
+      "name": "真·超重斩",
+      "effects": [
+        265
+      ],
+      "map": 63,
+      "camera": {
+        "tile": [
+          18,
+          3
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        18,
+        3
+      ],
+      "position_source": "resource_header",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [],
+      "source_context": {
+        "stage_index": 107,
+        "call_offset": "0x156b0",
+        "script_roots": [
+          "0x14cf0"
+        ],
+        "native_init_offset": "0xfc0",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-266",
+      "name": "巨神Σ合体",
+      "effects": [
+        266
+      ],
+      "map": 45,
+      "camera": {
+        "tile": [
+          18,
+          18
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        18,
+        18
+      ],
+      "position_source": "resource_header",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 1,
+          "visible": 1
+        }
+      ],
+      "source_context": {
+        "stage_index": 26,
+        "call_offset": "0xa470",
+        "script_roots": [
+          "0xa320"
+        ],
+        "native_init_offset": "0x9b0",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-267",
+      "name": "盖塔龙合体",
+      "effects": [
+        267
+      ],
+      "map": 26,
+      "camera": {
+        "tile": [
+          25,
+          30
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        28,
+        23
+      ],
+      "position_source": "resource_header",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [
+        {
+          "model": 0,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        }
+      ],
+      "source_context": {
+        "stage_index": 43,
+        "call_offset": "0xb920",
+        "script_roots": [
+          "0xb790"
+        ],
+        "native_init_offset": "0xb00",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-269",
+      "name": "魔神Z出击",
+      "effects": [
+        269
+      ],
+      "map": 72,
+      "camera": {
+        "tile": [
+          19,
+          25
+        ],
+        "map_view": 3,
+        "status": "script_literal"
+      },
+      "effect_tile": [
+        19,
+        25
+      ],
+      "position_source": "resource_header",
+      "runtime_status": "LRPS2 V6 native tactical-unit handoff and two natural returns passed; roster/unit snapshot restored byte-for-byte",
+      "stage_objects": [
+        {
+          "model": 1,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 2,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 3,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 4,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 0
+        },
+        {
+          "model": 5,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        }
+      ],
+      "source_context": {
+        "stage_index": 47,
+        "call_offset": "0x9f70",
+        "script_roots": [
+          "0x9f00"
+        ],
+        "native_init_offset": "0x8d0",
+        "edition": "Original SLPS_258.87"
+      }
+    },
+    {
+      "id": "effect-282",
+      "name": "泰坦3登场",
+      "effects": [
+        282
+      ],
+      "map": 22,
+      "camera": {
+        "tile": [
+          18,
+          17
+        ],
+        "map_view": 3,
+        "status": "original scene or native map initializer sets direction 3"
+      },
+      "effect_tile": [
+        18,
+        17
+      ],
+      "position_source": "prior_script_move",
+      "runtime_status": "LRPS2 V6 cold-start native click/play/natural-return passed; original full stage actor context not fully reproduced",
+      "stage_objects": [],
+      "source_context": {
+        "stage_index": 69,
+        "call_offset": "0x12f60",
+        "script_roots": [
+          "0x12450"
+        ],
+        "native_init_offset": "0x730",
+        "edition": "Original SLPS_258.87"
+      }
+    }
+  ],
+  "subtitle_source": "config/products/special-disc/event-subtitles.json"
+}

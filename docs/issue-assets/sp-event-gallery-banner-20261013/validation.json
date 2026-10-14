@@ -1,0 +1,85 @@
+{
+  "evidence_type": "LRPS2 cold-start targeted UI regression; separate from PCSX2 manual acceptance",
+  "candidate": "work/iso/sp-event-gallery-ui-v2.iso",
+  "iso_sha256": "99af61ba50398fe62d4288e5358117563b2c51c628a87050a557191e13b608a2",
+  "journal": "docs/issue-assets/sp-event-gallery-banner-20261013/commands.jsonl",
+  "journal_sha256": "ca59e7b1218cbef2d0ef1a807f29c96fec4330db2ef10473ed8fff82c19e0d07",
+  "renderer": "Software (SW)",
+  "fastboot": true,
+  "initial_frame": 0,
+  "final_frame": 5535,
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "memory_card_seed_sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+  "memory_card_isolated_copy": true,
+  "loaded_savestate": false,
+  "host_memory_writes": false,
+  "configured_scenes": 12,
+  "exercised_rows": [
+    0
+  ],
+  "completed_runs": [
+    {
+      "run_index": 0,
+      "row": 0,
+      "id": "effect-273",
+      "name": "脉冲出击",
+      "effects": [
+        273,
+        274
+      ],
+      "map": 30,
+      "transitions": [
+        {
+          "row": 0,
+          "phase": 1,
+          "completed_row": 0,
+          "frame": 2846,
+          "line": 38,
+          "result_index": 0
+        },
+        {
+          "row": 0,
+          "phase": 2,
+          "completed_row": 0,
+          "frame": 2847,
+          "line": 38,
+          "result_index": 1
+        },
+        {
+          "row": 0,
+          "phase": 3,
+          "completed_row": 0,
+          "frame": 5170,
+          "line": 44,
+          "result_index": 0
+        },
+        {
+          "row": 0,
+          "phase": 0,
+          "completed_row": 0,
+          "frame": 5171,
+          "line": 44,
+          "result_index": 1
+        }
+      ],
+      "request_frame": 2846,
+      "play_frame": 2847,
+      "finish_frame": 5170,
+      "return_frame": 5171,
+      "elapsed_frames": 2325,
+      "playback_frames": 2323
+    }
+  ],
+  "targeted_native_flow_passed": true,
+  "all_12_replayed_in_v2": false,
+  "visually_inspected": [
+    "theater-unselected-v2.png",
+    "theater-selected-v2.png",
+    "event-list-v2.png",
+    "impulse-subtitle-v2.png",
+    "returned-list-v2.png",
+    "returned-theater-v2.png"
+  ],
+  "original_v1_full_flow_evidence": "docs/issue-assets/sp-event-gallery-20261013/flow-report.json",
+  "pcsx2_manual": "pending"
+}

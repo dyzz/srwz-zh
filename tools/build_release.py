@@ -446,8 +446,16 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
         expected = {"original": "full_story_final_iso_static_content_readback_passed",
                     "best": "best_final_iso_static_content_readback_passed",
                     "sp": "all_bound_text_reread_from_final_iso_runtime_pending"}[edition]
+        captions = validation.get("event_subtitles", {}).get(edition)
+        bound = item["target_iso"]
+        if captions is not None:
+            if any(captions["iso"][key] != item["target_iso"][key] for key in ("size", "sha256")):
+                raise ReleaseBuildError(f"{edition}: caption receipt is not bound to the target")
+            bound = captions["base_iso"]
+            from event_subtitles.apply import verify_subtitled_iso
+            verify_subtitled_iso(project_path(item["target_iso"]["path"]), captions, project_path("."))
         if (proof.get("status") != expected or any(
-                proof.get("iso", {}).get(key) != item["target_iso"][key]
+                proof.get("iso", {}).get(key) != bound[key]
                 for key in ("size", "sha256"))):
             raise ReleaseBuildError(f"{edition}: semantic readback does not match target")
         if edition == "best" and proof.get("input_digest") != validation["input_digest"]:

@@ -1,0 +1,1690 @@
+{
+ "candidate": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/iso/sp-event-gallery-fidelity-review.iso",
+ "flow": {
+  "evidence_type": "LRPS2 recorded native UI flow",
+  "journal": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-event-fidelity-20261013/runtime/commands.jsonl",
+  "journal_sha256": "ee6dc405f35c303d43f99073d04892ab27aec6c808c0c6bfc536052141f85961",
+  "configured_scenes": 12,
+  "completed_runs": 15,
+  "missing_scenes": [],
+  "pending_run": null,
+  "all_scenes_completed_and_returned": true,
+  "natural_completion_without_host_state_intervention": true,
+  "boundary": "WATCH proves the request/play/finish/return state chain and retained completed row. Phase zero indicates an idle gallery player; it does not distinguish the list from the theater root after leaving the list. Native row is the last played item, not the current UI highlight. Screenshot filenames are not scene evidence. Cold-start provenance, original list object identity, visual fidelity and PCSX2 manual acceptance require separate evidence."
+ },
+ "runs": [
+  {
+   "run": 0,
+   "row": 0,
+   "id": "effect-273",
+   "name": "脉冲高达出击",
+   "request_frame": 2836,
+   "play_frame": 2837,
+   "finish_frame": 5187,
+   "return_frame": 5188,
+   "expected_bgm": 30,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    30
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "60": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ],
+    "400": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 0,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 0,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 0,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 0,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ],
+    "1400": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 0,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 0,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 0,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 0,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ],
+    "1500": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ],
+    "1700": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 0,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 0,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ],
+    "2300": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 0,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     9,
+     13
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run00-effect-273.wav"
+  },
+  {
+   "run": 1,
+   "row": 1,
+   "id": "effect-255",
+   "name": "双卫星加农炮发射",
+   "request_frame": 5454,
+   "play_frame": 5455,
+   "finish_frame": 6246,
+   "return_frame": 6247,
+   "expected_bgm": 25,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    25
+   ],
+   "expected_view": 0,
+   "first_sample_view": 0,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "60": [],
+    "300": [],
+    "700": [],
+    "760": []
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 1,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 0,
+    "cam": [
+     20,
+     23
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run01-effect-255.wav"
+  },
+  {
+   "run": 2,
+   "row": 2,
+   "id": "effect-256",
+   "name": "阿克艾里昂合体",
+   "request_frame": 6517,
+   "play_frame": 6518,
+   "finish_frame": 8226,
+   "return_frame": 8227,
+   "expected_bgm": 46,
+   "bgm_mode": "effect_header",
+   "observed_playing_bgm_ids": [
+    46
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "50": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 11,
+      "y": 4,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 735,
+      "pilot_id": 949
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 3,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 737,
+      "pilot_id": 951
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 10,
+      "y": 3,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 739,
+      "pilot_id": 953
+     }
+    ],
+    "800": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 11,
+      "y": 4,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 735,
+      "pilot_id": 949
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 3,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 737,
+      "pilot_id": 951
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 10,
+      "y": 3,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 739,
+      "pilot_id": 953
+     }
+    ],
+    "1700": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 11,
+      "y": 4,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 735,
+      "pilot_id": 949
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 3,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 737,
+      "pilot_id": 951
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 10,
+      "y": 3,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 739,
+      "pilot_id": 953
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5c9c98",
+      "x": 11,
+      "y": 16,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 691,
+      "pilot_id": 623
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 2,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     11,
+     16
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run02-effect-256.wav"
+  },
+  {
+   "run": 3,
+   "row": 3,
+   "id": "effect-257",
+   "name": "爆爱无限光",
+   "request_frame": 8490,
+   "play_frame": 8491,
+   "finish_frame": 9466,
+   "return_frame": 9467,
+   "expected_bgm": 47,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    47
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "60": [],
+    "300": [],
+    "451": [],
+    "452": [],
+    "860": [],
+    "900": []
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 3,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     13,
+     7
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run03-effect-257.wav"
+  },
+  {
+   "run": 4,
+   "row": 4,
+   "id": "effect-258",
+   "name": "天使剑",
+   "request_frame": 9723,
+   "play_frame": 9724,
+   "finish_frame": 11111,
+   "return_frame": 11112,
+   "expected_bgm": 47,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    47
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "60": [],
+    "600": [],
+    "1330": [],
+    "1380": []
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 4,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     13,
+     6
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run04-effect-258.wav"
+  },
+  {
+   "run": 5,
+   "row": 5,
+   "id": "effect-259",
+   "name": "无限叱责掌",
+   "request_frame": 11376,
+   "play_frame": 11377,
+   "finish_frame": 12287,
+   "return_frame": 12288,
+   "expected_bgm": 47,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    47
+   ],
+   "expected_view": 2,
+   "first_sample_view": 2,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "60": [],
+    "400": [],
+    "700": [],
+    "760": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 10,
+      "y": 26,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 0,
+      "unit_id": 848,
+      "pilot_id": 655
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 5,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 2,
+    "cam": [
+     8,
+     26
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run05-effect-259.wav"
+  },
+  {
+   "run": 6,
+   "row": 6,
+   "id": "effect-264",
+   "name": "格兰维昂合神",
+   "request_frame": 12544,
+   "play_frame": 12545,
+   "finish_frame": 14330,
+   "return_frame": 14331,
+   "expected_bgm": 41,
+   "bgm_mode": "effect_header",
+   "observed_playing_bgm_ids": [
+    41
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "60": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 10,
+      "y": 5,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 677,
+      "pilot_id": 947
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 5,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 678,
+      "pilot_id": 948
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 11,
+      "y": 4,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 679,
+      "pilot_id": 949
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 11,
+      "y": 8,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 680,
+      "pilot_id": 950
+     },
+     {
+      "slot": 34,
+      "unit_obj": "0x5c9608",
+      "x": 11,
+      "y": 6,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 645,
+      "pilot_id": 577
+     }
+    ],
+    "300": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 10,
+      "y": 5,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 677,
+      "pilot_id": 947
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 5,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 678,
+      "pilot_id": 948
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 11,
+      "y": 4,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 679,
+      "pilot_id": 949
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 11,
+      "y": 8,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 680,
+      "pilot_id": 950
+     },
+     {
+      "slot": 34,
+      "unit_obj": "0x5c9608",
+      "x": 11,
+      "y": 6,
+      "visible": 0,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 645,
+      "pilot_id": 577
+     }
+    ],
+    "1000": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 10,
+      "y": 5,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 677,
+      "pilot_id": 947
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 5,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 678,
+      "pilot_id": 948
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 11,
+      "y": 4,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 679,
+      "pilot_id": 949
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 11,
+      "y": 8,
+      "visible": 1,
+      "side": 1,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 680,
+      "pilot_id": 950
+     },
+     {
+      "slot": 34,
+      "unit_obj": "0x5c9608",
+      "x": 11,
+      "y": 6,
+      "visible": 0,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 645,
+      "pilot_id": 577
+     }
+    ],
+    "1530": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 10,
+      "y": 5,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 677,
+      "pilot_id": 947
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 5,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 678,
+      "pilot_id": 948
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 11,
+      "y": 4,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 679,
+      "pilot_id": 949
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 11,
+      "y": 8,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 680,
+      "pilot_id": 950
+     },
+     {
+      "slot": 34,
+      "unit_obj": "0x5c9608",
+      "x": 11,
+      "y": 6,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 645,
+      "pilot_id": 577
+     }
+    ],
+    "1700": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 10,
+      "y": 5,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 677,
+      "pilot_id": 947
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 5,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 678,
+      "pilot_id": 948
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 11,
+      "y": 4,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 679,
+      "pilot_id": 949
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 11,
+      "y": 8,
+      "visible": 0,
+      "side": 1,
+      "flags14": 10,
+      "facing": 1,
+      "unit_id": 680,
+      "pilot_id": 950
+     },
+     {
+      "slot": 34,
+      "unit_obj": "0x5c9608",
+      "x": 11,
+      "y": 6,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 645,
+      "pilot_id": 577
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 6,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     11,
+     6
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run06-effect-264.wav"
+  },
+  {
+   "run": 7,
+   "row": 7,
+   "id": "effect-265",
+   "name": "真·超重斩",
+   "request_frame": 14592,
+   "play_frame": 14593,
+   "finish_frame": 16195,
+   "return_frame": 16196,
+   "expected_bgm": 40,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    40
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "50": [],
+    "120": [],
+    "700": [],
+    "1350": [],
+    "1450": [],
+    "1550": []
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 7,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     3,
+     3
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run07-effect-265.wav"
+  },
+  {
+   "run": 8,
+   "row": 8,
+   "id": "effect-266",
+   "name": "巨神Σ合体",
+   "request_frame": 16460,
+   "play_frame": 16461,
+   "finish_frame": 19323,
+   "return_frame": 19324,
+   "expected_bgm": 6,
+   "bgm_mode": "effect_header",
+   "observed_playing_bgm_ids": [
+    6
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -19,
+   "zoom_after_setup": -19.0,
+   "actors": {
+    "60": [],
+    "1000": [],
+    "2750": [],
+    "2850": []
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 8,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     17,
+     18
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run08-effect-266.wav"
+  },
+  {
+   "run": 9,
+   "row": 9,
+   "id": "effect-267",
+   "name": "盖塔龙合体",
+   "request_frame": 19583,
+   "play_frame": 19584,
+   "finish_frame": 20385,
+   "return_frame": 20386,
+   "expected_bgm": 5,
+   "bgm_mode": "effect_header",
+   "observed_playing_bgm_ids": [
+    5
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -18,
+   "zoom_after_setup": -18.0,
+   "actors": {
+    "60": [],
+    "300": [],
+    "560": [],
+    "700": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5ba568",
+      "x": 14,
+      "y": 23,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 2,
+      "unit_id": 34,
+      "pilot_id": 43
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 9,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     14,
+     23
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run09-effect-267.wav"
+  },
+  {
+   "run": 10,
+   "row": 10,
+   "id": "effect-269",
+   "name": "魔神Z出击",
+   "request_frame": 20646,
+   "play_frame": 20647,
+   "finish_frame": 22547,
+   "return_frame": 22548,
+   "expected_bgm": 70,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    70
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -8,
+   "zoom_after_setup": -8.0,
+   "actors": {
+    "300": [],
+    "1000": [],
+    "1880": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5b9500",
+      "x": 32,
+      "y": 13,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 0,
+      "pilot_id": 2
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 10,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     32,
+     13
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run10-effect-269.wav"
+  },
+  {
+   "run": 11,
+   "row": 11,
+   "id": "effect-282",
+   "name": "泰坦3登场",
+   "request_frame": 22814,
+   "play_frame": 22815,
+   "finish_frame": 23272,
+   "return_frame": 23273,
+   "expected_bgm": 15,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    15
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "60": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5bc1d8",
+      "x": 18,
+      "y": 17,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 0,
+      "unit_id": 130,
+      "pilot_id": 164
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd8c0",
+      "x": 18,
+      "y": 19,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 2,
+      "unit_id": 168,
+      "pilot_id": 112
+     }
+    ],
+    "200": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5bc1d8",
+      "x": 18,
+      "y": 17,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 0,
+      "unit_id": 130,
+      "pilot_id": 164
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd8c0",
+      "x": 18,
+      "y": 19,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 2,
+      "unit_id": 168,
+      "pilot_id": 112
+     }
+    ],
+    "400": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5bc1d8",
+      "x": 18,
+      "y": 17,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 0,
+      "unit_id": 130,
+      "pilot_id": 164
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd8c0",
+      "x": 18,
+      "y": 19,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 2,
+      "unit_id": 168,
+      "pilot_id": 112
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 11,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     18,
+     17
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run11-effect-282.wav"
+  },
+  {
+   "run": 12,
+   "row": 10,
+   "id": "effect-269",
+   "name": "魔神Z出击",
+   "request_frame": 23532,
+   "play_frame": 23533,
+   "finish_frame": 25433,
+   "return_frame": 25434,
+   "expected_bgm": 70,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    70
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -8,
+   "zoom_after_setup": -8.0,
+   "actors": {
+    "1880": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5b9500",
+      "x": 32,
+      "y": 13,
+      "visible": 1,
+      "side": 0,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 0,
+      "pilot_id": 2
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 10,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     32,
+     13
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run12-effect-269.wav"
+  },
+  {
+   "run": 13,
+   "row": 0,
+   "id": "effect-273",
+   "name": "脉冲高达出击",
+   "request_frame": 25745,
+   "play_frame": 25746,
+   "finish_frame": 28096,
+   "return_frame": 28097,
+   "expected_bgm": 30,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    30
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "1500": [
+     {
+      "slot": 30,
+      "unit_obj": "0x5cd8c0",
+      "x": 13,
+      "y": 13,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 483,
+      "pilot_id": 472
+     },
+     {
+      "slot": 31,
+      "unit_obj": "0x5cd9d8",
+      "x": 12,
+      "y": 13,
+      "visible": 1,
+      "side": 12,
+      "flags14": 14,
+      "facing": 1,
+      "unit_id": 447,
+      "pilot_id": 405
+     },
+     {
+      "slot": 32,
+      "unit_obj": "0x5cdaf0",
+      "x": 13,
+      "y": 15,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 488,
+      "pilot_id": 477
+     },
+     {
+      "slot": 33,
+      "unit_obj": "0x5cdc08",
+      "x": 13,
+      "y": 16,
+      "visible": 1,
+      "side": 4,
+      "flags14": 14,
+      "facing": 3,
+      "unit_id": 493,
+      "pilot_id": 482
+     }
+    ]
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 0,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     9,
+     13
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run13-effect-273.wav"
+  },
+  {
+   "run": 14,
+   "row": 3,
+   "id": "effect-257",
+   "name": "爆爱无限光",
+   "request_frame": 28368,
+   "play_frame": 28369,
+   "finish_frame": 29344,
+   "return_frame": 29345,
+   "expected_bgm": 47,
+   "bgm_mode": "script",
+   "observed_playing_bgm_ids": [
+    47
+   ],
+   "expected_view": 3,
+   "first_sample_view": 3,
+   "expected_zoom": -11,
+   "zoom_after_setup": -11.0,
+   "actors": {
+    "451": []
+   },
+   "roster_equal_after_return": true,
+   "regions_equal_after_return": {
+    "flags": true,
+    "zoom": true,
+    "ghost": true,
+    "ghost_cb": true,
+    "bgm": true,
+    "snd": true
+   },
+   "after_return": {
+    "tag": "after",
+    "phase": 0,
+    "row": 3,
+    "saved_bgm": 99,
+    "pending": 0,
+    "bgm": 99,
+    "snd_play": 2,
+    "snd_req": 0,
+    "zoom": -36.0,
+    "view": 3,
+    "cam": [
+     13,
+     7
+    ],
+    "overlay": "00000000"
+   },
+   "audio_clip": "audio-run14-effect-257.wav"
+  }
+ ]
+}

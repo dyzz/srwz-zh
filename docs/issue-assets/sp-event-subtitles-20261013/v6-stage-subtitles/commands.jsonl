@@ -1,0 +1,375 @@
+{"frame": 0, "command": "run 1800"}
+{"frame": 1800, "result": ["OK frame=1800"]}
+{"frame": 1800, "command": "press start 3"}
+{"frame": 1805, "result": ["OK frame=1805"]}
+{"frame": 1805, "command": "run 200"}
+{"frame": 2005, "result": ["OK frame=2005"]}
+{"frame": 2005, "command": "press circle 3"}
+{"frame": 2010, "result": ["OK frame=2010"]}
+{"frame": 2010, "command": "run 200"}
+{"frame": 2210, "result": ["OK frame=2210"]}
+{"frame": 2210, "command": "press cross 3"}
+{"frame": 2215, "result": ["OK frame=2215"]}
+{"frame": 2215, "command": "run 180"}
+{"frame": 2395, "result": ["OK frame=2395"]}
+{"frame": 2395, "command": "press down 3"}
+{"frame": 2400, "result": ["OK frame=2400"]}
+{"frame": 2400, "command": "press circle 3"}
+{"frame": 2405, "result": ["OK frame=2405"]}
+{"frame": 2405, "command": "run 240"}
+{"frame": 2645, "result": ["OK frame=2645"]}
+{"frame": 2645, "command": "press up 3"}
+{"frame": 2650, "result": ["OK frame=2650"]}
+{"frame": 2650, "command": "run 30"}
+{"frame": 2680, "result": ["OK frame=2680"]}
+{"frame": 2680, "command": "press circle 3"}
+{"frame": 2685, "result": ["OK frame=2685"]}
+{"frame": 2685, "command": "run 140"}
+{"frame": 2825, "result": ["OK frame=2825"]}
+{"frame": 2825, "command": "watch 821f00 16"}
+{"frame": 2825, "result": ["watching 0x821f00 len 16 = 00000000000000000000000000000000", "OK frame=2825"]}
+{"frame": 2825, "command": "shot list"}
+{"frame": 2825, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/list.png 640x448 luma=47.7", "OK frame=2825"]}
+{"frame": 2825, "command": "press up 3"}
+{"frame": 2830, "result": ["OK frame=2830"]}
+{"frame": 2830, "command": "run 10"}
+{"frame": 2840, "result": ["OK frame=2840"]}
+{"frame": 2840, "command": "press up 3"}
+{"frame": 2845, "result": ["OK frame=2845"]}
+{"frame": 2845, "command": "run 20"}
+{"frame": 2865, "result": ["OK frame=2865"]}
+{"frame": 2865, "command": "press circle 1"}
+{"frame": 2868, "result": ["WATCH frame 2866 0x821f00: 00000000000000000000000000000000 -> 0a000000010000000000000000000000", "WATCH frame 2867 0x821f00: 0a000000010000000000000000000000 -> 0a000000020000000000000000000000", "OK frame=2868"]}
+{"frame": 2868, "command": "run 1000"}
+{"frame": 3868, "result": ["OK frame=3868"]}
+{"frame": 3868, "command": "shot mz-caption"}
+{"frame": 3868, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/mz-caption.png 640x448 luma=68.4", "OK frame=3868"]}
+{"frame": 3868, "command": "run 850"}
+{"frame": 4718, "result": ["OK frame=4718"]}
+{"frame": 4718, "command": "shot mz-handoff"}
+{"frame": 4718, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/mz-handoff.png 640x448 luma=62.0", "OK frame=4718"]}
+{"frame": 4718, "command": "mem 761500 16"}
+{"frame": 4718, "result": ["1e00ffffffffffffffffffffffffffff", "OK frame=4718"]}
+{"frame": 4718, "command": "dump 616740 5280 units-handoff.bin"}
+{"frame": 4718, "result": ["dumped 0x616740+0x5280 -> units-handoff.bin", "OK frame=4718"]}
+{"frame": 4718, "command": "run 350"}
+{"frame": 5068, "result": ["WATCH frame 4773 0x821f00: 0a000000020000000000000000000000 -> 0a000000030000000000000000000000", "WATCH frame 4774 0x821f00: 0a000000030000000000000000000000 -> 0a000000000000000a00000000000000", "OK frame=5068"]}
+{"frame": 5068, "command": "shot mz-returned"}
+{"frame": 5068, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/mz-returned.png 640x448 luma=48.0", "OK frame=5068"]}
+{"frame": 5068, "command": "dump 5a5080 76940 roster-after.bin"}
+{"frame": 5068, "result": ["dumped 0x5a5080+0x76940 -> roster-after.bin", "OK frame=5068"]}
+{"frame": 5068, "command": "dump 830000 76940 roster-snapshot.bin"}
+{"frame": 5068, "result": ["dumped 0x830000+0x76940 -> roster-snapshot.bin", "OK frame=5068"]}
+{"frame": 5068, "command": "press down 3"}
+{"frame": 5073, "result": ["OK frame=5073"]}
+{"frame": 5073, "command": "run 10"}
+{"frame": 5083, "result": ["OK frame=5083"]}
+{"frame": 5083, "command": "press down 3"}
+{"frame": 5088, "result": ["OK frame=5088"]}
+{"frame": 5088, "command": "run 30"}
+{"frame": 5118, "result": ["OK frame=5118"]}
+{"frame": 5118, "command": "press circle 1"}
+{"frame": 5121, "result": ["WATCH frame 5119 0x821f00: 0a000000000000000a00000000000000 -> 00000000010000000a00000000000000", "WATCH frame 5120 0x821f00: 00000000010000000a00000000000000 -> 00000000020000000a00000000000000", "OK frame=5121"]}
+{"frame": 5121, "command": "run 350"}
+{"frame": 5471, "result": ["OK frame=5471"]}
+{"frame": 5471, "command": "shot scene-00-350"}
+{"frame": 5471, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-00-350.png 640x448 luma=61.6", "OK frame=5471"]}
+{"frame": 5471, "command": "run 1050"}
+{"frame": 6521, "result": ["OK frame=6521"]}
+{"frame": 6521, "command": "shot scene-00-1400"}
+{"frame": 6521, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-00-1400.png 640x448 luma=32.7", "OK frame=6521"]}
+{"frame": 6521, "command": "run 800"}
+{"frame": 7321, "result": ["OK frame=7321"]}
+{"frame": 7321, "command": "shot scene-00-2200"}
+{"frame": 7321, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-00-2200.png 640x448 luma=36.8", "OK frame=7321"]}
+{"frame": 7321, "command": "run 400"}
+{"frame": 7721, "result": ["WATCH frame 7442 0x821f00: 00000000020000000a00000000000000 -> 00000000030000000a00000000000000", "WATCH frame 7443 0x821f00: 00000000030000000a00000000000000 -> 00000000000000000000000000000000", "OK frame=7721"]}
+{"frame": 7721, "command": "shot returned-00"}
+{"frame": 7721, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-00.png 640x448 luma=47.7", "OK frame=7721"]}
+{"frame": 7721, "command": "dump 5a5080 76940 restored-0.bin"}
+{"frame": 7721, "result": ["dumped 0x5a5080+0x76940 -> restored-0.bin", "OK frame=7721"]}
+{"frame": 7721, "command": "dump 830000 76940 snapshot-0.bin"}
+{"frame": 7721, "result": ["dumped 0x830000+0x76940 -> snapshot-0.bin", "OK frame=7721"]}
+{"frame": 7721, "command": "press down 3"}
+{"frame": 7726, "result": ["OK frame=7726"]}
+{"frame": 7726, "command": "run 30"}
+{"frame": 7756, "result": ["OK frame=7756"]}
+{"frame": 7756, "command": "press circle 1"}
+{"frame": 7759, "result": ["WATCH frame 7757 0x821f00: 00000000000000000000000000000000 -> 01000000010000000000000000000000", "WATCH frame 7758 0x821f00: 01000000010000000000000000000000 -> 01000000020000000000000000000000", "OK frame=7759"]}
+{"frame": 7759, "command": "run 400"}
+{"frame": 8159, "result": ["OK frame=8159"]}
+{"frame": 8159, "command": "shot scene-01-400"}
+{"frame": 8159, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-01-400.png 640x448 luma=40.2", "OK frame=8159"]}
+{"frame": 8159, "command": "run 250"}
+{"frame": 8409, "result": ["OK frame=8409"]}
+{"frame": 8409, "command": "shot scene-01-650"}
+{"frame": 8409, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-01-650.png 640x448 luma=113.2", "OK frame=8409"]}
+{"frame": 8409, "command": "run 350"}
+{"frame": 8759, "result": ["WATCH frame 8523 0x821f00: 01000000020000000000000000000000 -> 01000000030000000000000000000000", "WATCH frame 8524 0x821f00: 01000000030000000000000000000000 -> 01000000000000000100000000000000", "OK frame=8759"]}
+{"frame": 8759, "command": "shot returned-01"}
+{"frame": 8759, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-01.png 640x448 luma=47.8", "OK frame=8759"]}
+{"frame": 8759, "command": "dump 5a5080 76940 restored-1.bin"}
+{"frame": 8759, "result": ["dumped 0x5a5080+0x76940 -> restored-1.bin", "OK frame=8759"]}
+{"frame": 8759, "command": "dump 830000 76940 snapshot-1.bin"}
+{"frame": 8759, "result": ["dumped 0x830000+0x76940 -> snapshot-1.bin", "OK frame=8759"]}
+{"frame": 8759, "command": "press down 3"}
+{"frame": 8764, "result": ["OK frame=8764"]}
+{"frame": 8764, "command": "run 30"}
+{"frame": 8794, "result": ["OK frame=8794"]}
+{"frame": 8794, "command": "press circle 1"}
+{"frame": 8797, "result": ["WATCH frame 8795 0x821f00: 01000000000000000100000000000000 -> 02000000010000000100000000000000", "WATCH frame 8796 0x821f00: 02000000010000000100000000000000 -> 02000000020000000100000000000000", "OK frame=8797"]}
+{"frame": 8797, "command": "run 221"}
+{"frame": 9018, "result": ["OK frame=9018"]}
+{"frame": 9018, "command": "shot scene-02-221"}
+{"frame": 9018, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-02-221.png 640x448 luma=11.4", "OK frame=9018"]}
+{"frame": 9018, "command": "run 729"}
+{"frame": 9747, "result": ["OK frame=9747"]}
+{"frame": 9747, "command": "shot scene-02-950"}
+{"frame": 9747, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-02-950.png 640x448 luma=45.8", "OK frame=9747"]}
+{"frame": 9747, "command": "run 540"}
+{"frame": 10287, "result": ["OK frame=10287"]}
+{"frame": 10287, "command": "shot scene-02-1490"}
+{"frame": 10287, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-02-1490.png 640x448 luma=98.9", "OK frame=10287"]}
+{"frame": 10287, "command": "run 360"}
+{"frame": 10647, "result": ["WATCH frame 10442 0x821f00: 02000000020000000100000000000000 -> 02000000030000000100000000000000", "WATCH frame 10443 0x821f00: 02000000030000000100000000000000 -> 02000000000000000200000000000000", "OK frame=10647"]}
+{"frame": 10647, "command": "shot returned-02"}
+{"frame": 10647, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-02.png 640x448 luma=47.9", "OK frame=10647"]}
+{"frame": 10647, "command": "dump 5a5080 76940 restored-2.bin"}
+{"frame": 10647, "result": ["dumped 0x5a5080+0x76940 -> restored-2.bin", "OK frame=10647"]}
+{"frame": 10647, "command": "dump 830000 76940 snapshot-2.bin"}
+{"frame": 10647, "result": ["dumped 0x830000+0x76940 -> snapshot-2.bin", "OK frame=10647"]}
+{"frame": 10647, "command": "press down 3"}
+{"frame": 10652, "result": ["OK frame=10652"]}
+{"frame": 10652, "command": "run 30"}
+{"frame": 10682, "result": ["OK frame=10682"]}
+{"frame": 10682, "command": "press circle 1"}
+{"frame": 10685, "result": ["WATCH frame 10683 0x821f00: 02000000000000000200000000000000 -> 03000000010000000200000000000000", "WATCH frame 10684 0x821f00: 03000000010000000200000000000000 -> 03000000020000000200000000000000", "OK frame=10685"]}
+{"frame": 10685, "command": "run 200"}
+{"frame": 10885, "result": ["OK frame=10885"]}
+{"frame": 10885, "command": "shot scene-03-200"}
+{"frame": 10885, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-03-200.png 640x448 luma=35.1", "OK frame=10885"]}
+{"frame": 10885, "command": "run 250"}
+{"frame": 11135, "result": ["OK frame=11135"]}
+{"frame": 11135, "command": "shot scene-03-450"}
+{"frame": 11135, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-03-450.png 640x448 luma=38.2", "OK frame=11135"]}
+{"frame": 11135, "command": "run 330"}
+{"frame": 11465, "result": ["OK frame=11465"]}
+{"frame": 11465, "command": "shot scene-03-780"}
+{"frame": 11465, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-03-780.png 640x448 luma=63.8", "OK frame=11465"]}
+{"frame": 11465, "command": "run 340"}
+{"frame": 11805, "result": ["WATCH frame 11599 0x821f00: 03000000020000000200000000000000 -> 03000000030000000200000000000000", "WATCH frame 11600 0x821f00: 03000000030000000200000000000000 -> 03000000000000000300000000000000", "OK frame=11805"]}
+{"frame": 11805, "command": "shot returned-03"}
+{"frame": 11805, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-03.png 640x448 luma=47.9", "OK frame=11805"]}
+{"frame": 11805, "command": "dump 5a5080 76940 restored-3.bin"}
+{"frame": 11805, "result": ["dumped 0x5a5080+0x76940 -> restored-3.bin", "OK frame=11805"]}
+{"frame": 11805, "command": "dump 830000 76940 snapshot-3.bin"}
+{"frame": 11805, "result": ["dumped 0x830000+0x76940 -> snapshot-3.bin", "OK frame=11805"]}
+{"frame": 11805, "command": "press down 3"}
+{"frame": 11810, "result": ["OK frame=11810"]}
+{"frame": 11810, "command": "run 30"}
+{"frame": 11840, "result": ["OK frame=11840"]}
+{"frame": 11840, "command": "press circle 1"}
+{"frame": 11843, "result": ["WATCH frame 11841 0x821f00: 03000000000000000300000000000000 -> 04000000010000000300000000000000", "WATCH frame 11842 0x821f00: 04000000010000000300000000000000 -> 04000000020000000300000000000000", "OK frame=11843"]}
+{"frame": 11843, "command": "run 350"}
+{"frame": 12193, "result": ["OK frame=12193"]}
+{"frame": 12193, "command": "shot scene-04-350"}
+{"frame": 12193, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-04-350.png 640x448 luma=22.7", "OK frame=12193"]}
+{"frame": 12193, "command": "run 350"}
+{"frame": 12543, "result": ["OK frame=12543"]}
+{"frame": 12543, "command": "shot scene-04-700"}
+{"frame": 12543, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-04-700.png 640x448 luma=8.6", "OK frame=12543"]}
+{"frame": 12543, "command": "run 500"}
+{"frame": 13043, "result": ["OK frame=13043"]}
+{"frame": 13043, "command": "shot scene-04-1200"}
+{"frame": 13043, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-04-1200.png 640x448 luma=17.4", "OK frame=13043"]}
+{"frame": 13043, "command": "run 400"}
+{"frame": 13443, "result": ["WATCH frame 13202 0x821f00: 04000000020000000300000000000000 -> 04000000030000000300000000000000", "WATCH frame 13203 0x821f00: 04000000030000000300000000000000 -> 04000000000000000400000000000000", "OK frame=13443"]}
+{"frame": 13443, "command": "shot returned-04"}
+{"frame": 13443, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-04.png 640x448 luma=47.9", "OK frame=13443"]}
+{"frame": 13443, "command": "dump 5a5080 76940 restored-4.bin"}
+{"frame": 13443, "result": ["dumped 0x5a5080+0x76940 -> restored-4.bin", "OK frame=13443"]}
+{"frame": 13443, "command": "dump 830000 76940 snapshot-4.bin"}
+{"frame": 13443, "result": ["dumped 0x830000+0x76940 -> snapshot-4.bin", "OK frame=13443"]}
+{"frame": 13443, "command": "press down 3"}
+{"frame": 13448, "result": ["OK frame=13448"]}
+{"frame": 13448, "command": "run 30"}
+{"frame": 13478, "result": ["OK frame=13478"]}
+{"frame": 13478, "command": "press circle 1"}
+{"frame": 13481, "result": ["WATCH frame 13479 0x821f00: 04000000000000000400000000000000 -> 05000000010000000400000000000000", "WATCH frame 13480 0x821f00: 05000000010000000400000000000000 -> 05000000020000000400000000000000", "OK frame=13481"]}
+{"frame": 13481, "command": "run 350"}
+{"frame": 13831, "result": ["OK frame=13831"]}
+{"frame": 13831, "command": "shot scene-05-350"}
+{"frame": 13831, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-05-350.png 640x448 luma=44.3", "OK frame=13831"]}
+{"frame": 13831, "command": "run 300"}
+{"frame": 14131, "result": ["OK frame=14131"]}
+{"frame": 14131, "command": "shot scene-05-650"}
+{"frame": 14131, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-05-650.png 640x448 luma=1.8", "OK frame=14131"]}
+{"frame": 14131, "command": "run 150"}
+{"frame": 14281, "result": ["OK frame=14281"]}
+{"frame": 14281, "command": "shot scene-05-800"}
+{"frame": 14281, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-05-800.png 640x448 luma=58.5", "OK frame=14281"]}
+{"frame": 14281, "command": "run 300"}
+{"frame": 14581, "result": ["WATCH frame 14358 0x821f00: 05000000020000000400000000000000 -> 05000000030000000400000000000000", "WATCH frame 14359 0x821f00: 05000000030000000400000000000000 -> 05000000000000000500000000000000", "OK frame=14581"]}
+{"frame": 14581, "command": "shot returned-05"}
+{"frame": 14581, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-05.png 640x448 luma=47.9", "OK frame=14581"]}
+{"frame": 14581, "command": "dump 5a5080 76940 restored-5.bin"}
+{"frame": 14581, "result": ["dumped 0x5a5080+0x76940 -> restored-5.bin", "OK frame=14581"]}
+{"frame": 14581, "command": "dump 830000 76940 snapshot-5.bin"}
+{"frame": 14581, "result": ["dumped 0x830000+0x76940 -> snapshot-5.bin", "OK frame=14581"]}
+{"frame": 14581, "command": "press down 3"}
+{"frame": 14586, "result": ["OK frame=14586"]}
+{"frame": 14586, "command": "run 30"}
+{"frame": 14616, "result": ["OK frame=14616"]}
+{"frame": 14616, "command": "press circle 1"}
+{"frame": 14619, "result": ["WATCH frame 14617 0x821f00: 05000000000000000500000000000000 -> 06000000010000000500000000000000", "WATCH frame 14618 0x821f00: 06000000010000000500000000000000 -> 06000000020000000500000000000000", "OK frame=14619"]}
+{"frame": 14619, "command": "run 400"}
+{"frame": 15019, "result": ["OK frame=15019"]}
+{"frame": 15019, "command": "shot scene-06-400"}
+{"frame": 15019, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-06-400.png 640x448 luma=34.6", "OK frame=15019"]}
+{"frame": 15019, "command": "run 550"}
+{"frame": 15569, "result": ["OK frame=15569"]}
+{"frame": 15569, "command": "shot scene-06-950"}
+{"frame": 15569, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-06-950.png 640x448 luma=68.1", "OK frame=15569"]}
+{"frame": 15569, "command": "run 550"}
+{"frame": 16119, "result": ["OK frame=16119"]}
+{"frame": 16119, "command": "shot scene-06-1500"}
+{"frame": 16119, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-06-1500.png 640x448 luma=45.5", "OK frame=16119"]}
+{"frame": 16119, "command": "run 500"}
+{"frame": 16619, "result": ["WATCH frame 16404 0x821f00: 06000000020000000500000000000000 -> 06000000030000000500000000000000", "WATCH frame 16405 0x821f00: 06000000030000000500000000000000 -> 06000000000000000600000000000000", "OK frame=16619"]}
+{"frame": 16619, "command": "shot returned-06"}
+{"frame": 16619, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-06.png 640x448 luma=47.9", "OK frame=16619"]}
+{"frame": 16619, "command": "dump 5a5080 76940 restored-6.bin"}
+{"frame": 16619, "result": ["dumped 0x5a5080+0x76940 -> restored-6.bin", "OK frame=16619"]}
+{"frame": 16619, "command": "dump 830000 76940 snapshot-6.bin"}
+{"frame": 16619, "result": ["dumped 0x830000+0x76940 -> snapshot-6.bin", "OK frame=16619"]}
+{"frame": 16619, "command": "press down 3"}
+{"frame": 16624, "result": ["OK frame=16624"]}
+{"frame": 16624, "command": "run 30"}
+{"frame": 16654, "result": ["OK frame=16654"]}
+{"frame": 16654, "command": "press circle 1"}
+{"frame": 16657, "result": ["WATCH frame 16655 0x821f00: 06000000000000000600000000000000 -> 07000000010000000600000000000000", "WATCH frame 16656 0x821f00: 07000000010000000600000000000000 -> 07000000020000000600000000000000", "OK frame=16657"]}
+{"frame": 16657, "command": "run 300"}
+{"frame": 16957, "result": ["OK frame=16957"]}
+{"frame": 16957, "command": "shot scene-07-300"}
+{"frame": 16957, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-07-300.png 640x448 luma=255.0", "OK frame=16957"]}
+{"frame": 16957, "command": "run 500"}
+{"frame": 17457, "result": ["OK frame=17457"]}
+{"frame": 17457, "command": "shot scene-07-800"}
+{"frame": 17457, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-07-800.png 640x448 luma=52.3", "OK frame=17457"]}
+{"frame": 17457, "command": "run 550"}
+{"frame": 18007, "result": ["OK frame=18007"]}
+{"frame": 18007, "command": "shot scene-07-1350"}
+{"frame": 18007, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-07-1350.png 640x448 luma=247.8", "OK frame=18007"]}
+{"frame": 18007, "command": "run 400"}
+{"frame": 18407, "result": ["WATCH frame 18175 0x821f00: 07000000020000000600000000000000 -> 07000000030000000600000000000000", "WATCH frame 18176 0x821f00: 07000000030000000600000000000000 -> 07000000000000000700000000000000", "OK frame=18407"]}
+{"frame": 18407, "command": "shot returned-07"}
+{"frame": 18407, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-07.png 640x448 luma=48.0", "OK frame=18407"]}
+{"frame": 18407, "command": "dump 5a5080 76940 restored-7.bin"}
+{"frame": 18407, "result": ["dumped 0x5a5080+0x76940 -> restored-7.bin", "OK frame=18407"]}
+{"frame": 18407, "command": "dump 830000 76940 snapshot-7.bin"}
+{"frame": 18407, "result": ["dumped 0x830000+0x76940 -> snapshot-7.bin", "OK frame=18407"]}
+{"frame": 18407, "command": "press down 3"}
+{"frame": 18412, "result": ["OK frame=18412"]}
+{"frame": 18412, "command": "run 30"}
+{"frame": 18442, "result": ["OK frame=18442"]}
+{"frame": 18442, "command": "press circle 1"}
+{"frame": 18445, "result": ["WATCH frame 18443 0x821f00: 07000000000000000700000000000000 -> 08000000010000000700000000000000", "WATCH frame 18444 0x821f00: 08000000010000000700000000000000 -> 08000000020000000700000000000000", "OK frame=18445"]}
+{"frame": 18445, "command": "run 400"}
+{"frame": 18845, "result": ["OK frame=18845"]}
+{"frame": 18845, "command": "shot scene-08-400"}
+{"frame": 18845, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-08-400.png 640x448 luma=44.6", "OK frame=18845"]}
+{"frame": 18845, "command": "run 600"}
+{"frame": 19445, "result": ["OK frame=19445"]}
+{"frame": 19445, "command": "shot scene-08-1000"}
+{"frame": 19445, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-08-1000.png 640x448 luma=131.2", "OK frame=19445"]}
+{"frame": 19445, "command": "run 1600"}
+{"frame": 21045, "result": ["OK frame=21045"]}
+{"frame": 21045, "command": "shot scene-08-2600"}
+{"frame": 21045, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-08-2600.png 640x448 luma=48.6", "OK frame=21045"]}
+{"frame": 21045, "command": "run 500"}
+{"frame": 21545, "result": ["WATCH frame 21306 0x821f00: 08000000020000000700000000000000 -> 08000000030000000700000000000000", "WATCH frame 21307 0x821f00: 08000000030000000700000000000000 -> 08000000000000000800000000000000", "OK frame=21545"]}
+{"frame": 21545, "command": "shot returned-08"}
+{"frame": 21545, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-08.png 640x448 luma=48.0", "OK frame=21545"]}
+{"frame": 21545, "command": "dump 5a5080 76940 restored-8.bin"}
+{"frame": 21545, "result": ["dumped 0x5a5080+0x76940 -> restored-8.bin", "OK frame=21545"]}
+{"frame": 21545, "command": "dump 830000 76940 snapshot-8.bin"}
+{"frame": 21545, "result": ["dumped 0x830000+0x76940 -> snapshot-8.bin", "OK frame=21545"]}
+{"frame": 21545, "command": "press down 3"}
+{"frame": 21550, "result": ["OK frame=21550"]}
+{"frame": 21550, "command": "run 30"}
+{"frame": 21580, "result": ["OK frame=21580"]}
+{"frame": 21580, "command": "press circle 1"}
+{"frame": 21583, "result": ["WATCH frame 21581 0x821f00: 08000000000000000800000000000000 -> 09000000010000000800000000000000", "WATCH frame 21582 0x821f00: 09000000010000000800000000000000 -> 09000000020000000800000000000000", "OK frame=21583"]}
+{"frame": 21583, "command": "run 200"}
+{"frame": 21783, "result": ["OK frame=21783"]}
+{"frame": 21783, "command": "shot scene-09-200"}
+{"frame": 21783, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-09-200.png 640x448 luma=28.5", "OK frame=21783"]}
+{"frame": 21783, "command": "run 250"}
+{"frame": 22033, "result": ["OK frame=22033"]}
+{"frame": 22033, "command": "shot scene-09-450"}
+{"frame": 22033, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-09-450.png 640x448 luma=29.3", "OK frame=22033"]}
+{"frame": 22033, "command": "run 170"}
+{"frame": 22203, "result": ["OK frame=22203"]}
+{"frame": 22203, "command": "shot scene-09-620"}
+{"frame": 22203, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-09-620.png 640x448 luma=107.1", "OK frame=22203"]}
+{"frame": 22203, "command": "run 430"}
+{"frame": 22633, "result": ["WATCH frame 22383 0x821f00: 09000000020000000800000000000000 -> 09000000030000000800000000000000", "WATCH frame 22384 0x821f00: 09000000030000000800000000000000 -> 09000000000000000900000000000000", "OK frame=22633"]}
+{"frame": 22633, "command": "shot returned-09"}
+{"frame": 22633, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-09.png 640x448 luma=48.0", "OK frame=22633"]}
+{"frame": 22633, "command": "dump 5a5080 76940 restored-9.bin"}
+{"frame": 22633, "result": ["dumped 0x5a5080+0x76940 -> restored-9.bin", "OK frame=22633"]}
+{"frame": 22633, "command": "dump 830000 76940 snapshot-9.bin"}
+{"frame": 22633, "result": ["dumped 0x830000+0x76940 -> snapshot-9.bin", "OK frame=22633"]}
+{"frame": 22633, "command": "press down 3"}
+{"frame": 22638, "result": ["OK frame=22638"]}
+{"frame": 22638, "command": "run 30"}
+{"frame": 22668, "result": ["OK frame=22668"]}
+{"frame": 22668, "command": "press circle 1"}
+{"frame": 22671, "result": ["WATCH frame 22669 0x821f00: 09000000000000000900000000000000 -> 0a000000010000000900000000000000", "WATCH frame 22670 0x821f00: 0a000000010000000900000000000000 -> 0a000000020000000900000000000000", "OK frame=22671"]}
+{"frame": 22671, "command": "run 1000"}
+{"frame": 23671, "result": ["OK frame=23671"]}
+{"frame": 23671, "command": "shot scene-10-1000"}
+{"frame": 23671, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-10-1000.png 640x448 luma=68.4", "OK frame=23671"]}
+{"frame": 23671, "command": "run 300"}
+{"frame": 23971, "result": ["OK frame=23971"]}
+{"frame": 23971, "command": "shot scene-10-1300"}
+{"frame": 23971, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-10-1300.png 640x448 luma=61.7", "OK frame=23971"]}
+{"frame": 23971, "command": "run 550"}
+{"frame": 24521, "result": ["OK frame=24521"]}
+{"frame": 24521, "command": "shot scene-10-1850"}
+{"frame": 24521, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-10-1850.png 640x448 luma=62.0", "OK frame=24521"]}
+{"frame": 24521, "command": "run 350"}
+{"frame": 24871, "result": ["WATCH frame 24576 0x821f00: 0a000000020000000900000000000000 -> 0a000000030000000900000000000000", "WATCH frame 24577 0x821f00: 0a000000030000000900000000000000 -> 0a000000000000000a00000000000000", "OK frame=24871"]}
+{"frame": 24871, "command": "shot returned-10"}
+{"frame": 24871, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-10.png 640x448 luma=48.0", "OK frame=24871"]}
+{"frame": 24871, "command": "dump 5a5080 76940 restored-10.bin"}
+{"frame": 24871, "result": ["dumped 0x5a5080+0x76940 -> restored-10.bin", "OK frame=24871"]}
+{"frame": 24871, "command": "dump 830000 76940 snapshot-10.bin"}
+{"frame": 24871, "result": ["dumped 0x830000+0x76940 -> snapshot-10.bin", "OK frame=24871"]}
+{"frame": 24871, "command": "press down 3"}
+{"frame": 24876, "result": ["OK frame=24876"]}
+{"frame": 24876, "command": "run 30"}
+{"frame": 24906, "result": ["OK frame=24906"]}
+{"frame": 24906, "command": "press circle 1"}
+{"frame": 24909, "result": ["WATCH frame 24907 0x821f00: 0a000000000000000a00000000000000 -> 0b000000010000000a00000000000000", "WATCH frame 24908 0x821f00: 0b000000010000000a00000000000000 -> 0b000000020000000a00000000000000", "OK frame=24909"]}
+{"frame": 24909, "command": "run 130"}
+{"frame": 25039, "result": ["OK frame=25039"]}
+{"frame": 25039, "command": "shot scene-11-130"}
+{"frame": 25039, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-11-130.png 640x448 luma=51.0", "OK frame=25039"]}
+{"frame": 25039, "command": "run 170"}
+{"frame": 25209, "result": ["OK frame=25209"]}
+{"frame": 25209, "command": "shot scene-11-300"}
+{"frame": 25209, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-11-300.png 640x448 luma=141.9", "OK frame=25209"]}
+{"frame": 25209, "command": "run 100"}
+{"frame": 25309, "result": ["OK frame=25309"]}
+{"frame": 25309, "command": "shot scene-11-400"}
+{"frame": 25309, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/scene-11-400.png 640x448 luma=101.9", "OK frame=25309"]}
+{"frame": 25309, "command": "run 300"}
+{"frame": 25609, "result": ["WATCH frame 25340 0x821f00: 0b000000020000000a00000000000000 -> 0b000000030000000a00000000000000", "WATCH frame 25341 0x821f00: 0b000000030000000a00000000000000 -> 0b000000000000000b00000000000000", "OK frame=25609"]}
+{"frame": 25609, "command": "shot returned-11"}
+{"frame": 25609, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-gallery-subtitles-20261013/v6-final-runtime/returned-11.png 640x448 luma=48.1", "OK frame=25609"]}
+{"frame": 25609, "command": "dump 5a5080 76940 restored-11.bin"}
+{"frame": 25609, "result": ["dumped 0x5a5080+0x76940 -> restored-11.bin", "OK frame=25609"]}
+{"frame": 25609, "command": "dump 830000 76940 snapshot-11.bin"}
+{"frame": 25609, "result": ["dumped 0x830000+0x76940 -> snapshot-11.bin", "OK frame=25609"]}
+{"frame": 25609, "command": "quit"}

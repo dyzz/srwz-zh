@@ -1,0 +1,24 @@
+{
+  "evidence_type": "Recorded LRPS2 cold-start provenance",
+  "candidate": "work/iso/sp-event-gallery-zh.iso",
+  "candidate_sha256": "f06a8ef7cc2d35acc1aa7a55d8b223a9613f02de885f304818b329cd868d7d40",
+  "core": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "driver": "work/analysis/map-voice-sp-player-20261012/drive_stdio.py",
+  "driver_sha256": "cae68b85105ef90b0cf61da39da76a9fe5db2df4594c882b681953490141d4e9",
+  "memory_card_seed": "work/runtime/lrps2/sp-effect-slot-sweep-20261004/seed/save/sp-current.ps2",
+  "memory_card_seed_sha256": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+  "memory_card_isolated_copy": true,
+  "options": {
+    "pcsx2_renderer": "Software (SW)",
+    "pcsx2_shared_memory_cards": "disabled",
+    "pcsx2_fastboot": "enabled"
+  },
+  "session_initial_frame": 0,
+  "session_final_frame": 35126,
+  "loaded_savestate": false,
+  "host_memory_writes": false,
+  "journal_sha256": "542ace46773899b058854ea5dd1d9fdce41f6b86c2d1e063c4e845d7fbefd7d4",
+  "notes": "The driver state command writes a diagnostic snapshot only; no load command was used. Read-only RAM watches/dumps identify native state. Cold-start and visual assertions are separate from state-chain verification.",
+  "pcsx2_manual": "pending"
+}

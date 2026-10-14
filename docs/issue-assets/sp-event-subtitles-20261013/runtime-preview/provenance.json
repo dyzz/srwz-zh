@@ -1,0 +1,21 @@
+{
+  "status": "partial_runtime_evidence_not_release_acceptance",
+  "iso_sha256": "a9dc27e3c306ca6676d7e31c9c479796de8251a97416fc6ccd3605d2c995ccdf",
+  "elf_sha256": "cd98366277724fddf45bd9bbb364435a2514dabe427ddf435aebd56bf8cbc510",
+  "completed_rows": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "failed_row": 8,
+  "issues": [
+    "effect 257 caption ghosting remains",
+    "effect 266 loading corrupts RAM and clears gallery state"
+  ],
+  "boundary": "LRPS2 Software renderer, cold boot, controller inputs; no PCSX2/ARMSX2 manual acceptance; current installed UI-v2 ISO was not replaced"
+}

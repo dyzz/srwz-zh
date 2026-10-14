@@ -51,3 +51,9 @@ python3 tools/special_disc/writeback/build_preview.py
 `build_preview.py` 消费当前本地组件和锁定的图片输入，不负责自动生成全部组件，也不代表正式发布流程。图片输入位于 `config/assets/special-disc/preview/`，输入锁为相邻的 `preview.json`；它不会自动消费作者目录新图。
 
 既有 `run_full.sh` 批处理仍保留在 `work/authoring/special-disc/translation/`，供历史批次复现；Python 源码只有本目录这一份。身份卡、SD 术语参考位于 `config/editorial/special-disc/`，当前暂定状态不变。
+
+## 事件演出（特别剧场）
+
+`event_gallery/` 为 SP 统一构建的最后一个可执行阶段，见其 [README](event_gallery/README.md)；
+成员追加与目录同步在 `iso_relocation.py`。鉴赏内容与本篇原关卡的对齐记录见
+`docs/SP_EVENT_FIDELITY_20261014.md`。

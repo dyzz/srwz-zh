@@ -123,3 +123,20 @@ class IncrementalSeedTests(unittest.TestCase):
         with patch.object(pipeline,'PROJECT_ROOT',self.root):
             pipeline._update_full_component_dependencies(refresh=False)
         self.assertEqual(json.loads((self.root/'config/full-story-components.json').read_text())['composition']['release_codebook'],compatibility)
+
+
+class IntegratedComponentSeedTests(unittest.TestCase):
+    def test_main_checkout_component_root_is_not_seeded_without_a_validated_run(self):
+        import tempfile
+        from srwz.release_inputs import INTEGRATED_COMPONENT_BUILD_DIRS, seed_original_caches
+        with tempfile.TemporaryDirectory() as directory:
+            source, target = Path(directory) / 'main', Path(directory) / 'private'
+            for name in ('zh-release-full-story/components', 'library-v0.2-reviewed/components'):
+                (source / 'work/build' / name).mkdir(parents=True)
+                (source / 'work/build' / name / 'component-validation.json').write_text('{}')
+            (source / 'config').mkdir(); (source / 'manifests').mkdir()
+            seed_original_caches(source, target, exclude_build_dirs=INTEGRATED_COMPONENT_BUILD_DIRS)
+            self.assertFalse((target / 'work/build/zh-release-full-story').exists())
+            self.assertTrue((target / 'work/build/library-v0.2-reviewed/components/component-validation.json').is_file())
+            seed_original_caches(source, target)
+            self.assertTrue((target / 'work/build/zh-release-full-story/components/component-validation.json').is_file())

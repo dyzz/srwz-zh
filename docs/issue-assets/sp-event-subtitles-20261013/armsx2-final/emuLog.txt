@@ -1,0 +1,146 @@
+[    0.1103] Loaded translation file for language zh-CN
+[    0.1171] PCSX2 2.7.2-2-g2c1062b
+[    0.1172] Savestate version: 0x9a590000
+[    0.1172] 
+[    0.1172] 
+[    0.1172] Host Machine Init:
+[    0.1172]   Operating System = Darwin 27.0.0 arm64
+[    0.1172]   Available RAM    = 66544 MB (64.98 GB)
+[    0.1172]   Physical RAM     = 131072 MB (128.00 GB)
+[    0.1172] 
+[    0.1173]   Processor        = Apple M4 Max
+[    0.1173]   Core Count       = 16 cores
+[    0.1173]   Thread Count     = 16 threads
+[    0.1173]   Cluster Count    = 2 clusters
+[    0.1173] CPU Extensions Detected:
+[    0.1173]   NEON LSE CRC32
+[    0.1173] 
+[    0.1173] @@MAC_MEMMAP@@ data_area_begin size=298844160
+[    0.1173] @@MAC_MEMMAP@@ code_area_begin size=319815680
+[    0.1174] @@P43_OFFSET@@ g_code_rw_offset=0
+[    0.1177] EE: ARM64 Recompiler reserved.
+[    0.1177] IOP: ARM64 Recompiler reserved.
+[    0.1191] SDLInputSource: Using Controller DB from resources.
+[    0.1205] IOKit is enabled, MFI is enabled.
+[    0.1611] SDLInputSource: 358 gamepad mappings are loaded.
+[    0.1612] @@CPU_BACKEND@@ code_generation=1 ee_rec=1 iop_rec=1 vu0_rec=1 vu1_rec=1 fastmem=1 mtvu=1
+[    0.3705] Scanning /Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/sources
+[    0.3706] Scanning /Users/nate/Super-Robot-Wars-Z/srwz-zh/build/chd/v0.4.2
+[    0.3708] Scanning /Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/ (recursively)
+[  120.5125] isoFile open ok: /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/iso/sp-event-gallery-review.iso
+[  120.5125]   Image type  = DVD
+[  120.5125]  * CDVD Disk Open: DVD, Single layer or unknown:
+[  120.5125]  * * Track 1: Data (Mode 1) (1911120 sectors)
+[  120.5161] GameDB: Has not been initialized yet, initializing...
+[  120.5331] GameDB: 12841 games on record (loaded in 17.04ms)
+[  120.5363] Loading BIOS...
+[  123.1558] BIOS Found: Japan   v01.00(17/01/2000)  Console 20000117-050310
+[  123.1575] BIOS rom1 module not found, skipping...
+[  123.1576] BIOS rom2 module not found, skipping...
+[  123.1647] Opening CDVD...
+[  123.1652] isoFile open ok: /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/iso/sp-event-gallery-review.iso
+[  123.1653]   Image type  = DVD
+[  123.1654]  * CDVD Disk Open: DVD, Single layer or unknown:
+[  123.1654]  * * Track 1: Data (Mode 1) (1911120 sectors)
+[  123.1670] Disc changed to sp-event-gallery-review.iso.
+[  123.1671]   Name: スーパーロボット大戦Z スペシャルディスク
+[  123.1671]   Serial: SLPS-25920
+[  123.1671]   Version: 1.01
+[  123.1671]   CRC: DD1EEC14
+[  123.1672] Applying settings...
+[  123.1753] Reopening memory cards...
+[  123.1760] McdSlot 0 [File]: Mcd001.ps2 [8 MB, Formatted]
+[  123.1760] McdSlot 1 [File]: [disabled/empty filename]
+[  123.1766] HLE Host: Set 'host:' root path to: /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/iso
+[  123.1766] iR5900-ARM64 Recompiler reset.
+[  123.1767] EE ARM64: Dispatcher generated at 0x139f28000 (1344 bytes)
+[  123.1899] iR3000A-ARM64 Recompiler reset.
+[  123.2218] Opening GS...
+[  123.5581] Metal: compiled shader source in 335 ms
+[  123.5843] Surface refresh rate: 60 Hz
+[  124.1481] Metal Graphics Driver Info:
+[  124.1481] <AGXG16CDevice: 0x7ab4e24000>
+[  124.1481]     name = Apple M4 Max
+[  124.1481]     Texture Swizzle:     Supported
+[  124.1481]     Unified Memory:      Supported
+[  124.1482]     Framebuffer Fetch:   Supported
+[  124.1482]     Memoryless Textures: Supported
+[  124.1482]     Primitive ID:        Supported
+[  124.1482]     Depth Feedback:      Unsupported
+[  124.1482]     ROV:                 Supported
+[  124.1482]     Shader Version:      Metal 2.3
+[  124.1482]     Max Texture Size:    16384
+[  124.1482] GS: back thread off (as set).
+[  124.1482] GS: Classic renderer active (renderer=Metal)
+[  124.1489] Opening SPU2...
+[  124.1490] Creating Cubeb audio stream, sample rate = 48000, expansion = Disabled, buffer = 50, latency = 20, stretching enabled, driver = , device = 
+[  124.7715] Initializing Pad...
+[  124.7716] Initializing SIO2...
+[  124.7716] Initializing SIO0...
+[  124.7716] Opening DEV9...
+[  124.7740] DEV9: Ethernet is disabled, no network adapter will be created
+[  124.7741] Opening USB...
+[  124.7741] Opening FW...
+[  124.7822] VM subsystems initialized in 4249.05 ms
+[  124.7837] EE ARM64: Entering recompiled code (pc=0xBFC00000)
+[  124.9037] ELF Loading: cdrom0:\SLPS_259.20;1, Game CRC = DD1EEC14, EntryPoint = 0x00100008
+[  125.9591] ELF cdrom0:\SLPS_259.20;1 with entry point at 0x00100008 is executing.
+[  125.9592] ELF changed, active CRC DD1EEC14 (cdrom0:\SLPS_259.20;1)
+[  125.9604] Applying core settings...
+[  125.9607] Updating CPU configuration...
+[  125.9607] iR3000A-ARM64 Recompiler reset.
+[  125.9851] iR3000A-ARM64 Recompiler reset.
+[  125.9878] iR5900-ARM64 Recompiler reset.
+[  125.9879] EE ARM64: Dispatcher generated at 0x139f28000 (1344 bytes)
+[  125.9930] EE ARM64: Entering recompiled code (pc=0x0010014C)
+[  126.7043] UpdateVSyncRate: Mode Changed to NTSC.
+[  126.7046] UpdateVSyncRate: Mode Changed to NTSC.
+[  126.7072] UpdateVSyncRate: Mode Changed to NTSC.
+[  126.7073] UpdateVSyncRate: Mode Changed to NTSC.
+[  126.9017] Pad: DS2 Config Finished - P1/S1 - AL: Off - AB: Usable - VS: Disabled - VL: Disabled - RB: D (0x00000000)
+[  129.4703] Pad: DS2 Config Finished - P1/S1 - AL: On - AB: Locked - VS: Disabled - VL: Disabled - RB: D (0x00000000)
+[  129.6716] Pad: DS2 Config Finished - P1/S1 - AL: On - AB: Locked - VS: Normal - VL: Normal - RB: D (0x00000000)
+[  129.9707] Pad: DS2 Config Finished - P1/S1 - AL: On - AB: Locked - VS: Normal - VL: Normal - RB: D (0x00000000)
+[  155.2806] PerfLog: 59.9 fps | EE 18% GS 7% VU 0% GPU 32% | frame 1826
+[  185.6943] PerfLog: 59.7 fps | EE 23% GS 9% VU 0% GPU 23% | frame 3643
+[  216.0412] PerfLog: 59.9 fps | EE 24% GS 7% VU 0% GPU 24% | frame 5462
+[  246.3056] PerfLog: 59.9 fps | EE 23% GS 6% VU 0% GPU 18% | frame 7276
+[  276.3543] PerfLog: 58.3 fps | EE 24% GS 11% VU 0% GPU 34% | frame 9028
+[  306.9718] PerfLog: 58.0 fps | EE 7% GS 5% VU 0% GPU 13% | frame 10803
+[  337.0644] PerfLog: 58.8 fps | EE 23% GS 14% VU 0% GPU 37% | frame 12571
+[  367.3944] PerfLog: 59.9 fps | EE 23% GS 8% VU 0% GPU 7% | frame 14389
+[  397.7292] PerfLog: 59.9 fps | EE 23% GS 11% VU 0% GPU 24% | frame 16207
+[  428.0562] PerfLog: 59.9 fps | EE 24% GS 7% VU 0% GPU 27% | frame 18023
+[  458.3699] PerfLog: 59.9 fps | EE 25% GS 7% VU 0% GPU 11% | frame 19840
+[  488.7847] PerfLog: 59.9 fps | EE 23% GS 9% VU 0% GPU 19% | frame 21662
+[  519.2142] PerfLog: 59.9 fps | EE 24% GS 10% VU 0% GPU 20% | frame 23486
+[  549.4446] PerfLog: 59.9 fps | EE 25% GS 9% VU 0% GPU 47% | frame 25298
+[  579.8601] PerfLog: 59.9 fps | EE 22% GS 15% VU 0% GPU 50% | frame 27121
+[  610.2227] PerfLog: 59.9 fps | EE 21% GS 7% VU 0% GPU 26% | frame 28941
+[  640.5876] PerfLog: 59.9 fps | EE 22% GS 7% VU 0% GPU 18% | frame 30761
+[  670.8854] PerfLog: 59.9 fps | EE 19% GS 7% VU 0% GPU 19% | frame 32577
+[  683.0876] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175133.png]: 正在保存截图到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175133.png'。
+[  686.1859] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175133.png]: 截图已保存到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175133.png'。
+[  690.8264] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175141.png]: 正在保存截图到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175141.png'。
+[  692.6142] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175141.png]: 截图已保存到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175141.png'。
+[  701.0991] PerfLog: 59.3 fps | EE 24% GS 9% VU 8% GPU 28% | frame 34369
+[  705.8587] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175156.png]: 正在保存截图到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175156.png'。
+[  708.2535] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175156.png]: 截图已保存到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175156.png'。
+[  731.4786] PerfLog: 59.9 fps | EE 24% GS 9% VU 0% GPU 36% | frame 36188
+[  754.8745] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175245.png]: 正在保存截图到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175245.png'。
+[  756.6499] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175245.png]: 截图已保存到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175245.png'。
+[  761.9282] PerfLog: 59.9 fps | EE 23% GS 8% VU 0% GPU 22% | frame 38013
+[  792.3419] PerfLog: 59.9 fps | EE 23% GS 9% VU 2% GPU 19% | frame 39836
+[  794.6256] (VMManager) Pausing...
+[  804.7398] (VMManager) Resuming...
+[  805.2031] EE ARM64: Entering recompiled code (pc=0x00140FB8)
+[  809.6114] (VMManager) Pausing...
+[  816.7735] (VMManager) Resuming...
+[  816.9181] EE ARM64: Entering recompiled code (pc=0x00140FB8)
+[  833.9560] (VMManager) Pausing...
+[  840.1234] (VMManager) Resuming...
+[  840.2727] EE ARM64: Entering recompiled code (pc=0x00140FCC)
+[  840.2910] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175410.png]: 正在保存截图到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175410.png'。
+[  841.9327] OSD [GSScreenshot_/Users/nate/Library/Application Support/ARMSX2/../../../Super-Robot-Wars-Z/snapshot/Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175410.png]: 截图已保存到 'Super Robot Taisen Z - Special Disc_SLPS-25920_20261013175410.png'。
+[  847.1806] PerfLog: 58.6 fps | EE 24% GS 9% VU 1% GPU 23% | frame 41676
+[  848.4639] (VMManager) Pausing...

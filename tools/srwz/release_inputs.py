@@ -170,18 +170,29 @@ def freeze_inputs(root: Path, additional_paths: tuple[str, ...] = ()) -> InputSn
     return InputSnapshot(destination, digest, source_head, tuple(rows), additional_paths)
 
 
-def seed_original_caches(source: Path, target: Path, *, overwrite_cache: bool = False) -> None:
+# The integrated full-story component root carries a two-phase incremental
+# state. It is only a valid seed when it comes from the previous validated run
+# of the same pipeline; the main checkout's copy may hold an unpromoted direct
+# run, which the integrated builder would refuse to promote.
+INTEGRATED_COMPONENT_BUILD_DIRS = ("zh-release-full-story",)
+
+
+def seed_original_caches(source: Path, target: Path, *, overwrite_cache: bool = False,
+                         exclude_build_dirs: tuple[str, ...] = ()) -> None:
     """Optional caches only; production builders still verify their locked inputs.
 
     Seed the legacy production namespaces, excluding edition workspaces,
     experiments, runtime captures, saves and analysis. Authoritative source
     files have already been materialized from the frozen snapshot.
+    ``exclude_build_dirs`` names ``work/build`` children that must not be
+    seeded; without them the component pipeline bootstraps a full build.
     """
     directories = [source / "work" / name for name in ("disc", "font-source", "toolchain", "writeback")]
     build = source / "work/build"
     if build.is_dir():
+        skipped = ("best-", "zh-release-original", "zh-release-best", "zh-release-sp", "shared", "stage-canary", "special-disc")
         directories.extend(path for path in build.iterdir() if path.is_dir()
-                           and not path.name.startswith(("best-", "zh-release-original", "zh-release-best", "zh-release-sp", "shared", "stage-canary", "special-disc")))
+                           and not path.name.startswith(skipped) and path.name not in exclude_build_dirs)
     directories.extend(source / "work/review" / name for name in ("aid-battle-prompts-zh", "tricmn-battle-overlays-zh"))
     for directory in directories:
         if directory.is_dir():

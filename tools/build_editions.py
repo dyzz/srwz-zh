@@ -11,20 +11,24 @@ from __future__ import annotations
 import argparse
 from contextlib import ExitStack, contextmanager
 import fcntl
+from concurrent.futures import ThreadPoolExecutor
+import hashlib
 import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime, timezone
 
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
 from srwz.codec import ENV_COMPRESSION_CACHE, prune_compression_cache
-from srwz.file_identity import ENV_REHASH, ENV_STORE, publish_verified, sha256_range
+from srwz.file_identity import ENV_STORE, publish_verified, sha256_range
 from srwz.iso9660 import member_map, scan_iso9660
-from srwz.release_inputs import copy_file, freeze_inputs, seed_original_caches, sha256_file, verify_files
+from srwz.release_inputs import (INTEGRATED_COMPONENT_BUILD_DIRS, copy_file, freeze_inputs,
+                                 seed_original_caches, sha256_file, verify_files)
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
 from srwz.current_iso import verify_skip
 from srwz.edition_incremental import seed_text_update
@@ -33,6 +37,54 @@ from srwz.edition_incremental import seed_text_update
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = "config/release/dual-current.json"
 LEGACY_CONFIG = "config/iso/zh-release-current-build.json"
+CAPTION_FONT = "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf"
+
+
+def base_output(result: dict) -> dict:
+    """The image an edition's semantic readback is bound to (before captions)."""
+    return result.get("base_output") or result["output"]
+
+
+def file_lock(root: Path, path: Path) -> dict:
+    return {"path": path.relative_to(root).as_posix(), "size": path.stat().st_size, "sha256": sha256_file(path)}
+
+
+def apply_main_event_subtitles(context: BuildContext, base_iso: Path, font: Path) -> tuple[Path, dict]:
+    """Final Original/Best stage: native map-effect captions on the verified image.
+
+    The semantic readback stays bound to ``base_iso``. The executable and
+    effect archive grow, so they are appended after the base image and every
+    other base byte is proven unchanged; the receipt binds base and final.
+    """
+    from event_subtitles.apply import ARCHIVE, apply_event_subtitles, load_profile, verify_subtitle_members
+    from special_disc.iso_relocation import append_members, verify_relocation, verify_untouched
+    root, edition = context.project_root, context.profile.edition_id
+    profile = load_profile(edition, root)
+    before = member_map(scan_iso9660(base_iso))
+    with base_iso.open("rb") as stream:
+        inputs = {}
+        for name in (profile["elf_member"], ARCHIVE):
+            stream.seek(before[name].extent_lba * 2048)
+            inputs[name] = stream.read(before[name].size)
+    workdir = context.run_root / "event-subtitles"
+    result = apply_event_subtitles(edition, inputs[profile["elf_member"]], inputs[ARCHIVE],
+                                   workdir=workdir, font=font, root=root, profile=profile)
+    final = base_iso.with_name(base_iso.stem + "-captioned.iso")
+    final.unlink(missing_ok=True)
+    copy_file(base_iso, final)
+    relocation = append_members(final, before, result["members"],
+                                allowed_udf={profile["elf_member"], ARCHIVE}, catalog_policy="inherit")
+    readback = verify_relocation(final, before, result["members"], relocation)
+    untouched = verify_untouched(base_iso, final, relocation["touched_spans"])
+    members = verify_subtitle_members(result["members"][profile["elf_member"]], result["members"][ARCHIVE],
+                                      profile, result["receipt"])
+    receipt = {"schema_version": 1, "base_iso": file_lock(root, base_iso), "iso": file_lock(root, final),
+               "members": {name: hashlib.sha256(data).hexdigest() for name, data in result["members"].items()},
+               "relocation": relocation, "relocation_readback": readback, "untouched_base_bytes": untouched,
+               "member_readback": members, "subtitles": result["receipt"],
+               "runtime": "not_tested"}
+    atomic_json(workdir / "receipt.json", receipt)
+    return final, receipt
 
 
 def atomic_json(path: Path, value: dict) -> None:
@@ -94,14 +146,29 @@ def run_phase(context: BuildContext, name: str, arguments: list[str]) -> None:
         result = subprocess.run([sys.executable, *arguments], cwd=context.project_root,
                                 stdout=output, stderr=subprocess.STDOUT, env=phase_environment(context.root))
     elapsed = round(time.perf_counter() - started, 3)
-    timings = context.run_root / "timing.json"
-    phases = load_json(timings) if timings.exists() else {}
-    phases[name] = {"seconds": elapsed, "returncode": result.returncode}
-    atomic_json(timings, phases)
-    print(f"[{context.profile.edition_id}] {name}: {elapsed:.3f}s", flush=True)
+    _record_timing(context, name, elapsed, result.returncode)
     if result.returncode:
         tail = log.read_text(errors="replace")[-2400:]
         raise EditionError(f"{name} failed; {log}\n{tail}")
+
+
+_TIMING_LOCK = threading.Lock()
+
+
+def _record_timing(context: BuildContext, name: str, elapsed: float, returncode: int) -> None:
+    # Phases of one edition may finish from different threads (the layout
+    # extraction overlaps the components); the read-modify-write is serialized.
+    with _TIMING_LOCK:
+        timings = context.run_root / "timing.json"
+        phases = load_json(timings) if timings.exists() else {}
+        phases[name] = {"seconds": elapsed, "returncode": returncode}
+        atomic_json(timings, phases)
+    print(f"[{context.profile.edition_id}] {name}: {elapsed:.3f}s", flush=True)
+
+
+def record_phase(context: BuildContext, name: str, started: float) -> None:
+    """Timing entry for an in-process stage, alongside subprocess phases."""
+    _record_timing(context, name, round(time.perf_counter() - started, 3), 0)
 
 
 def prepare_original_members(context: BuildContext) -> None:
@@ -162,7 +229,11 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     reused = not force_rebuild and seed_text_update(context, snapshot)
     print(f"[original] previous validated component caches: {'seeded' if reused else 'unavailable'}", flush=True)
     print("[original] prepare private, independently writable caches", flush=True)
-    seed_original_caches(context.root, root)
+    # Without a validated seed the integrated component root must start empty:
+    # the main checkout's copy is not bound to this snapshot, and the component
+    # builder then bootstraps a complete build from its per-consumer caches.
+    seed_original_caches(context.root, root,
+                         exclude_build_dirs=() if reused else INTEGRATED_COMPONENT_BUILD_DIRS)
     iso = project_path(root, context.profile.source_iso.path, "rom")
     if not iso.exists():
         copy_file(project_path(context.root, context.profile.source_iso.path, "rom"), iso)
@@ -175,16 +246,29 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     run_phase(context, "codec", ["tools/build_rust_compressor.py", "--force"])
     run_phase(context, "iso-toolchain", ["tools/bootstrap_mkps2iso.py", "--config", LEGACY_CONFIG])
     run_phase(context, "fonts", ["tools/fetch_zh_font.py", "--flavor", chain["font_flavor"]])
-    run_phase(context, "components", ["tools/rebuild_zh_font.py", "--skip-fetch", "--refresh-manifests",
-                                      *(["--force-rebuild"] if force_rebuild else []),
-                                      "--cache", "work/cache/editions/original/font-chain.json"])
+    with ThreadPoolExecutor(max_workers=1, thread_name_prefix="srwz-iso-extract") as pool:
+        # A full rebuild re-extracts the 3.7 GB disc layout; that depends on
+        # the source disc and toolchain only, so it overlaps the components.
+        extraction = (pool.submit(run_phase, context, "iso-extract", ["tools/build_iso.py", "--config", LEGACY_CONFIG,
+                                                                     "--refresh-extraction", "--extract-only"])
+                      if force_rebuild else None)
+        run_phase(context, "components", ["tools/rebuild_zh_font.py", "--skip-fetch", "--refresh-manifests",
+                                          *(["--force-rebuild"] if force_rebuild else []),
+                                          "--cache", "work/cache/editions/original/font-chain.json"])
+        if extraction is not None:
+            extraction.result()
     run_phase(context, "iso", ["tools/build_iso.py", "--config", LEGACY_CONFIG, "--refresh-output-locks",
-                               *(["--refresh-extraction"] if force_rebuild else ["--incremental"])])
-    run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", *(["--force"] if force_rebuild else []),
-                                    "--cache", "work/cache/editions/original/iso-content.json"])
+                               *([] if force_rebuild else ["--incremental"])])
     cfg = load_json(root / LEGACY_CONFIG)
-    readback = load_json(root / "manifests/zh-release-full-story-iso-content-validation.json")
     output = project_path(root, cfg["output"]["path"], "build/iso")
+    # The captions only need the assembled base image; they are relocated
+    # members with their own base->final binding, so they overlap the readback.
+    with ThreadPoolExecutor(max_workers=1, thread_name_prefix="srwz-captions") as pool:
+        caption_started = time.perf_counter()
+        captions = pool.submit(apply_main_event_subtitles, context, output, root / CAPTION_FONT)
+        run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", *(["--force"] if force_rebuild else []),
+                                        "--cache", "work/cache/editions/original/iso-content.json"])
+    readback = load_json(root / "manifests/zh-release-full-story-iso-content-validation.json")
     actual_hash = sha256_file(output)
     if (actual_hash != cfg["output"]["expected_sha256"] or actual_hash != readback["iso"]["sha256"]
             or readback["status"] != "full_story_final_iso_static_content_readback_passed"):
@@ -195,20 +279,24 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     if legacy_equivalence and not equivalent:
         raise EditionError("new Original entry is not byte-identical to the frozen legacy output locks")
     verify_files(snapshot.project_root, list(snapshot.files))
+    final, subtitles = captions.result()
+    record_phase(context, "event-subtitles", caption_started)
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     pending = context.output_iso.with_suffix(".iso.tmp")
-    copy_file(output, pending)
-    if sha256_file(pending) != actual_hash:
+    copy_file(final, pending)
+    if sha256_file(pending) != subtitles["iso"]["sha256"]:
         pending.unlink()
         raise EditionError("published ISO copy mismatch")
-    publish_verified(pending, context.output_iso, actual_hash)
+    publish_verified(pending, context.output_iso, subtitles["iso"]["sha256"])
     return {
         "schema_version": 1, "edition_id": context.profile.edition_id,
         "status": "edition_iso_static_validated_runtime_pending",
         "adapter": context.profile.adapter, "input_digest": snapshot.digest,
         "source_head": snapshot.source_head, "edition_contract_sha256": context.profile.contract_sha256,
         "source_iso_sha256": context.profile.source_iso.sha256,
-        "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": output.stat().st_size, "sha256": actual_hash},
+        "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": final.stat().st_size, "sha256": subtitles["iso"]["sha256"]},
+        "base_output": {"path": output.relative_to(root).as_posix(), "size": output.stat().st_size, "sha256": actual_hash},
+        "event_subtitles": subtitles,
         "legacy_equivalence": {"required": legacy_equivalence, "passed": equivalent,
                                "member_count": len(after), "baseline_iso_sha256": baseline["output"]["expected_sha256"]},
         "readback": {"path": (root / "manifests/zh-release-full-story-iso-content-validation.json").relative_to(context.root).as_posix(),
@@ -229,7 +317,7 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     binary = "work/toolchain/srwz-compressor-rs/target/release/srwz-compress"
     copy_file(common.project_root / binary, root / binary)
     receipt = root / "work/common-input.json"
-    atomic_json(receipt, common_result)
+    atomic_json(receipt, {**common_result, "output": base_output(common_result)})
     run_phase(context, "native-components-and-iso", ["tools/build_best_current.py", "--common-project", str(common.project_root),
               "--common-receipt", str(receipt), "--input-digest", snapshot.digest])
     proof_path = root / "work/build/best-current/iso-readback.json"
@@ -240,23 +328,30 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     if output.stat().st_size != proof["iso"]["size"] or sha256_file(output) != proof["iso"]["sha256"]:
         raise EditionError("BEST final ISO identity mismatch")
     verify_files(snapshot.project_root, list(snapshot.files))
+    # The caption font is a seeded cache of the shared frontend workspace.
+    copy_file(common.project_root / CAPTION_FONT, root / CAPTION_FONT)
+    run_phase_started = time.perf_counter()
+    final, subtitles = apply_main_event_subtitles(context, output, root / CAPTION_FONT)
+    record_phase(context, "event-subtitles", run_phase_started)
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     pending = context.output_iso.with_suffix(".iso.tmp")
-    copy_file(output, pending)
-    if sha256_file(pending) != proof["iso"]["sha256"]:
+    copy_file(final, pending)
+    if sha256_file(pending) != subtitles["iso"]["sha256"]:
         pending.unlink()
         raise EditionError("BEST published copy mismatch")
-    publish_verified(pending, context.output_iso, proof["iso"]["sha256"])
+    publish_verified(pending, context.output_iso, subtitles["iso"]["sha256"])
     return {
         "schema_version": 1, "edition_id": "best", "adapter": context.profile.adapter,
         "status": "edition_iso_static_validated_runtime_pending", "input_digest": snapshot.digest,
         "source_head": snapshot.source_head, "edition_contract_sha256": context.profile.contract_sha256,
         "source_iso_sha256": context.profile.source_iso.sha256,
-        "output": {**proof["iso"], "path": context.output_iso.relative_to(context.root).as_posix()},
+        "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": final.stat().st_size, "sha256": subtitles["iso"]["sha256"]},
+        "base_output": {**proof["iso"], "path": output.relative_to(root).as_posix()},
+        "event_subtitles": subtitles,
         "readback": {"path": proof_path.relative_to(context.root).as_posix(), "sha256": sha256_file(proof_path),
                      "stage_count": proof["stage_chunk_count"], "translation_entry_count": proof["stage_text_owner_count"]},
         "shared_frontend": {"edition": "original", "input_digest": snapshot.digest,
-                            "readback_sha256": common_result["readback"]["sha256"], "iso_sha256": common_result["output"]["sha256"]},
+                            "readback_sha256": common_result["readback"]["sha256"], "iso_sha256": base_output(common_result)["sha256"]},
         "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
     }
 
@@ -312,6 +407,8 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
         "readback": {"path": proof_path.relative_to(context.root).as_posix(), "sha256": sha256_file(proof_path)},
         "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
         "component_modes": {name: row['mode'] for name, row in proof.get('incremental', {}).get('components', {}).items()},
+        "event_gallery": {key: proof['event_gallery'][key] for key in ('scene_count', 'caption_count', 'elf_sha256')}
+                         if 'event_gallery' in proof else None,
     }
 
 
@@ -320,7 +417,15 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
     started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
     if force_rebuild:
-        os.environ[ENV_REHASH] = "1"
+        # Trust no file identity recorded before this batch: start the batch
+        # from an empty store. Digests this batch verifies (restored baselines,
+        # assembled images) still flow to its child processes through it.
+        rebuild_store = project_path(root, "work/cache/file-identity-rebuild.json", "work/cache")
+        rebuild_store.unlink(missing_ok=True)
+        os.environ[ENV_STORE] = str(rebuild_store)
+    # In-process stages (caption relocation, receipt hashing) share the same
+    # identity store and compression payload cache as the phase subprocesses.
+    os.environ.update(phase_environment(root))
     profiles = load_release_profiles(root, config, requested)
     dependencies = load_release_profiles(root, config, ("original",)) if "best" in requested and "original" not in requested else ()
     build_profiles = {p.edition_id: p for p in (*dependencies, *profiles)}
@@ -369,7 +474,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                     frontend_matches = context.profile.edition_id != "best" or previous.get("shared_frontend") == {
                         "edition": "original", "input_digest": snapshot.digest,
                         "readback_sha256": args[-1].get("readback", {}).get("sha256"),
-                        "iso_sha256": args[-1].get("output", {}).get("sha256"),
+                        "iso_sha256": base_output(args[-1]).get("sha256") if "output" in args[-1] else None,
                     }
                     if previous.get("input_digest") == snapshot.digest and frontend_matches:
                         from verify_editions import verify_batch
@@ -402,16 +507,23 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                 }
         try:
             results = {}
-            # One frontend execution even for reversed target order or BEST-only.
-            if "original" in contexts:
-                original = contexts["original"]
-                results["original"] = run_edition(original, build_original, snapshot, legacy_equivalence=legacy_equivalence, force_rebuild=force_rebuild)
-                atomic_json(original.receipt, results["original"])
-            if "best" in contexts:
-                results["best"] = run_edition(contexts["best"], build_best, snapshot, original, results["original"])
-                atomic_json(contexts["best"].receipt, results["best"])
-            if "sp" in contexts:
-                results["sp"] = run_edition(contexts["sp"], build_sp, snapshot, force_rebuild=force_rebuild)
+            # SP shares nothing with the main editions but the payload cache and
+            # the identity store (both safe for concurrent writers), so it runs
+            # beside the Original -> BEST chain; the pool exit waits for it even
+            # when the chain fails, so the batch records every outcome.
+            with ThreadPoolExecutor(max_workers=1, thread_name_prefix="srwz-edition-sp") as pool:
+                sp_future = (pool.submit(run_edition, contexts["sp"], build_sp, snapshot, force_rebuild=force_rebuild)
+                             if "sp" in contexts else None)
+                # One frontend execution even for reversed target order or BEST-only.
+                if "original" in contexts:
+                    original = contexts["original"]
+                    results["original"] = run_edition(original, build_original, snapshot, legacy_equivalence=legacy_equivalence, force_rebuild=force_rebuild)
+                    atomic_json(original.receipt, results["original"])
+                if "best" in contexts:
+                    results["best"] = run_edition(contexts["best"], build_best, snapshot, original, results["original"])
+                    atomic_json(contexts["best"].receipt, results["best"])
+            if sp_future is not None:
+                results["sp"] = sp_future.result()
                 atomic_json(contexts["sp"].receipt, results["sp"])
             for name in requested:
                 context, result = contexts[name], results[name]
@@ -423,6 +535,17 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             atomic_json(batch_path, batch)
             raise
         prune_compression_cache(project_path(root, "work/cache/compression", "work/cache"))
+        # Each run leaves a private workspace with a full ISO copy; keep the
+        # receipt-referenced one plus two recent ones per locked profile.
+        from prune_edition_workspaces import prune
+        try:
+            removed = prune(root, 2, profiles={p.profile_id for p in build_profiles.values()},
+                            snapshot_min_age=6 * 3600)
+        except OSError as error:
+            print(f"[prune] skipped: {error}", file=sys.stderr, flush=True)
+        else:
+            print(f"[prune] removed {removed['workspaces']} workspaces, {removed['snapshots']} snapshots "
+                  f"({removed['apparent_bytes'] / 2**30:.1f} GiB apparent)", flush=True)
         batch["status"] = "requested_editions_static_validated_runtime_pending"
         batch["timing"].update(total_seconds=round(time.perf_counter() - started, 3), finished_at=datetime.now(timezone.utc).isoformat())
         atomic_json(batch_path, batch)

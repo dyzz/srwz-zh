@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-13",
+  "iso": "build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v4.iso",
+  "iso_sha256": "a06f826c492353aef85b86162ef9d4c069693e006c05114c0a4dae7feb46639f",
+  "emulator": "LRPS2 x86_64, software renderer",
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "startup": "Cold boot, isolated memory card copy, native controller inputs only",
+  "completed_runs": 14,
+  "scenes": 12,
+  "native_entry_black_samples": "All 12 scenes; request frame remains legible, first load frame has a very faint residual border from field history, following frame is black. No deformed list glyphs in sampled load frames.",
+  "texture_audit": "All original 4-bit and 8-bit pictures and all declared palette references preserved for 12 captioned effects",
+  "user_reported_border_issue": "User currently cannot reproduce; not prioritized and not marked fixed",
+  "manual_armsx2": "Not performed for V4; no longer required for this turn per user selection",
+  "subtitle_source_sha256": "b9acbbdfc0baf82b819772eaf70870c795aa8e9c3dd86f96461de9cfc38fe864",
+  "boundary": "Evidence is LRPS2 software rendering plus static/ISO readback. User selected this acceptance scope; no ARMSX2 hardware acceptance is claimed. Original stage fidelity and human subtitle listening review remain separate.",
+  "requested_acceptance": "User explicitly selected LRPS2 for this verification",
+  "acceptance_status": "Passed requested LRPS2 checks: 14 natural runs covering all 12 scenes, sampled click transition frames, restored Aquarion image and separate subtitle frames"
+}

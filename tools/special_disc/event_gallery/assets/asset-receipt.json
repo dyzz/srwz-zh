@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "title": "名场面集",
+  "mode": "explicit_authoring",
+  "background": {
+    "path": "tools/special_disc/event_gallery/assets/source/meyrin-impulse-background.png",
+    "sha256": "7eea8661074b355ec233c8d36b20482830bd848daf0f39cf41f433551ff8415d"
+  },
+  "crop_xywh": [
+    0,
+    220,
+    2169,
+    293
+  ],
+  "crop_box_ltrb": [
+    0,
+    220,
+    2169,
+    513
+  ],
+  "transparent_background_matte_rgb": [
+    235,
+    225,
+    207
+  ],
+  "inputs": {
+    "native_shape": {
+      "path": "config/assets/special-disc/preview/aid-banner-5/final-zh.png",
+      "sha256": "4458fc963550f4ed8e949756d04a6bb8aabcda9a375f76890e30f1f43f2e069d"
+    },
+    "native_tim2": {
+      "path": "work/analysis/sp-aiddata-images-20260912/tim2/block-002-tim2-01.tm2",
+      "sha256": "fe0ea80b0d3b27754378a110193e87b2e7500364e479ccd932d0ff73b116814e"
+    },
+    "title_recipe": {
+      "path": "work/authoring/special-disc/images/jobs/aid-banner-1/rebuild.json",
+      "sha256": "ca5dec44c2bf6ca01ace4f55b70ef60d07745ac586966186c9b096ed38f47a63"
+    },
+    "renderer": {
+      "path": "tools/special_disc/images/rebuild_banner1.py",
+      "sha256": "9f6f1787aa049f677301838e20db2cc271fe4e3fc6bc59e360b6bb79d2d33346"
+    },
+    "font": {
+      "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+      "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
+    }
+  },
+  "title_render": {
+    "font": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+    "stroke_px": 0.75,
+    "native_entry_stroke_px": 1.125,
+    "title_height_scale": 1.0,
+    "calibration": [
+      37.33333333333333,
+      30.684931506849317,
+      33.25342465753425
+    ],
+    "layout": {
+      "em_px_xy": [
+        37.33,
+        30.68
+      ],
+      "pen_top": 33.25,
+      "pens": [
+        402.12,
+        441.62,
+        481.12,
+        520.62
+      ],
+      "ink_left": 403,
+      "ink_right": 557,
+      "underline": [
+        359,
+        599,
+        65,
+        67
+      ],
+      "title_stroke_px": 0.75
+    },
+    "ink_bbox": [
+      403,
+      35,
+      557,
+      65
+    ],
+    "ink_rgb": [
+      9,
+      9,
+      8
+    ],
+    "glow": {
+      "glow_blur_sigma_xy": [
+        6.0659,
+        5.1969
+      ],
+      "glow_gain": 3.6164,
+      "glow_max": 0.7266,
+      "glow_rgb": [
+        251.67,
+        247.8,
+        210.61
+      ]
+    },
+    "implementation": "Reviewed source function bodies; NumPy float64 GaussianBlur with BORDER_REFLECT_101"
+  },
+  "banner": {
+    "width": 1024,
+    "height": 128,
+    "visible_rect": [
+      0,
+      0,
+      620,
+      78
+    ],
+    "picture_index": 5,
+    "palette_bank": 5,
+    "layout": "GS-swizzled PSMT8",
+    "alpha_shape_exact": true,
+    "swizzle_roundtrip": true,
+    "transparent_index": 0,
+    "solid_ink_index": 1,
+    "solid_ink_stored_rgba": [
+      9,
+      9,
+      8,
+      128
+    ],
+    "original_five_pictures_and_cluts": "Not read for editing or modified; banner.append preserves them"
+  },
+  "outputs": {
+    "event-banner-picture.bin": "872d8cf7cb297bbf27500c9def7ac991e0a1608038d47e2850bcfbdae908c234",
+    "event-banner-clut.bin": "c000c8eba6bf95fc5418e775ff1ea8def69d16adc9f63c22d761efd4deaddeef",
+    "event-banner.png": "b667aa3174eb721f24c4f53b9db845de19ee703d067aa8183481db8908c4b103",
+    "event-banner-preview@2x.png": "d912ed344c101b8108d947966389d9bfd7dce288367dbfa7297ecb5a76c85a4d"
+  },
+  "runtime_status": "Authoring/readback validation only; no emulator or ISO modified"
+}

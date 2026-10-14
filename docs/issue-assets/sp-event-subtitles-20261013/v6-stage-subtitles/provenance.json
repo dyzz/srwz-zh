@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-13",
+  "tested_iso": "work/iso/sp-event-gallery-v6-review.iso",
+  "installed_iso": "build/iso/special-disc/event-gallery/sp-event-gallery-subtitles-v6.iso",
+  "iso_sha256": "4d67dc1ac0533e44c4f5c6673b46c9e4e931fda632d84b839ae582a136eb4dba",
+  "elf_sha256": "e74c5a47a66d3d4cead929f42b51dd80f338f15b44ecc2daa7bb503d161fee4f",
+  "subtitle_source_sha256": "ca36e431d15b2c32724b4b2cc8813518a1601e6ec888dd9c4801eaa26a8a0da4",
+  "gallery_config_sha256": "6f5915fa954c8c9a569ce82d0c0880d382c1482cb1597dff9c4f13b44fb9824d",
+  "renderer": "LRPS2 Software",
+  "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+  "cold_boot": true,
+  "isolated_memory_card": true,
+  "native_controller_input_only": true,
+  "host_state_writes_or_savestate_restores": false,
+  "completed_runs": 13,
+  "configured_scenes": 12,
+  "mazinger_complete_runs": 2,
+  "all_12_roster_and_unit_regions_restored_exactly": true,
+  "caption_rendering": {
+    "supersample_factor": 4,
+    "texture_sampling": "nearest",
+    "font_size": 26,
+    "screen_rect": [
+      64,
+      388,
+      576,
+      428
+    ],
+    "background": "transparent",
+    "face": "white",
+    "outline_shadow": "black"
+  },
+  "scope": "native flow, sampled visual stages, Mazinger native unit replacement and restoration; not full Original battle-stage actor/BGM parity",
+  "armsx2_or_pcsx2_manual": "not performed; user requested LRPS2",
+  "production_sp_current_untouched": true
+}

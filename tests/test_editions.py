@@ -349,6 +349,32 @@ class EditionTests(unittest.TestCase):
             with self.assertRaisesRegex(EditionError, "coverage incomplete"):
                 verify_editions.verify_batch(self.root, manifest)
 
+    def test_captioned_output_binds_readback_to_base_image_and_rechecks_members(self):
+        manifest, batch, context, proof = self.receipt_fixture()
+        result = batch["results"][0]
+        base = dict(result["output"])
+        context.output_iso.write_bytes(b"captioned image published after the verified base")
+        final = {"path": base["path"], "size": context.output_iso.stat().st_size, "sha256": sha256_file(context.output_iso)}
+        result.update(output=final, base_output=base, event_subtitles={
+            "base_iso": {"path": "base", "size": base["size"], "sha256": base["sha256"]},
+            "iso": {"path": "final", "size": final["size"], "sha256": final["sha256"]},
+            "members": {}, "subtitles": {"edition": "original"}, "member_readback": {}})
+        manifest.write_text(json.dumps(batch))
+        with patch("event_subtitles.apply.verify_subtitled_iso") as verify:
+            self.assertEqual(verify_editions.verify_batch(self.root, manifest)["verified_editions"], ["original"])
+            verify.assert_called_once()
+        # The published image must be the one the caption receipt binds.
+        result["event_subtitles"]["iso"]["sha256"] = "0" * 64
+        manifest.write_text(json.dumps(batch))
+        with patch("event_subtitles.apply.verify_subtitled_iso"):
+            with self.assertRaisesRegex(EditionError, "does not bind"):
+                verify_editions.verify_batch(self.root, manifest)
+        # Without the caption receipt the readback must match the published image itself.
+        del result["event_subtitles"]; del result["base_output"]
+        manifest.write_text(json.dumps(batch))
+        with self.assertRaisesRegex(EditionError, "different ISO"):
+            verify_editions.verify_batch(self.root, manifest)
+
     def test_receipt_verifies_actual_iso_and_does_not_claim_both_editions(self):
         manifest, _, _, _ = self.receipt_fixture()
         result = verify_editions.verify_batch(self.root, manifest)

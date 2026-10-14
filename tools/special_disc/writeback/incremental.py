@@ -28,11 +28,19 @@ CORPORA = {
 }
 CODE_ROOTS = ('tools/special_disc/', 'tools/srwz/', 'tools/native/srwz-codec-rs/',
               'tools/build_rust_compressor.py', 'vendor/upstream-python/')
+# Consumed only by the assembly-time event gallery stage, which always runs and
+# binds these hashes in its own receipt; no component writer reads them.
+ASSEMBLY_ONLY = ('config/products/special-disc/event-gallery.json',
+                 'config/products/special-disc/event-subtitles.json',
+                 'tools/special_disc/event_gallery/',
+                 'work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf')
 
 
 def component_inputs(rows: list[dict], name: str) -> list[dict]:
     """Exact inventory, including additions/removals; ignore unrelated main-game corpora/tools."""
     def selected(path):
+        if path.startswith(ASSEMBLY_ONLY):
+            return False
         if path.startswith(('config/', 'work/')) or path.startswith(CODE_ROOTS):
             return True
         return any(path.startswith(p) if p.endswith('/') else path == p for p in CORPORA[name])

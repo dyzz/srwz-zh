@@ -1,0 +1,88 @@
+{
+  "adapter": "sp-full-text-v1",
+  "battle_square_skip": {
+    "all_replacements_exact": true,
+    "already_applied": true,
+    "cave_file_offset": "0x351100",
+    "cave_preimage_all_zero": false,
+    "cave_size": 2048,
+    "cave_virtual_address": "0x450780",
+    "changed_byte_count": 0,
+    "configuration_matches_before": true,
+    "edition": "sp",
+    "enabled": true,
+    "executable_size_preserved": true,
+    "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+    "hook_size": 1728,
+    "member": "SLPS_259.20",
+    "native_resource_waits_preserved": true,
+    "native_result_processing_preserved": true,
+    "patches": [
+      {
+        "file_offset": "0x1EA5C8",
+        "id": "battle_step_world_call",
+        "kind": "jal",
+        "original_instruction_hex": "ec390c0c",
+        "replacement_instruction_hex": "e041110c",
+        "state_before": "applied",
+        "surface": "battle step world call",
+        "virtual_address": "0x2E9C48"
+      },
+      {
+        "file_offset": "0x1F2C00",
+        "id": "queue_append_prologue_0",
+        "kind": "j",
+        "original_instruction_hex": "20038290",
+        "replacement_instruction_hex": "20431108",
+        "state_before": "applied",
+        "surface": "queue append prologue 0",
+        "virtual_address": "0x2F2280"
+      },
+      {
+        "file_offset": "0x1F2C04",
+        "id": "queue_append_prologue_1",
+        "kind": "nop",
+        "original_instruction_hex": "c0100200",
+        "replacement_instruction_hex": "00000000",
+        "state_before": "applied",
+        "surface": "queue append prologue 1",
+        "virtual_address": "0x2F2284"
+      }
+    ],
+    "policy": "square_skips_battle_animation_via_native_tail",
+    "site_count": 3,
+    "state_marker": "0x4E540005",
+    "world_steps_per_frame": 1
+  },
+  "component_modes": {
+    "frame": "rebuilt",
+    "image-labels": "rebuilt",
+    "srvc": "rebuilt",
+    "stage": "rebuilt",
+    "system": "rebuilt"
+  },
+  "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
+  "edition_id": "sp",
+  "event_gallery": {
+    "caption_count": 37,
+    "elf_sha256": "ed648f6596045b9fcd3d893f766efc8d457b13b691b02b95a8d3041abd711340",
+    "scene_count": 12
+  },
+  "input_digest": "81a4b7bae603e7584e62225e5ec57fd07095f95a116b4ee3481e2a04821d52b4",
+  "output": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "43f3202236de9bf56b11b38734ef7fd5ef5eba8125e9a7ca64e0ffbeb47b0bd4",
+    "size": 3913996288
+  },
+  "readback": {
+    "path": "build/editions/zh-release-sp/82c420e6717823c5a2a17c69da339647be956bf8fd0208dc333e479c5006ffd8/project/build/iso/special-disc/sp-current.json",
+    "sha256": "172864a6793139d42e795a96655a08c0b0c459b16d5779404bd1bf83c060a886"
+  },
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "skip_enabled": true,
+  "source_head": "8a1ff138f96245d5ce36d010d8a0294fe25a60ba",
+  "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+  "status": "edition_iso_static_validated_runtime_pending",
+  "workspace": "build/editions/zh-release-sp/82c420e6717823c5a2a17c69da339647be956bf8fd0208dc333e479c5006ffd8/project"
+}

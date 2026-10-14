@@ -1,0 +1,55 @@
+{"frame": 0, "command": "run 1800"}
+{"frame": 1800, "result": ["OK frame=1800"]}
+{"frame": 1800, "command": "press start 3"}
+{"frame": 1805, "result": ["OK frame=1805"]}
+{"frame": 1805, "command": "run 200"}
+{"frame": 2005, "result": ["OK frame=2005"]}
+{"frame": 2005, "command": "press circle 3"}
+{"frame": 2010, "result": ["OK frame=2010"]}
+{"frame": 2010, "command": "run 200"}
+{"frame": 2210, "result": ["OK frame=2210"]}
+{"frame": 2210, "command": "press cross 3"}
+{"frame": 2215, "result": ["OK frame=2215"]}
+{"frame": 2215, "command": "run 180"}
+{"frame": 2395, "result": ["OK frame=2395"]}
+{"frame": 2395, "command": "press down 3"}
+{"frame": 2400, "result": ["OK frame=2400"]}
+{"frame": 2400, "command": "press circle 3"}
+{"frame": 2405, "result": ["OK frame=2405"]}
+{"frame": 2405, "command": "run 240"}
+{"frame": 2645, "result": ["OK frame=2645"]}
+{"frame": 2645, "command": "shot theater-unselected-v2"}
+{"frame": 2645, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-effect-gallery-ui-v2-20261013/runtime/theater-unselected-v2.png 640x448 luma=76.8", "OK frame=2645"]}
+{"frame": 2645, "command": "press up 3"}
+{"frame": 2650, "result": ["OK frame=2650"]}
+{"frame": 2650, "command": "run 30"}
+{"frame": 2680, "result": ["OK frame=2680"]}
+{"frame": 2680, "command": "shot theater-selected-v2"}
+{"frame": 2680, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-effect-gallery-ui-v2-20261013/runtime/theater-selected-v2.png 640x448 luma=78.6", "OK frame=2680"]}
+{"frame": 2680, "command": "press circle 3"}
+{"frame": 2685, "result": ["OK frame=2685"]}
+{"frame": 2685, "command": "run 160"}
+{"frame": 2845, "result": ["OK frame=2845"]}
+{"frame": 2845, "command": "shot event-list-v2"}
+{"frame": 2845, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-effect-gallery-ui-v2-20261013/runtime/event-list-v2.png 640x448 luma=47.7", "OK frame=2845"]}
+{"frame": 2845, "command": "watch 1f11f00 16"}
+{"frame": 2845, "result": ["watching 0x1f11f00 len 16 = 00000000000000000000000000000000", "OK frame=2845"]}
+{"frame": 2845, "command": "press circle 3"}
+{"frame": 2850, "result": ["WATCH frame 2846 0x1f11f00: 00000000000000000000000000000000 -> 00000000010000000000000000000000", "WATCH frame 2847 0x1f11f00: 00000000010000000000000000000000 -> 00000000020000000000000000000000", "OK frame=2850"]}
+{"frame": 2850, "command": "run 560"}
+{"frame": 3410, "result": ["OK frame=3410"]}
+{"frame": 3410, "command": "shot impulse-subtitle-v2"}
+{"frame": 3410, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-effect-gallery-ui-v2-20261013/runtime/impulse-subtitle-v2.png 640x448 luma=62.3", "OK frame=3410"]}
+{"frame": 3410, "command": "run 2000"}
+{"frame": 5410, "result": ["WATCH frame 5170 0x1f11f00: 00000000020000000000000000000000 -> 00000000030000000000000000000000", "WATCH frame 5171 0x1f11f00: 00000000030000000000000000000000 -> 00000000000000000000000000000000", "OK frame=5410"]}
+{"frame": 5410, "command": "shot returned-list-v2"}
+{"frame": 5410, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-effect-gallery-ui-v2-20261013/runtime/returned-list-v2.png 640x448 luma=47.7", "OK frame=5410"]}
+{"frame": 5410, "command": "mem 1f11f00 16"}
+{"frame": 5410, "result": ["00000000000000000000000000000000", "OK frame=5410"]}
+{"frame": 5410, "command": "press cross 3"}
+{"frame": 5415, "result": ["OK frame=5415"]}
+{"frame": 5415, "command": "run 120"}
+{"frame": 5535, "result": ["OK frame=5535"]}
+{"frame": 5535, "command": "shot returned-theater-v2"}
+{"frame": 5535, "result": ["SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-effect-gallery-ui-v2-20261013/runtime/returned-theater-v2.png 640x448 luma=78.6", "OK frame=5535"]}
+{"frame": 5535, "command": "quit"}

@@ -1,0 +1,6452 @@
+{
+  "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/special-disc/sp-current.iso",
+  "candidate": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/iso/sp-event-gallery-mazinger-v5-review.iso",
+  "source_elf_sha256": "71480201a1ab430fa0f6229a39f0c2bd5d9e48a3f060addea0fe0cda9424392f",
+  "elf_sha256": "f9536c9c0472d5771142d9856beb5d243783bbef61b43858b89714e322ac4893",
+  "relocated_members": {
+    "SLPS_259.20": [
+      1851456,
+      4050944
+    ],
+    "AID_DATA/AIDDATA.BIN": [
+      1853434,
+      79488704
+    ],
+    "EFF/VEFF2DX.BIN": [
+      1892247,
+      38156800
+    ]
+  },
+  "all_other_member_lbas_and_sizes_preserved": true,
+  "payload": {
+    "address": "0x820000",
+    "offset": 3985408,
+    "size": 65536
+  },
+  "menu": {
+    "data_base": "0x820000",
+    "data_size": 2608,
+    "menu": "0x8208b0",
+    "child": "0x820160",
+    "items": [
+      {
+        "id": "effect-273",
+        "name": "脉冲出击",
+        "effects": [
+          273,
+          274
+        ],
+        "map": 30,
+        "camera": {
+          "tile": [
+            6,
+            2
+          ],
+          "map_view": 3,
+          "status": "map_load_initial_view"
+        },
+        "effect_tile": [
+          20,
+          12
+        ],
+        "position_source": "resource_header",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-255",
+        "name": "高达DX发射",
+        "effects": [
+          255
+        ],
+        "map": 3,
+        "camera": {
+          "tile": [
+            20,
+            23
+          ],
+          "map_view": 1,
+          "status": "map_load_initial_view"
+        },
+        "effect_tile": [
+          20,
+          23
+        ],
+        "position_source": "spawn_list_literal",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending",
+        "position_note": "STAGE126 0xb750 spawn list 0x8840 sets unit320 tile(20,23); native FUN_001b0f50 confirmed."
+      },
+      {
+        "id": "effect-256",
+        "name": "阿克艾里昂合体",
+        "effects": [
+          256
+        ],
+        "map": 13,
+        "camera": {
+          "tile": [
+            11,
+            4
+          ],
+          "map_view": null,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          11,
+          4
+        ],
+        "position_source": "script_literal",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-257",
+        "name": "鸫的呐喊",
+        "effects": [
+          257
+        ],
+        "map": 74,
+        "camera": {
+          "tile": [
+            13,
+            7
+          ],
+          "map_view": 3,
+          "status": "gallery_camera_chosen_from_map_load_initial_view"
+        },
+        "effect_tile": [
+          13,
+          7
+        ],
+        "position_source": "gallery_chosen_anchor",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending",
+        "position_note": "Original STAGE117 inherits unit616 runtime position; gallery deterministically chooses map74 initial camera center(13,7)."
+      },
+      {
+        "id": "effect-258",
+        "name": "西尔维娅觉醒",
+        "effects": [
+          258
+        ],
+        "map": 70,
+        "camera": {
+          "tile": [
+            13,
+            6
+          ],
+          "map_view": null,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          13,
+          5
+        ],
+        "position_source": "prior_script_move",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-259",
+        "name": "阿波罗叱责",
+        "effects": [
+          259
+        ],
+        "map": 63,
+        "camera": {
+          "tile": [
+            8,
+            26
+          ],
+          "map_view": null,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          8,
+          26
+        ],
+        "position_source": "script_literal",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-264",
+        "name": "格兰维昂合神",
+        "effects": [
+          264
+        ],
+        "map": 8,
+        "camera": {
+          "tile": [
+            11,
+            6
+          ],
+          "map_view": null,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          11,
+          6
+        ],
+        "position_source": "resource_header",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-265",
+        "name": "真·超重斩",
+        "effects": [
+          265
+        ],
+        "map": 63,
+        "camera": {
+          "tile": [
+            18,
+            3
+          ],
+          "map_view": null,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          18,
+          3
+        ],
+        "position_source": "resource_header",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-266",
+        "name": "巨神Σ合体",
+        "effects": [
+          266
+        ],
+        "map": 45,
+        "camera": {
+          "tile": [
+            18,
+            18
+          ],
+          "map_view": null,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          18,
+          18
+        ],
+        "position_source": "resource_header",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-267",
+        "name": "盖塔机器人G合体",
+        "effects": [
+          267
+        ],
+        "map": 26,
+        "camera": {
+          "tile": [
+            25,
+            30
+          ],
+          "map_view": null,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          28,
+          23
+        ],
+        "position_source": "resource_header",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-269",
+        "name": "魔神Z出击",
+        "effects": [
+          269
+        ],
+        "map": 72,
+        "camera": {
+          "tile": [
+            19,
+            25
+          ],
+          "map_view": 3,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          19,
+          25
+        ],
+        "position_source": "resource_header",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      },
+      {
+        "id": "effect-282",
+        "name": "泰坦3登场",
+        "effects": [
+          282
+        ],
+        "map": 22,
+        "camera": {
+          "tile": [
+            18,
+            17
+          ],
+          "map_view": null,
+          "status": "script_literal"
+        },
+        "effect_tile": [
+          18,
+          17
+        ],
+        "position_source": "prior_script_move",
+        "runtime_status": "LRPS2 cold-start click/play/natural-return passed; PCSX2 manual pending"
+      }
+    ],
+    "patches": [
+      "0x3277ac",
+      "0x3277b8",
+      "0x3270d4",
+      "0x3270d8",
+      "0x3270e8",
+      "0x3270ec"
+    ],
+    "root_ui": {
+      "banner_centres": {
+        "0": 90,
+        "1": 153,
+        "2": 216,
+        "8": 216,
+        "3": 279,
+        "9": 342
+      },
+      "destination_height": 60,
+      "new_widget": 9,
+      "new_picture": 5,
+      "new_page": 6,
+      "navigation": [
+        0,
+        1,
+        2,
+        3,
+        9
+      ],
+      "wallpaper_widget": 8,
+      "native_heading_and_help_preserved": true,
+      "event_help": "重温出击、合体等剧情名场面，播放结束后自动返回。",
+      "gallery_list": {
+        "rows": 12,
+        "native_row_pitch": 12,
+        "pages": 1,
+        "transition": "snap gallery list horizontal offset during drawing"
+      },
+      "extended_help_tables": [
+        "0x820950",
+        "0x8209c0"
+      ]
+    }
+  },
+  "runtime": {
+    "schema_version": 1,
+    "entries": [
+      {
+        "row": 0,
+        "id": "effect-273",
+        "map": 30,
+        "camera_tile": [
+          6,
+          2
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": false,
+        "effect_tile": [
+          20,
+          12
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          273,
+          274
+        ],
+        "background_script": "original map-object commands",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 1,
+        "id": "effect-255",
+        "map": 3,
+        "camera_tile": [
+          20,
+          23
+        ],
+        "map_view": 1,
+        "camera_view_defaulted_to_3": false,
+        "effect_tile": [
+          20,
+          23
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          255
+        ],
+        "background_script": "effect timeline only",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 2,
+        "id": "effect-256",
+        "map": 13,
+        "camera_tile": [
+          11,
+          4
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": true,
+        "effect_tile": [
+          11,
+          4
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          256
+        ],
+        "background_script": "effect timeline only",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 3,
+        "id": "effect-257",
+        "map": 74,
+        "camera_tile": [
+          13,
+          7
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": false,
+        "effect_tile": [
+          13,
+          7
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          257
+        ],
+        "background_script": "effect timeline only",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 4,
+        "id": "effect-258",
+        "map": 70,
+        "camera_tile": [
+          13,
+          6
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": true,
+        "effect_tile": [
+          13,
+          5
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          258
+        ],
+        "background_script": "effect timeline only",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 5,
+        "id": "effect-259",
+        "map": 63,
+        "camera_tile": [
+          8,
+          26
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": true,
+        "effect_tile": [
+          8,
+          26
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          259
+        ],
+        "background_script": "effect timeline only",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 6,
+        "id": "effect-264",
+        "map": 8,
+        "camera_tile": [
+          11,
+          6
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": true,
+        "effect_tile": [
+          11,
+          6
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          264
+        ],
+        "background_script": "effect timeline only",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 7,
+        "id": "effect-265",
+        "map": 63,
+        "camera_tile": [
+          18,
+          3
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": true,
+        "effect_tile": [
+          18,
+          3
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          265
+        ],
+        "background_script": "effect timeline only",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 8,
+        "id": "effect-266",
+        "map": 45,
+        "camera_tile": [
+          18,
+          18
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": true,
+        "effect_tile": [
+          18,
+          18
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          266
+        ],
+        "background_script": "original map-object commands",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 9,
+        "id": "effect-267",
+        "map": 26,
+        "camera_tile": [
+          25,
+          30
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": true,
+        "effect_tile": [
+          28,
+          23
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          267
+        ],
+        "background_script": "original map-object commands",
+        "stage_object_initialization": "map loader defaults"
+      },
+      {
+        "row": 10,
+        "id": "effect-269",
+        "map": 72,
+        "camera_tile": [
+          19,
+          25
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": false,
+        "effect_tile": [
+          19,
+          25
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          269
+        ],
+        "background_script": "original map-object commands",
+        "stage_object_initialization": "Original STAGE 047 inherited effect-268 end pose: objects 1..5 frame 1600, held; objects 1,2,3,5 visible, object 4 hidden"
+      },
+      {
+        "row": 11,
+        "id": "effect-282",
+        "map": 22,
+        "camera_tile": [
+          18,
+          17
+        ],
+        "map_view": 3,
+        "camera_view_defaulted_to_3": true,
+        "effect_tile": [
+          18,
+          17
+        ],
+        "effect_anchor_uses_camera_placeholder": false,
+        "effects": [
+          282
+        ],
+        "background_script": "effect timeline only",
+        "stage_object_initialization": "map loader defaults"
+      }
+    ],
+    "voice_timeline_initialization": "Source CCC schedules copied into the native shared voice table during gallery playback",
+    "boundary": "Static native runtime configuration. Anchor placeholders and initial camera-view defaults require review. Scene fidelity must be verified independently in the emulator."
+  },
+  "aid": {
+    "base_archive_size": 79447152,
+    "archive_size": 79488704,
+    "archive_delta": 41552,
+    "block": 2,
+    "block_start": 50672,
+    "old_allocation": 357728,
+    "compressed_size": 399269,
+    "padded_allocation": 399280,
+    "all_other_blocks_and_padding_byte_identical": true,
+    "base_archive_sha256": "17991e3c2bd939c07266b309be77321cbeb5fc65ca54140bd22bd7c79d6f2549",
+    "archive_sha256": "40fb09ddfca9fb2730427fe2ed35e3ce5d80c00f09f02c551060906987f55047",
+    "base_elf_sha256": "71480201a1ab430fa0f6229a39f0c2bd5d9e48a3f060addea0fe0cda9424392f",
+    "elf_sha256": "96df4bba6a973b9890a4209e08dfb01ed9de0ede3a59021171c036856e885145",
+    "table_entries": 515,
+    "duplicate_offset_tables": [
+      "0x37d510",
+      "0x38a050"
+    ],
+    "duplicate_decoded_size_entries": [
+      "0x37cd08",
+      "0x389848"
+    ],
+    "elf_edits": [
+      {
+        "offset": "0x37cd08",
+        "value": 1181216,
+        "kind": "decoded-size"
+      },
+      {
+        "offset": "0x389848",
+        "value": 1181216,
+        "kind": "decoded-size"
+      },
+      {
+        "offset": "0x37d51c",
+        "value": 449952,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d520",
+        "value": 714400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d524",
+        "value": 953712,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d528",
+        "value": 1183648,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d52c",
+        "value": 1399040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d530",
+        "value": 1622016,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d534",
+        "value": 1830960,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d538",
+        "value": 2047456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d53c",
+        "value": 2273216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d540",
+        "value": 2503232,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d544",
+        "value": 2577264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d548",
+        "value": 2803936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d54c",
+        "value": 3019584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d550",
+        "value": 3235728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d554",
+        "value": 3440592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d558",
+        "value": 3649264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d55c",
+        "value": 3864848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d560",
+        "value": 4076464,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d564",
+        "value": 4294224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d568",
+        "value": 4492864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d56c",
+        "value": 4697904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d570",
+        "value": 4899680,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d574",
+        "value": 5097616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d578",
+        "value": 5287008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d57c",
+        "value": 5492528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d580",
+        "value": 5678128,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d584",
+        "value": 5862480,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d588",
+        "value": 6056704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d58c",
+        "value": 6246608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d590",
+        "value": 6454544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d594",
+        "value": 6652800,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d598",
+        "value": 6859184,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d59c",
+        "value": 7071968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5a0",
+        "value": 7315408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5a4",
+        "value": 7552848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5a8",
+        "value": 7784192,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5ac",
+        "value": 8017104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5b0",
+        "value": 8221392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5b4",
+        "value": 8435728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5b8",
+        "value": 8655344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5bc",
+        "value": 8861200,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5c0",
+        "value": 8965984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5c4",
+        "value": 9183856,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5c8",
+        "value": 9386720,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5cc",
+        "value": 9591856,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5d0",
+        "value": 9793584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5d4",
+        "value": 10017760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5d8",
+        "value": 10228496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5dc",
+        "value": 10428752,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5e0",
+        "value": 10623744,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5e4",
+        "value": 10808496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5e8",
+        "value": 11011248,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5ec",
+        "value": 11220032,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5f0",
+        "value": 11375008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5f4",
+        "value": 11617088,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5f8",
+        "value": 11859984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d5fc",
+        "value": 12094912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d600",
+        "value": 12326976,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d604",
+        "value": 12556576,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d608",
+        "value": 12784272,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d60c",
+        "value": 12962672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d610",
+        "value": 13050160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d614",
+        "value": 13286176,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d618",
+        "value": 13516224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d61c",
+        "value": 13740112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d620",
+        "value": 13964208,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d624",
+        "value": 14159872,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d628",
+        "value": 14362912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d62c",
+        "value": 14570016,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d630",
+        "value": 14769424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d634",
+        "value": 15004576,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d638",
+        "value": 15228864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d63c",
+        "value": 15420272,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d640",
+        "value": 15639728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d644",
+        "value": 15863424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d648",
+        "value": 16059152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d64c",
+        "value": 16311168,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d650",
+        "value": 16553552,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d654",
+        "value": 16789696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d658",
+        "value": 16972768,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d65c",
+        "value": 17205616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d660",
+        "value": 17419872,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d664",
+        "value": 17639824,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d668",
+        "value": 17873936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d66c",
+        "value": 18085136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d670",
+        "value": 18280208,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d674",
+        "value": 18479904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d678",
+        "value": 18685904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d67c",
+        "value": 18906176,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d680",
+        "value": 19114864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d684",
+        "value": 19324880,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d688",
+        "value": 19531536,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d68c",
+        "value": 19752128,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d690",
+        "value": 19940256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d694",
+        "value": 20066896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d698",
+        "value": 20201456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d69c",
+        "value": 20340032,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6a0",
+        "value": 20474432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6a4",
+        "value": 20571248,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6a8",
+        "value": 20704224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6ac",
+        "value": 20815152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6b0",
+        "value": 20925008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6b4",
+        "value": 21058112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6b8",
+        "value": 21187584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6bc",
+        "value": 21316896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6c0",
+        "value": 21439792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6c4",
+        "value": 21542112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6c8",
+        "value": 21647696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6cc",
+        "value": 21751056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6d0",
+        "value": 21843936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6d4",
+        "value": 21962912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6d8",
+        "value": 22106416,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6dc",
+        "value": 22232480,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6e0",
+        "value": 22359392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6e4",
+        "value": 22464704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6e8",
+        "value": 22582096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6ec",
+        "value": 22654544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6f0",
+        "value": 22765712,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6f4",
+        "value": 22845136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6f8",
+        "value": 22937360,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d6fc",
+        "value": 23062160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d700",
+        "value": 23196288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d704",
+        "value": 23306656,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d708",
+        "value": 23435632,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d70c",
+        "value": 23632400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d710",
+        "value": 23783712,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d714",
+        "value": 24022976,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d718",
+        "value": 24185024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d71c",
+        "value": 24239504,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d720",
+        "value": 24270112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d724",
+        "value": 24320912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d728",
+        "value": 24393056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d72c",
+        "value": 24458640,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d730",
+        "value": 24605792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d734",
+        "value": 24707344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d738",
+        "value": 24791456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d73c",
+        "value": 24894192,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d740",
+        "value": 25038864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d744",
+        "value": 25216544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d748",
+        "value": 25337216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d74c",
+        "value": 25458512,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d750",
+        "value": 25559680,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d754",
+        "value": 25733760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d758",
+        "value": 25849984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d75c",
+        "value": 25953840,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d760",
+        "value": 26113360,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d764",
+        "value": 26274560,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d768",
+        "value": 26447360,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d76c",
+        "value": 26617504,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d770",
+        "value": 26784592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d774",
+        "value": 26949440,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d778",
+        "value": 27166288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d77c",
+        "value": 27286752,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d780",
+        "value": 27395424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d784",
+        "value": 27416816,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d788",
+        "value": 27481520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d78c",
+        "value": 27575792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d790",
+        "value": 27650256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d794",
+        "value": 27709920,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d798",
+        "value": 27775328,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d79c",
+        "value": 28016496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7a0",
+        "value": 28158896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7a4",
+        "value": 28234912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7a8",
+        "value": 28302912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7ac",
+        "value": 28370304,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7b0",
+        "value": 28481472,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7b4",
+        "value": 28586432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7b8",
+        "value": 28698112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7bc",
+        "value": 28814784,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7c0",
+        "value": 28957088,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7c4",
+        "value": 29053536,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7c8",
+        "value": 29175008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7cc",
+        "value": 29322144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7d0",
+        "value": 29479120,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7d4",
+        "value": 29652288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7d8",
+        "value": 29779792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7dc",
+        "value": 29889408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7e0",
+        "value": 30043168,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7e4",
+        "value": 30182256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7e8",
+        "value": 30226960,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7ec",
+        "value": 30403520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7f0",
+        "value": 30575904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7f4",
+        "value": 30756736,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7f8",
+        "value": 30814592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d7fc",
+        "value": 30968144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d800",
+        "value": 31135232,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d804",
+        "value": 31266864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d808",
+        "value": 31471536,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d80c",
+        "value": 31656112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d810",
+        "value": 31792672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d814",
+        "value": 31949408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d818",
+        "value": 32166384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d81c",
+        "value": 32312688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d820",
+        "value": 32509088,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d824",
+        "value": 32676560,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d828",
+        "value": 32879248,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d82c",
+        "value": 33053760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d830",
+        "value": 33210320,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d834",
+        "value": 33415600,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d838",
+        "value": 33564160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d83c",
+        "value": 33730496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d840",
+        "value": 33878416,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d844",
+        "value": 34070752,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d848",
+        "value": 34253664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d84c",
+        "value": 34429584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d850",
+        "value": 34594960,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d854",
+        "value": 34732528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d858",
+        "value": 34971760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d85c",
+        "value": 35134640,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d860",
+        "value": 35298848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d864",
+        "value": 35393424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d868",
+        "value": 35465056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d86c",
+        "value": 35560016,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d870",
+        "value": 35601152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d874",
+        "value": 35706688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d878",
+        "value": 35823888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d87c",
+        "value": 35947408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d880",
+        "value": 36086544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d884",
+        "value": 36230144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d888",
+        "value": 36372688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d88c",
+        "value": 36540688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d890",
+        "value": 36651200,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d894",
+        "value": 36752288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d898",
+        "value": 36847648,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d89c",
+        "value": 36991664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8a0",
+        "value": 37132352,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8a4",
+        "value": 37327184,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8a8",
+        "value": 37506672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8ac",
+        "value": 37578592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8b0",
+        "value": 37632160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8b4",
+        "value": 37766624,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8b8",
+        "value": 37976032,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8bc",
+        "value": 38140672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8c0",
+        "value": 38298272,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8c4",
+        "value": 38406096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8c8",
+        "value": 38507312,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8cc",
+        "value": 38571200,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8d0",
+        "value": 38627920,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8d4",
+        "value": 38684320,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8d8",
+        "value": 38749136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8dc",
+        "value": 38933984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8e0",
+        "value": 39017920,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8e4",
+        "value": 39139520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8e8",
+        "value": 39312912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8ec",
+        "value": 39455824,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8f0",
+        "value": 39572592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8f4",
+        "value": 39700992,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8f8",
+        "value": 39779344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d8fc",
+        "value": 39957632,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d900",
+        "value": 40164160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d904",
+        "value": 40274208,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d908",
+        "value": 40463120,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d90c",
+        "value": 40618384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d910",
+        "value": 40825472,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d914",
+        "value": 41013024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d918",
+        "value": 41186016,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d91c",
+        "value": 41392096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d920",
+        "value": 41530416,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d924",
+        "value": 41692704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d928",
+        "value": 41901504,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d92c",
+        "value": 42093056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d930",
+        "value": 42250144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d934",
+        "value": 42389376,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d938",
+        "value": 42516576,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d93c",
+        "value": 42667936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d940",
+        "value": 42776896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d944",
+        "value": 42970432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d948",
+        "value": 43200144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d94c",
+        "value": 43314096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d950",
+        "value": 43479520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d954",
+        "value": 43639392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d958",
+        "value": 43777136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d95c",
+        "value": 43985456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d960",
+        "value": 44114784,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d964",
+        "value": 44226672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d968",
+        "value": 44379216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d96c",
+        "value": 44559392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d970",
+        "value": 44646848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d974",
+        "value": 44705664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d978",
+        "value": 44844352,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d97c",
+        "value": 45104256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d980",
+        "value": 45343648,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d984",
+        "value": 45525344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d988",
+        "value": 45717376,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d98c",
+        "value": 45967232,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d990",
+        "value": 46220928,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d994",
+        "value": 46418560,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d998",
+        "value": 46643728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d99c",
+        "value": 46884848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9a0",
+        "value": 47013824,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9a4",
+        "value": 47210592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9a8",
+        "value": 47361904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9ac",
+        "value": 47601168,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9b0",
+        "value": 47763216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9b4",
+        "value": 47817696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9b8",
+        "value": 47848304,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9bc",
+        "value": 47899104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9c0",
+        "value": 47971248,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9c4",
+        "value": 48036832,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9c8",
+        "value": 48183984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9cc",
+        "value": 48285536,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9d0",
+        "value": 48369648,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9d4",
+        "value": 48472384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9d8",
+        "value": 48617056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9dc",
+        "value": 48794736,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9e0",
+        "value": 48915408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9e4",
+        "value": 49036704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9e8",
+        "value": 49137872,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9ec",
+        "value": 49283472,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9f0",
+        "value": 49457552,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9f4",
+        "value": 49582656,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9f8",
+        "value": 49698880,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37d9fc",
+        "value": 49802736,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da00",
+        "value": 49891824,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da04",
+        "value": 50064944,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da08",
+        "value": 50224464,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da0c",
+        "value": 50385664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da10",
+        "value": 50558464,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da14",
+        "value": 50728608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da18",
+        "value": 50895696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da1c",
+        "value": 51045152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da20",
+        "value": 51176064,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da24",
+        "value": 51340912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da28",
+        "value": 51557760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da2c",
+        "value": 51678224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da30",
+        "value": 51786896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da34",
+        "value": 51808288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da38",
+        "value": 51872992,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da3c",
+        "value": 51967264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da40",
+        "value": 52041728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da44",
+        "value": 52101392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da48",
+        "value": 52166800,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da4c",
+        "value": 52407968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da50",
+        "value": 52550368,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da54",
+        "value": 52626384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da58",
+        "value": 52694384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da5c",
+        "value": 52761776,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da60",
+        "value": 52872944,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da64",
+        "value": 52977904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da68",
+        "value": 53089584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da6c",
+        "value": 53206256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da70",
+        "value": 53348560,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da74",
+        "value": 53445008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da78",
+        "value": 53566480,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da7c",
+        "value": 53713616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da80",
+        "value": 53870592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da84",
+        "value": 54043760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da88",
+        "value": 54171264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da8c",
+        "value": 54280880,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da90",
+        "value": 54434640,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da94",
+        "value": 54573728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da98",
+        "value": 54618432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37da9c",
+        "value": 54740864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37daa0",
+        "value": 54917424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37daa4",
+        "value": 55072480,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37daa8",
+        "value": 55253152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37daac",
+        "value": 55475808,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dab0",
+        "value": 55669184,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dab4",
+        "value": 55816448,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dab8",
+        "value": 55988832,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dabc",
+        "value": 56169664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dac0",
+        "value": 56227520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dac4",
+        "value": 56381072,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dac8",
+        "value": 56548160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dacc",
+        "value": 56679792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dad0",
+        "value": 56884464,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dad4",
+        "value": 57069040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dad8",
+        "value": 57205600,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dadc",
+        "value": 57362336,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dae0",
+        "value": 57534720,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dae4",
+        "value": 57695984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dae8",
+        "value": 57857216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37daec",
+        "value": 58031984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37daf0",
+        "value": 58207808,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37daf4",
+        "value": 58429616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37daf8",
+        "value": 58646592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dafc",
+        "value": 58792896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db00",
+        "value": 58989296,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db04",
+        "value": 59156768,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db08",
+        "value": 59359456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db0c",
+        "value": 59533968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db10",
+        "value": 59690528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db14",
+        "value": 59829888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db18",
+        "value": 59996096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db1c",
+        "value": 60157712,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db20",
+        "value": 60325984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db24",
+        "value": 60460528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db28",
+        "value": 60598496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db2c",
+        "value": 60724384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db30",
+        "value": 60984672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db34",
+        "value": 61189952,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db38",
+        "value": 61308240,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db3c",
+        "value": 61425952,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db40",
+        "value": 61574512,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db44",
+        "value": 61671136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db48",
+        "value": 61838944,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db4c",
+        "value": 62005280,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db50",
+        "value": 62153200,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db54",
+        "value": 62253024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db58",
+        "value": 62397856,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db5c",
+        "value": 62590192,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db60",
+        "value": 62773104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db64",
+        "value": 62949024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db68",
+        "value": 63114400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db6c",
+        "value": 63251968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db70",
+        "value": 63430928,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db74",
+        "value": 63670160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db78",
+        "value": 63833040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db7c",
+        "value": 63982224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db80",
+        "value": 64146432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db84",
+        "value": 64300048,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db88",
+        "value": 64394624,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db8c",
+        "value": 64466256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db90",
+        "value": 64561216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db94",
+        "value": 64602352,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db98",
+        "value": 64707888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37db9c",
+        "value": 64825088,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dba0",
+        "value": 64948608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dba4",
+        "value": 65087744,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dba8",
+        "value": 65231344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbac",
+        "value": 65373888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbb0",
+        "value": 65541888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbb4",
+        "value": 65652400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbb8",
+        "value": 65768608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbbc",
+        "value": 65869696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbc0",
+        "value": 65965056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbc4",
+        "value": 66109072,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbc8",
+        "value": 66249760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbcc",
+        "value": 66444592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbd0",
+        "value": 66624080,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbd4",
+        "value": 66696000,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbd8",
+        "value": 66749568,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbdc",
+        "value": 66884032,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbe0",
+        "value": 67093440,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbe4",
+        "value": 67258080,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbe8",
+        "value": 67415680,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbec",
+        "value": 67523504,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbf0",
+        "value": 67624720,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbf4",
+        "value": 67688608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbf8",
+        "value": 67745328,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dbfc",
+        "value": 67801728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc00",
+        "value": 67866544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc04",
+        "value": 68051392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc08",
+        "value": 68135328,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc0c",
+        "value": 68256928,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc10",
+        "value": 68430320,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc14",
+        "value": 68573232,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc18",
+        "value": 68690000,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc1c",
+        "value": 68818400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc20",
+        "value": 68896752,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc24",
+        "value": 69075040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc28",
+        "value": 69281568,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc2c",
+        "value": 69391616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc30",
+        "value": 69551136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc34",
+        "value": 69740048,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc38",
+        "value": 69895312,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc3c",
+        "value": 70102400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc40",
+        "value": 70289952,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc44",
+        "value": 70462944,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc48",
+        "value": 70669024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc4c",
+        "value": 70807344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc50",
+        "value": 70969632,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc54",
+        "value": 71109168,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc58",
+        "value": 71317968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc5c",
+        "value": 71509520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc60",
+        "value": 71666608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc64",
+        "value": 71805840,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc68",
+        "value": 71933040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc6c",
+        "value": 72084400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc70",
+        "value": 72283312,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc74",
+        "value": 72443104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc78",
+        "value": 72602048,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc7c",
+        "value": 72810528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc80",
+        "value": 73035072,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc84",
+        "value": 73213760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc88",
+        "value": 73386592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc8c",
+        "value": 73585264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc90",
+        "value": 73765552,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc94",
+        "value": 73927360,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc98",
+        "value": 74036320,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dc9c",
+        "value": 74229856,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dca0",
+        "value": 74459568,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dca4",
+        "value": 74612304,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dca8",
+        "value": 74814688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcac",
+        "value": 74928640,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcb0",
+        "value": 75094064,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcb4",
+        "value": 75253936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcb8",
+        "value": 75391680,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcbc",
+        "value": 75600000,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcc0",
+        "value": 75729328,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcc4",
+        "value": 75841216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcc8",
+        "value": 75993760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dccc",
+        "value": 76173936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcd0",
+        "value": 76261392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcd4",
+        "value": 76320208,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcd8",
+        "value": 76458896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcdc",
+        "value": 76718800,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dce0",
+        "value": 76958192,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dce4",
+        "value": 77139888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dce8",
+        "value": 77331920,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcec",
+        "value": 77581776,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcf0",
+        "value": 77835472,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcf4",
+        "value": 78033104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcf8",
+        "value": 78258272,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dcfc",
+        "value": 78499392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dd00",
+        "value": 78637776,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dd04",
+        "value": 78773072,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dd08",
+        "value": 78944448,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dd0c",
+        "value": 79102720,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dd10",
+        "value": 79288912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dd14",
+        "value": 79407392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x37dd18",
+        "value": 79488704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a05c",
+        "value": 449952,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a060",
+        "value": 714400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a064",
+        "value": 953712,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a068",
+        "value": 1183648,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a06c",
+        "value": 1399040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a070",
+        "value": 1622016,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a074",
+        "value": 1830960,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a078",
+        "value": 2047456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a07c",
+        "value": 2273216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a080",
+        "value": 2503232,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a084",
+        "value": 2577264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a088",
+        "value": 2803936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a08c",
+        "value": 3019584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a090",
+        "value": 3235728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a094",
+        "value": 3440592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a098",
+        "value": 3649264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a09c",
+        "value": 3864848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0a0",
+        "value": 4076464,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0a4",
+        "value": 4294224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0a8",
+        "value": 4492864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0ac",
+        "value": 4697904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0b0",
+        "value": 4899680,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0b4",
+        "value": 5097616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0b8",
+        "value": 5287008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0bc",
+        "value": 5492528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0c0",
+        "value": 5678128,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0c4",
+        "value": 5862480,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0c8",
+        "value": 6056704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0cc",
+        "value": 6246608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0d0",
+        "value": 6454544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0d4",
+        "value": 6652800,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0d8",
+        "value": 6859184,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0dc",
+        "value": 7071968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0e0",
+        "value": 7315408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0e4",
+        "value": 7552848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0e8",
+        "value": 7784192,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0ec",
+        "value": 8017104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0f0",
+        "value": 8221392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0f4",
+        "value": 8435728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0f8",
+        "value": 8655344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a0fc",
+        "value": 8861200,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a100",
+        "value": 8965984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a104",
+        "value": 9183856,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a108",
+        "value": 9386720,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a10c",
+        "value": 9591856,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a110",
+        "value": 9793584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a114",
+        "value": 10017760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a118",
+        "value": 10228496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a11c",
+        "value": 10428752,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a120",
+        "value": 10623744,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a124",
+        "value": 10808496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a128",
+        "value": 11011248,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a12c",
+        "value": 11220032,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a130",
+        "value": 11375008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a134",
+        "value": 11617088,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a138",
+        "value": 11859984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a13c",
+        "value": 12094912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a140",
+        "value": 12326976,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a144",
+        "value": 12556576,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a148",
+        "value": 12784272,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a14c",
+        "value": 12962672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a150",
+        "value": 13050160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a154",
+        "value": 13286176,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a158",
+        "value": 13516224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a15c",
+        "value": 13740112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a160",
+        "value": 13964208,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a164",
+        "value": 14159872,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a168",
+        "value": 14362912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a16c",
+        "value": 14570016,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a170",
+        "value": 14769424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a174",
+        "value": 15004576,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a178",
+        "value": 15228864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a17c",
+        "value": 15420272,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a180",
+        "value": 15639728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a184",
+        "value": 15863424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a188",
+        "value": 16059152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a18c",
+        "value": 16311168,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a190",
+        "value": 16553552,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a194",
+        "value": 16789696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a198",
+        "value": 16972768,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a19c",
+        "value": 17205616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1a0",
+        "value": 17419872,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1a4",
+        "value": 17639824,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1a8",
+        "value": 17873936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1ac",
+        "value": 18085136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1b0",
+        "value": 18280208,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1b4",
+        "value": 18479904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1b8",
+        "value": 18685904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1bc",
+        "value": 18906176,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1c0",
+        "value": 19114864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1c4",
+        "value": 19324880,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1c8",
+        "value": 19531536,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1cc",
+        "value": 19752128,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1d0",
+        "value": 19940256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1d4",
+        "value": 20066896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1d8",
+        "value": 20201456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1dc",
+        "value": 20340032,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1e0",
+        "value": 20474432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1e4",
+        "value": 20571248,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1e8",
+        "value": 20704224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1ec",
+        "value": 20815152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1f0",
+        "value": 20925008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1f4",
+        "value": 21058112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1f8",
+        "value": 21187584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a1fc",
+        "value": 21316896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a200",
+        "value": 21439792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a204",
+        "value": 21542112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a208",
+        "value": 21647696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a20c",
+        "value": 21751056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a210",
+        "value": 21843936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a214",
+        "value": 21962912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a218",
+        "value": 22106416,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a21c",
+        "value": 22232480,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a220",
+        "value": 22359392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a224",
+        "value": 22464704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a228",
+        "value": 22582096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a22c",
+        "value": 22654544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a230",
+        "value": 22765712,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a234",
+        "value": 22845136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a238",
+        "value": 22937360,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a23c",
+        "value": 23062160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a240",
+        "value": 23196288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a244",
+        "value": 23306656,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a248",
+        "value": 23435632,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a24c",
+        "value": 23632400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a250",
+        "value": 23783712,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a254",
+        "value": 24022976,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a258",
+        "value": 24185024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a25c",
+        "value": 24239504,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a260",
+        "value": 24270112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a264",
+        "value": 24320912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a268",
+        "value": 24393056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a26c",
+        "value": 24458640,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a270",
+        "value": 24605792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a274",
+        "value": 24707344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a278",
+        "value": 24791456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a27c",
+        "value": 24894192,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a280",
+        "value": 25038864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a284",
+        "value": 25216544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a288",
+        "value": 25337216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a28c",
+        "value": 25458512,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a290",
+        "value": 25559680,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a294",
+        "value": 25733760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a298",
+        "value": 25849984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a29c",
+        "value": 25953840,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2a0",
+        "value": 26113360,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2a4",
+        "value": 26274560,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2a8",
+        "value": 26447360,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2ac",
+        "value": 26617504,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2b0",
+        "value": 26784592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2b4",
+        "value": 26949440,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2b8",
+        "value": 27166288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2bc",
+        "value": 27286752,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2c0",
+        "value": 27395424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2c4",
+        "value": 27416816,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2c8",
+        "value": 27481520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2cc",
+        "value": 27575792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2d0",
+        "value": 27650256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2d4",
+        "value": 27709920,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2d8",
+        "value": 27775328,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2dc",
+        "value": 28016496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2e0",
+        "value": 28158896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2e4",
+        "value": 28234912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2e8",
+        "value": 28302912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2ec",
+        "value": 28370304,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2f0",
+        "value": 28481472,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2f4",
+        "value": 28586432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2f8",
+        "value": 28698112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a2fc",
+        "value": 28814784,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a300",
+        "value": 28957088,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a304",
+        "value": 29053536,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a308",
+        "value": 29175008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a30c",
+        "value": 29322144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a310",
+        "value": 29479120,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a314",
+        "value": 29652288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a318",
+        "value": 29779792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a31c",
+        "value": 29889408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a320",
+        "value": 30043168,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a324",
+        "value": 30182256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a328",
+        "value": 30226960,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a32c",
+        "value": 30403520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a330",
+        "value": 30575904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a334",
+        "value": 30756736,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a338",
+        "value": 30814592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a33c",
+        "value": 30968144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a340",
+        "value": 31135232,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a344",
+        "value": 31266864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a348",
+        "value": 31471536,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a34c",
+        "value": 31656112,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a350",
+        "value": 31792672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a354",
+        "value": 31949408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a358",
+        "value": 32166384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a35c",
+        "value": 32312688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a360",
+        "value": 32509088,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a364",
+        "value": 32676560,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a368",
+        "value": 32879248,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a36c",
+        "value": 33053760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a370",
+        "value": 33210320,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a374",
+        "value": 33415600,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a378",
+        "value": 33564160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a37c",
+        "value": 33730496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a380",
+        "value": 33878416,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a384",
+        "value": 34070752,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a388",
+        "value": 34253664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a38c",
+        "value": 34429584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a390",
+        "value": 34594960,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a394",
+        "value": 34732528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a398",
+        "value": 34971760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a39c",
+        "value": 35134640,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3a0",
+        "value": 35298848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3a4",
+        "value": 35393424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3a8",
+        "value": 35465056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3ac",
+        "value": 35560016,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3b0",
+        "value": 35601152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3b4",
+        "value": 35706688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3b8",
+        "value": 35823888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3bc",
+        "value": 35947408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3c0",
+        "value": 36086544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3c4",
+        "value": 36230144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3c8",
+        "value": 36372688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3cc",
+        "value": 36540688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3d0",
+        "value": 36651200,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3d4",
+        "value": 36752288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3d8",
+        "value": 36847648,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3dc",
+        "value": 36991664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3e0",
+        "value": 37132352,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3e4",
+        "value": 37327184,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3e8",
+        "value": 37506672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3ec",
+        "value": 37578592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3f0",
+        "value": 37632160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3f4",
+        "value": 37766624,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3f8",
+        "value": 37976032,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a3fc",
+        "value": 38140672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a400",
+        "value": 38298272,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a404",
+        "value": 38406096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a408",
+        "value": 38507312,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a40c",
+        "value": 38571200,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a410",
+        "value": 38627920,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a414",
+        "value": 38684320,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a418",
+        "value": 38749136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a41c",
+        "value": 38933984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a420",
+        "value": 39017920,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a424",
+        "value": 39139520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a428",
+        "value": 39312912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a42c",
+        "value": 39455824,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a430",
+        "value": 39572592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a434",
+        "value": 39700992,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a438",
+        "value": 39779344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a43c",
+        "value": 39957632,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a440",
+        "value": 40164160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a444",
+        "value": 40274208,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a448",
+        "value": 40463120,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a44c",
+        "value": 40618384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a450",
+        "value": 40825472,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a454",
+        "value": 41013024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a458",
+        "value": 41186016,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a45c",
+        "value": 41392096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a460",
+        "value": 41530416,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a464",
+        "value": 41692704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a468",
+        "value": 41901504,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a46c",
+        "value": 42093056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a470",
+        "value": 42250144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a474",
+        "value": 42389376,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a478",
+        "value": 42516576,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a47c",
+        "value": 42667936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a480",
+        "value": 42776896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a484",
+        "value": 42970432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a488",
+        "value": 43200144,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a48c",
+        "value": 43314096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a490",
+        "value": 43479520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a494",
+        "value": 43639392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a498",
+        "value": 43777136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a49c",
+        "value": 43985456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4a0",
+        "value": 44114784,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4a4",
+        "value": 44226672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4a8",
+        "value": 44379216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4ac",
+        "value": 44559392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4b0",
+        "value": 44646848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4b4",
+        "value": 44705664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4b8",
+        "value": 44844352,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4bc",
+        "value": 45104256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4c0",
+        "value": 45343648,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4c4",
+        "value": 45525344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4c8",
+        "value": 45717376,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4cc",
+        "value": 45967232,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4d0",
+        "value": 46220928,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4d4",
+        "value": 46418560,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4d8",
+        "value": 46643728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4dc",
+        "value": 46884848,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4e0",
+        "value": 47013824,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4e4",
+        "value": 47210592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4e8",
+        "value": 47361904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4ec",
+        "value": 47601168,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4f0",
+        "value": 47763216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4f4",
+        "value": 47817696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4f8",
+        "value": 47848304,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a4fc",
+        "value": 47899104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a500",
+        "value": 47971248,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a504",
+        "value": 48036832,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a508",
+        "value": 48183984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a50c",
+        "value": 48285536,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a510",
+        "value": 48369648,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a514",
+        "value": 48472384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a518",
+        "value": 48617056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a51c",
+        "value": 48794736,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a520",
+        "value": 48915408,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a524",
+        "value": 49036704,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a528",
+        "value": 49137872,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a52c",
+        "value": 49283472,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a530",
+        "value": 49457552,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a534",
+        "value": 49582656,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a538",
+        "value": 49698880,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a53c",
+        "value": 49802736,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a540",
+        "value": 49891824,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a544",
+        "value": 50064944,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a548",
+        "value": 50224464,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a54c",
+        "value": 50385664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a550",
+        "value": 50558464,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a554",
+        "value": 50728608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a558",
+        "value": 50895696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a55c",
+        "value": 51045152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a560",
+        "value": 51176064,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a564",
+        "value": 51340912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a568",
+        "value": 51557760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a56c",
+        "value": 51678224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a570",
+        "value": 51786896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a574",
+        "value": 51808288,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a578",
+        "value": 51872992,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a57c",
+        "value": 51967264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a580",
+        "value": 52041728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a584",
+        "value": 52101392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a588",
+        "value": 52166800,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a58c",
+        "value": 52407968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a590",
+        "value": 52550368,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a594",
+        "value": 52626384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a598",
+        "value": 52694384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a59c",
+        "value": 52761776,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5a0",
+        "value": 52872944,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5a4",
+        "value": 52977904,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5a8",
+        "value": 53089584,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5ac",
+        "value": 53206256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5b0",
+        "value": 53348560,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5b4",
+        "value": 53445008,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5b8",
+        "value": 53566480,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5bc",
+        "value": 53713616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5c0",
+        "value": 53870592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5c4",
+        "value": 54043760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5c8",
+        "value": 54171264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5cc",
+        "value": 54280880,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5d0",
+        "value": 54434640,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5d4",
+        "value": 54573728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5d8",
+        "value": 54618432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5dc",
+        "value": 54740864,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5e0",
+        "value": 54917424,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5e4",
+        "value": 55072480,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5e8",
+        "value": 55253152,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5ec",
+        "value": 55475808,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5f0",
+        "value": 55669184,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5f4",
+        "value": 55816448,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5f8",
+        "value": 55988832,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a5fc",
+        "value": 56169664,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a600",
+        "value": 56227520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a604",
+        "value": 56381072,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a608",
+        "value": 56548160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a60c",
+        "value": 56679792,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a610",
+        "value": 56884464,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a614",
+        "value": 57069040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a618",
+        "value": 57205600,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a61c",
+        "value": 57362336,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a620",
+        "value": 57534720,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a624",
+        "value": 57695984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a628",
+        "value": 57857216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a62c",
+        "value": 58031984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a630",
+        "value": 58207808,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a634",
+        "value": 58429616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a638",
+        "value": 58646592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a63c",
+        "value": 58792896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a640",
+        "value": 58989296,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a644",
+        "value": 59156768,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a648",
+        "value": 59359456,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a64c",
+        "value": 59533968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a650",
+        "value": 59690528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a654",
+        "value": 59829888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a658",
+        "value": 59996096,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a65c",
+        "value": 60157712,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a660",
+        "value": 60325984,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a664",
+        "value": 60460528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a668",
+        "value": 60598496,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a66c",
+        "value": 60724384,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a670",
+        "value": 60984672,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a674",
+        "value": 61189952,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a678",
+        "value": 61308240,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a67c",
+        "value": 61425952,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a680",
+        "value": 61574512,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a684",
+        "value": 61671136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a688",
+        "value": 61838944,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a68c",
+        "value": 62005280,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a690",
+        "value": 62153200,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a694",
+        "value": 62253024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a698",
+        "value": 62397856,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a69c",
+        "value": 62590192,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6a0",
+        "value": 62773104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6a4",
+        "value": 62949024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6a8",
+        "value": 63114400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6ac",
+        "value": 63251968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6b0",
+        "value": 63430928,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6b4",
+        "value": 63670160,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6b8",
+        "value": 63833040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6bc",
+        "value": 63982224,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6c0",
+        "value": 64146432,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6c4",
+        "value": 64300048,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6c8",
+        "value": 64394624,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6cc",
+        "value": 64466256,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6d0",
+        "value": 64561216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6d4",
+        "value": 64602352,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6d8",
+        "value": 64707888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6dc",
+        "value": 64825088,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6e0",
+        "value": 64948608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6e4",
+        "value": 65087744,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6e8",
+        "value": 65231344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6ec",
+        "value": 65373888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6f0",
+        "value": 65541888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6f4",
+        "value": 65652400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6f8",
+        "value": 65768608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a6fc",
+        "value": 65869696,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a700",
+        "value": 65965056,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a704",
+        "value": 66109072,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a708",
+        "value": 66249760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a70c",
+        "value": 66444592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a710",
+        "value": 66624080,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a714",
+        "value": 66696000,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a718",
+        "value": 66749568,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a71c",
+        "value": 66884032,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a720",
+        "value": 67093440,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a724",
+        "value": 67258080,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a728",
+        "value": 67415680,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a72c",
+        "value": 67523504,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a730",
+        "value": 67624720,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a734",
+        "value": 67688608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a738",
+        "value": 67745328,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a73c",
+        "value": 67801728,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a740",
+        "value": 67866544,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a744",
+        "value": 68051392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a748",
+        "value": 68135328,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a74c",
+        "value": 68256928,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a750",
+        "value": 68430320,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a754",
+        "value": 68573232,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a758",
+        "value": 68690000,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a75c",
+        "value": 68818400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a760",
+        "value": 68896752,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a764",
+        "value": 69075040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a768",
+        "value": 69281568,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a76c",
+        "value": 69391616,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a770",
+        "value": 69551136,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a774",
+        "value": 69740048,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a778",
+        "value": 69895312,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a77c",
+        "value": 70102400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a780",
+        "value": 70289952,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a784",
+        "value": 70462944,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a788",
+        "value": 70669024,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a78c",
+        "value": 70807344,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a790",
+        "value": 70969632,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a794",
+        "value": 71109168,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a798",
+        "value": 71317968,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a79c",
+        "value": 71509520,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7a0",
+        "value": 71666608,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7a4",
+        "value": 71805840,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7a8",
+        "value": 71933040,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7ac",
+        "value": 72084400,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7b0",
+        "value": 72283312,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7b4",
+        "value": 72443104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7b8",
+        "value": 72602048,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7bc",
+        "value": 72810528,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7c0",
+        "value": 73035072,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7c4",
+        "value": 73213760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7c8",
+        "value": 73386592,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7cc",
+        "value": 73585264,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7d0",
+        "value": 73765552,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7d4",
+        "value": 73927360,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7d8",
+        "value": 74036320,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7dc",
+        "value": 74229856,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7e0",
+        "value": 74459568,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7e4",
+        "value": 74612304,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7e8",
+        "value": 74814688,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7ec",
+        "value": 74928640,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7f0",
+        "value": 75094064,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7f4",
+        "value": 75253936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7f8",
+        "value": 75391680,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a7fc",
+        "value": 75600000,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a800",
+        "value": 75729328,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a804",
+        "value": 75841216,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a808",
+        "value": 75993760,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a80c",
+        "value": 76173936,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a810",
+        "value": 76261392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a814",
+        "value": 76320208,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a818",
+        "value": 76458896,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a81c",
+        "value": 76718800,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a820",
+        "value": 76958192,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a824",
+        "value": 77139888,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a828",
+        "value": 77331920,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a82c",
+        "value": 77581776,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a830",
+        "value": 77835472,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a834",
+        "value": 78033104,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a838",
+        "value": 78258272,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a83c",
+        "value": 78499392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a840",
+        "value": 78637776,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a844",
+        "value": 78773072,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a848",
+        "value": 78944448,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a84c",
+        "value": 79102720,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a850",
+        "value": 79288912,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a854",
+        "value": 79407392,
+        "kind": "archive-offset"
+      },
+      {
+        "offset": "0x38a858",
+        "value": 79488704,
+        "kind": "archive-offset"
+      }
+    ],
+    "banner": {
+      "base_decoded_size": 1049072,
+      "decoded_size": 1181216,
+      "added_bytes": 132144,
+      "tim2_record": 1,
+      "tim2_offset": 287856,
+      "picture": 5,
+      "palette_bank": 5,
+      "original_5_images_byte_identical": true,
+      "original_5_palette_banks_byte_identical": true,
+      "other_records_byte_identical": true,
+      "wrapper_end_updates": [
+        {
+          "offset": "0x18",
+          "old": 948544,
+          "new": 1080688
+        },
+        {
+          "offset": "0x20",
+          "old": 982400,
+          "new": 1114544
+        },
+        {
+          "offset": "0x28",
+          "old": 1049024,
+          "new": 1181168
+        }
+      ]
+    },
+    "iso_status": "No ISO written. Caller must synchronize ISO/UDF directory metadata and native VMAP.DAT file catalog for relocated members."
+  },
+  "subtitles": [
+    {
+      "effect": 273,
+      "chunk": 274,
+      "source": 1533152,
+      "new": 1664272,
+      "packed": 266687,
+      "original_primitives": 35869,
+      "new_primitives": 35869,
+      "caption_count": 4,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 2,
+        "palette_bank": 0,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          256
+        ],
+        "native_vram_end_block": 15328,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 2,
+        "group": 0,
+        "palette_byte": 0
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 27,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 255,
+      "chunk": 256,
+      "source": 1115648,
+      "new": 1182256,
+      "packed": 274430,
+      "original_primitives": 15573,
+      "new_primitives": 15573,
+      "caption_count": 1,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 4,
+        "palette_bank": 4,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 15320,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 4,
+        "group": 0,
+        "palette_byte": 4
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 27,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 256,
+      "chunk": 257,
+      "source": 2164704,
+      "new": 2295824,
+      "packed": 763335,
+      "original_primitives": 55785,
+      "new_primitives": 55785,
+      "caption_count": 8,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 1,
+        "picture": 2,
+        "palette_bank": 7,
+        "bits_per_pixel": 4,
+        "atlas_size": [
+          512,
+          512
+        ],
+        "native_vram_end_block": 15844,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 2,
+        "group": 1,
+        "palette_byte": 56
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 29,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 257,
+      "chunk": 258,
+      "source": 2334592,
+      "new": 2401200,
+      "packed": 429499,
+      "original_primitives": 63206,
+      "new_primitives": 63206,
+      "caption_count": 2,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 2,
+        "palette_bank": 5,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 15580,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 2,
+        "group": 0,
+        "palette_byte": 5
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 29,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 258,
+      "chunk": 259,
+      "source": 2160480,
+      "new": 2291600,
+      "packed": 427617,
+      "original_primitives": 55801,
+      "new_primitives": 55801,
+      "caption_count": 6,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 2,
+        "palette_bank": 6,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          256
+        ],
+        "native_vram_end_block": 15844,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 2,
+        "group": 0,
+        "palette_byte": 6
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 29,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 259,
+      "chunk": 260,
+      "source": 1614080,
+      "new": 1679664,
+      "packed": 457262,
+      "original_primitives": 33178,
+      "new_primitives": 33178,
+      "caption_count": 3,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 2,
+        "palette_bank": 1,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 15588,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 2,
+        "group": 0,
+        "palette_byte": 1
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 27,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 264,
+      "chunk": 265,
+      "source": 2101488,
+      "new": 2134304,
+      "packed": 605924,
+      "original_primitives": 57899,
+      "new_primitives": 57899,
+      "caption_count": 2,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 1,
+        "picture": 1,
+        "palette_bank": 4,
+        "bits_per_pixel": 4,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 14948,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 1,
+        "group": 1,
+        "palette_byte": 32
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 29,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 265,
+      "chunk": 266,
+      "source": 1584384,
+      "new": 1617200,
+      "packed": 436841,
+      "original_primitives": 47627,
+      "new_primitives": 47627,
+      "caption_count": 3,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 1,
+        "picture": 1,
+        "palette_bank": 8,
+        "bits_per_pixel": 4,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 13924,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 1,
+        "group": 1,
+        "palette_byte": 64
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 27,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 266,
+      "chunk": 267,
+      "source": 2251008,
+      "new": 2316592,
+      "packed": 593648,
+      "original_primitives": 59455,
+      "new_primitives": 59455,
+      "caption_count": 3,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 2,
+        "palette_bank": 3,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 15584,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 2,
+        "group": 0,
+        "palette_byte": 3
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 29,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 267,
+      "chunk": 268,
+      "source": 892784,
+      "new": 958368,
+      "packed": 232177,
+      "original_primitives": 22621,
+      "new_primitives": 22621,
+      "caption_count": 1,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 1,
+        "palette_bank": 3,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 13788,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 1,
+        "group": 0,
+        "palette_byte": 3
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 25,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 269,
+      "chunk": 270,
+      "source": 504096,
+      "new": 569680,
+      "packed": 230019,
+      "original_primitives": 7868,
+      "new_primitives": 7868,
+      "caption_count": 2,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 2,
+        "palette_bank": 4,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 13656,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 2,
+        "group": 0,
+        "palette_byte": 4
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 23,
+        "header_unknown_1": 0
+      }
+    },
+    {
+      "effect": 282,
+      "chunk": 283,
+      "source": 992352,
+      "new": 1058960,
+      "packed": 301295,
+      "original_primitives": 13445,
+      "new_primitives": 13445,
+      "caption_count": 2,
+      "voice_and_model_records_byte_identical": true,
+      "original_animation_byte_identical": true,
+      "texture": {
+        "texture_group": 0,
+        "picture": 2,
+        "palette_bank": 6,
+        "bits_per_pixel": 8,
+        "atlas_size": [
+          512,
+          128
+        ],
+        "native_vram_end_block": 15072,
+        "original_used_images_and_clut_bytes_preserved": true,
+        "all_original_picture_pixels_byte_identical": true,
+        "picture_allocation": "append only; all declared quad references treated as live",
+        "swizzle_roundtrip": true
+      },
+      "runtime_draw": {
+        "row_height": 40,
+        "picture": 2,
+        "group": 0,
+        "palette_byte": 6
+      },
+      "style": "white face, black outline and shadow; transparent outside glyphs",
+      "font_point_size": 26,
+      "screen_rect": [
+        64,
+        388,
+        576,
+        428
+      ],
+      "position": "screen bottom center",
+      "compression": {
+        "strategy": "rust-fit",
+        "flags": 25,
+        "header_unknown_1": 0
+      }
+    }
+  ],
+  "veff": {
+    "source_bytes": 38053520,
+    "bytes": 38156800,
+    "sha256": "306e1a78bba8bd7cf448a5b2b8923045eba8deb1eb6fc67980ce90dca7627ca9",
+    "edited_chunks": [
+      256,
+      257,
+      258,
+      259,
+      260,
+      265,
+      266,
+      267,
+      268,
+      270,
+      274,
+      283
+    ],
+    "unrelated_encoded_chunks_preserved": true
+  },
+  "udf": {
+    "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/iso/sp-event-gallery-mazinger-v5-review.iso",
+    "partition_start": 274,
+    "previous_partition_length": 1851181,
+    "partition_length": 1910861,
+    "partition_extended": true,
+    "image_blocks": 1911136,
+    "anchors_written": [
+      1910879,
+      1911135
+    ],
+    "files": [
+      {
+        "path": "SLPS_259.20",
+        "fe_lba": 304,
+        "ad_offset": 308,
+        "previous_lba": 455,
+        "previous_size": 3982200,
+        "new_lba": 1851456,
+        "new_size": 4050944
+      },
+      {
+        "path": "AID_DATA/AIDDATA.BIN",
+        "fe_lba": 317,
+        "ad_offset": 308,
+        "previous_lba": 1231124,
+        "previous_size": 79447152,
+        "new_lba": 1853434,
+        "new_size": 79488704
+      },
+      {
+        "path": "EFF/VEFF2DX.BIN",
+        "fe_lba": 318,
+        "ad_offset": 308,
+        "previous_lba": 1269917,
+        "previous_size": 38053520,
+        "new_lba": 1892247,
+        "new_size": 38156800
+      }
+    ],
+    "metadata_blocks_written": [
+      34,
+      50,
+      64,
+      304,
+      317,
+      318,
+      1910879,
+      1911135
+    ],
+    "unchanged_members_preserved": 62
+  },
+  "vmap": {
+    "records_checked": 62,
+    "edits": [
+      {
+        "path": "AID_DATA/AIDDATA.BIN",
+        "record_offset": 576,
+        "old_lba": 1231124,
+        "old_sectors": 38793,
+        "new_lba": 1853434,
+        "new_sectors": 38813
+      },
+      {
+        "path": "EFF/VEFF2DX.BIN",
+        "record_offset": 624,
+        "old_lba": 1269917,
+        "old_sectors": 18581,
+        "new_lba": 1892247,
+        "new_sectors": 18632
+      }
+    ],
+    "not_catalogued": [
+      "SLPS_259.20"
+    ]
+  },
+  "runtime_acceptance": "Separate cold-start emulator evidence required"
+}
