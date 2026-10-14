@@ -55,29 +55,34 @@
     "world_steps_per_frame": 1
   },
   "component_modes": {
-    "frame": "rebuilt",
-    "image-labels": "rebuilt",
+    "frame": "reused",
+    "image-labels": "reused",
     "srvc": "rebuilt",
-    "stage": "rebuilt",
-    "system": "rebuilt"
+    "stage": "reused",
+    "system": "reused"
   },
   "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
   "edition_id": "sp",
-  "input_digest": "98470fac07a0a1240021f05b8d57b116e4f355d9b0d6cdae13de8f7e3793cd91",
+  "event_gallery": {
+    "caption_count": 37,
+    "elf_sha256": "98b5a00b2463c5f9560b8bc8cd897bd65974152f0959cbb9c664bd8a4712e83c",
+    "scene_count": 12
+  },
+  "input_digest": "3e3badaceaf1422e3391bb74fe87bdb699b4d2755519110345026babd655f89f",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "20414b4f10e5c46e1622e548447633ebcb3848998a544ef5ac03c022224996ba",
-    "size": 3791781888
+    "sha256": "9fedfabc1c1ff9445370ffcbcbbfa4defdf36f6693e9d5d2b6a25b7fab6d3ba6",
+    "size": 3914047488
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/a91be9c09ee430684f5eb25acfcaa99722ad247f7ad7cf006b3d6d9c1282742e/project/build/iso/special-disc/sp-current.json",
-    "sha256": "9078076da4aab7c95697f1c2454ba96ea83a320f13ac413a1f8edbebd593fade"
+    "path": "build/editions/zh-release-sp/b8410b163de7e8599c3a2f7f040f61f9ff35a2a58e8a0b877a6bac3a9cefdd3c/project/build/iso/special-disc/sp-current.json",
+    "sha256": "cf0be00d7f8d6db3ba93bd1f8c5d852508e5c213d0f4f4f5d6f46922b6a9d1fc"
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "19c3746c244218259b24a1b79cd7c9b6a0d661bf",
+  "source_head": "2cd2ab182bc1fde9ed21b90143136118c2d12e29",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-sp/a91be9c09ee430684f5eb25acfcaa99722ad247f7ad7cf006b3d6d9c1282742e/project"
+  "workspace": "build/editions/zh-release-sp/b8410b163de7e8599c3a2f7f040f61f9ff35a2a58e8a0b877a6bac3a9cefdd3c/project"
 }
