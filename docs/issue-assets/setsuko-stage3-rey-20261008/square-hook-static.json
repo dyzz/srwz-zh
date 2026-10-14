@@ -1,0 +1,248 @@
+[
+  {
+    "label": "v042-best",
+    "elf_sha256": "43cb14baa0002b04d383c434b1eb5b9c77e73335bdf348327102ff3ed8ce020a",
+    "expected_enabled": false,
+    "result": "matches current hook contract",
+    "proof": {
+      "policy": "square_skips_battle_animation_via_native_tail",
+      "enabled": false,
+      "configuration_matches_before": true,
+      "edition": "best",
+      "member": "SLPS_732.70",
+      "cave_virtual_address": "0x3F6000",
+      "cave_file_offset": "0x2F7A80",
+      "cave_size": 2048,
+      "cave_preimage_all_zero": true,
+      "hook_size": 1728,
+      "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+      "state_marker": "0x4E540005",
+      "world_steps_per_frame": 1,
+      "native_resource_waits_preserved": true,
+      "native_result_processing_preserved": true,
+      "site_count": 3,
+      "patches": [
+        {
+          "id": "battle_step_world_call",
+          "surface": "battle step world call",
+          "kind": "jal",
+          "virtual_address": "0x2E41C4",
+          "file_offset": "0x1E5C44",
+          "original_instruction_hex": "a0210c0c",
+          "replacement_instruction_hex": "00d80f0c",
+          "state_before": "pristine"
+        },
+        {
+          "id": "queue_append_prologue_0",
+          "surface": "queue append prologue 0",
+          "kind": "j",
+          "virtual_address": "0x2EC2E0",
+          "file_offset": "0x1EDD60",
+          "original_instruction_hex": "20038290",
+          "replacement_instruction_hex": "40d90f08",
+          "state_before": "pristine"
+        },
+        {
+          "id": "queue_append_prologue_1",
+          "surface": "queue append prologue 1",
+          "kind": "nop",
+          "virtual_address": "0x2EC2E4",
+          "file_offset": "0x1EDD64",
+          "original_instruction_hex": "c0100200",
+          "replacement_instruction_hex": "00000000",
+          "state_before": "pristine"
+        }
+      ],
+      "already_applied": false,
+      "changed_byte_count": 0,
+      "executable_size_preserved": true,
+      "all_replacements_exact": true
+    },
+    "range_hashes": [
+      {
+        "start": "0x2f7a80",
+        "end": "0x2f8280",
+        "sha256": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad"
+      },
+      {
+        "start": "0x1e5c44",
+        "end": "0x1e5c48",
+        "sha256": "369b27d61aea9c53da1f1793186dd54141f6531655d7f9dc219e4bf76f367685"
+      },
+      {
+        "start": "0x1edd60",
+        "end": "0x1edd64",
+        "sha256": "f81d8b332fb879cb3fca8be8401f26e8fa54112210a702ce72847b3aef9497f0"
+      },
+      {
+        "start": "0x1edd64",
+        "end": "0x1edd68",
+        "sha256": "aeb805c8730ed4d54c7d44d13ab8606ef340e2ae7061ad03ef65144c34b4eb15"
+      }
+    ]
+  },
+  {
+    "label": "v042-best-skip",
+    "elf_sha256": "edbc5790461ebe2f96e52d944fe5fe81fab765021dd616138330a04a7520929e",
+    "expected_enabled": true,
+    "result": "matches current hook contract",
+    "proof": {
+      "policy": "square_skips_battle_animation_via_native_tail",
+      "enabled": true,
+      "configuration_matches_before": true,
+      "edition": "best",
+      "member": "SLPS_732.70",
+      "cave_virtual_address": "0x3F6000",
+      "cave_file_offset": "0x2F7A80",
+      "cave_size": 2048,
+      "cave_preimage_all_zero": false,
+      "hook_size": 1728,
+      "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+      "state_marker": "0x4E540005",
+      "world_steps_per_frame": 1,
+      "native_resource_waits_preserved": true,
+      "native_result_processing_preserved": true,
+      "site_count": 3,
+      "patches": [
+        {
+          "id": "battle_step_world_call",
+          "surface": "battle step world call",
+          "kind": "jal",
+          "virtual_address": "0x2E41C4",
+          "file_offset": "0x1E5C44",
+          "original_instruction_hex": "a0210c0c",
+          "replacement_instruction_hex": "00d80f0c",
+          "state_before": "applied"
+        },
+        {
+          "id": "queue_append_prologue_0",
+          "surface": "queue append prologue 0",
+          "kind": "j",
+          "virtual_address": "0x2EC2E0",
+          "file_offset": "0x1EDD60",
+          "original_instruction_hex": "20038290",
+          "replacement_instruction_hex": "40d90f08",
+          "state_before": "applied"
+        },
+        {
+          "id": "queue_append_prologue_1",
+          "surface": "queue append prologue 1",
+          "kind": "nop",
+          "virtual_address": "0x2EC2E4",
+          "file_offset": "0x1EDD64",
+          "original_instruction_hex": "c0100200",
+          "replacement_instruction_hex": "00000000",
+          "state_before": "applied"
+        }
+      ],
+      "already_applied": true,
+      "changed_byte_count": 0,
+      "executable_size_preserved": true,
+      "all_replacements_exact": true
+    },
+    "range_hashes": [
+      {
+        "start": "0x2f7a80",
+        "end": "0x2f8280",
+        "sha256": "e851a405be89726112620063308be84710bd96ec7110a2dc475ac07a9ba53b6d"
+      },
+      {
+        "start": "0x1e5c44",
+        "end": "0x1e5c48",
+        "sha256": "ad6ce725f8333c648b4aaa919edf2cb8be13957b6bc06b2b4d2b8ab2ad17c33c"
+      },
+      {
+        "start": "0x1edd60",
+        "end": "0x1edd64",
+        "sha256": "733ab00fb9a37c4ee0c41ec80834757f66e963859dbaf773a182ca0b5382f090"
+      },
+      {
+        "start": "0x1edd64",
+        "end": "0x1edd68",
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+      }
+    ]
+  },
+  {
+    "label": "current-best",
+    "elf_sha256": "67eae00dfffd2ebb82f0dcd1084d6ed19c138f7feb74b3d309bac8d134ac32c4",
+    "expected_enabled": true,
+    "result": "matches current hook contract",
+    "proof": {
+      "policy": "square_skips_battle_animation_via_native_tail",
+      "enabled": true,
+      "configuration_matches_before": true,
+      "edition": "best",
+      "member": "SLPS_732.70",
+      "cave_virtual_address": "0x3F6000",
+      "cave_file_offset": "0x2F7A80",
+      "cave_size": 2048,
+      "cave_preimage_all_zero": false,
+      "hook_size": 1728,
+      "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+      "state_marker": "0x4E540005",
+      "world_steps_per_frame": 1,
+      "native_resource_waits_preserved": true,
+      "native_result_processing_preserved": true,
+      "site_count": 3,
+      "patches": [
+        {
+          "id": "battle_step_world_call",
+          "surface": "battle step world call",
+          "kind": "jal",
+          "virtual_address": "0x2E41C4",
+          "file_offset": "0x1E5C44",
+          "original_instruction_hex": "a0210c0c",
+          "replacement_instruction_hex": "00d80f0c",
+          "state_before": "applied"
+        },
+        {
+          "id": "queue_append_prologue_0",
+          "surface": "queue append prologue 0",
+          "kind": "j",
+          "virtual_address": "0x2EC2E0",
+          "file_offset": "0x1EDD60",
+          "original_instruction_hex": "20038290",
+          "replacement_instruction_hex": "40d90f08",
+          "state_before": "applied"
+        },
+        {
+          "id": "queue_append_prologue_1",
+          "surface": "queue append prologue 1",
+          "kind": "nop",
+          "virtual_address": "0x2EC2E4",
+          "file_offset": "0x1EDD64",
+          "original_instruction_hex": "c0100200",
+          "replacement_instruction_hex": "00000000",
+          "state_before": "applied"
+        }
+      ],
+      "already_applied": true,
+      "changed_byte_count": 0,
+      "executable_size_preserved": true,
+      "all_replacements_exact": true
+    },
+    "range_hashes": [
+      {
+        "start": "0x2f7a80",
+        "end": "0x2f8280",
+        "sha256": "e851a405be89726112620063308be84710bd96ec7110a2dc475ac07a9ba53b6d"
+      },
+      {
+        "start": "0x1e5c44",
+        "end": "0x1e5c48",
+        "sha256": "ad6ce725f8333c648b4aaa919edf2cb8be13957b6bc06b2b4d2b8ab2ad17c33c"
+      },
+      {
+        "start": "0x1edd60",
+        "end": "0x1edd64",
+        "sha256": "733ab00fb9a37c4ee0c41ec80834757f66e963859dbaf773a182ca0b5382f090"
+      },
+      {
+        "start": "0x1edd64",
+        "end": "0x1edd68",
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+      }
+    ]
+  }
+]

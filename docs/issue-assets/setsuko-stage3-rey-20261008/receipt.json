@@ -1,0 +1,825 @@
+{
+  "issue": "V042-010",
+  "date": "2026-10-08",
+  "reporter": "埃尔03",
+  "status": "pending_reproduction",
+  "reported_symptom": {
+    "reporter": "埃尔03",
+    "reported_route": "女主线第三关",
+    "reported_actor": "雷",
+    "reported_symptom": "雷进行任意战斗，结束后黑屏；只在 Best，另一个版本不会",
+    "reported_patch_version": "0.4.2 (user tentative)",
+    "emulator": "unknown"
+  },
+  "player_iso_identity_confirmed": false,
+  "player_emulator_confirmed": false,
+  "card": {
+    "source_path": "/Users/nate/Downloads/Mcd001.ps2",
+    "size": 69206016,
+    "source_sha256_before": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799",
+    "source_sha256_after": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799",
+    "source_unchanged": true,
+    "files": [
+      {
+        "path": "/BISLPS-25887Q/BISLPS-25887Q",
+        "size": 142800,
+        "sha256": "f153cef108bdcb0aaf7b4f53d3929249238d527d4e5d58025179ccdc4124a99d",
+        "head_hex": "ffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffffffffffffffff01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fffffffffffdfffffffffbfffffffffffffffffeffffffffffffffffffffffff"
+      },
+      {
+        "path": "/BISLPS-25887Q/a20.ico",
+        "size": 11664,
+        "sha256": "d9f7ece8de5debb47869f433e634ef6553de510dd37e1834320812f582021713"
+      },
+      {
+        "path": "/BISLPS-25887Q/icon.sys",
+        "size": 964,
+        "sha256": "f2a6d127e5fed996ee70ede3236cfa773369d02deaf107357f1eef54ed6ac724"
+      },
+      {
+        "path": "/BISLPS-25887Q/F.BIN",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/BISLPS-25887Q/Z.BIN",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/BISLPS-25887S0/BISLPS-25887S0",
+        "size": 62880,
+        "sha256": "1a3a979c4611c2f94a72689d910c91646c580ead3be6c6229adf3900e2f591f8",
+        "head_hex": "ffe0f5050300020002000600be02010208040094cd8e71000000000000008fac8cb40000000000000000000000000094cd8e71000000000000000000000000000200001f00000000a929000000000000000000000309827982648274827382670000000000000000d8d0f600a929000001000100c6c295c16153000e050501010000000000000000000000000000000000000000000000000000000000000000",
+        "checksum": {
+          "calculated": 20299,
+          "stored": 20299
+        }
+      },
+      {
+        "path": "/BISLPS-25887S0/a20.ico",
+        "size": 11664,
+        "sha256": "92ff39f9584bf89319c37ee8bcf71430e00a26554732a2e3242d6856d6c83c8e"
+      },
+      {
+        "path": "/BISLPS-25887S0/icon.sys",
+        "size": 964,
+        "sha256": "2e1ff7ab81fc5b064b896451d737714a67fc7c657349fa3ccc3e19b77128dc77"
+      },
+      {
+        "path": "/BISLPS-25887S0/F.BIN",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/BISLPS-25887S1/BISLPS-25887S1",
+        "size": 62880,
+        "sha256": "9c8b849bde70b509d1a67542fdea7525a29fc5925ba42e72137e42f0b4e0e1f1",
+        "head_hex": "ffe0f505ffffcc0099002a01c902003b08410083898393836800000000008367838983728358000000000000000000838983938368000000000000000000000002000010000000009e070000010304020000060009288279826482748273826700000000000000000868f600a929000001000100c6c295c16554000e172200000000000000000000010100000019000000000103000400000000030007030300",
+        "checksum": {
+          "calculated": 37430,
+          "stored": 37430
+        }
+      },
+      {
+        "path": "/BISLPS-25887S1/a20.ico",
+        "size": 11664,
+        "sha256": "92ff39f9584bf89319c37ee8bcf71430e00a26554732a2e3242d6856d6c83c8e"
+      },
+      {
+        "path": "/BISLPS-25887S1/icon.sys",
+        "size": 964,
+        "sha256": "fde490b0c5354604ad90b8228e8bae5b946a59ed396f22d3b388769a9ee3359d"
+      },
+      {
+        "path": "/BISLPS-25887S1/F.BIN",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "observed_source_head": "b8c3e69a125defe466e2cd6bab33b8c158b760f2",
+  "backend": {
+    "name": "LRPS2",
+    "version": "v2.0.0-16e520b",
+    "core": {
+      "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+      "size": 11447720,
+      "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    },
+    "python": "3.12.14",
+    "machine": "x86_64",
+    "libretro_py": "0.8.3",
+    "renderer": "Software (SW)",
+    "cheats": "disabled",
+    "shared_memory_cards": "disabled",
+    "driver": {
+      "path": "work/runtime/lrps2/name-width-20260928/drive.py",
+      "size": 8133,
+      "sha256": "1f81fd044dea1524f968b6bfef029bf47628e0d52b1e4af58507a584a2401b83"
+    }
+  },
+  "tested_route": "Continue suspend save, STAGE4 turn2, select Rey, move up four tiles, Beam Assault Rifle vs Sting/Chaos Gundam, animation ON",
+  "valid_runs": [
+    {
+      "run": "v042-best-run1",
+      "iso": {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/v042-best.iso",
+        "size": 3755081728,
+        "sha256": "081b4ce998b9c71ba17f84f5e410e6bfa0b99b9d4582711f2d72d60defa6cc1a"
+      },
+      "cold_boot": true,
+      "memory_card_boot_route": "title Continue, native suspend save",
+      "square_during_animation": false,
+      "ram_pokes": 0,
+      "savestate_restores": 0,
+      "isolated_card": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/save/v042-best.ps2",
+        "size": 69206016,
+        "sha256": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799"
+      },
+      "isolated_card_unchanged": true,
+      "commands": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/commands.jsonl",
+        "size": 12954,
+        "sha256": "73af461ede303a36abdfbf3803eb1390ec9c7639e422ebd2de6e6410f011a5e4"
+      },
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/ability.png",
+          "size": 157408,
+          "sha256": "edecb6f9a8d6933e55390b970c84bd7760ca4d1c7368e6213a0ba1dcbab62e28"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/after-exp.png",
+          "size": 324934,
+          "sha256": "a5b45723030e5d56646751ea3c11b80b78011911b14b22cc10267c04f7d24eaa"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/after-levelup.png",
+          "size": 349253,
+          "sha256": "d41824855176d7f495853d2de6b0c6a85955bcd7ab13245da802b8715c53ab01"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/after-move.png",
+          "size": 385573,
+          "sha256": "73baed55a9ea2eb34f6f09999720d499f4ab353db3e08d66e4795367b9dbd569"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/after-result.png",
+          "size": 313015,
+          "sha256": "3b320732527f53c2bdef8bc513d3457f6705cd0bdb7e5f5148d4dda3758f53c8"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/battle-2400.png",
+          "size": 396031,
+          "sha256": "8b586090284033053f9ddbdebfcd478a4bcd141f900d8478c393e48d8c1801aa"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/battle-600.png",
+          "size": 312634,
+          "sha256": "4d8b580fd1819bfe5011277f2247927ea77974964b784d0160f6e1d5742a78e4"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/battle-confirm.png",
+          "size": 117142,
+          "sha256": "72e4af8b7bb4f062f15819cfbb5188b47d92878f5c7afa6f92b586cc159fa634"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/continue-result.png",
+          "size": 385367,
+          "sha256": "c896e10cdc6e9c8fce94bb7dd486a5a61765ce859ae121ed42ddb421bebaa994"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/event-after-skip.png",
+          "size": 423812,
+          "sha256": "97a529eaa7aca702fd3f5069c6962d61a969a8e0adb93d8889efba7b0416acfe"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/map-menu.png",
+          "size": 392041,
+          "sha256": "eb2535b8538227677170dbe0ec9c1f8a23aaa974934dead31290533f49bacfc3"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/move-target.png",
+          "size": 385651,
+          "sha256": "9546b39d179cbdaa62ee077cdb89c10ea89264557125f9d31f848d5b43705a32"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/movement-range.png",
+          "size": 368915,
+          "sha256": "153f029272767437f090378362630f1f26be49c4a74ca335d0e9fe84a0403601"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/post-battle-map.png",
+          "size": 349253,
+          "sha256": "d41824855176d7f495853d2de6b0c6a85955bcd7ab13245da802b8715c53ab01"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/responsive-menu.png",
+          "size": 200618,
+          "sha256": "a1df24e375964ac82468a55d1b68026be8787eb5e9314d44aad499ecbb66f925"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/selected-unit.png",
+          "size": 376804,
+          "sha256": "6eff98bcbed6a584e2a89586850e2c42ce7d7dfecfaed5ccfbae66f87e1ceac7"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/settled.png",
+          "size": 323081,
+          "sha256": "a5ad89c4692503c9f1878ec4251a245bf15f11b3d072556d9fb2bc8c336c87bd"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/target2.png",
+          "size": 366447,
+          "sha256": "eacac9359b1d8d225165a26b79398474fdd6d9eefd2b210427d83ab2c77bcb14"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/targets.png",
+          "size": 386849,
+          "sha256": "8318999d96aa74e51f72dbe3838bed8bbdfa7e831a0e3b921449ff1b71dce583"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/unit-menu.png",
+          "size": 372549,
+          "sha256": "352e1a9d8dc09fcf931980041abf3681d5a409ad9f9725642c6312226839e35b"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/weapon2.png",
+          "size": 184576,
+          "sha256": "fb12174f1b2f80b01e9e22220136c85e973a77d87e98d883473286689fbf467a"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-run1/weapons.png",
+          "size": 180162,
+          "sha256": "b742ee39e28bf216c92a4725d50532752fdfa35b78c0dd51c28c14f381c3d0ef"
+        }
+      ],
+      "selected_final_capture": {
+        "path": "docs/issue-assets/setsuko-stage3-rey-20261008/v042-best-run1-map-menu.png",
+        "size": 392041,
+        "sha256": "eb2535b8538227677170dbe0ec9c1f8a23aaa974934dead31290533f49bacfc3"
+      },
+      "visual_review": "funds 6000; Rey Lv7 to Lv8; Sting post-battle dialogue; returned map with command menu",
+      "blackscreen_reproduced": false
+    },
+    {
+      "run": "v042-original-run1",
+      "iso": {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/v042-original.iso",
+        "size": 3758358528,
+        "sha256": "6a72307c36ec6b2f7f0af9e6f31d1a88cdb092af7d1b64377341c2e4b7e0e50c"
+      },
+      "cold_boot": true,
+      "memory_card_boot_route": "title Continue, native suspend save",
+      "square_during_animation": false,
+      "ram_pokes": 0,
+      "savestate_restores": 0,
+      "isolated_card": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/save/v042-original.ps2",
+        "size": 69206016,
+        "sha256": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799"
+      },
+      "isolated_card_unchanged": true,
+      "commands": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/commands.jsonl",
+        "size": 10215,
+        "sha256": "c91a537dd3de3015e9411e754f4ee3654cf98a5df54dec7246879e06c5cdc81d"
+      },
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/after-exp.png",
+          "size": 326590,
+          "sha256": "623771e53495319ddcb9523c90ac0349bcae889dc19b3f1426307728712c293e"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/after-levelup.png",
+          "size": 348890,
+          "sha256": "589f9dc2a1f8960e226c2db5c8251f676e26be12b3cd2c941d9bc74a3ebd1c4e"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/after-move.png",
+          "size": 385590,
+          "sha256": "396dc4939ff2e91357f268b077503da9c81fca825cfbe23afb4bcfd8ffa32ffd"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/after-result.png",
+          "size": 312723,
+          "sha256": "d08fabf3277a03389d4dcbbc8a1349b5a700816e709b33dd5edadddbaecd8073"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/battle-2400.png",
+          "size": 395852,
+          "sha256": "181caa3cdecf9740b7a1c76cd74822a46ed2ca24059f5b446aea42ce1d971625"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/battle-600.png",
+          "size": 320545,
+          "sha256": "9d7701f91f8ea84a5630d777413f7e1dcee1ab91b327c97b262282091dc22bea"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/battle-confirm.png",
+          "size": 118224,
+          "sha256": "29fa2801f5dd3d6c9c88d4e9d63caf2e770c11cd5a88859c0a37495eb3b22d29"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/continue-result.png",
+          "size": 385366,
+          "sha256": "892f9c6875d57611bbed7a2f8a65d311a3373b9d09176d35b8da8bfa021ecbac"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/event-after-skip.png",
+          "size": 423991,
+          "sha256": "79840bb069ec82ebdcc9ce35f364eaa0a6553443448f44c4f6f1939cbb9ed08f"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/map-menu.png",
+          "size": 390671,
+          "sha256": "e799328400558d4cfd630ac0da293e06c2978f2cf224e358e763133ef77f6fc9"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/post-battle-map.png",
+          "size": 348890,
+          "sha256": "589f9dc2a1f8960e226c2db5c8251f676e26be12b3cd2c941d9bc74a3ebd1c4e"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/responsive-menu.png",
+          "size": 200821,
+          "sha256": "56e61a15ca9727d652a3caf8f014195d4c1b670774fe41949b0c0d5d4eec5a0c"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-original-run1/settled.png",
+          "size": 323516,
+          "sha256": "09337759baec02df1145f91f60911fe497f2c715675cc1c5419122a0bdc4b187"
+        }
+      ],
+      "selected_final_capture": {
+        "path": "docs/issue-assets/setsuko-stage3-rey-20261008/v042-original-run1-map-menu.png",
+        "size": 390671,
+        "sha256": "e799328400558d4cfd630ac0da293e06c2978f2cf224e358e763133ef77f6fc9"
+      },
+      "visual_review": "funds 6000; Rey Lv7 to Lv8; Sting post-battle dialogue; returned map with command menu",
+      "blackscreen_reproduced": false
+    },
+    {
+      "run": "v042-best-skip-run2",
+      "iso": {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/v042-best-skip.iso",
+        "size": 3755081728,
+        "sha256": "c87442d9d8f2cb8c4399292ed135e9682f45e0f0e7c6461988fbb6e3557a15cb"
+      },
+      "cold_boot": true,
+      "memory_card_boot_route": "title Continue, native suspend save",
+      "square_during_animation": true,
+      "ram_pokes": 0,
+      "savestate_restores": 0,
+      "isolated_card": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/save/v042-best-skip.ps2",
+        "size": 69206016,
+        "sha256": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799"
+      },
+      "isolated_card_unchanged": true,
+      "commands": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/commands.jsonl",
+        "size": 12091,
+        "sha256": "addf6682eca18679dcb5df6662fb59828ca2453070f4115f3bb704965d3440db"
+      },
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/ability.png",
+          "size": 157408,
+          "sha256": "edecb6f9a8d6933e55390b970c84bd7760ca4d1c7368e6213a0ba1dcbab62e28"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/after-exp2.png",
+          "size": 324455,
+          "sha256": "4d73a246886c0803ecf01fabbd010931dbac25967ac98e6f9a13414f183095bd"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/after-funds.png",
+          "size": 312629,
+          "sha256": "e744266cc8edadf1b53507162167ed165cfcae4cd27ff3fdf951726f27d5c6d5"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/after-levelup2.png",
+          "size": 349255,
+          "sha256": "bb04b9d5696df65c10cdea8a420ff7897ddc87bbab1d3d482c391fbe6944dece"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/after-move.png",
+          "size": 385573,
+          "sha256": "73baed55a9ea2eb34f6f09999720d499f4ab353db3e08d66e4795367b9dbd569"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/animation-before-square.png",
+          "size": 208652,
+          "sha256": "7f733f2fee11c5c5b0396a265cf9c2215a42ecac6a359f8add2e4520dfe60b2f"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/battle-confirm.png",
+          "size": 117142,
+          "sha256": "72e4af8b7bb4f062f15819cfbb5188b47d92878f5c7afa6f92b586cc159fa634"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/continue-result.png",
+          "size": 385367,
+          "sha256": "c896e10cdc6e9c8fce94bb7dd486a5a61765ce859ae121ed42ddb421bebaa994"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/held-square-180.png",
+          "size": 370277,
+          "sha256": "9e7dc94ca6942c3e0ba9bc4c7940b702c0a2c59259879a09ffd5086450941792"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/held-square-780.png",
+          "size": 396022,
+          "sha256": "ed0f36142a82e571b7a82b5de86ea1fca18fc377b44831121b8da9ac8efe57e8"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/move-target.png",
+          "size": 385651,
+          "sha256": "9546b39d179cbdaa62ee077cdb89c10ea89264557125f9d31f848d5b43705a32"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/movement-range.png",
+          "size": 368915,
+          "sha256": "153f029272767437f090378362630f1f26be49c4a74ca335d0e9fe84a0403601"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/returned-map-menu.png",
+          "size": 390887,
+          "sha256": "04fb2bcabd063aa9237ec19806a2a564d5f08228ab723039be02b2ce2220b892"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/returned-map.png",
+          "size": 424024,
+          "sha256": "c8335c5a986ffe3a9f2295ec9f60c33abfe19df90acd3f7c93d4546d6108df31"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/selected-unit.png",
+          "size": 376804,
+          "sha256": "6eff98bcbed6a584e2a89586850e2c42ce7d7dfecfaed5ccfbae66f87e1ceac7"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/target2.png",
+          "size": 366447,
+          "sha256": "eacac9359b1d8d225165a26b79398474fdd6d9eefd2b210427d83ab2c77bcb14"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/targets.png",
+          "size": 386849,
+          "sha256": "8318999d96aa74e51f72dbe3838bed8bbdfa7e831a0e3b921449ff1b71dce583"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/unit-menu.png",
+          "size": 372549,
+          "sha256": "352e1a9d8dc09fcf931980041abf3681d5a409ad9f9725642c6312226839e35b"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/weapon2.png",
+          "size": 184576,
+          "sha256": "fb12174f1b2f80b01e9e22220136c85e973a77d87e98d883473286689fbf467a"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/weapons.png",
+          "size": 180162,
+          "sha256": "b742ee39e28bf216c92a4725d50532752fdfa35b78c0dd51c28c14f381c3d0ef"
+        }
+      ],
+      "selected_final_capture": {
+        "path": "docs/issue-assets/setsuko-stage3-rey-20261008/v042-best-skip-run2-map-menu.png",
+        "size": 390887,
+        "sha256": "04fb2bcabd063aa9237ec19806a2a564d5f08228ab723039be02b2ce2220b892"
+      },
+      "visual_review": "funds 6000; Rey Lv7 to Lv8; Sting post-battle dialogue; returned map with command menu",
+      "blackscreen_reproduced": false,
+      "square_runtime": {
+        "ram": {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/v042-best-skip-run2/held-square-780.ram",
+          "size": 33570816,
+          "sha256": "012b59adc9a09ed2fbe6fd1703249110bea101c0f6a7d02aec63faa407919c9b"
+        },
+        "state_address": "0x3F6600",
+        "request_counter_address": "0x3F6608",
+        "request_count": 1,
+        "immutable_code_region": [
+          "0x3F6000",
+          "0x3F6600"
+        ],
+        "code_unchanged": true
+      }
+    },
+    {
+      "run": "current-best-run1",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "size": 3755081728,
+        "sha256": "3a2ddb299cd5deb985a8214dfcb15961a6fa3b6e6ff26f85e80dbcce1536ecea"
+      },
+      "cold_boot": true,
+      "memory_card_boot_route": "title Continue, native suspend save",
+      "square_during_animation": true,
+      "ram_pokes": 0,
+      "savestate_restores": 0,
+      "isolated_card": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/save/current-best.ps2",
+        "size": 69206016,
+        "sha256": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799"
+      },
+      "isolated_card_unchanged": true,
+      "commands": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/commands.jsonl",
+        "size": 12045,
+        "sha256": "5aa75be928c06734656aeec4c1c534e4cfa6ef8764687c5d96d2d16b4c2cc4f4"
+      },
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/ability.png",
+          "size": 157381,
+          "sha256": "5678cfdd8a10c55cfa2fbeeb412002bf4c341f8873157c13b05f9e9275527493"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/after-exp2.png",
+          "size": 324494,
+          "sha256": "ab8f5164bdabb52d53f70ca0a9e8188d4070f6c95a2f637210feea168bce230d"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/after-funds.png",
+          "size": 312550,
+          "sha256": "d6effbdfbd122881ad4eb64ba49eecb8c1606a0240f570e460ca60932bb046bd"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/after-levelup2.png",
+          "size": 349355,
+          "sha256": "99009e5297c6e59ee2cb9b53a525c3bcd251849151a420ba736ad562b3c45cb7"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/after-move.png",
+          "size": 385536,
+          "sha256": "25ce80945404800873b10e9da487065b0b63702ded18e987a69bff50c88cbc7f"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/animation-before-square.png",
+          "size": 208645,
+          "sha256": "5ba8c1d4648ee29c58aa988e33627cbdf9c277b3a566a8854e570260295adc4e"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/battle-confirm.png",
+          "size": 121496,
+          "sha256": "08c30f58418b3993692d9a8490f23987c9ceb3eedc0dc9a0ca2e5d6ef951bf7b"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/continue-result.png",
+          "size": 385323,
+          "sha256": "93ac3cf7594ee2dabd53c2b8a049a2dabe240fc83b730f244a79593e22cd4129"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/held-square-180.png",
+          "size": 369736,
+          "sha256": "c9e28ef407d90597f27560dfa9789261ae7db38bb258e55539c3b0d34e048c6d"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/held-square-780.png",
+          "size": 395997,
+          "sha256": "292e979ec0b19af066f3947ed4b882e7e308e56e8c9f32944864a330d885434c"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/move-target.png",
+          "size": 385485,
+          "sha256": "6793075dedc73d4e48a78f5b15f3653ae6a0a3690d5ffe3f04c3e8a553964fc7"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/movement-range.png",
+          "size": 368712,
+          "sha256": "3573f5329a26d6af5ea30f9988999d6f010f47f217b9cf8fdf6bf4091414bd3d"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/returned-map-menu.png",
+          "size": 391376,
+          "sha256": "7d3c006f33b525fca3238b87b6eca4b3fbdf69ff2a4fcee34d31986813952804"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/returned-map.png",
+          "size": 424005,
+          "sha256": "711c209554fed97f782ebc746af9f041330f87ee83840b506a2807459ddb44a8"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/selected-unit.png",
+          "size": 376830,
+          "sha256": "5bee5b7bf65111ff5031c62b9d0f45cb0bf8e7c851c8db777e3ff7237dd7cc8f"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/target2.png",
+          "size": 366463,
+          "sha256": "5ab19019db926b90aca138197663e8bc778f949c7d04d81bfab9950028856409"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/targets.png",
+          "size": 387154,
+          "sha256": "faee56bb8f69d79b52d1e80667a6b1c009857222817f9528186034367bfe7d71"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/unit-menu.png",
+          "size": 372507,
+          "sha256": "5b433bec0b52aaf4c64e6020ef9041a10281bf104ef76314e2a4b11a90bc6336"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/weapon2.png",
+          "size": 185143,
+          "sha256": "5a225f316e85ccdd424199714b8f499005fa94fb4b9fb07abb2fcb7f7d76e53a"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/weapons.png",
+          "size": 183361,
+          "sha256": "ab72a547c65f61d2c474875dd96afd81e01b3ea458f9784c704a5105fa1c4eee"
+        }
+      ],
+      "selected_final_capture": {
+        "path": "docs/issue-assets/setsuko-stage3-rey-20261008/current-best-run1-map-menu.png",
+        "size": 391376,
+        "sha256": "7d3c006f33b525fca3238b87b6eca4b3fbdf69ff2a4fcee34d31986813952804"
+      },
+      "visual_review": "funds 6000; Rey Lv7 to Lv8; Sting post-battle dialogue; returned map with command menu",
+      "blackscreen_reproduced": false,
+      "square_runtime": {
+        "ram": {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run1/held-square-780.ram",
+          "size": 33570816,
+          "sha256": "189e92f5a29b8fb87afb992b7ce0eab94f8b710d656cbff5743c07af7fb72f3b"
+        },
+        "state_address": "0x3F6600",
+        "request_counter_address": "0x3F6608",
+        "request_count": 1,
+        "immutable_code_region": [
+          "0x3F6000",
+          "0x3F6600"
+        ],
+        "code_unchanged": true
+      }
+    },
+    {
+      "run": "current-best-run2",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "size": 3755081728,
+        "sha256": "3a2ddb299cd5deb985a8214dfcb15961a6fa3b6e6ff26f85e80dbcce1536ecea"
+      },
+      "cold_boot": true,
+      "memory_card_boot_route": "title Continue, native suspend save",
+      "square_during_animation": true,
+      "ram_pokes": 0,
+      "savestate_restores": 0,
+      "isolated_card": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/save/current-best.ps2",
+        "size": 69206016,
+        "sha256": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799"
+      },
+      "isolated_card_unchanged": true,
+      "commands": {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/commands.jsonl",
+        "size": 13523,
+        "sha256": "76e1c7adf4934d78acde2cd6c6ce8b1f30faa10726fd22b702671f1be276e57c"
+      },
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/ability.png",
+          "size": 157381,
+          "sha256": "5678cfdd8a10c55cfa2fbeeb412002bf4c341f8873157c13b05f9e9275527493"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/after-exp2.png",
+          "size": 325890,
+          "sha256": "d4782b4ab7095e3800b3eeb0b4fc34cc48ac5b17548ebdc80f0264d7ffcecf28"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/after-funds.png",
+          "size": 312032,
+          "sha256": "eea42cb9af29c3e9783fd20594079f6bd641cd5850f0da4fd88f4d204e208d80"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/after-levelup2.png",
+          "size": 349320,
+          "sha256": "e7df33458455065263f3b0deb81417f5fbaa8525a0735317fdf6501782901fbb"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/after-move.png",
+          "size": 385536,
+          "sha256": "25ce80945404800873b10e9da487065b0b63702ded18e987a69bff50c88cbc7f"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/battle-confirm.png",
+          "size": 121496,
+          "sha256": "08c30f58418b3993692d9a8490f23987c9ceb3eedc0dc9a0ca2e5d6ef951bf7b"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/continue-result.png",
+          "size": 385323,
+          "sha256": "93ac3cf7594ee2dabd53c2b8a049a2dabe240fc83b730f244a79593e22cd4129"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/effect-before-square.png",
+          "size": 311733,
+          "sha256": "17f78e1132654ca6e804a247eeb15a80d807efee971986fafba0c22554cdc878"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/move-target.png",
+          "size": 385485,
+          "sha256": "6793075dedc73d4e48a78f5b15f3653ae6a0a3690d5ffe3f04c3e8a553964fc7"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/movement-range.png",
+          "size": 368712,
+          "sha256": "3573f5329a26d6af5ea30f9988999d6f010f47f217b9cf8fdf6bf4091414bd3d"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/repeated-square-350.png",
+          "size": 395954,
+          "sha256": "88fbc84adb1255fd2ebd85cb2bd64e273411ec9a1f2c700dcdaa6522421c6756"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/repeated-square-950.png",
+          "size": 395954,
+          "sha256": "88fbc84adb1255fd2ebd85cb2bd64e273411ec9a1f2c700dcdaa6522421c6756"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/returned-map-menu.png",
+          "size": 392075,
+          "sha256": "4966f9d19b0bab626b4bb6a808e0e33eb4cabc31f3e519a4f5d9b21cc212a0ac"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/returned-map.png",
+          "size": 423973,
+          "sha256": "d40f62d82c1be394acc15678cb6b3422174af27ec6ceca7ea3bcfa83db394893"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/selected-unit.png",
+          "size": 376830,
+          "sha256": "5bee5b7bf65111ff5031c62b9d0f45cb0bf8e7c851c8db777e3ff7237dd7cc8f"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/target2.png",
+          "size": 366463,
+          "sha256": "5ab19019db926b90aca138197663e8bc778f949c7d04d81bfab9950028856409"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/targets.png",
+          "size": 387154,
+          "sha256": "faee56bb8f69d79b52d1e80667a6b1c009857222817f9528186034367bfe7d71"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/unit-menu.png",
+          "size": 372507,
+          "sha256": "5b433bec0b52aaf4c64e6020ef9041a10281bf104ef76314e2a4b11a90bc6336"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/weapon2.png",
+          "size": 185143,
+          "sha256": "5a225f316e85ccdd424199714b8f499005fa94fb4b9fb07abb2fcb7f7d76e53a"
+        },
+        {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/weapons.png",
+          "size": 183361,
+          "sha256": "ab72a547c65f61d2c474875dd96afd81e01b3ea458f9784c704a5105fa1c4eee"
+        }
+      ],
+      "selected_final_capture": {
+        "path": "docs/issue-assets/setsuko-stage3-rey-20261008/current-best-run2-map-menu.png",
+        "size": 392075,
+        "sha256": "4966f9d19b0bab626b4bb6a808e0e33eb4cabc31f3e519a4f5d9b21cc212a0ac"
+      },
+      "visual_review": "funds 6000; Rey Lv7 to Lv8; Sting post-battle dialogue; returned map with command menu",
+      "blackscreen_reproduced": false,
+      "square_runtime": {
+        "ram": {
+          "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/current-best-run2/repeated-square-950.ram",
+          "size": 33570816,
+          "sha256": "5d86512f39fc54824dd9f178bdfe90e1a2124d6d8d94bf8e08238b9dda50c6de"
+        },
+        "state_address": "0x3F6600",
+        "request_counter_address": "0x3F6608",
+        "request_count": 1,
+        "immutable_code_region": [
+          "0x3F6000",
+          "0x3F6600"
+        ],
+        "code_unchanged": true
+      }
+    }
+  ],
+  "invalid_exploration": [
+    {
+      "run": "v042-best-skip-run1",
+      "reason": "square held at prebattle confirmation opens spirit menu; later capture names do not match intended route; excluded from outcomes"
+    }
+  ],
+  "limitations": [
+    "player ISO and emulator unknown",
+    "one weapon and target after movement",
+    "not standing attack or Hit and Away",
+    "no enemy-turn counterattack or animation OFF coverage",
+    "square at 300 frames held, or 600 frames repeated; not all timings",
+    "no independent PCSX2 or ARMSX2 manual evidence",
+    "no gameplay repair or full chapter playthrough"
+  ]
+}

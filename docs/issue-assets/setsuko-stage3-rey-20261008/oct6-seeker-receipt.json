@@ -1,0 +1,500 @@
+{
+  "issue": "V042-010",
+  "date": "2026-10-08",
+  "status": "pending_reproduction",
+  "supersedes_initial_receipt_fields": [
+    "player_emulator_confirmed",
+    "limitations: player ISO and emulator unknown"
+  ],
+  "player_reported_environment": {
+    "emulator": "Android 蓝以太 3668",
+    "image_batch": "CHD test folder sent Oct 6",
+    "actual_player_file_sha256_confirmed": false,
+    "player_device_and_settings_confirmed": false
+  },
+  "batch": {
+    "manifest": {
+      "path": "build/chd/test-20261006/manifest.json",
+      "size": 11324,
+      "sha256": "21642734b68879523f5ebb176cc26fa131199c9d0a94576fb5f8c500666dbab8"
+    },
+    "version": "v0.4.2+20261006",
+    "source_head": "51569b200d9abf5b92c7c754015852bdf8daa1b6",
+    "input_digest": "5edeb3996105fe7759041fabf949ec6839143ccbcc96538118bbdbfbe2e97d2f",
+    "retained_manifest_runtime": "not_tested",
+    "chd": {
+      "path": "work/analysis/setsuko-stage3-rey-20261008/best-20261006.chd",
+      "size": 2557267925,
+      "sha256": "0f5e5f8bd7b44465bb0ef7641b4b15ceb79627fb8a6e3ebf4a480624d3e06a2e"
+    },
+    "extracted_iso": {
+      "path": "work/analysis/setsuko-stage3-rey-20261008/best-20261006.iso",
+      "size": 3755081728,
+      "sha256": "28e7a3d04225e6e01e0580d112a6ec95e4ed0878f093204876aad6f487aed6a1"
+    },
+    "skip_enabled": true,
+    "source_chd_was_copied_from_retained_cleanup_archive": true
+  },
+  "memory_card": {
+    "source_sha256": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799",
+    "source_unchanged": true
+  },
+  "local": {
+    "run": "best-20261006-square",
+    "backend": "LRPS2 v2.0.0-16e520b / Software SW",
+    "cold_boot": true,
+    "native_suspend_continue": true,
+    "savestate_restores": 0,
+    "ram_pokes": 0,
+    "card": {
+      "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/save/best-20261006.ps2",
+      "size": 69206016,
+      "sha256": "07bd1372638abe2dc9502d4128d62ed585bef280d8deb6995964c7079e9db799"
+    },
+    "commands": {
+      "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/commands.jsonl",
+      "size": 12114,
+      "sha256": "7ca0e6da00950541708da4875c08cd856f77ae6e544dcbfa96ed1db1dab96454"
+    },
+    "square": "at battle +300 frames, held 780 frames",
+    "request_counter": 1,
+    "code_region_unchanged": true,
+    "captures": [
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/ability.png",
+        "size": 157385,
+        "sha256": "e4cb3ffff6f817531c7114c4b673c2b3a9ba1a9be98917ae1642bb7e9151a11e"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/after-exp2.png",
+        "size": 324466,
+        "sha256": "92df6e2ae06dbd05c148771a4f7a9a440400f78d69ef4064e706ce0f7dd65b8d"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/after-funds.png",
+        "size": 312684,
+        "sha256": "3bd58b4bef96fbc43a303441eb5b9369cc012ae827dc70006d92c4f720d72f95"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/after-levelup2.png",
+        "size": 349197,
+        "sha256": "39272a68eee2145d01b9fd275958d37b881dae9eeaea7426dc2a73b53143fcdf"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/after-move.png",
+        "size": 385545,
+        "sha256": "86ca6fc3979e7fa696cc5008b2bdadf8559f992a955b03bf7fd6f69c29261df6"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/animation-before-square.png",
+        "size": 208645,
+        "sha256": "5ba8c1d4648ee29c58aa988e33627cbdf9c277b3a566a8854e570260295adc4e"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/battle-confirm.png",
+        "size": 121531,
+        "sha256": "beeb5fc8cecbd65c3e5d85debb120c6197c13397c31fd6c1bfca65b19566b4ec"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/continue-result.png",
+        "size": 385366,
+        "sha256": "892f9c6875d57611bbed7a2f8a65d311a3373b9d09176d35b8da8bfa021ecbac"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/held-square-180.png",
+        "size": 369736,
+        "sha256": "c9e28ef407d90597f27560dfa9789261ae7db38bb258e55539c3b0d34e048c6d"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/held-square-780.png",
+        "size": 395959,
+        "sha256": "62a578cd4bffc8a065809e412381af596c01edb03f401a5434e61ba37fac9f50"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/move-target.png",
+        "size": 385701,
+        "sha256": "ee4039066c439733acc0bd2c4cfd178f70d81be9c5cc363bbdb58c5dd3012100"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/movement-range.png",
+        "size": 368830,
+        "sha256": "49f2660b8f72ffbeb7739a4d292db823e9dcdf57e1e172316ef51589b133ba07"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/returned-map-menu.png",
+        "size": 391118,
+        "sha256": "251d54f515f3feefe03a58cf8020453d1a568112b3eda651da3e9662c8cce264"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/returned-map.png",
+        "size": 424032,
+        "sha256": "2f0eea271776db773291d0708878945180c107310bbc092c5dd598fb2421150c"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/selected-unit.png",
+        "size": 376779,
+        "sha256": "379324b90ff144a159f66cffc52c4b7f4e885f0d6b9c46521d410c8a0fe160cf"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/target2.png",
+        "size": 366418,
+        "sha256": "ec6b267d511f1003de420e1bd2d898d448bcd870f9d56860e49e1e58c9385613"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/targets.png",
+        "size": 387072,
+        "sha256": "171f44fc457e516e1ad3de5b33477ef731864b2f70d2791ce107ad16dc2dea1f"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/unit-menu.png",
+        "size": 372528,
+        "sha256": "b7be9f2e7a8ed0aca98054b7afc6d397574b0f2ce4e684d70786f115cc552280"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/weapon2.png",
+        "size": 185121,
+        "sha256": "b846926963ba612bfe62b602f9aa56537bb16524181319748d4e85bff076e649"
+      },
+      {
+        "path": "work/runtime/lrps2/setsuko-stage3-rey-20261008/best-20261006-square/weapons.png",
+        "size": 183301,
+        "sha256": "debaa0b8a47fefa2844f951ed235975e33e95a62de5b9a4934983e9177b1fd1b"
+      }
+    ],
+    "observed": "funds 6000; Rey Lv7 to Lv8; Sting dialogue; responsive map menu",
+    "blackscreen_reproduced": false
+  },
+  "phone": {
+    "model": "Seeker",
+    "android": "16",
+    "package": "xyz.aethersx2.android",
+    "version_name": "v1.5-3668",
+    "version_code": 13930,
+    "game_identity": "srwz-best-20261006-rey.chd (SLPS-73270 / 53B9FBC8)",
+    "title_badge": "v0.4.2+20261006",
+    "phone_chd_sha256": "0f5e5f8bd7b44465bb0ef7641b4b15ceb79627fb8a6e3ebf4a480624d3e06a2e",
+    "cold_boot": true,
+    "native_suspend_continue": true,
+    "savestate_restores": 0,
+    "ram_pokes": 0,
+    "renderer": "OpenGL",
+    "upscale": "1x Native",
+    "ee_cycle_rate": "100% (0)",
+    "ee_cycle_skip": "Normal (0)",
+    "mtvu": true,
+    "instant_vu1": true,
+    "cheats": false,
+    "settings_changed_only_memory_card_slot1": true,
+    "route": "Rey moved, Beam Assault Rifle vs Sting / Chaos Gundam, animation ON; phone destination differs from local four-tile route",
+    "square_input": {
+      "time": 1791448745.558482,
+      "args": [
+        "press",
+        "square",
+        "1500"
+      ]
+    },
+    "square_request_counter_verified": false,
+    "observed": "shot and enemy HP 0 / explosion; funds 6000; Rey Lv7 to Lv8; Sting post-battle dialogue; map command menu and end-phase confirmation responsive",
+    "blackscreen_reproduced": false,
+    "video": {
+      "path": "work/analysis/setsuko-stage3-rey-20261008/phone/rey-phone-square.mp4",
+      "size": 20888056,
+      "sha256": "8ee3b203fbc282b0de02c0d41df7ab67c24b96ded555cbd9bde1d745b7ff826a",
+      "duration_seconds": 74.325933
+    },
+    "actions": {
+      "path": "work/analysis/setsuko-stage3-rey-20261008/phone/actions.jsonl",
+      "size": 8093,
+      "sha256": "d72c5f54d87e263cd25a30041067eb4d86815d4749c351abd072a5fd5330a82b"
+    },
+    "controller": {
+      "path": "work/analysis/setsuko-stage3-rey-20261008/phone/control.py",
+      "size": 1264,
+      "sha256": "2d11ae8d202f8b15a33f73aade4ad559fc39fb6f0f8e5f700cf9216bf4ca484f"
+    },
+    "captures": [
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/after-square.png",
+        "size": 999117,
+        "sha256": "6c80c49786784e8cc916020f783b0cb12c740f14e32df35923cdf9904ebb5f80"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/after-start.png",
+        "size": 162723,
+        "sha256": "4a0a9ad9340d6934b31f16c6114bf4f4bf672b0cb111ca2f2d6a3d762a9a4a76"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/battle-confirm.png",
+        "size": 489367,
+        "sha256": "3ed7a89d69431c1090f17aa2a7feed9fd3dd6312592b806cb9549088ae0175ce"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/before-square.png",
+        "size": 993110,
+        "sha256": "057d8b1247c7cb8fdc7036bc0826ee3620145f4c43ac8fa1e487f7ace5d836ff"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/continue-confirm-before.png",
+        "size": 1302881,
+        "sha256": "1f7f4037d8bb1c524316379d36a60d57a6de64ed7259c12bc11f51fabc00749d"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/continue-selected.png",
+        "size": 1293735,
+        "sha256": "f87a9ee297aeb2f262988b26c58c01de2446a4b2a1bf20640d567a1069931f8f"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/exact-chd-pause.png",
+        "size": 199313,
+        "sha256": "73faf15508ce5d73495a07f8b6b77ce731bf4448a2a371539b584c2d825a1257"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/file-picker.png",
+        "size": 176789,
+        "sha256": "de6000f4a93552592a3ae2646756288ca02f58b1bb6a970b4a8370bd043255b1"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/graphics-before.png",
+        "size": 266764,
+        "sha256": "3d6718958f05d337e0b63bffdcc2893c1a513b27a06dbfa51eefcf72df8d5f61"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/initial-ui.png",
+        "size": 165281,
+        "sha256": "3eaa9c18fc08fecc72573ecf44f645871f081dfc5362c1635ce95dbe5074fec2"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/loaded-suspend.png",
+        "size": 977857,
+        "sha256": "27b520fb927acce7e56f4568a1e5ee0e39736db27fc7420e371d6dac35ca1c82"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/menu-cancel.png",
+        "size": 1191159,
+        "sha256": "3ad04f72688eed7d58595c992c8762950f650cd6b2041a7935325ede9b2215a5"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/move-closer.png",
+        "size": 1289450,
+        "sha256": "7921f9e6f00118e17c311369e341d6196df2bb683224c3707293d1b43f675f24"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/move-one.png",
+        "size": 1283822,
+        "sha256": "5d0fe9a413674b7327cad4392c1a65cef6e68b5ca670915411cc402de49406a7"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/moved-ready.png",
+        "size": 1341370,
+        "sha256": "c1120c89cf1224d266847739790aee338d46f773722f66a2e0b4412c6c862b80"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/phone-boot.png",
+        "size": 159826,
+        "sha256": "1aaf17cec577815cc2bd0a1f2f2c6c30aefa05b392fdccd7710c2a1d914bf73c"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/phone-map.png",
+        "size": 954316,
+        "sha256": "2d7e654e87007ce0784c2c2721d426868424e33787d1f58588b5a3c9f6baf467"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/phone-title.png",
+        "size": 323765,
+        "sha256": "5c9ac07dc607d2b8732601751ab1507d52c53d91e947c83e3be1e98f59632417"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/post-battle-event.png",
+        "size": 1225579,
+        "sha256": "d0b0584254ba9bc2d17200c6d25e9ec8c0f329fc9db1be6d3be95ed3e300ce82"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/post-move.png",
+        "size": 1304969,
+        "sha256": "324340f2877390fb238608c8ad84ec2c71e73ce271fd5d6a87e15f4c5e384b54"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/returned-map-responsive.png",
+        "size": 968887,
+        "sha256": "dd214675a992e44f26ed57a6af0bccbf865a727f6ad7496cc7e4391735d418ac"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/rey-ability.png",
+        "size": 587538,
+        "sha256": "0e0aa6be79506b93da22ac379dd0e7eb4c2e6a1e86496878285e49a777c4da24"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/start-held.png",
+        "size": 123777,
+        "sha256": "7301f87194219d8107fcab596f34b548170d18d0d40bedd2236947da7220e42d"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/start-now.png",
+        "size": 1082709,
+        "sha256": "701898e0b6622f01872cea163f05ff9c3142cb2d893683a0b0b5f0866cd01659"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/suspend-result.png",
+        "size": 1260840,
+        "sha256": "edd49a3726fdc0bd851c7dd9c45b3ba1674fda655210ab1ed793780f3f179f9f"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/title-back.png",
+        "size": 994117,
+        "sha256": "f6a7ff0cfc5187814513f37c8b5fb5e2cc9e45d7a154667e2823c86153ef2c2f"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/title-ready.png",
+        "size": 1283794,
+        "sha256": "abc1e968792e54d8a67e57a37e7fd3f3988abd7bc9394b1cf12d75d7812442aa"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/title-retry.png",
+        "size": 90063,
+        "sha256": "a617617d037d7a9fe0bb289bcb0b02559291f2524b9b2ab7ad0de8be76de08ca"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/unit-menu.png",
+        "size": 1191812,
+        "sha256": "220b8bb94ddb80c8f41bb7f130136038dc347caf84f7407f62c2e93f74a79e13"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/video-10s.png",
+        "size": 664542,
+        "sha256": "17dc6cd49469bd47511018949b0b3dc88d568edb6fe1b27707ebc559766113a2"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/video-15s.png",
+        "size": 1376361,
+        "sha256": "41daeff098efd3b6744bcc4cab2ecb56f4edc1f71d20d695970a22c3f7f6c581"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/video-20s.png",
+        "size": 877298,
+        "sha256": "453f1612d7fc9d2a26df63fcae8e2c0434219b5fe64fef3f9f036f23a4a29230"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/video-26s.png",
+        "size": 881964,
+        "sha256": "a91fb680ffcdc1682707f992436e21ddf42075ac67a2e2886f4ceced3ccd2e9a"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/video-28s.png",
+        "size": 980438,
+        "sha256": "7f4759c4cd9a8ed0cfd5d1a46b648a904ac59d893634e7847407b5ca8589dea0"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/video-30s.png",
+        "size": 991498,
+        "sha256": "e510642c9500afb802d36e8181a0bb5c4a630e9a4dc01f6d816ef6f342765ed5"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/video-35s.png",
+        "size": 1313621,
+        "sha256": "8a804acd2d92f00fa774222390e5a05e1834f8ec4abfdb8297d04fe6891e2beb"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/video-7s.png",
+        "size": 723743,
+        "sha256": "8077a41836b4187d63b26916e231174e0a80776a091e6791f183167efd215a63"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/weapon-selected.png",
+        "size": 719454,
+        "sha256": "afe8f3261e602d1a3580f07a9905bd27d57aade8a1aafcc1f4659110922225c6"
+      }
+    ],
+    "settings_evidence": [
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/app-settings.xml",
+        "size": 28755,
+        "sha256": "39ced9e33495654aac7bbf474a0c255c7c7375d7392a85c5b90955ee62031d3c"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/graphics-before.xml",
+        "size": 27602,
+        "sha256": "086b8f27850c764e642c8dfd88f47c70360179c29700a5443b0e771cdfa96297"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/system-before.xml",
+        "size": 30234,
+        "sha256": "de414ee51085821b2c7c4294ab68b4686549280e166ddced0d948462350b7978"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/memory-cards-before.xml",
+        "size": 32173,
+        "sha256": "8eafac624b6e1f6fe505c07bc0caa1e2580112b3f35df0c97500a9c66af2a0d4"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/selected-test-card.xml",
+        "size": 32185,
+        "sha256": "0a79c4109049b504979ea31059543dcd9b15f40a2a1ce3c89a42a8bce1f12eb7"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/restored-memory-cards.xml",
+        "size": 32173,
+        "sha256": "8eafac624b6e1f6fe505c07bc0caa1e2580112b3f35df0c97500a9c66af2a0d4"
+      },
+      {
+        "path": "work/analysis/setsuko-stage3-rey-20261008/phone/final-device-checks.json",
+        "size": 717,
+        "sha256": "73041db43a1de7950641697333290eaa204c1f08a67931cbc73ea34d1a56c8cc"
+      }
+    ],
+    "restored_slot1": "Mcd001.ps2 (PS2/8MB)",
+    "original_cards_unchanged": true,
+    "original_cards": {
+      "Mcd001.ps2": {
+        "before": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21",
+        "after": "57c9cd6baee5499a3b374256351add3ad483b46717fa16b899680229c492fd21"
+      },
+      "Mcd002.ps2": {
+        "before": "47ebe237a3987f843fc19b0f801ce1edc1690768ef6b18e4b03a12ca6b298358",
+        "after": "47ebe237a3987f843fc19b0f801ce1edc1690768ef6b18e4b03a12ca6b298358"
+      }
+    },
+    "test_card_unchanged": true,
+    "test_files_retained_on_device": true,
+    "excluded_exploration": "Wrong old current-best-skip-20261001.iso launched initially, stopped before gameplay. Early title/demo/new-game navigation is not a battle test."
+  },
+  "selected_captures": [
+    {
+      "path": "docs/issue-assets/setsuko-stage3-rey-20261008/oct6-local-funds.png",
+      "size": 395959,
+      "sha256": "62a578cd4bffc8a065809e412381af596c01edb03f401a5434e61ba37fac9f50"
+    },
+    {
+      "path": "docs/issue-assets/setsuko-stage3-rey-20261008/oct6-local-map-menu.png",
+      "size": 391118,
+      "sha256": "251d54f515f3feefe03a58cf8020453d1a568112b3eda651da3e9662c8cce264"
+    },
+    {
+      "path": "docs/issue-assets/setsuko-stage3-rey-20261008/seeker-funds.png",
+      "size": 1376361,
+      "sha256": "41daeff098efd3b6744bcc4cab2ecb56f4edc1f71d20d695970a22c3f7f6c581"
+    },
+    {
+      "path": "docs/issue-assets/setsuko-stage3-rey-20261008/seeker-levelup.png",
+      "size": 999117,
+      "sha256": "6c80c49786784e8cc916020f783b0cb12c740f14e32df35923cdf9904ebb5f80"
+    },
+    {
+      "path": "docs/issue-assets/setsuko-stage3-rey-20261008/seeker-post-battle-event.png",
+      "size": 881964,
+      "sha256": "a91fb680ffcdc1682707f992436e21ddf42075ac67a2e2886f4ceced3ccd2e9a"
+    },
+    {
+      "path": "docs/issue-assets/setsuko-stage3-rey-20261008/seeker-map-menu.png",
+      "size": 1225579,
+      "sha256": "d0b0584254ba9bc2d17200c6d25e9ec8c0f329fc9db1be6d3be95ed3e300ce82"
+    }
+  ],
+  "limitations": [
+    "One post-move weapon/target route, no stationary Hit and Away, counterattack, other weapons or animation OFF",
+    "Seeker hardware and settings are not confirmed to match player phone",
+    "Phone square input sent but hook acceptance counter not read",
+    "Not all Square timings, not full chapter playthrough",
+    "No game code fix and no issue closure"
+  ]
+}
