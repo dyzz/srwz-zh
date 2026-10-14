@@ -57,11 +57,13 @@ class CompressionCacheTests(unittest.TestCase):
         self.assertEqual(self.encode(), first)
         self.assertEqual(len(self.calls), 2)
 
-    def test_rehash_bypasses_reads(self):
+    def test_rehash_keeps_content_addressed_reads(self):
+        # A forced rebuild distrusts file identities; the payload cache is keyed
+        # by compressor bytes, parameters and input content, so it stays valid.
         self.encode()
         with mock.patch.dict(os.environ, {ENV_REHASH: '1'}):
             self.encode()
-        self.assertEqual(len(self.calls), 2)
+        self.assertEqual(len(self.calls), 1)
 
     def test_disabled_without_store(self):
         with mock.patch.dict(os.environ):

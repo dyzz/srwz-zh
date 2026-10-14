@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Mapping
 
+from .file_identity import sha256_file
 from .iso9660 import (
     SECTOR_SIZE,
     member_map,
@@ -43,11 +43,8 @@ def _project_path(project_root: Path, raw: object) -> Path:
 
 
 def _sha256_path(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(4 * 1024 * 1024):
-            digest.update(chunk)
-    return digest.hexdigest()
+    # Identity-cached: the same locked inputs are hashed by every consumer in a batch.
+    return sha256_file(path)
 
 
 def _file_lock(project_root: Path, path: Path) -> dict:

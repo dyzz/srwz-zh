@@ -13,12 +13,14 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping
 
+from srwz.file_identity import sha256_file
 from srwz.bazaar_tickers import (
     BAZAAR_TICKER_ALLOCATION_SIZE,
     BAZAAR_TICKER_INVENTORY_CONTRACT,
     discover_bazaar_ticker_owners,
 )
 from srwz.codec import decode_production as decode
+from srwz.parallel import map_processes
 from srwz.compressed_workspace import CompressedArchiveWorkspace
 from srwz.chinese_layout import (
     dialogue_layout_issues,
@@ -92,10 +94,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--workers",
         type=int,
-        default=4,
+        default=0,
         help=(
-            "Compress independent STAGE chunks concurrently; use 1 for the "
-            "serial reference path (default: 4)."
+            "Lay out independent STAGE chunks in worker processes; use 1 for the "
+            "serial reference path (default: one per CPU, at most 8)."
         ),
     )
     return parser.parse_args()
@@ -107,11 +109,8 @@ def _project_path(reference: str) -> Path:
 
 
 def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(4 * 1024 * 1024):
-            digest.update(chunk)
-    return digest.hexdigest()
+    # Identity-cached: the same locked inputs are hashed by every consumer in a batch.
+    return sha256_file(path)
 
 
 def _json(path: Path) -> dict:
@@ -1005,11 +1004,11 @@ def archive_overlay_chunks(outputs: dict) -> list:
 def build(
     config_path: Path,
     *,
-    workers: int = 4,
+    workers: int = 0,
     incremental: bool = False,
 ) -> tuple[dict[Path, bytes], dict]:
-    if workers <= 0:
-        raise SystemExit("story component workers must be positive")
+    if workers < 0:
+        raise SystemExit("story component workers must not be negative")
     config = _json(config_path)
     if config.get("profile_id") != "srwz-zh-story-component-v1":
         raise SystemExit("story component profile identity drift")
@@ -1471,22 +1470,15 @@ def build(
         return build_stage(stage)
 
     if workers == 1:
-        built_stages = map(build_or_reuse, ordered_stages)
-        executor = None
+        built_stages = list(map(build_or_reuse, ordered_stages))
     else:
-        executor = ThreadPoolExecutor(
-            max_workers=min(workers, len(ordered_stages)),
-            thread_name_prefix="srwz-stage",
-        )
-        built_stages = executor.map(build_or_reuse, ordered_stages)
+        # Dialogue fitting is pure Python per stage; worker processes lay the
+        # stages out in parallel instead of serializing on the interpreter lock.
+        built_stages = map_processes(build_or_reuse, ordered_stages, workers=workers or None)
     stage_reports = []
-    try:
-        for stage, stage_data, stage_report in built_stages:
-            archive.replace(stage, stage_data, stage="story component")
-            stage_reports.append(stage_report)
-    finally:
-        if executor is not None:
-            executor.shutdown(wait=True, cancel_futures=True)
+    for stage, stage_data, stage_report in built_stages:
+        archive.replace(stage, stage_data, stage="story component")
+        stage_reports.append(stage_report)
 
     auxiliary_stages = set(tickers_by_stage) | set(z_reports_by_stage)
     auxiliary_only_stage_reports = []

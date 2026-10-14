@@ -12,13 +12,15 @@ from concurrent.futures import ThreadPoolExecutor
 import hashlib
 from pathlib import Path
 import struct
+import threading
 
 from .codec import decode_production as decode, encode
 from .stage_dispatch import check_shared_tail, relocate_dispatch, verify_dispatch
 from .compdata_best_corrections import CORRECTIONS
 from .edition import EditionError, json_bytes, load_json, project_path
 from .iso9660 import member_map, scan_iso9660
-from .file_identity import publish_verified
+from .file_identity import publish_verified, remember_digest
+from .parallel import map_processes
 from .release_inputs import copy_file, sha256_file
 from .text import TextTable, decode_text, load_text_table, original_fullwidth_ascii_overrides, project_runtime_text_table
 from .ui_name_tables import verify_name_table
@@ -433,11 +435,13 @@ class BestCompiler:
             index, streams, decoded, target = row
             key = sha(target+streams['best'][:16])
             cached = self.work / 'compressed-cache' / key
+            payload = None
             if cached.is_file():
                 payload = cached.read_bytes()
-                require(decode(payload).output == target, 'BEST compressed cache drift')
-            else:
-                payload = None
+                # Identical chunks share a key; another thread may be writing it.
+                if not payload or decode(payload).output != target:
+                    payload = None
+            if payload is None:
                 for version in ('best','compiled','original'):
                     if target == decoded[version]:
                         result = decode(streams[version]); payload = streams[version][:result.consumed]; break
@@ -445,7 +449,9 @@ class BestCompiler:
                     source = decode(streams['best'])
                     payload = encode(target,strategy='rust-fit',flags=source.flags,header_unknown_0=source.metadata.get('header_unknown_0'),header_unknown_1=source.metadata.get('header_unknown_1',0))
                 require(decode(payload).output == target, f'{member}/{index}: compression roundtrip')
-                cached.parent.mkdir(parents=True,exist_ok=True); cached.write_bytes(payload)
+                cached.parent.mkdir(parents=True,exist_ok=True)
+                pending = cached.with_name(f'{cached.name}.{threading.get_ident()}.tmp')
+                pending.write_bytes(payload); pending.replace(cached)
             return index, payload, target
         with ThreadPoolExecutor(max_workers=4) as pool:
             items = list(pool.map(compress,prepared))
@@ -509,11 +515,11 @@ class BestCompiler:
         for member in ['DATA/COMPDATA.BN','DATA/STAGE.BIN','DATA/NISVDATA.BIN','DATA/HSFC.BIN','DATA/MTVZKNPT.BIN','EFF/VEFF2DX.BIN']:
             offsets = {v:self.offsets(member,v) for v in ('original','best','compiled')}
             require(len({len(o) for o in offsets.values()}) == 1, f'{member}: native chunk count mismatch')
-            prepared = []
-            for index in range(len(offsets['best'])-1):
+            def prepare(index):
                 streams = {v:(self.compiled if v=='compiled' else self.native[v])[member][os[index]:os[index+1]] for v,os in offsets.items()}
                 decoded = {v:decode(s).output for v,s in streams.items()}
                 a,b,c = (decoded[v] for v in ('original','best','compiled'))
+                proofs_before = len(self.stage_proofs)
                 if member == 'DATA/STAGE.BIN':
                     target = self.compile_stage(index,a,b,c)
                 elif member == 'DATA/COMPDATA.BN':
@@ -531,6 +537,14 @@ class BestCompiler:
                     target = bytes(project_shared_edits(a,b,c,label=f'{member}/{index}'))
                 else:
                     raise EditionError(f'unhandled BEST native field revision: {member}/{index}')
+                # Stage proofs travel with the result: the chunk compilers run in
+                # worker processes (pure Python text parsing per chunk).
+                proofs = self.stage_proofs[proofs_before:]
+                del self.stage_proofs[proofs_before:]
+                return index, streams, decoded, target, proofs
+            prepared = []
+            for index, streams, decoded, target, proofs in map_processes(prepare, range(len(offsets['best'])-1)):
+                self.stage_proofs.extend(proofs)
                 prepared.append((index,streams,decoded,target))
             self.pack_archive(member,prepared)
         self.outputs['BTL/SRVC.BIN'] = self.compile_srvc()
@@ -591,6 +605,8 @@ class BestCompiler:
         actual = member_map(scan_iso9660(temporary))
         require([(n,m.extent_lba,m.size) for n,m in actual.items()] == [(n,m.extent_lba,m.size) for n,m in members.items()], 'BEST final directory/layout drift')
         intervals = sorted((r.extent_lba*2048,r.extent_lba*2048+r.size,n) for n,r in members.items() if n in self.outputs)
+        # The output is read once end to end here, which also yields its digest.
+        whole = hashlib.sha256()
         with source.open('rb') as original, temporary.open('rb') as output:
             cursor = 0
             for lo,hi,name in intervals:
@@ -598,16 +614,23 @@ class BestCompiler:
                 remaining = lo-cursor
                 while remaining:
                     size = min(8<<20,remaining)
-                    require(original.read(size) == output.read(size), 'BEST non-replacement bytes drift')
-                    remaining -= size
-                require(output.read(hi-lo) == self.outputs[name], f'{name}: ISO component readback mismatch')
+                    block = output.read(size)
+                    require(original.read(size) == block, 'BEST non-replacement bytes drift')
+                    remaining -= size; whole.update(block)
+                block = output.read(hi-lo)
+                require(block == self.outputs[name], f'{name}: ISO component readback mismatch')
+                whole.update(block)
                 original.seek(hi); cursor = hi
             while True:
                 block = original.read(8<<20)
-                require(output.read(len(block)) == block, 'BEST native tail drift')
+                written = output.read(len(block))
+                require(written == block, 'BEST native tail drift')
+                whole.update(written)
                 if not block:
                     break
+            require(not output.read(1), 'BEST final ISO size drift')
         require(temporary.stat().st_size == source.stat().st_size, 'BEST final ISO size drift')
+        remember_digest(temporary, whole.hexdigest(), settled=True)
         # Independently decode the bytes read from the finished ISO, not the
         # in-memory compiler outputs. Fail before promoting an invalid image.
         with temporary.open('rb') as stream:

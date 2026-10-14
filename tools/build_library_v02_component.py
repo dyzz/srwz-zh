@@ -14,6 +14,7 @@ from itertools import combinations
 from pathlib import Path
 from typing import Mapping
 
+from srwz.parallel import map_processes
 from srwz.scoped_translations import (
     load_scoped_translations,
     resolve_scoped_translation,
@@ -265,6 +266,40 @@ def reflow_body(
             f"lines={lines!r}"
         )
     return result, widths
+
+
+_REFLOW_LAYOUT: tuple | None = None
+
+
+def _reflow_init(widths, profiles, terms) -> None:
+    global _REFLOW_LAYOUT
+    _REFLOW_LAYOUT = (widths, profiles, terms)
+
+
+def _reflow_job(key: tuple[str, str]) -> tuple[bool, object]:
+    kind, text = key
+    widths, profiles, terms = _REFLOW_LAYOUT
+    try:
+        return True, reflow_body(
+            text, int(widths[kind]), profile=profiles[kind], protected_terms=terms,
+        )
+    except LibraryScopeError as error:
+        return False, str(error)
+
+
+def reflow_bodies(keys, widths, profiles, terms) -> dict:
+    """Dense-lay out every distinct ``(kind, text)`` once, across worker processes.
+
+    The reflow depends only on the text and the locked layout profile, so the
+    callers look results up instead of repeating the fraction-heavy search per
+    document. Each value is ``(True, (text, line_widths))`` or ``(False, message)``.
+    """
+    keys = sorted(keys)
+    results = map_processes(
+        _reflow_job, keys, chunksize=8, initializer=_reflow_init,
+        initargs=(dict(widths), dict(profiles), tuple(terms)),
+    )
+    return dict(zip(keys, results))
 
 
 def reflow_body_legacy(
@@ -644,7 +679,8 @@ def main() -> int:
         if len(offsets) - 1 != lock.get("expected_chunk_count"):
             raise SystemExit(f"LIBRARY entry-count drift: {member}")
 
-        def build_chunk(item: tuple[int, int, int]) -> tuple[int, bytes, dict]:
+        def prepare_chunk(item: tuple[int, int, int]) -> tuple:
+            """Decode one chunk and resolve its translations; bodies wait for the reflow pass."""
             index, start, end = item
             stored = source[start:end]
             decoded = decode(stored)
@@ -658,7 +694,7 @@ def main() -> int:
                     f"{member} chunk {index} kind drift: {document.kind}"
                 )
             replacements = {}
-            body_variants = {}
+            pending_bodies = {}
             chunk_hashes = set()
             chunk_scoped_fields = []
             for field in document.fields:
@@ -685,26 +721,31 @@ def main() -> int:
                 if domain in {'robot', 'character'}:
                     translation = library_typography(translation, field.tag)
                 if field.tag in BODY_TAGS:
-                    try:
-                        dense_text, dense_widths = reflow_body(
-                            translation,
-                            int(widths[expected_kind]),
-                            profile=layout_profiles[expected_kind],
-                            protected_terms=protected_terms,
-                        )
-                    except LibraryScopeError as error:
-                        raise LibraryScopeError(
-                            f"localized LIBRARY layout failed: "
-                            f"{domain}/{index:03d}/{field.tag}: {error}"
-                        ) from error
-                    # The legacy wrap is only a capacity fallback; it is laid
-                    # out on demand when the dense chunk does not fit.
-                    body_variants[field.tag] = {
-                        "dense": (dense_text, dense_widths),
-                        "source": translation,
-                    }
-                    translation = dense_text
+                    pending_bodies[field.tag] = translation
                 replacements[field.tag] = translation
+            return (index, stored, decoded, document, replacements,
+                    pending_bodies, chunk_hashes, chunk_scoped_fields)
+
+        def build_chunk(prepared: tuple, reflowed: dict) -> tuple[int, bytes, dict]:
+            (index, stored, decoded, document, replacements,
+             pending_bodies, chunk_hashes, chunk_scoped_fields) = prepared
+            replacements = dict(replacements)
+            body_variants = {}
+            for tag, translation in pending_bodies.items():
+                ok, result = reflowed[(expected_kind, translation)]
+                if not ok:
+                    raise LibraryScopeError(
+                        f"localized LIBRARY layout failed: "
+                        f"{domain}/{index:03d}/{tag}: {result}"
+                    )
+                dense_text, dense_widths = result
+                # The legacy wrap is only a capacity fallback; it is laid
+                # out on demand when the dense chunk does not fit.
+                body_variants[tag] = {
+                    "dense": (dense_text, dense_widths),
+                    "source": translation,
+                }
+                replacements[tag] = dense_text
 
             def rebuild(candidate_replacements: dict[str, str]) -> bytes:
                 stored_replacements = (
@@ -962,7 +1003,18 @@ def main() -> int:
             max_workers=min(args.workers, len(work)),
             thread_name_prefix=f"library-{domain}",
         ) as executor:
-            built = list(executor.map(build_chunk, work))
+            prepared = list(executor.map(prepare_chunk, work))
+        # The dense body layout is pure Python; lay every distinct body out
+        # once across worker processes, then encode the chunks in threads.
+        reflowed = reflow_bodies(
+            {(expected_kind, text) for item in prepared for text in item[5].values()},
+            widths, layout_profiles, protected_terms,
+        )
+        with ThreadPoolExecutor(
+            max_workers=min(args.workers, len(work)),
+            thread_name_prefix=f"library-{domain}",
+        ) as executor:
+            built = list(executor.map(lambda item: build_chunk(item, reflowed), prepared))
         built.sort(key=lambda item: item[0])
         reports = [item[2] for item in built]
         for report in reports:

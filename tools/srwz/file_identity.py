@@ -227,15 +227,40 @@ def record_clone(source: Path | str, target: Path | str) -> bool:
     return True
 
 
-def remember_digest(path: Path | str, digest: str) -> None:
-    """Record a digest another verified step already computed for this exact file."""
+def remember_digest(path: Path | str, digest: str, *, settled: bool = False) -> None:
+    """Record a digest another verified step already computed for this exact file.
+
+    ``settled`` says the caller owns the file and its writer has finished (a
+    restored baseline, an assembled image it just hashed), so the fresh mtime
+    is not a sign of a write in progress and the digest may be kept at once.
+    """
     path = Path(path)
     stat = path.stat()
     with _LOCK:
-        if _stable(stat, path):
+        if _stable(stat, path) or (settled and identity_key(path.stat()) == identity_key(stat)):
             record = _lookup(identity_key(stat)) or {}
             record["sha256"] = digest
             _remember(identity_key(stat), stat, record)
+
+
+def remember_range_digests(path: Path | str, ranges: dict[tuple[int, int], str], *,
+                           whole: str | None = None, settled: bool = False) -> None:
+    """Record member-range digests (and optionally the whole-file digest) from one verified pass."""
+    path = Path(path)
+    stat = path.stat()
+    with _LOCK:
+        if not (_stable(stat, path) or (settled and identity_key(path.stat()) == identity_key(stat))):
+            return
+        key = identity_key(stat)
+        record = _lookup(key) or {}
+        stored = record.setdefault("ranges", {})
+        for (offset, length), digest in ranges.items():
+            stored[f"{offset}:{length}"] = digest
+        if whole is not None:
+            record["sha256"] = whole
+        elif "sha256" not in record:
+            record.setdefault("partial", True)
+        _remember(key, stat, record)
 
 
 def publish_verified(pending: Path | str, target: Path | str, digest: str) -> None:
@@ -248,7 +273,9 @@ def publish_verified(pending: Path | str, target: Path | str, digest: str) -> No
     """
     pending, target = Path(pending), Path(target)
     pending.replace(target)
-    remember_digest(target, digest)
+    # The caller verified ``digest`` against the finished file; a fresh mtime
+    # is expected here, not a sign of a write in progress.
+    remember_digest(target, digest, settled=True)
 
 
 def forget_all() -> None:

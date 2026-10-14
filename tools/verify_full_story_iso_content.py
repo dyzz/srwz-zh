@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import struct
 from collections import Counter
@@ -22,6 +23,7 @@ from srwz.chinese_layout import (
     dialogue_line_widths,
 )
 from srwz.codec import decode_production as decode
+from srwz.parallel import map_processes, merge_shard_values, split_shards
 from srwz.dialogue_speaker_colors import verify_dialogue_speaker_prefixes
 from srwz.text import PreparedTextEncoder
 from srwz.ui_name_tables import NISV_SPEC, verify_name_table
@@ -6392,628 +6394,751 @@ def main() -> int:
     player_choice_readbacks = {}
     reported_land_entry_id = "story/016/dialogue/02.03/0027"
     reported_land_translation = None
-    for stage in stages:
-        source_chunk = source_stage_archive[
-            offsets[stage]:offsets[stage + 1]
-        ]
-        source_decoded = decode(source_chunk)
-        source_parsed = parse_stage(
-            source_decoded.output,
-            source_table,
-            stage_index=stage,
-            function_address=source_functions[stage],
-        )
-        dialogue = load_translations(
-            PROJECT_ROOT
-            / f"corpus/zh/story-dialogue/stage-{stage:03d}.json"
-        )
-        stage_conditions = {
-            entry_id: translation
-            for entry_id, translation in conditions.items()
-            if stage_index(entry_id) == stage
-        }
-        stage_speakers = {
-            int(entry_id.split("/")[-1]): translation
-            for entry_id, translation in speakers.items()
-            if stage_index(entry_id) == stage
-        }
-        expected_texts = {
-            **dialogue,
-            **stage_conditions,
-        }
-        if len(expected_texts) != len(dialogue) + len(stage_conditions):
-            raise SystemExit(f"stage {stage:03d} has duplicate entry IDs")
+    # Every stage reads back independently: shard the stage list over worker
+    # processes and merge the per-stage tallies afterwards. Each shard starts
+    # from the initial values above, so merging is a fold over the deltas.
+    _stage_shard_initial = {
+        "stage_reports": copy.deepcopy(stage_reports),
+        "total_entries": copy.deepcopy(total_entries),
+        "total_dialogue": copy.deepcopy(total_dialogue),
+        "total_conditions": copy.deepcopy(total_conditions),
+        "total_speakers": copy.deepcopy(total_speakers),
+        "maximum_dialogue_line_width": copy.deepcopy(maximum_dialogue_line_width),
+        "maximum_dialogue_line_count": copy.deepcopy(maximum_dialogue_line_count),
+        "dialogue_quote_style_counts": copy.deepcopy(dialogue_quote_style_counts),
+        "runtime_token_entry_count": copy.deepcopy(runtime_token_entry_count),
+        "runtime_token_occurrence_count": copy.deepcopy(runtime_token_occurrence_count),
+        "story_raw_space_target_count": copy.deepcopy(story_raw_space_target_count),
+        "story_raw_visible_ascii_glyph_count": copy.deepcopy(story_raw_visible_ascii_glyph_count),
+        "story_raw_visible_ascii_target_count": copy.deepcopy(story_raw_visible_ascii_target_count),
+        "story_ascii_storage_examples": copy.deepcopy(story_ascii_storage_examples),
+        "stale_stage_runtime_rendering_checked_count": copy.deepcopy(stale_stage_runtime_rendering_checked_count),
+        "stale_stage_runtime_rendering_distinct_fingerprint_count": copy.deepcopy(stale_stage_runtime_rendering_distinct_fingerprint_count),
+        "stale_stage_runtime_rendering_match_count": copy.deepcopy(stale_stage_runtime_rendering_match_count),
+        "translated_condition_source_payload_checked_count": copy.deepcopy(translated_condition_source_payload_checked_count),
+        "dynamic_condition_variant_count": copy.deepcopy(dynamic_condition_variant_count),
+        "dynamic_condition_variant_stages": copy.deepcopy(dynamic_condition_variant_stages),
+        "condition_source_payload_match_count": copy.deepcopy(condition_source_payload_match_count),
+        "condition_original_offset_source_payload_match_count": copy.deepcopy(condition_original_offset_source_payload_match_count),
+        "condition_runtime_name_placeholder_entry_count": copy.deepcopy(condition_runtime_name_placeholder_entry_count),
+        "condition_runtime_name_placeholder_occurrence_count": copy.deepcopy(condition_runtime_name_placeholder_occurrence_count),
+        "condition_runtime_name_placeholder_readback": copy.deepcopy(condition_runtime_name_placeholder_readback),
+        "reported_dynamic_condition_readback": copy.deepcopy(reported_dynamic_condition_readback),
+        "player_choice_readbacks": copy.deepcopy(player_choice_readbacks),
+        "reported_land_translation": copy.deepcopy(reported_land_translation),
+    }
 
-        chunk = stage_archive[offsets[stage]:offsets[stage + 1]]
-        decoded = decode(chunk)
-        expected_stage = component_stages[stage]
-        final_chunk = final_stage_chunks.get(stage)
-        if final_chunk is None:
-            source_chunk = source_stage_archive[offsets[stage]:offsets[stage + 1]]
-            expected_encoded_size = decode(source_chunk).consumed
-            expected_encoded_sha256 = sha256_bytes(source_chunk[:expected_encoded_size])
-        else:
-            expected_encoded_size = final_chunk["output_encoded_size"]
-            expected_encoded_sha256 = final_chunk["output_encoded_sha256"]
-        encoded = chunk[:decoded.consumed]
-        padding = chunk[decoded.consumed:]
-        if any(padding):
-            raise SystemExit(f"stage {stage:03d} has non-zero archive padding")
-        if (
-            decoded.consumed != expected_encoded_size
-            or sha256_bytes(encoded)
-            != expected_encoded_sha256
-            or len(decoded.output) != expected_stage["output_size"]
-        ):
-            raise SystemExit(f"stage {stage:03d} codec metadata mismatch")
-
-        parsed = parse_stage(
-            decoded.output,
-            stage_table,
-            stage_index=stage,
-            function_address=functions[stage],
-        )
-        actual_texts = {
-            entry.entry_id: entry.text
-            for entry in parsed.entries
-            if entry.kind in {"dialogue", "condition"}
-        }
-        if actual_texts != expected_texts:
-            missing = sorted(set(expected_texts) - set(actual_texts))
-            extra = sorted(set(actual_texts) - set(expected_texts))
-            wrong = sorted(
-                entry_id
-                for entry_id in set(expected_texts) & set(actual_texts)
-                if expected_texts[entry_id] != actual_texts[entry_id]
-            )
-            wrong_examples = {
-                entry_id: {
-                    "expected": expected_texts[entry_id],
-                    "actual": actual_texts[entry_id],
-                }
-                for entry_id in wrong[:3]
-            }
-            raise SystemExit(
-                f"stage {stage:03d} translated text mismatch: "
-                f"missing={missing[:3]!r}, extra={extra[:3]!r}, "
-                f"wrong={wrong_examples!r}"
-            )
-        if parsed.unknown_code_count:
-            raise SystemExit(
-                f"stage {stage:03d} has "
-                f"{parsed.unknown_code_count} unknown codes"
-            )
-        stage_raw_space_target_count = 0
-        stage_raw_visible_ascii_glyph_count = 0
-        stage_raw_visible_ascii_target_count = 0
-        seen_text_offsets = set()
-        for entry in parsed.entries:
-            if (
-                entry.text_offset is None
-                or entry.text_offset in seen_text_offsets
-            ):
-                continue
-            seen_text_offsets.add(entry.text_offset)
-            stored_text = decode_text(
-                decoded.output,
-                entry.text_offset,
-                stage_table,
-            )
-            stored_payload = decoded.output[
-                entry.text_offset : entry.text_offset + stored_text.consumed
+    def _verify_stage_shard(shard):
+        stage_reports = copy.deepcopy(_stage_shard_initial["stage_reports"])
+        total_entries = copy.deepcopy(_stage_shard_initial["total_entries"])
+        total_dialogue = copy.deepcopy(_stage_shard_initial["total_dialogue"])
+        total_conditions = copy.deepcopy(_stage_shard_initial["total_conditions"])
+        total_speakers = copy.deepcopy(_stage_shard_initial["total_speakers"])
+        maximum_dialogue_line_width = copy.deepcopy(_stage_shard_initial["maximum_dialogue_line_width"])
+        maximum_dialogue_line_count = copy.deepcopy(_stage_shard_initial["maximum_dialogue_line_count"])
+        dialogue_quote_style_counts = copy.deepcopy(_stage_shard_initial["dialogue_quote_style_counts"])
+        runtime_token_entry_count = copy.deepcopy(_stage_shard_initial["runtime_token_entry_count"])
+        runtime_token_occurrence_count = copy.deepcopy(_stage_shard_initial["runtime_token_occurrence_count"])
+        story_raw_space_target_count = copy.deepcopy(_stage_shard_initial["story_raw_space_target_count"])
+        story_raw_visible_ascii_glyph_count = copy.deepcopy(_stage_shard_initial["story_raw_visible_ascii_glyph_count"])
+        story_raw_visible_ascii_target_count = copy.deepcopy(_stage_shard_initial["story_raw_visible_ascii_target_count"])
+        story_ascii_storage_examples = copy.deepcopy(_stage_shard_initial["story_ascii_storage_examples"])
+        stale_stage_runtime_rendering_checked_count = copy.deepcopy(_stage_shard_initial["stale_stage_runtime_rendering_checked_count"])
+        stale_stage_runtime_rendering_distinct_fingerprint_count = copy.deepcopy(_stage_shard_initial["stale_stage_runtime_rendering_distinct_fingerprint_count"])
+        stale_stage_runtime_rendering_match_count = copy.deepcopy(_stage_shard_initial["stale_stage_runtime_rendering_match_count"])
+        translated_condition_source_payload_checked_count = copy.deepcopy(_stage_shard_initial["translated_condition_source_payload_checked_count"])
+        dynamic_condition_variant_count = copy.deepcopy(_stage_shard_initial["dynamic_condition_variant_count"])
+        dynamic_condition_variant_stages = copy.deepcopy(_stage_shard_initial["dynamic_condition_variant_stages"])
+        condition_source_payload_match_count = copy.deepcopy(_stage_shard_initial["condition_source_payload_match_count"])
+        condition_original_offset_source_payload_match_count = copy.deepcopy(_stage_shard_initial["condition_original_offset_source_payload_match_count"])
+        condition_runtime_name_placeholder_entry_count = copy.deepcopy(_stage_shard_initial["condition_runtime_name_placeholder_entry_count"])
+        condition_runtime_name_placeholder_occurrence_count = copy.deepcopy(_stage_shard_initial["condition_runtime_name_placeholder_occurrence_count"])
+        condition_runtime_name_placeholder_readback = copy.deepcopy(_stage_shard_initial["condition_runtime_name_placeholder_readback"])
+        reported_dynamic_condition_readback = copy.deepcopy(_stage_shard_initial["reported_dynamic_condition_readback"])
+        player_choice_readbacks = copy.deepcopy(_stage_shard_initial["player_choice_readbacks"])
+        reported_land_translation = copy.deepcopy(_stage_shard_initial["reported_land_translation"])
+        for stage in shard:
+            source_chunk = source_stage_archive[
+                offsets[stage]:offsets[stage + 1]
             ]
-            stage_raw_space_target_count += b"\x20" in stored_payload
-            raw_ascii = raw_visible_ascii_glyphs(stored_payload)
-            if entry.entry_id in condition_runtime_name_placeholders:
-                raw_ascii = tuple(
-                    item for item in raw_ascii if item[1] != ":"
-                )
-            stage_raw_visible_ascii_glyph_count += len(raw_ascii)
-            stage_raw_visible_ascii_target_count += bool(raw_ascii)
-        if stage_raw_space_target_count:
-            raise SystemExit(
-                f"stage {stage:03d} contains raw visible spaces"
-            )
-        if stage_raw_visible_ascii_glyph_count:
-            raise SystemExit(
-                f"stage {stage:03d} contains "
-                f"{stage_raw_visible_ascii_glyph_count} unsafe raw visible "
-                "ASCII glyphs"
-            )
-        story_raw_space_target_count += stage_raw_space_target_count
-        story_raw_visible_ascii_glyph_count += (
-            stage_raw_visible_ascii_glyph_count
-        )
-        story_raw_visible_ascii_target_count += (
-            stage_raw_visible_ascii_target_count
-        )
-
-        source_condition_entries = {
-            entry.entry_id: entry
-            for entry in source_parsed.entries
-            if entry.kind == "condition"
-        }
-        output_condition_entries = {
-            entry.entry_id: entry
-            for entry in parsed.entries
-            if entry.kind == "condition"
-        }
-        if (
-            set(source_condition_entries) != set(stage_conditions)
-            or set(output_condition_entries) != set(stage_conditions)
-        ):
-            raise SystemExit(
-                f"stage {stage:03d} condition structure changed"
-            )
-        for entry_id, source_condition in source_condition_entries.items():
-            if condition_actions[entry_id] != "translate":
-                continue
-            output_condition = output_condition_entries[entry_id]
-            assert source_condition.pointer_offset is not None
-            assert source_condition.text_offset is not None
-            assert output_condition.pointer_offset is not None
-            assert output_condition.text_offset is not None
-            if output_condition.pointer_offset != source_condition.pointer_offset:
-                raise SystemExit(
-                    f"{entry_id} condition table pointer offset changed"
-                )
-            source_payload = encode_text(
-                source_condition.text,
+            source_decoded = decode(source_chunk)
+            source_parsed = parse_stage(
+                source_decoded.output,
                 source_table,
-                terminate=True,
+                stage_index=stage,
+                function_address=source_functions[stage],
             )
-            source_payload_match = source_payload in decoded.output
-            original_offset_match = (
-                decoded.output[
-                    source_condition.text_offset :
-                    source_condition.text_offset + len(source_payload)
-                ]
-                == source_payload
+            dialogue = load_translations(
+                PROJECT_ROOT
+                / f"corpus/zh/story-dialogue/stage-{stage:03d}.json"
             )
-            translated_condition_source_payload_checked_count += 1
-            condition_source_payload_match_count += source_payload_match
-            condition_original_offset_source_payload_match_count += (
-                original_offset_match
+            stage_conditions = {
+                entry_id: translation
+                for entry_id, translation in conditions.items()
+                if stage_index(entry_id) == stage
+            }
+            stage_speakers = {
+                int(entry_id.split("/")[-1]): translation
+                for entry_id, translation in speakers.items()
+                if stage_index(entry_id) == stage
+            }
+            expected_texts = {
+                **dialogue,
+                **stage_conditions,
+            }
+            if len(expected_texts) != len(dialogue) + len(stage_conditions):
+                raise SystemExit(f"stage {stage:03d} has duplicate entry IDs")
+
+            chunk = stage_archive[offsets[stage]:offsets[stage + 1]]
+            decoded = decode(chunk)
+            expected_stage = component_stages[stage]
+            final_chunk = final_stage_chunks.get(stage)
+            if final_chunk is None:
+                source_chunk = source_stage_archive[offsets[stage]:offsets[stage + 1]]
+                expected_encoded_size = decode(source_chunk).consumed
+                expected_encoded_sha256 = sha256_bytes(source_chunk[:expected_encoded_size])
+            else:
+                expected_encoded_size = final_chunk["output_encoded_size"]
+                expected_encoded_sha256 = final_chunk["output_encoded_sha256"]
+            encoded = chunk[:decoded.consumed]
+            padding = chunk[decoded.consumed:]
+            if any(padding):
+                raise SystemExit(f"stage {stage:03d} has non-zero archive padding")
+            if (
+                decoded.consumed != expected_encoded_size
+                or sha256_bytes(encoded)
+                != expected_encoded_sha256
+                or len(decoded.output) != expected_stage["output_size"]
+            ):
+                raise SystemExit(f"stage {stage:03d} codec metadata mismatch")
+
+            parsed = parse_stage(
+                decoded.output,
+                stage_table,
+                stage_index=stage,
+                function_address=functions[stage],
             )
-            if source_condition.ordinal > 0:
-                dynamic_condition_variant_count += 1
-                dynamic_condition_variant_stages.add(stage)
-            if source_payload_match or original_offset_match:
-                raise SystemExit(
-                    f"{entry_id} retains its original condition payload"
+            actual_texts = {
+                entry.entry_id: entry.text
+                for entry in parsed.entries
+                if entry.kind in {"dialogue", "condition"}
+            }
+            if actual_texts != expected_texts:
+                missing = sorted(set(expected_texts) - set(actual_texts))
+                extra = sorted(set(actual_texts) - set(expected_texts))
+                wrong = sorted(
+                    entry_id
+                    for entry_id in set(expected_texts) & set(actual_texts)
+                    if expected_texts[entry_id] != actual_texts[entry_id]
                 )
-            expected_placeholder_count = (
-                condition_runtime_name_placeholders.get(entry_id, 0)
-            )
-            if expected_placeholder_count:
-                final_condition = decode_text(
+                wrong_examples = {
+                    entry_id: {
+                        "expected": expected_texts[entry_id],
+                        "actual": actual_texts[entry_id],
+                    }
+                    for entry_id in wrong[:3]
+                }
+                raise SystemExit(
+                    f"stage {stage:03d} translated text mismatch: "
+                    f"missing={missing[:3]!r}, extra={extra[:3]!r}, "
+                    f"wrong={wrong_examples!r}"
+                )
+            if parsed.unknown_code_count:
+                raise SystemExit(
+                    f"stage {stage:03d} has "
+                    f"{parsed.unknown_code_count} unknown codes"
+                )
+            stage_raw_space_target_count = 0
+            stage_raw_visible_ascii_glyph_count = 0
+            stage_raw_visible_ascii_target_count = 0
+            seen_text_offsets = set()
+            for entry in parsed.entries:
+                if (
+                    entry.text_offset is None
+                    or entry.text_offset in seen_text_offsets
+                ):
+                    continue
+                seen_text_offsets.add(entry.text_offset)
+                stored_text = decode_text(
                     decoded.output,
-                    output_condition.text_offset,
+                    entry.text_offset,
                     stage_table,
                 )
-                final_payload = decoded.output[
-                    output_condition.text_offset :
-                    output_condition.text_offset + final_condition.consumed
+                stored_payload = decoded.output[
+                    entry.text_offset : entry.text_offset + stored_text.consumed
                 ]
-                raw_placeholder_count = final_payload.count(b"\x3A")
-                if (
-                    source_condition.text.count(":")
-                    != expected_placeholder_count
-                    or stage_conditions[entry_id].count(":")
-                    != expected_placeholder_count
-                    or raw_placeholder_count != expected_placeholder_count
-                ):
-                    raise SystemExit(
-                        f"{entry_id} runtime-name placeholder storage drift"
+                stage_raw_space_target_count += b"\x20" in stored_payload
+                raw_ascii = raw_visible_ascii_glyphs(stored_payload)
+                if entry.entry_id in condition_runtime_name_placeholders:
+                    raw_ascii = tuple(
+                        item for item in raw_ascii if item[1] != ":"
                     )
-                condition_runtime_name_placeholder_entry_count += 1
-                condition_runtime_name_placeholder_occurrence_count += (
-                    raw_placeholder_count
+                stage_raw_visible_ascii_glyph_count += len(raw_ascii)
+                stage_raw_visible_ascii_target_count += bool(raw_ascii)
+            if stage_raw_space_target_count:
+                raise SystemExit(
+                    f"stage {stage:03d} contains raw visible spaces"
                 )
-                if entry_id == "story/041/condition/01/02":
-                    condition_runtime_name_placeholder_readback = {
+            if stage_raw_visible_ascii_glyph_count:
+                raise SystemExit(
+                    f"stage {stage:03d} contains "
+                    f"{stage_raw_visible_ascii_glyph_count} unsafe raw visible "
+                    "ASCII glyphs"
+                )
+            story_raw_space_target_count += stage_raw_space_target_count
+            story_raw_visible_ascii_glyph_count += (
+                stage_raw_visible_ascii_glyph_count
+            )
+            story_raw_visible_ascii_target_count += (
+                stage_raw_visible_ascii_target_count
+            )
+
+            source_condition_entries = {
+                entry.entry_id: entry
+                for entry in source_parsed.entries
+                if entry.kind == "condition"
+            }
+            output_condition_entries = {
+                entry.entry_id: entry
+                for entry in parsed.entries
+                if entry.kind == "condition"
+            }
+            if (
+                set(source_condition_entries) != set(stage_conditions)
+                or set(output_condition_entries) != set(stage_conditions)
+            ):
+                raise SystemExit(
+                    f"stage {stage:03d} condition structure changed"
+                )
+            for entry_id, source_condition in source_condition_entries.items():
+                if condition_actions[entry_id] != "translate":
+                    continue
+                output_condition = output_condition_entries[entry_id]
+                assert source_condition.pointer_offset is not None
+                assert source_condition.text_offset is not None
+                assert output_condition.pointer_offset is not None
+                assert output_condition.text_offset is not None
+                if output_condition.pointer_offset != source_condition.pointer_offset:
+                    raise SystemExit(
+                        f"{entry_id} condition table pointer offset changed"
+                    )
+                source_payload = encode_text(
+                    source_condition.text,
+                    source_table,
+                    terminate=True,
+                )
+                source_payload_match = source_payload in decoded.output
+                original_offset_match = (
+                    decoded.output[
+                        source_condition.text_offset :
+                        source_condition.text_offset + len(source_payload)
+                    ]
+                    == source_payload
+                )
+                translated_condition_source_payload_checked_count += 1
+                condition_source_payload_match_count += source_payload_match
+                condition_original_offset_source_payload_match_count += (
+                    original_offset_match
+                )
+                if source_condition.ordinal > 0:
+                    dynamic_condition_variant_count += 1
+                    dynamic_condition_variant_stages.add(stage)
+                if source_payload_match or original_offset_match:
+                    raise SystemExit(
+                        f"{entry_id} retains its original condition payload"
+                    )
+                expected_placeholder_count = (
+                    condition_runtime_name_placeholders.get(entry_id, 0)
+                )
+                if expected_placeholder_count:
+                    final_condition = decode_text(
+                        decoded.output,
+                        output_condition.text_offset,
+                        stage_table,
+                    )
+                    final_payload = decoded.output[
+                        output_condition.text_offset :
+                        output_condition.text_offset + final_condition.consumed
+                    ]
+                    raw_placeholder_count = final_payload.count(b"\x3A")
+                    if (
+                        source_condition.text.count(":")
+                        != expected_placeholder_count
+                        or stage_conditions[entry_id].count(":")
+                        != expected_placeholder_count
+                        or raw_placeholder_count != expected_placeholder_count
+                    ):
+                        raise SystemExit(
+                            f"{entry_id} runtime-name placeholder storage drift"
+                        )
+                    condition_runtime_name_placeholder_entry_count += 1
+                    condition_runtime_name_placeholder_occurrence_count += (
+                        raw_placeholder_count
+                    )
+                    if entry_id == "story/041/condition/01/02":
+                        condition_runtime_name_placeholder_readback = {
+                            "entry_id": entry_id,
+                            "stage_index": stage,
+                            "translation": stage_conditions[entry_id],
+                            "stored_hex": final_payload.hex(),
+                            "raw_0x3a_count": raw_placeholder_count,
+                            "raw_placeholder_exact": True,
+                        }
+                if entry_id == reported_dynamic_condition_entry_id:
+                    reported_dynamic_condition_readback = {
                         "entry_id": entry_id,
                         "stage_index": stage,
+                        "condition_table_pointer_offset": (
+                            source_condition.pointer_offset
+                        ),
+                        "original_text_offset": source_condition.text_offset,
+                        "final_text_offset": output_condition.text_offset,
                         "translation": stage_conditions[entry_id],
-                        "stored_hex": final_payload.hex(),
-                        "raw_0x3a_count": raw_placeholder_count,
-                        "raw_placeholder_exact": True,
+                        "final_table_readback_exact": (
+                            output_condition.text == stage_conditions[entry_id]
+                        ),
+                        "exact_source_payload_absent_from_final_stage": True,
+                        "original_offset_source_payload_absent": True,
                     }
-            if entry_id == reported_dynamic_condition_entry_id:
-                reported_dynamic_condition_readback = {
-                    "entry_id": entry_id,
-                    "stage_index": stage,
-                    "condition_table_pointer_offset": (
-                        source_condition.pointer_offset
-                    ),
-                    "original_text_offset": source_condition.text_offset,
-                    "final_text_offset": output_condition.text_offset,
-                    "translation": stage_conditions[entry_id],
-                    "final_table_readback_exact": (
-                        output_condition.text == stage_conditions[entry_id]
-                    ),
-                    "exact_source_payload_absent_from_final_stage": True,
-                    "original_offset_source_payload_absent": True,
-                }
-        source_speaker_ids = {
-            entry.speaker_id
-            for entry in source_parsed.entries
-            if entry.kind == "speaker"
-        }
-        if source_speaker_ids != set(stage_speakers):
-            raise SystemExit(
-                f"stage {stage:03d} speaker selection mismatch: "
-                f"source={sorted(source_speaker_ids)!r}, "
-                f"selected={sorted(stage_speakers)!r}"
-            )
-        output_entries = {
-            entry.entry_id: entry for entry in parsed.entries
-            if entry.kind == "dialogue"
-        }
-        source_entries = {
-            entry.entry_id: entry for entry in source_parsed.entries
-            if entry.kind == "dialogue"
-        }
-        source_speakers = {
-            entry.speaker_id: entry.text
-            for entry in source_parsed.entries
-            if entry.kind == "speaker"
-        }
-        if set(output_entries) != set(source_entries):
-            raise SystemExit(
-                f"stage {stage:03d} dialogue structure changed"
-            )
-        stale_source_texts = {}
-        stale_source_speakers = {}
-        for source_entry in source_parsed.entries:
-            if source_entry.kind == "condition":
-                assert source_entry.text_offset is not None
-                stale_source_texts[source_entry.entry_id] = decode_text(
+            source_speaker_ids = {
+                entry.speaker_id
+                for entry in source_parsed.entries
+                if entry.kind == "speaker"
+            }
+            if source_speaker_ids != set(stage_speakers):
+                raise SystemExit(
+                    f"stage {stage:03d} speaker selection mismatch: "
+                    f"source={sorted(source_speaker_ids)!r}, "
+                    f"selected={sorted(stage_speakers)!r}"
+                )
+            output_entries = {
+                entry.entry_id: entry for entry in parsed.entries
+                if entry.kind == "dialogue"
+            }
+            source_entries = {
+                entry.entry_id: entry for entry in source_parsed.entries
+                if entry.kind == "dialogue"
+            }
+            source_speakers = {
+                entry.speaker_id: entry.text
+                for entry in source_parsed.entries
+                if entry.kind == "speaker"
+            }
+            if set(output_entries) != set(source_entries):
+                raise SystemExit(
+                    f"stage {stage:03d} dialogue structure changed"
+                )
+            stale_source_texts = {}
+            stale_source_speakers = {}
+            for source_entry in source_parsed.entries:
+                if source_entry.kind == "condition":
+                    assert source_entry.text_offset is not None
+                    stale_source_texts[source_entry.entry_id] = decode_text(
+                        source_decoded.output,
+                        source_entry.text_offset,
+                        stage_table,
+                    ).text
+                elif source_entry.kind == "dialogue":
+                    assert source_entry.text_offset is not None
+                    source_prefix = decode_text(
+                        source_decoded.output,
+                        source_entry.text_offset,
+                        source_table,
+                        stop_at_newline=True,
+                    )
+                    translation_start = (
+                        source_prefix.end
+                        if source_prefix.terminator == "newline"
+                        else source_entry.text_offset
+                    )
+                    stale_source_texts[source_entry.entry_id] = decode_text(
+                        source_decoded.output,
+                        translation_start,
+                        stage_table,
+                    ).text
+                    if source_prefix.terminator == "newline":
+                        stale_speaker = decode_text(
+                            source_decoded.output,
+                            source_entry.text_offset,
+                            stage_table,
+                            stop_at_newline=True,
+                        ).text
+                        previous = stale_source_speakers.setdefault(
+                            source_entry.speaker_id,
+                            stale_speaker,
+                        )
+                        if previous != stale_speaker:
+                            raise SystemExit(
+                                f"stage {stage:03d} stale-source speaker "
+                                f"fingerprint conflict: {source_entry.speaker_id}"
+                            )
+            for source_speaker_entry in source_parsed.entries:
+                if (
+                    source_speaker_entry.kind != "speaker"
+                    or source_speaker_entry.speaker_id in stale_source_speakers
+                ):
+                    continue
+                canonical_source_payload = encode_text(
+                    source_speaker_entry.text,
+                    source_table,
+                    terminate=True,
+                )
+                stale_source_speakers[source_speaker_entry.speaker_id] = (
+                    decode_text(
+                        canonical_source_payload,
+                        0,
+                        stage_table,
+                    ).text
+                )
+            if set(stale_source_texts) != set(expected_texts):
+                raise SystemExit(
+                    f"stage {stage:03d} stale-source text inventory drift"
+                )
+            output_speakers = {}
+            for source_dialogue in source_entries.values():
+                assert source_dialogue.text_offset is not None
+                source_prefix = decode_text(
                     source_decoded.output,
-                    source_entry.text_offset,
+                    source_dialogue.text_offset,
+                    source_table,
+                    stop_at_newline=True,
+                )
+                if source_prefix.terminator != "newline":
+                    continue
+                output_dialogue = output_entries[source_dialogue.entry_id]
+                assert output_dialogue.text_offset is not None
+                output_speaker = decode_text(
+                    decoded.output,
+                    output_dialogue.text_offset,
                     stage_table,
+                    stop_at_newline=True,
                 ).text
-            elif source_entry.kind == "dialogue":
+                previous = output_speakers.setdefault(
+                    source_dialogue.speaker_id,
+                    output_speaker,
+                )
+                if previous != output_speaker:
+                    raise SystemExit(
+                        f"stage {stage:03d} output speaker fingerprint "
+                        f"conflict: {source_dialogue.speaker_id}"
+                    )
+            for speaker_id, expected_speaker in stage_speakers.items():
+                output_speakers.setdefault(speaker_id, expected_speaker)
+            if (
+                set(output_speakers) != set(stage_speakers)
+                or set(stale_source_speakers) != set(stage_speakers)
+            ):
+                raise SystemExit(
+                    f"stage {stage:03d} stale-source speaker inventory drift"
+                )
+            for entry_id, expected_translation in expected_texts.items():
+                stale_rendering = stale_source_texts[entry_id]
+                actual_translation = actual_texts[entry_id]
+                stale_stage_runtime_rendering_checked_count += 1
+                if stale_rendering != expected_translation:
+                    stale_stage_runtime_rendering_distinct_fingerprint_count += 1
+                    if actual_translation == stale_rendering:
+                        stale_stage_runtime_rendering_match_count += 1
+            for speaker_id, expected_speaker in stage_speakers.items():
+                stale_rendering = stale_source_speakers[speaker_id]
+                actual_speaker = output_speakers[speaker_id]
+                if actual_speaker != expected_speaker:
+                    raise SystemExit(
+                        f"stage {stage:03d} speaker-table mismatch: "
+                        f"{speaker_id}"
+                    )
+                stale_stage_runtime_rendering_checked_count += 1
+                if stale_rendering != expected_speaker:
+                    stale_stage_runtime_rendering_distinct_fingerprint_count += 1
+                    if actual_speaker == stale_rendering:
+                        stale_stage_runtime_rendering_match_count += 1
+            speaker_occurrence_count = 0
+            stage_maximum_line_width = 0
+            stage_maximum_line_count = 0
+            stage_runtime_token_entry_count = 0
+            stage_runtime_token_occurrence_count = 0
+            for entry_id, source_entry in source_entries.items():
+                output_entry = output_entries[entry_id]
                 assert source_entry.text_offset is not None
+                assert output_entry.text_offset is not None
                 source_prefix = decode_text(
                     source_decoded.output,
                     source_entry.text_offset,
                     source_table,
                     stop_at_newline=True,
                 )
-                translation_start = (
-                    source_prefix.end
-                    if source_prefix.terminator == "newline"
-                    else source_entry.text_offset
-                )
-                stale_source_texts[source_entry.entry_id] = decode_text(
-                    source_decoded.output,
-                    translation_start,
+                output_prefix = decode_text(
+                    decoded.output,
+                    output_entry.text_offset,
                     stage_table,
-                ).text
+                    stop_at_newline=True,
+                )
+                expected_speaker = stage_speakers[source_entry.speaker_id]
                 if source_prefix.terminator == "newline":
-                    stale_speaker = decode_text(
-                        source_decoded.output,
-                        source_entry.text_offset,
-                        stage_table,
-                        stop_at_newline=True,
-                    ).text
-                    previous = stale_source_speakers.setdefault(
-                        source_entry.speaker_id,
-                        stale_speaker,
-                    )
-                    if previous != stale_speaker:
+                    if (
+                        output_prefix.terminator != "newline"
+                        or output_prefix.text != expected_speaker
+                    ):
                         raise SystemExit(
-                            f"stage {stage:03d} stale-source speaker "
-                            f"fingerprint conflict: {source_entry.speaker_id}"
+                            f"{entry_id} speaker mismatch: expected "
+                            f"{expected_speaker!r}, got {output_prefix.text!r}"
                         )
-        for source_speaker_entry in source_parsed.entries:
-            if (
-                source_speaker_entry.kind != "speaker"
-                or source_speaker_entry.speaker_id in stale_source_speakers
-            ):
-                continue
-            canonical_source_payload = encode_text(
-                source_speaker_entry.text,
-                source_table,
-                terminate=True,
-            )
-            stale_source_speakers[source_speaker_entry.speaker_id] = (
-                decode_text(
-                    canonical_source_payload,
-                    0,
-                    stage_table,
-                ).text
-            )
-        if set(stale_source_texts) != set(expected_texts):
-            raise SystemExit(
-                f"stage {stage:03d} stale-source text inventory drift"
-            )
-        output_speakers = {}
-        for source_dialogue in source_entries.values():
-            assert source_dialogue.text_offset is not None
-            source_prefix = decode_text(
-                source_decoded.output,
-                source_dialogue.text_offset,
-                source_table,
-                stop_at_newline=True,
-            )
-            if source_prefix.terminator != "newline":
-                continue
-            output_dialogue = output_entries[source_dialogue.entry_id]
-            assert output_dialogue.text_offset is not None
-            output_speaker = decode_text(
-                decoded.output,
-                output_dialogue.text_offset,
-                stage_table,
-                stop_at_newline=True,
-            ).text
-            previous = output_speakers.setdefault(
-                source_dialogue.speaker_id,
-                output_speaker,
-            )
-            if previous != output_speaker:
-                raise SystemExit(
-                    f"stage {stage:03d} output speaker fingerprint "
-                    f"conflict: {source_dialogue.speaker_id}"
-                )
-        for speaker_id, expected_speaker in stage_speakers.items():
-            output_speakers.setdefault(speaker_id, expected_speaker)
-        if (
-            set(output_speakers) != set(stage_speakers)
-            or set(stale_source_speakers) != set(stage_speakers)
-        ):
-            raise SystemExit(
-                f"stage {stage:03d} stale-source speaker inventory drift"
-            )
-        for entry_id, expected_translation in expected_texts.items():
-            stale_rendering = stale_source_texts[entry_id]
-            actual_translation = actual_texts[entry_id]
-            stale_stage_runtime_rendering_checked_count += 1
-            if stale_rendering != expected_translation:
-                stale_stage_runtime_rendering_distinct_fingerprint_count += 1
-                if actual_translation == stale_rendering:
-                    stale_stage_runtime_rendering_match_count += 1
-        for speaker_id, expected_speaker in stage_speakers.items():
-            stale_rendering = stale_source_speakers[speaker_id]
-            actual_speaker = output_speakers[speaker_id]
-            if actual_speaker != expected_speaker:
-                raise SystemExit(
-                    f"stage {stage:03d} speaker-table mismatch: "
-                    f"{speaker_id}"
-                )
-            stale_stage_runtime_rendering_checked_count += 1
-            if stale_rendering != expected_speaker:
-                stale_stage_runtime_rendering_distinct_fingerprint_count += 1
-                if actual_speaker == stale_rendering:
-                    stale_stage_runtime_rendering_match_count += 1
-        speaker_occurrence_count = 0
-        stage_maximum_line_width = 0
-        stage_maximum_line_count = 0
-        stage_runtime_token_entry_count = 0
-        stage_runtime_token_occurrence_count = 0
-        for entry_id, source_entry in source_entries.items():
-            output_entry = output_entries[entry_id]
-            assert source_entry.text_offset is not None
-            assert output_entry.text_offset is not None
-            source_prefix = decode_text(
-                source_decoded.output,
-                source_entry.text_offset,
-                source_table,
-                stop_at_newline=True,
-            )
-            output_prefix = decode_text(
-                decoded.output,
-                output_entry.text_offset,
-                stage_table,
-                stop_at_newline=True,
-            )
-            expected_speaker = stage_speakers[source_entry.speaker_id]
-            if source_prefix.terminator == "newline":
-                if (
-                    output_prefix.terminator != "newline"
-                    or output_prefix.text != expected_speaker
-                ):
+                elif output_prefix.terminator == "newline":
                     raise SystemExit(
-                        f"{entry_id} speaker mismatch: expected "
-                        f"{expected_speaker!r}, got {output_prefix.text!r}"
+                        f"{entry_id} unexpectedly gained a speaker prefix"
                     )
-            elif output_prefix.terminator == "newline":
-                raise SystemExit(
-                    f"{entry_id} unexpectedly gained a speaker prefix"
-                )
 
-            translation_start = (
-                output_prefix.end
-                if source_prefix.terminator == "newline"
-                else output_entry.text_offset
-            )
-            expected_translation = dialogue[entry_id]
-            quote_verdict = evaluate_story_quote(
-                source_entry.text,
-                expected_translation,
-                source_speakers[source_entry.speaker_id],
-                has_keyword_links=("《" in source_entry.text),
-            )
-            dialogue_quote_style_counts[quote_verdict.expected] += 1
-            if not quote_verdict.exact:
-                raise SystemExit(
-                    f"{entry_id} final-ISO outer punctuation mismatch: "
-                    f"expected={quote_verdict.expected} "
-                    f"actual={quote_verdict.actual}"
+                translation_start = (
+                    output_prefix.end
+                    if source_prefix.terminator == "newline"
+                    else output_entry.text_offset
                 )
-            expected_payload = encode_stage_message(
-                source_table,
-                stage_overrides,
-                entry_id=entry_id,
-                source_text=source_entry.text,
-                replacement=expected_translation,
-                terminate=True,
-                prepared_encoders=stage_message_encoders,
-            )
-            actual_payload = decoded.output[
-                translation_start : translation_start + len(expected_payload)
-            ]
-            if actual_payload != expected_payload:
-                raise SystemExit(
-                    f"{entry_id} encoded dialogue payload mismatch"
+                expected_translation = dialogue[entry_id]
+                quote_verdict = evaluate_story_quote(
+                    source_entry.text,
+                    expected_translation,
+                    source_speakers[source_entry.speaker_id],
+                    has_keyword_links=("《" in source_entry.text),
                 )
-
-            if entry_id in player_choice_entry_ids:
-                rows = expected_translation.splitlines()
-                if (
-                    len(rows) != 3
-                    or any(
-                        not row.startswith("“") or not row.endswith("”")
-                        for row in rows
-                    )
-                    or not rows[1].startswith("“1．")
-                    or not rows[2].startswith("“2．")
-                ):
+                dialogue_quote_style_counts[quote_verdict.expected] += 1
+                if not quote_verdict.exact:
                     raise SystemExit(
-                        f"{entry_id} player-choice row structure drift"
+                        f"{entry_id} final-ISO outer punctuation mismatch: "
+                        f"expected={quote_verdict.expected} "
+                        f"actual={quote_verdict.actual}"
                     )
-                player_choice_readbacks[entry_id] = expected_translation
-            if entry_id == reported_land_entry_id:
-                reported_land_translation = expected_translation
-
-            for token, stored_hex in {
-                "FAITH": "82658260826882738267",
-                "PLANT": "826f826b8260826d8273",
-            }.items():
-                if token in story_ascii_storage_examples:
-                    continue
-                token_start = expected_translation.find(token)
-                if token_start < 0:
-                    continue
-                byte_start = len(
-                    encode_text(
-                        expected_translation[:token_start],
-                        source_table,
-                        overrides=stage_overrides,
-                    )
-                )
-                token_payload = encode_text(
-                    token,
+                expected_payload = encode_stage_message(
                     source_table,
-                    overrides=stage_overrides,
+                    stage_overrides,
+                    entry_id=entry_id,
+                    source_text=source_entry.text,
+                    replacement=expected_translation,
+                    terminate=True,
+                    prepared_encoders=stage_message_encoders,
                 )
-                raw = actual_payload[
-                    byte_start : byte_start + len(token_payload)
+                actual_payload = decoded.output[
+                    translation_start : translation_start + len(expected_payload)
                 ]
-                if (
-                    raw != token_payload
-                    or raw.hex() != stored_hex
-                    or raw == token.encode("ascii")
-                ):
+                if actual_payload != expected_payload:
                     raise SystemExit(
-                        f"{entry_id} stock ASCII storage mismatch: {token}"
+                        f"{entry_id} encoded dialogue payload mismatch"
                     )
-                story_ascii_storage_examples[token] = {
-                    "entry_id": entry_id,
-                    "stored_hex": raw.hex(),
-                    "raw_single_byte_ascii": False,
-                }
 
-            widths = dialogue_line_widths(
-                expected_translation,
-                stage_keyword_links=("《" in source_entry.text),
-            )
-            if (
-                len(widths) > DEFAULT_MAX_LINES
-                or max(widths, default=0) > DEFAULT_LINE_WIDTH
-            ):
-                raise SystemExit(
-                    f"{entry_id} exceeds {DEFAULT_LINE_WIDTH}x"
-                    f"{DEFAULT_MAX_LINES} dialogue layout: {widths!r}"
-                )
-            stage_maximum_line_count = max(
-                stage_maximum_line_count,
-                len(widths),
-            )
-            stage_maximum_line_width = max(
-                stage_maximum_line_width,
-                max(widths, default=0),
-            )
+                if entry_id in player_choice_entry_ids:
+                    rows = expected_translation.splitlines()
+                    if (
+                        len(rows) != 3
+                        or any(
+                            not row.startswith("“") or not row.endswith("”")
+                            for row in rows
+                        )
+                        or not rows[1].startswith("“1．")
+                        or not rows[2].startswith("“2．")
+                    ):
+                        raise SystemExit(
+                            f"{entry_id} player-choice row structure drift"
+                        )
+                    player_choice_readbacks[entry_id] = expected_translation
+                if entry_id == reported_land_entry_id:
+                    reported_land_translation = expected_translation
 
-            token_matches = tuple(
-                RUNTIME_SUBSTITUTION_TOKEN.finditer(expected_translation)
-            )
-            if token_matches:
-                stage_runtime_token_entry_count += 1
-            for match in token_matches:
-                prefix_size = len(
-                    encode_text(
-                        expected_translation[: match.start()],
+                for token, stored_hex in {
+                    "FAITH": "82658260826882738267",
+                    "PLANT": "826f826b8260826d8273",
+                }.items():
+                    if token in story_ascii_storage_examples:
+                        continue
+                    token_start = expected_translation.find(token)
+                    if token_start < 0:
+                        continue
+                    byte_start = len(
+                        encode_text(
+                            expected_translation[:token_start],
+                            source_table,
+                            overrides=stage_overrides,
+                        )
+                    )
+                    token_payload = encode_text(
+                        token,
                         source_table,
                         overrides=stage_overrides,
                     )
-                )
-                token = match.group(0).encode("ascii")
-                if actual_payload[prefix_size : prefix_size + len(token)] != token:
-                    raise SystemExit(
-                        f"{entry_id} runtime token is not raw ASCII: "
-                        f"{match.group(0)!r}"
-                    )
-                stage_runtime_token_occurrence_count += 1
-            speaker_occurrence_count += 1
+                    raw = actual_payload[
+                        byte_start : byte_start + len(token_payload)
+                    ]
+                    if (
+                        raw != token_payload
+                        or raw.hex() != stored_hex
+                        or raw == token.encode("ascii")
+                    ):
+                        raise SystemExit(
+                            f"{entry_id} stock ASCII storage mismatch: {token}"
+                        )
+                    story_ascii_storage_examples[token] = {
+                        "entry_id": entry_id,
+                        "stored_hex": raw.hex(),
+                        "raw_single_byte_ascii": False,
+                    }
 
-        total_entries += len(expected_texts) + len(stage_speakers)
-        total_dialogue += len(dialogue)
-        total_conditions += len(stage_conditions)
-        total_speakers += len(stage_speakers)
-        maximum_dialogue_line_width = max(
-            maximum_dialogue_line_width,
-            stage_maximum_line_width,
-        )
-        maximum_dialogue_line_count = max(
-            maximum_dialogue_line_count,
-            stage_maximum_line_count,
-        )
-        runtime_token_entry_count += stage_runtime_token_entry_count
-        runtime_token_occurrence_count += stage_runtime_token_occurrence_count
-        stage_reports.append(
-            {
-                "stage_index": stage,
-                "archive_offset": offsets[stage],
-                "archive_next_offset": offsets[stage + 1],
-                "encoded_size": decoded.consumed,
-                "encoded_sha256": sha256_bytes(encoded),
-                "padding_size": len(padding),
-                "padding_all_zero": True,
-                "decoded_size": len(decoded.output),
-                "decoded_sha256": sha256_bytes(decoded.output),
-                "dialogue_count": len(dialogue),
-                "condition_count": len(stage_conditions),
-                "speaker_count": len(stage_speakers),
-                "speaker_occurrence_count": speaker_occurrence_count,
-                "translation_entry_count": (
-                    len(expected_texts) + len(stage_speakers)
-                ),
-                "entry_id_set_exact": True,
-                "translated_text_exact": True,
-                "speaker_translation_by_source_id_exact": True,
-                "unknown_code_count": 0,
-                "maximum_dialogue_line_width": stage_maximum_line_width,
-                "maximum_dialogue_line_count": stage_maximum_line_count,
-                "runtime_substitution_token_entry_count": (
-                    stage_runtime_token_entry_count
-                ),
-                "runtime_substitution_token_occurrence_count": (
-                    stage_runtime_token_occurrence_count
-                ),
-                "runtime_substitution_tokens_raw_ascii": True,
-                "raw_space_target_count": stage_raw_space_target_count,
-                "raw_space_count_zero": True,
-                "raw_visible_ascii_glyph_count": (
-                    stage_raw_visible_ascii_glyph_count
-                ),
-                "raw_visible_ascii_target_count": (
-                    stage_raw_visible_ascii_target_count
-                ),
-                "raw_visible_ascii_count_zero": True,
-            }
-        )
+                widths = dialogue_line_widths(
+                    expected_translation,
+                    stage_keyword_links=("《" in source_entry.text),
+                )
+                if (
+                    len(widths) > DEFAULT_MAX_LINES
+                    or max(widths, default=0) > DEFAULT_LINE_WIDTH
+                ):
+                    raise SystemExit(
+                        f"{entry_id} exceeds {DEFAULT_LINE_WIDTH}x"
+                        f"{DEFAULT_MAX_LINES} dialogue layout: {widths!r}"
+                    )
+                stage_maximum_line_count = max(
+                    stage_maximum_line_count,
+                    len(widths),
+                )
+                stage_maximum_line_width = max(
+                    stage_maximum_line_width,
+                    max(widths, default=0),
+                )
+
+                token_matches = tuple(
+                    RUNTIME_SUBSTITUTION_TOKEN.finditer(expected_translation)
+                )
+                if token_matches:
+                    stage_runtime_token_entry_count += 1
+                for match in token_matches:
+                    prefix_size = len(
+                        encode_text(
+                            expected_translation[: match.start()],
+                            source_table,
+                            overrides=stage_overrides,
+                        )
+                    )
+                    token = match.group(0).encode("ascii")
+                    if actual_payload[prefix_size : prefix_size + len(token)] != token:
+                        raise SystemExit(
+                            f"{entry_id} runtime token is not raw ASCII: "
+                            f"{match.group(0)!r}"
+                        )
+                    stage_runtime_token_occurrence_count += 1
+                speaker_occurrence_count += 1
+
+            total_entries += len(expected_texts) + len(stage_speakers)
+            total_dialogue += len(dialogue)
+            total_conditions += len(stage_conditions)
+            total_speakers += len(stage_speakers)
+            maximum_dialogue_line_width = max(
+                maximum_dialogue_line_width,
+                stage_maximum_line_width,
+            )
+            maximum_dialogue_line_count = max(
+                maximum_dialogue_line_count,
+                stage_maximum_line_count,
+            )
+            runtime_token_entry_count += stage_runtime_token_entry_count
+            runtime_token_occurrence_count += stage_runtime_token_occurrence_count
+            stage_reports.append(
+                {
+                    "stage_index": stage,
+                    "archive_offset": offsets[stage],
+                    "archive_next_offset": offsets[stage + 1],
+                    "encoded_size": decoded.consumed,
+                    "encoded_sha256": sha256_bytes(encoded),
+                    "padding_size": len(padding),
+                    "padding_all_zero": True,
+                    "decoded_size": len(decoded.output),
+                    "decoded_sha256": sha256_bytes(decoded.output),
+                    "dialogue_count": len(dialogue),
+                    "condition_count": len(stage_conditions),
+                    "speaker_count": len(stage_speakers),
+                    "speaker_occurrence_count": speaker_occurrence_count,
+                    "translation_entry_count": (
+                        len(expected_texts) + len(stage_speakers)
+                    ),
+                    "entry_id_set_exact": True,
+                    "translated_text_exact": True,
+                    "speaker_translation_by_source_id_exact": True,
+                    "unknown_code_count": 0,
+                    "maximum_dialogue_line_width": stage_maximum_line_width,
+                    "maximum_dialogue_line_count": stage_maximum_line_count,
+                    "runtime_substitution_token_entry_count": (
+                        stage_runtime_token_entry_count
+                    ),
+                    "runtime_substitution_token_occurrence_count": (
+                        stage_runtime_token_occurrence_count
+                    ),
+                    "runtime_substitution_tokens_raw_ascii": True,
+                    "raw_space_target_count": stage_raw_space_target_count,
+                    "raw_space_count_zero": True,
+                    "raw_visible_ascii_glyph_count": (
+                        stage_raw_visible_ascii_glyph_count
+                    ),
+                    "raw_visible_ascii_target_count": (
+                        stage_raw_visible_ascii_target_count
+                    ),
+                    "raw_visible_ascii_count_zero": True,
+                }
+            )
+        return {
+            "stage_reports": stage_reports,
+            "total_entries": total_entries,
+            "total_dialogue": total_dialogue,
+            "total_conditions": total_conditions,
+            "total_speakers": total_speakers,
+            "maximum_dialogue_line_width": maximum_dialogue_line_width,
+            "maximum_dialogue_line_count": maximum_dialogue_line_count,
+            "dialogue_quote_style_counts": dialogue_quote_style_counts,
+            "runtime_token_entry_count": runtime_token_entry_count,
+            "runtime_token_occurrence_count": runtime_token_occurrence_count,
+            "story_raw_space_target_count": story_raw_space_target_count,
+            "story_raw_visible_ascii_glyph_count": story_raw_visible_ascii_glyph_count,
+            "story_raw_visible_ascii_target_count": story_raw_visible_ascii_target_count,
+            "story_ascii_storage_examples": story_ascii_storage_examples,
+            "stale_stage_runtime_rendering_checked_count": stale_stage_runtime_rendering_checked_count,
+            "stale_stage_runtime_rendering_distinct_fingerprint_count": stale_stage_runtime_rendering_distinct_fingerprint_count,
+            "stale_stage_runtime_rendering_match_count": stale_stage_runtime_rendering_match_count,
+            "translated_condition_source_payload_checked_count": translated_condition_source_payload_checked_count,
+            "dynamic_condition_variant_count": dynamic_condition_variant_count,
+            "dynamic_condition_variant_stages": dynamic_condition_variant_stages,
+            "condition_source_payload_match_count": condition_source_payload_match_count,
+            "condition_original_offset_source_payload_match_count": condition_original_offset_source_payload_match_count,
+            "condition_runtime_name_placeholder_entry_count": condition_runtime_name_placeholder_entry_count,
+            "condition_runtime_name_placeholder_occurrence_count": condition_runtime_name_placeholder_occurrence_count,
+            "condition_runtime_name_placeholder_readback": condition_runtime_name_placeholder_readback,
+            "reported_dynamic_condition_readback": reported_dynamic_condition_readback,
+            "player_choice_readbacks": player_choice_readbacks,
+            "reported_land_translation": reported_land_translation,
+        }
+
+    _shard_results = map_processes(_verify_stage_shard, split_shards(list(stages)))
+    stage_reports = merge_shard_values("stage_reports", _stage_shard_initial["stage_reports"], [r["stage_reports"] for r in _shard_results])
+    total_entries = merge_shard_values("total_entries", _stage_shard_initial["total_entries"], [r["total_entries"] for r in _shard_results])
+    total_dialogue = merge_shard_values("total_dialogue", _stage_shard_initial["total_dialogue"], [r["total_dialogue"] for r in _shard_results])
+    total_conditions = merge_shard_values("total_conditions", _stage_shard_initial["total_conditions"], [r["total_conditions"] for r in _shard_results])
+    total_speakers = merge_shard_values("total_speakers", _stage_shard_initial["total_speakers"], [r["total_speakers"] for r in _shard_results])
+    maximum_dialogue_line_width = merge_shard_values("maximum_dialogue_line_width", _stage_shard_initial["maximum_dialogue_line_width"], [r["maximum_dialogue_line_width"] for r in _shard_results])
+    maximum_dialogue_line_count = merge_shard_values("maximum_dialogue_line_count", _stage_shard_initial["maximum_dialogue_line_count"], [r["maximum_dialogue_line_count"] for r in _shard_results])
+    dialogue_quote_style_counts = merge_shard_values("dialogue_quote_style_counts", _stage_shard_initial["dialogue_quote_style_counts"], [r["dialogue_quote_style_counts"] for r in _shard_results])
+    runtime_token_entry_count = merge_shard_values("runtime_token_entry_count", _stage_shard_initial["runtime_token_entry_count"], [r["runtime_token_entry_count"] for r in _shard_results])
+    runtime_token_occurrence_count = merge_shard_values("runtime_token_occurrence_count", _stage_shard_initial["runtime_token_occurrence_count"], [r["runtime_token_occurrence_count"] for r in _shard_results])
+    story_raw_space_target_count = merge_shard_values("story_raw_space_target_count", _stage_shard_initial["story_raw_space_target_count"], [r["story_raw_space_target_count"] for r in _shard_results])
+    story_raw_visible_ascii_glyph_count = merge_shard_values("story_raw_visible_ascii_glyph_count", _stage_shard_initial["story_raw_visible_ascii_glyph_count"], [r["story_raw_visible_ascii_glyph_count"] for r in _shard_results])
+    story_raw_visible_ascii_target_count = merge_shard_values("story_raw_visible_ascii_target_count", _stage_shard_initial["story_raw_visible_ascii_target_count"], [r["story_raw_visible_ascii_target_count"] for r in _shard_results])
+    story_ascii_storage_examples = merge_shard_values("story_ascii_storage_examples", _stage_shard_initial["story_ascii_storage_examples"], [r["story_ascii_storage_examples"] for r in _shard_results], first_wins=True)
+    stale_stage_runtime_rendering_checked_count = merge_shard_values("stale_stage_runtime_rendering_checked_count", _stage_shard_initial["stale_stage_runtime_rendering_checked_count"], [r["stale_stage_runtime_rendering_checked_count"] for r in _shard_results])
+    stale_stage_runtime_rendering_distinct_fingerprint_count = merge_shard_values("stale_stage_runtime_rendering_distinct_fingerprint_count", _stage_shard_initial["stale_stage_runtime_rendering_distinct_fingerprint_count"], [r["stale_stage_runtime_rendering_distinct_fingerprint_count"] for r in _shard_results])
+    stale_stage_runtime_rendering_match_count = merge_shard_values("stale_stage_runtime_rendering_match_count", _stage_shard_initial["stale_stage_runtime_rendering_match_count"], [r["stale_stage_runtime_rendering_match_count"] for r in _shard_results])
+    translated_condition_source_payload_checked_count = merge_shard_values("translated_condition_source_payload_checked_count", _stage_shard_initial["translated_condition_source_payload_checked_count"], [r["translated_condition_source_payload_checked_count"] for r in _shard_results])
+    dynamic_condition_variant_count = merge_shard_values("dynamic_condition_variant_count", _stage_shard_initial["dynamic_condition_variant_count"], [r["dynamic_condition_variant_count"] for r in _shard_results])
+    dynamic_condition_variant_stages = merge_shard_values("dynamic_condition_variant_stages", _stage_shard_initial["dynamic_condition_variant_stages"], [r["dynamic_condition_variant_stages"] for r in _shard_results])
+    condition_source_payload_match_count = merge_shard_values("condition_source_payload_match_count", _stage_shard_initial["condition_source_payload_match_count"], [r["condition_source_payload_match_count"] for r in _shard_results])
+    condition_original_offset_source_payload_match_count = merge_shard_values("condition_original_offset_source_payload_match_count", _stage_shard_initial["condition_original_offset_source_payload_match_count"], [r["condition_original_offset_source_payload_match_count"] for r in _shard_results])
+    condition_runtime_name_placeholder_entry_count = merge_shard_values("condition_runtime_name_placeholder_entry_count", _stage_shard_initial["condition_runtime_name_placeholder_entry_count"], [r["condition_runtime_name_placeholder_entry_count"] for r in _shard_results])
+    condition_runtime_name_placeholder_occurrence_count = merge_shard_values("condition_runtime_name_placeholder_occurrence_count", _stage_shard_initial["condition_runtime_name_placeholder_occurrence_count"], [r["condition_runtime_name_placeholder_occurrence_count"] for r in _shard_results])
+    condition_runtime_name_placeholder_readback = merge_shard_values("condition_runtime_name_placeholder_readback", _stage_shard_initial["condition_runtime_name_placeholder_readback"], [r["condition_runtime_name_placeholder_readback"] for r in _shard_results])
+    reported_dynamic_condition_readback = merge_shard_values("reported_dynamic_condition_readback", _stage_shard_initial["reported_dynamic_condition_readback"], [r["reported_dynamic_condition_readback"] for r in _shard_results])
+    player_choice_readbacks = merge_shard_values("player_choice_readbacks", _stage_shard_initial["player_choice_readbacks"], [r["player_choice_readbacks"] for r in _shard_results])
+    reported_land_translation = merge_shard_values("reported_land_translation", _stage_shard_initial["reported_land_translation"], [r["reported_land_translation"] for r in _shard_results])
 
     expected_entry_count = expected_story_entry_count(
         config,

@@ -52,6 +52,20 @@ class FileIdentityTests(unittest.TestCase):
         file_identity.sha256_file(path)
         self.assertFalse(self.store.exists())
 
+    def test_settled_digest_is_kept_for_a_fresh_file(self):
+        path = self.root / "fresh.bin";path.write_bytes(b"y" * (2 * 1024 * 1024))
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        file_identity.remember_digest(path, digest)
+        self.assertFalse(self.store.exists())
+        file_identity.remember_digest(path, digest, settled=True)
+        self.assertTrue(self.store.is_file())
+        file_identity.forget_all()
+        with patch.object(file_identity, "_hash_range", side_effect=AssertionError("re-hashed")):
+            self.assertEqual(file_identity.sha256_file(path), digest)
+        with path.open("r+b") as stream:
+            stream.seek(0);stream.write(b"z")
+        self.assertNotEqual(file_identity.sha256_file(path), digest)
+
     def test_store_is_shared_across_processes_and_disabled_by_rehash(self):
         path = self.aged(self.root / "big.bin", bytes(range(256)) * 8192)
         digest = file_identity.sha256_file(path)

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import tempfile
 from dataclasses import dataclass
@@ -10,6 +9,7 @@ from pathlib import Path
 from typing import Mapping
 
 from .assets import AssetInventoryConfig
+from .file_identity import sha256_file
 from .imagemagick import (
     imagemagick_version,
     read_rgba8,
@@ -233,11 +233,10 @@ def _project_path(root: Path, raw: object) -> Path:
 
 
 def _sha256_path(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(4 * 1024 * 1024):
-            digest.update(chunk)
-    return digest.hexdigest()
+    # The canary locks the source disc and its large members; every atlas
+    # build in a batch asks for the same digests, so they come from the
+    # file-identity store instead of a fresh multi-GB read per atlas.
+    return sha256_file(path)
 
 
 def _file_lock(root: Path, path: Path) -> dict:

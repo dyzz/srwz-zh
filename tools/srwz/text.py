@@ -400,11 +400,21 @@ def decode_text(
     raise SrwzTextError("unterminated text", offset=current)
 
 
+_VALIDATED_OVERRIDES: dict[int, tuple[Mapping[str, int], int, Mapping[str, int]]] = {}
+
+
 def _validated_overrides(
     overrides: Optional[Mapping[str, int]],
 ) -> Mapping[str, int]:
     if not overrides:
         return MappingProxyType({})
+    # Writers build one encoder per record from the same multi-thousand-entry
+    # override table; keep the validated view per table object instead of
+    # re-walking it each time. The cached source is kept alive so its id stays
+    # unique, and a changed length invalidates the entry.
+    cached = _VALIDATED_OVERRIDES.get(id(overrides))
+    if cached is not None and cached[0] is overrides and cached[1] == len(overrides):
+        return cached[2]
     validated = {}
     for character, encoded in overrides.items():
         if not isinstance(character, str) or len(character) != 1:
@@ -412,7 +422,9 @@ def _validated_overrides(
         if not 0 <= encoded <= 0xFFFF:
             raise ValueError("text encoding override is outside two bytes")
         validated[character] = encoded
-    return MappingProxyType(validated)
+    view = MappingProxyType(validated)
+    _VALIDATED_OVERRIDES[id(overrides)] = (overrides, len(overrides), view)
+    return view
 
 
 def _native_runtime_bytes(token: str) -> bytes:

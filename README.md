@@ -77,7 +77,7 @@ Redump 校验值为 CRC-32 `0d9deb37`、MD5
 python3 tools/build_editions.py                      # Original、BEST 与 SP
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
-python3 tools/build_editions.py --force-rebuild      # 忽略全部缓存，完整重算与重哈希
+python3 tools/build_editions.py --force-rebuild      # 不复用任何组件与文件身份记录，完整重算（内容寻址的压缩结果缓存仍可命中）
 ```
 
 输入未变时直接复用已验证的当前 ISO；只改语料时沿用上一批的已验证组件缓存，

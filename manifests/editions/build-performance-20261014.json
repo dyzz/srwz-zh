@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "command": "python3 tools/build_editions.py --force-rebuild --editions original,best,sp",
+  "note": "cold three-edition build before/after docs/BUILD_PERFORMANCE_20261014.md; images unchanged (9eebed21/24a9f080/43f32022)",
+  "before": {
+    "batch": "work/editions/684e02737d06c8177baa071f159cdbb3135423233b6d95ac65f87bd33348779c/original-best-sp.json",
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 9.417
+            },
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 18.715
+            }
+          },
+          "seconds": 31.552
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 0.114
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 66.889
+            },
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 9.725
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.091
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 9.265
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 0.046
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 15.441
+            }
+          },
+          "seconds": 105.318
+        },
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 0.121
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 83.06
+            }
+          },
+          "seconds": 85.511
+        }
+      },
+      "finished_at": "2026-10-14T07:15:07.063115+00:00",
+      "preflight_and_snapshot_seconds": 4.754,
+      "started_at": "2026-10-14T07:11:19.888016+00:00",
+      "total_seconds": 227.172
+    }
+  },
+  "after": {
+    "batch": "work/editions/6433e0dc7b6350cd91623325d033531b169fff26cdca75f27df14a2d3d002e29/original-best-sp.json",
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 4.309
+            },
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 16.206
+            }
+          },
+          "seconds": 22.576
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 2.137
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 34.687
+            },
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 4.27
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.097
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 8.124
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 0.644
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 13.214
+            }
+          },
+          "seconds": 67.19
+        },
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 2.109
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 35.011
+            }
+          },
+          "seconds": 39.576
+        }
+      },
+      "finished_at": "2026-10-14T07:51:20.972137+00:00",
+      "preflight_and_snapshot_seconds": 4.834,
+      "started_at": "2026-10-14T07:49:06.200196+00:00",
+      "total_seconds": 134.77
+    }
+  },
+  "sp_full_text_standalone_seconds": {
+    "before": 83.1,
+    "after": 28.3
+  },
+  "sp_assembly_phases_after": {
+    "components": 14.996,
+    "current-shared-library": 2.234,
+    "event-gallery": 0.815,
+    "protected-ranges": 3.352,
+    "independent-readback-and-publication": 6.134
+  },
+  "round_2": {
+    "batch": "work/editions/c757cdb4f173c09651a8e29da032155d8f3cbebb485dbe2812b9802eb7e0155b/original-best-sp.json",
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 5.143
+            },
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 8.985
+            }
+          },
+          "seconds": 17.944
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 0.129
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 38.783
+            },
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 5.053
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.104
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 4.524
+            },
+            "iso-extract": {
+              "returncode": 0,
+              "seconds": 3.452
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 0.051
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 8.455
+            }
+          },
+          "seconds": 61.519
+        },
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 0.302
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 40.436
+            }
+          },
+          "seconds": 43.557
+        }
+      },
+      "finished_at": "2026-10-14T08:40:36.735480+00:00",
+      "preflight_and_snapshot_seconds": 5.042,
+      "started_at": "2026-10-14T08:39:12.190483+00:00",
+      "total_seconds": 84.544
+    },
+    "note": "SP in a thread beside Original->Best; readback loop sharded; Best chunk compile in processes; extraction overlapped with components; batched glyph rasters; three cold runs 81.7/85.2/84.5 s"
+  },
+  "round_3": {
+    "batch": "work/editions/74f15856552b0f7756a103433bf859574f7c3b7a6e9901905bf5329b207dfeca/original-best-sp.json",
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 4.152
+            },
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 7.206
+            }
+          },
+          "seconds": 13.619
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 2.048
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 21.614
+            },
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 6.953
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.096
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 4.35
+            },
+            "iso-extract": {
+              "returncode": 0,
+              "seconds": 3.788
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 0.631
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 6.901
+            }
+          },
+          "seconds": 38.232
+        },
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 2.044
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 35.523
+            }
+          },
+          "seconds": 39.059
+        }
+      },
+      "finished_at": "2026-10-14T09:56:33.314061+00:00",
+      "preflight_and_snapshot_seconds": 4.238,
+      "started_at": "2026-10-14T09:55:36.588299+00:00",
+      "total_seconds": 56.725
+    },
+    "note": "identity-store hashing in atlas/story tools, translation-tree selection cache, settled publish + single-pass ISO hashing, captions overlap readback"
+  }
+}

@@ -69,6 +69,39 @@ class BaselineTests(unittest.TestCase):
         self.assertEqual(baselines.os.environ.pop(baselines.environment_name('text-canary')), str(restored))
         self.assertEqual(baselines.digest(restored), json.loads(lock.read_text())['iso_sha256'])
 
+    def test_sparse_sidecar_replaces_delta_restore(self):
+        lock = self.freeze()
+        self.edited.unlink()
+        first = baselines.baseline_iso('text-canary')
+        meta_path, data_path = baselines._sparse_paths('text-canary')
+        meta = json.loads(meta_path.read_text())
+        self.assertEqual(meta['iso_sha256'], json.loads(lock.read_text())['iso_sha256'])
+        self.assertEqual(meta['spans'], [[0, 65536]])
+        self.assertEqual(sum(length for _, length in meta['spans']), data_path.stat().st_size)
+        self.assertLess(data_path.stat().st_size, self.source.stat().st_size)
+        # The delta is no longer needed once the sidecar exists.
+        (baselines.DIRECTORY/'text-canary.xdelta').unlink()
+        baselines._CACHE.clear()
+        second = baselines.baseline_iso('text-canary')
+        self.assertNotEqual(first, second)
+        self.assertEqual(baselines.digest(second), meta['iso_sha256'])
+        self.assertEqual(second.read_bytes()[101:111], b'0123456789')
+
+    def test_corrupt_sparse_sidecar_falls_back_to_delta(self):
+        self.freeze()
+        baselines.baseline_iso('text-canary')
+        meta_path, data_path = baselines._sparse_paths('text-canary')
+        data_path.write_bytes(b'x' * data_path.stat().st_size)
+        baselines._CACHE.clear()
+        restored = baselines.baseline_iso('text-canary')
+        self.assertEqual(restored.read_bytes(), self.edited.read_bytes())
+        self.assertEqual(baselines.digest(data_path), json.loads(meta_path.read_text())['data_sha256'])
+        stale = json.loads(meta_path.read_text()); stale['iso_sha256'] = '0' * 64
+        meta_path.write_text(json.dumps(stale))
+        baselines._CACHE.clear()
+        self.assertEqual(baselines.baseline_iso('text-canary').read_bytes(), self.edited.read_bytes())
+        self.assertNotEqual(json.loads(meta_path.read_text())['iso_sha256'], '0' * 64)
+
     def test_unknown_baseline_rejected(self):
         with self.assertRaisesRegex(ValueError, 'unknown SP baseline'):
             baselines.baseline_iso('../arbitrary')

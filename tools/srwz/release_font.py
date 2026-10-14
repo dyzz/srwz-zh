@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import pickle
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Iterable, Mapping
 
 from .codec import decode_production
+from .file_identity import sha256_file, store_path
 from .font import (
     GLYPH_SIZE,
     ascii_glyph_index,
@@ -1130,6 +1133,15 @@ def _selection_digest(entries: Mapping[str, Mapping[str, object]]) -> str:
     return digest.hexdigest()
 
 
+
+def _selection_cache_path(key: str) -> Path | None:
+    """Content-addressed pickle beside the file-identity store (shared by every workspace)."""
+    store = store_path()
+    if store is None:
+        return None
+    return store.parent / "translation-tree-selection" / f"{key}.pickle"
+
+
 def selected_translation_tree_entries(
     project_root: Path,
     profile_document: Mapping[str, object],
@@ -1173,6 +1185,20 @@ def selected_translation_tree_entries(
     paths = [path for path in discovered_paths if path not in excluded_paths]
     if not paths or (exclude_globs and not excluded_paths):
         raise ReleaseFontError("translation-tree selection is empty")
+    # Three font-chain scripts in every batch walk the same ~140k-entry tree;
+    # the result is a pure function of the selection contract and the files.
+    cache_key = hashlib.sha256(json.dumps(
+        {"contract": reference, "files": [(str(path.relative_to(root)), sha256_file(path)) for path in paths]},
+        sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+    cached = _selection_cache_path(cache_key)
+    if cached is not None and cached.is_file():
+        try:
+            with cached.open("rb") as stream:
+                payload = pickle.load(stream)
+            if payload.get("key") == cache_key:
+                return payload["entries"], payload["entry_scenes"], payload["selection"]
+        except (OSError, pickle.UnpicklingError, EOFError, AttributeError, KeyError):
+            pass
 
     entries: dict[str, dict] = {}
     entry_scenes: dict[str, set[str]] = {}
@@ -1297,7 +1323,7 @@ def selected_translation_tree_entries(
     occurrence_count = sum(
         sum(forms.values()) for forms in token_forms.values()
     )
-    return entries, entry_scenes, {
+    selection = {
         "kind": "global_translation_tree",
         "selection_id": selection_id,
         "root": root_reference,
@@ -1335,6 +1361,17 @@ def selected_translation_tree_entries(
         },
         "selection_sha256": _selection_digest(entries),
     }
+    if cached is not None:
+        try:
+            cached.parent.mkdir(parents=True, exist_ok=True)
+            pending = cached.with_name(f".{cached.name}.{os.getpid()}.tmp")
+            with pending.open("wb") as stream:
+                pickle.dump({"key": cache_key, "entries": entries, "entry_scenes": entry_scenes,
+                             "selection": selection}, stream, protocol=pickle.HIGHEST_PROTOCOL)
+            pending.replace(cached)
+        except OSError:
+            pass
+    return entries, entry_scenes, selection
 
 
 def rendered_characters(text: str) -> tuple[str, ...]:

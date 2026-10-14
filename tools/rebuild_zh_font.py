@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 import subprocess
+import time
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -83,11 +84,13 @@ def parse_args() -> argparse.Namespace:
 
 
 def _run(*arguments: str) -> None:
+    started = time.perf_counter()
     subprocess.run(
         [sys.executable, *arguments],
         cwd=PROJECT_ROOT,
         check=True,
     )
+    print(f"[timing] {arguments[0]}: {time.perf_counter() - started:.3f}s", flush=True)
 
 
 def _run_json(*arguments: str) -> dict:

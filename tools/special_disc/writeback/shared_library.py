@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 import struct
 
-from build_library_v02_component import BODY_TAGS, load_production_layout, reflow_body
+from build_library_v02_component import BODY_TAGS, load_production_layout, reflow_bodies as reflow_library_bodies, reflow_body
 from special_disc.writeback.migrate_library import raw_fields, serialize, sp_offsets
 from srwz.codec import decode_production, reencode_changed_suffix
 from srwz.compressed_workspace import decoded_view, write_decoded
@@ -109,27 +109,57 @@ def authoring():
     return rows, corpus.get('field_translation_overrides', []), widths, profiles, terms, locks
 
 
-def replacement_fields(native, baseline_decoded, domain, author, table, overrides):
-    rows, scoped, widths, profiles, terms, _ = author
+def prepared_fields(native, baseline_decoded, domain, author):
+    """Pair each canary field with the current text it should carry (``None`` keeps the canary)."""
+    rows, scoped, _widths, _profiles, _terms, _ = author
     kind, fields = raw_fields(baseline_decoded)
     if (kind != native.kind or [tag for tag, _ in fields] != [f.tag for f in native.fields]):
         raise ValueError('SP library native/canary field identity drift')
-    output, counts = [], Counter()
+    prepared = []
     for (tag, old), field in zip(fields, native.fields):
         if field.text is None:
             if old != field.data:
                 raise ValueError('SP library canary binary field drift')
-            output.append((tag, old))
+            prepared.append((tag, old, None, False))
             continue
         text = field_translation(rows, scoped, domain, native, field)
+        if text is not None and domain in {'robot', 'character'}:
+            text = library_typography(text, tag)
+        prepared.append((tag, old, text, True))
+    return kind, prepared
+
+
+def reflow_keys(kind, prepared):
+    return {(kind, text) for tag, _, text, is_text in prepared if is_text and text is not None and tag in BODY_TAGS}
+
+
+def reflow_bodies(author, keys):
+    """Lay out every distinct body text once, across worker processes (see the LIBRARY builder)."""
+    _rows, _scoped, widths, profiles, terms, _ = author
+    results = reflow_library_bodies(keys, widths, profiles, terms)
+    for key, (ok, result) in results.items():
+        if not ok:
+            raise ValueError(f'SP library body layout failed: {key[0]}: {result}')
+    return {key: result[0] for key, (_ok, result) in results.items()}
+
+
+def replacement_fields(native, baseline_decoded, domain, author, table, overrides, reflowed=None):
+    _rows, _scoped, widths, profiles, terms, _ = author
+    kind, prepared = prepared_fields(native, baseline_decoded, domain, author)
+    output, counts = [], Counter()
+    for tag, old, text, is_text in prepared:
+        if not is_text:
+            output.append((tag, old))
+            continue
         if text is None:
             output.append((tag, old))
             counts['canary_fields_preserved'] += 1
             continue
-        if domain in {'robot', 'character'}:
-            text = library_typography(text, tag)
         if tag in BODY_TAGS:
-            text, _ = reflow_body(text, widths[kind], profile=profiles[kind], protected_terms=terms)
+            if reflowed is not None and (kind, text) in reflowed:
+                text = reflowed[(kind, text)]
+            else:
+                text, _ = reflow_body(text, widths[kind], profile=profiles[kind], protected_terms=terms)
             counts['current_body_fields'] += 1
         data = encode_text(two_byte_visible_spaces(text), table, overrides=overrides, terminate=False)
         output.append((tag, data))
@@ -144,19 +174,28 @@ def apply_shared_library(executable, current_member, source_member, table, overr
     original_exe = source_member('SLPS_259.20')
     exe = bytearray(executable)
     outputs, reports = {}, {}
+    archives, keys = {}, set()
     for member, (domain, kind, start) in ARCHIVES.items():
         base, source = current_member(member), source_member(member)
         offsets = sp_offsets(executable, start, len(base))
         native_offsets = sp_offsets(original_exe, start, len(source))
         if len(offsets) != len(native_offsets):
             raise ValueError('SP library document count drift')
-        stored_chunks, counts = [], Counter()
-        for index, ((a, b), (c, d)) in enumerate(zip(zip(offsets, offsets[1:]), zip(native_offsets, native_offsets[1:]))):
+        documents = []
+        for (a, b), (c, d) in zip(zip(offsets, offsets[1:]), zip(native_offsets, native_offsets[1:])):
             old = decode_production(base[a:b])
             native = parse_zkn_decoded_chunk(decode_production(source[c:d]).output)
             if native.kind != kind:
                 raise ValueError('SP library document kind drift')
-            fields, tally = replacement_fields(native, old.output, domain, author, table, overrides)
+            keys |= reflow_keys(*prepared_fields(native, old.output, domain, author))
+            documents.append((a, old, native))
+        archives[member] = (base, source, start, documents)
+    reflowed = reflow_bodies(author, keys)
+    for member, (domain, kind, start) in ARCHIVES.items():
+        base, source, start, documents = archives[member]
+        stored_chunks, counts = [], Counter()
+        for index, (a, old, native) in enumerate(documents):
+            fields, tally = replacement_fields(native, old.output, domain, author, table, overrides, reflowed)
             counts.update(tally)
             rebuilt = serialize(kind, native.version, fields)
             if rebuilt == old.output:
@@ -204,6 +243,7 @@ def verify_shared_library(executable, actual_member, baseline_member, source_mem
         raise ValueError('SP current library authoring inputs drift')
     native_exe, base_exe = source_member('SLPS_259.20'), baseline_member('SLPS_259.20')
     counts = Counter()
+    archives, keys = {}, set()
     for member, (domain, kind, start) in ARCHIVES.items():
         actual, base, source = actual_member(member), baseline_member(member), source_member(member)
         offsets = sp_offsets(executable, start, len(actual))
@@ -213,11 +253,18 @@ def verify_shared_library(executable, actual_member, baseline_member, source_mem
             raise ValueError('SP final library document count drift')
         if sha(source) != report['archives'][member]['native_sha256'] or sha(base) != report['archives'][member]['canary_sha256']:
             raise ValueError('SP final library source/canary identity drift')
+        documents = []
         for index in range(len(offsets)-1):
             native = parse_zkn_decoded_chunk(decode_production(source[native_offsets[index]:native_offsets[index+1]]).output)
             baseline = decode_production(base[old_offsets[index]:old_offsets[index+1]]).output
-            want, tally = replacement_fields(native, baseline, domain, author, table, overrides)
-            got = decode_production(actual[offsets[index]:offsets[index+1]]).output
+            keys |= reflow_keys(*prepared_fields(native, baseline, domain, author))
+            documents.append((native, baseline, actual[offsets[index]:offsets[index+1]]))
+        archives[member] = documents
+    reflowed = reflow_bodies(author, keys)
+    for member, (domain, kind, start) in ARCHIVES.items():
+        for index, (native, baseline, stored) in enumerate(archives[member]):
+            want, tally = replacement_fields(native, baseline, domain, author, table, overrides, reflowed)
+            got = decode_production(stored).output
             if raw_fields(got) != (kind, want):
                 raise ValueError(f'SP final library field mismatch: {member}/{index}')
             counts.update(tally)

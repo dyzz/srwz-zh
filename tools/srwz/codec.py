@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Callable, Deque, Dict, Mapping, Optional, Union
 
 from .codec_worker import request as _worker_request, CodecWorkerError
-from .file_identity import ENV_REHASH, sha256_file as _identity_sha256
+from .file_identity import sha256_file as _identity_sha256
 
 from .codec_contract import (
     CodedInteger,
@@ -827,6 +827,19 @@ def decode_production(
     )
 
 
+_COMPRESSOR_IDENTITY: dict[tuple, str] = {}
+
+
+def _compressor_identity(binary: Path) -> str:
+    """Digest of the compressor binary, hashed once per process per file identity."""
+    stat = binary.stat()
+    key = (str(binary), stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+    digest = _COMPRESSOR_IDENTITY.get(key)
+    if digest is None:
+        digest = _COMPRESSOR_IDENTITY[key] = _identity_sha256(binary)
+    return digest
+
+
 def _rust_payload(
     data: bytes,
     *,
@@ -855,21 +868,24 @@ def _rust_payload(
     # reuses unchanged payloads instead of recompressing them. Each entry
     # carries its own digest; callers keep their decoded round-trip checks.
     key = hashlib.sha256()
-    key.update(f"srwz-rust-payload-v1 {_identity_sha256(binary)} {sorted(parameters.items())}\n".encode())
+    key.update(f"srwz-rust-payload-v1 {_compressor_identity(binary)} {sorted(parameters.items())}\n".encode())
     key.update(data)
     digest = key.hexdigest()
     path = Path(cache_root) / digest[:2] / digest
-    if os.environ.get(ENV_REHASH) != "1":
+    # A forced rebuild (SRWZ_REHASH) distrusts file identities, not content:
+    # the key already binds the compressor bytes, the parameters and the input,
+    # and the entry carries its own digest, so a hit is the exact payload the
+    # worker would produce again.
+    try:
+        entry = path.read_bytes()
+    except OSError:
+        entry = b""
+    if len(entry) >= 32 and hashlib.sha256(entry[32:]).digest() == entry[:32]:
         try:
-            entry = path.read_bytes()
+            os.utime(path)
         except OSError:
-            entry = b""
-        if len(entry) >= 32 and hashlib.sha256(entry[32:]).digest() == entry[:32]:
-            try:
-                os.utime(path)
-            except OSError:
-                pass
-            return entry[32:]
+            pass
+        return entry[32:]
     payload = _worker_request(binary, 1, data, **parameters)
     try:
         path.parent.mkdir(parents=True, exist_ok=True)

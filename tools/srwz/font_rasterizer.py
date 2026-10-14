@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping, Union
 
@@ -76,13 +78,21 @@ def _fixed_canvas(rasterizer: Mapping) -> dict | None:
     return dict(raw)
 
 
+def _rasterizer_environment() -> dict[str, str]:
+    # Glyph canvases are 24x24: ImageMagick's per-process OpenMP pool only
+    # thrashes when many renderers run side by side. Pixels do not depend on it.
+    return {**os.environ, "MAGICK_THREAD_LIMIT": os.environ.get("MAGICK_THREAD_LIMIT", "1")}
+
+
 def _run_rasterizer(command: list[str], character: str) -> bytes:
     try:
         result = subprocess.run(
             command,
             check=True,
+            stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
+            env=_rasterizer_environment(),
         )
     except (OSError, subprocess.CalledProcessError) as error:
         detail = getattr(error, "stderr", b"").decode(
@@ -98,13 +108,12 @@ def _run_rasterizer(command: list[str], character: str) -> bytes:
     return result.stdout
 
 
-def rasterize_character(
-    executable: str,
+def _glyph_arguments(
     font_path: Path,
     character: str,
     rasterizer: Mapping,
-) -> tuple[bytes, bytes, bytes]:
-    """Render one 24x24 glyph with the release-wide geometry policy."""
+) -> list[str]:
+    """The ImageMagick pipeline that renders one glyph, without executable and output."""
 
     if not isinstance(character, str) or len(character) != 1:
         raise FontRasterizerError("glyph rasterization needs one character")
@@ -113,67 +122,135 @@ def rasterize_character(
     if not isinstance(hinting, bool) or not isinstance(antialias, bool):
         raise FontRasterizerError("rasterizer hinting/antialias lock is invalid")
     point_size = rasterizer_point_size(character, rasterizer)
+    fixed = _fixed_canvas(rasterizer)
+    common = [
+        "-fill",
+        "white",
+        "-density",
+        str(rasterizer["density"]),
+        "-units",
+        "PixelsPerInch",
+        "-font",
+        str(font_path),
+        "-pointsize",
+        str(point_size),
+        "-define",
+        f"type:hinting={'true' if hinting else 'false'}",
+        "-antialias" if antialias else "+antialias",
+        "-gravity",
+        rasterizer["gravity"],
+    ]
+    if fixed is not None:
+        geometry = f"{fixed['x_offset']:+d}{fixed['y_offset']:+d}"
+        command = [
+            "-size",
+            f"{GLYPH_WIDTH}x{GLYPH_HEIGHT}",
+            "xc:black",
+            *common,
+            "-annotate",
+            geometry,
+            character,
+            "-colorspace",
+            "Gray",
+            "-depth",
+            "8",
+        ]
+    else:
+        command = [
+            "-background",
+            "black",
+            *common,
+            "-size",
+            f"{GLYPH_WIDTH}x{GLYPH_HEIGHT}",
+            f"label:{character}",
+            "-colorspace",
+            "Gray",
+            "-depth",
+            "8",
+        ]
+    return command
+
+
+def rasterize_character(
+    executable: str,
+    font_path: Path,
+    character: str,
+    rasterizer: Mapping,
+) -> tuple[bytes, bytes, bytes]:
+    """Render one 24x24 glyph with the release-wide geometry policy."""
+
+    arguments = _glyph_arguments(font_path, character, rasterizer)
     if character == " ":
         gray = bytes(GLYPH_WIDTH * GLYPH_HEIGHT)
     else:
-        fixed = _fixed_canvas(rasterizer)
-        common = [
-            "-fill",
-            "white",
-            "-density",
-            str(rasterizer["density"]),
-            "-units",
-            "PixelsPerInch",
-            "-font",
-            str(font_path),
-            "-pointsize",
-            str(point_size),
-            "-define",
-            f"type:hinting={'true' if hinting else 'false'}",
-            "-antialias" if antialias else "+antialias",
-            "-gravity",
-            rasterizer["gravity"],
-        ]
-        if fixed is not None:
-            geometry = f"{fixed['x_offset']:+d}{fixed['y_offset']:+d}"
-            command = [
-                executable,
-                "-size",
-                f"{GLYPH_WIDTH}x{GLYPH_HEIGHT}",
-                "xc:black",
-                *common,
-                "-annotate",
-                geometry,
-                character,
-                "-colorspace",
-                "Gray",
-                "-depth",
-                "8",
-                "gray:-",
-            ]
-        else:
-            command = [
-                executable,
-                "-background",
-                "black",
-                *common,
-                "-size",
-                f"{GLYPH_WIDTH}x{GLYPH_HEIGHT}",
-                f"label:{character}",
-                "-colorspace",
-                "Gray",
-                "-depth",
-                "8",
-                "gray:-",
-            ]
-        gray = _run_rasterizer(command, character)
+        gray = _run_rasterizer([executable, *arguments, "gray:-"], character)
     pixels = quantize_gray_4bpp(gray)
     return gray, pixels, encode_glyph(pixels)
+
+
+def rasterize_characters(
+    executable: str,
+    font_path_for,
+    characters,
+    rasterizer: Mapping,
+    *,
+    batch_size: int = 64,
+    workers: int = 3,
+) -> dict[str, tuple[bytes, bytes, bytes]]:
+    """Render many glyphs, ``batch_size`` per ImageMagick process.
+
+    Each glyph keeps its complete single-glyph pipeline inside its own
+    parenthesised image group (settings do not leak between groups), and the
+    process writes the resulting canvases back to back; the bytes are the ones
+    ``rasterize_character`` returns one process at a time. ``font_path_for``
+    maps a character to its font file (fallbacks included).
+    """
+    results: dict[str, tuple[bytes, bytes, bytes]] = {}
+    pending = []
+    for character in dict.fromkeys(characters):
+        if character == " ":
+            gray = bytes(GLYPH_WIDTH * GLYPH_HEIGHT)
+            pixels = quantize_gray_4bpp(gray)
+            results[character] = (gray, pixels, encode_glyph(pixels))
+        else:
+            pending.append(character)
+    size = GLYPH_WIDTH * GLYPH_HEIGHT
+    batches = [pending[start:start + max(1, batch_size)]
+               for start in range(0, len(pending), max(1, batch_size))]
+
+    def render(batch):
+        command = [executable]
+        for character in batch:
+            command += ["(", *_glyph_arguments(font_path_for(character), character, rasterizer), ")"]
+        command.append("gray:-")
+        try:
+            output = subprocess.run(command, check=True, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE, env=_rasterizer_environment()).stdout
+        except (OSError, subprocess.CalledProcessError) as error:
+            detail = getattr(error, "stderr", b"").decode("utf-8", errors="replace")
+            raise FontRasterizerError(f"rasterizer failed for {batch!r}: {detail}") from error
+        if len(output) != size * len(batch):
+            raise FontRasterizerError(
+                f"rasterizer returned {len(output)} bytes for {len(batch)} glyphs"
+            )
+        return output
+
+    # Rendering dominates and scales poorly past a few renderers (measured:
+    # 64 glyphs per process, three at once, is the plateau on a 12-core host).
+    with ThreadPoolExecutor(max_workers=max(1, min(workers, len(batches) or 1))) as pool:
+        outputs = list(pool.map(render, batches))
+    for batch, output in zip(batches, outputs):
+        for index, character in enumerate(batch):
+            gray = output[index * size:(index + 1) * size]
+            pixels = quantize_gray_4bpp(gray)
+            results[character] = (gray, pixels, encode_glyph(pixels))
+    return results
 
 
 __all__ = [
     "FontRasterizerError",
     "quantize_gray_4bpp",
     "rasterize_character",
+    "rasterize_characters",
     "rasterizer_point_size",
 ]

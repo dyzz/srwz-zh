@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import base64
 import copy
-import hashlib
 import json
 import tempfile
 import zlib
 from pathlib import Path
 from typing import Mapping, Sequence
 
+from .file_identity import sha256_file
 from .font_flavor import (
     FontFlavorError,
     font_flavor_metadata,
@@ -66,11 +66,8 @@ def _project_path(root: Path, raw: object) -> Path:
 
 
 def _sha256_path(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        while chunk := source.read(4 * 1024 * 1024):
-            digest.update(chunk)
-    return digest.hexdigest()
+    # Identity-cached: the same locked inputs are hashed by every consumer in a batch.
+    return sha256_file(path)
 
 
 def _json_sha256(value: object) -> str:

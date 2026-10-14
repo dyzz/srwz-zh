@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path[:0] = [str(ROOT / 'tools'), str(Path(__file__).resolve().parent)]
 from srwz.iso9660 import member_map, scan_iso9660
-from srwz.file_identity import sha256_file
+from srwz.file_identity import remember_digest, sha256_file
 from srwz.codec import decode_production
 from install_font import sp_offsets, VT1_TABLE
 from special_disc.baselines import baseline_iso, freeze_baseline, new_temp_iso
@@ -80,19 +80,46 @@ def read_member(path, members, name):
 
 
 def verify_iso_ranges(before, after, patches):
-    """Compare every byte outside the three declared member extents."""
-    spans = sorted(patches)
-    spans = [(0, 0)] + spans + [(before.stat().st_size, before.stat().st_size)]
-    digest, count = hashlib.sha256(), 0
+    """Compare every byte outside the declared spans; hash the whole candidate on the way.
+
+    ``after`` is read once from start to end: bytes outside ``patches`` must
+    equal ``before``, and every byte (including the owned spans and anything
+    appended past the base size) feeds ``after_sha256``. The digest is kept in
+    the file-identity store so later steps and child processes do not read the
+    multi-GB image again.
+    """
+    before, after = Path(before), Path(after)
+    size = before.stat().st_size
+    spans = []
+    for a, b in sorted((int(a), int(b)) for a, b in patches):
+        require(0 <= a <= b <= size, 'owned ISO span escapes the base image')
+        if spans and a <= spans[-1][1]:
+            spans[-1] = (spans[-1][0], max(spans[-1][1], b))
+        else:
+            spans.append((a, b))
+    edges = [(0, 0)] + spans + [(size, size)]
+    unowned, whole, count = hashlib.sha256(), hashlib.sha256(), 0
+    block = 4 * 1024 * 1024
     with before.open('rb') as left, after.open('rb') as right:
-        for (_, start), (end, _) in zip(spans, spans[1:]):
-            left.seek(start); right.seek(start)
+        for (_, start), (end, _) in zip(edges, edges[1:]):
+            # Owned span before this unowned range: hash it from the candidate only.
+            remaining = start - right.tell()
+            while remaining > 0:
+                b = right.read(min(block, remaining)); require(bool(b), 'candidate ISO shorter than its base')
+                remaining -= len(b); whole.update(b)
+            left.seek(start)
             remaining = end - start
             while remaining:
-                a = left.read(min(4 * 1024 * 1024, remaining)); b = right.read(len(a))
+                a = left.read(min(block, remaining)); b = right.read(len(a))
                 require(bool(a) and a == b, f'unowned ISO range changed at {left.tell()-len(a):X}')
-                remaining -= len(a); count += len(a); digest.update(a)
-    return dict(bytes=count, sha256=digest.hexdigest())
+                remaining -= len(a); count += len(a); unowned.update(a); whole.update(b)
+        while True:
+            b = right.read(block)
+            if not b: break
+            whole.update(b)
+    after_sha256 = whole.hexdigest()
+    remember_digest(after, after_sha256, settled=True)
+    return dict(bytes=count, sha256=unowned.hexdigest(), after_sha256=after_sha256)
 
 
 def assemble():

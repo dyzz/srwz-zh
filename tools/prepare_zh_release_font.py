@@ -6,10 +6,9 @@ from __future__ import annotations
 import argparse
 import json
 from collections import Counter
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from srwz.font_rasterizer import rasterize_character, rasterizer_point_size
+from srwz.font_rasterizer import rasterize_characters, rasterizer_point_size
 from srwz.diagnostics import require_work_output
 from srwz.font import (
     GLYPH_SIZE,
@@ -362,17 +361,21 @@ def main() -> int:
 
     raster_grays = {}
 
-    def rasterize(character: str) -> tuple[str, dict]:
+    def rasterize_all(characters) -> dict[str, dict]:
+        rendered = rasterize_characters(
+            rasterizer["executable"],
+            lambda character: fallback_paths.get(character, font_path),
+            [c for c in characters if c != SQUAD_LIGATURE and c not in PERIOD_CHARACTERS],
+            rasterizer,
+        )
+        return dict(rasterize(character, rendered) for character in characters)
+
+    def rasterize(character: str, rendered: dict) -> tuple[str, dict]:
         if character == SQUAD_LIGATURE:
             return character, ligature_metadata(original_font)
         if character in PERIOD_CHARACTERS:
             return character, native_period_metadata(original_font)
-        gray, pixels, packed = rasterize_character(
-            rasterizer["executable"],
-            fallback_paths.get(character, font_path),
-            character,
-            rasterizer,
-        )
+        gray, pixels, packed = rendered[character]
         if args.raster_output is not None:
             raster_grays[character] = gray.hex()
         if not character.isspace() and not any(packed):
@@ -411,8 +414,7 @@ def main() -> int:
         if row["code"] not in copy_by_alias_code
     }
     if not required_raster_characters <= set(rasters):
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            rasters = dict(executor.map(rasterize, characters))
+        rasters = rasterize_all(characters)
         print(f"[cache] release font rasters rebuilt: {raster_cache_reason}")
     else:
         print(

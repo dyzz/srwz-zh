@@ -32,7 +32,7 @@ try:
         scan_iso9660,
         sha256_member,
     )
-    from srwz.file_identity import publish_verified, sha256_file as identity_sha256
+    from srwz.file_identity import publish_verified, remember_range_digests, sha256_file as identity_sha256
     from srwz.release_inputs import copy_file
 except ModuleNotFoundError:
     from tools.srwz.iso_config import (
@@ -51,7 +51,7 @@ except ModuleNotFoundError:
         scan_iso9660,
         sha256_member,
     )
-    from tools.srwz.file_identity import publish_verified, sha256_file as identity_sha256
+    from tools.srwz.file_identity import publish_verified, remember_range_digests, sha256_file as identity_sha256
     from tools.srwz.release_inputs import copy_file
 
 
@@ -751,6 +751,44 @@ def sha256_7z_member(seven_zip: str, image: Path, member: str) -> str:
     return digest.hexdigest()
 
 
+def _hash_output_image(output_path: Path) -> str:
+    """One sequential read of the finished image yields its digest and every member's.
+
+    Both land in the file-identity store, so the member validation below and
+    the content readback that follows do not read the 3.7 GB image again.
+    """
+    image = scan_iso9660(output_path)
+    whole = hashlib.sha256()
+    ranges = {}
+    position = 0
+    with output_path.open("rb") as stream:
+        for member in sorted(image.members, key=lambda item: item.extent_lba):
+            start = member.extent_lba * SECTOR_SIZE
+            if start < position:
+                raise IsoBuildError(f"overlapping member extents at {member.path}")
+            while position < start:
+                block = stream.read(min(HASH_CHUNK_SIZE, start - position))
+                if not block:
+                    raise IsoBuildError("output image ended before a member extent")
+                whole.update(block)
+                position += len(block)
+            digest = hashlib.sha256()
+            remaining = member.size
+            while remaining:
+                block = stream.read(min(HASH_CHUNK_SIZE, remaining))
+                if not block:
+                    raise IsoBuildError(f"output image ended inside {member.path}")
+                digest.update(block)
+                whole.update(block)
+                remaining -= len(block)
+            position += member.size
+            ranges[(start, member.size)] = digest.hexdigest()
+        while block := stream.read(HASH_CHUNK_SIZE):
+            whole.update(block)
+    remember_range_digests(output_path, ranges, whole=whole.hexdigest(), settled=True)
+    return whole.hexdigest()
+
+
 def validate_output(
     config: dict,
     source_image,
@@ -979,6 +1017,12 @@ def parse_args() -> argparse.Namespace:
         help="Recreate the cached original layout under work/ with dumps2iso.",
     )
     parser.add_argument(
+        "--extract-only",
+        action="store_true",
+        help="Only prepare (or refresh) the cached original layout, then stop; "
+             "lets the extraction overlap the component build.",
+    )
+    parser.add_argument(
         "--refresh-output-locks",
         action="store_true",
         help=(
@@ -1114,11 +1158,33 @@ def _build_incremental_iso(config: dict, component_binding: dict) -> dict | None
     return report
 
 
+def _extract_only(config: dict, *, refresh: bool) -> int:
+    source_iso = resolve_project_path(config["source_iso"]["path"])
+    verify_file(source_iso, config["source_iso"]["size"], config["source_iso"]["sha256"])
+    source_image = scan_iso9660(source_iso)
+    if len(source_image.members) != config["source_iso"]["member_count"]:
+        raise IsoBuildError("original ISO member count changed")
+    dumps2iso = resolve_tool(config["toolchain"]["dumps2iso"])
+    original_tree = resolve_project_path(config["workspace"]["original_tree"])
+    base_xml = resolve_project_path(config["workspace"]["base_xml"])
+    extract_original_layout(
+        dumps2iso, source_iso, original_tree, base_xml, set(member_map(source_image)),
+        volume_id=config["layout"]["volume_id"], refresh=refresh,
+    )
+    verify_extracted_members(source_image, original_tree)
+    print(f"[OK] original layout ready: {original_tree}")
+    return 0
+
+
 def main() -> int:
     args = parse_args()
     try:
         config_path = args.config.resolve()
         config = load_config(config_path)
+        if args.extract_only:
+            # Layout extraction depends on the source disc and toolchain only;
+            # it runs before the components exist and binds nothing.
+            return _extract_only(config, refresh=args.refresh_extraction)
         if args.refresh_output_locks:
             refreshed_count = refresh_component_output_locks(config)
             print(
@@ -1233,6 +1299,7 @@ def main() -> int:
                 lba_log,
             )
             gap_overrides = apply_output_gap_overrides(config, output_path)
+            _hash_output_image(output_path)
             report = validate_output(config, source_image, output_path)
             report["component_binding"] = component_binding
             report["sector_budget"] = sector_budget
