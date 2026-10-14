@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "batch_id": "community-20261013",
+  "live_snapshot_sha256": "b3ac7eb02a476dfb96b8a6de616d69b7f6e7ff261d999cf264efecb66377f21d",
+  "auto_accepted_count": 2,
+  "pending_count": 0,
+  "onlineStatusChanged": false,
+  "iso_chd_rebuilt": false,
+  "decisions": [
+    {
+      "suggestionId": "ff16b8d0-6d55-4c91-a5b4-c2de40f15f20",
+      "targetId": "story/007/dialogue/01.01/0000",
+      "sourceTextSha256": "fea418e34e80b9aa795dca9f9c7c645d591d39cb3ab21e28a7b456281f31e09d",
+      "previousTranslation": "“这些是什么！？”",
+      "submittedTranslation": "“这些是什么东西！？”",
+      "finalTranslation": "“这些是什么东西！？”",
+      "rationale": "面对突然出现的未知敌机，补出东西使惊问完整，保留何だ、あいつらは的指代与惊讶语气，可以采纳。",
+      "choice": "submitted",
+      "decisionSource": "accepted-as-submitted"
+    },
+    {
+      "suggestionId": "a9d81b7f-1ec5-4330-80e1-bfc90e996ef6",
+      "targetId": "story/013/dialogue/01.03/0003",
+      "sourceTextSha256": "60ce0512688afd596f801a228cf660681056b607d092b3bf4357674314e07e50",
+      "previousTranslation": "“哼……我的名字是$F。人称……”",
+      "submittedTranslation": "“哼，\n　我的名字是$F。\n　人称……”",
+      "finalTranslation": "“哼，\n　我的名字是$F。\n　人称……”",
+      "rationale": "按日文的三段自报姓名分成三行，动态姓名$F独立放在第二行的句子中，避免与人称挤在同一行。保留姓名变量；哼后的逗号作为短暂停顿可以接受。静态排版通过，游戏内动态姓名显示尚待实际验证。",
+      "choice": "submitted",
+      "decisionSource": "accepted-as-submitted"
+    },
+    {
+      "suggestionId": "1e928f5c-4ce5-44f7-8f68-09ec2fd77119",
+      "targetId": "story/013/dialogue/01.03/0012",
+      "sourceTextSha256": "1d2e819b7873aea5cdcff78c4730964e7eb0281c81fa79e4fb42f34ec4373afb",
+      "previousTranslation": "“啊～啊……我可不管哦。\n　要是再那么叫达令……”",
+      "submittedTranslation": "“诶……我可不管哦。\n　要是再那么叫达令……”",
+      "finalTranslation": "“哎呀……我可不管哦。\n　要是再那么叫达令……”",
+      "rationale": "前后文中兰德已反复要求对方别叫破坏者，梅尔在旁预告惹怒他的后果。あ〜あ是无奈、看好戏的叹声；投稿诶容易读成突然疑问或惊讶。建议用哎呀表现这一语气，也可保留现译，交由你确认。",
+      "choice": "recommended",
+      "decisionSource": "user-confirmed"
+    },
+    {
+      "suggestionId": "14091e04-6d98-441d-84e1-10d84a8f23e8",
+      "targetId": "story/013/dialogue/02.02/0014",
+      "sourceTextSha256": "5f2b1ec0ce8535f5171c57c1b60c279cc8b43ff57e14c42a51e6cf49de154eb6",
+      "previousTranslation": "“嘛……真会说话！”",
+      "submittedTranslation": "“哟……真会说话！”",
+      "finalTranslation": "“哟……真会说话！”",
+      "rationale": "该隐刚夸兰德有个好太太，梅尔顺势欣然接受。ま是女性惊喜、受用的感叹；现译嘛带日语直译感，投稿哟也可成立，但略带打趣。推荐哎呀，保留受夸后高兴的语气，请你选择。",
+      "choice": "submitted",
+      "decisionSource": "user-confirmed"
+    }
+  ],
+  "verification": {
+    "source_binding": "passed",
+    "production_encoding": "passed",
+    "story_layout": "passed",
+    "runtime": "not_tested"
+  },
+  "user_confirmed_count": 2
+}
