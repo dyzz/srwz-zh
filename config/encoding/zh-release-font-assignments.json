@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1914,
+  "allocation_assignment_count": 1915,
   "reraster_existing_assignment_count": 1620,
-  "primary_assignment_count": 3534,
+  "primary_assignment_count": 3535,
   "surface_alias_assignment_count": 54,
-  "primary_mapping_sha256": "018f18e1274f5f85a758b3737afac6debad556fda63465a3ddebec752cffd8b8",
+  "primary_mapping_sha256": "3bc1c00ead03b1ce24d171a6c8f10305a395ed7890f4ef0fc120db7e921c95d8",
   "surface_alias_mapping_sha256": "9144c1571b3ee85e66bf339f9d07ae46bca14ede427f91fc52c62d2c432b9133",
   "source_compatibility_assignment_count": 36,
   "source_compatibility_mapping_sha256": "2a01296e8138d6343232359cb3818de870d704222de0d26a0ba53a38319beb62",
-  "remaining_allocation_candidate_count": 11,
-  "remaining_allocation_candidates_sha256": "14cc43db77760fd3284129429f06235080ab8b8745b1be0f2bed963bedfdf741",
+  "remaining_allocation_candidate_count": 10,
+  "remaining_allocation_candidates_sha256": "ad78bacda0a8b13680cfa4e83369f028acca187abad7c69597226f561e5c5460",
   "primary_assignments": [
     {
       "character": "、",
@@ -23856,6 +23856,14 @@
       "mapping": "reclaimed_unique_default_width_candidate",
       "source_character": "漣",
       "allocation_width_class": "default_width"
+    },
+    {
+      "character": "咋",
+      "code": "97F9",
+      "glyph_index": 4409,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "煉",
+      "allocation_width_class": "default_width"
     }
   ],
   "surface_alias_assignments": [
@@ -24583,12 +24591,6 @@
     }
   ],
   "remaining_allocation_candidates": [
-    {
-      "code": "97F9",
-      "glyph_index": 4409,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "煉"
-    },
     {
       "code": "97FA",
       "glyph_index": 4410,
@@ -41575,6 +41577,22 @@
           "glyph_index": 4408,
           "mapping": "reclaimed_unique_default_width_candidate",
           "source_character": "漣",
+          "allocation_width_class": "default_width"
+        }
+      ]
+    },
+    {
+      "selection_sha256": "d86b1fcb408694b03c159a81c2fa134c631905e448d8df6873fc169ababf4be4",
+      "assignment_count": 1,
+      "allocation_assignment_count": 1,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "咋",
+          "code": "97F9",
+          "glyph_index": 4409,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "煉",
           "allocation_width_class": "default_width"
         }
       ]
