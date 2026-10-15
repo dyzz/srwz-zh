@@ -47,7 +47,7 @@ def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | Non
                                  overrides=overrides, terminate=True))
 
     label = text("名场面集")
-    event_help = "重温出击、合体等剧情名场面。"
+    event_help = "重温出击、合体等剧情名场面。播放中按×可返回。"
     help_text = text(event_help)
     assert items and all(item.get("name") for item in items)
     names = [text(item["name"]) for item in items]

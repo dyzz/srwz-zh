@@ -65,15 +65,19 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
             raise ValueError(f"{scene_id}: invalid native effect ids")
         if effects[0] == 273 and list(effects) != [273, 274]:
             raise ValueError("Impulse scene must preserve the 273 then 274 chain")
+        # The scene's primary effect carries its voice schedule; a pre-beat
+        # effect (a unit burst before the performance) may precede it.
+        primary = next((e for e in effects if voice_timelines and e in voice_timelines), effects[0])
         flags = int(fallback_anchor) | (int(fallback_view) << 1)
         lines += [
             f"    /* row {index}: {scene_id} */",
             "    .word " + ",".join(map(str, (
                 map_id, *camera_tile, map_view, f"gallery_script_{index}",
-                flags, effects[0], f"gallery_voice_{index}" if voice_timelines and effects[0] in voice_timelines else 0,
+                flags, primary, f"gallery_voice_{index}" if voice_timelines and primary in voice_timelines else 0,
             ))),
         ]
         scenes.append({
+            'primary': primary,
             "row": index,
             "id": scene_id,
             "map": map_id,
@@ -95,7 +99,7 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     lines += [".org 0x2000"]
     if voice_timelines:
         for scene in scenes:
-            timeline = voice_timelines.get(scene['effects'][0])
+            timeline = voice_timelines.get(scene['primary'])
             if timeline is None:
                 continue
             assert len(timeline) <= 80 and len(timeline) % 4 == 0

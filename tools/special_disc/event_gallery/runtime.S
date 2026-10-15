@@ -7,7 +7,11 @@
  * +0x14 temporary source framebuffer, +0x18 pending restoration,
  * +0x20 theater BGM id, +0x24 theater BGM restore pending,
  * +0x28 placeholder-actor table before playback, +0x30 resident map effects
- * loaded for this theater session, +0x40 saved unit flags.
+ * loaded for this theater session, +0x34 frames played (cancel guard),
+ * +0x38 previous pad held mask, +0x40 saved unit flags.
+ * Playback can be cancelled with cross, circle or START: a new press seen
+ * on the pad held mask (0062514c; the frozen list widget consumes the
+ * native trigger word for cross/circle) runs the completion path at once.
  * Rows select the configuration-generated map/camera/script table at 0x00823c00.
  * Native scripts at 0x00826800. No stage script, save-state or host trigger.
  * Original UI object remains allocated; rendering/input freezes during playback.
@@ -93,6 +97,9 @@ frame_save:
 
     addiu   $t2,$zero,2
     sw      $t2,4($s1)
+    sw      $zero,0x34($s1)
+    addiu   $t2,$zero,0xffff
+    sw      $t2,0x38($s1)    /* no cancel edge until every button is released */
     /* Map initialization changes the framebuffer interpretation. Clear both
      * display buffers first so the last theater frame cannot be presented
      * with the map's pixel format while the stage is loading. */
@@ -167,6 +174,44 @@ init_map:
     jal     0x0017c290       /* enter independent native event script */
     addiu   $a1,$zero,1
 frame_map:
+    /* Cancel: a new press of cross, circle or START after the first 20 frames
+     * (the list's own confirm press must not count) ends the scene now. */
+    lw      $t1,0x34($s1)
+    addiu   $t1,$t1,1
+    sw      $t1,0x34($s1)
+    sltiu   $t2,$t1,20
+    bne     $t2,$zero,cancel_checked
+    nop
+    lui     $t0,0x0062
+    lhu     $t0,0x514c($t0)  /* 0062514c pad held mask */
+    lw      $t1,0x38($s1)
+    sw      $t0,0x38($s1)
+    nor     $t1,$t1,$zero    /* buttons not held last frame */
+    and     $t0,$t0,$t1
+    andi    $t0,$t0,0x0860   /* raw pad order: cross 0x0040, circle 0x0020, START 0x0800 */
+    beq     $t0,$zero,cancel_checked
+    nop
+    /* Consume this press: the list widget resumes this frame and would take
+     * the same cross as "back" (the trigger copies at 0062514e/52/54/56). */
+    lui     $t0,0x0062
+    sh      $zero,0x514e($t0)
+    sh      $zero,0x5152($t0)
+    sh      $zero,0x5154($t0)
+    sh      $zero,0x5156($t0)
+    /* Undo a script blank (op 0x13ac 2: clear colour 0xff, map layers off)
+     * that the interrupted script would have reverted itself. */
+    lui     $t0,0x004d
+    sb      $zero,-0x518c($t0) /* 004cae74 clear colour r (gp-0x79fc) */
+    sb      $zero,-0x5188($t0) /* 004cae78 g (gp-0x79f8) */
+    sb      $zero,-0x5184($t0) /* 004cae7c b (gp-0x79f4) */
+    daddu   $a0,$zero,$zero
+    jal     0x001c21b0       /* map layers back on (op 0x13ac 0) */
+    addiu   $a1,$zero,1
+    addiu   $t0,$zero,3
+    sw      $t0,4($s1)
+    b       frame_complete
+    nop
+cancel_checked:
     /* Cache hits can bypass the native shared CCC timeline initialization.
      * Install this gallery scene's unmodified source schedule before rendering.
      * Native effect code still owns exact-frame speech calls and CCC playback.

@@ -36,7 +36,13 @@ class FidelityTimelineTests(unittest.TestCase):
             self.assertEqual(timeline[0], ["zoom", fidelity["zoom"]["value"]], entry["id"])
             bgm_ops = [op for op in timeline if op[0] == "bgm"]
             if fidelity["bgm"]["mode"] == "script":
-                self.assertEqual(bgm_ops, [["bgm", fidelity["bgm"]["id"]]], entry["id"])
+                # Later BGM changes of the original script are declared with
+                # their source beside the opening song, in timeline order.
+                changes = fidelity["bgm"].get("changes", [])
+                for change in changes:
+                    self.assertIn("source", change, entry["id"])
+                expected = [["bgm", fidelity["bgm"]["id"]]] + [["bgm", c["id"]] for c in changes]
+                self.assertEqual(bgm_ops, expected, entry["id"])
             else:
                 # The effect resource header starts this BGM; a script request
                 # before it would restart the song at the effect.
@@ -44,7 +50,7 @@ class FidelityTimelineTests(unittest.TestCase):
 
     def test_original_view_changes_are_retained(self):
         views = {e["id"]: e["camera"]["map_view"] for e in self.entries}
-        self.assertEqual(views["effect-255"], 0)  # STAGE126 0xb820 op 0x41 0
+        self.assertEqual(views["effect-255"], 1)  # STAGE126 0xb710 switch at view 1; 0xb820 op 0x41 0 rotates inside the clip
         self.assertEqual(views["effect-259"], 2)  # STAGE107 0x141d0 op 0x41 2
         self.assertTrue(all(v == 3 for k, v in views.items() if k not in ("effect-255", "effect-259")))
 

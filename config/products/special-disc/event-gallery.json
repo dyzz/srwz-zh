@@ -7,6 +7,14 @@
       "id": "effect-273",
       "name": "脉冲高达出击",
       "effects": [
+        15,
+        15,
+        15,
+        1,
+        1,
+        1,
+        8,
+        33,
         273,
         274
       ],
@@ -63,9 +71,16 @@
       "fidelity": {
         "bgm": {
           "mode": "script",
-          "id": 30,
-          "title": "ＩＧＮＩＴＥＤ",
-          "source": "STAGE002 0xa790 op0x43 0x1e immediately before effect 273"
+          "id": 69,
+          "title": "ＳＴＡＧＥ・Ｄ",
+          "source": "STAGE002 0xa370 op0x43 0x45 at the section start (Abyss attacks Alex's Zaku)",
+          "changes": [
+            {
+              "id": 30,
+              "title": "ＩＧＮＩＴＥＤ",
+              "source": "STAGE002 0xa790 op0x43 0x1e right before effect 273"
+            }
+          ]
         },
         "zoom": {
           "value": -11,
@@ -154,7 +169,133 @@
           ],
           [
             "bgm",
+            69
+          ],
+          [
+            "camera",
+            13,
+            15
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "wait",
             30
+          ],
+          [
+            "effect",
+            15,
+            [
+              12,
+              13
+            ]
+          ],
+          [
+            "wait",
+            10
+          ],
+          [
+            "effect",
+            15,
+            [
+              13,
+              13
+            ]
+          ],
+          [
+            "wait",
+            10
+          ],
+          [
+            "effect",
+            15,
+            [
+              11,
+              13
+            ]
+          ],
+          [
+            "wait",
+            4
+          ],
+          [
+            "effect",
+            1,
+            [
+              11,
+              13
+            ]
+          ],
+          [
+            "wait",
+            4
+          ],
+          [
+            "effect",
+            1,
+            [
+              12,
+              13
+            ]
+          ],
+          [
+            "wait",
+            4
+          ],
+          [
+            "effect",
+            1,
+            [
+              13,
+              13
+            ]
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "effect",
+            8,
+            [
+              12,
+              13
+            ]
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "effect",
+            33,
+            [
+              12,
+              13
+            ]
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "bgm",
+            30
+          ],
+          [
+            "camera",
+            13,
+            13
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
           ],
           [
             "wait",
@@ -327,6 +468,10 @@
           {
             "what": "Sword Impulse arrival (spawn group 5 at 0xaaa0)",
             "reason": "after END_EFFECT_BLOCK 0xaa90, outside the selected clip"
+          },
+          {
+            "what": "pre-beat 0xa380-0xa770: dialogues, portrait setup, SE 0x849e/0x85a0, 0x13a3/0x13a4/0x13a8/0x13ab/0x13a9/0x1394, variable 0x8020/0x8040/0x8021/0x8041 (Alex's unit tile), flag 0x9106",
+            "reason": "dialogue-only state; the explosion tiles are Alex's documented tile (12,13) and its neighbours"
           }
         ],
         "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions"
@@ -336,7 +481,8 @@
       "id": "effect-255",
       "name": "双卫星加农炮发射",
       "effects": [
-        255
+        255,
+        251
       ],
       "map": 3,
       "camera": {
@@ -344,8 +490,8 @@
           20,
           23
         ],
-        "map_view": 0,
-        "status": "STAGE126 0xb710 op0x13bc map 3 (20,23) view 1, then 0xb820 op0x41 0 -> view 0 before the call"
+        "map_view": 1,
+        "status": "view 1 = STAGE126 0xb710 op0x13bc map switch view 1, then 0xb820 op0x41 0 rotates to view 0 inside the clip; camera (20,23) from the switch"
       },
       "effect_tile": [
         20,
@@ -404,7 +550,7 @@
         },
         "zoom": {
           "value": -11,
-          "source": "STAGE126 0xb730 op0x13b9 -11 after map switch 0xb710 (map 3, (20,23), view 1)"
+          "source": "STAGE126 0xb730 op0x13b9 -11 after the switch to map 3; 0xb960 op0x13b9 -16 after the switch back to map 57"
         },
         "view_source": "0xb710 op0x13bc map 3 view 1, then 0xb820 op0x41 0 rotates to view 0 before the effect",
         "timeline": [
@@ -413,12 +559,76 @@
             -11
           ],
           [
+            "raw",
+            5036,
+            2,
+            0,
+            0
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "spawn",
+            "garrod"
+          ],
+          [
             "bgm",
             25
           ],
           [
+            "overlay",
+            248
+          ],
+          [
+            "raw",
+            5036,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "fade",
+            248,
+            0,
+            -8
+          ],
+          [
+            "overlay_off"
+          ],
+          [
             "wait",
             30
+          ],
+          [
+            "raw",
+            65,
+            0,
+            0,
+            0
+          ],
+          [
+            "camera",
+            20,
+            23
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
           ],
           [
             "effect",
@@ -427,6 +637,11 @@
               20,
               23
             ]
+          ],
+          [
+            "visible",
+            330,
+            0
           ],
           [
             "wait",
@@ -446,22 +661,210 @@
             8
           ],
           [
+            "raw",
+            5036,
+            2,
+            0,
+            0
+          ],
+          [
+            "overlay_off"
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "visible",
+            330,
+            1
+          ],
+          [
+            "remove_pilot",
+            330
+          ],
+          [
+            "raw",
+            5052,
+            3735553,
+            196624,
+            196608
+          ],
+          [
+            "raw",
+            5036,
+            2,
+            0,
+            0
+          ],
+          [
+            "zoom",
+            -16
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "model",
+            0,
+            1,
+            0
+          ],
+          [
+            "model",
+            1,
+            1,
+            0
+          ],
+          [
+            "model",
+            2,
+            1,
+            0
+          ],
+          [
+            "model",
+            3,
+            1,
+            0
+          ],
+          [
+            "model",
+            4,
+            1,
+            0
+          ],
+          [
+            "model",
+            1,
+            9,
+            0
+          ],
+          [
+            "model",
+            2,
+            9,
+            0
+          ],
+          [
+            "model",
+            3,
+            9,
+            0
+          ],
+          [
+            "model",
+            4,
+            9,
+            0
+          ],
+          [
+            "side_visible",
+            12,
+            1
+          ],
+          [
+            "raw",
+            5036,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "fade",
+            248,
+            0,
+            -8
+          ],
+          [
+            "overlay_off"
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "effect",
+            251,
+            [
+              17,
+              17
+            ]
+          ],
+          [
+            "model",
+            4,
+            9,
+            1
+          ],
+          [
+            "model",
+            4,
+            5,
+            499
+          ],
+          [
+            "wait",
+            469
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "fade",
+            0,
+            252,
+            4
+          ],
+          [
             "wait_effects"
           ]
         ],
         "excluded": [
           {
-            "what": "GX Double X/G-Falcon squad spawned by list 0x8840",
-            "reason": "hidden by 0xb860 (910e Garrod=0) for the whole effect and removed by 0xb930 after it; never visible in the clip"
+            "what": "dialogues 0xb810/0xbaf0-0xbb30, 0x1397 at 0xb760, Lancerow camera/act 0xba20-0xbb10 (route), EN assignments",
+            "reason": "dialogue, route-dependent unit and battle flow"
           }
         ],
-        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions"
+        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions",
+        "units": {
+          "garrod": [
+            {
+              "unit": 388,
+              "pilot": 330,
+              "tile": [
+                20,
+                23
+              ],
+              "facing": 3,
+              "side": 0,
+              "appear": 255,
+              "class": 4,
+              "original": {
+                "unit": 365,
+                "pilot": 320
+              },
+              "source": "STAGE126 spawn list 0x8840 at 0xb750: Garrod/Pala DX + G Falcon squad at (20,23) facing 3 (head 0x0402ff00); the G Falcon squad member (371) shares the leader sprite and is not placed"
+            }
+          ]
+        }
       }
     },
     {
       "id": "effect-256",
       "name": "阿克艾里昂合体",
       "effects": [
+        20,
         256
       ],
       "map": 13,
@@ -588,6 +991,46 @@
             "vectors"
           ],
           [
+            "camera",
+            10,
+            11
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "effect",
+            20,
+            [
+              11,
+              10
+            ]
+          ],
+          [
+            "wait",
+            60
+          ],
+          [
+            "camera",
+            11,
+            4
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
             "wait",
             30
           ],
@@ -631,6 +1074,10 @@
           {
             "what": "0x88e0 op0x13c0 / 0x88f0 op0x13b5 squad registration",
             "reason": "roster/formation bookkeeping without map display; snapshot-restored roster not needed for the clip"
+          },
+          {
+            "what": "BGM 0x8670 op0x43 0x2e before effect 20",
+            "reason": "the effect 256 resource header plays the same song; a script request earlier would restart it at the effect, so the pre-beat runs on the paused theater BGM"
           }
         ],
         "hold_after_effect": {
@@ -643,6 +1090,7 @@
       "id": "effect-257",
       "name": "爆爱无限光",
       "effects": [
+        21,
         257
       ],
       "map": 74,
@@ -692,8 +1140,23 @@
             47
           ],
           [
+            "spawn",
+            "tsugumi"
+          ],
+          [
             "wait",
             30
+          ],
+          [
+            "effect",
+            21,
+            [
+              13,
+              7
+            ]
+          ],
+          [
+            "wait_effects"
           ],
           [
             "effect",
@@ -705,7 +1168,90 @@
           ],
           [
             "wait",
-            810
+            1
+          ],
+          [
+            "visible",
+            638,
+            0
+          ],
+          [
+            "wait",
+            809
+          ],
+          [
+            "fade",
+            0,
+            252,
+            4
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "raw",
+            5036,
+            2,
+            0,
+            0
+          ],
+          [
+            "overlay_off"
+          ],
+          [
+            "raw",
+            5052,
+            1638401,
+            851975,
+            196608
+          ],
+          [
+            "raw",
+            5036,
+            2,
+            0,
+            0
+          ],
+          [
+            "zoom",
+            -11
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "camera",
+            13,
+            7
+          ],
+          [
+            "raw",
+            5036,
+            0,
+            0,
+            0
+          ],
+          [
+            "visible",
+            638,
+            1
+          ],
+          [
+            "fade",
+            128,
+            0,
+            -1
+          ],
+          [
+            "overlay_off"
+          ],
+          [
+            "wait",
+            90
           ],
           [
             "fade",
@@ -719,15 +1265,36 @@
         ],
         "excluded": [
           {
-            "what": "Tsugumi's unit (anchor, pilot 616)",
-            "reason": "hidden at 0x12c90 for the whole effect; its runtime tile is play-dependent, gallery keeps the documented (13,7) anchor"
+            "what": "dialogue portrait setup 0x12ba0-0x12bf0, script variables 0x8020/0x8040 (dialogue speaker refs)",
+            "reason": "dialogue-only state; the effect is spawned by 0x139b without reading them"
           }
-        ]
+        ],
+        "units": {
+          "tsugumi": [
+            {
+              "unit": 704,
+              "pilot": 638,
+              "tile": [
+                13,
+                7
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 655,
+                "pilot": 616
+              },
+              "source": "STAGE117 0x12b20/0x12b50 op0x1d switch the Aquarion to アクエリオンエンジェル (655) before the call, with Tsugumi (616) as main pilot (the robot library lists 爆愛無限光 and 哀・天使剣 as this form's attacks); placed at the documented (13,7) anchor with the facing set by 0x12c30 op0x23; hidden at 0x12c90 right after effect 257 starts"
+            }
+          ]
+        }
       }
     },
     {
       "id": "effect-258",
-      "name": "天使剑",
+      "name": "哀·天使剑",
       "effects": [
         258
       ],
@@ -773,6 +1340,39 @@
             -11
           ],
           [
+            "overlay",
+            252
+          ],
+          [
+            "spawn",
+            "pierre"
+          ],
+          [
+            "spawn",
+            "shishi"
+          ],
+          [
+            "camera",
+            13,
+            5
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "fade",
+            252,
+            0,
+            -2
+          ],
+          [
+            "overlay_off"
+          ],
+          [
             "bgm",
             47
           ],
@@ -781,12 +1381,34 @@
             30
           ],
           [
+            "camera",
+            13,
+            6
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
             "effect",
             258,
             [
               13,
               5
             ]
+          ],
+          [
+            "visible",
+            634,
+            0
+          ],
+          [
+            "visible",
+            657,
+            0
           ],
           [
             "wait",
@@ -798,14 +1420,93 @@
           ],
           [
             "wait_effects"
+          ],
+          [
+            "visible",
+            634,
+            1
+          ],
+          [
+            "visible",
+            657,
+            1
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "fade",
+            252,
+            0,
+            -2
+          ],
+          [
+            "overlay_off"
+          ],
+          [
+            "wait",
+            60
+          ],
+          [
+            "fade",
+            0,
+            252,
+            4
+          ],
+          [
+            "wait_effects"
           ]
         ],
         "excluded": [
           {
-            "what": "Aquarion Angel (Pierre, (13,5)) and Cherubim Mars (Shiba, (13,7))",
-            "reason": "both hidden at 0x10940/0x10950 for the whole effect and shown only after END_EFFECT_BLOCK"
+            "what": "dialogues and portrait setup 0x106f0-0x10910, unit flags 0x9106, 0x24 unit flashes 0x10a50, battle after 0x10a70",
+            "reason": "dialogue-only state and battle flow"
           }
-        ]
+        ],
+        "units": {
+          "pierre": [
+            {
+              "unit": 704,
+              "pilot": 634,
+              "tile": [
+                13,
+                5
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 655,
+                "pilot": 612
+              },
+              "source": "STAGE128 0x107a0 op0x1d switches Pierre's unit to アクエリオンエンジェル (655); 0x108e0 facing 1; position follows play, placed at the documented effect anchor (13,5)"
+            }
+          ],
+          "shishi": [
+            {
+              "unit": 718,
+              "pilot": 657,
+              "tile": [
+                14,
+                7
+              ],
+              "facing": 3,
+              "side": 12,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 669,
+                "pilot": 635
+              },
+              "source": "STAGE128 unit table 0xdff2: 詩翅 pilots ケルビムマーズ (669, lv57); 0x108f0 facing 3; enemy position follows play, placed south-east of the anchor"
+            }
+          ]
+        }
       }
     },
     {
@@ -870,12 +1571,70 @@
               },
               "source": "spawn group 14 at 0x14530 (frame 640): 光球/双翅, placement 106 (10,26) facing 0 side 12"
             }
+          ],
+          "apollo": [
+            {
+              "unit": 700,
+              "pilot": 623,
+              "tile": [
+                6,
+                26
+              ],
+              "facing": 2,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 651,
+                "pilot": 602
+              },
+              "source": "STAGE107 0x14230 op0x1d switches Apollo's unit to ソーラーアクエリオン (651); dialogue frame 0x142b0 gives (6,26); 0x14300 facing 2"
+            }
+          ],
+          "futaba": [
+            {
+              "unit": 725,
+              "pilot": 655,
+              "tile": [
+                10,
+                26
+              ],
+              "facing": 0,
+              "side": 12,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 676,
+                "pilot": 633
+              },
+              "source": "STAGE107 unit table 0x1253c: 双翅 pilots ケルビム兵 (676, lv50); dialogue frame 0x142c0 gives (10,26); 0x14310 facing 0; removed at 0x14520 when the orb appears"
+            }
           ]
         },
         "timeline": [
           [
             "zoom",
             -11
+          ],
+          [
+            "spawn",
+            "apollo"
+          ],
+          [
+            "spawn",
+            "futaba"
+          ],
+          [
+            "camera",
+            6,
+            26
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
           ],
           [
             "bgm",
@@ -886,6 +1645,18 @@
             30
           ],
           [
+            "camera",
+            8,
+            26
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
             "effect",
             259,
             [
@@ -894,8 +1665,18 @@
             ]
           ],
           [
+            "visible",
+            623,
+            0
+          ],
+          [
+            "visible",
+            655,
+            0
+          ],
+          [
             "wait",
-            640
+            705
           ],
           [
             "spawn",
@@ -903,12 +1684,38 @@
           ],
           [
             "wait_effects"
+          ],
+          [
+            "remove_pilot",
+            655
+          ],
+          [
+            "visible",
+            623,
+            1
+          ],
+          [
+            "wait",
+            90
+          ],
+          [
+            "fade",
+            0,
+            252,
+            4
+          ],
+          [
+            "wait_effects"
           ]
         ],
         "excluded": [
           {
-            "what": "Apollo's Aquarion (6,26) and 双翅 Cherubim (10,26)",
-            "reason": "hidden from the call (0x144c0/0x14500); 双翅 is removed at frame 640 before the orb appears"
+            "what": "Breaker route branch 0x14350-0x14430 (Breaker at (6,26) instead of Apollo), dialogues, flags 0x9106, second 0x13ae at 0x145d0, battle after 0x14610",
+            "reason": "the gallery plays the Apollo branch; dialogue-only state and battle flow"
+          },
+          {
+            "what": "0x14510 wait 0x280 / 0x14520 op0x13ae / 0x14530 spawn_group 0xe timing",
+            "reason": "the original's 0x139b lets the effect counter run while the resource loads (~65 frames), so its 640-frame wait lands at effect frame ~705 (user video: orb appears 2.4 s after the scream starts, 1.3 s in the gallery at 640). The gallery waits 705; the spawn stops the current voice (双翅's scream, 580→), so this also gives the scream the original's length. The removal is kept after the effect ends (she is hidden anyway)."
           }
         ]
       }
@@ -1045,6 +1852,25 @@
               },
               "source": "Toga/Gran Kaiser 0x9100 move (11,6); hidden 0x9460, shown 0x94c0 with Gravion combination 0x94d0"
             }
+          ],
+          "tsugumi": [
+            {
+              "unit": 660,
+              "pilot": 638,
+              "tile": [
+                6,
+                8
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 616,
+                "pilot": 616
+              },
+              "source": "STAGE007 0x9280 dialogue frame gives Tsugumi's unit (616) at (6,8); camera 0x92b0/0x92d0 centres on it; facing not set by the script, 1 like the knights"
+            }
           ]
         },
         "timeline": [
@@ -1062,6 +1888,10 @@
           [
             "spawn",
             "toga"
+          ],
+          [
+            "spawn",
+            "tsugumi"
           ],
           [
             "wait",
@@ -1161,7 +1991,14 @@
           "mode": "script",
           "id": 40,
           "title": "嘆きのロザリオ",
-          "source": "STAGE107 0x15620 op0x43 0x28"
+          "source": "STAGE107 0x15620 op0x43 0x28",
+          "changes": [
+            {
+              "id": 42,
+              "title": "紅ノ牙",
+              "source": "STAGE107 0x15be0 op0x43 0x2a after the reveal (0x15b60 camera on 斗牙, 180 frames), then the fade to 0xf8 at 0x15bf0"
+            }
+          ]
         },
         "zoom": {
           "value": -11,
@@ -1522,6 +2359,14 @@
             "ghosts_install"
           ],
           [
+            "spawn",
+            "toga"
+          ],
+          [
+            "spawn",
+            "breaker"
+          ],
+          [
             "bgm",
             40
           ],
@@ -1542,6 +2387,16 @@
               18,
               3
             ]
+          ],
+          [
+            "visible",
+            578,
+            0
+          ],
+          [
+            "visible",
+            807,
+            0
           ],
           [
             "wait",
@@ -1942,6 +2797,45 @@
           ],
           [
             "wait_effects"
+          ],
+          [
+            "camera",
+            18,
+            4
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "visible",
+            578,
+            1
+          ],
+          [
+            "visible",
+            807,
+            1
+          ],
+          [
+            "wait",
+            180
+          ],
+          [
+            "bgm",
+            42
+          ],
+          [
+            "fade",
+            0,
+            248,
+            8
+          ],
+          [
+            "wait_effects"
           ]
         ],
         "excluded": [
@@ -1949,7 +2843,47 @@
             "what": "Toga/Gran Kaiser and Breaker 774 units",
             "reason": "hidden at 0x156c0/0x156d0 for the whole effect"
           }
-        ]
+        ],
+        "units": {
+          "toga": [
+            {
+              "unit": 644,
+              "pilot": 578,
+              "tile": [
+                18,
+                4
+              ],
+              "facing": 0,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 600,
+                "pilot": 558
+              },
+              "source": "STAGE107: 斗牙 pilots ゴッドグラヴィオン (600) at this point (spawn 0xfec0 later lists it); hidden at 0x156c0 when effect 265 starts, shown at 0x15b70; position follows play, placed one tile south of the (18,3) anchor"
+            }
+          ],
+          "breaker": [
+            {
+              "unit": 676,
+              "pilot": 807,
+              "tile": [
+                20,
+                2
+              ],
+              "facing": 2,
+              "side": 12,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 627,
+                "pilot": 774
+              },
+              "source": "STAGE107 unit table 0x12644: ブレーカー pilots ソル═グラヴィオン (627, lv47); hidden at 0x156d0, shown at 0x15b80; enemy position follows play"
+            }
+          ]
+        }
       }
     },
     {
@@ -2161,6 +3095,44 @@
               },
               "source": "spawn list 0x75f2d0 (0x8be0) at 0xb9b0: Getter Dragon/Ryoma (14,23) facing 2 animated appear"
             }
+          ],
+          "koji": [
+            {
+              "unit": 0,
+              "pilot": 2,
+              "tile": [
+                12,
+                23
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 0,
+                "pilot": 2
+              },
+              "source": "STAGE043 0xb7b0-0xb7d0: the script centres on 甲児 (if present) and turns him to facing 2 before the zoom; a player unit, placed west of the Getter Dragon spawn tile"
+            }
+          ],
+          "tetsuya": [
+            {
+              "unit": 6,
+              "pilot": 14,
+              "tile": [
+                16,
+                23
+              ],
+              "facing": 3,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 6,
+                "pilot": 14
+              },
+              "source": "gallery choice (user: place a few allied units by route): 鉄也's グレートマジンガー east of the spawn tile; not referenced by the script"
+            }
           ]
         },
         "timeline": [
@@ -2170,6 +3142,53 @@
           ],
           [
             "bgm_pause"
+          ],
+          [
+            "spawn",
+            "koji"
+          ],
+          [
+            "spawn",
+            "tetsuya"
+          ],
+          [
+            "camera",
+            12,
+            23
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "wait",
+            15
+          ],
+          [
+            "raw",
+            35,
+            2,
+            2,
+            2
+          ],
+          [
+            "wait",
+            15
+          ],
+          [
+            "camera",
+            25,
+            30
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
           ],
           [
             "wait",
@@ -2249,6 +3268,7 @@
       "id": "effect-269",
       "name": "魔神Z出击",
       "effects": [
+        268,
         269
       ],
       "map": 72,
@@ -2269,31 +3289,31 @@
       "stage_objects": [
         {
           "model": 1,
-          "frame": 1600,
+          "frame": 0,
           "mode": 2,
           "visible": 1
         },
         {
           "model": 2,
-          "frame": 1600,
+          "frame": 0,
           "mode": 2,
           "visible": 1
         },
         {
           "model": 3,
-          "frame": 1600,
+          "frame": 0,
           "mode": 2,
           "visible": 1
         },
         {
           "model": 4,
-          "frame": 1600,
+          "frame": 0,
           "mode": 2,
           "visible": 0
         },
         {
           "model": 5,
-          "frame": 1600,
+          "frame": 0,
           "mode": 2,
           "visible": 1
         }
@@ -2302,6 +3322,7 @@
         "stage_index": 47,
         "call_offset": "0x9f70",
         "script_roots": [
+          "0xac00",
           "0x9f00"
         ],
         "native_init_offset": "0x8d0",
@@ -2310,13 +3331,25 @@
       "fidelity": {
         "bgm": {
           "mode": "script",
-          "id": 70,
-          "title": "ＢＬＡＣＫ　ＡＬＡＲＭ",
-          "source": "STAGE047 0x9f00 op0x43 0x46 at the event start; next BGM change 0xa260 is after the clip"
+          "id": 1,
+          "title": "おれはグレートマジンガー",
+          "source": "STAGE047 0xaf10 op0x43 0x1 before the barrier effect 268",
+          "changes": [
+            {
+              "id": 70,
+              "title": "ＢＬＡＣＫ　ＡＬＡＲＭ",
+              "source": "STAGE047 0x9f00 op0x43 0x46 at the launch event start (the battle between the two events is not part of the clip)"
+            },
+            {
+              "id": 0,
+              "title": "マジンガーＺ",
+              "source": "STAGE047 0xa260 op0x43 0x0 after the launch (spawn 0xa170, dialogue 0xa240); played once the launch effect has ended"
+            }
+          ]
         },
         "zoom": {
-          "value": -8,
-          "source": "STAGE047 0x9f50 op0x29 -8 before the call"
+          "value": -16,
+          "source": "STAGE047 0xadd0 op0x29 -16 before the barrier; 0xb000 op0x29 -14 after it; 0x9f50 op0x29 -8 before the launch"
         },
         "units": {
           "mazinger": [
@@ -2337,16 +3370,174 @@
               },
               "source": "STAGE047 spawn list 0x7930 at 0xa320 (32,13) facing 1"
             }
+          ],
+          "koji": [
+            {
+              "unit": 19,
+              "pilot": 3,
+              "tile": [
+                33,
+                24
+              ],
+              "facing": 3,
+              "side": 0,
+              "appear": 255,
+              "class": 1,
+              "original": {
+                "unit": 19,
+                "pilot": 3
+              },
+              "source": "STAGE047 spawn list 0x7870 at 0xac40: Koji's TFO at (33,24) facing 3, class byte 1, animated appearance; effect 268 at 0xaf40 is played on this unit (0x139b kind 2, pilot 3)"
+            }
           ]
         },
         "timeline": [
           [
             "zoom",
-            -8
+            -16
+          ],
+          [
+            "bgm",
+            1
+          ],
+          [
+            "spawn",
+            "koji"
+          ],
+          [
+            "camera",
+            33,
+            24
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "effect",
+            268,
+            [
+              33,
+              24
+            ]
+          ],
+          [
+            "model",
+            4,
+            9,
+            1
+          ],
+          [
+            "model",
+            1,
+            5,
+            1600
+          ],
+          [
+            "model",
+            2,
+            5,
+            1600
+          ],
+          [
+            "model",
+            3,
+            5,
+            1600
+          ],
+          [
+            "model",
+            4,
+            5,
+            1600
+          ],
+          [
+            "model",
+            5,
+            5,
+            1600
+          ],
+          [
+            "wait",
+            944
+          ],
+          [
+            "model",
+            4,
+            9,
+            0
+          ],
+          [
+            "wait",
+            655
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "camera",
+            33,
+            24
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "raw",
+            41,
+            4294967282,
+            1,
+            0
+          ],
+          [
+            "wait",
+            60
+          ],
+          [
+            "fade",
+            0,
+            252,
+            12
           ],
           [
             "bgm",
             70
+          ],
+          [
+            "camera",
+            19,
+            25
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "zoom",
+            -8
+          ],
+          [
+            "fade",
+            252,
+            0,
+            -12
+          ],
+          [
+            "overlay_off"
           ],
           [
             "wait",
@@ -2540,7 +3731,53 @@
           ],
           [
             "wait_effects"
+          ],
+          [
+            "camera",
+            32,
+            13
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "raw",
+            35,
+            2,
+            2,
+            3
+          ],
+          [
+            "bgm",
+            0
+          ],
+          [
+            "wait",
+            300
+          ],
+          [
+            "fade",
+            0,
+            252,
+            4
+          ],
+          [
+            "wait_effects"
           ]
+        ],
+        "excluded": [
+          {
+            "what": "barrier section: King Beal spawn 0xac20 (33,26), dialogues 0xac50-0xaf00 with portrait setup, 0x24 unit effects 0xae70-0xaeb0, 0x13a3/0x13a4, BATTLE CHOIR 0xac70/0xb030 and the player battle between the two events",
+            "reason": "dialogue-only state and stage flow outside the two performances; the clip cuts from the post-barrier zoom to the launch event"
+          },
+          {
+            "what": "launch section: dialogue setup 0xa180-0xa200/0xa240-0xa250 (0x13a3/0x139d-0x16/0x13a4), SE 0xa230 0x4b 0x821e, stage flags 0x50/0x51, variable 0x901f",
+            "reason": "dialogue-only state and a dialogue sound effect; the launch effect and the BGM change do not depend on them"
+          }
         ]
       }
     },
@@ -2621,6 +3858,23 @@
                 "pilot": 112
               },
               "source": "Orson Naikick: group 10 side 12 altitude 0, moved (18,19) at 0x12d20, facing 2 at 0x12d90; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+            },
+            {
+              "unit": 288,
+              "pilot": 257,
+              "tile": [
+                18,
+                15
+              ],
+              "facing": 2,
+              "side": 0,
+              "appear": 1,
+              "class": 5,
+              "original": {
+                "unit": 273,
+                "pilot": 250
+              },
+              "source": "STAGE069 spawn list 0xec50 (flag 0x1a0 route): フォウ's ギャプラン enters at (32,15); dialogue frame 0x12d40 gives (18,15); 0x12db0 facing 2"
             }
           ]
         },
