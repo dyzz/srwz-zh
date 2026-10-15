@@ -2,7 +2,7 @@
   "adapter": "best-current-source-v1",
   "base_output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "4ccadbb0b0c572a5b1cf56c96e819413294221cb64372c907a1bb162b2a4e812",
+    "sha256": "9045f8a6b982d4b061d976ab51f85e66e0013dbc0df77dc8d14ab601271b405f",
     "size": 3755081728
   },
   "battle_square_skip": {
@@ -64,12 +64,12 @@
   "event_subtitles": {
     "base_iso": {
       "path": "build/iso/zh-release-best/current-best.iso",
-      "sha256": "4ccadbb0b0c572a5b1cf56c96e819413294221cb64372c907a1bb162b2a4e812",
+      "sha256": "9045f8a6b982d4b061d976ab51f85e66e0013dbc0df77dc8d14ab601271b405f",
       "size": 3755081728
     },
     "iso": {
       "path": "build/iso/zh-release-best/current-best-captioned.iso",
-      "sha256": "a4ab5dff96f675a4fef4669ba9f58cf1623602e0d2875218a09813223ef4ecb5",
+      "sha256": "bd75f4621e32f53fc7c6e4647e1b2f30f36d156b0b96da60a1d3dcf71a6f3d11",
       "size": 3796187136
     },
     "member_readback": {
@@ -78,12 +78,12 @@
       "subtitled_chunks": 12
     },
     "members": {
-      "EFF/VEFF2DX.BIN": "a1b06c5a464a7839673eca0f1b60509a58799f758ad9657e42de809025b618e1",
-      "SLPS_732.70": "9aebcffc1220d6120a80fb24e5c10a7e972d748e4b2120580418fb0f115f356f"
+      "EFF/VEFF2DX.BIN": "1b446e8248110c77a2ad777dfb022430a6c0bdb28608c288e6527521ade27ca6",
+      "SLPS_732.70": "c3929b04a9ffee63237bd3acbc67c1321612f01517d59c8f3d3d27eef42b7050"
     },
     "relocation": {
       "appended_bytes": 40579072,
-      "appended_sha256": "1d107761fbf38d6e71b244fc4d93eb538f8286595786ed33e7bdf9258a29683b",
+      "appended_sha256": "1fbcbfcac8642201bf539aa6146e5fac630ea43ffb80e8e9776a36590f801294",
       "catalog": {
         "edits": [
           {
@@ -107,7 +107,7 @@
       "changes": {
         "EFF/VEFF2DX.BIN": [
           1835266,
-          37035824
+          37035776
         ],
         "SLPS_732.70": [
           1833536,
@@ -177,13 +177,13 @@
             "ad_offset": 308,
             "fe_lba": 318,
             "new_lba": 1835266,
-            "new_size": 37035824,
+            "new_size": 37035776,
             "path": "EFF/VEFF2DX.BIN",
             "previous_lba": 1289973,
             "previous_size": 36890512
           }
         ],
-        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-best/7239aca1054f10e47af81bad5d64a4e7d23e30e01cb09f100a9d8162c17eae9c/project/build/iso/zh-release-best/current-best-captioned.iso",
+        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-best/47e7d212401bea2637f29aa59141fff8c42b838507744bcb0e951cf287eb9376/project/build/iso/zh-release-best/current-best-captioned.iso",
         "image_blocks": 1853607,
         "metadata_blocks_written": [
           34,
@@ -217,7 +217,7 @@
       "caption_count": 38,
       "caption_sources": {
         "config/event-subtitles/main-only-captions.json": "87e8524cba7bd83805b92151477d2badb95bb7bb043d984bc54fb461fd2057ba",
-        "config/products/special-disc/event-subtitles.json": "df6e6689828ecdb52f67e77f06ca24b5586f3083f035905e0d26f0386525b177"
+        "config/products/special-disc/event-subtitles.json": "f45b12da7f2be5a4a591cca617a9eaf8744d9815fc1c4b5d6c96ad5d65073123"
       },
       "edition": "best",
       "effects": [
@@ -234,13 +234,13 @@
         273,
         282
       ],
-      "elf_sha256": "9aebcffc1220d6120a80fb24e5c10a7e972d748e4b2120580418fb0f115f356f",
+      "elf_sha256": "c3929b04a9ffee63237bd3acbc67c1321612f01517d59c8f3d3d27eef42b7050",
       "font": {
         "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
         "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
       },
       "gallery_menu_or_scene_driver_added": false,
-      "input_elf_sha256": "ab434a0237eb8533dd1aae66377225504a1f036c2b63ddd4948b89aaa681bf74",
+      "input_elf_sha256": "995d05dbae52ee059713b2d20f93c1c3bf4bfc6fa0d181bd81eb42078510dadc",
       "input_veff_sha256": "125e7365e3762163e3cc80d477c3b00b5445305dede2bb99d5914836d2efa8c7",
       "payload": {
         "address": "0x790000",
@@ -874,15 +874,15 @@
             "header_unknown_1": 0,
             "strategy": "rust-fit"
           },
-          "decoded_sha256": "747ec739e1c78d713ea85b06e67dc1c589658161014ff979385f5609a6e5152c",
+          "decoded_sha256": "1379b8a9d53ea6e9234577e5a1fddeace08bdbe00ea241bf8f3675f8f4abc196",
           "effect": 273,
           "font_point_size": 32,
           "new": 1664272,
           "new_primitives": 35869,
           "original_animation_byte_identical": true,
           "original_primitives": 35869,
-          "packed": 267906,
-          "packed_sha256": "f26888f35a25520deccbdf0a6aad0bf9d58de47f2c155d0757e332df0cca671f",
+          "packed": 267868,
+          "packed_sha256": "be5c27605b94bf1e4056b4535860e7d19f77ec05fd44e39fd2853796817af5ce",
           "position": "screen bottom center",
           "runtime_draw": {
             "group": 0,
@@ -990,7 +990,7 @@
         }
       ],
       "veff": {
-        "bytes": 37035824,
+        "bytes": 37035776,
         "edited_chunks": [
           256,
           257,
@@ -1281,44 +1281,44 @@
           30739312,
           30781120,
           30814480,
-          31082400,
-          31418112,
-          31476192,
-          31522432,
-          31558832,
-          31598352,
-          31723952,
-          31995856,
-          32165024,
-          32471936,
-          32524800,
-          32639152,
-          32756448,
-          32858096,
-          33051968,
-          33447328,
-          33878176,
-          34481552,
-          34759552,
-          35037216,
-          35314928,
-          35592624,
-          35622880,
-          35655248,
-          36383568,
-          36824352,
-          37035824
+          31082352,
+          31418064,
+          31476144,
+          31522384,
+          31558784,
+          31598304,
+          31723904,
+          31995808,
+          32164976,
+          32471888,
+          32524752,
+          32639104,
+          32756400,
+          32858048,
+          33051920,
+          33447280,
+          33878128,
+          34481504,
+          34759504,
+          35037168,
+          35314880,
+          35592576,
+          35622832,
+          35655200,
+          36383520,
+          36824304,
+          37035776
         ],
         "source_bytes": 36890512,
         "unmodified_effect_chunks_preserved": true
       },
-      "veff_sha256": "a1b06c5a464a7839673eca0f1b60509a58799f758ad9657e42de809025b618e1"
+      "veff_sha256": "1b446e8248110c77a2ad777dfb022430a6c0bdb28608c288e6527521ade27ca6"
     },
     "untouched_base_bytes": {
       "base_bytes": 3755081728,
       "compared_bytes": 3755068368,
-      "final_sha256": "a4ab5dff96f675a4fef4669ba9f58cf1623602e0d2875218a09813223ef4ecb5",
-      "sha256": "57679053e0a6360583f1c45ceb3044416eee75b238e08359df42e0a214e2b0a2",
+      "final_sha256": "bd75f4621e32f53fc7c6e4647e1b2f30f36d156b0b96da60a1d3dcf71a6f3d11",
+      "sha256": "29e2212cad30e86d43b10c1150f6998f275184415e6e1e71d01c790e9533ce38",
       "spans": [
         [
           32848,
@@ -1363,15 +1363,15 @@
       ]
     }
   },
-  "input_digest": "421cbe76cf7cb71f4e7f855daa7673c891e923702669d35a0640f0d122de41fc",
+  "input_digest": "407d46d5d3fb67b2f9fe9c33129a35fa009a20aba755dd9f5e0b7ab06535fed5",
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "a4ab5dff96f675a4fef4669ba9f58cf1623602e0d2875218a09813223ef4ecb5",
+    "sha256": "bd75f4621e32f53fc7c6e4647e1b2f30f36d156b0b96da60a1d3dcf71a6f3d11",
     "size": 3796187136
   },
   "readback": {
-    "path": "build/editions/zh-release-best/7239aca1054f10e47af81bad5d64a4e7d23e30e01cb09f100a9d8162c17eae9c/project/work/build/best-current/iso-readback.json",
-    "sha256": "3ab9863a991d5b286c25a369554403a73188819dfc0bbe1c811b092296228d6d",
+    "path": "build/editions/zh-release-best/47e7d212401bea2637f29aa59141fff8c42b838507744bcb0e951cf287eb9376/project/work/build/best-current/iso-readback.json",
+    "sha256": "d239071d998a473d9e81f1d9b06d9559abef2afccc0f3bd9e8c4b886b9700a29",
     "stage_count": 205,
     "translation_entry_count": 84338
   },
@@ -1379,13 +1379,13 @@
   "schema_version": 1,
   "shared_frontend": {
     "edition": "original",
-    "input_digest": "421cbe76cf7cb71f4e7f855daa7673c891e923702669d35a0640f0d122de41fc",
-    "iso_sha256": "14a07787efa7ef16852cd49166f01770a643206f8fd37907c668df8cb4c360bb",
-    "readback_sha256": "c1aa6f55416eddbe5003b4e56df4b628f7a0dac8e80f63d3390445795662b970"
+    "input_digest": "407d46d5d3fb67b2f9fe9c33129a35fa009a20aba755dd9f5e0b7ab06535fed5",
+    "iso_sha256": "38dda16a29ff973b583147bf770b5e53504d882e6242707cabc9974b42af8b3f",
+    "readback_sha256": "8ce22f83ec94a64e540ebec8b4439eb5c3efdd1bfc2bb9a4322ebf56671080af"
   },
   "skip_enabled": true,
-  "source_head": "20448d2164791b96ba67a7b460ee5483ff3c2d7a",
+  "source_head": "f90946c48ac4d0d8572f5b681a993b9678315c48",
   "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-best/7239aca1054f10e47af81bad5d64a4e7d23e30e01cb09f100a9d8162c17eae9c/project"
+  "workspace": "build/editions/zh-release-best/47e7d212401bea2637f29aa59141fff8c42b838507744bcb0e951cf287eb9376/project"
 }
