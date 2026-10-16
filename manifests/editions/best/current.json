@@ -2,7 +2,7 @@
   "adapter": "best-current-source-v1",
   "base_output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "9045f8a6b982d4b061d976ab51f85e66e0013dbc0df77dc8d14ab601271b405f",
+    "sha256": "df42ff7971fd8d4e15d6b7cc6eb2c339002e38211a00d3fadb44876da05fc366",
     "size": 3755081728
   },
   "battle_square_skip": {
@@ -64,12 +64,12 @@
   "event_subtitles": {
     "base_iso": {
       "path": "build/iso/zh-release-best/current-best.iso",
-      "sha256": "9045f8a6b982d4b061d976ab51f85e66e0013dbc0df77dc8d14ab601271b405f",
+      "sha256": "df42ff7971fd8d4e15d6b7cc6eb2c339002e38211a00d3fadb44876da05fc366",
       "size": 3755081728
     },
     "iso": {
       "path": "build/iso/zh-release-best/current-best-captioned.iso",
-      "sha256": "bd75f4621e32f53fc7c6e4647e1b2f30f36d156b0b96da60a1d3dcf71a6f3d11",
+      "sha256": "d152505ecbbc8f555537127dc365418bbdf0a17e6c0db8ba6ba85a6b2240879a",
       "size": 3796187136
     },
     "member_readback": {
@@ -114,6 +114,7 @@
           3543040
         ]
       },
+      "grown": {},
       "new_size": 3796187136,
       "old_size": 3755081728,
       "touched_spans": [
@@ -183,7 +184,7 @@
             "previous_size": 36890512
           }
         ],
-        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-best/47e7d212401bea2637f29aa59141fff8c42b838507744bcb0e951cf287eb9376/project/build/iso/zh-release-best/current-best-captioned.iso",
+        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-best/b4376502248e70b00b7375e3e8247442e57bf8df2db585493353f5fc4ddeb944/project/build/iso/zh-release-best/current-best-captioned.iso",
         "image_blocks": 1853607,
         "metadata_blocks_written": [
           34,
@@ -202,6 +203,7 @@
       }
     },
     "relocation_readback": {
+      "grown_members": [],
       "relocated_members": [
         "EFF/VEFF2DX.BIN",
         "SLPS_732.70"
@@ -1317,8 +1319,8 @@
     "untouched_base_bytes": {
       "base_bytes": 3755081728,
       "compared_bytes": 3755068368,
-      "final_sha256": "bd75f4621e32f53fc7c6e4647e1b2f30f36d156b0b96da60a1d3dcf71a6f3d11",
-      "sha256": "29e2212cad30e86d43b10c1150f6998f275184415e6e1e71d01c790e9533ce38",
+      "final_sha256": "d152505ecbbc8f555537127dc365418bbdf0a17e6c0db8ba6ba85a6b2240879a",
+      "sha256": "528f12eebc0f02f4c5997cac47e1d2841c5714ac234e04342f28ad3f68345413",
       "spans": [
         [
           32848,
@@ -1363,15 +1365,15 @@
       ]
     }
   },
-  "input_digest": "407d46d5d3fb67b2f9fe9c33129a35fa009a20aba755dd9f5e0b7ab06535fed5",
+  "input_digest": "3e591b96b90a7f04bed514713862c899a02b605ea6825ea6756760b0b36732a5",
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "bd75f4621e32f53fc7c6e4647e1b2f30f36d156b0b96da60a1d3dcf71a6f3d11",
+    "sha256": "d152505ecbbc8f555537127dc365418bbdf0a17e6c0db8ba6ba85a6b2240879a",
     "size": 3796187136
   },
   "readback": {
-    "path": "build/editions/zh-release-best/47e7d212401bea2637f29aa59141fff8c42b838507744bcb0e951cf287eb9376/project/work/build/best-current/iso-readback.json",
-    "sha256": "d239071d998a473d9e81f1d9b06d9559abef2afccc0f3bd9e8c4b886b9700a29",
+    "path": "build/editions/zh-release-best/b4376502248e70b00b7375e3e8247442e57bf8df2db585493353f5fc4ddeb944/project/work/build/best-current/iso-readback.json",
+    "sha256": "0354bd7f7b7cd97ebb6d41903a81b28753bf6b48adbfa3d2fa33d17c4d08a784",
     "stage_count": 205,
     "translation_entry_count": 84338
   },
@@ -1379,13 +1381,13 @@
   "schema_version": 1,
   "shared_frontend": {
     "edition": "original",
-    "input_digest": "407d46d5d3fb67b2f9fe9c33129a35fa009a20aba755dd9f5e0b7ab06535fed5",
-    "iso_sha256": "38dda16a29ff973b583147bf770b5e53504d882e6242707cabc9974b42af8b3f",
-    "readback_sha256": "8ce22f83ec94a64e540ebec8b4439eb5c3efdd1bfc2bb9a4322ebf56671080af"
+    "input_digest": "3e591b96b90a7f04bed514713862c899a02b605ea6825ea6756760b0b36732a5",
+    "iso_sha256": "aa505fd2f69a3451f417ea981e0ad50ddd7d3c462f421e2738123fa559048fd0",
+    "readback_sha256": "e3eb67c6315550f1912764e825f62e909d93cd7e026b7f208aeb7fd2095ed718"
   },
   "skip_enabled": true,
-  "source_head": "f90946c48ac4d0d8572f5b681a993b9678315c48",
+  "source_head": "bce6683bb4e62fea80e3d9b2e5e9fad6178dde08",
   "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-best/47e7d212401bea2637f29aa59141fff8c42b838507744bcb0e951cf287eb9376/project"
+  "workspace": "build/editions/zh-release-best/b4376502248e70b00b7375e3e8247442e57bf8df2db585493353f5fc4ddeb944/project"
 }
