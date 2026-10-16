@@ -17,7 +17,13 @@ from pathlib import Path
 import struct
 
 BLOCK = 2048
-ALLOWED = {"SLPS_259.20", "AID_DATA/AIDDATA.BIN", "EFF/VEFF2DX.BIN"}
+ALLOWED = {"SLPS_259.20", "AID_DATA/AIDDATA.BIN", "EFF/VEFF2DX.BIN",
+           # Restored gallery voices: CCC.MSB grows in place into the extent
+           # KVMDATA.BIN vacates by moving to the image tail.
+           "KURODATA/KVMDATA.BIN", "SOUND/CCC.MSB"}
+# Retail SP already stores this >1 GiB size literally in one short AD; a grown
+# copy keeps that layout (still below 4 GiB, same LBA).
+OVERSIZE_IN_PLACE = {"SOUND/CCC.MSB"}
 
 
 def u16(data, offset):
@@ -187,7 +193,11 @@ def relocate(imagePath, changes, *, allowed_members=None):
         old_partition_end = disc.partition_start + disc.partition_length
         spans = []
         for name, (lba, size) in normalized.items():
-            if name not in disc.files or lba < disc.partition_start or not 0 < size < (1 << 30):
+            limit = 1 << 30
+            if name in OVERSIZE_IN_PLACE and name in disc.files and lba == disc.files[name]["extent_lba"] \
+                    and disc.files[name]["size"] >= limit:
+                limit = 1 << 32
+            if name not in disc.files or lba < disc.partition_start or not 0 < size < limit:
                 raise ValueError(f"invalid SP relocation: {name}")
             end = lba + math.ceil(size / BLOCK)
             if end > total_blocks:

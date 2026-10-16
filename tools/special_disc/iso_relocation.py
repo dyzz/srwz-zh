@@ -84,7 +84,7 @@ CATALOG_POLICIES = {"strict": patch_catalog, "inherit": patch_catalog_tolerant}
 
 
 def append_members(image: Path, before: dict, members: dict[str, bytes], *, allowed_udf=None,
-                   catalog_policy: str = "strict") -> dict:
+                   catalog_policy: str = "strict", grow: dict[str, bytes] | None = None) -> dict:
     """Write ``members`` after the image end and repoint every catalog at them.
 
     ``before`` is the ISO9660 member map of the image prior to this call. The
@@ -92,6 +92,9 @@ def append_members(image: Path, before: dict, members: dict[str, bytes], *, allo
     range inside the original image size that this function rewrote.
     ``catalog_policy`` is ``strict`` (every catalog row must match the
     directory) or ``inherit`` (keep pre-existing non-target differences).
+    ``grow`` appends bytes to members in place, into sectors that ``members``
+    vacates (SP's CCC.MSB grows into the old KVMDATA.BIN extent); the grown
+    member keeps its LBA and every catalog records its new size.
     """
     patch_rows = CATALOG_POLICIES[catalog_policy]
     image = Path(image)
@@ -120,6 +123,30 @@ def append_members(image: Path, before: dict, members: dict[str, bytes], *, allo
             stream.seek(record + 10)
             stream.write(struct.pack("<I", len(data)) + struct.pack(">I", len(data)))
             touched.append((record + 2, record + 18))
+        for name, extra in (grow or {}).items():
+            member = before[name]
+            if name in members or not extra:
+                raise ValueError(f"cannot grow {name} in place")
+            new_size = member.size + len(extra)
+            start, end = member.extent_lba, member.extent_lba + math.ceil(new_size / SECTOR)
+            for other, entry in before.items():
+                if other == name or other in members:
+                    continue
+                a = entry.extent_lba
+                b = a + max(1, math.ceil(entry.size / SECTOR))
+                if max(a, start) < min(b, end):
+                    raise ValueError(f"growing {name} would overwrite {other}")
+            if end * SECTOR > old_size:
+                raise ValueError(f"growing {name} runs past the original image")
+            at = member.extent_lba * SECTOR + member.size
+            stream.seek(at)
+            stream.write(extra)
+            touched.append((at, at + len(extra)))
+            record = member.directory_record_offset
+            stream.seek(record + 10)
+            stream.write(struct.pack("<I", new_size) + struct.pack(">I", new_size))
+            touched.append((record + 10, record + 18))
+            changes[name] = (member.extent_lba, new_size)
         stream.seek(0, 2)
         sectors = stream.tell() // SECTOR
         for descriptor in (16, 17):
@@ -146,6 +173,9 @@ def append_members(image: Path, before: dict, members: dict[str, bytes], *, allo
         "old_size": old_size, "new_size": image.stat().st_size,
         "appended_sha256": hashlib.sha256(bytes(appended)).hexdigest(),
         "appended_bytes": len(appended),
+        "grown": {name: {"lba": before[name].extent_lba, "old_size": before[name].size,
+                         "new_size": before[name].size + len(extra),
+                         "sha256": hashlib.sha256(extra).hexdigest()} for name, extra in (grow or {}).items()},
         "touched_spans": merge_spans(touched),
         "catalog": {"member": CATALOG, "policy": catalog_policy,
                     "sha256": hashlib.sha256(catalog).hexdigest(), **catalog_receipt},
@@ -153,15 +183,26 @@ def append_members(image: Path, before: dict, members: dict[str, bytes], *, allo
     }
 
 
-def verify_relocation(image: Path, before: dict, members: dict[str, bytes], receipt: dict) -> dict:
+def verify_relocation(image: Path, before: dict, members: dict[str, bytes], receipt: dict,
+                      grow: dict[str, bytes] | None = None) -> dict:
     """Re-read the image: unchanged members keep their extents, relocated members
-    and the catalog read back exactly, and the tail is payloads plus UDF metadata."""
+    and the catalog read back exactly, grown members keep their LBA and carry the
+    appended bytes, and the tail is payloads plus UDF metadata."""
     image = Path(image)
+    grow = grow or {}
     after = member_map(scan_iso9660(image))
     for name, member in before.items():
-        if name not in members and after[name] != member:
+        if name not in members and name not in grow and after[name] != member:
             raise AssertionError(f"unrelated ISO member moved: {name}")
     with image.open("rb") as stream:
+        for name, extra in grow.items():
+            old, new = before[name], after[name]
+            if (new.extent_lba, new.size) != (old.extent_lba, old.size + len(extra)) or \
+                    tuple(receipt["changes"][name]) != (old.extent_lba, old.size + len(extra)):
+                raise AssertionError(f"grown member extent drift: {name}")
+            stream.seek(old.extent_lba * SECTOR + old.size)
+            if stream.read(len(extra)) != extra:
+                raise AssertionError(f"grown member readback differs: {name}")
         for name, data in members.items():
             member = after[name]
             if (member.extent_lba, member.size) != tuple(receipt["changes"][name]):
@@ -195,7 +236,8 @@ def verify_relocation(image: Path, before: dict, members: dict[str, bytes], rece
                 raise AssertionError("UDF metadata tail holds unexpected data")
     elif remainder:
         raise AssertionError("unexpected bytes after relocated members")
-    return {"unchanged_members": len(before) - len(members), "relocated_members": sorted(members),
+    return {"unchanged_members": len(before) - len(members) - len(grow), "relocated_members": sorted(members),
+            "grown_members": sorted(grow),
             "tail_bytes": len(tail), "verified": True}
 
 

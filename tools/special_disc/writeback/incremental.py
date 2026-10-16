@@ -31,6 +31,8 @@ CODE_ROOTS = ('tools/special_disc/', 'tools/srwz/', 'tools/native/srwz-codec-rs/
 # Consumed only by the assembly-time event gallery stage, which always runs and
 # binds these hashes in its own receipt; no component writer reads them.
 ASSEMBLY_ONLY = ('config/products/special-disc/event-gallery.json',
+                 'config/products/special-disc/event-gallery-talk.json',
+                 'config/products/special-disc/event-gallery-voice/',
                  'config/products/special-disc/event-subtitles.json',
                  'tools/special_disc/event_gallery/',
                  'work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf')

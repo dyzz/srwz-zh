@@ -27,7 +27,9 @@ PAYLOAD_BASE = 0x820000
 RUNTIME_BASE = 0x822000
 FRAME_ENTRY = 0x822100
 ELF_BASE = 0xFF680
-PRIVATE_END = 0x8B0000  # payload plus isolated native roster/unit snapshot
+PRIVATE_END = 0x8C0000  # payload, map-dialogue blocks (0x830000) and the roster/unit snapshot (0x840000)
+TALK_BASE = 0x830000  # runtime.py places map-dialogue blocks here (.org 0xE000)
+PAYLOAD_SIZE = 0x20000
 PACKET_BASE = 0x82F000  # runtime.S GALLERY_PACKET; reserved to the payload end
 PACKET_SIZE = 0x1000
 VEFF_OFFSET_TABLE = 0x375230
@@ -61,7 +63,33 @@ def load_config(path: Path = CONFIG) -> dict:
     config = json.loads(path.read_text(encoding="utf-8"))
     if config.get("subtitle_source"):
         config["subtitles"] = json.loads((ROOT / config["subtitle_source"]).read_text(encoding="utf-8"))["captions"]
+    if config.get("talk_source"):
+        config["talk"] = json.loads((ROOT / config["talk_source"]).read_text(encoding="utf-8"))["scenes"]
     return config
+
+
+def encode_talk(talk: dict, proposal: Path) -> dict:
+    """Encode every dialogue line with the SP codebook, as the SP stage writer stores it."""
+    from special_disc.writeback.migrate_slps_text import encoding_tables
+    from special_disc.writeback.migrate_stage_dialogue import stored_stage_translation
+    from srwz.text import encode_text
+    table, _, overrides, _ = encoding_tables(proposal)
+    encoded = {}
+    for scene, data in talk.items():
+        sections = []
+        for section in data["sections"]:
+            records = []
+            for record in section["records"]:
+                words = list(record["words"])
+                text = None
+                if "text" in record:
+                    words[3] = record["pilot_sp"]
+                    shown = record["speaker"] + "\n" + record["text"] if record["speaker"] else record["text"]
+                    text = encode_text(stored_stage_translation(shown), table, overrides=overrides, terminate=True)
+                records.append({"words": words, "text": text})
+            sections.append({"section": section["section"], "header": section["header"], "records": records})
+        encoded[scene] = sections
+    return encoded
 
 
 def checked_patch(elf: bytearray, address: int, expected: bytes, replacement: bytes) -> None:
@@ -73,8 +101,8 @@ def checked_patch(elf: bytearray, address: int, expected: bytes, replacement: by
     elf[offset:offset + len(replacement)] = replacement
 
 
-def assemble_runtime(outdir: Path, entries, voice_timelines) -> tuple[bytes, dict]:
-    runtime_receipt = generate_runtime(entries, outdir, voice_timelines)
+def assemble_runtime(outdir: Path, entries, voice_timelines, talk=None) -> tuple[bytes, dict]:
+    runtime_receipt = generate_runtime(entries, outdir, voice_timelines, talk)
     source = Path(__file__).with_name("runtime.S")
     assembler = shutil.which("mipsel-linux-gnu-as")
     linker = shutil.which("mipsel-linux-gnu-ld")
@@ -150,15 +178,19 @@ def apply_event_gallery(elf: bytes, aid: bytes, veff: bytes, *, config: dict | N
             if rec[0][0] & 0x40:
                 voice_timelines[effect] = rec[-1]
     menu_receipt = build_menu(base_elf, config["entries"], workdir, proposal)
-    runtime, runtime_receipt = assemble_runtime(workdir, config["entries"], voice_timelines)
+    talk = encode_talk(config["talk"], proposal) if config.get("talk") else None
+    runtime, runtime_receipt = assemble_runtime(workdir, config["entries"], voice_timelines, talk)
     # Runtime .text spans 0x822000..; the caption table owns 0x825800..0x826800
     # and scene scripts start after it at 0x826800.
     if any(runtime[0x3800:0x4800]):
         raise ValueError("Gallery runtime data overlaps the independent caption table")
-    payload = bytearray(0x10000)
+    payload = bytearray(PAYLOAD_SIZE)
     menu = (workdir / "menu-data.bin").read_bytes()
-    if len(menu) >= 0x1F00 or 0x2000 + len(runtime) > PACKET_BASE - PAYLOAD_BASE:
-        raise ValueError("Gallery payload overlaps its state or the per-frame GIF packet buffer")
+    code_end = PACKET_BASE - RUNTIME_BASE
+    if len(menu) >= 0x1F00 or 0x2000 + len(runtime) > PAYLOAD_SIZE:
+        raise ValueError("Gallery payload overlaps its state or exceeds the loaded segment")
+    if any(runtime[code_end:TALK_BASE - RUNTIME_BASE]):
+        raise ValueError("Gallery runtime overlaps the per-frame GIF packet buffer")
     payload[:len(menu)] = menu
     payload[0x2000:0x2000 + len(runtime)] = runtime
     for row in menu_receipt["patches"]:

@@ -121,7 +121,7 @@ def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | Non
                     "navigation": [0, 1, 2, 3, 9], "wallpaper_widget": 8,
                     "native_heading_and_help_preserved": True,
                     "event_help": event_help,
-                    "gallery_list": {"rows": 12, "native_row_pitch": 12, "pages": 1,
+                    "gallery_list": {"rows": len(items), "native_row_pitch": min(12, 144 // len(items)), "pages": 1,
                                      "transition": "snap gallery list horizontal offset during drawing"},
                     "extended_help_tables": [hex(x) for x in help_tables]},
     }

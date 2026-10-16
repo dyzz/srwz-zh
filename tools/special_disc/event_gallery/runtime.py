@@ -26,8 +26,51 @@ def _tile(value: Any, label: str) -> tuple[int, int]:
     return value[0], value[1]
 
 
+def talk_lines(row: int, sections: list[dict]) -> list[str]:
+    """Native map-dialogue block for one scene, installed at 0x0061e1e0.
+
+    Layout matches a STAGE chunk's dialogue block: {section table, count},
+    table rows {section address, section id} ending with zeros, each section a
+    0x20-byte header plus 32-byte records ending at type 0x7e. Record text is
+    the SP-encoded "speaker\nline".
+    """
+    lines = [".align 4", f"gallery_talk_block_{row}:",
+             f"    .word gallery_talk_table_{row},{len(sections)}",
+             f"gallery_talk_table_{row}:"]
+    for section in sections:
+        lines.append(f"    .word gallery_talk_{row}_{section['section']},{section['section']}")
+    lines.append("    .word 0,0")
+    texts = []
+    for section in sections:
+        sid = section["section"]
+        lines += [".align 4", f"gallery_talk_{row}_{sid}:",
+                  "    .word " + ",".join(str(w) for w in section["header"])]
+        for index, record in enumerate(section["records"]):
+            words = [str(w) for w in record["words"]]
+            if record["text"] is not None:
+                label = f"gallery_talk_text_{row}_{sid}_{index}"
+                words[4] = label
+                texts.append((label, record["text"]))
+            lines.append("    .word " + ",".join(words))
+        lines.append("    .word 0x7e,0,0,0,0,0,0,0")
+    for label, data in texts:
+        lines += [f"{label}:", "    .byte " + ",".join(str(b) for b in data)]
+    lines += [".align 4", f"gallery_talk_install_{row}:",
+              f"    lui $a0,%hi(gallery_talk_block_{row})",
+              "    lui $t0,0x0062",
+              f"    addiu $a0,$a0,%lo(gallery_talk_block_{row})",
+              "    sw $a0,-0x1e20($t0)",
+              # The theater never initialises the map-dialogue player (map
+              # state 6 does): create it and its window resources now. The
+              # completion path releases it with FUN_002048c0.
+              "    j 0x002047c0",
+              "    nop"]
+    return lines
+
+
 def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
-             voice_timelines: dict[int, bytes] | None = None) -> dict[str, Any]:
+             voice_timelines: dict[int, bytes] | None = None,
+             talk: dict[str, list[dict]] | None = None) -> dict[str, Any]:
     """Write ``gallery-scenes.inc`` and return the static configuration receipt.
 
     An unresolved effect anchor explicitly uses the configured camera tile until
@@ -35,11 +78,16 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     initial map view explicitly defaults to 3. Both choices appear in the receipt
     and the native row flags rather than silently producing an inactive item.
     """
-    if not 1 <= len(entries) <= 32:
-        raise ValueError("gallery requires 1 to 32 scenes (native table budget)")
+    if not 1 <= len(entries) <= 14:
+        raise ValueError("gallery requires 1 to 14 scenes (one list page, row pitch >= 10)")
+    # One native list page 144 units tall: twelve rows keep the 12-unit pitch,
+    # more rows compress it so the page never grows past the frame.
+    pitch = min(12, 144 // len(entries))
     lines = [
         "/* Generated from the product event-gallery configuration. */",
         f".equ GALLERY_SCENE_COUNT, {len(entries)}",
+        f".equ GALLERY_ROW_PITCH, {pitch}",
+        f".equ GALLERY_LIST_HEIGHT, {pitch * len(entries)}",
         ".org 0x1c00",
         ".globl gallery_scene_table",
         "gallery_scene_table:",
@@ -118,6 +166,7 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         lines.append("    .word -1,0,0,0")
     lines += ["gallery_low_data_end:", ".org 0x4800", ".globl gallery_script", "gallery_script:"]
     data_lines: list[str] = []
+    talk_chunks: list[list[str]] = []
     for scene, entry in zip(scenes, entries):
         index = scene["row"]
         compiled = compile_scene(index, entry["fidelity"], scene["effect_tile"], scene["effects"])
@@ -126,9 +175,16 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         # The callback switches phase; park here until the next frame cleans up.
         lines.append("    .word 1,32767,0,0")
         data_lines += compiled["data"]
+        if talk and scene["id"] in talk:
+            talk_chunks.append(talk_lines(index, talk[scene["id"]]))
+            scene["talk_sections"] = [sec["section"] for sec in talk[scene["id"]]]
         scene["fidelity"] = {k: v for k, v in entry["fidelity"].items() if k != "timeline"}
         scene["fidelity"]["compiled"] = compiled["receipt"]
+    talk_data = [line for chunk in talk_chunks for line in chunk]
     lines += data_lines
+    if talk_data:
+        # Map-dialogue blocks live after the per-frame packet buffer (0x82F000).
+        lines += [".org 0xE000", "gallery_talk_data:"] + talk_data
     receipt = {
         "schema_version": 1,
         "entries": scenes,

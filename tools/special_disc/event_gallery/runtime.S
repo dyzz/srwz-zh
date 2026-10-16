@@ -8,8 +8,10 @@
  * +0x20 theater BGM id, +0x24 theater BGM restore pending,
  * +0x28 placeholder-actor table before playback, +0x30 resident map effects
  * loaded for this theater session, +0x34 frames played (cancel guard),
- * +0x38 previous pad held mask, +0x40 saved unit flags.
- * Playback can be cancelled with cross, circle or START: a new press seen
+ * +0x38 previous pad held mask, +0x40 saved unit flags (120 bytes),
+ * +0xc0/+0xc8 dialogue auto-play record and frames on it (native auto level 4),
+ * +0xcc last frame spent in map dialogue (cancel guard).
+ * Playback can be cancelled with cross or START: a new press seen
  * on the pad held mask (0062514c; the frozen list widget consumes the
  * native trigger word for cross/circle) runs the completion path at once.
  * Rows select the configuration-generated map/camera/script table at 0x00823c00.
@@ -98,6 +100,8 @@ frame_save:
     addiu   $t2,$zero,2
     sw      $t2,4($s1)
     sw      $zero,0x34($s1)
+    sw      $zero,0xc0($s1)
+    sw      $zero,0xcc($s1)
     addiu   $t2,$zero,0xffff
     sw      $t2,0x38($s1)    /* no cancel edge until every button is released */
     /* Map initialization changes the framebuffer interpretation. Clear both
@@ -174,44 +178,17 @@ init_map:
     jal     0x0017c290       /* enter independent native event script */
     addiu   $a1,$zero,1
 frame_map:
-    /* Cancel: a new press of cross, circle or START after the first 20 frames
-     * (the list's own confirm press must not count) ends the scene now. */
-    lw      $t1,0x34($s1)
-    addiu   $t1,$t1,1
-    sw      $t1,0x34($s1)
-    sltiu   $t2,$t1,20
-    bne     $t2,$zero,cancel_checked
+    jal     gallery_cancel_check
     nop
-    lui     $t0,0x0062
-    lhu     $t0,0x514c($t0)  /* 0062514c pad held mask */
-    lw      $t1,0x38($s1)
-    sw      $t0,0x38($s1)
-    nor     $t1,$t1,$zero    /* buttons not held last frame */
-    and     $t0,$t0,$t1
-    andi    $t0,$t0,0x0860   /* raw pad order: cross 0x0040, circle 0x0020, START 0x0800 */
-    beq     $t0,$zero,cancel_checked
+    beq     $v0,$zero,cancel_checked
     nop
-    /* Consume this press: the list widget resumes this frame and would take
-     * the same cross as "back" (the trigger copies at 0062514e/52/54/56). */
-    lui     $t0,0x0062
-    sh      $zero,0x514e($t0)
-    sh      $zero,0x5152($t0)
-    sh      $zero,0x5154($t0)
-    sh      $zero,0x5156($t0)
-    /* Undo a script blank (op 0x13ac 2: clear colour 0xff, map layers off)
-     * that the interrupted script would have reverted itself. */
-    lui     $t0,0x004d
-    sb      $zero,-0x518c($t0) /* 004cae74 clear colour r (gp-0x79fc) */
-    sb      $zero,-0x5188($t0) /* 004cae78 g (gp-0x79f8) */
-    sb      $zero,-0x5184($t0) /* 004cae7c b (gp-0x79f4) */
-    daddu   $a0,$zero,$zero
-    jal     0x001c21b0       /* map layers back on (op 0x13ac 0) */
-    addiu   $a1,$zero,1
     addiu   $t0,$zero,3
     sw      $t0,4($s1)
     b       frame_complete
     nop
 cancel_checked:
+    jal     gallery_talk_auto
+    nop
     /* Cache hits can bypass the native shared CCC timeline initialization.
      * Install this gallery scene's unmodified source schedule before rendering.
      * Native effect code still owns exact-frame speech calls and CCC playback.
@@ -251,6 +228,14 @@ frame_complete:
     nop
     jal     0x001bd060       /* script screen tint off (op 0x13b0 0) */
     nop
+    /* Release the map-dialogue player a scene with dialogue created. */
+    lui     $t0,0x0063
+    lw      $t1,-0x1c80($t0)  /* 0062e380 dialogue player */
+    beq     $t1,$zero,talk_released
+    nop
+    jal     0x002048c0       /* native dialogue teardown (clears 0062e380) */
+    nop
+talk_released:
     /* The scene's resident map-effect block is no longer referenced (effects
      * cleared above); free it before the saved table/pointers come back. */
     lui     $t0,0x0063
@@ -345,9 +330,10 @@ gallery_list_draw:
     addiu   $t1,$t1,%lo(gallery_selector)
     bne     $t0,$t1,list_draw_original
     nop
-    /* Only the gallery list: twelve rows at a twelve-unit pitch. Keep the
-     * stock font size, frame and input controller, with one page. The native
-     * slide tween causes fractional-position text sampling; draw at rest.
+    /* Only the gallery list: every row on one page (GALLERY_SCENE_COUNT rows,
+     * GALLERY_ROW_PITCH units apart, generated from the catalog). Keep the
+     * stock font size, frame and input controller. The native slide tween
+     * causes fractional-position text sampling; draw at rest.
      */
     sw      $zero,0x68($a0)
     sw      $zero,0x6c($a0)
@@ -355,12 +341,13 @@ gallery_list_draw:
     lw      $t0,0x3a50($t0)
     beq     $t0,$zero,list_draw_original
     nop
-    addiu   $t1,$zero,12
+    addiu   $t1,$zero,GALLERY_SCENE_COUNT
     sh      $t1,6($t0)
-    sh      $t1,8($t0)
     sb      $t1,0x0d($t0) /* input controller's selectable row count */
     sw      $t1,0x18($t0)
-    addiu   $t1,$zero,144
+    addiu   $t1,$zero,GALLERY_ROW_PITCH
+    sh      $t1,8($t0)
+    addiu   $t1,$zero,GALLERY_LIST_HEIGHT
     sh      $t1,10($t0)
     addiu   $t1,$zero,1
     sb      $t1,0x13($t0)
@@ -387,6 +374,12 @@ gallery_draw_caption:
 caption_find_effect:
     lbu     $t0,0x3c($s1)
     beq     $t0,$zero,caption_next_effect
+    nop
+    /* +0x3f effect state: 2 loading, 3 loaded, 1 playing. A loading entry
+     * already carries its id at frame 0; drawing then shows a black band. */
+    lbu     $t0,0x3f($s1)
+    addiu   $t3,$zero,1
+    bne     $t0,$t3,caption_next_effect
     nop
     lw      $t0,0($s1)
     beq     $t0,$zero,caption_next_effect
@@ -828,7 +821,7 @@ gallery_transition_packet:
 gallery_save_roster:
     lui     $t0,0x005a
     ori     $t0,$t0,0x5080
-    lui     $t1,0x0083
+    lui     $t1,0x0084       /* snapshot base 0x840000 (dialogue blocks below) */
     lui     $t2,0x0007
     ori     $t2,$t2,0x6940
 save_roster_loop:
@@ -872,7 +865,7 @@ save_regions_done:
     nop
 
 gallery_restore_roster:
-    lui     $t0,0x0083
+    lui     $t0,0x0084       /* snapshot base 0x840000 */
     lui     $t1,0x005a
     ori     $t1,$t1,0x5080
     lui     $t2,0x0007
@@ -924,6 +917,14 @@ gallery_state_regions:
     .word 0x0061e180,4       /* placeholder draw callback */
     .word 0x0061bfc0,0xa00   /* map-sprite cache entries */
     .word 0x0062a830,0x230   /* resident/dynamic map-effect table and block pointers */
+    .word 0x005a3e00,0x1280  /* screen-layer table and effect quads up to the roster
+                              * snapshot: an effect cancelled mid-way (257 feedback
+                              * layers) must not leave its distortion layers on */
+    .word 0x00629b60,0xa0    /* shared CCC voice timeline and its playback cursor */
+    .word 0x0061e1e0,4       /* map-dialogue block pointer (scenes install their own) */
+    .word 0x004caab0,4       /* game mode: map dialogue switches it to 0x13 */
+    .word 0x004cb080,4       /* late screen pass enable: an effect cancelled mid-way
+                              * (257) leaves it on and the list draws with trails */
     .word 0,0
 
 .align 4
@@ -1090,3 +1091,138 @@ prepare_done:
     addiu   $sp,$sp,0x40
 
 .include "gallery-scenes.inc"
+
+.text
+.align 4
+.globl gallery_cancel_check
+/* Returns v0 = 1 after cancelling (sounds stopped, blank undone), else 0. */
+gallery_cancel_check:
+    addiu   $sp,$sp,-0x10
+    sd      $ra,0($sp)
+    /* Cancel: a new press of cross or START after the first 20 frames
+     * (the list's own confirm press must not count) ends the scene now. */
+    lw      $t1,0x34($s1)
+    addiu   $t1,$t1,1
+    sw      $t1,0x34($s1)
+    sltiu   $t2,$t1,20
+    bne     $t2,$zero,cancel_none
+    nop
+    lui     $t0,0x0062
+    lhu     $t0,0x514c($t0)  /* 0062514c pad held mask */
+    lw      $t1,0x38($s1)
+    sw      $t0,0x38($s1)
+    nor     $t1,$t1,$zero    /* buttons not held last frame */
+    and     $t0,$t0,$t1
+    /* Circle pages the dialogue window and never cancels. During map dialogue
+     * (script op 0x0f) and for 60 frames after it, only START cancels, so an
+     * extra page press after the last line does not end the scene. Raw pad
+     * order: cross 0x0040, START 0x0800. +0xcc = last frame inside dialogue. */
+    lui     $t2,0x0062
+    lh      $t2,-0x2150($t2) /* 0061deb0 script opcode */
+    addiu   $t3,$zero,0x0f
+    bne     $t2,$t3,cancel_after_talk
+    lw      $t4,0x34($s1)
+    sw      $t4,0xcc($s1)
+    b       cancel_mask_done
+    andi    $t1,$t0,0x0800
+cancel_after_talk:
+    lw      $t5,0xcc($s1)
+    subu    $t5,$t4,$t5
+    sltiu   $t5,$t5,60
+    bne     $t5,$zero,cancel_mask_done
+    andi    $t1,$t0,0x0800
+    andi    $t1,$t0,0x0840
+cancel_mask_done:
+    beq     $t1,$zero,cancel_none
+    nop
+    /* Consume this press: the list widget resumes this frame and would take
+     * the same cross as "back" (the trigger copies at 0062514e/52/54/56). */
+    lui     $t0,0x0062
+    sh      $zero,0x514e($t0)
+    sh      $zero,0x5152($t0)
+    sh      $zero,0x5154($t0)
+    sh      $zero,0x5156($t0)
+    /* Undo a script blank (op 0x13ac 2: clear colour 0xff, map layers off)
+     * that the interrupted script would have reverted itself. */
+    lui     $t0,0x004d
+    sb      $zero,-0x518c($t0) /* 004cae74 clear colour r (gp-0x79fc) */
+    sb      $zero,-0x5188($t0) /* 004cae78 g (gp-0x79f8) */
+    sb      $zero,-0x5184($t0) /* 004cae7c b (gp-0x79f4) */
+    daddu   $a0,$zero,$zero
+    jal     0x001c21b0       /* map layers back on (op 0x13ac 0) */
+    addiu   $a1,$zero,1
+    /* A cancelled line would otherwise stream to its end: stop both CCC
+     * voice stream channels and the effect sound-effect channels. BGM is
+     * left alone; the theater BGM restore follows. */
+    jal     0x00183bb0       /* stop voice stream channels (uGpffff80ec, +1) */
+    nop
+    jal     0x00183b70       /* stop the 0x30 sound-effect channels */
+    nop
+    b       cancel_return
+    addiu   $v0,$zero,1
+cancel_none:
+    daddu   $v0,$zero,$zero
+cancel_return:
+    ld      $ra,0($sp)
+    jr      $ra
+    addiu   $sp,$sp,0x10
+
+.align 4
+.globl gallery_talk_auto
+gallery_talk_auto:
+    /* Auto-play map dialogue with the native auto mode at level 4. The native
+     * auto timer (*0062e598) pages after +0x10[level] frames: 240/180/120/60
+     * for levels 1-4; the gallery switches the controller (*0062e588 +4) and
+     * timer (+4 on, +8 level 4) on and restarts the timer count (+0xc) on each
+     * new record, and the native window pages. A record still waiting after
+     * 240 frames gets one circle (trigger copies 0062514e/52/54/56), repeated
+     * every 45 frames. State +0xc0 record, +0xc8 frames on it. */
+    lui     $t0,0x0062
+    lh      $t1,-0x2150($t0) /* 0061deb0 script opcode */
+    addiu   $t2,$zero,0x0f
+    bne     $t1,$t2,talk_auto_done
+    lui     $t0,0x0063
+    lw      $t1,-0x1c80($t0) /* 0062e380 dialogue player */
+    beq     $t1,$zero,talk_auto_done
+    nop
+    lw      $t2,0x0c($t1)    /* current dialogue record */
+    lw      $t5,-0x1a78($t0) /* 0062e588 native auto controller */
+    lw      $t6,-0x1a68($t0) /* 0062e598 native auto timer */
+    addiu   $t7,$zero,1
+    beq     $t5,$zero,talk_auto_timer
+    nop
+    sb      $t7,4($t5)
+talk_auto_timer:
+    beq     $t6,$zero,talk_auto_record
+    nop
+    sb      $t7,4($t6)
+    addiu   $t7,$zero,4
+    sw      $t7,8($t6)       /* level 4: 60 frames a page */
+talk_auto_record:
+    lw      $t3,0xc0($s1)
+    beq     $t2,$t3,talk_auto_count
+    nop
+    sw      $t2,0xc0($s1)
+    sw      $zero,0xc8($s1)
+    beq     $t6,$zero,talk_auto_count
+    nop
+    sw      $zero,0x0c($t6)  /* restart the native page count */
+talk_auto_count:
+    lw      $t3,0xc8($s1)
+    addiu   $t3,$t3,1
+    sw      $t3,0xc8($s1)
+    addiu   $t4,$zero,240
+    bne     $t3,$t4,talk_auto_done
+    nop
+    addiu   $t4,$t4,-45
+    sw      $t4,0xc8($s1)    /* retry 45 frames later if still waiting */
+    lui     $t0,0x0062
+    addiu   $t1,$zero,0x0020 /* circle, raw pad order */
+    sh      $t1,0x514e($t0)
+    sh      $t1,0x5152($t0)
+    sh      $t1,0x5154($t0)
+    sh      $t1,0x5156($t0)
+talk_auto_done:
+    jr      $ra
+    nop
+

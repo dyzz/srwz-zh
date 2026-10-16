@@ -62,6 +62,7 @@ from special_disc.writeback.battle_prompts import apply_prompt_labels
 from special_disc.writeback.battle_titles import apply_title_labels
 from special_disc.writeback.battle_abilities import apply_ability_labels
 from special_disc.event_gallery.apply import MEMBERS as GALLERY_MEMBERS, apply_event_gallery, load_config as load_gallery_config, verify_gallery_members
+from special_disc.event_gallery.voices import MSB as VOICE_MSB, MSH as VOICE_MSH, restore_voices, verify_restored
 from special_disc.iso_relocation import append_members, merge_spans, verify_relocation
 
 WORK=ROOT/'work/build/special-disc/full-text'
@@ -343,6 +344,19 @@ def assemble():
     gallery=timed('event-gallery',apply_event_gallery,patches[EXE],read_member(BASE,members,AID),read_member(BASE,members,VEFF),
                   config=load_gallery_config(),workdir=WORK/'event-gallery')
     relocated=gallery['members'];del patches[EXE]
+    # Voices SP's own effects request but its disc lacks (effect 256 frame 710)
+    # are appended to CCC.MSB in place; KVMDATA.BIN, the member right after it,
+    # moves to the image tail to make room. The directory grows in place.
+    KVM='KURODATA/KVMDATA.BIN'
+    require(VOICE_MSH not in patches and VOICE_MSB not in patches,'voice members must still be native before the gallery stage')
+    gallery_config=load_gallery_config()
+    voices=restore_voices(read_member(BASE,members,VOICE_MSH),members[VOICE_MSB].size,gallery_config.get('voice_restorations',[]),ROOT)
+    grow={}
+    if voices['msb_tail']:
+        require(members[KVM].extent_lba==members[VOICE_MSB].extent_lba+-(-members[VOICE_MSB].size//2048),'KVMDATA.BIN no longer follows CCC.MSB')
+        # KVMDATA.BIN may already carry the localized atlas; it moves as patched.
+        patches[VOICE_MSH]=voices['msh'];relocated[KVM]=patches.pop(KVM) if KVM in patches else read_member(BASE,members,KVM);grow={VOICE_MSB:voices['msb_tail']}
+    stats['event_gallery_restored_voices']=len(voices['receipt']['restored'])
     stats['event_gallery_scenes']=gallery['receipt']['scene_count']
     stats['event_gallery_captions']=gallery['receipt']['caption_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso')
@@ -354,15 +368,16 @@ def assemble():
                 require(len(data)==members[name].size,f'{name} member length changed')
                 stream.seek(members[name].extent_lba*2048);stream.write(data)
     timed('write-members',write_members)
-    relocation=timed('relocate-gallery-members',append_members,temporary,members,relocated)
+    relocation=timed('relocate-gallery-members',append_members,temporary,members,relocated,grow=grow)
     after=member_map(scan_iso9660(temporary))
-    require({n:(m.extent_lba,m.size)for n,m in members.items()if n not in relocated}=={n:(m.extent_lba,m.size)for n,m in after.items()if n not in relocated},'ISO directory/LBA drift')
+    require({n:(m.extent_lba,m.size)for n,m in members.items()if n not in relocated and n not in grow}=={n:(m.extent_lba,m.size)for n,m in after.items()if n not in relocated and n not in grow},'ISO directory/LBA drift')
     for name,data in patches.items():require(read_member(temporary,after,name)==data,f'{name} ISO reread mismatch')
-    relocation_readback=verify_relocation(temporary,members,relocated,relocation)
+    relocation_readback=verify_relocation(temporary,members,relocated,relocation,grow=grow)
+    voice_readback=verify_restored(read_member(temporary,after,VOICE_MSH),grow.get(VOICE_MSB,b''),voices['receipt']) if grow else {'restored':[]}
     gallery_readback=verify_gallery_members(relocated[EXE],relocated[VEFF],gallery['receipt'])
     spans=[(members[n].extent_lba*2048,members[n].extent_lba*2048+len(d))for n,d in patches.items()]+[tuple(x)for x in relocation['touched_spans']]
     protected=timed('protected-ranges',verify_iso_ranges,BASE,temporary,merge_spans(spans))
-    report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=protected['after_sha256']),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in {**patches,**relocated}.items()},protected_iso_ranges=protected,relocated_members=relocation,relocation_readback=relocation_readback,event_gallery=gallery['receipt'],event_gallery_readback=gallery_readback,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
+    report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=protected['after_sha256']),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in {**patches,**relocated}.items()},protected_iso_ranges=protected,relocated_members=relocation,relocation_readback=relocation_readback,event_gallery=gallery['receipt'],event_gallery_voices=dict(voices['receipt'],readback=voice_readback),event_gallery_readback=gallery_readback,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
     report['weapon_detail_labels']=weapon_report
     report['current_shared_library']=library_report
     report['weapon_detail_parentheses']=weapon_parentheses_report

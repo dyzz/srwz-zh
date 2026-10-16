@@ -164,12 +164,35 @@
             -11
           ],
           [
+            "talk_install"
+          ],
+          [
             "spawn",
             "field"
           ],
           [
             "bgm",
             69
+          ],
+          [
+            "talk",
+            10
+          ],
+          [
+            "camera",
+            13,
+            13
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "talk",
+            11
           ],
           [
             "camera",
@@ -220,6 +243,10 @@
             ]
           ],
           [
+            "talk",
+            12
+          ],
+          [
             "wait",
             4
           ],
@@ -267,6 +294,10 @@
             ]
           ],
           [
+            "talk",
+            13
+          ],
+          [
             "wait",
             30
           ],
@@ -280,6 +311,10 @@
           ],
           [
             "wait_effects"
+          ],
+          [
+            "talk",
+            14
           ],
           [
             "bgm",
@@ -453,6 +488,41 @@
             1
           ],
           [
+            "raw",
+            5000,
+            2415919105,
+            0,
+            36900
+          ],
+          [
+            "talk",
+            15,
+            1
+          ],
+          [
+            "talk",
+            16,
+            1
+          ],
+          [
+            "raw",
+            5000,
+            2415919104,
+            0,
+            36900
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "talk",
+            17
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
             "wait_effects"
           ]
         ],
@@ -559,6 +629,9 @@
             -11
           ],
           [
+            "talk_install"
+          ],
+          [
             "raw",
             5036,
             2,
@@ -610,6 +683,10 @@
           [
             "wait",
             30
+          ],
+          [
+            "talk",
+            31
           ],
           [
             "raw",
@@ -790,6 +867,10 @@
             "overlay_off"
           ],
           [
+            "talk",
+            33
+          ],
+          [
             "wait",
             30
           ],
@@ -819,6 +900,18 @@
           ],
           [
             "wait_effects"
+          ],
+          [
+            "talk",
+            34
+          ],
+          [
+            "talk",
+            36
+          ],
+          [
+            "wait",
+            30
           ],
           [
             "fade",
@@ -894,11 +987,10 @@
       },
       "fidelity": {
         "bgm": {
-          "mode": "effect_header",
+          "mode": "script",
           "id": 46,
           "title": "創聖のアクエリオン",
-          "source": "VEFF 257 header +8=0x2e, +10 start delay 1; script also plays 0x2e at STAGE021 0x8670",
-          "lead_in": "theater BGM paused at scene start; the effect header loads its BGM paused and starts it after the header delay"
+          "source": "STAGE021 0x8670 op0x43 0x2e before effect 20; the effect 256 resource header plays the same song again"
         },
         "zoom": {
           "value": -11,
@@ -984,11 +1076,19 @@
             -11
           ],
           [
-            "bgm_pause"
+            "talk_install"
           ],
           [
             "spawn",
             "vectors"
+          ],
+          [
+            "talk",
+            26
+          ],
+          [
+            "bgm",
+            46
           ],
           [
             "camera",
@@ -1017,6 +1117,18 @@
           [
             "wait",
             60
+          ],
+          [
+            "talk",
+            27
+          ],
+          [
+            "talk",
+            28
+          ],
+          [
+            "talk",
+            29
           ],
           [
             "camera",
@@ -1066,8 +1178,23 @@
             "wait_effects"
           ],
           [
+            "talk",
+            30
+          ],
+          [
+            "talk",
+            31
+          ],
+          [
+            "talk",
+            32
+          ],
+          [
             "wait",
-            60
+            30
+          ],
+          [
+            "wait_effects"
           ]
         ],
         "excluded": [
@@ -1079,11 +1206,7 @@
             "what": "BGM 0x8670 op0x43 0x2e before effect 20",
             "reason": "the effect 256 resource header plays the same song; a script request earlier would restart it at the effect, so the pre-beat runs on the paused theater BGM"
           }
-        ],
-        "hold_after_effect": {
-          "frames": 60,
-          "reason": "Original spawns Solar Aquarion 2 frames before the 1540-frame effect ends and continues with dialogue over the map; the gallery holds 60 frames so the native handoff is visible before returning"
-        }
+        ]
       }
     },
     {
@@ -1136,12 +1259,19 @@
             -11
           ],
           [
+            "talk_install"
+          ],
+          [
             "bgm",
             47
           ],
           [
             "spawn",
             "tsugumi"
+          ],
+          [
+            "talk",
+            21
           ],
           [
             "wait",
@@ -1157,6 +1287,10 @@
           ],
           [
             "wait_effects"
+          ],
+          [
+            "talk",
+            22
           ],
           [
             "effect",
@@ -1250,8 +1384,12 @@
             "overlay_off"
           ],
           [
+            "talk",
+            23
+          ],
+          [
             "wait",
-            90
+            30
           ],
           [
             "fade",
@@ -1326,9 +1464,16 @@
       "fidelity": {
         "bgm": {
           "mode": "script",
-          "id": 47,
-          "title": "Ｇｏ　Ｔｉｇｈｔ！",
-          "source": "STAGE128 0x10770 op0x43 0x2f"
+          "id": 71,
+          "title": "２５回目の危機",
+          "source": "STAGE128 0x10070 op0x43 0x47 (still playing at the clip start)",
+          "changes": [
+            {
+              "id": 47,
+              "title": "Ｇｏ　Ｔｉｇｈｔ！",
+              "source": "STAGE128 0x10770 op0x43 0x2f after dialogue 0x36"
+            }
+          ]
         },
         "zoom": {
           "value": -11,
@@ -1338,6 +1483,13 @@
           [
             "zoom",
             -11
+          ],
+          [
+            "talk_install"
+          ],
+          [
+            "bgm",
+            71
           ],
           [
             "overlay",
@@ -1373,12 +1525,24 @@
             "overlay_off"
           ],
           [
+            "talk",
+            53
+          ],
+          [
+            "talk",
+            54
+          ],
+          [
             "bgm",
             47
           ],
           [
             "wait",
             30
+          ],
+          [
+            "talk",
+            55
           ],
           [
             "camera",
@@ -1448,8 +1612,12 @@
             "overlay_off"
           ],
           [
+            "talk",
+            56
+          ],
+          [
             "wait",
-            60
+            30
           ],
           [
             "fade",
@@ -1484,7 +1652,7 @@
                 "unit": 655,
                 "pilot": 612
               },
-              "source": "STAGE128 0x107a0 op0x1d switches Pierre's unit to アクエリオンエンジェル (655); 0x108e0 facing 1; position follows play, placed at the documented effect anchor (13,5)"
+              "source": "STAGE128 0x107a0 op0x1d switches Pierre's unit to アクエリオンエンジェル (655); 0x10860-0x108a0 moves him to (13,5); 0x108e0 facing 1"
             }
           ],
           "shishi": [
@@ -1492,7 +1660,7 @@
               "unit": 718,
               "pilot": 657,
               "tile": [
-                14,
+                13,
                 7
               ],
               "facing": 3,
@@ -1503,7 +1671,7 @@
                 "unit": 669,
                 "pilot": 635
               },
-              "source": "STAGE128 unit table 0xdff2: 詩翅 pilots ケルビムマーズ (669, lv57); 0x108f0 facing 3; enemy position follows play, placed south-east of the anchor"
+              "source": "STAGE128 unit table 0xdff2: 詩翅 pilots ケルビムマーズ (669); 0x10860-0x108a0 moves her to (13,7) (and ピエール to (13,5)); 0x108f0 facing 3"
             }
           ]
         }
@@ -1543,9 +1711,16 @@
       "fidelity": {
         "bgm": {
           "mode": "script",
-          "id": 47,
-          "title": "Ｇｏ　Ｔｉｇｈｔ！",
-          "source": "STAGE107 0x14460 op0x43 0x2f"
+          "id": 69,
+          "title": "ＳＴＡＧＥ・Ｄ",
+          "source": "STAGE107 0x141e0 op0x43 0x45",
+          "changes": [
+            {
+              "id": 47,
+              "title": "Ｇｏ　Ｔｉｇｈｔ！",
+              "source": "STAGE107 0x14460 op0x43 0x2f after dialogue 0x3e"
+            }
+          ]
         },
         "zoom": {
           "value": -11,
@@ -1617,6 +1792,13 @@
             -11
           ],
           [
+            "talk_install"
+          ],
+          [
+            "bgm",
+            69
+          ],
+          [
             "spawn",
             "apollo"
           ],
@@ -1637,8 +1819,24 @@
             0
           ],
           [
+            "talk",
+            60
+          ],
+          [
+            "talk",
+            61
+          ],
+          [
+            "talk",
+            62
+          ],
+          [
             "bgm",
             47
+          ],
+          [
+            "talk",
+            63
           ],
           [
             "wait",
@@ -1693,6 +1891,14 @@
             "visible",
             623,
             1
+          ],
+          [
+            "talk",
+            64
+          ],
+          [
+            "talk",
+            65
           ],
           [
             "wait",
@@ -1753,11 +1959,17 @@
       },
       "fidelity": {
         "bgm": {
-          "mode": "effect_header",
+          "mode": "script",
           "id": 41,
           "title": "合神！　ゴッドグラヴィオン",
-          "source": "VEFF 265 header +8=0x29, delay 1; script 0x9170 plays 0x29 earlier",
-          "lead_in": "theater BGM paused at scene start; the effect header loads its BGM paused and starts it after the header delay"
+          "source": "STAGE007 0x9170 op0x43 0x29 before the dialogues; the effect 264 resource header plays the same song again",
+          "changes": [
+            {
+              "id": 40,
+              "title": "嘆きのロザリオ",
+              "source": "STAGE007 0x9520 op0x43 0x28 after the combine (0x9510 wait 30), before dialogue 0x17"
+            }
+          ]
         },
         "zoom": {
           "value": -11,
@@ -1879,7 +2091,7 @@
             -11
           ],
           [
-            "bgm_pause"
+            "talk_install"
           ],
           [
             "spawn",
@@ -1892,6 +2104,34 @@
           [
             "spawn",
             "tsugumi"
+          ],
+          [
+            "talk",
+            17
+          ],
+          [
+            "bgm",
+            41
+          ],
+          [
+            "talk",
+            18
+          ],
+          [
+            "talk",
+            19
+          ],
+          [
+            "talk",
+            20
+          ],
+          [
+            "talk",
+            21
+          ],
+          [
+            "talk",
+            22
           ],
           [
             "wait",
@@ -1942,6 +2182,25 @@
           [
             "combine",
             645
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "bgm",
+            40
+          ],
+          [
+            "talk",
+            23
+          ],
+          [
+            "wait",
+            30
           ],
           [
             "wait_effects"
@@ -2356,6 +2615,9 @@
             -11
           ],
           [
+            "talk_install"
+          ],
+          [
             "ghosts_install"
           ],
           [
@@ -2367,8 +2629,16 @@
             "breaker"
           ],
           [
+            "talk",
+            42
+          ],
+          [
             "bgm",
             40
+          ],
+          [
+            "talk",
+            43
           ],
           [
             "wait",
@@ -2822,7 +3092,11 @@
           ],
           [
             "wait",
-            180
+            60
+          ],
+          [
+            "talk",
+            44
           ],
           [
             "bgm",
@@ -2853,7 +3127,7 @@
                 18,
                 4
               ],
-              "facing": 0,
+              "facing": 3,
               "side": 0,
               "appear": 1,
               "class": 4,
@@ -2861,7 +3135,7 @@
                 "unit": 600,
                 "pilot": 558
               },
-              "source": "STAGE107: 斗牙 pilots ゴッドグラヴィオン (600) at this point (spawn 0xfec0 later lists it); hidden at 0x156c0 when effect 265 starts, shown at 0x15b70; position follows play, placed one tile south of the (18,3) anchor"
+              "source": "STAGE107 0x14f90-0x14fc0 moves 斗牙 (ゴッドグラヴィオン 600) to (18,4); 0x15280 facing 3; hidden at 0x156c0, shown at 0x15b70"
             }
           ],
           "breaker": [
@@ -2869,10 +3143,10 @@
               "unit": 676,
               "pilot": 807,
               "tile": [
-                20,
+                18,
                 2
               ],
-              "facing": 2,
+              "facing": 1,
               "side": 12,
               "appear": 1,
               "class": 4,
@@ -2880,7 +3154,7 @@
                 "unit": 627,
                 "pilot": 774
               },
-              "source": "STAGE107 unit table 0x12644: ブレーカー pilots ソル═グラヴィオン (627, lv47); hidden at 0x156d0, shown at 0x15b80; enemy position follows play"
+              "source": "STAGE107 0x15230-0x15260 moves ブレーカー (ソル═グラヴィオン 627, unit table 0x12644) to (18,2); 0x15270 facing 1; hidden at 0x156d0, shown at 0x15b80"
             }
           ]
         }
@@ -2926,11 +3200,17 @@
       },
       "fidelity": {
         "bgm": {
-          "mode": "effect_header",
-          "id": 6,
-          "title": "がんばれ！宇宙の戦士",
-          "source": "VEFF 267 header +8=0x06, delay 1; script also plays 0x06 at STAGE026 0xa3b0",
-          "lead_in": "theater BGM paused at scene start; the effect header loads its BGM paused and starts it after the header delay"
+          "mode": "script",
+          "id": 69,
+          "title": "ＳＴＡＧＥ・Ｄ",
+          "source": "STAGE026 0xa320 op0x43 0x45",
+          "changes": [
+            {
+              "id": 6,
+              "title": "がんばれ！宇宙の戦士",
+              "source": "STAGE026 0xa3b0 op0x43 0x6 after dialogue 0x13; the effect 266 resource header plays the same song again"
+            }
+          ]
         },
         "zoom": {
           "value": -19,
@@ -2963,7 +3243,19 @@
             -19
           ],
           [
-            "bgm_pause"
+            "talk_install"
+          ],
+          [
+            "bgm",
+            69
+          ],
+          [
+            "talk",
+            19
+          ],
+          [
+            "bgm",
+            6
           ],
           [
             "wait",
@@ -3012,6 +3304,25 @@
           [
             "wait",
             30
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "wait",
+            60
+          ],
+          [
+            "talk",
+            20
+          ],
+          [
+            "talk",
+            21
+          ],
+          [
+            "talk",
+            22
           ],
           [
             "wait_effects"
@@ -3066,11 +3377,10 @@
       },
       "fidelity": {
         "bgm": {
-          "mode": "effect_header",
+          "mode": "script",
           "id": 5,
           "title": "われらのゲッターロボ",
-          "source": "VEFF 268 header +8=0x05, delay 1; script also plays 0x05 at STAGE043 0xb8b0",
-          "lead_in": "theater BGM paused at scene start; the effect header loads its BGM paused and starts it after the header delay"
+          "source": "STAGE043 0xb8b0 op0x43 0x5 (the gallery starts it before dialogue 0x16, which plays under the stage BGM in the original); the effect 267 resource header plays the same song again"
         },
         "zoom": {
           "value": -18,
@@ -3112,26 +3422,7 @@
                 "unit": 0,
                 "pilot": 2
               },
-              "source": "STAGE043 0xb7b0-0xb7d0: the script centres on 甲児 (if present) and turns him to facing 2 before the zoom; a player unit, placed west of the Getter Dragon spawn tile"
-            }
-          ],
-          "tetsuya": [
-            {
-              "unit": 6,
-              "pilot": 14,
-              "tile": [
-                16,
-                23
-              ],
-              "facing": 3,
-              "side": 0,
-              "appear": 1,
-              "class": 4,
-              "original": {
-                "unit": 6,
-                "pilot": 14
-              },
-              "source": "gallery choice (user: place a few allied units by route): 鉄也's グレートマジンガー east of the spawn tile; not referenced by the script"
+              "source": "STAGE043 0xb7a0-0xb7f0: if 甲児 (P2) is deployed the script centres on him and turns him to facing 2 before the zoom; a player unit whose tile follows play, placed west of the Getter Dragon spawn tile"
             }
           ]
         },
@@ -3141,15 +3432,19 @@
             -18
           ],
           [
-            "bgm_pause"
+            "talk_install"
+          ],
+          [
+            "bgm",
+            5
           ],
           [
             "spawn",
             "koji"
           ],
           [
-            "spawn",
-            "tetsuya"
+            "talk",
+            22
           ],
           [
             "camera",
@@ -3259,33 +3554,43 @@
           ],
           [
             "wait_effects"
+          ],
+          [
+            "wait",
+            120
+          ],
+          [
+            "talk",
+            23
+          ],
+          [
+            "wait_effects"
           ]
         ],
         "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions"
       }
     },
     {
-      "id": "effect-269",
-      "name": "魔神Z出击",
+      "id": "effect-268",
+      "name": "大魔神冲破屏障",
       "effects": [
-        268,
-        269
+        268
       ],
       "map": 72,
       "camera": {
         "tile": [
-          19,
-          25
+          33,
+          24
         ],
         "map_view": 3,
-        "status": "view 3 = STAGE047 map init default (0x9f40 is op0x1c cursor hide, not a view); camera 0x9f30 op0x18 tile (19,25)"
+        "status": "view 3 (map init); 0xae00/0xae60 op0x18 on 甲児's TFO (33,24)"
       },
       "effect_tile": [
-        19,
-        25
+        33,
+        24
       ],
-      "position_source": "resource_header",
-      "runtime_status": "LRPS2 V6 native tactical-unit handoff and two natural returns passed; roster/unit snapshot restored byte-for-byte",
+      "position_source": "script_unit_anchor",
+      "runtime_status": "new 2026-10-15 (split from 魔神Z出击 at the user's request); LRPS2 verification recorded in SP_EVENT_GALLERY_REVIEW_20261015.md",
       "stage_objects": [
         {
           "model": 1,
@@ -3320,10 +3625,9 @@
       ],
       "source_context": {
         "stage_index": 47,
-        "call_offset": "0x9f70",
+        "call_offset": "0xaf40",
         "script_roots": [
-          "0xac00",
-          "0x9f00"
+          "0xac00"
         ],
         "native_init_offset": "0x8d0",
         "edition": "Original SLPS_258.87"
@@ -3331,44 +3635,44 @@
       "fidelity": {
         "bgm": {
           "mode": "script",
-          "id": 1,
-          "title": "おれはグレートマジンガー",
-          "source": "STAGE047 0xaf10 op0x43 0x1 before the barrier effect 268",
+          "id": 56,
+          "title": "ＢＡＴＴＬＥ　ＣＨＯＩＲ",
+          "source": "STAGE047 0xac70 op0x43 0x38 after the turn-1 opening dialogues 0x00/0x01",
           "changes": [
             {
-              "id": 70,
-              "title": "ＢＬＡＣＫ　ＡＬＡＲＭ",
-              "source": "STAGE047 0x9f00 op0x43 0x46 at the launch event start (the battle between the two events is not part of the clip)"
+              "id": 1,
+              "title": "おれはグレートマジンガー",
+              "source": "STAGE047 0xaf10 op0x43 0x1 right before effect 268"
             },
             {
-              "id": 0,
-              "title": "マジンガーＺ",
-              "source": "STAGE047 0xa260 op0x43 0x0 after the launch (spawn 0xa170, dialogue 0xa240); played once the launch effect has ended"
+              "id": 56,
+              "title": "ＢＡＴＴＬＥ　ＣＨＯＩＲ",
+              "source": "STAGE047 0xb030 op0x43 0x38 after dialogue 0x05 (resumes after the Great Mazinger theme), before dialogue 0x06"
             }
           ]
         },
         "zoom": {
           "value": -16,
-          "source": "STAGE047 0xadd0 op0x29 -16 before the barrier; 0xb000 op0x29 -14 after it; 0x9f50 op0x29 -8 before the launch"
+          "source": "STAGE047 0xadd0 op0x29 -16; 0xb000 op0x29 -14 after the effect"
         },
         "units": {
-          "mazinger": [
+          "beal": [
             {
-              "unit": 0,
-              "pilot": 2,
+              "unit": 128,
+              "pilot": 147,
               "tile": [
-                32,
-                13
+                33,
+                26
               ],
-              "facing": 1,
+              "facing": 3,
               "side": 0,
               "appear": 1,
-              "class": 4,
+              "class": 0,
               "original": {
-                "unit": 0,
-                "pilot": 2
+                "unit": 125,
+                "pilot": 147
               },
-              "source": "STAGE047 spawn list 0x7930 at 0xa320 (32,13) facing 1"
+              "source": "STAGE047 spawn list 0x7830 at 0xac20: 兵左衛門's キング・ビアル at (33,26) facing 3"
             }
           ],
           "koji": [
@@ -3381,13 +3685,13 @@
               ],
               "facing": 3,
               "side": 0,
-              "appear": 255,
+              "appear": 1,
               "class": 1,
               "original": {
                 "unit": 19,
                 "pilot": 3
               },
-              "source": "STAGE047 spawn list 0x7870 at 0xac40: Koji's TFO at (33,24) facing 3, class byte 1, animated appearance; effect 268 at 0xaf40 is played on this unit (0x139b kind 2, pilot 3)"
+              "source": "STAGE047 spawn list 0x7870 at 0xac40: 甲児's ＴＦＯ at (33,24) facing 3; effect 268 is anchored on him (0xaf40 0x139b P3)"
             }
           ]
         },
@@ -3397,17 +3701,92 @@
             -16
           ],
           [
-            "bgm",
-            1
+            "talk_install"
+          ],
+          [
+            "spawn",
+            "beal"
           ],
           [
             "spawn",
             "koji"
           ],
           [
+            "talk",
+            0
+          ],
+          [
+            "talk",
+            1
+          ],
+          [
+            "bgm",
+            56
+          ],
+          [
+            "talk",
+            2
+          ],
+          [
             "camera",
             33,
             24
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "talk",
+            3
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "raw",
+            36,
+            2,
+            3,
+            0
+          ],
+          [
+            "wait",
+            16
+          ],
+          [
+            "raw",
+            36,
+            2,
+            3,
+            65536
+          ],
+          [
+            "wait",
+            8
+          ],
+          [
+            "raw",
+            36,
+            2,
+            3,
+            0
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "talk",
+            4
+          ],
+          [
+            "bgm",
+            1
           ],
           [
             "raw",
@@ -3505,14 +3884,178 @@
             60
           ],
           [
+            "talk",
+            5
+          ],
+          [
+            "bgm",
+            56
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "talk",
+            6
+          ],
+          [
             "fade",
             0,
             252,
-            12
+            4
+          ],
+          [
+            "wait_effects"
+          ]
+        ],
+        "excluded": [
+          {
+            "what": "turn-1 opening dialogues 0xac50-0xaf00 (0xf), portrait/cut-in ops 0x139d-0x16 around dialogue, 0x13a3/0x13a4, variables 0x8020/0x8040, the zoom -20 at 0xac80 and the camera on 兵左衛門 0xad40",
+            "reason": "dialogue-only state; the clip starts at the 0xadd0 zoom with BATTLE CHOIR already playing"
+          },
+          {
+            "what": "0xb020 onwards: dialogue, BATTLE CHOIR again, player phase",
+            "reason": "after the clip"
+          }
+        ]
+      }
+    },
+    {
+      "id": "effect-269",
+      "name": "魔神Z出击",
+      "effects": [
+        269
+      ],
+      "map": 72,
+      "camera": {
+        "tile": [
+          19,
+          25
+        ],
+        "map_view": 3,
+        "status": "view 3; camera 0x9f30 op0x18 tile (19,25); 0xa210 camera on 鉄也"
+      },
+      "effect_tile": [
+        19,
+        25
+      ],
+      "position_source": "resource_header",
+      "runtime_status": "LRPS2 V6 native tactical-unit handoff and two natural returns passed; roster/unit snapshot restored byte-for-byte",
+      "stage_objects": [
+        {
+          "model": 1,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 2,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 3,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        },
+        {
+          "model": 4,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 0
+        },
+        {
+          "model": 5,
+          "frame": 1600,
+          "mode": 2,
+          "visible": 1
+        }
+      ],
+      "source_context": {
+        "stage_index": 47,
+        "call_offset": "0x9f70",
+        "script_roots": [
+          "0x9f00"
+        ],
+        "native_init_offset": "0x8d0",
+        "edition": "Original SLPS_258.87"
+      },
+      "fidelity": {
+        "bgm": {
+          "mode": "script",
+          "id": 70,
+          "title": "ＢＬＡＣＫ　ＡＬＡＲＭ",
+          "source": "STAGE047 0x9f00 op0x43 0x46 at the event start",
+          "changes": [
+            {
+              "id": 0,
+              "title": "マジンガーＺ",
+              "source": "STAGE047 0xa260 op0x43 0x0 after 鉄也's arrival, while the effect is held (0x901f); the effect resumes with the theme when the Pilder heads for the pool"
+            }
+          ]
+        },
+        "zoom": {
+          "value": -8,
+          "source": "STAGE047 0x9f50 op0x29 -8 before the call"
+        },
+        "units": {
+          "mazinger": [
+            {
+              "unit": 0,
+              "pilot": 2,
+              "tile": [
+                32,
+                13
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 0,
+                "pilot": 2
+              },
+              "source": "STAGE047 spawn list 0x7930 at 0xa320 (32,13) facing 1"
+            }
+          ],
+          "tetsuya": [
+            {
+              "unit": 6,
+              "pilot": 14,
+              "tile": [
+                27,
+                5
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 255,
+              "class": 3,
+              "original": {
+                "unit": 6,
+                "pilot": 14
+              },
+              "source": "STAGE047 spawn list 0x78f0 at 0xa170: 鉄也's グレートマジンガー enters at (27,5) facing 1 (animated); 0xa190-0xa200 moves it to (27,17) then (32,17); 0xa210 camera, 0xa220 facing 3"
+            }
+          ]
+        },
+        "timeline": [
+          [
+            "zoom",
+            -8
+          ],
+          [
+            "talk_install"
           ],
           [
             "bgm",
             70
+          ],
+          [
+            "talk",
+            13
           ],
           [
             "camera",
@@ -3525,19 +4068,6 @@
             3,
             0,
             0
-          ],
-          [
-            "zoom",
-            -8
-          ],
-          [
-            "fade",
-            252,
-            0,
-            -12
-          ],
-          [
-            "overlay_off"
           ],
           [
             "wait",
@@ -3614,6 +4144,52 @@
             32
           ],
           [
+            "raw",
+            5000,
+            2415919105,
+            0,
+            36900
+          ],
+          [
+            "talk",
+            14
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5005,
+            2418343938,
+            2049,
+            2415920859
+          ],
+          [
+            "raw",
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5006,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5000,
+            2415919104,
+            0,
+            36900
+          ],
+          [
             "model",
             1,
             5,
@@ -3668,6 +4244,148 @@
           [
             "wait",
             32
+          ],
+          [
+            "raw",
+            5000,
+            2415919105,
+            0,
+            36900
+          ],
+          [
+            "talk",
+            15
+          ],
+          [
+            "spawn",
+            "tetsuya"
+          ],
+          [
+            "raw",
+            5021,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5022,
+            131086,
+            1769489,
+            2147483650
+          ],
+          [
+            "raw",
+            5023,
+            0,
+            131086,
+            0
+          ],
+          [
+            "raw",
+            22,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5021,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5022,
+            131086,
+            2097169,
+            2147483650
+          ],
+          [
+            "raw",
+            5023,
+            0,
+            131086,
+            0
+          ],
+          [
+            "raw",
+            22,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            24,
+            2,
+            14,
+            0
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "raw",
+            35,
+            2,
+            14,
+            3
+          ],
+          [
+            "raw",
+            75,
+            33310,
+            0,
+            1
+          ],
+          [
+            "talk",
+            16
+          ],
+          [
+            "bgm",
+            0
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5005,
+            2418343938,
+            2049,
+            2415921295
+          ],
+          [
+            "raw",
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5006,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5000,
+            2415919104,
+            0,
+            36900
           ],
           [
             "model",
@@ -3733,31 +4451,12 @@
             "wait_effects"
           ],
           [
-            "camera",
-            32,
-            13
-          ],
-          [
-            "raw",
-            28,
-            3,
-            0,
-            0
-          ],
-          [
-            "raw",
-            35,
-            2,
-            2,
-            3
-          ],
-          [
-            "bgm",
-            0
-          ],
-          [
             "wait",
-            300
+            60
+          ],
+          [
+            "talk",
+            17
           ],
           [
             "fade",
@@ -3771,12 +4470,16 @@
         ],
         "excluded": [
           {
-            "what": "barrier section: King Beal spawn 0xac20 (33,26), dialogues 0xac50-0xaf00 with portrait setup, 0x24 unit effects 0xae70-0xaeb0, 0x13a3/0x13a4, BATTLE CHOIR 0xac70/0xb030 and the player battle between the two events",
-            "reason": "dialogue-only state and stage flow outside the two performances; the clip cuts from the post-barrier zoom to the launch event"
+            "what": "0x13a3/0x13a4 portrait cut-ins next to the dialogues, stage flags 0x50/0x51",
+            "reason": "cut-in portraits are a separate overlay; dialogue sections 13-17 themselves are replayed natively (event-gallery-talk.json)"
           },
           {
-            "what": "launch section: dialogue setup 0xa180-0xa200/0xa240-0xa250 (0x13a3/0x139d-0x16/0x13a4), SE 0xa230 0x4b 0x821e, stage flags 0x50/0x51, variable 0x901f",
-            "reason": "dialogue-only state and a dialogue sound effect; the launch effect and the BGM change do not depend on them"
+            "what": "STAGE047 0xac00 turn-1 opening (Koji's TFO, King Beal, effect 268 = 鉄也 breaking the enemy barrier with the Great Booster, BGM おれはグレートマジンガー)",
+            "reason": "a different event several turns earlier; added on 2026-10-15 by mistake and removed after the user compared with the original. Its only lasting effect, the lab models at frame 1600, is kept as the scene's initial state"
+          },
+          {
+            "what": "system variable numbering",
+            "reason": "Original vars 0x901e/0x901f/0x9020 (iRam0059f290, gp-0x7878 flag, model current frame 0x525610) are SP 0x9023/0x9024/0x9025: SP inserts five pad variables at 0x901d-0x9022 (FUN_001b7f60 reads 0x62514e/0x625152). The scene's raw records use the SP numbers."
           }
         ]
       }
@@ -3884,12 +4587,35 @@
             -11
           ],
           [
+            "talk_install"
+          ],
+          [
             "spawn",
             "arrivals"
           ],
           [
+            "talk",
+            17
+          ],
+          [
+            "talk",
+            18
+          ],
+          [
+            "talk",
+            19
+          ],
+          [
             "bgm",
             15
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "talk",
+            21
           ],
           [
             "wait",
@@ -3902,6 +4628,17 @@
               18,
               17
             ]
+          ],
+          [
+            "wait_effects"
+          ],
+          [
+            "wait",
+            30
+          ],
+          [
+            "talk",
+            22
           ],
           [
             "wait_effects"
@@ -3921,5 +4658,16 @@
     }
   ],
   "subtitle_source": "config/products/special-disc/event-subtitles.json",
-  "fidelity_id_map": "work/analysis/sp-event-fidelity-20261013/id-map.json"
+  "fidelity_id_map": "work/analysis/sp-event-fidelity-20261013/id-map.json",
+  "talk_source": "config/products/special-disc/event-gallery-talk.json",
+  "voice_restorations": [
+    {
+      "sp_ccc": 30896,
+      "original_ccc": 20354,
+      "used_by": "effect 256 frame 710 (阿克艾里昂合体): the scream うわっ! うおおお…; Best plays the same bytes as 20358",
+      "file": "config/products/special-disc/event-gallery-voice/ccc-original-20354.adpcm",
+      "size": 34464,
+      "sha256": "f9737065d5e5178fb44d7f60b5ee8072c3f131cd9edb7e141f9e6969a94eeedd"
+    }
+  ]
 }

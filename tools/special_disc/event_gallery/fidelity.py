@@ -206,6 +206,11 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             word(0x1395, 0, (entry << 16) | mode, flag_op << 16)
         elif kind == "combine":
             word(0x13BF, 1, 0x10000 | _id(args[0], "unit"), 0)
+        elif kind == "talk_install":
+            word(0x14, f"gallery_talk_install_{row}", 0, 0)
+        elif kind == "talk":
+            # Native map dialogue section n (op 0x0f) from the installed block.
+            word(0x0F, _id(args[0], "talk section", 0x7FFF), 0, int(args[1]) if len(args) > 1 else 0)
         elif kind == "raw":
             word(*(int(v) for v in args))
         else:
