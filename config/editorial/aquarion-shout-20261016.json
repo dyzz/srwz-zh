@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "kind": "srwz-aquarion-shout-unification",
+  "date": "2026-10-16",
+  "authorization": "用户在名场面集里发现台词仍是“亚 库 艾 里 翁”，要求在本篇和Best中排查。",
+  "decision": "2026-09-07 已确认通称统一为“阿克艾里昂”（glossary unit/mechanical-angel-aquarion 弃用“亚库艾里翁”）。这三句是阿波罗拉长的呼喊，字间夹破折号，术语检查未识别；保留逐字拉长的写法，只换为定稿用字。",
+  "search": "corpus/zh 全部 translation 字段按“[亚阿]?[库克酷]?[艾埃]?[里利]?[翁昂恩]”（字间允许 0–3 个符号）检索，非标准写法仅此三句；SP 语料为“阿克艾……里昂——”，随日文停顿，保留。",
+  "edits": [
+    {
+      "path": "corpus/zh/story-dialogue/stage-021.json",
+      "id": "story/021/dialogue/01.25/0001",
+      "field": "translation",
+      "source_ja": "「うおおおおおっ！！\n　アークーエーリーオォォォン！！」",
+      "source_text_sha256": "b79d2eb249bef122d8c3104333eea3f0ca87bc910a636ea14d8e29b281465505",
+      "before": "“呜噢噢噢噢！！亚—库—艾—里—翁！！”",
+      "after": "“呜噢噢噢噢！！阿—克—艾—里—昂！！”"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-021.json",
+      "id": "story/021/dialogue/01.27/0000",
+      "field": "translation",
+      "source_ja": "「アァクーエーリオォォォン！！」",
+      "source_text_sha256": "10b94b5b470a24f97db3cfea4b8a048553f0ddabb428db7190890ddcc7373229",
+      "before": "“亚—库—艾—里—翁！！”",
+      "after": "“阿—克—艾—里—昂！！”"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-021.json",
+      "id": "story/021/dialogue/01.30/0003",
+      "field": "translation",
+      "source_ja": "「創聖合体…\n　ＧＯ！　アァクエリオォォォーン！！」",
+      "source_text_sha256": "1c5d6cf47169bc0bde75c2a4ae0f3e91b17517e9171d1f93cd70714e0a8cdd9e",
+      "before": "“创圣合体……GO！\n　亚—库—艾—里—翁！！”",
+      "after": "“创圣合体……GO！\n　阿—克—艾—里—昂！！”"
+    }
+  ]
+}
