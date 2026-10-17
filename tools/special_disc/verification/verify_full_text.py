@@ -35,6 +35,7 @@ from special_disc.writeback.qa_layout import page as qa_page
 from srwz.qa_typography import shared_records
 from special_disc.writeback.squad_names import verify_nisv_names
 from special_disc.writeback.shared_label_updates import verify_shared_labels, audit_viewer_pilot_labels
+from special_disc.writeback.name_unification import verify_name_unification
 from write_frame_text import validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
@@ -327,6 +328,9 @@ def main(iso=None, work=None):
     shared_labels=verify_shared_labels(member('DATA/COMPDATA.BN'),readback)
     require(shared_labels==manifest['shared_label_updates'],'SP shared-label receipt drift')
     counts['current_shared_labels']=len(shared_labels['labels'])
+    unified=verify_name_unification(member('DATA/COMPDATA.BN'),readback)
+    require(unified==manifest['name_unification_20261017'],'SP name-unification receipt drift')
+    counts['name_unification_slots']=len(unified['labels'])
     counts['viewer_pilot_list_records']=audit_viewer_pilot_labels(
         decode_production(member('DATA/COMPDATA.BN')).output,readback)['records']
     # System text: account for every template expansion and every ticker source.

@@ -35,6 +35,7 @@ from special_disc.writeback.pilot_names import apply_pilot_names
 from special_disc.verification.name_tables import verify_name_tables
 from special_disc.writeback.keyword_list_names import apply_keyword_names
 from special_disc.writeback.shared_label_updates import apply_shared_labels
+from special_disc.writeback.name_unification import apply_name_unification
 from weapon_detail_labels import apply_weapon_detail_labels, verify_weapon_detail_labels
 from migrate_slps_text import encoding_tables
 from special_disc.writeback.terrain_names import apply_terrain_names, verify_terrain_names, MEMBER as TERRAIN_MEMBER
@@ -306,6 +307,7 @@ def assemble():
     patches[CD],gravion_report=apply_gravion_labels(patches[CD],source_table,stored_overrides,runtime_table)
     patches[CD],unit_report=apply_unit_names(patches[CD],source_table,stored_overrides,runtime_table,decoded_font,proposal)
     patches[CD],pilot_report=apply_pilot_names(patches[CD],source_table,stored_overrides,runtime_table)
+    patches[CD],name_unification_report=apply_name_unification(patches[CD],source_table,stored_overrides,runtime_table)
     name_table_report=verify_name_tables(patches[CD],read_disc_member(CD),decoded_font,proposal,runtime_table,source_table,patches[EXE])
     patches[CD],keyword_report=apply_keyword_names(patches[CD],source_table,stored_overrides,runtime_table)
     patches[CD],shared_labels_report=apply_shared_labels(patches[CD],source_table,stored_overrides,runtime_table)
@@ -396,6 +398,7 @@ def assemble():
     report['name_tables']=name_table_report
     report['keyword_list_names']=keyword_report
     report['shared_label_updates']=shared_labels_report
+    report['name_unification_20261017']=name_unification_report
     report['stage_titles']=title_report
     report['world_map_titles']=reports['image-labels']['world_map_titles']
     report['title_atlas']=reports['image-labels']['title_atlas']
