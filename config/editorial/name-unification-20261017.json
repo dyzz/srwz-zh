@@ -1,0 +1,638 @@
+{
+ "schema_version": 1,
+ "date": "2026-10-17",
+ "source": "SP 与本篇译名对照页 https://claude.ai/artifact/Uh2pqvmZnscTCH3qdfdoH1（collection compare，85 条）；审计见 docs/MAIN_BEST_SP_NAME_CONSISTENCY_AUDIT_20261016.md",
+ "pick_legend": {
+  "L": "统一为本篇／BEST 写法",
+  "R": "统一为 SP 写法",
+  "A": "用本篇机师名表写法",
+  "B": "用本篇正文写法",
+  "B2": "用正文另一写法",
+  "C": "用户另给写法",
+  "K": "保持现状"
+ },
+ "decisions": [
+  {
+   "id": "p01",
+   "category": "人物",
+   "source_text": "ジ・エーデル・ベルナル",
+   "pick": "L",
+   "form": "极·艾岱尔·贝尔纳尔"
+  },
+  {
+   "id": "p02",
+   "category": "人物",
+   "source_text": "スティング・オークレー",
+   "pick": "L",
+   "form": "斯汀·奥克雷"
+  },
+  {
+   "id": "p03",
+   "category": "人物",
+   "source_text": "ティンプ・シャローン",
+   "pick": "R",
+   "form": "廷普·沙隆"
+  },
+  {
+   "id": "p04",
+   "category": "人物",
+   "source_text": "ラクス・クライン",
+   "pick": "R",
+   "form": "拉克丝·克莱茵"
+  },
+  {
+   "id": "p05",
+   "category": "人物",
+   "source_text": "メカブースト（敌方机师名）",
+   "pick": "L",
+   "form": "装甲怪兽"
+  },
+  {
+   "id": "p06",
+   "category": "人物",
+   "source_text": "連邦軍兵",
+   "pick": "L",
+   "form": "联邦军士兵"
+  },
+  {
+   "id": "p07",
+   "category": "人物",
+   "source_text": "ザフト兵",
+   "pick": "L",
+   "form": "扎夫特士兵"
+  },
+  {
+   "id": "p08",
+   "category": "人物",
+   "source_text": "革命軍兵",
+   "pick": "L",
+   "form": "革命军士兵"
+  },
+  {
+   "id": "p09",
+   "category": "人物",
+   "source_text": "チラム兵",
+   "pick": "L",
+   "form": "奇拉姆士兵"
+  },
+  {
+   "id": "p10",
+   "category": "人物",
+   "source_text": "ＤＣ兵",
+   "pick": "L",
+   "form": "DC士兵"
+  },
+  {
+   "id": "p11",
+   "category": "人物",
+   "source_text": "所属不明兵",
+   "pick": "L",
+   "form": "身份不明士兵"
+  },
+  {
+   "id": "p12",
+   "category": "人物",
+   "source_text": "アサキム・ドーウィン",
+   "pick": "B",
+   "form": "阿萨基姆·杜文"
+  },
+  {
+   "id": "p13",
+   "category": "人物",
+   "source_text": "ギム・ギンガナム",
+   "pick": "B",
+   "form": "基姆·金卡拉姆"
+  },
+  {
+   "id": "p14",
+   "category": "人物",
+   "source_text": "カミーユ・ビダン",
+   "pick": "B",
+   "form": "卡缪·维丹"
+  },
+  {
+   "id": "p15",
+   "category": "人物",
+   "source_text": "ゲイン・ビジョウ",
+   "pick": "B",
+   "form": "该隐·比琼"
+  },
+  {
+   "id": "p16",
+   "category": "人物",
+   "source_text": "ロラン・セアック",
+   "pick": "B",
+   "form": "罗兰·瑟亚克"
+  },
+  {
+   "id": "p17",
+   "category": "人物",
+   "source_text": "ラウ・ル・クルーゼ",
+   "pick": "B",
+   "form": "劳·鲁·克鲁泽"
+  },
+  {
+   "id": "p18",
+   "category": "人物",
+   "source_text": "レコア・ロンド",
+   "pick": "B",
+   "form": "蕾柯亚·朗特"
+  },
+  {
+   "id": "p19",
+   "category": "人物",
+   "source_text": "アデット・キスラー",
+   "pick": "B",
+   "form": "阿蒂特·基斯拉"
+  },
+  {
+   "id": "p20",
+   "category": "人物",
+   "source_text": "ムウ・ラ・フラガ",
+   "pick": "A",
+   "form": "穆·拉·弗拉格"
+  },
+  {
+   "id": "p21",
+   "category": "人物",
+   "source_text": "アグリッパ・メンテナー",
+   "pick": "B",
+   "form": "阿格里帕·曼泰纳"
+  },
+  {
+   "id": "p22",
+   "category": "人物",
+   "source_text": "グエン・サード・ラインフォード",
+   "pick": "B2",
+   "form": "高安·莱因福德"
+  },
+  {
+   "id": "p23",
+   "category": "人物",
+   "source_text": "サラ・コダマ",
+   "pick": "A",
+   "form": "莎拉·柯达玛"
+  },
+  {
+   "id": "p24",
+   "category": "人物",
+   "source_text": "キャリン・フリック",
+   "pick": "A",
+   "form": "卡林·弗里克"
+  },
+  {
+   "id": "p25",
+   "category": "人物",
+   "source_text": "シンシア・レーン",
+   "pick": "B",
+   "form": "辛西亚·琳"
+  },
+  {
+   "id": "p26",
+   "category": "人物",
+   "source_text": "テテス・ハレ",
+   "pick": "A",
+   "form": "特泰丝·哈雷"
+  },
+  {
+   "id": "p27",
+   "category": "人物",
+   "source_text": "ヒューズ・ガウリ",
+   "pick": "B",
+   "form": "修兹·高富利"
+  },
+  {
+   "id": "p28",
+   "category": "人物",
+   "source_text": "リリ・ボルジャーノ",
+   "pick": "B",
+   "form": "莉莉·波佳诺"
+  },
+  {
+   "id": "p29",
+   "category": "人物",
+   "source_text": "ジーク・エリクマイヤー",
+   "pick": "B",
+   "form": "齐格·艾里克迈亚"
+  },
+  {
+   "id": "p30",
+   "category": "人物",
+   "source_text": "ミイヤ・ラウジン",
+   "pick": "B",
+   "form": "米娅·拉乌金"
+  },
+  {
+   "id": "p31",
+   "category": "人物",
+   "source_text": "ジャボリ・マリエーラ",
+   "pick": "A",
+   "form": "贾博利·玛丽埃拉"
+  },
+  {
+   "id": "p32",
+   "category": "人物",
+   "source_text": "アストナージ・メドッソ",
+   "pick": "A",
+   "form": "阿斯托纳吉·梅德索"
+  },
+  {
+   "id": "p33",
+   "category": "人物",
+   "source_text": "ギャバン・グーニー",
+   "pick": "B",
+   "form": "嘉班·格尼"
+  },
+  {
+   "id": "p34",
+   "category": "人物",
+   "source_text": "フィル・アッカマン",
+   "pick": "B",
+   "form": "菲尔·阿克曼"
+  },
+  {
+   "id": "p35",
+   "category": "人物",
+   "source_text": "ポゥ・エイジ",
+   "pick": "B",
+   "form": "波·艾吉"
+  },
+  {
+   "id": "p36",
+   "category": "人物",
+   "source_text": "カクリコン・カクーラー",
+   "pick": "B",
+   "form": "卡克利孔·卡库勒"
+  },
+  {
+   "id": "p37",
+   "category": "人物",
+   "source_text": "マウアー・ファラオ",
+   "pick": "B",
+   "form": "玛雅·法拉奥"
+  },
+  {
+   "id": "p38",
+   "category": "人物",
+   "source_text": "クロエ・クーリック／クルト・クーリック",
+   "pick": "B",
+   "form": "库利克"
+  },
+  {
+   "id": "p39",
+   "category": "人物",
+   "source_text": "ペルハァ・ペイ",
+   "pick": "A",
+   "form": "佩尔哈·佩伊"
+  },
+  {
+   "id": "p40",
+   "category": "人物",
+   "source_text": "ミネバ・ラオ・ザビ",
+   "pick": "B",
+   "form": "米涅瓦·拉欧·扎比"
+  },
+  {
+   "id": "p41",
+   "category": "人物",
+   "source_text": "ブラン・ブルターク",
+   "pick": "B",
+   "form": "布兰·布尔达克"
+  },
+  {
+   "id": "p42",
+   "category": "人物",
+   "source_text": "ベロー・コリッシュ",
+   "pick": "B",
+   "form": "贝罗·库利修"
+  },
+  {
+   "id": "p43",
+   "category": "人物",
+   "source_text": "コトセット・メムマ",
+   "pick": "B",
+   "form": "科特塞特·梅姆马"
+  },
+  {
+   "id": "p44",
+   "category": "人物",
+   "source_text": "ティンプ・シャローン",
+   "pick": "B2",
+   "form": "廷普·沙隆"
+  },
+  {
+   "id": "p45",
+   "category": "人物",
+   "source_text": "リュボフ・スメッタナ",
+   "pick": "A",
+   "form": "柳博芙·斯梅塔娜"
+  },
+  {
+   "id": "p46",
+   "category": "人物",
+   "source_text": "タルホ・ユーキ",
+   "pick": "C",
+   "form": "塔尔荷·优纪"
+  },
+  {
+   "id": "p47",
+   "category": "人物",
+   "source_text": "シトラン・ビィ",
+   "pick": "B",
+   "form": "西特兰·维"
+  },
+  {
+   "id": "p48",
+   "category": "人物",
+   "source_text": "ミーム・ミドガルド",
+   "pick": "A",
+   "form": "米姆·米德加尔德"
+  },
+  {
+   "id": "p49",
+   "category": "人物",
+   "source_text": "ミハエル・ゲイン",
+   "pick": "B",
+   "form": "迈克尔·格恩"
+  },
+  {
+   "id": "p50",
+   "category": "人物",
+   "source_text": "ビリン・ナダ",
+   "pick": "B",
+   "form": "比琳·纳达"
+  },
+  {
+   "id": "p51",
+   "category": "人物",
+   "source_text": "メディック・コルト",
+   "pick": "A",
+   "form": "梅迪克·科尔特"
+  },
+  {
+   "id": "p52",
+   "category": "人物",
+   "source_text": "メシェー・クン",
+   "pick": "B",
+   "form": "美雪·库恩"
+  },
+  {
+   "id": "p53",
+   "category": "人物",
+   "source_text": "シド・ムンザ",
+   "pick": "A",
+   "form": "希德·蒙扎"
+  },
+  {
+   "id": "p54",
+   "category": "人物",
+   "source_text": "メリーベル・ガジット",
+   "pick": "A",
+   "form": "梅莉贝儿·加吉特"
+  },
+  {
+   "id": "p55",
+   "category": "人物",
+   "source_text": "コジロー・マードック",
+   "pick": "B",
+   "form": "小次郎·玛多克"
+  },
+  {
+   "id": "p56",
+   "category": "人物",
+   "source_text": "ウナト・エマ・セイラン",
+   "pick": "A",
+   "form": "乌纳特·艾玛·塞兰"
+  },
+  {
+   "id": "p57",
+   "category": "人物",
+   "source_text": "ルブル・ウォン・ダラ",
+   "pick": "A",
+   "form": "鲁布尔·翁·达拉"
+  },
+  {
+   "id": "p58",
+   "category": "人物",
+   "source_text": "ザッキ・ブロンコ",
+   "pick": "B",
+   "form": "扎奇·布隆科"
+  },
+  {
+   "id": "p59",
+   "category": "人物",
+   "source_text": "ベン・ウッダー",
+   "pick": "B",
+   "form": "本·伍德"
+  },
+  {
+   "id": "u01",
+   "category": "机体",
+   "source_text": "ニューパルサバーン",
+   "pick": "L",
+   "form": "新燃烧脉冲号"
+  },
+  {
+   "id": "u02",
+   "category": "机体",
+   "source_text": "バルディプライズ",
+   "pick": "L",
+   "form": "勇者突进号"
+  },
+  {
+   "id": "u03",
+   "category": "机体",
+   "source_text": "キャタレンジャー",
+   "pick": "L",
+   "form": "履带游侠号"
+  },
+  {
+   "id": "u04",
+   "category": "机体",
+   "source_text": "ザンバード",
+   "pick": "L",
+   "form": "赞波鸟"
+  },
+  {
+   "id": "u05",
+   "category": "机体",
+   "source_text": "ザンブル",
+   "pick": "L",
+   "form": "赞波牛"
+  },
+  {
+   "id": "u06",
+   "category": "机体",
+   "source_text": "ザンベース",
+   "pick": "L",
+   "form": "赞波座"
+  },
+  {
+   "id": "u07",
+   "category": "机体",
+   "source_text": "ザンボエース",
+   "pick": "L",
+   "form": "赞波ACE"
+  },
+  {
+   "id": "u08",
+   "category": "机体",
+   "source_text": "アクエリオンアルファ",
+   "pick": "L",
+   "form": "阿克艾里昂·阿尔法"
+  },
+  {
+   "id": "u09",
+   "category": "机体",
+   "source_text": "アクエリオンオメガ",
+   "pick": "L",
+   "form": "阿克艾里昂·欧米伽"
+  },
+  {
+   "id": "u10",
+   "category": "机体",
+   "source_text": "ベクタールナ",
+   "pick": "L",
+   "form": "月亮战机"
+  },
+  {
+   "id": "w01",
+   "category": "武器",
+   "source_text": "ボロットダイナミックスペシャル",
+   "pick": "L",
+   "form": "波士豪烈特攻"
+  },
+  {
+   "id": "w02",
+   "category": "武器",
+   "source_text": "メルトシャワー",
+   "pick": "L",
+   "form": "溶解喷淋"
+  },
+  {
+   "id": "w03",
+   "category": "武器",
+   "source_text": "スクリュークラッシャーパンチ",
+   "pick": "L",
+   "form": "螺旋粉碎飞拳"
+  },
+  {
+   "id": "w04",
+   "category": "武器",
+   "source_text": "ダブルハーケン",
+   "pick": "L",
+   "form": "双联月牙刃"
+  },
+  {
+   "id": "w05",
+   "category": "武器",
+   "source_text": "バルディミサイル",
+   "pick": "L",
+   "form": "巴鲁迪导弹"
+  },
+  {
+   "id": "w06",
+   "category": "武器",
+   "source_text": "バルディロイザー",
+   "pick": "L",
+   "form": "巴鲁迪蔷薇"
+  },
+  {
+   "id": "w07",
+   "category": "武器",
+   "source_text": "デッカー・スパナ",
+   "pick": "L",
+   "form": "德卡扳手"
+  },
+  {
+   "id": "w08",
+   "category": "武器",
+   "source_text": "ザ・ヒート・クラッシャー",
+   "pick": "L",
+   "form": "热血大粉碎"
+  },
+  {
+   "id": "t01",
+   "category": "术语与名称",
+   "source_text": "スフィア",
+   "pick": "L",
+   "form": "珠玉"
+  },
+  {
+   "id": "t02",
+   "category": "术语与名称",
+   "source_text": "ウルグスク",
+   "pick": "L",
+   "form": "乌鲁古斯克"
+  },
+  {
+   "id": "t03",
+   "category": "术语与名称",
+   "source_text": "ゲッターチーム",
+   "pick": "L",
+   "form": "盖塔小队"
+  },
+  {
+   "id": "t04",
+   "category": "术语与名称",
+   "source_text": "ゴッドグラヴィオン（合神说明）",
+   "pick": "L",
+   "form": "格兰维昂将达到"
+  },
+  {
+   "id": "t05",
+   "category": "术语与名称",
+   "source_text": "〜ザ・ライトスタッフ〜",
+   "pick": "L",
+   "form": "可造之材"
+  },
+  {
+   "id": "t06",
+   "category": "术语与名称",
+   "source_text": "ＥＸハードモード",
+   "pick": "L",
+   "form": "EX困难模式"
+  },
+  {
+   "id": "d01",
+   "category": "说明文字",
+   "source_text": "ゲッコーステイト編集の雑誌の創刊第一号",
+   "pick": "R",
+   "form": "月光洲编辑的杂志创刊号"
+  },
+  {
+   "id": "d02",
+   "category": "说明文字",
+   "source_text": "「防御」選択時、「シールド防御」…（盾牌防御能力说明）",
+   "pick": "L",
+   "form": "装备盾牌可通过“盾牌防御”"
+  }
+ ],
+ "follow_up_answers": [
+  {
+   "topic": "∀高达人名与术语表冲突（p22 p26 p48 p53 p54）",
+   "answer": "按本次选择：哈雷、米姆、加吉特、蒙扎、高安·莱因福德；术语表定名随之改写"
+  },
+  {
+   "topic": "p23 サラ・コダマ",
+   "answer": "沿用 2026-08-28 决定“莎拉·古塔玛”，改名表；覆盖确认页上的 A 选择"
+  },
+  {
+   "topic": "p58 ブロンコ",
+   "answer": "人名、机体ブロンコⅡ、ブロンコ隊全部改为音译“布隆科”"
+  },
+  {
+   "topic": "マルチナ・レーン",
+   "answer": "保持“雷恩”，只改辛西亚为“琳”"
+  },
+  {
+   "topic": "SP 战斗鉴赏 9 个士兵标签槽仅 16 字节（9E8A8 9E8B8 9EB08 9EB18 9EB48 9EB58 9EB68 9EBF8 9EC08）",
+   "answer": "去掉括号：如“联邦军士兵1”"
+  }
+ ],
+ "kept_unchanged": [
+  "クライン・サンドマン 克莱因·桑德曼（格兰维昂）不随拉克丝改名",
+  "エイジ 红英司保持“英司”，仅ポゥ・エイジ的姓改“艾吉”",
+  "ゲイン 该隐（名）保持，仅ミハエル・ゲイン的姓改“格恩”"
+ ]
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "batch_id": "story-layout-name-unification-20261017",
+  "recorded_at": "2026-10-17T13:29:59.610878+00:00",
+  "reason": "修正剧情对白的断行、溢出或续行缩进；用 story_dialogue 档（21 格 × 3 行，含不可拆分词表）生成最终排版。逻辑文本不变。",
+  "layout_profile": {
+    "id": "story_dialogue",
+    "first_line_maximum_width": 21,
+    "maximum_width": 21,
+    "maximum_lines": 3,
+    "profiles_sha256": "d338496c7125839a8e5d59ffefd4b6e341dc7a1be6fb65468ea2e8475dad47ea",
+    "unbroken_words_sha256": "509306547a1c64febea378460b3d36cfb4df326eec99066d861dc5be6df5f6c9",
+    "unbroken_term_count": 2520
+  },
+  "counts": {
+    "changed": 2,
+    "by_kind": {
+      "overflow_refit": 1,
+      "split_word": 1
+    },
+    "skipped": 0,
+    "files_touched": 2
+  },
+  "changes": [
+    {
+      "id": "story/014/dialogue/02.01/0051",
+      "file": "corpus/zh/story-dialogue/stage-014.json",
+      "kind": "overflow_refit",
+      "indent_normalized": false,
+      "runtime_keyword_links": false,
+      "split_terms": [],
+      "before": "“这也没办法啊！我可是米娅·拉乌金的粉丝！”",
+      "after": "“这也没办法啊！\n　我可是米娅·拉乌金的粉丝！”",
+      "line_widths_before": [
+        22
+      ],
+      "line_widths_after": [
+        8,
+        14
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "da97b1dae9829f343199d60b02e4db7b360fd6647d90de4d493f1e9e78883896"
+    },
+    {
+      "id": "story/020/dialogue/01.03/0003",
+      "file": "corpus/zh/story-dialogue/stage-020.json",
+      "kind": "split_word",
+      "indent_normalized": false,
+      "runtime_keyword_links": false,
+      "split_terms": [
+        "高安·莱因福德"
+      ],
+      "before": "“月之民各位。今天能光临我主高安\n　·莱因福德的晚宴，不胜荣幸。”",
+      "after": "“月之民各位。今天能光临我主\n　高安·莱因福德的晚宴，不胜荣幸。”",
+      "line_widths_before": [
+        16,
+        15
+      ],
+      "line_widths_after": [
+        14,
+        17
+      ],
+      "remaining_split_terms": [],
+      "source_text_sha256": "cd787778643ce94aaf0127d05de8ff6c5ce17084a0278da02dee10e8e03e9eec"
+    }
+  ],
+  "skipped": []
+}
