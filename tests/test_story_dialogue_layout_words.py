@@ -37,7 +37,7 @@ class StoryDialogueLayoutWordsTest(unittest.TestCase):
         terms = set(self.profile.unbroken_terms)
         self.assertIn("世界", terms)
         self.assertIn("帕普提马斯", terms)
-        self.assertIn("艾岱尔·贝尔纳尔", terms)
+        self.assertIn("艾黛尔·贝尔纳尔", terms)
         self.assertGreater(len(terms), 2000)
 
     def test_word_file_is_generated_from_checked_in_sources(self) -> None:
@@ -65,10 +65,10 @@ class StoryDialogueLayoutWordsTest(unittest.TestCase):
         self.assertLessEqual(max(result.line_widths), 21)
 
     def test_reflow_keeps_proper_names_intact(self) -> None:
-        source = "“这就是新联邦军的准将，极·艾岱尔·贝尔纳尔所追求的世界吗……！”"
+        source = "“这就是新联邦军的准将，极·艾黛尔·贝尔纳尔所追求的世界吗……！”"
         result = fit_chinese_dialogue_layout(source, profile=self.profile)
         self.assertEqual(result.preserved_reason, "reflowed_to_fit")
-        self.assertIn("极·艾岱尔·贝尔纳尔", result.text)
+        self.assertIn("极·艾黛尔·贝尔纳尔", result.text)
         self.assertLessEqual(len(result.line_widths), 3)
 
     def test_fitting_manual_breaks_are_preserved_even_inside_words(self) -> None:

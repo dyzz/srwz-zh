@@ -399,7 +399,8 @@
       "source_terms": [
         "カートリッジ"
       ],
-      "translation": "弹药筒",
+      "translation": "弹匣",
+      "deprecated_translations": ["弹药筒"],
       "category": "item",
       "status": "approved",
       "domains": [
@@ -407,7 +408,7 @@
         "story"
       ],
       "enforce": true,
-      "notes": "一次性弹药回复部件。 本轮人工审核定稿为“弹药筒”。"
+      "notes": "一次性弹药回复部件。 本轮人工审核定稿为“弹药筒”。 2026-10-17 本篇旧译统一（config/editorial/main-old-renderings-20261017.json）。"
     },
     {
       "id": "part/repair-kit",
@@ -1102,7 +1103,7 @@
       "source_terms": [
         "フォースシルエット"
       ],
-      "translation": "强攻型魅影",
+      "translation": "强攻魅影",
       "category": "item",
       "status": "approved",
       "domains": [
@@ -1110,10 +1111,8 @@
         "story"
       ],
       "enforce": true,
-      "notes": "机体专用换装部件；本轮人工审核已定稿。 2026-10-15 用户指示：脉冲高达的シルエット系统统一译为“魅影”；《返乡战士》的シルエットマシン／エンジン仍为“剪影机／剪影引擎”。",
-      "deprecated_translations": [
-        "强攻型剪影"
-      ]
+      "notes": "机体专用换装部件；本轮人工审核已定稿。 2026-10-15 用户指示：脉冲高达的シルエット系统统一译为“魅影”；《返乡战士》的シルエットマシン／エンジン仍为“剪影机／剪影引擎”。 2026-10-17 本篇旧译统一（config/editorial/main-old-renderings-20261017.json）。",
+      "deprecated_translations": ["强攻型剪影","强攻型魅影"]
     },
     {
       "id": "part/sword-silhouette",
