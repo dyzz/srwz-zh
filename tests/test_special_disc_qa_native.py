@@ -116,6 +116,9 @@ class SpQaNativeTests(unittest.TestCase):
                 if n in (17,25):
                     expected = [(style, text.replace('TRI兵器','TRI武器'))
                                 for style,text in expected]
+                if n == 53:  # 2026-10-17 カートリッジ = 弹匣 (qa-shared-updates.json)
+                    expected = [(style, text.replace('弹药筒','弹匣'))
+                                for style,text in expected]
                 self.assertEqual(expected,
                                  styled_runs(shared_records(page(chunk,n),R)))
             self.assertEqual(page(chunk,n)['sprite_bytes'],page(jp,n)['sprite_bytes'])

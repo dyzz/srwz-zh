@@ -1,4 +1,4 @@
-"""Apply the 2026-10-17 本篇／BEST／SP name unification to the SP COMPDATA.
+"""Apply the 2026-10-17 本篇／BEST／SP name decisions to the SP COMPDATA.
 
 The SP disc inherits most names from a frozen main-game build; this pass rewrites
 only the slots the user's decisions name (config/products/special-disc/
@@ -35,9 +35,12 @@ def inputs():
             (1, 'DATA/COMPDATA.BN', 0x764F80, 652800), 'SP name-unification contract drift')
     # The decision record (config/editorial/…) is outside the SP edition's frozen inputs;
     # the contract carries each slot's decision id and the record's digest as provenance.
-    require(set(contract['decisions']) == {'path', 'sha256', 'ids'}, 'SP name-unification provenance drift')
+    records = contract['decisions']
+    require(isinstance(records, list) and records and
+            all(set(r) == {'path', 'sha256', 'ids'} for r in records), 'SP name-unification provenance drift')
+    decided = {(r['path'], i) for r in records for i in r['ids']}
     for slot in contract['entries']:
-        require(slot['decision'] in contract['decisions']['ids'],
+        require((slot['decision_record'], slot['decision']) in decided,
                 f"SP name-unification slot without a decision: {slot['offset']:#x}")
         if slot['kind'] == 'pilot_field':
             delta, capacity = PILOT_FIELDS[slot['field']]
@@ -64,7 +67,7 @@ def references(data, contract, slot):
 
 def receipt(slot):
     return dict(offset=slot['offset'], capacity=slot['capacity'], translation=slot['translation'],
-                decision=slot['decision'])
+                decision=slot['decision'], decision_record=slot['decision_record'])
 
 
 def patch_decoded(data, table, overrides, readback):

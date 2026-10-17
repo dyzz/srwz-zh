@@ -3,98 +3,124 @@
  "member": "DATA/COMPDATA.BN",
  "runtime_base": 7753600,
  "decoded_size": 652800,
- "decisions": {
-  "path": "config/editorial/name-unification-20261017.json",
-  "sha256": "6ee44df3f1e69f70630021bd81eafe06168300fea081f23bc2d85fe9a8002bc3",
-  "ids": [
-   "d01",
-   "d02",
-   "p01",
-   "p02",
-   "p03",
-   "p04",
-   "p05",
-   "p06",
-   "p07",
-   "p08",
-   "p09",
-   "p10",
-   "p11",
-   "p12",
-   "p13",
-   "p14",
-   "p15",
-   "p16",
-   "p17",
-   "p18",
-   "p19",
-   "p20",
-   "p21",
-   "p22",
-   "p23",
-   "p24",
-   "p25",
-   "p26",
-   "p27",
-   "p28",
-   "p29",
-   "p30",
-   "p31",
-   "p32",
-   "p33",
-   "p34",
-   "p35",
-   "p36",
-   "p37",
-   "p38",
-   "p39",
-   "p40",
-   "p41",
-   "p42",
-   "p43",
-   "p44",
-   "p45",
-   "p46",
-   "p47",
-   "p48",
-   "p49",
-   "p50",
-   "p51",
-   "p52",
-   "p53",
-   "p54",
-   "p55",
-   "p56",
-   "p57",
-   "p58",
-   "p59",
-   "t01",
-   "t02",
-   "t03",
-   "t04",
-   "t05",
-   "t06",
-   "u01",
-   "u02",
-   "u03",
-   "u04",
-   "u05",
-   "u06",
-   "u07",
-   "u08",
-   "u09",
-   "u10",
-   "w01",
-   "w02",
-   "w03",
-   "w04",
-   "w05",
-   "w06",
-   "w07",
-   "w08"
-  ]
- },
- "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。",
+ "decisions": [
+  {
+   "path": "config/editorial/name-unification-20261017.json",
+   "sha256": "6ee44df3f1e69f70630021bd81eafe06168300fea081f23bc2d85fe9a8002bc3",
+   "ids": [
+    "d01",
+    "d02",
+    "p01",
+    "p02",
+    "p03",
+    "p04",
+    "p05",
+    "p06",
+    "p07",
+    "p08",
+    "p09",
+    "p10",
+    "p11",
+    "p12",
+    "p13",
+    "p14",
+    "p15",
+    "p16",
+    "p17",
+    "p18",
+    "p19",
+    "p20",
+    "p21",
+    "p22",
+    "p23",
+    "p24",
+    "p25",
+    "p26",
+    "p27",
+    "p28",
+    "p29",
+    "p30",
+    "p31",
+    "p32",
+    "p33",
+    "p34",
+    "p35",
+    "p36",
+    "p37",
+    "p38",
+    "p39",
+    "p40",
+    "p41",
+    "p42",
+    "p43",
+    "p44",
+    "p45",
+    "p46",
+    "p47",
+    "p48",
+    "p49",
+    "p50",
+    "p51",
+    "p52",
+    "p53",
+    "p54",
+    "p55",
+    "p56",
+    "p57",
+    "p58",
+    "p59",
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06",
+    "u01",
+    "u02",
+    "u03",
+    "u04",
+    "u05",
+    "u06",
+    "u07",
+    "u08",
+    "u09",
+    "u10",
+    "w01",
+    "w02",
+    "w03",
+    "w04",
+    "w05",
+    "w06",
+    "w07",
+    "w08"
+   ]
+  },
+  {
+   "path": "config/editorial/main-old-renderings-20261017.json",
+   "sha256": "4c8cc8fdad09e51b1d63a4927fca43dd10fb12e8e45085685eed0ac5f808cadd",
+   "ids": [
+    "m01",
+    "m02",
+    "m03",
+    "m04",
+    "m05",
+    "m06",
+    "m07",
+    "m08",
+    "m09",
+    "m10",
+    "m11",
+    "m12",
+    "m13",
+    "m14",
+    "m15",
+    "m16",
+    "m17",
+    "m18"
+   ]
+  }
+ ],
+ "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。 2026-10-17 本篇旧译统一（main-old-renderings-20261017）追加 SP 继承的 26 个槽位。",
  "entries": [
   {
    "kind": "pilot_field",
@@ -106,7 +132,8 @@
    "source_hex": "83818380837d0000000000000000000000000000000000",
    "previous_hex": "947e93c895510000000000000000000000000000000000",
    "translation": "梅姆马",
-   "decision": "p43"
+   "decision": "p43",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -118,7 +145,8 @@
    "source_hex": "8369835f00000000000000000000000000000000000000",
    "previous_hex": "93cc976700000000000000000000000000000000000000",
    "translation": "纳达",
-   "decision": "p50"
+   "decision": "p50",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -130,7 +158,8 @@
    "source_hex": "83568383838d815b839300000000000000000000000000",
    "previous_hex": "89c497b200000000000000000000000000000000000000",
    "translation": "沙隆",
-   "decision": "p44"
+   "decision": "p44",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -142,7 +171,8 @@
    "source_hex": "83568383838d815b839300000000000000000000000000",
    "previous_hex": "89c497b200000000000000000000000000000000000000",
    "translation": "沙隆",
-   "decision": "p44"
+   "decision": "p44",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -154,7 +184,8 @@
    "source_hex": "83568383838d815b839300000000000000000000000000",
    "previous_hex": "89c497b200000000000000000000000000000000000000",
    "translation": "沙隆",
-   "decision": "p44"
+   "decision": "p44",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -166,7 +197,8 @@
    "source_hex": "8372835f83930000000000000000000000000000000000",
    "previous_hex": "94e4924f00000000000000000000000000000000000000",
    "translation": "维丹",
-   "decision": "p14"
+   "decision": "p14",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -178,7 +210,8 @@
    "source_hex": "8372835f83930000000000000000000000000000000000",
    "previous_hex": "94e4924f00000000000000000000000000000000000000",
    "translation": "维丹",
-   "decision": "p14"
+   "decision": "p14",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -190,7 +223,8 @@
    "source_hex": "8372835f83930000000000000000000000000000000000",
    "previous_hex": "94e4924f00000000000000000000000000000000000000",
    "translation": "维丹",
-   "decision": "p14"
+   "decision": "p14",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -202,7 +236,8 @@
    "source_hex": "8372835f83930000000000000000000000000000000000",
    "previous_hex": "94e4924f00000000000000000000000000000000000000",
    "translation": "维丹",
-   "decision": "p14"
+   "decision": "p14",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -214,7 +249,8 @@
    "source_hex": "8372835f83930000000000000000000000000000000000",
    "previous_hex": "94e4924f00000000000000000000000000000000000000",
    "translation": "维丹",
-   "decision": "p14"
+   "decision": "p14",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -226,7 +262,8 @@
    "source_hex": "838d839383680000000000000000000000000000000000",
    "previous_hex": "97b2927000000000000000000000000000000000000000",
    "translation": "朗特",
-   "decision": "p18"
+   "decision": "p18",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -238,7 +275,8 @@
    "source_hex": "838d839383680000000000000000000000000000000000",
    "previous_hex": "97b2927000000000000000000000000000000000000000",
    "translation": "朗特",
-   "decision": "p18"
+   "decision": "p18",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -250,7 +288,8 @@
    "source_hex": "838d839383680000000000000000000000000000000000",
    "previous_hex": "97b2927000000000000000000000000000000000000000",
    "translation": "朗特",
-   "decision": "p18"
+   "decision": "p18",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -262,7 +301,8 @@
    "source_hex": "838d839383680000000000000000000000000000000000",
    "previous_hex": "97b2927000000000000000000000000000000000000000",
    "translation": "朗特",
-   "decision": "p18"
+   "decision": "p18",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -274,7 +314,8 @@
    "source_hex": "838d839383680000000000000000000000000000000000",
    "previous_hex": "97b2927000000000000000000000000000000000000000",
    "translation": "朗特",
-   "decision": "p18"
+   "decision": "p18",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -286,7 +327,8 @@
    "source_hex": "834a834e815b8389815b00000000000000000000000000",
    "previous_hex": "915892569d660000000000000000000000000000000000",
    "translation": "卡库勒",
-   "decision": "p36"
+   "decision": "p36",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -298,7 +340,8 @@
    "source_hex": "834a834e815b8389815b00000000000000000000000000",
    "previous_hex": "915892569d660000000000000000000000000000000000",
    "translation": "卡库勒",
-   "decision": "p36"
+   "decision": "p36",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -310,7 +353,8 @@
    "source_hex": "834a834e815b8389815b00000000000000000000000000",
    "previous_hex": "915892569d660000000000000000000000000000000000",
    "translation": "卡库勒",
-   "decision": "p36"
+   "decision": "p36",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -322,7 +366,8 @@
    "source_hex": "8375838b835e815b834e00000000000000000000000000",
    "previous_hex": "957a984b93838d8e000000000000000000000000000000",
    "translation": "布尔达克",
-   "decision": "p41"
+   "decision": "p41",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -334,7 +379,8 @@
    "source_hex": "8375838b835e815b834e00000000000000000000000000",
    "previous_hex": "957a984b93838d8e000000000000000000000000000000",
    "translation": "布尔达克",
-   "decision": "p41"
+   "decision": "p41",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -346,7 +392,8 @@
    "source_hex": "8375838b835e815b834e00000000000000000000000000",
    "previous_hex": "957a984b93838d8e000000000000000000000000000000",
    "translation": "布尔达克",
-   "decision": "p41"
+   "decision": "p41",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -358,7 +405,8 @@
    "source_hex": "83458362835f815b000000000000000000000000000000",
    "previous_hex": "8cde976700000000000000000000000000000000000000",
    "translation": "伍德",
-   "decision": "p59"
+   "decision": "p59",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -370,7 +418,8 @@
    "source_hex": "8374834083898349000000000000000000000000000000",
    "previous_hex": "9640915100000000000000000000000000000000000000",
    "translation": "法拉奥",
-   "decision": "p37"
+   "decision": "p37",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -382,7 +431,8 @@
    "source_hex": "8374834083898349000000000000000000000000000000",
    "previous_hex": "9640915100000000000000000000000000000000000000",
    "translation": "法拉奥",
-   "decision": "p37"
+   "decision": "p37",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -394,7 +444,8 @@
    "source_hex": "8374834083898349000000000000000000000000000000",
    "previous_hex": "9640915100000000000000000000000000000000000000",
    "translation": "法拉奥",
-   "decision": "p37"
+   "decision": "p37",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -406,7 +457,8 @@
    "source_hex": "8389834981458355837200000000000000000000000000",
    "previous_hex": "9d6689a2904b964c94e400000000000000000000000000",
    "translation": "拉欧·扎比",
-   "decision": "p40"
+   "decision": "p40",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -418,7 +470,8 @@
    "source_hex": "835a83418362834e000000000000000000000000000000",
    "previous_hex": "8dc7907b8d8e0000000000000000000000000000000000",
    "translation": "瑟亚克",
-   "decision": "p16"
+   "decision": "p16",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -430,7 +483,8 @@
    "source_hex": "835a83418362834e000000000000000000000000000000",
    "previous_hex": "8dc7907b8d8e0000000000000000000000000000000000",
    "translation": "瑟亚克",
-   "decision": "p16"
+   "decision": "p16",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -442,7 +496,8 @@
    "source_hex": "835a83418362834e000000000000000000000000000000",
    "previous_hex": "8dc7907b8d8e0000000000000000000000000000000000",
    "translation": "瑟亚克",
-   "decision": "p16"
+   "decision": "p16",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -454,7 +509,8 @@
    "source_hex": "834e839300000000000000000000000000000000000000",
    "previous_hex": "8da9000000000000000000000000000000000000000000",
    "translation": "库恩",
-   "decision": "p52"
+   "decision": "p52",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -466,7 +522,8 @@
    "source_hex": "834e839300000000000000000000000000000000000000",
    "previous_hex": "8da9000000000000000000000000000000000000000000",
    "translation": "库恩",
-   "decision": "p52"
+   "decision": "p52",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -478,7 +535,8 @@
    "source_hex": "8354815b8368814583898343839383748348815b836800",
    "previous_hex": "964c9270904b978988f6959f9270000000000000000000",
    "translation": "莱因福德",
-   "decision": "p22"
+   "decision": "p22",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -490,7 +548,8 @@
    "source_hex": "8351834383930000000000000000000000000000000000",
    "previous_hex": "96b297ce00000000000000000000000000000000000000",
    "translation": "格恩",
-   "decision": "p49"
+   "decision": "p49",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -502,7 +561,8 @@
    "source_hex": "834f815b836a815b000000000000000000000000000000",
    "previous_hex": "8cc393f200000000000000000000000000000000000000",
    "translation": "格尼",
-   "decision": "p33"
+   "decision": "p33",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -514,7 +574,8 @@
    "source_hex": "834f815b836a815b000000000000000000000000000000",
    "previous_hex": "8cc393f200000000000000000000000000000000000000",
    "translation": "格尼",
-   "decision": "p33"
+   "decision": "p33",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -526,7 +587,8 @@
    "source_hex": "837b838b83578383815b836d0000000000000000000000",
    "previous_hex": "9467924789c196c4000000000000000000000000000000",
    "translation": "波佳诺",
-   "decision": "p28"
+   "decision": "p28",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -538,7 +600,8 @@
    "source_hex": "83418362834a837d839300000000000000000000000000",
    "previous_hex": "88a2915893c40000000000000000000000000000000000",
    "translation": "阿克曼",
-   "decision": "p34"
+   "decision": "p34",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -550,7 +613,8 @@
    "source_hex": "8347834383570000000000000000000000000000000000",
    "previous_hex": "89708e6900000000000000000000000000000000000000",
    "translation": "艾吉",
-   "decision": "p35"
+   "decision": "p35",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -562,7 +626,8 @@
    "source_hex": "8347834383570000000000000000000000000000000000",
    "previous_hex": "89708e6900000000000000000000000000000000000000",
    "translation": "艾吉",
-   "decision": "p35"
+   "decision": "p35",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -574,7 +639,8 @@
    "source_hex": "834d838000000000000000000000000000000000000000",
    "previous_hex": "8b6793c800000000000000000000000000000000000000",
    "translation": "基姆",
-   "decision": "p13"
+   "decision": "p13",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -586,7 +652,8 @@
    "source_hex": "834d838000000000000000000000000000000000000000",
    "previous_hex": "8b6793c800000000000000000000000000000000000000",
    "translation": "基姆",
-   "decision": "p13"
+   "decision": "p13",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -598,7 +665,8 @@
    "source_hex": "8381839383658369815b00000000000000000000000000",
    "previous_hex": "97b393c195980000000000000000000000000000000000",
    "translation": "曼泰纳",
-   "decision": "p21"
+   "decision": "p21",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -610,7 +678,8 @@
    "source_hex": "834e838983438393000000000000000000000000000000",
    "previous_hex": "8d8e978988f60000000000000000000000000000000000",
    "translation": "克莱茵",
-   "decision": "p04"
+   "decision": "p04",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -622,7 +691,8 @@
    "source_hex": "834e838983438393000000000000000000000000000000",
    "previous_hex": "8d8e978988f60000000000000000000000000000000000",
    "translation": "克莱茵",
-   "decision": "p04"
+   "decision": "p04",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -634,7 +704,8 @@
    "source_hex": "834e838983438393000000000000000000000000000000",
    "previous_hex": "8d8e978988f60000000000000000000000000000000000",
    "translation": "克莱茵",
-   "decision": "p04"
+   "decision": "p04",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -646,7 +717,8 @@
    "source_hex": "834e838983438393000000000000000000000000000000",
    "previous_hex": "8d8e978988f60000000000000000000000000000000000",
    "translation": "克莱茵",
-   "decision": "p04"
+   "decision": "p04",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -658,7 +730,8 @@
    "source_hex": "834e838983438393000000000000000000000000000000",
    "previous_hex": "8d8e978988f60000000000000000000000000000000000",
    "translation": "克莱茵",
-   "decision": "p04"
+   "decision": "p04",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -670,7 +743,8 @@
    "source_hex": "837d815b83688362834e0000000000000000000000",
    "previous_hex": "97f792708d8e000000000000000000000000000000",
    "translation": "玛多克",
-   "decision": "p55"
+   "decision": "p55",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -682,7 +756,8 @@
    "source_hex": "837d815b83688362834e00000000000000000000000000",
    "previous_hex": "97f792708d8e0000000000000000000000000000000000",
    "translation": "玛多克",
-   "decision": "p55"
+   "decision": "p55",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -694,7 +769,8 @@
    "source_hex": "838b8145834e838b815b835b0000000000000000000000",
    "previous_hex": "8ff4904b8d8e984b94ee00000000000000000000000000",
    "translation": "鲁·克鲁泽",
-   "decision": "p17"
+   "decision": "p17",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -706,7 +782,8 @@
    "source_hex": "8372835783878345000000000000000000000000000000",
    "previous_hex": "94e4945700000000000000000000000000000000000000",
    "translation": "比琼",
-   "decision": "p15"
+   "decision": "p15",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -718,7 +795,8 @@
    "source_hex": "8372835783878345000000000000000000000000000000",
    "previous_hex": "94e4945700000000000000000000000000000000000000",
    "translation": "比琼",
-   "decision": "p15"
+   "decision": "p15",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -730,7 +808,8 @@
    "source_hex": "8352835f837d0000000000000000000000000000000000",
    "previous_hex": "9442976795510000000000000000000000000000000000",
    "translation": "古塔玛",
-   "decision": "p23"
+   "decision": "p23",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -742,7 +821,8 @@
    "source_hex": "8352835f837d0000000000000000000000000000000000",
    "previous_hex": "9442976795510000000000000000000000000000000000",
    "translation": "古塔玛",
-   "decision": "p23"
+   "decision": "p23",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -754,7 +834,8 @@
    "source_hex": "8352835f837d0000000000000000000000000000000000",
    "previous_hex": "9442976795510000000000000000000000000000000000",
    "translation": "古塔玛",
-   "decision": "p23"
+   "decision": "p23",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -766,7 +847,8 @@
    "source_hex": "8352835f837d0000000000000000000000000000000000",
    "previous_hex": "9442976795510000000000000000000000000000000000",
    "translation": "古塔玛",
-   "decision": "p23"
+   "decision": "p23",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -778,7 +860,8 @@
    "source_hex": "8352838a83628356838500000000000000000000000000",
    "previous_hex": "89c897a28f590000000000000000000000000000000000",
    "translation": "库利修",
-   "decision": "p42"
+   "decision": "p42",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -790,7 +873,8 @@
    "source_hex": "8352838a83628356838500000000000000000000000000",
    "previous_hex": "89c897a28f590000000000000000000000000000000000",
    "translation": "库利修",
-   "decision": "p42"
+   "decision": "p42",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -802,7 +886,8 @@
    "source_hex": "8352838a83628356838500000000000000000000000000",
    "previous_hex": "89c897a28f590000000000000000000000000000000000",
    "translation": "库利修",
-   "decision": "p42"
+   "decision": "p42",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -814,7 +899,8 @@
    "source_hex": "83718385815b8359000000000000000000000000000000",
    "previous_hex": "8b788e7a00000000000000000000000000000000000000",
    "translation": "修兹",
-   "decision": "p27"
+   "decision": "p27",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -826,7 +912,8 @@
    "source_hex": "83718385815b8359000000000000000000000000000000",
    "previous_hex": "8b788e7a00000000000000000000000000000000000000",
    "translation": "修兹",
-   "decision": "p27"
+   "decision": "p27",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -838,7 +925,8 @@
    "source_hex": "83718385815b8359000000000000000000000000000000",
    "previous_hex": "8b788e7a00000000000000000000000000000000000000",
    "translation": "修兹",
-   "decision": "p27"
+   "decision": "p27",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -850,7 +938,8 @@
    "source_hex": "834c83588389815b000000000000000000000000000000",
    "previous_hex": "8aee8e7a8ff40000000000000000000000000000000000",
    "translation": "基斯拉",
-   "decision": "p19"
+   "decision": "p19",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -862,7 +951,8 @@
    "source_hex": "834c83588389815b000000000000000000000000000000",
    "previous_hex": "8aee8e7a8ff40000000000000000000000000000000000",
    "translation": "基斯拉",
-   "decision": "p19"
+   "decision": "p19",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -874,7 +964,8 @@
    "source_hex": "834c83588389815b000000000000000000000000000000",
    "previous_hex": "8aee8e7a8ff40000000000000000000000000000000000",
    "translation": "基斯拉",
-   "decision": "p19"
+   "decision": "p19",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -886,7 +977,8 @@
    "source_hex": "834c83588389815b000000000000000000000000000000",
    "previous_hex": "8aee8e7a8ff40000000000000000000000000000000000",
    "translation": "基斯拉",
-   "decision": "p19"
+   "decision": "p19",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -898,7 +990,8 @@
    "source_hex": "8372834200000000000000000000000000000000000000",
    "previous_hex": "94e4000000000000000000000000000000000000000000",
    "translation": "维",
-   "decision": "p47"
+   "decision": "p47",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -910,7 +1003,8 @@
    "source_hex": "8389834583578393000000000000000000000000000000",
    "previous_hex": "91518be000000000000000000000000000000000000000",
    "translation": "拉乌金",
-   "decision": "p30"
+   "decision": "p30",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -922,7 +1016,8 @@
    "source_hex": "8375838d83938352000000000000000000000000000000",
    "previous_hex": "96ec97f700000000000000000000000000000000000000",
    "translation": "布隆科",
-   "decision": "p58"
+   "decision": "p58",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -934,7 +1029,8 @@
    "source_hex": "8375838d83938352000000000000000000000000000000",
    "previous_hex": "96ec97f700000000000000000000000000000000000000",
    "translation": "布隆科",
-   "decision": "p58"
+   "decision": "p58",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -946,7 +1042,8 @@
    "source_hex": "838c815b83930000000000000000000000000000000000",
    "previous_hex": "978b89b600000000000000000000000000000000000000",
    "translation": "琳",
-   "decision": "p25"
+   "decision": "p25",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -958,7 +1055,8 @@
    "source_hex": "838c815b83930000000000000000000000000000000000",
    "previous_hex": "978b89b600000000000000000000000000000000000000",
    "translation": "琳",
-   "decision": "p25"
+   "decision": "p25",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -970,7 +1068,8 @@
    "source_hex": "838c815b83930000000000000000000000000000000000",
    "previous_hex": "978b89b600000000000000000000000000000000000000",
    "translation": "琳",
-   "decision": "p25"
+   "decision": "p25",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -982,7 +1081,8 @@
    "source_hex": "8347838a834e837d83438384815b000000000000000000",
    "previous_hex": "94b597a28d8e9769924700000000000000000000000000",
    "translation": "艾里克迈亚",
-   "decision": "p29"
+   "decision": "p29",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -994,7 +1094,8 @@
    "source_hex": "8347838a834e837d83438384815b000000000000000000",
    "previous_hex": "94b597a28d8e9769924700000000000000000000000000",
    "translation": "艾里克迈亚",
-   "decision": "p29"
+   "decision": "p29",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1006,7 +1107,8 @@
    "source_hex": "834e815b838a8362834e00000000000000000000000000",
    "previous_hex": "925697a28d8e0000000000000000000000000000000000",
    "translation": "库利克",
-   "decision": "p38"
+   "decision": "p38",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1018,7 +1120,8 @@
    "source_hex": "834e815b838a8362834e00000000000000000000000000",
    "previous_hex": "925697a28d8e0000000000000000000000000000000000",
    "translation": "库利克",
-   "decision": "p38"
+   "decision": "p38",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1030,7 +1133,8 @@
    "source_hex": "8386815b834c0000000000000000000000000000000000",
    "previous_hex": "97528aee00000000000000000000000000000000000000",
    "translation": "优纪",
-   "decision": "p46"
+   "decision": "p46",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1042,7 +1146,8 @@
    "source_hex": "8386815b834c0000000000000000000000000000000000",
    "previous_hex": "97528aee00000000000000000000000000000000000000",
    "translation": "优纪",
-   "decision": "p46"
+   "decision": "p46",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1054,7 +1159,112 @@
    "source_hex": "8386815b834c0000000000000000000000000000000000",
    "previous_hex": "97528aee00000000000000000000000000000000000000",
    "translation": "优纪",
-   "decision": "p46"
+   "decision": "p46",
+   "decision_record": "config/editorial/name-unification-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 744,
+   "field": "display",
+   "offset": 143522,
+   "capacity": 21,
+   "source_text": "エーデル",
+   "source_hex": "8347815b8366838b00000000000000000000000000",
+   "previous_hex": "948a90bb9247000000000000000000000000000000",
+   "translation": "艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 744,
+   "field": "given",
+   "offset": 143566,
+   "capacity": 23,
+   "source_text": "エーデル",
+   "source_hex": "8347815b8366838b000000000000000000000000000000",
+   "previous_hex": "948a90bb92470000000000000000000000000000000000",
+   "translation": "艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 745,
+   "field": "display",
+   "offset": 143700,
+   "capacity": 21,
+   "source_text": "ジ・エーデル",
+   "source_hex": "835781458347815b8366838b000000000000000000",
+   "previous_hex": "92d2904b948a90bb92470000000000000000000000",
+   "translation": "极·艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 745,
+   "field": "given",
+   "offset": 143744,
+   "capacity": 23,
+   "source_text": "ジ・エーデル",
+   "source_hex": "835781458347815b8366838b0000000000000000000000",
+   "previous_hex": "92d2904b948a90bb924700000000000000000000000000",
+   "translation": "极·艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 746,
+   "field": "display",
+   "offset": 143878,
+   "capacity": 21,
+   "source_text": "ジ・エーデル",
+   "source_hex": "835781458347815b8366838b000000000000000000",
+   "previous_hex": "92d2904b948a90bb92470000000000000000000000",
+   "translation": "极·艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 746,
+   "field": "given",
+   "offset": 143922,
+   "capacity": 23,
+   "source_text": "ジ・エーデル",
+   "source_hex": "835781458347815b8366838b0000000000000000000000",
+   "previous_hex": "92d2904b948a90bb924700000000000000000000000000",
+   "translation": "极·艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 747,
+   "field": "display",
+   "offset": 144056,
+   "capacity": 21,
+   "source_text": "ジ・エーデル",
+   "source_hex": "835781458347815b8366838b000000000000000000",
+   "previous_hex": "92d2904b948a90bb92470000000000000000000000",
+   "translation": "极·艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 747,
+   "field": "given",
+   "offset": 144100,
+   "capacity": 23,
+   "source_text": "ジ・エーデル",
+   "source_hex": "835781458347815b8366838b0000000000000000000000",
+   "previous_hex": "92d2904b948a90bb924700000000000000000000000000",
+   "translation": "极·艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1066,7 +1276,8 @@
    "source_hex": "8368815b83458342839300000000000000000000000000",
    "previous_hex": "927089b700000000000000000000000000000000000000",
    "translation": "杜文",
-   "decision": "p12"
+   "decision": "p12",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1078,7 +1289,8 @@
    "source_hex": "8368815b83458342839300000000000000000000000000",
    "previous_hex": "927089b700000000000000000000000000000000000000",
    "translation": "杜文",
-   "decision": "p12"
+   "decision": "p12",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1090,7 +1302,8 @@
    "source_hex": "8381834a8375815b83588367000000000000000000",
    "previous_hex": "8af78a42929e8e6d00000000000000000000000000",
    "translation": "装甲怪兽",
-   "decision": "p05"
+   "decision": "p05",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1102,7 +1315,8 @@
    "source_hex": "8381834a8375815b835883670000000000000000000000",
    "previous_hex": "8af78a42929e8e6d000000000000000000000000000000",
    "translation": "装甲怪兽",
-   "decision": "p05"
+   "decision": "p05",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1114,7 +1328,8 @@
    "source_hex": "8381834a8375815b83588367000000000000000000",
    "previous_hex": "8af78a42929e8e6d00000000000000000000000000",
    "translation": "装甲怪兽",
-   "decision": "p05"
+   "decision": "p05",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "pilot_field",
@@ -1126,7 +1341,106 @@
    "source_hex": "8381834a8375815b835883670000000000000000000000",
    "previous_hex": "8af78a42929e8e6d000000000000000000000000000000",
    "translation": "装甲怪兽",
-   "decision": "p05"
+   "decision": "p05",
+   "decision_record": "config/editorial/name-unification-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 966,
+   "field": "display",
+   "offset": 183038,
+   "capacity": 21,
+   "source_text": "エーデル",
+   "source_hex": "8347815b8366838b00000000000000000000000000",
+   "previous_hex": "948a90bb9247000000000000000000000000000000",
+   "translation": "艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 966,
+   "field": "given",
+   "offset": 183082,
+   "capacity": 23,
+   "source_text": "エーデル",
+   "source_hex": "8347815b8366838b000000000000000000000000000000",
+   "previous_hex": "948a90bb92470000000000000000000000000000000000",
+   "translation": "艾黛尔",
+   "decision": "m01",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 493136,
+   "capacity": 48,
+   "source_text": "「総統、お役に立てず…\n　申し訳ありません」",
+   "source_hex": "8175918d939d814182a896f082c997a782c482b881630a8140905c82b596f382a082e882dc82b982f181760000000000",
+   "previous_hex": "9141927a95c088ea8f488fd389e496a2945c907397cd8fe08fe00a8140969c95aa95f885a58fd28fe700000000000000",
+   "reference_sites": [
+    5332
+   ],
+   "translation": "“总帅，我未能尽力……\n　万分抱歉。”",
+   "decision": "m02",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 504368,
+   "capacity": 40,
+   "source_text": "「ス、スター３、\n　脱出します！」",
+   "source_hex": "8175835881418358835e815b825281410a814092458f6f82b582dc82b78149817600000000000000",
+   "previous_hex": "914182728fd18272827382608271814082528fd30a814093a690b68fda8fe7000000000000000000",
+   "reference_sites": [
+    8380
+   ],
+   "translation": "“星、星3号，\n　逃生！”",
+   "decision": "m05",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 504576,
+   "capacity": 48,
+   "source_text": "「ちいっ、ミスったか！\n　スター１、脱出する！」",
+   "source_hex": "817582bf82a282c18141837e835882c182bd82a981490a81408358835e815b8250814192458f6f82b782e98149817600",
+   "previous_hex": "914195668fd38eb887d497b994ea8fda0a81408272827382608271814082508fd393a690b68fda8fe700000000000000",
+   "reference_sites": [
+    8428,
+    8436,
+    8876
+   ],
+   "translation": "“啧，失误了吗！\n　星1号，逃生！”",
+   "decision": "m05",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 507536,
+   "capacity": 16,
+   "source_text": "カートリッジ",
+   "source_hex": "834a815b8367838a8362835700000000",
+   "previous_hex": "9262e49d939b00000000000000000000",
+   "reference_sites": [
+    9808
+   ],
+   "translation": "弹匣",
+   "decision": "m16",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 510448,
+   "capacity": 32,
+   "source_text": "ダブルスペイザーの尾翼部分他。",
+   "source_hex": "835f8375838b8358837983438355815b82cc94f69783959495aa91bc81420000",
+   "previous_hex": "916f8f6497ee9565934994f69783939995948c8f8fd200000000000000000000",
+   "reference_sites": [
+    11020
+   ],
+   "translation": "双重斯派扎的尾翼等部件。",
+   "decision": "m17",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
   },
   {
    "kind": "string",
@@ -1142,7 +1456,8 @@
     223260
    ],
    "translation": "波士豪烈特攻",
-   "decision": "w01"
+   "decision": "w01",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1158,7 +1473,8 @@
     224140
    ],
    "translation": "溶解喷淋",
-   "decision": "w02"
+   "decision": "w02",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1180,7 +1496,8 @@
     225020
    ],
    "translation": "螺旋粉碎飞拳",
-   "decision": "w03"
+   "decision": "w03",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1198,7 +1515,8 @@
     225100
    ],
    "translation": "双联月牙刃",
-   "decision": "w04"
+   "decision": "w04",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1220,7 +1538,8 @@
     232940
    ],
    "translation": "巴鲁迪导弹",
-   "decision": "w05"
+   "decision": "w05",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1234,7 +1553,87 @@
     232700
    ],
    "translation": "巴鲁迪蔷薇",
-   "decision": "w06"
+   "decision": "w06",
+   "decision_record": "config/editorial/name-unification-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 521456,
+   "capacity": 16,
+   "source_text": "低反動砲",
+   "source_hex": "92e194bd93ae96430000000000000000",
+   "previous_hex": "92e194bd914c94650000000000000000",
+   "reference_sites": [
+    293296,
+    293456,
+    293616
+   ],
+   "translation": "低后坐炮",
+   "decision": "m10",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 521472,
+   "capacity": 24,
+   "source_text": "Ｍｋ３９低反動砲",
+   "source_hex": "826c828b8252825892e194bd93ae96430000000000000000",
+   "previous_hex": "826c828b8252825892e194bd914c94650000000000000000",
+   "reference_sites": [
+    293300,
+    293460,
+    293620
+   ],
+   "translation": "Mk39低后坐炮",
+   "decision": "m10",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 521504,
+   "capacity": 24,
+   "source_text": "低反動砲（連射）",
+   "source_hex": "92e194bd93ae9643816998418ecb816a0000000000000000",
+   "previous_hex": "92e194bd914c94658fe891898ecb8feb0000000000000000",
+   "reference_sites": [
+    293336,
+    293496,
+    293656
+   ],
+   "translation": "低后坐炮（连射）",
+   "decision": "m10",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 521536,
+   "capacity": 32,
+   "source_text": "Ｍｋ３９低反動砲（連射）",
+   "source_hex": "826c828b8252825892e194bd93ae9643816998418ecb816a0000000000000000",
+   "previous_hex": "826c828b8252825892e194bd914c94658fe891898ecb8feb0000000000000000",
+   "reference_sites": [
+    293340,
+    293500,
+    293660
+   ],
+   "translation": "Mk39低后坐炮（连射）",
+   "decision": "m10",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 526976,
+   "capacity": 32,
+   "source_text": "ビッグオー・ファイナルステージ",
+   "source_hex": "83728362834f8349815b81458374834083438369838b83588365815b83570000",
+   "previous_hex": "8261828982878140826e904b8dc59172959191e4000000000000000000000000",
+   "reference_sites": [
+    315696,
+    315700
+   ],
+   "translation": "BigO·FinalStage",
+   "decision": "m12",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
   },
   {
    "kind": "string",
@@ -1256,7 +1655,8 @@
     340260
    ],
    "translation": "德卡扳手",
-   "decision": "w07"
+   "decision": "w07",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1270,7 +1670,8 @@
     339860
    ],
    "translation": "热血大粉碎",
-   "decision": "w08"
+   "decision": "w08",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1283,7 +1684,8 @@
     352536
    ],
    "translation": "新燃烧脉冲号",
-   "decision": "u01"
+   "decision": "u01",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1296,7 +1698,8 @@
     352604
    ],
    "translation": "勇者突进号",
-   "decision": "u02"
+   "decision": "u02",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1309,7 +1712,8 @@
     352672
    ],
    "translation": "履带游侠号",
-   "decision": "u03"
+   "decision": "u03",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1322,7 +1726,8 @@
     354372
    ],
    "translation": "赞波鸟",
-   "decision": "u04"
+   "decision": "u04",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1336,7 +1741,8 @@
     354508
    ],
    "translation": "赞波ACE",
-   "decision": "u07"
+   "decision": "u07",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1349,7 +1755,8 @@
     355392
    ],
    "translation": "赞波牛",
-   "decision": "u05"
+   "decision": "u05",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1362,7 +1769,8 @@
     355460
    ],
    "translation": "赞波座",
-   "decision": "u06"
+   "decision": "u06",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1377,7 +1785,36 @@
     357364
    ],
    "translation": "布隆科II",
-   "decision": "p58"
+   "decision": "p58",
+   "decision_record": "config/editorial/name-unification-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 543088,
+   "capacity": 24,
+   "source_text": "ソードシルエット",
+   "source_hex": "835c815b83688356838b8347836283670000000000000000",
+   "previous_hex": "8b9090d696a3896500000000000000000000000000000000",
+   "reference_sites": [
+    384700
+   ],
+   "translation": "剑装魅影",
+   "decision": "m07",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 543408,
+   "capacity": 24,
+   "source_text": "ゲイナーＢ（ブラック）",
+   "source_hex": "835183438369815b82618169837583898362834e816a0000",
+   "previous_hex": "9470959882618fe8985890468feb00000000000000000000",
+   "reference_sites": [
+    388576
+   ],
+   "translation": "盖纳B（黑方）",
+   "decision": "m08",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
   },
   {
    "kind": "string",
@@ -1391,7 +1828,8 @@
     395648
    ],
    "translation": "阿克艾里昂·阿尔法",
-   "decision": "u08"
+   "decision": "u08",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1405,7 +1843,22 @@
     395716
    ],
    "translation": "阿克艾里昂·欧米伽",
-   "decision": "u09"
+   "decision": "u09",
+   "decision_record": "config/editorial/name-unification-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 560960,
+   "capacity": 32,
+   "source_text": "自軍フェイズでの攻撃力\n＋１０％",
+   "source_hex": "8ea98c52837483468343835982c582cc8d558c8297cd0a817b8250824f819300",
+   "previous_hex": "89e495fb89f18d8793498d5590ca97cd0a817b8250824f986500000000000000",
+   "reference_sites": [
+    427300
+   ],
+   "translation": "我方阶段的攻击力\n＋10%",
+   "decision": "m18",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
   },
   {
    "kind": "string",
@@ -1418,7 +1871,8 @@
     434748
    ],
    "translation": "〜可造之材〜",
-   "decision": "t05"
+   "decision": "t05",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1431,7 +1885,8 @@
     438692
    ],
    "translation": "赞波鸟",
-   "decision": "u04"
+   "decision": "u04",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1444,7 +1899,8 @@
     438752
    ],
    "translation": "赞波ACE",
-   "decision": "u07"
+   "decision": "u07",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1458,7 +1914,22 @@
     440132
    ],
    "translation": "布隆科II",
-   "decision": "p58"
+   "decision": "p58",
+   "decision_record": "config/editorial/name-unification-20261017.json"
+  },
+  {
+   "kind": "string",
+   "offset": 632656,
+   "capacity": 24,
+   "source_text": "ゲイナーＢ（ブラック）",
+   "source_hex": "835183438369815b82618169837583898362834e816a0000",
+   "previous_hex": "9470959882618fe8985890468feb00000000000000000000",
+   "reference_sites": [
+    456332
+   ],
+   "translation": "盖纳B（黑方）",
+   "decision": "m08",
+   "decision_record": "config/editorial/main-old-renderings-20261017.json"
   },
   {
    "kind": "string",
@@ -1472,7 +1943,8 @@
     458852
    ],
    "translation": "阿克艾里昂·阿尔法",
-   "decision": "u08"
+   "decision": "u08",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1486,7 +1958,8 @@
     458912
    ],
    "translation": "阿克艾里昂·欧米伽",
-   "decision": "u09"
+   "decision": "u09",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1499,7 +1972,8 @@
     487268
    ],
    "translation": "DC士兵（1）",
-   "decision": "p10"
+   "decision": "p10",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1512,7 +1986,8 @@
     487316
    ],
    "translation": "DC士兵（2）",
-   "decision": "p10"
+   "decision": "p10",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1525,7 +2000,8 @@
     487604
    ],
    "translation": "身份不明士兵",
-   "decision": "p11"
+   "decision": "p11",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1539,7 +2015,8 @@
     488036
    ],
    "translation": "身份不明士兵（1）",
-   "decision": "p11"
+   "decision": "p11",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   },
   {
    "kind": "string",
@@ -1553,7 +2030,8 @@
     488132
    ],
    "translation": "身份不明士兵（2）",
-   "decision": "p11"
+   "decision": "p11",
+   "decision_record": "config/editorial/name-unification-20261017.json"
   }
  ]
 }

@@ -31,7 +31,8 @@ def approved_shared_update(current, desired, key, updates):
     binding = updates.get(key, {})
     require(binding.get('before_sha256') == shared_identity(current) and
             binding.get('after_sha256') == shared_identity(desired),
-            f'Concurrent shared Q&A text/style drift: {key}')
+            f'Concurrent shared Q&A text/style drift: {key} '
+            f'(current {shared_identity(current)}, desired {shared_identity(desired)})')
     return True
 
 
