@@ -58,6 +58,25 @@ def write_json(path, value):
     path.write_bytes(json_bytes(value))
 
 
+# Byte ranges the BEST writer owns outright and zero-fills after the payload.
+# 0x6C5C0 starts the shield-defense description on both Japanese discs.
+COMPDATA_FIXED_SLOTS = ((0x244CE, 0x244DC), (0x2457E, 0x2458C), (0x6C4C0, 0x6C550), (0x6C550, 0x6C5C0))
+
+
+def compdata_pointer_targets(data):
+    """Offsets referenced by absolute COMPDATA pointers (load base + offset)."""
+    base, end = u32(data, 8), u32(data, 8)+len(data)
+    return {value-base for (value,) in struct.iter_unpack('<I', data[:len(data)//4*4]) if base <= value < end}
+
+
+def verify_compdata_fixed_slots(data, slots=COMPDATA_FIXED_SLOTS, label='COMPDATA'):
+    """Fail if a zero-filled fixed slot would swallow another referenced string."""
+    targets = compdata_pointer_targets(data)
+    for lo, hi in slots:
+        inside = sorted(t for t in targets if lo < t < hi)
+        require(not inside, f'{label}: fixed slot 0x{lo:X}-0x{hi:X} overlaps referenced string at 0x{inside[0]:X}' if inside else '')
+
+
 def project_shared_edits(original, native, compiled, *, shift=0, pointer_delta=0x800,
                          text_mask=None, label=''):
     """Project a compiled field only with an exact or typed native preimage.
@@ -352,7 +371,9 @@ class BestCompiler:
 
     def compile_compdata(self, a, b, c):
         mask = bytearray(len(a))
-        slots = [(0x244CE,0x244DC), (0x2457E,0x2458C), (0x6C4C0,0x6C550), (0x6C550,0x6C5E0)]
+        slots = COMPDATA_FIXED_SLOTS
+        for data, label in ((a,'Original COMPDATA'), (b,'BEST COMPDATA'), (c,'shared COMPDATA')):
+            verify_compdata_fixed_slots(data, slots, label)
         for lo, hi in slots:
             mask[lo:hi] = b'\1'*(hi-lo)
         out = project_shared_edits(a, b, c, text_mask=mask, label='COMPDATA')

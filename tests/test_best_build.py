@@ -6,10 +6,14 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from srwz.best_build import BestCompiler, project_shared_edits
+from srwz.best_build import (
+    COMPDATA_FIXED_SLOTS, BestCompiler, compdata_pointer_targets, project_shared_edits, verify_compdata_fixed_slots,
+)
 from srwz.edition import EditionError
 from srwz.stage import _condition_entries
 from srwz.text import TextTable
+
+REPO = Path(__file__).resolve().parents[1]
 
 
 def packed(*values):
@@ -143,6 +147,31 @@ class BestBackendTests(unittest.TestCase):
         for original, native, compiled in [(b'abcd',b'abcd',b'abcde'),(b'abcde',b'abcde',b'abcdE')]:
             with self.subTest(compiled=compiled), self.assertRaises(EditionError):
                 project_shared_edits(original,native,compiled)
+
+    def test_compdata_fixed_slot_must_not_swallow_next_referenced_string(self):
+        base = 0x6D7000
+        data = bytearray(0x200)
+        struct.pack_into('<III', data, 8, base, base+0x100, base+0x1C0)
+        verify_compdata_fixed_slots(bytes(data), [(0x100, 0x1C0)])
+        # The 2026-10-16 BEST defect: (0x6C550, 0x6C5E0) zero-filled the string at 0x6C5C0.
+        with self.assertRaisesRegex(EditionError, 'overlaps referenced string at 0x1C0'):
+            verify_compdata_fixed_slots(bytes(data), [(0x100, 0x1E0)])
+
+    def test_declared_compdata_slots_clear_native_pointer_targets(self):
+        from srwz.codec import decode_production
+        from srwz.iso9660 import member_map, scan_iso9660
+        for name in ('original.iso', 'best.iso'):
+            iso = REPO / 'rom' / name
+            if not iso.exists():
+                self.skipTest(f'{iso} not available')
+            with self.subTest(iso=name):
+                entry = member_map(scan_iso9660(iso))['DATA/COMPDATA.BN']
+                with iso.open('rb') as f:
+                    f.seek(entry.extent_lba*2048)
+                    data = decode_production(f.read(entry.size)).output
+                verify_compdata_fixed_slots(data, label=name)
+                self.assertIn(0x6C5C0, compdata_pointer_targets(data))
+                self.assertIn((0x6C550, 0x6C5C0), COMPDATA_FIXED_SLOTS)
 
     def test_best_condition_signatures_parse_without_editing_code(self):
         base = 0x756EF0
