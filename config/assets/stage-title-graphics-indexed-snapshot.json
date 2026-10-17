@@ -42,10 +42,23 @@
         "source_slot_sha256": "189f214f18792aa4bb2458487838c4db2e9fcf75a790520a56f478ff1eabe357",
         "previous_snapshot_sha256": "e499dfdf68d2485a2bf88625ee49d01ea2652559f3a7f9d05f45c0b9f0ab520d",
         "method": "Explicit single-slot authoring from existing release glyphs; original palette and non-image bytes preserved."
+      },
+      {
+        "date": "2026-10-17",
+        "ordinal": 95,
+        "previous_text": "灵魂凯歌",
+        "text": "魂之凯歌",
+        "authorization": "User chose 魂之凯歌 for 魂の凱歌 (config/editorial/main-old-renderings-20261017.json m14).",
+        "base_current_iso_sha256": "ee9269f7bbcdd01bede29e59835fd87f1a91a407161ad9331bb4a4600ab0ae7c",
+        "font_source": "shared release glyphs from the current SP ISO font (same mapping as the main font); re-rendering 灵魂凯歌 reproduced the frozen title 95 indexes exactly",
+        "preserved_other_title_count": 106,
+        "source_slot_sha256": "f8380be6250e8dd08ea23391daf1c219b1faa6327394ec89405c58da507348af",
+        "previous_snapshot_sha256": "78d41d4dd91a2ae3a34f0adb86d87fdcb666652b82d78dc8add827cda631aae6",
+        "method": "Explicit single-slot authoring with the snapshot raster policy and the builder codec; original palette and non-image bytes preserved."
       }
     ]
   },
-  "output_group_sha256": "4b484f1c9aaa01d612ab2302a787595243cd0c13420f12aff621931dbe9969a8",
+  "output_group_sha256": "6ef212f3f7c7f1df1f9e35cf9882a66945d5b072ae052762f6b2bc7d131f76cf",
   "titles": [
     {
       "ordinal": 0,
@@ -3486,20 +3499,20 @@
     {
       "ordinal": 95,
       "entry_id": "menu/Compdata/03/0095",
-      "text": "灵魂凯歌",
+      "text": "魂之凯歌",
       "selector": 96,
       "loader_table_index": 104,
       "stored_start": 12391296,
       "stored_end": 12392848,
       "stored_size": 1552,
       "source_consumed": 1549,
-      "output_encoded_size": 1305,
-      "padding_size": 247,
+      "output_encoded_size": 1292,
+      "padding_size": 260,
       "quantization_levels": 16,
       "attempted_sizes": [
         {
           "quantization_levels": 16,
-          "encoded_size": 1305
+          "encoded_size": 1292
         }
       ],
       "raster_x": 157,
@@ -3511,13 +3524,13 @@
       "latin_cell_count": 0,
       "layout_mode": "proportional_stock_glyphs",
       "source_indexes_sha256": "87dea19d80010a84642bc45842e1e6c38922a31ba9958cf7f7f61941ee62dc1e",
-      "output_indexes_sha256": "db1bb218540d6b62ad2727d2fb833a723008df2626dd32c73c8a7898439ff4a2",
+      "output_indexes_sha256": "8227d46e127e14b3aa82b5aceae414ac5c6a2af739b06106706a16f164889d41",
       "packed_indexes": {
         "size": 16384,
-        "sha256": "d5aff4dd4ecd5d6b7eddc2b9464ebe98a0877f9a3b89ba23860314b87def77be",
-        "zlib_base64": "eNrtmF1oW2UYgPPTpk22Zqdzm5bR9SgI7sItqBe7yynUoYNhhxbdjWY4gsI09aq7EJOKjjBnFvWiG7RNENFRatPd7ErsiUzYIHK6OUS2rmnVC9tlTZu/psn58f3OT05yUtGrkQPvc9GUNF/o833v33csFgRBEORRQX3xrqPxnejJ9v9YQ399rM0kdt0NWJs/MVi82Fm/wGpZinSSF/opgk1933curPFSm68UcJhCf7AoNXBY1WGup4DxntFw+AafOC9LqQsO28CfKXjtSyJZ0adu2Wy19iXBjnilz2oKf/rjcB03+Jr/nfvARM9GTSrmbPJfnLh8k9dEtUBKLvRaqY308YGBgRfsJkv1UFnz14J9I9hhiW7tsljWt/GfccGK2kEzp/1+/9E2dqHL4ivJWza3o/WVZx+s6YjS//DPwseyotTkz2YW7wsJF/GfF4IjIyObCVfr+w+PXda5yTf5c9NTd4XE1FRF9fd8pX72oM3oP+60sNPEf7AYe/m0gym81W7a+I+qkrn0L6mMyKVSvOpfR9P5QwDJ5z//8NCXK+7ZB24T1P9Pt69/60rR8+aN8a+dP8wExvx/bWho6EXI/97khx3RlUO5hrbZokS3tu9/VPdo2ftYdzfJ//iqW/dXS5sEuW3wV/E8b4fZIH63i95thhZI75a71vKP+8nLk7a6wugm+T/3Wfj3h5FwuNwY/8R9adKp+1N6pyR13xTBT4L2rzfbNR+QSI7XLNcTLo+dWpa7QhZ+RjqN/iQkdP9RNYdgt95xQAcwxwDk+VOECAdbbifEwm2hlrNMIXBOcfPkwXP4da2Wh65MAZWEwV+Pm3tdcjS8Yo4LADiDBlOAzIdf5b3QWsFzebmBQYkIOOY/P6v+ieVJNKzNuGhS4MBfuzTIk8SkU/aHKtHcL1r0ApTkvXaWh4I2W627tJAxRk4KOpcWAkcL3rxXmWbZ1M5ahDiI/4miEgLs9LGBO9+7ZH82M7lywGqSDejfc7V68Uol+Hi/HrJ0Luakf8q4yXkHSoFr9yZWZlyN/qEy7Ei9vzL/EH+4Mh7Jm6H9qXcdSAHqlhDr0U8sXuEWBOj/9ngldjAX2+IunB1z6v7MJ5ecS2tusgl9p0rG84eqecAar3jNcP2hTvzMZ9+HuKeuVrORZ7T+BwnBXXijGPyuMreDzgX2WSHcldmAXXjv21VRSpwvkwMG/w82d9XnPyQOy0PhoP9YfNbW6vKnQCUbeUI5d99vAkgfsSvD3F4reQrAz+2H2yx3xu+/VpWPGSqllJ44ube/kCUJPrzJZdb0Vh8KX9rifqjKoe8rpXtbvATQOYk7s0//J5lvVkW9BZBnGnIVD/0tSlJWGQCopLxD1LIoNwfPr0L2I33FvCClj19Xh4jhsZZvAYNPG0OU2VN3Zp5X2/WnXobB4e1/fcBFmaTwIwiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCII+MfwBffn97"
+        "sha256": "8ea2f6e3bdf51d0fa51761eec528e54267522582a7adeedb5cd9aee24000785b",
+        "zlib_base64": "eNrtmF1oW2UYx89J2nRJbXbimFC069G7MV2DiuwuUerQwVzFFR3irGwEFSXxqr0Qm6KUMGuNerEO2iZ64UepTXezC7uR0zFQWSSdTpCtazoVtDNN1iTN9znH531P0qTnZOiFSA48v4skvJCQ//P8n4/3MAyCIAjyH8N99JpJe+r59j5Wc+g/1voPP8Z/dqhFZ/r7Nj/c0UB/brhNFSeWWR3fQd74BwiGyvnAqK/KUy0DWbdJD6KdlyLAZOeIz/ddOXSK/vftajdiHaow9RhAvzPjMK5KMtBd8cd8Sa4y3BYsdrO60H/1BjDVubH13wNmldcLR1rupH9l6sz35apQzqawuNzFQtQO9/b2PmrUS+1vgMv9hZ0Mc7uqnzu7QLlcjl2gH/YZNPrnLIw3v5Vo50mXy3WwRVjuYAayNJbhdv3q51Pydnqq+pMJSU5Kska/EF+5IYYsRP+SODw4OJgLWXSjPzo7c00MzcwUt/xf9TPh/h/Fai7tn5xR2GtQ6580M8Is0d+3GXj6pMmZebm12YX7K1pSsR8icSkaiZTV9U+9cLEcvlfbzzT5TyQkmv+l9f0fr1nn/7I2feJvK952pDX+r8P+k1iTX80/LAvq+j/a39//JNR/1+Lbbf61/alG87TZjG8byTt22Wyk/oO3rA31O3+X6gq50tpkOFLprwboESPsBsFrHfzdehiB1KXcRvh93y/r4z5fXqPfk5MbJJJoX5021/RztRFK+r4ezK9UQMhiN3I3EwnS1eF1fLtW7mwpebxBGyP6iVdq+kcqyx+E8VUTTACdLEAZ96giwZ4GOZ7nW9Xejz5o2Hbk/XIGKIZU+muGut5B3XBEFxcAb77n4TSdU/6C7DYtfTBUt+5znxblQKdKn1AmNknMWXjS4EC/zcZWKgmOp81UP3SJRoOk+SDbCvEy7Dsx0X0w40g7Kkur/d2hP6TYSxrvC5G7tqxjIvqf3VQsIMwe6r36tYXqF+LTa3t0UAB8KmDmL8atJK3urPvc9am1OaXX23+D240m+fX6vXkIVb1+Zf8h+uEueSCtg/HHBIvRZRHmvzFYDOxNBQrRsaHT1LfcFTFaTj7ToIapfud7E+bVhJUEofuVrDr/0E73sMGio/mvP0JZjo69sDn8RTHczqfc97Dgarroz5fC7TD5Qq8/tsvGqirmzc9vSXLoVJ4kGPS/ldtZX/9QUUIZOgr/68pDhqZv/0d3s+QpANlv4RLwhst1rkSyyV1Zh/Lt+1mk85w2vMoS5MzIcmzq2O7HM0lS4J5cNJ6ojXqvb6IQPV+i1h/Ixrp0MQMh2bRZe/+Ekk8qCwD/BLW+/cToxFffLFyORM4vvEhbIbc4dgB8zd2U6NSA3Tj5Tm1kLIly7PClSaX1e07rYgSAiOdaaw+3/u13TtzxARenj6wjCIIgCIIgCIIgCIIgCIIgCIIgCIIgCIIgCIIg/x9/A8kuWzk="
       },
-      "output_stored_sha256": "d774fb2832497a658fab882d496953c2712a5a69dedbdf6854f31a1e3a18d53e"
+      "output_stored_sha256": "1de10ce6c8757b1766cefbc33d08f76e7c5f94cedc2839676a01dc18ac6421b1"
     },
     {
       "ordinal": 96,
