@@ -75,18 +75,14 @@
     },
     {
       "id": "event/seventh-space-war",
-      "source_terms": [
-        "第７次宇宙戦争"
-      ],
-      "translation": "第七次宇宙战争",
+      "source_terms": ["第７次宇宙戦争"],
+      "translation": "第7次宇宙战争",
       "category": "event",
-      "status": "proposed",
-      "domains": [
-        "summary",
-        "story"
-      ],
+      "status": "approved",
+      "domains": ["summary", "story"],
       "enforce": true,
-      "notes": "《机动新世纪高达X》设定。"
+      "notes": "《机动新世纪高达X》设定。2026-10-21 用户定稿用阿拉伯数字“第7次”，与图鉴数字写法一致。",
+      "deprecated_translations": ["第七次宇宙战争"]
     },
     {
       "id": "event/dimensional-shock",
@@ -3217,6 +3213,30 @@
       ],
       "enforce": true,
       "notes": "日语军衔；面向中国大陆读者按现代军衔对应为“少校”，仅按日文源词绑定。"
+    },
+    {
+      "id": "place/onogoro-island",
+      "source_terms": ["オノゴロ島", "オノゴロ"],
+      "translation": "淤能碁吕岛",
+      "deprecated_translations": ["奥诺戈罗岛", "小野木岛"],
+      "variant_scope": "source_bound",
+      "category": "place",
+      "status": "approved",
+      "domains": ["story", "battle", "library", "menu", "summary"],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》奥布的本岛。2026-10-21 用户定稿采用神话原典写法“淤能碁吕岛”。"
+    },
+    {
+      "id": "place/heavens-base",
+      "source_terms": ["ヘブンズベース"],
+      "translation": "天堂基地",
+      "deprecated_translations": ["赫文斯基地"],
+      "variant_scope": "source_bound",
+      "category": "place",
+      "status": "approved",
+      "domains": ["story", "battle", "library", "menu", "summary"],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》地球联合在冰岛的基地。2026-10-21 用户指出兰德线 4 句音译为“赫文斯基地”，统一为“天堂基地”。"
     }
   ]
 }

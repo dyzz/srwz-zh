@@ -311,10 +311,10 @@ class ReleaseWorkflowTest(unittest.TestCase):
         }
         battle_expected = {
             "battle:24510": (
-                "“切换——波塞冬！！\\n　"
+                "“切换——盖塔波塞冬！！\\n　"
                 "<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”"
             ),
-            "battle:24481": "“毕竟是对上我的狮虎，没办法啊。”",
+            "battle:24481": "“毕竟是对上我的盖塔狮虎，没办法啊。”",
             "battle:22668": "“你对上了兜甲儿！”",
             "battle:22157": "“先拿你开始血祭！”",
             "battle:24663": "“你吃奶的劲也打不倒我哦？\\n　呼呼呼呼…”",

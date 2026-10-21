@@ -119,6 +119,11 @@ class SpQaNativeTests(unittest.TestCase):
                 if n == 53:  # 2026-10-17 カートリッジ = 弹匣 (qa-shared-updates.json)
                     expected = [(style, text.replace('弹药筒','弹匣'))
                                 for style,text in expected]
+                # 2026-10-21 term sweep decisions (config/editorial/term-sweep-20261021.json, qa-shared-updates.json)
+                for page_numbers, old_text, new_text in ((49,), '气力限界突破', '气力上限突破'), ((53, 54), '弹药数', '弹数'), ((61,), '全取消器', '完全抗性'):
+                    if n in page_numbers:
+                        expected = [(style, text.replace(old_text, new_text))
+                                    for style,text in expected]
                 self.assertEqual(expected,
                                  styled_runs(shared_records(page(chunk,n),R)))
             self.assertEqual(page(chunk,n)['sprite_bytes'],page(jp,n)['sprite_bytes'])

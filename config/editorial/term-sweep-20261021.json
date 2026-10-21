@@ -1,0 +1,2768 @@
+{
+  "schema_version": 1,
+  "batch_id": "term-sweep-20261021",
+  "recorded_at": "2026-10-21T13:00:00.481298+00:00",
+  "decidedBy": "user",
+  "reason": "2026-10-21 全量译名一致性排查（work/review/term-sweep-20261021/README.md）：第一类词表已定稿但语料未统一的明显错误，加上用户在决定页上对 23 组两种写法的选择；SP 语料与世界地图贴图标题不在本批次。",
+  "decisions": {
+    "page": "work/review/term-sweep-20261021/decisions-20261021.html",
+    "kept_as_is": [
+      "21 ウォーカーマシン",
+      "23 地点卡片空格"
+    ]
+  },
+  "counts": {
+    "changed": 204,
+    "by_group": {
+      "2-8 大便部长": 5,
+      "2-4 雅邦忍法": 4,
+      "2-22 盖塔形态": 16,
+      "2-6 朱庇特利斯": 9,
+      "2-20 第7次": 13,
+      "2-7 丑女二人组": 3,
+      "1 钱德拉": 5,
+      "1 布隆科II": 2,
+      "2-9 黑箱": 4,
+      "2-5 超限人对战": 20,
+      "2-18 气力上限突破": 3,
+      "2-17 完全抗性": 2,
+      "2-16 均衡方案": 2,
+      "2-14 中断保存": 5,
+      "2-15 快速读档": 3,
+      "2-19 弹数": 4,
+      "2-10 试飞员": 3,
+      "2-12 锦旗": 6,
+      "1 高安": 1,
+      "1 塞文堡": 32,
+      "1 上尉": 3,
+      "1 西罗克": 3,
+      "1 太阳号": 2,
+      "1 阿加托结晶": 2,
+      "1 UN空间站": 3,
+      "1 亚历克斯·迪诺": 1,
+      "2-1 淤能碁吕岛": 9,
+      "1 北阿美利亚": 11,
+      "2-2 Overcoat": 6,
+      "2-11 驾驶服": 3,
+      "1 罗多尼亚": 1,
+      "2-3 多兰": 4,
+      "1 运行图": 2,
+      "1 林斯": 1,
+      "1 飞・心露": 1,
+      "2-13 记忆卡": 11
+    },
+    "by_file": {
+      "corpus/zh/battle/srvc-lines.json": 22,
+      "corpus/zh/library/sp-reviewed-supplement.json": 2,
+      "corpus/zh/library/v0.2-reviewed.json": 18,
+      "corpus/zh/menu/nisv-strategy-qa.json": 18,
+      "corpus/zh/menu/opening-protagonist-profile.json": 1,
+      "corpus/zh/menu/release-v0.3.json": 2,
+      "corpus/zh/menu/stage-overviews.json": 14,
+      "corpus/zh/menu/system-ui-parts.json": 2,
+      "corpus/zh/menu/ui-name-tables.json": 1,
+      "corpus/zh/story-dialogue/stage-002.json": 1,
+      "corpus/zh/story-dialogue/stage-008.json": 1,
+      "corpus/zh/story-dialogue/stage-010.json": 5,
+      "corpus/zh/story-dialogue/stage-025.json": 1,
+      "corpus/zh/story-dialogue/stage-026.json": 2,
+      "corpus/zh/story-dialogue/stage-027.json": 29,
+      "corpus/zh/story-dialogue/stage-028.json": 1,
+      "corpus/zh/story-dialogue/stage-032.json": 4,
+      "corpus/zh/story-dialogue/stage-037.json": 1,
+      "corpus/zh/story-dialogue/stage-038.json": 5,
+      "corpus/zh/story-dialogue/stage-043.json": 4,
+      "corpus/zh/story-dialogue/stage-047.json": 2,
+      "corpus/zh/story-dialogue/stage-048.json": 1,
+      "corpus/zh/story-dialogue/stage-061.json": 1,
+      "corpus/zh/story-dialogue/stage-069.json": 1,
+      "corpus/zh/story-dialogue/stage-076.json": 1,
+      "corpus/zh/story-dialogue/stage-085.json": 2,
+      "corpus/zh/story-dialogue/stage-087.json": 2,
+      "corpus/zh/story-dialogue/stage-091.json": 4,
+      "corpus/zh/story-dialogue/stage-095.json": 2,
+      "corpus/zh/story-dialogue/stage-101.json": 1,
+      "corpus/zh/story-dialogue/stage-107.json": 1,
+      "corpus/zh/story-dialogue/stage-108.json": 1,
+      "corpus/zh/story-dialogue/stage-109.json": 1,
+      "corpus/zh/story-dialogue/stage-110.json": 3,
+      "corpus/zh/story-dialogue/stage-111.json": 1,
+      "corpus/zh/story-dialogue/stage-116.json": 3,
+      "corpus/zh/story-dialogue/stage-117.json": 2,
+      "corpus/zh/story-dialogue/stage-119.json": 2,
+      "corpus/zh/story-dialogue/stage-127.json": 2,
+      "corpus/zh/story-dialogue/stage-129.json": 3,
+      "corpus/zh/story-dialogue/stage-130.json": 2,
+      "corpus/zh/story-dialogue/stage-135.json": 1,
+      "corpus/zh/story-dialogue/stage-138.json": 1,
+      "corpus/zh/story-dialogue/stage-144.json": 1,
+      "corpus/zh/story-dialogue/stage-149.json": 3,
+      "corpus/zh/summary.json": 1,
+      "config/library/v0.2-editorial-overrides.json": 12,
+      "corpus/zh/menu/remaining-ui.json": 13
+    },
+    "relaid": 2,
+    "skipped": 13,
+    "files_touched": 48
+  },
+  "changes": [
+    {
+      "id": "battle:00980",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-8 大便部长"
+      ],
+      "before": "“连员工性命都不顾的混蛋部长\\n　该受惩罚！”",
+      "before_sha256": "330bca871fa6e53a3fe0c8df38f1eb2d1c7f90fb97f1cedb813770bba8afc89b",
+      "after": "“连员工性命都不顾的大便部长\\n　该受惩罚！”",
+      "after_sha256": "077cfe7c426bd5c3ecc92551d8c632323634036c3475e9474eaf5587417ca356",
+      "note": null
+    },
+    {
+      "id": "battle:03565",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-8 大便部长"
+      ],
+      "before": "“都是运行部多管闲事，\\n　你这混蛋部长”",
+      "before_sha256": "1239efdb2be26f7ff432241f93e9ec4790f2bf65a6ec4d4ff1d5142107a97913",
+      "after": "“都是运行部多管闲事，\\n　你这大便部长”",
+      "after_sha256": "6076467b684391af8c3d8a97bc9dedef552cc5a49eda723c6c57ae10df35c9d2",
+      "note": null
+    },
+    {
+      "id": "battle:03941",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-4 雅邦忍法"
+      ],
+      "before": "“日本忍法，火焰地狱！！”",
+      "before_sha256": "80022e78e269c153cc6f45db1e1821f94835ddbddc2fead89dc9ea371030ca01",
+      "after": "“雅邦忍法，火焰地狱！！”",
+      "after_sha256": "7a8294e11bd360440b1f27b3fc95f91a584604c76c7b3da05c1f0ec13c9139e3",
+      "note": null
+    },
+    {
+      "id": "battle:03948",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-4 雅邦忍法"
+      ],
+      "before": "“日本忍法，钱袋斩！”",
+      "before_sha256": "1e03dc232f9ca2774764afd79d82dde9af28723662219781060bc04316a68828",
+      "after": "“雅邦忍法，钱袋斩！”",
+      "after_sha256": "30d97043fa30ed8d56dd30c1dd90085813a62caba8d2631c1c5f896753b7500a",
+      "note": null
+    },
+    {
+      "id": "battle:03951",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-4 雅邦忍法"
+      ],
+      "before": "“日本忍法，雷球！！”",
+      "before_sha256": "e8cd5c44ec08773d4953f3d087425429a3f94efe7b3326c02faf95606889033f",
+      "after": "“雅邦忍法，雷球！！”",
+      "after_sha256": "3103db19299a21839ebcae85ba9dc3060a9dbf9e4719a7a9458aa418e3a2f2ec",
+      "note": null
+    },
+    {
+      "id": "battle:06082",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-4 雅邦忍法"
+      ],
+      "before": "“用日本忍法\\n　躲不开吗！？”",
+      "before_sha256": "4a30e421e1188afa0fd96526d93ddee6a0038873c4176cf43d1ff04b9f826c4d",
+      "after": "“用雅邦忍法\\n　躲不开吗！？”",
+      "after_sha256": "d318943f95fb03bae50e112dd9e0acb4fab3908a10d74749b55610b605f88e39",
+      "note": null
+    },
+    {
+      "id": "battle:24434",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“呃啊！\\n　居然能紧咬住狮虎！”",
+      "before_sha256": "3f50adb3725493573116b2741f7d99b43b01272a1451bf279413c8830ad6bc3a",
+      "after": "“呃啊！\\n　居然能紧咬住盖塔狮虎！”",
+      "after_sha256": "ab0ffb222e4890f33cb13ef0d01fed70d3d8ebe4792b36fb20e15246660f39fe",
+      "note": null
+    },
+    {
+      "id": "battle:24449",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“狮虎居然能被直击……\\n　是我大意了。”",
+      "before_sha256": "3031f479165cd3d77845fd5676c0baab6a8c76a24ccf2591ff35133f5a5a7446",
+      "after": "“盖塔狮虎居然能被直击……\\n　是我大意了。”",
+      "after_sha256": "2fb9c937b8c92dc59bffaf6dbe5bd45bd50bfbc526f97ed60745313b870685b2",
+      "note": null
+    },
+    {
+      "id": "battle:24470",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“能打中我的狮虎，\\n　值得夸奖。”",
+      "before_sha256": "b21299a02d0084ac99759eba8e3fcd0f3b0dbcfc38ad88161818713273635684",
+      "after": "“能打中我的盖塔狮虎，\\n　值得夸奖。”",
+      "after_sha256": "bfb0ece33ed701a269e8aa51ad929affdb9bb6affe7b3384b72ac2aadd815375",
+      "note": null
+    },
+    {
+      "id": "battle:24481",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“毕竟是对上我的狮虎，没办法啊。”",
+      "before_sha256": "9f32f71a774446c63481edb91be5c041681458e7256f94fc9daa6c8bccf12292",
+      "after": "“毕竟是对上我的盖塔狮虎，没办法啊。”",
+      "after_sha256": "584716d53a64eecedb1911f8dd2dfcf48c514fca2b767bdf6fb1cb2f9a4a810c",
+      "note": null
+    },
+    {
+      "id": "battle:24510",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“切换——波塞冬！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+      "before_sha256": "8439377029e2359053eed864702cbc2ae4d98b96ded08fede429c01f6cf951a8",
+      "after": "“切换——盖塔波塞冬！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+      "after_sha256": "cb98de70dfdfe4e3ad3806cb0c56a4509ee87e316e29355a6df06be39af347c2",
+      "note": null
+    },
+    {
+      "id": "battle:24512",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“切——换·龙！！！”",
+      "before_sha256": "dc548f006fe453bf6f1e5336f76392052f124e906c572e67b34a7bc1cc53b763",
+      "after": "“切——换·盖塔龙！！！”",
+      "after_sha256": "0c27859805699277db6175cfa5330bf07b7bc71995328d93dde4f50c07697934",
+      "note": null
+    },
+    {
+      "id": "battle:24515",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“切换·狮虎！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+      "before_sha256": "94d0ffc0851fbf461f9c1e3f4e09cbb88bff0ae78015df4f8739842ba583ecd6",
+      "after": "“切换·盖塔狮虎！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+      "after_sha256": "30dd21d7ed8de17f750c0659382c0b5c906906b6ec4204d6417c269e4345e0c6",
+      "note": null
+    },
+    {
+      "id": "battle:24891",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“就用我的波塞冬上吧！”",
+      "before_sha256": "936aefa0ec556eefea0768e1baeddfd8b40384ae1f55f6b052a3a591313d7045",
+      "after": "“就用我的盖塔波塞冬上吧！”",
+      "after_sha256": "7eff509dbcb277f8add4b112e5698cd3da8dd11d25af2df29314f0e0e434954b",
+      "note": null
+    },
+    {
+      "id": "battle:24902",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“怎么了，波塞冬！？”",
+      "before_sha256": "1d426fd727689af63bf0c604174c435442688f9d9410bd2b8eeab69343e41c40",
+      "after": "“怎么了，盖塔波塞冬！？”",
+      "after_sha256": "c624a5c62afaa64ab6fa0ddbd11ff29bf72af26d21acadcb69340d2fdb667863",
+      "note": null
+    },
+    {
+      "id": "battle:24918",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“呜哦！？波塞冬怎么了！？”",
+      "before_sha256": "46013521d1d5b12b78655f920921c3c68d88aff9f4e029dfd6d474f08f7b9d7e",
+      "after": "“呜哦！？盖塔波塞冬怎么了！？”",
+      "after_sha256": "fcfb5c91b405897eba5c7e241b542425ed84dbad9cef0143f54d02b142803bcb",
+      "note": null
+    },
+    {
+      "id": "battle:24928",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“竟敢打伤波塞冬！”",
+      "before_sha256": "c6a5f27538867e68c3b4de5816dbf39f6c472fab184b467e63fec87cf833697d",
+      "after": "“竟敢打伤盖塔波塞冬！”",
+      "after_sha256": "d600f84d331867b5fd61714e1949ce179ce7693cf38757aad6968df1fbb04beb",
+      "note": null
+    },
+    {
+      "id": "battle:25089",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“不、不妙！\\n　这样下去，就算是龙也……！”",
+      "before_sha256": "ac1026949e00f669e414293c7fdf643f30d22795a468984ead428f6099f8da52",
+      "after": "“不、不妙！\\n　这样下去，就算是盖塔龙也……！”",
+      "after_sha256": "3c7b7236ca0a84016ec576d441ba108f06611241cade3e938ea69ddf4c72a7a4",
+      "note": null
+    },
+    {
+      "id": "battle:25105",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“要想打倒龙，\\n　力量可是还不够啊！”",
+      "before_sha256": "aa5969325f0759038141412f712dd541478d9655b172c6b6c01f7d2b4564a62d",
+      "after": "“要想打倒盖塔龙，\\n　力量可是还不够啊！”",
+      "after_sha256": "15c0ecdd11255167690067f2fcc5f861520b42ae3e2350b25558685653f389d5",
+      "note": null
+    },
+    {
+      "id": "battle:25120",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“那种手段\\n　对龙无效！”",
+      "before_sha256": "2f3f184e849f8306160c167cee06fd8b7a81613ce32cc54f0732d57c8b21cc28",
+      "after": "“那种手段\\n　对盖塔龙无效！”",
+      "after_sha256": "6bb59acfdc53056f4413830705d248082b81b1204ea3a34bbd8708f4767d66af",
+      "note": null
+    },
+    {
+      "id": "battle:25134",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“那种东西连龙的边\\n　都擦不到！”",
+      "before_sha256": "3da23aa9ff12f0d9f84d4a3eafb13be645513090ecb257d38003fd46125dbfe1",
+      "after": "“那种东西连盖塔龙的边\\n　都擦不到！”",
+      "after_sha256": "3534f7244191bb0498cef3ce59bd53ab04482bcc69ed13a50cca4b41335c1dd9",
+      "note": null
+    },
+    {
+      "id": "battle:25156",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "groups": [
+        "2-22 盖塔形态"
+      ],
+      "before": "“龙的力量、敬请见证！”",
+      "before_sha256": "877cb6b1fb1441c9910921ce20f8c3c86f823fb65363bddcaf6029933e6d5b87",
+      "after": "“盖塔龙的力量、敬请见证！”",
+      "after_sha256": "9cb3cf1e9bdb8a30b77d8d593b3320712288303f1bfc88c368abec24ebc6bfc5",
+      "note": null
+    },
+    {
+      "id": "sp-library-text/27da8ff8d39ee449",
+      "file": "corpus/zh/library/sp-reviewed-supplement.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "西罗克在木星船开发的第三台MS。为索敌、侦察\n而设计，凭借头部的雷达罩状复合探测系统发挥高\n度的情报收集能力。战斗能力也绝不低，全身遍布的\n推进器赋予它远比外表看起来更出色的机动性。此外，\n可兼作光束斧和光束枪的盾牌等武装也颇具特色。",
+      "before_sha256": "eaeb39fa0e1998da207fa7247fc868d264cd61518aa19a878b8efe5cdc7d83ed",
+      "after": "西罗克在朱庇特利斯开发的第三台MS。为索敌、侦察\n而设计，凭借头部的雷达罩状复合探测系统发挥高\n度的情报收集能力。战斗能力也绝不低，全身遍布的\n推进器赋予它远比外表看起来更出色的机动性。此外，\n可兼作光束斧和光束枪的盾牌等武装也颇具特色。",
+      "after_sha256": "f302d532e2169bf3c891f5bf7e8360723f718189caf8be2789513b597fb554eb",
+      "note": null
+    },
+    {
+      "id": "sp-library-text/0b8e99ebcf5c7e74",
+      "file": "corpus/zh/library/sp-reviewed-supplement.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "第七次宇宙战争时期旧联邦军开发的MS。凭借能\n够操控比特MS的闪光系统，以及足以摧毁殖民卫星\n的卫星加农炮，由新人类搭乘时便成为最强兵器。\n卡洛德搭乘的机体是量产多架中的一架。与同期\n开发的空中霸王、斑豹不同，启动时需要装备兼\n作右操纵杆和卫星加农炮发射扳机的G控制器。",
+      "before_sha256": "11ac0e67c55ab41b3a373138ff4fd343f502216e747ec4d03e5fc3f48845c4c5",
+      "after": "第7次宇宙战争时期旧联邦军开发的MS。凭借能\n够操控比特MS的闪光系统，以及足以摧毁殖民卫星\n的卫星加农炮，由新人类搭乘时便成为最强兵器。\n卡洛德搭乘的机体是量产多架中的一架。与同期\n开发的空中霸王、斑豹不同，启动时需要装备兼\n作右操纵杆和卫星加农炮发射扳机的G控制器。",
+      "after_sha256": "81cec82ff8ab11159ef2a9f7f54768b29aafc4d3cb411b2520abfae461587108",
+      "note": null
+    },
+    {
+      "id": "library-text/0ef96fc5e1aea310",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "率领地球联邦政府木星船团的朱庇\n特里斯舰长。军衔上尉。26岁。\n拥有高度的新人类能力和领袖魅力。\n此外，从MS的设计到操纵、作战的\n立案与指挥，乃至对付女性的手段，\n无一不能完美完成的天才。其力量\n令莎拉着迷，使蕾柯亚从奥古倒戈，\n连口味挑剔的亚赞也被拉入己方。他\n曾明言“战后将由女性支配世界”，\n但这句话的含义直到最后都未明。\n返回地球圈后隶属提坦斯，但其才\n能带来的野心不可能局限于军队框\n架内，趁混乱暗杀加米托夫并掌握了\n提坦斯。最后驾驶自己打造的铁奥，\n与卡缪展开激战。但在围绕卡缪的灵\n魂之力面前，毫无还手之力而败北。",
+      "before_sha256": "64d1766bdffe3667ae707f90ddd9f9ee778d10c18a10440f76c7138fd4e9e9fb",
+      "after": "率领地球联邦政府木星船团的朱庇特利斯舰长。军衔上尉。26岁。\n拥有高度的新人类能力和领袖魅力。\n此外，从MS的设计到操纵、作战的\n立案与指挥，乃至对付女性的手段，\n无一不能完美完成的天才。其力量\n令莎拉着迷，使蕾柯亚从奥古倒戈，\n连口味挑剔的亚赞也被拉入己方。他\n曾明言“战后将由女性支配世界”，\n但这句话的含义直到最后都未明。\n返回地球圈后隶属提坦斯，但其才\n能带来的野心不可能局限于军队框\n架内，趁混乱暗杀加米托夫并掌握了\n提坦斯。最后驾驶自己打造的铁奥，\n与卡缪展开激战。但在围绕卡缪的灵\n魂之力面前，毫无还手之力而败北。",
+      "after_sha256": "b1f48a6d1857cf5ecaa0830b12ba6d73fee114c253d5d01a8d87e2709145e757",
+      "note": null
+    },
+    {
+      "id": "library-text/1a978d64a058f9e5",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-7 丑女二人组"
+      ],
+      "before": "胜平的亲卫队、通称“丑女搭档”\n的一员。与家人一同遭盖佐克袭击\n受灾，误以为原因在于神家族，\n将愤怒发泄在胜平身上。与亚纪一样\n被盖佐克俘虏，但在被制成人体炸弹\n前获香月救助，勉强逃脱成功。\n战斗结束后，温柔地拥抱了失去意\n识返回地球的胜平。当时被香月指出\n她一直压抑的感情，不禁脸颊泛红。",
+      "before_sha256": "42fc737ab99f13f7940b64e8d31b92149a2ee7c8efa9274932d35dba0884008d",
+      "after": "胜平的亲卫队、通称“丑女二人组”\n的一员。与家人一同遭盖佐克袭击\n受灾，误以为原因在于神家族，\n将愤怒发泄在胜平身上。与亚纪一样\n被盖佐克俘虏，但在被制成人体炸弹\n前获香月救助，勉强逃脱成功。\n战斗结束后，温柔地拥抱了失去意\n识返回地球的胜平。当时被香月指出\n她一直压抑的感情，不禁脸颊泛红。",
+      "after_sha256": "84755035c0fb6aac16424be89d84ab52597de8667729a6959a8a71487b8d8733",
+      "note": null
+    },
+    {
+      "id": "library-text/2cd1c9a5702bf048",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "西罗克在木星船开发的第三台MS。为索敌、侦察\n而设计，凭借头部的雷达罩状复合探测系统发挥高\n度的情报收集能力。战斗能力也绝不低，全身遍布的\n推进器赋予它远比外表看起来更出色的机动性。此外，\n可兼作光束斧和光束枪的盾牌等武装也颇具特色。",
+      "before_sha256": "eaeb39fa0e1998da207fa7247fc868d264cd61518aa19a878b8efe5cdc7d83ed",
+      "after": "西罗克在朱庇特利斯开发的第三台MS。为索敌、侦察\n而设计，凭借头部的雷达罩状复合探测系统发挥高\n度的情报收集能力。战斗能力也绝不低，全身遍布的\n推进器赋予它远比外表看起来更出色的机动性。此外，\n可兼作光束斧和光束枪的盾牌等武装也颇具特色。",
+      "after_sha256": "f302d532e2169bf3c891f5bf7e8360723f718189caf8be2789513b597fb554eb",
+      "note": null
+    },
+    {
+      "id": "library-text/2d3d84f6f7bfbe24",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "<width:16><space:16>西罗克在木星船最初开发的MA。为适应木星圈重\n力而开发，机体约<width:0E><space:0C>40%<space:16><width:16>由推进器和推进器单元占据。\n变为MA形态后，这些推进装置集中在机体后方，\n能发挥出格外出色的机动性。内置与背部推进器一体\n的米加粒子炮和腕部榴弹发射器等强力武装。也可变形\n为MS形态进行近身战，是平衡性出色的优秀机体。",
+      "before_sha256": "3cf2a208572b489396c612cad113cc47b285103945b9155bed96b5859aa68b34",
+      "after": "<width:16><space:16>西罗克在朱庇特利斯最初开发的MA。为适应木星圈重\n力而开发，机体约<width:0E><space:0C>40%<space:16><width:16>由推进器和推进器单元占据。\n变为MA形态后，这些推进装置集中在机体后方，\n能发挥出格外出色的机动性。内置与背部推进器一体\n的米加粒子炮和腕部榴弹发射器等强力武装。也可变形\n为MS形态进行近身战，是平衡性出色的优秀机体。",
+      "after_sha256": "5a7686d6f66e3246ea27e8acaf036739999a96a9727242aab764077bcca3cef9",
+      "note": null
+    },
+    {
+      "id": "library-text/65dfd3b36025712b",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "1 钱德拉"
+      ],
+      "before": "大天使号的舵手。27岁。名义\n上的军衔是地球联合军时代的三尉\n（少尉）。正式编入奥布军后军衔\n升为一尉（上尉）。前次大战后似乎\n作为奥布的一名市民生活。尽管如\n此，无论是在地上、水中还是宇宙航\n行，以及在战斗中规避机动，他都能\n不分时间地点地巧妙操纵大天使号，\n充分展示了其技艺不减当年。能与\n新造舰密涅瓦号势均力敌甚至更胜\n一筹，很大程度上归功于他的操舵\n技术。他似乎对米丽雅莉亚有意，\n在交谈中钱德勒出现时露出了相当不\n悦的表情。但之后的结果依然不明。",
+      "before_sha256": "252fe748d69efdba28ded2481d3023b7bd117743cd98a6c0906d2bf6cc72ab2b",
+      "after": "大天使号的舵手。27岁。名义\n上的军衔是地球联合军时代的三尉\n（少尉）。正式编入奥布军后军衔\n升为一尉（上尉）。前次大战后似乎\n作为奥布的一名市民生活。尽管如\n此，无论是在地上、水中还是宇宙航\n行，以及在战斗中规避机动，他都能\n不分时间地点地巧妙操纵大天使号，\n充分展示了其技艺不减当年。能与\n新造舰密涅瓦号势均力敌甚至更胜\n一筹，很大程度上归功于他的操舵\n技术。他似乎对米丽雅莉亚有意，\n在交谈中钱德拉出现时露出了相当不\n悦的表情。但之后的结果依然不明。",
+      "after_sha256": "2fb91ebb2c99615cc65fab64b763f98ad1f5698c085ded16ce3c67cd78853284",
+      "note": null
+    },
+    {
+      "id": "library-text/71bfefae66a2ff60",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "第七次宇宙战争时期旧联邦军开发的MS。凭借能\n够操控比特MS的闪光系统，以及足以摧毁殖民卫星\n的卫星加农炮，由新人类搭乘时便成为最强兵器。\n卡洛德搭乘的机体是量产多架中的一架。与同期\n开发的空中霸王、斑豹不同，启动时需要装备兼\n作右操纵杆和卫星加农炮发射扳机的G控制器。",
+      "before_sha256": "11ac0e67c55ab41b3a373138ff4fd343f502216e747ec4d03e5fc3f48845c4c5",
+      "after": "第7次宇宙战争时期旧联邦军开发的MS。凭借能\n够操控比特MS的闪光系统，以及足以摧毁殖民卫星\n的卫星加农炮，由新人类搭乘时便成为最强兵器。\n卡洛德搭乘的机体是量产多架中的一架。与同期\n开发的空中霸王、斑豹不同，启动时需要装备兼\n作右操纵杆和卫星加农炮发射扳机的G控制器。",
+      "after_sha256": "81cec82ff8ab11159ef2a9f7f54768b29aafc4d3cb411b2520abfae461587108",
+      "note": null
+    },
+    {
+      "id": "library-text/798e5a886fdd40fe",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "1 钱德拉"
+      ],
+      "before": "钱德勒",
+      "before_sha256": "f4b4198250b14516e8b710d0a8fd8f7cc3f209af3d3ad20a50001eb8cbf42ad0",
+      "after": "钱德拉",
+      "after_sha256": "36be41d8ccf9f4f265eeea7f6e85ea6e18e92c350d0e4d7d22099814cbd8b639",
+      "note": null
+    },
+    {
+      "id": "library-text/7f480322d1cc337d",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "位于北美大陆北部的自治都市，由诺莫亚·朗市长治\n理。以诺莫亚制造的人工新人类卡利斯·诺提拉斯为\n核心的自警团守护着城市。实际上诺莫亚的真实身份\n是宇宙革命军的多拉特博士，他为完成第七次宇宙战争\n时被联邦军阻止的“丁香花作战”，建造了塞文堡，\n以掩护新人类专用巨型MA帕特利亚的修复工作。\n诺莫亚企图以卡利斯为驾驶员启动帕特利亚，但和平号\n众人的奋战与卡利斯的决心，使他连同野心一起覆灭。\n此后以卡利斯为中心复兴城市，作为真正意义上的\n自治都市重新出发。另外，加拿大存在同名城市。",
+      "before_sha256": "3d3bf664f78e49292241e83b0d886d52189d6a961b15cc2471f0f7602cadee6c",
+      "after": "位于北美大陆北部的自治都市，由诺莫亚·朗市长治\n理。以诺莫亚制造的人工新人类卡利斯·诺提拉斯为\n核心的自警团守护着城市。实际上诺莫亚的真实身份\n是宇宙革命军的多拉特博士，他为完成第7次宇宙战争\n时被联邦军阻止的“丁香花作战”，建造了塞文堡，\n以掩护新人类专用巨型MA帕特利亚的修复工作。\n诺莫亚企图以卡利斯为驾驶员启动帕特利亚，但和平号\n众人的奋战与卡利斯的决心，使他连同野心一起覆灭。\n此后以卡利斯为中心复兴城市，作为真正意义上的\n自治都市重新出发。另外，加拿大存在同名城市。",
+      "after_sha256": "fe5627dc722701695c4a669150ef2d6c099fb26ae3e8989f39b32c9fb60d5175",
+      "note": null
+    },
+    {
+      "id": "library-text/9c2378294ed7f4fd",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "1 布隆科II"
+      ],
+      "before": "桂驾驶的奥卡斯空战及巡航形态。机动性优于野马\nII，但由于上空被相克界覆盖，受限于极限高度\n等问题，无法充分发挥其机动性。即便如此，凭借\n桂卓越的驾驶技术，仍在各处战场发挥了重要作用。",
+      "before_sha256": "b3d5d2541e47deefde2ddf4baeaf307625b978301229f5517f9b92eadddf13fa",
+      "after": "桂驾驶的奥卡斯空战及巡航形态。机动性优于布隆科II，但由于上空被相克界覆盖，受限于极限高度\n等问题，无法充分发挥其机动性。即便如此，凭借\n桂卓越的驾驶技术，仍在各处战场发挥了重要作用。",
+      "after_sha256": "00e8504e9333e0d373c802f1d1206a4f9a619fb46944d6d59ae7ee3e3a80a4ee",
+      "note": null
+    },
+    {
+      "id": "library-text/9ee0e45683ef5d22",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "第七次宇宙战争时，旧革命军为丁香花作战而降\n下的超巨大可变MA。作战失败导致机体受损，\n但被塞文堡市长诺莫亚——即旧革命军的多拉特\n博士秘密修复，藏于地下。由新人类搭乘后，30\n门有线光束炮能感知敌人动向，进行全方位攻击。",
+      "before_sha256": "37b83a8b8a6590eae03a49f9976295bd804ce6ffabf187d9cc3d20d0bce18e2a",
+      "after": "第7次宇宙战争时，旧革命军为丁香花作战而降\n下的超巨大可变MA。作战失败导致机体受损，\n但被塞文堡市长诺莫亚——即旧革命军的多拉特\n博士秘密修复，藏于地下。由新人类搭乘后，30\n门有线光束炮能感知敌人动向，进行全方位攻击。",
+      "after_sha256": "f0aaad85d19299efaf9a59462296bcc3bf2fb76d70a6c6c03d09cbd00eae9156",
+      "note": null
+    },
+    {
+      "id": "library-text/a0ebb8e225d728ac",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-9 黑箱"
+      ],
+      "before": "<width:16><space:16>由奇美拉的极艾·贝贝尔博士改修的巴尔戈拉。机体名\n称由现任驾驶员决定。对各关节部的伺服马达和驱动装\n置进行了调校，并通过<width:0E><space:0C>VWFS<width:16><space:16>（V翼飞行系统）实现在大\n气圈内的飞行，在保留巴尔戈拉出色操作响应的基础上，\n又获得了惊人的运动性能。此外，加纳利·卡弗也因特异现\n象而发生变容，输出大幅提升。据认为这是原本作为黑匣子\n的核心部分吸收了周边部件，重构为接近原有功能的状态。",
+      "before_sha256": "bf27d930b4de6d0a4ceeef6379b39a6c68adf2d1053c033cde92e52b3c1d654e",
+      "after": "<width:16><space:16>由奇美拉的极艾·贝贝尔博士改修的巴尔戈拉。机体名\n称由现任驾驶员决定。对各关节部的伺服马达和驱动装\n置进行了调校，并通过<width:0E><space:0C>VWFS<width:16><space:16>（V翼飞行系统）实现在大\n气圈内的飞行，在保留巴尔戈拉出色操作响应的基础上，\n又获得了惊人的运动性能。此外，加纳利·卡弗也因特异现\n象而发生变容，输出大幅提升。据认为这是原本作为黑箱\n的核心部分吸收了周边部件，重构为接近原有功能的状态。",
+      "after_sha256": "1cc4cdb3cd690a69dc080754b9716ccc141146dea068079e54a781db8d3a9873",
+      "note": null
+    },
+    {
+      "id": "library-text/d24f4216be408de5",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "1 钱德拉"
+      ],
+      "before": "达里达·罗拉哈·钱德勒二世",
+      "before_sha256": "e61654b5ad914f072485bf0af720089c9b7a5835e8e1310d13b692886ec36ddf",
+      "after": "达里达·罗拉哈·钱德拉二世",
+      "after_sha256": "d691256bd5f2123876e2b197d367abfd6aca0ba3f4c4056c62bfa3447f50608f",
+      "note": null
+    },
+    {
+      "id": "library-text/e0342807dc5abd75",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-7 丑女二人组"
+      ],
+      "before": "胜平的亲卫队、通称“丑女搭档”\n的一员。全家遭受盖佐克袭击而\n受灾，误以为原因在于神家族，\n将愤怒发泄在胜平身上。与亚纪一样\n被盖佐克俘虏，但在被制成人体炸弹\n前被香月救出，侥幸逃脱成功。",
+      "before_sha256": "a9c1afddb2ee83c427e6b7cf0a09ee1a7b4427f0f31e881d71bce9bf79bca774",
+      "after": "胜平的亲卫队、通称“丑女二人组”\n的一员。全家遭受盖佐克袭击而\n受灾，误以为原因在于神家族，\n将愤怒发泄在胜平身上。与亚纪一样\n被盖佐克俘虏，但在被制成人体炸弹\n前被香月救出，侥幸逃脱成功。",
+      "after_sha256": "31dc8ec51b22c90bf2613d5e8eab41eed27f4506ea48accc7a4647cfff92e248",
+      "note": null
+    },
+    {
+      "id": "library-text/ee9b8deaaa64c61f",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "旧宇宙革命军开发的新人类专用MS。除了高机动性之外，\n最大特征是装备了只有新人类才能操控的脑波诱导兵器\n“浮游炮”。据记载，在第七次宇宙战争期间，为了以\n登陆并压制地球为目的的丁香花作战，至少制造了5架。",
+      "before_sha256": "a9a8f449003baafb11e8952b5572338d77827a842c08ff0d66cccf0f0f44133b",
+      "after": "旧宇宙革命军开发的新人类专用MS。除了高机动性之外，\n最大特征是装备了只有新人类才能操控的脑波诱导兵器\n“浮游炮”。据记载，在第7次宇宙战争期间，为了以\n登陆并压制地球为目的的丁香花作战，至少制造了5架。",
+      "after_sha256": "4a659ef76948a7ef9aca512adff4c03af2e2532bd9793d8a608485726cb4f8bb",
+      "note": null
+    },
+    {
+      "id": "library-text/f1123336af0515d8",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "1 布隆科II"
+      ],
+      "before": "工厂的技术人员。桂所乘坐的野\n马II大破时，他凭借出色的技术\n进行修理和改造，打造出了奥卡斯。\n与奇拉姆结盟后，他与奇拉姆的\n技术人员共同完成了时空转换装置。",
+      "before_sha256": "e73331cb300249c75b4ab452e2d6950fd8d10eec9755de1a43b2be5f443c980a",
+      "after": "工厂的技术人员。桂所乘坐的布隆科II大破时，他凭借出色的技术\n进行修理和改造，打造出了奥卡斯。\n与奇拉姆结盟后，他与奇拉姆的\n技术人员共同完成了时空转换装置。",
+      "after_sha256": "b04afc3a7f35ef662575eca089498e4f326b88318beb02ae352c13f974be9197",
+      "note": null
+    },
+    {
+      "id": "library-text/f6b04509663677c4",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "<width:16><space:16>住在乌鲁古斯克的17岁少年，除了\n擅长游戏之外并无特别之处。父母被\n大逃亡主义者杀害，因此憎恨大逃亡\n主义，怀着心灵创伤闭门不出。\n在沉迷于网络游戏《超限人战斗》的\n日子里，终于达成<width:0E><space:0C>200<width:16><space:16>连胜，获得了\n“王者”这一冠军称号。某天因不白\n之冤入狱，在牢中与该隐相遇，趁机\n一同越狱。途中获得的超限人被命名\n为“王者盖纳”，他以游戏冠军的身\n手迎战逼近的西伯利亚铁路警备队。\n随后顺势参加了大逃亡。由于过去的\n经历，他起初性格相当内向。但在对\n该隐的憧憬与反抗、对莎拉的情意、\n自身的责任与可能性等种种思绪交\n织中持续战斗，他成为了雅邦天井\n继续大逃亡的重要力量。与此同时，\n他自己也在人格上获得了成长。",
+      "before_sha256": "48cb875440069a9c6b42485c387e90789277ae2e84ee5af59540e64d3c3a36f2",
+      "after": "<width:16><space:16>住在乌鲁古斯克的17岁少年，除了\n擅长游戏之外并无特别之处。父母被\n大逃亡主义者杀害，因此憎恨大逃亡\n主义，怀着心灵创伤闭门不出。\n在沉迷于网络游戏《超限人对战》的\n日子里，终于达成<width:0E><space:0C>200<width:16><space:16>连胜，获得了\n“王者”这一冠军称号。某天因不白\n之冤入狱，在牢中与该隐相遇，趁机\n一同越狱。途中获得的超限人被命名\n为“王者盖纳”，他以游戏冠军的身\n手迎战逼近的西伯利亚铁路警备队。\n随后顺势参加了大逃亡。由于过去的\n经历，他起初性格相当内向。但在对\n该隐的憧憬与反抗、对莎拉的情意、\n自身的责任与可能性等种种思绪交\n织中持续战斗，他成为了雅邦天井\n继续大逃亡的重要力量。与此同时，\n他自己也在人格上获得了成长。",
+      "after_sha256": "c9bea8dd2526cf3f74c4c9698a32f19e857c50df1494bca09e19bceda6f03bcf",
+      "note": null
+    },
+    {
+      "id": "library-text/f82d089b77419097",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "<width:16><space:16>住在乌鲁古斯克，除了擅长游戏\n之外是个普通少年，17岁。父母被\n大逃亡主义者杀害，因此厌恶大逃亡\n主义，内心带着创伤闭门不出。\n在沉迷于网络游戏《超限人战斗》\n的日子里，终于达成<width:0E><space:0C>200<width:16><space:16>连胜，\n获得了“王者”的冠军称号。某天在\n因莫须有罪名被关入的牢狱中与该隐\n相遇，趁机越狱。途中获得的超限人\n被命名为“王者盖纳”，向逼近的\n西伯利亚铁路警备队展示了游戏冠军\n的身手。然后顺势参加了大逃亡。\n由于过去的经历，起初性格相当\n内向。但在对该隐的憧憬与反抗、\n对莎拉的感情、自身的责任与可能性\n等各种思绪交织中持续战斗，他成为\n了雅邦天井继续大逃亡的重要力量。\n与此同时，他自己也在人格上不断\n成长。在与既是游戏对手又是基兹\n·蒙特部下的辛西亚的战斗中，无法\n全力以赴而落败身受重伤。但辛西亚\n也对现实中流血战斗感到震惊，\n因这一破绽被超限恶魔捕获。为了\n拯救辛西亚，他进行了同时对抗游戏\n与现实两方面敌人的特训。经过苦战\n取得胜利，成功超越了过去的自己。\n怀着新的“王者”称号前往辛西亚\n处，途中虽被超限恶魔吞噬，但在\n莎拉和该隐的支援下成功解救了她。",
+      "before_sha256": "f8c0c6d4fd1a7033dc0dfb2daabe5c1a5e84df841e32e9930d5b2766095ec3ea",
+      "after": "<width:16><space:16>住在乌鲁古斯克，除了擅长游戏\n之外是个普通少年，17岁。父母被\n大逃亡主义者杀害，因此厌恶大逃亡\n主义，内心带着创伤闭门不出。\n在沉迷于网络游戏《超限人对战》\n的日子里，终于达成<width:0E><space:0C>200<width:16><space:16>连胜，\n获得了“王者”的冠军称号。某天在\n因莫须有罪名被关入的牢狱中与该隐\n相遇，趁机越狱。途中获得的超限人\n被命名为“王者盖纳”，向逼近的\n西伯利亚铁路警备队展示了游戏冠军\n的身手。然后顺势参加了大逃亡。\n由于过去的经历，起初性格相当\n内向。但在对该隐的憧憬与反抗、\n对莎拉的感情、自身的责任与可能性\n等各种思绪交织中持续战斗，他成为\n了雅邦天井继续大逃亡的重要力量。\n与此同时，他自己也在人格上不断\n成长。在与既是游戏对手又是基兹\n·蒙特部下的辛西亚的战斗中，无法\n全力以赴而落败身受重伤。但辛西亚\n也对现实中流血战斗感到震惊，\n因这一破绽被超限恶魔捕获。为了\n拯救辛西亚，他进行了同时对抗游戏\n与现实两方面敌人的特训。经过苦战\n取得胜利，成功超越了过去的自己。\n怀着新的“王者”称号前往辛西亚\n处，途中虽被超限恶魔吞噬，但在\n莎拉和该隐的支援下成功解救了她。",
+      "after_sha256": "21d2d59fa91da961f1238c093c29a549c44e27611b6fc206bbac17e58bee8dbd",
+      "note": null
+    },
+    {
+      "id": "library-text/fb3a7507e2a253de",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "率领地球联邦政府木星船团的朱庇\n特里斯的舰长，军衔上尉，26岁。\n拥有高水准的新人类能力和领袖魅\n力。此外从机动战士的设计到驾驶、\n作战的立案与指挥、乃至应对女性，\n各方面都能完美完成的天才。他的\n力量令莎拉着迷，使蕾柯亚从奥古倒\n戈，连挑剔的亚赞也被拉拢为同伴。\n曾明言“战后将由女性统治世界”，\n但这句话的含义始终未明。回归地球\n圈后隶属提坦斯，但源于其才能的\n野心似乎不是军队框架所能容纳的。",
+      "before_sha256": "04f474cad8f0edf031568b5a72de3a1419c4cb3164c244216ef24c5b5731f3de",
+      "after": "率领地球联邦政府木星船团的朱庇特利斯的舰长，军衔上尉，26岁。\n拥有高水准的新人类能力和领袖魅\n力。此外从机动战士的设计到驾驶、\n作战的立案与指挥、乃至应对女性，\n各方面都能完美完成的天才。他的\n力量令莎拉着迷，使蕾柯亚从奥古倒\n戈，连挑剔的亚赞也被拉拢为同伴。\n曾明言“战后将由女性统治世界”，\n但这句话的含义始终未明。回归地球\n圈后隶属提坦斯，但源于其才能的\n野心似乎不是军队框架所能容纳的。",
+      "after_sha256": "1a584f78786693833e07d88c31c3f39e4cc90f3876af73eb6c5dafc57fc95eae",
+      "note": null
+    },
+    {
+      "id": "metadata/keyword_summaries/048",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-18 气力上限突破"
+      ],
+      "before": "＜斗争心＞ ＜战意高扬＞ ＜气力＋（回避）＞\n＜气力＋（命中）＞ ＜气力＋（伤害）＞ ＜气力＋（击破）＞\n＜气力限界突破＞ ＜王牌驾驶员＞ ＜顶尖王牌＞",
+      "before_sha256": "a95a3d2f54a59f791d6b139e05f3de9f875b15df3f3fbc4b32ba5758a1f5c7b9",
+      "after": "＜斗争心＞ ＜战意高扬＞ ＜气力＋（回避）＞\n＜气力＋（命中）＞ ＜气力＋（伤害）＞ ＜气力＋（击破）＞\n＜气力上限突破＞ ＜王牌驾驶员＞ ＜顶尖王牌＞",
+      "after_sha256": "4e0de528267020782d4b51cf0b66df6a0bfe38feb05d5845394dd6e782eca7bb",
+      "note": null
+    },
+    {
+      "id": "metadata/keyword_summaries/060",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-17 完全抗性"
+      ],
+      "before": "＜特殊效果＞ ＜对精神攻击＞ ＜P系＞\n＜全取消器＞",
+      "before_sha256": "aceac315549e0d1942b1de7d97a9b9f3deb7da274bde65dd7a01eafd9a0b358c",
+      "after": "＜特殊效果＞ ＜对精神攻击＞ ＜P系＞\n＜完全抗性＞",
+      "after_sha256": "f89e080e8fd1fa65f2d994c97d4648f8a1ab714ae95f50f3171555a119887db0",
+      "note": null
+    },
+    {
+      "id": "metadata/keyword_summaries/066",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-18 气力上限突破"
+      ],
+      "before": "＜气力＞ ＜斗争心＞ ＜战意高扬＞ ＜气力＋（回避）＞\n＜气力＋（命中）＞ ＜气力＋（伤害）＞ ＜气力＋（击破）＞\n＜气力限界突破＞ ＜王牌驾驶员＞ ＜顶尖王牌＞",
+      "before_sha256": "218985832a6ffaa0d61451d177f6e04f28f6cbfad5ef042360d5f5d4822e9e08",
+      "after": "＜气力＞ ＜斗争心＞ ＜战意高扬＞ ＜气力＋（回避）＞\n＜气力＋（命中）＞ ＜气力＋（伤害）＞ ＜气力＋（击破）＞\n＜气力上限突破＞ ＜王牌驾驶员＞ ＜顶尖王牌＞",
+      "after_sha256": "97e4489ebd64f8ef9ba39fefbd153fae840cbb313c67ba61ba7e1241c03d529d",
+      "note": null
+    },
+    {
+      "id": "metadata/keyword_summaries/080",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-16 均衡方案"
+      ],
+      "before": "＜自动编成＞\n＜基本指令＞ ＜平衡指令＞",
+      "before_sha256": "eca6446039a7427ed8f05c43441139e2695f357ef2c65c1160dbc6da8a728966",
+      "after": "＜自动编成＞\n＜基本指令＞ ＜均衡方案＞",
+      "after_sha256": "e5838aabbbf09fb43c02b5702a181464c365fd07cebb04f5fdad63990fd756d6",
+      "note": null
+    },
+    {
+      "id": "metadata/keyword_summaries/100",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-14 中断保存",
+        "2-15 快速读档"
+      ],
+      "before": "＜中途存档＞ ＜CONTINUE＞ ＜软复位＞\n＜快速开始＞",
+      "before_sha256": "33bd7846d3f1eeed79cf111b8583ece082f8f993701eb38957bccc327feb0664",
+      "after": "＜中断保存＞ ＜CONTINUE＞ ＜软复位＞\n＜快速读档＞",
+      "after_sha256": "03d210403e982876d94f25ebb6d7039fd4ef1061bb7b755d7c63d41d83440c85",
+      "note": null
+    },
+    {
+      "id": "page/049/record/040",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-18 气力上限突破"
+      ],
+      "before": "气力限界突破",
+      "before_sha256": "a209cedb9f4f34a2f166c24a8a26c8a09c977ba64be37c62cb8af1d4939af2bf",
+      "after": "气力上限突破",
+      "after_sha256": "9882fdd7cf726b43d836dd6b65f7235bed0368191c52e9e4a94f009c9b1ea62b",
+      "note": null
+    },
+    {
+      "id": "page/053/record/017",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-19 弹数"
+      ],
+      "before": "完全回复指定我方单位1机的EN与弹药数。",
+      "before_sha256": "b3abc1dd923b68605a6bf9a956db09e8d1d6568645029283435929a0cc812953",
+      "after": "完全回复指定我方单位1机的EN与弹数。",
+      "after_sha256": "7a6f084e57349325c2b9b807d273064b5e353665d2b5a6801a6a17c880156d02",
+      "note": null
+    },
+    {
+      "id": "page/053/record/020",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-19 弹数"
+      ],
+      "before": "强化零件中有可回复HP或EN・弹药数的类型。以",
+      "before_sha256": "267b19f5bf86d5c8e1722edf538d7aa03a3604a7b7273c4906879b3f352eb0e7",
+      "after": "强化零件中有可回复HP或EN・弹数的类型。以",
+      "after_sha256": "8de130e9b0a20a81f192200c214b2992f864df11f33d458c16d8c8a523640a57",
+      "note": null
+    },
+    {
+      "id": "page/053/record/033",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-19 弹数"
+      ],
+      "before": "完全回复弹药数。",
+      "before_sha256": "253b8b94b88996c370fc8669b59723bed2c288ea359fb9c216552346324e9556",
+      "after": "完全回复弹数。",
+      "after_sha256": "424ba882e38bff8f3e0adc1038c62c0425ea2cb0671c3061b133570e6e40dad2",
+      "note": null
+    },
+    {
+      "id": "page/054/record/019",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-19 弹数"
+      ],
+      "before": "段开始时，HP・EN回复最大值的15%，弹药数回",
+      "before_sha256": "da524ac3980f9cc93c61fdeab214d54a17a1d5aa9a0cf028e6523344ea84c2c2",
+      "after": "段开始时，HP・EN回复最大值的15%，弹数回",
+      "after_sha256": "bac6e24f77ca4a72df2c9c57be235e1641ca7d6869c0f291e806168e12c6e860",
+      "note": null
+    },
+    {
+      "id": "page/061/record/014",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-17 完全抗性"
+      ],
+      "before": "・全取消器",
+      "before_sha256": "cd1ec97bdbe4f6b1dd15b7f50831bd84821b64b783cb25fd04c598d47bc2c705",
+      "after": "・完全抗性",
+      "after_sha256": "2332f82c893472ca3240e6ffd070927e50234a41591ff280998597d9b549d253",
+      "note": null
+    },
+    {
+      "id": "page/081/record/024",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-16 均衡方案"
+      ],
+      "before": "平衡指令",
+      "before_sha256": "968e1d8173ff573de1470bb94bf96345502298cea26618436461690f1f25b584",
+      "after": "均衡方案",
+      "after_sha256": "ca7cc4709e9cb7c0837a998e1e1353a1548c8f2ff3156fe4a501619dcd896665",
+      "note": null
+    },
+    {
+      "id": "page/101/record/001",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-15 快速读档"
+      ],
+      "before": "软复位→快速开始",
+      "before_sha256": "0facf441aab760fd84562c16a6f13b7d09e97997cf8815677a28d226e3a80f75",
+      "after": "软复位→快速读档",
+      "after_sha256": "ab06c92507ae837b8be8d76d12ba8b0be88486f6a5ab2b308ede3de1e364a8d8",
+      "note": null
+    },
+    {
+      "id": "page/101/record/004",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-14 中断保存"
+      ],
+      "before": "中途存档",
+      "before_sha256": "aa2668a1be810c77d180395123e422365bab5ac8417e6db69a85f53fd38a7736",
+      "after": "中断保存",
+      "after_sha256": "860abcf95555e6a01f059ef13413fab8ec847c27ae8ee8694a450b42c8400efa",
+      "note": null
+    },
+    {
+      "id": "page/101/record/008",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-14 中断保存"
+      ],
+      "before": "即可返回中途存档时的状态。",
+      "before_sha256": "24617df0e0b8a1838aed90462b7036d4f9d07b082cbb9607e1b0ab8b7744d7d7",
+      "after": "即可返回中断保存时的状态。",
+      "after_sha256": "13afe04378eeab96e19d77aaa90ff1be7a6915475f9f0246b3c6258171a7055e",
+      "note": null
+    },
+    {
+      "id": "page/101/record/010",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-14 中断保存"
+      ],
+      "before": "要快速回到中途存档，可",
+      "before_sha256": "7d2eb4ad722e7932b44f255f8a88c0fa83a6357ebfe439ae5c5adf3c651f08ae",
+      "after": "要快速回到中断保存，可",
+      "after_sha256": "df44ddd405f7fca5a140fcb66573b97c3794369d0fb667a991b123e923e58c92",
+      "note": null
+    },
+    {
+      "id": "page/101/record/020",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-14 中断保存"
+      ],
+      "before": "即可执行跳过标题画面、直接读取中途存档的",
+      "before_sha256": "fc30ad218a6cef71645a7cf5be52dc150f1f6f4011ce3fe516518bd5349e3856",
+      "after": "即可执行跳过标题画面、直接读取中断保存的",
+      "after_sha256": "edb1ee3180a463df77721544e60dc05036c19c88f587e438e157e4587c938f51",
+      "note": null
+    },
+    {
+      "id": "page/101/record/022",
+      "file": "corpus/zh/menu/nisv-strategy-qa.json",
+      "groups": [
+        "2-15 快速读档"
+      ],
+      "before": "快速开始",
+      "before_sha256": "334c20e1a48091b99e3c1293f15034a77d5cc639f1fe02da93ecab0ce0e9440d",
+      "after": "快速读档",
+      "after_sha256": "096bce969dbebe4ee4eb9b2964e50481e75664dea53cf2fdedd27c123f4cdc36",
+      "note": null
+    },
+    {
+      "id": "menu/Compdata/direct/opening-female-profile",
+      "file": "corpus/zh/menu/opening-protagonist-profile.json",
+      "groups": [
+        "2-10 试飞员"
+      ],
+      "before": "地球联邦军士兵，担任新型机测试驾驶员。\n性格胆怯，遇事总是消极，却又十分认真，\n总会拼尽全力完成自己的任务。",
+      "before_sha256": "92bbd3fc059e438268e34b970acb70e3397bef857f8178bb1265a5904577e655",
+      "after": "地球联邦军士兵，担任新型机试飞员。\n性格胆怯，遇事总是消极，却又十分认真，\n总会拼尽全力完成自己的任务。",
+      "after_sha256": "fae3601855d8313f81a77430a858e6bd7c3c43364e4b4b202e746d83ea7dcd8f",
+      "note": null
+    },
+    {
+      "id": "menu/Compdata/01/0124",
+      "file": "corpus/zh/menu/release-v0.3.json",
+      "groups": [
+        "2-12 锦旗"
+      ],
+      "before": "埃曼土产三角旗",
+      "before_sha256": "dae4a9b79964ceec352196a4c6c9eda413793c42527f32c24a7d2a9ff602c0cd",
+      "after": "埃曼土产锦旗",
+      "after_sha256": "a4c24c7aca76c4b6655cad2334fb7170c2ee892a81670b0a3d203319fb1f8272",
+      "note": null
+    },
+    {
+      "id": "menu/Compdata/01/0125",
+      "file": "corpus/zh/menu/release-v0.3.json",
+      "groups": [
+        "2-12 锦旗"
+      ],
+      "before": "印有埃曼各地观光名胜的\n三角旗。\n作为旅行纪念品很受欢迎？",
+      "before_sha256": "6c4c9b0a59117a1b171737f4cf1d2ecb6bf396fb9fe4ec63690cc910e608842e",
+      "after": "印有埃曼各地观光名胜的\n锦旗。\n作为旅行纪念品很受欢迎？",
+      "after_sha256": "5db9fc5b70b38aba5583f140fc2732ae3f90e3010bee29b1a2ebbff32b2ddeae",
+      "note": null
+    },
+    {
+      "id": "overview:014",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 高安"
+      ],
+      "before": "　众人因扭曲从加利亚大陆被送到\n北阿美利亚大陆，受到当地少年罗兰照顾。\n　罗兰其实是月之民，为充当地球回归计划\n的样本，从两年前起便潜伏在地球社会生活。\n　月之民回归行动开始后，月之民军队\n迪安娜回归军因误会向地球发动攻击。\n　罗兰在成人礼祭典上驾驶从石像中现身的机械人偶白色人偶\n迎战。钢铁齿轮一行也出手协助，成功击退迪安娜回归军。\n　此前一直推动与月之民谈判的领主\n古恩，为打破僵局而采取了下一步行动。\n",
+      "before_sha256": "040558a776d7053d560630647aa4d66dc0fea2bb2c1a1092d72ebe665c14c883",
+      "after": "　众人因扭曲从加利亚大陆被送到\n北阿美利亚大陆，受到当地少年罗兰照顾。\n　罗兰其实是月之民，为充当地球回归计划\n的样本，从两年前起便潜伏在地球社会生活。\n　月之民回归行动开始后，月之民军队\n迪安娜回归军因误会向地球发动攻击。\n　罗兰在成人礼祭典上驾驶从石像中现身的机械人偶白色人偶\n迎战。钢铁齿轮一行也出手协助，成功击退迪安娜回归军。\n　此前一直推动与月之民谈判的领主\n高安，为打破僵局而采取了下一步行动。\n",
+      "after_sha256": "b65aa675bc2e226e59b8544987633d9d2259f2768a31591d29be3debe7ef8651",
+      "note": null
+    },
+    {
+      "id": "overview:022",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "　迪安娜回归军把北美自治都市福特塞文选作月之民\n回归地，然而这并非迪安娜本意，而是军方暴走。\n　卡利斯雇来和平号与之对抗。\n　钢铁齿轮一行与弗罗斯特兄弟率领的新联邦军\n也先后出现，战场陷入混乱。假扮姬艾尔的\n迪安娜试图与假扮迪安娜的姬艾尔再次换回身份。\n　交换身份虽然失败，福特塞文却得以保住。\n　但这场败仗使迪安娜回归军内部的军方暴走变得更加严重。\n",
+      "before_sha256": "6035634e73c3435d119de0b4f254e2e3be22b8dc1f8b2507d04f01a3adb5f5fb",
+      "after": "　迪安娜回归军把北美自治都市塞文堡选作月之民\n回归地，然而这并非迪安娜本意，而是军方暴走。\n　卡利斯雇来和平号与之对抗。\n　钢铁齿轮一行与弗罗斯特兄弟率领的新联邦军\n也先后出现，战场陷入混乱。假扮姬艾尔的\n迪安娜试图与假扮迪安娜的姬艾尔再次换回身份。\n　交换身份虽然失败，塞文堡却得以保住。\n　但这场败仗使迪安娜回归军内部的军方暴走变得更加严重。\n",
+      "after_sha256": "59544bf873970031e8710e0a7ecc5d4cdbc180f90240ba55d91af0fc8cf08a06",
+      "note": null
+    },
+    {
+      "id": "overview:023",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 上尉"
+      ],
+      "before": "　桂在加利亚与阿美利亚之间的贸易点遭到奇拉姆袭击。\n　新联邦军、扎夫特与奥古、异星人、帝皇比亚路、\n堕天翅、和平号与钢铁齿轮也相继出现，战场陷入大混乱。\n　众人勉强击退敌人后，新地球联邦\n特殊部队奇美拉的雷本大尉前来接触。\n　此前分散在世界各地战斗的众人，终于在此齐聚一堂。\n",
+      "before_sha256": "d75a71ab33b820c82ae2d09f9aa620c51af79012941653d745014d66030578ce",
+      "after": "　桂在加利亚与阿美利亚之间的贸易点遭到奇拉姆袭击。\n　新联邦军、扎夫特与奥古、异星人、帝皇比亚路、\n堕天翅、和平号与钢铁齿轮也相继出现，战场陷入大混乱。\n　众人勉强击退敌人后，新地球联邦\n特殊部队奇美拉的雷本上尉前来接触。\n　此前分散在世界各地战斗的众人，终于在此齐聚一堂。\n",
+      "after_sha256": "392951bed2a6aff5f2825d019d078cb26c39297e0401b77f89ec0bf82310f48f",
+      "note": null
+    },
+    {
+      "id": "overview:044",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 上尉"
+      ],
+      "before": "　布莱德等人在丹帕冈达基地与艾黛尔准将会谈。\n　与此同时，众人得知另一队伍过于任性的行动，心中愈发愤怒。\n　星3号为克服刻在心中的对阿萨基姆的恐惧，主动回应他的召唤。\n　面对阿萨基姆同伙兹妮的攻击，她陷入苦战。\n雷本大尉和同伴的呼唤令她重燃斗志，击败兹妮。\n　归来后，星3号与艾黛尔会面。为应对今后\n的战斗，她请奇美拉的极艾博士改造巴尔戈拉。\n",
+      "before_sha256": "b4d8814f581a72352cf65eca95fbec6101c06ced0c9de6d1c19c1d82ce55f110",
+      "after": "　布莱德等人在丹帕冈达基地与艾黛尔准将会谈。\n　与此同时，众人得知另一队伍过于任性的行动，心中愈发愤怒。\n　星3号为克服刻在心中的对阿萨基姆的恐惧，主动回应他的召唤。\n　面对阿萨基姆同伙兹妮的攻击，她陷入苦战。\n雷本上尉和同伴的呼唤令她重燃斗志，击败兹妮。\n　归来后，星3号与艾黛尔会面。为应对今后\n的战斗，她请奇美拉的极艾博士改造巴尔戈拉。\n",
+      "after_sha256": "12c898c575a94f4090e4b191c9e583f3d9e51188fc62a63e0c0b56726b26ce6d",
+      "note": null
+    },
+    {
+      "id": "overview:046",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 西罗克"
+      ],
+      "before": "　前往直布罗陀基地的众人，准备与运送宇宙补给的拉迪修号会合。\n　卡缪等人为警戒幻痛部队先行出发，敌军攻击却\n已开始。面对虽不成熟却奋力作战的花，卡缪态度\n冷淡，但从捷利特新型机攻击下救出他的正是花。\n　得到Z高达的卡缪击退了捷利特等人。\n　战斗结束后，卡缪从花的存在中得到安宁。\n　幻痛部队撤换尼奥，司令西洛克为亲自指挥，即将前往前线。\n",
+      "before_sha256": "ce726f292adbec9cc0b5a62c14cb4f7419a04ee297c62f6731d0e560a6b0c5b3",
+      "after": "　前往直布罗陀基地的众人，准备与运送宇宙补给的拉迪修号会合。\n　卡缪等人为警戒幻痛部队先行出发，敌军攻击却\n已开始。面对虽不成熟却奋力作战的花，卡缪态度\n冷淡，但从捷利特新型机攻击下救出他的正是花。\n　得到Z高达的卡缪击退了捷利特等人。\n　战斗结束后，卡缪从花的存在中得到安宁。\n　幻痛部队撤换尼奥，司令西罗克为亲自指挥，即将前往前线。\n",
+      "after_sha256": "3c283d88df358cd1ae46649b2e7c435ad8f7c7601aa975a29e9616339db4771a",
+      "note": null
+    },
+    {
+      "id": "overview:047",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 太阳号"
+      ],
+      "before": "　迪安娜与迪兰达尔在直布罗陀会谈，结果以破裂告终。随后与\n迪兰达尔会谈的克瓦特罗等人，为他揭示的多元世界危机震惊。\n　当晚，迪安娜在拉克丝·克莱茵的演唱会场遭人\n绑架。追踪而去的卡缪与帕普提马斯·西罗克对峙。\n　幻痛部队袭击基地，蕾柯亚遭到击坠；\n与此同时，迪安娜回归军内部又爆发军方政变。\n　迪安娜公开真实身份，为救姬艾尔\n登上苏蕾尤，再次与她交换身份。\n",
+      "before_sha256": "c15d0c1b5a4d38a9a34b0282b50775022063b01f7eccbf50f77146a92c431181",
+      "after": "　迪安娜与迪兰达尔在直布罗陀会谈，结果以破裂告终。随后与\n迪兰达尔会谈的克瓦特罗等人，为他揭示的多元世界危机震惊。\n　当晚，迪安娜在拉克丝·克莱茵的演唱会场遭人\n绑架。追踪而去的卡缪与帕普提马斯·西罗克对峙。\n　幻痛部队袭击基地，蕾柯亚遭到击坠；\n与此同时，迪安娜回归军内部又爆发军方政变。\n　迪安娜公开真实身份，为救姬艾尔\n登上太阳号，再次与她交换身份。\n",
+      "after_sha256": "b41962e19cda224052ed0d8b592edc2ed21c862584c861b0d3b9b768993a6fa9",
+      "note": null
+    },
+    {
+      "id": "overview:048",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 太阳号"
+      ],
+      "before": "　真与雷放走史黛拉后受到的处分出\n乎意料地轻。卡缪告诫愈发自大的真。\n　众人为救出迪安娜，自行决定追击苏蕾尤。面对\n金卡拉姆舰队和新联邦军攻击，现身的自由高达提\n出合作。尽管众人奋力作战，迪安娜仍被带往宇宙。\n　哈利和姬艾尔接受大天使号的提议，决定与他们一同进入宇宙。\n　众人仍为难解的局势混乱不已，\n新联邦军入侵奇拉姆的消息随即传来。\n",
+      "before_sha256": "e7663c991d1ec9c64a53e70b3ab861e4c1a363a1d0a8a98720249c9d1f2eecd2",
+      "after": "　真与雷放走史黛拉后受到的处分出\n乎意料地轻。卡缪告诫愈发自大的真。\n　众人为救出迪安娜，自行决定追击太阳号。面对\n金卡拉姆舰队和新联邦军攻击，现身的自由高达提\n出合作。尽管众人奋力作战，迪安娜仍被带往宇宙。\n　哈利和姬艾尔接受大天使号的提议，决定与他们一同进入宇宙。\n　众人仍为难解的局势混乱不已，\n新联邦军入侵奇拉姆的消息随即传来。\n",
+      "after_sha256": "55f1a484b1123c131d0c891490bd3c729bac4852414035fdab973834ac58f535",
+      "note": null
+    },
+    {
+      "id": "overview:053",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 西罗克"
+      ],
+      "before": "　迪兰达尔的演说令全世界陷入混乱，愤\n怒的市民高声要求彻底排斥贤人会议一派。\n　以此为契机，新地球联邦在西洛克和杜威的指挥下发动了政变。\n　重组后的新地球联邦政府把所有责任推给贤人会议，并以清\n廉形象示人；然而，众人却因潜藏在背后的敌人而愈发不安。\n　众人击破了遭遇的新联邦军部队，但随\n后出现的却是大天使号与昔日的伙伴们。\n",
+      "before_sha256": "9da2154dfc80b3a5cf272c701a5ce4d942c0a082bfc02e7fe7df036cf448d1c3",
+      "after": "　迪兰达尔的演说令全世界陷入混乱，愤\n怒的市民高声要求彻底排斥贤人会议一派。\n　以此为契机，新地球联邦在西罗克和杜威的指挥下发动了政变。\n　重组后的新地球联邦政府把所有责任推给贤人会议，并以清\n廉形象示人；然而，众人却因潜藏在背后的敌人而愈发不安。\n　众人击破了遭遇的新联邦军部队，但随\n后出现的却是大天使号与昔日的伙伴们。\n",
+      "after_sha256": "e2465ae1c1b9ff3926e8c1cbb2a2239950b257a7748a167d53defbad60e45d32",
+      "note": null
+    },
+    {
+      "id": "overview:068",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 阿加托结晶"
+      ],
+      "before": "　盖纳终于与游戏中的对手辛西亚见面，二人成为朋友。\n　西伯铁总裁基兹·蒙特为杀鸡儆猴，决定亲\n手击败承包乌鲁古斯克大逃亡的该隐和同伴们。\n　基兹用阿加特结晶和大军将众人逼入绝境。盖纳与莎拉\n避开追来的辛西亚，闯入结晶内部，超限恶魔却仍然复活。\n　众人面对它压倒性的力量，只得撤退。\n　败给辛西亚的盖纳发誓重新锻炼自己，让她恢复清醒。\n",
+      "before_sha256": "8a34fa81afb946dc0dde4cc42e3cd144a4f1ec716995da23fed3e607489ff178",
+      "after": "　盖纳终于与游戏中的对手辛西亚见面，二人成为朋友。\n　西伯铁总裁基兹·蒙特为杀鸡儆猴，决定亲\n手击败承包乌鲁古斯克大逃亡的该隐和同伴们。\n　基兹用阿加托结晶和大军将众人逼入绝境。盖纳与莎拉\n避开追来的辛西亚，闯入结晶内部，超限恶魔却仍然复活。\n　众人面对它压倒性的力量，只得撤退。\n　败给辛西亚的盖纳发誓重新锻炼自己，让她恢复清醒。\n",
+      "after_sha256": "6ea4d9637733c0a1289417469cd99e35e56de49ad604b3afacb1380f6a7fc604",
+      "note": null
+    },
+    {
+      "id": "overview:071",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 西罗克"
+      ],
+      "before": "　迪兰达尔的演说令全世界陷入混乱，愤\n怒的市民高声要求彻底排斥贤人会议一派。\n　以此为契机，新地球联邦在西洛克和杜威的指挥下发动了政变。\n　重组后的新地球联邦政府把所有责任推给贤人会议，并以清\n廉形象示人；然而，众人却因潜藏在背后的敌人而愈发不安。\n　众人击破了遭遇的新联邦军部队，\n但随后出现的却是昔日的伙伴们。\n",
+      "before_sha256": "6713a3b2e90ef8ee938077f3366d4a5ab303519a386971843764a83b14a2fbc1",
+      "after": "　迪兰达尔的演说令全世界陷入混乱，愤\n怒的市民高声要求彻底排斥贤人会议一派。\n　以此为契机，新地球联邦在西罗克和杜威的指挥下发动了政变。\n　重组后的新地球联邦政府把所有责任推给贤人会议，并以清\n廉形象示人；然而，众人却因潜藏在背后的敌人而愈发不安。\n　众人击破了遭遇的新联邦军部队，\n但随后出现的却是昔日的伙伴们。\n",
+      "after_sha256": "db19ebedb739982c5569c0790e14ab73e9ede95dafe32d758f6b88e90323eb80",
+      "note": null
+    },
+    {
+      "id": "overview:103",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 UN空间站"
+      ],
+      "before": "　艾黛尔企图夺回UN站，依照自己的意志控制所有人。\n　众人击败艾黛尔驾驶的奇美拉王牌\n雷姆雷斯，为解放优莱卡登上轨道电梯。\n　所有事件的幕后黑手、黑之卡里斯玛本人——\n极·艾黛尔·贝尔纳尔向众人袭来。众人与任凭\n自私欲望令世界陷入混沌的极·艾黛尔展开决战。\n　为维系崩坏的次元，阿波罗、\n西利乌斯与头翅完成真正的创圣合体。\n　众人与全世界所有人的意志共同修复了时空。\n",
+      "before_sha256": "a318b13ec9c4e73dbc6a2abb65e935724a2c3be197995e63abde404f8f721e77",
+      "after": "　艾黛尔企图夺回UN空间站，依照自己的意志控制所有人。\n　众人击败艾黛尔驾驶的奇美拉王牌\n雷姆雷斯，为解放优莱卡登上轨道电梯。\n　所有事件的幕后黑手、黑之卡里斯玛本人——\n极·艾黛尔·贝尔纳尔向众人袭来。众人与任凭\n自私欲望令世界陷入混沌的极·艾黛尔展开决战。\n　为维系崩坏的次元，阿波罗、\n西利乌斯与头翅完成真正的创圣合体。\n　众人与全世界所有人的意志共同修复了时空。\n",
+      "after_sha256": "be3d21ddc7c418aa3ed00a91161f9c4db38bb3068aa95069335013153dcc596e",
+      "note": null
+    },
+    {
+      "id": "overview:105",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 UN空间站"
+      ],
+      "before": "　艾黛尔企图夺回UN站，依照自己的意志控制所有人。\n　众人击败艾黛尔驾驶的奇美拉王牌\n雷姆雷斯，为解放优莱卡登上轨道电梯。\n　所有事件的幕后黑手、黑之卡里斯玛本人——\n极·艾黛尔·贝尔纳尔向众人袭来。众人与任凭\n自私欲望令世界陷入混沌的极·艾黛尔展开决战。\n　为维系崩坏的次元，阿波罗、\n西利乌斯与头翅完成真正的创圣合体。\n　众人与全世界所有人的意志共同修复了时空。\n",
+      "before_sha256": "a318b13ec9c4e73dbc6a2abb65e935724a2c3be197995e63abde404f8f721e77",
+      "after": "　艾黛尔企图夺回UN空间站，依照自己的意志控制所有人。\n　众人击败艾黛尔驾驶的奇美拉王牌\n雷姆雷斯，为解放优莱卡登上轨道电梯。\n　所有事件的幕后黑手、黑之卡里斯玛本人——\n极·艾黛尔·贝尔纳尔向众人袭来。众人与任凭\n自私欲望令世界陷入混沌的极·艾黛尔展开决战。\n　为维系崩坏的次元，阿波罗、\n西利乌斯与头翅完成真正的创圣合体。\n　众人与全世界所有人的意志共同修复了时空。\n",
+      "after_sha256": "be3d21ddc7c418aa3ed00a91161f9c4db38bb3068aa95069335013153dcc596e",
+      "note": null
+    },
+    {
+      "id": "overview:106",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 UN空间站"
+      ],
+      "before": "　艾黛尔企图夺回UN站，依照自己的意志控制所有人。\n　众人击败艾黛尔驾驶的奇美拉王牌\n雷姆雷斯，登上轨道电梯，但时间已经耗尽。\n　不完全的时空修复创造出的未来，\n是被困在无尽战争之环中的黑暗世界。\n",
+      "before_sha256": "d229d400570273ca3a2d08574b580a6f07af2408aa790ff92e6d96eab7f609bb",
+      "after": "　艾黛尔企图夺回UN空间站，依照自己的意志控制所有人。\n　众人击败艾黛尔驾驶的奇美拉王牌\n雷姆雷斯，登上轨道电梯，但时间已经耗尽。\n　不完全的时空修复创造出的未来，\n是被困在无尽战争之环中的黑暗世界。\n",
+      "after_sha256": "0e401c6ddf94823e52af91f910eab411dd2bde00685ddbc97a1db4958c86fa51",
+      "note": null
+    },
+    {
+      "id": "overview:107",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "groups": [
+        "1 上尉"
+      ],
+      "before": "　奇美拉希望从内部改革新地球联邦军。众\n人以各自方式回应使者雷本大尉的合作邀请。\n　众人分为两队，分别向太平洋与加利亚大陆开辟新的前进路线。\n",
+      "before_sha256": "3bb602ad5a1c644c36dd8cfa41a1e784780ae04e18c32e1ac8d02fe4348b1a7d",
+      "after": "　奇美拉希望从内部改革新地球联邦军。众\n人以各自方式回应使者雷本上尉的合作邀请。\n　众人分为两队，分别向太平洋与加利亚大陆开辟新的前进路线。\n",
+      "after_sha256": "40b58c835832bb256ffbdc22dbf3cd004562709214517a6fcca6243824e41752",
+      "note": null
+    },
+    {
+      "id": "menu/Compdata/01/0124",
+      "file": "corpus/zh/menu/system-ui-parts.json",
+      "groups": [
+        "2-12 锦旗"
+      ],
+      "before": "埃曼土产三角旗",
+      "before_sha256": "dae4a9b79964ceec352196a4c6c9eda413793c42527f32c24a7d2a9ff602c0cd",
+      "after": "埃曼土产锦旗",
+      "after_sha256": "a4c24c7aca76c4b6655cad2334fb7170c2ee892a81670b0a3d203319fb1f8272",
+      "note": null
+    },
+    {
+      "id": "menu/Compdata/01/0125",
+      "file": "corpus/zh/menu/system-ui-parts.json",
+      "groups": [
+        "2-12 锦旗"
+      ],
+      "before": "印有埃曼各地观光名胜的\n三角旗。\n作为旅行纪念品很受欢迎？",
+      "before_sha256": "6c4c9b0a59117a1b171737f4cf1d2ecb6bf396fb9fe4ec63690cc910e608842e",
+      "after": "印有埃曼各地观光名胜的\n锦旗。\n作为旅行纪念品很受欢迎？",
+      "after_sha256": "5db9fc5b70b38aba5583f140fc2732ae3f90e3010bee29b1a2ebbff32b2ddeae",
+      "note": null
+    },
+    {
+      "id": "ui-name/map/050",
+      "file": "corpus/zh/menu/ui-name-tables.json",
+      "groups": [
+        "1 阿加托结晶"
+      ],
+      "before": "阿加特的结晶",
+      "before_sha256": "040d96f5842eae4b6a58b9429284342998ecdded1385cf5379dae02aacf348ed",
+      "after": "阿加托结晶",
+      "after_sha256": "e8b40970188446aa1b6a9f0d9d255615eb7fbb79c3e01ef82f0c6fbaed3acb80",
+      "note": null
+    },
+    {
+      "id": "story/002/dialogue/01.06/0003",
+      "file": "corpus/zh/story-dialogue/stage-002.json",
+      "groups": [
+        "1 亚历克斯·迪诺"
+      ],
+      "before": "“……现在的我是亚历克斯。\n　我已经舍弃那个名字了。”",
+      "before_sha256": "3d717c77a118426b685c286caeaa7534f9cc67ec769a0d611cffc869d9421105",
+      "after": "“……现在的我是亚历克斯·迪诺。\n　我已经舍弃那个名字了。”",
+      "after_sha256": "38d6a1681ea6127969fb4aae15020b28991e3c2cfff6bac528c0fe5dc251faa7",
+      "note": null
+    },
+    {
+      "id": "story/008/dialogue/01.01/0003",
+      "file": "corpus/zh/story-dialogue/stage-008.json",
+      "groups": [
+        "2-10 试飞员"
+      ],
+      "before": "“但是这样好吗，博士？1号机的测试\n　驾驶员应该还在太平洋上等待合流……”",
+      "before_sha256": "7af5fcf8819239466f7ce34bed26908155f50a2f975ed544db533e8e6b4b7ef7",
+      "after": "“但是这样好吗，博士？1号机的\n　试飞员应该还在太平洋上等待合流……”",
+      "after_sha256": "dc024273735466f5bed322bc73edd812ae181eb4b9c9ff0db723c74eca11a364",
+      "note": "relaid"
+    },
+    {
+      "id": "story/010/dialogue/02.01/0000",
+      "file": "corpus/zh/story-dialogue/stage-010.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "奥布　奥诺戈罗岛",
+      "before_sha256": "37117f0fb25dac81749c3b721cc5232624f1d3ebbe82c14faad2b9c32f462fe7",
+      "after": "奥布　淤能碁吕岛",
+      "after_sha256": "5f494cbf76ffc007c37f022f4b4a11e863aaa770dd3a932554e429a0f057e7cf",
+      "note": null
+    },
+    {
+      "id": "story/010/dialogue/02.01/0001",
+      "file": "corpus/zh/story-dialogue/stage-010.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "奥布　奥诺戈罗岛",
+      "before_sha256": "37117f0fb25dac81749c3b721cc5232624f1d3ebbe82c14faad2b9c32f462fe7",
+      "after": "奥布　淤能碁吕岛",
+      "after_sha256": "5f494cbf76ffc007c37f022f4b4a11e863aaa770dd3a932554e429a0f057e7cf",
+      "note": null
+    },
+    {
+      "id": "story/010/dialogue/02.01/0002",
+      "file": "corpus/zh/story-dialogue/stage-010.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "奥布　奥诺戈罗岛",
+      "before_sha256": "37117f0fb25dac81749c3b721cc5232624f1d3ebbe82c14faad2b9c32f462fe7",
+      "after": "奥布　淤能碁吕岛",
+      "after_sha256": "5f494cbf76ffc007c37f022f4b4a11e863aaa770dd3a932554e429a0f057e7cf",
+      "note": null
+    },
+    {
+      "id": "story/010/dialogue/02.01/0156",
+      "file": "corpus/zh/story-dialogue/stage-010.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "“我们相信国家，相信你们所谓的理想……\n　最后却在奥诺戈罗岛被杀死了！”",
+      "before_sha256": "bd3563fb17c332746604788b2a2dcff4f55461b373c48f82761d4d29217361a5",
+      "after": "“我们相信国家，相信你们所谓的理想……\n　最后却在淤能碁吕岛被杀死了！”",
+      "after_sha256": "9de35bd59cde96c70151e1caadf52cf1a8b8cbb7a087b2a42ade051fe22bbaa3",
+      "note": null
+    },
+    {
+      "id": "story/010/dialogue/02.02/0010",
+      "file": "corpus/zh/story-dialogue/stage-010.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "“奥诺戈罗岛之战吗……”",
+      "before_sha256": "7f1d6d8d30b8a1067c3b29e76ec976c0da4ddbe5d7f39d55cf31ae2c03c988fe",
+      "after": "“淤能碁吕岛之战吗……”",
+      "after_sha256": "67f0a899b7d7a887cc8e3a00a11185214db96110367e989d4275c4abdc8f418a",
+      "note": null
+    },
+    {
+      "id": "story/025/dialogue/02.01/0198",
+      "file": "corpus/zh/story-dialogue/stage-025.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“你知道吗，兰顿？在北亚美利加\n　那边也有个叫约定之地的地方。”",
+      "before_sha256": "49ddc998bce6388716765a9d56958554d307725184bd30dfea832b9ec2885e4d",
+      "after": "“你知道吗，兰顿？在北阿美利亚\n　那边也有个叫约定之地的地方。”",
+      "after_sha256": "d2b36cc183c60e99492e69acec28d21b17ee2c6ddfec3bd16ab780a1be7f0992",
+      "note": null
+    },
+    {
+      "id": "story/026/dialogue/02.03/0122",
+      "file": "corpus/zh/story-dialogue/stage-026.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“我想接下来去北美洲看看。”",
+      "before_sha256": "dcc812ec9006a28340dd0ca8de53fdf104f9bd2060168e5ef6363f8008ab55a8",
+      "after": "“我想接下来去北阿美利亚看看。”",
+      "after_sha256": "472ea435aa393610a68d39b74a7ab093fa2d5b2d07b6a4d2f3c618d59c2b5de3",
+      "note": null
+    },
+    {
+      "id": "story/026/dialogue/02.03/0160",
+      "file": "corpus/zh/story-dialogue/stage-026.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“是啊……海也看腻了，\n　下次去北美洲看看吧。”",
+      "before_sha256": "b6668e0ad33c8e377ec052affb437b3963bb346eb55b73f8ee40f7c324c8da94",
+      "after": "“是啊……海也看腻了，\n　下次去北阿美利亚看看吧。”",
+      "after_sha256": "c8c5f685e60811a8ff789d819e825524ea9cf41040df3d0b594fb5214940b04c",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.01/0000",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“迪安娜回归军仍在接近福特塞班市。”",
+      "before_sha256": "20a9538836824a2a89a560ad170f21f39778b437fa528fe97da877ef678bd737",
+      "after": "“迪安娜回归军仍在接近塞文堡市。”",
+      "after_sha256": "b28b4b72014b15d965953c30314e1a42f7439594bd1a5bd14a06ee0103f77458",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.01/0002",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“各位……如果我们被突破，\n　福特塞班就会暴露在敌人的攻击下。”",
+      "before_sha256": "c0b365ae243810d3227f44d12d3e4049b19d3e8a94857353e97cf0d7b3c1e264",
+      "after": "“各位……如果我们被突破，\n　塞文堡就会暴露在敌人的攻击下。”",
+      "after_sha256": "7673f6dbeebd609f34f32f6ff06b08d66dba8ed423775a2bf4fbffa73b1ec50e",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.05/0004",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“全军，开始攻击！\n　为了月之民的回归，拿下福特塞班！”",
+      "before_sha256": "1b1cac8899398f0c331f1e005edcbdf2b5013698b4d70b364d0c2f2fca614cfc",
+      "after": "“全军，开始攻击！\n　为了月之民的回归，拿下塞文堡！”",
+      "after_sha256": "75f23f724f0a89e6ccefb485d3876e380d9ecacd44d418b447e1027227303cd9",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.08/0004",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“全军，开始攻击！\n　为了月之民的回归，拿下福特塞班！”",
+      "before_sha256": "1b1cac8899398f0c331f1e005edcbdf2b5013698b4d70b364d0c2f2fca614cfc",
+      "after": "“全军，开始攻击！\n　为了月之民的回归，拿下塞文堡！”",
+      "after_sha256": "75f23f724f0a89e6ccefb485d3876e380d9ecacd44d418b447e1027227303cd9",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.15/0009",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“福特塞班自卫团的各位，\n　英格利萨民兵团，现在到达！”",
+      "before_sha256": "fd2ddacefc9ec7714c60ccccbf87dac242250d708a6d375a9e54887b00542903",
+      "after": "“塞文堡自卫团的各位，\n　英格利萨民兵团，现在到达！”",
+      "after_sha256": "224d86b7778cf34d54ad15c02ab46d492d9420443bba80a9e17b5c18473acd88",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.15/0011",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“听到福特塞班我就想会不会是……\n　果然是你，卡利斯！”",
+      "before_sha256": "10e4e6165d916801802b3ce2228d5dc837a6be26da3393d54569824da77424f1",
+      "after": "“听到塞文堡我就想会不会是……\n　果然是你，卡利斯！”",
+      "after_sha256": "1deefb8db236b0da9a3d799e9b61cbcf5c5f6b51f507e82d3915a4e9587917f8",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.28/0005",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“本想趁混乱拿下福特塞班，\n　但发现了意外的猎物。”",
+      "before_sha256": "82495256323b902a1478821ed7d05920f45acc10cc5c4c931878b05ebc848c17",
+      "after": "“本想趁混乱拿下塞文堡，\n　但发现了意外的猎物。”",
+      "after_sha256": "85f0f3ba33a232e1dee4c9cb58b15c943933cf810b1aafb52c4ea166671fa5bc",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.28/0007",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“好机会。连同福特塞班的\n　新人类研究资料一起收下吧。”",
+      "before_sha256": "f41a1974d3402846a3a05a39181c956810e3a8702d6ea5c5aa8754786c3d886c",
+      "after": "“好机会。连同塞文堡的\n　新人类研究资料一起收下吧。”",
+      "after_sha256": "75e171d7fb663640783245cc8088f27231fec226cc9a6ee78665dbbd70b679cc",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.28/0009",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“致新联邦军。\n　我是福特塞班自卫团代表卡利斯·诺提拉斯。”",
+      "before_sha256": "4afa0fc2da6db13728b7b74b5c69dbed65ff547c6f86ad602b726fee099890a9",
+      "after": "“致新联邦军。\n　我是塞文堡自卫团代表卡利斯·诺提拉斯。”",
+      "after_sha256": "d882aaab97b9cd7e4802fc0b0d62449c0b4abf7e74eb0fdb95b3736afba2d06a",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/01.50/0000",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“这个福特塞班是我们的城市。”",
+      "before_sha256": "a009261814dd0e2a45673625fa049ac6d39edd1d257cd20c40f27c5bc069aeaf",
+      "after": "“这个塞文堡是我们的城市。”",
+      "after_sha256": "064fa0df0083f3fc6d938c83e783e9881bfc4d01ea7c0194e83990a2d8ebda32",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0007",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“迪安娜回归军似乎在福特塞班\n　以西40公里处设立了基地营地。”",
+      "before_sha256": "77f4ebbc5f02e43b62a1857769cbf45d7aab15459f0b4d0fc31baf61ef62bf33",
+      "after": "“迪安娜回归军似乎在塞文堡\n　以西40公里处设立了基地营地。”",
+      "after_sha256": "b41bae9d8742bf425c9185e19b8a7c9b19b67e0bb4131d2bfd040a429f0febc9",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0009",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“舰长……\n　月之民打算用武力压制这个福特塞班吗？”",
+      "before_sha256": "74e761be09bd827b97521d77e43d4e47acc6c5ce38153e15176d5681f9f73a46",
+      "after": "“舰长……\n　月之民打算用武力压制这个塞文堡吗？”",
+      "after_sha256": "5551493fa0706d0dab45decad499a2aa81e390320c63eceac6d42903ac52faaf",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0013",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“瞄准福特塞班这样的自治城市，\n　做法也太小家子气了。”",
+      "before_sha256": "42f5a95bd960f9ee8361f0623177ac8a3f95e0d611d5c48b9ffb9b352f030e3c",
+      "after": "“瞄准塞文堡这样的自治城市，\n　做法也太小家子气了。”",
+      "after_sha256": "81cf9893b3120c8335f885b123208041b4355eb077047c5530410632b9e78632",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0048",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“……向福特塞班派遣了迪安娜回归军？”",
+      "before_sha256": "4fc6998e8e0361bdb54bab53e1facb0b52920c36ded6a63328a8132bd3ab1bc0",
+      "after": "“……向塞文堡派遣了迪安娜回归军？”",
+      "after_sha256": "32f1908bbe1948bb00d8a7de0122e0b241af2e1e78b5be505f315e69daad8d16",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0050",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“什么意思，菲尔少校？\n　我说过想和福特塞班的领导人举行会谈。”",
+      "before_sha256": "bacc2bdfa7cb02192179d9aeb7db44b238346e412448d88fcc36ac982d14f38d",
+      "after": "“什么意思，菲尔少校？\n　我说过想和塞文堡的领导人举行会谈。”",
+      "after_sha256": "e1c8fdeea95b94ae431b71489864969058cac7d186234f9260fd8095becca941",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0053",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“您生气也是理所当然。但这对与福特\n　塞班方面的谈判，想必也是一种助力。”",
+      "before_sha256": "4915d5129dfdd939f060058735b49295b2c0d07304561a47fa45b789c7630aed",
+      "after": "“您生气也是理所当然。但这对与塞文堡\n　方面的谈判，想必也是一种助力。”",
+      "after_sha256": "f44b513f9c4f466c49cfb9a6ba06f11e41d48c84afb0fd90f7a284d30790b4e9",
+      "note": "relaid"
+    },
+    {
+      "id": "story/027/dialogue/02.01/0103",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“各员，保持原地听令。\n　菲尔少校下达了向福特塞班市进攻的命令。”",
+      "before_sha256": "ec981ce088d255a61cebf72126403550f2459924c83b8f8c794e66292a681950",
+      "after": "“各员，保持原地听令。\n　菲尔少校下达了向塞文堡市进攻的命令。”",
+      "after_sha256": "1d22a83a4bd7ffa19dea3e5fa5de870869eba41d74befd79fbe3956dee8b3b86",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0106",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“福特塞班也有自卫团。但以迪安娜回归军\n　的荣誉为赌注，绝不允许落后。”",
+      "before_sha256": "c96609f37cecb25963075621a0f566c1b6a034405a633971ec6619d0e7f85d2b",
+      "after": "“塞文堡也有自卫团。但以迪安娜回归军\n　的荣誉为赌注，绝不允许落后。”",
+      "after_sha256": "3fb8c512cb13e25d7725f53a3409c1c11b2b397f270e8505c50cb79dd5c3e0a5",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0143",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“那样的话，\n　加入福特塞班的自卫团也是一种方法吧？”",
+      "before_sha256": "020ceb52afd595cd72107d427f714b1c162e77a6a561c7367301c9f55e65679f",
+      "after": "“那样的话，\n　加入塞文堡的自卫团也是一种方法吧？”",
+      "after_sha256": "ba8f6be793ec3ef660cd0330ccf874a7e69280dc90cc49eb7c3194a2d5bf0244",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0151",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“各员，保持原地听令。\n　菲尔少校下达了向福特塞班市进攻的命令。”",
+      "before_sha256": "ec981ce088d255a61cebf72126403550f2459924c83b8f8c794e66292a681950",
+      "after": "“各员，保持原地听令。\n　菲尔少校下达了向塞文堡市进攻的命令。”",
+      "after_sha256": "1d22a83a4bd7ffa19dea3e5fa5de870869eba41d74befd79fbe3956dee8b3b86",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0154",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“福特塞班也有自卫团。但以迪安娜回归军\n　的荣誉为赌注，绝不允许落后。”",
+      "before_sha256": "c96609f37cecb25963075621a0f566c1b6a034405a633971ec6619d0e7f85d2b",
+      "after": "“塞文堡也有自卫团。但以迪安娜回归军\n　的荣誉为赌注，绝不允许落后。”",
+      "after_sha256": "3fb8c512cb13e25d7725f53a3409c1c11b2b397f270e8505c50cb79dd5c3e0a5",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.01/0207",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“那你怎么不去加入福特塞文的警备团？”",
+      "before_sha256": "349840b88ae2b64293891bbc87b5d9c295d8a28548274459f94ef83c4eeeda1d",
+      "after": "“那你怎么不去加入塞文堡的警备团？”",
+      "after_sha256": "8c5f1218a730eb5c45026fa5238a7e13a07dbd76894d62cf06f2241821d26654",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.02/0003",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“前往福特塞文的部队全灭了？”",
+      "before_sha256": "8015fc883fde1e81ddd1686a989c98592e7fd4f372802c285908d05baa580971",
+      "after": "“前往塞文堡的部队全灭了？”",
+      "after_sha256": "d1ad96404a031f27a394b4721fdbdcc11c483b8cfe3c2abef2f12c3b1b1076b8",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.02/0012",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“但是，迪安娜大人……北亚美利加的\n　太阳带才是我们的‘约定之地’……”",
+      "before_sha256": "0847ebbaecf44bff46b9a4f6719709e90198062534ddf1cf0a94f38c6705e3f1",
+      "after": "“但是，迪安娜大人……北阿美利亚的\n　太阳带才是我们的‘约定之地’……”",
+      "after_sha256": "fbe71484237a126b27b32b2a9b2ee3fc40820bbd9d7b075296a6462c0737698b",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.02/0020",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“您是说不仅放弃约定之地，\n　连北亚美利加也要放弃？”",
+      "before_sha256": "a5b0313e87c3b85e08cdbc63d0aee2d865adf0bf65715ec24d02f93322902571",
+      "after": "“您是说不仅放弃约定之地，\n　连北阿美利亚也要放弃？”",
+      "after_sha256": "a9755cc7e285734bd3da0aacbab373aba9056603f014cb9aac2c18284ae63850",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.02/0030",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“迪安娜大人……刚才在福特塞文的战斗……”",
+      "before_sha256": "aae1886603340fe4da50260e863954e3a44ef1a46176dbe9763b45d4ef73ef23",
+      "after": "“迪安娜大人……刚才在塞文堡的战斗……”",
+      "after_sha256": "c724de58afcbf9f0d15c6e148d5c5bc31c234a921d21948d578ce787c1411ef0",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.02/0055",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“算是吧。然后经过各种事，\n　在福特塞文受了卡利斯的照顾。”",
+      "before_sha256": "9a7aa3d1dd031673e28cde312119d54627036cdb86a1a80575d2ec28c73a8c4e",
+      "after": "“算是吧。然后经过各种事，\n　在塞文堡受了卡利斯的照顾。”",
+      "after_sha256": "e83739d2555d2eb6a303d36dfae34da8bbc5533182ac2b3339191d7a6ebd9199",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.02/0089",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“可以说北亚美利加已经\n　在新联邦的支配下了。”",
+      "before_sha256": "abd419748424d66940dffa6814fe196534dea98f2993eadafd124903dfe85b97",
+      "after": "“可以说北阿美利亚已经\n　在新联邦的支配下了。”",
+      "after_sha256": "14f0109ff17eba6309ff4501644d159526674c6966adfa018482c31e48b19f38",
+      "note": null
+    },
+    {
+      "id": "story/027/dialogue/02.02/0117",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“……我只是在梦里看到的。\n　在福特塞文遇到的人，稍微未来一点的事……”",
+      "before_sha256": "b17fca8305b50e5e966dff2260f53100b375df83bfb3c5f9a326a49b2de403e3",
+      "after": "“……我只是在梦里看到的。\n　在塞文堡遇到的人，稍微未来一点的事……”",
+      "after_sha256": "c46866283dfd128a0837fc19e92c5aa9263c9a53782812bb332dc1081d003c2d",
+      "note": null
+    },
+    {
+      "id": "story/028/dialogue/02.01/0005",
+      "file": "corpus/zh/story-dialogue/stage-028.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“这座位于加利亚和北美利亚\n　中间的岛是中立地带。”",
+      "before_sha256": "171bfa338ee24f581c33e1f6745be4f710ffb1a7c31041dd1b859a3b15b300d4",
+      "after": "“这座位于加利亚和北阿美利亚\n　中间的岛是中立地带。”",
+      "after_sha256": "ee31b4722fe0cc282c45b545d65e194c77cc3898c86f4fc83193f5ff731104ec",
+      "note": null
+    },
+    {
+      "id": "story/032/dialogue/02.01/0073",
+      "file": "corpus/zh/story-dialogue/stage-032.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "小野木岛秘密船坞",
+      "before_sha256": "32c78911d23664f458335d5520ff1fd887b080df0677a5a6cd3eba94d3221d0c",
+      "after": "淤能碁吕岛秘密船坞",
+      "after_sha256": "4a95f2bf29f2a97d37f9e94776099eb50c64406006bdf7d010c04d0907ed692f",
+      "note": null
+    },
+    {
+      "id": "story/032/dialogue/02.01/0074",
+      "file": "corpus/zh/story-dialogue/stage-032.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "小野木岛秘密船坞",
+      "before_sha256": "32c78911d23664f458335d5520ff1fd887b080df0677a5a6cd3eba94d3221d0c",
+      "after": "淤能碁吕岛秘密船坞",
+      "after_sha256": "4a95f2bf29f2a97d37f9e94776099eb50c64406006bdf7d010c04d0907ed692f",
+      "note": null
+    },
+    {
+      "id": "story/032/dialogue/02.01/0075",
+      "file": "corpus/zh/story-dialogue/stage-032.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "小野木岛秘密船坞",
+      "before_sha256": "32c78911d23664f458335d5520ff1fd887b080df0677a5a6cd3eba94d3221d0c",
+      "after": "淤能碁吕岛秘密船坞",
+      "after_sha256": "4a95f2bf29f2a97d37f9e94776099eb50c64406006bdf7d010c04d0907ed692f",
+      "note": null
+    },
+    {
+      "id": "story/032/dialogue/02.01/0076",
+      "file": "corpus/zh/story-dialogue/stage-032.json",
+      "groups": [
+        "2-1 淤能碁吕岛"
+      ],
+      "before": "〜小野木岛秘密船坞〜",
+      "before_sha256": "a1bdcbcc6a48b26ffb2fb1b6398abdfc0b78bda962c7dcd81250819277c87799",
+      "after": "〜淤能碁吕岛秘密船坞〜",
+      "after_sha256": "a25d7b5816d4cb87de6ec8b930a7690c40f09796f271e1d2f3fc162a36d8b035",
+      "note": null
+    },
+    {
+      "id": "story/037/dialogue/02.02/0037",
+      "file": "corpus/zh/story-dialogue/stage-037.json",
+      "groups": [
+        "2-7 丑女二人组"
+      ],
+      "before": "“……谢了，丑女搭档……”",
+      "before_sha256": "c86333c67d504c83eedfd41a096eac1f9d8d950d1473b545670909adb548d9c8",
+      "after": "“……谢了，丑女二人组……”",
+      "after_sha256": "e9a1cfdc5985af0a5c4fa22d5ff27be1e6d6635bce64f243e39026fd96fc15fa",
+      "note": null
+    },
+    {
+      "id": "story/038/dialogue/01.16/0000",
+      "file": "corpus/zh/story-dialogue/stage-038.json",
+      "groups": [
+        "2-2 Overcoat"
+      ],
+      "before": "“不好！隐形外套！”",
+      "before_sha256": "7d358b35410457228f25c615b776ff02a921141bc8a15d5f9d201458537a4d68",
+      "after": "“不好！透明化的<width:0E><space:0C>Overcoat<width:16><space:16>！”",
+      "after_sha256": "d655a3499f2e73817d073dcee653a8f1421acccc8fbd40f930a03234075961fc",
+      "note": null
+    },
+    {
+      "id": "story/038/dialogue/02.01/0003",
+      "file": "corpus/zh/story-dialogue/stage-038.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“……好久不见，辛西亚小姐。\n　能再次和你进行超限人战斗，我很高兴。”",
+      "before_sha256": "55fb118648ac7626fea7c56bb785f017a05fe2e30403ed5e5bb2ea49e567e43c",
+      "after": "“……好久不见，辛西亚小姐。\n　能再次和你进行超限人对战，我很高兴。”",
+      "after_sha256": "3db6a5e5c4c35de2375cab638f2dc8ca9cf25f6bdb4e533e6e4eaa0a0fc21e3b",
+      "note": null
+    },
+    {
+      "id": "story/038/dialogue/02.01/0023",
+      "file": "corpus/zh/story-dialogue/stage-038.json",
+      "groups": [
+        "2-2 Overcoat"
+      ],
+      "before": "“那台超限人、外套、\n　还有帮手们和月之民……一切准备就绪。”",
+      "before_sha256": "312682526a9d84749200a60a43be9efba996fa656010662131ae444e999dbacd",
+      "after": "“那台超限人、<width:0E><space:0C>Overcoat<width:16><space:16>、\n　还有帮手们和月之民……一切准备就绪。”",
+      "after_sha256": "28beabb4e112d1bad0b2d474e5b32c89dbf462585a86a7b65c72d9b2db7f8c1d",
+      "note": null
+    },
+    {
+      "id": "story/038/dialogue/02.01/0086",
+      "file": "corpus/zh/story-dialogue/stage-038.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“你的房间不是拉了UN的线吗？\n　让我玩玩传闻中的超限人战斗。”",
+      "before_sha256": "115fea3d445ffd626f6296780861cd3572d7e596cd32db10609c9ec242a579cd",
+      "after": "“你的房间不是拉了UN的线吗？\n　让我玩玩传闻中的超限人对战。”",
+      "after_sha256": "0d7593df5b142b9e715eeca0aa0965abd1c7c5b2e7321b7b4b85369d4dcc347b",
+      "note": null
+    },
+    {
+      "id": "story/038/dialogue/02.01/0162",
+      "file": "corpus/zh/story-dialogue/stage-038.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "（在超限人战斗中一直是\n　对手的辛西亚小姐……）",
+      "before_sha256": "620d94c8002cc4fe83cbed523ef2279c79a4b7676211b9df28725f48dd4c0f7c",
+      "after": "（在超限人对战中一直是\n　对手的辛西亚小姐……）",
+      "after_sha256": "b9efcd6c1a41cf6f8e283f3fd39deac04288d07de003c09ecc9f18f25a62d478",
+      "note": null
+    },
+    {
+      "id": "story/043/dialogue/02.01/0081",
+      "file": "corpus/zh/story-dialogue/stage-043.json",
+      "groups": [
+        "2-8 大便部长"
+      ],
+      "before": "“那个混蛋部长还会来吗？”",
+      "before_sha256": "c1dfa8deb8d5aab81f35b78e54fa3ef7001135025eee52163d34512373af4f31",
+      "after": "“那个大便部长还会来吗？”",
+      "after_sha256": "f42915507e676b9092fca1e38e72715e517db43f4e8cc85e4f93957fc901b47e",
+      "note": null
+    },
+    {
+      "id": "story/043/dialogue/02.01/0162",
+      "file": "corpus/zh/story-dialogue/stage-043.json",
+      "groups": [
+        "2-8 大便部长"
+      ],
+      "before": "“那个混蛋部长还会来吗？”",
+      "before_sha256": "c1dfa8deb8d5aab81f35b78e54fa3ef7001135025eee52163d34512373af4f31",
+      "after": "“那个大便部长还会来吗？”",
+      "after_sha256": "f42915507e676b9092fca1e38e72715e517db43f4e8cc85e4f93957fc901b47e",
+      "note": null
+    },
+    {
+      "id": "story/043/dialogue/02.03/0010",
+      "file": "corpus/zh/story-dialogue/stage-043.json",
+      "groups": [
+        "2-2 Overcoat"
+      ],
+      "before": "“那难道是……外套吗！？”",
+      "before_sha256": "0f5a795e0014a9dc7a8981edcfb2fd02331e7f3e601f09be72bc2e28219b7e80",
+      "after": "“那难道是……<width:0E><space:0C>Overcoat<width:16><space:16>吗！？”",
+      "after_sha256": "7b8256dbce50dfef6e6fe1e959b7509e16f08f8a6b2f99639e7d00900d9befde",
+      "note": null
+    },
+    {
+      "id": "story/043/dialogue/02.04/0008",
+      "file": "corpus/zh/story-dialogue/stage-043.json",
+      "groups": [
+        "2-2 Overcoat"
+      ],
+      "before": "“为了这个连外套都卖掉了啊。”",
+      "before_sha256": "7fe4733d2d88c1f5df8922f9ff55a133596ba4b53b8b2026b6e0c54eacf9840b",
+      "after": "“为了这个连<width:0E><space:0C>Overcoat<width:16><space:16>都卖掉了啊。”",
+      "after_sha256": "6827a368c95f626949df772a2fabb29b8d53abe9eca6231501b71a04c7283210",
+      "note": null
+    },
+    {
+      "id": "story/047/dialogue/02.03/0013",
+      "file": "corpus/zh/story-dialogue/stage-047.json",
+      "groups": [
+        "2-11 驾驶服"
+      ],
+      "before": "“切！靠驾驶员服躲过了致命伤吗！”",
+      "before_sha256": "92c08dcf29af10f76ad1749f1099a9432705a1224ee151ca7be266c73e7cd606",
+      "after": "“切！靠驾驶服躲过了致命伤吗！”",
+      "after_sha256": "6d467a6730a07ba53a5ca6399606ec190d6034d8387df6309d687629a62d547f",
+      "note": null
+    },
+    {
+      "id": "story/047/dialogue/02.03/0041",
+      "file": "corpus/zh/story-dialogue/stage-047.json",
+      "groups": [
+        "2-11 驾驶服"
+      ],
+      "before": "“等等，甲儿君！驾驶员服破了！”",
+      "before_sha256": "a8eff21ff6097d5542db501609b0a6d1788d1d2ed8cf5cc1c0f635ddbe79a699",
+      "after": "“等等，甲儿君！驾驶服破了！”",
+      "after_sha256": "0ca237001ae7c30d015ea7bb581b3a7547c5b60191c34060cb311771e85a869b",
+      "note": null
+    },
+    {
+      "id": "story/048/dialogue/01.46/0003",
+      "file": "corpus/zh/story-dialogue/stage-048.json",
+      "groups": [
+        "2-11 驾驶服"
+      ],
+      "before": "“你竟敢把我的驾驶员服给毁了！\n　我可是很喜欢那件的！！”",
+      "before_sha256": "fdabd1f2f5b17b7485c6c453614568cfcd1a0efe818e5d8d1e702c3d1b7a1bf2",
+      "after": "“你竟敢把我的驾驶服给毁了！\n　我可是很喜欢那件的！！”",
+      "after_sha256": "8eb88b7306941192cc5707395308955b754abf7861be0ada74d720b7dd5616f8",
+      "note": null
+    },
+    {
+      "id": "story/061/dialogue/01.34/0001",
+      "file": "corpus/zh/story-dialogue/stage-061.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“怎么回事！？\n　和在塞瓦堡战斗时动作完全不同！”",
+      "before_sha256": "2c61ffc57cf10cb6f7b307d5abb334743be3543d51f5d4888bd0306a80744d98",
+      "after": "“怎么回事！？\n　和在塞文堡战斗时动作完全不同！”",
+      "after_sha256": "cc5c5dc8708120bc5ea6e26f166349477291663963ad34308b6f8f11eca3551f",
+      "note": null
+    },
+    {
+      "id": "story/069/dialogue/02.01/0062",
+      "file": "corpus/zh/story-dialogue/stage-069.json",
+      "groups": [
+        "1 罗多尼亚"
+      ],
+      "before": "“这是……罗德尼亚的研究设施吗……！”",
+      "before_sha256": "55e2274f9905f165a202de7433e9333292d20642bd3a509f6df4f4c90f6b5da9",
+      "after": "“这是……罗多尼亚的研究设施吗……！”",
+      "after_sha256": "50ea77f4682c17516334cb3d9b5cf5e46897deb7295976f490f23043a1f1a7ce",
+      "note": null
+    },
+    {
+      "id": "story/076/dialogue/01.09/0002",
+      "file": "corpus/zh/story-dialogue/stage-076.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“没错！\n　是在塞瓦堡战斗过的革命军的MA！！”",
+      "before_sha256": "8c8adc6e860fbb9e4d48facbb14e3c96e22d5bcb7dcc5d03e94b6db7e697290c",
+      "after": "“没错！\n　是在塞文堡战斗过的革命军的MA！！”",
+      "after_sha256": "030e0266e02535603daad819aac8938f754bb53b9df38dd3c51cbf2d00f6687d",
+      "note": null
+    },
+    {
+      "id": "story/085/dialogue/01.07/0000",
+      "file": "corpus/zh/story-dialogue/stage-085.json",
+      "groups": [
+        "2-3 多兰"
+      ],
+      "before": "“哇啊，是德兰！好久没见了！！”",
+      "before_sha256": "6f8d2db72a91f395c8602821e83b7fbab5876dfc1143f2f90d9959bcd8d61190",
+      "after": "“哇啊，是多兰！好久没见了！！”",
+      "after_sha256": "e75eabb0f0ec452096196a95719da96ae9d8f839f1a6a7e47c400a73c5e0c36a",
+      "note": null
+    },
+    {
+      "id": "story/085/dialogue/01.14/0000",
+      "file": "corpus/zh/story-dialogue/stage-085.json",
+      "groups": [
+        "2-3 多兰"
+      ],
+      "before": "“你竟敢弄坏我的德兰！”",
+      "before_sha256": "28f1a1aed527bdce4a4eb712dd259e3e8ce70a99fdeee9bc098f0fa9e5926696",
+      "after": "“你竟敢弄坏我的多兰！”",
+      "after_sha256": "8b21e0f2ca7926c6ed82fcf4c10bae8ccc958d8e1f14609d5f21c5fa06b4eb00",
+      "note": null
+    },
+    {
+      "id": "story/087/dialogue/01.11/0010",
+      "file": "corpus/zh/story-dialogue/stage-087.json",
+      "groups": [
+        "2-3 多兰"
+      ],
+      "before": "“格蕾塔的德兰也在！”",
+      "before_sha256": "fde685bc928b9fd31ee77b6743dba6742e8cba283faddc25aa0a426ca6fb6e0d",
+      "after": "“格蕾塔的多兰也在！”",
+      "after_sha256": "a2a7d57bb2aaaa8307bb530802eec5e8ed332e1258a5cd2d8bee4cac91dfd34a",
+      "note": null
+    },
+    {
+      "id": "story/087/dialogue/01.19/0004",
+      "file": "corpus/zh/story-dialogue/stage-087.json",
+      "groups": [
+        "2-8 大便部长"
+      ],
+      "before": "“这么说来，\n　刚才的敌人里没有廷普和混蛋部长！”",
+      "before_sha256": "6021f935b712491c0bb1878b378ac3a0f170e15851264860cc3120245cb43590",
+      "after": "“这么说来，\n　刚才的敌人里没有廷普和大便部长！”",
+      "after_sha256": "45494fc557779fe7acc8d83a40417f88cbdfe9a0570a16dbf04976d89e7fc4e6",
+      "note": null
+    },
+    {
+      "id": "story/091/dialogue/01.36/0000",
+      "file": "corpus/zh/story-dialogue/stage-091.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“来享受吧，盖纳！最真实的超限人战斗哦！”",
+      "before_sha256": "b4e86e7d6897e38c1e92a14f5fc3da054074b9437ea95841fe0842b7a22759a4",
+      "after": "“来享受吧，盖纳！最真实的超限人对战哦！”",
+      "after_sha256": "926c1cf05c5c6ac8ccba6765102664389d7324ef6da2907212f728f8d7ddba45",
+      "note": null
+    },
+    {
+      "id": "story/091/dialogue/01.38/0001",
+      "file": "corpus/zh/story-dialogue/stage-091.json",
+      "groups": [
+        "1 运行图"
+      ],
+      "before": "“等着吧，时刻表！我会再次快速、\n　美丽、正确地管理你的！”",
+      "before_sha256": "060ce2ebad44b1de3e57d70d08709ea44dedb1d2410969cc16803c13611276c1",
+      "after": "“等着吧，运行图！我会再次快速、\n　美丽、正确地管理你的！”",
+      "after_sha256": "9487960583e40069218a0fa63a4f0145594b5bf41ac41605de07630526e5d2f4",
+      "note": null
+    },
+    {
+      "id": "story/091/dialogue/02.01/0071",
+      "file": "corpus/zh/story-dialogue/stage-091.json",
+      "groups": [
+        "1 运行图"
+      ],
+      "before": "“管理时刻表是你的天职。排除那些\n　扰乱秩序的家伙后，就让你恢复原职。”",
+      "before_sha256": "01a16779d48f22583e32662876590a0f08960e205f9422b6830141f88364f893",
+      "after": "“管理运行图是你的天职。排除那些\n　扰乱秩序的家伙后，就让你恢复原职。”",
+      "after_sha256": "8622973168e037594a787046114c2359e9142b9e363ddd7c744eb1305ff5e820",
+      "note": null
+    },
+    {
+      "id": "story/091/dialogue/02.01/0096",
+      "file": "corpus/zh/story-dialogue/stage-091.json",
+      "groups": [
+        "1 林斯"
+      ],
+      "before": "“琪露不在的话，我和林克斯它们\n　也少了玩伴，很寂寞。”",
+      "before_sha256": "b57ebb767e5e8b104b02c3a36ff85ee3851b38b108e86dfb507b0a4380e92069",
+      "after": "“琪露不在的话，我和林斯它们\n　也少了玩伴，很寂寞。”",
+      "after_sha256": "ce227bfac0c96cf3d8d3ac6c56381ead5a4b6618f3aee17394f1b3ff059a5e64",
+      "note": null
+    },
+    {
+      "id": "story/095/dialogue/02.01/0004",
+      "file": "corpus/zh/story-dialogue/stage-095.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“新联邦军正向北亚美利加南部推进。\n　奇拉姆边境附近的守备队\n　看来已几乎全灭。”",
+      "before_sha256": "4ac46afdc96d4baedc722335cfcf57eea147a52869141784c53fb830c97fe95c",
+      "after": "“新联邦军正向北阿美利亚南部推进。\n　奇拉姆边境附近的守备队\n　看来已几乎全灭。”",
+      "after_sha256": "ea28b14d5d78d0df5102bc3effb8939d13418f95822510cf4c96ff95bda5408f",
+      "note": null
+    },
+    {
+      "id": "story/095/dialogue/02.03/0016",
+      "file": "corpus/zh/story-dialogue/stage-095.json",
+      "groups": [
+        "2-12 锦旗"
+      ],
+      "before": "“把手上埃曼的三角旗卖掉，\n　买点什么回去吧……”",
+      "before_sha256": "7e280d1baf3fd82a37dc01decbe7c9b9a3a0a82b7962c75a212406852004424e",
+      "after": "“把手上埃曼的锦旗卖掉，\n　买点什么回去吧……”",
+      "after_sha256": "e50957fe402cb9faad47a3c21596e2c4460a8c1e52801c55499fad59770c1d84",
+      "note": null
+    },
+    {
+      "id": "story/101/dialogue/02.01/0251",
+      "file": "corpus/zh/story-dialogue/stage-101.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“雅典娜那边传来了通讯。……新地球联邦\n　要在北亚美利加进行时空控制装置的实验。”",
+      "before_sha256": "66ad8c73c2e12f4d206c36022c513129c6bdf968e7a5b74f152727cf33ff5625",
+      "after": "“雅典娜那边传来了通讯。……新地球联邦\n　要在北阿美利亚进行时空控制装置的实验。”",
+      "after_sha256": "3949890c16761b11d93a7b35446ff5500548839f05448e987dd6aefb2aced16c",
+      "note": null
+    },
+    {
+      "id": "story/107/dialogue/02.01/0109",
+      "file": "corpus/zh/story-dialogue/stage-107.json",
+      "groups": [
+        "1 飞・心露"
+      ],
+      "before": "“<width:0E><space:0C>G-Soldier<width:16><space:16>队队长，\n　飞·辛路上尉。有意见的话我奉陪。”",
+      "before_sha256": "19a31ef064c81bcdb9ee321b52eabcf0d34b9aeff14e9b745fd1100c5a1f8966",
+      "after": "“<width:0E><space:0C>G-Soldier<width:16><space:16>队队长，\n　飞・心露上尉。有意见的话我奉陪。”",
+      "after_sha256": "9aa4c51a46e8deebcba56fb13ff73718f65071e9a6270e0ce287beba278364e5",
+      "note": null
+    },
+    {
+      "id": "story/108/dialogue/02.04/0013",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "groups": [
+        "2-3 多兰"
+      ],
+      "before": "“要是有比琳他们开来的德兰\n　那种级别的机器就好了……”",
+      "before_sha256": "07f955e9f8455569523abaa3485ab51babe6c016816e776cf1a9fadf080d4c4f",
+      "after": "“要是有比琳他们开来的多兰\n　那种级别的机器就好了……”",
+      "after_sha256": "3710105a7971536cf18a240cdf80b06186c45c75e1bcbc2d6b020da77bdd2911",
+      "note": null
+    },
+    {
+      "id": "story/109/dialogue/02.03/0157",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“$c，请回答。\n　这里是福特塞文的卡利斯·诺提拉斯。”",
+      "before_sha256": "a4630a0a0abd8cdb9462ed2d26a4c5baa1bcb8140580133d4f609ac58c8d11e8",
+      "after": "“$c，请回答。\n　这里是塞文堡的卡利斯·诺提拉斯。”",
+      "after_sha256": "58dc43ed42d9b6c299347174df20f93745feb8cc9622ebbdefc919139335e847",
+      "note": null
+    },
+    {
+      "id": "story/110/dialogue/02.02/0047",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“它大概在北亚美利加。我们立刻开始搜索。”",
+      "before_sha256": "80e0174b9d43d5d0e0de220dda06b27e5d0a99ddcd7e07ab888ab793f3e527f7",
+      "after": "“它大概在北阿美利亚。我们立刻开始搜索。”",
+      "after_sha256": "703c28cc1fa9a7c4aaeb1d30b5913ba2545fde23a80252d85d98c154dafab7d9",
+      "note": null
+    },
+    {
+      "id": "story/110/dialogue/02.02/0343",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "groups": [
+        "2-9 黑箱"
+      ],
+      "before": "“与其说是巴尔戈拉……\n　不如说和加纳利·卡弗的黑匣子有关吧。”",
+      "before_sha256": "5fca72bf0ff4ae1e9aaec6531d48dd66caae2f18c939edffa7725adef76d8fa9",
+      "after": "“与其说是巴尔戈拉……\n　不如说和加纳利·卡弗的黑箱有关吧。”",
+      "after_sha256": "6101da23875f5b9f693d12841b14d82d85203504b5dc0c26069fcc2b427c51a6",
+      "note": null
+    },
+    {
+      "id": "story/110/dialogue/02.02/0409",
+      "file": "corpus/zh/story-dialogue/stage-110.json",
+      "groups": [
+        "2-9 黑箱"
+      ],
+      "before": "“与其说是巴尔戈拉……\n　不如说和加纳利·卡弗的黑匣子有关吧。”",
+      "before_sha256": "5fca72bf0ff4ae1e9aaec6531d48dd66caae2f18c939edffa7725adef76d8fa9",
+      "after": "“与其说是巴尔戈拉……\n　不如说和加纳利·卡弗的黑箱有关吧。”",
+      "after_sha256": "6101da23875f5b9f693d12841b14d82d85203504b5dc0c26069fcc2b427c51a6",
+      "note": null
+    },
+    {
+      "id": "story/111/dialogue/02.02/0047",
+      "file": "corpus/zh/story-dialogue/stage-111.json",
+      "groups": [
+        "1 北阿美利亚"
+      ],
+      "before": "“它大概在北亚美利加。我们立刻开始搜索。”",
+      "before_sha256": "80e0174b9d43d5d0e0de220dda06b27e5d0a99ddcd7e07ab888ab793f3e527f7",
+      "after": "“它大概在北阿美利亚。我们立刻开始搜索。”",
+      "after_sha256": "703c28cc1fa9a7c4aaeb1d30b5913ba2545fde23a80252d85d98c154dafab7d9",
+      "note": null
+    },
+    {
+      "id": "story/116/dialogue/01.03/0001",
+      "file": "corpus/zh/story-dialogue/stage-116.json",
+      "groups": [
+        "2-2 Overcoat"
+      ],
+      "before": "“他穿着超能外套！\n　那是和盖纳的超限感应在反应吗！？”",
+      "before_sha256": "b466c2712e89b196597a1e2f6ff74f18ba00f6e73c0ea6e71c2d290fab0ffb37",
+      "after": "“他穿着<width:0E><space:0C>Overcoat<width:16><space:16>！\n　那是和盖纳的超限感应在反应吗！？”",
+      "after_sha256": "68b428af426ee672022f5f1a0a0c890c0cf23034fa9a8e86aa2e0b0aa25e7714",
+      "note": null
+    },
+    {
+      "id": "story/116/dialogue/02.01/0060",
+      "file": "corpus/zh/story-dialogue/stage-116.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“啊……当时盖纳的超限人战斗真是厉害。”",
+      "before_sha256": "5add2740dea3ba67219e392a73b0260e34ec53df69c1d8868868f194411a0ec1",
+      "after": "“啊……当时盖纳的超限人对战真是厉害。”",
+      "after_sha256": "31c3bea3e278433accb17b49a03c1f1011326ea9b86c7b0a9befef4b558844c2",
+      "note": null
+    },
+    {
+      "id": "story/116/dialogue/02.01/0124",
+      "file": "corpus/zh/story-dialogue/stage-116.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“啊……当时盖纳的超限人战斗真是厉害。”",
+      "before_sha256": "5add2740dea3ba67219e392a73b0260e34ec53df69c1d8868868f194411a0ec1",
+      "after": "“啊……当时盖纳的超限人对战真是厉害。”",
+      "after_sha256": "31c3bea3e278433accb17b49a03c1f1011326ea9b86c7b0a9befef4b558844c2",
+      "note": null
+    },
+    {
+      "id": "story/117/dialogue/02.01/0059",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“第一次在超限人战斗中交手的时候，明明\n　还只是个活在自己世界里的渺小冠军呢。”",
+      "before_sha256": "bfa116eb1d82d1a4fec4856b5e0df74d04a8b2d435890d7a27b629f0e40767be",
+      "after": "“第一次在超限人对战中交手的时候，明明\n　还只是个活在自己世界里的渺小冠军呢。”",
+      "after_sha256": "d0c7b0e59fa54c71bc9296e7ea66595d97d2cb26e503812934c9e9296cfcf645",
+      "note": null
+    },
+    {
+      "id": "story/117/dialogue/02.01/0093",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“第一次在超限人战斗中交手的时候，明明\n　还只是个活在自己世界里的渺小冠军呢。”",
+      "before_sha256": "bfa116eb1d82d1a4fec4856b5e0df74d04a8b2d435890d7a27b629f0e40767be",
+      "after": "“第一次在超限人对战中交手的时候，明明\n　还只是个活在自己世界里的渺小冠军呢。”",
+      "after_sha256": "d0c7b0e59fa54c71bc9296e7ea66595d97d2cb26e503812934c9e9296cfcf645",
+      "note": null
+    },
+    {
+      "id": "story/119/dialogue/02.01/0074",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "“是你们世界发生的第七次宇宙战争吧。”",
+      "before_sha256": "7d5791e61f34fb1051c20b6bd1656593e5461321909b2388b616101d538ac87b",
+      "after": "“是你们世界发生的第7次宇宙战争吧。”",
+      "after_sha256": "df9ae9c1ea15109eea2f6c139a3eed4085c71db397e3543aacd7408786dd6135",
+      "note": null
+    },
+    {
+      "id": "story/119/dialogue/02.02/0046",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "“贾米尔·尼特……！\n　就是在十五年前的第七次宇宙战争\n　中毁灭了半个地球的男人吗……！”",
+      "before_sha256": "fd1b80daa4da445e14dcefcb7f7cf59a938bd6745273d55898955ad2043c0dae",
+      "after": "“贾米尔·尼特……！\n　就是在十五年前的第7次宇宙战争\n　中毁灭了半个地球的男人吗……！”",
+      "after_sha256": "2293411c4b4ef3ba98b489dc9f13bf11f8cd5c558495bf5036c78c3e9cdab4c1",
+      "note": null
+    },
+    {
+      "id": "story/127/dialogue/02.01/0094",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "“是你们世界发生的第七次宇宙战争吧。”",
+      "before_sha256": "7d5791e61f34fb1051c20b6bd1656593e5461321909b2388b616101d538ac87b",
+      "after": "“是你们世界发生的第7次宇宙战争吧。”",
+      "after_sha256": "df9ae9c1ea15109eea2f6c139a3eed4085c71db397e3543aacd7408786dd6135",
+      "note": null
+    },
+    {
+      "id": "story/127/dialogue/02.02/0048",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "“贾米尔·尼特……！\n　就是在十五年前的第七次宇宙战争\n　中毁灭了半个地球的男人吗……！”",
+      "before_sha256": "fd1b80daa4da445e14dcefcb7f7cf59a938bd6745273d55898955ad2043c0dae",
+      "after": "“贾米尔·尼特……！\n　就是在十五年前的第7次宇宙战争\n　中毁灭了半个地球的男人吗……！”",
+      "after_sha256": "2293411c4b4ef3ba98b489dc9f13bf11f8cd5c558495bf5036c78c3e9cdab4c1",
+      "note": null
+    },
+    {
+      "id": "story/129/dialogue/01.03/0001",
+      "file": "corpus/zh/story-dialogue/stage-129.json",
+      "groups": [
+        "2-2 Overcoat"
+      ],
+      "before": "“他穿着超能外套！\n　那是和盖纳的超限感应在反应吗！？”",
+      "before_sha256": "b466c2712e89b196597a1e2f6ff74f18ba00f6e73c0ea6e71c2d290fab0ffb37",
+      "after": "“他穿着<width:0E><space:0C>Overcoat<width:16><space:16>！\n　那是和盖纳的超限感应在反应吗！？”",
+      "after_sha256": "68b428af426ee672022f5f1a0a0c890c0cf23034fa9a8e86aa2e0b0aa25e7714",
+      "note": null
+    },
+    {
+      "id": "story/129/dialogue/02.02/0068",
+      "file": "corpus/zh/story-dialogue/stage-129.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“啊……当时盖纳的超限人战斗真是厉害。”",
+      "before_sha256": "5add2740dea3ba67219e392a73b0260e34ec53df69c1d8868868f194411a0ec1",
+      "after": "“啊……当时盖纳的超限人对战真是厉害。”",
+      "after_sha256": "31c3bea3e278433accb17b49a03c1f1011326ea9b86c7b0a9befef4b558844c2",
+      "note": null
+    },
+    {
+      "id": "story/129/dialogue/02.02/0142",
+      "file": "corpus/zh/story-dialogue/stage-129.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“啊……当时盖纳的超限人战斗真是厉害。”",
+      "before_sha256": "5add2740dea3ba67219e392a73b0260e34ec53df69c1d8868868f194411a0ec1",
+      "after": "“啊……当时盖纳的超限人对战真是厉害。”",
+      "after_sha256": "31c3bea3e278433accb17b49a03c1f1011326ea9b86c7b0a9befef4b558844c2",
+      "note": null
+    },
+    {
+      "id": "story/130/dialogue/02.01/0059",
+      "file": "corpus/zh/story-dialogue/stage-130.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“第一次在超限人战斗中交手的时候，明明\n　还只是个活在自己世界里的渺小冠军呢。”",
+      "before_sha256": "bfa116eb1d82d1a4fec4856b5e0df74d04a8b2d435890d7a27b629f0e40767be",
+      "after": "“第一次在超限人对战中交手的时候，明明\n　还只是个活在自己世界里的渺小冠军呢。”",
+      "after_sha256": "d0c7b0e59fa54c71bc9296e7ea66595d97d2cb26e503812934c9e9296cfcf645",
+      "note": null
+    },
+    {
+      "id": "story/130/dialogue/02.01/0088",
+      "file": "corpus/zh/story-dialogue/stage-130.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“第一次在超限人战斗中交手的时候，明明\n　还只是个活在自己世界里的渺小冠军呢。”",
+      "before_sha256": "bfa116eb1d82d1a4fec4856b5e0df74d04a8b2d435890d7a27b629f0e40767be",
+      "after": "“第一次在超限人对战中交手的时候，明明\n　还只是个活在自己世界里的渺小冠军呢。”",
+      "after_sha256": "d0c7b0e59fa54c71bc9296e7ea66595d97d2cb26e503812934c9e9296cfcf645",
+      "note": null
+    },
+    {
+      "id": "story/135/dialogue/02.01/0120",
+      "file": "corpus/zh/story-dialogue/stage-135.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“您不仅是月之女王，还受奥布等独立国\n　以及福特塞文等自治都市委托了代表权。”",
+      "before_sha256": "c21b58c6027e8c8c054b599e5f6a2d44db301ec7d5a10474fcc1d358b17b1d7f",
+      "after": "“您不仅是月之女王，还受奥布等独立国\n　以及塞文堡等自治都市委托了代表权。”",
+      "after_sha256": "1444cc7f8cfbee83583776768f34c8b61c28c5513ee8da646db63a1634370d91",
+      "note": null
+    },
+    {
+      "id": "story/138/dialogue/02.01/0121",
+      "file": "corpus/zh/story-dialogue/stage-138.json",
+      "groups": [
+        "1 塞文堡"
+      ],
+      "before": "“您不仅是月之女王，还受奥布等独立国\n　以及福特塞文等自治都市委托了代表权。”",
+      "before_sha256": "c21b58c6027e8c8c054b599e5f6a2d44db301ec7d5a10474fcc1d358b17b1d7f",
+      "after": "“您不仅是月之女王，还受奥布等独立国\n　以及塞文堡等自治都市委托了代表权。”",
+      "after_sha256": "1444cc7f8cfbee83583776768f34c8b61c28c5513ee8da646db63a1634370d91",
+      "note": null
+    },
+    {
+      "id": "story/144/dialogue/01.72/0000",
+      "file": "corpus/zh/story-dialogue/stage-144.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“是王者盖纳的盖纳·桑加君吗！\n　我在超限人战斗里和你对战过好几次！”",
+      "before_sha256": "d109b338b5b5af38ca94d93424743419e010c8b1d3b92b829f57c97c6789018d",
+      "after": "“是王者盖纳的盖纳·桑加君吗！\n　我在超限人对战里和你对战过好几次！”",
+      "after_sha256": "badfdb0531c987fbbd142a124814e886870fa4b08247437bb9c614a03d2b427a",
+      "note": null
+    },
+    {
+      "id": "story/149/dialogue/01.130/0000",
+      "file": "corpus/zh/story-dialogue/stage-149.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“是王者盖纳的盖纳·桑加君吗！\n　我在超限人战斗里和你对战过好几次！”",
+      "before_sha256": "d109b338b5b5af38ca94d93424743419e010c8b1d3b92b829f57c97c6789018d",
+      "after": "“是王者盖纳的盖纳·桑加君吗！\n　我在超限人对战里和你对战过好几次！”",
+      "after_sha256": "badfdb0531c987fbbd142a124814e886870fa4b08247437bb9c614a03d2b427a",
+      "note": null
+    },
+    {
+      "id": "story/149/dialogue/01.167/0000",
+      "file": "corpus/zh/story-dialogue/stage-149.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“是王者盖纳的盖纳·桑加君吗！\n　我在超限人战斗里和你对战过好几次！”",
+      "before_sha256": "d109b338b5b5af38ca94d93424743419e010c8b1d3b92b829f57c97c6789018d",
+      "after": "“是王者盖纳的盖纳·桑加君吗！\n　我在超限人对战里和你对战过好几次！”",
+      "after_sha256": "badfdb0531c987fbbd142a124814e886870fa4b08247437bb9c614a03d2b427a",
+      "note": null
+    },
+    {
+      "id": "story/149/dialogue/01.93/0000",
+      "file": "corpus/zh/story-dialogue/stage-149.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "“是王者盖纳的盖纳·桑加君吗！\n　我在超限人战斗里和你对战过好几次！”",
+      "before_sha256": "d109b338b5b5af38ca94d93424743419e010c8b1d3b92b829f57c97c6789018d",
+      "after": "“是王者盖纳的盖纳·桑加君吗！\n　我在超限人对战里和你对战过好几次！”",
+      "after_sha256": "badfdb0531c987fbbd142a124814e886870fa4b08247437bb9c614a03d2b427a",
+      "note": null
+    },
+    {
+      "id": "summary/01/000",
+      "file": "corpus/zh/summary.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "　这是一个地球早已失去往昔文明与\n自然环境，各个地区分别形成自身社会\n与文化的时代。纵观历史，人类失去了\n许多事物，却也不断创造出新的东西。\n　\n　曾经统治北半球最大大陆大部分地区的\n特权阶级“伊诺森特”，其社会最终在他们创造\n的新人类“平民”手中走向终结。另一方面，\n统治其他地区的中央政府虽因十五年前\n第七次宇宙战争的灾难一度濒临崩溃，如今却\n正逐步恢复统治；与中央政府敌对的宇宙革命军\n也同样如此。就连始终坚持不干涉立场的\n“月之民”，也开始为了实现夙愿而采取行动。\n　\n　世界即将迎来剧变，人们却仍在为今日的\n生计拼尽全力。他们不知道未来等待着自己\n的是什么，也不知道过去究竟发生过什么……",
+      "before_sha256": "5e5e1158dd0667c8ebc1e2ae430a0a4fc7fa53cc4fe05ecd42ef410f799247a9",
+      "after": "　这是一个地球早已失去往昔文明与\n自然环境，各个地区分别形成自身社会\n与文化的时代。纵观历史，人类失去了\n许多事物，却也不断创造出新的东西。\n　\n　曾经统治北半球最大大陆大部分地区的\n特权阶级“伊诺森特”，其社会最终在他们创造\n的新人类“平民”手中走向终结。另一方面，\n统治其他地区的中央政府虽因十五年前\n第7次宇宙战争的灾难一度濒临崩溃，如今却\n正逐步恢复统治；与中央政府敌对的宇宙革命军\n也同样如此。就连始终坚持不干涉立场的\n“月之民”，也开始为了实现夙愿而采取行动。\n　\n　世界即将迎来剧变，人们却仍在为今日的\n生计拼尽全力。他们不知道未来等待着自己\n的是什么，也不知道过去究竟发生过什么……",
+      "after_sha256": "577d5696c123cd3b4b23087f3007d56888123073f5911bd35d3e566564c2c018",
+      "note": null
+    },
+    {
+      "id": "library-text/ee9b8deaaa64c61f",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "旧宇宙革命军开发的新人类专用MS。除了高机动性之外，最大特征是装备了只有新人类才能操控的脑波诱导兵器“浮游炮”。据记载，在第七次宇宙战争期间，为了以登陆并压制地球为目的的丁香花作战，至少制造了5架。",
+      "before_sha256": "60b5f2742f95056152a7f5d01a4a73593fbc8c787e02d68e2060833915adec4d",
+      "after": "旧宇宙革命军开发的新人类专用MS。除了高机动性之外，最大特征是装备了只有新人类才能操控的脑波诱导兵器“浮游炮”。据记载，在第7次宇宙战争期间，为了以登陆并压制地球为目的的丁香花作战，至少制造了5架。",
+      "after_sha256": "57be0bfa65586695142efbf0d66098988190d76b5cc86cbcc702e5654ae28f93",
+      "note": null
+    },
+    {
+      "id": "library-text/7f480322d1cc337d",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "位于北美大陆北部的自治都市，由诺莫亚·朗市长治理。以诺莫亚制造的人工新人类卡利斯·诺提拉斯为核心的自警团守护着城市。实际上诺莫亚的真实身份是宇宙革命军的多拉特博士，他为完成第七次宇宙战争时被联邦军阻止的“丁香花作战”，建造了塞文堡，以掩护新人类专用巨型MA帕特利亚的修复工作。诺莫亚企图以卡利斯为驾驶员启动帕特利亚，但和平号众人的奋战与卡利斯的决心，使他连同野心一起覆灭。此后以卡利斯为中心复兴城市，作为真正意义上的自治都市重新出发。另外，加拿大存在同名城市。",
+      "before_sha256": "f5e146c6d490fd6873cd564350c98470e5c4155d09e72fdf3ff72f8fd5beae90",
+      "after": "位于北美大陆北部的自治都市，由诺莫亚·朗市长治理。以诺莫亚制造的人工新人类卡利斯·诺提拉斯为核心的自警团守护着城市。实际上诺莫亚的真实身份是宇宙革命军的多拉特博士，他为完成第7次宇宙战争时被联邦军阻止的“丁香花作战”，建造了塞文堡，以掩护新人类专用巨型MA帕特利亚的修复工作。诺莫亚企图以卡利斯为驾驶员启动帕特利亚，但和平号众人的奋战与卡利斯的决心，使他连同野心一起覆灭。此后以卡利斯为中心复兴城市，作为真正意义上的自治都市重新出发。另外，加拿大存在同名城市。",
+      "after_sha256": "d84b8fc4b1d3a001b61496ad72716247c33c79eab9e9cf178a860874e5baa25a",
+      "note": null
+    },
+    {
+      "id": "library-text/0ef96fc5e1aea310",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "率领地球联邦政府木星船团的朱庇特里斯舰长。军衔上尉。26岁。拥有高度的新人类能力和领袖魅力。此外，从MS的设计到操纵、作战的立案与指挥，乃至对付女性的手段，无一不能完美完成的天才。其力量令莎拉着迷，使蕾柯亚从奥古倒戈，连口味挑剔的亚赞也被拉入己方。他曾明言“战后将由女性支配世界”，但这句话的含义直到最后都未明。返回地球圈后隶属提坦斯，但其才能带来的野心不可能局限于军队框架内，趁混乱暗杀加米托夫并掌握了提坦斯。最后驾驶自己打造的铁奥，与卡缪展开激战。但在围绕卡缪的灵魂之力面前，毫无还手之力而败北。",
+      "before_sha256": "df58b6b6d8e6b4aab05b625323ea6fa571d9bf92caeff74603cad56995619749",
+      "after": "率领地球联邦政府木星船团的朱庇特利斯舰长。军衔上尉。26岁。拥有高度的新人类能力和领袖魅力。此外，从MS的设计到操纵、作战的立案与指挥，乃至对付女性的手段，无一不能完美完成的天才。其力量令莎拉着迷，使蕾柯亚从奥古倒戈，连口味挑剔的亚赞也被拉入己方。他曾明言“战后将由女性支配世界”，但这句话的含义直到最后都未明。返回地球圈后隶属提坦斯，但其才能带来的野心不可能局限于军队框架内，趁混乱暗杀加米托夫并掌握了提坦斯。最后驾驶自己打造的铁奥，与卡缪展开激战。但在围绕卡缪的灵魂之力面前，毫无还手之力而败北。",
+      "after_sha256": "cfaf7b686fdb80739a304f7634cc08b87a6d3d5103d5ec216244e98f0dfe1810",
+      "note": null
+    },
+    {
+      "id": "library-text/fb3a7507e2a253de",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "率领地球联邦政府木星船团的朱庇特里斯的舰长，军衔上尉，26岁。拥有高水准的新人类能力和领袖魅力。此外从机动战士的设计到驾驶、作战的立案与指挥、乃至应对女性，各方面都能完美完成的天才。他的力量令莎拉着迷，使蕾柯亚从奥古倒戈，连挑剔的亚赞也被拉拢为同伴。曾明言“战后将由女性统治世界”，但这句话的含义始终未明。回归地球圈后隶属提坦斯，但源于其才能的野心似乎不是军队框架所能容纳的。",
+      "before_sha256": "1c15a279a42aab56233e2536e4d4650dc73a2b6f2df84ed88ffcd4d2eeef10ab",
+      "after": "率领地球联邦政府木星船团的朱庇特利斯的舰长，军衔上尉，26岁。拥有高水准的新人类能力和领袖魅力。此外从机动战士的设计到驾驶、作战的立案与指挥、乃至应对女性，各方面都能完美完成的天才。他的力量令莎拉着迷，使蕾柯亚从奥古倒戈，连挑剔的亚赞也被拉拢为同伴。曾明言“战后将由女性统治世界”，但这句话的含义始终未明。回归地球圈后隶属提坦斯，但源于其才能的野心似乎不是军队框架所能容纳的。",
+      "after_sha256": "ab4353dc3fb4dcc8c699ec47875f6622869657f2ec4d01073e9f068777746d10",
+      "note": null
+    },
+    {
+      "id": "library-text/f6b04509663677c4",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "住在乌鲁古斯克的17岁少年，除了擅长游戏之外并无特别之处。父母被大逃亡主义者杀害，因此憎恨大逃亡主义，怀着心灵创伤闭门不出。在沉迷于网络游戏《超限人战斗》的日子里，终于达成200连胜，获得了“王者”这一冠军称号。某天因不白之冤入狱，在牢中与该隐相遇，趁机一同越狱。途中获得的超限人被命名为“王者盖纳”，他以游戏冠军的身手迎战逼近的西伯利亚铁路警备队。随后顺势参加了大逃亡。由于过去的经历，他起初性格相当内向。但在对该隐的憧憬与反抗、对莎拉的情意、自身的责任与可能性等种种思绪交织中持续战斗，他成为了雅邦天井继续大逃亡的重要力量。与此同时，他自己也在人格上获得了成长。",
+      "before_sha256": "b58a9fb912bf1570547e55bb4b3565cc17691675bce2aabe3d0d233c3bd29688",
+      "after": "住在乌鲁古斯克的17岁少年，除了擅长游戏之外并无特别之处。父母被大逃亡主义者杀害，因此憎恨大逃亡主义，怀着心灵创伤闭门不出。在沉迷于网络游戏《超限人对战》的日子里，终于达成200连胜，获得了“王者”这一冠军称号。某天因不白之冤入狱，在牢中与该隐相遇，趁机一同越狱。途中获得的超限人被命名为“王者盖纳”，他以游戏冠军的身手迎战逼近的西伯利亚铁路警备队。随后顺势参加了大逃亡。由于过去的经历，他起初性格相当内向。但在对该隐的憧憬与反抗、对莎拉的情意、自身的责任与可能性等种种思绪交织中持续战斗，他成为了雅邦天井继续大逃亡的重要力量。与此同时，他自己也在人格上获得了成长。",
+      "after_sha256": "e453ea6375a47d8661146782608407deea623028e60c1026dd105a730c22a762",
+      "note": null
+    },
+    {
+      "id": "library-text/9ee0e45683ef5d22",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-20 第7次"
+      ],
+      "before": "第七次宇宙战争时，旧革命军为丁香花作战而降下的超巨大可变MA。作战失败导致机体受损，但被塞文堡市长诺莫亚——即旧革命军的多拉特博士秘密修复，藏于地下。由新人类搭乘后，30门有线光束炮能感知敌人动向，进行全方位攻击。",
+      "before_sha256": "f0fe3ed3b0117116af62ad1824ce4b55479af6746eccb364638bdae9c3861dd2",
+      "after": "第7次宇宙战争时，旧革命军为丁香花作战而降下的超巨大可变MA。作战失败导致机体受损，但被塞文堡市长诺莫亚——即旧革命军的多拉特博士秘密修复，藏于地下。由新人类搭乘后，30门有线光束炮能感知敌人动向，进行全方位攻击。",
+      "after_sha256": "3e2e806be944fb3fc2947e7d2b6f308f8aac899d9a29111c6e7abfa51c7af82e",
+      "note": null
+    },
+    {
+      "id": "library-text/f82d089b77419097",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-5 超限人对战"
+      ],
+      "before": "住在乌鲁古斯克，除了擅长游戏之外是个普通少年，17岁。父母被大逃亡主义者杀害，因此厌恶大逃亡主义，内心带着创伤闭门不出。在沉迷于网络游戏《超限人战斗》的日子里，终于达成200连胜，获得了“王者”的冠军称号。某天在因莫须有罪名被关入的牢狱中与该隐相遇，趁机越狱。途中获得的超限人被命名为“王者盖纳”，向逼近的西伯利亚铁路警备队展示了游戏冠军的身手。然后顺势参加了大逃亡。由于过去的经历，起初性格相当内向。但在对该隐的憧憬与反抗、对莎拉的感情、自身的责任与可能性等各种思绪交织中持续战斗，他成为了雅邦天井继续大逃亡的重要力量。与此同时，他自己也在人格上不断成长。在与既是游戏对手又是基兹·蒙特部下的辛西亚的战斗中，无法全力以赴而落败身受重伤。但辛西亚也对现实中流血战斗感到震惊，因这一破绽被超限恶魔捕获。为了拯救辛西亚，他进行了同时对抗游戏与现实两方面敌人的特训。经过苦战取得胜利，成功超越了过去的自己。怀着新的“王者”称号前往辛西亚处，途中虽被超限恶魔吞噬，但在莎拉和该隐的支援下成功解救了她。",
+      "before_sha256": "6d35b90f888943072de8b17ede1419ee88ce7dbb60ca7e9aea9129c5879e2e99",
+      "after": "住在乌鲁古斯克，除了擅长游戏之外是个普通少年，17岁。父母被大逃亡主义者杀害，因此厌恶大逃亡主义，内心带着创伤闭门不出。在沉迷于网络游戏《超限人对战》的日子里，终于达成200连胜，获得了“王者”的冠军称号。某天在因莫须有罪名被关入的牢狱中与该隐相遇，趁机越狱。途中获得的超限人被命名为“王者盖纳”，向逼近的西伯利亚铁路警备队展示了游戏冠军的身手。然后顺势参加了大逃亡。由于过去的经历，起初性格相当内向。但在对该隐的憧憬与反抗、对莎拉的感情、自身的责任与可能性等各种思绪交织中持续战斗，他成为了雅邦天井继续大逃亡的重要力量。与此同时，他自己也在人格上不断成长。在与既是游戏对手又是基兹·蒙特部下的辛西亚的战斗中，无法全力以赴而落败身受重伤。但辛西亚也对现实中流血战斗感到震惊，因这一破绽被超限恶魔捕获。为了拯救辛西亚，他进行了同时对抗游戏与现实两方面敌人的特训。经过苦战取得胜利，成功超越了过去的自己。怀着新的“王者”称号前往辛西亚处，途中虽被超限恶魔吞噬，但在莎拉和该隐的支援下成功解救了她。",
+      "after_sha256": "b22935b2091ad20efb06fac67061532fccfa251744e4e6c7d3022a5b781d940c",
+      "note": null
+    },
+    {
+      "id": "library-text/65dfd3b36025712b",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "1 钱德拉"
+      ],
+      "before": "大天使号的舵手。27岁。名义上的军衔是地球联合军时代的三尉（少尉）。正式编入奥布军后军衔升为一尉（上尉）。前次大战后似乎作为奥布的一名市民生活。尽管如此，无论是在地上、水中还是宇宙航行，以及在战斗中规避机动，他都能不分时间地点地巧妙操纵大天使号，充分展示了其技艺不减当年。能与新造舰密涅瓦号势均力敌甚至更胜一筹，很大程度上归功于他的操舵技术。他似乎对米丽雅莉亚有意，在交谈中钱德勒出现时露出了相当不悦的表情。但之后的结果依然不明。",
+      "before_sha256": "9cc7c70a3306fbdae4e7077e481f82337ef46a83a1970d9b09dd12b507a506af",
+      "after": "大天使号的舵手。27岁。名义上的军衔是地球联合军时代的三尉（少尉）。正式编入奥布军后军衔升为一尉（上尉）。前次大战后似乎作为奥布的一名市民生活。尽管如此，无论是在地上、水中还是宇宙航行，以及在战斗中规避机动，他都能不分时间地点地巧妙操纵大天使号，充分展示了其技艺不减当年。能与新造舰密涅瓦号势均力敌甚至更胜一筹，很大程度上归功于他的操舵技术。他似乎对米丽雅莉亚有意，在交谈中钱德拉出现时露出了相当不悦的表情。但之后的结果依然不明。",
+      "after_sha256": "5adb109cdf13eca5d7931e31bf4bd3f31d5644bfe249296b4f51c5a7691d4106",
+      "note": null
+    },
+    {
+      "id": "library-text/798e5a886fdd40fe",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "1 钱德拉"
+      ],
+      "before": "钱德勒",
+      "before_sha256": "f4b4198250b14516e8b710d0a8fd8f7cc3f209af3d3ad20a50001eb8cbf42ad0",
+      "after": "钱德拉",
+      "after_sha256": "36be41d8ccf9f4f265eeea7f6e85ea6e18e92c350d0e4d7d22099814cbd8b639",
+      "note": null
+    },
+    {
+      "id": "library-text/2d3d84f6f7bfbe24",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "西罗克在木星船最初开发的MA。为适应木星圈重力而开发，机体约40%由推进器和推进器单元占据。变为MA形态后，这些推进装置集中在机体后方，能发挥出格外出色的机动性。内置与背部推进器一体的米加粒子炮和腕部榴弹发射器等强力武装。也可变形为MS形态进行近身战，是平衡性出色的优秀机体。",
+      "before_sha256": "6c6f8ef4a05c8c2ec52ffe292c77aa856611e429cc067c0ae4ebf52323ac4fd4",
+      "after": "西罗克在朱庇特利斯最初开发的MA。为适应木星圈重力而开发，机体约40%由推进器和推进器单元占据。变为MA形态后，这些推进装置集中在机体后方，能发挥出格外出色的机动性。内置与背部推进器一体的米加粒子炮和腕部榴弹发射器等强力武装。也可变形为MS形态进行近身战，是平衡性出色的优秀机体。",
+      "after_sha256": "4ff98b785215300591f4f06db85b3d95a90da292899f0300b1c6662702132b07",
+      "note": null
+    },
+    {
+      "id": "library-text/2cd1c9a5702bf048",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-6 朱庇特利斯"
+      ],
+      "before": "西罗克在木星船开发的第三台MS。为索敌、侦察而设计，凭借头部的雷达罩状复合探测系统发挥高度的情报收集能力。战斗能力也绝不低，全身遍布的推进器赋予它远比外表看起来更出色的机动性。此外，可兼作光束斧和光束枪的盾牌等武装也颇具特色。",
+      "before_sha256": "4b1e1dc96848b7ac76022672b6e7860a849065bc038e9269892eed00812bd133",
+      "after": "西罗克在朱庇特利斯开发的第三台MS。为索敌、侦察而设计，凭借头部的雷达罩状复合探测系统发挥高度的情报收集能力。战斗能力也绝不低，全身遍布的推进器赋予它远比外表看起来更出色的机动性。此外，可兼作光束斧和光束枪的盾牌等武装也颇具特色。",
+      "after_sha256": "a5a758f7f86ae2347c5ba851b17ceed0489774c498a1508a3d6aa4585be305af",
+      "note": null
+    },
+    {
+      "id": "library-text/a0ebb8e225d728ac",
+      "file": "config/library/v0.2-editorial-overrides.json",
+      "groups": [
+        "2-9 黑箱"
+      ],
+      "before": "由奇美拉的极艾·贝贝尔博士改修的巴尔戈拉。机体名称由现任驾驶员决定。对各关节部的伺服马达和致动器进行了调校，并通过VWFS（V翼飞行系统）实现在大气圈内的飞行，在保留巴尔戈拉出色操作响应的基础上，又获得了惊人的运动性能。此外，加纳利·卡弗也因特异现象而发生变容，输出大幅提升。据认为这是原本作为黑匣子的核心部分吸收了周边部件，重构为接近原有功能的状态。",
+      "before_sha256": "79897c3b55204cfd278dd7d36d5b982df8dc514dc8cdc4ce62b09d95d4466043",
+      "after": "由奇美拉的极艾·贝贝尔博士改修的巴尔戈拉。机体名称由现任驾驶员决定。对各关节部的伺服马达和致动器进行了调校，并通过VWFS（V翼飞行系统）实现在大气圈内的飞行，在保留巴尔戈拉出色操作响应的基础上，又获得了惊人的运动性能。此外，加纳利·卡弗也因特异现象而发生变容，输出大幅提升。据认为这是原本作为黑箱的核心部分吸收了周边部件，重构为接近原有功能的状态。",
+      "after_sha256": "8f354f6486ea121517eefb92c009a31ca325f31dd5c254422c2b50cbda6c3fa5",
+      "note": null
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33A9F0",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "正在检查存储卡（PS2）。",
+      "before_sha256": "335c695cbebdf09c70547becadec5ba6217d21734fdc58c889bf67aeea8f853c",
+      "after": "正在检查记忆卡（PS2）。",
+      "after_sha256": "68965068a738dcfcbf8b39f42ee95e8045148280e58287ce70101d16143907d6",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AA20",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "存储卡插槽1中未插入存储卡（PS2）。\n保存游戏需要存储卡（PS2）中至少有999KB可用空间。",
+      "before_sha256": "c056afcb9fe644c45ce0c65f336b59a8e9b0f4cb78e2df0e02d900db942ba6ce",
+      "after": "记忆卡插槽1中未插入记忆卡（PS2）。\n保存游戏需要记忆卡（PS2）中至少有999KB可用空间。",
+      "after_sha256": "63705f79436249d8153f0672da6b641eff3321cbd5589c1f09e12b25729aeb5a",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AAD0",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "存储卡（PS2）尚未格式化。\n要格式化吗？",
+      "before_sha256": "fb60e4220158008b00fa59f79f796a696a829716a3bcfb9aeed678afe4ec647e",
+      "after": "记忆卡（PS2）尚未格式化。\n要格式化吗？",
+      "after_sha256": "684e6d32f4468f2634fb4486a2d45b3baff19b2729b7767a089b2194b5230a90",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AB30",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "存储卡（PS2）已被更换。",
+      "before_sha256": "ca63607c7183a5b5be1007403045012e0bf86ad20dd937647b7e249cf17ec543",
+      "after": "记忆卡（PS2）已被更换。",
+      "after_sha256": "1a38bc7981b9766665a277e2d79b4d06e21cfb5cc1db362cfb25bac1b9935c26",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AB60",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "正在格式化存储卡（PS2）。\n请勿拔出存储卡（PS2）或关闭电源。",
+      "before_sha256": "38a17e4c3601acc0bcccaa6a0edc07fe08a374fc4babbfb05aa3aa9fcd6a8622",
+      "after": "正在格式化记忆卡（PS2）。\n请勿拔出记忆卡（PS2）或关闭电源。",
+      "after_sha256": "77ac236e5abe336912b730fd7240b4e511ee35bb2f6d7b3b95e530d20b3ce7b0",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AC90",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "正在保存文件。\n请勿拔出存储卡（PS2）或关闭电源。",
+      "before_sha256": "8c7a3d678bd851addf6b7d0d62217eec83c61416cdc6995293cab65dbc835c41",
+      "after": "正在保存文件。\n请勿拔出记忆卡（PS2）或关闭电源。",
+      "after_sha256": "438037b7e39e0942c4bd2afc8d1dea8c5710daac671bd44af1002c98482093dc",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AD20",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "正在读取文件。\n请勿拔出存储卡（PS2）或关闭电源。",
+      "before_sha256": "b094db86d036b55c28f95c54cddc02d9536b73248dada9d885f6ea562d93e710",
+      "after": "正在读取文件。\n请勿拔出记忆卡（PS2）或关闭电源。",
+      "after_sha256": "a67c240366b7771a978470ac5b19a6f93441178bf6f4b6e64d8a68dcc4742a41",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33ADF0",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "可用空间不足。\n保存游戏需要存储卡（PS2）中至少有999KB可用空间。",
+      "before_sha256": "0a92bb8870b1d2d0be08574023b50fb36c155b27f8d137135fea41f1ecc88bf9",
+      "after": "可用空间不足。\n保存游戏需要记忆卡（PS2）中至少有999KB可用空间。",
+      "after_sha256": "2fc081032ededc887a6270f87786f0e539a8a06394a00414b47256c0ca0a2cbb",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AE70",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "可用空间不足。\n保存关卡需要存储卡（PS2）中至少有99KB可用空间。",
+      "before_sha256": "1e9810547ad0736040a0310bb262df3dd5033d14d788791448a343c3ffb0ab31",
+      "after": "可用空间不足。\n保存关卡需要记忆卡（PS2）中至少有99KB可用空间。",
+      "after_sha256": "39a1ffc6dc9df782ebdee7873d1adee167f0fc8b5f963394c9ff01363489260b",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AEF0",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "存储卡插槽1中未插入存储卡（PS2）。",
+      "before_sha256": "46dcafe72f0afb0f12ff49106b582299202b8090aceb903d3886280a8103210f",
+      "after": "记忆卡插槽1中未插入记忆卡（PS2）。",
+      "after_sha256": "a849f70826f7608883508fac411136560da2597c395bfea12c2bad581d0ad7a0",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33AFD0",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-13 记忆卡"
+      ],
+      "before": "存储卡（PS2）检查完毕。",
+      "before_sha256": "c879f6a40a7a4114ee2080c03fc257ad6228f35a30f969dbd5d1b08a10f3f9f6",
+      "after": "记忆卡（PS2）检查完毕。",
+      "after_sha256": "7f0205efce113d7e41f6f1726ef9f02bbc6d6de60374f273184bdf16f10536ae",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/slps_context_ui_by_offset/0x33D5A0",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-12 锦旗"
+      ],
+      "before": "描绘埃曼各地观光名胜的\n三角旗。\n在旧世界，它作为纪念品\n并不怎么受欢迎，\n如今反而显得新奇。",
+      "before_sha256": "108101652a2add9276b2c8c782fd0b44a0434d757dec3cf2a4206c000c5aba41",
+      "after": "描绘埃曼各地观光名胜的\n锦旗。\n在旧世界，它作为纪念品\n并不怎么受欢迎，\n如今反而显得新奇。",
+      "after_sha256": "4e34c1e9b4428c53b2a401327adeb8198952076d6f8e815277c0cd1dc510f482",
+      "note": "ui string, same length or shorter"
+    },
+    {
+      "id": "remaining-ui/compdata_direct_by_offset/0x7FDA0",
+      "file": "corpus/zh/menu/remaining-ui.json",
+      "groups": [
+        "2-10 试飞员"
+      ],
+      "before": "地球联邦军士兵，担任新型机测试驾驶员。\n性格胆怯，遇事总是消极，却又十分认真，\n总会拼尽全力完成自己的任务。",
+      "before_sha256": "92bbd3fc059e438268e34b970acb70e3397bef857f8178bb1265a5904577e655",
+      "after": "地球联邦军士兵，担任新型机试飞员。\n性格胆怯，遇事总是消极，却又十分认真，\n总会拼尽全力完成自己的任务。",
+      "after_sha256": "fae3601855d8313f81a77430a858e6bd7c3c43364e4b4b202e746d83ea7dcd8f",
+      "note": "ui string, same length or shorter"
+    }
+  ],
+  "skipped": [
+    {
+      "file": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-battle-conditions.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-buttons.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-command-menu.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-leadership.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-results.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-search-menu.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-search.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-skills.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-spirit-commands.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-tactical.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/menu/system-ui-unit-mech-pilot-weapons.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    },
+    {
+      "file": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
+      "reason": "no byte-exact serializer for this file's JSON style; left untouched"
+    }
+  ],
+  "glossary": [
+    {
+      "file": "corpus/glossary/terms-v1.json",
+      "id": "event/seventh-space-war",
+      "before": {
+        "id": "event/seventh-space-war",
+        "source_terms": [
+          "第７次宇宙戦争"
+        ],
+        "translation": "第七次宇宙战争",
+        "category": "event",
+        "status": "proposed",
+        "domains": [
+          "summary",
+          "story"
+        ],
+        "enforce": true,
+        "notes": "《机动新世纪高达X》设定。"
+      },
+      "after": {
+        "id": "event/seventh-space-war",
+        "source_terms": [
+          "第７次宇宙戦争"
+        ],
+        "translation": "第7次宇宙战争",
+        "category": "event",
+        "status": "approved",
+        "domains": [
+          "summary",
+          "story"
+        ],
+        "enforce": true,
+        "notes": "《机动新世纪高达X》设定。2026-10-21 用户定稿用阿拉伯数字“第7次”，与图鉴数字写法一致。",
+        "deprecated_translations": [
+          "第七次宇宙战争"
+        ]
+      }
+    },
+    {
+      "file": "corpus/glossary/terms-v1.json",
+      "id": "place/onogoro-island",
+      "before": null,
+      "after": {
+        "id": "place/onogoro-island",
+        "source_terms": [
+          "オノゴロ島",
+          "オノゴロ"
+        ],
+        "translation": "淤能碁吕岛",
+        "deprecated_translations": [
+          "奥诺戈罗岛",
+          "小野木岛"
+        ],
+        "variant_scope": "source_bound",
+        "category": "place",
+        "status": "approved",
+        "domains": [
+          "story",
+          "battle",
+          "library",
+          "menu",
+          "summary"
+        ],
+        "enforce": true,
+        "notes": "《机动战士高达SEED DESTINY》奥布的本岛。2026-10-21 用户定稿采用神话原典写法“淤能碁吕岛”。"
+      }
+    },
+    {
+      "file": "corpus/glossary/terms-v1.json",
+      "id": "place/heavens-base",
+      "before": null,
+      "after": {
+        "id": "place/heavens-base",
+        "source_terms": [
+          "ヘブンズベース"
+        ],
+        "translation": "天堂基地",
+        "deprecated_translations": [
+          "赫文斯基地"
+        ],
+        "variant_scope": "source_bound",
+        "category": "place",
+        "status": "approved",
+        "domains": [
+          "story",
+          "battle",
+          "library",
+          "menu",
+          "summary"
+        ],
+        "enforce": true,
+        "notes": "《机动战士高达SEED DESTINY》地球联合在冰岛的基地。2026-10-21 用户指出兰德线 4 句音译为“赫文斯基地”，统一为“天堂基地”。"
+      }
+    },
+    {
+      "file": "corpus/glossary/global-variants-v1.json",
+      "id": "group/busu-pair",
+      "before": {
+        "id": "group/busu-pair",
+        "source_terms": [
+          "ブスペア"
+        ],
+        "translation": "丑女搭档",
+        "deprecated_translations": [
+          "布斯佩亚",
+          "武斯佩亚",
+          "胜平队"
+        ],
+        "variant_scope": "source_bound",
+        "category": "group",
+        "status": "approved",
+        "domains": [
+          "library",
+          "story"
+        ],
+        "enforce": true,
+        "notes": "《无敌超人赞波特3》中胜平给亚纪和美知起的损人绰号，由“丑女（ブス）＋一对（pair）”构成；译作能在对白和图鉴中复用的“丑女搭档”。"
+      },
+      "after": {
+        "id": "group/busu-pair",
+        "source_terms": [
+          "ブスペア"
+        ],
+        "translation": "丑女二人组",
+        "deprecated_translations": [
+          "丑女搭档",
+          "布斯佩亚",
+          "武斯佩亚",
+          "胜平队"
+        ],
+        "variant_scope": "source_bound",
+        "category": "group",
+        "status": "approved",
+        "domains": [
+          "library",
+          "story"
+        ],
+        "enforce": true,
+        "notes": "《无敌超人赞波特3》中胜平给亚纪和美知起的损人绰号。2026-10-21 用户定稿为对白通行的“丑女二人组”。"
+      }
+    }
+  ],
+  "follow_ups": [
+    "world-map/title/134 罗德尼亚→罗多尼亚：世界地图标题是贴图，需重做贴图与 render snapshot",
+    "SP：sd/nisv/qa/page/101、keyword_summaries/100、sd/exe/3B5150 的“中途存档”按 SP 契约另批改为“中断保存”",
+    "menu/Compdata/01/0082 强化零件 オーバーコート=外覆装甲 未改（固定容量槽位，与对白 Overcoat 是否统一待定）",
+    "SP 共享 Q&A 契约：qa-shared-updates.json 已为 page/049、053、054、061 与 keyword_summaries 048/060/066/080 登记 before/after 身份；tests/test_special_disc_qa_native.py 与 tests/test_release_workflow.py 的钉住值同步更新"
+  ],
+  "productionWriteback": true,
+  "side_effects": [
+    "config/editorial/special-disc/qa-shared-updates.json +8 bindings",
+    "config/text-layout/zh-story-unbroken-words.json regenerated (+2 proper names)",
+    "tests/test_release_workflow.py battle:24481/24510 expectations",
+    "tests/test_special_disc_qa_native.py pages 49/53/54/61 replacements"
+  ]
+}
