@@ -1,0 +1,157 @@
+{
+  "scope": "Whole native parser regression: same Chinese before/after real compact scopes.\nControlled state matching the SP flow body, not natural runtime evidence.\nRuns each edition's original instructions and current parser patch separately.\n",
+  "cases": [
+    {
+      "edition": "original",
+      "dynamic_digits": false,
+      "Chinese_first_glyph_indices": [
+        0,
+        7,
+        14,
+        18,
+        25
+      ],
+      "Chinese_geometry": [
+        16,
+        10
+      ],
+      "all_Chinese_record_bytes_unchanged": true,
+      "only_changed_record_indices": [
+        11,
+        12,
+        13,
+        22,
+        23,
+        24
+      ],
+      "state_and_uploads_unchanged": true
+    },
+    {
+      "edition": "original",
+      "dynamic_digits": true,
+      "Chinese_first_glyph_indices": [
+        0,
+        7,
+        14,
+        18,
+        25
+      ],
+      "Chinese_geometry": [
+        16,
+        10
+      ],
+      "all_Chinese_record_bytes_unchanged": true,
+      "only_changed_record_indices": [
+        11,
+        12,
+        13,
+        22,
+        23,
+        24
+      ],
+      "state_and_uploads_unchanged": true
+    },
+    {
+      "edition": "best",
+      "dynamic_digits": false,
+      "Chinese_first_glyph_indices": [
+        0,
+        7,
+        14,
+        18,
+        25
+      ],
+      "Chinese_geometry": [
+        16,
+        10
+      ],
+      "all_Chinese_record_bytes_unchanged": true,
+      "only_changed_record_indices": [
+        11,
+        12,
+        13,
+        22,
+        23,
+        24
+      ],
+      "state_and_uploads_unchanged": true
+    },
+    {
+      "edition": "best",
+      "dynamic_digits": true,
+      "Chinese_first_glyph_indices": [
+        0,
+        7,
+        14,
+        18,
+        25
+      ],
+      "Chinese_geometry": [
+        16,
+        10
+      ],
+      "all_Chinese_record_bytes_unchanged": true,
+      "only_changed_record_indices": [
+        11,
+        12,
+        13,
+        22,
+        23,
+        24
+      ],
+      "state_and_uploads_unchanged": true
+    },
+    {
+      "edition": "sp",
+      "dynamic_digits": false,
+      "Chinese_first_glyph_indices": [
+        0,
+        7,
+        14,
+        18,
+        25
+      ],
+      "Chinese_geometry": [
+        16,
+        10
+      ],
+      "all_Chinese_record_bytes_unchanged": true,
+      "only_changed_record_indices": [
+        11,
+        12,
+        13,
+        22,
+        23,
+        24
+      ],
+      "state_and_uploads_unchanged": true
+    },
+    {
+      "edition": "sp",
+      "dynamic_digits": true,
+      "Chinese_first_glyph_indices": [
+        0,
+        7,
+        14,
+        18,
+        25
+      ],
+      "Chinese_geometry": [
+        16,
+        10
+      ],
+      "all_Chinese_record_bytes_unchanged": true,
+      "only_changed_record_indices": [
+        11,
+        12,
+        13,
+        22,
+        23,
+        24
+      ],
+      "state_and_uploads_unchanged": true
+    }
+  ],
+  "case_count": 6,
+  "source_sha256": "330faac5a141603783ee9c3777236669a7dcd84bef1e1b128258946c3816ad48"
+}

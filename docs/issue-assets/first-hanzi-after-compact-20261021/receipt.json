@@ -1,0 +1,186 @@
+{
+  "status": "passed_same_Chinese_glyph_before_and_after_compact_scope",
+  "scope": "Pixel-exact same-word comparison across compact-control boundaries.\nRequires Pillow. SP production captures and controlled RAM fixture are separate.\n",
+  "iso_sha256": "801962fba0c1c93fa2fa5ff6a8102bf54de5e4b3fb69ad475e8e8e9dedf53bab",
+  "production_body_diff_bbox": [
+    114,
+    225,
+    148,
+    243
+  ],
+  "production_Chinese": [
+    {
+      "label": "特",
+      "roi": [
+        148,
+        222,
+        164,
+        245
+      ],
+      "changed_pixels": 0
+    },
+    {
+      "label": "特别小队",
+      "roi": [
+        148,
+        222,
+        212,
+        245
+      ],
+      "changed_pixels": 0
+    }
+  ],
+  "controlled_fixture_comparisons": [
+    {
+      "record": 0,
+      "geometry": [
+        16,
+        10
+      ],
+      "roi": [
+        96,
+        128,
+        160,
+        148
+      ],
+      "word_changed_pixels": 0
+    },
+    {
+      "record": 7,
+      "geometry": [
+        16,
+        10
+      ],
+      "roi": [
+        144,
+        152,
+        208,
+        172
+      ],
+      "word_changed_pixels": 0
+    },
+    {
+      "record": 14,
+      "geometry": [
+        16,
+        10
+      ],
+      "roi": [
+        132,
+        176,
+        196,
+        196
+      ],
+      "word_changed_pixels": 0
+    },
+    {
+      "record": 18,
+      "geometry": [
+        16,
+        10
+      ],
+      "roi": [
+        96,
+        200,
+        160,
+        220
+      ],
+      "word_changed_pixels": 0
+    },
+    {
+      "record": 25,
+      "geometry": [
+        16,
+        10
+      ],
+      "roi": [
+        196,
+        200,
+        260,
+        220
+      ],
+      "word_changed_pixels": 0
+    }
+  ],
+  "native_cases": 6,
+  "first_Chinese_geometry": [
+    16,
+    10
+  ],
+  "interpretation": "In these captures 特 was already rendered identically before the digit-height change. Five normalized 特别小队 crops are identical; visual uniformity across different Chinese glyphs is a separate typography judgment.",
+  "production_source_modified": false,
+  "controlled_RAM_text_probe": true,
+  "probe_restored": true,
+  "files": [
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/capture.py",
+      "size": 2919,
+      "sha256": "309a5dd1e6763f5366a45c4a6bb64d82bbb09f279c95c8cf97215d425f5fec7f"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/controlled-receipt.json",
+      "size": 25725,
+      "sha256": "4f6268121cc9a9dc866b20fed1bab77d21e621f6ba5ac2d272a23d9ea26b6acb"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/controlled-records.bin",
+      "size": 10240,
+      "sha256": "d65f58b62c03c61ace45a0b88564b7cb725f5ada6755a9704746b05470fb5712"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/controlled-state.bin",
+      "size": 144,
+      "sha256": "1b3e5dfd88f5da30ba9d703f4edff5fa03d446bd860a00c13f6b4f1a8956ff8e"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/controlled.png",
+      "size": 124752,
+      "sha256": "a3b1d7fc4e92c18b12157b315b1ad8e06ca256b1bda7ea80d5f712849fc11bdd"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/live-glyph-metrics.json",
+      "size": 1909,
+      "sha256": "a2efe059628fb1f08a85821977757bf063e24100e6a143acc53b8428387bbf82"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/native-boundary-proof.json",
+      "size": 3047,
+      "sha256": "d728253a6f9d98df949c828e3db9ec815475f2b8ee993ec71791172d3b2b0292"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/natural-receipt.json",
+      "size": 27585,
+      "sha256": "c8c0c53d76b70a48139e92cacf57f653f1bc0c5a4b1b1cb785d85d41cff2e179"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/probe.py",
+      "size": 2797,
+      "sha256": "7fea93e3963d177772e2149cb7a7c9bacc09f3f4d7eec83c8984833f224fc98d"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/production-before.png",
+      "size": 161184,
+      "sha256": "828ae0986cd79a6b7b1db23d32551a0e7864aba53ebbc01a463169319dd510d0"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/production-current.png",
+      "size": 161148,
+      "sha256": "35d9094317aa551af359a656327026ffaebe2ff5910b115144723d1a2f801a48"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/production-restored.png",
+      "size": 161044,
+      "sha256": "9c3d46cc55f46c650b597bf1f9dfbcc74ad267c89494f0876b86d7b28fffcc58"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/verify.py",
+      "size": 3281,
+      "sha256": "13c1472bc7b59162a1ffe0de829f0fa49d74d3b46de18d0415a0c1fa4617b086"
+    },
+    {
+      "path": "docs/issue-assets/first-hanzi-after-compact-20261021/verify_native.py",
+      "size": 2765,
+      "sha256": "efa8d40e8a05816f1c5125a5d01616a0613e222019a116db93d6fa59fa54829f"
+    }
+  ]
+}
