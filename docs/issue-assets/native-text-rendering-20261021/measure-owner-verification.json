@@ -1,0 +1,23 @@
+{
+  "status": "declared_native_owner_windows_and_resolved_name_copy_passed_full_goal_incomplete",
+  "counts": {
+    "scenario_count": 1200,
+    "step_count": 1932,
+    "success_steps": 732,
+    "failure_steps": 1200,
+    "native_5039_name_copy_tails": 432
+  },
+  "native_primary_setter_calls": 1200,
+  "native_cursor_reset_calls": 1200,
+  "native_full_cache_initializers": 732,
+  "native_cache_measure_calls": 1464,
+  "failure_state20_stores": 1200,
+  "limits": [
+    "controlled valid mapped pointers, data graphs and source text; not a natural game trace",
+    "UI success path stops immediately after cache initialization, before subsequent getter/display services; failure path runs through its state20 store to join",
+    "opcode5039 executes its resolved-index strcpy tail only; parameter resolver and full STAGE interpreter not executed",
+    "secondary context setter store/calls located, its two external selection services remain unclosed",
+    "static direct caller/name producer scan is not exhaustive for indirect or parameterized aliases",
+    "production sources, ISOs and user memory card unchanged; no new emulator graphics verification"
+  ]
+}

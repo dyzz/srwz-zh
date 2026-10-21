@@ -1,0 +1,137 @@
+{
+  "scope": "Native two-string center-offset cache writer and following draw argument blocks.\nActual native identities, exact instruction-pattern binding, no inferred UI name.\nThe writer prefix's opaque callees and natural object lifetime remain unproved.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "object_base": "0x6d31c0",
+      "object_initializer_lui": "0x319020",
+      "object_initializer_addiu": "0x319030",
+      "writer_tail_start": "0x319540",
+      "writer_tail_end": "0x319560",
+      "measure_entry": "0x139b00",
+      "writer_sha256": "ad85c51094025b2aa0c36320cda45b154c24ebabf98330f5d2702a6bee7fef89",
+      "text_offsets": [
+        "0x1c",
+        "0x20"
+      ],
+      "cache_offsets": [
+        "0x24",
+        "0x26"
+      ],
+      "measure_full_width_argument": 0,
+      "draw_consumers": [
+        {
+          "cache_offset": "0x24",
+          "load": "0x319718",
+          "block_start": "0x319714",
+          "draw_call": "0x319744",
+          "draw_target": "0x13c5a0",
+          "block_end": "0x31974c",
+          "sha256": "4ece3b8d44e90e16b5a68f45b9c3e348fc8e7456040f7889b4f94d3b00b28344"
+        },
+        {
+          "cache_offset": "0x26",
+          "load": "0x319860",
+          "block_start": "0x319858",
+          "draw_call": "0x31987c",
+          "draw_target": "0x13c5a0",
+          "block_end": "0x319884",
+          "sha256": "ebaa74fbd1007e32df9fcbbdb333ba0d2ff585efd4854b8c9ff55eeb67105e2f"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "object_base": "0x6d39c0",
+      "object_initializer_lui": "0x3193f0",
+      "object_initializer_addiu": "0x319400",
+      "writer_tail_start": "0x319910",
+      "writer_tail_end": "0x319930",
+      "measure_entry": "0x139b00",
+      "writer_sha256": "ad85c51094025b2aa0c36320cda45b154c24ebabf98330f5d2702a6bee7fef89",
+      "text_offsets": [
+        "0x1c",
+        "0x20"
+      ],
+      "cache_offsets": [
+        "0x24",
+        "0x26"
+      ],
+      "measure_full_width_argument": 0,
+      "draw_consumers": [
+        {
+          "cache_offset": "0x24",
+          "load": "0x319ae8",
+          "block_start": "0x319ae4",
+          "draw_call": "0x319b14",
+          "draw_target": "0x13c5a0",
+          "block_end": "0x319b1c",
+          "sha256": "76fbe3f89ac99a8bea13277a1fdf43337044b0d1f6851e4f8e4cb0d9f37d254d"
+        },
+        {
+          "cache_offset": "0x26",
+          "load": "0x319c30",
+          "block_start": "0x319c28",
+          "draw_call": "0x319c4c",
+          "draw_target": "0x13c5a0",
+          "block_end": "0x319c54",
+          "sha256": "b22a02e6afca2028952745cef3887ea10724762255c7339443b4586d829ab51d"
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "object_base": "0x75fcd0",
+      "object_initializer_lui": "0x33cf80",
+      "object_initializer_addiu": "0x33cf90",
+      "writer_tail_start": "0x33d4a0",
+      "writer_tail_end": "0x33d4c0",
+      "measure_entry": "0x13a5a0",
+      "writer_sha256": "71051caa1a993cae8b2da37b9902e66156d511b4974706b1a7206f2cefbe24e5",
+      "text_offsets": [
+        "0x1c",
+        "0x20"
+      ],
+      "cache_offsets": [
+        "0x24",
+        "0x26"
+      ],
+      "measure_full_width_argument": 0,
+      "draw_consumers": [
+        {
+          "cache_offset": "0x24",
+          "load": "0x33d678",
+          "block_start": "0x33d674",
+          "draw_call": "0x33d6a4",
+          "draw_target": "0x13d050",
+          "block_end": "0x33d6ac",
+          "sha256": "3bcebfb7aceb411f5047b321dd026cd2bf4e2fba3867c204046f9bb241948e53"
+        },
+        {
+          "cache_offset": "0x26",
+          "load": "0x33d7c0",
+          "block_start": "0x33d7b8",
+          "draw_call": "0x33d7dc",
+          "draw_target": "0x13d050",
+          "block_end": "0x33d7e4",
+          "sha256": "7f63266ed6c4981dee55b8bc367be29e51ff407c9e3b63b95bdec3edbefdd35e"
+        }
+      ]
+    }
+  ]
+}

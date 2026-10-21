@@ -1,0 +1,609 @@
+{
+  "scope": "Native parser frame ownership and direct cached-height reset evidence.\nOnly the parser and its two original direct callees are covered; no claim\nabout arbitrary indirect execution or asynchronous re-entry into the renderer.\n",
+  "status": "three_native_frame_ownership_and_callee_stack_bounds_checked",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "functions": [
+        {
+          "name": "parser",
+          "start": "0x13a290",
+          "end": "0x13ac88",
+          "frame_size": 96,
+          "stack_accesses": [
+            {
+              "pc": "0x13a298",
+              "opcode": "0xffbf0050",
+              "offset": 80,
+              "size": 8,
+              "store": true
+            },
+            {
+              "pc": "0x13a2a0",
+              "opcode": "0x7fb40040",
+              "offset": 64,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13a2a4",
+              "opcode": "0x7fb30030",
+              "offset": 48,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13a2ac",
+              "opcode": "0x7fb20020",
+              "offset": 32,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13a2b4",
+              "opcode": "0x7fb10010",
+              "offset": 16,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13a2bc",
+              "opcode": "0x7fb00000",
+              "offset": 0,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13ac68",
+              "opcode": "0xdfbf0050",
+              "offset": 80,
+              "size": 8,
+              "store": false
+            },
+            {
+              "pc": "0x13ac6c",
+              "opcode": "0x7bb40040",
+              "offset": 64,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13ac70",
+              "opcode": "0x7bb30030",
+              "offset": 48,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13ac74",
+              "opcode": "0x7bb20020",
+              "offset": 32,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13ac78",
+              "opcode": "0x7bb10010",
+              "offset": 16,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13ac7c",
+              "opcode": "0x7bb00000",
+              "offset": 0,
+              "size": 16,
+              "store": false
+            }
+          ],
+          "stack_adjustments": [
+            {
+              "pc": "0x13a290",
+              "delta": -96
+            },
+            {
+              "pc": "0x13ac84",
+              "delta": 96
+            }
+          ],
+          "direct_calls": [
+            {
+              "site": "0x13a450",
+              "target": "0x139930"
+            },
+            {
+              "site": "0x13ac20",
+              "target": "0x13aca0"
+            }
+          ],
+          "sha256": "77a711ce7909c7a94dbba6344e347846969690e1b00894fc88862286188ef79c"
+        },
+        {
+          "name": "packet_builder",
+          "start": "0x13aca0",
+          "end": "0x13bd60",
+          "frame_size": 48,
+          "stack_accesses": [
+            {
+              "pc": "0x13aca8",
+              "opcode": "0x7fb20020",
+              "offset": 32,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13acac",
+              "opcode": "0x7fb10010",
+              "offset": 16,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13acb0",
+              "opcode": "0x7fb00000",
+              "offset": 0,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13bd40",
+              "opcode": "0x7bb20020",
+              "offset": 32,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13bd44",
+              "opcode": "0x7bb10010",
+              "offset": 16,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13bd4c",
+              "opcode": "0x7bb00000",
+              "offset": 0,
+              "size": 16,
+              "store": false
+            }
+          ],
+          "stack_adjustments": [
+            {
+              "pc": "0x13aca0",
+              "delta": -48
+            },
+            {
+              "pc": "0x13bd54",
+              "delta": 48
+            }
+          ],
+          "direct_calls": [],
+          "sha256": "fc2333202a41ac50566dcb86455fa8e215c0420ebd3160faa79b959417c8a268"
+        },
+        {
+          "name": "reset",
+          "start": "0x139930",
+          "end": "0x139a4c",
+          "frame_size": 0,
+          "stack_accesses": [],
+          "stack_adjustments": [],
+          "direct_calls": [],
+          "sha256": "e6d505d30a5499d112e8b54a639efd3b78c81ed1306d68ed39be8630783445aa"
+        }
+      ],
+      "candidate_call_local_flag": {
+        "offset": 88,
+        "size": 4,
+        "overlap_with_native_parser_frame": false,
+        "entry_zero_site": "0x13a38c"
+      }
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "functions": [
+        {
+          "name": "parser",
+          "start": "0x13a290",
+          "end": "0x13ac88",
+          "frame_size": 96,
+          "stack_accesses": [
+            {
+              "pc": "0x13a298",
+              "opcode": "0xffbf0050",
+              "offset": 80,
+              "size": 8,
+              "store": true
+            },
+            {
+              "pc": "0x13a2a0",
+              "opcode": "0x7fb40040",
+              "offset": 64,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13a2a4",
+              "opcode": "0x7fb30030",
+              "offset": 48,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13a2ac",
+              "opcode": "0x7fb20020",
+              "offset": 32,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13a2b4",
+              "opcode": "0x7fb10010",
+              "offset": 16,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13a2bc",
+              "opcode": "0x7fb00000",
+              "offset": 0,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13ac68",
+              "opcode": "0xdfbf0050",
+              "offset": 80,
+              "size": 8,
+              "store": false
+            },
+            {
+              "pc": "0x13ac6c",
+              "opcode": "0x7bb40040",
+              "offset": 64,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13ac70",
+              "opcode": "0x7bb30030",
+              "offset": 48,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13ac74",
+              "opcode": "0x7bb20020",
+              "offset": 32,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13ac78",
+              "opcode": "0x7bb10010",
+              "offset": 16,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13ac7c",
+              "opcode": "0x7bb00000",
+              "offset": 0,
+              "size": 16,
+              "store": false
+            }
+          ],
+          "stack_adjustments": [
+            {
+              "pc": "0x13a290",
+              "delta": -96
+            },
+            {
+              "pc": "0x13ac84",
+              "delta": 96
+            }
+          ],
+          "direct_calls": [
+            {
+              "site": "0x13a450",
+              "target": "0x139930"
+            },
+            {
+              "site": "0x13ac20",
+              "target": "0x13aca0"
+            }
+          ],
+          "sha256": "ff1aeee21d7282cd15cfd294f51897399f426552742e1681792d9ca743c87ce3"
+        },
+        {
+          "name": "packet_builder",
+          "start": "0x13aca0",
+          "end": "0x13bd60",
+          "frame_size": 48,
+          "stack_accesses": [
+            {
+              "pc": "0x13aca8",
+              "opcode": "0x7fb20020",
+              "offset": 32,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13acac",
+              "opcode": "0x7fb10010",
+              "offset": 16,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13acb0",
+              "opcode": "0x7fb00000",
+              "offset": 0,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13bd40",
+              "opcode": "0x7bb20020",
+              "offset": 32,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13bd44",
+              "opcode": "0x7bb10010",
+              "offset": 16,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13bd4c",
+              "opcode": "0x7bb00000",
+              "offset": 0,
+              "size": 16,
+              "store": false
+            }
+          ],
+          "stack_adjustments": [
+            {
+              "pc": "0x13aca0",
+              "delta": -48
+            },
+            {
+              "pc": "0x13bd54",
+              "delta": 48
+            }
+          ],
+          "direct_calls": [],
+          "sha256": "8e362a0c54b3eea8e19d9fc65e9a8b99952c8d46f66c4d3b8ccc32d0ced27961"
+        },
+        {
+          "name": "reset",
+          "start": "0x139930",
+          "end": "0x139a4c",
+          "frame_size": 0,
+          "stack_accesses": [],
+          "stack_adjustments": [],
+          "direct_calls": [],
+          "sha256": "b0a02efbcb8978624dd657cff5e23a6178f64da62be9157903aabb4a00a0943c"
+        }
+      ],
+      "candidate_call_local_flag": {
+        "offset": 88,
+        "size": 4,
+        "overlap_with_native_parser_frame": false,
+        "entry_zero_site": "0x13a38c"
+      }
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "functions": [
+        {
+          "name": "parser",
+          "start": "0x13ad30",
+          "end": "0x13b728",
+          "frame_size": 96,
+          "stack_accesses": [
+            {
+              "pc": "0x13ad38",
+              "opcode": "0xffbf0050",
+              "offset": 80,
+              "size": 8,
+              "store": true
+            },
+            {
+              "pc": "0x13ad40",
+              "opcode": "0x7fb40040",
+              "offset": 64,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13ad44",
+              "opcode": "0x7fb30030",
+              "offset": 48,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13ad4c",
+              "opcode": "0x7fb20020",
+              "offset": 32,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13ad54",
+              "opcode": "0x7fb10010",
+              "offset": 16,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13ad5c",
+              "opcode": "0x7fb00000",
+              "offset": 0,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13b708",
+              "opcode": "0xdfbf0050",
+              "offset": 80,
+              "size": 8,
+              "store": false
+            },
+            {
+              "pc": "0x13b70c",
+              "opcode": "0x7bb40040",
+              "offset": 64,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13b710",
+              "opcode": "0x7bb30030",
+              "offset": 48,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13b714",
+              "opcode": "0x7bb20020",
+              "offset": 32,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13b718",
+              "opcode": "0x7bb10010",
+              "offset": 16,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13b71c",
+              "opcode": "0x7bb00000",
+              "offset": 0,
+              "size": 16,
+              "store": false
+            }
+          ],
+          "stack_adjustments": [
+            {
+              "pc": "0x13ad30",
+              "delta": -96
+            },
+            {
+              "pc": "0x13b724",
+              "delta": 96
+            }
+          ],
+          "direct_calls": [
+            {
+              "site": "0x13aef0",
+              "target": "0x13a3a0"
+            },
+            {
+              "site": "0x13b6c0",
+              "target": "0x13b740"
+            }
+          ],
+          "sha256": "6e2d5db6108bbc729ff157cd7582ec2ea03e86b7594e16c3e46be0bcfbf6a19e"
+        },
+        {
+          "name": "packet_builder",
+          "start": "0x13b740",
+          "end": "0x13c800",
+          "frame_size": 48,
+          "stack_accesses": [
+            {
+              "pc": "0x13b748",
+              "opcode": "0x7fb20020",
+              "offset": 32,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13b74c",
+              "opcode": "0x7fb10010",
+              "offset": 16,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13b750",
+              "opcode": "0x7fb00000",
+              "offset": 0,
+              "size": 16,
+              "store": true
+            },
+            {
+              "pc": "0x13c7e0",
+              "opcode": "0x7bb20020",
+              "offset": 32,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13c7e4",
+              "opcode": "0x7bb10010",
+              "offset": 16,
+              "size": 16,
+              "store": false
+            },
+            {
+              "pc": "0x13c7ec",
+              "opcode": "0x7bb00000",
+              "offset": 0,
+              "size": 16,
+              "store": false
+            }
+          ],
+          "stack_adjustments": [
+            {
+              "pc": "0x13b740",
+              "delta": -48
+            },
+            {
+              "pc": "0x13c7f4",
+              "delta": 48
+            }
+          ],
+          "direct_calls": [],
+          "sha256": "26ee18efd850852bbf081326f8eca1fd1394d3bb25f6ec9fc7866f2df4e2b0c7"
+        },
+        {
+          "name": "reset",
+          "start": "0x13a3a0",
+          "end": "0x13a4bc",
+          "frame_size": 0,
+          "stack_accesses": [],
+          "stack_adjustments": [],
+          "direct_calls": [],
+          "sha256": "17f2415bdd0a0ff54a2e3f996ab8240e1ebf8649b87fe21aec6608ab822dd698"
+        }
+      ],
+      "candidate_call_local_flag": {
+        "offset": 88,
+        "size": 4,
+        "overlap_with_native_parser_frame": false,
+        "entry_zero_site": "0x13ae2c"
+      }
+    }
+  ]
+}

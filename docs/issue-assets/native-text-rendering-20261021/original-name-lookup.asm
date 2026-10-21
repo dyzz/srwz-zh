@@ -1,0 +1,483 @@
+; lookup
+001b2ce0 27bdff40 addiu $sp, $sp, -0xc0
+001b2ce4 ffbf0090 sd $ra, 0x90($sp)
+001b2ce8 7fbe0080 sq $fp, 128($sp)
+001b2cec 7fb70070 sq $s7, 112($sp)
+001b2cf0 00a0f02d move $fp, $a1
+001b2cf4 7fb60060 sq $s6, 96($sp)
+001b2cf8 7fb50050 sq $s5, 80($sp)
+001b2cfc 7fb40040 sq $s4, 64($sp)
+001b2d00 0080a82d move $s5, $a0
+001b2d04 7fb30030 sq $s3, 48($sp)
+001b2d08 00e0a02d move $s4, $a3
+001b2d0c 7fb20020 sq $s2, 32($sp)
+001b2d10 7fb10010 sq $s1, 16($sp)
+001b2d14 12800002 beqz $s4, 0x1b2d20
+001b2d18 7fb00000 sq $s0, 0($sp)
+001b2d1c ae802f90 sw $zero, 0x2f90($s4)
+001b2d20 12800003 beqz $s4, 0x1b2d30
+001b2d24 00000000 nop 
+001b2d28 ae802f94 sw $zero, 0x2f94($s4)
+001b2d2c 00000000 nop 
+001b2d30 12800003 beqz $s4, 0x1b2d40
+001b2d34 00000000 nop 
+001b2d38 ae802f98 sw $zero, 0x2f98($s4)
+001b2d3c 00000000 nop 
+001b2d40 30c30002 andi $v1, $a2, 2
+001b2d44 afa300b0 sw $v1, 0xb0($sp)
+001b2d48 3c120059 lui $s2, 0x59
+001b2d4c 30c30008 andi $v1, $a2, 8
+001b2d50 2402ffff addiu $v0, $zero, -1
+001b2d54 0000b82d move $s7, $zero
+001b2d58 2652ec50 addiu $s2, $s2, -0x13b0
+001b2d5c afa300a0 sw $v1, 0xa0($sp)
+001b2d60 30d10004 andi $s1, $a2, 4
+001b2d64 00000000 nop 
+001b2d68 92430014 lbu $v1, 0x14($s2)
+001b2d6c 30630003 andi $v1, $v1, 3
+001b2d70 1060006f beqz $v1, 0x1b2f30
+001b2d74 00000000 nop 
+001b2d78 07c00005 bltz $fp, 0x1b2d90
+001b2d7c 00000000 nop 
+001b2d80 92430025 lbu $v1, 0x25($s2)
+001b2d84 17c3006a bne $fp, $v1, 0x1b2f30
+001b2d88 00000000 nop 
+001b2d8c 00000000 nop 
+001b2d90 8fa300b0 lw $v1, 0xb0($sp)
+001b2d94 10600004 beqz $v1, 0x1b2da8
+001b2d98 00000000 nop 
+001b2d9c 92430024 lbu $v1, 0x24($s2)
+001b2da0 10600063 beqz $v1, 0x1b2f30
+001b2da4 00000000 nop 
+001b2da8 8fa300a0 lw $v1, 0xa0($sp)
+001b2dac 14600008 bnez $v1, 0x1b2dd0
+001b2db0 00000000 nop 
+001b2db4 92440016 lbu $a0, 0x16($s2)
+001b2db8 24030001 addiu $v1, $zero, 1
+001b2dbc 0004267c dsll32 $a0, $a0, 0x19
+001b2dc0 000427fe dsrl32 $a0, $a0, 0x1f
+001b2dc4 1083005a beq $a0, $v1, 0x1b2f30
+001b2dc8 00000000 nop 
+001b2dcc 00000000 nop 
+001b2dd0 0000b02d move $s6, $zero
+001b2dd4 0240802d move $s0, $s2
+001b2dd8 8e060008 lw $a2, 8($s0)
+001b2ddc 10c0004c beqz $a2, 0x1b2f10
+001b2de0 0000982d move $s3, $zero
+001b2de4 00c0402d move $t0, $a2
+001b2de8 0000382d move $a3, $zero
+001b2dec 24040001 addiu $a0, $zero, 1
+001b2df0 8d0300b0 lw $v1, 0xb0($t0)
+001b2df4 1060003c beqz $v1, 0x1b2ee8
+001b2df8 00c71821 addu $v1, $a2, $a3
+001b2dfc 8c6500b0 lw $a1, 0xb0($v1)
+001b2e00 8ca30000 lw $v1, ($a1)
+001b2e04 94630000 lhu $v1, ($v1)
+001b2e08 16a30037 bne $s5, $v1, 0x1b2ee8
+001b2e0c 00000000 nop 
+001b2e10 12200005 beqz $s1, 0x1b2e28
+001b2e14 00000000 nop 
+001b2e18 90a30040 lbu $v1, 0x40($a1)
+001b2e1c 30630001 andi $v1, $v1, 1
+001b2e20 10640031 beq $v1, $a0, 0x1b2ee8
+001b2e24 00000000 nop 
+001b2e28 8cc200a8 lw $v0, 0xa8($a2)
+001b2e2c 90420030 lbu $v0, 0x30($v0)
+001b2e30 0002177c dsll32 $v0, $v0, 0x1d
+001b2e34 000217fe dsrl32 $v0, $v0, 0x1f
+001b2e38 14400019 bnez $v0, 0x1b2ea0
+001b2e3c 00000000 nop 
+001b2e40 86430068 lh $v1, 0x68($s2)
+001b2e44 04600016 bltz $v1, 0x1b2ea0
+001b2e48 00031080 sll $v0, $v1, 2
+001b2e4c 3c050059 lui $a1, 0x59
+001b2e50 00431021 addu $v0, $v0, $v1
+001b2e54 24a5ec50 addiu $a1, $a1, -0x13b0
+001b2e58 00021040 sll $v0, $v0, 1
+001b2e5c 0240202d move $a0, $s2
+001b2e60 00431021 addu $v0, $v0, $v1
+001b2e64 00021100 sll $v0, $v0, 4
+001b2e68 00a21021 addu $v0, $a1, $v0
+001b2e6c 9042006c lbu $v0, 0x6c($v0)
+001b2e70 a242006c sb $v0, 0x6c($s2)
+001b2e74 86430068 lh $v1, 0x68($s2)
+001b2e78 00031080 sll $v0, $v1, 2
+001b2e7c 00431021 addu $v0, $v0, $v1
+001b2e80 00021040 sll $v0, $v0, 1
+001b2e84 00431021 addu $v0, $v0, $v1
+001b2e88 00021100 sll $v0, $v0, 4
+001b2e8c 00a21021 addu $v0, $a1, $v0
+001b2e90 9042006d lbu $v0, 0x6d($v0)
+001b2e94 0c055974 jal 0x1565d0
+001b2e98 a242006d sb $v0, 0x6d($s2)
+001b2e9c 00000000 nop 
+001b2ea0 12800003 beqz $s4, 0x1b2eb0
+001b2ea4 02e0102d move $v0, $s7
+001b2ea8 ae922f90 sw $s2, 0x2f90($s4)
+001b2eac 00000000 nop 
+001b2eb0 12800007 beqz $s4, 0x1b2ed0
+001b2eb4 00000000 nop 
+001b2eb8 8e030008 lw $v1, 8($s0)
+001b2ebc 00132080 sll $a0, $s3, 2
+001b2ec0 00641821 addu $v1, $v1, $a0
+001b2ec4 8c6300b0 lw $v1, 0xb0($v1)
+001b2ec8 ae832f94 sw $v1, 0x2f94($s4)
+001b2ecc 00000000 nop 
+001b2ed0 1280000b beqz $s4, 0x1b2f00
+001b2ed4 00000000 nop 
+001b2ed8 8e030008 lw $v1, 8($s0)
+001b2edc 10000008 b 0x1b2f00
+001b2ee0 ae832f98 sw $v1, 0x2f98($s4)
+001b2ee4 00000000 nop 
+001b2ee8 26730001 addiu $s3, $s3, 1
+001b2eec 2a630006 slti $v1, $s3, 6
+001b2ef0 25080004 addiu $t0, $t0, 4
+001b2ef4 1460ffbe bnez $v1, 0x1b2df0
+001b2ef8 24e70004 addiu $a3, $a3, 4
+001b2efc 00000000 nop 
+001b2f00 2403ffff addiu $v1, $zero, -1
+001b2f04 14430006 bne $v0, $v1, 0x1b2f20
+001b2f08 00000000 nop 
+001b2f0c 00000000 nop 
+001b2f10 26d60001 addiu $s6, $s6, 1
+001b2f14 2ac30003 slti $v1, $s6, 3
+001b2f18 1460ffaf bnez $v1, 0x1b2dd8
+001b2f1c 26100004 addiu $s0, $s0, 4
+001b2f20 2403ffff addiu $v1, $zero, -1
+001b2f24 14430006 bne $v0, $v1, 0x1b2f40
+001b2f28 00000000 nop 
+001b2f2c 00000000 nop 
+001b2f30 26f70001 addiu $s7, $s7, 1
+001b2f34 2ae30078 slti $v1, $s7, 0x78
+001b2f38 1460ff8b bnez $v1, 0x1b2d68
+001b2f3c 265200b0 addiu $s2, $s2, 0xb0
+001b2f40 dfbf0090 ld $ra, 0x90($sp)
+001b2f44 7bbe0080 lq $fp, 128($sp)
+001b2f48 7bb70070 lq $s7, 112($sp)
+001b2f4c 7bb60060 lq $s6, 96($sp)
+001b2f50 7bb50050 lq $s5, 80($sp)
+001b2f54 7bb40040 lq $s4, 64($sp)
+001b2f58 7bb30030 lq $s3, 48($sp)
+001b2f5c 7bb20020 lq $s2, 32($sp)
+001b2f60 7bb10010 lq $s1, 16($sp)
+001b2f64 7bb00000 lq $s0, 0($sp)
+001b2f68 03e00008 jr $ra
+001b2f6c 27bd00c0 addiu $sp, $sp, 0xc0
+; coordinate
+001565d0 8083006c lb $v1, 0x6c($a0)
+001565d4 04610002 bgez $v1, 0x1565e0
+001565d8 8085006d lb $a1, 0x6d($a0)
+001565dc a080006c sb $zero, 0x6c($a0)
+001565e0 00051e3c dsll32 $v1, $a1, 0x18
+001565e4 00031e3f dsra32 $v1, $v1, 0x18
+001565e8 04610003 bgez $v1, 0x1565f8
+001565ec 00000000 nop 
+001565f0 a080006d sb $zero, 0x6d($a0)
+001565f4 00000000 nop 
+001565f8 9083006c lbu $v1, 0x6c($a0)
+001565fc 04600004 bltz $v1, 0x156610
+00156600 00032842 srl $a1, $v1, 1
+00156604 44830000 mtc1 $v1, $f0
+00156608 10000007 b 0x156628
+0015660c 468000a0 cvt.s.w $f2, $f0
+00156610 30630001 andi $v1, $v1, 1
+00156614 00a32825 or $a1, $a1, $v1
+00156618 44850000 mtc1 $a1, $f0
+0015661c 00000000 nop 
+00156620 468000a0 cvt.s.w $f2, $f0
+00156624 46021080 add.s $f2, $f2, $f2
+00156628 3c033f00 lui $v1, 0x3f00
+0015662c 3c053e80 lui $a1, 0x3e80
+00156630 44830000 mtc1 $v1, $f0
+00156634 3c010052 lui $at, 0x52
+00156638 44850800 mtc1 $a1, $f1
+0015663c 00000000 nop 
+00156640 46020002 mul.s $f0, $f0, $f2
+00156644 3c033ac4 lui $v1, 0x3ac4
+00156648 34639ba6 ori $v1, $v1, 0x9ba6
+0015664c e4800050 swc1 $f0, 0x50($a0)
+00156650 9087006d lbu $a3, 0x6d($a0)
+00156654 44830000 mtc1 $v1, $f0
+00156658 8c254a80 lw $a1, 0x4a80($at)
+0015665c 9083006c lbu $v1, 0x6c($a0)
+00156660 00073080 sll $a2, $a3, 2
+00156664 00c73021 addu $a2, $a2, $a3
+00156668 00063040 sll $a2, $a2, 1
+0015666c 000318c0 sll $v1, $v1, 3
+00156670 00c73021 addu $a2, $a2, $a3
+00156674 00063140 sll $a2, $a2, 5
+00156678 00a62821 addu $a1, $a1, $a2
+0015667c 00a31821 addu $v1, $a1, $v1
+00156680 80630000 lb $v1, ($v1)
+00156684 44831000 mtc1 $v1, $f2
+00156688 00000000 nop 
+0015668c 468010a0 cvt.s.w $f2, $f2
+00156690 46020842 mul.s $f1, $f1, $f2
+00156694 46000801 sub.s $f0, $f1, $f0
+00156698 e4800054 swc1 $f0, 0x54($a0)
+0015669c 9083006d lbu $v1, 0x6d($a0)
+001566a0 04600004 bltz $v1, 0x1566b4
+001566a4 00032842 srl $a1, $v1, 1
+001566a8 44830000 mtc1 $v1, $f0
+001566ac 10000007 b 0x1566cc
+001566b0 46800060 cvt.s.w $f1, $f0
+001566b4 30630001 andi $v1, $v1, 1
+001566b8 00a32825 or $a1, $a1, $v1
+001566bc 44850000 mtc1 $a1, $f0
+001566c0 00000000 nop 
+001566c4 46800060 cvt.s.w $f1, $f0
+001566c8 46010840 add.s $f1, $f1, $f1
+001566cc 3c03bf00 lui $v1, 0xbf00
+001566d0 44830000 mtc1 $v1, $f0
+001566d4 00000000 nop 
+001566d8 46010002 mul.s $f0, $f0, $f1
+001566dc 03e00008 jr $ra
+001566e0 e4800058 swc1 $f0, 0x58($a0)
+; selector_wrapper
+001bae00 27bdffb0 addiu $sp, $sp, -0x50
+001bae04 30c20200 andi $v0, $a2, 0x200
+001bae08 ffbf0040 sd $ra, 0x40($sp)
+001bae0c 7fb30030 sq $s3, 48($sp)
+001bae10 7fb20020 sq $s2, 32($sp)
+001bae14 0080982d move $s3, $a0
+001bae18 7fb10010 sq $s1, 16($sp)
+001bae1c 00a0902d move $s2, $a1
+001bae20 7fb00000 sq $s0, 0($sp)
+001bae24 00e0882d move $s1, $a3
+001bae28 14400007 bnez $v0, 0x1bae48
+001bae2c 0000802d move $s0, $zero
+001bae30 30c30100 andi $v1, $a2, 0x100
+001bae34 24020001 addiu $v0, $zero, 1
+001bae38 14620003 bne $v1, $v0, 0x1bae48
+001bae3c 00000000 nop 
+001bae40 36100002 ori $s0, $s0, 2
+001bae44 00000000 nop 
+001bae48 30c20001 andi $v0, $a2, 1
+001bae4c 10400002 beqz $v0, 0x1bae58
+001bae50 00000000 nop 
+001bae54 36100001 ori $s0, $s0, 1
+001bae58 30c20004 andi $v0, $a2, 4
+001bae5c 10400002 beqz $v0, 0x1bae68
+001bae60 00000000 nop 
+001bae64 36100004 ori $s0, $s0, 4
+001bae68 30c20008 andi $v0, $a2, 8
+001bae6c 10400002 beqz $v0, 0x1bae78
+001bae70 00000000 nop 
+001bae74 36100008 ori $s0, $s0, 8
+001bae78 16600003 bnez $s3, 0x1bae88
+001bae7c 2402ffff addiu $v0, $zero, -1
+001bae80 24130002 addiu $s3, $zero, 2
+001bae84 00000000 nop 
+001bae88 24030001 addiu $v1, $zero, 1
+001bae8c 16630006 bne $s3, $v1, 0x1baea8
+001bae90 0240202d move $a0, $s2
+001bae94 2405ffff addiu $a1, $zero, -1
+001bae98 0200302d move $a2, $s0
+001bae9c 0c06cbdc jal 0x1b2f70
+001baea0 0220382d move $a3, $s1
+001baea4 00000000 nop 
+001baea8 24030002 addiu $v1, $zero, 2
+001baeac 16630006 bne $s3, $v1, 0x1baec8
+001baeb0 0240202d move $a0, $s2
+001baeb4 2405ffff addiu $a1, $zero, -1
+001baeb8 0200302d move $a2, $s0
+001baebc 0c06cb38 jal 0x1b2ce0
+001baec0 0220382d move $a3, $s1
+001baec4 00000000 nop 
+001baec8 24030003 addiu $v1, $zero, 3
+001baecc 16630006 bne $s3, $v1, 0x1baee8
+001baed0 0240202d move $a0, $s2
+001baed4 0200302d move $a2, $s0
+001baed8 0220382d move $a3, $s1
+001baedc 0c06cc68 jal 0x1b31a0
+001baee0 2405ffff addiu $a1, $zero, -1
+001baee4 00000000 nop 
+001baee8 dfbf0040 ld $ra, 0x40($sp)
+001baeec 7bb30030 lq $s3, 48($sp)
+001baef0 7bb20020 lq $s2, 32($sp)
+001baef4 7bb10010 lq $s1, 16($sp)
+001baef8 7bb00000 lq $s0, 0($sp)
+001baefc 03e00008 jr $ra
+001baf00 27bd0050 addiu $sp, $sp, 0x50
+; dispatcher
+001bf9e0 27bdfe00 addiu $sp, $sp, -0x200
+001bf9e4 ffbf00b0 sd $ra, 0xb0($sp)
+001bf9e8 7fbe00a0 sq $fp, 160($sp)
+001bf9ec 7fb70090 sq $s7, 144($sp)
+001bf9f0 7fb60080 sq $s6, 128($sp)
+001bf9f4 7fb50070 sq $s5, 112($sp)
+001bf9f8 7fb40060 sq $s4, 96($sp)
+001bf9fc 7fb30050 sq $s3, 80($sp)
+001bfa00 7fb20040 sq $s2, 64($sp)
+001bfa04 7fb10030 sq $s1, 48($sp)
+001bfa08 0000902d move $s2, $zero
+001bfa0c 7fb00020 sq $s0, 32($sp)
+001bfa10 0080882d move $s1, $a0
+001bfa14 8c830000 lw $v1, ($a0)
+001bfa18 2465ec78 addiu $a1, $v1, -0x1388
+001bfa1c 2ca10047 sltiu $at, $a1, 0x47
+001bfa20 1020121b beqz $at, 0x1c4290
+001bfa24 00c0802d move $s0, $a2
+001bfa28 3c070044 lui $a3, 0x44
+001bfa2c 00052880 sll $a1, $a1, 2
+001bfa30 24e7a6d0 addiu $a3, $a3, -0x5930
+001bfa34 00a72821 addu $a1, $a1, $a3
+001bfa38 8ca50000 lw $a1, ($a1)
+001bfa3c 00a00008 jr $a1
+001bfa40 00000000 nop 
+001bfa44 00000000 nop 
+; dispatcher
+001c28c0 8e230004 lw $v1, 4($s1)
+001c28c4 24020080 addiu $v0, $zero, 0x80
+001c28c8 3074ffff andi $s4, $v1, 0xffff
+001c28cc 00031c03 sra $v1, $v1, 0x10
+001c28d0 3073ffff andi $s3, $v1, 0xffff
+001c28d4 12620024 beq $s3, $v0, 0x1c2968
+001c28d8 34028000 ori $v0, $zero, 0x8000
+001c28dc 0282102a slt $v0, $s4, $v0
+001c28e0 14400009 bnez $v0, 0x1c2908
+001c28e4 34018100 ori $at, $zero, 0x8100
+001c28e8 0281082a slt $at, $s4, $at
+001c28ec 10200006 beqz $at, 0x1c2908
+001c28f0 0280202d move $a0, $s4
+001c28f4 0000282d move $a1, $zero
+001c28f8 0000302d move $a2, $zero
+001c28fc 0c06ec18 jal 0x1bb060
+001c2900 0200382d move $a3, $s0
+001c2904 0040a02d move $s4, $v0
+001c2908 0260202d move $a0, $s3
+001c290c 0280282d move $a1, $s4
+001c2910 0000302d move $a2, $zero
+001c2914 0c06eb80 jal 0x1bae00
+001c2918 0200382d move $a3, $s0
+001c291c 28410000 slti $at, $v0, 0
+001c2920 1420065d bnez $at, 0x1c4298
+001c2924 00000000 nop 
+001c2928 8e032f90 lw $v1, 0x2f90($s0)
+001c292c 1060065a beqz $v1, 0x1c4298
+001c2930 00021880 sll $v1, $v0, 2
+001c2934 8e250008 lw $a1, 8($s1)
+001c2938 00622021 addu $a0, $v1, $v0
+001c293c 00042040 sll $a0, $a0, 1
+001c2940 3c030059 lui $v1, 0x59
+001c2944 00821021 addu $v0, $a0, $v0
+001c2948 2463ec50 addiu $v1, $v1, -0x13b0
+001c294c 00021100 sll $v0, $v0, 4
+001c2950 00621021 addu $v0, $v1, $v0
+001c2954 0c068362 jal 0x1a0d88
+001c2958 24440028 addiu $a0, $v0, 0x28
+001c295c 1000001c b 0x1c29d0
+001c2960 00000000 nop 
+001c2964 00000000 nop 
+001c2968 8e220008 lw $v0, 8($s1)
+001c296c 0000802d move $s0, $zero
+001c2970 00021403 sra $v0, $v0, 0x10
+001c2974 3052ffff andi $s2, $v0, 0xffff
+001c2978 0200302d move $a2, $s0
+001c297c 0280202d move $a0, $s4
+001c2980 0c06d614 jal 0x1b5850
+001c2984 0240282d move $a1, $s2
+001c2988 0040802d move $s0, $v0
+001c298c 2a010000 slti $at, $s0, 0
+001c2990 1420000f bnez $at, 0x1c29d0
+001c2994 00101880 sll $v1, $s0, 2
+001c2998 3c020059 lui $v0, 0x59
+001c299c 00701821 addu $v1, $v1, $s0
+001c29a0 8e250008 lw $a1, 8($s1)
+001c29a4 00031840 sll $v1, $v1, 1
+001c29a8 2442ec50 addiu $v0, $v0, -0x13b0
+001c29ac 00701821 addu $v1, $v1, $s0
+001c29b0 00031900 sll $v1, $v1, 4
+001c29b4 00431021 addu $v0, $v0, $v1
+001c29b8 0c068362 jal 0x1a0d88
+001c29bc 24440028 addiu $a0, $v0, 0x28
+001c29c0 26100001 addiu $s0, $s0, 1
+001c29c4 2a020078 slti $v0, $s0, 0x78
+001c29c8 1440ffeb bnez $v0, 0x1c2978
+001c29cc 00000000 nop 
+001c29d0 10000631 b 0x1c4298
+001c29d4 24120001 addiu $s2, $zero, 1
+; dispatcher
+001c42b0 dfbf00b0 ld $ra, 0xb0($sp)
+001c42b4 7bbe00a0 lq $fp, 160($sp)
+001c42b8 7bb70090 lq $s7, 144($sp)
+001c42bc 7bb60080 lq $s6, 128($sp)
+001c42c0 7bb50070 lq $s5, 112($sp)
+001c42c4 7bb40060 lq $s4, 96($sp)
+001c42c8 7bb30050 lq $s3, 80($sp)
+001c42cc 7bb20040 lq $s2, 64($sp)
+001c42d0 7bb10030 lq $s1, 48($sp)
+001c42d4 7bb00020 lq $s0, 32($sp)
+001c42d8 03e00008 jr $ra
+001c42dc 27bd0200 addiu $sp, $sp, 0x200
+; strcpy
+001a0d88 0080382d move $a3, $a0
+001a0d8c 00a74025 or $t0, $a1, $a3
+001a0d90 31020007 andi $v0, $t0, 7
+001a0d94 14400038 bnez $v0, 0x1a0e78
+001a0d98 00e0182d move $v1, $a3
+001a0d9c 3102000f andi $v0, $t0, 0xf
+001a0da0 3c090101 lui $t1, 0x101
+001a0da4 35290101 ori $t1, $t1, 0x101
+001a0da8 00094c38 dsll $t1, $t1, 0x10
+001a0dac 35290101 ori $t1, $t1, 0x101
+001a0db0 00094c38 dsll $t1, $t1, 0x10
+001a0db4 35290101 ori $t1, $t1, 0x101
+001a0db8 3c048080 lui $a0, 0x8080
+001a0dbc 34848080 ori $a0, $a0, 0x8080
+001a0dc0 00042438 dsll $a0, $a0, 0x10
+001a0dc4 34848080 ori $a0, $a0, 0x8080
+001a0dc8 00042438 dsll $a0, $a0, 0x10
+001a0dcc 34848080 ori $a0, $a0, 0x8080
+001a0dd0 54400019 bnel $v0, $zero, 0x1a0e38
+001a0dd4 dcaa0000 ld $t2, ($a1)
+001a0dd8 71295389 .word 0x71295389 ; unresolved EE MMI
+001a0ddc 78a90000 lq $t1, 0($a1)
+001a0de0 70844389 .word 0x70844389 ; unresolved EE MMI
+001a0de4 712a1248 .word 0x712a1248 ; unresolved EE MMI
+001a0de8 70091ce9 .word 0x70091ce9 ; unresolved EE MMI
+001a0dec 70431489 .word 0x70431489 ; unresolved EE MMI
+001a0df0 70481489 .word 0x70481489 ; unresolved EE MMI
+001a0df4 704923a9 .word 0x704923a9 ; unresolved EE MMI
+001a0df8 00441825 or $v1, $v0, $a0
+001a0dfc 1460001d bnez $v1, 0x1a0e74
+001a0e00 00e0302d move $a2, $a3
+001a0e04 7cc90000 sq $t1, 0($a2)
+001a0e08 24a50010 addiu $a1, $a1, 0x10
+001a0e0c 78a90000 lq $t1, 0($a1)
+001a0e10 712a1248 .word 0x712a1248 ; unresolved EE MMI
+001a0e14 70091ce9 .word 0x70091ce9 ; unresolved EE MMI
+001a0e18 70431489 .word 0x70431489 ; unresolved EE MMI
+001a0e1c 70481489 .word 0x70481489 ; unresolved EE MMI
+001a0e20 704923a9 .word 0x704923a9 ; unresolved EE MMI
+001a0e24 00441825 or $v1, $v0, $a0
+001a0e28 1060fff6 beqz $v1, 0x1a0e04
+001a0e2c 24c60010 addiu $a2, $a2, 0x10
+001a0e30 10000011 b 0x1a0e78
+001a0e34 00c0182d move $v1, $a2
+001a0e38 0149102f dsubu $v0, $t2, $t1
+001a0e3c 000a1827 nor $v1, $zero, $t2
+001a0e40 00431024 and $v0, $v0, $v1
+001a0e44 00441024 and $v0, $v0, $a0
+001a0e48 1440000a bnez $v0, 0x1a0e74
+001a0e4c 00e0302d move $a2, $a3
+001a0e50 fcca0000 sd $t2, ($a2)
+001a0e54 24a50008 addiu $a1, $a1, 8
+001a0e58 dcaa0000 ld $t2, ($a1)
+001a0e5c 000a1027 nor $v0, $zero, $t2
+001a0e60 0149182f dsubu $v1, $t2, $t1
+001a0e64 00621824 and $v1, $v1, $v0
+001a0e68 00641824 and $v1, $v1, $a0
+001a0e6c 1060fff8 beqz $v1, 0x1a0e50
+001a0e70 24c60008 addiu $a2, $a2, 8
+001a0e74 00c0182d move $v1, $a2
+001a0e78 90a20000 lbu $v0, ($a1)
+001a0e7c 24a50001 addiu $a1, $a1, 1
+001a0e80 a0620000 sb $v0, ($v1)
+001a0e84 00021600 sll $v0, $v0, 0x18
+001a0e88 24630001 addiu $v1, $v1, 1
+001a0e8c 1440fffa bnez $v0, 0x1a0e78
+001a0e90 00000000 nop 
+001a0e94 03e00008 jr $ra
+001a0e98 00e0102d move $v0, $a3
+001a0e9c 00000000 nop 

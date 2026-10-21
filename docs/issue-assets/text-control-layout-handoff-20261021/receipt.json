@@ -1,0 +1,104 @@
+{
+  "status": "passed_documentation_snapshot_links_and_three_ISO_native_patch_ledger",
+  "scope": "documentation handoff; no production source/corpus changes, ISO rebuild or new emulator run; prior runtime and test evidence referenced separately",
+  "snapshot_reproduced_byte_identically": true,
+  "local_links_checked": 32,
+  "source_hashes_checked": 16,
+  "corpus_tokenization_errors": [],
+  "patch_readback": [
+    {
+      "edition": "original",
+      "member": "SLPS_258.87",
+      "native_elf_sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+      "current_elf_sha256": "b84e324def772d70c5d6b58318a976b3912143f84d59180e2950b49b1824a0b7",
+      "checked_regions": 8,
+      "total_write_span_bytes": 276,
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "838eccfcfb5e0d90b50eb33a3c158dc482369e950c48fcac5a8ae11525ff0258",
+        "size": 3799459840
+      }
+    },
+    {
+      "edition": "best",
+      "member": "SLPS_732.70",
+      "native_elf_sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb",
+      "current_elf_sha256": "3c1ed9404273941139b73a5b7774129f7854cdcdf84e05bd3a2043b06e5f5cef",
+      "checked_regions": 8,
+      "total_write_span_bytes": 276,
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "1332be2781700610f8d4376ff32544c4531d8226169d84f3aa39e968fc8bc050",
+        "size": 3796187136
+      }
+    },
+    {
+      "edition": "sp",
+      "member": "SLPS_259.20",
+      "native_elf_sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101",
+      "current_elf_sha256": "9f94d151c00553583cbbf3ecf976145237556405060d688a271f412a038f1a1c",
+      "checked_regions": 8,
+      "total_write_span_bytes": 276,
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "438b7fc717b9059455bcc6982cd59fe8b05c1e36e30040f7532c1f6a51cd04dd",
+        "size": 3918833664
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/TEXT_CONTROL_AND_LAYOUT_HANDOFF_20261021.md",
+      "size": 27705,
+      "sha256": "daff9f5ab7c4ce1df358e57acced512fa173fd5e4df32fa8462eba2840a07bbd"
+    },
+    {
+      "path": "docs/README.md",
+      "size": 4850,
+      "sha256": "375350d969022caf76fd7c4ebb54914e20ad2f457450342a3a31c3add1f34d0a"
+    },
+    {
+      "path": "docs/NATIVE_TEXT_RENDERING_REVERSE_ENGINEERING_20261021.md",
+      "size": 124603,
+      "sha256": "16c735c635d3f093e0be769b374efae6e4b4c6d89a4daaf77e19d950d7331d82"
+    },
+    {
+      "path": "docs/LIBRARY_BODY_FONT_FIX_20261021.md",
+      "size": 9719,
+      "sha256": "a1f28106e7f43f7fa266eb6a58038146ef9394350553943d90329a494a2f46c5"
+    },
+    {
+      "path": "docs/VISIBLE_TEXT_ENCODING_RULES.md",
+      "size": 7608,
+      "sha256": "a4d6229e8f8a135dc8f409bd0890b08c6074801dc0a7d78a3af853d4e7e21634"
+    },
+    {
+      "path": "docs/TEXT_WIDTH_LAYOUT_POLICY_20260928.md",
+      "size": 9266,
+      "sha256": "7078230dfbb37b3c2f33dfd3298bfed86765b250a33e2cf55a669a7adc821daf"
+    },
+    {
+      "path": "docs/COMPACT_TEXT_ADJUSTMENT_PLAN_20260928.md",
+      "size": 14191,
+      "sha256": "edea65da936dcdade370bb27ec3a3b18c7957c5db89dab03f6d19632317b3c87"
+    },
+    {
+      "path": "docs/issue-assets/text-control-layout-handoff-20261021/snapshot.py",
+      "size": 5345,
+      "sha256": "253ba746a2fb5ecf8a6444f3622050219546eb7cca842933a0e87b659306ea06"
+    },
+    {
+      "path": "docs/issue-assets/text-control-layout-handoff-20261021/snapshot.json",
+      "size": 72169,
+      "sha256": "1db9ba52deac7fa18c965accd097e0826afa6ab0a0ecb4776afe19ce93240b30"
+    },
+    {
+      "path": "docs/issue-assets/text-control-layout-handoff-20261021/verify.py",
+      "size": 3598,
+      "sha256": "d5d497a6207d30513ec871e8508d5e5bcf3b16cc250ab46359a08a61b445288f"
+    }
+  ],
+  "runtime_evidence": "docs/issue-assets/native-text-rendering-20261021/smaller-body/runtime-verification.json",
+  "prior_tests": "docs/issue-assets/native-text-rendering-20261021/smaller-body/tests-smaller-full.log",
+  "full_reverse_engineering_complete": false
+}

@@ -1,0 +1,122 @@
+{
+  "scope": "Three independently derived native busy-wait and timeout recovery bindings.\nInterrupt services and diagnostic output are external leaves for the planned\ninteger/MMIO-shadow proof; this inventory does not prove CP0 device semantics.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "functions": {
+        "wait": {
+          "entry": "0x10e130",
+          "end": "0x10e1a0",
+          "sha256": "363b751bb58771a4a0d3bb17a2415ee1a619bb9643526c938667b30ee9128e99"
+        },
+        "recovery": {
+          "entry": "0x10e8c8",
+          "end": "0x10e960",
+          "sha256": "7009ba887affbac58c04fe35289173640d5bb49169bb6f6f0988b6082a8a6d1f"
+        },
+        "interrupt_enter": {
+          "entry": "0x1252a0",
+          "end": "0x1252f0",
+          "sha256": "018be3a7aa3a1a8d9fd3e43aaead80a463f13bb8b7a47d0a4f5a0e9293a12cb5"
+        },
+        "interrupt_exit": {
+          "entry": "0x1252f0",
+          "end": "0x125308",
+          "sha256": "0ae1b531ea66b2f56c5dc4b333b43b68dd1ea993259b0767becf89dafcb6e73c"
+        }
+      },
+      "diagnostic_entry": "0x11dd48",
+      "format_address": "0x431ee0",
+      "format_hex": "6c6962646d613a2073796e632074696d656f75740a",
+      "counter_seed": 16777216,
+      "mmio": {
+        "enable_read": "0x1000f520",
+        "enable_write": "0x1000f590",
+        "dmac_control": "0x1000e000"
+      }
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "functions": {
+        "wait": {
+          "entry": "0x10e130",
+          "end": "0x10e1a0",
+          "sha256": "ee1dfd642c399b2acca0a082376b9e1a1100c41e10dd3bd19040a155b32e9037"
+        },
+        "recovery": {
+          "entry": "0x10e8c8",
+          "end": "0x10e960",
+          "sha256": "7009ba887affbac58c04fe35289173640d5bb49169bb6f6f0988b6082a8a6d1f"
+        },
+        "interrupt_enter": {
+          "entry": "0x1252a0",
+          "end": "0x1252f0",
+          "sha256": "018be3a7aa3a1a8d9fd3e43aaead80a463f13bb8b7a47d0a4f5a0e9293a12cb5"
+        },
+        "interrupt_exit": {
+          "entry": "0x1252f0",
+          "end": "0x125308",
+          "sha256": "0ae1b531ea66b2f56c5dc4b333b43b68dd1ea993259b0767becf89dafcb6e73c"
+        }
+      },
+      "diagnostic_entry": "0x11dd48",
+      "format_address": "0x4326e0",
+      "format_hex": "6c6962646d613a2073796e632074696d656f75740a",
+      "counter_seed": 16777216,
+      "mmio": {
+        "enable_read": "0x1000f520",
+        "enable_write": "0x1000f590",
+        "dmac_control": "0x1000e000"
+      }
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "functions": {
+        "wait": {
+          "entry": "0x10e0c0",
+          "end": "0x10e130",
+          "sha256": "d277a114f45e2bc75076388ac7022e12eaff2bc0b56e0bda75f41c8297068bc3"
+        },
+        "recovery": {
+          "entry": "0x10e858",
+          "end": "0x10e8f0",
+          "sha256": "3e50f902133396be4c47dd48195db54257705e1807d631653671e004e7eb0297"
+        },
+        "interrupt_enter": {
+          "entry": "0x125220",
+          "end": "0x125270",
+          "sha256": "018be3a7aa3a1a8d9fd3e43aaead80a463f13bb8b7a47d0a4f5a0e9293a12cb5"
+        },
+        "interrupt_exit": {
+          "entry": "0x125270",
+          "end": "0x125288",
+          "sha256": "0ae1b531ea66b2f56c5dc4b333b43b68dd1ea993259b0767becf89dafcb6e73c"
+        }
+      },
+      "diagnostic_entry": "0x11dcc8",
+      "format_address": "0x4a5660",
+      "format_hex": "6c6962646d613a2073796e632074696d656f75740a",
+      "counter_seed": 16777216,
+      "mmio": {
+        "enable_read": "0x1000f520",
+        "enable_write": "0x1000f590",
+        "dmac_control": "0x1000e000"
+      }
+    }
+  ]
+}

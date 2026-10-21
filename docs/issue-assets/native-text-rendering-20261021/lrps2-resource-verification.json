@@ -1,0 +1,240 @@
+{
+  "status": "three_native_source_ISO_LRPS2_resource_snapshots_match_native_decode_and_seed_layout",
+  "scope": "cold boot/title state only; does not establish every caller or frame timing behavior",
+  "editions": [
+    {
+      "edition": "original",
+      "scope": "native ISO cold boot; controller input and EE memory reads only; no assistant RAM/code writes",
+      "source_iso": {
+        "path": "rom/original.iso",
+        "size": 3758358528,
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+      },
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "card_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "commands": [
+        {
+          "command": "run 1800",
+          "response": [
+            "OK frame=1800"
+          ]
+        },
+        {
+          "command": "press start 3",
+          "response": [
+            "OK frame=1805"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=1985"
+          ]
+        },
+        {
+          "command": "shot native-title",
+          "response": [
+            "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/native-font-resources-20261021/original/native-title.png 640x448 luma=120.7",
+            "OK frame=1985"
+          ]
+        },
+        {
+          "command": "mem 46e330 144",
+          "output": "font-state.bin",
+          "sha256": "4ef4aa96d0a004209e7a93f767a26ccee11a9eefb29ffb0a908d5e126c189222"
+        },
+        {
+          "command": "mem 9ae610 1290240",
+          "output": "font-store.bin",
+          "sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd"
+        },
+        {
+          "command": "mem 990600 122880",
+          "output": "font-atlas.bin",
+          "sha256": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b"
+        },
+        {
+          "command": "quit",
+          "response": [
+            "OK"
+          ]
+        }
+      ],
+      "font_state_hex": "00 00 00 00 00 08 00 08 00 00 30 00 00 00 30 00 00 00 00 00 16 00 0b 00 16 00 0b 00 00 00 00 00 ff ff ff 00 80 80 80 80 80 80 80 80 12 00 0b 00 10 00 00 00 ff ff ff 00 16 00 0b 00 16 00 0b 00 16 00 0b 00 16 00 0b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 bd 98 00 00 00 00 00 a0 e5 98 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 e6 9a 00 00 00 00 00 00 06 99 00 00 00 00 00 00 00 00 00 00 00 00 00",
+      "font_address": "0x9ae610",
+      "atlas_address": "0x990600",
+      "reserved_marker": [
+        0,
+        48
+      ],
+      "font_sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd",
+      "atlas_sha256": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b",
+      "card_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "status": "passed_LRPS2_native_font_and_reserved_atlas_readback",
+      "font_matches_native_decoded_resource": true,
+      "reserved_42_glyphs_match": true,
+      "reserved_region_sha256": "1d5e42b23a874e0f7fdcc7a0271edf7850066bd7088214feda075b0606aa523f",
+      "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    },
+    {
+      "edition": "best",
+      "scope": "native ISO cold boot; controller input and EE memory reads only; no assistant RAM/code writes",
+      "source_iso": {
+        "path": "rom/best.iso",
+        "size": 3755081728,
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77"
+      },
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "card_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "commands": [
+        {
+          "command": "run 1800",
+          "response": [
+            "OK frame=1800"
+          ]
+        },
+        {
+          "command": "press start 3",
+          "response": [
+            "OK frame=1805"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=1985"
+          ]
+        },
+        {
+          "command": "shot native-title",
+          "response": [
+            "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/native-font-resources-20261021/best/native-title.png 640x448 luma=120.7",
+            "OK frame=1985"
+          ]
+        },
+        {
+          "command": "mem 46eb30 144",
+          "output": "font-state.bin",
+          "sha256": "322f81539c8f3fb1ea28289f38613011473d52cc0fa2701ecd9cf545f81c3dcf"
+        },
+        {
+          "command": "mem 9aee10 1290240",
+          "output": "font-store.bin",
+          "sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd"
+        },
+        {
+          "command": "mem 990e00 122880",
+          "output": "font-atlas.bin",
+          "sha256": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b"
+        },
+        {
+          "command": "quit",
+          "response": [
+            "OK"
+          ]
+        }
+      ],
+      "font_state_hex": "00 00 00 00 00 08 00 08 00 00 30 00 00 00 30 00 00 00 00 00 16 00 0b 00 16 00 0b 00 00 00 00 00 ff ff ff 00 80 80 80 80 80 80 80 80 12 00 0b 00 10 00 00 00 ff ff ff 00 16 00 0b 00 16 00 0b 00 16 00 0b 00 16 00 0b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 c5 98 00 00 00 00 00 a0 ed 98 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 ee 9a 00 00 00 00 00 00 0e 99 00 00 00 00 00 00 00 00 00 00 00 00 00",
+      "font_address": "0x9aee10",
+      "atlas_address": "0x990e00",
+      "reserved_marker": [
+        0,
+        48
+      ],
+      "font_sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd",
+      "atlas_sha256": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b",
+      "card_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "status": "passed_LRPS2_native_font_and_reserved_atlas_readback",
+      "font_matches_native_decoded_resource": true,
+      "reserved_42_glyphs_match": true,
+      "reserved_region_sha256": "1d5e42b23a874e0f7fdcc7a0271edf7850066bd7088214feda075b0606aa523f",
+      "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    },
+    {
+      "edition": "sp",
+      "scope": "native ISO cold boot; controller input and EE memory reads only; no assistant RAM/code writes",
+      "source_iso": {
+        "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+        "size": 3791781888,
+        "sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952"
+      },
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "card_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "commands": [
+        {
+          "command": "run 1800",
+          "response": [
+            "OK frame=1800"
+          ]
+        },
+        {
+          "command": "press start 3",
+          "response": [
+            "OK frame=1805"
+          ]
+        },
+        {
+          "command": "run 180",
+          "response": [
+            "OK frame=1985"
+          ]
+        },
+        {
+          "command": "shot native-title",
+          "response": [
+            "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/native-font-resources-20261021/sp/native-title.png 640x448 luma=103.0",
+            "OK frame=1985"
+          ]
+        },
+        {
+          "command": "mem 4ed5b0 144",
+          "output": "font-state.bin",
+          "sha256": "f2a6a824e9d8fa8bf731bac3fa889cc8bebf187b1bc3e556224a7598a76ad526"
+        },
+        {
+          "command": "mem a40f10 1290240",
+          "output": "font-store.bin",
+          "sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd"
+        },
+        {
+          "command": "mem a22f00 122880",
+          "output": "font-atlas.bin",
+          "sha256": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b"
+        },
+        {
+          "command": "quit",
+          "response": [
+            "OK"
+          ]
+        }
+      ],
+      "font_state_hex": "00 00 00 00 00 08 00 08 00 00 30 00 00 00 30 00 00 00 00 00 16 00 0b 00 16 00 0b 00 00 00 00 00 ff ff ff 00 80 80 80 80 80 80 80 80 12 00 0b 00 10 00 00 00 ff ff ff 00 16 00 0b 00 16 00 0b 00 16 00 0b 00 16 00 0b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 e6 a1 00 00 00 00 00 a0 0e a2 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 0f a4 00 00 00 00 00 00 2f a2 00 00 00 00 00 00 00 00 00 00 00 00 00",
+      "font_address": "0xa40f10",
+      "atlas_address": "0xa22f00",
+      "reserved_marker": [
+        0,
+        48
+      ],
+      "font_sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd",
+      "atlas_sha256": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b",
+      "card_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "status": "passed_LRPS2_native_font_and_reserved_atlas_readback",
+      "font_matches_native_decoded_resource": true,
+      "reserved_42_glyphs_match": true,
+      "reserved_region_sha256": "1d5e42b23a874e0f7fdcc7a0271edf7850066bd7088214feda075b0606aa523f",
+      "core_sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    }
+  ]
+}

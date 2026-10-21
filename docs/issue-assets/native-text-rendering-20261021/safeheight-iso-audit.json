@@ -1,0 +1,243 @@
+{
+  "status": "three_final_ISOs_native_patch_and_library_fields_read_back",
+  "batch": "08313d75e7d5cf270f74218b0d84a86cbc236618018dcd923d50b6f5999b1244",
+  "editions": [
+    {
+      "edition": "original",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "067b810986ba13cd28fc6dab17d509aef29949c59713e46022399d29bb0afbdc",
+        "size": 3799459840
+      },
+      "native_patch": {
+        "edition": "original",
+        "hook_va": "0x221220",
+        "cave_va": "0x44bc44",
+        "already_applied": true,
+        "trampoline_sha256": "9cfddc4633a04b5725a04e10543e18f86ff220ace02c4035ee140ed61b247d07",
+        "policy": "sync_explicit_metrics_from_each_encyclopedia_row_descriptor",
+        "preserved_native_classification": true,
+        "unchanged_size": true,
+        "writes": [
+          {
+            "offset": 1191072,
+            "size": 4
+          },
+          {
+            "offset": 3462852,
+            "size": 44
+          }
+        ]
+      },
+      "safe_height_patch": {
+        "edition": "original",
+        "handler_va": "0x13a490",
+        "cave_va": "0x44bc70",
+        "encoded_height": 138,
+        "decoded_height": 10,
+        "already_applied": true,
+        "other_height_parameters_preserved": true,
+        "byte_line_scanners_unchanged": true,
+        "helper_sha256": "f4325a8078e28a521467ef450462f05d142057f14852c6731f6480dcb0342b8a",
+        "unchanged_size": true,
+        "writes": [
+          {
+            "offset": 245520,
+            "size": 32
+          },
+          {
+            "offset": 3462896,
+            "size": 16
+          }
+        ]
+      },
+      "robot_height10_restores": 1394,
+      "body_fields": 1568,
+      "legacy_22px_baselines": [],
+      "target_fields": [
+        {
+          "id": "library-text/b46f1e17643de5c6",
+          "document": 304,
+          "tag": "DSC2",
+          "sha256": "45907662ccda300d61adb70d3f824fd986fad0b64e3538a391342c71c15385a2",
+          "lines": 15,
+          "hex": "32 15 34 15 8a 69 90 9e 95 cf 8d 56 93 49 91 eb 95 94 98 61 8b b9 95 94 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 92 9e 89 65 8f d3 0a 88 c8 8b 79 97 f3 91 ea 8a 69 90 9e 95 cf 8d 56 89 45 91 ab 32 0e 34 0c 33 0e 82 66 82 85 82 8f 32 15 34 15 33 0c e6 c8 90 d6 93 49 0a 88 88 88 86 91 7d 8f d2 32 0e 34 0c 33 0d 82 50 82 53 32 15 34 15 33 0c 89 8f 8f d2 97 5e 8a f9 90 a5 89 73 95 a8 96 94 90 a5 8a 68 0a 97 46 93 49 90 e1 8d ef 97 8c 97 8c 93 c1 8f 9c 97 b9 8f 6f 90 ca 92 cb 88 67 8a 4f 92 7a 0a 90 a5 8c 60 89 65 95 73 87 6b 8f d2 95 bc 8e b8 8b 8e 87 c1 87 ff 93 7c 8d dd 92 6e 8f e3 0a 92 cb 94 ed 8c 4b 92 70 93 c4 8f 8a 8b 7e 8f d2 8d 9f 8d 40 8f d3 95 bc 88 ea 92 bc 8f 5a 0a 8d dd e6 c8 93 fa 8e a8 93 c4 8f e9 93 ec 93 83 92 86 8f d3 91 fc 97 5e 8c 4b 92 70 93 c4 0a 90 da 90 47 8f d2 88 f6 8d 9f 8b 4e 8f 89 95 d3 91 bc 90 6c 95 95 88 63 90 53 94 e0 8f d3 0a 92 41 8d ec 92 68 8a 69 90 9e e6 69 8e 6d 8f f1 93 49 88 ea 91 7d 97 e4 91 5d 92 9e 93 6c 98 61 0a 93 fa 8f ed 90 b6 8a 88 8d 40 8f d3 92 80 87 48 96 47 90 b6 97 b9 93 af 94 ba 88 d3 87 cb 8f d3 0a 8d c5 91 72 93 57 87 5e 8f 6f 8a 65 87 6c 95 5c 8f ee 8f d2 8d 40 97 88 92 d4 96 be 0a 8c 4b 92 70 93 c4 90 a5 95 bc 93 49 90 b6 95 83 8f d3 8e a7 84 eb 95 fb 91 eb 96 da 90 a5 0a 95 bc 93 49 94 8c 95 83 8f d2 96 ca 95 d3 94 ed 8a 81 8e a6 93 49 87 5e 91 f8 95 bc 8e f3 93 9e 0a 8b 90 91 e5 93 8d 90 ca 8f d3 92 41 8d dd 93 af 94 ba 93 49 84 94 8f 95 89 ba 8d 8e 95 9e 85 89 0a 90 da 8e f3 97 b9 88 49 88 ea 90 d8 8f d3 93 57 87 5e 97 b9 93 e0 90 53 93 49 95 99 94 9d 8f d2"
+        },
+        {
+          "id": "library-text/18ab42d7e970fa94",
+          "document": 318,
+          "tag": "DSCR",
+          "sha256": "e8c27f0f59ed0a06f35ba8bae364e7c7df54b984b7c2a8657eb6abeb421d0d36",
+          "lines": 11,
+          "hex": "32 15 34 15 86 e9 91 ae 92 6e 8b 85 95 c0 8d 87 90 ad 95 7b 32 0e 34 0c 33 0e 82 64 82 65 82 60 32 15 34 15 33 0c 93 49 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 97 c4 97 c4 0a 91 7d 8f d3 90 c4 87 b2 92 86 88 d1 8f d2 8c b4 91 ae 8b f3 90 c4 8f d3 92 53 94 43 92 9e 93 6c 0a 8a f7 88 88 88 86 91 7d 8f d2 92 41 8d dd 94 43 90 df 92 86 91 98 94 ee 9d 66 93 e7 90 7b 0a 8d 55 90 ca 87 e3 92 c0 8f d3 8d 4e 95 b4 84 9c 97 c4 8d 40 94 ed 86 f6 93 fc 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 0a 8e 6d 95 ba 97 c4 8f d2 8d 9f 8d 40 95 d6 85 5d 8d bf 8e e5 95 90 8a ed 92 68 92 d3 8a 42 0a 93 49 8a 69 90 9e e6 69 95 ba 8f d2 90 ab 8a 69 8a ee 96 7b 87 fa 95 82 8f d3 8a ec 84 fa 0a 93 49 92 46 90 bc 90 a5 8f 97 85 85 8e 71 8f d1 8a f7 8a ed 90 6c 98 61 93 fa 96 7b 8f d2 0a 91 bd 8e 9f 88 f6 87 fa 95 82 93 49 8c be 8d 73 8e f3 93 9e 97 ee 93 49 8d 90 8d ce 8f d2 92 41 0a 91 bc 96 e7 89 ef 8c db 97 e3 87 4d 84 c8 92 86 93 49 97 ee 8f d3 8d dd 87 8c 8b ab 92 86 86 fa 0a 95 99 90 4d 92 b4 8f 64 90 5f 93 49 93 9e 97 88 8e a7 95 99 8e 9d 93 9e 92 ea 8f d3 85 89 94 f1 0a 91 57 95 96 93 49 8f ac 89 4e 8f d3 8e a7 90 a5 97 4c 92 85 97 ec 8c 8c 93 49 88 ea 96 ca 8f d2"
+        },
+        {
+          "id": "library-text/57961bb5bafe4c92",
+          "document": 318,
+          "tag": "DSC2",
+          "sha256": "b4357596e49cb65fc9cd79ba0a93c41baa84d232ee2f09b20bae25c7368642c3",
+          "lines": 15,
+          "hex": "32 15 34 15 92 6e 8b 85 95 c0 8d 87 90 ad 95 7b 32 0e 34 0c 33 0e 82 64 82 65 82 60 32 15 34 15 33 0c 8f 8a 91 ae 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 97 c4 97 c4 0a 91 7d 8f d3 90 c4 87 b2 92 86 88 d1 8f d2 8c b4 91 ae 8b f3 90 c4 8f d3 92 53 94 43 92 9e 93 6c 0a 8a f7 97 ee 8d 73 91 7d 8f d2 92 41 8d dd 94 43 90 df 92 86 91 98 94 ee 9d 66 93 e7 90 7b 0a 8d 55 90 ca 87 e3 92 c0 8f d3 8d 4e 95 b4 84 9c 97 c4 8d 40 86 f6 93 fc 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 0a 97 c4 8f d2 8d 9f 8d 40 95 d6 93 8b 85 5d 8e e5 95 90 8a ed 92 68 92 d3 8a 42 93 49 0a 8a 69 90 9e e6 69 95 ba 8f d2 90 ab 8a 69 8a ee 96 7b 87 fa 95 82 8f d3 8a ec 84 fa 0a 93 49 92 46 90 bc 90 a5 8f 97 85 85 8e 71 8f d1 8a f7 8a ed 90 6c 98 61 93 fa 96 7b 8f d2 0a 91 bd 8e 9f 88 f6 97 ef 85 5e 93 93 88 9b 93 49 8c be 8d 73 94 ed 97 ee 87 be 90 cb 8f d3 0a 92 41 91 a6 8e 67 8d dd 8d c5 91 72 85 6b 92 9e 92 cb 96 e7 96 c1 8f 6f 97 b9 91 41 88 ea 92 bc 0a 91 7a 96 c1 88 ea 8e 9f 8f e7 93 49 91 e4 87 cd 8f d3 88 48 8c fc 8c 4b 92 70 93 c4 0a 85 5d 8d bf 93 49 8b 90 90 5f 32 0e 34 0c 33 0d 90 dd 32 15 34 15 33 0c 8a 69 90 9e 95 cf 8d 56 90 4c 8e e8 8b 81 88 ac 8e e8 8f d3 0a 92 bc 93 9e 8d c5 8d 40 93 73 96 a2 89 fc 94 d5 8a ee 96 7b 97 ed 8a 69 8f d2 8d 9f 8a 4f 8f d3 0a 91 bc 96 e7 89 ef 8c db 97 e3 87 4d 84 c8 93 49 97 ee 8f d3 8d dd 87 8c 8b ab 92 86 0a 86 fa 95 99 90 4d 92 b4 8f 64 90 5f 89 ef 93 9e 97 88 8e a7 95 99 8e 9d 93 9e 92 ea 8f d3 0a 93 57 87 5e 8f 6f 85 89 94 f1 91 57 95 96 96 60 8e b8 8b 53 93 49 97 ec 8c 8c 88 ea 96 ca 8f d2"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "93dd8d4d96f52dd40a0277f28adc601338431118ee964ccf09544a3ccf49ed24",
+        "size": 3796187136
+      },
+      "native_patch": {
+        "edition": "best",
+        "hook_va": "0x2215e0",
+        "cave_va": "0x44c444",
+        "already_applied": true,
+        "trampoline_sha256": "ec102bd2abf31526d573d9e40abc95ded7ed7b74626c43c33ffc56bb2e7f5961",
+        "policy": "sync_explicit_metrics_from_each_encyclopedia_row_descriptor",
+        "preserved_native_classification": true,
+        "unchanged_size": true,
+        "writes": [
+          {
+            "offset": 1192032,
+            "size": 4
+          },
+          {
+            "offset": 3464900,
+            "size": 44
+          }
+        ]
+      },
+      "safe_height_patch": {
+        "edition": "best",
+        "handler_va": "0x13a490",
+        "cave_va": "0x44c470",
+        "encoded_height": 138,
+        "decoded_height": 10,
+        "already_applied": true,
+        "other_height_parameters_preserved": true,
+        "byte_line_scanners_unchanged": true,
+        "helper_sha256": "f4325a8078e28a521467ef450462f05d142057f14852c6731f6480dcb0342b8a",
+        "unchanged_size": true,
+        "writes": [
+          {
+            "offset": 245520,
+            "size": 32
+          },
+          {
+            "offset": 3464944,
+            "size": 16
+          }
+        ]
+      },
+      "robot_height10_restores": 1394,
+      "body_fields": 1568,
+      "legacy_22px_baselines": [],
+      "target_fields": [
+        {
+          "id": "library-text/b46f1e17643de5c6",
+          "document": 304,
+          "tag": "DSC2",
+          "sha256": "45907662ccda300d61adb70d3f824fd986fad0b64e3538a391342c71c15385a2",
+          "lines": 15,
+          "hex": "32 15 34 15 8a 69 90 9e 95 cf 8d 56 93 49 91 eb 95 94 98 61 8b b9 95 94 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 92 9e 89 65 8f d3 0a 88 c8 8b 79 97 f3 91 ea 8a 69 90 9e 95 cf 8d 56 89 45 91 ab 32 0e 34 0c 33 0e 82 66 82 85 82 8f 32 15 34 15 33 0c e6 c8 90 d6 93 49 0a 88 88 88 86 91 7d 8f d2 32 0e 34 0c 33 0d 82 50 82 53 32 15 34 15 33 0c 89 8f 8f d2 97 5e 8a f9 90 a5 89 73 95 a8 96 94 90 a5 8a 68 0a 97 46 93 49 90 e1 8d ef 97 8c 97 8c 93 c1 8f 9c 97 b9 8f 6f 90 ca 92 cb 88 67 8a 4f 92 7a 0a 90 a5 8c 60 89 65 95 73 87 6b 8f d2 95 bc 8e b8 8b 8e 87 c1 87 ff 93 7c 8d dd 92 6e 8f e3 0a 92 cb 94 ed 8c 4b 92 70 93 c4 8f 8a 8b 7e 8f d2 8d 9f 8d 40 8f d3 95 bc 88 ea 92 bc 8f 5a 0a 8d dd e6 c8 93 fa 8e a8 93 c4 8f e9 93 ec 93 83 92 86 8f d3 91 fc 97 5e 8c 4b 92 70 93 c4 0a 90 da 90 47 8f d2 88 f6 8d 9f 8b 4e 8f 89 95 d3 91 bc 90 6c 95 95 88 63 90 53 94 e0 8f d3 0a 92 41 8d ec 92 68 8a 69 90 9e e6 69 8e 6d 8f f1 93 49 88 ea 91 7d 97 e4 91 5d 92 9e 93 6c 98 61 0a 93 fa 8f ed 90 b6 8a 88 8d 40 8f d3 92 80 87 48 96 47 90 b6 97 b9 93 af 94 ba 88 d3 87 cb 8f d3 0a 8d c5 91 72 93 57 87 5e 8f 6f 8a 65 87 6c 95 5c 8f ee 8f d2 8d 40 97 88 92 d4 96 be 0a 8c 4b 92 70 93 c4 90 a5 95 bc 93 49 90 b6 95 83 8f d3 8e a7 84 eb 95 fb 91 eb 96 da 90 a5 0a 95 bc 93 49 94 8c 95 83 8f d2 96 ca 95 d3 94 ed 8a 81 8e a6 93 49 87 5e 91 f8 95 bc 8e f3 93 9e 0a 8b 90 91 e5 93 8d 90 ca 8f d3 92 41 8d dd 93 af 94 ba 93 49 84 94 8f 95 89 ba 8d 8e 95 9e 85 89 0a 90 da 8e f3 97 b9 88 49 88 ea 90 d8 8f d3 93 57 87 5e 97 b9 93 e0 90 53 93 49 95 99 94 9d 8f d2"
+        },
+        {
+          "id": "library-text/18ab42d7e970fa94",
+          "document": 318,
+          "tag": "DSCR",
+          "sha256": "e8c27f0f59ed0a06f35ba8bae364e7c7df54b984b7c2a8657eb6abeb421d0d36",
+          "lines": 11,
+          "hex": "32 15 34 15 86 e9 91 ae 92 6e 8b 85 95 c0 8d 87 90 ad 95 7b 32 0e 34 0c 33 0e 82 64 82 65 82 60 32 15 34 15 33 0c 93 49 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 97 c4 97 c4 0a 91 7d 8f d3 90 c4 87 b2 92 86 88 d1 8f d2 8c b4 91 ae 8b f3 90 c4 8f d3 92 53 94 43 92 9e 93 6c 0a 8a f7 88 88 88 86 91 7d 8f d2 92 41 8d dd 94 43 90 df 92 86 91 98 94 ee 9d 66 93 e7 90 7b 0a 8d 55 90 ca 87 e3 92 c0 8f d3 8d 4e 95 b4 84 9c 97 c4 8d 40 94 ed 86 f6 93 fc 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 0a 8e 6d 95 ba 97 c4 8f d2 8d 9f 8d 40 95 d6 85 5d 8d bf 8e e5 95 90 8a ed 92 68 92 d3 8a 42 0a 93 49 8a 69 90 9e e6 69 95 ba 8f d2 90 ab 8a 69 8a ee 96 7b 87 fa 95 82 8f d3 8a ec 84 fa 0a 93 49 92 46 90 bc 90 a5 8f 97 85 85 8e 71 8f d1 8a f7 8a ed 90 6c 98 61 93 fa 96 7b 8f d2 0a 91 bd 8e 9f 88 f6 87 fa 95 82 93 49 8c be 8d 73 8e f3 93 9e 97 ee 93 49 8d 90 8d ce 8f d2 92 41 0a 91 bc 96 e7 89 ef 8c db 97 e3 87 4d 84 c8 92 86 93 49 97 ee 8f d3 8d dd 87 8c 8b ab 92 86 86 fa 0a 95 99 90 4d 92 b4 8f 64 90 5f 93 49 93 9e 97 88 8e a7 95 99 8e 9d 93 9e 92 ea 8f d3 85 89 94 f1 0a 91 57 95 96 93 49 8f ac 89 4e 8f d3 8e a7 90 a5 97 4c 92 85 97 ec 8c 8c 93 49 88 ea 96 ca 8f d2"
+        },
+        {
+          "id": "library-text/57961bb5bafe4c92",
+          "document": 318,
+          "tag": "DSC2",
+          "sha256": "b4357596e49cb65fc9cd79ba0a93c41baa84d232ee2f09b20bae25c7368642c3",
+          "lines": 15,
+          "hex": "32 15 34 15 92 6e 8b 85 95 c0 8d 87 90 ad 95 7b 32 0e 34 0c 33 0e 82 64 82 65 82 60 32 15 34 15 33 0c 8f 8a 91 ae 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 97 c4 97 c4 0a 91 7d 8f d3 90 c4 87 b2 92 86 88 d1 8f d2 8c b4 91 ae 8b f3 90 c4 8f d3 92 53 94 43 92 9e 93 6c 0a 8a f7 97 ee 8d 73 91 7d 8f d2 92 41 8d dd 94 43 90 df 92 86 91 98 94 ee 9d 66 93 e7 90 7b 0a 8d 55 90 ca 87 e3 92 c0 8f d3 8d 4e 95 b4 84 9c 97 c4 8d 40 86 f6 93 fc 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 0a 97 c4 8f d2 8d 9f 8d 40 95 d6 93 8b 85 5d 8e e5 95 90 8a ed 92 68 92 d3 8a 42 93 49 0a 8a 69 90 9e e6 69 95 ba 8f d2 90 ab 8a 69 8a ee 96 7b 87 fa 95 82 8f d3 8a ec 84 fa 0a 93 49 92 46 90 bc 90 a5 8f 97 85 85 8e 71 8f d1 8a f7 8a ed 90 6c 98 61 93 fa 96 7b 8f d2 0a 91 bd 8e 9f 88 f6 97 ef 85 5e 93 93 88 9b 93 49 8c be 8d 73 94 ed 97 ee 87 be 90 cb 8f d3 0a 92 41 91 a6 8e 67 8d dd 8d c5 91 72 85 6b 92 9e 92 cb 96 e7 96 c1 8f 6f 97 b9 91 41 88 ea 92 bc 0a 91 7a 96 c1 88 ea 8e 9f 8f e7 93 49 91 e4 87 cd 8f d3 88 48 8c fc 8c 4b 92 70 93 c4 0a 85 5d 8d bf 93 49 8b 90 90 5f 32 0e 34 0c 33 0d 90 dd 32 15 34 15 33 0c 8a 69 90 9e 95 cf 8d 56 90 4c 8e e8 8b 81 88 ac 8e e8 8f d3 0a 92 bc 93 9e 8d c5 8d 40 93 73 96 a2 89 fc 94 d5 8a ee 96 7b 97 ed 8a 69 8f d2 8d 9f 8a 4f 8f d3 0a 91 bc 96 e7 89 ef 8c db 97 e3 87 4d 84 c8 93 49 97 ee 8f d3 8d dd 87 8c 8b ab 92 86 0a 86 fa 95 99 90 4d 92 b4 8f 64 90 5f 89 ef 93 9e 97 88 8e a7 95 99 8e 9d 93 9e 92 ea 8f d3 0a 93 57 87 5e 8f 6f 85 89 94 f1 91 57 95 96 96 60 8e b8 8b 53 93 49 97 ec 8c 8c 88 ea 96 ca 8f d2"
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "9e591a2170216046ffaac9f3213cb5d434a3aad91bf97414be2a83e782920a4f",
+        "size": 3918833664
+      },
+      "native_patch": {
+        "edition": "sp",
+        "hook_va": "0x226000",
+        "cave_va": "0x4cad44",
+        "already_applied": true,
+        "trampoline_sha256": "f00139cdadcd3fe9baf1972756e12662c8c4c87c63a8431774800e3a38df70e6",
+        "policy": "sync_explicit_metrics_from_each_encyclopedia_row_descriptor",
+        "preserved_native_classification": true,
+        "unchanged_size": true,
+        "writes": [
+          {
+            "offset": 1206656,
+            "size": 4
+          },
+          {
+            "offset": 3978948,
+            "size": 44
+          }
+        ]
+      },
+      "safe_height_patch": {
+        "edition": "sp",
+        "handler_va": "0x13af30",
+        "cave_va": "0x4cad70",
+        "encoded_height": 138,
+        "decoded_height": 10,
+        "already_applied": true,
+        "other_height_parameters_preserved": true,
+        "byte_line_scanners_unchanged": true,
+        "helper_sha256": "a22fa07528bd8af26c3f6c57f2d455f65da46780dddbe53b07b7cc6901a48679",
+        "unchanged_size": true,
+        "writes": [
+          {
+            "offset": 243888,
+            "size": 32
+          },
+          {
+            "offset": 3978992,
+            "size": 16
+          }
+        ]
+      },
+      "robot_height10_restores": 1400,
+      "body_fields": 1590,
+      "legacy_22px_baselines": [],
+      "target_fields": [
+        {
+          "id": "library-text/b46f1e17643de5c6",
+          "document": 304,
+          "tag": "DSC2",
+          "sha256": "45907662ccda300d61adb70d3f824fd986fad0b64e3538a391342c71c15385a2",
+          "lines": 15,
+          "hex": "32 15 34 15 8a 69 90 9e 95 cf 8d 56 93 49 91 eb 95 94 98 61 8b b9 95 94 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 92 9e 89 65 8f d3 0a 88 c8 8b 79 97 f3 91 ea 8a 69 90 9e 95 cf 8d 56 89 45 91 ab 32 0e 34 0c 33 0e 82 66 82 85 82 8f 32 15 34 15 33 0c e6 c8 90 d6 93 49 0a 88 88 88 86 91 7d 8f d2 32 0e 34 0c 33 0d 82 50 82 53 32 15 34 15 33 0c 89 8f 8f d2 97 5e 8a f9 90 a5 89 73 95 a8 96 94 90 a5 8a 68 0a 97 46 93 49 90 e1 8d ef 97 8c 97 8c 93 c1 8f 9c 97 b9 8f 6f 90 ca 92 cb 88 67 8a 4f 92 7a 0a 90 a5 8c 60 89 65 95 73 87 6b 8f d2 95 bc 8e b8 8b 8e 87 c1 87 ff 93 7c 8d dd 92 6e 8f e3 0a 92 cb 94 ed 8c 4b 92 70 93 c4 8f 8a 8b 7e 8f d2 8d 9f 8d 40 8f d3 95 bc 88 ea 92 bc 8f 5a 0a 8d dd e6 c8 93 fa 8e a8 93 c4 8f e9 93 ec 93 83 92 86 8f d3 91 fc 97 5e 8c 4b 92 70 93 c4 0a 90 da 90 47 8f d2 88 f6 8d 9f 8b 4e 8f 89 95 d3 91 bc 90 6c 95 95 88 63 90 53 94 e0 8f d3 0a 92 41 8d ec 92 68 8a 69 90 9e e6 69 8e 6d 8f f1 93 49 88 ea 91 7d 97 e4 91 5d 92 9e 93 6c 98 61 0a 93 fa 8f ed 90 b6 8a 88 8d 40 8f d3 92 80 87 48 96 47 90 b6 97 b9 93 af 94 ba 88 d3 87 cb 8f d3 0a 8d c5 91 72 93 57 87 5e 8f 6f 8a 65 87 6c 95 5c 8f ee 8f d2 8d 40 97 88 92 d4 96 be 0a 8c 4b 92 70 93 c4 90 a5 95 bc 93 49 90 b6 95 83 8f d3 8e a7 84 eb 95 fb 91 eb 96 da 90 a5 0a 95 bc 93 49 94 8c 95 83 8f d2 96 ca 95 d3 94 ed 8a 81 8e a6 93 49 87 5e 91 f8 95 bc 8e f3 93 9e 0a 8b 90 91 e5 93 8d 90 ca 8f d3 92 41 8d dd 93 af 94 ba 93 49 84 94 8f 95 89 ba 8d 8e 95 9e 85 89 0a 90 da 8e f3 97 b9 88 49 88 ea 90 d8 8f d3 93 57 87 5e 97 b9 93 e0 90 53 93 49 95 99 94 9d 8f d2"
+        },
+        {
+          "id": "library-text/18ab42d7e970fa94",
+          "document": 318,
+          "tag": "DSCR",
+          "sha256": "e8c27f0f59ed0a06f35ba8bae364e7c7df54b984b7c2a8657eb6abeb421d0d36",
+          "lines": 11,
+          "hex": "32 15 34 15 86 e9 91 ae 92 6e 8b 85 95 c0 8d 87 90 ad 95 7b 32 0e 34 0c 33 0e 82 64 82 65 82 60 32 15 34 15 33 0c 93 49 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 97 c4 97 c4 0a 91 7d 8f d3 90 c4 87 b2 92 86 88 d1 8f d2 8c b4 91 ae 8b f3 90 c4 8f d3 92 53 94 43 92 9e 93 6c 0a 8a f7 88 88 88 86 91 7d 8f d2 92 41 8d dd 94 43 90 df 92 86 91 98 94 ee 9d 66 93 e7 90 7b 0a 8d 55 90 ca 87 e3 92 c0 8f d3 8d 4e 95 b4 84 9c 97 c4 8d 40 94 ed 86 f6 93 fc 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 0a 8e 6d 95 ba 97 c4 8f d2 8d 9f 8d 40 95 d6 85 5d 8d bf 8e e5 95 90 8a ed 92 68 92 d3 8a 42 0a 93 49 8a 69 90 9e e6 69 95 ba 8f d2 90 ab 8a 69 8a ee 96 7b 87 fa 95 82 8f d3 8a ec 84 fa 0a 93 49 92 46 90 bc 90 a5 8f 97 85 85 8e 71 8f d1 8a f7 8a ed 90 6c 98 61 93 fa 96 7b 8f d2 0a 91 bd 8e 9f 88 f6 87 fa 95 82 93 49 8c be 8d 73 8e f3 93 9e 97 ee 93 49 8d 90 8d ce 8f d2 92 41 0a 91 bc 96 e7 89 ef 8c db 97 e3 87 4d 84 c8 92 86 93 49 97 ee 8f d3 8d dd 87 8c 8b ab 92 86 86 fa 0a 95 99 90 4d 92 b4 8f 64 90 5f 93 49 93 9e 97 88 8e a7 95 99 8e 9d 93 9e 92 ea 8f d3 85 89 94 f1 0a 91 57 95 96 93 49 8f ac 89 4e 8f d3 8e a7 90 a5 97 4c 92 85 97 ec 8c 8c 93 49 88 ea 96 ca 8f d2"
+        },
+        {
+          "id": "library-text/57961bb5bafe4c92",
+          "document": 318,
+          "tag": "DSC2",
+          "sha256": "b4357596e49cb65fc9cd79ba0a93c41baa84d232ee2f09b20bae25c7368642c3",
+          "lines": 15,
+          "hex": "32 15 34 15 92 6e 8b 85 95 c0 8d 87 90 ad 95 7b 32 0e 34 0c 33 0e 82 64 82 65 82 60 32 15 34 15 33 0c 8f 8a 91 ae 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 97 c4 97 c4 0a 91 7d 8f d3 90 c4 87 b2 92 86 88 d1 8f d2 8c b4 91 ae 8b f3 90 c4 8f d3 92 53 94 43 92 9e 93 6c 0a 8a f7 97 ee 8d 73 91 7d 8f d2 92 41 8d dd 94 43 90 df 92 86 91 98 94 ee 9d 66 93 e7 90 7b 0a 8d 55 90 ca 87 e3 92 c0 8f d3 8d 4e 95 b4 84 9c 97 c4 8d 40 86 f6 93 fc 32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 8e 6d 95 ba 0a 97 c4 8f d2 8d 9f 8d 40 95 d6 93 8b 85 5d 8e e5 95 90 8a ed 92 68 92 d3 8a 42 93 49 0a 8a 69 90 9e e6 69 95 ba 8f d2 90 ab 8a 69 8a ee 96 7b 87 fa 95 82 8f d3 8a ec 84 fa 0a 93 49 92 46 90 bc 90 a5 8f 97 85 85 8e 71 8f d1 8a f7 8a ed 90 6c 98 61 93 fa 96 7b 8f d2 0a 91 bd 8e 9f 88 f6 97 ef 85 5e 93 93 88 9b 93 49 8c be 8d 73 94 ed 97 ee 87 be 90 cb 8f d3 0a 92 41 91 a6 8e 67 8d dd 8d c5 91 72 85 6b 92 9e 92 cb 96 e7 96 c1 8f 6f 97 b9 91 41 88 ea 92 bc 0a 91 7a 96 c1 88 ea 8e 9f 8f e7 93 49 91 e4 87 cd 8f d3 88 48 8c fc 8c 4b 92 70 93 c4 0a 85 5d 8d bf 93 49 8b 90 90 5f 32 0e 34 0c 33 0d 90 dd 32 15 34 15 33 0c 8a 69 90 9e 95 cf 8d 56 90 4c 8e e8 8b 81 88 ac 8e e8 8f d3 0a 92 bc 93 9e 8d c5 8d 40 93 73 96 a2 89 fc 94 d5 8a ee 96 7b 97 ed 8a 69 8f d2 8d 9f 8a 4f 8f d3 0a 91 bc 96 e7 89 ef 8c db 97 e3 87 4d 84 c8 93 49 97 ee 8f d3 8d dd 87 8c 8b ab 92 86 0a 86 fa 95 99 90 4d 92 b4 8f 64 90 5f 89 ef 93 9e 97 88 8e a7 95 99 8e 9d 93 9e 92 ea 8f d3 0a 93 57 87 5e 8f 6f 85 89 94 f1 91 57 95 96 96 60 8e b8 8b 53 93 49 97 ec 8c 8c 88 ea 96 ca 8f d2"
+        }
+      ]
+    }
+  ]
+}

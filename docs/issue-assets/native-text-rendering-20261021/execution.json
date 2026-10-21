@@ -1,0 +1,2823 @@
+{
+  "status": "30_native_integer_path_cases_and_C_model_comparisons_passed",
+  "scope": "Differential checks against all three native integer font routines.\n\nUnicorn executes original integer instructions. EE LQ/SQ save/restore are adapted only\nwith separate high-lane storage; core-only checks do not use high lanes.\nLQ/SQ words are replaced by NOP in emulation memory and handled by a hook with complete 128-bit load/store values,\nincluding in branch delay slots. This is not LRPS2 or pixel evidence.\n",
+  "cases": [
+    {
+      "edition": "original",
+      "case": "plain",
+      "bytes": "88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 42,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "width_space",
+      "bytes": "32 0e 34 0c 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 24,
+        "explicit": [
+          14,
+          12,
+          12,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          14,
+          12,
+          12,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          24,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "height",
+      "bytes": "33 0e 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          14,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              14
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              14
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "vertical_advance",
+      "bytes": "35 0f 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          15
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              15
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              15
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "newline",
+      "bytes": "88 9f 0a 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          21,
+          14
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              14
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "nul_parameter",
+      "bytes": "31 00 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 21,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          21,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "classification_overlap",
+      "bytes": "82 4f 82 60 82 81 82 9f 83 40 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 81,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          81,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x824f",
+            "glyph": 207,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x8260",
+            "glyph": 224,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          },
+          {
+            "code": "0x8281",
+            "glyph": 257,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              24,
+              0
+            ]
+          },
+          {
+            "code": "0x829f",
+            "glyph": 287,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              36,
+              0
+            ]
+          },
+          {
+            "code": "0x8340",
+            "glyph": 384,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              48,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              60,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "disabled_specific_with_blanket",
+      "bytes": "82 60",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000000000001",
+        "return": 21,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000000000001",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          12,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x8260",
+            "glyph": 224,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "closed_height_scope",
+      "bytes": "32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 66,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          33,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x8266",
+            "glyph": 230,
+            "render": [
+              14,
+              14
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "original",
+      "case": "atlas_exhaustion_exit",
+      "bytes": "33 0e 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 42,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "00000000000000000000e001000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          14,
+          21,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "plain",
+      "bytes": "88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 42,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "width_space",
+      "bytes": "32 0e 34 0c 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 24,
+        "explicit": [
+          14,
+          12,
+          12,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          14,
+          12,
+          12,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          24,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "height",
+      "bytes": "33 0e 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          14,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              14
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              14
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "vertical_advance",
+      "bytes": "35 0f 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          15
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              15
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              15
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "newline",
+      "bytes": "88 9f 0a 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          21,
+          14
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              14
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "nul_parameter",
+      "bytes": "31 00 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 21,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          21,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "classification_overlap",
+      "bytes": "82 4f 82 60 82 81 82 9f 83 40 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 81,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          81,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x824f",
+            "glyph": 207,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x8260",
+            "glyph": 224,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          },
+          {
+            "code": "0x8281",
+            "glyph": 257,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              24,
+              0
+            ]
+          },
+          {
+            "code": "0x829f",
+            "glyph": 287,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              36,
+              0
+            ]
+          },
+          {
+            "code": "0x8340",
+            "glyph": 384,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              48,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              60,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "disabled_specific_with_blanket",
+      "bytes": "82 60",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000000000001",
+        "return": 21,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000000000001",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          12,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x8260",
+            "glyph": 224,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "closed_height_scope",
+      "bytes": "32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 66,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          33,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x8266",
+            "glyph": 230,
+            "render": [
+              14,
+              14
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "case": "atlas_exhaustion_exit",
+      "bytes": "33 0e 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 42,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x139b08",
+          "0x139b0c",
+          "0x139b10",
+          "0x139b14",
+          "0x139b18",
+          "0x139d14",
+          "0x139d30",
+          "0x139d34",
+          "0x139d38",
+          "0x139d3c"
+        ]
+      },
+      "render": {
+        "initial_state": "00000000000000000000e001000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          14,
+          21,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a2a0",
+          "0x13a2a4",
+          "0x13a2ac",
+          "0x13a2b4",
+          "0x13a2bc",
+          "0x13ac6c",
+          "0x13ac70",
+          "0x13ac74",
+          "0x13ac78",
+          "0x13ac7c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "plain",
+      "bytes": "88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 42,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "width_space",
+      "bytes": "32 0e 34 0c 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 24,
+        "explicit": [
+          14,
+          12,
+          12,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          14,
+          12,
+          12,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          24,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "height",
+      "bytes": "33 0e 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          14,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              14
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              14
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "vertical_advance",
+      "bytes": "35 0f 88 9f 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          15
+        ],
+        "mode": 1,
+        "cursor": [
+          42,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              15
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              15
+            ],
+            "position": [
+              21,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "newline",
+      "bytes": "88 9f 0a 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 63,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          21,
+          14
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              14
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "nul_parameter",
+      "bytes": "31 00 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 21,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          21,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "classification_overlap",
+      "bytes": "82 4f 82 60 82 81 82 9f 83 40 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 81,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          81,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x824f",
+            "glyph": 207,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x8260",
+            "glyph": 224,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          },
+          {
+            "code": "0x8281",
+            "glyph": 257,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              24,
+              0
+            ]
+          },
+          {
+            "code": "0x829f",
+            "glyph": 287,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              36,
+              0
+            ]
+          },
+          {
+            "code": "0x8340",
+            "glyph": 384,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              48,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              60,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "disabled_specific_with_blanket",
+      "bytes": "82 60",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000000000001",
+        "return": 21,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000000000001",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          12,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x8260",
+            "glyph": 224,
+            "render": [
+              14,
+              12
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "closed_height_scope",
+      "bytes": "32 0e 34 0c 33 0e 82 66 32 15 34 15 33 0c 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 66,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          33,
+          0
+        ],
+        "glyphs": [
+          {
+            "code": "0x8266",
+            "glyph": 230,
+            "render": [
+              14,
+              14
+            ],
+            "advance": [
+              12,
+              14
+            ],
+            "position": [
+              0,
+              0
+            ]
+          },
+          {
+            "code": "0x889f",
+            "glyph": 1439,
+            "render": [
+              21,
+              12
+            ],
+            "advance": [
+              21,
+              14
+            ],
+            "position": [
+              12,
+              0
+            ]
+          }
+        ],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "case": "atlas_exhaustion_exit",
+      "bytes": "33 0e 88 9f",
+      "measure": {
+        "initial_state": "000000000000000000000000000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 42,
+        "explicit": [
+          21,
+          12,
+          21,
+          14
+        ],
+        "mode": 1,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13a5a8",
+          "0x13a5ac",
+          "0x13a5b0",
+          "0x13a5b4",
+          "0x13a5b8",
+          "0x13a7b4",
+          "0x13a7d0",
+          "0x13a7d4",
+          "0x13a7d8",
+          "0x13a7dc"
+        ]
+      },
+      "render": {
+        "initial_state": "00000000000000000000e001000000000000000015000c0015000e0000000000ffffff00808080808080808012000b0010000000ffffff0015000c0015000e000e000c000c000e000100000101010101",
+        "return": 0,
+        "explicit": [
+          21,
+          14,
+          21,
+          14
+        ],
+        "mode": 0,
+        "cursor": [
+          0,
+          0
+        ],
+        "glyphs": [],
+        "ee_save_restore_adapters": [
+          "0x13ad40",
+          "0x13ad44",
+          "0x13ad4c",
+          "0x13ad54",
+          "0x13ad5c",
+          "0x13b70c",
+          "0x13b710",
+          "0x13b714",
+          "0x13b718",
+          "0x13b71c"
+        ]
+      }
+    }
+  ]
+}

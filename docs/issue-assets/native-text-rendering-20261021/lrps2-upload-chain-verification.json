@@ -1,0 +1,48 @@
+{
+  "status": "all_three_native_LRPS2_channel_pointers_and_retained_upload_chains_match_native_models",
+  "scope": "three read-only native-source ISO cold boots; no code/data pokes, DMA timing or optical candidate runtime acceptance",
+  "editions": [
+    {
+      "edition": "original",
+      "channel_pointer": "0x1000a000",
+      "atlas_address": "0x990600",
+      "native_dma_code_sha256": "3a707047a85c200a7a36648134731a10aeab779e87a9e37385dd9094a60cf407",
+      "chain_tags": [
+        "0x4726d030000007",
+        "0x99060030000f00",
+        "0x47274030000007",
+        "0x99f60030000f00"
+      ],
+      "receipt": "lrps2-native-upload-chain/original/receipt.json",
+      "source_card_unchanged": true
+    },
+    {
+      "edition": "best",
+      "channel_pointer": "0x1000a000",
+      "atlas_address": "0x990e00",
+      "native_dma_code_sha256": "3a707047a85c200a7a36648134731a10aeab779e87a9e37385dd9094a60cf407",
+      "chain_tags": [
+        "0x472ed030000007",
+        "0x990e0030000f00",
+        "0x472f4030000007",
+        "0x99fe0030000f00"
+      ],
+      "receipt": "lrps2-native-upload-chain/best/receipt.json",
+      "source_card_unchanged": true
+    },
+    {
+      "edition": "sp",
+      "channel_pointer": "0x1000a000",
+      "atlas_address": "0xa22f00",
+      "native_dma_code_sha256": "3775317658835a386e240484ebdb7b0d94bd42f0366b997cd58c0c91168eb854",
+      "chain_tags": [
+        "0x4f195030000007",
+        "0xa22f0030000f00",
+        "0x4f19c030000007",
+        "0xa31f0030000f00"
+      ],
+      "receipt": "lrps2-native-upload-chain/sp/receipt.json",
+      "source_card_unchanged": true
+    }
+  ]
+}

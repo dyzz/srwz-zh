@@ -1,0 +1,722 @@
+{
+  "scope": "Independent native bindings for font resource, scatter and frame reset functions.",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "functions": {
+        "resource_initialize": {
+          "entry": "0x139f60",
+          "end": "0x13a260",
+          "sha256": "54e876ec833664b2dbc79bc812d03fd28e6e8299325871de8baca765889b83c1",
+          "direct_calls": [
+            {
+              "site": "0x139fc4",
+              "target": "0x139620"
+            },
+            {
+              "site": "0x139fcc",
+              "target": "0x1003d0"
+            },
+            {
+              "site": "0x139fe0",
+              "target": "0x1c6c40"
+            },
+            {
+              "site": "0x13a004",
+              "target": "0x10d570"
+            },
+            {
+              "site": "0x13a00c",
+              "target": "0x11b2e0"
+            },
+            {
+              "site": "0x13a018",
+              "target": "0x10d898"
+            },
+            {
+              "site": "0x13a024",
+              "target": "0x10d258"
+            },
+            {
+              "site": "0x13a048",
+              "target": "0x10d570"
+            },
+            {
+              "site": "0x13a050",
+              "target": "0x11b2e0"
+            },
+            {
+              "site": "0x13a05c",
+              "target": "0x10d898"
+            },
+            {
+              "site": "0x13a068",
+              "target": "0x10d258"
+            },
+            {
+              "site": "0x13a070",
+              "target": "0x100440"
+            },
+            {
+              "site": "0x13a078",
+              "target": "0x139920"
+            },
+            {
+              "site": "0x13a0c8",
+              "target": "0x19d058"
+            },
+            {
+              "site": "0x13a0dc",
+              "target": "0x19d058"
+            },
+            {
+              "site": "0x13a0f4",
+              "target": "0x19d058"
+            },
+            {
+              "site": "0x13a154",
+              "target": "0x19d058"
+            },
+            {
+              "site": "0x13a1a4",
+              "target": "0x139620"
+            },
+            {
+              "site": "0x13a1b4",
+              "target": "0x1c6c40"
+            },
+            {
+              "site": "0x13a1bc",
+              "target": "0x139920"
+            },
+            {
+              "site": "0x13a1ec",
+              "target": "0x13a290"
+            },
+            {
+              "site": "0x13a200",
+              "target": "0x13c5c0"
+            },
+            {
+              "site": "0x13a234",
+              "target": "0x139930"
+            },
+            {
+              "site": "0x13a23c",
+              "target": "0x139f00"
+            }
+          ],
+          "callers": [
+            "0x1410d8"
+          ]
+        },
+        "atlas_reset_to_reserved": {
+          "entry": "0x13a260",
+          "end": "0x13a290",
+          "sha256": "57457370b4a6af49115dd3e0754689c06c3ac7a733b2974a5dc4d41d7fe347eb",
+          "direct_calls": [],
+          "callers": [
+            "0x13c3b0",
+            "0x142bc0",
+            "0x155d08",
+            "0x155e58",
+            "0x155ebc",
+            "0x1848b8",
+            "0x1876a8",
+            "0x18ed30",
+            "0x190584",
+            "0x192e2c",
+            "0x192e6c",
+            "0x193b10",
+            "0x193d24",
+            "0x193d40",
+            "0x1952fc",
+            "0x2251a4",
+            "0x2be96c",
+            "0x3325ac",
+            "0x334ec4",
+            "0x344324",
+            "0x346ffc",
+            "0x349ff8"
+          ]
+        },
+        "frame_clear": {
+          "entry": "0x13c390",
+          "end": "0x13c3e0",
+          "sha256": "434b51fbb5fe7ceba2f2133fee71ad08cc93e377d98e4acd1acfd50ed9430ea2",
+          "direct_calls": [
+            {
+              "site": "0x13c3b0",
+              "target": "0x13a260"
+            }
+          ],
+          "callers": [
+            "0x13c3f0",
+            "0x140724",
+            "0x141358",
+            "0x142bc8",
+            "0x155d10",
+            "0x155e60",
+            "0x155ec4",
+            "0x1848ac",
+            "0x18769c",
+            "0x18ed38",
+            "0x19058c",
+            "0x192e34",
+            "0x193b18",
+            "0x193d2c",
+            "0x1cd708",
+            "0x225198",
+            "0x2be974",
+            "0x310bd0",
+            "0x310ef8",
+            "0x317c4c",
+            "0x38a258"
+          ]
+        },
+        "font_reset_wrapper": {
+          "entry": "0x13c3e0",
+          "end": "0x13c410",
+          "sha256": "3417ddc18eb46ab4f59564de4da01add3809d1fb4428ff04fd5a431736ce5381",
+          "direct_calls": [
+            {
+              "site": "0x13c3e8",
+              "target": "0x139930"
+            },
+            {
+              "site": "0x13c3f0",
+              "target": "0x13c390"
+            }
+          ],
+          "callers": [
+            "0x140aec",
+            "0x140c2c",
+            "0x140cb0"
+          ]
+        },
+        "scatter": {
+          "entry": "0x13c5c0",
+          "end": "0x13c6b0",
+          "sha256": "a6c1d6b42388dd56af5dc60d2a77b783d041bff7c22d65817685ac6f81828108",
+          "direct_calls": [],
+          "callers": [
+            "0x13a200",
+            "0x143440",
+            "0x1cd720"
+          ]
+        },
+        "default_palette_upload": {
+          "entry": "0x139f00",
+          "end": "0x139f60",
+          "sha256": "64a61f1bfc8e0a63c55212a8936d79427f3d29690d24a8343fb65fad48fa0738",
+          "direct_calls": [
+            {
+              "site": "0x139f24",
+              "target": "0x10d570"
+            },
+            {
+              "site": "0x139f2c",
+              "target": "0x11b2e0"
+            },
+            {
+              "site": "0x139f3c",
+              "target": "0x10d898"
+            },
+            {
+              "site": "0x139f48",
+              "target": "0x10d258"
+            }
+          ],
+          "callers": [
+            "0x13a23c"
+          ]
+        }
+      }
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "functions": {
+        "resource_initialize": {
+          "entry": "0x139f60",
+          "end": "0x13a260",
+          "sha256": "52b42bc6b917555c861bbce5cc41aebf0e510cd13fe01b5e77c268e2175cd15a",
+          "direct_calls": [
+            {
+              "site": "0x139fc4",
+              "target": "0x139620"
+            },
+            {
+              "site": "0x139fcc",
+              "target": "0x1003d0"
+            },
+            {
+              "site": "0x139fe0",
+              "target": "0x1c7000"
+            },
+            {
+              "site": "0x13a004",
+              "target": "0x10d570"
+            },
+            {
+              "site": "0x13a00c",
+              "target": "0x11b2e0"
+            },
+            {
+              "site": "0x13a018",
+              "target": "0x10d898"
+            },
+            {
+              "site": "0x13a024",
+              "target": "0x10d258"
+            },
+            {
+              "site": "0x13a048",
+              "target": "0x10d570"
+            },
+            {
+              "site": "0x13a050",
+              "target": "0x11b2e0"
+            },
+            {
+              "site": "0x13a05c",
+              "target": "0x10d898"
+            },
+            {
+              "site": "0x13a068",
+              "target": "0x10d258"
+            },
+            {
+              "site": "0x13a070",
+              "target": "0x100440"
+            },
+            {
+              "site": "0x13a078",
+              "target": "0x139920"
+            },
+            {
+              "site": "0x13a0c8",
+              "target": "0x19d3f8"
+            },
+            {
+              "site": "0x13a0dc",
+              "target": "0x19d3f8"
+            },
+            {
+              "site": "0x13a0f4",
+              "target": "0x19d3f8"
+            },
+            {
+              "site": "0x13a154",
+              "target": "0x19d3f8"
+            },
+            {
+              "site": "0x13a1a4",
+              "target": "0x139620"
+            },
+            {
+              "site": "0x13a1b4",
+              "target": "0x1c7000"
+            },
+            {
+              "site": "0x13a1bc",
+              "target": "0x139920"
+            },
+            {
+              "site": "0x13a1ec",
+              "target": "0x13a290"
+            },
+            {
+              "site": "0x13a200",
+              "target": "0x13c5c0"
+            },
+            {
+              "site": "0x13a234",
+              "target": "0x139930"
+            },
+            {
+              "site": "0x13a23c",
+              "target": "0x139f00"
+            }
+          ],
+          "callers": [
+            "0x1410d8"
+          ]
+        },
+        "atlas_reset_to_reserved": {
+          "entry": "0x13a260",
+          "end": "0x13a290",
+          "sha256": "f22babd1bd877227417b03fd6faf2937ac4ad1e7f10b23c7f6e6bacbae84f8d9",
+          "direct_calls": [],
+          "callers": [
+            "0x13c3b0",
+            "0x142bc0",
+            "0x1560a8",
+            "0x1561f8",
+            "0x15625c",
+            "0x184c58",
+            "0x187a48",
+            "0x18f0d0",
+            "0x190924",
+            "0x1931cc",
+            "0x19320c",
+            "0x193eb0",
+            "0x1940c4",
+            "0x1940e0",
+            "0x19569c",
+            "0x225564",
+            "0x2bed3c",
+            "0x332a0c",
+            "0x335324",
+            "0x344924",
+            "0x3475fc",
+            "0x34a5f8"
+          ]
+        },
+        "frame_clear": {
+          "entry": "0x13c390",
+          "end": "0x13c3e0",
+          "sha256": "ae7e988d1c864ed7718076d2ba6af83ea98bc2aee32db36edf13297d601617a7",
+          "direct_calls": [
+            {
+              "site": "0x13c3b0",
+              "target": "0x13a260"
+            }
+          ],
+          "callers": [
+            "0x13c3f0",
+            "0x140724",
+            "0x141358",
+            "0x142bc8",
+            "0x1560b0",
+            "0x156200",
+            "0x156264",
+            "0x184c4c",
+            "0x187a3c",
+            "0x18f0d8",
+            "0x19092c",
+            "0x1931d4",
+            "0x193eb8",
+            "0x1940cc",
+            "0x1cdac8",
+            "0x225558",
+            "0x2bed44",
+            "0x310fa0",
+            "0x3112c8",
+            "0x31801c",
+            "0x38a858"
+          ]
+        },
+        "font_reset_wrapper": {
+          "entry": "0x13c3e0",
+          "end": "0x13c410",
+          "sha256": "3417ddc18eb46ab4f59564de4da01add3809d1fb4428ff04fd5a431736ce5381",
+          "direct_calls": [
+            {
+              "site": "0x13c3e8",
+              "target": "0x139930"
+            },
+            {
+              "site": "0x13c3f0",
+              "target": "0x13c390"
+            }
+          ],
+          "callers": [
+            "0x140aec",
+            "0x140c2c",
+            "0x140cb0"
+          ]
+        },
+        "scatter": {
+          "entry": "0x13c5c0",
+          "end": "0x13c6b0",
+          "sha256": "62513acc3479508f41e47cd4b1273a7084cf2e9751b836835c575aebf16ac922",
+          "direct_calls": [],
+          "callers": [
+            "0x13a200",
+            "0x143440",
+            "0x1cdae0"
+          ]
+        },
+        "default_palette_upload": {
+          "entry": "0x139f00",
+          "end": "0x139f60",
+          "sha256": "f2d51598ef919cc0c3394d5c8d0a9b6ed7285a954a9eb96551ae31d64c96b949",
+          "direct_calls": [
+            {
+              "site": "0x139f24",
+              "target": "0x10d570"
+            },
+            {
+              "site": "0x139f2c",
+              "target": "0x11b2e0"
+            },
+            {
+              "site": "0x139f3c",
+              "target": "0x10d898"
+            },
+            {
+              "site": "0x139f48",
+              "target": "0x10d258"
+            }
+          ],
+          "callers": [
+            "0x13a23c"
+          ]
+        }
+      }
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "functions": {
+        "resource_initialize": {
+          "entry": "0x13aa00",
+          "end": "0x13ad00",
+          "sha256": "473d9b02e6f3928e25890e8bffd9bf1c234110e2b04860b66ffcd612b8706091",
+          "direct_calls": [
+            {
+              "site": "0x13aa64",
+              "target": "0x13a040"
+            },
+            {
+              "site": "0x13aa6c",
+              "target": "0x1003d0"
+            },
+            {
+              "site": "0x13aa80",
+              "target": "0x1ca120"
+            },
+            {
+              "site": "0x13aaa4",
+              "target": "0x10d500"
+            },
+            {
+              "site": "0x13aaac",
+              "target": "0x11b260"
+            },
+            {
+              "site": "0x13aab8",
+              "target": "0x10d828"
+            },
+            {
+              "site": "0x13aac4",
+              "target": "0x10d1e8"
+            },
+            {
+              "site": "0x13aae8",
+              "target": "0x10d500"
+            },
+            {
+              "site": "0x13aaf0",
+              "target": "0x11b260"
+            },
+            {
+              "site": "0x13aafc",
+              "target": "0x10d828"
+            },
+            {
+              "site": "0x13ab08",
+              "target": "0x10d1e8"
+            },
+            {
+              "site": "0x13ab10",
+              "target": "0x100440"
+            },
+            {
+              "site": "0x13ab18",
+              "target": "0x13a390"
+            },
+            {
+              "site": "0x13ab68",
+              "target": "0x1a1508"
+            },
+            {
+              "site": "0x13ab7c",
+              "target": "0x1a1508"
+            },
+            {
+              "site": "0x13ab94",
+              "target": "0x1a1508"
+            },
+            {
+              "site": "0x13abf4",
+              "target": "0x1a1508"
+            },
+            {
+              "site": "0x13ac44",
+              "target": "0x13a040"
+            },
+            {
+              "site": "0x13ac54",
+              "target": "0x1ca120"
+            },
+            {
+              "site": "0x13ac5c",
+              "target": "0x13a390"
+            },
+            {
+              "site": "0x13ac8c",
+              "target": "0x13ad30"
+            },
+            {
+              "site": "0x13aca0",
+              "target": "0x13d070"
+            },
+            {
+              "site": "0x13acd4",
+              "target": "0x13a3a0"
+            },
+            {
+              "site": "0x13acdc",
+              "target": "0x13a9a0"
+            }
+          ],
+          "callers": [
+            "0x141c0c"
+          ]
+        },
+        "atlas_reset_to_reserved": {
+          "entry": "0x13ad00",
+          "end": "0x13ad30",
+          "sha256": "28c8353327a0970d61bcc4ba71e68106353342364678b86f4720324e7d68dd87",
+          "direct_calls": [],
+          "callers": [
+            "0x13ce60",
+            "0x143b50",
+            "0x156f98",
+            "0x156fc8",
+            "0x15702c",
+            "0x186508",
+            "0x189328",
+            "0x190b30",
+            "0x1923f4",
+            "0x194dfc",
+            "0x194e3c",
+            "0x195ac0",
+            "0x195c94",
+            "0x195cb0",
+            "0x1981a0",
+            "0x1981e4",
+            "0x198d30",
+            "0x198d4c",
+            "0x19981c",
+            "0x22a114",
+            "0x2c5b8c",
+            "0x356a5c",
+            "0x3593a4",
+            "0x3695e4",
+            "0x36c2dc",
+            "0x36f1a8"
+          ]
+        },
+        "frame_clear": {
+          "entry": "0x13ce40",
+          "end": "0x13ce90",
+          "sha256": "5bb425147df687fccddeaee23663e8325e35956b3143ce6c5c33b5b8bd4cc1e1",
+          "direct_calls": [
+            {
+              "site": "0x13ce60",
+              "target": "0x13ad00"
+            }
+          ],
+          "callers": [
+            "0x13cea0",
+            "0x141208",
+            "0x141ec0",
+            "0x143b58",
+            "0x156fa0",
+            "0x156fd0",
+            "0x157034",
+            "0x1864fc",
+            "0x18931c",
+            "0x190b38",
+            "0x1923fc",
+            "0x194e04",
+            "0x195ac8",
+            "0x195c9c",
+            "0x1981a8",
+            "0x198d38",
+            "0x1d0de8",
+            "0x22a108",
+            "0x2c5b94",
+            "0x334b20",
+            "0x334e48",
+            "0x33bbac",
+            "0x3b49a8"
+          ]
+        },
+        "font_reset_wrapper": {
+          "entry": "0x13ce90",
+          "end": "0x13cec0",
+          "sha256": "dfbb3b6940491997c8af32cf64f0a4c991270698a9aecf51b1af537531901d88",
+          "direct_calls": [
+            {
+              "site": "0x13ce98",
+              "target": "0x13a3a0"
+            },
+            {
+              "site": "0x13cea0",
+              "target": "0x13ce40"
+            }
+          ],
+          "callers": [
+            "0x1415dc",
+            "0x141740",
+            "0x1417c0"
+          ]
+        },
+        "scatter": {
+          "entry": "0x13d070",
+          "end": "0x13d160",
+          "sha256": "cb2923e741d8ba7fa45363bbaaa9fd9197108e880ec8b60531123ccfca20d9d9",
+          "direct_calls": [],
+          "callers": [
+            "0x13aca0",
+            "0x144740",
+            "0x1d0e00"
+          ]
+        },
+        "default_palette_upload": {
+          "entry": "0x13a9a0",
+          "end": "0x13aa00",
+          "sha256": "34e18d6012342efec311667a501d7fd6e7f8b4df85d3f2994b269a1d2845c238",
+          "direct_calls": [
+            {
+              "site": "0x13a9c4",
+              "target": "0x10d500"
+            },
+            {
+              "site": "0x13a9cc",
+              "target": "0x11b260"
+            },
+            {
+              "site": "0x13a9dc",
+              "target": "0x10d828"
+            },
+            {
+              "site": "0x13a9e8",
+              "target": "0x10d1e8"
+            }
+          ],
+          "callers": [
+            "0x13acdc"
+          ]
+        }
+      }
+    }
+  ]
+}

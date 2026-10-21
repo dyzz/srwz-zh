@@ -1,0 +1,2041 @@
+{
+  "scope": "Native atoi and underlying CRT arithmetic against independent value model.\nEE adapters follow pinned LRPS2 source; no replacement of native functions.\nOnly return-value contract is checked: errno/endptr and non-ASCII not covered.\n",
+  "status": "three_native_decimal_return_paths_match_independent_C_value_model",
+  "case_count": 339,
+  "cases": [
+    {
+      "edition": "original",
+      "case": 0,
+      "input": "",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 1,
+      "input": " ",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 2,
+      "input": "\t\n\r\u000b\f +17tail",
+      "returned_int32": 17
+    },
+    {
+      "edition": "original",
+      "case": 3,
+      "input": "+",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 4,
+      "input": "-",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 5,
+      "input": "--1",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 6,
+      "input": "+-1",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 7,
+      "input": "0x10",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 8,
+      "input": "0123",
+      "returned_int32": 123
+    },
+    {
+      "edition": "original",
+      "case": 9,
+      "input": "1e3",
+      "returned_int32": 1
+    },
+    {
+      "edition": "original",
+      "case": 10,
+      "input": "nondigit",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 11,
+      "input": "-0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 12,
+      "input": "+0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 13,
+      "input": "-9223372036854775809",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 14,
+      "input": "-9223372036854775808",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 15,
+      "input": "-9223372036854775807",
+      "returned_int32": 1
+    },
+    {
+      "edition": "original",
+      "case": 16,
+      "input": "-4294967296",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 17,
+      "input": "-4294967295",
+      "returned_int32": 1
+    },
+    {
+      "edition": "original",
+      "case": 18,
+      "input": "-2147483649",
+      "returned_int32": 2147483647
+    },
+    {
+      "edition": "original",
+      "case": 19,
+      "input": "-2147483648",
+      "returned_int32": -2147483648
+    },
+    {
+      "edition": "original",
+      "case": 20,
+      "input": "-2147483647",
+      "returned_int32": -2147483647
+    },
+    {
+      "edition": "original",
+      "case": 21,
+      "input": "-1",
+      "returned_int32": -1
+    },
+    {
+      "edition": "original",
+      "case": 22,
+      "input": "0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 23,
+      "input": "1",
+      "returned_int32": 1
+    },
+    {
+      "edition": "original",
+      "case": 24,
+      "input": "2147483647",
+      "returned_int32": 2147483647
+    },
+    {
+      "edition": "original",
+      "case": 25,
+      "input": "2147483648",
+      "returned_int32": -2147483648
+    },
+    {
+      "edition": "original",
+      "case": 26,
+      "input": "4294967295",
+      "returned_int32": -1
+    },
+    {
+      "edition": "original",
+      "case": 27,
+      "input": "4294967296",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 28,
+      "input": "9223372036854775806",
+      "returned_int32": -2
+    },
+    {
+      "edition": "original",
+      "case": 29,
+      "input": "9223372036854775807",
+      "returned_int32": -1
+    },
+    {
+      "edition": "original",
+      "case": 30,
+      "input": "9223372036854775808",
+      "returned_int32": -1
+    },
+    {
+      "edition": "original",
+      "case": 31,
+      "input": "99999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "returned_int32": -1
+    },
+    {
+      "edition": "original",
+      "case": 32,
+      "input": "-99999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "returned_int32": 0
+    },
+    {
+      "edition": "original",
+      "case": 33,
+      "input": " +8521538077310293657e3",
+      "returned_int32": 1980470937
+    },
+    {
+      "edition": "original",
+      "case": 34,
+      "input": "3750074598196689276e3",
+      "returned_int32": 1924839804
+    },
+    {
+      "edition": "original",
+      "case": 35,
+      "input": " -1051914487549837690",
+      "returned_int32": -880722298
+    },
+    {
+      "edition": "original",
+      "case": 36,
+      "input": "\t2950707821074342411 7",
+      "returned_int32": 924475915
+    },
+    {
+      "edition": "original",
+      "case": 37,
+      "input": " +8521181511398381247e3",
+      "returned_int32": -41494849
+    },
+    {
+      "edition": "original",
+      "case": 38,
+      "input": "5601582022811415066 7",
+      "returned_int32": -639405542
+    },
+    {
+      "edition": "original",
+      "case": 39,
+      "input": " +7116558023374609649",
+      "returned_int32": 783490289
+    },
+    {
+      "edition": "original",
+      "case": 40,
+      "input": "\t1940536725800997092 7",
+      "returned_int32": -419966748
+    },
+    {
+      "edition": "original",
+      "case": 41,
+      "input": " -184757675988365939",
+      "returned_int32": 1630522765
+    },
+    {
+      "edition": "original",
+      "case": 42,
+      "input": " 7899086247189429716",
+      "returned_int32": 904281556
+    },
+    {
+      "edition": "original",
+      "case": 43,
+      "input": "\t424833066575162449",
+      "returned_int32": 1443720273
+    },
+    {
+      "edition": "original",
+      "case": 44,
+      "input": "\t775210061541877640 7",
+      "returned_int32": -1736235128
+    },
+    {
+      "edition": "original",
+      "case": 45,
+      "input": " +3617717009941291761tail",
+      "returned_int32": -76520719
+    },
+    {
+      "edition": "original",
+      "case": 46,
+      "input": " +4364600664083238209e3",
+      "returned_int32": -383939263
+    },
+    {
+      "edition": "original",
+      "case": 47,
+      "input": "\t1806481255983922833",
+      "returned_int32": -1806516591
+    },
+    {
+      "edition": "original",
+      "case": 48,
+      "input": " +8662263017679435636 7",
+      "returned_int32": -406243468
+    },
+    {
+      "edition": "original",
+      "case": 49,
+      "input": "4092478008355434626 7",
+      "returned_int32": -752897918
+    },
+    {
+      "edition": "original",
+      "case": 50,
+      "input": " +5206039126734479690",
+      "returned_int32": -1010097846
+    },
+    {
+      "edition": "original",
+      "case": 51,
+      "input": " 8535506855394909264",
+      "returned_int32": 230267984
+    },
+    {
+      "edition": "original",
+      "case": 52,
+      "input": "5296176082908918451e3",
+      "returned_int32": 1236578995
+    },
+    {
+      "edition": "original",
+      "case": 53,
+      "input": " +8149193639088776585 7",
+      "returned_int32": 1069704585
+    },
+    {
+      "edition": "original",
+      "case": 54,
+      "input": "\t816736152042400744",
+      "returned_int32": -105583640
+    },
+    {
+      "edition": "original",
+      "case": 55,
+      "input": "877503764052597269",
+      "returned_int32": 829184533
+    },
+    {
+      "edition": "original",
+      "case": 56,
+      "input": "\t2459551366241612922",
+      "returned_int32": -1280805766
+    },
+    {
+      "edition": "original",
+      "case": 57,
+      "input": " +1359825825526863954",
+      "returned_int32": 921589842
+    },
+    {
+      "edition": "original",
+      "case": 58,
+      "input": " 3950529836018352607tail",
+      "returned_int32": 2121581023
+    },
+    {
+      "edition": "original",
+      "case": 59,
+      "input": " -7883274959521731137 7",
+      "returned_int32": 318352831
+    },
+    {
+      "edition": "original",
+      "case": 60,
+      "input": "8652220623681641298",
+      "returned_int32": -656778414
+    },
+    {
+      "edition": "original",
+      "case": 61,
+      "input": "4937107985950110985",
+      "returned_int32": 676132105
+    },
+    {
+      "edition": "original",
+      "case": 62,
+      "input": "\t7105545133888375839e3",
+      "returned_int32": 149687327
+    },
+    {
+      "edition": "original",
+      "case": 63,
+      "input": " -5161057982503821513",
+      "returned_int32": -5611721
+    },
+    {
+      "edition": "original",
+      "case": 64,
+      "input": "\t8556667101301264155 7",
+      "returned_int32": -1168814309
+    },
+    {
+      "edition": "original",
+      "case": 65,
+      "input": " -1113267616096893319e3",
+      "returned_int32": 1654212217
+    },
+    {
+      "edition": "original",
+      "case": 66,
+      "input": "\t1305379479721942345",
+      "returned_int32": 2045320521
+    },
+    {
+      "edition": "original",
+      "case": 67,
+      "input": " +6606911748584843636tail",
+      "returned_int32": -54449804
+    },
+    {
+      "edition": "original",
+      "case": 68,
+      "input": "\t8721199210810206456tail",
+      "returned_int32": -1346213640
+    },
+    {
+      "edition": "original",
+      "case": 69,
+      "input": " +5597908571837346773tail",
+      "returned_int32": -444943403
+    },
+    {
+      "edition": "original",
+      "case": 70,
+      "input": "\t5049377514925465486",
+      "returned_int32": -637919346
+    },
+    {
+      "edition": "original",
+      "case": 71,
+      "input": " 8566960920790382087 7",
+      "returned_int32": 1482503687
+    },
+    {
+      "edition": "original",
+      "case": 72,
+      "input": " 6742754338233431124tail",
+      "returned_int32": -1843350444
+    },
+    {
+      "edition": "original",
+      "case": 73,
+      "input": " +307150058712690893e3",
+      "returned_int32": -565219123
+    },
+    {
+      "edition": "original",
+      "case": 74,
+      "input": " -312293730245364041e3",
+      "returned_int32": -953895241
+    },
+    {
+      "edition": "original",
+      "case": 75,
+      "input": "\t7905932157440981039 7",
+      "returned_int32": -426018769
+    },
+    {
+      "edition": "original",
+      "case": 76,
+      "input": " 5293401299680436080 7",
+      "returned_int32": -1190453392
+    },
+    {
+      "edition": "original",
+      "case": 77,
+      "input": "1805915420661421819e3",
+      "returned_int32": -957573381
+    },
+    {
+      "edition": "original",
+      "case": 78,
+      "input": " 7147056679819356875tail",
+      "returned_int32": -29938997
+    },
+    {
+      "edition": "original",
+      "case": 79,
+      "input": "\t1300264612743553590 7",
+      "returned_int32": -1265163722
+    },
+    {
+      "edition": "original",
+      "case": 80,
+      "input": " 8566546569450242810tail",
+      "returned_int32": -1477688582
+    },
+    {
+      "edition": "original",
+      "case": 81,
+      "input": " -5084749291110291359 7",
+      "returned_int32": -1150048159
+    },
+    {
+      "edition": "original",
+      "case": 82,
+      "input": "\t404449393512662261",
+      "returned_int32": -1645099787
+    },
+    {
+      "edition": "original",
+      "case": 83,
+      "input": " 2312976894067869176 7",
+      "returned_int32": 10094072
+    },
+    {
+      "edition": "original",
+      "case": 84,
+      "input": " 8719760321042836676tail",
+      "returned_int32": 239987908
+    },
+    {
+      "edition": "original",
+      "case": 85,
+      "input": "5936089071768092423e3",
+      "returned_int32": 1573961479
+    },
+    {
+      "edition": "original",
+      "case": 86,
+      "input": "\t3847547945123281029",
+      "returned_int32": -1923385211
+    },
+    {
+      "edition": "original",
+      "case": 87,
+      "input": "\t6973783128051970006 7",
+      "returned_int32": 1747349462
+    },
+    {
+      "edition": "original",
+      "case": 88,
+      "input": " +7633441147596482184",
+      "returned_int32": -1336498552
+    },
+    {
+      "edition": "original",
+      "case": 89,
+      "input": " 5554701920941413307tail",
+      "returned_int32": -1897622597
+    },
+    {
+      "edition": "original",
+      "case": 90,
+      "input": " +555731803514048717",
+      "returned_int32": -2099801907
+    },
+    {
+      "edition": "original",
+      "case": 91,
+      "input": " 3003023932064276034 7",
+      "returned_int32": 45096514
+    },
+    {
+      "edition": "original",
+      "case": 92,
+      "input": " -8256499442285070065e3",
+      "returned_int32": -2040317681
+    },
+    {
+      "edition": "original",
+      "case": 93,
+      "input": " 2696492888349261113tail",
+      "returned_int32": -848511687
+    },
+    {
+      "edition": "original",
+      "case": 94,
+      "input": " +6356648369934244682 7",
+      "returned_int32": 1946098506
+    },
+    {
+      "edition": "original",
+      "case": 95,
+      "input": " 2907805447149271785e3",
+      "returned_int32": -515425559
+    },
+    {
+      "edition": "original",
+      "case": 96,
+      "input": " 2847798859250265068tail",
+      "returned_int32": 1700785132
+    },
+    {
+      "edition": "original",
+      "case": 97,
+      "input": " -8106233656955448722 7",
+      "returned_int32": 182112878
+    },
+    {
+      "edition": "original",
+      "case": 98,
+      "input": " -8146830967841967368tail",
+      "returned_int32": 77640440
+    },
+    {
+      "edition": "original",
+      "case": 99,
+      "input": "\t8331123914090679697tail",
+      "returned_int32": 1193479569
+    },
+    {
+      "edition": "original",
+      "case": 100,
+      "input": " 1993823732865402293tail",
+      "returned_int32": 237995445
+    },
+    {
+      "edition": "original",
+      "case": 101,
+      "input": "\t1393261514583430361",
+      "returned_int32": 938988761
+    },
+    {
+      "edition": "original",
+      "case": 102,
+      "input": "742132787629381748tail",
+      "returned_int32": -1630414732
+    },
+    {
+      "edition": "original",
+      "case": 103,
+      "input": " -5284148660652116194 7",
+      "returned_int32": 762935070
+    },
+    {
+      "edition": "original",
+      "case": 104,
+      "input": " +9159052690122126151 7",
+      "returned_int32": 433107783
+    },
+    {
+      "edition": "original",
+      "case": 105,
+      "input": " -9216742037204339468",
+      "returned_int32": 369521908
+    },
+    {
+      "edition": "original",
+      "case": 106,
+      "input": " -3395274781394829989 7",
+      "returned_int32": 1142848859
+    },
+    {
+      "edition": "original",
+      "case": 107,
+      "input": "\t6567150771096328270 7",
+      "returned_int32": 27334734
+    },
+    {
+      "edition": "original",
+      "case": 108,
+      "input": "4801602058511524205",
+      "returned_int32": -631430803
+    },
+    {
+      "edition": "original",
+      "case": 109,
+      "input": " +1197445928679142518",
+      "returned_int32": 1353217142
+    },
+    {
+      "edition": "original",
+      "case": 110,
+      "input": " +1221351908534688418 7",
+      "returned_int32": -34301278
+    },
+    {
+      "edition": "original",
+      "case": 111,
+      "input": "\t7131500151652818256 7",
+      "returned_int32": -2031542960
+    },
+    {
+      "edition": "original",
+      "case": 112,
+      "input": " 7335191524322566205e3",
+      "returned_int32": -290201539
+    },
+    {
+      "edition": "best",
+      "case": 0,
+      "input": "",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 1,
+      "input": " ",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 2,
+      "input": "\t\n\r\u000b\f +17tail",
+      "returned_int32": 17
+    },
+    {
+      "edition": "best",
+      "case": 3,
+      "input": "+",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 4,
+      "input": "-",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 5,
+      "input": "--1",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 6,
+      "input": "+-1",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 7,
+      "input": "0x10",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 8,
+      "input": "0123",
+      "returned_int32": 123
+    },
+    {
+      "edition": "best",
+      "case": 9,
+      "input": "1e3",
+      "returned_int32": 1
+    },
+    {
+      "edition": "best",
+      "case": 10,
+      "input": "nondigit",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 11,
+      "input": "-0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 12,
+      "input": "+0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 13,
+      "input": "-9223372036854775809",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 14,
+      "input": "-9223372036854775808",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 15,
+      "input": "-9223372036854775807",
+      "returned_int32": 1
+    },
+    {
+      "edition": "best",
+      "case": 16,
+      "input": "-4294967296",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 17,
+      "input": "-4294967295",
+      "returned_int32": 1
+    },
+    {
+      "edition": "best",
+      "case": 18,
+      "input": "-2147483649",
+      "returned_int32": 2147483647
+    },
+    {
+      "edition": "best",
+      "case": 19,
+      "input": "-2147483648",
+      "returned_int32": -2147483648
+    },
+    {
+      "edition": "best",
+      "case": 20,
+      "input": "-2147483647",
+      "returned_int32": -2147483647
+    },
+    {
+      "edition": "best",
+      "case": 21,
+      "input": "-1",
+      "returned_int32": -1
+    },
+    {
+      "edition": "best",
+      "case": 22,
+      "input": "0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 23,
+      "input": "1",
+      "returned_int32": 1
+    },
+    {
+      "edition": "best",
+      "case": 24,
+      "input": "2147483647",
+      "returned_int32": 2147483647
+    },
+    {
+      "edition": "best",
+      "case": 25,
+      "input": "2147483648",
+      "returned_int32": -2147483648
+    },
+    {
+      "edition": "best",
+      "case": 26,
+      "input": "4294967295",
+      "returned_int32": -1
+    },
+    {
+      "edition": "best",
+      "case": 27,
+      "input": "4294967296",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 28,
+      "input": "9223372036854775806",
+      "returned_int32": -2
+    },
+    {
+      "edition": "best",
+      "case": 29,
+      "input": "9223372036854775807",
+      "returned_int32": -1
+    },
+    {
+      "edition": "best",
+      "case": 30,
+      "input": "9223372036854775808",
+      "returned_int32": -1
+    },
+    {
+      "edition": "best",
+      "case": 31,
+      "input": "99999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "returned_int32": -1
+    },
+    {
+      "edition": "best",
+      "case": 32,
+      "input": "-99999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "returned_int32": 0
+    },
+    {
+      "edition": "best",
+      "case": 33,
+      "input": " +8521538077310293657e3",
+      "returned_int32": 1980470937
+    },
+    {
+      "edition": "best",
+      "case": 34,
+      "input": "3750074598196689276e3",
+      "returned_int32": 1924839804
+    },
+    {
+      "edition": "best",
+      "case": 35,
+      "input": " -1051914487549837690",
+      "returned_int32": -880722298
+    },
+    {
+      "edition": "best",
+      "case": 36,
+      "input": "\t2950707821074342411 7",
+      "returned_int32": 924475915
+    },
+    {
+      "edition": "best",
+      "case": 37,
+      "input": " +8521181511398381247e3",
+      "returned_int32": -41494849
+    },
+    {
+      "edition": "best",
+      "case": 38,
+      "input": "5601582022811415066 7",
+      "returned_int32": -639405542
+    },
+    {
+      "edition": "best",
+      "case": 39,
+      "input": " +7116558023374609649",
+      "returned_int32": 783490289
+    },
+    {
+      "edition": "best",
+      "case": 40,
+      "input": "\t1940536725800997092 7",
+      "returned_int32": -419966748
+    },
+    {
+      "edition": "best",
+      "case": 41,
+      "input": " -184757675988365939",
+      "returned_int32": 1630522765
+    },
+    {
+      "edition": "best",
+      "case": 42,
+      "input": " 7899086247189429716",
+      "returned_int32": 904281556
+    },
+    {
+      "edition": "best",
+      "case": 43,
+      "input": "\t424833066575162449",
+      "returned_int32": 1443720273
+    },
+    {
+      "edition": "best",
+      "case": 44,
+      "input": "\t775210061541877640 7",
+      "returned_int32": -1736235128
+    },
+    {
+      "edition": "best",
+      "case": 45,
+      "input": " +3617717009941291761tail",
+      "returned_int32": -76520719
+    },
+    {
+      "edition": "best",
+      "case": 46,
+      "input": " +4364600664083238209e3",
+      "returned_int32": -383939263
+    },
+    {
+      "edition": "best",
+      "case": 47,
+      "input": "\t1806481255983922833",
+      "returned_int32": -1806516591
+    },
+    {
+      "edition": "best",
+      "case": 48,
+      "input": " +8662263017679435636 7",
+      "returned_int32": -406243468
+    },
+    {
+      "edition": "best",
+      "case": 49,
+      "input": "4092478008355434626 7",
+      "returned_int32": -752897918
+    },
+    {
+      "edition": "best",
+      "case": 50,
+      "input": " +5206039126734479690",
+      "returned_int32": -1010097846
+    },
+    {
+      "edition": "best",
+      "case": 51,
+      "input": " 8535506855394909264",
+      "returned_int32": 230267984
+    },
+    {
+      "edition": "best",
+      "case": 52,
+      "input": "5296176082908918451e3",
+      "returned_int32": 1236578995
+    },
+    {
+      "edition": "best",
+      "case": 53,
+      "input": " +8149193639088776585 7",
+      "returned_int32": 1069704585
+    },
+    {
+      "edition": "best",
+      "case": 54,
+      "input": "\t816736152042400744",
+      "returned_int32": -105583640
+    },
+    {
+      "edition": "best",
+      "case": 55,
+      "input": "877503764052597269",
+      "returned_int32": 829184533
+    },
+    {
+      "edition": "best",
+      "case": 56,
+      "input": "\t2459551366241612922",
+      "returned_int32": -1280805766
+    },
+    {
+      "edition": "best",
+      "case": 57,
+      "input": " +1359825825526863954",
+      "returned_int32": 921589842
+    },
+    {
+      "edition": "best",
+      "case": 58,
+      "input": " 3950529836018352607tail",
+      "returned_int32": 2121581023
+    },
+    {
+      "edition": "best",
+      "case": 59,
+      "input": " -7883274959521731137 7",
+      "returned_int32": 318352831
+    },
+    {
+      "edition": "best",
+      "case": 60,
+      "input": "8652220623681641298",
+      "returned_int32": -656778414
+    },
+    {
+      "edition": "best",
+      "case": 61,
+      "input": "4937107985950110985",
+      "returned_int32": 676132105
+    },
+    {
+      "edition": "best",
+      "case": 62,
+      "input": "\t7105545133888375839e3",
+      "returned_int32": 149687327
+    },
+    {
+      "edition": "best",
+      "case": 63,
+      "input": " -5161057982503821513",
+      "returned_int32": -5611721
+    },
+    {
+      "edition": "best",
+      "case": 64,
+      "input": "\t8556667101301264155 7",
+      "returned_int32": -1168814309
+    },
+    {
+      "edition": "best",
+      "case": 65,
+      "input": " -1113267616096893319e3",
+      "returned_int32": 1654212217
+    },
+    {
+      "edition": "best",
+      "case": 66,
+      "input": "\t1305379479721942345",
+      "returned_int32": 2045320521
+    },
+    {
+      "edition": "best",
+      "case": 67,
+      "input": " +6606911748584843636tail",
+      "returned_int32": -54449804
+    },
+    {
+      "edition": "best",
+      "case": 68,
+      "input": "\t8721199210810206456tail",
+      "returned_int32": -1346213640
+    },
+    {
+      "edition": "best",
+      "case": 69,
+      "input": " +5597908571837346773tail",
+      "returned_int32": -444943403
+    },
+    {
+      "edition": "best",
+      "case": 70,
+      "input": "\t5049377514925465486",
+      "returned_int32": -637919346
+    },
+    {
+      "edition": "best",
+      "case": 71,
+      "input": " 8566960920790382087 7",
+      "returned_int32": 1482503687
+    },
+    {
+      "edition": "best",
+      "case": 72,
+      "input": " 6742754338233431124tail",
+      "returned_int32": -1843350444
+    },
+    {
+      "edition": "best",
+      "case": 73,
+      "input": " +307150058712690893e3",
+      "returned_int32": -565219123
+    },
+    {
+      "edition": "best",
+      "case": 74,
+      "input": " -312293730245364041e3",
+      "returned_int32": -953895241
+    },
+    {
+      "edition": "best",
+      "case": 75,
+      "input": "\t7905932157440981039 7",
+      "returned_int32": -426018769
+    },
+    {
+      "edition": "best",
+      "case": 76,
+      "input": " 5293401299680436080 7",
+      "returned_int32": -1190453392
+    },
+    {
+      "edition": "best",
+      "case": 77,
+      "input": "1805915420661421819e3",
+      "returned_int32": -957573381
+    },
+    {
+      "edition": "best",
+      "case": 78,
+      "input": " 7147056679819356875tail",
+      "returned_int32": -29938997
+    },
+    {
+      "edition": "best",
+      "case": 79,
+      "input": "\t1300264612743553590 7",
+      "returned_int32": -1265163722
+    },
+    {
+      "edition": "best",
+      "case": 80,
+      "input": " 8566546569450242810tail",
+      "returned_int32": -1477688582
+    },
+    {
+      "edition": "best",
+      "case": 81,
+      "input": " -5084749291110291359 7",
+      "returned_int32": -1150048159
+    },
+    {
+      "edition": "best",
+      "case": 82,
+      "input": "\t404449393512662261",
+      "returned_int32": -1645099787
+    },
+    {
+      "edition": "best",
+      "case": 83,
+      "input": " 2312976894067869176 7",
+      "returned_int32": 10094072
+    },
+    {
+      "edition": "best",
+      "case": 84,
+      "input": " 8719760321042836676tail",
+      "returned_int32": 239987908
+    },
+    {
+      "edition": "best",
+      "case": 85,
+      "input": "5936089071768092423e3",
+      "returned_int32": 1573961479
+    },
+    {
+      "edition": "best",
+      "case": 86,
+      "input": "\t3847547945123281029",
+      "returned_int32": -1923385211
+    },
+    {
+      "edition": "best",
+      "case": 87,
+      "input": "\t6973783128051970006 7",
+      "returned_int32": 1747349462
+    },
+    {
+      "edition": "best",
+      "case": 88,
+      "input": " +7633441147596482184",
+      "returned_int32": -1336498552
+    },
+    {
+      "edition": "best",
+      "case": 89,
+      "input": " 5554701920941413307tail",
+      "returned_int32": -1897622597
+    },
+    {
+      "edition": "best",
+      "case": 90,
+      "input": " +555731803514048717",
+      "returned_int32": -2099801907
+    },
+    {
+      "edition": "best",
+      "case": 91,
+      "input": " 3003023932064276034 7",
+      "returned_int32": 45096514
+    },
+    {
+      "edition": "best",
+      "case": 92,
+      "input": " -8256499442285070065e3",
+      "returned_int32": -2040317681
+    },
+    {
+      "edition": "best",
+      "case": 93,
+      "input": " 2696492888349261113tail",
+      "returned_int32": -848511687
+    },
+    {
+      "edition": "best",
+      "case": 94,
+      "input": " +6356648369934244682 7",
+      "returned_int32": 1946098506
+    },
+    {
+      "edition": "best",
+      "case": 95,
+      "input": " 2907805447149271785e3",
+      "returned_int32": -515425559
+    },
+    {
+      "edition": "best",
+      "case": 96,
+      "input": " 2847798859250265068tail",
+      "returned_int32": 1700785132
+    },
+    {
+      "edition": "best",
+      "case": 97,
+      "input": " -8106233656955448722 7",
+      "returned_int32": 182112878
+    },
+    {
+      "edition": "best",
+      "case": 98,
+      "input": " -8146830967841967368tail",
+      "returned_int32": 77640440
+    },
+    {
+      "edition": "best",
+      "case": 99,
+      "input": "\t8331123914090679697tail",
+      "returned_int32": 1193479569
+    },
+    {
+      "edition": "best",
+      "case": 100,
+      "input": " 1993823732865402293tail",
+      "returned_int32": 237995445
+    },
+    {
+      "edition": "best",
+      "case": 101,
+      "input": "\t1393261514583430361",
+      "returned_int32": 938988761
+    },
+    {
+      "edition": "best",
+      "case": 102,
+      "input": "742132787629381748tail",
+      "returned_int32": -1630414732
+    },
+    {
+      "edition": "best",
+      "case": 103,
+      "input": " -5284148660652116194 7",
+      "returned_int32": 762935070
+    },
+    {
+      "edition": "best",
+      "case": 104,
+      "input": " +9159052690122126151 7",
+      "returned_int32": 433107783
+    },
+    {
+      "edition": "best",
+      "case": 105,
+      "input": " -9216742037204339468",
+      "returned_int32": 369521908
+    },
+    {
+      "edition": "best",
+      "case": 106,
+      "input": " -3395274781394829989 7",
+      "returned_int32": 1142848859
+    },
+    {
+      "edition": "best",
+      "case": 107,
+      "input": "\t6567150771096328270 7",
+      "returned_int32": 27334734
+    },
+    {
+      "edition": "best",
+      "case": 108,
+      "input": "4801602058511524205",
+      "returned_int32": -631430803
+    },
+    {
+      "edition": "best",
+      "case": 109,
+      "input": " +1197445928679142518",
+      "returned_int32": 1353217142
+    },
+    {
+      "edition": "best",
+      "case": 110,
+      "input": " +1221351908534688418 7",
+      "returned_int32": -34301278
+    },
+    {
+      "edition": "best",
+      "case": 111,
+      "input": "\t7131500151652818256 7",
+      "returned_int32": -2031542960
+    },
+    {
+      "edition": "best",
+      "case": 112,
+      "input": " 7335191524322566205e3",
+      "returned_int32": -290201539
+    },
+    {
+      "edition": "sp",
+      "case": 0,
+      "input": "",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 1,
+      "input": " ",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 2,
+      "input": "\t\n\r\u000b\f +17tail",
+      "returned_int32": 17
+    },
+    {
+      "edition": "sp",
+      "case": 3,
+      "input": "+",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 4,
+      "input": "-",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 5,
+      "input": "--1",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 6,
+      "input": "+-1",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 7,
+      "input": "0x10",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 8,
+      "input": "0123",
+      "returned_int32": 123
+    },
+    {
+      "edition": "sp",
+      "case": 9,
+      "input": "1e3",
+      "returned_int32": 1
+    },
+    {
+      "edition": "sp",
+      "case": 10,
+      "input": "nondigit",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 11,
+      "input": "-0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 12,
+      "input": "+0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 13,
+      "input": "-9223372036854775809",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 14,
+      "input": "-9223372036854775808",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 15,
+      "input": "-9223372036854775807",
+      "returned_int32": 1
+    },
+    {
+      "edition": "sp",
+      "case": 16,
+      "input": "-4294967296",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 17,
+      "input": "-4294967295",
+      "returned_int32": 1
+    },
+    {
+      "edition": "sp",
+      "case": 18,
+      "input": "-2147483649",
+      "returned_int32": 2147483647
+    },
+    {
+      "edition": "sp",
+      "case": 19,
+      "input": "-2147483648",
+      "returned_int32": -2147483648
+    },
+    {
+      "edition": "sp",
+      "case": 20,
+      "input": "-2147483647",
+      "returned_int32": -2147483647
+    },
+    {
+      "edition": "sp",
+      "case": 21,
+      "input": "-1",
+      "returned_int32": -1
+    },
+    {
+      "edition": "sp",
+      "case": 22,
+      "input": "0",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 23,
+      "input": "1",
+      "returned_int32": 1
+    },
+    {
+      "edition": "sp",
+      "case": 24,
+      "input": "2147483647",
+      "returned_int32": 2147483647
+    },
+    {
+      "edition": "sp",
+      "case": 25,
+      "input": "2147483648",
+      "returned_int32": -2147483648
+    },
+    {
+      "edition": "sp",
+      "case": 26,
+      "input": "4294967295",
+      "returned_int32": -1
+    },
+    {
+      "edition": "sp",
+      "case": 27,
+      "input": "4294967296",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 28,
+      "input": "9223372036854775806",
+      "returned_int32": -2
+    },
+    {
+      "edition": "sp",
+      "case": 29,
+      "input": "9223372036854775807",
+      "returned_int32": -1
+    },
+    {
+      "edition": "sp",
+      "case": 30,
+      "input": "9223372036854775808",
+      "returned_int32": -1
+    },
+    {
+      "edition": "sp",
+      "case": 31,
+      "input": "99999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "returned_int32": -1
+    },
+    {
+      "edition": "sp",
+      "case": 32,
+      "input": "-99999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "returned_int32": 0
+    },
+    {
+      "edition": "sp",
+      "case": 33,
+      "input": " +8521538077310293657e3",
+      "returned_int32": 1980470937
+    },
+    {
+      "edition": "sp",
+      "case": 34,
+      "input": "3750074598196689276e3",
+      "returned_int32": 1924839804
+    },
+    {
+      "edition": "sp",
+      "case": 35,
+      "input": " -1051914487549837690",
+      "returned_int32": -880722298
+    },
+    {
+      "edition": "sp",
+      "case": 36,
+      "input": "\t2950707821074342411 7",
+      "returned_int32": 924475915
+    },
+    {
+      "edition": "sp",
+      "case": 37,
+      "input": " +8521181511398381247e3",
+      "returned_int32": -41494849
+    },
+    {
+      "edition": "sp",
+      "case": 38,
+      "input": "5601582022811415066 7",
+      "returned_int32": -639405542
+    },
+    {
+      "edition": "sp",
+      "case": 39,
+      "input": " +7116558023374609649",
+      "returned_int32": 783490289
+    },
+    {
+      "edition": "sp",
+      "case": 40,
+      "input": "\t1940536725800997092 7",
+      "returned_int32": -419966748
+    },
+    {
+      "edition": "sp",
+      "case": 41,
+      "input": " -184757675988365939",
+      "returned_int32": 1630522765
+    },
+    {
+      "edition": "sp",
+      "case": 42,
+      "input": " 7899086247189429716",
+      "returned_int32": 904281556
+    },
+    {
+      "edition": "sp",
+      "case": 43,
+      "input": "\t424833066575162449",
+      "returned_int32": 1443720273
+    },
+    {
+      "edition": "sp",
+      "case": 44,
+      "input": "\t775210061541877640 7",
+      "returned_int32": -1736235128
+    },
+    {
+      "edition": "sp",
+      "case": 45,
+      "input": " +3617717009941291761tail",
+      "returned_int32": -76520719
+    },
+    {
+      "edition": "sp",
+      "case": 46,
+      "input": " +4364600664083238209e3",
+      "returned_int32": -383939263
+    },
+    {
+      "edition": "sp",
+      "case": 47,
+      "input": "\t1806481255983922833",
+      "returned_int32": -1806516591
+    },
+    {
+      "edition": "sp",
+      "case": 48,
+      "input": " +8662263017679435636 7",
+      "returned_int32": -406243468
+    },
+    {
+      "edition": "sp",
+      "case": 49,
+      "input": "4092478008355434626 7",
+      "returned_int32": -752897918
+    },
+    {
+      "edition": "sp",
+      "case": 50,
+      "input": " +5206039126734479690",
+      "returned_int32": -1010097846
+    },
+    {
+      "edition": "sp",
+      "case": 51,
+      "input": " 8535506855394909264",
+      "returned_int32": 230267984
+    },
+    {
+      "edition": "sp",
+      "case": 52,
+      "input": "5296176082908918451e3",
+      "returned_int32": 1236578995
+    },
+    {
+      "edition": "sp",
+      "case": 53,
+      "input": " +8149193639088776585 7",
+      "returned_int32": 1069704585
+    },
+    {
+      "edition": "sp",
+      "case": 54,
+      "input": "\t816736152042400744",
+      "returned_int32": -105583640
+    },
+    {
+      "edition": "sp",
+      "case": 55,
+      "input": "877503764052597269",
+      "returned_int32": 829184533
+    },
+    {
+      "edition": "sp",
+      "case": 56,
+      "input": "\t2459551366241612922",
+      "returned_int32": -1280805766
+    },
+    {
+      "edition": "sp",
+      "case": 57,
+      "input": " +1359825825526863954",
+      "returned_int32": 921589842
+    },
+    {
+      "edition": "sp",
+      "case": 58,
+      "input": " 3950529836018352607tail",
+      "returned_int32": 2121581023
+    },
+    {
+      "edition": "sp",
+      "case": 59,
+      "input": " -7883274959521731137 7",
+      "returned_int32": 318352831
+    },
+    {
+      "edition": "sp",
+      "case": 60,
+      "input": "8652220623681641298",
+      "returned_int32": -656778414
+    },
+    {
+      "edition": "sp",
+      "case": 61,
+      "input": "4937107985950110985",
+      "returned_int32": 676132105
+    },
+    {
+      "edition": "sp",
+      "case": 62,
+      "input": "\t7105545133888375839e3",
+      "returned_int32": 149687327
+    },
+    {
+      "edition": "sp",
+      "case": 63,
+      "input": " -5161057982503821513",
+      "returned_int32": -5611721
+    },
+    {
+      "edition": "sp",
+      "case": 64,
+      "input": "\t8556667101301264155 7",
+      "returned_int32": -1168814309
+    },
+    {
+      "edition": "sp",
+      "case": 65,
+      "input": " -1113267616096893319e3",
+      "returned_int32": 1654212217
+    },
+    {
+      "edition": "sp",
+      "case": 66,
+      "input": "\t1305379479721942345",
+      "returned_int32": 2045320521
+    },
+    {
+      "edition": "sp",
+      "case": 67,
+      "input": " +6606911748584843636tail",
+      "returned_int32": -54449804
+    },
+    {
+      "edition": "sp",
+      "case": 68,
+      "input": "\t8721199210810206456tail",
+      "returned_int32": -1346213640
+    },
+    {
+      "edition": "sp",
+      "case": 69,
+      "input": " +5597908571837346773tail",
+      "returned_int32": -444943403
+    },
+    {
+      "edition": "sp",
+      "case": 70,
+      "input": "\t5049377514925465486",
+      "returned_int32": -637919346
+    },
+    {
+      "edition": "sp",
+      "case": 71,
+      "input": " 8566960920790382087 7",
+      "returned_int32": 1482503687
+    },
+    {
+      "edition": "sp",
+      "case": 72,
+      "input": " 6742754338233431124tail",
+      "returned_int32": -1843350444
+    },
+    {
+      "edition": "sp",
+      "case": 73,
+      "input": " +307150058712690893e3",
+      "returned_int32": -565219123
+    },
+    {
+      "edition": "sp",
+      "case": 74,
+      "input": " -312293730245364041e3",
+      "returned_int32": -953895241
+    },
+    {
+      "edition": "sp",
+      "case": 75,
+      "input": "\t7905932157440981039 7",
+      "returned_int32": -426018769
+    },
+    {
+      "edition": "sp",
+      "case": 76,
+      "input": " 5293401299680436080 7",
+      "returned_int32": -1190453392
+    },
+    {
+      "edition": "sp",
+      "case": 77,
+      "input": "1805915420661421819e3",
+      "returned_int32": -957573381
+    },
+    {
+      "edition": "sp",
+      "case": 78,
+      "input": " 7147056679819356875tail",
+      "returned_int32": -29938997
+    },
+    {
+      "edition": "sp",
+      "case": 79,
+      "input": "\t1300264612743553590 7",
+      "returned_int32": -1265163722
+    },
+    {
+      "edition": "sp",
+      "case": 80,
+      "input": " 8566546569450242810tail",
+      "returned_int32": -1477688582
+    },
+    {
+      "edition": "sp",
+      "case": 81,
+      "input": " -5084749291110291359 7",
+      "returned_int32": -1150048159
+    },
+    {
+      "edition": "sp",
+      "case": 82,
+      "input": "\t404449393512662261",
+      "returned_int32": -1645099787
+    },
+    {
+      "edition": "sp",
+      "case": 83,
+      "input": " 2312976894067869176 7",
+      "returned_int32": 10094072
+    },
+    {
+      "edition": "sp",
+      "case": 84,
+      "input": " 8719760321042836676tail",
+      "returned_int32": 239987908
+    },
+    {
+      "edition": "sp",
+      "case": 85,
+      "input": "5936089071768092423e3",
+      "returned_int32": 1573961479
+    },
+    {
+      "edition": "sp",
+      "case": 86,
+      "input": "\t3847547945123281029",
+      "returned_int32": -1923385211
+    },
+    {
+      "edition": "sp",
+      "case": 87,
+      "input": "\t6973783128051970006 7",
+      "returned_int32": 1747349462
+    },
+    {
+      "edition": "sp",
+      "case": 88,
+      "input": " +7633441147596482184",
+      "returned_int32": -1336498552
+    },
+    {
+      "edition": "sp",
+      "case": 89,
+      "input": " 5554701920941413307tail",
+      "returned_int32": -1897622597
+    },
+    {
+      "edition": "sp",
+      "case": 90,
+      "input": " +555731803514048717",
+      "returned_int32": -2099801907
+    },
+    {
+      "edition": "sp",
+      "case": 91,
+      "input": " 3003023932064276034 7",
+      "returned_int32": 45096514
+    },
+    {
+      "edition": "sp",
+      "case": 92,
+      "input": " -8256499442285070065e3",
+      "returned_int32": -2040317681
+    },
+    {
+      "edition": "sp",
+      "case": 93,
+      "input": " 2696492888349261113tail",
+      "returned_int32": -848511687
+    },
+    {
+      "edition": "sp",
+      "case": 94,
+      "input": " +6356648369934244682 7",
+      "returned_int32": 1946098506
+    },
+    {
+      "edition": "sp",
+      "case": 95,
+      "input": " 2907805447149271785e3",
+      "returned_int32": -515425559
+    },
+    {
+      "edition": "sp",
+      "case": 96,
+      "input": " 2847798859250265068tail",
+      "returned_int32": 1700785132
+    },
+    {
+      "edition": "sp",
+      "case": 97,
+      "input": " -8106233656955448722 7",
+      "returned_int32": 182112878
+    },
+    {
+      "edition": "sp",
+      "case": 98,
+      "input": " -8146830967841967368tail",
+      "returned_int32": 77640440
+    },
+    {
+      "edition": "sp",
+      "case": 99,
+      "input": "\t8331123914090679697tail",
+      "returned_int32": 1193479569
+    },
+    {
+      "edition": "sp",
+      "case": 100,
+      "input": " 1993823732865402293tail",
+      "returned_int32": 237995445
+    },
+    {
+      "edition": "sp",
+      "case": 101,
+      "input": "\t1393261514583430361",
+      "returned_int32": 938988761
+    },
+    {
+      "edition": "sp",
+      "case": 102,
+      "input": "742132787629381748tail",
+      "returned_int32": -1630414732
+    },
+    {
+      "edition": "sp",
+      "case": 103,
+      "input": " -5284148660652116194 7",
+      "returned_int32": 762935070
+    },
+    {
+      "edition": "sp",
+      "case": 104,
+      "input": " +9159052690122126151 7",
+      "returned_int32": 433107783
+    },
+    {
+      "edition": "sp",
+      "case": 105,
+      "input": " -9216742037204339468",
+      "returned_int32": 369521908
+    },
+    {
+      "edition": "sp",
+      "case": 106,
+      "input": " -3395274781394829989 7",
+      "returned_int32": 1142848859
+    },
+    {
+      "edition": "sp",
+      "case": 107,
+      "input": "\t6567150771096328270 7",
+      "returned_int32": 27334734
+    },
+    {
+      "edition": "sp",
+      "case": 108,
+      "input": "4801602058511524205",
+      "returned_int32": -631430803
+    },
+    {
+      "edition": "sp",
+      "case": 109,
+      "input": " +1197445928679142518",
+      "returned_int32": 1353217142
+    },
+    {
+      "edition": "sp",
+      "case": 110,
+      "input": " +1221351908534688418 7",
+      "returned_int32": -34301278
+    },
+    {
+      "edition": "sp",
+      "case": 111,
+      "input": "\t7131500151652818256 7",
+      "returned_int32": -2031542960
+    },
+    {
+      "edition": "sp",
+      "case": 112,
+      "input": " 7335191524322566205e3",
+      "returned_int32": -290201539
+    }
+  ]
+}

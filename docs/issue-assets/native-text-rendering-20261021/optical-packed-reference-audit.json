@@ -1,0 +1,312 @@
+{
+  "scope": "Incoming direct-reference audit for analysis-only packed control handlers.\nRaw pointer candidates are reported, not silently treated as reachable calls.\nNo conclusion about pointers manufactured dynamically by unexamined code.\n",
+  "status": "three_native_packed_patch_preimages_and_scanned_incoming_references_checked",
+  "editions": [
+    {
+      "edition": "original",
+      "classification_mode_writes": [
+        {
+          "site": "0x13a488",
+          "source_register": 0
+        },
+        {
+          "site": "0x13a4ac",
+          "source_register": 0
+        },
+        {
+          "site": "0x13a4c8",
+          "source_register": 0
+        },
+        {
+          "site": "0x13a4e8",
+          "source_register": 0
+        },
+        {
+          "site": "0x13ac64",
+          "source_register": 3
+        }
+      ],
+      "inline_Y_invariant": "entry flag0; optical height sets flag1 and mode0; all in-parse mode writes are zero; saved mode restore is after glyph construction",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "control_span": [
+        "0x13a470",
+        "0x13a500"
+      ],
+      "incoming_direct_transfer_candidates": [],
+      "raw_old_handler_pointer_candidates": [
+        {
+          "site": "0x433e60",
+          "target": "0x13a470",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x433e64",
+          "target": "0x13a490",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x433e68",
+          "target": "0x13a4b0",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x433e6c",
+          "target": "0x13a4d0",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x433e70",
+          "target": "0x13a4f0",
+          "expected_control_table_entry": true
+        }
+      ],
+      "patch": {
+        "control_entries": [
+          "0x13a470",
+          "0x13a48c",
+          "0x13a4c4",
+          "0x13a4e0",
+          "0x44bc70"
+        ],
+        "palette_tail": "0x44bc70",
+        "all_writes_file_backed": true,
+        "source_span_sha256": "872f938348af85070cdba5718b4d5563d3bf42ebd978dd10e30bb135615e1acb",
+        "replacement_span_sha256": "cdc291ab80cd3e5c1ecfba5e200915d1226c6b5ac93892e4933f2eaf30d3da5b",
+        "writes": [
+          {
+            "address": "0x13a470",
+            "size": 144
+          },
+          {
+            "address": "0x44bc70",
+            "size": 16
+          },
+          {
+            "address": "0x433e60",
+            "size": 20
+          },
+          {
+            "address": "0x13a38c",
+            "size": 4
+          },
+          {
+            "address": "0x13ab20",
+            "size": 40
+          },
+          {
+            "address": "0x13ab74",
+            "size": 4
+          }
+        ]
+      }
+    },
+    {
+      "edition": "best",
+      "classification_mode_writes": [
+        {
+          "site": "0x13a488",
+          "source_register": 0
+        },
+        {
+          "site": "0x13a4ac",
+          "source_register": 0
+        },
+        {
+          "site": "0x13a4c8",
+          "source_register": 0
+        },
+        {
+          "site": "0x13a4e8",
+          "source_register": 0
+        },
+        {
+          "site": "0x13ac64",
+          "source_register": 3
+        }
+      ],
+      "inline_Y_invariant": "entry flag0; optical height sets flag1 and mode0; all in-parse mode writes are zero; saved mode restore is after glyph construction",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "control_span": [
+        "0x13a470",
+        "0x13a500"
+      ],
+      "incoming_direct_transfer_candidates": [],
+      "raw_old_handler_pointer_candidates": [
+        {
+          "site": "0x434660",
+          "target": "0x13a470",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x434664",
+          "target": "0x13a490",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x434668",
+          "target": "0x13a4b0",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x43466c",
+          "target": "0x13a4d0",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x434670",
+          "target": "0x13a4f0",
+          "expected_control_table_entry": true
+        }
+      ],
+      "patch": {
+        "control_entries": [
+          "0x13a470",
+          "0x13a48c",
+          "0x13a4c4",
+          "0x13a4e0",
+          "0x44c470"
+        ],
+        "palette_tail": "0x44c470",
+        "all_writes_file_backed": true,
+        "source_span_sha256": "872f938348af85070cdba5718b4d5563d3bf42ebd978dd10e30bb135615e1acb",
+        "replacement_span_sha256": "cdc291ab80cd3e5c1ecfba5e200915d1226c6b5ac93892e4933f2eaf30d3da5b",
+        "writes": [
+          {
+            "address": "0x13a470",
+            "size": 144
+          },
+          {
+            "address": "0x44c470",
+            "size": 16
+          },
+          {
+            "address": "0x434660",
+            "size": 20
+          },
+          {
+            "address": "0x13a38c",
+            "size": 4
+          },
+          {
+            "address": "0x13ab20",
+            "size": 40
+          },
+          {
+            "address": "0x13ab74",
+            "size": 4
+          }
+        ]
+      }
+    },
+    {
+      "edition": "sp",
+      "classification_mode_writes": [
+        {
+          "site": "0x13af28",
+          "source_register": 0
+        },
+        {
+          "site": "0x13af4c",
+          "source_register": 0
+        },
+        {
+          "site": "0x13af68",
+          "source_register": 0
+        },
+        {
+          "site": "0x13af88",
+          "source_register": 0
+        },
+        {
+          "site": "0x13b704",
+          "source_register": 3
+        }
+      ],
+      "inline_Y_invariant": "entry flag0; optical height sets flag1 and mode0; all in-parse mode writes are zero; saved mode restore is after glyph construction",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "control_span": [
+        "0x13af10",
+        "0x13afa0"
+      ],
+      "incoming_direct_transfer_candidates": [],
+      "raw_old_handler_pointer_candidates": [
+        {
+          "site": "0x4a76e0",
+          "target": "0x13af10",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x4a76e4",
+          "target": "0x13af30",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x4a76e8",
+          "target": "0x13af50",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x4a76ec",
+          "target": "0x13af70",
+          "expected_control_table_entry": true
+        },
+        {
+          "site": "0x4a76f0",
+          "target": "0x13af90",
+          "expected_control_table_entry": true
+        }
+      ],
+      "patch": {
+        "control_entries": [
+          "0x13af10",
+          "0x13af2c",
+          "0x13af64",
+          "0x13af80",
+          "0x4cad70"
+        ],
+        "palette_tail": "0x4cad70",
+        "all_writes_file_backed": true,
+        "source_span_sha256": "872f938348af85070cdba5718b4d5563d3bf42ebd978dd10e30bb135615e1acb",
+        "replacement_span_sha256": "f19b714e873fdc95a0451d6422c44fca536c2aa300f18f5cede89f5111bbc494",
+        "writes": [
+          {
+            "address": "0x13af10",
+            "size": 144
+          },
+          {
+            "address": "0x4cad70",
+            "size": 16
+          },
+          {
+            "address": "0x4a76e0",
+            "size": 20
+          },
+          {
+            "address": "0x13ae2c",
+            "size": 4
+          },
+          {
+            "address": "0x13b5c0",
+            "size": 40
+          },
+          {
+            "address": "0x13b614",
+            "size": 4
+          }
+        ]
+      }
+    }
+  ]
+}

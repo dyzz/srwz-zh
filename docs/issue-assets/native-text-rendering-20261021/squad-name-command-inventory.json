@@ -1,0 +1,122 @@
+{
+  "scope": "Native opcode5039 handler -> entity name table -> context setter binding.\nConfirms the same computed runtime table base/stride, not just a +28 offset.\nParameter resolver callees, STAGE command reachability and all producer paths\nare not yet proved; this inventory does not claim a natural execution trace.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "opcode": 5039,
+      "dispatch": "0x1bfa10",
+      "dispatch_table": "0x43a6d0",
+      "dispatch_lower_bound": 5000,
+      "dispatch_entry_count": 71,
+      "handler": "0x1c28c0",
+      "handler_sha256": "0595840062a1e10992de317c724c883263b8ef4e8b5f6950522b2c782568aec9",
+      "entity_table": "0x58ec50",
+      "entity_stride": 176,
+      "name_offset": 40,
+      "source_pointer_slot": "command+8",
+      "strcpy_calls": [
+        "0x1c2954",
+        "0x1c29b8"
+      ],
+      "context_consumer": "0x3103ec",
+      "context_base": "0x6d5f00",
+      "unclosed_parameter_helpers": [
+        {
+          "site": "0x1c28fc",
+          "target": "0x1bb060"
+        },
+        {
+          "site": "0x1c2914",
+          "target": "0x1bae00"
+        },
+        {
+          "site": "0x1c2980",
+          "target": "0x1b5850"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "opcode": 5039,
+      "dispatch": "0x1bfdd0",
+      "dispatch_table": "0x43aec0",
+      "dispatch_lower_bound": 5000,
+      "dispatch_entry_count": 71,
+      "handler": "0x1c2c80",
+      "handler_sha256": "b963d6e0cfc07b85faa156b69a5a6d2e52b155dcb10bdc30d269ac3f89828a8a",
+      "entity_table": "0x58f450",
+      "entity_stride": 176,
+      "name_offset": 40,
+      "source_pointer_slot": "command+8",
+      "strcpy_calls": [
+        "0x1c2d14",
+        "0x1c2d78"
+      ],
+      "context_consumer": "0x3107bc",
+      "context_base": "0x6d6700",
+      "unclosed_parameter_helpers": [
+        {
+          "site": "0x1c2cbc",
+          "target": "0x1bb420"
+        },
+        {
+          "site": "0x1c2cd4",
+          "target": "0x1bb1c0"
+        },
+        {
+          "site": "0x1c2d40",
+          "target": "0x1b5c10"
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "opcode": 5039,
+      "dispatch": "0x1c2e60",
+      "dispatch_table": "0x4ae250",
+      "dispatch_lower_bound": 5000,
+      "dispatch_entry_count": 71,
+      "handler": "0x1c5d10",
+      "handler_sha256": "75c4194cfaa6e67225d4ca8576b710df5d3509a3520e536adfd65948cddd8e1e",
+      "entity_table": "0x616740",
+      "entity_stride": 176,
+      "name_offset": 40,
+      "source_pointer_slot": "command+8",
+      "strcpy_calls": [
+        "0x1c5da4",
+        "0x1c5e08"
+      ],
+      "context_consumer": "0x33433c",
+      "context_base": "0x762bd0",
+      "unclosed_parameter_helpers": [
+        {
+          "site": "0x1c5d4c",
+          "target": "0x1be310"
+        },
+        {
+          "site": "0x1c5d64",
+          "target": "0x1be170"
+        },
+        {
+          "site": "0x1c5dd0",
+          "target": "0x1b9760"
+        }
+      ]
+    }
+  ]
+}

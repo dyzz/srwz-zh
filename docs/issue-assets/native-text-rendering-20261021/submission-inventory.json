@@ -1,0 +1,128 @@
+{
+  "scope": "Native post-atlas scheduling chain close, cache syscall and DMA send bindings.\nDerived from each edition's second dirty-gated block continuation and its calls.\nStatic identity only; channel-pointer value and hardware timing need runtime.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "continuation": "0x1cd840",
+      "functions": {
+        "send_chain": {
+          "entry": "0x10e5b8",
+          "end": "0x10e620",
+          "sha256": "3a707047a85c200a7a36648134731a10aeab779e87a9e37385dd9094a60cf407"
+        },
+        "wait_channel": {
+          "entry": "0x10e130",
+          "end": "0x10e1a0",
+          "sha256": "363b751bb58771a4a0d3bb17a2415ee1a619bb9643526c938667b30ee9128e99"
+        },
+        "map_address": {
+          "entry": "0x10e228",
+          "end": "0x10e250",
+          "sha256": "159ede1641de3e80a285d6ab4ce3c7023e2e273a558621553eb7d1eeccbd7f45"
+        },
+        "cache_syscall": {
+          "entry": "0x11b2e0",
+          "end": "0x11b2f0",
+          "sha256": "5981c1e46292010b462c1aa96986db0e142b6d8d72e68d4ed765af16db6ee74f"
+        },
+        "close_chain": {
+          "entry": "0x136120",
+          "end": "0x136148",
+          "sha256": "111388f0292ad978400261193a44d20dbf85941e8476f217dc874bece92da9df"
+        }
+      },
+      "channel_pointer_global": "0x5238d0",
+      "font_chain_origin_global": "0x523900",
+      "poll_mmio_address": "0x1000a000",
+      "poll_mask": "0x100",
+      "cache_syscall_number": 100
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "continuation": "0x1cdc00",
+      "functions": {
+        "send_chain": {
+          "entry": "0x10e5b8",
+          "end": "0x10e620",
+          "sha256": "3a707047a85c200a7a36648134731a10aeab779e87a9e37385dd9094a60cf407"
+        },
+        "wait_channel": {
+          "entry": "0x10e130",
+          "end": "0x10e1a0",
+          "sha256": "ee1dfd642c399b2acca0a082376b9e1a1100c41e10dd3bd19040a155b32e9037"
+        },
+        "map_address": {
+          "entry": "0x10e228",
+          "end": "0x10e250",
+          "sha256": "159ede1641de3e80a285d6ab4ce3c7023e2e273a558621553eb7d1eeccbd7f45"
+        },
+        "cache_syscall": {
+          "entry": "0x11b2e0",
+          "end": "0x11b2f0",
+          "sha256": "5981c1e46292010b462c1aa96986db0e142b6d8d72e68d4ed765af16db6ee74f"
+        },
+        "close_chain": {
+          "entry": "0x136120",
+          "end": "0x136148",
+          "sha256": "71e2059738dda7c8f90dc9cf29cbf696c430796470fc353ac6a17e87953b8521"
+        }
+      },
+      "channel_pointer_global": "0x5240d0",
+      "font_chain_origin_global": "0x524100",
+      "poll_mmio_address": "0x1000a000",
+      "poll_mask": "0x100",
+      "cache_syscall_number": 100
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "continuation": "0x1d0f20",
+      "functions": {
+        "send_chain": {
+          "entry": "0x10e548",
+          "end": "0x10e5b0",
+          "sha256": "3775317658835a386e240484ebdb7b0d94bd42f0366b997cd58c0c91168eb854"
+        },
+        "wait_channel": {
+          "entry": "0x10e0c0",
+          "end": "0x10e130",
+          "sha256": "d277a114f45e2bc75076388ac7022e12eaff2bc0b56e0bda75f41c8297068bc3"
+        },
+        "map_address": {
+          "entry": "0x10e1b8",
+          "end": "0x10e1e0",
+          "sha256": "159ede1641de3e80a285d6ab4ce3c7023e2e273a558621553eb7d1eeccbd7f45"
+        },
+        "cache_syscall": {
+          "entry": "0x11b260",
+          "end": "0x11b270",
+          "sha256": "5981c1e46292010b462c1aa96986db0e142b6d8d72e68d4ed765af16db6ee74f"
+        },
+        "close_chain": {
+          "entry": "0x136ab0",
+          "end": "0x136ad8",
+          "sha256": "6c3226c0bd3f727874abf3e83738f7a9de116da149c9d646f633fa7ebe700f4d"
+        }
+      },
+      "channel_pointer_global": "0x5a2b50",
+      "font_chain_origin_global": "0x5a2b80",
+      "poll_mmio_address": "0x1000a000",
+      "poll_mask": "0x100",
+      "cache_syscall_number": 100
+    }
+  ]
+}

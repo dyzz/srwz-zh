@@ -1,0 +1,161 @@
+{
+  "scope": "Native selector2 name lookup, coordinate side effect, and 5039 dispatch span.\nThe shared dispatcher has other opcodes; binding its range does not mean all\nof them are reconstructed. Selector1/3, 80 and special-value resolvers stay open.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "functions": {
+        "lookup": {
+          "entry": "0x1b2ce0",
+          "end": "0x1b2f70",
+          "sha256": "1673b228fdf46412e6c32714b1825d204a06da1469f42478b355b76fd3a28e57"
+        },
+        "coordinate": {
+          "entry": "0x1565d0",
+          "end": "0x1566e4",
+          "sha256": "ceb62a3f4436c338d460a9d6705cf1557a254cca6a8b93499b66da04fc7008a2"
+        },
+        "selector_wrapper": {
+          "entry": "0x1bae00",
+          "end": "0x1baf04",
+          "sha256": "1b72302ecf7bb22f862a8f0be91a1a868cb502796d49022362bf6d8b86ffb0ea"
+        },
+        "dispatcher": {
+          "entry": "0x1bf9e0",
+          "end": "0x1c42e0",
+          "sha256": "2853a05fffa9a5f19c4bc716091c418b17fd23003a2cca98e5e4f292668e11d1"
+        },
+        "strcpy": {
+          "entry": "0x1a0d88",
+          "end": "0x1a0ea0",
+          "sha256": "145443878735543fa86258a823e5531bedfc5fb4a916da909aa971678b396373"
+        }
+      },
+      "entity_table": "0x58ec50",
+      "grid_pointer_global": "0x524a80",
+      "dispatcher_frame_bytes": 512,
+      "context_output_offsets": [
+        "0x2f90",
+        "0x2f94",
+        "0x2f98"
+      ],
+      "config": [
+        5827664,
+        5393024
+      ],
+      "opcode": 5039,
+      "selector_modes_exercised": [
+        0,
+        2
+      ]
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "functions": {
+        "lookup": {
+          "entry": "0x1b30a0",
+          "end": "0x1b3330",
+          "sha256": "dc026b0714a72f6d0488249389943be2bbabd9faff7c5e01512048fd9a1109aa"
+        },
+        "coordinate": {
+          "entry": "0x156970",
+          "end": "0x156a84",
+          "sha256": "11b9d1ab10874cce080b715777fe0ac0ffd928e0a7cd394d102c44e6ca9ce789"
+        },
+        "selector_wrapper": {
+          "entry": "0x1bb1c0",
+          "end": "0x1bb2c4",
+          "sha256": "1801c106577a00c3c7de88a88ac61da807b18b7f8163c1c2d4a25e5f2023ce7f"
+        },
+        "dispatcher": {
+          "entry": "0x1bfda0",
+          "end": "0x1c46a0",
+          "sha256": "180bfec99e88cef08f587906989edbc580f9f7eae3d0a5c86bc96a7bbe7ea78b"
+        },
+        "strcpy": {
+          "entry": "0x1a1128",
+          "end": "0x1a1240",
+          "sha256": "145443878735543fa86258a823e5531bedfc5fb4a916da909aa971678b396373"
+        }
+      },
+      "entity_table": "0x58f450",
+      "grid_pointer_global": "0x525280",
+      "dispatcher_frame_bytes": 512,
+      "context_output_offsets": [
+        "0x2f90",
+        "0x2f94",
+        "0x2f98"
+      ],
+      "config": [
+        5829712,
+        5395072
+      ],
+      "opcode": 5039,
+      "selector_modes_exercised": [
+        0,
+        2
+      ]
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "functions": {
+        "lookup": {
+          "entry": "0x1b6b80",
+          "end": "0x1b6e10",
+          "sha256": "0a67fbd18a73da9a0237619e2dcd859b506b191c6fee640b6dc03137e4cea938"
+        },
+        "coordinate": {
+          "entry": "0x157740",
+          "end": "0x157854",
+          "sha256": "92a05450bb217053b6f05f44de2abaffe94d4848bf16de4b2c30bb364f7f89c0"
+        },
+        "selector_wrapper": {
+          "entry": "0x1be170",
+          "end": "0x1be274",
+          "sha256": "2dbb1dcd8c840639b242fc9bb2d543c69d96afab933bb53940c11f56c859e2a1"
+        },
+        "dispatcher": {
+          "entry": "0x1c2e30",
+          "end": "0x1c7738",
+          "sha256": "0d8f7a70c4b9b6806b093b169219ba8b97d78ae44f53c0b8fb25bbacb2918afe"
+        },
+        "strcpy": {
+          "entry": "0x1a5238",
+          "end": "0x1a5350",
+          "sha256": "145443878735543fa86258a823e5531bedfc5fb4a916da909aa971678b396373"
+        }
+      },
+      "entity_table": "0x616740",
+      "grid_pointer_global": "0x5a3d30",
+      "dispatcher_frame_bytes": 528,
+      "context_output_offsets": [
+        "0x2f90",
+        "0x2f94",
+        "0x2f98"
+      ],
+      "config": [
+        6383424,
+        5913904
+      ],
+      "opcode": 5039,
+      "selector_modes_exercised": [
+        0,
+        2
+      ]
+    }
+  ]
+}

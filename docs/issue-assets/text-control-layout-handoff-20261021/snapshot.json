@@ -1,0 +1,2102 @@
+{
+  "scope": "source snapshot plus corpus/zh translation and source_text string fields; duplicates and inactive corpora included; occurrence counts are not active-game-event counts; no new runtime validation",
+  "source_inputs": [
+    {
+      "path": "tools/srwz/text.py",
+      "size": 26115,
+      "sha256": "cd372c7fe1634dbc2ade01241c06a218ca82139d567f8025e63af4c429e84c7b"
+    },
+    {
+      "path": "tools/srwz/renderer_metrics.py",
+      "size": 5726,
+      "sha256": "d6c850d268bdaad685c6e076660fa33ebb52f769684f18e82e1837db2a53348b"
+    },
+    {
+      "path": "tools/srwz/chinese_layout.py",
+      "size": 45031,
+      "sha256": "e35f4e176977d2d509304050dee66ba619ff2ced79a0492883ede822e9b48686"
+    },
+    {
+      "path": "tools/srwz/library.py",
+      "size": 35246,
+      "sha256": "0dc8b3486399d44025e1fe32a17f5fdfe9a9194c200450a121a4cb7ba0d8957e"
+    },
+    {
+      "path": "tools/srwz/library_typography.py",
+      "size": 7877,
+      "sha256": "7f85d374c1c08d248cd82da66a97400917c4c14dadb9f3f1e281ca0c9fcd5431"
+    },
+    {
+      "path": "tools/srwz/library_body_metrics.py",
+      "size": 3373,
+      "sha256": "bf7d0ffb6b3da9d2f42a21293ec1cb77c3da83ba1f12160585df5a9bdbe6aca8"
+    },
+    {
+      "path": "tools/srwz/library_height_restore.py",
+      "size": 2830,
+      "sha256": "0fa526e643fcd86301e329bd8d3bbcc470974c5162857645f743d9ceadaea4e4"
+    },
+    {
+      "path": "tools/srwz/library_optical_metrics.py",
+      "size": 5115,
+      "sha256": "0b52bacb27b989d8b272fd16c8ae9e2cb34b05f6ccc8734ef090485d219cc4f6"
+    },
+    {
+      "path": "tools/build_library_v02_component.py",
+      "size": 57881,
+      "sha256": "5e34a4736d61706ede06e3a75ba8ad009c805df0d469d2c21c432cfef34762c6"
+    },
+    {
+      "path": "tools/build_full_story_components.py",
+      "size": 511022,
+      "sha256": "68c027d2b5bc137408378ca248aa7819d5e1f50c8914728929f4664952dcc9ec"
+    },
+    {
+      "path": "tools/srwz/best_build.py",
+      "size": 45557,
+      "sha256": "b5e3c7e49235969a04e014921e8d53fc568c5fdde93bec50cbd317450a58d127"
+    },
+    {
+      "path": "tools/special_disc/writeback/shared_library.py",
+      "size": 14611,
+      "sha256": "f80339f35b27ecf5f02b405ad5325a32eb771ad7c8d7f0e13d3a81fbdd3da862"
+    },
+    {
+      "path": "tools/special_disc/writeback/build_full_text.py",
+      "size": 32389,
+      "sha256": "e6a7dcef91edaa65e05771c453b32278d268e33f2fe439944951af3cbd586b46"
+    },
+    {
+      "path": "tools/special_disc/verification/verify_full_text.py",
+      "size": 30413,
+      "sha256": "c12a40ffdfa737daca733d75841a06351e26560840c7c01db7c101e270f8e9c8"
+    },
+    {
+      "path": "config/text-layout/zh-layout-profiles.json",
+      "size": 6114,
+      "sha256": "5bf2007543223a8bb48d39dc9cb0b56b32b9196bbc389509ffc398f3d76f1d09"
+    },
+    {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "size": 164751,
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    }
+  ],
+  "corpus_inputs": [
+    {
+      "path": "corpus/zh/auto-demo-work-titles.json",
+      "sha256": "e6543e191eaef2e7889b3a8a9d2ba079e247401605575eb15ee0912eb469faf7",
+      "text_fields": 44
+    },
+    {
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "sha256": "3ae34eec354cf5c722f4178ac40660006e8a7e43df8dbd7925b9287bce2b48c6",
+      "text_fields": 25708
+    },
+    {
+      "path": "corpus/zh/chapter-intertitles.json",
+      "sha256": "656acd351eaf250ff7746e484324f65d4a6f0d20d6812ab4bb30a77fe12541d7",
+      "text_fields": 4
+    },
+    {
+      "path": "corpus/zh/display-names/p0-opening.json",
+      "sha256": "f8b1aa60c9261e66137578aa921b11a933f0fa406cbc791ee2e0945e12c1d910",
+      "text_fields": 45
+    },
+    {
+      "path": "corpus/zh/library/sp-reviewed-supplement.json",
+      "sha256": "6c580c97d2cd4b5d2bd700be431ba5dc7b85b540d3d3d08317326d3be54f38bb",
+      "text_fields": 110
+    },
+    {
+      "path": "corpus/zh/library/v0.2-reviewed.json",
+      "sha256": "0e3753b30d6bbaf0348717460b3de335210a59172b7f3fd61833651e6d54b79a",
+      "text_fields": 2711
+    },
+    {
+      "path": "corpus/zh/menu/battle-lines.json",
+      "sha256": "d2394af7fe37cb539a4d0d9174d78cfac396d243cf5a30e8c8739ba1994fe4af",
+      "text_fields": 297
+    },
+    {
+      "path": "corpus/zh/menu/hsfc-overviews.json",
+      "sha256": "edbec8a988543f00bfe26837b05c4ca78017190cb4cf5b9c178d8f28bb17776c",
+      "text_fields": 105
+    },
+    {
+      "path": "corpus/zh/menu/mapmodel-terrain-names.json",
+      "sha256": "ae89600614f4bb2150d905f58bc49a8914f3a5266dbd0271d89629d7e477d492",
+      "text_fields": 84
+    },
+    {
+      "path": "corpus/zh/menu/nisv-strategy-qa.json",
+      "sha256": "25342caa98909e162049a79dd9a4c15a9dee217245552553f5ad1c268e52b770",
+      "text_fields": 2873
+    },
+    {
+      "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "sha256": "59b79738dc467d64391e7458b1ef28fd7ddf2df33bee2f8b60d5d3b25d447fac",
+      "text_fields": 124
+    },
+    {
+      "path": "corpus/zh/menu/opening-protagonist-profile.json",
+      "sha256": "1e4e01743bd9494fa964b9c953870cedb9b5cc9a166c18ab2de4e9c3ab1916cc",
+      "text_fields": 4
+    },
+    {
+      "path": "corpus/zh/menu/release-v0.3.json",
+      "sha256": "6e7bd1497daf0da5301889813eecd16a6724a766ee848c1a5cf97479e0c91d15",
+      "text_fields": 1040
+    },
+    {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "sha256": "40ad2b176cb4b1f0eeb02b6c4572d20c68e8fa6a72cab4efad90353cb53cfda8",
+      "text_fields": 16
+    },
+    {
+      "path": "corpus/zh/menu/stage-names.json",
+      "sha256": "0e8d5cbfc7e67513d15efa61ab5dadcd72e8d4f071cbff4348bc6e87b6743592",
+      "text_fields": 122
+    },
+    {
+      "path": "corpus/zh/menu/stage-overviews.json",
+      "sha256": "c6f7e21fa55246e6abfea84380f377b082c6e1be41ae417161108aeaa8006728",
+      "text_fields": 110
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-battle-conditions.json",
+      "sha256": "cae198c16a65f3880d23a55953c84e64dab24806724939a4703f42ccc5947637",
+      "text_fields": 33
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-buttons.json",
+      "sha256": "4d54e3f1b3528a106171a6bdfd3c50e9acc9c08c2bfdbcc5adde8f9ab9160f65",
+      "text_fields": 25
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-character-setup.json",
+      "sha256": "292c24aef4a03928763ee6a262cfad6c5db915492cd90affa2b8f08366c20106",
+      "text_fields": 8
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-command-menu.json",
+      "sha256": "efb281645bd1752282017fbe6dda62c08ed2ca4cdfbde09fdfa5af2d2187c396",
+      "text_fields": 68
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-leadership.json",
+      "sha256": "0800b26fe8e6ba3a32a76172830a4c69bb973ac0f30d4bcd0e5544b9f85ef64a",
+      "text_fields": 15
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-map-data.json",
+      "sha256": "a02d046bb257a571a019a84f587e4346153822a4253b38e44f57c73cee7e05e4",
+      "text_fields": 7
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-name-screen.json",
+      "sha256": "99f10292696d83c5e7d7d1237b550ec96c15d7d040fb1853dcce465ab5777016",
+      "text_fields": 13
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-parts.json",
+      "sha256": "0130917008323e367f9ed2a0c15c19f666809b2e542cf3a18e44ce802a0fa4b1",
+      "text_fields": 133
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-results.json",
+      "sha256": "bd3caca8cca178fdbaceb4577122efbe55ae2c1336bb150089d9b049e3f24348",
+      "text_fields": 31
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-search-menu.json",
+      "sha256": "6f966c933dc9ffdcd778eb5b1e8410d66166237d6d94699c50dc016420eeba17",
+      "text_fields": 30
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-search.json",
+      "sha256": "7c16f492112967f3ff290a1f51b64b592be15d630c4940070c93d9156ae37d57",
+      "text_fields": 20
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-skills.json",
+      "sha256": "99c3a7c54616114ca405fca38309994428aee45364f54ec8c1cd1b5105698eb3",
+      "text_fields": 88
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-special-abilities.json",
+      "sha256": "17734b4b04df2309e741ff3ff88a29f7854fd5ee58bc69c035ec3f7d766a42ee",
+      "text_fields": 158
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-spirit-acronyms.json",
+      "sha256": "4b8f5b78999cf8dca13428907b8447fd6b83f2fc803897aeaad6f7f613d3ff2e",
+      "text_fields": 7
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-spirit-commands.json",
+      "sha256": "7fd03f25932b4208ae30de8685d0e8972b4d17cf1e41f5d04e16da1a853fb105",
+      "text_fields": 145
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-tactical.json",
+      "sha256": "08b3d5e0c7e7aace1f8884ae967c3b32c65da6c1dac74754b730d3b05a1089c0",
+      "text_fields": 18
+    },
+    {
+      "path": "corpus/zh/menu/system-ui-unit-mech-pilot-weapons.json",
+      "sha256": "f98a4d450cd0e47e200027bb7b3146c3e1d38d6cf944eb447e6d96387ccfab21",
+      "text_fields": 104
+    },
+    {
+      "path": "corpus/zh/menu/ui-name-tables.json",
+      "sha256": "4652ff578a40d44da52d8144c37d672dfe1f4034e1fa1437b0ff39ac1e042b3d",
+      "text_fields": 177
+    },
+    {
+      "path": "corpus/zh/menu/unclassified.json",
+      "sha256": "1e782a4e6862e5f03e1025ad8aa5b8b2d768729888cebe5ba5068c5153c3b621",
+      "text_fields": 382
+    },
+    {
+      "path": "corpus/zh/menu/weapon-special-effect-2.json",
+      "sha256": "e19e722f03dfd17629ef3c5c84886dd1c20f74d41e65eaa0499b968e0cfc5fa3",
+      "text_fields": 2
+    },
+    {
+      "path": "corpus/zh/menu/weapons.json",
+      "sha256": "a54b2b6c21ebcf9deb1909baebaa4ee38a05a8943d2cf6a2eb9e874d06b9c448",
+      "text_fields": 711
+    },
+    {
+      "path": "corpus/zh/special-disc/battle-lines.json",
+      "sha256": "f0fca215dab1887f056ac295bc5fd53011da50453f053303b115e75d0232d5ed",
+      "text_fields": 246
+    },
+    {
+      "path": "corpus/zh/special-disc/challenge-dialogue.json",
+      "sha256": "4a69d1d4b146aa15ebccdb41b58af813459a0669835a96b12f92ae918c03444d",
+      "text_fields": 1662
+    },
+    {
+      "path": "corpus/zh/special-disc/frame-text.json",
+      "sha256": "9e1d56ec45843c734e59077d6550323f2c10745b68b4501c1081ae5d025c890d",
+      "text_fields": 572
+    },
+    {
+      "path": "corpus/zh/special-disc/instructions-overrides.json",
+      "sha256": "91284d7b5b184ba083812529e3508ac87a1665d1810799562a39de17069f7e26",
+      "text_fields": 334
+    },
+    {
+      "path": "corpus/zh/special-disc/native-text.json",
+      "sha256": "608400f5f38a5d2a438ad40ea7f603b03f8712541e08bb2f3d0f3cc91e545b62",
+      "text_fields": 599
+    },
+    {
+      "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+      "sha256": "5353b617f99574b70d7416bcd8ba3417126fd96d2bddb63c1e28d626307c22a7",
+      "text_fields": 4564
+    },
+    {
+      "path": "corpus/zh/special-disc/squad-names.json",
+      "sha256": "9a1ae29146258bcb7bd2c72f995b5cc22857420a61e1fb833df63d688cdb4229",
+      "text_fields": 532
+    },
+    {
+      "path": "corpus/zh/special-disc/story-dialogue.json",
+      "sha256": "bdd6043cf61d53f08966ea9ed43333a63411ffdb8b7054ad64848c19ad1e4818",
+      "text_fields": 12000
+    },
+    {
+      "path": "corpus/zh/special-disc/system-text.json",
+      "sha256": "929c181be3d223f0369581e99e9d1907b44532f8d55618fafaf9ec91dd70332a",
+      "text_fields": 2782
+    },
+    {
+      "path": "corpus/zh/special-disc/terrain-names.json",
+      "sha256": "825ca0f4dda21df04590d0b9a961ab205c31ce86122ca14b8fb0452fc4dd178d",
+      "text_fields": 89
+    },
+    {
+      "path": "corpus/zh/story-conditions.json",
+      "sha256": "49ac8d1414dfd1cd0fe15bd25fb580111cc7751177f28d46ac2733cf13040287",
+      "text_fields": 670
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-001.json",
+      "sha256": "a3c2286942286639c25371262cbceadbca6a31ad400ec16e333fd758add52b21",
+      "text_fields": 312
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-002.json",
+      "sha256": "589058b01f659fa0a0bb40b035711a673add7f360f565ae0f57675df4c58bce8",
+      "text_fields": 542
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-003.json",
+      "sha256": "b0d504e56a49ff6abbd21b966350907b75fbb0902a9e64e0b9d6202fa8b87be1",
+      "text_fields": 36
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-004.json",
+      "sha256": "d42e1d84b2ca64bda7b793a0fee17e84bbc09b8db1d566709179af666f95acf3",
+      "text_fields": 523
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-005.json",
+      "sha256": "2fd3abcc280b500c2a35bd2ab9aca8c080b9b2e1366702abbdf33271cc16d8af",
+      "text_fields": 298
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-006.json",
+      "sha256": "8efb5b4578a55485595c9049fee029470ef80fefb812505a8f26726559e13a94",
+      "text_fields": 447
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-007.json",
+      "sha256": "9331c19e5edbdee7538816e42dbb8a2bbf27270fdc3950720895f8c565de2c01",
+      "text_fields": 633
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-008.json",
+      "sha256": "e10df598afe082925675af7865ca58cf45a6a75426db05fbd373e6d0c6975e58",
+      "text_fields": 188
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-009.json",
+      "sha256": "029fb7bdbc8d013c61efe6a031e09051a418e9d5e33f6e89af797f92f85e2733",
+      "text_fields": 361
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-010.json",
+      "sha256": "daa1d3a6579db71245b2c244146665ece536ba24d434cce3914821f913ab8233",
+      "text_fields": 631
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-011.json",
+      "sha256": "4fe979e0d630c1a3db514162ba78f5b6c53756aff59561c6f9edede7d898ce76",
+      "text_fields": 45
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-012.json",
+      "sha256": "da8314c5249b60e4c988ac6e0a84f3f9b433315cf13509ee70802ddd89fbeeca",
+      "text_fields": 225
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-013.json",
+      "sha256": "cbab958742cad6ffd481e6c5422e0385235bc9f04d4f513c4a6cd7438266c881",
+      "text_fields": 251
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-014.json",
+      "sha256": "f0537567c9a4397bcbd6d1b32f10cd93f9fec99d7c93e186100a2c451fb54b99",
+      "text_fields": 376
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-015.json",
+      "sha256": "5fa38bcef3a2f2fb04555c767752470d1662ed757dcf6d16179a1e2d7f6da7f2",
+      "text_fields": 480
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-016.json",
+      "sha256": "8b43cfeb4c6046c4c919c30b7c4ea77bc3144da8883d4cee77e55fe9401b99a5",
+      "text_fields": 590
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-017.json",
+      "sha256": "893214739b670e41ce09fff00e2c3507dcd70c555cc57271681913c3f823e8af",
+      "text_fields": 247
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-018.json",
+      "sha256": "85032836d312ecf1b8e801acd48240755f3e980eb59e9a55a530d4c1cd053b1e",
+      "text_fields": 3
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-019.json",
+      "sha256": "36a7b6792aa24869cb0ed15365ee27f2487606abd0b124aa7c382f9fa90e1909",
+      "text_fields": 316
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-020.json",
+      "sha256": "2ce3252edffade018da9050cac28daa003c05acefdbfe253c0cc8c9c409dc018",
+      "text_fields": 610
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-021.json",
+      "sha256": "e6a56d17c9a86fbcb9646002190907a391dd986802a359a11642a96bf6573e22",
+      "text_fields": 503
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-022.json",
+      "sha256": "7192f04c9c863d7432e9815d33c9dcc335207b5ec8a618e5873cdc09f8c1db1a",
+      "text_fields": 375
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-023.json",
+      "sha256": "9c19035a9b5506f088bb971d46ecc98b6a07fedcf36f023c6489896adc5e2af7",
+      "text_fields": 220
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-024.json",
+      "sha256": "bba223aa95d507ba20af837e9a56ce9e29f525960ee240d460f6865a1dda7493",
+      "text_fields": 883
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-025.json",
+      "sha256": "f814d368128e0381ece496b39790694597c51a9860550c1ab03651316f1faac6",
+      "text_fields": 979
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-026.json",
+      "sha256": "d7d59e818b8df70296306e3297e2545e44e5b291e62c89454b81812373583249",
+      "text_fields": 656
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-027.json",
+      "sha256": "bbcbbe04019f63723cf3bcd0310e258c256095ff86610ca227af64f0a24f23bc",
+      "text_fields": 695
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-028.json",
+      "sha256": "5a27200d7b2c1630788bc2b7e6079fd0ed0a3f0b642fd9a9f4effeb0efb44a51",
+      "text_fields": 801
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-029.json",
+      "sha256": "6848889d3dfe201c21337523c4f4714a4fa02be901ba9517ade8a2e0061dd106",
+      "text_fields": 632
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-030.json",
+      "sha256": "b09e7e4107a7384b60e83913cb857c56f7eee2d1066295f067fadc847e03a08d",
+      "text_fields": 649
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-031.json",
+      "sha256": "6eab292c6a3e2d1887b1edc9075c21218ca0c8ee2fd869f74a246590568e88f1",
+      "text_fields": 669
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-032.json",
+      "sha256": "ae785414bd15d05365aff9a495a736bfa23a36a6c282212ff4c6819d8a38247b",
+      "text_fields": 472
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-033.json",
+      "sha256": "335e7483b6c1828eea6f8ba047784e61f81a275b23e1a88dc4c9c62abc64a4d1",
+      "text_fields": 143
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-034.json",
+      "sha256": "8cbfc4d8cd57194629babe9403e84b3682b1c7fd5b909d50ea0fc9d85af6a5b0",
+      "text_fields": 532
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-035.json",
+      "sha256": "b62b0129617a3fc0162229741b0d209e8405e278b89ba1137b8dfd5fdd666c76",
+      "text_fields": 383
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-036.json",
+      "sha256": "ee448775db41d9558ce6281e9d5429de8b2241efc1d166bdac37e3abb4da1f9e",
+      "text_fields": 329
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-037.json",
+      "sha256": "1aef2590f2dbddba03361f32d8380c7b813e9c6baafdb0ee67fe25d3f378b8db",
+      "text_fields": 500
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-038.json",
+      "sha256": "efc0763d5723da7ef206be5cdb839213c5fdc04e56a9123503049014af80aa4c",
+      "text_fields": 818
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-039.json",
+      "sha256": "523ced53172f63fb3abdeb597530be2d1920514bfeee3afa585c1400486e6ce2",
+      "text_fields": 221
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-040.json",
+      "sha256": "380387c3a7eb76ac138183656856a205d7b4b869baf2878fe9f6e910e5da0870",
+      "text_fields": 749
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-041.json",
+      "sha256": "c3b8ac15f3c7db273402edbad7ff8fd696d42d77ee25ec75ba00479331426768",
+      "text_fields": 470
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-042.json",
+      "sha256": "7461deb938c4bcd44214bc25a71a2ded23bb8e8ef072aaec0032e17ddd57b4da",
+      "text_fields": 430
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-043.json",
+      "sha256": "af52f3d5443421a29ba22c7677054ff3472954c0ba1b9be68d2909489db92f75",
+      "text_fields": 597
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-044.json",
+      "sha256": "a6d517da385b18b8b6a862b579af9f8dc5c42f809697dcf133a26decc63a1d7f",
+      "text_fields": 65
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-045.json",
+      "sha256": "172d30960df88bf9b2f013717aa9071fdbec5c5b0ce9698a43707ff82850f3bf",
+      "text_fields": 682
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-046.json",
+      "sha256": "7c38323ce7156e6b95ac3b8f099326d3c932cb9221b4f379e2d32044b7be8d86",
+      "text_fields": 28
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-047.json",
+      "sha256": "05a41ecb3404e0e44ba89dbf62b32b481ce45421b62740ee56ec11a50be0577e",
+      "text_fields": 554
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-048.json",
+      "sha256": "d1ce9ecd2a496351722de900c9bff31e7ca775efdd47c3aa3f2611fadcf7dae1",
+      "text_fields": 815
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-049.json",
+      "sha256": "b91a50ea2538b748974a3e3142d39f40f50fb75690eb7fb10cdea5ccd1ed9863",
+      "text_fields": 81
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-050.json",
+      "sha256": "2a009a5e85b5ff270fa82b5d0df7ae70c56411db78e3de96b7a2bb9dbe970eef",
+      "text_fields": 730
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-051.json",
+      "sha256": "f45357eb34bea0663d5dde19ff08897ffe160cc0fb40471d8fd72c93df22bd35",
+      "text_fields": 7
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-052.json",
+      "sha256": "81ccdc0de432a97b57b1033d0b927bc890769986b0664d7676bc0a1de678a2c1",
+      "text_fields": 525
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-053.json",
+      "sha256": "df879e87afe5ef80e595083a893385063b98145e15cdbd9486a37be708e58a6f",
+      "text_fields": 601
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-054.json",
+      "sha256": "1b8f327bed17738d0a5f3b9604b8ddacafad037d6a072dd632046bdaaa16defc",
+      "text_fields": 562
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-055.json",
+      "sha256": "69525bce73065741b5f3731f8cf85554ce3b85a3ef8df75b70ced4618c800202",
+      "text_fields": 790
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-056.json",
+      "sha256": "dc5bb43811f09d8508a7a09561d290342f2b00401f118a5c0b1c3f0c77749e84",
+      "text_fields": 490
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-057.json",
+      "sha256": "71fa6efa6ab1848475aca9ac184036ca3dccaccf078eb7d3d0da90818188ab48",
+      "text_fields": 359
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-058.json",
+      "sha256": "922bbc296aa140b6315f4bd2efa1d3dda37832ea5c1dcd7f8e5ea586fe056be6",
+      "text_fields": 512
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-059.json",
+      "sha256": "7c436e884b494298c34f5249e4629c23f55ae49164cd0854aff98fa4cab11fcc",
+      "text_fields": 119
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-060.json",
+      "sha256": "d387c9c4c55175501a2b0563de2537aba5694a9ef9fca26b3acef27fd9e92c81",
+      "text_fields": 666
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-061.json",
+      "sha256": "ec908455375184d8b0dd3ca80a88e66df90507c0557d5713a757cf8ba5c8de27",
+      "text_fields": 556
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-062.json",
+      "sha256": "c59d419c7d9a9868782b8af92efcfe5c447f1a37e57d539c172b193923b798d5",
+      "text_fields": 409
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-063.json",
+      "sha256": "a8c57758ce65e2260294aae1b5ad23c5b2106b31f940f6ab7f24f6e66b69446e",
+      "text_fields": 466
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-064.json",
+      "sha256": "135266f8ec96d847d8606907998004ee4363166adf2828e2b934bb985ec3dcc8",
+      "text_fields": 335
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-065.json",
+      "sha256": "e46882b0b88b10888fda369af550b352c59388cf0c28993545cf51dec06bb909",
+      "text_fields": 336
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-066.json",
+      "sha256": "3da8960ad908589fa973848813e41f779484a43edbb2375306c3496052c6b766",
+      "text_fields": 805
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-067.json",
+      "sha256": "ded99c37756f3ce09d7d1cf875a78af90144086f12e09318f552279ab1a61292",
+      "text_fields": 98
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-068.json",
+      "sha256": "0ca030ab841da41e05093b6d7888ee49551bf52769fab1989b6e0e519a29ea21",
+      "text_fields": 365
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-069.json",
+      "sha256": "8499e480b6b1b8b4fe50870459dc435d1efd38eafec99697add990eed6a6d0fd",
+      "text_fields": 1091
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-070.json",
+      "sha256": "e6f9ce35e6faabccb9724ef2c36cdc8d2dd0b92895550755f95dbf567e691d05",
+      "text_fields": 125
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-071.json",
+      "sha256": "6bac9837aa5341a686e851630b072d326e82c327ce2f97752bfd22f0a06c942d",
+      "text_fields": 216
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-072.json",
+      "sha256": "7fc4d3471c36abce4704c80dbc0410835c439be0b89887c962fb362006267455",
+      "text_fields": 418
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-073.json",
+      "sha256": "ae241fbd98197c9284e257a037e3649f7e380e57d23feb9341c3ab8b723e2150",
+      "text_fields": 643
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-074.json",
+      "sha256": "90448d8e4d90ee54a1f8975fdf0b1726fb1d3fb13d8a43da118a7bcb49f7690e",
+      "text_fields": 95
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-075.json",
+      "sha256": "00ba5db67ac6e1db6a02edabd27ec2c93d66e84cf624459123fde56852628276",
+      "text_fields": 486
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-076.json",
+      "sha256": "d77313afa6a4c119ec7f63496fe42c869e1201ba47b286f73aefe1e389d7668e",
+      "text_fields": 487
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-077.json",
+      "sha256": "6acbfebeed4c9bd4c8112855f19fa66f126de157ddd81c6ea0d1924ea469c42a",
+      "text_fields": 300
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-078.json",
+      "sha256": "8ff9666c35bff5ffe170a1a363c9141e10eadc504d72797a36d6a54ed0b641d9",
+      "text_fields": 450
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-079.json",
+      "sha256": "3dcd2d5bf24e349297bc2f4e92506fa42d79ee6b3dcedac397e224808e981daf",
+      "text_fields": 225
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-080.json",
+      "sha256": "a8f9f9c43e2a5785d1804661010d5cc2d1cdac16bf9f794fb7846883edd58d70",
+      "text_fields": 484
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-081.json",
+      "sha256": "fbff459350bc1511d4822539b644c7b0a68dea2691049618379d7cc91670e243",
+      "text_fields": 70
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-082.json",
+      "sha256": "d7f024784c4c55d439e5da46b2e99db90c1a414617f919ba1a03a32c489c8c97",
+      "text_fields": 442
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-083.json",
+      "sha256": "12cc730c2666d452314a9a624a2c43d032dbd9fe1d8891e2d6710a2ad8e02b0a",
+      "text_fields": 771
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-084.json",
+      "sha256": "73ec342256cfaac2f398a190f4baf0ef38beee62706e08fcf51bbb4233ed1ea9",
+      "text_fields": 640
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-085.json",
+      "sha256": "8218b27d7fb0882daef6bf73db2ee1372d146bf0b2604d7fa2e92ca29e4dfe4f",
+      "text_fields": 452
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-086.json",
+      "sha256": "9c0be4b243f38e7911ebe5fca0bc954636ae61d5b475af3a64ae0761a6aaede8",
+      "text_fields": 219
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-087.json",
+      "sha256": "f4d3cecb012489e90007017e2b5e36f2e5ef356baeef211e2231ae96647a39a8",
+      "text_fields": 287
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-088.json",
+      "sha256": "ef2bf59a3737d45501d56d37da8446e3e44a5c1f93e7f989a02e425757569adc",
+      "text_fields": 615
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-089.json",
+      "sha256": "5d6d4c19ad5a3b4231dbe2d425fa6dcbb25a2d7e75df25cd3dc49eab8d345ea1",
+      "text_fields": 81
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-090.json",
+      "sha256": "12132aba646d2ce9f02c337897df9a8b8d1b94329a0ad2000ceac5706b0d22e9",
+      "text_fields": 615
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-091.json",
+      "sha256": "bfe6b5957aa90189cdfc4ebcadbfd760bef8c5922aa40f1f361ddcf042d30fdc",
+      "text_fields": 460
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-092.json",
+      "sha256": "acc4325fb2faddaa4a32627a8de6caa517b874e870db2d6c8fbd4d1d67c3a6b6",
+      "text_fields": 301
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-093.json",
+      "sha256": "f00152890d05a5578c9984e5be737c97e328817df2337cd761c8d3f75a2becea",
+      "text_fields": 125
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-094.json",
+      "sha256": "f52b4c6c9d2026bec7f52c72534a4a06dc26694545cc2c15996890468370245c",
+      "text_fields": 56
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-095.json",
+      "sha256": "eb8184f08a7d052674ba4646a6564c33505e95fcf70d9d8928290dfbd4c75884",
+      "text_fields": 588
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-096.json",
+      "sha256": "015c822334ab2e5693f3c2391a8324b9717e75d8ed9871eec319ba4bf4363dcb",
+      "text_fields": 82
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-097.json",
+      "sha256": "2fc41845ab5d803d478fd83b81c7d964756629d83e25e96a806245eca2a82a6c",
+      "text_fields": 362
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-098.json",
+      "sha256": "c47f25e323236ab44b7199f0f8b8d574930e2d65f321ccdd563f59f2eabd6359",
+      "text_fields": 926
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-099.json",
+      "sha256": "4202ba97b9f6849c7279ad35eb487f4ac92e890706023e1282eeb6f1d2094810",
+      "text_fields": 345
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-100.json",
+      "sha256": "85eadf3b3a619d27058af34f98630c50bc4cb70faf6dbee3221561e0b0583a84",
+      "text_fields": 476
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-101.json",
+      "sha256": "735374cd68300a29dc8f9f9755be5aaa7048aad9be3c90159e1f0bd1816bc9ca",
+      "text_fields": 631
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-102.json",
+      "sha256": "a01d107607ebe2f7168d6721ba83da9146fe0ea69c57b1405cb06fefbe8d9c3f",
+      "text_fields": 533
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-103.json",
+      "sha256": "a0a06b449da1ac60a96f87e938f4037250c2630a17bfb2dc30df5ece37090f1a",
+      "text_fields": 469
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-104.json",
+      "sha256": "f269dda0551d37347564ca54893f7edceb0ae2f6221bb93985d0e13453564df9",
+      "text_fields": 923
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-105.json",
+      "sha256": "0dcea4de92502171d0084907aa4d615577621b54f974ac2c2e88fd145d017caf",
+      "text_fields": 436
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-106.json",
+      "sha256": "185715ccd3af1d67bbd6c8a150cffec932196fe0a13b9b1cd27f6ed1cea3b2d0",
+      "text_fields": 354
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-107.json",
+      "sha256": "bb51a2296e0f148c4915afe072d80073179924a8cfbe5b3057cb2741bfbd43e3",
+      "text_fields": 1148
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-108.json",
+      "sha256": "f30dcdf72becec6081ab815d9e25b86cbd24323fa0129e9d96b9f88ba4236bb1",
+      "text_fields": 826
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-109.json",
+      "sha256": "e0494fada4c3b7c1e24be1a9666df7189165e1506cf5493cdefcce24accebf64",
+      "text_fields": 1110
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-110.json",
+      "sha256": "5c1ebdd90d648a8e8f75b6f894bad40dcbc917b1e715d10a59767cde9efd56f8",
+      "text_fields": 1085
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-111.json",
+      "sha256": "335ad5c5ecc346312b615029225fa2d334dc2dca5ea2b71597b799c7a186a8dc",
+      "text_fields": 1127
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-112.json",
+      "sha256": "504fde544c6525ff312f4d7c30de203d3fe68f52207b50ce7b4f37eee3cd0488",
+      "text_fields": 825
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-113.json",
+      "sha256": "0c9e9e0e5df136d5fa9939d4621f0aad27ea4f481d889aad98139084859e7b38",
+      "text_fields": 805
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-114.json",
+      "sha256": "fee4cb3a3764de622bfd0e74af6a21809a7ad9a743d2d0b8fc45f80a411b470f",
+      "text_fields": 49
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-115.json",
+      "sha256": "b5305db4952c769078407bd48632764bdf0535feaf212cb0a5db57232dd55fdd",
+      "text_fields": 107
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-116.json",
+      "sha256": "bca63f925ea6a0624cdb7e9349b750534913b66a52acafe90c6571caadd638cb",
+      "text_fields": 242
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-117.json",
+      "sha256": "e4d394c8f89dc1263e0ace394f4361a848c531d816dc1009056e8f5a630da8c8",
+      "text_fields": 834
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-118.json",
+      "sha256": "d2f899ec66bf5f4db875a6987158364b81f71005848103ef389e7b37da72253e",
+      "text_fields": 999
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-119.json",
+      "sha256": "44838e9f6b32231085ae253819a047d85ce6533b95037604b426792d582ab389",
+      "text_fields": 1110
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-120.json",
+      "sha256": "c0b5b5be5775cbf694a804190df4493b511747e2a1b13fd7b908d38096dbe874",
+      "text_fields": 709
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-121.json",
+      "sha256": "c80405fd053fb269292c68a50c3d583776cf43b922065f224725a3a5a967da12",
+      "text_fields": 11
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-122.json",
+      "sha256": "79e950b197d33e52abedd0564ed8b38465cdcac0df52efdd8ca91d4c5e3f3c59",
+      "text_fields": 657
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-123.json",
+      "sha256": "88752d135bb82d0ae45d5228f752adba1b1c04dbde73138a1a0654a4213be1a9",
+      "text_fields": 12
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-124.json",
+      "sha256": "0814729afa206dd29f7e91901f29a89a47a1202d916074582d58f7eb45e537fd",
+      "text_fields": 8
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-125.json",
+      "sha256": "8609b0abe8bdb0a94155e03bcff9657373759142831667ee52888569551300c6",
+      "text_fields": 297
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-126.json",
+      "sha256": "01ef658010510a3b2a8577f0c4a74d9c61754586d34aeac1c17d470617e1dd68",
+      "text_fields": 550
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-127.json",
+      "sha256": "42233b44f7ed36efb2dca2b43b068f60de2992844abbeba24096bea1bc8c567d",
+      "text_fields": 1276
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-128.json",
+      "sha256": "20ca189e7c437876784128fb8ff83999d3658884aca294c1636d6a999372c61e",
+      "text_fields": 929
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-129.json",
+      "sha256": "16419d4dff6560516565b19bcd78456dac3e30be73aa9751468d832f255ca39b",
+      "text_fields": 317
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-130.json",
+      "sha256": "9548ac1ee47129aea52f203220f334d22e2df2f877e47a17175f8f61f0966530",
+      "text_fields": 622
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-131.json",
+      "sha256": "f972a8e11ad51152ab6befd22e6aa210528ed5e83f720bd3f8926fc01f6658ce",
+      "text_fields": 1112
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-132.json",
+      "sha256": "96f2b1df6e42453455d353a63394631fd29319fb556124615aeb74a006c09fbb",
+      "text_fields": 667
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-133.json",
+      "sha256": "3325311c7bd4c720d75827c3c8e480e75d693ec0d4c68ed3ae0ed17d3dce590b",
+      "text_fields": 353
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-134.json",
+      "sha256": "3abc97d7a995a105df6ddd0c53e4a1413cc897934ff45d52fcaedb35717da075",
+      "text_fields": 105
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-135.json",
+      "sha256": "9a0d4146937c6af0d928b831c12e0126884883db22751f6d5cd9b1ed655e18ee",
+      "text_fields": 1256
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-136.json",
+      "sha256": "716704c2ec9d050f6ff44b6d3c04e15464fe0e1b4554e552b0c1788b2d7f6e4a",
+      "text_fields": 812
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-137.json",
+      "sha256": "1b9a51aad6774812571e4e73c650ab8edbcb5b35115695a997fe961e5aa0f2f4",
+      "text_fields": 160
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-138.json",
+      "sha256": "009c13a1c6b9095da48a8ae41f893465937f06b5989a9e407351c3ef9d69c68f",
+      "text_fields": 1383
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-139.json",
+      "sha256": "25205817633b2c245e27158038e30b941de8e7f577b035a4b2163a40edc9884c",
+      "text_fields": 1109
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-140.json",
+      "sha256": "1d96afc5a9272668348fe804cc203fd8bc02b51a39fafcf518cb5914c29781ce",
+      "text_fields": 1126
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-141.json",
+      "sha256": "938c9a6517535aa25a0cb1e3fa57ad7a94421f3f61eee9833292f801b01c4177",
+      "text_fields": 330
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-142.json",
+      "sha256": "ec4749afe457dfc1e052f4eb65543bd047e6e3a163166639c149638c38ecd921",
+      "text_fields": 775
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-143.json",
+      "sha256": "0dc0349501ce2cd33ea0c761c6586d4b5e6c81585d541c7a3e1de46fc506dfc9",
+      "text_fields": 1502
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-144.json",
+      "sha256": "a71a2dadd439031f18a95183d36d2b47973476cca454dcf2e61a183bbfb67d47",
+      "text_fields": 882
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-145.json",
+      "sha256": "3396581f9410cb50737260b15df54b84330652b1df726944ed03d7df242957b9",
+      "text_fields": 1465
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-146.json",
+      "sha256": "56c2b5d72bff37d8d400119321d901278f676913f9b5d2f31bdabf9535e7e2a8",
+      "text_fields": 330
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-147.json",
+      "sha256": "5e235d9d05d35df8102897afcd13d465120f3bd59cf607cb558cde6e2f429212",
+      "text_fields": 792
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-148.json",
+      "sha256": "27b99d8f44181bf30020605644c8d9a609f801fc3fa0fa5f4bd1380c593366a5",
+      "text_fields": 1615
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-149.json",
+      "sha256": "29f2871366c5467c9123e5e77408dae5c4e81655bafe875fa7ed70ae200b0519",
+      "text_fields": 1677
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-150.json",
+      "sha256": "6b6b949a35a658d9cbfd8173f492ccbbb2b3c0738703153447dcbbe5250d0b87",
+      "text_fields": 1530
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-151.json",
+      "sha256": "00a0b9119dd42d5af0f93de4574995780e75f51f460bab48be691645f97ccd1d",
+      "text_fields": 300
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-152.json",
+      "sha256": "ccc0f42ac440eab106ba759878f3ffb88d86ee136319abdab95a515914256e94",
+      "text_fields": 57
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-153.json",
+      "sha256": "94a0c3b2090979c7c4be94cac11ec1f12b448d8b4336f814d678e79a0fa86146",
+      "text_fields": 29
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-154.json",
+      "sha256": "6291ee4ce380114d713024d9ac9cd9bedad0a624ace1ce4bec386c53de3e231e",
+      "text_fields": 293
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-155.json",
+      "sha256": "b9f13a1930dbb88850186cf184cb48539cabb0c923b860b17104b6bddbb7ab34",
+      "text_fields": 27
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-156.json",
+      "sha256": "06a41977943c38ae0445364ea315118cedcb9e578d18aba1633ac28f8cec5437",
+      "text_fields": 27
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-157.json",
+      "sha256": "9ca34df9484cc44847f50e900916fc9c994536a606b4cccb69a3085d2f839338",
+      "text_fields": 47
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-160.json",
+      "sha256": "acf792a6e428f9b3eaccfec9bed98908b198ebc1cc6950d8b613e52fde804d37",
+      "text_fields": 121
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-163.json",
+      "sha256": "fdc4e637ff6cd3f02b608fbe7d554e3d14a841f996aab1598705d1e13016d3a0",
+      "text_fields": 39
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-164.json",
+      "sha256": "b8b47b974f1d2c927eb980a9f81195aa27698a7bc98f94512c8fc7117ec9c1fd",
+      "text_fields": 39
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-169.json",
+      "sha256": "133ad6cef5dc887fdefac154f980df88e41a439703097dd7b483900fd491101f",
+      "text_fields": 36
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-170.json",
+      "sha256": "a1181fee8db95f4558975e124a87eea7ad7bd9cfcf26ff64c29ce7ed8ab4b180",
+      "text_fields": 36
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-175.json",
+      "sha256": "37ebcd46ec4320227503ea3001d3d8376ac94279104cc0455fbbf654a0865827",
+      "text_fields": 36
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-176.json",
+      "sha256": "6aa4c4c2c6f0d1be3d35edcc319c5d9dbca1a05e679e156d674b8759d4c410ad",
+      "text_fields": 36
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-177.json",
+      "sha256": "96b43514be3aec294120a0eaf06c1687f2f909d74cb1afcecc6de00d251729a3",
+      "text_fields": 4
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-178.json",
+      "sha256": "13f7a02f9afc40a388fe313453f96848c7224ad519f3635626eaf144f8867418",
+      "text_fields": 4
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-179.json",
+      "sha256": "fa6cd53a7a21b87a794180adfd8b4aff1db288dd3a26dba862296617b2a278b7",
+      "text_fields": 4
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-180.json",
+      "sha256": "de7a20a8aa42e616204cbb3d7273cef17af51176f0e9b5536121af25924c2dc5",
+      "text_fields": 4
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-185.json",
+      "sha256": "40210ce2718711f2189fa16da1d843abf74e458e71eca3ace193a920b7deeb42",
+      "text_fields": 407
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-186.json",
+      "sha256": "cbb7fad5d202e70fed1f0dde82075bfd22289606de752f049ed97a0c5071fbbe",
+      "text_fields": 431
+    },
+    {
+      "path": "corpus/zh/story-speakers.json",
+      "sha256": "830e03ee72683bddbcc8ed94a6d7a6cd874628e4f0cab6dd2859c0e89438334d",
+      "text_fields": 8733
+    },
+    {
+      "path": "corpus/zh/story-system-dialogue.json",
+      "sha256": "39b608458b09b6e93388981f283008ae4b20200402452d5eaa213debfd188851",
+      "text_fields": 379
+    },
+    {
+      "path": "corpus/zh/story-tickers.json",
+      "sha256": "1ba40d4a37eeefd3fd7f523274a57364a7cb843d3ad42a5bc90098820d60c8d5",
+      "text_fields": 98
+    },
+    {
+      "path": "corpus/zh/story-z-reports.json",
+      "sha256": "4671ecd5b49dca757b6e6500c0f7347074ecf875be4efa92907f8619db533987",
+      "text_fields": 10
+    },
+    {
+      "path": "corpus/zh/summary.json",
+      "sha256": "c5d3a8c9c498724f83d006a8d1ddc0b68a3c2f938cda2309a53cb4db5e6de79f",
+      "text_fields": 28
+    },
+    {
+      "path": "corpus/zh/ui-atlas/aid-battle-prompts-v1.json",
+      "sha256": "64affedffb9498b98d070bcce2fb8392ce1b10b048278b96a05ab3121a1cf21b",
+      "text_fields": 20
+    },
+    {
+      "path": "corpus/zh/ui-atlas/bazaar-v2.json",
+      "sha256": "09df2208d044cfbae5a21be1233c1292cbcc4f54702aacda0b8a94020a276fb3",
+      "text_fields": 28
+    },
+    {
+      "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+      "sha256": "2a09f7941294df459697229df8d84902c2191d48a2af166bb99adde0b92dc886",
+      "text_fields": 30
+    },
+    {
+      "path": "corpus/zh/ui-atlas/formation-help-headings.json",
+      "sha256": "71dd2721d105d452a5851e70a3c551f8eeab45d90503b6b76d6bdc90a7020941",
+      "text_fields": 6
+    },
+    {
+      "path": "corpus/zh/ui-atlas/info-v1.json",
+      "sha256": "5c964d0390ea024179146c81bba853c05850a120a3e9cf2e2122821db372fb70",
+      "text_fields": 2
+    },
+    {
+      "path": "corpus/zh/ui-atlas/stage-clear-v1.json",
+      "sha256": "2464cebf741044014384ac2b3901f16c6b3351d959ea81b6e48051aec9b91e19",
+      "text_fields": 2
+    },
+    {
+      "path": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
+      "sha256": "574f7db2d6795a5b778687028a719984782c184013e5c166586a3547638d654e",
+      "text_fields": 102
+    },
+    {
+      "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
+      "sha256": "643f5223f87b3ffe3ee2c2ca5e7eac292207ef53dbeacfdd39cdf1edc0c6de5d",
+      "text_fields": 78
+    }
+  ],
+  "scanned_files": 231,
+  "scanned_text_fields": 152806,
+  "tokens": [
+    {
+      "kind": "raw_byte",
+      "family": "{XX}",
+      "count": 4,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/95/source_text",
+          "token": "{87}"
+        },
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/95/source_text",
+          "token": "{40}"
+        },
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/95/source_text",
+          "token": "{87}"
+        }
+      ]
+    },
+    {
+      "kind": "runtime_format",
+      "family": "printf-format",
+      "count": 98,
+      "examples": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "pointer": "/entries/554/translation",
+          "token": "%s"
+        },
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "pointer": "/entries/557/translation",
+          "token": "%s"
+        },
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "pointer": "/entries/557/translation",
+          "token": "%s"
+        }
+      ]
+    },
+    {
+      "kind": "runtime_substitution",
+      "family": "$F",
+      "count": 84,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/2950/source_text",
+          "token": "$F"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/2950/translation",
+          "token": "$F"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/3720/source_text",
+          "token": "$F"
+        }
+      ]
+    },
+    {
+      "kind": "runtime_substitution",
+      "family": "$c",
+      "count": 1302,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/85/source_text",
+          "token": "$c"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/85/translation",
+          "token": "$c"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/86/source_text",
+          "token": "$c"
+        }
+      ]
+    },
+    {
+      "kind": "runtime_substitution",
+      "family": "$f",
+      "count": 9,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/2953/source_text",
+          "token": "$f"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/2953/translation",
+          "token": "$f"
+        },
+        {
+          "path": "corpus/zh/story-dialogue/stage-012.json",
+          "pointer": "/entries/44/translation",
+          "token": "$f"
+        }
+      ]
+    },
+    {
+      "kind": "runtime_substitution",
+      "family": "$l",
+      "count": 17,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/4656/source_text",
+          "token": "$l"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/4656/translation",
+          "token": "$l"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/4660/source_text",
+          "token": "$l"
+        }
+      ]
+    },
+    {
+      "kind": "runtime_substitution",
+      "family": "$n",
+      "count": 966,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/2374/source_text",
+          "token": "$n"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/2374/translation",
+          "token": "$n"
+        },
+        {
+          "path": "corpus/zh/special-disc/story-dialogue.json",
+          "pointer": "/entries/2379/source_text",
+          "token": "$n"
+        }
+      ]
+    },
+    {
+      "kind": "runtime_substitution",
+      "family": "numeric-angle-selector",
+      "count": 252,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/132/source_text",
+          "token": "<<width:31>>"
+        },
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/132/translation",
+          "token": "<<width:31>>"
+        },
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/145/source_text",
+          "token": "<<width:37>>"
+        }
+      ]
+    },
+    {
+      "kind": "runtime_substitution",
+      "family": "numeric-brace-parameter",
+      "count": 16,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+          "pointer": "/entries/730/source_text",
+          "token": "{<space:2E><space:2E>0}"
+        },
+        {
+          "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+          "pointer": "/entries/730/source_text",
+          "token": "{<color:7D>"
+        },
+        {
+          "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+          "pointer": "/entries/730/translation",
+          "token": "{<space:2E><space:2E>0}"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "<35:XX>",
+      "count": 4,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+          "pointer": "/entries/356/source_text",
+          "token": "<35:00>"
+        },
+        {
+          "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+          "pointer": "/entries/356/source_text",
+          "token": "<35:00>"
+        },
+        {
+          "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+          "pointer": "/entries/356/translation",
+          "token": "<35:00>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "<color:XX>",
+      "count": 44,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/16/source_text",
+          "token": "<color:30>"
+        },
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/16/source_text",
+          "token": "<color:30>"
+        },
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/16/source_text",
+          "token": "<color:30>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "<height:XX>",
+      "count": 2,
+      "examples": [
+        {
+          "path": "corpus/zh/special-disc/instructions-overrides.json",
+          "pointer": "/entries/118/translation",
+          "token": "<height:0C>"
+        },
+        {
+          "path": "corpus/zh/special-disc/system-text.json",
+          "pointer": "/entries/1246/translation",
+          "token": "<height:0C>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "<space:XX>",
+      "count": 7144,
+      "examples": [
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "pointer": "/entries/13/translation",
+          "token": "<space:0C>"
+        },
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "pointer": "/entries/13/translation",
+          "token": "<space:16>"
+        },
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "pointer": "/entries/244/translation",
+          "token": "<space:0C>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "<width:XX>",
+      "count": 7132,
+      "examples": [
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "pointer": "/entries/13/translation",
+          "token": "<width:0E>"
+        },
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "pointer": "/entries/13/translation",
+          "token": "<width:16>"
+        },
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "pointer": "/entries/244/translation",
+          "token": "<width:0E>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "@<35:XX>",
+      "count": 1,
+      "examples": [
+        {
+          "path": "corpus/zh/menu/unclassified.json",
+          "pointer": "/entries/121/translation",
+          "token": "@<35:00>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "@<color:XX>",
+      "count": 2,
+      "examples": [
+        {
+          "path": "corpus/zh/menu/system-ui-tactical.json",
+          "pointer": "/entries/4/translation",
+          "token": "@<color:31>"
+        },
+        {
+          "path": "corpus/zh/menu/unclassified.json",
+          "pointer": "/entries/248/translation",
+          "token": "@<color:31>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "@<height:XX>",
+      "count": 1,
+      "examples": [
+        {
+          "path": "corpus/zh/menu/unclassified.json",
+          "pointer": "/entries/123/translation",
+          "token": "@<height:00>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "@<space:XX>",
+      "count": 1,
+      "examples": [
+        {
+          "path": "corpus/zh/menu/unclassified.json",
+          "pointer": "/entries/257/translation",
+          "token": "@<space:00>"
+        }
+      ]
+    },
+    {
+      "kind": "text_tag",
+      "family": "@<width:XX>",
+      "count": 1,
+      "examples": [
+        {
+          "path": "corpus/zh/menu/unclassified.json",
+          "pointer": "/entries/249/translation",
+          "token": "@<width:00>"
+        }
+      ]
+    }
+  ],
+  "other_structural_markers": {
+    "tm_fullwidth": 34,
+    "tm_ascii": 0,
+    "double_angle": 140,
+    "literal_escape": 7683,
+    "keyword_brackets": 331
+  },
+  "tokenization_errors": [],
+  "text_table_tags": {
+    "31": "color",
+    "32": "width",
+    "33": "height",
+    "34": "space"
+  },
+  "library_text_tags": [
+    "ACTR",
+    "CHFN",
+    "CHNN",
+    "DSC2",
+    "DSCR",
+    "HEIT",
+    "KANA",
+    "PLTN",
+    "PRDC",
+    "RBTN",
+    "SRCE",
+    "WEIT",
+    "WORD"
+  ],
+  "library_binary_tags": [
+    "LOOK",
+    "LorR",
+    "VOIC"
+  ],
+  "layout_profiles": {
+    "story_dialogue": {
+      "maximum_width": 21,
+      "first_line_maximum_width": 21,
+      "maximum_lines": 3,
+      "line_count_mode": "minimum",
+      "continuation_indent": "　",
+      "minimum_line_width": 6,
+      "allow_oversized_token_split": true,
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json"
+      ],
+      "weights": {
+        "weak_break": 60,
+        "clause_break": 80,
+        "arbitrary_break": 450,
+        "manual_break_max": 50,
+        "raggedness": 3,
+        "discouraged_start": 120,
+        "short_line_per_cell": 30
+      },
+      "default_advance_px": 22
+    },
+    "library_robot": {
+      "maximum_width": 26,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "minimum_line_width": 10,
+      "allow_oversized_token_split": true,
+      "weights": {
+        "arbitrary_break": 240,
+        "manual_break_max": 80,
+        "raggedness": 100
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ],
+      "line_packing": "balanced",
+      "default_advance_px": 21
+    },
+    "library_character": {
+      "maximum_width": 16,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "minimum_line_width": 7,
+      "allow_oversized_token_split": true,
+      "weights": {
+        "arbitrary_break": 240,
+        "manual_break_max": 80,
+        "raggedness": 100
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ],
+      "line_packing": "balanced",
+      "default_advance_px": 21
+    },
+    "library_glossary": {
+      "maximum_width": 25,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "minimum_line_width": 9,
+      "allow_oversized_token_split": true,
+      "weights": {
+        "arbitrary_break": 240,
+        "manual_break_max": 80,
+        "raggedness": 100
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ],
+      "line_packing": "balanced",
+      "default_advance_px": 21
+    },
+    "stage_scroll_overview": {
+      "maximum_width": 30,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "line_packing": "balanced",
+      "minimum_line_width": 8,
+      "allow_oversized_token_split": true,
+      "unbroken_terms": [
+        "下代量产机",
+        "片刻不停",
+        "紧接着",
+        "异星人",
+        "特殊",
+        "独自",
+        "排斥",
+        "装置",
+        "伙伴",
+        "投降",
+        "出现",
+        "敌对",
+        "入侵者",
+        "自爆",
+        "潜伏",
+        "采取",
+        "抓走",
+        "大战",
+        "消除",
+        "阴影",
+        "羁绊",
+        "残酷",
+        "身体",
+        "力量",
+        "危机",
+        "真正",
+        "行动",
+        "制造",
+        "现身",
+        "然而",
+        "唯一",
+        "放松",
+        "袭来",
+        "一顿",
+        "委托人",
+        "情报",
+        "失落山脉",
+        "设计图"
+      ],
+      "weights": {
+        "manual_break_max": 5,
+        "raggedness": 100
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ],
+      "default_advance_px": 16
+    },
+    "world_history_scroll": {
+      "maximum_width": 22,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "minimum_line_width": 8,
+      "allow_oversized_token_split": true,
+      "weights": {
+        "manual_break_max": 120,
+        "raggedness": 100
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ],
+      "line_packing": "balanced"
+    },
+    "scenario_chart_overview": {
+      "maximum_width": 21,
+      "maximum_lines": 3,
+      "line_count_mode": "exact",
+      "minimum_line_width": 8,
+      "allow_oversized_token_split": true
+    },
+    "sp_hsfc_summary": {
+      "maximum_width": 32,
+      "maximum_lines": 3,
+      "line_count_mode": "exact",
+      "minimum_line_width": 8,
+      "allow_oversized_token_split": true
+    },
+    "sp_narration_scroll": {
+      "maximum_width": 23,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "minimum_line_width": 8,
+      "allow_oversized_token_split": true,
+      "weights": {
+        "manual_break_max": 120,
+        "raggedness": 100
+      },
+      "unbroken_terms_files": [
+        "zh-story-unbroken-words.json",
+        "zh-prose-extra-words.json"
+      ],
+      "line_packing": "balanced",
+      "default_advance_px": 25
+    }
+  },
+  "native_patch_ledger": {
+    "original": {
+      "va_file_delta": "0xFE580",
+      "total_write_span_bytes": 276,
+      "writes": [
+        {
+          "owner": "library_body_metrics",
+          "va": "0x221220",
+          "file_offset": "0x122CA0",
+          "size": 4,
+          "before_hex": "6c83080c",
+          "after_hex": "112f110c",
+          "after_sha256": "926fca80ca84ed193e1ad372b6ccd7640b737ccf5e60262ddcc59515a5f02a18"
+        },
+        {
+          "owner": "library_body_metrics",
+          "va": "0x44BC44",
+          "file_offset": "0x34D6C4",
+          "size": 44,
+          "before_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "after_hex": "4700013c0e00039144e323a40f00039146e323a41000039148e323a4110003914ae323a46c83080800000000",
+          "after_sha256": "9cfddc4633a04b5725a04e10543e18f86ff220ace02c4035ee140ed61b247d07"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13A470",
+          "file_offset": "0x3BEF0",
+          "size": 144,
+          "before_hex": "000082920070013c140022a601009426340022a4c2ff0010480020a600000000000082920070013c160022a60100942616002286360022a4b9ff0010480020a6000082920070013c180022a601009426380022a4b2ff0010480020a600000000000082920070013c1a0022a6010094263a0022a4aaff0010480020a60000000000008292320022a6a5ff001001009426",
+          "after_hex": "000082920070013c140022a6340022a4480020a6e4e80408010094260000829275ff43240400632c5800a3af76ff43240500632c7f0041300b102300160022a60070013c360022a4480020a6e4e8040801009426000082920070013c180022a6380022a4480020a6e4e8040801009426000082920070013c1a0022a63a0022a4480020a6e4e804080100942600000000",
+          "after_sha256": "cdc291ab80cd3e5c1ecfba5e200915d1226c6b5ac93892e4933f2eaf30d3da5b"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x44BC70",
+          "file_offset": "0x34D6F0",
+          "size": 16,
+          "before_hex": "00000000000000000000000000000000",
+          "after_hex": "00008292320022a6e4e8040801009426",
+          "after_sha256": "979d23257bd12bb841994349f2e3f936fae93722b6af17b43a4a32453ea38d86"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x433E60",
+          "file_offset": "0x3358E0",
+          "size": 20,
+          "before_hex": "70a4130090a41300b0a41300d0a41300f0a41300",
+          "after_hex": "70a413008ca41300c4a41300e0a4130070bc4400",
+          "after_sha256": "ea2db7e5565449784f7849a27e7ffef85b2aecb3199b25417be9b81062ea3353"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13A38C",
+          "file_offset": "0x3BE0C",
+          "size": 4,
+          "before_hex": "00000000",
+          "after_hex": "5800a0af",
+          "after_sha256": "813d611d69ca4e2abd9dc09ca8c148675fc494eb7456c634387c0e239fc46b03"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13AB20",
+          "file_offset": "0x3C5A0",
+          "size": 40,
+          "before_hex": "0070013c3000238c3f010224040003ae0070013c2000238e080003ae3c00238c0c0003ae0070013c",
+          "after_hex": "0070013c3000238c5800a28f0014020023186200040003ae2000238e080003ae3c00238c0c0003ae",
+          "after_sha256": "f23e2542e65e2f391ae9834ce1c4bec27081ce54fe9638fb24a56b62fa5e4537"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13AB74",
+          "file_offset": "0x3C5F4",
+          "size": 4,
+          "before_hex": "0070013c",
+          "after_hex": "3f010224",
+          "after_sha256": "36017a3675989705fa976a7d80ee49d5109f79d069390c606e435862a5f817bd"
+        }
+      ]
+    },
+    "best": {
+      "va_file_delta": "0xFE580",
+      "total_write_span_bytes": 276,
+      "writes": [
+        {
+          "owner": "library_body_metrics",
+          "va": "0x2215E0",
+          "file_offset": "0x123060",
+          "size": 4,
+          "before_hex": "5c84080c",
+          "after_hex": "1131110c",
+          "after_sha256": "949a5ce9fca6d9f4d659670938bfe8572f1dd6b24301d78f77fc53365ad3c6c0"
+        },
+        {
+          "owner": "library_body_metrics",
+          "va": "0x44C444",
+          "file_offset": "0x34DEC4",
+          "size": 44,
+          "before_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "after_hex": "4700013c0e00039144eb23a40f00039146eb23a41000039148eb23a4110003914aeb23a45c84080800000000",
+          "after_sha256": "ec102bd2abf31526d573d9e40abc95ded7ed7b74626c43c33ffc56bb2e7f5961"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13A470",
+          "file_offset": "0x3BEF0",
+          "size": 144,
+          "before_hex": "000082920070013c140022a601009426340022a4c2ff0010480020a600000000000082920070013c160022a60100942616002286360022a4b9ff0010480020a6000082920070013c180022a601009426380022a4b2ff0010480020a600000000000082920070013c1a0022a6010094263a0022a4aaff0010480020a60000000000008292320022a6a5ff001001009426",
+          "after_hex": "000082920070013c140022a6340022a4480020a6e4e80408010094260000829275ff43240400632c5800a3af76ff43240500632c7f0041300b102300160022a60070013c360022a4480020a6e4e8040801009426000082920070013c180022a6380022a4480020a6e4e8040801009426000082920070013c1a0022a63a0022a4480020a6e4e804080100942600000000",
+          "after_sha256": "cdc291ab80cd3e5c1ecfba5e200915d1226c6b5ac93892e4933f2eaf30d3da5b"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x44C470",
+          "file_offset": "0x34DEF0",
+          "size": 16,
+          "before_hex": "00000000000000000000000000000000",
+          "after_hex": "00008292320022a6e4e8040801009426",
+          "after_sha256": "979d23257bd12bb841994349f2e3f936fae93722b6af17b43a4a32453ea38d86"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x434660",
+          "file_offset": "0x3360E0",
+          "size": 20,
+          "before_hex": "70a4130090a41300b0a41300d0a41300f0a41300",
+          "after_hex": "70a413008ca41300c4a41300e0a4130070c44400",
+          "after_sha256": "69964d4937a286247093bb0eec206f304c322ef1d1f854e33f0167f2593fe442"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13A38C",
+          "file_offset": "0x3BE0C",
+          "size": 4,
+          "before_hex": "00000000",
+          "after_hex": "5800a0af",
+          "after_sha256": "813d611d69ca4e2abd9dc09ca8c148675fc494eb7456c634387c0e239fc46b03"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13AB20",
+          "file_offset": "0x3C5A0",
+          "size": 40,
+          "before_hex": "0070013c3000238c3f010224040003ae0070013c2000238e080003ae3c00238c0c0003ae0070013c",
+          "after_hex": "0070013c3000238c5800a28f0014020023186200040003ae2000238e080003ae3c00238c0c0003ae",
+          "after_sha256": "f23e2542e65e2f391ae9834ce1c4bec27081ce54fe9638fb24a56b62fa5e4537"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13AB74",
+          "file_offset": "0x3C5F4",
+          "size": 4,
+          "before_hex": "0070013c",
+          "after_hex": "3f010224",
+          "after_sha256": "36017a3675989705fa976a7d80ee49d5109f79d069390c606e435862a5f817bd"
+        }
+      ]
+    },
+    "sp": {
+      "va_file_delta": "0xFF680",
+      "total_write_span_bytes": 276,
+      "writes": [
+        {
+          "owner": "library_body_metrics",
+          "va": "0x226000",
+          "file_offset": "0x126980",
+          "size": 4,
+          "before_hex": "e496080c",
+          "after_hex": "512b130c",
+          "after_sha256": "43e29f7b44a3faf34dd36628f0973f6f3a37d1b3a793ba66c8b58cc6df79f294"
+        },
+        {
+          "owner": "library_body_metrics",
+          "va": "0x4CAD44",
+          "file_offset": "0x3CB6C4",
+          "size": 44,
+          "before_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "after_hex": "4f00013c0e000391c4d523a40f000391c6d523a410000391c8d523a411000391cad523a4e496080800000000",
+          "after_sha256": "f00139cdadcd3fe9baf1972756e12662c8c4c87c63a8431774800e3a38df70e6"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13AF10",
+          "file_offset": "0x3B890",
+          "size": 144,
+          "before_hex": "000082920070013c140022a601009426340022a4c2ff0010480020a600000000000082920070013c160022a60100942616002286360022a4b9ff0010480020a6000082920070013c180022a601009426380022a4b2ff0010480020a600000000000082920070013c1a0022a6010094263a0022a4aaff0010480020a60000000000008292320022a6a5ff001001009426",
+          "after_hex": "000082920070013c140022a6340022a4480020a68ceb0408010094260000829275ff43240400632c5800a3af76ff43240500632c7f0041300b102300160022a60070013c360022a4480020a68ceb040801009426000082920070013c180022a6380022a4480020a68ceb040801009426000082920070013c1a0022a63a0022a4480020a68ceb04080100942600000000",
+          "after_sha256": "f19b714e873fdc95a0451d6422c44fca536c2aa300f18f5cede89f5111bbc494"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x4CAD70",
+          "file_offset": "0x3CB6F0",
+          "size": 16,
+          "before_hex": "00000000000000000000000000000000",
+          "after_hex": "00008292320022a68ceb040801009426",
+          "after_sha256": "408971f94274498a6df8987f3aa53e466fc2ca929ae5715758f41a6245f95f38"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x4A76E0",
+          "file_offset": "0x3A8060",
+          "size": 20,
+          "before_hex": "10af130030af130050af130070af130090af1300",
+          "after_hex": "10af13002caf130064af130080af130070ad4c00",
+          "after_sha256": "acdd1595d9e8280d52fb4d083554ea699c09c183aea5d2d92e3fab867df1030b"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13AE2C",
+          "file_offset": "0x3B7AC",
+          "size": 4,
+          "before_hex": "00000000",
+          "after_hex": "5800a0af",
+          "after_sha256": "813d611d69ca4e2abd9dc09ca8c148675fc494eb7456c634387c0e239fc46b03"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13B5C0",
+          "file_offset": "0x3BF40",
+          "size": 40,
+          "before_hex": "0070013c3000238c3f010224040003ae0070013c2000238e080003ae3c00238c0c0003ae0070013c",
+          "after_hex": "0070013c3000238c5800a28f0014020023186200040003ae2000238e080003ae3c00238c0c0003ae",
+          "after_sha256": "f23e2542e65e2f391ae9834ce1c4bec27081ce54fe9638fb24a56b62fa5e4537"
+        },
+        {
+          "owner": "library_optical_metrics",
+          "va": "0x13B614",
+          "file_offset": "0x3BF94",
+          "size": 4,
+          "before_hex": "0070013c",
+          "after_hex": "3f010224",
+          "after_sha256": "36017a3675989705fa976a7d80ee49d5109f79d069390c606e435862a5f817bd"
+        }
+      ]
+    }
+  },
+  "compiled_examples": {
+    "character/DSC2/EFA所属G士兵14岁Geo圣剑": "<width:0E><space:0C><height:8C>EFA<width:15><space:15><height:0C>所属<width:0E><space:0C><height:8C>G<width:15><space:15><height:0C>士兵<width:0E><space:0C><height:0B>14<width:15><space:15><height:0C>岁<width:0E><space:0C><height:8C>Geo<width:15><space:15><height:0C>圣剑",
+    "character/DSCR/中文RX-78F14 99.9%中文": "中文<width:0E><space:0C><height:8C>RX-<height:0B>78<height:8C>F<height:0B>14 99.9%<space:15><width:15><height:0C>中文",
+    "robot/DSCR/中文RX-78F14中文": "中文<width:0E><space:0C><height:8B>RX-<height:8A>78<height:8B>F<height:8A>14<width:15><space:15><height:8A>中文",
+    "character/PRDC/超重神GRAVION": "超重神<width:0E><space:0A><height:0A>GRAVION<width:15><space:15><height:0A>",
+    "character/HEIT/18.0m": "<width:0C><space:0C><height:09>18.0m<width:0C><space:0C><height:0A>"
+  },
+  "current_build": {
+    "input_digest": "8d3bb9fe035b0cd2b1cfc846ba8fc2da34691eba86e20aeb09699a0ff4ba747c",
+    "outputs": [
+      {
+        "edition": "original",
+        "output": {
+          "path": "build/iso/zh-release-original/current-original.iso",
+          "sha256": "838eccfcfb5e0d90b50eb33a3c158dc482369e950c48fcac5a8ae11525ff0258",
+          "size": 3799459840
+        }
+      },
+      {
+        "edition": "best",
+        "output": {
+          "path": "build/iso/zh-release-best/current-best.iso",
+          "sha256": "1332be2781700610f8d4376ff32544c4531d8226169d84f3aa39e968fc8bc050",
+          "size": 3796187136
+        }
+      },
+      {
+        "edition": "sp",
+        "output": {
+          "path": "build/iso/special-disc/sp-current.iso",
+          "sha256": "438b7fc717b9059455bcc6982cd59fe8b05c1e36e30040f7532c1f6a51cd04dd",
+          "size": 3918833664
+        }
+      }
+    ]
+  }
+}

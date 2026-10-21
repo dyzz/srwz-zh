@@ -1,0 +1,1562 @@
+{
+  "scope": "Native selected-entry iterator, context setters and actual UI-to-cache windows.\nThe secondary setter's two selection-service callees remain unclosed; locating\nits store is not a proof of its full effects. Global producer completeness and\nactual UI lifetime are not inferred from this bounded inventory.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "functions": {
+        "iterator": {
+          "entry": "0x34dd10",
+          "end": "0x34dda8",
+          "sha256": "6bb72084e9c4266843238ae02bb593166fafd504afeeea009c0fe0ac0a3fd10d"
+        },
+        "reset": {
+          "entry": "0x34dd00",
+          "end": "0x34dd10",
+          "sha256": "c5a263273bbc35f411fba970222f6e51f2c13466ce7dd81db8149fb9e4140324"
+        },
+        "getter": {
+          "entry": "0x34ddb0",
+          "end": "0x34ddc0",
+          "sha256": "36c79ce2e8520a783463f52cf6045125c84656adb0e0fc50e70058f51631eeaf"
+        },
+        "primary_setter": {
+          "entry": "0x39b440",
+          "end": "0x39b498",
+          "sha256": "af1ac26af87abf452a8aff63e9a3f2b71cd66448e7915dfcf593e3349a830056"
+        },
+        "secondary_setter": {
+          "entry": "0x39b550",
+          "end": "0x39b5d8",
+          "sha256": "9cddb5a2756964b11e87473063e83874e85d69e03f69d684b63ac1f828535081"
+        }
+      },
+      "caller_windows": [
+        {
+          "start": "0x310e10",
+          "branch": "0x310e20",
+          "success_stop": "0x310e40",
+          "failure_entry": "0x310e68",
+          "failure_stop": "0x310f18",
+          "failure_config": [
+            4371584,
+            1,
+            1
+          ],
+          "failure_block_sha256": "8417ddcff9c231dd8c3cc7165609d885699140df0cb31c102583160c42832d37",
+          "sha256": "aed386787217aa8a4c3b4b685140631382be991e6f6f75ed009000ab3a9b371c"
+        },
+        {
+          "start": "0x33bbe0",
+          "branch": "0x33bbf0",
+          "success_stop": "0x33bc10",
+          "failure_entry": "0x33bc38",
+          "failure_stop": "0x33bcc0",
+          "failure_config": [
+            7160336,
+            0,
+            2
+          ],
+          "failure_block_sha256": "fd11c76088a39724b568a9368b6b2ca12a6464061cf2bdf46f505e5e3ea90e0f",
+          "sha256": "aed386787217aa8a4c3b4b685140631382be991e6f6f75ed009000ab3a9b371c"
+        }
+      ],
+      "secondary_external_services": [
+        {
+          "site": "0x39b598",
+          "target": "0x256610"
+        },
+        {
+          "site": "0x39b5a0",
+          "target": "0x2560a0"
+        }
+      ],
+      "setter_direct_call_candidates": [
+        {
+          "site": "0x3100e4",
+          "target": "0x39b440",
+          "context": [
+            {
+              "pc": "0x3100c8",
+              "asm": "lui $at, 0x43"
+            },
+            {
+              "pc": "0x3100cc",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x3100d0",
+              "asm": "lw $v0, -0x4b80($at)"
+            },
+            {
+              "pc": "0x3100d4",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x3100d8",
+              "asm": "lw $a1, 0x28($v0)"
+            },
+            {
+              "pc": "0x3100dc",
+              "asm": "lbu $v0, 0x22($v0)"
+            },
+            {
+              "pc": "0x3100e0",
+              "asm": "dsll32 $v0, $v0, 0x1b"
+            },
+            {
+              "pc": "0x3100e4",
+              "asm": "jal 0x39b440"
+            },
+            {
+              "pc": "0x3100e8",
+              "asm": "dsrl32 $a2, $v0, 0x1f"
+            }
+          ]
+        },
+        {
+          "site": "0x310450",
+          "target": "0x39b550",
+          "context": [
+            {
+              "pc": "0x310434",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x310438",
+              "asm": "lh $a1, ($v1)"
+            },
+            {
+              "pc": "0x31043c",
+              "asm": "sll $v1, $a1, 2"
+            },
+            {
+              "pc": "0x310440",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x310444",
+              "asm": "sll $v1, $v1, 1"
+            },
+            {
+              "pc": "0x310448",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x31044c",
+              "asm": "sll $v1, $v1, 4"
+            },
+            {
+              "pc": "0x310450",
+              "asm": "jal 0x39b550"
+            },
+            {
+              "pc": "0x310454",
+              "asm": "addu $a1, $v0, $v1"
+            }
+          ]
+        },
+        {
+          "site": "0x33b430",
+          "target": "0x39b440",
+          "context": [
+            {
+              "pc": "0x33b414",
+              "asm": "move $a3, $zero"
+            },
+            {
+              "pc": "0x33b418",
+              "asm": "jal 0x39b200"
+            },
+            {
+              "pc": "0x33b41c",
+              "asm": "move $a2, $a1"
+            },
+            {
+              "pc": "0x33b420",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33b424",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33b428",
+              "asm": "lw $a1, 0x30c0($at)"
+            },
+            {
+              "pc": "0x33b42c",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33b430",
+              "asm": "jal 0x39b440"
+            },
+            {
+              "pc": "0x33b434",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33b4b8",
+          "target": "0x39b550",
+          "context": [
+            {
+              "pc": "0x33b49c",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33b4a0",
+              "asm": "addiu $sp, $sp, -0x10"
+            },
+            {
+              "pc": "0x33b4a4",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33b4a8",
+              "asm": "sd $ra, ($sp)"
+            },
+            {
+              "pc": "0x33b4ac",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33b4b0",
+              "asm": "lw $a1, 0x30cc($at)"
+            },
+            {
+              "pc": "0x33b4b4",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33b4b8",
+              "asm": "jal 0x39b550"
+            },
+            {
+              "pc": "0x33b4bc",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c234",
+          "target": "0x39b440",
+          "context": [
+            {
+              "pc": "0x33c218",
+              "asm": "jal 0x33d120"
+            },
+            {
+              "pc": "0x33c21c",
+              "asm": "lb $a0, 0x14($s0)"
+            },
+            {
+              "pc": "0x33c220",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c224",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c228",
+              "asm": "lw $a1, 0x4220($at)"
+            },
+            {
+              "pc": "0x33c22c",
+              "asm": "move $s1, $v0"
+            },
+            {
+              "pc": "0x33c230",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33c234",
+              "asm": "jal 0x39b440"
+            },
+            {
+              "pc": "0x33c238",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c260",
+          "target": "0x39b550",
+          "context": [
+            {
+              "pc": "0x33c244",
+              "asm": "jal 0x39b4a0"
+            },
+            {
+              "pc": "0x33c248",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33c24c",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c250",
+              "asm": "dsll32 $a2, $s4, 0x18"
+            },
+            {
+              "pc": "0x33c254",
+              "asm": "lw $a1, 0x4228($at)"
+            },
+            {
+              "pc": "0x33c258",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c25c",
+              "asm": "dsra32 $a2, $a2, 0x18"
+            },
+            {
+              "pc": "0x33c260",
+              "asm": "jal 0x39b550"
+            },
+            {
+              "pc": "0x33c264",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            }
+          ]
+        },
+        {
+          "site": "0x33c314",
+          "target": "0x39b440",
+          "context": [
+            {
+              "pc": "0x33c2f8",
+              "asm": "jal 0x33d120"
+            },
+            {
+              "pc": "0x33c2fc",
+              "asm": "lb $a0, 0x14($s0)"
+            },
+            {
+              "pc": "0x33c300",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c304",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c308",
+              "asm": "lw $a1, 0x4220($at)"
+            },
+            {
+              "pc": "0x33c30c",
+              "asm": "move $s1, $v0"
+            },
+            {
+              "pc": "0x33c310",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33c314",
+              "asm": "jal 0x39b440"
+            },
+            {
+              "pc": "0x33c318",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c33c",
+          "target": "0x39b550",
+          "context": [
+            {
+              "pc": "0x33c320",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c324",
+              "asm": "jal 0x39b4a0"
+            },
+            {
+              "pc": "0x33c328",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33c32c",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c330",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c334",
+              "asm": "lw $a1, 0x4228($at)"
+            },
+            {
+              "pc": "0x33c338",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33c33c",
+              "asm": "jal 0x39b550"
+            },
+            {
+              "pc": "0x33c340",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c388",
+          "target": "0x39b440",
+          "context": [
+            {
+              "pc": "0x33c36c",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33c370",
+              "asm": "bnez $s1, 0x33c3c0"
+            },
+            {
+              "pc": "0x33c374",
+              "asm": "move $s2, $v0"
+            },
+            {
+              "pc": "0x33c378",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c37c",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c380",
+              "asm": "lw $a1, 0x4220($at)"
+            },
+            {
+              "pc": "0x33c384",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33c388",
+              "asm": "jal 0x39b440"
+            },
+            {
+              "pc": "0x33c38c",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c3b4",
+          "target": "0x39b550",
+          "context": [
+            {
+              "pc": "0x33c398",
+              "asm": "dsra32 $a1, $a1, 0x10"
+            },
+            {
+              "pc": "0x33c39c",
+              "asm": "jal 0x39b4a0"
+            },
+            {
+              "pc": "0x33c3a0",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33c3a4",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c3a8",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c3ac",
+              "asm": "lw $a1, 0x4228($at)"
+            },
+            {
+              "pc": "0x33c3b0",
+              "asm": "addiu $a0, $a0, 0x5f00"
+            },
+            {
+              "pc": "0x33c3b4",
+              "asm": "jal 0x39b550"
+            },
+            {
+              "pc": "0x33c3b8",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        }
+      ],
+      "owner_config": [
+        7167744,
+        7164472,
+        6072516,
+        7164480,
+        7164488,
+        7155916,
+        6062672,
+        7155904,
+        7155908
+      ],
+      "globals": {
+        "context": "0x6d5f00",
+        "cursor": "0x6d5238",
+        "limit": "0x5ca8c4",
+        "index": "0x6d5240",
+        "selected": "0x6d5248",
+        "alias": "0x6d30cc",
+        "table": "0x5c8250",
+        "mirror_primary": "0x6d30c0",
+        "mirror_member": "0x6d30c4"
+      }
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "functions": {
+        "iterator": {
+          "entry": "0x34e310",
+          "end": "0x34e3a8",
+          "sha256": "f107013174fd2baed4145420ebc2acec8e096e1b35b2cc6694b6e80ce9569615"
+        },
+        "reset": {
+          "entry": "0x34e300",
+          "end": "0x34e310",
+          "sha256": "4915e14a346637d90e06b752aec5806dd0fa196387c13400f8bf8135947fdbd7"
+        },
+        "getter": {
+          "entry": "0x34e3b0",
+          "end": "0x34e3c0",
+          "sha256": "782116753a0c2ef2f37b3d22a66ca3ccb5b01712e39fb50ec180b36a4b5c9a1d"
+        },
+        "primary_setter": {
+          "entry": "0x39ba40",
+          "end": "0x39ba98",
+          "sha256": "2e2b4cef36c4a2f7bf6c382f95078d15bdcd6751296bf282e5fbae4baaa98343"
+        },
+        "secondary_setter": {
+          "entry": "0x39bb50",
+          "end": "0x39bbd8",
+          "sha256": "20e20c47722cd1d1a33643c7b798567850aadb9f38f24123d9ba5bf5dfe39d91"
+        }
+      },
+      "caller_windows": [
+        {
+          "start": "0x3111e0",
+          "branch": "0x3111f0",
+          "success_stop": "0x311210",
+          "failure_entry": "0x311238",
+          "failure_stop": "0x3112e8",
+          "failure_config": [
+            4373680,
+            1,
+            1
+          ],
+          "failure_block_sha256": "45dbd3384a9d9fcd7966e532e947a2438ba29bb5b703fd9cbfdca96fdbe075b5",
+          "sha256": "ed5441ab425e392d9a2fb4b378d6b9ccbb64745714143d176cf3f5712adcf5dc"
+        },
+        {
+          "start": "0x33c1e0",
+          "branch": "0x33c1f0",
+          "success_stop": "0x33c210",
+          "failure_entry": "0x33c238",
+          "failure_stop": "0x33c2c0",
+          "failure_config": [
+            7162384,
+            0,
+            2
+          ],
+          "failure_block_sha256": "6de0984e6d15dedeb59c91c5a55076868ff16eb851c63d6af5754acc8888af4b",
+          "sha256": "ed5441ab425e392d9a2fb4b378d6b9ccbb64745714143d176cf3f5712adcf5dc"
+        }
+      ],
+      "secondary_external_services": [
+        {
+          "site": "0x39bb98",
+          "target": "0x2569d0"
+        },
+        {
+          "site": "0x39bba0",
+          "target": "0x256460"
+        }
+      ],
+      "setter_direct_call_candidates": [
+        {
+          "site": "0x3104b4",
+          "target": "0x39ba40",
+          "context": [
+            {
+              "pc": "0x310498",
+              "asm": "lui $at, 0x43"
+            },
+            {
+              "pc": "0x31049c",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x3104a0",
+              "asm": "lw $v0, -0x4350($at)"
+            },
+            {
+              "pc": "0x3104a4",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x3104a8",
+              "asm": "lw $a1, 0x28($v0)"
+            },
+            {
+              "pc": "0x3104ac",
+              "asm": "lbu $v0, 0x22($v0)"
+            },
+            {
+              "pc": "0x3104b0",
+              "asm": "dsll32 $v0, $v0, 0x1b"
+            },
+            {
+              "pc": "0x3104b4",
+              "asm": "jal 0x39ba40"
+            },
+            {
+              "pc": "0x3104b8",
+              "asm": "dsrl32 $a2, $v0, 0x1f"
+            }
+          ]
+        },
+        {
+          "site": "0x310820",
+          "target": "0x39bb50",
+          "context": [
+            {
+              "pc": "0x310804",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x310808",
+              "asm": "lh $a1, ($v1)"
+            },
+            {
+              "pc": "0x31080c",
+              "asm": "sll $v1, $a1, 2"
+            },
+            {
+              "pc": "0x310810",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x310814",
+              "asm": "sll $v1, $v1, 1"
+            },
+            {
+              "pc": "0x310818",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x31081c",
+              "asm": "sll $v1, $v1, 4"
+            },
+            {
+              "pc": "0x310820",
+              "asm": "jal 0x39bb50"
+            },
+            {
+              "pc": "0x310824",
+              "asm": "addu $a1, $v0, $v1"
+            }
+          ]
+        },
+        {
+          "site": "0x33ba30",
+          "target": "0x39ba40",
+          "context": [
+            {
+              "pc": "0x33ba14",
+              "asm": "move $a3, $zero"
+            },
+            {
+              "pc": "0x33ba18",
+              "asm": "jal 0x39b800"
+            },
+            {
+              "pc": "0x33ba1c",
+              "asm": "move $a2, $a1"
+            },
+            {
+              "pc": "0x33ba20",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33ba24",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33ba28",
+              "asm": "lw $a1, 0x38c0($at)"
+            },
+            {
+              "pc": "0x33ba2c",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33ba30",
+              "asm": "jal 0x39ba40"
+            },
+            {
+              "pc": "0x33ba34",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33bab8",
+          "target": "0x39bb50",
+          "context": [
+            {
+              "pc": "0x33ba9c",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33baa0",
+              "asm": "addiu $sp, $sp, -0x10"
+            },
+            {
+              "pc": "0x33baa4",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33baa8",
+              "asm": "sd $ra, ($sp)"
+            },
+            {
+              "pc": "0x33baac",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33bab0",
+              "asm": "lw $a1, 0x38cc($at)"
+            },
+            {
+              "pc": "0x33bab4",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33bab8",
+              "asm": "jal 0x39bb50"
+            },
+            {
+              "pc": "0x33babc",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c834",
+          "target": "0x39ba40",
+          "context": [
+            {
+              "pc": "0x33c818",
+              "asm": "jal 0x33d720"
+            },
+            {
+              "pc": "0x33c81c",
+              "asm": "lb $a0, 0x14($s0)"
+            },
+            {
+              "pc": "0x33c820",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c824",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c828",
+              "asm": "lw $a1, 0x4a20($at)"
+            },
+            {
+              "pc": "0x33c82c",
+              "asm": "move $s1, $v0"
+            },
+            {
+              "pc": "0x33c830",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33c834",
+              "asm": "jal 0x39ba40"
+            },
+            {
+              "pc": "0x33c838",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c860",
+          "target": "0x39bb50",
+          "context": [
+            {
+              "pc": "0x33c844",
+              "asm": "jal 0x39baa0"
+            },
+            {
+              "pc": "0x33c848",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33c84c",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c850",
+              "asm": "dsll32 $a2, $s4, 0x18"
+            },
+            {
+              "pc": "0x33c854",
+              "asm": "lw $a1, 0x4a28($at)"
+            },
+            {
+              "pc": "0x33c858",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c85c",
+              "asm": "dsra32 $a2, $a2, 0x18"
+            },
+            {
+              "pc": "0x33c860",
+              "asm": "jal 0x39bb50"
+            },
+            {
+              "pc": "0x33c864",
+              "asm": "addiu $a0, $a0, 0x6700"
+            }
+          ]
+        },
+        {
+          "site": "0x33c914",
+          "target": "0x39ba40",
+          "context": [
+            {
+              "pc": "0x33c8f8",
+              "asm": "jal 0x33d720"
+            },
+            {
+              "pc": "0x33c8fc",
+              "asm": "lb $a0, 0x14($s0)"
+            },
+            {
+              "pc": "0x33c900",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c904",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c908",
+              "asm": "lw $a1, 0x4a20($at)"
+            },
+            {
+              "pc": "0x33c90c",
+              "asm": "move $s1, $v0"
+            },
+            {
+              "pc": "0x33c910",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33c914",
+              "asm": "jal 0x39ba40"
+            },
+            {
+              "pc": "0x33c918",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c93c",
+          "target": "0x39bb50",
+          "context": [
+            {
+              "pc": "0x33c920",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c924",
+              "asm": "jal 0x39baa0"
+            },
+            {
+              "pc": "0x33c928",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33c92c",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c930",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c934",
+              "asm": "lw $a1, 0x4a28($at)"
+            },
+            {
+              "pc": "0x33c938",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33c93c",
+              "asm": "jal 0x39bb50"
+            },
+            {
+              "pc": "0x33c940",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c988",
+          "target": "0x39ba40",
+          "context": [
+            {
+              "pc": "0x33c96c",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33c970",
+              "asm": "bnez $s1, 0x33c9c0"
+            },
+            {
+              "pc": "0x33c974",
+              "asm": "move $s2, $v0"
+            },
+            {
+              "pc": "0x33c978",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c97c",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c980",
+              "asm": "lw $a1, 0x4a20($at)"
+            },
+            {
+              "pc": "0x33c984",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33c988",
+              "asm": "jal 0x39ba40"
+            },
+            {
+              "pc": "0x33c98c",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x33c9b4",
+          "target": "0x39bb50",
+          "context": [
+            {
+              "pc": "0x33c998",
+              "asm": "dsra32 $a1, $a1, 0x10"
+            },
+            {
+              "pc": "0x33c99c",
+              "asm": "jal 0x39baa0"
+            },
+            {
+              "pc": "0x33c9a0",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33c9a4",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c9a8",
+              "asm": "lui $a0, 0x6d"
+            },
+            {
+              "pc": "0x33c9ac",
+              "asm": "lw $a1, 0x4a28($at)"
+            },
+            {
+              "pc": "0x33c9b0",
+              "asm": "addiu $a0, $a0, 0x6700"
+            },
+            {
+              "pc": "0x33c9b4",
+              "asm": "jal 0x39bb50"
+            },
+            {
+              "pc": "0x33c9b8",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        }
+      ],
+      "owner_config": [
+        7169792,
+        7166520,
+        6074564,
+        7166528,
+        7166536,
+        7157964,
+        6064720,
+        7157952,
+        7157956
+      ],
+      "globals": {
+        "context": "0x6d6700",
+        "cursor": "0x6d5a38",
+        "limit": "0x5cb0c4",
+        "index": "0x6d5a40",
+        "selected": "0x6d5a48",
+        "alias": "0x6d38cc",
+        "table": "0x5c8a50",
+        "mirror_primary": "0x6d38c0",
+        "mirror_member": "0x6d38c4"
+      }
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "functions": {
+        "iterator": {
+          "entry": "0x3731e0",
+          "end": "0x373278",
+          "sha256": "5d67d9aa8da323df14eacaef42ac3b7a7830f90bae3f6cfe5c0976b12aad578c"
+        },
+        "reset": {
+          "entry": "0x3731d0",
+          "end": "0x3731e0",
+          "sha256": "5eb15db6812af6e0ff36cdd84c48c4251f95788b79e21a2caedc25a334446a62"
+        },
+        "getter": {
+          "entry": "0x373280",
+          "end": "0x373290",
+          "sha256": "bf2bf3611d5a606cbc46d0e809325d0083c011edda27ea58bfb6ee04e5797ed4"
+        },
+        "primary_setter": {
+          "entry": "0x3c65e0",
+          "end": "0x3c6638",
+          "sha256": "de2d108a027510b024a1ce2bfb08d1c11f735a6dd1aea22270b02522a9dc6523"
+        },
+        "secondary_setter": {
+          "entry": "0x3c66f0",
+          "end": "0x3c6778",
+          "sha256": "e9ba1e225b8467e7c2a82c145a8c295e314fcfccf7c1fadadb6d3c745c9b537c"
+        }
+      },
+      "caller_windows": [
+        {
+          "start": "0x334d60",
+          "branch": "0x334d70",
+          "success_stop": "0x334d90",
+          "failure_entry": "0x334db8",
+          "failure_stop": "0x334e68",
+          "failure_config": [
+            4765432,
+            1,
+            1
+          ],
+          "failure_block_sha256": "4dbc89e563a209273f34de6157d33688a3068c53a8a11d8bb1690aa1f1dd2dbd",
+          "sha256": "4bb31ae758f4c720a7b0a34c08e091a0b2621b50785d996e3a0ef879ac54b71b"
+        },
+        {
+          "start": "0x360bd0",
+          "branch": "0x360be0",
+          "success_stop": "0x360c00",
+          "failure_entry": "0x360c28",
+          "failure_stop": "0x360cb0",
+          "failure_config": [
+            7736912,
+            0,
+            2
+          ],
+          "failure_block_sha256": "cf1f58c1fe739d48fe82b31c97e2cdd23db5b137a6f042f989563f8cc9fd16b1",
+          "sha256": "4bb31ae758f4c720a7b0a34c08e091a0b2621b50785d996e3a0ef879ac54b71b"
+        }
+      ],
+      "secondary_external_services": [
+        {
+          "site": "0x3c6738",
+          "target": "0x25c820"
+        },
+        {
+          "site": "0x3c6740",
+          "target": "0x25c2b0"
+        }
+      ],
+      "setter_direct_call_candidates": [
+        {
+          "site": "0x334034",
+          "target": "0x3c65e0",
+          "context": [
+            {
+              "pc": "0x334018",
+              "asm": "lui $at, 0x49"
+            },
+            {
+              "pc": "0x33401c",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x334020",
+              "asm": "lw $v0, -0x4908($at)"
+            },
+            {
+              "pc": "0x334024",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x334028",
+              "asm": "lw $a1, 0x28($v0)"
+            },
+            {
+              "pc": "0x33402c",
+              "asm": "lbu $v0, 0x22($v0)"
+            },
+            {
+              "pc": "0x334030",
+              "asm": "dsll32 $v0, $v0, 0x1b"
+            },
+            {
+              "pc": "0x334034",
+              "asm": "jal 0x3c65e0"
+            },
+            {
+              "pc": "0x334038",
+              "asm": "dsrl32 $a2, $v0, 0x1f"
+            }
+          ]
+        },
+        {
+          "site": "0x3343a0",
+          "target": "0x3c66f0",
+          "context": [
+            {
+              "pc": "0x334384",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x334388",
+              "asm": "lh $a1, ($v1)"
+            },
+            {
+              "pc": "0x33438c",
+              "asm": "sll $v1, $a1, 2"
+            },
+            {
+              "pc": "0x334390",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x334394",
+              "asm": "sll $v1, $v1, 1"
+            },
+            {
+              "pc": "0x334398",
+              "asm": "addu $v1, $v1, $a1"
+            },
+            {
+              "pc": "0x33439c",
+              "asm": "sll $v1, $v1, 4"
+            },
+            {
+              "pc": "0x3343a0",
+              "asm": "jal 0x3c66f0"
+            },
+            {
+              "pc": "0x3343a4",
+              "asm": "addu $a1, $v0, $v1"
+            }
+          ]
+        },
+        {
+          "site": "0x360420",
+          "target": "0x3c65e0",
+          "context": [
+            {
+              "pc": "0x360404",
+              "asm": "move $a3, $zero"
+            },
+            {
+              "pc": "0x360408",
+              "asm": "jal 0x3c63a0"
+            },
+            {
+              "pc": "0x36040c",
+              "asm": "move $a2, $a1"
+            },
+            {
+              "pc": "0x360410",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x360414",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x360418",
+              "asm": "lw $a1, -0x430($at)"
+            },
+            {
+              "pc": "0x36041c",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x360420",
+              "asm": "jal 0x3c65e0"
+            },
+            {
+              "pc": "0x360424",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x3604a8",
+          "target": "0x3c66f0",
+          "context": [
+            {
+              "pc": "0x36048c",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x360490",
+              "asm": "addiu $sp, $sp, -0x10"
+            },
+            {
+              "pc": "0x360494",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x360498",
+              "asm": "sd $ra, ($sp)"
+            },
+            {
+              "pc": "0x36049c",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x3604a0",
+              "asm": "lw $a1, -0x424($at)"
+            },
+            {
+              "pc": "0x3604a4",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x3604a8",
+              "asm": "jal 0x3c66f0"
+            },
+            {
+              "pc": "0x3604ac",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x361224",
+          "target": "0x3c65e0",
+          "context": [
+            {
+              "pc": "0x361208",
+              "asm": "jal 0x3620c0"
+            },
+            {
+              "pc": "0x36120c",
+              "asm": "lb $a0, 0x14($s0)"
+            },
+            {
+              "pc": "0x361210",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x361214",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x361218",
+              "asm": "lw $a1, 0xe60($at)"
+            },
+            {
+              "pc": "0x36121c",
+              "asm": "move $s1, $v0"
+            },
+            {
+              "pc": "0x361220",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x361224",
+              "asm": "jal 0x3c65e0"
+            },
+            {
+              "pc": "0x361228",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x361250",
+          "target": "0x3c66f0",
+          "context": [
+            {
+              "pc": "0x361234",
+              "asm": "jal 0x3c6640"
+            },
+            {
+              "pc": "0x361238",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x36123c",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x361240",
+              "asm": "dsll32 $a2, $s4, 0x18"
+            },
+            {
+              "pc": "0x361244",
+              "asm": "lw $a1, 0xe68($at)"
+            },
+            {
+              "pc": "0x361248",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x36124c",
+              "asm": "dsra32 $a2, $a2, 0x18"
+            },
+            {
+              "pc": "0x361250",
+              "asm": "jal 0x3c66f0"
+            },
+            {
+              "pc": "0x361254",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            }
+          ]
+        },
+        {
+          "site": "0x361304",
+          "target": "0x3c65e0",
+          "context": [
+            {
+              "pc": "0x3612e8",
+              "asm": "jal 0x3620c0"
+            },
+            {
+              "pc": "0x3612ec",
+              "asm": "lb $a0, 0x14($s0)"
+            },
+            {
+              "pc": "0x3612f0",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x3612f4",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x3612f8",
+              "asm": "lw $a1, 0xe60($at)"
+            },
+            {
+              "pc": "0x3612fc",
+              "asm": "move $s1, $v0"
+            },
+            {
+              "pc": "0x361300",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x361304",
+              "asm": "jal 0x3c65e0"
+            },
+            {
+              "pc": "0x361308",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x36132c",
+          "target": "0x3c66f0",
+          "context": [
+            {
+              "pc": "0x361310",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x361314",
+              "asm": "jal 0x3c6640"
+            },
+            {
+              "pc": "0x361318",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x36131c",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x361320",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x361324",
+              "asm": "lw $a1, 0xe68($at)"
+            },
+            {
+              "pc": "0x361328",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x36132c",
+              "asm": "jal 0x3c66f0"
+            },
+            {
+              "pc": "0x361330",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x361378",
+          "target": "0x3c65e0",
+          "context": [
+            {
+              "pc": "0x36135c",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x361360",
+              "asm": "bnez $s1, 0x3613b0"
+            },
+            {
+              "pc": "0x361364",
+              "asm": "move $s2, $v0"
+            },
+            {
+              "pc": "0x361368",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x36136c",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x361370",
+              "asm": "lw $a1, 0xe60($at)"
+            },
+            {
+              "pc": "0x361374",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x361378",
+              "asm": "jal 0x3c65e0"
+            },
+            {
+              "pc": "0x36137c",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        },
+        {
+          "site": "0x3613a4",
+          "target": "0x3c66f0",
+          "context": [
+            {
+              "pc": "0x361388",
+              "asm": "dsra32 $a1, $a1, 0x10"
+            },
+            {
+              "pc": "0x36138c",
+              "asm": "jal 0x3c6640"
+            },
+            {
+              "pc": "0x361390",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x361394",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x361398",
+              "asm": "lui $a0, 0x76"
+            },
+            {
+              "pc": "0x36139c",
+              "asm": "lw $a1, 0xe68($at)"
+            },
+            {
+              "pc": "0x3613a0",
+              "asm": "addiu $a0, $a0, 0x2bd0"
+            },
+            {
+              "pc": "0x3613a4",
+              "asm": "jal 0x3c66f0"
+            },
+            {
+              "pc": "0x3613a8",
+              "asm": "move $a2, $zero"
+            }
+          ]
+        }
+      ],
+      "owner_config": [
+        7744464,
+        7741032,
+        6641540,
+        7741040,
+        7741048,
+        7732188,
+        6631696,
+        7732176,
+        7732180
+      ],
+      "globals": {
+        "context": "0x762bd0",
+        "cursor": "0x761e68",
+        "limit": "0x655784",
+        "index": "0x761e70",
+        "selected": "0x761e78",
+        "alias": "0x75fbdc",
+        "table": "0x653110",
+        "mirror_primary": "0x75fbd0",
+        "mirror_member": "0x75fbd4"
+      }
+    }
+  ]
+}

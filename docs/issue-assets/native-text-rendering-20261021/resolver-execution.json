@@ -1,0 +1,72 @@
+{
+  "status": "three_native_resolvers_all_16bit_codes_and_draw_classification_boundary_matrix_match_C_models",
+  "scope": "Exhaustive native glyph-index checks, plus classification boundary matrices.\nExecutes original standard-MIPS instruction slices; no LQ/SQ adapter required.\nNo PS2 graphical emulator is started and no game/source binary is written.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "resolver_range": [
+        "0x13a7a0",
+        "0x13a990"
+      ],
+      "code_count": 65536,
+      "all_results_le16_sha256": "c765c85a18bf230c4f5c89041e6f5c79850b0c94b1d73fc0403236a944c17ba1",
+      "results_outside_4480_glyph_store": 33119,
+      "extended_table_va": "0x3f7d70",
+      "extended_table_records": 229,
+      "extended_table_sha256": "5ca33993a9666202367f4127d4017ed81cc5d382e485f0b2b729e0c842fc3400",
+      "classification_flag_combinations": 32,
+      "classification_boundary_codes": 35,
+      "classification_cases": 1120,
+      "elapsed_seconds": 2.521
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "resolver_range": [
+        "0x13a7a0",
+        "0x13a990"
+      ],
+      "code_count": 65536,
+      "all_results_le16_sha256": "c765c85a18bf230c4f5c89041e6f5c79850b0c94b1d73fc0403236a944c17ba1",
+      "results_outside_4480_glyph_store": 33119,
+      "extended_table_va": "0x3f84f0",
+      "extended_table_records": 229,
+      "extended_table_sha256": "5ca33993a9666202367f4127d4017ed81cc5d382e485f0b2b729e0c842fc3400",
+      "classification_flag_combinations": 32,
+      "classification_boundary_codes": 35,
+      "classification_cases": 1120,
+      "elapsed_seconds": 2.535
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "resolver_range": [
+        "0x13b240",
+        "0x13b430"
+      ],
+      "code_count": 65536,
+      "all_results_le16_sha256": "c765c85a18bf230c4f5c89041e6f5c79850b0c94b1d73fc0403236a944c17ba1",
+      "results_outside_4480_glyph_store": 33119,
+      "extended_table_va": "0x4524f0",
+      "extended_table_records": 229,
+      "extended_table_sha256": "5ca33993a9666202367f4127d4017ed81cc5d382e485f0b2b729e0c842fc3400",
+      "classification_flag_combinations": 32,
+      "classification_boundary_codes": 35,
+      "classification_cases": 1120,
+      "elapsed_seconds": 2.499
+    }
+  ]
+}

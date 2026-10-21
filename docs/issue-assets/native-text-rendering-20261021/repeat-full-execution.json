@@ -1,0 +1,1027 @@
+{
+  "scope": "Native decimal parser and lazy setup executed, complete C composition of state, caches, records, packet and flag; declared EE adapters; no GS/LRPS2 claim.",
+  "status": "three_native_cached_repeat_paths_with_full_lazy_setup_and_decimal_match_C_composition",
+  "case_count": 60,
+  "cases": [
+    {
+      "edition": "original",
+      "case": 0,
+      "input": "-2147483648",
+      "expected_atoi_result": -2147483648,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "21c8bda7d90bb0c3217d46c978b157bc44ec43697650a565437e9bfb1071c765"
+    },
+    {
+      "edition": "original",
+      "case": 1,
+      "input": "-10",
+      "expected_atoi_result": -10,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "526b052bd86ec4e976b2c08db095684bf602445bd369f9359bd1e9672fb588e4",
+      "full_buffer_sha256": "bb442b4487a2bf261cd3ecc9e100c970695d71a2ba7e56652ff1128ade68848d",
+      "cache_sha256": "11227a036be7dccd82305a775c0277937d565a86ad924ea2170c1f0887334a4a"
+    },
+    {
+      "edition": "original",
+      "case": 2,
+      "input": "-1",
+      "expected_atoi_result": -1,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "d29dbbbe2d01c6de3d3ca0c01e71d7c4c2c12a37bfc4a652ee5e07f6c3e90898",
+      "full_buffer_sha256": "e2966ac3818bf9ba2576ef66d3e45fab751d364eb200b68c5150a2b2f65dd662",
+      "cache_sha256": "70e4b7ab128299dba6786f181bb137c97badb9d91785478f1b85ed43026b1cd3"
+    },
+    {
+      "edition": "original",
+      "case": 3,
+      "input": "0",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "2116be88a1255cec8ff97835e387ed3332bc80557596dc82bbeb990e4c36bf5a"
+    },
+    {
+      "edition": "original",
+      "case": 4,
+      "input": "1",
+      "expected_atoi_result": 1,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 208,
+      "returned_pointer": "0x19000d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "e2dfd68f3a128cb2665d74ac75e20f302ebc58df102d3af2224c9a1775eadbb4",
+      "full_buffer_sha256": "5e2c562b6779cb061927c89e9e9a14637f5b6e6f8398e510a2340d222edaf4ec",
+      "cache_sha256": "9a45a70228b49d2775477ec5072ec38cbc5072673a03bcb116119440ec8fff9e"
+    },
+    {
+      "edition": "original",
+      "case": 5,
+      "input": "2",
+      "expected_atoi_result": 2,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 272,
+      "returned_pointer": "0x1900110",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "262fcd386b200c4b58287eae3b0ef5f57287121ced372807b9f887ee77af9474",
+      "full_buffer_sha256": "c186c1174bc72ca61dc59a3b440464efaccdb34be8a12e1eee1cee5b9ed3bbf7",
+      "cache_sha256": "f245cce16b6d6668ee9601dd129dc580bba1e830a765ff4a45c870e1200dc6a5"
+    },
+    {
+      "edition": "original",
+      "case": 6,
+      "input": "7",
+      "expected_atoi_result": 7,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 592,
+      "returned_pointer": "0x1900250",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "38e4a5a0a1eef498fe7ae7df93066b70283545162416384d57f708d5dc651317",
+      "full_buffer_sha256": "1417d51549ea0ae02aeeb25f9f4dfd3d8e39d0ebce8fb67da8429dd258c627a8",
+      "cache_sha256": "e881fc8020f1db10b043cbf73bc753c0ebabc9f50e28d12fe1f802ac36bbc457"
+    },
+    {
+      "edition": "original",
+      "case": 7,
+      "input": "8",
+      "expected_atoi_result": 8,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 656,
+      "returned_pointer": "0x1900290",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "129132106e8ee466ae48e5e07560b86d64408d3c1597e45ef83da367360eff8e",
+      "full_buffer_sha256": "6ffee29b75df2eb664455785c50b0a98189a7bf232f6675dc2379ba7c9496c4f",
+      "cache_sha256": "c5ed8def762a307f489d689ffef6e179fe5a679606ee17f9315be1252cf60172"
+    },
+    {
+      "edition": "original",
+      "case": 8,
+      "input": "9",
+      "expected_atoi_result": 9,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "c3fb9bf0a5bb5e49ab7ae42f2013910f881991737d3c70eabc461855b96dae3f",
+      "full_buffer_sha256": "0ee1566edf6c3bf9b649e1b091f2c1d4b5a2cc782a4525f0d2970d3d6a5e3bcc",
+      "cache_sha256": "704fdb5e74a83fdf084f6ea73a618863254ca08c3f0f1363691f5e05b64da9ad"
+    },
+    {
+      "edition": "original",
+      "case": 9,
+      "input": "15",
+      "expected_atoi_result": 15,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1104,
+      "returned_pointer": "0x1900450",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "8000d57ef1361de3c6725df707bb5339ec87fd6bc7ffc3fac1b77db10b1b678d",
+      "full_buffer_sha256": "2853b2dc4c33d9e90aa22f1b169de4fa6d9a976316dfa10839c53a746b17895f",
+      "cache_sha256": "d4165722104cdf5f4495cfcc3ed352323a077eb6ceabe1d546972cac2852f002"
+    },
+    {
+      "edition": "original",
+      "case": 10,
+      "input": "16",
+      "expected_atoi_result": 16,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1168,
+      "returned_pointer": "0x1900490",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "12f8ba1863dd20de15159660d24072c2913ea229e5d8923678df42db720e3519",
+      "full_buffer_sha256": "213bbf0ecaf9d2116dc37e4aa2a48da75bf709a893470521e49d212bf18f795f",
+      "cache_sha256": "7e1f00db243649ed6b428d9eac89bef476e74a388cc00fd355f0ffb315f2dd29"
+    },
+    {
+      "edition": "original",
+      "case": 11,
+      "input": "17",
+      "expected_atoi_result": 17,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1232,
+      "returned_pointer": "0x19004d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "ac7623e5ee63ae4d8e67e13f5a8030004ec6972605b2bcf31f3f518817dd0acf",
+      "full_buffer_sha256": "fcf6a3ba6f02f81632d024b3c475c3dec0d7015d19d7e59c6bdda5abead933ce",
+      "cache_sha256": "677201d9fc0117703ff901601b04d36f977b718bf0576dd0b0b1d41a32d74751"
+    },
+    {
+      "edition": "original",
+      "case": 12,
+      "input": "31",
+      "expected_atoi_result": 31,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2128,
+      "returned_pointer": "0x1900850",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "caeef1e68a602a0aeccc29ec701e6a1c438f15b125b55b8375e60fa94d7874b2",
+      "full_buffer_sha256": "75a6e51828298ffed466172dac1a93f5d75f0b4b490dbcb3b3fe8af9ff732fd6",
+      "cache_sha256": "9b71ac2381db8e3bf0065ceb41d40fb1734b9a66ba8a8513cc81423e7d4ce3be"
+    },
+    {
+      "edition": "original",
+      "case": 13,
+      "input": "32",
+      "expected_atoi_result": 32,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2192,
+      "returned_pointer": "0x1900890",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "c415eeaebd59891971eea81e2c29b97b748c6e303fac3d35a9c555df0471d8df",
+      "full_buffer_sha256": "0a72a2362434f474872902e7c91e874a4094bda85baa03fb691becb7d2fc5c9b",
+      "cache_sha256": "9cf02e1736deb2f6b974c2941c02f6021f53150f8eb8e2e09eb4c85b990725e5"
+    },
+    {
+      "edition": "original",
+      "case": 14,
+      "input": "32766",
+      "expected_atoi_result": 32766,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097168,
+      "returned_pointer": "0x1b00010",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "069197d58cac99eeb4347d3bcd1a8b745a3590672b10814fc54dc1f38774e7ae",
+      "full_buffer_sha256": "7b9bf37bc3b9c0869bd7ea31af4c6fc1008656edcd0638ba5e85bc6b4597077d",
+      "cache_sha256": "0c0c5b7223830ad3aaee0de1b8abf016407d462c5ac1aa94d360c75ca9011232"
+    },
+    {
+      "edition": "original",
+      "case": 15,
+      "input": "32767",
+      "expected_atoi_result": 32767,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "d77cd9022b7a27c5e785eb3fdf33c1f398b0249eb223303ac7616bfb69fd437e",
+      "full_buffer_sha256": "d75a1c2be437628cd2abcaa97800e900c6ab8e9ba16585f3221453714a78c3d1",
+      "cache_sha256": "57df4887a4375208497fd08a4d17f65a91929ae70d863045a26fbd40f1d0ab70"
+    },
+    {
+      "edition": "original",
+      "case": 16,
+      "input": "32768",
+      "expected_atoi_result": 32768,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "49fb28e7a4320fcf5209dbb497afb16c4d9e6736d5633facf8b981c6ad70a2e5",
+      "full_buffer_sha256": "212598947e8709c0f7d00eec62fbabfd69ab56c019ee719c10f26418dc1e6de0",
+      "cache_sha256": "0d0eec78a2921712b0b8401e6eded4f4b05c785b0ecd587f79eebbd60ec4ac43"
+    },
+    {
+      "edition": "original",
+      "case": 17,
+      "input": "  +9xyz",
+      "expected_atoi_result": 9,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "79c54e7f6800eb587a252b76738e64845903a0f1edc41f1588e9e980406840cb",
+      "full_buffer_sha256": "bf00a117385f9b82358d44dd70e2936643fd4c46543fe7eaaea241640439d690",
+      "cache_sha256": "5f44987f796437460232daf6289e5f5151e7ba2e8ca5b07e3e5fe84ed10a45e1"
+    },
+    {
+      "edition": "original",
+      "case": 18,
+      "input": "nondigit",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "fd32a668e4538c5cab85f49c12a64bdad760a17799c73ee7c7490586396bdc3d"
+    },
+    {
+      "edition": "original",
+      "case": 19,
+      "input": "",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "76db30afe3a62b2463fd83489fc61c71ce702478e4e3a565ec794ffc0a4a9492"
+    },
+    {
+      "edition": "best",
+      "case": 0,
+      "input": "-2147483648",
+      "expected_atoi_result": -2147483648,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "5a0095fd8834cb3746b8b14a752035e2e489948209cf68bc2ef2f6e615ce1103"
+    },
+    {
+      "edition": "best",
+      "case": 1,
+      "input": "-10",
+      "expected_atoi_result": -10,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "526b052bd86ec4e976b2c08db095684bf602445bd369f9359bd1e9672fb588e4",
+      "full_buffer_sha256": "bb442b4487a2bf261cd3ecc9e100c970695d71a2ba7e56652ff1128ade68848d",
+      "cache_sha256": "fdd4cadfb9897cd9fac55aef75fb6656303c29efe9bf20ef4d56523cc649a11b"
+    },
+    {
+      "edition": "best",
+      "case": 2,
+      "input": "-1",
+      "expected_atoi_result": -1,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "d29dbbbe2d01c6de3d3ca0c01e71d7c4c2c12a37bfc4a652ee5e07f6c3e90898",
+      "full_buffer_sha256": "e2966ac3818bf9ba2576ef66d3e45fab751d364eb200b68c5150a2b2f65dd662",
+      "cache_sha256": "de2f3531831b04a6ec70fbe3a4dd5b33c75c8a5f99488b0f00e50d8b7314c41a"
+    },
+    {
+      "edition": "best",
+      "case": 3,
+      "input": "0",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "a70f857f2d1fe7493fbf1782ce165f216b06f9b169449fd7c22a3f16cf827206"
+    },
+    {
+      "edition": "best",
+      "case": 4,
+      "input": "1",
+      "expected_atoi_result": 1,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 208,
+      "returned_pointer": "0x19000d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "3b3aed192ee449802e3a730274cbbc84fbc226f66dad91b4822aede6729a1645",
+      "full_buffer_sha256": "21b98e3249f8b0d5581c9f20d001c2168b79387f0581c1bda6bcbfc5f4f4fe0e",
+      "cache_sha256": "6006c9be58e862f302ece226f208e888ece45f5355d53efdc5a7f4a34e1c784e"
+    },
+    {
+      "edition": "best",
+      "case": 5,
+      "input": "2",
+      "expected_atoi_result": 2,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 272,
+      "returned_pointer": "0x1900110",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "beeb33c699d3d1ac8fcc5261a06c98400ddb8c827fb86a9acc36cff3a93e08b4",
+      "full_buffer_sha256": "16bc112c5766655558d7210a3772e0e2d672aa3c3890098fc21a8e18cfc40672",
+      "cache_sha256": "12b53679fc6659f7cb33a44509df9dc5c0a00ad066aa8fc2088de9c214c3ad08"
+    },
+    {
+      "edition": "best",
+      "case": 6,
+      "input": "7",
+      "expected_atoi_result": 7,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 592,
+      "returned_pointer": "0x1900250",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "8ffa92042321393c1571da2c0490542b2811f39f87d49979a475a30ef8c0926e",
+      "full_buffer_sha256": "d844f8bd4282e0ccdb7440f85e6da18d4034b8237f7b8aef9c88cbcf50014222",
+      "cache_sha256": "d1a2bdc298a115f227e8bb5fbb3c5bacf8a0ea332b6703aa8c797bca6afa4836"
+    },
+    {
+      "edition": "best",
+      "case": 7,
+      "input": "8",
+      "expected_atoi_result": 8,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 656,
+      "returned_pointer": "0x1900290",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "441181e577d8286fd125583a359bad2427f02d045aad964b706b28d40a410eed",
+      "full_buffer_sha256": "1c39e4193aad001d8b8c838387f0ae03db59ed1717781aa51ca29154c4cdb924",
+      "cache_sha256": "975b65262e756a25ff9485558a5853786e350f0754a2f09267c71adeb25ed62d"
+    },
+    {
+      "edition": "best",
+      "case": 8,
+      "input": "9",
+      "expected_atoi_result": 9,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "e575b80190c7a6a24c0af49bba22ad5e89f6617f1cdbdd6aab472b4a3ff07a4b",
+      "full_buffer_sha256": "528e304ebcc8e8f6bfd8adaa80387f9e865f62768ba77590904efb6874c1ac4a",
+      "cache_sha256": "28013dcab7f7f68b74610e2533bce0c07daae699fd54ed0cf23de63f35f2cd8a"
+    },
+    {
+      "edition": "best",
+      "case": 9,
+      "input": "15",
+      "expected_atoi_result": 15,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1104,
+      "returned_pointer": "0x1900450",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "46afc4536ccd0ae8f2a3412d0aecb499db58c0f14cf97ac0bbb2f358458af384",
+      "full_buffer_sha256": "cbc90fd3c431b615530378bd7bb25c99d2c10633a65f4ec4948a1c6b7aa5fe84",
+      "cache_sha256": "8b142278fb22d149da17d9adba14124cd7bd39f15b0f4d1746930aedbbc6a2d0"
+    },
+    {
+      "edition": "best",
+      "case": 10,
+      "input": "16",
+      "expected_atoi_result": 16,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1168,
+      "returned_pointer": "0x1900490",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "0c31199ee0bdfc82cac552f54818927f6ab03708a65cdcb8001d02337e3a4339",
+      "full_buffer_sha256": "2d6d933b4fef29d1795ae6229b1bdef1a8416145ad7d40e78dc6850e3af5c7f9",
+      "cache_sha256": "1c02ac922a83112e15b2483534d2a41d596e9144ddeef40f331f5713399be2a5"
+    },
+    {
+      "edition": "best",
+      "case": 11,
+      "input": "17",
+      "expected_atoi_result": 17,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1232,
+      "returned_pointer": "0x19004d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "84522591c727ece07bd6f5fc66b9a1f31ccb3eac84e096a3d0ef5d6f04d3a436",
+      "full_buffer_sha256": "ed3333a3303b9847e7ea87461d5ce422a6d83537bb8302845697c0d7805418a5",
+      "cache_sha256": "7e5db440f0403c7a1b4d5b74eee06da78d65192466b5c1ce03dc3197087d3546"
+    },
+    {
+      "edition": "best",
+      "case": 12,
+      "input": "31",
+      "expected_atoi_result": 31,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2128,
+      "returned_pointer": "0x1900850",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "d939edb4e6d9fa7173a741712fd109ffdd478bf2ed50eddf222fe5425b6a1999",
+      "full_buffer_sha256": "a335fee5acfcc471cfff255f4801bd552a8222d5d0be41476d986390238f3082",
+      "cache_sha256": "b317594ceb7346d833cfbb5784a8c65500b2d4856d1cd73ad80c1c10f7089cf6"
+    },
+    {
+      "edition": "best",
+      "case": 13,
+      "input": "32",
+      "expected_atoi_result": 32,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2192,
+      "returned_pointer": "0x1900890",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "6e55d67d811df9ab4336511bf34de02518557fc08b85919faa8385a28af13096",
+      "full_buffer_sha256": "b1b29c53c8b118cebf43418df6caa237b4bba6eb8f9ea13baab7d93f1340b913",
+      "cache_sha256": "58927842f9e7836feee762552380b74f9453f3c0e19457f655a030e5bb0d2298"
+    },
+    {
+      "edition": "best",
+      "case": 14,
+      "input": "32766",
+      "expected_atoi_result": 32766,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097168,
+      "returned_pointer": "0x1b00010",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "53a53f3a28319774e7a1284e53f9bfbf68fd26527b85a96b9904c64d322a8717",
+      "full_buffer_sha256": "e02ea6cf0842692296a86ee273532f6317003336512e4e9a58b38ec0de6e67a1",
+      "cache_sha256": "e3bf6615119137d61b8a2440d29b06dab1b6f1c57c430725217e8ad801c55b53"
+    },
+    {
+      "edition": "best",
+      "case": 15,
+      "input": "32767",
+      "expected_atoi_result": 32767,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "0f9aa684b067d4cc2ec98ae93617a8a273ce73e18c62d30f59491a4747b0bb06",
+      "full_buffer_sha256": "6c77b69e829e339ab4f302f532bc774568a3597f9324f425fd426ed19d8ba06a",
+      "cache_sha256": "db3d36a2b858c27e466e0733ded47a1854af3eec10b845d2c8fa187949a8bcb6"
+    },
+    {
+      "edition": "best",
+      "case": 16,
+      "input": "32768",
+      "expected_atoi_result": 32768,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "ec34c3df7055192a8ff1819cc39a6272ab1ab611d868a50ece96f02e3bf58d0f",
+      "full_buffer_sha256": "45b7153f3ba9ef79abd5e79f4b1b34425b40d3f18d743e9bdc63595b8c15e04f",
+      "cache_sha256": "b519f868cb22c268eae0fa388e4161827b43d4eef9e130157fc320f32250eb6c"
+    },
+    {
+      "edition": "best",
+      "case": 17,
+      "input": "  +9xyz",
+      "expected_atoi_result": 9,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "8a0ff9074b7db8775013a7039e9dd45e56a459695352c71bc72a81e4d7d7b7a8",
+      "full_buffer_sha256": "4229de3d0e01fbfff0549333520216e3ee16c0fb89051cc9096edafc324e96d9",
+      "cache_sha256": "7cf7d5636e367602ca09041b8606db687c1418fb61aac75ba7645c335e00e20d"
+    },
+    {
+      "edition": "best",
+      "case": 18,
+      "input": "nondigit",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "b14be0874f041810644bedf89bb4e3738fb32ecb63d6ab7984f942e44d1ea47f"
+    },
+    {
+      "edition": "best",
+      "case": 19,
+      "input": "",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "2ce894d198117ebd5b884f2bd4bf45fc1f8fa21053b305ab6357edf49fe5ef71"
+    },
+    {
+      "edition": "sp",
+      "case": 0,
+      "input": "-2147483648",
+      "expected_atoi_result": -2147483648,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "ace8d6869ff4d305da071609b26fb4c552e8fbe8af47d718efb49df24bc5cb8a"
+    },
+    {
+      "edition": "sp",
+      "case": 1,
+      "input": "-10",
+      "expected_atoi_result": -10,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "526b052bd86ec4e976b2c08db095684bf602445bd369f9359bd1e9672fb588e4",
+      "full_buffer_sha256": "bb442b4487a2bf261cd3ecc9e100c970695d71a2ba7e56652ff1128ade68848d",
+      "cache_sha256": "87e69768418257c5cd3ae30cb71eb0b839ed9acd666344b8270195b6f5a6bfb9"
+    },
+    {
+      "edition": "sp",
+      "case": 2,
+      "input": "-1",
+      "expected_atoi_result": -1,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "d29dbbbe2d01c6de3d3ca0c01e71d7c4c2c12a37bfc4a652ee5e07f6c3e90898",
+      "full_buffer_sha256": "e2966ac3818bf9ba2576ef66d3e45fab751d364eb200b68c5150a2b2f65dd662",
+      "cache_sha256": "905f8f7b048f7e524269d7beada438ee283bd322a2a016cdba1531a5609962ad"
+    },
+    {
+      "edition": "sp",
+      "case": 3,
+      "input": "0",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "ebd553e02e615ae4aba45605bb0a2392444ded04e3e2004d1375a00e2c8ebf0f"
+    },
+    {
+      "edition": "sp",
+      "case": 4,
+      "input": "1",
+      "expected_atoi_result": 1,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 208,
+      "returned_pointer": "0x19000d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "411fa9aea19f56e50604f577e7b3ca648caaa0f5f30d5827cd483dcd33e97f5f",
+      "full_buffer_sha256": "1375c2f14bd597fcb0c398069e36024e63cc44b8d48faa51166f311691a00984",
+      "cache_sha256": "1c282474bdaa029077593d3943c48c0c5baf1875951f6125ace7882ff33a6624"
+    },
+    {
+      "edition": "sp",
+      "case": 5,
+      "input": "2",
+      "expected_atoi_result": 2,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 272,
+      "returned_pointer": "0x1900110",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "56d19e97e83606b87fe91f048bb983f403b0628ee18aa2c63d9cd7c3fa7a5026",
+      "full_buffer_sha256": "b5c095d13f5f13ef2ebc352aa2e304bddc52eae505c45a3418610a26792dfb72",
+      "cache_sha256": "7efd4fd9d36a1811d4d0d9963926581a37b107eee0d7bf31d2906c0211b5e47e"
+    },
+    {
+      "edition": "sp",
+      "case": 6,
+      "input": "7",
+      "expected_atoi_result": 7,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 592,
+      "returned_pointer": "0x1900250",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "3f228d4408789e20662bef18536cff57df320ad525aa402daabeebf565a7e334",
+      "full_buffer_sha256": "e1761d1f8970802f6ee3132100c03c6a03c7ac830528b38c5f361e70111d5a13",
+      "cache_sha256": "03c00f091cf0e1a6ff7a8ccd9c6d53b028e1cc9f7180039d59afae6dd8ab12cb"
+    },
+    {
+      "edition": "sp",
+      "case": 7,
+      "input": "8",
+      "expected_atoi_result": 8,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 656,
+      "returned_pointer": "0x1900290",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "13e9e63a70b0fd4d3dc9a14f7bfb64253b241374e8640e73473334539fe5d837",
+      "full_buffer_sha256": "78736ad4b95c9a7f055174dc35ca13eacd4dd4fb316c7de4a4cc838329fe0dae",
+      "cache_sha256": "a87a1ee6b357615595bd5717c8d52ca1c731a65714a1138129d940ef7e042770"
+    },
+    {
+      "edition": "sp",
+      "case": 8,
+      "input": "9",
+      "expected_atoi_result": 9,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "c0d0aa1fada2827d210e5aa82995a89021d24b41e7a02b8728f3117cf217537b",
+      "full_buffer_sha256": "e5e2d843f38a6e4a6b0f086e75238d0afb22ddc4e6ef621c995e12fe7baeda2f",
+      "cache_sha256": "e724ca77032f5efc99a4724fd7e4abf02bc6d3990c86e126db3191f49c7bc57d"
+    },
+    {
+      "edition": "sp",
+      "case": 9,
+      "input": "15",
+      "expected_atoi_result": 15,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1104,
+      "returned_pointer": "0x1900450",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "237987f1e13e744b1ae331aaed7b40cb7846348c717986c5fd14b0a6c243588c",
+      "full_buffer_sha256": "9a0115a7af245e8bbac57c6008fce6ed7b61efc711477f5a2479fb2f9758fffb",
+      "cache_sha256": "0e1234696194bddbaf264d62b95745c0cb08c54185425a526573e0bdf0042bbc"
+    },
+    {
+      "edition": "sp",
+      "case": 10,
+      "input": "16",
+      "expected_atoi_result": 16,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1168,
+      "returned_pointer": "0x1900490",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "f78201deb4ac5def3bee3014bad40e4d2d745efde0fd308d420c785443bd96e1",
+      "full_buffer_sha256": "1077359ebce5b66f678685535d044e4c9d1d8d31bff6aee469af4e8619f52832",
+      "cache_sha256": "42e6a84b805bf9e79595fd4afae442fb66b27615f93b8c2cd74ecae88b40bd61"
+    },
+    {
+      "edition": "sp",
+      "case": 11,
+      "input": "17",
+      "expected_atoi_result": 17,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1232,
+      "returned_pointer": "0x19004d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "7a8aec33139e44934e486f6b4d2540ca3500488190d4b2841a9252e513bb191c",
+      "full_buffer_sha256": "df1f0f6aa23f23d475bd9e3d857e03ea737f9be84fbc6acf45f2621561ec0f20",
+      "cache_sha256": "949e3ed84cd02f1f5d4ff863ee85254a93c6993e4c2d08e8afad112453e78fb0"
+    },
+    {
+      "edition": "sp",
+      "case": 12,
+      "input": "31",
+      "expected_atoi_result": 31,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2128,
+      "returned_pointer": "0x1900850",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "6bd7becf563ed462a4d4ad47fd2b4b7c431752ae1e4105a89f31f063b4e999fd",
+      "full_buffer_sha256": "5f2dfc1edd64c5be3cb9eb28978629489bede0b5cda32a81ba7f071eb8f091d2",
+      "cache_sha256": "e3594aed5d60cc377b16d1b8bdabda861ff8439f80fe5abc8a5e2ef2a25eace6"
+    },
+    {
+      "edition": "sp",
+      "case": 13,
+      "input": "32",
+      "expected_atoi_result": 32,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2192,
+      "returned_pointer": "0x1900890",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "3beeb3a56c4b4bc6f222cdaec82b7f746abb4deb66dcb36e34724b6562b607ff",
+      "full_buffer_sha256": "f0cde3a8964f3e5b01d18ef91fb75b4258e22eae42b10c86519fcc618dd1df07",
+      "cache_sha256": "84f8fd82aa5cc0ca79f26f76b1221731a05f7437ed42bd8d923a2624ca66b1d9"
+    },
+    {
+      "edition": "sp",
+      "case": 14,
+      "input": "32766",
+      "expected_atoi_result": 32766,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097168,
+      "returned_pointer": "0x1b00010",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "e8c7b087ef83f732f2164e0481ab7c993eb9d570717ca3bd08476ffd081b4d81",
+      "full_buffer_sha256": "d300a63b92804c19b674ffd2f5eeca655a95aff206102b1a5938b677cbfddad2",
+      "cache_sha256": "ad6bf3229a1bb726942db0d516cb653e69b4207acd90fc610b336355bcfbe35e"
+    },
+    {
+      "edition": "sp",
+      "case": 15,
+      "input": "32767",
+      "expected_atoi_result": 32767,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "a6683c404aabdb66f63640ae7d472c621db6df46ac819d809cc642e053f53eb0",
+      "full_buffer_sha256": "4cd2f42a60e6fbbad053c417d7fafe4f63a6d4b1f40398029f02ac94134c9344",
+      "cache_sha256": "5cad611eaafb0e6cc84079d66cfcb298c060af0cc95e386bd159551a89df6ee9"
+    },
+    {
+      "edition": "sp",
+      "case": 16,
+      "input": "32768",
+      "expected_atoi_result": 32768,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "4d044f4ee1ba1483e25a60c5cb129f775a12292670e327354db5fddd71a78f50",
+      "full_buffer_sha256": "e6d506ca15d7b085790cbfd8bf08a3443f106489cc6ec4339cd5f5ff82a45ec3",
+      "cache_sha256": "232c25ce1ce72063fe375102aae6e7821fddd23431ab91940ee943bbd0f1079d"
+    },
+    {
+      "edition": "sp",
+      "case": 17,
+      "input": "  +9xyz",
+      "expected_atoi_result": 9,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "c90841f0989c962fbf86ec0c8d3a60b1b23dc5d319642c76ca9a740f324d51d4",
+      "full_buffer_sha256": "9ffec0bcb009dfe9cc18a19bd57efaae62c609b5372e143c72971f423e229a54",
+      "cache_sha256": "7685e8319a8cec882c70ace41b52dca30d42a088f9384aeae5ec50f6d095065f"
+    },
+    {
+      "edition": "sp",
+      "case": 18,
+      "input": "nondigit",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "5b5f3a912f3ccf53035138a8b9acc049675b4490fb02f708b935c648a59f0732"
+    },
+    {
+      "edition": "sp",
+      "case": 19,
+      "input": "",
+      "expected_atoi_result": 0,
+      "cache_initialization": "native full setup",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "b5df3657a26dc7122e9cfe8db92408bdd218f4a446049f98a1d74e4677b32a73",
+      "full_buffer_sha256": "359db85dd5c2de3611134ed42a8e3967bbb886e43e96ac71b022c70cd005f4da",
+      "cache_sha256": "5d96f149f41a47f56dde62a99fd22b0df9e80a5e2a4d4496f3610ddae8119e32"
+    }
+  ]
+}

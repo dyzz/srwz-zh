@@ -1,0 +1,110 @@
+{
+  "scope": "Independent native numeric/symbol renderer bindings and literal tables.",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "functions": {
+        "unsigned_number": {
+          "entry": "0x13bd60",
+          "end": "0x13c000",
+          "sha256": "6fa3a5c6d82cd0116b4a48d1cd74c4998b5e33b3fddb4029c43180407662013a"
+        },
+        "signed_number": {
+          "entry": "0x13c000",
+          "end": "0x13c190",
+          "sha256": "f4bea40b31cff0aaee532ad409b10da8fc3bbe470dbe030fae22ef2c7910177d"
+        },
+        "symbol_list": {
+          "entry": "0x13c190",
+          "end": "0x13c390",
+          "sha256": "5e0a66a549a1e29b09bbdb813778da593fecf11b15ccdd1ab28705093342a32e"
+        },
+        "initialize_record_group": {
+          "entry": "0x13c410",
+          "end": "0x13c5a0",
+          "sha256": "9a27d4712dec2712ec2aa153d88011c97ae3ef071405ea96b51e22d1552d801c"
+        },
+        "text_at_position": {
+          "entry": "0x13c5a0",
+          "end": "0x13c5c0",
+          "sha256": "be942f9ffd1534c2fadff84a8a9513b745d22889a607b182d7a187c93ec4632f"
+        }
+      }
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "functions": {
+        "unsigned_number": {
+          "entry": "0x13bd60",
+          "end": "0x13c000",
+          "sha256": "7979fd0e7318be23b2f2101b48362c297274ff7c3c6152160e489ac6d5a6e768"
+        },
+        "signed_number": {
+          "entry": "0x13c000",
+          "end": "0x13c190",
+          "sha256": "13604fa3d2bfcd1cac9785fb9a9c6c5f2501b0d34d5597c10a7fff8daf6a8a31"
+        },
+        "symbol_list": {
+          "entry": "0x13c190",
+          "end": "0x13c390",
+          "sha256": "dad2c96c67e22a88742dfebed384c68662e11e0147db88c8993b359096d3834a"
+        },
+        "initialize_record_group": {
+          "entry": "0x13c410",
+          "end": "0x13c5a0",
+          "sha256": "365db2c43bb4b007af9908d5e2e8c9cd3cb9cd428a4c096700ca237333c2a752"
+        },
+        "text_at_position": {
+          "entry": "0x13c5a0",
+          "end": "0x13c5c0",
+          "sha256": "3a9e693248f436650c60eac00671001911a4dd31cc5514d0af16ab19280e6903"
+        }
+      }
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "functions": {
+        "unsigned_number": {
+          "entry": "0x13c800",
+          "end": "0x13caa0",
+          "sha256": "a4d77ffc269fc88d4791b54ab93d4110634940dc5ba9e0498ff9de16b18a6d63"
+        },
+        "signed_number": {
+          "entry": "0x13caa0",
+          "end": "0x13cc30",
+          "sha256": "4e0f84d35b454614bbad2bcde3044d74f96c3644ff65aa0faf998f7d03543c3a"
+        },
+        "symbol_list": {
+          "entry": "0x13cc30",
+          "end": "0x13ce40",
+          "sha256": "ea5969237f23885c605e833e3fc9736f4af9b947a937e9dca2cc7a6d8d463582"
+        },
+        "initialize_record_group": {
+          "entry": "0x13cec0",
+          "end": "0x13d050",
+          "sha256": "a0ce79128665ce7fe473b125297430661366d642c0de8ab03c16a38929b38d45"
+        },
+        "text_at_position": {
+          "entry": "0x13d050",
+          "end": "0x13d070",
+          "sha256": "f5c67e12d74060781c350f555b2faccb400ee71671ad3afff8f4a0c2febe4d12"
+        }
+      }
+    }
+  ]
+}

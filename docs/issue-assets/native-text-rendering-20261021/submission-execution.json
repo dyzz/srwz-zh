@@ -1,0 +1,6793 @@
+{
+  "scope": "Three native DMA address mapper + ready-channel chain-send compositions.\nOriginal wait helper executes against RAM-backed channel with start bit clear.\nNo stubs or live MMIO. Checks all channel bytes and native store ordering.\nNo busy-channel completion, cache syscall effects, or DMA/GS timing claim.\n",
+  "status": "three_native_mapper_wait_ready_send_paths_match_C_and_store_order",
+  "case_count": 396,
+  "cases": [
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x0",
+      "output": "0x0"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x1",
+      "output": "0x1"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xfffffff",
+      "output": "0xfffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x10000000",
+      "output": "0x10000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x10000001",
+      "output": "0x10000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x1fffffff",
+      "output": "0x1fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x20000000",
+      "output": "0x20000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x20000001",
+      "output": "0x20000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x2fffffff",
+      "output": "0x2fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x30000000",
+      "output": "0x30000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x30000001",
+      "output": "0x30000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x3fffffff",
+      "output": "0x3fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x40000000",
+      "output": "0x40000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x40000001",
+      "output": "0x40000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x4fffffff",
+      "output": "0x4fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x50000000",
+      "output": "0x50000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x50000001",
+      "output": "0x50000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x5fffffff",
+      "output": "0x5fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x60000000",
+      "output": "0x60000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x60000001",
+      "output": "0x60000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x6fffffff",
+      "output": "0x6fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x70000000",
+      "output": "0x80000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x70000001",
+      "output": "0x80000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x7fffffff",
+      "output": "0x8fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x80000000",
+      "output": "0x80000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x80000001",
+      "output": "0x80000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x8fffffff",
+      "output": "0x8fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x90000000",
+      "output": "0x90000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x90000001",
+      "output": "0x90000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0x9fffffff",
+      "output": "0x9fffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xa0000000",
+      "output": "0xa0000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xa0000001",
+      "output": "0xa0000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xafffffff",
+      "output": "0xafffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xb0000000",
+      "output": "0xb0000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xb0000001",
+      "output": "0xb0000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xbfffffff",
+      "output": "0xbfffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xc0000000",
+      "output": "0xc0000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xc0000001",
+      "output": "0xc0000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xcfffffff",
+      "output": "0xcfffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xd0000000",
+      "output": "0xd0000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xd0000001",
+      "output": "0xd0000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xdfffffff",
+      "output": "0xdfffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xe0000000",
+      "output": "0xe0000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xe0000001",
+      "output": "0xe0000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xefffffff",
+      "output": "0xefffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xf0000000",
+      "output": "0xf0000000"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xf0000001",
+      "output": "0xf0000001"
+    },
+    {
+      "edition": "original",
+      "kind": "address_map",
+      "input": "0xffffffff",
+      "output": "0xffffffff"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "517d350b02518c63826517fa26d8c1f57f5ecb781074c37ea3b47d676d8c426c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "89b6433d1b1d9b687927bab1046ec9f81ecc16f0445f9243a4ae4e5767266995"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "517d350b02518c63826517fa26d8c1f57f5ecb781074c37ea3b47d676d8c426c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "2a86e682de9d66552fa7a9501f84f92d9d5e6bfa91a5e954e50456626163d659"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "a3bfafed04479151f9dc4e14b73129d35ffccff66776be9db2301ad643f576ba"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "ee9e10a13d7a034dbe7dde4d6e6fb48b68a4d2c10bb8703446c015d08351acb7"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "83f9de0f5b8c2866bf2074910d4be6656736b43379447db635eea8603d346464"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "ee9e10a13d7a034dbe7dde4d6e6fb48b68a4d2c10bb8703446c015d08351acb7"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "a8cd8eec00d0178694657253a5c56142acae81fb0dec18963a52e7a2f8170f3c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "b537795d8d04e0491ceb95ee759d8ececd6c0562805365920881ff0aa76cd9b8"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "b27e9b158168c8bfdf53fefc8a04d6da1f8f33b57a0d96e567edb7bf85ada642"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "be67d3f804ad5971a43269017461b273a5ff95c01867dd2e0dba5bdc31c3730b"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "b27e9b158168c8bfdf53fefc8a04d6da1f8f33b57a0d96e567edb7bf85ada642"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "2c8d9cebbd1c09ecf4aa07984c4e87daaf27d21db6948128b7fb8fb0a3df2fed"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "301f4c4eb12c0b07172fdd8cb885823813af1ffafbd0e59833b0c7cd60de53e3"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b3dc8cd651472d8824e2d2d179e96f643a75c0d5ca2cdd4ac115c6887e0ca44a"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "a49dd12dcb60cb90d35417367609d756b33c514d9acb913fbd34975885341fac"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b3dc8cd651472d8824e2d2d179e96f643a75c0d5ca2cdd4ac115c6887e0ca44a"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b0049471b45aff206946aa21bfc1a66f6845e689b662bfcdad50b6df20d30132"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "57514f0a24dbb0efbff6c7740801f54df24fa40e389e7b996ca2490d88a5f416"
+    },
+    {
+      "edition": "original",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x0",
+      "output": "0x0"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x1",
+      "output": "0x1"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xfffffff",
+      "output": "0xfffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x10000000",
+      "output": "0x10000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x10000001",
+      "output": "0x10000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x1fffffff",
+      "output": "0x1fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x20000000",
+      "output": "0x20000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x20000001",
+      "output": "0x20000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x2fffffff",
+      "output": "0x2fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x30000000",
+      "output": "0x30000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x30000001",
+      "output": "0x30000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x3fffffff",
+      "output": "0x3fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x40000000",
+      "output": "0x40000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x40000001",
+      "output": "0x40000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x4fffffff",
+      "output": "0x4fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x50000000",
+      "output": "0x50000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x50000001",
+      "output": "0x50000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x5fffffff",
+      "output": "0x5fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x60000000",
+      "output": "0x60000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x60000001",
+      "output": "0x60000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x6fffffff",
+      "output": "0x6fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x70000000",
+      "output": "0x80000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x70000001",
+      "output": "0x80000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x7fffffff",
+      "output": "0x8fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x80000000",
+      "output": "0x80000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x80000001",
+      "output": "0x80000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x8fffffff",
+      "output": "0x8fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x90000000",
+      "output": "0x90000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x90000001",
+      "output": "0x90000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0x9fffffff",
+      "output": "0x9fffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xa0000000",
+      "output": "0xa0000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xa0000001",
+      "output": "0xa0000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xafffffff",
+      "output": "0xafffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xb0000000",
+      "output": "0xb0000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xb0000001",
+      "output": "0xb0000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xbfffffff",
+      "output": "0xbfffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xc0000000",
+      "output": "0xc0000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xc0000001",
+      "output": "0xc0000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xcfffffff",
+      "output": "0xcfffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xd0000000",
+      "output": "0xd0000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xd0000001",
+      "output": "0xd0000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xdfffffff",
+      "output": "0xdfffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xe0000000",
+      "output": "0xe0000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xe0000001",
+      "output": "0xe0000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xefffffff",
+      "output": "0xefffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xf0000000",
+      "output": "0xf0000000"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xf0000001",
+      "output": "0xf0000001"
+    },
+    {
+      "edition": "best",
+      "kind": "address_map",
+      "input": "0xffffffff",
+      "output": "0xffffffff"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "517d350b02518c63826517fa26d8c1f57f5ecb781074c37ea3b47d676d8c426c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "89b6433d1b1d9b687927bab1046ec9f81ecc16f0445f9243a4ae4e5767266995"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "517d350b02518c63826517fa26d8c1f57f5ecb781074c37ea3b47d676d8c426c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "2a86e682de9d66552fa7a9501f84f92d9d5e6bfa91a5e954e50456626163d659"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "a3bfafed04479151f9dc4e14b73129d35ffccff66776be9db2301ad643f576ba"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "ee9e10a13d7a034dbe7dde4d6e6fb48b68a4d2c10bb8703446c015d08351acb7"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "83f9de0f5b8c2866bf2074910d4be6656736b43379447db635eea8603d346464"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "ee9e10a13d7a034dbe7dde4d6e6fb48b68a4d2c10bb8703446c015d08351acb7"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "a8cd8eec00d0178694657253a5c56142acae81fb0dec18963a52e7a2f8170f3c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "b537795d8d04e0491ceb95ee759d8ececd6c0562805365920881ff0aa76cd9b8"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "b27e9b158168c8bfdf53fefc8a04d6da1f8f33b57a0d96e567edb7bf85ada642"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "be67d3f804ad5971a43269017461b273a5ff95c01867dd2e0dba5bdc31c3730b"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "b27e9b158168c8bfdf53fefc8a04d6da1f8f33b57a0d96e567edb7bf85ada642"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "2c8d9cebbd1c09ecf4aa07984c4e87daaf27d21db6948128b7fb8fb0a3df2fed"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "301f4c4eb12c0b07172fdd8cb885823813af1ffafbd0e59833b0c7cd60de53e3"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b3dc8cd651472d8824e2d2d179e96f643a75c0d5ca2cdd4ac115c6887e0ca44a"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "a49dd12dcb60cb90d35417367609d756b33c514d9acb913fbd34975885341fac"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b3dc8cd651472d8824e2d2d179e96f643a75c0d5ca2cdd4ac115c6887e0ca44a"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b0049471b45aff206946aa21bfc1a66f6845e689b662bfcdad50b6df20d30132"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "57514f0a24dbb0efbff6c7740801f54df24fa40e389e7b996ca2490d88a5f416"
+    },
+    {
+      "edition": "best",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x0",
+      "output": "0x0"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x1",
+      "output": "0x1"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xfffffff",
+      "output": "0xfffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x10000000",
+      "output": "0x10000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x10000001",
+      "output": "0x10000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x1fffffff",
+      "output": "0x1fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x20000000",
+      "output": "0x20000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x20000001",
+      "output": "0x20000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x2fffffff",
+      "output": "0x2fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x30000000",
+      "output": "0x30000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x30000001",
+      "output": "0x30000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x3fffffff",
+      "output": "0x3fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x40000000",
+      "output": "0x40000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x40000001",
+      "output": "0x40000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x4fffffff",
+      "output": "0x4fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x50000000",
+      "output": "0x50000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x50000001",
+      "output": "0x50000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x5fffffff",
+      "output": "0x5fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x60000000",
+      "output": "0x60000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x60000001",
+      "output": "0x60000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x6fffffff",
+      "output": "0x6fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x70000000",
+      "output": "0x80000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x70000001",
+      "output": "0x80000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x7fffffff",
+      "output": "0x8fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x80000000",
+      "output": "0x80000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x80000001",
+      "output": "0x80000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x8fffffff",
+      "output": "0x8fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x90000000",
+      "output": "0x90000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x90000001",
+      "output": "0x90000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0x9fffffff",
+      "output": "0x9fffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xa0000000",
+      "output": "0xa0000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xa0000001",
+      "output": "0xa0000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xafffffff",
+      "output": "0xafffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xb0000000",
+      "output": "0xb0000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xb0000001",
+      "output": "0xb0000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xbfffffff",
+      "output": "0xbfffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xc0000000",
+      "output": "0xc0000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xc0000001",
+      "output": "0xc0000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xcfffffff",
+      "output": "0xcfffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xd0000000",
+      "output": "0xd0000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xd0000001",
+      "output": "0xd0000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xdfffffff",
+      "output": "0xdfffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xe0000000",
+      "output": "0xe0000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xe0000001",
+      "output": "0xe0000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xefffffff",
+      "output": "0xefffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xf0000000",
+      "output": "0xf0000000"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xf0000001",
+      "output": "0xf0000001"
+    },
+    {
+      "edition": "sp",
+      "kind": "address_map",
+      "input": "0xffffffff",
+      "output": "0xffffffff"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x0",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "517d350b02518c63826517fa26d8c1f57f5ecb781074c37ea3b47d676d8c426c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "89b6433d1b1d9b687927bab1046ec9f81ecc16f0445f9243a4ae4e5767266995"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "517d350b02518c63826517fa26d8c1f57f5ecb781074c37ea3b47d676d8c426c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "2a86e682de9d66552fa7a9501f84f92d9d5e6bfa91a5e954e50456626163d659"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "a3bfafed04479151f9dc4e14b73129d35ffccff66776be9db2301ad643f576ba"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x2",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x107",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 263
+        }
+      ],
+      "channel_sha256": "6eca22480c4ba5df6ed8fd282d9a47ad514ac19ce9237679670226915f52edb5"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x4",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "9165bd87a85df24e36c957097995527d7163a90b8feab1e66be69ed9abba6a8d"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "d6ef8680c207cb156a688cd3870763640f385d41611b89bce3c1c7f792c75a00"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "b4a6032c177e6f73d26364da7e4186dd991182a9b691e676e5bea425c8184995"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "f5ea073f582d57e174c0fed8831f5fafa0fbb4458561a77850e82a7458077343"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x8",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x105",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 261
+        }
+      ],
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "ee9e10a13d7a034dbe7dde4d6e6fb48b68a4d2c10bb8703446c015d08351acb7"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "83f9de0f5b8c2866bf2074910d4be6656736b43379447db635eea8603d346464"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "ee9e10a13d7a034dbe7dde4d6e6fb48b68a4d2c10bb8703446c015d08351acb7"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "a8cd8eec00d0178694657253a5c56142acae81fb0dec18963a52e7a2f8170f3c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "b537795d8d04e0491ceb95ee759d8ececd6c0562805365920881ff0aa76cd9b8"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x80",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x185",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 389
+        }
+      ],
+      "channel_sha256": "e5140eec274bd766696688b9236a243fc15d6d00d0b549c86885c79baa998c0b"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "b27e9b158168c8bfdf53fefc8a04d6da1f8f33b57a0d96e567edb7bf85ada642"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "be67d3f804ad5971a43269017461b273a5ff95c01867dd2e0dba5bdc31c3730b"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "b27e9b158168c8bfdf53fefc8a04d6da1f8f33b57a0d96e567edb7bf85ada642"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "2c8d9cebbd1c09ecf4aa07984c4e87daaf27d21db6948128b7fb8fb0a3df2fed"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "301f4c4eb12c0b07172fdd8cb885823813af1ffafbd0e59833b0c7cd60de53e3"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0x200",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0x305",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 773
+        }
+      ],
+      "channel_sha256": "c0102bd8c3aee3b69270086c087d617b199fbc1f20ceab5a5ec0fa792a3d3b9c"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x70100000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x80001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x20001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0x1c00000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0xffffffff",
+      "chain": "0xffffffff",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b3dc8cd651472d8824e2d2d179e96f643a75c0d5ca2cdd4ac115c6887e0ca44a"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x70100000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2148532224
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "a49dd12dcb60cb90d35417367609d756b33c514d9acb913fbd34975885341fac"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x80001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 2147488304
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b3dc8cd651472d8824e2d2d179e96f643a75c0d5ca2cdd4ac115c6887e0ca44a"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x20001230",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 536875568
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "b0049471b45aff206946aa21bfc1a66f6845e689b662bfcdad50b6df20d30132"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0x1c00000",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 29360128
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "57514f0a24dbb0efbff6c7740801f54df24fa40e389e7b996ca2490d88a5f416"
+    },
+    {
+      "edition": "sp",
+      "kind": "ready_send",
+      "initial_control": "0xfffffefe",
+      "initial_tadr": "0x12345678",
+      "chain": "0xffffffff",
+      "returned_control": "0xfffffff7",
+      "stores": [
+        {
+          "offset": 48,
+          "size": 4,
+          "value": 4294967295
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "value": 0
+        },
+        {
+          "offset": 0,
+          "size": 4,
+          "value": 4294967287
+        }
+      ],
+      "channel_sha256": "9f060d895ca3034338e61acd418b357204362dcb3e31fa918a3bc246ade78814"
+    }
+  ]
+}

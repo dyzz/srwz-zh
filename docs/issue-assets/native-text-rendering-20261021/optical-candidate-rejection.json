@@ -1,0 +1,116 @@
+{
+  "status": "first_candidate_rejected_despite_C_differential_match",
+  "reason": "native reset updates persistent height but keeps cached working height; correlation guard can expose synthetic marker as geometry",
+  "counterexamples": [
+    {
+      "edition": "original",
+      "case": "optical_reset_8c",
+      "actual_geometry_after_reset": [
+        18,
+        140
+      ],
+      "required_geometry_after_reset": [
+        18,
+        12
+      ]
+    },
+    {
+      "edition": "original",
+      "case": "optical_reset_8d",
+      "actual_geometry_after_reset": [
+        18,
+        141
+      ],
+      "required_geometry_after_reset": [
+        18,
+        13
+      ]
+    },
+    {
+      "edition": "original",
+      "case": "optical_reset_8e",
+      "actual_geometry_after_reset": [
+        18,
+        142
+      ],
+      "required_geometry_after_reset": [
+        18,
+        14
+      ]
+    },
+    {
+      "edition": "best",
+      "case": "optical_reset_8c",
+      "actual_geometry_after_reset": [
+        18,
+        140
+      ],
+      "required_geometry_after_reset": [
+        18,
+        12
+      ]
+    },
+    {
+      "edition": "best",
+      "case": "optical_reset_8d",
+      "actual_geometry_after_reset": [
+        18,
+        141
+      ],
+      "required_geometry_after_reset": [
+        18,
+        13
+      ]
+    },
+    {
+      "edition": "best",
+      "case": "optical_reset_8e",
+      "actual_geometry_after_reset": [
+        18,
+        142
+      ],
+      "required_geometry_after_reset": [
+        18,
+        14
+      ]
+    },
+    {
+      "edition": "sp",
+      "case": "optical_reset_8c",
+      "actual_geometry_after_reset": [
+        18,
+        140
+      ],
+      "required_geometry_after_reset": [
+        18,
+        12
+      ]
+    },
+    {
+      "edition": "sp",
+      "case": "optical_reset_8d",
+      "actual_geometry_after_reset": [
+        18,
+        141
+      ],
+      "required_geometry_after_reset": [
+        18,
+        13
+      ]
+    },
+    {
+      "edition": "sp",
+      "case": "optical_reset_8e",
+      "actual_geometry_after_reset": [
+        18,
+        142
+      ],
+      "required_geometry_after_reset": [
+        18,
+        14
+      ]
+    }
+  ],
+  "proof": "optical-candidate-correlation-rejected.json",
+  "replacement": "independent per-call flag in verified unused frame bytes SP+58..5B"
+}

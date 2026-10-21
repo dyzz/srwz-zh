@@ -1,0 +1,144 @@
+; iterator
+0034e310 3c01006d lui $at, 0x6d
+0034e314 8c245a38 lw $a0, 0x5a38($at)
+0034e318 3c01005d lui $at, 0x5d
+0034e31c 8c22b0c4 lw $v0, -0x4f3c($at)
+0034e320 3c01006d lui $at, 0x6d
+0034e324 ac245a40 sw $a0, 0x5a40($at)
+0034e328 0082082a slt $at, $a0, $v0
+0034e32c 14200004 bnez $at, 0x34e340
+0034e330 0000102d move $v0, $zero
+0034e334 1000001a b 0x34e3a0
+0034e338 00000000 nop 
+0034e33c 00000000 nop 
+0034e340 00041040 sll $v0, $a0, 1
+0034e344 00441821 addu $v1, $v0, $a0
+0034e348 3c01006d lui $at, 0x6d
+0034e34c 24820001 addiu $v0, $a0, 1
+0034e350 00032080 sll $a0, $v1, 2
+0034e354 3c03005d lui $v1, 0x5d
+0034e358 24638a50 addiu $v1, $v1, -0x75b0
+0034e35c 00641821 addu $v1, $v1, $a0
+0034e360 8c630000 lw $v1, ($v1)
+0034e364 14600004 bnez $v1, 0x34e378
+0034e368 ac225a38 sw $v0, 0x5a38($at)
+0034e36c 1000000c b 0x34e3a0
+0034e370 0000102d move $v0, $zero
+0034e374 00000000 nop 
+0034e378 8c630008 lw $v1, 8($v1)
+0034e37c 3c01006d lui $at, 0x6d
+0034e380 24020001 addiu $v0, $zero, 1
+0034e384 8c630008 lw $v1, 8($v1)
+0034e388 ac235a48 sw $v1, 0x5a48($at)
+0034e38c 3c01006d lui $at, 0x6d
+0034e390 8c235a48 lw $v1, 0x5a48($at)
+0034e394 3c01006d lui $at, 0x6d
+0034e398 ac2338cc sw $v1, 0x38cc($at)
+0034e39c 00000000 nop 
+0034e3a0 03e00008 jr $ra
+0034e3a4 00000000 nop 
+; reset
+0034e300 3c01006d lui $at, 0x6d
+0034e304 03e00008 jr $ra
+0034e308 ac205a38 sw $zero, 0x5a38($at)
+0034e30c 00000000 nop 
+; getter
+0034e3b0 3c01006d lui $at, 0x6d
+0034e3b4 03e00008 jr $ra
+0034e3b8 8c225a48 lw $v0, 0x5a48($at)
+0034e3bc 00000000 nop 
+; primary_setter
+0039ba40 14a00003 bnez $a1, 0x39ba50
+0039ba44 2402ffff addiu $v0, $zero, -1
+0039ba48 10000011 b 0x39ba90
+0039ba4c 00000000 nop 
+0039ba50 ac850004 sw $a1, 4($a0)
+0039ba54 0006182b sltu $v1, $zero, $a2
+0039ba58 a480000c sh $zero, 0xc($a0)
+0039ba5c 8486000c lh $a2, 0xc($a0)
+0039ba60 3c01006d lui $at, 0x6d
+0039ba64 24020001 addiu $v0, $zero, 1
+0039ba68 00063080 sll $a2, $a2, 2
+0039ba6c 00c52821 addu $a1, $a2, $a1
+0039ba70 8ca50008 lw $a1, 8($a1)
+0039ba74 ac850008 sw $a1, 8($a0)
+0039ba78 a0830000 sb $v1, ($a0)
+0039ba7c 8c830004 lw $v1, 4($a0)
+0039ba80 ac2338c0 sw $v1, 0x38c0($at)
+0039ba84 8c830008 lw $v1, 8($a0)
+0039ba88 3c01006d lui $at, 0x6d
+0039ba8c ac2338c4 sw $v1, 0x38c4($at)
+0039ba90 03e00008 jr $ra
+0039ba94 00000000 nop 
+; secondary_setter
+0039bb50 27bdffe0 addiu $sp, $sp, -0x20
+0039bb54 ffbf0010 sd $ra, 0x10($sp)
+0039bb58 7fb00000 sq $s0, 0($sp)
+0039bb5c 14a00004 bnez $a1, 0x39bb70
+0039bb60 0080802d move $s0, $a0
+0039bb64 10000018 b 0x39bbc8
+0039bb68 2402ffff addiu $v0, $zero, -1
+0039bb6c 00000000 nop 
+0039bb70 0006163c dsll32 $v0, $a2, 0x18
+0039bb74 ae0500cc sw $a1, 0xcc($s0)
+0039bb78 0002163f dsra32 $v0, $v0, 0x18
+0039bb7c a60200d4 sh $v0, 0xd4($s0)
+0039bb80 860200d4 lh $v0, 0xd4($s0)
+0039bb84 8e0300cc lw $v1, 0xcc($s0)
+0039bb88 00021080 sll $v0, $v0, 2
+0039bb8c 00431021 addu $v0, $v0, $v1
+0039bb90 8c420008 lw $v0, 8($v0)
+0039bb94 ae0200d0 sw $v0, 0xd0($s0)
+0039bb98 0c095a74 jal 0x2569d0
+0039bb9c 8e0400cc lw $a0, 0xcc($s0)
+0039bba0 0c095918 jal 0x256460
+0039bba4 860400d4 lh $a0, 0xd4($s0)
+0039bba8 a2000034 sb $zero, 0x34($s0)
+0039bbac 3c01006d lui $at, 0x6d
+0039bbb0 8e0300cc lw $v1, 0xcc($s0)
+0039bbb4 24020001 addiu $v0, $zero, 1
+0039bbb8 ac2338cc sw $v1, 0x38cc($at)
+0039bbbc 8e0300d0 lw $v1, 0xd0($s0)
+0039bbc0 3c01006d lui $at, 0x6d
+0039bbc4 ac2338d0 sw $v1, 0x38d0($at)
+0039bbc8 dfbf0010 ld $ra, 0x10($sp)
+0039bbcc 7bb00000 lq $s0, 0($sp)
+0039bbd0 03e00008 jr $ra
+0039bbd4 27bd0020 addiu $sp, $sp, 0x20
+; caller window
+003111e0 0c0d38c4 jal 0x34e310
+003111e4 00000000 nop 
+003111e8 304300ff andi $v1, $v0, 0xff
+003111ec 24020001 addiu $v0, $zero, 1
+003111f0 14620011 bne $v1, $v0, 0x311238
+003111f4 00000000 nop 
+003111f8 0c0d38ec jal 0x34e3b0
+003111fc 00000000 nop 
+00311200 3c01006d lui $at, 0x6d
+00311204 8c246704 lw $a0, 0x6704($at)
+00311208 0c0c64f0 jal 0x3193c0
+0031120c 0040282d move $a1, $v0
+; failure block
+00311238 3c010043 lui $at, 0x43
+0031123c 8c22bcb0 lw $v0, -0x4350($at)
+00311240 24030014 addiu $v1, $zero, 0x14
+00311244 10000028 b 0x3112e8
+00311248 a0430000 sb $v1, ($v0)
+; caller window
+0033c1e0 0c0d38c4 jal 0x34e310
+0033c1e4 00000000 nop 
+0033c1e8 304300ff andi $v1, $v0, 0xff
+0033c1ec 24020001 addiu $v0, $zero, 1
+0033c1f0 14620011 bne $v1, $v0, 0x33c238
+0033c1f4 00000000 nop 
+0033c1f8 0c0d38ec jal 0x34e3b0
+0033c1fc 00000000 nop 
+0033c200 3c01006d lui $at, 0x6d
+0033c204 8c246704 lw $a0, 0x6704($at)
+0033c208 0c0c64f0 jal 0x3193c0
+0033c20c 0040282d move $a1, $v0
+; failure block
+0033c238 24020014 addiu $v0, $zero, 0x14
+0033c23c 3c01006d lui $at, 0x6d
+0033c240 1000001f b 0x33c2c0
+0033c244 a4224a10 sh $v0, 0x4a10($at)

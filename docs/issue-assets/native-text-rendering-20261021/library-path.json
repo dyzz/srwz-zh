@@ -1,0 +1,404 @@
+[
+  {
+    "edition": "original",
+    "native_executable": {
+      "member": "SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "ranges": [
+      [
+        "library_row_and_split_wrappers",
+        "0x220db0",
+        "0x2212b0"
+      ],
+      [
+        "draw_and_context_wrappers",
+        "0x225290",
+        "0x225580"
+      ]
+    ],
+    "direct_calls": [
+      {
+        "site": "0x220e14",
+        "target": "0x139d50"
+      },
+      {
+        "site": "0x220e30",
+        "target": "0x2254d0"
+      },
+      {
+        "site": "0x220e3c",
+        "target": "0x225290"
+      },
+      {
+        "site": "0x220eb0",
+        "target": "0x221030"
+      },
+      {
+        "site": "0x220fa0",
+        "target": "0x1a0ea0"
+      },
+      {
+        "site": "0x221068",
+        "target": "0x1a0ea0"
+      },
+      {
+        "site": "0x2211cc",
+        "target": "0x221030"
+      },
+      {
+        "site": "0x2211f0",
+        "target": "0x1a1190"
+      },
+      {
+        "site": "0x221220",
+        "target": "0x220db0"
+      },
+      {
+        "site": "0x2252cc",
+        "target": "0x139e20"
+      },
+      {
+        "site": "0x2252d8",
+        "target": "0x139e90"
+      },
+      {
+        "site": "0x2252e4",
+        "target": "0x139ee0"
+      },
+      {
+        "site": "0x2252f8",
+        "target": "0x139ea0"
+      },
+      {
+        "site": "0x225310",
+        "target": "0x139ef0"
+      },
+      {
+        "site": "0x225320",
+        "target": "0x139ef0"
+      },
+      {
+        "site": "0x225378",
+        "target": "0x139ea0"
+      },
+      {
+        "site": "0x22538c",
+        "target": "0x139a60"
+      },
+      {
+        "site": "0x2253a8",
+        "target": "0x13a290"
+      },
+      {
+        "site": "0x2253c4",
+        "target": "0x13a290"
+      },
+      {
+        "site": "0x2253d0",
+        "target": "0x139ef0"
+      },
+      {
+        "site": "0x2253d8",
+        "target": "0x139ee0"
+      },
+      {
+        "site": "0x225500",
+        "target": "0x225410"
+      },
+      {
+        "site": "0x22551c",
+        "target": "0x2254a0"
+      }
+    ],
+    "verified_row_to_renderer_edges": [
+      [
+        "0x221220",
+        "0x220db0"
+      ],
+      [
+        "0x220e3c",
+        "0x225290"
+      ],
+      [
+        "0x2253a8",
+        "0x13a290"
+      ],
+      [
+        "0x2253c4",
+        "0x13a290"
+      ]
+    ],
+    "direct_measure_calls_in_these_wrappers": 0,
+    "scope": "wrapper direct edges; not proof that every transitive callee is measurement-free"
+  },
+  {
+    "edition": "best",
+    "native_executable": {
+      "member": "SLPS_732.70",
+      "size": 3473672,
+      "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+    },
+    "ranges": [
+      [
+        "library_row_and_split_wrappers",
+        "0x221170",
+        "0x221670"
+      ],
+      [
+        "draw_and_context_wrappers",
+        "0x225650",
+        "0x225940"
+      ]
+    ],
+    "direct_calls": [
+      {
+        "site": "0x2211d4",
+        "target": "0x139d50"
+      },
+      {
+        "site": "0x2211f0",
+        "target": "0x225890"
+      },
+      {
+        "site": "0x2211fc",
+        "target": "0x225650"
+      },
+      {
+        "site": "0x221270",
+        "target": "0x2213f0"
+      },
+      {
+        "site": "0x221360",
+        "target": "0x1a1240"
+      },
+      {
+        "site": "0x221428",
+        "target": "0x1a1240"
+      },
+      {
+        "site": "0x22158c",
+        "target": "0x2213f0"
+      },
+      {
+        "site": "0x2215b0",
+        "target": "0x1a1530"
+      },
+      {
+        "site": "0x2215e0",
+        "target": "0x221170"
+      },
+      {
+        "site": "0x22568c",
+        "target": "0x139e20"
+      },
+      {
+        "site": "0x225698",
+        "target": "0x139e90"
+      },
+      {
+        "site": "0x2256a4",
+        "target": "0x139ee0"
+      },
+      {
+        "site": "0x2256b8",
+        "target": "0x139ea0"
+      },
+      {
+        "site": "0x2256d0",
+        "target": "0x139ef0"
+      },
+      {
+        "site": "0x2256e0",
+        "target": "0x139ef0"
+      },
+      {
+        "site": "0x225738",
+        "target": "0x139ea0"
+      },
+      {
+        "site": "0x22574c",
+        "target": "0x139a60"
+      },
+      {
+        "site": "0x225768",
+        "target": "0x13a290"
+      },
+      {
+        "site": "0x225784",
+        "target": "0x13a290"
+      },
+      {
+        "site": "0x225790",
+        "target": "0x139ef0"
+      },
+      {
+        "site": "0x225798",
+        "target": "0x139ee0"
+      },
+      {
+        "site": "0x2258c0",
+        "target": "0x2257d0"
+      },
+      {
+        "site": "0x2258dc",
+        "target": "0x225860"
+      }
+    ],
+    "verified_row_to_renderer_edges": [
+      [
+        "0x2215e0",
+        "0x221170"
+      ],
+      [
+        "0x2211fc",
+        "0x225650"
+      ],
+      [
+        "0x225768",
+        "0x13a290"
+      ],
+      [
+        "0x225784",
+        "0x13a290"
+      ]
+    ],
+    "direct_measure_calls_in_these_wrappers": 0,
+    "scope": "wrapper direct edges; not proof that every transitive callee is measurement-free"
+  },
+  {
+    "edition": "sp",
+    "native_executable": {
+      "member": "SLPS_259.20",
+      "size": 3982200,
+      "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+    },
+    "ranges": [
+      [
+        "library_row_and_split_wrappers",
+        "0x225b90",
+        "0x226090"
+      ],
+      [
+        "draw_and_context_wrappers",
+        "0x22a200",
+        "0x22a4f0"
+      ]
+    ],
+    "direct_calls": [
+      {
+        "site": "0x225bf4",
+        "target": "0x13a7f0"
+      },
+      {
+        "site": "0x225c10",
+        "target": "0x22a440"
+      },
+      {
+        "site": "0x225c1c",
+        "target": "0x22a200"
+      },
+      {
+        "site": "0x225c90",
+        "target": "0x225e10"
+      },
+      {
+        "site": "0x225d80",
+        "target": "0x1a5350"
+      },
+      {
+        "site": "0x225e48",
+        "target": "0x1a5350"
+      },
+      {
+        "site": "0x225fac",
+        "target": "0x225e10"
+      },
+      {
+        "site": "0x225fd0",
+        "target": "0x1a5640"
+      },
+      {
+        "site": "0x226000",
+        "target": "0x225b90"
+      },
+      {
+        "site": "0x22a23c",
+        "target": "0x13a8c0"
+      },
+      {
+        "site": "0x22a248",
+        "target": "0x13a930"
+      },
+      {
+        "site": "0x22a254",
+        "target": "0x13a980"
+      },
+      {
+        "site": "0x22a268",
+        "target": "0x13a940"
+      },
+      {
+        "site": "0x22a280",
+        "target": "0x13a990"
+      },
+      {
+        "site": "0x22a290",
+        "target": "0x13a990"
+      },
+      {
+        "site": "0x22a2e8",
+        "target": "0x13a940"
+      },
+      {
+        "site": "0x22a2fc",
+        "target": "0x13a4d0"
+      },
+      {
+        "site": "0x22a318",
+        "target": "0x13ad30"
+      },
+      {
+        "site": "0x22a334",
+        "target": "0x13ad30"
+      },
+      {
+        "site": "0x22a340",
+        "target": "0x13a990"
+      },
+      {
+        "site": "0x22a348",
+        "target": "0x13a980"
+      },
+      {
+        "site": "0x22a470",
+        "target": "0x22a380"
+      },
+      {
+        "site": "0x22a48c",
+        "target": "0x22a410"
+      }
+    ],
+    "verified_row_to_renderer_edges": [
+      [
+        "0x226000",
+        "0x225b90"
+      ],
+      [
+        "0x225c1c",
+        "0x22a200"
+      ],
+      [
+        "0x22a318",
+        "0x13ad30"
+      ],
+      [
+        "0x22a334",
+        "0x13ad30"
+      ]
+    ],
+    "direct_measure_calls_in_these_wrappers": 0,
+    "scope": "wrapper direct edges; not proof that every transitive callee is measurement-free"
+  }
+]

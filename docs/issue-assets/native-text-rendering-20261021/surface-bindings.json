@@ -1,0 +1,500 @@
+{
+  "scope": "Bind viewport descriptors to page roles through renderer vtables and labels.\nStatic native instruction/data chain, no inferred constructor-name ownership.\nSetup -> renderer constructor -> vtable draw slot -> metadata -> label getters.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "surfaces": [
+        {
+          "role": "character",
+          "setup": {
+            "site": "0x20e6b8",
+            "visible_rows": 9,
+            "descriptor": {
+              "getter": "0x210140",
+              "address": "0x41f020",
+              "bytes": "0000cafee2ffd4fee2ff22016900150c150e150c150e0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x210210",
+              "address": "0x41f178",
+              "bytes": "eaff56003600"
+            }
+          },
+          "renderer_constructor_call": "0x20e6e8",
+          "renderer_constructor": "0x211d80",
+          "renderer_vtable": "0x447bd0",
+          "draw_slot": "0x10",
+          "draw_method": "0x211900",
+          "metadata_call": "0x2119a8",
+          "metadata_method": "0x211a10",
+          "labels": [
+            {
+              "call": "0x211a3c",
+              "getter": "0x2100c0",
+              "descriptor": "0x41ef20",
+              "text_pointer": "0x43c638",
+              "native_label": "登場作品"
+            },
+            {
+              "call": "0x211b54",
+              "getter": "0x2100e0",
+              "descriptor": "0x41ef60",
+              "text_pointer": "0x43c658",
+              "native_label": "：表情"
+            },
+            {
+              "call": "0x211ba4",
+              "getter": "0x2100f0",
+              "descriptor": "0x41ef80",
+              "text_pointer": "0x43c660",
+              "native_label": "：台詞"
+            },
+            {
+              "call": "0x211bfc",
+              "getter": "0x210100",
+              "descriptor": "0x41efa0",
+              "text_pointer": "0x43c668",
+              "native_label": "愛称"
+            },
+            {
+              "call": "0x211cac",
+              "getter": "0x210120",
+              "descriptor": "0x41efe0",
+              "text_pointer": "0x43c670",
+              "native_label": "声優"
+            }
+          ]
+        },
+        {
+          "role": "robot",
+          "setup": {
+            "site": "0x20e990",
+            "visible_rows": 5,
+            "descriptor": {
+              "getter": "0x2100a0",
+              "address": "0x41eee0",
+              "bytes": "0000cafe2800defe1e0022016900150a150c150a150c0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x210200",
+              "address": "0x41f170",
+              "bytes": "2e005a002001"
+            }
+          },
+          "renderer_constructor_call": "0x20e9c0",
+          "renderer_constructor": "0x2121d0",
+          "renderer_vtable": "0x447bf0",
+          "draw_slot": "0x10",
+          "draw_method": "0x211e20",
+          "metadata_call": "0x211ed0",
+          "metadata_method": "0x211f10",
+          "labels": [
+            {
+              "call": "0x211f3c",
+              "getter": "0x210040",
+              "descriptor": "0x41ee20",
+              "text_pointer": "0x43c638",
+              "native_label": "登場作品"
+            },
+            {
+              "call": "0x21204c",
+              "getter": "0x210070",
+              "descriptor": "0x41ee80",
+              "text_pointer": "0x43c648",
+              "native_label": "全長"
+            },
+            {
+              "call": "0x2120fc",
+              "getter": "0x210090",
+              "descriptor": "0x41eec0",
+              "text_pointer": "0x43c650",
+              "native_label": "重量"
+            }
+          ]
+        },
+        {
+          "role": "keyword",
+          "setup": {
+            "site": "0x20ece0",
+            "visible_rows": 5,
+            "descriptor": {
+              "getter": "0x2101a0",
+              "address": "0x41f0e0",
+              "bytes": "0000eefee0ffd4fee2ff22012d00150c150e150c150e0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x210220",
+              "address": "0x41f180",
+              "bytes": "e8ff1c000c01"
+            }
+          },
+          "renderer_constructor_call": "0x20ed10",
+          "renderer_constructor": "0x211860",
+          "renderer_vtable": "0x447bb0",
+          "draw_slot": "0x10",
+          "draw_method": "0x211410",
+          "metadata_call": "0x211464",
+          "metadata_method": "0x2114a0",
+          "labels": [
+            {
+              "call": "0x2115fc",
+              "getter": "0x210170",
+              "descriptor": "0x41f080",
+              "text_pointer": "0x43c678",
+              "native_label": "：戻る"
+            },
+            {
+              "call": "0x21164c",
+              "getter": "0x210190",
+              "descriptor": "0x41f0c0",
+              "text_pointer": "0x43c690",
+              "native_label": "：用語の切り替え"
+            },
+            {
+              "call": "0x21169c",
+              "getter": "0x210180",
+              "descriptor": "0x41f0a0",
+              "text_pointer": "0x43c680",
+              "native_label": "／"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "surfaces": [
+        {
+          "role": "character",
+          "setup": {
+            "site": "0x20ea78",
+            "visible_rows": 9,
+            "descriptor": {
+              "getter": "0x210500",
+              "address": "0x41f850",
+              "bytes": "0000cafee2ffd4fee2ff22016900150c150e150c150e0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x2105d0",
+              "address": "0x41f9a8",
+              "bytes": "eaff56003600"
+            }
+          },
+          "renderer_constructor_call": "0x20eaa8",
+          "renderer_constructor": "0x212140",
+          "renderer_vtable": "0x4483d0",
+          "draw_slot": "0x10",
+          "draw_method": "0x211cc0",
+          "metadata_call": "0x211d68",
+          "metadata_method": "0x211dd0",
+          "labels": [
+            {
+              "call": "0x211dfc",
+              "getter": "0x210480",
+              "descriptor": "0x41f750",
+              "text_pointer": "0x43ce28",
+              "native_label": "登場作品"
+            },
+            {
+              "call": "0x211f14",
+              "getter": "0x2104a0",
+              "descriptor": "0x41f790",
+              "text_pointer": "0x43ce48",
+              "native_label": "：表情"
+            },
+            {
+              "call": "0x211f64",
+              "getter": "0x2104b0",
+              "descriptor": "0x41f7b0",
+              "text_pointer": "0x43ce50",
+              "native_label": "：台詞"
+            },
+            {
+              "call": "0x211fbc",
+              "getter": "0x2104c0",
+              "descriptor": "0x41f7d0",
+              "text_pointer": "0x43ce58",
+              "native_label": "愛称"
+            },
+            {
+              "call": "0x21206c",
+              "getter": "0x2104e0",
+              "descriptor": "0x41f810",
+              "text_pointer": "0x43ce60",
+              "native_label": "声優"
+            }
+          ]
+        },
+        {
+          "role": "robot",
+          "setup": {
+            "site": "0x20ed50",
+            "visible_rows": 5,
+            "descriptor": {
+              "getter": "0x210460",
+              "address": "0x41f710",
+              "bytes": "0000cafe2800defe1e0022016900150a150c150a150c0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x2105c0",
+              "address": "0x41f9a0",
+              "bytes": "2e005a002001"
+            }
+          },
+          "renderer_constructor_call": "0x20ed80",
+          "renderer_constructor": "0x212590",
+          "renderer_vtable": "0x4483f0",
+          "draw_slot": "0x10",
+          "draw_method": "0x2121e0",
+          "metadata_call": "0x212290",
+          "metadata_method": "0x2122d0",
+          "labels": [
+            {
+              "call": "0x2122fc",
+              "getter": "0x210400",
+              "descriptor": "0x41f650",
+              "text_pointer": "0x43ce28",
+              "native_label": "登場作品"
+            },
+            {
+              "call": "0x21240c",
+              "getter": "0x210430",
+              "descriptor": "0x41f6b0",
+              "text_pointer": "0x43ce38",
+              "native_label": "全長"
+            },
+            {
+              "call": "0x2124bc",
+              "getter": "0x210450",
+              "descriptor": "0x41f6f0",
+              "text_pointer": "0x43ce40",
+              "native_label": "重量"
+            }
+          ]
+        },
+        {
+          "role": "keyword",
+          "setup": {
+            "site": "0x20f0a0",
+            "visible_rows": 5,
+            "descriptor": {
+              "getter": "0x210560",
+              "address": "0x41f910",
+              "bytes": "0000eefee0ffd4fee2ff22012d00150c150e150c150e0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x2105e0",
+              "address": "0x41f9b0",
+              "bytes": "e8ff1c000c01"
+            }
+          },
+          "renderer_constructor_call": "0x20f0d0",
+          "renderer_constructor": "0x211c20",
+          "renderer_vtable": "0x4483b0",
+          "draw_slot": "0x10",
+          "draw_method": "0x2117d0",
+          "metadata_call": "0x211824",
+          "metadata_method": "0x211860",
+          "labels": [
+            {
+              "call": "0x2119bc",
+              "getter": "0x210530",
+              "descriptor": "0x41f8b0",
+              "text_pointer": "0x43ce68",
+              "native_label": "：戻る"
+            },
+            {
+              "call": "0x211a0c",
+              "getter": "0x210550",
+              "descriptor": "0x41f8f0",
+              "text_pointer": "0x43ce80",
+              "native_label": "：用語の切り替え"
+            },
+            {
+              "call": "0x211a5c",
+              "getter": "0x210540",
+              "descriptor": "0x41f8d0",
+              "text_pointer": "0x43ce70",
+              "native_label": "／"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "surfaces": [
+        {
+          "role": "character",
+          "setup": {
+            "site": "0x212fd8",
+            "visible_rows": 9,
+            "descriptor": {
+              "getter": "0x214fe0",
+              "address": "0x47a9b0",
+              "bytes": "0000cafee2ffd4fee2ff22016900150c150e150c150e0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x2150b0",
+              "address": "0x47ab08",
+              "bytes": "eaff56003600"
+            }
+          },
+          "renderer_constructor_call": "0x213008",
+          "renderer_constructor": "0x216b20",
+          "renderer_vtable": "0x4c6220",
+          "draw_slot": "0x10",
+          "draw_method": "0x2166a0",
+          "metadata_call": "0x216748",
+          "metadata_method": "0x2167b0",
+          "labels": [
+            {
+              "call": "0x2167dc",
+              "getter": "0x214f60",
+              "descriptor": "0x47a8b0",
+              "text_pointer": "0x4b03b8",
+              "native_label": "登場作品"
+            },
+            {
+              "call": "0x2168f4",
+              "getter": "0x214f80",
+              "descriptor": "0x47a8f0",
+              "text_pointer": "0x4b03d8",
+              "native_label": "：表情"
+            },
+            {
+              "call": "0x216944",
+              "getter": "0x214f90",
+              "descriptor": "0x47a910",
+              "text_pointer": "0x4b03e0",
+              "native_label": "：台詞"
+            },
+            {
+              "call": "0x21699c",
+              "getter": "0x214fa0",
+              "descriptor": "0x47a930",
+              "text_pointer": "0x4b03e8",
+              "native_label": "愛称"
+            },
+            {
+              "call": "0x216a4c",
+              "getter": "0x214fc0",
+              "descriptor": "0x47a970",
+              "text_pointer": "0x4b03f0",
+              "native_label": "声優"
+            }
+          ]
+        },
+        {
+          "role": "robot",
+          "setup": {
+            "site": "0x2132b0",
+            "visible_rows": 5,
+            "descriptor": {
+              "getter": "0x214f40",
+              "address": "0x47a870",
+              "bytes": "0000cafe2800defe1e0022016900150a150c150a150c0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x2150a0",
+              "address": "0x47ab00",
+              "bytes": "2e005a002001"
+            }
+          },
+          "renderer_constructor_call": "0x2132e0",
+          "renderer_constructor": "0x216f80",
+          "renderer_vtable": "0x4c6240",
+          "draw_slot": "0x10",
+          "draw_method": "0x216bc0",
+          "metadata_call": "0x216c70",
+          "metadata_method": "0x216cc0",
+          "labels": [
+            {
+              "call": "0x216cec",
+              "getter": "0x214ee0",
+              "descriptor": "0x47a7b0",
+              "text_pointer": "0x4b03b8",
+              "native_label": "登場作品"
+            },
+            {
+              "call": "0x216dfc",
+              "getter": "0x214f10",
+              "descriptor": "0x47a810",
+              "text_pointer": "0x4b03c8",
+              "native_label": "全長"
+            },
+            {
+              "call": "0x216eac",
+              "getter": "0x214f30",
+              "descriptor": "0x47a850",
+              "text_pointer": "0x4b03d0",
+              "native_label": "重量"
+            }
+          ]
+        },
+        {
+          "role": "keyword",
+          "setup": {
+            "site": "0x213600",
+            "visible_rows": 5,
+            "descriptor": {
+              "getter": "0x215040",
+              "address": "0x47aa70",
+              "bytes": "0000eefee0ffd4fee2ff22012d00150c150e150c150e0000d8ffff00"
+            },
+            "arrows": {
+              "getter": "0x2150c0",
+              "address": "0x47ab10",
+              "bytes": "e8ff1c000c01"
+            }
+          },
+          "renderer_constructor_call": "0x213630",
+          "renderer_constructor": "0x216600",
+          "renderer_vtable": "0x4c6200",
+          "draw_slot": "0x10",
+          "draw_method": "0x216300",
+          "metadata_call": "0x216354",
+          "metadata_method": "0x216390",
+          "labels": [
+            {
+              "call": "0x2164ec",
+              "getter": "0x215010",
+              "descriptor": "0x47aa10",
+              "text_pointer": "0x4b03f8",
+              "native_label": "：戻る"
+            },
+            {
+              "call": "0x21653c",
+              "getter": "0x215030",
+              "descriptor": "0x47aa50",
+              "text_pointer": "0x4b0410",
+              "native_label": "：用語の切り替え"
+            },
+            {
+              "call": "0x21658c",
+              "getter": "0x215020",
+              "descriptor": "0x47aa30",
+              "text_pointer": "0x4b0400",
+              "native_label": "／"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

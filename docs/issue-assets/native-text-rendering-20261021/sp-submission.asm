@@ -1,0 +1,155 @@
+
+; post_atlas_continuation 001d0f20..001d1024
+001d0f20 3c01005a lui $at, 0x5a
+001d0f24 8c252b68 lw $a1, 0x2b68($at)
+001d0f28 3c021000 lui $v0, 0x1000
+001d0f2c 0002203c dsll32 $a0, $v0, 0
+001d0f30 34038000 ori $v1, $zero, 0x8000
+001d0f34 00641825 or $v1, $v1, $a0
+001d0f38 2402000f addiu $v0, $zero, 0xf
+001d0f3c fca30000 sd $v1, ($a1)
+001d0f40 3c01005a lui $at, 0x5a
+001d0f44 fca20008 sd $v0, 8($a1)
+001d0f48 8c222b68 lw $v0, 0x2b68($at)
+001d0f4c 24420010 addiu $v0, $v0, 0x10
+001d0f50 3c01005a lui $at, 0x5a
+001d0f54 ac222b68 sw $v0, 0x2b68($at)
+001d0f58 3c01005a lui $at, 0x5a
+001d0f5c 0c04da88 jal 0x136a20
+001d0f60 8c242b68 lw $a0, 0x2b68($at)
+001d0f64 0c04daac jal 0x136ab0
+001d0f68 00000000 nop 
+001d0f6c 3c01005a lui $at, 0x5a
+001d0f70 0c04da58 jal 0x136960
+001d0f74 8c242b58 lw $a0, 0x2b58($at)
+001d0f78 0c04da7c jal 0x1369f0
+001d0f7c 00000000 nop 
+001d0f80 3c01005a lui $at, 0x5a
+001d0f84 8c222b58 lw $v0, 0x2b58($at)
+001d0f88 0002113c dsll32 $v0, $v0, 4
+001d0f8c 3c01005a lui $at, 0x5a
+001d0f90 0002113e dsrl32 $v0, $v0, 4
+001d0f94 ac222b58 sw $v0, 0x2b58($at)
+001d0f98 3c011001 lui $at, 0x1001
+001d0f9c 8c22a000 lw $v0, -0x6000($at)
+001d0fa0 30420100 andi $v0, $v0, 0x100
+001d0fa4 00000000 nop 
+001d0fa8 00000000 nop 
+001d0fac 1440fffa bnez $v0, 0x1d0f98
+001d0fb0 00000000 nop 
+001d0fb4 0c046c98 jal 0x11b260
+001d0fb8 0000202d move $a0, $zero
+001d0fbc 3c01005a lui $at, 0x5a
+001d0fc0 8c242b50 lw $a0, 0x2b50($at)
+001d0fc4 3c01005a lui $at, 0x5a
+001d0fc8 0c043952 jal 0x10e548
+001d0fcc 8c252b80 lw $a1, 0x2b80($at)
+001d0fd0 0000202d move $a0, $zero
+001d0fd4 0c04347a jal 0x10d1e8
+001d0fd8 0000282d move $a1, $zero
+001d0fdc 00000000 nop 
+001d0fe0 3c011001 lui $at, 0x1001
+001d0fe4 8c22a000 lw $v0, -0x6000($at)
+001d0fe8 30420100 andi $v0, $v0, 0x100
+001d0fec 00000000 nop 
+001d0ff0 00000000 nop 
+001d0ff4 1440fffa bnez $v0, 0x1d0fe0
+001d0ff8 00000000 nop 
+001d0ffc 0c046c98 jal 0x11b260
+001d1000 0000202d move $a0, $zero
+001d1004 3c01005a lui $at, 0x5a
+001d1008 8c242b50 lw $a0, 0x2b50($at)
+001d100c 3c01005a lui $at, 0x5a
+001d1010 0c043952 jal 0x10e548
+001d1014 8c252b90 lw $a1, 0x2b90($at)
+001d1018 0000202d move $a0, $zero
+001d101c 0c04347a jal 0x10d1e8
+001d1020 0000282d move $a1, $zero
+
+; send_chain 0010e548..0010e5b0
+0010e548 27bdffd0 addiu $sp, $sp, -0x30
+0010e54c ffb00000 sd $s0, ($sp)
+0010e550 0080802d move $s0, $a0
+0010e554 ffb10010 sd $s1, 0x10($sp)
+0010e558 ffbf0020 sd $ra, 0x20($sp)
+0010e55c 0c04386e jal 0x10e1b8
+0010e560 00a0202d move $a0, $a1
+0010e564 0040882d move $s1, $v0
+0010e568 0c043830 jal 0x10e0c0
+0010e56c 0200202d move $a0, $s0
+0010e570 3c02ffff lui $v0, 0xffff
+0010e574 8e030030 lw $v1, 0x30($s0)
+0010e578 3442ffff ori $v0, $v0, 0xffff
+0010e57c 54620001 bnel $v1, $v0, 0x10e584
+0010e580 ae110030 sw $s1, 0x30($s0)
+0010e584 8e020000 lw $v0, ($s0)
+0010e588 2403fff3 addiu $v1, $zero, -0xd
+0010e58c ae000020 sw $zero, 0x20($s0)
+0010e590 00431024 and $v0, $v0, $v1
+0010e594 dfbf0020 ld $ra, 0x20($sp)
+0010e598 34420105 ori $v0, $v0, 0x105
+0010e59c dfb10010 ld $s1, 0x10($sp)
+0010e5a0 ae020000 sw $v0, ($s0)
+0010e5a4 dfb00000 ld $s0, ($sp)
+0010e5a8 03e00008 jr $ra
+0010e5ac 27bd0030 addiu $sp, $sp, 0x30
+
+; wait_channel 0010e0c0..0010e130
+0010e0c0 27bdffc0 addiu $sp, $sp, -0x40
+0010e0c4 ffb10010 sd $s1, 0x10($sp)
+0010e0c8 ffb00000 sd $s0, ($sp)
+0010e0cc 3c110100 lui $s1, 0x100
+0010e0d0 ffbf0030 sd $ra, 0x30($sp)
+0010e0d4 0080802d move $s0, $a0
+0010e0d8 ffb20020 sd $s2, 0x20($sp)
+0010e0dc 8e020000 lw $v0, ($s0)
+0010e0e0 30420100 andi $v0, $v0, 0x100
+0010e0e4 1040000c beqz $v0, 0x10e118
+0010e0e8 3c12004a lui $s2, 0x4a
+0010e0ec 2631ffff addiu $s1, $s1, -1
+0010e0f0 06210005 bgez $s1, 0x10e108
+0010e0f4 00000000 nop 
+0010e0f8 0c047732 jal 0x11dcc8
+0010e0fc 26445660 addiu $a0, $s2, 0x5660
+0010e100 0c043a16 jal 0x10e858
+0010e104 0200202d move $a0, $s0
+0010e108 8e020000 lw $v0, ($s0)
+0010e10c 30420100 andi $v0, $v0, 0x100
+0010e110 1440fff7 bnez $v0, 0x10e0f0
+0010e114 2631ffff addiu $s1, $s1, -1
+0010e118 dfbf0030 ld $ra, 0x30($sp)
+0010e11c dfb20020 ld $s2, 0x20($sp)
+0010e120 dfb10010 ld $s1, 0x10($sp)
+0010e124 dfb00000 ld $s0, ($sp)
+0010e128 03e00008 jr $ra
+0010e12c 27bd0040 addiu $sp, $sp, 0x40
+
+; map_address 0010e1b8..0010e1e0
+0010e1b8 24030007 addiu $v1, $zero, 7
+0010e1bc 00041702 srl $v0, $a0, 0x1c
+0010e1c0 14430005 bne $v0, $v1, 0x10e1d8
+0010e1c4 3c020fff lui $v0, 0xfff
+0010e1c8 3c038000 lui $v1, 0x8000
+0010e1cc 3442ffff ori $v0, $v0, 0xffff
+0010e1d0 00822024 and $a0, $a0, $v0
+0010e1d4 00832025 or $a0, $a0, $v1
+0010e1d8 03e00008 jr $ra
+0010e1dc 0080102d move $v0, $a0
+
+; cache_syscall 0011b260..0011b270
+0011b260 24030064 addiu $v1, $zero, 0x64
+0011b264 0000000c syscall 
+0011b268 03e00008 jr $ra
+0011b26c 00000000 nop 
+
+; close_chain 00136ab0..00136ad8
+00136ab0 3c01005a lui $at, 0x5a
+00136ab4 3c047000 lui $a0, 0x7000
+00136ab8 8c232b78 lw $v1, 0x2b78($at)
+00136abc fc640000 sd $a0, ($v1)
+00136ac0 3c01005a lui $at, 0x5a
+00136ac4 8c232b78 lw $v1, 0x2b78($at)
+00136ac8 24630010 addiu $v1, $v1, 0x10
+00136acc 3c01005a lui $at, 0x5a
+00136ad0 03e00008 jr $ra
+00136ad4 ac232b78 sw $v1, 0x2b78($at)

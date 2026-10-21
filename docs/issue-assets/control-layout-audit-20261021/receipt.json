@@ -1,0 +1,276 @@
+{
+  "status": "passed_declared_control_layout_source_ISO_and_LRPS2_domains",
+  "full_reverse_engineering_complete": false,
+  "source_hashes_verified": 17,
+  "corpus_fields": 154706,
+  "control_forms": 91,
+  "preview_records": 1398,
+  "tests": {
+    "total": 843,
+    "passed": 842,
+    "skipped": 1
+  },
+  "editions": [
+    {
+      "edition": "original",
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "ec10383bb023c6963ba3608d2265afa8aedd0b5a6246462b3bbad25e9b2adfc4",
+        "size": 3799459840
+      },
+      "native_patch_regions_verified": 8,
+      "runtime_card_unchanged": true
+    },
+    {
+      "edition": "best",
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "983c4d8ced98edff4c13016829f3642eee4bc19f23eff50fdfab8f311b45f76a",
+        "size": 3796187136
+      },
+      "native_patch_regions_verified": 8,
+      "runtime_card_unchanged": true
+    },
+    {
+      "edition": "sp",
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "438b7fc717b9059455bcc6982cd59fe8b05c1e36e30040f7532c1f6a51cd04dd",
+        "size": 3918833664
+      },
+      "native_patch_regions_verified": 8,
+      "runtime_card_unchanged": true
+    }
+  ],
+  "character_runtime_images": 12,
+  "character_images_pixel_identical_to_previous_size": true,
+  "SP_weapon_hint_triangle_report_and_return": "visually reviewed; natural LRPS2 navigation; no RAM or savestate injection",
+  "local_links_checked": 46,
+  "limits": [
+    "Dynamic tm/@/square precise widths and all consumers remain owner-specific; generic reflow rejects them",
+    "No production native-measure patch; no full-game or all-symbol visual acceptance",
+    "The two flow synopsis updates were statically checked and built, not naturally reached in this runtime session"
+  ],
+  "files": [
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/audit_library_iso.py",
+      "size": 5904,
+      "sha256": "e59b8d6a3e9846cb2d68a82651f67eeb11acb653b71ed307dcdba99d9de60e6c"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/before-probes.json",
+      "size": 934,
+      "sha256": "e773bbb1d64b14ae39d86c3f6240b3b2f04b693a6b5a143c020e9be333b5c284"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/build-final.log",
+      "size": 102523,
+      "sha256": "4f4fcc723f9e3a0611bc87c7817b56e3c734c1fa2583818a7f951ae5eacc46eb"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/capture-runtime.log",
+      "size": 83,
+      "sha256": "8136b0964c2432fc84dbe674797d98d706906c9faf150e10e39a964f7807ca86"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/capture_runtime.py",
+      "size": 2987,
+      "sha256": "a77177f1109bef60b747666dabc7952ab80079e5b938bbe78bb803bbe715b064"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/control-contracts-final.json",
+      "size": 78395,
+      "sha256": "f85461c55c087fe90e025fe754438274b6328a2941ce62702031def5d745df5b"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/best/alex-scroll.png",
+      "size": 242354,
+      "sha256": "4a9796b22c21fc2f362e1648695c3f3d94a61c6f4b1f0568326c0a8ebfedc6be"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/best/alex-top.png",
+      "size": 239421,
+      "sha256": "cb97437f788ff949a36a0b1177202cf4a71de22a8bf47202b2fc37e8bb0346fa"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/best/lily-scroll.png",
+      "size": 246874,
+      "sha256": "1737a3df44c6b47268afe99f9ae83e1ef246243766ca46812bdae5487704aa07"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/best/lily-top.png",
+      "size": 248276,
+      "sha256": "489912b9f8f92969fcc9139f9b883491c94ddf2e3fe85ded59f77b0e088ab511"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/best/receipt.json",
+      "size": 8574,
+      "sha256": "a30bdda38b847c39e765800b88a7cf478e584ef9a7349f75616223615f18cba2"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/original/alex-scroll.png",
+      "size": 242354,
+      "sha256": "4a9796b22c21fc2f362e1648695c3f3d94a61c6f4b1f0568326c0a8ebfedc6be"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/original/alex-top.png",
+      "size": 239421,
+      "sha256": "cb97437f788ff949a36a0b1177202cf4a71de22a8bf47202b2fc37e8bb0346fa"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/original/lily-scroll.png",
+      "size": 246874,
+      "sha256": "1737a3df44c6b47268afe99f9ae83e1ef246243766ca46812bdae5487704aa07"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/original/lily-top.png",
+      "size": 248276,
+      "sha256": "489912b9f8f92969fcc9139f9b883491c94ddf2e3fe85ded59f77b0e088ab511"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/original/receipt.json",
+      "size": 8610,
+      "sha256": "c93fdfe5cbdae82fc504552ae51595962ca8038716b205f476feaea3b4e56e3a"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/sp/alex-scroll.png",
+      "size": 318507,
+      "sha256": "750ee2e276c3d0e54f9c69ab99d465c49735699b2abbfd317d677ca6c2b31dc8"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/sp/alex-top.png",
+      "size": 317884,
+      "sha256": "ef13c953fb07f31ad01678c05efb917ee1ef15f4a7c6d9a0f924b280c922e53b"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/sp/lily-scroll.png",
+      "size": 329341,
+      "sha256": "8bfe0e7a74bf73cf3eab958e7e91130b022a34b55b11b2fe382a4000dbe22ace"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/sp/lily-top.png",
+      "size": 329675,
+      "sha256": "ad25052eac5b5ed48e941c641c31be164f86f913f2255b0a354febc6cdfa0f37"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/final/sp/receipt.json",
+      "size": 7061,
+      "sha256": "81c45e7e1b012983c1e141915619fc5e7241002eab4afdddc1eb43c10664c76d"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/layout-writeback.json",
+      "size": 2990,
+      "sha256": "215cb1658af3653407ed57e2f28ab1bb5a806bc590b393140ada476e8aeba5dc"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/library-iso-audit.json",
+      "size": 23060,
+      "sha256": "8269953b0f13b32be521066ac9982fe48a443e9615c70f3a756d15ac35c1c5ec"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/production-build.json",
+      "size": 101624,
+      "sha256": "4323fef76b0c97fce95bed1b1d262b002c839a27757210f52e342d04dfcc182c"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/prose-preview-final.json",
+      "size": 2565654,
+      "sha256": "6c24fa304530988c6fcf9a778a7c1334841cd70930ae6aeefdeb4cd94754bd96"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/runtime-verification.json",
+      "size": 15885,
+      "sha256": "48c79de41f52a9ecea9ab06619f4202bc017b858b6acd1f6991944b178f1c97a"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/scroll-placeholders-final.json",
+      "size": 6375,
+      "sha256": "1f91b48e335638b989567520611b52fab34638e414a6d5cc79551436dd4edc5a"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/scroll-review.png",
+      "size": 1616585,
+      "sha256": "0b7e92b58c4334539e92e8184ace6236e1d463be1e51b0db5804fc4a362316e2"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/source-bindings.json",
+      "size": 3084,
+      "sha256": "653c6f08374585c4a4228a8fcc24d3b6d7f7a051a55be0114a695131b027119e"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/sp-control-byte-readback.json",
+      "size": 8508,
+      "sha256": "da8e3ba0fc7bac0ebaca5f526bacf1f7018a30012c44a3ecc79f107ae94af978"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/sp-controls/button-before.png",
+      "size": 160625,
+      "sha256": "4598a02cc432ba24d4ecf5b006f5dca8f88aecd0baaf11f911dd65c672924eb3"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/sp-controls/gravion-weapon-list.png",
+      "size": 154097,
+      "sha256": "366129829cf8326da3a06c5199a275e7c97467b1803c5884ebfdd7874e823f5d"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/sp-controls/receipt.json",
+      "size": 9699,
+      "sha256": "a9a797622fa684c05d6ec20ffd92c67eef2b7f82a21569944b1f8dc022fdefbe"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/sp-controls/returned-weapon-list.png",
+      "size": 161757,
+      "sha256": "b7aa2f18d9ad3a5358ad421aba9c16b5d52691af03d8c4a4f5223bfba7a6021a"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/sp-controls/triangle-action.png",
+      "size": 103017,
+      "sha256": "a34c4f6cfd02a698a5942f9e3da4f68e2bd327b0445e342740646716227156d8"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/sp-controls/viewer.png",
+      "size": 386096,
+      "sha256": "90aa4bf8103dfa8aeb1b9a9ca68447afb6addf7d80b1cfea59a54eac8310308b"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/story-layout-final.log",
+      "size": 41,
+      "sha256": "895eb21d5b9c76bbb516248e94cea08507da071859148af438297ff822b3b974"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/task-owned-source-changes.diff",
+      "size": 10750,
+      "sha256": "a44ca19b5435cacad34a601bb5b9ccfe34ecba1cda7ece9c8743b4d7f3d8b940"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/tests-controls.log",
+      "size": 113,
+      "sha256": "416bf32537d4ffc17e47fc9001e09449b734d88682763b59741e1f5b52a25f02"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/tests-final-843.log",
+      "size": 7187,
+      "sha256": "858bd284eb9e2c89f31986acb8edc16d28d22c2dd774d1e818084d1d4d28c0c2"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/verify.py",
+      "size": 5025,
+      "sha256": "78f61e2a0013a49b9dc94bcbe8645129073c7621c3570a4c0c1058e58154a531"
+    },
+    {
+      "path": "docs/issue-assets/control-layout-audit-20261021/verify_runtime.py",
+      "size": 2924,
+      "sha256": "f5e7d203b8f063afe57ff59557f54deaa7748005d2299ea4d4c5123336e583cc"
+    },
+    {
+      "path": "docs/TEXT_CONTROL_LAYOUT_AUDIT_20261021.md",
+      "size": 8028,
+      "sha256": "693a5696cb48ebe6e124852692c1d3dbb3da9ad8b78c8817cfb9ca74df494b4e"
+    },
+    {
+      "path": "docs/TEXT_CONTROL_AND_LAYOUT_HANDOFF_20261021.md",
+      "size": 28730,
+      "sha256": "a2259e96168b748bb1d99696ee6d97df7b7a0b2d8ddf97a24cc4c967c94feb22"
+    }
+  ]
+}

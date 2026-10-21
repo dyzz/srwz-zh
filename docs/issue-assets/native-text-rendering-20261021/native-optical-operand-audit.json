@@ -1,0 +1,1466 @@
+{
+  "scope": "Native reserved-height audit with structural owners, three editions.\nCovers all decoded STAGE bytes, library text fields, COMPDATA raw candidates,\nindexed battle subtitles and executable byte candidates. Does not certify\nunexamined image/resource formats or runtime-manufactured control strings.\n",
+  "status": "no_reserved_height_operands_in_declared_native_structured_text_domains",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "member_sha256": {
+        "SLPS_258.87": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+        "DATA/STAGE.BIN": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc",
+        "HEDBDY/HB.BIN": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21",
+        "DATA/MTVZKNRT.BIN": "e78306a1c1a5591bc0869d30f656578307c33543e146fb35a0fa16b177d0dd75",
+        "DATA/MTVZKNPT.BIN": "5dc3e8277d39a0f7a57e78b5e95a0ba74a24c2c9d9db93ad75a77a1775ad78b7",
+        "DATA/MTVZKNKW.BIN": "d5eb84d5ff962a80363a6949d9560347b4ffac510e83abe87127557fa4faf226",
+        "DATA/COMPDATA.BN": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+        "BTL/SRVC.BIN": "35a30d1e1c52cb9f7186ccb52a17b9f35e715e0af789eec4a5b366091743297e",
+        "BTL/SRVC.SEG": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987"
+      },
+      "stage_chunks": 205,
+      "stage_entries": 93071,
+      "system_dialogue_entries": 379,
+      "decoded_stage_sequence_sha256": "9350bcb959f2ad037a5090ebc4a564bc8b3e7f745ea5c132d3bdb835230b0ec9",
+      "stage_nontext_header_hits": [
+        {
+          "chunk": 65,
+          "offset": 19,
+          "parameter": 142,
+          "header_magic": "MWo3",
+          "header_word14": 142,
+          "native_name": "stg_052b.bin"
+        },
+        {
+          "chunk": 66,
+          "offset": 19,
+          "parameter": 141,
+          "header_magic": "MWo3",
+          "header_word14": 141,
+          "native_name": "stg_053.bin"
+        },
+        {
+          "chunk": 67,
+          "offset": 19,
+          "parameter": 140,
+          "header_magic": "MWo3",
+          "header_word14": 140,
+          "native_name": "stg_054a.bin"
+        },
+        {
+          "chunk": 68,
+          "offset": 19,
+          "parameter": 139,
+          "header_magic": "MWo3",
+          "header_word14": 139,
+          "native_name": "stg_054b.bin"
+        },
+        {
+          "chunk": 69,
+          "offset": 19,
+          "parameter": 138,
+          "header_magic": "MWo3",
+          "header_word14": 138,
+          "native_name": "stg_055.bin"
+        }
+      ],
+      "library_fields": 4922,
+      "compdata_nontext_stat_hits": [
+        {
+          "offset": 28154,
+          "parameter": 139,
+          "pilot": 111,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 28330,
+          "parameter": 139,
+          "pilot": 112,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 28506,
+          "parameter": 139,
+          "pilot": 113,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 28682,
+          "parameter": 139,
+          "pilot": 114,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        }
+      ],
+      "battle_indexed_fields": 58740,
+      "executable_candidates": [
+        {
+          "offset": 29102,
+          "parameter": 142,
+          "word": "0x8e330010",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x10($s1)"
+        },
+        {
+          "offset": 33406,
+          "parameter": 142,
+          "word": "0x8e330010",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x10($s1)"
+        },
+        {
+          "offset": 273274,
+          "parameter": 140,
+          "word": "0x8c33b7d4",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x482c($at)"
+        },
+        {
+          "offset": 532230,
+          "parameter": 140,
+          "word": "0x8c3355b0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x55b0($at)"
+        },
+        {
+          "offset": 657134,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 657398,
+          "parameter": 142,
+          "word": "0x8e33fffc",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -4($s1)"
+        },
+        {
+          "offset": 696894,
+          "parameter": 140,
+          "word": "0x8c330644",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x644($at)"
+        },
+        {
+          "offset": 813858,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 887310,
+          "parameter": 142,
+          "word": "0x8e33000c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0xc($s1)"
+        },
+        {
+          "offset": 990742,
+          "parameter": 140,
+          "word": "0x8c33db78",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2488($at)"
+        },
+        {
+          "offset": 998754,
+          "parameter": 140,
+          "word": "0x8c33db80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2480($at)"
+        },
+        {
+          "offset": 1107942,
+          "parameter": 140,
+          "word": "0x8c33e7d0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x1830($at)"
+        },
+        {
+          "offset": 1126326,
+          "parameter": 140,
+          "word": "0x8c33f1b8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe48($at)"
+        },
+        {
+          "offset": 1127610,
+          "parameter": 140,
+          "word": "0x8c33f1f0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe10($at)"
+        },
+        {
+          "offset": 1127702,
+          "parameter": 140,
+          "word": "0x8c33f1f0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe10($at)"
+        },
+        {
+          "offset": 1127798,
+          "parameter": 140,
+          "word": "0x8c33f1f0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe10($at)"
+        },
+        {
+          "offset": 1127898,
+          "parameter": 140,
+          "word": "0x8c33f1f0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe10($at)"
+        },
+        {
+          "offset": 1127978,
+          "parameter": 140,
+          "word": "0x8c33f1f0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe10($at)"
+        },
+        {
+          "offset": 1128066,
+          "parameter": 140,
+          "word": "0x8c33f1f0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe10($at)"
+        },
+        {
+          "offset": 1128150,
+          "parameter": 140,
+          "word": "0x8c33f1f0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe10($at)"
+        },
+        {
+          "offset": 1128242,
+          "parameter": 140,
+          "word": "0x8c33f1f0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe10($at)"
+        },
+        {
+          "offset": 1128890,
+          "parameter": 140,
+          "word": "0x8c33f1f8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe08($at)"
+        },
+        {
+          "offset": 1128982,
+          "parameter": 140,
+          "word": "0x8c33f1f8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe08($at)"
+        },
+        {
+          "offset": 1129078,
+          "parameter": 140,
+          "word": "0x8c33f1f8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe08($at)"
+        },
+        {
+          "offset": 1129170,
+          "parameter": 140,
+          "word": "0x8c33f1f8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe08($at)"
+        },
+        {
+          "offset": 1129254,
+          "parameter": 140,
+          "word": "0x8c33f1f8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe08($at)"
+        },
+        {
+          "offset": 1129346,
+          "parameter": 140,
+          "word": "0x8c33f1f8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xe08($at)"
+        },
+        {
+          "offset": 1187710,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1197798,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1198758,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1199558,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1463826,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1488590,
+          "parameter": 140,
+          "word": "0x8c33dedc",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2124($at)"
+        },
+        {
+          "offset": 1488762,
+          "parameter": 140,
+          "word": "0x8c33dedc",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2124($at)"
+        },
+        {
+          "offset": 1611650,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1626426,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1685314,
+          "parameter": 140,
+          "word": "0x8c338cd8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x7328($at)"
+        },
+        {
+          "offset": 1723402,
+          "parameter": 140,
+          "word": "0x8c338d3c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x72c4($at)"
+        },
+        {
+          "offset": 1770270,
+          "parameter": 140,
+          "word": "0x8c338da0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x7260($at)"
+        },
+        {
+          "offset": 1780974,
+          "parameter": 140,
+          "word": "0x8c338d98",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x7268($at)"
+        },
+        {
+          "offset": 1799646,
+          "parameter": 140,
+          "word": "0x8c33d674",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x298c($at)"
+        },
+        {
+          "offset": 1801298,
+          "parameter": 140,
+          "word": "0x8c33d674",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x298c($at)"
+        },
+        {
+          "offset": 1926662,
+          "parameter": 140,
+          "word": "0x8c33d700",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2900($at)"
+        },
+        {
+          "offset": 1942850,
+          "parameter": 140,
+          "word": "0x8c33dbec",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2414($at)"
+        },
+        {
+          "offset": 1948614,
+          "parameter": 140,
+          "word": "0x8c33dbf0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2410($at)"
+        },
+        {
+          "offset": 1985498,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 2352090,
+          "parameter": 142,
+          "word": "0x8e330004",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 4($s1)"
+        },
+        {
+          "offset": 2768078,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2768350,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2768550,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2768718,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2768978,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2769158,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 3050558,
+          "parameter": 140,
+          "word": "0x8c33dbe4",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x241c($at)"
+        },
+        {
+          "offset": 3208925,
+          "parameter": 142,
+          "word": "0x8e33bb",
+          "classification": "monotone u32 resource-offset table candidate",
+          "table_start": 3205360,
+          "table_end": 3212332,
+          "entry_count": 1743,
+          "first": 0,
+          "last": 19097371
+        },
+        {
+          "offset": 3211316,
+          "parameter": 139,
+          "word": "0xf48b33",
+          "classification": "monotone u32 resource-offset table candidate",
+          "table_start": 3205360,
+          "table_end": 3212332,
+          "entry_count": 1743,
+          "first": 0,
+          "last": 19097371
+        }
+      ],
+      "text_operand_conflicts": []
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "member_sha256": {
+        "SLPS_732.70": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb",
+        "DATA/STAGE.BIN": "4f2523dc18110534ea5d64ef69b97b1c305d4cd6d1ccd63b7685c4383e346f00",
+        "HEDBDY/HB.BIN": "f93f26490f21f93468afcdcb4a70f8a77521523f7c052c1517a45469c58da55d",
+        "DATA/MTVZKNRT.BIN": "e78306a1c1a5591bc0869d30f656578307c33543e146fb35a0fa16b177d0dd75",
+        "DATA/MTVZKNPT.BIN": "d582054de42be0cb88c0845fe547fc56d2e09038adf5f30c6475b321d257f4b3",
+        "DATA/MTVZKNKW.BIN": "d5eb84d5ff962a80363a6949d9560347b4ffac510e83abe87127557fa4faf226",
+        "DATA/COMPDATA.BN": "1464c05e29fb8d5e03be43e0852b303b55f1a760cc4f3764a853c0580d27f154",
+        "BTL/SRVC.BIN": "7e0c88a600e0c9be5a817e59a58554a9853be357503786781d891fdf4cfc63ff",
+        "BTL/SRVC.SEG": "04bb124155ddd35c4396800307317dc5ca4ea58ec413cd3c80c2239e841920ba"
+      },
+      "stage_chunks": 205,
+      "stage_entries": 93071,
+      "system_dialogue_entries": 379,
+      "decoded_stage_sequence_sha256": "aa415322eccfcdb4900dc4e7e9762b992009c4690274a495649b074468a1296b",
+      "stage_nontext_header_hits": [
+        {
+          "chunk": 65,
+          "offset": 19,
+          "parameter": 142,
+          "header_magic": "MWo3",
+          "header_word14": 142,
+          "native_name": "stg_052b.bin"
+        },
+        {
+          "chunk": 66,
+          "offset": 19,
+          "parameter": 141,
+          "header_magic": "MWo3",
+          "header_word14": 141,
+          "native_name": "stg_053.bin"
+        },
+        {
+          "chunk": 67,
+          "offset": 19,
+          "parameter": 140,
+          "header_magic": "MWo3",
+          "header_word14": 140,
+          "native_name": "stg_054a.bin"
+        },
+        {
+          "chunk": 68,
+          "offset": 19,
+          "parameter": 139,
+          "header_magic": "MWo3",
+          "header_word14": 139,
+          "native_name": "stg_054b.bin"
+        },
+        {
+          "chunk": 69,
+          "offset": 19,
+          "parameter": 138,
+          "header_magic": "MWo3",
+          "header_word14": 138,
+          "native_name": "stg_055.bin"
+        }
+      ],
+      "library_fields": 4922,
+      "compdata_nontext_stat_hits": [
+        {
+          "offset": 28154,
+          "parameter": 139,
+          "pilot": 111,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 28330,
+          "parameter": 139,
+          "pilot": 112,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 28506,
+          "parameter": 139,
+          "pilot": 113,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 28682,
+          "parameter": 139,
+          "pilot": 114,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        }
+      ],
+      "battle_indexed_fields": 58751,
+      "executable_candidates": [
+        {
+          "offset": 29102,
+          "parameter": 142,
+          "word": "0x8e330010",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x10($s1)"
+        },
+        {
+          "offset": 33406,
+          "parameter": 142,
+          "word": "0x8e330010",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x10($s1)"
+        },
+        {
+          "offset": 273274,
+          "parameter": 140,
+          "word": "0x8c33bfd4",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x402c($at)"
+        },
+        {
+          "offset": 533158,
+          "parameter": 140,
+          "word": "0x8c335db0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x5db0($at)"
+        },
+        {
+          "offset": 658062,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 658326,
+          "parameter": 142,
+          "word": "0x8e33fffc",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -4($s1)"
+        },
+        {
+          "offset": 697854,
+          "parameter": 140,
+          "word": "0x8c330e44",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0xe44($at)"
+        },
+        {
+          "offset": 814818,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 888270,
+          "parameter": 142,
+          "word": "0x8e33000c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0xc($s1)"
+        },
+        {
+          "offset": 991702,
+          "parameter": 140,
+          "word": "0x8c33e3a8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x1c58($at)"
+        },
+        {
+          "offset": 999714,
+          "parameter": 140,
+          "word": "0x8c33e3b0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x1c50($at)"
+        },
+        {
+          "offset": 1108902,
+          "parameter": 140,
+          "word": "0x8c33f000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x1000($at)"
+        },
+        {
+          "offset": 1127286,
+          "parameter": 140,
+          "word": "0x8c33f9e8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x618($at)"
+        },
+        {
+          "offset": 1128570,
+          "parameter": 140,
+          "word": "0x8c33fa20",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5e0($at)"
+        },
+        {
+          "offset": 1128662,
+          "parameter": 140,
+          "word": "0x8c33fa20",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5e0($at)"
+        },
+        {
+          "offset": 1128758,
+          "parameter": 140,
+          "word": "0x8c33fa20",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5e0($at)"
+        },
+        {
+          "offset": 1128858,
+          "parameter": 140,
+          "word": "0x8c33fa20",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5e0($at)"
+        },
+        {
+          "offset": 1128938,
+          "parameter": 140,
+          "word": "0x8c33fa20",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5e0($at)"
+        },
+        {
+          "offset": 1129026,
+          "parameter": 140,
+          "word": "0x8c33fa20",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5e0($at)"
+        },
+        {
+          "offset": 1129110,
+          "parameter": 140,
+          "word": "0x8c33fa20",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5e0($at)"
+        },
+        {
+          "offset": 1129202,
+          "parameter": 140,
+          "word": "0x8c33fa20",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5e0($at)"
+        },
+        {
+          "offset": 1129850,
+          "parameter": 140,
+          "word": "0x8c33fa28",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5d8($at)"
+        },
+        {
+          "offset": 1129942,
+          "parameter": 140,
+          "word": "0x8c33fa28",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5d8($at)"
+        },
+        {
+          "offset": 1130038,
+          "parameter": 140,
+          "word": "0x8c33fa28",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5d8($at)"
+        },
+        {
+          "offset": 1130130,
+          "parameter": 140,
+          "word": "0x8c33fa28",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5d8($at)"
+        },
+        {
+          "offset": 1130214,
+          "parameter": 140,
+          "word": "0x8c33fa28",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5d8($at)"
+        },
+        {
+          "offset": 1130306,
+          "parameter": 140,
+          "word": "0x8c33fa28",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5d8($at)"
+        },
+        {
+          "offset": 1188670,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1198758,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1199718,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1200518,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1464786,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1489550,
+          "parameter": 140,
+          "word": "0x8c33dedc",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2124($at)"
+        },
+        {
+          "offset": 1489722,
+          "parameter": 140,
+          "word": "0x8c33dedc",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2124($at)"
+        },
+        {
+          "offset": 1612610,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1627402,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1686290,
+          "parameter": 140,
+          "word": "0x8c338cd8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x7328($at)"
+        },
+        {
+          "offset": 1724378,
+          "parameter": 140,
+          "word": "0x8c338d3c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x72c4($at)"
+        },
+        {
+          "offset": 1771246,
+          "parameter": 140,
+          "word": "0x8c338da0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x7260($at)"
+        },
+        {
+          "offset": 1781950,
+          "parameter": 140,
+          "word": "0x8c338d98",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x7268($at)"
+        },
+        {
+          "offset": 1800622,
+          "parameter": 140,
+          "word": "0x8c33d674",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x298c($at)"
+        },
+        {
+          "offset": 1802274,
+          "parameter": 140,
+          "word": "0x8c33d674",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x298c($at)"
+        },
+        {
+          "offset": 1927638,
+          "parameter": 140,
+          "word": "0x8c33d700",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2900($at)"
+        },
+        {
+          "offset": 1943826,
+          "parameter": 140,
+          "word": "0x8c33dbec",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2414($at)"
+        },
+        {
+          "offset": 1949590,
+          "parameter": 140,
+          "word": "0x8c33dbf0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x2410($at)"
+        },
+        {
+          "offset": 1986474,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 2353626,
+          "parameter": 142,
+          "word": "0x8e330004",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 4($s1)"
+        },
+        {
+          "offset": 2770078,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2770350,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2770550,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2770718,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2770978,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2771158,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 3052590,
+          "parameter": 140,
+          "word": "0x8c33dbe4",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x241c($at)"
+        },
+        {
+          "offset": 3210845,
+          "parameter": 142,
+          "word": "0x8e33bb",
+          "classification": "monotone u32 resource-offset table candidate",
+          "table_start": 3207280,
+          "table_end": 3214252,
+          "entry_count": 1743,
+          "first": 0,
+          "last": 19097371
+        },
+        {
+          "offset": 3213236,
+          "parameter": 139,
+          "word": "0xf48b33",
+          "classification": "monotone u32 resource-offset table candidate",
+          "table_start": 3207280,
+          "table_end": 3214252,
+          "entry_count": 1743,
+          "first": 0,
+          "last": 19097371
+        }
+      ],
+      "text_operand_conflicts": []
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "member_sha256": {
+        "SLPS_259.20": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101",
+        "DATA/STAGE.BIN": "8509cf6ff6a35e2afb8fa217421d6f40e5d78f1d4143c78183105ee7755f64d3",
+        "HEDBDY/HB.BIN": "60274692c7f8556b2c1b7fa193724f1b83c0f4909a4c3a06eac6f9003efaa83e",
+        "DATA/MTVZKNRT.BIN": "4fb8a6c57d46f7572b2a9e5d630307e76a14a31d0cf4965a55a39e6e838fd244",
+        "DATA/MTVZKNPT.BIN": "e42b40c56eb7138c1040a958935abf01e600e2e95c62d4329dd95b9f9aa2d17c",
+        "DATA/MTVZKNKW.BIN": "dfa8506de45877ac40f19218083093fabc213499d1f4074530cc92053a65ad9a",
+        "DATA/COMPDATA.BN": "baadfcba3f3c65af2375e17903c7c24c985acbfd8e751c21e5b0af5afdc44959",
+        "BTL/SRVC.BIN": "acf7b4b00fbd104b3320ae44f2e7548f4d31ad1f434231df35e39920928cd7e1",
+        "BTL/SRVC.SEG": "46d9f8bd07c95f0b029801854857e0ab7650e74ab492da25605cbdbed4e6ac71"
+      },
+      "stage_chunks": 68,
+      "stage_entries": 10086,
+      "system_dialogue_entries": 0,
+      "decoded_stage_sequence_sha256": "62c77941d4a6ea2590c023b2ec60c052810ad9f6287eec84e1ec67f6fbd5903d",
+      "stage_nontext_header_hits": [],
+      "library_fields": 4997,
+      "compdata_nontext_stat_hits": [
+        {
+          "offset": 30920,
+          "parameter": 139,
+          "pilot": 111,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 31098,
+          "parameter": 139,
+          "pilot": 112,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 31276,
+          "parameter": 139,
+          "pilot": 113,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        },
+        {
+          "offset": 31454,
+          "parameter": 139,
+          "pilot": 114,
+          "record_offset": 74,
+          "classification": "pilot binary fields after three fixed name slots"
+        }
+      ],
+      "battle_indexed_fields": 59262,
+      "executable_candidates": [
+        {
+          "offset": 24638,
+          "parameter": 142,
+          "word": "0x8e330010",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x10($s1)"
+        },
+        {
+          "offset": 28942,
+          "parameter": 142,
+          "word": "0x8e330010",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x10($s1)"
+        },
+        {
+          "offset": 271790,
+          "parameter": 140,
+          "word": "0x8c33a854",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x57ac($at)"
+        },
+        {
+          "offset": 534518,
+          "parameter": 140,
+          "word": "0x8c33e4b0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x1b50($at)"
+        },
+        {
+          "offset": 670366,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 670630,
+          "parameter": 142,
+          "word": "0x8e33fffc",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -4($s1)"
+        },
+        {
+          "offset": 708302,
+          "parameter": 140,
+          "word": "0x8c33aa44",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x55bc($at)"
+        },
+        {
+          "offset": 823058,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 899470,
+          "parameter": 142,
+          "word": "0x8e33000c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0xc($s1)"
+        },
+        {
+          "offset": 1002614,
+          "parameter": 140,
+          "word": "0x8c339358",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x6ca8($at)"
+        },
+        {
+          "offset": 1010626,
+          "parameter": 140,
+          "word": "0x8c339360",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x6ca0($at)"
+        },
+        {
+          "offset": 1122310,
+          "parameter": 140,
+          "word": "0x8c339fc0",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x6040($at)"
+        },
+        {
+          "offset": 1142182,
+          "parameter": 140,
+          "word": "0x8c33ab48",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x54b8($at)"
+        },
+        {
+          "offset": 1143130,
+          "parameter": 140,
+          "word": "0x8c33ab80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5480($at)"
+        },
+        {
+          "offset": 1143222,
+          "parameter": 140,
+          "word": "0x8c33ab80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5480($at)"
+        },
+        {
+          "offset": 1143318,
+          "parameter": 140,
+          "word": "0x8c33ab80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5480($at)"
+        },
+        {
+          "offset": 1143418,
+          "parameter": 140,
+          "word": "0x8c33ab80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5480($at)"
+        },
+        {
+          "offset": 1143498,
+          "parameter": 140,
+          "word": "0x8c33ab80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5480($at)"
+        },
+        {
+          "offset": 1143586,
+          "parameter": 140,
+          "word": "0x8c33ab80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5480($at)"
+        },
+        {
+          "offset": 1143670,
+          "parameter": 140,
+          "word": "0x8c33ab80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5480($at)"
+        },
+        {
+          "offset": 1143762,
+          "parameter": 140,
+          "word": "0x8c33ab80",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5480($at)"
+        },
+        {
+          "offset": 1144426,
+          "parameter": 140,
+          "word": "0x8c33ab88",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5478($at)"
+        },
+        {
+          "offset": 1144518,
+          "parameter": 140,
+          "word": "0x8c33ab88",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5478($at)"
+        },
+        {
+          "offset": 1144614,
+          "parameter": 140,
+          "word": "0x8c33ab88",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5478($at)"
+        },
+        {
+          "offset": 1144706,
+          "parameter": 140,
+          "word": "0x8c33ab88",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5478($at)"
+        },
+        {
+          "offset": 1144790,
+          "parameter": 140,
+          "word": "0x8c33ab88",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5478($at)"
+        },
+        {
+          "offset": 1144882,
+          "parameter": 140,
+          "word": "0x8c33ab88",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x5478($at)"
+        },
+        {
+          "offset": 1203294,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1213830,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1214790,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1215590,
+          "parameter": 142,
+          "word": "0x8e330000",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, ($s1)"
+        },
+        {
+          "offset": 1486450,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1511262,
+          "parameter": 140,
+          "word": "0x8c33f084",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xf7c($at)"
+        },
+        {
+          "offset": 1511434,
+          "parameter": 140,
+          "word": "0x8c33f084",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0xf7c($at)"
+        },
+        {
+          "offset": 1634498,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1649370,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 1709890,
+          "parameter": 140,
+          "word": "0x8c339890",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x6770($at)"
+        },
+        {
+          "offset": 1748282,
+          "parameter": 140,
+          "word": "0x8c3398f4",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x670c($at)"
+        },
+        {
+          "offset": 1794494,
+          "parameter": 140,
+          "word": "0x8c339958",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x66a8($at)"
+        },
+        {
+          "offset": 1805198,
+          "parameter": 140,
+          "word": "0x8c339950",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x66b0($at)"
+        },
+        {
+          "offset": 1823902,
+          "parameter": 140,
+          "word": "0x8c33e81c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x17e4($at)"
+        },
+        {
+          "offset": 1825554,
+          "parameter": 140,
+          "word": "0x8c33e81c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x17e4($at)"
+        },
+        {
+          "offset": 1950070,
+          "parameter": 140,
+          "word": "0x8c33e8a8",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x1758($at)"
+        },
+        {
+          "offset": 1966290,
+          "parameter": 140,
+          "word": "0x8c33ed94",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x126c($at)"
+        },
+        {
+          "offset": 1972070,
+          "parameter": 140,
+          "word": "0x8c33ed98",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x1268($at)"
+        },
+        {
+          "offset": 2004698,
+          "parameter": 142,
+          "word": "0x8e330008",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 8($s1)"
+        },
+        {
+          "offset": 2190750,
+          "parameter": 140,
+          "word": "0x8c33ed8c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, -0x1274($at)"
+        },
+        {
+          "offset": 2499274,
+          "parameter": 142,
+          "word": "0x8e330004",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 4($s1)"
+        },
+        {
+          "offset": 2940734,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2941006,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2941206,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2941374,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2941634,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 2941814,
+          "parameter": 142,
+          "word": "0x8e33024c",
+          "classification": "native instruction-byte candidate",
+          "instruction": "lw $s3, 0x24c($s1)"
+        },
+        {
+          "offset": 3205205,
+          "parameter": 140,
+          "word": "0x258c3330",
+          "classification": "native instruction-byte candidate",
+          "instruction": "addiu $t4, $t4, 0x3330"
+        },
+        {
+          "offset": 3577597,
+          "parameter": 142,
+          "word": "0x8e33bb",
+          "classification": "monotone u32 resource-offset table candidate",
+          "table_start": 3574032,
+          "table_end": 3581040,
+          "entry_count": 1752,
+          "first": 0,
+          "last": 19203036
+        }
+      ],
+      "text_operand_conflicts": []
+    }
+  ],
+  "unproven": [
+    "other resource/text formats outside listed owners",
+    "runtime-generated control strings",
+    "whole-program executable instruction/table reachability"
+  ]
+}

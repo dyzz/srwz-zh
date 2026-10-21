@@ -1,0 +1,36 @@
+; writer_tail
+0033d4a0 8e04001c lw $a0, 0x1c($s0)
+0033d4a4 0c04e968 jal 0x13a5a0
+0033d4a8 0000282d move $a1, $zero
+0033d4ac a6020024 sh $v0, 0x24($s0)
+0033d4b0 8e040020 lw $a0, 0x20($s0)
+0033d4b4 0c04e968 jal 0x13a5a0
+0033d4b8 0000282d move $a1, $zero
+0033d4bc a6020026 sh $v0, 0x26($s0)
+; 0x24
+0033d674 3c010076 lui $at, 0x76
+0033d678 8422fcf4 lh $v0, -0x30c($at)
+0033d67c 26360006 addiu $s6, $s1, 6
+0033d680 0004243f dsra32 $a0, $a0, 0x10
+0033d684 8fa700ac lw $a3, 0xac($sp)
+0033d688 00838821 addu $s1, $a0, $v1
+0033d68c 02c0302d move $a2, $s6
+0033d690 0220402d move $t0, $s1
+0033d694 0000482d move $t1, $zero
+0033d698 3c010076 lui $at, 0x76
+0033d69c 02421021 addu $v0, $s2, $v0
+0033d6a0 8c24fcec lw $a0, -0x314($at)
+0033d6a4 0c04f414 jal 0x13d050
+0033d6a8 2445005a addiu $a1, $v0, 0x5a
+; 0x26
+0033d7b8 3c010076 lui $at, 0x76
+0033d7bc 02c0302d move $a2, $s6
+0033d7c0 8422fcf6 lh $v0, -0x30a($at)
+0033d7c4 02a0382d move $a3, $s5
+0033d7c8 0220402d move $t0, $s1
+0033d7cc 0000482d move $t1, $zero
+0033d7d0 3c010076 lui $at, 0x76
+0033d7d4 02421021 addu $v0, $s2, $v0
+0033d7d8 8c24fcf0 lw $a0, -0x310($at)
+0033d7dc 0c04f414 jal 0x13d050
+0033d7e0 24450224 addiu $a1, $v0, 0x224

@@ -1,0 +1,1027 @@
+{
+  "scope": "Native decimal parser executed; cached lazy setup marked complete; EE MOVZ/N and declared CRT MMI subset adapted. No GS/LRPS2 claim.",
+  "status": "three_native_cached_repeat_paths_with_native_decimal_match_C_byte_model",
+  "case_count": 60,
+  "cases": [
+    {
+      "edition": "original",
+      "case": 0,
+      "input": "-2147483648",
+      "expected_atoi_result": -2147483648,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "5d817ce2c64cde4ce432e53eadd9a7fde4a171a659bbc1bfbb8c070e1aa6bab4",
+      "full_buffer_sha256": "4c8e06f929f51511fe1866de06aba04feabb7635c2ef79cf6e7cbae6ce03390c",
+      "cache_sha256": "3522e31d94a01dc7803c294402858d5d8f3fd89b3378810f08a9a0f333202238"
+    },
+    {
+      "edition": "original",
+      "case": 1,
+      "input": "-10",
+      "expected_atoi_result": -10,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "94d13ba3abcfa253a9fc2417713653bd3e3c6ba4798748452a1bd5ef890e4fad",
+      "full_buffer_sha256": "c8a7f2013e12418b9285e0a98a3315c98fba156a0460706e666be13bf39611ba",
+      "cache_sha256": "a26340318ee10b56928c086e9ed76fe915d73d8a7f083098f0837566098e0647"
+    },
+    {
+      "edition": "original",
+      "case": 2,
+      "input": "-1",
+      "expected_atoi_result": -1,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "2dcab0e34e0016e2a4513a4f83796dbca37df274b6d43dea7aa2aaf278cb3d5f",
+      "full_buffer_sha256": "d1d80477bf7c5d9f3bf78a12e632dd0e19e773231517c2b867b4c7586eb8c2e0",
+      "cache_sha256": "46df8e31cc0233eb4861069d6754ac4cf0b4a436032f1ddd5ca7a77b932b537e"
+    },
+    {
+      "edition": "original",
+      "case": 3,
+      "input": "0",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "c0ec6a90e257b51f4108527197650cb8010559a8e80ad933d79b42a3eafb2d80",
+      "full_buffer_sha256": "2da8562a44982c09d6650a1f19afa2879e8651bf46048a7fb9c7231f92dfe23e",
+      "cache_sha256": "5f871d3d62b269c0359fdca4e016a75df122f29380decce7b8c54ff5233b3949"
+    },
+    {
+      "edition": "original",
+      "case": 4,
+      "input": "1",
+      "expected_atoi_result": 1,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 208,
+      "returned_pointer": "0x19000d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "0ec9250af68c36fe8e950541e2b5b780e71eb47b5c0318f0bd1eb51ea767d1dd",
+      "full_buffer_sha256": "ca495cd54380e0a6d5383d1e1c8b1f1ea06e3f862521d5b4b51c25842c5487a2",
+      "cache_sha256": "327ec88561956cd928214074bbe64ccbafc2289b632375f49656194565ede6ab"
+    },
+    {
+      "edition": "original",
+      "case": 5,
+      "input": "2",
+      "expected_atoi_result": 2,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 272,
+      "returned_pointer": "0x1900110",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "ee563c77c4ecae69fc52bfc50cd5e8cd905d75631e5fa6e22bf6d8d824255f4a",
+      "full_buffer_sha256": "6f7ae1b878e9dc8ce008c37d0420455468ddcf8aa59b0acc3a91ddf7c9f54dc1",
+      "cache_sha256": "618a8ea2fbc0efef32d6f65b2807b402b8e01b89cbda4825df388cf38659ec5e"
+    },
+    {
+      "edition": "original",
+      "case": 6,
+      "input": "7",
+      "expected_atoi_result": 7,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 592,
+      "returned_pointer": "0x1900250",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "0f1d2e2712adc72720250033c52015a092e074b8b290803422f4e6dc87b76685",
+      "full_buffer_sha256": "94810eddf69b83d7f7b92651f2db340445942b449fa49fb9ebf96004bad933cc",
+      "cache_sha256": "f608f1b154414e84bbfa4fbbb2588815665275658f740dd59da8faa19543fd0f"
+    },
+    {
+      "edition": "original",
+      "case": 7,
+      "input": "8",
+      "expected_atoi_result": 8,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 656,
+      "returned_pointer": "0x1900290",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "a80ae84563d708e17b511db71c3b4d3238d9ffb80aa063211eb4f08a87f325fe",
+      "full_buffer_sha256": "c980eb9c89d7a328a177cd6e51f6d7bec18352ac510daab1431fbbbd3c78346c",
+      "cache_sha256": "f43650fad3ad2fd570ba6db08d7ebd77d8cb8a7d8d043c64268e922c1a66b9ee"
+    },
+    {
+      "edition": "original",
+      "case": 8,
+      "input": "9",
+      "expected_atoi_result": 9,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "3ba9e25d5685283e5fb743e2c0f94ce6b8b9a9fcf5cb670b030757e0556d9eea",
+      "full_buffer_sha256": "16ed9e4301d460125f3b02d4e5bd1ebfacb76856c0fc3582c39cee4fedbd28ba",
+      "cache_sha256": "880008b0d9b36043f11af5bd15b54d0ff6d4bc83d59b1aefe3a501d3c810ff53"
+    },
+    {
+      "edition": "original",
+      "case": 9,
+      "input": "15",
+      "expected_atoi_result": 15,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1104,
+      "returned_pointer": "0x1900450",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "3f5aed516131f6ec5117bc0e79105b06d4b6ce4a88f19e7ba0ad76f928067cd1",
+      "full_buffer_sha256": "b63d7c203d4b823a9cc5e40c24a0eb3a81d6414bd45cf280630a7b00fa294d0c",
+      "cache_sha256": "64cf25eb66ace4090f63ccadcf2ec362e1b61ab8dd798d1a218fea805cc28f56"
+    },
+    {
+      "edition": "original",
+      "case": 10,
+      "input": "16",
+      "expected_atoi_result": 16,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1168,
+      "returned_pointer": "0x1900490",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "4b12085e42a06f2d99ec2a462a1876b3a4e43c2661bc054d2135f4dcada1a761",
+      "full_buffer_sha256": "966e3946fc73eacb5f4c96da144e879a5a3a544035e035ac36c9dd6a5306bb9d",
+      "cache_sha256": "fb471c8c597c5b615f5f080b21edcfe5236676bd23dc5e1beb682959b985a249"
+    },
+    {
+      "edition": "original",
+      "case": 11,
+      "input": "17",
+      "expected_atoi_result": 17,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1232,
+      "returned_pointer": "0x19004d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "620879d7c74b272f5c3f32fc40bca81070c293810ec505910f32a815b8e37adf",
+      "full_buffer_sha256": "d1c5be855e7db5d4aa5f06dab2fc097c3acb97dc097e737a0b50288c4c6dcfdf",
+      "cache_sha256": "749dc8c5bc2834273a266b39e0eed4b0544c7169127c00628136efe38263a092"
+    },
+    {
+      "edition": "original",
+      "case": 12,
+      "input": "31",
+      "expected_atoi_result": 31,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2128,
+      "returned_pointer": "0x1900850",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "3f9615667b97aa65d4c8d7e07ccaedb2b284158a112910986005b6cf95017322",
+      "full_buffer_sha256": "20b1300da6bcee12c4b55d00e1e871d85a56f1d1c1c5eb4063ee1ebb766afa03",
+      "cache_sha256": "8e69f684e6bd39b35394b73928df0bc68243e701bfb9ccfd6f6341bfa02bc9dc"
+    },
+    {
+      "edition": "original",
+      "case": 13,
+      "input": "32",
+      "expected_atoi_result": 32,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2192,
+      "returned_pointer": "0x1900890",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "0d8e2464305e6ab5df7e28bb05d3ce15b17606e2e489e82461febdf7e8c9debb",
+      "full_buffer_sha256": "17d6630bf97eeaa3eeaa667bd0d5cf9710799f0daa4d4191f102f9a300750882",
+      "cache_sha256": "32edbbf4fe982a166858b3282a14a55ee7083a6d13017295722ad5e6425379bf"
+    },
+    {
+      "edition": "original",
+      "case": 14,
+      "input": "32766",
+      "expected_atoi_result": 32766,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097168,
+      "returned_pointer": "0x1b00010",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "edaf24feba32a35b158046c3ef106d912d82f7ef4454ecfb76b666a92077eac2",
+      "full_buffer_sha256": "7acbb98c9605a25f4619b7399507cd89fb3765f011d5d1abf9997a96b959c258",
+      "cache_sha256": "a3ce55b8dbd06d350487e5b30a87b152c0ed1a0e1b0c567e6a2e0ce478077e7d"
+    },
+    {
+      "edition": "original",
+      "case": 15,
+      "input": "32767",
+      "expected_atoi_result": 32767,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "47de3bb523160519dec443a3673a15c94e77faa4009f476080b9974d55303ce0",
+      "full_buffer_sha256": "967e6b0194099399542e67254d6d0d42584c16c828658ac3159ec3250f8059d9",
+      "cache_sha256": "1aba5b6b65604a4eeabdfacf09774e40ce70ed85b3b796bd3aa34b1f7f76188c"
+    },
+    {
+      "edition": "original",
+      "case": 16,
+      "input": "32768",
+      "expected_atoi_result": 32768,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "c08dbfbf78b71b216e508e2115ebed1ccc80592dd5877db791a64cc40e77f44c",
+      "full_buffer_sha256": "b52be301cbe7b57e7c68ae02507fedd21506b40b19ae80eceaff6102da122bb2",
+      "cache_sha256": "2437d82cc04568f26a5795e87dbbffafc931d78a51cd0f8e25c4961acfe8e1ac"
+    },
+    {
+      "edition": "original",
+      "case": 17,
+      "input": "  +9xyz",
+      "expected_atoi_result": 9,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "d8fae04c27935e5f3f2f0c100c664008a598f707b5f751dbfb36bcea883a2942",
+      "full_buffer_sha256": "dc495979c2dde57479d79efd0143bf6aeb6db9f36aa7d9a2b8f99ab2c4dbc868",
+      "cache_sha256": "810aa38c64431a6f5f49a1ef6ef64420bfa71b3d0bec88225e4f151d9fab46ec"
+    },
+    {
+      "edition": "original",
+      "case": 18,
+      "input": "nondigit",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "fbc572b9ea01ed7e6bb1c22b92d99dcdf3d437149b64c0aea1d9fe0fbc91b708",
+      "full_buffer_sha256": "d11fea2256944f123e484d1ccae7f67ae9726ec409cab3c799eea259460df7de",
+      "cache_sha256": "82c4daa3b222a839def9e21514d2870c62e8094884957289ba9cb2086936cba8"
+    },
+    {
+      "edition": "original",
+      "case": 19,
+      "input": "",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "c298ebbfcb0ebb53980b94a62511a9c3c5d9044ab0bbf3503dfd296d3ce136b2",
+      "full_buffer_sha256": "04e6298b957c7ec249a20cd231a864cd716a3acbee9f45d54f5f0b5b6d38016b",
+      "cache_sha256": "b7479d90eca7985bdd4c504820ded6bf2228e6f367ea85779379d4ff1957bf08"
+    },
+    {
+      "edition": "best",
+      "case": 0,
+      "input": "-2147483648",
+      "expected_atoi_result": -2147483648,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "ec2101ecd0483c77266682c10edb962e2565b4b84b9b0d28c3685016c8cf7315",
+      "full_buffer_sha256": "042bac366a89f91485c1efcc196740a0cf2d00d49e809410f8a2233876c3ea33",
+      "cache_sha256": "bddd92875bc61b6642cc24f8aee883e3b47877dd269f2d14a641e07d4b936a75"
+    },
+    {
+      "edition": "best",
+      "case": 1,
+      "input": "-10",
+      "expected_atoi_result": -10,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "6557809385b9734f9773e4d5ab24cb2a8878ca4ed362d11ec14ed79c73b8dea9",
+      "full_buffer_sha256": "21be633c1fb4366b7e0d5300c700da9b7b664c334087dfd8d9e13fc127f9f84d",
+      "cache_sha256": "dddcee082b3f4e7ceaeba94cd04e7e548cccee53a47a833cd85ea8619f19d8a0"
+    },
+    {
+      "edition": "best",
+      "case": 2,
+      "input": "-1",
+      "expected_atoi_result": -1,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "7f106f428d7c9067adbbb5e5799862fbae4fc0e3fad3d2697931d72ca7a3f2fd",
+      "full_buffer_sha256": "743930125e7fcedb516941a38c32769dfc9aa56b38c3ed8902d9f30733f42100",
+      "cache_sha256": "bc81d838a8077d64c5fed91b1cebb41b1651df5352c9318958fadf8c97eff7f9"
+    },
+    {
+      "edition": "best",
+      "case": 3,
+      "input": "0",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "71eb437b98ce01144a9f2a6eaf2997342528752c0c0acc74ca9bb58c16013592",
+      "full_buffer_sha256": "f52f2b48a92923a66eac96aa1807494808fbb48dfe33e63908bf1a3c230a630f",
+      "cache_sha256": "e312f7ee271b5b1c4380d60a84d173442238def597087482c777eb9b23c8a718"
+    },
+    {
+      "edition": "best",
+      "case": 4,
+      "input": "1",
+      "expected_atoi_result": 1,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 208,
+      "returned_pointer": "0x19000d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "98dbdf44342afa02727eb6076265356f443fcc0c0864c62d219c504ce430dc42",
+      "full_buffer_sha256": "843884a48ec06a0d599c4a03586825ba1c49af37531476c1a27596274537dc84",
+      "cache_sha256": "bcfaafc44c62ddcbdd40b43929430481f931b1176e45300c986a780fdf5a5b30"
+    },
+    {
+      "edition": "best",
+      "case": 5,
+      "input": "2",
+      "expected_atoi_result": 2,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 272,
+      "returned_pointer": "0x1900110",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "152daff38479f118a475690ba74b08d426c5baf89ab64b3d99dd2e0903fb156c",
+      "full_buffer_sha256": "9b065fc580927444b910ab2f5a875e723c7991ca2509602060aa8d2338f9ae43",
+      "cache_sha256": "8c9c4fc287b88f5935f5db7a09ed3640953473a28a4a26e85aa4e96087c3028b"
+    },
+    {
+      "edition": "best",
+      "case": 6,
+      "input": "7",
+      "expected_atoi_result": 7,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 592,
+      "returned_pointer": "0x1900250",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "fdf0f31374e0b27bb6675f9a7f00a13fd6af74b1401119378941fe3e92f17f7e",
+      "full_buffer_sha256": "8a8ac2a15d38e61234b241aefad8118d909f66dae91b4a51ecd79db991a05017",
+      "cache_sha256": "60d6aefce0570a856138edb5a012b70962ef96e36f099ff7f90d2e5142f07e6a"
+    },
+    {
+      "edition": "best",
+      "case": 7,
+      "input": "8",
+      "expected_atoi_result": 8,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 656,
+      "returned_pointer": "0x1900290",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "08042b03bff05514181991abd2cd463ac162f90de174346dd5a1ef3a2c2d04fd",
+      "full_buffer_sha256": "ffef4630c08a804d81f2d3fad5762b80b4a8b67b4d83c3c4c8376b3f159a6965",
+      "cache_sha256": "e36bbc95da8766461f1792eb3a9bb98ac277151a0c5f6fa39f6ab3313dbd30cc"
+    },
+    {
+      "edition": "best",
+      "case": 8,
+      "input": "9",
+      "expected_atoi_result": 9,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "83d04a7466fde6c10447332b4d73348c6c712e4d9ddc11af1f98966ae09fef70",
+      "full_buffer_sha256": "8d2ed9c07b78ab2a19bf574df90b1ae7bb44a26d1e2f6bd83ae3eaa3c5fa3b1e",
+      "cache_sha256": "cc728df23cda1cc79c91de14c29166944e6c15925e53e3cedbe1a4fc168c3a6f"
+    },
+    {
+      "edition": "best",
+      "case": 9,
+      "input": "15",
+      "expected_atoi_result": 15,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1104,
+      "returned_pointer": "0x1900450",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "33fde3c6d575a46396e2631ce6fee7713abf128dbd319607fc73c7662e604182",
+      "full_buffer_sha256": "e1d61d9257303be07506f4d3e912c3e8b4184bf06e4464f34b60e8cb07479c40",
+      "cache_sha256": "47a8abf5f031aeb32effe7c5b1afa5603dff5606a4d894e71fb8f9b3883ef758"
+    },
+    {
+      "edition": "best",
+      "case": 10,
+      "input": "16",
+      "expected_atoi_result": 16,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1168,
+      "returned_pointer": "0x1900490",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "f93fb0bf9e01e251c7a42294c64d002cd652cfad7814622f272a6435db529443",
+      "full_buffer_sha256": "c739bb9992601532af27b0eb07e203632f1b79791c902ae180137ee7b88d66e9",
+      "cache_sha256": "6b73b0fcbab19785cfe5c2653ef1c21d701b24a0fa3e4dd4c45c3b212bb30d3c"
+    },
+    {
+      "edition": "best",
+      "case": 11,
+      "input": "17",
+      "expected_atoi_result": 17,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1232,
+      "returned_pointer": "0x19004d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "2b2d4720ef7e07a09c1b6ed2fee917784eb3bc146e149ec95e551f2b0dd6a865",
+      "full_buffer_sha256": "1dcf28bfbe420a207bca6e7625cb50efcdd85646b8c2f9c96468a0c7833ccd05",
+      "cache_sha256": "6ec0e2bff4a805c4414d2511704737126972d79ec8300c79cb3ff5b8dd810278"
+    },
+    {
+      "edition": "best",
+      "case": 12,
+      "input": "31",
+      "expected_atoi_result": 31,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2128,
+      "returned_pointer": "0x1900850",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "bf24d059141eb939251d1a461a8e1a8a1ff72055bc5320c76f9abe03d4297855",
+      "full_buffer_sha256": "25997fcf674a6418065041d092b74a69924a0ec256d7c06a5afacb1366939cd6",
+      "cache_sha256": "ddc95e019e00b26dcaaba6911431b010254adee80f201c7da77bb8583f813df0"
+    },
+    {
+      "edition": "best",
+      "case": 13,
+      "input": "32",
+      "expected_atoi_result": 32,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2192,
+      "returned_pointer": "0x1900890",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "7640c08f8afccb3c5345a2b30ccecb61f9e34b7a6881965aab6d9ffb1dcfff7a",
+      "full_buffer_sha256": "739d4f0f4865651768fce75a403a59a6aedbcfa9491db109d3469ebf41da5936",
+      "cache_sha256": "add5c0576d3b416286a3875b40ec66a6afdd83062cb1b7130cbb8e4b62b07682"
+    },
+    {
+      "edition": "best",
+      "case": 14,
+      "input": "32766",
+      "expected_atoi_result": 32766,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097168,
+      "returned_pointer": "0x1b00010",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "48bcc3db3f5a872386dc180c5c908b293489d1810609fd35f12e18ac3bf9b944",
+      "full_buffer_sha256": "22ca4a14da2eeb07a9cad48150fc738c3af300f29b21b4f853404ed84fc80065",
+      "cache_sha256": "ce4e90c52913998e2437085a34893a2e32fcb773f9ec38c63fa75c32925699a5"
+    },
+    {
+      "edition": "best",
+      "case": 15,
+      "input": "32767",
+      "expected_atoi_result": 32767,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "18aaf6e627f8690789aa5e6d5532e05f4f40f1080e0b28a071e2c1923f71a487",
+      "full_buffer_sha256": "cd996cf10b45aeab3eef7ff1d8aac82d5dbe4c4eff59e08f0a173aa850c77562",
+      "cache_sha256": "a94a79a437426dc53b35b9d3aaf6fa2038a3213978328a0d7ee66c4bafaa4733"
+    },
+    {
+      "edition": "best",
+      "case": 16,
+      "input": "32768",
+      "expected_atoi_result": 32768,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "cd5a184d5ad11079abe83767ddd3e71da6d008f8024ff2cf254fcbb32b10dfbe",
+      "full_buffer_sha256": "ff0d33d4929029b7d30d9c53f160eb0e1271c060b58ceb614cf06ef71de0deec",
+      "cache_sha256": "a1440727709c5a35d66fa4ac1ef443a93b7c273dbeaadedf0a66796df9b533db"
+    },
+    {
+      "edition": "best",
+      "case": 17,
+      "input": "  +9xyz",
+      "expected_atoi_result": 9,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "d223fe76e114f52f9a6ec8770049dac2d0d9de82ffdce8c84a1e249ff7960adf",
+      "full_buffer_sha256": "4f250ab0b50fe1cc5f56287ba299a6f76bbba75548188af8c0f2b4ed567534fc",
+      "cache_sha256": "c6ebeab66ed030244fc7d3f2df681fe211995f9d8edf17540e75eb560504329b"
+    },
+    {
+      "edition": "best",
+      "case": 18,
+      "input": "nondigit",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "5e54db3e5000743dd228ee5888db89e58299c8e7f51951ab276a32ad7bfcf16c",
+      "full_buffer_sha256": "b54f7f4bd87d6458602ba57f222518202949cdd7337703b142442496320ca89c",
+      "cache_sha256": "55c4a00648a0f8bbb9b337ad2802080dbf5a58f2f1cbfe994940b19cc569cbe3"
+    },
+    {
+      "edition": "best",
+      "case": 19,
+      "input": "",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "b9f85f0afa33ab5010f20cc9ba8b3f930fd5c96bb005513c305711dee694bc63",
+      "full_buffer_sha256": "ead5cc81cb196f0e2622e7cd8d780d5bbf305c130f26225f48f6d37974e94bd8",
+      "cache_sha256": "e1612901b1514a9457dfde25496bcba7ba1f5f77330c8d30a3dd117696f79b56"
+    },
+    {
+      "edition": "sp",
+      "case": 0,
+      "input": "-2147483648",
+      "expected_atoi_result": -2147483648,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "79c1716f14c324500ae3514d7efd90b71b39789f4eaef3ee089d4cace47206e5",
+      "full_buffer_sha256": "521a42f6d565a93b7842209c29a97b2d3bb36285e3cfe7a22a8a48f5ffcfaa10",
+      "cache_sha256": "ff07bba132fb8a3b7291f16a82798079a3cf0ca60224e279e2b33ada1e6ea1f5"
+    },
+    {
+      "edition": "sp",
+      "case": 1,
+      "input": "-10",
+      "expected_atoi_result": -10,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "5516d6c9a48d41f13ef8391bdd7fbde2b9eba1011dae752b222569088b804e41",
+      "full_buffer_sha256": "127279b113aab67e205798c899ade7a4b13db8d8c49dac3922616ad3323dbb2d",
+      "cache_sha256": "e1a9233d5175e3febaecd50f4d26db9fe8ccc2f61f75d73e41597ffa05de1189"
+    },
+    {
+      "edition": "sp",
+      "case": 2,
+      "input": "-1",
+      "expected_atoi_result": -1,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "f26b196647c7442871f2940251f0cdc23f7e746a7e4cbb52231cb93e100bd3a1",
+      "full_buffer_sha256": "f8e41436ee1f416b95308d35c457407d223b9ff62898b98d2cb816b8297aeb9b",
+      "cache_sha256": "828457351c0cae91709e4d46672b988dc646226a6a79a4a22a6a0e1b5b2c9119"
+    },
+    {
+      "edition": "sp",
+      "case": 3,
+      "input": "0",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "a9a08ad292ce0e622c656df0702cddf9acb2b5af3309bc150b6b0a613cf71142",
+      "full_buffer_sha256": "2a9ff9f61599f9eae475bcf270dfe65ddd5d0fcb0d68e17e7bb4e627bf35a48b",
+      "cache_sha256": "8a3b8238a7bbc262d76c75587b8cc8b00894f8a7bbf21d498d2e425b362bf9c2"
+    },
+    {
+      "edition": "sp",
+      "case": 4,
+      "input": "1",
+      "expected_atoi_result": 1,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 208,
+      "returned_pointer": "0x19000d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "d4acefb52b56d9e497b97cd5ea849b228ff2e5ee6b8ad3e2607cf1b9c600f33d",
+      "full_buffer_sha256": "bb9c674a3883bcf46aec1c63c80a5d9d92317fe17d5fd352de0b1c151a546f83",
+      "cache_sha256": "7ed6cbabc74b7deff60f3cf62dbdeda173f63e095aaca7e8308f658bbc8d405a"
+    },
+    {
+      "edition": "sp",
+      "case": 5,
+      "input": "2",
+      "expected_atoi_result": 2,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 272,
+      "returned_pointer": "0x1900110",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "cc47f94ac5df06102331cf74e3bec7ec601b05d66be3c4174327aaff0f1797e1",
+      "full_buffer_sha256": "3797a022d8061891a8a2c71b2d339b019bebd848dd4b6321c2e0520deaf2b0d8",
+      "cache_sha256": "ecb8936330ef3d3729ae4f836714d3c2476c42a7996c8d6de05553b39690fe91"
+    },
+    {
+      "edition": "sp",
+      "case": 6,
+      "input": "7",
+      "expected_atoi_result": 7,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 592,
+      "returned_pointer": "0x1900250",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "d8b31052934efb5c3590f33cef3aaad9e3b99d74f5fd2169c4a7a5cf1859d8de",
+      "full_buffer_sha256": "2987e0a03384072e36da887e37f72c2990d52bb7e451492de45035a3002f6429",
+      "cache_sha256": "556c2262a896e4d5b879a5157347b938f1e95868c18573015b3ea2cb86d0a19c"
+    },
+    {
+      "edition": "sp",
+      "case": 7,
+      "input": "8",
+      "expected_atoi_result": 8,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 656,
+      "returned_pointer": "0x1900290",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "783f3a457d0ed9870371629723ef97b857bc59306f2cf91a33248af0c999517f",
+      "full_buffer_sha256": "274a21aab70f44eaa202c38346af30fc60b029fbc3e63867e29ab38648550718",
+      "cache_sha256": "5f791fd1995053fbea1497d4d0fe86583fd54717c72a07c0a36e003b874a2272"
+    },
+    {
+      "edition": "sp",
+      "case": 8,
+      "input": "9",
+      "expected_atoi_result": 9,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "0c3c523117086dd85fd5237f9c998aee066bf7582a4ed97b886f97880548b5ba",
+      "full_buffer_sha256": "3015c862d2030d0447cd98689b96e3b8357cc8aff8a1da758cef29b646237772",
+      "cache_sha256": "fad7a9356c9928422174cf3e3cd7538da5384e3fa950acf824b5d9cf61afc0e2"
+    },
+    {
+      "edition": "sp",
+      "case": 9,
+      "input": "15",
+      "expected_atoi_result": 15,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1104,
+      "returned_pointer": "0x1900450",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "bbb2bb8b9eeab3c6328a578816b38dcdf7a0422c9f8babafd6530757b37cb3e5",
+      "full_buffer_sha256": "fe8f009b2e5ce82bb3e0108dd89b1aad9499034488d01195d47e638026251343",
+      "cache_sha256": "a6c79f4e443005641eebd68019997a0dfc529fc00219f857a4c62cf163083212"
+    },
+    {
+      "edition": "sp",
+      "case": 10,
+      "input": "16",
+      "expected_atoi_result": 16,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1168,
+      "returned_pointer": "0x1900490",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "ed0cb3273fe16fdb4a20a148a0bf3da0995f09bdada546f6239ee0447e393eea",
+      "full_buffer_sha256": "a5e4148d5499561cb55ebff7ff73c4d63e25f21bb6f1264074fbc334cae8a0e3",
+      "cache_sha256": "06003d8aaf4310f72abecfa829a4cfa01340965b4c2366f3096686a9911fd29f"
+    },
+    {
+      "edition": "sp",
+      "case": 11,
+      "input": "17",
+      "expected_atoi_result": 17,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 1232,
+      "returned_pointer": "0x19004d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "8f3e593259c7e24defabed74812162f19f741ce825f3ccd166408d83f778d7ff",
+      "full_buffer_sha256": "bce0ed1be8e780ee80a4a7e4f250f8ed0e9e658e9f70558a678f9524c9a1d1b4",
+      "cache_sha256": "6468b89ab8f8a3fea43d6d3953e909870e1f38b615589a0e9ed7c5fbd97ff6f9"
+    },
+    {
+      "edition": "sp",
+      "case": 12,
+      "input": "31",
+      "expected_atoi_result": 31,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2128,
+      "returned_pointer": "0x1900850",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "e1d813229cf1522f28f5e635f08a8ec94dc396c43fd90ce3769141711c11822b",
+      "full_buffer_sha256": "f6c09e40cba0bcadcb9ce805faaa3495eea0f95d15f7cdd0863368e951dba3d3",
+      "cache_sha256": "ba51adad444acf077eec725389410290f55809b59568f69d423a641055f281ac"
+    },
+    {
+      "edition": "sp",
+      "case": 13,
+      "input": "32",
+      "expected_atoi_result": 32,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2192,
+      "returned_pointer": "0x1900890",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "c1d76c9c951e14225886f4357ac2a34dbf7998a4fff047f469b97d97de3d9fbf",
+      "full_buffer_sha256": "47070ba6f3e612adcd36d1841fbac77f035fcd91d6970f14a80b9c002806fc2f",
+      "cache_sha256": "9ac9335c6a86c80d9550d68ff76889a992416670fd6a8c52f181c18430829286"
+    },
+    {
+      "edition": "sp",
+      "case": 14,
+      "input": "32766",
+      "expected_atoi_result": 32766,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097168,
+      "returned_pointer": "0x1b00010",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "cf7a9cbb58147cd898a9621758efae41ce50e2c210cb1a9007074743a9056c2d",
+      "full_buffer_sha256": "7f3f55e1ca3efc97f066c0950916b383125aac3168901043cfa2e192da65e574",
+      "cache_sha256": "47413faf41f546c68a9502663c0b0fe1511692d31a7ac2f1e86435c9383865fb"
+    },
+    {
+      "edition": "sp",
+      "case": 15,
+      "input": "32767",
+      "expected_atoi_result": 32767,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "8b2e7c51f62b3b3eb011129e49c06ba4d6fc2b9cbdea64014bd6aa8be4ee99ff",
+      "full_buffer_sha256": "398511d1eb1c962821a7e1d654d6fd6449330262db55b9cd18951b884bc3b4c2",
+      "cache_sha256": "0942b48d31d842f4fd0e5e79205d600a754371307f1f548d4f51841a5d73edf6"
+    },
+    {
+      "edition": "sp",
+      "case": 16,
+      "input": "32768",
+      "expected_atoi_result": 32768,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 2097232,
+      "returned_pointer": "0x1b00050",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "658b5985add2dfa216ecda158a95edaed585ee03751f1bacb72d6d1dd36959b5",
+      "full_buffer_sha256": "808e0defd1825976c81ae2314e749cd0922704a3c2a66d670c1d33e06a7effa0",
+      "cache_sha256": "4abaf5f3fbe6cf51cde51880dd0ed1f18f54b43e94754499f131af9d9dab8daa"
+    },
+    {
+      "edition": "sp",
+      "case": 17,
+      "input": "  +9xyz",
+      "expected_atoi_result": 9,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 720,
+      "returned_pointer": "0x19002d0",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "8309c52054b355e477ec2d5027fa044b70a6fe280b09cfc760ce17f3dd6787c3",
+      "full_buffer_sha256": "5e5a9553c516f77712aba6ee2be0b63e3499c5e1badb1bb60ed8600b1c51abe3",
+      "cache_sha256": "9b04f56a8f228a0f7d9467e6436ac3861ff810dbec05fe618761ecdc1b540ad6"
+    },
+    {
+      "edition": "sp",
+      "case": 18,
+      "input": "nondigit",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        32760,
+        -32760
+      ],
+      "packet_sha256": "4ef3dbcfefce2852bf0c9f7f940a3a9bc9d5700831d963de049a1e37196d1ce5",
+      "full_buffer_sha256": "10537f1e1df243ba242f3583d3ddcf8b9c8a1e43b53d2a62398abd3bc3487c78",
+      "cache_sha256": "5907d1fe288b57bab85aab263b62b90a0737af14932f3a3bef397db720228387"
+    },
+    {
+      "edition": "sp",
+      "case": 19,
+      "input": "",
+      "expected_atoi_result": 0,
+      "cache_initialization": "preinitialized cache contract",
+      "atoi_execution": "native CRT instructions with explicit EE adapters",
+      "written": 144,
+      "returned_pointer": "0x1900090",
+      "xy": [
+        180,
+        36
+      ],
+      "packet_sha256": "0bd6fbe4c095dcb2b162b8aaa9198d29b32e6564143ea2329393dfcc62d05c78",
+      "full_buffer_sha256": "19178af4aa8bab881eff289d7202086fd58c71caeb5a36a579805d0434581214",
+      "cache_sha256": "8771c86cd0f3b1680c29c41395a68c458d71dea660a816416515445bfa983df2"
+    }
+  ]
+}

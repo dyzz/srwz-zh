@@ -1,0 +1,117 @@
+{
+  "edition": "sp",
+  "iso": "build/iso/special-disc/sp-current.iso",
+  "iso_sha256": "e552a20fb8a07d8b375a594ae0b2956b7ebedc37a0ec65ba2097b33b4ac82cc0",
+  "source_card_sha256_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+  "commands": [
+    {
+      "command": "run 1800",
+      "response": [
+        "OK frame=1800"
+      ]
+    },
+    {
+      "command": "press start 3",
+      "response": [
+        "OK frame=1805"
+      ]
+    },
+    {
+      "command": "run 180",
+      "response": [
+        "OK frame=1985"
+      ]
+    },
+    {
+      "command": "press right 3",
+      "response": [
+        "OK frame=1990"
+      ]
+    },
+    {
+      "command": "press circle 3",
+      "response": [
+        "OK frame=1995"
+      ]
+    },
+    {
+      "command": "run 180",
+      "response": [
+        "OK frame=2175"
+      ]
+    },
+    {
+      "command": "press circle 3",
+      "response": [
+        "OK frame=2180"
+      ]
+    },
+    {
+      "command": "run 240",
+      "response": [
+        "OK frame=2420"
+      ]
+    },
+    {
+      "command": "shot robot-list",
+      "response": [
+        "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/library-optical-robot-20261021/sp/robot-list.png 640x448 luma=23.5",
+        "OK frame=2420"
+      ]
+    },
+    {
+      "command": "press circle 3",
+      "response": [
+        "OK frame=2425"
+      ]
+    },
+    {
+      "command": "run 240",
+      "response": [
+        "OK frame=2665"
+      ]
+    },
+    {
+      "command": "shot robot-top",
+      "response": [
+        "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/library-optical-robot-20261021/sp/robot-top.png 640x448 luma=28.6",
+        "OK frame=2665"
+      ]
+    },
+    {
+      "command": "press down 28",
+      "response": [
+        "OK frame=2695"
+      ]
+    },
+    {
+      "command": "run 20",
+      "response": [
+        "OK frame=2715"
+      ]
+    },
+    {
+      "command": "shot robot-scroll",
+      "response": [
+        "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/library-optical-robot-20261021/sp/robot-scroll.png 640x448 luma=29.0",
+        "OK frame=2715"
+      ]
+    },
+    {
+      "command": "mem 4ed5c4 8",
+      "response": [
+        "16000b0016000b00",
+        "OK frame=2715"
+      ]
+    },
+    {
+      "command": "quit",
+      "response": [
+        "OK"
+      ]
+    }
+  ],
+  "controlled_dsc2": false,
+  "source_card_sha256_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+  "status": "captured_pending_visual_review"
+}

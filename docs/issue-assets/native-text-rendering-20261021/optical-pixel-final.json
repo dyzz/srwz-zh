@@ -1,0 +1,264 @@
+{
+  "scope": "sampled LRPS2 bright-text ROI extents at three intensity thresholds; not whole-font optical proof",
+  "source_image": "work/runtime/lrps2/library-optical-final-20261021/original/lily-top.png",
+  "image_sha256": "bf682c4a022d4878500d7e8e74cacc6dc3ea5c9c3e80141febdd1365c37c33fe",
+  "iso_sha256": "972c66c8fd61d812e0a7cacc96b747b875ef8fa887af0908a0a711a747a0d44b",
+  "measurements": [
+    {
+      "label": "digit_1",
+      "roi": [
+        96,
+        218,
+        105,
+        245
+      ],
+      "threshold": 100,
+      "bbox": [
+        98,
+        222,
+        102,
+        242
+      ],
+      "visible_height": 20
+    },
+    {
+      "label": "digit_1",
+      "roi": [
+        96,
+        218,
+        105,
+        245
+      ],
+      "threshold": 120,
+      "bbox": [
+        98,
+        222,
+        102,
+        242
+      ],
+      "visible_height": 20
+    },
+    {
+      "label": "digit_1",
+      "roi": [
+        96,
+        218,
+        105,
+        245
+      ],
+      "threshold": 140,
+      "bbox": [
+        98,
+        222,
+        102,
+        242
+      ],
+      "visible_height": 20
+    },
+    {
+      "label": "digit_4",
+      "roi": [
+        107,
+        218,
+        120,
+        245
+      ],
+      "threshold": 100,
+      "bbox": [
+        109,
+        222,
+        118,
+        242
+      ],
+      "visible_height": 20
+    },
+    {
+      "label": "digit_4",
+      "roi": [
+        107,
+        218,
+        120,
+        245
+      ],
+      "threshold": 120,
+      "bbox": [
+        109,
+        222,
+        118,
+        242
+      ],
+      "visible_height": 20
+    },
+    {
+      "label": "digit_4",
+      "roi": [
+        107,
+        218,
+        120,
+        245
+      ],
+      "threshold": 140,
+      "bbox": [
+        109,
+        222,
+        118,
+        241
+      ],
+      "visible_height": 19
+    },
+    {
+      "label": "age_chinese",
+      "roi": [
+        120,
+        218,
+        138,
+        245
+      ],
+      "threshold": 100,
+      "bbox": [
+        120,
+        222,
+        136,
+        242
+      ],
+      "visible_height": 20
+    },
+    {
+      "label": "age_chinese",
+      "roi": [
+        120,
+        218,
+        138,
+        245
+      ],
+      "threshold": 120,
+      "bbox": [
+        120,
+        222,
+        136,
+        242
+      ],
+      "visible_height": 20
+    },
+    {
+      "label": "age_chinese",
+      "roi": [
+        120,
+        218,
+        138,
+        245
+      ],
+      "threshold": 140,
+      "bbox": [
+        121,
+        222,
+        136,
+        241
+      ],
+      "visible_height": 19
+    },
+    {
+      "label": "body_G",
+      "roi": [
+        221,
+        162,
+        234,
+        188
+      ],
+      "threshold": 100,
+      "bbox": [
+        222,
+        165,
+        232,
+        187
+      ],
+      "visible_height": 22
+    },
+    {
+      "label": "body_G",
+      "roi": [
+        221,
+        162,
+        234,
+        188
+      ],
+      "threshold": 120,
+      "bbox": [
+        222,
+        165,
+        232,
+        186
+      ],
+      "visible_height": 21
+    },
+    {
+      "label": "body_G",
+      "roi": [
+        221,
+        162,
+        234,
+        188
+      ],
+      "threshold": 140,
+      "bbox": [
+        222,
+        165,
+        232,
+        186
+      ],
+      "visible_height": 21
+    },
+    {
+      "label": "body_chinese",
+      "roi": [
+        200,
+        162,
+        220,
+        188
+      ],
+      "threshold": 100,
+      "bbox": [
+        201,
+        165,
+        218,
+        186
+      ],
+      "visible_height": 21
+    },
+    {
+      "label": "body_chinese",
+      "roi": [
+        200,
+        162,
+        220,
+        188
+      ],
+      "threshold": 120,
+      "bbox": [
+        201,
+        165,
+        218,
+        186
+      ],
+      "visible_height": 21
+    },
+    {
+      "label": "body_chinese",
+      "roi": [
+        200,
+        162,
+        220,
+        188
+      ],
+      "threshold": 140,
+      "bbox": [
+        201,
+        166,
+        218,
+        186
+      ],
+      "visible_height": 20
+    }
+  ],
+  "decision": "final calibrated candidate: letter optical compensation retained; digits use native body height without Y shift"
+}

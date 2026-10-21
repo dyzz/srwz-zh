@@ -1,0 +1,4320 @@
+{
+  "scope": "Native intra-window CFG for both atlas scheduling/submission callers.\nBranches and delay slots are represented as atomic instruction pairs; all\nreturning direct calls have continuation edges. No indirect target invention.\nDominance is conditional on ordinary call/return behavior; callee side effects,\nframe entry selection, hardware polling and asynchronous timing are not proved.\n",
+  "status": "six_native_intra_window_CFGs_close_and_verify_scatter_cache_submission_dominance_under_returning_call_contracts",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "windows": [
+        {
+          "index": 0,
+          "start": "0x1431c4",
+          "end": "0x143694",
+          "sha256": "99e74d83a5cce44b3230924909e15c9ebabc1f7963d00a095d6bdcda38f9ecdb",
+          "scheduling_gate": "0x1431c4",
+          "scatter_site": "0x143440",
+          "send_sites": [
+            "0x1435e4",
+            "0x14368c"
+          ],
+          "cache_sites": [
+            "0x1435bc",
+            "0x143664"
+          ],
+          "order": "request_then_scatter_then_submit",
+          "reachable_macro_nodes": 268,
+          "unresolved_transfers": [],
+          "external_direct_edges": [],
+          "calls": [
+            {
+              "site": "0x14325c",
+              "target": "0x136330",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1432b8",
+              "target": "0x136330",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1432d8",
+              "target": "0x13aca0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143308",
+              "target": "0x7569a0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143340",
+              "target": "0x756ef0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143354",
+              "target": "0x17d040",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143368",
+              "target": "0x17d7e0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1433e8",
+              "target": "0x138a40",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1433f4",
+              "target": "0x16df30",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143400",
+              "target": "0x1479c0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143408",
+              "target": "0x16a178",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143430",
+              "target": "0x23ee40",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143440",
+              "target": "0x13c5c0",
+              "label": "cpu_scatter"
+            },
+            {
+              "site": "0x143448",
+              "target": "0x16a3c8",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143450",
+              "target": "0x140d00",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14349c",
+              "target": "0x136090",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1434a4",
+              "target": "0x136120",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1434f0",
+              "target": "0x135fd0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1434f8",
+              "target": "0x136060",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1435bc",
+              "target": "0x11b2e0",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1435e4",
+              "target": "0x10e5b8",
+              "label": "dma_send"
+            },
+            {
+              "site": "0x14360c",
+              "target": "0x140d00",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143618",
+              "target": "0x1479c0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143624",
+              "target": "0x1479c0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14362c",
+              "target": "0x16a178",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143634",
+              "target": "0x16a3c8",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14363c",
+              "target": "0x140d00",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143664",
+              "target": "0x11b2e0",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x14368c",
+              "target": "0x10e5b8",
+              "label": "dma_send"
+            }
+          ],
+          "edges": {
+            "0x1431c4": [
+              "0x1431c8"
+            ],
+            "0x1431c8": [
+              "0x1431cc"
+            ],
+            "0x1431cc": [
+              "0x1432d0",
+              "0x1431d4"
+            ],
+            "0x1431d4": [
+              "0x1431d8"
+            ],
+            "0x1431d8": [
+              "0x1431dc"
+            ],
+            "0x1431dc": [
+              "0x1431e0"
+            ],
+            "0x1431e0": [
+              "0x1431e4"
+            ],
+            "0x1431e4": [
+              "0x1431e8"
+            ],
+            "0x1431e8": [
+              "0x1431ec"
+            ],
+            "0x1431ec": [
+              "0x1431f0"
+            ],
+            "0x1431f0": [
+              "0x1431f4"
+            ],
+            "0x1431f4": [
+              "0x1431f8"
+            ],
+            "0x1431f8": [
+              "0x1431fc"
+            ],
+            "0x1431fc": [
+              "0x143200"
+            ],
+            "0x143200": [
+              "0x143204"
+            ],
+            "0x143204": [
+              "0x143208"
+            ],
+            "0x143208": [
+              "0x14320c"
+            ],
+            "0x14320c": [
+              "0x143210"
+            ],
+            "0x143210": [
+              "0x143214"
+            ],
+            "0x143214": [
+              "0x143218"
+            ],
+            "0x143218": [
+              "0x14321c"
+            ],
+            "0x14321c": [
+              "0x143220"
+            ],
+            "0x143220": [
+              "0x143224"
+            ],
+            "0x143224": [
+              "0x143228"
+            ],
+            "0x143228": [
+              "0x14322c"
+            ],
+            "0x14322c": [
+              "0x143230"
+            ],
+            "0x143230": [
+              "0x143234"
+            ],
+            "0x143234": [
+              "0x143238"
+            ],
+            "0x143238": [
+              "0x14323c"
+            ],
+            "0x14323c": [
+              "0x143240"
+            ],
+            "0x143240": [
+              "0x143244"
+            ],
+            "0x143244": [
+              "0x143248"
+            ],
+            "0x143248": [
+              "0x14324c"
+            ],
+            "0x14324c": [
+              "0x143250"
+            ],
+            "0x143250": [
+              "0x143254"
+            ],
+            "0x143254": [
+              "0x143258"
+            ],
+            "0x143258": [
+              "0x14325c"
+            ],
+            "0x14325c": [
+              "0x143264"
+            ],
+            "0x143264": [
+              "0x143268"
+            ],
+            "0x143268": [
+              "0x14326c"
+            ],
+            "0x14326c": [
+              "0x143270"
+            ],
+            "0x143270": [
+              "0x143274"
+            ],
+            "0x143274": [
+              "0x143278"
+            ],
+            "0x143278": [
+              "0x14327c"
+            ],
+            "0x14327c": [
+              "0x143280"
+            ],
+            "0x143280": [
+              "0x143284"
+            ],
+            "0x143284": [
+              "0x143288"
+            ],
+            "0x143288": [
+              "0x14328c"
+            ],
+            "0x14328c": [
+              "0x143290"
+            ],
+            "0x143290": [
+              "0x143294"
+            ],
+            "0x143294": [
+              "0x143298"
+            ],
+            "0x143298": [
+              "0x14329c"
+            ],
+            "0x14329c": [
+              "0x1432a0"
+            ],
+            "0x1432a0": [
+              "0x1432a4"
+            ],
+            "0x1432a4": [
+              "0x1432a8"
+            ],
+            "0x1432a8": [
+              "0x1432ac"
+            ],
+            "0x1432ac": [
+              "0x1432b0"
+            ],
+            "0x1432b0": [
+              "0x1432b4"
+            ],
+            "0x1432b4": [
+              "0x1432b8"
+            ],
+            "0x1432b8": [
+              "0x1432c0"
+            ],
+            "0x1432c0": [
+              "0x1432c4"
+            ],
+            "0x1432c4": [
+              "0x1432c8"
+            ],
+            "0x1432c8": [
+              "0x1432cc"
+            ],
+            "0x1432cc": [
+              "0x1432d0"
+            ],
+            "0x1432d0": [
+              "0x1432d4"
+            ],
+            "0x1432d4": [
+              "0x1432d8"
+            ],
+            "0x1432d8": [
+              "0x1432e0"
+            ],
+            "0x1432e0": [
+              "0x1432e4"
+            ],
+            "0x1432e4": [
+              "0x1432e8"
+            ],
+            "0x1432e8": [
+              "0x1432ec"
+            ],
+            "0x1432ec": [
+              "0x143320",
+              "0x1432f4"
+            ],
+            "0x1432f4": [
+              "0x1432f8"
+            ],
+            "0x1432f8": [
+              "0x1432fc"
+            ],
+            "0x1432fc": [
+              "0x143320",
+              "0x143304"
+            ],
+            "0x143304": [
+              "0x143308"
+            ],
+            "0x143308": [
+              "0x143310"
+            ],
+            "0x143310": [
+              "0x143314"
+            ],
+            "0x143314": [
+              "0x143350",
+              "0x14331c"
+            ],
+            "0x14331c": [
+              "0x143320"
+            ],
+            "0x143320": [
+              "0x143324"
+            ],
+            "0x143324": [
+              "0x143350",
+              "0x14332c"
+            ],
+            "0x14332c": [
+              "0x143330"
+            ],
+            "0x143330": [
+              "0x143334"
+            ],
+            "0x143334": [
+              "0x143350",
+              "0x14333c"
+            ],
+            "0x14333c": [
+              "0x143340"
+            ],
+            "0x143340": [
+              "0x143348"
+            ],
+            "0x143348": [
+              "0x14334c"
+            ],
+            "0x14334c": [
+              "0x143350"
+            ],
+            "0x143350": [
+              "0x143354"
+            ],
+            "0x143354": [
+              "0x14335c"
+            ],
+            "0x14335c": [
+              "0x143360"
+            ],
+            "0x143360": [
+              "0x143364"
+            ],
+            "0x143364": [
+              "0x143368"
+            ],
+            "0x143368": [
+              "0x143370"
+            ],
+            "0x143370": [
+              "0x143374"
+            ],
+            "0x143374": [
+              "0x143378"
+            ],
+            "0x143378": [
+              "0x14337c"
+            ],
+            "0x14337c": [
+              "0x143380"
+            ],
+            "0x143380": [
+              "0x143384"
+            ],
+            "0x143384": [
+              "0x143388"
+            ],
+            "0x143388": [
+              "0x14338c"
+            ],
+            "0x14338c": [
+              "0x143390"
+            ],
+            "0x143390": [
+              "0x143394"
+            ],
+            "0x143394": [
+              "0x143398"
+            ],
+            "0x143398": [
+              "0x14339c"
+            ],
+            "0x14339c": [
+              "0x1433a0"
+            ],
+            "0x1433a0": [
+              "0x1433a4"
+            ],
+            "0x1433a4": [
+              "0x1433a8"
+            ],
+            "0x1433a8": [
+              "0x1433ac"
+            ],
+            "0x1433ac": [
+              "0x1433b0"
+            ],
+            "0x1433b0": [
+              "0x1433b4"
+            ],
+            "0x1433b4": [
+              "0x1433b8"
+            ],
+            "0x1433b8": [
+              "0x1433bc"
+            ],
+            "0x1433bc": [
+              "0x1433c0"
+            ],
+            "0x1433c0": [
+              "0x1433c4"
+            ],
+            "0x1433c4": [
+              "0x1433c8"
+            ],
+            "0x1433c8": [
+              "0x1433cc"
+            ],
+            "0x1433cc": [
+              "0x1433d0"
+            ],
+            "0x1433d0": [
+              "0x1433d4"
+            ],
+            "0x1433d4": [
+              "0x1433d8"
+            ],
+            "0x1433d8": [
+              "0x1433dc"
+            ],
+            "0x1433dc": [
+              "0x1433e0"
+            ],
+            "0x1433e0": [
+              "0x1433e4"
+            ],
+            "0x1433e4": [
+              "0x1433e8"
+            ],
+            "0x1433e8": [
+              "0x1433f0"
+            ],
+            "0x1433f0": [
+              "0x1433f4"
+            ],
+            "0x1433f4": [
+              "0x1433fc"
+            ],
+            "0x1433fc": [
+              "0x143400"
+            ],
+            "0x143400": [
+              "0x143408"
+            ],
+            "0x143408": [
+              "0x143410"
+            ],
+            "0x143410": [
+              "0x143414"
+            ],
+            "0x143414": [
+              "0x143428",
+              "0x14341c"
+            ],
+            "0x14341c": [
+              "0x143440",
+              "0x143424"
+            ],
+            "0x143424": [
+              "0x143428"
+            ],
+            "0x143428": [
+              "0x14342c"
+            ],
+            "0x14342c": [
+              "0x143430"
+            ],
+            "0x143430": [
+              "0x143438"
+            ],
+            "0x143438": [
+              "0x14343c"
+            ],
+            "0x14343c": [
+              "0x143440"
+            ],
+            "0x143440": [
+              "0x143448"
+            ],
+            "0x143448": [
+              "0x143450"
+            ],
+            "0x143450": [
+              "0x143458"
+            ],
+            "0x143458": [
+              "0x14345c"
+            ],
+            "0x14345c": [
+              "0x143460"
+            ],
+            "0x143460": [
+              "0x143464"
+            ],
+            "0x143464": [
+              "0x143468"
+            ],
+            "0x143468": [
+              "0x14346c"
+            ],
+            "0x14346c": [
+              "0x143470"
+            ],
+            "0x143470": [
+              "0x143474"
+            ],
+            "0x143474": [
+              "0x143478"
+            ],
+            "0x143478": [
+              "0x14347c"
+            ],
+            "0x14347c": [
+              "0x143480"
+            ],
+            "0x143480": [
+              "0x143484"
+            ],
+            "0x143484": [
+              "0x143488"
+            ],
+            "0x143488": [
+              "0x14348c"
+            ],
+            "0x14348c": [
+              "0x143490"
+            ],
+            "0x143490": [
+              "0x143494"
+            ],
+            "0x143494": [
+              "0x143498"
+            ],
+            "0x143498": [
+              "0x14349c"
+            ],
+            "0x14349c": [
+              "0x1434a4"
+            ],
+            "0x1434a4": [
+              "0x1434ac"
+            ],
+            "0x1434ac": [
+              "0x1434b0"
+            ],
+            "0x1434b0": [
+              "0x1434b4"
+            ],
+            "0x1434b4": [
+              "0x1434b8"
+            ],
+            "0x1434b8": [
+              "0x1434bc"
+            ],
+            "0x1434bc": [
+              "0x1434c0"
+            ],
+            "0x1434c0": [
+              "0x1434c4"
+            ],
+            "0x1434c4": [
+              "0x1434c8"
+            ],
+            "0x1434c8": [
+              "0x1434cc"
+            ],
+            "0x1434cc": [
+              "0x1434d0"
+            ],
+            "0x1434d0": [
+              "0x1434d4"
+            ],
+            "0x1434d4": [
+              "0x1434d8"
+            ],
+            "0x1434d8": [
+              "0x1434dc"
+            ],
+            "0x1434dc": [
+              "0x1434e0"
+            ],
+            "0x1434e0": [
+              "0x1434e4"
+            ],
+            "0x1434e4": [
+              "0x1434e8"
+            ],
+            "0x1434e8": [
+              "0x1434ec"
+            ],
+            "0x1434ec": [
+              "0x1434f0"
+            ],
+            "0x1434f0": [
+              "0x1434f8"
+            ],
+            "0x1434f8": [
+              "0x143500"
+            ],
+            "0x143500": [
+              "0x143504"
+            ],
+            "0x143504": [
+              "0x143508"
+            ],
+            "0x143508": [
+              "0x14350c"
+            ],
+            "0x14350c": [
+              "0x143510"
+            ],
+            "0x143510": [
+              "0x143514"
+            ],
+            "0x143514": [
+              "0x143518"
+            ],
+            "0x143518": [
+              "0x14351c"
+            ],
+            "0x14351c": [
+              "0x143520"
+            ],
+            "0x143520": [
+              "0x143524"
+            ],
+            "0x143524": [
+              "0x143528"
+            ],
+            "0x143528": [
+              "0x14352c"
+            ],
+            "0x14352c": [
+              "0x143530"
+            ],
+            "0x143530": [
+              "0x143534"
+            ],
+            "0x143534": [
+              "0x143538"
+            ],
+            "0x143538": [
+              "0x14353c"
+            ],
+            "0x14353c": [
+              "0x143540"
+            ],
+            "0x143540": [
+              "0x143544"
+            ],
+            "0x143544": [
+              "0x143548"
+            ],
+            "0x143548": [
+              "0x14354c"
+            ],
+            "0x14354c": [
+              "0x143550"
+            ],
+            "0x143550": [
+              "0x143588",
+              "0x143558"
+            ],
+            "0x143558": [
+              "0x14355c"
+            ],
+            "0x14355c": [
+              "0x143560"
+            ],
+            "0x143560": [
+              "0x143564"
+            ],
+            "0x143564": [
+              "0x143568"
+            ],
+            "0x143568": [
+              "0x14356c"
+            ],
+            "0x14356c": [
+              "0x143570"
+            ],
+            "0x143570": [
+              "0x143574"
+            ],
+            "0x143574": [
+              "0x143578"
+            ],
+            "0x143578": [
+              "0x14357c"
+            ],
+            "0x14357c": [
+              "0x143580"
+            ],
+            "0x143580": [
+              "0x143584"
+            ],
+            "0x143584": [
+              "0x143588"
+            ],
+            "0x143588": [
+              "0x14358c"
+            ],
+            "0x14358c": [
+              "0x143590"
+            ],
+            "0x143590": [
+              "0x143594"
+            ],
+            "0x143594": [
+              "0x143598"
+            ],
+            "0x143598": [
+              "0x14359c"
+            ],
+            "0x14359c": [
+              "0x1435a0"
+            ],
+            "0x1435a0": [
+              "0x1435a4"
+            ],
+            "0x1435a4": [
+              "0x1435a8"
+            ],
+            "0x1435a8": [
+              "0x1435ac"
+            ],
+            "0x1435ac": [
+              "0x1435b0"
+            ],
+            "0x1435b0": [
+              "0x1435b4"
+            ],
+            "0x1435b4": [
+              "0x1435a0",
+              "0x1435bc"
+            ],
+            "0x1435bc": [
+              "0x1435c4"
+            ],
+            "0x1435c4": [
+              "0x1435c8"
+            ],
+            "0x1435c8": [
+              "0x1435cc"
+            ],
+            "0x1435cc": [
+              "0x1435d0"
+            ],
+            "0x1435d0": [
+              "0x1435d4"
+            ],
+            "0x1435d4": [
+              "0x1435d8"
+            ],
+            "0x1435d8": [
+              "0x1435dc"
+            ],
+            "0x1435dc": [
+              "0x1435e0"
+            ],
+            "0x1435e0": [
+              "0x1435e4"
+            ],
+            "0x1435e4": [
+              "0x1435ec"
+            ],
+            "0x1435ec": [
+              "0x1435f0"
+            ],
+            "0x1435f0": [
+              "0x1435f4"
+            ],
+            "0x1435f4": [
+              "0x1435f8"
+            ],
+            "0x1435f8": [
+              "0x1435fc"
+            ],
+            "0x1435fc": [
+              "0x143600"
+            ],
+            "0x143600": [
+              "0x143604"
+            ],
+            "0x143604": [
+              "0x1435f0",
+              "0x14360c"
+            ],
+            "0x14360c": [
+              "0x143614"
+            ],
+            "0x143614": [
+              "0x143618"
+            ],
+            "0x143618": [
+              "0x143620"
+            ],
+            "0x143620": [
+              "0x143624"
+            ],
+            "0x143624": [
+              "0x14362c"
+            ],
+            "0x14362c": [
+              "0x143634"
+            ],
+            "0x143634": [
+              "0x14363c"
+            ],
+            "0x14363c": [
+              "0x143644"
+            ],
+            "0x143644": [
+              "0x143648"
+            ],
+            "0x143648": [
+              "0x14364c"
+            ],
+            "0x14364c": [
+              "0x143650"
+            ],
+            "0x143650": [
+              "0x143654"
+            ],
+            "0x143654": [
+              "0x143658"
+            ],
+            "0x143658": [
+              "0x14365c"
+            ],
+            "0x14365c": [
+              "0x143648",
+              "0x143664"
+            ],
+            "0x143664": [
+              "0x14366c"
+            ],
+            "0x14366c": [
+              "0x143670"
+            ],
+            "0x143670": [
+              "0x143674"
+            ],
+            "0x143674": [
+              "0x143678"
+            ],
+            "0x143678": [
+              "0x14367c"
+            ],
+            "0x14367c": [
+              "0x143680"
+            ],
+            "0x143680": [
+              "0x143684"
+            ],
+            "0x143684": [
+              "0x143688"
+            ],
+            "0x143688": [
+              "0x14368c"
+            ],
+            "0x14368c": [
+              "0x143694"
+            ],
+            "0x143694": []
+          },
+          "dominance_claims": [
+            {
+              "send_site": "0x1435e4",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            },
+            {
+              "send_site": "0x14368c",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "start": "0x1cd720",
+          "end": "0x1cd938",
+          "sha256": "c40fef621b5044942c4aa070383596663f0f23d9f52b442c161dcbd007a8f9d9",
+          "scheduling_gate": "0x1cd730",
+          "scatter_site": "0x1cd720",
+          "send_sites": [
+            "0x1cd8e8",
+            "0x1cd930"
+          ],
+          "cache_sites": [
+            "0x1cd8d4",
+            "0x1cd91c"
+          ],
+          "order": "scatter_then_request_then_submit",
+          "reachable_macro_nodes": 120,
+          "unresolved_transfers": [],
+          "external_direct_edges": [],
+          "calls": [
+            {
+              "site": "0x1cd720",
+              "target": "0x13c5c0",
+              "label": "cpu_scatter"
+            },
+            {
+              "site": "0x1cd7c8",
+              "target": "0x136330",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1cd824",
+              "target": "0x136330",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1cd87c",
+              "target": "0x136090",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cd884",
+              "target": "0x136120",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cd890",
+              "target": "0x135fd0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cd898",
+              "target": "0x136060",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cd8d4",
+              "target": "0x11b2e0",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1cd8e8",
+              "target": "0x10e5b8",
+              "label": "dma_send"
+            },
+            {
+              "site": "0x1cd8f4",
+              "target": "0x10d258",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cd91c",
+              "target": "0x11b2e0",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1cd930",
+              "target": "0x10e5b8",
+              "label": "dma_send"
+            }
+          ],
+          "edges": {
+            "0x1cd720": [
+              "0x1cd728"
+            ],
+            "0x1cd728": [
+              "0x1cd72c"
+            ],
+            "0x1cd72c": [
+              "0x1cd730"
+            ],
+            "0x1cd730": [
+              "0x1cd734"
+            ],
+            "0x1cd734": [
+              "0x1cd738"
+            ],
+            "0x1cd738": [
+              "0x1cd840",
+              "0x1cd740"
+            ],
+            "0x1cd740": [
+              "0x1cd744"
+            ],
+            "0x1cd744": [
+              "0x1cd748"
+            ],
+            "0x1cd748": [
+              "0x1cd74c"
+            ],
+            "0x1cd74c": [
+              "0x1cd750"
+            ],
+            "0x1cd750": [
+              "0x1cd754"
+            ],
+            "0x1cd754": [
+              "0x1cd758"
+            ],
+            "0x1cd758": [
+              "0x1cd75c"
+            ],
+            "0x1cd75c": [
+              "0x1cd760"
+            ],
+            "0x1cd760": [
+              "0x1cd764"
+            ],
+            "0x1cd764": [
+              "0x1cd768"
+            ],
+            "0x1cd768": [
+              "0x1cd76c"
+            ],
+            "0x1cd76c": [
+              "0x1cd770"
+            ],
+            "0x1cd770": [
+              "0x1cd774"
+            ],
+            "0x1cd774": [
+              "0x1cd778"
+            ],
+            "0x1cd778": [
+              "0x1cd77c"
+            ],
+            "0x1cd77c": [
+              "0x1cd780"
+            ],
+            "0x1cd780": [
+              "0x1cd784"
+            ],
+            "0x1cd784": [
+              "0x1cd788"
+            ],
+            "0x1cd788": [
+              "0x1cd78c"
+            ],
+            "0x1cd78c": [
+              "0x1cd790"
+            ],
+            "0x1cd790": [
+              "0x1cd794"
+            ],
+            "0x1cd794": [
+              "0x1cd798"
+            ],
+            "0x1cd798": [
+              "0x1cd79c"
+            ],
+            "0x1cd79c": [
+              "0x1cd7a0"
+            ],
+            "0x1cd7a0": [
+              "0x1cd7a4"
+            ],
+            "0x1cd7a4": [
+              "0x1cd7a8"
+            ],
+            "0x1cd7a8": [
+              "0x1cd7ac"
+            ],
+            "0x1cd7ac": [
+              "0x1cd7b0"
+            ],
+            "0x1cd7b0": [
+              "0x1cd7b4"
+            ],
+            "0x1cd7b4": [
+              "0x1cd7b8"
+            ],
+            "0x1cd7b8": [
+              "0x1cd7bc"
+            ],
+            "0x1cd7bc": [
+              "0x1cd7c0"
+            ],
+            "0x1cd7c0": [
+              "0x1cd7c4"
+            ],
+            "0x1cd7c4": [
+              "0x1cd7c8"
+            ],
+            "0x1cd7c8": [
+              "0x1cd7d0"
+            ],
+            "0x1cd7d0": [
+              "0x1cd7d4"
+            ],
+            "0x1cd7d4": [
+              "0x1cd7d8"
+            ],
+            "0x1cd7d8": [
+              "0x1cd7dc"
+            ],
+            "0x1cd7dc": [
+              "0x1cd7e0"
+            ],
+            "0x1cd7e0": [
+              "0x1cd7e4"
+            ],
+            "0x1cd7e4": [
+              "0x1cd7e8"
+            ],
+            "0x1cd7e8": [
+              "0x1cd7ec"
+            ],
+            "0x1cd7ec": [
+              "0x1cd7f0"
+            ],
+            "0x1cd7f0": [
+              "0x1cd7f4"
+            ],
+            "0x1cd7f4": [
+              "0x1cd7f8"
+            ],
+            "0x1cd7f8": [
+              "0x1cd7fc"
+            ],
+            "0x1cd7fc": [
+              "0x1cd800"
+            ],
+            "0x1cd800": [
+              "0x1cd804"
+            ],
+            "0x1cd804": [
+              "0x1cd808"
+            ],
+            "0x1cd808": [
+              "0x1cd80c"
+            ],
+            "0x1cd80c": [
+              "0x1cd810"
+            ],
+            "0x1cd810": [
+              "0x1cd814"
+            ],
+            "0x1cd814": [
+              "0x1cd818"
+            ],
+            "0x1cd818": [
+              "0x1cd81c"
+            ],
+            "0x1cd81c": [
+              "0x1cd820"
+            ],
+            "0x1cd820": [
+              "0x1cd824"
+            ],
+            "0x1cd824": [
+              "0x1cd82c"
+            ],
+            "0x1cd82c": [
+              "0x1cd830"
+            ],
+            "0x1cd830": [
+              "0x1cd834"
+            ],
+            "0x1cd834": [
+              "0x1cd838"
+            ],
+            "0x1cd838": [
+              "0x1cd83c"
+            ],
+            "0x1cd83c": [
+              "0x1cd840"
+            ],
+            "0x1cd840": [
+              "0x1cd844"
+            ],
+            "0x1cd844": [
+              "0x1cd848"
+            ],
+            "0x1cd848": [
+              "0x1cd84c"
+            ],
+            "0x1cd84c": [
+              "0x1cd850"
+            ],
+            "0x1cd850": [
+              "0x1cd854"
+            ],
+            "0x1cd854": [
+              "0x1cd858"
+            ],
+            "0x1cd858": [
+              "0x1cd85c"
+            ],
+            "0x1cd85c": [
+              "0x1cd860"
+            ],
+            "0x1cd860": [
+              "0x1cd864"
+            ],
+            "0x1cd864": [
+              "0x1cd868"
+            ],
+            "0x1cd868": [
+              "0x1cd86c"
+            ],
+            "0x1cd86c": [
+              "0x1cd870"
+            ],
+            "0x1cd870": [
+              "0x1cd874"
+            ],
+            "0x1cd874": [
+              "0x1cd878"
+            ],
+            "0x1cd878": [
+              "0x1cd87c"
+            ],
+            "0x1cd87c": [
+              "0x1cd884"
+            ],
+            "0x1cd884": [
+              "0x1cd88c"
+            ],
+            "0x1cd88c": [
+              "0x1cd890"
+            ],
+            "0x1cd890": [
+              "0x1cd898"
+            ],
+            "0x1cd898": [
+              "0x1cd8a0"
+            ],
+            "0x1cd8a0": [
+              "0x1cd8a4"
+            ],
+            "0x1cd8a4": [
+              "0x1cd8a8"
+            ],
+            "0x1cd8a8": [
+              "0x1cd8ac"
+            ],
+            "0x1cd8ac": [
+              "0x1cd8b0"
+            ],
+            "0x1cd8b0": [
+              "0x1cd8b4"
+            ],
+            "0x1cd8b4": [
+              "0x1cd8b8"
+            ],
+            "0x1cd8b8": [
+              "0x1cd8bc"
+            ],
+            "0x1cd8bc": [
+              "0x1cd8c0"
+            ],
+            "0x1cd8c0": [
+              "0x1cd8c4"
+            ],
+            "0x1cd8c4": [
+              "0x1cd8c8"
+            ],
+            "0x1cd8c8": [
+              "0x1cd8cc"
+            ],
+            "0x1cd8cc": [
+              "0x1cd8b8",
+              "0x1cd8d4"
+            ],
+            "0x1cd8d4": [
+              "0x1cd8dc"
+            ],
+            "0x1cd8dc": [
+              "0x1cd8e0"
+            ],
+            "0x1cd8e0": [
+              "0x1cd8e4"
+            ],
+            "0x1cd8e4": [
+              "0x1cd8e8"
+            ],
+            "0x1cd8e8": [
+              "0x1cd8f0"
+            ],
+            "0x1cd8f0": [
+              "0x1cd8f4"
+            ],
+            "0x1cd8f4": [
+              "0x1cd8fc"
+            ],
+            "0x1cd8fc": [
+              "0x1cd900"
+            ],
+            "0x1cd900": [
+              "0x1cd904"
+            ],
+            "0x1cd904": [
+              "0x1cd908"
+            ],
+            "0x1cd908": [
+              "0x1cd90c"
+            ],
+            "0x1cd90c": [
+              "0x1cd910"
+            ],
+            "0x1cd910": [
+              "0x1cd914"
+            ],
+            "0x1cd914": [
+              "0x1cd900",
+              "0x1cd91c"
+            ],
+            "0x1cd91c": [
+              "0x1cd924"
+            ],
+            "0x1cd924": [
+              "0x1cd928"
+            ],
+            "0x1cd928": [
+              "0x1cd92c"
+            ],
+            "0x1cd92c": [
+              "0x1cd930"
+            ],
+            "0x1cd930": [
+              "0x1cd938"
+            ],
+            "0x1cd938": []
+          },
+          "dominance_claims": [
+            {
+              "send_site": "0x1cd8e8",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            },
+            {
+              "send_site": "0x1cd930",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "windows": [
+        {
+          "index": 0,
+          "start": "0x1431c4",
+          "end": "0x143694",
+          "sha256": "e55fba045bc26d6a3ff56ca222afb9c76f878eaab872a85f9efec3ce204e7690",
+          "scheduling_gate": "0x1431c4",
+          "scatter_site": "0x143440",
+          "send_sites": [
+            "0x1435e4",
+            "0x14368c"
+          ],
+          "cache_sites": [
+            "0x1435bc",
+            "0x143664"
+          ],
+          "order": "request_then_scatter_then_submit",
+          "reachable_macro_nodes": 268,
+          "unresolved_transfers": [],
+          "external_direct_edges": [],
+          "calls": [
+            {
+              "site": "0x14325c",
+              "target": "0x136330",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1432b8",
+              "target": "0x136330",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1432d8",
+              "target": "0x13aca0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143308",
+              "target": "0x7571a0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143340",
+              "target": "0x7576f0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143354",
+              "target": "0x17d3e0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143368",
+              "target": "0x17db80",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1433e8",
+              "target": "0x138a40",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1433f4",
+              "target": "0x16e2d0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143400",
+              "target": "0x1479c0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143408",
+              "target": "0x16a518",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143430",
+              "target": "0x23f200",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143440",
+              "target": "0x13c5c0",
+              "label": "cpu_scatter"
+            },
+            {
+              "site": "0x143448",
+              "target": "0x16a768",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143450",
+              "target": "0x140d00",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14349c",
+              "target": "0x136090",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1434a4",
+              "target": "0x136120",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1434f0",
+              "target": "0x135fd0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1434f8",
+              "target": "0x136060",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1435bc",
+              "target": "0x11b2e0",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1435e4",
+              "target": "0x10e5b8",
+              "label": "dma_send"
+            },
+            {
+              "site": "0x14360c",
+              "target": "0x140d00",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143618",
+              "target": "0x1479c0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143624",
+              "target": "0x1479c0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14362c",
+              "target": "0x16a518",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143634",
+              "target": "0x16a768",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14363c",
+              "target": "0x140d00",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x143664",
+              "target": "0x11b2e0",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x14368c",
+              "target": "0x10e5b8",
+              "label": "dma_send"
+            }
+          ],
+          "edges": {
+            "0x1431c4": [
+              "0x1431c8"
+            ],
+            "0x1431c8": [
+              "0x1431cc"
+            ],
+            "0x1431cc": [
+              "0x1432d0",
+              "0x1431d4"
+            ],
+            "0x1431d4": [
+              "0x1431d8"
+            ],
+            "0x1431d8": [
+              "0x1431dc"
+            ],
+            "0x1431dc": [
+              "0x1431e0"
+            ],
+            "0x1431e0": [
+              "0x1431e4"
+            ],
+            "0x1431e4": [
+              "0x1431e8"
+            ],
+            "0x1431e8": [
+              "0x1431ec"
+            ],
+            "0x1431ec": [
+              "0x1431f0"
+            ],
+            "0x1431f0": [
+              "0x1431f4"
+            ],
+            "0x1431f4": [
+              "0x1431f8"
+            ],
+            "0x1431f8": [
+              "0x1431fc"
+            ],
+            "0x1431fc": [
+              "0x143200"
+            ],
+            "0x143200": [
+              "0x143204"
+            ],
+            "0x143204": [
+              "0x143208"
+            ],
+            "0x143208": [
+              "0x14320c"
+            ],
+            "0x14320c": [
+              "0x143210"
+            ],
+            "0x143210": [
+              "0x143214"
+            ],
+            "0x143214": [
+              "0x143218"
+            ],
+            "0x143218": [
+              "0x14321c"
+            ],
+            "0x14321c": [
+              "0x143220"
+            ],
+            "0x143220": [
+              "0x143224"
+            ],
+            "0x143224": [
+              "0x143228"
+            ],
+            "0x143228": [
+              "0x14322c"
+            ],
+            "0x14322c": [
+              "0x143230"
+            ],
+            "0x143230": [
+              "0x143234"
+            ],
+            "0x143234": [
+              "0x143238"
+            ],
+            "0x143238": [
+              "0x14323c"
+            ],
+            "0x14323c": [
+              "0x143240"
+            ],
+            "0x143240": [
+              "0x143244"
+            ],
+            "0x143244": [
+              "0x143248"
+            ],
+            "0x143248": [
+              "0x14324c"
+            ],
+            "0x14324c": [
+              "0x143250"
+            ],
+            "0x143250": [
+              "0x143254"
+            ],
+            "0x143254": [
+              "0x143258"
+            ],
+            "0x143258": [
+              "0x14325c"
+            ],
+            "0x14325c": [
+              "0x143264"
+            ],
+            "0x143264": [
+              "0x143268"
+            ],
+            "0x143268": [
+              "0x14326c"
+            ],
+            "0x14326c": [
+              "0x143270"
+            ],
+            "0x143270": [
+              "0x143274"
+            ],
+            "0x143274": [
+              "0x143278"
+            ],
+            "0x143278": [
+              "0x14327c"
+            ],
+            "0x14327c": [
+              "0x143280"
+            ],
+            "0x143280": [
+              "0x143284"
+            ],
+            "0x143284": [
+              "0x143288"
+            ],
+            "0x143288": [
+              "0x14328c"
+            ],
+            "0x14328c": [
+              "0x143290"
+            ],
+            "0x143290": [
+              "0x143294"
+            ],
+            "0x143294": [
+              "0x143298"
+            ],
+            "0x143298": [
+              "0x14329c"
+            ],
+            "0x14329c": [
+              "0x1432a0"
+            ],
+            "0x1432a0": [
+              "0x1432a4"
+            ],
+            "0x1432a4": [
+              "0x1432a8"
+            ],
+            "0x1432a8": [
+              "0x1432ac"
+            ],
+            "0x1432ac": [
+              "0x1432b0"
+            ],
+            "0x1432b0": [
+              "0x1432b4"
+            ],
+            "0x1432b4": [
+              "0x1432b8"
+            ],
+            "0x1432b8": [
+              "0x1432c0"
+            ],
+            "0x1432c0": [
+              "0x1432c4"
+            ],
+            "0x1432c4": [
+              "0x1432c8"
+            ],
+            "0x1432c8": [
+              "0x1432cc"
+            ],
+            "0x1432cc": [
+              "0x1432d0"
+            ],
+            "0x1432d0": [
+              "0x1432d4"
+            ],
+            "0x1432d4": [
+              "0x1432d8"
+            ],
+            "0x1432d8": [
+              "0x1432e0"
+            ],
+            "0x1432e0": [
+              "0x1432e4"
+            ],
+            "0x1432e4": [
+              "0x1432e8"
+            ],
+            "0x1432e8": [
+              "0x1432ec"
+            ],
+            "0x1432ec": [
+              "0x143320",
+              "0x1432f4"
+            ],
+            "0x1432f4": [
+              "0x1432f8"
+            ],
+            "0x1432f8": [
+              "0x1432fc"
+            ],
+            "0x1432fc": [
+              "0x143320",
+              "0x143304"
+            ],
+            "0x143304": [
+              "0x143308"
+            ],
+            "0x143308": [
+              "0x143310"
+            ],
+            "0x143310": [
+              "0x143314"
+            ],
+            "0x143314": [
+              "0x143350",
+              "0x14331c"
+            ],
+            "0x14331c": [
+              "0x143320"
+            ],
+            "0x143320": [
+              "0x143324"
+            ],
+            "0x143324": [
+              "0x143350",
+              "0x14332c"
+            ],
+            "0x14332c": [
+              "0x143330"
+            ],
+            "0x143330": [
+              "0x143334"
+            ],
+            "0x143334": [
+              "0x143350",
+              "0x14333c"
+            ],
+            "0x14333c": [
+              "0x143340"
+            ],
+            "0x143340": [
+              "0x143348"
+            ],
+            "0x143348": [
+              "0x14334c"
+            ],
+            "0x14334c": [
+              "0x143350"
+            ],
+            "0x143350": [
+              "0x143354"
+            ],
+            "0x143354": [
+              "0x14335c"
+            ],
+            "0x14335c": [
+              "0x143360"
+            ],
+            "0x143360": [
+              "0x143364"
+            ],
+            "0x143364": [
+              "0x143368"
+            ],
+            "0x143368": [
+              "0x143370"
+            ],
+            "0x143370": [
+              "0x143374"
+            ],
+            "0x143374": [
+              "0x143378"
+            ],
+            "0x143378": [
+              "0x14337c"
+            ],
+            "0x14337c": [
+              "0x143380"
+            ],
+            "0x143380": [
+              "0x143384"
+            ],
+            "0x143384": [
+              "0x143388"
+            ],
+            "0x143388": [
+              "0x14338c"
+            ],
+            "0x14338c": [
+              "0x143390"
+            ],
+            "0x143390": [
+              "0x143394"
+            ],
+            "0x143394": [
+              "0x143398"
+            ],
+            "0x143398": [
+              "0x14339c"
+            ],
+            "0x14339c": [
+              "0x1433a0"
+            ],
+            "0x1433a0": [
+              "0x1433a4"
+            ],
+            "0x1433a4": [
+              "0x1433a8"
+            ],
+            "0x1433a8": [
+              "0x1433ac"
+            ],
+            "0x1433ac": [
+              "0x1433b0"
+            ],
+            "0x1433b0": [
+              "0x1433b4"
+            ],
+            "0x1433b4": [
+              "0x1433b8"
+            ],
+            "0x1433b8": [
+              "0x1433bc"
+            ],
+            "0x1433bc": [
+              "0x1433c0"
+            ],
+            "0x1433c0": [
+              "0x1433c4"
+            ],
+            "0x1433c4": [
+              "0x1433c8"
+            ],
+            "0x1433c8": [
+              "0x1433cc"
+            ],
+            "0x1433cc": [
+              "0x1433d0"
+            ],
+            "0x1433d0": [
+              "0x1433d4"
+            ],
+            "0x1433d4": [
+              "0x1433d8"
+            ],
+            "0x1433d8": [
+              "0x1433dc"
+            ],
+            "0x1433dc": [
+              "0x1433e0"
+            ],
+            "0x1433e0": [
+              "0x1433e4"
+            ],
+            "0x1433e4": [
+              "0x1433e8"
+            ],
+            "0x1433e8": [
+              "0x1433f0"
+            ],
+            "0x1433f0": [
+              "0x1433f4"
+            ],
+            "0x1433f4": [
+              "0x1433fc"
+            ],
+            "0x1433fc": [
+              "0x143400"
+            ],
+            "0x143400": [
+              "0x143408"
+            ],
+            "0x143408": [
+              "0x143410"
+            ],
+            "0x143410": [
+              "0x143414"
+            ],
+            "0x143414": [
+              "0x143428",
+              "0x14341c"
+            ],
+            "0x14341c": [
+              "0x143440",
+              "0x143424"
+            ],
+            "0x143424": [
+              "0x143428"
+            ],
+            "0x143428": [
+              "0x14342c"
+            ],
+            "0x14342c": [
+              "0x143430"
+            ],
+            "0x143430": [
+              "0x143438"
+            ],
+            "0x143438": [
+              "0x14343c"
+            ],
+            "0x14343c": [
+              "0x143440"
+            ],
+            "0x143440": [
+              "0x143448"
+            ],
+            "0x143448": [
+              "0x143450"
+            ],
+            "0x143450": [
+              "0x143458"
+            ],
+            "0x143458": [
+              "0x14345c"
+            ],
+            "0x14345c": [
+              "0x143460"
+            ],
+            "0x143460": [
+              "0x143464"
+            ],
+            "0x143464": [
+              "0x143468"
+            ],
+            "0x143468": [
+              "0x14346c"
+            ],
+            "0x14346c": [
+              "0x143470"
+            ],
+            "0x143470": [
+              "0x143474"
+            ],
+            "0x143474": [
+              "0x143478"
+            ],
+            "0x143478": [
+              "0x14347c"
+            ],
+            "0x14347c": [
+              "0x143480"
+            ],
+            "0x143480": [
+              "0x143484"
+            ],
+            "0x143484": [
+              "0x143488"
+            ],
+            "0x143488": [
+              "0x14348c"
+            ],
+            "0x14348c": [
+              "0x143490"
+            ],
+            "0x143490": [
+              "0x143494"
+            ],
+            "0x143494": [
+              "0x143498"
+            ],
+            "0x143498": [
+              "0x14349c"
+            ],
+            "0x14349c": [
+              "0x1434a4"
+            ],
+            "0x1434a4": [
+              "0x1434ac"
+            ],
+            "0x1434ac": [
+              "0x1434b0"
+            ],
+            "0x1434b0": [
+              "0x1434b4"
+            ],
+            "0x1434b4": [
+              "0x1434b8"
+            ],
+            "0x1434b8": [
+              "0x1434bc"
+            ],
+            "0x1434bc": [
+              "0x1434c0"
+            ],
+            "0x1434c0": [
+              "0x1434c4"
+            ],
+            "0x1434c4": [
+              "0x1434c8"
+            ],
+            "0x1434c8": [
+              "0x1434cc"
+            ],
+            "0x1434cc": [
+              "0x1434d0"
+            ],
+            "0x1434d0": [
+              "0x1434d4"
+            ],
+            "0x1434d4": [
+              "0x1434d8"
+            ],
+            "0x1434d8": [
+              "0x1434dc"
+            ],
+            "0x1434dc": [
+              "0x1434e0"
+            ],
+            "0x1434e0": [
+              "0x1434e4"
+            ],
+            "0x1434e4": [
+              "0x1434e8"
+            ],
+            "0x1434e8": [
+              "0x1434ec"
+            ],
+            "0x1434ec": [
+              "0x1434f0"
+            ],
+            "0x1434f0": [
+              "0x1434f8"
+            ],
+            "0x1434f8": [
+              "0x143500"
+            ],
+            "0x143500": [
+              "0x143504"
+            ],
+            "0x143504": [
+              "0x143508"
+            ],
+            "0x143508": [
+              "0x14350c"
+            ],
+            "0x14350c": [
+              "0x143510"
+            ],
+            "0x143510": [
+              "0x143514"
+            ],
+            "0x143514": [
+              "0x143518"
+            ],
+            "0x143518": [
+              "0x14351c"
+            ],
+            "0x14351c": [
+              "0x143520"
+            ],
+            "0x143520": [
+              "0x143524"
+            ],
+            "0x143524": [
+              "0x143528"
+            ],
+            "0x143528": [
+              "0x14352c"
+            ],
+            "0x14352c": [
+              "0x143530"
+            ],
+            "0x143530": [
+              "0x143534"
+            ],
+            "0x143534": [
+              "0x143538"
+            ],
+            "0x143538": [
+              "0x14353c"
+            ],
+            "0x14353c": [
+              "0x143540"
+            ],
+            "0x143540": [
+              "0x143544"
+            ],
+            "0x143544": [
+              "0x143548"
+            ],
+            "0x143548": [
+              "0x14354c"
+            ],
+            "0x14354c": [
+              "0x143550"
+            ],
+            "0x143550": [
+              "0x143588",
+              "0x143558"
+            ],
+            "0x143558": [
+              "0x14355c"
+            ],
+            "0x14355c": [
+              "0x143560"
+            ],
+            "0x143560": [
+              "0x143564"
+            ],
+            "0x143564": [
+              "0x143568"
+            ],
+            "0x143568": [
+              "0x14356c"
+            ],
+            "0x14356c": [
+              "0x143570"
+            ],
+            "0x143570": [
+              "0x143574"
+            ],
+            "0x143574": [
+              "0x143578"
+            ],
+            "0x143578": [
+              "0x14357c"
+            ],
+            "0x14357c": [
+              "0x143580"
+            ],
+            "0x143580": [
+              "0x143584"
+            ],
+            "0x143584": [
+              "0x143588"
+            ],
+            "0x143588": [
+              "0x14358c"
+            ],
+            "0x14358c": [
+              "0x143590"
+            ],
+            "0x143590": [
+              "0x143594"
+            ],
+            "0x143594": [
+              "0x143598"
+            ],
+            "0x143598": [
+              "0x14359c"
+            ],
+            "0x14359c": [
+              "0x1435a0"
+            ],
+            "0x1435a0": [
+              "0x1435a4"
+            ],
+            "0x1435a4": [
+              "0x1435a8"
+            ],
+            "0x1435a8": [
+              "0x1435ac"
+            ],
+            "0x1435ac": [
+              "0x1435b0"
+            ],
+            "0x1435b0": [
+              "0x1435b4"
+            ],
+            "0x1435b4": [
+              "0x1435a0",
+              "0x1435bc"
+            ],
+            "0x1435bc": [
+              "0x1435c4"
+            ],
+            "0x1435c4": [
+              "0x1435c8"
+            ],
+            "0x1435c8": [
+              "0x1435cc"
+            ],
+            "0x1435cc": [
+              "0x1435d0"
+            ],
+            "0x1435d0": [
+              "0x1435d4"
+            ],
+            "0x1435d4": [
+              "0x1435d8"
+            ],
+            "0x1435d8": [
+              "0x1435dc"
+            ],
+            "0x1435dc": [
+              "0x1435e0"
+            ],
+            "0x1435e0": [
+              "0x1435e4"
+            ],
+            "0x1435e4": [
+              "0x1435ec"
+            ],
+            "0x1435ec": [
+              "0x1435f0"
+            ],
+            "0x1435f0": [
+              "0x1435f4"
+            ],
+            "0x1435f4": [
+              "0x1435f8"
+            ],
+            "0x1435f8": [
+              "0x1435fc"
+            ],
+            "0x1435fc": [
+              "0x143600"
+            ],
+            "0x143600": [
+              "0x143604"
+            ],
+            "0x143604": [
+              "0x1435f0",
+              "0x14360c"
+            ],
+            "0x14360c": [
+              "0x143614"
+            ],
+            "0x143614": [
+              "0x143618"
+            ],
+            "0x143618": [
+              "0x143620"
+            ],
+            "0x143620": [
+              "0x143624"
+            ],
+            "0x143624": [
+              "0x14362c"
+            ],
+            "0x14362c": [
+              "0x143634"
+            ],
+            "0x143634": [
+              "0x14363c"
+            ],
+            "0x14363c": [
+              "0x143644"
+            ],
+            "0x143644": [
+              "0x143648"
+            ],
+            "0x143648": [
+              "0x14364c"
+            ],
+            "0x14364c": [
+              "0x143650"
+            ],
+            "0x143650": [
+              "0x143654"
+            ],
+            "0x143654": [
+              "0x143658"
+            ],
+            "0x143658": [
+              "0x14365c"
+            ],
+            "0x14365c": [
+              "0x143648",
+              "0x143664"
+            ],
+            "0x143664": [
+              "0x14366c"
+            ],
+            "0x14366c": [
+              "0x143670"
+            ],
+            "0x143670": [
+              "0x143674"
+            ],
+            "0x143674": [
+              "0x143678"
+            ],
+            "0x143678": [
+              "0x14367c"
+            ],
+            "0x14367c": [
+              "0x143680"
+            ],
+            "0x143680": [
+              "0x143684"
+            ],
+            "0x143684": [
+              "0x143688"
+            ],
+            "0x143688": [
+              "0x14368c"
+            ],
+            "0x14368c": [
+              "0x143694"
+            ],
+            "0x143694": []
+          },
+          "dominance_claims": [
+            {
+              "send_site": "0x1435e4",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            },
+            {
+              "send_site": "0x14368c",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "start": "0x1cdae0",
+          "end": "0x1cdcf8",
+          "sha256": "7953e772cff6c2c6eeb1aa076d74258740f96dcefa996aa96aed679b1c4bdb75",
+          "scheduling_gate": "0x1cdaf0",
+          "scatter_site": "0x1cdae0",
+          "send_sites": [
+            "0x1cdca8",
+            "0x1cdcf0"
+          ],
+          "cache_sites": [
+            "0x1cdc94",
+            "0x1cdcdc"
+          ],
+          "order": "scatter_then_request_then_submit",
+          "reachable_macro_nodes": 120,
+          "unresolved_transfers": [],
+          "external_direct_edges": [],
+          "calls": [
+            {
+              "site": "0x1cdae0",
+              "target": "0x13c5c0",
+              "label": "cpu_scatter"
+            },
+            {
+              "site": "0x1cdb88",
+              "target": "0x136330",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1cdbe4",
+              "target": "0x136330",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1cdc3c",
+              "target": "0x136090",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cdc44",
+              "target": "0x136120",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cdc50",
+              "target": "0x135fd0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cdc58",
+              "target": "0x136060",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cdc94",
+              "target": "0x11b2e0",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1cdca8",
+              "target": "0x10e5b8",
+              "label": "dma_send"
+            },
+            {
+              "site": "0x1cdcb4",
+              "target": "0x10d258",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1cdcdc",
+              "target": "0x11b2e0",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1cdcf0",
+              "target": "0x10e5b8",
+              "label": "dma_send"
+            }
+          ],
+          "edges": {
+            "0x1cdae0": [
+              "0x1cdae8"
+            ],
+            "0x1cdae8": [
+              "0x1cdaec"
+            ],
+            "0x1cdaec": [
+              "0x1cdaf0"
+            ],
+            "0x1cdaf0": [
+              "0x1cdaf4"
+            ],
+            "0x1cdaf4": [
+              "0x1cdaf8"
+            ],
+            "0x1cdaf8": [
+              "0x1cdc00",
+              "0x1cdb00"
+            ],
+            "0x1cdb00": [
+              "0x1cdb04"
+            ],
+            "0x1cdb04": [
+              "0x1cdb08"
+            ],
+            "0x1cdb08": [
+              "0x1cdb0c"
+            ],
+            "0x1cdb0c": [
+              "0x1cdb10"
+            ],
+            "0x1cdb10": [
+              "0x1cdb14"
+            ],
+            "0x1cdb14": [
+              "0x1cdb18"
+            ],
+            "0x1cdb18": [
+              "0x1cdb1c"
+            ],
+            "0x1cdb1c": [
+              "0x1cdb20"
+            ],
+            "0x1cdb20": [
+              "0x1cdb24"
+            ],
+            "0x1cdb24": [
+              "0x1cdb28"
+            ],
+            "0x1cdb28": [
+              "0x1cdb2c"
+            ],
+            "0x1cdb2c": [
+              "0x1cdb30"
+            ],
+            "0x1cdb30": [
+              "0x1cdb34"
+            ],
+            "0x1cdb34": [
+              "0x1cdb38"
+            ],
+            "0x1cdb38": [
+              "0x1cdb3c"
+            ],
+            "0x1cdb3c": [
+              "0x1cdb40"
+            ],
+            "0x1cdb40": [
+              "0x1cdb44"
+            ],
+            "0x1cdb44": [
+              "0x1cdb48"
+            ],
+            "0x1cdb48": [
+              "0x1cdb4c"
+            ],
+            "0x1cdb4c": [
+              "0x1cdb50"
+            ],
+            "0x1cdb50": [
+              "0x1cdb54"
+            ],
+            "0x1cdb54": [
+              "0x1cdb58"
+            ],
+            "0x1cdb58": [
+              "0x1cdb5c"
+            ],
+            "0x1cdb5c": [
+              "0x1cdb60"
+            ],
+            "0x1cdb60": [
+              "0x1cdb64"
+            ],
+            "0x1cdb64": [
+              "0x1cdb68"
+            ],
+            "0x1cdb68": [
+              "0x1cdb6c"
+            ],
+            "0x1cdb6c": [
+              "0x1cdb70"
+            ],
+            "0x1cdb70": [
+              "0x1cdb74"
+            ],
+            "0x1cdb74": [
+              "0x1cdb78"
+            ],
+            "0x1cdb78": [
+              "0x1cdb7c"
+            ],
+            "0x1cdb7c": [
+              "0x1cdb80"
+            ],
+            "0x1cdb80": [
+              "0x1cdb84"
+            ],
+            "0x1cdb84": [
+              "0x1cdb88"
+            ],
+            "0x1cdb88": [
+              "0x1cdb90"
+            ],
+            "0x1cdb90": [
+              "0x1cdb94"
+            ],
+            "0x1cdb94": [
+              "0x1cdb98"
+            ],
+            "0x1cdb98": [
+              "0x1cdb9c"
+            ],
+            "0x1cdb9c": [
+              "0x1cdba0"
+            ],
+            "0x1cdba0": [
+              "0x1cdba4"
+            ],
+            "0x1cdba4": [
+              "0x1cdba8"
+            ],
+            "0x1cdba8": [
+              "0x1cdbac"
+            ],
+            "0x1cdbac": [
+              "0x1cdbb0"
+            ],
+            "0x1cdbb0": [
+              "0x1cdbb4"
+            ],
+            "0x1cdbb4": [
+              "0x1cdbb8"
+            ],
+            "0x1cdbb8": [
+              "0x1cdbbc"
+            ],
+            "0x1cdbbc": [
+              "0x1cdbc0"
+            ],
+            "0x1cdbc0": [
+              "0x1cdbc4"
+            ],
+            "0x1cdbc4": [
+              "0x1cdbc8"
+            ],
+            "0x1cdbc8": [
+              "0x1cdbcc"
+            ],
+            "0x1cdbcc": [
+              "0x1cdbd0"
+            ],
+            "0x1cdbd0": [
+              "0x1cdbd4"
+            ],
+            "0x1cdbd4": [
+              "0x1cdbd8"
+            ],
+            "0x1cdbd8": [
+              "0x1cdbdc"
+            ],
+            "0x1cdbdc": [
+              "0x1cdbe0"
+            ],
+            "0x1cdbe0": [
+              "0x1cdbe4"
+            ],
+            "0x1cdbe4": [
+              "0x1cdbec"
+            ],
+            "0x1cdbec": [
+              "0x1cdbf0"
+            ],
+            "0x1cdbf0": [
+              "0x1cdbf4"
+            ],
+            "0x1cdbf4": [
+              "0x1cdbf8"
+            ],
+            "0x1cdbf8": [
+              "0x1cdbfc"
+            ],
+            "0x1cdbfc": [
+              "0x1cdc00"
+            ],
+            "0x1cdc00": [
+              "0x1cdc04"
+            ],
+            "0x1cdc04": [
+              "0x1cdc08"
+            ],
+            "0x1cdc08": [
+              "0x1cdc0c"
+            ],
+            "0x1cdc0c": [
+              "0x1cdc10"
+            ],
+            "0x1cdc10": [
+              "0x1cdc14"
+            ],
+            "0x1cdc14": [
+              "0x1cdc18"
+            ],
+            "0x1cdc18": [
+              "0x1cdc1c"
+            ],
+            "0x1cdc1c": [
+              "0x1cdc20"
+            ],
+            "0x1cdc20": [
+              "0x1cdc24"
+            ],
+            "0x1cdc24": [
+              "0x1cdc28"
+            ],
+            "0x1cdc28": [
+              "0x1cdc2c"
+            ],
+            "0x1cdc2c": [
+              "0x1cdc30"
+            ],
+            "0x1cdc30": [
+              "0x1cdc34"
+            ],
+            "0x1cdc34": [
+              "0x1cdc38"
+            ],
+            "0x1cdc38": [
+              "0x1cdc3c"
+            ],
+            "0x1cdc3c": [
+              "0x1cdc44"
+            ],
+            "0x1cdc44": [
+              "0x1cdc4c"
+            ],
+            "0x1cdc4c": [
+              "0x1cdc50"
+            ],
+            "0x1cdc50": [
+              "0x1cdc58"
+            ],
+            "0x1cdc58": [
+              "0x1cdc60"
+            ],
+            "0x1cdc60": [
+              "0x1cdc64"
+            ],
+            "0x1cdc64": [
+              "0x1cdc68"
+            ],
+            "0x1cdc68": [
+              "0x1cdc6c"
+            ],
+            "0x1cdc6c": [
+              "0x1cdc70"
+            ],
+            "0x1cdc70": [
+              "0x1cdc74"
+            ],
+            "0x1cdc74": [
+              "0x1cdc78"
+            ],
+            "0x1cdc78": [
+              "0x1cdc7c"
+            ],
+            "0x1cdc7c": [
+              "0x1cdc80"
+            ],
+            "0x1cdc80": [
+              "0x1cdc84"
+            ],
+            "0x1cdc84": [
+              "0x1cdc88"
+            ],
+            "0x1cdc88": [
+              "0x1cdc8c"
+            ],
+            "0x1cdc8c": [
+              "0x1cdc78",
+              "0x1cdc94"
+            ],
+            "0x1cdc94": [
+              "0x1cdc9c"
+            ],
+            "0x1cdc9c": [
+              "0x1cdca0"
+            ],
+            "0x1cdca0": [
+              "0x1cdca4"
+            ],
+            "0x1cdca4": [
+              "0x1cdca8"
+            ],
+            "0x1cdca8": [
+              "0x1cdcb0"
+            ],
+            "0x1cdcb0": [
+              "0x1cdcb4"
+            ],
+            "0x1cdcb4": [
+              "0x1cdcbc"
+            ],
+            "0x1cdcbc": [
+              "0x1cdcc0"
+            ],
+            "0x1cdcc0": [
+              "0x1cdcc4"
+            ],
+            "0x1cdcc4": [
+              "0x1cdcc8"
+            ],
+            "0x1cdcc8": [
+              "0x1cdccc"
+            ],
+            "0x1cdccc": [
+              "0x1cdcd0"
+            ],
+            "0x1cdcd0": [
+              "0x1cdcd4"
+            ],
+            "0x1cdcd4": [
+              "0x1cdcc0",
+              "0x1cdcdc"
+            ],
+            "0x1cdcdc": [
+              "0x1cdce4"
+            ],
+            "0x1cdce4": [
+              "0x1cdce8"
+            ],
+            "0x1cdce8": [
+              "0x1cdcec"
+            ],
+            "0x1cdcec": [
+              "0x1cdcf0"
+            ],
+            "0x1cdcf0": [
+              "0x1cdcf8"
+            ],
+            "0x1cdcf8": []
+          },
+          "dominance_claims": [
+            {
+              "send_site": "0x1cdca8",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            },
+            {
+              "send_site": "0x1cdcf0",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "windows": [
+        {
+          "index": 0,
+          "start": "0x14452c",
+          "end": "0x144994",
+          "sha256": "9e838ab68c50be3ea0c4cae6bbccb293cd2de2399a32f2ca4e57a738d4ba6dad",
+          "scheduling_gate": "0x14452c",
+          "scatter_site": "0x144740",
+          "send_sites": [
+            "0x1448e4",
+            "0x14498c"
+          ],
+          "cache_sites": [
+            "0x1448bc",
+            "0x144964"
+          ],
+          "order": "request_then_scatter_then_submit",
+          "reachable_macro_nodes": 249,
+          "unresolved_transfers": [],
+          "external_direct_edges": [],
+          "calls": [
+            {
+              "site": "0x1445c4",
+              "target": "0x136cc0",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x144620",
+              "target": "0x136cc0",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x144640",
+              "target": "0x13b740",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144654",
+              "target": "0x17e9a0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144668",
+              "target": "0x17f140",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1446e8",
+              "target": "0x1393d0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1446f4",
+              "target": "0x16f0c0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144700",
+              "target": "0x148ca0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144708",
+              "target": "0x16b308",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144730",
+              "target": "0x244ef0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144740",
+              "target": "0x13d070",
+              "label": "cpu_scatter"
+            },
+            {
+              "site": "0x144748",
+              "target": "0x16b558",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144750",
+              "target": "0x141810",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14479c",
+              "target": "0x136a20",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1447a4",
+              "target": "0x136ab0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1447f0",
+              "target": "0x136960",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1447f8",
+              "target": "0x1369f0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1448bc",
+              "target": "0x11b260",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1448e4",
+              "target": "0x10e548",
+              "label": "dma_send"
+            },
+            {
+              "site": "0x14490c",
+              "target": "0x141810",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144918",
+              "target": "0x148ca0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144924",
+              "target": "0x148ca0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14492c",
+              "target": "0x16b308",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144934",
+              "target": "0x16b558",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x14493c",
+              "target": "0x141810",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x144964",
+              "target": "0x11b260",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x14498c",
+              "target": "0x10e548",
+              "label": "dma_send"
+            }
+          ],
+          "edges": {
+            "0x14452c": [
+              "0x144530"
+            ],
+            "0x144530": [
+              "0x144534"
+            ],
+            "0x144534": [
+              "0x144638",
+              "0x14453c"
+            ],
+            "0x14453c": [
+              "0x144540"
+            ],
+            "0x144540": [
+              "0x144544"
+            ],
+            "0x144544": [
+              "0x144548"
+            ],
+            "0x144548": [
+              "0x14454c"
+            ],
+            "0x14454c": [
+              "0x144550"
+            ],
+            "0x144550": [
+              "0x144554"
+            ],
+            "0x144554": [
+              "0x144558"
+            ],
+            "0x144558": [
+              "0x14455c"
+            ],
+            "0x14455c": [
+              "0x144560"
+            ],
+            "0x144560": [
+              "0x144564"
+            ],
+            "0x144564": [
+              "0x144568"
+            ],
+            "0x144568": [
+              "0x14456c"
+            ],
+            "0x14456c": [
+              "0x144570"
+            ],
+            "0x144570": [
+              "0x144574"
+            ],
+            "0x144574": [
+              "0x144578"
+            ],
+            "0x144578": [
+              "0x14457c"
+            ],
+            "0x14457c": [
+              "0x144580"
+            ],
+            "0x144580": [
+              "0x144584"
+            ],
+            "0x144584": [
+              "0x144588"
+            ],
+            "0x144588": [
+              "0x14458c"
+            ],
+            "0x14458c": [
+              "0x144590"
+            ],
+            "0x144590": [
+              "0x144594"
+            ],
+            "0x144594": [
+              "0x144598"
+            ],
+            "0x144598": [
+              "0x14459c"
+            ],
+            "0x14459c": [
+              "0x1445a0"
+            ],
+            "0x1445a0": [
+              "0x1445a4"
+            ],
+            "0x1445a4": [
+              "0x1445a8"
+            ],
+            "0x1445a8": [
+              "0x1445ac"
+            ],
+            "0x1445ac": [
+              "0x1445b0"
+            ],
+            "0x1445b0": [
+              "0x1445b4"
+            ],
+            "0x1445b4": [
+              "0x1445b8"
+            ],
+            "0x1445b8": [
+              "0x1445bc"
+            ],
+            "0x1445bc": [
+              "0x1445c0"
+            ],
+            "0x1445c0": [
+              "0x1445c4"
+            ],
+            "0x1445c4": [
+              "0x1445cc"
+            ],
+            "0x1445cc": [
+              "0x1445d0"
+            ],
+            "0x1445d0": [
+              "0x1445d4"
+            ],
+            "0x1445d4": [
+              "0x1445d8"
+            ],
+            "0x1445d8": [
+              "0x1445dc"
+            ],
+            "0x1445dc": [
+              "0x1445e0"
+            ],
+            "0x1445e0": [
+              "0x1445e4"
+            ],
+            "0x1445e4": [
+              "0x1445e8"
+            ],
+            "0x1445e8": [
+              "0x1445ec"
+            ],
+            "0x1445ec": [
+              "0x1445f0"
+            ],
+            "0x1445f0": [
+              "0x1445f4"
+            ],
+            "0x1445f4": [
+              "0x1445f8"
+            ],
+            "0x1445f8": [
+              "0x1445fc"
+            ],
+            "0x1445fc": [
+              "0x144600"
+            ],
+            "0x144600": [
+              "0x144604"
+            ],
+            "0x144604": [
+              "0x144608"
+            ],
+            "0x144608": [
+              "0x14460c"
+            ],
+            "0x14460c": [
+              "0x144610"
+            ],
+            "0x144610": [
+              "0x144614"
+            ],
+            "0x144614": [
+              "0x144618"
+            ],
+            "0x144618": [
+              "0x14461c"
+            ],
+            "0x14461c": [
+              "0x144620"
+            ],
+            "0x144620": [
+              "0x144628"
+            ],
+            "0x144628": [
+              "0x14462c"
+            ],
+            "0x14462c": [
+              "0x144630"
+            ],
+            "0x144630": [
+              "0x144634"
+            ],
+            "0x144634": [
+              "0x144638"
+            ],
+            "0x144638": [
+              "0x14463c"
+            ],
+            "0x14463c": [
+              "0x144640"
+            ],
+            "0x144640": [
+              "0x144648"
+            ],
+            "0x144648": [
+              "0x14464c"
+            ],
+            "0x14464c": [
+              "0x144650"
+            ],
+            "0x144650": [
+              "0x144654"
+            ],
+            "0x144654": [
+              "0x14465c"
+            ],
+            "0x14465c": [
+              "0x144660"
+            ],
+            "0x144660": [
+              "0x144664"
+            ],
+            "0x144664": [
+              "0x144668"
+            ],
+            "0x144668": [
+              "0x144670"
+            ],
+            "0x144670": [
+              "0x144674"
+            ],
+            "0x144674": [
+              "0x144678"
+            ],
+            "0x144678": [
+              "0x14467c"
+            ],
+            "0x14467c": [
+              "0x144680"
+            ],
+            "0x144680": [
+              "0x144684"
+            ],
+            "0x144684": [
+              "0x144688"
+            ],
+            "0x144688": [
+              "0x14468c"
+            ],
+            "0x14468c": [
+              "0x144690"
+            ],
+            "0x144690": [
+              "0x144694"
+            ],
+            "0x144694": [
+              "0x144698"
+            ],
+            "0x144698": [
+              "0x14469c"
+            ],
+            "0x14469c": [
+              "0x1446a0"
+            ],
+            "0x1446a0": [
+              "0x1446a4"
+            ],
+            "0x1446a4": [
+              "0x1446a8"
+            ],
+            "0x1446a8": [
+              "0x1446ac"
+            ],
+            "0x1446ac": [
+              "0x1446b0"
+            ],
+            "0x1446b0": [
+              "0x1446b4"
+            ],
+            "0x1446b4": [
+              "0x1446b8"
+            ],
+            "0x1446b8": [
+              "0x1446bc"
+            ],
+            "0x1446bc": [
+              "0x1446c0"
+            ],
+            "0x1446c0": [
+              "0x1446c4"
+            ],
+            "0x1446c4": [
+              "0x1446c8"
+            ],
+            "0x1446c8": [
+              "0x1446cc"
+            ],
+            "0x1446cc": [
+              "0x1446d0"
+            ],
+            "0x1446d0": [
+              "0x1446d4"
+            ],
+            "0x1446d4": [
+              "0x1446d8"
+            ],
+            "0x1446d8": [
+              "0x1446dc"
+            ],
+            "0x1446dc": [
+              "0x1446e0"
+            ],
+            "0x1446e0": [
+              "0x1446e4"
+            ],
+            "0x1446e4": [
+              "0x1446e8"
+            ],
+            "0x1446e8": [
+              "0x1446f0"
+            ],
+            "0x1446f0": [
+              "0x1446f4"
+            ],
+            "0x1446f4": [
+              "0x1446fc"
+            ],
+            "0x1446fc": [
+              "0x144700"
+            ],
+            "0x144700": [
+              "0x144708"
+            ],
+            "0x144708": [
+              "0x144710"
+            ],
+            "0x144710": [
+              "0x144714"
+            ],
+            "0x144714": [
+              "0x144728",
+              "0x14471c"
+            ],
+            "0x14471c": [
+              "0x144740",
+              "0x144724"
+            ],
+            "0x144724": [
+              "0x144728"
+            ],
+            "0x144728": [
+              "0x14472c"
+            ],
+            "0x14472c": [
+              "0x144730"
+            ],
+            "0x144730": [
+              "0x144738"
+            ],
+            "0x144738": [
+              "0x14473c"
+            ],
+            "0x14473c": [
+              "0x144740"
+            ],
+            "0x144740": [
+              "0x144748"
+            ],
+            "0x144748": [
+              "0x144750"
+            ],
+            "0x144750": [
+              "0x144758"
+            ],
+            "0x144758": [
+              "0x14475c"
+            ],
+            "0x14475c": [
+              "0x144760"
+            ],
+            "0x144760": [
+              "0x144764"
+            ],
+            "0x144764": [
+              "0x144768"
+            ],
+            "0x144768": [
+              "0x14476c"
+            ],
+            "0x14476c": [
+              "0x144770"
+            ],
+            "0x144770": [
+              "0x144774"
+            ],
+            "0x144774": [
+              "0x144778"
+            ],
+            "0x144778": [
+              "0x14477c"
+            ],
+            "0x14477c": [
+              "0x144780"
+            ],
+            "0x144780": [
+              "0x144784"
+            ],
+            "0x144784": [
+              "0x144788"
+            ],
+            "0x144788": [
+              "0x14478c"
+            ],
+            "0x14478c": [
+              "0x144790"
+            ],
+            "0x144790": [
+              "0x144794"
+            ],
+            "0x144794": [
+              "0x144798"
+            ],
+            "0x144798": [
+              "0x14479c"
+            ],
+            "0x14479c": [
+              "0x1447a4"
+            ],
+            "0x1447a4": [
+              "0x1447ac"
+            ],
+            "0x1447ac": [
+              "0x1447b0"
+            ],
+            "0x1447b0": [
+              "0x1447b4"
+            ],
+            "0x1447b4": [
+              "0x1447b8"
+            ],
+            "0x1447b8": [
+              "0x1447bc"
+            ],
+            "0x1447bc": [
+              "0x1447c0"
+            ],
+            "0x1447c0": [
+              "0x1447c4"
+            ],
+            "0x1447c4": [
+              "0x1447c8"
+            ],
+            "0x1447c8": [
+              "0x1447cc"
+            ],
+            "0x1447cc": [
+              "0x1447d0"
+            ],
+            "0x1447d0": [
+              "0x1447d4"
+            ],
+            "0x1447d4": [
+              "0x1447d8"
+            ],
+            "0x1447d8": [
+              "0x1447dc"
+            ],
+            "0x1447dc": [
+              "0x1447e0"
+            ],
+            "0x1447e0": [
+              "0x1447e4"
+            ],
+            "0x1447e4": [
+              "0x1447e8"
+            ],
+            "0x1447e8": [
+              "0x1447ec"
+            ],
+            "0x1447ec": [
+              "0x1447f0"
+            ],
+            "0x1447f0": [
+              "0x1447f8"
+            ],
+            "0x1447f8": [
+              "0x144800"
+            ],
+            "0x144800": [
+              "0x144804"
+            ],
+            "0x144804": [
+              "0x144808"
+            ],
+            "0x144808": [
+              "0x14480c"
+            ],
+            "0x14480c": [
+              "0x144810"
+            ],
+            "0x144810": [
+              "0x144814"
+            ],
+            "0x144814": [
+              "0x144818"
+            ],
+            "0x144818": [
+              "0x14481c"
+            ],
+            "0x14481c": [
+              "0x144820"
+            ],
+            "0x144820": [
+              "0x144824"
+            ],
+            "0x144824": [
+              "0x144828"
+            ],
+            "0x144828": [
+              "0x14482c"
+            ],
+            "0x14482c": [
+              "0x144830"
+            ],
+            "0x144830": [
+              "0x144834"
+            ],
+            "0x144834": [
+              "0x144838"
+            ],
+            "0x144838": [
+              "0x14483c"
+            ],
+            "0x14483c": [
+              "0x144840"
+            ],
+            "0x144840": [
+              "0x144844"
+            ],
+            "0x144844": [
+              "0x144848"
+            ],
+            "0x144848": [
+              "0x14484c"
+            ],
+            "0x14484c": [
+              "0x144850"
+            ],
+            "0x144850": [
+              "0x144888",
+              "0x144858"
+            ],
+            "0x144858": [
+              "0x14485c"
+            ],
+            "0x14485c": [
+              "0x144860"
+            ],
+            "0x144860": [
+              "0x144864"
+            ],
+            "0x144864": [
+              "0x144868"
+            ],
+            "0x144868": [
+              "0x14486c"
+            ],
+            "0x14486c": [
+              "0x144870"
+            ],
+            "0x144870": [
+              "0x144874"
+            ],
+            "0x144874": [
+              "0x144878"
+            ],
+            "0x144878": [
+              "0x14487c"
+            ],
+            "0x14487c": [
+              "0x144880"
+            ],
+            "0x144880": [
+              "0x144884"
+            ],
+            "0x144884": [
+              "0x144888"
+            ],
+            "0x144888": [
+              "0x14488c"
+            ],
+            "0x14488c": [
+              "0x144890"
+            ],
+            "0x144890": [
+              "0x144894"
+            ],
+            "0x144894": [
+              "0x144898"
+            ],
+            "0x144898": [
+              "0x14489c"
+            ],
+            "0x14489c": [
+              "0x1448a0"
+            ],
+            "0x1448a0": [
+              "0x1448a4"
+            ],
+            "0x1448a4": [
+              "0x1448a8"
+            ],
+            "0x1448a8": [
+              "0x1448ac"
+            ],
+            "0x1448ac": [
+              "0x1448b0"
+            ],
+            "0x1448b0": [
+              "0x1448b4"
+            ],
+            "0x1448b4": [
+              "0x1448a0",
+              "0x1448bc"
+            ],
+            "0x1448bc": [
+              "0x1448c4"
+            ],
+            "0x1448c4": [
+              "0x1448c8"
+            ],
+            "0x1448c8": [
+              "0x1448cc"
+            ],
+            "0x1448cc": [
+              "0x1448d0"
+            ],
+            "0x1448d0": [
+              "0x1448d4"
+            ],
+            "0x1448d4": [
+              "0x1448d8"
+            ],
+            "0x1448d8": [
+              "0x1448dc"
+            ],
+            "0x1448dc": [
+              "0x1448e0"
+            ],
+            "0x1448e0": [
+              "0x1448e4"
+            ],
+            "0x1448e4": [
+              "0x1448ec"
+            ],
+            "0x1448ec": [
+              "0x1448f0"
+            ],
+            "0x1448f0": [
+              "0x1448f4"
+            ],
+            "0x1448f4": [
+              "0x1448f8"
+            ],
+            "0x1448f8": [
+              "0x1448fc"
+            ],
+            "0x1448fc": [
+              "0x144900"
+            ],
+            "0x144900": [
+              "0x144904"
+            ],
+            "0x144904": [
+              "0x1448f0",
+              "0x14490c"
+            ],
+            "0x14490c": [
+              "0x144914"
+            ],
+            "0x144914": [
+              "0x144918"
+            ],
+            "0x144918": [
+              "0x144920"
+            ],
+            "0x144920": [
+              "0x144924"
+            ],
+            "0x144924": [
+              "0x14492c"
+            ],
+            "0x14492c": [
+              "0x144934"
+            ],
+            "0x144934": [
+              "0x14493c"
+            ],
+            "0x14493c": [
+              "0x144944"
+            ],
+            "0x144944": [
+              "0x144948"
+            ],
+            "0x144948": [
+              "0x14494c"
+            ],
+            "0x14494c": [
+              "0x144950"
+            ],
+            "0x144950": [
+              "0x144954"
+            ],
+            "0x144954": [
+              "0x144958"
+            ],
+            "0x144958": [
+              "0x14495c"
+            ],
+            "0x14495c": [
+              "0x144948",
+              "0x144964"
+            ],
+            "0x144964": [
+              "0x14496c"
+            ],
+            "0x14496c": [
+              "0x144970"
+            ],
+            "0x144970": [
+              "0x144974"
+            ],
+            "0x144974": [
+              "0x144978"
+            ],
+            "0x144978": [
+              "0x14497c"
+            ],
+            "0x14497c": [
+              "0x144980"
+            ],
+            "0x144980": [
+              "0x144984"
+            ],
+            "0x144984": [
+              "0x144988"
+            ],
+            "0x144988": [
+              "0x14498c"
+            ],
+            "0x14498c": [
+              "0x144994"
+            ],
+            "0x144994": []
+          },
+          "dominance_claims": [
+            {
+              "send_site": "0x1448e4",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            },
+            {
+              "send_site": "0x14498c",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "start": "0x1d0e00",
+          "end": "0x1d1018",
+          "sha256": "a2b50e0387ab1a76901976b47dba520f1edf914a0d561a41e46d8be05354057c",
+          "scheduling_gate": "0x1d0e10",
+          "scatter_site": "0x1d0e00",
+          "send_sites": [
+            "0x1d0fc8",
+            "0x1d1010"
+          ],
+          "cache_sites": [
+            "0x1d0fb4",
+            "0x1d0ffc"
+          ],
+          "order": "scatter_then_request_then_submit",
+          "reachable_macro_nodes": 120,
+          "unresolved_transfers": [],
+          "external_direct_edges": [],
+          "calls": [
+            {
+              "site": "0x1d0e00",
+              "target": "0x13d070",
+              "label": "cpu_scatter"
+            },
+            {
+              "site": "0x1d0ea8",
+              "target": "0x136cc0",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1d0f04",
+              "target": "0x136cc0",
+              "label": "atlas_packet_builder"
+            },
+            {
+              "site": "0x1d0f5c",
+              "target": "0x136a20",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1d0f64",
+              "target": "0x136ab0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1d0f70",
+              "target": "0x136960",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1d0f78",
+              "target": "0x1369f0",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1d0fb4",
+              "target": "0x11b260",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1d0fc8",
+              "target": "0x10e548",
+              "label": "dma_send"
+            },
+            {
+              "site": "0x1d0fd4",
+              "target": "0x10d1e8",
+              "label": "opaque_returning_callee"
+            },
+            {
+              "site": "0x1d0ffc",
+              "target": "0x11b260",
+              "label": "cache_syscall100"
+            },
+            {
+              "site": "0x1d1010",
+              "target": "0x10e548",
+              "label": "dma_send"
+            }
+          ],
+          "edges": {
+            "0x1d0e00": [
+              "0x1d0e08"
+            ],
+            "0x1d0e08": [
+              "0x1d0e0c"
+            ],
+            "0x1d0e0c": [
+              "0x1d0e10"
+            ],
+            "0x1d0e10": [
+              "0x1d0e14"
+            ],
+            "0x1d0e14": [
+              "0x1d0e18"
+            ],
+            "0x1d0e18": [
+              "0x1d0f20",
+              "0x1d0e20"
+            ],
+            "0x1d0e20": [
+              "0x1d0e24"
+            ],
+            "0x1d0e24": [
+              "0x1d0e28"
+            ],
+            "0x1d0e28": [
+              "0x1d0e2c"
+            ],
+            "0x1d0e2c": [
+              "0x1d0e30"
+            ],
+            "0x1d0e30": [
+              "0x1d0e34"
+            ],
+            "0x1d0e34": [
+              "0x1d0e38"
+            ],
+            "0x1d0e38": [
+              "0x1d0e3c"
+            ],
+            "0x1d0e3c": [
+              "0x1d0e40"
+            ],
+            "0x1d0e40": [
+              "0x1d0e44"
+            ],
+            "0x1d0e44": [
+              "0x1d0e48"
+            ],
+            "0x1d0e48": [
+              "0x1d0e4c"
+            ],
+            "0x1d0e4c": [
+              "0x1d0e50"
+            ],
+            "0x1d0e50": [
+              "0x1d0e54"
+            ],
+            "0x1d0e54": [
+              "0x1d0e58"
+            ],
+            "0x1d0e58": [
+              "0x1d0e5c"
+            ],
+            "0x1d0e5c": [
+              "0x1d0e60"
+            ],
+            "0x1d0e60": [
+              "0x1d0e64"
+            ],
+            "0x1d0e64": [
+              "0x1d0e68"
+            ],
+            "0x1d0e68": [
+              "0x1d0e6c"
+            ],
+            "0x1d0e6c": [
+              "0x1d0e70"
+            ],
+            "0x1d0e70": [
+              "0x1d0e74"
+            ],
+            "0x1d0e74": [
+              "0x1d0e78"
+            ],
+            "0x1d0e78": [
+              "0x1d0e7c"
+            ],
+            "0x1d0e7c": [
+              "0x1d0e80"
+            ],
+            "0x1d0e80": [
+              "0x1d0e84"
+            ],
+            "0x1d0e84": [
+              "0x1d0e88"
+            ],
+            "0x1d0e88": [
+              "0x1d0e8c"
+            ],
+            "0x1d0e8c": [
+              "0x1d0e90"
+            ],
+            "0x1d0e90": [
+              "0x1d0e94"
+            ],
+            "0x1d0e94": [
+              "0x1d0e98"
+            ],
+            "0x1d0e98": [
+              "0x1d0e9c"
+            ],
+            "0x1d0e9c": [
+              "0x1d0ea0"
+            ],
+            "0x1d0ea0": [
+              "0x1d0ea4"
+            ],
+            "0x1d0ea4": [
+              "0x1d0ea8"
+            ],
+            "0x1d0ea8": [
+              "0x1d0eb0"
+            ],
+            "0x1d0eb0": [
+              "0x1d0eb4"
+            ],
+            "0x1d0eb4": [
+              "0x1d0eb8"
+            ],
+            "0x1d0eb8": [
+              "0x1d0ebc"
+            ],
+            "0x1d0ebc": [
+              "0x1d0ec0"
+            ],
+            "0x1d0ec0": [
+              "0x1d0ec4"
+            ],
+            "0x1d0ec4": [
+              "0x1d0ec8"
+            ],
+            "0x1d0ec8": [
+              "0x1d0ecc"
+            ],
+            "0x1d0ecc": [
+              "0x1d0ed0"
+            ],
+            "0x1d0ed0": [
+              "0x1d0ed4"
+            ],
+            "0x1d0ed4": [
+              "0x1d0ed8"
+            ],
+            "0x1d0ed8": [
+              "0x1d0edc"
+            ],
+            "0x1d0edc": [
+              "0x1d0ee0"
+            ],
+            "0x1d0ee0": [
+              "0x1d0ee4"
+            ],
+            "0x1d0ee4": [
+              "0x1d0ee8"
+            ],
+            "0x1d0ee8": [
+              "0x1d0eec"
+            ],
+            "0x1d0eec": [
+              "0x1d0ef0"
+            ],
+            "0x1d0ef0": [
+              "0x1d0ef4"
+            ],
+            "0x1d0ef4": [
+              "0x1d0ef8"
+            ],
+            "0x1d0ef8": [
+              "0x1d0efc"
+            ],
+            "0x1d0efc": [
+              "0x1d0f00"
+            ],
+            "0x1d0f00": [
+              "0x1d0f04"
+            ],
+            "0x1d0f04": [
+              "0x1d0f0c"
+            ],
+            "0x1d0f0c": [
+              "0x1d0f10"
+            ],
+            "0x1d0f10": [
+              "0x1d0f14"
+            ],
+            "0x1d0f14": [
+              "0x1d0f18"
+            ],
+            "0x1d0f18": [
+              "0x1d0f1c"
+            ],
+            "0x1d0f1c": [
+              "0x1d0f20"
+            ],
+            "0x1d0f20": [
+              "0x1d0f24"
+            ],
+            "0x1d0f24": [
+              "0x1d0f28"
+            ],
+            "0x1d0f28": [
+              "0x1d0f2c"
+            ],
+            "0x1d0f2c": [
+              "0x1d0f30"
+            ],
+            "0x1d0f30": [
+              "0x1d0f34"
+            ],
+            "0x1d0f34": [
+              "0x1d0f38"
+            ],
+            "0x1d0f38": [
+              "0x1d0f3c"
+            ],
+            "0x1d0f3c": [
+              "0x1d0f40"
+            ],
+            "0x1d0f40": [
+              "0x1d0f44"
+            ],
+            "0x1d0f44": [
+              "0x1d0f48"
+            ],
+            "0x1d0f48": [
+              "0x1d0f4c"
+            ],
+            "0x1d0f4c": [
+              "0x1d0f50"
+            ],
+            "0x1d0f50": [
+              "0x1d0f54"
+            ],
+            "0x1d0f54": [
+              "0x1d0f58"
+            ],
+            "0x1d0f58": [
+              "0x1d0f5c"
+            ],
+            "0x1d0f5c": [
+              "0x1d0f64"
+            ],
+            "0x1d0f64": [
+              "0x1d0f6c"
+            ],
+            "0x1d0f6c": [
+              "0x1d0f70"
+            ],
+            "0x1d0f70": [
+              "0x1d0f78"
+            ],
+            "0x1d0f78": [
+              "0x1d0f80"
+            ],
+            "0x1d0f80": [
+              "0x1d0f84"
+            ],
+            "0x1d0f84": [
+              "0x1d0f88"
+            ],
+            "0x1d0f88": [
+              "0x1d0f8c"
+            ],
+            "0x1d0f8c": [
+              "0x1d0f90"
+            ],
+            "0x1d0f90": [
+              "0x1d0f94"
+            ],
+            "0x1d0f94": [
+              "0x1d0f98"
+            ],
+            "0x1d0f98": [
+              "0x1d0f9c"
+            ],
+            "0x1d0f9c": [
+              "0x1d0fa0"
+            ],
+            "0x1d0fa0": [
+              "0x1d0fa4"
+            ],
+            "0x1d0fa4": [
+              "0x1d0fa8"
+            ],
+            "0x1d0fa8": [
+              "0x1d0fac"
+            ],
+            "0x1d0fac": [
+              "0x1d0f98",
+              "0x1d0fb4"
+            ],
+            "0x1d0fb4": [
+              "0x1d0fbc"
+            ],
+            "0x1d0fbc": [
+              "0x1d0fc0"
+            ],
+            "0x1d0fc0": [
+              "0x1d0fc4"
+            ],
+            "0x1d0fc4": [
+              "0x1d0fc8"
+            ],
+            "0x1d0fc8": [
+              "0x1d0fd0"
+            ],
+            "0x1d0fd0": [
+              "0x1d0fd4"
+            ],
+            "0x1d0fd4": [
+              "0x1d0fdc"
+            ],
+            "0x1d0fdc": [
+              "0x1d0fe0"
+            ],
+            "0x1d0fe0": [
+              "0x1d0fe4"
+            ],
+            "0x1d0fe4": [
+              "0x1d0fe8"
+            ],
+            "0x1d0fe8": [
+              "0x1d0fec"
+            ],
+            "0x1d0fec": [
+              "0x1d0ff0"
+            ],
+            "0x1d0ff0": [
+              "0x1d0ff4"
+            ],
+            "0x1d0ff4": [
+              "0x1d0fe0",
+              "0x1d0ffc"
+            ],
+            "0x1d0ffc": [
+              "0x1d1004"
+            ],
+            "0x1d1004": [
+              "0x1d1008"
+            ],
+            "0x1d1008": [
+              "0x1d100c"
+            ],
+            "0x1d100c": [
+              "0x1d1010"
+            ],
+            "0x1d1010": [
+              "0x1d1018"
+            ],
+            "0x1d1018": []
+          },
+          "dominance_claims": [
+            {
+              "send_site": "0x1d0fc8",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            },
+            {
+              "send_site": "0x1d1010",
+              "scatter_dominates": true,
+              "corresponding_cache_call_dominates": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

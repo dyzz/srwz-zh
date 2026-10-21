@@ -1,0 +1,147 @@
+{
+  "edition": "best",
+  "iso": "build/iso/zh-release-best/current-best.iso",
+  "iso_sha256": "2ff2ac481893fca0f4d64a63c5c41d679046738c17159283f49dfa80fe0cba89",
+  "source_card_sha256_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+  "commands": [
+    {
+      "command": "run 1800",
+      "response": [
+        "OK frame=1800"
+      ]
+    },
+    {
+      "command": "press start 3",
+      "response": [
+        "OK frame=1805"
+      ]
+    },
+    {
+      "command": "run 180",
+      "response": [
+        "OK frame=1985"
+      ]
+    },
+    {
+      "command": "press down 3",
+      "response": [
+        "OK frame=1990"
+      ]
+    },
+    {
+      "command": "run 55",
+      "response": [
+        "OK frame=2045"
+      ]
+    },
+    {
+      "command": "press down 3",
+      "response": [
+        "OK frame=2050"
+      ]
+    },
+    {
+      "command": "run 55",
+      "response": [
+        "OK frame=2105"
+      ]
+    },
+    {
+      "command": "press down 3",
+      "response": [
+        "OK frame=2110"
+      ]
+    },
+    {
+      "command": "run 55",
+      "response": [
+        "OK frame=2165"
+      ]
+    },
+    {
+      "command": "press circle 3",
+      "response": [
+        "OK frame=2170"
+      ]
+    },
+    {
+      "command": "run 240",
+      "response": [
+        "OK frame=2410"
+      ]
+    },
+    {
+      "command": "press circle 3",
+      "response": [
+        "OK frame=2415"
+      ]
+    },
+    {
+      "command": "run 240",
+      "response": [
+        "OK frame=2655"
+      ]
+    },
+    {
+      "command": "shot robot-list",
+      "response": [
+        "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/library-optical-robot-20261021/best/robot-list.png 640x448 luma=38.0",
+        "OK frame=2655"
+      ]
+    },
+    {
+      "command": "press circle 3",
+      "response": [
+        "OK frame=2660"
+      ]
+    },
+    {
+      "command": "run 240",
+      "response": [
+        "OK frame=2900"
+      ]
+    },
+    {
+      "command": "shot robot-top",
+      "response": [
+        "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/library-optical-robot-20261021/best/robot-top.png 640x448 luma=39.0",
+        "OK frame=2900"
+      ]
+    },
+    {
+      "command": "press down 28",
+      "response": [
+        "OK frame=2930"
+      ]
+    },
+    {
+      "command": "run 20",
+      "response": [
+        "OK frame=2950"
+      ]
+    },
+    {
+      "command": "shot robot-scroll",
+      "response": [
+        "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/library-optical-robot-20261021/best/robot-scroll.png 640x448 luma=39.4",
+        "OK frame=2950"
+      ]
+    },
+    {
+      "command": "mem 46eb44 8",
+      "response": [
+        "16000b0016000b00",
+        "OK frame=2950"
+      ]
+    },
+    {
+      "command": "quit",
+      "response": [
+        "OK"
+      ]
+    }
+  ],
+  "controlled_dsc2": false,
+  "source_card_sha256_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+  "status": "captured_pending_visual_review"
+}

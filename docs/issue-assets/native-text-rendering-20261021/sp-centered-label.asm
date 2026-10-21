@@ -1,0 +1,62 @@
+002c82b0 27bdffb0 addiu $sp, $sp, -0x50
+002c82b4 ffbf0040 sd $ra, 0x40($sp)
+002c82b8 7fb00030 sq $s0, 48($sp)
+002c82bc 0c04e8e8 jal 0x13a3a0
+002c82c0 00a0802d move $s0, $a1
+002c82c4 0c0f5680 jal 0x3d5a00
+002c82c8 2404000d addiu $a0, $zero, 0xd
+002c82cc 24020001 addiu $v0, $zero, 1
+002c82d0 24040010 addiu $a0, $zero, 0x10
+002c82d4 ffa20000 sd $v0, ($sp)
+002c82d8 2405000a addiu $a1, $zero, 0xa
+002c82dc ffa20008 sd $v0, 8($sp)
+002c82e0 0080302d move $a2, $a0
+002c82e4 ffa20010 sd $v0, 0x10($sp)
+002c82e8 00a0382d move $a3, $a1
+002c82ec ffa20018 sd $v0, 0x18($sp)
+002c82f0 0080402d move $t0, $a0
+002c82f4 ffa20020 sd $v0, 0x20($sp)
+002c82f8 00a0482d move $t1, $a1
+002c82fc 0080502d move $t2, $a0
+002c8300 0c04e9fc jal 0x13a7f0
+002c8304 00a0582d move $t3, $a1
+002c8308 87838960 lh $v1, -0x76a0($gp)
+002c830c 3c02007d lui $v0, 0x7d
+002c8310 2442f1a0 addiu $v0, $v0, -0xe60
+002c8314 00031880 sll $v1, $v1, 2
+002c8318 00431021 addu $v0, $v0, $v1
+002c831c 8c440000 lw $a0, ($v0)
+002c8320 0c04e968 jal 0x13a5a0
+002c8324 0000282d move $a1, $zero
+002c8328 87848960 lh $a0, -0x76a0($gp)
+002c832c 0040282d move $a1, $v0
+002c8330 3c0200ff lui $v0, 0xff
+002c8334 3c03007d lui $v1, 0x7d
+002c8338 3448ff50 ori $t0, $v0, 0xff50
+002c833c 2463f1a0 addiu $v1, $v1, -0xe60
+002c8340 0200382d move $a3, $s0
+002c8344 24060059 addiu $a2, $zero, 0x59
+002c8348 00041080 sll $v0, $a0, 2
+002c834c 00621021 addu $v0, $v1, $v0
+002c8350 8c440000 lw $a0, ($v0)
+002c8354 0c04f414 jal 0x13d050
+002c8358 0000482d move $t1, $zero
+002c835c 24040080 addiu $a0, $zero, 0x80
+002c8360 0040802d move $s0, $v0
+002c8364 0080282d move $a1, $a0
+002c8368 0080302d move $a2, $a0
+002c836c 0c04e934 jal 0x13a4d0
+002c8370 0080382d move $a3, $a0
+002c8374 24040080 addiu $a0, $zero, 0x80
+002c8378 0080282d move $a1, $a0
+002c837c 0080302d move $a2, $a0
+002c8380 0c04e94c jal 0x13a530
+002c8384 0080382d move $a3, $a0
+002c8388 0c04e964 jal 0x13a590
+002c838c 0000202d move $a0, $zero
+002c8390 0200102d move $v0, $s0
+002c8394 dfbf0040 ld $ra, 0x40($sp)
+002c8398 7bb00030 lq $s0, 48($sp)
+002c839c 03e00008 jr $ra
+002c83a0 27bd0050 addiu $sp, $sp, 0x50
+002c83a4 00000000 nop 

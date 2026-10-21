@@ -1,0 +1,134 @@
+{
+  "scope": "Native font-atlas dirty-flag blocks and deferred transfer builder evidence.\nStatic disassembly and direct references only; no DMA/GS execution claim.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "dirty_flag": "0x46e3a0",
+      "transfer_builder": "0x136330",
+      "flush_ref_chain": "0x136090",
+      "blocks": [
+        {
+          "start": "0x1431c4",
+          "end": "0x1432d0",
+          "direct_calls": [
+            {
+              "site": "0x14325c",
+              "target": "0x136330"
+            },
+            {
+              "site": "0x1432b8",
+              "target": "0x136330"
+            }
+          ],
+          "meaning": "clears dirty flag, schedules two atlas halves and restores caller buffer pointers"
+        },
+        {
+          "start": "0x1cd730",
+          "end": "0x1cd840",
+          "direct_calls": [
+            {
+              "site": "0x1cd7c8",
+              "target": "0x136330"
+            },
+            {
+              "site": "0x1cd824",
+              "target": "0x136330"
+            }
+          ],
+          "meaning": "clears dirty flag, schedules two atlas halves and restores caller buffer pointers"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "dirty_flag": "0x46eba0",
+      "transfer_builder": "0x136330",
+      "flush_ref_chain": "0x136090",
+      "blocks": [
+        {
+          "start": "0x1431c4",
+          "end": "0x1432d0",
+          "direct_calls": [
+            {
+              "site": "0x14325c",
+              "target": "0x136330"
+            },
+            {
+              "site": "0x1432b8",
+              "target": "0x136330"
+            }
+          ],
+          "meaning": "clears dirty flag, schedules two atlas halves and restores caller buffer pointers"
+        },
+        {
+          "start": "0x1cdaf0",
+          "end": "0x1cdc00",
+          "direct_calls": [
+            {
+              "site": "0x1cdb88",
+              "target": "0x136330"
+            },
+            {
+              "site": "0x1cdbe4",
+              "target": "0x136330"
+            }
+          ],
+          "meaning": "clears dirty flag, schedules two atlas halves and restores caller buffer pointers"
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "dirty_flag": "0x4ed620",
+      "transfer_builder": "0x136cc0",
+      "flush_ref_chain": "0x136a20",
+      "blocks": [
+        {
+          "start": "0x14452c",
+          "end": "0x144638",
+          "direct_calls": [
+            {
+              "site": "0x1445c4",
+              "target": "0x136cc0"
+            },
+            {
+              "site": "0x144620",
+              "target": "0x136cc0"
+            }
+          ],
+          "meaning": "clears dirty flag, schedules two atlas halves and restores caller buffer pointers"
+        },
+        {
+          "start": "0x1d0e10",
+          "end": "0x1d0f20",
+          "direct_calls": [
+            {
+              "site": "0x1d0ea8",
+              "target": "0x136cc0"
+            },
+            {
+              "site": "0x1d0f04",
+              "target": "0x136cc0"
+            }
+          ],
+          "meaning": "clears dirty flag, schedules two atlas halves and restores caller buffer pointers"
+        }
+      ]
+    }
+  ]
+}

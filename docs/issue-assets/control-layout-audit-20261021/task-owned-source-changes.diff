@@ -1,0 +1,224 @@
+--- before-task/tools/srwz/text.py
++++ current/tools/srwz/text.py
+@@ -26,9 +26,20 @@
+ # <<color:30>>, {<space:2E><space:2E>0}, %0<width:64>.
+ _NATIVE_TAG_NAME = r"(?:color|width|height|space|3[1-5])"
+ _NATIVE_DIGIT_PAIR = rf"<{_NATIVE_TAG_NAME}:3[0-9]>"
++_NATIVE_FINAL_DIGIT = rf"<{_NATIVE_TAG_NAME}:00>"
++# Only the beginning of a complete string selects the native repeat wrapper.
++# The generic decoder can absorb its terminating NUL into the final digit tag.
++RUNTIME_REPEAT_TOKEN = re.compile(
++    rf"\A@[+-]?(?:(?:[0-9]|{_NATIVE_DIGIT_PAIR})+(?:{_NATIVE_FINAL_DIGIT})?"
++    rf"|{_NATIVE_FINAL_DIGIT})"
++)
+ RUNTIME_ICON_SLOT_TOKEN = re.compile(
+     rf"<[+-]?(?:(?:[0-9]|{_NATIVE_DIGIT_PAIR})+>"
+     rf"|(?:[0-9]|{_NATIVE_DIGIT_PAIR})*<{_NATIVE_TAG_NAME}:3[Ee]>)"
++)
++RUNTIME_SQUARE_PARAMETER_TOKEN = re.compile(
++    rf"\[[+-]?(?:(?:[0-9]|{_NATIVE_DIGIT_PAIR})+\]"
++    rf"|(?:[0-9]|{_NATIVE_DIGIT_PAIR})*<{_NATIVE_TAG_NAME}:5[Dd]>)"
+ )
+ RUNTIME_PARAMETER_TOKEN = re.compile(
+     rf"\{{(?=[0-9]|<{_NATIVE_TAG_NAME}:)"
+@@ -43,8 +54,9 @@
+     rf"(?:[diouxXeEfFgGcrsa]|{_RUNTIME_CONVERSION_PAIR})"
+ )
+ _NATIVE_RUNTIME_TOKEN = re.compile(
+-    rf"(?:<[+-]?[0-9]+>|\{{[0-9]+(?:\.[0-9]+)*\}}"
+-    rf"|{RUNTIME_FORMAT_TOKEN.pattern}|{RUNTIME_SUBSTITUTION_TOKEN.pattern})"
++    rf"(?:<[+-]?[0-9]+>|\[[+-]?[0-9]+\]|\{{[0-9]+(?:\.[0-9]+)*\}}"
++    rf"|{RUNTIME_FORMAT_TOKEN.pattern}|{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
++    rf"|@[+-]?[0-9]+\x00?)"
+ )
+ _NATIVE_TAG_CODES = {"color": 0x31, "width": 0x32, "height": 0x33, "space": 0x34}
+ _NATIVE_TAG = re.compile(rf"<({_NATIVE_TAG_NAME}):([0-9A-Fa-f]{{2}})>")
+@@ -52,7 +64,9 @@
+ CONTROL_NOTATION = re.compile(
+     # Keep raw-byte notation ahead of numeric parameters: {12} means byte 0x12.
+     rf"{_RAW_BYTE.pattern}"
++    rf"|{RUNTIME_REPEAT_TOKEN.pattern}"
+     rf"|{RUNTIME_ICON_SLOT_TOKEN.pattern}"
++    rf"|{RUNTIME_SQUARE_PARAMETER_TOKEN.pattern}"
+     rf"|{RUNTIME_PARAMETER_TOKEN.pattern}"
+     rf"|{RUNTIME_FORMAT_NOTATION_TOKEN.pattern}"
+     rf"|{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
+@@ -455,7 +469,9 @@
+         token = match.group(0)
+         if _RAW_BYTE.fullmatch(token):
+             kind = "raw_byte"
+-        elif (RUNTIME_ICON_SLOT_TOKEN.fullmatch(token)
++        elif (RUNTIME_REPEAT_TOKEN.fullmatch(token)
++              or RUNTIME_ICON_SLOT_TOKEN.fullmatch(token)
++              or RUNTIME_SQUARE_PARAMETER_TOKEN.fullmatch(token)
+               or RUNTIME_PARAMETER_TOKEN.fullmatch(token)
+               or RUNTIME_FORMAT_NOTATION_TOKEN.fullmatch(token)
+               or RUNTIME_SUBSTITUTION_TOKEN.fullmatch(token)):
+--- before-task/tools/srwz/chinese_layout.py
++++ current/tools/srwz/chinese_layout.py
+@@ -11,8 +11,9 @@
+ from pathlib import Path
+ from typing import Callable, Iterable, Sequence
+ 
+-from .text import RUNTIME_FORMAT_TOKEN, CONTROL_NOTATION
++from .text import CONTROL_NOTATION
+ from .renderer_metrics import RendererState, text_extent, COMPACT_SCOPE_CHARACTERS
++from .control_layout import control_cells, require_static_layout
+ 
+ 
+ # Continuation lines gain one full-width ideographic-space indent at writeback.
+@@ -38,12 +39,6 @@
+     "项目",
+ )
+ 
+-_STRUCTURAL_TOKEN = re.compile(
+-    r"\$[A-Za-z]"
+-    rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
+-    r"|\{[0-9A-Fa-f]{2}\}"
+-    r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
+-)
+ _COMPACT_VISIBLE_SCOPE = re.compile(
+     r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>(?:<height:[0-9A-Fa-f]{2}>)?"
+     rf"((?:[{COMPACT_SCOPE_CHARACTERS}]|<height:[0-9A-Fa-f]{{2}}>)+)"
+@@ -349,11 +344,10 @@
+ 
+ 
+ def _structural_width(token: str) -> int:
+-    if token.startswith(("{", "<")):
+-        return 0
+-    if token.startswith(("$", "%")):
+-        return PLAYER_NAME_RENDER_WIDTH
+-    raise AssertionError(f"not structural notation: {token!r}")
++    try:
++        return control_cells(token, PLAYER_NAME_RENDER_WIDTH)
++    except ValueError as error:
++        raise ChineseLayoutError(str(error)) from error
+ 
+ 
+ @lru_cache(maxsize=8)
+@@ -400,7 +394,10 @@
+     stage_keyword_links: bool = False,
+ ) -> tuple[LayoutToken, ...]:
+     """Split text into renderer-width units without splitting names/tokens."""
+-
++    try:
++        require_static_layout(text)
++    except ValueError as error:
++        raise ChineseLayoutError(str(error)) from error
+     terms = _normalize_protected_terms(
+         (*tuple(protected_terms), *COMMON_PROTECTED_WORDS)
+     )
+@@ -464,10 +461,10 @@
+             )
+             offset = keyword_link.end
+             continue
+-        structural = _STRUCTURAL_TOKEN.match(text, offset)
++        structural = CONTROL_NOTATION.match(text, offset)
+         if structural is not None:
+             token = structural.group(0)
+-            tokens.append(LayoutToken(token, _structural_width(token)))
++            tokens.append(LayoutToken(token, _structural_width(token), atomic=True))
+             offset = structural.end()
+             continue
+ 
+--- before-task/tools/srwz/renderer_metrics.py
++++ current/tools/srwz/renderer_metrics.py
+@@ -5,6 +5,7 @@
+ from dataclasses import dataclass
+ 
+ from .text import CONTROL_NOTATION, normalize_original_fullwidth_ascii
++from .control_layout import control_cells, require_static_layout
+ 
+ _DIMENSION = re.compile(r"<(width|space):([0-9A-Fa-f]{2})>\Z")
+ # Only expression/identifier punctuation belongs to compact scopes. Chinese
+@@ -41,6 +42,7 @@
+     The caller supplies the renderer's default; no Unicode-width heuristic is
+     used. Newlines must be measured by the caller as separate physical rows.
+     """
++    require_static_layout(text)
+     if not 1 <= default_advance_px <= 63:
+         raise ValueError('default advance must be between 1 and 63 pixels')
+     current = state or RendererState(default_advance_px, default_advance_px)
+@@ -58,11 +60,11 @@
+                     value if dimension[1] == 'space' else current.advance_px,
+                     value if dimension[1] == 'width' else current.glyph_width_px,
+                 )
+-            elif token.startswith(('$', '%')):
+-                # String placeholders keep the existing conservative six-cell
+-                # contract; callers with numeric templates need their own bound.
+-                occupied = max(occupied, advance + (placeholder_cells-1)*current.advance_px + current.glyph_width_px)
+-                advance += placeholder_cells * current.advance_px
++            else:
++                cells = control_cells(token, placeholder_cells)
++                if cells:
++                    occupied = max(occupied, advance + (cells-1)*current.advance_px + current.glyph_width_px)
++                    advance += cells * current.advance_px
+             index = match.end()
+             continue
+         ch = text[index]
+--- before-task/tools/text_layout/preview_balanced_prose.py
++++ current/tools/text_layout/preview_balanced_prose.py
+@@ -22,6 +22,8 @@
+ from srwz.chinese_prose import logical_prose_text,reflow_chinese_prose
+ from srwz.renderer_metrics import compact_visible_runs,text_extent
+ from srwz.text import CONTROL_NOTATION,normalize_original_fullwidth_ascii
++from srwz.library_typography import library_typography
++from srwz.compact_authoring import compact_controlled_text
+ from build_library_v02_component import load_production_layout,reflow_body
+ from write_frame_text import flow_synopsis
+ 
+@@ -61,6 +63,8 @@
+         if not equal:raise ValueError(f'visible content changed: {surface}/{row["id"]}')
+         records.append(dict(surface=surface,path=path,id=row['id'],variant=variant,before=before,after=after,
+             changed=before!=after,content_exact=equal,maximum_width_cells=profile.maximum_width,default_advance_px=profile.default_advance_px,
++            source_translation_sha256=hashlib.sha256(row['translation'].encode()).hexdigest(),
++            differs_from_source=after!=row['translation'],
+             line_widths_px=widths,lines=len(widths),**extra))
+         summary[surface+'/'+variant+'/scanned']+=1
+         summary[surface+'/'+variant+'/changed']+=before!=after
+@@ -69,7 +73,9 @@
+     library_rows=document(path)
+     library_code=''.join((ROOT/name).read_text() for name in (
+         'tools/build_library_v02_component.py','tools/srwz/chinese_layout.py',
+-        'tools/srwz/renderer_metrics.py','tools/srwz/text.py'))
++        'tools/srwz/renderer_metrics.py','tools/srwz/text.py',
++        'tools/srwz/control_layout.py','tools/srwz/library_typography.py',
++        'tools/text_layout/preview_balanced_prose.py'))
+     checkpoint_key=hashlib.sha256((json.dumps(inputs,sort_keys=True)+str(profiles)+str(terms)+baseline_revision+str(BREAKABLE_FULL_NAMES)+library_code).encode()).hexdigest()
+     cached=json.loads(checkpoint.read_text()) if checkpoint is not None and checkpoint.exists() else {}
+     if cached.get('key')==checkpoint_key:
+@@ -82,6 +88,13 @@
+         profile=replace(profiles[key],default_advance_px=21)
+         text=normalize_original_fullwidth_ascii(row['translation']).replace('\n','')
+         before=reflow_chinese_paragraph(text,profile=replace(old[key],default_advance_px=21),protected_terms=terms).text
++        if domain in ('robot', 'character'):
++            # Use exactly the production compiler, including short Latin runs,
++            # independent letter/digit heights and native Chinese restoration.
++            compiled=library_typography(text,'DSCR',domain=domain)
++            fitted,_=reflow_body(compiled,profile.maximum_width,profile=profile,protected_terms=terms)
++            record('library_'+domain,path,row,before,fitted,profile,'production_typography')
++            continue
+         fitted=reflow_chinese_paragraph(text,profile=profile,protected_terms=terms).text
+         record('library_'+domain,path,row,before,fitted,profile,'balanced_plain')
+         if not CONTROL_NOTATION.search(text):
+@@ -105,7 +118,7 @@
+         if row.get('kind')=='synopsis':
+             before=old_flow(row['translation']);profile=replace(profiles['stage_scroll_overview'],default_advance_px=16)
+             record('sp_flow',path,row,before,preview_flow(row['translation']),profile,'balanced_plain',maximum_lines=11)
+-            tagged=compact_visible_runs(row['translation'],default_advance_px=16)
++            tagged=compact_controlled_text(row['translation'],default_width=16)
+             if tagged!=row['translation']:
+                 record('sp_flow',path,row,before,preview_flow(tagged),profile,'balanced_compact',maximum_lines=11)
+         elif row.get('kind')=='narration':
+--- before-task/config/text-layout/zh-layout-profiles.json
++++ current/config/text-layout/zh-layout-profiles.json
+@@ -202,7 +202,8 @@
+         "委托人",
+         "情报",
+         "失落山脉",
+-        "设计图"
++        "设计图",
++        "古恩"
+       ],
+       "weights": {
+         "manual_break_max": 5,

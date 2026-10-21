@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "url": "https://github.com/libretro/ps2/blob/6664c60294ee05fe5e8c7645ab7da546dae78ed2/pcsx2/MMI.cpp",
+      "sha256": "ccb9b18725fe681252763da12244c7e5641d00dc50a92481e183417c1867f963",
+      "size": 41705,
+      "use": "instruction semantics and decoding reference only, not the installed LRPS2 binary identity"
+    },
+    {
+      "url": "https://github.com/libretro/ps2/blob/6664c60294ee05fe5e8c7645ab7da546dae78ed2/pcsx2/R5900OpcodeTables.cpp",
+      "sha256": "d9e6cc597f9289588692f4030037414e335e5fbb49e3f566970cb7cbb9b55975",
+      "size": 31270,
+      "use": "instruction semantics and decoding reference only, not the installed LRPS2 binary identity"
+    },
+    {
+      "url": "https://github.com/libretro/ps2/blob/6664c60294ee05fe5e8c7645ab7da546dae78ed2/pcsx2/R5900OpcodeImpl.cpp",
+      "sha256": "b73a70abd4a2aca34421b789ea48ab4f85023028444d4075d2885b8ac54327dc",
+      "size": 34602,
+      "use": "MOVZ/MOVN update low64 only; upper64 must remain unchanged"
+    }
+  ],
+  "supported_adapter_operations": [
+    "MOVZ",
+    "MOVN",
+    "MULT rd",
+    "MULTU rd",
+    "MULTU1",
+    "MADD",
+    "PMFHL.LW",
+    "PCPYUD"
+  ],
+  "scope": "Native CRT execution adapter references; unsupported instructions remain fail-visible, no body stubs.",
+  "conditional_move_semantics": "scalar MOVZ/MOVN write only the low64 lane; high64 preserved"
+}

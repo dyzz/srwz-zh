@@ -1,0 +1,727 @@
+{
+  "scope": "Native parser frame ownership and direct cached-height reset evidence.\nOnly the parser and its two original direct callees are covered; no claim\nabout arbitrary indirect execution or asynchronous re-entry into the renderer.\n",
+  "status": "native_reset_changes_persistent_metrics_but_keeps_current_parse_working_geometry",
+  "case_count": 12,
+  "cases": [
+    {
+      "edition": "original",
+      "stream_hex": "33 0b 82 60 30 ff 88 9f",
+      "height_before_reset": 11,
+      "rendered_geometry": [
+        [
+          21,
+          11
+        ],
+        [
+          21,
+          11
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            11
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            11
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "original",
+      "stream_hex": "33 0c 82 60 30 ff 88 9f",
+      "height_before_reset": 12,
+      "rendered_geometry": [
+        [
+          21,
+          12
+        ],
+        [
+          21,
+          12
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            12
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            12
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "original",
+      "stream_hex": "33 0d 82 60 30 ff 88 9f",
+      "height_before_reset": 13,
+      "rendered_geometry": [
+        [
+          21,
+          13
+        ],
+        [
+          21,
+          13
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            13
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            13
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "original",
+      "stream_hex": "33 0e 82 60 30 ff 88 9f",
+      "height_before_reset": 14,
+      "rendered_geometry": [
+        [
+          21,
+          14
+        ],
+        [
+          21,
+          14
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            14
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            14
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "best",
+      "stream_hex": "33 0b 82 60 30 ff 88 9f",
+      "height_before_reset": 11,
+      "rendered_geometry": [
+        [
+          21,
+          11
+        ],
+        [
+          21,
+          11
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            11
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            11
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "best",
+      "stream_hex": "33 0c 82 60 30 ff 88 9f",
+      "height_before_reset": 12,
+      "rendered_geometry": [
+        [
+          21,
+          12
+        ],
+        [
+          21,
+          12
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            12
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            12
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "best",
+      "stream_hex": "33 0d 82 60 30 ff 88 9f",
+      "height_before_reset": 13,
+      "rendered_geometry": [
+        [
+          21,
+          13
+        ],
+        [
+          21,
+          13
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            13
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            13
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "best",
+      "stream_hex": "33 0e 82 60 30 ff 88 9f",
+      "height_before_reset": 14,
+      "rendered_geometry": [
+        [
+          21,
+          14
+        ],
+        [
+          21,
+          14
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            14
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            14
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "sp",
+      "stream_hex": "33 0b 82 60 30 ff 88 9f",
+      "height_before_reset": 11,
+      "rendered_geometry": [
+        [
+          21,
+          11
+        ],
+        [
+          21,
+          11
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            11
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            11
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "sp",
+      "stream_hex": "33 0c 82 60 30 ff 88 9f",
+      "height_before_reset": 12,
+      "rendered_geometry": [
+        [
+          21,
+          12
+        ],
+        [
+          21,
+          12
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            12
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            12
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "sp",
+      "stream_hex": "33 0d 82 60 30 ff 88 9f",
+      "height_before_reset": 13,
+      "rendered_geometry": [
+        [
+          21,
+          13
+        ],
+        [
+          21,
+          13
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            13
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            13
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    },
+    {
+      "edition": "sp",
+      "stream_hex": "33 0e 82 60 30 ff 88 9f",
+      "height_before_reset": 14,
+      "rendered_geometry": [
+        [
+          21,
+          14
+        ],
+        [
+          21,
+          14
+        ]
+      ],
+      "returned_explicit_metrics": [
+        22,
+        11,
+        22,
+        11
+      ],
+      "returned_pen": [
+        43,
+        0
+      ],
+      "glyph_trace": [
+        {
+          "code": "0x8260",
+          "glyph": 224,
+          "render": [
+            21,
+            14
+          ],
+          "advance": [
+            21,
+            14
+          ],
+          "position": [
+            0,
+            0
+          ]
+        },
+        {
+          "code": "0x889f",
+          "glyph": 1439,
+          "render": [
+            21,
+            14
+          ],
+          "advance": [
+            22,
+            11
+          ],
+          "position": [
+            21,
+            0
+          ]
+        }
+      ],
+      "state_sha256": "d4fa81fee17c41f9e784399833e467ba93d2c2a3ae900545df893a455649f9c3"
+    }
+  ]
+}

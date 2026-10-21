@@ -1,0 +1,6914 @@
+{
+  "scope": "Native busy/timeout/recovery compositions vs C value and store-order models.\nThe complete original 0x1000000 counter loop executes for timeout cases.\nDefault mode contracts diagnostic and IRQ leaves. --native-interrupts executes\noriginal IRQ leaves with the pinned LRPS2 CP0 instruction adapter; diagnostic\noutput stays external. Readiness/MMIO are device shadows, not hardware timing.\n",
+  "native_interrupt_wrappers": false,
+  "status": "three_original_integer_wait_recovery_send_paths_match_C_under_explicit_device_and_leaf_contracts",
+  "case_count": 210,
+  "cases": [
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0004005830000000099,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 3.179200000003046e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.83299999998588e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.145800000001973e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.4582999999966937e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1041999999905627e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.709000000022392e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0332999999973502e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0000000000065512e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.2542000000004272e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.708000000050674e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0124999999971962e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.707999999939652e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0375000000006906e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.625000000066606e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0332999999973502e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.874999999990528e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0874999999965773e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.91699999991291e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0666999999964233e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.417000000065066e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.37499999997815e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.332999999998258e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.020799999995603e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.750000000084079e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1082999999967313e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.042000000041405e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.104200000001665e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.417000000065066e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0124999999971962e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.207999999980785e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.957999999921086e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.79200000000646e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0583000000008447e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.666999999988988e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0625000000041851e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.207999999980785e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0167000000005366e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.166999999919099e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.958000000032108e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.957999999974597e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0874999999965773e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.79200000000646e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1083000000078336e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.458999999987448e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.99999999995449e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.500000000049134e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0124999999971962e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 3.7832999999931616e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.250000000003638e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.483400000001911e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.5582999999995693e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0003240409999999416,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.001269625000000052,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 5.9580000000281075e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.45800000001573e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.750000000001812e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.4750000000017813e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.000318208000000042,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0013344999999999052,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0666999999964233e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0292000000022838e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.707999999997163e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 4.950000000003563e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.000328666000000033,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0012952920000000034,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "original",
+      "kind": "wait_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x431ee0",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.6781926250000003,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "original",
+      "kind": "send_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00030",
+          "value": "0x80123450"
+        },
+        {
+          "address": "0x1d00020",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x105"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x431ee0",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.660895458,
+      "channel_sha256": "b0e7fce943064a044176cfe3c37087f422f1be924b4a2e8dff05d82d74263b34"
+    },
+    {
+      "edition": "original",
+      "kind": "wait_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0xffffffff",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x431ee0",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.670998708,
+      "channel_sha256": "669ead5e6547c1fc452cbf0aaa82eb9df8143f962f5d26c4002c5e02eaeea4f0"
+    },
+    {
+      "edition": "original",
+      "kind": "send_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0xffffffff",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00020",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x105"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x431ee0",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.66358125,
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0009018340000004343,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 4.6958000000429934e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.333999999583398e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.2124999999585384e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 3.0208000000087054e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.158300000092538e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.041999999264249e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0916999999110999e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.334000000331798e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1167000000256166e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.166999998948654e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1290999999857831e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.124999999026272e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0542000000057783e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.625000000288651e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0624999999819806e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.37500000017144e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.3916000000335771e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.166999998948654e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1124999998557428e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.541999999029827e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0458000000213019e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.583000000366269e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0542000000057783e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.124999999026272e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.100000000064938e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.166999998948654e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1083000000411403e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.790999999812698e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0542000000057783e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.5420000005266274e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1166000000173426e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.16699999997661e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1208000000095808e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.334000000331798e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0834000001125332e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.625000000288651e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0582999999897424e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.583000000366269e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.045900000029576e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.250000000487034e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.095899999903338e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.167000000725011e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.333400000014251e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.83399999981782e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0624999999819806e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.583000000366269e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.070799999958183e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 3.687499999927013e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.3415999999443216e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.6374999999513307e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.6749999999964302e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0003457090000011931,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0013719999999999288,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 6.209000000367837e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.665999998351936e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.916999998831443e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.6083999999926277e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.00034083300000098404,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0013646670000007077,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 6.125000000523073e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.5000000006042455e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.999999998593466e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.612499999976592e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0003431670000004772,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0013564169999984443,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "best",
+      "kind": "wait_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x4326e0",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.952355707999999,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "best",
+      "kind": "send_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00030",
+          "value": "0x80123450"
+        },
+        {
+          "address": "0x1d00020",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x105"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x4326e0",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.9302419580000016,
+      "channel_sha256": "b0e7fce943064a044176cfe3c37087f422f1be924b4a2e8dff05d82d74263b34"
+    },
+    {
+      "edition": "best",
+      "kind": "wait_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0xffffffff",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x4326e0",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.944523583999999,
+      "channel_sha256": "669ead5e6547c1fc452cbf0aaa82eb9df8143f962f5d26c4002c5e02eaeea4f0"
+    },
+    {
+      "edition": "best",
+      "kind": "send_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0xffffffff",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00020",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x105"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x4326e0",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.9317360420000007,
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0006069999999986919,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 3.6500000000216914e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.783300000113286e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1832999998517835e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.6625000000279897e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.104100000048902e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.125000000802629e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x0",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0832999997489878e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.250000000487034e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1624999999071406e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.24999999693432e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1083000000411403e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.708000001827031e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0541999998281426e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.666999998434676e-06,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x100",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x100",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0709000001440927e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.250000000487034e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0958000000726997e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.250000000487034e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0999999997096666e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.66700000198739e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0832999997489878e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.66700000198739e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x105",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0457999998436662e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.208000000564653e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1167000000256166e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.041999997487892e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1083000000411403e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.66700000198739e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0584000001756522e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.66700000198739e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xffffffff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xffffffff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0583000001673781e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.250000000487034e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.1084000000494143e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.124999997249915e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0875000000964974e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.457999998905507e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0332999998752257e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.541999998750271e-06,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0x8",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x8",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x8"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.054200000183414e-05,
+      "channel_sha256": "4b84d38a21ba6bfcb88adb5fe515d4fa58902e416d2c5064d6f75a0d937cc256"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.250000000487034e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0875000000964974e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.042000001040606e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x1",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10001"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x1"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0875000000964974e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.458999998988247e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.0374999998674639e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.583000002142626e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "recovery",
+      "initial_control": "0xfffffeff",
+      "enable_read": "0xffffffff",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0xfffffeff",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0xfffffeff"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0xffffffff"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [],
+      "observed_polls": null,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.033300000230497e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 3.816699999958928e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.433299999893279e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 1.5250000000577302e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.887500000170462e-05,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0003304170000006934,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x100",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0013202499999991346,
+      "channel_sha256": "31859f17606393f2e04237f70dc1e2254a0eabd8d058bdd966489d945e7f2b1f"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 6.750000000721457e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.541999998750271e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 9.00000000214618e-06,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.5541999999489917e-05,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0003433749999999236,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.001304333000000213,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1,
+      "full_counter_loop": false,
+      "elapsed_seconds": 6.250000001983835e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 2,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 2,
+      "full_counter_loop": false,
+      "elapsed_seconds": 7.959000001278582e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 3,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 3,
+      "full_counter_loop": false,
+      "elapsed_seconds": 8.874999998909061e-06,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 16,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 16,
+      "full_counter_loop": false,
+      "elapsed_seconds": 2.5957999998382775e-05,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 255,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 255,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0003567920000016045,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait",
+      "initial_control": "0xffffffff",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 1024,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [],
+      "device_reads": [],
+      "interrupt_service_calls": [],
+      "diagnostics": [],
+      "observed_polls": 1024,
+      "full_counter_loop": false,
+      "elapsed_seconds": 0.0013348339999978975,
+      "channel_sha256": "8759cfc491989734154c034eec9bc139e206a1e056ac3ec78e675b7e1428c77d"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x4a5660",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.9526854580000013,
+      "channel_sha256": "5c48b47bb0a4feba6ac0628d3107d4bfc814af53e4728de1d13f82c50c2f90bf"
+    },
+    {
+      "edition": "sp",
+      "kind": "send_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x0",
+      "interrupt_enter_return": 1,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0x12345678",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00030",
+          "value": "0x80123450"
+        },
+        {
+          "address": "0x1d00020",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x105"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter",
+        "exit"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x4a5660",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.930114917000001,
+      "channel_sha256": "b0e7fce943064a044176cfe3c37087f422f1be924b4a2e8dff05d82d74263b34"
+    },
+    {
+      "edition": "sp",
+      "kind": "wait_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0xffffffff",
+      "returned": "0x0",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x4a5660",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.9143657079999983,
+      "channel_sha256": "669ead5e6547c1fc452cbf0aaa82eb9df8143f962f5d26c4002c5e02eaeea4f0"
+    },
+    {
+      "edition": "sp",
+      "kind": "send_timeout",
+      "initial_control": "0x105",
+      "enable_read": "0x10000",
+      "interrupt_enter_return": 0,
+      "initial_cp0_status": null,
+      "cp0_operations": [],
+      "ready_poll": 0,
+      "initial_tadr": "0xffffffff",
+      "returned": "0x105",
+      "stores": [
+        {
+          "address": "0x1d00000",
+          "value": "0x5"
+        },
+        {
+          "address": "0x1000f590",
+          "value": "0x10000"
+        },
+        {
+          "address": "0x1d00020",
+          "value": "0x0"
+        },
+        {
+          "address": "0x1d00000",
+          "value": "0x105"
+        }
+      ],
+      "device_reads": [
+        "0x1000f520",
+        "0x1000e000"
+      ],
+      "interrupt_service_calls": [
+        "enter"
+      ],
+      "diagnostics": [
+        {
+          "address": "0x4a5660",
+          "message_hex": "6c6962646d613a2073796e632074696d656f75740a",
+          "counter": -1
+        }
+      ],
+      "observed_polls": null,
+      "full_counter_loop": true,
+      "elapsed_seconds": 2.907517542000001,
+      "channel_sha256": "32a7953bca8d5ff90c885e3fdd6574fbcdd1d42fa651c34c4c048e06919662bd"
+    }
+  ]
+}

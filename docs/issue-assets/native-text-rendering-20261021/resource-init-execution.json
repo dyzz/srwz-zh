@@ -1,0 +1,1176 @@
+{
+  "status": "three_native_initializers_match_composed_models_under_explicit_external_leaf_contracts",
+  "case_count": 3,
+  "editions": [
+    {
+      "edition": "original",
+      "scope": "Native resource initializer with explicit external-service contracts.\nArchive reads, allocations, GS descriptor/upload and synchronization leaves are\nstubbed and logged. Font decode, parser, atlas scatter and state logic execute\nnative instructions. This is not real disc I/O or GS execution.\n",
+      "entry": "0x139f60",
+      "font_VT1_indices": [
+        2,
+        3
+      ],
+      "auxiliary_VT1_indices": [
+        7,
+        8
+      ],
+      "seed_hex": "81 40 82 4f 82 50 82 51 82 52 82 53 82 54 82 55 82 56 82 57 82 58 82 60 82 61 82 62 82 63 82 64 82 65 82 66 82 67 82 68 82 69 82 6a 82 6b 82 6c 82 6d 82 6e 82 6f 82 70 82 71 82 72 82 73 82 74 82 75 82 76 82 77 82 78 82 79 81 5e 81 7c 81 69 81 6a 81 5b",
+      "reserved_glyphs": 42,
+      "reserved_atlas_marker": [
+        0,
+        48
+      ],
+      "allocations": [
+        [
+          "0xc00000",
+          10240
+        ],
+        [
+          "0xc02800",
+          8192
+        ],
+        [
+          "0xc04800",
+          122880
+        ],
+        [
+          "0xc22800",
+          1290240
+        ]
+      ],
+      "buffer_sha256": {
+        "records": "e6555bce967d4ea5e76ca23e1cd57ab396718143fe4b9ed8530ab4c6ebbf40ef",
+        "atlas": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b",
+        "font": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd",
+        "temporary": "43d0156865cd1c65c7a8a2a832f4809a1e33e0c1a9bc973bf247148410c8f6e1"
+      },
+      "external_service_trace": [
+        {
+          "service": "archive_read",
+          "entry": "0x139620",
+          "args": [
+            "0x5678",
+            "0xae7710",
+            "0x1980",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "archive_offset": "0xae7710",
+          "length": 6528
+        },
+        {
+          "service": "temporary_alloc",
+          "entry": "0x1003d0",
+          "args": [
+            "0x10000",
+            "0xae7710",
+            "0x1980",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x0"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d570",
+          "args": [
+            "0x1feff90",
+            "0x2ca9",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b2e0",
+          "args": [
+            "0x0",
+            "0x2ca9",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d898",
+          "args": [
+            "0x1feff90",
+            "0xb00000",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ],
+          "descriptor": [
+            11433,
+            1,
+            2,
+            0,
+            0,
+            16,
+            2
+          ],
+          "source_sha256": "99ba47dcd04f214dc00f3565c3b2c0e4116482b23f1b085d4d26950e89583156",
+          "source_length": 64
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d258",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d570",
+          "args": [
+            "0x1feff30",
+            "0x2caa",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b2e0",
+          "args": [
+            "0x0",
+            "0x2caa",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d898",
+          "args": [
+            "0x1feff30",
+            "0xb00040",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ],
+          "descriptor": [
+            11434,
+            4,
+            20,
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_sha256": "9eddcc58e18beaf6a046795f34a72b49911984d20bbc50cd63d5fb9731ab7bbb",
+          "source_length": 32768
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d258",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "temporary_free",
+          "entry": "0x100440",
+          "args": [
+            "0xb00000",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "archive_release",
+          "entry": "0x139920",
+          "args": [
+            "0x1fefff8",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x19d058",
+          "args": [
+            "0x10",
+            "0x2800",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x19d058",
+          "args": [
+            "0x10",
+            "0x2000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x19d058",
+          "args": [
+            "0x80",
+            "0x1e000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x19d058",
+          "args": [
+            "0x10",
+            "0x13b000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "archive_read",
+          "entry": "0x139620",
+          "args": [
+            "0x5678",
+            "0x9d9a30",
+            "0x92530",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ],
+          "archive_offset": "0x9d9a30",
+          "length": 599344
+        },
+        {
+          "service": "archive_release",
+          "entry": "0x139920",
+          "args": [
+            "0x1fefff8",
+            "0x0",
+            "0xd5d800",
+            "0x0",
+            "0x1d00",
+            "0xfff1dcee",
+            "0x0",
+            "0x100"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d570",
+          "args": [
+            "0x1fefea0",
+            "0x2680",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b2e0",
+          "args": [
+            "0x0",
+            "0x2680",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d898",
+          "args": [
+            "0x1fefea0",
+            "0x3f8110",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ],
+          "descriptor": [
+            9856,
+            1,
+            0,
+            0,
+            0,
+            16,
+            16
+          ],
+          "source_sha256": "b2932ce9c58ee0f40a083e4cbe0f1c7a472acb8c6b2297366f5488eafab84a2c",
+          "source_length": 1024
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d258",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "scope": "Native resource initializer with explicit external-service contracts.\nArchive reads, allocations, GS descriptor/upload and synchronization leaves are\nstubbed and logged. Font decode, parser, atlas scatter and state logic execute\nnative instructions. This is not real disc I/O or GS execution.\n",
+      "entry": "0x139f60",
+      "font_VT1_indices": [
+        2,
+        3
+      ],
+      "auxiliary_VT1_indices": [
+        7,
+        8
+      ],
+      "seed_hex": "81 40 82 4f 82 50 82 51 82 52 82 53 82 54 82 55 82 56 82 57 82 58 82 60 82 61 82 62 82 63 82 64 82 65 82 66 82 67 82 68 82 69 82 6a 82 6b 82 6c 82 6d 82 6e 82 6f 82 70 82 71 82 72 82 73 82 74 82 75 82 76 82 77 82 78 82 79 81 5e 81 7c 81 69 81 6a 81 5b",
+      "reserved_glyphs": 42,
+      "reserved_atlas_marker": [
+        0,
+        48
+      ],
+      "allocations": [
+        [
+          "0xc00000",
+          10240
+        ],
+        [
+          "0xc02800",
+          8192
+        ],
+        [
+          "0xc04800",
+          122880
+        ],
+        [
+          "0xc22800",
+          1290240
+        ]
+      ],
+      "buffer_sha256": {
+        "records": "e6555bce967d4ea5e76ca23e1cd57ab396718143fe4b9ed8530ab4c6ebbf40ef",
+        "atlas": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b",
+        "font": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd",
+        "temporary": "43d0156865cd1c65c7a8a2a832f4809a1e33e0c1a9bc973bf247148410c8f6e1"
+      },
+      "external_service_trace": [
+        {
+          "service": "archive_read",
+          "entry": "0x139620",
+          "args": [
+            "0x5678",
+            "0xae7710",
+            "0x1980",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "archive_offset": "0xae7710",
+          "length": 6528
+        },
+        {
+          "service": "temporary_alloc",
+          "entry": "0x1003d0",
+          "args": [
+            "0x10000",
+            "0xae7710",
+            "0x1980",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x0"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d570",
+          "args": [
+            "0x1feff90",
+            "0x2ca9",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b2e0",
+          "args": [
+            "0x0",
+            "0x2ca9",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d898",
+          "args": [
+            "0x1feff90",
+            "0xb00000",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ],
+          "descriptor": [
+            11433,
+            1,
+            2,
+            0,
+            0,
+            16,
+            2
+          ],
+          "source_sha256": "99ba47dcd04f214dc00f3565c3b2c0e4116482b23f1b085d4d26950e89583156",
+          "source_length": 64
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d258",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d570",
+          "args": [
+            "0x1feff30",
+            "0x2caa",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b2e0",
+          "args": [
+            "0x0",
+            "0x2caa",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d898",
+          "args": [
+            "0x1feff30",
+            "0xb00040",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ],
+          "descriptor": [
+            11434,
+            4,
+            20,
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_sha256": "9eddcc58e18beaf6a046795f34a72b49911984d20bbc50cd63d5fb9731ab7bbb",
+          "source_length": 32768
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d258",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "temporary_free",
+          "entry": "0x100440",
+          "args": [
+            "0xb00000",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "archive_release",
+          "entry": "0x139920",
+          "args": [
+            "0x1fefff8",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x19d3f8",
+          "args": [
+            "0x10",
+            "0x2800",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x19d3f8",
+          "args": [
+            "0x10",
+            "0x2000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x19d3f8",
+          "args": [
+            "0x80",
+            "0x1e000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x19d3f8",
+          "args": [
+            "0x10",
+            "0x13b000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "archive_read",
+          "entry": "0x139620",
+          "args": [
+            "0x5678",
+            "0x9d9a30",
+            "0x92530",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ],
+          "archive_offset": "0x9d9a30",
+          "length": 599344
+        },
+        {
+          "service": "archive_release",
+          "entry": "0x139920",
+          "args": [
+            "0x1fefff8",
+            "0x0",
+            "0xd5d800",
+            "0x0",
+            "0x1d00",
+            "0xfff1dcee",
+            "0x0",
+            "0x100"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d570",
+          "args": [
+            "0x1fefea0",
+            "0x2680",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b2e0",
+          "args": [
+            "0x0",
+            "0x2680",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d898",
+          "args": [
+            "0x1fefea0",
+            "0x3f8890",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ],
+          "descriptor": [
+            9856,
+            1,
+            0,
+            0,
+            0,
+            16,
+            16
+          ],
+          "source_sha256": "b2932ce9c58ee0f40a083e4cbe0f1c7a472acb8c6b2297366f5488eafab84a2c",
+          "source_length": 1024
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d258",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "scope": "Native resource initializer with explicit external-service contracts.\nArchive reads, allocations, GS descriptor/upload and synchronization leaves are\nstubbed and logged. Font decode, parser, atlas scatter and state logic execute\nnative instructions. This is not real disc I/O or GS execution.\n",
+      "entry": "0x13aa00",
+      "font_VT1_indices": [
+        3,
+        4
+      ],
+      "auxiliary_VT1_indices": [
+        8,
+        9
+      ],
+      "seed_hex": "81 40 82 4f 82 50 82 51 82 52 82 53 82 54 82 55 82 56 82 57 82 58 82 60 82 61 82 62 82 63 82 64 82 65 82 66 82 67 82 68 82 69 82 6a 82 6b 82 6c 82 6d 82 6e 82 6f 82 70 82 71 82 72 82 73 82 74 82 75 82 76 82 77 82 78 82 79 81 5e 81 7c 81 69 81 6a 81 5b",
+      "reserved_glyphs": 42,
+      "reserved_atlas_marker": [
+        0,
+        48
+      ],
+      "allocations": [
+        [
+          "0xc00000",
+          10240
+        ],
+        [
+          "0xc02800",
+          8192
+        ],
+        [
+          "0xc04800",
+          122880
+        ],
+        [
+          "0xc22800",
+          1290240
+        ]
+      ],
+      "buffer_sha256": {
+        "records": "e6555bce967d4ea5e76ca23e1cd57ab396718143fe4b9ed8530ab4c6ebbf40ef",
+        "atlas": "9a0f2b3ea204957019465d6668016de603289d8da80d676299322210f0ef8d1b",
+        "font": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd",
+        "temporary": "43d0156865cd1c65c7a8a2a832f4809a1e33e0c1a9bc973bf247148410c8f6e1"
+      },
+      "external_service_trace": [
+        {
+          "service": "archive_read",
+          "entry": "0x13a040",
+          "args": [
+            "0x5678",
+            "0x4aa1f90",
+            "0x1980",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "archive_offset": "0x4aa1f90",
+          "length": 6528
+        },
+        {
+          "service": "temporary_alloc",
+          "entry": "0x1003d0",
+          "args": [
+            "0x10000",
+            "0x4aa1f90",
+            "0x1980",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x0"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d500",
+          "args": [
+            "0x1feff90",
+            "0x2ca9",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b260",
+          "args": [
+            "0x0",
+            "0x2ca9",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d828",
+          "args": [
+            "0x1feff90",
+            "0xb00000",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ],
+          "descriptor": [
+            11433,
+            1,
+            2,
+            0,
+            0,
+            16,
+            2
+          ],
+          "source_sha256": "99ba47dcd04f214dc00f3565c3b2c0e4116482b23f1b085d4d26950e89583156",
+          "source_length": 64
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d1e8",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x1",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x2"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d500",
+          "args": [
+            "0x1feff30",
+            "0x2caa",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b260",
+          "args": [
+            "0x0",
+            "0x2caa",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d828",
+          "args": [
+            "0x1feff30",
+            "0xb00040",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ],
+          "descriptor": [
+            11434,
+            4,
+            20,
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_sha256": "9eddcc58e18beaf6a046795f34a72b49911984d20bbc50cd63d5fb9731ab7bbb",
+          "source_length": 32768
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d1e8",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "temporary_free",
+          "entry": "0x100440",
+          "args": [
+            "0xb00000",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "archive_release",
+          "entry": "0x13a390",
+          "args": [
+            "0x1fefff8",
+            "0x0",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x1a1508",
+          "args": [
+            "0x10",
+            "0x2800",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x1a1508",
+          "args": [
+            "0x10",
+            "0x2000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x1a1508",
+          "args": [
+            "0x80",
+            "0x1e000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "aligned_alloc",
+          "entry": "0x1a1508",
+          "args": [
+            "0x10",
+            "0x13b000",
+            "0x4",
+            "0x14",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ]
+        },
+        {
+          "service": "archive_read",
+          "entry": "0x13a040",
+          "args": [
+            "0x5678",
+            "0x49942b0",
+            "0x92530",
+            "0x1fefff8",
+            "0x0",
+            "0x0",
+            "0x100",
+            "0x100"
+          ],
+          "archive_offset": "0x49942b0",
+          "length": 599344
+        },
+        {
+          "service": "archive_release",
+          "entry": "0x13a390",
+          "args": [
+            "0x1fefff8",
+            "0x0",
+            "0xd5d800",
+            "0x0",
+            "0x1d00",
+            "0xfff1dcee",
+            "0x0",
+            "0x100"
+          ]
+        },
+        {
+          "service": "texture_descriptor",
+          "entry": "0x10d500",
+          "args": [
+            "0x1fefea0",
+            "0x2680",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        },
+        {
+          "service": "sync",
+          "entry": "0x11b260",
+          "args": [
+            "0x0",
+            "0x2680",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        },
+        {
+          "service": "texture_upload",
+          "entry": "0x10d828",
+          "args": [
+            "0x1fefea0",
+            "0x452890",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ],
+          "descriptor": [
+            9856,
+            1,
+            0,
+            0,
+            0,
+            16,
+            16
+          ],
+          "source_sha256": "b2932ce9c58ee0f40a083e4cbe0f1c7a472acb8c6b2297366f5488eafab84a2c",
+          "source_length": 1024
+        },
+        {
+          "service": "close_upload",
+          "entry": "0x10d1e8",
+          "args": [
+            "0x0",
+            "0x0",
+            "0x1",
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x10",
+            "0x10"
+          ]
+        }
+      ]
+    }
+  ]
+}

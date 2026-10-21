@@ -1,0 +1,139 @@
+{
+  "status": "declared_whole_initializer_domains_passed_full_goal_incomplete",
+  "case_count": 7032,
+  "native_measure_calls": 14064,
+  "font_preset_calls": 7032,
+  "entry_modes": {
+    "direct": 3516,
+    "tail_wrapper": 3516
+  },
+  "editions": [
+    {
+      "edition": "original",
+      "outer_and_helper_conditional_sites": 52,
+      "sites_seen": 52,
+      "both_outcomes_seen": 49,
+      "one_outcome_sites": [
+        {
+          "branch": "0x319190",
+          "target": "0x3191a0",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x3191a0"
+          ],
+          "both_outcomes_seen": false
+        },
+        {
+          "branch": "0x3193a0",
+          "target": "0x3193b0",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x3193b0"
+          ],
+          "both_outcomes_seen": false
+        },
+        {
+          "branch": "0x319470",
+          "target": "0x319480",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x319480"
+          ],
+          "both_outcomes_seen": false
+        }
+      ],
+      "native_sources": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      }
+    },
+    {
+      "edition": "best",
+      "outer_and_helper_conditional_sites": 52,
+      "sites_seen": 52,
+      "both_outcomes_seen": 49,
+      "one_outcome_sites": [
+        {
+          "branch": "0x319560",
+          "target": "0x319570",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x319570"
+          ],
+          "both_outcomes_seen": false
+        },
+        {
+          "branch": "0x319770",
+          "target": "0x319780",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x319780"
+          ],
+          "both_outcomes_seen": false
+        },
+        {
+          "branch": "0x319840",
+          "target": "0x319850",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x319850"
+          ],
+          "both_outcomes_seen": false
+        }
+      ],
+      "native_sources": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      }
+    },
+    {
+      "edition": "sp",
+      "outer_and_helper_conditional_sites": 52,
+      "sites_seen": 52,
+      "both_outcomes_seen": 49,
+      "one_outcome_sites": [
+        {
+          "branch": "0x33d0f0",
+          "target": "0x33d100",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x33d100"
+          ],
+          "both_outcomes_seen": false
+        },
+        {
+          "branch": "0x33d300",
+          "target": "0x33d310",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x33d310"
+          ],
+          "both_outcomes_seen": false
+        },
+        {
+          "branch": "0x33d3d0",
+          "target": "0x33d3e0",
+          "constant_register_predicate": false,
+          "successors": [
+            "0x33d3e0"
+          ],
+          "both_outcomes_seen": false
+        }
+      ],
+      "native_sources": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      }
+    }
+  ],
+  "limits": [
+    "input graphs/texts controlled, no natural runtime source or screen claim",
+    "object+28 producer and lifetime, other pointer/indirect writers not yet bound",
+    "three guarded fallthrough outcomes structurally excluded by shape result range and initialized resource membership; not all machine branch edges executed",
+    "full caller register ABI, complete UI draw functions, hardware/cache timing not proved",
+    "no production source or ISO changes in this stage"
+  ]
+}

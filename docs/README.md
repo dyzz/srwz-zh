@@ -33,6 +33,9 @@
 
 | 文档 | 内容 |
 | --- | --- |
+| [TEXT_CONTROL_LAYOUT_AUDIT_20261021.md](TEXT_CONTROL_LAYOUT_AUDIT_20261021.md) | 全量控制合同检查、共享计宽、预览与写回边界、两条梗概断行及三版LRPS2回归结果 |
+| [TEXT_CONTROL_AND_LAYOUT_HANDOFF_20261021.md](TEXT_CONTROL_AND_LAYOUT_HANDOFF_20261021.md) | 当前全部控制家族、图鉴字段／参数、后续排版流程、三版原生补丁前后字节账本及验证边界 |
+| [NATIVE_TEXT_RENDERING_REVERSE_ENGINEERING_20261021.md](NATIVE_TEXT_RENDERING_REVERSE_ENGINEERING_20261021.md) | 持续反编译第1–22阶段、C／原生指令对照、反例和未完成范围 |
 | `SRWZ_COMPRESSION.md` | SRWZ 压缩格式、Rust codec 和容量约束 |
 | `FONT_ANALYSIS.md` | VT1 字库结构、码位与 glyph 映射 |
 | [VT1_XAN_RESOURCE_HANDOFF_20261006.md](VT1_XAN_RESOURCE_HANDOFF_20261006.md) | 面向 AI 的 VT1／头像格式与 Extract：图片 ID、成员偏移表、原生纹理结构及 XAN 资源新增契约 |
@@ -51,3 +54,5 @@
 Python 构建入口见 `../tools/README.md`，机器可读结果见
 `../manifests/README.md`。文档中的数字若与当前 manifest 不一致，以 manifest 和
 精确制品哈希为准。
+
+- [紧缩数字高度原因、无新增标签修复与剧情排查](COMPACT_DIGIT_HEIGHT_AND_STORY_AUDIT_20261021.md)

@@ -1,0 +1,66 @@
+[
+  {
+    "token": "<0>",
+    "pixel_width": 42,
+    "cell_widths": [
+      5
+    ],
+    "tokens": [
+      "甲",
+      "<",
+      "0",
+      ">",
+      "乙"
+    ]
+  },
+  {
+    "token": "<-<height:3E>",
+    "pixel_width": 42,
+    "cell_widths": [
+      4
+    ],
+    "tokens": [
+      "甲",
+      "<",
+      "-",
+      "<height:3E>",
+      "乙"
+    ]
+  },
+  {
+    "token": "{<space:2E><space:2E>0}",
+    "pixel_width": 42,
+    "cell_widths": [
+      9
+    ],
+    "tokens": [
+      "甲",
+      "{",
+      "<space:2E><space:2E>0",
+      "}",
+      "乙"
+    ]
+  },
+  {
+    "token": "%0<width:64>",
+    "pixel_width": 168,
+    "layout_error": "invalid renderer dimension: <width:64>"
+  },
+  {
+    "token": "$n",
+    "pixel_width": 168,
+    "cell_widths": [
+      8
+    ],
+    "tokens": [
+      "甲",
+      "$n",
+      "乙"
+    ]
+  },
+  {
+    "native_repeat": "@<color:31>",
+    "encoded": "98003131",
+    "expected": "403131"
+  }
+]

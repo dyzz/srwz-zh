@@ -1,0 +1,104 @@
+{
+  "edition": "original",
+  "scope": "LRPS2 native source ISO cold boot, controller and RAM reads only; retained post-frame upload chain, not within-frame completion timing",
+  "source_iso": {
+    "path": "rom/original.iso",
+    "size": 3758358528,
+    "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+  },
+  "native_executable": {
+    "member": "SLPS_258.87",
+    "size": 3471624,
+    "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+  },
+  "card_before": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+  "commands": [
+    {
+      "command": "run 1800",
+      "response": [
+        "OK frame=1800"
+      ]
+    },
+    {
+      "command": "press start 3",
+      "response": [
+        "OK frame=1805"
+      ]
+    },
+    {
+      "command": "run 180",
+      "response": [
+        "OK frame=1985"
+      ]
+    },
+    {
+      "command": "shot native-title",
+      "response": [
+        "SHOT /Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/native-font-upload-chain-20261021/original/native-title.png 640x448 luma=120.7",
+        "OK frame=1985"
+      ]
+    },
+    {
+      "command": "mem 46e330 144",
+      "output": "font-state.bin",
+      "sha256": "4ef4aa96d0a004209e7a93f767a26ccee11a9eefb29ffb0a908d5e126c189222"
+    },
+    {
+      "command": "mem 5238d0 4",
+      "output": "channel-pointer.bin",
+      "sha256": "f36349b212917cc97723ca178565769fd9d32f9cfae1132a5715a684f8837a1f"
+    },
+    {
+      "command": "mem 5238d0 80",
+      "output": "transfer-globals.bin",
+      "sha256": "ae8e1a182af8d2ef0568bcbff6f77eec24bc492ca73e63764df0e555d3d544e3"
+    },
+    {
+      "command": "mem 5226d0 128",
+      "output": "font-upload-chain.bin",
+      "sha256": "547cbb05bda21bf71c96f1a22a62ae286e5968c15c0c997af2bb6b57a80f0997"
+    },
+    {
+      "command": "mem 4726d0 256",
+      "output": "font-upload-packets.bin",
+      "sha256": "8eb2a6da3bb601961e53878cebb7b58fec43814b3b4f343e96ef4c02bf96f46a"
+    },
+    {
+      "command": "mem 10e5b8 104",
+      "output": "native-dma-send-code.bin",
+      "sha256": "3a707047a85c200a7a36648134731a10aeab779e87a9e37385dd9094a60cf407"
+    },
+    {
+      "command": "quit",
+      "response": [
+        "OK"
+      ]
+    }
+  ],
+  "channel_pointer": "0x1000a000",
+  "font_chain_base": "0x5226d0",
+  "font_packet_base": "0x4726d0",
+  "chain_tags": [
+    "0x4726d030000007",
+    "0x99060030000f00",
+    "0x47274030000007",
+    "0x99f60030000f00"
+  ],
+  "expected_chain_tags": [
+    "0x4726d030000007",
+    "0x99060030000f00",
+    "0x47274030000007",
+    "0x99f60030000f00"
+  ],
+  "native_dma_code_sha256": "3a707047a85c200a7a36648134731a10aeab779e87a9e37385dd9094a60cf407",
+  "inspection_limit": "post-frame retained upload buffer snapshot; no within-frame DMA/GS timing trace",
+  "font_state_hex": "00 00 00 00 00 08 00 08 00 00 30 00 00 00 30 00 00 00 00 00 16 00 0b 00 16 00 0b 00 00 00 00 00 ff ff ff 00 80 80 80 80 80 80 80 80 12 00 0b 00 10 00 00 00 ff ff ff 00 16 00 0b 00 16 00 0b 00 16 00 0b 00 16 00 0b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 bd 98 00 00 00 00 00 a0 e5 98 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 e6 9a 00 00 00 00 00 00 06 99 00 00 00 00 00 00 00 00 00 00 00 00 00",
+  "font_address": "0x9ae610",
+  "atlas_address": "0x990600",
+  "reserved_marker": [
+    0,
+    48
+  ],
+  "card_after": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+  "status": "native_channel_pointer_and_retained_two_half_upload_chain_verified"
+}

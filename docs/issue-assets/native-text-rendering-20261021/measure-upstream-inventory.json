@@ -1,0 +1,4019 @@
+{
+  "scope": "Executable-section direct callers and local +28 strcpy destination candidates.\nThe shared field offset alone does not prove that a candidate writes an entity\nthat reaches this cache initializer. Memory aliasing and global-pointer writers\nremain to be bound; these are annotated leads rather than natural reachability.\n",
+  "editions": [
+    {
+      "edition": "original",
+      "native_executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "initializer_direct_callers": [
+        {
+          "site": "0x310e38",
+          "kind": "JAL",
+          "argument_sources": {
+            "first_argument_global": "0x6d5f04",
+            "second_argument_getter": "0x34ddb0",
+            "second_argument_global": "0x6d5248",
+            "getter_sha256": "36c79ce2e8520a783463f52cf6045125c84656adb0e0fc50e70058f51631eeaf"
+          },
+          "context": [
+            {
+              "pc": "0x310e18",
+              "word": "0x304300ff",
+              "asm": "andi $v1, $v0, 0xff"
+            },
+            {
+              "pc": "0x310e1c",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x310e20",
+              "word": "0x14620011",
+              "asm": "bne $v1, $v0, 0x310e68"
+            },
+            {
+              "pc": "0x310e24",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x310e28",
+              "word": "0xc0d376c",
+              "asm": "jal 0x34ddb0"
+            },
+            {
+              "pc": "0x310e2c",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x310e30",
+              "word": "0x3c01006d",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x310e34",
+              "word": "0x8c245f04",
+              "asm": "lw $a0, 0x5f04($at)"
+            },
+            {
+              "pc": "0x310e38",
+              "word": "0xc0c63fc",
+              "asm": "jal 0x318ff0"
+            },
+            {
+              "pc": "0x310e3c",
+              "word": "0x40282d",
+              "asm": "move $a1, $v0"
+            },
+            {
+              "pc": "0x310e40",
+              "word": "0xc0d376c",
+              "asm": "jal 0x34ddb0"
+            }
+          ]
+        },
+        {
+          "site": "0x318fdc",
+          "kind": "J",
+          "argument_sources": {
+            "first_argument_global": "0x6d5f04",
+            "second_argument_global": "0x6d5fcc"
+          },
+          "context": [
+            {
+              "pc": "0x318fbc",
+              "word": "0x7bb10010",
+              "asm": "lq $s1, 16($sp)"
+            },
+            {
+              "pc": "0x318fc0",
+              "word": "0x7bb00000",
+              "asm": "lq $s0, 0($sp)"
+            },
+            {
+              "pc": "0x318fc4",
+              "word": "0x3e00008",
+              "asm": "jr $ra"
+            },
+            {
+              "pc": "0x318fc8",
+              "word": "0x27bd0030",
+              "asm": "addiu $sp, $sp, 0x30"
+            },
+            {
+              "pc": "0x318fcc",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x318fd0",
+              "word": "0x3c01006d",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x318fd4",
+              "word": "0x8c245f04",
+              "asm": "lw $a0, 0x5f04($at)"
+            },
+            {
+              "pc": "0x318fd8",
+              "word": "0x3c01006d",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x318fdc",
+              "word": "0x80c63fc",
+              "asm": "j 0x318ff0"
+            },
+            {
+              "pc": "0x318fe0",
+              "word": "0x8c255fcc",
+              "asm": "lw $a1, 0x5fcc($at)"
+            },
+            {
+              "pc": "0x318fe4",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ]
+        },
+        {
+          "site": "0x33bc08",
+          "kind": "JAL",
+          "argument_sources": {
+            "first_argument_global": "0x6d5f04",
+            "second_argument_getter": "0x34ddb0",
+            "second_argument_global": "0x6d5248",
+            "getter_sha256": "36c79ce2e8520a783463f52cf6045125c84656adb0e0fc50e70058f51631eeaf"
+          },
+          "context": [
+            {
+              "pc": "0x33bbe8",
+              "word": "0x304300ff",
+              "asm": "andi $v1, $v0, 0xff"
+            },
+            {
+              "pc": "0x33bbec",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x33bbf0",
+              "word": "0x14620011",
+              "asm": "bne $v1, $v0, 0x33bc38"
+            },
+            {
+              "pc": "0x33bbf4",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33bbf8",
+              "word": "0xc0d376c",
+              "asm": "jal 0x34ddb0"
+            },
+            {
+              "pc": "0x33bbfc",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33bc00",
+              "word": "0x3c01006d",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33bc04",
+              "word": "0x8c245f04",
+              "asm": "lw $a0, 0x5f04($at)"
+            },
+            {
+              "pc": "0x33bc08",
+              "word": "0xc0c63fc",
+              "asm": "jal 0x318ff0"
+            },
+            {
+              "pc": "0x33bc0c",
+              "word": "0x40282d",
+              "asm": "move $a1, $v0"
+            },
+            {
+              "pc": "0x33bc10",
+              "word": "0xc0d376c",
+              "asm": "jal 0x34ddb0"
+            }
+          ]
+        }
+      ],
+      "local_name_copy_candidates": [
+        {
+          "site": "0x156944",
+          "destination_definitions": [
+            {
+              "pc": "0x156940",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x156924",
+              "word": "0xae000084",
+              "asm": "sw $zero, 0x84($s0)"
+            },
+            {
+              "pc": "0x156928",
+              "word": "0xa6000094",
+              "asm": "sh $zero, 0x94($s0)"
+            },
+            {
+              "pc": "0x15692c",
+              "word": "0xa6000096",
+              "asm": "sh $zero, 0x96($s0)"
+            },
+            {
+              "pc": "0x156930",
+              "word": "0xa6000098",
+              "asm": "sh $zero, 0x98($s0)"
+            },
+            {
+              "pc": "0x156934",
+              "word": "0x16400006",
+              "asm": "bnez $s2, 0x156950"
+            },
+            {
+              "pc": "0x156938",
+              "word": "0xa600009a",
+              "asm": "sh $zero, 0x9a($s0)"
+            },
+            {
+              "pc": "0x15693c",
+              "word": "0x3c050043",
+              "asm": "lui $a1, 0x43"
+            },
+            {
+              "pc": "0x156940",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x156944",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x156948",
+              "word": "0x24a55d08",
+              "asm": "addiu $a1, $a1, 0x5d08"
+            },
+            {
+              "pc": "0x15694c",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "26cb5b2cb00bf30ba0d7dfc2ed8091f049d6df82507f2762e943486bfe370512",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x17f328",
+          "destination_definitions": [
+            {
+              "pc": "0x17f318",
+              "base_gpr": 17,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x17f308",
+              "word": "0xa21021",
+              "asm": "addu $v0, $a1, $v0"
+            },
+            {
+              "pc": "0x17f30c",
+              "word": "0x2484ec50",
+              "asm": "addiu $a0, $a0, -0x13b0"
+            },
+            {
+              "pc": "0x17f310",
+              "word": "0x21100",
+              "asm": "sll $v0, $v0, 4"
+            },
+            {
+              "pc": "0x17f314",
+              "word": "0x828821",
+              "asm": "addu $s1, $a0, $v0"
+            },
+            {
+              "pc": "0x17f318",
+              "word": "0x26240028",
+              "asm": "addiu $a0, $s1, 0x28"
+            },
+            {
+              "pc": "0x17f31c",
+              "word": "0xa2230077",
+              "asm": "sb $v1, 0x77($s1)"
+            },
+            {
+              "pc": "0x17f320",
+              "word": "0x3c010059",
+              "asm": "lui $at, 0x59"
+            },
+            {
+              "pc": "0x17f324",
+              "word": "0x8c225514",
+              "asm": "lw $v0, 0x5514($at)"
+            },
+            {
+              "pc": "0x17f328",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x17f32c",
+              "word": "0x24450001",
+              "asm": "addiu $a1, $v0, 1"
+            },
+            {
+              "pc": "0x17f330",
+              "word": "0x3c010059",
+              "asm": "lui $at, 0x59"
+            }
+          ],
+          "window_sha256": "7f0a73571cba9f0639c52c741b73f4a61c0c474e498e336679dc8cd1072b5b5a",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1b13fc",
+          "destination_definitions": [
+            {
+              "pc": "0x1b1400",
+              "base_gpr": 19,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1b13dc",
+              "word": "0xa660008e",
+              "asm": "sh $zero, 0x8e($s3)"
+            },
+            {
+              "pc": "0x1b13e0",
+              "word": "0xae600080",
+              "asm": "sw $zero, 0x80($s3)"
+            },
+            {
+              "pc": "0x1b13e4",
+              "word": "0xae600084",
+              "asm": "sw $zero, 0x84($s3)"
+            },
+            {
+              "pc": "0x1b13e8",
+              "word": "0xa6600094",
+              "asm": "sh $zero, 0x94($s3)"
+            },
+            {
+              "pc": "0x1b13ec",
+              "word": "0xa6600096",
+              "asm": "sh $zero, 0x96($s3)"
+            },
+            {
+              "pc": "0x1b13f0",
+              "word": "0xa6600098",
+              "asm": "sh $zero, 0x98($s3)"
+            },
+            {
+              "pc": "0x1b13f4",
+              "word": "0xa660009a",
+              "asm": "sh $zero, 0x9a($s3)"
+            },
+            {
+              "pc": "0x1b13f8",
+              "word": "0x8ea5001c",
+              "asm": "lw $a1, 0x1c($s5)"
+            },
+            {
+              "pc": "0x1b13fc",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x1b1400",
+              "word": "0x26640028",
+              "asm": "addiu $a0, $s3, 0x28"
+            },
+            {
+              "pc": "0x1b1404",
+              "word": "0x8fa200a0",
+              "asm": "lw $v0, 0xa0($sp)"
+            }
+          ],
+          "window_sha256": "eec09c9827468694e9975039ad19edda226b3e6de752b172fa7414b7d2ab447a",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c2954",
+          "destination_definitions": [
+            {
+              "pc": "0x1c2958",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c2934",
+              "word": "0x8e250008",
+              "asm": "lw $a1, 8($s1)"
+            },
+            {
+              "pc": "0x1c2938",
+              "word": "0x622021",
+              "asm": "addu $a0, $v1, $v0"
+            },
+            {
+              "pc": "0x1c293c",
+              "word": "0x42040",
+              "asm": "sll $a0, $a0, 1"
+            },
+            {
+              "pc": "0x1c2940",
+              "word": "0x3c030059",
+              "asm": "lui $v1, 0x59"
+            },
+            {
+              "pc": "0x1c2944",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x1c2948",
+              "word": "0x2463ec50",
+              "asm": "addiu $v1, $v1, -0x13b0"
+            },
+            {
+              "pc": "0x1c294c",
+              "word": "0x21100",
+              "asm": "sll $v0, $v0, 4"
+            },
+            {
+              "pc": "0x1c2950",
+              "word": "0x621021",
+              "asm": "addu $v0, $v1, $v0"
+            },
+            {
+              "pc": "0x1c2954",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x1c2958",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c295c",
+              "word": "0x1000001c",
+              "asm": "b 0x1c29d0"
+            }
+          ],
+          "window_sha256": "e99b1323e42ac654ba447c3b26cbcd17fdac4b74a21bec19899c5e6ab8338b5a",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c29b8",
+          "destination_definitions": [
+            {
+              "pc": "0x1c29bc",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c2998",
+              "word": "0x3c020059",
+              "asm": "lui $v0, 0x59"
+            },
+            {
+              "pc": "0x1c299c",
+              "word": "0x701821",
+              "asm": "addu $v1, $v1, $s0"
+            },
+            {
+              "pc": "0x1c29a0",
+              "word": "0x8e250008",
+              "asm": "lw $a1, 8($s1)"
+            },
+            {
+              "pc": "0x1c29a4",
+              "word": "0x31840",
+              "asm": "sll $v1, $v1, 1"
+            },
+            {
+              "pc": "0x1c29a8",
+              "word": "0x2442ec50",
+              "asm": "addiu $v0, $v0, -0x13b0"
+            },
+            {
+              "pc": "0x1c29ac",
+              "word": "0x701821",
+              "asm": "addu $v1, $v1, $s0"
+            },
+            {
+              "pc": "0x1c29b0",
+              "word": "0x31900",
+              "asm": "sll $v1, $v1, 4"
+            },
+            {
+              "pc": "0x1c29b4",
+              "word": "0x431021",
+              "asm": "addu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x1c29b8",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x1c29bc",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c29c0",
+              "word": "0x26100001",
+              "asm": "addiu $s0, $s0, 1"
+            }
+          ],
+          "window_sha256": "224e2cbc0ed464cff06142662cb2a93535f1a56ff5cb3c0bdf0ba318f69793ed",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c4ef4",
+          "destination_definitions": [
+            {
+              "pc": "0x1c4eec",
+              "base_gpr": 2,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c4ed4",
+              "word": "0x8fa200fc",
+              "asm": "lw $v0, 0xfc($sp)"
+            },
+            {
+              "pc": "0x1c4ed8",
+              "word": "0xa043001a",
+              "asm": "sb $v1, 0x1a($v0)"
+            },
+            {
+              "pc": "0x1c4edc",
+              "word": "0x93a200d0",
+              "asm": "lbu $v0, 0xd0($sp)"
+            },
+            {
+              "pc": "0x1c4ee0",
+              "word": "0x10400007",
+              "asm": "beqz $v0, 0x1c4f00"
+            },
+            {
+              "pc": "0x1c4ee4",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x1c4ee8",
+              "word": "0x8fa200fc",
+              "asm": "lw $v0, 0xfc($sp)"
+            },
+            {
+              "pc": "0x1c4eec",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c4ef0",
+              "word": "0x8fa200f8",
+              "asm": "lw $v0, 0xf8($sp)"
+            },
+            {
+              "pc": "0x1c4ef4",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x1c4ef8",
+              "word": "0x2445000c",
+              "asm": "addiu $a1, $v0, 0xc"
+            },
+            {
+              "pc": "0x1c4efc",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "a7f4c966e538b3676c26f3242ca60d22c845431784858522f01e9e47a88177ae",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c698c",
+          "destination_definitions": [
+            {
+              "pc": "0x1c6988",
+              "base_gpr": 4,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c696c",
+              "word": "0xac800010",
+              "asm": "sw $zero, 0x10($a0)"
+            },
+            {
+              "pc": "0x1c6970",
+              "word": "0x9087001a",
+              "asm": "lbu $a3, 0x1a($a0)"
+            },
+            {
+              "pc": "0x1c6974",
+              "word": "0xe31824",
+              "asm": "and $v1, $a3, $v1"
+            },
+            {
+              "pc": "0x1c6978",
+              "word": "0x661825",
+              "asm": "or $v1, $v1, $a2"
+            },
+            {
+              "pc": "0x1c697c",
+              "word": "0x10a00006",
+              "asm": "beqz $a1, 0x1c6998"
+            },
+            {
+              "pc": "0x1c6980",
+              "word": "0xa083001a",
+              "asm": "sb $v1, 0x1a($a0)"
+            },
+            {
+              "pc": "0x1c6984",
+              "word": "0x3c050044",
+              "asm": "lui $a1, 0x44"
+            },
+            {
+              "pc": "0x1c6988",
+              "word": "0x24840028",
+              "asm": "addiu $a0, $a0, 0x28"
+            },
+            {
+              "pc": "0x1c698c",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x1c6990",
+              "word": "0x24a5a7f0",
+              "asm": "addiu $a1, $a1, -0x5810"
+            },
+            {
+              "pc": "0x1c6994",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "063e9a9bf5976fc970590a185acc4a951df6713520a4934735eb0e5b9450e2bb",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c903c",
+          "destination_definitions": [
+            {
+              "pc": "0x1c9040",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c901c",
+              "word": "0xac620008",
+              "asm": "sw $v0, 8($v1)"
+            },
+            {
+              "pc": "0x1c9020",
+              "word": "0x8e230008",
+              "asm": "lw $v1, 8($s1)"
+            },
+            {
+              "pc": "0x1c9024",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1c9028",
+              "word": "0xac43000c",
+              "asm": "sw $v1, 0xc($v0)"
+            },
+            {
+              "pc": "0x1c902c",
+              "word": "0x8e23000c",
+              "asm": "lw $v1, 0xc($s1)"
+            },
+            {
+              "pc": "0x1c9030",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1c9034",
+              "word": "0xac430010",
+              "asm": "sw $v1, 0x10($v0)"
+            },
+            {
+              "pc": "0x1c9038",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1c903c",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x1c9040",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c9044",
+              "word": "0x26030001",
+              "asm": "addiu $v1, $s0, 1"
+            }
+          ],
+          "window_sha256": "19d0122290722e0e78c2c9949b63758f5fb2748e709e0e90977c396b7bb409a3",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x292d14",
+          "destination_definitions": [
+            {
+              "pc": "0x292d18",
+              "base_gpr": 17,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x292cf4",
+              "word": "0x8ca20008",
+              "asm": "lw $v0, 8($a1)"
+            },
+            {
+              "pc": "0x292cf8",
+              "word": "0xa0802d",
+              "asm": "move $s0, $a1"
+            },
+            {
+              "pc": "0x292cfc",
+              "word": "0xac820008",
+              "asm": "sw $v0, 8($a0)"
+            },
+            {
+              "pc": "0x292d00",
+              "word": "0x8ca2000c",
+              "asm": "lw $v0, 0xc($a1)"
+            },
+            {
+              "pc": "0x292d04",
+              "word": "0xac82000c",
+              "asm": "sw $v0, 0xc($a0)"
+            },
+            {
+              "pc": "0x292d08",
+              "word": "0x8ca20010",
+              "asm": "lw $v0, 0x10($a1)"
+            },
+            {
+              "pc": "0x292d0c",
+              "word": "0xac820010",
+              "asm": "sw $v0, 0x10($a0)"
+            },
+            {
+              "pc": "0x292d10",
+              "word": "0x26050028",
+              "asm": "addiu $a1, $s0, 0x28"
+            },
+            {
+              "pc": "0x292d14",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x292d18",
+              "word": "0x26240028",
+              "asm": "addiu $a0, $s1, 0x28"
+            },
+            {
+              "pc": "0x292d1c",
+              "word": "0x9207001a",
+              "asm": "lbu $a3, 0x1a($s0)"
+            }
+          ],
+          "window_sha256": "a555d12166621a2fa735917cc15ea86785b93f4759e880cf1df0320d9d0aff5a",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2937bc",
+          "destination_definitions": [
+            {
+              "pc": "0x2937b4",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x29379c",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x2937a0",
+              "word": "0x10000011",
+              "asm": "b 0x2937e8"
+            },
+            {
+              "pc": "0x2937a4",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x2937a8",
+              "word": "0xae000008",
+              "asm": "sw $zero, 8($s0)"
+            },
+            {
+              "pc": "0x2937ac",
+              "word": "0x3c050044",
+              "asm": "lui $a1, 0x44"
+            },
+            {
+              "pc": "0x2937b0",
+              "word": "0xae00000c",
+              "asm": "sw $zero, 0xc($s0)"
+            },
+            {
+              "pc": "0x2937b4",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2937b8",
+              "word": "0x24a5daa8",
+              "asm": "addiu $a1, $a1, -0x2558"
+            },
+            {
+              "pc": "0x2937bc",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x2937c0",
+              "word": "0xae000010",
+              "asm": "sw $zero, 0x10($s0)"
+            },
+            {
+              "pc": "0x2937c4",
+              "word": "0x9205001a",
+              "asm": "lbu $a1, 0x1a($s0)"
+            }
+          ],
+          "window_sha256": "17afb301b3cd7d405de3e36f30b7ce786a080f4aaa8818848de406812f079209",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c9008",
+          "destination_definitions": [
+            {
+              "pc": "0x2c900c",
+              "base_gpr": 21,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c8fe8",
+              "word": "0x1860000f",
+              "asm": "blez $v1, 0x2c9028"
+            },
+            {
+              "pc": "0x2c8fec",
+              "word": "0x3c010060",
+              "asm": "lui $at, 0x60"
+            },
+            {
+              "pc": "0x2c8ff0",
+              "word": "0x8c239cd8",
+              "asm": "lw $v1, -0x6328($at)"
+            },
+            {
+              "pc": "0x2c8ff4",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2c8ff8",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2c8ffc",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2c9008"
+            },
+            {
+              "pc": "0x2c9000",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2c9004",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2c9008",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x2c900c",
+              "word": "0x26a40028",
+              "asm": "addiu $a0, $s5, 0x28"
+            },
+            {
+              "pc": "0x2c9010",
+              "word": "0x3c050044",
+              "asm": "lui $a1, 0x44"
+            }
+          ],
+          "window_sha256": "a8dfa72e499ceb73db19fd6c83d87848f8cac399b450617ee268e0f2b0fd2248",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c9118",
+          "destination_definitions": [
+            {
+              "pc": "0x2c911c",
+              "base_gpr": 21,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c90f8",
+              "word": "0x1860000f",
+              "asm": "blez $v1, 0x2c9138"
+            },
+            {
+              "pc": "0x2c90fc",
+              "word": "0x3c010060",
+              "asm": "lui $at, 0x60"
+            },
+            {
+              "pc": "0x2c9100",
+              "word": "0x8c239cd8",
+              "asm": "lw $v1, -0x6328($at)"
+            },
+            {
+              "pc": "0x2c9104",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2c9108",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2c910c",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2c9118"
+            },
+            {
+              "pc": "0x2c9110",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2c9114",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2c9118",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x2c911c",
+              "word": "0x26a40028",
+              "asm": "addiu $a0, $s5, 0x28"
+            },
+            {
+              "pc": "0x2c9120",
+              "word": "0x3c050044",
+              "asm": "lui $a1, 0x44"
+            }
+          ],
+          "window_sha256": "a8dfa72e499ceb73db19fd6c83d87848f8cac399b450617ee268e0f2b0fd2248",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c91f0",
+          "destination_definitions": [
+            {
+              "pc": "0x2c91f4",
+              "base_gpr": 16,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c91d0",
+              "word": "0x31100",
+              "asm": "sll $v0, $v1, 4"
+            },
+            {
+              "pc": "0x2c91d4",
+              "word": "0x10000006",
+              "asm": "b 0x2c91f0"
+            },
+            {
+              "pc": "0x2c91d8",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2c91dc",
+              "word": "0x431823",
+              "asm": "subu $v1, $v0, $v1"
+            },
+            {
+              "pc": "0x2c91e0",
+              "word": "0x31080",
+              "asm": "sll $v0, $v1, 2"
+            },
+            {
+              "pc": "0x2c91e4",
+              "word": "0x431023",
+              "asm": "subu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x2c91e8",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x2c91ec",
+              "word": "0x24450020",
+              "asm": "addiu $a1, $v0, 0x20"
+            },
+            {
+              "pc": "0x2c91f0",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x2c91f4",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2c91f8",
+              "word": "0x1000000b",
+              "asm": "b 0x2c9228"
+            }
+          ],
+          "window_sha256": "a8a027dbb65412053ce98fc32985a7d23ddab074a6c92b473ca73020b9c1f9b5",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c921c",
+          "destination_definitions": [
+            {
+              "pc": "0x2c9220",
+              "base_gpr": 16,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c91fc",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x2c9200",
+              "word": "0x3c010060",
+              "asm": "lui $at, 0x60"
+            },
+            {
+              "pc": "0x2c9204",
+              "word": "0x8c239cd8",
+              "asm": "lw $v1, -0x6328($at)"
+            },
+            {
+              "pc": "0x2c9208",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2c920c",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2c9210",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2c921c"
+            },
+            {
+              "pc": "0x2c9214",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2c9218",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2c921c",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x2c9220",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2c9224",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "98eb965db478a257d51ae8214ceeb5e8c164e802c2765bd875f76a2d77036abe",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c92d4",
+          "destination_definitions": [
+            {
+              "pc": "0x2c92d0",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c92b4",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2c92b8",
+              "word": "0x31100",
+              "asm": "sll $v0, $v1, 4"
+            },
+            {
+              "pc": "0x2c92bc",
+              "word": "0x431823",
+              "asm": "subu $v1, $v0, $v1"
+            },
+            {
+              "pc": "0x2c92c0",
+              "word": "0x31080",
+              "asm": "sll $v0, $v1, 2"
+            },
+            {
+              "pc": "0x2c92c4",
+              "word": "0x431023",
+              "asm": "subu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x2c92c8",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x2c92cc",
+              "word": "0x24450020",
+              "asm": "addiu $a1, $v0, 0x20"
+            },
+            {
+              "pc": "0x2c92d0",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2c92d4",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x2c92d8",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x2c92dc",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "baa8441fde5f57b0bbd9025dca9d81e4d766361daff5d46ba652ea4ab5358a29",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2cbf3c",
+          "destination_definitions": [
+            {
+              "pc": "0x2cbf34",
+              "base_gpr": 3,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2cbf1c",
+              "word": "0x491021",
+              "asm": "addu $v0, $v0, $t1"
+            },
+            {
+              "pc": "0x2cbf20",
+              "word": "0xa0400008",
+              "asm": "sb $zero, 8($v0)"
+            },
+            {
+              "pc": "0x2cbf24",
+              "word": "0x8602001e",
+              "asm": "lh $v0, 0x1e($s0)"
+            },
+            {
+              "pc": "0x2cbf28",
+              "word": "0x8e030094",
+              "asm": "lw $v1, 0x94($s0)"
+            },
+            {
+              "pc": "0x2cbf2c",
+              "word": "0x21080",
+              "asm": "sll $v0, $v0, 2"
+            },
+            {
+              "pc": "0x2cbf30",
+              "word": "0x501021",
+              "asm": "addu $v0, $v0, $s0"
+            },
+            {
+              "pc": "0x2cbf34",
+              "word": "0x24640028",
+              "asm": "addiu $a0, $v1, 0x28"
+            },
+            {
+              "pc": "0x2cbf38",
+              "word": "0x8c420050",
+              "asm": "lw $v0, 0x50($v0)"
+            },
+            {
+              "pc": "0x2cbf3c",
+              "word": "0xc068362",
+              "asm": "jal 0x1a0d88"
+            },
+            {
+              "pc": "0x2cbf40",
+              "word": "0x24450008",
+              "asm": "addiu $a1, $v0, 8"
+            },
+            {
+              "pc": "0x2cbf44",
+              "word": "0x24030001",
+              "asm": "addiu $v1, $zero, 1"
+            }
+          ],
+          "window_sha256": "a8a225f6b90124c4e34216cf77da606cbb2cb689159e022a3b804c83f2ef3012",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "native_executable": {
+        "member": "SLPS_732.70",
+        "size": 3473672,
+        "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+      },
+      "initializer_direct_callers": [
+        {
+          "site": "0x311208",
+          "kind": "JAL",
+          "argument_sources": {
+            "first_argument_global": "0x6d6704",
+            "second_argument_getter": "0x34e3b0",
+            "second_argument_global": "0x6d5a48",
+            "getter_sha256": "782116753a0c2ef2f37b3d22a66ca3ccb5b01712e39fb50ec180b36a4b5c9a1d"
+          },
+          "context": [
+            {
+              "pc": "0x3111e8",
+              "word": "0x304300ff",
+              "asm": "andi $v1, $v0, 0xff"
+            },
+            {
+              "pc": "0x3111ec",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x3111f0",
+              "word": "0x14620011",
+              "asm": "bne $v1, $v0, 0x311238"
+            },
+            {
+              "pc": "0x3111f4",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x3111f8",
+              "word": "0xc0d38ec",
+              "asm": "jal 0x34e3b0"
+            },
+            {
+              "pc": "0x3111fc",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x311200",
+              "word": "0x3c01006d",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x311204",
+              "word": "0x8c246704",
+              "asm": "lw $a0, 0x6704($at)"
+            },
+            {
+              "pc": "0x311208",
+              "word": "0xc0c64f0",
+              "asm": "jal 0x3193c0"
+            },
+            {
+              "pc": "0x31120c",
+              "word": "0x40282d",
+              "asm": "move $a1, $v0"
+            },
+            {
+              "pc": "0x311210",
+              "word": "0xc0d38ec",
+              "asm": "jal 0x34e3b0"
+            }
+          ]
+        },
+        {
+          "site": "0x3193ac",
+          "kind": "J",
+          "argument_sources": {
+            "first_argument_global": "0x6d6704",
+            "second_argument_global": "0x6d67cc"
+          },
+          "context": [
+            {
+              "pc": "0x31938c",
+              "word": "0x7bb10010",
+              "asm": "lq $s1, 16($sp)"
+            },
+            {
+              "pc": "0x319390",
+              "word": "0x7bb00000",
+              "asm": "lq $s0, 0($sp)"
+            },
+            {
+              "pc": "0x319394",
+              "word": "0x3e00008",
+              "asm": "jr $ra"
+            },
+            {
+              "pc": "0x319398",
+              "word": "0x27bd0030",
+              "asm": "addiu $sp, $sp, 0x30"
+            },
+            {
+              "pc": "0x31939c",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x3193a0",
+              "word": "0x3c01006d",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x3193a4",
+              "word": "0x8c246704",
+              "asm": "lw $a0, 0x6704($at)"
+            },
+            {
+              "pc": "0x3193a8",
+              "word": "0x3c01006d",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x3193ac",
+              "word": "0x80c64f0",
+              "asm": "j 0x3193c0"
+            },
+            {
+              "pc": "0x3193b0",
+              "word": "0x8c2567cc",
+              "asm": "lw $a1, 0x67cc($at)"
+            },
+            {
+              "pc": "0x3193b4",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ]
+        },
+        {
+          "site": "0x33c208",
+          "kind": "JAL",
+          "argument_sources": {
+            "first_argument_global": "0x6d6704",
+            "second_argument_getter": "0x34e3b0",
+            "second_argument_global": "0x6d5a48",
+            "getter_sha256": "782116753a0c2ef2f37b3d22a66ca3ccb5b01712e39fb50ec180b36a4b5c9a1d"
+          },
+          "context": [
+            {
+              "pc": "0x33c1e8",
+              "word": "0x304300ff",
+              "asm": "andi $v1, $v0, 0xff"
+            },
+            {
+              "pc": "0x33c1ec",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x33c1f0",
+              "word": "0x14620011",
+              "asm": "bne $v1, $v0, 0x33c238"
+            },
+            {
+              "pc": "0x33c1f4",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33c1f8",
+              "word": "0xc0d38ec",
+              "asm": "jal 0x34e3b0"
+            },
+            {
+              "pc": "0x33c1fc",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33c200",
+              "word": "0x3c01006d",
+              "asm": "lui $at, 0x6d"
+            },
+            {
+              "pc": "0x33c204",
+              "word": "0x8c246704",
+              "asm": "lw $a0, 0x6704($at)"
+            },
+            {
+              "pc": "0x33c208",
+              "word": "0xc0c64f0",
+              "asm": "jal 0x3193c0"
+            },
+            {
+              "pc": "0x33c20c",
+              "word": "0x40282d",
+              "asm": "move $a1, $v0"
+            },
+            {
+              "pc": "0x33c210",
+              "word": "0xc0d38ec",
+              "asm": "jal 0x34e3b0"
+            }
+          ]
+        }
+      ],
+      "local_name_copy_candidates": [
+        {
+          "site": "0x156ce4",
+          "destination_definitions": [
+            {
+              "pc": "0x156ce0",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x156cc4",
+              "word": "0xae000084",
+              "asm": "sw $zero, 0x84($s0)"
+            },
+            {
+              "pc": "0x156cc8",
+              "word": "0xa6000094",
+              "asm": "sh $zero, 0x94($s0)"
+            },
+            {
+              "pc": "0x156ccc",
+              "word": "0xa6000096",
+              "asm": "sh $zero, 0x96($s0)"
+            },
+            {
+              "pc": "0x156cd0",
+              "word": "0xa6000098",
+              "asm": "sh $zero, 0x98($s0)"
+            },
+            {
+              "pc": "0x156cd4",
+              "word": "0x16400006",
+              "asm": "bnez $s2, 0x156cf0"
+            },
+            {
+              "pc": "0x156cd8",
+              "word": "0xa600009a",
+              "asm": "sh $zero, 0x9a($s0)"
+            },
+            {
+              "pc": "0x156cdc",
+              "word": "0x3c050043",
+              "asm": "lui $a1, 0x43"
+            },
+            {
+              "pc": "0x156ce0",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x156ce4",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x156ce8",
+              "word": "0x24a564f8",
+              "asm": "addiu $a1, $a1, 0x64f8"
+            },
+            {
+              "pc": "0x156cec",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "52c5f9c141b7fdb31e61fa2318ede5a211107878ce7a1a28dda01556d7b9d2ae",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x17f6c8",
+          "destination_definitions": [
+            {
+              "pc": "0x17f6b8",
+              "base_gpr": 17,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x17f6a8",
+              "word": "0xa21021",
+              "asm": "addu $v0, $a1, $v0"
+            },
+            {
+              "pc": "0x17f6ac",
+              "word": "0x2484f450",
+              "asm": "addiu $a0, $a0, -0xbb0"
+            },
+            {
+              "pc": "0x17f6b0",
+              "word": "0x21100",
+              "asm": "sll $v0, $v0, 4"
+            },
+            {
+              "pc": "0x17f6b4",
+              "word": "0x828821",
+              "asm": "addu $s1, $a0, $v0"
+            },
+            {
+              "pc": "0x17f6b8",
+              "word": "0x26240028",
+              "asm": "addiu $a0, $s1, 0x28"
+            },
+            {
+              "pc": "0x17f6bc",
+              "word": "0xa2230077",
+              "asm": "sb $v1, 0x77($s1)"
+            },
+            {
+              "pc": "0x17f6c0",
+              "word": "0x3c010059",
+              "asm": "lui $at, 0x59"
+            },
+            {
+              "pc": "0x17f6c4",
+              "word": "0x8c225d14",
+              "asm": "lw $v0, 0x5d14($at)"
+            },
+            {
+              "pc": "0x17f6c8",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x17f6cc",
+              "word": "0x24450001",
+              "asm": "addiu $a1, $v0, 1"
+            },
+            {
+              "pc": "0x17f6d0",
+              "word": "0x3c010059",
+              "asm": "lui $at, 0x59"
+            }
+          ],
+          "window_sha256": "b5473e942090e01dc9e62c84abb637c9a25b8d8769a5eed63b1b581f8ed232ab",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1b17bc",
+          "destination_definitions": [
+            {
+              "pc": "0x1b17c0",
+              "base_gpr": 19,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1b179c",
+              "word": "0xa660008e",
+              "asm": "sh $zero, 0x8e($s3)"
+            },
+            {
+              "pc": "0x1b17a0",
+              "word": "0xae600080",
+              "asm": "sw $zero, 0x80($s3)"
+            },
+            {
+              "pc": "0x1b17a4",
+              "word": "0xae600084",
+              "asm": "sw $zero, 0x84($s3)"
+            },
+            {
+              "pc": "0x1b17a8",
+              "word": "0xa6600094",
+              "asm": "sh $zero, 0x94($s3)"
+            },
+            {
+              "pc": "0x1b17ac",
+              "word": "0xa6600096",
+              "asm": "sh $zero, 0x96($s3)"
+            },
+            {
+              "pc": "0x1b17b0",
+              "word": "0xa6600098",
+              "asm": "sh $zero, 0x98($s3)"
+            },
+            {
+              "pc": "0x1b17b4",
+              "word": "0xa660009a",
+              "asm": "sh $zero, 0x9a($s3)"
+            },
+            {
+              "pc": "0x1b17b8",
+              "word": "0x8ea5001c",
+              "asm": "lw $a1, 0x1c($s5)"
+            },
+            {
+              "pc": "0x1b17bc",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x1b17c0",
+              "word": "0x26640028",
+              "asm": "addiu $a0, $s3, 0x28"
+            },
+            {
+              "pc": "0x1b17c4",
+              "word": "0x8fa200a0",
+              "asm": "lw $v0, 0xa0($sp)"
+            }
+          ],
+          "window_sha256": "d577b5be5c9ee4b819f4b7ba56407eb9ed384f444d17721280f6caba0e126123",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c2d14",
+          "destination_definitions": [
+            {
+              "pc": "0x1c2d18",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c2cf4",
+              "word": "0x8e250008",
+              "asm": "lw $a1, 8($s1)"
+            },
+            {
+              "pc": "0x1c2cf8",
+              "word": "0x622021",
+              "asm": "addu $a0, $v1, $v0"
+            },
+            {
+              "pc": "0x1c2cfc",
+              "word": "0x42040",
+              "asm": "sll $a0, $a0, 1"
+            },
+            {
+              "pc": "0x1c2d00",
+              "word": "0x3c030059",
+              "asm": "lui $v1, 0x59"
+            },
+            {
+              "pc": "0x1c2d04",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x1c2d08",
+              "word": "0x2463f450",
+              "asm": "addiu $v1, $v1, -0xbb0"
+            },
+            {
+              "pc": "0x1c2d0c",
+              "word": "0x21100",
+              "asm": "sll $v0, $v0, 4"
+            },
+            {
+              "pc": "0x1c2d10",
+              "word": "0x621021",
+              "asm": "addu $v0, $v1, $v0"
+            },
+            {
+              "pc": "0x1c2d14",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x1c2d18",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c2d1c",
+              "word": "0x1000001c",
+              "asm": "b 0x1c2d90"
+            }
+          ],
+          "window_sha256": "32a0cfb1f4fdd9ecfb0b8a51a4c8617661a0786c9cf59b25a747bc230ab9bb8f",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c2d78",
+          "destination_definitions": [
+            {
+              "pc": "0x1c2d7c",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c2d58",
+              "word": "0x3c020059",
+              "asm": "lui $v0, 0x59"
+            },
+            {
+              "pc": "0x1c2d5c",
+              "word": "0x701821",
+              "asm": "addu $v1, $v1, $s0"
+            },
+            {
+              "pc": "0x1c2d60",
+              "word": "0x8e250008",
+              "asm": "lw $a1, 8($s1)"
+            },
+            {
+              "pc": "0x1c2d64",
+              "word": "0x31840",
+              "asm": "sll $v1, $v1, 1"
+            },
+            {
+              "pc": "0x1c2d68",
+              "word": "0x2442f450",
+              "asm": "addiu $v0, $v0, -0xbb0"
+            },
+            {
+              "pc": "0x1c2d6c",
+              "word": "0x701821",
+              "asm": "addu $v1, $v1, $s0"
+            },
+            {
+              "pc": "0x1c2d70",
+              "word": "0x31900",
+              "asm": "sll $v1, $v1, 4"
+            },
+            {
+              "pc": "0x1c2d74",
+              "word": "0x431021",
+              "asm": "addu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x1c2d78",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x1c2d7c",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c2d80",
+              "word": "0x26100001",
+              "asm": "addiu $s0, $s0, 1"
+            }
+          ],
+          "window_sha256": "d167a165f45a9e796fd3f330893832514e6aa3626c00b5707609429342f5ca26",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c52b4",
+          "destination_definitions": [
+            {
+              "pc": "0x1c52ac",
+              "base_gpr": 2,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c5294",
+              "word": "0x8fa200fc",
+              "asm": "lw $v0, 0xfc($sp)"
+            },
+            {
+              "pc": "0x1c5298",
+              "word": "0xa043001a",
+              "asm": "sb $v1, 0x1a($v0)"
+            },
+            {
+              "pc": "0x1c529c",
+              "word": "0x93a200d0",
+              "asm": "lbu $v0, 0xd0($sp)"
+            },
+            {
+              "pc": "0x1c52a0",
+              "word": "0x10400007",
+              "asm": "beqz $v0, 0x1c52c0"
+            },
+            {
+              "pc": "0x1c52a4",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x1c52a8",
+              "word": "0x8fa200fc",
+              "asm": "lw $v0, 0xfc($sp)"
+            },
+            {
+              "pc": "0x1c52ac",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c52b0",
+              "word": "0x8fa200f8",
+              "asm": "lw $v0, 0xf8($sp)"
+            },
+            {
+              "pc": "0x1c52b4",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x1c52b8",
+              "word": "0x2445000c",
+              "asm": "addiu $a1, $v0, 0xc"
+            },
+            {
+              "pc": "0x1c52bc",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "88b346d37c86f5829e41e4e1f3dacc37b5a72d5e6e9373e0b1d0d52f5520308e",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c6d4c",
+          "destination_definitions": [
+            {
+              "pc": "0x1c6d48",
+              "base_gpr": 4,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c6d2c",
+              "word": "0xac800010",
+              "asm": "sw $zero, 0x10($a0)"
+            },
+            {
+              "pc": "0x1c6d30",
+              "word": "0x9087001a",
+              "asm": "lbu $a3, 0x1a($a0)"
+            },
+            {
+              "pc": "0x1c6d34",
+              "word": "0xe31824",
+              "asm": "and $v1, $a3, $v1"
+            },
+            {
+              "pc": "0x1c6d38",
+              "word": "0x661825",
+              "asm": "or $v1, $v1, $a2"
+            },
+            {
+              "pc": "0x1c6d3c",
+              "word": "0x10a00006",
+              "asm": "beqz $a1, 0x1c6d58"
+            },
+            {
+              "pc": "0x1c6d40",
+              "word": "0xa083001a",
+              "asm": "sb $v1, 0x1a($a0)"
+            },
+            {
+              "pc": "0x1c6d44",
+              "word": "0x3c050044",
+              "asm": "lui $a1, 0x44"
+            },
+            {
+              "pc": "0x1c6d48",
+              "word": "0x24840028",
+              "asm": "addiu $a0, $a0, 0x28"
+            },
+            {
+              "pc": "0x1c6d4c",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x1c6d50",
+              "word": "0x24a5afe0",
+              "asm": "addiu $a1, $a1, -0x5020"
+            },
+            {
+              "pc": "0x1c6d54",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "4d086cf5eeb76ead7f3d1650ae7c1c091b1b6052087d63240707ceb529f319d8",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c93fc",
+          "destination_definitions": [
+            {
+              "pc": "0x1c9400",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c93dc",
+              "word": "0xac620008",
+              "asm": "sw $v0, 8($v1)"
+            },
+            {
+              "pc": "0x1c93e0",
+              "word": "0x8e230008",
+              "asm": "lw $v1, 8($s1)"
+            },
+            {
+              "pc": "0x1c93e4",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1c93e8",
+              "word": "0xac43000c",
+              "asm": "sw $v1, 0xc($v0)"
+            },
+            {
+              "pc": "0x1c93ec",
+              "word": "0x8e23000c",
+              "asm": "lw $v1, 0xc($s1)"
+            },
+            {
+              "pc": "0x1c93f0",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1c93f4",
+              "word": "0xac430010",
+              "asm": "sw $v1, 0x10($v0)"
+            },
+            {
+              "pc": "0x1c93f8",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1c93fc",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x1c9400",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c9404",
+              "word": "0x26030001",
+              "asm": "addiu $v1, $s0, 1"
+            }
+          ],
+          "window_sha256": "4682ea0e66a3a475f8b194b3288e5790f8d9c6da3305dba89909435b6509de64",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2930e4",
+          "destination_definitions": [
+            {
+              "pc": "0x2930e8",
+              "base_gpr": 17,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2930c4",
+              "word": "0x8ca20008",
+              "asm": "lw $v0, 8($a1)"
+            },
+            {
+              "pc": "0x2930c8",
+              "word": "0xa0802d",
+              "asm": "move $s0, $a1"
+            },
+            {
+              "pc": "0x2930cc",
+              "word": "0xac820008",
+              "asm": "sw $v0, 8($a0)"
+            },
+            {
+              "pc": "0x2930d0",
+              "word": "0x8ca2000c",
+              "asm": "lw $v0, 0xc($a1)"
+            },
+            {
+              "pc": "0x2930d4",
+              "word": "0xac82000c",
+              "asm": "sw $v0, 0xc($a0)"
+            },
+            {
+              "pc": "0x2930d8",
+              "word": "0x8ca20010",
+              "asm": "lw $v0, 0x10($a1)"
+            },
+            {
+              "pc": "0x2930dc",
+              "word": "0xac820010",
+              "asm": "sw $v0, 0x10($a0)"
+            },
+            {
+              "pc": "0x2930e0",
+              "word": "0x26050028",
+              "asm": "addiu $a1, $s0, 0x28"
+            },
+            {
+              "pc": "0x2930e4",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x2930e8",
+              "word": "0x26240028",
+              "asm": "addiu $a0, $s1, 0x28"
+            },
+            {
+              "pc": "0x2930ec",
+              "word": "0x9207001a",
+              "asm": "lbu $a3, 0x1a($s0)"
+            }
+          ],
+          "window_sha256": "66eb2181e00ae5382e26ad2a9074e7238a6f9cf13c593a5ad148beca9562f7b2",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x293b8c",
+          "destination_definitions": [
+            {
+              "pc": "0x293b84",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x293b6c",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x293b70",
+              "word": "0x10000011",
+              "asm": "b 0x293bb8"
+            },
+            {
+              "pc": "0x293b74",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x293b78",
+              "word": "0xae000008",
+              "asm": "sw $zero, 8($s0)"
+            },
+            {
+              "pc": "0x293b7c",
+              "word": "0x3c050044",
+              "asm": "lui $a1, 0x44"
+            },
+            {
+              "pc": "0x293b80",
+              "word": "0xae00000c",
+              "asm": "sw $zero, 0xc($s0)"
+            },
+            {
+              "pc": "0x293b84",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x293b88",
+              "word": "0x24a5e298",
+              "asm": "addiu $a1, $a1, -0x1d68"
+            },
+            {
+              "pc": "0x293b8c",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x293b90",
+              "word": "0xae000010",
+              "asm": "sw $zero, 0x10($s0)"
+            },
+            {
+              "pc": "0x293b94",
+              "word": "0x9205001a",
+              "asm": "lbu $a1, 0x1a($s0)"
+            }
+          ],
+          "window_sha256": "cda81379fc5ddc87ae5a40e73c7fc1751f36fdb1ee33fc5f3fb8cb8f34f8b003",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c93d8",
+          "destination_definitions": [
+            {
+              "pc": "0x2c93dc",
+              "base_gpr": 21,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c93b8",
+              "word": "0x1860000f",
+              "asm": "blez $v1, 0x2c93f8"
+            },
+            {
+              "pc": "0x2c93bc",
+              "word": "0x3c010060",
+              "asm": "lui $at, 0x60"
+            },
+            {
+              "pc": "0x2c93c0",
+              "word": "0x8c23a4d8",
+              "asm": "lw $v1, -0x5b28($at)"
+            },
+            {
+              "pc": "0x2c93c4",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2c93c8",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2c93cc",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2c93d8"
+            },
+            {
+              "pc": "0x2c93d0",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2c93d4",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2c93d8",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x2c93dc",
+              "word": "0x26a40028",
+              "asm": "addiu $a0, $s5, 0x28"
+            },
+            {
+              "pc": "0x2c93e0",
+              "word": "0x3c050044",
+              "asm": "lui $a1, 0x44"
+            }
+          ],
+          "window_sha256": "f9fc5f9012c1468432c32b3a87a963698ad203d5d027d4e40716b523ff06578b",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c94e8",
+          "destination_definitions": [
+            {
+              "pc": "0x2c94ec",
+              "base_gpr": 21,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c94c8",
+              "word": "0x1860000f",
+              "asm": "blez $v1, 0x2c9508"
+            },
+            {
+              "pc": "0x2c94cc",
+              "word": "0x3c010060",
+              "asm": "lui $at, 0x60"
+            },
+            {
+              "pc": "0x2c94d0",
+              "word": "0x8c23a4d8",
+              "asm": "lw $v1, -0x5b28($at)"
+            },
+            {
+              "pc": "0x2c94d4",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2c94d8",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2c94dc",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2c94e8"
+            },
+            {
+              "pc": "0x2c94e0",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2c94e4",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2c94e8",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x2c94ec",
+              "word": "0x26a40028",
+              "asm": "addiu $a0, $s5, 0x28"
+            },
+            {
+              "pc": "0x2c94f0",
+              "word": "0x3c050044",
+              "asm": "lui $a1, 0x44"
+            }
+          ],
+          "window_sha256": "f9fc5f9012c1468432c32b3a87a963698ad203d5d027d4e40716b523ff06578b",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c95c0",
+          "destination_definitions": [
+            {
+              "pc": "0x2c95c4",
+              "base_gpr": 16,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c95a0",
+              "word": "0x31100",
+              "asm": "sll $v0, $v1, 4"
+            },
+            {
+              "pc": "0x2c95a4",
+              "word": "0x10000006",
+              "asm": "b 0x2c95c0"
+            },
+            {
+              "pc": "0x2c95a8",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2c95ac",
+              "word": "0x431823",
+              "asm": "subu $v1, $v0, $v1"
+            },
+            {
+              "pc": "0x2c95b0",
+              "word": "0x31080",
+              "asm": "sll $v0, $v1, 2"
+            },
+            {
+              "pc": "0x2c95b4",
+              "word": "0x431023",
+              "asm": "subu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x2c95b8",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x2c95bc",
+              "word": "0x24450020",
+              "asm": "addiu $a1, $v0, 0x20"
+            },
+            {
+              "pc": "0x2c95c0",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x2c95c4",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2c95c8",
+              "word": "0x1000000b",
+              "asm": "b 0x2c95f8"
+            }
+          ],
+          "window_sha256": "1b192de6df29a54c40fa046281bf865d5eb61ae1d246ba088fc09fdd3c799eae",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c95ec",
+          "destination_definitions": [
+            {
+              "pc": "0x2c95f0",
+              "base_gpr": 16,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c95cc",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x2c95d0",
+              "word": "0x3c010060",
+              "asm": "lui $at, 0x60"
+            },
+            {
+              "pc": "0x2c95d4",
+              "word": "0x8c23a4d8",
+              "asm": "lw $v1, -0x5b28($at)"
+            },
+            {
+              "pc": "0x2c95d8",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2c95dc",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2c95e0",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2c95ec"
+            },
+            {
+              "pc": "0x2c95e4",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2c95e8",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2c95ec",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x2c95f0",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2c95f4",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "63813582b3ee4c89f8eeb0f4933d6a59eae3b1cc30e5c0ad3393bec1a0ea0116",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2c96a4",
+          "destination_definitions": [
+            {
+              "pc": "0x2c96a0",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2c9684",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2c9688",
+              "word": "0x31100",
+              "asm": "sll $v0, $v1, 4"
+            },
+            {
+              "pc": "0x2c968c",
+              "word": "0x431823",
+              "asm": "subu $v1, $v0, $v1"
+            },
+            {
+              "pc": "0x2c9690",
+              "word": "0x31080",
+              "asm": "sll $v0, $v1, 2"
+            },
+            {
+              "pc": "0x2c9694",
+              "word": "0x431023",
+              "asm": "subu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x2c9698",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x2c969c",
+              "word": "0x24450020",
+              "asm": "addiu $a1, $v0, 0x20"
+            },
+            {
+              "pc": "0x2c96a0",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2c96a4",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x2c96a8",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x2c96ac",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "8405c411392d4cd285144baf52a20ddba80f79a4def9f63cae4e95cf4ba8d3a3",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2cc30c",
+          "destination_definitions": [
+            {
+              "pc": "0x2cc304",
+              "base_gpr": 3,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2cc2ec",
+              "word": "0x491021",
+              "asm": "addu $v0, $v0, $t1"
+            },
+            {
+              "pc": "0x2cc2f0",
+              "word": "0xa0400008",
+              "asm": "sb $zero, 8($v0)"
+            },
+            {
+              "pc": "0x2cc2f4",
+              "word": "0x8602001e",
+              "asm": "lh $v0, 0x1e($s0)"
+            },
+            {
+              "pc": "0x2cc2f8",
+              "word": "0x8e030094",
+              "asm": "lw $v1, 0x94($s0)"
+            },
+            {
+              "pc": "0x2cc2fc",
+              "word": "0x21080",
+              "asm": "sll $v0, $v0, 2"
+            },
+            {
+              "pc": "0x2cc300",
+              "word": "0x501021",
+              "asm": "addu $v0, $v0, $s0"
+            },
+            {
+              "pc": "0x2cc304",
+              "word": "0x24640028",
+              "asm": "addiu $a0, $v1, 0x28"
+            },
+            {
+              "pc": "0x2cc308",
+              "word": "0x8c420050",
+              "asm": "lw $v0, 0x50($v0)"
+            },
+            {
+              "pc": "0x2cc30c",
+              "word": "0xc06844a",
+              "asm": "jal 0x1a1128"
+            },
+            {
+              "pc": "0x2cc310",
+              "word": "0x24450008",
+              "asm": "addiu $a1, $v0, 8"
+            },
+            {
+              "pc": "0x2cc314",
+              "word": "0x24030001",
+              "asm": "addiu $v1, $zero, 1"
+            }
+          ],
+          "window_sha256": "110640585c921933241494f10b88690d3e529f9eec835a8830e592404dcc862a",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "native_executable": {
+        "member": "SLPS_259.20",
+        "size": 3982200,
+        "sha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101"
+      },
+      "initializer_direct_callers": [
+        {
+          "site": "0x334d88",
+          "kind": "JAL",
+          "argument_sources": {
+            "first_argument_global": "0x762bd4",
+            "second_argument_getter": "0x373280",
+            "second_argument_global": "0x761e78",
+            "getter_sha256": "bf2bf3611d5a606cbc46d0e809325d0083c011edda27ea58bfb6ee04e5797ed4"
+          },
+          "context": [
+            {
+              "pc": "0x334d68",
+              "word": "0x304300ff",
+              "asm": "andi $v1, $v0, 0xff"
+            },
+            {
+              "pc": "0x334d6c",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x334d70",
+              "word": "0x14620011",
+              "asm": "bne $v1, $v0, 0x334db8"
+            },
+            {
+              "pc": "0x334d74",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x334d78",
+              "word": "0xc0dcca0",
+              "asm": "jal 0x373280"
+            },
+            {
+              "pc": "0x334d7c",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x334d80",
+              "word": "0x3c010076",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x334d84",
+              "word": "0x8c242bd4",
+              "asm": "lw $a0, 0x2bd4($at)"
+            },
+            {
+              "pc": "0x334d88",
+              "word": "0xc0cf3d4",
+              "asm": "jal 0x33cf50"
+            },
+            {
+              "pc": "0x334d8c",
+              "word": "0x40282d",
+              "asm": "move $a1, $v0"
+            },
+            {
+              "pc": "0x334d90",
+              "word": "0xc0dcca0",
+              "asm": "jal 0x373280"
+            }
+          ]
+        },
+        {
+          "site": "0x33cf3c",
+          "kind": "J",
+          "argument_sources": {
+            "first_argument_global": "0x762bd4",
+            "second_argument_global": "0x762c9c"
+          },
+          "context": [
+            {
+              "pc": "0x33cf1c",
+              "word": "0x7bb10010",
+              "asm": "lq $s1, 16($sp)"
+            },
+            {
+              "pc": "0x33cf20",
+              "word": "0x7bb00000",
+              "asm": "lq $s0, 0($sp)"
+            },
+            {
+              "pc": "0x33cf24",
+              "word": "0x3e00008",
+              "asm": "jr $ra"
+            },
+            {
+              "pc": "0x33cf28",
+              "word": "0x27bd0030",
+              "asm": "addiu $sp, $sp, 0x30"
+            },
+            {
+              "pc": "0x33cf2c",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x33cf30",
+              "word": "0x3c010076",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x33cf34",
+              "word": "0x8c242bd4",
+              "asm": "lw $a0, 0x2bd4($at)"
+            },
+            {
+              "pc": "0x33cf38",
+              "word": "0x3c010076",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x33cf3c",
+              "word": "0x80cf3d4",
+              "asm": "j 0x33cf50"
+            },
+            {
+              "pc": "0x33cf40",
+              "word": "0x8c252c9c",
+              "asm": "lw $a1, 0x2c9c($at)"
+            },
+            {
+              "pc": "0x33cf44",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ]
+        },
+        {
+          "site": "0x360bf8",
+          "kind": "JAL",
+          "argument_sources": {
+            "first_argument_global": "0x762bd4",
+            "second_argument_getter": "0x373280",
+            "second_argument_global": "0x761e78",
+            "getter_sha256": "bf2bf3611d5a606cbc46d0e809325d0083c011edda27ea58bfb6ee04e5797ed4"
+          },
+          "context": [
+            {
+              "pc": "0x360bd8",
+              "word": "0x304300ff",
+              "asm": "andi $v1, $v0, 0xff"
+            },
+            {
+              "pc": "0x360bdc",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x360be0",
+              "word": "0x14620011",
+              "asm": "bne $v1, $v0, 0x360c28"
+            },
+            {
+              "pc": "0x360be4",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x360be8",
+              "word": "0xc0dcca0",
+              "asm": "jal 0x373280"
+            },
+            {
+              "pc": "0x360bec",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x360bf0",
+              "word": "0x3c010076",
+              "asm": "lui $at, 0x76"
+            },
+            {
+              "pc": "0x360bf4",
+              "word": "0x8c242bd4",
+              "asm": "lw $a0, 0x2bd4($at)"
+            },
+            {
+              "pc": "0x360bf8",
+              "word": "0xc0cf3d4",
+              "asm": "jal 0x33cf50"
+            },
+            {
+              "pc": "0x360bfc",
+              "word": "0x40282d",
+              "asm": "move $a1, $v0"
+            },
+            {
+              "pc": "0x360c00",
+              "word": "0xc0dcca0",
+              "asm": "jal 0x373280"
+            }
+          ]
+        }
+      ],
+      "local_name_copy_candidates": [
+        {
+          "site": "0x157ad4",
+          "destination_definitions": [
+            {
+              "pc": "0x157ad0",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x157ab4",
+              "word": "0xae000084",
+              "asm": "sw $zero, 0x84($s0)"
+            },
+            {
+              "pc": "0x157ab8",
+              "word": "0xa6000094",
+              "asm": "sh $zero, 0x94($s0)"
+            },
+            {
+              "pc": "0x157abc",
+              "word": "0xa6000096",
+              "asm": "sh $zero, 0x96($s0)"
+            },
+            {
+              "pc": "0x157ac0",
+              "word": "0xa6000098",
+              "asm": "sh $zero, 0x98($s0)"
+            },
+            {
+              "pc": "0x157ac4",
+              "word": "0x16400006",
+              "asm": "bnez $s2, 0x157ae0"
+            },
+            {
+              "pc": "0x157ac8",
+              "word": "0xa600009a",
+              "asm": "sh $zero, 0x9a($s0)"
+            },
+            {
+              "pc": "0x157acc",
+              "word": "0x3c05004b",
+              "asm": "lui $a1, 0x4b"
+            },
+            {
+              "pc": "0x157ad0",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x157ad4",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x157ad8",
+              "word": "0x24a59608",
+              "asm": "addiu $a1, $a1, -0x69f8"
+            },
+            {
+              "pc": "0x157adc",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "3572893546150745f768e80386b5b90549c6e3605cdf892dd28512591aa68a8f",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x180cb8",
+          "destination_definitions": [
+            {
+              "pc": "0x180ca8",
+              "base_gpr": 17,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x180c98",
+              "word": "0xa21021",
+              "asm": "addu $v0, $a1, $v0"
+            },
+            {
+              "pc": "0x180c9c",
+              "word": "0x24846740",
+              "asm": "addiu $a0, $a0, 0x6740"
+            },
+            {
+              "pc": "0x180ca0",
+              "word": "0x21100",
+              "asm": "sll $v0, $v0, 4"
+            },
+            {
+              "pc": "0x180ca4",
+              "word": "0x828821",
+              "asm": "addu $s1, $a0, $v0"
+            },
+            {
+              "pc": "0x180ca8",
+              "word": "0x26240028",
+              "asm": "addiu $a0, $s1, 0x28"
+            },
+            {
+              "pc": "0x180cac",
+              "word": "0xa2230077",
+              "asm": "sb $v1, 0x77($s1)"
+            },
+            {
+              "pc": "0x180cb0",
+              "word": "0x3c010062",
+              "asm": "lui $at, 0x62"
+            },
+            {
+              "pc": "0x180cb4",
+              "word": "0x8c22e414",
+              "asm": "lw $v0, -0x1bec($at)"
+            },
+            {
+              "pc": "0x180cb8",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x180cbc",
+              "word": "0x24450001",
+              "asm": "addiu $a1, $v0, 1"
+            },
+            {
+              "pc": "0x180cc0",
+              "word": "0x3c010062",
+              "asm": "lui $at, 0x62"
+            }
+          ],
+          "window_sha256": "ed087814097f13e8818f1cacd0c17f9aed4cc695d3bd48fb2481821aa341596f",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1b5244",
+          "destination_definitions": [
+            {
+              "pc": "0x1b5248",
+              "base_gpr": 19,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1b5224",
+              "word": "0xa660008e",
+              "asm": "sh $zero, 0x8e($s3)"
+            },
+            {
+              "pc": "0x1b5228",
+              "word": "0xae600080",
+              "asm": "sw $zero, 0x80($s3)"
+            },
+            {
+              "pc": "0x1b522c",
+              "word": "0xae600084",
+              "asm": "sw $zero, 0x84($s3)"
+            },
+            {
+              "pc": "0x1b5230",
+              "word": "0xa6600094",
+              "asm": "sh $zero, 0x94($s3)"
+            },
+            {
+              "pc": "0x1b5234",
+              "word": "0xa6600096",
+              "asm": "sh $zero, 0x96($s3)"
+            },
+            {
+              "pc": "0x1b5238",
+              "word": "0xa6600098",
+              "asm": "sh $zero, 0x98($s3)"
+            },
+            {
+              "pc": "0x1b523c",
+              "word": "0xa660009a",
+              "asm": "sh $zero, 0x9a($s3)"
+            },
+            {
+              "pc": "0x1b5240",
+              "word": "0x8ea5001c",
+              "asm": "lw $a1, 0x1c($s5)"
+            },
+            {
+              "pc": "0x1b5244",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x1b5248",
+              "word": "0x26640028",
+              "asm": "addiu $a0, $s3, 0x28"
+            },
+            {
+              "pc": "0x1b524c",
+              "word": "0x8fa200a0",
+              "asm": "lw $v0, 0xa0($sp)"
+            }
+          ],
+          "window_sha256": "ce30784d9b6e3ce01266f815170dc402c56c38f68f11f2e1ddc55d8651ad2b1e",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c5da4",
+          "destination_definitions": [
+            {
+              "pc": "0x1c5da8",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c5d84",
+              "word": "0x8e250008",
+              "asm": "lw $a1, 8($s1)"
+            },
+            {
+              "pc": "0x1c5d88",
+              "word": "0x622021",
+              "asm": "addu $a0, $v1, $v0"
+            },
+            {
+              "pc": "0x1c5d8c",
+              "word": "0x42040",
+              "asm": "sll $a0, $a0, 1"
+            },
+            {
+              "pc": "0x1c5d90",
+              "word": "0x3c030061",
+              "asm": "lui $v1, 0x61"
+            },
+            {
+              "pc": "0x1c5d94",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x1c5d98",
+              "word": "0x24636740",
+              "asm": "addiu $v1, $v1, 0x6740"
+            },
+            {
+              "pc": "0x1c5d9c",
+              "word": "0x21100",
+              "asm": "sll $v0, $v0, 4"
+            },
+            {
+              "pc": "0x1c5da0",
+              "word": "0x621021",
+              "asm": "addu $v0, $v1, $v0"
+            },
+            {
+              "pc": "0x1c5da4",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x1c5da8",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c5dac",
+              "word": "0x1000001c",
+              "asm": "b 0x1c5e20"
+            }
+          ],
+          "window_sha256": "59dff6eba5fffe665ea4246b7580bfe2444d89694d23e3a16d25ef68d73cbedc",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c5e08",
+          "destination_definitions": [
+            {
+              "pc": "0x1c5e0c",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c5de8",
+              "word": "0x3c020061",
+              "asm": "lui $v0, 0x61"
+            },
+            {
+              "pc": "0x1c5dec",
+              "word": "0x701821",
+              "asm": "addu $v1, $v1, $s0"
+            },
+            {
+              "pc": "0x1c5df0",
+              "word": "0x8e250008",
+              "asm": "lw $a1, 8($s1)"
+            },
+            {
+              "pc": "0x1c5df4",
+              "word": "0x31840",
+              "asm": "sll $v1, $v1, 1"
+            },
+            {
+              "pc": "0x1c5df8",
+              "word": "0x24426740",
+              "asm": "addiu $v0, $v0, 0x6740"
+            },
+            {
+              "pc": "0x1c5dfc",
+              "word": "0x701821",
+              "asm": "addu $v1, $v1, $s0"
+            },
+            {
+              "pc": "0x1c5e00",
+              "word": "0x31900",
+              "asm": "sll $v1, $v1, 4"
+            },
+            {
+              "pc": "0x1c5e04",
+              "word": "0x431021",
+              "asm": "addu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x1c5e08",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x1c5e0c",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c5e10",
+              "word": "0x26100001",
+              "asm": "addiu $s0, $s0, 1"
+            }
+          ],
+          "window_sha256": "3b6b2c8833b94beffc94506d32c5cb9d5e73b692d6573ac239d283badfba487f",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c83e4",
+          "destination_definitions": [
+            {
+              "pc": "0x1c83dc",
+              "base_gpr": 2,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c83c4",
+              "word": "0x8fa200fc",
+              "asm": "lw $v0, 0xfc($sp)"
+            },
+            {
+              "pc": "0x1c83c8",
+              "word": "0xa043001a",
+              "asm": "sb $v1, 0x1a($v0)"
+            },
+            {
+              "pc": "0x1c83cc",
+              "word": "0x93a200d0",
+              "asm": "lbu $v0, 0xd0($sp)"
+            },
+            {
+              "pc": "0x1c83d0",
+              "word": "0x10400007",
+              "asm": "beqz $v0, 0x1c83f0"
+            },
+            {
+              "pc": "0x1c83d4",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x1c83d8",
+              "word": "0x8fa200fc",
+              "asm": "lw $v0, 0xfc($sp)"
+            },
+            {
+              "pc": "0x1c83dc",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1c83e0",
+              "word": "0x8fa200f8",
+              "asm": "lw $v0, 0xf8($sp)"
+            },
+            {
+              "pc": "0x1c83e4",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x1c83e8",
+              "word": "0x2445000c",
+              "asm": "addiu $a1, $v0, 0xc"
+            },
+            {
+              "pc": "0x1c83ec",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "c0cfe8675ea8f76b9dcd0211ee93c581a5a7c68fd237b8f542924708c28263a3",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1c9e6c",
+          "destination_definitions": [
+            {
+              "pc": "0x1c9e68",
+              "base_gpr": 4,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1c9e4c",
+              "word": "0xac800010",
+              "asm": "sw $zero, 0x10($a0)"
+            },
+            {
+              "pc": "0x1c9e50",
+              "word": "0x9087001a",
+              "asm": "lbu $a3, 0x1a($a0)"
+            },
+            {
+              "pc": "0x1c9e54",
+              "word": "0xe31824",
+              "asm": "and $v1, $a3, $v1"
+            },
+            {
+              "pc": "0x1c9e58",
+              "word": "0x661825",
+              "asm": "or $v1, $v1, $a2"
+            },
+            {
+              "pc": "0x1c9e5c",
+              "word": "0x10a00006",
+              "asm": "beqz $a1, 0x1c9e78"
+            },
+            {
+              "pc": "0x1c9e60",
+              "word": "0xa083001a",
+              "asm": "sb $v1, 0x1a($a0)"
+            },
+            {
+              "pc": "0x1c9e64",
+              "word": "0x3c05004b",
+              "asm": "lui $a1, 0x4b"
+            },
+            {
+              "pc": "0x1c9e68",
+              "word": "0x24840028",
+              "asm": "addiu $a0, $a0, 0x28"
+            },
+            {
+              "pc": "0x1c9e6c",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x1c9e70",
+              "word": "0x24a5e370",
+              "asm": "addiu $a1, $a1, -0x1c90"
+            },
+            {
+              "pc": "0x1c9e74",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "20336061da8d466c4f8d91e730a75b042d389d4aa10763ee887b6bbf8ccddaf6",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x1cc57c",
+          "destination_definitions": [
+            {
+              "pc": "0x1cc580",
+              "base_gpr": 2,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x1cc55c",
+              "word": "0xac620008",
+              "asm": "sw $v0, 8($v1)"
+            },
+            {
+              "pc": "0x1cc560",
+              "word": "0x8e230008",
+              "asm": "lw $v1, 8($s1)"
+            },
+            {
+              "pc": "0x1cc564",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1cc568",
+              "word": "0xac43000c",
+              "asm": "sw $v1, 0xc($v0)"
+            },
+            {
+              "pc": "0x1cc56c",
+              "word": "0x8e23000c",
+              "asm": "lw $v1, 0xc($s1)"
+            },
+            {
+              "pc": "0x1cc570",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1cc574",
+              "word": "0xac430010",
+              "asm": "sw $v1, 0x10($v0)"
+            },
+            {
+              "pc": "0x1cc578",
+              "word": "0x8e220000",
+              "asm": "lw $v0, ($s1)"
+            },
+            {
+              "pc": "0x1cc57c",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x1cc580",
+              "word": "0x24440028",
+              "asm": "addiu $a0, $v0, 0x28"
+            },
+            {
+              "pc": "0x1cc584",
+              "word": "0x26030001",
+              "asm": "addiu $v1, $s0, 1"
+            }
+          ],
+          "window_sha256": "842dcbf3c37909bccadf536e5516f04b4c31ec4c287e69799edd2e7669c05242",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x299d24",
+          "destination_definitions": [
+            {
+              "pc": "0x299d28",
+              "base_gpr": 17,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x299d04",
+              "word": "0x8ca20008",
+              "asm": "lw $v0, 8($a1)"
+            },
+            {
+              "pc": "0x299d08",
+              "word": "0xa0802d",
+              "asm": "move $s0, $a1"
+            },
+            {
+              "pc": "0x299d0c",
+              "word": "0xac820008",
+              "asm": "sw $v0, 8($a0)"
+            },
+            {
+              "pc": "0x299d10",
+              "word": "0x8ca2000c",
+              "asm": "lw $v0, 0xc($a1)"
+            },
+            {
+              "pc": "0x299d14",
+              "word": "0xac82000c",
+              "asm": "sw $v0, 0xc($a0)"
+            },
+            {
+              "pc": "0x299d18",
+              "word": "0x8ca20010",
+              "asm": "lw $v0, 0x10($a1)"
+            },
+            {
+              "pc": "0x299d1c",
+              "word": "0xac820010",
+              "asm": "sw $v0, 0x10($a0)"
+            },
+            {
+              "pc": "0x299d20",
+              "word": "0x26050028",
+              "asm": "addiu $a1, $s0, 0x28"
+            },
+            {
+              "pc": "0x299d24",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x299d28",
+              "word": "0x26240028",
+              "asm": "addiu $a0, $s1, 0x28"
+            },
+            {
+              "pc": "0x299d2c",
+              "word": "0x9207001a",
+              "asm": "lbu $a3, 0x1a($s0)"
+            }
+          ],
+          "window_sha256": "34692f76566b46f08c234cc2a76111264cc192504c88c2af56833c8df6697002",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x29a7cc",
+          "destination_definitions": [
+            {
+              "pc": "0x29a7c4",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x29a7ac",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x29a7b0",
+              "word": "0x10000011",
+              "asm": "b 0x29a7f8"
+            },
+            {
+              "pc": "0x29a7b4",
+              "word": "0x24020001",
+              "asm": "addiu $v0, $zero, 1"
+            },
+            {
+              "pc": "0x29a7b8",
+              "word": "0xae000008",
+              "asm": "sw $zero, 8($s0)"
+            },
+            {
+              "pc": "0x29a7bc",
+              "word": "0x3c05004b",
+              "asm": "lui $a1, 0x4b"
+            },
+            {
+              "pc": "0x29a7c0",
+              "word": "0xae00000c",
+              "asm": "sw $zero, 0xc($s0)"
+            },
+            {
+              "pc": "0x29a7c4",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x29a7c8",
+              "word": "0x24a51828",
+              "asm": "addiu $a1, $a1, 0x1828"
+            },
+            {
+              "pc": "0x29a7cc",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x29a7d0",
+              "word": "0xae000010",
+              "asm": "sw $zero, 0x10($s0)"
+            },
+            {
+              "pc": "0x29a7d4",
+              "word": "0x9205001a",
+              "asm": "lbu $a1, 0x1a($s0)"
+            }
+          ],
+          "window_sha256": "2edd960f79f7448fb3b6046f8579d9bfbff08d4b3670f173959dd5829c9c7d46",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2d0098",
+          "destination_definitions": [
+            {
+              "pc": "0x2d009c",
+              "base_gpr": 21,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2d0078",
+              "word": "0x1860000f",
+              "asm": "blez $v1, 0x2d00b8"
+            },
+            {
+              "pc": "0x2d007c",
+              "word": "0x3c010068",
+              "asm": "lui $at, 0x68"
+            },
+            {
+              "pc": "0x2d0080",
+              "word": "0x8c2357f8",
+              "asm": "lw $v1, 0x57f8($at)"
+            },
+            {
+              "pc": "0x2d0084",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2d0088",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2d008c",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2d0098"
+            },
+            {
+              "pc": "0x2d0090",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2d0094",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2d0098",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x2d009c",
+              "word": "0x26a40028",
+              "asm": "addiu $a0, $s5, 0x28"
+            },
+            {
+              "pc": "0x2d00a0",
+              "word": "0x3c05004b",
+              "asm": "lui $a1, 0x4b"
+            }
+          ],
+          "window_sha256": "bea9e09ed08e5552531b053fef407500848d39ddc02a088d53d814520c0dcf65",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2d0120",
+          "destination_definitions": [
+            {
+              "pc": "0x2d0124",
+              "base_gpr": 16,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2d0100",
+              "word": "0x1840000f",
+              "asm": "blez $v0, 0x2d0140"
+            },
+            {
+              "pc": "0x2d0104",
+              "word": "0x3c010068",
+              "asm": "lui $at, 0x68"
+            },
+            {
+              "pc": "0x2d0108",
+              "word": "0x8c2357f8",
+              "asm": "lw $v1, 0x57f8($at)"
+            },
+            {
+              "pc": "0x2d010c",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2d0110",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2d0114",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2d0120"
+            },
+            {
+              "pc": "0x2d0118",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2d011c",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2d0120",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x2d0124",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2d0128",
+              "word": "0x3c05004b",
+              "asm": "lui $a1, 0x4b"
+            }
+          ],
+          "window_sha256": "3babbd2736fa8dda20f6f93db314a55c64cc52085a91d5e4f7c232a75efa0b15",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2d01e0",
+          "destination_definitions": [
+            {
+              "pc": "0x2d01e4",
+              "base_gpr": 16,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2d01c0",
+              "word": "0x31100",
+              "asm": "sll $v0, $v1, 4"
+            },
+            {
+              "pc": "0x2d01c4",
+              "word": "0x10000006",
+              "asm": "b 0x2d01e0"
+            },
+            {
+              "pc": "0x2d01c8",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2d01cc",
+              "word": "0x431823",
+              "asm": "subu $v1, $v0, $v1"
+            },
+            {
+              "pc": "0x2d01d0",
+              "word": "0x31080",
+              "asm": "sll $v0, $v1, 2"
+            },
+            {
+              "pc": "0x2d01d4",
+              "word": "0x431023",
+              "asm": "subu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x2d01d8",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x2d01dc",
+              "word": "0x24450020",
+              "asm": "addiu $a1, $v0, 0x20"
+            },
+            {
+              "pc": "0x2d01e0",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x2d01e4",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2d01e8",
+              "word": "0x1000000b",
+              "asm": "b 0x2d0218"
+            }
+          ],
+          "window_sha256": "75756ac9ed3c7dcc4bfebf8fa2db09804dc6844dfbabbff362fc60a48781c641",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2d020c",
+          "destination_definitions": [
+            {
+              "pc": "0x2d0210",
+              "base_gpr": 16,
+              "delay_slot": true
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2d01ec",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x2d01f0",
+              "word": "0x3c010068",
+              "asm": "lui $at, 0x68"
+            },
+            {
+              "pc": "0x2d01f4",
+              "word": "0x8c2357f8",
+              "asm": "lw $v1, 0x57f8($at)"
+            },
+            {
+              "pc": "0x2d01f8",
+              "word": "0x84620008",
+              "asm": "lh $v0, 8($v1)"
+            },
+            {
+              "pc": "0x2d01fc",
+              "word": "0x40082a",
+              "asm": "slt $at, $v0, $zero"
+            },
+            {
+              "pc": "0x2d0200",
+              "word": "0x10200002",
+              "asm": "beqz $at, 0x2d020c"
+            },
+            {
+              "pc": "0x2d0204",
+              "word": "0x24650020",
+              "asm": "addiu $a1, $v1, 0x20"
+            },
+            {
+              "pc": "0x2d0208",
+              "word": "0x282d",
+              "asm": "move $a1, $zero"
+            },
+            {
+              "pc": "0x2d020c",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x2d0210",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2d0214",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "6fe702f3eb1b7c9416b094e4ee1983307163ae410d725bf6d9ac3bef9177c541",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2d02c4",
+          "destination_definitions": [
+            {
+              "pc": "0x2d02c0",
+              "base_gpr": 16,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2d02a4",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2d02a8",
+              "word": "0x31100",
+              "asm": "sll $v0, $v1, 4"
+            },
+            {
+              "pc": "0x2d02ac",
+              "word": "0x431823",
+              "asm": "subu $v1, $v0, $v1"
+            },
+            {
+              "pc": "0x2d02b0",
+              "word": "0x31080",
+              "asm": "sll $v0, $v1, 2"
+            },
+            {
+              "pc": "0x2d02b4",
+              "word": "0x431023",
+              "asm": "subu $v0, $v0, $v1"
+            },
+            {
+              "pc": "0x2d02b8",
+              "word": "0x821021",
+              "asm": "addu $v0, $a0, $v0"
+            },
+            {
+              "pc": "0x2d02bc",
+              "word": "0x24450020",
+              "asm": "addiu $a1, $v0, 0x20"
+            },
+            {
+              "pc": "0x2d02c0",
+              "word": "0x26040028",
+              "asm": "addiu $a0, $s0, 0x28"
+            },
+            {
+              "pc": "0x2d02c4",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x2d02c8",
+              "word": "0x0",
+              "asm": "nop "
+            },
+            {
+              "pc": "0x2d02cc",
+              "word": "0x0",
+              "asm": "nop "
+            }
+          ],
+          "window_sha256": "b4ea99a8387337358b194faf89d1fe1ee9da047d88223d15fd5f13d3a3c1478f",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x2d2ebc",
+          "destination_definitions": [
+            {
+              "pc": "0x2d2eb4",
+              "base_gpr": 3,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x2d2e9c",
+              "word": "0x491021",
+              "asm": "addu $v0, $v0, $t1"
+            },
+            {
+              "pc": "0x2d2ea0",
+              "word": "0xa0400008",
+              "asm": "sb $zero, 8($v0)"
+            },
+            {
+              "pc": "0x2d2ea4",
+              "word": "0x8602001e",
+              "asm": "lh $v0, 0x1e($s0)"
+            },
+            {
+              "pc": "0x2d2ea8",
+              "word": "0x8e030094",
+              "asm": "lw $v1, 0x94($s0)"
+            },
+            {
+              "pc": "0x2d2eac",
+              "word": "0x21080",
+              "asm": "sll $v0, $v0, 2"
+            },
+            {
+              "pc": "0x2d2eb0",
+              "word": "0x501021",
+              "asm": "addu $v0, $v0, $s0"
+            },
+            {
+              "pc": "0x2d2eb4",
+              "word": "0x24640028",
+              "asm": "addiu $a0, $v1, 0x28"
+            },
+            {
+              "pc": "0x2d2eb8",
+              "word": "0x8c420050",
+              "asm": "lw $v0, 0x50($v0)"
+            },
+            {
+              "pc": "0x2d2ebc",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x2d2ec0",
+              "word": "0x24450008",
+              "asm": "addiu $a1, $v0, 8"
+            },
+            {
+              "pc": "0x2d2ec4",
+              "word": "0x24030001",
+              "asm": "addiu $v1, $zero, 1"
+            }
+          ],
+          "window_sha256": "e2a5e8c841489a3841fa5395d38a4d8d5f0a300e9d93aa21f0ff98dab50c0641",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        },
+        {
+          "site": "0x31b510",
+          "destination_definitions": [
+            {
+              "pc": "0x31b50c",
+              "base_gpr": 21,
+              "delay_slot": false
+            }
+          ],
+          "context": [
+            {
+              "pc": "0x31b4f0",
+              "word": "0x2402ff81",
+              "asm": "addiu $v0, $zero, -0x7f"
+            },
+            {
+              "pc": "0x31b4f4",
+              "word": "0xa2a2001c",
+              "asm": "sb $v0, 0x1c($s5)"
+            },
+            {
+              "pc": "0x31b4f8",
+              "word": "0x24020040",
+              "asm": "addiu $v0, $zero, 0x40"
+            },
+            {
+              "pc": "0x31b4fc",
+              "word": "0xa2a2001d",
+              "asm": "sb $v0, 0x1d($s5)"
+            },
+            {
+              "pc": "0x31b500",
+              "word": "0x92620000",
+              "asm": "lbu $v0, ($s3)"
+            },
+            {
+              "pc": "0x31b504",
+              "word": "0x14400008",
+              "asm": "bnez $v0, 0x31b528"
+            },
+            {
+              "pc": "0x31b508",
+              "word": "0x3c05004b",
+              "asm": "lui $a1, 0x4b"
+            },
+            {
+              "pc": "0x31b50c",
+              "word": "0x26a40028",
+              "asm": "addiu $a0, $s5, 0x28"
+            },
+            {
+              "pc": "0x31b510",
+              "word": "0xc06948e",
+              "asm": "jal 0x1a5238"
+            },
+            {
+              "pc": "0x31b514",
+              "word": "0x24a54818",
+              "asm": "addiu $a1, $a1, 0x4818"
+            },
+            {
+              "pc": "0x31b518",
+              "word": "0x2403ff81",
+              "asm": "addiu $v1, $zero, -0x7f"
+            }
+          ],
+          "window_sha256": "6bb071022229f69aad08c2f34497e08fd45a3c497a618f3580ba717cfb9d5b26",
+          "identity_status": "field-offset candidate, shared runtime type not yet established"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "status": "declared_native_selector02_and_ISO_record_domains_passed_full_goal_incomplete",
+  "case_count": 13000,
+  "direct_lookup_cases": 6768,
+  "selector_wrapper_cases": 6144,
+  "full_dispatch_5039_cases": 88,
+  "actual_ISO_record_cases": 76,
+  "coordinate_cases": 1536,
+  "editions": [
+    {
+      "edition": "original",
+      "frame_bytes": 512,
+      "lookup": {
+        "entry": "0x1b2ce0",
+        "end": "0x1b2f70",
+        "sha256": "1673b228fdf46412e6c32714b1825d204a06da1469f42478b355b76fd3a28e57"
+      },
+      "coordinate": {
+        "entry": "0x1565d0",
+        "end": "0x1566e4",
+        "sha256": "ceb62a3f4436c338d460a9d6705cf1557a254cca6a8b93499b66da04fc7008a2"
+      }
+    },
+    {
+      "edition": "best",
+      "frame_bytes": 512,
+      "lookup": {
+        "entry": "0x1b30a0",
+        "end": "0x1b3330",
+        "sha256": "dc026b0714a72f6d0488249389943be2bbabd9faff7c5e01512048fd9a1109aa"
+      },
+      "coordinate": {
+        "entry": "0x156970",
+        "end": "0x156a84",
+        "sha256": "11b9d1ab10874cce080b715777fe0ac0ffd928e0a7cd394d102c44e6ca9ce789"
+      }
+    },
+    {
+      "edition": "sp",
+      "frame_bytes": 528,
+      "lookup": {
+        "entry": "0x1b6b80",
+        "end": "0x1b6e10",
+        "sha256": "0a67fbd18a73da9a0237619e2dcd859b506b191c6fee640b6dc03137e4cea938"
+      },
+      "coordinate": {
+        "entry": "0x157740",
+        "end": "0x157854",
+        "sha256": "92a05450bb217053b6f05f44de2abaffe94d4848bf16de4b2c30bb364f7f89c0"
+      }
+    }
+  ],
+  "ISO_source_summary": [
+    {
+      "edition": "original",
+      "versions": [
+        {
+          "version": "native",
+          "chunks": 205,
+          "raw_opcode_hits": 17,
+          "all_aligned_pointer_candidates": true,
+          "all_selector2_direct_ids": true,
+          "height_width_space_or_other_stream_controls": 0,
+          "unknown_decode_codes": 0
+        },
+        {
+          "version": "current",
+          "chunks": 205,
+          "raw_opcode_hits": 17,
+          "all_aligned_pointer_candidates": true,
+          "all_selector2_direct_ids": true,
+          "height_width_space_or_other_stream_controls": 0,
+          "unknown_decode_codes": 0
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "versions": [
+        {
+          "version": "native",
+          "chunks": 205,
+          "raw_opcode_hits": 17,
+          "all_aligned_pointer_candidates": true,
+          "all_selector2_direct_ids": true,
+          "height_width_space_or_other_stream_controls": 0,
+          "unknown_decode_codes": 0
+        },
+        {
+          "version": "current",
+          "chunks": 205,
+          "raw_opcode_hits": 17,
+          "all_aligned_pointer_candidates": true,
+          "all_selector2_direct_ids": true,
+          "height_width_space_or_other_stream_controls": 0,
+          "unknown_decode_codes": 0
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "versions": [
+        {
+          "version": "native",
+          "chunks": 68,
+          "raw_opcode_hits": 4,
+          "all_aligned_pointer_candidates": true,
+          "all_selector2_direct_ids": true,
+          "height_width_space_or_other_stream_controls": 0,
+          "unknown_decode_codes": 0
+        },
+        {
+          "version": "current",
+          "chunks": 68,
+          "raw_opcode_hits": 4,
+          "all_aligned_pointer_candidates": true,
+          "all_selector2_direct_ids": true,
+          "height_width_space_or_other_stream_controls": 0,
+          "unknown_decode_codes": 0
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "all raw5039 byte hits classified; root command directories/fetch reachability not yet proved",
+    "actual command records, pointers and text bytes execute against controlled runtime object graphs, not natural game progress",
+    "selector0/2 and direct ID branch only; selector1/3, special8000..80FF and multi-target80 remain incomplete",
+    "native coordinate COP1 fields compare finite binary32 values; not general EE FPU flags, NaNs/denormals/rounding or hardware timing",
+    "no arbitrary pointer/parent/index or long-name memory safety proof",
+    "no production code/ISO modifications or new emulator graphics evidence"
+  ]
+}
