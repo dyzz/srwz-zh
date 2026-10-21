@@ -16,7 +16,7 @@ from build_library_v02_component import BODY_TAGS, load_production_layout, reflo
 from special_disc.writeback.migrate_library import raw_fields, serialize, sp_offsets
 from srwz.codec import decode_production, reencode_changed_suffix
 from srwz.compressed_workspace import decoded_view, write_decoded
-from srwz.library_typography import library_typography
+from srwz.library_typography import library_typography, normalize_body_controls
 from srwz.library_work_titles import CONTRACT as WORK_TITLE_CONTRACT, apply_work_title_pool, verify_work_title_pool
 from srwz.library import parse_zkn_decoded_chunk
 from srwz.text import encode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces
@@ -124,7 +124,9 @@ def prepared_fields(native, baseline_decoded, domain, author):
             continue
         text = field_translation(rows, scoped, domain, native, field)
         if text is not None and domain in {'robot', 'character'}:
-            text = library_typography(text, tag)
+            text = library_typography(text, tag, domain=domain)
+        if text is not None and tag in BODY_TAGS:
+            text = normalize_body_controls(text)
         prepared.append((tag, old, text, True))
     return kind, prepared
 

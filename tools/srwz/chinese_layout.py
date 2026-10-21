@@ -46,7 +46,7 @@ _STRUCTURAL_TOKEN = re.compile(
 )
 _COMPACT_VISIBLE_SCOPE = re.compile(
     r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>(?:<height:[0-9A-Fa-f]{2}>)?"
-    rf"([{COMPACT_SCOPE_CHARACTERS}]+)"
+    rf"((?:[{COMPACT_SCOPE_CHARACTERS}]|<height:[0-9A-Fa-f]{{2}}>)+)"
     r"(?:<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>"
     r"|<space:[0-9A-Fa-f]{2}><width:[0-9A-Fa-f]{2}>)(?:<height:[0-9A-Fa-f]{2}>)?"
 )
@@ -442,7 +442,7 @@ def _tokenize_dialogue_cells(
         scope = (_COMPACT_VISIBLE_SCOPE.match(text, offset)
                  if text.startswith('<width:', offset) else None)
         if scope is not None:
-            tokens.append(LayoutToken(scope.group(), len(scope[1]), atomic=True))
+            tokens.append(LayoutToken(scope.group(), len(_visible_edges(scope[1])), atomic=True))
             offset = scope.end()
             continue
         keyword_link = keyword_links_by_start.get(offset)

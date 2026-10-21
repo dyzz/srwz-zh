@@ -21,13 +21,24 @@ class LibraryTypographyTests(unittest.TestCase):
         for text,tag,w,h in [('超重神GRAVION ZweiΣ','PRDC','15','0A'),
                             ('钢铁齿轮（LS）','RBTN','12','0A'),
                             ('头翅（托马）','CHFN','12','0A'),
-                            ('20米中文','DSCR','16',None)]:
+                            ('20米中文','DSCR','15','0C')]:
             result=library_typography(text,tag)
             self.assertEqual(CONTROL_NOTATION.sub('',result),text)
             self.assertIn('<width:0E><space:' + ('0A' if tag=='PRDC' else '0C') + '>',result)
             self.assertIn(f'<width:{w}><space:{w}>' + (f'<height:{h}>' if h else ''),result)
             self.assertEqual(library_typography(result,tag),result)
-        self.assertNotIn('<height:',library_typography('20米','DSCR'))
+        self.assertIn('<height:0B>20<width:15><space:15><height:0C>米',library_typography('20米','DSCR'))
+
+    def test_body_optical_heights_restore_chinese_without_newline_parameters(self):
+        text='地球EFA所属G士兵14岁Geo圣剑99%中文'
+        result=library_typography(text,'DSC2')
+        for run in ('EFA','G','Geo'):
+            self.assertIn('<height:8C>'+run+'<width:15><space:15><height:0C>',result)
+        self.assertIn('<height:0B>14<width:15><space:15><height:0C>岁',result)
+        self.assertIn('<height:0B>99%<space:15><width:15><height:0C>中文',result)
+        self.assertNotIn('<height:0A>',result)
+        self.assertEqual(CONTROL_NOTATION.sub('',result),text)
+        self.assertEqual(library_typography(result,'DSC2'),result)
 
     def test_work_title_recompiles_previous_scope_without_nested_controls(self):
         old='<width:0E><space:0C><height:0A>The Big O<width:15><space:15><height:0A> 第二季'
@@ -46,7 +57,7 @@ class LibraryTypographyTests(unittest.TestCase):
 
     def test_gran_sigma_is_one_closed_run_and_dome_name_has_more_room(self):
         text=library_typography('以创星机Gran Σ为核心','DSCR')
-        self.assertEqual(text,'以创星机<width:0E><space:0C>Gran Σ<width:16><space:16>为核心')
+        self.assertEqual(text,'以创星机<width:0E><space:0C><height:8C>Gran Σ<width:15><space:15><height:0C>为核心')
         dome=library_typography('D.O.M.E.G-Bit','RBTN')
         self.assertEqual(dome,'<width:10><space:0E><height:0A>D.O.M.E.G-Bit<width:12><space:12><height:0A>')
         self.assertEqual(library_typography(dome,'RBTN'),dome)
@@ -55,7 +66,7 @@ class LibraryTypographyTests(unittest.TestCase):
         text='<color:03>中文<tm>ABC123</tm>$n<width:14><space:14>99%尾'
         result=library_typography(text,'DSCR')
         self.assertIn('<tm>ABC123</tm>$n<width:14><space:14>',result)
-        self.assertIn('99%<space:14><width:14>尾',result)
+        self.assertIn('99%<space:14><width:14><height:0C>尾',result)
         self.assertEqual(CONTROL_NOTATION.sub('',result),CONTROL_NOTATION.sub('',text))
 
     def test_short_scopes_are_atomic_during_reflow(self):

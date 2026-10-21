@@ -41,7 +41,7 @@ from srwz.library import (
     validate_library_scope_mapping,
     verify_sound_title_source,
 )
-from srwz.library_typography import library_typography
+from srwz.library_typography import library_typography, normalize_body_controls
 from srwz.library_unlock import apply_library_default_unlock
 from srwz.nisv_library_menu import (
     build_nisv_library_menu,
@@ -71,9 +71,8 @@ BODY_TAGS = frozenset({"DSCR", "DSC2"})
 BREAK_END = frozenset("。！？!?，、；：,;:…—")
 CLOSING = frozenset("，。！？；：、,.!?;:％%”’）》】〕〉」』…—")
 OPENING = frozenset("“‘（《【〔〈「『")
-# Current-SP ROBO/CHAR/KYWD body renderer uses 22 px. Plain legacy prose
-# keeps its existing path; controlled prose must use these surface metrics.
-LIBRARY_BODY_ADVANCE_PX = 22
+# Native ROBO/CHAR/KYWD body width and horizontal advance are 21 px.
+LIBRARY_BODY_ADVANCE_PX = 21
 
 
 def parse_args() -> argparse.Namespace:
@@ -178,6 +177,7 @@ def reflow_body(
     profile: ChineseLayoutProfile | None = None,
     protected_terms: tuple[str, ...] = (),
 ) -> tuple[str, tuple[int, ...]]:
+    text = normalize_body_controls(text)
     if re.search(r"<(?:width|space):", text):
         # Native measuring mutates shared font state. If the first physical
         # row has no compact scope, it still needs an explicit body baseline;
@@ -308,6 +308,7 @@ def reflow_body_legacy(
 ) -> tuple[str, tuple[int, ...]]:
     """Preserve the older punctuation-biased wrap as a capacity fallback."""
 
+    text = normalize_body_controls(text)
     if re.search(r"<(?:width|space):", text):
         # The character-splitting legacy fallback cannot divide control tags
         # or closed compact scopes. Use the same verified pixel path instead.
@@ -719,7 +720,7 @@ def main() -> int:
                     chunk_scoped_fields.append(field_id)
                 translation = normalize_original_fullwidth_ascii(translation)
                 if domain in {'robot', 'character'}:
-                    translation = library_typography(translation, field.tag)
+                    translation = library_typography(translation, field.tag, domain=domain)
                 if field.tag in BODY_TAGS:
                     pending_bodies[field.tag] = translation
                 replacements[field.tag] = translation

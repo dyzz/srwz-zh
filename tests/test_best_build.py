@@ -10,6 +10,8 @@ from srwz.best_build import (
     COMPDATA_FIXED_SLOTS, BestCompiler, compdata_pointer_targets, project_shared_edits, verify_compdata_fixed_slots,
 )
 from srwz.edition import EditionError
+from srwz.library_body_metrics import EDITIONS as BODY_EDITIONS
+from srwz.library_optical_metrics import native_preimages
 from srwz.stage import _condition_entries
 from srwz.text import TextTable
 
@@ -18,6 +20,17 @@ REPO = Path(__file__).resolve().parents[1]
 
 def packed(*values):
     return struct.pack('<'+'I'*len(values),*values)
+
+
+def native_body_hook_fixture(data):
+    """This backend now includes the real edition-bound encyclopedia code owner."""
+    result=bytearray(data);s=BODY_EDITIONS['best'];h=s['hook']-s['delta']
+    result[h-8:h]=bytes.fromhex('2d4080022110c200')
+    struct.pack_into('<I',result,h,3<<26 | s['draw']>>2)
+    result[h+4:h+8]=bytes.fromhex('000040a0')
+    for va,before in native_preimages('best'):
+        offset=va-s['delta'];result[offset:offset+len(before)]=before
+    return bytes(result)
 
 
 class BestBackendTests(unittest.TestCase):
@@ -96,7 +109,7 @@ class BestBackendTests(unittest.TestCase):
             slot = contract['elf_support_attack_slot']
             compiled[slot['original_start']:slot['original_start'] + 3] = bytes.fromhex('8fd200')
             compiler.native = {'original': {'SLPS_258.87': bytes(source)},
-                               'best': {'SLPS_732.70': bytes(native)}}
+                               'best': {'SLPS_732.70': native_body_hook_fixture(native)}}
             compiler.compiled = {'SLPS_258.87': bytes(compiled)}
             corpus = compiler.root / 'corpus/zh/menu/system-ui-skills.json'
             corpus.parent.mkdir(parents=True)
@@ -104,7 +117,7 @@ class BestBackendTests(unittest.TestCase):
             result = compiler.compile_elf()
             self.assertEqual(result[best_offset:best_offset + 8], bytes.fromhex('f4ff0526c8288424'))
             native[best_offset] ^= 1
-            compiler.native['best']['SLPS_732.70'] = bytes(native)
+            compiler.native['best']['SLPS_732.70'] = native_body_hook_fixture(native)
             with self.assertRaisesRegex(EditionError, 'instruction preimage'):
                 compiler.compile_elf()
 
@@ -117,7 +130,7 @@ class BestBackendTests(unittest.TestCase):
             source = bytes(0x350000)
             compiled = bytearray(source)
             compiled[slot['original_start']:slot['original_start']+3] = bytes.fromhex('8fd200')
-            compiler.native = {'original':{'SLPS_258.87':source},'best':{'SLPS_732.70':source}}
+            compiler.native = {'original':{'SLPS_258.87':source},'best':{'SLPS_732.70':native_body_hook_fixture(source)}}
             compiler.compiled = {'SLPS_258.87':bytes(compiled)}
             compiler.contract = {'elf_instructions':[], 'elf_support_attack_slot':slot}
             compiler.archive_tables = {}
