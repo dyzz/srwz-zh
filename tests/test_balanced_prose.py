@@ -16,6 +16,13 @@ from write_frame_text import paragraphs,flow_synopsis
 
 
 class BalancedProseTests(unittest.TestCase):
+    def test_flow_protects_the_complete_short_person_name(self):
+        profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['stage_scroll_overview']
+        text='　此前一直推动与月之民谈判的领主古恩，为打破僵局而采取了下一步行动。'
+        fitted=reflow_chinese_prose(text,profile=profile).text
+        self.assertIn('古恩',fitted)
+        self.assertNotIn('古\n恩',fitted)
+
     def test_world_history_separators_keep_native_drawable_space_rows(self):
         profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['world_history_scroll']
         text='　甲\n\n　乙\n　\n　丙\n\n　丁'
