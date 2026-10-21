@@ -49,6 +49,7 @@ from srwz.release_inputs import copy_file
 from special_disc.writeback.data_link_bonus import apply_data_link_bonus
 from special_disc.writeback.battle_square_skip import apply_skip
 from special_disc.writeback.instruction_overrides import apply_overrides
+from special_disc.writeback.library_menu import apply_library_menu
 from special_disc.writeback.squad_names import apply_nisv_names
 from parenthesis_glyphs import apply_parentheses
 from srwz.weapon_detail_parentheses import apply_weapon_detail_parentheses
@@ -288,6 +289,7 @@ def assemble():
     qa_base=patches.get(QA_MEMBER)
     if qa_base is None:qa_base=read_member(BASE,members,QA_MEMBER)
     patches[QA_MEMBER],qa_report=timed('qa',apply_qa_layout,qa_base,patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table=runtime_table)
+    patches[QA_MEMBER],library_menu_report=apply_library_menu(patches[QA_MEMBER],patches[EXE],read_disc_member(QA_MEMBER))
     patches[QA_MEMBER],squad_report=apply_nisv_names(patches[QA_MEMBER],patches[EXE],read_disc_member(QA_MEMBER),source_table,stored_overrides,runtime_table)
     patches[TERRAIN_MEMBER],terrain_report=apply_terrain_names(patches[TERRAIN_MEMBER],patches[EXE],read_disc_member(TERRAIN_MEMBER),source_table,stored_overrides,runtime_table)
     patches[EXE],weapon_report=apply_weapon_detail_labels(patches[EXE],source_table,stored_overrides,runtime_table)
@@ -390,6 +392,7 @@ def assemble():
     report['battle_square_skip']=skip_report
     report['qa_layout']=qa_report
     report['instruction_overrides']=instruction_report
+    report['library_menu']=library_menu_report
     report['nisv_squad_names']=squad_report
     report['terrain_names']=terrain_report
     report['gravion_labels']=gravion_report

@@ -33,6 +33,7 @@ from special_disc.writeback.instruction_overrides import verify_overrides
 from special_disc.writeback.qa_native import native_records
 from special_disc.writeback.qa_layout import page as qa_page
 from srwz.qa_typography import shared_records
+from special_disc.writeback.library_menu import verify_library_menu
 from special_disc.writeback.squad_names import verify_nisv_names
 from special_disc.writeback.shared_label_updates import verify_shared_labels, audit_viewer_pilot_labels
 from special_disc.writeback.name_unification import verify_name_unification
@@ -169,6 +170,8 @@ def main(iso=None, work=None):
         actual=shared_records(qa_page(qa_chunk,binding['page']),readback)
         require(actual==expected,f'native Q&A final text/style/position drift: {binding["id"]}')
         counts['native_qa_pages']+=1
+    library_menu=verify_library_menu(member('DATA/NISVDATA.BIN'),exe,st.read_disc_member('DATA/NISVDATA.BIN'))
+    require(library_menu==manifest['library_menu'],'LIBRARY menu receipt drift')
     nisv_squads=verify_nisv_names(member('DATA/NISVDATA.BIN'),exe,readback)
     require(nisv_squads==manifest['nisv_squad_names'],'NISV squad receipt drift')
     counts['nisv_squad_names']=nisv_squads['names']
