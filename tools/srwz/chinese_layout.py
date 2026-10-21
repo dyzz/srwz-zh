@@ -11,8 +11,9 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
 
-from .text import RUNTIME_FORMAT_TOKEN, CONTROL_NOTATION
+from .text import CONTROL_NOTATION
 from .renderer_metrics import RendererState, text_extent, COMPACT_SCOPE_CHARACTERS
+from .control_layout import control_cells, require_static_layout
 
 
 # Continuation lines gain one full-width ideographic-space indent at writeback.
@@ -38,12 +39,6 @@ COMMON_PROTECTED_WORDS = (
     "项目",
 )
 
-_STRUCTURAL_TOKEN = re.compile(
-    r"\$[A-Za-z]"
-    rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
-    r"|\{[0-9A-Fa-f]{2}\}"
-    r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
-)
 _COMPACT_VISIBLE_SCOPE = re.compile(
     r"<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>(?:<height:[0-9A-Fa-f]{2}>)?"
     rf"((?:[{COMPACT_SCOPE_CHARACTERS}]|<height:[0-9A-Fa-f]{{2}}>)+)"
@@ -349,11 +344,10 @@ def logical_dialogue_text(text: str) -> str:
 
 
 def _structural_width(token: str) -> int:
-    if token.startswith(("{", "<")):
-        return 0
-    if token.startswith(("$", "%")):
-        return PLAYER_NAME_RENDER_WIDTH
-    raise AssertionError(f"not structural notation: {token!r}")
+    try:
+        return control_cells(token, PLAYER_NAME_RENDER_WIDTH)
+    except ValueError as error:
+        raise ChineseLayoutError(str(error)) from error
 
 
 @lru_cache(maxsize=8)
@@ -400,7 +394,10 @@ def _tokenize_dialogue_cells(
     stage_keyword_links: bool = False,
 ) -> tuple[LayoutToken, ...]:
     """Split text into renderer-width units without splitting names/tokens."""
-
+    try:
+        require_static_layout(text)
+    except ValueError as error:
+        raise ChineseLayoutError(str(error)) from error
     terms = _normalize_protected_terms(
         (*tuple(protected_terms), *COMMON_PROTECTED_WORDS)
     )
@@ -464,10 +461,10 @@ def _tokenize_dialogue_cells(
             )
             offset = keyword_link.end
             continue
-        structural = _STRUCTURAL_TOKEN.match(text, offset)
+        structural = CONTROL_NOTATION.match(text, offset)
         if structural is not None:
             token = structural.group(0)
-            tokens.append(LayoutToken(token, _structural_width(token)))
+            tokens.append(LayoutToken(token, _structural_width(token), atomic=True))
             offset = structural.end()
             continue
 

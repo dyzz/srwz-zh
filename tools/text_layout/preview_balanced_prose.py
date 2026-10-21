@@ -22,6 +22,8 @@ from srwz.text import load_text_table
 from srwz.chinese_prose import logical_prose_text,reflow_chinese_prose
 from srwz.renderer_metrics import compact_visible_runs,text_extent
 from srwz.text import CONTROL_NOTATION,normalize_original_fullwidth_ascii
+from srwz.library_typography import library_typography
+from srwz.compact_authoring import compact_controlled_text
 from build_library_v02_component import load_production_layout,reflow_body
 from write_frame_text import flow_synopsis
 
@@ -61,6 +63,8 @@ def build(baseline_revision: str='3af1525',checkpoint: Path | None=None) -> dict
         if not equal:raise ValueError(f'visible content changed: {surface}/{row["id"]}')
         records.append(dict(surface=surface,path=path,id=row['id'],variant=variant,before=before,after=after,
             changed=before!=after,content_exact=equal,maximum_width_cells=profile.maximum_width,default_advance_px=profile.default_advance_px,
+            source_translation_sha256=hashlib.sha256(row['translation'].encode()).hexdigest(),
+            differs_from_source=after!=row['translation'],
             line_widths_px=widths,lines=len(widths),**extra))
         summary[surface+'/'+variant+'/scanned']+=1
         summary[surface+'/'+variant+'/changed']+=before!=after
@@ -69,7 +73,9 @@ def build(baseline_revision: str='3af1525',checkpoint: Path | None=None) -> dict
     library_rows=document(path)
     library_code=''.join((ROOT/name).read_text() for name in (
         'tools/build_library_v02_component.py','tools/srwz/chinese_layout.py',
-        'tools/srwz/renderer_metrics.py','tools/srwz/text.py'))
+        'tools/srwz/renderer_metrics.py','tools/srwz/text.py',
+        'tools/srwz/control_layout.py','tools/srwz/library_typography.py',
+        'tools/text_layout/preview_balanced_prose.py'))
     checkpoint_key=hashlib.sha256((json.dumps(inputs,sort_keys=True)+str(profiles)+str(terms)+baseline_revision+str(BREAKABLE_FULL_NAMES)+library_code).encode()).hexdigest()
     cached=json.loads(checkpoint.read_text()) if checkpoint is not None and checkpoint.exists() else {}
     if cached.get('key')==checkpoint_key:
@@ -79,13 +85,20 @@ def build(baseline_revision: str='3af1525',checkpoint: Path | None=None) -> dict
         if index%100==0:print(f'LIBRARY source row {index}/{len(library_rows)}',flush=True)
         domain=next(d for d in row['domains'] if d in ('robot','character','glossary'))
         key={'robot':'library_robot','character':'library_character','glossary':'library_glossary'}[domain]
-        profile=replace(profiles[key],default_advance_px=22)
+        profile=replace(profiles[key],default_advance_px=21)
         text=normalize_original_fullwidth_ascii(row['translation']).replace('\n','')
-        before=reflow_chinese_paragraph(text,profile=replace(old[key],default_advance_px=22),protected_terms=terms).text
+        before=reflow_chinese_paragraph(text,profile=replace(old[key],default_advance_px=21),protected_terms=terms).text
+        if domain in ('robot', 'character'):
+            # Use exactly the production compiler, including short Latin runs,
+            # independent letter/digit heights and native Chinese restoration.
+            compiled=library_typography(text,'DSCR',domain=domain)
+            fitted,_=reflow_body(compiled,profile.maximum_width,profile=profile,protected_terms=terms)
+            record('library_'+domain,path,row,before,fitted,profile,'production_typography')
+            continue
         fitted=reflow_chinese_paragraph(text,profile=profile,protected_terms=terms).text
         record('library_'+domain,path,row,before,fitted,profile,'balanced_plain')
         if not CONTROL_NOTATION.search(text):
-            tagged=compact_visible_runs(text,default_advance_px=22,
+            tagged=compact_visible_runs(text,default_advance_px=21,
                                         breakable_phrases=BREAKABLE_FULL_NAMES)
             if tagged!=text:
                 try:
@@ -105,7 +118,7 @@ def build(baseline_revision: str='3af1525',checkpoint: Path | None=None) -> dict
         if row.get('kind')=='synopsis':
             before=old_flow(row['translation']);profile=replace(profiles['stage_scroll_overview'],default_advance_px=16)
             record('sp_flow',path,row,before,preview_flow(row['translation']),profile,'balanced_plain',maximum_lines=11)
-            tagged=compact_visible_runs(row['translation'],default_advance_px=16)
+            tagged=compact_controlled_text(row['translation'],default_width=16)
             if tagged!=row['translation']:
                 record('sp_flow',path,row,before,preview_flow(tagged),profile,'balanced_compact',maximum_lines=11)
         elif row.get('kind')=='narration':

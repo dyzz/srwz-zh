@@ -69,6 +69,10 @@ def ending_mark(text):
 
 
 def normalize_dialogue(text, profile):
+    # A dynamic template has its own runtime expansion and width contract.
+    # Direct callers must receive the same preservation as the batch caller.
+    if '＜ｔｍ＞' in text or '<tm>' in text:
+        return text, ['preserve_dynamic_template'], []
     canonical = visible_ascii_identity(text)
     reasons = ['fullwidth_ascii_identity'] if canonical != text else []
     mark = ending_mark(canonical)

@@ -26,9 +26,20 @@ RUNTIME_SUBSTITUTION_TOKEN = re.compile(r"\$[cflnF]")
 # <<color:30>>, {<space:2E><space:2E>0}, %0<width:64>.
 _NATIVE_TAG_NAME = r"(?:color|width|height|space|3[1-5])"
 _NATIVE_DIGIT_PAIR = rf"<{_NATIVE_TAG_NAME}:3[0-9]>"
+_NATIVE_FINAL_DIGIT = rf"<{_NATIVE_TAG_NAME}:00>"
+# Only the beginning of a complete string selects the native repeat wrapper.
+# The generic decoder can absorb its terminating NUL into the final digit tag.
+RUNTIME_REPEAT_TOKEN = re.compile(
+    rf"\A@[+-]?(?:(?:[0-9]|{_NATIVE_DIGIT_PAIR})+(?:{_NATIVE_FINAL_DIGIT})?"
+    rf"|{_NATIVE_FINAL_DIGIT})"
+)
 RUNTIME_ICON_SLOT_TOKEN = re.compile(
     rf"<[+-]?(?:(?:[0-9]|{_NATIVE_DIGIT_PAIR})+>"
     rf"|(?:[0-9]|{_NATIVE_DIGIT_PAIR})*<{_NATIVE_TAG_NAME}:3[Ee]>)"
+)
+RUNTIME_SQUARE_PARAMETER_TOKEN = re.compile(
+    rf"\[[+-]?(?:(?:[0-9]|{_NATIVE_DIGIT_PAIR})+\]"
+    rf"|(?:[0-9]|{_NATIVE_DIGIT_PAIR})*<{_NATIVE_TAG_NAME}:5[Dd]>)"
 )
 RUNTIME_PARAMETER_TOKEN = re.compile(
     rf"\{{(?=[0-9]|<{_NATIVE_TAG_NAME}:)"
@@ -43,8 +54,9 @@ RUNTIME_FORMAT_NOTATION_TOKEN = re.compile(
     rf"(?:[diouxXeEfFgGcrsa]|{_RUNTIME_CONVERSION_PAIR})"
 )
 _NATIVE_RUNTIME_TOKEN = re.compile(
-    rf"(?:<[+-]?[0-9]+>|\{{[0-9]+(?:\.[0-9]+)*\}}"
-    rf"|{RUNTIME_FORMAT_TOKEN.pattern}|{RUNTIME_SUBSTITUTION_TOKEN.pattern})"
+    rf"(?:<[+-]?[0-9]+>|\[[+-]?[0-9]+\]|\{{[0-9]+(?:\.[0-9]+)*\}}"
+    rf"|{RUNTIME_FORMAT_TOKEN.pattern}|{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
+    rf"|@[+-]?[0-9]+\x00?)"
 )
 _NATIVE_TAG_CODES = {"color": 0x31, "width": 0x32, "height": 0x33, "space": 0x34}
 _NATIVE_TAG = re.compile(rf"<({_NATIVE_TAG_NAME}):([0-9A-Fa-f]{{2}})>")
@@ -52,7 +64,9 @@ _RAW_BYTE = re.compile(r"\{[0-9A-Fa-f]{2}\}")
 CONTROL_NOTATION = re.compile(
     # Keep raw-byte notation ahead of numeric parameters: {12} means byte 0x12.
     rf"{_RAW_BYTE.pattern}"
+    rf"|{RUNTIME_REPEAT_TOKEN.pattern}"
     rf"|{RUNTIME_ICON_SLOT_TOKEN.pattern}"
+    rf"|{RUNTIME_SQUARE_PARAMETER_TOKEN.pattern}"
     rf"|{RUNTIME_PARAMETER_TOKEN.pattern}"
     rf"|{RUNTIME_FORMAT_NOTATION_TOKEN.pattern}"
     rf"|{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
@@ -455,7 +469,9 @@ def control_notation_tokens(text: str) -> tuple[ControlNotationToken, ...]:
         token = match.group(0)
         if _RAW_BYTE.fullmatch(token):
             kind = "raw_byte"
-        elif (RUNTIME_ICON_SLOT_TOKEN.fullmatch(token)
+        elif (RUNTIME_REPEAT_TOKEN.fullmatch(token)
+              or RUNTIME_ICON_SLOT_TOKEN.fullmatch(token)
+              or RUNTIME_SQUARE_PARAMETER_TOKEN.fullmatch(token)
               or RUNTIME_PARAMETER_TOKEN.fullmatch(token)
               or RUNTIME_FORMAT_NOTATION_TOKEN.fullmatch(token)
               or RUNTIME_SUBSTITUTION_TOKEN.fullmatch(token)):

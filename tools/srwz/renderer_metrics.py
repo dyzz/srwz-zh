@@ -5,6 +5,7 @@ import re
 from dataclasses import dataclass
 
 from .text import CONTROL_NOTATION, normalize_original_fullwidth_ascii
+from .control_layout import control_cells, require_static_layout
 
 _DIMENSION = re.compile(r"<(width|space):([0-9A-Fa-f]{2})>\Z")
 # Only expression/identifier punctuation belongs to compact scopes. Chinese
@@ -41,6 +42,7 @@ def text_extent(text: str, *, default_advance_px: int,
     The caller supplies the renderer's default; no Unicode-width heuristic is
     used. Newlines must be measured by the caller as separate physical rows.
     """
+    require_static_layout(text)
     if not 1 <= default_advance_px <= 63:
         raise ValueError('default advance must be between 1 and 63 pixels')
     current = state or RendererState(default_advance_px, default_advance_px)
@@ -58,11 +60,11 @@ def text_extent(text: str, *, default_advance_px: int,
                     value if dimension[1] == 'space' else current.advance_px,
                     value if dimension[1] == 'width' else current.glyph_width_px,
                 )
-            elif token.startswith(('$', '%')):
-                # String placeholders keep the existing conservative six-cell
-                # contract; callers with numeric templates need their own bound.
-                occupied = max(occupied, advance + (placeholder_cells-1)*current.advance_px + current.glyph_width_px)
-                advance += placeholder_cells * current.advance_px
+            else:
+                cells = control_cells(token, placeholder_cells)
+                if cells:
+                    occupied = max(occupied, advance + (cells-1)*current.advance_px + current.glyph_width_px)
+                    advance += cells * current.advance_px
             index = match.end()
             continue
         ch = text[index]

@@ -18,6 +18,8 @@ def digest(data):
 
 def apply(preview_path: Path,receipt_path: Path,snapshot_root: Path):
     preview_bytes=preview_path.read_bytes();preview=json.loads(preview_bytes)
+    if any(row.get('variant')=='production_typography' for row in preview['records']):
+        raise ValueError('Production typography is a generated preview; do not write its height scopes into authoring corpora')
     for name,expected in preview['inputs'].items():
         if ':' not in name and digest((ROOT/name).read_bytes())!=expected:
             raise ValueError(f'Preview source drift: {name}')

@@ -12,13 +12,13 @@ from srwz.text import (TextTable, encode_text, decode_text, control_notation_tok
 
 class NativeRuntimeControlTests(unittest.TestCase):
     def setUp(self):
-        self.overrides = {ch: 0x9800 + i for i, ch in enumerate('-+%{}<>. 0123456789')}
+        self.overrides = {ch: 0x9800 + i for i, ch in enumerate('-+%{}<>[]. 0123456789')}
         self.table = TextTable({code: ch for ch, code in self.overrides.items()},
                                {0x31: 'color', 0x32: 'width', 0x33: 'height', 0x34: 'space'})
 
     def test_whole_native_controls_survive_all_visible_punctuation_and_digit_overrides(self):
         vectors = [b'<0>', b'<8>', b'<9>', b'<10>', b'<23>', b'<40>', b'<+3>',
-                   b'<-1>', b'<-2>', b'<-3>', b'<-4>', b'<-5>', b'{1}', b'{4.4.0}',
+                   b'[4]', b'[10]', b'<-1>', b'<-2>', b'<-3>', b'<-4>', b'<-5>', b'{1}', b'{4.4.0}',
                    b'%s', b'%2d', b'%02d', b'%+03d', b'%1$02d', b'%-12.3f',
                    b'%.*s', b'% 2d', b'$c', b'$n', b'$F', b'$f', b'$l']
         for native in vectors:
@@ -31,6 +31,16 @@ class NativeRuntimeControlTests(unittest.TestCase):
                 encoded = encode_text(notation, self.table, overrides=self.overrides, terminate=True)
                 self.assertEqual(encoded, native + b'\0')
                 self.assertEqual(verify_runtime_control_bytes(encoded, self.table, notation), (native,))
+
+    def test_native_repeat_prefix_and_decoder_absorbed_nul_are_byte_exact(self):
+        overrides = {**self.overrides, '@': 0x987F}
+        for native in (b'@11', b'@123\0', b'@2\0', b'@3\0', b'@4\0', b'@5\0', b'@-3\0'):
+            with self.subTest(native=native):
+                notation = decode_text(native, 0, self.table, allow_end=True).text
+                self.assertEqual(encode_text(notation,self.table,overrides=overrides),native)
+                self.assertEqual(verify_runtime_control_bytes(native,self.table,notation),(native,))
+        # Only a stream prefix selects the native repeat wrapper.
+        self.assertEqual(runtime_control_bytes('A@11'),())
 
     def test_independent_readback_rejects_same_text_with_glyph_encoded_control_byte(self):
         vectors = [(b'<0>', b'<' + self.overrides['0'].to_bytes(2, 'big') + b'>'),
