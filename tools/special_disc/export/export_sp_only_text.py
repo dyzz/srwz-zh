@@ -44,6 +44,9 @@ class MainIndex:
     for x in d:visit(x,where)
   for p in sorted((ROOT/'corpus/zh').rglob('*.json')):
    if 'special-disc'in p.parts:continue
+   # The shared-library supplement carries SP-sourced texts into the main library build;
+   # they are not main-game text, so they must not hide SP-only library entries (2026-10-22).
+   if p.name=='sp-reviewed-supplement.json':continue
    visit(json.loads(self.read(p)),str(p.relative_to(ROOT)))
  def disc(self):
   disc=ROOT/'work/disc';exe=self.read(disc/'SLPS_258.87')

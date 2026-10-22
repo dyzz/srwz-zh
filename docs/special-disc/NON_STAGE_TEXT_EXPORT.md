@@ -34,3 +34,11 @@ python3 tools/special_disc/export/export_sp_only_text.py --output work/review/sp
 ```
 
 输入为已验证的全量导出包；已有目录拒绝覆盖。输入导出文件有校订改动时拒绝继续，以免丢失人工修改。筛选明细在 ZIP 外的 `work/review/special-disc/sp-only-non-stage-text-20260919-filter-evidence.json`。工具不会修改原语料、ISO 或模拟器配置。
+
+## 2026-10-22 基准重置
+
+两份包（全量 `non-stage-text-20260919`、SP-only `sp-only-non-stage-text-20260919`）已按 2026-10-21 的 `build/iso/special-disc/sp-current.iso`（sha256 `801962fb…`）重新导出，之后以这张盘为基准；目录名沿用 0919 是因为审阅站导出器按该路径读取。导出在 SP 私有工作区 `build/editions/zh-release-sp/2af4503c…/project` 内完成（仓库根目录缺少组件报告；工作区需先克隆 `work/disc` 的本篇成员），再连同 `sp-only-…-filter-evidence.json`、两份 ZIP 和工作区的 `work/build/special-disc/full-text/runs/build-xonhdxfw/*/report.json` 拷回仓库。
+
+`export_sp_only_text.py` 自本次起不再把 `corpus/zh/library/sp-reviewed-supplement.json` 当作本篇已有文本：它承载的是进入共享图鉴构建的 SP 原文，之前会把 ベクターソル／バルゴラⅠ·Ⅱ号機／レムレース試作型 等 7 个 SP 专有图鉴条目误判为"本篇已有"而从 SP 专题页消失。重导结果 2,275 条（排除 38,925 条，与 09-19 包一致），48 个细分类。
+
+被替换的旧包保留在 `work/review/special-disc/superseded-20261022/`：`non-stage-text-20260919.iso5436-20261014`（10-14 在工作区重导、拷回根目录的全量包）、`sp-only-non-stage-text-20260919.submitted-20260919`（9-19 人工校订提交包，`work/authoring/special-disc/review-imports/20260919-gpt6-pro/submitted/` 另有同一份）。校订译文本身在 `corpus/zh/special-disc/reviewed-non-stage-text.json`，不受包替换影响。
