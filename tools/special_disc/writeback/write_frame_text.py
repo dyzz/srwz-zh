@@ -21,6 +21,7 @@ from srwz.codec import decode_production,reencode_changed_suffix
 from srwz.iso9660 import member_map,scan_iso9660
 from srwz.chinese_layout import ChineseLayoutProfile,fit_chinese_dialogue_layout,load_layout_profiles,load_unbroken_terms_file,rendered_line_width,reflow_chinese_paragraph
 from srwz.text import CONTROL_NOTATION,decode_text,encode_text,normalize_original_fullwidth_ascii
+from srwz.compact_scopes import FLOW_SYNOPSIS,expand as expand_compact_scopes
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_prose import reflow_chinese_prose
 from srwz.summary import parse_summary, validate_scroll_placeholders
@@ -93,7 +94,8 @@ def validate_flow_layout(text):
 def flow_synopsis(text):
     profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['stage_scroll_overview']
     require(profile.maximum_width==FLOW_WIDTH,'flow profile/config width drift')
-    result=reflow_chinese_prose(normalize_original_fullwidth_ascii(text),profile=profile,
+    text=expand_compact_scopes(normalize_original_fullwidth_ascii(text),FLOW_SYNOPSIS)
+    result=reflow_chinese_prose(text,profile=profile,
         protected_terms=FLOW_PROTECTED_TERMS,maximum_lines=FLOW_MAX_LINES).text
     validate_flow_layout(result)
     return result

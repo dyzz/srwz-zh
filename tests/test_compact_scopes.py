@@ -5,7 +5,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-from srwz.compact_scopes import STORY, collapse, expand
+from srwz.compact_scopes import FLOW_SYNOPSIS, STORY, collapse, expand
 from srwz.chinese_layout import dialogue_line_widths, fit_chinese_dialogue_layout, load_layout_profiles
 from srwz.compact_authoring import compact_controlled_text, unscoped_text
 from srwz.text import SrwzTextEncodeError, TextTable, encode_text, unrecognized_control_notation_offsets
@@ -41,6 +41,12 @@ class CompactScopeTests(unittest.TestCase):
                          '<width:0E><space:0C><height:8A>《3D》<width:15><space:15><height:0C>')
         self.assertEqual(expand('<z>《Side 3》</z>', metrics),
                          '<width:0E><space:0C><height:0B>《Side 3》<width:15><space:15><height:0C>')
+
+    def test_flow_synopsis_digits_are_height9(self):
+        self.assertEqual(expand('<z>013</z>特别小队', FLOW_SYNOPSIS),
+                         '<width:0C><space:0B><height:09>013<width:10><space:10><height:8A>特别小队')
+        self.assertEqual(expand('<z>BIG-O</z>', FLOW_SYNOPSIS),
+                         '<width:0C><space:0B><height:8A>BIG-O<width:10><space:10><height:8A>')
 
     def test_percent_restores_advance_first(self):
         self.assertEqual(expand('<z>99.9%</z>'),

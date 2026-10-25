@@ -16,6 +16,11 @@ import re
 # them to 11 as well. Height 10, if ever used, is 0x8A: 33 0A is a line feed.
 STORY = dict(width=0x0E, space=0x0C, letter=0x0B, digit=0x0B,
              restore_width=0x15, restore_space=0x15, restore_height=0x0C)
+# SP library flow synopsis body: 16/16/10. Narrower 12/11 than the old 14/12;
+# digits height 9 as the native auto rule drew them, letters height 10 (0x8A).
+FLOW_SYNOPSIS = dict(width=0x0C, space=0x0B, letter=0x8A, digit=0x09,
+                     restore_width=0x10, restore_space=0x10, restore_height=0x8A)
+
 # ASCII ( ) encode as raw single bytes that desync the two-byte parser, and
 # [n] is a native numeric parameter protocol: only fullwidth （） are allowed.
 VISIBLE = r"A-Za-z0-9Ａ-Ｚａ-ｚ０-９ .,:：．_'/／＋+％%~～〜×÷±＝=　－−·《》（）-"
