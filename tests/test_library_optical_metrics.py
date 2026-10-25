@@ -40,7 +40,7 @@ class OpticalMetricsTests(unittest.TestCase):
                     apply_library_optical_metrics(bytes(mixed),ed)
 
     def test_mixed_identifier_switches_height_inside_one_horizontal_scope(self):
-        for domain,letters,digits,restore in (('character','8C','0B','0C'),('robot','8B','8A','8A')):
+        for domain,letters,digits,restore in (('character','0C','0B','0C'),('robot','0B','8A','8A')):
             text='中文RX-78F14 99.9%中文'
             result=library_typography(text,'DSCR',domain=domain)
             expected=f'<height:{letters}>RX-<height:{digits}>78<height:{letters}>F<height:{digits}>14 99.9%'

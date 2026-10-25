@@ -14,6 +14,9 @@ NAME_TAGS = frozenset({'RBTN', 'CHFN'})
 METADATA_TAGS = frozenset({'PRDC', 'ACTR', 'CHNN'})
 PARAMETER_TAGS = frozenset({'HEIT', 'WEIT'})
 BODY_HEIGHTS = {'character':12,'robot':10,'glossary':12}
+# 2026-10-24 LRPS2 review: body letters sit on the hanzi baseline (no optical
+# up1); 8B..8E stay decodable by the native patch for other owners.
+BODY_LETTERS_RAISED = False
 # Native PRDC is 21/21/10, distinct from both the 21px prose and name panel.
 SURFACES = {**{tag: (21, 21, 12) for tag in BODY_TAGS},
             **{tag: (18, 18, 10) for tag in NAME_TAGS},
@@ -76,7 +79,7 @@ def library_typography(text: str, tag: str, *, domain: str | None = None) -> str
             if tag in BODY_TAGS:
                 # Letter and digit ink heights are independent of Chinese.
                 # For the native character height12, use the requested smaller
-                # 12/11 pair; the optical letter record still moves up1.
+                # 12/11 pair; letters stay on the baseline (BODY_LETTERS_RAISED).
                 # Robot height10 retains its calibrated 11/10 pair.
                 letter_height = max(1, (state['height'] * 13 + 6) // 12)
                 digit_height = state['height']
@@ -101,8 +104,9 @@ def library_typography(text: str, tag: str, *, domain: str | None = None) -> str
                     else:
                         actual_height = previous
                         optical = previous_optical
+                    raised = optical and BODY_LETTERS_RAISED
                     operand = (ENCODED_HEIGHT_10 if actual_height == 10 else
-                               actual_height | 0x80 if optical and actual_height in OPTICAL_HEIGHTS.values() else actual_height)
+                               actual_height | 0x80 if raised and actual_height in OPTICAL_HEIGHTS.values() else actual_height)
                     if operand != active:
                         parts.append(f'<height:{operand:02X}>')
                         active = operand

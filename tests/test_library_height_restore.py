@@ -48,9 +48,9 @@ class LibraryHeightRestoreTests(unittest.TestCase):
 
     def test_body_height_tracks_panel_and_preserves_visible_text(self):
         for domain, letter_height, digit_height, restore in (
-            ('character', '8C', '0B', '0C'),
-            ('robot', '8B', '8A', '8A'),
-            ('glossary', '8C', '0B', '0C'),
+            ('character', '0C', '0B', '0C'),
+            ('robot', '0B', '8A', '8A'),
+            ('glossary', '0C', '0B', '0C'),
         ):
             for tag in ('DSCR', 'DSC2'):
                 with self.subTest(domain=domain, tag=tag):

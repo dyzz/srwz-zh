@@ -34,7 +34,7 @@ class LibraryBodyPatchTests(unittest.TestCase):
         old='<width:16><space:16>中文<width:0E><space:0C>Geo<width:16><space:16>圣剑99%中文'
         compiled=library_typography(old,'DSC2');flow,widths=reflow_body(compiled,16)
         self.assertNotIn('<width:16>',flow);self.assertNotIn('<space:16>',flow)
-        self.assertIn('<height:8C>Geo',flow)
+        self.assertIn('<height:0C>Geo',flow)
         self.assertIn('<height:0C>圣剑',flow)
         self.assertNotIn('<height:0A>',flow)
         self.assertEqual(CONTROL_NOTATION.sub('',flow).replace('\n',''),CONTROL_NOTATION.sub('',old))

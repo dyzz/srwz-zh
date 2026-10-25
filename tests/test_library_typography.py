@@ -33,7 +33,7 @@ class LibraryTypographyTests(unittest.TestCase):
         text='地球EFA所属G士兵14岁Geo圣剑99%中文'
         result=library_typography(text,'DSC2')
         for run in ('EFA','G','Geo'):
-            self.assertIn('<height:8C>'+run+'<width:15><space:15><height:0C>',result)
+            self.assertIn('<height:0C>'+run+'<width:15><space:15><height:0C>',result)
         self.assertIn('<height:0B>14<width:15><space:15><height:0C>岁',result)
         self.assertIn('<height:0B>99%<space:15><width:15><height:0C>中文',result)
         self.assertNotIn('<height:0A>',result)
@@ -57,7 +57,7 @@ class LibraryTypographyTests(unittest.TestCase):
 
     def test_gran_sigma_is_one_closed_run_and_dome_name_has_more_room(self):
         text=library_typography('以创星机Gran Σ为核心','DSCR')
-        self.assertEqual(text,'以创星机<width:0E><space:0C><height:8C>Gran Σ<width:15><space:15><height:0C>为核心')
+        self.assertEqual(text,'以创星机<width:0E><space:0C><height:0C>Gran Σ<width:15><space:15><height:0C>为核心')
         dome=library_typography('D.O.M.E.G-Bit','RBTN')
         self.assertEqual(dome,'<width:10><space:0E><height:0A>D.O.M.E.G-Bit<width:12><space:12><height:0A>')
         self.assertEqual(library_typography(dome,'RBTN'),dome)
