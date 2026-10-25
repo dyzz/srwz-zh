@@ -1,0 +1,129 @@
+[sp] rust-compressor
+[sp] rust-compressor: 2.519s
+[sp] sp-full-text
+[sp] sp-full-text: 37.927s
+[prune] removed 14 workspaces, 0 snapshots (89.8 GiB apparent)
+{
+  "schema_version": 1,
+  "input_digest": "046d0e3b0ebc177b7a9a2923595bbd44f594ac7d757f493d71a341a18a3b1248",
+  "requested_editions": [
+    "sp"
+  ],
+  "release_config": "config/release/dual-current.json",
+  "input_snapshot": "work/build/shared/046d0e3b0ebc177b7a9a2923595bbd44f594ac7d757f493d71a341a18a3b1248/inputs.json",
+  "status": "requested_editions_static_validated_runtime_pending",
+  "results": [
+    {
+      "schema_version": 1,
+      "edition_id": "sp",
+      "adapter": "sp-full-text-v1",
+      "status": "edition_iso_static_validated_runtime_pending",
+      "input_digest": "046d0e3b0ebc177b7a9a2923595bbd44f594ac7d757f493d71a341a18a3b1248",
+      "source_head": "1b8cd47501b153d3266cc47accf979b1a656f8f3",
+      "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
+      "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+      "output": {
+        "path": "build/iso/test/z-scope-20261024-sp.iso",
+        "size": 3918833664,
+        "sha256": "aca82a5f82afcda96be35ea3625b3cb0cc59caa676c82c948e37dd7c5e15a9eb"
+      },
+      "readback": {
+        "path": "build/editions/zh-release-sp/cdc585811a298dd8e366e91bc0df4e81375e0f9e570e1a3157422db682028b08/project/build/iso/special-disc/sp-current.json",
+        "sha256": "24a69b200effd740e4f5b8b0d8241bdda6ad289023d7af05378ff85b3b7b73df"
+      },
+      "workspace": "build/editions/zh-release-sp/cdc585811a298dd8e366e91bc0df4e81375e0f9e570e1a3157422db682028b08/project",
+      "runtime": "not_tested",
+      "component_modes": {
+        "system": "rebuilt",
+        "image-labels": "rebuilt",
+        "frame": "rebuilt",
+        "srvc": "rebuilt",
+        "stage": "rebuilt"
+      },
+      "event_gallery": {
+        "scene_count": 13,
+        "caption_count": 37,
+        "elf_sha256": "8f59b252ca6d1472316f393c26135772c5764dfce3f62554b8bdd17f5d54ba76"
+      },
+      "battle_square_skip": {
+        "policy": "square_skips_battle_animation_via_native_tail",
+        "enabled": true,
+        "configuration_matches_before": true,
+        "edition": "sp",
+        "member": "SLPS_259.20",
+        "cave_virtual_address": "0x450780",
+        "cave_file_offset": "0x351100",
+        "cave_size": 2048,
+        "cave_preimage_all_zero": false,
+        "hook_size": 1728,
+        "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+        "state_marker": "0x4E540005",
+        "world_steps_per_frame": 1,
+        "native_resource_waits_preserved": true,
+        "native_result_processing_preserved": true,
+        "site_count": 3,
+        "patches": [
+          {
+            "id": "battle_step_world_call",
+            "surface": "battle step world call",
+            "kind": "jal",
+            "virtual_address": "0x2E9C48",
+            "file_offset": "0x1EA5C8",
+            "original_instruction_hex": "ec390c0c",
+            "replacement_instruction_hex": "e041110c",
+            "state_before": "applied"
+          },
+          {
+            "id": "queue_append_prologue_0",
+            "surface": "queue append prologue 0",
+            "kind": "j",
+            "virtual_address": "0x2F2280",
+            "file_offset": "0x1F2C00",
+            "original_instruction_hex": "20038290",
+            "replacement_instruction_hex": "20431108",
+            "state_before": "applied"
+          },
+          {
+            "id": "queue_append_prologue_1",
+            "surface": "queue append prologue 1",
+            "kind": "nop",
+            "virtual_address": "0x2F2284",
+            "file_offset": "0x1F2C04",
+            "original_instruction_hex": "c0100200",
+            "replacement_instruction_hex": "00000000",
+            "state_before": "applied"
+          }
+        ],
+        "already_applied": true,
+        "changed_byte_count": 0,
+        "executable_size_preserved": true,
+        "all_replacements_exact": true
+      },
+      "skip_enabled": true
+    }
+  ],
+  "runtime": "not_tested",
+  "timing": {
+    "started_at": "2026-10-24T15:31:19.483403+00:00",
+    "preflight_and_snapshot_seconds": 1.086,
+    "editions": {
+      "sp": {
+        "seconds": 43.48,
+        "mode": "build",
+        "phases": {
+          "rust-compressor": {
+            "returncode": 0,
+            "seconds": 2.519
+          },
+          "sp-full-text": {
+            "returncode": 0,
+            "seconds": 37.927
+          }
+        }
+      }
+    },
+    "total_seconds": 46.203,
+    "finished_at": "2026-10-24T15:32:05.686819+00:00"
+  },
+  "batch_manifest": "work/editions/046d0e3b0ebc177b7a9a2923595bbd44f594ac7d757f493d71a341a18a3b1248/sp.json"
+}
