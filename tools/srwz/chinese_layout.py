@@ -14,6 +14,7 @@ from typing import Callable, Iterable, Sequence
 from .text import CONTROL_NOTATION
 from .renderer_metrics import RendererState, text_extent, COMPACT_SCOPE_CHARACTERS
 from .control_layout import control_cells, require_static_layout
+from .compact_scopes import TAG as _COMPACT_SCOPE_TAG, collapse as _collapse_compact_scopes, expand as _expand_compact_scopes
 
 
 # Continuation lines gain one full-width ideographic-space indent at writeback.
@@ -1196,3 +1197,32 @@ def fit_chinese_dialogue_layout(
         preserved_reason="reflowed_to_fit",
         line_widths=result.line_widths,
     )
+
+
+def _with_compact_scopes(function, collapse_result):
+    """Measure ``<z>`` author scopes as their native controls, return them as authored."""
+    from functools import wraps
+    from dataclasses import replace
+
+    @wraps(function)
+    def wrapper(text, *args, **kwargs):
+        if not isinstance(text, str) or not _COMPACT_SCOPE_TAG.search(text):
+            return function(text, *args, **kwargs)
+        result = function(_expand_compact_scopes(text), *args, **kwargs)
+        if collapse_result == "reflow":
+            return replace(result, original=text, text=_collapse_compact_scopes(result.text))
+        if collapse_result == "lines":
+            return tuple(_collapse_compact_scopes(line) for line in result)
+        return result
+    return wrapper
+
+
+tokenize_dialogue = _with_compact_scopes(tokenize_dialogue, None)
+rendered_line_width = _with_compact_scopes(rendered_line_width, None)
+dialogue_line_widths = _with_compact_scopes(dialogue_line_widths, None)
+split_unbroken_terms = _with_compact_scopes(split_unbroken_terms, None)
+dialogue_layout_issues = _with_compact_scopes(dialogue_layout_issues, None)
+partition_chinese_text = _with_compact_scopes(partition_chinese_text, "lines")
+reflow_chinese_paragraph = _with_compact_scopes(reflow_chinese_paragraph, "reflow")
+reflow_chinese_dialogue = _with_compact_scopes(reflow_chinese_dialogue, "reflow")
+fit_chinese_dialogue_layout = _with_compact_scopes(fit_chinese_dialogue_layout, "reflow")

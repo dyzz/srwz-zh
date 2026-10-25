@@ -300,6 +300,7 @@ def main() -> int:
         "runtime_substitution",
         "raw_byte",
         "text_tag",
+        "compact_scope",
     }
     control_occurrence_count = 0
     runtime_placeholder_occurrence_count = 0

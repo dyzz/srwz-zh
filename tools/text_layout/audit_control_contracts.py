@@ -10,6 +10,7 @@ from srwz.chinese_layout import tokenize_dialogue,dialogue_line_widths
 from srwz.renderer_metrics import text_extent
 from srwz.library_typography import library_typography
 from srwz.compact_authoring import compact_controlled_text
+from srwz import compact_scopes
 from srwz.control_layout import require_static_layout
 
 
@@ -39,7 +40,10 @@ def audit(root=ROOT):
             try:tokens=control_notation_tokens(text)
             except ValueError as exc:
                 failures.append(dict(**owner,check='tokenize',error=str(exc)));continue
-            for t in tokens:forms.setdefault(t.text,dict(kind=t.kind,owner=owner))
+            for t in tokens:
+                if t.kind!='compact_scope':forms.setdefault(t.text,dict(kind=t.kind,owner=owner))
+            # <z> is checked as one complete scope, through its native expansion.
+            for m in compact_scopes.SCOPE.finditer(text):forms.setdefault(m.group(),dict(kind='compact_scope',owner=owner))
             if '＜ｔｍ＞' in text or '<tm>' in text or text.startswith('@') or RUNTIME_SQUARE_PARAMETER_TOKEN.search(text):
                 deferred.append(dict(**owner,text=text,reason='owner-specific dynamic/repeat stream; generic reflow excluded'))
             offsets=unrecognized_control_notation_offsets(text)
@@ -49,16 +53,25 @@ def audit(root=ROOT):
     checks=collections.Counter();records=[]
     for form,meta in sorted(forms.items()):
         row=dict(form=form,**meta)
+        scope=meta['kind']=='compact_scope'
+        native=compact_scopes.expand(form) if scope else form
         try:
-            controls=runtime_control_bytes(form)
+            controls=runtime_control_bytes(native)
+            if scope:
+                # Controls only: visible glyph codes belong to the release codebook.
+                encoded=encode_text(''.join(t.text for t in control_notation_tokens(native)),table,overrides=overrides)
+                assert encoded[:4]==b'\x32\x0e\x34\x0c' and encoded[-2:]==b'\x33\x0c'
+                assert compact_scopes.collapse(native)==form
+                row['native_hex']=encoded.hex()
             if controls:
                 encoded=encode_text(form,table,overrides=overrides)
                 assert verify_runtime_control_bytes(encoded,table,form)==controls
                 assert encoded==b''.join(controls)
                 checks['native_control_byte_forms']+=1
                 row['native_hex']=encoded.hex()
-            compiled=library_typography(form,'DSCR',domain='character')
-            assert runtime_control_bytes(compiled)==controls
+            if not scope:
+                compiled=library_typography(form,'DSCR',domain='character')
+                assert runtime_control_bytes(compiled)==controls
             assert compact_controlled_text(form,default_width=21)==form
             checks['authoring_preserves_control_forms']+=1
             if form.startswith(('@','[')):
@@ -75,7 +88,7 @@ def audit(root=ROOT):
                 for probe in (text,controlled):
                     extent=text_extent(probe,default_advance_px=21)
                     assert dialogue_line_widths(probe,default_advance_px=21)==(math.ceil(extent.occupied_px/21),)
-                    assert any(form in t.text for t in tokenize_dialogue(probe,default_advance_px=21))
+                    assert any(native in t.text for t in tokenize_dialogue(probe,default_advance_px=21))
                 assert (a.advance_px,a.occupied_px)==(b.advance_px,b.occupied_px)
                 checks['cell_pixel_atomic_forms']+=1
             row['passed']=True

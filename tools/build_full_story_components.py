@@ -25,6 +25,7 @@ try:
     )
     from srwz.codec import decode_production as decode, encode, reencode_changed_suffix
     from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
+    from srwz.compact_scopes import expand as expand_compact_scopes
     from srwz.diagnostics import require_work_output
     from srwz.display_names import (
         DisplayNameError,
@@ -232,6 +233,7 @@ except ModuleNotFoundError:
         reencode_changed_suffix,
     )
     from tools.srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
+    from tools.srwz.compact_scopes import expand as expand_compact_scopes
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.display_names import (
         DisplayNameError,
@@ -4531,7 +4533,7 @@ def _apply_stage_system_dialogues(
             )
         replacements[entry_id] = (
             normalize_original_fullwidth_ascii(speaker),
-            normalize_original_fullwidth_ascii(translation),
+            expand_compact_scopes(normalize_original_fullwidth_ascii(translation)),
         )
         selected_pointer_offsets.append(source.pointer_offset)
     inventory_pointer_offsets = [

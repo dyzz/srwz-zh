@@ -72,6 +72,8 @@ CONTROL_NOTATION = re.compile(
     rf"|{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
     r"|@?<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
+# Author-only compact scope (srwz.compact_scopes); it is never encoded as is.
+COMPACT_SCOPE_TAG = re.compile(r"</?z>")
 POTENTIAL_CONTROL_NOTATION_START = re.compile(
     r"%(?=[-+#0.*$0-9A-Za-z])"
     r"|\$(?=[A-Za-z])"
@@ -480,7 +482,9 @@ def control_notation_tokens(text: str) -> tuple[ControlNotationToken, ...]:
         else:
             kind = "text_tag"
         tokens.append(ControlNotationToken(kind, token, match.start(), match.end()))
-    return tuple(tokens)
+    tokens.extend(ControlNotationToken("compact_scope", m.group(), m.start(), m.end())
+                  for m in COMPACT_SCOPE_TAG.finditer(text))
+    return tuple(sorted(tokens, key=lambda t: t.start))
 
 
 def runtime_control_bytes(text: str) -> tuple[bytes, ...]:
@@ -579,6 +583,12 @@ def _encode_text_prepared(
             output.append(0x0A)
             index += 1
             continue
+
+        if COMPACT_SCOPE_TAG.match(text, index):
+            raise SrwzTextEncodeError(
+                "unexpanded <z> scope; expand it for its display surface first",
+                character_index=index,
+            )
 
         runtime_token = runtime_tokens.get(index)
         if runtime_token is not None:

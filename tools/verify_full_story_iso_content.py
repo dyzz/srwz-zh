@@ -25,6 +25,7 @@ from srwz.chinese_layout import (
 from srwz.codec import decode_production as decode
 from srwz.parallel import map_processes, merge_shard_values, split_shards
 from srwz.dialogue_speaker_colors import verify_dialogue_speaker_prefixes
+from srwz.compact_scopes import expand as expand_compact_scopes
 from srwz.text import PreparedTextEncoder
 from srwz.ui_name_tables import NISV_SPEC, verify_name_table
 from srwz.compdata_best_corrections import audit_compdata_best_corrections
@@ -363,9 +364,9 @@ def _print_cached_readback(report_path: Path, validation) -> None:
 def load_translations(path: Path) -> dict[str, str]:
     document = json.loads(path.read_text(encoding="utf-8"))
     return {
-        entry["id"]: normalize_original_fullwidth_ascii(
+        entry["id"]: expand_compact_scopes(normalize_original_fullwidth_ascii(
             entry["translation"]
-        )
+        ))
         for entry in document["entries"]
     }
 
@@ -990,7 +991,7 @@ def verify_stage_system_dialogues(
         stale = stale_by_id[entry_id]
         actual = final_by_id[entry_id]
         expected_speaker = normalize_original_fullwidth_ascii(item["speaker"])
-        expected_text = normalize_original_fullwidth_ascii(item["translation"])
+        expected_text = expand_compact_scopes(normalize_original_fullwidth_ascii(item["translation"]))
         if (
             sha256_bytes(source.text.encode("utf-8"))
             != item.get("source_text_sha256")

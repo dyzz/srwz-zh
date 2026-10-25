@@ -26,6 +26,7 @@ from srwz.chinese_layout import fit_chinese_dialogue_layout, load_layout_profile
 from srwz.codec import DEFAULT_MAX_MATCH_CHAIN, DEFAULT_MIN_MATCH_LENGTH, decode_production, reencode_changed_suffix
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
+from srwz.compact_scopes import expand as expand_compact_scopes
 from srwz.text import decode_text, normalize_original_fullwidth_ascii, encode_text, two_byte_visible_spaces
 from srwz.writers import repack_stage_texts_in_place
 from srwz.writeback import WritebackError
@@ -95,7 +96,7 @@ def check_unowned_bytes(before, after, regions, pointer_sites):
 
 def stored_stage_translation(text):
     """Keep logical Latin/digits and encode visible separators as two bytes."""
-    return two_byte_visible_spaces(normalize_original_fullwidth_ascii(text))
+    return two_byte_visible_spaces(expand_compact_scopes(normalize_original_fullwidth_ascii(text)))
 
 
 def build_chunk(index, stored, function_address, bindings, table, overrides, readback, profile, *, exe=None, include_formations=False, archive=None):

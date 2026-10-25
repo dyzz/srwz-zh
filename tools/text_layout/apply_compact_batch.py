@@ -57,8 +57,9 @@ def run(output: Path, *, apply: bool):
                 if text != decision['display_text'] or sha(before.encode()) != decision['source_sha256']:
                     raise ValueError(f'Confirmed text drift: {path}:{pointer}')
                 spans = decision['spans']
-            after = compact_controlled_text(text, default_width=22, spans=spans,
-                                           keyword_links=record['group']=='main_dialogue')
+            after = compact_controlled_text(text, default_width=21, spans=spans,
+                                           keyword_links=record['group']=='main_dialogue',
+                                           notation='z' if record['group'] in STAGE_GROUPS else 'native')
             if record['group'] in {'main_dialogue','sp_stage_source'}:
                 keyword_links = record['group']=='main_dialogue' and '《' in parent.get('source_text','')
                 fitted = fit_chinese_dialogue_layout(after, profile=profile, stage_keyword_links=keyword_links)

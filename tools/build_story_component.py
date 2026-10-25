@@ -39,6 +39,7 @@ from srwz.stage import (
 )
 from srwz.story_quotes import evaluate_story_quote
 from srwz.stage_formations import discover_stage_formation_pointer_owners
+from srwz.compact_scopes import expand as expand_compact_scopes
 from srwz.text import (
     decode_text,
     encode_text,
@@ -383,7 +384,7 @@ def _entry_translations(path: Path, stages: set[int] | None = None) -> dict[str,
             raise SystemExit(f"translation entry fields are invalid: {path}")
         if stages is not None and int(entry_id.split("/")[1]) not in stages:
             continue
-        result[entry_id] = normalize_original_fullwidth_ascii(translation)
+        result[entry_id] = expand_compact_scopes(normalize_original_fullwidth_ascii(translation))
     return result
 
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import re
 
+from . import compact_scopes
 from .renderer_metrics import COMPACT_VISIBLE_RUN
 from .text import CONTROL_NOTATION, normalize_original_fullwidth_ascii
 
@@ -14,13 +15,14 @@ SCOPE = re.compile(
     r'|<space:(?P<rs>[0-9A-Fa-f]{2})><width:(?P<rw>[0-9A-Fa-f]{2})>)'
 )
 BOUNDARY = re.compile(
-    SCOPE.pattern + r'|＜ｔｍ＞.*?＜／ｔｍ＞|<tm>.*?</tm>|<<[^>]+>>|'
+    compact_scopes.SCOPE.pattern + '|' + SCOPE.pattern + r'|＜ｔｍ＞.*?＜／ｔｍ＞|<tm>.*?</tm>|<<[^>]+>>|'
     + CONTROL_NOTATION.pattern + r'|\\[nrt]|\\u[0-9A-Fa-f]{4}', re.S
 )
 
 
 def unscoped_text(text: str) -> str:
     """Remove only well-formed author scopes, retaining their visible contents."""
+    text = compact_scopes.SCOPE.sub(lambda m: m[1], compact_scopes.collapse(text))
     def remove(match):
         width = int(match['w'] or match['rw'], 16)
         space = int(match['s'] or match['rs'], 16)
@@ -38,13 +40,18 @@ def unscoped_text(text: str) -> str:
 
 def compact_controlled_text(text: str, *, default_width: int, default_space: int | None = None,
                             spans: list[list[int]] | None = None,
-                            keyword_links: bool = False) -> str:
+                            keyword_links: bool = False, notation: str = 'native') -> str:
     """Preserve existing controls and wrap plain runs or exact confirmed spans.
+
+    ``notation='z'`` writes the story author scope ``<z>RUN</z>`` instead of
+    native width/space tags; its metrics come from srwz.compact_scopes.
 
     Existing compact scopes are idempotent. Restoration follows the state at
     each insertion, including a preceding native dimension tag. tm templates,
     icons, literal escape sequences and native control tokens are never edited.
     """
+    if notation not in ('native', 'z'):
+        raise ValueError(f'unknown compact notation {notation!r}')
     space = default_width if default_space is None else default_space
     if not 14 <= default_width <= 63 or not 12 <= space <= 63:
         raise ValueError('unsupported renderer baseline')
@@ -77,7 +84,8 @@ def compact_controlled_text(text: str, *, default_width: int, default_space: int
             run = chunk[a:b]
             restore = (f'<space:{space:02X}><width:{width:02X}>' if run.endswith(('%', '％'))
                        else f'<width:{width:02X}><space:{space:02X}>')
-            chunk = chunk[:a] + '<width:0E><space:0C>' + run + restore + chunk[b:]
+            scoped = f'<z>{run}</z>' if notation == 'z' else '<width:0E><space:0C>' + run + restore
+            chunk = chunk[:a] + scoped + chunk[b:]
         return chunk
 
     for token in tokens:
