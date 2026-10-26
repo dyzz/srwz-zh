@@ -50,7 +50,9 @@ def apply(preview_path: Path,receipt_path: Path,snapshot_root: Path):
             target['translation']=after;counts[row['surface']]+=1
             changes.append(dict(path=name,id=identity,surface=row['surface'],
                 before_sha256=digest(before.encode()),after_sha256=digest(after.encode())))
-    documents['corpus/zh/menu/stage-overviews.json']['policy']['maximum_line_width']=30
+    flow_widths={row['maximum_width_cells'] for row in selected.values() if row['surface']=='main_flow'}
+    if len(flow_widths)!=1:raise ValueError('Main-flow preview must use one uniform author width')
+    documents['corpus/zh/menu/stage-overviews.json']['policy']['maximum_line_width']=flow_widths.pop()
     # Prepare and verify the entire plan before the first corpus mutation.
     outputs={name:(json.dumps(document,ensure_ascii=False,indent=2)+'\n').encode() for name,document in documents.items()}
     refs={}

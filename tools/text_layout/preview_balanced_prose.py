@@ -34,7 +34,7 @@ BREAKABLE_FULL_NAMES = (
 
 # Local candidate budgets from the 2026-09-28 same-ISO LRPS2 boundary probes.
 # Production configuration is changed only in the later batch writeback.
-LOCAL_WIDTHS = {'library_glossary': 25, 'stage_scroll_overview': 30}
+LOCAL_WIDTHS = {'library_glossary': 25}
 
 preview_flow=flow_synopsis
 
@@ -158,7 +158,7 @@ def build(baseline_revision: str='3af1525',checkpoint: Path | None=None) -> dict
                 summary[surface+'/balanced_plain/failed']+=1
     return dict(schema_version=1,batch_id='balanced-prose-preview-20260928',baseline_revision=baseline_revision,applied=False,
         policy='Balance within authored paragraphs after punctuation and word/name protection. Keep paragraph indentation/blank rows, pixel limits and source row budgets. Horizontal tickers are excluded.',
-        inputs=inputs,local_width_overrides=LOCAL_WIDTHS,sp_narration_width_cells=23,
+        inputs=inputs,local_width_overrides=LOCAL_WIDTHS,sp_narration_width_cells=profiles['sp_narration_scroll'].maximum_width,
         baseline_profile_sha256=hashlib.sha256(raw).hexdigest(),summary=dict(sorted(summary.items())),records=records,
         limitations=['Character Dove probe remains a checked RAM text sample in another portrait panel.',
             'Boundary samples validate widths, not every resulting page. Scroll timing, encoded capacity, native controls and full batch runtime remain pending. No compact tags are added to narration/summary streams.',

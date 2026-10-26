@@ -11,6 +11,11 @@ from srwz.text import CONTROL_NOTATION
 
 
 class SpFlowLayoutTests(unittest.TestCase):
+    def test_height_scope_does_not_split_the_numbered_squad_name(self):
+        result=flow_synopsis('　'+'甲'*18+'<z>013</z>特别小队也赶来支援。')
+        visible=[CONTROL_NOTATION.sub('',line) for line in result.splitlines()]
+        self.assertTrue(any('013特别小队' in line for line in visible))
+
     def test_controlled_synopsis_uses_body_pixels_and_complete_names(self):
         text='　'+'甲'*24+'013特别小队也赶来支援，奥尔因BLOCK WORD受到刺激。'
         tagged=compact_visible_runs(text,default_advance_px=16)
@@ -22,7 +27,7 @@ class SpFlowLayoutTests(unittest.TestCase):
         self.assertTrue(all(text_extent(line,default_advance_px=16).occupied_px<=FLOW_WIDTH*16 for line in result.splitlines()))
 
     def test_readback_checks_indentation_and_glyph_overhang(self):
-        validate_flow_layout('　'+'甲'*24+compact_visible_runs('100',default_advance_px=16))
+        validate_flow_layout('　'+'甲'*(FLOW_WIDTH-6)+compact_visible_runs('100',default_advance_px=16))
         with self.assertRaisesRegex(ValueError,'visible panel'):
             validate_flow_layout('　'+'甲'*(FLOW_WIDTH-1)+'乙')
         with self.assertRaisesRegex(ValueError,'visible panel'):
@@ -37,7 +42,7 @@ class SpFlowLayoutTests(unittest.TestCase):
         text='　罗杰与万丈讲起在贝尔弗莱斯特遇见兰顿的祖父阿克塞尔时的往事。'
         lines=flow_synopsis(text).splitlines()
         self.assertEqual(''.join(lines),text)
-        self.assertGreaterEqual(len(lines[0]),27)
+        self.assertGreaterEqual(len(lines[0]),FLOW_WIDTH-3)
         self.assertTrue(any('往事' in line for line in lines))
         self.assertTrue(any('阿克塞尔' in line for line in lines))
         self.assertTrue(any('贝尔弗莱斯特' in line for line in lines))
@@ -68,7 +73,7 @@ class SpFlowLayoutTests(unittest.TestCase):
         rendered=flow_synopsis(raw)
         self.assertEqual(flow_synopsis(rendered),rendered)
         widths=[text_extent(row,default_advance_px=16).occupied_px for row in rendered.splitlines()]
-        self.assertEqual(widths,[480,208])
+        self.assertEqual(widths,[FLOW_WIDTH*16,(43-FLOW_WIDTH)*16])
         self.assertEqual(len(widths),2)
 
     def test_readback_rejects_a_split_person_name(self):

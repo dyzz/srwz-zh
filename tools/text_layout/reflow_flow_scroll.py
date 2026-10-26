@@ -87,6 +87,7 @@ def plan():
                              changed=after != before, widths_px=fitted.line_widths_px,
                              maximum_width_px=profile.maximum_width * advance, maximum_lines=limit))
             entry['translation'] = after
+    documents[paths[0]]['policy']['maximum_line_width'] = profiles['stage_scroll_overview'].maximum_width
     return documents, dict(inputs=inputs, scanned=len(rows), changed=sum(r['changed'] for r in rows),
                            counts=dict(Counter(r['surface'] for r in rows)), records=rows)
 

@@ -110,9 +110,12 @@ def replace_stage_overviews_in_place(
     corpus_entries: list[dict],
     *,
     encoding_overrides: Mapping[str, int],
+    maximum_line_width: int = STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH,
 ) -> tuple[bytes, dict]:
     """Rewrite reviewed overview strings inside their original allocations."""
 
+    if not 0 < maximum_line_width <= STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH:
+        raise StageOverviewError("stage-overview author width exceeds native panel")
     parsed = parse_stage_overviews(decoded, table)
     if not corpus_entries:
         raise StageOverviewError("stage-overview corpus is empty")
@@ -173,7 +176,7 @@ def replace_stage_overviews_in_place(
             or translation.endswith("\n") != source.source_text.endswith("\n")
             or len(translated_lines) > len(source_lines)
             or max(translated_widths, default=0)
-            > STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH
+            > maximum_line_width
             or not translated_lines
             or not translated_lines[0].startswith("　")
         ):
@@ -269,7 +272,7 @@ def replace_stage_overviews_in_place(
         "pointer_table_preserved_byte_exact": True,
         "fixed_allocations_preserved": True,
         "untranslated_allocations_preserved": True,
-        "line_width_limit": STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH,
+        "line_width_limit": maximum_line_width,
         "maximum_output_line_width": maximum_output_line_width,
         "line_counts_within_source_height": line_counts_within_source_height,
         "paragraph_indents_present": paragraph_indents_present,

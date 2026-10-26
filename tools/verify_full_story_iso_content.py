@@ -18,6 +18,7 @@ from srwz.scoped_translations import (
 from srwz.archive import sha256_file
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
+    load_layout_profiles,
     DEFAULT_LINE_WIDTH,
     DEFAULT_MAX_LINES,
     dialogue_line_widths,
@@ -5811,10 +5812,14 @@ def main() -> int:
     overview_corpus = json.loads(overview_corpus_bytes.decode("utf-8"))
     overview_policy = overview_corpus.get("policy", {})
     overview_line_width_limit = overview_policy.get("maximum_line_width")
+    overview_author_width = load_layout_profiles(
+        PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
+    )["stage_scroll_overview"].maximum_width
     if (
         overview_policy.get("reflow_profile_id")
         != "stage_scroll_overview"
-        or overview_line_width_limit != 30
+        or overview_line_width_limit != overview_author_width
+        or not 0 < overview_author_width <= 30
         or overview_policy.get("source_line_count_is_upper_bound") is not True
         or overview_policy.get("preserve_paragraph_indents") is not True
     ):
@@ -8077,8 +8082,9 @@ def main() -> int:
             ]
             and overview_report["fixed_pointer_entries_exact"]
             and overview_report["layout_policy_exact"]
-            and overview_report["line_width_limit"] == 30
-            and overview_report["maximum_output_line_width"] <= 30,
+            and overview_report["line_width_limit"] == overview_author_width
+            and overview_report["maximum_output_line_width"]
+            <= overview_report["line_width_limit"] <= 30,
             "world_history_exact": (
                 world_history_report["translated_readback_exact"]
                 and world_history_report[

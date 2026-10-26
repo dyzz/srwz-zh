@@ -26,6 +26,7 @@ try:
     from srwz.codec import decode_production as decode, encode, reencode_changed_suffix
     from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from srwz.compact_scopes import expand as expand_compact_scopes
+    from srwz.chinese_layout import load_layout_profiles
     from srwz.diagnostics import require_work_output
     from srwz.display_names import (
         DisplayNameError,
@@ -3469,6 +3470,9 @@ def _apply_stage_overviews(
     entries = corpus.get("entries")
     policy = corpus.get("policy")
     expected = reference.get("expected")
+    overview_width = load_layout_profiles(
+        PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
+    )["stage_scroll_overview"].maximum_width
     if (
         corpus.get("editorial_status") != "reviewed"
         or not isinstance(entries, list)
@@ -3477,7 +3481,7 @@ def _apply_stage_overviews(
         or policy.get("preserve_pointer_table") is not True
         or policy.get("preserve_fixed_allocations") is not True
         or policy.get("reflow_profile_id") != "stage_scroll_overview"
-        or policy.get("maximum_line_width") != 30
+        or policy.get("maximum_line_width") != overview_width
         or policy.get("source_line_count_is_upper_bound") is not True
         or policy.get("preserve_paragraph_indents") is not True
         or not isinstance(expected, dict)
@@ -3531,6 +3535,7 @@ def _apply_stage_overviews(
             table,
             entries,
             encoding_overrides=encoding_overrides,
+            maximum_line_width=overview_width,
         )
     except ValueError as error:
         raise FullStoryComponentError(
@@ -11904,8 +11909,11 @@ def _build_components(
                 stage_overview_report["translated_readback_exact"]
                 and stage_overview_report["fixed_allocations_preserved"]
                 and stage_overview_report["untranslated_allocations_preserved"]
-                and stage_overview_report["line_width_limit"] == 30
-                and stage_overview_report["maximum_output_line_width"] <= 30
+                and stage_overview_report["line_width_limit"] == load_layout_profiles(
+                    PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
+                )["stage_scroll_overview"].maximum_width
+                and stage_overview_report["maximum_output_line_width"]
+                <= stage_overview_report["line_width_limit"] <= 30
                 and stage_overview_report["line_counts_within_source_height"]
                 and stage_overview_report["paragraph_indents_present"]
                 and stage_overview_report["paragraph_indent_count"] > 0

@@ -34,8 +34,9 @@ class BalancedProseTests(unittest.TestCase):
 
     def test_flow_and_scroll_profiles_fill_but_library_keeps_balancing(self):
         profiles=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')
-        for key in ('stage_scroll_overview','world_history_scroll','sp_narration_scroll'):
+        for key,width in (('stage_scroll_overview',25),('world_history_scroll',21),('sp_narration_scroll',21)):
             self.assertEqual(profiles[key].line_packing,'max_width')
+            self.assertEqual(profiles[key].maximum_width,width)
         self.assertEqual(profiles['library_character'].line_packing,'balanced')
 
     def test_flow_protects_the_complete_short_person_name(self):

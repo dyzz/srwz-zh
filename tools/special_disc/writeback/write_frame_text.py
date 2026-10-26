@@ -36,7 +36,8 @@ Z_TITLE_CORPUS=ROOT/'corpus/zh/menu/stage-names.json'
 KEY_HELP=ROOT/'config/editorial/special-disc/chart-key-help.json'
 HSFC_PROTECTED_TERMS=('麦康奈尔','布兰少校','西尔维娅','金卡拉姆','不合群者')
 # The 640x448 SP detail panel displays 11 rows. A 31st full-width
-# character crosses its right border; the checked budget is 30 cells.
+# character crosses its right border; authoring now uses a uniform narrower
+# 25-cell region, independently of the native 30-cell boundary.
 FLOW_LAYOUT_PATH=ROOT/'config/products/special-disc/flow-layout.json'
 FLOW_LAYOUT=json.loads(FLOW_LAYOUT_PATH.read_text())
 FLOW_WIDTH, FLOW_MAX_LINES=FLOW_LAYOUT['width'], FLOW_LAYOUT['maximum_lines']
@@ -94,6 +95,7 @@ def validate_flow_layout(text):
 def flow_synopsis(text):
     profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['stage_scroll_overview']
     require(profile.maximum_width==FLOW_WIDTH,'flow profile/config width drift')
+    require(0<FLOW_WIDTH<=FLOW_LAYOUT['physical_width'],'flow author width exceeds physical panel')
     text=expand_compact_scopes(normalize_original_fullwidth_ascii(text),FLOW_SYNOPSIS)
     result=reflow_chinese_prose(text,profile=profile,
         protected_terms=FLOW_PROTECTED_TERMS,maximum_lines=FLOW_MAX_LINES).text

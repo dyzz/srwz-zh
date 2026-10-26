@@ -405,7 +405,7 @@ def _tokenize_dialogue_cells(
     if re.search(r'<(?:width|space):', text):
         # Visible names can include a compact scope, e.g. tagged 013 followed
         # by 特别小队. Preserve the complete protected name across those tags.
-        dimensions = r'(?:<(?:width|space):[0-9A-Fa-f]{2}>)*'
+        dimensions = r'(?:<(?:width|space|height):[0-9A-Fa-f]{2}>)*'
         scope_spans = tuple((m.start(),m.end()) for m in _COMPACT_VISIBLE_SCOPE.finditer(text))
         visible_text = CONTROL_NOTATION.sub('', text)
         controlled_terms = []
