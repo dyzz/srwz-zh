@@ -25,3 +25,7 @@ LRPS2 从正常菜单进入各组介绍页，使用复制记忆卡；实际画�
 逐页前后断行与预算、ISO 身份、LRPS2 正常导航回执及四组截图在 `docs/issue-assets/vt1-fixed-grid-20261026/`。实现已直接接入 `write_frame_text.py`，不依赖本地预览脚本。
 
 提交前再次运行工作区完整套件：816 项，跳过 7，结果 OK；另运行已留存的 5 项分行算法测试通过。此前事件画廊失败在工作区后续改动后不再出现，其配置、实现和测试改动不属于本轮提交，仍留在工作区。此结果不表示已将那些改动一并提交。摘要见 `docs/issue-assets/prose-step-audit-20261026/commit-verification.json`。
+
+## 提交后构建
+
+推送后按验收冻结输入重新构建三版，产物位于 `build/iso/prose-reviewed-20261026/`，摘要见 `docs/issue-assets/prose-step-audit-20261026/delivery-build.json`。Original／Best 与 v8 验收镜像整盘 SHA256 相同；SP 包含固定格修复，与 v2 验收镜像 SHA256 相同。交付副本重新读取整盘验证哈希。三个 production current 均未替换。

@@ -64,7 +64,7 @@ def compile_compaction(text,scene):
  return ''.join(parts)
 
 def main():
- ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--report',type=Path,required=True);ap.add_argument('--out',type=Path,required=True);ap.add_argument('--editions',nargs='+',default=['original','best','sp']);args=ap.parse_args();args.out.mkdir(parents=True,exist_ok=True)
+ ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--report',type=Path,required=True);ap.add_argument('--out',type=Path,required=True);ap.add_argument('--editions',nargs='+',default=['original','best','sp']);ap.add_argument('--base-manifests',type=Path,help='Directory of edition.json manifests binding explicit base ISO paths and SHA256; default: current manifests');args=ap.parse_args();args.out.mkdir(parents=True,exist_ok=True)
  report=json.loads(args.report.read_text());assert not report['failures'];os.environ['RUSTC_WRAPPER']=''
  snapshot=args.out/'layout-report.json'
  if snapshot.exists():assert snapshot.read_bytes()==args.report.read_bytes(),'Reviewed layout report changed'
@@ -78,7 +78,7 @@ def main():
    prepared[key]=compiled
  (args.out/'compiled-text.json').write_text(json.dumps(prepared,ensure_ascii=False,indent=2)+'\n')
  for ed in args.editions:
-  cfg=json.loads((ROOT/f'config/editions/{ed}/edition.json').read_text());manifest=json.loads((ROOT/f'manifests/editions/{ed}/current.json').read_text());base=ROOT/manifest['output']['path'];assert digest(base)==manifest['output']['sha256']
+  cfg=json.loads((ROOT/f'config/editions/{ed}/edition.json').read_text());manifest_path=args.base_manifests/f'{ed}.json' if args.base_manifests else ROOT/f'manifests/editions/{ed}/current.json';manifest=json.loads(manifest_path.read_text());base=ROOT/manifest['output']['path'];assert digest(base)==manifest['output']['sha256']
   source=ROOT/cfg['source_iso']['path'];bm=member_map(scan_iso9660(base));sm=member_map(scan_iso9660(source));patches=[];checks=[]
   def member(path,mm,name):
    entry=mm[name]
