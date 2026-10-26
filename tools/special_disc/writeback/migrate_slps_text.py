@@ -38,6 +38,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
+from srwz.compact_scopes import expand as expand_compact_scopes  # noqa: E402
 from srwz.text import (  # noqa: E402
     SrwzTextError,
     augment_text_table,
@@ -208,7 +209,8 @@ def suspend_messages(exe: bytearray, table, story_overrides) -> dict:
                    + b"\n"
                    + encode_stage_message(table, story_overrides, entry_id=entry["id"],
                                           source_text=message.text,
-                                          replacement=normalize_original_fullwidth_ascii(entry["translation"]),
+                                          replacement=expand_compact_scopes(
+                                              normalize_original_fullwidth_ascii(entry["translation"])),
                                           terminate=True))
         if len(payload) > region_end - position:
             overflow.append(dict(offset=hex(position), needs=len(payload), capacity=region_end - position,
