@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1915,
+  "allocation_assignment_count": 1916,
   "reraster_existing_assignment_count": 1620,
-  "primary_assignment_count": 3535,
+  "primary_assignment_count": 3536,
   "surface_alias_assignment_count": 54,
-  "primary_mapping_sha256": "3bc1c00ead03b1ce24d171a6c8f10305a395ed7890f4ef0fc120db7e921c95d8",
+  "primary_mapping_sha256": "bbb88500db6999c0c0eb3141e3d87485946546fbbcabbb3a666db671b9aa70e1",
   "surface_alias_mapping_sha256": "9144c1571b3ee85e66bf339f9d07ae46bca14ede427f91fc52c62d2c432b9133",
   "source_compatibility_assignment_count": 36,
   "source_compatibility_mapping_sha256": "2a01296e8138d6343232359cb3818de870d704222de0d26a0ba53a38319beb62",
-  "remaining_allocation_candidate_count": 10,
-  "remaining_allocation_candidates_sha256": "ad78bacda0a8b13680cfa4e83369f028acca187abad7c69597226f561e5c5460",
+  "remaining_allocation_candidate_count": 9,
+  "remaining_allocation_candidates_sha256": "c79a43564aa55e7b52c0b78e7442b4ba4e8efcfebea93acc43202d91bc1d019d",
   "primary_assignments": [
     {
       "character": "、",
@@ -23864,6 +23864,14 @@
       "mapping": "reclaimed_unique_default_width_candidate",
       "source_character": "煉",
       "allocation_width_class": "default_width"
+    },
+    {
+      "character": "酶",
+      "code": "97FA",
+      "glyph_index": 4410,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "簾",
+      "allocation_width_class": "default_width"
     }
   ],
   "surface_alias_assignments": [
@@ -24591,12 +24599,6 @@
     }
   ],
   "remaining_allocation_candidates": [
-    {
-      "code": "97FA",
-      "glyph_index": 4410,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "簾"
-    },
     {
       "code": "97FB",
       "glyph_index": 4411,
@@ -41593,6 +41595,22 @@
           "glyph_index": 4409,
           "mapping": "reclaimed_unique_default_width_candidate",
           "source_character": "煉",
+          "allocation_width_class": "default_width"
+        }
+      ]
+    },
+    {
+      "selection_sha256": "f4a8c36226098412fa65122be2a9d4da76147fbc50ebc2f7dec20d7ca788767f",
+      "assignment_count": 1,
+      "allocation_assignment_count": 1,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "酶",
+          "code": "97FA",
+          "glyph_index": 4410,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "簾",
           "allocation_width_class": "default_width"
         }
       ]
