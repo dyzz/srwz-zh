@@ -24,6 +24,7 @@ from srwz.text import CONTROL_NOTATION,decode_text,encode_text,normalize_origina
 from srwz.compact_scopes import FLOW_SYNOPSIS,expand as expand_compact_scopes
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_prose import reflow_chinese_prose
+from srwz.fixed_grid_prose import fill_fixed_grid_paragraphs
 from srwz.summary import parse_summary, validate_scroll_placeholders
 from srwz.writers import apply_summary_replacements
 from stage_bindings import digest
@@ -172,7 +173,8 @@ class Writer:
                 authored=row['translation'].split('\n')
                 question=authored[-1].strip() if heading and authored[-1].startswith('　'*4) else None
                 if question:authored=authored[:-1]
-                body=paragraphs('\n'.join(authored),28,max_lines=per_entry-heading-bool(question))
+                body=fill_fixed_grid_paragraphs('\n'.join(authored),columns=28)
+                require(len(body)<=per_entry-heading-bool(question),f'{target}: fixed-grid page overflow')
                 body+=['']*(per_entry-heading-bool(question)-len(body))
                 if question:body.append('　'*max(0,(28-len(question))//2)+question)
                 if heading:
