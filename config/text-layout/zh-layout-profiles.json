@@ -161,7 +161,7 @@
       "maximum_width": 30,
       "maximum_lines": null,
       "line_count_mode": "minimum",
-      "line_packing": "balanced",
+      "line_packing": "max_width",
       "minimum_line_width": 8,
       "allow_oversized_token_split": true,
       "unbroken_terms": [
@@ -211,7 +211,8 @@
       },
       "unbroken_terms_files": [
         "zh-story-unbroken-words.json",
-        "zh-prose-extra-words.json"
+        "zh-prose-extra-words.json",
+        "zh-flow-scroll-words.json"
       ],
       "default_advance_px": 16
     },
@@ -227,9 +228,10 @@
       },
       "unbroken_terms_files": [
         "zh-story-unbroken-words.json",
-        "zh-prose-extra-words.json"
+        "zh-prose-extra-words.json",
+        "zh-flow-scroll-words.json"
       ],
-      "line_packing": "balanced"
+      "line_packing": "max_width"
     },
     "scenario_chart_overview": {
       "maximum_width": 21,
@@ -257,9 +259,10 @@
       },
       "unbroken_terms_files": [
         "zh-story-unbroken-words.json",
-        "zh-prose-extra-words.json"
+        "zh-prose-extra-words.json",
+        "zh-flow-scroll-words.json"
       ],
-      "line_packing": "balanced",
+      "line_packing": "max_width",
       "default_advance_px": 25
     }
   }

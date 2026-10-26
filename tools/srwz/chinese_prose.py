@@ -24,7 +24,7 @@ def reflow_chinese_prose(
     text: str, *, profile: ChineseLayoutProfile,
     protected_terms: tuple[str, ...] = (), maximum_lines: int | None = None,
 ) -> ProseLayoutResult:
-    """Balance each authored paragraph; retain paragraph starts and blank rows.
+    """Lay out each authored paragraph; retain paragraph starts and blank rows.
 
     An indented physical row starts a paragraph. Unindented rows continue the
     preceding paragraph. This is an authoring operation, not an implicit change
@@ -53,7 +53,7 @@ def reflow_chinese_prose(
             continue
         indent,body=group
         count+=1
-        candidate=replace(profile,line_count_mode='minimum',line_packing='balanced',
+        candidate=replace(profile,line_count_mode='minimum',
             maximum_lines=None,first_line_maximum_width=profile.maximum_width-len(indent))
         fitted=reflow_chinese_paragraph(body,profile=candidate,protected_terms=protected_terms)
         rows=fitted.text.split('\n')

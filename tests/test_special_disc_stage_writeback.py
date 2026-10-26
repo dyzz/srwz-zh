@@ -155,7 +155,9 @@ class SpecialDiscStageTests(unittest.TestCase):
         import write_frame_text as frame
         rows = json.loads((frame.ROOT / 'corpus/zh/special-disc/frame-text.json').read_text())['entries']
         text = next(row['translation'] for row in rows if 'sd/mtzspros/09/0' in row['locations'])
-        lines = frame.paragraphs(text, 21, max_lines=13, protected_terms=('下达',))
+        profile = frame.load_layout_profiles(frame.stage.PROFILES)['sp_narration_scroll']
+        lines = frame.reflow_chinese_prose(text, profile=profile, maximum_lines=13,
+                                         protected_terms=('下达',)).text.split('\n')
         self.assertEqual(''.join(lines).replace('　',''), text.replace('\n','').replace('　',''))
         self.assertIn('　', lines)
         self.assertNotIn('', lines)

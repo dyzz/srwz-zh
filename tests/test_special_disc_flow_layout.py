@@ -33,11 +33,11 @@ class SpFlowLayoutTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'013特别小队'):
             validate_flow_layout(tagged+'特别\n小队赶来。')
 
-    def test_orphan_tail_is_reflowed_without_rewriting(self):
+    def test_short_tail_does_not_shorten_the_preceding_full_row(self):
         text='　罗杰与万丈讲起在贝尔弗莱斯特遇见兰顿的祖父阿克塞尔时的往事。'
         lines=flow_synopsis(text).splitlines()
         self.assertEqual(''.join(lines),text)
-        self.assertGreaterEqual(len(lines[-1]),8)
+        self.assertGreaterEqual(len(lines[0]),27)
         self.assertTrue(any('往事' in line for line in lines))
         self.assertTrue(any('阿克塞尔' in line for line in lines))
         self.assertTrue(any('贝尔弗莱斯特' in line for line in lines))
@@ -68,7 +68,7 @@ class SpFlowLayoutTests(unittest.TestCase):
         rendered=flow_synopsis(raw)
         self.assertEqual(flow_synopsis(rendered),rendered)
         widths=[text_extent(row,default_advance_px=16).occupied_px for row in rendered.splitlines()]
-        self.assertLessEqual(max(widths)-min(widths),16)
+        self.assertEqual(widths,[480,208])
         self.assertEqual(len(widths),2)
 
     def test_readback_rejects_a_split_person_name(self):

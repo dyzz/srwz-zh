@@ -16,6 +16,28 @@ from write_frame_text import paragraphs,flow_synopsis
 
 
 class BalancedProseTests(unittest.TestCase):
+    def test_maximum_width_ignores_old_wraps_and_short_tail(self):
+        profile=ChineseLayoutProfile('prose',12,None,None,'minimum',
+                                     line_packing='max_width',minimum_line_width=8)
+        result=reflow_chinese_prose('　'+'甲'*7+'\n'+'乙'*6,profile=profile)
+        self.assertEqual(result.text,'　'+'甲'*7+'乙'*4+'\n'+'乙'*2)
+        self.assertEqual(result.line_widths_px,(288,48))
+        self.assertEqual(reflow_chinese_prose(result.text,profile=profile).text,result.text)
+
+    def test_maximum_width_still_obeys_punctuation_and_complete_words(self):
+        profile=ChineseLayoutProfile('prose',10,None,None,'minimum',
+                                     line_packing='max_width',unbroken_terms=('超级机器人',))
+        self.assertEqual(reflow_chinese_prose('甲'*6+'超级机器人乙乙',profile=profile).text,
+                         '甲'*6+'\n超级机器人乙乙')
+        result=reflow_chinese_prose('甲'*10+'。乙乙',profile=profile).text
+        self.assertFalse(any(row.startswith('。') for row in result.splitlines()))
+
+    def test_flow_and_scroll_profiles_fill_but_library_keeps_balancing(self):
+        profiles=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')
+        for key in ('stage_scroll_overview','world_history_scroll','sp_narration_scroll'):
+            self.assertEqual(profiles[key].line_packing,'max_width')
+        self.assertEqual(profiles['library_character'].line_packing,'balanced')
+
     def test_flow_protects_the_complete_short_person_name(self):
         profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['stage_scroll_overview']
         text='　此前一直推动与月之民谈判的领主古恩，为打破僵局而采取了下一步行动。'

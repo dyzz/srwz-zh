@@ -120,7 +120,7 @@ class ChineseLayoutProfile:
             raise ChineseLayoutError(
                 f"unsupported line-count mode: {self.line_count_mode}"
             )
-        if self.line_packing not in {"balanced", "fill"}:
+        if self.line_packing not in {"balanced", "fill", "max_width"}:
             raise ChineseLayoutError(
                 f"unsupported line-packing mode: {self.line_packing}"
             )
@@ -695,7 +695,7 @@ def _partition_tokens(
 ) -> tuple[tuple[int, int], ...]:
     if not tokens:
         return ((0, 0),)
-    if line_packing not in {"balanced", "fill"}:
+    if line_packing not in {"balanced", "fill", "max_width"}:
         raise ChineseLayoutError(f"unsupported line-packing mode: {line_packing}")
 
     character_offsets = [0]
@@ -815,7 +815,15 @@ def _partition_tokens(
                     + tail[0]
                 )
                 candidate = (cost, ((start, end), *tail[1]))
-                if best is None or candidate < best:
+                # For flow/scroll prose, fill earlier rows before considering
+                # aesthetic penalties. A short paragraph tail must not pull
+                # text out of a full row, and old manual wraps cannot win.
+                def rank(value):
+                    if line_packing == "max_width":
+                        return (tuple(-width(a, b) for a, b in value[1]), value[0])
+                    return value
+
+                if best is None or rank(candidate) < rank(best):
                     best = candidate
             return best
 
