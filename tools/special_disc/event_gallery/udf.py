@@ -178,10 +178,16 @@ def relocate(imagePath, changes, *, allowed_members=None):
     normalized = {name.upper().strip("/"): tuple(map(int, value)) for name, value in changes.items()}
     allowed = ALLOWED if allowed_members is None else frozenset(allowed_members)
     if allowed not in (ALLOWED, {"SLPS_258.87", "EFF/VEFF2DX.BIN"},
-                       {"SLPS_732.70", "EFF/VEFF2DX.BIN"}):
+                       {"SLPS_732.70", "EFF/VEFF2DX.BIN"},
+                       {"SLPS_258.87", "DATA/MTV_PROS.BIN"},
+                       {"SLPS_732.70", "DATA/MTV_PROS.BIN"},
+                       {"SLPS_259.20", "DATA/MTZSPROS.BIN"},
+                       {"SLPS_258.87", "DATA/MTV_PROS.BIN", "DATA/STAGE.BIN", "HEDBDY/HB.BIN"},
+                       {"SLPS_732.70", "DATA/MTV_PROS.BIN", "DATA/STAGE.BIN", "HEDBDY/HB.BIN"},
+                       {"SLPS_259.20", "DATA/MTZSPROS.BIN", "DATA/STAGE.BIN", "HEDBDY/HB.BIN"}):
         raise ValueError("unknown subtitle relocation profile")
     if not normalized or not set(normalized) <= allowed:
-        raise ValueError("only the gallery ELF, AID and subtitled VEFF members may relocate")
+        raise ValueError("members are outside the selected relocation profile")
     if path.resolve().parent.name == "rom" or path.name in {"srwz-zh-current.iso", "srwz-sp-zh-current.iso"}:
         raise ValueError("refuses source/production ISO; supply an isolated candidate")
     with path.open("r+b") as f:
