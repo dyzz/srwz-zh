@@ -393,6 +393,7 @@ def _tokenize_dialogue_cells(
     *,
     protected_terms: Iterable[str] = (),
     stage_keyword_links: bool = False,
+    protect_words: bool = True,
 ) -> tuple[LayoutToken, ...]:
     """Split text into renderer-width units without splitting names/tokens."""
     try:
@@ -400,7 +401,7 @@ def _tokenize_dialogue_cells(
     except ValueError as error:
         raise ChineseLayoutError(str(error)) from error
     terms = _normalize_protected_terms(
-        (*tuple(protected_terms), *COMMON_PROTECTED_WORDS)
+        (*tuple(protected_terms), *COMMON_PROTECTED_WORDS) if protect_words else ()
     )
     if re.search(r'<(?:width|space):', text):
         # Visible names can include a compact scope, e.g. tagged 013 followed
@@ -475,7 +476,7 @@ def _tokenize_dialogue_cells(
         # Paired quotation and title marks obey opening/closing punctuation
         # rules but do not make the entire enclosed phrase indivisible.  Long
         # quoted titles must still wrap inside narrow dialogue/LIBRARY boxes.
-        for pattern in (_NUMBER_WITH_UNIT, _LATIN_TERM):
+        for pattern in ((_NUMBER_WITH_UNIT, _LATIN_TERM) if protect_words else ()):
             match = pattern.match(text, offset)
             if match is not None:
                 candidates.append(match.group(0))
@@ -496,10 +497,11 @@ def tokenize_dialogue(
     text: str, *, protected_terms: Iterable[str] = (),
     stage_keyword_links: bool = False, default_advance_px: int = 24,
     initial_state: RendererState | None = None,
+    protect_words: bool = True,
 ) -> tuple[LayoutToken, ...]:
     """Tokenize with exact rational advances when renderer dimensions occur."""
     tokens = _tokenize_dialogue_cells(text, protected_terms=protected_terms,
-                                    stage_keyword_links=stage_keyword_links)
+                                    stage_keyword_links=stage_keyword_links, protect_words=protect_words)
     if initial_state is None and not re.search(r'<(?:width|space):', text):
         return tokens
     state = initial_state or RendererState(default_advance_px, default_advance_px)
