@@ -1,0 +1,48 @@
+{
+  "cases": [
+    {
+      "edition": "original",
+      "target": "overview:014",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "144074a4ecc937c64bc57385dfa51f2a0dc8239cf7ca3c4e790ac7aae0f8e677",
+        "size": 3799459840
+      },
+      "batch": "ceac4b69681b7c409991286bd227ceeea4b32e87abfa2db1d23b9dd9d07db387",
+      "pointer": "0x75c500",
+      "payload_size": 399,
+      "payload_sha256": "3628ac0ea8201fa4519aa5996a9ef992bb44476e888bffdd8a1cb0a3cfc499b5",
+      "live_RAM_matches_current_ISO": true
+    },
+    {
+      "edition": "best",
+      "target": "overview:014",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "5abe129c35d87058df56c8125d291e831f75bf6789bcf3abc20b382ebaf0b9c1",
+        "size": 3796187136
+      },
+      "batch": "ceac4b69681b7c409991286bd227ceeea4b32e87abfa2db1d23b9dd9d07db387",
+      "pointer": "0x75cd00",
+      "payload_size": 399,
+      "payload_sha256": "3628ac0ea8201fa4519aa5996a9ef992bb44476e888bffdd8a1cb0a3cfc499b5",
+      "live_RAM_matches_current_ISO": true
+    },
+    {
+      "edition": "sp",
+      "target": "synopsis/002",
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "031cd154bd2d995e6ed9675172656d60ced9a736d5c0dc1e2cb7df71d2ffdb08",
+        "size": 3918833664
+      },
+      "batch": "ceac4b69681b7c409991286bd227ceeea4b32e87abfa2db1d23b9dd9d07db387",
+      "pointer": "0x8093e0",
+      "payload_size": 394,
+      "payload_sha256": "ebb9ee580d722460e52e5ccd97e96b5efea7831cedf066d0b6d9853f7a7baa3f",
+      "live_RAM_matches_current_ISO": true
+    }
+  ],
+  "source_card_sha256_after_all_runs": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+  "source_card_unchanged": true
+}
