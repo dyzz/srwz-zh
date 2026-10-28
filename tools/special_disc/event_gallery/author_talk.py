@@ -107,6 +107,30 @@ def localize(scene: str, entry_id: str, speaker_zh: str, text: str) -> tuple[str
     return speaker_zh, text
 
 
+def snapshot_drift(scenes: dict) -> list[str]:
+    """Snapshot lines whose speaker or text no longer match ``corpus/zh``.
+
+    The snapshot copies corpus text once; a later corpus edit or relayout does
+    not reach the gallery until this tool runs again, so the build checks it.
+    """
+    speakers, corpora, drift = speaker_translations(), {}, []
+    for scene, data in scenes.items():
+        for section in data["sections"]:
+            for record in section["records"]:
+                source = record.get("source")
+                if source is None:
+                    continue
+                stage = int(source["id"].split("/")[1])
+                if stage not in corpora:
+                    corpora[stage] = stage_corpus(stage)
+                row = corpora[stage].get(source["id"]) or {}
+                speaker_zh = speakers.get(_sha256(source["speaker"]), "") if record["speaker"] else ""
+                expected = localize(scene, source["id"], speaker_zh, row.get("translation") or "")
+                if expected != (record["speaker"], record["text"]):
+                    drift.append(f"{scene} {source['id']}")
+    return drift
+
+
 def stage_chunk(index: int) -> bytes:
     members = member_map(scan_iso9660(ORIGINAL_ISO))
 

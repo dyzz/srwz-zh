@@ -64,7 +64,12 @@ def load_config(path: Path = CONFIG) -> dict:
     if config.get("subtitle_source"):
         config["subtitles"] = json.loads((ROOT / config["subtitle_source"]).read_text(encoding="utf-8"))["captions"]
     if config.get("talk_source"):
+        from special_disc.event_gallery.author_talk import snapshot_drift
         config["talk"] = json.loads((ROOT / config["talk_source"]).read_text(encoding="utf-8"))["scenes"]
+        drift = snapshot_drift(config["talk"])
+        if drift:
+            raise ValueError(f"{config['talk_source']} differs from corpus/zh in {len(drift)} lines "
+                             f"(e.g. {', '.join(drift[:3])}); rerun tools/special_disc/event_gallery/author_talk.py")
     return config
 
 
