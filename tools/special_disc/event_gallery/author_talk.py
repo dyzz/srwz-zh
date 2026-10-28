@@ -59,11 +59,52 @@ SCENES: dict[str, tuple[int, list]] = {
     "effect-268": (47, [0, 1, 2, 3, 4, 5, 6]),
     "effect-269": (47, [13, 14, 15, 16, 17]),
     "effect-282": (69, [17, 18, 19, 21, 22]),
+    "effect-239": (24, [9, 10, 11, 12, 13, 14]),
+    "effect-238": (9, [21, 22, 23, 24, 25, 26, 27]),
+    "effect-246": (25, [8, 10, 11, 12, 13, 14]),
+    "effect-241": (30, [15, 16, 17, 18, 19, 20]),
+    "effect-297": (84, [11, 12, 13, 14, 15, 35, 36, 16]),
+    "effect-298": (57, [17, 18, 19, 20, 21]),
+    "effect-253": [(114, [0, 1]), (115, [0, 1, 2])],
+    "effect-262": [(138, [2, 3, 4]), (135, [5])],  # 135 section 5 adds Haman's line (event movie)
+    "effect-272": (138, [21]),
 }
 
 # "$n" expands to the SP save's protagonist name (Rand on the review card), so a
 # route-specific scene names its protagonist explicitly.
-PROTAGONIST = {"effect-273": "节子", "effect-282": "节子", "effect-264": "节子"}
+# "$F" is the protagonist's full name (e.g. アサキム's "$Fとメール・ビーターとガンレオン").
+PROTAGONIST_FULL = {"兰德": "兰德·特拉维斯"}
+PROTAGONIST = {"effect-273": "节子", "effect-282": "节子", "effect-264": "节子", "effect-239": "兰德", "effect-246": "兰德", "effect-297": "兰德", "effect-298": "节子"}
+
+
+def _sha256(text: str) -> str:
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
+def speaker_translations() -> dict[str, str]:
+    """Japanese speaker-name SHA-256 -> reviewed Chinese speaker name."""
+    return {e["source_text_sha256"]: e["translation"]
+            for e in json.loads((ROOT / "corpus/zh/story-speakers.json").read_text(encoding="utf-8"))["entries"]
+            if e.get("translation")}
+
+
+def stage_corpus(stage: int) -> dict[str, dict]:
+    return {e["id"]: e for e in json.loads(
+        (ROOT / f"corpus/zh/story-dialogue/stage-{stage:03d}.json").read_text(encoding="utf-8"))["entries"]}
+
+
+def localize(scene: str, entry_id: str, speaker_zh: str, text: str) -> tuple[str, str]:
+    """Replace $n / $F with the scene's protagonist, as the snapshot stores them."""
+    if "$n" in speaker_zh + text or "$F" in speaker_zh + text:
+        if scene not in PROTAGONIST:
+            raise ValueError(f"{entry_id}: $n/$F needs a PROTAGONIST entry for {scene}")
+        if "$F" in speaker_zh + text and PROTAGONIST[scene] not in PROTAGONIST_FULL:
+            raise ValueError(f"{entry_id}: $F needs a PROTAGONIST_FULL entry")
+        for token, value in (("$F", PROTAGONIST_FULL.get(PROTAGONIST[scene])), ("$n", PROTAGONIST[scene])):
+            if value:
+                speaker_zh = speaker_zh.replace(token, value)
+                text = text.replace(token, value)
+    return speaker_zh, text
 
 
 def stage_chunk(index: int) -> bytes:
@@ -157,71 +198,69 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=OUT)
     args = parser.parse_args()
     jp = load_text_table(JP_TABLE)
-    speakers = {e["source_text_sha256"]: e["translation"]
-                for e in json.loads((ROOT / "corpus/zh/story-speakers.json").read_text(encoding="utf-8"))["entries"]
-                if e.get("translation")}
+    speakers = speaker_translations()
     mapping = pilot_map()
     voices = VoiceMap()
     scenes = {}
-    for scene, (stage, wanted) in SCENES.items():
-        data = stage_chunk(stage)
-        corpus = {e["id"]: e for e in json.loads(
-            (ROOT / f"corpus/zh/story-dialogue/stage-{stage:03d}.json").read_text(encoding="utf-8"))["entries"]}
-        located = dialogue_sections(data)
+    for scene, spec_parts in SCENES.items():
+        # One stage, or a list of (stage, sections) parts for an event spanning stage
+        # chunks (第50話 Requiem: STAGE114 then STAGE115); part k numbers its
+        # sections from 100*k inside the gallery block.
+        parts = spec_parts if isinstance(spec_parts, list) else [spec_parts]
         sections = []
-        for spec in wanted:
-            section, limit = spec if isinstance(spec, tuple) else (spec, None)
-            offset = located[section]
-            header = list(struct.unpack_from("<8I", data, offset))
-            records, line, position = [], 0, offset + 0x20
-            while True:
-                words = list(struct.unpack_from("<8I", data, position))
-                if words[0] == 0x7E:
-                    break
-                if limit is not None and line == limit:
-                    records.append({"words": [0x16, 0, 0, 0, 0, 0, 0, 0]})
-                    break
-                if words[4] > STAGE_BASE_ADDRESS:
-                    text_at = words[4] - STAGE_BASE_ADDRESS
-                    speaker = decode_text(data, text_at, jp, stop_at_newline=True)
-                    message = decode_text(data, speaker.end, jp) if speaker.terminator == "newline" else None
-                    entry_id = f"story/{stage:03d}/dialogue/01.{section + 1:02d}/{line:04d}"
-                    row = corpus.get(entry_id)
-                    if row is None or not row.get("translation"):
-                        raise ValueError(f"{scene}: no reviewed translation for {entry_id}")
-                    speaker_zh = speakers.get(hashlib.sha256(speaker.text.encode()).hexdigest()) if message else ""
-                    if message and not speaker_zh:
-                        raise ValueError(f"{entry_id}: speaker {speaker.text!r} has no translation")
-                    text = row["translation"]
-                    if "$n" in speaker_zh + text:
-                        if scene not in PROTAGONIST:
-                            raise ValueError(f"{entry_id}: $n needs a PROTAGONIST entry for {scene}")
-                        speaker_zh = speaker_zh.replace("$n", PROTAGONIST[scene])
-                        text = text.replace("$n", PROTAGONIST[scene])
-                    records.append({
-                        # +16 is the text (written at build); a stage address in +20..+28
-                        # (keyword link, e.g. 《恐龙帝国》) means nothing in SP memory.
-                        "words": words[:4] + [0] + [w if w < STAGE_BASE_ADDRESS else 0 for w in words[5:]],
-                        "pilot_original": words[3],
-                        "pilot_sp": resolve_pilot(words[3], mapping),
-                        "speaker": speaker_zh,
-                        "text": text,
-                        "source": {"id": entry_id, "speaker": speaker.text,
-                                   "japanese": (message or speaker).text},
-                    })
-                    line += 1
-                else:
-                    if words[0] >= 0x60 and words[0] not in (0x60, 0x61):
-                        raise ValueError(f"{scene}: unexpected control record {words[0]:#x}")
-                    if words[0] in VOICE_RECORDS:
-                        records.append({"words": [words[0], voices.sp(words[1])] + words[2:],
-                                        "voice_original": words[1]})
+        for part_index, (stage, wanted) in enumerate(parts):
+            data = stage_chunk(stage)
+            corpus = stage_corpus(stage)
+            located = dialogue_sections(data)
+            for spec in wanted:
+                section, limit = spec if isinstance(spec, tuple) else (spec, None)
+                offset = located[section]
+                header = list(struct.unpack_from("<8I", data, offset))
+                records, line, position = [], 0, offset + 0x20
+                while True:
+                    words = list(struct.unpack_from("<8I", data, position))
+                    if words[0] == 0x7E:
+                        break
+                    if limit is not None and line == limit:
+                        records.append({"words": [0x16, 0, 0, 0, 0, 0, 0, 0]})
+                        break
+                    if words[4] > STAGE_BASE_ADDRESS:
+                        text_at = words[4] - STAGE_BASE_ADDRESS
+                        speaker = decode_text(data, text_at, jp, stop_at_newline=True)
+                        message = decode_text(data, speaker.end, jp) if speaker.terminator == "newline" else None
+                        entry_id = f"story/{stage:03d}/dialogue/01.{section + 1:02d}/{line:04d}"
+                        row = corpus.get(entry_id)
+                        if row is None or not row.get("translation"):
+                            raise ValueError(f"{scene}: no reviewed translation for {entry_id}")
+                        speaker_zh = speakers.get(_sha256(speaker.text)) if message else ""
+                        if message and not speaker_zh:
+                            raise ValueError(f"{entry_id}: speaker {speaker.text!r} has no translation")
+                        speaker_zh, text = localize(scene, entry_id, speaker_zh, row["translation"])
+                        records.append({
+                            # +16 is the text (written at build); a stage address in +20..+28
+                            # (keyword link, e.g. 《恐龙帝国》) means nothing in SP memory.
+                            "words": words[:4] + [0] + [w if w < STAGE_BASE_ADDRESS else 0 for w in words[5:]],
+                            "pilot_original": words[3],
+                            "pilot_sp": resolve_pilot(words[3], mapping),
+                            "speaker": speaker_zh,
+                            "text": text,
+                            "source": {"id": entry_id, "speaker": speaker.text,
+                                       "japanese": (message or speaker).text},
+                        })
+                        line += 1
                     else:
-                        records.append({"words": words})
-                position += 32
-            sections.append({"section": section, "offset": hex(offset), "header": header, "records": records,
-                             **({"lines_kept": limit} if limit is not None else {})})
-        scenes[scene] = {"stage": stage, "sections": sections}
+                        if words[0] >= 0x60 and words[0] not in (0x60, 0x61):
+                            raise ValueError(f"{scene}: unexpected control record {words[0]:#x}")
+                        if words[0] in VOICE_RECORDS:
+                            records.append({"words": [words[0], voices.sp(words[1])] + words[2:],
+                                            "voice_original": words[1]})
+                        else:
+                            records.append({"words": words})
+                    position += 32
+                sections.append({"section": section + 100 * part_index, "offset": hex(offset), "header": header, "records": records,
+                                 **({"source_stage": stage, "source_section": section} if part_index else {}),
+                                 **({"lines_kept": limit} if limit is not None else {})})
+        scenes[scene] = {"stage": parts[0][0], "sections": sections}
     output = {
         "schema_version": 1,
         "source": {"disc": "build/iso/sources/original.iso", "stage_base": hex(STAGE_BASE_ADDRESS),

@@ -10,6 +10,7 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
   0x01 a          wait a frames
   0x43 a          load + play BGM a (FUN_00182fc0(a, b, c, 1, 3, 0))
   bgm_pause       native FUN_00183220(2): pause the current BGM (cmd 0x20)
+  form_se         native FUN_00182a50(0x2a, 1): the form-change sound of op 0x1d
   0x46 m,k,v      stage model m: k=9 visibility, k=5 frame, k=6 range
   0x56 / +rec     dynamic effect at tile (two records)
   0x57            wait until no dynamic effect is active
@@ -63,7 +64,8 @@ def spawn_record(unit: dict[str, Any], squad_name: str) -> list[str]:
 
     +0 class, +1 2, +2 appear (0xff animated, 0/1/2 altitude layer), +4/+6
     anchor pilot/unit (-1), +8 -2, +0xc x, +0xd y, +0xe facing, +0xf side,
-    +0x10 pilots, +0x16 units, +0x1c squad-name pointer.
+    +0x10 pilots, +0x16 units, +0x1c squad-name pointer. Optional ``members``
+    (up to two {unit, pilot}) fill the squad's second and third slots.
     """
     x, y = _tile(unit["tile"], "spawn tile")
     head = unit.get("class", 4)
@@ -74,16 +76,20 @@ def spawn_record(unit: dict[str, Any], squad_name: str) -> list[str]:
         raise ValueError("appear must be 0, 1, 2 or 0xff")
     if not 0 <= facing <= 15 or not 0 <= side <= 15 or not 0 <= head <= 0xFE:
         raise ValueError("invalid spawn facing, side or class")
-    pilot = _id(unit["pilot"], "spawn pilot")
-    unit_id = _id(unit["unit"], "spawn unit")
+    members = unit.get("members", [])
+    if len(members) > 2:
+        raise ValueError("a squad holds at most two members besides its leader")
+    slots = [unit] + members + [None] * (2 - len(members))
+    pilots = [0xFFFF if m is None else _id(m["pilot"], "spawn pilot") for m in slots]
+    units = [0xFFFF if m is None else _id(m["unit"], "spawn unit") for m in slots]
     words = [
         head | (2 << 8) | (appear << 16),
         0xFFFFFFFF,
         0x0000FFFE,
         x | (y << 8) | (facing << 16) | (side << 24),
-        pilot | (0xFFFF << 16),
-        0xFFFF | (unit_id << 16),
-        0xFFFFFFFF,
+        pilots[0] | (pilots[1] << 16),
+        pilots[2] | (units[0] << 16),
+        units[1] | (units[2] << 16),
         squad_name,
     ]
     return ["    .word " + ",".join(str(w) for w in words)]
@@ -111,7 +117,8 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
                  f"    addiu $a0,$a0,%lo({pairs})",
                  ".align 4", f"{pairs}:"]
         for unit in units:
-            data.append(f"    .hword {_id(unit['unit'], 'unit')},{_id(unit['pilot'], 'pilot')}")
+            for member in [unit] + unit.get("members", []):
+                data.append(f"    .hword {_id(member['unit'], 'unit')},{_id(member['pilot'], 'pilot')}")
         data += ["    .hword 0xffff,0xffff", ".align 4", f"{spawn}:"]
         for unit in units:
             data += spawn_record(unit, "gallery_empty_squad_name")
@@ -142,6 +149,7 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
         script.append("    .word " + ",".join(str(_u32(v)) if isinstance(v, int) else v for v in values))
 
     used_effects: list[int] = []
+    talk_ops: list[tuple[str, int, int]] = []
     for op in fidelity["timeline"]:
         kind, args = op[0], op[1:]
         if kind == "wait":
@@ -150,6 +158,8 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             word(0x43, _id(args[0], "bgm", 0x65), 0, 0)
         elif kind == "bgm_pause":
             word(0x14, "gallery_bgm_pause", 0, 0)
+        elif kind == "form_se":
+            word(0x14, "gallery_form_se", 0, 0)
         elif kind == "zoom":
             word(0x13B9, int(args[0]), 0, 0)
         elif kind == "camera":
@@ -210,13 +220,20 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             word(0x14, f"gallery_talk_install_{row}", 0, 0)
         elif kind == "talk":
             # Native map dialogue section n (op 0x0f) from the installed block.
-            word(0x0F, _id(args[0], "talk section", 0x7FFF), 0, int(args[1]) if len(args) > 1 else 0)
+            # Labelled: the runtime turns it into a non-yielding no-op when the scene
+            # is entered with circle (effects only) and restores it for triangle.
+            section, cursor = _id(args[0], "talk section", 0x7FFF), int(args[1]) if len(args) > 1 else 0
+            label = f"gallery_talkop_{row}_{len(talk_ops)}"
+            talk_ops.append((label, section, cursor))
+            script.append(f"{label}:")
+            word(0x0F, section, 0, cursor)
         elif kind == "raw":
             word(*(int(v) for v in args))
         else:
             raise ValueError(f"row {row}: unknown timeline operation {kind!r}")
     if sorted(set(used_effects)) != sorted(set(effects)):
         raise ValueError(f"row {row}: timeline effects {used_effects} differ from catalog {list(effects)}")
-    return {"script": script, "data": data,
-            "receipt": {"records": len(script), "unit_groups": list(groups),
-                        "ghost_table": ghost is not None}}
+    return {"script": script, "data": data, "talk_ops": talk_ops,
+            "receipt": {"records": sum(1 for line in script if line.startswith("    .word")),
+                        "unit_groups": list(groups), "ghost_table": ghost is not None,
+                        "talk_ops": len(talk_ops)}}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import struct
 import sys
 from pathlib import Path
@@ -15,6 +16,36 @@ DATA_BASE = 0x820000
 CALLBACK_ADDRESS = 0x822000
 ELF_ADDRESS_BIAS = 0xFF680
 BANNER_CENTRES = {0: 90, 1: 153, 2: 216, 8: 216, 3: 279, 9: 342}
+# List rows draw with native font size 5 (0x43D480; table 0x49E190 row 5 =
+# 20/9/20/...): Latin, digits and symbols otherwise take whole 20-px cells.
+# A run gets glyph width/advance per character, explicit height 9, and the
+# native 20/20/9 restore. The full stop's dot sits at the cell's left edge and
+# a condensed Σ reads as a thin stroke, so both get their own pair. Long Latin
+# runs (BIG-O·Showtime) tighten the advance, more after the narrow t, except
+# at the run's end, where the next hanzi needs the normal gap.
+LIST_COMPACT_RUN = re.compile(r"[A-Za-z0-9Σ·.\-]+")
+LIST_COMPACT = (0x0E, 0x0C)
+LIST_COMPACT_CHAR = {".": (0x0E, 0x07), "Σ": (0x12, 0x10)}
+LIST_LONG_RUN, LIST_LONG_SPACE, LIST_LONG_CHAR_SPACE = 5, 0x0A, {"t": 0x07}
+
+
+def compact_list_name(name: str) -> str:
+    def scope(match):
+        run = match[0]
+        out, active = [], None
+        for index, character in enumerate(run):
+            width, space = LIST_COMPACT_CHAR.get(character, LIST_COMPACT)
+            if len(run) >= LIST_LONG_RUN and index < len(run) - 1 and character not in LIST_COMPACT_CHAR:
+                space = LIST_LONG_CHAR_SPACE.get(character, LIST_LONG_SPACE)
+            if (width, space) != active:
+                out.append(("" if active and active[0] == width else f"<width:{width:02X}>")
+                           + ("" if active and active[1] == space else f"<space:{space:02X}>"))
+                active = (width, space)
+            if len(out) == 1:
+                out.append("<height:09>")
+            out.append(character)
+        return "".join(out) + "<width:14><space:14><height:09>"
+    return LIST_COMPACT_RUN.sub(scope, name)
 
 
 def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | None = None) -> dict:
@@ -49,10 +80,24 @@ def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | Non
     label = text("名场面集")
     event_help = "重温出击、合体等剧情名场面。播放中按×可返回。"
     help_text = text(event_help)
+    # Native ○ / △ button icons; no space between the items, the icon's own
+    # margin separates them and the guide ends inside the heading bar.
+    list_help = "<-1>只看演出<-3>连同对白"
     assert items and all(item.get("name") for item in items)
-    names = [text(item["name"]) for item in items]
+    names = [text(compact_list_name(item["name"])) for item in items]
     strings = alloc(struct.pack(f"<{len(names) + 1}I", *names, 0))
-    child = alloc(original(0x48A040, 0x120))
+    # The list page is the list widget alone; add a static text widget built
+    # from the root page's first help line (id 5) so the entry modes show
+    # beside the page heading. Its navigation links stay unset like the list's, and
+    # flag bit 0 (hidden; the root page reveals its own help lines) is cleared.
+    note = bytearray(original(0x48AD90, 0x90))
+    struct.pack_into("<I", note, 8, text(list_help))
+    struct.pack_into("<4i", note, 0x60, -1, -1, -1, -1)
+    assert struct.unpack_from("<I", note, 0x70)[0] == 0xB
+    struct.pack_into("<I", note, 0x70, 0xA)
+    struct.pack_into("<2f", note, 0x10, -246, -110)  # right of the "名场面集" heading
+    struct.pack_into("<I", note, 0x24, 0)  # no backing band; it would dim the page counter
+    child = alloc(original(0x48A040, 0x90) + note + original(0x48A0D0, 0x90))
     setword(child, 12, strings)
     setword(child, 0x78, CALLBACK_ADDRESS)
 
@@ -121,7 +166,8 @@ def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | Non
                     "navigation": [0, 1, 2, 3, 9], "wallpaper_widget": 8,
                     "native_heading_and_help_preserved": True,
                     "event_help": event_help,
-                    "gallery_list": {"rows": len(items), "native_row_pitch": min(12, 144 // len(items)), "pages": 1,
+                    "gallery_list": {"rows": len(items), "paging": "native (left/right)", "help": list_help,
+                                     "entry": {"circle": "effects only", "triangle": "with map dialogue"},
                                      "transition": "snap gallery list horizontal offset during drawing"},
                     "extended_help_tables": [hex(x) for x in help_tables]},
     }

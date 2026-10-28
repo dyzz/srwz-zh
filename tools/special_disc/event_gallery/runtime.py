@@ -78,16 +78,13 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     initial map view explicitly defaults to 3. Both choices appear in the receipt
     and the native row flags rather than silently producing an inactive item.
     """
-    if not 1 <= len(entries) <= 14:
-        raise ValueError("gallery requires 1 to 14 scenes (one list page, row pitch >= 10)")
-    # One native list page 144 units tall: twelve rows keep the 12-unit pitch,
-    # more rows compress it so the page never grows past the frame.
-    pitch = min(12, 144 // len(entries))
+    # The scene table (32 bytes a row) spans 0x1c00..0x2000. The native list
+    # pages the rows itself (left/right), so the count is not tied to one page.
+    if not 1 <= len(entries) <= 32:
+        raise ValueError("gallery requires 1 to 32 scenes (scene table 0x1c00..0x2000)")
     lines = [
         "/* Generated from the product event-gallery configuration. */",
         f".equ GALLERY_SCENE_COUNT, {len(entries)}",
-        f".equ GALLERY_ROW_PITCH, {pitch}",
-        f".equ GALLERY_LIST_HEIGHT, {pitch * len(entries)}",
         ".org 0x1c00",
         ".globl gallery_scene_table",
         "gallery_scene_table:",
@@ -167,6 +164,7 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     lines += ["gallery_low_data_end:", ".org 0x4800", ".globl gallery_script", "gallery_script:"]
     data_lines: list[str] = []
     talk_chunks: list[list[str]] = []
+    talk_op_tables: list[str] = []
     for scene, entry in zip(scenes, entries):
         index = scene["row"]
         compiled = compile_scene(index, entry["fidelity"], scene["effect_tile"], scene["effects"])
@@ -175,6 +173,15 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         # The callback switches phase; park here until the next frame cleans up.
         lines.append("    .word 1,32767,0,0")
         data_lines += compiled["data"]
+        if compiled["talk_ops"]:
+            # (record address, section | cursor << 16) per map-dialogue op; 0-terminated.
+            data_lines += [".align 4", f"gallery_talkops_{index}:"]
+            data_lines += [f"    .word {label},{section | (cursor << 16)}"
+                           for label, section, cursor in compiled["talk_ops"]]
+            data_lines.append("    .word 0,0")
+            talk_op_tables.append(f"    .word gallery_talkops_{index}")
+        else:
+            talk_op_tables.append("    .word 0")
         if talk and scene["id"] in talk:
             talk_chunks.append(talk_lines(index, talk[scene["id"]]))
             scene["talk_sections"] = [sec["section"] for sec in talk[scene["id"]]]
@@ -182,6 +189,7 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         scene["fidelity"]["compiled"] = compiled["receipt"]
     talk_data = [line for chunk in talk_chunks for line in chunk]
     lines += data_lines
+    lines += [".align 4", "gallery_talkop_tables:"] + talk_op_tables
     if talk_data:
         # Map-dialogue blocks live after the per-frame packet buffer (0x82F000).
         lines += [".org 0xE000", "gallery_talk_data:"] + talk_data

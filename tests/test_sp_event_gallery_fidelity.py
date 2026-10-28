@@ -52,7 +52,10 @@ class FidelityTimelineTests(unittest.TestCase):
         views = {e["id"]: e["camera"]["map_view"] for e in self.entries}
         self.assertEqual(views["effect-255"], 1)  # STAGE126 0xb710 switch at view 1; 0xb820 op 0x41 0 rotates inside the clip
         self.assertEqual(views["effect-259"], 2)  # STAGE107 0x141d0 op 0x41 2
-        self.assertTrue(all(v == 3 for k, v in views.items() if k not in ("effect-255", "effect-259")))
+        self.assertEqual(views["effect-297"], 1)  # STAGE084 0x9b70 op 0x41 1
+        self.assertEqual(views["effect-298"], 1)  # STAGE057 0x7310 op 0x41 1
+        rotated = ("effect-255", "effect-259", "effect-297", "effect-298")
+        self.assertTrue(all(v == 3 for k, v in views.items() if k not in rotated))
 
     def test_compiled_timelines_cover_catalog_effects_and_wait(self):
         for row, entry in enumerate(self.entries):

@@ -10,7 +10,8 @@
  * loaded for this theater session, +0x34 frames played (cancel guard),
  * +0x38 previous pad held mask, +0x40 saved unit flags (120 bytes),
  * +0xc0/+0xc8 dialogue auto-play record and frames on it (native auto level 4),
- * +0xcc last frame spent in map dialogue (cancel guard).
+ * +0xcc last frame spent in map dialogue (cancel guard), +0xd0 play mode
+ * (1 with dialogue), +0xd4 triangle pending, +0xd8 gallery list on screen.
  * Playback can be cancelled with cross or START: a new press seen
  * on the pad held mask (0062514c; the frozen list widget consumes the
  * native trigger word for cross/circle) runs the completion path at once.
@@ -36,6 +37,12 @@ gallery_selector:
     lw      $v0,0x4c($a3)
     lui     $v1,0x0082
     sw      $v0,0x1f00($v1)
+    /* Play mode +0xd0: 1 = with map dialogue (entered with triangle, which
+     * gallery_list_input turned into this confirm), 0 = effects only. */
+    lw      $v0,0x1fd4($v1)
+    sltu    $v0,$zero,$v0
+    sw      $v0,0x1fd0($v1)
+    sw      $zero,0x1fd4($v1)
     addiu   $v0,$zero,1
     sw      $v0,0x1f04($v1)
 selector_return:
@@ -51,6 +58,12 @@ gallery_frame:
     bne     $t1,$zero,frame_active
     nop
 frame_native:
+    /* Triangle on the gallery list enters the scene with dialogue. */
+    daddu   $t9,$ra,$zero
+    jal     gallery_list_input
+    nop
+    daddu   $ra,$t9,$zero
+    lui     $t0,0x0082
     lw      $t1,0x1f24($t0)
     bne     $t1,$zero,frame_restore_bgm
     nop
@@ -102,6 +115,8 @@ frame_save:
     sw      $zero,0x34($s1)
     sw      $zero,0xc0($s1)
     sw      $zero,0xcc($s1)
+    jal     gallery_talk_mode
+    nop
     addiu   $t2,$zero,0xffff
     sw      $t2,0x38($s1)    /* no cancel edge until every button is released */
     /* Map initialization changes the framebuffer interpretation. Clear both
@@ -330,28 +345,15 @@ gallery_list_draw:
     addiu   $t1,$t1,%lo(gallery_selector)
     bne     $t0,$t1,list_draw_original
     nop
-    /* Only the gallery list: every row on one page (GALLERY_SCENE_COUNT rows,
-     * GALLERY_ROW_PITCH units apart, generated from the catalog). Keep the
-     * stock font size, frame and input controller. The native slide tween
-     * causes fractional-position text sampling; draw at rest.
-     */
+    /* Only the gallery list. The native list pages the rows (left/right,
+     * "n / m" in the heading). The native slide tween causes fractional-
+     * position text sampling; draw at rest. +0xd8 marks the list as on
+     * screen for gallery_list_input (triangle). */
     sw      $zero,0x68($a0)
     sw      $zero,0x6c($a0)
-    lui     $t0,0x0076
-    lw      $t0,0x3a50($t0)
-    beq     $t0,$zero,list_draw_original
-    nop
-    addiu   $t1,$zero,GALLERY_SCENE_COUNT
-    sh      $t1,6($t0)
-    sb      $t1,0x0d($t0) /* input controller's selectable row count */
-    sw      $t1,0x18($t0)
-    addiu   $t1,$zero,GALLERY_ROW_PITCH
-    sh      $t1,8($t0)
-    addiu   $t1,$zero,GALLERY_LIST_HEIGHT
-    sh      $t1,10($t0)
-    addiu   $t1,$zero,1
-    sb      $t1,0x13($t0)
-    sb      $zero,0x12($t0)
+    lui     $t0,0x0082
+    addiu   $t1,$zero,2
+    sw      $t1,0x1fd8($t0)
 list_draw_original:
     /* Original 320f30 prologue, then its untouched body. */
     addiu   $sp,$sp,-0x30
@@ -821,7 +823,8 @@ gallery_transition_packet:
 gallery_save_roster:
     lui     $t0,0x005a
     ori     $t0,$t0,0x5080
-    lui     $t1,0x0084       /* snapshot base 0x840000 (dialogue blocks below) */
+    lui     $t1,0x0084       /* snapshot base 0x844000 (dialogue blocks below) */
+    ori     $t1,$t1,0x4000
     lui     $t2,0x0007
     ori     $t2,$t2,0x6940
 save_roster_loop:
@@ -865,7 +868,8 @@ save_regions_done:
     nop
 
 gallery_restore_roster:
-    lui     $t0,0x0084       /* snapshot base 0x840000 */
+    lui     $t0,0x0084       /* snapshot base 0x844000 */
+    ori     $t0,$t0,0x4000
     lui     $t1,0x005a
     ori     $t1,$t1,0x5080
     lui     $t2,0x0007
@@ -953,12 +957,6 @@ bgm_restore_wait:
     jr      $ra
     addiu   $sp,$sp,0x20
 
-.align 4
-gallery_bgm_pause:
-    /* Effect-header BGM scenes: pause the theater track (sound state 5,
-     * request 2) so the resource's own BGM starts without the menu tune. */
-    j       0x00183220
-    addiu   $a0,$zero,2
 
 
 .org 0x1a00
@@ -1226,3 +1224,88 @@ talk_auto_done:
     jr      $ra
     nop
 
+.align 4
+gallery_list_input:
+    /* On the gallery list, triangle = play with map dialogue: remember the
+     * request (+0xd4, valid this frame and the next) and hand the native list
+     * a circle so it confirms the row under the cursor as usual. Uses t0-t4. */
+    lui     $t0,0x0082
+    lw      $t1,0x1fd4($t0)
+    beq     $t1,$zero,list_input_seen
+    addiu   $t1,$t1,-1
+    sw      $t1,0x1fd4($t0)
+list_input_seen:
+    lw      $t1,0x1fd8($t0)
+    beq     $t1,$zero,list_input_done
+    addiu   $t1,$t1,-1
+    sw      $t1,0x1fd8($t0)
+    lui     $t2,0x0062
+    lhu     $t3,0x514e($t2)  /* 0062514e trigger copy, raw order */
+    andi    $t4,$t3,0x0010   /* triangle */
+    beq     $t4,$zero,list_input_done
+    addiu   $t4,$zero,2
+    sw      $t4,0x1fd4($t0)
+    addiu   $t3,$zero,0x0020 /* circle */
+    sh      $t3,0x514e($t2)
+    sh      $t3,0x5152($t2)
+    sh      $t3,0x5154($t2)
+    sh      $t3,0x5156($t2)
+list_input_done:
+    jr      $ra
+    nop
+
+.align 4
+gallery_talk_mode:
+    /* Scene start: circle (+0xd0 = 0) plays effects only, so every map-dialogue
+     * op of the scene becomes a non-yielding "var 0x8001 = 0" (scratch: fades
+     * set it before use), keeping a camera set up for the skipped line from
+     * showing for a frame; triangle restores op 0x0f n. */
+    lw      $t0,0($s1)
+    sll     $t0,$t0,2
+    lui     $t1,%hi(gallery_talkop_tables)
+    addiu   $t1,$t1,%lo(gallery_talkop_tables)
+    addu    $t1,$t1,$t0
+    lw      $t1,0($t1)
+    beq     $t1,$zero,talk_mode_done
+    lw      $t2,0xd0($s1)
+talk_mode_next:
+    lw      $t3,0($t1)       /* record address */
+    beq     $t3,$zero,talk_mode_done
+    lw      $t4,4($t1)       /* section | cursor << 16 */
+    beq     $t2,$zero,talk_mode_wait
+    andi    $t5,$t4,0xffff
+    addiu   $t6,$zero,0x0f
+    sw      $t6,0($t3)
+    sw      $t5,4($t3)
+    srl     $t5,$t4,16
+    b       talk_mode_step
+    sw      $t5,12($t3)
+talk_mode_wait:
+    addiu   $t6,$zero,0x1388
+    sw      $t6,0($t3)
+    lui     $t6,0x9000
+    sw      $t6,4($t3)
+    ori     $t6,$zero,0x8001
+    sw      $t6,12($t3)
+talk_mode_step:
+    b       talk_mode_next
+    addiu   $t1,$t1,8
+talk_mode_done:
+    jr      $ra
+    nop
+
+.align 4
+gallery_bgm_pause:
+    /* Effect-header BGM scenes: pause the theater track (sound state 5,
+     * request 2) so the resource's own BGM starts without the menu tune. */
+    j       0x00183220
+    addiu   $a0,$zero,2
+
+.align 4
+gallery_form_se:
+    /* Form-change sound of script op 0x1d (FUN_00182a50(0x2a, 1)); the gallery
+     * swaps the unit by remove + spawn because a prepared unit has no linked
+     * form objects for 0x1d to switch to. */
+    addiu   $a0,$zero,0x2a
+    j       0x00182a50
+    addiu   $a1,$zero,1
