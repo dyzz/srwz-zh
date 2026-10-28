@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail when any story dialogue is not stored in its final 21x3 layout.
+"""Fail when any story dialogue is not stored in its configured 23-total-cell / 3-line layout.
 
 This is the same gate the story component builder and the ISO content
 verifier apply.  Run it after every writeback into ``corpus/zh/story-dialogue``

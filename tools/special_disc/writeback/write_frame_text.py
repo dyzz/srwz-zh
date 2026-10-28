@@ -24,6 +24,7 @@ from srwz.text import CONTROL_NOTATION,decode_text,encode_text,normalize_origina
 from srwz.compact_scopes import FLOW_SYNOPSIS,expand as expand_compact_scopes
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_prose import reflow_chinese_prose
+from srwz.build_layout import reflow_prose
 from srwz.fixed_grid_prose import fill_fixed_grid_paragraphs
 from srwz.summary import parse_summary, validate_scroll_placeholders
 from srwz.writers import apply_summary_replacements
@@ -37,8 +38,7 @@ Z_TITLE_CORPUS=ROOT/'corpus/zh/menu/stage-names.json'
 KEY_HELP=ROOT/'config/editorial/special-disc/chart-key-help.json'
 HSFC_PROTECTED_TERMS=('麦康奈尔','布兰少校','西尔维娅','金卡拉姆','不合群者')
 # The 640x448 SP detail panel displays 11 rows. A 31st full-width
-# character crosses its right border; authoring now uses a uniform narrower
-# 25-cell region, independently of the native 30-cell boundary.
+# characters fit the reviewed native 30-cell region; all prose uses shared JS.
 FLOW_LAYOUT_PATH=ROOT/'config/products/special-disc/flow-layout.json'
 FLOW_LAYOUT=json.loads(FLOW_LAYOUT_PATH.read_text())
 FLOW_WIDTH, FLOW_MAX_LINES=FLOW_LAYOUT['width'], FLOW_LAYOUT['maximum_lines']
@@ -82,24 +82,12 @@ def validate_flow_layout(text):
         require(extent.occupied_px<=FLOW_WIDTH*FLOW_BODY_ADVANCE_PX,
                 'flow detail exceeds verified visible panel')
         state=extent.state
-    lines=[CONTROL_NOTATION.sub('',line) for line in raw_lines]
-    flat=''.join(lines);boundaries=[];offset=0
-    for line in lines[:-1]:
-        offset+=len(line);boundaries.append(offset)
-    for term in FLOW_PROTECTED_TERMS:
-        term=normalize_original_fullwidth_ascii(term).replace(' ','　')
-        for match in re.finditer(re.escape(term),flat):
-            require(not any(match.start()<at<match.end() for at in boundaries),
-                    f'flow detail splits protected term: {term}')
 
 
 def flow_synopsis(text):
-    profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['stage_scroll_overview']
-    require(profile.maximum_width==FLOW_WIDTH,'flow profile/config width drift')
-    require(0<FLOW_WIDTH<=FLOW_LAYOUT['physical_width'],'flow author width exceeds physical panel')
+    require(FLOW_WIDTH==30,'flow scene/config width drift')
     text=expand_compact_scopes(normalize_original_fullwidth_ascii(text),FLOW_SYNOPSIS)
-    result=reflow_chinese_prose(text,profile=profile,
-        protected_terms=FLOW_PROTECTED_TERMS,maximum_lines=FLOW_MAX_LINES).text
+    result=reflow_prose(text,scene='sp_flow',maximum_lines=FLOW_MAX_LINES)['text']
     validate_flow_layout(result)
     return result
 
@@ -221,8 +209,8 @@ class Writer:
                 target=f'sd/mtzspros/{index:02d}/{j}';row=self.bind(target,entry.text)
                 validate_scroll_placeholders(entry.text,row['translation'],label=target)
                 profile=self.profiles['sp_narration_scroll'];width=profile.maximum_width
-                text=reflow_chinese_prose(normalize_original_fullwidth_ascii(row['translation']),profile=profile,
-                    protected_terms=('下达',),maximum_lines=len(entry.text.split('\n'))).text.replace(' ','　')
+                text=reflow_prose(normalize_original_fullwidth_ascii(row['translation']),scene='sp_scroll',
+                    maximum_lines=len(entry.text.split('\n')))['text'].replace(' ','　')
                 replacements[entry.entry_id]=text;self.record(target,text,member=name,chunk=index,width=width,lines=len(text.split('\n')))
             rebuilt=apply_summary_replacements(data,self.table,chunk_index=index,replacements=replacements,overrides=self.codes)
             self.compressed(name,index,rebuilt,sd.MTZSPROS_TABLE)

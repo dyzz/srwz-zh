@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preview/apply maximum-width flow and scrolling prose, preserving author scopes.
+"""Preview/apply shared-JS balanced flow and scrolling prose, preserving author scopes.
 
 Only soft physical wraps change. Paragraph starts, native blank rows, wording,
 controls and compact author notation are retained. Source row budgets are checked
@@ -30,6 +30,7 @@ from write_frame_text import FLOW_PROTECTED_TERMS, validate_flow_layout
 
 def plan():
     profiles = load_layout_profiles(ROOT / 'config/text-layout/zh-layout-profiles.json')
+    narrow_ids=set(json.loads((ROOT/'config/text-layout/native-scene-contracts.json').read_text())['variants']['main_scroll_strip']['resource_ids'])
     table = load_text_table(ROOT / 'vendor/upstream-python/project/tbl_all.json')
     stage = decode_production((ROOT / 'work/disc/DATA/STAGE.BIN').read_bytes()[:55392]).output
     overviews = {r.entry_id: r.source_text for r in parse_stage_overviews(stage, table)}
@@ -66,14 +67,15 @@ def plan():
             if hashlib.sha256(source.encode()).hexdigest() != entry['source_text_sha256']:
                 raise ValueError(f"Source drift: {entry['id']}")
             profile = replace(profiles[profile_id], default_advance_px=advance)
-            if profile.line_packing != 'max_width':
-                raise ValueError(f'{profile_id} must use max_width')
+            if surface=='main_scroll' and entry['id'] in narrow_ids:profile=replace(profile,maximum_width=21)
+            if profile.line_packing != 'balanced':
+                raise ValueError(f'{profile_id} must use shared balanced packing')
             before = entry['translation']
             native = expand(before, FLOW_SYNOPSIS) if surface == 'sp_flow' else before
             terms = (FLOW_PROTECTED_TERMS if surface == 'sp_flow' else
                      ('下达',) if surface == 'sp_scroll' else ())
             fitted = reflow_chinese_prose(native, profile=profile, maximum_lines=limit,
-                                         protected_terms=terms)
+                                         protected_terms=terms,resource_id=entry['id'])
             after = collapse(fitted.text, FLOW_SYNOPSIS) if surface == 'sp_flow' else fitted.text
             if surface == 'sp_flow':
                 validate_flow_layout(fitted.text)

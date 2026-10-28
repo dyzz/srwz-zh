@@ -10,12 +10,25 @@ from __future__ import annotations
 
 import re
 
-# Native story message/narration body: 21/12/21/14 (Original 0x41E770,
-# SP 0x479F60). Letters keep the 14x11 the untagged height state produced
+# Native ordinary dialogue body: 21/12/21/14 (Original 0x41E200,
+# Best 0x41EA30, SP 0x4799F0). Letters keep the 14x11 the untagged height state produced
 # before; digits were 14x10 and sat high, so the 2026-10-24 LRPS2 review set
 # them to 11 as well. Height 10, if ever used, is 0x8A: 33 0A is a line feed.
 STORY = dict(width=0x0E, space=0x0C, letter=0x0B, digit=0x0B,
              restore_width=0x15, restore_space=0x15, restore_height=0x0C)
+# Battle body: 22/11/22/12. Its 21-cell line budget is separate from step.
+BATTLE = dict(STORY, restore_width=0x16, restore_space=0x16, restore_height=0x0B)
+
+
+def metrics_for_advance(default_advance_px: int) -> dict:
+    """Select the verified battle baseline; retain story defaults elsewhere.
+
+    Other surfaces with different compact metrics (e.g. FLOW_SYNOPSIS) must
+    continue to supply their metrics explicitly.
+    """
+    return BATTLE if default_advance_px == 22 else STORY
+
+
 # SP library flow synopsis body: 16/16/10. Narrower 12/11 than the old 14/12;
 # digits height 9 as the native auto rule drew them, letters height 10 (0x8A).
 FLOW_SYNOPSIS = dict(width=0x0C, space=0x0B, letter=0x8A, digit=0x09,

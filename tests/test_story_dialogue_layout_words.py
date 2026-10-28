@@ -1,4 +1,4 @@
-"""Story dialogue layout: unbroken word list, 21x3 profile, and corpus state."""
+"""Story dialogue layout: unbroken word list, 23-total-cell / 3-line profile, and corpus state."""
 
 from __future__ import annotations
 
@@ -30,15 +30,22 @@ class StoryDialogueLayoutWordsTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.profile = load_layout_profiles(PROFILES_PATH)["story_dialogue"]
 
-    def test_profile_is_21_cells_by_3_lines_with_word_list(self) -> None:
-        self.assertEqual(self.profile.first_line_maximum_width, 21)
-        self.assertEqual(self.profile.maximum_width, 21)
+    def test_profile_is_23_total_cells_by_3_lines_with_word_list(self) -> None:
+        self.assertEqual(self.profile.default_advance_px, 21)
+        self.assertEqual(self.profile.first_line_maximum_width, 23)
+        self.assertEqual(self.profile.maximum_width, 22)
         self.assertEqual(self.profile.maximum_lines, 3)
         terms = set(self.profile.unbroken_terms)
         self.assertIn("世界", terms)
         self.assertIn("帕普提马斯", terms)
         self.assertIn("艾黛尔·贝尔纳尔", terms)
         self.assertGreater(len(terms), 2000)
+
+    def test_compact_choice_numbers_remain_independent_rows(self) -> None:
+        import rebalance_story_dialogue as tool
+        choices = '“要怎么做？”\n“<z>1</z><z>．</z>继续”\n“<z>2</z><z>．</z>返回”'
+        self.assertEqual(dialogue_layout_issues(choices, profile=self.profile), ())
+        self.assertEqual(tool.normalize_indent(choices, self.profile.continuation_indent), choices)
 
     def test_word_file_is_generated_from_checked_in_sources(self) -> None:
         import build_story_unbroken_words as generator
@@ -61,8 +68,9 @@ class StoryDialogueLayoutWordsTest(unittest.TestCase):
         self.assertEqual(logical_dialogue_text(result.text), logical_dialogue_text(source))
         for line in result.text.split("\n"):
             self.assertNotIn(line.strip("　").rstrip(), ("炸",))
-        self.assertIn("埋入\n　炸弹", result.text)
-        self.assertLessEqual(max(result.line_widths), 21)
+        self.assertIn("炸弹", result.text)
+        self.assertLessEqual(result.line_widths[0], 23)
+        self.assertTrue(all(width <= 22 for width in result.line_widths[1:]))
 
     def test_reflow_keeps_proper_names_intact(self) -> None:
         source = "“这就是新联邦军的准将，极·艾黛尔·贝尔纳尔所追求的世界吗……！”"
@@ -81,15 +89,15 @@ class StoryDialogueLayoutWordsTest(unittest.TestCase):
 
     def test_overflow_without_legal_layout_raises(self) -> None:
         with self.assertRaises(ChineseLayoutError):
-            fit_chinese_dialogue_layout("甲" * 64, profile=self.profile)
+            fit_chinese_dialogue_layout("甲" * 68, profile=self.profile)
 
     def test_layout_issues_name_overflow_and_split_terms(self) -> None:
         clean = "“第一行文字，\n　第二行文字。”"
         self.assertEqual(dialogue_layout_issues(clean, profile=self.profile), ())
-        wide = "“" + "甲" * 21 + "”"
+        wide = "“" + "甲" * 22 + "”"
         self.assertEqual(
             dialogue_layout_issues(wide, profile=self.profile),
-            ("first line 23 cells exceeds 21",),
+            ("first line 24 cells exceeds 23",),
         )
         split = "“盖佐克把抓来的地球人身体里埋入炸\n　弹送回去，进行无差别恐怖袭击……”"
         self.assertEqual(

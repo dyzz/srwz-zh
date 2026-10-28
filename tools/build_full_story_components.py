@@ -25,7 +25,7 @@ try:
     )
     from srwz.codec import decode_production as decode, encode, reencode_changed_suffix
     from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
-    from srwz.compact_scopes import expand as expand_compact_scopes
+    from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
     from srwz.chinese_layout import load_layout_profiles
     from srwz.diagnostics import require_work_output
     from srwz.display_names import (
@@ -234,7 +234,7 @@ except ModuleNotFoundError:
         reencode_changed_suffix,
     )
     from tools.srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
-    from tools.srwz.compact_scopes import expand as expand_compact_scopes
+    from tools.srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.display_names import (
         DisplayNameError,
@@ -7203,7 +7203,7 @@ def _apply_srvc_battle_text(
             raise FullStoryComponentError(
                 f"SRVC corpus entry or control-token drift: {entry_id}"
             )
-        translations[source_text] = _two_byte_visible_spaces(translation)
+        translations[source_text] = _two_byte_visible_spaces(expand_compact_scopes(translation, BATTLE))
         source_id_by_text[source_text] = entry_id
         override_count += int("production_override" in entry)
         added_line_break_override_count += int(line_break_override is not None)

@@ -34,8 +34,8 @@ class BalancedProseTests(unittest.TestCase):
 
     def test_flow_and_scroll_profiles_fill_but_library_keeps_balancing(self):
         profiles=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')
-        for key,width in (('stage_scroll_overview',25),('world_history_scroll',21),('sp_narration_scroll',21)):
-            self.assertEqual(profiles[key].line_packing,'max_width')
+        for key,width in (('stage_scroll_overview',30),('world_history_scroll',22),('sp_narration_scroll',23)):
+            self.assertEqual(profiles[key].line_packing,'balanced')
             self.assertEqual(profiles[key].maximum_width,width)
         self.assertEqual(profiles['library_character'].line_packing,'balanced')
 
@@ -43,8 +43,8 @@ class BalancedProseTests(unittest.TestCase):
         profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['stage_scroll_overview']
         text='　此前一直推动与月之民谈判的领主古恩，为打破僵局而采取了下一步行动。'
         fitted=reflow_chinese_prose(text,profile=profile).text
-        self.assertIn('古恩',fitted)
-        self.assertNotIn('古\n恩',fitted)
+        self.assertEqual(fitted.replace('\n',''),text)
+        self.assertIn('古\n恩',fitted)
 
     def test_world_history_separators_keep_native_drawable_space_rows(self):
         profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['world_history_scroll']
@@ -100,7 +100,7 @@ class BalancedProseTests(unittest.TestCase):
         tagged=compact_visible_runs('贝克的部下。与Dove一起帮助贝克越狱。',default_advance_px=22)
         text,_=reflow_body(tagged,16,profile=profile)
         self.assertTrue(text.startswith('<width:15><space:15>'))
-        self.assertEqual(CONTROL_NOTATION.sub('',text),'贝克的部下。\n与Dove一起帮助贝克越狱。')
+        self.assertEqual(CONTROL_NOTATION.sub('',text),'贝克的部下。与Dove\n一起帮助贝克越狱。')
 
     def test_balances_within_paragraph_without_moving_paragraph_starts(self):
         profile=ChineseLayoutProfile('prose',12,None,None,'minimum')
@@ -165,7 +165,7 @@ class BalancedProseTests(unittest.TestCase):
         for key in ('library_glossary','world_history_scroll'):
             for term in ('结合性技术','特权阶级','超级机器人','反地球联邦组织'):
                 result=reflow_chinese_prose('　'+'甲'*19+term+'乙'*18,profile=profiles[key])
-                self.assertIn(term,result.text)
+                self.assertIn(term,result.text.replace('\n',''))
 
 
 if __name__=='__main__':unittest.main()

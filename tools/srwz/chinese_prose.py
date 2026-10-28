@@ -22,7 +22,7 @@ def logical_prose_text(text: str) -> str:
 
 def reflow_chinese_prose(
     text: str, *, profile: ChineseLayoutProfile,
-    protected_terms: tuple[str, ...] = (), maximum_lines: int | None = None,
+    protected_terms: tuple[str, ...] = (), maximum_lines: int | None = None, resource_id: str | None = None,
 ) -> ProseLayoutResult:
     """Lay out each authored paragraph; retain paragraph starts and blank rows.
 
@@ -30,6 +30,17 @@ def reflow_chinese_prose(
     preceding paragraph. This is an authoring operation, not an implicit change
     to fixed production fields or scrolling timing controls.
     """
+    native_scenes={'stage_scroll_overview':'main_flow','world_history_scroll':'main_scroll','sp_narration_scroll':'sp_scroll'}
+    if profile.profile_id in native_scenes:
+        from .build_layout import reflow_prose
+        scene=native_scenes[profile.profile_id]
+        if scene=='main_scroll' and profile.maximum_width==21:scene='main_scroll_strip'
+        result=reflow_prose(text,scene=scene,maximum_lines=maximum_lines,resource_id=resource_id)
+        if logical_prose_text(result['text'])!=logical_prose_text(text):raise ChineseLayoutError('JS prose changed visible content')
+        if CONTROL_NOTATION.findall(result['text'])!=CONTROL_NOTATION.findall(text):raise ChineseLayoutError('JS prose changed controls')
+        if 'scroll' in scene:validate_scroll_placeholders(text,result['text'],label=scene+' JS reflow')
+        count=sum(bool(row.strip())and (i==0 or row.startswith(('　',' ')) or not text.split('\n')[i-1].strip())for i,row in enumerate(text.split('\n')))
+        return ProseLayoutResult(result['text'],count,tuple(row['occupiedPx']for row in result['rows']))
     groups: list[tuple[str,str] | str] = []
     for line in text.replace('\r','').split('\n'):
         if not line.strip('　 '):

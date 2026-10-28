@@ -16,6 +16,7 @@ import struct
 from dataclasses import dataclass
 from typing import Mapping
 
+from .compact_scopes import BATTLE, expand as expand_compact_scopes
 from .text import DecodedText, PreparedTextEncoder, TextTable, decode_text
 
 
@@ -404,7 +405,7 @@ def rebuild_srvc_archive(
                 ) from error
             if not isinstance(translation, str) or not translation:
                 raise SrvcParseError("SRVC translation must be non-empty text")
-            stored_text = translation.replace("\\n", "{5C}{6E}")
+            stored_text = expand_compact_scopes(translation, BATTLE).replace("\\n", "{5C}{6E}")
             payload = encoder.encode(
                 stored_text,
                 terminate=True,

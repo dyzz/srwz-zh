@@ -25,6 +25,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
+from srwz.chinese_layout import battle_subtitle_layout_issues
 import srwz.srvc as srvc  # noqa: E402
 from srwz.image_export import parse_seg_offsets  # noqa: E402
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
@@ -92,8 +94,9 @@ def main() -> None:
             translation = row['translation']
             if not srvc.subtitle_line_break_policy_satisfied(row['source_text'], translation, row):
                 raise ValueError(f"battle line-break timing changed: {row['id']}")
-            if max(len(line.strip('“”　')) for line in translation.split('\\n')) > 20:
-                raise ValueError(f"battle subtitle exceeds 20 inner cells: {row['id']}")
+            issues = battle_subtitle_layout_issues(translation)
+            if issues:
+                raise ValueError(f"{row['id']}: {'; '.join(issues)}")
             actual = {(r.chunk_index, r.record_index) for r in records if r.text == row['source_text']}
             expected = {(r['chunk'], r['record']) for r in row['triggers']}
             if not actual or actual != expected:
@@ -106,7 +109,7 @@ def main() -> None:
             continue
         found = by_hash.get(sha256(record.text.encode("utf-8")))
         if found is not None:
-            translations[record.text] = found.replace(" ", "　")  # visible spaces as 0x8140
+            translations[record.text] = expand_compact_scopes(found, BATTLE).replace(" ", "　")  # visible spaces as 0x8140
         else:
             # keep the exact source bytes, terminator excluded (the writer terminates)
             raw = source_bin[record.archive_text_start:record.archive_text_end]

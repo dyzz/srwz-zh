@@ -14,14 +14,14 @@ from typing import Callable, Iterable, Sequence
 from .text import CONTROL_NOTATION
 from .renderer_metrics import RendererState, text_extent, COMPACT_SCOPE_CHARACTERS
 from .control_layout import control_cells, require_static_layout
-from .compact_scopes import TAG as _COMPACT_SCOPE_TAG, collapse as _collapse_compact_scopes, expand as _expand_compact_scopes
+from .compact_scopes import TAG as _COMPACT_SCOPE_TAG, collapse as _collapse_compact_scopes, expand as _expand_compact_scopes, metrics_for_advance
 
 
 # Continuation lines gain one full-width ideographic-space indent at writeback.
-# Widths below count content cells after that indent.  The original Japanese
-# script has 915 continuation lines with 21 characters after the indent (47 of
-# them plain kana/kanji), so the message window renders 21 content cells on
-# every line; the production story-dialogue profile uses 21/21/3 accordingly.
+# Profile widths count content after that indent, including any quote. Native
+# LRPS2 probes establish story step21 / total23 cells and battle step22 /
+# total21 cells. Keep first-line and continuation budgets separate; the
+# historical no-profile API below remains conservative for existing callers.
 DEFAULT_LINE_WIDTH = 21
 DEFAULT_CONTINUATION_LINE_WIDTH = 20
 DEFAULT_MAX_LINES = 3
@@ -1081,6 +1081,7 @@ def split_unbroken_terms(
         logical,
         protected_terms=profile.unbroken_terms,
         stage_keyword_links=stage_keyword_links,
+        default_advance_px=profile.default_advance_px,
     ):
         start, end = position, position + len(token.text)
         position = end
@@ -1092,6 +1093,10 @@ def split_unbroken_terms(
 def is_choice_menu_continuation(previous: str, line: str) -> bool:
     """Choice options are separate quoted lines, not indented dialogue prose."""
 
+    # Compact numbering is still an independent option. Inspect the visible
+    # prefix so <z>1</z>. and native dimension tags do not turn it into prose.
+    previous = CONTROL_NOTATION.sub('', _expand_compact_scopes(previous))
+    line = CONTROL_NOTATION.sub('', _expand_compact_scopes(line))
     return previous.endswith("”") and re.match(r"^“[0-9０-９]+[．.]", line) is not None
 
 
@@ -1218,11 +1223,14 @@ def _with_compact_scopes(function, collapse_result):
     def wrapper(text, *args, **kwargs):
         if not isinstance(text, str) or not _COMPACT_SCOPE_TAG.search(text):
             return function(text, *args, **kwargs)
-        result = function(_expand_compact_scopes(text), *args, **kwargs)
+        profile = kwargs.get("profile")
+        advance = profile.default_advance_px if profile is not None else kwargs.get("default_advance_px", 24)
+        metrics = metrics_for_advance(advance)
+        result = function(_expand_compact_scopes(text, metrics), *args, **kwargs)
         if collapse_result == "reflow":
-            return replace(result, original=text, text=_collapse_compact_scopes(result.text))
+            return replace(result, original=text, text=_collapse_compact_scopes(result.text, metrics))
         if collapse_result == "lines":
-            return tuple(_collapse_compact_scopes(line) for line in result)
+            return tuple(_collapse_compact_scopes(line, metrics) for line in result)
         return result
     return wrapper
 
@@ -1236,3 +1244,50 @@ partition_chinese_text = _with_compact_scopes(partition_chinese_text, "lines")
 reflow_chinese_paragraph = _with_compact_scopes(reflow_chinese_paragraph, "reflow")
 reflow_chinese_dialogue = _with_compact_scopes(reflow_chinese_dialogue, "reflow")
 fit_chinese_dialogue_layout = _with_compact_scopes(fit_chinese_dialogue_layout, "reflow")
+
+
+def battle_subtitle_line_widths(text: str) -> tuple[int, ...]:
+    """Physical pixel widths for SRVC author text, with escaped or actual LF."""
+    state = None
+    widths = []
+    for line in text.replace("\\n", "\n").split("\n"):
+        extent = text_extent(line, default_advance_px=22, state=state)
+        widths.append(extent.occupied_px)
+        state = extent.state
+    return tuple(widths)
+
+
+def battle_subtitle_layout_issues(text: str) -> tuple[str, ...]:
+    """The verified battle surface: at most 2 rows, each <=462px total."""
+    lines = text.replace("\\n", "\n").split("\n")
+    widths = battle_subtitle_line_widths(text)
+    issues = []
+    if len(lines) > 2:
+        issues.append(f"{len(lines)} battle lines exceed 2")
+    for index, width in enumerate(widths, 1):
+        if width > 462:
+            issues.append(f"battle line {index}: {width}px exceeds 462px (21 cells at step22)")
+    for index, line in enumerate(lines[1:], 2):
+        if not line.startswith("　") or line[1:].startswith(("　", " ")):
+            issues.append(f"battle line {index} lacks one full-width continuation indent")
+    return tuple(issues)
+
+
+def reflow_battle_subtitle(
+    text: str, *, profile: ChineseLayoutProfile, preserve_line_count: bool = True,
+) -> ReflowResult:
+    """Reflow SRVC text, keeping its literal newline notation and cue row count.
+
+    A changed row count needs the caller's timing decision. The default only
+    moves the break within the existing one or two rows, without adding a cue.
+    """
+    if (profile.default_advance_px, profile.first_line_maximum_width,
+            profile.maximum_width, profile.maximum_lines, profile.continuation_indent) != (22, 21, 20, 2, "　"):
+        raise ChineseLayoutError("battle subtitle requires the verified step22 / 21-total-cell profile")
+    from .js_layout import request_layout,JsLayoutError
+    import math
+    try:
+        value=request_layout(text,'battle',options=dict(preserveLineCount=preserve_line_count,escapedNewlines='\\n' in text))
+    except JsLayoutError as error:
+        raise ChineseLayoutError(str(error))from error
+    return ReflowResult(text,value['text'],'shared_js',tuple(math.ceil(row['occupiedPx']/22)-(1 if i else 0)for i,row in enumerate(value['rows'])))

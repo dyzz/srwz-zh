@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "evidence": "docs/issue-assets/shared-js-layout-20261028/prose-width-evidence.json",
+  "scenes": {
+    "main_flow": {
+      "columns": 30
+    },
+    "sp_flow": {
+      "columns": 30
+    },
+    "main_scroll": {
+      "columns": 22
+    },
+    "sp_scroll": {
+      "columns": 23
+    }
+  },
+  "variants": {
+    "main_scroll_strip": {
+      "base": "main_scroll",
+      "columns": 21,
+      "resource_ids": [
+        "summary/03/000",
+        "summary/04/000"
+      ]
+    }
+  },
+  "prose_policy": {
+    "protect_words": false,
+    "packing": "balanced_width",
+    "minimum_lines_first": true,
+    "preserve_paragraphs": true
+  }
+}

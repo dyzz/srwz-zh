@@ -57,6 +57,8 @@ WORDS_PATH = PROJECT_ROOT / "config/text-layout/zh-story-unbroken-words.json"
 EDITORIAL_DIR = PROJECT_ROOT / "config/editorial"
 
 
+from srwz.build_layout import reflow_story as reflow_chinese_dialogue,fit_story as fit_chinese_dialogue_layout
+
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 

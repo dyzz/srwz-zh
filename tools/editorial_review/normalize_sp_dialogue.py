@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / 'tools'))
 from srwz.chinese_layout import (
     FORBIDDEN_LINE_END_CHARACTERS, FORBIDDEN_LINE_START_CHARACTERS,
     fit_chinese_dialogue_layout, load_layout_profiles, logical_dialogue_text,
-    reflow_chinese_dialogue, dialogue_layout_issues,
+    reflow_chinese_dialogue, dialogue_layout_issues, battle_subtitle_layout_issues,
 )
 from srwz.text import normalize_original_fullwidth_ascii
 from text_layout.rebalance_story_dialogue import normalize_indent
@@ -108,10 +108,9 @@ def normalize_battle(text):
         reasons.append('ending_punctuation')
     if len(result.split('\\n')) != len(text.split('\\n')) or STRUCTURAL.findall(result) != STRUCTURAL.findall(text):
         raise ValueError('battle controls or line count changed')
-    if any(len(line.strip('“”　')) > 20 for line in result.split('\\n')):
-        raise ValueError('battle subtitle exceeds 20 cells')
-    if re.search(r'\\n(?!　)', result):
-        raise ValueError('battle continuation lacks fullwidth indent')
+    issues = battle_subtitle_layout_issues(result)
+    if issues:
+        raise ValueError('; '.join(issues))
     return result, reasons
 
 
@@ -127,7 +126,7 @@ def run(*, apply=False, batch_id='sp-format-layout-20260928'):
     if sha(stage_path) != proof['components'][component]:
         raise ValueError('SP stage component drift')
     bindings = [r for c in read(stage_path)['chunk_reports'] for r in c['bindings'] if r.get('layout') == 'story_dialogue']
-    profile = replace(load_layout_profiles(ROOT / 'config/text-layout/zh-layout-profiles.json')['story_dialogue'], default_advance_px=22)
+    profile = load_layout_profiles(ROOT / 'config/text-layout/zh-layout-profiles.json')['story_dialogue']
     documents, rows, references = {}, {}, defaultdict(list)
     for b in bindings:
         key = b['corpus'], b['corpus_id']

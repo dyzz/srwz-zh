@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 from .text import CONTROL_NOTATION, normalize_original_fullwidth_ascii
 from .control_layout import control_cells, require_static_layout
-from .compact_scopes import expand as expand_compact_scopes
+from .compact_scopes import expand as expand_compact_scopes, metrics_for_advance
 
 _DIMENSION = re.compile(r"<(width|space):([0-9A-Fa-f]{2})>\Z")
 # Only expression/identifier punctuation belongs to compact scopes. Chinese
@@ -43,7 +43,7 @@ def text_extent(text: str, *, default_advance_px: int,
     The caller supplies the renderer's default; no Unicode-width heuristic is
     used. Newlines must be measured by the caller as separate physical rows.
     """
-    text = expand_compact_scopes(text)
+    text = expand_compact_scopes(text, metrics_for_advance(default_advance_px))
     require_static_layout(text)
     if not 1 <= default_advance_px <= 63:
         raise ValueError('default advance must be between 1 and 63 pixels')

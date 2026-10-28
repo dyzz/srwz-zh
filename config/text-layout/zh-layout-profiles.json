@@ -82,8 +82,8 @@
   ],
   "profiles": {
     "story_dialogue": {
-      "maximum_width": 21,
-      "first_line_maximum_width": 21,
+      "maximum_width": 22,
+      "first_line_maximum_width": 23,
       "maximum_lines": 3,
       "line_count_mode": "minimum",
       "continuation_indent": "　",
@@ -101,7 +101,8 @@
         "discouraged_start": 120,
         "short_line_per_cell": 30
       },
-      "default_advance_px": 21
+      "default_advance_px": 21,
+      "line_packing": "max_width"
     },
     "library_robot": {
       "maximum_width": 26,
@@ -158,10 +159,10 @@
       "default_advance_px": 21
     },
     "stage_scroll_overview": {
-      "maximum_width": 25,
+      "maximum_width": 30,
       "maximum_lines": null,
       "line_count_mode": "minimum",
-      "line_packing": "max_width",
+      "line_packing": "balanced",
       "minimum_line_width": 8,
       "allow_oversized_token_split": true,
       "unbroken_terms": [
@@ -217,7 +218,7 @@
       "default_advance_px": 16
     },
     "world_history_scroll": {
-      "maximum_width": 21,
+      "maximum_width": 22,
       "maximum_lines": null,
       "line_count_mode": "minimum",
       "minimum_line_width": 8,
@@ -231,7 +232,7 @@
         "zh-prose-extra-words.json",
         "zh-flow-scroll-words.json"
       ],
-      "line_packing": "max_width"
+      "line_packing": "balanced"
     },
     "scenario_chart_overview": {
       "maximum_width": 21,
@@ -248,7 +249,7 @@
       "allow_oversized_token_split": true
     },
     "sp_narration_scroll": {
-      "maximum_width": 21,
+      "maximum_width": 23,
       "maximum_lines": null,
       "line_count_mode": "minimum",
       "minimum_line_width": 8,
@@ -262,8 +263,19 @@
         "zh-prose-extra-words.json",
         "zh-flow-scroll-words.json"
       ],
-      "line_packing": "max_width",
+      "line_packing": "balanced",
       "default_advance_px": 25
+    },
+    "battle_subtitle": {
+      "maximum_width": 20,
+      "first_line_maximum_width": 21,
+      "maximum_lines": 2,
+      "line_count_mode": "minimum",
+      "continuation_indent": "　",
+      "minimum_line_width": 0,
+      "allow_oversized_token_split": true,
+      "default_advance_px": 22,
+      "line_packing": "max_width"
     }
   }
 }

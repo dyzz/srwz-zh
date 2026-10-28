@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Mapping
 
 from srwz.parallel import map_processes
+from srwz.build_layout import library_batch,library_input,runtime_inputs
 from srwz.scoped_translations import (
     load_scoped_translations,
     resolve_scoped_translation,
@@ -199,6 +200,11 @@ def reflow_body(
                 f"LIBRARY layout profile/width drift: {profile.profile_id}"
             )
         logical = text.replace("\r", "").replace("\n", "")
+        if profile.profile_id in ('library_character','library_robot','library_glossary') and width=={'library_character':16,'library_robot':26,'library_glossary':25}[profile.profile_id]:
+            kind={'library_character':'CHAR','library_robot':'ROBO','library_glossary':'KYWD'}[profile.profile_id]
+            ok,value=library_batch([(kind,text)])[(kind,text)]
+            if not ok:raise LibraryScopeError(str(value))
+            return value
         try:
             result = reflow_chinese_paragraph(
                 logical,
@@ -295,11 +301,10 @@ def reflow_bodies(keys, widths, profiles, terms) -> dict:
     document. Each value is ``(True, (text, line_widths))`` or ``(False, message)``.
     """
     keys = sorted(keys)
-    results = map_processes(
-        _reflow_job, keys, chunksize=8, initializer=_reflow_init,
-        initargs=(dict(widths), dict(profiles), tuple(terms)),
-    )
-    return dict(zip(keys, results))
+    expected={'CHAR':16,'ROBO':26,'KYWD':25}
+    if any(widths[kind]!=expected[kind] or profiles[kind].profile_id!= {'CHAR':'library_character','ROBO':'library_robot','KYWD':'library_glossary'}[kind] for kind,_ in keys):
+        raise LibraryScopeError('Shared JS library scene/profile drift')
+    return library_batch(keys)
 
 
 def reflow_body_legacy(
@@ -308,6 +313,8 @@ def reflow_body_legacy(
 ) -> tuple[str, tuple[int, ...]]:
     """Preserve the older punctuation-biased wrap as a capacity fallback."""
 
+    if profile is not None and profile.profile_id in ('library_character','library_robot','library_glossary') and width=={'library_character':16,'library_robot':26,'library_glossary':25}[profile.profile_id]:
+        return reflow_body(text,width,profile=profile,protected_terms=protected_terms)
     text = normalize_body_controls(text)
     if re.search(r"<(?:width|space):", text):
         # The character-splitting legacy fallback cannot divide control tags
@@ -1005,8 +1012,8 @@ def main() -> int:
             thread_name_prefix=f"library-{domain}",
         ) as executor:
             prepared = list(executor.map(prepare_chunk, work))
-        # The dense body layout is pure Python; lay every distinct body out
-        # once across worker processes, then encode the chunks in threads.
+        # Lay every distinct body out once in the shared JS batch engine,
+        # then encode the chunks in threads.
         reflowed = reflow_bodies(
             {(expected_kind, text) for item in prepared for text in item[5].values()},
             widths, layout_profiles, protected_terms,
@@ -1203,6 +1210,7 @@ def main() -> int:
             "scope_config": file_lock(scope_path),
             "corpus": file_lock(corpus_path),
             "typography": file_lock(PROJECT_ROOT / "tools/srwz/library_typography.py"),
+            **runtime_inputs(PROJECT_ROOT),
             "font_manifest": file_lock(font_manifest_path),
             "font_proposal": file_lock(proposal_path),
             "executable": file_lock(executable_path, executable),

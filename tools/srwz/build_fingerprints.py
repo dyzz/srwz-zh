@@ -13,6 +13,10 @@ from typing import Mapping
 # component bytes, so editing them must not force a component rebuild.
 COMPONENT_BUILD_DEFINITION_ROOTS = (
     "tools/srwz",
+    "shared/text-layout/engine.mjs",
+    "shared/text-layout/contracts.mjs",
+    "shared/text-layout/cli.mjs",
+    "shared/text-layout/cli-handler.mjs",
     "tools/native/srwz-codec-rs/Cargo.toml",
     "tools/native/srwz-codec-rs/Cargo.lock",
     "tools/native/srwz-codec-rs/src",

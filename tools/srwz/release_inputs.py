@@ -16,7 +16,7 @@ from .edition import EditionError, json_bytes, load_json, project_path
 from .file_identity import record_clone, sha256_file
 
 
-SOURCE_ROOTS = ("config", "corpus", "manifests", "tools", "vendor/upstream-python")
+SOURCE_ROOTS = ("config", "corpus", "manifests", "tools", "vendor/upstream-python", "shared/text-layout")
 SKIP_PARTS = {".git", "__pycache__", "target", ".DS_Store", ".pytest_cache"}
 SKIP_PREFIXES = ("config/editorial/", "manifests/editions/")
 # Build definitions only. Documentation, authoring aids and runtime tooling
@@ -41,6 +41,8 @@ SKIP_SOURCE_PREFIXES = (
 
 def is_build_input(relative: str) -> bool:
     """True for files that belong in the frozen build-definition snapshot."""
+    if relative.startswith("shared/text-layout/"):
+        return relative in {"shared/text-layout/"+name for name in ("engine.mjs","contracts.mjs","cli.mjs","cli-handler.mjs")}
     name = relative.rsplit("/", 1)[-1]
     if name in SKIP_PARTS or name.endswith((".pyc", ".pyo")) or relative.endswith(SKIP_SUFFIXES):
         return False

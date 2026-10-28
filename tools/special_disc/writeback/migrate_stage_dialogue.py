@@ -7,7 +7,6 @@ This is a development component, not a complete Special Disc release builder.
 from __future__ import annotations
 
 import argparse
-from dataclasses import replace
 import collections
 import hashlib
 import json
@@ -22,6 +21,7 @@ import migrate_slps_text as mst
 from stage_bindings import StageBindings, BindingError
 from stage_auxiliary import formation_groups, scalar_sites, write_formations
 from write_system_text import OVERLAY, overlay_member
+from srwz.build_layout import fit_story as fit_js_story
 from srwz.chinese_layout import fit_chinese_dialogue_layout, load_layout_profiles, rendered_line_width
 from srwz.codec import DEFAULT_MAX_MATCH_CHAIN, DEFAULT_MIN_MATCH_LENGTH, decode_production, reencode_changed_suffix
 from srwz.iso9660 import member_map, scan_iso9660
@@ -122,7 +122,7 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
             and op not in (0x10, 0x11, 0x12)
             and row.get("kind") not in {"scene_label", "location_caption"}
         ):
-            text = fit_chinese_dialogue_layout(text, profile=profile).text
+            text = fit_js_story(text, profile=profile).text
             row["layout"] = "story_dialogue"
         else:
             # Labels/conditions retain their explicit line structure, without dialogue indentation.
@@ -196,7 +196,7 @@ def main():
     bindings = StageBindings(ROOT, allow_draft=args.allow_draft)
     for contract in ('config/products/special-disc/stage-scalar-contracts.json',):
         bindings.inputs[contract] = sha256((ROOT/contract).read_bytes())
-    profile = replace(load_layout_profiles(PROFILES)['story_dialogue'], default_advance_px=22)
+    profile = load_layout_profiles(PROFILES)['story_dialogue']
     base_report = json.loads((args.base / 'report.json').read_text())
     archive = None
     if STAGE + OVERLAY in base_report['files']:
