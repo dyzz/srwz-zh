@@ -23,6 +23,7 @@ import threading
 import time
 from datetime import datetime, timezone
 
+from srwz.build_layout import check_runtime as check_js_runtime
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
 from srwz.codec import ENV_COMPRESSION_CACHE, prune_compression_cache
 from srwz.file_identity import ENV_STORE, publish_verified, sha256_range
@@ -434,6 +435,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             {"edition": p.edition_id, "adapter": p.adapter, "available": p.adapter is not None,
              "source_iso": p.source_iso.path, "executable": p.executable.path, "profile_id": p.profile_id}
             for p in profiles]}
+    shared_js_runtime=check_js_runtime(root)
     # Preflight all targets first; never partially build Original when BEST is
     # requested but unsupported, and never silently route BEST through Original.
     for profile in build_profiles.values():
@@ -459,7 +461,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             context.project_root  # Also check aliases under this exact input key.
         batch_path = project_path(root, f"work/editions/{snapshot.digest}/{'-'.join(requested)}.json", "work")
         batch = {"schema_version": 1, "input_digest": snapshot.digest, "requested_editions": list(requested),
-                 "release_config": config, "input_snapshot": (snapshot.root / "inputs.json").relative_to(root).as_posix(),
+                 "release_config": config, "shared_js_layout":shared_js_runtime, "input_snapshot": (snapshot.root / "inputs.json").relative_to(root).as_posix(),
                  "status": "running", "results": [], "runtime": "not_tested",
                  "timing": {"started_at": started_at, "preflight_and_snapshot_seconds": round(time.perf_counter() - started, 3), "editions": {}}}
         atomic_json(batch_path, batch)

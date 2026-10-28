@@ -20,6 +20,8 @@ REPO = Path(__file__).resolve().parents[1]
 
 class EditionTests(unittest.TestCase):
     def setUp(self):
+        js=patch.object(build_editions,"check_js_runtime",return_value={"scenes":10,"inputs":{}})
+        js.start();self.addCleanup(js.stop)
         skip = patch.object(build_editions, "verify_skip", return_value={"enabled": True})
         self.skip_verifier = skip.start()
         self.addCleanup(skip.stop)

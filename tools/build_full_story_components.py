@@ -26,6 +26,7 @@ try:
     from srwz.codec import decode_production as decode, encode, reencode_changed_suffix
     from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
+    from srwz.build_layout import verify_stored as verify_js_stored, verify_prose as verify_js_prose
     from srwz.chinese_layout import load_layout_profiles
     from srwz.diagnostics import require_work_output
     from srwz.display_names import (
@@ -235,6 +236,7 @@ except ModuleNotFoundError:
     )
     from tools.srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from tools.srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
+    from tools.srwz.build_layout import verify_stored as verify_js_stored, verify_prose as verify_js_prose
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.display_names import (
         DisplayNameError,
@@ -3491,6 +3493,7 @@ def _apply_stage_overviews(
         or expected.get("chunk_index") != 0
     ):
         raise FullStoryComponentError("stage-overview corpus contract drift")
+    verify_js_prose([(entry['id'],entry['translation'],None)for entry in entries],'main_flow')
 
     offset_spec = ExecutableOffsetSpec(
         name="HEDBDY/HB.BIN STAGE offsets",
@@ -4865,6 +4868,7 @@ def _apply_world_history_layout(
             "world-history source/translation selection drift"
         )
 
+    verify_js_prose([(entry['id'],entry['translation'],len(source_by_id[entry['id']].text.split('\n')))for entry in entries],'main_scroll')
     _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
         font_manifest
     )
@@ -7163,6 +7167,7 @@ def _apply_srvc_battle_text(
     ):
         raise FullStoryComponentError("SRVC source inventory drift")
 
+    verify_js_stored([(entry['id'],entry['translation'],False)for entry in entries],'battle')
     translations: dict[str, str] = {}
     source_id_by_text: dict[str, str] = {}
     override_count = 0

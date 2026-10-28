@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
 from srwz.chinese_layout import battle_subtitle_layout_issues
+from srwz.build_layout import verify_stored
 import srwz.srvc as srvc  # noqa: E402
 from srwz.image_export import parse_seg_offsets  # noqa: E402
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
@@ -103,6 +104,7 @@ def main() -> None:
                 raise ValueError(f"SP battle trigger binding drift: {row['id']}")
             by_hash[digest] = translation
 
+    verify_stored([(digest,text,False)for digest,text in by_hash.items()],'battle')
     translations, kept_raw = {}, {}
     for record in records:
         if record.text in translations:

@@ -21,7 +21,7 @@ import migrate_slps_text as mst
 from stage_bindings import StageBindings, BindingError
 from stage_auxiliary import formation_groups, scalar_sites, write_formations
 from write_system_text import OVERLAY, overlay_member
-from srwz.build_layout import fit_story as fit_js_story
+from srwz.build_layout import verify_stored,fit_story as fit_js_story,runtime_inputs
 from srwz.chinese_layout import fit_chinese_dialogue_layout, load_layout_profiles, rendered_line_width
 from srwz.codec import DEFAULT_MAX_MATCH_CHAIN, DEFAULT_MIN_MATCH_LENGTH, decode_production, reencode_changed_suffix
 from srwz.iso9660 import member_map, scan_iso9660
@@ -140,6 +140,7 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
             speakers[entry.speaker_id] = text
         else:
             replacements[entry.entry_id] = text
+    verify_stored([(row['native_id'],row['output_text'],False)for row in rows if row['layout']=='story_dialogue'],'story')
     result = repack_stage_texts_in_place(data, table, stage_index=index,
         function_address=function_address, replacements=replacements, parsed_source=parsed,
         speaker_replacements=speakers, overrides=overrides, base_address=sd.SD_STAGE_BASE)
@@ -196,6 +197,7 @@ def main():
     bindings = StageBindings(ROOT, allow_draft=args.allow_draft)
     for contract in ('config/products/special-disc/stage-scalar-contracts.json',):
         bindings.inputs[contract] = sha256((ROOT/contract).read_bytes())
+    bindings.inputs.update({value['path']:value['sha256']for value in runtime_inputs(ROOT).values()})
     profile = load_layout_profiles(PROFILES)['story_dialogue']
     base_report = json.loads((args.base / 'report.json').read_text())
     archive = None

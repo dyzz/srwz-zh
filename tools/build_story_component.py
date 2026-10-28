@@ -22,6 +22,7 @@ from srwz.bazaar_tickers import (
 from srwz.codec import decode_production as decode
 from srwz.parallel import map_processes
 from srwz.compressed_workspace import CompressedArchiveWorkspace
+from srwz.build_layout import verify_stored,runtime_inputs
 from srwz.chinese_layout import (
     dialogue_layout_issues,
     load_layout_profiles,
@@ -1196,6 +1197,8 @@ def build(
         fitted_dialogue = {}
         dialogue_layout_reflowed_count = 0
         layout_profile = story_layout_profile()
+        verify_stored([(entry.entry_id,dialogue[stage][entry.entry_id],"《" in entry.text)
+                       for entry in parsed_source.entries if entry.kind=="dialogue"],'story')
         for entry in parsed_source.entries:
             if entry.kind != "dialogue":
                 continue
@@ -1640,6 +1643,7 @@ def build(
             "dialogue_sha256": dialogue_hashes,
         },
         "inputs": {
+            **runtime_inputs(PROJECT_ROOT),
             "config": {"path": str(config_path.relative_to(PROJECT_ROOT)), "sha256": _sha256(config_path)},
             "source_slps": {"path": str(slps_path.relative_to(PROJECT_ROOT)), "sha256": sha256_bytes(source_slps)},
             "source_stage": {"path": str(stage_path.relative_to(PROJECT_ROOT)), "sha256": sha256_bytes(source_stage)},
