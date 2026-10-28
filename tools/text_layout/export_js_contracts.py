@@ -18,7 +18,7 @@ for name,profile_id,width,height,step,line_step,columns,max_lines,kind,compact i
   assert columns*step==width_evidence['nativeWidthExamples'][name]['widthPx'],(name,'native width evidence mismatch')
  p=profiles[profile_id];assert p.default_advance_px==step,(name,p.default_advance_px,step)
  if kind=='dialogue':assert (p.first_line_maximum_width or p.maximum_width)==columns
- scenes[name]=dict(id=name,profileId=profile_id,kind=kind,width=width,height=height,step=step,lineStep=line_step,columns=columns,widthPx=columns*step,maxLines=max_lines,continuationIndent='　' if kind=='dialogue' else '',compact=compact,protectedTerms=sorted(set(p.unbroken_terms)|set(COMMON_PROTECTED_WORDS)),packing='max_width' if kind=='dialogue' else overrides['prose_policy']['packing'],protectWords=kind=='dialogue')
+ scenes[name]=dict(id=name,profileId=profile_id,kind=kind,width=width,height=height,step=step,lineStep=line_step,columns=columns,widthPx=columns*step,maxLines=max_lines,continuationIndent='　' if kind=='dialogue' else '',compact=compact,protectedTerms=sorted(set(p.unbroken_terms)|set(COMMON_PROTECTED_WORDS)),packing='max_width' if kind=='dialogue' else overrides['prose_policy']['packing'],protectWords=kind=='dialogue',widthSelection=None if kind=='dialogue' else overrides['prose_policy'].get('width_selection'))
 # Library body descriptors and reviewed body typography are independent of dialogue.
 from srwz.library_typography import BODY_HEIGHTS
 for domain,height in BODY_HEIGHTS.items():

@@ -185,7 +185,7 @@ function tokensFor(text, scene, startState, options) {
         const term=(terms.get(text[offset])||[]).find(t=>text.startsWith(t,offset));if(term)candidates.push(term);
         for(const re of [latinRE,numberRE]){const m=match(re,text,offset);if(m)candidates.push(m[0]);}
       }
-      if(text.startsWith('……',offset)||text.startsWith('——',offset))candidates.push(text.slice(offset,offset+2));
+      if(text.startsWith('……',offset)||text.startsWith('——',offset)){candidates.push(text.slice(offset,offset+2));atomic=true;}
       candidates.sort((a,b)=>b.length-a.length||(a>b?-1:1));
       value=candidates[0]||String.fromCodePoint(text.codePointAt(offset));
     }
@@ -256,8 +256,9 @@ export function validate(text,sceneId,options={}) {
   });
   return {...result,valid:issues.length===0,issues};
 }
-export function layout(text,sceneId,options={}) {
+function layoutFixed(text,sceneId,options={},targetWidth=null) {
   const scene=effectiveScene(sceneId,options), original=normalize(text);checkOptions(options,scene);
+  if(targetWidth!==null)scene.widthPx=targetWidth;
   options={protectWords:scene.protectWords,...options};
   if(options.escapedNewlines)text=original.replace(/\\n/g,'\n');else text=original;
   rejectDynamic(text);
@@ -290,6 +291,42 @@ export function layout(text,sceneId,options={}) {
   if(!checked.valid)fail('invariant','Generated layout failed validation',{issues:checked.issues});
   const output=options.escapedNewlines?physical.replace(/\n/g,'\\n'):physical;
   return {version,scene:scene.id,profile:scene.profileId,text:output,changed:output!==original,widthPx:scene.widthPx,step:scene.step,...checked,compiledText:expandCompact(physical,scene.id)};
+}
+// Paragraph tails and blank separators do not vote on the common line width.
+// One pixel of tolerance covers native narrow glyph overhang, not added spacing.
+function nonfinalWidths(result) {
+  const rows=result.rows, widths=[];
+  for(let i=0;i+1<rows.length;i++){
+    if(rows[i].text.trim()&&rows[i+1].text.trim()&&!/^[　 ]/.test(rows[i+1].text))widths.push(rows[i].occupiedPx);
+  }
+  return widths;
+}
+function uniformity(result) {
+  const widths=nonfinalWidths(result), spread=widths.length?Math.max(...widths)-Math.min(...widths):0;
+  let aligned=0;
+  for(const width of widths)aligned=Math.max(aligned,widths.filter(w=>w>=width&&w<=width+1).length);
+  return {spreadPx:spread,excessSpreadPx:Math.max(0,spread-1),unalignedRows:widths.length-aligned,nonfinalWidthsPx:widths};
+}
+export function layout(text,sceneId,options={}) {
+  const scene=effectiveScene(sceneId,options), baseline=layoutFixed(text,sceneId,options);
+  if(scene.widthSelection!=='uniform_nonfinal'||(options.packing??scene.packing)!=='max_width')return baseline;
+  let best=baseline,selected=scene.widthPx,score=uniformity(baseline),tested=1;
+  const candidateOptions={...options,maxLines:options.maxLines??baseline.rows.length};
+  // Descending order resolves equal consistency in favour of the widest layout.
+  for(let width=scene.widthPx-1;score.excessSpreadPx>0&&width>=scene.step;width--){
+    let candidate;
+    try{candidate=layoutFixed(text,sceneId,candidateOptions,width);}
+    catch(error){
+      if(error.code==='overflow'||error.code==='invariant'&&error.details?.issues?.every(i=>i.code==='rows'))continue;
+      throw error;
+    }
+    tested++;
+    const next=uniformity(candidate);
+    if(next.excessSpreadPx<score.excessSpreadPx||next.excessSpreadPx===score.excessSpreadPx&&next.unalignedRows<score.unalignedRows){
+      best=candidate;selected=width;score=next;
+    }
+  }
+  return {...best,widthPx:scene.widthPx,selectedWidthPx:selected,widthSelection:{policy:'uniform_nonfinal',testedWidths:tested,...score,withinTolerance:score.spreadPx<=1}};
 }
 export function dispatch(request){
   if(!request||typeof request!=='object')fail('input','Expected a JSON request');

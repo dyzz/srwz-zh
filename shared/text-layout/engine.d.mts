@@ -16,8 +16,8 @@ export interface FontState { width:number;height:number;step:number }
 export interface Issue { code:string;row?:number;widthPx?:number;limitPx?:number;message?:string }
 export interface Measured { scene:SceneId;rows:Row[];state:FontState }
 export interface Validated extends Measured { valid:boolean;issues:Issue[] }
-export interface LayoutResult extends Validated { version:string;profile:string;text:string;changed:boolean;widthPx:number;step:number;compiledText:string }
-export interface Scene { id:SceneId;profileId:string;kind:'dialogue'|'prose';width:number;height:number;step:number;lineStep:number;columns:number;widthPx:number;maxLines:number|null;continuationIndent:string;compact:Record<string,number>;protectedTerms:string[];protectWords:boolean;packing:'max_width'|'balanced_width' }
+export interface LayoutResult extends Validated { version:string;profile:string;text:string;changed:boolean;widthPx:number;step:number;compiledText:string;selectedWidthPx?:number;widthSelection?:{policy:'uniform_nonfinal';testedWidths:number;spreadPx:number;excessSpreadPx:number;unalignedRows:number;nonfinalWidthsPx:number[];withinTolerance:boolean} }
+export interface Scene { id:SceneId;profileId:string;kind:'dialogue'|'prose';width:number;height:number;step:number;lineStep:number;columns:number;widthPx:number;maxLines:number|null;continuationIndent:string;compact:Record<string,number>;protectedTerms:string[];protectWords:boolean;packing:'max_width'|'balanced_width';widthSelection?:'uniform_nonfinal'|null }
 export class LayoutError extends Error {code:string;details:Record<string,unknown>}
 export const version:string;
 export const sceneIds:readonly SceneId[];

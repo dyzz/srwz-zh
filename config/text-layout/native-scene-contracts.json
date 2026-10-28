@@ -27,8 +27,9 @@
   },
   "prose_policy": {
     "protect_words": false,
-    "packing": "balanced_width",
+    "packing": "max_width",
     "minimum_lines_first": true,
-    "preserve_paragraphs": true
+    "preserve_paragraphs": true,
+    "width_selection": "uniform_nonfinal"
   }
 }

@@ -88,20 +88,21 @@ test('reviewed native prose widths replace the older narrow author budgets',()=>
  assert.equal(layout('甲','main_scroll',{resourceId:'summary/03/000'}).scene,'main_scroll_strip');
  assert.equal(layout('甲','main_scroll',{resourceId:'summary/04/000'}).widthPx,504);
 });
-test('non-dialogue prose defaults to no word protection and balances rows by pixel width',()=>{
+test('flow and scroll prose fills rows without word protection',()=>{
  const text='国'.repeat(14)+'甲乙丙丁戊己庚辛壬癸'+'国'.repeat(10);
  const r=layout(text,'main_flow',{protectedTerms:['甲乙丙丁戊己庚辛壬癸']});
- assert.deepEqual(r.rows.map(row=>row.occupiedPx),[272,272]);assert.ok(r.text.includes('甲乙丙\n丁戊'));
+ assert.deepEqual(r.rows.map(row=>row.occupiedPx),[480,64]);assert.ok(r.text.includes('国'.repeat(6)+'\n'+'国'.repeat(4)));
  const closed=layout('国'.repeat(27)+'<z>MS-013</z>'+'国'.repeat(10),'main_flow');
  assert.ok(closed.text.includes('<z>MS-013</z>'));assert.ok(closed.rows.every(row=>row.occupiedPx<=480));
 });
-test('minimum row count then balanced physical widths including first indent',()=>{
+test('flow and scroll fill every nonfinal row, retaining first indent',()=>{
  for(const scene of ['main_flow','sp_flow','main_scroll','sp_scroll','main_scroll_strip']){
   const s=getScene(scene);assert.equal(s.protectWords,false);
   for(let n=1;n<=85;n++)for(const indent of ['', '　']){
    const r=layout(indent+'国'.repeat(n),scene),widths=r.rows.map(row=>row.occupiedPx);
    assert.equal(r.rows.length,Math.ceil((n+indent.length)/s.columns));
-   assert.ok(Math.max(...widths)-Math.min(...widths)<=s.step);
+   assert.ok(widths.slice(0,-1).every(w=>w===s.widthPx));
+   assert.ok(widths.at(-1)<=s.widthPx);
    assert.equal(r.text.replace(/\n/g,''),indent+'国'.repeat(n));
   }
  }
@@ -125,4 +126,36 @@ test('library bodies have independent width, height and compact restoration',()=
   assert.deepEqual(m.map(g=>g.advance),[21,12,12,21]);
   assert.equal(layout(r.text,scene).text,r.text);
  }
+});
+
+
+test('one width search covers all paragraphs, allowing short tails and native compact overhang',()=>{
+ const text='　幻痛部队的众人与新队员见面。望着他们，阿尼莫奈与辛西亚不由得看到了自己的影子。\n　与此同时，贝克与科伦在麦康奈尔基地附近的城镇相遇。原本剑拔弩张的两人，在异星人出现后转而并肩迎敌。\n　<z>013</z>特别小队也赶来支援，合力击退了异星人部队。但战斗结束后，奥尔却因<width:10><space:10>禁语受到刺激，精神失去平衡。\n　回到基地后，贝克与科伦正式加入队伍。紧接着，与补给物资一同到来的，还有奇美拉的极艾博士。';
+ const r=layout(text,'sp_flow',{maxLines:11});
+ assert.equal(r.widthPx,480);assert.equal(r.selectedWidthPx,479);
+ assert.deepEqual(r.widthSelection.nonfinalWidthsPx,[464,464,465,464]);
+ assert.equal(r.widthSelection.withinTolerance,true);
+ assert.equal(r.text.replaceAll('\n',''),text.replaceAll('\n',''));
+ assert.equal(layout(r.text,'sp_flow',{maxLines:11}).text,r.text);
+ assert.equal(r.text.split('\n').filter(s=>s.startsWith('　')).length,4);
+});
+test('uniform width search leaves already aligned nonfinal rows at the maximum width',()=>{
+ const r=layout('　'+'国'.repeat(63)+'\n　'+'甲'.repeat(35),'main_flow',{maxLines:8});
+ assert.equal(r.selectedWidthPx,480);assert.equal(r.widthSelection.testedWidths,1);
+ assert.deepEqual(r.widthSelection.nonfinalWidthsPx,[480,480,480]);
+ assert.equal(layout('甲'.repeat(40),'story').widthSelection,undefined);
+});
+
+
+test('width trials respect owner row budgets and keep punctuation pairs atomic',()=>{
+ const text='　'+'甲'.repeat(29)+'。'+'乙'.repeat(33)+'\n　'+'丙'.repeat(42)+'。';
+ const baselineRows=layout(text,'main_flow',{packing:'balanced_width'}).rows.length;
+ for(const budget of [undefined,6]){
+  const options=budget?{maxLines:budget}:{};
+  const result=layout(text,'main_flow',options);
+  assert.ok(result.rows.every(row=>row.occupiedPx<=480));
+  assert.ok(result.rows.length<=(budget??baselineRows));
+  assert.equal(result.text.replaceAll('\n',''),text.replaceAll('\n',''));
+ }
+ assert.equal(layout('　'+'甲'.repeat(18)+'……'+'乙'.repeat(45),'sp_flow',{maxLines:5}).text.replaceAll('\n',''),'　'+'甲'.repeat(18)+'……'+'乙'.repeat(45));
 });

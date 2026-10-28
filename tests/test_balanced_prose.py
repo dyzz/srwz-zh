@@ -35,16 +35,16 @@ class BalancedProseTests(unittest.TestCase):
     def test_flow_and_scroll_profiles_fill_but_library_keeps_balancing(self):
         profiles=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')
         for key,width in (('stage_scroll_overview',30),('world_history_scroll',22),('sp_narration_scroll',23)):
-            self.assertEqual(profiles[key].line_packing,'balanced')
+            self.assertEqual(profiles[key].line_packing,'max_width')
             self.assertEqual(profiles[key].maximum_width,width)
         self.assertEqual(profiles['library_character'].line_packing,'balanced')
 
-    def test_flow_protects_the_complete_short_person_name(self):
+    def test_flow_fills_first_row_even_inside_a_name(self):
         profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['stage_scroll_overview']
         text='　此前一直推动与月之民谈判的领主古恩，为打破僵局而采取了下一步行动。'
         fitted=reflow_chinese_prose(text,profile=profile).text
         self.assertEqual(fitted.replace('\n',''),text)
-        self.assertIn('古\n恩',fitted)
+        self.assertEqual(len(fitted.split('\n')[0]),30)
 
     def test_world_history_separators_keep_native_drawable_space_rows(self):
         profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['world_history_scroll']
@@ -118,10 +118,10 @@ class BalancedProseTests(unittest.TestCase):
         self.assertEqual(tuple(len(x) for x in result.text.splitlines()),(10,10))
         self.assertEqual(result.line_widths_px,(240,240))
 
-    def test_equal_rows_do_not_split_known_words(self):
-        result=flow_synopsis('　'+'甲'*24+'战斗结束后，双方恢复精神平衡。')
-        self.assertFalse(any(line.endswith('结') or line.startswith('束') for line in result.splitlines()))
-        self.assertTrue(any('精神' in line for line in result.splitlines()))
+    def test_flow_does_not_protect_word_boundaries(self):
+        result=flow_synopsis('　'+'甲'*26+'战斗结束后，双方恢复精神平衡。')
+        self.assertEqual(len(result.split('\n')[0]),30)
+        self.assertIn('结\n束',result)
 
     def test_scroll_paragraphs_offer_balanced_rows(self):
         rows=paragraphs('甲'*40,22,line_packing='balanced')

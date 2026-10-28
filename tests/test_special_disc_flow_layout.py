@@ -41,8 +41,10 @@ class SpFlowLayoutTests(unittest.TestCase):
         text='　罗杰与万丈讲起在贝尔弗莱斯特遇见兰顿的祖父阿克塞尔时的往事。'
         lines=flow_synopsis(text).splitlines()
         self.assertEqual(''.join(lines),text)
-        self.assertLessEqual(max(map(len,lines))-min(map(len,lines)),1)
-        self.assertTrue(any('往事' in line for line in lines))
+        # The final full stop cannot start a row, so one cell is left for its preceding glyph.
+        self.assertEqual(len(lines[0]),FLOW_WIDTH-1)
+        self.assertEqual(lines[-1],'事。')
+        self.assertIn('往\n事。','\n'.join(lines))
         self.assertIn('阿克塞尔',''.join(lines))
         self.assertIn('贝尔弗莱斯特',''.join(lines))
         self.assertTrue(all(len(line)<=FLOW_WIDTH for line in lines))
@@ -72,7 +74,7 @@ class SpFlowLayoutTests(unittest.TestCase):
         rendered=flow_synopsis(raw)
         self.assertEqual(flow_synopsis(rendered),rendered)
         widths=[text_extent(row,default_advance_px=16).occupied_px for row in rendered.splitlines()]
-        self.assertEqual(widths,[22*16,21*16])
+        self.assertEqual(widths,[30*16,13*16])
         self.assertEqual(len(widths),2)
 
     def test_readback_rejects_a_split_person_name(self):

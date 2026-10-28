@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preview/apply shared-JS balanced flow and scrolling prose, preserving author scopes.
+"""Preview/apply shared-JS full-width flow and scrolling prose, preserving author scopes.
 
 Only soft physical wraps change. Paragraph starts, native blank rows, wording,
 controls and compact author notation are retained. Source row budgets are checked
@@ -68,8 +68,8 @@ def plan():
                 raise ValueError(f"Source drift: {entry['id']}")
             profile = replace(profiles[profile_id], default_advance_px=advance)
             if surface=='main_scroll' and entry['id'] in narrow_ids:profile=replace(profile,maximum_width=21)
-            if profile.line_packing != 'balanced':
-                raise ValueError(f'{profile_id} must use shared balanced packing')
+            if profile.line_packing != 'max_width':
+                raise ValueError(f'{profile_id} must use shared maximum-width packing')
             before = entry['translation']
             native = expand(before, FLOW_SYNOPSIS) if surface == 'sp_flow' else before
             terms = (FLOW_PROTECTED_TERMS if surface == 'sp_flow' else
@@ -87,7 +87,8 @@ def plan():
                 raise ValueError('Author controls changed')
             rows.append(dict(path=path, id=entry['id'], surface=surface, before=before, after=after,
                              changed=after != before, widths_px=fitted.line_widths_px,
-                             maximum_width_px=profile.maximum_width * advance, maximum_lines=limit))
+                             maximum_width_px=profile.maximum_width * advance, maximum_lines=limit,
+                             selected_width_px=fitted.selected_width_px,width_selection=fitted.width_selection))
             entry['translation'] = after
     documents[paths[0]]['policy']['maximum_line_width'] = profiles['stage_scroll_overview'].maximum_width
     return documents, dict(inputs=inputs, scanned=len(rows), changed=sum(r['changed'] for r in rows),

@@ -13,6 +13,8 @@ class ProseLayoutResult:
     text: str
     paragraph_count: int
     line_widths_px: tuple[int, ...]
+    selected_width_px: int | None = None
+    width_selection: dict | None = None
 
 
 def logical_prose_text(text: str) -> str:
@@ -40,7 +42,7 @@ def reflow_chinese_prose(
         if CONTROL_NOTATION.findall(result['text'])!=CONTROL_NOTATION.findall(text):raise ChineseLayoutError('JS prose changed controls')
         if 'scroll' in scene:validate_scroll_placeholders(text,result['text'],label=scene+' JS reflow')
         count=sum(bool(row.strip())and (i==0 or row.startswith(('　',' ')) or not text.split('\n')[i-1].strip())for i,row in enumerate(text.split('\n')))
-        return ProseLayoutResult(result['text'],count,tuple(row['occupiedPx']for row in result['rows']))
+        return ProseLayoutResult(result['text'],count,tuple(row['occupiedPx']for row in result['rows']),result.get('selectedWidthPx'),result.get('widthSelection'))
     groups: list[tuple[str,str] | str] = []
     for line in text.replace('\r','').split('\n'):
         if not line.strip('　 '):
