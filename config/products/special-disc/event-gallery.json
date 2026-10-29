@@ -1785,6 +1785,25 @@
               },
               "source": "cursor anchor, hidden: ドロシー is not on the map; in the event movie (3:59, 4:03) her lines put the cursor on (12,18), two tiles from Beck (LRPS2 candidate tiles phase-correlated with the movie frame, response 0.82, shift 0). Unit 628 (ビッグファウ) is never drawn"
             }
+          ],
+          "roger_anchor": [
+            {
+              "unit": 618,
+              "pilot": 554,
+              "tile": [
+                11,
+                14
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": null,
+                "pilot": 534
+              },
+              "source": "cursor anchor, hidden: ロジャー speaks before the Big O (same pilot 554) arrives; in the event movie (4:06-4:09) his lines put the cursor on (11,14), the Big O's spawn tile (STAGE024 0xa2d0) (LRPS2 candidate tiles, response 0.34, shift 0). Unit 618 (ビッグオー) is never drawn; removed before the Big O spawn"
+            }
           ]
         },
         "timeline": [
@@ -1794,6 +1813,15 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "spawn",
+            "roger_anchor"
+          ],
+          [
+            "visible",
+            554,
+            0
           ],
           [
             "spawn",
@@ -2169,6 +2197,10 @@
             0
           ],
           [
+            "remove_unit",
+            618
+          ],
+          [
             "spawn",
             "bigo"
           ],
@@ -2378,6 +2410,25 @@
               },
               "source": "STAGE025 0xe790 op0x13b4 boards レントン (660) and 0xe7a0 op0x13bd switches エウレカ to 645 (SP 667): the Nirvash after its first move (10,18), facing 3 (0xe770), with both seated"
             }
+          ],
+          "renton_anchor": [
+            {
+              "unit": 745,
+              "pilot": 660,
+              "tile": [
+                11,
+                21
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": null,
+                "pilot": 638
+              },
+              "source": "cursor anchor, hidden: レントン speaks before he boards the Nirvash; STAGE025 0xe620-0xe690 pans the cursor (vars 0x9015/0x9016) to (12,21) after section 11 and his section-12 lines keep it there; the event movie (4:50) matches (11,21) (LRPS2 candidate tiles, response 0.75, shift 0). Spawned after section 11 (his section-11 line in the movie (4:42) could not be placed); unit 745 (ニルヴァーシュ) is never drawn; removed before the boarded Nirvash (same pilot 660)"
+            }
           ]
         },
         "timeline": [
@@ -2430,6 +2481,15 @@
           [
             "talk",
             11
+          ],
+          [
+            "spawn",
+            "renton_anchor"
+          ],
+          [
+            "visible",
+            660,
+            0
           ],
           [
             "camera",
@@ -2531,6 +2591,10 @@
             2,
             666,
             3
+          ],
+          [
+            "remove_unit",
+            745
           ],
           [
             "remove_unit",
