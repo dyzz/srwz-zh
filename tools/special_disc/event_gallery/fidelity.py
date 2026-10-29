@@ -11,7 +11,8 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
   0x43 a          load + play BGM a (FUN_00182fc0(a, b, c, 1, 3, 0))
   bgm_pause       native FUN_00183220(2): pause the current BGM (cmd 0x20)
   form_se         native FUN_00182a50(0x2a, 1): the form-change sound of op 0x1d
-  0x46 m,k,v      stage model m: k=9 visibility, k=5 frame, k=6 range
+  0x46 m,k,v      stage model m: k=9 visibility (v 0 hide, 1 show), k=5 animate
+                  to frame v, k=7 set frame v now, k=6/8 frame with high half
   0x56 / +rec     dynamic effect at tile (two records)
   0x57            wait until no dynamic effect is active
   0x0d p,2        spawn list p, appear on map (FUN_001b4d90)

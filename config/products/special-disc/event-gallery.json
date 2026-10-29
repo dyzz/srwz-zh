@@ -1699,7 +1699,26 @@
       ],
       "position_source": "prior_script_move",
       "runtime_status": "pilot (2026-10-26), LRPS2 pending",
-      "stage_objects": [],
+      "stage_objects": [
+        {
+          "model": 0,
+          "frame": 0,
+          "mode": 1,
+          "visible": 1
+        },
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 0,
+          "visible": 1
+        },
+        {
+          "model": 2,
+          "frame": 0,
+          "mode": 0,
+          "visible": 1
+        }
+      ],
       "source_context": {
         "stage_index": 24,
         "call_offset": "0xbb90",
@@ -2276,7 +2295,8 @@
             "reason": "not reproduced in the other scenes either"
           }
         ]
-      }
+      },
+      "stage_objects_source": "STAGE024 entry 0x810-0x860 (0x146280 / 0x146160 before the map starts)"
     },
     {
       "id": "effect-246",
@@ -2879,7 +2899,14 @@
       ],
       "position_source": "prior_script_move",
       "runtime_status": "2026-10-26, LRPS2 pending",
-      "stage_objects": [],
+      "stage_objects": [
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 1,
+          "visible": 1
+        }
+      ],
       "source_context": {
         "stage_index": 30,
         "call_offset": "0xb120",
@@ -3364,7 +3391,8 @@
             "reason": "not reproduced in the other scenes either"
           }
         ]
-      }
+      },
+      "stage_objects_source": "STAGE030 entry (0x146280 / 0x146160 before the map starts)"
     },
     {
       "id": "effect-267",
@@ -6973,7 +7001,38 @@
       ],
       "position_source": "anchor",
       "runtime_status": "2026-10-26, LRPS2 pending",
-      "stage_objects": [],
+      "stage_objects": [
+        {
+          "model": 0,
+          "frame": 0,
+          "mode": 1,
+          "visible": 1
+        },
+        {
+          "model": 1,
+          "frame": 0,
+          "mode": 1,
+          "visible": 1
+        },
+        {
+          "model": 2,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 3,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 4,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        }
+      ],
       "source_context": {
         "stage_index": 114,
         "call_offset": "0x1600",
@@ -7157,8 +7216,20 @@
           ],
           [
             "model",
+            0,
+            1,
+            0
+          ],
+          [
+            "model",
             1,
             7,
+            0
+          ],
+          [
+            "model",
+            1,
+            1,
             0
           ],
           [
@@ -7169,8 +7240,20 @@
           ],
           [
             "model",
+            2,
+            1,
+            0
+          ],
+          [
+            "model",
             3,
             7,
+            0
+          ],
+          [
+            "model",
+            3,
+            1,
             0
           ],
           [
@@ -7181,8 +7264,44 @@
           ],
           [
             "model",
+            4,
+            1,
+            0
+          ],
+          [
+            "model",
             5,
             7,
+            0
+          ],
+          [
+            "model",
+            5,
+            1,
+            0
+          ],
+          [
+            "model",
+            2,
+            9,
+            0
+          ],
+          [
+            "model",
+            3,
+            9,
+            0
+          ],
+          [
+            "model",
+            4,
+            9,
+            0
+          ],
+          [
+            "model",
+            5,
+            9,
             0
           ],
           [
@@ -7411,7 +7530,8 @@
         "model_reset": {
           "source": "STAGE115 is a fresh stage load in the Original (model frames start at 0); the in-scene 0x13bc keeps the frames STAGE114's effect left (models 2-4 at 999), so models 0-5 are set back to frame 0 with 0x46 mode 7 (FUN_00147510)"
         }
-      }
+      },
+      "stage_objects_source": "STAGE114 entry 0x414-0x4a0 (0x146280 / 0x146160 before the map starts)"
     },
     {
       "id": "effect-257",
@@ -8312,7 +8432,26 @@
       ],
       "position_source": "anchor",
       "runtime_status": "2026-10-26, LRPS2 pending",
-      "stage_objects": [],
+      "stage_objects": [
+        {
+          "model": 4,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 5,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 6,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        }
+      ],
       "source_context": {
         "stage_index": 138,
         "call_offset": "0x1d410",
@@ -9337,7 +9476,8 @@
             "reason": "unresolved ops"
           }
         ]
-      }
+      },
+      "stage_objects_source": "STAGE138 entry (0x146280 / 0x146160 before the map starts)"
     },
     {
       "id": "effect-272",
@@ -9360,7 +9500,26 @@
       ],
       "position_source": "anchor",
       "runtime_status": "2026-10-26, LRPS2 pending",
-      "stage_objects": [],
+      "stage_objects": [
+        {
+          "model": 4,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 5,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        },
+        {
+          "model": 6,
+          "frame": 0,
+          "mode": 1,
+          "visible": 0
+        }
+      ],
       "source_context": {
         "stage_index": 138,
         "call_offset": "0x1aa00",
@@ -9695,7 +9854,8 @@
             "reason": "scene ends at the white-out"
           }
         ]
-      }
+      },
+      "stage_objects_source": "STAGE138 entry (0x146280 / 0x146160 before the map starts)"
     }
   ],
   "subtitle_source": "config/products/special-disc/event-subtitles.json",
