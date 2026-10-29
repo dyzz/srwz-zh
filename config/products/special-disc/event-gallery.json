@@ -730,6 +730,25 @@
               },
               "source": "STAGE007 0x9280 dialogue frame gives Tsugumi's unit (616) at (6,8); camera 0x92b0/0x92d0 centres on it; facing not set by the script, 1 like the knights"
             }
+          ],
+          "sandman_anchor": [
+            {
+              "unit": 647,
+              "pilot": 592,
+              "tile": [
+                10,
+                0
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": null,
+                "pilot": 572
+              },
+              "source": "cursor anchor, hidden: サンドマン is not on the map; in the event movie (1:04, 1:59) his lines put the cursor on (10,0), a dark tile at the map edge (LRPS2 candidate tiles phase-correlated with the movie frame, response 0.58, shift 0). Unit 647 (ソルグラヴィオン) is never drawn"
+            }
           ]
         },
         "timeline": [
@@ -739,6 +758,15 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "spawn",
+            "sandman_anchor"
+          ],
+          [
+            "visible",
+            592,
+            0
           ],
           [
             "spawn",
@@ -1375,6 +1403,25 @@
               },
               "source": "spawn list 0x75d480 (0x6d90) at 0x8900: Solar Aquarion/Apollo (11,16) facing 1 appear 1"
             }
+          ],
+          "fudo_anchor": [
+            {
+              "unit": 645,
+              "pilot": 645,
+              "tile": [
+                13,
+                23
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": null,
+                "pilot": 623
+              },
+              "source": "cursor anchor, hidden: 不動 is not on the map; in the event movie (3:51) his lines put the cursor on a roof south of the Solar Aquarion, (13,23) from LRPS2 candidate tiles (the Aquarion at the frame's top edge lines up). Unit 645 (グランカイザー) is never drawn"
+            }
           ]
         },
         "timeline": [
@@ -1384,6 +1431,15 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "spawn",
+            "fudo_anchor"
+          ],
+          [
+            "visible",
+            645,
+            0
           ],
           [
             "spawn",
@@ -1710,6 +1766,25 @@
               },
               "source": "spawn list 0x7609c0 at 0xbbf0: ビッグオー/ロジャー (11,14) facing 1, animated"
             }
+          ],
+          "dorothy_anchor": [
+            {
+              "unit": 628,
+              "pilot": 557,
+              "tile": [
+                12,
+                18
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": null,
+                "pilot": 537
+              },
+              "source": "cursor anchor, hidden: ドロシー is not on the map; in the event movie (3:59, 4:03) her lines put the cursor on (12,18), two tiles from Beck (LRPS2 candidate tiles phase-correlated with the movie frame, response 0.82, shift 0). Unit 628 (ビッグファウ) is never drawn"
+            }
           ]
         },
         "timeline": [
@@ -1719,6 +1794,15 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "spawn",
+            "dorothy_anchor"
+          ],
+          [
+            "visible",
+            557,
+            0
           ],
           [
             "spawn",
@@ -4118,6 +4202,64 @@
               },
               "source": "STAGE047 spawn list 0x78f0 at 0xa170: 鉄也's グレートマジンガー enters at (27,5) facing 1 (animated); 0xa190-0xa200 moves it to (27,17) then (32,17); 0xa210 camera, 0xa220 facing 3"
             }
+          ],
+          "koji_anchor": [
+            {
+              "unit": 19,
+              "pilot": 2,
+              "tile": [
+                32,
+                19
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": null,
+                "pilot": 2
+              },
+              "source": "cursor anchor, hidden: 甲児 speaks before his Mazinger Z (same pilot 2) is spawned; in the event movie (8:47-8:53) the cursor sits two tiles south of the Great Mazinger at (32,17), measured from its sprite. Unit 19 (ＴＦＯ) is never drawn; removed before the Mazinger Z spawn"
+            }
+          ],
+          "base": [
+            {
+              "unit": 47,
+              "pilot": 56,
+              "tile": [
+                37,
+                5
+              ],
+              "facing": 1,
+              "side": 12,
+              "appear": 1,
+              "class": 4,
+              "members": [
+                {
+                  "unit": 53,
+                  "pilot": 59
+                },
+                {
+                  "unit": 51,
+                  "pilot": 61
+                }
+              ],
+              "original": {
+                "unit": 46,
+                "pilot": 56,
+                "members": [
+                  {
+                    "unit": 52,
+                    "pilot": 59
+                  },
+                  {
+                    "unit": 50,
+                    "pilot": 61
+                  }
+                ]
+              },
+              "source": "cursor anchor, hidden: ヒドラー has no unit and 独眼鬼 is in the base; in the event movie (9:18) ヒドラー's line puts the cursor on (37,5) east of the base (LRPS2 candidate tiles, response 0.82, shift 0). Units 百鬼戦闘機/メカ鉄甲鬼/メカ独眼鬼 as in 大魔神特攻"
+            }
           ]
         },
         "timeline": [
@@ -4127,6 +4269,24 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "spawn",
+            "base"
+          ],
+          [
+            "visible",
+            56,
+            0
+          ],
+          [
+            "spawn",
+            "koji_anchor"
+          ],
+          [
+            "visible",
+            2,
+            0
           ],
           [
             "bgm",
@@ -4513,6 +4673,10 @@
             5,
             9,
             0
+          ],
+          [
+            "remove_unit",
+            19
           ],
           [
             "spawn",
@@ -8107,7 +8271,39 @@
           "value": -11,
           "source": "no zoom op; map default"
         },
-        "units": {},
+        "units": {
+          "messiah_anchor": [
+            {
+              "unit": 535,
+              "pilot": 455,
+              "tile": [
+                15,
+                7
+              ],
+              "facing": 1,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": null,
+                "pilot": 441,
+                "members": [
+                  {
+                    "unit": null,
+                    "pilot": 862
+                  }
+                ]
+              },
+              "source": "cursor anchor, hidden: デュランダル and the ZAFT officer are on the Messiah; in the event movie (15:45, 15:47) their section-3 lines already put the cursor on it, (15,7) as the section-4 camera (0x1d380). Units 535/536 (ミネルバ) are never drawn",
+              "members": [
+                {
+                  "unit": 536,
+                  "pilot": 900
+                }
+              ]
+            }
+          ]
+        },
         "ghost_table": {
           "source": "STAGE138 placeholder table 0x770ca0 installed via FUN_001bdb20 at init 0x1014 (SP FUN_001c0f70): the Federation fleet",
           "visible_flags": [],
@@ -8291,6 +8487,15 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "spawn",
+            "messiah_anchor"
+          ],
+          [
+            "visible",
+            455,
+            0
           ],
           [
             "ghosts_install"
