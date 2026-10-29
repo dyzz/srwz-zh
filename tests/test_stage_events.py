@@ -12,6 +12,7 @@ from tools.srwz.stage_events import (
     consistent,
     decode,
     deployment_groups,
+    deployment_placements,
     installed_globals,
     ordered_groups,
     parse_battle_talk_table,
@@ -139,6 +140,23 @@ class StageEventsArchiveTest(unittest.TestCase):
         self.assertEqual(installed[0x595278], 0x756CB0)
         self.assertEqual(installed[0x5952E0], 0x759F98)
         self.assertEqual(deployment_groups(self.setsuko_32, installed)[0][0], 0x2CA)
+
+    def test_deployment_placements_give_tile_side_and_squad(self) -> None:
+        from tools.srwz.archive import load_offset_layout, slice_archive
+        from tools.srwz.codec import decode_production
+
+        chunks = list(slice_archive(STAGE_ARCHIVE.read_bytes(), load_offset_layout(STAGE_LAYOUT)))
+        stage2 = decode_production(chunks[2]).output
+        groups = deployment_placements(stage2, installed_globals(stage2, self.functions[2] - BASE))
+        # 第 2 话: Alex's Zaku Warrior (group 2) and the Phantom Pain trio (group 1)
+        alex = groups[2][0]
+        self.assertEqual((alex["unit"], alex["pilot"], alex["tile"], alex["side"], alex["facing"]), (419, 391, [12, 13], 12, 1))
+        self.assertEqual([m["tile"] for m in groups[1]], [[12, 20], [10, 18], [14, 18]])
+        self.assertEqual({m["name"] for m in groups[1]}, {"ファントムペイン"})
+        stage30 = decode_production(chunks[30]).output
+        pal = deployment_placements(stage30, installed_globals(stage30, self.functions[30] - BASE))[8][0]
+        # 第 17 话: the New Pal Savern waits in the Trinity base before 0xaf00 moves it out
+        self.assertEqual((pal["unit"], pal["pilot"], pal["tile"], pal["side"]), (79, 908, [19, 20], 1))
 
     def test_setsuko_episode_32_triggers(self) -> None:
         analysis = stage_events.analyze_stage(self.setsuko_32, self.functions[57])

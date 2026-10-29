@@ -31,6 +31,7 @@ DISPATCHER_SLOT = 0x595278
 BATTLE_PAIR_SLOT = 0x595290
 DEPLOYMENT_GROUP_SLOT = 0x595268
 DEPLOYMENT_RECORD_SLOT = 0x595258
+DEPLOYMENT_SQUAD_SLOT = 0x595260
 DEPLOYMENT_COUNT_SLOT = 0x595250
 
 # SLPS helpers reachable from overlay handler code.
@@ -1279,6 +1280,44 @@ def deployment_groups(data: bytes, installed: dict[int, int]) -> list[list[int]]
             if pilot not in (0xFFFF, 0):
                 pilots.append(pilot)
         groups.append(pilots)
+        off += 8
+    return groups
+
+
+def deployment_placements(data: bytes, installed: dict[int, int]) -> list[list[dict[str, Any]]]:
+    """Every unit placed by each spawn group (script opcode ``0x05 n``).
+
+    The overlay entry installs three tables, read by ``FUN_0017fe20``
+    (SP ``FUN_00181810``): ``0x595268`` (first record, count) per group;
+    ``0x595258`` 22-byte member records (half-words: squad, ?, unit, ?, pilot,
+    then AI and flag words); ``0x595260`` 29-byte squads shared by their members
+    (side, Shift-JIS squad name in bytes 1-23, then x, y and facing at 25-27).
+    """
+
+    groups_address = installed.get(DEPLOYMENT_GROUP_SLOT)
+    records_address = installed.get(DEPLOYMENT_RECORD_SLOT)
+    squads_address = installed.get(DEPLOYMENT_SQUAD_SLOT)
+    count_address = installed.get(DEPLOYMENT_COUNT_SLOT)
+    if not (groups_address and records_address and squads_address and count_address):
+        return []
+    record_count = u32(data, count_address - BASE)
+    groups: list[list[dict[str, Any]]] = []
+    off = groups_address - BASE
+    while 0 <= off + 8 <= len(data) and len(groups) < 64:
+        start, _pad, count, _pad2 = struct.unpack_from("<4H", data, off)
+        if count == 0 or start + count > record_count or count > 256:
+            break
+        members = []
+        for index in range(start, start + count):
+            words = struct.unpack_from("<11h", data, records_address - BASE + index * 22)
+            squad_off = squads_address - BASE + words[0] * 29
+            squad = data[squad_off:squad_off + 29]
+            members.append({
+                "record": index, "squad": words[0], "unit": words[2], "pilot": words[4],
+                "side": squad[0], "name": squad[1:24].split(b"\0")[0].decode("cp932", "replace"),
+                "tile": [squad[25], squad[26]], "facing": squad[27], "words": list(words),
+            })
+        groups.append(members)
         off += 8
     return groups
 
