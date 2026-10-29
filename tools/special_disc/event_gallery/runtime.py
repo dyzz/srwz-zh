@@ -165,6 +165,7 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     data_lines: list[str] = []
     talk_chunks: list[list[str]] = []
     talk_op_tables: list[str] = []
+    far_data: list[str] = []
     for scene, entry in zip(scenes, entries):
         index = scene["row"]
         compiled = compile_scene(index, entry["fidelity"], scene["effect_tile"], scene["effects"])
@@ -173,6 +174,7 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         # The callback switches phase; park here until the next frame cleans up.
         lines.append("    .word 1,32767,0,0")
         data_lines += compiled["data"]
+        far_data += compiled["far_data"]
         if compiled["talk_ops"]:
             # (record address, section | cursor << 16) per map-dialogue op; 0-terminated.
             data_lines += [".align 4", f"gallery_talkops_{index}:"]
@@ -190,9 +192,10 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     talk_data = [line for chunk in talk_chunks for line in chunk]
     lines += data_lines
     lines += [".align 4", "gallery_talkop_tables:"] + talk_op_tables
-    if talk_data:
-        # Map-dialogue blocks live after the per-frame packet buffer (0x82F000).
-        lines += [".org 0xE000", "gallery_talk_data:"] + talk_data
+    if talk_data or far_data:
+        # Map-dialogue blocks and other far data live after the per-frame packet
+        # buffer (0x82F000).
+        lines += [".org 0xE000", "gallery_talk_data:"] + talk_data + far_data
     receipt = {
         "schema_version": 1,
         "entries": scenes,

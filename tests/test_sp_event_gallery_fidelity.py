@@ -90,6 +90,13 @@ class FidelityTimelineTests(unittest.TestCase):
         raw = bytes(int(v) for v in lines[lines.index("t_squads:") + 1].strip()[6:].split(","))
         self.assertEqual(raw, squad)
         self.assertIn("    .hword 0,0,1,0", lines)
+        # An ace leader: level in half-words 5/6, flag word 10, squad flags at +0x18.
+        ace = deploy_tables([{"unit": 327, "pilot": 273, "tile": [31, 30], "facing": 3, "side": 4, "name": "",
+                              "level": 61, "flags": 0x80, "squad_flags": 0x22}], "a")
+        halfwords = [int(v) for v in ace[ace.index("a_records:") + 1].strip()[7:].split(",")]
+        self.assertEqual(halfwords, [0, 0, 327, 0, 273, 61, 61, 0, 0, 0, 0x80])
+        raw = bytes(int(v) for v in ace[ace.index("a_squads:") + 1].strip()[6:].split(","))
+        self.assertEqual(raw[24:], bytes([0x22, 31, 30, 3, 0]))
 
     def test_unit_ids_are_sp_definitions_with_original_evidence(self):
         for entry in self.entries:

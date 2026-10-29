@@ -9290,6 +9290,18 @@
             71
           ],
           [
+            "deploy",
+            "fleet0"
+          ],
+          [
+            "deploy",
+            "fleet1"
+          ],
+          [
+            "deploy",
+            "fleet2"
+          ],
+          [
             "raw",
             5013,
             0,
@@ -10038,10 +10050,1122 @@
             "reason": "replayed as the fleet placeholders appearing one by one (the original 0x1d1f0 loop)"
           },
           {
-            "what": "0x1396 0xffff, 0x4 6 7 8, op 0x5 -1",
-            "reason": "unresolved ops"
+            "what": "0x1396 0xffff",
+            "reason": "unresolved op"
+          },
+          {
+            "what": "0x04 6,7,8 + 0x05 -1,0,0 (STAGE138 0x1d1b0-0x1d1c0; STAGE135 0x04 3,4,5 at 0x1a1d0)",
+            "reason": "STAGE135 group 4 (the event movie route, normal difficulty) is deployed at once; the movie cuts the animated arrival"
           }
-        ]
+        ],
+        "deploy": {
+          "fleet0": [
+            {
+              "unit": 327,
+              "pilot": 273,
+              "original": {
+                "unit": 305,
+                "pilot": 264
+              },
+              "level": 63,
+              "flags": 128,
+              "tile": [
+                31,
+                30
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "source": "STAGE135 group 4 squad 134 (records 334-334): ドゴス・ギア/シロッコ (31,30) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 325,
+              "pilot": 815,
+              "original": {
+                "unit": 303,
+                "pilot": 782
+              },
+              "level": 58,
+              "tile": [
+                29,
+                32
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "source": "STAGE135 group 4 squad 135 (records 335-335): アレキサンドリア/ティターンズ艦長 (29,32) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 325,
+              "pilot": 815,
+              "original": {
+                "unit": 303,
+                "pilot": 782
+              },
+              "level": 58,
+              "tile": [
+                33,
+                28
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "source": "STAGE135 group 4 squad 136 (records 336-336): アレキサンドリア/ティターンズ艦長 (33,28) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 549,
+              "pilot": 863,
+              "original": {
+                "unit": 512,
+                "pilot": 827
+              },
+              "level": 58,
+              "tile": [
+                2,
+                29
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "source": "STAGE135 group 4 squad 137 (records 337-337): アガメムノン級/連邦軍艦長 (2,29) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 549,
+              "pilot": 863,
+              "original": {
+                "unit": 512,
+                "pilot": 827
+              },
+              "level": 58,
+              "tile": [
+                6,
+                33
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "source": "STAGE135 group 4 squad 138 (records 338-338): アガメムノン級/連邦軍艦長 (6,33) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "level": 58,
+              "tile": [
+                5,
+                30
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "source": "STAGE135 group 4 squad 139 (records 339-339): ドレイク級/連邦軍艦長 (5,30) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "level": 58,
+              "tile": [
+                8,
+                31
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "source": "STAGE135 group 4 squad 140 (records 340-340): ドレイク級/連邦軍艦長 (8,31) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "level": 58,
+              "tile": [
+                4,
+                27
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "source": "STAGE135 group 4 squad 141 (records 341-341): ドレイク級/連邦軍艦長 (4,27) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 300,
+              "pilot": 263,
+              "original": {
+                "unit": 281,
+                "pilot": 254
+              },
+              "level": 61,
+              "flags": 128,
+              "tile": [
+                28,
+                27
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 299,
+                  "pilot": 267,
+                  "original": {
+                    "unit": 280,
+                    "pilot": 258
+                  },
+                  "level": 60
+                },
+                {
+                  "unit": 299,
+                  "pilot": 265,
+                  "original": {
+                    "unit": 280,
+                    "pilot": 256
+                  },
+                  "level": 60
+                }
+              ],
+              "source": "STAGE135 group 4 squad 142 (records 342-344): ハンブラビ/ヤザン、ハンブラビ/ラムサス、ハンブラビ/ダンケル (28,27) side 4 facing 3, squad 連邦軍 flags 0x11"
+            },
+            {
+              "unit": 301,
+              "pilot": 240,
+              "original": {
+                "unit": 282,
+                "pilot": 237
+              },
+              "level": 60,
+              "flags": 128,
+              "tile": [
+                28,
+                30
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 303,
+                  "pilot": 819,
+                  "original": {
+                    "unit": 283,
+                    "pilot": 786
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 303,
+                  "pilot": 819,
+                  "original": {
+                    "unit": 283,
+                    "pilot": 786
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 143 (records 345-347): バウンド・ドック/ジェリド、バイアラン/ティターンズ、バイアラン/ティターンズ (28,30) side 4 facing 3, squad 連邦軍 flags 0x11"
+            },
+            {
+              "unit": 301,
+              "pilot": 260,
+              "original": {
+                "unit": 282,
+                "pilot": 252
+              },
+              "level": 60,
+              "flags": 128,
+              "tile": [
+                31,
+                27
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 303,
+                  "pilot": 819,
+                  "original": {
+                    "unit": 283,
+                    "pilot": 786
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 303,
+                  "pilot": 819,
+                  "original": {
+                    "unit": 283,
+                    "pilot": 786
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 144 (records 348-350): バウンド・ドック/マウアー、バイアラン/ティターンズ、バイアラン/ティターンズ (31,27) side 4 facing 3, squad 連邦軍 flags 0x11"
+            }
+          ],
+          "fleet1": [
+            {
+              "unit": 817,
+              "pilot": 750,
+              "original": {
+                "unit": 760,
+                "pilot": 723
+              },
+              "level": 60,
+              "flags": 128,
+              "tile": [
+                2,
+                25
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "カイメラ",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 818,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 761,
+                    "pilot": 910
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 818,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 761,
+                    "pilot": 910
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 145 (records 351-353): カオス・レオー/レーベン、レオー/自律回路、レオー/自律回路 (2,25) side 4 facing 3, squad カイメラ flags 0x11"
+            },
+            {
+              "unit": 821,
+              "pilot": 753,
+              "original": {
+                "unit": 764,
+                "pilot": 726
+              },
+              "level": 60,
+              "flags": 128,
+              "tile": [
+                10,
+                33
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "カイメラ",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 823,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 765,
+                    "pilot": 910
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 823,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 765,
+                    "pilot": 910
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 146 (records 354-356): カオス・アングイス/シュラン、アングイス/自律回路、アングイス/自律回路 (10,33) side 4 facing 3, squad カイメラ flags 0x11"
+            },
+            {
+              "unit": 810,
+              "pilot": 951,
+              "original": {
+                "unit": 753,
+                "pilot": 910
+              },
+              "level": 57,
+              "tile": [
+                12,
+                30
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "カイメラ",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 810,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 753,
+                    "pilot": 910
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 810,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 753,
+                    "pilot": 910
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 147 (records 357-359): コルニクス/自律回路、コルニクス/自律回路、コルニクス/自律回路 (12,30) side 4 facing 3, squad カイメラ flags 0x22"
+            },
+            {
+              "unit": 810,
+              "pilot": 951,
+              "original": {
+                "unit": 753,
+                "pilot": 910
+              },
+              "level": 57,
+              "tile": [
+                7,
+                26
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "カイメラ",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 810,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 753,
+                    "pilot": 910
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 810,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 753,
+                    "pilot": 910
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 148 (records 360-362): コルニクス/自律回路、コルニクス/自律回路、コルニクス/自律回路 (7,26) side 4 facing 3, squad カイメラ flags 0x22"
+            },
+            {
+              "unit": 810,
+              "pilot": 951,
+              "original": {
+                "unit": 753,
+                "pilot": 910
+              },
+              "level": 57,
+              "tile": [
+                9,
+                28
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "カイメラ",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 810,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 753,
+                    "pilot": 910
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 810,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 753,
+                    "pilot": 910
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 149 (records 363-365): コルニクス/自律回路、コルニクス/自律回路、コルニクス/自律回路 (9,28) side 4 facing 3, squad カイメラ flags 0x22"
+            },
+            {
+              "unit": 810,
+              "pilot": 951,
+              "original": {
+                "unit": 753,
+                "pilot": 910
+              },
+              "level": 57,
+              "tile": [
+                5,
+                23
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "カイメラ",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 810,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 753,
+                    "pilot": 910
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 810,
+                  "pilot": 951,
+                  "original": {
+                    "unit": 753,
+                    "pilot": 910
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 150 (records 366-368): コルニクス/自律回路、コルニクス/自律回路、コルニクス/自律回路 (5,23) side 4 facing 3, squad カイメラ flags 0x22"
+            },
+            {
+              "unit": 290,
+              "pilot": 818,
+              "original": {
+                "unit": 274,
+                "pilot": 785
+              },
+              "level": 57,
+              "tile": [
+                30,
+                24
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 295,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 277,
+                    "pilot": 787
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 295,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 277,
+                    "pilot": 788
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 151 (records 369-371): メッサーラ/ティターンズ、ガブスレイ/ティターンズ、ガブスレイ/ティターンズ (30,24) side 4 facing 3, squad 連邦軍 flags 0x11"
+            },
+            {
+              "unit": 303,
+              "pilot": 821,
+              "original": {
+                "unit": 283,
+                "pilot": 788
+              },
+              "level": 57,
+              "tile": [
+                33,
+                25
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 286,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 271,
+                    "pilot": 787
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 286,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 271,
+                    "pilot": 785
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 152 (records 372-374): バイアラン/ティターンズ、ギャプラン/ティターンズ、ギャプラン/ティターンズ (33,25) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 303,
+              "pilot": 820,
+              "original": {
+                "unit": 283,
+                "pilot": 787
+              },
+              "level": 57,
+              "tile": [
+                26,
+                32
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 286,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 271,
+                    "pilot": 788
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 286,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 271,
+                    "pilot": 785
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 153 (records 375-377): バイアラン/ティターンズ、ギャプラン/ティターンズ、ギャプラン/ティターンズ (26,32) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 531,
+              "pilot": 871,
+              "original": {
+                "unit": 494,
+                "pilot": 831
+              },
+              "level": 57,
+              "tile": [
+                33,
+                22
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "members": [
+                {
+                  "unit": 531,
+                  "pilot": 871,
+                  "original": {
+                    "unit": 494,
+                    "pilot": 835
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 531,
+                  "pilot": 872,
+                  "original": {
+                    "unit": 494,
+                    "pilot": 836
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 154 (records 378-380): ユークリッド/連邦軍兵、ユークリッド/連邦軍兵、ユークリッド/連邦軍兵 (33,22) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 531,
+              "pilot": 871,
+              "original": {
+                "unit": 494,
+                "pilot": 835
+              },
+              "level": 57,
+              "tile": [
+                23,
+                32
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "members": [
+                {
+                  "unit": 531,
+                  "pilot": 872,
+                  "original": {
+                    "unit": 494,
+                    "pilot": 836
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 531,
+                  "pilot": 871,
+                  "original": {
+                    "unit": 494,
+                    "pilot": 831
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 155 (records 381-383): ユークリッド/連邦軍兵、ユークリッド/連邦軍兵、ユークリッド/連邦軍兵 (23,32) side 4 facing 3, squad 連邦軍 flags 0x10"
+            }
+          ],
+          "fleet2": [
+            {
+              "unit": 276,
+              "pilot": 821,
+              "original": {
+                "unit": 263,
+                "pilot": 788
+              },
+              "level": 57,
+              "tile": [
+                27,
+                23
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 276,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 787
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 276,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 785
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 156 (records 384-386): マラサイ/ティターンズ、マラサイ/ティターンズ、マラサイ/ティターンズ (27,23) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 276,
+              "pilot": 820,
+              "original": {
+                "unit": 263,
+                "pilot": 787
+              },
+              "level": 57,
+              "tile": [
+                26,
+                25
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 276,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 788
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 276,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 785
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 157 (records 387-389): マラサイ/ティターンズ、マラサイ/ティターンズ、マラサイ/ティターンズ (26,25) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 276,
+              "pilot": 818,
+              "original": {
+                "unit": 263,
+                "pilot": 785
+              },
+              "level": 57,
+              "tile": [
+                24,
+                26
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 276,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 787
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 276,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 788
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 158 (records 390-392): マラサイ/ティターンズ、マラサイ/ティターンズ、マラサイ/ティターンズ (24,26) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 290,
+              "pilot": 821,
+              "original": {
+                "unit": 274,
+                "pilot": 788
+              },
+              "level": 57,
+              "tile": [
+                25,
+                29
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 295,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 277,
+                    "pilot": 787
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 295,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 277,
+                    "pilot": 785
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 159 (records 393-395): メッサーラ/ティターンズ、ガブスレイ/ティターンズ、ガブスレイ/ティターンズ (25,29) side 4 facing 3, squad 連邦軍 flags 0x11"
+            },
+            {
+              "unit": 303,
+              "pilot": 820,
+              "original": {
+                "unit": 283,
+                "pilot": 787
+              },
+              "level": 57,
+              "tile": [
+                30,
+                22
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 286,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 271,
+                    "pilot": 788
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 286,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 271,
+                    "pilot": 785
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 160 (records 396-398): バイアラン/ティターンズ、ギャプラン/ティターンズ、ギャプラン/ティターンズ (30,22) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 303,
+              "pilot": 818,
+              "original": {
+                "unit": 283,
+                "pilot": 785
+              },
+              "level": 57,
+              "tile": [
+                23,
+                29
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 286,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 271,
+                    "pilot": 787
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 286,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 271,
+                    "pilot": 788
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 161 (records 399-401): バイアラン/ティターンズ、ギャプラン/ティターンズ、ギャプラン/ティターンズ (23,29) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 531,
+              "pilot": 871,
+              "original": {
+                "unit": 494,
+                "pilot": 831
+              },
+              "level": 57,
+              "tile": [
+                13,
+                33
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "members": [
+                {
+                  "unit": 531,
+                  "pilot": 871,
+                  "original": {
+                    "unit": 494,
+                    "pilot": 835
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 531,
+                  "pilot": 872,
+                  "original": {
+                    "unit": 494,
+                    "pilot": 836
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 162 (records 402-404): ユークリッド/連邦軍兵、ユークリッド/連邦軍兵、ユークリッド/連邦軍兵 (13,33) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 531,
+              "pilot": 871,
+              "original": {
+                "unit": 494,
+                "pilot": 835
+              },
+              "level": 57,
+              "tile": [
+                2,
+                22
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "members": [
+                {
+                  "unit": 531,
+                  "pilot": 872,
+                  "original": {
+                    "unit": 494,
+                    "pilot": 836
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 531,
+                  "pilot": 871,
+                  "original": {
+                    "unit": 494,
+                    "pilot": 831
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 163 (records 405-407): ユークリッド/連邦軍兵、ユークリッド/連邦軍兵、ユークリッド/連邦軍兵 (2,22) side 4 facing 3, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 276,
+              "pilot": 821,
+              "original": {
+                "unit": 263,
+                "pilot": 788
+              },
+              "level": 57,
+              "tile": [
+                12,
+                27
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 276,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 787
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 276,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 785
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 164 (records 408-410): マラサイ/ティターンズ、マラサイ/ティターンズ、マラサイ/ティターンズ (12,27) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 276,
+              "pilot": 820,
+              "original": {
+                "unit": 263,
+                "pilot": 787
+              },
+              "level": 57,
+              "tile": [
+                9,
+                26
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 276,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 788
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 276,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 785
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 165 (records 411-413): マラサイ/ティターンズ、マラサイ/ティターンズ、マラサイ/ティターンズ (9,26) side 4 facing 3, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 276,
+              "pilot": 818,
+              "original": {
+                "unit": 263,
+                "pilot": 785
+              },
+              "level": 57,
+              "tile": [
+                8,
+                23
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 276,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 787
+                  },
+                  "level": 57
+                },
+                {
+                  "unit": 276,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 263,
+                    "pilot": 788
+                  },
+                  "level": 57
+                }
+              ],
+              "source": "STAGE135 group 4 squad 166 (records 414-416): マラサイ/ティターンズ、マラサイ/ティターンズ、マラサイ/ティターンズ (8,23) side 4 facing 3, squad 連邦軍 flags 0x22"
+            }
+          ]
+        }
       },
       "stage_objects_source": "STAGE138 entry (0x146280 / 0x146160 before the map starts)"
     },

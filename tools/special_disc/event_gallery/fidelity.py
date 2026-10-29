@@ -106,9 +106,11 @@ def deploy_tables(squads: Sequence[dict[str, Any]], label: str) -> list[str]:
     """Spawn-group tables in the stage-entry layout read by FUN_00181810.
 
     One group (first record 0, member count) over 22-byte member records
-    (half-words: squad, squad, unit, 0, pilot, level 1, 1, then zeros, as in the
-    Original STAGE groups) and 29-byte squads (side, Shift-JIS name in bytes
-    1-23, flags 0x10, x, y, facing, layer 0).  A squad's optional ``members``
+    (half-words: squad, squad, unit, 0, pilot, level, level, 0, 0, 0, flags, as
+    in the Original STAGE groups; ``level`` defaults to 1 and ``flags`` to 0;
+    enhancement parts are left out because item ids differ between the games)
+    and 29-byte squads (side, Shift-JIS name in bytes 1-23, ``squad_flags``
+    (default 0x10), x, y, facing, layer 0).  A squad's optional ``members``
     (up to two {unit, pilot}) follow its leader with the same squad index.
     """
     records, squad_bytes = [], []
@@ -121,12 +123,18 @@ def deploy_tables(squads: Sequence[dict[str, Any]], label: str) -> list[str]:
         if len(members) > 2:
             raise ValueError("a squad holds at most two members besides its leader")
         for member in [squad] + members:
+            level, flags = member.get("level", 1), member.get("flags", 0)
+            if not 1 <= level <= 99 or not 0 <= flags <= 0xFF:
+                raise ValueError("invalid deploy level or flags")
             records.append([index, index, _id(member["unit"], "deploy unit"), 0,
-                            _id(member["pilot"], "deploy pilot"), 1, 1, 0, 0, 0, 0])
+                            _id(member["pilot"], "deploy pilot"), level, level, 0, 0, 0, flags])
         name = squad.get("name", "").encode("cp932")
         if len(name) > 22:
             raise ValueError(f"squad name {squad['name']!r} longer than 22 bytes")
-        squad_bytes.append(bytes([side]) + name.ljust(23, b"\0") + bytes([0x10, x, y, facing, 0]))
+        squad_flags = squad.get("squad_flags", 0x10)
+        if not 0 <= squad_flags <= 0xFF:
+            raise ValueError("invalid squad flags")
+        squad_bytes.append(bytes([side]) + name.ljust(23, b"\0") + bytes([squad_flags, x, y, facing, 0]))
     lines = [".align 4", f"{label}:", f"    .word {label}_records,{label}_squads,{label}_groups",
              f"{label}_groups:", f"    .hword 0,0,{len(records)},0", f"{label}_records:"]
     lines += ["    .hword " + ",".join(str(v) for v in record) for record in records]
@@ -137,7 +145,7 @@ def deploy_tables(squads: Sequence[dict[str, Any]], label: str) -> list[str]:
 
 def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int],
                   effects: Sequence[int]) -> dict[str, Any]:
-    """Return {'script': [lines], 'data': [lines], 'receipt': {...}} for one row."""
+    """Return {'script', 'data', 'far_data' (placed after the packet buffer), 'talk_ops', 'receipt'} for one row."""
     script: list[str] = []
     data: list[str] = []
     groups = fidelity.get("units", {})
@@ -168,6 +176,9 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
         data += ["    .word 0xff,0,0,0,0,0,0,0"]
 
     deploy_symbols: dict[str, str] = {}
+    # Spawn-group tables are read only by the native spawn during gallery_deploy,
+    # so they go with the map-dialogue blocks after the packet buffer (far data).
+    far_data: list[str] = []
     deploy = fidelity.get("deploy", {})
     if not isinstance(deploy, dict):
         raise ValueError(f"row {row}: deploy must map group names to squad lists")
@@ -180,7 +191,7 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
                  f"    lui $a0,%hi({table})",
                  "    j gallery_deploy",
                  f"    addiu $a0,$a0,%lo({table})"]
-        data += deploy_tables(squads, table)
+        far_data += deploy_tables(squads, table)
 
     ghost = fidelity.get("ghost_table")
     if ghost is not None:
@@ -293,7 +304,7 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             raise ValueError(f"row {row}: unknown timeline operation {kind!r}")
     if sorted(set(used_effects)) != sorted(set(effects)):
         raise ValueError(f"row {row}: timeline effects {used_effects} differ from catalog {list(effects)}")
-    return {"script": script, "data": data, "talk_ops": talk_ops,
+    return {"script": script, "data": data, "far_data": far_data, "talk_ops": talk_ops,
             "receipt": {"records": sum(1 for line in script if line.startswith("    .word")),
                         "unit_groups": list(groups), "ghost_table": ghost is not None,
                         "talk_ops": len(talk_ops)}}
