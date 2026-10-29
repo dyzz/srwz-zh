@@ -752,6 +752,9 @@ class ScriptWalker:
         self.unknown_ops: set[int] = set()
         self.native_calls: list[int] = []
         self.calls: list[int] = []
+        # unit staging in script order (offset, kind, fields): spawns, moves,
+        # removals, visibility and side changes, camera, dialogue sections
+        self.staging: list[dict[str, Any]] = []
 
     def record(self, off: int):
         w = struct.unpack_from("<4I", self.data, off)
@@ -871,7 +874,54 @@ class ScriptWalker:
                 if following not in KNOWN_OPS and following not in KNOWN_EXT_OPS:
                     pc += 16
 
+    def _staging_record(self, pc, op, a, b, c):
+        def ref(v):  # (kind << 16) | id: 1 = unit, 2 = pilot
+            return {"kind": {1: "unit", 2: "pilot"}.get(v >> 16, v >> 16), "id": v & 0xFFFF}
+
+        entry: dict[str, Any] | None = None
+        if op == OP_BATTLE_DLG:
+            entry = {"kind": "dialogue", "section": a & 0xFFFF}
+        elif op == OP_SPAWN:
+            entry = {"kind": "spawn_group", "group": None if a == 0xFFFFFFFF else a}
+        elif op == OP_SPAWN_LIST and BASE <= a < BASE + len(self.data):
+            entry = {"kind": "spawn_list", "list": a - BASE, "appear": b}
+        elif op == 0x139E:
+            # flags low half: 2 = to tile (x << 16 | y), 1 = offset by vars
+            # 0x8020/0x8040, 0 = next to another unit
+            entry = {"kind": "move", "who": ref(a), "flags": c}
+            if c & 0xFFFF == 2:
+                entry["to"] = [b >> 16, b & 0xFFFF]
+            elif c & 0xFFFF == 1:
+                entry["offset_vars"] = True
+            else:
+                entry["target"] = ref(b)
+        elif op == 0x13AE:
+            entry = {"kind": "remove", "who": ref(a)}
+        elif op == 0x1D:
+            entry = {"kind": "form", "who": ref(a), "into": b}
+        elif op == 0x23:
+            entry = {"kind": "facing", "who": {"kind": {1: "unit", 2: "pilot"}.get(a, a), "id": b}, "facing": c}
+        elif op == 0x3B:
+            entry = {"kind": "unit_field", "who": {"kind": {1: "unit", 2: "pilot"}.get(a, a), "id": b}, "field": c}
+        elif op == 0x18:
+            entry = {"kind": "camera", "mode": a, "args": [b, c]}
+        elif op == OP_ASSIGN and (c >> 16) in (0x910E, 0x9100, 0x9101):
+            entry = {"kind": "visible", "var": c >> 16, "id": c & 0xFFFF, "value": a}
+        elif op == OP_ASSIGN and c in (0x9015, 0x9016):
+            # tactical cursor tile x / y (the camera follows the cursor)
+            entry = {"kind": "cursor", "axis": "x" if c == 0x9015 else "y", "value": a}
+        elif op == 0x13B4:
+            entry = {"kind": "board", "list": a - BASE if BASE <= a < BASE + len(self.data) else a, "count": c}
+        elif op == 0x13BD:
+            entry = {"kind": "pilot_variant", "who": ref(a)}
+        elif op == 0x139B:
+            entry = {"kind": "event_effect", "effect": b >> 16, "at": a}
+        if entry is not None:
+            entry["offset"] = pc
+            self.staging.append(entry)
+
     def _simple_record(self, pc, op, a, b, c, conds):
+        self._staging_record(pc, op, a, b, c)
         if op == OP_BATTLE_DLG:
             self.dialogues.append(ScriptDialogue(a & 0xFFFF, list(conds), pc))
         elif op == OP_DLG_BY_DIFFICULTY:
@@ -1381,6 +1431,7 @@ def walk_script(data: bytes, offset: int) -> dict[str, Any]:
             for d in walker.dialogues
         ],
         "effects": walker.effects,
+        "staging": walker.staging,
         "nativeCalls": walker.native_calls,
         "warnings": walker.warnings,
         "notes": walker.notes,
