@@ -15,7 +15,12 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
                   to frame v, k=7 set frame v now, k=6/8 frame with high half
   0x56 / +rec     dynamic effect at tile (two records)
   0x57            wait until no dynamic effect is active
-  0x0d p,2        spawn list p, appear on map (FUN_001b4d90)
+  0x0d p,2        spawn list p, appear on map (FUN_001b4d90); a record whose
+                  pilot is already on the map moves that actor, so generic
+                  enemy pilots go through ``deploy`` instead
+  deploy          native gallery_deploy: the stage spawn-group engine
+                  (FUN_00181a20, op 0x05 n with 0x8000) on gallery-owned tables;
+                  every member gets its own unit and pilot objects
   0x14 f          native callback f
   0x12 n,0        set stage flag n (bitset 0x5dbc40)
   0x18 6,x,y      camera centre tile
@@ -97,6 +102,39 @@ def spawn_record(unit: dict[str, Any], squad_name: str) -> list[str]:
     return ["    .word " + ",".join(str(w) for w in words)]
 
 
+def deploy_tables(squads: Sequence[dict[str, Any]], label: str) -> list[str]:
+    """Spawn-group tables in the stage-entry layout read by FUN_00181810.
+
+    One group (first record 0, member count) over 22-byte member records
+    (half-words: squad, squad, unit, 0, pilot, level 1, 1, then zeros, as in the
+    Original STAGE groups) and 29-byte squads (side, Shift-JIS name in bytes
+    1-23, flags 0x10, x, y, facing, layer 0).  A squad's optional ``members``
+    (up to two {unit, pilot}) follow its leader with the same squad index.
+    """
+    records, squad_bytes = [], []
+    for index, squad in enumerate(squads):
+        x, y = _tile(squad["tile"], "deploy tile")
+        facing, side = squad.get("facing", 0), squad.get("side", 12)
+        if not 0 <= facing <= 15 or not 0 <= side <= 15:
+            raise ValueError("invalid deploy facing or side")
+        members = squad.get("members", [])
+        if len(members) > 2:
+            raise ValueError("a squad holds at most two members besides its leader")
+        for member in [squad] + members:
+            records.append([index, index, _id(member["unit"], "deploy unit"), 0,
+                            _id(member["pilot"], "deploy pilot"), 1, 1, 0, 0, 0, 0])
+        name = squad.get("name", "").encode("cp932")
+        if len(name) > 22:
+            raise ValueError(f"squad name {squad['name']!r} longer than 22 bytes")
+        squad_bytes.append(bytes([side]) + name.ljust(23, b"\0") + bytes([0x10, x, y, facing, 0]))
+    lines = [".align 4", f"{label}:", f"    .word {label}_records,{label}_squads,{label}_groups",
+             f"{label}_groups:", f"    .hword 0,0,{len(records)},0", f"{label}_records:"]
+    lines += ["    .hword " + ",".join(str(v) for v in record) for record in records]
+    lines.append(f"{label}_squads:")
+    lines += ["    .byte " + ",".join(str(b) for b in squad) for squad in squad_bytes]
+    return lines
+
+
 def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int],
                   effects: Sequence[int]) -> dict[str, Any]:
     """Return {'script': [lines], 'data': [lines], 'receipt': {...}} for one row."""
@@ -128,6 +166,21 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
         for unit in units:
             data += spawn_record(unit, "gallery_empty_squad_name")
         data += ["    .word 0xff,0,0,0,0,0,0,0"]
+
+    deploy_symbols: dict[str, str] = {}
+    deploy = fidelity.get("deploy", {})
+    if not isinstance(deploy, dict):
+        raise ValueError(f"row {row}: deploy must map group names to squad lists")
+    for g_index, (name, squads) in enumerate(deploy.items()):
+        if not squads or len(squads) > 16:
+            raise ValueError(f"row {row}: deploy group {name} must hold 1..16 squads")
+        call, table = f"gallery_deploy_{row}_{g_index}", f"gallery_deploy_table_{row}_{g_index}"
+        deploy_symbols[name] = call
+        data += [".align 4", f"{call}:",
+                 f"    lui $a0,%hi({table})",
+                 "    j gallery_deploy",
+                 f"    addiu $a0,$a0,%lo({table})"]
+        data += deploy_tables(squads, table)
 
     ghost = fidelity.get("ghost_table")
     if ghost is not None:
@@ -184,6 +237,8 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             prep, spawn = group_symbols[args[0]]
             word(0x14, prep, 0, 0)
             word(0x0D, spawn, 2, 0)
+        elif kind == "deploy":
+            word(0x14, deploy_symbols[args[0]], 0, 0)
         elif kind == "visible":
             pilot, shown = _id(args[0], "pilot"), int(bool(args[1]))
             word(0x1388, _imm(shown), 0, 0x910E0000 | pilot)

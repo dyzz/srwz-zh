@@ -1341,3 +1341,42 @@ gallery_form_se:
     addiu   $a0,$zero,0x2a
     j       0x00182a50
     addiu   $a1,$zero,1
+
+.align 4
+.globl gallery_deploy
+gallery_deploy:
+    /* a0: {member records, squads, groups} of a gallery-owned spawn group.
+     * A stage entry installs these tables (0061e158 / 0061e160 / 0061e168)
+     * and spawns a group at once with FUN_00181a20 (op 0x05 n with 0x8000):
+     * each member gets its own unit and pilot objects, so generic enemy
+     * pilots do not collapse onto one actor as in a spawn list. The scene
+     * stage's own table pointers are put back afterwards. */
+    addiu   $sp,$sp,-0x30
+    sd      $ra,0x28($sp)
+    lui     $t0,0x0062
+    lw      $t1,-0x1ea8($t0)
+    lw      $t2,-0x1ea0($t0)
+    lw      $t3,-0x1e98($t0)
+    sw      $t1,0x10($sp)
+    sw      $t2,0x14($sp)
+    sw      $t3,0x18($sp)
+    lw      $t1,0($a0)
+    lw      $t2,4($a0)
+    lw      $t3,8($a0)
+    sw      $t1,-0x1ea8($t0)
+    sw      $t2,-0x1ea0($t0)
+    sw      $t3,-0x1e98($t0)
+    daddu   $a0,$zero,$zero
+    daddu   $a1,$zero,$zero
+    jal     0x00181a20
+    daddu   $a2,$zero,$zero
+    lui     $t0,0x0062
+    lw      $t1,0x10($sp)
+    lw      $t2,0x14($sp)
+    lw      $t3,0x18($sp)
+    sw      $t1,-0x1ea8($t0)
+    sw      $t2,-0x1ea0($t0)
+    sw      $t3,-0x1e98($t0)
+    ld      $ra,0x28($sp)
+    jr      $ra
+    addiu   $sp,$sp,0x30

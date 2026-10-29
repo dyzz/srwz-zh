@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-from special_disc.event_gallery.fidelity import compile_scene, spawn_record  # noqa: E402
+from special_disc.event_gallery.fidelity import compile_scene, deploy_tables, spawn_record  # noqa: E402
 
 CONFIG = ROOT / "config/products/special-disc/event-gallery.json"
 
@@ -78,9 +78,23 @@ class FidelityTimelineTests(unittest.TestCase):
         values = [int(v) for v in line.strip()[6:].split(",")][:7]
         self.assertEqual(struct.pack("<7I", *values), original)
 
+    def test_deploy_tables_match_original_stage_groups(self):
+        # STAGE114 squad 1 / member record 1 (Agamemnon, Federation captain);
+        # the gallery table starts its own squad indices at 0.
+        squad = bytes.fromhex("0c" + "838d83538358".ljust(46, "0") + "10110e0100")
+        member = bytes.fromhex("00000000000200003b03010001000000000000000000")
+        lines = deploy_tables([{"unit": 512, "pilot": 827, "tile": [17, 14], "facing": 1, "side": 12,
+                                "name": "ロゴス"}], "t")
+        halfwords = [int(v) for v in lines[lines.index("t_records:") + 1].strip()[7:].split(",")]
+        self.assertEqual(struct.pack("<11H", *halfwords), member)
+        raw = bytes(int(v) for v in lines[lines.index("t_squads:") + 1].strip()[6:].split(","))
+        self.assertEqual(raw, squad)
+        self.assertIn("    .hword 0,0,1,0", lines)
+
     def test_unit_ids_are_sp_definitions_with_original_evidence(self):
         for entry in self.entries:
-            for group in entry["fidelity"].get("units", {}).values():
+            groups = list(entry["fidelity"].get("units", {}).values()) + list(entry["fidelity"].get("deploy", {}).values())
+            for group in groups:
                 for unit in group:
                     self.assertIn("original", unit)
                     self.assertIn("source", unit)

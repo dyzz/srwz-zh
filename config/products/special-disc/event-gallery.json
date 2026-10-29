@@ -7062,7 +7062,149 @@
           "value": -11,
           "source": "no zoom op; map default"
         },
-        "units": {},
+        "units": {
+          "logos": [
+            {
+              "unit": 327,
+              "pilot": 274,
+              "tile": [
+                20,
+                14
+              ],
+              "facing": 1,
+              "side": 12,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 305,
+                "pilot": 265,
+                "crew": [
+                  266
+                ]
+              },
+              "source": "STAGE114 group 0 record 0: ドゴス・ギア/バスク (20,14) side 12 facing 1; ジャマイカン (266) seated aboard: his section-0 lines name the Dogos Gear bridge",
+              "crew": [
+                275
+              ]
+            },
+            {
+              "unit": 546,
+              "pilot": 456,
+              "tile": [
+                19,
+                29
+              ],
+              "facing": 3,
+              "side": 4,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 509,
+                "pilot": 442,
+                "crew": [
+                  445
+                ]
+              },
+              "source": "STAGE114 group 1 record 11: ナスカ級/イザーク (19,29) side 4 facing 3; ディアッカ (445) seated aboard for his section-0 line",
+              "crew": [
+                459
+              ]
+            }
+          ],
+          "archangel": [
+            {
+              "unit": 541,
+              "pilot": 431,
+              "tile": [
+                22,
+                10
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 504,
+                "pilot": 906,
+                "crew": [
+                  425
+                ]
+              },
+              "source": "STAGE115 group 1 record 5: アークエンジェル/ＡＩ (22,10) facing 1; side 1 AI placeholder, placed on side 0 with the pilot the event movie puts the blue cursor on (マリュー 417; ミリアリア 425 seated aboard)",
+              "crew": [
+                439
+              ]
+            },
+            {
+              "unit": 545,
+              "pilot": 440,
+              "tile": [
+                19,
+                12
+              ],
+              "facing": 0,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 508,
+                "pilot": 907
+              },
+              "source": "STAGE115 group 1 record 6: エターナル/ＡＩ (19,12) facing 0; side 1 AI placeholder, placed on side 0 with the pilot the event movie puts the blue cursor on (ラクス 426, not a speaker)"
+            },
+            {
+              "unit": 513,
+              "pilot": 420,
+              "tile": [
+                18,
+                11
+              ],
+              "facing": 0,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 477,
+                "pilot": 908
+              },
+              "source": "STAGE115 group 1 record 7: Ｓフリーダムガンダム/高性能ＡＩ (18,11) facing 0; side 1 AI placeholder, placed on side 0 with the pilot the event movie puts the blue cursor on (キラ 406)"
+            },
+            {
+              "unit": 515,
+              "pilot": 411,
+              "tile": [
+                21,
+                11
+              ],
+              "facing": 1,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 479,
+                "pilot": 909
+              },
+              "source": "STAGE115 group 1 record 8: ∞ジャスティスガンダム/高性能ＡＩ (21,11) facing 1; side 1 AI placeholder, placed on side 0 with the pilot the event movie puts the blue cursor on (アスラン 397)"
+            },
+            {
+              "unit": 521,
+              "pilot": 468,
+              "tile": [
+                17,
+                13
+              ],
+              "facing": 0,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 485,
+                "pilot": 910
+              },
+              "source": "STAGE115 group 1 record 9: アカツキ/自律回路 (17,13) facing 0; side 1 AI placeholder, placed on side 0 with the pilot the event movie puts the blue cursor on (ネオ 454)"
+            }
+          ]
+        },
         "timeline": [
           [
             "zoom",
@@ -7070,6 +7212,18 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "spawn",
+            "logos"
+          ],
+          [
+            "deploy",
+            "fed114"
+          ],
+          [
+            "deploy",
+            "zaft114"
           ],
           [
             "raw",
@@ -7085,6 +7239,18 @@
           [
             "bgm",
             71
+          ],
+          [
+            "camera",
+            20,
+            10
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
           ],
           [
             "talk",
@@ -7305,6 +7471,82 @@
             0
           ],
           [
+            "remove_pilot",
+            274
+          ],
+          [
+            "remove_pilot",
+            456
+          ],
+          [
+            "remove_unit",
+            549
+          ],
+          [
+            "remove_unit",
+            549
+          ],
+          [
+            "remove_unit",
+            549
+          ],
+          [
+            "remove_unit",
+            549
+          ],
+          [
+            "remove_unit",
+            548
+          ],
+          [
+            "remove_unit",
+            548
+          ],
+          [
+            "remove_unit",
+            548
+          ],
+          [
+            "remove_unit",
+            548
+          ],
+          [
+            "remove_unit",
+            548
+          ],
+          [
+            "remove_unit",
+            548
+          ],
+          [
+            "remove_unit",
+            546
+          ],
+          [
+            "remove_unit",
+            546
+          ],
+          [
+            "remove_unit",
+            546
+          ],
+          [
+            "remove_unit",
+            546
+          ],
+          [
+            "remove_unit",
+            546
+          ],
+          [
+            "deploy",
+            "fed115"
+          ],
+          [
+            "spawn",
+            "archangel"
+          ],
+          [
             "zoom",
             -11
           ],
@@ -7519,16 +7761,340 @@
         ],
         "excluded": [
           {
-            "what": "units of both maps",
-            "reason": "no script-placed unit; the fleets are play-dependent"
-          },
-          {
             "what": "0x63/0x3/0x1f at STAGE114 0x1720 (switch to the next stage chunk)",
             "reason": "replayed as an in-scene map switch (0x13bc) to map 40"
           }
         ],
         "model_reset": {
           "source": "STAGE115 is a fresh stage load in the Original (model frames start at 0); the in-scene 0x13bc keeps the frames STAGE114's effect left (models 2-4 at 999), so models 0-5 are set back to frame 0 with 0x46 mode 7 (FUN_00147510)"
+        },
+        "deploy": {
+          "fed114": [
+            {
+              "unit": 549,
+              "pilot": 863,
+              "tile": [
+                17,
+                14
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 512,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 1: アガメムノン級/連邦軍艦長 (17, 14) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 549,
+              "pilot": 863,
+              "tile": [
+                23,
+                14
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 512,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 2: アガメムノン級/連邦軍艦長 (23, 14) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 549,
+              "pilot": 863,
+              "tile": [
+                18,
+                11
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 512,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 3: アガメムノン級/連邦軍艦長 (18, 11) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 549,
+              "pilot": 863,
+              "tile": [
+                22,
+                11
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 512,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 4: アガメムノン級/連邦軍艦長 (22, 11) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                19,
+                16
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 5: ドレイク級/連邦軍艦長 (19, 16) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                21,
+                16
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 6: ドレイク級/連邦軍艦長 (21, 16) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                15,
+                13
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 7: ドレイク級/連邦軍艦長 (15, 13) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                25,
+                13
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 8: ドレイク級/連邦軍艦長 (25, 13) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                16,
+                10
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 9: ドレイク級/連邦軍艦長 (16, 10) side 12 facing 1, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                24,
+                10
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE114 group 0 record 10: ドレイク級/連邦軍艦長 (24, 10) side 12 facing 1, squad ロゴス"
+            }
+          ],
+          "zaft114": [
+            {
+              "unit": 546,
+              "pilot": 892,
+              "tile": [
+                16,
+                29
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "ザフト",
+              "original": {
+                "unit": 509,
+                "pilot": 855
+              },
+              "source": "STAGE114 group 1 record 12: ナスカ級/ザフト艦長 (16, 29) side 4 facing 3, squad ザフト"
+            },
+            {
+              "unit": 546,
+              "pilot": 892,
+              "tile": [
+                22,
+                29
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "ザフト",
+              "original": {
+                "unit": 509,
+                "pilot": 855
+              },
+              "source": "STAGE114 group 1 record 13: ナスカ級/ザフト艦長 (22, 29) side 4 facing 3, squad ザフト"
+            },
+            {
+              "unit": 546,
+              "pilot": 892,
+              "tile": [
+                17,
+                27
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "ザフト",
+              "original": {
+                "unit": 509,
+                "pilot": 855
+              },
+              "source": "STAGE114 group 1 record 14: ナスカ級/ザフト艦長 (17, 27) side 4 facing 3, squad ザフト"
+            },
+            {
+              "unit": 546,
+              "pilot": 892,
+              "tile": [
+                21,
+                27
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "ザフト",
+              "original": {
+                "unit": 509,
+                "pilot": 855
+              },
+              "source": "STAGE114 group 1 record 15: ナスカ級/ザフト艦長 (21, 27) side 4 facing 3, squad ザフト"
+            },
+            {
+              "unit": 546,
+              "pilot": 892,
+              "tile": [
+                19,
+                26
+              ],
+              "facing": 3,
+              "side": 4,
+              "name": "ザフト",
+              "original": {
+                "unit": 509,
+                "pilot": 855
+              },
+              "source": "STAGE114 group 1 record 16: ナスカ級/ザフト艦長 (19, 26) side 4 facing 3, squad ザフト"
+            }
+          ],
+          "fed115": [
+            {
+              "unit": 549,
+              "pilot": 863,
+              "tile": [
+                14,
+                12
+              ],
+              "facing": 2,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 512,
+                "pilot": 827
+              },
+              "source": "STAGE115 group 0 record 0: アガメムノン級/連邦軍艦長 (14, 12) side 12 facing 2, squad ロゴス"
+            },
+            {
+              "unit": 549,
+              "pilot": 863,
+              "tile": [
+                21,
+                13
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 512,
+                "pilot": 827
+              },
+              "source": "STAGE115 group 0 record 1: アガメムノン級/連邦軍艦長 (21, 13) side 12 facing 3, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                16,
+                10
+              ],
+              "facing": 2,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE115 group 0 record 2: ドレイク級/連邦軍艦長 (16, 10) side 12 facing 2, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                16,
+                14
+              ],
+              "facing": 2,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE115 group 0 record 3: ドレイク級/連邦軍艦長 (16, 14) side 12 facing 2, squad ロゴス"
+            },
+            {
+              "unit": 548,
+              "pilot": 863,
+              "tile": [
+                23,
+                13
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ロゴス",
+              "original": {
+                "unit": 511,
+                "pilot": 827
+              },
+              "source": "STAGE115 group 0 record 4: ドレイク級/連邦軍艦長 (23, 13) side 12 facing 3, squad ロゴス"
+            }
+          ]
         }
       },
       "stage_objects_source": "STAGE114 entry 0x414-0x4a0 (0x146280 / 0x146160 before the map starts)"
