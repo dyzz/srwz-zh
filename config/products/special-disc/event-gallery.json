@@ -760,6 +760,10 @@
             "talk_install"
           ],
           [
+            "deploy",
+            "zerabaia"
+          ],
+          [
             "spawn",
             "sandman_anchor"
           ],
@@ -883,10 +887,176 @@
         ],
         "excluded": [
           {
-            "what": "Shouhei/Duke/Koji/Denzel squads moved at 0x8f50-0x8f80 and Zerabaia groups 4/5",
+            "what": "Shouhei/Duke/Koji/Denzel squads moved at 0x8f50-0x8f80",
             "reason": "not referenced in the effect block 0x9440-0x94e0"
           }
-        ]
+        ],
+        "deploy": {
+          "zerabaia": [
+            {
+              "unit": 657,
+              "pilot": 942,
+              "original": {
+                "unit": 613,
+                "pilot": 901
+              },
+              "level": 9,
+              "tile": [
+                17,
+                26
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 21: ソルジャーゼラバイア/ゼラバイア (17,26) side 12 facing 3, squad ゼラバイア flags 0x0"
+            },
+            {
+              "unit": 657,
+              "pilot": 942,
+              "original": {
+                "unit": 613,
+                "pilot": 901
+              },
+              "level": 9,
+              "tile": [
+                20,
+                27
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 22: ソルジャーゼラバイア/ゼラバイア (20,27) side 12 facing 3, squad ゼラバイア flags 0x0"
+            },
+            {
+              "unit": 657,
+              "pilot": 942,
+              "original": {
+                "unit": 613,
+                "pilot": 901
+              },
+              "level": 9,
+              "tile": [
+                18,
+                32
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 23: ソルジャーゼラバイア/ゼラバイア (18,32) side 12 facing 3, squad ゼラバイア flags 0x0"
+            },
+            {
+              "unit": 657,
+              "pilot": 942,
+              "original": {
+                "unit": 613,
+                "pilot": 901
+              },
+              "level": 9,
+              "tile": [
+                21,
+                33
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 24: ソルジャーゼラバイア/ゼラバイア (21,33) side 12 facing 3, squad ゼラバイア flags 0x0"
+            },
+            {
+              "unit": 657,
+              "pilot": 942,
+              "original": {
+                "unit": 613,
+                "pilot": 901
+              },
+              "level": 9,
+              "tile": [
+                24,
+                19
+              ],
+              "facing": 0,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 25: ソルジャーゼラバイア/ゼラバイア (24,19) side 12 facing 0, squad ゼラバイア flags 0x0"
+            },
+            {
+              "unit": 657,
+              "pilot": 942,
+              "original": {
+                "unit": 613,
+                "pilot": 901
+              },
+              "level": 9,
+              "tile": [
+                25,
+                22
+              ],
+              "facing": 0,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 26: ソルジャーゼラバイア/ゼラバイア (25,22) side 12 facing 0, squad ゼラバイア flags 0x0"
+            },
+            {
+              "unit": 657,
+              "pilot": 942,
+              "original": {
+                "unit": 613,
+                "pilot": 901
+              },
+              "level": 9,
+              "tile": [
+                30,
+                20
+              ],
+              "facing": 0,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 27: ソルジャーゼラバイア/ゼラバイア (30,20) side 12 facing 0, squad ゼラバイア flags 0x0"
+            },
+            {
+              "unit": 657,
+              "pilot": 942,
+              "original": {
+                "unit": 613,
+                "pilot": 901
+              },
+              "level": 9,
+              "tile": [
+                31,
+                23
+              ],
+              "facing": 0,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 28: ソルジャーゼラバイア/ゼラバイア (31,23) side 12 facing 0, squad ゼラバイア flags 0x0"
+            },
+            {
+              "unit": 660,
+              "pilot": 942,
+              "original": {
+                "unit": 616,
+                "pilot": 901
+              },
+              "level": 11,
+              "tile": [
+                11,
+                12
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 0,
+              "source": "STAGE007 0x8ff0 group 5 squad 29: ディクリール/ゼラバイア (11,12) side 12 facing 3, squad ゼラバイア flags 0x0"
+            }
+          ]
+        }
       }
     },
     {
@@ -1049,6 +1219,25 @@
               },
               "source": "spawn list 0x75bd60 at 0x6fa0 after wait 919"
             }
+          ],
+          "bial": [
+            {
+              "unit": 125,
+              "pilot": 951,
+              "tile": [
+                24,
+                21
+              ],
+              "facing": 2,
+              "side": 1,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 122,
+                "pilot": 910
+              },
+              "source": "STAGE009 0x6d60 group 4: ビアルⅠ世/自律回路 (24,21) side 1 facing 2; named unit, spawn list; it sinks after the effect (0x7040-0x7070, excluded)"
+            }
           ]
         },
         "timeline": [
@@ -1058,6 +1247,14 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "deploy",
+            "vega"
+          ],
+          [
+            "spawn",
+            "bial"
           ],
           [
             "spawn",
@@ -1285,7 +1482,209 @@
             "what": "ビアルⅠ世 sinking (0x7040-0x7070)",
             "reason": "the base is off camera"
           }
-        ]
+        ],
+        "deploy": {
+          "vega": [
+            {
+              "unit": 26,
+              "pilot": 773,
+              "original": {
+                "unit": 25,
+                "pilot": 742
+              },
+              "level": 10,
+              "tile": [
+                14,
+                20
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ベガ",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 5: ミディフォー/ベガ兵 (14,20) side 12 facing 3, squad ベガ flags 0x0"
+            },
+            {
+              "unit": 26,
+              "pilot": 775,
+              "original": {
+                "unit": 25,
+                "pilot": 744
+              },
+              "level": 10,
+              "tile": [
+                16,
+                20
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ベガ",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 6: ミディフォー/ベガ兵 (16,20) side 12 facing 3, squad ベガ flags 0x0"
+            },
+            {
+              "unit": 26,
+              "pilot": 773,
+              "original": {
+                "unit": 25,
+                "pilot": 742
+              },
+              "level": 10,
+              "tile": [
+                11,
+                21
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ベガ",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 7: ミディフォー/ベガ兵 (11,21) side 12 facing 3, squad ベガ flags 0x0"
+            },
+            {
+              "unit": 26,
+              "pilot": 775,
+              "original": {
+                "unit": 25,
+                "pilot": 744
+              },
+              "level": 10,
+              "tile": [
+                19,
+                21
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ベガ",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 8: ミディフォー/ベガ兵 (19,21) side 12 facing 3, squad ベガ flags 0x0"
+            },
+            {
+              "unit": 26,
+              "pilot": 773,
+              "original": {
+                "unit": 25,
+                "pilot": 742
+              },
+              "level": 10,
+              "tile": [
+                13,
+                23
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ベガ",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 9: ミディフォー/ベガ兵 (13,23) side 12 facing 3, squad ベガ flags 0x0"
+            },
+            {
+              "unit": 26,
+              "pilot": 775,
+              "original": {
+                "unit": 25,
+                "pilot": 744
+              },
+              "level": 10,
+              "tile": [
+                17,
+                23
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ベガ",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 10: ミディフォー/ベガ兵 (17,23) side 12 facing 3, squad ベガ flags 0x0"
+            },
+            {
+              "unit": 29,
+              "pilot": 934,
+              "original": {
+                "unit": 28,
+                "pilot": 893
+              },
+              "level": 10,
+              "tile": [
+                12,
+                25
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ベガ",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 11: 円盤獣ゴルゴル/円盤獣 (12,25) side 12 facing 3, squad ベガ flags 0x0"
+            },
+            {
+              "unit": 29,
+              "pilot": 934,
+              "original": {
+                "unit": 28,
+                "pilot": 893
+              },
+              "level": 10,
+              "tile": [
+                18,
+                25
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ベガ",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 12: 円盤獣ゴルゴル/円盤獣 (18,25) side 12 facing 3, squad ベガ flags 0x0"
+            },
+            {
+              "unit": 111,
+              "pilot": 940,
+              "original": {
+                "unit": 109,
+                "pilot": 899
+              },
+              "level": 10,
+              "tile": [
+                9,
+                23
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ガイゾック",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 13: ドミラ/メカブースト (9,23) side 12 facing 3, squad ガイゾック flags 0x0"
+            },
+            {
+              "unit": 111,
+              "pilot": 940,
+              "original": {
+                "unit": 109,
+                "pilot": 899
+              },
+              "level": 10,
+              "tile": [
+                21,
+                23
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ガイゾック",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 14: ドミラ/メカブースト (21,23) side 12 facing 3, squad ガイゾック flags 0x0"
+            },
+            {
+              "unit": 111,
+              "pilot": 940,
+              "original": {
+                "unit": 109,
+                "pilot": 899
+              },
+              "level": 10,
+              "tile": [
+                15,
+                24
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ガイゾック",
+              "squad_flags": 0,
+              "source": "STAGE009 0x6be0 group 3 squad 15: ドミラ/メカブースト (15,24) side 12 facing 3, squad ガイゾック flags 0x0"
+            }
+          ]
+        }
       }
     },
     {
@@ -1422,6 +1821,25 @@
               },
               "source": "cursor anchor, hidden: 不動 is not on the map; in the event movie (3:51) his lines put the cursor on a roof south of the Solar Aquarion, (13,23) from LRPS2 candidate tiles (the Aquarion at the frame's top edge lines up). Unit 645 (グランカイザー) is never drawn"
             }
+          ],
+          "loran": [
+            {
+              "unit": 339,
+              "pilot": 290,
+              "tile": [
+                6,
+                22
+              ],
+              "facing": 3,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "original": {
+                "unit": 317,
+                "pilot": 281
+              },
+              "source": "STAGE021 0x8300 spawn list 0x6d50: ∀ガンダム/ロラン (6,22) side 0 facing 3"
+            }
           ]
         },
         "timeline": [
@@ -1431,6 +1849,10 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "spawn",
+            "loran"
           ],
           [
             "spawn",
@@ -5685,6 +6107,10 @@
             "talk_install"
           ],
           [
+            "deploy",
+            "titans"
+          ],
+          [
             "spawn",
             "arrivals"
           ],
@@ -5770,10 +6196,318 @@
             "reason": "0x12d30 IF gflag 0x1a0; save-dependent, omitted"
           },
           {
-            "what": "enemy groups 10/11 and Archangel/Minerva actions",
+            "what": "Archangel/Minerva actions",
             "reason": "not referenced by the effect call; Archangel removed before (0x12a70)"
           }
-        ]
+        ],
+        "deploy": {
+          "titans": [
+            {
+              "unit": 282,
+              "pilot": 820,
+              "original": {
+                "unit": 268,
+                "pilot": 787
+              },
+              "level": 42,
+              "tile": [
+                30,
+                16
+              ],
+              "facing": 0,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "members": [
+                {
+                  "unit": 282,
+                  "pilot": 821,
+                  "original": {
+                    "unit": 268,
+                    "pilot": 788
+                  },
+                  "level": 42
+                },
+                {
+                  "unit": 282,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 268,
+                    "pilot": 785
+                  },
+                  "level": 42
+                }
+              ],
+              "source": "STAGE069 0x12de0 group 11 squad 51: アッシマー/ティターンズ、アッシマー/ティターンズ、アッシマー/ティターンズ (30,16) side 4 facing 0, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 282,
+              "pilot": 821,
+              "original": {
+                "unit": 268,
+                "pilot": 788
+              },
+              "level": 42,
+              "tile": [
+                32,
+                23
+              ],
+              "facing": 0,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 16,
+              "members": [
+                {
+                  "unit": 282,
+                  "pilot": 820,
+                  "original": {
+                    "unit": 268,
+                    "pilot": 787
+                  },
+                  "level": 42
+                },
+                {
+                  "unit": 282,
+                  "pilot": 818,
+                  "original": {
+                    "unit": 268,
+                    "pilot": 785
+                  },
+                  "level": 42
+                }
+              ],
+              "source": "STAGE069 0x12de0 group 11 squad 52: アッシマー/ティターンズ、アッシマー/ティターンズ、アッシマー/ティターンズ (32,23) side 4 facing 0, squad 連邦軍 flags 0x10"
+            },
+            {
+              "unit": 528,
+              "pilot": 871,
+              "original": {
+                "unit": 491,
+                "pilot": 831
+              },
+              "level": 42,
+              "tile": [
+                28,
+                14
+              ],
+              "facing": 0,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 478,
+                  "pilot": 871,
+                  "original": {
+                    "unit": 446,
+                    "pilot": 835
+                  },
+                  "level": 42
+                },
+                {
+                  "unit": 478,
+                  "pilot": 872,
+                  "original": {
+                    "unit": 446,
+                    "pilot": 836
+                  },
+                  "level": 42
+                }
+              ],
+              "source": "STAGE069 0x12de0 group 11 squad 53: ザムザザー/連邦軍兵、ウィンダム/連邦軍兵、ウィンダム/連邦軍兵 (28,14) side 4 facing 0, squad 連邦軍 flags 0x11"
+            },
+            {
+              "unit": 528,
+              "pilot": 871,
+              "original": {
+                "unit": 491,
+                "pilot": 835
+              },
+              "level": 42,
+              "tile": [
+                30,
+                21
+              ],
+              "facing": 0,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 478,
+                  "pilot": 872,
+                  "original": {
+                    "unit": 446,
+                    "pilot": 836
+                  },
+                  "level": 42
+                },
+                {
+                  "unit": 478,
+                  "pilot": 871,
+                  "original": {
+                    "unit": 446,
+                    "pilot": 831
+                  },
+                  "level": 42
+                }
+              ],
+              "source": "STAGE069 0x12de0 group 11 squad 54: ザムザザー/連邦軍兵、ウィンダム/連邦軍兵、ウィンダム/連邦軍兵 (30,21) side 4 facing 0, squad 連邦軍 flags 0x11"
+            },
+            {
+              "unit": 766,
+              "pilot": 928,
+              "original": {
+                "unit": 711,
+                "pilot": 885
+              },
+              "level": 42,
+              "tile": [
+                26,
+                12
+              ],
+              "facing": 0,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 763,
+                  "pilot": 928,
+                  "original": {
+                    "unit": 710,
+                    "pilot": 885
+                  },
+                  "level": 42
+                },
+                {
+                  "unit": 763,
+                  "pilot": 928,
+                  "original": {
+                    "unit": 710,
+                    "pilot": 885
+                  },
+                  "level": 42
+                }
+              ],
+              "source": "STAGE069 0x12de0 group 11 squad 55: モンスーノ２０/連邦軍兵、モンスーノ１０/連邦軍兵、モンスーノ１０/連邦軍兵 (26,12) side 4 facing 0, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 766,
+              "pilot": 928,
+              "original": {
+                "unit": 711,
+                "pilot": 885
+              },
+              "level": 42,
+              "tile": [
+                26,
+                16
+              ],
+              "facing": 0,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 763,
+                  "pilot": 928,
+                  "original": {
+                    "unit": 710,
+                    "pilot": 885
+                  },
+                  "level": 42
+                },
+                {
+                  "unit": 763,
+                  "pilot": 928,
+                  "original": {
+                    "unit": 710,
+                    "pilot": 885
+                  },
+                  "level": 42
+                }
+              ],
+              "source": "STAGE069 0x12de0 group 11 squad 56: モンスーノ２０/連邦軍兵、モンスーノ１０/連邦軍兵、モンスーノ１０/連邦軍兵 (26,16) side 4 facing 0, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 766,
+              "pilot": 928,
+              "original": {
+                "unit": 711,
+                "pilot": 885
+              },
+              "level": 42,
+              "tile": [
+                28,
+                19
+              ],
+              "facing": 0,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 763,
+                  "pilot": 928,
+                  "original": {
+                    "unit": 710,
+                    "pilot": 885
+                  },
+                  "level": 42
+                },
+                {
+                  "unit": 763,
+                  "pilot": 928,
+                  "original": {
+                    "unit": 710,
+                    "pilot": 885
+                  },
+                  "level": 42
+                }
+              ],
+              "source": "STAGE069 0x12de0 group 11 squad 57: モンスーノ２０/連邦軍兵、モンスーノ１０/連邦軍兵、モンスーノ１０/連邦軍兵 (28,19) side 4 facing 0, squad 連邦軍 flags 0x22"
+            },
+            {
+              "unit": 766,
+              "pilot": 928,
+              "original": {
+                "unit": 711,
+                "pilot": 885
+              },
+              "level": 42,
+              "tile": [
+                28,
+                23
+              ],
+              "facing": 0,
+              "side": 4,
+              "name": "連邦軍",
+              "squad_flags": 34,
+              "members": [
+                {
+                  "unit": 763,
+                  "pilot": 928,
+                  "original": {
+                    "unit": 710,
+                    "pilot": 885
+                  },
+                  "level": 42
+                },
+                {
+                  "unit": 763,
+                  "pilot": 928,
+                  "original": {
+                    "unit": 710,
+                    "pilot": 885
+                  },
+                  "level": 42
+                }
+              ],
+              "source": "STAGE069 0x12de0 group 11 squad 58: モンスーノ２０/連邦軍兵、モンスーノ１０/連邦軍兵、モンスーノ１０/連邦軍兵 (28,23) side 4 facing 0, squad 連邦軍 flags 0x22"
+            }
+          ]
+        }
       }
     },
     {
@@ -6437,6 +7171,18 @@
             "talk_install"
           ],
           [
+            "deploy",
+            "zarogross"
+          ],
+          [
+            "deploy",
+            "fortress"
+          ],
+          [
+            "deploy",
+            "hydwell"
+          ],
+          [
             "ghosts_install"
           ],
           [
@@ -6974,6 +7720,212 @@
                 "pilot": 774
               },
               "source": "STAGE107 0x15230-0x15260 moves ブレーカー (ソル═グラヴィオン 627, unit table 0x12644) to (18,2); 0x15270 facing 1; hidden at 0x156d0, shown at 0x15b80"
+            }
+          ]
+        },
+        "deploy": {
+          "zarogross": [
+            {
+              "unit": 671,
+              "pilot": 948,
+              "original": {
+                "unit": 623,
+                "pilot": 907
+              },
+              "level": 47,
+              "tile": [
+                7,
+                3
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e30 group 15 squad 107: ザログロス/ＡＩ (7,3) side 12 facing 1, squad ゼラバイア flags 0x10"
+            },
+            {
+              "unit": 671,
+              "pilot": 948,
+              "original": {
+                "unit": 623,
+                "pilot": 907
+              },
+              "level": 47,
+              "tile": [
+                7,
+                5
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e30 group 15 squad 108: ザログロス/ＡＩ (7,5) side 12 facing 1, squad ゼラバイア flags 0x10"
+            },
+            {
+              "unit": 671,
+              "pilot": 948,
+              "original": {
+                "unit": 623,
+                "pilot": 907
+              },
+              "level": 47,
+              "tile": [
+                9,
+                3
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e30 group 15 squad 109: ザログロス/ＡＩ (9,3) side 12 facing 1, squad ゼラバイア flags 0x10"
+            },
+            {
+              "unit": 671,
+              "pilot": 948,
+              "original": {
+                "unit": 623,
+                "pilot": 907
+              },
+              "level": 47,
+              "tile": [
+                9,
+                6
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e30 group 15 squad 110: ザログロス/ＡＩ (9,6) side 12 facing 1, squad ゼラバイア flags 0x10"
+            },
+            {
+              "unit": 671,
+              "pilot": 948,
+              "original": {
+                "unit": 623,
+                "pilot": 907
+              },
+              "level": 47,
+              "tile": [
+                11,
+                5
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e30 group 15 squad 111: ザログロス/ＡＩ (11,5) side 12 facing 1, squad ゼラバイア flags 0x10"
+            },
+            {
+              "unit": 671,
+              "pilot": 948,
+              "original": {
+                "unit": 623,
+                "pilot": 907
+              },
+              "level": 47,
+              "tile": [
+                11,
+                7
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e30 group 15 squad 112: ザログロス/ＡＩ (11,7) side 12 facing 1, squad ゼラバイア flags 0x10"
+            },
+            {
+              "unit": 671,
+              "pilot": 948,
+              "original": {
+                "unit": 623,
+                "pilot": 907
+              },
+              "level": 47,
+              "tile": [
+                12,
+                3
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e30 group 15 squad 113: ザログロス/ＡＩ (12,3) side 12 facing 1, squad ゼラバイア flags 0x10"
+            },
+            {
+              "unit": 671,
+              "pilot": 948,
+              "original": {
+                "unit": 623,
+                "pilot": 907
+              },
+              "level": 47,
+              "tile": [
+                13,
+                5
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e30 group 15 squad 114: ザログロス/ＡＩ (13,5) side 12 facing 1, squad ゼラバイア flags 0x10"
+            }
+          ],
+          "fortress": [
+            {
+              "unit": 686,
+              "pilot": 804,
+              "original": {
+                "unit": 637,
+                "pilot": 771
+              },
+              "level": 47,
+              "tile": [
+                31,
+                3
+              ],
+              "facing": 0,
+              "side": 1,
+              "name": "グランフォートレス",
+              "squad_flags": 16,
+              "source": "STAGE107 0x14e50 group 9 squad 91: グランフォートレス/ブレーカー (31,3) side 1 facing 0, squad グランフォートレス flags 0x10"
+            }
+          ],
+          "hydwell": [
+            {
+              "unit": 665,
+              "pilot": 942,
+              "original": {
+                "unit": 619,
+                "pilot": 901
+              },
+              "level": 47,
+              "tile": [
+                12,
+                5
+              ],
+              "facing": 2,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x15600 group 11 squad 93: ヒュドュエル/ゼラバイア (12,5) side 12 facing 2, squad ゼラバイア flags 0x10"
+            },
+            {
+              "unit": 665,
+              "pilot": 942,
+              "original": {
+                "unit": 619,
+                "pilot": 901
+              },
+              "level": 47,
+              "tile": [
+                10,
+                1
+              ],
+              "facing": 2,
+              "side": 12,
+              "name": "ゼラバイア",
+              "squad_flags": 16,
+              "source": "STAGE107 0x15600 group 11 squad 94: ヒュドュエル/ゼラバイア (10,1) side 12 facing 2, squad ゼラバイア flags 0x10"
             }
           ]
         }
@@ -11246,9 +12198,21 @@
               "class": 4,
               "original": {
                 "unit": 382,
-                "pilot": 347
+                "pilot": 347,
+                "members": [
+                  {
+                    "unit": 386,
+                    "pilot": 348
+                  }
+                ]
               },
-              "source": "ガンダムヴァサーゴＣＢ/シャギア (unitPilots 382:[347]); 0x1a780 0x13b7 moves pilot 347 to (16,7) next to 弥赛亚 before dialogue 0x15"
+              "source": "ガンダムヴァサーゴＣＢ/シャギア (unitPilots 382:[347]); 0x1a780 0x13b7 moves pilot 347 to (16,7) next to 弥赛亚 before dialogue 0x15; STAGE138 0x1a720 group 14 is one squad (フロスト兄弟), so ガンダムアシュタロンＨＣ/オルバ is its second member (オルバ speaks in section 21)",
+              "members": [
+                {
+                  "unit": 410,
+                  "pilot": 361
+                }
+              ]
             }
           ]
         },
