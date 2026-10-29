@@ -204,9 +204,15 @@ class VoiceMap:
         return self.cache[original]
 
 
+# Same-name groups whose SP side gained a variant (SP-only サンドマン 595 wears the
+# kimono) tie on byte similarity; keep the Original order so the portrait matches the
+# event movie (572 uniform -> 592, 573 pilot suit -> 593).
+PILOT_OVERRIDES = {572: 592, 573: 593}
+
+
 def pilot_map() -> dict[int, int]:
     rows = json.loads(ID_MAP.read_text(encoding="utf-8"))
-    return {r["original"]: r["sp"] for r in rows if r["kind"] == "pilot"}
+    return {r["original"]: r["sp"] for r in rows if r["kind"] == "pilot"} | PILOT_OVERRIDES
 
 
 def resolve_pilot(original: int, mapping: dict[int, int]) -> int:

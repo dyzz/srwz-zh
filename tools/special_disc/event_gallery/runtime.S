@@ -965,7 +965,9 @@ gallery_prepare_units:
     /* a0: (SP unit id, SP pilot id) halfword pairs, 0xffff terminated.
      * Stage roster construction normally provides these objects. Use an
      * existing native template or initialize a placeholder slot with the
-     * native definition loaders; the complete roster snapshot is restored. */
+     * native definition loaders; the complete roster snapshot is restored.
+     * Unit id 0xfffe seats the pilot in the previous unit's next free seat
+     * (a sub-pilot: the native speaker lookup checks all six seats). */
     addiu   $sp,$sp,-0x40
     sd      $ra,0x38($sp)
     sd      $s0,0x30($sp)
@@ -977,7 +979,10 @@ prepare_next:
     lhu     $s3,0($s0)
     ori     $t0,$zero,0xffff
     beq     $s3,$t0,prepare_done
-    nop
+    ori     $t0,$zero,0xfffe
+    beq     $s3,$t0,crew_pilot
+    addiu   $t0,$zero,1
+    sw      $zero,0x14($sp)  /* not a sub-pilot */
     lui     $s1,0x005c
     addiu   $s1,$s1,-0x6b00  /* 005b9500 unit objects */
     daddu   $s2,$zero,$zero
@@ -1018,6 +1023,7 @@ unit_next:
     daddu   $s1,$s2,$zero
 unit_ready:
     sw      $s1,0x10($sp)
+pilot_lookup:
     lhu     $s3,2($s0)
     lui     $s1,0x005a
     ori     $s1,$s1,0x5080   /* 005a5080 pilot objects */
@@ -1059,6 +1065,9 @@ pilot_next:
     daddu   $s1,$s2,$zero
 pilot_ready:
     lw      $s2,0x10($sp)
+    lw      $t0,0x14($sp)
+    bne     $t0,$zero,crew_board
+    nop
     lbu     $t0,0xc9($s2)
     ori     $t0,$t0,1
     sb      $t0,0xc9($s2)
@@ -1091,6 +1100,29 @@ prepare_done:
 .include "gallery-scenes.inc"
 
 .text
+.align 4
+/* gallery_prepare_units, sub-pilot path (out of its 0x1a00 block) */
+crew_pilot:
+    b       pilot_lookup
+    sw      $t0,0x14($sp)
+crew_board:
+    lbu     $t0,0x3e($s1)
+    ori     $t0,$t0,1
+    sb      $t0,0x3e($s1)
+    addiu   $t1,$s2,0xb4     /* seats 1..5 */
+    addiu   $t2,$zero,5
+seat_next:
+    lw      $t3,0($t1)
+    beq     $t3,$zero,seat_put
+    addiu   $t2,$t2,-1
+    bne     $t2,$zero,seat_next
+    addiu   $t1,$t1,4
+    b       prepare_skip
+    nop
+seat_put:
+    b       prepare_skip
+    sw      $s1,0($t1)
+
 .align 4
 .globl gallery_cancel_check
 /* Returns v0 = 1 after cancelling (sounds stopped, blank undone), else 0. */

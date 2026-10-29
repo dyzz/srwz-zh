@@ -65,7 +65,8 @@ def spawn_record(unit: dict[str, Any], squad_name: str) -> list[str]:
     +0 class, +1 2, +2 appear (0xff animated, 0/1/2 altitude layer), +4/+6
     anchor pilot/unit (-1), +8 -2, +0xc x, +0xd y, +0xe facing, +0xf side,
     +0x10 pilots, +0x16 units, +0x1c squad-name pointer. Optional ``members``
-    (up to two {unit, pilot}) fill the squad's second and third slots.
+    (up to two {unit, pilot}) fill the squad's second and third slots; a unit's
+    optional ``crew`` (pilot ids) are seated in it by gallery_prepare_units.
     """
     x, y = _tile(unit["tile"], "spawn tile")
     head = unit.get("class", 4)
@@ -119,6 +120,9 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
         for unit in units:
             for member in [unit] + unit.get("members", []):
                 data.append(f"    .hword {_id(member['unit'], 'unit')},{_id(member['pilot'], 'pilot')}")
+                # sub-pilots seated in the same unit (0xfffe: next free seat)
+                for crew in member.get("crew", []):
+                    data.append(f"    .hword 0xfffe,{_id(crew, 'crew pilot')}")
         data += ["    .hword 0xffff,0xffff", ".align 4", f"{spawn}:"]
         for unit in units:
             data += spawn_record(unit, "gallery_empty_squad_name")

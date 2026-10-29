@@ -120,7 +120,10 @@
                 "unit": 419,
                 "pilot": 391
               },
-              "source": "Alex/Zaku Warrior: deployment group 2 tile (12,13), facing 1, side 12, altitude 0 (moves with play; deployment tile used); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+              "source": "Alex/Zaku Warrior: deployment group 2 tile (12,13), facing 1, side 12, altitude 0 (moves with play; deployment tile used); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; カガリ (428) sits in a second seat: her lines put the cursor on the Zaku as in the event movie",
+              "crew": [
+                428
+              ]
             },
             {
               "unit": 488,
@@ -623,71 +626,71 @@
           "gknights": [
             {
               "unit": 677,
-              "pilot": 947,
+              "pilot": 582,
               "tile": [
                 10,
                 5
               ],
               "facing": 1,
-              "side": 1,
+              "side": 0,
               "appear": 1,
               "class": 4,
               "original": {
                 "unit": 628,
                 "pilot": 906
               },
-              "source": "G-Attacker 0x9370 (10,5) facing 1 (0x93b0); group 4 side 1 altitude 0; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+              "source": "G-Attacker 0x9370 (10,5) facing 1 (0x93b0); group 4 side 1 altitude 0; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot エイジ (582), side 0 (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 678,
-              "pilot": 948,
+              "pilot": 584,
               "tile": [
                 12,
                 5
               ],
               "facing": 1,
-              "side": 1,
+              "side": 0,
               "appear": 1,
               "class": 4,
               "original": {
                 "unit": 629,
                 "pilot": 907
               },
-              "source": "G-Striker 0x9200 (12,5) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+              "source": "G-Striker 0x9200 (12,5) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot 琉菜 (584), side 0 (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 679,
-              "pilot": 949,
+              "pilot": 586,
               "tile": [
                 11,
                 4
               ],
               "facing": 1,
-              "side": 1,
+              "side": 0,
               "appear": 1,
               "class": 4,
               "original": {
                 "unit": 630,
                 "pilot": 908
               },
-              "source": "G-Driller 0x9210 (11,4) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+              "source": "G-Driller 0x9210 (11,4) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot ミヅキ (586), side 0 (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 680,
-              "pilot": 950,
+              "pilot": 587,
               "tile": [
                 11,
                 8
               ],
               "facing": 1,
-              "side": 1,
+              "side": 0,
               "appear": 1,
               "class": 4,
               "original": {
                 "unit": 631,
                 "pilot": 909
               },
-              "source": "G-Shadow 0x9380 (11,8) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+              "source": "G-Shadow 0x9380 (11,8) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot エィナ (587), side 0 (event movie: the line puts the cursor on this unit)"
             }
           ],
           "toga": [
@@ -912,7 +915,7 @@
           "zambot_team": [
             {
               "unit": 123,
-              "pilot": 949,
+              "pilot": 144,
               "tile": [
                 29,
                 24
@@ -925,11 +928,11 @@
                 "unit": 120,
                 "pilot": 908
               },
-              "source": "ザンブル (unitPilots 121/120 with AI pilots 908/909); moved to (29,24) at 0x6dc0, facing 3 at 0x6e10"
+              "source": "ザンブル (unitPilots 121/120 with AI pilots 908/909); moved to (29,24) at 0x6dc0, facing 3 at 0x6e10; pilot 宇宙太 (144) (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 124,
-              "pilot": 950,
+              "pilot": 146,
               "tile": [
                 29,
                 25
@@ -942,7 +945,7 @@
                 "unit": 121,
                 "pilot": 909
               },
-              "source": "ザンベース, moved to (29,25) at 0x6dd0, facing 3 at 0x6e20"
+              "source": "ザンベース, moved to (29,25) at 0x6dd0, facing 3 at 0x6e20; pilot 恵子 (146) (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 84,
@@ -1304,7 +1307,7 @@
           "vectors": [
             {
               "unit": 735,
-              "pilot": 949,
+              "pilot": 623,
               "tile": [
                 12,
                 17
@@ -1317,11 +1320,11 @@
                 "unit": 684,
                 "pilot": 908
               },
-              "source": "Vector Sol: STAGE021 0x8020 op0x13a3 brings it to (12,17) after OP5 4 (0x7f90); 0x86d0 moves it to the light (10,11), 0x87e0 to (11,4); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+              "source": "Vector Sol: STAGE021 0x8020 op0x13a3 brings it to (12,17) after OP5 4 (0x7f90); 0x86d0 moves it to the light (10,11), 0x87e0 to (11,4); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot アポロ (623) (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 737,
-              "pilot": 951,
+              "pilot": 629,
               "tile": [
                 16,
                 22
@@ -1334,11 +1337,11 @@
                 "unit": 686,
                 "pilot": 910
               },
-              "source": "Vector Mars: OP5 4 group, 0x8230 moves it to (16,22) facing 3 (0x8280); 0x87f0 to (12,3); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+              "source": "Vector Mars: OP5 4 group, 0x8230 moves it to (16,22) facing 3 (0x8280); 0x87f0 to (12,3); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot シリウス (629) (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 739,
-              "pilot": 953,
+              "pilot": 626,
               "tile": [
                 18,
                 22
@@ -1351,7 +1354,7 @@
                 "unit": 688,
                 "pilot": 912
               },
-              "source": "Vector Luna: OP5 4 group, 0x8220 moves it to (18,22) facing 3 (0x8270); 0x8800 to (10,3); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used"
+              "source": "Vector Luna: OP5 4 group, 0x8220 moves it to (18,22) facing 3 (0x8270); 0x8800 to (10,3); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot シルヴィア (626) (event movie: the line puts the cursor on this unit)"
             }
           ],
           "aquarion": [
@@ -1564,16 +1567,16 @@
             ]
           ],
           [
-            "remove_pilot",
-            949
+            "remove_unit",
+            735
           ],
           [
-            "remove_pilot",
-            951
+            "remove_unit",
+            737
           ],
           [
-            "remove_pilot",
-            953
+            "remove_unit",
+            739
           ],
           [
             "wait",
@@ -2264,6 +2267,33 @@
               },
               "source": "same list: ホランド's ターミナス909 (19,5); its squad mates 606/808 share the record and are not drawn separately"
             }
+          ],
+          "nirvash_boarded": [
+            {
+              "unit": 744,
+              "pilot": 666,
+              "tile": [
+                10,
+                18
+              ],
+              "facing": 3,
+              "side": 0,
+              "appear": 1,
+              "class": 4,
+              "crew": [
+                660,
+                667
+              ],
+              "original": {
+                "unit": 693,
+                "pilot": 644,
+                "crew": [
+                  638,
+                  645
+                ]
+              },
+              "source": "STAGE025 0xe790 op0x13b4 boards レントン (660) and 0xe7a0 op0x13bd switches エウレカ to 645 (SP 667): the Nirvash after its first move (10,18), facing 3 (0xe770), with both seated"
+            }
           ]
         },
         "timeline": [
@@ -2417,6 +2447,14 @@
             2,
             666,
             3
+          ],
+          [
+            "remove_unit",
+            744
+          ],
+          [
+            "spawn",
+            "nirvash_boarded"
           ],
           [
             "talk",
@@ -2750,7 +2788,7 @@
           "team": [
             {
               "unit": 82,
-              "pilot": 947,
+              "pilot": 125,
               "tile": [
                 15,
                 27
@@ -2763,11 +2801,11 @@
                 "unit": 80,
                 "pilot": 906
               },
-              "source": "バルディプライズ (AI 906); start play-dependent, moved to (15,25) then (15,21) at 0xb030/0xb090"
+              "source": "バルディプライズ (AI 906); start play-dependent, moved to (15,25) then (15,21) at 0xb030/0xb090; pilot オリバー (125) (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 83,
-              "pilot": 948,
+              "pilot": 126,
               "tile": [
                 17,
                 27
@@ -2780,13 +2818,13 @@
                 "unit": 81,
                 "pilot": 907
               },
-              "source": "キャタレンジャー (AI 907); moved to (17,25) then (17,21) at 0xb040/0xb0a0"
+              "source": "キャタレンジャー (AI 907); moved to (17,25) then (17,21) at 0xb040/0xb0a0; pilot 雷太 (126) (event movie: the line puts the cursor on this unit)"
             }
           ],
           "palsavern": [
             {
               "unit": 81,
-              "pilot": 949,
+              "pilot": 122,
               "tile": [
                 19,
                 25
@@ -2799,7 +2837,7 @@
                 "unit": 79,
                 "pilot": 908
               },
-              "source": "ニューパルサバーン (AI 908), launched from the Trinity base (0xaf00 moves it to (19,25)); appears there animated"
+              "source": "ニューパルサバーン (AI 908), launched from the Trinity base (0xaf00 moves it to (19,25)); appears there animated; pilot マリン (122) (event movie: the line puts the cursor on this unit)"
             }
           ],
           "baldios": [
@@ -3088,20 +3126,20 @@
             ]
           ],
           [
-            "remove_pilot",
-            949
+            "remove_unit",
+            81
           ],
           [
             "wait",
             100
           ],
           [
-            "remove_pilot",
-            947
+            "remove_unit",
+            82
           ],
           [
-            "remove_pilot",
-            948
+            "remove_unit",
+            83
           ],
           [
             "raw",
@@ -4303,6 +4341,13 @@
           ],
           [
             "raw",
+            5027,
+            131086,
+            83886095,
+            2949120
+          ],
+          [
+            "raw",
             5021,
             0,
             0,
@@ -4388,6 +4433,13 @@
           [
             "talk",
             16
+          ],
+          [
+            "raw",
+            5028,
+            131086,
+            83886080,
+            0
           ],
           [
             "bgm",
@@ -5003,6 +5055,55 @@
             53
           ],
           [
+            "raw",
+            5000,
+            2415919104,
+            0,
+            32768
+          ],
+          [
+            "raw",
+            5000,
+            2415919104,
+            0,
+            32769
+          ],
+          [
+            "raw",
+            5005,
+            32768,
+            2049,
+            2415919200
+          ],
+          [
+            "raw",
+            5041,
+            65536,
+            8388736,
+            8421376
+          ],
+          [
+            "raw",
+            5008,
+            2415919105,
+            0,
+            32768
+          ],
+          [
+            "raw",
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5006,
+            0,
+            0,
+            0
+          ],
+          [
             "talk",
             17
           ],
@@ -5048,6 +5149,55 @@
             24,
             2,
             726,
+            0
+          ],
+          [
+            "raw",
+            5005,
+            32768,
+            2049,
+            2415919104
+          ],
+          [
+            "raw",
+            5041,
+            65536,
+            8388736,
+            8421376
+          ],
+          [
+            "raw",
+            5009,
+            2415919105,
+            0,
+            32768
+          ],
+          [
+            "raw",
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5006,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5040,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5041,
+            0,
+            0,
             0
           ],
           [
@@ -5468,14 +5618,14 @@
                 26
               ],
               "facing": 0,
-              "side": 12,
+              "side": 4,
               "appear": 1,
               "class": 4,
               "original": {
                 "unit": 676,
                 "pilot": 633
               },
-              "source": "STAGE107 unit table 0x1253c: 双翅 pilots ケルビム兵 (676, lv50); dialogue frame 0x142c0 gives (10,26); 0x14310 facing 0; removed at 0x14520 when the orb appears"
+              "source": "STAGE107 unit table 0x1253c: 双翅 pilots ケルビム兵 (676, lv50); dialogue frame 0x142c0 gives (10,26); 0x14310 facing 0; removed at 0x14520 when the orb appears; side 4 (yellow cursor in the event movie)"
             }
           ]
         },
@@ -7884,7 +8034,11 @@
                 "unit": 655,
                 "pilot": 612
               },
-              "source": "STAGE128 0x107a0 op0x1d switches Pierre's unit to アクエリオンエンジェル (655); 0x10860-0x108a0 moves him to (13,5); 0x108e0 facing 1"
+              "source": "STAGE128 0x107a0 op0x1d switches Pierre's unit to アクエリオンエンジェル (655); 0x10860-0x108a0 moves him to (13,5); 0x108e0 facing 1; 麗花 (632) / シルヴィア (626) sit in the other seats: their lines put the cursor on the Aquarion as in the event movie",
+              "crew": [
+                632,
+                626
+              ]
             }
           ],
           "shishi": [
