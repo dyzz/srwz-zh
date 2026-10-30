@@ -1097,8 +1097,8 @@
           29,
           23
         ],
-        "map_view": 3,
-        "status": "STAGE009 init 0x9b0: map 44, view 3; event root 0x69f0, camera on 勝平 (0x6e40) and the combine tile (29,23) (0x6f10)"
+        "map_view": 1,
+        "status": "STAGE009 init 0x9b0: map 44, view 3; event root 0x69f0, camera on 勝平 (0x6e40) and the combine tile (29,23) (0x6f10); view 1 as in the event movie (the player had rotated the map; STAGE009 init sets 3), checked with probe_view.py on section 24"
       },
       "effect_tile": [
         29,
@@ -1218,13 +1218,13 @@
               ],
               "facing": 0,
               "side": 0,
-              "appear": 255,
+              "appear": 1,
               "class": 2,
               "original": {
                 "unit": 106,
                 "pilot": 138
               },
-              "source": "spawn list 0x75bd20 at 0x6d90: ザンバード/勝平 (34,12), animated; moves to (29,23) at 0x6de0"
+              "source": "spawn list 0x75bd20 at 0x6d90: ザンバード/勝平 (34,12), animated; moves to (29,23) at 0x6de0; spawned hidden before the ザンブル/ザンベース (preparing it later re-initialises their objects and leaves their actors without a unit) and shown at 0x6d90, without the arrival animation"
             }
           ],
           "zambot3": [
@@ -1284,6 +1284,15 @@
           ],
           [
             "spawn",
+            "zambird"
+          ],
+          [
+            "visible",
+            138,
+            0
+          ],
+          [
+            "spawn",
             "zambot_team"
           ],
           [
@@ -1307,8 +1316,9 @@
             21
           ],
           [
-            "spawn",
-            "zambird"
+            "visible",
+            138,
+            1
           ],
           [
             "talk",
