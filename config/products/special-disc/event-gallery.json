@@ -189,6 +189,10 @@
             "talk_install"
           ],
           [
+            "deploy",
+            "gate_r"
+          ],
+          [
             "spawn",
             "field"
           ],
@@ -570,7 +574,29 @@
             "reason": "dialogue-only state; the explosion tiles are Alex's documented tile (12,13) and its neighbours"
           }
         ],
-        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions"
+        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions",
+        "deploy": {
+          "gate_r": [
+            {
+              "unit": 466,
+              "pilot": 896,
+              "original": {
+                "unit": 436,
+                "pilot": 859
+              },
+              "level": 5,
+              "tile": [
+                9,
+                14
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "ザフト",
+              "squad_flags": 0,
+              "source": "STAGE002 group 0 squad 2: ゲイツＲ/ザフト兵, deployed at (11,13) side 12, squad ザフト; placed at (9,14): event movie, left of the Sword Impulse in every line from section 14 (moves with play)"
+            }
+          ]
+        }
       }
     },
     {
@@ -1851,6 +1877,10 @@
             "talk_install"
           ],
           [
+            "deploy",
+            "cherubim"
+          ],
+          [
             "spawn",
             "loran"
           ],
@@ -2096,7 +2126,29 @@
             "what": "BGM 0x8670 op0x43 0x2e before effect 20",
             "reason": "the effect 256 resource header plays the same song; a script request earlier would restart it at the effect, so the pre-beat runs on the paused theater BGM"
           }
-        ]
+        ],
+        "deploy": {
+          "cherubim": [
+            {
+              "unit": 723,
+              "pilot": 918,
+              "original": {
+                "unit": 674,
+                "pilot": 878
+              },
+              "level": 11,
+              "tile": [
+                8,
+                14
+              ],
+              "facing": 0,
+              "side": 12,
+              "name": "堕天翅",
+              "squad_flags": 0,
+              "source": "STAGE021 group 2 squad 3: ケルビム兵/ケルビム兵, deployed at (11,24) side 12, squad 堕天翅; placed at (8,14): event movie, top of the frame on アポロ's and アポロニアス's lines (moves with play)"
+            }
+          ]
+        }
       }
     },
     {
@@ -3466,6 +3518,10 @@
             "talk_install"
           ],
           [
+            "deploy",
+            "aphrodia"
+          ],
+          [
             "spawn",
             "octo"
           ],
@@ -3812,7 +3868,106 @@
             "what": "op 0x5 0x8 (0xaeb0)",
             "reason": "not reproduced in the other scenes either"
           }
-        ]
+        ],
+        "deploy": {
+          "aphrodia": [
+            {
+              "unit": 77,
+              "pilot": 131,
+              "original": {
+                "unit": 75,
+                "pilot": 131
+              },
+              "level": 24,
+              "flags": 128,
+              "tile": [
+                31,
+                31
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "アルデバロン",
+              "squad_flags": 16,
+              "source": "STAGE030 group 2 squad 17: 戦闘空母/アフロディア, deployed at (31,31) side 12, squad アルデバロン; STAGE030 event 17 0x04 1,2,3 normal difficulty; the movie shows the carrier with discs on both sides on アフロディア's line"
+            },
+            {
+              "unit": 70,
+              "pilot": 803,
+              "original": {
+                "unit": 68,
+                "pilot": 770
+              },
+              "level": 21,
+              "tile": [
+                33,
+                29
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "アルデバロン",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 70,
+                  "pilot": 801,
+                  "original": {
+                    "unit": 68,
+                    "pilot": 768
+                  },
+                  "level": 21
+                },
+                {
+                  "unit": 70,
+                  "pilot": 801,
+                  "original": {
+                    "unit": 68,
+                    "pilot": 768
+                  },
+                  "level": 21
+                }
+              ],
+              "source": "STAGE030 group 2 squad 18: 透明円盤/アルデバロン兵、透明円盤/アルデバロン兵、透明円盤/アルデバロン兵, deployed at (33,29) side 12, squad アルデバロン; STAGE030 event 17 0x04 1,2,3 normal difficulty; the movie shows the carrier with discs on both sides on アフロディア's line"
+            },
+            {
+              "unit": 70,
+              "pilot": 803,
+              "original": {
+                "unit": 68,
+                "pilot": 770
+              },
+              "level": 21,
+              "tile": [
+                29,
+                33
+              ],
+              "facing": 3,
+              "side": 12,
+              "name": "アルデバロン",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 70,
+                  "pilot": 801,
+                  "original": {
+                    "unit": 68,
+                    "pilot": 768
+                  },
+                  "level": 21
+                },
+                {
+                  "unit": 70,
+                  "pilot": 801,
+                  "original": {
+                    "unit": 68,
+                    "pilot": 768
+                  },
+                  "level": 21
+                }
+              ],
+              "source": "STAGE030 group 2 squad 19: 透明円盤/アルデバロン兵、透明円盤/アルデバロン兵、透明円盤/アルデバロン兵, deployed at (29,33) side 12, squad アルデバロン; STAGE030 event 17 0x04 1,2,3 normal difficulty; the movie shows the carrier with discs on both sides on アフロディア's line"
+            }
+          ]
+        }
       },
       "stage_objects_source": "STAGE030 entry (0x146280 / 0x146160 before the map starts)"
     },
@@ -4785,6 +4940,14 @@
             "talk_install"
           ],
           [
+            "deploy",
+            "ikkakuki"
+          ],
+          [
+            "deploy",
+            "dokuganki"
+          ],
+          [
             "spawn",
             "base"
           ],
@@ -5252,7 +5415,90 @@
             "what": "system variable numbering",
             "reason": "Original vars 0x901e/0x901f/0x9020 (iRam0059f290, gp-0x7878 flag, model current frame 0x525610) are SP 0x9023/0x9024/0x9025: SP inserts five pad variables at 0x901d-0x9022 (FUN_001b7f60 reads 0x62514e/0x625152). The scene's raw records use the SP numbers."
           }
-        ]
+        ],
+        "deploy": {
+          "dokuganki": [
+            {
+              "unit": 51,
+              "pilot": 61,
+              "original": {
+                "unit": 50,
+                "pilot": 61
+              },
+              "level": 32,
+              "flags": 128,
+              "tile": [
+                32,
+                16
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "百鬼帝国",
+              "squad_flags": 16,
+              "members": [
+                {
+                  "unit": 50,
+                  "pilot": 777,
+                  "original": {
+                    "unit": 49,
+                    "pilot": 746
+                  },
+                  "level": 29
+                },
+                {
+                  "unit": 50,
+                  "pilot": 777,
+                  "original": {
+                    "unit": 49,
+                    "pilot": 746
+                  },
+                  "level": 29
+                }
+              ],
+              "source": "STAGE047 group 1 squad 16: メカ独眼鬼/独眼鬼、メカ独眼鬼/百人衆、メカ独眼鬼/百人衆, deployed at (19,5) side 12, squad 百鬼帝国; placed at (32,16): STAGE047 event 15 0xa830 moves 独眼鬼 here (facing 1, 0xaad0) before the scene; the movie shows it next to Mazinger Z"
+            }
+          ],
+          "ikkakuki": [
+            {
+              "unit": 49,
+              "pilot": 776,
+              "original": {
+                "unit": 48,
+                "pilot": 745
+              },
+              "level": 29,
+              "tile": [
+                31,
+                16
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "百鬼帝国",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 47,
+                  "pilot": 783,
+                  "original": {
+                    "unit": 46,
+                    "pilot": 752
+                  },
+                  "level": 28
+                },
+                {
+                  "unit": 47,
+                  "pilot": 781,
+                  "original": {
+                    "unit": 46,
+                    "pilot": 750
+                  },
+                  "level": 28
+                }
+              ],
+              "source": "STAGE047 group 1 squad 23: メカ一角鬼/百人衆、百鬼戦闘機/百鬼兵、百鬼戦闘機/百鬼兵, deployed at (31,14) side 12, squad 百鬼帝国; placed at (31,16): event movie, right above Mazinger Z on 鉄也 and 甲児 lines (moves with play)"
+            }
+          ]
+        }
       }
     },
     {
@@ -9104,6 +9350,14 @@
             "talk_install"
           ],
           [
+            "deploy",
+            "sara"
+          ],
+          [
+            "deploy",
+            "asuham"
+          ],
+          [
             "bgm",
             47
           ],
@@ -9267,6 +9521,70 @@
                 "pilot": 616
               },
               "source": "STAGE117 0x12b20/0x12b50 op0x1d switch the Aquarion to アクエリオンエンジェル (655) before the call, with Tsugumi (616) as main pilot (the robot library lists 爆愛無限光 and 哀・天使剣 as this form's attacks); placed at the documented (13,7) anchor with the facing set by 0x12c30 op0x23; hidden at 0x12c90 right after effect 257 starts"
+            }
+          ]
+        },
+        "deploy": {
+          "asuham": [
+            {
+              "unit": 606,
+              "pilot": 540,
+              "original": {
+                "unit": 565,
+                "pilot": 522
+              },
+              "level": 55,
+              "flags": 128,
+              "tile": [
+                17,
+                4
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "オーバーデビル",
+              "squad_flags": 17,
+              "members": [
+                {
+                  "unit": 608,
+                  "pilot": 912,
+                  "original": {
+                    "unit": 567,
+                    "pilot": 873
+                  },
+                  "level": 52
+                },
+                {
+                  "unit": 608,
+                  "pilot": 912,
+                  "original": {
+                    "unit": 567,
+                    "pilot": 873
+                  },
+                  "level": 52
+                }
+              ],
+              "source": "STAGE117 group 2 squad 19: ドミネーター/アスハム、ブラック・ドミ/シベ鉄隊員、ブラック・ドミ/シベ鉄隊員, deployed at (13,7) side 12, squad オーバーデビル; placed at (17,4): event movie: the red cursor is on it on アスハム's line; tile estimated from the unit both his and つぐみ's frames show"
+            }
+          ],
+          "sara": [
+            {
+              "unit": 602,
+              "pilot": 506,
+              "original": {
+                "unit": 562,
+                "pilot": 488
+              },
+              "level": 54,
+              "flags": 128,
+              "tile": [
+                14,
+                4
+              ],
+              "facing": 1,
+              "side": 12,
+              "name": "オーバーデビル",
+              "squad_flags": 16,
+              "source": "STAGE117 group 6 squad 54: ジンバ/サラ, deployed at (11,9) side 12, squad オーバーデビル; placed at (14,4): event movie: right of つぐみ's unit on her lines, red cursor on it on サラ's line; tile estimated"
             }
           ]
         }
