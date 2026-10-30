@@ -15,14 +15,20 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
                   to frame v, k=7 set frame v now, k=6/8 frame with high half
   0x56 / +rec     dynamic effect at tile (two records)
   0x57            wait until no dynamic effect is active
-  0x0d p,2        spawn list p, appear on map (FUN_001b4d90); a record whose
+  0x0d p,m        spawn list p, appear on map (FUN_001b4d90); m is 2 unless the
+                  timeline gives the stage's own (``["spawn", g, 1]``); a record whose
                   pilot is already on the map moves that actor, so generic
                   enemy pilots go through ``deploy`` instead
   deploy          native gallery_deploy: the stage spawn-group engine
                   (FUN_00181a20, op 0x05 n with 0x8000) on gallery-owned tables;
                   every member gets its own unit and pilot objects
-  0x14 f          native callback f
-  0x12 n,0        set stage flag n (bitset 0x5dbc40)
+  0x14 f          native callback f (the per-frame driver moves on next frame
+                  whatever f returns; f may redirect 0x61deb8 itself)
+  0x52 a / 0x54   gosub a / return (stack 0x61ded0, depth 0x61def0); circle
+                  mode gosubs runtime.S gallery_quiet_sub for each talk op
+  0x12 n,0        set stage flag n (bitset 0x5dbc40); 0x12 n,1 clears it
+  speakers        native callback: install a speaker cursor table at 0x61e1a8
+                  (FUN_0017c540; restored with the other state regions)
   0x18 6,x,y      camera centre tile
   0x1388 v,0,d    assign; d=0x910e<pilot> actor visible, 0x910ef0<side> by side
   0x138d/0x138e   while var != value / end
@@ -143,6 +149,38 @@ def deploy_tables(squads: Sequence[dict[str, Any]], label: str) -> list[str]:
     return lines
 
 
+SPEAKER_KINDS = {"unit_kind0": 0, "unit": 1, "pilot": 2, "tile": 3, "pilot_offset": 4, "no_cursor": 5}
+
+
+def speaker_table(entries: Sequence[dict[str, Any]], label: str) -> list[str]:
+    """Speaker cursor table in the stage layout read by FUN_0017c540 (pointer 0x61e1a8).
+
+    Eight half-words per entry: speaker pilot, flags | kind << 8, target (32-bit
+    id, or x then 0 for a tile), y or offset dx, offset dy, condition stage
+    flag (0 = none), 0; -1 ends the table.  ``tools.srwz.stage_events.
+    speaker_positions`` reads the Original tables in the same terms.
+    """
+    lines = [".align 4", f"{label}:"]
+    for e in entries:
+        kind = SPEAKER_KINDS[e["kind"]]
+        speaker = e["speaker"]
+        if not (speaker == -2 or 0 <= speaker <= 0x7FFF):
+            raise ValueError(f"invalid speaker {speaker!r}")
+        x = y = dy = 0
+        if e["kind"] == "tile":
+            x, y = _tile(e["tile"], "speaker tile")
+        elif e["kind"] == "pilot_offset":
+            x = _id(e["pilot"], "speaker offset pilot")
+            y, dy = (int(v) for v in e["offset"])
+        elif e["kind"] in ("unit_kind0", "unit", "pilot"):
+            x = _id(e["target"], "speaker target")
+        flag = e.get("condition_flag") or 0
+        words = [speaker, (e.get("flags", 0) & 0xFF) | (kind << 8), x & 0xFFFF, x >> 16, y, dy, flag, 0]
+        lines.append("    .hword " + ",".join(str(w & 0xFFFF) for w in words))
+    lines.append("    .hword 0xffff,0,0,0,0,0,0,0")
+    return lines
+
+
 def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int],
                   effects: Sequence[int]) -> dict[str, Any]:
     """Return {'script', 'data', 'far_data' (placed after the packet buffer), 'talk_ops', 'receipt'} for one row."""
@@ -192,6 +230,21 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
                  "    j gallery_deploy",
                  f"    addiu $a0,$a0,%lo({table})"]
         far_data += deploy_tables(squads, table)
+
+    speaker_symbols: dict[str, str] = {}
+    speakers = fidelity.get("speakers", {})
+    if not isinstance(speakers, dict):
+        raise ValueError(f"row {row}: speakers must map table names to entry lists")
+    for t_index, (name, entries) in enumerate(speakers.items()):
+        call, table = f"gallery_speakers_{row}_{t_index}", f"gallery_speaker_table_{row}_{t_index}"
+        speaker_symbols[name] = call
+        data += [".align 4", f"{call}:",
+                 f"    lui $a0,%hi({table})",
+                 "    addiu $a0,$a0,%lo({table})".replace("{table}", table),
+                 "    lui $t0,0x0062",
+                 "    jr $ra",
+                 "    sw $a0,-0x1e58($t0)"]
+        far_data += speaker_table(entries, table)
 
     ghost = fidelity.get("ghost_table")
     if ghost is not None:
@@ -247,9 +300,14 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
         elif kind == "spawn":
             prep, spawn = group_symbols[args[0]]
             word(0x14, prep, 0, 0)
-            word(0x0D, spawn, 2, 0)
+            word(0x0D, spawn, int(args[1]) if len(args) > 1 else 2, 0)
         elif kind == "deploy":
             word(0x14, deploy_symbols[args[0]], 0, 0)
+        elif kind == "speakers":
+            word(0x14, speaker_symbols[args[0]], 0, 0)
+        elif kind == "flag":
+            flag, value = _id(args[0], "flag", 0x3FF), int(bool(args[1]))
+            word(0x12, flag, 0 if value else 1, 0)
         elif kind == "visible":
             pilot, shown = _id(args[0], "pilot"), int(bool(args[1]))
             word(0x1388, _imm(shown), 0, 0x910E0000 | pilot)

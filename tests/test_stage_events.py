@@ -14,6 +14,7 @@ from tools.srwz.stage_events import (
     deployment_groups,
     deployment_placements,
     installed_globals,
+    speaker_positions,
     ordered_groups,
     parse_battle_talk_table,
     script_operand,
@@ -157,6 +158,25 @@ class StageEventsArchiveTest(unittest.TestCase):
         pal = deployment_placements(stage30, installed_globals(stage30, self.functions[30] - BASE))[8][0]
         # 第 17 话: the New Pal Savern waits in the Trinity base before 0xaf00 moves it out
         self.assertEqual((pal["unit"], pal["pilot"], pal["tile"], pal["side"]), (79, 908, [19, 20], 1))
+
+    def test_speaker_positions_give_tiles_and_cursorless_lines(self) -> None:
+        from tools.srwz.archive import load_offset_layout, slice_archive
+        from tools.srwz.codec import decode_production
+
+        chunks = list(slice_archive(STAGE_ARCHIVE.read_bytes(), load_offset_layout(STAGE_LAYOUT)))
+
+        def table(stage):
+            data = decode_production(chunks[stage]).output
+            return speaker_positions(data, installed_globals(data, self.functions[stage] - BASE))
+
+        stage30 = table(30)
+        # クインシュタイン (129) speaks from the Trinity base centre; マリン from the New Pal Savern (AI 908)
+        self.assertIn({"speaker": 129, "kind": "tile", "flags": 0, "condition_flag": None, "tile": [17, 17]}, stage30)
+        self.assertIn({"speaker": 122, "kind": "pilot", "flags": 0, "condition_flag": None, "target": 908}, stage30)
+        # 第 7 话: サンドマン (572) at (10,0)
+        self.assertIn({"speaker": 572, "kind": "tile", "flags": 0, "condition_flag": None, "tile": [10, 0]}, table(7))
+        # 第 2 话: no cursor for スティング while stage flag 81 is set
+        self.assertEqual(table(2)[0], {"speaker": 457, "kind": "no_cursor", "flags": 1, "condition_flag": 81})
 
     def test_setsuko_episode_32_triggers(self) -> None:
         analysis = stage_events.analyze_stage(self.setsuko_32, self.functions[57])

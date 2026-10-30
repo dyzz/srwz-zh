@@ -926,36 +926,12 @@ gallery_state_regions:
                               * layers) must not leave its distortion layers on */
     .word 0x00629b60,0xa0    /* shared CCC voice timeline and its playback cursor */
     .word 0x0061e1e0,4       /* map-dialogue block pointer (scenes install their own) */
+    .word 0x0061e1a8,4       /* speaker cursor table (scenes install their own) */
     .word 0x004caab0,4       /* game mode: map dialogue switches it to 0x13 */
     .word 0x004cb080,4       /* late screen pass enable: an effect cancelled mid-way
                               * (257) leaves it on and the list draws with trails */
     .word 0,0
 
-.align 4
-gallery_bgm_restore:
-    addiu   $sp,$sp,-0x20
-    sd      $ra,0x18($sp)
-    lui     $t0,0x0062
-    lw      $t1,0x890($t0)   /* 00620890 sound request state */
-    bne     $t1,$zero,bgm_restore_wait
-    nop
-    lui     $t0,0x0082
-    sw      $zero,0x1f24($t0)
-    lw      $a0,0x1f20($t0)
-    lui     $t1,0x005e
-    lbu     $t1,-0x4468($t1)
-    beq     $t1,$a0,bgm_restore_wait
-    nop
-    daddu   $a1,$zero,$zero
-    daddu   $a2,$zero,$zero
-    addiu   $a3,$zero,1
-    addiu   $t0,$zero,3
-    jal     0x00182fc0       /* native load/play, as script op 0x43 */
-    daddu   $t1,$zero,$zero
-bgm_restore_wait:
-    ld      $ra,0x18($sp)
-    jr      $ra
-    addiu   $sp,$sp,0x20
 
 
 
@@ -1288,10 +1264,9 @@ list_input_done:
 
 .align 4
 gallery_talk_mode:
-    /* Scene start: circle (+0xd0 = 0) plays effects only, so every map-dialogue
-     * op of the scene becomes a non-yielding "var 0x8001 = 0" (scratch: fades
-     * set it before use), keeping a camera set up for the skipped line from
-     * showing for a frame; triangle restores op 0x0f n. */
+    /* Scene start: triangle (+0xd0 != 0) restores op 0x0f n of every map-dialogue
+     * op; circle (effects only) turns it into "0x52 gallery_quiet_sub, pilots",
+     * which moves the cursor and camera as the section's speakers would. */
     lw      $t0,0($s1)
     sll     $t0,$t0,2
     lui     $t1,%hi(gallery_talkop_tables)
@@ -1304,24 +1279,27 @@ talk_mode_next:
     lw      $t3,0($t1)       /* record address */
     beq     $t3,$zero,talk_mode_done
     lw      $t4,4($t1)       /* section | cursor << 16 */
-    beq     $t2,$zero,talk_mode_wait
+    beq     $t2,$zero,talk_mode_quiet
     andi    $t5,$t4,0xffff
     addiu   $t6,$zero,0x0f
     sw      $t6,0($t3)
     sw      $t5,4($t3)
+    sw      $zero,8($t3)
     srl     $t5,$t4,16
     b       talk_mode_step
     sw      $t5,12($t3)
-talk_mode_wait:
-    addiu   $t6,$zero,0x1388
+talk_mode_quiet:
+    addiu   $t6,$zero,0x52   /* gosub gallery_quiet_sub */
     sw      $t6,0($t3)
-    lui     $t6,0x9000
+    lui     $t6,%hi(gallery_quiet_sub)
+    addiu   $t6,$t6,%lo(gallery_quiet_sub)
     sw      $t6,4($t3)
-    ori     $t6,$zero,0x8001
-    sw      $t6,12($t3)
+    lw      $t6,8($t1)       /* the section's speaking pilots */
+    sw      $t6,8($t3)
+    sw      $zero,12($t3)    /* next line */
 talk_mode_step:
     b       talk_mode_next
-    addiu   $t1,$t1,8
+    addiu   $t1,$t1,12
 talk_mode_done:
     jr      $ra
     nop
@@ -1380,3 +1358,119 @@ gallery_deploy:
     ld      $ra,0x28($sp)
     jr      $ra
     addiu   $sp,$sp,0x30
+
+/* gallery_bgm_restore (out of the 0x1800 block, which the state-region list fills) */
+.align 4
+gallery_bgm_restore:
+    addiu   $sp,$sp,-0x20
+    sd      $ra,0x18($sp)
+    lui     $t0,0x0062
+    lw      $t1,0x890($t0)   /* 00620890 sound request state */
+    bne     $t1,$zero,bgm_restore_wait
+    nop
+    lui     $t0,0x0082
+    sw      $zero,0x1f24($t0)
+    lw      $a0,0x1f20($t0)
+    lui     $t1,0x005e
+    lbu     $t1,-0x4468($t1)
+    beq     $t1,$a0,bgm_restore_wait
+    nop
+    daddu   $a1,$zero,$zero
+    daddu   $a2,$zero,$zero
+    addiu   $a3,$zero,1
+    addiu   $t0,$zero,3
+    jal     0x00182fc0       /* native load/play, as script op 0x43 */
+    daddu   $t1,$zero,$zero
+bgm_restore_wait:
+    ld      $ra,0x18($sp)
+    jr      $ra
+    addiu   $sp,$sp,0x20
+
+/* Circle-mode stand-in for a map-dialogue section. Triangle moves the cursor per
+ * line through the record methods 0x221b30 (FUN_0017cd20 speaker lookup) and
+ * 0x221b40 (FUN_0017d3c0 polled each frame: FUN_0013d850 sets the cursor, the
+ * camera scrolls, then the shown squad member is picked). The talk record becomes
+ * "0x52 gallery_quiet_sub, pilots, next" (gosub); per line the subroutine looks
+ * the speaker up and polls FUN_0017d3c0 once a frame until the move is done, so
+ * the cursor, its visibility and the camera follow the same path without the
+ * text, and a line that does not move the cursor costs no frame. (Ext op 0x139c
+ * also waits for the camera, but it waits for every static effect too, which a
+ * running charge effect 0x13a3 never ends.) */
+.align 4
+gallery_quiet_sub:
+    .word 0x14,gallery_quiet_line,0,0
+gallery_quiet_poll:
+    .word 0x14,gallery_quiet_scroll,0,0
+    .word 0x01,1,0,0
+    .word 0x14,gallery_quiet_again,0,0
+gallery_quiet_end:
+    .word 0x54,0,0,0
+
+.align 4
+gallery_quiet_line:
+    addiu   $sp,$sp,-0x10
+    sd      $ra,0x00($sp)
+    lui     $t0,0x0062
+    lw      $t1,-0x2110($t0) /* 0061def0 gosub depth */
+    sll     $t1,$t1,2
+    addu    $t1,$t1,$t0
+    lw      $t1,-0x2134($t1) /* 0061ded0[depth - 1]: talk record + 16 */
+    lw      $t2,-8($t1)      /* pilots */
+    lw      $t3,-4($t1)      /* next line */
+    sll     $t4,$t3,1
+    addu    $t4,$t4,$t2
+    lhu     $a0,0($t4)
+    ori     $t5,$zero,0xffff
+    bne     $a0,$t5,quiet_line_lookup
+    addiu   $t3,$t3,1
+    sw      $zero,-4($t1)
+    lui     $t1,%hi(gallery_quiet_end - 16)
+    addiu   $t1,$t1,%lo(gallery_quiet_end - 16)
+    b       quiet_line_done
+    sw      $t1,-0x2148($t0) /* the interpreter advances onto the return */
+quiet_line_lookup:
+    sw      $t3,-4($t1)
+    jal     0x0017cd20
+    sw      $zero,-0x1f78($t0) /* 0061e088 = 0, as op 0x0f n,0 sets it */
+    lh      $t1,-0x78e0($gp)
+    addiu   $t2,$zero,1
+    beq     $t1,$t2,quiet_line_move
+    lui     $t0,0x0062
+    lui     $t1,%hi(gallery_quiet_sub - 16)
+    addiu   $t1,$t1,%lo(gallery_quiet_sub - 16)
+    b       quiet_line_done
+    sw      $t1,-0x2148($t0) /* no move: on to the next line */
+quiet_line_move:
+    jal     0x0017d3c0       /* state 1: FUN_0013d850, then state 3 (scrolling) */
+    nop
+quiet_line_done:
+    ld      $ra,0x00($sp)
+    jr      $ra
+    addiu   $sp,$sp,0x10
+
+.align 4
+gallery_quiet_scroll:
+    addiu   $sp,$sp,-0x10
+    sd      $ra,0x00($sp)
+    jal     0x0017d3c0       /* 3: scrolling; 3 -> 4 picks the shown squad member; 4: done */
+    nop
+    beq     $v0,$zero,quiet_scroll_wait
+    lui     $t0,0x0062
+    lui     $t1,%hi(gallery_quiet_sub - 16)
+    addiu   $t1,$t1,%lo(gallery_quiet_sub - 16)
+    sw      $t1,-0x2148($t0) /* done: next line */
+quiet_scroll_wait:
+    ld      $ra,0x00($sp)
+    jr      $ra
+    addiu   $sp,$sp,0x10
+
+.align 4
+gallery_quiet_again:
+    lui     $t0,0x0062
+    lui     $t1,%hi(gallery_quiet_poll - 16)
+    addiu   $t1,$t1,%lo(gallery_quiet_poll - 16)
+    jr      $ra
+    sw      $t1,-0x2148($t0) /* poll again (after the one-frame wait) */
+
+.align 4
+.include "gallery-quiet.inc"

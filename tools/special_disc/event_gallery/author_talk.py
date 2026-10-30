@@ -52,7 +52,7 @@ SCENES: dict[str, tuple[int, list]] = {
     "effect-257": (117, [21, 22, 23]),
     "effect-258": (128, [53, 54, 55, 56]),
     "effect-259": (107, [60, 61, 62, 63, 64, 65]),
-    "effect-264": (7, [17, 18, 19, 20, 21, 22, 23]),
+    "effect-264": (7, [21, 22, 23]),  # starts where the event movie does (section 17-20 lines aim the cursor off the map top)
     "effect-265": (107, [42, 43, 44]),
     "effect-266": (26, [19, 20, 21, 22]),
     "effect-267": (43, [22, 23]),

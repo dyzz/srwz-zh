@@ -189,6 +189,20 @@
             "talk_install"
           ],
           [
+            "speakers",
+            "stage002"
+          ],
+          [
+            "flag",
+            80,
+            1
+          ],
+          [
+            "flag",
+            81,
+            0
+          ],
+          [
             "deploy",
             "gate_r"
           ],
@@ -521,6 +535,11 @@
             36900
           ],
           [
+            "flag",
+            81,
+            1
+          ],
+          [
             "talk",
             15,
             1
@@ -547,6 +566,11 @@
           [
             "wait",
             60
+          ],
+          [
+            "flag",
+            81,
+            0
           ],
           [
             "talk",
@@ -594,6 +618,291 @@
               "name": "ザフト",
               "squad_flags": 0,
               "source": "STAGE002 group 0 squad 2: ゲイツＲ/ザフト兵, deployed at (11,13) side 12, squad ザフト; placed at (9,14): event movie, left of the Sword Impulse in every line from section 14 (moves with play)"
+            }
+          ]
+        },
+        "speakers": {
+          "stage002": [
+            {
+              "speaker": 472,
+              "kind": "no_cursor",
+              "flags": 1,
+              "condition_flag": 81,
+              "original": {
+                "speaker": 457
+              }
+            },
+            {
+              "speaker": 405,
+              "kind": "no_cursor",
+              "flags": 1,
+              "condition_flag": 81,
+              "original": {
+                "speaker": 391
+              }
+            },
+            {
+              "speaker": 732,
+              "kind": "no_cursor",
+              "flags": 1,
+              "condition_flag": 81,
+              "original": {
+                "speaker": 708
+              }
+            },
+            {
+              "speaker": 732,
+              "kind": "no_cursor",
+              "flags": 0,
+              "condition_flag": 81,
+              "original": {
+                "speaker": 708
+              },
+              "off_map": true
+            },
+            {
+              "speaker": 726,
+              "kind": "no_cursor",
+              "flags": 1,
+              "condition_flag": 81,
+              "original": {
+                "speaker": 702
+              }
+            },
+            {
+              "speaker": 726,
+              "kind": "no_cursor",
+              "flags": 0,
+              "condition_flag": 81,
+              "original": {
+                "speaker": 702
+              },
+              "off_map": true
+            },
+            {
+              "speaker": 373,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                13,
+                5
+              ],
+              "original": {
+                "speaker": 359,
+                "tile": [
+                  13,
+                  5
+                ]
+              }
+            },
+            {
+              "speaker": 404,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                13,
+                5
+              ],
+              "original": {
+                "speaker": 390,
+                "tile": [
+                  13,
+                  5
+                ]
+              }
+            },
+            {
+              "speaker": 403,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                13,
+                5
+              ],
+              "original": {
+                "speaker": 389,
+                "tile": [
+                  13,
+                  5
+                ]
+              }
+            },
+            {
+              "speaker": 385,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                11
+              ],
+              "original": {
+                "speaker": 371,
+                "tile": [
+                  17,
+                  11
+                ]
+              }
+            },
+            {
+              "speaker": 391,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                11
+              ],
+              "original": {
+                "speaker": 377,
+                "tile": [
+                  17,
+                  11
+                ]
+              }
+            },
+            {
+              "speaker": 472,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                17
+              ],
+              "original": {
+                "speaker": 457,
+                "tile": [
+                  12,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 477,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                17
+              ],
+              "original": {
+                "speaker": 461,
+                "tile": [
+                  12,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 482,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                17
+              ],
+              "original": {
+                "speaker": 465,
+                "tile": [
+                  12,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 428,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 405,
+              "original": {
+                "speaker": 414,
+                "target": 391
+              }
+            },
+            {
+              "speaker": 428,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                14,
+                11
+              ],
+              "original": {
+                "speaker": 414,
+                "tile": [
+                  14,
+                  11
+                ]
+              }
+            },
+            {
+              "speaker": 405,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                14,
+                11
+              ],
+              "original": {
+                "speaker": 391,
+                "tile": [
+                  14,
+                  11
+                ]
+              }
+            },
+            {
+              "speaker": 897,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 897,
+              "original": {
+                "speaker": 860,
+                "target": 860
+              }
+            },
+            {
+              "speaker": 896,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 896,
+              "original": {
+                "speaker": 859,
+                "target": 859
+              }
+            },
+            {
+              "speaker": 378,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 375,
+              "original": {
+                "speaker": 364,
+                "target": 361
+              }
+            },
+            {
+              "speaker": 375,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 378,
+              "original": {
+                "speaker": 361,
+                "target": 364
+              }
             }
           ]
         }
@@ -756,25 +1065,6 @@
               },
               "source": "STAGE007 0x9280 dialogue frame gives Tsugumi's unit (616) at (6,8); camera 0x92b0/0x92d0 centres on it; facing not set by the script, 1 like the knights"
             }
-          ],
-          "sandman_anchor": [
-            {
-              "unit": 647,
-              "pilot": 592,
-              "tile": [
-                10,
-                0
-              ],
-              "facing": 1,
-              "side": 1,
-              "appear": 1,
-              "class": 4,
-              "original": {
-                "unit": null,
-                "pilot": 572
-              },
-              "source": "cursor anchor, hidden: サンドマン is not on the map; in the event movie (1:04, 1:59) his lines put the cursor on (10,0), a dark tile at the map edge (LRPS2 candidate tiles phase-correlated with the movie frame, response 0.58, shift 0). Unit 647 (ソルグラヴィオン) is never drawn"
-            }
           ]
         },
         "timeline": [
@@ -786,17 +1076,17 @@
             "talk_install"
           ],
           [
+            "speakers",
+            "stage007"
+          ],
+          [
+            "flag",
+            80,
+            0
+          ],
+          [
             "deploy",
             "zerabaia"
-          ],
-          [
-            "spawn",
-            "sandman_anchor"
-          ],
-          [
-            "visible",
-            592,
-            0
           ],
           [
             "spawn",
@@ -811,24 +1101,8 @@
             "tsugumi"
           ],
           [
-            "talk",
-            17
-          ],
-          [
             "bgm",
             41
-          ],
-          [
-            "talk",
-            18
-          ],
-          [
-            "talk",
-            19
-          ],
-          [
-            "talk",
-            20
           ],
           [
             "talk",
@@ -898,6 +1172,11 @@
           [
             "bgm",
             40
+          ],
+          [
+            "flag",
+            80,
+            1
           ],
           [
             "talk",
@@ -1082,6 +1361,289 @@
               "source": "STAGE007 0x8ff0 group 5 squad 29: ディクリール/ゼラバイア (11,12) side 12 facing 3, squad ゼラバイア flags 0x0"
             }
           ]
+        },
+        "speakers": {
+          "stage007": [
+            {
+              "speaker": 128,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                0
+              ],
+              "original": {
+                "speaker": 128,
+                "tile": [
+                  12,
+                  0
+                ]
+              }
+            },
+            {
+              "speaker": 129,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                0
+              ],
+              "original": {
+                "speaker": 129,
+                "tile": [
+                  12,
+                  0
+                ]
+              }
+            },
+            {
+              "speaker": 617,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                0
+              ],
+              "original": {
+                "speaker": 596,
+                "tile": [
+                  10,
+                  0
+                ]
+              }
+            },
+            {
+              "speaker": 592,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                0
+              ],
+              "original": {
+                "speaker": 572,
+                "tile": [
+                  10,
+                  0
+                ]
+              }
+            },
+            {
+              "speaker": 163,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                0
+              ],
+              "original": {
+                "speaker": 163,
+                "tile": [
+                  10,
+                  0
+                ]
+              }
+            },
+            {
+              "speaker": 465,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                0
+              ],
+              "original": {
+                "speaker": 451,
+                "tile": [
+                  10,
+                  0
+                ]
+              }
+            },
+            {
+              "speaker": 576,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                23,
+                3
+              ],
+              "original": {
+                "speaker": 556,
+                "tile": [
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "speaker": 581,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                23,
+                3
+              ],
+              "original": {
+                "speaker": 561,
+                "tile": [
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "speaker": 599,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 597,
+              "original": {
+                "speaker": 578,
+                "target": 576
+              }
+            },
+            {
+              "speaker": 600,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 597,
+              "original": {
+                "speaker": 579,
+                "target": 576
+              }
+            },
+            {
+              "speaker": 601,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 597,
+              "original": {
+                "speaker": 580,
+                "target": 576
+              }
+            },
+            {
+              "speaker": 147,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 138,
+              "original": {
+                "speaker": 147,
+                "target": 138
+              }
+            },
+            {
+              "speaker": 150,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 138,
+              "original": {
+                "speaker": 150,
+                "target": 138
+              }
+            },
+            {
+              "speaker": 582,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 582,
+              "original": {
+                "speaker": 562,
+                "target": 906
+              }
+            },
+            {
+              "speaker": 586,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 584,
+              "original": {
+                "speaker": 566,
+                "target": 907
+              }
+            },
+            {
+              "speaker": 584,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 586,
+              "original": {
+                "speaker": 564,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 587,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 584,
+              "original": {
+                "speaker": 567,
+                "target": 564
+              }
+            },
+            {
+              "speaker": 587,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 586,
+              "original": {
+                "speaker": 567,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 589,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 587,
+              "original": {
+                "speaker": 569,
+                "target": 909
+              }
+            },
+            {
+              "speaker": 878,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 871,
+              "original": {
+                "speaker": 841,
+                "target": 831
+              }
+            },
+            {
+              "speaker": 612,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 868,
+              "original": {
+                "speaker": 592,
+                "target": 832
+              }
+            }
+          ]
         }
       }
     },
@@ -1142,7 +1704,7 @@
               "pilot": 144,
               "tile": [
                 29,
-                24
+                25
               ],
               "facing": 3,
               "side": 0,
@@ -1152,14 +1714,14 @@
                 "unit": 120,
                 "pilot": 908
               },
-              "source": "ザンブル (unitPilots 121/120 with AI pilots 908/909); moved to (29,24) at 0x6dc0, facing 3 at 0x6e10; pilot 宇宙太 (144) (event movie: the line puts the cursor on this unit)"
+              "source": "ザンブル: STAGE009 group 2 (unit 120, AI pilot 909); 0x6dd0 moves pilot 909 to (29,25), facing 3 at 0x6e20; pilot 宇宙太 (144) (event movie: the far unit of the line, cursor on 宇宙太's 'ツー！')"
             },
             {
               "unit": 124,
               "pilot": 146,
               "tile": [
                 29,
-                25
+                24
               ],
               "facing": 3,
               "side": 0,
@@ -1169,7 +1731,7 @@
                 "unit": 121,
                 "pilot": 909
               },
-              "source": "ザンベース, moved to (29,25) at 0x6dd0, facing 3 at 0x6e20; pilot 恵子 (146) (event movie: the line puts the cursor on this unit)"
+              "source": "ザンベース: STAGE009 group 1 (unit 121, AI pilot 908); 0x6dc0 moves pilot 908 to (29,24), facing 3 at 0x6e10; pilot 恵子 (146) (event movie: the middle unit, cursor on 恵子's 'スリー！')"
             },
             {
               "unit": 84,
@@ -1273,6 +1835,35 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage009"
+          ],
+          [
+            "flag",
+            80,
+            1
+          ],
+          [
+            "flag",
+            81,
+            1
+          ],
+          [
+            "flag",
+            82,
+            1
+          ],
+          [
+            "flag",
+            83,
+            0
+          ],
+          [
+            "flag",
+            84,
+            0
           ],
           [
             "deploy",
@@ -1720,6 +2311,563 @@
               "source": "STAGE009 0x6be0 group 3 squad 15: ドミラ/メカブースト (15,24) side 12 facing 3, squad ガイゾック flags 0x0"
             }
           ]
+        },
+        "speakers": {
+          "stage009": [
+            {
+              "speaker": 154,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 154,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 155,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 155,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 763,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 735,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 765,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 737,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 63,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 63,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 143,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 143,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 145,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 145,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 605,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 584,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 149,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 138,
+              "original": {
+                "speaker": 149,
+                "target": 138
+              }
+            },
+            {
+              "speaker": 149,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                29,
+                8
+              ],
+              "original": {
+                "speaker": 149,
+                "tile": [
+                  29,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 73,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                21,
+                17
+              ],
+              "original": {
+                "speaker": 73,
+                "tile": [
+                  21,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 66,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                21,
+                17
+              ],
+              "original": {
+                "speaker": 66,
+                "tile": [
+                  21,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 128,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                21,
+                17
+              ],
+              "original": {
+                "speaker": 128,
+                "tile": [
+                  21,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 129,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                21,
+                17
+              ],
+              "original": {
+                "speaker": 129,
+                "tile": [
+                  21,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 70,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                21,
+                17
+              ],
+              "original": {
+                "speaker": 70,
+                "tile": [
+                  21,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 144,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 146,
+              "original": {
+                "speaker": 144,
+                "target": 909
+              }
+            },
+            {
+              "speaker": 146,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 144,
+              "original": {
+                "speaker": 146,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 148,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                25,
+                17
+              ],
+              "original": {
+                "speaker": 148,
+                "tile": [
+                  25,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 147,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 951,
+              "original": {
+                "speaker": 147,
+                "target": 910
+              }
+            },
+            {
+              "speaker": 150,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 83,
+              "target": 147,
+              "original": {
+                "speaker": 150,
+                "target": 147
+              }
+            },
+            {
+              "speaker": 150,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 951,
+              "original": {
+                "speaker": 150,
+                "target": 910
+              }
+            },
+            {
+              "speaker": 150,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 138,
+              "original": {
+                "speaker": 150,
+                "target": 138
+              }
+            },
+            {
+              "speaker": 151,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 83,
+              "target": 147,
+              "original": {
+                "speaker": 151,
+                "target": 147
+              }
+            },
+            {
+              "speaker": 151,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 951,
+              "original": {
+                "speaker": 151,
+                "target": 910
+              }
+            },
+            {
+              "speaker": 152,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 83,
+              "target": 147,
+              "original": {
+                "speaker": 152,
+                "target": 147
+              }
+            },
+            {
+              "speaker": 152,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 951,
+              "original": {
+                "speaker": 152,
+                "target": 910
+              }
+            },
+            {
+              "speaker": 156,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                3
+              ],
+              "original": {
+                "speaker": 156,
+                "tile": [
+                  31,
+                  3
+                ]
+              }
+            },
+            {
+              "speaker": 157,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                3
+              ],
+              "original": {
+                "speaker": 157,
+                "tile": [
+                  31,
+                  3
+                ]
+              }
+            },
+            {
+              "speaker": 587,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 584,
+              "original": {
+                "speaker": 567,
+                "target": 564
+              }
+            },
+            {
+              "speaker": 595,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 82,
+              "target": 597,
+              "original": {
+                "speaker": 572,
+                "target": 576
+              }
+            },
+            {
+              "speaker": 595,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 572,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 582,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 84,
+              "target": 871,
+              "original": {
+                "speaker": 562,
+                "target": 831
+              }
+            },
+            {
+              "speaker": 586,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 84,
+              "target": 868,
+              "original": {
+                "speaker": 566,
+                "target": 832
+              }
+            },
+            {
+              "speaker": 584,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 84,
+              "target": 872,
+              "original": {
+                "speaker": 564,
+                "target": 833
+              }
+            },
+            {
+              "speaker": 587,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 84,
+              "target": 872,
+              "original": {
+                "speaker": 567,
+                "target": 833
+              }
+            },
+            {
+              "speaker": 591,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 84,
+              "target": 870,
+              "original": {
+                "speaker": 571,
+                "target": 834
+              }
+            },
+            {
+              "speaker": 582,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 562,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 584,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 564,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 586,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 566,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 587,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 567,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 591,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 571,
+                "target": 557
+              }
+            }
+          ]
         }
       }
     },
@@ -1733,11 +2881,11 @@
       "map": 13,
       "camera": {
         "tile": [
-          11,
-          4
+          10,
+          11
         ],
         "map_view": 3,
-        "status": "view 3 = STAGE021 0x8730 op0x41 3; camera 0x8880 op0x18 tile (11,4)"
+        "status": "view 3 = STAGE021 0x8730 op0x41 3; opens on the falling light at (10,11) (0x8680 op0x18 6 (10,11), event movie), the effect 256 camera (11,4) comes from the timeline"
       },
       "effect_tile": [
         11,
@@ -1776,14 +2924,14 @@
                 17
               ],
               "facing": 1,
-              "side": 1,
+              "side": 8,
               "appear": 1,
               "class": 4,
               "original": {
                 "unit": 684,
                 "pilot": 908
               },
-              "source": "Vector Sol: STAGE021 0x8020 op0x13a3 brings it to (12,17) after OP5 4 (0x7f90); 0x86d0 moves it to the light (10,11), 0x87e0 to (11,4); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot アポロ (623) (event movie: the line puts the cursor on this unit)"
+              "source": "Vector Sol: STAGE021 0x8020 op0x13a3 brings it to (12,17) after OP5 4 (0x7f90); 0x86d0 moves it to the light (10,11), 0x87e0 to (11,4); side 8 as in group 4 (green cursor crystal, NPC); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot アポロ (623) (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 737,
@@ -1793,14 +2941,14 @@
                 22
               ],
               "facing": 3,
-              "side": 1,
+              "side": 8,
               "appear": 1,
               "class": 4,
               "original": {
                 "unit": 686,
                 "pilot": 910
               },
-              "source": "Vector Mars: OP5 4 group, 0x8230 moves it to (16,22) facing 3 (0x8280); 0x87f0 to (12,3); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot シリウス (629) (event movie: the line puts the cursor on this unit)"
+              "source": "Vector Mars: OP5 4 group, 0x8230 moves it to (16,22) facing 3 (0x8280); 0x87f0 to (12,3); side 8 as in group 4 (green cursor crystal, NPC); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot シリウス (629) (event movie: the line puts the cursor on this unit)"
             },
             {
               "unit": 739,
@@ -1810,14 +2958,14 @@
                 22
               ],
               "facing": 3,
-              "side": 1,
+              "side": 8,
               "appear": 1,
               "class": 4,
               "original": {
                 "unit": 688,
                 "pilot": 912
               },
-              "source": "Vector Luna: OP5 4 group, 0x8220 moves it to (18,22) facing 3 (0x8270); 0x8800 to (10,3); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot シルヴィア (626) (event movie: the line puts the cursor on this unit)"
+              "source": "Vector Luna: OP5 4 group, 0x8220 moves it to (18,22) facing 3 (0x8270); 0x8800 to (10,3); side 8 as in group 4 (green cursor crystal, NPC); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot シルヴィア (626) (event movie: the line puts the cursor on this unit)"
             }
           ],
           "aquarion": [
@@ -1837,25 +2985,6 @@
                 "pilot": 602
               },
               "source": "spawn list 0x75d480 (0x6d90) at 0x8900: Solar Aquarion/Apollo (11,16) facing 1 appear 1"
-            }
-          ],
-          "fudo_anchor": [
-            {
-              "unit": 645,
-              "pilot": 645,
-              "tile": [
-                13,
-                23
-              ],
-              "facing": 1,
-              "side": 1,
-              "appear": 1,
-              "class": 4,
-              "original": {
-                "unit": null,
-                "pilot": 623
-              },
-              "source": "cursor anchor, hidden: 不動 is not on the map; in the event movie (3:51) his lines put the cursor on a roof south of the Solar Aquarion, (13,23) from LRPS2 candidate tiles (the Aquarion at the frame's top edge lines up). Unit 645 (グランカイザー) is never drawn"
             }
           ],
           "loran": [
@@ -1887,21 +3016,51 @@
             "talk_install"
           ],
           [
+            "speakers",
+            "stage021"
+          ],
+          [
+            "flag",
+            80,
+            0
+          ],
+          [
+            "flag",
+            81,
+            1
+          ],
+          [
+            "flag",
+            82,
+            1
+          ],
+          [
+            "flag",
+            83,
+            1
+          ],
+          [
+            "flag",
+            84,
+            1
+          ],
+          [
+            "flag",
+            85,
+            1
+          ],
+          [
+            "flag",
+            86,
+            0
+          ],
+          [
             "deploy",
             "cherubim"
           ],
           [
             "spawn",
             "loran"
-          ],
-          [
-            "spawn",
-            "fudo_anchor"
-          ],
-          [
-            "visible",
-            645,
-            0
           ],
           [
             "spawn",
@@ -1935,8 +3094,8 @@
             "effect",
             20,
             [
-              11,
-              10
+              10,
+              11
             ]
           ],
           [
@@ -1981,6 +3140,11 @@
             2,
             949,
             0
+          ],
+          [
+            "flag",
+            86,
+            1
           ],
           [
             "talk",
@@ -2158,6 +3322,415 @@
               "source": "STAGE021 group 2 squad 3: ケルビム兵/ケルビム兵, deployed at (11,24) side 12, squad 堕天翅; placed at (8,14): event movie, top of the frame on アポロ's and アポロニアス's lines (moves with play)"
             }
           ]
+        },
+        "speakers": {
+          "stage021": [
+            {
+              "speaker": 296,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 287,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 334,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 324,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 633,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 84,
+              "tile": [
+                16,
+                17
+              ],
+              "original": {
+                "speaker": 611,
+                "tile": [
+                  16,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 633,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 83,
+              "tile": [
+                14,
+                24
+              ],
+              "original": {
+                "speaker": 611,
+                "tile": [
+                  14,
+                  24
+                ]
+              }
+            },
+            {
+              "speaker": 633,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 82,
+              "tile": [
+                15,
+                22
+              ],
+              "original": {
+                "speaker": 611,
+                "tile": [
+                  15,
+                  22
+                ]
+              }
+            },
+            {
+              "speaker": 633,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                11,
+                13
+              ],
+              "original": {
+                "speaker": 611,
+                "tile": [
+                  11,
+                  13
+                ]
+              }
+            },
+            {
+              "speaker": 633,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                8,
+                19
+              ],
+              "original": {
+                "speaker": 611,
+                "tile": [
+                  8,
+                  19
+                ]
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 83,
+              "target": 626,
+              "original": {
+                "speaker": 605,
+                "target": 912
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 82,
+              "tile": [
+                15,
+                22
+              ],
+              "original": {
+                "speaker": 605,
+                "tile": [
+                  15,
+                  22
+                ]
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                11,
+                13
+              ],
+              "original": {
+                "speaker": 605,
+                "tile": [
+                  11,
+                  13
+                ]
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                8,
+                19
+              ],
+              "original": {
+                "speaker": 605,
+                "tile": [
+                  8,
+                  19
+                ]
+              }
+            },
+            {
+              "speaker": 645,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 86,
+              "tile": [
+                9,
+                16
+              ],
+              "original": {
+                "speaker": 623,
+                "tile": [
+                  9,
+                  16
+                ]
+              }
+            },
+            {
+              "speaker": 645,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                8,
+                23
+              ],
+              "original": {
+                "speaker": 623,
+                "tile": [
+                  8,
+                  23
+                ]
+              }
+            },
+            {
+              "speaker": 658,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 623,
+              "original": {
+                "speaker": 636,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 623,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 86,
+              "target": 623,
+              "original": {
+                "speaker": 602,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 623,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 85,
+              "tile": [
+                10,
+                11
+              ],
+              "original": {
+                "speaker": 602,
+                "tile": [
+                  10,
+                  11
+                ]
+              }
+            },
+            {
+              "speaker": 623,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 920,
+              "original": {
+                "speaker": 602,
+                "target": 880
+              }
+            },
+            {
+              "speaker": 623,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                11,
+                13
+              ],
+              "original": {
+                "speaker": 602,
+                "tile": [
+                  11,
+                  13
+                ]
+              }
+            },
+            {
+              "speaker": 169,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                11,
+                13
+              ],
+              "original": {
+                "speaker": 169,
+                "tile": [
+                  11,
+                  13
+                ]
+              }
+            },
+            {
+              "speaker": 182,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                11,
+                13
+              ],
+              "original": {
+                "speaker": 182,
+                "tile": [
+                  11,
+                  13
+                ]
+              }
+            },
+            {
+              "speaker": 962,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                11,
+                13
+              ],
+              "original": {
+                "speaker": 713,
+                "tile": [
+                  11,
+                  13
+                ]
+              }
+            },
+            {
+              "speaker": 502,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                11,
+                13
+              ],
+              "original": {
+                "speaker": 484,
+                "tile": [
+                  11,
+                  13
+                ]
+              }
+            },
+            {
+              "speaker": 648,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                11,
+                13
+              ],
+              "original": {
+                "speaker": 626,
+                "tile": [
+                  11,
+                  13
+                ]
+              }
+            },
+            {
+              "speaker": 641,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 84,
+              "tile": [
+                13,
+                17
+              ],
+              "original": {
+                "speaker": 619,
+                "tile": [
+                  13,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 641,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 623,
+              "original": {
+                "speaker": 619,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 632,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 626,
+              "original": {
+                "speaker": 610,
+                "target": 912
+              }
+            },
+            {
+              "speaker": 629,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 629,
+              "original": {
+                "speaker": 608,
+                "target": 910
+              }
+            }
+          ]
         }
       }
     },
@@ -2269,44 +3842,6 @@
               },
               "source": "spawn list 0x7609c0 at 0xbbf0: ビッグオー/ロジャー (11,14) facing 1, animated"
             }
-          ],
-          "dorothy_anchor": [
-            {
-              "unit": 628,
-              "pilot": 557,
-              "tile": [
-                12,
-                18
-              ],
-              "facing": 1,
-              "side": 1,
-              "appear": 1,
-              "class": 4,
-              "original": {
-                "unit": null,
-                "pilot": 537
-              },
-              "source": "cursor anchor, hidden: ドロシー is not on the map; in the event movie (3:59, 4:03) her lines put the cursor on (12,18), two tiles from Beck (LRPS2 candidate tiles phase-correlated with the movie frame, response 0.82, shift 0). Unit 628 (ビッグファウ) is never drawn"
-            }
-          ],
-          "roger_anchor": [
-            {
-              "unit": 618,
-              "pilot": 554,
-              "tile": [
-                11,
-                14
-              ],
-              "facing": 1,
-              "side": 1,
-              "appear": 1,
-              "class": 4,
-              "original": {
-                "unit": null,
-                "pilot": 534
-              },
-              "source": "cursor anchor, hidden: ロジャー speaks before the Big O (same pilot 554) arrives; in the event movie (4:06-4:09) his lines put the cursor on (11,14), the Big O's spawn tile (STAGE024 0xa2d0) (LRPS2 candidate tiles, response 0.34, shift 0). Unit 618 (ビッグオー) is never drawn; removed before the Big O spawn"
-            }
           ]
         },
         "timeline": [
@@ -2318,21 +3853,17 @@
             "talk_install"
           ],
           [
-            "spawn",
-            "roger_anchor"
+            "speakers",
+            "stage024"
           ],
           [
-            "visible",
-            554,
-            0
+            "flag",
+            80,
+            1
           ],
           [
-            "spawn",
-            "dorothy_anchor"
-          ],
-          [
-            "visible",
-            557,
+            "flag",
+            81,
             0
           ],
           [
@@ -2650,6 +4181,11 @@
             11
           ],
           [
+            "flag",
+            81,
+            1
+          ],
+          [
             "talk",
             12
           ],
@@ -2698,10 +4234,6 @@
             3,
             0,
             0
-          ],
-          [
-            "remove_unit",
-            618
           ],
           [
             "spawn",
@@ -2778,7 +4310,271 @@
             "what": "op 0x12 0x50/0x51",
             "reason": "not reproduced in the other scenes either"
           }
-        ]
+        ],
+        "speakers": {
+          "stage024": [
+            {
+              "speaker": 557,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                12,
+                18
+              ],
+              "original": {
+                "speaker": 537,
+                "tile": [
+                  12,
+                  18
+                ]
+              }
+            },
+            {
+              "speaker": 557,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                11
+              ],
+              "original": {
+                "speaker": 537,
+                "tile": [
+                  10,
+                  11
+                ]
+              }
+            },
+            {
+              "speaker": 554,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 81,
+              "tile": [
+                11,
+                14
+              ],
+              "original": {
+                "speaker": 534,
+                "tile": [
+                  11,
+                  14
+                ]
+              }
+            },
+            {
+              "speaker": 554,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                18
+              ],
+              "original": {
+                "speaker": 534,
+                "tile": [
+                  12,
+                  18
+                ]
+              }
+            },
+            {
+              "speaker": 726,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                12,
+                18
+              ],
+              "original": {
+                "speaker": 702,
+                "tile": [
+                  12,
+                  18
+                ]
+              }
+            },
+            {
+              "speaker": 726,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                11
+              ],
+              "original": {
+                "speaker": 702,
+                "tile": [
+                  10,
+                  11
+                ]
+              }
+            },
+            {
+              "speaker": 726,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                18
+              ],
+              "original": {
+                "speaker": 703,
+                "tile": [
+                  12,
+                  18
+                ]
+              }
+            },
+            {
+              "speaker": 962,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                12,
+                18
+              ],
+              "original": {
+                "speaker": 713,
+                "tile": [
+                  12,
+                  18
+                ]
+              }
+            },
+            {
+              "speaker": 962,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                11
+              ],
+              "original": {
+                "speaker": 713,
+                "tile": [
+                  10,
+                  11
+                ]
+              }
+            },
+            {
+              "speaker": 572,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                20
+              ],
+              "original": {
+                "speaker": 552,
+                "tile": [
+                  12,
+                  20
+                ]
+              }
+            },
+            {
+              "speaker": 559,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                10
+              ],
+              "original": {
+                "speaker": 539,
+                "tile": [
+                  12,
+                  10
+                ]
+              }
+            },
+            {
+              "speaker": 566,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 561,
+              "original": {
+                "speaker": 546,
+                "target": 541
+              }
+            },
+            {
+              "speaker": 564,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 561,
+              "original": {
+                "speaker": 544,
+                "target": 541
+              }
+            },
+            {
+              "speaker": 568,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                11,
+                4
+              ],
+              "original": {
+                "speaker": 548,
+                "tile": [
+                  11,
+                  4
+                ]
+              }
+            },
+            {
+              "speaker": 569,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                11,
+                2
+              ],
+              "original": {
+                "speaker": 549,
+                "tile": [
+                  11,
+                  2
+                ]
+              }
+            },
+            {
+              "speaker": 560,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                9,
+                9
+              ],
+              "original": {
+                "speaker": 540,
+                "tile": [
+                  9,
+                  9
+                ]
+              }
+            }
+          ]
+        }
       },
       "stage_objects_source": "STAGE024 entry 0x810-0x860 (0x146280 / 0x146160 before the map starts)"
     },
@@ -2914,25 +4710,6 @@
               },
               "source": "STAGE025 0xe790 op0x13b4 boards レントン (660) and 0xe7a0 op0x13bd switches エウレカ to 645 (SP 667): the Nirvash after its first move (10,18), facing 3 (0xe770), with both seated"
             }
-          ],
-          "renton_anchor": [
-            {
-              "unit": 745,
-              "pilot": 660,
-              "tile": [
-                11,
-                21
-              ],
-              "facing": 1,
-              "side": 1,
-              "appear": 1,
-              "class": 4,
-              "original": {
-                "unit": null,
-                "pilot": 638
-              },
-              "source": "cursor anchor, hidden: レントン speaks before he boards the Nirvash; STAGE025 0xe620-0xe690 pans the cursor (vars 0x9015/0x9016) to (12,21) after section 11 and his section-12 lines keep it there; the event movie (4:50) matches (11,21) (LRPS2 candidate tiles, response 0.75, shift 0). Spawned after section 11 (his section-11 line in the movie (4:42) could not be placed); unit 745 (ニルヴァーシュ) is never drawn; removed before the boarded Nirvash (same pilot 660)"
-            }
           ]
         },
         "timeline": [
@@ -2942,6 +4719,30 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage025"
+          ],
+          [
+            "flag",
+            80,
+            0
+          ],
+          [
+            "flag",
+            81,
+            0
+          ],
+          [
+            "flag",
+            82,
+            0
+          ],
+          [
+            "flag",
+            83,
+            0
           ],
           [
             "spawn",
@@ -2983,17 +4784,13 @@
             0
           ],
           [
+            "flag",
+            81,
+            1
+          ],
+          [
             "talk",
             11
-          ],
-          [
-            "spawn",
-            "renton_anchor"
-          ],
-          [
-            "visible",
-            660,
-            0
           ],
           [
             "camera",
@@ -3025,6 +4822,11 @@
           [
             "wait",
             60
+          ],
+          [
+            "flag",
+            82,
+            1
           ],
           [
             "talk",
@@ -3095,10 +4897,6 @@
             2,
             666,
             3
-          ],
-          [
-            "remove_unit",
-            745
           ],
           [
             "remove_unit",
@@ -3182,7 +4980,329 @@
             "what": "0x13b4 formation 0x762d60 / 0x13bd 0x20285 (Renton boards Nirvash)",
             "reason": "the unit keeps Eureka as pilot"
           }
-        ]
+        ],
+        "speakers": {
+          "stage025": [
+            {
+              "speaker": 671,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 678,
+              "original": {
+                "speaker": 649,
+                "target": 656
+              }
+            },
+            {
+              "speaker": 673,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 678,
+              "original": {
+                "speaker": 651,
+                "target": 656
+              }
+            },
+            {
+              "speaker": 675,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 678,
+              "original": {
+                "speaker": 653,
+                "target": 656
+              }
+            },
+            {
+              "speaker": 928,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 695,
+              "original": {
+                "speaker": 888,
+                "target": 673
+              }
+            },
+            {
+              "speaker": 698,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 695,
+              "original": {
+                "speaker": 675,
+                "target": 673
+              }
+            },
+            {
+              "speaker": 671,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                25,
+                6
+              ],
+              "original": {
+                "speaker": 649,
+                "tile": [
+                  25,
+                  6
+                ]
+              }
+            },
+            {
+              "speaker": 673,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                25,
+                6
+              ],
+              "original": {
+                "speaker": 651,
+                "tile": [
+                  25,
+                  6
+                ]
+              }
+            },
+            {
+              "speaker": 677,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                25,
+                6
+              ],
+              "original": {
+                "speaker": 655,
+                "tile": [
+                  25,
+                  6
+                ]
+              }
+            },
+            {
+              "speaker": 692,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                28,
+                7
+              ],
+              "original": {
+                "speaker": 670,
+                "tile": [
+                  28,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 660,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 82,
+              "tile": [
+                11,
+                21
+              ],
+              "original": {
+                "speaker": 638,
+                "tile": [
+                  11,
+                  21
+                ]
+              }
+            },
+            {
+              "speaker": 660,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 81,
+              "tile": [
+                15,
+                21
+              ],
+              "original": {
+                "speaker": 638,
+                "tile": [
+                  15,
+                  21
+                ]
+              }
+            },
+            {
+              "speaker": 660,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                28,
+                7
+              ],
+              "original": {
+                "speaker": 638,
+                "tile": [
+                  28,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 666,
+              "kind": "tile",
+              "flags": 1,
+              "condition_flag": 83,
+              "tile": [
+                28,
+                8
+              ],
+              "original": {
+                "speaker": 644,
+                "tile": [
+                  28,
+                  8
+                ]
+              }
+            },
+            {
+              "speaker": 666,
+              "kind": "tile",
+              "flags": 1,
+              "condition_flag": 80,
+              "tile": [
+                28,
+                7
+              ],
+              "original": {
+                "speaker": 644,
+                "tile": [
+                  28,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 202,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 199,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 226,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 223,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 230,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 227,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 197,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 194,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 216,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 213,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 221,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 218,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 375,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 396,
+              "original": {
+                "speaker": 361,
+                "target": 382
+              }
+            },
+            {
+              "speaker": 386,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 396,
+              "original": {
+                "speaker": 372,
+                "target": 382
+              }
+            },
+            {
+              "speaker": 726,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 396,
+              "original": {
+                "speaker": 702,
+                "target": 382
+              }
+            },
+            {
+              "speaker": 962,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 396,
+              "original": {
+                "speaker": 918,
+                "target": 382
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -3269,6 +5389,25 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage026"
+          ],
+          [
+            "flag",
+            80,
+            1
+          ],
+          [
+            "flag",
+            81,
+            0
+          ],
+          [
+            "flag",
+            82,
+            0
           ],
           [
             "bgm",
@@ -3359,7 +5498,279 @@
             "reason": "squad bookkeeping; the spawn record carries only the main pilot, as in the Original list"
           }
         ],
-        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions"
+        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions",
+        "speakers": {
+          "stage026": [
+            {
+              "speaker": 70,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 70,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 73,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 73,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 128,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 128,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 129,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 129,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 68,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 68,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 66,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 66,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 71,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 71,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 582,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 577,
+              "original": {
+                "speaker": 562,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 586,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 577,
+              "original": {
+                "speaker": 566,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 584,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 577,
+              "original": {
+                "speaker": 564,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 587,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 577,
+              "original": {
+                "speaker": 567,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 591,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 577,
+              "original": {
+                "speaker": 571,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 582,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 82,
+              "target": 947,
+              "original": {
+                "speaker": 562,
+                "target": 906
+              }
+            },
+            {
+              "speaker": 586,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 82,
+              "target": 948,
+              "original": {
+                "speaker": 566,
+                "target": 907
+              }
+            },
+            {
+              "speaker": 584,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 82,
+              "target": 949,
+              "original": {
+                "speaker": 564,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 587,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 82,
+              "target": 949,
+              "original": {
+                "speaker": 567,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 591,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 82,
+              "target": 950,
+              "original": {
+                "speaker": 571,
+                "target": 909
+              }
+            },
+            {
+              "speaker": 125,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 952,
+              "original": {
+                "speaker": 125,
+                "target": 911
+              }
+            },
+            {
+              "speaker": 126,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 81,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 126,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 126,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 951,
+              "original": {
+                "speaker": 126,
+                "target": 910
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -3526,6 +5937,10 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage030"
           ],
           [
             "deploy",
@@ -3977,6 +6392,200 @@
               "source": "STAGE030 group 2 squad 19: 透明円盤/アルデバロン兵、透明円盤/アルデバロン兵、透明円盤/アルデバロン兵, deployed at (29,33) side 12, squad アルデバロン; STAGE030 event 17 0x04 1,2,3 normal difficulty; the movie shows the carrier with discs on both sides on アフロディア's line"
             }
           ]
+        },
+        "speakers": {
+          "stage030": [
+            {
+              "speaker": 70,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 70,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 71,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 71,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 73,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 73,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 129,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 129,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 128,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 128,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 127,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                17,
+                17
+              ],
+              "original": {
+                "speaker": 127,
+                "tile": [
+                  17,
+                  17
+                ]
+              }
+            },
+            {
+              "speaker": 125,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 125,
+              "original": {
+                "speaker": 125,
+                "target": 906
+              }
+            },
+            {
+              "speaker": 126,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 126,
+              "original": {
+                "speaker": 126,
+                "target": 907
+              }
+            },
+            {
+              "speaker": 122,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 122,
+              "original": {
+                "speaker": 122,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 582,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 562,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 586,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 566,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 584,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 564,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 587,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 567,
+                "target": 557
+              }
+            },
+            {
+              "speaker": 591,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 577,
+              "original": {
+                "speaker": 571,
+                "target": 557
+              }
+            }
+          ]
         }
       },
       "stage_objects_source": "STAGE030 entry (0x146280 / 0x146160 before the map starts)"
@@ -4077,6 +6686,15 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage043"
+          ],
+          [
+            "flag",
+            80,
+            0
           ],
           [
             "bgm",
@@ -4211,7 +6829,95 @@
             "wait_effects"
           ]
         ],
-        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions"
+        "cursor_ops": "op 0x1c 3 (FUN_00176030(3) hides the tactical cursor) retained at the Original positions",
+        "speakers": {
+          "stage043": [
+            {
+              "speaker": 186,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                7,
+                1
+              ],
+              "original": {
+                "speaker": 186,
+                "tile": [
+                  7,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 187,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                7,
+                1
+              ],
+              "original": {
+                "speaker": 187,
+                "tile": [
+                  7,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 187,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 186,
+              "original": {
+                "speaker": 187,
+                "target": 186
+              }
+            },
+            {
+              "speaker": 186,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 187,
+              "original": {
+                "speaker": 186,
+                "target": 187
+              }
+            },
+            {
+              "speaker": 538,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                7,
+                1
+              ],
+              "original": {
+                "speaker": 520,
+                "tile": [
+                  7,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 502,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 484,
+                "target": 171
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -4349,13 +7055,13 @@
               ],
               "facing": 3,
               "side": 0,
-              "appear": 2,
+              "appear": 255,
               "class": 1,
               "original": {
                 "unit": 19,
                 "pilot": 3
               },
-              "source": "STAGE047 spawn list 0x7870 at 0xac40: 甲児's ＴＦＯ at (33,24) facing 3; effect 268 is anchored on him (0xaf40 0x139b P3); air layer (appear 2), as the TFO hovers in the event movie"
+              "source": "STAGE047 spawn list 0x7870 at 0xac40 (op 0x0d mode 1): 甲児's ＴＦＯ at (33,24) facing 3, appear 0xff, so the engine puts it on its own air layer (0, as every flier); the gallery's former appear 2 is layer 2 (+0.125), which the scripted moves land on the ground; effect 268 is anchored on him (0xaf40 0x139b P3)"
             }
           ]
         },
@@ -4368,8 +7074,23 @@
             "talk_install"
           ],
           [
+            "speakers",
+            "stage047"
+          ],
+          [
+            "flag",
+            80,
+            0
+          ],
+          [
+            "flag",
+            81,
+            0
+          ],
+          [
             "spawn",
-            "koji"
+            "koji",
+            1
           ],
           [
             "spawn",
@@ -4648,7 +7369,7 @@
             268,
             [
               33,
-              24
+              15
             ]
           ],
           [
@@ -4760,7 +7481,266 @@
             "what": "0xb020 onwards: dialogue, BATTLE CHOIR again, player phase",
             "reason": "after the clip"
           }
-        ]
+        ],
+        "speakers": {
+          "stage047": [
+            {
+              "speaker": 56,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                37,
+                5
+              ],
+              "original": {
+                "speaker": 56,
+                "tile": [
+                  37,
+                  5
+                ]
+              }
+            },
+            {
+              "speaker": 56,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 56,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 10,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 10,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 9,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 9,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 59,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                25,
+                9
+              ],
+              "original": {
+                "speaker": 59,
+                "tile": [
+                  25,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 59,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 59,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 61,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 61,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 6,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 6,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 2,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 81,
+              "tile": [
+                32,
+                19
+              ],
+              "original": {
+                "speaker": 2,
+                "tile": [
+                  32,
+                  19
+                ]
+              }
+            },
+            {
+              "speaker": 2,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                19,
+                25
+              ],
+              "original": {
+                "speaker": 2,
+                "tile": [
+                  19,
+                  25
+                ]
+              }
+            },
+            {
+              "speaker": 11,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 11,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 12,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 12,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 16,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                27,
+                5
+              ],
+              "original": {
+                "speaker": 16,
+                "tile": [
+                  27,
+                  5
+                ]
+              }
+            },
+            {
+              "speaker": 16,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                0,
+                9
+              ],
+              "original": {
+                "speaker": 16,
+                "tile": [
+                  0,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 19,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                33,
+                29
+              ],
+              "original": {
+                "speaker": 19,
+                "tile": [
+                  33,
+                  29
+                ]
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -4882,25 +7862,6 @@
               "source": "STAGE047 spawn list 0x78f0 at 0xa170: 鉄也's グレートマジンガー enters at (27,5) facing 1 (animated); 0xa190-0xa200 moves it to (27,17) then (32,17); 0xa210 camera, 0xa220 facing 3"
             }
           ],
-          "koji_anchor": [
-            {
-              "unit": 19,
-              "pilot": 2,
-              "tile": [
-                32,
-                19
-              ],
-              "facing": 1,
-              "side": 0,
-              "appear": 1,
-              "class": 4,
-              "original": {
-                "unit": null,
-                "pilot": 2
-              },
-              "source": "cursor anchor, hidden: 甲児 speaks before his Mazinger Z (same pilot 2) is spawned; in the event movie (8:47-8:53) the cursor sits two tiles south of the Great Mazinger at (32,17), measured from its sprite. Unit 19 (ＴＦＯ) is never drawn; removed before the Mazinger Z spawn"
-            }
-          ],
           "base": [
             {
               "unit": 47,
@@ -4950,6 +7911,20 @@
             "talk_install"
           ],
           [
+            "speakers",
+            "stage047"
+          ],
+          [
+            "flag",
+            80,
+            1
+          ],
+          [
+            "flag",
+            81,
+            0
+          ],
+          [
             "deploy",
             "ikkakuki"
           ],
@@ -4964,15 +7939,6 @@
           [
             "visible",
             56,
-            0
-          ],
-          [
-            "spawn",
-            "koji_anchor"
-          ],
-          [
-            "visible",
-            2,
             0
           ],
           [
@@ -5179,6 +8145,11 @@
             36900
           ],
           [
+            "flag",
+            81,
+            1
+          ],
+          [
             "talk",
             15
           ],
@@ -5362,10 +8333,6 @@
             0
           ],
           [
-            "remove_unit",
-            19
-          ],
-          [
             "spawn",
             "mazinger"
           ],
@@ -5508,6 +8475,265 @@
               "source": "STAGE047 group 1 squad 23: メカ一角鬼/百人衆、百鬼戦闘機/百鬼兵、百鬼戦闘機/百鬼兵, deployed at (31,14) side 12, squad 百鬼帝国; placed at (31,16): event movie, right above Mazinger Z on 鉄也 and 甲児 lines (moves with play)"
             }
           ]
+        },
+        "speakers": {
+          "stage047": [
+            {
+              "speaker": 56,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                37,
+                5
+              ],
+              "original": {
+                "speaker": 56,
+                "tile": [
+                  37,
+                  5
+                ]
+              }
+            },
+            {
+              "speaker": 56,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 56,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 10,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 10,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 9,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 9,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 59,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                25,
+                9
+              ],
+              "original": {
+                "speaker": 59,
+                "tile": [
+                  25,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 59,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 59,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 61,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 61,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 6,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 6,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 2,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 81,
+              "tile": [
+                32,
+                19
+              ],
+              "original": {
+                "speaker": 2,
+                "tile": [
+                  32,
+                  19
+                ]
+              }
+            },
+            {
+              "speaker": 2,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                19,
+                25
+              ],
+              "original": {
+                "speaker": 2,
+                "tile": [
+                  19,
+                  25
+                ]
+              }
+            },
+            {
+              "speaker": 11,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 11,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 12,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                31,
+                9
+              ],
+              "original": {
+                "speaker": 12,
+                "tile": [
+                  31,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 16,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                27,
+                5
+              ],
+              "original": {
+                "speaker": 16,
+                "tile": [
+                  27,
+                  5
+                ]
+              }
+            },
+            {
+              "speaker": 16,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                0,
+                9
+              ],
+              "original": {
+                "speaker": 16,
+                "tile": [
+                  0,
+                  9
+                ]
+              }
+            },
+            {
+              "speaker": 19,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                33,
+                29
+              ],
+              "original": {
+                "speaker": 19,
+                "tile": [
+                  33,
+                  29
+                ]
+              }
+            }
+          ]
         }
       }
     },
@@ -5609,6 +8835,20 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage084"
+          ],
+          [
+            "flag",
+            80,
+            0
+          ],
+          [
+            "flag",
+            81,
+            0
           ],
           [
             "spawn",
@@ -5832,7 +9072,72 @@
             "what": "0x31 0x2c9 0x40 (0x9d10), 0x1391/0x5c (0x9ec0-0x9ee0)",
             "reason": "unresolved ops, no map picture"
           }
-        ]
+        ],
+        "speakers": {
+          "stage084": [
+            {
+              "speaker": 962,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                33,
+                14
+              ],
+              "original": {
+                "speaker": 713,
+                "tile": [
+                  33,
+                  14
+                ]
+              }
+            },
+            {
+              "speaker": 962,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 947,
+              "original": {
+                "speaker": 713,
+                "target": 906
+              }
+            },
+            {
+              "speaker": 730,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 707,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 753,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 726,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 752,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 725,
+                "target": 171
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -5967,6 +9272,10 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage057"
           ],
           [
             "spawn",
@@ -6235,7 +9544,28 @@
             "what": "ツィーネ's arrival 0x16-0x19",
             "reason": "next beat"
           }
-        ]
+        ],
+        "speakers": {
+          "stage057": [
+            {
+              "speaker": 736,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                9,
+                0
+              ],
+              "original": {
+                "speaker": 710,
+                "tile": [
+                  9,
+                  0
+                ]
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -6361,6 +9691,10 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage069"
           ],
           [
             "deploy",
@@ -6763,6 +10097,688 @@
               "source": "STAGE069 0x12de0 group 11 squad 58: モンスーノ２０/連邦軍兵、モンスーノ１０/連邦軍兵、モンスーノ１０/連邦軍兵 (28,23) side 4 facing 0, squad 連邦軍 flags 0x22"
             }
           ]
+        },
+        "speakers": {
+          "stage069": [
+            {
+              "speaker": 172,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 172,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 341,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 331,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 90,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 90,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 680,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 658,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 434,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 420,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 45,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 45,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 60,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 60,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 52,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 52,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 28,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 28,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 31,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 31,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 124,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 124,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 556,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 536,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 625,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 604,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 426,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 412,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 333,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 323,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 351,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 341,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 356,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 346,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 339,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 329,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 348,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 338,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 346,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 336,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 672,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 650,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 674,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 652,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 676,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 654,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 170,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 170,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 178,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 178,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 181,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 181,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 501,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 483,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 507,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 489,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 510,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 492,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 503,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 485,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 513,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 495,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 517,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 499,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 87,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 87,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 95,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 95,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 98,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 98,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 665,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                27,
+                1
+              ],
+              "original": {
+                "speaker": 643,
+                "tile": [
+                  27,
+                  1
+                ]
+              }
+            },
+            {
+              "speaker": 469,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 434,
+              "original": {
+                "speaker": 453,
+                "target": 420
+              }
+            },
+            {
+              "speaker": 439,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 434,
+              "original": {
+                "speaker": 425,
+                "target": 420
+              }
+            },
+            {
+              "speaker": 428,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 434,
+              "original": {
+                "speaker": 414,
+                "target": 420
+              }
+            },
+            {
+              "speaker": 435,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 434,
+              "original": {
+                "speaker": 421,
+                "target": 420
+              }
+            },
+            {
+              "speaker": 437,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 434,
+              "original": {
+                "speaker": 423,
+                "target": 420
+              }
+            },
+            {
+              "speaker": 450,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 434,
+              "original": {
+                "speaker": 436,
+                "target": 420
+              }
+            }
+          ]
         }
       }
     },
@@ -6884,6 +10900,20 @@
             "talk_install"
           ],
           [
+            "speakers",
+            "stage107"
+          ],
+          [
+            "flag",
+            80,
+            1
+          ],
+          [
+            "flag",
+            81,
+            0
+          ],
+          [
             "bgm",
             69
           ],
@@ -6910,6 +10940,11 @@
           [
             "talk",
             60
+          ],
+          [
+            "flag",
+            80,
+            1
           ],
           [
             "talk",
@@ -7020,7 +11055,252 @@
             "what": "0x14510 wait 0x280 / 0x14520 op0x13ae / 0x14530 spawn_group 0xe timing",
             "reason": "the original's 0x139b lets the effect counter run while the resource loads (~65 frames), so its 640-frame wait lands at effect frame ~705 (user video: orb appears 2.4 s after the scream starts, 1.3 s in the gallery at 640). The gallery waits 705; the spawn stops the current voice (双翅's scream, 580→), so this also gives the scream the original's length. The removal is kept after the effect ends (she is hidden anyway)."
           }
-        ]
+        ],
+        "speakers": {
+          "stage107": [
+            {
+              "speaker": 655,
+              "kind": "pilot",
+              "flags": 1,
+              "condition_flag": 81,
+              "target": 805,
+              "original": {
+                "speaker": 633,
+                "target": 772
+              }
+            },
+            {
+              "speaker": 655,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                33
+              ],
+              "original": {
+                "speaker": 633,
+                "tile": [
+                  15,
+                  33
+                ]
+              }
+            },
+            {
+              "speaker": 152,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 147,
+              "original": {
+                "speaker": 152,
+                "target": 147
+              }
+            },
+            {
+              "speaker": 151,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 147,
+              "original": {
+                "speaker": 151,
+                "target": 147
+              }
+            },
+            {
+              "speaker": 154,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 41,
+              "original": {
+                "speaker": 154,
+                "target": 41
+              }
+            },
+            {
+              "speaker": 82,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 41,
+              "original": {
+                "speaker": 82,
+                "target": 41
+              }
+            },
+            {
+              "speaker": 157,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 41,
+              "original": {
+                "speaker": 157,
+                "target": 41
+              }
+            },
+            {
+              "speaker": 40,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 131,
+              "original": {
+                "speaker": 40,
+                "target": 131
+              }
+            },
+            {
+              "speaker": 801,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 131,
+              "original": {
+                "speaker": 768,
+                "target": 131
+              }
+            },
+            {
+              "speaker": 134,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                26,
+                6
+              ],
+              "original": {
+                "speaker": 134,
+                "tile": [
+                  26,
+                  6
+                ]
+              }
+            },
+            {
+              "speaker": 592,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 804,
+              "original": {
+                "speaker": 573,
+                "target": 771
+              }
+            },
+            {
+              "speaker": 597,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 804,
+              "original": {
+                "speaker": 576,
+                "target": 771
+              }
+            },
+            {
+              "speaker": 606,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 804,
+              "original": {
+                "speaker": 585,
+                "target": 771
+              }
+            },
+            {
+              "speaker": 612,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 609,
+              "original": {
+                "speaker": 592,
+                "target": 588
+              }
+            },
+            {
+              "speaker": 619,
+              "kind": "no_cursor",
+              "flags": 0,
+              "condition_flag": null,
+              "original": {
+                "speaker": 598
+              }
+            },
+            {
+              "speaker": 588,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 807,
+              "original": {
+                "speaker": 568,
+                "target": 774
+              }
+            },
+            {
+              "speaker": 591,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 578,
+              "original": {
+                "speaker": 571,
+                "target": 558
+              }
+            },
+            {
+              "speaker": 578,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 776,
+              "original": {
+                "speaker": 558,
+                "target": 745
+              }
+            },
+            {
+              "speaker": 623,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 808,
+              "original": {
+                "speaker": 602,
+                "target": 775
+              }
+            },
+            {
+              "speaker": 627,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 808,
+              "original": {
+                "speaker": 606,
+                "target": 775
+              }
+            },
+            {
+              "speaker": 629,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 808,
+              "original": {
+                "speaker": 608,
+                "target": 775
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -7425,6 +11705,20 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage107"
+          ],
+          [
+            "flag",
+            80,
+            0
+          ],
+          [
+            "flag",
+            81,
+            0
           ],
           [
             "deploy",
@@ -8184,6 +12478,263 @@
               "source": "STAGE107 0x15600 group 11 squad 94: ヒュドュエル/ゼラバイア (10,1) side 12 facing 2, squad ゼラバイア flags 0x10"
             }
           ]
+        },
+        "speakers": {
+          "stage107": [
+            {
+              "speaker": 655,
+              "kind": "pilot",
+              "flags": 1,
+              "condition_flag": 81,
+              "target": 805,
+              "original": {
+                "speaker": 633,
+                "target": 772
+              }
+            },
+            {
+              "speaker": 655,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 805,
+              "original": {
+                "speaker": 633,
+                "target": 772
+              },
+              "off_map": true
+            },
+            {
+              "speaker": 655,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                33
+              ],
+              "original": {
+                "speaker": 633,
+                "tile": [
+                  15,
+                  33
+                ]
+              }
+            },
+            {
+              "speaker": 152,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 147,
+              "original": {
+                "speaker": 152,
+                "target": 147
+              }
+            },
+            {
+              "speaker": 151,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 147,
+              "original": {
+                "speaker": 151,
+                "target": 147
+              }
+            },
+            {
+              "speaker": 154,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 41,
+              "original": {
+                "speaker": 154,
+                "target": 41
+              }
+            },
+            {
+              "speaker": 82,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 41,
+              "original": {
+                "speaker": 82,
+                "target": 41
+              }
+            },
+            {
+              "speaker": 157,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 41,
+              "original": {
+                "speaker": 157,
+                "target": 41
+              }
+            },
+            {
+              "speaker": 40,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 131,
+              "original": {
+                "speaker": 40,
+                "target": 131
+              }
+            },
+            {
+              "speaker": 801,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 131,
+              "original": {
+                "speaker": 768,
+                "target": 131
+              }
+            },
+            {
+              "speaker": 134,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                26,
+                6
+              ],
+              "original": {
+                "speaker": 134,
+                "tile": [
+                  26,
+                  6
+                ]
+              }
+            },
+            {
+              "speaker": 593,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 804,
+              "original": {
+                "speaker": 573,
+                "target": 771
+              }
+            },
+            {
+              "speaker": 597,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 804,
+              "original": {
+                "speaker": 576,
+                "target": 771
+              }
+            },
+            {
+              "speaker": 606,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 804,
+              "original": {
+                "speaker": 585,
+                "target": 771
+              }
+            },
+            {
+              "speaker": 612,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 609,
+              "original": {
+                "speaker": 592,
+                "target": 588
+              }
+            },
+            {
+              "speaker": 619,
+              "kind": "no_cursor",
+              "flags": 0,
+              "condition_flag": null,
+              "original": {
+                "speaker": 598
+              }
+            },
+            {
+              "speaker": 588,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 807,
+              "original": {
+                "speaker": 568,
+                "target": 774
+              }
+            },
+            {
+              "speaker": 591,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 578,
+              "original": {
+                "speaker": 571,
+                "target": 558
+              }
+            },
+            {
+              "speaker": 578,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 776,
+              "original": {
+                "speaker": 558,
+                "target": 745
+              }
+            },
+            {
+              "speaker": 623,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 808,
+              "original": {
+                "speaker": 602,
+                "target": 775
+              }
+            },
+            {
+              "speaker": 627,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 808,
+              "original": {
+                "speaker": 606,
+                "target": 775
+              }
+            },
+            {
+              "speaker": 629,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 808,
+              "original": {
+                "speaker": 608,
+                "target": 775
+              }
+            }
+          ]
         }
       }
     },
@@ -8420,6 +12971,10 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage114"
           ],
           [
             "spawn",
@@ -8776,6 +13331,10 @@
             0,
             0,
             0
+          ],
+          [
+            "speakers",
+            "stage115"
           ],
           [
             "talk",
@@ -9303,6 +13862,151 @@
               "source": "STAGE115 group 0 record 4: ドレイク級/連邦軍艦長 (23, 13) side 12 facing 3, squad ロゴス"
             }
           ]
+        },
+        "speakers": {
+          "stage114": [
+            {
+              "speaker": 275,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 274,
+              "original": {
+                "speaker": 266,
+                "target": 265
+              }
+            },
+            {
+              "speaker": 465,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                20,
+                10
+              ],
+              "original": {
+                "speaker": 451,
+                "tile": [
+                  20,
+                  10
+                ]
+              }
+            },
+            {
+              "speaker": 358,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                20,
+                10
+              ],
+              "original": {
+                "speaker": 347,
+                "tile": [
+                  20,
+                  10
+                ]
+              }
+            },
+            {
+              "speaker": 361,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                20,
+                10
+              ],
+              "original": {
+                "speaker": 348,
+                "tile": [
+                  20,
+                  10
+                ]
+              }
+            },
+            {
+              "speaker": 459,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 456,
+              "original": {
+                "speaker": 445,
+                "target": 442
+              }
+            }
+          ],
+          "stage115": [
+            {
+              "speaker": 431,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 431,
+              "original": {
+                "speaker": 417,
+                "target": 906
+              }
+            },
+            {
+              "speaker": 439,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 431,
+              "original": {
+                "speaker": 425,
+                "target": 906
+              }
+            },
+            {
+              "speaker": 441,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 440,
+              "original": {
+                "speaker": 427,
+                "target": 907
+              }
+            },
+            {
+              "speaker": 420,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 420,
+              "original": {
+                "speaker": 406,
+                "target": 908
+              }
+            },
+            {
+              "speaker": 411,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 411,
+              "original": {
+                "speaker": 397,
+                "target": 909
+              }
+            },
+            {
+              "speaker": 468,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 468,
+              "original": {
+                "speaker": 454,
+                "target": 910
+              }
+            }
+          ]
         }
       },
       "stage_objects_source": "STAGE114 entry 0x414-0x4a0 (0x146280 / 0x146160 before the map starts)"
@@ -9358,6 +14062,20 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage117"
+          ],
+          [
+            "flag",
+            80,
+            1
+          ],
+          [
+            "flag",
+            81,
+            0
           ],
           [
             "deploy",
@@ -9597,6 +14315,265 @@
               "source": "STAGE117 group 6 squad 54: ジンバ/サラ, deployed at (11,9) side 12, squad オーバーデビル; placed at (14,4): event movie: right of つぐみ's unit on her lines, red cursor on it on サラ's line; tile estimated"
             }
           ]
+        },
+        "speakers": {
+          "stage117": [
+            {
+              "speaker": 657,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                24
+              ],
+              "original": {
+                "speaker": 635,
+                "tile": [
+                  10,
+                  24
+                ]
+              }
+            },
+            {
+              "speaker": 652,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                26
+              ],
+              "original": {
+                "speaker": 630,
+                "tile": [
+                  12,
+                  26
+                ]
+              }
+            },
+            {
+              "speaker": 623,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 602,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 632,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 610,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 639,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 617,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 638,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 616,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 634,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 612,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 636,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 614,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                6,
+                18
+              ],
+              "original": {
+                "speaker": 605,
+                "tile": [
+                  6,
+                  18
+                ]
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 605,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 518,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 500,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 497,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 549,
+              "original": {
+                "speaker": 479,
+                "target": 530
+              }
+            },
+            {
+              "speaker": 550,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 498,
+              "original": {
+                "speaker": 531,
+                "target": 480
+              }
+            },
+            {
+              "speaker": 511,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 512,
+              "original": {
+                "speaker": 493,
+                "target": 494
+              }
+            },
+            {
+              "speaker": 190,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 189,
+              "original": {
+                "speaker": 189,
+                "target": 188
+              }
+            },
+            {
+              "speaker": 189,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 190,
+              "original": {
+                "speaker": 188,
+                "target": 189
+              }
+            },
+            {
+              "speaker": 192,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 190,
+              "original": {
+                "speaker": 190,
+                "target": 189
+              }
+            },
+            {
+              "speaker": 545,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                3
+              ],
+              "original": {
+                "speaker": 526,
+                "tile": [
+                  15,
+                  3
+                ]
+              }
+            },
+            {
+              "speaker": 499,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 500,
+              "original": {
+                "speaker": 481,
+                "target": 482
+              }
+            },
+            {
+              "speaker": 552,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 552,
+              "original": {
+                "speaker": 533,
+                "target": 533
+              }
+            },
+            {
+              "speaker": 505,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 506,
+              "original": {
+                "speaker": 487,
+                "target": 488
+              }
+            }
+          ]
         }
       }
     },
@@ -9683,6 +14660,15 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage126"
+          ],
+          [
+            "flag",
+            80,
+            0
           ],
           [
             "raw",
@@ -10003,6 +14989,285 @@
               "source": "STAGE126 spawn list 0x8840 at 0xb750: Garrod/Pala DX + G Falcon squad at (20,23) facing 3 (head 0x0402ff00); the G Falcon squad member (371) shares the leader sprite and is not placed"
             }
           ]
+        },
+        "speakers": {
+          "stage126": [
+            {
+              "speaker": 728,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 705,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 216,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 213,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 202,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 199,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 208,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 205,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 278,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 269,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 857,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 857,
+              "original": {
+                "speaker": 821,
+                "target": 821
+              }
+            },
+            {
+              "speaker": 197,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 194,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 962,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 713,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 742,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 715,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 498,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 480,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 502,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 484,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 337,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 327,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 345,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 335,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 347,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 337,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 671,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 649,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 663,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 641,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 330,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 320,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 354,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                18,
+                27
+              ],
+              "original": {
+                "speaker": 344,
+                "tile": [
+                  18,
+                  27
+                ]
+              }
+            },
+            {
+              "speaker": 285,
+              "kind": "unit",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 329,
+              "original": {
+                "speaker": 276,
+                "target": 307
+              }
+            }
+          ]
         }
       }
     },
@@ -10064,6 +15329,35 @@
             "talk_install"
           ],
           [
+            "speakers",
+            "stage128"
+          ],
+          [
+            "flag",
+            80,
+            0
+          ],
+          [
+            "flag",
+            81,
+            1
+          ],
+          [
+            "flag",
+            82,
+            0
+          ],
+          [
+            "flag",
+            83,
+            0
+          ],
+          [
+            "flag",
+            84,
+            0
+          ],
+          [
             "bgm",
             71
           ],
@@ -10115,6 +15409,11 @@
           [
             "wait",
             30
+          ],
+          [
+            "flag",
+            84,
+            1
           ],
           [
             "talk",
@@ -10254,6 +15553,404 @@
               "source": "STAGE128 unit table 0xdff2: 詩翅 pilots ケルビムマーズ (669); 0x10860-0x108a0 moves her to (13,7) (and ピエール to (13,5)); 0x108f0 facing 3"
             }
           ]
+        },
+        "speakers": {
+          "stage128": [
+            {
+              "speaker": 570,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 80,
+              "tile": [
+                15,
+                6
+              ],
+              "original": {
+                "speaker": 550,
+                "tile": [
+                  15,
+                  6
+                ]
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 84,
+              "tile": [
+                13,
+                5
+              ],
+              "original": {
+                "speaker": 605,
+                "tile": [
+                  13,
+                  5
+                ]
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 81,
+              "tile": [
+                13,
+                4
+              ],
+              "original": {
+                "speaker": 605,
+                "tile": [
+                  13,
+                  4
+                ]
+              }
+            },
+            {
+              "speaker": 714,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 83,
+              "tile": [
+                12,
+                2
+              ],
+              "original": {
+                "speaker": 691,
+                "tile": [
+                  12,
+                  2
+                ]
+              }
+            },
+            {
+              "speaker": 714,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": 82,
+              "tile": [
+                12,
+                4
+              ],
+              "original": {
+                "speaker": 691,
+                "tile": [
+                  12,
+                  4
+                ]
+              }
+            },
+            {
+              "speaker": 626,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 605,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 639,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 171,
+              "original": {
+                "speaker": 617,
+                "target": 171
+              }
+            },
+            {
+              "speaker": 714,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 691,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 684,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 662,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 334,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 340,
+              "original": {
+                "speaker": 324,
+                "target": 330
+              }
+            },
+            {
+              "speaker": 715,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                12,
+                2
+              ],
+              "original": {
+                "speaker": 692,
+                "tile": [
+                  12,
+                  2
+                ]
+              }
+            },
+            {
+              "speaker": 570,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 550,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 166,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 166,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 168,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 168,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 558,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 538,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 657,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                10,
+                6
+              ],
+              "original": {
+                "speaker": 635,
+                "tile": [
+                  10,
+                  6
+                ]
+              }
+            },
+            {
+              "speaker": 668,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 938,
+              "original": {
+                "speaker": 646,
+                "target": 897
+              }
+            },
+            {
+              "speaker": 663,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 938,
+              "original": {
+                "speaker": 641,
+                "target": 897
+              }
+            },
+            {
+              "speaker": 669,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 940,
+              "original": {
+                "speaker": 647,
+                "target": 899
+              }
+            },
+            {
+              "speaker": 663,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 940,
+              "original": {
+                "speaker": 641,
+                "target": 899
+              }
+            },
+            {
+              "speaker": 697,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 695,
+              "original": {
+                "speaker": 676,
+                "target": 673
+              }
+            },
+            {
+              "speaker": 557,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 537,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 552,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 549,
+              "original": {
+                "speaker": 533,
+                "target": 530
+              }
+            },
+            {
+              "speaker": 57,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 56,
+              "original": {
+                "speaker": 57,
+                "target": 56
+              }
+            },
+            {
+              "speaker": 498,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 936,
+              "original": {
+                "speaker": 480,
+                "target": 895
+              }
+            },
+            {
+              "speaker": 330,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 331,
+              "original": {
+                "speaker": 320,
+                "target": 321
+              }
+            },
+            {
+              "speaker": 331,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 330,
+              "original": {
+                "speaker": 321,
+                "target": 320
+              }
+            },
+            {
+              "speaker": 663,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 641,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 668,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 646,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 671,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 649,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 554,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 534,
+                "target": 657
+              }
+            },
+            {
+              "speaker": 673,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 679,
+              "original": {
+                "speaker": 651,
+                "target": 657
+              }
+            }
+          ]
         }
       }
     },
@@ -10320,39 +16017,7 @@
           "value": -11,
           "source": "no zoom op; map default"
         },
-        "units": {
-          "messiah_anchor": [
-            {
-              "unit": 535,
-              "pilot": 455,
-              "tile": [
-                15,
-                7
-              ],
-              "facing": 1,
-              "side": 1,
-              "appear": 1,
-              "class": 4,
-              "original": {
-                "unit": null,
-                "pilot": 441,
-                "members": [
-                  {
-                    "unit": null,
-                    "pilot": 862
-                  }
-                ]
-              },
-              "source": "cursor anchor, hidden: デュランダル and the ZAFT officer are on the Messiah; in the event movie (15:45, 15:47) their section-3 lines already put the cursor on it, (15,7) as the section-4 camera (0x1d380). Units 535/536 (ミネルバ) are never drawn",
-              "members": [
-                {
-                  "unit": 536,
-                  "pilot": 900
-                }
-              ]
-            }
-          ]
-        },
+        "units": {},
         "ghost_table": {
           "source": "STAGE138 placeholder table 0x770ca0 installed via FUN_001bdb20 at init 0x1014 (SP FUN_001c0f70): the Federation fleet",
           "visible_flags": [],
@@ -10538,12 +16203,17 @@
             "talk_install"
           ],
           [
-            "spawn",
-            "messiah_anchor"
+            "speakers",
+            "stage138"
           ],
           [
-            "visible",
-            455,
+            "flag",
+            80,
+            0
+          ],
+          [
+            "flag",
+            81,
             0
           ],
           [
@@ -11304,6 +16974,20 @@
             28,
             0,
             0,
+            0
+          ],
+          [
+            "speakers",
+            "stage135"
+          ],
+          [
+            "flag",
+            80,
+            0
+          ],
+          [
+            "flag",
+            81,
             0
           ],
           [
@@ -12445,6 +18129,412 @@
               "source": "STAGE135 group 4 squad 166 (records 414-416): マラサイ/ティターンズ、マラサイ/ティターンズ、マラサイ/ティターンズ (8,23) side 4 facing 3, squad 連邦軍 flags 0x22"
             }
           ]
+        },
+        "speakers": {
+          "stage138": [
+            {
+              "speaker": 455,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 398,
+              "original": {
+                "speaker": 441,
+                "target": 384
+              }
+            },
+            {
+              "speaker": 471,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 936,
+              "original": {
+                "speaker": 456,
+                "target": 895
+              }
+            },
+            {
+              "speaker": 900,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 862,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 455,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 441,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 285,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 276,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 388,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 374,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 374,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 360,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 401,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 398,
+              "original": {
+                "speaker": 387,
+                "target": 384
+              }
+            },
+            {
+              "speaker": 468,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 936,
+              "original": {
+                "speaker": 454,
+                "target": 895
+              }
+            },
+            {
+              "speaker": 468,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 431,
+              "original": {
+                "speaker": 454,
+                "target": 417
+              }
+            },
+            {
+              "speaker": 471,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 431,
+              "original": {
+                "speaker": 456,
+                "target": 417
+              }
+            },
+            {
+              "speaker": 484,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 379,
+              "original": {
+                "speaker": 467,
+                "target": 365
+              }
+            },
+            {
+              "speaker": 411,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 948,
+              "original": {
+                "speaker": 397,
+                "target": 907
+              }
+            },
+            {
+              "speaker": 411,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 441,
+              "original": {
+                "speaker": 397,
+                "target": 427
+              }
+            },
+            {
+              "speaker": 197,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 194,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 420,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 441,
+              "original": {
+                "speaker": 406,
+                "target": 427
+              }
+            },
+            {
+              "speaker": 330,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 331,
+              "original": {
+                "speaker": 320,
+                "target": 321
+              }
+            },
+            {
+              "speaker": 331,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 330,
+              "original": {
+                "speaker": 321,
+                "target": 320
+              }
+            }
+          ],
+          "stage135": [
+            {
+              "speaker": 900,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 862,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 455,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 398,
+              "original": {
+                "speaker": 441,
+                "target": 384
+              }
+            },
+            {
+              "speaker": 455,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 441,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 388,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 374,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 401,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 398,
+              "original": {
+                "speaker": 387,
+                "target": 384
+              }
+            },
+            {
+              "speaker": 439,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 431,
+              "original": {
+                "speaker": 425,
+                "target": 417
+              }
+            },
+            {
+              "speaker": 376,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 441,
+              "original": {
+                "speaker": 362,
+                "target": 427
+              }
+            },
+            {
+              "speaker": 411,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 441,
+              "original": {
+                "speaker": 397,
+                "target": 427
+              }
+            },
+            {
+              "speaker": 420,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 441,
+              "original": {
+                "speaker": 406,
+                "target": 427
+              }
+            },
+            {
+              "speaker": 471,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 936,
+              "original": {
+                "speaker": 456,
+                "target": 895
+              }
+            },
+            {
+              "speaker": 468,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 936,
+              "original": {
+                "speaker": 454,
+                "target": 895
+              }
+            },
+            {
+              "speaker": 468,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 431,
+              "original": {
+                "speaker": 454,
+                "target": 417
+              }
+            },
+            {
+              "speaker": 330,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 331,
+              "original": {
+                "speaker": 320,
+                "target": 321
+              }
+            },
+            {
+              "speaker": 331,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 330,
+              "original": {
+                "speaker": 321,
+                "target": 320
+              }
+            }
+          ]
         }
       },
       "stage_objects_source": "STAGE138 entry (0x146280 / 0x146160 before the map starts)"
@@ -12551,6 +18641,20 @@
           ],
           [
             "talk_install"
+          ],
+          [
+            "speakers",
+            "stage138"
+          ],
+          [
+            "flag",
+            80,
+            1
+          ],
+          [
+            "flag",
+            81,
+            0
           ],
           [
             "spawn",
@@ -12835,7 +18939,239 @@
             "what": "0x63/0x3/0x1f/0x0b at 0x1ab10 (stage-chunk switch)",
             "reason": "scene ends at the white-out"
           }
-        ]
+        ],
+        "speakers": {
+          "stage138": [
+            {
+              "speaker": 455,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 80,
+              "target": 398,
+              "original": {
+                "speaker": 441,
+                "target": 384
+              }
+            },
+            {
+              "speaker": 471,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": 81,
+              "target": 936,
+              "original": {
+                "speaker": 456,
+                "target": 895
+              }
+            },
+            {
+              "speaker": 900,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 862,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 455,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 441,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 285,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 276,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 388,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 374,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 374,
+              "kind": "tile",
+              "flags": 0,
+              "condition_flag": null,
+              "tile": [
+                15,
+                7
+              ],
+              "original": {
+                "speaker": 360,
+                "tile": [
+                  15,
+                  7
+                ]
+              }
+            },
+            {
+              "speaker": 401,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 398,
+              "original": {
+                "speaker": 387,
+                "target": 384
+              }
+            },
+            {
+              "speaker": 468,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 936,
+              "original": {
+                "speaker": 454,
+                "target": 895
+              }
+            },
+            {
+              "speaker": 468,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 431,
+              "original": {
+                "speaker": 454,
+                "target": 417
+              }
+            },
+            {
+              "speaker": 471,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 431,
+              "original": {
+                "speaker": 456,
+                "target": 417
+              }
+            },
+            {
+              "speaker": 484,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 379,
+              "original": {
+                "speaker": 467,
+                "target": 365
+              }
+            },
+            {
+              "speaker": 411,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 948,
+              "original": {
+                "speaker": 397,
+                "target": 907
+              }
+            },
+            {
+              "speaker": 411,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 441,
+              "original": {
+                "speaker": 397,
+                "target": 427
+              }
+            },
+            {
+              "speaker": 197,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 211,
+              "original": {
+                "speaker": 194,
+                "target": 208
+              }
+            },
+            {
+              "speaker": 420,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 441,
+              "original": {
+                "speaker": 406,
+                "target": 427
+              }
+            },
+            {
+              "speaker": 330,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 331,
+              "original": {
+                "speaker": 320,
+                "target": 321
+              }
+            },
+            {
+              "speaker": 331,
+              "kind": "pilot",
+              "flags": 0,
+              "condition_flag": null,
+              "target": 330,
+              "original": {
+                "speaker": 321,
+                "target": 320
+              }
+            }
+          ]
+        }
       },
       "stage_objects_source": "STAGE138 entry (0x146280 / 0x146160 before the map starts)"
     }

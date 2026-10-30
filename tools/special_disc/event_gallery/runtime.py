@@ -166,6 +166,7 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     talk_chunks: list[list[str]] = []
     talk_op_tables: list[str] = []
     far_data: list[str] = []
+    quiet_data: list[str] = []
     for scene, entry in zip(scenes, entries):
         index = scene["row"]
         compiled = compile_scene(index, entry["fidelity"], scene["effect_tile"], scene["effects"])
@@ -176,11 +177,22 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         data_lines += compiled["data"]
         far_data += compiled["far_data"]
         if compiled["talk_ops"]:
-            # (record address, section | cursor << 16) per map-dialogue op; 0-terminated.
+            # (record address, section | cursor << 16, speaking pilots) per
+            # map-dialogue op; 0-terminated. Circle mode gosubs into runtime.S
+            # gallery_quiet_sub with the 0xffff-terminated pilot list (record +12
+            # as encode_talk writes it), which replays the section's cursor moves.
+            sections = {sec["section"]: sec for sec in (talk or {}).get(scene["id"], [])}
             data_lines += [".align 4", f"gallery_talkops_{index}:"]
-            data_lines += [f"    .word {label},{section | (cursor << 16)}"
-                           for label, section, cursor in compiled["talk_ops"]]
-            data_lines.append("    .word 0,0")
+            for k, (label, section, cursor) in enumerate(compiled["talk_ops"]):
+                if section not in sections:
+                    raise ValueError(f"{scene['id']}: talk op for missing section {section}")
+                pilots = [r["words"][3] for r in sections[section]["records"] if r["text"] is not None]
+                if any(type(p) is not int or not 0 <= p < 0x8000 for p in pilots):
+                    raise ValueError(f"{scene['id']}: section {section} has an unresolved speaker")
+                quiet_data += [".align 2", f"gallery_quiet_{index}_{k}:",
+                               "    .hword " + ",".join(map(str, pilots + [0xFFFF]))]
+                data_lines.append(f"    .word {label},{section | (cursor << 16)},gallery_quiet_{index}_{k}")
+            data_lines.append("    .word 0,0,0")
             talk_op_tables.append(f"    .word gallery_talkops_{index}")
         else:
             talk_op_tables.append("    .word 0")
@@ -208,6 +220,9 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     output = Path(outdir)
     output.mkdir(parents=True, exist_ok=True)
     (output / "gallery-scenes.inc").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    # The circle-mode speaker lists go after all runtime code (runtime.S ends
+    # with this include), so they do not push code out of branch range.
+    (output / "gallery-quiet.inc").write_text("\n".join(["/* Generated circle-mode map-dialogue stand-ins. */"] + quiet_data) + "\n", encoding="utf-8")
     (output / "runtime-scenes.json").write_text(
         json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

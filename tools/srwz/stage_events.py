@@ -33,6 +33,8 @@ DEPLOYMENT_GROUP_SLOT = 0x595268
 DEPLOYMENT_RECORD_SLOT = 0x595258
 DEPLOYMENT_SQUAD_SLOT = 0x595260
 DEPLOYMENT_COUNT_SLOT = 0x595250
+SPEAKER_SLOT = 0x5952A8  # SP 0x61e1a8
+SPEAKER_KINDS = {0: "unit_kind0", 1: "unit", 2: "pilot", 3: "tile", 4: "pilot_offset", 5: "no_cursor", 6: "unit_kind14", 7: "special"}
 
 # SLPS helpers reachable from overlay handler code.
 FN_RUN_SCRIPT = 0x17A960
@@ -1332,6 +1334,45 @@ def deployment_groups(data: bytes, installed: dict[int, int]) -> list[list[int]]
         groups.append(pilots)
         off += 8
     return groups
+
+
+def speaker_positions(data: bytes, installed: dict[int, int]) -> list[dict[str, Any]]:
+    """Where the map-dialogue cursor goes for each speaker (table at ``0x5952a8``).
+
+    SP ``FUN_0017cd20`` (record method at ``0x221b30``) looks the speaker up with
+    ``FUN_0017c540`` in this table, then in the built-in table at SP
+    ``0x458340`` (crew -> ship pilot), and only then falls back to the first
+    eligible actor.  Entries are 8 half-words: speaker pilot (-1 ends, -2 any),
+    flags (low byte: bit 0 selects the second lookup pass, bit 1 hides the
+    cursor afterwards) | kind << 8, a 32-bit target id or x, y / dy, dx / dy,
+    and a stage flag that must be set (bitset ``0x5dbc40`` in SP; -1/0 = none).
+    Kinds: 0 actor by id kind 0, 1 actor carrying unit, 2 actor carrying pilot,
+    3 fixed tile (x, y), 4 tile offset from a pilot's actor, 5 no cursor,
+    6 actor by id kind 14, 7 the first active actor of slots 45-55.  The first
+    matching entry wins.
+    """
+
+    address = installed.get(SPEAKER_SLOT)
+    if not address or not BASE <= address < BASE + len(data):
+        return []
+    entries, off = [], address - BASE
+    while off + 16 <= len(data) and len(entries) < 512:
+        w = struct.unpack_from("<8h", data, off)
+        if w[0] == -1:
+            break
+        kind = (w[1] >> 8) & 0xFF
+        entry: dict[str, Any] = {"speaker": w[0], "kind": SPEAKER_KINDS.get(kind, kind),
+                                 "flags": w[1] & 0xFF, "condition_flag": w[6] if w[6] > 0 else None}
+        if kind == 3:
+            entry["tile"] = [w[2] & 0xFF, w[4]]
+        elif kind == 4:
+            entry["pilot"] = struct.unpack_from("<i", data, off + 4)[0]
+            entry["offset"] = [w[4], w[5]]
+        elif kind in (0, 1, 2, 6):
+            entry["target"] = struct.unpack_from("<i", data, off + 4)[0]
+        entries.append(entry)
+        off += 16
+    return entries
 
 
 def deployment_placements(data: bytes, installed: dict[int, int]) -> list[list[dict[str, Any]]]:
