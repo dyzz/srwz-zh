@@ -176,7 +176,7 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         lines.append("    .word 1,32767,0,0")
         data_lines += compiled["data"]
         far_data += compiled["far_data"]
-        if compiled["talk_ops"]:
+        if compiled["talk_ops"] or compiled["mode_words"]:
             # (record address, section | cursor << 16, speaking pilots) per
             # map-dialogue op; 0-terminated. Circle mode gosubs into runtime.S
             # gallery_quiet_sub with the 0xffff-terminated pilot list (record +12
@@ -193,6 +193,10 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
                                "    .hword " + ",".join(map(str, pilots + [0xFFFF]))]
                 data_lines.append(f"    .word {label},{section | (cursor << 16)},gallery_quiet_{index}_{k}")
             data_lines.append("    .word 0,0,0")
+            # Then (word address, triangle value, circle value) per mode word; 0-terminated.
+            for label, triangle, circle in compiled["mode_words"]:
+                data_lines.append(f"    .word {label},{triangle},{circle}")
+            data_lines.append("    .word 0")
             talk_op_tables.append(f"    .word gallery_talkops_{index}")
         else:
             talk_op_tables.append("    .word 0")

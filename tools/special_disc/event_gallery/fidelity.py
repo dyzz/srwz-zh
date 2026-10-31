@@ -7,7 +7,9 @@ numbers in the configuration are already SP definition IDs; the Original IDs
 and the mapping evidence are kept beside them for review.
 
 Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
-  0x01 a          wait a frames
+  0x01 a          wait a frames (a >= 1: 0x01 0 never ends)
+  wait_modes t,c  0x01 t with triangle (dialogue), 0x01 c with circle (effects
+                  only): runtime.S gallery_talk_mode sets the operand at scene start
   0x43 a          load + play BGM a (FUN_00182fc0(a, b, c, 1, 3, 0))
   bgm_pause       native FUN_00183220(2): pause the current BGM (cmd 0x20)
   form_se         native FUN_00182a50(0x2a, 1): the form-change sound of op 0x1d
@@ -183,7 +185,7 @@ def speaker_table(entries: Sequence[dict[str, Any]], label: str) -> list[str]:
 
 def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int],
                   effects: Sequence[int]) -> dict[str, Any]:
-    """Return {'script', 'data', 'far_data' (placed after the packet buffer), 'talk_ops', 'receipt'} for one row."""
+    """Return {'script', 'data', 'far_data' (placed after the packet buffer), 'talk_ops', 'mode_words', 'receipt'} for one row."""
     script: list[str] = []
     data: list[str] = []
     groups = fidelity.get("units", {})
@@ -272,10 +274,19 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
 
     used_effects: list[int] = []
     talk_ops: list[tuple[str, int, int]] = []
+    mode_words: list[tuple[str, int, int]] = []
     for op in fidelity["timeline"]:
         kind, args = op[0], op[1:]
         if kind == "wait":
             word(1, _id(args[0], "wait", 0x7FFF), 0, 0)
+        elif kind == "wait_modes":
+            triangle, circle = _id(args[0], "wait", 0x7FFF), _id(args[1], "wait", 0x7FFF)
+            if min(triangle, circle) < 1:
+                raise ValueError(f"row {row}: op 0x01 0 never ends; wait at least one frame")
+            label = f"gallery_modewait_{row}_{len(mode_words)}"
+            mode_words.append((f"{label}+4", triangle, circle))
+            script.append(f"{label}:")
+            word(1, triangle, 0, 0)
         elif kind == "bgm":
             word(0x43, _id(args[0], "bgm", 0x65), 0, 0)
         elif kind == "bgm_pause":
@@ -363,6 +374,7 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
     if sorted(set(used_effects)) != sorted(set(effects)):
         raise ValueError(f"row {row}: timeline effects {used_effects} differ from catalog {list(effects)}")
     return {"script": script, "data": data, "far_data": far_data, "talk_ops": talk_ops,
+            "mode_words": mode_words,
             "receipt": {"records": sum(1 for line in script if line.startswith("    .word")),
                         "unit_groups": list(groups), "ghost_table": ghost is not None,
-                        "talk_ops": len(talk_ops)}}
+                        "talk_ops": len(talk_ops), "mode_words": len(mode_words)}}

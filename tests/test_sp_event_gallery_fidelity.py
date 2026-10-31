@@ -212,6 +212,19 @@ class FidelityTimelineTests(unittest.TestCase):
         # talk op table: record, section | cursor << 16 ("talk", 16, 1), speaker list
         self.assertIn(f",{16 | (1 << 16)},gallery_quiet_0_{k}", scenes)
 
+    def test_circle_mode_shortens_the_row9_charge(self):
+        # User 2026-10-30: fewer charge explosions in circle mode, triangle unchanged.
+        # The waits inside the 0x13a3..0x13a4 charge keep their triangle values and
+        # get circle values through the mode words after the talk-op table.
+        timeline = self.entries[9]["fidelity"]["timeline"]
+        on = timeline.index(["raw", 5027, 131075, 150994959, 2949120])
+        off = timeline.index(["raw", 5028, 131075, 150994944, 0])
+        modes = [op[1:] for op in timeline[on:off] if op[0] == "wait_modes"]
+        self.assertEqual(modes, [[16, 1], [16, 1], [16, 3], [8, 3], [30, 1]])
+        compiled = compile_scene(9, self.entries[9]["fidelity"], [33, 24], [268])
+        self.assertEqual(compiled["mode_words"][0], ("gallery_modewait_9_0+4", 16, 1))
+        self.assertIn("gallery_modewait_9_0:", compiled["script"])
+
 
 if __name__ == "__main__":
     unittest.main()

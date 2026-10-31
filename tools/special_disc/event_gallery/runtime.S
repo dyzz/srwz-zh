@@ -1266,7 +1266,8 @@ list_input_done:
 gallery_talk_mode:
     /* Scene start: triangle (+0xd0 != 0) restores op 0x0f n of every map-dialogue
      * op; circle (effects only) turns it into "0x52 gallery_quiet_sub, pilots",
-     * which moves the cursor and camera as the section's speakers would. */
+     * which moves the cursor and camera as the section's speakers would. The
+     * mode words after the table's terminator are set for the chosen mode. */
     lw      $t0,0($s1)
     sll     $t0,$t0,2
     lui     $t1,%hi(gallery_talkop_tables)
@@ -1277,7 +1278,7 @@ gallery_talk_mode:
     lw      $t2,0xd0($s1)
 talk_mode_next:
     lw      $t3,0($t1)       /* record address */
-    beq     $t3,$zero,talk_mode_done
+    beq     $t3,$zero,mode_word_next
     lw      $t4,4($t1)       /* section | cursor << 16 */
     beq     $t2,$zero,talk_mode_quiet
     andi    $t5,$t4,0xffff
@@ -1300,6 +1301,19 @@ talk_mode_quiet:
 talk_mode_step:
     b       talk_mode_next
     addiu   $t1,$t1,12
+mode_word_next:
+    /* After the talk ops: (word address, triangle value, circle value) per
+     * mode-dependent word, e.g. a wait that circle mode shortens; 0-terminated. */
+    addiu   $t1,$t1,12
+    lw      $t3,0($t1)
+    beq     $t3,$zero,talk_mode_done
+    lw      $t4,4($t1)
+    bne     $t2,$zero,mode_word_store
+    nop
+    lw      $t4,8($t1)
+mode_word_store:
+    b       mode_word_next
+    sw      $t4,0($t3)
 talk_mode_done:
     jr      $ra
     nop
