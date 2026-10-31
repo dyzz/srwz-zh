@@ -4,7 +4,7 @@ The runner (armsx2-runner, branch srwz/test-runner) advances the VM only when a
 command asks it to, so a command list replays to the same frames every time. The
 protocol is the one tools have used with lrps2_drive.py -- run / press / hold /
 release / shot / mem / poke / watch / state -- plus load, dump, perf and the probes
-(trace / untrace / traces / tracedump, storewatch / unstorewatch). Every reply ends
+(trace / untrace / traces / tracedump, storewatch / unstorewatch, audio / voices). Every reply ends
 with an "OK frame=N" or "ERR ..." line.
 
 Differences from LRPS2 that matter to callers: savestates are ARMSX2 .p2s, and the

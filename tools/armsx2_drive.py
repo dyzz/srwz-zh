@@ -28,6 +28,11 @@ with 'OK frame=N' or 'ERR ...'):
                         append to OUTDIR/store-hits.jsonl. The interpreter counts
                         cycles a little differently, so frames shot while it runs can
                         differ by a few pixels from a JIT run (still repeatable).
+  audio start / audio stop PATH
+                        record the SPU2 mix silently: PATH (.wav, 16-bit stereo,
+                        48 kHz) plus PATH.keys.jsonl with every voice key-on/off
+                        (frame, sample, start/loop address, pitch, ADSR, volume)
+  voices [all]          SPU2 voices that are playing (phase, envelope, addresses)
 
 For scripted runs, prefer tools/srwz/armsx2_runtime.Armsx2Session. For the text the
 game draws (every glyph with its screen position), arm
