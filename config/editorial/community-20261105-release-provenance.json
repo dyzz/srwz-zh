@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "reason": "GitHub GH007 required replacing private commit email with the existing repository noreply identity. All rewritten commit trees and built artifact bytes are unchanged.",
+  "commitIdentityRewrite": {
+    "old_head": "770882936873bb192075bab51e561778b9297af3",
+    "new_head": "e4f35a3148bc8487b7ede54cabbd355809c86014",
+    "tree_unchanged": true,
+    "commits": {
+      "b2ff32d530bbfb38aded594c21dc62cf125e6728": "271a6ac6c9e50026e54ac656f9868ddf688e82a7",
+      "61ebe9c357d5b097f25662ebce27c3264a1d4a0e": "f7e89d952b65de58aa79b4089880720a88574338",
+      "1a03f0b857f3ed1bcd647e262469fcd81cde4dad": "f9c96428f26d56da0392cffcd03310907be61d50",
+      "8cd6cd5681e1fce8db349afc544998f20939d028": "19baf410b7473ab247b6ff14357d40f3efc2c89f",
+      "09be8bda06f45f3ce37a03fc96bab597f72c4ebb": "0ab806267598e2129d986962f78b577eba4b15e9",
+      "d822aecbcfd3f228ce107d028891018583ebea50": "3bea70dd55cc1a3c9a8aacadcab2d4fbbf7ae68b",
+      "3784bc5bcf9f9d0c9e39a08f856760b98eb93840": "6b51184169290089d152b0b523e05e26d8a77727",
+      "7f2938cd326d30edb11efb3df372f74fdf538bbc": "0cf60330ce7b29768465c22cce81649737d676f4",
+      "6010668890a6cc3b52d05e85b590d590255e3879": "5f039ae3e7c66127d476398ded5e639ad2246da1",
+      "fc12b26e1ca52d1f08b75e8d2c6065536263ab2c": "33a97e36a719d7f4df14376f377c88166b5ebf4e",
+      "bb91d0fa0a8c3ce77a9bd036cbafcb3ffbdba363": "b91609ba46d9aea0b7451968f89e93f1bcca74ca",
+      "bee785a86a18c5162588874a018a78ad26c8100e": "78dd8ff125fbc3944ed9d888dad76582a4e8f3bc",
+      "9ae4edcec71ae98d326bb18e4deb320f590692ef": "4cce648dc2dbaf76b089349a5472a2e3227530a5",
+      "8d0bbcd8449d9eb6fec569eda671bfa8c36ca11c": "02e4ed84c41f8e029aacbbe730477276988e8080",
+      "bc90160c1d70ee244ebb8f0c2f3cd5a3f9164e79": "99e0b5bb3c7e5f613df5deaa82e37276d457e00e",
+      "b57038402a3000ef7792054f0ac80e25c52d656d": "9f58ee524a5c22cb91cf3e84939a2c36bdb4b1c5",
+      "1019417397b0f9144a6642b7cd8d4ad8a3c3a0d6": "fdb7ca724ea7b9e65b883cc91c99a31d00395b74",
+      "995f4502ecf42eb89387a1b4b029597a5dc1b181": "45cf0c3f407e6f996f9780dafa5f4e497a643838",
+      "0c2dacf435589d4e29549e931b7cb9f3f7418cd3": "f8275bb3a4e5f0aa6a31a6d8ac388b7daa31b8e9",
+      "b9db0cecf7488ab98a23761cca69fdc9f999dcd7": "3c000b2bb0f932c03d5413e4a5e2ee05c8fa93f0",
+      "e362d92bf143cca886a0ed097f1ee90b01fedbc5": "d9f8227128cd8b3a40ff28d71e350305afd6048a",
+      "1cf208607a536926fc8206510a0be058cf736adc": "fabbca3a03e4d67e0867d29c4521d8c905a80091",
+      "b523e71f42ebb25d74360e79ee898137740aa4b3": "13619ae61494d3eea44c3eeb84a042efa6b466ff",
+      "770882936873bb192075bab51e561778b9297af3": "e4f35a3148bc8487b7ede54cabbd355809c86014"
+    }
+  },
+  "editionVerificationStatus": "edition_batch_receipt_integrity_passed",
+  "runtimeEvidence": {
+    "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-original/current-original.iso",
+    "sha256": "1fca020ed07a049b41d1ffe030460f419c0d9de30b9fefdd45f4bdaf8f2c9206",
+    "evidence": "ARMSX2 runner cold boot and native scene replay",
+    "scope": "Temporarily select native postbattle scene block 2 in RAM; no text changes; not natural battle completion.",
+    "targets": [
+      "story/001/dialogue/02.01/0006",
+      "story/001/dialogue/02.01/0008"
+    ],
+    "glossary": "square popup screenshot captured",
+    "tested_iso_path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/release-checkouts/community-20261105/build/iso/zh-release-original/current-original.iso",
+    "visual_inspection": "Both scene screenshots show Chinese single quotes; native glossary popup opens."
+  }
+}
