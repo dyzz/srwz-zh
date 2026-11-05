@@ -19,8 +19,6 @@ from srwz.archive import sha256_file
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
     load_layout_profiles,
-    DEFAULT_LINE_WIDTH,
-    DEFAULT_MAX_LINES,
     dialogue_line_widths,
 )
 from srwz.codec import decode_production as decode
@@ -4065,6 +4063,12 @@ def verify_library_scoped_actor_corrections(slps: bytes, archive: bytes, table: 
 
 def main() -> int:
     args = parse_args()
+    dialogue_profile = load_layout_profiles(
+        PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
+    )["story_dialogue"]
+    first_line_limit = dialogue_profile.first_line_maximum_width or dialogue_profile.maximum_width
+    continuation_line_limit = dialogue_profile.maximum_width
+    dialogue_line_limit = dialogue_profile.maximum_lines
     iso_path = project_path(args.iso)
     report_path = project_path(args.report)
     manifest_path = project_path(args.manifest)
@@ -6989,14 +6993,17 @@ def main() -> int:
                 widths = dialogue_line_widths(
                     expected_translation,
                     stage_keyword_links=("《" in source_entry.text),
+                    default_advance_px=dialogue_profile.default_advance_px,
                 )
                 if (
-                    len(widths) > DEFAULT_MAX_LINES
-                    or max(widths, default=0) > DEFAULT_LINE_WIDTH
+                    len(widths) > dialogue_line_limit
+                    or (widths and widths[0] > first_line_limit)
+                    or max(widths[1:], default=0) > continuation_line_limit
                 ):
                     raise SystemExit(
-                        f"{entry_id} exceeds {DEFAULT_LINE_WIDTH}x"
-                        f"{DEFAULT_MAX_LINES} dialogue layout: {widths!r}"
+                        f"{entry_id} exceeds dialogue layout "
+                        f"({first_line_limit}/{continuation_line_limit} cells, "
+                        f"{dialogue_line_limit} lines): {widths!r}"
                     )
                 stage_maximum_line_count = max(
                     stage_maximum_line_count,
@@ -7404,7 +7411,7 @@ def main() -> int:
             "speaker entries, "
             "plus reviewed save/load overviews, pilot-name, button-prompt, "
             "title-idle work-title and speaker-name overlays, "
-            f"{DEFAULT_LINE_WIDTH}x{DEFAULT_MAX_LINES} layout, runtime-token, "
+            f"{first_line_limit}/{continuation_line_limit} cells x {dialogue_line_limit} lines layout, runtime-token, "
             "and font checks; this is not a full gameplay playthrough."
         ),
         "iso": {
@@ -7442,8 +7449,10 @@ def main() -> int:
             remaining_squad_count_alignment_readback
         ),
         "dialogue_layout": {
-            "line_width_limit": DEFAULT_LINE_WIDTH,
-            "line_count_limit": DEFAULT_MAX_LINES,
+            "line_width_limit": continuation_line_limit,
+            "first_line_width_limit": first_line_limit,
+            "default_advance_px": dialogue_profile.default_advance_px,
+            "line_count_limit": dialogue_line_limit,
             "maximum_line_width": maximum_dialogue_line_width,
             "maximum_line_count": maximum_dialogue_line_count,
             "all_dialogue_within_limit": True,
@@ -7948,9 +7957,9 @@ def main() -> int:
             "unknown_code_count_zero": True,
             "translation_entry_count_exact": total_entries
             == expected_entry_count,
-            "dialogue_layout_21x3_exact": (
-                maximum_dialogue_line_width <= DEFAULT_LINE_WIDTH
-                and maximum_dialogue_line_count <= DEFAULT_MAX_LINES
+            "dialogue_layout_profile_exact": (
+                maximum_dialogue_line_width <= max(first_line_limit, continuation_line_limit)
+                and maximum_dialogue_line_count <= dialogue_line_limit
             ),
             "runtime_substitution_tokens_raw_ascii": True,
             "stock_alphanumeric_glyphs_byte_exact": (

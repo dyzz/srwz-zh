@@ -72,7 +72,7 @@ _STAGE_NAME = re.compile(r"stage-(\d{3})\.json$")
 
 
 def story_layout_profile():
-    """Return the production dialogue layout profile (21 cells x 3 lines).
+    """Return the configured production dialogue layout profile.
 
     The profile references the generated unbroken word list, so line breaks
     chosen at build time never fall inside a common word or a proper name.
