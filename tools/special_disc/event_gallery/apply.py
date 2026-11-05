@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 from srwz.codec import decode_production
 from special_disc.event_gallery.aid import patch_aid
 from special_disc.event_gallery.menu import build as build_menu
+from special_disc.event_gallery.ligature import build as build_ligature, ADDRESS as LIGATURE_ADDRESS, build_w, W_ADDRESS
 from special_disc.event_gallery.subtitles import (build_many, records as resource_records,
                                                   CAPTION_DISPLAY_WIDTH, caption_geometry, vram_limit_for)
 from special_disc.event_gallery.runtime import generate as generate_runtime
@@ -41,6 +42,15 @@ PROPOSAL = ROOT / "work/build/special-disc/text-candidate/font/proposal.json"
 MEMBERS = ("SLPS_259.20", "AID_DATA/AIDDATA.BIN", "EFF/VEFF2DX.BIN")
 # Instruction sites rewritten in the executable: (address, expected words, replacement words).
 HOOKS = (
+    # The reserved ti slot is uploaded from the private glyph, not shared VT1.
+    (0x13D0CC, (0x01496021, 0x01065821),
+     (0x08000000 | ((RUNTIME_BASE + 0x5D0) >> 2), 0)),
+    # Extend the aligned menu digits upward by half a native Y unit.
+    (0x13BDA0, (0x01894825, 0x250B0017),
+     (0x08000000 | ((RUNTIME_BASE + 0x580) >> 2), 0)),
+    # Before packet generation, bounded by the gallery's encoded strings.
+    (0x13B5F0, (0x9223004A, 0xA2030012),
+     (0x08000000 | ((RUNTIME_BASE + 0x600) >> 2), 0)),
     (0x143EA8, (0x0C0913BC,), (0x0C000000 | (FRAME_ENTRY >> 2),)),
     (0x144B30, (0x0C050604,), (0x0C000000 | ((RUNTIME_BASE + 0xA00) >> 2),)),
     (0x144B00, (0x0C05B790,), (0x0C000000 | ((RUNTIME_BASE + 0xE00) >> 2),)),
@@ -150,7 +160,7 @@ def caption_quad() -> bytes:
 
 
 def apply_event_gallery(elf: bytes, aid: bytes, veff: bytes, *, config: dict | None = None,
-                        workdir: Path, font: Path = FONT, proposal: Path = PROPOSAL) -> dict:
+                        workdir: Path, decoded_font: bytes, font: Path = FONT, proposal: Path = PROPOSAL) -> dict:
     """Return the gallery members plus the receipt binding every input.
 
     ``elf`` is the fully text-patched executable; the gallery hooks are applied
@@ -197,6 +207,16 @@ def apply_event_gallery(elf: bytes, aid: bytes, veff: bytes, *, config: dict | N
     if any(runtime[code_end:TALK_BASE - RUNTIME_BASE]):
         raise ValueError("Gallery runtime overlaps the per-frame GIF packet buffer")
     payload[:len(menu)] = menu
+    from special_disc.writeback.migrate_slps_text import encoding_tables
+    ligature, ligature_receipt = build_ligature(
+        decoded_font, json.loads(proposal.read_text()), encoding_tables(proposal)[0])
+    ligature_offset = LIGATURE_ADDRESS - PAYLOAD_BASE
+    payload[ligature_offset:ligature_offset + len(ligature)] = ligature
+    w_glyph, w_receipt = build_w(decoded_font, json.loads(proposal.read_text()), encoding_tables(proposal)[0])
+    w_offset = W_ADDRESS - PAYLOAD_BASE
+    if any(payload[w_offset:w_offset + len(w_glyph)]):
+        raise ValueError("Gallery menu overlaps private w glyph")
+    payload[w_offset:w_offset + len(w_glyph)] = w_glyph
     payload[0x2000:0x2000 + len(runtime)] = runtime
     for row in menu_receipt["patches"]:
         address = int(row, 0)
@@ -273,6 +293,8 @@ def apply_event_gallery(elf: bytes, aid: bytes, veff: bytes, *, config: dict | N
     elf_out = bytes(elf_out)
     veff_out = bytes(veff_out)
     receipt = {
+        "list_ligature": ligature_receipt,
+        "list_w_glyph": w_receipt,
         "config": {"path": str(CONFIG.relative_to(ROOT)), "sha256": sha(CONFIG.read_bytes())},
         "subtitle_source": {"path": config.get("subtitle_source"),
                             "sha256": sha((ROOT / config["subtitle_source"]).read_bytes()) if config.get("subtitle_source") else None},
@@ -326,5 +348,12 @@ def verify_gallery_members(elf: bytes, veff: bytes, receipt: dict) -> dict:
         if sha(decoded) != sub["decoded_sha256"]:
             raise AssertionError(f"subtitled effect {sub['effect']} readback drift")
         checked += 1
+    ligature = receipt["list_ligature"]
+    at = payload["offset"] + LIGATURE_ADDRESS - PAYLOAD_BASE
+    if sha(elf[at:at + 288]) != ligature["glyph_sha256"]:
+        raise AssertionError("gallery ti glyph readback mismatch")
+    at = payload["offset"] + W_ADDRESS - PAYLOAD_BASE
+    if sha(elf[at:at + 288]) != receipt["list_w_glyph"]["glyph_sha256"]:
+        raise AssertionError("gallery w glyph readback mismatch")
     return {"hooks": len(HOOKS), "subtitled_chunks": checked, "payload_offset": payload["offset"],
             "packet_buffer": f"{PACKET_BASE:#x}+{PACKET_SIZE:#x} clear"}

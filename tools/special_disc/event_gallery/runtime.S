@@ -54,6 +54,8 @@ selector_return:
 .ent gallery_frame
 gallery_frame:
     lui     $t0,0x0082
+    sw      $zero,0x1be0($t0)
+    sw      $zero,0x1be4($t0)
     lw      $t1,0x1f04($t0)
     bne     $t1,$zero,frame_active
     nop
@@ -360,6 +362,81 @@ list_draw_original:
     sd      $ra,0x20($sp)
     j       0x00320f38
     nop
+
+/* Enlarge only height-8 menu digits to 8.5 native units. Their aligned
+ * bottom vertex stays fixed; the top moves up half a native Y unit.
+ * Showtime letters keep height 9; reviewed widths are set by the menu.
+ */
+.org 0x580
+.globl gallery_list_digit_height
+gallery_list_digit_height:
+    or      $t1,$t4,$t1      /* displaced bottom-right XYZ composition */
+    lui     $at,0x0082
+    lw      $t3,0x1be0($at)
+    sltu    $at,$a3,$t3
+    bne     $at,$zero,list_digit_height_done
+    lui     $at,0x0082
+    lw      $t3,0x1be4($at)
+    sltu    $at,$a3,$t3
+    beq     $at,$zero,list_digit_height_done
+    lhu     $t3,0x0e($a3)
+    addiu   $t3,$t3,-8
+    bne     $t3,$zero,list_digit_height_done
+    lui     $at,0x0008
+    dsubu   $t5,$t5,$at
+list_digit_height_done:
+    j       0x0013bda8
+    addiu   $t3,$t0,23      /* displaced UV computation */
+
+/* Reserve font slots 110 (ti) and 113 (w), checked blank/unassigned by the
+ * builder. Native upload requests hold glyph_index*288 in T1. These slots
+ * source private rasters; every other upload keeps the original font pointer.
+ */
+.org 0x5d0
+.globl gallery_ti_upload
+gallery_ti_upload:
+    j       gallery_private_upload
+    nop
+
+/* Before native packet generation: correct only glyphs sourced from the
+ * gallery menu pool. S4 is the pointer just after the current encoded glyph.
+ * V0/V1 are dead here; restore AT and replay both displaced instructions.
+ */
+.org 0x600
+.globl gallery_list_glyph
+gallery_list_glyph:
+    lui     $at,0x0082
+    subu    $v0,$s4,$at
+    sltiu   $v0,$v0,0x1be0
+    beq     $v0,$zero,list_glyph_clear
+    nop
+    lw      $v0,0x1be0($at)
+    bne     $v0,$zero,list_glyph_end
+    nop
+    sw      $s0,0x1be0($at)
+list_glyph_end:
+    addiu   $v0,$s0,0x20
+    b       list_glyph_digit
+    sw      $v0,0x1be4($at)
+list_glyph_clear:
+    sw      $zero,0x1be0($at)
+    sw      $zero,0x1be4($at)
+list_glyph_digit:
+    lui     $v0,0x0082
+    subu    $v0,$s4,$v0
+    sltiu   $v0,$v0,0x1be0
+    beq     $v0,$zero,list_glyph_done
+    lhu     $v0,0x0e($s0)
+    addiu   $v0,$v0,-8
+    bne     $v0,$zero,list_glyph_done
+    lh      $v0,0x06($s0)
+    addiu   $v0,$v0,1
+    sh      $v0,0x06($s0)
+list_glyph_done:
+    lui     $at,0x7000
+    lbu     $v1,0x4a($s1)
+    j       0x0013b5f8
+    sb      $v1,0x12($s0)
 
 .org 0x700
 .globl gallery_draw_caption
@@ -1549,3 +1626,23 @@ gallery_quiet_again:
 
 .align 4
 .include "gallery-quiet.inc"
+
+/* Only the gallery's reserved ti/w slots use private rasters. */
+.align 4
+gallery_private_upload:
+    addu    $t4,$t2,$t1
+    ori     $at,$zero,0x7bc0 /* 110 * 288 */
+    beq     $t1,$at,private_upload_ti
+    nop
+    ori     $at,$zero,0x7f20 /* 113 * 288 */
+    bne     $t1,$at,private_upload_done
+    nop
+    lui     $t4,0x0082
+    b       private_upload_done
+    ori     $t4,$t4,0x1400
+private_upload_ti:
+    lui     $t4,0x0082
+    ori     $t4,$t4,0x1d00
+private_upload_done:
+    j       0x0013d0d4
+    addu    $t3,$t0,$a2

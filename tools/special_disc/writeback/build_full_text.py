@@ -350,7 +350,7 @@ def assemble():
     AID,VEFF=GALLERY_MEMBERS[1],GALLERY_MEMBERS[2]
     require(AID not in patches and VEFF not in patches,'gallery members must still be native before the gallery stage')
     gallery=timed('event-gallery',apply_event_gallery,patches[EXE],read_member(BASE,members,AID),read_member(BASE,members,VEFF),
-                  config=load_gallery_config(),workdir=WORK/'event-gallery')
+                  config=load_gallery_config(),workdir=WORK/'event-gallery',decoded_font=decoded_font)
     relocated=gallery['members'];del patches[EXE]
     # Voices SP's own effects request but its disc lacks (effect 256 frame 710)
     # are appended to CCC.MSB in place; KVMDATA.BIN, the member right after it,

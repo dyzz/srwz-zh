@@ -42,8 +42,12 @@ def build(source, output, outdir, config_path):
             return f.read(member.size)
 
     inputs = {name: read_member(name) for name in MEMBERS}
+    import struct
+    from srwz.codec import decode_production
+    offsets = struct.unpack_from("<2I", inputs[MEMBERS[0]], 0x353790 + 3 * 4)
+    font = decode_production(read_member("DATA/VT1.BIN")[offsets[0]:offsets[1]]).output
     result = apply_event_gallery(inputs[MEMBERS[0]], inputs[MEMBERS[1]], inputs[MEMBERS[2]],
-                                 config=load_config(config_path), workdir=outdir)
+                                 config=load_config(config_path), workdir=outdir, decoded_font=font)
     (outdir / "gallery.elf").write_bytes(result["members"][MEMBERS[0]])
     subprocess.run(["/bin/cp", "-c", str(source), str(working)], check=True)
     relocation = append_members(working, before, result["members"])

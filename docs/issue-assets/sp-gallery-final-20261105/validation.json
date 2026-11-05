@@ -1,0 +1,22 @@
+{
+  "iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "d3e0ac4955abf5eee1dd4378584ba90ae0334366e26d1ec8b6d81c842f3e530a",
+    "size": 3918858240
+  },
+  "build_input_digest": "584a2248b3fd14274685d07395ee57ebc13ef7148b3e3a87c6331177e6d392cd",
+  "static_readback": "passed",
+  "unit_tests": {
+    "command": "python3 -m unittest discover -s tests",
+    "run": 938,
+    "skipped": 1,
+    "result": "OK"
+  },
+  "gallery_unit_tests": 35,
+  "mips_hook_cases": 47,
+  "runtime_backend": "ARMSX2 sw",
+  "menu_screenshot_matches_accepted_candidate": true,
+  "animation_cases": 4,
+  "animation_roster_restored": true,
+  "pcsx2_manual": "not run"
+}
