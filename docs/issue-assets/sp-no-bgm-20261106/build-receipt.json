@@ -1,0 +1,130 @@
+{
+  "elf_sha256": "28893adfb5565814e4a4bf2a4128e4bc7ff7ee81f37cc15854c2d7fa7b727aa6",
+  "label_hex": "93f6814082618266826c00",
+  "patches": [
+    {
+      "address": "0x41855c",
+      "after": [
+        203454464
+      ],
+      "before": [
+        202399804
+      ]
+    },
+    {
+      "address": "0x418400",
+      "after": [
+        136345641,
+        0
+      ],
+      "before": [
+        666763232,
+        1006698614
+      ]
+    },
+    {
+      "address": "0x418260",
+      "after": [
+        604635197
+      ],
+      "before": [
+        604635182
+      ]
+    },
+    {
+      "address": "0x418388",
+      "after": [
+        715325444
+      ],
+      "before": [
+        715325443
+      ]
+    },
+    {
+      "address": "0x418330",
+      "after": [
+        1007878274
+      ],
+      "before": [
+        1007878269
+      ]
+    },
+    {
+      "address": "0x418340",
+      "after": [
+        645128672
+      ],
+      "before": [
+        645133040
+      ]
+    },
+    {
+      "address": "0x4185a4",
+      "after": [
+        1006829698
+      ],
+      "before": [
+        1006829693
+      ]
+    },
+    {
+      "address": "0x4185b0",
+      "after": [
+        610525680
+      ],
+      "before": [
+        610530048
+      ]
+    },
+    {
+      "address": "0x182e30",
+      "after": [
+        136345674,
+        0
+      ],
+      "before": [
+        666763168,
+        604110851
+      ]
+    },
+    {
+      "address": "0x182fc0",
+      "after": [
+        136345680,
+        0
+      ],
+      "before": [
+        666763152,
+        604110851
+      ]
+    }
+  ],
+  "payload_address": "0x81e000",
+  "payload_bytes": 512,
+  "source_elf_sha256": "0c75b41e0cb25570d4501fa1aa77269e998d8e5e0511dd221af8933f5efdfe3a",
+  "source_files": {
+    "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-sp/5795ee1284f14f08e275aa802477b9bcb7c6d6ae767ba1d5684c245dea50afe6/project/tools/special_disc/no_bgm/apply.py": "6e4718bd37a1289d59733cd8c9505ab85a0c64aad9710ad2c4921ada468301c4",
+    "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-sp/5795ee1284f14f08e275aa802477b9bcb7c6d6ae767ba1d5684c245dea50afe6/project/tools/special_disc/no_bgm/runtime.S": "dc637aefb5d1382f47306ee29de9efb247f479e60fbdcdefc092c11398a879f7"
+  },
+  "symbols": {
+    "__bss_start": 8577536,
+    "_edata": 8577536,
+    "_end": 8577536,
+    "_fbss": 8577536,
+    "_fdata": 8577536,
+    "_ftext": 8511488,
+    "_gp": 8610288,
+    "bgm_async": 8511808,
+    "bgm_sync": 8511784,
+    "help_label": 8511924,
+    "init_tables": 8511552,
+    "option_help": 8511984,
+    "option_label": 8511899,
+    "option_names": 8511968,
+    "select_silence": 8511680,
+    "settings_confirm": 8511652,
+    "settings_init": 8511488,
+    "silence": 8511832,
+    "silence_label": 8511888
+  }
+}
