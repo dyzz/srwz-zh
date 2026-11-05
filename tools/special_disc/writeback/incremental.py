@@ -35,6 +35,7 @@ ASSEMBLY_ONLY = ('config/products/special-disc/event-gallery.json',
                  'config/products/special-disc/event-gallery-voice/',
                  'config/products/special-disc/event-subtitles.json',
                  'tools/special_disc/event_gallery/',
+                 'tools/special_disc/no_bgm/',
                  'work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf')
 
 

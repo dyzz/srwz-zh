@@ -65,6 +65,7 @@ from special_disc.writeback.battle_status import apply_status_labels, MEMBER as 
 from special_disc.writeback.battle_prompts import apply_prompt_labels
 from special_disc.writeback.battle_titles import apply_title_labels
 from special_disc.writeback.battle_abilities import apply_ability_labels
+from special_disc.no_bgm.apply import apply_no_bgm
 from special_disc.event_gallery.apply import MEMBERS as GALLERY_MEMBERS, apply_event_gallery, load_config as load_gallery_config, verify_gallery_members
 from special_disc.event_gallery.voices import MSB as VOICE_MSB, MSH as VOICE_MSH, restore_voices, verify_restored
 from special_disc.iso_relocation import append_members, merge_spans, verify_relocation
@@ -352,6 +353,8 @@ def assemble():
     gallery=timed('event-gallery',apply_event_gallery,patches[EXE],read_member(BASE,members,AID),read_member(BASE,members,VEFF),
                   config=load_gallery_config(),workdir=WORK/'event-gallery',decoded_font=decoded_font)
     relocated=gallery['members'];del patches[EXE]
+    relocated[EXE], no_bgm_report = timed('battle-viewer-no-bgm', apply_no_bgm, relocated[EXE],
+                                        workdir=WORK/'no-bgm', proposal=PROPOSAL)
     # Voices SP's own effects request but its disc lacks (effect 256 frame 710)
     # are appended to CCC.MSB in place; KVMDATA.BIN, the member right after it,
     # moves to the image tail to make room. The directory grows in place.
@@ -386,6 +389,7 @@ def assemble():
     spans=[(members[n].extent_lba*2048,members[n].extent_lba*2048+len(d))for n,d in patches.items()]+[tuple(x)for x in relocation['touched_spans']]
     protected=timed('protected-ranges',verify_iso_ranges,BASE,temporary,merge_spans(spans))
     report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=protected['after_sha256']),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in {**patches,**relocated}.items()},protected_iso_ranges=protected,relocated_members=relocation,relocation_readback=relocation_readback,event_gallery=gallery['receipt'],event_gallery_voices=dict(voices['receipt'],readback=voice_readback),event_gallery_readback=gallery_readback,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
+    report['battle_viewer_no_bgm']=no_bgm_report
     report['weapon_detail_labels']=weapon_report
     report['current_shared_library']=library_report
     report['weapon_detail_parentheses']=weapon_parentheses_report
