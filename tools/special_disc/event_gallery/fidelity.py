@@ -10,12 +10,24 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
   0x01 a          wait a frames (a >= 1: 0x01 0 never ends)
   wait_modes t,c  0x01 t with triangle (dialogue), 0x01 c with circle (effects
                   only): runtime.S gallery_talk_mode sets the operand at scene start
-  0x43 a          load + play BGM a (FUN_00182fc0(a, b, c, 1, 3, 0))
+  circle_skip_to m [ops] / mark m  circle mode jumps forward to mark m:
+                  mode words lay "0x14 gallery_skip, 0, m" (after the optional
+                  circle-only ops) over the first records of the skipped part,
+                  so triangle keeps its records and timing unchanged
+  circle_tile / circle_facing (unit fields)  the spawn tile / facing circle
+                  mode uses instead (mode word on the spawn record)
+  circle_camera [x, y] (fidelity field)  the tile circle mode opens on (runtime.py:
+                  mode words on the scene table's camera, read by map initialization)
+  0x43 a          load + play BGM a (FUN_00182fc0(a, b, c, 1, 3, 0)); the script
+                  waits until the stream is ready. Circle mode (mode words, outside
+                  circle_skip_to parts) calls runtime.S gallery_bgm_nowait instead
   bgm_pause       native FUN_00183220(2): pause the current BGM (cmd 0x20)
   form_se         native FUN_00182a50(0x2a, 1): the form-change sound of op 0x1d
   0x46 m,k,v      stage model m: k=9 visibility (v 0 hide, 1 show), k=5 animate
                   to frame v, k=7 set frame v now, k=6/8 frame with high half
   0x56 / +rec     dynamic effect at tile (two records)
+  effect_shift    runtime.S gallery_effect_shift: move the running effect by world
+                  units (x, z), a fraction of a tile (0.5)
   0x57            wait until no dynamic effect is active
   0x0d p,m        spawn list p, appear on map (FUN_001b4d90); m is 2 unless the
                   timeline gives the stage's own (``["spawn", g, 1]``); a record whose
@@ -45,6 +57,7 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
 
 from __future__ import annotations
 
+import struct
 from typing import Any, Callable, Sequence
 
 VAR_FADE = 0x8001
@@ -82,7 +95,6 @@ def spawn_record(unit: dict[str, Any], squad_name: str) -> list[str]:
     (up to two {unit, pilot}) fill the squad's second and third slots; a unit's
     optional ``crew`` (pilot ids) are seated in it by gallery_prepare_units.
     """
-    x, y = _tile(unit["tile"], "spawn tile")
     head = unit.get("class", 4)
     appear = unit.get("appear", 1)
     facing = unit.get("facing", 0)
@@ -101,13 +113,19 @@ def spawn_record(unit: dict[str, Any], squad_name: str) -> list[str]:
         head | (2 << 8) | (appear << 16),
         0xFFFFFFFF,
         0x0000FFFE,
-        x | (y << 8) | (facing << 16) | (side << 24),
+        _spawn_place(unit),
         pilots[0] | (pilots[1] << 16),
         pilots[2] | (units[0] << 16),
         units[1] | (units[2] << 16),
         squad_name,
     ]
     return ["    .word " + ",".join(str(w) for w in words)]
+
+
+def _spawn_place(unit: dict[str, Any]) -> int:
+    """Spawn-record word +0xc: x, y, facing, side."""
+    x, y = _tile(unit["tile"], "spawn tile")
+    return x | (y << 8) | (unit.get("facing", 0) << 16) | (unit.get("side", 0) << 24)
 
 
 def deploy_tables(squads: Sequence[dict[str, Any]], label: str) -> list[str]:
@@ -188,6 +206,7 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
     """Return {'script', 'data', 'far_data' (placed after the packet buffer), 'talk_ops', 'mode_words', 'receipt'} for one row."""
     script: list[str] = []
     data: list[str] = []
+    mode_words: list[tuple[str, int, int]] = []
     groups = fidelity.get("units", {})
     if not isinstance(groups, dict):
         raise ValueError(f"row {row}: units must map group names to unit lists")
@@ -211,8 +230,13 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
                 for crew in member.get("crew", []):
                     data.append(f"    .hword 0xfffe,{_id(crew, 'crew pilot')}")
         data += ["    .hword 0xffff,0xffff", ".align 4", f"{spawn}:"]
-        for unit in units:
+        for k, unit in enumerate(units):
             data += spawn_record(unit, "gallery_empty_squad_name")
+            if "circle_tile" in unit or "circle_facing" in unit:
+                circle = {**unit, "tile": unit.get("circle_tile", unit["tile"]),
+                          "facing": unit.get("circle_facing", unit.get("facing", 0))}
+                # +0xc x, y, facing, side
+                mode_words.append((f"{spawn}+{32 * k + 12}", _spawn_place(unit), _spawn_place(circle)))
         data += ["    .word 0xff,0,0,0,0,0,0,0"]
 
     deploy_symbols: dict[str, str] = {}
@@ -269,13 +293,33 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
                           entry["facing"], 0xFFFF, 0xFFFF, entry["flag"]]
                 data.append("    .hword " + ",".join(str(v & 0xFFFF) for v in values))
 
+    # Circle-mode records still to lay over the next script records (circle_skip_to).
+    overlay: list[list[str]] = []
+    overlaid = [0]
+
     def word(*values: int | str) -> None:
-        script.append("    .word " + ",".join(str(_u32(v)) if isinstance(v, int) else v for v in values))
+        rendered = [str(_u32(v)) if isinstance(v, int) else v for v in values]
+        if overlay:
+            # Circle mode rewrites a talk record's words before the mode words
+            # apply, so over a talk record every word is laid, equal or not.
+            talk_record = bool(script) and script[-1].startswith("gallery_talkop_")
+            label = f"gallery_circlerec_{row}_{overlaid[0]}"
+            overlaid[0] += 1
+            script.append(f"{label}:")
+            for k, (triangle, circle) in enumerate(zip(rendered, overlay.pop(0))):
+                if triangle != circle or talk_record:
+                    mode_words.append((f"{label}+{4 * k}", triangle, circle))
+        script.append("    .word " + ",".join(rendered))
 
     used_effects: list[int] = []
-    talk_ops: list[tuple[str, int, int]] = []
-    mode_words: list[tuple[str, int, int]] = []
-    for op in fidelity["timeline"]:
+    talk_ops: list[tuple[str, int, int, bool]] = []
+    timeline = fidelity["timeline"]
+    marks = [op[1] for op in timeline if op[0] == "mark"]
+    if len(set(marks)) != len(marks):
+        raise ValueError(f"row {row}: duplicate timeline mark")
+    skipping = None
+    last_effect = max((k for k, op in enumerate(timeline) if op[0] == "effect"), default=len(timeline))
+    for position, op in enumerate(timeline):
         kind, args = op[0], op[1:]
         if kind == "wait":
             word(1, _id(args[0], "wait", 0x7FFF), 0, 0)
@@ -288,7 +332,14 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             script.append(f"{label}:")
             word(1, triangle, 0, 0)
         elif kind == "bgm":
-            word(0x43, _id(args[0], "bgm", 0x65), 0, 0)
+            track = _id(args[0], "bgm", 0x65)
+            if not overlay:
+                # Circle mode starts the track without the ~40-frame stream wait.
+                label = f"gallery_bgm_{row}_{position}"
+                mode_words += [(f"{label}+0", "67", "20"), (f"{label}+4", str(track), "gallery_bgm_nowait"),
+                               (f"{label}+12", "0", str(track))]
+                script.append(f"{label}:")
+            word(0x43, track, 0, 0)
         elif kind == "bgm_pause":
             word(0x14, "gallery_bgm_pause", 0, 0)
         elif kind == "form_se":
@@ -304,6 +355,8 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             word(0x56, 6, 0, x | (y << 16))
             word(0, effect_id, 1, 0)
             used_effects.append(effect_id)
+        elif kind == "effect_shift":
+            word(0x14, "gallery_effect_shift", *struct.unpack("<2I", struct.pack("<2f", *args)))
         elif kind == "wait_effects":
             word(0x57, 0, 0, 0)
         elif kind == "model":
@@ -364,11 +417,36 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             # is entered with circle (effects only) and restores it for triangle.
             section, cursor = _id(args[0], "talk section", 0x7FFF), int(args[1]) if len(args) > 1 else 0
             label = f"gallery_talkop_{row}_{len(talk_ops)}"
-            talk_ops.append((label, section, cursor))
+            # A camera op onto a unit right after the section (0x18 1/2) moves the
+            # camera and the cursor there, so circle mode skips replaying the
+            # section's cursor moves: the replay would only flash the last speaker's
+            # tile before the cut. 0x18 6 (tile) leaves the cursor where it was.
+            # Sections after the last effect are not replayed either: without the
+            # text the camera would only hop between speakers (and back) at the end.
+            following = timeline[position + 1] if position + 1 < len(timeline) else None
+            superseded = following is not None and following[0] == "raw" and \
+                following[1] == 0x18 and following[2] in (1, 2) or position > last_effect
+            talk_ops.append((label, section, cursor, superseded))
             script.append(f"{label}:")
             word(0x0F, section, 0, cursor)
         elif kind == "raw":
             word(*(int(v) for v in args))
+        elif kind == "circle_skip_to":
+            name, extra = args[0], (args[1] if len(args) > 1 else [])
+            if ["mark", name] not in timeline[position + 1:]:
+                raise ValueError(f"row {row}: circle_skip_to {name!r} has no later mark")
+            if overlay:
+                raise ValueError(f"row {row}: circle_skip_to {name!r} overlaps the previous skip")
+            lines = compile_scene(row, {"timeline": extra}, effect_tile, [])["script"] if extra else []
+            if any(not line.startswith("    .word ") for line in lines):
+                raise ValueError(f"row {row}: circle-only ops must be plain records")
+            overlay += [line[10:].split(",") for line in lines]
+            overlay.append(["20", "gallery_skip", "0", f"gallery_mark_{row}_{name}"])
+            skipping = name
+        elif kind == "mark":
+            if overlay and skipping == args[0]:
+                raise ValueError(f"row {row}: the part before mark {args[0]!r} is shorter than its circle records")
+            script.append(f"gallery_mark_{row}_{args[0]}:")
         else:
             raise ValueError(f"row {row}: unknown timeline operation {kind!r}")
     if sorted(set(used_effects)) != sorted(set(effects)):

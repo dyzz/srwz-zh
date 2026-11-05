@@ -823,8 +823,8 @@ gallery_transition_packet:
 gallery_save_roster:
     lui     $t0,0x005a
     ori     $t0,$t0,0x5080
-    lui     $t1,0x0084       /* snapshot base 0x844000 (dialogue blocks below) */
-    ori     $t1,$t1,0x4000
+    lui     $t1,0x0084       /* snapshot base 0x846000 (dialogue blocks below) */
+    ori     $t1,$t1,0x6000
     lui     $t2,0x0007
     ori     $t2,$t2,0x6940
 save_roster_loop:
@@ -868,8 +868,8 @@ save_regions_done:
     nop
 
 gallery_restore_roster:
-    lui     $t0,0x0084       /* snapshot base 0x844000 */
-    ori     $t0,$t0,0x4000
+    lui     $t0,0x0084       /* snapshot base 0x846000 */
+    ori     $t0,$t0,0x6000
     lui     $t1,0x005a
     ori     $t1,$t1,0x5080
     lui     $t2,0x0007
@@ -956,8 +956,12 @@ prepare_next:
     ori     $t0,$zero,0xffff
     beq     $s3,$t0,prepare_done
     ori     $t0,$zero,0xfffe
-    beq     $s3,$t0,crew_pilot
+    /* crew_pilot follows the scene data, out of conditional-branch range */
+    bne     $s3,$t0,prepare_unit
     addiu   $t0,$zero,1
+    j       crew_pilot
+    nop
+prepare_unit:
     sw      $zero,0x14($sp)  /* not a sub-pilot */
     lui     $s1,0x005c
     addiu   $s1,$s1,-0x6b00  /* 005b9500 unit objects */
@@ -1042,8 +1046,11 @@ pilot_next:
 pilot_ready:
     lw      $s2,0x10($sp)
     lw      $t0,0x14($sp)
-    bne     $t0,$zero,crew_board
+    beq     $t0,$zero,pilot_not_crew
     nop
+    j       crew_board       /* past the scene data, out of branch range */
+    nop
+pilot_not_crew:
     lbu     $t0,0xc9($s2)
     ori     $t0,$t0,1
     sb      $t0,0xc9($s2)
@@ -1319,11 +1326,65 @@ talk_mode_done:
     nop
 
 .align 4
+gallery_skip:
+    /* Record "0x14 gallery_skip, 0, target": the script continues at target.
+     * Circle mode (effects only) lays it over the first record of a part only the
+     * dialogue version plays (mode words, gallery_talk_mode), so triangle keeps
+     * its records and timing. */
+    lui     $t0,0x0062
+    lw      $t1,-0x2148($t0) /* 0061deb8 current record */
+    lw      $t1,12($t1)
+    addiu   $t1,$t1,-16
+    jr      $ra
+    sw      $t1,-0x2148($t0) /* the interpreter advances onto the target */
+
+.align 4
 gallery_bgm_pause:
     /* Effect-header BGM scenes: pause the theater track (sound state 5,
      * request 2) so the resource's own BGM starts without the menu tune. */
     j       0x00183220
     addiu   $a0,$zero,2
+
+.align 4
+gallery_effect_shift:
+    /* Record "0x14 gallery_effect_shift, dx, dz" (float bits): moves the running
+     * effect by a fraction of a tile. Pool entries are 0x50 bytes from 00629b80,
+     * the world position is at +0x40 and the effect reads it every frame. */
+    lui     $t0,0x0062
+    lw      $t1,-0x2148($t0) /* 0061deb8 current record */
+    lui     $t2,0x004d
+    lh      $t3,-0x50cc($t2) /* 004caf34 effect slot of the last 0x56 */
+    sll     $t4,$t3,6
+    sll     $t3,$t3,4
+    addu    $t4,$t4,$t3
+    lui     $t5,0x0063
+    addu    $t4,$t4,$t5
+    lwc1    $f0,-0x6440($t4) /* 00629bc0 x */
+    lwc1    $f1,8($t1)
+    add.s   $f0,$f0,$f1
+    swc1    $f0,-0x6440($t4)
+    lwc1    $f0,-0x6438($t4) /* 00629bc8 z */
+    lwc1    $f1,12($t1)
+    add.s   $f0,$f0,$f1
+    jr      $ra
+    swc1    $f0,-0x6438($t4)
+
+.align 4
+gallery_bgm_nowait:
+    /* Record "0x14 gallery_bgm_nowait, 0, track": circle mode's stand-in for op
+     * 0x43 (mode words). It makes the same FUN_00182fc0(track, 0, 0, 1, 3, 0)
+     * call but does not hold the script until the stream is ready (0x43 waits
+     * on the sound-busy word 00620890, about 40 frames), so the track loads
+     * while the camera settles and the effect loads. */
+    lui     $t0,0x0062
+    lw      $t1,-0x2148($t0) /* 0061deb8 current record */
+    lw      $a0,12($t1)
+    daddu   $a1,$zero,$zero
+    daddu   $a2,$zero,$zero
+    addiu   $a3,$zero,1
+    addiu   $t0,$zero,3
+    j       0x00182fc0
+    daddu   $t1,$zero,$zero
 
 .align 4
 gallery_form_se:

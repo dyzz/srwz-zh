@@ -204,26 +204,172 @@ class FidelityTimelineTests(unittest.TestCase):
             quiet = (Path(tmp) / "gallery-quiet.inc").read_text()
             scenes = (Path(tmp) / "gallery-scenes.inc").read_text()
         row0 = {sec["section"]: sec for sec in talk_config["effect-273"]["sections"]}
-        pilots = [r["pilot_sp"] for r in row0[16]["records"] if "text" in r]
-        self.assertEqual(pilots, [732, 726])
+        pilots = [r["pilot_sp"] for r in row0[13]["records"] if "text" in r]
+        self.assertEqual(pilots, [477, 428, 405, 472])
         talk_ops = [op[1] for op in self.entries[0]["fidelity"]["timeline"] if op[0] == "talk"]
+        k = talk_ops.index(13)
+        self.assertIn(f"gallery_quiet_0_{k}:\n    .hword 477,428,405,472,65535", quiet)
+        self.assertIn(f",{13},gallery_quiet_0_{k}", scenes)
+        # Sections after the last effect are not replayed (user 2026-10-31: the
+        # camera hopped between the speakers at the end): ("talk", 16, 1)
         k = talk_ops.index(16)
-        self.assertIn(f"gallery_quiet_0_{k}:\n    .hword 732,726,65535", quiet)
-        # talk op table: record, section | cursor << 16 ("talk", 16, 1), speaker list
+        self.assertIn(f"gallery_quiet_0_{k}:\n    .hword 65535", quiet)
         self.assertIn(f",{16 | (1 << 16)},gallery_quiet_0_{k}", scenes)
 
-    def test_circle_mode_shortens_the_row9_charge(self):
-        # User 2026-10-30: fewer charge explosions in circle mode, triangle unchanged.
-        # The waits inside the 0x13a3..0x13a4 charge keep their triangle values and
-        # get circle values through the mode words after the talk-op table.
+    def test_circle_mode_skips_the_row9_charge(self):
+        # User 2026-10-31: circle mode goes straight to the row's own effect, so the
+        # 0x13a3..0x13a4 charge (an intercept explosion every ~42 frames) lies in
+        # the circle skip; circle mode sets the zoom and camera the skipped part
+        # leaves (0x29 -16, camera on the TFO) and spawns the TFO at its end tile.
         timeline = self.entries[9]["fidelity"]["timeline"]
+        skip = timeline.index(["circle_skip_to", "circle_0", [["zoom", -16], ["raw", 24, 2, 3, 0]]])
+        mark = timeline.index(["mark", "circle_0"])
         on = timeline.index(["raw", 5027, 131075, 150994959, 2949120])
         off = timeline.index(["raw", 5028, 131075, 150994944, 0])
-        modes = [op[1:] for op in timeline[on:off] if op[0] == "wait_modes"]
-        self.assertEqual(modes, [[16, 1], [16, 1], [16, 3], [8, 3], [30, 1]])
+        self.assertTrue(skip < on < off < mark)
+        self.assertNotIn("wait_modes", [op[0] for op in timeline[:mark]])
+        self.assertEqual(timeline[mark + 1:mark + 3], [["talk", 4], ["bgm", 1]])  # section 4 moves the cursor
         compiled = compile_scene(9, self.entries[9]["fidelity"], [33, 24], [268])
-        self.assertEqual(compiled["mode_words"][0], ("gallery_modewait_9_0+4", 16, 1))
-        self.assertIn("gallery_modewait_9_0:", compiled["script"])
+        # circle mode: zoom -16, camera on the TFO, jump -- laid over the first three
+        # records after the skip marker (talk 0 and talk 1), which triangle keeps
+        circle = {}
+        for label, triangle, value in compiled["mode_words"]:
+            if label.startswith("gallery_circlerec_9_"):
+                record, offset = label[len("gallery_circlerec_9_"):].split("+")
+                circle.setdefault(int(record), {})[int(offset)] = (triangle, value)
+        self.assertEqual(circle[0][0], ("15", str(0x13B9)))
+        self.assertEqual(circle[0][4], ("0", str(-16 & 0xFFFFFFFF)))
+        # over a talk record every word is laid: circle mode has already turned
+        # word 2 into the quiet-replay pointer, which would make 0x13b9 animate
+        self.assertEqual((circle[0][8], circle[0][12]), (("0", "0"), ("0", "0")))
+        self.assertEqual(circle[1][0], ("15", "24"))
+        self.assertEqual(circle[2][0][1], "20")
+        self.assertEqual(circle[2][12][1], "gallery_mark_9_circle_0")
+        self.assertEqual(sorted(circle), [0, 1, 2])
+        script = compiled["script"]
+        self.assertEqual(script[script.index("gallery_circlerec_9_0:") + 1], "    .word 15,0,0,0")
+
+    def test_wait_modes_compile_to_mode_words(self):
+        fidelity = {"timeline": [["wait_modes", 16, 1]]}
+        compiled = compile_scene(0, fidelity, [0, 0], [])
+        self.assertEqual(compiled["mode_words"], [("gallery_modewait_0_0+4", 16, 1)])
+        with self.assertRaises(ValueError):
+            compile_scene(0, {"timeline": [["wait_modes", 16, 0]]}, [0, 0], [])
+
+    def test_row1_knights_move_in_after_section_21(self):
+        # User 2026-10-31: in triangle mode G-Attacker and G-Shadow fly in before
+        # Toga's last line, as STAGE007 0x9350-0x93f0 does; circle mode starts with
+        # all five in place (spawn tiles are mode words) and jumps past section 21
+        # and the move.
+        entry = self.entries[1]
+        units = {u["unit"]: u for u in entry["fidelity"]["units"]["gknights"]}
+        self.assertEqual((units[677]["tile"], units[677]["circle_tile"]), ([6, 5], [10, 5]))
+        self.assertEqual((units[680]["tile"], units[680]["facing"], units[680]["circle_tile"], units[680]["circle_facing"]),
+                         ([2, 7], 2, [11, 8], 1))
+        self.assertNotIn("tsugumi", entry["fidelity"]["units"])
+        timeline = entry["fidelity"]["timeline"]
+        start, end = timeline.index(["circle_skip_to", "knights_in_place"]), timeline.index(["talk", 22])
+        # The squads section 23 cuts to are spawned for triangle mode only.
+        self.assertEqual(timeline[start + 1:end], [
+            ["spawn", "squads"], ["talk", 21], ["raw", 24, 2, 577, 0], ["raw", 5021, 0, 0, 0],
+            ["raw", 5022, 1 << 16 | 677, 10 << 16 | 5, 0x80000002],
+            ["raw", 5022, 1 << 16 | 680, 11 << 16 | 8, 0x80000002],
+            ["raw", 5023, 0, 0, 0], ["raw", 22, 0, 0, 0],
+            ["raw", 35, 1, 677, 1], ["raw", 35, 1, 680, 1],
+            ["raw", 24, 2, 577, 0], ["wait", 30], ["mark", "knights_in_place"]])
+        compiled = compile_scene(1, entry["fidelity"], [11, 6], [264])
+        self.assertEqual([w for w in compiled["mode_words"] if not w[0].startswith(("gallery_bgm_", "gallery_modewait_"))], [
+            ("gallery_spawn_1_0+12", 6 | 5 << 8 | 1 << 16, 10 | 5 << 8 | 1 << 16),
+            ("gallery_spawn_1_0+108", 2 | 7 << 8 | 2 << 16, 11 | 8 << 8 | 1 << 16),
+            # the squads' prep (0x14 prep,0,0) becomes "0x14 gallery_skip, 0, mark" in circle mode
+            ("gallery_circlerec_1_0+4", "gallery_prep_1_2", "gallery_skip"),
+            ("gallery_circlerec_1_0+12", "0", "gallery_mark_1_knights_in_place")])
+
+    def test_row0_circle_mode_starts_with_meyrin(self):
+        # User 2026-10-31: circle mode starts at the launch calls (effect 273);
+        # the Abyss prelude (effects 15/1/8/33) and sections 10-14 are dialogue only.
+        timeline = self.entries[0]["fidelity"]["timeline"]
+        start, end = timeline.index(["circle_skip_to", "meyrin"]), timeline.index(["mark", "meyrin"])
+        self.assertEqual(timeline[start - 1], ["spawn", "field"])
+        self.assertEqual(timeline[end + 1:end + 6], [["bgm", 30], ["camera", 13, 13], ["raw", 28, 3, 0, 0],
+                                                     ["wait_modes", 30, 1], ["effect", 273, [20, 12]]])
+        skipped = [op[1] for op in timeline[start:end] if op[0] in ("effect", "talk")]
+        self.assertEqual(skipped, [10, 11, 15, 15, 15, 12, 1, 1, 1, 8, 13, 33, 14])
+        with self.assertRaises(ValueError):
+            compile_scene(0, {**self.entries[0]["fidelity"], "timeline": [["mark", "meyrin"], ["circle_skip_to", "meyrin"]]},
+                          [13, 13], [273])
+
+
+    def test_circle_mode_starts_bgm_without_the_stream_wait(self):
+        # User 2026-10-31: circle mode opens sooner. Op 0x43 holds the script until
+        # the stream is ready (~40 frames); circle mode calls gallery_bgm_nowait.
+        compiled = compile_scene(0, self.entries[0]["fidelity"], [20, 12], self.entries[0]["effects"])
+        script = compiled["script"]
+        label = script[script.index("gallery_mark_0_meyrin:") + 1]
+        self.assertEqual(script[script.index(label) + 1], "    .word 67,30,0,0")
+        words = {w[0]: w[1:] for w in compiled["mode_words"]}
+        base = label.rstrip(":")
+        self.assertEqual([words[f"{base}+{k}"] for k in (0, 4, 12)],
+                         [("67", "20"), ("30", "gallery_bgm_nowait"), ("0", "30")])
+        # BGM 69 lies in the circle skip: its record carries the skip overlay instead
+        self.assertFalse(any(w.startswith("gallery_bgm_") and words[w][0] == "69" for w in words))
+        self.assertIn("gallery_bgm_nowait:", (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text())
+
+    def test_row1_section_23_squads_stand_where_stage007_moves_them(self):
+        squads = {u["pilot"]: u for u in self.entries[1]["fidelity"]["units"]["squads"]}
+        self.assertEqual({p: tuple(u["tile"]) for p, u in squads.items()},
+                         {138: (19, 20), 27: (20, 21), 3: (18, 21), 732: (19, 22)})
+        self.assertEqual([m["pilot"] for m in squads[732]["members"]], [736, 726])
+
+    def test_row18_effect_shift_keeps_the_timing_and_compiles_to_float_bits(self):
+        # The shift sits inside the old wait 650, in the satellite close-up.
+        timeline = self.entries[18]["fidelity"]["timeline"]
+        start = timeline.index(["effect_shift", -0.0315, 0.0465])
+        self.assertEqual([timeline[start - 1], timeline[start + 1]], [["wait", 150], ["wait", 499]])
+        compiled = compile_scene(18, self.entries[18]["fidelity"], [20, 23], [255, 251])
+        bits = struct.unpack("<2I", struct.pack("<2f", -0.0315, 0.0465))
+        self.assertIn(f"    .word 20,gallery_effect_shift,{bits[0]},{bits[1]}", compiled["script"])
+
+    def test_circle_camera_and_row_fixes_20261031(self):
+        # BIG-O opens on its own tile (no cut from Beck), Shin Choju-zan does not
+        # replay section 43 (a cut to Hydwell), Bakuai Mugenkou has Tsugumi only.
+        import tempfile
+        from special_disc.event_gallery.runtime import generate
+        self.assertEqual(self.entries[4]["fidelity"]["circle_camera"], [11, 14])
+        talk_config = json.loads((ROOT / "config/products/special-disc/event-gallery-talk.json").read_text())["scenes"]
+        talk = {scene: [{"section": sec["section"], "header": sec["header"], "records": [
+            {"words": [*r["words"][:3], r["pilot_sp"], *r["words"][4:]] if "text" in r else r["words"],
+             "text": b"x" if "text" in r else None} for r in sec["records"]]} for sec in data["sections"]]
+            for scene, data in talk_config.items()}
+        with tempfile.TemporaryDirectory() as tmp:
+            generate(self.entries, tmp, talk=talk)
+            scenes = (Path(tmp) / "gallery-scenes.inc").read_text()
+        self.assertIn(f"gallery_scene_table+{32 * 4 + 4},7,11", scenes)
+        self.assertIn(f"gallery_scene_table+{32 * 4 + 8},20,14", scenes)
+        timeline = self.entries[15]["fidelity"]["timeline"]
+        start = timeline.index(["circle_skip_to", "circle_1"])
+        self.assertEqual(timeline[start - 1:start + 4],
+                         [["bgm", 40], ["circle_skip_to", "circle_1"], ["talk", 43], ["wait", 30], ["mark", "circle_1"]])
+        # ... and fades where the last explosions end, without the cut back to Toga.
+        start = timeline.index(["circle_skip_to", "end"])
+        self.assertEqual(timeline[start - 1:start + 2], [["wait_effects"], ["circle_skip_to", "end"], ["camera", 18, 4]])
+        self.assertEqual(timeline[timeline.index(["mark", "end"]) + 1], ["fade", 0, 248, 8])
+        timeline = self.entries[17]["fidelity"]["timeline"]
+        start = timeline.index(["circle_skip_to", "solo"])
+        self.assertEqual(timeline[start + 1:start + 4], [["deploy", "sara"], ["deploy", "asuham"], ["mark", "solo"]])
+
+    def test_roster_snapshot_follows_the_payload_and_fits_the_segment(self):
+        # The payload ends where gallery_save_roster's snapshot starts; the snapshot
+        # (roster 0x76940, spawn results 0x100, the state regions) must end before
+        # the private segment does.
+        import re
+        from special_disc.event_gallery.apply import PAYLOAD_BASE, PAYLOAD_SIZE, PRIVATE_END
+        source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
+        bases = re.findall(r"lui +\$t\d,0x0084 +/\* snapshot base 0x([0-9a-f]+)", source)
+        self.assertEqual(set(bases), {f"{PAYLOAD_BASE + PAYLOAD_SIZE:x}"})
+        regions = source.split("gallery_state_regions:")[1].split(".word 0,0")[0]
+        size = sum(int(v, 0) for v in re.findall(r"\.word 0x[0-9a-f]+,(0x[0-9a-f]+|\d+)", regions))
+        self.assertLessEqual(PAYLOAD_BASE + PAYLOAD_SIZE + 0x76940 + 0x100 + size, PRIVATE_END)
 
 
 if __name__ == "__main__":

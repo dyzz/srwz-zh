@@ -95,7 +95,7 @@
                 13,
                 13
               ],
-              "facing": 3,
+              "facing": 0,
               "side": 4,
               "appear": 1,
               "class": 4,
@@ -103,7 +103,7 @@
                 "unit": 450,
                 "pilot": 457
               },
-              "source": "Sting/Chaos: placed (15,15) at 0xa3a0, then moved next to Alex at 0xa6f0 (runtime position); gallery uses the tile east of Alex"
+              "source": "Sting/Chaos: placed (15,15) at 0xa3a0, facing 3 at 0xa3f0, then moved next to Alex at 0xa6f0 (runtime position); gallery uses the tile east of Alex and facing 0, as in every event-movie frame from section 14 (the move turns it)"
             },
             {
               "unit": 447,
@@ -209,6 +209,10 @@
           [
             "spawn",
             "field"
+          ],
+          [
+            "circle_skip_to",
+            "meyrin"
           ],
           [
             "bgm",
@@ -357,6 +361,10 @@
             14
           ],
           [
+            "mark",
+            "meyrin"
+          ],
+          [
             "bgm",
             30
           ],
@@ -373,8 +381,9 @@
             0
           ],
           [
-            "wait",
-            30
+            "wait_modes",
+            30,
+            1
           ],
           [
             "effect",
@@ -963,10 +972,15 @@
               "unit": 677,
               "pilot": 582,
               "tile": [
-                10,
+                6,
                 5
               ],
               "facing": 1,
+              "circle_tile": [
+                10,
+                5
+              ],
+              "circle_facing": 1,
               "side": 0,
               "appear": 1,
               "class": 4,
@@ -974,7 +988,7 @@
                 "unit": 628,
                 "pilot": 906
               },
-              "source": "G-Attacker 0x9370 (10,5) facing 1 (0x93b0); group 4 side 1 altitude 0; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot エイジ (582), side 0 (event movie: the line puts the cursor on this unit)"
+              "source": "G-Attacker: group 4 (6,2), moved to (6,5) at 0x91a0 before the scene; the timeline moves it to (10,5) after section 21 (0x9370) and sets facing 1 (0x93b0); group 4 side 1 altitude 0; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot エイジ (582), side 0 (event movie: the line puts the cursor on this unit); circle mode (user 2026-10-31) starts with all five knights in place, so it spawns here at the end tile and jumps past section 21 and the move"
             },
             {
               "unit": 678,
@@ -1014,10 +1028,15 @@
               "unit": 680,
               "pilot": 587,
               "tile": [
+                2,
+                7
+              ],
+              "facing": 2,
+              "circle_tile": [
                 11,
                 8
               ],
-              "facing": 1,
+              "circle_facing": 1,
               "side": 0,
               "appear": 1,
               "class": 4,
@@ -1025,7 +1044,7 @@
                 "unit": 631,
                 "pilot": 909
               },
-              "source": "G-Shadow 0x9380 (11,8) facing 1; spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot エィナ (587), side 0 (event movie: the line puts the cursor on this unit)"
+              "source": "G-Shadow: group 6 (2,7) facing 2 at 0x9330 before section 21; the timeline moves it to (11,8) after section 21 (0x9380) and sets facing 1 (0x93c0); spawn-list altitude byte 0 means the submerged layer (-0.125, flag 0x4000) and is not drawn on land, so the native default layer 1 is used; pilot エィナ (587), side 0 (event movie: the line puts the cursor on this unit); circle mode (user 2026-10-31) starts with all five knights in place, so it spawns here at the end tile and jumps past section 21 and the move"
             }
           ],
           "toga": [
@@ -1047,23 +1066,114 @@
               "source": "Toga/Gran Kaiser 0x9100 move (11,6); hidden 0x9460, shown 0x94c0 with Gravion combination 0x94d0"
             }
           ],
-          "tsugumi": [
+          "squads": [
             {
-              "unit": 660,
-              "pilot": 638,
+              "unit": 108,
+              "pilot": 138,
               "tile": [
-                6,
-                8
+                19,
+                20
               ],
-              "facing": 1,
+              "facing": 2,
               "side": 0,
-              "appear": 1,
+              "appear": 255,
               "class": 4,
               "original": {
-                "unit": 616,
-                "pilot": 616
+                "unit": 106,
+                "pilot": 138
               },
-              "source": "STAGE007 0x9280 dialogue frame gives Tsugumi's unit (616) at (6,8); camera 0x92b0/0x92d0 centres on it; facing not set by the script, 1 like the knights"
+              "source": "STAGE007 list 0x7f10 ザンバード/勝平, moved to (19,20) at 0x8f50"
+            },
+            {
+              "unit": 14,
+              "pilot": 27,
+              "tile": [
+                20,
+                21
+              ],
+              "facing": 2,
+              "side": 0,
+              "appear": 255,
+              "class": 4,
+              "original": {
+                "unit": 14,
+                "pilot": 27
+              },
+              "source": "STAGE007 list 0x7f50 スペイザー/デューク, moved to (20,21) at 0x8f60"
+            },
+            {
+              "unit": 21,
+              "pilot": 3,
+              "tile": [
+                18,
+                21
+              ],
+              "facing": 2,
+              "side": 0,
+              "appear": 255,
+              "class": 4,
+              "original": {
+                "unit": 20,
+                "pilot": 3,
+                "members": [
+                  {
+                    "unit": 21,
+                    "pilot": 30
+                  },
+                  {
+                    "unit": 23,
+                    "pilot": 33
+                  }
+                ]
+              },
+              "source": "STAGE007 list 0x7f70 ダブルスペイザー/マリンスペイザー/ドリルスペイザー, 甲児/ひかる/マリア, moved to (18,21) at 0x8f70",
+              "members": [
+                {
+                  "unit": 22,
+                  "pilot": 30
+                },
+                {
+                  "unit": 24,
+                  "pilot": 33
+                }
+              ]
+            },
+            {
+              "unit": 787,
+              "pilot": 732,
+              "tile": [
+                19,
+                22
+              ],
+              "facing": 2,
+              "side": 0,
+              "appear": 255,
+              "class": 4,
+              "original": {
+                "unit": 732,
+                "pilot": 708,
+                "members": [
+                  {
+                    "unit": 734,
+                    "pilot": 710
+                  },
+                  {
+                    "unit": 737,
+                    "pilot": 702
+                  }
+                ]
+              },
+              "source": "STAGE007 list 0x7f90 バルゴラ 1/2/3, デンゼル/トビー/セツコ, moved to (19,22) at 0x8f80",
+              "members": [
+                {
+                  "unit": 790,
+                  "pilot": 736
+                },
+                {
+                  "unit": 794,
+                  "pilot": 726
+                }
+              ]
             }
           ]
         },
@@ -1097,24 +1207,112 @@
             "toga"
           ],
           [
-            "spawn",
-            "tsugumi"
-          ],
-          [
             "bgm",
             41
+          ],
+          [
+            "circle_skip_to",
+            "knights_in_place"
+          ],
+          [
+            "spawn",
+            "squads"
           ],
           [
             "talk",
             21
           ],
           [
-            "talk",
-            22
+            "raw",
+            24,
+            2,
+            577,
+            0
+          ],
+          [
+            "raw",
+            5021,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            5022,
+            66213,
+            655365,
+            2147483650
+          ],
+          [
+            "raw",
+            5022,
+            66216,
+            720904,
+            2147483650
+          ],
+          [
+            "raw",
+            5023,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            22,
+            0,
+            0,
+            0
+          ],
+          [
+            "raw",
+            35,
+            1,
+            677,
+            1
+          ],
+          [
+            "raw",
+            35,
+            1,
+            680,
+            1
+          ],
+          [
+            "raw",
+            24,
+            2,
+            577,
+            0
           ],
           [
             "wait",
             30
+          ],
+          [
+            "mark",
+            "knights_in_place"
+          ],
+          [
+            "talk",
+            22
+          ],
+          [
+            "camera",
+            11,
+            6
+          ],
+          [
+            "raw",
+            28,
+            3,
+            0,
+            0
+          ],
+          [
+            "wait_modes",
+            30,
+            1
           ],
           [
             "effect",
@@ -1189,12 +1387,6 @@
           [
             "wait_effects"
           ]
-        ],
-        "excluded": [
-          {
-            "what": "Shouhei/Duke/Koji/Denzel squads moved at 0x8f50-0x8f80",
-            "reason": "not referenced in the effect block 0x9440-0x94e0"
-          }
         ],
         "deploy": {
           "zerabaia": [
@@ -1351,14 +1543,14 @@
               },
               "level": 11,
               "tile": [
-                11,
-                12
+                6,
+                8
               ],
               "facing": 3,
               "side": 12,
               "name": "ゼラバイア",
               "squad_flags": 0,
-              "source": "STAGE007 0x8ff0 group 5 squad 29: ディクリール/ゼラバイア (11,12) side 12 facing 3, squad ゼラバイア flags 0x0"
+              "source": "STAGE007 0x8ff0 group 5 squad 29: ディクリール/ゼラバイア (11,12) side 12 facing 3, squad ゼラバイア flags 0x0; 0x9280 (section 18, same event script) moves unit 616 to (6,8), so the scene starts with it there"
             }
           ]
         },
@@ -1767,7 +1959,12 @@
                 "unit": 111,
                 "pilot": 899
               },
-              "source": "メカブースト クモガニラ (unitPilots 111:[899]); at (26,14) after 0x6d20, moves to (27,14) at 0x6e70"
+              "source": "メカブースト クモガニラ (unitPilots 111:[899]); at (26,14) after 0x6d20, moves to (27,14) at 0x6e70",
+              "circle_tile": [
+                27,
+                14
+              ],
+              "circle_facing": 2
             }
           ],
           "zambird": [
@@ -1786,7 +1983,12 @@
                 "unit": 106,
                 "pilot": 138
               },
-              "source": "spawn list 0x75bd20 at 0x6d90: ザンバード/勝平 (34,12), animated; moves to (29,23) at 0x6de0; spawned hidden before the ザンブル/ザンベース (preparing it later re-initialises their objects and leaves their actors without a unit) and shown at 0x6d90, without the arrival animation"
+              "source": "spawn list 0x75bd20 at 0x6d90: ザンバード/勝平 (34,12), animated; moves to (29,23) at 0x6de0; spawned hidden before the ザンブル/ザンベース (preparing it later re-initialises their objects and leaves their actors without a unit) and shown at 0x6d90, without the arrival animation",
+              "circle_tile": [
+                29,
+                23
+              ],
+              "circle_facing": 3
             }
           ],
           "zambot3": [
@@ -1903,13 +2105,25 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "talk",
             21
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "visible",
             138,
             1
+          ],
+          [
+            "circle_skip_to",
+            "circle_1"
           ],
           [
             "talk",
@@ -2015,6 +2229,10 @@
             24
           ],
           [
+            "mark",
+            "circle_1"
+          ],
+          [
             "bgm",
             14
           ],
@@ -2028,8 +2246,9 @@
             23
           ],
           [
-            "wait",
-            30
+            "wait_modes",
+            30,
+            1
           ],
           [
             "effect",
@@ -2067,6 +2286,10 @@
             "wait_effects"
           ],
           [
+            "circle_skip_to",
+            "end"
+          ],
+          [
             "bgm",
             13
           ],
@@ -2085,6 +2308,10 @@
           [
             "talk",
             27
+          ],
+          [
+            "mark",
+            "end"
           ],
           [
             "wait",
@@ -3075,6 +3302,10 @@
             46
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "camera",
             10,
             11
@@ -3225,6 +3456,10 @@
             29
           ],
           [
+            "mark",
+            "circle_0"
+          ],
+          [
             "camera",
             11,
             4
@@ -3237,8 +3472,9 @@
             0
           ],
           [
-            "wait",
-            30
+            "wait_modes",
+            30,
+            1
           ],
           [
             "effect",
@@ -3821,7 +4057,12 @@
                 "unit": 586,
                 "pilot": 541
               },
-              "source": "ベック・ビクトリー・デラックス (unitPilots 586:[541]); deployed by the stage, position play-dependent; placed at the first move target (7,20) of 0xb7e0, the second move 0xb810 to (11,20) is replayed"
+              "source": "ベック・ビクトリー・デラックス (unitPilots 586:[541]); deployed by the stage, position play-dependent; placed at the first move target (7,20) of 0xb7e0, the second move 0xb810 to (11,20) is replayed",
+              "circle_tile": [
+                11,
+                20
+              ],
+              "circle_facing": 3
             }
           ],
           "bigo": [
@@ -3869,6 +4110,17 @@
           [
             "spawn",
             "beck"
+          ],
+          [
+            "circle_skip_to",
+            "circle_0",
+            [
+              [
+                "flag",
+                81,
+                1
+              ]
+            ]
           ],
           [
             "camera",
@@ -4188,6 +4440,10 @@
           [
             "talk",
             12
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "bgm",
@@ -4574,7 +4830,11 @@
               }
             }
           ]
-        }
+        },
+        "circle_camera": [
+          11,
+          14
+        ]
       },
       "stage_objects_source": "STAGE024 entry 0x810-0x860 (0x146280 / 0x146160 before the map starts)"
     },
@@ -4761,12 +5021,24 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "bgm",
             69
           ],
           [
+            "mark",
+            "circle_0"
+          ],
+          [
             "spawn",
             "gekko"
+          ],
+          [
+            "circle_skip_to",
+            "circle_1"
           ],
           [
             "talk",
@@ -4775,6 +5047,10 @@
           [
             "talk",
             10
+          ],
+          [
+            "mark",
+            "circle_1"
           ],
           [
             "raw",
@@ -4787,6 +5063,21 @@
             "flag",
             81,
             1
+          ],
+          [
+            "circle_skip_to",
+            "circle_2",
+            [
+              [
+                "camera",
+                12,
+                21
+              ],
+              [
+                "wait",
+                30
+              ]
+            ]
           ],
           [
             "talk",
@@ -4822,6 +5113,10 @@
           [
             "wait",
             60
+          ],
+          [
+            "mark",
+            "circle_2"
           ],
           [
             "flag",
@@ -5410,6 +5705,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "bgm",
             69
           ],
@@ -5418,12 +5717,17 @@
             19
           ],
           [
+            "mark",
+            "circle_0"
+          ],
+          [
             "bgm",
             6
           ],
           [
-            "wait",
-            30
+            "wait_modes",
+            30,
+            1
           ],
           [
             "effect",
@@ -5852,7 +6156,12 @@
                 "unit": 70,
                 "pilot": 898
               },
-              "source": "ビッグオクト (unitPilots 70:[897,898]); position play-dependent, placed next to the Pal Savern's stop (19,25); blown to (19,30) at 0xaf30-0xaf60"
+              "source": "ビッグオクト (unitPilots 70:[897,898]); position play-dependent, placed next to the Pal Savern's stop (19,25); blown to (19,30) at 0xaf30-0xaf60",
+              "circle_tile": [
+                19,
+                30
+              ],
+              "circle_facing": 1
             }
           ],
           "team": [
@@ -5967,6 +6276,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "bgm",
             70
           ],
@@ -5983,8 +6296,16 @@
             16
           ],
           [
+            "mark",
+            "circle_0"
+          ],
+          [
             "spawn",
             "palsavern"
+          ],
+          [
+            "circle_skip_to",
+            "circle_1"
           ],
           [
             "raw",
@@ -6041,8 +6362,16 @@
             17
           ],
           [
+            "mark",
+            "circle_1"
+          ],
+          [
             "bgm",
             11
+          ],
+          [
+            "circle_skip_to",
+            "circle_2"
           ],
           [
             "raw",
@@ -6187,6 +6516,10 @@
           [
             "talk",
             18
+          ],
+          [
+            "mark",
+            "circle_2"
           ],
           [
             "raw",
@@ -6675,7 +7008,12 @@
                 "unit": 0,
                 "pilot": 2
               },
-              "source": "STAGE043 0xb7a0-0xb7f0: if 甲児 (P2) is deployed the script centres on him and turns him to facing 2 before the zoom; a player unit whose tile follows play, placed west of the Getter Dragon spawn tile"
+              "source": "STAGE043 0xb7a0-0xb7f0: if 甲児 (P2) is deployed the script centres on him and turns him to facing 2 before the zoom; a player unit whose tile follows play, placed west of the Getter Dragon spawn tile",
+              "circle_tile": [
+                12,
+                23
+              ],
+              "circle_facing": 2
             }
           ]
         },
@@ -6703,6 +7041,10 @@
           [
             "spawn",
             "koji"
+          ],
+          [
+            "circle_skip_to",
+            "circle_0"
           ],
           [
             "talk",
@@ -6736,6 +7078,10 @@
             15
           ],
           [
+            "mark",
+            "circle_0"
+          ],
+          [
             "camera",
             25,
             30
@@ -6748,8 +7094,9 @@
             0
           ],
           [
-            "wait",
-            30
+            "wait_modes",
+            30,
+            1
           ],
           [
             "side_visible",
@@ -7042,7 +7389,12 @@
                   }
                 ]
               },
-              "source": "cursor anchor, hidden: ヒドラー has no unit in STAGE047 and 鉄甲鬼/独眼鬼 are deployed in the base; the event movie puts the dialogue cursor on the base spire for every enemy line, (31,9) by LRPS2 camera probes. Units are 百鬼戦闘機/メカ鉄甲鬼/メカ独眼鬼 (Original 46/52/50)"
+              "source": "cursor anchor, hidden: ヒドラー has no unit in STAGE047 and 鉄甲鬼/独眼鬼 are deployed in the base; the event movie puts the dialogue cursor on the base spire for every enemy line, (31,9) by LRPS2 camera probes. Units are 百鬼戦闘機/メカ鉄甲鬼/メカ独眼鬼 (Original 46/52/50)",
+              "circle_tile": [
+                31,
+                7
+              ],
+              "circle_facing": 1
             }
           ],
           "koji": [
@@ -7061,7 +7413,12 @@
                 "unit": 19,
                 "pilot": 3
               },
-              "source": "STAGE047 spawn list 0x7870 at 0xac40 (op 0x0d mode 1): 甲児's ＴＦＯ at (33,24) facing 3, appear 0xff, so the engine puts it on its own air layer (0, as every flier); the gallery's former appear 2 is layer 2 (+0.125), which the scripted moves land on the ground; effect 268 is anchored on him (0xaf40 0x139b P3)"
+              "source": "STAGE047 spawn list 0x7870 at 0xac40 (op 0x0d mode 1): 甲児's ＴＦＯ at (33,24) facing 3, appear 0xff, so the engine puts it on its own air layer (0, as every flier); the gallery's former appear 2 is layer 2 (+0.125), which the scripted moves land on the ground; effect 268 is anchored on him (0xaf40 0x139b P3)",
+              "circle_tile": [
+                33,
+                15
+              ],
+              "circle_facing": 3
             }
           ]
         },
@@ -7100,6 +7457,23 @@
             "visible",
             56,
             0
+          ],
+          [
+            "circle_skip_to",
+            "circle_0",
+            [
+              [
+                "zoom",
+                -16
+              ],
+              [
+                "raw",
+                24,
+                2,
+                3,
+                0
+              ]
+            ]
           ],
           [
             "talk",
@@ -7216,9 +7590,8 @@
             0
           ],
           [
-            "wait_modes",
-            16,
-            1
+            "wait",
+            16
           ],
           [
             "raw",
@@ -7228,9 +7601,8 @@
             0
           ],
           [
-            "wait_modes",
-            16,
-            1
+            "wait",
+            16
           ],
           [
             "talk",
@@ -7311,9 +7683,8 @@
             0
           ],
           [
-            "wait_modes",
-            16,
-            3
+            "wait",
+            16
           ],
           [
             "raw",
@@ -7323,9 +7694,8 @@
             65536
           ],
           [
-            "wait_modes",
-            8,
-            3
+            "wait",
+            8
           ],
           [
             "raw",
@@ -7335,9 +7705,8 @@
             0
           ],
           [
-            "wait_modes",
-            30,
-            1
+            "wait",
+            30
           ],
           [
             "raw",
@@ -7349,6 +7718,10 @@
           [
             "wait",
             30
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "talk",
@@ -7366,8 +7739,9 @@
             0
           ],
           [
-            "wait",
-            30
+            "wait_modes",
+            30,
+            1
           ],
           [
             "effect",
@@ -7951,8 +8325,16 @@
             70
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "talk",
             13
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "camera",
@@ -7967,8 +8349,9 @@
             0
           ],
           [
-            "wait",
-            30
+            "wait_modes",
+            30,
+            1
           ],
           [
             "effect",
@@ -8829,7 +9212,12 @@
                 "unit": 780,
                 "pilot": 732
               },
-              "source": "シュロウガ/アサキム (unitPilots 780:[732]); position play-dependent; moves next to ランド at 0x9bf0 (target-unit move) as in the original"
+              "source": "シュロウガ/アサキム (unitPilots 780:[732]); position play-dependent; moves next to ランド at 0x9bf0 (target-unit move) as in the original",
+              "circle_tile": [
+                17,
+                15
+              ],
+              "circle_facing": 3
             }
           ]
         },
@@ -8872,12 +9260,24 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "bgm",
             54
           ],
           [
+            "mark",
+            "circle_0"
+          ],
+          [
             "spawn",
             "gunleon"
+          ],
+          [
+            "circle_skip_to",
+            "circle_1"
           ],
           [
             "talk",
@@ -8953,8 +9353,16 @@
             13
           ],
           [
+            "mark",
+            "circle_1"
+          ],
+          [
             "bgm",
             49
+          ],
+          [
+            "circle_skip_to",
+            "circle_2"
           ],
           [
             "talk",
@@ -8981,6 +9389,10 @@
           [
             "talk",
             15
+          ],
+          [
+            "mark",
+            "circle_2"
           ],
           [
             "raw",
@@ -9299,6 +9711,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "bgm",
             53
           ],
@@ -9447,6 +9863,10 @@
             0,
             0,
             0
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "bgm",
@@ -9710,6 +10130,10 @@
             "arrivals"
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "talk",
             17
           ],
@@ -9720,6 +10144,10 @@
           [
             "talk",
             19
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "bgm",
@@ -9737,8 +10165,16 @@
             "daitarn"
           ],
           [
+            "circle_skip_to",
+            "circle_1"
+          ],
+          [
             "wait",
             30
+          ],
+          [
+            "mark",
+            "circle_1"
           ],
           [
             "raw",
@@ -10919,8 +11355,16 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "bgm",
             69
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "spawn",
@@ -10943,6 +11387,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_1"
+          ],
+          [
             "talk",
             60
           ],
@@ -10960,8 +11408,16 @@
             62
           ],
           [
+            "mark",
+            "circle_1"
+          ],
+          [
             "bgm",
             47
+          ],
+          [
+            "circle_skip_to",
+            "circle_2"
           ],
           [
             "talk",
@@ -10970,6 +11426,10 @@
           [
             "wait",
             30
+          ],
+          [
+            "mark",
+            "circle_2"
           ],
           [
             "camera",
@@ -11749,12 +12209,24 @@
             "breaker"
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "talk",
             42
           ],
           [
+            "mark",
+            "circle_0"
+          ],
+          [
             "bgm",
             40
+          ],
+          [
+            "circle_skip_to",
+            "circle_1"
           ],
           [
             "talk",
@@ -11763,6 +12235,10 @@
           [
             "wait",
             30
+          ],
+          [
+            "mark",
+            "circle_1"
           ],
           [
             "fade",
@@ -12189,6 +12665,10 @@
             "wait_effects"
           ],
           [
+            "circle_skip_to",
+            "end"
+          ],
+          [
             "camera",
             18,
             4
@@ -12221,6 +12701,10 @@
           [
             "bgm",
             42
+          ],
+          [
+            "mark",
+            "end"
           ],
           [
             "fade",
@@ -13001,8 +13485,16 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "talk",
             0
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "bgm",
@@ -13021,8 +13513,16 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_1"
+          ],
+          [
             "talk",
             1
+          ],
+          [
+            "mark",
+            "circle_1"
           ],
           [
             "camera",
@@ -14083,6 +14583,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "solo"
+          ],
+          [
             "deploy",
             "sara"
           ],
@@ -14091,12 +14595,20 @@
             "asuham"
           ],
           [
+            "mark",
+            "solo"
+          ],
+          [
             "bgm",
             47
           ],
           [
             "spawn",
             "tsugumi"
+          ],
+          [
+            "circle_skip_to",
+            "circle_0"
           ],
           [
             "talk",
@@ -14120,6 +14632,10 @@
           [
             "talk",
             22
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "effect",
@@ -14676,6 +15192,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "raw",
             5036,
             2,
@@ -14690,12 +15210,20 @@
             0
           ],
           [
+            "mark",
+            "circle_0"
+          ],
+          [
             "spawn",
             "garrod"
           ],
           [
             "bgm",
             25
+          ],
+          [
+            "circle_skip_to",
+            "circle_1"
           ],
           [
             "overlay",
@@ -14733,6 +15261,10 @@
             31
           ],
           [
+            "mark",
+            "circle_1"
+          ],
+          [
             "raw",
             65,
             0,
@@ -14766,7 +15298,16 @@
           ],
           [
             "wait",
-            650
+            150
+          ],
+          [
+            "effect_shift",
+            -0.0315,
+            0.0465
+          ],
+          [
+            "wait",
+            499
           ],
           [
             "raw",
@@ -15273,7 +15814,8 @@
               }
             }
           ]
-        }
+        },
+        "effect_shift_source": "user 2026-11-05: the beam of effect 255 lands on a fixed screen point about 10 px left of the effect's own Double X; the shift puts the unit under it, during the satellite close-up so it does not show"
       }
     },
     {
@@ -15363,12 +15905,20 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "bgm",
             71
           ],
           [
             "overlay",
             252
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "spawn",
@@ -15391,6 +15941,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_1"
+          ],
+          [
             "fade",
             252,
             0,
@@ -15408,8 +15962,16 @@
             54
           ],
           [
+            "mark",
+            "circle_1"
+          ],
+          [
             "bgm",
             47
+          ],
+          [
+            "circle_skip_to",
+            "circle_2"
           ],
           [
             "wait",
@@ -15423,6 +15985,10 @@
           [
             "talk",
             55
+          ],
+          [
+            "mark",
+            "circle_2"
           ],
           [
             "camera",
@@ -16237,8 +16803,16 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "talk",
             2
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "bgm",
@@ -16568,6 +17142,10 @@
             "wait_effects"
           ],
           [
+            "circle_skip_to",
+            "circle_1"
+          ],
+          [
             "talk",
             3
           ],
@@ -16586,6 +17164,10 @@
           [
             "talk",
             4
+          ],
+          [
+            "mark",
+            "circle_1"
           ],
           [
             "camera",
@@ -18682,6 +19264,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_0"
+          ],
+          [
             "talk",
             21
           ],
@@ -18740,6 +19326,10 @@
             0,
             0,
             0
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "raw",
@@ -18807,6 +19397,10 @@
             0
           ],
           [
+            "circle_skip_to",
+            "circle_1"
+          ],
+          [
             "raw",
             5000,
             2415919232,
@@ -18854,6 +19448,10 @@
             0,
             0,
             0
+          ],
+          [
+            "mark",
+            "circle_1"
           ],
           [
             "camera",

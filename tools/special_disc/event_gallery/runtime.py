@@ -167,6 +167,9 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
     talk_op_tables: list[str] = []
     far_data: list[str] = []
     quiet_data: list[str] = []
+    # Talk-op tables with their mode words are read through pointers at scene
+    # start only, so they go to the far data after the packet buffer.
+    talkop_data: list[str] = []
     for scene, entry in zip(scenes, entries):
         index = scene["row"]
         compiled = compile_scene(index, entry["fidelity"], scene["effect_tile"], scene["effects"])
@@ -176,27 +179,36 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         lines.append("    .word 1,32767,0,0")
         data_lines += compiled["data"]
         far_data += compiled["far_data"]
-        if compiled["talk_ops"] or compiled["mode_words"]:
+        mode_words = list(compiled["mode_words"])
+        circle_camera = entry["fidelity"].get("circle_camera")
+        if circle_camera is not None:
+            # Circle mode opens on this tile instead (scene table +4/+8, read by
+            # the map initialization after gallery_talk_mode has run).
+            circle_camera = _tile(circle_camera, f"{scene['id']}: circle camera")
+            mode_words += [(f"gallery_scene_table+{32 * index + 4 + 4 * k}", scene["camera_tile"][k], circle_camera[k])
+                           for k in range(2)]
+        if compiled["talk_ops"] or mode_words:
             # (record address, section | cursor << 16, speaking pilots) per
             # map-dialogue op; 0-terminated. Circle mode gosubs into runtime.S
             # gallery_quiet_sub with the 0xffff-terminated pilot list (record +12
-            # as encode_talk writes it), which replays the section's cursor moves.
+            # as encode_talk writes it), which replays the section's cursor moves;
+            # the list is empty when the next timeline op cuts the camera to a unit.
             sections = {sec["section"]: sec for sec in (talk or {}).get(scene["id"], [])}
-            data_lines += [".align 4", f"gallery_talkops_{index}:"]
-            for k, (label, section, cursor) in enumerate(compiled["talk_ops"]):
+            talkop_data += [".align 4", f"gallery_talkops_{index}:"]
+            for k, (label, section, cursor, superseded) in enumerate(compiled["talk_ops"]):
                 if section not in sections:
                     raise ValueError(f"{scene['id']}: talk op for missing section {section}")
                 pilots = [r["words"][3] for r in sections[section]["records"] if r["text"] is not None]
                 if any(type(p) is not int or not 0 <= p < 0x8000 for p in pilots):
                     raise ValueError(f"{scene['id']}: section {section} has an unresolved speaker")
                 quiet_data += [".align 2", f"gallery_quiet_{index}_{k}:",
-                               "    .hword " + ",".join(map(str, pilots + [0xFFFF]))]
-                data_lines.append(f"    .word {label},{section | (cursor << 16)},gallery_quiet_{index}_{k}")
-            data_lines.append("    .word 0,0,0")
+                               "    .hword " + ",".join(map(str, ([] if superseded else pilots) + [0xFFFF]))]
+                talkop_data.append(f"    .word {label},{section | (cursor << 16)},gallery_quiet_{index}_{k}")
+            talkop_data.append("    .word 0,0,0")
             # Then (word address, triangle value, circle value) per mode word; 0-terminated.
-            for label, triangle, circle in compiled["mode_words"]:
-                data_lines.append(f"    .word {label},{triangle},{circle}")
-            data_lines.append("    .word 0")
+            for label, triangle, circle in mode_words:
+                talkop_data.append(f"    .word {label},{triangle},{circle}")
+            talkop_data.append("    .word 0")
             talk_op_tables.append(f"    .word gallery_talkops_{index}")
         else:
             talk_op_tables.append("    .word 0")
@@ -207,11 +219,10 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         scene["fidelity"]["compiled"] = compiled["receipt"]
     talk_data = [line for chunk in talk_chunks for line in chunk]
     lines += data_lines
-    lines += [".align 4", "gallery_talkop_tables:"] + talk_op_tables
-    if talk_data or far_data:
-        # Map-dialogue blocks and other far data live after the per-frame packet
-        # buffer (0x82F000).
-        lines += [".org 0xE000", "gallery_talk_data:"] + talk_data + far_data
+    # Map-dialogue blocks and other far data live after the per-frame packet
+    # buffer (0x82F000).
+    lines += [".org 0xE000", "gallery_talk_data:"] + talk_data + far_data + talkop_data + [
+        ".align 4", "gallery_talkop_tables:"] + talk_op_tables
     receipt = {
         "schema_version": 1,
         "entries": scenes,
