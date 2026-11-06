@@ -231,6 +231,26 @@ class Armsx2Session:
         line = self.cmd(f"shot {name}").lines[-1]
         return Path(line.split()[1])
 
+    def start_video(self, path: str | Path) -> Reply:
+        """Record each advanced frame and SPU2 audio; requires ffmpeg on PATH.
+
+        Relative paths are under outdir; .mp4 is appended if absent. Existing
+        output is never overwritten. Audio capture and state loading are blocked
+        until stop_video(). The runner captures at its native refresh rate.
+        """
+        name = str(path)
+        if not name or "\n" in name or "\r" in name:
+            raise ValueError("video path must be nonempty and contain no newlines")
+        return self.cmd(f"video start {name}")
+
+    def stop_video(self) -> Path:
+        """Finalize H.264/AAC MP4, retaining source WAV and timing JSON beside it."""
+        reply = self.cmd("video stop")
+        for line in reply.lines:
+            if line.startswith("VIDEO "):
+                return Path(line.removeprefix("VIDEO "))
+        raise Armsx2RuntimeError("video stop returned no output path")
+
     def read_ram(self, address: int, length: int) -> bytes:
         """Read EE RAM through a binary dump (no hex text for large ranges)."""
 

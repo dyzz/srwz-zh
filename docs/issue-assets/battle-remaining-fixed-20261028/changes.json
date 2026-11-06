@@ -1,0 +1,144 @@
+[
+  {
+    "path": "corpus/zh/battle/srvc-lines.json",
+    "id": "battle:06641",
+    "before": {
+      "id": "battle:06641",
+      "source_text_sha256": "d444a9b4df434789c641a145da34aef41bf5780d097c354e0d811e4905d83a07",
+      "translation": "“剩下的交给我！\\n　……随口吹的啦。\\n　我该不会染上爱耍帅的毛病吧？”",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed",
+      "production_line_break_override": "User-confirmed three-line battle subtitle layout, 2026-10-15; one explicit additional native line break."
+    },
+    "after": {
+      "id": "battle:06641",
+      "source_text_sha256": "d444a9b4df434789c641a145da34aef41bf5780d097c354e0d811e4905d83a07",
+      "translation": "“剩下的交给我！……随口吹的啦。我该不会染\\n　上爱耍帅的毛病吧？”",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    "source_text": "「後は任せろ！　…なんてな。\\n　ええカッコしいがうつったかな？」",
+    "widths_px": [
+      462,
+      242
+    ]
+  },
+  {
+    "path": "corpus/zh/special-disc/battle-lines.json",
+    "id": "sd-battle:081",
+    "before": {
+      "id": "sd-battle:081",
+      "source_text": "「イノセントの泥臭い機械人形なんかに！」",
+      "source_text_sha256": "02b56606b6c908da3170a4ea2793c3f8be4cccc73db606177695284707470ca5",
+      "translation": "“居然被伊诺森特那种土气的机器木偶给……！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "萨芬格尔系机体",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 185,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 191,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 202,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 208,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false
+    },
+    "after": {
+      "id": "sd-battle:081",
+      "source_text": "「イノセントの泥臭い機械人形なんかに！」",
+      "source_text_sha256": "02b56606b6c908da3170a4ea2793c3f8be4cccc73db606177695284707470ca5",
+      "translation": "“居然被伊诺森特那种土气的机器木偶\\n　给……！”",
+      "editorial_status": "reviewed",
+      "origin": "mt:deepseek-v4.1-flash:sd-mt-v4",
+      "voice_group": [
+        "メリーベル"
+      ],
+      "speaker_guess": "メリーベル",
+      "addressee": "萨芬格尔系机体",
+      "triggers": [
+        {
+          "chunk": 255,
+          "record": 185,
+          "scene": "攻击（主动）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 191,
+          "scene": "攻击（反击）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 202,
+          "scene": "攻击（武器分级 1）",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        },
+        {
+          "chunk": 255,
+          "record": 208,
+          "scene": "武器共通台词 A",
+          "conditions": [
+            "对手属于标签组 萨芬格尔#0（10 名，如 ガバメント（加布门特）、ガラバゴス（加拉巴戈斯）、カプリコ（卡普里科）、ドラン（多兰）、ブラッカリィ（布洛克利））"
+          ]
+        }
+      ],
+      "confidence": "high",
+      "review_author": "GPT6 Pro; user-supplied",
+      "review_origin": "user-review:20260919-gpt6-pro",
+      "review_notes": [
+        "按日文语气和战斗情境润色；保留该记录原有的换行转义形式。"
+      ],
+      "review_terminology_check": false,
+      "production_line_break_override": "User-confirmed two-line layout, 2026-10-28: wrap within 21 total cells at step22; preserve all text and one continuation indent."
+    },
+    "source_text": "「イノセントの泥臭い機械人形なんかに！」",
+    "widths_px": [
+      374,
+      132
+    ]
+  }
+]

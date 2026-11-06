@@ -1,0 +1,39 @@
+{
+  "outputs": [
+    "iso",
+    "xdelta"
+  ],
+  "sourceGame": "The Best",
+  "replacement": {
+    "bgm": 19,
+    "durationSeconds": 220.96979166666668
+  },
+  "patch": {
+    "schema": "srwz.music.xdelta.v1",
+    "sourceName": "best.iso",
+    "sourceBytes": 3755081728,
+    "sourceSha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+    "targetName": "best-music-56bb298e9c7b.iso",
+    "targetBytes": 4296626176,
+    "targetSha256": "33c5c7f29b0d38b21f1ef76103c2f42dca313e2c2744c52130eb4b4bc0d85cc7",
+    "patchName": "best-music-56bb298e9c7b.xdelta",
+    "patchBytes": 3200262,
+    "patchSha256": "6d7c26f6f087c4f362fc77345f9f5ef86d07f3c41987d9c8ed95fac8900fc695",
+    "decodedSha256": "33c5c7f29b0d38b21f1ef76103c2f42dca313e2c2744c52130eb4b4bc0d85cc7",
+    "verified": true,
+    "sourceRequirement": "Apply to the exact ISO opened for this export"
+  },
+  "isoReceipt": "work/analysis/sp-music-editor-20261106/install-2755d6b5414f/build-receipt.json",
+  "xdeltaBuildReceipt": "work/analysis/sp-music-editor-20261106/install-56bb298e9c7b/build-receipt.json",
+  "checks": {
+    "browserExportBothFormats": true,
+    "browserXdeltaDownload": true,
+    "httpDownloadSha256Matches": true,
+    "decodedPatchMatchesTargetIso": true,
+    "separateIsoExportMatchesPatchTarget": true,
+    "mobileViewport": 390,
+    "mobileScrollWidth": 390,
+    "usageVersionPrefixRemoved": true
+  },
+  "scope": "Browser export, ISO readback and full streamed xdelta decode/hash validation. No player-code change or new emulator acceptance claim in this change."
+}

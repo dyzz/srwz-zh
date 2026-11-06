@@ -1207,12 +1207,12 @@
             "toga"
           ],
           [
-            "bgm",
-            41
-          ],
-          [
             "circle_skip_to",
             "knights_in_place"
+          ],
+          [
+            "bgm",
+            41
           ],
           [
             "spawn",
@@ -3298,12 +3298,12 @@
             26
           ],
           [
-            "bgm",
-            46
-          ],
-          [
             "circle_skip_to",
             "circle_0"
+          ],
+          [
+            "bgm",
+            46
           ],
           [
             "camera",
@@ -5717,12 +5717,12 @@
             19
           ],
           [
-            "mark",
-            "circle_0"
-          ],
-          [
             "bgm",
             6
+          ],
+          [
+            "mark",
+            "circle_0"
           ],
           [
             "wait_modes",
@@ -6362,12 +6362,12 @@
             17
           ],
           [
-            "mark",
-            "circle_1"
-          ],
-          [
             "bgm",
             11
+          ],
+          [
+            "mark",
+            "circle_1"
           ],
           [
             "circle_skip_to",
@@ -7035,8 +7035,16 @@
             0
           ],
           [
+            "circle_skip_to",
+            "effect_bgm"
+          ],
+          [
             "bgm",
             5
+          ],
+          [
+            "mark",
+            "effect_bgm"
           ],
           [
             "spawn",
@@ -9353,12 +9361,12 @@
             13
           ],
           [
-            "mark",
-            "circle_1"
-          ],
-          [
             "bgm",
             49
+          ],
+          [
+            "mark",
+            "circle_1"
           ],
           [
             "circle_skip_to",
@@ -12187,10 +12195,6 @@
           ],
           [
             "deploy",
-            "zarogross"
-          ],
-          [
-            "deploy",
             "fortress"
           ],
           [
@@ -12720,6 +12724,10 @@
           {
             "what": "Toga/Gran Kaiser and Breaker 774 units",
             "reason": "hidden at 0x156c0/0x156d0 for the whole effect"
+          },
+          {
+            "what": "STAGE107 0x14e30 group 15 (8 ザログロス)",
+            "reason": "destroyed in play before the scene: the 0x15560 ghost table reuses their tiles, and the event movie has no units left after the last explosions"
           }
         ],
         "units": {
@@ -12763,152 +12771,6 @@
           ]
         },
         "deploy": {
-          "zarogross": [
-            {
-              "unit": 671,
-              "pilot": 948,
-              "original": {
-                "unit": 623,
-                "pilot": 907
-              },
-              "level": 47,
-              "tile": [
-                7,
-                3
-              ],
-              "facing": 1,
-              "side": 12,
-              "name": "ゼラバイア",
-              "squad_flags": 16,
-              "source": "STAGE107 0x14e30 group 15 squad 107: ザログロス/ＡＩ (7,3) side 12 facing 1, squad ゼラバイア flags 0x10"
-            },
-            {
-              "unit": 671,
-              "pilot": 948,
-              "original": {
-                "unit": 623,
-                "pilot": 907
-              },
-              "level": 47,
-              "tile": [
-                7,
-                5
-              ],
-              "facing": 1,
-              "side": 12,
-              "name": "ゼラバイア",
-              "squad_flags": 16,
-              "source": "STAGE107 0x14e30 group 15 squad 108: ザログロス/ＡＩ (7,5) side 12 facing 1, squad ゼラバイア flags 0x10"
-            },
-            {
-              "unit": 671,
-              "pilot": 948,
-              "original": {
-                "unit": 623,
-                "pilot": 907
-              },
-              "level": 47,
-              "tile": [
-                9,
-                3
-              ],
-              "facing": 1,
-              "side": 12,
-              "name": "ゼラバイア",
-              "squad_flags": 16,
-              "source": "STAGE107 0x14e30 group 15 squad 109: ザログロス/ＡＩ (9,3) side 12 facing 1, squad ゼラバイア flags 0x10"
-            },
-            {
-              "unit": 671,
-              "pilot": 948,
-              "original": {
-                "unit": 623,
-                "pilot": 907
-              },
-              "level": 47,
-              "tile": [
-                9,
-                6
-              ],
-              "facing": 1,
-              "side": 12,
-              "name": "ゼラバイア",
-              "squad_flags": 16,
-              "source": "STAGE107 0x14e30 group 15 squad 110: ザログロス/ＡＩ (9,6) side 12 facing 1, squad ゼラバイア flags 0x10"
-            },
-            {
-              "unit": 671,
-              "pilot": 948,
-              "original": {
-                "unit": 623,
-                "pilot": 907
-              },
-              "level": 47,
-              "tile": [
-                11,
-                5
-              ],
-              "facing": 1,
-              "side": 12,
-              "name": "ゼラバイア",
-              "squad_flags": 16,
-              "source": "STAGE107 0x14e30 group 15 squad 111: ザログロス/ＡＩ (11,5) side 12 facing 1, squad ゼラバイア flags 0x10"
-            },
-            {
-              "unit": 671,
-              "pilot": 948,
-              "original": {
-                "unit": 623,
-                "pilot": 907
-              },
-              "level": 47,
-              "tile": [
-                11,
-                7
-              ],
-              "facing": 1,
-              "side": 12,
-              "name": "ゼラバイア",
-              "squad_flags": 16,
-              "source": "STAGE107 0x14e30 group 15 squad 112: ザログロス/ＡＩ (11,7) side 12 facing 1, squad ゼラバイア flags 0x10"
-            },
-            {
-              "unit": 671,
-              "pilot": 948,
-              "original": {
-                "unit": 623,
-                "pilot": 907
-              },
-              "level": 47,
-              "tile": [
-                12,
-                3
-              ],
-              "facing": 1,
-              "side": 12,
-              "name": "ゼラバイア",
-              "squad_flags": 16,
-              "source": "STAGE107 0x14e30 group 15 squad 113: ザログロス/ＡＩ (12,3) side 12 facing 1, squad ゼラバイア flags 0x10"
-            },
-            {
-              "unit": 671,
-              "pilot": 948,
-              "original": {
-                "unit": 623,
-                "pilot": 907
-              },
-              "level": 47,
-              "tile": [
-                13,
-                5
-              ],
-              "facing": 1,
-              "side": 12,
-              "name": "ゼラバイア",
-              "squad_flags": 16,
-              "source": "STAGE107 0x14e30 group 15 squad 114: ザログロス/ＡＩ (13,5) side 12 facing 1, squad ゼラバイア flags 0x10"
-            }
-          ],
           "fortress": [
             {
               "unit": 686,
@@ -14013,19 +13875,6 @@
           [
             "wait",
             30
-          ],
-          [
-            "raw",
-            5036,
-            0,
-            0,
-            0
-          ],
-          [
-            "fade",
-            0,
-            252,
-            4
           ],
           [
             "wait_effects"

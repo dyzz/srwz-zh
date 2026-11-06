@@ -19,7 +19,9 @@ def runtime_inputs(root:Path=ROOT):
 
 def library_input(text):
     from .library_typography import normalize_body_controls
-    text=normalize_body_controls(text).replace('\r','').replace('\n','')
+    # The shared prose engine distinguishes physical wraps from indented
+    # paragraph starts and blank separators. Do not erase that ownership here.
+    text=normalize_body_controls(text).replace('\r','')
     baseline='<width:15><space:15>'
     if re.search(r'<(?:width|space):',text) and not text.startswith(baseline):text=baseline+text
     return text
@@ -33,7 +35,7 @@ def library_batch(keys):
             if not response['ok']:
                 result[key]=(False,response['error']['message']);continue
             value=response['result']
-            if value['text'].replace('\n','')!=request['text']:raise ValueError('JS library layout changed authored content')
+            if value['text'].replace('\n','')!=request['text'].replace('\n',''):raise ValueError('JS library layout changed authored content')
             result[key]=(True,(value['text'],tuple(math.ceil(r['occupiedPx']/value['step'])for r in value['rows'])))
     return result
 

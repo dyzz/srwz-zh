@@ -159,3 +159,53 @@ test('width trials respect owner row budgets and keep punctuation pairs atomic',
  }
  assert.equal(layout('　'+'甲'.repeat(18)+'……'+'乙'.repeat(45),'sp_flow',{maxLines:5}).text.replaceAll('\n',''),'　'+'甲'.repeat(18)+'……'+'乙'.repeat(45));
 });
+
+test('all prose owners share width selection, paragraph and compact-scope rules',()=>{
+ const ids=['main_flow','sp_flow','main_scroll','sp_scroll','main_scroll_strip','library_character','library_robot','library_glossary'];
+ for(const id of ids){
+  const s=getScene(id);
+  assert.equal(s.widthSelection,'uniform_nonfinal');assert.equal(s.widthSelectionExtraLines,1);
+  assert.equal(s.packing,'max_width');assert.equal(s.protectWords,false);
+  const text='　'+'甲'.repeat(38)+'<z>MS-013</z>，'+'乙'.repeat(25)+'\n　\n　'+'丙'.repeat(40);
+  const r=layout(text,id);assert.ok(r.valid);assert.ok(r.text.includes('\n　\n　'));
+  assert.ok(r.text.startsWith('　'));assert.equal(r.text.replaceAll('\n',''),text.replaceAll('\n',''));
+  assert.ok(r.rows.every(row=>row.occupiedPx<=s.widthPx));
+  const m=measure('中<z>A1</z>文',id).rows[0].glyphs;assert.equal(m.at(-1).height,s.height);
+ }
+ assert.equal(getScene('story').widthSelection,null);assert.equal(getScene('battle').widthSelection,null);
+});
+
+test('prose never turns an internal space into a paragraph indent',()=>{
+ for(const id of ['main_flow','sp_flow','main_scroll','sp_scroll','library_character','library_robot','library_glossary']){
+  const s=getScene(id),text='甲'.repeat(s.columns-1)+' 乙'+'丙'.repeat(s.columns);
+  const r=layout(text,id);
+  assert.equal(r.text.replaceAll('\n',''),text);
+  assert.ok(r.text.split('\n').slice(1).every(row=>!row.startsWith(' ')&&!row.startsWith('　')));
+  assert.equal(layout(r.text,id).text,r.text);
+ }
+});
+
+test('uniform prose retains legal reviewed rows and fixed scroll packet counts',()=>{
+ const text='　'+'甲'.repeat(28)+'\n甲，'+'乙'.repeat(9)+'\n　'+'丙'.repeat(28)+'\n'+'丁'.repeat(9);
+ const r=layout(text,'main_flow',{maxLines:6});
+ assert.equal(r.widthSelection.spreadPx,0);assert.ok(r.selectedWidthPx>=464);
+ assert.equal(r.text.replaceAll('\n',''),text.replaceAll('\n',''));
+ const packets='早已扎根在人们心底的不安与恐惧\n彻底驱散。';
+ const exact=layout(packets,'main_scroll',{maxLines:2,preserveLineCount:true});
+ assert.equal(exact.rows.length,2);assert.equal(exact.text.replaceAll('\n',''),packets.replaceAll('\n',''));
+ assert.throws(()=>layout('　甲\n　乙','main_scroll',{preserveLineCount:true}),/same display group/);
+});
+
+test('library common-width search improves mixed body rows without changing scene metrics or words',()=>{
+ const text='格兰维昂的头部和胸部<z>G</z>战影，以及烈阳格兰维昂右足<z>Geo</z>圣剑的驾驶员。<z>14</z>岁。与既是宠物又是挚友的雪貂洛洛特除了出击时间外总是形影不离。她失去记忆倒在地上时被桑德曼所救。此后，她一直住在圣日耳曼城南塔中，只与桑德曼接触。因此起初对他人封闭心扉，但作为格兰骑士团的一员经历战斗和日常生活后，逐渐萌生了同伴意识，最终展现了各种表情。后来查明桑德曼是她的生父，而敌方头目是她的伯父。面对被揭示的现实她受到巨大冲击，但在同伴的帮助下克服并接受了这一切，展现了内心的坚强。';
+ const result=layout(text,'library_character');
+ assert.equal(result.text.replaceAll('\n',''),text);
+ assert.ok(result.widthSelection);assert.equal(result.widthPx,336);assert.equal(result.step,21);
+ assert.ok(result.widthSelection.spreadPx<=18);
+ assert.ok(result.rows.length<=layout(text,'library_character',{packing:'max_width',maxLines:15}).rows.length+1);
+ for(const domain of ['character','robot','glossary']){
+  const id='library_'+domain,s=getScene(id),value=layout('中文、测试。'.repeat(25),id);
+  assert.equal(s.widthSelection,'uniform_nonfinal');assert.equal(s.protectWords,false);
+  assert.ok(value.rows.every(r=>r.occupiedPx<=s.widthPx));
+ }
+});

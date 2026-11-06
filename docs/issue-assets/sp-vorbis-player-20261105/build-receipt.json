@@ -1,0 +1,115 @@
+{
+  "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/special-disc/sp-current.iso",
+  "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/sp-vorbis-full.iso",
+  "elf_sha256": "0da574b58604cb2cd3aacefb905080cfef23d483828e231d6cbd13c11fd5b4ea",
+  "source_elf_sha256": "d5db4e66b6f37c77f9531babf2abf97a632f88ff6c37608db079ff387b2c7b24",
+  "payload_bytes": 3587012,
+  "private_end": 13369344,
+  "symbols": {
+    "hook_update": 9230720,
+    "hook_load": 9230976,
+    "hook_loaded": 9231232,
+    "telemetry": 12761632,
+    "__end": 13304020
+  },
+  "muted_notes": 2671,
+  "relocation": {
+    "changes": {
+      "SLPS_259.20": [
+        1913501,
+        7719876
+      ]
+    },
+    "old_size": 3918850048,
+    "new_size": 3927097344,
+    "appended_sha256": "b72856a45c969c11f506b84eb8f5adf49115df95a312288c51071717ea3d8ff7",
+    "appended_bytes": 7720960,
+    "grown": {},
+    "touched_spans": [
+      [
+        32848,
+        32856
+      ],
+      [
+        34896,
+        34904
+      ],
+      [
+        69632,
+        71680
+      ],
+      [
+        102400,
+        104448
+      ],
+      [
+        131072,
+        133120
+      ],
+      [
+        535430,
+        535446
+      ],
+      [
+        622592,
+        624640
+      ],
+      [
+        921600,
+        924624
+      ]
+    ],
+    "catalog": {
+      "member": "VMAP.DAT",
+      "policy": "inherit",
+      "sha256": "72c73ee0e930e4970231b6352b4a377362e486b05e0d9bc42bbff6b86490ca38",
+      "records_checked": 62,
+      "edits": [],
+      "inherited_non_target_catalog_differences": [],
+      "not_catalogued": [
+        "SLPS_259.20"
+      ]
+    },
+    "udf": {
+      "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/sp-vorbis-full.iso",
+      "partition_start": 274,
+      "previous_partition_length": 1913226,
+      "partition_length": 1917253,
+      "partition_extended": true,
+      "image_blocks": 1917528,
+      "anchors_written": [
+        1917271,
+        1917527
+      ],
+      "files": [
+        {
+          "path": "SLPS_259.20",
+          "fe_lba": 304,
+          "ad_offset": 308,
+          "previous_lba": 1851456,
+          "previous_size": 4132864,
+          "new_lba": 1913501,
+          "new_size": 7719876
+        }
+      ],
+      "metadata_blocks_written": [
+        34,
+        50,
+        64,
+        304,
+        1917271,
+        1917527
+      ],
+      "unchanged_members_preserved": 64
+    }
+  },
+  "readback": {
+    "unchanged_members": 64,
+    "relocated_members": [
+      "SLPS_259.20"
+    ],
+    "grown_members": [],
+    "tail_bytes": 8247296,
+    "verified": true
+  }
+}

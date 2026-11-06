@@ -18,12 +18,14 @@ for name,profile_id,width,height,step,line_step,columns,max_lines,kind,compact i
   assert columns*step==width_evidence['nativeWidthExamples'][name]['widthPx'],(name,'native width evidence mismatch')
  p=profiles[profile_id];assert p.default_advance_px==step,(name,p.default_advance_px,step)
  if kind=='dialogue':assert (p.first_line_maximum_width or p.maximum_width)==columns
- scenes[name]=dict(id=name,profileId=profile_id,kind=kind,width=width,height=height,step=step,lineStep=line_step,columns=columns,widthPx=columns*step,maxLines=max_lines,continuationIndent='　' if kind=='dialogue' else '',compact=compact,protectedTerms=sorted(set(p.unbroken_terms)|set(COMMON_PROTECTED_WORDS)),packing='max_width' if kind=='dialogue' else overrides['prose_policy']['packing'],protectWords=kind=='dialogue',widthSelection=None if kind=='dialogue' else overrides['prose_policy'].get('width_selection'))
-# Library body descriptors and reviewed body typography are independent of dialogue.
+ scenes[name]=dict(id=name,profileId=profile_id,kind=kind,width=width,height=height,step=step,lineStep=line_step,columns=columns,widthPx=columns*step,maxLines=max_lines,continuationIndent='　' if kind=='dialogue' else '',compact=compact,protectedTerms=sorted(set(p.unbroken_terms)|set(COMMON_PROTECTED_WORDS)),packing='max_width' if kind=='dialogue' else overrides['prose_policy']['packing'],protectWords=kind=='dialogue',widthSelection=None if kind=='dialogue' else overrides['prose_policy'].get('width_selection'),**({} if kind=='dialogue' else dict(widthSelectionExtraLines=overrides['prose_policy']['maximum_extra_lines'])))
+# Library body descriptors are independent of dialogue; use the reviewed
+# common-width policy rather than balancing every row around the paragraph tail.
+prose_policy=overrides['prose_policy']
 from srwz.library_typography import BODY_HEIGHTS
 for domain,height in BODY_HEIGHTS.items():
  name='library_'+domain;p=profiles[name];step=p.default_advance_px
- scenes[name]=dict(id=name,profileId=name,kind='prose',width=step,height=height,step=step,lineStep=12 if domain=='robot' else 14,columns=p.maximum_width,widthPx=p.maximum_width*step,maxLines=None,continuationIndent='',compact=dict(width=14,space=12,letter=11 if domain=='robot' else 12,digit=10 if domain=='robot' else 11,restore_width=step,restore_space=step,restore_height=height),protectedTerms=[],packing='balanced_width',protectWords=False)
+ scenes[name]=dict(id=name,profileId=name,kind='prose',width=step,height=height,step=step,lineStep=12 if domain=='robot' else 14,columns=p.maximum_width,widthPx=p.maximum_width*step,maxLines=None,continuationIndent='',compact=dict(width=14,space=12,letter=11 if domain=='robot' else 12,digit=10 if domain=='robot' else 11,restore_width=step,restore_space=step,restore_height=height),protectedTerms=[],packing=prose_policy['packing'],protectWords=prose_policy['protect_words'],widthSelection=prose_policy['width_selection'],widthSelectionExtraLines=prose_policy['maximum_extra_lines'])
 for name,variant in overrides['variants'].items():
  scenes[name]=dict(scenes[variant['base']],id=name,columns=variant['columns'],widthPx=variant['columns']*scenes[variant['base']]['step'])
 files=[P,N,R/overrides['evidence'],proof,R/'tools/srwz/compact_scopes.py',R/'tools/srwz/library_typography.py',R/'tools/srwz/control_layout.py',R/'tools/srwz/text.py']

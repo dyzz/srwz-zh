@@ -1,0 +1,71 @@
+
+work/analysis/battle-line-width-20261028/best-current.elf:     file format elf32-tradlittlemips
+
+
+Disassembly of section :
+
+00139930 <+0x39930>:
+  139930:	3c010047 	lui	at,0x47
+  139934:	3c0300ff 	lui	v1,0xff
+  139938:	a420eb42 	sh	zero,-5310(at)
+  13993c:	3464ffff 	ori	a0,v1,0xffff
+  139940:	3c010047 	lui	at,0x47
+  139944:	24060016 	li	a2,22
+  139948:	a420eb40 	sh	zero,-5312(at)
+  13994c:	2405000b 	li	a1,11
+  139950:	3c010047 	lui	at,0x47
+  139954:	24030012 	li	v1,18
+  139958:	a426eb44 	sh	a2,-5308(at)
+  13995c:	3c010047 	lui	at,0x47
+  139960:	a425eb46 	sh	a1,-5306(at)
+  139964:	3c010047 	lui	at,0x47
+  139968:	a426eb48 	sh	a2,-5304(at)
+  13996c:	3c010047 	lui	at,0x47
+  139970:	a425eb4a 	sh	a1,-5302(at)
+  139974:	3c010047 	lui	at,0x47
+  139978:	a423eb5c 	sh	v1,-5284(at)
+  13997c:	24030010 	li	v1,16
+  139980:	3c010047 	lui	at,0x47
+  139984:	a423eb60 	sh	v1,-5280(at)
+  139988:	3c010047 	lui	at,0x47
+  13998c:	3c038080 	lui	v1,0x8080
+  139990:	a420eb4c 	sh	zero,-5300(at)
+  139994:	34638080 	ori	v1,v1,0x8080
+  139998:	3c010047 	lui	at,0x47
+  13999c:	ac24eb50 	sw	a0,-5296(at)
+  1399a0:	3c010047 	lui	at,0x47
+  1399a4:	ac24eb64 	sw	a0,-5276(at)
+  1399a8:	3c010047 	lui	at,0x47
+  1399ac:	a425eb5e 	sh	a1,-5282(at)
+  1399b0:	3c010047 	lui	at,0x47
+  1399b4:	a420eb62 	sh	zero,-5278(at)
+  1399b8:	3c010047 	lui	at,0x47
+  1399bc:	a020eb7a 	sb	zero,-5254(at)
+  1399c0:	3c010047 	lui	at,0x47
+  1399c4:	ac23eb54 	sw	v1,-5292(at)
+  1399c8:	3c010047 	lui	at,0x47
+  1399cc:	ac23eb58 	sw	v1,-5288(at)
+  1399d0:	3c010047 	lui	at,0x47
+  1399d4:	a020eb80 	sb	zero,-5248(at)
+  1399d8:	3c010047 	lui	at,0x47
+  1399dc:	a420eb78 	sh	zero,-5256(at)
+  1399e0:	3c010047 	lui	at,0x47
+  1399e4:	a426eb68 	sh	a2,-5272(at)
+  1399e8:	3c010047 	lui	at,0x47
+  1399ec:	a425eb6a 	sh	a1,-5270(at)
+  1399f0:	3c010047 	lui	at,0x47
+  1399f4:	a426eb6c 	sh	a2,-5268(at)
+  1399f8:	3c010047 	lui	at,0x47
+  1399fc:	a425eb6e 	sh	a1,-5266(at)
+  139a00:	3c010047 	lui	at,0x47
+  139a04:	a426eb70 	sh	a2,-5264(at)
+  139a08:	3c010047 	lui	at,0x47
+  139a0c:	a426eb74 	sh	a2,-5260(at)
+  139a10:	3c010047 	lui	at,0x47
+  139a14:	a425eb72 	sh	a1,-5262(at)
+  139a18:	3c010047 	lui	at,0x47
+  139a1c:	a425eb76 	sh	a1,-5258(at)
+  139a20:	3c010047 	lui	at,0x47
+  139a24:	a020eb7b 	sb	zero,-5253(at)
+  139a28:	3c010047 	lui	at,0x47
+  139a2c:	a020eb7c 	sb	zero,-5252(at)

@@ -1,0 +1,52 @@
+{
+  "near_full_scale_samples": 473,
+  "spu2_rail_samples": 472,
+  "seconds": 60.1435,
+  "windows": {
+    "8": {
+      "correlation": 0.7694526679611579,
+      "reference_offset_seconds": 6.084,
+      "gain": 0.5379242635673251
+    },
+    "28": {
+      "correlation": 0.623016202084409,
+      "reference_offset_seconds": 26.084,
+      "gain": 0.5352584349765342
+    },
+    "48": {
+      "correlation": 0.6179689098556144,
+      "reference_offset_seconds": 46.084,
+      "gain": 0.5181419031084598
+    }
+  },
+  "speech_events": [
+    {
+      "frame": 5380,
+      "sample": 307830,
+      "core": 1,
+      "voice": 22
+    },
+    {
+      "frame": 6008,
+      "sample": 811010,
+      "core": 1,
+      "voice": 22
+    },
+    {
+      "frame": 6413,
+      "sample": 1134996,
+      "core": 1,
+      "voice": 22
+    },
+    {
+      "frame": 7841,
+      "sample": 2278950,
+      "core": 1,
+      "voice": 22
+    }
+  ],
+  "peak_min": -32766,
+  "peak_max": 32765,
+  "clipped_samples": 0,
+  "note": "Actual SPU2 mix. Stereo difference suppresses centered speech and effects. Correlation is a continuity check, not a perceptual score."
+}

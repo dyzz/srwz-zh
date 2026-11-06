@@ -1,0 +1,36 @@
+{
+  "character": "雪",
+  "sourceFontDecodedSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
+  "modes": {
+    "sw": {
+      "ramMatchesFont": true,
+      "GSMatchesRAM": true,
+      "checkedTexels": 576,
+      "screenshotSize": [
+        640,
+        448
+      ]
+    },
+    "metal1": {
+      "ramMatchesFont": true,
+      "GSMatchesRAM": true,
+      "checkedTexels": 576,
+      "screenshotSize": [
+        640,
+        448
+      ]
+    },
+    "metal4": {
+      "ramMatchesFont": true,
+      "GSMatchesRAM": true,
+      "checkedTexels": 576,
+      "screenshotSize": [
+        2560,
+        1792
+      ]
+    }
+  },
+  "observed": "SW 1x and Metal 1x have gaps in the bottom horizontal stroke; Metal 4x retains it",
+  "conclusion": "render-stage native-resolution sampling loss, not a missing source glyph or atlas upload corruption",
+  "scope": "SP current ISO; ARMSX2 SW1/Metal1/Metal4 cold boot; no native binary or font edits made"
+}

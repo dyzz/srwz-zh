@@ -1,0 +1,8 @@
+EE_BIN = tremor-bench.elf
+EE_OBJS = bench.o alloc.o song.o mdct.o block.o codebook.o floor0.o floor1.o info.o mapping0.o registry.o res012.o sharedbook.o synthesis.o vorbisfile.o window.o
+EE_INCS = -I/Users/nate/gba-sound/vorbis-preview-20261105/ps2-libtremor -I/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/vorbis-tremor-20261105/toolchain/ps2dev/ps2sdk/ports/include
+EE_LDFLAGS = -Wl,--wrap=malloc,--wrap=calloc,--wrap=realloc,--wrap=free -L/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/vorbis-tremor-20261105/toolchain/ps2dev/ps2sdk/ports/lib
+EE_LIBS = -logg -ldebug
+all: $(EE_BIN)
+include $(PS2SDK)/samples/Makefile.pref
+include $(PS2SDK)/samples/Makefile.eeglobal

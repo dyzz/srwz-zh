@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,subprocess,wave,numpy as np
+W=Path(__file__).resolve().parent
+keys=[json.loads(x) for x in (W/'candidate-v2/battle.wav.keys.jsonl').read_text().splitlines()];bgm=[x for x in keys if x['ssa'] in ['0x2808','0x40070'] and x['pitch']=='0x0eb3'];print('bgm',bgm)
+def read(p):return np.frombuffer(subprocess.check_output(['ffmpeg','-v','error','-i',str(p),'-ar','8000','-ac','2','-f','f32le','-']),dtype='<f4').reshape(-1,2).astype(float)
+x=read('/Users/nate/gba-sound/psxavenc-preview-20261105/test-39s-psxavenc-preview.wav')[:160000];y=read(W/'candidate-v2/battle.wav');ratio=(0xeb3/4096*48000)/44100
+z=np.column_stack([np.interp(np.arange(int(len(x)/ratio))*ratio,np.arange(len(x)),x[:,c]) for c in range(2)])
+# Stereo difference rejects most centered voice and sound effects.
+z=z[:,0]-z[:,1];d=y[:,0]-y[:,1]
+def corr(q,z):
+ n=1<<(len(z)+len(q)-1).bit_length();v=np.fft.irfft(np.fft.rfft(z,n)*np.fft.rfft(q[::-1],n),n)[len(q)-1:len(z)];s=np.r_[0,np.cumsum(z*z)];v/=np.maximum(np.sqrt((s[len(q):]-s[:-len(q)])*np.sum(q*q)),1e-12);i=int(np.argmax(abs(v)));return dict(correlation=float(v[i]),reference_offset_seconds=i/8000)
+windows={str(t):corr(d[t*8000:(t+4)*8000],z) for t in [8,28,48]}
+period=(31501*28)/(0xeb3/4096*48000);lag=round(period*8000)
+a=d[8*8000:12*8000];bb=d[8*8000+lag:12*8000+lag];lc=float(np.dot(a,bb)/np.sqrt(np.dot(a,a)*np.dot(bb,bb)))
+r=dict(recording_seconds=len(y)/8000,bgm_key_events=bgm,reference_stereo_difference_matches=windows,expected_loop_seconds=period,loop_stereo_difference_correlation=lc,peak=float(np.max(abs(y))),clipped_samples=int(np.count_nonzero(abs(y)>=0.99999)),note='ARMSX2 actual SPU2 mix, no external audio. Stereo difference suppresses centered SFX; not a listening-quality score.')
+with wave.open(str(W/'candidate-v2/battle.wav')) as f: raw=np.frombuffer(f.readframes(f.getnframes()),dtype='<i2').astype(np.int32)
+r['peak']=float(np.max(abs(raw)))/32768;r['clipped_samples']=int(np.count_nonzero((raw==-32768)|(raw==32767)));r['peak_measurement']='Original 48 kHz PCM WAV; avoids resampling overshoot'
+(W/'audio-check.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))

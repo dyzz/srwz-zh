@@ -1,0 +1,106 @@
+/* Experimental SP-only profile. 48 kHz Vorbis is read from BGM/VOCAL.BIN on disc.
+ * Native Sony SIF entry points below require the asserted SLPS_259.20 preimages.
+ * telemetry[27] is a test-only seek request in seconds (zero during normal play).
+ * No host audio or runtime file is used by the player. */
+#include <stdint.h>
+#include <stddef.h>
+#include <string.h>
+#include "ivorbisfile.h"
+extern unsigned char irx_start[],irx_end[];
+#define SONG_MAX (4*1024*1024)
+static unsigned char song_start[SONG_MAX] __attribute__((aligned(64)));
+static unsigned song_size, song_frames, song_loop_start, song_loop_end, song_once, song_gain, song_finished, drain_at;
+static unsigned char metadata[18432] __attribute__((aligned(64)));
+static unsigned io_reply[2064] __attribute__((aligned(64)));
+static unsigned char *song_end;
+volatile uint32_t telemetry[32]={0x564f5231};
+static OggVorbis_File vf;
+static size_t source_pos;
+static unsigned client[16] __attribute__((aligned(64)));
+static unsigned reply[16] __attribute__((aligned(64)));
+static short pcm[4096] __attribute__((aligned(64)));
+static short packet[4096] __attribute__((aligned(64)));
+static int opened,ready,wanted;
+static unsigned crc_table[256];
+static int crc_ready;
+#define NATIVE ((int(*)(int,int))0x18c8a0)
+static void fallback(unsigned reason);
+static int init(void);
+static int load_song(unsigned track);
+#define RPC ((int(*)(void*,int,int,void*,int,void*,int,void*,void*))0x11f0b0)
+#define BIND ((int(*)(void*,int,int))0x11eed0)
+#define FLUSH ((void(*)(int))0x11b260)
+#define DMA ((int(*)(void*,int))0x11df08)
+#define DMASTAT ((int(*)(int))0x11b380)
+static int call(int cmd,void *data,int n){FLUSH(0);int e=RPC(client,cmd,0,data,n,reply,64,0,0);telemetry[9]=e;for(int i=0;i<7;i++)telemetry[16+i]=reply[i];return e;}
+static size_t rd(void *p,size_t s,size_t n,void *unused){if(!s)return 0;size_t left=song_end-song_start-source_pos;if(n>left/s)n=left/s;memcpy(p,song_start+source_pos,n*s);source_pos+=n*s;return n;}
+static int sk(void *unused,ogg_int64_t off,int whence){ogg_int64_t x=(whence==0?0:whence==1?source_pos:song_end-song_start)+off;if(x<0||x>song_end-song_start)return -1;source_pos=x;return 0;}
+static long tl(void *unused){return source_pos;}
+void arena_reset(void);
+static int open_song(void){source_pos=0;arena_reset();ov_callbacks cb={rd,sk,0,tl};int e=ov_open_callbacks((void*)1,&vf,0,0,cb);telemetry[8]=e;if(e<0)return e;opened=1;vorbis_info *vi=ov_info(&vf,-1);telemetry[10]=vi->rate;telemetry[11]=vi->channels;return vi->rate==48000&&vi->channels==2&&ov_streams(&vf)==1&&ov_pcm_total(&vf,-1)==song_frames?0:-100;}
+void player_stop(void){wanted=0;if(ready)call(4,0,0);if(opened){ov_clear(&vf);opened=0;}telemetry[1]=0;telemetry[5]++;}
+void player_start(int paused){
+ telemetry[6]++;telemetry[7]=*(volatile unsigned char*)0x5dbb98;
+ if(paused||telemetry[7]>=101)return;
+ NATIVE(0x20,0); /* Native score stays loaded and unmodified for fallback. */
+ if(!ready && init()<0){fallback(1);return;}
+ int e=load_song(telemetry[7]);if(e){fallback(e);return;}
+ if(open_song()<0){fallback(7);return;}
+ song_finished=drain_at=0;call(1,0,0);telemetry[13]=0;telemetry[15]=2166136261u;
+ wanted=1;telemetry[1]=1;
+}
+static int native_guard;
+int player_native(unsigned command){
+ if(native_guard||(command&0x7fff)||*(volatile unsigned char*)0x5dbb98>=101)return 0;
+ native_guard=1;player_stop();player_start(0);native_guard=0;return 1;
+}
+static void fallback(unsigned reason){player_stop();telemetry[30]=reason;telemetry[31]++;NATIVE(0,0);}
+static unsigned crc32(const void *data,unsigned n){
+ if(!crc_ready){for(unsigned i=0;i<256;i++){unsigned c=i;for(int j=0;j<8;j++)c=(c>>1)^((0-(c&1))&0xedb88320u);crc_table[i]=c;}crc_ready=1;}
+ unsigned c=~0u;const unsigned char *p=data;for(unsigned i=0;i<n;i++)c=crc_table[(c^p[i])&255]^(c>>8);return ~c;
+}
+static int file_call(int cmd,void *data,int size){FLUSH(0);int e=RPC(client,cmd,0,data,size,io_reply,sizeof(io_reply),0,0);if(e<0||io_reply[0]!=0x46494c31)return -1;return (int)io_reply[1];}
+static int read_at(unsigned off,void *dest,unsigned len){unsigned a[2];unsigned char *p=dest;while(len){unsigned n=len>8192?8192:len;a[0]=off;a[1]=n;if(file_call(11,a,8)!=(int)n)return -1;memcpy(p,io_reply+16,n);p+=n;off+=n;len-=n;}return 0;}
+static int load_song(unsigned track){
+ int status=2;if(file_call(10,0,0)!=0x20000000)goto done;
+ if(read_at(0,metadata,sizeof(metadata)))goto done;
+ unsigned *h=(unsigned*)metadata;status=3;
+ if(memcmp(metadata,"SRWZVOC1",8)||(h[2]!=1&&h[2]!=2)||h[3]!=2048||h[4]!=2048||h[5]!=64||h[6]!=256||h[7]!=18432||h[8]<18432||h[8]>0x20000000||h[9]!=0x20000000||h[10]!=(h[2]==1?0x53500001:0x53500002))goto done;
+ unsigned hc=h[12];h[12]=0;if(crc32(metadata,2048)!=hc||crc32(metadata+2048,16384)!=h[11])goto done;h[12]=hc;
+ unsigned *a=(unsigned*)(metadata+2048+track*64);status=4;if(a[0]!=track||a[1]!=1)goto done;
+ status=5;if(a[2]<18432||a[2]%2048||!a[3]||a[3]>SONG_MAX||a[2]>h[8]||a[3]>h[8]-a[2]||a[4]!=48000||a[5]!=2||!a[6]||(h[2]==1?(a[7]!=0||a[8]!=a[6]||a[9]>0x7fff):(a[7]>=a[8]||a[8]>a[6]||a[9]>260904||a[11]>1)))goto done;
+ for(int i=(h[2]==1?11:12);i<16;i++)if(a[i])goto done;
+ status=2;if(read_at(a[2],song_start,a[3]))goto done;
+ status=6;if(crc32(song_start,a[3])!=a[10])goto done;
+ song_frames=a[6];song_loop_start=a[7];song_loop_end=a[8];song_once=h[2]==2?a[11]:0;song_gain=h[2]==2?a[9]:65536;song_size=a[3];song_end=song_start+song_size;unsigned volume=h[2]==1?a[9]:0x4800;call(5,&volume,4);status=0;telemetry[30]=0;
+ done:file_call(12,0,0);return status;
+}
+static int init(void){
+ telemetry[1]=2;unsigned size=(irx_end-irx_start+63)&~63;void *p=((void*(*)(int,int,int))0x123510)(0,size,0);telemetry[2]=(unsigned)p;if(!p)return -1;
+ struct {void *src,*dest;int size,attr;} d={irx_start,p,size,0};FLUSH(0);int id=DMA(&d,1);while(DMASTAT(id)>=0){}int modret=0;int m=((int(*)(void*,int,void*,int*))0x123b30)(p,0,0,&modret);telemetry[3]=m;telemetry[4]=modret;((int(*)(void*))0x123590)(p);if(m<0)return -2;
+ for(int i=0;i<20&&!client[9];i++)BIND(client,0x564f5242,0);if(!client[9])return -3;ready=1;return 0;
+}
+void player_pump(void){
+ telemetry[12]++;if(!wanted)return;
+ if(!ready){int e=init();if(e<0){fallback(1);return;}}
+ if(!opened){if(open_song()<0){fallback(7);return;}song_finished=drain_at=0;call(1,0,0);telemetry[13]=0;telemetry[15]=2166136261u;}
+ if(telemetry[27]){unsigned seek=telemetry[27];telemetry[27]=0;call(4,0,0);int e=ov_pcm_seek(&vf,(ogg_int64_t)seek*48000);telemetry[28]=seek;telemetry[29]=e;if(e<0){fallback(8);return;}telemetry[13]=seek*48000;telemetry[15]=2166136261u;call(1,0,0);}
+ call(0,0,0);if(song_finished){telemetry[1]=4;if(reply[1]==0){if(!drain_at)drain_at=reply[4]+1;if(reply[4]+1>=drain_at+2)player_stop();}return;}int budget=14;
+ while(reply[1]<12 && budget-- && !song_finished){int got=0,section=0;
+  while(got<8192){
+   if(telemetry[13]>=song_loop_end){
+    if(song_once){memset((char*)pcm+got,0,8192-got);got=8192;song_finished=1;break;}
+    telemetry[23]=telemetry[13];telemetry[24]=telemetry[15];telemetry[14]++;
+    if(ov_pcm_seek(&vf,song_loop_start)<0){fallback(8);return;}telemetry[13]=song_loop_start;telemetry[15]=2166136261u;
+   }
+   unsigned limit=(song_loop_end-telemetry[13])*4;if(limit>(unsigned)(8192-got))limit=8192-got;
+   long n=ov_read(&vf,(char*)pcm+got,limit,&section);if(n<=0){telemetry[8]=n?n:-101;fallback(8);return;}
+   for(long k=0;k<n;k++)telemetry[15]=(telemetry[15]^((unsigned char*)pcm)[got+k])*16777619u;
+   got+=n;telemetry[13]+=n/4;telemetry[26]+=n/4;
+  }
+  if(song_gain!=65536)for(int k=0;k<4096;k++){int v=((int64_t)pcm[k]*song_gain)>>16;pcm[k]=v>32767?32767:v< -32768?-32768:v;}
+  for(int b=0;b<8;b++)for(int j=0;j<256;j++){packet[b*512+j]=pcm[(b*256+j)*2];packet[b*512+256+j]=pcm[(b*256+j)*2+1];}
+  call(2,packet,8192);if(song_finished)call(6,0,0);
+ }
+ if(!reply[2])call(3,0,0);telemetry[1]=3;
+}

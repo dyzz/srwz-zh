@@ -1,0 +1,57 @@
+{
+  "recording_seconds": 60.1435,
+  "bgm_key_events": [
+    {
+      "frame": 5075,
+      "sample": 63677,
+      "core": 0,
+      "voice": 5,
+      "on": true,
+      "ssa": "0x40070",
+      "lsa": "0x3a658",
+      "pitch": "0x0eb3",
+      "adsr": "00ff1fc0",
+      "vol": [
+        "0x0000",
+        "0x0ca3"
+      ],
+      "header": "0x0600"
+    },
+    {
+      "frame": 5075,
+      "sample": 63677,
+      "core": 0,
+      "voice": 12,
+      "on": true,
+      "ssa": "0x2808",
+      "lsa": "0x12898",
+      "pitch": "0x0eb3",
+      "adsr": "00ff1fc0",
+      "vol": [
+        "0x0ca3",
+        "0x0000"
+      ],
+      "header": "0x0600"
+    }
+  ],
+  "reference_stereo_difference_matches": {
+    "8": {
+      "correlation": 0.9681887735491101,
+      "reference_offset_seconds": 6.67275
+    },
+    "28": {
+      "correlation": 0.9590043480733149,
+      "reference_offset_seconds": 6.671125
+    },
+    "48": {
+      "correlation": 0.9897949092774537,
+      "reference_offset_seconds": 6.669375
+    }
+  },
+  "expected_loop_seconds": 20.001697936043936,
+  "loop_stereo_difference_correlation": 0.9304740851346979,
+  "peak": 0.999908447265625,
+  "clipped_samples": 0,
+  "note": "ARMSX2 actual SPU2 mix, no external audio. Stereo difference suppresses centered SFX; not a listening-quality score.",
+  "peak_measurement": "Original 48 kHz PCM WAV; avoids resampling overshoot"
+}

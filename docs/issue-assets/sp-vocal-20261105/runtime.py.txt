@@ -1,0 +1,16 @@
+from pathlib import Path
+import sys,json
+W=Path(__file__).resolve().parent;R=W.parents[2];sys.path.insert(0,str(R/'tools'))
+from srwz.armsx2_runtime import Armsx2Session
+rows=[json.loads(l) for l in (W/'commands.jsonl').read_text().splitlines()];commands=[]
+for x in rows:
+ c=x['cmd']
+ if x['reply'][-1]=='OK frame=5000':break
+ if c.startswith(('run ','press ')):commands.append(c)
+out=W/(sys.argv[1] if len(sys.argv)>1 else 'candidate')
+with Armsx2Session(R/'build/iso/test/sp-z-vocal.iso',R/'work/feedback/aethersx2-text-dropout-20261002/production-lrps2/sp/save/sp-current.ps2',out) as vm:
+ for c in commands:vm.cmd(c)
+ vm.shot('configured');vm.cmd('audio start');vm.press('start',3)
+ for i in range(6):
+  vm.run(600);vm.shot(f'play-{i}');x=vm.cmd('voices');(out/f'voices-{i}.txt').write_text('\n'.join(x.lines));print(i,x.lines[:3],flush=True)
+ vm.cmd('audio stop '+str(out/'battle.wav'));vm.cmd('mem 5dbb98 2');vm.press('cross',3);vm.run(180);vm.shot('returned')

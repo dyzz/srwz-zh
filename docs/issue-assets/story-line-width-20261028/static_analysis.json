@@ -1,0 +1,17 @@
+{
+  "scope": "ordinary STAGE story dialogue; not scrolling summaries or SRVC",
+  "original_functions": {
+    "quote_style_recognizer": "0x220E70",
+    "line_slice_by_LF": "0x221030",
+    "ordinary_dialogue": "0x2212B0",
+    "row_descriptor_to_font": "0x220DB0",
+    "font_glyph_parser": "0x13A290",
+    "glyph_pen_advance": "0x13AB70..0x13AB84"
+  },
+  "line_breaks": "0x221030 searches delimiter in gp-32412; ordinary caller copies one existing LF-delimited row and increments Y. No 21-character width wrap in this path.",
+  "current_descriptor": "Original 0x41E200 / Best 0x41EA30 / SP 0x4799F0: W21 H12 stepX21 stepY14, base X=-240 screen X=80; name Y47 then body Y61/75/89.",
+  "clip": "descriptor signed endpoints (-320,-112)..(320,112), not a 21-column text layout budget; textbox art and physical screen impose visible boundaries separately.",
+  "quotes": "current spoken-prefix bytes 91 41 (Chinese opening curly quote), parenthetical 8F E8; selects speaker styling. Native glyph parser has no separate branch for 0x9141/0x8FE7 and uses normal CJK advance.",
+  "not_line_width": "font parser constants 480,240,504 at 0x13AA20..0x13AB1C concern texture atlas UV placement, not text X/line breaks; actual text X stored at record+4 and incremented using current advance at 0x13AB70..0x13AB84.",
+  "pending": "LRPS2 width matrix determines practical visible panel boundary; do not turn author budget or full-screen clipping into a proven readable width."
+}

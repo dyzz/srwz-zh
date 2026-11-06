@@ -1,0 +1,66 @@
+from pathlib import Path
+import sys,struct,subprocess,json,hashlib
+W=Path(__file__).resolve().parent;R=W.parents[2];sys.path.insert(0,str(R/'tools'))
+from srwz.iso9660 import scan_iso9660,member_map
+src=R/'build/iso/special-disc/sp-current.iso';dst=R/'build/iso/test/sp-z-vocal-louder.iso';m=member_map(scan_iso9660(src));v=m['BGM/BGM.BIN']
+with src.open('rb') as f:f.seek(v.extent_lba*2048);b=f.read(v.size)
+a=json.loads((R/'docs/issue-assets/vocal-bgm-20261105/bgm-layout.json').read_text())[19];sq,hd,bd,end=[a[k] for k in ['sq','hd','bd','end']]
+seq=bytearray(b[sq:hd]);p=0x4a;skip=False;status=0;first=True;first_event=None
+while p<len(seq):
+ if not skip:
+  while seq[p]&128:p+=1
+  p+=1
+ skip=False
+ if seq[p]&128:status=seq[p];p+=1
+ kind=status>>4
+ if status==255:
+  k=seq[p];p+=1
+  if k==81:p+=4
+  else:break
+ elif kind in [8,12]:
+  skip=bool(seq[p]&128)
+  if kind==8:seq[p]&=128
+  else:seq[p]=(seq[p]&128)|27
+  p+=1
+ elif kind in [9,11,14]:
+  skip=bool(seq[p+1]&128)
+  if kind==9:
+   if first and seq[p+1]&127:
+    first_event=dict(offset=p,status=status,velocity=seq[p+1]&127);seq[p]=60;seq[p+1]=(seq[p+1]&128)|127;first=False
+   else:seq[p]=0;seq[p+1]&=128
+  elif kind==14:seq[p]=0;seq[p+1]=(seq[p+1]&128)|64
+  elif kind==11:
+   if seq[p]==10:seq[p+1]=(seq[p+1]&128)|64
+   if seq[p] in [1,91,93]:seq[p+1]&=128
+  p+=2
+ else:raise ValueError((hex(p),hex(status)))
+assert not first
+# Known-working instrument layout from bank 0, fits bank 19's HD allocation.
+h=bytearray(b[0x7970:0xa1f0]);u=lambda p:struct.unpack_from('<I',h,p)[0]
+prog=u(0x24);pp=prog+u(prog+16+27*4);sp=pp+u(pp)
+h[pp+4]=1;h[pp+6]=127;h[pp+7]=64;h[pp+8:pp+10]=b'\0\0';h[pp+14:pp+36]=bytes(22)
+struct.pack_into('<H',h,sp,0);h[sp+2]=0;h[sp+3]=0;h[sp+4]=127;h[sp+10:sp+20]=bytes([0,60,0,60,0,60,127,64,0,0])
+ss=u(0x28);ss0=ss+u(ss+16);h[ss0:ss0+8]=bytes([2,1,127,2,0,0,1,0])
+sc=u(0x2c);s0=sc+u(sc+16);s1=sc+u(sc+20)
+sample=bytearray(h[s0:s0+42]);sample[11]=60;sample[12]=0;sample[16]=127;struct.pack_into('<HH',sample,18,0x00ff,0x1fc0);sample[32:40]=bytes(8)
+encoded=Path('/Users/nate/gba-sound/psxavenc-preview-20261105/test-39s-44100-stereo.vag').read_bytes();body=bytearray();sample_size=0
+vc=u(0x30)
+for ch,s in enumerate([s0,s1]):
+ data=bytearray(b''.join(encoded[i+ch*2048:i+(ch+1)*2048] for i in range(2048,len(encoded),4096))[:(31500+1)*16])
+ for i in range(1,len(data),16):data[i]=2
+ data[1]=6;data[-15]=3
+ struct.pack_into('<H',sample,0,ch);sample[13]=0 if ch==0 else 127;h[s:s+42]=sample
+ vp=vc+u(vc+16+ch*4);struct.pack_into('<IHBB',h,vp,len(body),44100,1,255)
+ body+=data;sample_size=len(data)
+assert len(body)<=end-bd and len(h)<=bd-hd
+# Retain loader allocation budget while replacing actual active sample definitions.
+struct.pack_into('<I',h,0x20,end-bd)
+patch=seq+h+bytes(bd-hd-len(h))+body+bytes(end-bd-len(body));assert len(patch)==end-sq
+if not dst.exists():subprocess.run(['cp','-c',str(src),str(dst)],check=True)
+with dst.open('r+b') as f:f.seek(v.extent_lba*2048+sq);f.write(patch)
+assert member_map(scan_iso9660(dst))==m
+with dst.open('rb') as f:f.seek(v.extent_lba*2048);out=f.read(v.size)
+assert out[:sq]==b[:sq] and out[end:]==b[end:]
+(W/'encoded-stereo-louder.adpcm').write_bytes(body)
+rec=dict(source=str(src),candidate=str(dst),note_velocity=127,previous_note_velocity=100,track=19,title='閃光の中のMS',source_start_seconds=30,seconds_per_channel=(sample_size//16)*28/44100,adpcm_bytes=len(body),slot=a,first_event=first_event,source_bgm_sha256=hashlib.sha256(b).hexdigest(),candidate_bgm_sha256=hashlib.sha256(out).hexdigest(),iso_members_unchanged=True,other_bgm_slots_unchanged=True)
+(W/'build-louder-receipt.json').write_text(json.dumps(rec,indent=2,ensure_ascii=False)+'\n');print(json.dumps(rec,indent=2,ensure_ascii=False))

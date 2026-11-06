@@ -1,0 +1,269 @@
+{
+  "kind": "shared JS source/compiled layout audit, no ISO write or runtime claim",
+  "inputs": {
+    "corpus/zh/menu/stage-overviews.json": "34ec3e258263f729917342e01299c3899d71778d20926cc7a78457719a048dfe",
+    "corpus/zh/summary.json": "ecd94086b32f15513b6e1eac8e401b68c45c24262be26055e475f794d61177fc",
+    "corpus/zh/special-disc/frame-text.json": "f43fbf62b435337bfb3b898100f39eedef4a3b9f7978004c32f8c40077f6e867",
+    "corpus/zh/library/v0.2-reviewed.json": "a4c569c3d1176acd21e6b0d41a5c10aac50373a310e708e0285317d313167ab8",
+    "shared/text-layout/engine.mjs": "149f8d00b26d800b3edc922fdbe63dd551612b5b4867ad8b41880eef32e66ffc",
+    "shared/text-layout/contracts.mjs": "9c61fd105ca8c8f5426a30146d4b7f55a748921329edc83ad46a119a735a2b77",
+    "config/text-layout/native-scene-contracts.json": "f752bcda3a6f85f1ffc5d7644234c603784bd5b3d36cf97fe722cda971e09b2f",
+    "tools/srwz/build_layout.py": "63f4b04b2c9b1f199c0b2aad031895aec5b637f620027c3ace71617c4c5f5f92"
+  },
+  "scanned": 1711,
+  "passed": 1711,
+  "errors": [],
+  "summary": {
+    "library_character": {
+      "fields": 820,
+      "changed": 812,
+      "storedOverwidthRows": 12,
+      "spreadImproved": 773,
+      "spreadEqual": 47,
+      "spreadWorse": 0,
+      "withinOnePixel": 222,
+      "maximumSpreadPx": 60
+    },
+    "library_glossary": {
+      "fields": 104,
+      "changed": 103,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 95,
+      "spreadEqual": 9,
+      "spreadWorse": 0,
+      "withinOnePixel": 34,
+      "maximumSpreadPx": 180
+    },
+    "library_robot": {
+      "fields": 626,
+      "changed": 623,
+      "storedOverwidthRows": 16,
+      "spreadImproved": 556,
+      "spreadEqual": 69,
+      "spreadWorse": 1,
+      "withinOnePixel": 197,
+      "maximumSpreadPx": 111
+    },
+    "main_flow": {
+      "fields": 110,
+      "changed": 0,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 0,
+      "spreadEqual": 110,
+      "spreadWorse": 0,
+      "withinOnePixel": 110,
+      "maximumSpreadPx": 0
+    },
+    "main_scroll": {
+      "fields": 20,
+      "changed": 0,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 0,
+      "spreadEqual": 20,
+      "spreadWorse": 0,
+      "withinOnePixel": 18,
+      "maximumSpreadPx": 24
+    },
+    "sp_flow": {
+      "fields": 21,
+      "changed": 0,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 0,
+      "spreadEqual": 21,
+      "spreadWorse": 0,
+      "withinOnePixel": 18,
+      "maximumSpreadPx": 7
+    },
+    "sp_scroll": {
+      "fields": 10,
+      "changed": 0,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 0,
+      "spreadEqual": 10,
+      "spreadWorse": 0,
+      "withinOnePixel": 10,
+      "maximumSpreadPx": 0
+    }
+  },
+  "beforeWritebackSummary": {
+    "library_character": {
+      "fields": 820,
+      "changed": 812,
+      "storedOverwidthRows": 12,
+      "spreadImproved": 773,
+      "spreadEqual": 47,
+      "spreadWorse": 0,
+      "withinOnePixel": 222,
+      "maximumSpreadPx": 60
+    },
+    "library_glossary": {
+      "fields": 104,
+      "changed": 103,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 95,
+      "spreadEqual": 9,
+      "spreadWorse": 0,
+      "withinOnePixel": 34,
+      "maximumSpreadPx": 180
+    },
+    "library_robot": {
+      "fields": 626,
+      "changed": 623,
+      "storedOverwidthRows": 16,
+      "spreadImproved": 556,
+      "spreadEqual": 69,
+      "spreadWorse": 1,
+      "withinOnePixel": 197,
+      "maximumSpreadPx": 111
+    },
+    "main_flow": {
+      "fields": 110,
+      "changed": 0,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 0,
+      "spreadEqual": 110,
+      "spreadWorse": 0,
+      "withinOnePixel": 110,
+      "maximumSpreadPx": 0
+    },
+    "main_scroll": {
+      "fields": 20,
+      "changed": 6,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 1,
+      "spreadEqual": 19,
+      "spreadWorse": 0,
+      "withinOnePixel": 18,
+      "maximumSpreadPx": 24
+    },
+    "sp_flow": {
+      "fields": 21,
+      "changed": 0,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 0,
+      "spreadEqual": 21,
+      "spreadWorse": 0,
+      "withinOnePixel": 18,
+      "maximumSpreadPx": 7
+    },
+    "sp_scroll": {
+      "fields": 10,
+      "changed": 0,
+      "storedOverwidthRows": 0,
+      "spreadImproved": 0,
+      "spreadEqual": 10,
+      "spreadWorse": 0,
+      "withinOnePixel": 10,
+      "maximumSpreadPx": 0
+    }
+  },
+  "writeback": {
+    "groups": 6,
+    "fields": 14,
+    "changes": [
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/09/000",
+        "before": "　民众积压的焦虑彻底爆发，最终演变为",
+        "after": "　民众积压的焦虑彻底爆发，最终演变为暴动；相",
+        "displayGroup": "summary/09/000"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/09/001",
+        "before": "暴动；相关消息又裹挟着不负责任的谣言，",
+        "after": "关消息又裹挟着不负责任的谣言，在UN上四处传",
+        "displayGroup": "summary/09/000"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/09/002",
+        "before": "在UN上四处传播，进一步煽动着人们的不安。",
+        "after": "播，进一步煽动着人们的不安。",
+        "displayGroup": "summary/09/000"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/09/003",
+        "before": "经政变重组的新地球联邦政府",
+        "after": "经政变重组的新地球联邦政府虽派遣军队镇压暴",
+        "displayGroup": "summary/09/003"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/09/004",
+        "before": "虽派遣军队镇压暴徒，却无法将",
+        "after": "徒，却无法将",
+        "displayGroup": "summary/09/003"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/09/005",
+        "before": "早已扎根在人们心底的不安与恐惧",
+        "after": "早已扎根在人们心底的不安与恐惧彻底驱",
+        "displayGroup": "summary/09/005"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/09/006",
+        "before": "彻底驱散。",
+        "after": "散。",
+        "displayGroup": "summary/09/005"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/10/000",
+        "before": "　此外，第二次崩坏也改变了分隔地球与",
+        "after": "　此外，第二次崩坏也改变了分隔地球与宇宙的相",
+        "displayGroup": "summary/10/000"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/10/001",
+        "before": "宇宙的相克界。",
+        "after": "克界。",
+        "displayGroup": "summary/10/000"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/10/002",
+        "before": "　全世界范围内，相克界的力量都在减弱，",
+        "after": "　全世界范围内，相克界的力量都在减弱，取而代",
+        "displayGroup": "summary/10/002"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/10/003",
+        "before": "取而代之的是光粒子含量增加。",
+        "after": "之的是光粒子含量增加。",
+        "displayGroup": "summary/10/002"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/10/004",
+        "before": "受此影响，异星人联合的攻势，以及地球居民",
+        "after": "受此影响，异星人联合的攻势，以及地球居民与宇",
+        "displayGroup": "summary/10/004"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/10/005",
+        "before": "与宇宙移民之间的战争愈演愈烈；与此同时，",
+        "after": "宙移民之间的战争愈演愈烈；与此同时，各地抗体",
+        "displayGroup": "summary/10/004"
+      },
+      {
+        "path": "corpus/zh/summary.json",
+        "id": "summary/10/006",
+        "before": "各地抗体科拉利安的活动也日益频繁。",
+        "after": "科拉利安的活动也日益频繁。",
+        "displayGroup": "summary/10/004"
+      }
+    ],
+    "afterHashes": {
+      "corpus/zh/summary.json": "ecd94086b32f15513b6e1eac8e401b68c45c24262be26055e475f794d61177fc"
+    }
+  },
+  "fullReport": "work/analysis/unified-prose-20261106/audit.json",
+  "command": "python3 tools/text_layout/audit_uniform_prose.py"
+}

@@ -95,6 +95,25 @@ class Armsx2RuntimeTests(unittest.TestCase):
         with self.assertRaises(Armsx2RuntimeError):
             read_reply(io.StringIO("SHOT x\n"))
 
+    def test_video_path_roundtrip_and_command_injection_guard(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            sock = os.path.join(tmp, "v.sock")
+            result = Path(tmp) / "battle with spaces.mp4"
+            fake = FakeRunner(sock, {"video": [f"VIDEO {result}", "OK frame=123"]})
+            session = Armsx2Session(Path("a.iso"), Path("c.ps2"), Path(tmp), socket_path=sock)
+            session._socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            session._socket.connect(sock)
+            session._stream = session._socket.makefile("rw")
+            session.start_video("battle with spaces.mp4")
+            self.assertEqual(session.stop_video(), result)
+            self.assertEqual(session.frame, 123)
+            for bad in ("", "x\nquit", "x\rquit"):
+                with self.assertRaises(ValueError):
+                    session.start_video(bad)
+            session.close()
+            fake.thread.join(5)
+            self.assertEqual(fake.received, ["video start battle with spaces.mp4", "video stop", "quit"])
+
     def test_session_speaks_the_line_protocol(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             sock = os.path.join(tmp, "r.sock")

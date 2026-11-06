@@ -1,0 +1,84 @@
+{
+  "nativeMetadata": {
+    "z": {
+      "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/sources/original.iso",
+      "compdataSha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+      "executableSha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+      "unitRecordBase": 314080,
+      "unitRecordStride": 68,
+      "bgmOffset": 57,
+      "unitCount": 807,
+      "codeEvidence": [
+        "0x1484ec",
+        "0x1484f0",
+        "0x1484f8"
+      ],
+      "musicMetadata": {
+        "tableOffset": 369024,
+        "recordSize": 12,
+        "workNameTableOffset": 381504,
+        "workCount": 22,
+        "binding": "Native metadata work-group id -> same-index native work-title pointer; Chinese labels from reviewed corpus"
+      }
+    },
+    "sp": {
+      "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/sources/Super Robot Taisen Z - Special Disc [J].iso",
+      "compdataSha256": "f45cfd142dc8dd8dce7a594d6469e99570d26178f1f3ef3133be108df8712b0a",
+      "executableSha256": "9c345c4a19e7abd791b00af707fe1f44086da6b1b21b8a4344a5872b307c5101",
+      "unitRecordBase": 347024,
+      "unitRecordStride": 68,
+      "bgmOffset": 57,
+      "unitCount": 853,
+      "codeEvidence": [
+        "0x1497dc",
+        "0x1497e0",
+        "0x1497e8"
+      ],
+      "musicMetadata": {
+        "tableOffset": 405104,
+        "recordSize": 12,
+        "workNameTableOffset": 421792,
+        "workCount": 22,
+        "binding": "Native metadata work-group id -> same-index native work-title pointer; Chinese labels from reviewed corpus"
+      }
+    }
+  },
+  "boundTracks": 101,
+  "worksPerEdition": 22,
+  "workGroupsMatchBetweenZandSP": true,
+  "layout": [
+    {
+      "offset": 0,
+      "bytes": 4,
+      "field": "title pointer"
+    },
+    {
+      "offset": 4,
+      "bytes": 2,
+      "field": "native work-group id"
+    },
+    {
+      "offset": 6,
+      "bytes": 2,
+      "field": "BGM id"
+    },
+    {
+      "offset": 8,
+      "bytes": 4,
+      "field": "availability flags and playback parameters; not fully decoded"
+    }
+  ],
+  "nameBinding": "Group id binds to the same index in the native work-title pointer table; source pool, pointers and decoded hashes validated by library_work_titles.validate_source; Chinese labels from the reviewed work-title corpus",
+  "displayChecks": {
+    "fullwidthLatinTitleCount": 0,
+    "fullwidthSearch": "Ｈｅｙ　Ｙｏｕ -> 1 / 101",
+    "rawTitlesPreserved": true,
+    "examples": [
+      "Hey You",
+      "閃光の中のMS",
+      "MAIN TITLE"
+    ],
+    "preserved": "kana, kanji, punctuation, halfwidth kana and circled characters"
+  },
+  "evidenceKind": "Static native-table and executable analysis plus browser display checks; no game executable changes or new runtime claim"
+}

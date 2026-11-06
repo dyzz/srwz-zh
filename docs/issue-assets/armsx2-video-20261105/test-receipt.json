@@ -1,0 +1,32 @@
+{
+  "begin": 4995,
+  "end": 6500,
+  "output": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-vocal-20261105/video-test/Z Gundam vocal.mp4",
+  "rejections": [
+    {
+      "command": "video start duplicate",
+      "error": "'video start duplicate': video: stop the existing audio/video recording first"
+    },
+    {
+      "command": "audio start",
+      "error": "'audio start': audio: video recording owns the audio capture; use video stop"
+    },
+    {
+      "command": "audio stop wrong.wav",
+      "error": "'audio stop wrong.wav': audio: video recording owns the audio capture; use video stop"
+    },
+    {
+      "command": "load nonexistent",
+      "error": "'load nonexistent': load: stop video recording before loading a state"
+    },
+    {
+      "command": "video stop",
+      "error": "'video stop': video: no recording active"
+    },
+    {
+      "command": "video start Z Gundam vocal.mp4",
+      "error": "'video start Z Gundam vocal.mp4': video: output already exists; choose a new name"
+    }
+  ],
+  "quit_finalized": true
+}

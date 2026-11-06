@@ -1,0 +1,32 @@
+{
+  "source": "/Users/nate/gba-sound/test.mp3",
+  "excerpt_seconds": [
+    30,
+    190
+  ],
+  "duration_seconds": 160,
+  "sample_rate": 44100,
+  "channels": 2,
+  "nominal_bitrate": 96000,
+  "file_bytes": 1952536,
+  "average_container_bitrate": 97626.8,
+  "budget_bytes": 2000000,
+  "ogg_sha256": "1de3129d66781e0f8569ea3fe4c05eb68e22138a521da59526c77be73b2707f0",
+  "tremor_commit": "ae62505aee8f4fc15cce97332133229ed8da0d5a",
+  "decoder_mode": "normal precision; _LOW_ACCURACY_ disabled",
+  "host_pcm_sha256": "473b14dc28a2a15e6e0490ce6c416eaa4c571f6a1faef24678815becc6451170",
+  "host_pcm_fnv1a32": 1654727628,
+  "ee_pcm_fnv1a32": 1654727628,
+  "ee_decoded_frames": 7056000,
+  "ee_decoder_peak_requested_heap_bytes": 144364,
+  "ee_live_heap_after_clear": 0,
+  "ee_max_single_allocation": 26244,
+  "low_accuracy_vs_normal_snr_db": 43.82220890019574,
+  "limits": [
+    "Standalone EE ELF on ARMSX2, not integrated with SRWZ",
+    "Input Ogg fully embedded in EE memory for this test",
+    "Heap metric excludes allocator overhead, stack, static storage, code and compressed input",
+    "CP0 cycles are emulator observations, not hardware performance proof",
+    "No audio-output or concurrent battle test for Vorbis yet"
+  ]
+}

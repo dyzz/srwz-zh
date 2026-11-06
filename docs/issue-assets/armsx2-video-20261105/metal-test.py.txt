@@ -1,0 +1,12 @@
+from pathlib import Path
+import sys,json
+W=Path(__file__).resolve().parent;R=W.parents[2];sys.path.insert(0,str(R/'tools'))
+from srwz.armsx2_runtime import Armsx2Session,Armsx2RuntimeError
+out=W/'video-metal-test'
+with Armsx2Session(R/'build/iso/test/sp-z-vocal.iso',R/'work/feedback/aethersx2-text-dropout-20261002/production-lrps2/sp/save/sp-current.ps2',out,renderer='metal') as vm:
+ vm.run(1800);vm.press('start',3);vm.run(240)
+ vm.cmd('audio start')
+ try:vm.start_video('conflict');raise AssertionError('audio conflict accepted')
+ except Armsx2RuntimeError:pass
+ vm.cmd('audio stop before.wav');vm.start_video('metal-title');vm.run(120);vm.shot('last');p=vm.stop_video();assert p.is_file()
+ print(p)

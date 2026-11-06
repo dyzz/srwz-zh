@@ -1,0 +1,23 @@
+import numpy as np,subprocess,json
+from pathlib import Path
+O=Path(__file__).parent
+def read(p,ss=0,t=None):
+ cmd=['ffmpeg','-v','error','-ss',str(ss),'-i',str(p)]
+ if t:cmd+=['-t',str(t)]
+ return np.frombuffer(subprocess.check_output(cmd+['-ac','1','-ar','8000','-f','f32le','-']),dtype='<f4').astype(float)
+x=read('/Users/nate/gba-sound/test.mp3',30,20);y=read(O/'final-runtime/native.wav')
+# Search the position of a 5s recorded window within the reference via FFT convolution.
+q=y[40000:80000];n=1<<(len(x)+len(q)-1).bit_length();c=np.fft.irfft(np.fft.rfft(x,n)*np.fft.rfft(q[::-1],n),n)[len(q)-1:len(x)]
+e=np.convolve(x*x,np.ones(1),'full'); sums=np.r_[0,np.cumsum(e)];den=np.sqrt((sums[len(q):]-sums[:-len(q)])*np.sum(q*q));r=c/np.maximum(den,1e-12);i=int(np.argmax(abs(r)))
+# Correct reference timing for the observed SPU pitch 0x0aaa (31992.1875 Hz).
+ratio=(0x0aaa/4096*48000)/32000
+z=np.interp(np.arange(int(len(x)/ratio))*ratio,np.arange(len(x)),x)
+n=1<<(len(z)+len(q)-1).bit_length();c2=np.fft.irfft(np.fft.rfft(z,n)*np.fft.rfft(q[::-1],n),n)[len(q)-1:len(z)]
+sums2=np.r_[0,np.cumsum(z*z)];r2=c2/np.maximum(np.sqrt((sums2[len(q):]-sums2[:-len(q)])*np.sum(q*q)),1e-12)
+# Actual loop period near 20s, normalized correlation on common windows.
+best=(-1,0)
+for lag in range(159000,161001):
+ a=y[16000:len(y)-lag];b=y[16000+lag:];v=float(np.dot(a,b)/np.sqrt(np.dot(a,a)*np.dot(b,b)))
+ if v>best[0]:best=(v,lag)
+result=dict(reference_excerpt_seconds=[30,50],recording_seconds=len(y)/8000,comparison_window_seconds=[5,10],recording_match_offset_seconds=i/8000,normalized_correlation=float(r[i]),pitch_corrected_reference_correlation=float(np.max(abs(r2))),observed_pitch=0x0aaa,effective_sample_rate=ratio*32000,loop_correlation=best[0],loop_seconds=best[1]/8000)
+(O/'audio-check.json').write_text(json.dumps(result,indent=2)+'\n');print(result)

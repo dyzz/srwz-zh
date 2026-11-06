@@ -1,0 +1,890 @@
+--- a/package.json
++++ b/package.json
+@@ -12,7 +12,7 @@
+     "srvc:conditions": "python3 scripts/export_srvc_special_conditions.py",
+     "srvc:conditions:test": "python3 scripts/test_srvc_special_conditions.py",
+     "stage:test": "node --test app/stage-phases.test.ts",
+-    "review:test": "node --test scripts/api-pagination.test.ts app/review-text.test.ts app/translation-diff-parts.test.ts scripts/library-review.test.ts app/translation-length-hint.test.ts scripts/review-store.test.ts scripts/review-export.test.ts scripts/review-groups.test.ts scripts/recent-review-results.test.ts scripts/special-disc-review.test.ts scripts/sp-topic-review.test.ts scripts/sp-baseline.test.ts scripts/review-format.test.ts",
++    "review:test": "node --test scripts/api-pagination.test.ts app/review-text.test.ts app/translation-diff-parts.test.ts scripts/library-review.test.ts app/translation-length-hint.test.ts scripts/review-store.test.ts scripts/review-export.test.ts scripts/review-groups.test.ts scripts/recent-review-results.test.ts scripts/special-disc-review.test.ts scripts/sp-topic-review.test.ts scripts/sp-baseline.test.ts scripts/review-format.test.ts scripts/native-preview-geometry.test.ts",
+     "review:backup": "node scripts/backup_review_db.mjs create",
+     "review:backup:verify": "node scripts/backup_review_db.mjs verify",
+     "review:backup:test": "node --test scripts/review-backup.test.mjs",
+@@ -21,7 +21,7 @@
+     "dev": "vinext dev",
+     "guide:build": "node scripts/prepare_guide.mjs",
+     "guide:test": "python3 ../srwz-zh/guide/build.py --check && python3 ../srwz-zh/guide/test_build.py",
+-    "build": "npm run layout:check && npm run preview:assets:check && npm run preview:portraits:check && npm run guide:build && vinext build && node scripts/prepare_standalone.mjs",
++    "build": "npm run layout:check && npm run layout:test && npm run preview:assets:check && npm run preview:portraits:check && npm run guide:build && vinext build && node scripts/prepare_standalone.mjs",
+     "start": "vinext start",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "layout:sync": "python3 scripts/sync_text_layout.py",
+@@ -32,7 +32,8 @@
+     "preview:portraits:check": "python3 scripts/export_preview_portraits.py --check",
+     "context:build": "python3 scripts/export_scripted_battle_inputs.py --output .local/scripted-battle-inputs && cargo run --release --manifest-path tools/scripted-battle-context/Cargo.toml -- .local/scripted-battle-inputs .local/scripted-battle-contexts.json && python3 scripts/publish_scripted_battle_contexts.py .local/scripted-battle-contexts.json",
+     "context:test": "cargo test --manifest-path tools/scripted-battle-context/Cargo.toml && python3 scripts/test_scripted_battle_contexts.py",
+-    "context:audit": "python3 scripts/audit_scripted_battle_exceptions.py"
++    "context:audit": "python3 scripts/audit_scripted_battle_exceptions.py",
++    "layout:test": "node tools/text-layout/check-runtime.mjs && node --test scripts/native-preview-geometry.test.ts"
+   },
+   "dependencies": {
+     "next": "16.2.6",
+--- a/scripts/sync_text_layout.py
++++ b/scripts/sync_text_layout.py
+@@ -16,7 +16,7 @@
+ args = parser.parse_args()
+ outputs = {}
+ files = ['tools/srwz/chinese_layout.py', 'tools/srwz/renderer_metrics.py', 'tools/srwz/text.py', 'tools/srwz/story_quotes.py',
+-         'tools/srwz/control_layout.py', 'tools/srwz/compact_scopes.py', 'tools/srwz/compact_authoring.py',
++         'tools/srwz/control_layout.py', 'tools/srwz/js_layout.py', 'tools/srwz/compact_scopes.py', 'tools/srwz/compact_authoring.py',
+          'config/text-layout/zh-layout-profiles.json']
+ profiles = json.loads((SOURCE / files[-1]).read_text())
+ files += ['config/text-layout/' + name for name in sorted({name for profile in profiles['profiles'].values()
+@@ -26,6 +26,18 @@
+     output = DEST / ('srwz/' if name.startswith('tools/') else 'config/') / Path(name).name
+     outputs[output] = (SOURCE / name).read_bytes()
+     manifest[name] = hashlib.sha256(outputs[output]).hexdigest()
++# Exact same ESM bytes for browser imports and the packaged Node CLI.
++for name in ['engine.mjs', 'engine.d.mts', 'contracts.mjs', 'cli.mjs', 'cli-handler.mjs']:
++    raw = (SOURCE / 'shared/text-layout' / name).read_bytes()
++    outputs[DEST / 'js' / name] = raw
++    if name in ('engine.mjs', 'engine.d.mts', 'contracts.mjs'):
++        outputs[ROOT / 'lib/text-layout' / name] = raw
++    manifest['shared/text-layout/' + name] = hashlib.sha256(raw).hexdigest()
++atlas = SOURCE / 'shared/text-layout/assets/native-glyphs.json'
++meta = json.loads(atlas.read_text())
++for name in ['native-glyphs.json', meta['image']]:
++    outputs[ROOT / 'public/review-assets' / name] = (atlas.parent / name).read_bytes()
++
+ outputs[DEST / 'srwz/__init__.py'] = b''
+ release = 'corpus/releases/v1.json'
+ terms = load_release_protected_terms(SOURCE / release, project_root=SOURCE)
+--- /dev/null
++++ b/scripts/prepare_preview_assets.py
+@@ -0,0 +1,44 @@
++"""Copy/check the exact pinned official font; no network or font conversion."""
++import argparse
++import hashlib
++import json
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parents[1]
++SOURCE = ROOT.parent / 'srwz-zh'
++DEST = ROOT / 'public/review-assets'
++parser = argparse.ArgumentParser(description=__doc__)
++parser.add_argument('--check', action='store_true')
++args = parser.parse_args()
++lock = json.loads((SOURCE / 'config/fonts/harmonyos-sans-sc.lock.json').read_text())
++files = [('font', 'harmonyos-sans-sc-regular-297b088424be.ttf'), ('license', 'HarmonyOS-Sans-LICENSE.txt')]
++for key, name in files:
++    target = DEST / name
++    if not args.check:
++        data = (SOURCE / lock[key]['path']).read_bytes()
++        if hashlib.sha256(data).hexdigest() != lock[key]['sha256']:
++            raise SystemExit('Pinned font source hash mismatch: ' + key)
++        DEST.mkdir(parents=True, exist_ok=True)
++        target.write_bytes(data)
++    if not target.exists() or hashlib.sha256(target.read_bytes()).hexdigest() != lock[key]['sha256']:
++        raise SystemExit('Preview asset missing or modified; run npm run preview:assets:sync: ' + name)
++for manifest in ['dialogue-frame-native.json', 'battle-caption-native.json']:
++    metadata = json.loads((DEST / manifest).read_text())
++    frame = DEST / metadata['image']
++    if hashlib.sha256(frame.read_bytes()).hexdigest() != metadata['sha256']:
++        raise SystemExit('Native screenshot hash mismatch: ' + manifest)
++print('Preview font/license and native story/battle screenshot hashes match.')
++
++# Body glyphs are extracted from a verified game font snapshot, not rerasterized.
++atlas_source = SOURCE / 'shared/text-layout/assets/native-glyphs.json'
++atlas = json.loads(atlas_source.read_text())
++for name in ['native-glyphs.json', atlas['image']]:
++    source = atlas_source.parent / name
++    target = DEST / name
++    if not args.check:
++        target.write_bytes(source.read_bytes())
++    if not target.exists() or hashlib.sha256(target.read_bytes()).digest() != hashlib.sha256(source.read_bytes()).digest():
++        raise SystemExit('Native glyph preview asset drift: ' + name)
++if hashlib.sha256((DEST / atlas['image']).read_bytes()).hexdigest() != atlas['imageSha256']:
++    raise SystemExit('Native glyph PNG hash mismatch')
++print('Native 24x24 preview atlas SHA-256 matches: ' + atlas['fontDecodedSha256'])
+--- /dev/null
++++ b/scripts/review-format.test.ts
+@@ -0,0 +1,223 @@
++import assert from 'node:assert/strict';
++import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
++import { tmpdir } from 'node:os';
++import { join } from 'node:path';
++import { createHash } from 'node:crypto';
++import { execFileSync } from 'node:child_process';
++import test from 'node:test';
++import { formatReviewText } from '../lib/review-format.ts';
++import type { ResolvedTarget } from '../lib/review-data.ts';
++
++process.env.SRWZ_REVIEW_DB = join(mkdtempSync(join(tmpdir(), 'srwz-format-')), 'reviews.sqlite3');
++const store = await import('../lib/review-store.ts');
++const route = await import('../app/api/review-suggestions/route.ts');
++const preview = await import('../app/api/review-format/route.ts');
++const data = await import('../lib/review-data.ts');
++const target: ResolvedTarget = { targetType: 'dialogue', targetId: 'story/080/dialogue/01.01/0000', sourceText: '原文', currentTranslation: '', baseCommit: 'test', context: {} };
++const text = '“我们已经抵达目的地，接下来就要开始战斗了。大家务必小心，千万不要独自行动！”';
++let requestNumber = 0;
++function request(path: string, body: object, token?: string, method = 'POST') {
++  return new Request(`https://example.test/api/${path}`, { method, headers: { 'Content-Type': 'application/json', 'x-real-ip': `192.0.2.${++requestNumber}`, Origin: 'https://example.test', ...(token ? { Cookie: `srwz_review_session=${token}` } : {}) }, body: JSON.stringify(body) });
++}
++
++test('packaged production modules and profile files retain exact source hashes', () => {
++  const manifest = JSON.parse(readFileSync('tools/text-layout/source-manifest.json', 'utf8'));
++  for (const [path, hash] of Object.entries(manifest)) {
++    if (!path.startsWith('tools/') && !path.startsWith('config/')) continue;
++    const packaged = `tools/text-layout/${path.startsWith('tools/') ? 'srwz' : 'config'}/${path.split('/').at(-1)}`;
++    assert.equal(createHash('sha256').update(readFileSync(packaged)).digest('hex'), hash);
++    if (existsSync(`../srwz-zh/${path}`)) {
++      assert.equal(createHash('sha256').update(readFileSync(`../srwz-zh/${path}`)).digest('hex'), hash, `stale production file: ${path}; run npm run layout:sync`);
++    }
++  }
++});
++test('dialogue reflow preserves text, fits three rows, protects words and is idempotent', async () => {
++  const result = await formatReviewText(text, target);
++  assert.ok(result.changed);
++  assert.equal(result.text.replace(/\n　/g, ''), text);
++  assert.ok(result.text.split('\n').length <= 3);
++  assert.equal((await formatReviewText(result.text, target)).text, result.text);
++  const split = await formatReviewText('“我们要开始战\n　斗了！”', target);
++  assert.ok(!split.text.includes('战\n'));
++  await assert.rejects(formatReviewText('中'.repeat(100), target), /无法/);
++});
++test('library descriptions use body profiles while names and explicit layouts stay intact', async () => {
++  const bodyTarget = { ...target, targetType: 'library' as const, targetId: 'character/000/DSCR', context: { libraryDomain: 'character' as const } };
++  const result = await formatReviewText(text, bodyTarget);
++  assert.equal(result.profile, 'library_character');
++  assert.equal(result.text.replaceAll('\n', ''), text);
++  assert.equal((await formatReviewText(result.text, bodyTarget)).text, result.text);
++  assert.equal((await formatReviewText('ガンダム RX-78', { ...target, targetType: 'unit' })).text, 'ガンダム RX-78');
++  assert.equal((await formatReviewText('标题\n副标题', { ...target, preserveLayout: true })).text, '标题\n副标题');
++});
++test('manual preview, single and batch saves, POST edits and PATCH edits use identical output', async () => {
++  const identity = store.createIdentityAndSession();
++  const proposal = text.replace('目的地', 'A地区').replace('战斗了', 'MS战斗了');
++  const input = { clientRequestId: 'format-test', targetType: target.targetType, targetId: target.targetId, proposedTranslation: proposal };
++  const response = await preview.POST(request('review-format', input));
++  assert.equal(response.status, 200);
++  const expected = await response.json() as { text: string };
++  assert.ok(expected.text.includes('<z>A</z>'));
++  assert.ok(expected.text.includes('<z>MS</z>'));
++  assert.equal(store.listSuggestions(identity.identity.id).length, 0);
++  for (const batch of [false, true]) {
++    const item = { ...input, clientRequestId: `format-${batch}` };
++    const saved = await route.POST(request('review-suggestions', batch ? { suggestions: [item] } : item, identity.sessionToken));
++    assert.equal(saved.status, 201, await saved.clone().text());
++    const body = await saved.json() as { suggestions: Array<{ id: string; proposedTranslation: string }> };
++    assert.equal(body.suggestions[0].proposedTranslation, expected.text);
++    for (const method of ['POST', 'PATCH']) {
++      const edited = await route[method as 'POST' | 'PATCH'](request('review-suggestions', { action: 'update', id: body.suggestions[0].id, proposedTranslation: proposal }, identity.sessionToken, method));
++      assert.equal(edited.status, 200, await edited.clone().text());
++      const value = await edited.json() as { suggestion: { proposedTranslation: string } };
++      assert.equal(value.suggestion.proposedTranslation, expected.text);
++    }
++  }
++  const invalid = await route.POST(request('review-suggestions', { suggestions: [ { ...input, clientRequestId: 'not-inserted' }, { ...input, clientRequestId: 'overflow', proposedTranslation: '中'.repeat(100) }] }, identity.sessionToken));
++  assert.equal(invalid.status, 400);
++  assert.equal(store.listSuggestions(identity.identity.id).length, 2);
++  const canonical = data.resolveSuggestionTarget(input);
++  assert.equal(expected.text, (await formatReviewText(proposal, canonical)).text);
++});
++
++test('only story and battle dialogue receive source-driven spoken/monologue envelopes', async () => {
++  const spoken = { ...target, sourceText: '「行くぞ！」', sourceSpeaker: 'ランド' };
++  for (const text of ['出发！', '“出发！', '出发！”', '「出发！」', '(出发！)', '（出发！）', '"出发！"']) {
++    const result = await formatReviewText(text, spoken);
++    assert.equal(result.text, '“出发！”', text);
++    assert.equal((await formatReviewText(result.text, spoken)).text, result.text);
++  }
++  const thought = { ...spoken, sourceText: '（そうか…）' };
++  for (const text of ['原来如此……', '（原来如此……', '原来如此……）', '“原来如此……”']) {
++    assert.equal((await formatReviewText(text, thought)).text, '（原来如此……）');
++  }
++  for (const targetType of ['dialogue', 'battle-line'] as const) {
++    assert.equal((await formatReviewText('出发！', { ...spoken, targetType })).text, '“出发！”');
++    assert.equal((await formatReviewText('原来如此……', { ...thought, targetType })).text, '（原来如此……）');
++  }
++  for (const targetType of ['person', 'unit', 'weapon', 'library'] as const) {
++    assert.equal((await formatReviewText('出发！', { ...spoken, targetType })).text, '出发！');
++  }
++  for (const special of [{ ...spoken, sourceSpeaker: '' }, { ...spoken, preserveLayout: true }, { ...spoken, sourceText: '「《关键词》」' }]) {
++    assert.equal((await formatReviewText('出发！', special)).text, '出发！');
++  }
++  assert.equal((await formatReviewText('“出发！”\n“明白！”', spoken)).text, '“出发！”\n　“明白！”');
++  assert.equal((await formatReviewText('“出发”是他的命令。', spoken)).text, '““出发”是他的命令。”');
++});
++
++test('single and repeated Latin/digits/symbols use real z scopes, preserving native tokens', async () => {
++  const input = '“A与7、MS和RX-78、99.9%及+。”';
++  const expected = '“<z>A</z>与<z>7</z>、<z>MS</z>和<z>RX-78</z>、<z>99.9%</z>及<z>+</z>。”';
++  for (const targetType of ['dialogue', 'battle-line'] as const) {
++    const resolved = { ...target, targetType };
++    const output = await formatReviewText(input, resolved);
++    assert.equal(output.text.replace(/\n　/g, ''), expected);
++    assert.equal((await formatReviewText(output.text, resolved)).text, output.text);
++  }
++  const controls = '“<color:03>A与$n、%03d和<<X>>。”';
++  // Unknown owner-specific angle templates must not be assigned invented widths.
++  await assert.rejects(formatReviewText(controls, { ...target, targetType: 'battle-line' }), /无法/);
++  assert.equal((await formatReviewText('“<color:03>A与$n。”', { ...target, targetType: 'battle-line' })).text,
++    '“<color:03><z>A</z>与$n。”');
++  const keywords = { ...target, sourceText: '《Side 3》与《PLANT评议会》' };
++  assert.equal((await formatReviewText('《Side 3》与《PLANT评议会》', keywords)).text,
++    '<z>《Side 3》</z>与《PLANT评议会》');
++  for (const plain of ['“A与７。”', '“<z>A</z>与<z>7</z>。”']) {
++    const output = await formatReviewText(plain, target);
++    assert.equal(output.text.replace(/<\/?z>/g, ''), plain.replace(/<\/?z>/g, ''));
++  }
++});
++
++test('preview positions use native z advances, restore body metrics and preserve indentation', async () => {
++  const result = await formatReviewText('“A中，\n继续。”', target);
++  const layout = result.preview!;
++  assert.equal(layout.contentWidthPx, 483);
++  assert.equal(layout.rows.length, 2);
++  const glyphs = layout.rows[0].glyphs;
++  assert.deepEqual(glyphs.slice(0, 3).map(({ text, x, width, height }) => ({ text, x, width, height })), [
++    { text: '“', x: 0, width: 21, height: 12 },
++    { text: 'A', x: 21, width: 14, height: 11 },
++    { text: '中', x: 33, width: 21, height: 12 },
++  ]);
++  assert.equal(layout.rows[1].glyphs[0].x, 21);
++  assert.ok(!layout.rows.flatMap(row => row.glyphs).some(glyph => glyph.text.includes('<z>')));
++  const variable = await formatReviewText('“$n与A。”', { ...target, targetType: 'battle-line' });
++  assert.equal(variable.preview!.rows[0].glyphs.find(glyph => glyph.placeholder)?.width, 132);
++  // A thousand glyphs cannot be silently paginated into a two-row battle window.
++  await assert.rejects(formatReviewText('“' + '中'.repeat(1000) + '”', { ...target, targetType: 'battle-line' }), /无法/);
++  const keyword = await formatReviewText('《Side 3》', { ...target, sourceText: '《Side 3》' });
++  assert.ok(!keyword.preview!.rows[0].glyphs.some(glyph => ['《', '》'].includes(glyph.text)));
++  assert.equal((await formatReviewText('标题', { ...target, preserveLayout: true })).preview, null);
++});
++
++test('user screenshot keeps its three authored rows and compacts both S-1 references', async () => {
++  const input = '“但是，率领《阿尔德巴朗》的加特勒，杀死了\n　推进S-1星再生的皇帝特里诺米亚斯三世和科\n　学家们，用武力支配了S-1星。”';
++  // Screenshot uses visible title brackets. Bind to a plain spoken record,
++  // not a different source record whose 《》 encode invisible keyword links.
++  const result = await formatReviewText(input, { ...target, sourceText: '「台詞」', sourceSpeaker: 'ジャマイカン' });
++  assert.equal(result.text, input.replaceAll('S-1', '<z>S-1</z>'));
++  assert.deepEqual(result.preview!.rows.map(row => row.widthPx), [441, 435, 330]);
++  assert.equal(result.preview!.rows[0].glyphs.filter(glyph => ['《', '》'].includes(glyph.text)).length, 2);
++  assert.equal(result.preview!.rows[1].glyphs[0].x, 21);
++  assert.equal((await formatReviewText(result.text, target)).text, result.text);
++  const automatic = await formatReviewText(input.replaceAll('\n　', ''), target);
++  assert.equal(automatic.preview!.rows.length, 3);
++  assert.equal(automatic.text.replaceAll('\n　', '').replaceAll(/<\/?z>/g, ''), input.replaceAll('\n　', ''));
++});
++
++test('preview speaker comes from the selected dialogue binding, not a submitted name', async () => {
++  const input = { targetType: 'dialogue', targetId: 'sd/story/001/dialogue/02.01/0005', proposedTranslation: '“测试。”', context: { speaker: '错误名字' } };
++  const resolved = data.resolveSuggestionTarget(data.validateSuggestionInput({ ...input, clientRequestId: 'speaker-preview' }));
++  assert.equal(resolved.context.speaker, '牙买加');
++  assert.equal((await formatReviewText(input.proposedTranslation, resolved)).preview!.speaker, '牙买加');
++  const spBattle = data.resolveSuggestionTarget({ targetType: 'battle-line', targetId: 'sd-battle:081', proposedTranslation: '“测试。”', clientRequestId: 'sp-speaker' });
++  assert.equal((await formatReviewText('“测试。”', spBattle)).preview!.speaker, '梅莉贝儿');
++  const layout = (await formatReviewText('“测试。”', spBattle)).preview!;
++  assert.equal(layout.kind, 'battle');
++  assert.equal(layout.bodyAdvancePx, 22);
++  assert.equal(layout.people![0].name, '梅莉贝儿');
++  assert.match(layout.people![0].portrait!, /^\/portraits-web\//);
++  const shared = data.resolveSuggestionTarget({ targetType: 'battle-line', targetId: 'battle:00000', proposedTranslation: '“测试。”', clientRequestId: 'shared-speaker', context: { workId: 14, targetLabel: '伪造人物' } });
++  assert.ok(shared.previewPeople!.length > 1);
++  assert.ok(!shared.previewPeople!.some(person => person.name === '伪造人物'));
++  for (const person of shared.previewPeople!) if (person.portrait) assert.match(person.portrait, /^\/portraits-web\//);
++  const land = data.resolveSuggestionTarget({ targetType: 'battle-line', targetId: 'battle:19459', proposedTranslation: '“哦！呼抡扳手！”', clientRequestId: 'land-portrait', context: { workId: 21, targetLabel: '兰德' } });
++  assert.deepEqual(land.previewPeople, [{ name: '兰德', portrait: '/portraits-web/battle/battle-1550.webp' }]);
++});
++
++test('compact width and final layout agree with the live production engine for main and SP', async () => {
++  // This overflowed when all 26 Latin characters were measured as body cells.
++  const input = '“ABCDEFGHIJKLMNOPQRSTUVWXYZ”';
++  for (const targetId of [target.targetId, 'sd/story/000/dialogue/01.01/0000']) {
++    const output = await formatReviewText(input, { ...target, targetId });
++    assert.equal(output.text, '“<z>ABCDEFGHIJKLMNOPQRSTUVWXYZ</z>”');
++    const verdict = JSON.parse(execFileSync('python3', ['-B', '-c', `
++import json, sys
++from pathlib import Path
++sys.path.insert(0, str(Path('../srwz-zh/tools').resolve()))
++from srwz.chinese_layout import load_layout_profiles, dialogue_layout_issues, dialogue_line_widths
++from srwz.compact_scopes import expand
++item = json.load(sys.stdin)
++profile = load_layout_profiles(Path('../srwz-zh/config/text-layout/zh-layout-profiles.json'))['story_dialogue']
++native = expand(item['text'])
++print(json.dumps(dict(issues=dialogue_layout_issues(native, profile=profile), widths=[float(w) for w in dialogue_line_widths(native, default_advance_px=profile.default_advance_px)])))
++`], { input: JSON.stringify({ text: output.text }), encoding: 'utf8' }));
++    assert.deepEqual(verdict.issues, []);
++    assert.ok(verdict.widths[0] < 21);
++  }
++  // Match backend indentation normalization without rebalancing valid breaks.
++  assert.equal((await formatReviewText('“第一行，\n第二行。”', target)).text, '“第一行，\n　第二行。”');
++  assert.equal((await formatReviewText('“1.选项一”\n“2.选项二”', target)).text,
++    '“<z>1</z><z>.</z>选项一”\n“<z>2</z><z>.</z>选项二”');
++});
++
++test('battle preview and automatic submission both add the authoritative source envelope', async () => {
++  const input = { clientRequestId: 'battle-envelope', targetType: 'battle-line', targetId: 'battle:00002', context: { workId: 14 }, proposedTranslation: '接招！' };
++  const response = await preview.POST(request('review-format', input));
++  assert.equal(response.status, 200);
++  assert.equal((await response.json() as { text: string }).text, '“接招！”');
++  const identity = store.createIdentityAndSession();
++  const saved = await route.POST(request('review-suggestions', input, identity.sessionToken));
++  assert.equal(saved.status, 201);
++  assert.equal((await saved.json() as { suggestions: Array<{ proposedTranslation: string }> }).suggestions[0].proposedTranslation, '“接招！”');
++});
+--- /dev/null
++++ b/scripts/native-preview-geometry.test.ts
+@@ -0,0 +1,54 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import {readFileSync}from 'node:fs';
++import {createHash}from 'node:crypto';
++import {previewGeometry}from '../lib/review-preview-geometry.ts';
++import {formatReviewText}from '../lib/review-format.ts';
++
++test('browser placement and server placement agree for compact battle letters/digits/restoration',async()=>{
++ const target={targetType:'battle-line' as const,targetId:'battle:00000',sourceText:'「行くぞ！」',sourceSpeaker:'雷',currentTranslation:'',baseCommit:'test',context:{}};
++ const output=await formatReviewText('“锁定<z>MS-013</z>后立即攻击敌方指挥机，完成任务后返回基地！”',target);
++ assert.equal(output.preview?.rows.length,2);assert.equal(output.preview?.contentWidthPx,462);
++ const browser=previewGeometry(output.preview!);assert.deepEqual(browser.rows,output.preview!.rows);
++ const m=browser.rows[0].glyphs.find(g=>g.text==='M')!;assert.equal(m.width,14);assert.equal(m.height,11);
++ const restored=browser.rows[0].glyphs.find(g=>g.text==='后')!;assert.equal(restored.width,22);assert.equal(restored.height,11);
++});
++test('three-line author input reflows into two native battle rows',async()=>{
++ const target={targetType:'battle-line' as const,targetId:'battle:06641',sourceText:'「後は任せろ！…なんてな。\\n　ええカッコしいがうつったかな？」',currentTranslation:'',baseCommit:'test',context:{}};
++ const output=await formatReviewText('“剩下的交给我！\\n　……随口吹的啦。\\n　我该不会染上爱耍帅的毛病吧？”',target);
++ assert.equal(output.preview?.rows.length,2);assert.deepEqual(output.preview?.rows.map(r=>r.widthPx),[462,242]);assert.ok(output.text.includes('\n　'));
++});
++test('game atlas retains exact 24x24 source cells, including Latin and digits',()=>{
++ const atlas=JSON.parse(readFileSync('public/review-assets/native-glyphs.json','utf8'));
++ assert.equal(atlas.cellSize,24);for(const ch of 'MS-013后染')assert.ok(atlas.glyphs[ch]);
++ assert.equal(createHash('sha256').update(readFileSync('public/review-assets/'+atlas.image)).digest('hex'),atlas.imageSha256);
++ assert.match(atlas.fontDecodedSha256,/^[0-9a-f]{64}$/);
++});
++test('battle preview does not paginate away an invalid third native row',()=>{
++ const source=readFileSync('app/review-layout-preview.tsx','utf8');
++ assert.match(source,/const pages = battle \? \[preview.rows\]/);assert.ok(source.includes('battle ? 102 : 164'));assert.ok(source.includes('第三行会被下沿裁切'));
++});
++
++import {runBrowserLayout}from '../lib/review-browser-layout.ts';
++test('all library body domains run identical browser and backend JS recipes',async()=>{
++ for(const domain of ['character','robot','glossary']as const){
++  const target={targetType:'library' as const,targetId:domain+'/000/DSCR',sourceText:'説明',currentTranslation:'',baseCommit:'test',context:{libraryDomain:domain}};
++  const text='目标<z>MS-013</z>已经进入指定区域，'+ '队员立即开始行动。'.repeat(6);
++  const output=await formatReviewText(text,target);
++  assert.ok(output.browserLayout);assert.equal(runBrowserLayout(output.text,output.browserLayout!),output.text);
++  assert.equal(output.preview?.scene,'library_'+domain);
++  assert.deepEqual(previewGeometry(output.preview!).rows,output.preview!.rows);
++  assert.equal(output.text.replaceAll('\n',''),text);
++  assert.throws(()=>runBrowserLayout('错误结果',output.browserLayout!),/不一致/);
++  const preserved=await formatReviewText('原有\n排版',{...target,preserveLayout:true});
++  assert.equal(preserved.text,'原有\n排版');assert.equal(preserved.browserLayout,null);
++ }
++});
++
++test('story atlas uses black ink without tinting battle or stretching nested glyph viewports',()=>{
++ const css=readFileSync('app/globals.css','utf8'),component=readFileSync('app/review-layout-preview.tsx','utf8');
++ assert.match(css,/\.preview-story-text \.preview-native-glyph\s*\{\s*filter: brightness\(0\)/);
++ assert.match(css,/\.review-layout-viewport > svg \{/);
++ assert.doesNotMatch(css,/\.review-layout-viewport svg \{[^}]*min-width/);
++ assert.match(component,/className=\{battle \? 'preview-battle-text' : 'preview-story-text'\}/);
++});
+--- a/app/review-layout-preview.tsx
++++ b/app/review-layout-preview.tsx
+@@ -1,6 +1,22 @@
+ 'use client';
+ 
+-import { useEffect, useId, useState } from 'react';
++import { useEffect, useId, useMemo, useState } from 'react';
++
++import LibraryLayoutPreview from './review-library-preview';
++import type {SceneId} from '../lib/text-layout/engine.mjs';
++import { previewGeometry } from '../lib/review-preview-geometry';
++
++export type NativeGlyphAtlas = {image:string;imageSha256:string;width:number;height:number;cellSize:number;glyphs:Record<string,[number,number]>};
++let glyphAtlasPromise: Promise<NativeGlyphAtlas> | null = null;
++export function loadNativeGlyphAtlas() {
++  if(!glyphAtlasPromise) glyphAtlasPromise = fetch('/review-assets/native-glyphs.json').then(async response => {
++    if(!response.ok) throw new Error('字库索引加载失败');
++    const atlas = await response.json() as NativeGlyphAtlas;
++    if(!/^[a-zA-Z0-9._-]+\.png$/.test(atlas.image)||atlas.cellSize!==24) throw new Error('字库索引无效');
++    const image=new Image();image.src='/review-assets/'+atlas.image;await image.decode();return atlas;
++  }).catch(error=>{glyphAtlasPromise=null;throw error;});
++  return glyphAtlasPromise;
++}
+ 
+ let previewFont: Promise<FontFace> | null = null;
+ const previewFrames = new Map<string, Promise<void>>();
+@@ -20,7 +36,7 @@
+ // Begin downloading while the layout API is running; share decoded assets
+ // across editor mounts and pages, including simultaneous preview requests.
+ export function preparePreviewAssets(kind: 'story' | 'battle') {
+-  return Promise.all([loadPreviewFont(), loadPreviewFrame(kind)]);
++  return Promise.all([loadPreviewFont(), loadPreviewFrame(kind), loadNativeGlyphAtlas()]);
+ }
+ function loadPreviewFont() {
+   if (!previewFont) {
+@@ -33,7 +49,11 @@
+ }
+ 
+ export type LayoutPreview = {
+-  kind?: 'story' | 'battle';
++  text?: string;
++  keywordLinks?: boolean;
++  geometryVersion?: string;
++  kind?: 'story' | 'battle' | 'library';
++  scene?: SceneId;
+   people?: Array<{ name: string; portrait?: string }>;
+   contentWidthPx: number;
+   bodyAdvancePx: number;
+@@ -44,7 +64,9 @@
+   }> }>;
+ };
+ 
+-export default function ReviewLayoutPreview({ preview }: { preview: LayoutPreview }) {
++function DialogueLayoutPreview({ preview: suppliedPreview }: { preview: LayoutPreview }) {
++  const preview = useMemo(() => previewGeometry(suppliedPreview), [suppliedPreview]);
++  const [glyphAtlas, setGlyphAtlas] = useState<NativeGlyphAtlas | null>(null);
+   const frameClip = useId().replaceAll(':', '');
+   const battle = preview.kind === 'battle';
+   const [selectedName, setSelectedName] = useState(preview.speaker || '');
+@@ -56,8 +78,9 @@
+   const [attempt, setAttempt] = useState(0);
+   useEffect(() => {
+     let active = true;
+-    loadPreviewFont().then(() => {
+-      if (active) setFontStatus('ready');
++    setFontStatus('loading'); setFrameStatus('loading');
++    Promise.all([loadPreviewFont(), loadNativeGlyphAtlas()]).then(([, atlas]) => {
++      if (active) { setGlyphAtlas(atlas); setFontStatus('ready'); }
+     }).catch(() => { if (active) setFontStatus('error'); });
+     loadPreviewFrame(battle ? 'battle' : 'story').then(() => {
+       if (active) setFrameStatus('ready');
+@@ -65,7 +88,7 @@
+     return () => { active = false; };
+   }, [attempt, battle]);
+   const perPage = battle ? 2 : 3;
+-  const pages = Array.from({ length: Math.ceil(preview.rows.length / perPage) }, (_, index) => preview.rows.slice(index * perPage, index * perPage + perPage));
++  const pages = battle ? [preview.rows] : Array.from({ length: Math.ceil(preview.rows.length / perPage) }, (_, index) => preview.rows.slice(index * perPage, index * perPage + perPage));
+   const ready = fontStatus === 'ready' && frameStatus === 'ready';
+   const failed = fontStatus === 'error' || frameStatus === 'error';
+   return <section className="review-layout-preview" aria-label="游戏排版预览">
+@@ -73,7 +96,7 @@
+     {battle && people.length > 1 && <div className="preview-battle-person"><label>预览人物 <select aria-label="预览人物" value={person?.name || ''} onChange={event => setSelectedName(event.target.value)}>{people.map(person => <option key={person.name}>{person.name}</option>)}</select></label><small>此台词由多名人物共用，可切换头像预览。</small></div>}
+     {!ready && <p role="status">{failed ? '预览字体或底图加载失败，请重试。' : '正在加载本站字体与对话框底图…'}{failed && <button type="button" onClick={() => { setFontStatus('loading'); setFrameStatus('loading'); setAttempt(value => value + 1); }}>重新加载</button>}</p>}
+     <div className={`review-layout-viewport${battle ? ' preview-battle-viewport' : ''}`} aria-busy={!ready}>
+-      {pages.map((rows, page) => <svg key={page} role="img" aria-label={`后端格式化后的分行与紧缩字宽预览，第 ${page + 1} 页`} viewBox={`0 0 640 ${battle ? 110 : 164}`}>
++      {pages.map((rows, page) => <svg key={page} role="img" aria-label={`后端格式化后的分行与紧缩字宽预览，第 ${page + 1} 页`} viewBox={`0 0 640 ${battle ? 102 : 164}`} overflow="hidden">
+         <title>后端格式化后的分行与紧缩字宽预览</title>
+         <defs>
+           <clipPath id={`${frameClip}-${page}`}>{battle ? <><path d="M0 0H23V110H0Z" /><path d="M22 4H116V99H22Z M28 9H108V89H28Z" clipRule="evenodd" /></> : <><path d="M72 17H586L628 55 582 153H64L24 117Z" /><path d="M14 0H61V103H12Z" /><path d="M610 88H640V164H581Z" /></>}</clipPath>
+@@ -90,17 +113,25 @@
+         {!battle && preview.speaker && <text className="preview-speaker" x={80} y={55} fontSize={21}>{preview.speaker}</text>}
+         {battle && <text className="preview-battle-speaker" x={160} y={43} fontSize={22}>{person?.name || preview.speaker || '未绑定人物'}</text>}
+         {battle && (person?.portrait && portraitError !== person.name ? <image href={person.portrait} aria-label={`${person.name}头像`} x={28} y={9} width={80} height={80} preserveAspectRatio="xMidYMid slice" onError={() => setPortraitError(person.name)} /> : <text x={42} y={56} fontSize={14}>暂无头像</text>)}
+-        {rows.map((row, index) => <g key={index} className={battle ? 'preview-battle-text' : undefined} transform={`translate(${battle ? 160 : 82}, ${(battle ? 48 : 58) + index * (battle ? 24 : 28)})`}>
++        {rows.map((row, index) => <g key={index} className={battle ? 'preview-battle-text' : 'preview-story-text'} transform={`translate(${battle ? 160 : 80}, ${(battle ? 46 : 62) + index * (battle ? 24 : 28)})`}>
+           {row.glyphs.map((glyph, i) => glyph.placeholder
+             ? <g key={i}><rect x={glyph.x} y={3} width={glyph.width} height={18} className="preview-placeholder" /><text x={glyph.x + 3} y={16} fontSize={10}>{glyph.text}</text></g>
+-            : <text key={i} x={0} y={24} fontSize={24} aria-label={glyph.text} transform={`translate(${glyph.x}, 0) scale(${glyph.width / 24}, ${glyph.height * 2 / 24})`}>{glyph.text.replace(/[A-Za-z0-9]/g, char => String.fromCharCode(char.charCodeAt(0) + 0xFEE0))}</text>)}
++            : glyphAtlas?.glyphs[glyph.text] ? <svg key={i} className="preview-native-glyph" x={glyph.x} y={0} width={glyph.width} height={glyph.height * 2} viewBox={`${glyphAtlas.glyphs[glyph.text][0]} ${glyphAtlas.glyphs[glyph.text][1]} 24 24`} preserveAspectRatio="none" overflow="hidden" role="img" aria-label={glyph.text}><image href={'/review-assets/' + glyphAtlas.image} width={glyphAtlas.width} height={glyphAtlas.height} /></svg>
++            : <text key={i} x={0} y={22} fontSize={22} aria-label={glyph.text} transform={`translate(${glyph.x}, 0) scale(${glyph.width / 24}, ${glyph.height * 2 / 24})`}>{glyph.text}</text>)}
+         </g>)}
+         </g>
+       </svg>)}
+     </div>
+-    <small>分行与横向位置来自写入端；使用本站提供的 HarmonyOS Sans SC，网页字形仍与游戏栅格化略有差异。手机可横向滑动预览。变量按后端预留宽度占位。</small>
++    <small>分行、坐标与紧缩尺寸使用前后端共享JS；正文使用当前游戏字库原始24×24格子缩放，保留格内基线。浏览器插值与游戏混合效果仍可能略有差异。变量按预留宽度占位。</small>
+     <small>本预览使用 HarmonyOS Sans Fonts · © 2021 Huawei Device Co., Ltd. · <a href="/review-assets/HarmonyOS-Sans-LICENSE.txt" target="_blank" rel="noreferrer">字体授权</a></small>
+-    {preview.rows.some(row => row.widthPx > (battle ? 480 : 462)) && <small>有行超出当前对话框宽度，请缩短文字或调整分行；框外文字可能被裁切。</small>}
++    {preview.rows.some(row => row.widthPx > preview.contentWidthPx) && <small>有行超出当前对话框宽度，请缩短文字或调整分行；框外文字可能被裁切。</small>}
++    {preview.geometryError && <small role="alert">无法按原生参数预览：{preview.geometryError}</small>}
++    {battle && preview.rows.length > 2 && <small role="alert">战斗窗口最多两行，第三行会被下沿裁切；此处不会自动分页掩盖超限。</small>}
++    {glyphAtlas && preview.rows.some(row => row.glyphs.some(g => !g.placeholder && !glyphAtlas.glyphs[g.text])) && <small>部分字未在当前游戏字库中，暂用网页字体替代，仅供对照。</small>}
+     {preview.truncated && <small>长文本仅预览前 12 行或 600 个字符，完整译文不受影响。</small>}
+   </section>;
+ }
++
++export default function ReviewLayoutPreview({preview}:{preview:LayoutPreview}) {
++ return preview.kind==='library'?<LibraryLayoutPreview preview={preview}/>:<DialogueLayoutPreview preview={preview}/>;
++}
+--- /dev/null
++++ b/app/layout-lab/page.tsx
+@@ -0,0 +1,15 @@
++'use client';
++import {useState}from 'react';
++import ReviewLayoutPreview, {type LayoutPreview}from '../review-layout-preview';
++import {layout,measure,getScene,type SceneId}from '../../lib/text-layout/engine.mjs';
++const mixed='“锁定<z>MS-013</z>后立即攻击敌方指挥机，完成任务后返回基地！”';
++function makePreview(text:string,scene:SceneId,reflow:boolean):LayoutPreview{
++ const output=reflow?layout(text,scene,{preserveLineCount:false}).text:text.replaceAll('\\n','\n');
++ const r=measure(output,scene),s=getScene(scene);
++ return {kind:scene.startsWith('library_')?'library':scene as 'story'|'battle',scene,text:output,geometryVersion:'shared-js-v1',speaker:'预览人物',contentWidthPx:s.widthPx,bodyAdvancePx:s.step,truncated:false,rows:r.rows.map(row=>({widthPx:row.occupiedPx,glyphs:row.glyphs.filter(g=>g.placeholder||![' ','　'].includes(g.text))}))};
++}
++export default function LayoutLab(){
++ const [scene,setScene]=useState<SceneId>('battle');const [text,setText]=useState(mixed);const [error,setError]=useState('');const [preview,setPreview]=useState<LayoutPreview>(()=>makePreview(mixed,'battle',true));
++ function show(reflow:boolean){try{setError('');setPreview(makePreview(text,scene,reflow));}catch(e){setError(e instanceof Error?e.message:'预览失败');}}
++ return <main style={{maxWidth:1000,margin:'30px auto',padding:24}}><h1>游戏字库与紧缩英数预览</h1><p>使用正式站点的预览组件；前后端共享JS计算宽度，正文使用当前游戏原始24×24字形格子。此页只做本地验证，不提交意见或修改语料。</p><label>场景 <select value={scene}onChange={e=>setScene(e.target.value as SceneId)}><option value="battle">战斗台词</option><option value="story">剧情对白</option><option value="library_character">角色图鉴正文</option><option value="library_robot">机体图鉴正文</option><option value="library_glossary">术语图鉴正文</option></select></label><textarea aria-label="预览台词"value={text}onChange={e=>setText(e.target.value)}style={{width:'100%',height:130,margin:'15px 0',padding:12}}/><div style={{display:'flex',gap:15,marginBottom:20}}><button onClick={()=>show(true)}>按规则排版并预览</button><button onClick={()=>show(false)}>按输入原样预览（检查裁切）</button><button onClick={()=>setText('“剩下的交给我！\n　……随口吹的啦。\n　我该不会染上爱耍帅的毛病吧？”')}>载入旧三行示例</button><button onClick={()=>setText('“确认<z>Gundam01</z>和<z>013</z>的位置，能量<z>80%</z>！立即攻击！”')}>载入英数混排</button></div>{error&&<p role="alert">{error}</p>}<ReviewLayoutPreview preview={preview}/><pre style={{whiteSpace:'pre-wrap',marginTop:20}}>{preview.text}</pre></main>;
++}
+--- /dev/null
++++ b/lib/review-preview-geometry.ts
+@@ -0,0 +1,21 @@
++import { measure, getScene } from './text-layout/engine.mjs';
++import type { LayoutPreview } from '../app/review-layout-preview';
++
++/** Recompute in-browser with the exact same ESM shipped to the Node adapter. */
++export function previewGeometry(input: LayoutPreview): LayoutPreview & {geometryError?:string} {
++  if (input.text === undefined) return input;
++  try {
++    const scene = input.scene || (input.kind === 'battle' ? 'battle' : 'story');
++    const metrics = getScene(scene);
++    const measured = measure(input.text.replaceAll('\\n', '\n'), scene, {keywordLinks:!!input.keywordLinks});
++    let count=0, truncated=false;
++    const rows=[];
++    for(const row of measured.rows){
++      if(rows.length>=12||count>=600){truncated=true;break;}
++      let glyphs=row.glyphs.filter(g=>g.placeholder||![' ','　'].includes(g.text));
++      if(count+glyphs.length>600){glyphs=glyphs.slice(0,600-count);truncated=true;}
++      count+=glyphs.length;rows.push({glyphs,widthPx:row.occupiedPx});
++    }
++    return {...input,rows,truncated,bodyAdvancePx:metrics.step,contentWidthPx:metrics.widthPx};
++  }catch(error){return {...input,rows:[],geometryError:error instanceof Error?error.message:'无效的预览控制符'};}
++}
+--- a/lib/review-format.ts
++++ b/lib/review-format.ts
+@@ -1,9 +1,10 @@
+ import { execFile } from 'node:child_process';
+ import { resolve } from 'node:path';
+ import type { ResolvedTarget } from './review-data.ts';
++import type { BrowserLayoutRecipe } from './review-browser-layout';
+ import type { LayoutPreview } from '../app/review-layout-preview.tsx';
+ 
+-export type FormatResult = { text: string; changed: boolean; profile: string | null; message: string; preview: LayoutPreview | null };
++export type FormatResult = { text: string; changed: boolean; profile: string | null; message: string; preview: LayoutPreview | null; browserLayout?: BrowserLayoutRecipe | null };
+ 
+ // Queue a bounded number of jobs; never block the Node event loop with Python.
+ let running = false;
+@@ -26,7 +27,7 @@
+   try {
+     return await new Promise<FormatResult>((resolveResult, reject) => {
+       const child = execFile('python3', ['-B', resolve(process.cwd(), 'tools/text-layout/format.py')],
+-        { timeout: 5000, maxBuffer: 256 * 1024 }, (error, stdout) => {
++        { timeout: 5000, maxBuffer: 256 * 1024, env: { ...process.env, SRWZ_NODE: process.execPath } }, (error, stdout) => {
+           if (error) return reject(new Error('格式化服务暂时不可用，请稍后重试。'));
+           try {
+             const result = JSON.parse(stdout) as FormatResult & { error?: string };
+--- a/tools/text-layout/preview.py
++++ b/tools/text-layout/preview.py
+@@ -1,45 +1,15 @@
+-"""Browser placement data from production advances, never browser wrapping."""
+-import re
+-from srwz.compact_scopes import expand
+-from srwz.renderer_metrics import text_extent
+-from srwz.text import CONTROL_NOTATION
++"""Native cell placement from shared JS; identical core imported by browser."""
++from js_core import js_core
+ 
+-
+-def build_preview(text, *, keyword_links=False, battle=False):
+-    native = expand(text.replace('\\n', '\n'))
+-    state = None
+-    default_advance = 22 if battle else 21
+-    height = 11 if battle else 12
+-    rows = []
+-    count = 0
+-    truncated = False
+-    for line in native.split('\n'):
+-        if len(rows) >= 12 or count >= 600:
+-            truncated = True
+-            break
+-        glyphs = []
+-        x = occupied = offset = 0
+-        while offset < len(line):
+-            if count >= 600:
+-                truncated = True
+-                break
+-            match = CONTROL_NOTATION.match(line, offset)
+-            token = match.group() if match else line[offset]
+-            measured = text_extent(token, default_advance_px=default_advance, state=state,
+-                                   stage_keyword_links=keyword_links)
+-            dimension = re.fullmatch(r'<height:([0-9A-Fa-f]{2})>', token)
+-            if dimension:
+-                value = int(dimension[1], 16)
+-                height = value - 0x80 if 0x8A <= value <= 0x8E else value
+-            visible = measured.advance_px > 0 and (match or token not in '　 ')
+-            if visible:
+-                glyphs.append(dict(text=token, x=x,
+-                    width=measured.occupied_px, height=height, placeholder=bool(match)))
+-                count += 1
+-            occupied = max(occupied, x + measured.occupied_px)
+-            x += measured.advance_px
+-            state = measured.state
+-            offset += len(token)
+-        rows.append(dict(glyphs=glyphs, widthPx=max(x, occupied)))
+-    return dict(rows=rows, contentWidthPx=480 if battle else 441,
+-                bodyAdvancePx=default_advance, truncated=truncated, kind='battle' if battle else 'story')
++def build_preview(text, *, keyword_links=False, battle=False, scene=None):
++    scene=scene or ('battle' if battle else 'story')
++    # Width contract is returned by the same core, not duplicated here.
++    contract=js_core('中',scene)
++    measured=js_core(text.replace('\\n','\n'),scene,action='measure',options=dict(keywordLinks=keyword_links))
++    rows=[];count=0;truncated=False
++    for row in measured['rows']:
++        if len(rows)>=12 or count>=600:truncated=True;break
++        glyphs=[g for g in row['glyphs']if g['placeholder']or g['text']not in (' ','　')]
++        if count+len(glyphs)>600:glyphs=glyphs[:600-count];truncated=True
++        rows.append(dict(glyphs=glyphs,widthPx=row['occupiedPx']));count+=len(glyphs)
++    return dict(rows=rows,contentWidthPx=contract['widthPx'],bodyAdvancePx=contract['step'],truncated=truncated,kind='library' if scene.startswith('library_') else scene,scene=scene,text=text,keywordLinks=keyword_links,geometryVersion='shared-js-v1')
+--- a/tools/text-layout/format.py
++++ b/tools/text-layout/format.py
+@@ -5,7 +5,7 @@
+ from pathlib import Path
+ from srwz.chinese_layout import (
+     ChineseLayoutError, load_layout_profiles, reflow_chinese_dialogue,
+-    reflow_chinese_paragraph, logical_dialogue_text, dialogue_layout_issues,
++    logical_dialogue_text, dialogue_layout_issues,
+     is_choice_menu_continuation,
+ )
+ from srwz.compact_authoring import BOUNDARY, compact_controlled_text
+@@ -14,6 +14,7 @@
+ 
+ from srwz.story_quotes import source_quote_style, SPOKEN_QUOTE, PARENTHETICAL
+ from preview import build_preview
++from js_core import js_core
+ 
+ PROFILES = load_layout_profiles(Path(__file__).parent / 'config/zh-layout-profiles.json')
+ 
+@@ -107,6 +108,7 @@
+     profile = None
+     message = '此类文字保留原有排版。'
+     result = text
++    browser_layout = None
+     if target['targetType'] == 'dialogue' and not target.get('preserveLayout'):
+         profile = PROFILES['story_dialogue']
+         links = '《' in target['sourceText']
+@@ -118,11 +120,13 @@
+         elif not dialogue_layout_issues(text, profile=profile, stage_keyword_links=links):
+             message = '已符合剧情排版规则。'
+         else:
+-            fitted = reflow_chinese_dialogue(text, profile=profile, stage_keyword_links=links)
+-            result = fitted.text
+-            if fitted.preserved_reason:
++            if re.search(r'”\n[　 ]*“', text):
++                fitted = reflow_chinese_dialogue(text, profile=profile, stage_keyword_links=links)
++                result = fitted.text
+                 message = '已保留独立对白的原有分行。'
+             else:
++                browser_layout = dict(scene='story', text=text, options=dict(keywordLinks=links))
++                result = js_core(**browser_layout)['text']
+                 message = '已按剧情窗口格式化。'
+             if logical_dialogue_text(result) != logical_dialogue_text(text):
+                 raise ChineseLayoutError('visible content changed')
+@@ -130,13 +134,20 @@
+         # alone misses split protected terms and malformed continuation rows.
+         if dialogue_layout_issues(result, profile=profile, stage_keyword_links=links):
+             raise ChineseLayoutError('dialogue layout is not final')
+-    elif target['targetType'] == 'library' and re.search(r'/(DSCR|DSC2)$', target['targetId']):
++    elif target['targetType'] == 'battle-line' and not target.get('preserveLayout'):
++        profile = PROFILES['battle_subtitle']
++        native_rows = text.replace('\\n', '\n')
++        browser_layout = dict(scene='battle', text=native_rows, options=dict(preserveLineCount=False))
++        result = js_core(**browser_layout)['text']
++        message = '已按战斗窗口两行、21格总宽和续行缩进格式化。'
++    elif target['targetType'] == 'library' and not target.get('preserveLayout') and re.search(r'/(DSCR|DSC2)$', target['targetId']):
+         domain = target.get('context', {}).get('libraryDomain')
+         if domain in ('character', 'robot', 'glossary'):
+             profile = PROFILES['library_' + domain]
+             # Same physical-line joining as production reflow_body.
+             logical = text.replace('\n', '')
+-            result = reflow_chinese_paragraph(logical, profile=profile, protected_terms=TERMS).text
++            browser_layout = dict(scene='library_'+domain, text=logical, options={})
++            result = js_core(**browser_layout)['text']
+             if result.replace('\n', '') != logical:
+                 raise ChineseLayoutError('visible content changed')
+             message = '已按图鉴正文宽度格式化。'
+@@ -149,7 +160,9 @@
+         preview = build_preview(result, keyword_links=target['targetType'] == 'dialogue' and '《' in target['sourceText'], battle=target['targetType'] == 'battle-line')
+         preview['speaker'] = target.get('context', {}).get('speaker', '')
+         preview['people'] = target.get('previewPeople', [])
+-    return dict(text=result, changed=result != item['text'], profile=profile.profile_id if profile else None, message=message, preview=preview)
++    if browser_layout and browser_layout['scene'].startswith('library_'):
++        preview = build_preview(result, scene=browser_layout['scene'])
++    return dict(text=result, changed=result != item['text'], profile=profile.profile_id if profile else None, message=message, preview=preview, browserLayout=browser_layout)
+ 
+ 
+ if __name__ == '__main__':
+--- /dev/null
++++ b/tools/text-layout/js_core.py
+@@ -0,0 +1,11 @@
++"""Site adapter for the exact same shared JS used in browser preview."""
++from pathlib import Path
++import json,subprocess,os
++from srwz.chinese_layout import ChineseLayoutError
++
++def js_core(text,scene,*,action='layout',options=None):
++    path=Path(__file__).parent/'js/cli.mjs'
++    run=subprocess.run([os.environ.get('SRWZ_NODE','node'),str(path)],input=json.dumps(dict(action=action,text=text,scene=scene,options=options or {}),ensure_ascii=False)+'\n',text=True,capture_output=True,check=True,timeout=3)
++    response=json.loads(run.stdout)
++    if not response['ok']:raise ChineseLayoutError(response['error']['message'])
++    return response['result']
+--- /dev/null
++++ b/lib/review-browser-layout.ts
+@@ -0,0 +1,8 @@
++import {layout, type SceneId, type LayoutOptions} from './text-layout/engine.mjs';
++export type BrowserLayoutRecipe = {scene:SceneId;text:string;options:LayoutOptions};
++/** Source envelopes are resolved by the server; physical layout runs here too. */
++export function runBrowserLayout(expected:string, recipe:BrowserLayoutRecipe):string {
++ const result=layout(recipe.text,recipe.scene,recipe.options);
++ if(result.text!==expected) throw new Error('浏览器与后端排版不一致，请刷新页面后重试。');
++ return result.text;
++}
+--- /dev/null
++++ b/app/review-library-preview.tsx
+@@ -0,0 +1,17 @@
++ 'use client';
++import {useEffect,useMemo,useState}from 'react';
++import {getScene}from '../lib/text-layout/engine.mjs';
++import {previewGeometry}from '../lib/review-preview-geometry';
++import {loadNativeGlyphAtlas,type NativeGlyphAtlas,type LayoutPreview}from './review-layout-preview';
++export default function LibraryLayoutPreview({preview:input}:{preview:LayoutPreview}){
++ const preview=useMemo(()=>previewGeometry(input),[input]);
++ const [atlas,setAtlas]=useState<NativeGlyphAtlas|null>(null),[error,setError]=useState('');
++ useEffect(()=>{let active=true;loadNativeGlyphAtlas().then(a=>{if(active)setAtlas(a);}).catch(()=>{if(active)setError('游戏字库加载失败，请刷新重试。');});return()=>{active=false;};},[]);
++ const scene=getScene(preview.scene!),pitch=scene.lineStep*2;
++ return <section className="review-layout-preview" aria-label="图鉴正文排版预览"><header><strong>图鉴正文预览</strong><span>{scene.columns}格 / {scene.widthPx}px · 中文step {scene.step}px</span></header>
++ {error&&<p role="alert">{error}</p>}{preview.geometryError&&<p role="alert">{preview.geometryError}</p>}
++ <div style={{overflowX:'auto',background:'#111923',padding:12}}><svg role="img" aria-label="共享JS图鉴正文预览" width={scene.widthPx+4} height={preview.rows.length*pitch+4}>
++ {preview.rows.map((row,i)=><g key={i} transform={`translate(2,${2+i*pitch})`}><rect width={scene.widthPx} height={scene.height*2} fill="none" stroke="#56697c"/>{row.glyphs.map((g,j)=>atlas?.glyphs[g.text]?<svg key={j} x={g.x} width={g.width} height={g.height*2} viewBox={`${atlas.glyphs[g.text][0]} ${atlas.glyphs[g.text][1]} 24 24`} preserveAspectRatio="none" overflow="hidden"><image href={'/review-assets/'+atlas.image} width={atlas.width} height={atlas.height}/></svg>:<text key={j} x={g.x} y={scene.height*2-2} fill="white" fontSize={scene.height*2}>{g.text}</text>)}</g>)}
++ </svg></div><small>浏览器运行共享JS，按图鉴独立宽高与step定位；使用原始游戏字形。此为正文几何预览，未模拟人物立绘和滚动裁剪区。</small>{preview.truncated&&<small>仅预览前12行或600个字符。</small>}
++ {atlas&&preview.rows.some(r=>r.glyphs.some(g=>!atlas.glyphs[g.text]))&&<small>变量或缺字使用网页占位显示。</small>}</section>;
++}
+--- /dev/null
++++ b/tools/text-layout/check-runtime.mjs
+@@ -0,0 +1,22 @@
++/** Build/deploy gate: execute the shipped browser/Node core and Python owner adapter. */
++import assert from 'node:assert/strict';
++import {execFileSync}from 'node:child_process';
++import {fileURLToPath}from 'node:url';
++import {layout,measure,getScene,sceneIds}from './js/engine.mjs';
++for(const scene of sceneIds){
++ const s=getScene(scene),text='目标<z>MS-013</z>已锁定。';
++ const result=layout(text,scene,{preserveLineCount:false});
++ assert.ok(result.valid);assert.ok(result.rows.every(r=>r.occupiedPx<=s.widthPx));
++ assert.equal(result.text.replaceAll('\n','').replaceAll('　',''),text);
++ const restore=measure('中<z>A1</z>文',scene).rows[0].glyphs.at(-1);
++ assert.equal(restore.width,s.width);assert.equal(restore.height,s.height);
++}
++for(const [targetType,targetId,context]of [['dialogue','story/test',{}],['battle-line','battle/test',{}],['library','character/000/DSCR',{libraryDomain:'character'}],['library','robot/000/DSCR',{libraryDomain:'robot'}],['library','glossary/000/DSCR',{libraryDomain:'glossary'}]]){
++ const text='目标<z>MS-013</z>已锁定。';
++ const raw=execFileSync('python3',['-B',fileURLToPath(new URL('./format.py',import.meta.url))],{input:JSON.stringify({text,target:{targetType,targetId,sourceText:'説明',context}}),encoding:'utf8',env:{...process.env,SRWZ_NODE:process.execPath}});
++ const result=JSON.parse(raw);assert.equal(result.error,undefined);assert.equal(typeof result.text,'string');assert.ok(result.preview?.rows.length);
++ if(result.browserLayout)assert.equal(layout(result.browserLayout.text,result.browserLayout.scene,result.browserLayout.options).text,result.text);
++}
++// Keep the legacy Python entry point functional inside the shipped package too.
++execFileSync('python3',['-B','-c',"import sys; from pathlib import Path; from srwz.chinese_layout import reflow_battle_subtitle,load_layout_profiles; p=load_layout_profiles(Path(sys.argv[1]))['battle_subtitle']; r=reflow_battle_subtitle('“'+'中'*30+'”',profile=p,preserve_line_count=False); assert r.text.count(chr(10))==1",fileURLToPath(new URL('./config/zh-layout-profiles.json',import.meta.url))],{env:{...process.env,PYTHONPATH:fileURLToPath(new URL('./',import.meta.url)),SRWZ_NODE:process.execPath},stdio:'pipe'});
++console.log(`Shared JS runtime verified: ${sceneIds.length} scenes and 5 source-owner adapters.`);
+--- a/scripts/prepare_standalone.mjs
++++ b/scripts/prepare_standalone.mjs
+@@ -1,3 +1,4 @@
++import { execFileSync } from 'node:child_process';
+ import { createHash } from 'node:crypto';
+ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+ import { dirname, relative, resolve, sep } from 'node:path';
+@@ -35,6 +36,9 @@
+ );
+ 
+ await cp(resolve(projectRoot, 'tools/text-layout'), resolve(standaloneTools, 'text-layout'), { recursive: true, force: true });
++
++// Verify the copied runtime, including nested Python -> Node execution.
++execFileSync(process.execPath, [resolve(standaloneTools, 'text-layout/check-runtime.mjs')], {stdio:'inherit'});
+ 
+ for (const packageName of runtimePackages) {
+   await cp(resolve(sourceRoot, packageName), resolve(targetRoot, packageName), {
+--- a/scripts/cache_manifest.mjs
++++ b/scripts/cache_manifest.mjs
+@@ -47,6 +47,15 @@
+   return `${rows.map(([urlPath, hash]) => `${hash}\t${urlPath}`).join('\n')}\n`;
+ }
+ 
++async function nativeGlyphFiles(root) {
++  const metadata=resolve(root,'review-assets/native-glyphs.json');
++  try {
++    const atlas=JSON.parse(await readFile(metadata,'utf8'));
++    if(!/^native-glyphs\.[a-f0-9]+\.png$/.test(atlas.image))throw new Error('Invalid native glyph atlas filename');
++    return [metadata,resolve(root,'review-assets',atlas.image)];
++  }catch(error){if(error.code==='ENOENT')return [];throw error;}
++}
++
+ export async function buildCacheManifest(clientRoot) {
+   const normalizedRoot = resolve(clientRoot);
+   const paths = [];
+@@ -66,6 +75,7 @@
+     }
+   }
+ 
++  paths.push(...await nativeGlyphFiles(normalizedRoot));
+   return manifestForPaths(normalizedRoot, paths);
+ }
+ 
+@@ -87,6 +97,7 @@
+     );
+   }
+ 
++  paths.push(...await nativeGlyphFiles(normalizedRoot));
+   return manifestForPaths(normalizedRoot, paths);
+ }
+ 
+--- a/scripts/cache_manifest.test.mjs
++++ b/scripts/cache_manifest.test.mjs
+@@ -118,3 +118,16 @@
+     ['https://srwz.dreamquest.club/_next/static/chunks/page-new.js'],
+   );
+ });
++
++test('native atlas index and hashed image are included in refresh and warmup',async()=>{
++ const root=await mkdtemp(join(tmpdir(),'srwz-native-atlas-'));
++ try{
++  for(const dir of ['data','portraits-web','review-assets','_next/static'])await mkdir(join(root,dir),{recursive:true});
++  await writeFile(join(root,'favicon.svg'),'icon');
++  await writeFile(join(root,'review-assets/native-glyphs.json'),JSON.stringify({image:'native-glyphs.abc123.png'}));
++  await writeFile(join(root,'review-assets/native-glyphs.abc123.png'),'atlas');
++  for(const text of [await buildCacheManifest(root),await buildWarmupManifest(root)]){
++   assert.match(text,/\/review-assets\/native-glyphs.json/);assert.match(text,/\/review-assets\/native-glyphs.abc123.png/);
++  }
++ }finally{await rm(root,{recursive:true,force:true});}
++});
+--- a/deploy/aliyun/deploy.sh
++++ b/deploy/aliyun/deploy.sh
+@@ -217,6 +217,7 @@
+ 
+ test -f "${upload_dir}/server.js"
+ test -f "${upload_dir}/tools/backup_review_db.mjs"
++/usr/bin/node "${upload_dir}/tools/text-layout/check-runtime.mjs"
+ python3 -B "${upload_dir}/tools/text-layout/format.py" <<'LAYOUT_CHECK'
+ {"text":"测试排版。","target":{"targetType":"dialogue","targetId":"story/000/test","sourceText":"test","context":{}}}
+ LAYOUT_CHECK
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -3568,13 +3568,13 @@
+ .review-layout-preview header span { font-size: .8rem; color: #596772; }
+ .review-layout-preview > small { display: block; margin-top: 8px; line-height: 1.6; }
+ .review-layout-viewport { overflow-x: auto; border: 1px solid #7c8980; border-radius: 6px; background: #dae0d8; }
+-.review-layout-viewport svg { display: block; width: 100%; min-width: 640px; fill: #152019; font-family: 'SRWZ HarmonyOS Sans SC', sans-serif; font-weight: 400; font-synthesis: none; }
++.review-layout-viewport > svg { display: block; width: 100%; min-width: 640px; fill: #152019; font-family: 'SRWZ HarmonyOS Sans SC', sans-serif; font-weight: 400; font-synthesis: none; }
+ .review-layout-viewport .preview-speaker { fill: #2524b2; }
+ .preview-battle-person { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 8px; }
+ .preview-battle-person label { display: flex; gap: 8px; align-items: center; }
+ .preview-battle-person select { max-width: 220px; padding: 5px 8px; border: 1px solid var(--line); background: white; color: var(--ink); }
+ .preview-battle-viewport { background: #000; }
+-.preview-battle-viewport svg { fill: #f1f2ec; }
++.preview-battle-viewport > svg { fill: #f1f2ec; }
+ .preview-battle-speaker { fill: #d7d7e1; }
+ .preview-battle-text { paint-order: stroke fill; stroke: #45535c; stroke-width: .8px; }
+ .review-layout-viewport .preview-placeholder { fill: #57738d; fill-opacity: .2; stroke: #526477; stroke-dasharray: 2 2; }
+@@ -3605,3 +3605,7 @@
+ 
+ .battle-context-case { margin: 1rem 0; border-top: 1px solid var(--line); padding-top: .75rem; }
+ .battle-context-case > summary { cursor: pointer; font-weight: 650; line-height: 1.6; }
++
++/* Native atlas stores coverage as white alpha; story dialogue uses black ink. */
++.preview-story-text { fill: #000; }
++.preview-story-text .preview-native-glyph { filter: brightness(0); }

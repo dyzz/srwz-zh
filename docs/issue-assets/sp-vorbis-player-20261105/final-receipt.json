@@ -1,0 +1,46 @@
+{
+  "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/sp-vorbis-full.iso",
+  "iso_sha256": "9d0671441e2b18329de15757c9860de1aaa73d874858f988fbd78b97284b5e74",
+  "byte_identical_rebuild": true,
+  "codec": "Vorbis VBR quality 0.4; normal-precision Tremor on EE",
+  "ogg_bytes": 3451784,
+  "ogg_sha256": "ab768456c1f24363f0de25ca36d713e75687547533abf89ca338fd9d7479cff7",
+  "sample_rate": 48000,
+  "channels": 2,
+  "source_frames": 10606551,
+  "duration_seconds": 220.9698125,
+  "average_kbps": 124.96852709236019,
+  "private_ee_region": [
+    "0x008c0000",
+    "0x00cc0000"
+  ],
+  "output": "custom IOP PCM queue using existing libsd, DMA 1; native streamed speech stays on DMA 0",
+  "normal_battle_test": "Full battle and automatic return under ARMSX2 Metal 4x; no host RAM edits",
+  "normal_recording_seek_requests": 0,
+  "tail_test": "ARMSX2 RAM telemetry seek request to 180 seconds; remaining 1966551 frames hash matches host PCM, EOF loop and restart verified",
+  "tail_fnv1a32": 3700761473,
+  "full_decode_fnv1a32": 1084342234,
+  "full_decode_evidence": "runtime-02 validates full decode only; its DMA-0 output version was superseded due to a speech conflict",
+  "underruns_normal_and_tail": 0,
+  "stop_and_restart_pass": true,
+  "video": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-vorbis-player-20261105/metal4x/SP-Z-Gundam-Vorbis-Metal-4x.mp4",
+  "video_metadata": {
+    "start_frame": 5900,
+    "end_frame": 9500,
+    "video_frames": 3600,
+    "fps": 59.939998626709,
+    "width": 2560,
+    "height": 1792,
+    "audio_samples": 2882884,
+    "audio_rate": 48000,
+    "video_seconds": 60.060061436,
+    "audio_seconds": 60.060083333,
+    "display_aspect": "4:3"
+  },
+  "limitations": [
+    "Experimental SP track-19 profile, not a release build or Z-main integration",
+    "Compressed song preloaded in EE RAM, not incremental disc streaming",
+    "Normal selected battle ends at about 84 seconds; end-of-song playback verified separately with seek test",
+    "ARMSX2 evidence, not PS2 hardware testing"
+  ]
+}

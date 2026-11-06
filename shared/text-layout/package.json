@@ -3,13 +3,6 @@
   "version": "1.1.0",
   "private": true,
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./engine.d.mts",
-      "import": "./engine.mjs"
-    }
-  },
-  "scripts": {
-    "test": "node --test engine.test.mjs"
-  }
+  "exports": { ".": { "types": "./engine.d.mts", "import": "./engine.mjs" } },
+  "scripts": { "test": "node --test engine.test.mjs", "serve": "node server.mjs" }
 }

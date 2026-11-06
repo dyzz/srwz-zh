@@ -1,0 +1,787 @@
+{
+  "edition": "The Best Japanese retail, SLPS_732.70",
+  "source": "build/iso/sources/best.iso",
+  "profile": {
+    "stop": "0x189920",
+    "pump": "0x189f10",
+    "load": "0x1899a0",
+    "native": "0x18afb0",
+    "currentBgm": "0x558dd8",
+    "heapBreakWord": "0x3f4734"
+  },
+  "catalog": {
+    "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/sources/best.iso",
+    "executableSha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb",
+    "compdataSha256": "5e1df5dcb6763398b2a1664bdba37f2499c49c3e0e50ab2646a9abf24ffaa5e9",
+    "bgmSha256": "0f277113b854e6730edd27b6d734812744837e3670d7f61eaeda2a48e30da362",
+    "defaultUnitsChecked": 807,
+    "metadataTracksChecked": 101,
+    "nativeWorkGroupsChecked": 22,
+    "specialRulesChecked": 46,
+    "specialTableAddress": "0x4119e0",
+    "logicalAliasTableAddress": "0x4122a0",
+    "eventScope": "Best event overlays and native fixed-id callers not re-exported; no Original script references are presented as Best proof"
+  },
+  "build": {
+    "game": "best",
+    "executable": "SLPS_732.70",
+    "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/sources/best.iso",
+    "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/best-vocal-test.iso",
+    "elf_sha256": "09889b0d9d811d622bf898d57cb923d5514434abd482078b9d2962e27427ce0d",
+    "source_elf_sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb",
+    "payload_bytes": 139460,
+    "private_end": 14417920,
+    "symbols": {
+      "hook_update": 9233888,
+      "hook_load": 9234144,
+      "hook_loaded": 9234400,
+      "telemetry": 9314080,
+      "__end": 14078612
+    },
+    "original_bgm_unchanged": true,
+    "music": {
+      "path": "BGM/VOCAL.BIN",
+      "lba": 1835560,
+      "capacity": 536870912,
+      "used": 3391488,
+      "vmap_size": 3120,
+      "metadata_spans": [
+        [
+          538624,
+          540672
+        ],
+        [
+          534864,
+          534872
+        ],
+        [
+          921600,
+          924720
+        ],
+        [
+          534756,
+          534764
+        ],
+        [
+          569344,
+          571392
+        ],
+        [
+          595968,
+          598016
+        ],
+        [
+          618496,
+          620544
+        ],
+        [
+          4296097792,
+          4296099840
+        ],
+        [
+          69632,
+          71680
+        ],
+        [
+          102400,
+          104448
+        ],
+        [
+          131072,
+          133120
+        ],
+        [
+          4296099840,
+          4296101888
+        ],
+        [
+          4296624128,
+          4296626176
+        ],
+        [
+          32768,
+          34816
+        ]
+      ],
+      "new_size": 4296626176,
+      "previous_size": 3759226880,
+      "fe_lba": 2097704
+    },
+    "relocation": {
+      "changes": {
+        "SLPS_732.70": [
+          1833536,
+          3616964
+        ]
+      },
+      "old_size": 3755081728,
+      "new_size": 3759226880,
+      "appended_sha256": "f74e0591b0ddbcba130e69aa3aaf4b90f472d6772e9c03d3f19194d3eb84931a",
+      "appended_bytes": 3618816,
+      "grown": {},
+      "touched_spans": [
+        [
+          32848,
+          32856
+        ],
+        [
+          34896,
+          34904
+        ],
+        [
+          69632,
+          71680
+        ],
+        [
+          102400,
+          104448
+        ],
+        [
+          131072,
+          133120
+        ],
+        [
+          535430,
+          535446
+        ],
+        [
+          622592,
+          624640
+        ],
+        [
+          921600,
+          924672
+        ]
+      ],
+      "catalog": {
+        "member": "VMAP.DAT",
+        "policy": "inherit",
+        "sha256": "b3dd41b0eeb7ec852b0d98a5524d85de7cde15af6ee0ebff29001becccc5649f",
+        "records_checked": 63,
+        "edits": [],
+        "inherited_non_target_catalog_differences": [],
+        "not_catalogued": [
+          "SLPS_732.70"
+        ]
+      },
+      "udf": {
+        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/best-vocal-test.iso",
+        "partition_start": 274,
+        "previous_partition_length": 1833261,
+        "partition_length": 1835285,
+        "partition_extended": true,
+        "image_blocks": 1835560,
+        "anchors_written": [
+          1835303,
+          1835559
+        ],
+        "files": [
+          {
+            "path": "SLPS_732.70",
+            "fe_lba": 304,
+            "ad_offset": 308,
+            "previous_lba": 455,
+            "previous_size": 3473672,
+            "new_lba": 1833536,
+            "new_size": 3616964
+          }
+        ],
+        "metadata_blocks_written": [
+          34,
+          50,
+          64,
+          304,
+          1835303,
+          1835559
+        ],
+        "unchanged_members_preserved": 65
+      }
+    },
+    "readback": {
+      "unchanged_members": 65,
+      "relocated_members": [
+        "SLPS_732.70"
+      ],
+      "grown_members": [],
+      "tail_bytes": 4145152,
+      "verified": true
+    },
+    "untouched": {
+      "base_bytes": 3755081728,
+      "compared_bytes": 3755060136,
+      "sha256": "22b4493157e64555e571fcdcb5579e362749630cc74798c8c2795ab04dfefeaf",
+      "spans": [
+        [
+          32768,
+          34816
+        ],
+        [
+          34896,
+          34904
+        ],
+        [
+          69632,
+          71680
+        ],
+        [
+          102400,
+          104448
+        ],
+        [
+          131072,
+          133120
+        ],
+        [
+          534756,
+          534764
+        ],
+        [
+          534864,
+          534872
+        ],
+        [
+          535430,
+          535446
+        ],
+        [
+          538624,
+          540672
+        ],
+        [
+          569344,
+          571392
+        ],
+        [
+          595968,
+          598016
+        ],
+        [
+          618496,
+          620544
+        ],
+        [
+          622592,
+          624640
+        ],
+        [
+          921600,
+          924720
+        ]
+      ],
+      "final_sha256": "bd062a1c3005a9660d403d2a5326e0e48b9840c59e8bb02465d040cd7934f1e9"
+    }
+  },
+  "restoreBuild": {
+    "game": "best",
+    "executable": "SLPS_732.70",
+    "source": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/best-vocal-test.iso",
+    "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/best-music-eea51da5d943.iso",
+    "update_existing": true,
+    "elf_sha256": "09889b0d9d811d622bf898d57cb923d5514434abd482078b9d2962e27427ce0d",
+    "payload_bytes": 139460,
+    "symbols": {
+      "hook_update": 9233888,
+      "hook_load": 9234144,
+      "hook_native": 9234928,
+      "telemetry": 9314080,
+      "__end": 14078612
+    },
+    "original_bgm_unchanged": true,
+    "music": {
+      "path": "BGM/VOCAL.BIN",
+      "lba": 1835560,
+      "capacity": 536870912,
+      "used": 18432
+    },
+    "untouched": {
+      "base_bytes": 4296626176,
+      "compared_bytes": 3759755264,
+      "sha256": "9bc68d719d4b9a59d5f04bd1ec1f6fd49584fcbdf9b840f903ce18907d92da11",
+      "spans": [
+        [
+          3759226880,
+          4296097792
+        ]
+      ],
+      "final_sha256": "075d336feb311541c9f9902cdcf3a6dc09847c76075802b9da1387d5fb9975d4"
+    }
+  },
+  "armsx2": {
+    "full": {
+      "samples": 48,
+      "last": [
+        1448038961,
+        3,
+        408576,
+        37,
+        0,
+        13,
+        3,
+        19,
+        0,
+        0,
+        48000,
+        2,
+        309050,
+        897066,
+        1,
+        4196374792,
+        1346587953,
+        12,
+        1,
+        0,
+        5603,
+        5617,
+        5605,
+        10606550,
+        3877752226,
+        0,
+        11503616,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "maxDecoderError": 0,
+      "maxRpcError": 0,
+      "maxUnderruns": 0,
+      "returnStopped": true,
+      "unlock": {
+        "returned": [
+          1448038961,
+          0,
+          408576,
+          37,
+          0,
+          17,
+          4,
+          99,
+          0,
+          0,
+          48000,
+          2,
+          310070,
+          921642,
+          1,
+          4290149751,
+          1346587953,
+          12,
+          0,
+          0,
+          5615,
+          5629,
+          5617,
+          10606550,
+          3877752226,
+          0,
+          11528192,
+          0,
+          0,
+          0,
+          4,
+          3
+        ],
+        "runtime_music_unlock_patch": true,
+        "unlock_preimage": "21006210",
+        "unlock_address": "0x2d28f0",
+        "bgm_address": "0x558dd8"
+      }
+    },
+    "range": {
+      "samples": 4,
+      "last": [
+        1448038961,
+        3,
+        408576,
+        37,
+        0,
+        13,
+        3,
+        18,
+        0,
+        0,
+        48000,
+        2,
+        229832,
+        69888,
+        9,
+        2768315636,
+        1346587953,
+        12,
+        1,
+        0,
+        442,
+        456,
+        444,
+        144000,
+        1096405404,
+        0,
+        933888,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "maxDecoderError": 0,
+      "maxRpcError": 0,
+      "maxUnderruns": 0,
+      "returnStopped": true,
+      "unlock": {
+        "returned": [
+          1448038961,
+          0,
+          408576,
+          37,
+          0,
+          17,
+          4,
+          99,
+          0,
+          0,
+          48000,
+          2,
+          230852,
+          94464,
+          9,
+          844019238,
+          1346587953,
+          12,
+          0,
+          0,
+          454,
+          468,
+          456,
+          144000,
+          1096405404,
+          0,
+          958464,
+          0,
+          0,
+          0,
+          4,
+          3
+        ],
+        "runtime_music_unlock_patch": true,
+        "unlock_preimage": "21006210",
+        "unlock_address": "0x2d28f0",
+        "bgm_address": "0x558dd8"
+      }
+    },
+    "once": {
+      "samples": 2,
+      "last": [
+        1448038961,
+        0,
+        408576,
+        37,
+        0,
+        14,
+        3,
+        20,
+        0,
+        0,
+        48000,
+        2,
+        226160,
+        144000,
+        0,
+        672754525,
+        1346587953,
+        0,
+        0,
+        0,
+        71,
+        71,
+        71,
+        0,
+        0,
+        0,
+        144000,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "maxDecoderError": 0,
+      "maxRpcError": 0,
+      "maxUnderruns": 0,
+      "returnStopped": true,
+      "unlock": {
+        "returned": [
+          1448038961,
+          0,
+          408576,
+          37,
+          0,
+          18,
+          4,
+          99,
+          0,
+          0,
+          48000,
+          2,
+          227180,
+          144000,
+          0,
+          672754525,
+          1346587953,
+          0,
+          0,
+          0,
+          71,
+          71,
+          71,
+          0,
+          0,
+          0,
+          144000,
+          0,
+          0,
+          0,
+          4,
+          3
+        ],
+        "runtime_music_unlock_patch": true,
+        "unlock_preimage": "21006210",
+        "unlock_address": "0x2d28f0",
+        "bgm_address": "0x558dd8"
+      }
+    },
+    "fallback": {
+      "samples": 2,
+      "last": [
+        1448038961,
+        0,
+        408576,
+        37,
+        0,
+        14,
+        3,
+        21,
+        0,
+        0,
+        0,
+        0,
+        226232,
+        0,
+        0,
+        0,
+        1346587953,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        3
+      ],
+      "maxDecoderError": 0,
+      "maxRpcError": 0,
+      "maxUnderruns": 0,
+      "returnStopped": true,
+      "unlock": {
+        "returned": [
+          1448038961,
+          0,
+          408576,
+          37,
+          0,
+          18,
+          4,
+          99,
+          0,
+          0,
+          0,
+          0,
+          227252,
+          0,
+          0,
+          0,
+          1346587953,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          4
+        ],
+        "runtime_music_unlock_patch": true,
+        "unlock_preimage": "21006210",
+        "unlock_address": "0x2d28f0",
+        "bgm_address": "0x558dd8"
+      },
+      "nativeAudioRms": 2653.254657878532,
+      "nativeKeyEvents": 1220
+    },
+    "restored": {
+      "samples": 2,
+      "last": [
+        1448038961,
+        0,
+        408576,
+        37,
+        0,
+        14,
+        3,
+        19,
+        0,
+        0,
+        0,
+        0,
+        226442,
+        0,
+        0,
+        0,
+        1346587953,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        3
+      ],
+      "maxDecoderError": 0,
+      "maxRpcError": 0,
+      "maxUnderruns": 0,
+      "returnStopped": true,
+      "unlock": {
+        "returned": [
+          1448038961,
+          0,
+          408576,
+          37,
+          0,
+          18,
+          4,
+          99,
+          0,
+          0,
+          0,
+          0,
+          227462,
+          0,
+          0,
+          0,
+          1346587953,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          4
+        ],
+        "runtime_music_unlock_patch": true,
+        "unlock_preimage": "21006210",
+        "unlock_address": "0x2d28f0",
+        "bgm_address": "0x558dd8"
+      },
+      "nativeAudioRms": 2752.2048010553385,
+      "nativeKeyEvents": 1179
+    }
+  },
+  "fullSong": {
+    "durationSeconds": 220.96979166666668,
+    "advancedPlaybackFrames": 14400,
+    "looped": true
+  },
+  "stageSmoke": {
+    "path": "Original clear-stage-24 memory-card copy -> load -> intermission -> next-stage story -> stage-25 tactical map",
+    "frames": 21650,
+    "bgm": 87,
+    "renderer": "SW",
+    "telemetry": [
+      1448038961,
+      0,
+      408576,
+      37,
+      0,
+      44,
+      11,
+      87,
+      0,
+      0,
+      0,
+      0,
+      336194,
+      0,
+      0,
+      0,
+      1346587953,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      4,
+      11
+    ],
+    "scope": "One stage-entry check, not a full battle or playthrough"
+  },
+  "browser": {
+    "editionDetected": "best",
+    "restoredTracks": 3,
+    "selection": "Native chooser response mocked to actual test ISO; actual read and decode endpoints used",
+    "metadata": "Best checked native tables; Original story references are omitted"
+  },
+  "validation": [
+    "ARMSX2 music playback and return controls",
+    "ARMSX2 native fallback and restored native audio",
+    "ARMSX2 load-save and stage entry",
+    "ISO9660/VMAP/UDF readback and explicit untouched-span comparisons",
+    "8 existing container tests",
+    "Browser edition detection and existing music restore",
+    "JS syntax and Python compile checks"
+  ],
+  "limits": [
+    "Only the Japanese Best ISO tested; no Chinese Best ISO on disk",
+    "Temporary Music Select unlock only in test-session RAM, no disc unlock patch",
+    "Not a physical PS2 test or full-playthrough acceptance",
+    "Best story-reference map not fully re-exported"
+  ]
+}

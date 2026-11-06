@@ -95,12 +95,12 @@ class BalancedProseTests(unittest.TestCase):
             with self.subTest(entry=row['id']):
                 validate_scroll_placeholders(row['source_text'],row['translation'],label=row['id'])
 
-    def test_short_character_body_breaks_at_sentence_before_name_phrase(self):
+    def test_short_character_body_fills_the_first_row(self):
         profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['library_character']
         tagged=compact_visible_runs('贝克的部下。与Dove一起帮助贝克越狱。',default_advance_px=22)
         text,_=reflow_body(tagged,16,profile=profile)
         self.assertTrue(text.startswith('<width:15><space:15>'))
-        self.assertEqual(CONTROL_NOTATION.sub('',text),'贝克的部下。与Dove\n一起帮助贝克越狱。')
+        self.assertEqual(CONTROL_NOTATION.sub('',text),'贝克的部下。与Dove一起帮助贝克\n越狱。')
 
     def test_balances_within_paragraph_without_moving_paragraph_starts(self):
         profile=ChineseLayoutProfile('prose',12,None,None,'minimum')

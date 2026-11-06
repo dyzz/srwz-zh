@@ -11,6 +11,12 @@ from srwz.release_inputs import is_build_input
 from build_library_v02_component import reflow_body,reflow_bodies
 
 class JsBuildLayoutTests(unittest.TestCase):
+ def test_library_adapter_preserves_paragraph_ownership_like_other_prose(self):
+  text='　'+'甲'*36+'\n\n　'+'乙'*29
+  result=library_batch([('CHAR',text)])[('CHAR',text)]
+  self.assertTrue(result[0]);self.assertEqual(result[1][0],request_layout(text,'library_character')['text'])
+  self.assertIn('\n\n　',result[1][0]);self.assertTrue(result[1][0].startswith('　'))
+
  def test_library_production_single_batch_and_browser_match(self):
   profiles=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')
   for kind,domain,width in [('CHAR','character',16),('ROBO','robot',26),('KYWD','glossary',25)]:

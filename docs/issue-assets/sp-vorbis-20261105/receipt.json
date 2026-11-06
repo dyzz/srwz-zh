@@ -1,0 +1,31 @@
+{
+  "target": "SP battle viewer: Z Gundam / Kamille / beam rifle / track 19",
+  "codec": "libvorbis 1.3.7 VBR quality 0.4; Tremor normal precision",
+  "source": "/Users/nate/gba-sound/test.mp3",
+  "ogg": "/Users/nate/gba-sound/vorbis-preview-20261105/test-full-vbr128.ogg",
+  "ogg_bytes": 3465247,
+  "ogg_sha256": "77e105635071b106a18730291e2dc44302113c68ca329877f4d2669c1291d71d",
+  "frames": 9744768,
+  "rate": 44100,
+  "channels": 2,
+  "seconds": 220.96979591836734,
+  "average_kbps": 125.45595150135951,
+  "ee_host_pcm_fnv1a32": 2304841888,
+  "host_pcm_sha256": "315841741083cc8d5d6aa637e4206a4348876954df93661860a88030b891af32",
+  "ee_peak_requested_heap_bytes": 150577,
+  "decoder_test": "standalone EE ELF under ARMSX2; no audio output",
+  "sp_trace_test": "unmodified SP current ISO; configure frame 4995; battle through 8600; returned through 8785",
+  "pcm_rpc_addresses": [
+    "0x18cb00",
+    "0x18cba0"
+  ],
+  "pcm_calls_during_battle": 0,
+  "pcm_calls_during_return": 0,
+  "modules_identical_to_original": true,
+  "limitations": [
+    "Vorbis is not integrated into SP yet",
+    "No PCM ring-buffer supply code yet",
+    "No mixed playback or underrun proof",
+    "No new Vorbis game ISO or recording produced"
+  ]
+}

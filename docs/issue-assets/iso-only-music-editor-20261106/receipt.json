@@ -1,0 +1,157 @@
+{
+  "flow": "ISO input -> inline music editing -> new ISO output; no music package artifacts or endpoints",
+  "cases": {
+    "c866c1b16ff7": {
+      "receipt": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-music-editor-20261106/install-c866c1b16ff7/build-receipt.json",
+      "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/z-music-c866c1b16ff7.iso",
+      "game": "z",
+      "prefixBytes": 1716224,
+      "prefixSha256": "0dd0bbe141a0b0c5ad6f4b97f0c6699862f017e3985e00b37746f62f0026bcad",
+      "originalBgmUnchanged": true,
+      "untouched": {
+        "base_bytes": 4299898880,
+        "compared_bytes": 3763027968,
+        "sha256": "e634c3f3a3d409fbd3a4a4dbc498985919f8f2fe48e715353f4f346c2cf82a93",
+        "spans": [
+          [
+            3762499584,
+            4299370496
+          ]
+        ],
+        "final_sha256": "fb9cec5e3d429a95bcfe13da26094fa6b0b29997eac69c2512b2e652ed7a4a27"
+      }
+    },
+    "0832f628d0bb": {
+      "receipt": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-music-editor-20261106/install-0832f628d0bb/build-receipt.json",
+      "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/sp-music-0832f628d0bb.iso",
+      "game": "sp",
+      "prefixBytes": 40960,
+      "prefixSha256": "478b1d40ddc3051e26a7f324b97bf5749b7794271e5d3b7ea953c88eac384b92",
+      "originalBgmUnchanged": true,
+      "untouched": {
+        "base_bytes": 3918860288,
+        "compared_bytes": 3918838744,
+        "sha256": "476e6919e716d1e97140bd76737936b7f03e25a993cff1e6649114833dc42f4c",
+        "spans": [
+          [
+            32768,
+            34816
+          ],
+          [
+            34896,
+            34904
+          ],
+          [
+            69632,
+            71680
+          ],
+          [
+            102400,
+            104448
+          ],
+          [
+            131072,
+            133120
+          ],
+          [
+            534806,
+            534814
+          ],
+          [
+            535380,
+            535388
+          ],
+          [
+            535430,
+            535446
+          ],
+          [
+            538624,
+            540672
+          ],
+          [
+            569344,
+            571392
+          ],
+          [
+            595968,
+            598016
+          ],
+          [
+            618496,
+            620544
+          ],
+          [
+            622592,
+            624640
+          ],
+          [
+            921600,
+            924672
+          ]
+        ],
+        "final_sha256": "1bc7b7b925cc192b80d228f79ed518ab83fca77ed38d032e2f2f7c68c049034d"
+      }
+    },
+    "122930c1793c": {
+      "receipt": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/sp-music-editor-20261106/install-122930c1793c/build-receipt.json",
+      "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/sp-music-122930c1793c.iso",
+      "game": "sp",
+      "prefixBytes": 18432,
+      "prefixSha256": "c45cc532d359b90ad088e53b80a314a487f8954bc3d6fd561ed24b406a7298d3",
+      "originalBgmUnchanged": true,
+      "untouched": {
+        "base_bytes": 4461072384,
+        "compared_bytes": 3924201472,
+        "sha256": "72bd307796bc9fd2f9da05bf68909a7ba12fc7448bf21bc021473250c20db6f6",
+        "spans": [
+          [
+            3923673088,
+            4460544000
+          ]
+        ],
+        "final_sha256": "5468348e7e4c031fb486570a028a54dbd99fa03cf4986d67ffeaea766e839e5e"
+      }
+    }
+  },
+  "zRoundTripExactPrefix": true,
+  "browser": {
+    "packageControls": 0,
+    "rows": 101,
+    "zRestored": {
+      "tracks": 2,
+      "loopFrames": [
+        48000,
+        144000
+      ],
+      "gainDisplayed": -6,
+      "onceTrack": 20
+    },
+    "spAdded": {
+      "track": 19,
+      "once": true,
+      "gainDisplayed": 3
+    },
+    "spRestored": {
+      "tracks": 0
+    },
+    "mobileWidth": 390,
+    "mobileScrollWidth": 390,
+    "searches": {
+      "exactBgm19": "1 / 101",
+      "weaponMoonlightButterfly": "1 / 101"
+    },
+    "opusPlayback": [
+      0,
+      19,
+      100
+    ]
+  },
+  "validation": [
+    "Browser UI flow and real ISO output/readback",
+    "Music container outside-span byte checks",
+    "8 container unit tests",
+    "JS syntax and Python compile checks"
+  ],
+  "scope": "No player/payload changes in this turn; no new ARMSX2 runtime claim. Exact Z round-trip content retains previous runtime-tested bytes."
+}

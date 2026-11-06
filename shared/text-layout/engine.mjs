@@ -200,9 +200,12 @@ function tokensFor(text, scene, startState, options) {
   if(pending){if(tokens.length){tokens.at(-1).text+=pending;tokens.at(-1).after={...state};}else tokens.push({text:pending,advance:0,occupied:0,before:startState,after:state,atomic:true,visible:''});}
   return tokens;
 }
-function legal(tokens,end) {
+function legal(tokens,end,scene) {
   if(end===tokens.length)return true;
   const left=Array.from(tokens[end-1].visible).at(-1), right=Array.from(tokens[end].visible)[0];
+  // A generated prose continuation must not turn an internal separator into
+  // an authored paragraph indent on the next formatting pass.
+  if(scene?.kind==='prose'&&(right===' '||right==='　'))return false;
   return !contracts.forbiddenEnd.includes(left||'\0')&&!contracts.forbiddenStart.includes(right||'\0');
 }
 function partition(text,scene,options,firstIndent='',continuationIndent='',exactRows=null,maxRows=scene.maxLines) {
@@ -214,7 +217,7 @@ function partition(text,scene,options,firstIndent='',continuationIndent='',exact
   // Prefix-constrained legal edges are finite, cached once, and independent of row count.
   const edges=Array.from({length:n},()=>[]);
   for(let a=0;a<n;a++)for(let b=a+1;b<=n;b++){
-    const w=range(a,b);if(w>scene.widthPx)break;if(legal(tokens,b))edges[a].push({end:b,width:w});
+    const w=range(a,b);if(w>scene.widthPx)break;if(legal(tokens,b,scene))edges[a].push({end:b,width:w});
   }
   const ceiling=Math.min(maxRows??n,n), minimum=exactRows??Math.max(1,Math.ceil(prefix[n]/scene.widthPx)), limit=exactRows??ceiling;
   if(!Number.isInteger(ceiling)||ceiling<1||!Number.isInteger(minimum)||minimum<1||limit>ceiling)fail('rows','Invalid physical row budget');
@@ -278,10 +281,13 @@ function layoutFixed(text,sceneId,options={},targetWidth=null) {
       const indent=/^[　 ]*/.exec(row)[0],body=row.slice(indent.length),last=blocks.at(-1);
       if(last&&last.body!==undefined&&!indent)last.body+=body;else blocks.push({indent,body});
     }
+    if(options.preserveLineCount===true&&blocks.filter(block=>block.body!==undefined).length!==1)
+      fail('owner_contract','Exact prose rows require one paragraph owned by the same display group');
     lines=[];let state=initial(scene);
     for(const block of blocks){
       if(block.blank!==undefined){lines.push(block.blank);continue;}
-      const part=partition(block.body,scene,{...options,initialState:state},block.indent,'',null,options.maxLines??null);
+      const exact=options.preserveLineCount===true?text.split('\n').length:null;
+      const part=partition(block.body,scene,{...options,initialState:state},block.indent,'',exact,options.maxLines??null);
       lines.push(...part);for(const row of part)state=measureRow(row,scene,state,options).state;
     }
   }
@@ -307,24 +313,87 @@ function uniformity(result) {
   for(const width of widths)aligned=Math.max(aligned,widths.filter(w=>w>=width&&w<=width+1).length);
   return {spreadPx:spread,excessSpreadPx:Math.max(0,spread-1),unalignedRows:widths.length-aligned,nonfinalWidthsPx:widths};
 }
+// Solve a complete unindented paragraph, so moving one legal break can avoid
+// a punctuation shortfall several rows later. Tails may be shorter; native
+// advances, scope boundaries and the physical row budget stay unchanged.
+function uniformParagraph(text,scene,options,maxRows) {
+  if(options.preserveLineCount===true)return null;
+  if(/^[　 ]|\n[　 ]|\n\n|\n$/.test(text))return null;
+  const tokens=tokensFor(text.replaceAll('\n',''),scene,initial(scene),{protectWords:false,...options}),n=tokens.length;
+  if(!n||n>6000)return null;
+  const edges=Array.from({length:n},()=>[]),widths=new Set();
+  for(let a=0;a<n;a++){
+    let advance=0,occupied=0;
+    for(let b=a;b<n;b++){
+      occupied=Math.max(occupied,advance+tokens[b].occupied);advance+=tokens[b].advance;
+      const width=Math.max(advance,occupied);if(width>scene.widthPx)break;
+      if(legal(tokens,b+1,scene)){edges[a].push({end:b+1,width});if(b+1<n)widths.add(width);}
+    }
+  }
+  const values=[...widths].sort((a,b)=>a-b);
+  const path=(lo,hi)=>{
+    const count=new Int32Array(n+1).fill(maxRows+1),previous=new Int32Array(n+1).fill(-1);count[0]=0;
+    for(let a=0;a<n;a++)if(count[a]<maxRows){
+      for(let i=edges[a].length-1;i>=0;i--){const e=edges[a][i];
+        if(e.width>hi||e.end<n&&e.width<lo||count[a]+1>=count[e.end])continue;
+        count[e.end]=count[a]+1;previous[e.end]=a;
+      }
+    }
+    if(previous[n]<0)return null;
+    const result=[];for(let b=n;b>0;){const a=previous[b];result.unshift(tokens.slice(a,b).map(t=>t.text).join(''));b=a;}
+    return result;
+  };
+  let low=0,high=0,best=null;
+  while(low<values.length&&high<values.length){
+    if(high<low)high=low;
+    const rows=path(values[low],values[high]);
+    if(!rows){high++;continue;}
+    const physical=rows.join('\n'),checked=validate(physical,scene.id,options);
+    if(checked.valid){
+      const result={...checked,text:physical},score=uniformity(result),width=Math.max(0,...score.nonfinalWidthsPx);
+      if(!best||score.excessSpreadPx<best.score.excessSpreadPx||score.excessSpreadPx===best.score.excessSpreadPx&&(score.unalignedRows<best.score.unalignedRows||score.unalignedRows===best.score.unalignedRows&&width>best.width))best={result,score,width};
+    }
+    low++;
+  }
+  return best;
+}
 export function layout(text,sceneId,options={}) {
   const scene=effectiveScene(sceneId,options), baseline=layoutFixed(text,sceneId,options);
   if(scene.widthSelection!=='uniform_nonfinal'||(options.packing??scene.packing)!=='max_width')return baseline;
   let best=baseline,selected=scene.widthPx,score=uniformity(baseline),tested=1;
-  const candidateOptions={...options,maxLines:options.maxLines??baseline.rows.length};
-  // Descending order resolves equal consistency in favour of the widest layout.
-  for(let width=scene.widthPx-1;score.excessSpreadPx>0&&width>=scene.step;width--){
+  if(score.excessSpreadPx===0)return {...baseline,selectedWidthPx:selected,widthSelection:{policy:'uniform_nonfinal',testedWidths:tested,...score,withinTolerance:true}};
+  const authored=options.escapedNewlines?normalize(text).replace(/\\n/g,'\n'):normalize(text);
+  // Existing legal rows are part of the owner's budget. Never discard a more
+  // uniform reviewed layout merely because maximum-width fill uses fewer rows.
+  const rowBudget=Math.min(options.maxLines??Infinity,Math.max(authored.split('\n').length,baseline.rows.length+(scene.widthSelectionExtraLines??0)));
+  const widest=s=>Math.max(0,...s.nonfinalWidthsPx);
+  const consider=(candidate,width)=>{
+    const next=uniformity(candidate);
+    if(next.excessSpreadPx<score.excessSpreadPx||next.excessSpreadPx===score.excessSpreadPx&&(next.unalignedRows<score.unalignedRows||next.unalignedRows===score.unalignedRows&&widest(next)>widest(score))){
+      best=candidate;selected=width;score=next;
+    }
+  };
+  const stored=validate(authored,scene.id,options);
+  if(stored.valid&&stored.rows.length<=rowBudget){
+    consider({...baseline,...stored,text:options.escapedNewlines?authored.replace(/\n/g,'\\n'):authored,compiledText:expandCompact(authored,scene.id),changed:authored!==normalize(text)},Math.max(0,...nonfinalWidths(stored)));
+  }
+  const solved=uniformParagraph(authored,scene,options,rowBudget);
+  if(solved){
+    consider({...baseline,...solved.result,text:options.escapedNewlines?solved.result.text.replace(/\n/g,'\\n'):solved.result.text,compiledText:expandCompact(solved.result.text,scene.id),changed:solved.result.text!==authored},solved.width);
+    return {...best,selectedWidthPx:selected,widthSelection:{policy:'uniform_nonfinal',method:'legal_break_intervals',testedWidths:tested,...score,withinTolerance:score.spreadPx<=1}};
+  }
+  const candidateOptions={...options,maxLines:rowBudget};
+  // Descending widths prefer the fullest equally uniform page. A stored zero-
+  // spread candidate cannot stop the search before wider candidates are tried.
+  for(let width=scene.widthPx-1;width>=scene.step;width--){
+    if(score.excessSpreadPx===0&&width<widest(score))break;
     let candidate;
     try{candidate=layoutFixed(text,sceneId,candidateOptions,width);}
     catch(error){
       if(error.code==='overflow'||error.code==='invariant'&&error.details?.issues?.every(i=>i.code==='rows'))continue;
       throw error;
     }
-    tested++;
-    const next=uniformity(candidate);
-    if(next.excessSpreadPx<score.excessSpreadPx||next.excessSpreadPx===score.excessSpreadPx&&next.unalignedRows<score.unalignedRows){
-      best=candidate;selected=width;score=next;
-    }
+    tested++;consider(candidate,width);
   }
   return {...best,widthPx:scene.widthPx,selectedWidthPx:selected,widthSelection:{policy:'uniform_nonfinal',testedWidths:tested,...score,withinTolerance:score.spreadPx<=1}};
 }

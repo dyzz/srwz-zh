@@ -9,7 +9,7 @@
  * +0x28 placeholder-actor table before playback, +0x30 resident map effects
  * loaded for this theater session, +0x34 frames played (cancel guard),
  * +0x38 previous pad held mask, +0x40 saved unit flags (120 bytes),
- * +0xc0/+0xc8 dialogue auto-play record and frames on it (native auto level 4),
+ * +0xc0 dialogue auto-play record (native auto level 2),
  * +0xcc last frame spent in map dialogue (cancel guard), +0xd0 play mode
  * (1 with dialogue), +0xd4 triangle pending, +0xd8 gallery list on screen.
  * Playback can be cancelled with cross or START: a new press seen
@@ -233,7 +233,12 @@ voice_ready:
     lui     $t0,0x005a
     addiu   $t1,$zero,1
     sw      $t1,0x4598($t0)
+    lui     $t2,0x004d
+    lbu     $t2,-0x518c($t2) /* 004cae74 clear colour: 0xff in a script blank */
+    bne     $t2,$zero,map_draw_set /* op 0x13ac 2 turned map and unit drawing off */
+    nop
     sw      $t1,0x45a0($t0)
+map_draw_set:
     jal     0x00140290       /* script poll, camera matrices, map actor rendering */
     daddu   $a0,$s0,$zero
     b       frame_restore
@@ -1025,6 +1030,7 @@ restore_regions_done:
 gallery_state_regions:
     .word 0x005dbc40,0x80    /* stage flag bitset (placeholder actors) */
     .word 0x00457748,4       /* map camera zoom */
+    .word 0x00457784,4       /* map rotation: an effect cancelled mid-turn leaves it set */
     .word 0x0062da18,8       /* placeholder slot groups and table */
     .word 0x0061e180,4       /* placeholder draw callback */
     .word 0x0061bfc0,0xa00   /* map-sprite cache entries */
@@ -1291,13 +1297,13 @@ cancel_return:
 .align 4
 .globl gallery_talk_auto
 gallery_talk_auto:
-    /* Auto-play map dialogue with the native auto mode at level 4. The native
+    /* Auto-play map dialogue with the native auto mode at level 2. The native
      * auto timer (*0062e598) pages after +0x10[level] frames: 240/180/120/60
      * for levels 1-4; the gallery switches the controller (*0062e588 +4) and
-     * timer (+4 on, +8 level 4) on and restarts the timer count (+0xc) on each
-     * new record, and the native window pages. A record still waiting after
-     * 240 frames gets one circle (trigger copies 0062514e/52/54/56), repeated
-     * every 45 frames. State +0xc0 record, +0xc8 frames on it. */
+     * timer (+4 on, +8 level 2) on and restarts the timer count (+0xc) on each
+     * new record. Leave paging to the native window; synthetic circle presses
+     * would bypass the setting while text or voice is still playing.
+     * State +0xc0 holds the current record. */
     lui     $t0,0x0062
     lh      $t1,-0x2150($t0) /* 0061deb0 script opcode */
     addiu   $t2,$zero,0x0f
@@ -1317,32 +1323,16 @@ talk_auto_timer:
     beq     $t6,$zero,talk_auto_record
     nop
     sb      $t7,4($t6)
-    addiu   $t7,$zero,4
-    sw      $t7,8($t6)       /* level 4: 60 frames a page */
+    addiu   $t7,$zero,2
+    sw      $t7,8($t6)       /* level 2: 180 frames a page */
 talk_auto_record:
     lw      $t3,0xc0($s1)
-    beq     $t2,$t3,talk_auto_count
+    beq     $t2,$t3,talk_auto_done
     nop
     sw      $t2,0xc0($s1)
-    sw      $zero,0xc8($s1)
-    beq     $t6,$zero,talk_auto_count
+    beq     $t6,$zero,talk_auto_done
     nop
     sw      $zero,0x0c($t6)  /* restart the native page count */
-talk_auto_count:
-    lw      $t3,0xc8($s1)
-    addiu   $t3,$t3,1
-    sw      $t3,0xc8($s1)
-    addiu   $t4,$zero,240
-    bne     $t3,$t4,talk_auto_done
-    nop
-    addiu   $t4,$t4,-45
-    sw      $t4,0xc8($s1)    /* retry 45 frames later if still waiting */
-    lui     $t0,0x0062
-    addiu   $t1,$zero,0x0020 /* circle, raw pad order */
-    sh      $t1,0x514e($t0)
-    sh      $t1,0x5152($t0)
-    sh      $t1,0x5154($t0)
-    sh      $t1,0x5156($t0)
 talk_auto_done:
     jr      $ra
     nop

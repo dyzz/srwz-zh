@@ -1,0 +1,16 @@
+from pathlib import Path
+import sys,json,time
+W=Path(__file__).resolve().parent;R=W.parents[2];sys.path.insert(0,str(R/'tools'))
+from srwz.armsx2_runtime import Armsx2Session
+commands=[]
+for x in map(json.loads,(W/'commands.jsonl').read_text().splitlines()):
+ if x['reply'][-1]=='OK frame=5000':break
+ if x['cmd'].startswith(('run ','press ')):commands.append(x['cmd'])
+out=W/'video-metal4x-louder';start=time.monotonic()
+with Armsx2Session(R/'build/iso/test/sp-z-vocal-louder.iso',R/'work/feedback/aethersx2-text-dropout-20261002/production-lrps2/sp/save/sp-current.ps2',out,renderer='metal',upscale=4,command_timeout=600) as vm:
+ for c in commands:vm.cmd(c)
+ print('configured',time.monotonic()-start,flush=True);vm.shot('before');vm.start_video('Z-Gundam-vocal-Metal-4x');vm.press('start',3)
+ for i in range(5):
+  vm.run(300);vm.shot(f'frame-{i}');reply=vm.cmd('voices');(out/f'voices-{i}.txt').write_text('\n'.join(reply.lines));print('captured',i,vm.frame,time.monotonic()-start,flush=True)
+ path=vm.stop_video();vm.press('cross',3);vm.run(180);vm.shot('returned')
+(out/'runtime-receipt.json').write_text(json.dumps(dict(renderer='metal',upscale=4,video=str(path),iso=str(R/'build/iso/test/sp-z-vocal-louder.iso'),wall_seconds=time.monotonic()-start),indent=2)+'\n');print('complete',flush=True)

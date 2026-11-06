@@ -1,0 +1,8 @@
+from pathlib import Path
+import sys
+O=Path(__file__).resolve().parent;R=O.parents[2];sys.path.insert(0,str(R/'tools'))
+from srwz.armsx2_runtime import Armsx2Session
+out=O/sys.argv[2]
+with Armsx2Session(R/'build/iso/test'/sys.argv[1],R/'work/runtime/armsx2/quotes-release-20261105/save/Mcd001.ps2',out) as vm:
+ for s in ['run 1800','press start 3','run 240']+['press down 3']*3+['press circle 3','run 240']+['press down 3']*3+['press circle 3','run 180','audio start','press circle 3','run 1800','audio stop native','shot playing','mem 597988 48','voices all','press circle 3','audio start','run 300','audio stop replay','press cross 3','run 180','audio start','run 300','audio stop returned','shot returned']:
+  print(s,vm.cmd(s),flush=True)

@@ -253,3 +253,4 @@ SP 冻结管线在 `work/build/special-disc/` 下的输入文件已和锁记录�
 用户看过 §7.5 的效果后决定不下移。`81`–`89` 的原生扩展已撤回：`library_optical_metrics.py`、`compact_digit_metrics.py` 恢复为提交时的版本，原生执行测试移到 [retired/](issue-assets/z-scope-20261024/retired/test_lowered_optical_heights.py) 留档。梗概仍用 `<z>`，`FLOW_SYNOPSIS` 改为宽 12、推进 11、数字字高 9（`09`，不移动），字母字高 10（`8A`）。
 
 LRPS2（新 SP 测试 ISO）：013 为 12×9、推进 11，墨迹高 16，底边比中文高约 1–2 px（与原来的自动减高相同）；字母段底边对齐。本篇、BEST 测试 ISO 哈希回到 `1b3849a9d09f` / `7f10199111af`（与扩展前一致），SP 为 `9b39dcf2b693`。全套测试见 `docs/issue-assets/z-scope-20261024/tests.log`。
+

@@ -32,6 +32,14 @@ with 'OK frame=N' or 'ERR ...'):
                         record the SPU2 mix silently: PATH (.wav, 16-bit stereo,
                         48 kHz) plus PATH.keys.jsonl with every voice key-on/off
                         (frame, sample, start/loop address, pitch, ADSR, volume)
+  video start PATH / video stop / video status
+                        record advanced frames + SPU2 audio to H.264/AAC MP4;
+                        requires ffmpeg on PATH. Relative PATH is under OUTDIR,
+                        .mp4 appended if absent; spaces allowed. No overwrite.
+                        Retains .audio.wav, .json, .keys.jsonl, .ffmpeg.log.
+                        Native refresh rate, 4:3 display; no host waiting time.
+                        Audio commands and load are blocked while recording;
+                        display mode changes abort. Quit finalizes recording.
   voices [all]          SPU2 voices that are playing (phase, envelope, addresses)
 
 For scripted runs, prefer tools/srwz/armsx2_runtime.Armsx2Session. For the text the

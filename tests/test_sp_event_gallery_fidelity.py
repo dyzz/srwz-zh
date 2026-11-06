@@ -271,7 +271,7 @@ class FidelityTimelineTests(unittest.TestCase):
         start, end = timeline.index(["circle_skip_to", "knights_in_place"]), timeline.index(["talk", 22])
         # The squads section 23 cuts to are spawned for triangle mode only.
         self.assertEqual(timeline[start + 1:end], [
-            ["spawn", "squads"], ["talk", 21], ["raw", 24, 2, 577, 0], ["raw", 5021, 0, 0, 0],
+            ["bgm", 41], ["spawn", "squads"], ["talk", 21], ["raw", 24, 2, 577, 0], ["raw", 5021, 0, 0, 0],
             ["raw", 5022, 1 << 16 | 677, 10 << 16 | 5, 0x80000002],
             ["raw", 5022, 1 << 16 | 680, 11 << 16 | 8, 0x80000002],
             ["raw", 5023, 0, 0, 0], ["raw", 22, 0, 0, 0],
@@ -281,8 +281,8 @@ class FidelityTimelineTests(unittest.TestCase):
         self.assertEqual([w for w in compiled["mode_words"] if not w[0].startswith(("gallery_bgm_", "gallery_modewait_"))], [
             ("gallery_spawn_1_0+12", 6 | 5 << 8 | 1 << 16, 10 | 5 << 8 | 1 << 16),
             ("gallery_spawn_1_0+108", 2 | 7 << 8 | 2 << 16, 11 | 8 << 8 | 1 << 16),
-            # the squads' prep (0x14 prep,0,0) becomes "0x14 gallery_skip, 0, mark" in circle mode
-            ("gallery_circlerec_1_0+4", "gallery_prep_1_2", "gallery_skip"),
+            # bgm 41 (0x43 41,0,0) becomes "0x14 gallery_skip, 0, mark" in circle mode
+            ("gallery_circlerec_1_0+0", "67", "20"), ("gallery_circlerec_1_0+4", "41", "gallery_skip"),
             ("gallery_circlerec_1_0+12", "0", "gallery_mark_1_knights_in_place")])
 
     def test_row0_circle_mode_starts_with_meyrin(self):
@@ -329,6 +329,44 @@ class FidelityTimelineTests(unittest.TestCase):
         compiled = compile_scene(18, self.entries[18]["fidelity"], [20, 23], [255, 251])
         bits = struct.unpack("<2I", struct.pack("<2f", -0.0315, 0.0465))
         self.assertIn(f"    .word 20,gallery_effect_shift,{bits[0]},{bits[1]}", compiled["script"])
+
+    def test_rows_15_and_16_match_the_movie_after_the_effect(self):
+        # Row 15: group 15 is gone by the scene, its tiles belong to the ghost table.
+        row15 = self.entries[15]["fidelity"]
+        self.assertNotIn("zarogross", row15["deploy"])
+        self.assertNotIn(["deploy", "zarogross"], row15["timeline"])
+        # Row 16 stays white from the last blank to the end, like the event movie.
+        timeline = self.entries[16]["fidelity"]["timeline"]
+        self.assertEqual(timeline[-3:], [["talk", 102], ["wait", 30], ["wait_effects"]])
+
+    def test_frame_loop_leaves_a_script_blank_alone(self):
+        source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
+        loop = source.split("voice_ready:")[1].split("jal     0x00140290")[0]
+        self.assertLess(loop.index("bne     $t2,$zero,map_draw_set"), loop.index("sw      $t1,0x45a0($t0)"))
+
+    def test_cancelled_effect_cannot_leave_the_map_rotated(self):
+        source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
+        regions = source.split("gallery_state_regions:")[1].split(".word 0,0")[0]
+        self.assertIn(".word 0x00457784,4", regions)
+
+    def test_circle_mode_leaves_the_song_to_effects_that_start_it(self):
+        # These effects' resource headers start the row's music themselves, so circle
+        # mode, which reaches them in seconds, must not start a song just before.
+        for row, track in ((1, 41), (3, 46), (6, 6), (7, 11), (8, 5), (11, 49)):
+            with self.subTest(row=row):
+                timeline = self.entries[row]["fidelity"]["timeline"]
+                at = timeline.index(["bgm", track])
+                skipping = None
+                for op in timeline[:at]:
+                    if op[0] == "circle_skip_to":
+                        skipping = op[1]
+                    elif op == ["mark", skipping]:
+                        skipping = None
+                self.assertIsNotNone(skipping)
+
+    def test_dialogue_auto_play_uses_native_level_2(self):
+        source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
+        self.assertIn("addiu   $t7,$zero,2\n    sw      $t7,8($t6)", source.split("gallery_talk_auto:")[1])
 
     def test_circle_camera_and_row_fixes_20261031(self):
         # BIG-O opens on its own tile (no cut from Beck), Shin Choju-zan does not

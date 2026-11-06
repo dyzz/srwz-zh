@@ -1,0 +1,11 @@
+from pathlib import Path
+import subprocess,os
+w=Path(__file__).resolve().parent;tc=w/'toolchain/ps2dev';sdk=tc/'ps2sdk';src=Path('/Users/nate/gba-sound/vorbis-preview-20261105/ps2-libtremor');env=os.environ.copy();env.update(PS2DEV=str(tc),PS2SDK=str(sdk));env['PATH']=str(tc/'ee/bin')+':'+str(tc/'bin')+':'+env['PATH']
+for k in ['CPATH','C_INCLUDE_PATH','CPLUS_INCLUDE_PATH','SDKROOT']:env.pop(k,None)
+sources='mdct block codebook floor0 floor1 info mapping0 registry res012 sharedbook synthesis vorbisfile window'.split()
+for name in sources:
+ subprocess.run([str(tc/'ee/bin/mips64r5900el-ps2-elf-gcc'),'-O2','-G0','-fsigned-char','-fno-strict-aliasing','-Wno-error=incompatible-pointer-types','-DLITTLE_ENDIAN=1234','-DBIG_ENDIAN=4321','-DBYTE_ORDER=1234','-I'+str(src),'-I'+str(sdk/'ports/include'),'-c',str(src/(name+'.c')),'-o',str(w/(name+'.o'))],check=True,env=env)
+(w/'Makefile').write_text('EE_BIN = tremor-bench.elf\nEE_OBJS = bench.o alloc.o song.o '+' '.join(n+'.o' for n in sources)+'\nEE_INCS = -I'+str(src)+' -I'+str(sdk/'ports/include')+'\nEE_LDFLAGS = -Wl,--wrap=malloc,--wrap=calloc,--wrap=realloc,--wrap=free -L'+str(sdk/'ports/lib')+'\nEE_LIBS = -logg -ldebug\nall: $(EE_BIN)\ninclude $(PS2SDK)/samples/Makefile.pref\ninclude $(PS2SDK)/samples/Makefile.eeglobal\n')
+subprocess.run(['make','-C',str(w)],check=True,env=env)
+symbols=subprocess.check_output([str(tc/'ee/bin/mips64r5900el-ps2-elf-nm'),str(w/'tremor-bench.elf')],text=True);(w/'symbols.txt').write_text(symbols)
+print([l for l in symbols.splitlines() if l.endswith(' result')])

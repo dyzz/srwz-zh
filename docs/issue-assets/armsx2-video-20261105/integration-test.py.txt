@@ -1,0 +1,27 @@
+from pathlib import Path
+import sys,json,time
+W=Path(__file__).resolve().parent;R=W.parents[2];sys.path.insert(0,str(R/'tools'))
+from srwz.armsx2_runtime import Armsx2Session,Armsx2RuntimeError
+commands=[]
+for x in map(json.loads,(W/'commands.jsonl').read_text().splitlines()):
+ if x['reply'][-1]=='OK frame=5000':break
+ if x['cmd'].startswith(('run ','press ')):commands.append(x['cmd'])
+out=W/'video-test';checks=[]
+with Armsx2Session(R/'build/iso/test/sp-z-vocal.iso',R/'work/feedback/aethersx2-text-dropout-20261002/production-lrps2/sp/save/sp-current.ps2',out,command_timeout=300) as vm:
+ for c in commands:vm.cmd(c)
+ vm.shot('before');vm.start_video('Z Gundam vocal.mp4');begin=vm.frame
+ for bad in ['video start duplicate','audio start','audio stop wrong.wav','load nonexistent']:
+  try:vm.cmd(bad);raise AssertionError('accepted '+bad)
+  except Armsx2RuntimeError as e:checks.append(dict(command=bad,error=str(e)))
+ assert vm.frame==begin
+ vm.press('start',3)
+ for i in range(5):
+  vm.run(300);vm.shot(f'frame-{i}');print('captured',i,vm.frame,flush=True)
+ vm.shot('last');end=vm.frame;path=vm.stop_video();assert vm.frame==end and path.is_file()
+ for bad in ['video stop','video start Z Gundam vocal.mp4']:
+  try:vm.cmd(bad);raise AssertionError('accepted '+bad)
+  except Armsx2RuntimeError as e:checks.append(dict(command=bad,error=str(e)))
+ # A second recording auto-finalizes on normal quit.
+ vm.start_video('quit-test');vm.run(30)
+(out/'test-receipt.json').write_text(json.dumps(dict(begin=begin,end=end,output=str(path),rejections=checks,quit_finalized=(out/'quit-test.mp4').is_file()),indent=2)+'\n')
+print('video integration complete',flush=True)

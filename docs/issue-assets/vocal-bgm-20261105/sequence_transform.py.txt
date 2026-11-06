@@ -1,0 +1,29 @@
+def transform(bgm):
+ seq=bytearray(bgm[:0x7970]);p=0x4a;skip=False;status=0;first=True
+ while p<len(seq):
+  if not skip:
+   while seq[p]&128:p+=1
+   p+=1
+  skip=False
+  if seq[p]&128:status=seq[p];p+=1
+  kind=status>>4
+  if status==255:
+   k=seq[p];p+=1
+   if k==81:p+=4
+   else:break
+  elif kind in [8,12]:
+   skip=bool(seq[p]&128)
+   if kind==8:seq[p]=(seq[p]&128)
+   elif status==0xc1:seq[p]=(seq[p]&128)|27
+   p+=1
+  elif kind in [9,11,14]:
+   skip=bool(seq[p+1]&128)
+   if kind==9:
+    if first and seq[p+1]&127:
+     assert status==0x91
+     seq[p]=60;first=False
+    else:seq[p]=0;seq[p+1]&=128
+   elif status==0xe1:seq[p]=0;seq[p+1]=(seq[p+1]&128)|64
+   p+=2
+  else:raise ValueError((hex(p),hex(status)))
+ return seq

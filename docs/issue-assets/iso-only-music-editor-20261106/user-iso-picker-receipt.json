@@ -1,0 +1,19 @@
+{
+  "flow": "User clicks Select ISO -> local system file chooser -> automatic edition detection -> restore music -> save new ISO",
+  "removed": [
+    "Preset development ISO dropdown",
+    "Manual source path input",
+    "GET /api/sources"
+  ],
+  "checks": {
+    "presetControls": 0,
+    "pickerReturnAndCancelChecks": "subprocess return values mocked; actual existing ISO path validated",
+    "nativeRequest": "Actual chooser request was issued and returned cancellation; native dialog not captured by CUA",
+    "browserSelection": "Chooser response mocked to existing Z ISO; subsequent /api/open-iso and track reads are real",
+    "restoredTracks": 2,
+    "cancelPreservesLoadedState": true,
+    "statusShowsFileNameOnly": true,
+    "jsBuildAndSyntax": true
+  },
+  "runtime": "No game payload or ISO writing changes; no new emulator run"
+}

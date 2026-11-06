@@ -28,8 +28,9 @@
   "prose_policy": {
     "protect_words": false,
     "packing": "max_width",
-    "minimum_lines_first": true,
+    "minimum_lines_first": false,
     "preserve_paragraphs": true,
-    "width_selection": "uniform_nonfinal"
+    "width_selection": "uniform_nonfinal",
+    "maximum_extra_lines": 1
   }
 }
