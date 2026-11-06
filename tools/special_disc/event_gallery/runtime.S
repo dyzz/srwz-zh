@@ -363,9 +363,10 @@ list_draw_original:
     j       0x00320f38
     nop
 
-/* Enlarge only height-8 menu digits to 8.5 native units. Their aligned
+/* Enlarge height-8 menu glyphs (digits and Showtime t) to 8.5 native units.
+ * Their aligned
  * bottom vertex stays fixed; the top moves up half a native Y unit.
- * Showtime letters keep height 9; reviewed widths are set by the menu.
+ * Other Showtime letters keep height 9; widths and advances are in the menu.
  */
 .org 0x580
 .globl gallery_list_digit_height
@@ -388,13 +389,13 @@ list_digit_height_done:
     j       0x0013bda8
     addiu   $t3,$t0,23      /* displaced UV computation */
 
-/* Reserve font slots 110 (ti) and 113 (w), checked blank/unassigned by the
- * builder. Native upload requests hold glyph_index*288 in T1. These slots
- * source private rasters; every other upload keeps the original font pointer.
+/* Reserve font slot 113 (w), checked blank/unassigned by the builder.
+ * Native upload requests hold glyph_index*288 in T1. Only w sources a
+ * private raster; every other upload keeps the original font pointer.
  */
 .org 0x5d0
-.globl gallery_ti_upload
-gallery_ti_upload:
+.globl gallery_w_upload
+gallery_w_upload:
     j       gallery_private_upload
     nop
 
@@ -1627,22 +1628,16 @@ gallery_quiet_again:
 .align 4
 .include "gallery-quiet.inc"
 
-/* Only the gallery's reserved ti/w slots use private rasters. */
+/* Only the gallery's reserved w slot uses a private raster. */
 .align 4
 gallery_private_upload:
     addu    $t4,$t2,$t1
-    ori     $at,$zero,0x7bc0 /* 110 * 288 */
-    beq     $t1,$at,private_upload_ti
-    nop
     ori     $at,$zero,0x7f20 /* 113 * 288 */
     bne     $t1,$at,private_upload_done
     nop
     lui     $t4,0x0082
     b       private_upload_done
     ori     $t4,$t4,0x1400
-private_upload_ti:
-    lui     $t4,0x0082
-    ori     $t4,$t4,0x1d00
 private_upload_done:
     j       0x0013d0d4
     addu    $t3,$t0,$a2

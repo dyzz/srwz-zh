@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 from srwz.text import encode_text, two_byte_visible_spaces
 from special_disc.writeback.migrate_slps_text import encoding_tables
-from special_disc.event_gallery.ligature import CHARACTER as TI_CHARACTER, CODE as TI_CODE, W_CHARACTER, W_CODE, showtime_text
+from special_disc.event_gallery.ligature import W_CHARACTER, W_CODE, showtime_text
 
 DATA_BASE = 0x820000
 CALLBACK_ADDRESS = 0x822000
@@ -22,7 +22,8 @@ BANNER_CENTRES = {0: 90, 1: 153, 2: 216, 8: 216, 3: 279, 9: 342}
 # A run gets glyph width/advance per character, explicit height 9, and the
 # native 20/20/9 restore. The full stop's dot sits at the cell's left edge and
 # a condensed Σ reads as a thin stroke, so both get their own pair. Long Latin
-# runs (BIG-O·Showtime) use one uniform advance, including the t/i pair.
+# author-facing runs use a uniform advance; Showtime gets per-letter metrics
+# from showtime_text() when encoded into the gallery menu.
 LIST_COMPACT_RUN = re.compile(r"[A-Za-z0-9Σ·.\-]+")
 LIST_COMPACT = (0x0E, 0x0C)
 LIST_COMPACT_CHAR = {".": (0x0E, 0x07), "Σ": (0x12, 0x10)}
@@ -96,14 +97,14 @@ def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | Non
     # margin separates them and the guide ends inside the heading bar.
     list_help = "<-1>只看演出<-3>连同对白"
     assert items and all(item.get("name") for item in items)
-    # One stored glyph for ti; the author-facing title remains ordinary text.
+    # Keep t and i as ordinary font glyphs; only w has a private raster.
     names = []
     for item in items:
         value = compact_list_name(item["name"])
         local_overrides = overrides
         if item["name"] == "BIG-O·Showtime":
             value = showtime_text()
-            local_overrides = dict(overrides, **{TI_CHARACTER: TI_CODE, W_CHARACTER: W_CODE})
+            local_overrides = dict(overrides, **{W_CHARACTER: W_CODE})
         names.append(alloc(encode_text(two_byte_visible_spaces(value), table,
                                        overrides=local_overrides, terminate=True)))
     strings = alloc(struct.pack(f"<{len(names) + 1}I", *names, 0))
