@@ -1207,12 +1207,12 @@
             "toga"
           ],
           [
-            "circle_skip_to",
-            "knights_in_place"
-          ],
-          [
             "bgm",
             41
+          ],
+          [
+            "circle_skip_to",
+            "knights_in_place"
           ],
           [
             "spawn",
@@ -1836,7 +1836,10 @@
               }
             }
           ]
-        }
+        },
+        "circle_effect_bgm": [
+          41
+        ]
       }
     },
     {
@@ -3298,12 +3301,12 @@
             26
           ],
           [
-            "circle_skip_to",
-            "circle_0"
-          ],
-          [
             "bgm",
             46
+          ],
+          [
+            "circle_skip_to",
+            "circle_0"
           ],
           [
             "camera",
@@ -3967,7 +3970,10 @@
               }
             }
           ]
-        }
+        },
+        "circle_effect_bgm": [
+          46
+        ]
       }
     },
     {
@@ -5717,12 +5723,12 @@
             19
           ],
           [
-            "bgm",
-            6
-          ],
-          [
             "mark",
             "circle_0"
+          ],
+          [
+            "bgm",
+            6
           ],
           [
             "wait_modes",
@@ -6074,7 +6080,10 @@
               }
             }
           ]
-        }
+        },
+        "circle_effect_bgm": [
+          6
+        ]
       }
     },
     {
@@ -6362,12 +6371,12 @@
             17
           ],
           [
-            "bgm",
-            11
-          ],
-          [
             "mark",
             "circle_1"
+          ],
+          [
+            "bgm",
+            11
           ],
           [
             "circle_skip_to",
@@ -6919,7 +6928,10 @@
               }
             }
           ]
-        }
+        },
+        "circle_effect_bgm": [
+          11
+        ]
       },
       "stage_objects_source": "STAGE030 entry (0x146280 / 0x146160 before the map starts)"
     },
@@ -7035,16 +7047,8 @@
             0
           ],
           [
-            "circle_skip_to",
-            "effect_bgm"
-          ],
-          [
             "bgm",
             5
-          ],
-          [
-            "mark",
-            "effect_bgm"
           ],
           [
             "spawn",
@@ -7272,7 +7276,10 @@
               }
             }
           ]
-        }
+        },
+        "circle_effect_bgm": [
+          5
+        ]
       }
     },
     {
@@ -9361,12 +9368,12 @@
             13
           ],
           [
-            "bgm",
-            49
-          ],
-          [
             "mark",
             "circle_1"
+          ],
+          [
+            "bgm",
+            49
           ],
           [
             "circle_skip_to",
@@ -9562,7 +9569,10 @@
               }
             }
           ]
-        }
+        },
+        "circle_effect_bgm": [
+          49
+        ]
       }
     },
     {
@@ -13875,6 +13885,19 @@
           [
             "wait",
             30
+          ],
+          [
+            "raw",
+            5036,
+            0,
+            0,
+            0
+          ],
+          [
+            "fade",
+            0,
+            252,
+            4
           ],
           [
             "wait_effects"

@@ -299,8 +299,18 @@ restore_units:
     addiu   $t1,$t1,-1
     bne     $t1,$zero,restore_units
     nop
+    /* The roster snapshot spans 005dbb98 (current BGM) and would make the scene's
+     * song look like the theater's, so gallery_bgm_restore would leave it playing. */
+    lui     $t0,0x005e
+    lbu     $t0,-0x4468($t0)
+    addiu   $sp,$sp,-0x10
+    sd      $t0,0($sp)
     jal     gallery_restore_roster
     nop
+    ld      $t0,0($sp)
+    addiu   $sp,$sp,0x10
+    lui     $t1,0x005e
+    sb      $t0,-0x4468($t1)
     addiu   $t0,$zero,1
     sw      $t0,0x24($s1)
     /* Reuse the theater object's native VRAM backup/restore implementation.

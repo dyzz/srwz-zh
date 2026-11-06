@@ -271,7 +271,7 @@ class FidelityTimelineTests(unittest.TestCase):
         start, end = timeline.index(["circle_skip_to", "knights_in_place"]), timeline.index(["talk", 22])
         # The squads section 23 cuts to are spawned for triangle mode only.
         self.assertEqual(timeline[start + 1:end], [
-            ["bgm", 41], ["spawn", "squads"], ["talk", 21], ["raw", 24, 2, 577, 0], ["raw", 5021, 0, 0, 0],
+            ["spawn", "squads"], ["talk", 21], ["raw", 24, 2, 577, 0], ["raw", 5021, 0, 0, 0],
             ["raw", 5022, 1 << 16 | 677, 10 << 16 | 5, 0x80000002],
             ["raw", 5022, 1 << 16 | 680, 11 << 16 | 8, 0x80000002],
             ["raw", 5023, 0, 0, 0], ["raw", 22, 0, 0, 0],
@@ -281,8 +281,8 @@ class FidelityTimelineTests(unittest.TestCase):
         self.assertEqual([w for w in compiled["mode_words"] if not w[0].startswith(("gallery_bgm_", "gallery_modewait_"))], [
             ("gallery_spawn_1_0+12", 6 | 5 << 8 | 1 << 16, 10 | 5 << 8 | 1 << 16),
             ("gallery_spawn_1_0+108", 2 | 7 << 8 | 2 << 16, 11 | 8 << 8 | 1 << 16),
-            # bgm 41 (0x43 41,0,0) becomes "0x14 gallery_skip, 0, mark" in circle mode
-            ("gallery_circlerec_1_0+0", "67", "20"), ("gallery_circlerec_1_0+4", "41", "gallery_skip"),
+            # the squads' prep (0x14 prep,0,0) becomes "0x14 gallery_skip, 0, mark" in circle mode
+            ("gallery_circlerec_1_0+4", "gallery_prep_1_2", "gallery_skip"),
             ("gallery_circlerec_1_0+12", "0", "gallery_mark_1_knights_in_place")])
 
     def test_row0_circle_mode_starts_with_meyrin(self):
@@ -335,9 +335,9 @@ class FidelityTimelineTests(unittest.TestCase):
         row15 = self.entries[15]["fidelity"]
         self.assertNotIn("zarogross", row15["deploy"])
         self.assertNotIn(["deploy", "zarogross"], row15["timeline"])
-        # Row 16 stays white from the last blank to the end, like the event movie.
+        # Row 16 brings the map back after the last line and fades out.
         timeline = self.entries[16]["fidelity"]["timeline"]
-        self.assertEqual(timeline[-3:], [["talk", 102], ["wait", 30], ["wait_effects"]])
+        self.assertEqual(timeline[-5:], [["talk", 102], ["wait", 30], ["raw", 5036, 0, 0, 0], ["fade", 0, 252, 4], ["wait_effects"]])
 
     def test_frame_loop_leaves_a_script_blank_alone(self):
         source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
@@ -350,23 +350,25 @@ class FidelityTimelineTests(unittest.TestCase):
         self.assertIn(".word 0x00457784,4", regions)
 
     def test_circle_mode_leaves_the_song_to_effects_that_start_it(self):
-        # These effects' resource headers start the row's music themselves, so circle
-        # mode, which reaches them in seconds, must not start a song just before.
+        # These effects' resource headers start the music themselves. Circle mode
+        # reaches them in seconds, so it only pauses the theater track, which the
+        # header needs: without the pause the song outlives the scene.
         for row, track in ((1, 41), (3, 46), (6, 6), (7, 11), (8, 5), (11, 49)):
             with self.subTest(row=row):
-                timeline = self.entries[row]["fidelity"]["timeline"]
-                at = timeline.index(["bgm", track])
-                skipping = None
-                for op in timeline[:at]:
-                    if op[0] == "circle_skip_to":
-                        skipping = op[1]
-                    elif op == ["mark", skipping]:
-                        skipping = None
-                self.assertIsNotNone(skipping)
+                entry = self.entries[row]
+                compiled = compile_scene(row, entry["fidelity"], entry["effect_tile"], entry["effects"])
+                words = [w for w in compiled["mode_words"] if w[1] == str(track) and w[0].startswith("gallery_bgm_")]
+                self.assertEqual([w[2] for w in words], ["gallery_bgm_pause"])
 
     def test_dialogue_auto_play_uses_native_level_2(self):
         source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
         self.assertIn("addiu   $t7,$zero,2\n    sw      $t7,8($t6)", source.split("gallery_talk_auto:")[1])
+
+    def test_scene_song_survives_the_roster_restore_for_the_bgm_restore(self):
+        source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
+        code = source.split("jal     gallery_restore_roster")[0][-260:] + source.split("jal     gallery_restore_roster")[1][:200]
+        self.assertIn("lbu     $t0,-0x4468($t0)", code)
+        self.assertIn("sb      $t0,-0x4468($t1)", code)
 
     def test_circle_camera_and_row_fixes_20261031(self):
         # BIG-O opens on its own tile (no cut from Beck), Shin Choju-zan does not

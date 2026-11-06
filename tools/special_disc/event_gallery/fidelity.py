@@ -22,6 +22,8 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
                   waits until the stream is ready. Circle mode (mode words, outside
                   circle_skip_to parts) calls runtime.S gallery_bgm_nowait instead
   bgm_pause       native FUN_00183220(2): pause the current BGM (cmd 0x20)
+  circle_effect_bgm  tracks whose bgm op pauses instead of playing in circle mode: the
+                  next effect's resource header starts the music
   form_se         native FUN_00182a50(0x2a, 1): the form-change sound of op 0x1d
   0x46 m,k,v      stage model m: k=9 visibility (v 0 hide, 1 show), k=5 animate
                   to frame v, k=7 set frame v now, k=6/8 frame with high half
@@ -336,7 +338,10 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             if not overlay:
                 # Circle mode starts the track without the ~40-frame stream wait.
                 label = f"gallery_bgm_{row}_{position}"
-                mode_words += [(f"{label}+0", "67", "20"), (f"{label}+4", str(track), "gallery_bgm_nowait"),
+                # An effect that starts this song itself only needs the theater track
+                # out of the way: playing it here too would restart it seconds later.
+                starter = "gallery_bgm_pause" if track in fidelity.get("circle_effect_bgm", ()) else "gallery_bgm_nowait"
+                mode_words += [(f"{label}+0", "67", "20"), (f"{label}+4", str(track), starter),
                                (f"{label}+12", "0", str(track))]
                 script.append(f"{label}:")
             word(0x43, track, 0, 0)
