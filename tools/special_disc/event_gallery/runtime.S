@@ -347,12 +347,10 @@ gallery_list_draw:
     addiu   $t1,$t1,%lo(gallery_selector)
     bne     $t0,$t1,list_draw_original
     nop
-    /* Only the gallery list. The native list pages the rows (left/right,
-     * "n / m" in the heading). The native slide tween causes fractional-
-     * position text sampling; draw at rest. +0xd8 marks the list as on
-     * screen for gallery_list_input (triangle). */
-    sw      $zero,0x68($a0)
-    sw      $zero,0x6c($a0)
+    /* Only mark the gallery list as on screen for triangle input.
+     * Keep native +0x68/+0x6c slide offsets: clearing them here resets the
+     * exit tween every frame, leaving the panel stuck until it vanishes.
+     * The native offsets already settle at zero while the list is idle. */
     lui     $t0,0x0082
     addiu   $t1,$zero,2
     sw      $t1,0x1fd8($t0)
@@ -663,6 +661,38 @@ final_draw_return:
     ld      $ra,0x28($sp)
     jr      $ra
     addiu   $sp,$sp,0x30
+
+/* Returning from the gallery: reuse the root page's native staggered
+ * rotation scheduler, including its hidden-item filtering and 10-frame steps.
+ * S5=root page and S1=native animation queue in the native 322290 epilogue.
+ */
+.org 0xb00
+.globl gallery_root_return
+gallery_root_return:
+    beq     $s1,$zero,root_return_done
+    nop
+    lw      $t0,0($s5)
+    bne     $t0,$zero,root_return_done
+    nop
+    lw      $t0,0x20c($s5)
+    beq     $t0,$zero,root_return_done
+    nop
+    lw      $t0,0($t0)
+    addiu   $t0,$t0,-9
+    bne     $t0,$zero,root_return_done
+    nop
+    /* Start after native slide completion; both animations share each
+     * widget controller, so starting earlier cancels the first slide. */
+    daddu   $a0,$s5,$zero
+    daddu   $a1,$v0,$zero
+    jal     0x003236e0
+    daddu   $a2,$s1,$zero
+    /* Return the extended completion time to the native input scheduler. */
+root_return_done:
+    ld      $ra,0x70($sp)
+    .word   0x7bb60060      /* lq s6,0x60(sp), EE instruction */
+    j       0x00322b20
+    nop
 
 .org 0xc00
 gallery_copy_caption_rect:

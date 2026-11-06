@@ -42,6 +42,9 @@ PROPOSAL = ROOT / "work/build/special-disc/text-candidate/font/proposal.json"
 MEMBERS = ("SLPS_259.20", "AID_DATA/AIDDATA.BIN", "EFF/VEFF2DX.BIN")
 # Instruction sites rewritten in the executable: (address, expected words, replacement words).
 HOOKS = (
+    # Gallery return uses the same staggered rotation as first theater entry.
+    (0x322B18, (0xDFBF0070, 0x7BB60060),
+     (0x08000000 | ((RUNTIME_BASE + 0xB00) >> 2), 0)),
     # The reserved w slot is uploaded from the private glyph, not shared VT1.
     (0x13D0CC, (0x01496021, 0x01065821),
      (0x08000000 | ((RUNTIME_BASE + 0x5D0) >> 2), 0)),

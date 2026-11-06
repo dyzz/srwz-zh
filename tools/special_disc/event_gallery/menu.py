@@ -193,7 +193,7 @@ def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | Non
                     "event_help": event_help,
                     "gallery_list": {"rows": len(items), "paging": "native (left/right)", "help": list_help,
                                      "entry": {"circle": "effects only", "triangle": "with map dialogue"},
-                                     "transition": "snap gallery list horizontal offset during drawing"},
+                                     "transition": "native horizontal slide; preserve per-frame offsets"},
                     "extended_help_tables": [hex(x) for x in help_tables]},
     }
     (outdir / "menu-receipt.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n")
