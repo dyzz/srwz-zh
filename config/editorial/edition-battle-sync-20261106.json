@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "authorization": "2026-11-06 user explicitly requested SP synchronization of battle:19390.",
+  "mainId": "battle:19390",
+  "changes": [
+    {
+      "path": "corpus/zh/special-disc/battle-lines.json",
+      "id": "sd-battle:101",
+      "sourceTextSha256": "5cf9a6ed4d8b2af15a9ccdbdd2f7d398cfd3717e827dcffcff343d05c6c536b3",
+      "previousTranslation": "“梅尔！\\n　揍那家伙一顿，痛快痛快！”",
+      "finalTranslation": "“梅尔！\\n　我来揍扁那家伙，给你出口恶气！”"
+    },
+    {
+      "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+      "id": "sd/battle/5cf9a6ed4d8b2af1/87098fc2",
+      "sourceTextSha256": "5cf9a6ed4d8b2af15a9ccdbdd2f7d398cfd3717e827dcffcff343d05c6c536b3",
+      "previousTranslation": "“梅尔！\\n　揍那家伙一顿，痛快痛快！”",
+      "finalTranslation": "“梅尔！\\n　我来揍扁那家伙，给你出口恶气！”"
+    }
+  ],
+  "audit": {
+    "nativeRecords": {
+      "original": 58740,
+      "best": 58751,
+      "sp": 59262
+    },
+    "bestSourceAliasCount": 18,
+    "bestUnboundSourceCount": 0,
+    "bestPayloadDifferenceCount": 0,
+    "spExactSharedUnique": 25403,
+    "spExactSharedDifferenceCount": 0,
+    "remainingNearSourceDifferences": 71,
+    "remainingReviewedDifferences": 33,
+    "remainingDraftDifferences": 38,
+    "evidence": "Original/BEST retained final staged components, SP ISO; exact-source comparison and same-speaker near-source search; no full runtime claim",
+    "meaningTriage": {
+      "hiddenEquivalentOrLegitimateSourceDifferences": 68,
+      "semanticItemsConfirmedUsingSP": 3,
+      "remainingUnconfirmedSemanticItems": 0,
+      "additionalConfirmedMissedSync": 0
+    }
+  },
+  "verification": {
+    "spISO": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "e5d7e3733ba5962e8f65155438ee10ccda14f3a8051a493ff9485ff6f9bdd582",
+      "size": 3918860288
+    },
+    "editionBatchStatus": "edition_batch_receipt_integrity_passed",
+    "knownLineOccurrences": [
+      {
+        "record": 75,
+        "text": "“梅尔！\\n　我来揍扁那家伙，给你出口恶气！”"
+      },
+      {
+        "record": 575,
+        "text": "“梅尔！\\n　我来揍扁那家伙，给你出口恶气！”"
+      },
+      {
+        "record": 888,
+        "text": "“梅尔！\\n　我来揍扁那家伙，给你出口恶气！”"
+      }
+    ],
+    "scope": "Prior SP-only rebuild and readback before the three later selections; retained as historical evidence."
+  },
+  "semanticSelections": [
+    {
+      "mainId": "battle:14165",
+      "spId": "sd-battle:055",
+      "mainSourceTextSha256": "71808a6f35ef0524030776d394fa9e65e100ea67211ed98065eedf18c8b43ca3",
+      "spSourceTextSha256": "0a787d1d544de9d1e1e31a5931eb8f36668bf3ede1ca478a031c07bfa798066b",
+      "previousMainTranslation": "“真是名不副实啊，\\n　马林·雷根！”",
+      "finalTranslation": "“不过如此嘛，\\n　马林·雷根！”",
+      "spTranslationChanged": false,
+      "mainEncodedBytes": 34,
+      "decisionSource": "2026-11-06 user: all three use the SP wording",
+      "scope": [
+        "original",
+        "best",
+        "sp"
+      ]
+    },
+    {
+      "mainId": "battle:19045",
+      "spId": "sd-battle:100",
+      "mainSourceTextSha256": "0858eabfbebed53718eb8592c88b63d3db70d1358f57a083bffbab48703925a7",
+      "spSourceTextSha256": "3c3489f3411e4f01ffc2692b3ab7a7476b05251d5cd41027e1e2da0211ab1a38",
+      "previousMainTranslation": "“我不会让你得到吉隆的！”",
+      "finalTranslation": "“我不会让你动吉隆的！”",
+      "spTranslationChanged": false,
+      "mainEncodedBytes": 25,
+      "decisionSource": "2026-11-06 user: all three use the SP wording",
+      "scope": [
+        "original",
+        "best",
+        "sp"
+      ]
+    },
+    {
+      "mainId": "battle:24324",
+      "spId": "sd-battle:119",
+      "mainSourceTextSha256": "9e640368415a110ed467f18dec87ff5f5c126e7d8568b9e43ba08f69c6a11882",
+      "spSourceTextSha256": "a53a277d9acb27ab03fe7d67b99f3392bff27887aea6c84d6949537086eb4244",
+      "previousMainTranslation": "“常言道美丽的花有毒\\n　但…”",
+      "finalTranslation": "“都说美丽的花儿\\n　往往带着毒……”",
+      "spTranslationChanged": false,
+      "mainEncodedBytes": 38,
+      "decisionSource": "2026-11-06 user: all three use the SP wording",
+      "scope": [
+        "original",
+        "best",
+        "sp"
+      ]
+    }
+  ],
+  "semanticSelectionsVerification": {
+    "sourceBindings": "passed",
+    "subtitleLayout": "passed",
+    "lineBreakTiming": "passed",
+    "productionEncoding": "passed",
+    "ISOStatus": "pending rebuild for these three selections; previously built SP already uses these three wordings"
+  }
+}
