@@ -627,5 +627,35 @@
     "layout": "passed",
     "variablesAndKeywordMarkers": "passed"
   },
-  "onlineStatusChanged": false
+  "onlineStatusChanged": false,
+  "isoRebuilt": true,
+  "releaseVerification": {
+    "editionBatchStatus": "edition_batch_receipt_integrity_passed",
+    "battleEditionBindings": 12,
+    "battleOccurrencesReread": 24,
+    "fullStoryContentReadback": "passed",
+    "testSuite": {
+      "total": 858,
+      "skipped": 17,
+      "status": "passed"
+    },
+    "runtimePlayback": "not tested for these lines",
+    "editions": {
+      "original": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "b996727b2ab8005625e0d1fd6b6891e4eed200eaeb7bdd7d3b7ce04d323cd50c",
+        "size": 3799459840
+      },
+      "best": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "a8eb1f12c05e6c848c7bee362aaa087e7bb7e63677097a32aec69f2d65998bca",
+        "size": 3796187136
+      },
+      "sp": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "fdcc9c3e0a37c4dbdf8b17d60c78952884180f4736f9b9df217d46d22d5cc9f6",
+        "size": 3918860288
+      }
+    }
+  }
 }
