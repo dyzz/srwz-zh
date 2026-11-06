@@ -1,0 +1,165 @@
+{
+  "status": "three_edition_build_and_static_readback_passed",
+  "batchManifest": "work/editions/1fff2364fae663db158807401ecf9d2591dbb0b342383da644d84a0def387002/original-best-sp.json",
+  "inputDigest": "1fff2364fae663db158807401ecf9d2591dbb0b342383da644d84a0def387002",
+  "acceptedSummarySha256": "9723ee3c1194270b0c8892356895525464f9a6027793720a08a893c04516d67e",
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "1fff2364fae663db158807401ecf9d2591dbb0b342383da644d84a0def387002",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "4b8f7a2e2e89c45e1bd50ff4ae5db9f690321cc0f685c7f631fadeba4593ec7d",
+      "size": 3799459840
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "fe850dbb2154ce3ac1148bc5787675637f886869a548893bb83caf8ef3f9d1a2",
+      "size": 3796187136
+    },
+    "sp": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "684030e78f0c9bf25e10eb7a1213c99c10e7111a21be60d9edd858c37da9bddc",
+      "size": 3918860288
+    }
+  },
+  "readbacks": {
+    "original": {
+      "path": "build/editions/zh-release-original/d9316ad0e1edac6b73a288bab98b0b0cf3a039cf28ef32be5791060183d4f7e6/project/manifests/zh-release-full-story-iso-content-validation.json",
+      "sha256": "9a842ec1e596f369d306d126455c1ff019dfd2178243baeef42c733d71cd68d1",
+      "stage_count": 170,
+      "translation_entry_count": 93071
+    },
+    "best": {
+      "path": "build/editions/zh-release-best/74e7d2bfcc0a28505b839ed51bd09588b4aa2780cbefae8aa8386c598b41ef60/project/work/build/best-current/iso-readback.json",
+      "sha256": "be163e6d792b3c2f8455521576e7e85a6b8967b37e8e1dd93b2b3cf1491e332c",
+      "stage_count": 205,
+      "translation_entry_count": 84338
+    },
+    "sp": {
+      "path": "build/editions/zh-release-sp/32bfa4e11cb4fd5a4eeb0a4c646ff83e04bc033f8a190fb60e83bda467e454d0/project/build/iso/special-disc/sp-current.json",
+      "sha256": "89deb6c83284639a25d2e74289615904795e4b886c913a8508c4b46574936892"
+    }
+  },
+  "summaryArchiveLock": {
+    "previousSize": 8400,
+    "rebuiltSize": 8432,
+    "nativeArchiveSize": 9056,
+    "offsets": [
+      0,
+      1264,
+      2064,
+      2496,
+      3296,
+      3888,
+      4944,
+      5200,
+      6064,
+      6496,
+      7184,
+      7856,
+      8208,
+      8320,
+      8432
+    ],
+    "chunks": [
+      {
+        "chunk": 0,
+        "encodedSize": 1259,
+        "alignedSize": 1264,
+        "sourceSlot": 1376
+      },
+      {
+        "chunk": 1,
+        "encodedSize": 785,
+        "alignedSize": 800,
+        "sourceSlot": 896
+      },
+      {
+        "chunk": 2,
+        "encodedSize": 420,
+        "alignedSize": 432,
+        "sourceSlot": 448
+      },
+      {
+        "chunk": 3,
+        "encodedSize": 793,
+        "alignedSize": 800,
+        "sourceSlot": 864
+      },
+      {
+        "chunk": 4,
+        "encodedSize": 580,
+        "alignedSize": 592,
+        "sourceSlot": 640
+      },
+      {
+        "chunk": 5,
+        "encodedSize": 1041,
+        "alignedSize": 1056,
+        "sourceSlot": 1104
+      },
+      {
+        "chunk": 6,
+        "encodedSize": 252,
+        "alignedSize": 256,
+        "sourceSlot": 288
+      },
+      {
+        "chunk": 7,
+        "encodedSize": 855,
+        "alignedSize": 864,
+        "sourceSlot": 944
+      },
+      {
+        "chunk": 8,
+        "encodedSize": 423,
+        "alignedSize": 432,
+        "sourceSlot": 464
+      },
+      {
+        "chunk": 9,
+        "encodedSize": 687,
+        "alignedSize": 688,
+        "sourceSlot": 704
+      },
+      {
+        "chunk": 10,
+        "encodedSize": 666,
+        "alignedSize": 672,
+        "sourceSlot": 688
+      },
+      {
+        "chunk": 11,
+        "encodedSize": 351,
+        "alignedSize": 352,
+        "sourceSlot": 416
+      },
+      {
+        "chunk": 12,
+        "encodedSize": 101,
+        "alignedSize": 112,
+        "sourceSlot": 112
+      },
+      {
+        "chunk": 13,
+        "encodedSize": 101,
+        "alignedSize": 112,
+        "sourceSlot": 112
+      }
+    ],
+    "allFixedAllocationsAndRoundTripsPassed": true,
+    "sourceCorpusSha256": "9723ee3c1194270b0c8892356895525464f9a6027793720a08a893c04516d67e"
+  },
+  "runtime": "No new ARMSX2 run or screenshot in this build turn.",
+  "commitAndPush": "not_requested_not_performed"
+}

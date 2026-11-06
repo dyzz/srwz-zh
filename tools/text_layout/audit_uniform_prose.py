@@ -14,9 +14,13 @@ from srwz.build_layout import library_input
 from srwz.chinese_prose import logical_prose_text
 from srwz.summary import validate_scroll_placeholders
 from srwz.text import CONTROL_NOTATION
+from srwz.summary_layout_capacity import load_production_summary_capacity,preflight_summary_fields,layout_summary_group
+from srwz.writeback import WritebackError
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',type=Path,default=ROOT/'work/analysis/unified-prose-20261106');args=parser.parse_args()
 root=ROOT;out=args.out.resolve();out.mkdir(parents=True,exist_ok=True);os.chdir(ROOT);jobs=[]
 paths=['corpus/zh/menu/stage-overviews.json','corpus/zh/summary.json','corpus/zh/special-disc/frame-text.json','corpus/zh/library/v0.2-reviewed.json'];docs={p:json.loads(Path(p).read_text())for p in paths};allrows={r['id']:(p,r)for p,d in docs.items()for r in d['entries']}
+capacity_context=load_production_summary_capacity(ROOT)
+stored_capacity=preflight_summary_fields({r['id']:r['translation']for r in docs['corpus/zh/summary.json']['entries']},capacity_context)
 records=json.load(open('docs/issue-assets/prose-step-audit-20261026/layout-report.json'))['records']
 for r in records:
  members=r['member_ids'];items=[allrows[i]for i in members];text='\n'.join(row['translation']for _,row in items)
@@ -46,12 +50,27 @@ for start in range(0,len(jobs),32):
   before,after=outputs[2*k:2*k+2]
   if not before['ok']or not after['ok']:
    errors.append(dict(id=j['id'],scene=j['scene'],before=before if not before['ok']else None,after=after if not after['ok']else None));continue
-  a,b=before['result'],after['result'];text=b['text'];assert paragraphs(text)==paragraphs(j['text']),(j['id'],'paragraphs changed');assert CONTROL_NOTATION.findall(text)==CONTROL_NOTATION.findall(j['text'])
+  a,b=before['result'],after['result'];capacity_note=None
+  if j['scene']=='main_scroll'and len(j['members'])>1:
+   b=layout_summary_group({identity:allrows[identity][1]['translation']for identity in j['members']},capacity_context)
+  if j['scene']=='main_scroll':
+   values=[b['text']]if len(j['members'])==1 else b['text'].split('\n')
+   try:
+    if len(values)!=len(j['members']):raise WritebackError('native summary field count changed')
+    preflight_summary_fields(dict(zip(j['members'],values)),capacity_context)
+   except WritebackError as error:
+    # The existing source passed the real fixed-allocation writer above.
+    # Reject an overflowing proposal, never silently grow its native section.
+    capacity_note=dict(reason=str(error),rejectedText=b['text'],action='preserve_existing_field_breaks')
+    widths=[row['occupiedPx']for i,row in enumerate(a['rows'][:-1])if row['text'].strip()and a['rows'][i+1]['text'].strip()and not a['rows'][i+1]['text'].startswith(('　',' '))]
+    spread=max(widths,default=0)-min(widths,default=0)
+    b={**b,'text':j['text'],'rows':a['rows'],'selectedWidthPx':max(widths,default=0),'widthSelection':dict(spreadPx=spread,nonfinalWidthsPx=widths)}
+  text=b['text'];assert paragraphs(text)==paragraphs(j['text']),(j['id'],'paragraphs changed');assert CONTROL_NOTATION.findall(text)==CONTROL_NOTATION.findall(j['text'])
   assert logical_prose_text(text)==logical_prose_text(j['text']);assert all(r['occupiedPx']<=b['widthPx']for r in b['rows'])
   if 'scroll'in j['scene']:validate_scroll_placeholders(j['text'],text,label=j['id'])
   nonfinal=[r['occupiedPx']for i,r in enumerate(a['rows'][:-1])if r['text'].strip()and a['rows'][i+1]['text'].strip()and not a['rows'][i+1]['text'].startswith(('　',' '))]
-  results.append({**j,'after':text,'changed':text!=j['text'],'sourceRows':len(a['rows']),'rows':len(b['rows']),'storedOverwidthRows':sum(r['occupiedPx']>b['widthPx']for r in a['rows']),'capPx':b['widthPx'],'selectedWidthPx':b['selectedWidthPx'],'beforeSpreadPx':max(nonfinal,default=0)-min(nonfinal,default=0),'spreadPx':b['widthSelection']['spreadPx'],'nonfinalWidthsPx':b['widthSelection']['nonfinalWidthsPx']})
+  results.append({**j,'after':text,'changed':text!=j['text'],'capacityConstraint':capacity_note,'sourceRows':len(a['rows']),'rows':len(b['rows']),'storedOverwidthRows':sum(r['occupiedPx']>b['widthPx']for r in a['rows']),'capPx':b['widthPx'],'selectedWidthPx':b['selectedWidthPx'],'beforeSpreadPx':max(nonfinal,default=0)-min(nonfinal,default=0),'spreadPx':b['widthSelection']['spreadPx'],'nonfinalWidthsPx':b['widthSelection']['nonfinalWidthsPx']})
  print(min(start+32,len(jobs)),'/',len(jobs),flush=True)
 summary={scene:dict(fields=len(group),changed=sum(j['changed']for j in group),storedOverwidthRows=sum(j['storedOverwidthRows']for j in group),spreadImproved=sum(j['spreadPx']<j['beforeSpreadPx']for j in group),spreadEqual=sum(j['spreadPx']==j['beforeSpreadPx']for j in group),spreadWorse=sum(j['spreadPx']>j['beforeSpreadPx']for j in group),withinOnePixel=sum(j['spreadPx']<=1 for j in group),maximumSpreadPx=max(j['spreadPx']for j in group))for scene in sorted(set(j['scene']for j in results))for group in [[j for j in results if j['scene']==scene]]}
-report=dict(kind='shared JS source/compiled layout audit, no ISO write or runtime claim',inputs={p:hashlib.sha256(Path(p).read_bytes()).hexdigest()for p in [*paths,'shared/text-layout/engine.mjs','shared/text-layout/contracts.mjs','config/text-layout/native-scene-contracts.json','tools/srwz/build_layout.py']},scanned=len(jobs),passed=len(results),errors=errors,summary=summary,records=results)
+report=dict(kind='shared JS layout plus production fixed-allocation preflight, no ISO write or runtime claim',nativeSummaryArchiveSha256=capacity_context['archive_sha256'],fixedFieldCapacities=stored_capacity,capacityRejectedGroups=sum(bool(r['capacityConstraint'])for r in results),inputs={p:hashlib.sha256(Path(p).read_bytes()).hexdigest()for p in [*paths,'shared/text-layout/engine.mjs','shared/text-layout/contracts.mjs','config/text-layout/native-scene-contracts.json','tools/srwz/build_layout.py','tools/srwz/summary_layout_capacity.py']},scanned=len(jobs),passed=len(results),errors=errors,summary=summary,records=results)
 (out/'audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps(summary,ensure_ascii=False,indent=2));print('errors',errors)

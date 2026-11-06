@@ -397,9 +397,67 @@ export function layout(text,sceneId,options={}) {
   }
   return {...best,widthPx:scene.widthPx,selectedWidthPx:selected,widthSelection:{policy:'uniform_nonfinal',testedWidths:tested,...score,withinTolerance:score.spreadPx<=1}};
 }
+// A native display group owns its fixed fields independently. Storage budgets
+// are supplied by the encoder, never inferred from glyph widths or UTF-8.
+export function layoutFixedFields(fields,sceneId,options={}) {
+  const scene=effectiveScene(sceneId,options);checkOptions(options,scene);
+  if(scene.kind!=='prose'||!Array.isArray(fields)||fields.length<1||fields.length>3)
+    fail('owner_contract','Fixed prose groups require one to three native fields');
+  for(const f of fields)if(!f||typeof f.text!=='string'||/[\r\n]/.test(f.text)||!Number.isInteger(f.capacityBytes)||f.capacityBytes<1||![0,1].includes(f.terminatorBytes))
+    fail('field_capacity','Invalid native field or terminator budget');
+  if(fields.slice(1).some(f=>/^[　 ]/.test(f.text)))fail('owner_contract','Separate paragraphs require separate native display groups');
+  const text=normalize(fields.map(f=>f.text).join(''));
+  rejectDynamic(text);
+  if(new RegExp(contracts.controls,'g').test(text)||/<\/?z>/.test(text))
+    fail('owner_contract','Fixed-field solver requires plain text with explicit encoded character byte lengths');
+  const byteMap=options.encodedCharacterBytes;
+  if(!byteMap||typeof byteMap!=='object')fail('field_capacity','Encoder character byte lengths are required');
+  const tokens=tokensFor(text,scene,initial(scene),{protectWords:false}),n=tokens.length;
+  if(n>400)fail('complexity','Fixed display group exceeds 400 layout tokens');
+  const bytes=[0];
+  for(const t of tokens){
+    let size=0;for(const ch of t.text){const b=Object.hasOwn(byteMap,ch)?byteMap[ch]:null;
+      if(!Number.isInteger(b)||b<1||b>8)fail('field_capacity','Missing encoder byte length',{character:ch});size+=b;}
+    bytes.push(bytes.at(-1)+size);
+  }
+  const edges=Array.from({length:n},()=>[]);
+  for(let a=0;a<n;a++){
+    let advance=0,occupied=0;
+    for(let b=a;b<n;b++){
+      occupied=Math.max(occupied,advance+tokens[b].occupied);advance+=tokens[b].advance;
+      const width=Math.max(advance,occupied);if(width>scene.widthPx)break;
+      if(legal(tokens,b+1,scene))edges[a].push({end:b+1,width,bytes:bytes[b+1]-bytes[a]});
+    }
+  }
+  let best=null;
+  const better=(a,b)=>{for(let i=0;i<a.length;i++){if(a[i]!==b[i])return a[i]<b[i];}return false;};
+  const search=(a,k,path)=>{
+    if(k===fields.length){
+      if(a!==n)return;
+      const widths=path.map(p=>p.width),voters=widths.length>1?widths.slice(0,-1):widths;
+      const spread=Math.max(...voters)-Math.min(...voters);
+      const score=[spread,-Math.min(...voters),Math.max(...widths)-Math.min(...widths),...widths.map(w=>-w)];
+      if(!best||better(score,best.score))best={path,score};return;
+    }
+    if(a===n)return;
+    for(const edge of edges[a]){
+      if(edge.bytes+fields[k].terminatorBytes>fields[k].capacityBytes||n-edge.end<fields.length-k-1)continue;
+      search(edge.end,k+1,[...path,{...edge,start:a}]);
+    }
+  };
+  search(0,0,[]);
+  if(!best)fail('field_capacity','No legal layout fits the native field capacities');
+  const resultFields=best.path.map((p,i)=>({...fields[i],text:tokens.slice(p.start,p.end).map(t=>t.text).join(''),encodedBytes:p.bytes+fields[i].terminatorBytes}));
+  const physical=resultFields.map(f=>f.text).join('\n'),checked=validate(physical,scene.id,options);
+  if(!checked.valid)fail('invariant','Fixed-field layout failed native geometry validation',{issues:checked.issues});
+  const voters=checked.rows.length>1?checked.rows.slice(0,-1):checked.rows, widths=voters.map(r=>r.occupiedPx),spread=Math.max(...widths)-Math.min(...widths);
+  const aligned=Math.max(...widths.map(w=>widths.filter(v=>v>=w&&v<=w+1).length));
+  return {version,scene:scene.id,profile:scene.profileId,...checked,text:physical,fields:resultFields,changed:resultFields.some((f,i)=>f.text!==fields[i].text),widthPx:scene.widthPx,step:scene.step,selectedWidthPx:Math.max(...widths),compiledText:expandCompact(physical,scene.id),widthSelection:{policy:'uniform_nonfinal',method:'native_field_capacity',testedWidths:0,spreadPx:spread,excessSpreadPx:Math.max(0,spread-1),unalignedRows:widths.length-aligned,nonfinalWidthsPx:widths,withinTolerance:spread<=1}};
+}
 export function dispatch(request){
   if(!request||typeof request!=='object')fail('input','Expected a JSON request');
-  const action=request.action||'layout';if(!['layout','measure','validate','expand'].includes(action))fail('action','Unknown action');
+  const action=request.action||'layout';if(action==='layout_fields')return layoutFixedFields(request.fields,request.scene,request.options||{});
+  if(!['layout','measure','validate','expand'].includes(action))fail('action','Unknown action');
   if(action==='expand')return {text:expandCompact(request.text,request.scene)};
   return {layout,measure,validate}[action](request.text,request.scene,request.options||{});
 }

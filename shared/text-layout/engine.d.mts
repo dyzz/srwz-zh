@@ -11,6 +11,8 @@ export interface LayoutOptions {
   resourceId?: string;
 }
 export interface Glyph { text:string;x:number;width:number;height:number;advance:number;placeholder:boolean }
+export interface FixedTextField {id?:string;text:string;capacityBytes:number;terminatorBytes:0|1}
+export interface FixedFieldOptions extends LayoutOptions {encodedCharacterBytes:Record<string,number>}
 export interface Row { text:string;advancePx:number;occupiedPx:number;glyphs:Glyph[] }
 export interface FontState { width:number;height:number;step:number }
 export interface Issue { code:string;row?:number;widthPx?:number;limitPx?:number;message?:string }
@@ -26,4 +28,6 @@ export function expandCompact(text:string,scene:SceneId):string;
 export function measure(text:string,scene:SceneId,options?:LayoutOptions):Measured;
 export function validate(text:string,scene:SceneId,options?:LayoutOptions):Validated;
 export function layout(text:string,scene:SceneId,options?:LayoutOptions):LayoutResult;
+export function layoutFixedFields(fields:FixedTextField[],scene:SceneId,options:FixedFieldOptions):LayoutResult&{fields:(FixedTextField&{encodedBytes:number})[]};
+export function dispatch(request:{action:'layout_fields';fields:FixedTextField[];scene:SceneId;options:FixedFieldOptions}):LayoutResult&{fields:(FixedTextField&{encodedBytes:number})[]};
 export function dispatch(request:{action?:'layout'|'measure'|'validate'|'expand';text:string;scene:SceneId;options?:LayoutOptions}):LayoutResult|Measured|Validated|{text:string};

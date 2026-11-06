@@ -16,3 +16,12 @@ def hook_source(text,game='z'):
  import re
  text=re.sub(r'0x[0-9a-f]+',lambda m:hex((BEST_HOOK_RELOCATIONS if game=='best' else Z_HOOK_RELOCATIONS).get(int(m[0],16),int(m[0],16))),text)
  return text.replace('lui $2,0x47','lui $2,0x41')
+
+# Exact first-generation browser players. Migration accepts only these payloads
+# and verifies every installed hook before replacing the reserved ELF segment.
+LEGACY_PLAYERS={
+ 'sp':dict(sha256='c4aee88978fb199fcc7449cb6ed0a7fc49fab31e900058627ce82b7e06badc2a',size=139460),
+ 'z':dict(sha256='d93ea0ffb10fa9fb3ee1df83a5bab4a87022094271b6173f55f3286d4d331278',size=139460),
+ 'best':dict(sha256='154fe43be30e191437e75d734cadff41680c3d1b0af8921c51331dfae8990ea9',size=139460),
+}
+LEGACY_HOOKS=dict(hook_stop=0x8ce8f0,hook_update=0x8ce5e0,hook_load=0x8ce6e0,hook_native=0x8ce9f0)

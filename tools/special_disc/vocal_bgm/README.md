@@ -1,25 +1,30 @@
-# SP VOCAL.BIN player (experimental v1)
+# VOCAL.BIN player (SP / Z / The Best)
 
-Isolated SLPS_259.20 Battle Viewer track 19 (Z Gundam). Not wired into release builds. The current SP release ISO is read-only; builds modify an APFS clone under `build/iso/test`.
+The browser music editor installs the player into its output ISO. SP (SLPS_259.20), Original (SLPS_258.87) and The Best (SLPS_732.70) have separate address profiles. Music Select and Battle Viewer share BGM IDs 0–100. Base release ISOs stay read-only; native tests use APFS clones under `build/iso/test`.
 
 ## Playback
 
-The complete Ogg Vorbis file is loaded through the game's IOP `cdrom0:\BGM\VOCAL.BIN;1` file interface. The ELF contains code and the PCM IRX only, not the song. EE normal-precision Tremor decodes 48 kHz stereo to PCM. The tiny IOP sink queues 512-byte channel blocks using existing libsd DMA 1; DMA 0 remains available for native speech. It restores the prior DMA-1 interrupt handler on stop. Compressed input is preloaded (4 MiB maximum per track); this is not continuous disc streaming.
+Compressed 48 kHz stereo Ogg Vorbis is preloaded from `cdrom0:\BGM\VOCAL.BIN;1`, at most 4 MiB per track. The ELF embeds code and the PCM IRX, not the songs. Loading uses a separate nonblocking SIF RPC client, persistent request/reply buffers, 64 KiB reads and incremental CRC. The start callback queues work and returns; the update hook polls completion so the menu keeps updating during disc I/O. Metadata and the current validated compressed song are cached for replay. This remains whole-song preloading, not continuous streaming.
 
-The native BGM.BIN is byte-for-byte preserved. Track 19 stops its native score only when attempting replacement. Missing file, empty slot, invalid metadata/bounds/CRC, invalid Vorbis, mismatched frame count, or decode failure stops the replacement and restarts the already-loaded original score. Unconfigured tracks follow the native path. Only a single logical Vorbis stream and whole-track looping are supported.
+EE normal-precision Tremor decodes at most one PCM packet per update-hook call. The IOP sink queues 512-byte channel blocks using libsd DMA 1; DMA 0 stays available for native speech. Stop restores the previous DMA-1 interrupt handler. Cancelling a load drains its pending RPC and closes the file before another request reuses the buffers.
+
+BGM.BIN remains unmodified. Missing entries and invalid metadata, bounds, CRC, Vorbis or frame count fall back to the already-loaded native score. Fallback guards the native start hook against reentry. Container v2 supports whole-track/range looping, one-shot playback and Q16 gain.
+
+Known v1 browser player binaries can be upgraded in place: the installer checks their exact payload hashes and all hooks before updating the ELF. Existing songs and gain settings survive. Unknown binaries or changed hooks require a base ISO. Cold-boot the new ISO; an old emulator savestate retains old code.
 
 Private EE range: `0x8c0000..0xdc0000`; both heap initialization and native break are adjusted. The gallery segment is preserved. Builds assert hook preimages, BGM hash, ELF capacity, payload bounds and unchanged bytes outside the explicit patch spans. ISO9660, VMAP and UDF all name the new file. Original source extents remain in place except relocated ELF and extended metadata.
 
 ## Container ABI
 
-`container.py` and browser `vocal-container.mjs` serialize the same bytes (cross-language test).
+The browser runs the same `container.py` serializer through Pyodide.
 
-- Capacity: 512 MiB, shared across tracks; current runtime enables track 19 only.
-- Header: 2048 bytes, magic `SRWZVOC1`, version 1, SP profile `0x53500001`.
+- Capacity: 512 MiB shared across tracks; runtime IDs 0–100, 256 directory slots.
+- Header: 2048 bytes, magic `SRWZVOC1`, version 1 / 2, profile `0x53500001` / `0x53500002`.
 - Index: 256 slots × 64 bytes, at relative offset 2048; data starts at 18432.
 - `<14I` at header byte 8: version, header size, index offset, entry size, slot count, data offset, used bytes, capacity, profile, index CRC32, header CRC32, flags 0, reserved 0, reserved 0. Header CRC is over all 2048 bytes with its own word (byte 48) zeroed.
-- Entry `<16I`: track ID, active flag, relative byte offset, encoded byte length, sample rate, channels, PCM frames, loop start, loop end, gain Q15, body CRC32, five reserved zeros.
+- Entry `<16I`: track ID, active flag, relative byte offset, encoded byte length, sample rate, channels, PCM frames, loop start, loop end, gain, body CRC32, one-shot flag (v2), four reserved zeros.
 - Track data is aligned to 2048 bytes. v1 accepts 48000 Hz, stereo, loop `[0, frames)`, gain `0..0x7fff` (default `0x4800`), encoded size at most 4 MiB. Empty entries contain their slot ID and all other fields zero.
+- v2 gain is Q16, default 65536, up to 260904. Loop bounds satisfy `0 <= start < end <= frames`; the one-shot flag is 0 or 1. v1 retains its original native-volume semantics.
 - Standard reflected CRC32, polynomial `0xedb88320`, initial/final XOR `0xffffffff`.
 
 ## Build

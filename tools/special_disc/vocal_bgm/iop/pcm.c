@@ -20,7 +20,7 @@ static SifRpcServerData_t server;
 static volatile unsigned wr,rd,active,underruns,interrupts,draining;
 static int sema;
 static int music_fd=-1;
-static unsigned file_result[2064] __attribute__((aligned(64)));
+static unsigned file_result[(65536+64)/4] __attribute__((aligned(64)));
 static unsigned volume=0x4800;
 static sceSdTransIntrHandler previous;
 static void *previous_arg;
@@ -32,7 +32,7 @@ static void *dispatch(int cmd,void *buf,int len){
  if(cmd>=10 && cmd<=12){
   memset(file_result,0,64);file_result[0]=0x46494c31;int n=-1;
   if(cmd==10){if(music_fd>=0)close(music_fd);music_fd=open("cdrom0:\\BGM\\VOCAL.BIN;1",1);if(music_fd>=0)n=lseek(music_fd,0,2);}
-  if(cmd==11 && music_fd>=0 && len==8){unsigned *a=buf;if(a[1]<=8192 && a[0]<0x20000000 && a[1]<=0x20000000-a[0] && lseek(music_fd,a[0],0)==(int)a[0])n=read(music_fd,file_result+16,a[1]);}
+  if(cmd==11 && music_fd>=0 && len==8){unsigned *a=buf;if(a[1]<=65536 && a[0]<0x20000000 && a[1]<=0x20000000-a[0] && lseek(music_fd,a[0],0)==(int)a[0])n=read(music_fd,file_result+16,a[1]);}
   if(cmd==12){if(music_fd>=0)close(music_fd);music_fd=-1;n=0;}
   file_result[1]=n;return file_result;
  }

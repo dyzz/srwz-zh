@@ -111,7 +111,7 @@ def main(iso=None, work=None):
     menu_drawings = frame_uv_preimage_for_verification(member('KURODATA/KVPDATA.BIN'), frame_contract)
     require(verify_menu_restore(member('KURODATA/KVMDATA.BIN'), menu_drawings, ROOT, 'sp')
             == image_report['menu_restore'], 'SP native menu independent readback receipt drift')
-    counts['restored_native_menu_chunks'] = 4
+    counts['restored_native_menu_chunks'] = len(image_report['menu_restore']['restored_chunks'])
     require(all(image_report['shared_frame_uv'][k] == v for k, v in frame_uv.items()),
             'SP shared frame UV independent readback drift')
     counts['shared_frame_uv_endpoints'] = frame_uv['byte_count']

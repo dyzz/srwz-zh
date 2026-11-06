@@ -10,8 +10,8 @@
         "drawings": "82d08d1253fc4016c477e24b9075b46a7942f426a222ac89c6d204d58f42ab41"
       },
       "after": {
-        "atlas": "845a2f691a2b192532e8d7dd397bcdfc56e693a5468fa5c2adce86b96f772cc9",
-        "drawings": "33a4d7eeee9cb0650c7f89750c6360eb40cac5e65a7639b1c76cbb08481a5d65"
+        "atlas": "e5ab1df5324f26e272d708f193254864d4da4f3d1ec05edd66a94d1194b72a64",
+        "drawings": "6ad5e372972e59bf95d6949ac441c0abda799fc0cd5905fa6719e50f8c24f7ff"
       },
       "pages": [
         {
@@ -95,7 +95,7 @@
         },
         {
           "id": "command",
-          "kind": "relocate",
+          "kind": "native_restore",
           "page": 3,
           "rect": [
             180,
@@ -103,16 +103,18 @@
             28,
             17
           ],
-          "source_page": 4,
+          "source_page": 3,
           "source_rect": [
-            56,
-            100,
+            180,
+            235,
             28,
             17
           ],
           "before_sha256": "d51c15401c9d321e95a53bb9f69ab1546bc108efffeac4cbaa4ead352869d7d6",
-          "sha256": "7396bcc0d7648587f053e5b05a03e669770e7f3319a3c5f3601876be079f6dee",
-          "indices_zlib_base64": "eNqdUEkOAzEIi9JRxe7//7YmSUftpYf6EEEMGDPGL5gP9cfnj/s7ihqGJ/mMQwGbnDNqGqKAtD0HGbAdEYF0E4Gy1lEquTrFosxghLNak2Uwkqmtl8KwkdJSnelcotQr21C2qYho2nqMS4SvNsSR30OYRLYHua6rPegZkYjbXxIndWmLKTcXRDXHRSoC0ZTMxTlR+y4aoMXjPb9mHlaXdxMms+9o97XV5/gfL/cHDCI="
+          "sha256": "d51c15401c9d321e95a53bb9f69ab1546bc108efffeac4cbaa4ead352869d7d6",
+          "indices_zlib_base64": "eJxjYBgFwxUAAAHcAAE=",
+          "source_indices_sha256": "d51c15401c9d321e95a53bb9f69ab1546bc108efffeac4cbaa4ead352869d7d6",
+          "note": "Retired standalone COMMAND localization; restore the originally blank allocation. OTHERS COMMAND remains Chinese."
         },
         {
           "id": "native-command-menu",
@@ -276,17 +278,19 @@
           "chunk": 158,
           "offset": 20272,
           "token": "command",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "07000000441000000050340007002a00010026000c0042000c004600010038645475",
-          "after_hex": "07000000431000000050340007002a00010026000c0042000c0046000100b4ebd0fc"
+          "after_hex": "07000000441000000050340007000400010000000c0064000c006800010000607078",
+          "native_hex": "07000000441000000050340007000400010000000c0064000c006800010000607078"
         },
         {
           "chunk": 158,
           "offset": 20306,
           "token": "command",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "0700000044106a6a6a80320006002800000024000b0040000b004400000038645475",
-          "after_hex": "0700000043106a6a6a80320006002800000024000b0040000b0044000000b4ebd0fc"
+          "after_hex": "0700000044106a6a6a803200060002000000feff0b0062000b006600000000607078",
+          "native_hex": "0700000044106a6a6a803200060002000000feff0b0062000b006600000000607078"
         },
         {
           "chunk": 159,
@@ -370,6 +374,7 @@
         }
       ],
       "restored_chunks": [
+        158,
         159,
         160,
         161,
@@ -384,8 +389,8 @@
         "drawings": "db2817dad36c723df1573584ae5aafef03dcc691d8eb5bca471df02c9087571e"
       },
       "after": {
-        "atlas": "143d3ba17a0d1828b39912cae00de70da435be38e594140a6df8be9b3fc588d4",
-        "drawings": "c4cd26a013974296d088d5c80b8d2504923704bbc37ded1ced54e0d358daf62a"
+        "atlas": "bbd2faca73d5ead6f9d3d3632b8f3e32608bb1929328570742cf6bbe0d137a58",
+        "drawings": "7ded791ac96994d0ac14f16990e4b47049fe4593efcb09a8f03c545ba6103ed7"
       },
       "pages": [
         {
@@ -483,7 +488,7 @@
         },
         {
           "id": "command",
-          "kind": "relocate",
+          "kind": "native_restore",
           "page": 8,
           "rect": [
             129,
@@ -491,16 +496,18 @@
             38,
             20
           ],
-          "source_page": 4,
+          "source_page": 8,
           "source_rect": [
-            46,
-            100,
+            129,
+            223,
             38,
             20
           ],
           "before_sha256": "4f30fcacbfd63bac8e76d8a4e97e451d48353631dfa7064250df934b872232f5",
-          "sha256": "7b833f4afcf9d7171a6cb72e12bca5957131fd13928db2a11612728216f35afe",
-          "indices_zlib_base64": "eNqtUtmOxDAIizLVLBgI//+3a5J0Jns87MNaahWKa3Oktb/iMjQx/fZVHV/ij4wm6a11tbjJOjL1FxacibT1TUZGDnlxxCyHgYQcYWaylUI8x0tNK5+eYfpszacNSHItGvrWAjKgfKBgWlh3MqLQxYPfcsK6rsiFuMrcHt3o2XFUyoJASRYFUCpno49prpFYjl51xUZldjDqBZ3tWDWH0qtE/dlv93z7ccZrXhdhU190I45ZyGRtYI2rWpOTtFlvR86rKuVUDtJmuRDLsRZS2zo2pO4/HG9eHFVVI9RzIhLHgsc76grt9/3i+bgsYtL+HZ+NvxJF"
+          "sha256": "4f30fcacbfd63bac8e76d8a4e97e451d48353631dfa7064250df934b872232f5",
+          "indices_zlib_base64": "eJxjYBgFo2DkAQAC+AAB",
+          "source_indices_sha256": "4f30fcacbfd63bac8e76d8a4e97e451d48353631dfa7064250df934b872232f5",
+          "note": "Retired standalone COMMAND localization; restore the originally blank allocation. OTHERS COMMAND remains Chinese."
         },
         {
           "id": "native-command-menu",
@@ -792,49 +799,55 @@
           "chunk": 162,
           "offset": 24032,
           "token": "command",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "07000000441000000050340007002100020021000c0047000c00470002002e645478",
-          "after_hex": "07000000481000000050340007002100020021000c0047000c004700020081dfa7f3"
+          "after_hex": "07000000441000000050340007000400010000000c0064000c006800010000607078",
+          "native_hex": "07000000441000000050340007000400010000000c0064000c006800010000607078"
         },
         {
           "chunk": 162,
           "offset": 24066,
           "token": "command",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "0700000044106a6a6a80320006001f0001001f000b0045000b00450001002e645478",
-          "after_hex": "0700000048106a6a6a80320006001f0001001f000b0045000b004500010081dfa7f3"
+          "after_hex": "0700000044106a6a6a803200060002000000feff0b0062000b006600000000607078",
+          "native_hex": "0700000044106a6a6a803200060002000000feff0b0062000b006600000000607078"
         },
         {
           "chunk": 167,
           "offset": 24912,
           "token": "command",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "07000000441000000050340007002100020021000c0047000c00470002002e645478",
-          "after_hex": "07000000481000000050340007002100020021000c0047000c004700020081dfa7f3"
+          "after_hex": "07000000441000000050340007000400010000000c0064000c006800010000607078",
+          "native_hex": "07000000441000000050340007000400010000000c0064000c006800010000607078"
         },
         {
           "chunk": 167,
           "offset": 24946,
           "token": "command",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "0700000044109b672f80320006001f0001001f000b0045000b00450001002e645478",
-          "after_hex": "0700000048109b672f80320006001f0001001f000b0045000b004500010081dfa7f3"
+          "after_hex": "0700000044109b672f803200060002000000feff0b0062000b006600000000607078",
+          "native_hex": "0700000044109b672f803200060002000000feff0b0062000b006600000000607078"
         },
         {
           "chunk": 168,
           "offset": 25024,
           "token": "command",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "070000004410000000503a0007002700020027000c004d000c004d0002002e645478",
-          "after_hex": "070000004810000000503a0007002700020027000c004d000c004d00020081dfa7f3"
+          "after_hex": "070000004410000000503a0007000400010000000d0070000d007400010000607078",
+          "native_hex": "070000004410000000503a0007000400010000000d0070000d007400010000607078"
         },
         {
           "chunk": 168,
           "offset": 25058,
           "token": "command",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "070000004410857d3280380006002500010025000b004b000b004b0001002e645478",
-          "after_hex": "070000004810857d3280380006002500010025000b004b000b004b00010081dfa7f3"
+          "after_hex": "070000004410857d32803800060002000000feff0c006e000c007200000000607078",
+          "native_hex": "070000004410857d32803800060002000000feff0c006e000c007200000000607078"
         },
         {
           "chunk": 163,
@@ -950,9 +963,12 @@
         }
       ],
       "restored_chunks": [
+        162,
         163,
         164,
         165,
+        167,
+        168,
         169
       ]
     }

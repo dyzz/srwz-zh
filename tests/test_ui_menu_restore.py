@@ -80,13 +80,29 @@ class MenuRestoreGuardTests(unittest.TestCase):
 
     def test_recipe_restores_all_requested_chunks_and_keeps_shared_borrowers(self):
         profiles=json.loads((ROOT/'config/assets/ui-menu-native-restore.json').read_text())['profiles']
-        self.assertEqual(profiles['original']['restored_chunks'],[159,160,161,162])
-        self.assertEqual(profiles['sp']['restored_chunks'],[163,164,165,169])
+        self.assertEqual(profiles['original']['restored_chunks'],[158,159,160,161,162])
+        self.assertEqual(profiles['sp']['restored_chunks'],[162,163,164,165,167,168,169])
         for c in profiles.values():
             self.assertEqual(len(c['cells']),5)
             for p in c['patches']:
                 if p['operation']=='native_restore':self.assertEqual(p['native_hex'],p['after_hex'])
                 else:self.assertNotIn(p['chunk'],c['restored_chunks'])
         self.assertTrue({p['chunk'] for p in profiles['original']['patches']}.isdisjoint({20,192,730}))
+
+    def test_standalone_command_is_native_but_others_command_remains_localized(self):
+        profiles=json.loads((ROOT/'config/assets/ui-menu-native-restore.json').read_text())['profiles']
+        for edition,c in profiles.items():
+            cell=next(x for x in c['cells'] if x['id']=='command')
+            self.assertEqual(cell['kind'],'native_restore')
+            pixels=zlib.decompress(base64.b64decode(cell['indices_zlib_base64']))
+            self.assertEqual(pixels,bytes(cell['rect'][2]*cell['rect'][3]))
+            patches=[p for p in c['patches'] if p.get('token')=='command']
+            self.assertEqual(len(patches),2 if edition=='original' else 6)
+            for p in patches:
+                self.assertEqual(p['operation'],'native_restore')
+                self.assertEqual(p['after_hex'],p['native_hex'])
+            self.assertFalse(any(p.get('token')=='command2' for p in c['patches']))
+        other=next(x for x in profiles['original']['cells'] if x['id']=='others')
+        self.assertEqual(other['kind'],'relocate')
 
 if __name__=='__main__':unittest.main()

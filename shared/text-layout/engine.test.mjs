@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {layout,measure,validate,expandCompact,dispatch,getScene,sceneIds} from './engine.mjs';
+import {layout,layoutFixedFields,measure,validate,expandCompact,dispatch,getScene,sceneIds} from './engine.mjs';
 import {respond} from './cli-handler.mjs';
 
 test('verified LRPS2 mixed sample: line breaks and native geometry',()=>{
@@ -208,4 +208,29 @@ test('library common-width search improves mixed body rows without changing scen
   assert.equal(s.widthSelection,'uniform_nonfinal');assert.equal(s.protectWords,false);
   assert.ok(value.rows.every(r=>r.occupiedPx<=s.widthPx));
  }
+});
+
+test('fixed world-history fields optimize legal breaks inside each byte allocation',()=>{
+ const texts=['　民众积压的焦虑彻底爆发，最终演变为','暴动；相关消息又裹挟着不负责任的谣言，','在UN上四处传播，进一步煽动着人们的不安。'];
+ const fields=texts.map((text,i)=>({id:String(i),text,capacityBytes:[38,38,42][i],terminatorBytes:0}));
+ const options={encodedCharacterBytes:Object.fromEntries([...new Set(texts.join(''))].map(c=>[c,2]))};
+ const result=layoutFixedFields(fields,'main_scroll',options);
+ assert.equal(result.fields.map(f=>f.text).join(''),texts.join(''));
+ assert.deepEqual(result.fields.map(f=>f.encodedBytes),[38,38,40]);
+ assert.ok(result.fields.every(f=>f.encodedBytes<=f.capacityBytes));
+ assert.deepEqual(result.rows.map(r=>r.occupiedPx),[456,456,480]);
+ assert.equal(result.widthSelection.spreadPx,0);
+ assert.deepEqual(dispatch({action:'layout_fields',fields,scene:'main_scroll',options}),result);
+});
+
+test('fixed two-line pages fill the nonfinal row and require encoder byte metadata',()=>{
+ const texts=['早已扎根在人们心底的不安与恐惧','彻底驱散。'];
+ const fields=texts.map((text,i)=>({text,capacityBytes:[40,20][i],terminatorBytes:0}));
+ const options={encodedCharacterBytes:Object.fromEntries([...new Set(texts.join(''))].map(c=>[c,2]))};
+ const r=layoutFixedFields(fields,'main_scroll',options);
+ assert.deepEqual(r.fields.map(f=>f.text),['早已扎根在人们心底的不安与恐惧彻底驱','散。']);
+ assert.deepEqual(r.rows.map(row=>row.occupiedPx),[432,48]);
+ assert.throws(()=>layoutFixedFields(fields,'main_scroll',{}),/byte lengths/);
+ assert.throws(()=>layoutFixedFields([{text:'甲乙',capacityBytes:4,terminatorBytes:1}],'main_scroll',{encodedCharacterBytes:{甲:2,乙:2}}),/No legal layout/);
+ assert.throws(()=>layoutFixedFields([{text:'<z>MS</z>',capacityBytes:40,terminatorBytes:0}],'main_scroll',{encodedCharacterBytes:{}}),/requires plain text/);
 });

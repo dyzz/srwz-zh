@@ -57,19 +57,27 @@ def build_image(W: Path, src: Path, dst: Path, replace=False, music_prefix=None,
 def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,replace):
     """Update only the reserved container when the installed player matches exactly."""
     from container import CAPACITY,validate_prefix,build_prefix
-    from special_disc.iso_relocation import verify_untouched
+    from special_disc.iso_relocation import verify_untouched,append_members,verify_relocation
     prefix=prefix if prefix is not None else build_prefix(None);validate_prefix(prefix)
     if len(prefix)!=struct.unpack_from('<I',prefix,32)[0]:raise ValueError('Incomplete music container')
     payload=(W/'payload.bin').read_bytes()
     segment=next((h for h in headers if h[0]==1 and h[2]==0x8c0000),None)
-    if segment is None or segment[4]!=len(payload) or b[segment[1]:segment[1]+segment[4]]!=payload:raise ValueError('播放器版本不匹配，请从原盘或汉化基础镜像重新安装')
+    if segment is None:raise ValueError('缺少播放器保留区')
+    installed=bytes(b[segment[1]:segment[1]+segment[4]])
+    current=segment[4]==len(payload) and installed==payload
+    from profiles import LEGACY_PLAYERS,LEGACY_HOOKS
+    legacy=LEGACY_PLAYERS[game]
+    upgrade=not current and segment[4]==legacy['size'] and hashlib.sha256(installed).hexdigest()==legacy['sha256']
+    if not current and not upgrade:raise ValueError('播放器版本不匹配，请从原盘或汉化基础镜像重新安装')
+    if segment[5]!=0x500000 or symbols['__end']>segment[2]+segment[5]:raise ValueError('播放器保留区大小不匹配')
+    installed_symbols=LEGACY_HOOKS if upgrade else symbols
     if any(h is not segment and h[0]==1 and max(h[2],segment[2])<min(h[2]+h[5],segment[2]+segment[5]) for h in headers):raise ValueError('Installed player reserve overlaps another executable segment')
     def off(a):
         for t,o,v,p,n,*_ in headers:
             if t==1 and v<=a<a+8<=v+n:return o+a-v
         raise ValueError('Unsupported installed executable')
     for a,_,name in profile['hooks']:
-        if struct.unpack_from('<2I',b,off(a))!=(0x08000000|(symbols[name]>>2),0):raise ValueError('Installed music hook was modified')
+        if struct.unpack_from('<2I',b,off(a))!=(0x08000000|(installed_symbols[name]>>2),0):raise ValueError('Installed music hook was modified')
     member=ms['BGM/VOCAL.BIN'];start=member.extent_lba*2048;end=start+member.size
     if member.size!=CAPACITY:raise ValueError('Unsupported container capacity')
     for name,m in ms.items():
@@ -78,6 +86,15 @@ def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,rep
         if not replace:raise FileExistsError('Output already exists')
         dst.unlink()
     subprocess.run(['cp','-c',str(src),str(dst)],check=True)
+    relocation=None;readback=None
+    if upgrade:
+        if segment[1]+segment[4]!=len(b):raise ValueError('旧播放器之后存在未知的 ELF 数据')
+        for address,_,name in profile['hooks']:struct.pack_into('<2I',b,off(address),0x08000000|(symbols[name]>>2),0)
+        b=b[:segment[1]]+payload
+        new_segment=list(segment);new_segment[4]=len(payload)
+        ph=struct.unpack_from('<I',b,28)[0];struct.pack_into('<8I',b,ph+headers.index(segment)*32,*new_segment)
+        relocation=append_members(dst,ms,{profile['executable']:bytes(b)},catalog_policy='inherit',allowed_udf=None if game=='sp' else {profile['executable'],'EFF/VEFF2DX.BIN'})
+        readback=verify_relocation(dst,ms,{profile['executable']:bytes(b)},relocation)
     with dst.open('r+b') as f:
         f.seek(start);f.write(prefix);zero=bytes(8*1024*1024);pos=start+len(prefix)
         while pos<end:
@@ -85,6 +102,6 @@ def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,rep
             if old!=zero[:n]:f.seek(pos);f.write(zero[:n])
             pos+=n
         f.flush();f.seek(start);assert f.read(len(prefix))==prefix
-    untouched=verify_untouched(src,dst,[(start,end)])
-    out=dict(game=game,executable=profile['executable'],source=str(src),iso=str(dst),update_existing=True,elf_sha256=hashlib.sha256(b).hexdigest(),payload_bytes=len(payload),symbols={n:symbols[n] for n in ['hook_update','hook_load','hook_native','telemetry','__end']},original_bgm_unchanged=True,music=dict(path='BGM/VOCAL.BIN',lba=member.extent_lba,capacity=CAPACITY,used=len(prefix)),untouched=untouched)
+    untouched=verify_untouched(src,dst,[(start,end)]+(relocation['touched_spans'] if relocation else []))
+    out=dict(game=game,executable=profile['executable'],source=str(src),iso=str(dst),update_existing=True,player_upgraded=upgrade,relocation=relocation,readback=readback,elf_sha256=hashlib.sha256(b).hexdigest(),payload_bytes=len(payload),symbols={n:symbols[n] for n in ['hook_update','hook_load','hook_native','telemetry','__end']},original_bgm_unchanged=True,music=dict(path='BGM/VOCAL.BIN',lba=member.extent_lba,capacity=CAPACITY,used=len(prefix)),untouched=untouched)
     (W/'build-receipt.json').write_text(json.dumps(out,indent=2)+'\n');return out

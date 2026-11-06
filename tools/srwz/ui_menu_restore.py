@@ -50,7 +50,8 @@ def load(root, edition):
     raw = (root/CONFIG).read_bytes()
     c = json.loads(raw)['profiles'][edition]
     return c, dict(config_sha256=sha(raw), profile=edition,
-                   restored_chunks=c['restored_chunks'], moved_cells=len(c['cells'])-1,
+                   restored_chunks=c['restored_chunks'],
+                   moved_cells=sum(cell['kind'] == 'relocate' for cell in c['cells']),
                    runtime='pending')
 
 
