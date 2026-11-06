@@ -118,6 +118,34 @@
     "subtitleLayout": "passed",
     "lineBreakTiming": "passed",
     "productionEncoding": "passed",
-    "ISOStatus": "pending rebuild for these three selections; previously built SP already uses these three wordings"
+    "ISOStatus": "passed: all three editions rebuilt and all selected occurrences reread exact"
+  },
+  "releaseVerification": {
+    "editionBatchStatus": "edition_batch_receipt_integrity_passed",
+    "wordingBindings": 12,
+    "wordingOccurrences": 42,
+    "runtimePlayback": "not tested for these lines",
+    "testSuite": {
+      "total": 844,
+      "skipped": 16,
+      "errors": "One Unix-socket test was blocked in the filesystem sandbox and passed in a separate authorized protocol-test rerun."
+    },
+    "editions": {
+      "original": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "87ead6a08b48a5f517c9498fd26df5b45d3246d9666879985e7608a292cd3589",
+        "size": 3799459840
+      },
+      "best": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "1af26300c3fd0ad7d85489ccb476f4c554be45770cb023bea6cefe1652d75700",
+        "size": 3796187136
+      },
+      "sp": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "e5d7e3733ba5962e8f65155438ee10ccda14f3a8051a493ff9485ff6f9bdd582",
+        "size": 3918860288
+      }
+    }
   }
 }
