@@ -24,6 +24,8 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
   bgm_pause       native FUN_00183220(2): pause the current BGM (cmd 0x20)
   circle_effect_bgm  tracks whose bgm op pauses instead of playing in circle mode: the
                   next effect's resource header starts the music
+  circle_bgm_release  one frame in triangle mode; circle mode calls FUN_0018abe0, which
+                  starts a song the effect header loaded but never releases (start 0)
   form_se         native FUN_00182a50(0x2a, 1): the form-change sound of op 0x1d
   0x46 m,k,v      stage model m: k=9 visibility (v 0 hide, 1 show), k=5 animate
                   to frame v, k=7 set frame v now, k=6/8 frame with high half
@@ -325,6 +327,13 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
         kind, args = op[0], op[1:]
         if kind == "wait":
             word(1, _id(args[0], "wait", 0x7FFF), 0, 0)
+        elif kind == "circle_bgm_release":
+            # An effect whose header gives no start frame expects its song to be
+            # playing already; in circle mode start it here, as the native cue does.
+            label = f"gallery_modewait_{row}_{len(mode_words)}"
+            mode_words += [(f"{label}+0", "1", "20"), (f"{label}+4", "1", str(0x18ABE0))]
+            script.append(f"{label}:")
+            word(1, 1, 0, 0)
         elif kind == "wait_modes":
             triangle, circle = _id(args[0], "wait", 0x7FFF), _id(args[1], "wait", 0x7FFF)
             if min(triangle, circle) < 1:

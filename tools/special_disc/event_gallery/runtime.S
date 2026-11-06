@@ -126,6 +126,8 @@ frame_save:
      * with the map's pixel format while the stage is loading. */
     jal     gallery_clear_transition
     nop
+    jal     gallery_reset_camera
+    nop
     jal     gallery_save_roster
     nop
     lw      $t0,0x24($s1)
@@ -249,6 +251,8 @@ frame_complete:
     jal     0x001ac8e0
     nop
     jal     0x001bd060       /* script screen tint off (op 0x13b0 0) */
+    nop
+    jal     gallery_reset_camera
     nop
     /* Release the map-dialogue player a scene with dialogue created. */
     lui     $t0,0x0063
@@ -1040,7 +1044,6 @@ restore_regions_done:
 gallery_state_regions:
     .word 0x005dbc40,0x80    /* stage flag bitset (placeholder actors) */
     .word 0x00457748,4       /* map camera zoom */
-    .word 0x00457784,4       /* map rotation: an effect cancelled mid-turn leaves it set */
     .word 0x0062da18,8       /* placeholder slot groups and table */
     .word 0x0061e180,4       /* placeholder draw callback */
     .word 0x0061bfc0,0xa00   /* map-sprite cache entries */
@@ -1452,6 +1455,27 @@ gallery_bgm_pause:
      * request 2) so the resource's own BGM starts without the menu tune. */
     j       0x00183220
     addiu   $a0,$zero,2
+
+.align 4
+gallery_reset_camera:
+    /* The closing steps a scene skips when cancelled, also run before each scene:
+     * effect command 8 (end the shake) and the effect camera move's closing step. */
+    addiu   $sp,$sp,-0x10
+    sd      $ra,0($sp)
+    lui     $t0,0x004d
+    sw      $zero,-0x50a8($t0) /* 004caf58 effect shake on (command 8) */
+    jal     0x0018f9a0       /* stop the shake (command 8) */
+    nop
+    lui     $t0,0x0063
+    lw      $t1,-0x6928($t0) /* 006296d8 effect camera move running */
+    beq     $t1,$zero,camera_move_closed
+    nop
+    jal     0x0019d850       /* its native closing step, normally reached by playing out */
+    nop
+camera_move_closed:
+    ld      $ra,0($sp)
+    jr      $ra
+    addiu   $sp,$sp,0x10
 
 .align 4
 gallery_effect_shift:

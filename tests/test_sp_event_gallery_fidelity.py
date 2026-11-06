@@ -1,4 +1,5 @@
 import json
+import re
 import struct
 import sys
 import unittest
@@ -344,11 +345,6 @@ class FidelityTimelineTests(unittest.TestCase):
         loop = source.split("voice_ready:")[1].split("jal     0x00140290")[0]
         self.assertLess(loop.index("bne     $t2,$zero,map_draw_set"), loop.index("sw      $t1,0x45a0($t0)"))
 
-    def test_cancelled_effect_cannot_leave_the_map_rotated(self):
-        source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
-        regions = source.split("gallery_state_regions:")[1].split(".word 0,0")[0]
-        self.assertIn(".word 0x00457784,4", regions)
-
     def test_circle_mode_leaves_the_song_to_effects_that_start_it(self):
         # These effects' resource headers start the music themselves. Circle mode
         # reaches them in seconds, so it only pauses the theater track, which the
@@ -369,6 +365,21 @@ class FidelityTimelineTests(unittest.TestCase):
         code = source.split("jal     gallery_restore_roster")[0][-260:] + source.split("jal     gallery_restore_roster")[1][:200]
         self.assertIn("lbu     $t0,-0x4468($t0)", code)
         self.assertIn("sb      $t0,-0x4468($t1)", code)
+
+    def test_row7_circle_mode_starts_the_song_its_effect_only_loads(self):
+        # Effect 241's header has start frame 0, so the native countdown never fires.
+        entry = self.entries[7]
+        timeline = entry["fidelity"]["timeline"]
+        start = timeline.index(["circle_bgm_release"])
+        self.assertEqual([timeline[start - 1], timeline[start + 1]], [["wait", 60], ["wait", 39]])
+        compiled = compile_scene(7, entry["fidelity"], entry["effect_tile"], entry["effects"])
+        self.assertTrue(any(w[2] == str(0x18ABE0) for w in compiled["mode_words"]))
+
+    def test_camera_reset_runs_before_each_scene_and_when_it_ends(self):
+        source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()
+        self.assertEqual(source.count("jal     gallery_reset_camera"), 2)
+        self.assertLess(source.index("jal     gallery_reset_camera"), source.index("jal     gallery_save_roster"))
+        self.assertIn("jal     0x0019d850", source.split("gallery_reset_camera:")[1].split("jr      $ra")[0])
 
     def test_circle_camera_and_row_fixes_20261031(self):
         # BIG-O opens on its own tile (no cut from Beck), Shin Choju-zan does not
