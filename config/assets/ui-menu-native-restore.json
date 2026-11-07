@@ -10,8 +10,8 @@
         "drawings": "82d08d1253fc4016c477e24b9075b46a7942f426a222ac89c6d204d58f42ab41"
       },
       "after": {
-        "atlas": "e5ab1df5324f26e272d708f193254864d4da4f3d1ec05edd66a94d1194b72a64",
-        "drawings": "6ad5e372972e59bf95d6949ac441c0abda799fc0cd5905fa6719e50f8c24f7ff"
+        "atlas": "616423c95bc9d0c95f410319f9b6c83c3f429f04558485d0a1230b45d3cb8f5e",
+        "drawings": "60fe329caebec6004651e3f8e20765287f857eac812fde72e23c4bfae87046e2"
       },
       "pages": [
         {
@@ -73,7 +73,7 @@
           "indices_zlib_base64": "eNqVU9luBDEIyyablivw/39bQ2amaR8qFWmjEYcxhm1tGzOeIfk2ldH+NPFF7WWxOr7DqerLuto2PrIjpF5u7PnZ3h5pRnEZfWf3lYDIUFqhPaEjHAXC4QBG+GTHsdiWx1qBH2Wf9Z4erLGqt30jz/kpxHfP8IlREZ8R00LHGHifbHN3Q3xJ2kZbYA/84SCUlJ4hayCteNUmDmDNcoyj3UWEGZmo4TdsVtVFSyAnZJSS9jZCZonwdEVcNXLIHE+PIRPJhzxDrrHpwItGpqo3yXs51oi0dkFEpT8n/rObY5OJJIqM3MUYKj21K2/txo4hcU3YShgiIwliUb02iBPYFKQ0fYas8fM+MpoVuvvr1uLcTeuILSQbpYqloGiagW+n+fFjyIFDygLKJlDQr3PDNeorXY9nM5FuQEYXy7VdQOnrxdLl19+B+VVtoN84QFBzev5nX9URGL0="
         },
         {
-          "id": "others",
+          "id": "item",
           "kind": "relocate",
           "page": 3,
           "rect": [
@@ -84,14 +84,15 @@
           ],
           "source_page": 4,
           "source_rect": [
-            120,
-            98,
+            156,
+            234,
             46,
             20
           ],
           "before_sha256": "2211e3d7915507b94bf14efafa3a951cc9a82a3ea4ed0a6f4dc612f640af1ae9",
-          "sha256": "11c824b8f9cfe64c83417bbcae1797b9136723d229ce99072211e81967f63c75",
-          "indices_zlib_base64": "eNqdUlmypDAMy0aPd9//ts82nWb5HFUZAhFCltPaF4sFnovWEI+4AvNqL6AbPBdtqVPcyHU8qSLqJoVaYDtpJNTY+SnM/kJqojmF+sg/LMSbNrM5nzAX5vAyxAXMMYpy964OvtnupwzFAqIHuv72A10u7Ph+bp/vWw0JuLPFdTcpRbYgWX4bJnr0eyf3IFFByyFoEtMAZJPysm3PPCg1Cc8mq16z2UbKIVoOKWphNWo/2x0R2RULsRHXNYKpk6IHKkOXkcPes/F/OTApu9G+mTLt4aMWLMtqKT1DoqmOWcfiM6hyMucENoMJZoLxFDofc4jIPyCyMrFrOB0l04U8GWER9knMWmPMA2/DwcxWMI0B2S9CHZiZp7+Qmvf0sO/gwxK2s0mQ3bVecQM9zgDUDlLcJlSqAL39D/4AZaUY/Q=="
+          "sha256": "c62edb4a82aec27277d5ff26c33fd8a53c38b16381be9b2a6b197a7129669818",
+          "indices_zlib_base64": "eJyVUoGShSAILLWegMj//+0tZGXN3M29nckxXYFlWZbvUSkg7QItC7UZ9WY3c3S7gUuZfq3f7KxO7E1E8E4cxUOoDKhpvmNvn26855QSKFhXD4GjO3ebC9/NaKmqihRYZRydUJOZzdYLlhMcRzNoZounaibUlCk0uvI+gN02sz1VVqMKJkUDVhztAwIxExmKUHYPZua4Kw+Rj7IjHFjZKzruUM/lzPTwEKllAzMhPb6/RSbxviEmyqb9FHl502aR1MJyrOTt5vBtnVosszcSrnP9UPdR6bQNb86WPLzhxlSWwgishBfGKUT+5o0/8aiCgp1OrwG0+mLTwfVdbznmqA7EVDyR6RrJ6juWKzvJu5B/4genrxdt",
+          "note": "Reuse retired OTHERS allocation for ITEM before restoring native OTHERS COMMAND."
         },
         {
           "id": "command",
@@ -114,7 +115,7 @@
           "sha256": "d51c15401c9d321e95a53bb9f69ab1546bc108efffeac4cbaa4ead352869d7d6",
           "indices_zlib_base64": "eJxjYBgFwxUAAAHcAAE=",
           "source_indices_sha256": "d51c15401c9d321e95a53bb9f69ab1546bc108efffeac4cbaa4ead352869d7d6",
-          "note": "Retired standalone COMMAND localization; restore the originally blank allocation. OTHERS COMMAND remains Chinese."
+          "note": "Standalone COMMAND localization retired."
         },
         {
           "id": "native-command-menu",
@@ -135,6 +136,21 @@
             "size": 3758358528,
             "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
           }
+        },
+        {
+          "id": "native-others-command",
+          "kind": "native_restore",
+          "page": 4,
+          "rect": [
+            40,
+            232,
+            215,
+            23
+          ],
+          "before_sha256": "f0bb2440f09885417217a5dab0617641d8db582426ed9f54c728db61521cecbc",
+          "sha256": "23f50149e0037daa93eb70b5e7fb247f81f2d1f4a3157fca45da348798d2ac93",
+          "source_indices_sha256": "23f50149e0037daa93eb70b5e7fb247f81f2d1f4a3157fca45da348798d2ac93",
+          "indices_zlib_base64": "eJztWFmS5CgMZUvAZrv/bUcrxsY1kx3T0V/NRyUI0NOThAxlzN/2t700/6cBP+cYoybLo7MszZjMnTg7cZ23Zg7P5FiBO/ro58edojCWAeNj2Bc4jzuDTJCaXaJmhhbNIs+iHPfkpw3G2HP0FDIgkT89YBYEPsGa4U3Efs/BxAM6IwdcCr8p4UQ0gcU46gRr+ygfpDLYuAM35Y5rdziHE4eYTUC7ROxMYJLanLqqDwX3kG015Qa2CzGQe6bTLe+OxsIqCMQYCSRVYbST5ddX+j14CKuHo9liVA/P4q/vouQBh9s6G5IHL90l1BrZpBGHQWM39SS2fRiV1GMnqTfQnpOGsItEhQyRFdqZW2zryxA0Z4L/iL7EDmc6vrc3OIpIUK9Rb5cY9sMQzbJGrQpiWxC1zVLKiA8s62AwpgUc/5UWYPlrKIbOyXbwHqkVCWO5wZGBWQU/SGh7PWdywpoKirrbaSFAoojrmSy4zfNaoeUwoj/SAj3evtDqbMoHpG4mFKSj3+GYBMUxtoXWXUIeTmnRFQrm/LnTwqSvGA91rlm3Ca0bmyctN+a+JArRZDzNZ7h0zkpGxm1woQ4O6HEorU1CFgW3ZGEoRovSg9aHjni7DqWe+W9pxQetxr9YIIGMV99ls7QdLmDZpTMZldYmQeFYahfR8hLUB61A5Bd/hNU3d1pHwFYvWiCI/UbLHVLb6DTj8bCrSy69DzhKp4rH1E1aTwm0fN7SKRSuk2mjZUj6Ha3ZlBa3SWusEcoyrPY7Wo7ClqpO7hJolQ+q1h+kZblq/A9ab0nozovWUW4flTZ98A0tQ1lw5ovWU4JFEfnUmdJIy3DV+M20KN11+Bk3+yOeesyY8jhbr7QS5tx1IHYJKOx4Ck79BjMtrhqvtMqtNI0F/j9pmfVstYkoxDplzLMS7nBgICZXhGBftB4SKj3S/EKLqsaDFm2dFyGjFf8XaF32JUoIqnEfiY5tCBSXjwbe4Xc4NLCidWah9ZBgUeQfRWZafIz3Sujxr3q5LdZ+S+tIOtRwRf1IRASy1ymH+6l5gVtq2kLrLoGwWKVRV1q2b7QyO7Iq7rx8/gItNyYtDVfQe3agInLM8Lie3uDQQM/GLbTuEiyK1D76aRVaJm601Ft63z/X1PqOlq3LnbDJJfO6y1Yio5e12uwbHBnYyMMLrbvENK07XXfpcSkPWml5GchzYF4kb0URA31qh5ykEXCVyC8Pk4ORD75DB1Hfk7Wx84Nhg8toRUYEJ/HeJWm+tCr7Dpwiqe2VOH90sj5MqGiVVNdKXDBlu5xK+gjVKJ0WuXjXUvC3SC2HeboMNg+b6+gHPAbjVD945gUOnmz4UAxgU+78SX+VEIDJlU0w9XpeZqSV26yU5XofJ3joX89l8A43toL7YXZCWlowQTtwY4fmTLTGp1KO+b8LB6MzzmN7g3O4ByyGC4ro/0GCAJctsoa04d0mqj2R1f4DXMJglQ=="
         }
       ],
       "patches": [
@@ -270,9 +286,10 @@
           "chunk": 204,
           "offset": 30464,
           "token": "others",
-          "operation": "relocate",
+          "operation": "native_restore",
           "before_hex": "0700000044106c5e0b803a0008002300030023000d0051000d00510003007862a676",
-          "after_hex": "0700000043106c5e0b803a0008002300030023000d0051000d005100030084ebb2ff"
+          "after_hex": "0700000044106c5e0b803a0008000c00020008000e0068000e006c00020028e888ff",
+          "native_hex": "0700000044106c5e0b803a0008000c00020008000e0068000e006c00020028e888ff"
         },
         {
           "chunk": 158,
@@ -371,6 +388,31 @@
           "before_hex": "0700000044106c6c6c80200006001600000012000c002e000c003200000054647075",
           "after_hex": "0700000044106c6c6c80200006000600000002000c003a000c003e0000007060a878",
           "native_hex": "0700000044106c6c6c80200006000600000002000c003a000c003e0000007060a878"
+        },
+        {
+          "chunk": 204,
+          "offset": 30498,
+          "token": "command2",
+          "operation": "native_restore",
+          "before_hex": "0700000044106c5e0b80400016002900110029001b0057001b00570011002cea5afe",
+          "after_hex": "0700000044106c5e0b80400016000600100002001c007a001c007e00100088e8ffff",
+          "native_hex": "0700000044106c5e0b80400016000600100002001c007a001c007e00100088e8ffff"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137216,
+          "token": "item",
+          "operation": "relocate",
+          "before_hex": "07000000441037123748190005000200000002000a0030000a00300000009ceacafe",
+          "after_hex": "07000000431037123748190005000200000002000a0030000a003000000084ebb2ff"
+        },
+        {
+          "chunk": 1167,
+          "offset": 137488,
+          "token": "item",
+          "operation": "relocate",
+          "before_hex": "0700000044107e4d7e7f170004000000ffff000009002e0009002e00ffff9ceacafe",
+          "after_hex": "0700000043107e4d7e7f170004000000ffff000009002e0009002e00ffff84ebb2ff"
         }
       ],
       "restored_chunks": [
@@ -378,7 +420,8 @@
         159,
         160,
         161,
-        162
+        162,
+        204
       ]
     },
     "sp": {
