@@ -1100,6 +1100,26 @@ def is_choice_menu_continuation(previous: str, line: str) -> bool:
     return previous.endswith("”") and re.match(r"^“[0-9０-９]+[．.]", line) is not None
 
 
+LOCATION_CAPTION_MARKS = "〜～—"
+# Measured in ARMSX2: the Japanese caption centres at x=321.5, which at the
+# 21 px Chinese step means indent = 12 cells - width / 2.  An odd width needs a
+# half cell, drawn as one compact-scope space that advances 12 px instead of 21.
+LOCATION_CAPTION_CENTER_HALF_CELLS = 24
+LOCATION_CAPTION_HALF_CELL = "<z>　</z>"
+LOCATION_CAPTION_PREFIX = re.compile(r"(?:<z>　</z>|[　 \n])+")
+
+
+def location_caption(text: str, *, default_advance_px: int = 21) -> str:
+    """Return a place caption in its final form: 〜name〜, centred on the window."""
+
+    core = LOCATION_CAPTION_PREFIX.sub("", text, count=1) if LOCATION_CAPTION_PREFIX.match(text) else text
+    core = core.strip("　 \n").strip(LOCATION_CAPTION_MARKS)
+    caption = f"〜{core}〜"
+    width = _occupied_width(tokenize_dialogue(caption, default_advance_px=default_advance_px))
+    full, half = divmod(max(0, round(LOCATION_CAPTION_CENTER_HALF_CELLS - width)), 2)
+    return (LOCATION_CAPTION_HALF_CELL if half else "") + "　" * full + caption
+
+
 def dialogue_layout_issues(
     text: str,
     *,

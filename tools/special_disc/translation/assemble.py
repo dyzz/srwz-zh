@@ -19,6 +19,7 @@ import hashlib
 import json
 
 from common import EXPORT, HERE, ROOT, load_json
+from srwz.chinese_layout import location_caption
 from validate import check, genders_of
 
 OUT = ROOT / "corpus/zh/special-disc"
@@ -28,11 +29,9 @@ def sha(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def caption(jp: str, zh: str) -> str:
-    """Keep a centred place caption centred: shift the source's indent by half the length change."""
-    lead = len(jp) - len(jp.lstrip("　"))
-    core_jp, core_zh = jp.lstrip("　"), zh.lstrip("　")
-    return "　" * max(0, lead + (len(core_jp) - len(core_zh)) // 2) + core_zh
+def caption(zh: str) -> str:
+    """Store a place caption in the shared final form, centred by its displayed width."""
+    return location_caption(zh)
 
 
 def dialogue(tag: str, kind: str) -> tuple[list[dict], dict]:
@@ -60,7 +59,7 @@ def dialogue(tag: str, kind: str) -> tuple[list[dict], dict]:
             text = t["text"]
             if r["kind"] == "location_caption":
                 source = next(x["source"] for x in export_rows(file) if x["id"] == t["id"])
-                text = caption(source, text)
+                text = caption(text)
                 jp = source
             else:
                 jp = r["jp"]
