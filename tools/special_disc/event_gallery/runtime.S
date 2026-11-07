@@ -112,6 +112,14 @@ frame_save:
     bne     $t1,$t2,frame_map
     nop
 
+    /* Do not drop the entry stop request while another sound request is busy.
+     * This callback returns the next drawing-packet pointer. While waiting,
+     * emit nothing and return the incoming pointer, not the caller's stale V0
+     * (a code address which would corrupt both code and the native DMA chain). */
+    lui     $t0,0x0062
+    lw      $t1,0x890($t0)
+    bne     $t1,$zero,frame_restore
+    daddu   $v0,$s0,$zero
     addiu   $t2,$zero,2
     sw      $t2,4($s1)
     sw      $zero,0x34($s1)
