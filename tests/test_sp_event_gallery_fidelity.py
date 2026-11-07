@@ -279,7 +279,7 @@ class FidelityTimelineTests(unittest.TestCase):
             ["raw", 35, 1, 677, 1], ["raw", 35, 1, 680, 1],
             ["raw", 24, 2, 577, 0], ["wait", 30], ["mark", "knights_in_place"]])
         compiled = compile_scene(1, entry["fidelity"], [11, 6], [264])
-        self.assertEqual([w for w in compiled["mode_words"] if not w[0].startswith(("gallery_bgm_", "gallery_modewait_"))], [
+        self.assertEqual([w for w in compiled["mode_words"] if not w[0].startswith(("gallery_bgm_", "gallery_entry_bgm_", "gallery_modewait_"))], [
             ("gallery_spawn_1_0+12", 6 | 5 << 8 | 1 << 16, 10 | 5 << 8 | 1 << 16),
             ("gallery_spawn_1_0+108", 2 | 7 << 8 | 2 << 16, 11 | 8 << 8 | 1 << 16),
             # the squads' prep (0x14 prep,0,0) becomes "0x14 gallery_skip, 0, mark" in circle mode
@@ -353,8 +353,70 @@ class FidelityTimelineTests(unittest.TestCase):
             with self.subTest(row=row):
                 entry = self.entries[row]
                 compiled = compile_scene(row, entry["fidelity"], entry["effect_tile"], entry["effects"])
-                words = [w for w in compiled["mode_words"] if w[1] == str(track) and w[0].startswith("gallery_bgm_")]
+                labels = {w[0].removesuffix("+12") for w in compiled["mode_words"]
+                          if w[0].startswith("gallery_bgm_") and w[0].endswith("+12") and w[2] == str(track)}
+                words = [w for w in compiled["mode_words"] if w[0].removesuffix("+4") in labels and w[0].endswith("+4")]
                 self.assertEqual([w[2] for w in words], ["gallery_bgm_pause"])
+
+    def test_entry_music_preserves_circle_cues_and_dialogue_animation_changes(self):
+        def music(compiled, mode):
+            labels, memory = {}, []
+            for line in compiled["script"]:
+                line = line.strip()
+                if line.endswith(":"):
+                    labels[line[:-1]] = len(memory)
+                elif line.startswith(".word "):
+                    memory.extend(line[6:].split(","))
+            for address, triangle, circle in compiled["mode_words"]:
+                label, _, offset = address.partition("+")
+                if label in labels:
+                    memory[labels[label] + int(offset or 0) // 4] = str(triangle if mode else circle)
+            result = []
+            for i in range(0, len(memory), 4):
+                record = memory[i:i + 4]
+                if record[0] == "67":
+                    result.append(("play", record[1]))
+                elif record[0] == "20" and record[1] in ("gallery_bgm_pause", "gallery_bgm_nowait"):
+                    result.append((record[1], record[3]))
+            return result
+
+        for row, entry in enumerate(self.entries):
+            fidelity = entry["fidelity"]
+            before = dict(fidelity)
+            policy = before.pop("dialogue_entry_bgm")
+            args = (entry["effect_tile"], entry["effects"])
+            compiled = compile_scene(row, fidelity, *args)
+            original = compile_scene(row, before, *args)
+            self.assertEqual(music(compiled, False), music(original, False), entry["name"])
+            timeline = fidelity["timeline"]
+            start = timeline.index(["bgm", policy["animation_id"]])
+            if policy.get("animation_cue") == "effect_header":
+                start += 1
+            expected = [("play", str(policy["id"]))] + [
+                ("play", str(op[1])) for op in timeline[start:] if op[0] == "bgm"]
+            self.assertEqual(music(compiled, True), expected, entry["name"])
+
+    def test_dialogue_prelude_survives_until_the_named_main_animation(self):
+        # Explicit cases include preparatory flashes (20/21) before 256/257/297.
+        targets = {1: 264, 2: 238, 3: 256, 6: 266, 8: 267, 11: 297,
+                   13: 282, 14: 259, 15: 265, 16: 253, 17: 257,
+                   18: 255, 19: 258, 20: 262, 21: 272}
+        for row, effect in targets.items():
+            entry = self.entries[row]
+            fidelity = entry["fidelity"]
+            policy = fidelity["dialogue_entry_bgm"]
+            self.assertEqual(policy["animation_effect"], effect)
+            compiled = compile_scene(row, fidelity, entry["effect_tile"], entry["effects"])
+            script = compiled["script"]
+            boundary = script.index(f"gallery_animation_boundary_{row}:")
+            songs = [line.split(",")[1] for line in script[:boundary]
+                     if line.startswith("    .word 67,")]
+            self.assertEqual(songs, [str(policy["id"])], entry["name"])
+            if policy["animation_cue"] == "before_effect":
+                self.assertEqual(script[boundary + 2],
+                                 f"    .word 67,{policy['animation_id']},0,0")
+                self.assertTrue(script[boundary + 3].startswith("    .word 86,"))
+                self.assertEqual(script[boundary + 4], f"    .word 0,{effect},1,0")
 
     def test_dialogue_auto_play_uses_native_level_2(self):
         source = (ROOT / "tools/special_disc/event_gallery/runtime.S").read_text()

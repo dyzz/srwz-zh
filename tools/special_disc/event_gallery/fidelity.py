@@ -21,6 +21,13 @@ Opcode semantics used here (SP SLPS_259.20, verified by decompilation):
   0x43 a          load + play BGM a (FUN_00182fc0(a, b, c, 1, 3, 0)); the script
                   waits until the stream is ready. Circle mode (mode words, outside
                   circle_skip_to parts) calls runtime.S gallery_bgm_nowait instead
+  dialogue_entry_bgm  dialogue-mode prelude policy: id is the entry song,
+                  animation_id is the theme, animation_effect names the main
+                  effect (not a preparatory flash). animation_cue is script
+                  (keep the original cue), effect_header (suppress that cue),
+                  or before_effect (move it immediately before the named effect).
+                  Earlier script BGM cues are suppressed only in dialogue mode;
+                  later changes and circle-mode music commands remain intact.
   bgm_pause       native FUN_00183220(2): pause the current BGM (cmd 0x20)
   circle_effect_bgm  tracks whose bgm op pauses instead of playing in circle mode: the
                   next effect's resource header starts the music
@@ -318,6 +325,40 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
     used_effects: list[int] = []
     talk_ops: list[tuple[str, int, int, bool]] = []
     timeline = fidelity["timeline"]
+    entry_bgm = fidelity.get("dialogue_entry_bgm")
+    animation_position = -1
+    animation_cue = "script"
+    animation_effect = None
+    if entry_bgm is not None:
+        entry_track = _id(entry_bgm["id"], "dialogue entry bgm", 0x64)
+        animation_track = _id(entry_bgm["animation_id"], "animation bgm", 0x64)
+        animation_position = next((i for i, op in enumerate(timeline)
+                                   if op == ["bgm", animation_track]), -1)
+        if animation_position < 0:
+            raise ValueError(f"row {row}: missing animation BGM cue")
+        animation_cue = entry_bgm.get("animation_cue", "script")
+        if animation_cue not in ("script", "effect_header", "before_effect"):
+            raise ValueError(f"row {row}: unknown animation cue {animation_cue!r}")
+        animation_effect = entry_bgm.get("animation_effect")
+        if animation_cue != "script":
+            targets = [i for i, op in enumerate(timeline)
+                       if op[0] == "effect" and op[1] == animation_effect]
+            if len(targets) != 1 or targets[0] <= animation_position:
+                raise ValueError(f"row {row}: animation cue requires one later target effect")
+        if animation_cue == "effect_header" and animation_track not in fidelity.get("circle_effect_bgm", ()):
+            raise ValueError(f"row {row}: animation BGM must be supplied by the effect header")
+        # The entry pause is asynchronous. Wait for it before op 0x43: that
+        # opcode does not retry a load rejected while the sound queue is busy.
+        # Native script entry starts by advancing past its first record.
+        word(0x13B9, int(fidelity.get("zoom", {}).get("value", -11)), 0, 0)
+        word(1, 1, 0, 0)
+        word(0x14, "gallery_bgm_wait", 0, 0)
+        label = f"gallery_entry_bgm_{row}"
+        script.append(f"{label}:")
+        # Circle keeps its own cue timing; triangle starts the reviewed prelude.
+        mode_words += [(f"{label}+0", "67", "1"),
+                       (f"{label}+4", str(entry_track), "1")]
+        word(0x43, entry_track, 0, 0)
     marks = [op[1] for op in timeline if op[0] == "mark"]
     if len(set(marks)) != len(marks):
         raise ValueError(f"row {row}: duplicate timeline mark")
@@ -344,16 +385,22 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             word(1, triangle, 0, 0)
         elif kind == "bgm":
             track = _id(args[0], "bgm", 0x65)
+            # These excerpts start after the original scene's early theme cue.
+            # Keep the prelude through dialogue and let the animation header
+            # start its own song, just as circle mode already does.
+            suppress = position < animation_position or (
+                animation_cue != "script" and position == animation_position)
+            triangle_op, triangle_arg = ((1, 1) if suppress else (0x43, track))
             if not overlay:
                 # Circle mode starts the track without the ~40-frame stream wait.
                 label = f"gallery_bgm_{row}_{position}"
                 # An effect that starts this song itself only needs the theater track
                 # out of the way: playing it here too would restart it seconds later.
                 starter = "gallery_bgm_pause" if track in fidelity.get("circle_effect_bgm", ()) else "gallery_bgm_nowait"
-                mode_words += [(f"{label}+0", "67", "20"), (f"{label}+4", str(track), starter),
+                mode_words += [(f"{label}+0", str(triangle_op), "20"), (f"{label}+4", str(triangle_arg), starter),
                                (f"{label}+12", "0", str(track))]
                 script.append(f"{label}:")
-            word(0x43, track, 0, 0)
+            word(triangle_op, triangle_arg, 0, 0)
         elif kind == "bgm_pause":
             word(0x14, "gallery_bgm_pause", 0, 0)
         elif kind == "form_se":
@@ -365,6 +412,18 @@ def compile_scene(row: int, fidelity: dict[str, Any], effect_tile: Sequence[int]
             word(0x18, 6, x, y)
         elif kind == "effect":
             effect_id = _id(args[0], "effect")
+            if effect_id == animation_effect:
+                script.append(f"gallery_animation_boundary_{row}:")
+                if animation_cue == "before_effect":
+                    if overlay:
+                        raise ValueError(f"row {row}: animation cue overlaps circle-only records")
+                    label = f"gallery_animation_bgm_{row}"
+                    script.append(f"{label}:")
+                    # Circle skips this dialogue-only load and its stream wait.
+                    mode_words += [(f"{label}+0", "67", "20"),
+                                   (f"{label}+4", str(animation_track), "gallery_skip"),
+                                   (f"{label}+12", "0", f"{label}+16")]
+                    word(0x43, animation_track, 0, 0)
             x, y = _tile(args[1] if len(args) > 1 else effect_tile, "effect tile")
             word(0x56, 6, 0, x | (y << 16))
             word(0, effect_id, 1, 0)

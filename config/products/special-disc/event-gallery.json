@@ -914,6 +914,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 69,
+          "animation_id": 30,
+          "source": "STAGE002 pre-animation music: 0xA370; animation cue 0xA790",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 273,
+          "animation_cue": "script",
+          "timing_note": "Keep the reviewed script cue and later changes; earlier cues cannot override the entry prelude."
         }
       }
     },
@@ -953,7 +962,7 @@
           "mode": "script",
           "id": 41,
           "title": "合神！　ゴッドグラヴィオン",
-          "source": "STAGE007 0x9170 op0x43 0x29 before the dialogues; the effect 264 resource header plays the same song again",
+          "source": "STAGE007 0x9170 op0x43 0x29 before the excerpted dialogues. The gallery dialogue prelude now keeps track 93 until effect 264 starts this theme from its resource header.",
           "changes": [
             {
               "id": 40,
@@ -1839,7 +1848,16 @@
         },
         "circle_effect_bgm": [
           41
-        ]
+        ],
+        "dialogue_entry_bgm": {
+          "id": 93,
+          "animation_id": 41,
+          "source": "STAGE007 pre-animation music: 0x8FE0; animation cue 0x9170",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_cue": "effect_header",
+          "timing_note": "Effect header starts the animation theme; suppress the earlier dialogue-mode script cue.",
+          "animation_effect": 264
+        }
       }
     },
     {
@@ -3098,6 +3116,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 93,
+          "animation_id": 14,
+          "source": "STAGE009 pre-animation music: 0x6BD0; animation cue 0x6EF0",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 238,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       }
     },
@@ -3973,7 +4000,16 @@
         },
         "circle_effect_bgm": [
           46
-        ]
+        ],
+        "dialogue_entry_bgm": {
+          "id": 70,
+          "animation_id": 46,
+          "source": "STAGE021 pre-animation music: 0x7D60; animation cue 0x8670",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 256,
+          "animation_cue": "effect_header",
+          "timing_note": "Effect header starts the animation theme; suppress the earlier dialogue-mode script cue."
+        }
       }
     },
     {
@@ -4840,7 +4876,16 @@
         "circle_camera": [
           11,
           14
-        ]
+        ],
+        "dialogue_entry_bgm": {
+          "id": 35,
+          "animation_id": 34,
+          "source": "STAGE024 pre-animation music: 0xB3F0; animation cue 0xBB70",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 239,
+          "animation_cue": "script",
+          "timing_note": "Keep the reviewed script cue and later changes; earlier cues cannot override the entry prelude."
+        }
       },
       "stage_objects_source": "STAGE024 entry 0x810-0x860 (0x146280 / 0x146160 before the map starts)"
     },
@@ -5603,6 +5648,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 69,
+          "animation_id": 43,
+          "source": "STAGE025 pre-animation music: 0xE570; animation cue 0xE700",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 246,
+          "animation_cue": "script",
+          "timing_note": "Keep the reviewed script cue and later changes; earlier cues cannot override the entry prelude."
         }
       }
     },
@@ -6083,7 +6137,16 @@
         },
         "circle_effect_bgm": [
           6
-        ]
+        ],
+        "dialogue_entry_bgm": {
+          "id": 69,
+          "animation_id": 6,
+          "source": "STAGE026 pre-animation music: 0xA320; animation cue 0xA3B0",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 266,
+          "animation_cue": "effect_header",
+          "timing_note": "Effect header starts the animation theme; suppress the earlier dialogue-mode script cue."
+        }
       }
     },
     {
@@ -6938,7 +7001,16 @@
         },
         "circle_effect_bgm": [
           11
-        ]
+        ],
+        "dialogue_entry_bgm": {
+          "id": 12,
+          "animation_id": 11,
+          "source": "STAGE030 pre-animation music: 0xAEA0; animation cue 0xAFA0",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 241,
+          "animation_cue": "script",
+          "timing_note": "User-confirmed sequence retained. Effect 241 has start-frame zero and only loads the song; preserve the script start and circle release."
+        }
       },
       "stage_objects_source": "STAGE030 entry (0x146280 / 0x146160 before the map starts)"
     },
@@ -6985,7 +7057,7 @@
           "mode": "script",
           "id": 5,
           "title": "われらのゲッターロボ",
-          "source": "STAGE043 0xb8b0 op0x43 0x5 (the gallery starts it before dialogue 0x16, which plays under the stage BGM in the original); the effect 267 resource header plays the same song again"
+          "source": "STAGE043 0xb8b0 op0x43 0x5 after dialogue 0x16. The gallery dialogue prelude now keeps the stage BGM; effect 267 starts this theme from its own resource header."
         },
         "zoom": {
           "value": -18,
@@ -7286,7 +7358,16 @@
         },
         "circle_effect_bgm": [
           5
-        ]
+        ],
+        "dialogue_entry_bgm": {
+          "id": 86,
+          "animation_id": 5,
+          "source": "STAGE043 pre-animation music: 关卡参数 COMPDATA +0x5E93A; animation cue 0xB8B0",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_cue": "effect_header",
+          "timing_note": "Effect header starts the animation theme; suppress the earlier dialogue-mode script cue.",
+          "animation_effect": 267
+        }
       }
     },
     {
@@ -8141,6 +8222,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 56,
+          "animation_id": 1,
+          "source": "STAGE047 pre-animation music: 0xAC70; animation cue 0xAF10",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 268,
+          "animation_cue": "script",
+          "timing_note": "Keep the reviewed script cue and later changes; earlier cues cannot override the entry prelude."
         }
       }
     },
@@ -9144,6 +9234,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 70,
+          "animation_id": 0,
+          "source": "STAGE047 pre-animation music: 0x9F00; animation cue 0xA260",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 269,
+          "animation_cue": "script",
+          "timing_note": "Preserve the mid-animation script cue after section 16; do not move it before effect 269."
         }
       }
     },
@@ -9579,7 +9678,16 @@
         },
         "circle_effect_bgm": [
           49
-        ]
+        ],
+        "dialogue_entry_bgm": {
+          "id": 54,
+          "animation_id": 49,
+          "source": "STAGE084 pre-animation music: 0x9B80; animation cue 0x9CC0",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 297,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
+        }
       }
     },
     {
@@ -10015,6 +10123,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 53,
+          "animation_id": 52,
+          "source": "STAGE057 pre-animation music: 0x79A0; animation cue 0x7B70",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 298,
+          "animation_cue": "script",
+          "timing_note": "Keep the reviewed script cue and later changes; earlier cues cannot override the entry prelude."
         }
       }
     },
@@ -11245,6 +11362,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 93,
+          "animation_id": 15,
+          "source": "STAGE069 pre-animation music: 0x12C70; animation cue 0x12E80",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 282,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       }
     },
@@ -11790,6 +11916,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 69,
+          "animation_id": 47,
+          "source": "STAGE107 pre-animation music: 0x141E0; animation cue 0x14460",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 259,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       }
     },
@@ -13103,6 +13238,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 41,
+          "animation_id": 40,
+          "source": "STAGE107 pre-animation music: 0x15050; animation cue 0x15620",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 265,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       }
     },
@@ -14391,6 +14535,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 69,
+          "animation_id": 71,
+          "source": "STAGE114 pre-animation music: 关卡参数 COMPDATA +0x5F68A; animation cue 0x15C0",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 253,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       },
       "stage_objects_source": "STAGE114 entry 0x414-0x4a0 (0x146280 / 0x146160 before the map starts)"
@@ -14974,6 +15127,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 71,
+          "animation_id": 47,
+          "source": "STAGE117 pre-animation music: 0x125D0; animation cue 0x12B80",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 257,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       }
     },
@@ -15694,7 +15856,16 @@
             }
           ]
         },
-        "effect_shift_source": "user 2026-11-05: the beam of effect 255 lands on a fixed screen point about 10 px left of the effect's own Double X; the shift puts the unit under it, during the satellite close-up so it does not show"
+        "effect_shift_source": "user 2026-11-05: the beam of effect 255 lands on a fixed screen point about 10 px left of the effect's own Double X; the shift puts the unit under it, during the satellite close-up so it does not show",
+        "dialogue_entry_bgm": {
+          "id": 70,
+          "animation_id": 25,
+          "source": "STAGE126 pre-animation music: 0xB380; animation cue 0xB770",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 255,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
+        }
       }
     },
     {
@@ -16401,6 +16572,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 71,
+          "animation_id": 47,
+          "source": "STAGE128 pre-animation music: 0x10070; animation cue 0x10770",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 258,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       }
     },
@@ -19001,6 +19181,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 86,
+          "animation_id": 71,
+          "source": "STAGE138 pre-animation music: 关卡参数 COMPDATA +0x5FB0A; animation cue 0x1D070",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 262,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       },
       "stage_objects_source": "STAGE138 entry (0x146280 / 0x146160 before the map starts)"
@@ -19653,6 +19842,15 @@
               }
             }
           ]
+        },
+        "dialogue_entry_bgm": {
+          "id": 86,
+          "animation_id": 71,
+          "source": "STAGE138 pre-animation music: 关卡参数 COMPDATA +0x5FB0A; animation cue 0x1A5D0",
+          "policy": "play_prelude_until_explicit_animation_cue_keep_later_changes",
+          "animation_effect": 272,
+          "animation_cue": "before_effect",
+          "timing_note": "Dialogue mode keeps the prelude through opening dialogue and preparatory effects; move its theme cue immediately before the named main effect. Circle keeps its existing cues."
         }
       },
       "stage_objects_source": "STAGE138 entry (0x146280 / 0x146160 before the map starts)"

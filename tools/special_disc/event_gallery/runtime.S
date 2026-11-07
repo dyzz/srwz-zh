@@ -138,13 +138,8 @@ frame_save:
     nop
     jal     gallery_save_roster
     nop
-    lw      $t0,0x24($s1)
-    bne     $t0,$zero,bgm_owner_kept /* previous return still restoring */
+    jal     gallery_bgm_enter
     nop
-    lui     $t0,0x005e
-    lbu     $t0,-0x4468($t0)  /* 005dbb98 current BGM */
-    sw      $t0,0x20($s1)
-bgm_owner_kept:
     lui     $t0,0x0063
     lw      $t0,-0x25e4($t0)  /* 0062da1c placeholder-actor table */
     sw      $t0,0x28($s1)
@@ -1458,6 +1453,33 @@ gallery_skip:
     sw      $t1,-0x2148($t0) /* the interpreter advances onto the target */
 
 .align 4
+gallery_bgm_wait:
+    /* Retry this native-call record until the entry pause has completed. */
+    lui     $t0,0x0062
+    lw      $t1,0x890($t0)
+    beq     $t1,$zero,bgm_wait_done
+    nop
+    lw      $t1,-0x2148($t0) /* 0061deb8 current script record */
+    addiu   $t1,$t1,-32      /* retry through the preceding one-frame wait */
+    sw      $t1,-0x2148($t0)
+bgm_wait_done:
+    jr      $ra
+    nop
+
+.align 4
+gallery_bgm_enter:
+    /* Save the list owner before pausing; a rapid reentry retains that owner. */
+    lw      $t0,0x24($s1)
+    bne     $t0,$zero,bgm_entry_pause
+    nop
+    lui     $t0,0x005e
+    lbu     $t0,-0x4468($t0)
+    sw      $t0,0x20($s1)
+bgm_entry_pause:
+    j       0x00183220
+    addiu   $a0,$zero,2
+
+.align 4
 gallery_bgm_pause:
     /* Effect-header BGM scenes: pause the theater track (sound state 5,
      * request 2) so the resource's own BGM starts without the menu tune. */
@@ -1586,13 +1608,11 @@ gallery_bgm_restore:
     lui     $t0,0x0082
     sw      $zero,0x1f24($t0)
     lw      $a0,0x1f20($t0)
-    lui     $t1,0x005e
-    lbu     $t1,-0x4468($t1)
-    beq     $t1,$a0,bgm_restore_wait
-    nop
+    /* Entry may have paused this same song before any scene cue ran.
+     * Always request restoration, forcing a reload even for the same ID. */
     daddu   $a1,$zero,$zero
     daddu   $a2,$zero,$zero
-    addiu   $a3,$zero,1
+    daddu   $a3,$zero,$zero
     addiu   $t0,$zero,3
     jal     0x00182fc0       /* native load/play, as script op 0x43 */
     daddu   $t1,$zero,$zero
