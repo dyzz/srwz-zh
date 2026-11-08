@@ -133,6 +133,24 @@ class DualReleaseTests(unittest.TestCase):
                                                          'sha256': release.sha256_file(proof)}
         self.write(self.config['validation'], self.validation)
 
+    def test_best_sp_release_requires_skip_and_selected_proofs(self):
+        self.add_built_in_skip()
+        self.config.update(schema_version=5, typography='native')
+        del self.config['editions']['original']
+        for key in ('outputs', 'readbacks', 'skip_readbacks'):
+            del self.validation[key]['original']
+        self.validation['verification'].update(both_editions=False, verified_editions=['best', 'sp'])
+        self.write(self.config['validation'], self.validation)
+        self.assertEqual(set(dict(release.release_targets(self.config))), {'best', 'sp'})
+        release.verify_dual_config_bindings(self.config)
+        self.config['typography'] = 'proportional'
+        with self.assertRaisesRegex(release.ReleaseBuildError, 'typography proof required'):
+            release.verify_dual_config_bindings(self.config)
+        self.config['typography'] = 'native'
+        self.config['skip'] = 'optional'
+        with self.assertRaisesRegex(release.ReleaseBuildError, 'skip built into every target'):
+            release.verify_dual_config_bindings(self.config)
+
     def test_built_in_skip_release_has_one_patch_per_edition(self):
         self.add_built_in_skip()
         self.assertEqual(release.verify_dual_config_bindings(self.config), self.validation)

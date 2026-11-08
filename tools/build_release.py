@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build and verify a deterministic xdelta release package.
 
-The full source and target ISOs remain local. Schema 4 packages Original, BEST
-and SP with one patch per edition and the battle square skip built in; schema 3 kept the
+The full source and target ISOs remain local. Schema 5 packages BEST and SP;
+schema 4 packages Original, BEST and SP with one patch per edition and the battle square skip built in; schema 3 kept the
 historical no-skip bases plus derived skip variants; schema 2 packaged both
 editions without skip; schema 1 preserves the single-patch ZIP format.
 """
@@ -20,7 +20,6 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.2.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 ZIP_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
 
@@ -273,7 +272,7 @@ def write_deterministic_zip(
 
 def build_release(config_path: Path, *, force: bool = False) -> Path:
     config = load_json(config_path)
-    if config.get("schema_version") in (2, 3, 4):
+    if config.get("schema_version") in (2, 3, 4, 5):
         return build_dual_release(config, force=force)
     verify_config_bindings(config)
 
@@ -402,30 +401,37 @@ def build_release(config_path: Path, *, force: bool = False) -> Path:
 
 
 def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
-    """Bind historical dual releases or current three-edition releases to their proofs."""
+    """Bind historical dual releases or current edition releases to their proofs."""
     tag = config.get("tag", "")
-    if config.get("schema_version") not in (2, 3, 4) or tag != f"v{config.get('version')}" or not config.get("version"):
+    if config.get("schema_version") not in (2, 3, 4, 5) or tag != f"v{config.get('version')}" or not config.get("version"):
         raise ReleaseBuildError("invalid dual release version")
     if config.get("output", {}).get("directory") != f"build/release/{tag}":
         raise ReleaseBuildError("invalid dual release output directory")
     editions = config.get("editions", {})
-    current = config['schema_version'] == 4
-    expected_editions = {"original", "best", "sp"} if current else {"original", "best"}
+    current = config['schema_version'] in (4, 5)
+    expected_editions = ({"best", "sp"} if config["schema_version"] == 5 else
+                         {"original", "best", "sp"} if current else {"original", "best"})
     if current and set(editions) != expected_editions:
-        raise ReleaseBuildError("release requires exactly original, best and sp")
+        raise ReleaseBuildError("release requires exactly best and sp" if config["schema_version"] == 5 else "release requires exactly original, best and sp")
     if not current and set(editions) != expected_editions:
         raise ReleaseBuildError("dual release requires exactly original and best")
     validation = load_json(project_path(config["validation"]))
     expected_status = ("edition_build_and_static_readback_passed" if current
                        else "dual_edition_build_and_static_readback_passed")
     if (validation.get("status") != expected_status
-            or not validation.get("verification", {}).get("both_editions")
+            or (config["schema_version"] != 5 and not validation.get("verification", {}).get("both_editions"))
             or validation.get("verification", {}).get("status") != "edition_batch_receipt_integrity_passed"):
         raise ReleaseBuildError("edition build verification is incomplete")
-    if current and set(validation['verification'].get('verified_editions', [])) != expected_editions:
+    if current and not expected_editions.issubset(validation['verification'].get('verified_editions', [])):
         raise ReleaseBuildError("release verification must include original, best and sp")
     if set(validation.get("outputs", {})) != set(editions):
         raise ReleaseBuildError("release validation must cover every output")
+    if config['schema_version'] == 5:
+        if config.get('typography') not in ('native', 'proportional'):
+            raise ReleaseBuildError('release typography policy missing')
+        expected_typography = set(editions) if config['typography'] == 'proportional' else set()
+        if set(validation.get('typography', {})) != expected_typography:
+            raise ReleaseBuildError('release typography proof required for every target')
     for edition, item in editions.items():
         contract_path = f"config/editions/{edition}/edition.json"
         if item["edition_config"] != contract_path:
@@ -446,18 +452,29 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
         expected = {"original": "full_story_final_iso_static_content_readback_passed",
                     "best": "best_final_iso_static_content_readback_passed",
                     "sp": "all_bound_text_reread_from_final_iso_runtime_pending"}[edition]
-        captions = validation.get("event_subtitles", {}).get(edition)
-        bound = item["target_iso"]
-        if captions is not None:
-            if any(captions["iso"][key] != item["target_iso"][key] for key in ("size", "sha256")):
-                raise ReleaseBuildError(f"{edition}: caption receipt is not bound to the target")
-            bound = captions["base_iso"]
-            from event_subtitles.apply import verify_subtitled_iso
-            verify_subtitled_iso(project_path(item["target_iso"]["path"]), captions, project_path("."))
-        if (proof.get("status") != expected or any(
-                proof.get("iso", {}).get(key) != bound[key]
-                for key in ("size", "sha256"))):
-            raise ReleaseBuildError(f"{edition}: semantic readback does not match target")
+        from contextlib import nullcontext
+        typography = validation.get('typography', {}).get(edition)
+        if typography:
+            from srwz.release_typography import verified_typography_input
+            if (typography['verification']['output_sha256'] != item['target_iso']['sha256'] or
+                    typography['verification']['size'] != item['target_iso']['size']):
+                raise ReleaseBuildError(f'{edition}: typography output binding mismatch')
+            context = verified_typography_input(PROJECT_ROOT, project_path(item['target_iso']['path']), edition, typography)
+        else:
+            context = nullcontext(project_path(item['target_iso']['path']))
+        with context as pre_typography:
+            captions = validation.get("event_subtitles", {}).get(edition)
+            bound = typography['input'] if typography else item['target_iso']
+            if captions is not None:
+                if any(captions["iso"][key] != bound[key] for key in ("size", "sha256")):
+                    raise ReleaseBuildError(f"{edition}: caption receipt is not bound to the target")
+                bound = captions["base_iso"]
+                from event_subtitles.apply import verify_subtitled_iso
+                verify_subtitled_iso(pre_typography, captions, project_path("."))
+            if (proof.get("status") != expected or any(
+                    proof.get("iso", {}).get(key) != bound[key]
+                    for key in ("size", "sha256"))):
+                raise ReleaseBuildError(f"{edition}: semantic readback does not match target")
         if edition == "best" and proof.get("input_digest") != validation["input_digest"]:
             raise ReleaseBuildError("BEST readback belongs to a different input batch")
         if edition == 'sp':
@@ -494,7 +511,7 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
                     or any(proof.get(k) != variant['target_iso'][k] for k in ('size', 'sha256'))
                     or proof.get('only_declared_skip_changes') is not True):
                 raise ReleaseBuildError(f'{edition}: skip readback mismatch')
-    if config['schema_version'] == 4:
+    if config['schema_version'] in (4, 5):
         # Every shipped image has the square skip compiled in; the frozen
         # validation must carry an executable hook proof for each target.
         if config.get('skip') != 'built_in' or validation.get('skip') != 'built_in':
@@ -525,7 +542,8 @@ def verify_built_in_skip(target: Path, edition: str) -> dict:
 
 
 def release_targets(config):
-    editions = ('original', 'best', 'sp') if config['schema_version'] == 4 else ('original', 'best')
+    editions = (('best', 'sp') if config['schema_version'] == 5 else
+                ('original', 'best', 'sp') if config['schema_version'] == 4 else ('original', 'best'))
     for edition in editions:
         item = config['editions'][edition]
         yield edition, item
@@ -548,7 +566,7 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
         for edition, item in config['editions'].items():
             verify_variant(project_path(item['target_iso']['path']),
                            project_path(item['skip_variant']['target_iso']['path']), contract, edition)
-    if config['schema_version'] == 4:
+    if config['schema_version'] in (4, 5):
         for edition, item in config['editions'].items():
             verify_built_in_skip(project_path(item['target_iso']['path']), edition)
     xdelta = config["xdelta"]
@@ -574,8 +592,9 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
             readme.append("默认推荐不带 skip 的补丁；四份补丁均直接用于对应日文原盘。\n"
                           "带 -skip 版：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"
                           "跳到战斗动画的下一个阶段。\n")
-        if config["schema_version"] == 4:
-            readme.append("Original、The Best 和 SP 三份补丁均内置战斗动画快进：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"
+        if config["schema_version"] in (4, 5):
+            names = "The Best 和 SP 两份补丁" if config["schema_version"] == 5 else "Original、The Best 和 SP 三份补丁"
+            readme.append(names + "均内置战斗动画快进：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"
                           "跳到战斗动画的下一个阶段。不再提供不带 skip 的版本。\n")
         for edition, item in release_targets(config):
             source = project_path(item["source_iso"]["path"])
@@ -622,8 +641,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--config",
         type=Path,
-        default=DEFAULT_CONFIG,
-        help="release config (default: config/release/v0.4.2.json)",
+        required=True,
+        help="Explicit frozen release config; historical versions are never selected implicitly.",
     )
     parser.add_argument(
         "--force",

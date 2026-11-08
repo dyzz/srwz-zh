@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Freeze a verified Original+BEST+SP batch with skip built into every image.
+"""Freeze a verified BEST+SP batch with skip built into every image.
 
 Every current ISO produced by build_editions already contains the battle square
-skip hook. Freezing copies the three verified images and their semantic readbacks
+skip hook. Freezing copies the selected verified images and their semantic readbacks
 under the release tag, rereads each frozen executable to prove the hook, and
-writes the schema 4 release config that build_release.py consumes. Nothing is
+writes the schema 5 release config that build_release.py consumes. Nothing is
 derived or patched after the build; there are no separate no-skip or skip
 variants any more.
 """
@@ -21,7 +21,7 @@ from srwz.release_inputs import copy_file, sha256_file
 from verify_editions import verify_batch
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE_EDITIONS = ('original', 'best', 'sp')
+RELEASE_EDITIONS = ('best', 'sp')
 
 
 def lock(path: Path) -> dict:
@@ -40,9 +40,12 @@ def latest_xdelta_contract() -> dict:
 def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Path:
     tag = f'v{version}'
     verification = verify_batch(ROOT, batch_path)
-    if set(verification.get('verified_editions', [])) != set(RELEASE_EDITIONS):
-        raise ValueError('release requires original, best and sp in one verified batch')
+    if not set(RELEASE_EDITIONS).issubset(verification.get('verified_editions', [])):
+        raise ValueError('release requires best and sp in one verified batch')
     batch = json.loads(batch_path.read_text(encoding='utf-8'))
+    selected = [r['edition_id'] for r in batch['results'] if r['edition_id'] in RELEASE_EDITIONS]
+    if sorted(selected) != sorted(RELEASE_EDITIONS):
+        raise ValueError('release requires exactly one result for best and sp')
     inputs = ROOT / batch['input_snapshot']
     inputs = inputs.parent / 'project'
     badge = json.loads((inputs / 'config/assets/title-menu-zh.json').read_text())['version_badge']
@@ -59,12 +62,16 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
                   'verification': verification, 'input_digest': batch['input_digest'],
                   'batch_manifest': str(batch_path.relative_to(ROOT)), 'outputs': {},
                   'readbacks': {}, 'skip_readbacks': {}, 'runtime': 'not_tested'}
-    config = {'schema_version': 4, 'version': version, 'tag': tag, 'channel': 'stable', 'skip': 'built_in',
+    config = {'schema_version': 5, 'version': version, 'tag': tag, 'channel': 'stable', 'skip': 'built_in',
               'validation': f'manifests/releases/{tag}/validation.json', 'editions': {},
               'xdelta': xdelta or latest_xdelta_contract(),
               'output': {'directory': f'build/release/{tag}'}, 'known_limitations': [], 'evidence': []}
+    from srwz.typography_policy import load_policy
+    config['typography'] = load_policy(inputs)['mode']
     for result in batch['results']:
         edition = result['edition_id']
+        if edition not in RELEASE_EDITIONS:
+            continue
         print(f'[{edition}] freeze verified image and reread its skip hook', flush=True)
         target = frozen / f'srwz-zh-{tag}-{edition}.iso'
         copy_file(ROOT / result['output']['path'], target)
@@ -88,6 +95,9 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
             # Original/Best readbacks bind the pre-caption image; the caption
             # receipt binds it to the frozen target and is checked by the release builder.
             validation.setdefault('event_subtitles', {})[edition] = result['event_subtitles']
+        if result.get('typography'):
+            from srwz.release_typography import freeze_typography
+            validation.setdefault('typography', {})[edition] = freeze_typography(ROOT, inputs, result, evidence, lock)
         hook = verify_skip(target, inputs, edition)
         skip_proof = {'schema_version': 1, 'status': 'built_in_skip_hook_readback_passed', 'edition': edition,
                       'iso': target_lock, 'skip_enabled': True, 'battle_square_skip': hook, 'runtime': 'not_tested'}
@@ -106,7 +116,7 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
                           *[f'config/editions/{edition}/edition.json' for edition in RELEASE_EDITIONS],
                           'tools/build_release.py', 'tools/freeze_release.py',
                           f'docs/RELEASE_NOTES_V{version}.md',
-                          *[str(p.relative_to(ROOT)) for p in sorted(evidence.glob('*.json'))]]
+                          *[str(p.relative_to(ROOT)) for p in sorted(evidence.iterdir())]]
     config_path.parent.mkdir(parents=True, exist_ok=True)
     config_path.write_bytes(json_bytes(config))
     return config_path

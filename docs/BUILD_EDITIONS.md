@@ -12,13 +12,25 @@ python3 tools/build_editions.py --force-rebuild
 python3 tools/verify_editions.py --manifest work/editions/<input_digest>/original-best-sp.json
 ```
 
-注册表沿用 `config/release/dual-current.json` 路径，现已注册三版。后续 release 固定包含
-Original、The Best 和 SP，三版发布镜像全部内置方块 skip：
-`python3 tools/freeze_release.py --manifest <批次 JSON> --version <x.y.z>` 复制已验证的
-三版当前 ISO、回读其 skip hook 并写出 schema 4 发布配置，之后 `build_release.py`
-为每版生成一份补丁。冻结器要求同一批次包含全部三版（`original-best-sp.json`），缺少任一版
-即拒绝冻结。SP 的独立语义回读报告一并冻结，发布校验不依赖可清理的私有工作区。
-三份补丁分别绑定各自日文原盘，生成后逐一实际还原并核对目标哈希；不再生成 skip 变体。
+注册表沿用 `config/release/dual-current.json` 路径，仍注册三版，但下版起只发布 The Best 和 SP。
+两版均默认内置方块 skip，每版只有一份补丁；Original 继续作为 Best 的构建依赖和本地测试版本。
+
+```bash
+python3 tools/build_editions.py --editions best,sp --release-version <x.y.z>
+python3 tools/freeze_release.py --manifest work/editions/<input_digest>/best-sp.json --version <x.y.z>
+python3 tools/build_release.py --config config/release/v<x.y.z>.json
+python3 tools/build_release_chd.py --config config/release/v<x.y.z>.json
+```
+
+冻结器接受同时验证过 Best、SP 的批次（三版批次也可），仅冻结这两版，写出 schema 5 配置。
+标题版本必须与待发布版本一致；发布目录已存在则拒绝覆盖。两份补丁分别绑定各自日文原盘，
+生成后实际还原并核对目标哈希。xdelta 和 CHD 入口都必须显式指定配置，不再默认使用历史 v0.4.2。
+CHD 即使带 `--no-verify` 跳过压缩还原，也仍验证发布证明链与最终 ELF 内的 skip hook。
+
+SP 独立语义回读、比例渲染前 ELF 和字体度量表随发布证据冻结，发布检查不依赖可清理的私有工作区。
+核验时仅临时 APFS 克隆最终 ISO，以冻结 ELF 恢复比例渲染前的镜像，再重新生成汇编补丁、逐字节
+核对最终 ELF、非 ELF 区域及整盘哈希；随后验证字幕和语义回读的前后绑定。临时镜像检查后删除。
+历史 schema 1–4 保留兼容，既有 v0.4.2 文件不改写。
 
 | 版本 | 日文输入 | 当前输出 |
 | --- | --- | --- |
@@ -47,10 +59,10 @@ Original 与 The Best 在各自的原生封盘和语义回读之后，还有最�
 追加到已验证镜像之后（目录记录、卷描述符、`VMAP.DAT` 保留既有的非目标差异、UDF）。语义回读仍绑定追加前的
 基础镜像；版本回执的 `output` 是最终镜像，`base_output` 是基础镜像，`event_subtitles` 回执把两者绑定，
 并记录基础镜像内除声明写入点外每个字节未变的校验、两个成员的哈希与钩子回读。`verify_editions.py`、
-`freeze_release.py`、`build_release.py` 都按这两层绑定核对：回读对基础镜像，字幕回执对发布镜像，并在发布镜像上
-重读两个成员和钩子。`tools/event_subtitles/build.py` 只保留为隔离实验包装。
+`freeze_release.py`、`build_release.py` 按阶段绑定核对：回读对基础镜像，字幕回执对字幕完成镜像，比例渲染回执再绑定最终发布镜像。
+发布校验在恢复的比例渲染前镜像上重读字幕成员和钩子，避免误将最终 ELF 与字幕阶段 ELF 比较。`tools/event_subtitles/build.py` 只保留为隔离实验包装。
 
-SP 合成的最后一个可执行阶段是特别剧场“事件演出”（`special_disc/event_gallery/apply.py`）：
+SP 合成在最终比例渲染阶段之前还有特别剧场“事件演出”（`special_disc/event_gallery/apply.py`）：
 在全部文本补丁之后，对可执行文件加挂原生钩子与私有段、在 AID 块 2 追加横幅、给 12 个
 effect 块追加字幕贴图。这三个成员超出原盘分配，由 `special_disc/iso_relocation.py` 追加到
 基线镜像之后，并同步 ISO9660 目录记录、两份卷描述符、原生 `VMAP.DAT` 扇区目录和 UDF 文件项；

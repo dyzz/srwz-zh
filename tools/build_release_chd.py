@@ -27,7 +27,6 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.2.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 
 # See module docstring: both values are compatibility choices, not tuning knobs.
@@ -234,6 +233,17 @@ def build_edition(
     return info
 
 
+def verify_current_release(config):
+    """CHD packaging uses the same final-image and built-in-skip gates as xdelta."""
+    import build_release
+    try:
+        build_release.verify_dual_config_bindings(config)
+        for edition, item in build_release.release_targets(config):
+            build_release.verify_built_in_skip(PROJECT_ROOT / item['target_iso']['path'], edition)
+    except (build_release.ReleaseBuildError, ValueError, OSError) as error:
+        raise ChdBuildError(str(error)) from error
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Build parent/child CHD pairs for a release."
@@ -241,8 +251,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--config",
         type=Path,
-        default=DEFAULT_CONFIG,
-        help=f"release config (default: {DEFAULT_CONFIG.relative_to(PROJECT_ROOT)})",
+        required=True,
+        help="Explicit frozen release config; historical versions are never selected implicitly.",
     )
     parser.add_argument(
         "--out-dir",
@@ -272,6 +282,8 @@ def main(argv: list[str] | None = None) -> int:
     try:
         chdman = resolve_chdman(args.chdman)
         config = load_config(args.config)
+        if config.get("schema_version") in (4, 5):
+            verify_current_release(config)
         version = config.get("version")
         if not version:
             raise ChdBuildError(f"no version in {args.config}")
@@ -312,7 +324,7 @@ def main(argv: list[str] | None = None) -> int:
                     version=version,
                     verify=not args.no_verify,
                     quiet=args.quiet,
-                    variant="skip" if config.get("schema_version") == 4 else None,
+                    variant="skip" if config.get("schema_version") in (4, 5) else None,
                 )
             )
 
