@@ -93,8 +93,6 @@ def apply_typography(context: BuildContext, source: Path):
     from srwz.typography_iso import seal_iso
     if load_policy(context.project_root)['mode'] == 'native':
         return source, None
-    if not context.candidate:
-        raise EditionError('Proportional renderer promotion requires candidate output')
     final = source.with_name(source.stem + '-proportional.iso')
     final.unlink(missing_ok=True)
     proof = seal_iso(context.project_root, context.profile.edition_id, source, final)
@@ -442,10 +440,6 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
     started = time.perf_counter()
     started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
-    from srwz.typography_policy import load_policy
-    rendering_policy = load_policy(root)
-    if rendering_policy['mode'] == 'proportional' and not candidate and not plan:
-        raise EditionError('Proportional builds require --candidate until runtime promotion is approved')
     if force_rebuild:
         # Trust no file identity recorded before this batch: start the batch
         # from an empty store. Digests this batch verifies (restored baselines,

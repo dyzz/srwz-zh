@@ -82,15 +82,19 @@ class EditionTests(unittest.TestCase):
         self.assertEqual(runs, {c.run_root for c in contexts})
         self.assertEqual(digests, {c.input_digest for c in contexts})
 
-    def test_proportional_policy_rejects_production_output_before_build(self):
-        path = self.root / 'config/text-layout/rendering-mode.json'
-        path.parent.mkdir(parents=True)
-        path.write_text(json.dumps({'mode':'proportional','chinese_punctuation':'compact'}))
-        with patch.object(build_editions, 'verify_disc') as disc:
-            with self.assertRaisesRegex(EditionError, '--candidate'):
-                build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ('original',))
-            disc.assert_not_called()
-        self.assertFalse((self.root / 'build').exists())
+    def test_proportional_production_uses_verified_sealer(self):
+        profile, = load_release_profiles(self.root, build_editions.DEFAULT_CONFIG, ("original",))
+        context = BuildContext(self.root, profile, "a" * 64)
+        source = context.project_root / "base.iso"
+        with patch("srwz.typography_policy.load_policy", return_value={"mode": "proportional"}), \
+             patch("srwz.typography_iso.seal_iso", return_value={"verified": True}) as seal, \
+             patch.object(build_editions, "file_lock", return_value={"sha256": "test"}), \
+             patch.object(build_editions, "atomic_json") as receipt:
+            final, proof = build_editions.apply_typography(context, source)
+        self.assertEqual(final, source.with_name("base-proportional.iso"))
+        seal.assert_called_once_with(context.project_root, "original", source, final)
+        self.assertEqual(proof["verification"], {"verified": True})
+        receipt.assert_called_once()
 
     def test_plan_has_two_identities_without_creating_outputs(self):
         result = build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("original", "best"), plan=True)

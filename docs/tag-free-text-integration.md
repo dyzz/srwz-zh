@@ -35,7 +35,7 @@
 RUSTC_WRAPPER= /opt/homebrew/bin/python3 tools/build_editions.py --candidate --editions original,best,sp
 ```
 
-输出为 `build/iso/test/integrated-{original,best,sp}.iso`；候选收据为各版 `manifests/editions/<edition>/candidate.json`。候选工作空间与生产分开。当前比例策略要求显式 `--candidate`，不会借默认命令写入生产 ISO。
+输出为 `build/iso/test/integrated-{original,best,sp}.iso`；候选收据为各版 `manifests/editions/<edition>/candidate.json`。候选工作空间与生产分开。2026-11-08 用户批准生产接入后，默认构建已启用同一比例策略并更新各版 current；`--candidate` 仍可用于隔离测试。生产与候选均执行相同的汇编安装、逐字节核验和读回绑定。
 
 `tools/srwz/typography_iso.py` 以已完成语义读回的镜像为输入，生成并安装 ELF，再独立重新生成预期补丁逐字节核对。补丁步骤要求成员记录、文件长度、ELF 外所有字节不变。`verify_editions.py` 把语义读回、事件字幕、最终汇编和输出镜像的哈希串起来；不同阶段的哈希不能互换。
 
