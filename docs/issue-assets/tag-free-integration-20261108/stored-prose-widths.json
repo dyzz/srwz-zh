@@ -1,0 +1,47 @@
+{
+  "kind": "static-shared-engine-stored-row-audit",
+  "inputs": {
+    "shared/text-layout/engine.mjs": "048e72e57155b823460fdf9a6375a06ca3ddea28a76e77a2928da6e049cd63f1",
+    "shared/text-layout/contracts.mjs": "1b7af436932d6509190fe6a3c1a47c47ecccf297d04f07e5a8284f26e9c4aa36",
+    "shared/text-layout/proportional-selection.mjs": "885e16ad4f2b15f5705b71e906e1941ed4501a71b0b6157ad3202e5bf4444a06",
+    "shared/text-layout/proportional-metrics.mjs": "1fac3f994f67e4e032e9984d1ffd0e8219722f58665546ee10a07bff9b734fc2",
+    "corpus/zh/menu/stage-overviews.json": "5209c16b04451b397e1cc618a874e4bcc0665d0423e1eb81ebca582b7949bcdf",
+    "corpus/zh/summary.json": "956006e3f0a43482fa5febead8795a3082396ef00fd071bdd2ca866c90d94ade"
+  },
+  "paragraphTails": "Excluded before blank rows, indented paragraph starts and end of resource",
+  "results": [
+    {
+      "scene": "main_flow",
+      "entries": 110,
+      "overflow": [],
+      "nonfinalRows": 320,
+      "minimumFill": 0.9416666666666667,
+      "below90": [],
+      "widths": {
+        "480": 110
+      },
+      "meanNonfinalFill": 0.9824739583333324
+    },
+    {
+      "scene": "main_scroll",
+      "entries": 28,
+      "overflow": [],
+      "nonfinalRows": 83,
+      "minimumFill": 0.8409090909090909,
+      "below90": [
+        {
+          "id": "summary/05/000",
+          "row": 1,
+          "width": 444,
+          "limit": 528,
+          "text": "立的全球“信息集中与共享”系统——通称"
+        }
+      ],
+      "widths": {
+        "504": 2,
+        "528": 26
+      },
+      "meanNonfinalFill": 0.9754428971296445
+    }
+  ]
+}

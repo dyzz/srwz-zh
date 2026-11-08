@@ -1,0 +1,78 @@
+{
+  "requests": 1226,
+  "inputs": {
+    "engine.mjs": "048e72e57155b823460fdf9a6375a06ca3ddea28a76e77a2928da6e049cd63f1",
+    "contracts.mjs": "1b7af436932d6509190fe6a3c1a47c47ecccf297d04f07e5a8284f26e9c4aa36",
+    "proportional-selection.mjs": "885e16ad4f2b15f5705b71e906e1941ed4501a71b0b6157ad3202e5bf4444a06",
+    "proportional-metrics.mjs": "1fac3f994f67e4e032e9984d1ffd0e8219722f58665546ee10a07bff9b734fc2"
+  },
+  "allOutputsByteIdentical": true,
+  "outputSha256": "0b30532544ae37e8cd65a2009c2d80902a23fb9ca98a58f5a146e364ae51b209",
+  "beforeTotalMs": 297940.859375,
+  "totalMs": 131689.153625,
+  "speedup": 2.2624555718796766,
+  "p50Ms": 87.82891700000619,
+  "p95Ms": 255.93670900000143,
+  "slowest": [
+    {
+      "id": "library-text/f024bb9aeed79951",
+      "scene": "library_robot",
+      "characters": 582,
+      "ms": 736.8692919999885
+    },
+    {
+      "id": "library-text/8eb61dd524b0e33e",
+      "scene": "library_robot",
+      "characters": 529,
+      "ms": 586.3301249999931
+    },
+    {
+      "id": "library-text/0395256a26da65ad",
+      "scene": "library_robot",
+      "characters": 407,
+      "ms": 481.46666700000014
+    },
+    {
+      "id": "library-text/a1672c9ed414afbb",
+      "scene": "library_robot",
+      "characters": 422,
+      "ms": 454.5508750000008
+    },
+    {
+      "id": "library-text/175f6c464156b9a5",
+      "scene": "library_robot",
+      "characters": 437,
+      "ms": 428.7173750000002
+    },
+    {
+      "id": "library-text/4ebf003c2d96bc6c",
+      "scene": "library_robot",
+      "characters": 385,
+      "ms": 422.17358299999614
+    },
+    {
+      "id": "library-text/1b2ed9e8e9afc711",
+      "scene": "library_robot",
+      "characters": 364,
+      "ms": 421.01824999999917
+    },
+    {
+      "id": "library-text/0a97639e3ccccb09",
+      "scene": "library_robot",
+      "characters": 356,
+      "ms": 409.5082910000001
+    },
+    {
+      "id": "library-text/a04d99ad08a00f39",
+      "scene": "library_robot",
+      "characters": 370,
+      "ms": 404.44450000001234
+    },
+    {
+      "id": "library-text/ffa62b35e10c4057",
+      "scene": "library_robot",
+      "characters": 368,
+      "ms": 375.8410829999775
+    }
+  ]
+}
