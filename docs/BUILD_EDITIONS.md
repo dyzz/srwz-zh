@@ -1,6 +1,6 @@
 # Original、The Best 与 SP 的统一构建
 
-`python3 tools/build_editions.py` 默认更新三个当前 ISO，三版均内置方块键跳过战斗动画（skip）。输入未变且回执、ISO 与日常副本验证通过时直接复用；Original 语料更新使用已验证的组件缓存。每版都有独立写入锁、
+`python3 tools/build_editions.py` 默认构建 The Best 和 SP，两版均内置方块键跳过战斗动画（skip）；Original 作为 Best 的依赖自动处理。输入未变且回执、ISO 与日常副本验证通过时直接复用；Original 语料更新使用已验证的组件缓存。每版都有独立写入锁、
 工作目录、原盘身份和最终回执。旧发布快照不被覆盖，完整 ISO 不提交到 Git。
 
 ```bash
@@ -9,14 +9,14 @@ python3 tools/build_editions.py
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
 python3 tools/build_editions.py --force-rebuild
-python3 tools/verify_editions.py --manifest work/editions/<input_digest>/original-best-sp.json
+python3 tools/verify_editions.py --manifest work/editions/<input_digest>/best-sp.json
 ```
 
 注册表沿用 `config/release/dual-current.json` 路径，仍注册三版，但下版起只发布 The Best 和 SP。
 两版均默认内置方块 skip，每版只有一份补丁；Original 继续作为 Best 的构建依赖和本地测试版本。
 
 ```bash
-python3 tools/build_editions.py --editions best,sp --release-version <x.y.z>
+python3 tools/build_editions.py --release-version <x.y.z>
 python3 tools/freeze_release.py --manifest work/editions/<input_digest>/best-sp.json --version <x.y.z>
 python3 tools/build_release.py --config config/release/v<x.y.z>.json
 python3 tools/build_release_chd.py --config config/release/v<x.y.z>.json

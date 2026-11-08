@@ -580,7 +580,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default=DEFAULT_CONFIG)
-    parser.add_argument("--editions", default="original,best,sp")
+    parser.add_argument("--editions", default="best,sp", help="Comma-separated target editions (default: best,sp); Original is built automatically when Best needs it.")
     parser.add_argument("--candidate", action="store_true", help="Build isolated test ISOs and candidate receipts; leave production outputs unchanged.")
     parser.add_argument("--plan", action="store_true", help="Show registered targets without writing or building.")
     parser.add_argument("--release-version", help="Official release version for the title badge, e.g. 0.5.0; defaults to HEAD tag or latest release + date.")
