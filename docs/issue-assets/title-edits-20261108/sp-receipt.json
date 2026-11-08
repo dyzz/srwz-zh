@@ -1,0 +1,38 @@
+{
+  "evidence": "ARMSX2 runner Metal 4x",
+  "edition": "sp",
+  "iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "26ff66df56ee906b18506cf0c7142c3fde80950797162e12f281ae91bec617d3",
+    "size": 3918860288
+  },
+  "source_card_sha256": "5e17cc9ea17a40a7aff271604d7b840f27f8433b56a470d4c474eb97fa8f798c",
+  "source_card_preserved": "Armsx2Session copies source card per session; source was not passed to emulator for writes",
+  "scope": "Cold boot after final ISO publication. First Glory Star Report title reached by native new-game flow and R1+Circle dialogue advance. Third title rendered through same native episode-1 transition after restoring first-dialogue state and temporarily selecting native title selector 11 at EE 0x7cd80c (original selector 9). No text or image bytes injected. Episode heading remains 1 for second image; this is controlled native-resource rendering, not natural progression to episode 3.",
+  "native_selector_before": "0900",
+  "items": [
+    {
+      "corpus_id": "episode-title/008",
+      "title": "热斗！战士的假日",
+      "selector": 9,
+      "graphic_screenshot": {
+        "path": "work/runtime/armsx2/title-edits-20261108/sp-verified/graphic-008.png",
+        "sha256": "71fce154fc0803094fcc19f67e2d89a82269078946ba9c40709aa29a0f3ce00b",
+        "width": 2560,
+        "height": 1792
+      }
+    },
+    {
+      "corpus_id": "episode-title/010",
+      "title": "被掘开的墓地",
+      "selector": 11,
+      "graphic_screenshot": {
+        "path": "work/runtime/armsx2/title-edits-20261108/sp-verified/graphic-010.png",
+        "sha256": "326af530933ee7205ce53bae9c31cfe59af9cd92100cc01cdc9481df9c26035e",
+        "width": 2560,
+        "height": 1792
+      }
+    }
+  ],
+  "visual_review": "passed: both requested title images complete, centered and readable; no missing glyphs or clipping"
+}
