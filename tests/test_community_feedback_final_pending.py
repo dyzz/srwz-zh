@@ -9,6 +9,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
+from srwz.build_layout import verify_stored
 from srwz.chinese_layout import dialogue_line_widths  # noqa: E402
 
 
@@ -21,8 +22,8 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         payload = load_payload("corpus/zh/battle/srvc-lines.json")
         entries = {entry["id"]: entry for entry in payload["entries"]}
         expected = {
-            "battle:00145": "“搞什么啊！\\n　装甲都让你给干瘪了！”",
-            "battle:01927": "“吉尔伯特·迪兰达尔…\\n　你只会居高临下地看待一切！”",
+            "battle:00145": '“搞什么啊！装甲都让你给干瘪\\n\u3000了！”',
+            "battle:01927": '“吉尔伯特·迪兰达尔…你只会居高临下地看待\\n\u3000一切！”',
             "battle:02016": "“生物传感器有反应了…！好…！”",
             "battle:03315": "“就那么上—！”",
             "battle:04682": "“光会瞄准可不够！”",
@@ -30,13 +31,13 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
             "battle:08088": "“老子要打穿你！”",
             "battle:08090": "“哼，休想逃！”",
             "battle:08216": "“什么！？拜亚兰被！？”",
-            "battle:08242": "“光是新人类的存在，\\n　就让人感到压力！”",
+            "battle:08242": '“光是新人类的存在，就让人感到压\\n\u3000力！”',
             "battle:10192": "“琪露，有点危险千万别露头喔！”",
             "battle:13654": "“把你轰下来！”",
-            "battle:15735": "“居住区附近发生火灾！\\n　非战斗员应该平安无事！”",
+            "battle:15735": '“居住区附近发生火灾！非战斗员应该平安无\\n\u3000事！”',
             "battle:16187": "“让你见识…东洋的神力！”",
             "battle:21365": "“真是个该死的对手。”",
-            "battle:21451": "“阿萨基姆！奉神之名宣告汝之罪孽！\\n　汝，罪无可赦！”",
+            "battle:21451": '“阿萨基姆！奉神之名宣告汝之罪孽！汝，罪无\\n\u3000可赦！”',
         }
         self.assertEqual(
             {entry_id: entries[entry_id]["translation"] for entry_id in expected},
@@ -93,18 +94,18 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         self.assertEqual(menu_entries["menu/SLPS/09/0069"]["translation"], "F类")
 
         expected_story = {
-            "story/068/dialogue/02.01/0213": "“情报部的特工吗……\n　听说是什么F类的新人类残次品……”",
+            "story/068/dialogue/02.01/0213": '“情报部的特工吗……听说是什么F类的新人类残次\n\u3000品……”',
             "story/076/dialogue/02.04/0012": "“F类！”",
-            "story/076/dialogue/02.04/0015": "“创造未来的不是新人类。\n　而是被称为F类的我们。”",
-            "story/097/dialogue/02.01/0226": "“情报部的特工吗……\n　听说是什么F类的新人类残次品……”",
+            "story/076/dialogue/02.04/0015": '“创造未来的不是新人类。而是被称为F类的我们。”',
+            "story/097/dialogue/02.01/0226": '“情报部的特工吗……听说是什么F类的新人类残次\n\u3000品……”',
             "story/119/dialogue/01.15/0002": "“F类！你们这些失败的新人类！”",
             "story/119/dialogue/01.15/0004": "“F类……没能成为新人类的人……”",
-            "story/119/dialogue/01.19/0042": "“仅仅因为那个理由，我们就被称为F类，\n　被打上了无能的烙印！”",
+            "story/119/dialogue/01.19/0042": '“仅仅因为那个理由，我们就被称为F类，被打上了无\n\u3000能的烙印！”',
             "story/127/dialogue/01.17/0002": "“F类！你们这些失败的新人类！”",
             "story/127/dialogue/01.17/0004": "“F类……没能成为新人类的人……”",
-            "story/127/dialogue/01.21/0043": "“仅仅因为那个理由，我们就被称为F类，\n　被打上了无能的烙印！”",
-            "story/127/dialogue/01.38/0015": "“我对你们这些不成器的家伙可\n　没抱过分的期待，F类。”",
-            "story/130/dialogue/01.09/0003": "“人类就是这样啊。也难怪西利乌斯\n　和F类的兄弟们会绝望。”",
+            "story/127/dialogue/01.21/0043": '“仅仅因为那个理由，我们就被称为F类，被打上了无\n\u3000能的烙印！”',
+            "story/127/dialogue/01.38/0015": '“我对你们这些不成器的家伙可没抱过分的期待，F\n\u3000类。”',
+            "story/130/dialogue/01.09/0003": '“人类就是这样啊。也难怪西利乌斯和F类的兄弟们会\n\u3000绝望。”',
             "story/135/dialogue/02.01/0175": "“关于所谓F类者的报告，我也听说过。”",
             "story/138/dialogue/02.01/0179": "“关于所谓F类者的报告，我也听说过。”",
         }
@@ -116,13 +117,13 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
                     actual_story[entry["id"]] = entry["translation"]
         self.assertEqual(actual_story, expected_story)
         for entry_id, translation in expected_story.items():
-            self.assertLessEqual(max(dialogue_line_widths(translation)), 21, entry_id)
+            self.assertEqual(verify_stored([(entry_id, translation, False)], "story"), 1)
 
         battle = load_payload("corpus/zh/battle/srvc-lines.json")
         battle_entries = {entry["id"]: entry for entry in battle["entries"]}
         expected_battle = {
-            "battle:08667": "“创造未来的不是你们…\\n　而是被称为F类的我们”",
-            "battle:08684": "“难道要说F类\\n　比新人类差吗！”",
+            "battle:08667": '“创造未来的不是你们…而是被称为F类的\\n\u3000我们”',
+            "battle:08684": '“难道要说F类比新人类差\\n\u3000吗！”',
         }
         for entry_id, translation in expected_battle.items():
             self.assertEqual(battle_entries[entry_id]["translation"], translation)
@@ -190,7 +191,7 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         for entry_id, translation in expected_battle.items():
             self.assertEqual(battle_entries[entry_id]["translation"], translation)
             self.assertIn("weapon/0007", battle_entries[entry_id]["glossary_refs"])
-            self.assertLessEqual(max(dialogue_line_widths(translation)), 21, entry_id)
+            self.assertEqual(verify_stored([(entry_id, translation, False)], "story"), 1)
 
         library = load_payload("corpus/zh/library/v0.2-reviewed.json")
         library_entry = next(
@@ -216,7 +217,7 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
             expected,
         )
         for entry_id, translation in expected.items():
-            self.assertLessEqual(max(dialogue_line_widths(translation)), 21, entry_id)
+            self.assertEqual(verify_stored([(entry_id, translation, False)], "story"), 1)
             self.assertIn("2026-09-04", entries[entry_id]["notes"])
         self.assertIn("直接采用投稿", entries["battle:22837"]["notes"])
         self.assertIn("直接采用投稿", entries["battle:22850"]["notes"])

@@ -28,8 +28,8 @@
   },
   "title_menu": {
     "path": "config/assets/title-menu-zh.json",
-    "size": 8048,
-    "sha256": "14dfd3b8b2feb73843c869ef4c8407b89a000d2018459120e8599e2ddb411003"
+    "size": 8040,
+    "sha256": "43570cf1440c23522cee0a5147d5404832d5fa07cf62ad7ba5af0f24cde3055d"
   },
   "menu_text_release": {
     "corpus": {
@@ -445,8 +445,8 @@
   "stage_overviews": {
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89227,
-      "sha256": "34ec3e258263f729917342e01299c3899d71778d20926cc7a78457719a048dfe"
+      "size": 89199,
+      "sha256": "5209c16b04451b397e1cc618a874e4bcc0665d0423e1eb81ebca582b7949bcdf"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -581,8 +581,8 @@
     },
     "corpus": {
       "path": "corpus/zh/summary.json",
-      "size": 18531,
-      "sha256": "9723ee3c1194270b0c8892356895525464f9a6027793720a08a893c04516d67e"
+      "size": 18515,
+      "sha256": "956006e3f0a43482fa5febead8795a3082396ef00fd071bdd2ca866c90d94ade"
     },
     "codec": {
       "strategy": "rust-fit",
@@ -594,7 +594,7 @@
       "entry_count": 28,
       "chunk_count": 14,
       "offset_count": 15,
-      "archive_size": 8432
+      "archive_size": 8400
     }
   },
   "chapter_intertitles": {
@@ -676,8 +676,8 @@
     },
     "stage_system_dialogue": {
       "path": "corpus/zh/story-system-dialogue.json",
-      "size": 138021,
-      "sha256": "674f66f5a8298bf5e3c75c8ef930e0614d5094d1e8d4ba92f248a33f688c120c"
+      "size": 137979,
+      "sha256": "b0172597cc32494ca749a737efba9fce08addcd01bd82cd4931ced9b2f1efa69"
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
@@ -1416,8 +1416,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6997541,
-      "sha256": "341563fe962a944a43176b06435a6a629f78b2c22c421d3b7401363453a2d2dc"
+      "size": 6997547,
+      "sha256": "3bc57586b4f9fe458145d7371acefd18a365ef59b6fd51d576525d2ca80ed999"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -3056,7 +3056,7 @@
         "tag": "WORD",
         "source_offset": "0xE9E8",
         "donor_offset": "0xEA30",
-        "relocation_offset": "0xeab2",
+        "relocation_offset": "after_translated_donor",
         "reason": "occupied_current_allocation"
       },
       {
@@ -3065,7 +3065,7 @@
         "tag": "WORD",
         "source_offset": "0x12620",
         "donor_offset": "0x12630",
-        "relocation_offset": "0x12646",
+        "relocation_offset": "after_translated_donor",
         "reason": "fixed_allocation_overflow"
       },
       {
@@ -3074,7 +3074,7 @@
         "tag": "WORD",
         "source_offset": "0x106C8",
         "donor_offset": "0x10700",
-        "relocation_offset": "0x108fc",
+        "relocation_offset": "after_translated_donor",
         "reason": "fixed_allocation_overflow"
       }
     ],

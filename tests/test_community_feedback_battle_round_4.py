@@ -26,10 +26,10 @@ class CommunityFeedbackBattleRound4Test(unittest.TestCase):
             "battle:09197": "“这世上有防护罩这种东西！”",
             "battle:16166": "“我要直击你~！！”",
             "battle:21271": "“这个舞台也就此谢幕了。”",
-            "battle:21281": "“无论哪个时代，\\n　总有试图用暴力解决问题的人！”",
-            "battle:21285": "“那要看对象。\\n　这种情况，没那个必要！”",
+            "battle:21281": '“无论哪个时代，总有试图用暴力解决问题的\\n\u3000人！”',
+            "battle:21285": '“那要看对象。这种情况，没那个必\\n\u3000要！”',
             "battle:21293": "“我这人挺爱管闲事的。”",
-            "battle:21352": "“是啊。\\n　不过，比不上你的钢琴。”",
+            "battle:21352": '“是啊。不过，比不上你的钢\\n\u3000琴。”',
         }
         self.assertEqual(
             {entry_id: entries[entry_id] for entry_id in expected},

@@ -455,8 +455,9 @@ def _stage_relocation_plan(
         tag = raw.get("tag")
         source_offset = _number(raw.get("source_offset"), label="source_offset")
         donor_offset = _number(raw.get("donor_offset"), label="donor_offset")
-        relocation_offset = _number(
-            raw.get("relocation_offset"), label="relocation_offset"
+        raw_offset = raw.get("relocation_offset")
+        relocation_offset = None if raw_offset == "after_translated_donor" else _number(
+            raw_offset, label="relocation_offset"
         )
         reason = raw.get("reason")
         if tag not in FIELD_INDEX:
@@ -475,6 +476,11 @@ def _stage_relocation_plan(
         expected_relocation = (
             donor_offset + _aligned(len(donor.target)) if donor is not None else -1
         )
+        # The audited source/donor ownership remains fixed. Only the aligned
+        # tail follows the actual encoded translation; all capacity/pointer
+        # collision checks below are unchanged.
+        if relocation_offset is None:
+            relocation_offset = expected_relocation
         if (
             source is None
             or donor is None
@@ -1063,6 +1069,11 @@ def apply_compdata_keyword_names(
             if donor is not None
             else -1
         )
+        # The audited source/donor ownership remains fixed. Only the aligned
+        # tail follows the actual encoded translation; all capacity/pointer
+        # collision checks below are unchanged.
+        if relocation_offset is None:
+            relocation_offset = expected_relocation
         if (
             source is None
             or donor is None

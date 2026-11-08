@@ -31,6 +31,17 @@ class RuntimeKeywordRelocationTests(unittest.TestCase):
         self.assertEqual(plan[(2, 0x20)][1], b'keyword body\0')
         self.assertTrue(report[0]['source_allocation_preserved'])
 
+    def test_translated_tail_follows_length_but_keeps_ownership_guards(self):
+        row, allocations, records = self.inventory()
+        row['relocation_offset'] = 'after_translated_donor'
+        plan, _ = _stage_relocation_plan([row], allocations, records, runtime_base=0x7566F0)
+        self.assertEqual(plan[(2, 0x20)][0], 0x4E)
+        for kwargs in ({'donor_capacity':24}, {'extra_pointer':0x4E}):
+            row, allocations, records = self.inventory(**kwargs)
+            row['relocation_offset'] = 'after_translated_donor'
+            with self.assertRaisesRegex(RuntimeKeywordError, 'contract drift'):
+                _stage_relocation_plan([row], allocations, records, runtime_base=0x7566F0)
+
     def test_updated_position_must_fit_owned_donor(self):
         row, allocations, records = self.inventory(donor_capacity=24)
         with self.assertRaisesRegex(RuntimeKeywordError, 'contract drift'):
