@@ -3105,7 +3105,7 @@ def _apply_full_stage_title_graphics(
         stage_37["text"] != "肃清风暴"
         or stage_37["selector"] != 72
         or stage_37["loader_table_index"] != 80
-        or stage_38["text"] != "被设计的决战"
+        or stage_38["text"] != "被操纵的决战"
         or stage_38["selector"] != 73
         or stage_38["loader_table_index"] != 81
     ):
@@ -3410,7 +3410,7 @@ def _apply_full_stage_titles(
         workspace=workspace,
     )
     example_id = "menu/Compdata/03/0072"
-    if stage_replacements.get(example_id) != "被设计的决战":
+    if stage_replacements.get(example_id) != "被操纵的决战":
         raise FullStoryComponentError("stage 38 title decision drift")
     output_vt1, graphic_report = _apply_full_stage_title_graphics(
         slps_write.data,
@@ -11875,7 +11875,7 @@ def _build_components(
             ],
             "full_story_stage_titles_reread_exact": (
                 stage_title_report["stage_title_entry_count"] == 122
-                and stage_title_report["stage_38_title"] == "被设计的决战"
+                and stage_title_report["stage_38_title"] == "被操纵的决战"
                 and stage_title_report["compdata_round_trip_exact"]
                 and stage_title_report["block_unowned_bytes_zero"]
                 and stage_title_report["block_repack_entry_count"] == 122
@@ -11908,7 +11908,7 @@ def _build_components(
                     "translated_reread_exact"
                 ]
                 and stage_title_report["graphics"]["stage_38"]["text"]
-                == "被设计的决战"
+                == "被操纵的决战"
             ),
             "stage_overviews_reread_exact": (
                 stage_overview_report["translated_readback_exact"]
