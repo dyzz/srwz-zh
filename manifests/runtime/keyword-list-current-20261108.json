@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "source_commit": "1cfb4336",
+  "input_digest": "f26a071f388dfacc1ebc54944e44d5923da18df20814a895034f4492a15540d5",
+  "command": "python3 tools/build_editions.py",
+  "build_seconds": 268.726,
+  "source_scope": "Frozen current working tree, including concurrent uncommitted UI changes; not commit-only inputs.",
+  "tests": {
+    "python": 22,
+    "javascript": 55
+  },
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "f26a071f388dfacc1ebc54944e44d5923da18df20814a895034f4492a15540d5",
+    "verified_editions": [
+      "best",
+      "sp"
+    ],
+    "both_editions": false,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "runtime": [
+    {
+      "evidence": "ARMSX2 cold boot, no savestate or RAM patches",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "fadace571e91c8d7229adc8acd7252a8198c2ca8a8394cc697a18c7959a9aeb0",
+        "size": 3796187136
+      },
+      "typographyCodeBytes": 5816,
+      "typographyPatchCount": 9,
+      "skipCodeAndThreeSitesVerified": true,
+      "titleScreenshot": "work/runtime/armsx2/keyword-list-current-20261108/best/cold-title.png",
+      "runtimeScope": "title boot and loaded code identity; keyword-list behavior separately validated with RAM candidate"
+    },
+    {
+      "evidence": "ARMSX2 cold boot, no savestate or RAM patches",
+      "iso": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "800d07e78a8881b7503d4ffb16f7baf00d8076f2816ec29902882784e866acd0",
+        "size": 3918860288
+      },
+      "typographyCodeBytes": 5676,
+      "typographyPatchCount": 9,
+      "skipCodeAndThreeSitesVerified": true,
+      "titleScreenshot": "work/runtime/armsx2/keyword-list-current-20261108/sp/cold-title.png",
+      "runtimeScope": "title boot and loaded code identity; keyword-list behavior separately validated with RAM candidate"
+    }
+  ],
+  "keyword_list_behavior_evidence": "docs/issue-assets/keyword-list-proportional-20261108",
+  "scope": "Cold boot of actual new current ISOs confirms title and installed code identity. Natural keyword-list behavior was separately checked with RAM candidates; no new battle-skip behavioral replay in this build check."
+}
