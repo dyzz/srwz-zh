@@ -370,7 +370,7 @@ def _stage_files(reference: Mapping[str, object]) -> dict[int, Path]:
     return result
 
 
-def _entry_translations(path: Path, stages: set[int] | None = None) -> dict[str, str]:
+def _entry_translations(path: Path, stages: set[int] | None = None, *, typography: str = "native") -> dict[str, str]:
     document = _json(path)
     entries = document.get("entries")
     if not isinstance(entries, list):
@@ -385,7 +385,13 @@ def _entry_translations(path: Path, stages: set[int] | None = None) -> dict[str,
             raise SystemExit(f"translation entry fields are invalid: {path}")
         if stages is not None and int(entry_id.split("/")[1]) not in stages:
             continue
-        result[entry_id] = expand_compact_scopes(normalize_original_fullwidth_ascii(translation))
+        normalized = normalize_original_fullwidth_ascii(translation)
+        if typography == "proportional":
+            if "<z>" in normalized or "</z>" in normalized:
+                raise SystemExit(f"tag-free dialogue still contains compact markup: {entry_id}")
+            result[entry_id] = normalized
+        else:
+            result[entry_id] = expand_compact_scopes(normalized, typography="native")
     return result
 
 
@@ -1012,6 +1018,12 @@ def build(
     if workers < 0:
         raise SystemExit("story component workers must not be negative")
     config = _json(config_path)
+    from srwz.typography_policy import load_policy
+    policy = load_policy(PROJECT_ROOT)
+    layout_policy = config.get("dialogue_typography")
+    if layout_policy is not None and layout_policy != policy:
+        raise SystemExit("dialogue typography disagrees with project rendering policy")
+    typography, punctuation = policy['mode'], policy['chinese_punctuation']
     if config.get("profile_id") != "srwz-zh-story-component-v1":
         raise SystemExit("story component profile identity drift")
     source = config["source"]
@@ -1040,7 +1052,7 @@ def build(
     conditions = _entry_translations(conditions_path, stages)
     speakers = _speaker_translations(speakers_path, stages)
     dialogue = {
-        stage: _entry_translations(path, {stage})
+        stage: _entry_translations(path, {stage}, typography=typography)
         for stage, path in stage_files.items()
     }
     keyword_catalog = _runtime_keyword_catalog(translations["runtime_keywords"])
@@ -1198,7 +1210,8 @@ def build(
         dialogue_layout_reflowed_count = 0
         layout_profile = story_layout_profile()
         verify_stored([(entry.entry_id,dialogue[stage][entry.entry_id],"《" in entry.text)
-                       for entry in parsed_source.entries if entry.kind=="dialogue"],'story')
+                       for entry in parsed_source.entries if entry.kind=="dialogue"],'story',
+                      typography=typography,chinese_punctuation=punctuation)
         for entry in parsed_source.entries:
             if entry.kind != "dialogue":
                 continue
@@ -1212,6 +1225,7 @@ def build(
                 translated,
                 profile=layout_profile,
                 stage_keyword_links=has_keyword_links,
+                check_width=typography == "native",
             )
             if layout_issues:
                 # The corpus must already hold the displayed layout; silent
@@ -1636,6 +1650,7 @@ def build(
     report = {
         "schema_version": 1,
         "status": "offline_components_validated_runtime_not_tested",
+        "dialogue_typography": {"mode": typography, "chinese_punctuation": punctuation},
         "profile_id": config["profile_id"],
         "font_binary_signature": font_binary_signature(proposal),
         "chunk_cache": {

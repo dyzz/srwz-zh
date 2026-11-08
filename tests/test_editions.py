@@ -49,6 +49,49 @@ class EditionTests(unittest.TestCase):
         with patch("srwz.release_inputs.subprocess.check_output", return_value="test-source-head\n"):
             return freeze_inputs(self.root)
 
+    def test_candidate_outputs_receipts_and_workspaces_are_isolated(self):
+        profiles = load_release_profiles(self.root, build_editions.DEFAULT_CONFIG, ("original", "best", "sp"))
+        for profile in profiles:
+            production = BuildContext(self.root, profile, "a" * 64)
+            candidate = BuildContext(self.root, profile, "a" * 64, candidate=True)
+            self.assertNotEqual(candidate.project_root, production.project_root)
+            self.assertNotEqual(candidate.receipt, production.receipt)
+            self.assertEqual(candidate.receipt.name, "candidate.json")
+            self.assertEqual(candidate.output_iso.parent, self.root / "build/iso/test")
+            self.assertNotEqual(candidate.output_iso, production.output_iso)
+            production.output_iso.parent.mkdir(parents=True, exist_ok=True)
+            production.output_iso.write_bytes(b"production sentinel")
+            candidate.output_iso.parent.mkdir(parents=True, exist_ok=True)
+            candidate.output_iso.write_bytes(b"candidate sentinel")
+            self.assertEqual(production.output_iso.read_bytes(), b"production sentinel")
+        with self.assertRaises(EditionError):
+            BuildContext(self.root, profiles[0], "a" * 64, candidate="true")
+
+    def test_pruning_retains_candidate_and_production_receipts(self):
+        from prune_edition_workspaces import referenced_by_receipts
+        profile = self.profiles()[0]
+        contexts = [BuildContext(self.root, profile, c * 64, candidate=mode)
+                    for c, mode in [("a", False), ("b", True)]]
+        for context in contexts:
+            context.receipt.parent.mkdir(parents=True, exist_ok=True)
+            context.receipt.write_text(json.dumps({
+                "workspace": context.project_root.relative_to(self.root).as_posix(),
+                "input_digest": context.input_digest,
+            }))
+        runs, digests = referenced_by_receipts(self.root)
+        self.assertEqual(runs, {c.run_root for c in contexts})
+        self.assertEqual(digests, {c.input_digest for c in contexts})
+
+    def test_proportional_policy_rejects_production_output_before_build(self):
+        path = self.root / 'config/text-layout/rendering-mode.json'
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({'mode':'proportional','chinese_punctuation':'compact'}))
+        with patch.object(build_editions, 'verify_disc') as disc:
+            with self.assertRaisesRegex(EditionError, '--candidate'):
+                build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ('original',))
+            disc.assert_not_called()
+        self.assertFalse((self.root / 'build').exists())
+
     def test_plan_has_two_identities_without_creating_outputs(self):
         result = build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("original", "best"), plan=True)
         self.assertEqual([row["available"] for row in result["targets"]], [True, True])

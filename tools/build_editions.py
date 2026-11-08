@@ -88,6 +88,21 @@ def apply_main_event_subtitles(context: BuildContext, base_iso: Path, font: Path
     return final, receipt
 
 
+def apply_typography(context: BuildContext, source: Path):
+    from srwz.typography_policy import load_policy
+    from srwz.typography_iso import seal_iso
+    if load_policy(context.project_root)['mode'] == 'native':
+        return source, None
+    if not context.candidate:
+        raise EditionError('Proportional renderer promotion requires candidate output')
+    final = source.with_name(source.stem + '-proportional.iso')
+    final.unlink(missing_ok=True)
+    proof = seal_iso(context.project_root, context.profile.edition_id, source, final)
+    receipt = {'input': file_lock(context.project_root, source), 'verification': proof}
+    atomic_json(context.run_root / 'typography.json', receipt)
+    return final, receipt
+
+
 def atomic_json(path: Path, value: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
@@ -282,20 +297,23 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     verify_files(snapshot.project_root, list(snapshot.files))
     final, subtitles = captions.result()
     record_phase(context, "event-subtitles", caption_started)
+    final, typography = apply_typography(context, final)
+    final_hash = typography["verification"]["output_sha256"] if typography else subtitles["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     pending = context.output_iso.with_suffix(".iso.tmp")
     copy_file(final, pending)
-    if sha256_file(pending) != subtitles["iso"]["sha256"]:
+    if sha256_file(pending) != final_hash:
         pending.unlink()
         raise EditionError("published ISO copy mismatch")
-    publish_verified(pending, context.output_iso, subtitles["iso"]["sha256"])
+    publish_verified(pending, context.output_iso, final_hash)
     return {
         "schema_version": 1, "edition_id": context.profile.edition_id,
         "status": "edition_iso_static_validated_runtime_pending",
         "adapter": context.profile.adapter, "input_digest": snapshot.digest,
         "source_head": snapshot.source_head, "edition_contract_sha256": context.profile.contract_sha256,
         "source_iso_sha256": context.profile.source_iso.sha256,
-        "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": final.stat().st_size, "sha256": subtitles["iso"]["sha256"]},
+        "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": final.stat().st_size, "sha256": final_hash},
+        "typography": typography,
         "base_output": {"path": output.relative_to(root).as_posix(), "size": output.stat().st_size, "sha256": actual_hash},
         "event_subtitles": subtitles,
         "legacy_equivalence": {"required": legacy_equivalence, "passed": equivalent,
@@ -334,19 +352,22 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     run_phase_started = time.perf_counter()
     final, subtitles = apply_main_event_subtitles(context, output, root / CAPTION_FONT)
     record_phase(context, "event-subtitles", run_phase_started)
+    final, typography = apply_typography(context, final)
+    final_hash = typography["verification"]["output_sha256"] if typography else subtitles["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     pending = context.output_iso.with_suffix(".iso.tmp")
     copy_file(final, pending)
-    if sha256_file(pending) != subtitles["iso"]["sha256"]:
+    if sha256_file(pending) != final_hash:
         pending.unlink()
         raise EditionError("BEST published copy mismatch")
-    publish_verified(pending, context.output_iso, subtitles["iso"]["sha256"])
+    publish_verified(pending, context.output_iso, final_hash)
     return {
         "schema_version": 1, "edition_id": "best", "adapter": context.profile.adapter,
         "status": "edition_iso_static_validated_runtime_pending", "input_digest": snapshot.digest,
         "source_head": snapshot.source_head, "edition_contract_sha256": context.profile.contract_sha256,
         "source_iso_sha256": context.profile.source_iso.sha256,
-        "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": final.stat().st_size, "sha256": subtitles["iso"]["sha256"]},
+        "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": final.stat().st_size, "sha256": final_hash},
+        "typography": typography,
         "base_output": {**proof["iso"], "path": output.relative_to(root).as_posix()},
         "event_subtitles": subtitles,
         "readback": {"path": proof_path.relative_to(context.root).as_posix(), "sha256": sha256_file(proof_path),
@@ -392,19 +413,23 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
     # SP builders must never mutate the captured source/baseline inputs.
     verify_files(root, list(snapshot.files))
     built = project_path(root, proof["iso"]["path"], "build/iso/special-disc")
+    final, typography = apply_typography(context, built)
+    final_hash = typography["verification"]["output_sha256"] if typography else proof["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     temporary = context.output_iso.with_suffix(".tmp.iso")
-    copy_file(built, temporary)
-    if sha256_file(temporary) != proof["iso"]["sha256"]:
+    copy_file(final, temporary)
+    if sha256_file(temporary) != final_hash:
         raise EditionError("SP promotion copy drift")
-    publish_verified(temporary, context.output_iso, proof["iso"]["sha256"])
-    atomic_json(context.output_iso.with_suffix(".json"), proof)
+    publish_verified(temporary, context.output_iso, final_hash)
+    atomic_json(context.output_iso.with_suffix(".json"), {**proof, "iso": {**proof["iso"], "sha256": final_hash}, "typography": typography})
     return {
         "schema_version": 1, "edition_id": "sp", "adapter": context.profile.adapter,
         "status": "edition_iso_static_validated_runtime_pending", "input_digest": snapshot.digest,
         "source_head": snapshot.source_head, "edition_contract_sha256": context.profile.contract_sha256,
         "source_iso_sha256": context.profile.source_iso.sha256,
-        "output": {**proof["iso"], "path": context.output_iso.relative_to(context.root).as_posix()},
+        "output": {**proof["iso"], "path": context.output_iso.relative_to(context.root).as_posix(), "sha256": final_hash},
+        "typography": typography,
+        **({"base_output": proof["iso"]} if typography else {}),
         "readback": {"path": proof_path.relative_to(context.root).as_posix(), "sha256": sha256_file(proof_path)},
         "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
         "component_modes": {name: row['mode'] for name, row in proof.get('incremental', {}).get('components', {}).items()},
@@ -413,10 +438,14 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
     }
 
 
-def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False, force_rebuild: bool = False) -> dict:
+def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False, force_rebuild: bool = False, candidate: bool = False) -> dict:
     started = time.perf_counter()
     started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
+    from srwz.typography_policy import load_policy
+    rendering_policy = load_policy(root)
+    if rendering_policy['mode'] == 'proportional' and not candidate and not plan:
+        raise EditionError('Proportional builds require --candidate until runtime promotion is approved')
     if force_rebuild:
         # Trust no file identity recorded before this batch: start the batch
         # from an empty store. Digests this batch verifies (restored baselines,
@@ -441,7 +470,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
     for profile in build_profiles.values():
         profile.require_supported()
     for profile in build_profiles.values():
-        context = BuildContext(root, profile, "0" * 64)
+        context = BuildContext(root, profile, "0" * 64, candidate=candidate)
         # Reject aliases of another edition or the legacy output before I/O.
         for field in ("project_root", "cache_root", "output_iso", "receipt"):
             getattr(context, field)
@@ -456,11 +485,11 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
         snapshot = freeze_inputs(root, additional)
         if load_release_profiles(snapshot.project_root, config, tuple(build_profiles)) != tuple(build_profiles.values()):
             raise EditionError("edition contracts changed during input capture")
-        contexts = {name: BuildContext(root, profile, snapshot.digest) for name, profile in build_profiles.items()}
+        contexts = {name: BuildContext(root, profile, snapshot.digest, candidate=candidate) for name, profile in build_profiles.items()}
         for context in contexts.values():
             context.project_root  # Also check aliases under this exact input key.
-        batch_path = project_path(root, f"work/editions/{snapshot.digest}/{'-'.join(requested)}.json", "work")
-        batch = {"schema_version": 1, "input_digest": snapshot.digest, "requested_editions": list(requested),
+        batch_path = project_path(root, f"work/editions/{snapshot.digest}/{'-'.join(requested)}{'-candidate' if candidate else ''}.json", "work")
+        batch = {"schema_version": 1, "input_digest": snapshot.digest, "requested_editions": list(requested), "candidate": candidate,
                  "release_config": config, "shared_js_layout":shared_js_runtime, "input_snapshot": (snapshot.root / "inputs.json").relative_to(root).as_posix(),
                  "status": "running", "results": [], "runtime": "not_tested",
                  "timing": {"started_at": started_at, "preflight_and_snapshot_seconds": round(time.perf_counter() - started, 3), "editions": {}}}
@@ -558,6 +587,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default=DEFAULT_CONFIG)
     parser.add_argument("--editions", default="original,best,sp")
+    parser.add_argument("--candidate", action="store_true", help="Build isolated test ISOs and candidate receipts; leave production outputs unchanged.")
     parser.add_argument("--plan", action="store_true", help="Show registered targets without writing or building.")
     parser.add_argument("--release-version", help="Official release version for the title badge, e.g. 0.5.0; defaults to HEAD tag or latest release + date.")
     parser.add_argument("--force-rebuild", action="store_true", help="Explicit full Original and SP component rebuild, disc re-extraction, uncached readback and re-hashing of every input; normal builds reuse verified components and file identities.")
@@ -572,7 +602,7 @@ def main() -> int:
             text = f'v{args.release_version}' if args.release_version else None
             print(f'[title] version: {refresh_current_badge(PROJECT_ROOT, text=text)}', flush=True)
         result = build(PROJECT_ROOT, args.config, tuple(x.strip() for x in args.editions.split(",")),
-                       plan=args.plan, legacy_equivalence=args.require_legacy_equivalence, force_rebuild=args.force_rebuild)
+                       plan=args.plan, legacy_equivalence=args.require_legacy_equivalence, force_rebuild=args.force_rebuild, candidate=args.candidate)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     except (EditionError, OSError, ValueError, subprocess.SubprocessError) as error:

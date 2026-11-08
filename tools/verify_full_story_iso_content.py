@@ -6867,6 +6867,22 @@ def main() -> int:
             stage_maximum_line_count = 0
             stage_runtime_token_entry_count = 0
             stage_runtime_token_occurrence_count = 0
+            from srwz.typography_policy import candidate_enabled
+            candidate_widths = {}
+            if candidate_enabled():
+                import math
+                from srwz.js_layout import layout_batch
+                keys = list(source_entries)
+                for begin in range(0, len(keys), 256):
+                    group = keys[begin:begin + 256]
+                    probes = [dict(action='measure', scene='story', text=dialogue[key],
+                        options=dict(typography='proportional', chinesePunctuation='compact',
+                                     keywordLinks=('《' in source_entries[key].text))) for key in group]
+                    for key, response in zip(group, layout_batch(probes)):
+                        if not response['ok']:
+                            raise SystemExit(f'{key}: candidate measurement failed: {response}')
+                        candidate_widths[key] = tuple(math.ceil(row['occupiedPx'] / 21) - (1 if i else 0)
+                            for i, row in enumerate(response['result']['rows']))
             for entry_id, source_entry in source_entries.items():
                 output_entry = output_entries[entry_id]
                 assert source_entry.text_offset is not None
@@ -6990,7 +7006,7 @@ def main() -> int:
                         "raw_single_byte_ascii": False,
                     }
 
-                widths = dialogue_line_widths(
+                widths = candidate_widths[entry_id] if candidate_enabled() else dialogue_line_widths(
                     expected_translation,
                     stage_keyword_links=("《" in source_entry.text),
                     default_advance_px=dialogue_profile.default_advance_px,
@@ -7214,6 +7230,10 @@ def main() -> int:
     expected_land_translation = (
         "“哦！把自己机体弄坏的那家伙，\n　罚你帮忙修理。”"
     )
+    from srwz.typography_policy import candidate_enabled
+    if candidate_enabled():
+        from srwz.build_layout import reflow_story
+        expected_land_translation = reflow_story(expected_land_translation, profile=dialogue_profile).text
     if reported_land_translation != expected_land_translation:
         raise SystemExit(
             "reported Land dialogue mismatch: "

@@ -21,7 +21,8 @@ import migrate_slps_text as mst
 from stage_bindings import StageBindings, BindingError
 from stage_auxiliary import formation_groups, scalar_sites, write_formations
 from write_system_text import OVERLAY, overlay_member
-from srwz.build_layout import verify_stored,fit_story as fit_js_story,runtime_inputs
+from srwz.build_layout import verify_stored,fit_story as fit_js_story,runtime_inputs,fit_candidate_stories
+from srwz.typography_policy import candidate_enabled
 from srwz.chinese_layout import fit_chinese_dialogue_layout, load_layout_profiles, rendered_line_width
 from srwz.codec import DEFAULT_MAX_MATCH_CHAIN, DEFAULT_MIN_MATCH_LENGTH, decode_production, reencode_changed_suffix
 from srwz.iso9660 import member_map, scan_iso9660
@@ -122,7 +123,7 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
             and op not in (0x10, 0x11, 0x12)
             and row.get("kind") not in {"scene_label", "location_caption"}
         ):
-            text = fit_js_story(text, profile=profile).text
+            if not candidate_enabled():text = fit_js_story(text, profile=profile).text
             row["layout"] = "story_dialogue"
         else:
             # Labels/conditions retain their explicit line structure, without dialogue indentation.
@@ -140,6 +141,10 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
             speakers[entry.speaker_id] = text
         else:
             replacements[entry.entry_id] = text
+    if candidate_enabled():
+        dialogue=[row for row in rows if row['layout']=='story_dialogue']
+        for row,text in zip(dialogue,fit_candidate_stories([row['output_text'] for row in dialogue],profile=profile)):
+            row['output_text']=text;replacements[row['native_id']]=text
     verify_stored([(row['native_id'],row['output_text'],False)for row in rows if row['layout']=='story_dialogue'],'story')
     result = repack_stage_texts_in_place(data, table, stage_index=index,
         function_address=function_address, replacements=replacements, parsed_source=parsed,

@@ -116,8 +116,11 @@ class BuildContext:
     root: Path
     profile: EditionProfile
     input_digest: str
+    candidate: bool = False
 
     def __post_init__(self):
+        if not isinstance(self.candidate, bool):
+            raise EditionError("candidate must be boolean")
         object.__setattr__(self, "root", self.root.resolve())
         if not re.fullmatch(r"[0-9a-f]{64}", self.input_digest):
             raise EditionError("invalid shared input digest")
@@ -130,7 +133,7 @@ class BuildContext:
 
     @property
     def run_key(self) -> str:
-        return hashlib.sha256((self.input_digest + self.profile.contract_sha256).encode()).hexdigest()
+        return hashlib.sha256((self.input_digest + self.profile.contract_sha256 + ("candidate" if self.candidate else "")).encode()).hexdigest()
 
     @property
     def run_root(self) -> Path:
@@ -146,12 +149,16 @@ class BuildContext:
 
     @property
     def output_iso(self) -> Path:
+        if self.candidate:
+            return self._path(f"build/iso/test/integrated-{self.profile.edition_id}.iso", "build/iso/test")
         if self.profile.edition_id == "sp":
             return self._path("build/iso/special-disc/sp-current.iso", "build/iso")
         return self._path(f"build/iso/{self.profile.profile_id}/current-{self.profile.edition_id}.iso", "build/iso")
 
     @property
     def receipt(self) -> Path:
+        if self.candidate:
+            return self._path(f"manifests/editions/{self.profile.edition_id}/candidate.json", "manifests/editions")
         return self._path(f"manifests/editions/{self.profile.edition_id}/current.json", "manifests/editions")
 
 

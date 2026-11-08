@@ -14,6 +14,8 @@ from typing import Mapping
 COMPONENT_BUILD_DEFINITION_ROOTS = (
     "tools/srwz",
     "shared/text-layout/engine.mjs",
+    "shared/text-layout/proportional-selection.mjs",
+    "shared/text-layout/proportional-metrics.mjs",
     "shared/text-layout/contracts.mjs",
     "shared/text-layout/cli.mjs",
     "shared/text-layout/cli-handler.mjs",

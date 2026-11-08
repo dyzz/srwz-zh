@@ -37,7 +37,7 @@ def verify_batch(root: Path, manifest: Path) -> dict:
         raise EditionError("edition results are missing, duplicated or reordered")
     for profile, result in zip(profiles, batch["results"]):
         profile.require_supported()
-        context = BuildContext(root, profile, digest)
+        context = BuildContext(root, profile, digest, candidate=batch.get("candidate", False))
         if (result["input_digest"] != digest or result["edition_contract_sha256"] != profile.contract_sha256
                 or result["source_iso_sha256"] != profile.source_iso.sha256
                 or result["adapter"] != profile.adapter
@@ -67,17 +67,32 @@ def verify_batch(root: Path, manifest: Path) -> dict:
                 or readback["iso"]["sha256"] != bound["sha256"]
                 or readback["iso"]["size"] != bound["size"]):
             raise EditionError("semantic readback belongs to a different ISO")
+        from srwz.typography_policy import load_policy
+        from srwz.typography_iso import verify_iso as verify_typography_iso
+        typography = result.get('typography')
+        proportional = load_policy(source_path.parent / 'project')['mode'] == 'proportional'
+        if bool(typography) != proportional:
+            raise EditionError('Typography policy and installed renderer receipt disagree')
+        before_typography = output
+        if typography:
+            before_typography = project_path(context.project_root, typography['input']['path'], 'build/iso')
+            checked = verify_typography_iso(source_path.parent / 'project', profile.edition_id,
+                                            before_typography, output, typography['verification'])
+            if (checked['source_sha256'] != typography['input']['sha256']
+                    or checked['output_sha256'] != result['output']['sha256']
+                    or checked['size'] != typography['input']['size']):
+                raise EditionError('Typography input/output binding mismatch')
         subtitles = result.get("event_subtitles")
-        if "base_output" in result:
+        if "base_output" in result and profile.edition_id != "sp":
             from event_subtitles.apply import verify_subtitled_iso
             if (not subtitles or subtitles["base_iso"]["sha256"] != bound["sha256"]
-                    or subtitles["iso"]["sha256"] != result["output"]["sha256"]
+                    or subtitles["iso"]["sha256"] != (typography["input"]["sha256"] if typography else result["output"]["sha256"])
                     or subtitles["iso"]["size"] != result["output"]["size"]):
                 raise EditionError("event subtitle receipt does not bind base and published images")
-            verify_subtitled_iso(output, subtitles, source_path.parent / "project")
+            verify_subtitled_iso(before_typography, subtitles, source_path.parent / "project")
         if profile.edition_id == "sp":
             locked_sp_inputs(source_path.parent / "project")
-            validate_sp_readback(context.project_root, readback, iso_path=output)
+            validate_sp_readback(context.project_root, readback, iso_path=before_typography)
         if profile.edition_id == "best":
             frontend = result["shared_frontend"]
             if (frontend["edition"] != "original" or frontend["input_digest"] != digest
