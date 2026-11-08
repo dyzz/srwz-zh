@@ -14,7 +14,9 @@ from tools.srwz.srvc import (
 from tools.srwz.text import TextTable
 
 
-class SrvcPoolRebuildTest(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class SrvcPoolRebuildTest(NativeTypographyTestCase):
     def test_best_shortening_requires_explicit_line_removal_decision(self):
         source, translated = "first\\nsecond", "first"
         self.assertFalse(subtitle_line_break_policy_satisfied(source, translated, {}))

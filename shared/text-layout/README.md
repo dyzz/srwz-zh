@@ -16,7 +16,7 @@ Pure ESM shared by browser and Node callers. `engine.mjs` has no DOM, filesystem
 | library_robot | 21px | 546px / 26 cells | owner budget |
 | library_glossary | 21px | 525px / 25 cells | owner budget |
 
-Story and battle continuation rows contain one ideographic-space indent. Quotes and indentation consume the total width. The last glyph's overhang also counts. Battle preserves input row count by default; changing it requires an explicit timing decision. Flow and scrolling prose preserve paragraphs and blank separators, permit word splitting and fill each row to the native pixel budget. Short paragraph tails are retained. One common line-breaking width is selected for the whole entry: scan down from the native maximum, minimize the spread of nonfinal line widths (allowing 1px of glyph overhang), then the number of unaligned nonfinal rows; ties keep the widest candidate. Paragraph tails do not vote. The source row budget remains binding; without an owner budget the baseline row count is the safe limit. Widths that do not improve consistency are discarded. Library bodies keep their separate balanced layout.
+Story and battle continuation rows contain one ideographic-space indent. Quotes and indentation consume the total width. The last glyph's overhang also counts. Battle preserves input row count by default; changing it requires an explicit timing decision. Flow and scrolling prose preserve paragraphs and blank separators, permit word splitting and fill each row to the native pixel budget. Short paragraph tails are retained. One common line-breaking width is selected for the whole entry: scan down from the native maximum, minimize the spread of nonfinal line widths (allowing 1px of glyph overhang), then the number of unaligned nonfinal rows; ties keep the widest candidate. Paragraph tails do not vote. The source row budget remains binding; without an owner budget the baseline row count is the safe limit. Widths that do not improve consistency are discarded. Library bodies use the same nonfinal-width selection with their own panel widths. In proportional mode, a more uniform candidate is accepted only when every nonfinal row stays within one native cell of the panel width; otherwise the full-width baseline wins. Latin identifiers remain protected independently of Chinese word protection.
 
 `summary/03/000` and `summary/04/000` select the narrow scroll scene through `options.resourceId`. Compact scopes use each scene's own width, height, step and complete restoration; native height10 is encoded as 8A. Keep unsupported dynamic templates, independent choices, aligned cards and fixed grids with their explicit owners.
 
@@ -24,12 +24,13 @@ Story and battle continuation rows contain one ideographic-space indent. Quotes 
 
 ```js
 import {layout, measure, validate, expandCompact} from './engine.mjs';
-const result = layout('“锁定<z>MS-013</z>后立即攻击敌方指挥机，完成任务后返回基地！”',
-  'battle', {preserveLineCount:false});
-// Widths 446 / 198px, including the second-row indent.
+const result = layout('“锁定MS-013后立即攻击敌方指挥机，完成任务后返回基地！”',
+  'battle', {typography:'proportional', chinesePunctuation:'compact',
+    preserveLineCount:false});
+// Use result.rows for actual occupied widths, including continuation indentation.
 ```
 
-`layout` reflows; `measure` preserves stored rows; `validate` checks geometry and line rules; `expandCompact` compiles author scopes. `height` is the native parameter, not doubled screen pixels. Pass `escapedNewlines:true` for literal backslash-n corpus notation. Use `keywordLinks:true` only for source-bound STAGE keyword streams. `maxLines` can tighten an owner budget but cannot expand the story/battle limit. Flow synopses and scrolling narration default to `max_width`: fill each row as far as its scene permits, retaining paragraph starts, leading indentation, blank separators, punctuation rules and complete compact scopes. Word boundaries do not constrain these scenes. Paragraph tails may remain short. Library bodies retain `balanced_width`; story and battle retain their separate dialogue rules.
+`layout` reflows; `measure` preserves stored rows; `validate` checks geometry and line rules; `expandCompact` compiles legacy author scopes in native mode and removes their markup in proportional mode. New proportional authoring stores no `<z>` tags. `height` is the native parameter, not doubled screen pixels. Pass `escapedNewlines:true` for literal backslash-n corpus notation. Use `keywordLinks:true` only for source-bound STAGE keyword streams. `maxLines` can tighten an owner budget but cannot expand the story/battle limit. Flow synopses and scrolling narration default to `max_width`: fill each row as far as its scene permits, retaining paragraph starts, leading indentation, blank separators, punctuation rules and complete compact scopes. Word boundaries do not constrain these scenes. Paragraph tails may remain short. Library bodies also use `max_width` and nonfinal-width selection; story and battle retain their separate dialogue rules.
 
 The JSONL CLI accepts one request or a request array on each stdin line and returns `{ok:true,result}` / `{ok:false,error}`. Python callers use `srwz.js_layout.request_layout` or `layout_batch`; `SRWZ_NODE` selects the Node executable. No other layout implementation is silently substituted on failure.
 
@@ -41,6 +42,6 @@ node --test shared/text-layout/engine.test.mjs
 python3 -m unittest discover -s tests -p test_js_layout_adapter.py
 ```
 
-`contracts.mjs` is generated from the Python scene profiles, compact metrics, control protocol, word lists and `config/text-layout/native-scene-contracts.json`. Its source hashes detect drift. Width provenance is recorded in `docs/issue-assets/shared-js-layout-20261028/prose-width-evidence.json`; LRPS2 mixed-glyph fixtures are in `docs/issue-assets/mixed-compact-20261028/evidence.json`. Static tests do not constitute a new ISO or LRPS2 acceptance.
+`contracts.mjs` is generated from the Python scene profiles, compact metrics, control protocol, word lists and `config/text-layout/native-scene-contracts.json`. Its source hashes detect drift. Width provenance is recorded in `docs/issue-assets/shared-js-layout-20261028/prose-width-evidence.json`; LRPS2 mixed-glyph fixtures are in `docs/issue-assets/mixed-compact-20261028/evidence.json`. Historical fixtures document their original renderer only. Static tests do not constitute candidate ISO readback or current ARMSX2 acceptance.
 
 Production adapters live in `tools/srwz/build_layout.py`. Shared runtime bytes belong in edition input snapshots and component fingerprints. Ordinary stored dialogue must be checked without silently rewriting it; source structure, timing, byte budgets and readback remain separate gates.

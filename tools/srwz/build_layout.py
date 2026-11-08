@@ -9,9 +9,10 @@ import math
 import re
 from pathlib import Path
 from .js_layout import ROOT, layout_batch, request_layout, JsLayoutError
+from .typography_policy import options as typography_options, candidate_enabled
 
 LIBRARY_SCENES={'CHAR':'library_character','ROBO':'library_robot','KYWD':'library_glossary'}
-RUNTIME_FILES=('engine.mjs','contracts.mjs','cli.mjs','cli-handler.mjs')
+RUNTIME_FILES=('engine.mjs','contracts.mjs','cli.mjs','cli-handler.mjs','proportional-selection.mjs','proportional-metrics.mjs')
 
 def runtime_inputs(root:Path=ROOT):
     return {f'shared_js_{Path(name).stem.replace("-","_")}':dict(path='shared/text-layout/'+name,
@@ -26,16 +27,26 @@ def library_input(text):
     if re.search(r'<(?:width|space):',text) and not text.startswith(baseline):text=baseline+text
     return text
 
-def library_batch(keys):
+def library_batch(keys, *, typography=None, chinese_punctuation=None):
+    typography,chinese_punctuation=typography_options(typography,chinese_punctuation)
     keys=list(keys);result={}
-    for start in range(0,len(keys),256):
-        group=keys[start:start+256]
-        requests=[dict(scene=LIBRARY_SCENES[kind],text=library_input(text))for kind,text in group]
-        for key,request,response in zip(group,requests,layout_batch(requests)):
+    batch_size=64 if typography=='proportional' else 256
+    for start in range(0,len(keys),batch_size):
+        group=keys[start:start+batch_size]
+        from .library_typography import library_typography
+        requests=[]
+        for kind,text in group:
+            prepared=library_input(text)
+            if typography=='proportional':
+                prepared=library_typography(prepared,'DSCR',domain={'CHAR':'character','ROBO':'robot','KYWD':'glossary'}[kind],typography=typography)
+            requests.append(dict(scene=LIBRARY_SCENES[kind],text=prepared,options=dict(typography=typography,chinesePunctuation=chinese_punctuation)))
+        for key,request,response in zip(group,requests,layout_batch(requests,timeout=120 if typography=='proportional' else 30)):
             if not response['ok']:
                 result[key]=(False,response['error']['message']);continue
             value=response['result']
-            if value['text'].replace('\n','')!=request['text'].replace('\n',''):raise ValueError('JS library layout changed authored content')
+            expected=request['text']
+            if typography=='proportional':expected=expected.replace('<z>','').replace('</z>','')
+            if value['text'].replace('\n','')!=expected.replace('\n',''):raise ValueError('JS library layout changed authored content')
             result[key]=(True,(value['text'],tuple(math.ceil(r['occupiedPx']/value['step'])for r in value['rows'])))
     return result
 
@@ -43,42 +54,55 @@ def reflow_story(text,*,profile,protected_terms=(),stage_keyword_links=False,**_
     from .chinese_layout import ChineseLayoutError,ReflowResult
     if (profile.profile_id,profile.default_advance_px,profile.maximum_width,profile.first_line_maximum_width,profile.continuation_indent)!=('story_dialogue',21,22,23,'　'):
         raise ChineseLayoutError('Shared JS story scene/profile drift')
-    try:r=request_layout(text,'story',options=dict(maxLines=profile.maximum_lines,protectedTerms=list(protected_terms),keywordLinks=stage_keyword_links))
+    try:r=request_layout(text,'story',options=dict(maxLines=profile.maximum_lines,protectedTerms=list(protected_terms),keywordLinks=stage_keyword_links,typography=typography_options()[0],chinesePunctuation=typography_options()[1]))
     except JsLayoutError as error:raise ChineseLayoutError(str(error))from error
     return ReflowResult(text,r['text'],'shared_js',tuple(math.ceil(row['occupiedPx']/21)-(1 if i else 0)for i,row in enumerate(r['rows'])))
 
-def reflow_prose(text,*,scene,maximum_lines=None,resource_id=None):
-    options={}
+def reflow_prose(text,*,scene,maximum_lines=None,resource_id=None,typography=None,chinese_punctuation=None):
+    typography,chinese_punctuation=typography_options(typography,chinese_punctuation)
+    options={"typography":typography,"chinesePunctuation":chinese_punctuation}
     if maximum_lines is not None:options['maxLines']=maximum_lines
     if resource_id is not None:options['resourceId']=resource_id
     return request_layout(text,scene,options=options)
 
-def verify_stored(rows,scene,*,batch_size=256):
+def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None):
     """Rows are (identity, text, keyword_links); reject geometry without reflow.
 
     Special aligned/choice owners keep their source structure. This gate checks
     physical widths/row count; existing owner gates still check their indents.
     """
-    rows=list(rows);count=0
+    typography,chinese_punctuation=typography_options(typography,chinese_punctuation)
+    rows=list(rows);issues={}
     for start in range(0,len(rows),batch_size):
         group=rows[start:start+batch_size]
-        requests=[dict(action='measure',scene=scene,text=text.replace('\\n','\n'),options=dict(keywordLinks=links))for _,text,links in group]
+        requests=[dict(action='measure',scene=scene,text=text.replace('\\n','\n'),options=dict(keywordLinks=links,typography=typography,chinesePunctuation=chinese_punctuation))for _,text,links in group]
         for (identity,_,_),response in zip(group,layout_batch(requests)):
-            if not response['ok']:raise ValueError(f'{identity}: JS {response["error"]["message"]}')
+            if not response['ok']:
+                issues[identity]=(f'JS {response["error"]["message"]}',)
+                continue
             measured=response['result'];limit=462 if scene=='battle'else 483;maximum=2 if scene=='battle'else 3
             if len(measured['rows'])>maximum or any(r['occupiedPx']>limit for r in measured['rows']):
-                raise ValueError(f'{identity}: shared JS {scene} geometry exceeds {maximum} rows / {limit}px')
-            count+=1
-    return count
+                issues[identity]=(f'shared JS {scene} geometry exceeds {maximum} rows / {limit}px',)
+    return issues
+
+def verify_stored(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None):
+    rows=list(rows)
+    issues=stored_geometry_issues(rows,scene,batch_size=batch_size,
+        typography=typography,chinese_punctuation=chinese_punctuation)
+    if issues:
+        identity=next(iter(issues))
+        raise ValueError(f'{identity}: {"; ".join(issues[identity])}')
+    return len(rows)
 
 def verify_prose(rows,scene):
     """Validate stored prose with the same scene/resource contract, without reflow."""
+    typography,punctuation=typography_options()
     rows=list(rows)
     for start in range(0,len(rows),256):
         group=rows[start:start+256]
-        probes=[dict(scene=scene,text='中',options=dict(resourceId=identity))for identity,_,_ in group]
+        probes=[dict(scene=scene,text='中',options=dict(resourceId=identity,typography=typography,chinesePunctuation=punctuation))for identity,_,_ in group]
         limits=layout_batch(probes)
-        requests=[dict(action='measure',scene=scene,text=text,options=dict(resourceId=identity))for identity,text,_ in group]
+        requests=[dict(action='measure',scene=scene,text=text,options=dict(resourceId=identity,typography=typography,chinesePunctuation=punctuation))for identity,text,_ in group]
         for (identity,_,max_rows),limit,response in zip(group,limits,layout_batch(requests)):
             if not limit['ok']or not response['ok']:raise ValueError(f'{identity}: unsupported JS prose contract')
             values=response['result']['rows'];width=limit['result']['widthPx']
@@ -88,12 +112,33 @@ def verify_prose(rows,scene):
 
 def fit_story(text,*,profile,protected_terms=(),stage_keyword_links=False,**kwargs):
     from .chinese_layout import dialogue_layout_issues,ReflowResult,dialogue_line_widths,fit_chinese_dialogue_layout
+    if candidate_enabled():
+        structured=text.startswith((' ','　')) or bool(re.search(r'”\n[　 ]*“',text))
+        r=request_layout(text,'story',action='measure' if structured else 'layout',options=dict(typography='proportional',chinesePunctuation='compact',keywordLinks=stage_keyword_links,maxLines=profile.maximum_lines))
+        final=r.get('compiledText') if not structured else '\n'.join(row['text'] for row in r['rows'])
+        verify_stored([('candidate-dialogue',final,stage_keyword_links)],'story')
+        return ReflowResult(text,final,'shared_js_proportional',tuple(math.ceil(row['occupiedPx']/21) for row in r['rows']))
     if not dialogue_layout_issues(text,profile=profile,stage_keyword_links=stage_keyword_links):
         return ReflowResult(text,text,'already_final',dialogue_line_widths(text,default_advance_px=profile.default_advance_px,stage_keyword_links=stage_keyword_links))
     # These are source-structured owners; the ordinary JS paragraph must reject them.
     if text.startswith((' ','　'))or re.search(r'”\n[　 ]*“',text):
         return fit_chinese_dialogue_layout(text,profile=profile,protected_terms=protected_terms,stage_keyword_links=stage_keyword_links,**kwargs)
     return reflow_story(text,profile=profile,protected_terms=protected_terms,stage_keyword_links=stage_keyword_links)
+
+def fit_candidate_stories(texts,*,profile):
+    """Batch candidate dialogue; structured owners keep their authored rows."""
+    if not candidate_enabled():raise ValueError('Candidate dialogue policy is not enabled')
+    texts=list(texts);result=[]
+    for start in range(0,len(texts),128):
+        group=texts[start:start+128];requests=[]
+        for text in group:
+            structured=text.startswith((' ','　')) or bool(re.search(r'”\n[　 ]*“',text))
+            requests.append(dict(text=text,scene='story',action='measure' if structured else 'layout',options=dict(typography='proportional',chinesePunctuation='compact',maxLines=profile.maximum_lines)))
+        for request,response in zip(requests,layout_batch(requests)):
+            if not response['ok']:raise JsLayoutError(response['error'])
+            r=response['result'];result.append(r['compiledText'] if request['action']=='layout' else '\n'.join(row['text'] for row in r['rows']))
+    verify_stored([(str(i),text,False)for i,text in enumerate(result)],'story')
+    return result
 
 def check_runtime(root:Path=ROOT):
     """All edition entry points require the shared engine before build I/O."""

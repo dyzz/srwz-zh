@@ -15,7 +15,9 @@ from build_library_v02_component import reflow_body
 from write_frame_text import paragraphs,flow_synopsis
 
 
-class BalancedProseTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class BalancedProseTests(NativeTypographyTestCase):
     def test_maximum_width_ignores_old_wraps_and_short_tail(self):
         profile=ChineseLayoutProfile('prose',12,None,None,'minimum',
                                      line_packing='max_width',minimum_line_width=8)

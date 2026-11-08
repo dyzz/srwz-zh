@@ -3,6 +3,7 @@ import json,math,sys,unittest
 from pathlib import Path
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
+from srwz.typography_policy import options as typography_options
 from srwz.build_layout import library_batch,verify_stored,reflow_story,runtime_inputs,check_runtime,verify_prose
 from srwz.js_layout import request_layout
 from srwz.chinese_layout import load_layout_profiles
@@ -10,11 +11,14 @@ from srwz.build_fingerprints import is_component_build_definition
 from srwz.release_inputs import is_build_input
 from build_library_v02_component import reflow_body,reflow_bodies
 
+def project_options():
+ mode,punctuation=typography_options();return dict(typography=mode,chinesePunctuation=punctuation)
+
 class JsBuildLayoutTests(unittest.TestCase):
  def test_library_adapter_preserves_paragraph_ownership_like_other_prose(self):
   text='　'+'甲'*36+'\n\n　'+'乙'*29
   result=library_batch([('CHAR',text)])[('CHAR',text)]
-  self.assertTrue(result[0]);self.assertEqual(result[1][0],request_layout(text,'library_character')['text'])
+  self.assertTrue(result[0]);self.assertEqual(result[1][0],request_layout(text,'library_character',options=project_options())['text'])
   self.assertIn('\n\n　',result[1][0]);self.assertTrue(result[1][0].startswith('　'))
 
  def test_library_production_single_batch_and_browser_match(self):
@@ -24,8 +28,15 @@ class JsBuildLayoutTests(unittest.TestCase):
    profile=profiles['library_'+domain]
    one=reflow_body(text,width,profile=profile)
    batch=reflow_bodies([(kind,text)],{kind:width},{kind:profile},())[(kind,text)]
-   browser=request_layout(text,'library_'+domain)
+   browser=request_layout(text,'library_'+domain,options=project_options())
    self.assertTrue(batch[0]);self.assertEqual(one,batch[1]);self.assertEqual(one[0],browser['text'])
+ def test_candidate_library_bridge_uses_compact_punctuation_policy(self):
+  text='高达Mk-II，目标是Side 3。确认后出击！'*3
+  result=library_batch([('CHAR',text)],typography='proportional',chinese_punctuation='compact')[('CHAR',text)]
+  expected=request_layout(text,'library_character',options=dict(typography='proportional',chinesePunctuation='compact'))
+  self.assertTrue(result[0]);self.assertEqual(result[1][0],expected['text'])
+  self.assertNotIn('<z>',result[1][0])
+
  def test_unknown_node_failure_cannot_fall_back_to_python(self):
   with patch('srwz.build_layout.layout_batch',side_effect=RuntimeError('missing Node')):
    with self.assertRaisesRegex(RuntimeError,'missing Node'):library_batch([('CHAR','中文')])
@@ -36,7 +47,7 @@ class JsBuildLayoutTests(unittest.TestCase):
  def test_story_authoring_and_browser_use_identical_engine(self):
   p=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['story_dialogue']
   text='“目标<z>MS-013</z>已经锁定，立即攻击并掩护友军撤退，完成任务后返回基地！”'
-  self.assertEqual(reflow_story(text,profile=p).text,request_layout(text,'story')['text'])
+  self.assertEqual(reflow_story(text,profile=p).text,request_layout(text,'story',options=project_options())['text'])
  def test_js_runtime_is_in_snapshot_cache_and_receipt(self):
   for value in runtime_inputs().values():
    self.assertTrue(is_component_build_definition(value['path']));self.assertTrue(is_build_input(value['path']))
@@ -55,8 +66,8 @@ class JsBuildLayoutTests(unittest.TestCase):
   import os,shutil,subprocess,tempfile
   with tempfile.TemporaryDirectory()as temp:
    root=Path(temp);(root/'shared/text-layout').mkdir(parents=True);(root/'tools/srwz').mkdir(parents=True)
-   for name in ['engine.mjs','contracts.mjs','cli.mjs','cli-handler.mjs']:shutil.copyfile(ROOT/'shared/text-layout'/name,root/'shared/text-layout'/name)
-   for name in ['build_layout.py','js_layout.py']:shutil.copyfile(ROOT/'tools/srwz'/name,root/'tools/srwz'/name)
+   for name in ['engine.mjs','contracts.mjs','cli.mjs','cli-handler.mjs','proportional-selection.mjs','proportional-metrics.mjs']:shutil.copyfile(ROOT/'shared/text-layout'/name,root/'shared/text-layout'/name)
+   for name in ['build_layout.py','js_layout.py','typography_policy.py']:shutil.copyfile(ROOT/'tools/srwz'/name,root/'tools/srwz'/name)
    (root/'tools/srwz/__init__.py').write_text('')
    output=subprocess.check_output([sys.executable,'-c',"from pathlib import Path; from srwz.build_layout import check_runtime; print(check_runtime(Path.cwd())['scenes'])"],cwd=root,env={**os.environ,'PYTHONPATH':str(root/'tools')},text=True)
    self.assertEqual(output.strip(),'10')

@@ -8,7 +8,9 @@ from srwz.renderer_metrics import compact_visible_runs
 from build_full_story_components import _control_signature
 
 
-class CompactAuthoringTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class CompactAuthoringTests(NativeTypographyTestCase):
     def test_native_controls_and_templates_are_exact(self):
         text = '“<color:03>MAX伤害10000，$n与＜ｔｍ＞击坠数＜／ｔｍ＞。”'
         result = compact_controlled_text(text, default_width=22)

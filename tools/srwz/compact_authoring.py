@@ -52,6 +52,8 @@ def compact_controlled_text(text: str, *, default_width: int, default_space: int
     """
     if notation not in ('native', 'z'):
         raise ValueError(f'unknown compact notation {notation!r}')
+    from .typography_policy import candidate_enabled
+    if candidate_enabled():return unscoped_text(text)
     space = default_width if default_space is None else default_space
     if not 14 <= default_width <= 63 or not 12 <= space <= 63:
         raise ValueError('unsupported renderer baseline')

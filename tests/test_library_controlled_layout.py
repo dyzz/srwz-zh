@@ -10,7 +10,9 @@ from srwz.renderer_metrics import compact_visible_runs,text_extent
 from srwz.text import CONTROL_NOTATION
 
 
-class LibraryControlledLayoutTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class LibraryControlledLayoutTests(NativeTypographyTestCase):
     def test_numeric_prose_fits_with_21_pixel_body_restore(self):
         tagged=compact_visible_runs('甲'*12+'150吨的握力。',default_advance_px=21)
         result,widths=reflow_body(tagged,16)

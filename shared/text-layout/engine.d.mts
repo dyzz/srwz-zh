@@ -1,5 +1,7 @@
 export type SceneId = 'story' | 'battle' | 'main_flow' | 'sp_flow' | 'main_scroll' | 'sp_scroll' | 'main_scroll_strip' | 'library_character' | 'library_robot' | 'library_glossary';
 export interface LayoutOptions {
+  chinesePunctuation?: 'native' | 'compact';
+  typography?: 'native' | 'proportional';
   preserveLineCount?: boolean;
   escapedNewlines?: boolean;
   protectWords?: boolean;
@@ -10,13 +12,13 @@ export interface LayoutOptions {
   packing?: 'max_width' | 'balanced_width';
   resourceId?: string;
 }
-export interface Glyph { text:string;x:number;width:number;height:number;advance:number;placeholder:boolean }
+export interface Glyph { text:string;yOffset?:number;baselineResidual16?:number;x:number;width:number;height:number;advance:number;placeholder:boolean }
 export interface FixedTextField {id?:string;text:string;capacityBytes:number;terminatorBytes:0|1}
 export interface FixedFieldOptions extends LayoutOptions {encodedCharacterBytes:Record<string,number>}
 export interface Row { text:string;advancePx:number;occupiedPx:number;glyphs:Glyph[] }
 export interface FontState { width:number;height:number;step:number }
 export interface Issue { code:string;row?:number;widthPx?:number;limitPx?:number;message?:string }
-export interface Measured { scene:SceneId;rows:Row[];state:FontState }
+export interface Measured { scene:SceneId;rows:Row[];state:FontState;fontSha256?:string }
 export interface Validated extends Measured { valid:boolean;issues:Issue[] }
 export interface LayoutResult extends Validated { version:string;profile:string;text:string;changed:boolean;widthPx:number;step:number;compiledText:string;selectedWidthPx?:number;widthSelection?:{policy:'uniform_nonfinal';testedWidths:number;spreadPx:number;excessSpreadPx:number;unalignedRows:number;nonfinalWidthsPx:number[];withinTolerance:boolean} }
 export interface Scene { id:SceneId;profileId:string;kind:'dialogue'|'prose';width:number;height:number;step:number;lineStep:number;columns:number;widthPx:number;maxLines:number|null;continuationIndent:string;compact:Record<string,number>;protectedTerms:string[];protectWords:boolean;packing:'max_width'|'balanced_width';widthSelection?:'uniform_nonfinal'|null;widthSelectionExtraLines?:number }
@@ -24,7 +26,7 @@ export class LayoutError extends Error {code:string;details:Record<string,unknow
 export const version:string;
 export const sceneIds:readonly SceneId[];
 export function getScene(id:SceneId):Scene;
-export function expandCompact(text:string,scene:SceneId):string;
+export function expandCompact(text:string,scene:SceneId,options?:Pick<LayoutOptions,'typography'>):string;
 export function measure(text:string,scene:SceneId,options?:LayoutOptions):Measured;
 export function validate(text:string,scene:SceneId,options?:LayoutOptions):Validated;
 export function layout(text:string,scene:SceneId,options?:LayoutOptions):LayoutResult;

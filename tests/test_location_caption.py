@@ -7,7 +7,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from srwz.chinese_layout import location_caption
 
 
-class LocationCaptionTest(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class LocationCaptionTest(NativeTypographyTestCase):
     def test_matches_the_japanese_centring(self):
         self.assertEqual(location_caption("～卢特提姆基地　通道～"), "<z>　</z>" + "　" * 6 + "〜卢特提姆基地　通道〜")
         self.assertEqual(location_caption("——月光号机库——"), "<z>　</z>" + "　" * 8 + "〜月光号机库〜")
@@ -26,3 +28,16 @@ class LocationCaptionTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ProportionalLocationCaptionTest(unittest.TestCase):
+    def test_tag_free_caption_is_centered_and_idempotent(self):
+        from srwz.renderer_metrics import text_extent
+        source = "〜<z>DEAVA</z>元素学校〜"
+        result = location_caption(source)
+        self.assertNotIn('<z>', result)
+        self.assertEqual(location_caption(result), result)
+        core = "〜DEAVA元素学校〜"
+        width = text_extent(core, default_advance_px=21).occupied_px
+        total = text_extent(result, default_advance_px=21).occupied_px
+        self.assertLessEqual(abs((total-width) + width/2 - 252), 0.5)

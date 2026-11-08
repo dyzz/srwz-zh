@@ -16,7 +16,9 @@ STORY_FILES = [*sorted((ROOT / 'corpus/zh/story-dialogue').glob('stage-*.json'))
                ROOT / 'corpus/zh/special-disc/challenge-dialogue.json']
 
 
-class CompactScopeTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class CompactScopeTests(NativeTypographyTestCase):
     def test_every_scope_sets_and_restores_all_three_dimensions(self):
         self.assertEqual(expand('攻击<z>PLANT</z>的'),
                          '攻击<width:0E><space:0C><height:0B>PLANT<width:15><space:15><height:0C>的')

@@ -1,5 +1,6 @@
 /** Pure SRWZ layout core. No DOM, filesystem, process, or font measurement APIs. */
 import { contracts } from './contracts.mjs';
+import {proportionalMetric,proportionalFontSha256} from './proportional-selection.mjs';
 export const version = '1.1.0';
 export const sceneIds = Object.freeze(Object.keys(contracts.scenes));
 export class LayoutError extends Error {
@@ -14,7 +15,10 @@ const nativeScopeRE = new RegExp('<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>(?
   '(?:[A-Za-z0-9Ａ-Ｚａ-ｚ０-９ .,:：．_\x27/／＋+％%~～〜×÷±＝=　－−·《》（）-]|<height:[0-9A-Fa-f]{2}>)+?' +
   '(?:<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>|<space:[0-9A-Fa-f]{2}><width:[0-9A-Fa-f]{2}>)(?:<height:[0-9A-Fa-f]{2}>)?', 'y');
 const latinRE = /[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+(?:[.·_-][A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+)*[ 　]?/y;
+const proportionalLatinRE = /[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+(?:[.·_\/-][A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+)*(?:[ 　][0-9０-９]+)?[ 　]?/y;
 const numberRE = /(?:第[0-9０-９]+(?:话|章|关|幕|次|号|代|阶段|批)?|[0-9０-９]+(?:[.,][0-9０-９]+)*(?:%|％|岁|年|月|日|时|分|秒|米|公里|千米|海里|节|话|号|机|艘|人|倍|层|级|点|个)?)/y;
+const rangeCacheKey=Symbol('request-local proportional row widths');
+const splitIdentifierKey=Symbol('overwide identifier fallback');
 function match(re, text, offset) { re.lastIndex = offset; return re.exec(text); }
 export function getScene(id) {
   const value = typeof id === 'string' && Object.hasOwn(contracts.scenes, id) ? contracts.scenes[id] : null;
@@ -40,6 +44,8 @@ function checkOptions(options,scene) {
   if(options.protectedTerms!==undefined&&(!Array.isArray(options.protectedTerms)||options.protectedTerms.length>10000||options.protectedTerms.some(t=>typeof t!=='string'||!t.length||t.length>1000||/[\r\n]/.test(t))))fail('options','Invalid protected terms');
   if(options.packing!==undefined&&!['max_width','balanced_width'].includes(options.packing))fail('options','Unknown line packing');
   if(options.resourceId!==undefined&&(typeof options.resourceId!=='string'||options.resourceId.length>256||/[\r\n]/.test(options.resourceId)))fail('options','Invalid resource ID');
+  if(options.chinesePunctuation!==undefined&&!['native','compact'].includes(options.chinesePunctuation))fail('options','Unknown Chinese punctuation policy');
+  if(options.typography!==undefined&&!['native','proportional'].includes(options.typography))fail('options','Unknown typography');
   if(options.initialState!==undefined)fail('options','Initial font state belongs to the selected scene');
 }
 function initial(scene) { return { width: scene.width, height: scene.height, step: scene.step }; }
@@ -60,14 +66,14 @@ function scopeNative(run, scene) {
   return `<width:${hex(m.width)}><space:${hex(m.space)}>${body}` +
     (/[％%]$/.test(run) ? space + width : width + space) + `<height:${hex(safeHeight(m.restore_height))}>`;
 }
-export function expandCompact(text, sceneId) {
+export function expandCompact(text, sceneId, options = {}) {
   const scene = sceneOf(sceneId); text = normalize(text);
   let out = '', i = 0;
   while (i < text.length) {
     if (text.startsWith('<z>', i)) {
       const m = match(scopeRE, text, i);
       if (!m) fail('compact_scope', 'Malformed, nested, or unsupported compact scope', { offset: i });
-      out += scopeNative(m[1], scene); i += m[0].length;
+      out += options.typography==='proportional'?m[1]:scopeNative(m[1], scene); i += m[0].length;
     } else {
       if (text.startsWith('</z>', i)) fail('compact_scope', 'Unmatched compact closing tag', { offset: i });
       const ch = String.fromCodePoint(text.codePointAt(i)); out += ch; i += ch.length;
@@ -91,8 +97,8 @@ function keywordSpans(text) {
   if (open >= 0) fail('keyword', 'Unclosed keyword link');
   return spans;
 }
-function measureRow(text, scene, start, options) {
-  text = expandCompact(text, scene.id); rejectDynamic(text);
+function measureRow(text, scene, start, options, collectGlyphs = true) {
+  text = expandCompact(text, scene.id, options); rejectDynamic(text);
   if (/[\r\n]/.test(text)) fail('input', 'Row measurement accepts one physical row');
   if (options.keywordLinks) keywordSpans(text);
   let state = { ...start }, x = 0, right = 0, i = 0; const glyphs = [];
@@ -107,36 +113,39 @@ function measureRow(text, scene, start, options) {
           if (v < 1 || v > 63) fail('dimension', `Invalid renderer dimension: ${token}`);
           state[dim[1] === 'space' ? 'step' : 'width'] = v;
         }
-      } else if (/^<[^:]+:/.test(token) && !/^<(?:color|3[1-5]):[0-9A-Fa-f]{2}>$/.test(token)) {
+      } else if (/^<[A-Za-z0-9]+:/.test(token) && !/^<(?:color|3[1-5]):[0-9A-Fa-f]{2}>$/.test(token)) {
         fail('control', `Unregistered native tag: ${token}`);
       } else {
         const cells = /^[%$]/.test(token) ? (options.placeholderCells ?? 6) : /^<[+-]?[0-9<]/.test(token) ? 1 : 0;
         if (cells) {
-          glyphs.push({ text: token, x, width: (cells - 1) * state.step + state.width, height: state.height, advance: cells * state.step, placeholder: true });
+          if(collectGlyphs)glyphs.push({ text: token, x, width: (cells - 1) * state.step + state.width, height: state.height, advance: cells * state.step, placeholder: true });
           right = Math.max(right, x + (cells - 1) * state.step + state.width); x += cells * state.step;
         }
       }
       i += token.length; continue;
     }
-    if (/^@?</.test(text.slice(i)) || /^\{[0-9A-Za-z]/.test(text.slice(i)) || /^\$[A-Za-z]/.test(text.slice(i)) || /^%[-+#0.*$0-9A-Za-z]/.test(text.slice(i)))
+    if ('@<{$%'.includes(text[i]) && (/^@?</.test(text.slice(i)) || /^\{[0-9A-Za-z]/.test(text.slice(i)) || /^\$[A-Za-z]/.test(text.slice(i)) || /^%[-+#0.*$0-9A-Za-z]/.test(text.slice(i))))
       fail('control', 'Unrecognized control syntax', { offset: i });
     const ch = String.fromCodePoint(text.codePointAt(i)); i += ch.length;
     if (options.keywordLinks && (ch === '《' || ch === '》')) continue;
-    glyphs.push({ text: ch, x, width: state.width, height: state.height, advance: state.step, placeholder: false });
-    if (ch !== ' ' && ch !== '　') right = Math.max(right, x + state.width);
-    x += state.step;
+    const metric=options.typography==='proportional'?proportionalMetric(text,i-ch.length,scene.id,options,state):null;
+    const gx=x-(metric?.bearing||0),width=metric?.width??state.width,advance=metric?.advance??state.step;
+    if(collectGlyphs)glyphs.push({text:ch,yOffset:metric?.yOffset??0,baselineResidual16:metric?.baselineResidual16??0,x:gx,width,height:metric?.height??state.height,advance,placeholder:false});
+    if (ch !== ' ' && ch !== '　') right = Math.max(right, gx + width);
+    x += advance;
   }
   return { text, advancePx: x, occupiedPx: Math.max(x, right), glyphs, state };
 }
 export function measure(text, sceneId, options = {}) {
   const scene = effectiveScene(sceneId,options); checkOptions(options,scene); text = normalize(text);
   if (options.escapedNewlines) text = text.replace(/\\n/g, '\n');
+  if(options.typography==='proportional')text=expandCompact(text,scene.id,options);
   let state = initial(scene);
   const rows = text.split('\n').map(line => {
     const r = measureRow(line, scene, state, options); state = r.state;
     return { text: line, advancePx: r.advancePx, occupiedPx: r.occupiedPx, glyphs: r.glyphs };
   });
-  return { scene: scene.id, rows, state };
+  return { scene: scene.id, rows, state, ...(options.typography==='proportional'?{fontSha256:proportionalFontSha256}:{}) };
 }
 const termCache = new Map();
 function termsFor(scene, extra) {
@@ -185,16 +194,20 @@ function tokensFor(text, scene, startState, options) {
         const term=(terms.get(text[offset])||[]).find(t=>text.startsWith(t,offset));if(term)candidates.push(term);
         for(const re of [latinRE,numberRE]){const m=match(re,text,offset);if(m)candidates.push(m[0]);}
       }
+      // Latin identifiers remain intact even when Chinese word protection is off.
+      if(options.typography==='proportional'&&!options[splitIdentifierKey]){
+        const m=match(proportionalLatinRE,text,offset);if(m)candidates.push(m[0]);
+      }
       if(text.startsWith('……',offset)||text.startsWith('——',offset)){candidates.push(text.slice(offset,offset+2));atomic=true;}
       candidates.sort((a,b)=>b.length-a.length||(a>b?-1:1));
       value=candidates[0]||String.fromCodePoint(text.codePointAt(offset));
     }
-    const before=pendingBefore||{...state}; const extent=measureRow(value,scene,state,options);state=extent.state;offset+=value.length;
+    const before=pendingBefore||{...state}; const extent=measureRow(value,scene,state,options,false);state=extent.state;offset+=value.length;
     if(!extent.advancePx){pendingBefore=before;pending+=value;continue;}
     const token={text:pending+value,advance:extent.advancePx,occupied:extent.occupiedPx,before,after:{...state},atomic,visible:visible(value)};
     pending='';pendingBefore=null;
     if(token.occupied>scene.widthPx && !atomic && Array.from(value).length>1) {
-      tokens.push(...tokensFor(value,scene,before,{...options,protectWords:false}));
+      tokens.push(...tokensFor(value,scene,before,{...options,protectWords:false,[splitIdentifierKey]:true}));
     } else tokens.push(token);
   }
   if(pending){if(tokens.length){tokens.at(-1).text+=pending;tokens.at(-1).after={...state};}else tokens.push({text:pending,advance:0,occupied:0,before:startState,after:state,atomic:true,visible:''});}
@@ -213,25 +226,39 @@ function partition(text,scene,options,firstIndent='',continuationIndent='',exact
   if(!n)return [firstIndent];
   if(n>6000)fail('complexity','Too many layout tokens');
   const prefix=[0];for(const t of tokens)prefix.push(prefix.at(-1)+t.advance);
-  const range=(a,b)=>{let edge=0;for(let i=a;i<b;i++)edge=Math.max(edge,prefix[i]-prefix[a]+tokens[i].occupied);return Math.max(prefix[b]-prefix[a],edge);};
-  // Prefix-constrained legal edges are finite, cached once, and independent of row count.
+  const cache=options[rangeCacheKey],cacheId=JSON.stringify([scene.id,tokens.map(t=>t.text),start]);
+  if(cache&&!cache.has(cacheId))cache.set(cacheId,new Map());
+  const widths=cache?.get(cacheId);
+  const range=(a,b)=>{if(options.typography==='proportional'){
+    const key=a*(n+1)+b;
+    if(widths?.has(key))return widths.get(key);
+    const width=measureRow(tokens.slice(a,b).map(t=>t.text).join(''),scene,tokens[a].before,options,false).occupiedPx;
+    widths?.set(key,width);return width;
+  }let edge=0;for(let i=a;i<b;i++)edge=Math.max(edge,prefix[i]-prefix[a]+tokens[i].occupied);return Math.max(prefix[b]-prefix[a],edge);};
+  // A newly appended Latin character can narrow the preceding space. Allow
+  // that edge to recover; 126 bounds one 63px advance plus cell overhang.
+  // Legal edges are cached once and independent of row count.
   const edges=Array.from({length:n},()=>[]);
   for(let a=0;a<n;a++)for(let b=a+1;b<=n;b++){
-    const w=range(a,b);if(w>scene.widthPx)break;if(legal(tokens,b,scene))edges[a].push({end:b,width:w});
+    const w=range(a,b);if(w>scene.widthPx){if(options.typography==='proportional'&&w<=scene.widthPx+126)continue;break;}if(legal(tokens,b,scene))edges[a].push({end:b,width:w});
   }
-  const ceiling=Math.min(maxRows??n,n), minimum=exactRows??Math.max(1,Math.ceil(prefix[n]/scene.widthPx)), limit=exactRows??ceiling;
+  // Exact lower bound from the legal-edge graph, ignoring indentation. This
+  // remains safe when a row boundary changes contextual Latin spacing.
+  const remainingRows=new Array(n+1).fill(Infinity);remainingRows[n]=0;
+  for(let a=n-1;a>=0;a--)for(const e of edges[a])remainingRows[a]=Math.min(remainingRows[a],1+remainingRows[e.end]);
+  const ceiling=Math.min(maxRows??n,n), minimum=exactRows??(options.typography==='proportional'?Math.min(ceiling,remainingRows[0]):Math.max(1,Math.ceil(prefix[n]/scene.widthPx))), limit=exactRows??ceiling;
   if(!Number.isInteger(ceiling)||ceiling<1||!Number.isInteger(minimum)||minimum<1||limit>ceiling)fail('rows','Invalid physical row budget');
   for(let rows=minimum;rows<=limit;rows++){
     const memo=new Map();
     const balanced=(options.packing??scene.packing)==='balanced_width';
-    const totalAdvance=prefix[n]+measureRow(firstIndent,scene,start,options).advancePx;
+    const totalAdvance=(options.typography==='proportional'?measureRow(text,scene,start,options,false).advancePx:prefix[n])+measureRow(firstIndent,scene,start,options,false).advancePx;
     const solve=(a,k)=>{
-      if(k===rows)return a===n?[]:null;if(a===n||n-a<rows-k)return null;
+      if(k===rows)return a===n?[]:null;if(a===n||n-a<rows-k||remainingRows[a]>rows-k)return null;
       const key=a+':'+k;if(memo.has(key))return memo.get(key);
-      if(prefix[n]-prefix[a]>(rows-k)*scene.widthPx){memo.set(key,null);return null;}
+      if(options.typography!=='proportional'&&prefix[n]-prefix[a]>(rows-k)*scene.widthPx){memo.set(key,null);return null;}
       const indent=k===0?firstIndent:continuationIndent;
       const state=a===0?start:tokens[a-1].after;
-      const indentWidth=measureRow(indent,scene,state,options).occupiedPx;
+      const indentWidth=measureRow(indent,scene,state,options,false).occupiedPx;
       const candidates=edges[a];let best=null;
       for(let j=candidates.length-1;j>=0;j--){const e=candidates[j];if(e.width+indentWidth>scene.widthPx)continue;
         const tail=solve(e.end,k+1);if(tail){
@@ -288,7 +315,7 @@ function layoutFixed(text,sceneId,options={},targetWidth=null) {
       if(block.blank!==undefined){lines.push(block.blank);continue;}
       const exact=options.preserveLineCount===true?text.split('\n').length:null;
       const part=partition(block.body,scene,{...options,initialState:state},block.indent,'',exact,options.maxLines??null);
-      lines.push(...part);for(const row of part)state=measureRow(row,scene,state,options).state;
+      lines.push(...part);for(const row of part)state=measureRow(row,scene,state,options,false).state;
     }
   }
   const physical=lines.join('\n');
@@ -296,7 +323,7 @@ function layoutFixed(text,sceneId,options={},targetWidth=null) {
   const checked=validate(physical,scene.id,options);
   if(!checked.valid)fail('invariant','Generated layout failed validation',{issues:checked.issues});
   const output=options.escapedNewlines?physical.replace(/\n/g,'\\n'):physical;
-  return {version,scene:scene.id,profile:scene.profileId,text:output,changed:output!==original,widthPx:scene.widthPx,step:scene.step,...checked,compiledText:expandCompact(physical,scene.id)};
+  return {version,scene:scene.id,profile:scene.profileId,text:output,changed:output!==original,widthPx:scene.widthPx,step:scene.step,...checked,compiledText:expandCompact(physical,scene.id,options)};
 }
 // Paragraph tails and blank separators do not vote on the common line width.
 // One pixel of tolerance covers native narrow glyph overhang, not added spacing.
@@ -326,11 +353,14 @@ function uniformParagraph(text,scene,options,maxRows) {
     let advance=0,occupied=0;
     for(let b=a;b<n;b++){
       occupied=Math.max(occupied,advance+tokens[b].occupied);advance+=tokens[b].advance;
-      const width=Math.max(advance,occupied);if(width>scene.widthPx)break;
+      const width=options.typography==='proportional'?measureRow(tokens.slice(a,b+1).map(t=>t.text).join(''),scene,tokens[a].before,options,false).occupiedPx:Math.max(advance,occupied);if(width>scene.widthPx){if(options.typography==='proportional'&&width<=scene.widthPx+126)continue;break;}
       if(legal(tokens,b+1,scene)){edges[a].push({end:b+1,width});if(b+1<n)widths.add(width);}
     }
   }
-  const values=[...widths].sort((a,b)=>a-b);
+  // Uniformity may give up at most one native cell of the panel width.
+  // If an identifier makes that impossible, retain the full-width baseline.
+  const floor=options.typography==='proportional'?scene.widthPx-scene.step:0;
+  const values=[...widths].filter(w=>w>=floor).sort((a,b)=>a-b);
   const path=(lo,hi)=>{
     const count=new Int32Array(n+1).fill(maxRows+1),previous=new Int32Array(n+1).fill(-1);count[0]=0;
     for(let a=0;a<n;a++)if(count[a]<maxRows){
@@ -358,6 +388,17 @@ function uniformParagraph(text,scene,options,maxRows) {
   return best;
 }
 export function layout(text,sceneId,options={}) {
+  const original=text;
+  if(options?.typography==='proportional'){
+    text=expandCompact(text,sceneId,options);
+  }
+  const result=layoutInternal(text,sceneId,options);
+  return {...result,changed:result.text!==original};
+}
+function layoutInternal(text,sceneId,options={}) {
+  // Width search revisits the same contextual rows hundreds of times. Cache
+  // only within this request, so policy and corpus changes never reuse widths.
+  if(options?.typography==='proportional')options={...options,[rangeCacheKey]:new Map()};
   const scene=effectiveScene(sceneId,options), baseline=layoutFixed(text,sceneId,options);
   if(scene.widthSelection!=='uniform_nonfinal'||(options.packing??scene.packing)!=='max_width')return baseline;
   let best=baseline,selected=scene.widthPx,score=uniformity(baseline),tested=1;
@@ -369,23 +410,24 @@ export function layout(text,sceneId,options={}) {
   const widest=s=>Math.max(0,...s.nonfinalWidthsPx);
   const consider=(candidate,width)=>{
     const next=uniformity(candidate);
+    if(options.typography==='proportional'&&next.nonfinalWidthsPx.some(w=>w<scene.widthPx-scene.step))return;
     if(next.excessSpreadPx<score.excessSpreadPx||next.excessSpreadPx===score.excessSpreadPx&&(next.unalignedRows<score.unalignedRows||next.unalignedRows===score.unalignedRows&&widest(next)>widest(score))){
       best=candidate;selected=width;score=next;
     }
   };
   const stored=validate(authored,scene.id,options);
   if(stored.valid&&stored.rows.length<=rowBudget){
-    consider({...baseline,...stored,text:options.escapedNewlines?authored.replace(/\n/g,'\\n'):authored,compiledText:expandCompact(authored,scene.id),changed:authored!==normalize(text)},Math.max(0,...nonfinalWidths(stored)));
+    consider({...baseline,...stored,text:options.escapedNewlines?authored.replace(/\n/g,'\\n'):authored,compiledText:expandCompact(authored,scene.id,options),changed:authored!==normalize(text)},Math.max(0,...nonfinalWidths(stored)));
   }
   const solved=uniformParagraph(authored,scene,options,rowBudget);
   if(solved){
-    consider({...baseline,...solved.result,text:options.escapedNewlines?solved.result.text.replace(/\n/g,'\\n'):solved.result.text,compiledText:expandCompact(solved.result.text,scene.id),changed:solved.result.text!==authored},solved.width);
+    consider({...baseline,...solved.result,text:options.escapedNewlines?solved.result.text.replace(/\n/g,'\\n'):solved.result.text,compiledText:expandCompact(solved.result.text,scene.id,options),changed:solved.result.text!==authored},solved.width);
     return {...best,selectedWidthPx:selected,widthSelection:{policy:'uniform_nonfinal',method:'legal_break_intervals',testedWidths:tested,...score,withinTolerance:score.spreadPx<=1}};
   }
   const candidateOptions={...options,maxLines:rowBudget};
   // Descending widths prefer the fullest equally uniform page. A stored zero-
   // spread candidate cannot stop the search before wider candidates are tried.
-  for(let width=scene.widthPx-1;width>=scene.step;width--){
+  for(let width=scene.widthPx-1;width>=(options.typography==='proportional'?scene.widthPx-scene.step:scene.step);width--){
     if(score.excessSpreadPx===0&&width<widest(score))break;
     let candidate;
     try{candidate=layoutFixed(text,sceneId,candidateOptions,width);}
@@ -400,7 +442,9 @@ export function layout(text,sceneId,options={}) {
 // A native display group owns its fixed fields independently. Storage budgets
 // are supplied by the encoder, never inferred from glyph widths or UTF-8.
 export function layoutFixedFields(fields,sceneId,options={}) {
+  const originalFields=fields;
   const scene=effectiveScene(sceneId,options);checkOptions(options,scene);
+  if(options.typography==='proportional'&&Array.isArray(fields))fields=fields.map(f=>({...f,text:typeof f?.text==='string'?expandCompact(f.text,sceneId,options):f?.text}));
   if(scene.kind!=='prose'||!Array.isArray(fields)||fields.length<1||fields.length>3)
     fail('owner_contract','Fixed prose groups require one to three native fields');
   for(const f of fields)if(!f||typeof f.text!=='string'||/[\r\n]/.test(f.text)||!Number.isInteger(f.capacityBytes)||f.capacityBytes<1||![0,1].includes(f.terminatorBytes))
@@ -412,7 +456,7 @@ export function layoutFixedFields(fields,sceneId,options={}) {
     fail('owner_contract','Fixed-field solver requires plain text with explicit encoded character byte lengths');
   const byteMap=options.encodedCharacterBytes;
   if(!byteMap||typeof byteMap!=='object')fail('field_capacity','Encoder character byte lengths are required');
-  const tokens=tokensFor(text,scene,initial(scene),{protectWords:false}),n=tokens.length;
+  const tokens=tokensFor(text,scene,initial(scene),{protectWords:scene.protectWords,...options}),n=tokens.length;
   if(n>400)fail('complexity','Fixed display group exceeds 400 layout tokens');
   const bytes=[0];
   for(const t of tokens){
@@ -425,7 +469,7 @@ export function layoutFixedFields(fields,sceneId,options={}) {
     let advance=0,occupied=0;
     for(let b=a;b<n;b++){
       occupied=Math.max(occupied,advance+tokens[b].occupied);advance+=tokens[b].advance;
-      const width=Math.max(advance,occupied);if(width>scene.widthPx)break;
+      const width=options.typography==='proportional'?measureRow(tokens.slice(a,b+1).map(t=>t.text).join(''),scene,tokens[a].before,options,false).occupiedPx:Math.max(advance,occupied);if(width>scene.widthPx){if(options.typography==='proportional'&&width<=scene.widthPx+126)continue;break;}
       if(legal(tokens,b+1,scene))edges[a].push({end:b+1,width,bytes:bytes[b+1]-bytes[a]});
     }
   }
@@ -452,12 +496,12 @@ export function layoutFixedFields(fields,sceneId,options={}) {
   if(!checked.valid)fail('invariant','Fixed-field layout failed native geometry validation',{issues:checked.issues});
   const voters=checked.rows.length>1?checked.rows.slice(0,-1):checked.rows, widths=voters.map(r=>r.occupiedPx),spread=Math.max(...widths)-Math.min(...widths);
   const aligned=Math.max(...widths.map(w=>widths.filter(v=>v>=w&&v<=w+1).length));
-  return {version,scene:scene.id,profile:scene.profileId,...checked,text:physical,fields:resultFields,changed:resultFields.some((f,i)=>f.text!==fields[i].text),widthPx:scene.widthPx,step:scene.step,selectedWidthPx:Math.max(...widths),compiledText:expandCompact(physical,scene.id),widthSelection:{policy:'uniform_nonfinal',method:'native_field_capacity',testedWidths:0,spreadPx:spread,excessSpreadPx:Math.max(0,spread-1),unalignedRows:widths.length-aligned,nonfinalWidthsPx:widths,withinTolerance:spread<=1}};
+  return {version,scene:scene.id,profile:scene.profileId,...checked,text:physical,fields:resultFields,changed:resultFields.some((f,i)=>f.text!==originalFields[i].text),widthPx:scene.widthPx,step:scene.step,selectedWidthPx:Math.max(...widths),compiledText:expandCompact(physical,scene.id,options),widthSelection:{policy:'uniform_nonfinal',method:'native_field_capacity',testedWidths:0,spreadPx:spread,excessSpreadPx:Math.max(0,spread-1),unalignedRows:widths.length-aligned,nonfinalWidthsPx:widths,withinTolerance:spread<=1}};
 }
 export function dispatch(request){
   if(!request||typeof request!=='object')fail('input','Expected a JSON request');
   const action=request.action||'layout';if(action==='layout_fields')return layoutFixedFields(request.fields,request.scene,request.options||{});
   if(!['layout','measure','validate','expand'].includes(action))fail('action','Unknown action');
-  if(action==='expand')return {text:expandCompact(request.text,request.scene)};
+  if(action==='expand')return {text:expandCompact(request.text,request.scene,request.options||{})};
   return {layout,measure,validate}[action](request.text,request.scene,request.options||{});
 }

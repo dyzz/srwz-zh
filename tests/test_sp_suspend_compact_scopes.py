@@ -11,7 +11,9 @@ from special_disc.writeback import migrate_slps_text as migration
 from srwz.text import encode_text, load_text_table
 
 
-class SuspendCompactScopeTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class SuspendCompactScopeTests(NativeTypographyTestCase):
     def test_compact_scope_bytes_and_fixed_slot_boundary(self):
         table = load_text_table(ROOT / 'vendor/upstream-python/project/tbl_all.json')
         overrides = {'P': 0x826F, 'S': 0x8272, '2': 0x8251}

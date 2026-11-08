@@ -4,7 +4,9 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from srwz.chinese_layout import tokenize_dialogue,_valid_break
 
-class ProseWordBreakTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class ProseWordBreakTests(NativeTypographyTestCase):
  def test_default_retains_common_and_explicit_words(self):
   tokens=tokenize_dialogue('我们开发兵器他们',protected_terms=('他们',))
   self.assertEqual([t.text for t in tokens],['我们','开发','兵器','他们'])

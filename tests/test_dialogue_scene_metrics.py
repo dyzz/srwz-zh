@@ -13,7 +13,9 @@ from srwz.chinese_layout import (load_layout_profiles, battle_subtitle_line_widt
 from srwz.renderer_metrics import RendererState, text_extent
 
 
-class DialogueSceneMetricsTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class DialogueSceneMetricsTests(NativeTypographyTestCase):
     @classmethod
     def setUpClass(cls):
         cls.profiles = load_layout_profiles(ROOT / 'config/text-layout/zh-layout-profiles.json')

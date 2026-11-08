@@ -8,7 +8,9 @@ from srwz.library_typography import library_typography
 from srwz.text import CONTROL_NOTATION
 from build_library_v02_component import reflow_body
 
-class OpticalMetricsTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class OpticalMetricsTests(NativeTypographyTestCase):
     def fixture(self,edition):
         s=EDITIONS[edition];data=bytearray(max(b for a,b in write_ranges(edition)))
         for va,before in native_preimages(edition):

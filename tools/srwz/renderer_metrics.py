@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import re
+from functools import lru_cache
 from dataclasses import dataclass
 
 from .text import CONTROL_NOTATION, normalize_original_fullwidth_ascii
@@ -33,6 +34,21 @@ class TextExtent:
     state: RendererState
 
 
+@lru_cache(maxsize=16384)
+def _candidate_extent(text, default_advance_px, state, stage_keyword_links):
+    from .js_layout import request_layout
+    scene={16:'main_flow',21:'story',22:'battle',24:'main_scroll',25:'sp_scroll'}[default_advance_px]
+    prefix=f'<width:{state.glyph_width_px:02X}><space:{state.advance_px:02X}>'
+    result=request_layout(prefix+text,scene,action='measure',options=dict(typography='proportional',chinesePunctuation='compact',keywordLinks=stage_keyword_links))
+    for token in CONTROL_NOTATION.finditer(text):
+        dimension=_DIMENSION.fullmatch(token.group())
+        if dimension:
+            value=int(dimension[2],16)
+            state=RendererState(value if dimension[1]=='space' else state.advance_px,value if dimension[1]=='width' else state.glyph_width_px)
+    row=result['rows'][0]
+    return TextExtent(row['advancePx'],row['occupiedPx'],state)
+
+
 def text_extent(text: str, *, default_advance_px: int,
                 state: RendererState | None = None,
                 placeholder_cells: int = 6,
@@ -48,6 +64,10 @@ def text_extent(text: str, *, default_advance_px: int,
     if not 1 <= default_advance_px <= 63:
         raise ValueError('default advance must be between 1 and 63 pixels')
     current = state or RendererState(default_advance_px, default_advance_px)
+    from .typography_policy import candidate_enabled
+    if candidate_enabled() and default_advance_px in {16,21,22,24,25}:
+        if '\n' in text or '\r' in text:raise ValueError('text_extent accepts one physical row')
+        return _candidate_extent(text,default_advance_px,current,stage_keyword_links)
     advance = occupied = index = 0
     while index < len(text):
         match = CONTROL_NOTATION.match(text, index)
@@ -101,6 +121,8 @@ def compact_visible_runs(text: str, *, default_advance_px: int,
     if minimum_characters < 2 or not 1 <= advance_px <= glyph_width_px <= default_advance_px <= 63:
         raise ValueError('invalid compact visible-text metrics')
     folded = normalize_original_fullwidth_ascii(text)
+    from .typography_policy import candidate_enabled
+    if candidate_enabled():return folded
     def replace(match):
         run = match.group().replace('　', ' ')
         # The division bar loses legibility in the tested 14px rendering.

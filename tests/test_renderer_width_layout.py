@@ -12,7 +12,9 @@ from srwz.renderer_metrics import RendererState, text_extent, compact_latin_runs
 from srwz.text import TextTable, encode_text
 
 
-class RendererWidthLayoutTest(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class RendererWidthLayoutTest(NativeTypographyTestCase):
     def setUp(self):
         self.profile = ChineseLayoutProfile('sp-probe', 10, None, 3, 'minimum',
             continuation_indent='　', default_advance_px=22)

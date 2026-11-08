@@ -47,8 +47,10 @@ def normalize_body_controls(text: str) -> str:
         '<space:16><width:16>', '<space:15><width:15>')
 
 
-def library_typography(text: str, tag: str, *, domain: str | None = None) -> str:
+def library_typography(text: str, tag: str, *, domain: str | None = None, typography: str | None = None) -> str:
     """Compile one supported field, preserving templates and native controls."""
+    from .typography_policy import options
+    typography=options(typography)[0]
     if tag not in SURFACES:
         return text
     folded = normalize_original_fullwidth_ascii(text)
@@ -57,6 +59,12 @@ def library_typography(text: str, tag: str, *, domain: str | None = None) -> str
         folded = re.sub(r'<height:0[Aa]>', '<height:8A>', folded)
     logical = OWNED.sub(lambda match: re.sub(r'<height:[0-9A-Fa-f]{2}>', '', match[1]),
                         DOME_OWNED.sub('D.O.M.E.G-Bit', folded))
+    if typography not in {'native', 'proportional'}:
+        raise ValueError('Unsupported library typography')
+    if typography == 'proportional':
+        # Remove only scopes owned by this compiler. Unknown authored controls
+        # remain intact; the shared layout engine validates/removes legacy z.
+        return logical
     state = dict(zip(('width', 'space', 'height'), SURFACES[tag]))
     if tag in BODY_TAGS and domain is not None:
         state['height'] = BODY_HEIGHTS[domain]

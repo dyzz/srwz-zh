@@ -11,7 +11,9 @@ from build_library_v02_component import reflow_body
 from srwz.text import CONTROL_NOTATION
 ROOT=Path(__file__).resolve().parents[1]
 
-class LibraryBodyPatchTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class LibraryBodyPatchTests(NativeTypographyTestCase):
     def fixture(self,ed):
         s=EDITIONS[ed];b=bytearray(s['cave']-s['delta']+CAVE_SIZE)
         h=s['hook']-s['delta'];b[h-8:h]=bytes.fromhex('2d4080022110c200')
@@ -41,7 +43,7 @@ class LibraryBodyPatchTests(unittest.TestCase):
         self.assertTrue(all(x<=16 for x in widths))
         self.assertEqual(library_typography(compiled,'DSC2'),compiled)
 
-class NativeLibraryBodyPatchTests(unittest.TestCase):
+class NativeLibraryBodyPatchTests(NativeTypographyTestCase):
     def test_all_three_native_executables_and_inherited_height(self):
         try:
             from unicorn import Uc,UC_ARCH_MIPS,UC_MODE_MIPS64,UC_MODE_LITTLE_ENDIAN,UC_HOOK_CODE

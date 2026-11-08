@@ -30,3 +30,12 @@ class JsLayoutAdapterTests(unittest.TestCase):
         result=request_layout('　'+'国'*80,'sp_flow',options=dict(maxLines=4))
         self.assertEqual(len(result['rows']),3)
         self.assertEqual(result['step'],16)
+
+    def test_explicit_tag_free_build_request_uses_shared_native_capacity_solver(self):
+        fields=[dict(text='　<z>Side 3</z>'+'国'*12,capacityBytes=41,terminatorBytes=1),dict(text='国'*20,capacityBytes=41,terminatorBytes=1)]
+        result=layout_batch([dict(action='layout_fields',scene='main_scroll',fields=fields,options=dict(typography='proportional',encodedCharacterBytes={ch:2 for ch in '　Side 3国'}))])[0]
+        self.assertTrue(result['ok'],result)
+        value=result['result'];self.assertEqual(len(value['fields']),2)
+        self.assertNotIn('<z>',value['compiledText'])
+        self.assertTrue(all(f['encodedBytes']<=41 for f in value['fields']))
+        self.assertEqual(''.join(f['text'] for f in value['fields']),'　Side 3'+'国'*32)

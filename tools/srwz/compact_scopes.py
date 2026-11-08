@@ -81,12 +81,15 @@ def expand_scope(run: str, metrics: dict = STORY) -> str:
             + f"<height:{metrics['restore_height']:02X}>")
 
 
-def expand(text: str, metrics: dict = STORY) -> str:
+def expand(text: str, metrics: dict = STORY, *, typography: str | None = None) -> str:
     """Replace every ``<z>…</z>`` with native controls; reject stray tags."""
     expanded = SCOPE.sub(lambda m: expand_scope(m[1], metrics), text)
     stray = TAG.search(expanded)
     if stray:
         raise ValueError(f"malformed or nested <z> scope at character {stray.start()}: {text!r}")
+    from .typography_policy import candidate_enabled
+    if typography == 'proportional' or (typography is None and candidate_enabled()):
+        return TAG.sub('', text)
     return expanded
 
 

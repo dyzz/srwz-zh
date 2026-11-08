@@ -176,6 +176,7 @@ def fits(text: str, profile, *, stage_keyword_links: bool) -> bool:
         text,
         protected_terms=profile.unbroken_terms,
         stage_keyword_links=stage_keyword_links,
+        default_advance_px=profile.default_advance_px,
     )
     first = profile.first_line_maximum_width or profile.maximum_width
     return (

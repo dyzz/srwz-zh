@@ -11,7 +11,9 @@ from srwz.library_typography import library_typography
 from srwz.text import CONTROL_NOTATION
 
 
-class LibraryHeightRestoreTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class LibraryHeightRestoreTests(NativeTypographyTestCase):
     def fixture(self, edition):
         spec = EDITIONS[edition]
         ranges = write_ranges(edition)

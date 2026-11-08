@@ -152,7 +152,10 @@ class StoryDialogueLayoutWordsTest(unittest.TestCase):
                     self.assertEqual(
                         tool.split_terms(text, self.profile, stage_keyword_links=links), []
                     )
-                    self.assertTrue(tool.fits(text, self.profile, stage_keyword_links=links))
+            from srwz.build_layout import verify_stored
+            self.assertEqual(verify_stored(
+                [(e["id"],e["translation"],e["id"] in link_ids) for e in entries],
+                "story"), len(entries))
 
 
 if __name__ == "__main__":

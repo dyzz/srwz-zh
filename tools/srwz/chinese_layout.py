@@ -601,10 +601,19 @@ def dialogue_line_widths(
     widths = []
     for line in text.splitlines():
         content = line.lstrip("　 ")
-        tokens = tokenize_dialogue(content, protected_terms=terms,
-            stage_keyword_links=stage_keyword_links,
-            default_advance_px=default_advance_px, initial_state=state)
-        widths.append(math.ceil(_occupied_width(tokens)))
+        from .typography_policy import candidate_enabled
+        if candidate_enabled():
+            # Contextual spaces and punctuation must see the complete physical
+            # row; summing separately measured lexical tokens loses neighbors.
+            extent = text_extent(content, default_advance_px=default_advance_px,
+                                 state=state, stage_keyword_links=stage_keyword_links)
+            widths.append(math.ceil(extent.occupied_px / default_advance_px))
+            state = extent.state
+        else:
+            tokens = tokenize_dialogue(content, protected_terms=terms,
+                stage_keyword_links=stage_keyword_links,
+                default_advance_px=default_advance_px, initial_state=state)
+            widths.append(math.ceil(_occupied_width(tokens)))
         if state is not None or re.search(r'<(?:width|space):', content):
             state = text_extent(content, default_advance_px=default_advance_px,
                                 state=state, stage_keyword_links=stage_keyword_links).state
@@ -1112,9 +1121,21 @@ LOCATION_CAPTION_PREFIX = re.compile(r"(?:<z>　</z>|[　 \n])+")
 def location_caption(text: str, *, default_advance_px: int = 21) -> str:
     """Return a place caption in its final form: 〜name〜, centred on the window."""
 
+    from .typography_policy import candidate_enabled
+    if candidate_enabled():
+        # Remove only our own leading fractional spacer on repeated formatting.
+        text = re.sub(r"^<space:[0-9A-F]{2}>　<space:[0-9A-F]{2}>", "", text)
     core = LOCATION_CAPTION_PREFIX.sub("", text, count=1) if LOCATION_CAPTION_PREFIX.match(text) else text
     core = core.strip("　 \n").strip(LOCATION_CAPTION_MARKS)
     caption = f"〜{core}〜"
+    if candidate_enabled():
+        caption = _expand_compact_scopes(caption)
+        width_px = text_extent(caption, default_advance_px=default_advance_px).occupied_px
+        padding = max(0, round(12 * default_advance_px - width_px / 2))
+        full, remainder = divmod(padding, default_advance_px)
+        spacer = (f"<space:{remainder:02X}>　<space:{default_advance_px:02X}>"
+                  if remainder else "")
+        return spacer + "　" * full + caption
     width = _occupied_width(tokenize_dialogue(caption, default_advance_px=default_advance_px))
     full, half = divmod(max(0, round(LOCATION_CAPTION_CENTER_HALF_CELLS - width)), 2)
     return (LOCATION_CAPTION_HALF_CELL if half else "") + "　" * full + caption
@@ -1125,6 +1146,7 @@ def dialogue_layout_issues(
     *,
     profile: ChineseLayoutProfile,
     stage_keyword_links: bool = False,
+    check_width: bool = True,
 ) -> tuple[str, ...]:
     """Describe why a stored dialogue is not already in its final layout.
 
@@ -1132,6 +1154,8 @@ def dialogue_layout_issues(
     line within the profile's width and line count, no break inside an
     unbroken term, and one full-width indent on each prose continuation.
     An empty result means the text passes.
+    Set check_width=False only after a caller has validated geometry with the
+    shared proportional engine; term, indent and line-count checks still apply.
     """
 
     issues = []
@@ -1140,14 +1164,14 @@ def dialogue_layout_issues(
         protected_terms=profile.unbroken_terms,
         stage_keyword_links=stage_keyword_links,
         default_advance_px=(profile.default_advance_px if profile is not None else 24),
-    )
+    ) if check_width else tuple(0 for _ in text.splitlines())
     first_limit = profile.first_line_maximum_width or profile.maximum_width
     if profile.maximum_lines is not None and len(widths) > profile.maximum_lines:
         issues.append(f"{len(widths)} lines exceed {profile.maximum_lines}")
-    if widths and widths[0] > first_limit:
+    if check_width and widths and widths[0] > first_limit:
         issues.append(f"first line {widths[0]} cells exceeds {first_limit}")
     for index, width in enumerate(widths[1:], start=2):
-        if width > profile.maximum_width:
+        if check_width and width > profile.maximum_width:
             issues.append(f"line {index} {width} cells exceeds {profile.maximum_width}")
     for term in split_unbroken_terms(
         text, profile=profile, stage_keyword_links=stage_keyword_links

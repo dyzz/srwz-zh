@@ -9,7 +9,25 @@ from srwz.text import CONTROL_NOTATION
 from build_library_v02_component import reflow_body
 from special_disc.writeback.shared_library import authoring
 
-class LibraryTypographyTests(unittest.TestCase):
+from typography_fixtures import NativeTypographyTestCase
+
+class LibraryTypographyTests(NativeTypographyTestCase):
+    def test_proportional_removes_only_owned_scopes(self):
+        source='<width:16><space:16>高达<width:0E><space:0C>Geo<width:16><space:16>、<width:09>中文'
+        result=library_typography(source,'DSCR',domain='character',typography='proportional')
+        self.assertEqual(result,'<width:15><space:15>高达Geo、<width:09>中文')
+        self.assertEqual(library_typography(result,'DSCR',domain='character',typography='proportional'),result)
+        self.assertEqual(CONTROL_NOTATION.sub('',result),CONTROL_NOTATION.sub('',source))
+        self.assertIn('<width:0E>',library_typography(source,'DSCR',domain='character'))
+
+    def test_proportional_library_bridge_accepts_legacy_z_without_reinserting_it(self):
+        from srwz.build_layout import library_batch
+        key=('CHAR','高达<z>Mk-II</z>与Geo')
+        ok,value=library_batch([key],typography='proportional')[key]
+        self.assertTrue(ok)
+        self.assertNotIn('<z>',value[0]);self.assertNotIn('<width:0E>',value[0])
+        self.assertEqual(value[0].replace('\n',''),'高达Mk-II与Geo')
+
     def test_work_title_restores_native_metadata_and_preserves_english(self):
         text='机动战士高达SEED DESTINY中文'
         result=library_typography(text,'PRDC')
