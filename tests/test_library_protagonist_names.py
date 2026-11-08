@@ -35,6 +35,9 @@ def run_mips(memory, registers, pc, stop):
                 registers[rd] = registers[rs] & registers[rt]
             elif fn == 0x2B:
                 registers[rd] = int(registers[rs] < registers[rt])
+            elif fn == 0x0B:
+                if registers[rt]:
+                    registers[rd] = registers[rs]
             elif fn == 8:
                 branch = registers[rs]
             else:
@@ -51,15 +54,15 @@ def run_mips(memory, registers, pc, stop):
             equal = registers[rs] == registers[rt]
             if equal == (op == 4):
                 branch = pc + 4 + signed * 4
-        elif op == 3:
-            registers[31] = pc + 8
+        elif op in (2, 3):
+            if op == 3: registers[31] = pc + 8
             branch = ((pc + 4) & 0xF0000000) | ((word & 0x3FFFFFF) << 2)
-        elif op in (35, 36, 37, 55, 40, 41, 43, 63):
-            size = {35: 4, 36: 1, 37: 2, 55: 8, 40: 1, 41: 2, 43: 4, 63: 8}[op]
+        elif op in (30, 31, 35, 36, 37, 55, 40, 41, 43, 63):
+            size = {30: 16, 31: 16, 35: 4, 36: 1, 37: 2, 55: 8, 40: 1, 41: 2, 43: 4, 63: 8}[op]
             address = registers[rs] + signed
             if not 0 <= address <= len(memory) - size:
                 raise AssertionError('MIPS memory access out of range')
-            if op in (35, 36, 37, 55):
+            if op in (30, 35, 36, 37, 55):
                 registers[rt] = int.from_bytes(memory[address:address + size], 'little')
             else:
                 memory[address:address + size] = (registers[rt] & ((1 << (8 * size)) - 1)).to_bytes(size, 'little')
