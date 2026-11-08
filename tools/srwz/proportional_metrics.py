@@ -16,13 +16,15 @@ PROFILES = {
     'main_scroll': (24, 13, 12), 'main_scroll_strip': (24, 13, 12),
     'sp_scroll': (25, 13, 12), 'weapon': (12, 10, 9),
     'weapon_main': (14, 10, 9),
-    'library_character': (14, 13, 12),
+    'library_character': (14, 13, 12), 'keyword_list': (14, 13, 12),
     'library_robot': (14, 11, 10), 'library_glossary': (14, 13, 12),
 }
 
 CJK_PUNCTUATION='，。、！？：；“”‘’（）《》【】'
 CJK_NATIVE={name:((24,12) if name.startswith('main_scroll') else (25,12) if name=='sp_scroll' else (16,9) if name=='weapon' else (16,10) if name in {'main_flow','sp_flow'} else (21,10) if name=='library_robot' else (21,12)) for name in PROFILES}
 CJK_NATIVE['battle']=(22,11)
+# Term index names use 18x12 cells, distinct from the 21x12 body.
+CJK_NATIVE['keyword_list']=(18,12)
 # Main-game combat weapon lists are 20x9; SP Battle Viewer uses 16x9.
 CJK_NATIVE['weapon_main']=(20,9)
 

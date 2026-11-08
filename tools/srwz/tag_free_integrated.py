@@ -106,6 +106,9 @@ def build_payload(registry,edition,*,routes=None,shared_selection=False,scene_di
  generic_measure=add('shared_measure',measure_hook(bound(0),bound(4),bound(8),site=loop,epilogue=epilogue,cjk_table=bound(12),state=text_state,spaced_slash=True,selection_subroutine=selection))
  select=style_selector if scene_dispatch else selector
  options=dict(state=text_state) if scene_dispatch else {}
+ if scene_dispatch:
+  descriptors=b''.join(words(*CJK_NATIVE[r['scene']],*target) for r,target in zip(routes,targets))+bytes(24)
+  options['descriptors']=add('scene_descriptors',descriptors)
  draw_entry=add('draw_routes',select(routes,targets,globals_,sidecar,native_draw,generic_draw,'draw',**options))
  measure_entry=add('measure_routes',select(routes,targets,globals_,sidecar,native_measure,generic_measure,'measure',**options))
  patches=[]

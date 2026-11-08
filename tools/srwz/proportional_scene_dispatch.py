@@ -8,9 +8,9 @@ from .proportional_hooks import Asm
 from .proportional_metrics import CJK_NATIVE
 
 SCENES={
- 'original':('story','battle','main_flow','main_scroll','library_robot','weapon','weapon_main'),
- 'best':('story','battle','main_flow','main_scroll','library_robot','weapon','weapon_main'),
- 'sp':('story','battle','sp_flow','sp_scroll','library_robot','weapon'),
+ 'original':('story','battle','main_flow','main_scroll','library_robot','keyword_list','weapon','weapon_main'),
+ 'best':('story','battle','main_flow','main_scroll','library_robot','keyword_list','weapon','weapon_main'),
+ 'sp':('story','battle','sp_flow','sp_scroll','library_robot','keyword_list','weapon'),
 }
 
 def source_entry(globals_,return_site,displaced):
@@ -35,7 +35,7 @@ def source_entry(globals_,return_site,displaced):
  for w in displaced:a.emit(w)
  a.jump(return_site);return a.finish()
 
-def style_selector(routes,targets,globals_,sidecar,native,generic,kind,*,state):
+def style_selector(routes,targets,globals_,sidecar,native,generic,kind,*,state,descriptors=None):
  a=Asm();saved=['at','t3','t4','t8'];a.i(9,'sp','sp',-64)
  for n,r in enumerate(saved):a.i(0x1f,'sp',r,n*16)
  if kind=='draw':
@@ -55,21 +55,20 @@ def style_selector(routes,targets,globals_,sidecar,native,generic,kind,*,state):
  def leave(target):
   for n,r in enumerate(saved):a.i(0x1e,'sp',r,n*16)
   a.i(9,'sp','sp',64);a.jump(target)
- seen=set()
- for i,(r,(table,cjk,width,geometry)) in enumerate(zip(routes,targets)):
-  w,h=CJK_NATIVE[r['scene']]
-  if kind=='measure' and w in seen:continue
-  seen.add(w);next_=f'next{i}'
-  a.i(9,'zero','at',w);a.branch(5,'t3','at',next_)
-  if kind=='draw':a.i(9,'zero','at',h);a.branch(5,'t4','at',next_)
-  a.li('at',globals_)
-  values=[(8,table),(12,cjk)]
-  if kind=='draw':values.extend([(16,width),(20,geometry)])
-  for offset,value in values:
-   if offset==16:a.i(9,'zero','t8',value)
-   else:
-    assert -32768<=value-globals_<32768
-    a.i(9,'at','t8',value-globals_)
-   a.i(0x2b,'at','t8',offset)
-  a.branch(4,'zero','zero','selected');a.label(next_)
+ if descriptors is None:
+  raise ValueError('Scene dispatch requires a shared descriptor table')
+ # One bounded sentinel-terminated table serves drawing and measuring. This
+ # avoids duplicating every profile's address setup in the limited SP cave.
+ a.li('t8',descriptors);a.label('route_loop')
+ a.i(0x23,'t8','at',0);a.branch(4,'at','zero','not_selected')
+ a.branch(5,'t3','at','next_route')
+ if kind=='draw':
+  a.i(0x23,'t8','at',4);a.branch(5,'t4','at','next_route')
+ # Native measurement exposes width, not the drawing caller's height.
+ a.li('at',globals_)
+ for source_offset,destination_offset in ([(8,8),(12,12),(16,16),(20,20)] if kind=='draw' else [(8,8),(12,12)]):
+  a.i(0x23,'t8','t3',source_offset);a.i(0x2b,'at','t3',destination_offset)
+ a.branch(4,'zero','zero','selected')
+ a.label('next_route');a.i(9,'t8','t8',24);a.branch(4,'zero','zero','route_loop')
+ a.label('not_selected')
  leave(native);a.label('selected');leave(generic);return a.finish()

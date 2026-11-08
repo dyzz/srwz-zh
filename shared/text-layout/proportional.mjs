@@ -8,7 +8,7 @@ import {proportionalMetrics} from './proportional-metrics.mjs';
 
 export function migrateCompact(text, scene) {
   // Validate nesting/character restrictions before removing obsolete markup.
-  expandCompact(text, ['weapon','weapon_main'].includes(scene) ? 'main_flow' : scene);
+  expandCompact(text, ['weapon','weapon_main','keyword_list'].includes(scene) ? 'main_flow' : scene);
   return text.replaceAll('<z>', '').replaceAll('</z>', '');
 }
 const blank = ch => ch === ' ' || ch === '　';
@@ -24,10 +24,10 @@ function glyphOffset(text, start, glyph) {
 }
 export function measure(text, scene, options = {}) {
   const clean = migrateCompact(text, scene);
-  if(!['weapon','weapon_main'].includes(scene))return {...legacyMeasure(clean,scene,{...options,typography:'proportional'}),text:clean};
-  // Weapon list native records: CJK 16x9, advance 16; Latin overridden below.
+  if(!['weapon','weapon_main','keyword_list'].includes(scene))return {...legacyMeasure(clean,scene,{...options,typography:'proportional'}),text:clean};
+  // Fixed lists retain their native CJK cells; Latin uses the selected profile.
   // No wrap budget is inferred from this measurement-only panel contract.
-  const prefix=scene==='weapon_main'?'<width:14><space:14><height:09>':'<width:10><space:10><height:09>';
+  const prefix=scene==='keyword_list'?'<width:12><space:12><height:0C>':scene==='weapon_main'?'<width:14><space:14><height:09>':'<width:10><space:10><height:09>';
   const base = legacyMeasure(prefix+clean, 'main_flow', options);
   if(prefix) base.rows[0].text=base.rows[0].text.slice(prefix.length);
   const rows = base.rows.map(row => {
