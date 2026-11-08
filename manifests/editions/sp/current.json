@@ -1,5 +1,10 @@
 {
   "adapter": "sp-full-text-v1",
+  "base_output": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "e9df4b39afb729bb7ca4ae21299df5559e15f1e6de96e208e2aa44ecf049f946",
+    "size": 3918860288
+  },
   "battle_square_skip": {
     "all_replacements_exact": true,
     "already_applied": true,
@@ -55,34 +60,307 @@
     "world_steps_per_frame": 1
   },
   "component_modes": {
-    "frame": "reused",
-    "image-labels": "reused",
-    "srvc": "reused",
-    "stage": "reused",
-    "system": "reused"
+    "frame": "rebuilt",
+    "image-labels": "rebuilt",
+    "srvc": "rebuilt",
+    "stage": "rebuilt",
+    "system": "rebuilt"
   },
   "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
   "edition_id": "sp",
   "event_gallery": {
     "caption_count": 37,
-    "elf_sha256": "37504ac16ffeb23c1af94807ec4aafcfe16d63a4a6891348f0b45fbaa7f39176",
+    "elf_sha256": "99be85744b2310288f2f76663f8d6fd391493b47a884b83c898f21bacedef31c",
     "scene_count": 22
   },
-  "input_digest": "44582d88fea505685d8d8470e499b53b9304ac61b71236f3ddeec6c838cff381",
+  "input_digest": "c12156fff262522f164dc5935aaee0b0489e55a76982870e35714f7e01d11a13",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "2e108e14df2a78e3cdb03ee92021fe0a6ba9cc4cdc452ca07b3467ca7595cb15",
+    "sha256": "2be7eaa7dd2e5625b92800bd12263aaa20f077818e56b84b43f8c2a8c7b60aa1",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/3d046e544c4cb7e7f206763279bbf98176e8c3f8b37346e5446bd7afd053aabb/project/build/iso/special-disc/sp-current.json",
-    "sha256": "d2ac5fe45dfb937936144406860074f53660c7bebf3c1f8403fa2df1e5d11e80"
+    "path": "build/editions/zh-release-sp/1ad17622fd69008d22e39c71de0dc56ed4827e32ccce255e908541e176ce21e3/project/build/iso/special-disc/sp-current.json",
+    "sha256": "546849436ad78dae87f25c41e56f6a8903c96a7a79ef96a5fe5b5893c0251ad5"
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "063e65086837255f4097dd29b7b1a487d40d6427",
+  "source_head": "e4d8ef77fd3b41ed6a3f51a3466cf26012ac2492",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
-  "workspace": "build/editions/zh-release-sp/3d046e544c4cb7e7f206763279bbf98176e8c3f8b37346e5446bd7afd053aabb/project"
+  "typography": {
+    "input": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "e9df4b39afb729bb7ca4ae21299df5559e15f1e6de96e208e2aa44ecf049f946",
+      "size": 3918860288
+    },
+    "verification": {
+      "edition": "sp",
+      "executable_sha256": "06fa652ca40f302219d6eb25f6f7ddbca3b42bfc961332bec1564a88abe3dba5",
+      "member": "SLPS_259.20",
+      "member_lba": 1851456,
+      "member_size": 4141568,
+      "metrics_sha256": "383679be4b5248f41c461ca747f3b5360da092bf0120608601ca48cd9e36bb92",
+      "output_sha256": "2be7eaa7dd2e5625b92800bd12263aaa20f077818e56b84b43f8c2a8c7b60aa1",
+      "outside_executable_bytes_compared": 3914718720,
+      "payload": {
+        "base": 8512000,
+        "codeBytes": 5804,
+        "edition": "sp",
+        "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
+        "metricsSchema": 6,
+        "patches": [
+          {
+            "address": 1289520,
+            "after": "4b7d200800000000",
+            "before": "a0ffbd274f00013c"
+          },
+          {
+            "address": 1287584,
+            "after": "7c7d200800000000",
+            "before": "b0ffbd272d100000"
+          },
+          {
+            "address": 2254220,
+            "after": "ad7d200c",
+            "before": "9095060c"
+          },
+          {
+            "address": 2254272,
+            "after": "b97d200c00000000",
+            "before": "0200022621904202"
+          },
+          {
+            "address": 2254292,
+            "after": "4f00013cc0d523842da06000",
+            "before": "422002001818640021a08302"
+          },
+          {
+            "address": 1293832,
+            "after": "f57d200800000000",
+            "before": "080084241c00e880"
+          },
+          {
+            "address": 1292772,
+            "after": "0d7e200800000000",
+            "before": "1c00e88008008424"
+          },
+          {
+            "address": 1291768,
+            "after": "e77d200800000000",
+            "before": "2400238e140003ae"
+          },
+          {
+            "address": 1287704,
+            "after": "037d200800000000",
+            "before": "00008b9062006011"
+          }
+        ],
+        "payloadBytes": 6400,
+        "payloadSha256": "a6a417fe3e95f3cb7f60754d96a475d3c59fbeaf00b467d687140b86bdf82d78",
+        "reservation": {
+          "base": 8512000,
+          "capacity": 6400,
+          "edition": "sp",
+          "elfSizeUnchanged": true,
+          "fileOffset": 3979008,
+          "headerSlot": 72,
+          "heapUnchanged": true,
+          "nonloadedSectionMetadataRemoved": true,
+          "payloadBytes": 6400,
+          "resultSha256": "7b0656a1304dacee050e159c0719dae94fa8beea7d119e8616bd72f6d2a679ff",
+          "runtimeVerified": false,
+          "sourceSha256": "83797a1461dbddd84245018c0aa7c8dd6c9b91f82ec140297c39bc86238fd218"
+        },
+        "resultSha256": "06fa652ca40f302219d6eb25f6f7ddbca3b42bfc961332bec1564a88abe3dba5",
+        "routes": [
+          {
+            "name": "story",
+            "scene": "story"
+          },
+          {
+            "name": "battle",
+            "scene": "battle"
+          },
+          {
+            "name": "sp_flow",
+            "scene": "sp_flow"
+          },
+          {
+            "name": "sp_scroll",
+            "scene": "sp_scroll"
+          },
+          {
+            "name": "library_robot",
+            "scene": "library_robot"
+          },
+          {
+            "name": "weapon",
+            "scene": "weapon"
+          }
+        ],
+        "sceneDispatch": true,
+        "scope": "Native-entry bounded scene geometry dispatch",
+        "sections": [
+          {
+            "address": 8512000,
+            "name": "native_draw",
+            "size": 16
+          },
+          {
+            "address": 8512016,
+            "name": "native_measure",
+            "size": 28
+          },
+          {
+            "address": 8512044,
+            "name": "story_metrics",
+            "size": 320
+          },
+          {
+            "address": 8512364,
+            "name": "story_cjk",
+            "size": 108
+          },
+          {
+            "address": 8512472,
+            "name": "story_geometry",
+            "size": 5
+          },
+          {
+            "address": 8512480,
+            "name": "battle_cjk",
+            "size": 108
+          },
+          {
+            "address": 8512588,
+            "name": "battle_geometry",
+            "size": 5
+          },
+          {
+            "address": 8512596,
+            "name": "sp_flow_metrics",
+            "size": 320
+          },
+          {
+            "address": 8512916,
+            "name": "sp_flow_cjk",
+            "size": 108
+          },
+          {
+            "address": 8513024,
+            "name": "sp_flow_geometry",
+            "size": 5
+          },
+          {
+            "address": 8513032,
+            "name": "sp_scroll_metrics",
+            "size": 320
+          },
+          {
+            "address": 8513352,
+            "name": "sp_scroll_cjk",
+            "size": 108
+          },
+          {
+            "address": 8513460,
+            "name": "sp_scroll_geometry",
+            "size": 5
+          },
+          {
+            "address": 8513468,
+            "name": "library_robot_geometry",
+            "size": 5
+          },
+          {
+            "address": 8513476,
+            "name": "weapon_geometry",
+            "size": 5
+          },
+          {
+            "address": 8513484,
+            "name": "metric_selection",
+            "size": 1680
+          },
+          {
+            "address": 8515164,
+            "name": "shared_draw",
+            "size": 580
+          },
+          {
+            "address": 8515744,
+            "name": "shared_measure",
+            "size": 292
+          },
+          {
+            "address": 8516036,
+            "name": "draw_routes",
+            "size": 584
+          },
+          {
+            "address": 8516620,
+            "name": "measure_routes",
+            "size": 288
+          },
+          {
+            "address": 8516908,
+            "name": "draw_source",
+            "size": 196
+          },
+          {
+            "address": 8517104,
+            "name": "measure_source",
+            "size": 196
+          },
+          {
+            "address": 8517300,
+            "name": "underline_copy",
+            "size": 48
+          },
+          {
+            "address": 8517348,
+            "name": "underline_restore",
+            "size": 40
+          },
+          {
+            "address": 8517388,
+            "name": "underline_dispatch",
+            "size": 144
+          },
+          {
+            "address": 8517532,
+            "name": "draw_entry",
+            "size": 56
+          },
+          {
+            "address": 8517588,
+            "name": "sprite_baseline",
+            "size": 96
+          },
+          {
+            "address": 8517684,
+            "name": "outline_baseline",
+            "size": 120
+          },
+          {
+            "address": 8517824,
+            "name": "baseline_sidecar",
+            "size": 512
+          },
+          {
+            "address": 8518336,
+            "name": "selector_globals",
+            "size": 64
+          }
+        ],
+        "sharedSelection": true
+      },
+      "runtime": "not_tested",
+      "schema_version": 1,
+      "size": 3918860288,
+      "source_sha256": "e9df4b39afb729bb7ca4ae21299df5559e15f1e6de96e208e2aa44ecf049f946"
+    }
+  },
+  "workspace": "build/editions/zh-release-sp/1ad17622fd69008d22e39c71de0dc56ed4827e32ccce255e908541e176ce21e3/project"
 }

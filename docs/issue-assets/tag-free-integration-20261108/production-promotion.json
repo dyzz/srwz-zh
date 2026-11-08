@@ -1,0 +1,46 @@
+{
+  "status": "production_promoted",
+  "buildCommit": "e4d8ef77",
+  "siteCommit": "85209a9",
+  "siteRelease": "85209a9-tag-free-20261108",
+  "buildSeconds": 216.055,
+  "isoVerification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "c12156fff262522f164dc5935aaee0b0489e55a76982870e35714f7e01d11a13",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "a7dd8322ded2bab51ede9bca4937b4d6b54a55a581089b1a6e715c53b4852d4a",
+      "size": 3799459840
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "3d124c4de58dd345ae76140d1d944b3e585eb068d2acc901b740e47edc208913",
+      "size": 3796187136
+    },
+    "sp": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "2be7eaa7dd2e5625b92800bd12263aaa20f077818e56b84b43f8c2a8c7b60aa1",
+      "size": 3918860288
+    }
+  },
+  "matchesPriorArmsx2AcceptedCandidates": true,
+  "newArmsx2RunThisPromotion": false,
+  "rollbackDirectory": "build/iso/rollback/tag-free-promotion-20261108",
+  "cdnRefreshTask": "33770700911",
+  "cdnPrefetchTask": "33770700954",
+  "cdn": {
+    "refreshCompleted": 304,
+    "prefetchCompleted": 15
+  },
+  "liveMixedTextFormatPassed": true
+}
