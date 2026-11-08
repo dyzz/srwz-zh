@@ -1,0 +1,222 @@
+{
+  "edition": "best",
+  "base": 7906816,
+  "codeBytes": 5816,
+  "payloadBytes": 10496,
+  "sections": [
+    {
+      "name": "native_draw",
+      "address": 7906816,
+      "size": 16
+    },
+    {
+      "name": "native_measure",
+      "address": 7906832,
+      "size": 28
+    },
+    {
+      "name": "story_metrics",
+      "address": 7906860,
+      "size": 320
+    },
+    {
+      "name": "story_cjk",
+      "address": 7907180,
+      "size": 108
+    },
+    {
+      "name": "story_geometry",
+      "address": 7907288,
+      "size": 5
+    },
+    {
+      "name": "battle_cjk",
+      "address": 7907296,
+      "size": 108
+    },
+    {
+      "name": "battle_geometry",
+      "address": 7907404,
+      "size": 5
+    },
+    {
+      "name": "main_flow_metrics",
+      "address": 7907412,
+      "size": 320
+    },
+    {
+      "name": "main_flow_cjk",
+      "address": 7907732,
+      "size": 108
+    },
+    {
+      "name": "main_flow_geometry",
+      "address": 7907840,
+      "size": 5
+    },
+    {
+      "name": "main_scroll_metrics",
+      "address": 7907848,
+      "size": 320
+    },
+    {
+      "name": "main_scroll_cjk",
+      "address": 7908168,
+      "size": 108
+    },
+    {
+      "name": "main_scroll_geometry",
+      "address": 7908276,
+      "size": 5
+    },
+    {
+      "name": "library_robot_geometry",
+      "address": 7908284,
+      "size": 5
+    },
+    {
+      "name": "keyword_list_cjk",
+      "address": 7908292,
+      "size": 108
+    },
+    {
+      "name": "keyword_list_geometry",
+      "address": 7908400,
+      "size": 5
+    },
+    {
+      "name": "weapon_geometry",
+      "address": 7908408,
+      "size": 5
+    },
+    {
+      "name": "weapon_main_cjk",
+      "address": 7908416,
+      "size": 108
+    },
+    {
+      "name": "weapon_main_geometry",
+      "address": 7908524,
+      "size": 5
+    },
+    {
+      "name": "metric_selection",
+      "address": 7908532,
+      "size": 1680
+    },
+    {
+      "name": "shared_draw",
+      "address": 7910212,
+      "size": 580
+    },
+    {
+      "name": "shared_measure",
+      "address": 7910792,
+      "size": 292
+    },
+    {
+      "name": "scene_descriptors",
+      "address": 7911084,
+      "size": 216
+    },
+    {
+      "name": "draw_routes",
+      "address": 7911300,
+      "size": 252
+    },
+    {
+      "name": "measure_routes",
+      "address": 7911552,
+      "size": 184
+    },
+    {
+      "name": "draw_source",
+      "address": 7911736,
+      "size": 196
+    },
+    {
+      "name": "measure_source",
+      "address": 7911932,
+      "size": 196
+    },
+    {
+      "name": "underline_copy",
+      "address": 7912128,
+      "size": 48
+    },
+    {
+      "name": "underline_restore",
+      "address": 7912176,
+      "size": 40
+    },
+    {
+      "name": "underline_dispatch",
+      "address": 7912216,
+      "size": 144
+    },
+    {
+      "name": "draw_entry",
+      "address": 7912360,
+      "size": 56
+    },
+    {
+      "name": "sprite_baseline",
+      "address": 7912416,
+      "size": 96
+    },
+    {
+      "name": "outline_baseline",
+      "address": 7912512,
+      "size": 120
+    },
+    {
+      "name": "baseline_sidecar",
+      "address": 7916736,
+      "size": 512
+    },
+    {
+      "name": "selector_globals",
+      "address": 7917248,
+      "size": 64
+    }
+  ],
+  "routes": [
+    {
+      "name": "story",
+      "scene": "story"
+    },
+    {
+      "name": "battle",
+      "scene": "battle"
+    },
+    {
+      "name": "main_flow",
+      "scene": "main_flow"
+    },
+    {
+      "name": "main_scroll",
+      "scene": "main_scroll"
+    },
+    {
+      "name": "library_robot",
+      "scene": "library_robot"
+    },
+    {
+      "name": "keyword_list",
+      "scene": "keyword_list"
+    },
+    {
+      "name": "weapon",
+      "scene": "weapon"
+    },
+    {
+      "name": "weapon_main",
+      "scene": "weapon_main"
+    }
+  ],
+  "sharedSelection": true,
+  "sceneDispatch": true,
+  "metricsSchema": 6,
+  "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
+  "scope": "Native-entry bounded scene geometry dispatch"
+}

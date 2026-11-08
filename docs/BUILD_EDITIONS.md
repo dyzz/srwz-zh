@@ -178,3 +178,41 @@ SP 支持组件级增量。统一入口从上一份已通过独立回读的 SP �
 本轮流程整理与实测见 [2026-09-27 构建流程整理](BUILD_PERFORMANCE_20260927.md)，上一轮见
 [2026-09-22 构建性能复核](BUILD_PERFORMANCE_20260922.md)。组件全量变慢（约 22 分钟）的排查与修复见
 [2026-10-07 全量构建变慢排查](BUILD_PERFORMANCE_20261007.md)。
+
+## 全角词间空格约定
+
+游戏双字节文本中的可见空格使用 `0x8140`，不以单字节 `0x20` 替代，也不新增窄空格字形。
+渲染和测宽共用 `proportional_hooks.metric_selection_subroutine`：单个全角空格紧邻的两侧
+均为字体表启用的英文字母或数字时，使用当前场景的 `space.advance`；例如 `THE　HEAT`、
+`Side　3`、`RX　78`。`CIWS　/　RX-78` 使用同一选择器中的斜杠上下文规则。
+行首、行尾、中文间隔、连续空格保持原宽，不跨换行或文本边界查找邻居。
+当前实现也不会跨控制码匹配，不能把带控制码的词间距视为已经覆盖。
+
+共享 JS 排版模块采用相同规则，测宽、居中和自动重排保持全角空格字符，不改写成半角空格。
+普通对白词间步进为 5 像素，滚动文字为 8 像素，梗概 main_flow 为 4 像素，
+人物图鉴为 5 像素，SP 梗概 sp_flow 为 4 像素，均为游戏逻辑坐标。
+回归检查见 `tests/test_proportional_word_space.py`（执行生成的 MIPS 选择器）与
+`shared/text-layout/fullwidth-word-space.test.mjs`（测宽、居中、重排）。这些是代码级证据，
+不替代对应 ISO 的 ARMSX2 实际对白截图验证。
+
+## 词条列表比例字距候选（2026-11-08）
+
+词条列表使用 18×12 原生文字尺寸，之前不在运行时分派范围，故英文字母和全角空格都保持
+18 像素等宽。新增 `keyword_list`，沿用现有字形和可见底线校准；中文保持 18 像素，
+英数字按字形推进，词间全角空格 `0x8140` 步进 5 像素。固定列表的共享 JS 测宽及居中
+使用相同配置，不为列表假设正文换行预算。运行时测宽按原生宽度选择配置，绘制按宽高选择。
+
+为容纳 SP 预留空间，场景分派改为共享、以零宽记录终止的描述表；其他场景度量保持逐项相同。
+所有版本补丁仍通过既有容量和区间不重叠检查。Best/SP 代码数据分别 5816/5676 字节，
+未扩大 ELF 预留容量。
+
+Best 和 SP 均在 ARMSX2 Metal 4× 中验证自然词条列表第 1、2 页：Side 3、Evidence 01、
+LOGOS、PLANT评议会议长。16 次完整词条绘制的 X/Y/宽/高与共享 JS 一致；
+另通过临时调用实际 EE 测宽函数核对宽度与负半宽居中结果（不是列表自然居中调用证据）。
+两版都能打开 Evidence 01 说明并返回列表。字体逐字节未变，结束恢复 hook、补丁区和测试暂存区。
+这是载入现有状态后安装 RAM 候选的证据，未构建新 ISO，也未替换生产 ISO。
+
+[Best 对比](issue-assets/keyword-list-proportional-20261108/best-comparison.png) ·
+[SP 对比](issue-assets/keyword-list-proportional-20261108/sp-comparison.png) ·
+[完整验证记录](issue-assets/keyword-list-proportional-20261108/verification.json)。
+原始截图、trace 和状态位于 `work/runtime/armsx2/keyword-list-20261108/`。

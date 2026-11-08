@@ -1,0 +1,258 @@
+{
+  "evidence": "ARMSX2 runner RAM candidate replay",
+  "renderer": "metal",
+  "upscale": 4,
+  "productionIsoWritten": false,
+  "candidateIsoBuilt": false,
+  "sourceTextModified": false,
+  "drawVerification": {
+    "evidence": "ARMSX2 actual glyph records versus shared JS",
+    "results": [
+      {
+        "edition": "best",
+        "page": 1,
+        "frame": 2472,
+        "text": "Side 3",
+        "advance": 54,
+        "glyphs": 6
+      },
+      {
+        "edition": "best",
+        "page": 1,
+        "frame": 2472,
+        "text": "LOGOS",
+        "advance": 62,
+        "glyphs": 5
+      },
+      {
+        "edition": "best",
+        "page": 1,
+        "frame": 2472,
+        "text": "PLANT评议会议长",
+        "advance": 150,
+        "glyphs": 10
+      },
+      {
+        "edition": "best",
+        "page": 1,
+        "frame": 2473,
+        "text": "Side 3",
+        "advance": 54,
+        "glyphs": 6
+      },
+      {
+        "edition": "best",
+        "page": 1,
+        "frame": 2473,
+        "text": "LOGOS",
+        "advance": 62,
+        "glyphs": 5
+      },
+      {
+        "edition": "best",
+        "page": 1,
+        "frame": 2473,
+        "text": "PLANT评议会议长",
+        "advance": 150,
+        "glyphs": 10
+      },
+      {
+        "edition": "best",
+        "page": 2,
+        "frame": 2478,
+        "text": "Evidence 01",
+        "advance": 101,
+        "glyphs": 11
+      },
+      {
+        "edition": "best",
+        "page": 2,
+        "frame": 2479,
+        "text": "Evidence 01",
+        "advance": 101,
+        "glyphs": 11
+      },
+      {
+        "edition": "sp",
+        "page": 1,
+        "frame": 2329,
+        "text": "Side 3",
+        "advance": 54,
+        "glyphs": 6
+      },
+      {
+        "edition": "sp",
+        "page": 1,
+        "frame": 2329,
+        "text": "LOGOS",
+        "advance": 62,
+        "glyphs": 5
+      },
+      {
+        "edition": "sp",
+        "page": 1,
+        "frame": 2329,
+        "text": "PLANT评议会议长",
+        "advance": 150,
+        "glyphs": 10
+      },
+      {
+        "edition": "sp",
+        "page": 1,
+        "frame": 2330,
+        "text": "Side 3",
+        "advance": 54,
+        "glyphs": 6
+      },
+      {
+        "edition": "sp",
+        "page": 1,
+        "frame": 2330,
+        "text": "LOGOS",
+        "advance": 62,
+        "glyphs": 5
+      },
+      {
+        "edition": "sp",
+        "page": 1,
+        "frame": 2330,
+        "text": "PLANT评议会议长",
+        "advance": 150,
+        "glyphs": 10
+      },
+      {
+        "edition": "sp",
+        "page": 2,
+        "frame": 2335,
+        "text": "Evidence 01",
+        "advance": 101,
+        "glyphs": 11
+      },
+      {
+        "edition": "sp",
+        "page": 2,
+        "frame": 2336,
+        "text": "Evidence 01",
+        "advance": 101,
+        "glyphs": 11
+      }
+    ]
+  },
+  "editions": {
+    "best": {
+      "fixture": "work/runtime/armsx2/keyword-list-20261108/best/list-page1.p2s",
+      "fixtureSha256": "5f2025e14ebc05bfbf80207ed5b24b6853cd997e18e9f3d53ae83b60f368d26f",
+      "measure": {
+        "evidence": "ARMSX2 native measure component call, not natural list centering",
+        "texts": [
+          "Side　3",
+          "Evidence　01",
+          "LOGOS",
+          "PLANT评议会议长"
+        ],
+        "results": {
+          "baseline": [
+            108,
+            -54,
+            198,
+            -99,
+            90,
+            -45,
+            180,
+            -90
+          ],
+          "candidate": [
+            54,
+            -27,
+            101,
+            -50,
+            62,
+            -31,
+            150,
+            -75
+          ]
+        },
+        "expected": [
+          54,
+          -27,
+          101,
+          -50,
+          62,
+          -31,
+          150,
+          -75
+        ],
+        "scratch_restored": true
+      },
+      "restoration": {
+        "fontUnchanged": true,
+        "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
+        "hooksAndPayloadRestored": true,
+        "measureScratchRestored": true,
+        "productionIsoWritten": false
+      },
+      "evidence01OpenAndReturn": "visually verified",
+      "rawDirectory": "work/runtime/armsx2/keyword-list-20261108/best"
+    },
+    "sp": {
+      "fixture": "work/runtime/armsx2/keyword-list-20261108/sp/list-page1.p2s",
+      "fixtureSha256": "5711523cdf792b7194ae31fb59409bcf9872c65328e148525551acf45669756f",
+      "measure": {
+        "evidence": "ARMSX2 native measure component call, not natural list centering",
+        "texts": [
+          "Side　3",
+          "Evidence　01",
+          "LOGOS",
+          "PLANT评议会议长"
+        ],
+        "results": {
+          "baseline": [
+            108,
+            -54,
+            198,
+            -99,
+            90,
+            -45,
+            180,
+            -90
+          ],
+          "candidate": [
+            54,
+            -27,
+            101,
+            -50,
+            62,
+            -31,
+            150,
+            -75
+          ]
+        },
+        "expected": [
+          54,
+          -27,
+          101,
+          -50,
+          62,
+          -31,
+          150,
+          -75
+        ],
+        "scratch_restored": true
+      },
+      "restoration": {
+        "fontUnchanged": true,
+        "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
+        "hooksAndPayloadRestored": true,
+        "measureScratchRestored": true,
+        "productionIsoWritten": false
+      },
+      "evidence01OpenAndReturn": "visually verified",
+      "rawDirectory": "work/runtime/armsx2/keyword-list-20261108/sp"
+    }
+  },
+  "tests": {
+    "python": 22,
+    "javascript": 55,
+    "existingSceneMetricsUnchanged": true
+  }
+}
