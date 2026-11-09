@@ -49,7 +49,7 @@ def apply_atlas(atlas, root: Path, edition='original', *, reverse=False, strict=
     return bytes(result),dict(config_sha256=sha(raw),cells=[c['id'] for c in config['cells']])
 
 def apply_chart(archive, executable, root: Path, *, verify=False):
-    """Refine only the Chinese title in SP HSFC chunk 1, within its budget."""
+    """Install the frozen Special Disc and Z chart labels in their stock styles."""
     import struct
     from .codec import decode_production, reencode_changed_suffix
     raw = (root/'config/assets/special-disc/chart-title-clarity.json').read_bytes()
@@ -57,21 +57,34 @@ def apply_chart(archive, executable, root: Path, *, verify=False):
     a,b = struct.unpack_from('<II',executable,c['table_offset']+c['chunk']*4)
     if not 0 <= a < b <= len(archive):
         raise ValueError('clarity chart allocation drift')
-    old = decode_production(archive[a:b]); data = bytearray(old.output)
-    x,y,w,h=c['rect'];start=c['decoded_offset'];width=c['width']
-    rs,re=c['record_offset'],c['record_offset']+c['record_size']
-    if sha(data[rs:start]+data[start+512*512:re]) != c['container_sha256']:
-        raise ValueError('clarity chart palette/header drift')
-    pos=[start+yy*width+xx for yy in range(y,y+h) for xx in range(x,x+w)]
-    before,after=[zlib.decompress(base64.b64decode(c[k+'_zlib_base64'],validate=True)) for k in ('before','after')]
-    if len(before)!=w*h or len(after)!=w*h or sha(before)!=c['before_sha256'] or sha(after)!=c['after_sha256']:
-        raise ValueError('clarity chart frozen data drift')
-    current=bytes(data[i] for i in pos)
-    if current not in (before,after) or (verify and current!=after):
-        raise ValueError('clarity chart preimage drift')
-    report=dict(config_sha256=sha(raw),member=c['member'],chunk=c['chunk'],rect=c['rect'])
-    if current==after:return archive,report
-    for i,v in zip(pos,after):data[i]=v
+    old = decode_production(archive[a:b])
+    data = bytearray(old.output)
+    records = []
+    if c['schema_version'] != 2 or {r['tab'] for r in c['records']} != {'Special Disc', 'Z'}:
+        raise ValueError('clarity chart scope drift')
+    for r in c['records']:
+        x, y, w, h = r['rect']
+        start, width = r['decoded_offset'], r['width']
+        image_size = r['image_size']
+        rs, re = r['record_offset'], r['record_offset'] + r['record_size']
+        if (not 0 <= rs < start < start + image_size < re <= len(data)
+                or not (0 <= x < x+w <= width and 0 <= y < y+h <= image_size//width)
+                or sha(old.output[rs:start] + old.output[start+image_size:re]) != r['container_sha256']):
+            raise ValueError('clarity chart region or palette drift')
+        after = zlib.decompress(base64.b64decode(r['after_zlib_base64'], validate=True))
+        if (len(after) != w*h or sha(after) != r['after_sha256']
+                or not {r['native_fill_index'], r['native_outline_index']}.issubset(after)):
+            raise ValueError('clarity chart frozen title drift')
+        pos = [start+yy*width+xx for yy in range(y,y+h) for xx in range(x,x+w)]
+        current = bytes(old.output[i] for i in pos)
+        if current != after and (verify or sha(current) not in r['before_sha256']):
+            raise ValueError('clarity chart preimage drift')
+        for i, v in zip(pos, after):
+            data[i] = v
+        records.append(dict(tab=r['tab'], rect=r['rect'], sha256=r['after_sha256']))
+    report = dict(config_sha256=sha(raw), member=c['member'], chunk=c['chunk'], records=records)
+    if data == old.output:
+        return archive, report
     packed=reencode_changed_suffix(archive[a:b],bytes(data),strategy='rust-fit',max_output_size=b-a,original_result=old)
     if len(packed)>b-a or decode_production(packed).output!=data:
         raise ValueError('clarity chart roundtrip/budget failure')
