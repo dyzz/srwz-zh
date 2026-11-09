@@ -1,7 +1,8 @@
 # Original、The Best 与 SP 的统一构建
 
-`python3 tools/build_editions.py` 默认构建 The Best 和 SP，两版均内置方块键跳过战斗动画（skip）；Original 作为 Best 的依赖自动处理。输入未变且回执、ISO 与日常副本验证通过时直接复用；Original 语料更新使用已验证的组件缓存。每版都有独立写入锁、
-工作目录、原盘身份和最终回执。旧发布快照不被覆盖，完整 ISO 不提交到 Git。
+`python3 tools/build_editions.py` 默认构建 Original、The Best 和 SP，三版均内置方块键跳过战斗动画（skip）。单独构建 The Best 时，Original 只作为构建中间步骤。
+
+输入未变且回执、ISO 与日常副本验证通过时直接复用。Original 语料更新使用已验证的组件缓存。每版都有独立的写入锁、工作目录、原盘身份和最终回执。旧发布快照不被覆盖，完整 ISO 不提交到 Git。
 
 ```bash
 python3 tools/build_editions.py --plan
@@ -9,28 +10,28 @@ python3 tools/build_editions.py
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
 python3 tools/build_editions.py --force-rebuild
-python3 tools/verify_editions.py --manifest work/editions/<input_digest>/best-sp.json
+python3 tools/verify_editions.py --manifest work/editions/<input_digest>/original-best-sp.json
 ```
 
-注册表沿用 `config/release/dual-current.json` 路径，仍注册三版，但下版起只发布 The Best 和 SP。
-两版均默认内置方块 skip，每版只有一份补丁；Original 继续作为 Best 的构建依赖和本地测试版本。
+注册表沿用 `config/release/dual-current.json` 路径。下一版发布 Original、The Best 和 SP，每版一份补丁。
+依赖 Original（初版）金手指的玩家可继续选择 Original 补丁。
 
 ```bash
 python3 tools/build_editions.py --release-version <x.y.z>
-python3 tools/freeze_release.py --manifest work/editions/<input_digest>/best-sp.json --version <x.y.z>
+python3 tools/freeze_release.py --manifest work/editions/<input_digest>/original-best-sp.json --version <x.y.z>
 python3 tools/build_release.py --config config/release/v<x.y.z>.json
 python3 tools/build_release_chd.py --config config/release/v<x.y.z>.json
 ```
 
-冻结器接受同时验证过 Best、SP 的批次（三版批次也可），仅冻结这两版，写出 schema 5 配置。
-标题版本必须与待发布版本一致；发布目录已存在则拒绝覆盖。两份补丁分别绑定各自日文原盘，
+冻结器要求同一批次的三版均已验证，并写出 schema 6 配置。
+标题版本必须与待发布版本一致；发布目录已存在则拒绝覆盖。三份补丁分别绑定各自日文原盘，
 生成后实际还原并核对目标哈希。xdelta 和 CHD 入口都必须显式指定配置，不再默认使用历史 v0.4.2。
 CHD 即使带 `--no-verify` 跳过压缩还原，也仍验证发布证明链与最终 ELF 内的 skip hook。
 
 SP 独立语义回读、比例渲染前 ELF 和字体度量表随发布证据冻结，发布检查不依赖可清理的私有工作区。
 核验时仅临时 APFS 克隆最终 ISO，以冻结 ELF 恢复比例渲染前的镜像，再重新生成汇编补丁、逐字节
 核对最终 ELF、非 ELF 区域及整盘哈希；随后验证字幕和语义回读的前后绑定。临时镜像检查后删除。
-历史 schema 1–4 保留兼容，既有 v0.4.2 文件不改写。
+历史 schema 1–5 保留兼容，既有 v0.4.2 文件不改写。
 
 | 版本 | 日文输入 | 当前输出 |
 | --- | --- | --- |

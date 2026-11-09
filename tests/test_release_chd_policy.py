@@ -8,7 +8,7 @@ import build_release_chd
 
 class ChdPolicyTests(unittest.TestCase):
     def test_hook_failure_blocks_packaging_even_with_no_roundtrip(self):
-        config={'schema_version':5,'editions':{e:{'target_iso':{'path':f'{e}.iso'}} for e in ('best','sp')}}
+        config={'schema_version':6,'editions':{e:{'target_iso':{'path':f'{e}.iso'}} for e in ('original','best','sp')}}
         with patch.object(build_release_chd,'resolve_chdman',return_value='chdman'), \
              patch.object(build_release_chd,'load_config',return_value=config), \
              patch.object(build_release,'verify_dual_config_bindings') as bindings, \

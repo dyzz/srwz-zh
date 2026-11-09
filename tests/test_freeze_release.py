@@ -1,4 +1,4 @@
-"""Freezing a verified batch yields a schema 5 release with hook proofs, never variants."""
+"""Freezing a verified batch yields a schema 6 release with hook proofs, never variants."""
 import json
 from pathlib import Path
 import shutil
@@ -62,8 +62,9 @@ class FreezeReleaseTests(unittest.TestCase):
                 patch.object(freeze_release, 'verify_skip', side_effect=verify_skip):
             config_path = freeze_release.freeze(self.batch, '0.5.0', xdelta={'executable': 'xdelta3'})
         config = json.loads(config_path.read_text())
-        self.assertEqual((config['schema_version'], config['skip']), (5, 'built_in'))
+        self.assertEqual((config['schema_version'], config['skip']), (6, 'built_in'))
         self.assertEqual(sorted(hooks), [('srwz-zh-v0.5.0-best.iso', 'project', 'best'),
+                                         ('srwz-zh-v0.5.0-original.iso', 'project', 'original'),
                                          ('srwz-zh-v0.5.0-sp.iso', 'project', 'sp')])
         for edition, item in config['editions'].items():
             self.assertNotIn('skip_variant', item)
@@ -76,7 +77,7 @@ class FreezeReleaseTests(unittest.TestCase):
             self.assertEqual(proof['status'], 'built_in_skip_hook_readback_passed')
             self.assertEqual(proof['iso'], validation['outputs'][edition])
         self.assertEqual(sorted(p.name for p in (self.root / 'build/iso/v0.5.0').iterdir()),
-                         ['srwz-zh-v0.5.0-best.iso', 'srwz-zh-v0.5.0-sp.iso'])
+                         ['srwz-zh-v0.5.0-best.iso', 'srwz-zh-v0.5.0-original.iso', 'srwz-zh-v0.5.0-sp.iso'])
         # Publication must remain verifiable after the private SP workspace is removed.
         shutil.rmtree(self.root / 'build/editions/sp')
         with patch.object(build_release, 'PROJECT_ROOT', self.root):
@@ -105,19 +106,19 @@ class FreezeReleaseTests(unittest.TestCase):
                              'config/release/v0.5.0.json'):
                     self.assertFalse((self.root / path).exists(), path)
 
-    def test_freeze_requires_both_release_editions(self):
+    def test_freeze_requires_all_release_editions(self):
         for missing in freeze_release.RELEASE_EDITIONS:
             verification = {**self.verification,
                             'verified_editions': [e for e in freeze_release.RELEASE_EDITIONS if e != missing]}
             with self.subTest(missing=missing), \
                     patch.object(freeze_release, 'verify_batch', return_value=verification):
-                with self.assertRaisesRegex(ValueError, 'requires best and sp'):
+                with self.assertRaisesRegex(ValueError, 'requires original, best and sp'):
                     freeze_release.freeze(self.batch, '0.5.0', xdelta={})
         self.assertFalse((self.root / 'build/iso/v0.5.0').exists())
 
     def test_missing_or_duplicate_batch_result_fails_before_freezing(self):
         batch = json.loads(self.batch.read_text())
-        for results in (batch['results'][:1], batch['results'] + batch['results'][:1]):
+        for results in (batch['results'][1:], batch['results'] + batch['results'][:1]):
             self.batch.write_text(json.dumps({**batch, 'results': results}))
             with patch.object(freeze_release, 'verify_batch', return_value=self.verification), \
                     self.assertRaisesRegex(ValueError, 'exactly one result'):
@@ -125,7 +126,7 @@ class FreezeReleaseTests(unittest.TestCase):
             self.assertFalse((self.root / 'build/iso/v0.5.0').exists())
 
     @unittest.skipUnless(shutil.which('xdelta3'), 'xdelta3 is needed for patch roundtrip')
-    def test_frozen_two_edition_release_encodes_and_reconstructs_every_patch(self):
+    def test_frozen_three_edition_release_encodes_and_reconstructs_every_patch(self):
         xdelta = {'executable': 'xdelta3', 'version_line': build_release.xdelta_version('xdelta3'),
                   'encode_args': ['-e', '-9']}
         with patch.object(freeze_release, 'verify_batch', return_value=self.verification), \
@@ -139,15 +140,17 @@ class FreezeReleaseTests(unittest.TestCase):
                 patch.object(build_release, 'verify_built_in_skip', return_value={}) as hooks:
             output = build_release.build_release(config_path)
         manifest = json.loads((output / 'release-manifest.json').read_text())
-        self.assertEqual(set(manifest['patches']), {'best', 'sp'})
-        self.assertEqual([call.args[1] for call in hooks.call_args_list], ['best', 'sp'])
+        self.assertEqual(set(manifest['patches']), {'original', 'best', 'sp'})
+        self.assertCountEqual([call.args[1] for call in hooks.call_args_list], ['original', 'best', 'sp'])
         for edition, item in manifest['patches'].items():
             self.assertTrue(item['reconstructed_size_matches'])
             self.assertTrue(item['reconstructed_sha256_matches'])
             self.assertEqual(item['source_iso']['path'], f'rom/{edition}.iso')
-        self.assertEqual(len(list(output.glob('*.xdelta'))), 2)
+        self.assertEqual(len(list(output.glob('*.xdelta'))), 3)
         self.assertFalse(list(output.glob('*.iso')))
-        self.assertIn('The Best 和 SP 两份补丁', (output / 'README.txt').read_text())
+        readme = (output / 'README.txt').read_text()
+        self.assertIn('Original、The Best 和 SP 三份补丁', readme)
+        self.assertIn('Original（初版）的金手指', readme)
 
 
 if __name__ == '__main__':

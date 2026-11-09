@@ -151,6 +151,17 @@ class DualReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(release.ReleaseBuildError, 'skip built into every target'):
             release.verify_dual_config_bindings(self.config)
 
+    def test_three_edition_typography_release_requires_every_edition_and_proof(self):
+        self.add_built_in_skip()
+        self.config.update(schema_version=6, typography='native')
+        self.assertEqual(release.verify_dual_config_bindings(self.config), self.validation)
+        self.config['typography'] = 'proportional'
+        with self.assertRaisesRegex(release.ReleaseBuildError, 'typography proof required'):
+            release.verify_dual_config_bindings(self.config)
+        del self.config['editions']['original']
+        with self.assertRaisesRegex(release.ReleaseBuildError, 'requires exactly original, best and sp'):
+            release.verify_dual_config_bindings(self.config)
+
     def test_built_in_skip_release_has_one_patch_per_edition(self):
         self.add_built_in_skip()
         self.assertEqual(release.verify_dual_config_bindings(self.config), self.validation)

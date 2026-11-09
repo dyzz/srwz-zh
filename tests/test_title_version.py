@@ -103,7 +103,7 @@ class TitleVersionTests(unittest.TestCase):
             inputs.write_text(json.dumps({'version_badge': {'text': 'v0.4.2+20261004'}}))
             batch = root / 'batch.json'
             batch.write_text(json.dumps({'input_snapshot': 'inputs/inputs.json',
-                                         'results': [{'edition_id': 'best'}, {'edition_id': 'sp'}]}))
+                                         'results': [{'edition_id': name} for name in ('original', 'best', 'sp')]}))
             with patch.object(freeze_release, 'ROOT', root), patch.object(
                 freeze_release, 'verify_batch', return_value={'verified_editions': ['original', 'best', 'sp']}):
                 with self.assertRaisesRegex(ValueError, 'rebuild with --release-version 0.5.0'):

@@ -8,7 +8,7 @@
 完整内容见 [v0.4.2 发布说明](docs/RELEASE_NOTES_V0.4.2.md)。
 
 **后续 release 固定包含 Original、The Best 和 SP，三版统一默认内置方块 skip，每种原盘只提供一份补丁，不再区分带／不带 skip。**
-当前源码构建的 Original、The Best 和 SP 均已内置；战斗动画中按住方块键（□）可跳到下一个阶段。
+依赖 Original（初版）金手指的玩家可继续选择 Original 补丁。战斗动画中按住方块键（□）可跳到下一个阶段。
 下方四补丁下载说明仅对应已发布的 v0.4.2，后续构建与发布流程见[统一构建说明](docs/BUILD_EDITIONS.md)。
 
 想了解官方原盘改了什么，见 [初版与 The Best 详细差异（面向玩家）](docs/BEST_VERSION_GUIDE.md)，
@@ -74,7 +74,7 @@ Redump 校验值为 CRC-32 `0d9deb37`、MD5
 组件、封盘和整盘回读，并按版本写出独立 ISO 与回执：
 
 ```bash
-python3 tools/build_editions.py                      # 默认构建 BEST 与 SP
+python3 tools/build_editions.py                      # 默认构建 Original、The Best 和 SP
 python3 tools/build_editions.py --release-version 0.5.0-rc
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
@@ -83,7 +83,7 @@ python3 tools/build_editions.py --force-rebuild      # 不复用任何组件与�
 
 输入未变时直接复用已验证的当前 ISO；只改语料时沿用上一批的已验证组件缓存，
 只重建受影响组件。Original 支持成员级增量封盘，SP 仍完整合成 ISO 并独立回读。
-BEST 构建使用 Original 共享前端。显式选择 Original 时才会更新其当前镜像。
+The Best 使用 Original 共享前端。单独构建 The Best 时，Original 只作为构建中间步骤。
 各版当前镜像的路径如下。
 
 ```text

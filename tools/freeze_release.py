@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Freeze a verified BEST+SP batch with skip built into every image.
+"""Freeze a verified Original, BEST and SP batch with built-in skip.
 
 Every current ISO produced by build_editions already contains the battle square
 skip hook. Freezing copies the selected verified images and their semantic readbacks
 under the release tag, rereads each frozen executable to prove the hook, and
-writes the schema 5 release config that build_release.py consumes. Nothing is
+writes the schema 6 release config that build_release.py consumes. Nothing is
 derived or patched after the build; there are no separate no-skip or skip
 variants any more.
 """
@@ -15,13 +15,14 @@ import json
 from pathlib import Path
 import re
 
+from build_release import EDITIONS_BY_SCHEMA, RELEASE_CONFIG_SCHEMA
 from srwz.current_iso import verify_skip
 from srwz.edition import json_bytes
 from srwz.release_inputs import copy_file, sha256_file
 from verify_editions import verify_batch
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE_EDITIONS = ('best', 'sp')
+RELEASE_EDITIONS = EDITIONS_BY_SCHEMA[RELEASE_CONFIG_SCHEMA]
 
 
 def lock(path: Path) -> dict:
@@ -41,11 +42,11 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
     tag = f'v{version}'
     verification = verify_batch(ROOT, batch_path)
     if not set(RELEASE_EDITIONS).issubset(verification.get('verified_editions', [])):
-        raise ValueError('release requires best and sp in one verified batch')
+        raise ValueError('release requires original, best and sp in one verified batch')
     batch = json.loads(batch_path.read_text(encoding='utf-8'))
     selected = [r['edition_id'] for r in batch['results'] if r['edition_id'] in RELEASE_EDITIONS]
     if sorted(selected) != sorted(RELEASE_EDITIONS):
-        raise ValueError('release requires exactly one result for best and sp')
+        raise ValueError('release requires exactly one result per edition')
     inputs = ROOT / batch['input_snapshot']
     inputs = inputs.parent / 'project'
     badge = json.loads((inputs / 'config/assets/title-menu-zh.json').read_text())['version_badge']
@@ -62,7 +63,7 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
                   'verification': verification, 'input_digest': batch['input_digest'],
                   'batch_manifest': str(batch_path.relative_to(ROOT)), 'outputs': {},
                   'readbacks': {}, 'skip_readbacks': {}, 'runtime': 'not_tested'}
-    config = {'schema_version': 5, 'version': version, 'tag': tag, 'channel': 'stable', 'skip': 'built_in',
+    config = {'schema_version': RELEASE_CONFIG_SCHEMA, 'version': version, 'tag': tag, 'channel': 'stable', 'skip': 'built_in',
               'validation': f'manifests/releases/{tag}/validation.json', 'editions': {},
               'xdelta': xdelta or latest_xdelta_contract(),
               'output': {'directory': f'build/release/{tag}'}, 'known_limitations': [], 'evidence': []}

@@ -282,7 +282,10 @@ def main(argv: list[str] | None = None) -> int:
     try:
         chdman = resolve_chdman(args.chdman)
         config = load_config(args.config)
-        if config.get("schema_version") in (4, 5):
+        from build_release import BUILT_IN_SKIP_SCHEMAS
+
+        built_in_skip = config.get("schema_version") in BUILT_IN_SKIP_SCHEMAS
+        if built_in_skip:
             verify_current_release(config)
         version = config.get("version")
         if not version:
@@ -324,7 +327,7 @@ def main(argv: list[str] | None = None) -> int:
                     version=version,
                     verify=not args.no_verify,
                     quiet=args.quiet,
-                    variant="skip" if config.get("schema_version") in (4, 5) else None,
+                    variant="skip" if built_in_skip else None,
                 )
             )
 

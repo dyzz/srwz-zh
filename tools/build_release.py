@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Build and verify a deterministic xdelta release package.
 
-The full source and target ISOs remain local. Schema 5 packages BEST and SP;
-schema 4 packages Original, BEST and SP with one patch per edition and the battle square skip built in; schema 3 kept the
-historical no-skip bases plus derived skip variants; schema 2 packaged both
-editions without skip; schema 1 preserves the single-patch ZIP format.
+The full source and target ISOs remain local. Schema 6 packages Original,
+BEST and SP with built-in skip and typography proof. Schema 5 preserves the
+BEST and SP format; schema 4 packages all three with built-in skip. Schema 3
+kept no-skip bases plus skip variants; schema 2 packaged both main editions
+without skip; schema 1 preserves the single-patch ZIP format.
 """
 
 from __future__ import annotations
@@ -22,6 +23,16 @@ from typing import Any
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 ZIP_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
+RELEASE_CONFIG_SCHEMA = 6
+EDITIONS_BY_SCHEMA = {
+    2: ("original", "best"),
+    3: ("original", "best"),
+    4: ("original", "best", "sp"),
+    5: ("best", "sp"),
+    6: ("original", "best", "sp"),
+}
+BUILT_IN_SKIP_SCHEMAS = (4, 5, 6)
+TYPOGRAPHY_SCHEMAS = (5, 6)
 
 
 class ReleaseBuildError(RuntimeError):
@@ -272,7 +283,8 @@ def write_deterministic_zip(
 
 def build_release(config_path: Path, *, force: bool = False) -> Path:
     config = load_json(config_path)
-    if config.get("schema_version") in (2, 3, 4, 5):
+    schema = config.get("schema_version")
+    if isinstance(schema, int) and schema in EDITIONS_BY_SCHEMA:
         return build_dual_release(config, force=force)
     verify_config_bindings(config)
 
@@ -403,17 +415,20 @@ def build_release(config_path: Path, *, force: bool = False) -> Path:
 def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
     """Bind historical dual releases or current edition releases to their proofs."""
     tag = config.get("tag", "")
-    if config.get("schema_version") not in (2, 3, 4, 5) or tag != f"v{config.get('version')}" or not config.get("version"):
+    schema = config.get("schema_version")
+    if (not isinstance(schema, int) or schema not in EDITIONS_BY_SCHEMA
+            or tag != f"v{config.get('version')}" or not config.get("version")):
         raise ReleaseBuildError("invalid dual release version")
     if config.get("output", {}).get("directory") != f"build/release/{tag}":
         raise ReleaseBuildError("invalid dual release output directory")
     editions = config.get("editions", {})
-    current = config['schema_version'] in (4, 5)
-    expected_editions = ({"best", "sp"} if config["schema_version"] == 5 else
-                         {"original", "best", "sp"} if current else {"original", "best"})
-    if current and set(editions) != expected_editions:
-        raise ReleaseBuildError("release requires exactly best and sp" if config["schema_version"] == 5 else "release requires exactly original, best and sp")
-    if not current and set(editions) != expected_editions:
+    current = schema in BUILT_IN_SKIP_SCHEMAS
+    edition_order = EDITIONS_BY_SCHEMA[schema]
+    expected_editions = set(edition_order)
+    edition_names = ", ".join(edition_order[:-1]) + " and " + edition_order[-1]
+    if set(editions) != expected_editions:
+        if current:
+            raise ReleaseBuildError(f"release requires exactly {edition_names}")
         raise ReleaseBuildError("dual release requires exactly original and best")
     validation = load_json(project_path(config["validation"]))
     expected_status = ("edition_build_and_static_readback_passed" if current
@@ -423,10 +438,10 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
             or validation.get("verification", {}).get("status") != "edition_batch_receipt_integrity_passed"):
         raise ReleaseBuildError("edition build verification is incomplete")
     if current and not expected_editions.issubset(validation['verification'].get('verified_editions', [])):
-        raise ReleaseBuildError("release verification must include original, best and sp")
+        raise ReleaseBuildError(f"release verification must include {edition_names}")
     if set(validation.get("outputs", {})) != set(editions):
         raise ReleaseBuildError("release validation must cover every output")
-    if config['schema_version'] == 5:
+    if schema in TYPOGRAPHY_SCHEMAS:
         if config.get('typography') not in ('native', 'proportional'):
             raise ReleaseBuildError('release typography policy missing')
         expected_typography = set(editions) if config['typography'] == 'proportional' else set()
@@ -511,11 +526,11 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
                     or any(proof.get(k) != variant['target_iso'][k] for k in ('size', 'sha256'))
                     or proof.get('only_declared_skip_changes') is not True):
                 raise ReleaseBuildError(f'{edition}: skip readback mismatch')
-    if config['schema_version'] in (4, 5):
+    if config['schema_version'] in BUILT_IN_SKIP_SCHEMAS:
         # Every shipped image has the square skip compiled in; the frozen
         # validation must carry an executable hook proof for each target.
         if config.get('skip') != 'built_in' or validation.get('skip') != 'built_in':
-            raise ReleaseBuildError('schema 4 release requires skip built into every target')
+            raise ReleaseBuildError('release requires skip built into every target')
         if set(validation.get('skip_readbacks', {})) != set(editions):
             raise ReleaseBuildError('skip hook proof is required for every edition')
         for edition, item in editions.items():
@@ -542,9 +557,7 @@ def verify_built_in_skip(target: Path, edition: str) -> dict:
 
 
 def release_targets(config):
-    editions = (('best', 'sp') if config['schema_version'] == 5 else
-                ('original', 'best', 'sp') if config['schema_version'] == 4 else ('original', 'best'))
-    for edition in editions:
+    for edition in EDITIONS_BY_SCHEMA[config['schema_version']]:
         item = config['editions'][edition]
         yield edition, item
         if config['schema_version'] == 3:
@@ -566,7 +579,7 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
         for edition, item in config['editions'].items():
             verify_variant(project_path(item['target_iso']['path']),
                            project_path(item['skip_variant']['target_iso']['path']), contract, edition)
-    if config['schema_version'] in (4, 5):
+    if config['schema_version'] in BUILT_IN_SKIP_SCHEMAS:
         for edition, item in config['editions'].items():
             verify_built_in_skip(project_path(item['target_iso']['path']), edition)
     xdelta = config["xdelta"]
@@ -592,10 +605,12 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
             readme.append("默认推荐不带 skip 的补丁；四份补丁均直接用于对应日文原盘。\n"
                           "带 -skip 版：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"
                           "跳到战斗动画的下一个阶段。\n")
-        if config["schema_version"] in (4, 5):
+        if config['schema_version'] in BUILT_IN_SKIP_SCHEMAS:
             names = "The Best 和 SP 两份补丁" if config["schema_version"] == 5 else "Original、The Best 和 SP 三份补丁"
             readme.append(names + "均内置战斗动画快进：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"
                           "跳到战斗动画的下一个阶段。不再提供不带 skip 的版本。\n")
+            if config["schema_version"] == RELEASE_CONFIG_SCHEMA:
+                readme.append("如果你依赖 Original（初版）的金手指，请选择 Original 补丁。\n")
         for edition, item in release_targets(config):
             source = project_path(item["source_iso"]["path"])
             target = project_path(item["target_iso"]["path"])

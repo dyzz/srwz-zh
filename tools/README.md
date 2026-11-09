@@ -9,7 +9,7 @@ Special Disc 的独立开发工具见 [special_disc/README.md](special_disc/READ
 | 阶段 | 入口 |
 | --- | --- |
 | 三版同批构建（默认 Original、BEST、SP） | `build_editions.py`，独立复核用 `verify_editions.py --manifest <批次 JSON>` |
-| 冻结发布（复制已验证镜像、回读 skip hook、写 schema 4 发布配置） | `freeze_release.py --manifest <批次 JSON> --version <x.y.z>` |
+| 冻结发布（复制已验证镜像、回读 skip hook、写 schema 6 发布配置） | `freeze_release.py --manifest <批次 JSON> --version <x.y.z>` |
 | 发布包（xdelta、实际还原、SHA-256） | `build_release.py --config config/release/<版本>.json` |
 
 `build_editions.py` 冻结同一批源码、语料与配置，在每版私有工作区内依次执行下表的
