@@ -24,6 +24,7 @@ from .parallel import map_processes
 from .release_inputs import copy_file, sha256_file
 from .text import TextTable, decode_text, load_text_table, original_fullwidth_ascii_overrides, project_runtime_text_table
 from .ui_name_tables import verify_name_table
+from .library_button_labels import apply_library_button_labels, verify_library_button_labels, write_ranges as library_button_ranges
 from .library_body_metrics import apply_library_body_metrics, verify_library_body_metrics, write_ranges as library_body_ranges
 from .library_optical_metrics import apply_library_optical_metrics, verify_library_optical_metrics, write_ranges as library_optical_ranges
 from .library_protagonist_names import (
@@ -309,7 +310,7 @@ class BestCompiler:
         # The square-skip hook is edition-specific code: it is re-applied from
         # the BEST contract below instead of being projected word by word.
         square_skip = getattr(self, 'square_skip', None)  # absent only in unit-test fixtures
-        library_body_offsets = {o for lo, hi in [*library_body_ranges('original'), *library_optical_ranges('original')] for o in range(lo, hi, 4)}
+        library_body_offsets = {o for lo, hi in [*library_body_ranges('original'), *library_optical_ranges('original'), *library_button_ranges('original')] for o in range(lo, hi, 4)}
         square_skip_offsets = {o for lo, hi in square_skip_ranges(square_skip, 'original') for o in range(lo, hi, 4)} if square_skip else set()
         for offset in range(0, len(c)-3, 4):
             if a[offset:offset+4] == c[offset:offset+4] or slot['original_start'] <= offset < slot['original_end'] or offset in archive_offsets or offset in square_skip_offsets or offset in library_body_offsets:
@@ -336,6 +337,9 @@ class BestCompiler:
         patched, self.library_optical_proof = apply_library_optical_metrics(bytes(out), 'best')
         out = bytearray(patched)
         writes.extend(library_optical_ranges('best'))
+        patched, self.library_button_proof = apply_library_button_labels(bytes(out), 'best')
+        out = bytearray(patched)
+        writes.extend(library_button_ranges('best'))
         # Bind the shorter native slot to this batch's corpus and retain the
         # frontend's reviewed glyph aliases, including punctuation aliases.
         corpus = load_json(self.root / 'corpus/zh/menu/system-ui-skills.json')
@@ -587,6 +591,7 @@ class BestCompiler:
         self.verify_elf_policy(elf)
         verify_library_body_metrics(bytes(elf), 'best')
         verify_library_optical_metrics(bytes(elf), 'best')
+        verify_library_button_labels(bytes(elf), 'best')
         weapon_parentheses = verify_weapon_detail_parentheses(bytes(elf), 'best')
         spirit_costs = verify_spirit_cost_templates(bytes(elf), 'best')
         dialogue_colors = verify_dialogue_speaker_prefixes(bytes(elf), 'best', encoded_prefixes=self.dialogue_prefixes)
@@ -614,6 +619,7 @@ class BestCompiler:
         report = {'schema_version':1,'edition':'best','input_digest':self.input_digest,'status':'best_components_semantic_readback_passed',
                   'components':rows,'stages':self.stage_proofs,'archives':self.archive_proofs,'srvc':self.srvc_proof,
                   'runtime_archive_tables':archive_table_proofs,'ui_name_tables':name_proof,
+                  'library_button_labels':self.library_button_proof,
                   'library_body_metrics':self.library_body_proof,'library_optical_metrics':self.library_optical_proof,
                   'library_protagonist_names':self.library_name_proof,'battle_square_skip':self.square_skip_proof,
                   'weapon_detail_parentheses':weapon_parentheses,
@@ -688,6 +694,7 @@ class BestCompiler:
         final_sha256 = sha256_file(temporary)
         verify_library_body_metrics(final_members['SLPS_732.70'], 'best')
         verify_library_optical_metrics(final_members['SLPS_732.70'], 'best')
+        verify_library_button_labels(final_members['SLPS_732.70'], 'best')
         weapon_parentheses = verify_weapon_detail_parentheses(final_members['SLPS_732.70'], 'best')
         spirit_costs = verify_spirit_cost_templates(final_members['SLPS_732.70'], 'best')
         dialogue_colors = verify_dialogue_speaker_prefixes(final_members['SLPS_732.70'], 'best', encoded_prefixes=self.dialogue_prefixes)

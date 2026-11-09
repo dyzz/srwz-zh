@@ -43,6 +43,7 @@ from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
 from srwz.spirit_cost_templates import verify_spirit_cost_templates
 from srwz.library_body_metrics import verify_library_body_metrics
 from srwz.library_optical_metrics import verify_library_optical_metrics
+from srwz.library_button_labels import verify_library_button_labels
 from srwz.dialogue_speaker_colors import verify_dialogue_speaker_prefixes
 from srwz.text import PreparedTextEncoder
 from special_disc.writeback.shared_library import verify_shared_library
@@ -208,6 +209,7 @@ def main(iso=None, work=None):
     weapon_parentheses=verify_weapon_detail_parentheses(exe,'sp')
     library_body_metrics=verify_library_body_metrics(exe,'sp')
     library_optical_metrics=verify_library_optical_metrics(exe,'sp')
+    library_button_labels=verify_library_button_labels(exe,'sp')
     spirit_costs=verify_spirit_cost_templates(exe,'sp')
     for key,value in spirit_costs.items():
         require(manifest['spirit_cost_templates'][key]==value,'SP spirit-cost template receipt drift')
@@ -401,6 +403,7 @@ def main(iso=None, work=None):
     result['spirit_cost_templates']=spirit_costs
     result['library_body_metrics']=library_body_metrics
     result['library_optical_metrics']=library_optical_metrics
+    result['library_button_labels']=library_button_labels
     result['native_parentheses']=native_parentheses
     result['data_link_bonus']=link_bonus
     result['battle_square_skip']=skip_report

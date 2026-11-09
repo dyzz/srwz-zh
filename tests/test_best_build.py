@@ -10,6 +10,7 @@ from srwz.best_build import (
     COMPDATA_FIXED_SLOTS, BestCompiler, compdata_pointer_targets, project_shared_edits, verify_compdata_fixed_slots,
 )
 from srwz.edition import EditionError
+from srwz.library_button_labels import SITES as BUTTON_SITES
 from srwz.library_body_metrics import EDITIONS as BODY_EDITIONS
 from srwz.library_optical_metrics import native_preimages
 from srwz.stage import _condition_entries
@@ -30,6 +31,9 @@ def native_body_hook_fixture(data):
     result[h+4:h+8]=bytes.fromhex('000040a0')
     for va,before in native_preimages('best'):
         offset=va-s['delta'];result[offset:offset+len(before)]=before
+    fixture = json.loads((REPO / 'tests/fixtures/library-button-labels-native.json').read_text())['best']
+    offset = BUTTON_SITES['best'][0]
+    result[offset:offset+172] = bytes.fromhex(fixture)
     return bytes(result)
 
 

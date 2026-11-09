@@ -57,6 +57,7 @@ try:
     )
     from srwz.library_body_metrics import apply_library_body_metrics
     from srwz.library_optical_metrics import apply_library_optical_metrics
+    from srwz.library_button_labels import apply_library_button_labels
     from srwz.library_unlock import (
         LibraryUnlockError,
         apply_library_default_unlock,
@@ -266,6 +267,7 @@ except ModuleNotFoundError:
     )
     from tools.srwz.library_body_metrics import apply_library_body_metrics
     from tools.srwz.library_optical_metrics import apply_library_optical_metrics
+    from tools.srwz.library_button_labels import apply_library_button_labels
     from tools.srwz.library_unlock import (
         LibraryUnlockError,
         apply_library_default_unlock,
@@ -9684,6 +9686,7 @@ def _build_components(
 
     output_slps, library_body_metrics_report = apply_library_body_metrics(output_slps, "original")
     output_slps, library_optical_metrics_report = apply_library_optical_metrics(output_slps, "original")
+    output_slps, library_button_labels_report = apply_library_button_labels(output_slps, "original")
 
     preserved_chunks = 0
     donor_index = chunk_index - 1
@@ -11254,6 +11257,7 @@ def _build_components(
             "intermission_list_font_geometry": geometry_report,
             "library_body_metrics": library_body_metrics_report,
             "library_optical_metrics": library_optical_metrics_report,
+            "library_button_labels": library_button_labels_report,
             "release_codebook": {
                 "mode": "direct-original-writeback",
                 "release_proposal": _file_lock(
