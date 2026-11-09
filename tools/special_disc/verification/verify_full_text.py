@@ -37,7 +37,7 @@ from special_disc.writeback.library_menu import verify_library_menu
 from special_disc.writeback.squad_names import verify_nisv_names
 from special_disc.writeback.shared_label_updates import verify_shared_labels, audit_viewer_pilot_labels
 from special_disc.writeback.name_unification import verify_name_unification
-from write_frame_text import validate_flow_layout
+from write_frame_text import chart_help_render_text, validate_flow_layout
 from parenthesis_glyphs import verify_parentheses
 from srwz.weapon_detail_parentheses import verify_weapon_detail_parentheses
 from srwz.spirit_cost_templates import verify_spirit_cost_templates
@@ -335,7 +335,7 @@ def main(iso=None, work=None):
     for row in help_config['entries']:
         at=row['offset'];size=row['max_bytes'];data=stage_data[0]
         require(decode_text(original_flow,at,table).text==row['source_text'],'chart help source mismatch')
-        expected=normalize_original_fullwidth_ascii(row['translation']).replace(' ','　')
+        expected=two_byte_visible_spaces(normalize_original_fullwidth_ascii(chart_help_render_text(row)))
         actual=decode_text(data,at,readback,end=at+size)
         require(actual.text==expected and actual.terminator=='nul','chart help final ISO reread')
         for site in row['pointer_sites']:

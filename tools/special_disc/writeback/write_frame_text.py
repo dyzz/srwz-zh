@@ -54,6 +54,13 @@ def require(condition,message):
     if not condition: raise ValueError(message)
 
 
+def chart_help_render_text(row):
+    text = row.get('render_text', row['translation'])
+    require(CONTROL_NOTATION.sub('', text) == row['translation'],
+            f"{row['id']}: chart help layout changes visible text")
+    return text
+
+
 def paragraphs(text,width,*,max_lines=None,protected_terms=(),minimum_line_width=0,default_advance_px=24,line_packing='fill'):
     """Keep authored paragraphs and blank separators, wrap within each paragraph."""
     lines=[]
@@ -272,7 +279,7 @@ class Writer:
             sites=[p for p in range(0,len(src)-3,4) if struct.unpack_from('<I',src,p)[0]==sd.SD_STAGE_BASE+at]
             require(sites==row['pointer_sites'],'chart help pointer inventory drift')
             for site in sites:require(data[site:site+4]==src[site:site+4],'chart help pointer changed')
-            self.fixed(data,at,size,row['translation'],row['id'])
+            self.fixed(data,at,size,chart_help_render_text(row),row['id'])
             self.key_help.append(dict(row,output_text=row['translation'],member=name,chunk=0))
         packed=reencode_changed_suffix(current[:slot],bytes(data),strategy='rust-fit',max_output_size=slot,original_result=decoded)
         self.output[name]=packed+bytes(slot-len(packed))+current[slot:]
