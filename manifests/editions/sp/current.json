@@ -73,71 +73,48 @@
     "elf_sha256": "bfdae1fe7f74f01bb4bb6deb74249c3ba52ae006d765650e4467ebd055a0799e",
     "scene_count": 22
   },
-  "input_digest": "2578e122db03ef2a9a32515dcd4a8c53f8d1a71ddd32b4af62fff141120fd38f",
+  "input_digest": "c856008d60a9963cf952dcb73fa45aaf9b388456405bc3545386751dc0c76374",
+  "opening_review_20261109": {
+    "armsx2_opening": {
+      "blank_row_numbers": [
+        4,
+        9
+      ],
+      "capture_receipt": {
+        "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/sp/capture.json",
+        "sha256": "d9281819deb11c5e7a0982257bbb7b9c849aae6940cdee8436edf962dc19e33b"
+      },
+      "drawn_rows": 9,
+      "expected_visible_rows": 9,
+      "field": "narration/000",
+      "renderer": "metal",
+      "route": "native SP episode opening",
+      "upscale": 4,
+      "verified_row_gaps": []
+    },
+    "counts": {
+      "placeholder_rows": 8,
+      "scroll_fields": 10,
+      "synopsis_fields": 21
+    },
+    "exact_text_line_breaks_and_native_placeholder_bytes": true,
+    "scope": {
+      "iso_byte_identical_to_previous_rc": true
+    }
+  },
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
     "sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/bd28d8244b41e4516c13df7e94cc462e8f56b2d8f774a4b200428c09ae2cf37b/project/build/iso/special-disc/sp-current.json",
-    "sha256": "60bac3cf368b3f3e2d5c3f7d95b3853d329469c3881ab6ddb72a4363447b6804"
+    "path": "build/editions/zh-release-sp/cefab335078cfa95998c98b4a123b7995caec3ff75cc488fa1c8188127049d59/project/build/iso/special-disc/sp-current.json",
+    "sha256": "f2e9fd411c98fbbf0e0782fe4dd37df42ee17e56d54825744301e3365b5eee63"
   },
   "runtime": "not_tested",
   "schema_version": 1,
-  "scroll_and_synopsis_review_20261109": {
-    "armsx2_sample": {
-      "fields": {
-        "narration/000": {
-          "matched_rows": 9,
-          "route": "native",
-          "total_rows": 9,
-          "traces": [
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/written-review/sp-narration/natural.jsonl",
-              "sha256": "54ea6a906136e5b847dfd5926f08d4f8e85ef6ff10e55a854646d359fc80463b"
-            }
-          ]
-        },
-        "synopsis/002": {
-          "matched_rows": 8,
-          "route": "native",
-          "total_rows": 8,
-          "traces": [
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/written-review/sp-synopsis/natural.jsonl",
-              "sha256": "c30de5a764990cc7848ea45345d31f484b6569a6c46ba34bb1725b6cb8da3209"
-            }
-          ]
-        },
-        "synopsis/007": {
-          "matched_rows": 8,
-          "route": "native",
-          "total_rows": 8,
-          "traces": [
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/written-review/sp-synopsis/selected.jsonl",
-              "sha256": "bb74a4faa305ab7fd07035250dad059143e2fa5f2e2268248eef10525d3295e2"
-            }
-          ]
-        }
-      },
-      "renderer": "metal",
-      "upscale": 4
-    },
-    "iso_readback": {
-      "native_scroll_allocations_exact": true,
-      "native_scroll_placeholders_exact": true,
-      "placeholder_rows": 8,
-      "scroll_fields": 10,
-      "single_han_rows": 0,
-      "synopsis_fields": 21,
-      "text_and_line_breaks_exact": true
-    },
-    "iso_sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672"
-  },
   "skip_enabled": true,
-  "source_head": "3aa57234d5a978b369f34b96badbec7e15288223",
+  "source_head": "4c292fcd92dff8eb4e48c646640e42f997d91c86",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
   "typography": {
@@ -433,5 +410,5 @@
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-sp/bd28d8244b41e4516c13df7e94cc462e8f56b2d8f774a4b200428c09ae2cf37b/project"
+  "workspace": "build/editions/zh-release-sp/cefab335078cfa95998c98b4a123b7995caec3ff75cc488fa1c8188127049d59/project"
 }
