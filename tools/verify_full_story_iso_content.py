@@ -1173,6 +1173,9 @@ def verify_scenario_select_effect(
         or logical_sha256 == target["logical_image_sha256"]
     ):
         raise SystemExit("final ISO scenario-select title texture mismatch")
+    heading = effect.get("select_heading")
+    if heading is not None and sha256_bytes(logical[: heading["rows"] * 256]) != heading["after_sha256"]:
+        raise SystemExit("final ISO SELECT heading texture mismatch")
     segment_reports = []
     for segment in raster["segments"]:
         x = segment["x"]

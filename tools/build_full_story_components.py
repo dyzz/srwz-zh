@@ -8156,6 +8156,22 @@ def _apply_scenario_select_effect(
             tim2_offset=record.offset,
             texture_y_bounds=(clear_y, clear_y + clear_height),
         )
+    heading = raw_config.get("select_heading")
+    if heading is not None:
+        import base64
+        import zlib
+
+        rows = heading["rows"]
+        frozen = zlib.decompress(base64.b64decode(heading["indices_zlib_base64"], validate=True))
+        if (
+            not 0 < rows <= clear_y
+            or len(frozen) != rows * 256
+            or max(frozen) > 15
+            or sha256_bytes(logical[: len(frozen)]) != heading["before_sha256"]
+            or sha256_bytes(frozen) != heading["after_sha256"]
+        ):
+            raise FullStoryComponentError("SELECT heading texture lock drift")
+        logical[: len(frozen)] = frozen
     packed = swizzle_psmt4(logical)
     if unswizzle_psmt4(packed) != logical:
         raise FullStoryComponentError("scenario-select PSMT4 round trip failed")
