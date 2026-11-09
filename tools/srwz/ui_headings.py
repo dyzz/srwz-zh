@@ -242,6 +242,9 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
         outputs["KURODATA/KVMDATA.BIN"], outputs[member], root)
     from .ui_frame_uv import apply_frame_uv_patches
     outputs[member], frame_uv_report = apply_frame_uv_patches(outputs[member], config["shared_frame_uv"])
+    from .ui_frame_joins import CONFIG_PATH as FRAME_JOINS, apply_frame_joins, load_join_contract
+    inputs["frame_joins"] = {"path": FRAME_JOINS, **lock((root / FRAME_JOINS).read_bytes())}
+    outputs[member], frame_join_report = apply_frame_joins(outputs[member], load_join_contract(root, "original"))
     for name, payload in outputs.items():
         checked(payload, config["expected_outputs"][name], name)
     report = {
@@ -252,6 +255,7 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
         "source_drawings": config["source_drawings"],
         "menu_restore": menu_report,
         "shared_frame_uv": frame_uv_report,
+        "frame_joins": frame_join_report,
         "heading_count": len(corpus["entries"]),
         "cell_count": len(config["cells"]),
         "drawing_patch_count": len(config["draw_patches"]),

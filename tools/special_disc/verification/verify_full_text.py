@@ -51,6 +51,7 @@ from srwz.library_work_titles import verify_work_title_pool
 from special_disc.writeback.bazaar_heading import verify_bazaar_heading
 from srwz.ui_menu_restore import verify_menu_restore
 from srwz.ui_frame_uv import load_frame_uv_contract, verify_frame_uv_patches, frame_uv_preimage_for_verification
+from srwz.ui_frame_joins import frame_join_preimage_for_verification, load_join_contract
 from special_disc.writeback.battle_status import verify_status_labels, MEMBER as STATUS_MEMBER
 from special_disc.writeback.battle_prompts import verify_prompt_labels
 from special_disc.writeback.battle_titles import verify_title_labels
@@ -104,11 +105,14 @@ def main(iso=None, work=None):
     require(verify_bazaar_heading(member('KURODATA/KVMDATA.BIN')) == image_report['bazaar_heading'],
             'SP bazaar independent readback receipt drift')
     counts['enlarged_bazaar_headings'] = 1
+    pre_join_drawings, joins = frame_join_preimage_for_verification(
+        member('KURODATA/KVPDATA.BIN'), load_join_contract(ROOT, 'sp'))
+    require(joins == image_report['frame_joins'], 'SP frame join independent readback drift')
+    counts['frame_join_bytes'] = joins['byte_count']
     frame_contract = load_frame_uv_contract(ROOT, 'sp')
-    frame_uv = verify_frame_uv_patches(member('KURODATA/KVPDATA.BIN'), frame_contract)
-    # The menu receipt seals the complete member before the following UV pass.
-    # Verify both stages exactly, using a reconstructed copy for the earlier one.
-    menu_drawings = frame_uv_preimage_for_verification(member('KURODATA/KVPDATA.BIN'), frame_contract)
+    frame_uv = verify_frame_uv_patches(pre_join_drawings, frame_contract)
+    # The menu receipt seals the complete member before both frame repairs.
+    menu_drawings = frame_uv_preimage_for_verification(pre_join_drawings, frame_contract)
     require(verify_menu_restore(member('KURODATA/KVMDATA.BIN'), menu_drawings, ROOT, 'sp')
             == image_report['menu_restore'], 'SP native menu independent readback receipt drift')
     counts['restored_native_menu_chunks'] = len(image_report['menu_restore']['restored_chunks'])
