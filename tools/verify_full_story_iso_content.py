@@ -16,6 +16,7 @@ from srwz.scoped_translations import (
     verify_scoped_translation_coverage,
 )
 from srwz.archive import sha256_file
+from srwz.build_layout import PROSE_HANGING_PX, prose_widths
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
     load_layout_profiles,
@@ -5854,6 +5855,10 @@ def main() -> int:
     overview_output_line_count = 0
     overview_paragraph_indent_count = 0
     overview_maximum_line_width = 0
+    overview_widths_by_id = prose_widths([
+        (entry.entry_id, entry.source_text.rstrip("\n"), None)
+        for entry in overview_entries
+    ], 'main_flow', hanging_px=PROSE_HANGING_PX)
     for row in overview_corpus.get("entries", []):
         entry = overview_by_id.get(row.get("id"))
         expected_text = normalize_original_fullwidth_ascii(
@@ -5871,7 +5876,7 @@ def main() -> int:
                 f"final ISO stage-overview mismatch: {row.get('id')}"
             )
         overview_lines = entry.source_text.rstrip("\n").splitlines()
-        overview_widths = tuple((text_extent(line,default_advance_px=16).occupied_px+15)//16 for line in overview_lines)
+        overview_widths = tuple((width + 15) // 16 for width in overview_widths_by_id[entry.entry_id])
         if (
             not overview_lines
             or not overview_lines[0].startswith("　")

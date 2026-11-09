@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 import struct
-import math
 from dataclasses import dataclass
 from typing import Mapping
 
-from .renderer_metrics import text_extent
+from .build_layout import PROSE_HANGING_PX, prose_widths
 from .font import sha256_bytes
 from .stage import STAGE_BASE_ADDRESS
 from .text import (
@@ -134,6 +133,10 @@ def replace_stage_overviews_in_place(
         raise StageOverviewError(
             f"stage-overview corpus has unknown ids: {unknown_ids}"
         )
+    widths_by_id = prose_widths([
+        (row['id'], row['translation'].rstrip('\n'), None)
+        for row in corpus_entries if isinstance(row.get('translation'), str) and row['translation']
+    ], 'main_flow', hanging_px=PROSE_HANGING_PX)
     output_table = project_runtime_text_table(table, encoding_overrides)
     output = bytearray(decoded)
     minimum_headroom = None
@@ -154,12 +157,7 @@ def replace_stage_overviews_in_place(
             if isinstance(translation, str)
             else []
         )
-        translated_widths = (
-            tuple(math.ceil(text_extent(line,default_advance_px=16).occupied_px/16)
-                  for line in translation.rstrip("\n").splitlines())
-            if isinstance(translation, str)
-            else ()
-        )
+        translated_widths = tuple((width + 15) // 16 for width in widths_by_id.get(source.entry_id, ()))
         if (
             row.get("id") != source.entry_id
             or row.get("ordinal") != source.ordinal

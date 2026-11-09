@@ -22,9 +22,8 @@ from srwz.iso9660 import member_map,scan_iso9660
 from srwz.chinese_layout import ChineseLayoutProfile,fit_chinese_dialogue_layout,load_layout_profiles,load_unbroken_terms_file,rendered_line_width,reflow_chinese_paragraph
 from srwz.text import CONTROL_NOTATION,decode_text,encode_text,normalize_original_fullwidth_ascii
 from srwz.compact_scopes import FLOW_SYNOPSIS,expand as expand_compact_scopes
-from srwz.renderer_metrics import text_extent
 from srwz.chinese_prose import reflow_chinese_prose
-from srwz.build_layout import reflow_prose
+from srwz.build_layout import PROSE_HANGING_PX, reflow_prose, verify_prose
 from srwz.fixed_grid_prose import fill_fixed_grid_paragraphs
 from srwz.summary import parse_summary, validate_scroll_placeholders
 from srwz.writers import apply_summary_replacements
@@ -81,14 +80,10 @@ def paragraphs(text,width,*,max_lines=None,protected_terms=(),minimum_line_width
 
 def validate_flow_layout(text):
     visible=normalize_original_fullwidth_ascii(text).replace(' ','　')
-    raw_lines=visible.split('\n')
-    state=None
-    require(len(raw_lines)<=FLOW_MAX_LINES,'flow detail exceeds verified visible panel')
-    for line in raw_lines:
-        extent=text_extent(line,default_advance_px=FLOW_BODY_ADVANCE_PX,state=state)
-        require(extent.occupied_px<=FLOW_WIDTH*FLOW_BODY_ADVANCE_PX,
-                'flow detail exceeds verified visible panel')
-        state=extent.state
+    try:
+        verify_prose([('SP synopsis', visible, FLOW_MAX_LINES)], 'sp_flow', hanging_px=PROSE_HANGING_PX)
+    except ValueError as error:
+        raise ValueError(f'flow detail exceeds verified visible panel: {error}') from error
 
 
 def flow_synopsis(text):
@@ -214,10 +209,10 @@ class Writer:
             replacements={}
             for j,entry in enumerate(parsed.entries):
                 target=f'sd/mtzspros/{index:02d}/{j}';row=self.bind(target,entry.text)
-                validate_scroll_placeholders(entry.text,row['translation'],label=target)
-                profile=self.profiles['sp_narration_scroll'];width=profile.maximum_width
-                text=reflow_prose(normalize_original_fullwidth_ascii(row['translation']),scene='sp_scroll',
-                    maximum_lines=len(entry.text.split('\n')))['text'].replace(' ','　')
+                text=normalize_original_fullwidth_ascii(row['translation']).replace(' ','　')
+                validate_scroll_placeholders(entry.text,text,label=target)
+                verify_prose([(target,text,len(entry.text.split('\n')))],'sp_scroll',hanging_px=PROSE_HANGING_PX)
+                width=self.profiles['sp_narration_scroll'].maximum_width
                 replacements[entry.entry_id]=text;self.record(target,text,member=name,chunk=index,width=width,lines=len(text.split('\n')))
             rebuilt=apply_summary_replacements(data,self.table,chunk_index=index,replacements=replacements,overrides=self.codes)
             self.compressed(name,index,rebuilt,sd.MTZSPROS_TABLE)
@@ -234,7 +229,8 @@ class Writer:
             elif target.startswith('sd/flow/synopsis/'):
                 k=int(target.rsplit('/',1)[1])-1;site=sd.FLOW_SYNOPSES[0]+k*4;at=struct.unpack_from('<I',src,site)[0]-sd.SD_STAGE_BASE
                 original=decode_text(src,at,self.table);self.bind(target,original.text)
-                text=flow_synopsis(row['translation'])
+                text=expand_compact_scopes(normalize_original_fullwidth_ascii(row['translation']),FLOW_SYNOPSIS)
+                validate_flow_layout(text)
                 self.fixed(data,at,original.consumed,text,target);self.record(target,text,member=name,chunk=0,offset=at,width=FLOW_WIDTH)
         labels=json.loads(EPISODE_LABELS.read_text())
         require(labels['member']==name and labels['chunk']==0 and labels['label_bytes']==16 and labels['record_stride']==112,'episode label layout drift')

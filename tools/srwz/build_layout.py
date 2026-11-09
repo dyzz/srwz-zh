@@ -94,21 +94,50 @@ def verify_stored(rows,scene,*,batch_size=256,typography=None,chinese_punctuatio
         raise ValueError(f'{identity}: {"; ".join(issues[identity])}')
     return len(rows)
 
-def verify_prose(rows,scene):
-    """Validate stored prose with the same scene/resource contract, without reflow."""
-    typography,punctuation=typography_options()
-    rows=list(rows)
-    for start in range(0,len(rows),256):
-        group=rows[start:start+256]
-        probes=[dict(scene=scene,text='中',options=dict(resourceId=identity,typography=typography,chinesePunctuation=punctuation))for identity,_,_ in group]
-        limits=layout_batch(probes)
-        requests=[dict(action='measure',scene=scene,text=text,options=dict(resourceId=identity,typography=typography,chinesePunctuation=punctuation))for identity,text,_ in group]
-        for (identity,_,max_rows),limit,response in zip(group,limits,layout_batch(requests)):
-            if not limit['ok']or not response['ok']:raise ValueError(f'{identity}: unsupported JS prose contract')
-            values=response['result']['rows'];width=limit['result']['widthPx']
-            if any(row['occupiedPx']>width for row in values)or(max_rows is not None and len(values)>max_rows):
+PROSE_HANGING_PX = 12
+PROSE_HANGING_PUNCTUATION = frozenset('，。、；：？！')
+
+
+def prose_row_width(row, hanging_px):
+    """Count the full body and discount only eligible final punctuation."""
+    glyphs = row['glyphs']
+    occupied = row['occupiedPx']
+    if not hanging_px or not glyphs or glyphs[-1]['text'] not in PROSE_HANGING_PUNCTUATION:
+        return occupied
+    body_edge = max((glyph['x'] + glyph['width'] for glyph in glyphs[:-1]
+                     if glyph['text'] not in (' ', '　')), default=0)
+    body_advance = row['advancePx'] - glyphs[-1]['advance']
+    return max(body_edge, body_advance, occupied - hanging_px)
+
+
+def prose_widths(rows, scene, *, hanging_px=0):
+    """Measure and validate stored prose with its native scene and row budget."""
+    typography, punctuation = typography_options()
+    rows = list(rows)
+    widths_by_id = {}
+    for start in range(0, len(rows), 256):
+        group = rows[start:start + 256]
+        options = [dict(resourceId=identity, typography=typography, chinesePunctuation=punctuation)
+                   for identity, _, _ in group]
+        limits = layout_batch([dict(scene=scene, text='中', options=opts) for opts in options])
+        measurements = layout_batch([
+            dict(action='measure', scene=scene, text=text, options=opts)
+            for (_, text, _), opts in zip(group, options, strict=True)
+        ])
+        for (identity, _, max_rows), limit, response in zip(group, limits, measurements, strict=True):
+            if not limit['ok'] or not response['ok']:
+                raise ValueError(f'{identity}: unsupported JS prose contract')
+            width = limit['result']['widthPx']
+            widths = tuple(prose_row_width(row, hanging_px) for row in response['result']['rows'])
+            if max(widths, default=0) > width or (max_rows is not None and len(widths) > max_rows):
                 raise ValueError(f'{identity}: shared JS prose geometry exceeds {width}px / {max_rows} rows')
-    return len(rows)
+            widths_by_id[identity] = widths
+    return widths_by_id
+
+
+def verify_prose(rows, scene, *, hanging_px=0):
+    return len(prose_widths(rows, scene, hanging_px=hanging_px))
+
 
 def fit_story(text,*,profile,protected_terms=(),stage_keyword_links=False,**kwargs):
     from .chinese_layout import dialogue_layout_issues,ReflowResult,dialogue_line_widths,fit_chinese_dialogue_layout

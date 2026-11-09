@@ -26,7 +26,7 @@ try:
     from srwz.codec import decode_production as decode, encode, reencode_changed_suffix
     from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
-    from srwz.build_layout import verify_stored as verify_js_stored, verify_prose as verify_js_prose
+    from srwz.build_layout import PROSE_HANGING_PX, verify_stored as verify_js_stored, verify_prose as verify_js_prose
     from srwz.chinese_layout import load_layout_profiles
     from srwz.diagnostics import require_work_output
     from srwz.display_names import (
@@ -237,7 +237,7 @@ except ModuleNotFoundError:
     )
     from tools.srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from tools.srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
-    from tools.srwz.build_layout import verify_stored as verify_js_stored, verify_prose as verify_js_prose
+    from tools.srwz.build_layout import PROSE_HANGING_PX, verify_stored as verify_js_stored, verify_prose as verify_js_prose
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.display_names import (
         DisplayNameError,
@@ -3496,7 +3496,6 @@ def _apply_stage_overviews(
         or expected.get("chunk_index") != 0
     ):
         raise FullStoryComponentError("stage-overview corpus contract drift")
-    verify_js_prose([(entry['id'],entry['translation'],None)for entry in entries],'main_flow')
 
     offset_spec = ExecutableOffsetSpec(
         name="HEDBDY/HB.BIN STAGE offsets",
@@ -4871,7 +4870,7 @@ def _apply_world_history_layout(
             "world-history source/translation selection drift"
         )
 
-    verify_js_prose([(entry['id'],entry['translation'],len(source_by_id[entry['id']].text.split('\n')))for entry in entries],'main_scroll')
+    verify_js_prose([(entry['id'],entry['translation'],len(source_by_id[entry['id']].text.split('\n')))for entry in entries],'main_scroll', hanging_px=PROSE_HANGING_PX)
     _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
         font_manifest
     )
@@ -4986,13 +4985,20 @@ def _apply_world_history_layout(
             }
         )
 
-    output = b"".join(output_parts)
-    if len(output) != expected.get("archive_size"):
+    archive_size = expected.get("archive_size")
+    encoded_size = output_offsets[-1]
+    if type(archive_size) is not int or archive_size % 16 or encoded_size > archive_size:
         raise FullStoryComponentError(
-            "world-history rebuilt archive size drift: "
-            f"expected={expected.get('archive_size')} actual={len(output)} "
-            f"offsets={output_offsets!r}"
+            "world-history rebuilt archive exceeds its fixed size or the lock is invalid: "
+            f"expected={archive_size} actual={encoded_size} offsets={output_offsets!r}"
         )
+    # The compressed text can shrink without changing the archive's ISO allocation.
+    # Put unused capacity in the final chunk so the executable's EOF stays exact.
+    tail_padding = archive_size - encoded_size
+    output_offsets[-1] += tail_padding
+    chunk_reports[-1]["output_stored_size"] += tail_padding
+    chunk_reports[-1]["output_padding_size"] += tail_padding
+    output = b"".join(output_parts) + bytes(tail_padding)
     offset_plan = build_executable_offset_patch_plan(slps, spec, output_offsets)
     output_slps = offset_plan.apply(slps)
     if (

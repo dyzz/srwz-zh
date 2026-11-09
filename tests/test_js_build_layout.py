@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
 from srwz.typography_policy import options as typography_options
-from srwz.build_layout import library_batch,verify_stored,reflow_story,runtime_inputs,check_runtime,verify_prose
+from srwz.build_layout import library_batch,verify_stored,reflow_story,runtime_inputs,check_runtime,verify_prose,prose_row_width,PROSE_HANGING_PX
 from srwz.js_layout import request_layout
 from srwz.chinese_layout import load_layout_profiles
 from srwz.build_fingerprints import is_component_build_definition
@@ -61,6 +61,23 @@ class JsBuildLayoutTests(unittest.TestCase):
  def test_narrow_scroll_owner_retains_504_pixel_cap(self):
   self.assertEqual(verify_prose([('summary/01/000','中'*22,None)],'main_scroll'),1)
   with self.assertRaisesRegex(ValueError,'504px'):verify_prose([('summary/03/000','中'*22,None)],'main_scroll')
+
+ def test_narrow_scroll_hangs_only_the_last_punctuation(self):
+  line='时，埃曼人也派遣商队前往世界各地，从事贸易。'
+  row=lambda text: [('summary/04/000',text,1)]
+  with self.assertRaisesRegex(ValueError,'504px'):
+   verify_prose(row(line),'main_scroll')
+  self.assertEqual(verify_prose(row(line),'main_scroll',hanging_px=PROSE_HANGING_PX),1)
+  for invalid in (line+'中', '中'+line, line+'。'):
+   with self.assertRaisesRegex(ValueError,'504px'):
+    verify_prose(row(invalid),'main_scroll',hanging_px=PROSE_HANGING_PX)
+
+ def test_hanging_width_keeps_body_advance_before_a_left_bearing_glyph(self):
+  row={'advancePx':514,'occupiedPx':515,'glyphs':[
+   {'text':'中','x':480,'width':20,'advance':25},
+   {'text':'。','x':503,'width':12,'advance':9},
+  ]}
+  self.assertEqual(prose_row_width(row,PROSE_HANGING_PX),505)
 
  def test_frozen_runtime_resolves_without_source_workspace(self):
   import os,shutil,subprocess,tempfile
