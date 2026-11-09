@@ -9,7 +9,7 @@ No experimental binary-port script or frozen alpha translation is invoked.
 from __future__ import annotations
 
 import argparse
-from contextlib import ExitStack, contextmanager
+from contextlib import ExitStack, contextmanager, nullcontext
 import fcntl
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
@@ -228,7 +228,8 @@ def reset_relocated_cmake(root: Path, config: dict) -> None:
             shutil.rmtree(directory / "CMakeFiles", ignore_errors=True)
 
 
-def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool, force_rebuild: bool = False) -> dict:
+def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
+                   force_rebuild: bool = False, publish: bool = True) -> dict:
     root = context.project_root
     root.mkdir(parents=True, exist_ok=True)
     snapshot.materialize(root)
@@ -277,9 +278,11 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     output = project_path(root, cfg["output"]["path"], "build/iso")
     # The captions only need the assembled base image; they are relocated
     # members with their own base->final binding, so they overlap the readback.
-    with ThreadPoolExecutor(max_workers=1, thread_name_prefix="srwz-captions") as pool:
-        caption_started = time.perf_counter()
-        captions = pool.submit(apply_main_event_subtitles, context, output, root / CAPTION_FONT)
+    caption_pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="srwz-captions") if publish else nullcontext()
+    with caption_pool as pool:
+        if publish:
+            caption_started = time.perf_counter()
+            captions = pool.submit(apply_main_event_subtitles, context, output, root / CAPTION_FONT)
         run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", *(["--force"] if force_rebuild else []),
                                         "--cache", "work/cache/editions/original/iso-content.json"])
     readback = load_json(root / "manifests/zh-release-full-story-iso-content-validation.json")
@@ -293,6 +296,22 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     if legacy_equivalence and not equivalent:
         raise EditionError("new Original entry is not byte-identical to the frozen legacy output locks")
     verify_files(snapshot.project_root, list(snapshot.files))
+    result = {
+        "schema_version": 1, "edition_id": context.profile.edition_id,
+        "status": "edition_iso_static_validated_runtime_pending",
+        "adapter": context.profile.adapter, "input_digest": snapshot.digest,
+        "source_head": snapshot.source_head, "edition_contract_sha256": context.profile.contract_sha256,
+        "source_iso_sha256": context.profile.source_iso.sha256,
+        "output": {"path": output.relative_to(root).as_posix(), "size": output.stat().st_size, "sha256": actual_hash},
+        "legacy_equivalence": {"required": legacy_equivalence, "passed": equivalent,
+                               "member_count": len(after), "baseline_iso_sha256": baseline["output"]["expected_sha256"]},
+        "readback": {"path": (root / "manifests/zh-release-full-story-iso-content-validation.json").relative_to(context.root).as_posix(),
+                     "sha256": sha256_file(root / "manifests/zh-release-full-story-iso-content-validation.json"),
+                     "stage_count": readback["stage_count"], "translation_entry_count": readback["translation_entry_count"]},
+        "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
+    }
+    if not publish:
+        return result
     final, subtitles = captions.result()
     record_phase(context, "event-subtitles", caption_started)
     final, typography = apply_typography(context, final)
@@ -305,21 +324,11 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
         raise EditionError("published ISO copy mismatch")
     publish_verified(pending, context.output_iso, final_hash)
     return {
-        "schema_version": 1, "edition_id": context.profile.edition_id,
-        "status": "edition_iso_static_validated_runtime_pending",
-        "adapter": context.profile.adapter, "input_digest": snapshot.digest,
-        "source_head": snapshot.source_head, "edition_contract_sha256": context.profile.contract_sha256,
-        "source_iso_sha256": context.profile.source_iso.sha256,
+        **result,
         "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": final.stat().st_size, "sha256": final_hash},
         "typography": typography,
-        "base_output": {"path": output.relative_to(root).as_posix(), "size": output.stat().st_size, "sha256": actual_hash},
+        "base_output": result["output"],
         "event_subtitles": subtitles,
-        "legacy_equivalence": {"required": legacy_equivalence, "passed": equivalent,
-                               "member_count": len(after), "baseline_iso_sha256": baseline["output"]["expected_sha256"]},
-        "readback": {"path": (root / "manifests/zh-release-full-story-iso-content-validation.json").relative_to(context.root).as_posix(),
-                     "sha256": sha256_file(root / "manifests/zh-release-full-story-iso-content-validation.json"),
-                     "stage_count": readback["stage_count"], "translation_entry_count": readback["translation_entry_count"]},
-        "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
     }
 
 
@@ -487,14 +496,19 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                  "release_config": config, "shared_js_layout":shared_js_runtime, "input_snapshot": (snapshot.root / "inputs.json").relative_to(root).as_posix(),
                  "status": "running", "results": [], "runtime": "not_tested",
                  "timing": {"started_at": started_at, "preflight_and_snapshot_seconds": round(time.perf_counter() - started, 3), "editions": {}}}
+        badge_path = snapshot.project_root / "config/assets/title-menu-zh.json"
+        version = load_json(badge_path)["version_badge"]["text"] if badge_path.is_file() else None
+        if version:
+            batch["version"] = version
         atomic_json(batch_path, batch)
         def run_edition(context, builder, *args, **kwargs):
             begin = time.perf_counter()
             timing_path = context.run_root / "timing.json"
             timing_path.unlink(missing_ok=True)
-            mode = "build"
+            publish = context.profile.edition_id in requested
+            mode = "build" if publish else "shared_frontend"
             try:
-                if not force_rebuild and not legacy_equivalence and context.receipt.is_file():
+                if publish and not force_rebuild and not legacy_equivalence and context.receipt.is_file():
                     previous = load_json(context.receipt)
                     frontend_matches = context.profile.edition_id != "best" or previous.get("shared_frontend") == {
                         "edition": "original", "input_digest": snapshot.digest,
@@ -516,6 +530,10 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                             print(f"[{context.profile.edition_id}] unchanged inputs and verified current ISO reused", flush=True)
                             return previous
                 result = builder(context, *args, **kwargs)
+                if not publish:
+                    return result
+                if version:
+                    result["version"] = version
                 # Keep one current image per edition. Square skip is already
                 # part of its build; verify that image instead of cloning it.
                 atomic_json(context.receipt, result)
@@ -542,8 +560,10 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                 # One frontend execution even for reversed target order or BEST-only.
                 if "original" in contexts:
                     original = contexts["original"]
-                    results["original"] = run_edition(original, build_original, snapshot, legacy_equivalence=legacy_equivalence, force_rebuild=force_rebuild)
-                    atomic_json(original.receipt, results["original"])
+                    results["original"] = run_edition(
+                        original, build_original, snapshot, legacy_equivalence=legacy_equivalence,
+                        force_rebuild=force_rebuild, publish="original" in requested,
+                    )
                 if "best" in contexts:
                     results["best"] = run_edition(contexts["best"], build_best, snapshot, original, results["original"])
                     atomic_json(contexts["best"].receipt, results["best"])
@@ -580,10 +600,10 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default=DEFAULT_CONFIG)
-    parser.add_argument("--editions", default="best,sp", help="Comma-separated target editions (default: best,sp); Original is built automatically when Best needs it.")
+    parser.add_argument("--editions", default="best,sp", help="Comma-separated target editions (default: best,sp); Best uses Original as a private frontend unless Original is explicitly requested.")
     parser.add_argument("--candidate", action="store_true", help="Build isolated test ISOs and candidate receipts; leave production outputs unchanged.")
     parser.add_argument("--plan", action="store_true", help="Show registered targets without writing or building.")
-    parser.add_argument("--release-version", help="Official release version for the title badge, e.g. 0.5.0; defaults to HEAD tag or latest release + date.")
+    parser.add_argument("--release-version", help="Version for the title badge, e.g. 0.5.0 or 0.5.0-rc.")
     parser.add_argument("--force-rebuild", action="store_true", help="Explicit full Original and SP component rebuild, disc re-extraction, uncached readback and re-hashing of every input; normal builds reuse verified components and file identities.")
     parser.add_argument("--require-legacy-equivalence", action="store_true", help="Fail before promotion unless all Original component and ISO bytes match the frozen legacy locks.")
     args = parser.parse_args()
@@ -591,8 +611,8 @@ def main() -> int:
         if not args.plan and any(x.strip() in ('original', 'best') for x in args.editions.split(',')):
             from freeze_title_version import refresh_current_badge
             import re
-            if args.release_version and not re.fullmatch(r'\d+\.\d+\.\d+', args.release_version):
-                raise ValueError('release version must be x.y.z')
+            if args.release_version and not re.fullmatch(r'\d+\.\d+\.\d+(?:-rc(?:\.\d+)?)?', args.release_version):
+                raise ValueError('release version must be x.y.z or x.y.z-rc[.n]')
             text = f'v{args.release_version}' if args.release_version else None
             print(f'[title] version: {refresh_current_badge(PROJECT_ROOT, text=text)}', flush=True)
         result = build(PROJECT_ROOT, args.config, tuple(x.strip() for x in args.editions.split(",")),

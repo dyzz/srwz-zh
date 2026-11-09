@@ -69,6 +69,10 @@ class TitleVersionTests(unittest.TestCase):
             self.assertEqual(version_text(ROOT, date='20261004'),
                              self.contract['version_badge']['latest_release_tag'] + '+20261004')
 
+    def test_current_rc_is_kept_on_untagged_builds(self):
+        with patch('tools.freeze_title_version.subprocess.check_output', return_value=''):
+            self.assertEqual(version_text(ROOT), 'v0.5.0-rc')
+
     def test_frozen_glyphs_render_without_a_system_font(self):
         badge = freeze(self.contract['version_badge']['text'], root=ROOT)
         self.assertEqual(badge['authoring']['size_px'], 10)
@@ -98,7 +102,8 @@ class TitleVersionTests(unittest.TestCase):
             inputs.parent.mkdir(parents=True)
             inputs.write_text(json.dumps({'version_badge': {'text': 'v0.4.2+20261004'}}))
             batch = root / 'batch.json'
-            batch.write_text(json.dumps({'input_snapshot': 'inputs/inputs.json'}))
+            batch.write_text(json.dumps({'input_snapshot': 'inputs/inputs.json',
+                                         'results': [{'edition_id': 'best'}, {'edition_id': 'sp'}]}))
             with patch.object(freeze_release, 'ROOT', root), patch.object(
                 freeze_release, 'verify_batch', return_value={'verified_editions': ['original', 'best', 'sp']}):
                 with self.assertRaisesRegex(ValueError, 'rebuild with --release-version 0.5.0'):

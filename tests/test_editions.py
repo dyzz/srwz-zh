@@ -221,6 +221,9 @@ class EditionTests(unittest.TestCase):
                         patch("srwz.release_inputs.subprocess.check_output",return_value="test-head\n"):
                     batch = build_editions.build(self.root,build_editions.DEFAULT_CONFIG,requested)
                 self.assertEqual(original.call_count,1)
+                self.assertEqual(original.call_args.kwargs['publish'], "original" in requested)
+                original_receipt = self.root / "manifests/editions/original/current.json"
+                self.assertEqual(original_receipt.exists(), "original" in requested)
                 self.assertEqual(best.call_count,1)
                 self.assertEqual([r["edition_id"] for r in batch["results"]],list(requested))
 

@@ -74,7 +74,8 @@ Redump 校验值为 CRC-32 `0d9deb37`、MD5
 组件、封盘和整盘回读，并按版本写出独立 ISO 与回执：
 
 ```bash
-python3 tools/build_editions.py                      # Original、BEST 与 SP
+python3 tools/build_editions.py                      # 默认构建 BEST 与 SP
+python3 tools/build_editions.py --release-version 0.5.0-rc
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
 python3 tools/build_editions.py --force-rebuild      # 不复用任何组件与文件身份记录，完整重算（内容寻址的压缩结果缓存仍可命中）
@@ -82,7 +83,8 @@ python3 tools/build_editions.py --force-rebuild      # 不复用任何组件与�
 
 输入未变时直接复用已验证的当前 ISO；只改语料时沿用上一批的已验证组件缓存，
 只重建受影响组件。Original 支持成员级增量封盘，SP 仍完整合成 ISO 并独立回读。
-三版当前 ISO 位于：
+BEST 构建使用 Original 共享前端。显式选择 Original 时才会更新其当前镜像。
+各版当前镜像的路径如下。
 
 ```text
 build/iso/zh-release-original/current-original.iso

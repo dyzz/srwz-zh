@@ -32,6 +32,10 @@ def version_text(root: Path, *, date: str | None = None, release_tag: str | None
     tags = [tag for tag in tags if re.fullmatch(r'v\d+\.\d+\.\d+', tag)]
     if tags:
         return max(tags, key=lambda tag: tuple(map(int, tag[1:].split('.'))))
+    if date is None and release_tag is None:
+        badge = json.loads((root / 'config/assets/title-menu-zh.json').read_text())['version_badge']
+        if re.fullmatch(r'v\d+\.\d+\.\d+-rc(?:\.\d+)?', badge['text']):
+            return badge['text']
     if release_tag is None:
         try:
             release_tag = subprocess.check_output(
@@ -79,7 +83,7 @@ def freeze(text: str, font_path: Path | None = None, *, root: Path = ROOT) -> di
         from PIL import Image, ImageDraw, ImageFont
         font = ImageFont.truetype(str(font_path), 10)
         glyphs = {}
-        for char in 'v0123456789.+-':
+        for char in 'v0123456789.+-rc':
             im = Image.new('L', (16, 16))
             ImageDraw.Draw(im).text((2, -1), char, font=font, fill=2, stroke_width=1, stroke_fill=1)
             raw = im.tobytes()
