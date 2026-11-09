@@ -22,7 +22,8 @@ def verify(root,before=None):
     for ed in ['original','best','sp']:
         receipt=json.loads((root/f'manifests/editions/{ed}/current.json').read_text());path=root/receipt['output']['path'];assert sha256_file(path)==receipt['output']['sha256'];raw,mm=read(path)
         kvp=raw['KURODATA/KVPDATA.BIN'];kvm=raw['KURODATA/KVMDATA.BIN']
-        patches=headings['shared_letter_patches'] if ed!='sp' else [p for p in sp['patches'] if p['token']=='pilot-i']
+        patches=[p for p in (headings['shared_letter_patches'] if ed!='sp' else sp['patches'])
+                 if p['token']=='pilot-i']
         refs=[]
         for patch in patches:
             off=patch['offset'];after=bytes.fromhex(patch['after_hex']);assert kvp[off:off+22]==after,(ed,off)

@@ -921,7 +921,7 @@
     },
     "KURODATA/KVPDATA.BIN": {
       "size": 239664,
-      "sha256": "06a3f5bf5877252a7a582df1e781b92b3b9980b0953c81855e9bcc19ef861d25"
+      "sha256": "9335598809811f54bb9ffa0e037d6868f0e32a36d77f4a5a44975ecfffb5872d"
     }
   },
   "shared_letters": [
@@ -938,6 +938,48 @@
       "indices_sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948",
       "original_indices_sha256": "dce6ae7f174cb44929d4ec4d0f60faed3efa028fb4f3c59698f751f7ecad6f1c",
       "note": "I body matches SHIP I exactly; omit the empty left column to avoid the adjacent P, and advance the left vertex by one pixel."
+    },
+    {
+      "id": "music-c",
+      "source_word": "MUSIC",
+      "page": 2,
+      "rect": [
+        195,
+        184,
+        13,
+        16
+      ],
+      "indices_sha256": "91f531a16d55710bd00065aad354b1d561bc6713388149818542cef066133204",
+      "trim_right": true,
+      "note": "Exclude the leftmost column of the neighboring K. Trim the right vertex by one pixel to preserve 1:1 horizontal sampling."
+    },
+    {
+      "id": "parts-p",
+      "source_word": "PARTS",
+      "page": 2,
+      "rect": [
+        192,
+        0,
+        13,
+        16
+      ],
+      "indices_sha256": "27fc1175c6688434e62aa985d80b755687bce93fc532744ea968a883826bac36",
+      "trim_right": true,
+      "note": "Exclude the neighboring A column and trim the right vertex by one pixel to preserve 1:1 sampling."
+    },
+    {
+      "id": "formation-f",
+      "source_word": "FORMATION",
+      "page": 2,
+      "rect": [
+        145,
+        56,
+        13,
+        16
+      ],
+      "indices_sha256": "818d4278706e36c478f2d90e8d96077d649afb20a8606a7923cc8fc4ecfa533d",
+      "trim_right": true,
+      "note": "Exclude the neighboring O column and trim the right vertex by one pixel to preserve 1:1 sampling."
     }
   ],
   "shared_letter_patches": [
@@ -948,7 +990,8 @@
       "offset": 122616,
       "token": "pilot-i",
       "before_hex": "3500000022110e0e0e8088ffffff8eff07006a007010",
-      "after_hex": "3500000022110e0e0e8089ffffff8eff07000e101320"
+      "after_hex": "3500000022110e0e0e8087ffffff8cff07000e101320",
+      "x_shift": -2
     },
     {
       "chunk_index": 1088,
@@ -957,13 +1000,51 @@
       "offset": 122660,
       "token": "pilot-i",
       "before_hex": "3500000022110e0e0e809affffffa0ff07006a007010",
-      "after_hex": "3500000022110e0e0e809bffffffa0ff07000e101320"
+      "after_hex": "3500000022110e0e0e809affffff9fff07000e101320",
+      "x_shift": -1
+    },
+    {
+      "chunk_index": 1088,
+      "chunk_start": 122368,
+      "chunk_end": 122752,
+      "offset": 122594,
+      "token": "music-c",
+      "before_hex": "3500000022110e0e0e807affffff88ff0700c3b8d1c8",
+      "after_hex": "3500000022110e0e0e807affffff87ff0700c3b8d0c8"
+    },
+    {
+      "chunk_index": 1088,
+      "chunk_start": 122368,
+      "chunk_end": 122752,
+      "offset": 122682,
+      "token": "music-c",
+      "before_hex": "3500000022110e0e0e80a0ffffffaeff0700c3b8d1c8",
+      "after_hex": "3500000022110e0e0e80a0ffffffadff0700c3b8d0c8"
+    },
+    {
+      "chunk_index": 1088,
+      "chunk_start": 122368,
+      "chunk_end": 122752,
+      "offset": 122550,
+      "token": "parts-p",
+      "before_hex": "3500000022110e0e0e8062ffffff70ff0700c000ce10",
+      "after_hex": "3500000022110e0e0e8062ffffff6fff0700c000cd10"
+    },
+    {
+      "chunk_index": 1088,
+      "chunk_start": 122368,
+      "chunk_end": 122752,
+      "offset": 122638,
+      "token": "formation-f",
+      "before_hex": "3500000022110e0e0e808effffff9cff070091389f48",
+      "after_hex": "3500000022110e0e0e808bffffff98ff070091389e48",
+      "x_shift": -3
     }
   ],
   "menu_restore": {
     "path": "config/assets/ui-menu-native-restore.json",
     "size": 48134,
-    "sha256": "e9add4df982d72e3522b903dcb2020c47d226c9181ff76bc7e83c10bbf0dcdac"
+    "sha256": "d999f79547627832e27ad0b0730a627f3cd2d1956c5609a1c3ca114ded3eae0a"
   },
   "shared_frame_uv": {
     "style_id": 89,

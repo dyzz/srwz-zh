@@ -182,6 +182,39 @@
         16
       ],
       "sha256": "2ff290443480fa22a92e2f33108b324c77e964081bb67e70c92c2728ad604948"
+    },
+    {
+      "id": "music-c",
+      "page": 2,
+      "rect": [
+        195,
+        184,
+        13,
+        16
+      ],
+      "sha256": "91f531a16d55710bd00065aad354b1d561bc6713388149818542cef066133204"
+    },
+    {
+      "id": "parts-p",
+      "page": 2,
+      "rect": [
+        192,
+        0,
+        13,
+        16
+      ],
+      "sha256": "27fc1175c6688434e62aa985d80b755687bce93fc532744ea968a883826bac36"
+    },
+    {
+      "id": "formation-f",
+      "page": 2,
+      "rect": [
+        145,
+        56,
+        13,
+        16
+      ],
+      "sha256": "818d4278706e36c478f2d90e8d96077d649afb20a8606a7923cc8fc4ecfa533d"
     }
   ],
   "patches": [
@@ -2148,9 +2181,9 @@
       "offset": 132854,
       "type": 5,
       "before_hex": "1500000022115133208064ff000072ff0800c000ce10",
-      "after_hex": "1500000022115133208064ff000072ff0800c000ce10",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "1500000022115133208064ff000071ff0800c000cd10",
+      "token": "parts-p",
+      "operation": "retarget",
       "previous_hex": [
         "150000002811513320802eff00003eff040006ca16d2",
         "1500000028115133208090ff0000a0ff040006ca16d2"
@@ -2174,9 +2207,9 @@
       "offset": 132942,
       "type": 5,
       "before_hex": "150000002211513320807cff00008aff0800c3b8d1c8",
-      "after_hex": "150000002211513320807cff00008aff0800c3b8d1c8",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "150000002211513320807cff000089ff0800c3b8d0c8",
+      "token": "music-c",
+      "operation": "retarget",
       "previous_hex": [
         "150000002811513320802eff04003eff08009ef5aefd",
         "15000000281151332080cbff0000dbff0400b2e2c2ea"
@@ -2187,12 +2220,13 @@
       "offset": 132986,
       "type": 5,
       "before_hex": "150000002211513320808aff000090ff08006a007010",
-      "after_hex": "150000002211513320808bff000090ff08000e101320",
+      "after_hex": "1500000022115133208089ff00008eff08000e101320",
       "token": "pilot-i",
       "operation": "retarget",
       "previous_hex": [
         "150000002811513320803eff04004eff08008cf59cfd",
-        "15000000281151332080cbff0400dbff08008cf59cfd"
+        "15000000281151332080cbff0400dbff08008cf59cfd",
+        "150000002211513320808bff000090ff08000e101320"
       ]
     },
     {
@@ -2200,11 +2234,12 @@
       "offset": 133030,
       "type": 5,
       "before_hex": "1500000022115133208090ff00009eff080091389f48",
-      "after_hex": "1500000022115133208090ff00009eff080091389f48",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "150000002211513320808dff00009aff080091389e48",
+      "token": "formation-f",
+      "operation": "retarget",
       "previous_hex": [
-        "15000000221151332080000000000000000091389f48"
+        "15000000221151332080000000000000000091389f48",
+        "1500000022115133208090ff00009dff080091389e48"
       ]
     },
     {
@@ -2212,11 +2247,12 @@
       "offset": 133074,
       "type": 5,
       "before_hex": "150000002211513320809cff0000a2ff08006a007010",
-      "after_hex": "150000002211513320809dff0000a2ff08000e101320",
+      "after_hex": "150000002211513320809cff0000a1ff08000e101320",
       "token": "pilot-i",
       "operation": "retarget",
       "previous_hex": [
-        "1500000022115133208000000000000000006a007010"
+        "1500000022115133208000000000000000006a007010",
+        "150000002211513320809dff0000a2ff08000e101320"
       ]
     },
     {
@@ -2224,9 +2260,9 @@
       "offset": 133118,
       "type": 5,
       "before_hex": "15000000221151332080a2ff0000b0ff0800c3b8d1c8",
-      "after_hex": "15000000221151332080a2ff0000b0ff0800c3b8d1c8",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "15000000221151332080a2ff0000afff0800c3b8d0c8",
+      "token": "music-c",
+      "operation": "retarget",
       "previous_hex": [
         "150000002211513320800000000000000000c3b8d1c8"
       ]
@@ -2312,9 +2348,9 @@
       "offset": 132876,
       "type": 5,
       "before_hex": "3500000022111818198062ff010070ff0900c000ce10",
-      "after_hex": "3500000022111818198062ff010070ff0900c000ce10",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "3500000022111818198062ff01006fff0900c000cd10",
+      "token": "parts-p",
+      "operation": "retarget",
       "previous_hex": [
         "350000002811181819802cff01003cff050006ca16d2",
         "350000002811181819808eff01009eff050006ca16d2"
@@ -2338,9 +2374,9 @@
       "offset": 132964,
       "type": 5,
       "before_hex": "350000002211181819807aff010088ff0900c3b8d1c8",
-      "after_hex": "350000002211181819807aff010088ff0900c3b8d1c8",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "350000002211181819807aff010087ff0900c3b8d0c8",
+      "token": "music-c",
+      "operation": "retarget",
       "previous_hex": [
         "350000002811181819802cff05003cff09009ef5aefd",
         "35000000281118181980c9ff0100d9ff0500b2e2c2ea"
@@ -2351,12 +2387,13 @@
       "offset": 133008,
       "type": 5,
       "before_hex": "3500000022111818198088ff01008eff09006a007010",
-      "after_hex": "3500000022111818198089ff01008eff09000e101320",
+      "after_hex": "3500000022111818198087ff01008cff09000e101320",
       "token": "pilot-i",
       "operation": "retarget",
       "previous_hex": [
         "350000002811181819803cff05004cff09008cf59cfd",
-        "35000000281118181980c9ff0500d9ff09008cf59cfd"
+        "35000000281118181980c9ff0500d9ff09008cf59cfd",
+        "3500000022111818198089ff01008eff09000e101320"
       ]
     },
     {
@@ -2364,11 +2401,12 @@
       "offset": 133052,
       "type": 5,
       "before_hex": "350000002211181819808eff01009cff090091389f48",
-      "after_hex": "350000002211181819808eff01009cff090091389f48",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "350000002211181819808bff010098ff090091389e48",
+      "token": "formation-f",
+      "operation": "retarget",
       "previous_hex": [
-        "35000000221118181980000000000000000091389f48"
+        "35000000221118181980000000000000000091389f48",
+        "350000002211181819808eff01009bff090091389e48"
       ]
     },
     {
@@ -2376,11 +2414,12 @@
       "offset": 133096,
       "type": 5,
       "before_hex": "350000002211181819809aff0100a0ff09006a007010",
-      "after_hex": "350000002211181819809bff0100a0ff09000e101320",
+      "after_hex": "350000002211181819809aff01009fff09000e101320",
       "token": "pilot-i",
       "operation": "retarget",
       "previous_hex": [
-        "3500000022111818198000000000000000006a007010"
+        "3500000022111818198000000000000000006a007010",
+        "350000002211181819809bff0100a0ff09000e101320"
       ]
     },
     {
@@ -2388,9 +2427,9 @@
       "offset": 133140,
       "type": 5,
       "before_hex": "35000000221118181980a0ff0100aeff0900c3b8d1c8",
-      "after_hex": "35000000221118181980a0ff0100aeff0900c3b8d1c8",
-      "token": "withdrawn-title",
-      "operation": "restore",
+      "after_hex": "35000000221118181980a0ff0100adff0900c3b8d0c8",
+      "token": "music-c",
+      "operation": "retarget",
       "previous_hex": [
         "350000002211181819800000000000000000c3b8d1c8"
       ]

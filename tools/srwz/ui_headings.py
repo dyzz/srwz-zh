@@ -148,7 +148,7 @@ def apply_index_cells(archive: bytes, config: dict, snapshot: dict) -> bytes:
 
 
 def apply_shared_letter_patches(atlas: bytes, drawings: bytes, config: dict) -> bytes:
-    """Reuse intact PILOT I samples without rewriting the SHIP Chinese cell."""
+    """Repair shared letter references without rewriting the atlas."""
     result = bytearray(drawings)
     letters = {}
     for cell in config.get("shared_letters", []):
@@ -163,12 +163,16 @@ def apply_shared_letter_patches(atlas: bytes, drawings: bytes, config: dict) -> 
         if not (0 <= x < x + w <= 256 and 0 <= y < y + h <= 256):
             raise UiHeadingError("shared letter rectangle bounds")
         pixels = bytes(indices[yy * 256 + xx] for yy in range(y, y + h) for xx in range(x, x + w))
-        restored = b"".join(b"\0" + pixels[row * w:(row + 1) * w] for row in range(h))
-        if sha(pixels) != cell["indices_sha256"] or sha(restored) != cell["original_indices_sha256"]:
+        if sha(pixels) != cell["indices_sha256"]:
             raise UiHeadingError("shared letter donor pixels drift")
+        trim_right = cell.get("trim_right", False)
+        if not trim_right:
+            restored = b"".join(b"\0" + pixels[row * w:(row + 1) * w] for row in range(h))
+            if sha(restored) != cell["original_indices_sha256"]:
+                raise UiHeadingError("shared letter donor differs from original glyph")
         if cell["id"] in letters:
             raise UiHeadingError("duplicate shared letter")
-        letters[cell["id"]] = (cell["page"], bytes((x, y, x + w, y + h)))
+        letters[cell["id"]] = (cell["page"], bytes((x, y, x + w, y + h)), trim_right)
     claimed = set()
     for patch in config.get("shared_letter_patches", []):
         start = patch["offset"]
@@ -181,11 +185,20 @@ def apply_shared_letter_patches(atlas: bytes, drawings: bytes, config: dict) -> 
         claimed.update(positions)
         if drawings[start:start + 22] != before:
             raise UiHeadingError("shared letter drawing preimage drift")
-        page, uv = letters[patch["token"]]
+        page, uv, trim_right = letters[patch["token"]]
         expected = bytearray(before)
-        # Omit the empty left column and move only the left vertex by one pixel.
-        # The glyph body and its right edge retain their original screen positions.
-        struct.pack_into("<h", expected, 10, struct.unpack_from("<h", before, 10)[0] + 1)
+        x1, _, x2, _ = struct.unpack_from("<4h", before, 10)
+        if trim_right:
+            # Exclude the neighboring glyph column without rescaling the letter.
+            if tuple(before[-4:]) != (uv[0], uv[1], uv[2] + 1, uv[3]):
+                raise UiHeadingError("shared letter right trim must remove exactly one column")
+            x2 -= 1
+        else:
+            # The donor I omits the original transparent column on the left.
+            x1 += 1
+        x_shift = patch.get("x_shift", 0)
+        struct.pack_into("<h", expected, 10, x1 + x_shift)
+        struct.pack_into("<h", expected, 14, x2 + x_shift)
         expected[-4:] = uv
         x1, y1, x2, y2 = struct.unpack_from("<4h", after, 10)
         if (after != expected or after[4] & 15 != page

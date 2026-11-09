@@ -168,6 +168,10 @@ class UiHeadingTests(unittest.TestCase):
                 apply_index_cells(archive, config, snapshot)
 
     def test_robot_title_reuses_pilot_I_without_touching_pixels_or_other_records(self):
+        self.config["shared_letters"] = [c for c in self.config["shared_letters"] if c["id"] == "pilot-i"]
+        self.config["shared_letter_patches"] = [
+            p for p in self.config["shared_letter_patches"] if p["token"] == "pilot-i"
+        ]
         # PILOT's I has the same indexed glyph as SHIP's I; the preceding P
         # occupies four pixels in the sixth column we deliberately omit.
         donor = bytes.fromhex("0000000000" * 2 + "00080b0200" + "000b0f0400" * 11
@@ -190,14 +194,16 @@ class UiHeadingTests(unittest.TestCase):
             self.assertEqual(bytes(atlas), original_atlas)
             self.assertEqual(len(output), len(source))
             expected = bytearray(source)
+            shifts = {0x1DEF8: -2, 0x1DF24: -1}
+            self.assertEqual({p['offset'] for p in self.config['shared_letter_patches']}, shifts.keys())
             for p in self.config['shared_letter_patches']:
                 off = p['offset']
-                expected[off + 10] += 1
+                x1, _, x2, _ = struct.unpack_from('<4h', source, off + 10)
+                struct.pack_into('<h', expected, off + 10, x1 + 1 + shifts[off])
+                struct.pack_into('<h', expected, off + 14, x2 + shifts[off])
                 expected[off + 18:off + 22] = bytes((14, 16, 19, 32))
-                self.assertEqual(struct.unpack_from('<h', output, off + 14),
-                                 struct.unpack_from('<h', source, off + 14))
             self.assertEqual(output, expected)
-            self.assertEqual(sum(a != b for a, b in zip(source, output)), 10)
+            self.assertEqual(sum(a != b for a, b in zip(source, output)), 11)
             bad = copy.deepcopy(self.config)
             raw = bytearray.fromhex(bad['shared_letter_patches'][0]['after_hex'])
             raw[6] ^= 1
@@ -214,6 +220,31 @@ class UiHeadingTests(unittest.TestCase):
             atlas[66688 + 64 + 16 * 128 + 7] ^= 1
             with self.assertRaisesRegex(UiHeadingError, 'donor pixels'):
                 apply_shared_letter_patches(atlas, source, self.config)
+
+    def test_robot_title_trims_and_f_spacing_preserve_other_fields(self):
+        cells = [c for c in self.config["shared_letters"] if c.get("trim_right")]
+        self.assertEqual({c["id"] for c in cells}, {"music-c", "parts-p", "formation-f"})
+        self.config["shared_letters"] = [{**c, "indices_sha256": sha(bytes(13 * 16))} for c in cells]
+        patches = [p for p in self.config["shared_letter_patches"] if p["token"] != "pilot-i"]
+        self.assertEqual({p["offset"] for p in patches}, {0x1DEB6, 0x1DEE2, 0x1DF0E, 0x1DF3A})
+        self.config["shared_letter_patches"] = patches
+        source = bytearray(self.source)
+        for p in patches:
+            offset = p["offset"]
+            source[offset:offset + 22] = bytes.fromhex(p["before_hex"])
+        picture = SimpleNamespace(width=256, height=256, image_type=4, offset=16,
+                                  header_size=48, image_size=32768)
+        with patch("srwz.ui_headings.parse_tim2", return_value=SimpleNamespace(pictures=[picture])):
+            output = apply_shared_letter_patches(bytes(100032), source, self.config)
+        expected = bytearray(source)
+        for p in patches:
+            offset = p["offset"]
+            x1, _, x2, _ = struct.unpack_from("<4h", source, offset + 10)
+            shift = -3 if offset == 0x1DF0E else 0
+            struct.pack_into("<h", expected, offset + 10, x1 + shift)
+            struct.pack_into("<h", expected, offset + 14, x2 - 1 + shift)
+            expected[offset + 20] -= 1
+        self.assertEqual(output, expected)
 
 
 if __name__ == "__main__":

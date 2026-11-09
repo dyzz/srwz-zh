@@ -123,20 +123,40 @@ class SpecialDiscTitleAtlasTests(unittest.TestCase):
         c = json.loads(CONFIG.read_text())
         self.assertEqual({t['chunk'] for t in c['titles']}, {1198})
         self.assertEqual({r['word'] for r in c['cells']}, {'item'})
-        self.assertEqual({r['id'] for r in c['reused_cells']}, {'help', 'pilot-i'})
+        trims = {'music-c', 'parts-p', 'formation-f'}
+        self.assertEqual({r['id'] for r in c['reused_cells']}, {'help', 'pilot-i'} | trims)
         repaired = [p for p in c['patches'] if p['token'] == 'pilot-i']
         self.assertEqual(len(repaired), 4)
         import struct
+        shifts = {0x2077A: -2, 0x20790: -2, 0x207D2: -1, 0x207E8: -1}
+        self.assertEqual({p['offset'] for p in repaired}, shifts.keys())
         for p in repaired:
             self.assertEqual(p['chunk'], 1115)
             self.assertEqual(p['operation'], 'retarget')
             before, after = bytes.fromhex(p['before_hex']), bytes.fromhex(p['after_hex'])
             expected = bytearray(before)
-            struct.pack_into('<h', expected, 10, struct.unpack_from('<h', before, 10)[0] + 1)
+            x1, _, x2, _ = struct.unpack_from('<4h', before, 10)
+            shift = shifts[p['offset']]
+            struct.pack_into('<h', expected, 10, x1 + 1 + shift)
+            struct.pack_into('<h', expected, 14, x2 + shift)
             expected[-4:] = bytes((14, 16, 19, 32))
             self.assertEqual(after, expected)
-        restored = [p for p in c['patches'] if p['chunk'] != 1198 and p['token'] != 'pilot-i']
-        self.assertEqual(len(restored), 192)
+        trimmed = [p for p in c['patches'] if p['token'] in trims]
+        self.assertEqual(len(trimmed), 8)
+        self.assertEqual({p['offset'] for p in trimmed},
+                         {0x206F6, 0x2070C, 0x2074E, 0x20764, 0x207A6, 0x207BC, 0x207FE, 0x20814})
+        for p in trimmed:
+            self.assertEqual(p['chunk'], 1115)
+            self.assertEqual(p['operation'], 'retarget')
+            expected = bytearray.fromhex(p['before_hex'])
+            x1, _, x2, _ = struct.unpack_from('<4h', expected, 10)
+            shift = -3 if p['offset'] in (0x207A6, 0x207BC) else 0
+            struct.pack_into('<h', expected, 10, x1 + shift)
+            struct.pack_into('<h', expected, 14, x2 - 1 + shift)
+            expected[20] -= 1
+            self.assertEqual(bytes.fromhex(p['after_hex']), expected)
+        restored = [p for p in c['patches'] if p['chunk'] != 1198 and p['token'] not in ({'pilot-i'} | trims)]
+        self.assertEqual(len(restored), 184)
         self.assertTrue(all(p['operation'] == 'restore' and p['after_hex'] == p['before_hex'] for p in restored))
         self.assertEqual(len(c['retired_cells']), 44)
 
