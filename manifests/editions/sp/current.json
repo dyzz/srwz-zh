@@ -60,11 +60,11 @@
     "world_steps_per_frame": 1
   },
   "component_modes": {
-    "frame": "rebuilt",
-    "image-labels": "rebuilt",
-    "srvc": "rebuilt",
-    "stage": "rebuilt",
-    "system": "rebuilt"
+    "frame": "reused",
+    "image-labels": "reused",
+    "srvc": "reused",
+    "stage": "reused",
+    "system": "reused"
   },
   "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
   "edition_id": "sp",
@@ -73,15 +73,15 @@
     "elf_sha256": "bfdae1fe7f74f01bb4bb6deb74249c3ba52ae006d765650e4467ebd055a0799e",
     "scene_count": 22
   },
-  "input_digest": "4b28144e9f3c311d25b5c2f7eb908a485f6315fd6ee05d1e77c1b768f2d1b011",
+  "input_digest": "2578e122db03ef2a9a32515dcd4a8c53f8d1a71ddd32b4af62fff141120fd38f",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
     "sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/c444f278d4c46b756edc1e2ffc08f884fd77075d3ae4ea91834655bff1ec58e4/project/build/iso/special-disc/sp-current.json",
-    "sha256": "eca602ba4578fa738a45a6a369a1560427dbd4e96531495994aef7b0709841d7"
+    "path": "build/editions/zh-release-sp/bd28d8244b41e4516c13df7e94cc462e8f56b2d8f774a4b200428c09ae2cf37b/project/build/iso/special-disc/sp-current.json",
+    "sha256": "60bac3cf368b3f3e2d5c3f7d95b3853d329469c3881ab6ddb72a4363447b6804"
   },
   "runtime": "not_tested",
   "schema_version": 1,
@@ -137,7 +137,7 @@
     "iso_sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672"
   },
   "skip_enabled": true,
-  "source_head": "ec27a6bdc77aea578e8e5a2fdf58a1764283774d",
+  "source_head": "3aa57234d5a978b369f34b96badbec7e15288223",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
   "typography": {
@@ -433,5 +433,5 @@
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-sp/c444f278d4c46b756edc1e2ffc08f884fd77075d3ae4ea91834655bff1ec58e4/project"
+  "workspace": "build/editions/zh-release-sp/bd28d8244b41e4516c13df7e94cc462e8f56b2d8f774a4b200428c09ae2cf37b/project"
 }

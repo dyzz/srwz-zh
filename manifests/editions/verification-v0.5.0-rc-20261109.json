@@ -1,0 +1,86 @@
+{
+  "batch_manifest": {
+    "path": "work/editions/2578e122db03ef2a9a32515dcd4a8c53f8d1a71ddd32b4af62fff141120fd38f/original-best-sp.json",
+    "sha256": "7d51a93785038d436dfde83e2afdcab33529f7144d7ee67204fc17750f0f77f3"
+  },
+  "input_digest": "2578e122db03ef2a9a32515dcd4a8c53f8d1a71ddd32b4af62fff141120fd38f",
+  "outputs": {
+    "best": {
+      "armsx2_evidence": "prior_byte_identical_iso",
+      "current_receipt": "manifests/editions/best/current.json",
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "3af1a0a042afe1c768b4e58e84f38d1811b45db04fdbd42cdd185c67f75245fd",
+        "size": 3796187136
+      },
+      "readback": {
+        "path": "build/editions/zh-release-best/925c9829619e10eb10882f9fff214837247061d0fb9c917ead5b506bb60b3472/project/work/build/best-current/iso-readback.json",
+        "sha256": "283dc4c2dc0b9d29901899ab0660e42f941d35187dc42b7bc1d3cfb1854f653e",
+        "stage_count": 205,
+        "translation_entry_count": 84338
+      },
+      "scroll_and_synopsis": {
+        "placeholder_rows": 14,
+        "scroll_fields": 28,
+        "synopsis_fields": 110
+      }
+    },
+    "original": {
+      "armsx2_evidence": "this_build",
+      "current_receipt": "manifests/editions/original/current.json",
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "5a82f781a4f5ce224d4d254f4a76f6ea9b9fdba674ad86f6dc7da4bed6644cd5",
+        "size": 3799459840
+      },
+      "readback": {
+        "path": "build/editions/zh-release-original/70c1e9d7523b11d10f56835413e32d62dc3623058b4781736d86523a71b8cf7b/project/manifests/zh-release-full-story-iso-content-validation.json",
+        "sha256": "52b339556181bb565769d97141ac630d161cf70510f9f8b58d65f5f371142f87",
+        "stage_count": 170,
+        "translation_entry_count": 93071
+      },
+      "scroll_and_synopsis": {
+        "placeholder_rows": 14,
+        "scroll_fields": 28,
+        "synopsis_fields": 110
+      }
+    },
+    "sp": {
+      "armsx2_evidence": "prior_byte_identical_iso",
+      "current_receipt": "manifests/editions/sp/current.json",
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672",
+        "size": 3918860288
+      },
+      "readback": {
+        "path": "build/editions/zh-release-sp/bd28d8244b41e4516c13df7e94cc462e8f56b2d8f774a4b200428c09ae2cf37b/project/build/iso/special-disc/sp-current.json",
+        "sha256": "60bac3cf368b3f3e2d5c3f7d95b3853d329469c3881ab6ddb72a4363447b6804"
+      },
+      "scroll_and_synopsis": {
+        "placeholder_rows": 8,
+        "scroll_fields": 10,
+        "synopsis_fields": 21
+      }
+    }
+  },
+  "schema_version": 1,
+  "source_head": "3aa57234d5a978b369f34b96badbec7e15288223",
+  "unittest": {
+    "passed": 1018,
+    "skipped": 0
+  },
+  "verification": {
+    "both_editions": true,
+    "input_digest": "2578e122db03ef2a9a32515dcd4a8c53f8d1a71ddd32b4af62fff141120fd38f",
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes",
+    "status": "edition_batch_receipt_integrity_passed",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ]
+  },
+  "version": "v0.5.0-rc"
+}
