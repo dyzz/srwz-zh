@@ -130,6 +130,9 @@ def main(iso=None, work=None):
         st.read_disc_member, table, overrides, manifest['current_shared_library'], readback=readback)
     for key, value in library_counts.items():
         counts['current_library_' + key] = value
+    from srwz.ui_text_clarity import apply_chart
+    _, chart_clarity = apply_chart(member('DATA/HSFC.BIN'), member('SLPS_259.20'), ROOT, verify=True)
+    require(chart_clarity == manifest['chart_title_clarity'], 'SP chart title clarity receipt drift')
     proposal=load(PROPOSAL)
     font_assignments=[r for key in ('assignments','surface_alias_assignments',
                                   'source_compatibility_assignments') for r in proposal[key]]

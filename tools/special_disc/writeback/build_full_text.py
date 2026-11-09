@@ -346,6 +346,10 @@ def assemble():
     stats['battle_title_labels'] = len(title_labels_report['labels'])
     patches[STATUS_MEMBER], ability_labels_report = apply_ability_labels(patches[STATUS_MEMBER])
     stats['battle_ability_labels'] = len(ability_labels_report['labels'])
+    from srwz.ui_text_clarity import apply_chart
+    chart_member = 'DATA/HSFC.BIN'
+    patches[chart_member], chart_clarity_report = apply_chart(
+        patches.get(chart_member, read_member(BASE, members, chart_member)), patches[EXE], ROOT)
     # The Special Theater event gallery is the last executable stage: it hooks
     # the fully text-patched executable, grows AID block 2 and the subtitled
     # effect chunks. Those three members outgrow their native allocation and
@@ -399,6 +403,7 @@ def assemble():
     report['library_body_metrics']=library_body_metrics_report
     report['library_optical_metrics']=library_optical_metrics_report
     report['library_button_labels']=library_button_labels_report
+    report['chart_title_clarity']=chart_clarity_report
     report['dialogue_speaker_colors']=dialogue_color_report
     report['native_parentheses']=parenthesis_report
     report['data_link_bonus']=link_report

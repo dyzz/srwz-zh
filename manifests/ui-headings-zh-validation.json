@@ -6,7 +6,7 @@
     "config": {
       "path": "config/assets/ui-headings-zh.json",
       "size": 36781,
-      "sha256": "89161323a4ebf2a37bb2c02e5c4b0457570da723e569d7dd4c2986be24ae2ad9"
+      "sha256": "2c2a897ec6cf66bc333168e0776a48a7c6fda6eb3843f6c2efc55839d2b4fcaf"
     },
     "base_atlas": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
@@ -27,6 +27,31 @@
       "path": "config/assets/ui-menu-native-restore.json",
       "size": 48134,
       "sha256": "d999f79547627832e27ad0b0730a627f3cd2d1956c5609a1c3ca114ded3eae0a"
+    },
+    "text_clarity": {
+      "path": "config/assets/ui-text-clarity.json",
+      "size": 14229,
+      "sha256": "8f5fc2e9775be370fe42461ea793217ed10e5b6dfece6878ff95f40539237ebc"
+    },
+    "native_select": {
+      "path": "config/assets/ui-select-native.json",
+      "size": 25407,
+      "sha256": "15c1418e33e74866984289a1085bbebd5c56c54f1f335b015cb19e739c0df52a"
+    },
+    "help_titles": {
+      "path": "config/assets/ui-help-titles-zh.json",
+      "size": 4106,
+      "sha256": "f80af073cec5ddf957fe298fc9028d5407a47d54bcafe3a200c993a33d124427"
+    },
+    "support_title": {
+      "path": "config/assets/ui-support-spirit-title-zh.json",
+      "size": 3200,
+      "sha256": "096683a27aa19eb201c29eb8749facaf4197483217791c2fe68874ac61e7b039"
+    },
+    "command_title": {
+      "path": "config/assets/ui-command-title-zh.json",
+      "size": 1677,
+      "sha256": "1be78782e1c0b6b57ffeea6160c713160775ae76ff234fb529d86e57fb7da553"
     },
     "frame_joins": {
       "path": "config/assets/ui-frame-joins.json",
@@ -51,7 +76,34 @@
       204
     ],
     "moved_cells": 3,
-    "runtime": "pending"
+    "runtime": "pending",
+    "text_clarity": {
+      "config_sha256": "8f5fc2e9775be370fe42461ea793217ed10e5b6dfece6878ff95f40539237ebc",
+      "cells": [
+        "formation",
+        "select",
+        "key",
+        "help",
+        "item",
+        "sort"
+      ]
+    },
+    "native_select": {
+      "config_sha256": "15c1418e33e74866984289a1085bbebd5c56c54f1f335b015cb19e739c0df52a",
+      "patches": 27
+    },
+    "help_titles": {
+      "config_sha256": "f80af073cec5ddf957fe298fc9028d5407a47d54bcafe3a200c993a33d124427",
+      "drawings": 6
+    },
+    "support_title": {
+      "config_sha256": "096683a27aa19eb201c29eb8749facaf4197483217791c2fe68874ac61e7b039",
+      "chunk": 204
+    },
+    "command_title": {
+      "config_sha256": "1be78782e1c0b6b57ffeea6160c713160775ae76ff234fb529d86e57fb7da553",
+      "chunk": 158
+    }
   },
   "shared_frame_uv": {
     "style_id": 89,
@@ -72,11 +124,11 @@
     "scope": "all references to the shared style",
     "input": {
       "size": 239664,
-      "sha256": "1548e5fa4bf8c94cfc2d364c3c869394299abc63b9251267a0a3845d214383c9"
+      "sha256": "9a332b2745a88baff9b8eabd1d45921a4de921f26fc8591a24d9ca7fb5e6b481"
     },
     "output": {
       "size": 239664,
-      "sha256": "9335598809811f54bb9ffa0e037d6868f0e32a36d77f4a5a44975ecfffb5872d"
+      "sha256": "168a21ba223a2c31a3e01d3ae1398c64175199508019fe4edd6fef43121c4a3b"
     },
     "runtime": "see external ISO and renderer evidence"
   },
@@ -137,12 +189,12 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/ui-headings-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "616423c95bc9d0c95f410319f9b6c83c3f429f04558485d0a1230b45d3cb8f5e"
+      "sha256": "ed407a1414605e1e378aa4fec445e32a2fb5420bccec48efe042b158ec20e686"
     },
     "KURODATA/KVPDATA.BIN": {
       "path": "work/build/ui-headings-zh/components/KURODATA/KVPDATA.BIN",
       "size": 239664,
-      "sha256": "1ad747c0f9809900ed477388ccfae10063f1edeecaf2d8bf3d91e7c1772a2d53"
+      "sha256": "85a2f947e3195eb1a978fd10382ad1638d9a9a0597668b4eb7e4a834559dfb91"
     }
   },
   "acceptance": {

@@ -234,10 +234,17 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
         member: apply_draw_patches(drawings, config["draw_patches"]),
     }
     outputs[member] = apply_shared_letter_patches(outputs["KURODATA/KVMDATA.BIN"], outputs[member], config)
-    from .ui_menu_restore import apply_menu_restore
+    from .ui_menu_restore import COMMAND_TITLE_CONFIG, HELP_TITLES_CONFIG, SUPPORT_TITLE_CONFIG, apply_menu_restore
     reference = config["menu_restore"]
     checked(_path(root, reference["path"]).read_bytes(), reference, "menu restoration config")
     inputs["menu_restore"] = reference
+    clarity_path = root / "config/assets/ui-text-clarity.json"
+    inputs["text_clarity"] = {"path": str(clarity_path.relative_to(root)), **lock(clarity_path.read_bytes())}
+    select_path = root / "config/assets/ui-select-native.json"
+    inputs["native_select"] = {"path": str(select_path.relative_to(root)), **lock(select_path.read_bytes())}
+    inputs["help_titles"] = {"path": HELP_TITLES_CONFIG, **lock((root / HELP_TITLES_CONFIG).read_bytes())}
+    inputs["support_title"] = {"path": SUPPORT_TITLE_CONFIG, **lock((root / SUPPORT_TITLE_CONFIG).read_bytes())}
+    inputs["command_title"] = {"path": COMMAND_TITLE_CONFIG, **lock((root / COMMAND_TITLE_CONFIG).read_bytes())}
     outputs["KURODATA/KVMDATA.BIN"], outputs[member], menu_report = apply_menu_restore(
         outputs["KURODATA/KVMDATA.BIN"], outputs[member], root)
     from .ui_frame_uv import apply_frame_uv_patches

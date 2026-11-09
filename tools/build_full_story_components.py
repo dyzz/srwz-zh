@@ -820,7 +820,7 @@ INPUT_IMPACTS = {
     "kvmdata": {KVMDATA_MEMBER},
     "kvpdata": {KVPDATA_MEMBER},
     **{f"ui_headings_{name}": {KVMDATA_MEMBER, KVPDATA_MEMBER}
-       for name in ("config", "base_atlas", "corpus", "snapshot", "manifest", "frame_joins")},
+       for name in ("config", "base_atlas", "corpus", "snapshot", "manifest", "frame_joins", "command_title")},
     "original_veff2dx": {VEFF_MEMBER},
     "tutorial_title_font": {VEFF_MEMBER},
     "world_map_title_corpus": {MAPMODEL_MEMBER},
