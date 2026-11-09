@@ -5,6 +5,49 @@
     "sha256": "8df4ee1bc16ddb99e1e8f139d04014c4f18ca42af062ed4f4fbe87b201abcb50",
     "size": 3755081728
   },
+  "battle_select_titles_20261109": {
+    "config": "config/assets/ui-battle-select-titles-zh.json",
+    "config_sha256": "b33bd6f5bc873e7f84108d20265648b95c6993d3040d684cd96651320f58c715",
+    "current_iso_sha256": "aab5de8286dbbaadd8c8b72264f0f93514a04e223b9247e6c2760385cee1d8f6",
+    "iso_lbas_and_sizes_unchanged": true,
+    "labels": [
+      "选择阵型",
+      "排列队员",
+      "选择机体",
+      "选择机师"
+    ],
+    "member_sha256": {
+      "KURODATA/KVMDATA.BIN": "53d09387b3803f5988a4e2f77cd40e5675626dee84087c8d5a152e34bac17ae3",
+      "SLPS_732.70": "8dff21a64090d7303550530398c2f9552268fa646cd121cc25b3ee85bab91a17"
+    },
+    "outside_select_members_byte_exact": true,
+    "previous_iso_sha256": "7cb605fceaa75b159267c03cf66586b4a105fbf6a941e75def02e9732e544510",
+    "runtime": {
+      "matches_merged_candidate": true,
+      "renderer": "metal",
+      "runner": "ARMSX2",
+      "scope": "cold boot, continue save, formation and spirit menus",
+      "screenshots": {
+        "formation": {
+          "path": "work/review/select-family-zh-20261109/current-best-formation/formation.png",
+          "sha256": "c4dbfce92345c868481357a52be9d0f398191176acbe27aa78f9f53c705ad93d"
+        },
+        "pilot": {
+          "path": "work/review/select-family-zh-20261109/current-best-pilot/pilot.png",
+          "sha256": "d59f269968924cc0f9d309fda51682bd5791f13ffc4461b6a3bbf05f02f8b601"
+        },
+        "robo": {
+          "path": "work/review/select-family-zh-20261109/current-best-formation/robo.png",
+          "sha256": "1a07c7b2cfa0714f43f4066c5a681c97ff364d450bfb8efbf2795007b01bcd5e"
+        },
+        "sort": {
+          "path": "work/review/select-family-zh-20261109/current-best-formation/formation.png",
+          "sha256": "c4dbfce92345c868481357a52be9d0f398191176acbe27aa78f9f53c705ad93d"
+        }
+      },
+      "upscale": 4
+    }
+  },
   "battle_square_skip": {
     "all_replacements_exact": true,
     "already_applied": true,
@@ -1405,7 +1448,7 @@
   "input_digest": "f26a071f388dfacc1ebc54944e44d5923da18df20814a895034f4492a15540d5",
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "7cb605fceaa75b159267c03cf66586b4a105fbf6a941e75def02e9732e544510",
+    "sha256": "aab5de8286dbbaadd8c8b72264f0f93514a04e223b9247e6c2760385cee1d8f6",
     "size": 3796187136
   },
   "readback": {

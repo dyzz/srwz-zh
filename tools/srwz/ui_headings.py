@@ -247,6 +247,11 @@ def build_ui_headings(root: Path, config_path: Path) -> tuple[dict[str, bytes], 
     inputs["command_title"] = {"path": COMMAND_TITLE_CONFIG, **lock((root / COMMAND_TITLE_CONFIG).read_bytes())}
     outputs["KURODATA/KVMDATA.BIN"], outputs[member], menu_report = apply_menu_restore(
         outputs["KURODATA/KVMDATA.BIN"], outputs[member], root)
+    from .ui_battle_select import CONFIG as BATTLE_SELECT, apply_atlas as apply_battle_select_atlas
+    battle_select = (root / BATTLE_SELECT).read_bytes()
+    inputs["battle_select"] = {"path": BATTLE_SELECT, **lock(battle_select)}
+    outputs["KURODATA/KVMDATA.BIN"] = apply_battle_select_atlas(
+        outputs["KURODATA/KVMDATA.BIN"], json.loads(battle_select))
     from .ui_frame_uv import apply_frame_uv_patches
     outputs[member], frame_uv_report = apply_frame_uv_patches(outputs[member], config["shared_frame_uv"])
     from .ui_frame_joins import CONFIG_PATH as FRAME_JOINS, apply_frame_joins, load_join_contract
