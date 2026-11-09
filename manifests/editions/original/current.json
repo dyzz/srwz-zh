@@ -1387,7 +1387,7 @@
   },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "sha256": "fcf86548ab2845da6da8c0e5271a9e264c193909605c93b85137b9aafbb3c5cc",
+    "sha256": "4a8f01108d73065743f57661021ddab438e6374e5a591b4dbd7cf00164801979",
     "size": 3799459840
   },
   "readback": {
@@ -1708,5 +1708,14 @@
       "source_sha256": "db3d6e12e1066d96299d6ec4a9d33fcd1147138d09af4f1c6765f2e65dabc11c"
     }
   },
-  "workspace": "build/editions/zh-release-original/d94038697a589fa958ea39c3c0fa1ca722e327838affdc6d1bf11aaa7fab0dc6/project"
+  "workspace": "build/editions/zh-release-original/d94038697a589fa958ea39c3c0fa1ca722e327838affdc6d1bf11aaa7fab0dc6/project",
+  "frame_joins_20261109": {
+    "changed_byte_count": 36,
+    "config": "config/assets/ui-frame-joins.json",
+    "current_iso_sha256": "4a8f01108d73065743f57661021ddab438e6374e5a591b4dbd7cf00164801979",
+    "member_sha256": "c9b7e278fcce888e62c8ed9ee74541c604d2a6bcfed4578c1bd9b31008881195",
+    "previous_iso_sha256": "8c98bda8b9a079a1337e63601a49a02af5ef1b1a81bfc47358d8f5b08ad79578",
+    "receipt": "manifests/editions/ui-frame-joins-20261109.json",
+    "runtime": "ARMSX2 Metal 4x on the exact published ISO"
+  }
 }
