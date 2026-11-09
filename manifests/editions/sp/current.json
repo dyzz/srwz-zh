@@ -2,7 +2,7 @@
   "adapter": "sp-full-text-v1",
   "base_output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "4906e769d458c51ef2f2f72e3669413cf8d1d003a0e76e2d05ed6f30b5a8c56f",
+    "sha256": "f2561f2181e1cfadda00e9f635bb3715ea91816e662c43768782f9b0675423d5",
     "size": 3918860288
   },
   "battle_square_skip": {
@@ -73,182 +73,77 @@
     "elf_sha256": "bfdae1fe7f74f01bb4bb6deb74249c3ba52ae006d765650e4467ebd055a0799e",
     "scene_count": 22
   },
-  "frame_joins_20261109": {
-    "changed_byte_count": 35,
-    "config": "config/assets/ui-frame-joins.json",
-    "current_iso_sha256": "d8829ddc9952fd406aa07154d033322cbd883c3c71165d730ae6972796d48cc3",
-    "member_sha256": "51b750efb863c8ba27b0b0bba5bb1acde57d05fd7688d8949253a3d3eaa57661",
-    "previous_iso_sha256": "aacda46c0601f692de9e2da817442878ee1dbb5c67bebb3387b745062497efc2",
-    "receipt": "manifests/editions/ui-frame-joins-20261109.json",
-    "runtime": "ARMSX2 Metal 4x on the exact published ISO"
-  },
-  "input_digest": "f26a071f388dfacc1ebc54944e44d5923da18df20814a895034f4492a15540d5",
+  "input_digest": "4b28144e9f3c311d25b5c2f7eb908a485f6315fd6ee05d1e77c1b768f2d1b011",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "b4f985960e9ed00f1c7468dda8d0426d1123b5ebb70410d988a9b227ea0bcd34",
+    "sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/ea1fe341a75da4bc207d71714c7ff33322c4838682674be63dcfbf115743bf16/project/build/iso/special-disc/sp-current.json",
-    "sha256": "fa7c050f76d4ce3e30b785836638f9081165817823d0d3a66a8b978cde4b38d7"
+    "path": "build/editions/zh-release-sp/c444f278d4c46b756edc1e2ffc08f884fd77075d3ae4ea91834655bff1ec58e4/project/build/iso/special-disc/sp-current.json",
+    "sha256": "eca602ba4578fa738a45a6a369a1560427dbd4e96531495994aef7b0709841d7"
   },
   "runtime": "not_tested",
   "schema_version": 1,
+  "scroll_and_synopsis_review_20261109": {
+    "armsx2_sample": {
+      "fields": {
+        "narration/000": {
+          "matched_rows": 9,
+          "route": "native",
+          "total_rows": 9,
+          "traces": [
+            {
+              "path": "work/review/scroll-audit-20261109/runtime/written-review/sp-narration/natural.jsonl",
+              "sha256": "54ea6a906136e5b847dfd5926f08d4f8e85ef6ff10e55a854646d359fc80463b"
+            }
+          ]
+        },
+        "synopsis/002": {
+          "matched_rows": 8,
+          "route": "native",
+          "total_rows": 8,
+          "traces": [
+            {
+              "path": "work/review/scroll-audit-20261109/runtime/written-review/sp-synopsis/natural.jsonl",
+              "sha256": "c30de5a764990cc7848ea45345d31f484b6569a6c46ba34bb1725b6cb8da3209"
+            }
+          ]
+        },
+        "synopsis/007": {
+          "matched_rows": 8,
+          "route": "native",
+          "total_rows": 8,
+          "traces": [
+            {
+              "path": "work/review/scroll-audit-20261109/runtime/written-review/sp-synopsis/selected.jsonl",
+              "sha256": "bb74a4faa305ab7fd07035250dad059143e2fa5f2e2268248eef10525d3295e2"
+            }
+          ]
+        }
+      },
+      "renderer": "metal",
+      "upscale": 4
+    },
+    "iso_readback": {
+      "native_scroll_allocations_exact": true,
+      "native_scroll_placeholders_exact": true,
+      "placeholder_rows": 8,
+      "scroll_fields": 10,
+      "single_han_rows": 0,
+      "synopsis_fields": 21,
+      "text_and_line_breaks_exact": true
+    },
+    "iso_sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672"
+  },
   "skip_enabled": true,
-  "source_head": "1cfb43368d431efdb10c4574a282c856adb721d7",
+  "source_head": "ec27a6bdc77aea578e8e5a2fdf58a1764283774d",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
-  "sp_chart_style_20261109": {
-    "chart_title_clarity": {
-      "chunk": 1,
-      "config_sha256": "230bac810dc648626d2a901ff45e0a5fa7d48da921f815239d30074b98b0bceb",
-      "member": "DATA/HSFC.BIN",
-      "records": [
-        {
-          "rect": [
-            17,
-            451,
-            111,
-            34
-          ],
-          "sha256": "5958d357a5a2bead75140726bd40df34d28d755cd926be10b35d534896312812",
-          "tab": "Special Disc"
-        },
-        {
-          "rect": [
-            80,
-            198,
-            134,
-            29
-          ],
-          "sha256": "6fa94fc986ce93c471ab9aa2e273fa31754806478780cc17babd0ac99ee79eb7",
-          "tab": "Z"
-        }
-      ]
-    },
-    "current_iso_sha256": "bf11b047a694b4305a5adc61cbfba101b3cce47cfb4a6ab3ec5b5f11527bd0df",
-    "iso_size": 3918860288,
-    "key_help": {
-      "after_hex": "8fd690d8964f8e8a8272340c82713409827681408279000000",
-      "before_hex": "8fd690d8964f8e8a8272827182768140827900000000000000",
-      "compressed_size": 42361,
-      "decoded_offset": 98048,
-      "id": "sd/flow/key/17F00",
-      "logical_text": "：切换至SRW Z",
-      "slot_size": 44016
-    },
-    "layout_and_non_target_iso_bytes_identical": true,
-    "member_sha256": {
-      "DATA/HSFC.BIN": "e9ed4c81a6a85d048e07e0b194709fcd3879a7e0e5b23f5bb18877a8648a4e21",
-      "DATA/STAGE.BIN": "9aad996eee50c7c325ecbf7561bf93717f1a1f49bc14d8748cf76a46d168c836"
-    },
-    "previous_iso_sha256": "d8829ddc9952fd406aa07154d033322cbd883c3c71165d730ae6972796d48cc3",
-    "runtime": {
-      "renderer": "metal",
-      "runner": "ARMSX2",
-      "rw_advance_after": 12,
-      "rw_advance_before": 9,
-      "screenshot_matches_candidate": true,
-      "screenshots": {
-        "sp-tab": {
-          "path": "work/review/sp-chart-style-20261109/published/sp-tab.png",
-          "sha256": "3b0546ebe5d338d85bfcc567da9cecaafa36fbf27ae973fac0f99f62122d9756"
-        },
-        "z-tab": {
-          "path": "work/review/sp-chart-style-20261109/published/z-tab.png",
-          "sha256": "b416d613864c8cb91683184e21ff6fe00f150875989e06842c642f8650c39e9f"
-        }
-      },
-      "upscale": 4
-    }
-  },
-  "sp_chart_title_size_20261109": {
-    "chart_title_clarity": {
-      "chunk": 1,
-      "config_sha256": "5b2aa868a89612a66d6e89c26b71c8ee49e833b11e59125c9ae751c475e4ccbf",
-      "member": "DATA/HSFC.BIN",
-      "records": [
-        {
-          "rect": [
-            17,
-            451,
-            111,
-            34
-          ],
-          "sha256": "41dda1834c65f74ce49584b3b7a82f9935fdf6a8f096a7907ade75c96e0ed8e5",
-          "tab": "Special Disc"
-        },
-        {
-          "rect": [
-            80,
-            198,
-            134,
-            29
-          ],
-          "sha256": "a87515ec6a5e720e866f21feb337475567da9801a84797a62aa2889eef56157f",
-          "tab": "Z"
-        }
-      ]
-    },
-    "current_iso_sha256": "b4f985960e9ed00f1c7468dda8d0426d1123b5ebb70410d988a9b227ea0bcd34",
-    "iso_size": 3918860288,
-    "layout_and_non_target_iso_bytes_identical": true,
-    "member_sha256": {
-      "DATA/HSFC.BIN": "8ed4796d0a74f8316e3889e463eac1d69a0bcc366262c683ab5edc2514806057"
-    },
-    "outside_chinese_title_indices_exact": true,
-    "point_sizes": {
-      "Special Disc": {
-        "after": 24,
-        "before": 23
-      },
-      "Z": {
-        "after": 23,
-        "before": 22
-      }
-    },
-    "previous_iso_sha256": "bf11b047a694b4305a5adc61cbfba101b3cce47cfb4a6ab3ec5b5f11527bd0df",
-    "runtime": {
-      "matches_candidate": true,
-      "renderer": "metal",
-      "runner": "ARMSX2",
-      "scope": "cold-boot both chart tabs",
-      "screenshots": {
-        "sp-tab": {
-          "difference_bbox_px": [
-            67,
-            44,
-            502,
-            163
-          ],
-          "path": "work/review/sp-chart-title-size-20261109/published/sp-tab.png",
-          "sha256": "cfefa3d590f481f8ccd090640052602ed61f40436d624fdd0ac881bf905e82b1"
-        },
-        "z-tab": {
-          "difference_bbox_px": [
-            381,
-            52,
-            784,
-            167
-          ],
-          "path": "work/review/sp-chart-title-size-20261109/published/z-tab.png",
-          "sha256": "1db51d7c69f85ae841bf09814090f8536ef348a1028193a42a71f65ac4b7110c"
-        }
-      },
-      "upscale": 4
-    }
-  },
   "status": "edition_iso_static_validated_runtime_pending",
-  "text_clarity_20261108": {
-    "current_iso_sha256": "aacda46c0601f692de9e2da817442878ee1dbb5c67bebb3387b745062497efc2",
-    "previous_iso_sha256": "cb4b692e4d6e67a61cc09f1cde0923ce065766d7b1c00c8c30be61a5aeb5ad05",
-    "receipt": "docs/issue-assets/text-clarity-fix-20261108/promotion.json",
-    "runtime": "ARMSX2 Metal 4x original SELECT/formation/sort/help and SP chart visually reviewed; Best static only",
-    "scope": "Bounded atlas cells, native SELECT / FORMATION / SORT pixels and geometry, SP chart title; prior build receipts retain provenance"
-  },
   "typography": {
     "input": {
       "path": "build/iso/special-disc/sp-current.iso",
-      "sha256": "4906e769d458c51ef2f2f72e3669413cf8d1d003a0e76e2d05ed6f30b5a8c56f",
+      "sha256": "f2561f2181e1cfadda00e9f635bb3715ea91816e662c43768782f9b0675423d5",
       "size": 3918860288
     },
     "verification": {
@@ -258,7 +153,7 @@
       "member_lba": 1851456,
       "member_size": 4141568,
       "metrics_sha256": "0d6102a1d67cb0d26a965bd92d21fd97bdcebaf496a17b47a665506c64b3c941",
-      "output_sha256": "800d07e78a8881b7503d4ffb16f7baf00d8076f2816ec29902882784e866acd0",
+      "output_sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672",
       "outside_executable_bytes_compared": 3914718720,
       "payload": {
         "base": 8512000,
@@ -534,8 +429,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3918860288,
-      "source_sha256": "4906e769d458c51ef2f2f72e3669413cf8d1d003a0e76e2d05ed6f30b5a8c56f"
+      "source_sha256": "f2561f2181e1cfadda00e9f635bb3715ea91816e662c43768782f9b0675423d5"
     }
   },
-  "workspace": "build/editions/zh-release-sp/ea1fe341a75da4bc207d71714c7ff33322c4838682674be63dcfbf115743bf16/project"
+  "version": "v0.5.0-rc",
+  "workspace": "build/editions/zh-release-sp/c444f278d4c46b756edc1e2ffc08f884fd77075d3ae4ea91834655bff1ec58e4/project"
 }
