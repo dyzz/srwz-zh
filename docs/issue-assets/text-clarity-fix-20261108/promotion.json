@@ -1,0 +1,77 @@
+{
+  "original": {
+    "source": "build/iso/zh-release-original/current-original.iso",
+    "candidate": "build/iso/text-clarity-20261108/original.iso",
+    "size": 3799459840,
+    "source_sha256": "4e3efa71b9f0b521a9eb4a2f054be3d2b990986d7d68edc1f6c54aaec053d03f",
+    "sha256": "e540b1aaea4ab6342edfefbc7f9ac749c4eada5a080d9a39803a8762e73425fa",
+    "unchanged_sizes_and_lbas": true,
+    "non_target_iso_bytes_exact": true,
+    "members": {
+      "KURODATA/KVMDATA.BIN": "e60c2694b86b6420badc7cd28a6495e4aab7d6e423a20bdc6082ac924fc39e63",
+      "KURODATA/KVPDATA.BIN": "ae33e1f1e02024589b6f834068e6fe603895dfa04807ef2d3fbd0af8329b9ed9"
+    },
+    "atlas": {
+      "config_sha256": "8f5fc2e9775be370fe42461ea793217ed10e5b6dfece6878ff95f40539237ebc",
+      "cells": [
+        "formation",
+        "select",
+        "key",
+        "help",
+        "item",
+        "sort"
+      ]
+    },
+    "backup": "build/iso/text-clarity-20261108/original-before-native-formation-sort.iso"
+  },
+  "best": {
+    "source": "build/iso/zh-release-best/current-best.iso",
+    "candidate": "build/iso/text-clarity-20261108/best.iso",
+    "size": 3796187136,
+    "source_sha256": "6df44730576adcbdcf1890290ac43f66c40f8b6c6a338c682fb0d61fac3137ea",
+    "sha256": "a02b11846a3d425e1547487c903b06246090be0beeee6bdee744ad41ff55ee54",
+    "unchanged_sizes_and_lbas": true,
+    "non_target_iso_bytes_exact": true,
+    "members": {
+      "KURODATA/KVMDATA.BIN": "e60c2694b86b6420badc7cd28a6495e4aab7d6e423a20bdc6082ac924fc39e63",
+      "KURODATA/KVPDATA.BIN": "ae33e1f1e02024589b6f834068e6fe603895dfa04807ef2d3fbd0af8329b9ed9"
+    },
+    "atlas": {
+      "config_sha256": "8f5fc2e9775be370fe42461ea793217ed10e5b6dfece6878ff95f40539237ebc",
+      "cells": [
+        "formation",
+        "select",
+        "key",
+        "help",
+        "item",
+        "sort"
+      ]
+    },
+    "backup": "build/iso/text-clarity-20261108/best-before-native-formation-sort.iso"
+  },
+  "sp": {
+    "source": "build/iso/special-disc/sp-current.iso",
+    "candidate": "build/iso/text-clarity-20261108/sp.iso",
+    "size": 3918860288,
+    "source_sha256": "cb4b692e4d6e67a61cc09f1cde0923ce065766d7b1c00c8c30be61a5aeb5ad05",
+    "sha256": "aacda46c0601f692de9e2da817442878ee1dbb5c67bebb3387b745062497efc2",
+    "unchanged_sizes_and_lbas": true,
+    "non_target_iso_bytes_exact": true,
+    "members": {
+      "KURODATA/KVMDATA.BIN": "690e9f009f687e1c3cb4c951a778ae380e5ae161455185efe0bba6d34c0aed34",
+      "KURODATA/KVPDATA.BIN": "7e6d41cd15958a62b32abc60d1d36ca3342a59a94b1a4632b22b61529f630f36",
+      "DATA/HSFC.BIN": "41c0462f0c7f2096e6fed95ce3f7f5ee7a7614987fe26ba626f43954c69521e9"
+    },
+    "atlas": {
+      "config_sha256": "8f5fc2e9775be370fe42461ea793217ed10e5b6dfece6878ff95f40539237ebc",
+      "cells": [
+        "formation",
+        "select",
+        "key",
+        "help",
+        "sort"
+      ]
+    },
+    "backup": "build/iso/text-clarity-20261108/sp-before-native-formation-sort.iso"
+  }
+}

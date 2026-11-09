@@ -59,6 +59,28 @@
     "state_marker": "0x4E540005",
     "world_steps_per_frame": 1
   },
+  "command_title_20261109": {
+    "chunk": 158,
+    "config": "config/assets/ui-command-title-zh.json",
+    "config_sha256": "1be78782e1c0b6b57ffeea6160c713160775ae76ff234fb529d86e57fb7da553",
+    "current_iso_sha256": "7cb605fceaa75b159267c03cf66586b4a105fbf6a941e75def02e9732e544510",
+    "iso_lbas_and_sizes_unchanged": true,
+    "member_sha256": {
+      "KURODATA/KVMDATA.BIN": "ed407a1414605e1e378aa4fec445e32a2fb5420bccec48efe042b158ec20e686",
+      "KURODATA/KVPDATA.BIN": "0d9f01b953fa0560799325671895d837fdea0e71da16bc6946dfa116f01ba0be"
+    },
+    "outside_command_members_byte_exact": true,
+    "previous_iso_sha256": "2d05de3e290b91c3235c486a445101e49f276bcde9a310b9691cb21dad6b7c99",
+    "runtime": {
+      "pixels_match_approved_candidate": true,
+      "renderer": "metal",
+      "runner": "ARMSX2",
+      "scope": "cold boot, continue save, open standalone unit command",
+      "screenshot": "work/review/command-title-20261109/published-best/command.png",
+      "screenshot_sha256": "ffe7471fea834c5233c6e498194f723a130653343b8f15c18a022699a68cb8ed",
+      "upscale": 4
+    }
+  },
   "edition_contract_sha256": "9aa1ca3f6af7b94391303abc1092900ef2ae2ca933b1ba467535061652446686",
   "edition_id": "best",
   "event_subtitles": {
@@ -1365,10 +1387,25 @@
       ]
     }
   },
+  "frame_joins_20261109": {
+    "changed_byte_count": 36,
+    "config": "config/assets/ui-frame-joins.json",
+    "current_iso_sha256": "2d05de3e290b91c3235c486a445101e49f276bcde9a310b9691cb21dad6b7c99",
+    "member_sha256": "c9b7e278fcce888e62c8ed9ee74541c604d2a6bcfed4578c1bd9b31008881195",
+    "previous_iso_sha256": "3cfb2581549f9eaf1e589be1f07260fc7852a301e32082c9ee10067cbabb50be",
+    "receipt": "manifests/editions/ui-frame-joins-20261109.json",
+    "runtime": "ARMSX2 Metal 4x on the exact published ISO"
+  },
+  "help_titles_20261109": {
+    "config": "config/assets/ui-help-titles-zh.json",
+    "current_iso_sha256": "84a1462ed9f9c5830c37557ff0a25a7509224187eba553540409d6e4bff7aa41",
+    "previous_iso_sha256": "a02b11846a3d425e1547487c903b06246090be0beeee6bdee744ad41ff55ee54",
+    "runtime": "ARMSX2 Metal 4x: machine-list help and button list reviewed"
+  },
   "input_digest": "f26a071f388dfacc1ebc54944e44d5923da18df20814a895034f4492a15540d5",
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "2d05de3e290b91c3235c486a445101e49f276bcde9a310b9691cb21dad6b7c99",
+    "sha256": "7cb605fceaa75b159267c03cf66586b4a105fbf6a941e75def02e9732e544510",
     "size": 3796187136
   },
   "readback": {
@@ -1378,6 +1415,15 @@
     "translation_entry_count": 84338
   },
   "runtime": "not_tested",
+  "scenario_select_20261109": {
+    "backup": "build/iso/select-family-zh-20261109/best-before-scenario-title.iso",
+    "current_iso_sha256": "ba868cc70d083a6ca695a33d39b6ad9a26c5c21964a297795e3b9e7c0d6cbf5f",
+    "iso_offset": 3794217344,
+    "previous_iso_sha256": "84a1462ed9f9c5830c37557ff0a25a7509224187eba553540409d6e4bff7aa41",
+    "runtime": "ARMSX2 Metal 4x scenario selection and tutorial selection",
+    "scope": "VEFF2DX chunk 296 only: Chinese scenario heading and tighter 剧情 spacing",
+    "slot_size": 30256
+  },
   "schema_version": 1,
   "shared_frontend": {
     "edition": "original",
@@ -1389,6 +1435,19 @@
   "source_head": "1cfb43368d431efdb10c4574a282c856adb721d7",
   "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
   "status": "edition_iso_static_validated_runtime_pending",
+  "support_spirit_title_20261109": {
+    "config": "config/assets/ui-support-spirit-title-zh.json",
+    "current_iso_sha256": "3cfb2581549f9eaf1e589be1f07260fc7852a301e32082c9ee10067cbabb50be",
+    "previous_iso_sha256": "ba868cc70d083a6ca695a33d39b6ad9a26c5c21964a297795e3b9e7c0d6cbf5f",
+    "runtime": "ARMSX2 Metal 4x: approved two-line 支援 / 精神指令"
+  },
+  "text_clarity_20261108": {
+    "current_iso_sha256": "a02b11846a3d425e1547487c903b06246090be0beeee6bdee744ad41ff55ee54",
+    "previous_iso_sha256": "6df44730576adcbdcf1890290ac43f66c40f8b6c6a338c682fb0d61fac3137ea",
+    "receipt": "docs/issue-assets/text-clarity-fix-20261108/promotion.json",
+    "runtime": "ARMSX2 Metal 4x original SELECT/formation/sort/help and SP chart visually reviewed; Best static only",
+    "scope": "Bounded atlas cells, native SELECT / FORMATION / SORT pixels and geometry, SP chart title; prior build receipts retain provenance"
+  },
   "typography": {
     "input": {
       "path": "build/iso/zh-release-best/current-best-captioned.iso",
@@ -1695,14 +1754,5 @@
       "source_sha256": "7bc0ef6eb012119d7b43162bdf5b2bacce948fc3e83143c264f23794b24c6b7a"
     }
   },
-  "workspace": "build/editions/zh-release-best/ef264a71fa3b9ffe11204530ce298ce0e4f68249780403933d11d195bbfc61d9/project",
-  "frame_joins_20261109": {
-    "changed_byte_count": 36,
-    "config": "config/assets/ui-frame-joins.json",
-    "current_iso_sha256": "2d05de3e290b91c3235c486a445101e49f276bcde9a310b9691cb21dad6b7c99",
-    "member_sha256": "c9b7e278fcce888e62c8ed9ee74541c604d2a6bcfed4578c1bd9b31008881195",
-    "previous_iso_sha256": "3cfb2581549f9eaf1e589be1f07260fc7852a301e32082c9ee10067cbabb50be",
-    "receipt": "manifests/editions/ui-frame-joins-20261109.json",
-    "runtime": "ARMSX2 Metal 4x on the exact published ISO"
-  }
+  "workspace": "build/editions/zh-release-best/ef264a71fa3b9ffe11204530ce298ce0e4f68249780403933d11d195bbfc61d9/project"
 }

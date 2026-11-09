@@ -1,0 +1,83 @@
+{
+  "original": {
+    "source": "build/iso/zh-release-original/current-original.iso",
+    "candidate": "build/iso/library-button-labels-20261108/original.iso",
+    "source_mtime_ns": 1794145888339056904,
+    "source_sha256": "78a687d5f4631b9d9d14d58887144e70eb266288873934483cce4ea97f556cf8",
+    "sha256": "1cafdc5c69946160a383aba09d30abf4ef25a0b2ccf9ea73c78e61860769b02c",
+    "size": 3799459840,
+    "executable_member": "SLPS_258.87",
+    "executable_sha256": "3be77ca0018396d5b44e7273615db6d8ee7ba4a0c50c4b4e7a5f95d504b711e5",
+    "patch": {
+      "edition": "original",
+      "offset": 1127880,
+      "before_hex": "5015080c",
+      "after_hex": "5c15080c",
+      "already_applied": false,
+      "scope": "encyclopedia expression/voice button labels",
+      "font_pixels_unchanged": true,
+      "metrics_and_colors_unchanged": true,
+      "faux_bold": false,
+      "shear": 0,
+      "unchanged_size": true
+    },
+    "only_callsite_changed": true,
+    "unchanged_sizes_and_lbas": true,
+    "promoted": true,
+    "backup": "build/iso/library-button-labels-20261108/original-before.iso"
+  },
+  "best": {
+    "source": "build/iso/zh-release-best/current-best.iso",
+    "candidate": "build/iso/library-button-labels-20261108/best.iso",
+    "source_mtime_ns": 1794145946546342138,
+    "source_sha256": "4bb26ab06c4036764f49c7bbe5655aa03945d2bbe535fbd6cea78ff2c7ae2f3a",
+    "sha256": "ed006bdf44f4517481eaeb76258d45a1f457346feed15c513d19130d14715eec",
+    "size": 3796187136,
+    "executable_member": "SLPS_732.70",
+    "executable_sha256": "2f34900f5471471580d315301888cc8ebafbba6257d00d28a24c8e49e2dd4bb2",
+    "patch": {
+      "edition": "best",
+      "offset": 1128840,
+      "before_hex": "4016080c",
+      "after_hex": "4c16080c",
+      "already_applied": false,
+      "scope": "encyclopedia expression/voice button labels",
+      "font_pixels_unchanged": true,
+      "metrics_and_colors_unchanged": true,
+      "faux_bold": false,
+      "shear": 0,
+      "unchanged_size": true
+    },
+    "only_callsite_changed": true,
+    "unchanged_sizes_and_lbas": true,
+    "promoted": true,
+    "backup": "build/iso/library-button-labels-20261108/best-before.iso"
+  },
+  "sp": {
+    "source": "build/iso/special-disc/sp-current.iso",
+    "candidate": "build/iso/library-button-labels-20261108/sp.iso",
+    "source_mtime_ns": 1794146376856598497,
+    "source_sha256": "26ff66df56ee906b18506cf0c7142c3fde80950797162e12f281ae91bec617d3",
+    "sha256": "ba3d5f75bb3fcb19e6b90bbad8ce06a9cf62b6369b3c7788b44de145e8f666d5",
+    "size": 3918860288,
+    "executable_member": "SLPS_259.20",
+    "executable_sha256": "6c49ae3b9deea79ea9c625c75e22aa6ee3a7769a59717f4b0b69df7974e8c94d",
+    "patch": {
+      "edition": "sp",
+      "offset": 1143400,
+      "before_hex": "9026080c",
+      "after_hex": "9c26080c",
+      "already_applied": false,
+      "scope": "encyclopedia expression/voice button labels",
+      "font_pixels_unchanged": true,
+      "metrics_and_colors_unchanged": true,
+      "faux_bold": false,
+      "shear": 0,
+      "unchanged_size": true
+    },
+    "only_callsite_changed": true,
+    "unchanged_sizes_and_lbas": true,
+    "promoted": true,
+    "backup": "build/iso/library-button-labels-20261108/sp-before.iso"
+  }
+}
