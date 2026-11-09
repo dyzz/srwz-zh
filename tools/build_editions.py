@@ -33,6 +33,7 @@ from srwz.release_inputs import (INTEGRATED_COMPONENT_BUILD_DIRS, copy_file, fre
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
 from srwz.current_iso import verify_skip
 from srwz.edition_incremental import seed_text_update
+from srwz.gunleon_sprite import build_fixed_iso
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -318,10 +319,10 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     final_hash = typography["verification"]["output_sha256"] if typography else subtitles["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     pending = context.output_iso.with_suffix(".iso.tmp")
-    copy_file(final, pending)
-    if sha256_file(pending) != final_hash:
-        pending.unlink()
-        raise EditionError("published ISO copy mismatch")
+    if sha256_file(final) != final_hash:
+        raise EditionError("Original input to the battle sprite repair differs from its receipt")
+    sprite_repair = build_fixed_iso(final, pending, "original")
+    final_hash = sprite_repair["verification"]["after_sha256"]
     publish_verified(pending, context.output_iso, final_hash)
     return {
         **result,
@@ -329,6 +330,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
         "typography": typography,
         "base_output": result["output"],
         "event_subtitles": subtitles,
+        "gunleon_sprite": sprite_repair,
     }
 
 
@@ -363,10 +365,10 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     final_hash = typography["verification"]["output_sha256"] if typography else subtitles["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     pending = context.output_iso.with_suffix(".iso.tmp")
-    copy_file(final, pending)
-    if sha256_file(pending) != final_hash:
-        pending.unlink()
-        raise EditionError("BEST published copy mismatch")
+    if sha256_file(final) != final_hash:
+        raise EditionError("BEST input to the battle sprite repair differs from its receipt")
+    sprite_repair = build_fixed_iso(final, pending, "best")
+    final_hash = sprite_repair["verification"]["after_sha256"]
     publish_verified(pending, context.output_iso, final_hash)
     return {
         "schema_version": 1, "edition_id": "best", "adapter": context.profile.adapter,
@@ -377,6 +379,7 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
         "typography": typography,
         "base_output": {**proof["iso"], "path": output.relative_to(root).as_posix()},
         "event_subtitles": subtitles,
+        "gunleon_sprite": sprite_repair,
         "readback": {"path": proof_path.relative_to(context.root).as_posix(), "sha256": sha256_file(proof_path),
                      "stage_count": proof["stage_chunk_count"], "translation_entry_count": proof["stage_text_owner_count"]},
         "shared_frontend": {"edition": "original", "input_digest": snapshot.digest,
@@ -424,11 +427,15 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
     final_hash = typography["verification"]["output_sha256"] if typography else proof["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     temporary = context.output_iso.with_suffix(".tmp.iso")
-    copy_file(final, temporary)
-    if sha256_file(temporary) != final_hash:
-        raise EditionError("SP promotion copy drift")
+    if sha256_file(final) != final_hash:
+        raise EditionError("SP input to the battle sprite repair differs from its receipt")
+    sprite_repair = build_fixed_iso(final, temporary, "sp")
+    final_hash = sprite_repair["verification"]["after_sha256"]
     publish_verified(temporary, context.output_iso, final_hash)
-    atomic_json(context.output_iso.with_suffix(".json"), {**proof, "iso": {**proof["iso"], "sha256": final_hash}, "typography": typography})
+    atomic_json(context.output_iso.with_suffix(".json"), {
+        **proof, "iso": {**proof["iso"], "sha256": final_hash},
+        "typography": typography, "gunleon_sprite": sprite_repair,
+    })
     return {
         "schema_version": 1, "edition_id": "sp", "adapter": context.profile.adapter,
         "status": "edition_iso_static_validated_runtime_pending", "input_digest": snapshot.digest,
@@ -436,7 +443,8 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
         "source_iso_sha256": context.profile.source_iso.sha256,
         "output": {**proof["iso"], "path": context.output_iso.relative_to(context.root).as_posix(), "sha256": final_hash},
         "typography": typography,
-        **({"base_output": proof["iso"]} if typography else {}),
+        "base_output": proof["iso"],
+        "gunleon_sprite": sprite_repair,
         "readback": {"path": proof_path.relative_to(context.root).as_posix(), "sha256": sha256_file(proof_path)},
         "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
         "component_modes": {name: row['mode'] for name, row in proof.get('incremental', {}).get('components', {}).items()},
