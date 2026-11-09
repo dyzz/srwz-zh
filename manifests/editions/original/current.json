@@ -2,7 +2,7 @@
   "adapter": "original-production-v1",
   "base_output": {
     "path": "build/iso/zh-release-full-story/current-original.iso",
-    "sha256": "29795db58f5fb86fcc199efe8a176b36ed87a38ad37df59eebdae11bc7c4569f",
+    "sha256": "63db30367d867cddd2bbeb74e122eca62007baf6e8a8fb8d98c6ac4c0d222f96",
     "size": 3758358528
   },
   "battle_square_skip": {
@@ -64,12 +64,12 @@
   "event_subtitles": {
     "base_iso": {
       "path": "build/iso/zh-release-full-story/current-original.iso",
-      "sha256": "29795db58f5fb86fcc199efe8a176b36ed87a38ad37df59eebdae11bc7c4569f",
+      "sha256": "63db30367d867cddd2bbeb74e122eca62007baf6e8a8fb8d98c6ac4c0d222f96",
       "size": 3758358528
     },
     "iso": {
       "path": "build/iso/zh-release-full-story/current-original-captioned.iso",
-      "sha256": "a647fb783a473e8229e09c5acc812f3faf37882bcd04d134e1cd38c0fc50841c",
+      "sha256": "d358f1c26a1b2f58cb66222037ce984928bbdf0e4be80464f9dfd26310997fc4",
       "size": 3799459840
     },
     "member_readback": {
@@ -79,11 +79,11 @@
     },
     "members": {
       "EFF/VEFF2DX.BIN": "ede664f77b5914792d2750b65a959bc8890ba1ea67b80278b9ff3a0c992a3752",
-      "SLPS_258.87": "118e28be717db9d2dd2260392d5762de33dc24ca19c2d93d451277ea54c0425c"
+      "SLPS_258.87": "1f20b11cb42c1fc8d86d8e16115990c1701d617598b77bc365a4ea15143a8678"
     },
     "relocation": {
       "appended_bytes": 40574976,
-      "appended_sha256": "19232379c3ddc1f6b36d0fe047ba3be3fb88ccd36712f67f421577124e7522dc",
+      "appended_sha256": "40eb6bb4767bcd67dc5ace16e1f5ffea2a4fb90bb95d6c9170e7c59574943e6c",
       "catalog": {
         "edits": [
           {
@@ -197,7 +197,7 @@
             "previous_size": 36890512
           }
         ],
-        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-original/70c1e9d7523b11d10f56835413e32d62dc3623058b4781736d86523a71b8cf7b/project/build/iso/zh-release-full-story/current-original-captioned.iso",
+        "image": "/Users/nate/.codex/worktrees/opening-scroll-rc/srwz-zh/build/editions/zh-release-original/fde59e5f2e1d2ab2e64a9ec237799447e8d89cfe830ba82ef5fcfd5c4e7c8d3a/project/build/iso/zh-release-full-story/current-original-captioned.iso",
         "image_blocks": 1855205,
         "metadata_blocks_written": [
           34,
@@ -249,13 +249,13 @@
         273,
         282
       ],
-      "elf_sha256": "118e28be717db9d2dd2260392d5762de33dc24ca19c2d93d451277ea54c0425c",
+      "elf_sha256": "1f20b11cb42c1fc8d86d8e16115990c1701d617598b77bc365a4ea15143a8678",
       "font": {
         "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
         "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
       },
       "gallery_menu_or_scene_driver_added": false,
-      "input_elf_sha256": "a18c86233ade9191a16e165d03551156620010af9b6f681c52e3910ee5801ff9",
+      "input_elf_sha256": "e38d0d8ce4d7d2a2baf201e04b6d66cfe100712aba7848fcd0d8c838accb8ed2",
       "input_veff_sha256": "67d107c6bc6aed1b7cb12d0457ba5e2f2a79adc423a214f9c91a1de8fa429997",
       "payload": {
         "address": "0x790000",
@@ -1332,8 +1332,8 @@
     "untouched_base_bytes": {
       "base_bytes": 3758358528,
       "compared_bytes": 3758345168,
-      "final_sha256": "a647fb783a473e8229e09c5acc812f3faf37882bcd04d134e1cd38c0fc50841c",
-      "sha256": "9e68264dfcad50d2d20fc3d50239b59bca8675bea687916ba64e5d3ffdfcb239",
+      "final_sha256": "d358f1c26a1b2f58cb66222037ce984928bbdf0e4be80464f9dfd26310997fc4",
+      "sha256": "18fc494c94944f2a3161b0ecfe730ef9828c581090cb1a2b4d4b1b13caace58e",
       "spans": [
         [
           32848,
@@ -1378,89 +1378,102 @@
       ]
     }
   },
-  "input_digest": "2578e122db03ef2a9a32515dcd4a8c53f8d1a71ddd32b4af62fff141120fd38f",
+  "input_digest": "c856008d60a9963cf952dcb73fa45aaf9b388456405bc3545386751dc0c76374",
   "legacy_equivalence": {
     "baseline_iso_sha256": "6ae9b61605a0491adb6a07c4204bb1cd66563a067bed4fb4faf679a0afcb1b8e",
     "member_count": 25,
     "passed": false,
     "required": false
   },
+  "opening_review_20261109": {
+    "armsx2_opening": {
+      "blank_row_numbers": [
+        5,
+        11,
+        22,
+        30
+      ],
+      "capture_receipt": {
+        "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/original/capture.json",
+        "sha256": "d2563a6f1875cb883d91795440baede95b1972fd508ab2f62727225a622de702"
+      },
+      "continuous_visibility_audit": {
+        "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/original/visibility-audit.json",
+        "sha256": "57731ed3d7185816231fa1f6197277cc781af95c4a675a5122fe350fb635e796"
+      },
+      "continuous_visible_frames": 3276,
+      "drawn_rows": 28,
+      "expected_visible_rows": 28,
+      "field": "summary/00/000",
+      "renderer": "metal",
+      "route": "native new game, Setsuko",
+      "upscale": 4,
+      "verified_row_gaps": [
+        {
+          "native_screen_row_gap_px": 24,
+          "rows": [
+            4,
+            6
+          ]
+        },
+        {
+          "native_screen_row_gap_px": 24,
+          "rows": [
+            10,
+            12
+          ]
+        },
+        {
+          "native_screen_row_gap_px": 12,
+          "rows": [
+            15,
+            16
+          ]
+        },
+        {
+          "native_screen_row_gap_px": 24,
+          "rows": [
+            21,
+            23
+          ]
+        },
+        {
+          "native_screen_row_gap_px": 24,
+          "rows": [
+            29,
+            31
+          ]
+        }
+      ]
+    },
+    "counts": {
+      "placeholder_rows": 14,
+      "scroll_fields": 28,
+      "synopsis_fields": 110
+    },
+    "exact_text_line_breaks_and_native_placeholder_bytes": true,
+    "scope": {
+      "member_layout_exact": true,
+      "only_opening_decoded_field_changed": true,
+      "prior_iso_sha256": "5a82f781a4f5ce224d4d254f4a76f6ea9b9fdba674ad86f6dc7da4bed6644cd5",
+      "unchanged_outside_scroll_archive_and_offset_tables": true
+    }
+  },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "sha256": "5a82f781a4f5ce224d4d254f4a76f6ea9b9fdba674ad86f6dc7da4bed6644cd5",
+    "sha256": "cc467144117acbd6218c2ba2f430fd04b8e61a4cdbd7d58f72b40d2592ea4015",
     "size": 3799459840
   },
   "readback": {
-    "path": "build/editions/zh-release-original/70c1e9d7523b11d10f56835413e32d62dc3623058b4781736d86523a71b8cf7b/project/manifests/zh-release-full-story-iso-content-validation.json",
-    "sha256": "52b339556181bb565769d97141ac630d161cf70510f9f8b58d65f5f371142f87",
+    "path": "build/editions/zh-release-original/fde59e5f2e1d2ab2e64a9ec237799447e8d89cfe830ba82ef5fcfd5c4e7c8d3a/project/manifests/zh-release-full-story-iso-content-validation.json",
+    "sha256": "f64ce2f22414d3657b772ab0543ed9598e8686a85506af8b76412777fc0e0066",
     "stage_count": 170,
     "translation_entry_count": 93071
   },
   "runtime": "not_tested",
   "schema_version": 1,
-  "scroll_and_synopsis_review_20261109": {
-    "armsx2_sample": {
-      "fields": {
-        "summary/00/000": {
-          "matched_rows": 29,
-          "route": "native",
-          "total_rows": 29,
-          "traces": [
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/frame-3470.jsonl",
-              "sha256": "14a98ff07107fc58f147f4e3e562c47b04289e7241e8ddf303a2df67b6401c6c"
-            },
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/frame-3841.jsonl",
-              "sha256": "5cbc610fa8d2d0cf718aa7ebb1654eb1f1620b0e4006277be634cb2ca9b2b3b2"
-            },
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/frame-4262.jsonl",
-              "sha256": "bb909425f689bd39c6a46a80551e83ebc6f991b51e7efc550f0fcf7078ee9b85"
-            },
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/frame-4613.jsonl",
-              "sha256": "5a62b55c4509fef15526ecf9b7afac9fac5dcf49075f9c8632543869e1783f22"
-            },
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/frame-5014.jsonl",
-              "sha256": "7bae01b06e179ebf1ad1fb5a5f9a692242ad1dda0af4ea64deaa140ec309b20a"
-            },
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/frame-5395.jsonl",
-              "sha256": "a9a00e0be8b51b0feb60d70bff4ba4a38cd102ec291ceb3da0d806b7b9c78f65"
-            },
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/frame-5816.jsonl",
-              "sha256": "5dcdec00449e67aeab5c3edc6143997cea4ef16edc4618172eef2b96479cd9f0"
-            },
-            {
-              "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/frame-6207.jsonl",
-              "sha256": "a86f6019737a120fbcd41005afbafda9f3b43672b466a16644be3de05e9afb62"
-            }
-          ]
-        }
-      },
-      "renderer": "metal",
-      "title_screen": {
-        "path": "work/review/scroll-audit-20261109/runtime/three-edition-rc/original-intro/rc-title.png",
-        "sha256": "ce40653c712a1a8c728e7a49779188cbd51cfe10bc95e0dc9eedbe8366a08ca3"
-      },
-      "upscale": 4
-    },
-    "iso_readback": {
-      "native_scroll_allocations_exact": true,
-      "native_scroll_placeholders_exact": true,
-      "placeholder_rows": 14,
-      "scroll_fields": 28,
-      "single_han_rows": 0,
-      "synopsis_fields": 110,
-      "text_and_line_breaks_exact": true
-    },
-    "iso_sha256": "5a82f781a4f5ce224d4d254f4a76f6ea9b9fdba674ad86f6dc7da4bed6644cd5"
-  },
   "skip_enabled": true,
-  "source_head": "3aa57234d5a978b369f34b96badbec7e15288223",
+  "source_head": "4c292fcd92dff8eb4e48c646640e42f997d91c86",
   "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
   "status": "edition_iso_static_validated_runtime_pending",
   "title_badge_readback": {
@@ -1470,17 +1483,17 @@
   "typography": {
     "input": {
       "path": "build/iso/zh-release-full-story/current-original-captioned.iso",
-      "sha256": "a647fb783a473e8229e09c5acc812f3faf37882bcd04d134e1cd38c0fc50841c",
+      "sha256": "d358f1c26a1b2f58cb66222037ce984928bbdf0e4be80464f9dfd26310997fc4",
       "size": 3799459840
     },
     "verification": {
       "edition": "original",
-      "executable_sha256": "660721bdd85fd70f2530c8e170ab1e4c3306938373387a3200cd6d438600f4ca",
+      "executable_sha256": "ef8046c19d6386ffb1e6088de55ee31c385a8203b7130bd495a29d10e10f9ef7",
       "member": "SLPS_258.87",
       "member_lba": 1835136,
       "member_size": 3538944,
       "metrics_sha256": "0d6102a1d67cb0d26a965bd92d21fd97bdcebaf496a17b47a665506c64b3c941",
-      "output_sha256": "5a82f781a4f5ce224d4d254f4a76f6ea9b9fdba674ad86f6dc7da4bed6644cd5",
+      "output_sha256": "cc467144117acbd6218c2ba2f430fd04b8e61a4cdbd7d58f72b40d2592ea4015",
       "outside_executable_bytes_compared": 3795920896,
       "payload": {
         "base": 7904768,
@@ -1556,11 +1569,11 @@
           "heapUnchanged": true,
           "nonloadedSectionMetadataRemoved": true,
           "payloadBytes": 10496,
-          "resultSha256": "a6f8be1f5fdbce1e0ab5d8b0dde7d73a325531f29e61441ab4390ff819bb1f4d",
+          "resultSha256": "843f26bf20be482a2f45376cbe24709386fa08d0f7e7c9e2adc4bb4b32aff4cc",
           "runtimeVerified": false,
-          "sourceSha256": "118e28be717db9d2dd2260392d5762de33dc24ca19c2d93d451277ea54c0425c"
+          "sourceSha256": "1f20b11cb42c1fc8d86d8e16115990c1701d617598b77bc365a4ea15143a8678"
         },
-        "resultSha256": "660721bdd85fd70f2530c8e170ab1e4c3306938373387a3200cd6d438600f4ca",
+        "resultSha256": "ef8046c19d6386ffb1e6088de55ee31c385a8203b7130bd495a29d10e10f9ef7",
         "routes": [
           {
             "name": "story",
@@ -1779,9 +1792,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3799459840,
-      "source_sha256": "a647fb783a473e8229e09c5acc812f3faf37882bcd04d134e1cd38c0fc50841c"
+      "source_sha256": "d358f1c26a1b2f58cb66222037ce984928bbdf0e4be80464f9dfd26310997fc4"
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-original/70c1e9d7523b11d10f56835413e32d62dc3623058b4781736d86523a71b8cf7b/project"
+  "workspace": "build/editions/zh-release-original/fde59e5f2e1d2ab2e64a9ec237799447e8d89cfe830ba82ef5fcfd5c4e7c8d3a/project"
 }

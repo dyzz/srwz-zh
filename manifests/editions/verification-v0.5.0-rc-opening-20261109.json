@@ -1,0 +1,218 @@
+{
+  "batch_manifest": {
+    "path": "work/editions/c856008d60a9963cf952dcb73fa45aaf9b388456405bc3545386751dc0c76374/original-best-sp.json",
+    "sha256": "dc6a09e29c8f072edb88b120d339cc4b781af985d666f8adb488732e8b797374"
+  },
+  "input_digest": "c856008d60a9963cf952dcb73fa45aaf9b388456405bc3545386751dc0c76374",
+  "outputs": {
+    "best": {
+      "armsx2_opening": {
+        "blank_row_numbers": [
+          5,
+          11,
+          22,
+          30
+        ],
+        "capture_receipt": {
+          "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/best/capture.json",
+          "sha256": "6569fc55e3d639cd1bc70b1b8bc9e27e24eb38e36641d8bc979674dd99a80a9f"
+        },
+        "drawn_rows": 28,
+        "expected_visible_rows": 28,
+        "field": "summary/00/000",
+        "renderer": "metal",
+        "route": "native new game, Setsuko",
+        "upscale": 4,
+        "verified_row_gaps": [
+          {
+            "native_screen_row_gap_px": 24,
+            "rows": [
+              4,
+              6
+            ]
+          },
+          {
+            "native_screen_row_gap_px": 24,
+            "rows": [
+              10,
+              12
+            ]
+          },
+          {
+            "native_screen_row_gap_px": 12,
+            "rows": [
+              15,
+              16
+            ]
+          },
+          {
+            "native_screen_row_gap_px": 24,
+            "rows": [
+              21,
+              23
+            ]
+          },
+          {
+            "native_screen_row_gap_px": 24,
+            "rows": [
+              29,
+              31
+            ]
+          }
+        ]
+      },
+      "counts": {
+        "placeholder_rows": 14,
+        "scroll_fields": 28,
+        "synopsis_fields": 110
+      },
+      "exact_text_line_breaks_and_native_placeholder_bytes": true,
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "1ae5d513c68187c1dc3a1bd028c75851255ce224b9ad5f8f60c639ae509affa3",
+        "size": 3796187136
+      },
+      "receipt": "manifests/editions/best/current.json",
+      "scope": {
+        "member_layout_exact": true,
+        "only_opening_decoded_field_changed": true,
+        "prior_iso_sha256": "3af1a0a042afe1c768b4e58e84f38d1811b45db04fdbd42cdd185c67f75245fd",
+        "unchanged_outside_scroll_archive_and_offset_tables": true
+      }
+    },
+    "original": {
+      "armsx2_opening": {
+        "blank_row_numbers": [
+          5,
+          11,
+          22,
+          30
+        ],
+        "capture_receipt": {
+          "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/original/capture.json",
+          "sha256": "d2563a6f1875cb883d91795440baede95b1972fd508ab2f62727225a622de702"
+        },
+        "continuous_visibility_audit": {
+          "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/original/visibility-audit.json",
+          "sha256": "57731ed3d7185816231fa1f6197277cc781af95c4a675a5122fe350fb635e796"
+        },
+        "continuous_visible_frames": 3276,
+        "drawn_rows": 28,
+        "expected_visible_rows": 28,
+        "field": "summary/00/000",
+        "renderer": "metal",
+        "route": "native new game, Setsuko",
+        "upscale": 4,
+        "verified_row_gaps": [
+          {
+            "native_screen_row_gap_px": 24,
+            "rows": [
+              4,
+              6
+            ]
+          },
+          {
+            "native_screen_row_gap_px": 24,
+            "rows": [
+              10,
+              12
+            ]
+          },
+          {
+            "native_screen_row_gap_px": 12,
+            "rows": [
+              15,
+              16
+            ]
+          },
+          {
+            "native_screen_row_gap_px": 24,
+            "rows": [
+              21,
+              23
+            ]
+          },
+          {
+            "native_screen_row_gap_px": 24,
+            "rows": [
+              29,
+              31
+            ]
+          }
+        ]
+      },
+      "counts": {
+        "placeholder_rows": 14,
+        "scroll_fields": 28,
+        "synopsis_fields": 110
+      },
+      "exact_text_line_breaks_and_native_placeholder_bytes": true,
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "cc467144117acbd6218c2ba2f430fd04b8e61a4cdbd7d58f72b40d2592ea4015",
+        "size": 3799459840
+      },
+      "receipt": "manifests/editions/original/current.json",
+      "scope": {
+        "member_layout_exact": true,
+        "only_opening_decoded_field_changed": true,
+        "prior_iso_sha256": "5a82f781a4f5ce224d4d254f4a76f6ea9b9fdba674ad86f6dc7da4bed6644cd5",
+        "unchanged_outside_scroll_archive_and_offset_tables": true
+      }
+    },
+    "sp": {
+      "armsx2_opening": {
+        "blank_row_numbers": [
+          4,
+          9
+        ],
+        "capture_receipt": {
+          "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/sp/capture.json",
+          "sha256": "d9281819deb11c5e7a0982257bbb7b9c849aae6940cdee8436edf962dc19e33b"
+        },
+        "drawn_rows": 9,
+        "expected_visible_rows": 9,
+        "field": "narration/000",
+        "renderer": "metal",
+        "route": "native SP episode opening",
+        "upscale": 4,
+        "verified_row_gaps": []
+      },
+      "counts": {
+        "placeholder_rows": 8,
+        "scroll_fields": 10,
+        "synopsis_fields": 21
+      },
+      "exact_text_line_breaks_and_native_placeholder_bytes": true,
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672",
+        "size": 3918860288
+      },
+      "receipt": "manifests/editions/sp/current.json",
+      "scope": {
+        "iso_byte_identical_to_previous_rc": true
+      }
+    }
+  },
+  "schema_version": 1,
+  "source_head": "4c292fcd92dff8eb4e48c646640e42f997d91c86",
+  "unittest": {
+    "passed": 966,
+    "skipped": 15,
+    "unicorn": "2.1.4"
+  },
+  "verification": {
+    "both_editions": true,
+    "input_digest": "c856008d60a9963cf952dcb73fa45aaf9b388456405bc3545386751dc0c76374",
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes",
+    "status": "edition_batch_receipt_integrity_passed",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ]
+  },
+  "version": "v0.5.0-rc"
+}
