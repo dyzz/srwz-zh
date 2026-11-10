@@ -1,0 +1,281 @@
+{
+  "build_readback": {
+    "path": "build/editions/zh-release-sp/44235726aeb1fc52e27193a11634685ce15ab1d51be5acb7e026fe28d7570bd7/project/build/iso/special-disc/sp-current.json",
+    "sha256": "6869e90977f94b5dfaa9f78578e68a36873c021bb4a665103812df78c0124bdc"
+  },
+  "byte_comparison": {
+    "bytes_compared": 3918860288,
+    "full_iso_identical_to_current": true,
+    "report": "work/review/sp-committed-writeback-20261110/iso-readback.json",
+    "unchanged_member_geometry": true
+  },
+  "committed_input_binding": {
+    "external_build_inputs": [
+      "tools/text_layout/build_tag_free_integrated_iso.py",
+      "tools/text_layout/build_tag_free_probe_iso.py",
+      "tools/text_layout/build_tag_free_synopsis.mjs",
+      "tools/text_layout/prepare_tag_free_project.py",
+      "tools/text_layout/reflow_candidate_owners.py",
+      "tools/text_layout/seal_tag_free_candidate_iso.py",
+      "work/build/special-disc/baselines/preview.json",
+      "work/build/special-disc/baselines/preview.xdelta",
+      "work/build/special-disc/baselines/text-canary.json",
+      "work/build/special-disc/baselines/text-canary.xdelta",
+      "work/build/special-disc/components/compdata/DATA/COMPDATA.BN",
+      "work/build/special-disc/components/compdata/report.json",
+      "work/build/special-disc/components/exe-patches/SLPS_259.20",
+      "work/build/special-disc/components/exe-patches/report.json",
+      "work/build/special-disc/components/flow/DATA/STAGE.BIN",
+      "work/build/special-disc/components/flow/report.json",
+      "work/build/special-disc/components/system-text/DATA/COMPDATA.BN",
+      "work/build/special-disc/components/system-text/DATA/STAGE.BIN",
+      "work/build/special-disc/components/system-text/SLPS_259.20",
+      "work/build/special-disc/components/system-text/report.json",
+      "work/build/special-disc/text-candidate/font/manifest.json",
+      "work/build/special-disc/text-candidate/font/profile.json",
+      "work/build/special-disc/text-candidate/font/proposal.json",
+      "work/build/special-disc/text-candidate/sp-font/font.bin",
+      "work/build/special-disc/text-candidate/sp-font/report.json",
+      "work/disc/BTL/TRICMN.BIN",
+      "work/disc/BTL/TRICMN.SEG",
+      "work/disc/DATA/NISVDATA.BIN",
+      "work/disc/SLPS_258.87",
+      "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Light.ttf",
+      "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf"
+    ],
+    "snapshot_creation_head": "dc7c966d550feed15b8296e458cd5c93b9152f52",
+    "tracked_files_verified": 878,
+    "tracked_mismatches": [],
+    "verified_committed_head": "dc7c966d550feed15b8296e458cd5c93b9152f52"
+  },
+  "edition": "sp",
+  "input_digest": "0fa4e1f85bc9da43956e4d1d2dc0371ee55735d97f126347e20f0b7cfe71c6c9",
+  "iso": {
+    "path": "build/iso/special-disc/sp-current.iso",
+    "sha256": "4618aa5959d1910ee85f6865c31d241daa1d55b8ddbe0441a0605486bc853742",
+    "size": 3918860288
+  },
+  "prior_validation": {
+    "sp_battle_select_titles_20261110": {
+      "config": "config/assets/special-disc/battle-select-titles-zh.json",
+      "config_sha256": "6569d03e9c989eb9a2ca588ca98e15764429beed9de43b2c828b861f8c6d5b20",
+      "current_iso_sha256": "22fb915dfbd7a3e4276532cf22d2cc6fcae9b503377f3df8babe9d00ba0f6209",
+      "member_sha256": {
+        "KURODATA/KVMDATA.BIN": "5eb390e12951a3942000b9b3a44ec58efbea322de5b07abf8055332c087238c7",
+        "SLPS_259.20": "ae8799e9cb410dcc5d2a35e3ae159abff0cb53eefdc49a2b189b37c2ca1dff8c"
+      },
+      "non_target_iso_bytes_exact": true,
+      "previous_iso_sha256": "af82f520a45ecca170ceb1c93c6e0af73af96db2a224c0de3d3c2584f4d30463",
+      "runtime": {
+        "iso_sha256": "22fb915dfbd7a3e4276532cf22d2cc6fcae9b503377f3df8babe9d00ba0f6209",
+        "renderer": "ARMSX2 Metal 4x",
+        "shots": {
+          "formation-sort": {
+            "labels": [
+              "选择阵型",
+              "排列队员"
+            ],
+            "sha256": "1277a7c66990bc880dccfce7cd29827a6abb030b4be8f01e98e0968b16769e4d",
+            "trace_sha256": "c756d3c8f3fb9fff4db7ba5a1f575d22a277a3bd6285d31b3c9ca4117343475e"
+          },
+          "pilot": {
+            "labels": [
+              "选择机师"
+            ],
+            "sha256": "c38bfc8ec16ae454cd01afa33f045f23c9487bdbba8d6bb294e56e21b5cc7711",
+            "trace_sha256": "329ed40e37b5625ae1b2d3128311d398e3b0096634cd56eec1f9264aeb1a4d8d"
+          },
+          "robot": {
+            "labels": [
+              "选择机体"
+            ],
+            "sha256": "3863eb87bf2c6876eb202929d0536e22fa01609e1066c04046b1afc0db039c65",
+            "trace_sha256": "c1476f426d968355063164f289c9e53ab8831ffa158690c80cf137c17f4c0d1c"
+          }
+        }
+      },
+      "unchanged_lbas_and_sizes": true
+    },
+    "sp_map_layout_20261110": {
+      "gallery_records": 681,
+      "gallery_records_with_added_breaks": 0,
+      "iso_scope": "work/review/sp-map-layout-current-20261110/iso-scope.json",
+      "iso_sha256": "5d5245eac70f22d249bafb4cefb562d036a80d56c0ea40b159377de20ad63be3",
+      "layout_audit": "work/review/sp-map-layout-current-20261110/layout-audit.json",
+      "runtime": {
+        "frames": 12,
+        "geometry": "work/review/sp-map-layout-current-20261110/geometry.json",
+        "glyphs": 224,
+        "renderer": "ARMSX2 Metal 4x",
+        "rows": 17
+      },
+      "stage_records": 3888,
+      "stage_records_with_added_breaks": 36
+    },
+    "sp_menu_atlas_overlap_20261110": {
+      "component_output_exact": true,
+      "config": "config/assets/special-disc/menu-atlas-overlap.json",
+      "config_sha256": "8343f24d04a16334993569d50bd6e2ad35507ed12a9a0af4dc120cc42837da18",
+      "current_iso_sha256": "26c76f32d93b96b881d4261348f7e2121d7bb57cdc6157bd18fc1151ffdc4a1b",
+      "member_sha256": {
+        "KURODATA/KVMDATA.BIN": "d0bc13c16c9cd3a2279770dd231aa84628b58161b98627d595bb148c10342b8e",
+        "KURODATA/KVPDATA.BIN": "0b6fdb56b602aaf158e45a85e7f428771a40645998fb3fe5cac3ad46ca1ef7f8"
+      },
+      "native_ship_and_minus_restored": true,
+      "non_target_iso_bytes_exact": true,
+      "previous_iso_sha256": "22fb915dfbd7a3e4276532cf22d2cc6fcae9b503377f3df8babe9d00ba0f6209",
+      "runtime": {
+        "challenge": {
+          "frame": 7173,
+          "shot_sha256": "8c77943a82fbad17ee064e39a221b4e2adbb3626ca8627d09f4d545931f5ca72",
+          "trace_sha256": "b0152e43df2f634c8cdd5e2b83ae0fb57653f08d86cef3255a1a679980ab672b"
+        },
+        "controlled_samples": {
+          "minus-label": {
+            "frame": 7182,
+            "shot_sha256": "27c74d2ac406894eae930551ee1a9d7462086ffde083b3efb7c6c0b7c7d2e8e4",
+            "trace_sha256": "3fe004ad8f4954644dbf7f515d02bc1ec04b5f6b533c2d7a8b2196b9cb60c6a7"
+          },
+          "ordinary-title": {
+            "frame": 7176,
+            "shot_sha256": "53d512dfde8289d5537eed8c0196b57a6dc9400313b65231d5bceaca0f00684a",
+            "trace_sha256": "e7d018be1007ae3d7b472b8a339f83d9268be4a64b92b0415a8dc80adde12e94"
+          },
+          "ship-label": {
+            "frame": 7179,
+            "shot_sha256": "2d2b68cc1f0ad707e88d499ca14bf9225d5736a89ca18e4748263422fb27e02a",
+            "trace_sha256": "4f3dbeec82b444e6292c06437855376532bae70feaec4cd4e73657445ff17bf5"
+          }
+        },
+        "iso_sha256": "26c76f32d93b96b881d4261348f7e2121d7bb57cdc6157bd18fc1151ffdc4a1b",
+        "renderer": "ARMSX2 Metal 4x"
+      },
+      "setup_title": "中场休息",
+      "unchanged_lbas_and_sizes": true
+    },
+    "sp_select_ship_20261110": {
+      "config": "config/assets/special-disc/battle-select-titles-zh.json",
+      "config_sha256": "dfe3ed1d77d84f8857eecd7113e59069599f94afb30e357697ca6ea1269665ff",
+      "current_iso_sha256": "c03adf150154c758c87a1d5e02327f985c4a52cf7485c3f23a15377675345272",
+      "existing_four_draw_streams_exact": true,
+      "kvp_exact": true,
+      "label": "选择战舰",
+      "member_sha256": {
+        "KURODATA/KVMDATA.BIN": "9f09054bacec4f18db0c05d3e5a39823c749bac55b1f7d5abb3be0491b726948",
+        "SLPS_259.20": "ccad0d6a2bf23bb4ee6a615e460ee303ed68ddb628dcdc277d8d2dc27bb193c1"
+      },
+      "native_ship_pixels_exact": true,
+      "new_cells": [
+        {
+          "page": 8,
+          "rect": [
+            242,
+            58,
+            9,
+            18
+          ]
+        },
+        {
+          "page": 7,
+          "rect": [
+            98,
+            202,
+            9,
+            18
+          ]
+        },
+        {
+          "page": 7,
+          "rect": [
+            98,
+            221,
+            9,
+            18
+          ]
+        },
+        {
+          "page": 6,
+          "rect": [
+            224,
+            234,
+            10,
+            18
+          ]
+        }
+      ],
+      "non_target_iso_bytes_exact": true,
+      "previous_iso_sha256": "26c76f32d93b96b881d4261348f7e2121d7bb57cdc6157bd18fc1151ffdc4a1b",
+      "runtime": {
+        "draws": [
+          {
+            "hits": 4,
+            "pointer": "0x845b00",
+            "return_address": "0x0037c0b0"
+          },
+          {
+            "hits": 4,
+            "pointer": "0x0",
+            "return_address": "0x0037c0d4"
+          }
+        ],
+        "frame": 4770,
+        "iso": {
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/sp-select-ship-20261110/sp-select-ship.iso",
+          "sha256": "c03adf150154c758c87a1d5e02327f985c4a52cf7485c3f23a15377675345272"
+        },
+        "renderer": "ARMSX2 Metal 4x",
+        "shot_sha256": "87085907d91f6b8142ca6fd4611be8bbfc8f1912a3a31223f84b0fa36d92f501",
+        "source_card_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+        "stage": "EX-HARD MISSION 1",
+        "trace_sha256": "08ef82858a862594d5488f9a57ddd068449acdc976f7674a71a519918d949bf4",
+        "unlock_flags": {
+          "address": "0x75fb70",
+          "after": "010101",
+          "before": "010000"
+        }
+      },
+      "unchanged_lbas_and_sizes": true
+    },
+    "sp_skill_condition_layout_20261110": {
+      "executable_slot": "0x3B3C70",
+      "iso_sha256": "913f704b9608772772f952c01193c52bc9da1837ea88425759392d1b696a78ef",
+      "runtime": "work/review/sp-skill-condition-20261110/runtime.json",
+      "scope": "work/review/sp-skill-condition-20261110/scope.json",
+      "stage_record": "sd/challenge/042/condition/00/00"
+    },
+    "sp_tm_reflow_20261110": {
+      "changed_stage_records": [
+        "sd/challenge/039/dialogue/01.03/0001",
+        "sd/challenge/040/dialogue/01.08/0001",
+        "sd/challenge/040/dialogue/01.09/0001",
+        "sd/challenge/046/dialogue/01.09/0001",
+        "sd/challenge/046/dialogue/01.10/0001"
+      ],
+      "iso_sha256": "4618aa5959d1910ee85f6865c31d241daa1d55b8ddbe0441a0605486bc853742",
+      "runtime": "work/review/sp-tm-reflow-20261110/runtime.json",
+      "scope": "work/review/sp-tm-reflow-20261110/scope.json"
+    },
+    "sp_tm_spacing_20261110": {
+      "checked_template_keys": 17,
+      "funds_rows": 8,
+      "iso_sha256": "d427de6094d4ada7cd685e37b594a6a1ae440c107dba111dabe7e1c356c59f8e",
+      "runtime": "work/review/sp-map-tm-tight-20261110/runtime.json",
+      "scope": "work/review/sp-map-tm-tight-20261110/scope.json"
+    },
+    "sp_tm_template_20261110": {
+      "checked_template_keys": 17,
+      "funds_rows": 8,
+      "iso_sha256": "3f384bdd6b2ddf9d5e72a90b6fb16b53571b60532a184406e1d193cf4d3a5e27",
+      "runtime": "work/review/sp-map-tm-native-20261110/runtime.json",
+      "scope": "work/review/sp-map-tm-native-20261110/scope.json"
+    }
+  },
+  "runtime": {
+    "renderer": "ARMSX2 Metal 4x",
+    "ship": "work/review/sp-committed-writeback-20261110/candidate-ship/receipt.json",
+    "skill_upgrade_and_victory_condition": "work/review/sp-committed-writeback-20261110/runtime.json",
+    "tm_full_record_checks": "work/review/sp-tm-reflow-20261110/full-records/runtime.json",
+    "tm_template_checks": "work/review/sp-tm-reflow-20261110/runtime.json"
+  },
+  "schema_version": 1
+}
