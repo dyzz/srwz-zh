@@ -3860,6 +3860,32 @@
       }
     },
     {
+      "id": "sd/exe/3B3C70",
+      "source_text": "「%sＬ%s＋%s」になります。",
+      "source_text_sha256": "0acba0295bb6c6bde7df3a997a4552071fcda075a34614e0ad23f33e13992522",
+      "baseline_translation": "变为“%s L%s＋%s”。",
+      "translation": "变为“%sL%s＋%s”。",
+      "editorial_status": "reviewed",
+      "review_notes": "去掉技能名与等级之间的单字节空格，让原生双字节弹窗完整显示等级和标点。",
+      "locations": [
+        {
+          "member": "SLPS_259.20",
+          "offset": 3882096
+        }
+      ],
+      "origin": "user-review:20261110-sp-format-layout",
+      "scope": "SP skill upgrade confirmation",
+      "kind": "fixed",
+      "location": {
+        "member": "SLPS_259.20",
+        "offset": 3882096,
+        "capacity": 32,
+        "pointer_sites": [],
+        "source_slot_sha256": "635dbe601d03db1d180213fc15a5ae8cc3b789d4b1c3c164a4e5afee650db4d2",
+        "baseline_slot_sha256": "86ceffdb297ab320fa4125928fa39ffc8e72cf50d0fc2bdd85f4d3630874d029"
+      }
+    },
+    {
       "id": "sd/exe/3BE800",
       "source_text": "強化パーツ『",
       "source_text_sha256": "c8118ac0711dce72d4684d2e8c88f3cfd889d4a8033c4e27022377eb53a30e12",
