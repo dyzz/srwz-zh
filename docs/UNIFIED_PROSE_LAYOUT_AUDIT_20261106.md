@@ -69,4 +69,4 @@
 
 SP 候选更新三份图鉴归档，并补齐 ISO 中与当前 JS 输出不一致的 `synopsis/014`；31 条梗概/滚动字段回读全部一致，图鉴验证覆盖 4,993 个共享字段。本篇候选通过 138 个梗概/滚动字段的写入与回读验证。正式发布 ISO 没有覆盖。
 
-图册：[index.html](issue-assets/unified-prose-shots-20261106/index.html)；15 张原图：[screenshots-15.zip](issue-assets/unified-prose-shots-20261106/screenshots-15.zip)；原图 SHA、候选 ISO SHA 与捕获路由：[verification.json](issue-assets/unified-prose-shots-20261106/verification.json)。
+15 张原图可从[图册](issue-assets/unified-prose-shots-20261106/index.html)打开。原图 SHA、候选 ISO SHA 与捕获路由见 [verification.json](issue-assets/unified-prose-shots-20261106/verification.json)。

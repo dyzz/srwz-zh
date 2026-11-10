@@ -53,7 +53,7 @@ build/
 ## 保留与清理
 
 - 原盘只读，必须匹配各版 `config/editions/<edition>/edition.json` 的大小、SHA-256 与可执行文件身份。
-- 带版本的冻结发布镜像保持路径和内容不变。父目录 `SRWZ2/SRWZ2CHS2.5.iso` 同样属于带版本文件，未移动。
+- 带版本的冻结发布镜像保持路径和内容不变。父目录的 `SRWZ2/SRWZ2CHS2.5.iso` 已于 2026-11-06 删除，SHA-256 记录在工作区 `archive/z2-hakai-codebook-20261106/README.txt`。
 - 三份当前 ISO 由 `manifests/editions/{original,best,sp}/current.json` 绑定；整理目录不触发重建、不改变镜像字节。
 - 日常测试直接使用三版 current，均默认内置 skip；统一构建器不再生成 `daily-test/*-skip.iso`。路径策略见 `config/iso/current-isos.json`；Original／BEST 身份见 edition 回执的 `output`，SP 资源更新身份见镜像旁 `sp-current.json` 的 `iso`。
 - 多余测试 ISO、旧候选、备份和私有工作区 ISO 可清理；组件、回读报告、截图、存档与源配置保留。2026-10-04 的清理清单在 `work/reviews/iso-cleanup-20261004/`，移出的 ISO 在用户废纸篓内可恢复。
