@@ -16,7 +16,7 @@ const nativeScopeRE = new RegExp('<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>(?
   '(?:<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>|<space:[0-9A-Fa-f]{2}><width:[0-9A-Fa-f]{2}>)(?:<height:[0-9A-Fa-f]{2}>)?', 'y');
 const latinRE = /[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+(?:[.·_-][A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+)*[ 　]?/y;
 const proportionalLatinRE = /[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+(?:[.·_\/-][A-Za-z0-9Ａ-Ｚａ-ｚ０-９]+)*(?:[ 　][0-9０-９]+)?[ 　]?/y;
-const numberRE = /(?:第[0-9０-９]+(?:话|章|关|幕|次|号|代|阶段|批)?|[0-9０-９]+(?:[.,][0-9０-９]+)*(?:%|％|岁|年|月|日|时|分|秒|米|公里|千米|海里|节|话|号|机|艘|人|倍|层|级|点|个)?)/y;
+const numberRE = /(?:第[0-9０-９]+(?:话|章|关|幕|次|号|代|阶段|批)?|[0-9０-９]+(?:[.,][0-9０-９]+)*(?:%|％|岁|年|月|日|时|分钟|分|秒|米|公里|千米|海里|节|话|号|机|艘|人|倍|层|级|点|个)?)/y;
 const rangeCacheKey=Symbol('request-local proportional row widths');
 const splitIdentifierKey=Symbol('overwide identifier fallback');
 function match(re, text, offset) { re.lastIndex = offset; return re.exec(text); }

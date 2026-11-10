@@ -30,7 +30,7 @@ from rebalance_story_dialogue import (  # noqa: E402
     PROFILES_PATH,
     keyword_link_ids,
 )
-from srwz.build_layout import stored_geometry_issues
+from srwz.build_layout import dialogue_scene, stored_geometry_issues
 from srwz.chinese_layout import dialogue_layout_issues, load_layout_profiles  # noqa: E402
 
 
@@ -43,8 +43,11 @@ def check(stages: set[int] | None) -> list[tuple[str, tuple[str, ...]]]:
         if stages and stage not in stages:
             continue
         entries = json.loads(path.read_text(encoding="utf-8"))["entries"]
-        geometry = stored_geometry_issues(
-            [(e["id"], e["translation"], e["id"] in link_ids) for e in entries], "story")
+        geometry = {}
+        for scene in ("story", "story_map"):
+            geometry.update(stored_geometry_issues(
+                [(e["id"], e["translation"], e["id"] in link_ids) for e in entries
+                 if dialogue_scene(e["id"]) == scene], scene))
         for entry in entries:
             issues = dialogue_layout_issues(
                 entry["translation"],

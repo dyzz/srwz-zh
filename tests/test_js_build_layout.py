@@ -15,6 +15,13 @@ def project_options():
  mode,punctuation=typography_options();return dict(typography=mode,chinesePunctuation=punctuation)
 
 class JsBuildLayoutTests(unittest.TestCase):
+ def test_dialogue_scene_count_cannot_drop_texts(self):
+  from srwz.build_layout import fit_candidate_stories
+  profile=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['story_dialogue']
+  with patch('srwz.build_layout.candidate_enabled',return_value=True):
+   with self.assertRaisesRegex(ValueError,'equal lengths'):
+    fit_candidate_stories(['甲','乙'],profile=profile,scenes=['story_map'])
+
  def test_library_adapter_preserves_paragraph_ownership_like_other_prose(self):
   text='　'+'甲'*36+'\n\n　'+'乙'*29
   result=library_batch([('CHAR',text)])[('CHAR',text)]
@@ -44,6 +51,30 @@ class JsBuildLayoutTests(unittest.TestCase):
   self.assertEqual(verify_stored([('story','“目标<z>MS-013</z>已锁定！\n　立即攻击！”',False)],'story'),1)
   with self.assertRaisesRegex(ValueError,'geometry'):verify_stored([('battle','中'*22,False)],'battle')
   self.assertEqual(verify_stored([('battle','中'*21,False)],'battle'),1)
+ def test_primed_extents_match_single_measurement_in_one_batch(self):
+  from unittest import mock
+  from srwz import js_layout,renderer_metrics as metrics
+  lines=['“目标已锁定！”','“上吧，少尉！让Side 3见识一下！”']
+  expected=[metrics._candidate_extent.__wrapped__(line,21,metrics.RendererState(21,21),False) for line in lines]
+  metrics._candidate_extent.cache_clear();metrics._PRIMED_MEASUREMENTS.clear()
+  with mock.patch.object(metrics,'expand_compact_scopes',lambda text,_:text),mock.patch('srwz.typography_policy.candidate_enabled',return_value=True):
+   metrics.prime_text_extents(lines,default_advance_px=21)
+  with mock.patch.object(js_layout,'request_layout',side_effect=AssertionError('primed rows must not start Node')):
+   actual=[metrics._candidate_extent(line,21,metrics.RendererState(21,21),False) for line in lines]
+  metrics._candidate_extent.cache_clear();metrics._PRIMED_MEASUREMENTS.clear()
+  self.assertEqual(actual,expected)
+ def test_merged_intervals_keep_touching_spans_separate(self):
+  sys.path.insert(0,str(ROOT/'tools/special_disc/writeback'))
+  from migrate_stage_dialogue import merged_intervals
+  self.assertEqual(merged_intervals([(10,20),(20,30),(5,8),(12,15),(25,40)]),([5,10,20],[8,20,40]))
+ def test_map_dialogue_uses_narrower_box(self):
+  from srwz.build_layout import dialogue_scene,fit_candidate_stories
+  from srwz.chinese_layout import load_layout_profiles
+  self.assertEqual(dialogue_scene('story/039/dialogue/01.01/0005'),'story_map')
+  self.assertEqual(dialogue_scene('story/001/dialogue/02.01/0045'),'story')
+  wide='“'+'中'*21+'”'
+  self.assertEqual(verify_stored([('adv',wide,False)],'story'),1)
+  with self.assertRaisesRegex(ValueError,'geometry'):verify_stored([('map',wide,False)],'story_map')
  def test_story_authoring_and_browser_use_identical_engine(self):
   p=load_layout_profiles(ROOT/'config/text-layout/zh-layout-profiles.json')['story_dialogue']
   text='“目标<z>MS-013</z>已经锁定，立即攻击并掩护友军撤退，完成任务后返回基地！”'

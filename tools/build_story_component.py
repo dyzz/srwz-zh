@@ -22,7 +22,7 @@ from srwz.bazaar_tickers import (
 from srwz.codec import decode_production as decode
 from srwz.parallel import map_processes
 from srwz.compressed_workspace import CompressedArchiveWorkspace
-from srwz.build_layout import verify_stored,runtime_inputs
+from srwz.build_layout import verify_stored,runtime_inputs,dialogue_scene
 from srwz import continuation_indent
 from srwz.chinese_layout import (
     dialogue_layout_issues,
@@ -1220,9 +1220,11 @@ def build(
         fitted_dialogue = {}
         dialogue_layout_reflowed_count = 0
         layout_profile = story_layout_profile()
-        verify_stored([(entry.entry_id,dialogue[stage][entry.entry_id],"《" in entry.text)
-                       for entry in parsed_source.entries if entry.kind=="dialogue"],'story',
-                      typography=typography,chinese_punctuation=punctuation)
+        for scene_name in ("story", "story_map") if typography == "proportional" else ("story",):
+            verify_stored([(entry.entry_id,dialogue[stage][entry.entry_id],"《" in entry.text)
+                           for entry in parsed_source.entries if entry.kind=="dialogue"
+                           and (typography != "proportional" or dialogue_scene(entry.entry_id) == scene_name)],scene_name,
+                          typography=typography,chinese_punctuation=punctuation)
         for entry in parsed_source.entries:
             if entry.kind != "dialogue":
                 continue

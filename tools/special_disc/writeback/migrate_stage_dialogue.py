@@ -6,6 +6,7 @@ This is a development component, not a complete Special Disc release builder.
 """
 from __future__ import annotations
 
+from bisect import bisect_left, bisect_right
 import argparse
 import collections
 import hashlib
@@ -21,7 +22,8 @@ import migrate_slps_text as mst
 from stage_bindings import StageBindings, BindingError
 from stage_auxiliary import formation_groups, scalar_sites, write_formations
 from write_system_text import OVERLAY, overlay_member
-from srwz.build_layout import verify_stored,fit_story as fit_js_story,runtime_inputs,fit_candidate_stories
+from srwz.build_layout import verify_stored,fit_story as fit_js_story,runtime_inputs,fit_candidate_stories,dialogue_scene
+from srwz.renderer_metrics import prime_text_extents
 from srwz.typography_policy import candidate_enabled
 from srwz import continuation_indent
 from srwz.chinese_layout import fit_chinese_dialogue_layout, load_layout_profiles, rendered_line_width
@@ -62,6 +64,18 @@ def native_id(index, entry_id):
     return f"sd/{domain}/{index:03d}/" + entry_id.split("/", 2)[2]
 
 
+def merged_intervals(intervals):
+    """Sorted starts and ends of the union; touching intervals stay separate."""
+    starts, ends = [], []
+    for start, end in sorted(intervals):
+        if ends and start < ends[-1]:
+            ends[-1] = max(ends[-1], end)
+        else:
+            starts.append(start)
+            ends.append(end)
+    return starts, ends
+
+
 def reject_interior_references(data, parsed, *, nonpointer_sites=(), text_spans=()):
     """An unowned pointer into a payload is unsafe even when not at its start."""
     spans = []
@@ -73,11 +87,17 @@ def reject_interior_references(data, parsed, *, nonpointer_sites=(), text_spans=
             spans.append((entry.text_offset, end + 1))
     known = {e.pointer_offset for e in parsed.entries if e.pointer_offset is not None}
     starts = {a for a, b in spans}
+    owned_starts, owned_ends = merged_intervals((*spans, *text_spans))
+    text_starts, text_ends = merged_intervals(spans)
     for site in range(0, len(data) - 3, 4):
-        if site in known or site in nonpointer_sites or any(a <= site < b for a, b in (*spans, *text_spans)):
+        if site in known or site in nonpointer_sites:
+            continue
+        at = bisect_right(owned_starts, site) - 1
+        if at >= 0 and site < owned_ends[at]:
             continue
         target = struct.unpack_from("<I", data, site)[0] - sd.SD_STAGE_BASE
-        if target not in starts and any(a < target < b for a, b in spans):
+        at = bisect_left(text_starts, target) - 1
+        if target not in starts and at >= 0 and target < text_ends[at]:
             raise WritebackError(f"untyped interior reference 0x{site:X}->0x{target:X}")
 
 
@@ -114,16 +134,27 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
     reject_interior_references(data, parsed, nonpointer_sites=scalars,
         text_spans=[(c.offset, c.offset+c.source_consumed) for g in groups for c in g.cells])
     rows, replacements, speakers = [], {}, {}
+
+    def uses_story_layout(entry, row):
+        op = struct.unpack_from("<I", data, entry.pointer_offset - 16)[0] if entry.kind == "dialogue" and entry.pointer_offset is not None else None
+        return (
+            entry.kind == "dialogue"
+            and op not in (0x10, 0x11, 0x12)
+            and row.get("kind") not in {"scene_label", "location_caption"}
+        )
+
+    explicit_lines = set()
+    for entry in parsed.entries:
+        row = bindings.resolve(native_id(index, entry.entry_id), entry.kind, entry.text)
+        if entry.kind != "speaker" and not uses_story_layout(entry, row):
+            for line in (*stored_stage_translation(row["translation"]).split("\n"), *entry.text.split("\n")):
+                explicit_lines.add(line.lstrip("　 "))
+    prime_text_extents(sorted(explicit_lines), default_advance_px=profile.default_advance_px)
     for entry in parsed.entries:
         target = native_id(index, entry.entry_id)
         row = bindings.resolve(target, entry.kind, entry.text)
         text = stored_stage_translation(row["translation"])
-        op = struct.unpack_from("<I", data, entry.pointer_offset - 16)[0] if entry.kind == "dialogue" and entry.pointer_offset is not None else None
-        if (
-            entry.kind == "dialogue"
-            and op not in (0x10, 0x11, 0x12)
-            and row.get("kind") not in {"scene_label", "location_caption"}
-        ):
+        if uses_story_layout(entry, row):
             if not candidate_enabled():text = fit_js_story(text, profile=profile).text
             row["layout"] = "story_dialogue"
         else:
@@ -144,9 +175,11 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
             replacements[entry.entry_id] = text
     if candidate_enabled():
         dialogue=[row for row in rows if row['layout']=='story_dialogue']
-        for row,text in zip(dialogue,fit_candidate_stories([row['output_text'] for row in dialogue],profile=profile)):
+        for row,text in zip(dialogue,fit_candidate_stories([row['output_text'] for row in dialogue],profile=profile,scenes=[dialogue_scene(row['native_id']) for row in dialogue])):
             row['output_text']=text;replacements[row['native_id']]=text
-    verify_stored([(row['native_id'],row['output_text'],False)for row in rows if row['layout']=='story_dialogue'],'story')
+    for scene in ('story', 'story_map'):
+        verify_stored([(row['native_id'], row['output_text'], False) for row in rows
+                       if row['layout'] == 'story_dialogue' and dialogue_scene(row['native_id']) == scene], scene)
     if candidate_enabled():
         # Reports keep corpus text; only the stored bytes carry the indent glyph.
         for row in rows:

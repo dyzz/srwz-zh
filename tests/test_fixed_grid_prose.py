@@ -17,6 +17,9 @@ class FixedGridProseTests(unittest.TestCase):
   self.assertEqual(sum(line.startswith('　') for line in lines),3)
  def test_latin_and_digits_each_take_one_native_cell(self):
   self.assertEqual(fill_fixed_grid_paragraphs('　ABCDE013甲乙丙',columns=6),['　ABCDE','013甲乙丙'])
+ def test_latin_run_moves_to_next_row_instead_of_splitting(self):
+  self.assertEqual(fill_fixed_grid_paragraphs('甲乙ZEUTH丙',columns=5),['甲乙','ZEUTH','丙'])
+  self.assertEqual(fill_fixed_grid_paragraphs('甲乙丙丁10小时',columns=5),['甲乙丙丁','10小时'])
  def test_punctuation_and_paragraph_separators(self):
   self.assertEqual(fill_fixed_grid_paragraphs('　甲乙丙，丁。\n\n　戊己',columns=4),['　甲乙','丙，丁。','','　戊己'])
  def test_controls_are_rejected_in_two_byte_grid(self):

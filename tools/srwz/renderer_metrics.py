@@ -34,12 +34,54 @@ class TextExtent:
     state: RendererState
 
 
+_CANDIDATE_SCENES = {16:'main_flow',21:'story',22:'battle',24:'main_scroll',25:'sp_scroll'}
+_PRIMED_MEASUREMENTS: dict = {}
+
+
+def _candidate_request(text, default_advance_px, state, stage_keyword_links):
+    prefix=f'<width:{state.glyph_width_px:02X}><space:{state.advance_px:02X}>'
+    return dict(text=prefix+text,scene=_CANDIDATE_SCENES[default_advance_px],action='measure',
+                options=dict(typography='proportional',chinesePunctuation='compact',keywordLinks=stage_keyword_links))
+
+
+def prime_text_extents(lines, *, default_advance_px: int, stage_keyword_links: bool = False) -> None:
+    """Measure rows in shared Node batches so ``text_extent`` needs no process per row.
+
+    Only an optimization: a row that is invalid or skipped here is measured,
+    and reports its error, through ``text_extent`` as usual.
+    """
+    from .js_layout import layout_batch
+    from .typography_policy import candidate_enabled
+    if not candidate_enabled() or default_advance_px not in _CANDIDATE_SCENES:
+        return
+    state = RendererState(default_advance_px, default_advance_px)
+    keys = {}
+    for line in lines:
+        text = expand_compact_scopes(line, metrics_for_advance(default_advance_px))
+        if '\n' in text or '\r' in text:
+            continue
+        try:
+            require_static_layout(text)
+        except ValueError:
+            continue
+        key = (text, default_advance_px, state, stage_keyword_links)
+        if key not in _PRIMED_MEASUREMENTS:
+            keys[key] = None
+    pending = list(keys)
+    for start in range(0, len(pending), 256):
+        group = pending[start:start + 256]
+        for key, response in zip(group, layout_batch([_candidate_request(*key) for key in group])):
+            if response['ok']:
+                _PRIMED_MEASUREMENTS[key] = response['result']
+
+
 @lru_cache(maxsize=16384)
 def _candidate_extent(text, default_advance_px, state, stage_keyword_links):
     from .js_layout import request_layout
-    scene={16:'main_flow',21:'story',22:'battle',24:'main_scroll',25:'sp_scroll'}[default_advance_px]
-    prefix=f'<width:{state.glyph_width_px:02X}><space:{state.advance_px:02X}>'
-    result=request_layout(prefix+text,scene,action='measure',options=dict(typography='proportional',chinesePunctuation='compact',keywordLinks=stage_keyword_links))
+    result=_PRIMED_MEASUREMENTS.get((text,default_advance_px,state,stage_keyword_links))
+    if result is None:
+        request=_candidate_request(text,default_advance_px,state,stage_keyword_links)
+        result=request_layout(request['text'],request['scene'],action='measure',options=request['options'])
     for token in CONTROL_NOTATION.finditer(text):
         dimension=_DIMENSION.fullmatch(token.group())
         if dimension:

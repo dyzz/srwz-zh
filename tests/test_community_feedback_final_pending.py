@@ -74,7 +74,7 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         retained = entries_055["story/055/dialogue/01.50/0004"]
         self.assertEqual(
             retained["translation"],
-            "“可你却要说这场战斗和牺牲都是不得已……”",
+            "“可你却要说这场战斗和\n　牺牲都是不得已……”",
         )
         for marker in ("卡嘉莉因牺牲痛哭", "なのに", "非要", "全都", "避免超出原文"):
             self.assertIn(marker, retained["notes"])
@@ -100,12 +100,12 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
             "story/097/dialogue/02.01/0226": '“情报部的特工吗……听说是什么F类的新人类残次\n\u3000品……”',
             "story/119/dialogue/01.15/0002": "“F类！你们这些失败的新人类！”",
             "story/119/dialogue/01.15/0004": "“F类……没能成为新人类的人……”",
-            "story/119/dialogue/01.19/0042": '“仅仅因为那个理由，我们就被称为F类，被打上了无\n\u3000能的烙印！”',
+            "story/119/dialogue/01.19/0042": '“仅仅因为那个理由，我们就被称为\n\u3000F类，被打上了无能的烙印！”',
             "story/127/dialogue/01.17/0002": "“F类！你们这些失败的新人类！”",
             "story/127/dialogue/01.17/0004": "“F类……没能成为新人类的人……”",
-            "story/127/dialogue/01.21/0043": '“仅仅因为那个理由，我们就被称为F类，被打上了无\n\u3000能的烙印！”',
-            "story/127/dialogue/01.38/0015": '“我对你们这些不成器的家伙可没抱过分的期待，F\n\u3000类。”',
-            "story/130/dialogue/01.09/0003": '“人类就是这样啊。也难怪西利乌斯和F类的兄弟们会\n\u3000绝望。”',
+            "story/127/dialogue/01.21/0043": '“仅仅因为那个理由，我们就被称为\n\u3000F类，被打上了无能的烙印！”',
+            "story/127/dialogue/01.38/0015": '“我对你们这些不成器的家伙\n\u3000可没抱过分的期待，F类。”',
+            "story/130/dialogue/01.09/0003": '“人类就是这样啊。也难怪西利乌斯\n\u3000和F类的兄弟们会绝望。”',
             "story/135/dialogue/02.01/0175": "“关于所谓F类者的报告，我也听说过。”",
             "story/138/dialogue/02.01/0179": "“关于所谓F类者的报告，我也听说过。”",
         }

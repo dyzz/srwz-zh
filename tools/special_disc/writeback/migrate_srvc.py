@@ -28,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
 from srwz.chinese_layout import battle_subtitle_layout_issues
 from srwz.build_layout import verify_stored
+from srwz.renderer_metrics import prime_text_extents
 import srwz.srvc as srvc  # noqa: E402
 from srwz.image_export import parse_seg_offsets  # noqa: E402
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
@@ -85,6 +86,8 @@ def main() -> None:
     if args.include_sp:
         sp_rows = json.loads(sp_path.read_text())['entries']
         seen = set()
+        prime_text_extents(sorted({line for row in sp_rows for line in row['translation'].replace('\\n', '\n').split('\n')}),
+                           default_advance_px=22)
         for row in sp_rows:
             digest = sha256(row['source_text'].encode())
             if digest != row['source_text_sha256'] or digest in seen or digest in by_hash:

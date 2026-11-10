@@ -119,7 +119,7 @@ def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | Non
     struct.pack_into("<4i", note, 0x60, -1, -1, -1, -1)
     assert struct.unpack_from("<I", note, 0x70)[0] == 0xB
     struct.pack_into("<I", note, 0x70, 0xA)
-    struct.pack_into("<2f", note, 0x10, -265, -110)  # right of the "名场面集" heading
+    struct.pack_into("<2f", note, 0x10, -253, -110)  # right of the "名场面集" heading
     struct.pack_into("<I", note, 0x24, 0)  # no backing band; it would dim the page counter
     child = alloc(original(0x48A040, 0x90) + note + original(0x48A0D0, 0x90))
     setword(child, 12, strings)

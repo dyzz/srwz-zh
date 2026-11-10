@@ -4,6 +4,7 @@ Resource owners retain source binding, timing decisions, encoding and capacity.
 Stored dialogue is validated, never silently rewrapped by a build.
 """
 from __future__ import annotations
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import math
 import re
@@ -31,16 +32,24 @@ def library_batch(keys, *, typography=None, chinese_punctuation=None):
     typography,chinese_punctuation=typography_options(typography,chinese_punctuation)
     keys=list(keys);result={}
     batch_size=64 if typography=='proportional' else 256
-    for start in range(0,len(keys),batch_size):
-        group=keys[start:start+batch_size]
-        from .library_typography import library_typography
+    from .library_typography import library_typography
+    from .parallel import worker_count
+    groups=[keys[start:start+batch_size] for start in range(0,len(keys),batch_size)]
+    batches=[]
+    for group in groups:
         requests=[]
         for kind,text in group:
             prepared=library_input(text)
             if typography=='proportional':
                 prepared=library_typography(prepared,'DSCR',domain={'CHAR':'character','ROBO':'robot','KYWD':'glossary'}[kind],typography=typography)
             requests.append(dict(scene=LIBRARY_SCENES[kind],text=prepared,options=dict(typography=typography,chinesePunctuation=chinese_punctuation)))
-        for key,request,response in zip(group,requests,layout_batch(requests,timeout=120 if typography=='proportional' else 30)):
+        batches.append(requests)
+    timeout=120 if typography=='proportional' else 30
+    # The work runs in the Node child processes, so threads are enough here.
+    with ThreadPoolExecutor(max_workers=worker_count(len(batches) or 1)) as pool:
+        responses=list(pool.map(lambda requests:layout_batch(requests,timeout=timeout),batches))
+    for group,requests,answers in zip(groups,batches,responses):
+        for key,request,response in zip(group,requests,answers):
             if not response['ok']:
                 result[key]=(False,response['error']['message']);continue
             value=response['result']
@@ -65,6 +74,14 @@ def reflow_prose(text,*,scene,maximum_lines=None,resource_id=None,typography=Non
     if resource_id is not None:options['resourceId']=resource_id
     return request_layout(text,scene,options=options)
 
+# Block 1 of a stage script runs on the tactical map: the portrait pushes the
+# box right, so text starts near x=212 and the screen ends at 640.
+MAP_DIALOGUE_SECTION=re.compile(r'/dialogue/01\.')
+SCENE_WIDTH_LIMITS={'battle':462,'story_map':420}
+
+def dialogue_scene(entry_id):
+    return 'story_map' if MAP_DIALOGUE_SECTION.search(entry_id) else 'story'
+
 def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None):
     """Rows are (identity, text, keyword_links); reject geometry without reflow.
 
@@ -80,7 +97,7 @@ def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_p
             if not response['ok']:
                 issues[identity]=(f'JS {response["error"]["message"]}',)
                 continue
-            measured=response['result'];limit=462 if scene=='battle'else 483;maximum=2 if scene=='battle'else 3
+            measured=response['result'];limit=SCENE_WIDTH_LIMITS.get(scene,483);maximum=2 if scene=='battle'else 3
             if len(measured['rows'])>maximum or any(r['occupiedPx']>limit and not (scene=='battle' and battle_trailing_hangs(r,limit)) for r in measured['rows']):
                 issues[identity]=(f'shared JS {scene} geometry exceeds {maximum} rows / {limit}px',)
     return issues
@@ -162,19 +179,21 @@ def fit_story(text,*,profile,protected_terms=(),stage_keyword_links=False,**kwar
         return fit_chinese_dialogue_layout(text,profile=profile,protected_terms=protected_terms,stage_keyword_links=stage_keyword_links,**kwargs)
     return reflow_story(text,profile=profile,protected_terms=protected_terms,stage_keyword_links=stage_keyword_links)
 
-def fit_candidate_stories(texts,*,profile):
+def fit_candidate_stories(texts,*,profile,scenes=None):
     """Batch candidate dialogue; structured owners keep their authored rows."""
     if not candidate_enabled():raise ValueError('Candidate dialogue policy is not enabled')
-    texts=list(texts);result=[]
+    texts=list(texts);result=[];scenes=list(scenes) if scenes is not None else ['story']*len(texts)
+    if len(scenes) != len(texts):raise ValueError('Dialogue texts and scenes must have equal lengths')
     for start in range(0,len(texts),128):
         group=texts[start:start+128];requests=[]
-        for text in group:
+        for text,scene in zip(group,scenes[start:start+128]):
             structured=text.startswith((' ','　')) or bool(re.search(r'”\n[　 ]*“',text))
-            requests.append(dict(text=text,scene='story',action='measure' if structured else 'layout',options=dict(typography='proportional',chinesePunctuation='compact',maxLines=profile.maximum_lines)))
+            requests.append(dict(text=text,scene=scene,action='measure' if structured else 'layout',options=dict(**({'packing':'balanced_width'} if scene=='story_map' and not structured else {}),typography='proportional',chinesePunctuation='compact',maxLines=profile.maximum_lines)))
         for request,response in zip(requests,layout_batch(requests)):
             if not response['ok']:raise JsLayoutError(response['error'])
             r=response['result'];result.append(r['compiledText'] if request['action']=='layout' else '\n'.join(row['text'] for row in r['rows']))
-    verify_stored([(str(i),text,False)for i,text in enumerate(result)],'story')
+    for scene in sorted(set(scenes)):
+        verify_stored([(str(i),text,False)for i,(text,own) in enumerate(zip(result,scenes)) if own==scene],scene)
     return result
 
 def check_runtime(root:Path=ROOT):
