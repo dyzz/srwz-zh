@@ -38,3 +38,5 @@ Python 完整测试：975 项，8 项按条件跳过，其余通过。Node 排�
 - [Best 构建记录](../manifests/editions/best/current.json)
 - [SP 构建记录](../manifests/editions/sp/current.json)
 - [三条写回记录](../config/editorial/battle-apostrophe-20261110.json)
+
+构建快照按输入内容寻址，重复使用时保留首次创建的 `source_head`。已另行核验快照中 870 个 Git 跟踪文件全部与提交树一致；32 个外部或未跟踪构建输入单独列出，未混入本次润色提交。见 [提交与输入绑定](issue-assets/battle-apostrophe-20261110/commit-input-binding.json)。最终 Best ISO SHA-256 与上述 ARMSX2 实测镜像一致。
