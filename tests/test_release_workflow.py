@@ -254,7 +254,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 '“$n！别兴奋过头一下打到穹顶都市上\n\u3000嗷！”'
             ),
             "story/014/dialogue/02.02/0076": (
-                '“总之，停下脚步很危险。只能糊弄糊弄边移动边\n\u3000修理了……”'
+                '“总之，停下来很危险。\n\u3000只能勉强维持运转，一边移动一边修理了……”'
             ),
             "story/015/dialogue/01.19/0003": (
                 '“$n，梅尔！钢铁齿轮，现已抵达！”'
@@ -276,7 +276,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 '“我们伊诺森特应用那项技术，创造了生存在佐拉大\n\u3000地上的新人类，也就是平民。”'
             ),
             "story/108/dialogue/02.02/0072": (
-                '“只是不断倾倒些无聊的拖延话术，浪费时间而\n\u3000已。……你其实早就明白了吧？”'
+                '“只是不断宣扬些逃避现实的无聊想法，\n\u3000浪费时间而已。……你其实早就明白了吧？”'
             ),
             "story/108/dialogue/02.02/0073": (
                 '“大众根本就不在乎什么真相。大众不会因为真相而\n\u3000采取行动。他们需要的，是足够响亮的呼声和强烈\n\u3000的刺激！”'
@@ -295,19 +295,19 @@ class ReleaseWorkflowTest(unittest.TestCase):
         battle_expected = {
             "battle:24510": (
                 "“切换——盖塔波塞冬！！\\n　"
-                "<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”"
+                "SWITCH　ON！！”"
             ),
             "battle:24481": "“毕竟是对上我的盖塔狮虎，没办法啊。”",
             "battle:22668": "“你对上了兜甲儿！”",
             "battle:22157": "“先拿你开始血祭！”",
-            "battle:24663": '“你吃奶的劲也打不倒我哦？呼呼呼\\n\u3000呼…”',
-            "battle:24648": '“区区比亚路星人的遗产，我定要彻底粉\\n\u3000碎！”',
-            "battle:24642": '“杰利……你这毛头小子休想超越老\\n\u3000夫…！”',
-            "battle:24640": '“说到底，你只是人类之敌。呼呼呼呼\\n\u3000呼…！”',
+            "battle:24663": '“你吃奶的劲也打不倒我哦？\\n\u3000呼呼呼呼…”',
+            "battle:24648": '“区区比亚路星人的遗产，\\n\u3000我定要彻底粉碎！”',
+            "battle:24642": '“杰利……你这毛头小子\\n\u3000休想超越老夫…！”',
+            "battle:24640": '“说到底，你只是人类之敌。\\n\u3000呼呼呼呼呼…！”',
             "battle:24626": "“别碍老夫的事啊啊啊！”",
             "battle:24247": "“可恶！真是出大糗了！”",
             "battle:24110": "“看好，给你们开开眼！”",
-            "battle:18104": '“阿芙罗蒂亚！看那片蓝色大海，你难道毫无反\\n\u3000应吗！？”',
+            "battle:18104": '“阿芙罗蒂亚！\\n\u3000看那片蓝色大海，你难道毫无反应吗！？”',
             "battle:18092": "“闭上你那张臭嘴！”",
             "battle:18085": "“就算是你们，敢妨碍我们的话…！”",
             "battle:18064": "“上了，你们两个！”",
@@ -364,7 +364,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 '“没错！锄强扶弱，勇气为伴，迎战巨恶！这才是男人\n\u3000的浪漫！”'
             ),
             "story/108/dialogue/01.09/0003": (
-                '“是飞・心露啊。我可没心情看你个逃兵现在在这儿\n\u3000摆长官架子……！”'
+                '“是飞・心露啊。你一个逃兵，现在可没资格\n\u3000在我面前摆长官架子……！”'
             ),
             "story/108/dialogue/02.01/0059": (
                 '“我爱超级机器人，就像爱纳豆和牛丼一样！我会连\n\u3000同飞队长和伙伴们一起，拼上性命去战斗！”'
@@ -438,10 +438,10 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 '“我和阿斯兰都错了很多次……逃离奥布后的战斗，\n\u3000也绝不能说正确……”'
             ),
             "story/141/dialogue/01.05/0003": (
-                '“全员，准备撤离！事已至此，就算用本舰撞上去，也\n\u3000要打倒他！”'
+                '“全员，准备撤离！事已至此，\n\u3000就算用本舰撞上去，也要打倒她！”'
             ),
             "story/146/dialogue/01.05/0003": (
-                '“全员，准备撤离！事已至此，就算用本舰撞上去，也\n\u3000要打倒他！”'
+                '“全员，准备撤离！事已至此，\n\u3000就算用本舰撞上去，也要打倒她！”'
             ),
         }
         story_actual = {}
@@ -476,7 +476,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "battle:03704": "“快、快逃生！”",
             "battle:04049": "“超出极限了吗！我要逃生！”",
             "battle:05241": "“可恶…逃生！！”",
-            "battle:06192": '“呃啊啊啊啊啊！！得逃生…得逃生才\\n\u3000行！”',
+            "battle:06192": '“呃啊啊啊啊啊！！\\n\u3000得逃生…得逃生才行！”',
             "battle:07179": "“超出极限！逃生！！”",
             "battle:07595": "“啊啊…！全员撤离！”",
             "battle:07598": "“全员，以防万一做好撤离准备！”",
@@ -487,23 +487,23 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "battle:09600": "“逃生！后面就拜托了！”",
             "battle:10564": "“不行！得逃生！”",
             "battle:10999": "“被干掉了吗…！得逃生！”",
-            "battle:12039": '“呃啊啊！不、不行了！我要逃\\n\u3000生！”',
+            "battle:12039": '“呃啊啊！\\n\u3000不、不行了！我要逃生！”',
             "battle:13080": "“全员撤离！”",
             "battle:13109": "“逃、逃生！”",
             "battle:13114": "“只能逃生了！”",
-            "battle:13762": '“呃…到此为止了吗！星1号，逃\\n\u3000生！”',
+            "battle:13762": '“呃…到此为止了吗！\\n\u3000星1号，逃生！”',
             "battle:14208": "“糟了，快逃生！”",
             "battle:15177": "“我、我要逃生了！”",
             "battle:16113": "“小的们，快逃生！”",
             "battle:16444": "“不、不行了～！逃生！！”",
             "battle:16672": "“被打中了！？快逃生！！”",
-            "battle:18408": '“准、准备逃生！先确保我的安\\n\u3000全！”',
-            "battle:19690": '“收拾好行李，梅尔！情况不妙就\\n\u3000逃！”',
-            "battle:19702": '“快逃，梅尔！别忘了值钱的东\\n\u3000西！！！”',
+            "battle:18408": '“准、准备逃生！\\n\u3000先确保我的安全！”',
+            "battle:19690": '“收拾好行李，梅尔！\\n\u3000情况不妙就逃！”',
+            "battle:19702": '“快逃，梅尔！\\n\u3000别忘了值钱的东西！！！”',
             "battle:20447": "“任务失败……！逃生！”",
             "battle:21390": "“多萝西，万一的时候你就先逃！”",
             "battle:21397": "“不必多说。逃生吧。”",
-            "battle:21605": '“逃生！不能在这里被打\\n\u3000倒！”',
+            "battle:21605": '“逃生！\\n\u3000不能在这里被打倒！”',
             "battle:21743": "“呃！逃生！！”",
             "battle:22355": "“多谢款待。…逃出来了吧？”",
             "battle:23573": "“战斗不能！大家快逃生！”",
@@ -521,7 +521,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
         )
         self.assertEqual(
             battle_actual["battle:19220"],
-            '“不能让他们送命！下令撤\\n\u3000退！”',
+            '“不能让他们送命！\\n\u3000下令撤退！”',
         )
 
     def test_pending_review_high_linkage_copyedits_stay_consistent(self) -> None:
@@ -644,8 +644,8 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "battle:22844": "“赞波特突击枪！！”",
             "battle:22847": "“让你见识一下华丽的赞波特钗格斗技！”",
             "battle:22848": "“这里该用突击枪，嘿呀！！”",
-            "battle:22856": '“赞波特月环攻\\n\u3000击——！！”',
-            "battle:22857": '“用月环攻击一口气解决，胜\\n\u3000平！”',
+            "battle:22856": '“赞波特\\n\u3000月环攻击——！！”',
+            "battle:22857": '“用月环攻击一口气解决，\\n\u3000胜平！”',
             "battle:22859": "“月环攻击！！”",
             "battle:23007": "“吃我一记赞波特冲击镖！”",
             "battle:23014": "“赞波特突击枪——！！”",
@@ -854,11 +854,11 @@ class ReleaseWorkflowTest(unittest.TestCase):
         }
         self.assertEqual(
             battle_entries["battle:19822"],
-            '“可惜。我这可是有防护罩的哦\\n\u3000♪”',
+            '“可惜。\\n\u3000我这可是有防护罩的哦♪”',
         )
         self.assertEqual(
             battle_entries["battle:19823"],
-            '“可惜。我这可是有防护罩的\\n\u3000♪”',
+            '“可惜。\\n\u3000我这可是有防护罩的♪”',
         )
         for entry_id in ("battle:16097", "battle:16120", "battle:16129"):
             self.assertIn("陆地战舰", battle_entries[entry_id])
@@ -887,18 +887,18 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "battle:04421": "“军队就是这样，从不尊重人的意志……！”",
             "battle:04601": "“这就让我来结束一切！”",
             "battle:04638": "“这招能行吗？”",
-            "battle:04619": '“如果Z高达是将灵魂之力化为现实的机\\n\u3000器……！”',
-            "battle:04745": '“蕾柯亚小姐！你这样未免太任性了\\n\u3000吧！？”',
-            "battle:05962": '“提坦斯到底什么时候才会明白，地球和殖民卫\\n\u3000星并非连成一体！”',
-            "battle:15431": '“啊啊啊！！我讨厌大家……讨厌所有\\n\u3000人！！”',
+            "battle:04619": '“如果Z高达是将灵魂之力化为现实的\\n\u3000机器……！”',
+            "battle:04745": '“蕾柯亚小姐！\\n\u3000你这样未免太任性了吧！？”',
+            "battle:05962": '“提坦斯到底什么时候才会明白，\\n\u3000地球和殖民卫星并非连成一体！”',
+            "battle:15431": '“啊啊啊！！\\n\u3000我讨厌大家……讨厌所有人！！”',
             "battle:15452": "“不肯坠落的话！”",
             "battle:15702": "“敌军进入射程！”",
             "battle:16012": "“我要打倒你，借此出人头地！”",
             "battle:16522": "“确认情况，继续前进！”",
             "battle:18653": "“瞄准这家伙的弱点了吗……！”",
-            "battle:19868": '“既然这样说什么也要跟到\\n\u3000底！”',
+            "battle:19868": '“既然这样\\n\u3000说什么也要跟到底！”',
             "battle:22367": "“切，我早说过会这样！”",
-            "battle:22440": '“都说大块头脑子不灵……你倒还挺能干\\n\u3000嘛”',
+            "battle:22440": '“都说大块头脑子不灵……\\n\u3000你倒还挺能干嘛”',
         }
         self.assertEqual(
             {entry_id: battle_entries[entry_id] for entry_id in expected_battle},
@@ -968,7 +968,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
         battle_entries = {entry["id"]: entry for entry in battle["entries"]}
         self.assertEqual(
             battle_entries["battle:05982"]["translation"],
-            '“这种感觉，阿姆罗·雷…不，是拉拉·辛\\n\u3000吗…！？”',
+            '“这种感觉，阿姆罗·雷…\\n\u3000不，是拉拉·辛吗…！？”',
         )
 
         library = _load("corpus/zh/library/v0.2-reviewed.json")
@@ -1230,11 +1230,13 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 "story/083/dialogue/01.17/0002",
                 "story/111/dialogue/02.01/0273",
                 "story/149/dialogue/01.35/0026",
-                "story/150/dialogue/02.01/0363",
-                "story/150/dialogue/02.01/0749",
-                "story/150/dialogue/02.01/1142",
             },
         )
+
+    def test_finalized_stage_150_repairer_departure(self) -> None:
+        entries = {e["id"]: e["translation"] for e in _load("corpus/zh/story-dialogue/stage-150.json")["entries"]}
+        for suffix in ("0363", "0749", "1142"):
+            self.assertEqual(entries[f"story/150/dialogue/02.01/{suffix}"], "“是啊。流浪修理工，又要上路了。”")
 
     def test_bazaar_status_labels_preserve_original_funds_texture(self) -> None:
         config = _load("config/assets/ui-bazaar-atlas-zh.json")

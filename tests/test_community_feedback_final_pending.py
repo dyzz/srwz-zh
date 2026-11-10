@@ -22,8 +22,8 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         payload = load_payload("corpus/zh/battle/srvc-lines.json")
         entries = {entry["id"]: entry for entry in payload["entries"]}
         expected = {
-            "battle:00145": '“搞什么啊！装甲都让你给干瘪\\n\u3000了！”',
-            "battle:01927": '“吉尔伯特·迪兰达尔…你只会居高临下地看待\\n\u3000一切！”',
+            "battle:00145": '“搞什么啊！\\n\u3000装甲都让你给干瘪了！”',
+            "battle:01927": '“吉尔伯特·迪兰达尔…\\n\u3000你只会居高临下地看待一切！”',
             "battle:02016": "“生物传感器有反应了…！好…！”",
             "battle:03315": "“就那么上—！”",
             "battle:04682": "“光会瞄准可不够！”",
@@ -31,13 +31,13 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
             "battle:08088": "“老子要打穿你！”",
             "battle:08090": "“哼，休想逃！”",
             "battle:08216": "“什么！？拜亚兰被！？”",
-            "battle:08242": '“光是新人类的存在，就让人感到压\\n\u3000力！”',
+            "battle:08242": '“光是新人类的存在，\\n\u3000就让人感到压力！”',
             "battle:10192": "“琪露，有点危险千万别露头喔！”",
             "battle:13654": "“把你轰下来！”",
-            "battle:15735": '“居住区附近发生火灾！非战斗员应该平安无\\n\u3000事！”',
+            "battle:15735": '“居住区附近发生火灾！\\n\u3000非战斗员应该平安无事！”',
             "battle:16187": "“让你见识…东洋的神力！”",
             "battle:21365": "“真是个该死的对手。”",
-            "battle:21451": '“阿萨基姆！奉神之名宣告汝之罪孽！汝，罪无\\n\u3000可赦！”',
+            "battle:21451": '“阿萨基姆！奉神之名宣告汝之罪孽！\\n\u3000汝，罪无可赦！”',
         }
         self.assertEqual(
             {entry_id: entries[entry_id]["translation"] for entry_id in expected},
@@ -122,8 +122,8 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         battle = load_payload("corpus/zh/battle/srvc-lines.json")
         battle_entries = {entry["id"]: entry for entry in battle["entries"]}
         expected_battle = {
-            "battle:08667": '“创造未来的不是你们…而是被称为F类的\\n\u3000我们”',
-            "battle:08684": '“难道要说F类比新人类差\\n\u3000吗！”',
+            "battle:08667": '“创造未来的不是你们…\\n\u3000而是被称为F类的我们”',
+            "battle:08684": '“难道要说F类\\n\u3000比新人类差吗！”',
         }
         for entry_id, translation in expected_battle.items():
             self.assertEqual(battle_entries[entry_id]["translation"], translation)

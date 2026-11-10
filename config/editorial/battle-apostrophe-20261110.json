@@ -1,0 +1,30 @@
+{
+  "status": "applied",
+  "authorization": "User requested remaining three apostrophes fixed and tags removed, keeping battle fullwidth continuation spaces; build, commit and push authorized.",
+  "entries": [
+    {
+      "id": "battle:19705",
+      "source_text_sha256": "39d3f60b68861edf7be80a1c88c0e1f264611f0b704774a3951de74d20a763e3",
+      "before": "“冲啊，达令！<width:0E><space:0C>Let's Go<width:16><space:16>！！”",
+      "after": "“冲啊，达令！Let's Go！！”"
+    },
+    {
+      "id": "battle:21251",
+      "source_text_sha256": "3d41cc450949b9b4992308d8fa928f80f263ede7714cbb4af2e202464c6a8eb0",
+      "before": "“<width:0E><space:0C>It's Showtime<width:16><space:16>！！”",
+      "after": "“It's Showtime！！”"
+    },
+    {
+      "id": "battle:21270",
+      "source_text_sha256": "44f76ba1171f099b67db5077a3cd0bf14d81fa6cceffe78aa67e148f2fdeb484",
+      "before": "“<width:0E><space:0C>It's Grand Finale<width:16><space:16>！\\n　（终幕到了！）”",
+      "after": "“It's Grand Finale！\\n　（终幕到了！）”"
+    }
+  ],
+  "before_sha256": "a564a78813c018171de4df99b06f7cd89530c17ff2d87ba100a137a701967425",
+  "after_sha256": "11562d40faf995d86f8b18c5d7830197b748384edd1f23915a9a231290a65ca4",
+  "online_processed": false,
+  "runtime_status": "ARMSX2_best_controlled_subtitle_glyphs_verified",
+  "runtime_evidence": "docs/issue-assets/battle-apostrophe-20261110/result.json",
+  "battle_continuation_indent": "U+3000 fullwidth, 22px; unchanged"
+}

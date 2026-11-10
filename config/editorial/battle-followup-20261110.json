@@ -1,0 +1,2206 @@
+{
+  "schema_version": 1,
+  "review_id": "battle-followup-20261110",
+  "translation_writeback": true,
+  "purpose": "润色后的跟进：用户在审阅页点选的 5 条；格蕾塔的 父ちゃん／あんた 查证为亡夫，统一作老伴；去掉战斗台词里全部宽度与间距标签。",
+  "authorization": "用户：“格蕾塔查证一下吧，其余我都选择了。另外は、はい…不应该翻译是，是的”；“现有的战斗台词的特殊距离标签都要去掉，你有疑点的单独导出一个文档”。",
+  "feedback_snapshot_at": "2026-11-09T16:06:10.919415+00:00",
+  "feedback_snapshot_total": 3891,
+  "summary": {
+    "planned": 355,
+    "write": 355,
+    "skipped": 0,
+    "by_group": {
+      "choices": 5,
+      "greta": 12,
+      "tags": 338
+    },
+    "tagged_lines_with_online_suggestions": 23,
+    "online_snapshot_at": "2026-11-09T16:06:10.919415+00:00",
+    "online_snapshot_total": 3891
+  },
+  "application": {
+    "files": [
+      {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "before_sha256": "7eb1c51320d22e83699bb886987a5373b90d3d57c554c25dcbf8c1a7e6ae7a1e",
+        "after_sha256": "a564a78813c018171de4df99b06f7cd89530c17ff2d87ba100a137a701967425"
+      }
+    ],
+    "input_lock_refresh": {
+      "before": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 7002388,
+        "sha256": "7eb1c51320d22e83699bb886987a5373b90d3d57c554c25dcbf8c1a7e6ae7a1e"
+      },
+      "after": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6988218,
+        "sha256": "a564a78813c018171de4df99b06f7cd89530c17ff2d87ba100a137a701967425"
+      },
+      "files": [
+        "config/editorial/story-honorific-merged-writeback-20261109.json",
+        "config/full-story-components.json"
+      ]
+    },
+    "site_writeback": false
+  },
+  "entries": [
+    {
+      "id": "battle:01720",
+      "group": "choices",
+      "before": "“是、是的…\\n　多亏了阿波罗得救了…！”",
+      "after": "“嗯、嗯…\\n　多亏阿波罗，我才得救了…！”"
+    },
+    {
+      "id": "battle:08731",
+      "group": "choices",
+      "before": "“这总不会是认真的吧，\\n　卡洛德·兰？”",
+      "after": "“这总不会就是你的全力吧，\\n　卡洛德·兰？”"
+    },
+    {
+      "id": "battle:12967",
+      "group": "choices",
+      "before": "“我的攻击可不能化解哦，\\n　鸫！”",
+      "after": "“我的攻势，\\n　可不能化解哦，鸫！”"
+    },
+    {
+      "id": "battle:14680",
+      "group": "choices",
+      "before": "“丽花的对手是我！\\n　不是你！”",
+      "after": "“陪丽花的人是我！\\n　不是你！”"
+    },
+    {
+      "id": "battle:14698",
+      "group": "choices",
+      "before": "“丽花！为了你的话——”",
+      "after": "“丽花！只要是为了你——！”"
+    },
+    {
+      "id": "battle:05703",
+      "group": "greta",
+      "before": "“抱歉，论老练，\\n　你比我老爹差远了！”",
+      "after": "“抱歉，论老练，\\n　你比我老伴差远了！”"
+    },
+    {
+      "id": "battle:05704",
+      "group": "greta",
+      "before": "“你这男人挺不赖嘛。\\n　虽然比不上我老爹！”",
+      "after": "“你这男人挺不赖嘛。\\n　虽然比不上我老伴！”"
+    },
+    {
+      "id": "battle:05708",
+      "group": "greta",
+      "before": "“老爹，我一定替你报仇！”",
+      "after": "“老伴，我一定替你报仇！”"
+    },
+    {
+      "id": "battle:05710",
+      "group": "greta",
+      "before": "“都是你们害死了我老爹！\\n　老~爹~！”",
+      "after": "“都是你们害死了我老伴！\\n　老~伴~！”"
+    },
+    {
+      "id": "battle:05711",
+      "group": "greta",
+      "before": "“老爹的仇，由我来报！”",
+      "after": "“老伴的仇，由我来报！”"
+    },
+    {
+      "id": "battle:05712",
+      "group": "greta",
+      "before": "“你，可要保护好我啊！”",
+      "after": "“老伴，可要保护好我啊！”"
+    },
+    {
+      "id": "battle:05719",
+      "group": "greta",
+      "before": "“你，我爱你~！”",
+      "after": "“老伴，我爱你~！”"
+    },
+    {
+      "id": "battle:05721",
+      "group": "greta",
+      "before": "“呜哇啊啊啊！老~爹~！”",
+      "after": "“呜哇啊啊啊！老~伴~！”"
+    },
+    {
+      "id": "battle:05724",
+      "group": "greta",
+      "before": "“啊呜！\\n　你，借我点力气吧！”",
+      "after": "“啊呜！\\n　老伴，借我点力气吧！”"
+    },
+    {
+      "id": "battle:05726",
+      "group": "greta",
+      "before": "“吉隆！别以为我\\n　会那么轻易去找老爹！”",
+      "after": "“吉隆！别以为我\\n　会那么轻易去找老伴！”"
+    },
+    {
+      "id": "battle:05742",
+      "group": "greta",
+      "before": "“你…\\n　你保护了我呢…”",
+      "after": "“老伴…\\n　你保护了我呢…”"
+    },
+    {
+      "id": "battle:05746",
+      "group": "greta",
+      "before": "“老爹在保护着我呢！”",
+      "after": "“老伴在保护着我呢！”"
+    },
+    {
+      "id": "battle:00013",
+      "group": "tags",
+      "before": "“以伦敦<width:0E><space:0C>IMA<width:16><space:16>之名！”",
+      "after": "“以伦敦IMA之名！”"
+    },
+    {
+      "id": "battle:00244",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Alright<width:16><space:16>！包在我身上！”",
+      "after": "“Alright！包在我身上！”"
+    },
+    {
+      "id": "battle:00597",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>！\\n　被超限恶魔吞噬殆尽吧！”",
+      "after": "“Turn Type！\\n　被超限恶魔吞噬殆尽吧！”"
+    },
+    {
+      "id": "battle:00599",
+      "group": "tags",
+      "before": "“拥有<width:0E><space:0C>Big<width:16><space:16>之名的巨神！\\n　你也到我这边来！”",
+      "after": "“拥有Big之名的巨神！\\n　你也到我这边来！”"
+    },
+    {
+      "id": "battle:01161",
+      "group": "tags",
+      "before": "“区区<width:0E><space:0C>LFO<width:16><space:16>，\\n　根本不是尼尔瓦修终式的对手！”",
+      "after": "“区区LFO，\\n　根本不是尼尔瓦修终式的对手！”"
+    },
+    {
+      "id": "battle:01173",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Crisis<width:16><space:16>！！”",
+      "after": "“Crisis！！”"
+    },
+    {
+      "id": "battle:01254",
+      "group": "tags",
+      "before": "“为了<width:0E><space:0C>S-1<width:16><space:16>星人的未来！”",
+      "after": "“为了S-1星人的未来！”"
+    },
+    {
+      "id": "battle:01612",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Fire<width:16><space:16>——……”",
+      "after": "“Fire——……”"
+    },
+    {
+      "id": "battle:01613",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Fist<width:16><space:16>——！！”",
+      "after": "“Fist——！！”"
+    },
+    {
+      "id": "battle:02026",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-DUO<width:16><space:16>！<width:0E><space:0C>Action<width:16><space:16>！”",
+      "after": "“BIG-DUO！Action！”"
+    },
+    {
+      "id": "battle:02043",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>的MS！\\n　觉醒你真正的力量吧！”",
+      "after": "“Turn Type的MS！\\n　觉醒你真正的力量吧！”"
+    },
+    {
+      "id": "battle:02068",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-DUO<width:16><space:16>，你在干什么！？\\n　别让那家伙为所欲为！”",
+      "after": "“BIG-DUO，你在干什么！？\\n　别让那家伙为所欲为！”"
+    },
+    {
+      "id": "battle:02074",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-DUO<width:16><space:16>可跟以前不一样了！\\n　这家伙！”",
+      "after": "“BIG-DUO可跟以前不一样了！\\n　这家伙！”"
+    },
+    {
+      "id": "battle:02078",
+      "group": "tags",
+      "before": "“真难看啊，<width:0E><space:0C>Turn Type<width:16><space:16>！\\n　你的力量不该只有这点！”",
+      "after": "“真难看啊，Turn Type！\\n　你的力量不该只有这点！”"
+    },
+    {
+      "id": "battle:02089",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>竟然只有这点本事……\\n　真让人失望啊！”",
+      "after": "“BIG-O竟然只有这点本事……\\n　真让人失望啊！”"
+    },
+    {
+      "id": "battle:02123",
+      "group": "tags",
+      "before": "“让你见识<width:0E><space:0C>S-1<width:16><space:16>星司令部的实力！”",
+      "after": "“让你见识S-1星司令部的实力！”"
+    },
+    {
+      "id": "battle:02124",
+      "group": "tags",
+      "before": "“地球是我们<width:0E><space:0C>S-1<width:16><space:16>星人的！”",
+      "after": "“地球是我们S-1星人的！”"
+    },
+    {
+      "id": "battle:02161",
+      "group": "tags",
+      "before": "“这就是<width:0E><space:0C>S-1<width:16><space:16>星的科技力！”",
+      "after": "“这就是S-1星的科技力！”"
+    },
+    {
+      "id": "battle:02183",
+      "group": "tags",
+      "before": "“为了<width:0E><space:0C>S-1<width:16><space:16>星，\\n　也不能输！”",
+      "after": "“为了S-1星，\\n　也不能输！”"
+    },
+    {
+      "id": "battle:02200",
+      "group": "tags",
+      "before": "“不管你如何威胁，\\n　<width:0E><space:0C>S-1<width:16><space:16>星人绝不会原谅你！”",
+      "after": "“不管你如何威胁，\\n　S-1星人绝不会原谅你！”"
+    },
+    {
+      "id": "battle:02208",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>S-1<width:16><space:16>星的叛徒！”",
+      "after": "“S-1星的叛徒！”"
+    },
+    {
+      "id": "battle:02215",
+      "group": "tags",
+      "before": "“这台<width:0E><space:0C>BIG-FAU<width:16><space:16>\\n　可是最强的巨神”",
+      "after": "“这台BIG-FAU\\n　可是最强的巨神”"
+    },
+    {
+      "id": "battle:02219",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>The Big<width:16><space:16>可不是玩具”",
+      "after": "“The Big可不是玩具”"
+    },
+    {
+      "id": "battle:02221",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-FAU<width:16><space:16>，行动！”",
+      "after": "“BIG-FAU，行动！”"
+    },
+    {
+      "id": "battle:02223",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-FAU<width:16><space:16>！<width:0E><space:0C>Action<width:16><space:16>！”",
+      "after": "“BIG-FAU！Action！”"
+    },
+    {
+      "id": "battle:02244",
+      "group": "tags",
+      "before": "“怎么样。\\n　<width:0E><space:0C>BIG-FAU<width:16><space:16>也干得不错吧”",
+      "after": "“怎么样。\\n　BIG-FAU也干得不错吧”"
+    },
+    {
+      "id": "battle:02248",
+      "group": "tags",
+      "before": "“这也是<width:0E><space:0C>BIG-FAU<width:16><space:16>的力量之一”",
+      "after": "“这也是BIG-FAU的力量之一”"
+    },
+    {
+      "id": "battle:02250",
+      "group": "tags",
+      "before": "“你根本不是<width:0E><space:0C>BIG-FAU<width:16><space:16>的对手”",
+      "after": "“你根本不是BIG-FAU的对手”"
+    },
+    {
+      "id": "battle:02254",
+      "group": "tags",
+      "before": "“野狗驾驶的<width:0E><space:0C>The Big<width:16><space:16>，\\n　终究不过如此”",
+      "after": "“野狗驾驶的The Big，\\n　终究不过如此”"
+    },
+    {
+      "id": "battle:02266",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-FAU<width:16><space:16>是最强的巨神！\\n　可为什么……！？”",
+      "after": "“BIG-FAU是最强的巨神！\\n　可为什么……！？”"
+    },
+    {
+      "id": "battle:02267",
+      "group": "tags",
+      "before": "“怎么了，<width:0E><space:0C>BIG-FAU<width:16><space:16>！？\\n　好好动起来！”",
+      "after": "“怎么了，BIG-FAU！？\\n　好好动起来！”"
+    },
+    {
+      "id": "battle:02271",
+      "group": "tags",
+      "before": "“还没完！<width:0E><space:0C>BIG-FAU<width:16><space:16>还没……！”",
+      "after": "“还没完！BIG-FAU还没……！”"
+    },
+    {
+      "id": "battle:02279",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>！！\\n　罗杰·史密斯！！”",
+      "after": "“BIG-O！！\\n　罗杰·史密斯！！”"
+    },
+    {
+      "id": "battle:02360",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>180<width:16><space:16>度掉头！脱离这片宙域！”",
+      "after": "“180度掉头！脱离这片宙域！”"
+    },
+    {
+      "id": "battle:02430",
+      "group": "tags",
+      "before": "“把<width:0E><space:0C>PLANT<width:16><space:16>和地球搅得天翻地覆的狐狸精！\\n　饶不了你！”",
+      "after": "“把PLANT和地球搅得天翻地覆的狐狸精！\\n　饶不了你！”"
+    },
+    {
+      "id": "battle:02435",
+      "group": "tags",
+      "before": "“极·艾黛尔！不讨伐你，\\n　<width:0E><space:0C>PLANT<width:16><space:16>就没有未来！！”",
+      "after": "“极·艾黛尔！不讨伐你，\\n　PLANT就没有未来！！”"
+    },
+    {
+      "id": "battle:02660",
+      "group": "tags",
+      "before": "“那架黑色<width:0E><space:0C>KLF<width:16><space:16>是…！”",
+      "after": "“那架黑色KLF是…！”"
+    },
+    {
+      "id": "battle:02661",
+      "group": "tags",
+      "before": "“那架<width:0E><space:0C>KLF<width:16><space:16>，到底是什么啊！？”",
+      "after": "“那架KLF，到底是什么啊！？”"
+    },
+    {
+      "id": "battle:02751",
+      "group": "tags",
+      "before": "“呃啊！那台<width:0E><space:0C>KLF<width:16><space:16>是什么！？”",
+      "after": "“呃啊！那台KLF是什么！？”"
+    },
+    {
+      "id": "battle:02759",
+      "group": "tags",
+      "before": "“那台黑色<width:0E><space:0C>KLF<width:16><space:16>是怎么回事！\\n　太强了！”",
+      "after": "“那台黑色KLF是怎么回事！\\n　太强了！”"
+    },
+    {
+      "id": "battle:03056",
+      "group": "tags",
+      "before": "“拜托了，<width:0E><space:0C>Mk-II<width:16><space:16>…！”",
+      "after": "“拜托了，Mk-II…！”"
+    },
+    {
+      "id": "battle:03057",
+      "group": "tags",
+      "before": "“爱玛，高达<width:0E><space:0C>Mk-II<width:16><space:16>，出击！”",
+      "after": "“爱玛，高达Mk-II，出击！”"
+    },
+    {
+      "id": "battle:04083",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>！\\n　那台机体，交出来吧！”",
+      "after": "“Turn Type！\\n　那台机体，交出来吧！”"
+    },
+    {
+      "id": "battle:04131",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>S-1<width:16><space:16>星人的叛徒能做什么？”",
+      "after": "“S-1星人的叛徒能做什么？”"
+    },
+    {
+      "id": "battle:04429",
+      "group": "tags",
+      "before": "“为了我的同胞，\\n　<width:0E><space:0C>S-1<width:16><space:16>星人的未来！”",
+      "after": "“为了我的同胞，\\n　S-1星人的未来！”"
+    },
+    {
+      "id": "battle:04430",
+      "group": "tags",
+      "before": "“我们必须赢！\\n　不赢，<width:0E><space:0C>S-1<width:16><space:16>星人就会灭亡！”",
+      "after": "“我们必须赢！\\n　不赢，S-1星人就会灭亡！”"
+    },
+    {
+      "id": "battle:04438",
+      "group": "tags",
+      "before": "“你这混蛋！\\n　还算是<width:0E><space:0C>S-1<width:16><space:16>星的指挥官吗！”",
+      "after": "“你这混蛋！\\n　还算是S-1星的指挥官吗！”"
+    },
+    {
+      "id": "battle:04472",
+      "group": "tags",
+      "before": "“老夫不会倒下！\\n　老夫背负着<width:0E><space:0C>S-1<width:16><space:16>星人的未来！”",
+      "after": "“老夫不会倒下！\\n　老夫背负着S-1星人的未来！”"
+    },
+    {
+      "id": "battle:04476",
+      "group": "tags",
+      "before": "“同为<width:0E><space:0C>S-1<width:16><space:16>星人的你，\\n　竟敢阻挡<width:0E><space:0C>S-1<width:16><space:16>星人的未来！”",
+      "after": "“同为S-1星人的你，\\n　竟敢阻挡S-1星人的未来！”"
+    },
+    {
+      "id": "battle:04485",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>S-1<width:16><space:16>星的叛徒！”",
+      "after": "“S-1星的叛徒！”"
+    },
+    {
+      "id": "battle:04688",
+      "group": "tags",
+      "before": "“这台<width:0E><space:0C>Mk-II<width:16><space:16>的话…能行！”",
+      "after": "“这台Mk-II的话…能行！”"
+    },
+    {
+      "id": "battle:04727",
+      "group": "tags",
+      "before": "“还要把<width:0E><space:0C>Turn Type<width:16><space:16>玩弄到什么时候！”",
+      "after": "“还要把Turn Type玩弄到什么时候！”"
+    },
+    {
+      "id": "battle:04773",
+      "group": "tags",
+      "before": "“我会驾驭给你看…<width:0E><space:0C>G-Bit<width:16><space:16>！”",
+      "after": "“我会驾驭给你看…G-Bit！”"
+    },
+    {
+      "id": "battle:04774",
+      "group": "tags",
+      "before": "“敌人的动作看得见……\\n　上吧，<width:0E><space:0C>G-Bit<width:16><space:16>！”",
+      "after": "“敌人的动作看得见……\\n　上吧，G-Bit！”"
+    },
+    {
+      "id": "battle:04834",
+      "group": "tags",
+      "before": "“要用<width:0E><space:0C>G-Bit<width:16><space:16>！\\n　蒂珐，借我力量！”",
+      "after": "“要用G-Bit！\\n　蒂珐，借我力量！”"
+    },
+    {
+      "id": "battle:04836",
+      "group": "tags",
+      "before": "“好嘞…\\n　拜托了，<width:0E><space:0C>G-Bit<width:16><space:16>！上啊！”",
+      "after": "“好嘞…\\n　拜托了，G-Bit！上啊！”"
+    },
+    {
+      "id": "battle:05550",
+      "group": "tags",
+      "before": "“延续了<width:0E><space:0C>2500<width:16><space:16>年演习的武门家\\n　就让你们见识见识和你们的不同！”",
+      "after": "“延续了2500年演习的武门家\\n　就让你们见识见识和你们的不同！”"
+    },
+    {
+      "id": "battle:05590",
+      "group": "tags",
+      "before": "“怎么了？\\n　<width:0E><space:0C>Turn<width:16><space:16>的名号都要哭了，白胡子！”",
+      "after": "“怎么了？\\n　Turn的名号都要哭了，白胡子！”"
+    },
+    {
+      "id": "battle:05633",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>，\\n　有这台倒X一架就够了！”",
+      "after": "“Turn Type，\\n　有这台倒X一架就够了！”"
+    },
+    {
+      "id": "battle:05657",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>The Big<width:16><space:16>！\\n　倒X好像对你有仇啊！”",
+      "after": "“The Big！\\n　倒X好像对你有仇啊！”"
+    },
+    {
+      "id": "battle:05771",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>PSG<width:16><space:16>加农…最大功率！！”",
+      "after": "“PSG加农…最大功率！！”"
+    },
+    {
+      "id": "battle:05773",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>PSG<width:16><space:16>量子反应炮，发射！！”",
+      "after": "“PSG量子反应炮，发射！！”"
+    },
+    {
+      "id": "battle:05849",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>PSG<width:16><space:16>加农…最大功率！！”",
+      "after": "“PSG加农…最大功率！！”"
+    },
+    {
+      "id": "battle:05850",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>PSG<width:16><space:16>量子反应炮，发射！！”",
+      "after": "“PSG量子反应炮，发射！！”"
+    },
+    {
+      "id": "battle:06044",
+      "group": "tags",
+      "before": "“燃烧吧…\\n　燃烧吧，<width:0E><space:0C>King Gainer<width:16><space:16>！！”",
+      "after": "“燃烧吧…\\n　燃烧吧，King Gainer！！”"
+    },
+    {
+      "id": "battle:06061",
+      "group": "tags",
+      "before": "“上吧！<width:0E><space:0C>King<width:16><space:16>…<width:0E><space:0C>Gainer<width:16><space:16>——！！”",
+      "after": "“上吧！King…Gainer——！！”"
+    },
+    {
+      "id": "battle:06115",
+      "group": "tags",
+      "before": "“看得见敌人的动作…！\\n　我确实超越了<width:0E><space:0C>100%<space:16><width:16>！”",
+      "after": "“看得见敌人的动作…！\\n　我确实超越了100%！”"
+    },
+    {
+      "id": "battle:06163",
+      "group": "tags",
+      "before": "“别因为是<width:0E><space:0C>Turn Type<width:16><space:16>就得寸进尺！”",
+      "after": "“别因为是Turn Type就得寸进尺！”"
+    },
+    {
+      "id": "battle:06210",
+      "group": "tags",
+      "before": "“你是最后一个！\\n　上吧！<width:0E><space:0C>King Gainer<width:16><space:16>——！！”",
+      "after": "“你是最后一个！\\n　上吧！King Gainer——！！”"
+    },
+    {
+      "id": "battle:06256",
+      "group": "tags",
+      "before": "“想打中\\n　<width:0E><space:0C>Freeze King<width:16><space:16>的我吗？”",
+      "after": "“想打中\\n　Freeze King的我吗？”"
+    },
+    {
+      "id": "battle:06296",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>…被诅咒的机器…\\n　冻结吧！”",
+      "after": "“Turn Type…被诅咒的机器…\\n　冻结吧！”"
+    },
+    {
+      "id": "battle:06868",
+      "group": "tags",
+      "before": "“软弱的迪兰达尔\\n　迟早会让<width:0E><space:0C>PLANT<width:16><space:16>灭亡！”",
+      "after": "“软弱的迪兰达尔\\n　迟早会让PLANT灭亡！”"
+    },
+    {
+      "id": "battle:07011",
+      "group": "tags",
+      "before": "“这关系到<width:0E><space:0C>PLANT<width:16><space:16>的未来！\\n　不能输！”",
+      "after": "“这关系到PLANT的未来！\\n　不能输！”"
+    },
+    {
+      "id": "battle:07023",
+      "group": "tags",
+      "before": "“为了<width:0E><space:0C>PLANT<width:16><space:16>的和平！”",
+      "after": "“为了PLANT的和平！”"
+    },
+    {
+      "id": "battle:07025",
+      "group": "tags",
+      "before": "“为了<width:0E><space:0C>Destiny Plan<width:16><space:16>！”",
+      "after": "“为了Destiny Plan！”"
+    },
+    {
+      "id": "battle:07031",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Destiny<width:16><space:16>…！\\n　你要把刀刃指向<width:0E><space:0C>PLANT<width:16><space:16>吗！”",
+      "after": "“Destiny…！\\n　你要把刀刃指向PLANT吗！”"
+    },
+    {
+      "id": "battle:07032",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>FAITH<width:16><space:16>居然成了敌人！”",
+      "after": "“FAITH居然成了敌人！”"
+    },
+    {
+      "id": "battle:07033",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>LOGOS<width:16><space:16>的走狗！”",
+      "after": "“LOGOS的走狗！”"
+    },
+    {
+      "id": "battle:07045",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>LOGOS<width:16><space:16>的走狗，别做无谓的挣扎”",
+      "after": "“LOGOS的走狗，别做无谓的挣扎”"
+    },
+    {
+      "id": "battle:07046",
+      "group": "tags",
+      "before": "“那、那股力量…！\\n　会成为<width:0E><space:0C>PLANT<width:16><space:16>的威胁…！”",
+      "after": "“那、那股力量…！\\n　会成为PLANT的威胁…！”"
+    },
+    {
+      "id": "battle:07051",
+      "group": "tags",
+      "before": "“疯了吗，<width:0E><space:0C>Destiny<width:16><space:16>！”",
+      "after": "“疯了吗，Destiny！”"
+    },
+    {
+      "id": "battle:07055",
+      "group": "tags",
+      "before": "“为了<width:0E><space:0C>PLANT<width:16><space:16>的未来…！\\n　无论如何都不能输！”",
+      "after": "“为了PLANT的未来…！\\n　无论如何都不能输！”"
+    },
+    {
+      "id": "battle:07058",
+      "group": "tags",
+      "before": "“呃！\\n　如果我们在这里沉没，<width:0E><space:0C>PLANT<width:16><space:16>就…！”",
+      "after": "“呃！\\n　如果我们在这里沉没，PLANT就…！”"
+    },
+    {
+      "id": "battle:07061",
+      "group": "tags",
+      "before": "“该死…！\\n　一切都在<width:0E><space:0C>LOGOS<width:16><space:16>的掌控之中吗！？”",
+      "after": "“该死…！\\n　一切都在LOGOS的掌控之中吗！？”"
+    },
+    {
+      "id": "battle:07126",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>PLANT<width:16><space:16>的技术…见识到了吧！”",
+      "after": "“PLANT的技术…见识到了吧！”"
+    },
+    {
+      "id": "battle:07161",
+      "group": "tags",
+      "before": "“为了<width:0E><space:0C>PLANT<width:16><space:16>，\\n　也不能被打倒！”",
+      "after": "“为了PLANT，\\n　也不能被打倒！”"
+    },
+    {
+      "id": "battle:07169",
+      "group": "tags",
+      "before": "“你们是想\\n　再次破坏<width:0E><space:0C>PLANT<width:16><space:16>吗！”",
+      "after": "“你们是想\\n　再次破坏PLANT吗！”"
+    },
+    {
+      "id": "battle:07187",
+      "group": "tags",
+      "before": "“新世界由<width:0E><space:0C>Destiny Plan<width:16><space:16>创造！”",
+      "after": "“新世界由Destiny Plan创造！”"
+    },
+    {
+      "id": "battle:07226",
+      "group": "tags",
+      "before": "“我、我绝不能输！\\n　为了议长和<width:0E><space:0C>PLANT<width:16><space:16>！”",
+      "after": "“我、我绝不能输！\\n　为了议长和PLANT！”"
+    },
+    {
+      "id": "battle:07229",
+      "group": "tags",
+      "before": "“不行！\\n　根本赢不了<width:0E><space:0C>FAITH<width:16><space:16>！”",
+      "after": "“不行！\\n　根本赢不了FAITH！”"
+    },
+    {
+      "id": "battle:07232",
+      "group": "tags",
+      "before": "“P、<width:0E><space:0C>PLANT<width:16><space:16>和新世界！！”",
+      "after": "“P、PLANT和新世界！！”"
+    },
+    {
+      "id": "battle:07257",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>LOGOS<width:16><space:16>走狗！”",
+      "after": "“LOGOS走狗！”"
+    },
+    {
+      "id": "battle:07259",
+      "group": "tags",
+      "before": "“就算是<width:0E><space:0C>Turn Type<width:16><space:16>！”",
+      "after": "“就算是Turn Type！”"
+    },
+    {
+      "id": "battle:07523",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>…\\n　不会让你用月光蝶的”",
+      "after": "“Turn Type…\\n　不会让你用月光蝶的”"
+    },
+    {
+      "id": "battle:07524",
+      "group": "tags",
+      "before": "“巨神…<width:0E><space:0C>Big<width:16><space:16>…\\n　将一切包裹于火焰之物…”",
+      "after": "“巨神…Big…\\n　将一切包裹于火焰之物…”"
+    },
+    {
+      "id": "battle:07582",
+      "group": "tags",
+      "before": "“与敌距离，还有<width:0E><space:0C>1000<width:16><space:16>！”",
+      "after": "“与敌距离，还有1000！”"
+    },
+    {
+      "id": "battle:07798",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Blaze Up<width:16><space:16>！！！”",
+      "after": "“Blaze Up！！！”"
+    },
+    {
+      "id": "battle:07976",
+      "group": "tags",
+      "before": "“上吧，<width:0E><space:0C>THE CRUSHER<width:16><space:16>！\\n　生气了？”",
+      "after": "“上吧，THE CRUSHER！\\n　生气了？”"
+    },
+    {
+      "id": "battle:07977",
+      "group": "tags",
+      "before": "“再见，<width:0E><space:0C>THE HEAT<width:16><space:16>！\\n　你那股热劲，我忘不了！”",
+      "after": "“再见，THE HEAT！\\n　你那股热劲，我忘不了！”"
+    },
+    {
+      "id": "battle:07984",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Goodbye<width:16><space:16>～！\\n　我永远不会忘记你！”",
+      "after": "“Goodbye～！\\n　我永远不会忘记你！”"
+    },
+    {
+      "id": "battle:08004",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Goodbye<width:16><space:16>！正义的小伙伴！！”",
+      "after": "“Goodbye！正义的小伙伴！！”"
+    },
+    {
+      "id": "battle:08012",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Game Over<width:16><space:16>”",
+      "after": "“Game Over”"
+    },
+    {
+      "id": "battle:08057",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Thank you very much<width:16><space:16>！\\n　你的攻击很赞！”",
+      "after": "“Thank you very much！\\n　你的攻击很赞！”"
+    },
+    {
+      "id": "battle:08067",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>YES<width:16><space:16>！在这个无聊透顶的世界里，\\n　你们的存在就是宝藏！”",
+      "after": "“YES！在这个无聊透顶的世界里，\\n　你们的存在就是宝藏！”"
+    },
+    {
+      "id": "battle:08074",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Thank you very much<width:16><space:16>！\\n　真是最棒的舞台！”",
+      "after": "“Thank you very much！\\n　真是最棒的舞台！”"
+    },
+    {
+      "id": "battle:08208",
+      "group": "tags",
+      "before": "“高达<width:0E><space:0C>Mk-II<width:16><space:16>！\\n　之前的账该还了！”",
+      "after": "“高达Mk-II！\\n　之前的账该还了！”"
+    },
+    {
+      "id": "battle:09004",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>G-Bit<width:16><space:16>！讨伐敌人！”",
+      "after": "“G-Bit！讨伐敌人！”"
+    },
+    {
+      "id": "battle:09006",
+      "group": "tags",
+      "before": "“去吧，<width:0E><space:0C>G-Bit<width:16><space:16>！”",
+      "after": "“去吧，G-Bit！”"
+    },
+    {
+      "id": "battle:09110",
+      "group": "tags",
+      "before": "“舰体损伤度超过<width:0E><space:0C>70%<space:16><width:16>！”",
+      "after": "“舰体损伤度超过70%！”"
+    },
+    {
+      "id": "battle:09148",
+      "group": "tags",
+      "before": "“让你见识我的力量…\\n　<width:0E><space:0C>BIG-DUO<width:16><space:16>的力量！”",
+      "after": "“让你见识我的力量…\\n　BIG-DUO的力量！”"
+    },
+    {
+      "id": "battle:09149",
+      "group": "tags",
+      "before": "“让你见识改变世界的力量！\\n　用这架<width:0E><space:0C>BIG-DUO<width:16><space:16>！！”",
+      "after": "“让你见识改变世界的力量！\\n　用这架BIG-DUO！！”"
+    },
+    {
+      "id": "battle:09152",
+      "group": "tags",
+      "before": "“我倒要看看\\n　<width:0E><space:0C>The Big<width:16><space:16>有多大本事！”",
+      "after": "“我倒要看看\\n　The Big有多大本事！”"
+    },
+    {
+      "id": "battle:09153",
+      "group": "tags",
+      "before": "“能操控<width:0E><space:0C>The Big<width:16><space:16>的\\n　可不止你一个！罗杰·史密斯！”",
+      "after": "“能操控The Big的\\n　可不止你一个！罗杰·史密斯！”"
+    },
+    {
+      "id": "battle:09154",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-DUO<width:16><space:16>比你的<width:0E><space:0C>Big<width:16><space:16>更强！\\n　这就是真相！”",
+      "after": "“BIG-DUO比你的Big更强！\\n　这就是真相！”"
+    },
+    {
+      "id": "battle:09158",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>！\\n　果然真实存在吗！”",
+      "after": "“Turn Type！\\n　果然真实存在吗！”"
+    },
+    {
+      "id": "battle:09159",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>觉醒的此刻，\\n　世界将再次被黑暗笼罩！”",
+      "after": "“Turn Type觉醒的此刻，\\n　世界将再次被黑暗笼罩！”"
+    },
+    {
+      "id": "battle:09162",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Du musst fortgehen<width:16><space:16>！\\n　（你该退场了！）”",
+      "after": "“Du musst fortgehen！\\n　（你该退场了！）”"
+    },
+    {
+      "id": "battle:09190",
+      "group": "tags",
+      "before": "“愚蠢…你以为那种攻击\\n　能打中<width:0E><space:0C>BIG-DUO<width:16><space:16>吗？”",
+      "after": "“愚蠢…你以为那种攻击\\n　能打中BIG-DUO吗？”"
+    },
+    {
+      "id": "battle:09191",
+      "group": "tags",
+      "before": "“别把<width:0E><space:0C>BIG-DUO<width:16><space:16>\\n　当普通巨神”",
+      "after": "“别把BIG-DUO\\n　当普通巨神”"
+    },
+    {
+      "id": "battle:09204",
+      "group": "tags",
+      "before": "“那种东西，\\n　对<width:0E><space:0C>BIG-DUO<width:16><space:16>没用！”",
+      "after": "“那种东西，\\n　对BIG-DUO没用！”"
+    },
+    {
+      "id": "battle:09207",
+      "group": "tags",
+      "before": "“明白了吧？你的<width:0E><space:0C>The Big<width:16><space:16>\\n　赢不了<width:0E><space:0C>BIG-DUO<width:16><space:16>！”",
+      "after": "“明白了吧？你的The Big\\n　赢不了BIG-DUO！”"
+    },
+    {
+      "id": "battle:09223",
+      "group": "tags",
+      "before": "“动啊，<width:0E><space:0C>BIG-DUO<width:16><space:16>！\\n　动起来把他打倒！！”",
+      "after": "“动啊，BIG-DUO！\\n　动起来把他打倒！！”"
+    },
+    {
+      "id": "battle:09224",
+      "group": "tags",
+      "before": "“唔！\\n　竟给<width:0E><space:0C>BIG-DUO<width:16><space:16>造成这种伤害！”",
+      "after": "“唔！\\n　竟给BIG-DUO造成这种伤害！”"
+    },
+    {
+      "id": "battle:09226",
+      "group": "tags",
+      "before": "“这、这就是\\n　黑色<width:0E><space:0C>The Big<width:16><space:16>的力量吗！”",
+      "after": "“这、这就是\\n　黑色The Big的力量吗！”"
+    },
+    {
+      "id": "battle:09228",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-DUO<width:16><space:16>竟败了…！”",
+      "after": "“BIG-DUO竟败了…！”"
+    },
+    {
+      "id": "battle:09302",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>THE HEAT<width:16><space:16>完全名不副实啊”",
+      "after": "“THE HEAT完全名不副实啊”"
+    },
+    {
+      "id": "battle:09416",
+      "group": "tags",
+      "before": "“…<width:0E><space:0C>PSG<width:16><space:16>量子反应炮，发射！”",
+      "after": "“…PSG量子反应炮，发射！”"
+    },
+    {
+      "id": "battle:09418",
+      "group": "tags",
+      "before": "“抱歉了！<width:0E><space:0C>PSG<width:16><space:16>加农炮！”",
+      "after": "“抱歉了！PSG加农炮！”"
+    },
+    {
+      "id": "battle:09700",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>PSG<width:16><space:16>加农最大输出……发射！！”",
+      "after": "“PSG加农最大输出……发射！！”"
+    },
+    {
+      "id": "battle:10463",
+      "group": "tags",
+      "before": "“不愧是<width:0E><space:0C>FAITH<width:16><space:16>\\n　成员吗”",
+      "after": "“不愧是FAITH\\n　成员吗”"
+    },
+    {
+      "id": "battle:10580",
+      "group": "tags",
+      "before": "“把<width:0E><space:0C>PLANT<width:16><space:16>和地球\\n　都当成自己野心的工具！”",
+      "after": "“把PLANT和地球\\n　都当成自己野心的工具！”"
+    },
+    {
+      "id": "battle:10598",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>LOGOS<width:16><space:16>！我绝不原谅！！”",
+      "after": "“LOGOS！我绝不原谅！！”"
+    },
+    {
+      "id": "battle:10603",
+      "group": "tags",
+      "before": "“你们和<width:0E><space:0C>LOGOS<width:16><space:16>一样！”",
+      "after": "“你们和LOGOS一样！”"
+    },
+    {
+      "id": "battle:10624",
+      "group": "tags",
+      "before": "“你就那么恨<width:0E><space:0C>PLANT<width:16><space:16>吗！”",
+      "after": "“你就那么恨PLANT吗！”"
+    },
+    {
+      "id": "battle:10678",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>YOU LOSE<width:16><space:16>！V♪”",
+      "after": "“YOU LOSE！V♪”"
+    },
+    {
+      "id": "battle:10692",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Princess<width:16><space:16>…不对，\\n　<width:0E><space:0C>Queen<width:16><space:16>的幻影♪”",
+      "after": "“Princess…不对，\\n　Queen的幻影♪”"
+    },
+    {
+      "id": "battle:10706",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>King<width:16><space:16>和<width:0E><space:0C>Queen<width:16><space:16>的\\n　组合攻击！”",
+      "after": "“King和Queen的\\n　组合攻击！”"
+    },
+    {
+      "id": "battle:10712",
+      "group": "tags",
+      "before": "“不会让你在这<width:0E><space:0C>Game Over<width:16><space:16>！”",
+      "after": "“不会让你在这Game Over！”"
+    },
+    {
+      "id": "battle:10726",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Yes Sir<width:16><space:16>！…开玩笑的”",
+      "after": "“Yes Sir！…开玩笑的”"
+    },
+    {
+      "id": "battle:10755",
+      "group": "tags",
+      "before": "“不愧是<width:0E><space:0C>King<width:16><space:16>，就该这样！”",
+      "after": "“不愧是King，就该这样！”"
+    },
+    {
+      "id": "battle:10790",
+      "group": "tags",
+      "before": "“艾黛尔！\\n　你在这里就<width:0E><space:0C>Game Over<width:16><space:16>了！”",
+      "after": "“艾黛尔！\\n　你在这里就Game Over了！”"
+    },
+    {
+      "id": "battle:10817",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Turn Type<width:16><space:16>…\\n　再一起重塑世界吧…”",
+      "after": "“Turn Type…\\n　再一起重塑世界吧…”"
+    },
+    {
+      "id": "battle:10856",
+      "group": "tags",
+      "before": "“出来吧，\\n　赏你<width:0E><space:0C>100%<space:16><width:16>的输出！”",
+      "after": "“出来吧，\\n　赏你100%的输出！”"
+    },
+    {
+      "id": "battle:10875",
+      "group": "tags",
+      "before": "“光挨打的话，\\n　我的<width:0E><space:0C>DNA<width:16><space:16>可不会满足！”",
+      "after": "“光挨打的话，\\n　我的DNA可不会满足！”"
+    },
+    {
+      "id": "battle:10885",
+      "group": "tags",
+      "before": "“一想起白胡子的名字，\\n　我的<width:0E><space:0C>DNA<width:16><space:16>就沸腾！”",
+      "after": "“一想起白胡子的名字，\\n　我的DNA就沸腾！”"
+    },
+    {
+      "id": "battle:10909",
+      "group": "tags",
+      "before": "“既然是高达，\\n　就来满足我的<width:0E><space:0C>DNA<width:16><space:16>吧！”",
+      "after": "“既然是高达，\\n　就来满足我的DNA吧！”"
+    },
+    {
+      "id": "battle:11173",
+      "group": "tags",
+      "before": "“加纳利·卡弗，\\n　<width:0E><space:0C>Cross Range<width:16><space:16>模式！”",
+      "after": "“加纳利·卡弗，\\n　Cross Range模式！”"
+    },
+    {
+      "id": "battle:11233",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Get Slash<width:16><space:16>！！”",
+      "after": "“Get Slash！！”"
+    },
+    {
+      "id": "battle:11244",
+      "group": "tags",
+      "before": "“GS战斗术…！\\n　<width:0E><space:0C>Cross Range<width:16><space:16>！”",
+      "after": "“GS战斗术…！\\n　Cross Range！”"
+    },
+    {
+      "id": "battle:11369",
+      "group": "tags",
+      "before": "“GS战斗术，\\n　<width:0E><space:0C>7-A2<width:16><space:16>！”",
+      "after": "“GS战斗术，\\n　7-A2！”"
+    },
+    {
+      "id": "battle:11370",
+      "group": "tags",
+      "before": "“GS战斗术，<width:0E><space:0C>3-12<width:16><space:16>！”",
+      "after": "“GS战斗术，3-12！”"
+    },
+    {
+      "id": "battle:11427",
+      "group": "tags",
+      "before": "“射线斯特雷炮，<width:0E><space:0C>Fire<width:16><space:16>！！”",
+      "after": "“射线斯特雷炮，Fire！！”"
+    },
+    {
+      "id": "battle:11720",
+      "group": "tags",
+      "before": "“布设弹幕！启动<width:0E><space:0C>CIWS<width:16><space:16>！”",
+      "after": "“布设弹幕！启动CIWS！”"
+    },
+    {
+      "id": "battle:11758",
+      "group": "tags",
+      "before": "“捕捉敌机。距离<width:0E><space:0C>3000<width:16><space:16>！”",
+      "after": "“捕捉敌机。距离3000！”"
+    },
+    {
+      "id": "battle:11874",
+      "group": "tags",
+      "before": "“前部炮塔的运转率\\n　已降至<width:0E><space:0C>52%<space:16><width:16>！”",
+      "after": "“前部炮塔的运转率\\n　已降至52%！”"
+    },
+    {
+      "id": "battle:11890",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>FCS<width:16><space:16>重启！损伤管制班，\\n　拜托了！”",
+      "after": "“FCS重启！损伤管制班，\\n　拜托了！”"
+    },
+    {
+      "id": "battle:11939",
+      "group": "tags",
+      "before": "“捕捉到大天使号！距离<width:0E><space:0C>2000<width:16><space:16>！”",
+      "after": "“捕捉到大天使号！距离2000！”"
+    },
+    {
+      "id": "battle:11965",
+      "group": "tags",
+      "before": "“要是继续当<width:0E><space:0C>PLANT<width:16><space:16>的歌姬\\n　就好了啊…”",
+      "after": "“要是继续当PLANT的歌姬\\n　就好了啊…”"
+    },
+    {
+      "id": "battle:12075",
+      "group": "tags",
+      "before": "“瞄准，距离<width:0E><space:0C>200<width:16><space:16>！”",
+      "after": "“瞄准，距离200！”"
+    },
+    {
+      "id": "battle:12101",
+      "group": "tags",
+      "before": "“黑色<width:0E><space:0C>KLF<width:16><space:16>来了！”",
+      "after": "“黑色KLF来了！”"
+    },
+    {
+      "id": "battle:12208",
+      "group": "tags",
+      "before": "“那架<width:0E><space:0C>KLF<width:16><space:16>…动作好快…！”",
+      "after": "“那架KLF…动作好快…！”"
+    },
+    {
+      "id": "battle:12209",
+      "group": "tags",
+      "before": "“基杰特！那架黑色<width:0E><space:0C>KLF<width:16><space:16>呢！？”",
+      "after": "“基杰特！那架黑色KLF呢！？”"
+    },
+    {
+      "id": "battle:12286",
+      "group": "tags",
+      "before": "“那个速度…不是普通<width:0E><space:0C>KLF<width:16><space:16>！”",
+      "after": "“那个速度…不是普通KLF！”"
+    },
+    {
+      "id": "battle:12287",
+      "group": "tags",
+      "before": "“不愧是前<width:0E><space:0C>SOF<width:16><space:16>！真有一套…！”",
+      "after": "“不愧是前SOF！真有一套…！”"
+    },
+    {
+      "id": "battle:12288",
+      "group": "tags",
+      "before": "“这就是<width:0E><space:0C>SOF<width:16><space:16>的技术啊……！”",
+      "after": "“这就是SOF的技术啊……！”"
+    },
+    {
+      "id": "battle:12311",
+      "group": "tags",
+      "before": "“那架黑色<width:0E><space:0C>KLF<width:16><space:16>，好强的杀气…！”",
+      "after": "“那架黑色KLF，好强的杀气…！”"
+    },
+    {
+      "id": "battle:12330",
+      "group": "tags",
+      "before": "“那种攻击力……！\\n　这可不是普通<width:0E><space:0C>KLF<width:16><space:16>的水平！”",
+      "after": "“那种攻击力……！\\n　这可不是普通KLF的水平！”"
+    },
+    {
+      "id": "battle:12353",
+      "group": "tags",
+      "before": "“糟了！\\n　那架黑色<width:0E><space:0C>KLF<width:16><space:16>，是个不得了的家伙！”",
+      "after": "“糟了！\\n　那架黑色KLF，是个不得了的家伙！”"
+    },
+    {
+      "id": "battle:12373",
+      "group": "tags",
+      "before": "“干得好，多吉！\\n　成功躲开了那架<width:0E><space:0C>KLF<width:16><space:16>的攻击！”",
+      "after": "“干得好，多吉！\\n　成功躲开了那架KLF的攻击！”"
+    },
+    {
+      "id": "battle:12423",
+      "group": "tags",
+      "before": "“吃<width:0E><space:0C>Hyper Boil<width:16><space:16>！”",
+      "after": "“吃Hyper Boil！”"
+    },
+    {
+      "id": "battle:12438",
+      "group": "tags",
+      "before": "“前<width:0E><space:0C>SOF<width:16><space:16>的头头之间，\\n　来做个了断吧，霍兰德！”",
+      "after": "“前SOF的头头之间，\\n　来做个了断吧，霍兰德！”"
+    },
+    {
+      "id": "battle:12863",
+      "group": "tags",
+      "before": "“果然，你很火热！\\n　这才配得上<width:0E><space:0C>THE HEAT<width:16><space:16>！”",
+      "after": "“果然，你很火热！\\n　这才配得上THE HEAT！”"
+    },
+    {
+      "id": "battle:12875",
+      "group": "tags",
+      "before": "“果、果然，\\n　你就是<width:0E><space:0C>THE CRUSHER<width:16><space:16>！”",
+      "after": "“果、果然，\\n　你就是THE CRUSHER！”"
+    },
+    {
+      "id": "battle:13116",
+      "group": "tags",
+      "before": "“损伤率突破<width:0E><space:0C>70%<space:16><width:16>…不妙…”",
+      "after": "“损伤率突破70%…不妙…”"
+    },
+    {
+      "id": "battle:13334",
+      "group": "tags",
+      "before": "“别小看地球人，<width:0E><space:0C>S-1<width:16><space:16>星人！”",
+      "after": "“别小看地球人，S-1星人！”"
+    },
+    {
+      "id": "battle:13335",
+      "group": "tags",
+      "before": "“怎么了，<width:0E><space:0C>S-1<width:16><space:16>星人！\\n　我和菲克萨1号在这儿呢！”",
+      "after": "“怎么了，S-1星人！\\n　我和菲克萨1号在这儿呢！”"
+    },
+    {
+      "id": "battle:13352",
+      "group": "tags",
+      "before": "“可恶，<width:0E><space:0C>S-1<width:16><space:16>星人！竟敢！”",
+      "after": "“可恶，S-1星人！竟敢！”"
+    },
+    {
+      "id": "battle:13365",
+      "group": "tags",
+      "before": "“让开！<width:0E><space:0C>S-1<width:16><space:16>星人！”",
+      "after": "“让开！S-1星人！”"
+    },
+    {
+      "id": "battle:13684",
+      "group": "tags",
+      "before": "“射线斯特雷炮，\\n　<width:0E><space:0C>Fire<width:16><space:16>！！”",
+      "after": "“射线斯特雷炮，\\n　Fire！！”"
+    },
+    {
+      "id": "battle:13854",
+      "group": "tags",
+      "before": "“唔～可惜！\\n　瞄准偏了<width:0E><space:0C>300<width:16><space:16>米！”",
+      "after": "“唔～可惜！\\n　瞄准偏了300米！”"
+    },
+    {
+      "id": "battle:13868",
+      "group": "tags",
+      "before": "“切…！\\n　回避慢了<width:0E><space:0C>0.2<width:16><space:16>秒吗…！”",
+      "after": "“切…！\\n　回避慢了0.2秒吗…！”"
+    },
+    {
+      "id": "battle:14149",
+      "group": "tags",
+      "before": "“地球\\n　才是最适合我们<width:0E><space:0C>S-1<width:16><space:16>星人的地方！”",
+      "after": "“地球\\n　才是最适合我们S-1星人的地方！”"
+    },
+    {
+      "id": "battle:14158",
+      "group": "tags",
+      "before": "“别小看<width:0E><space:0C>S-1<width:16><space:16>星的科技”",
+      "after": "“别小看S-1星的科技”"
+    },
+    {
+      "id": "battle:14466",
+      "group": "tags",
+      "before": "“这就是<width:0E><space:0C>Turn Type<width:16><space:16>\\n　MS的力量吗！”",
+      "after": "“这就是Turn Type\\n　MS的力量吗！”"
+    },
+    {
+      "id": "battle:14526",
+      "group": "tags",
+      "before": "“看来这<width:0E><space:0C>2500<width:16><space:16>年\\n　没白演习…！”",
+      "after": "“看来这2500年\\n　没白演习…！”"
+    },
+    {
+      "id": "battle:14657",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>PSG<width:16><space:16>加农……发射！！”",
+      "after": "“PSG加农……发射！！”"
+    },
+    {
+      "id": "battle:14716",
+      "group": "tags",
+      "before": "“嘿嘿，因为在丽花面前，\\n　干劲<width:0E><space:0C>120%<space:16><width:16>哦！”",
+      "after": "“嘿嘿，因为在丽花面前，\\n　干劲120%哦！”"
+    },
+    {
+      "id": "battle:14885",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Gran<width:16><space:16> Σ……可恨的机体！”",
+      "after": "“Gran Σ……可恨的机体！”"
+    },
+    {
+      "id": "battle:14994",
+      "group": "tags",
+      "before": "“这里是<width:0E><space:0C>808<width:16><space:16>，希尔达！\\n　开始攻击！”",
+      "after": "“这里是808，希尔达！\\n　开始攻击！”"
+    },
+    {
+      "id": "battle:15024",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>808<width:16><space:16>可不擅长一对一呢”",
+      "after": "“808可不擅长一对一呢”"
+    },
+    {
+      "id": "battle:15046",
+      "group": "tags",
+      "before": "“那家伙…不是普通的<width:0E><space:0C>KLF<width:16><space:16>！”",
+      "after": "“那家伙…不是普通的KLF！”"
+    },
+    {
+      "id": "battle:15058",
+      "group": "tags",
+      "before": "“黑色<width:0E><space:0C>KLF<width:16><space:16>！能打中才怪！”",
+      "after": "“黑色KLF！能打中才怪！”"
+    },
+    {
+      "id": "battle:15063",
+      "group": "tags",
+      "before": "“论机动性，果然还是<width:0E><space:0C>LFO<width:16><space:16>！”",
+      "after": "“论机动性，果然还是LFO！”"
+    },
+    {
+      "id": "battle:15077",
+      "group": "tags",
+      "before": "“挺能干的嘛，\\n　居然能跟上<width:0E><space:0C>808<width:16><space:16>！”",
+      "after": "“挺能干的嘛，\\n　居然能跟上808！”"
+    },
+    {
+      "id": "battle:15085",
+      "group": "tags",
+      "before": "“那架黑色<width:0E><space:0C>KLF<width:16><space:16>\\n　攻击也太粗暴了吧！”",
+      "after": "“那架黑色KLF\\n　攻击也太粗暴了吧！”"
+    },
+    {
+      "id": "battle:15086",
+      "group": "tags",
+      "before": "“那架<width:0E><space:0C>KLF<width:16><space:16>是什么！？不一般…！”",
+      "after": "“那架KLF是什么！？不一般…！”"
+    },
+    {
+      "id": "battle:15098",
+      "group": "tags",
+      "before": "“那架黑色<width:0E><space:0C>KLF<width:16><space:16>…\\n　怎么看都不正常啊！”",
+      "after": "“那架黑色KLF…\\n　怎么看都不正常啊！”"
+    },
+    {
+      "id": "battle:15284",
+      "group": "tags",
+      "before": "“让你见识<width:0E><space:0C>G-Soldier<width:16><space:16>队队长的实力！”",
+      "after": "“让你见识G-Soldier队队长的实力！”"
+    },
+    {
+      "id": "battle:15383",
+      "group": "tags",
+      "before": "“说只要打倒高达…<width:0E><space:0C>Mk-II<width:16><space:16>，\\n　就会把记忆还给我！”",
+      "after": "“说只要打倒高达…Mk-II，\\n　就会把记忆还给我！”"
+    },
+    {
+      "id": "battle:15384",
+      "group": "tags",
+      "before": "“来了！<width:0E><space:0C>Mk-II<width:16><space:16>！”",
+      "after": "“来了！Mk-II！”"
+    },
+    {
+      "id": "battle:15437",
+      "group": "tags",
+      "before": "“只要打倒<width:0E><space:0C>Mk-II<width:16><space:16>，\\n　就能恢复记忆…！”",
+      "after": "“只要打倒Mk-II，\\n　就能恢复记忆…！”"
+    },
+    {
+      "id": "battle:15678",
+      "group": "tags",
+      "before": "“呃！推力降至<width:0E><space:0C>68%<space:16><width:16>！”",
+      "after": "“呃！推力降至68%！”"
+    },
+    {
+      "id": "battle:15714",
+      "group": "tags",
+      "before": "“MS，距离<width:0E><space:0C>4500<width:16><space:16>！”",
+      "after": "“MS，距离4500！”"
+    },
+    {
+      "id": "battle:15871",
+      "group": "tags",
+      "before": "“加特勒！我不会把\\n　<width:0E><space:0C>S-1<width:16><space:16>星人的明天交给你！”",
+      "after": "“加特勒！我不会把\\n　S-1星人的明天交给你！”"
+    },
+    {
+      "id": "battle:16180",
+      "group": "tags",
+      "before": "“让你见识本大爷设计的<width:0E><space:0C>RX3<width:16><space:16>的力量！”",
+      "after": "“让你见识本大爷设计的RX3的力量！”"
+    },
+    {
+      "id": "battle:16181",
+      "group": "tags",
+      "before": "“去吧~！\\n　大贝克<width:0E><space:0C>RX3<width:16><space:16>！！”",
+      "after": "“去吧~！\\n　大贝克RX3！！”"
+    },
+    {
+      "id": "battle:16191",
+      "group": "tags",
+      "before": "“大贝克<width:0E><space:0C>RX3<width:16><space:16>！\\n　全功率开动！！”",
+      "after": "“大贝克RX3！\\n　全功率开动！！”"
+    },
+    {
+      "id": "battle:16192",
+      "group": "tags",
+      "before": "“能量填充率，\\n　80…90…<width:0E><space:0C>100<width:16><space:16>！”",
+      "after": "“能量填充率，\\n　80…90…100！”"
+    },
+    {
+      "id": "battle:16236",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Dove<width:16><space:16>！\\n　有抱怨的工夫不如动手！”",
+      "after": "“Dove！\\n　有抱怨的工夫不如动手！”"
+    },
+    {
+      "id": "battle:16246",
+      "group": "tags",
+      "before": "“太棒了！\\n　不愧是大帝<width:0E><space:0C>RX3<width:16><space:16>！”",
+      "after": "“太棒了！\\n　不愧是大帝RX3！”"
+    },
+    {
+      "id": "battle:16264",
+      "group": "tags",
+      "before": "“大贝克<width:0E><space:0C>RX3<width:16><space:16>之名\\n　可不是白叫的！”",
+      "after": "“大贝克RX3之名\\n　可不是白叫的！”"
+    },
+    {
+      "id": "battle:16269",
+      "group": "tags",
+      "before": "“嗯？\\n　<width:0E><space:0C>T-Bone<width:16><space:16>，刚才打中什么了吗？”",
+      "after": "“嗯？\\n　T-Bone，刚才打中什么了吗？”"
+    },
+    {
+      "id": "battle:16283",
+      "group": "tags",
+      "before": "“还没完！\\n　<width:0E><space:0C>RX3<width:16><space:16>岂会被这点攻击打倒！”",
+      "after": "“还没完！\\n　RX3岂会被这点攻击打倒！”"
+    },
+    {
+      "id": "battle:16295",
+      "group": "tags",
+      "before": "“打起精神，<width:0E><space:0C>Dove<width:16><space:16>！\\n　还没事！大概…”",
+      "after": "“打起精神，Dove！\\n　还没事！大概…”"
+    },
+    {
+      "id": "battle:16303",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>RX3<width:16><space:16>的设计是完美的…！\\n　可为什么还会这样～！？”",
+      "after": "“RX3的设计是完美的…！\\n　可为什么还会这样～！？”"
+    },
+    {
+      "id": "battle:16322",
+      "group": "tags",
+      "before": "“大贝克<width:0E><space:0C>RX3<width:16><space:16>！\\n　啊，参上！”",
+      "after": "“大贝克RX3！\\n　啊，参上！”"
+    },
+    {
+      "id": "battle:16569",
+      "group": "tags",
+      "before": "“通过点<width:0E><space:0C>022X<width:16><space:16>！\\n　动手！”",
+      "after": "“通过点022X！\\n　动手！”"
+    },
+    {
+      "id": "battle:16717",
+      "group": "tags",
+      "before": "“你这……长着胡子的<width:0E><space:0C>MS<width:16><space:16>！！”",
+      "after": "“你这……长着胡子的MS！！”"
+    },
+    {
+      "id": "battle:16944",
+      "group": "tags",
+      "before": "“黑色<width:0E><space:0C>KLF<width:16><space:16>！\\n　你的对手是我！”",
+      "after": "“黑色KLF！\\n　你的对手是我！”"
+    },
+    {
+      "id": "battle:16967",
+      "group": "tags",
+      "before": "“那副巨体能\\n　跟上<width:0E><space:0C>LFO<width:16><space:16>的动作吗！”",
+      "after": "“那副巨体能\\n　跟上LFO的动作吗！”"
+    },
+    {
+      "id": "battle:16969",
+      "group": "tags",
+      "before": "“空战可是<width:0E><space:0C>LFO<width:16><space:16>的天下！”",
+      "after": "“空战可是LFO的天下！”"
+    },
+    {
+      "id": "battle:17036",
+      "group": "tags",
+      "before": "“黑色<width:0E><space:0C>KLF<width:16><space:16>！\\n　你想妨碍我们吗！”",
+      "after": "“黑色KLF！\\n　你想妨碍我们吗！”"
+    },
+    {
+      "id": "battle:17047",
+      "group": "tags",
+      "before": "“这架<width:0E><space:0C>303<width:16><space:16>真是怪物啊！”",
+      "after": "“这架303真是怪物啊！”"
+    },
+    {
+      "id": "battle:17048",
+      "group": "tags",
+      "before": "“别以为这只是普通的<width:0E><space:0C>LFO<width:16><space:16>！”",
+      "after": "“别以为这只是普通的LFO！”"
+    },
+    {
+      "id": "battle:17066",
+      "group": "tags",
+      "before": "“怎么了，黑色<width:0E><space:0C>KLF<width:16><space:16>！\\n　你这样，滑空板都要哭了！”",
+      "after": "“怎么了，黑色KLF！\\n　你这样，滑空板都要哭了！”"
+    },
+    {
+      "id": "battle:17088",
+      "group": "tags",
+      "before": "“黑色<width:0E><space:0C>KLF<width:16><space:16>…！\\n　杀气非同小可！”",
+      "after": "“黑色KLF…！\\n　杀气非同小可！”"
+    },
+    {
+      "id": "battle:17099",
+      "group": "tags",
+      "before": "“唔！\\n　居然能咬住<width:0E><space:0C>303<width:16><space:16>不放…！”",
+      "after": "“唔！\\n　居然能咬住303不放…！”"
+    },
+    {
+      "id": "battle:17123",
+      "group": "tags",
+      "before": "“可恶！\\n　<width:0E><space:0C>303<width:16><space:16>和我都快到极限了吗…！”",
+      "after": "“可恶！\\n　303和我都快到极限了吗…！”"
+    },
+    {
+      "id": "battle:17144",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>303<width:16><space:16>…！\\n　我把我的命给你！”",
+      "after": "“303…！\\n　我把我的命给你！”"
+    },
+    {
+      "id": "battle:17145",
+      "group": "tags",
+      "before": "“这里是<width:0E><space:0C>909<width:16><space:16>，霍兰德！\\n　开始攻击！”",
+      "after": "“这里是909，霍兰德！\\n　开始攻击！”"
+    },
+    {
+      "id": "battle:17343",
+      "group": "tags",
+      "before": "“这里是<width:0E><space:0C>606<width:16><space:16>，马修！\\n　要上了！”",
+      "after": "“这里是606，马修！\\n　要上了！”"
+    },
+    {
+      "id": "battle:17451",
+      "group": "tags",
+      "before": "“怎么样？空中可是<width:0E><space:0C>LFO<width:16><space:16>的天下！”",
+      "after": "“怎么样？空中可是LFO的天下！”"
+    },
+    {
+      "id": "battle:17454",
+      "group": "tags",
+      "before": "“从下面可打不中<width:0E><space:0C>LFO<width:16><space:16>！”",
+      "after": "“从下面可打不中LFO！”"
+    },
+    {
+      "id": "battle:17474",
+      "group": "tags",
+      "before": "“开玩笑！\\n　在空中<width:0E><space:0C>LFO<width:16><space:16>会被干掉吗！”",
+      "after": "“开玩笑！\\n　在空中LFO会被干掉吗！”"
+    },
+    {
+      "id": "battle:17499",
+      "group": "tags",
+      "before": "“骗人的吧，喂！\\n　我们这可是<width:0E><space:0C>LFO<width:16><space:16>啊！”",
+      "after": "“骗人的吧，喂！\\n　我们这可是LFO啊！”"
+    },
+    {
+      "id": "battle:17523",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>LFO<width:16><space:16>被从地面狙击\\n　应该感到羞耻！”",
+      "after": "“LFO被从地面狙击\\n　应该感到羞耻！”"
+    },
+    {
+      "id": "battle:17979",
+      "group": "tags",
+      "before": "“哈！\\n　<width:0E><space:0C>S-1<width:16><space:16>星人不足为惧！”",
+      "after": "“哈！\\n　S-1星人不足为惧！”"
+    },
+    {
+      "id": "battle:18057",
+      "group": "tags",
+      "before": "“绝不让地球变成第二个<width:0E><space:0C>S-1<width:16><space:16>星！”",
+      "after": "“绝不让地球变成第二个S-1星！”"
+    },
+    {
+      "id": "battle:18120",
+      "group": "tags",
+      "before": "“看吧！\\n　都怪你们把机体交给<width:0E><space:0C>S-1<width:16><space:16>星人！”",
+      "after": "“看吧！\\n　都怪你们把机体交给S-1星人！”"
+    },
+    {
+      "id": "battle:18121",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>S-1<width:16><space:16>星人！觉悟吧！”",
+      "after": "“S-1星人！觉悟吧！”"
+    },
+    {
+      "id": "battle:18127",
+      "group": "tags",
+      "before": "“别小看地球人，<width:0E><space:0C>S-1<width:16><space:16>星人！”",
+      "after": "“别小看地球人，S-1星人！”"
+    },
+    {
+      "id": "battle:18141",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>S-1<width:16><space:16>星人，\\n　由我来打垮！”",
+      "after": "“S-1星人，\\n　由我来打垮！”"
+    },
+    {
+      "id": "battle:18147",
+      "group": "tags",
+      "before": "“别小看蓝色修复者，\\n　<width:0E><space:0C>S-1<width:16><space:16>星人！”",
+      "after": "“别小看蓝色修复者，\\n　S-1星人！”"
+    },
+    {
+      "id": "battle:18152",
+      "group": "tags",
+      "before": "“该死的<width:0E><space:0C>S-1<width:16><space:16>星人！\\n　还真有两下子！”",
+      "after": "“该死的S-1星人！\\n　还真有两下子！”"
+    },
+    {
+      "id": "battle:18155",
+      "group": "tags",
+      "before": "“在、在这里被干掉的话，\\n　地球就会被<width:0E><space:0C>S-1<width:16><space:16>星人…！”",
+      "after": "“在、在这里被干掉的话，\\n　地球就会被S-1星人…！”"
+    },
+    {
+      "id": "battle:18458",
+      "group": "tags",
+      "before": "“哈哈，\\n　那样连<width:0E><space:0C>Hip Heavy<width:16><space:16>都不如！”",
+      "after": "“哈哈，\\n　那样连Hip Heavy都不如！”"
+    },
+    {
+      "id": "battle:18870",
+      "group": "tags",
+      "before": "“月光洲的<width:0E><space:0C>LFO<width:16><space:16>\\n　不是本舰的对手！”",
+      "after": "“月光洲的LFO\\n　不是本舰的对手！”"
+    },
+    {
+      "id": "battle:18934",
+      "group": "tags",
+      "before": "“那、那就是最初的<width:0E><space:0C>LFO<width:16><space:16>的力量……！？”",
+      "after": "“那、那就是最初的LFO的力量……！？”"
+    },
+    {
+      "id": "battle:19014",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Mk-II<width:16><space:16>……不错的猎物！”",
+      "after": "“Mk-II……不错的猎物！”"
+    },
+    {
+      "id": "battle:19204",
+      "group": "tags",
+      "before": "“舰体损伤度超过<width:0E><space:0C>40%<space:16><width:16>！”",
+      "after": "“舰体损伤度超过40%！”"
+    },
+    {
+      "id": "battle:19268",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>G-Bit<width:16><space:16>，拜托了！！”",
+      "after": "“G-Bit，拜托了！！”"
+    },
+    {
+      "id": "battle:19270",
+      "group": "tags",
+      "before": "“上吧！<width:0E><space:0C>G-Bit<width:16><space:16>！！”",
+      "after": "“上吧！G-Bit！！”"
+    },
+    {
+      "id": "battle:19332",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>THE HEAT<width:16><space:16>可不是浪得虚名！”",
+      "after": "“THE HEAT可不是浪得虚名！”"
+    },
+    {
+      "id": "battle:19461",
+      "group": "tags",
+      "before": "“见识到<width:0E><space:0C>THE HEAT<width:16><space:16>的活法了吧！”",
+      "after": "“见识到THE HEAT的活法了吧！”"
+    },
+    {
+      "id": "battle:19514",
+      "group": "tags",
+      "before": "“不对，是<width:0E><space:0C>MAGNA<width:16><space:16>模式！”",
+      "after": "“不对，是MAGNA模式！”"
+    },
+    {
+      "id": "battle:19516",
+      "group": "tags",
+      "before": "“上吧！<width:0E><space:0C>MAGNA<width:16><space:16>模式！！”",
+      "after": "“上吧！MAGNA模式！！”"
+    },
+    {
+      "id": "battle:19525",
+      "group": "tags",
+      "before": "“这一瞬间！\\n　我就是<width:0E><space:0C>THE CRUSHER<width:16><space:16>啊啊啊！！”",
+      "after": "“这一瞬间！\\n　我就是THE CRUSHER啊啊啊！！”"
+    },
+    {
+      "id": "battle:19531",
+      "group": "tags",
+      "before": "“我果然，\\n　是<width:0E><space:0C>THE CRUSHER<width:16><space:16>吧…”",
+      "after": "“我果然，\\n　是THE CRUSHER吧…”"
+    },
+    {
+      "id": "battle:19539",
+      "group": "tags",
+      "before": "“钢狮子！咱俩就是<width:0E><space:0C>THE HEAT<width:16><space:16>！”",
+      "after": "“钢狮子！咱俩就是THE HEAT！”"
+    },
+    {
+      "id": "battle:19563",
+      "group": "tags",
+      "before": "“达令！\\n　让我看看<width:0E><space:0C>THE HEAT<width:16><space:16>的样子！”",
+      "after": "“达令！\\n　让我看看THE HEAT的样子！”"
+    },
+    {
+      "id": "battle:19572",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>THE HEAT<width:16><space:16>，前来救场！”",
+      "after": "“THE HEAT，前来救场！”"
+    },
+    {
+      "id": "battle:19610",
+      "group": "tags",
+      "before": "“超棒，最棒，\\n　<width:0E><space:0C>THE HEAT<width:16><space:16>！……这样可以吗？”",
+      "after": "“超棒，最棒，\\n　THE HEAT！……这样可以吗？”"
+    },
+    {
+      "id": "battle:19676",
+      "group": "tags",
+      "before": "“切！\\n　到底谁才是<width:0E><space:0C>THE CRUSHER<width:16><space:16>啊！？”",
+      "after": "“切！\\n　到底谁才是THE CRUSHER啊！？”"
+    },
+    {
+      "id": "battle:19681",
+      "group": "tags",
+      "before": "“我是<width:0E><space:0C>THE HEAT<width:16><space:16>！\\n　想让我退缩还早着呢！”",
+      "after": "“我是THE HEAT！\\n　想让我退缩还早着呢！”"
+    },
+    {
+      "id": "battle:19710",
+      "group": "tags",
+      "before": "“我的达令，\\n　可是<width:0E><space:0C>THE HEAT<width:16><space:16>呢！”",
+      "after": "“我的达令，\\n　可是THE HEAT呢！”"
+    },
+    {
+      "id": "battle:20429",
+      "group": "tags",
+      "before": "“抛弃了<width:0E><space:0C>FAITH<width:16><space:16>的叛徒，\\n　竟敢！！！”",
+      "after": "“抛弃了FAITH的叛徒，\\n　竟敢！！！”"
+    },
+    {
+      "id": "battle:20496",
+      "group": "tags",
+      "before": "“地球和<width:0E><space:0C>PLANT<width:16><space:16>……\\n　相隔的距离还是太远了吗……！”",
+      "after": "“地球和PLANT……\\n　相隔的距离还是太远了吗……！”"
+    },
+    {
+      "id": "battle:20508",
+      "group": "tags",
+      "before": "“利用吉尔和<width:0E><space:0C>PLANT<width:16><space:16>…\\n　利用所有人的罪孽，给我以身偿还！”",
+      "after": "“利用吉尔和PLANT…\\n　利用所有人的罪孽，给我以身偿还！”"
+    },
+    {
+      "id": "battle:20532",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>THE HEAT<width:16><space:16>！\\n　让你见识真正狮子的力量！”",
+      "after": "“THE HEAT！\\n　让你见识真正狮子的力量！”"
+    },
+    {
+      "id": "battle:20658",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>THE HEAT<width:16><space:16>！我也热血地跟上！”",
+      "after": "“THE HEAT！我也热血地跟上！”"
+    },
+    {
+      "id": "battle:20663",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>THE HEAT<width:16><space:16>！\\n　再怎么说这也太乱来了！”",
+      "after": "“THE HEAT！\\n　再怎么说这也太乱来了！”"
+    },
+    {
+      "id": "battle:20828",
+      "group": "tags",
+      "before": "“I…！<width:0E><space:0C>CAN<width:16><space:16>…！”",
+      "after": "“I…！CAN…！”"
+    },
+    {
+      "id": "battle:20829",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>FLY<width:16><space:16>！！”",
+      "after": "“FLY！！”"
+    },
+    {
+      "id": "battle:21046",
+      "group": "tags",
+      "before": "“啧！那台<width:0E><space:0C>KLF<width:16><space:16>真缠人！”",
+      "after": "“啧！那台KLF真缠人！”"
+    },
+    {
+      "id": "battle:21243",
+      "group": "tags",
+      "before": "“很遗憾，\\n　那里已进入<width:0E><space:0C>BIG-O<width:16><space:16>的射程！”",
+      "after": "“很遗憾，\\n　那里已进入BIG-O的射程！”"
+    },
+    {
+      "id": "battle:21245",
+      "group": "tags",
+      "before": "“让你见识<width:0E><space:0C>BIG-O<width:16><space:16>的压箱底！”",
+      "after": "“让你见识BIG-O的压箱底！”"
+    },
+    {
+      "id": "battle:21249",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>！\\n　<width:0E><space:0C>Actiooon<width:16><space:16>！！”",
+      "after": "“BIG-O！\\n　Actiooon！！”"
+    },
+    {
+      "id": "battle:21253",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>，上吧！”",
+      "after": "“BIG-O，上吧！”"
+    },
+    {
+      "id": "battle:21255",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>！<width:0E><space:0C>Action<width:16><space:16>！！”",
+      "after": "“BIG-O！Action！！”"
+    },
+    {
+      "id": "battle:21262",
+      "group": "tags",
+      "before": "“被<width:0E><space:0C>BIG-O<width:16><space:16>的劫火包围吧！”",
+      "after": "“被BIG-O的劫火包围吧！”"
+    },
+    {
+      "id": "battle:21266",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>，我明白了！\\n　这里就听从你的<width:0E><space:0C>Action<width:16><space:16>！”",
+      "after": "“BIG-O，我明白了！\\n　这里就听从你的Action！”"
+    },
+    {
+      "id": "battle:21267",
+      "group": "tags",
+      "before": "“我今后也会与<width:0E><space:0C>BIG-O<width:16><space:16>并肩作战！\\n　用这份力量！！”",
+      "after": "“我今后也会与BIG-O并肩作战！\\n　用这份力量！！”"
+    },
+    {
+      "id": "battle:21268",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>！\\n　<width:0E><space:0C>Final Stage<width:16><space:16>—！！”",
+      "after": "“BIG-O！\\n　Final Stage—！！”"
+    },
+    {
+      "id": "battle:21272",
+      "group": "tags",
+      "before": "“这就是罗杰、我和<width:0E><space:0C>BIG-O<width:16><space:16>的力量。”",
+      "after": "“这就是罗杰、我和BIG-O的力量。”"
+    },
+    {
+      "id": "battle:21279",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>，\\n　没必要让那家伙继续为所欲为！”",
+      "after": "“BIG-O，\\n　没必要让那家伙继续为所欲为！”"
+    },
+    {
+      "id": "battle:21301",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>！就是这样！”",
+      "after": "“BIG-O！就是这样！”"
+    },
+    {
+      "id": "battle:21309",
+      "group": "tags",
+      "before": "“干得好，<width:0E><space:0C>BIG-O<width:16><space:16>。”",
+      "after": "“干得好，BIG-O。”"
+    },
+    {
+      "id": "battle:21312",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>绝不是迟钝的机体！”",
+      "after": "“BIG-O绝不是迟钝的机体！”"
+    },
+    {
+      "id": "battle:21315",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>的状态似乎不错。”",
+      "after": "“BIG-O的状态似乎不错。”"
+    },
+    {
+      "id": "battle:21317",
+      "group": "tags",
+      "before": "“看来你还不懂\\n　<width:0E><space:0C>BIG-O<width:16><space:16>的力量，贝克！”",
+      "after": "“看来你还不懂\\n　BIG-O的力量，贝克！”"
+    },
+    {
+      "id": "battle:21326",
+      "group": "tags",
+      "before": "“就算是第三台<width:0E><space:0C>The Big<width:16><space:16>，\\n　也不是<width:0E><space:0C>BIG-O<width:16><space:16>的对手！”",
+      "after": "“就算是第三台The Big，\\n　也不是BIG-O的对手！”"
+    },
+    {
+      "id": "battle:21329",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>……\\n　知道刚才的攻击？”",
+      "after": "“BIG-O……\\n　知道刚才的攻击？”"
+    },
+    {
+      "id": "battle:21330",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>里的东西有反应了…？”",
+      "after": "“BIG-O里的东西有反应了…？”"
+    },
+    {
+      "id": "battle:21331",
+      "group": "tags",
+      "before": "“吃惊了吗？\\n　<width:0E><space:0C>BIG-O<width:16><space:16>还有这种装备。”",
+      "after": "“吃惊了吗？\\n　BIG-O还有这种装备。”"
+    },
+    {
+      "id": "battle:21333",
+      "group": "tags",
+      "before": "“看来没伤到\\n　<width:0E><space:0C>BIG-O<width:16><space:16>。”",
+      "after": "“看来没伤到\\n　BIG-O。”"
+    },
+    {
+      "id": "battle:21336",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>的手臂不是盾牌。”",
+      "after": "“BIG-O的手臂不是盾牌。”"
+    },
+    {
+      "id": "battle:21340",
+      "group": "tags",
+      "before": "“别小看<width:0E><space:0C>BIG-O<width:16><space:16>的装甲！”",
+      "after": "“别小看BIG-O的装甲！”"
+    },
+    {
+      "id": "battle:21341",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>可不会这么轻易倒下！”",
+      "after": "“BIG-O可不会这么轻易倒下！”"
+    },
+    {
+      "id": "battle:21348",
+      "group": "tags",
+      "before": "“不愧是<width:0E><space:0C>BIG-O<width:16><space:16>。\\n　那么，继续吧！”",
+      "after": "“不愧是BIG-O。\\n　那么，继续吧！”"
+    },
+    {
+      "id": "battle:21371",
+      "group": "tags",
+      "before": "“这、这就是\\n　那台红色<width:0E><space:0C>Big<width:16><space:16>的力量吗……！”",
+      "after": "“这、这就是\\n　那台红色Big的力量吗……！”"
+    },
+    {
+      "id": "battle:21374",
+      "group": "tags",
+      "before": "“我……以及<width:0E><space:0C>BIG-O<width:16><space:16>，\\n　不会成为你所期望的那种力量！”",
+      "after": "“我……以及BIG-O，\\n　不会成为你所期望的那种力量！”"
+    },
+    {
+      "id": "battle:21380",
+      "group": "tags",
+      "before": "“发生了什么……？\\n　能动吗，<width:0E><space:0C>BIG-O<width:16><space:16>！？”",
+      "after": "“发生了什么……？\\n　能动吗，BIG-O！？”"
+    },
+    {
+      "id": "battle:21392",
+      "group": "tags",
+      "before": "“唔！<width:0E><space:0C>BIG-O<width:16><space:16>竟然会被打倒！”",
+      "after": "“唔！BIG-O竟然会被打倒！”"
+    },
+    {
+      "id": "battle:21402",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BIG-O<width:16><space:16>！全力出击！”",
+      "after": "“BIG-O！全力出击！”"
+    },
+    {
+      "id": "battle:21410",
+      "group": "tags",
+      "before": "“你绝不可能是<width:0E><space:0C>BIG-O<width:16><space:16>的\\n　同伴！”",
+      "after": "“你绝不可能是BIG-O的\\n　同伴！”"
+    },
+    {
+      "id": "battle:21411",
+      "group": "tags",
+      "before": "“不管你是谁，\\n　都不是我和<width:0E><space:0C>BIG-O<width:16><space:16>的对手！”",
+      "after": "“不管你是谁，\\n　都不是我和BIG-O的对手！”"
+    },
+    {
+      "id": "battle:21438",
+      "group": "tags",
+      "before": "“过去的因缘无关紧要！\\n　你是我和<width:0E><space:0C>BIG-O<width:16><space:16>的敌人！”",
+      "after": "“过去的因缘无关紧要！\\n　你是我和BIG-O的敌人！”"
+    },
+    {
+      "id": "battle:21752",
+      "group": "tags",
+      "before": "“要是<width:0E><space:0C>Turn Type<width:16><space:16>的MS打起来，\\n　人类说不定会灭亡啊！”",
+      "after": "“要是Turn Type的MS打起来，\\n　人类说不定会灭亡啊！”"
+    },
+    {
+      "id": "battle:21905",
+      "group": "tags",
+      "before": "“喂，你哪里<width:0E><space:0C>Over<width:16><space:16>了！？”",
+      "after": "“喂，你哪里Over了！？”"
+    },
+    {
+      "id": "battle:21955",
+      "group": "tags",
+      "before": "“O、<width:0E><space:0C>Over<width:16><space:16>！\\n　那家伙简直是<width:0E><space:0C>Over<width:16><space:16>！！”",
+      "after": "“O、Over！\\n　那家伙简直是Over！！”"
+    },
+    {
+      "id": "battle:21956",
+      "group": "tags",
+      "before": "“唔唔！被<width:0E><space:0C>Over<width:16><space:16>干掉了！！”",
+      "after": "“唔唔！被Over干掉了！！”"
+    },
+    {
+      "id": "battle:22508",
+      "group": "tags",
+      "before": "“讨厌女人，\\n　就等于浪费了人生的<width:0E><space:0C>99%<space:16><width:16>！”",
+      "after": "“讨厌女人，\\n　就等于浪费了人生的99%！”"
+    },
+    {
+      "id": "battle:22693",
+      "group": "tags",
+      "before": "“圆盘兽？跟<width:0E><space:0C>TFO<width:16><space:16>没什么两样！”",
+      "after": "“圆盘兽？跟TFO没什么两样！”"
+    },
+    {
+      "id": "battle:22862",
+      "group": "tags",
+      "before": "“能量回路，直连<width:0E><space:0C>MCR<width:16><space:16>回路！”",
+      "after": "“能量回路，直连MCR回路！”"
+    },
+    {
+      "id": "battle:22863",
+      "group": "tags",
+      "before": "“同步加速器密度<width:0E><space:0C>8.75<width:16><space:16>！”",
+      "after": "“同步加速器密度8.75！”"
+    },
+    {
+      "id": "battle:23421",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>BLAZE UP<width:16><space:16>！！！”",
+      "after": "“BLAZE UP！！！”"
+    },
+    {
+      "id": "battle:23459",
+      "group": "tags",
+      "before": "“明白！烈阳超重钻炎爆！\\n　<width:0E><space:0C>FLAME UP<width:16><space:16>！！”",
+      "after": "“明白！烈阳超重钻炎爆！\\n　FLAME UP！！”"
+    },
+    {
+      "id": "battle:23461",
+      "group": "tags",
+      "before": "“烈阳超重钻炎爆——！\\n　<width:0E><space:0C>FLAME UP<width:16><space:16>！！”",
+      "after": "“烈阳超重钻炎爆——！\\n　FLAME UP！！”"
+    },
+    {
+      "id": "battle:23639",
+      "group": "tags",
+      "before": "“可不是白叫<width:0E><space:0C>Sol<width:16><space:16>的！\\n　<width:0E><space:0C>Sol<width:16><space:16>啊！！”",
+      "after": "“可不是白叫Sol的！\\n　Sol啊！！”"
+    },
+    {
+      "id": "battle:23670",
+      "group": "tags",
+      "before": "“和大家一起的话，\\n　就算对手是<width:0E><space:0C>Genocideron<width:16><space:16>！”",
+      "after": "“和大家一起的话，\\n　就算对手是Genocideron！”"
+    },
+    {
+      "id": "battle:23719",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>Blaze Up<width:16><space:16>！”",
+      "after": "“Blaze Up！”"
+    },
+    {
+      "id": "battle:23910",
+      "group": "tags",
+      "before": "“比<width:0E><space:0C>KLF<width:16><space:16>大，但动作迟钝！\\n　打下来！”",
+      "after": "“比KLF大，但动作迟钝！\\n　打下来！”"
+    },
+    {
+      "id": "battle:23936",
+      "group": "tags",
+      "before": "“怎么可能追上<width:0E><space:0C>KLF<width:16><space:16>！”",
+      "after": "“怎么可能追上KLF！”"
+    },
+    {
+      "id": "battle:23945",
+      "group": "tags",
+      "before": "“呃！居然紧追<width:0E><space:0C>KLF<width:16><space:16>不放……！”",
+      "after": "“呃！居然紧追KLF不放……！”"
+    },
+    {
+      "id": "battle:23948",
+      "group": "tags",
+      "before": "“就凭那也想击落<width:0E><space:0C>KLF<width:16><space:16>吗！”",
+      "after": "“就凭那也想击落KLF吗！”"
+    },
+    {
+      "id": "battle:24418",
+      "group": "tags",
+      "before": "“让你见识<width:0E><space:0C>0.01<width:16><space:16>秒的世界！”",
+      "after": "“让你见识0.01秒的世界！”"
+    },
+    {
+      "id": "battle:24509",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>OPEN GET<width:16><space:16>！！”",
+      "after": "“OPEN GET！！”"
+    },
+    {
+      "id": "battle:24510",
+      "group": "tags",
+      "before": "“切换——盖塔波塞冬！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+      "after": "“切换——盖塔波塞冬！！\\n　SWITCH　ON！！”"
+    },
+    {
+      "id": "battle:24514",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>OPEN GET<width:16><space:16>！！！”",
+      "after": "“OPEN GET！！！”"
+    },
+    {
+      "id": "battle:24515",
+      "group": "tags",
+      "before": "“切换·盖塔狮虎！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！！”",
+      "after": "“切换·盖塔狮虎！！\\n　SWITCH　ON！！”"
+    },
+    {
+      "id": "battle:24719",
+      "group": "tags",
+      "before": "“了解！\\n　能量，<width:0E><space:0C>10%<space:16><width:16>…<width:0E><space:0C>20%<space:16><width:16>…”",
+      "after": "“了解！\\n　能量，10%…20%…”"
+    },
+    {
+      "id": "battle:24846",
+      "group": "tags",
+      "before": "“机械邦多克！距离，前方<width:0E><space:0C>2000<width:16><space:16>！”",
+      "after": "“机械邦多克！距离，前方2000！”"
+    },
+    {
+      "id": "battle:24852",
+      "group": "tags",
+      "before": "“使用比亚路<width:0E><space:0C>III<width:16><space:16>世的热线炮！”",
+      "after": "“使用比亚路III世的热线炮！”"
+    },
+    {
+      "id": "battle:24960",
+      "group": "tags",
+      "before": "“切——换·盖塔龙！！\\n　<width:0E><space:0C>SWITCH　ON<width:16><space:16>！”",
+      "after": "“切——换·盖塔龙！！\\n　SWITCH　ON！”"
+    },
+    {
+      "id": "battle:25160",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>OPEN GET<width:16><space:16>！”",
+      "after": "“OPEN GET！”"
+    },
+    {
+      "id": "battle:25314",
+      "group": "tags",
+      "before": "“<width:0E><space:0C>PSG<width:16><space:16>加农炮，发射！”",
+      "after": "“PSG加农炮，发射！”"
+    },
+    {
+      "id": "battle:25466",
+      "group": "tags",
+      "before": "“果然，\\n　必须从<width:0E><space:0C>PLANT<width:16><space:16>根除…！”",
+      "after": "“果然，\\n　必须从PLANT根除…！”"
+    },
+    {
+      "id": "battle:25699",
+      "group": "tags",
+      "before": "“什、什么！？损伤率<width:0E><space:0C>70%<space:16><width:16>！？”",
+      "after": "“什、什么！？损伤率70%！？”"
+    }
+  ],
+  "skipped": [],
+  "tagged_lines_with_online_suggestions": [
+    "battle:02221",
+    "battle:04727",
+    "battle:05590",
+    "battle:09162",
+    "battle:09191",
+    "battle:09223",
+    "battle:16181",
+    "battle:16191",
+    "battle:16264",
+    "battle:16322",
+    "battle:16717",
+    "battle:18152",
+    "battle:19525",
+    "battle:19572",
+    "battle:19610",
+    "battle:20828",
+    "battle:20829",
+    "battle:21243",
+    "battle:23421",
+    "battle:23459",
+    "battle:23461",
+    "battle:24510",
+    "battle:24515"
+  ]
+}

@@ -54,6 +54,14 @@ class PolishFeedbackPilotTest(unittest.TestCase):
             for target in decision["targets"]
         }
         actual = load_corpus_targets(PROJECT_ROOT, expected)
+        # Keep the pilot's historical decision intact. The later authorized
+        # honorific pass removes 君 without changing that decision's meaning.
+        receipt = json.loads((PROJECT_ROOT / "config/editorial/story-honorific-merged-writeback-20261109.json").read_text(encoding="utf-8"))
+        honorific = next(row for row in receipt["changes"]
+                         if row["corpus_id"] == "story/095/dialogue/01.08/0014")
+        self.assertEqual(honorific["before"], expected[honorific["corpus_id"]]["expected_translation"])
+        self.assertEqual(honorific["after"], "“住手，胜平！”")
+        self.assertEqual(honorific["source_text_sha256"], expected[honorific["corpus_id"]]["expected_source_text_sha256"])
 
         self.assertEqual(set(actual), set(expected))
         for target_id, target in expected.items():
@@ -63,7 +71,7 @@ class PolishFeedbackPilotTest(unittest.TestCase):
             )
             self.assertEqual(
                 actual[target_id]["translation"],
-                target["expected_translation"],
+                honorific["after"] if target_id == honorific["corpus_id"] else target["expected_translation"],
             )
 
     def test_seed_rejects_any_automatic_promotion_permission(self) -> None:
