@@ -19,7 +19,7 @@ from build_release import EDITIONS_BY_SCHEMA, RELEASE_CONFIG_SCHEMA
 from srwz.current_iso import verify_skip
 from srwz.edition import json_bytes
 from srwz.release_inputs import copy_file, sha256_file
-from verify_editions import verify_batch
+from verify_editions import sprite_input, verify_batch
 
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE_EDITIONS = EDITIONS_BY_SCHEMA[RELEASE_CONFIG_SCHEMA]
@@ -99,6 +99,16 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
         if result.get('typography'):
             from srwz.release_typography import freeze_typography
             validation.setdefault('typography', {})[edition] = freeze_typography(ROOT, inputs, result, evidence, lock)
+        if sprite := result.get('gunleon_sprite'):
+            from srwz.gunleon_sprite import animation_slot
+            source = sprite_input(ROOT, result)
+            _, original_slot = animation_slot(source, edition)
+            slot_path = target.with_suffix('.pre-gunleon.twp')
+            slot_path.write_bytes(original_slot)
+            validation.setdefault('gunleon_sprite', {})[edition] = {
+                'input': {'size': source.stat().st_size, 'sha256': sha256_file(source)},
+                'verification': sprite, 'original_slot': lock(slot_path),
+            }
         hook = verify_skip(target, inputs, edition)
         skip_proof = {'schema_version': 1, 'status': 'built_in_skip_hook_readback_passed', 'edition': edition,
                       'iso': target_lock, 'skip_enabled': True, 'battle_square_skip': hook, 'runtime': 'not_tested'}

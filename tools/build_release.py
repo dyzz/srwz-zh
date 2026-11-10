@@ -11,6 +11,7 @@ without skip; schema 1 preserves the single-patch ZIP format.
 from __future__ import annotations
 
 import argparse
+from contextlib import ExitStack
 import json
 import shutil
 import subprocess
@@ -467,19 +468,27 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
         expected = {"original": "full_story_final_iso_static_content_readback_passed",
                     "best": "best_final_iso_static_content_readback_passed",
                     "sp": "all_bound_text_reread_from_final_iso_runtime_pending"}[edition]
-        from contextlib import nullcontext
-        typography = validation.get('typography', {}).get(edition)
-        if typography:
-            from srwz.release_typography import verified_typography_input
-            if (typography['verification']['output_sha256'] != item['target_iso']['sha256'] or
-                    typography['verification']['size'] != item['target_iso']['size']):
-                raise ReleaseBuildError(f'{edition}: typography output binding mismatch')
-            context = verified_typography_input(PROJECT_ROOT, project_path(item['target_iso']['path']), edition, typography)
-        else:
-            context = nullcontext(project_path(item['target_iso']['path']))
-        with context as pre_typography:
+        with ExitStack() as contexts:
+            pre_typography = project_path(item['target_iso']['path'])
+            bound = item['target_iso']
+            if sprite := validation.get('gunleon_sprite', {}).get(edition):
+                from srwz.gunleon_sprite import verified_sprite_input
+                from srwz.release_typography import checked
+                if sprite['verification']['verification']['after_sha256'] != bound['sha256']:
+                    raise ReleaseBuildError(f'{edition}: Gunleon output binding mismatch')
+                original_slot = checked(PROJECT_ROOT, sprite['original_slot'])
+                pre_typography = contexts.enter_context(
+                    verified_sprite_input(PROJECT_ROOT, pre_typography, edition, sprite, original_slot))
+                bound = sprite['input']
+            if typography := validation.get('typography', {}).get(edition):
+                from srwz.release_typography import verified_typography_input
+                if (typography['verification']['output_sha256'] != bound['sha256'] or
+                        typography['verification']['size'] != bound['size']):
+                    raise ReleaseBuildError(f'{edition}: typography output binding mismatch')
+                pre_typography = contexts.enter_context(
+                    verified_typography_input(PROJECT_ROOT, pre_typography, edition, typography))
+                bound = typography['input']
             captions = validation.get("event_subtitles", {}).get(edition)
-            bound = typography['input'] if typography else item['target_iso']
             if captions is not None:
                 if any(captions["iso"][key] != bound[key] for key in ("size", "sha256")):
                     raise ReleaseBuildError(f"{edition}: caption receipt is not bound to the target")

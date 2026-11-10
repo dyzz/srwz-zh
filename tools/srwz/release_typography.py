@@ -6,6 +6,7 @@ import tempfile
 from .iso9660 import member_map, scan_iso9660
 from .release_inputs import copy_file
 from .typography_iso import verify_iso
+from .ui_battle_select import CONFIG as BATTLE_SELECT, SP_CONFIG as SP_BATTLE_SELECT
 
 
 def checked(root, lock):
@@ -30,8 +31,17 @@ def freeze_typography(root, inputs, result, evidence, lock):
     elf.write_bytes(raw)
     metrics = evidence / 'proportional-metrics.mjs'
     metrics.write_bytes((inputs / 'shared/text-layout/proportional-metrics.mjs').read_bytes())
-    return {'input': typography['input'], 'verification': proof,
-            'original_elf': lock(elf), 'metrics': lock(metrics)}
+    frozen = {'input': typography['input'], 'verification': proof,
+              'original_elf': lock(elf), 'metrics': lock(metrics)}
+    if titles := proof['payload'].get('battle_select_titles'):
+        path = SP_BATTLE_SELECT if result['edition_id'] == 'sp' else BATTLE_SELECT
+        raw = (inputs / path).read_bytes()
+        if hashlib.sha256(raw).hexdigest() != titles['config_sha256']:
+            raise ValueError('release battle SELECT title contract drift')
+        contract = evidence / f"{result['edition_id']}-battle-select.json"
+        contract.write_bytes(raw)
+        frozen['battle_select'] = lock(contract)
+    return frozen
 
 
 @contextmanager
@@ -44,6 +54,7 @@ def verified_typography_input(root, target, edition, typography):
         raise ValueError('release typography input binding mismatch')
     raw = checked(root, typography['original_elf'])
     metrics = checked(root, typography['metrics'])
+    titles = proof.get('payload', {}).get('battle_select_titles')
     temporary_root = root / 'build/iso/.tmp'
     temporary_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='release-typography-', dir=temporary_root) as directory:
@@ -51,6 +62,13 @@ def verified_typography_input(root, target, edition, typography):
         registry = temporary / 'shared/text-layout/proportional-metrics.mjs'
         registry.parent.mkdir(parents=True)
         registry.write_bytes(metrics)
+        if titles:
+            contract = checked(root, typography['battle_select'])
+            if hashlib.sha256(contract).hexdigest() != titles['config_sha256']:
+                raise ValueError('release battle SELECT title contract drift')
+            config_path = temporary / (SP_BATTLE_SELECT if edition == 'sp' else BATTLE_SELECT)
+            config_path.parent.mkdir(parents=True)
+            config_path.write_bytes(contract)
         source = temporary / 'pre-typography.iso'
         copy_file(target, source)
         member = member_map(scan_iso9660(source))[proof['member']]

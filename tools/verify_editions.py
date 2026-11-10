@@ -18,6 +18,16 @@ from srwz.current_iso import verify_skip
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
+def sprite_input(root: Path, result: dict) -> Path:
+    workspace = project_path(root, result["workspace"], "build/editions")
+    typography = result.get("typography")
+    if typography:
+        source = project_path(workspace, typography["input"]["path"], "build/iso")
+        return source.with_name(source.stem + "-proportional.iso")
+    subtitles = result.get("event_subtitles")
+    return project_path(workspace, (subtitles["iso"] if subtitles else result["base_output"])["path"], "build/iso")
+
+
 def verify_batch(root: Path, manifest: Path) -> dict:
     root = root.resolve()
     batch = load_json(manifest)
@@ -73,20 +83,27 @@ def verify_batch(root: Path, manifest: Path) -> dict:
         proportional = load_policy(source_path.parent / 'project')['mode'] == 'proportional'
         if bool(typography) != proportional:
             raise EditionError('Typography policy and installed renderer receipt disagree')
-        before_typography = output
+        rendered = output
+        rendered_sha256 = result["output"]["sha256"]
+        if sprite := result.get("gunleon_sprite"):
+            from srwz.gunleon_sprite import verify_fixed_iso
+            rendered = sprite_input(root, result)
+            verify_fixed_iso(rendered, output, profile.edition_id, sprite)
+            rendered_sha256 = sha256_file(rendered)
+        before_typography = rendered
         if typography:
             before_typography = project_path(context.project_root, typography['input']['path'], 'build/iso')
             checked = verify_typography_iso(source_path.parent / 'project', profile.edition_id,
-                                            before_typography, output, typography['verification'])
+                                            before_typography, rendered, typography['verification'])
             if (checked['source_sha256'] != typography['input']['sha256']
-                    or checked['output_sha256'] != result['output']['sha256']
+                    or checked['output_sha256'] != rendered_sha256
                     or checked['size'] != typography['input']['size']):
                 raise EditionError('Typography input/output binding mismatch')
         subtitles = result.get("event_subtitles")
         if "base_output" in result and profile.edition_id != "sp":
             from event_subtitles.apply import verify_subtitled_iso
             if (not subtitles or subtitles["base_iso"]["sha256"] != bound["sha256"]
-                    or subtitles["iso"]["sha256"] != (typography["input"]["sha256"] if typography else result["output"]["sha256"])
+                    or subtitles["iso"]["sha256"] != (typography["input"]["sha256"] if typography else rendered_sha256)
                     or subtitles["iso"]["size"] != result["output"]["size"]):
                 raise EditionError("event subtitle receipt does not bind base and published images")
             verify_subtitled_iso(before_typography, subtitles, source_path.parent / "project")
