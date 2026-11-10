@@ -7,6 +7,8 @@ const key=ch=>{
  return n<128||(n>=0x4e00&&n<=0x9fff)?c:c.normalize('NFKC');
 };
 const alnum=ch=>/^[A-Za-z0-9]$/.test(key(ch));
+/** Blank-glyph indent of dialogue continuation rows, as wide as the compact opening quote. */
+export const continuationIndentMetric=scene=>proportionalMetrics.profiles[scene]?.continuationIndent??null;
 export function proportionalMetric(text,at,scene,options={},state=null){
  const profile=proportionalMetrics.profiles[scene];
  if(!profile)throw new Error(`Missing proportional profile: ${scene}`);

@@ -81,9 +81,17 @@ def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_p
                 issues[identity]=(f'JS {response["error"]["message"]}',)
                 continue
             measured=response['result'];limit=462 if scene=='battle'else 483;maximum=2 if scene=='battle'else 3
-            if len(measured['rows'])>maximum or any(r['occupiedPx']>limit for r in measured['rows']):
+            if len(measured['rows'])>maximum or any(r['occupiedPx']>limit and not (scene=='battle' and battle_trailing_hangs(r,limit)) for r in measured['rows']):
                 issues[identity]=(f'shared JS {scene} geometry exceeds {maximum} rows / {limit}px',)
     return issues
+
+# Battle subtitles clip at screen X=640. Measured per trailing glyph on Metal 4x, then 2px of margin.
+BATTLE_TRAILING_ALLOWANCE_PX = {'？':20,'》':20,'：':21,'】':21,'”':22,'）':22,'。':23,'、':24,'，':26,'；':26,'！':27}
+
+def battle_trailing_hangs(row,limit):
+    glyphs=[g for g in row['glyphs'] if g['text'] not in (' ','　')]
+    allowance=BATTLE_TRAILING_ALLOWANCE_PX.get(glyphs[-1]['text']) if glyphs else None
+    return allowance is not None and row['advancePx']<=limit+allowance
 
 def verify_stored(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None):
     rows=list(rows)

@@ -1,6 +1,7 @@
 export type SceneId = 'story' | 'battle' | 'main_flow' | 'sp_flow' | 'main_scroll' | 'sp_scroll' | 'main_scroll_strip' | 'library_character' | 'library_robot' | 'library_glossary';
 export interface LayoutOptions {
   chinesePunctuation?: 'native' | 'compact';
+  continuationIndent?: 'fullwidth' | 'opener';
   typography?: 'native' | 'proportional';
   preserveLineCount?: boolean;
   escapedNewlines?: boolean;

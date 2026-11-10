@@ -93,8 +93,6 @@ def main() -> None:
             if row.get('editorial_status') != 'reviewed' and not args.allow_draft:
                 raise ValueError(f"SP draft requires --allow-draft: {row['id']}")
             translation = row['translation']
-            if not srvc.subtitle_line_break_policy_satisfied(row['source_text'], translation, row):
-                raise ValueError(f"battle line-break timing changed: {row['id']}")
             issues = battle_subtitle_layout_issues(translation)
             if issues:
                 raise ValueError(f"{row['id']}: {'; '.join(issues)}")

@@ -49,6 +49,9 @@ def load_codebook(path: Path = CODEBOOK_PATH) -> dict[int, str]:
     for key in ("assignments", "surface_alias_assignments", "source_compatibility_assignments"):
         for entry in data.get(key, []):
             table.setdefault(int(entry["code"], 16), entry["character"])
+    # Dialogue continuation rows start with this blank glyph instead of 0x8140.
+    from .continuation_indent import CODE as continuation_indent_code
+    table.setdefault(continuation_indent_code, "\u3000")
     return table
 
 

@@ -27,13 +27,33 @@ CJK_NATIVE['battle']=(22,11)
 CJK_NATIVE['keyword_list']=(18,12)
 # Main-game combat weapon lists are 20x9; SP Battle Viewer uses 16x9.
 CJK_NATIVE['weapon_main']=(20,9)
+# Punctuation that keeps its native full-width advance in a scene. Battle subtitles open
+# every line with “ and indent the continuation row by one full-width space, so a
+# compact opening quote would leave row 2 five pixels to the right of row 1.
+CJK_FULL_WIDTH={'battle':'“'}
+# Scenes whose continuation rows indent by continuation_indent.CODE instead of a
+# full-width space. Story dialogue shares its 21px metrics with the library scenes, and
+# the native measure path picks a table by width alone, so all of them carry the record.
+CONTINUATION_INDENT_WIDTH=21
 
-def punctuation_codes(chars='-./'):
+# 76 native alphanumeric slots, one contextual space and four punctuation slots.
+# Keep slash last: the selector uses that record for spaced A / B expressions.
+METRIC_SLOTS = 81
+METRIC_BYTES = METRIC_SLOTS * 4
+
+def punctuation_codes(chars="-.'/"):
     root=Path(__file__).resolve().parents[2]
     manifest=json.loads((root/'manifests/zh-release-font-validation.json').read_text())
     proposal=json.loads((root/manifest['proposal']['path']).read_text())
     codes={row['character']:int(row['code'],16) for row in proposal['assignments']+proposal.get('surface_alias_assignments',[])}
     return {ch:codes[ch] for ch in chars}
+
+def punctuation_glyph_index(code):
+    """Assignments include extended codes such as apostrophe E6C3."""
+    root=Path(__file__).resolve().parents[2]
+    manifest=json.loads((root/'manifests/zh-release-font-validation.json').read_text())
+    proposal=json.loads((root/manifest['proposal']['path']).read_text())
+    return next(row['glyph_index'] for row in proposal['assignments']+proposal.get('surface_alias_assignments',[]) if int(row['code'],16)==code)
 
 def contextual_slots():
     return [(0x8140,304)]+[(code,308+4*i) for i,code in enumerate(punctuation_codes().values())]
@@ -57,13 +77,13 @@ def build_registry(font):
                             x1=max(x for x,y in points), y0=min(y for x,y in points),
                             y1=max(y for x,y in points))
     for char,code in punctuation_codes().items():
-        pixels=decode_glyph(font,standard_glyph_index(code))
+        pixels=decode_glyph(font,punctuation_glyph_index(code))
         points=[(i%24,i//24) for i,value in enumerate(pixels) if value>=4]
         if not points:raise ValueError(f'Empty punctuation glyph {code:04x}')
         bounds[char]=dict(code=code,x0=min(x for x,y in points),x1=max(x for x,y in points),y0=min(y for x,y in points),y1=max(y for x,y in points))
     cjk_bounds={}
     for char,code in punctuation_codes(CJK_PUNCTUATION).items():
-        pixels=decode_glyph(font,standard_glyph_index(code))
+        pixels=decode_glyph(font,punctuation_glyph_index(code))
         pts=[(i%24,i//24) for i,v in enumerate(pixels) if v>=4]
         if not pts:raise ValueError(f'Empty CJK punctuation {code:04x}')
         cjk_bounds[char]=dict(code=code,x0=min(x for x,y in pts),x1=max(x for x,y in pts),y0=min(y for x,y in pts),y1=max(y for x,y in pts))
@@ -81,17 +101,23 @@ def build_registry(font):
             width=width, bearing=0, advance=max(4, round(width/3)), height=digit))
         native_width,native_height=CJK_NATIVE[name];compact={}
         for char,b in cjk_bounds.items():
+            if char in CJK_FULL_WIDTH.get(name,''):continue
             ink_width=math.ceil((b['x1']-b['x0']+1)*native_width/24)
             advance=max(math.ceil(native_width*0.75),ink_width+4)
             desired=(advance-ink_width-2 if char in '“‘（《【' else (advance-ink_width)//2 if char in '：' else 2)
             bearing=max(0,round(b['x0']*native_width/24)-desired)
             compact[char]=dict(code=b['code'],width=native_width,height=native_height,bearing=bearing,advance=advance)
         profiles[name]['cjkPunctuation']=compact
-    return dict(schemaVersion=6,cjkBounds=cjk_bounds, fontSha256=hashlib.sha256(font).hexdigest(),
+        if native_width==CONTINUATION_INDENT_WIDTH and '“' in compact:
+            from .continuation_indent import CODE,OPENERS
+            if {compact[char]['advance'] for char in OPENERS}!={compact['“']['advance']}:
+                raise ValueError('Compact opening punctuation no longer shares one advance')
+            profiles[name]['continuationIndent']=dict(code=CODE,width=native_width,height=native_height,bearing=0,advance=compact['“']['advance'],openers=OPENERS)
+    return dict(schemaVersion=7,cjkBounds=cjk_bounds, fontSha256=hashlib.sha256(font).hexdigest(),
                 inkThreshold=4, bounds=bounds, profiles=profiles)
 
 def runtime_table(profile, *, include_residuals=False):
-    """62 enabled alnums in 76 slots, followed by contextual space slot.
+    """62 enabled alnums in 76 slots, then space and punctuation records.
 
     Bytes per record: bearing, advance, height, signed-y-offset/enable.
     Bit 0 enables the record; bits 1..7 hold a signed seven-bit Y offset. The draw consumer
@@ -101,7 +127,7 @@ def runtime_table(profile, *, include_residuals=False):
         y=metric.get('yOffset',0)
         if not -64<=y<=63:raise ValueError('Y offset outside signed seven-bit range')
         return ((y&127)<<1)|1
-    table = bytearray(80 * 4)
+    table = bytearray(METRIC_BYTES)
     for metric in profile['glyphs'].values():
         at = (metric['code'] - 0x824f) * 4
         table[at:at+4] = bytes((metric['bearing'], metric['advance'], metric['height'], flags(metric)))
@@ -110,7 +136,7 @@ def runtime_table(profile, *, include_residuals=False):
     for i,metric in enumerate(profile['punctuation'].values()):
         table[308+i*4:312+i*4]=bytes((metric['bearing'],metric['advance'],metric['height'],flags(metric)))
     if include_residuals:
-        residuals=bytearray(80)
+        residuals=bytearray(METRIC_SLOTS)
         for m in profile['glyphs'].values():residuals[m['code']-0x824f]=m.get('baselineResidual16',0)&255
         for i,m in enumerate(profile['punctuation'].values()):residuals[77+i]=m.get('baselineResidual16',0)&255
         table.extend(residuals)

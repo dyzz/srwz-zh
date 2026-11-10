@@ -26,6 +26,8 @@ try:
     from srwz.codec import decode_production as decode, encode, reencode_changed_suffix
     from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
+    from srwz import continuation_indent
+    from srwz.typography_policy import candidate_enabled as compact_typography_enabled
     from srwz.build_layout import PROSE_HANGING_PX, verify_stored as verify_js_stored, verify_prose as verify_js_prose
     from srwz.chinese_layout import load_layout_profiles
     from srwz.diagnostics import require_work_output
@@ -157,7 +159,6 @@ try:
     )
     from srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from srwz.srvc import (
-        subtitle_line_break_policy_satisfied,
         parse_srvc_archive,
         parse_srvc_archive_with_layout,
         rebuild_srvc_archive,
@@ -237,6 +238,8 @@ except ModuleNotFoundError:
     )
     from tools.srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from tools.srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
+    from tools.srwz import continuation_indent
+    from tools.srwz.typography_policy import candidate_enabled as compact_typography_enabled
     from tools.srwz.build_layout import PROSE_HANGING_PX, verify_stored as verify_js_stored, verify_prose as verify_js_prose
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.display_names import (
@@ -367,7 +370,6 @@ except ModuleNotFoundError:
     )
     from tools.srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from tools.srwz.srvc import (
-        subtitle_line_break_policy_satisfied,
         parse_srvc_archive,
         parse_srvc_archive_with_layout,
         rebuild_srvc_archive,
@@ -4541,9 +4543,14 @@ def _apply_stage_system_dialogues(
             raise FullStoryComponentError(
                 f"stage system dialogue source drift: {entry_id!r}"
             )
+        stored_translation = expand_compact_scopes(
+            normalize_original_fullwidth_ascii(translation)
+        )
+        if compact_typography_enabled():
+            stored_translation = continuation_indent.store(stored_translation)
         replacements[entry_id] = (
             normalize_original_fullwidth_ascii(speaker),
-            expand_compact_scopes(normalize_original_fullwidth_ascii(translation)),
+            stored_translation,
         )
         selected_pointer_offsets.append(source.pointer_offset)
     inventory_pointer_offsets = [
@@ -4570,6 +4577,16 @@ def _apply_stage_system_dialogues(
         font_manifest
     )
     encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    if compact_typography_enabled():
+        if (
+            continuation_indent.CHARACTER in encoding_overrides
+            or continuation_indent.CODE in encoding_overrides.values()
+            or continuation_indent.CODE in table.characters
+        ):
+            raise FullStoryComponentError(
+                "continuation-indent code is already assigned"
+            )
+        encoding_overrides[continuation_indent.CHARACTER] = continuation_indent.CODE
     try:
         write = replace_stage_system_dialogues_in_place(
             current_decoded.output,
@@ -7194,10 +7211,6 @@ def _apply_srvc_battle_text(
             if isinstance(entry, dict)
             else None
         )
-        line_break_policy_satisfied = (
-            isinstance(entry, dict) and isinstance(translation, str)
-            and subtitle_line_break_policy_satisfied(source_text, translation, entry)
-        )
         if (
             not isinstance(entry, dict)
             or entry.get("id") != entry_id
@@ -7211,7 +7224,6 @@ def _apply_srvc_battle_text(
             or "{" in translation
             or "}" in translation
             or "\n" in translation
-            or not line_break_policy_satisfied
             or _control_signature(translation) != _control_signature(source_text)
         ):
             raise FullStoryComponentError(

@@ -39,6 +39,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 from srwz.compact_scopes import expand as expand_compact_scopes  # noqa: E402
+from srwz import continuation_indent  # noqa: E402
 from srwz.text import (  # noqa: E402
     SrwzTextError,
     augment_text_table,
@@ -93,11 +94,21 @@ def encoding_tables(proposal_path: Path | None = None):
     story.update(aliases)
     story.update(original_fullwidth_ascii_overrides(table))
     story[" "] = ord(" ")
+    # Story dialogue stores its continuation indent as this blank glyph
+    # (srwz.continuation_indent); only that writer emits it.
+    if (
+        continuation_indent.CHARACTER in story
+        or continuation_indent.CODE in story.values()
+        or continuation_indent.CODE in table.characters
+    ):
+        raise ValueError("continuation-indent code is already assigned")
+    indent = {continuation_indent.CHARACTER: continuation_indent.CODE}
+    story.update(indent)
     # Only aliases backed by actual installed glyphs may affect readback.
     readback = table
     for row in proposal.get("source_compatibility_assignments", []):
         readback = project_runtime_text_table(readback, {row["character"]: int(row["code"], 16)})
-    for extra in (primary, aliases, original_fullwidth_ascii_overrides(table)):
+    for extra in (primary, aliases, original_fullwidth_ascii_overrides(table), indent):
         readback = project_runtime_text_table(readback, extra)
     return table, dict(story), story, readback
 

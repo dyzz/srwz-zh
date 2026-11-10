@@ -64,7 +64,7 @@ def selector(routes,targets,globals_,sidecar,native,generic,kind):
   leave(generic);a.label(next_)
  leave(native);return a.finish()
 
-def build_payload(registry,edition,*,routes=None,shared_selection=False,scene_dispatch=False):
+def build_payload(registry,edition,*,routes=None,shared_selection=True,scene_dispatch=False):
  if scene_dispatch:
   from .proportional_scene_dispatch import SCENES,source_entry,style_selector
   routes=[dict(name=s,scene=s) for s in SCENES[edition]];shared_selection=True

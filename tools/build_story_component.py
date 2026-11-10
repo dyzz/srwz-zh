@@ -23,6 +23,7 @@ from srwz.codec import decode_production as decode
 from srwz.parallel import map_processes
 from srwz.compressed_workspace import CompressedArchiveWorkspace
 from srwz.build_layout import verify_stored,runtime_inputs
+from srwz import continuation_indent
 from srwz.chinese_layout import (
     dialogue_layout_issues,
     load_layout_profiles,
@@ -1072,6 +1073,16 @@ def build(
     )
     table = load_text_table(table_path)
     overrides.update(original_fullwidth_ascii_overrides(table))
+    if punctuation == "compact":
+        # Continuation rows indent by a blank glyph as wide as the compact
+        # opening quote; see srwz.continuation_indent.
+        if (
+            continuation_indent.CHARACTER in overrides
+            or continuation_indent.CODE in overrides.values()
+            or continuation_indent.CODE in table.characters
+        ):
+            raise SystemExit("continuation-indent code is already assigned")
+        overrides[continuation_indent.CHARACTER] = continuation_indent.CODE
     stage_message_encoders = PreparedStageMessageEncoders(table, overrides)
 
     # Shared dependencies invalidate every chunk. Dialogue file hashes below
@@ -1293,6 +1304,11 @@ def build(
                     f"{entry_id} source={source_text!r} "
                     f"translation={translation!r}"
                 )
+        if punctuation == "compact":
+            fitted_dialogue = {
+                entry_id: continuation_indent.store(text)
+                for entry_id, text in fitted_dialogue.items()
+            }
         replacements = {**fitted_dialogue, **stage_conditions}
         selected_source_offsets = {
             entry.text_offset

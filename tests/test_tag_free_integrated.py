@@ -3,7 +3,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
 from srwz.tag_free_integrated import build_payload,install
 from srwz.proportional_payload import LAYOUTS
-from srwz.proportional_metrics import runtime_table
+from srwz.proportional_metrics import runtime_table, METRIC_BYTES, METRIC_SLOTS
 
 class IntegratedPayloadTests(unittest.TestCase):
  @classmethod
@@ -21,7 +21,7 @@ class IntegratedPayloadTests(unittest.TestCase):
  def test_residual_table_preserves_legacy_records_and_descenders(self):
   for name,p in self.registry['profiles'].items():
    old=runtime_table(p);new=runtime_table(p,include_residuals=True)
-   self.assertEqual(new[:320],old);self.assertEqual(len(new),400)
+   self.assertEqual(new[:METRIC_BYTES],old);self.assertEqual(len(new),METRIC_BYTES+METRIC_SLOTS)
    for c in 'Hgypqj':self.assertEqual(p['glyphs'][c]['baselineResidual16'],p['glyphs']['H']['baselineResidual16'])
    for c in '0123456789':self.assertEqual(p['glyphs'][c]['baselineResidual16'],p['glyphs']['0']['baselineResidual16'])
    if name in ('story','main_scroll','library_character','sp_flow'):self.assertEqual(p['glyphs']['0']['baselineResidual16'],16)
@@ -54,6 +54,14 @@ class IntegratedPayloadTests(unittest.TestCase):
      bad=bytearray(raw);bad[o+address-v]^=1
      with self.assertRaisesRegex(ValueError,'preimage drift'):install(bytes(bad),self.registry,edition)
      break
+ def test_battle_opening_quote_keeps_full_width(self):
+  # Continuation rows indent by one full-width space; a compact opening quote
+  # would leave them 5px to the right of the first row.
+  from srwz.proportional_metrics import CJK_FULL_WIDTH,CJK_PUNCTUATION
+  self.assertEqual(CJK_FULL_WIDTH,{'battle':'“'})
+  for scene,profile in self.registry['profiles'].items():
+   expected=[char for char in CJK_PUNCTUATION if char not in CJK_FULL_WIDTH.get(scene,'')]
+   self.assertEqual(list(profile['cjkPunctuation']),expected,scene)
  def test_width_only_measure_dispatch_agrees_with_every_draw_geometry(self):
   # The native measure path exposes width but not glyph height. Scenes that
   # share that width must therefore have exactly the same horizontal metrics.

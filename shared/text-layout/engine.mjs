@@ -1,6 +1,6 @@
 /** Pure SRWZ layout core. No DOM, filesystem, process, or font measurement APIs. */
 import { contracts } from './contracts.mjs';
-import {proportionalMetric,proportionalFontSha256} from './proportional-selection.mjs';
+import {proportionalMetric,proportionalFontSha256,continuationIndentMetric} from './proportional-selection.mjs';
 export const version = '1.1.0';
 export const sceneIds = Object.freeze(Object.keys(contracts.scenes));
 export class LayoutError extends Error {
@@ -46,6 +46,7 @@ function checkOptions(options,scene) {
   if(options.resourceId!==undefined&&(typeof options.resourceId!=='string'||options.resourceId.length>256||/[\r\n]/.test(options.resourceId)))fail('options','Invalid resource ID');
   if(options.chinesePunctuation!==undefined&&!['native','compact'].includes(options.chinesePunctuation))fail('options','Unknown Chinese punctuation policy');
   if(options.typography!==undefined&&!['native','proportional'].includes(options.typography))fail('options','Unknown typography');
+  if(options.continuationIndent!==undefined&&!['fullwidth','opener'].includes(options.continuationIndent))fail('options','Unknown continuation indent');
   if(options.initialState!==undefined)fail('options','Initial font state belongs to the selected scene');
 }
 function initial(scene) { return { width: scene.width, height: scene.height, step: scene.step }; }
@@ -141,11 +142,29 @@ export function measure(text, sceneId, options = {}) {
   if (options.escapedNewlines) text = text.replace(/\\n/g, '\n');
   if(options.typography==='proportional')text=expandCompact(text,scene.id,options);
   let state = initial(scene);
-  const rows = text.split('\n').map(line => {
+  const indent = openerIndent(text, scene, options);
+  const rows = text.split('\n').map((line, i) => {
     const r = measureRow(line, scene, state, options); state = r.state;
-    return { text: line, advancePx: r.advancePx, occupiedPx: r.occupiedPx, glyphs: r.glyphs };
+    const row = { text: line, advancePx: r.advancePx, occupiedPx: r.occupiedPx, glyphs: r.glyphs };
+    // The stored indent of a continuation row is the blank glyph that advances
+    // like the compact opening quote, so its text starts under the first row's.
+    if (indent && i > 0 && /^　[^　 ]/.test(line) && row.glyphs[0]?.text === '　') {
+      const delta = row.glyphs[0].advance - indent.advance;
+      row.glyphs[0].advance = indent.advance;
+      for (const glyph of row.glyphs.slice(1)) glyph.x -= delta;
+      row.advancePx -= delta; row.occupiedPx -= delta;
+    }
+    return row;
   });
   return { scene: scene.id, rows, state, ...(options.typography==='proportional'?{fontSha256:proportionalFontSha256}:{}) };
+}
+// A dialogue line that opens with compact punctuation stores each continuation
+// indent as the blank glyph of the same advance (tools/srwz/continuation_indent.py).
+// Measurement, validation and the row solver all budget that advance, not a full cell.
+function openerIndent(text, scene, options) {
+  if (options.continuationIndent === 'fullwidth' || options.typography !== 'proportional' || options.chinesePunctuation !== 'compact' || scene.kind !== 'dialogue') return null;
+  const indent = continuationIndentMetric(scene.id);
+  return indent && indent.openers.includes(Array.from(visible(text))[0] ?? '') ? indent : null;
 }
 const termCache = new Map();
 function termsFor(scene, extra) {
@@ -226,6 +245,7 @@ function partition(text,scene,options,firstIndent='',continuationIndent='',exact
   if(!n)return [firstIndent];
   if(n>6000)fail('complexity','Too many layout tokens');
   const prefix=[0];for(const t of tokens)prefix.push(prefix.at(-1)+t.advance);
+  const narrowIndent=continuationIndent==='　'?openerIndent(firstIndent+text,scene,options):null;
   const cache=options[rangeCacheKey],cacheId=JSON.stringify([scene.id,tokens.map(t=>t.text),start]);
   if(cache&&!cache.has(cacheId))cache.set(cacheId,new Map());
   const widths=cache?.get(cacheId);
@@ -258,7 +278,7 @@ function partition(text,scene,options,firstIndent='',continuationIndent='',exact
       if(options.typography!=='proportional'&&prefix[n]-prefix[a]>(rows-k)*scene.widthPx){memo.set(key,null);return null;}
       const indent=k===0?firstIndent:continuationIndent;
       const state=a===0?start:tokens[a-1].after;
-      const indentWidth=measureRow(indent,scene,state,options,false).occupiedPx;
+      const indentWidth=k>0&&narrowIndent?narrowIndent.advance:measureRow(indent,scene,state,options,false).occupiedPx;
       const candidates=edges[a];let best=null;
       for(let j=candidates.length-1;j>=0;j--){const e=candidates[j];if(e.width+indentWidth>scene.widthPx)continue;
         const tail=solve(e.end,k+1);if(tail){
@@ -274,11 +294,19 @@ function partition(text,scene,options,firstIndent='',continuationIndent='',exact
   fail('overflow',`Text cannot fit ${exactRows??ceiling} rows within ${scene.widthPx}px`,{scene:scene.id,widthPx:scene.widthPx,maxRows:exactRows??ceiling});
 }
 function logical(text){return text.split('\n').map((line,i)=>i?line.replace(/^[　 ]+/, ''):line).join('');}
+// Battle subtitles clip at screen X=640. Measured per trailing glyph on Metal 4x, then 2px of margin.
+// Validation only: automatic wrapping still packs to scene.widthPx.
+const BATTLE_TRAILING_ALLOWANCE_PX={'？':20,'》':20,'：':21,'】':21,'”':22,'）':22,'。':23,'、':24,'，':26,'；':26,'！':27};
+function battleTrailingHangs(row,scene,options){
+  if(scene.id!=='battle'||options.typography!=='proportional')return false;
+  const last=row.glyphs.filter(g=>g.text!==' '&&g.text!=='　').at(-1),allowance=last&&BATTLE_TRAILING_ALLOWANCE_PX[last.text];
+  return allowance!==undefined&&row.advancePx<=scene.widthPx+allowance;
+}
 export function validate(text,sceneId,options={}) {
   const scene=effectiveScene(sceneId,options),result=measure(text,scene.id,options), issues=[];
   if(result.rows.length>(options.maxLines??scene.maxLines??Infinity))issues.push({code:'rows',message:'Too many physical rows'});
   result.rows.forEach((row,i)=>{
-    if(row.occupiedPx>scene.widthPx)issues.push({code:'width',row:i+1,widthPx:row.occupiedPx,limitPx:scene.widthPx});
+    if(row.occupiedPx>scene.widthPx&&!battleTrailingHangs(row,scene,options))issues.push({code:'width',row:i+1,widthPx:row.occupiedPx,limitPx:scene.widthPx});
     if(scene.kind==='dialogue'&&i>0&&!/^　[^　 ]/.test(row.text))issues.push({code:'indent',row:i+1,message:'Expected one fullwidth continuation indent'});
     const v=visible(row.text).replace(/^[　 ]+/,'');
     if(v&&i>0&&contracts.forbiddenStart.includes(Array.from(v)[0]))issues.push({code:'punctuation_start',row:i+1});

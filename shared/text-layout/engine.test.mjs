@@ -234,3 +234,48 @@ test('fixed two-line pages fill the nonfinal row and require encoder byte metada
  assert.throws(()=>layoutFixedFields([{text:'甲乙',capacityBytes:4,terminatorBytes:1}],'main_scroll',{encodedCharacterBytes:{甲:2,乙:2}}),/No legal layout/);
  assert.throws(()=>layoutFixedFields([{text:'<z>MS</z>',capacityBytes:40,terminatorBytes:0}],'main_scroll',{encodedCharacterBytes:{}}),/requires plain text/);
 });
+test('battle trailing punctuation may pass the width by its own measured allowance',()=>{
+ const o={typography:'proportional',chinesePunctuation:'compact'};
+ const width=t=>validate(t,'battle',o).issues.filter(i=>i.code==='width').length;
+ assert.equal(width('“国国国国国国国国国国i国国国国国国国国国国”'),0);
+ assert.equal(width('“国国国国国国国国国Wa国国国国国国国国国国？'),0);
+ assert.equal(width('“国国国国国国国国国国l国国国国国国国国国国？'),1);
+ assert.equal(width('“国国国国国国国国国国g国国国国国国国国国国，'),1);
+ assert.equal(width('“国国国国国国国国国A国国国国国国国国国国…'),1);
+ assert.equal(validate('“国国国国国国国国国国i国国国国国国国国国国”','battle').issues.some(i=>i.code==='width'),true);
+});
+test('story continuation indent is the opener-width blank glyph',()=>{
+ const o={typography:'proportional',chinesePunctuation:'compact'},text='“锁定目标…\n　开始攻击…”';
+ const drawn=measure(text,'story',o).rows,legacy=measure(text,'story',{...o,continuationIndent:'fullwidth'}).rows;
+ assert.deepEqual(legacy[1].glyphs.slice(0,2).map(g=>[g.text,g.x,g.advance]),[['　',0,21],['开',21,21]]);
+ assert.deepEqual(drawn[0],legacy[0]);
+ assert.deepEqual(drawn[0].glyphs.slice(0,2).map(g=>[g.text,g.x,g.advance]),[['“',-1,16],['锁',16,21]]);
+ assert.deepEqual(drawn[1].glyphs.slice(0,2).map(g=>[g.text,g.x,g.advance]),[['　',0,16],['开',16,21]]);
+ assert.equal(drawn[1].occupiedPx,legacy[1].occupiedPx-5);
+ // Lines that do not open with compact punctuation, aligned rows and battle keep the full-width indent.
+ for(const [scene,plain] of [['story','旁白文字\n　继续'],['story','“甲\n　　乙”'],['battle',text]])
+  assert.deepEqual(measure(plain,scene,o),measure(plain,scene,{...o,continuationIndent:'fullwidth'}));
+ assert.throws(()=>measure(text,'story',{...o,continuationIndent:'narrow'}),/continuation indent/);
+});
+test('the row solver and the width gate budget the indent that is drawn',()=>{
+ const o={typography:'proportional',chinesePunctuation:'compact',preserveLineCount:false},legacy={...o,continuationIndent:'fullwidth'};
+ const text='“'+'国'.repeat(45)+'”',rows='“'+'国'.repeat(22)+'\n　'+'国'.repeat(22)+'\n　国”';
+ assert.equal(layout(text,'story',o).text,rows);
+ assert.deepEqual(layout(text,'story',o).rows.map(r=>r.occupiedPx),[478,478,53]);
+ assert.deepEqual(layout(text,'story',legacy).rows.map(r=>r.occupiedPx),[478,483,58]);
+ // 463px of text after the indent: 483px wide as drawn, 5px over with a full-width indent.
+ const tight='“'+'国'.repeat(22)+'\n　'+'国'.repeat(19)+'。。。。';
+ assert.deepEqual(validate(tight,'story',o).rows.map(r=>r.occupiedPx),[478,483]);
+ assert.equal(validate(tight,'story',o).valid,true);
+ assert.deepEqual(validate(tight,'story',legacy).issues.map(i=>i.code),['width']);
+ assert.equal(layout('“'+'国'.repeat(41)+'。。。。','story',o).text,tight);
+ assert.notEqual(layout('“'+'国'.repeat(41)+'。。。。','story',legacy).text,tight);
+});
+test('battle keeps the opening quote full width so the continuation indent aligns',()=>{
+ const o={typography:'proportional',chinesePunctuation:'compact'};
+ const [first,second]=measure('“锁定目标…\n　开始攻击…”','battle',o).rows;
+ assert.deepEqual(first.glyphs.slice(0,2).map(g=>[g.text,g.x,g.advance]),[['“',0,22],['锁',22,22]]);
+ assert.deepEqual(second.glyphs.slice(0,2).map(g=>[g.text,g.x,g.advance]),[['　',0,22],['开',22,22]]);
+ assert.equal(second.glyphs.at(-1).advance,17);
+ assert.equal(measure('“锁定目标…”','story',o).rows[0].glyphs[0].advance,16);
+});

@@ -17,6 +17,8 @@ from write_system_text import tickers,FULLWIDTH_DIGITS
 from srwz.iso9660 import scan_iso9660,member_map
 from srwz.codec import decode_production
 from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_visible_spaces,verify_runtime_control_bytes
+from srwz import continuation_indent
+from srwz.typography_policy import candidate_enabled
 from srwz.summary import parse_summary, validate_scroll_placeholders
 from special_disc.writeback.gravion_labels import verify_gravion_labels
 from special_disc.writeback.unit_names import CONTRACT as UNIT_CONTRACT, verify_unit_names
@@ -251,7 +253,9 @@ def main(iso=None, work=None):
                     require(decode_text(data,w['offset'],readback).text==row['output_text'],'formation ISO reread')
                     counts['formation_cells']+=1
             elif '/speaker/'not in row['target']:
-                e=actual[row['native_id']];require(e.text==row['output_text'],f"stage ISO reread: {row['target']}")
+                e=actual[row['native_id']]
+                stored=continuation_indent.store(row['output_text']) if row['layout']=='story_dialogue' and candidate_enabled() else row['output_text']
+                require(e.text==stored,f"stage ISO reread: {row['target']}")
                 if e.kind=='dialogue':
                     prefix=decode_text(data,e.text_offset,readback,stop_at_newline=True)
                     sid=source[e.entry_id].speaker_id

@@ -4,7 +4,7 @@ Hook only the measure loop, retaining native CJK classification, control state,
 return semantics and caller ABI. Unselected source ranges execute native code.
 """
 import struct
-from .proportional_metrics import contextual_slots
+from .proportional_metrics import contextual_slots, METRIC_BYTES
 R={name:i for i,name in enumerate('zero at v0 v1 a0 a1 a2 a3 t0 t1 t2 t3 t4 t5 t6 t7 s0 s1 s2 s3 s4 s5 s6 s7 t8 t9 k0 k1 gp sp fp ra'.split())}
 class Asm:
     def __init__(self):self.words=[];self.labels={};self.fixups=[]
@@ -31,9 +31,14 @@ def table_address(a,reg,value,delta=0):
     else:a.li(reg,value+delta)
 
 def cjk_runtime_table(profile):
-    """Six-byte code/metric records, followed by a zero-code sentinel."""
+    """Six-byte code/metric records, followed by a zero-code sentinel.
+
+    The continuation indent is one more record: a blank glyph with the opener's advance.
+    """
+    records=[*profile['cjkPunctuation'].values()]
+    if 'continuationIndent' in profile:records.append(profile['continuationIndent'])
     return b''.join(struct.pack('<H4B',m['code'],m['bearing'],m['advance'],m['width'],0)
-                    for m in profile['cjkPunctuation'].values())+bytes(6)
+                    for m in records)+bytes(6)
 
 def cjk_lookup(a,table):
     # t3 is the encoded character; at/t4/t8 are caller scratch registers.
@@ -151,7 +156,7 @@ def draw_hook(owner,end,table,width,site=0x13ab58,caller=None,*,cjk_table=None,n
     if residual_sidecar is not None:
         table_address(a,'t3',table)
         a.r('at','t3','t4',0x23);a.r('zero','t4','t4',2,2)
-        a.r('t3','t4','t3',0x21);a.i(0x20,'t3','t3',320)
+        a.r('t3','t4','t3',0x21);a.i(0x20,'t3','t3',METRIC_BYTES)
         a.i(12,'s0','t4',0x3fff);a.r('zero','t4','t4',2,5)
         a.li('t8',residual_sidecar);a.r('t8','t4','t8',0x21);a.i(0x28,'t8','t3',0)
     if isinstance(width,tuple):table_address(a,'t3',width)

@@ -1,10 +1,10 @@
 """Real production adapters must execute the browser core, preserve text and bind caches."""
-import json,math,sys,unittest
+import json,math,re,sys,unittest
 from pathlib import Path
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
 from srwz.typography_policy import options as typography_options
-from srwz.build_layout import library_batch,verify_stored,reflow_story,runtime_inputs,check_runtime,verify_prose,prose_row_width,PROSE_HANGING_PX
+from srwz.build_layout import library_batch,verify_stored,reflow_story,runtime_inputs,check_runtime,verify_prose,prose_row_width,PROSE_HANGING_PX,BATTLE_TRAILING_ALLOWANCE_PX
 from srwz.js_layout import request_layout
 from srwz.chinese_layout import load_layout_profiles
 from srwz.build_fingerprints import is_component_build_definition
@@ -61,6 +61,17 @@ class JsBuildLayoutTests(unittest.TestCase):
  def test_narrow_scroll_owner_retains_504_pixel_cap(self):
   self.assertEqual(verify_prose([('summary/01/000','中'*22,None)],'main_scroll'),1)
   with self.assertRaisesRegex(ValueError,'504px'):verify_prose([('summary/03/000','中'*22,None)],'main_scroll')
+
+ def test_battle_trailing_punctuation_allowance(self):
+  source=(ROOT/'shared/text-layout/engine.mjs').read_text(encoding='utf8')
+  table=re.search(r'BATTLE_TRAILING_ALLOWANCE_PX=(\{.*?\});',source).group(1)
+  self.assertEqual(json.loads(table.replace("'",'"')),BATTLE_TRAILING_ALLOWANCE_PX)
+  row=lambda text:[('battle:test',text,False)]
+  self.assertEqual(verify_stored(row('“国国国国国国国国国国i国国国国国国国国国国”'),'battle'),1)
+  self.assertEqual(verify_stored(row('“国国国国国国国国国Wa国国国国国国国国国国？'),'battle'),1)
+  for invalid in ('“国国国国国国国国国国l国国国国国国国国国国？','“国国国国国国国国国国g国国国国国国国国国国，','“国国国国国国国国国A国国国国国国国国国国…'):
+   with self.assertRaisesRegex(ValueError,'462px'):
+    verify_stored(row(invalid),'battle')
 
  def test_narrow_scroll_hangs_only_the_last_punctuation(self):
   line='时，埃曼人也派遣商队前往世界各地，从事贸易。'

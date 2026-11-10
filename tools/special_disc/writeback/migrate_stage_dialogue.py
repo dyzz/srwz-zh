@@ -23,6 +23,7 @@ from stage_auxiliary import formation_groups, scalar_sites, write_formations
 from write_system_text import OVERLAY, overlay_member
 from srwz.build_layout import verify_stored,fit_story as fit_js_story,runtime_inputs,fit_candidate_stories
 from srwz.typography_policy import candidate_enabled
+from srwz import continuation_indent
 from srwz.chinese_layout import fit_chinese_dialogue_layout, load_layout_profiles, rendered_line_width
 from srwz.codec import DEFAULT_MAX_MATCH_CHAIN, DEFAULT_MIN_MATCH_LENGTH, decode_production, reencode_changed_suffix
 from srwz.iso9660 import member_map, scan_iso9660
@@ -146,6 +147,10 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
         for row,text in zip(dialogue,fit_candidate_stories([row['output_text'] for row in dialogue],profile=profile)):
             row['output_text']=text;replacements[row['native_id']]=text
     verify_stored([(row['native_id'],row['output_text'],False)for row in rows if row['layout']=='story_dialogue'],'story')
+    if candidate_enabled():
+        # Reports keep corpus text; only the stored bytes carry the indent glyph.
+        for row in rows:
+            if row['layout']=='story_dialogue':replacements[row['native_id']]=continuation_indent.store(row['output_text'])
     result = repack_stage_texts_in_place(data, table, stage_index=index,
         function_address=function_address, replacements=replacements, parsed_source=parsed,
         speaker_replacements=speakers, overrides=overrides, base_address=sd.SD_STAGE_BASE)

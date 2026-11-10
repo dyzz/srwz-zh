@@ -160,8 +160,9 @@ test('Latin baseline offset preserves descenders and leaves horizontal metrics u
 test('letter and numeral baselines match actual ARMSX2 submitted Y coordinates',()=>{
  const cases=JSON.parse(readFileSync(new URL('./fixtures/proportional-numeric-baseline.json',import.meta.url)));
  for(const c of cases){
-  // Historical schema5 capture precedes slash-spacing integration.
-  const r=measure(c.text,'story',{chinesePunctuation:'compact',spacedSlash:false});
+  // Historical schema5 capture precedes slash-spacing integration and the
+  // opener-width continuation indent (rows then began with a full-width 0x8140).
+  const r=measure(c.text,'story',{chinesePunctuation:'compact',spacedSlash:false,continuationIndent:'fullwidth'});
   assert.equal(r.fontSha256,c.fontSha256);
   assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-240,61+i*14+(g.yOffset??0),g.width,g.height])),c.geometry);
  }

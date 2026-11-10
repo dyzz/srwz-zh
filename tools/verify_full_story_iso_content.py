@@ -17,6 +17,8 @@ from srwz.scoped_translations import (
 )
 from srwz.archive import sha256_file
 from srwz.build_layout import PROSE_HANGING_PX, prose_widths
+from srwz import continuation_indent
+from srwz.typography_policy import candidate_enabled as compact_typography_enabled
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
     load_layout_profiles,
@@ -992,6 +994,8 @@ def verify_stage_system_dialogues(
         actual = final_by_id[entry_id]
         expected_speaker = normalize_original_fullwidth_ascii(item["speaker"])
         expected_text = expand_compact_scopes(normalize_original_fullwidth_ascii(item["translation"]))
+        if compact_typography_enabled():
+            expected_text = continuation_indent.store(expected_text)
         if (
             sha256_bytes(source.text.encode("utf-8"))
             != item.get("source_text_sha256")
@@ -5580,6 +5584,14 @@ def main() -> int:
     stage_overrides = dict(overrides)
     stage_overrides.update(surface_aliases)
     stage_overrides.update(ascii_overrides)
+    if compact_typography_enabled():
+        if (
+            continuation_indent.CHARACTER in stage_overrides
+            or continuation_indent.CODE in stage_overrides.values()
+            or continuation_indent.CODE in source_table.characters
+        ):
+            raise SystemExit("continuation-indent code is already assigned")
+        stage_overrides[continuation_indent.CHARACTER] = continuation_indent.CODE
     stage_message_encoders = PreparedStageMessageEncoders(
         source_table,
         stage_overrides,
@@ -6541,6 +6553,26 @@ def main() -> int:
                 for entry in parsed.entries
                 if entry.kind in {"dialogue", "condition"}
             }
+            # Dialogue stores the continuation indent as its own blank glyph.
+            # Check that exact placement, then compare in corpus form.
+            indent_drift = sorted(
+                entry.entry_id
+                for entry in parsed.entries
+                if entry.kind in {"dialogue", "condition"}
+                and entry.text != (
+                    continuation_indent.store(continuation_indent.restore(entry.text))
+                    if entry.kind == "dialogue" and compact_typography_enabled()
+                    else continuation_indent.restore(entry.text)
+                )
+            )
+            if indent_drift:
+                raise SystemExit(
+                    f"stage {stage:03d} continuation indent drift: {indent_drift[:3]!r}"
+                )
+            actual_texts = {
+                entry_id: continuation_indent.restore(text)
+                for entry_id, text in actual_texts.items()
+            }
             if actual_texts != expected_texts:
                 missing = sorted(set(expected_texts) - set(actual_texts))
                 extra = sorted(set(actual_texts) - set(expected_texts))
@@ -6946,7 +6978,11 @@ def main() -> int:
                     stage_overrides,
                     entry_id=entry_id,
                     source_text=source_entry.text,
-                    replacement=expected_translation,
+                    replacement=(
+                        continuation_indent.store(expected_translation)
+                        if compact_typography_enabled()
+                        else expected_translation
+                    ),
                     terminate=True,
                     prepared_encoders=stage_message_encoders,
                 )

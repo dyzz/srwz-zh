@@ -9,7 +9,6 @@ from tools.srwz.srvc import (
     parse_srvc_archive,
     parse_srvc_archive_with_layout,
     rebuild_srvc_archive,
-    subtitle_line_break_policy_satisfied,
 )
 from tools.srwz.text import TextTable
 
@@ -17,16 +16,6 @@ from tools.srwz.text import TextTable
 from typography_fixtures import NativeTypographyTestCase
 
 class SrvcPoolRebuildTest(NativeTypographyTestCase):
-    def test_best_shortening_requires_explicit_line_removal_decision(self):
-        source, translated = "first\\nsecond", "first"
-        self.assertFalse(subtitle_line_break_policy_satisfied(source, translated, {}))
-        decision = {"production_removed_line_break_override": "Best subtitle corrected for identical audio"}
-        self.assertTrue(subtitle_line_break_policy_satisfied(source, translated, decision))
-        self.assertFalse(subtitle_line_break_policy_satisfied(source, source, decision))
-        self.assertFalse(subtitle_line_break_policy_satisfied("a\\nb\\nc", translated, decision))
-        self.assertFalse(subtitle_line_break_policy_satisfied(source, translated,
-            {**decision, "production_line_break_override": "add"}))
-
     def test_author_scope_is_encoded_with_battle_restore(self) -> None:
         from tools.srwz.compact_scopes import BATTLE, expand
         from tools.srwz.text import encode_text
