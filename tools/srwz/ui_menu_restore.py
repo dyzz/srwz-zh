@@ -9,6 +9,7 @@ from .tim2 import parse_tim2
 
 CONFIG = 'config/assets/ui-menu-native-restore.json'
 HELP_TITLES_CONFIG = 'config/assets/ui-help-titles-zh.json'
+SP_ITEM_HELP_CONFIG = 'config/assets/special-disc/item-help-title.json'
 SUPPORT_TITLE_CONFIG = 'config/assets/ui-support-spirit-title-zh.json'
 COMMAND_TITLE_CONFIG = 'config/assets/ui-command-title-zh.json'
 SLOTS = (0, 1, 2, 3, 4, 5, 5, 5, 5, 3)
@@ -58,9 +59,10 @@ def load(root, edition):
                    runtime='pending')
 
 
-def apply_help_titles(atlas, drawings, root: Path, *, reverse=False, strict=False):
+def apply_help_titles(atlas, drawings, root: Path, *, edition='original', reverse=False, strict=False):
     """Apply the frozen delta from the reviewed full-width Chinese titles."""
-    raw = (root / HELP_TITLES_CONFIG).read_bytes()
+    path = SP_ITEM_HELP_CONFIG if edition == 'sp' else HELP_TITLES_CONFIG
+    raw = (root / path).read_bytes()
     config = json.loads(raw)
 
     def apply_blocks(data, blocks):
@@ -147,10 +149,11 @@ def apply_menu_restore(atlas, drawings, root: Path, edition='original', config=N
     if config is None:
         from .ui_text_clarity import apply_atlas, apply_native_select, apply_native_title_atlas
         # Normalize a previously refined final output for idempotent rebuilds.
-        if edition == 'original' and sha(atlas) not in (c['before']['atlas'], c['after']['atlas']):
-            atlas, drawings, _ = apply_command_title(atlas, drawings, root, reverse=True)
-            atlas, drawings, _ = apply_support_title(atlas, drawings, root, reverse=True)
-            atlas, drawings, _ = apply_help_titles(atlas, drawings, root, reverse=True)
+        if sha(atlas) not in (c['before']['atlas'], c['after']['atlas']):
+            if edition == 'original':
+                atlas, drawings, _ = apply_command_title(atlas, drawings, root, reverse=True)
+                atlas, drawings, _ = apply_support_title(atlas, drawings, root, reverse=True)
+            atlas, drawings, _ = apply_help_titles(atlas, drawings, root, edition=edition, reverse=True)
         if sha(drawings) not in (c['before']['drawings'], c['after']['drawings']):
             drawings, _ = apply_native_select(drawings, root, edition, reverse=True, strict=True)
         if sha(atlas) not in (c['before']['atlas'], c['after']['atlas']):
@@ -215,12 +218,13 @@ def apply_menu_restore(atlas, drawings, root: Path, edition='original', config=N
     if config is None:
         refined, report['text_clarity'] = apply_atlas(result[0], root, edition)
         restored, report['native_select'] = apply_native_select(result[1], root, edition)
-        result = apply_native_title_atlas(refined, root, edition), restored
+        atlas_out = apply_native_title_atlas(refined, root, edition)
+        atlas_out, drawings_out, report['help_titles'] = apply_help_titles(
+            atlas_out, restored, root, edition=edition)
         if edition == 'original':
-            atlas_out, drawings_out, report['help_titles'] = apply_help_titles(*result, root)
             atlas_out, drawings_out, report['support_title'] = apply_support_title(atlas_out, drawings_out, root)
             atlas_out, drawings_out, report['command_title'] = apply_command_title(atlas_out, drawings_out, root)
-            result = atlas_out, drawings_out
+        result = atlas_out, drawings_out
     return *result, report
 
 
@@ -232,8 +236,8 @@ def verify_menu_restore(atlas, drawings, root: Path, edition='original'):
             atlas, drawings, root, reverse=True, strict=True)
         atlas, drawings, report['support_title'] = apply_support_title(
             atlas, drawings, root, reverse=True, strict=True)
-        atlas, drawings, report['help_titles'] = apply_help_titles(
-            atlas, drawings, root, reverse=True, strict=True)
+    atlas, drawings, report['help_titles'] = apply_help_titles(
+        atlas, drawings, root, edition=edition, reverse=True, strict=True)
     drawings, report['native_select'] = apply_native_select(drawings, root, edition, reverse=True, strict=True)
     atlas = apply_native_title_atlas(atlas, root, edition, reverse=True, strict=True)
     atlas, report['text_clarity'] = apply_atlas(atlas, root, edition, reverse=True, strict=True)
