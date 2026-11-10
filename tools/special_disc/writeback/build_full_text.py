@@ -221,7 +221,9 @@ def assemble():
     for lock in (reports['system']['frame_corpus'],reports['srvc']['sp_corpus'],reports['image-labels']['snapshot']):
         require(file_sha(ROOT/lock['path'])==lock['sha256'],'component input drift')
     for key, filename in (('command_headings', 'command-headings.json'), ('title_atlas', 'title-atlas.json'),
-                          ('bazaar_heading', 'bazaar-heading.json')):
+                          ('bazaar_heading', 'bazaar-heading.json'),
+                          ('battle_select_titles', 'battle-select-titles-zh.json'),
+                          ('menu_atlas_overlap', 'menu-atlas-overlap.json')):
         require(file_sha(ROOT/'config/assets/special-disc'/filename)==reports['image-labels'][key]['config_sha256'],
                 f'{key} frozen component input drift')
     require(file_sha(ROOT/'config/assets/ui-menu-native-restore.json')==reports['image-labels']['menu_restore']['config_sha256'],
@@ -423,6 +425,8 @@ def assemble():
     report['stage_titles']=title_report
     report['world_map_titles']=reports['image-labels']['world_map_titles']
     report['title_atlas']=reports['image-labels']['title_atlas']
+    report['battle_select_titles']=reports['image-labels']['battle_select_titles']
+    report['menu_atlas_overlap']=reports['image-labels']['menu_atlas_overlap']
     report['battle_status_labels']=status_report
     report['battle_prompt_labels']=prompt_report
     report['battle_title_labels']=title_labels_report

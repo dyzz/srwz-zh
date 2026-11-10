@@ -80,12 +80,16 @@ def main():
     outputs[name], outputs[KVP], title_report = apply_title_atlas(outputs[name], outputs[KVP])
     from special_disc.writeback.bazaar_heading import apply_bazaar_heading
     outputs[name], bazaar_report = apply_bazaar_heading(outputs[name])
-    from srwz.ui_menu_restore import apply_menu_restore
+    from srwz.ui_menu_restore import apply_menu_restore, apply_sp_atlas_overlap
     outputs[name], outputs[KVP], menu_report = apply_menu_restore(outputs[name], outputs[KVP], ROOT, 'sp')
     from srwz.ui_frame_uv import apply_frame_uv_patches, load_frame_uv_contract
     outputs[KVP], frame_uv_report = apply_frame_uv_patches(outputs[KVP], load_frame_uv_contract(ROOT, 'sp'))
     from srwz.ui_frame_joins import apply_frame_joins, load_join_contract
     outputs[KVP], frame_join_report = apply_frame_joins(outputs[KVP], load_join_contract(ROOT, 'sp'))
+    from srwz.ui_battle_select import SP_CONFIG as SP_BATTLE_SELECT, apply_atlas as apply_select_atlas
+    select_config = (ROOT / SP_BATTLE_SELECT).read_bytes()
+    outputs[name] = apply_select_atlas(outputs[name], json.loads(select_config))
+    outputs[name], outputs[KVP], overlap_report = apply_sp_atlas_overlap(outputs[name], outputs[KVP], ROOT)
     for target,box in patches:reports.append(dict(target=target,member=name,chunk=11,rect=box))
     name='MAP/MAPMODEL.BIN';base=writer.member(name);arc=bytearray(base);off=sd.table_offsets(writer.exe,0x3542F0,len(base))
     for index in (195,196,197):
@@ -109,6 +113,8 @@ def main():
     report['menu_restore'] = menu_report
     report['shared_frame_uv'] = frame_uv_report
     report['frame_joins'] = frame_join_report
+    report['battle_select_titles'] = dict(config_sha256=stage.sha256(select_config))
+    report['menu_atlas_overlap'] = overlap_report
     report['world_map_titles'] = world_map_report
     for name,data in outputs.items():
         p=args.output/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)

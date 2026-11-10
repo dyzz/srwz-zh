@@ -10,6 +10,7 @@ from .tim2 import parse_tim2
 CONFIG = 'config/assets/ui-menu-native-restore.json'
 HELP_TITLES_CONFIG = 'config/assets/ui-help-titles-zh.json'
 SP_ITEM_HELP_CONFIG = 'config/assets/special-disc/item-help-title.json'
+SP_ATLAS_OVERLAP_CONFIG = 'config/assets/special-disc/menu-atlas-overlap.json'
 SUPPORT_TITLE_CONFIG = 'config/assets/ui-support-spirit-title-zh.json'
 COMMAND_TITLE_CONFIG = 'config/assets/ui-command-title-zh.json'
 SLOTS = (0, 1, 2, 3, 4, 5, 5, 5, 5, 3)
@@ -62,30 +63,44 @@ def load(root, edition):
 def apply_help_titles(atlas, drawings, root: Path, *, edition='original', reverse=False, strict=False):
     """Apply the frozen delta from the reviewed full-width Chinese titles."""
     path = SP_ITEM_HELP_CONFIG if edition == 'sp' else HELP_TITLES_CONFIG
-    raw = (root / path).read_bytes()
+    return _apply_title_delta(atlas, drawings, root / path, reverse=reverse, strict=strict)
+
+
+def apply_sp_atlas_overlap(atlas, drawings, root: Path, *, reverse=False, strict=False):
+    """Restore native SHIP and minus pixels and install the standalone SP setup title."""
+    return _apply_title_delta(atlas, drawings, root / SP_ATLAS_OVERLAP_CONFIG,
+                              reverse=reverse, strict=strict)
+
+
+def _apply_title_delta(atlas, drawings, path, *, reverse, strict):
+    raw = path.read_bytes()
     config = json.loads(raw)
+    label = path.stem
 
     def apply_blocks(data, blocks):
         out = bytearray(data)
+        previous_end = 0
         for block in blocks:
             offset, size = block['offset'], block['size']
-            require(0 <= offset < offset + size <= len(data), 'help title block bounds')
+            require(previous_end <= offset < offset + size <= len(data), f'{label}: block bounds or overlap')
+            previous_end = offset + size
             before, after = block['before_sha256'], block['after_sha256']
             current = data[offset:offset + size]
             identity = sha(current)
             require(identity in (before, after) and (not strict or identity == after),
-                    'help title block preimage drift')
+                    f'{label}: block preimage drift')
             target = before if reverse else after
             if identity == target:
                 continue
             delta = decode(block['xor_zlib_base64'])
-            require(len(delta) == size, 'help title delta size drift')
+            require(len(delta) == size, f'{label}: delta size drift')
             replacement = bytes(a ^ b for a, b in zip(current, delta))
-            require(sha(replacement) == target, 'help title output drift')
+            require(sha(replacement) == target, f'{label}: output drift')
             out[offset:offset + size] = replacement
         return bytes(out)
 
-    return (apply_blocks(atlas, [config['atlas']]),
+    atlas_blocks = config['atlas']
+    return (apply_blocks(atlas, [atlas_blocks] if isinstance(atlas_blocks, dict) else atlas_blocks),
             apply_blocks(drawings, config['drawings']),
             dict(config_sha256=sha(raw), drawings=len(config['drawings'])))
 

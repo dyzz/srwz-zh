@@ -52,7 +52,8 @@ from special_disc.writeback.shared_library import verify_shared_library
 from write_system_text import overlay_member
 from srwz.library_work_titles import verify_work_title_pool
 from special_disc.writeback.bazaar_heading import verify_bazaar_heading
-from srwz.ui_menu_restore import verify_menu_restore
+from srwz.ui_menu_restore import apply_sp_atlas_overlap, verify_menu_restore
+from srwz.ui_battle_select import SP_CONFIG as SP_BATTLE_SELECT, apply_atlas as apply_select_atlas
 from srwz.ui_frame_uv import load_frame_uv_contract, verify_frame_uv_patches, frame_uv_preimage_for_verification
 from srwz.ui_frame_joins import frame_join_preimage_for_verification, load_join_contract
 from special_disc.writeback.battle_status import verify_status_labels, MEMBER as STATUS_MEMBER
@@ -108,15 +109,22 @@ def main(iso=None, work=None):
     require(verify_bazaar_heading(member('KURODATA/KVMDATA.BIN')) == image_report['bazaar_heading'],
             'SP bazaar independent readback receipt drift')
     counts['enlarged_bazaar_headings'] = 1
+    select_atlas, joined_drawings, overlap = apply_sp_atlas_overlap(
+        member('KURODATA/KVMDATA.BIN'), member('KURODATA/KVPDATA.BIN'), ROOT, reverse=True, strict=True)
+    require(overlap == image_report['menu_atlas_overlap'], 'SP menu overlap independent readback drift')
     pre_join_drawings, joins = frame_join_preimage_for_verification(
-        member('KURODATA/KVPDATA.BIN'), load_join_contract(ROOT, 'sp'))
+        joined_drawings, load_join_contract(ROOT, 'sp'))
     require(joins == image_report['frame_joins'], 'SP frame join independent readback drift')
     counts['frame_join_bytes'] = joins['byte_count']
     frame_contract = load_frame_uv_contract(ROOT, 'sp')
     frame_uv = verify_frame_uv_patches(pre_join_drawings, frame_contract)
     # The menu receipt seals the complete member before both frame repairs.
     menu_drawings = frame_uv_preimage_for_verification(pre_join_drawings, frame_contract)
-    require(verify_menu_restore(member('KURODATA/KVMDATA.BIN'), menu_drawings, ROOT, 'sp')
+    select_path = ROOT / SP_BATTLE_SELECT
+    require(file_sha(select_path) == image_report['battle_select_titles']['config_sha256'],
+            'SP battle SELECT contract drift')
+    menu_atlas = apply_select_atlas(select_atlas, load(select_path), reverse=True, strict=True)
+    require(verify_menu_restore(menu_atlas, menu_drawings, ROOT, 'sp')
             == image_report['menu_restore'], 'SP native menu independent readback receipt drift')
     counts['restored_native_menu_chunks'] = len(image_report['menu_restore']['restored_chunks'])
     require(all(image_report['shared_frame_uv'][k] == v for k, v in frame_uv.items()),
