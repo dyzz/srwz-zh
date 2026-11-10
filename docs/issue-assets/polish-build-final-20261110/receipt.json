@@ -1,0 +1,92 @@
+{
+  "source_commit_after_split": "2cf541340780fdf0f42ac4f6b33d7990bd0cc138",
+  "snapshot_source_head": "925efbb3857da9db20a6e63c881ee602e67d3f52",
+  "input_digest": "27eed9e560c7ab5891490add2356caa0fcde21e33e8a3a2f1d15f6e66a29c0a9",
+  "snapshot_inputs": 905,
+  "changed_since_snapshot": [],
+  "timing": {
+    "editions": {
+      "original": {
+        "mode": "build",
+        "phases": {
+          "codec": {
+            "returncode": 0,
+            "seconds": 2.232
+          },
+          "components": {
+            "returncode": 0,
+            "seconds": 50.793
+          },
+          "event-subtitles": {
+            "returncode": 0,
+            "seconds": 12.248
+          },
+          "fonts": {
+            "returncode": 0,
+            "seconds": 0.091
+          },
+          "iso": {
+            "returncode": 0,
+            "seconds": 13.31
+          },
+          "iso-toolchain": {
+            "returncode": 0,
+            "seconds": 1.1
+          },
+          "readback": {
+            "returncode": 0,
+            "seconds": 12.178
+          }
+        },
+        "seconds": 94.744
+      },
+      "sp": {
+        "mode": "build",
+        "phases": {
+          "rust-compressor": {
+            "returncode": 0,
+            "seconds": 3.277
+          },
+          "sp-full-text": {
+            "returncode": 0,
+            "seconds": 76.112
+          }
+        },
+        "seconds": 93.489
+      }
+    },
+    "finished_at": "2026-11-10T09:04:42.142264+00:00",
+    "preflight_and_snapshot_seconds": 1.041,
+    "started_at": "2026-11-10T09:03:05.964222+00:00",
+    "total_seconds": 96.177
+  },
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "061443c5aafc95cdb2f5c5dd3e6690f7e74bde0b940a1aa51cc1abd30eef1ed6",
+      "size": 3799459840
+    },
+    "sp": {
+      "path": "build/iso/special-disc/sp-current.iso",
+      "sha256": "af82f520a45ecca170ceb1c93c6e0af73af96db2a224c0de3d3c2584f4d30463",
+      "size": 3918860288
+    }
+  },
+  "runtime": {
+    "runner": "ARMSX2",
+    "renderer": "metal",
+    "upscale": 4,
+    "original": "cold boot -> new game Rand -> Chinese opening dialogue",
+    "sp": "cold boot -> battle viewer -> battle animation",
+    "scope": "smoke only; no all-line/gallery or load-game acceptance"
+  },
+  "source_binding_note": "Build snapshot was captured before the source commits were split. All 905 input files still match snapshot hashes. Local generated assets and unused experimental helper scripts are captured by the broad input manifest; they are not added to Git by this handoff.",
+  "tests": {
+    "command": "python3.13 -m unittest discover -s tests",
+    "total": 986,
+    "passed": 978,
+    "skipped": 8,
+    "seconds": 198.069
+  },
+  "output_hashes_independently_recomputed": true
+}

@@ -2,7 +2,7 @@
   "adapter": "sp-full-text-v1",
   "base_output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "6253142d1f82f7792fc9dbb484960021b0ed9d78a3edabaaf86f21af059823b4",
+    "sha256": "5b054247712152c0f771b24d587c2453a1f8e9b5cebeb75cd898e154d1b390d7",
     "size": 3918860288
   },
   "battle_square_skip": {
@@ -70,7 +70,7 @@
   "edition_id": "sp",
   "event_gallery": {
     "caption_count": 37,
-    "elf_sha256": "33253b721ffbd652983fdc02455feb831aa90147ae46416602154518502a152a",
+    "elf_sha256": "97696ef8e2e75a9a95b70c0befac0b30f0f5a74353f30ae934bb823a5b246f56",
     "scene_count": 22
   },
   "gunleon_sprite": {
@@ -87,53 +87,41 @@
     "member": "BTL/TWP.BIN",
     "packed_bytes": 592711,
     "verification": {
-      "after_sha256": "26026eae755ceaf4bf8edd9233e252d7c4e312a7d54c32bdb04d8ae47f7cabe7",
+      "after_sha256": "af82f520a45ecca170ceb1c93c6e0af73af96db2a224c0de3d3c2584f4d30463",
       "bytes": 3918158912,
-      "sha256": "1e8e108281a702d693997ee51142ddc6dce860756c3d0d3bb59acd088b2bdb82"
+      "sha256": "bd15abbc2589257ff816df4a844a244eb3d6a18c63ea78c512cb62ee23bc621b"
     }
   },
-  "input_digest": "264f92532c07400300d5839a34c3928bc8e1b5d8ab2b8658c240b9e73c66bc1c",
-  "male_opening_and_world_history_review_20261110": {
-    "iso_readback": {
-      "byte_identical_to_previous_rc": true,
-      "counts": {
-        "placeholder_rows": 8,
-        "scroll_fields": 10,
-        "synopsis_fields": 21
-      },
-      "native_scroll_placeholders_exact": true,
-      "text_and_line_breaks_exact": true
-    }
-  },
+  "input_digest": "27eed9e560c7ab5891490add2356caa0fcde21e33e8a3a2f1d15f6e66a29c0a9",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "26026eae755ceaf4bf8edd9233e252d7c4e312a7d54c32bdb04d8ae47f7cabe7",
+    "sha256": "af82f520a45ecca170ceb1c93c6e0af73af96db2a224c0de3d3c2584f4d30463",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/1237163b399cb17621230051808e8834a7a9a79774e50ad45213d86b83aa4d46/project/build/iso/special-disc/sp-current.json",
-    "sha256": "8232a7da5248735b8506f613e835d3b2ec779b667e372c30ff0cdaf8594dcc1e"
+    "path": "build/editions/zh-release-sp/73629bd346ad565757bc638838c850aa828f2cd197b4905b4d5645f3f807fc7f/project/build/iso/special-disc/sp-current.json",
+    "sha256": "a90812005d94c24e17cb71d4f6c26139fe054d747cb4468da2e144647e711793"
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "441dbbcf610d8a8866820308a6c82f1903e06873",
+  "source_head": "925efbb3857da9db20a6e63c881ee602e67d3f52",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
   "typography": {
     "input": {
       "path": "build/iso/special-disc/sp-current.iso",
-      "sha256": "6253142d1f82f7792fc9dbb484960021b0ed9d78a3edabaaf86f21af059823b4",
+      "sha256": "5b054247712152c0f771b24d587c2453a1f8e9b5cebeb75cd898e154d1b390d7",
       "size": 3918860288
     },
     "verification": {
       "edition": "sp",
-      "executable_sha256": "73eaf36293bb6b1ec0a0bb543c4adddcfbc11c2a6e1d8b04400c0ea5b2c8bae6",
+      "executable_sha256": "9027b6a202aedfeeadf38e25e03ca2bb8525340bee16394ecf3a4ca2081ff02e",
       "member": "SLPS_259.20",
       "member_lba": 1851456,
       "member_size": 4141568,
       "metrics_sha256": "bd83aba20659da669664e847c0926f761a160808b609c732edc6f2e4b7fdad8f",
-      "output_sha256": "8a285908f229c588a9d5046a508ff30b7485688cceb88dd8add73283d136202e",
+      "output_sha256": "541141b563a504dfecff2bcdaca3ceca5d6d912a783e87d286fd40e5e05cc998",
       "outside_executable_bytes_compared": 3914718720,
       "payload": {
         "base": 8512000,
@@ -200,11 +188,11 @@
           "heapUnchanged": true,
           "nonloadedSectionMetadataRemoved": true,
           "payloadBytes": 6400,
-          "resultSha256": "1bf3e8f448f59b9ab06f802c3b554193457ea9059bb45ee77cb1cc8048947deb",
+          "resultSha256": "02b76410a01e9cc8dbffd1d00ead0f183b988180e0df915f6e352368a7b159d9",
           "runtimeVerified": false,
-          "sourceSha256": "3c45dce1d85660e72f4882726064f9c4c7a13f957a310600a09fbef31741e32a"
+          "sourceSha256": "5de13636f8887889f80aeb08d1053546e7508b9bd39181bc4d41c92760b284c0"
         },
-        "resultSha256": "73eaf36293bb6b1ec0a0bb543c4adddcfbc11c2a6e1d8b04400c0ea5b2c8bae6",
+        "resultSha256": "9027b6a202aedfeeadf38e25e03ca2bb8525340bee16394ecf3a4ca2081ff02e",
         "routes": [
           {
             "name": "story",
@@ -409,9 +397,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3918860288,
-      "source_sha256": "6253142d1f82f7792fc9dbb484960021b0ed9d78a3edabaaf86f21af059823b4"
+      "source_sha256": "5b054247712152c0f771b24d587c2453a1f8e9b5cebeb75cd898e154d1b390d7"
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-sp/1237163b399cb17621230051808e8834a7a9a79774e50ad45213d86b83aa4d46/project"
+  "workspace": "build/editions/zh-release-sp/73629bd346ad565757bc638838c850aa828f2cd197b4905b4d5645f3f807fc7f/project"
 }

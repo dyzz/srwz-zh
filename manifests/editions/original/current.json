@@ -2,7 +2,7 @@
   "adapter": "original-production-v1",
   "base_output": {
     "path": "build/iso/zh-release-full-story/current-original.iso",
-    "sha256": "53cc76b170dc4046f49bf9b7b156ce553f22fdfd95429bfa1262c86ec5991ebc",
+    "sha256": "286ff013d7d80faa1d7e3a69a108fcd06870962bdb92c6fb939cc5d98790946e",
     "size": 3758358528
   },
   "battle_square_skip": {
@@ -64,12 +64,12 @@
   "event_subtitles": {
     "base_iso": {
       "path": "build/iso/zh-release-full-story/current-original.iso",
-      "sha256": "53cc76b170dc4046f49bf9b7b156ce553f22fdfd95429bfa1262c86ec5991ebc",
+      "sha256": "286ff013d7d80faa1d7e3a69a108fcd06870962bdb92c6fb939cc5d98790946e",
       "size": 3758358528
     },
     "iso": {
       "path": "build/iso/zh-release-full-story/current-original-captioned.iso",
-      "sha256": "28b9d6b648fa4e77c119bea35de8525dd4b31b15b1b04ccd1f1d9b66c8e958fa",
+      "sha256": "dea56c90337eecfb72f15c79677afb98ec28f70027410931a90140af1ceabbf1",
       "size": 3799459840
     },
     "member_readback": {
@@ -197,7 +197,7 @@
             "previous_size": 36890512
           }
         ],
-        "image": "/Users/nate/.codex/worktrees/opening-scroll-rc/srwz-zh/build/editions/zh-release-original/db13dab1bce44dcc8c89ed6bc51028606f39f862f9838a9241ebd39fe5d1aa6b/project/build/iso/zh-release-full-story/current-original-captioned.iso",
+        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-original/ff645eb3d051d2502117f7316f0ee89dc6c09f64d2da8ce4d8ae36b5a3aa8a8a/project/build/iso/zh-release-full-story/current-original-captioned.iso",
         "image_blocks": 1855205,
         "metadata_blocks_written": [
           34,
@@ -1332,8 +1332,8 @@
     "untouched_base_bytes": {
       "base_bytes": 3758358528,
       "compared_bytes": 3758345168,
-      "final_sha256": "28b9d6b648fa4e77c119bea35de8525dd4b31b15b1b04ccd1f1d9b66c8e958fa",
-      "sha256": "64a74e56742c9a1fb0a78ef039d906a4974a9bdd7d65a9d990c08f8e2dac44f8",
+      "final_sha256": "dea56c90337eecfb72f15c79677afb98ec28f70027410931a90140af1ceabbf1",
+      "sha256": "c93fdc9d110af9f176d74ab4dbc9509daadb24bede6d7d14987c5716b890df04",
       "spans": [
         [
           32848,
@@ -1392,224 +1392,39 @@
     "member": "BTL/TWP.BIN",
     "packed_bytes": 592711,
     "verification": {
-      "after_sha256": "c7924885d0292edda98c8f9cdd29cd656b61a540173e358a1a3ddc663150eabe",
+      "after_sha256": "061443c5aafc95cdb2f5c5dd3e6690f7e74bde0b940a1aa51cc1abd30eef1ed6",
       "bytes": 3798758464,
-      "sha256": "2de89c54947d6c062ab19d913fd582922ec10e5972fcbe58a3b09c67160805ad"
+      "sha256": "012e82f141ee3247e2f5fc79dc07c5a3023cf7bf0413f8cb659e3bba6f1fd13a"
     }
   },
-  "input_digest": "264f92532c07400300d5839a34c3928bc8e1b5d8ab2b8658c240b9e73c66bc1c",
+  "input_digest": "27eed9e560c7ab5891490add2356caa0fcde21e33e8a3a2f1d15f6e66a29c0a9",
   "legacy_equivalence": {
     "baseline_iso_sha256": "6ae9b61605a0491adb6a07c4204bb1cd66563a067bed4fb4faf679a0afcb1b8e",
     "member_count": 25,
     "passed": false,
     "required": false
   },
-  "male_opening_and_world_history_review_20261110": {
-    "armsx2": {
-      "male-opening": {
-        "fields": {
-          "summary/01/000": {
-            "expected_rows": 15,
-            "native_blank_rows": [
-              5,
-              14
-            ],
-            "visible_rows": 15
-          }
-        },
-        "program": 1,
-        "receipt": {
-          "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/male-opening/capture.json",
-          "sha256": "ef757849ce2527b618cff32dca9782c8991665ab6623e96828b7a4979a8da162"
-        },
-        "renderer": "metal",
-        "route": "native Rand new game",
-        "upscale": 4,
-        "video": {
-          "duration_seconds": 50.734,
-          "frames": 3041,
-          "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/male-opening/male-opening.mp4",
-          "sha256": "aa7304c7fe88603c9d91d1ab59d20c5bb465fe661e0c4ba6bd5ac37176ea8a2f",
-          "visible_frames": {
-            "summary/01/000": {
-              "consecutive_visible_frames": 2190,
-              "end_frame": 2444,
-              "start_frame": 255,
-              "trace_samples": [
-                430,
-                700,
-                1000,
-                1280,
-                1550,
-                1820,
-                2080,
-                2320
-              ]
-            }
-          }
-        },
-        "video_audit": {
-          "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/male-opening/visibility-audit.json",
-          "sha256": "19d6a99e0d3cb76dbdf21f3e43acd49d2e443e974a13feb5de342030a86e1255"
-        }
-      },
-      "world-collapse": {
-        "fields": {
-          "summary/02/000": {
-            "expected_rows": 3,
-            "native_blank_rows": [],
-            "visible_rows": 3
-          },
-          "summary/02/001": {
-            "expected_rows": 1,
-            "native_blank_rows": [],
-            "visible_rows": 1
-          },
-          "summary/02/002": {
-            "expected_rows": 2,
-            "native_blank_rows": [],
-            "visible_rows": 2
-          }
-        },
-        "program": 2,
-        "receipt": {
-          "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/world-collapse/capture.json",
-          "sha256": "18fc49bd4fec93a2ac4960ac8e49d5eb28e8e347c5bc30d7ffd94b88f906ca0e"
-        },
-        "renderer": "metal",
-        "route": "native world-history program from the final ISO, triggered through the Rand intro selector in RAM",
-        "upscale": 4,
-        "video": {
-          "duration_seconds": 27.377378,
-          "frames": 1641,
-          "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/world-collapse/world-collapse.mp4",
-          "sha256": "d113c9b36193bc75ecd7cd6581f33fbd30c3a5791fc4197f87d528756eabb34f",
-          "visible_frames": {
-            "summary/02/000": {
-              "consecutive_visible_frames": 400,
-              "end_frame": 605,
-              "start_frame": 206,
-              "trace_samples": [
-                275,
-                360,
-                500
-              ],
-              "trace_samples_outside_visible_window": [
-                640
-              ]
-            },
-            "summary/02/001": {
-              "consecutive_visible_frames": 142,
-              "end_frame": 843,
-              "start_frame": 702,
-              "trace_samples": [
-                760,
-                820
-              ],
-              "trace_samples_outside_visible_window": []
-            },
-            "summary/02/002": {
-              "consecutive_visible_frames": 400,
-              "end_frame": 1339,
-              "start_frame": 940,
-              "trace_samples": [
-                980,
-                1050,
-                1140,
-                1300
-              ],
-              "trace_samples_outside_visible_window": [
-                900
-              ]
-            }
-          }
-        },
-        "video_audit": {
-          "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/world-collapse/visibility-audit.json",
-          "sha256": "8483e590e6980d1cd3b24f23702aaba2c8c3ed875131ff7058f01cecdd625af8"
-        }
-      }
-    },
-    "iso_readback": {
-      "archive_sectors": 5,
-      "archive_size_bytes": 8432,
-      "changed_chunks": [
-        1,
-        2,
-        3
-      ],
-      "counts": {
-        "placeholder_rows": 14,
-        "scroll_fields": 28,
-        "synopsis_fields": 110
-      },
-      "fields": {
-        "summary/01/000": {
-          "allocated_bytes": 809,
-          "native_blank_row_numbers": [
-            5,
-            14
-          ],
-          "payload_sha256": "fbd078f0209485a0d06ad950f161700bb7569335452362efd03941d80769262d",
-          "physical_rows": 17
-        },
-        "summary/02/000": {
-          "allocated_bytes": 124,
-          "native_blank_row_numbers": [],
-          "payload_sha256": "670ec8a5547af5cb5c8ae05a1268e984382d81727002f5c8c0c0033810ace0eb",
-          "physical_rows": 3
-        },
-        "summary/02/001": {
-          "allocated_bytes": 34,
-          "native_blank_row_numbers": [],
-          "payload_sha256": "f1f10cb74e4fd13995bed998195ea5c7f24caff33d28758460e95eb9f9daa850",
-          "physical_rows": 1
-        },
-        "summary/02/002": {
-          "allocated_bytes": 108,
-          "native_blank_row_numbers": [],
-          "payload_sha256": "5080be1fbb9e55b7f08fa5c93fff0b27a332822183c761e9830181a11f776b84",
-          "physical_rows": 2
-        },
-        "summary/03/000": {
-          "allocated_bytes": 557,
-          "native_blank_row_numbers": [],
-          "payload_sha256": "1a0437103dad987b81314d29af674d7d8cbc0b9a38bf632a61d474ae05849238",
-          "physical_rows": 12
-        }
-      },
-      "member_lbas_exact": true,
-      "native_scroll_placeholders_exact": true,
-      "only_scroll_archive_and_offsets_changed_within_members": true,
-      "previous_archive_size_bytes": 8400,
-      "text_and_line_breaks_exact": true
-    }
-  },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "sha256": "c7924885d0292edda98c8f9cdd29cd656b61a540173e358a1a3ddc663150eabe",
+    "sha256": "061443c5aafc95cdb2f5c5dd3e6690f7e74bde0b940a1aa51cc1abd30eef1ed6",
     "size": 3799459840
   },
   "readback": {
-    "path": "build/editions/zh-release-original/db13dab1bce44dcc8c89ed6bc51028606f39f862f9838a9241ebd39fe5d1aa6b/project/manifests/zh-release-full-story-iso-content-validation.json",
-    "sha256": "eb8b9a73fffb103c436726b8c1c18ffb3f519f4f6d4d3597424cfd2d37b8ce4c",
+    "path": "build/editions/zh-release-original/ff645eb3d051d2502117f7316f0ee89dc6c09f64d2da8ce4d8ae36b5a3aa8a8a/project/manifests/zh-release-full-story-iso-content-validation.json",
+    "sha256": "72161b4c076f4cdc8012c001135e22f7fe6cc6fb6d51d3fd9c929442f16fd169",
     "stage_count": 170,
     "translation_entry_count": 93071
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "441dbbcf610d8a8866820308a6c82f1903e06873",
+  "source_head": "925efbb3857da9db20a6e63c881ee602e67d3f52",
   "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
   "status": "edition_iso_static_validated_runtime_pending",
-  "title_badge_readback": {
-    "image_sha256": "1499f3fb078b9325554987e337ab228bda075f8a999cdfabb2ac6e6510fafa25",
-    "text": "v0.5.0-rc"
-  },
   "typography": {
     "input": {
       "path": "build/iso/zh-release-full-story/current-original-captioned.iso",
-      "sha256": "28b9d6b648fa4e77c119bea35de8525dd4b31b15b1b04ccd1f1d9b66c8e958fa",
+      "sha256": "dea56c90337eecfb72f15c79677afb98ec28f70027410931a90140af1ceabbf1",
       "size": 3799459840
     },
     "verification": {
@@ -1619,7 +1434,7 @@
       "member_lba": 1835136,
       "member_size": 3538944,
       "metrics_sha256": "bd83aba20659da669664e847c0926f761a160808b609c732edc6f2e4b7fdad8f",
-      "output_sha256": "b2516ebf72fef2020a4f1059aa43650869577cd6fbcc2d20113a9fa84f51d9fa",
+      "output_sha256": "7c94c7436736dc55803ceb15da68dcf89bcf12f85d64b8cc63829f553932dcfb",
       "outside_executable_bytes_compared": 3795920896,
       "payload": {
         "base": 7904768,
@@ -1918,9 +1733,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3799459840,
-      "source_sha256": "28b9d6b648fa4e77c119bea35de8525dd4b31b15b1b04ccd1f1d9b66c8e958fa"
+      "source_sha256": "dea56c90337eecfb72f15c79677afb98ec28f70027410931a90140af1ceabbf1"
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-original/db13dab1bce44dcc8c89ed6bc51028606f39f862f9838a9241ebd39fe5d1aa6b/project"
+  "workspace": "build/editions/zh-release-original/ff645eb3d051d2502117f7316f0ee89dc6c09f64d2da8ce4d8ae36b5a3aa8a8a/project"
 }
