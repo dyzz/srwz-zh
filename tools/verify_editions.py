@@ -42,7 +42,10 @@ def verify_batch(root: Path, manifest: Path) -> dict:
         raise EditionError("snapshot directory does not match its digest")
     verify_files(source_path.parent / "project", snapshot["files"])
     requested = tuple(batch["requested_editions"])
-    profiles = load_release_profiles(source_path.parent / "project", batch["release_config"], requested)
+    profiles = load_release_profiles(
+        source_path.parent / "project", batch["release_config"], requested,
+        allow_legacy_library_visibility=True,
+    )
     if [r["edition_id"] for r in batch["results"]] != list(requested):
         raise EditionError("edition results are missing, duplicated or reordered")
     for profile, result in zip(profiles, batch["results"]):

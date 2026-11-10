@@ -162,11 +162,20 @@ class BuildContext:
         return self._path(f"manifests/editions/{self.profile.edition_id}/current.json", "manifests/editions")
 
 
-def load_release_profiles(root: Path, path: str, requested: tuple[str, ...]) -> tuple[EditionProfile, ...]:
+def load_release_profiles(
+    root: Path, path: str, requested: tuple[str, ...], *, allow_legacy_library_visibility: bool = False
+) -> tuple[EditionProfile, ...]:
     d = load_json(project_path(root, path, "config/release"))
     if set(d) != {"schema_version", "editions", "policies"} or d["schema_version"] != 1:
         raise EditionError("invalid dual-edition release contract")
-    if d["policies"] != {"library_visibility": "all_valid_entries_without_save_writeback", "animation_resources": "native_per_edition"}:
+    policies = d["policies"]
+    allowed_visibility = ("main_game_native_progress",)
+    if allow_legacy_library_visibility:
+        allowed_visibility += ("all_valid_entries_without_save_writeback",)
+    if (not isinstance(policies, dict)
+            or set(policies) != {"library_visibility", "animation_resources"}
+            or policies["library_visibility"] not in allowed_visibility
+            or policies["animation_resources"] != "native_per_edition"):
         raise EditionError("shared library/animation policy drift")
     if not requested or len(set(requested)) != len(requested):
         raise EditionError("editions must be nonempty and unique")

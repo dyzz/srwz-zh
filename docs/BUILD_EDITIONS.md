@@ -15,6 +15,7 @@ python3 tools/verify_editions.py --manifest work/editions/<input_digest>/origina
 
 注册表沿用 `config/release/dual-current.json` 路径。下一版发布 Original、The Best 和 SP，每版一份补丁。
 依赖 Original（初版）金手指的玩家可继续选择 Original 补丁。
+Original 和 The Best 的图鉴与梗概按原版进度解锁，可选全开金手指见 [图鉴／流程全开说明](LIBRARY_UNLOCK_TEST_CHEATS_20261106.md)。
 
 ```bash
 python3 tools/build_editions.py --release-version <x.y.z>

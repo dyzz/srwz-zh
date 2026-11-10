@@ -6,7 +6,7 @@
 
 这里只临时放开关键词、人物、机体和剧情流程的有效条目查询，梗概通过剧情流程查看；不修改存档解锁标志，也不包含声音选择、SP 模式或战斗鉴赏全开。以下仅适用于本篇 Original / BEST，不可套到 SP。
 
-地址与指令已按当前源码静态核对：Original 来源为 `config/library/v0.2.0.json` 的 `library_default_unlock`；BEST 来源为 `tools/srwz/best_build.py` 的 `verify_elf_policy` 四项 guard。本次未运行模拟器，以下不是新一轮运行验收结果。生产构建目前仍包含全开；待发布回滚完成后，才可用关闭金手指的构建验证原生锁定行为。
+Original 和 BEST 的构建及回读均要求四处原生指令。两组金手指分别覆盖三个图鉴查询和一个剧情流程查询。SP 使用独立的图鉴及流程实现。
 
 | 查询 | Original EE 地址 | BEST EE 地址 | 原生指令字 | 全开指令字 |
 | --- | --- | --- | --- | --- |
@@ -52,21 +52,25 @@ runner 当前 `poke` 只写 RAM，没有显式清理 JIT 代码缓存，因此�
 Original（SLPS-25887）：
 
 ```ini
-comment=Local test only - library and scenario chart
+[图鉴全开]
 patch=1,EE,00153E84,word,00A21025
-patch=1,EE,0015407C,word,00821025
 patch=1,EE,00154124,word,00A21025
 patch=1,EE,00154284,word,00451025
+
+[梗概全开]
+patch=1,EE,0015407C,word,00821025
 ```
 
 BEST（SLPS-73270）：
 
 ```ini
-comment=Local test only - library and scenario chart
+[图鉴全开]
 patch=1,EE,00153E94,word,00A21025
-patch=1,EE,0015408C,word,00821025
 patch=1,EE,00154134,word,00A21025
 patch=1,EE,00154454,word,00451025
+
+[梗概全开]
+patch=1,EE,0015408C,word,00821025
 ```
 
-关闭金手指并冷启动才能验收原生解锁；仅删除 PNACH 不会撤销正在运行会话里的内存改动。金手指文件仅供本地测试，不加入发布包，也不重新固化进 ISO。
+两组代码已加入本地金手指表和社区站金手指页。验收原生解锁时，关闭金手指并冷启动。

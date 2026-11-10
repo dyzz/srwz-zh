@@ -1,8 +1,7 @@
-"""Fail-closed executable patches for default-visible LIBRARY entries."""
+"""Verify native progress checks for the main-game LIBRARY."""
 
 from __future__ import annotations
 
-import hashlib
 import struct
 from typing import Mapping, Sequence
 
@@ -46,11 +45,11 @@ def _is_and_to_or(original: bytes, replacement: bytes) -> bool:
     )
 
 
-def apply_library_default_unlock(
+def verify_library_progress_visibility(
     executable: bytes,
     raw_contract: Mapping[str, object],
-) -> tuple[bytes, dict[str, object]]:
-    """Make valid encyclopedia/chart rows visible without writing save flags."""
+) -> dict[str, object]:
+    """Require the four native visibility instructions and report their cheat counterparts."""
 
     if not isinstance(raw_contract, Mapping):
         raise LibraryUnlockError("LIBRARY unlock contract must be an object")
@@ -74,8 +73,6 @@ def apply_library_default_unlock(
     if len(patches) != 4:
         raise LibraryUnlockError("LIBRARY unlock must contain four patches")
 
-    source = bytes(executable)
-    output = bytearray(source)
     reports = []
     seen_surfaces: set[str] = set()
     seen_offsets: set[int] = set()
@@ -104,7 +101,7 @@ def apply_library_default_unlock(
                 f"duplicate LIBRARY unlock file offset: 0x{file_offset:X}"
             )
         seen_offsets.add(file_offset)
-        if file_offset < 0 or file_offset + 4 > len(output):
+        if file_offset < 0 or file_offset + 4 > len(executable):
             raise LibraryUnlockError(
                 f"{surface} unlock instruction exceeds executable"
             )
@@ -121,28 +118,19 @@ def apply_library_default_unlock(
             raise LibraryUnlockError(
                 f"{surface} unlock is not a register-preserving AND-to-OR patch"
             )
-        observed = bytes(output[file_offset : file_offset + 4])
-        if observed not in (original, replacement):
+        observed = executable[file_offset : file_offset + 4]
+        if observed != original:
             raise LibraryUnlockError(
-                f"{surface} unlock instruction preimage drift: "
+                f"{surface} native visibility instruction drift: "
                 f"expected {original.hex().upper()}, got {observed.hex().upper()}"
             )
-        already_patched = observed == replacement
-        output[file_offset : file_offset + 4] = replacement
         reports.append(
             {
                 "surface": surface,
                 "virtual_address": f"0x{virtual_address:X}",
                 "file_offset": f"0x{file_offset:X}",
-                "original_instruction_hex": original.hex().upper(),
-                "replacement_instruction_hex": replacement.hex().upper(),
-                "source_instruction_hex": observed.hex().upper(),
-                "output_instruction_hex": bytes(
-                    output[file_offset : file_offset + 4]
-                ).hex().upper(),
-                "already_patched": already_patched,
-                "changed": not already_patched,
-                "and_to_or_exact": True,
+                "native_instruction_hex": observed.hex().upper(),
+                "cheat_instruction_hex": replacement.hex().upper(),
             }
         )
 
@@ -159,32 +147,15 @@ def apply_library_default_unlock(
             f"extra={sorted(seen_surfaces - required_surfaces)}"
         )
 
-    result = bytes(output)
-    changed_byte_count = sum(
-        before != after for before, after in zip(source, result)
-    )
-    return result, {
-        "policy": raw_contract["policy"],
+    return {
+        "policy": "native_progress",
         "member": raw_contract["member"],
-        "patches": reports,
+        "checks": reports,
         "surface_count": len(reports),
-        "changed_instruction_count": sum(item["changed"] for item in reports),
-        "changed_byte_count": changed_byte_count,
-        "source_size": len(source),
-        "output_size": len(result),
-        "source_sha256": hashlib.sha256(source).hexdigest(),
-        "output_sha256": hashlib.sha256(result).hexdigest(),
-        "all_instruction_replacements_exact": all(
-            item["output_instruction_hex"]
-            == item["replacement_instruction_hex"]
-            for item in reports
-        ),
-        "save_writeback_functions_unchanged": True,
-        "executable_size_preserved": len(result) == len(source),
     }
 
 
 __all__ = [
     "LibraryUnlockError",
-    "apply_library_default_unlock",
+    "verify_library_progress_visibility",
 ]

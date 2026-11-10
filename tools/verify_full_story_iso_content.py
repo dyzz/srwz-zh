@@ -87,7 +87,7 @@ from srwz.sound_select import (
     apply_sound_select_default_unlock,
     audit_sound_select_track_metadata,
 )
-from srwz.library_unlock import apply_library_default_unlock
+from srwz.library_unlock import verify_library_progress_visibility
 from srwz.full_name_order import apply_route_specific_full_name_order
 from srwz.library_protagonist_names import apply_library_protagonist_names
 from srwz.game_mode_unlock import apply_postgame_mode_unlock
@@ -4675,60 +4675,15 @@ def main() -> int:
         "metadata": unlock_metadata_readback,
         "component_receipts_exact": True,
     }
-    library_unlock_contract = library_scope["library_default_unlock"]
-    _verified_library_slps, library_unlock_readback = (
-        apply_library_default_unlock(
-            members["SLPS_258.87"],
-            library_unlock_contract,
-        )
+    library_visibility_readback = verify_library_progress_visibility(
+        members["SLPS_258.87"], library_scope["library_default_unlock"]
     )
-    full_library_unlock_component = component.get("library_default_unlock")
-    reviewed_library_unlock_component = library_component.get(
-        "library_default_unlock"
-    )
-    readback_rows = library_unlock_readback.get("patches")
-    full_rows = (
-        full_library_unlock_component.get("patches")
-        if isinstance(full_library_unlock_component, dict)
-        else None
-    )
-    reviewed_rows = (
-        reviewed_library_unlock_component.get("patches")
-        if isinstance(reviewed_library_unlock_component, dict)
-        else None
-    )
-    receipt_fields = (
-        "surface",
-        "virtual_address",
-        "file_offset",
-        "original_instruction_hex",
-        "replacement_instruction_hex",
-        "output_instruction_hex",
-    )
-    normalized_readback = [
-        tuple(row.get(field) for field in receipt_fields)
-        for row in readback_rows
-    ] if isinstance(readback_rows, list) else None
-    normalized_full = [
-        tuple(row.get(field) for field in receipt_fields)
-        for row in full_rows
-    ] if isinstance(full_rows, list) else None
-    normalized_reviewed = [
-        tuple(row.get(field) for field in receipt_fields)
-        for row in reviewed_rows
-    ] if isinstance(reviewed_rows, list) else None
     if (
-        normalized_readback is None
-        or normalized_readback != normalized_full
-        or normalized_readback != normalized_reviewed
-        or library_unlock_readback[
-            "all_instruction_replacements_exact"
-        ] is not True
-        or library_unlock_readback["save_writeback_functions_unchanged"]
-        is not True
+        library_visibility_readback != component.get("library_progress_visibility")
+        or library_visibility_readback != library_component.get("library_progress_visibility")
     ):
-        raise SystemExit("final ISO LIBRARY default-unlock readback drift")
-    library_unlock_readback["component_receipts_exact"] = True
+        raise SystemExit("final ISO LIBRARY native visibility readback drift")
+    library_visibility_readback["component_receipts_exact"] = True
     full_name_order_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["runtime_full_name_order"]
@@ -7536,7 +7491,7 @@ def main() -> int:
             "component_acceptance": library_acceptance,
             "main_menu": library_menu_readback,
             "sound_select": sound_select_readback,
-            "default_unlock": library_unlock_readback,
+            "progress_visibility": library_visibility_readback,
             "scenario_chart_title_readback": (
                 scenario_chart_title_readback
             ),
@@ -7844,13 +7799,7 @@ def main() -> int:
                 and sound_select_readback["default_unlock"]["metadata"][
                     "empty_sentinel_excluded"
                 ]
-                and library_unlock_readback[
-                    "all_instruction_replacements_exact"
-                ]
-                and library_unlock_readback[
-                    "save_writeback_functions_unchanged"
-                ]
-                and library_unlock_readback["surface_count"] == 4
+                and library_visibility_readback["surface_count"] == 4
                 and all(library_acceptance.values())
             ),
             "runtime_keyword_surfaces_exact": (

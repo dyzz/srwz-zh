@@ -62,7 +62,7 @@ try:
     from srwz.library_button_labels import apply_library_button_labels
     from srwz.library_unlock import (
         LibraryUnlockError,
-        apply_library_default_unlock,
+        verify_library_progress_visibility,
     )
     from srwz.full_name_order import (
         FullNameOrderError,
@@ -273,7 +273,7 @@ except ModuleNotFoundError:
     from tools.srwz.library_button_labels import apply_library_button_labels
     from tools.srwz.library_unlock import (
         LibraryUnlockError,
-        apply_library_default_unlock,
+        verify_library_progress_visibility,
     )
     from tools.srwz.full_name_order import (
         FullNameOrderError,
@@ -10772,15 +10772,12 @@ def _build_components(
         ) from error
 
     try:
-        output_slps, library_default_unlock_report = (
-            apply_library_default_unlock(
-                output_slps,
-                runtime_library_menu_scope["library_default_unlock"],
-            )
+        library_visibility_report = verify_library_progress_visibility(
+            output_slps, runtime_library_menu_scope["library_default_unlock"]
         )
-    except (KeyError, ValueError, LibraryUnlockError) as error:
+    except (KeyError, LibraryUnlockError) as error:
         raise FullStoryComponentError(
-            f"LIBRARY default unlock failed: {error}"
+            f"LIBRARY native visibility failed: {error}"
         ) from error
 
     try:
@@ -11332,7 +11329,7 @@ def _build_components(
         "ui_name_tables": ui_name_tables_report,
         "runtime_library_menu": runtime_library_menu_report,
         "sound_select_default_unlock": sound_select_unlock_report,
-        "library_default_unlock": library_default_unlock_report,
+        "library_progress_visibility": library_visibility_report,
         "runtime_full_name_order": full_name_order_report,
         "library_protagonist_names": library_protagonist_names_report,
         "postgame_mode_unlock": postgame_mode_unlock_report,
@@ -11640,18 +11637,7 @@ def _build_components(
                     "empty_sentinel_excluded"
                 ]
             ),
-            "library_all_four_surfaces_default_unlocked": (
-                library_default_unlock_report["surface_count"] == 4
-                and library_default_unlock_report[
-                    "all_instruction_replacements_exact"
-                ]
-                and library_default_unlock_report[
-                    "save_writeback_functions_unchanged"
-                ]
-                and library_default_unlock_report[
-                    "executable_size_preserved"
-                ]
-            ),
+            "library_native_progress_visibility": library_visibility_report["surface_count"] == 4,
             "library_protagonist_names_custom_preserved": (
                 library_protagonist_names_report["executable_size_preserved"]
                 and not library_protagonist_names_report["save_writeback"]

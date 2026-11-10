@@ -370,9 +370,8 @@ class BestCompiler:
         native = self.native['best']['SLPS_732.70']
         _, names = apply_library_protagonist_names(bytes(output), 'best')
         require(names['already_patched'], 'BEST LIBRARY name formatter missing')
-        guards = [(0x153E94,0x00A21024,0x00A21025), (0x15408C,0x00821024,0x00821025),
-                  (0x154134,0x00A21024,0x00A21025), (0x154454,0x00451024,0x00451025),
-                  (0x1A3DE0,0x0C04E64C,0x0C04E64C), (0x1A3F14,0x10430008,0x10000008),
+        self.verify_library_progress_visibility(output)
+        guards = [(0x1A3DE0,0x0C04E64C,0x0C04E64C), (0x1A3F14,0x10430008,0x10000008),
                   (0x2016F4,0x80238D72,0x80238D6E), (0x3EB260,0x80238D72,0x80238D6E)]
         for address, before, after in guards:
             offset = address-0xFE580
@@ -381,6 +380,14 @@ class BestCompiler:
         for lo, hi in self.elf_writes:
             restored[lo:hi] = native[lo:hi]
         require(bytes(restored) == native, 'ELF change outside declared text/code/table writes')
+
+    def verify_library_progress_visibility(self, output):
+        native = self.native['best']['SLPS_732.70']
+        for address, word in ((0x153E94, 0x00A21024), (0x15408C, 0x00821024),
+                              (0x154134, 0x00A21024), (0x154454, 0x00451024)):
+            offset = address - 0xFE580
+            require(u32(native, offset) == u32(output, offset) == word,
+                    f'BEST native LIBRARY visibility guard at 0x{address:X}')
 
     def compile_compdata(self, a, b, c):
         mask = bytearray(len(a))
@@ -628,7 +635,7 @@ class BestCompiler:
                   'spirit_cost_templates':spirit_costs,
                   'dialogue_speaker_colors':dialogue_colors,
                   'native_elf_outside_declared_writes_preserved':True,'elf_write_ranges':self.elf_writes,
-                  'compdata_native_corrections_preserved':True,'library_policy':'all_valid_entries_without_save_writeback','runtime':'not_tested'}
+                  'compdata_native_corrections_preserved':True,'library_policy':'native_progress','runtime':'not_tested'}
         write_json(self.work/'component-validation.json',report)
         return report
 
@@ -697,6 +704,7 @@ class BestCompiler:
         verify_library_body_metrics(final_members['SLPS_732.70'], 'best')
         verify_library_optical_metrics(final_members['SLPS_732.70'], 'best')
         verify_library_button_labels(final_members['SLPS_732.70'], 'best')
+        self.verify_library_progress_visibility(final_members['SLPS_732.70'])
         weapon_parentheses = verify_weapon_detail_parentheses(final_members['SLPS_732.70'], 'best')
         spirit_costs = verify_spirit_cost_templates(final_members['SLPS_732.70'], 'best')
         dialogue_colors = verify_dialogue_speaker_prefixes(final_members['SLPS_732.70'], 'best', encoded_prefixes=self.dialogue_prefixes)
