@@ -2,7 +2,7 @@
   "adapter": "best-current-source-v1",
   "base_output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "61fd5198de016fd83481ea2e1adaf9e50cda2ab78cbaf49e55161210a1baab43",
+    "sha256": "9a3ae825866116a34e6c30f46e1369caf95fa66b24ccc86ebec35cf75242137d",
     "size": 3755081728
   },
   "battle_square_skip": {
@@ -64,12 +64,12 @@
   "event_subtitles": {
     "base_iso": {
       "path": "build/iso/zh-release-best/current-best.iso",
-      "sha256": "61fd5198de016fd83481ea2e1adaf9e50cda2ab78cbaf49e55161210a1baab43",
+      "sha256": "9a3ae825866116a34e6c30f46e1369caf95fa66b24ccc86ebec35cf75242137d",
       "size": 3755081728
     },
     "iso": {
       "path": "build/iso/zh-release-best/current-best-captioned.iso",
-      "sha256": "fbe3525bcfebd2b3a36e5d65c928f9036067844bf3bc6b236aeba9f46ff6de8d",
+      "sha256": "d9d4c5d39602a1d0e3515b583a9e257c8db2b951c18b4e05b6322e42db307620",
       "size": 3796187136
     },
     "member_readback": {
@@ -79,11 +79,11 @@
     },
     "members": {
       "EFF/VEFF2DX.BIN": "75b482f4f2046891eb524f201adb5ae24cabfb9ed01a1079af13228dfd2030f3",
-      "SLPS_732.70": "1f581524c101a213d2fe618a1d9f64bdf8016657b61b223fea5ce0769d940a79"
+      "SLPS_732.70": "90ea770a390a170232f8b4bc5b4214ca3fc417ec89462ed036305076059c4ac0"
     },
     "relocation": {
       "appended_bytes": 40579072,
-      "appended_sha256": "78263b9fdb8a4534c510daf756f8fc630f777174ed759ca057a71bf77f7d986a",
+      "appended_sha256": "f12da860ea82f07b85b1946dcd49eb723afa2aaf7370c12c934039d8e2ca86a6",
       "catalog": {
         "edits": [
           {
@@ -184,7 +184,7 @@
             "previous_size": 36890512
           }
         ],
-        "image": "/Users/nate/.codex/worktrees/opening-scroll-rc/srwz-zh/build/editions/zh-release-best/d7afa3ac12cfce4cacec0aa9cc52d5a3a027c3cc1d3abdde1e1c17e6e5df777d/project/build/iso/zh-release-best/current-best-captioned.iso",
+        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-best/7c80d0aee8c32d2006f3d419045e4c65c11316874eb6662b73643b4b83439a59/project/build/iso/zh-release-best/current-best-captioned.iso",
         "image_blocks": 1853607,
         "metadata_blocks_written": [
           34,
@@ -236,13 +236,13 @@
         273,
         282
       ],
-      "elf_sha256": "1f581524c101a213d2fe618a1d9f64bdf8016657b61b223fea5ce0769d940a79",
+      "elf_sha256": "90ea770a390a170232f8b4bc5b4214ca3fc417ec89462ed036305076059c4ac0",
       "font": {
         "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
         "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
       },
       "gallery_menu_or_scene_driver_added": false,
-      "input_elf_sha256": "11f5009a07ab403f813c69b0ec3e31b95295614dde66640042acedaccf160be7",
+      "input_elf_sha256": "d0ef2d49d8c23dd77d127f8db85b9d476f2919de971328fefc6711fdb63dbc14",
       "input_veff_sha256": "63dad8963f35b80beaef0e23062a4ec6e35111207dfaa094b2b82ac3f7128217",
       "payload": {
         "address": "0x790000",
@@ -1319,8 +1319,8 @@
     "untouched_base_bytes": {
       "base_bytes": 3755081728,
       "compared_bytes": 3755068368,
-      "final_sha256": "fbe3525bcfebd2b3a36e5d65c928f9036067844bf3bc6b236aeba9f46ff6de8d",
-      "sha256": "d32b5a36044797c57a4d5d98a941798886f99e86a88da5724bbff78d35bdd122",
+      "final_sha256": "d9d4c5d39602a1d0e3515b583a9e257c8db2b951c18b4e05b6322e42db307620",
+      "sha256": "ba27ac7fd4359b0145587d37aee050617631fe33f26ef6bafc12c19251ff9905",
       "spans": [
         [
           32848,
@@ -1365,84 +1365,34 @@
       ]
     }
   },
-  "input_digest": "c856008d60a9963cf952dcb73fa45aaf9b388456405bc3545386751dc0c76374",
-  "opening_review_20261109": {
-    "armsx2_opening": {
-      "blank_row_numbers": [
-        5,
-        11,
-        22,
-        30
-      ],
-      "capture_receipt": {
-        "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/best/capture.json",
-        "sha256": "6569fc55e3d639cd1bc70b1b8bc9e27e24eb38e36641d8bc979674dd99a80a9f"
-      },
-      "drawn_rows": 28,
-      "expected_visible_rows": 28,
-      "field": "summary/00/000",
-      "renderer": "metal",
-      "route": "native new game, Setsuko",
-      "upscale": 4,
-      "verified_row_gaps": [
-        {
-          "native_screen_row_gap_px": 24,
-          "rows": [
-            4,
-            6
-          ]
-        },
-        {
-          "native_screen_row_gap_px": 24,
-          "rows": [
-            10,
-            12
-          ]
-        },
-        {
-          "native_screen_row_gap_px": 12,
-          "rows": [
-            15,
-            16
-          ]
-        },
-        {
-          "native_screen_row_gap_px": 24,
-          "rows": [
-            21,
-            23
-          ]
-        },
-        {
-          "native_screen_row_gap_px": 24,
-          "rows": [
-            29,
-            31
-          ]
-        }
-      ]
-    },
-    "counts": {
-      "placeholder_rows": 14,
-      "scroll_fields": 28,
-      "synopsis_fields": 110
-    },
-    "exact_text_line_breaks_and_native_placeholder_bytes": true,
-    "scope": {
-      "member_layout_exact": true,
-      "only_opening_decoded_field_changed": true,
-      "prior_iso_sha256": "3af1a0a042afe1c768b4e58e84f38d1811b45db04fdbd42cdd185c67f75245fd",
-      "unchanged_outside_scroll_archive_and_offset_tables": true
+  "gunleon_sprite": {
+    "allocation_bytes": 701376,
+    "changed_decoded_bytes": 12,
+    "chunk": 616,
+    "decoded_sha256": "bfed4ec7e78491d7993a3d197cc076ffb10408d979337ccef0f4c2920cae15c7",
+    "keyframe_offsets": [
+      77274,
+      376078,
+      458374,
+      486546
+    ],
+    "member": "BTL/TWP.BIN",
+    "packed_bytes": 592711,
+    "verification": {
+      "after_sha256": "0323ba82c5c733b5c01bc805978dacbeaf1ecc23070f4abb228ae81eee762f05",
+      "bytes": 3795485760,
+      "sha256": "4c5cd4db811b9528df97820a3a51e978342d97682f8b6bd81784e081584f6d14"
     }
   },
+  "input_digest": "8cf3d615e09f93a6914a5a9b7839fb05efa954af569770af5fc1ef0fd89c929f",
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "1ae5d513c68187c1dc3a1bd028c75851255ce224b9ad5f8f60c639ae509affa3",
+    "sha256": "0323ba82c5c733b5c01bc805978dacbeaf1ecc23070f4abb228ae81eee762f05",
     "size": 3796187136
   },
   "readback": {
-    "path": "build/editions/zh-release-best/d7afa3ac12cfce4cacec0aa9cc52d5a3a027c3cc1d3abdde1e1c17e6e5df777d/project/work/build/best-current/iso-readback.json",
-    "sha256": "dfdb3f5ad6da499399a432df0385ec5c7d7859ff93783695b6d4843591ab68a5",
+    "path": "build/editions/zh-release-best/7c80d0aee8c32d2006f3d419045e4c65c11316874eb6662b73643b4b83439a59/project/work/build/best-current/iso-readback.json",
+    "sha256": "6ff467968b6f8ef2f80004d185106346e036e45260fdfc1f2f95742dca693ad1",
     "stage_count": 205,
     "translation_entry_count": 84338
   },
@@ -1450,32 +1400,28 @@
   "schema_version": 1,
   "shared_frontend": {
     "edition": "original",
-    "input_digest": "c856008d60a9963cf952dcb73fa45aaf9b388456405bc3545386751dc0c76374",
-    "iso_sha256": "63db30367d867cddd2bbeb74e122eca62007baf6e8a8fb8d98c6ac4c0d222f96",
-    "readback_sha256": "f64ce2f22414d3657b772ab0543ed9598e8686a85506af8b76412777fc0e0066"
+    "input_digest": "8cf3d615e09f93a6914a5a9b7839fb05efa954af569770af5fc1ef0fd89c929f",
+    "iso_sha256": "c5abcfbc82108a086a1db011d92c87bd2d8a487227f19df268fdda41258e1900",
+    "readback_sha256": "c35c21dfe59119279f59f8fa748aaa90193516bde92b0db9daca9996fc7e9598"
   },
   "skip_enabled": true,
-  "source_head": "4c292fcd92dff8eb4e48c646640e42f997d91c86",
+  "source_head": "d15fbe960e9b08c559284817c7e726059e353a0a",
   "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
   "status": "edition_iso_static_validated_runtime_pending",
-  "title_badge_readback": {
-    "image_sha256": "1499f3fb078b9325554987e337ab228bda075f8a999cdfabb2ac6e6510fafa25",
-    "text": "v0.5.0-rc"
-  },
   "typography": {
     "input": {
       "path": "build/iso/zh-release-best/current-best-captioned.iso",
-      "sha256": "fbe3525bcfebd2b3a36e5d65c928f9036067844bf3bc6b236aeba9f46ff6de8d",
+      "sha256": "d9d4c5d39602a1d0e3515b583a9e257c8db2b951c18b4e05b6322e42db307620",
       "size": 3796187136
     },
     "verification": {
       "edition": "best",
-      "executable_sha256": "879738b9ad570c2cbc9388b6e28990c4e0f0449e3ac8bd79e0ad1b140b0ab5f8",
+      "executable_sha256": "55bb4f52ad32d91079b10ce66d6808e7f469d1358df19e168aced2a224c44bb2",
       "member": "SLPS_732.70",
       "member_lba": 1833536,
       "member_size": 3543040,
-      "metrics_sha256": "0d6102a1d67cb0d26a965bd92d21fd97bdcebaf496a17b47a665506c64b3c941",
-      "output_sha256": "1ae5d513c68187c1dc3a1bd028c75851255ce224b9ad5f8f60c639ae509affa3",
+      "metrics_sha256": "bd83aba20659da669664e847c0926f761a160808b609c732edc6f2e4b7fdad8f",
+      "output_sha256": "7255bcddf45f0c76dbec28ef66d49349abd53b79786a2ca2dab84c640f9818e0",
       "outside_executable_bytes_compared": 3792644096,
       "payload": {
         "base": 7906816,
@@ -1488,29 +1434,29 @@
             "选择机师"
           ]
         },
-        "codeBytes": 5816,
+        "codeBytes": 5876,
         "edition": "best",
-        "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
-        "metricsSchema": 6,
+        "fontSha256": "c4da7aea11fb5c17821df9e23a71face185ccac3a1d1a928628782c679b3ddd6",
+        "metricsSchema": 7,
         "patches": [
           {
             "address": 1286800,
-            "after": "4e2e1e0800000000",
+            "after": "5d2e1e0800000000",
             "before": "a0ffbd274700013c"
           },
           {
             "address": 1284864,
-            "after": "7f2e1e0800000000",
+            "after": "8e2e1e0800000000",
             "before": "b0ffbd272d100000"
           },
           {
             "address": 2234804,
-            "after": "b02e1e0c",
+            "after": "bf2e1e0c",
             "before": "4c85060c"
           },
           {
             "address": 2234856,
-            "after": "bc2e1e0c00000000",
+            "after": "cb2e1e0c00000000",
             "before": "0200022621904202"
           },
           {
@@ -1520,27 +1466,27 @@
           },
           {
             "address": 1291112,
-            "after": "f82e1e0800000000",
+            "after": "072f1e0800000000",
             "before": "080084241c00e880"
           },
           {
             "address": 1290052,
-            "after": "102f1e0800000000",
+            "after": "1f2f1e0800000000",
             "before": "1c00e88008008424"
           },
           {
             "address": 1289048,
-            "after": "ea2e1e0800000000",
+            "after": "f92e1e0800000000",
             "before": "2400238e140003ae"
           },
           {
             "address": 1284984,
-            "after": "202e1e0800000000",
+            "after": "2f2e1e0800000000",
             "before": "00008b9062006011"
           }
         ],
         "payloadBytes": 10496,
-        "payloadSha256": "80752d35c71fec45d2d26bc47941f051c0f37b8bf5ab4a2c0f7b71993a9e4a32",
+        "payloadSha256": "709861348fdc4c1f7b917a7d58e3a79df3e08df1b4b7221f9f7b1a11c5dbaf75",
         "reservation": {
           "base": 7906816,
           "capacity": 10496,
@@ -1551,11 +1497,11 @@
           "heapUnchanged": true,
           "nonloadedSectionMetadataRemoved": true,
           "payloadBytes": 10496,
-          "resultSha256": "30fd222dc174c0c8b1a439ae149ccf441a4dc716b330b08e196913fd3dcd8b67",
+          "resultSha256": "a44d3d975e81dd067422db54c718d0693024fb3b44d60b76005744d69e8551c2",
           "runtimeVerified": false,
-          "sourceSha256": "1f581524c101a213d2fe618a1d9f64bdf8016657b61b223fea5ce0769d940a79"
+          "sourceSha256": "90ea770a390a170232f8b4bc5b4214ca3fc417ec89462ed036305076059c4ac0"
         },
-        "resultSha256": "879738b9ad570c2cbc9388b6e28990c4e0f0449e3ac8bd79e0ad1b140b0ab5f8",
+        "resultSha256": "55bb4f52ad32d91079b10ce66d6808e7f469d1358df19e168aced2a224c44bb2",
         "routes": [
           {
             "name": "story",
@@ -1606,155 +1552,155 @@
           {
             "address": 7906860,
             "name": "story_metrics",
-            "size": 320
+            "size": 324
           },
           {
-            "address": 7907180,
+            "address": 7907184,
             "name": "story_cjk",
-            "size": 108
+            "size": 114
           },
           {
-            "address": 7907288,
+            "address": 7907300,
             "name": "story_geometry",
             "size": 5
           },
           {
-            "address": 7907296,
+            "address": 7907308,
             "name": "battle_cjk",
-            "size": 108
+            "size": 102
           },
           {
-            "address": 7907404,
+            "address": 7907412,
             "name": "battle_geometry",
             "size": 5
           },
           {
-            "address": 7907412,
+            "address": 7907420,
             "name": "main_flow_metrics",
-            "size": 320
+            "size": 324
           },
           {
-            "address": 7907732,
+            "address": 7907744,
             "name": "main_flow_cjk",
             "size": 108
           },
           {
-            "address": 7907840,
+            "address": 7907852,
             "name": "main_flow_geometry",
             "size": 5
           },
           {
-            "address": 7907848,
+            "address": 7907860,
             "name": "main_scroll_metrics",
-            "size": 320
+            "size": 324
           },
           {
-            "address": 7908168,
+            "address": 7908184,
             "name": "main_scroll_cjk",
             "size": 108
           },
           {
-            "address": 7908276,
+            "address": 7908292,
             "name": "main_scroll_geometry",
             "size": 5
           },
           {
-            "address": 7908284,
+            "address": 7908300,
             "name": "library_robot_geometry",
             "size": 5
           },
           {
-            "address": 7908292,
+            "address": 7908308,
             "name": "keyword_list_cjk",
             "size": 108
           },
           {
-            "address": 7908400,
+            "address": 7908416,
             "name": "keyword_list_geometry",
             "size": 5
           },
           {
-            "address": 7908408,
+            "address": 7908424,
             "name": "weapon_geometry",
             "size": 5
           },
           {
-            "address": 7908416,
+            "address": 7908432,
             "name": "weapon_main_cjk",
             "size": 108
           },
           {
-            "address": 7908524,
+            "address": 7908540,
             "name": "weapon_main_geometry",
             "size": 5
           },
           {
-            "address": 7908532,
+            "address": 7908548,
             "name": "metric_selection",
-            "size": 1680
+            "size": 1724
           },
           {
-            "address": 7910212,
+            "address": 7910272,
             "name": "shared_draw",
             "size": 580
           },
           {
-            "address": 7910792,
+            "address": 7910852,
             "name": "shared_measure",
             "size": 292
           },
           {
-            "address": 7911084,
+            "address": 7911144,
             "name": "scene_descriptors",
             "size": 216
           },
           {
-            "address": 7911300,
+            "address": 7911360,
             "name": "draw_routes",
             "size": 252
           },
           {
-            "address": 7911552,
+            "address": 7911612,
             "name": "measure_routes",
             "size": 184
           },
           {
-            "address": 7911736,
+            "address": 7911796,
             "name": "draw_source",
             "size": 196
           },
           {
-            "address": 7911932,
+            "address": 7911992,
             "name": "measure_source",
             "size": 196
           },
           {
-            "address": 7912128,
+            "address": 7912188,
             "name": "underline_copy",
             "size": 48
           },
           {
-            "address": 7912176,
+            "address": 7912236,
             "name": "underline_restore",
             "size": 40
           },
           {
-            "address": 7912216,
+            "address": 7912276,
             "name": "underline_dispatch",
             "size": 144
           },
           {
-            "address": 7912360,
+            "address": 7912420,
             "name": "draw_entry",
             "size": 56
           },
           {
-            "address": 7912416,
+            "address": 7912476,
             "name": "sprite_baseline",
             "size": 96
           },
           {
-            "address": 7912512,
+            "address": 7912572,
             "name": "outline_baseline",
             "size": 120
           },
@@ -1774,9 +1720,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3796187136,
-      "source_sha256": "fbe3525bcfebd2b3a36e5d65c928f9036067844bf3bc6b236aeba9f46ff6de8d"
+      "source_sha256": "d9d4c5d39602a1d0e3515b583a9e257c8db2b951c18b4e05b6322e42db307620"
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-best/d7afa3ac12cfce4cacec0aa9cc52d5a3a027c3cc1d3abdde1e1c17e6e5df777d/project"
+  "workspace": "build/editions/zh-release-best/7c80d0aee8c32d2006f3d419045e4c65c11316874eb6662b73643b4b83439a59/project"
 }

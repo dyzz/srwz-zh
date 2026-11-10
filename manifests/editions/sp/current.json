@@ -2,7 +2,7 @@
   "adapter": "sp-full-text-v1",
   "base_output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "f2561f2181e1cfadda00e9f635bb3715ea91816e662c43768782f9b0675423d5",
+    "sha256": "6253142d1f82f7792fc9dbb484960021b0ed9d78a3edabaaf86f21af059823b4",
     "size": 3918860288
   },
   "battle_square_skip": {
@@ -70,93 +70,84 @@
   "edition_id": "sp",
   "event_gallery": {
     "caption_count": 37,
-    "elf_sha256": "bfdae1fe7f74f01bb4bb6deb74249c3ba52ae006d765650e4467ebd055a0799e",
+    "elf_sha256": "33253b721ffbd652983fdc02455feb831aa90147ae46416602154518502a152a",
     "scene_count": 22
   },
-  "input_digest": "c856008d60a9963cf952dcb73fa45aaf9b388456405bc3545386751dc0c76374",
-  "opening_review_20261109": {
-    "armsx2_opening": {
-      "blank_row_numbers": [
-        4,
-        9
-      ],
-      "capture_receipt": {
-        "path": "work/review/scroll-audit-20261109/runtime/release-opening-20261109/sp/capture.json",
-        "sha256": "d9281819deb11c5e7a0982257bbb7b9c849aae6940cdee8436edf962dc19e33b"
-      },
-      "drawn_rows": 9,
-      "expected_visible_rows": 9,
-      "field": "narration/000",
-      "renderer": "metal",
-      "route": "native SP episode opening",
-      "upscale": 4,
-      "verified_row_gaps": []
-    },
-    "counts": {
-      "placeholder_rows": 8,
-      "scroll_fields": 10,
-      "synopsis_fields": 21
-    },
-    "exact_text_line_breaks_and_native_placeholder_bytes": true,
-    "scope": {
-      "iso_byte_identical_to_previous_rc": true
+  "gunleon_sprite": {
+    "allocation_bytes": 701376,
+    "changed_decoded_bytes": 12,
+    "chunk": 630,
+    "decoded_sha256": "bfed4ec7e78491d7993a3d197cc076ffb10408d979337ccef0f4c2920cae15c7",
+    "keyframe_offsets": [
+      77274,
+      376078,
+      458374,
+      486546
+    ],
+    "member": "BTL/TWP.BIN",
+    "packed_bytes": 592711,
+    "verification": {
+      "after_sha256": "26026eae755ceaf4bf8edd9233e252d7c4e312a7d54c32bdb04d8ae47f7cabe7",
+      "bytes": 3918158912,
+      "sha256": "1e8e108281a702d693997ee51142ddc6dce860756c3d0d3bb59acd088b2bdb82"
     }
   },
+  "input_digest": "8cf3d615e09f93a6914a5a9b7839fb05efa954af569770af5fc1ef0fd89c929f",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672",
+    "sha256": "26026eae755ceaf4bf8edd9233e252d7c4e312a7d54c32bdb04d8ae47f7cabe7",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/cefab335078cfa95998c98b4a123b7995caec3ff75cc488fa1c8188127049d59/project/build/iso/special-disc/sp-current.json",
-    "sha256": "f2e9fd411c98fbbf0e0782fe4dd37df42ee17e56d54825744301e3365b5eee63"
+    "path": "build/editions/zh-release-sp/8ba0955c4d97ec883fe4ad5be9b58b6a9e4a91b275395636fce135b455c05ff9/project/build/iso/special-disc/sp-current.json",
+    "sha256": "33c945bd8f2d18af3c7ab71c7e480c39f021552c0eff47bb6cc89f50948008b6"
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "4c292fcd92dff8eb4e48c646640e42f997d91c86",
+  "source_head": "d15fbe960e9b08c559284817c7e726059e353a0a",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
   "typography": {
     "input": {
       "path": "build/iso/special-disc/sp-current.iso",
-      "sha256": "f2561f2181e1cfadda00e9f635bb3715ea91816e662c43768782f9b0675423d5",
+      "sha256": "6253142d1f82f7792fc9dbb484960021b0ed9d78a3edabaaf86f21af059823b4",
       "size": 3918860288
     },
     "verification": {
       "edition": "sp",
-      "executable_sha256": "de7baa6ef2b7eaae5f3146b48f155075f7ebc21e5696f5c4f2b4f663dd2f54ab",
+      "executable_sha256": "73eaf36293bb6b1ec0a0bb543c4adddcfbc11c2a6e1d8b04400c0ea5b2c8bae6",
       "member": "SLPS_259.20",
       "member_lba": 1851456,
       "member_size": 4141568,
-      "metrics_sha256": "0d6102a1d67cb0d26a965bd92d21fd97bdcebaf496a17b47a665506c64b3c941",
-      "output_sha256": "c9089747297317a044254bfe0d2e4a5f71a54c86e43324ebeb81953c226c8672",
+      "metrics_sha256": "bd83aba20659da669664e847c0926f761a160808b609c732edc6f2e4b7fdad8f",
+      "output_sha256": "8a285908f229c588a9d5046a508ff30b7485688cceb88dd8add73283d136202e",
       "outside_executable_bytes_compared": 3914718720,
       "payload": {
         "base": 8512000,
-        "codeBytes": 5676,
+        "codeBytes": 5736,
         "edition": "sp",
-        "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
-        "metricsSchema": 6,
+        "fontSha256": "c4da7aea11fb5c17821df9e23a71face185ccac3a1d1a928628782c679b3ddd6",
+        "metricsSchema": 7,
         "patches": [
           {
             "address": 1289520,
-            "after": "2b7d200800000000",
+            "after": "3a7d200800000000",
             "before": "a0ffbd274f00013c"
           },
           {
             "address": 1287584,
-            "after": "5c7d200800000000",
+            "after": "6b7d200800000000",
             "before": "b0ffbd272d100000"
           },
           {
             "address": 2254220,
-            "after": "8d7d200c",
+            "after": "9c7d200c",
             "before": "9095060c"
           },
           {
             "address": 2254272,
-            "after": "997d200c00000000",
+            "after": "a87d200c00000000",
             "before": "0200022621904202"
           },
           {
@@ -166,27 +157,27 @@
           },
           {
             "address": 1293832,
-            "after": "d57d200800000000",
+            "after": "e47d200800000000",
             "before": "080084241c00e880"
           },
           {
             "address": 1292772,
-            "after": "ed7d200800000000",
+            "after": "fc7d200800000000",
             "before": "1c00e88008008424"
           },
           {
             "address": 1291768,
-            "after": "c77d200800000000",
+            "after": "d67d200800000000",
             "before": "2400238e140003ae"
           },
           {
             "address": 1287704,
-            "after": "fd7c200800000000",
+            "after": "0c7d200800000000",
             "before": "00008b9062006011"
           }
         ],
         "payloadBytes": 6400,
-        "payloadSha256": "ffcebf0825b1c261bd2537ccba7104bedd31faa47e657258ea2d970d51010514",
+        "payloadSha256": "c95ad1fb76ed6d67ae0ae7cf5cc79c4fe5e413dcc26f1bc27636ff13238dee37",
         "reservation": {
           "base": 8512000,
           "capacity": 6400,
@@ -197,11 +188,11 @@
           "heapUnchanged": true,
           "nonloadedSectionMetadataRemoved": true,
           "payloadBytes": 6400,
-          "resultSha256": "5fecf7de6db1c11702e392e748277f0a6f73bd24327ed81b90d4595a28940dd7",
+          "resultSha256": "1bf3e8f448f59b9ab06f802c3b554193457ea9059bb45ee77cb1cc8048947deb",
           "runtimeVerified": false,
-          "sourceSha256": "e2f3cf171e3a1325d971b8f1b8157267bdc3f99bf1efa6b023270694c33531dc"
+          "sourceSha256": "3c45dce1d85660e72f4882726064f9c4c7a13f957a310600a09fbef31741e32a"
         },
-        "resultSha256": "de7baa6ef2b7eaae5f3146b48f155075f7ebc21e5696f5c4f2b4f663dd2f54ab",
+        "resultSha256": "73eaf36293bb6b1ec0a0bb543c4adddcfbc11c2a6e1d8b04400c0ea5b2c8bae6",
         "routes": [
           {
             "name": "story",
@@ -248,145 +239,145 @@
           {
             "address": 8512044,
             "name": "story_metrics",
-            "size": 320
+            "size": 324
           },
           {
-            "address": 8512364,
+            "address": 8512368,
             "name": "story_cjk",
-            "size": 108
+            "size": 114
           },
           {
-            "address": 8512472,
+            "address": 8512484,
             "name": "story_geometry",
             "size": 5
           },
           {
-            "address": 8512480,
+            "address": 8512492,
             "name": "battle_cjk",
-            "size": 108
+            "size": 102
           },
           {
-            "address": 8512588,
+            "address": 8512596,
             "name": "battle_geometry",
             "size": 5
           },
           {
-            "address": 8512596,
+            "address": 8512604,
             "name": "sp_flow_metrics",
-            "size": 320
+            "size": 324
           },
           {
-            "address": 8512916,
+            "address": 8512928,
             "name": "sp_flow_cjk",
             "size": 108
           },
           {
-            "address": 8513024,
+            "address": 8513036,
             "name": "sp_flow_geometry",
             "size": 5
           },
           {
-            "address": 8513032,
+            "address": 8513044,
             "name": "sp_scroll_metrics",
-            "size": 320
+            "size": 324
           },
           {
-            "address": 8513352,
+            "address": 8513368,
             "name": "sp_scroll_cjk",
             "size": 108
           },
           {
-            "address": 8513460,
+            "address": 8513476,
             "name": "sp_scroll_geometry",
             "size": 5
           },
           {
-            "address": 8513468,
+            "address": 8513484,
             "name": "library_robot_geometry",
             "size": 5
           },
           {
-            "address": 8513476,
+            "address": 8513492,
             "name": "keyword_list_cjk",
             "size": 108
           },
           {
-            "address": 8513584,
+            "address": 8513600,
             "name": "keyword_list_geometry",
             "size": 5
           },
           {
-            "address": 8513592,
+            "address": 8513608,
             "name": "weapon_geometry",
             "size": 5
           },
           {
-            "address": 8513600,
+            "address": 8513616,
             "name": "metric_selection",
-            "size": 1680
+            "size": 1724
           },
           {
-            "address": 8515280,
+            "address": 8515340,
             "name": "shared_draw",
             "size": 580
           },
           {
-            "address": 8515860,
+            "address": 8515920,
             "name": "shared_measure",
             "size": 292
           },
           {
-            "address": 8516152,
+            "address": 8516212,
             "name": "scene_descriptors",
             "size": 192
           },
           {
-            "address": 8516344,
+            "address": 8516404,
             "name": "draw_routes",
             "size": 252
           },
           {
-            "address": 8516596,
+            "address": 8516656,
             "name": "measure_routes",
             "size": 184
           },
           {
-            "address": 8516780,
+            "address": 8516840,
             "name": "draw_source",
             "size": 196
           },
           {
-            "address": 8516976,
+            "address": 8517036,
             "name": "measure_source",
             "size": 196
           },
           {
-            "address": 8517172,
+            "address": 8517232,
             "name": "underline_copy",
             "size": 48
           },
           {
-            "address": 8517220,
+            "address": 8517280,
             "name": "underline_restore",
             "size": 40
           },
           {
-            "address": 8517260,
+            "address": 8517320,
             "name": "underline_dispatch",
             "size": 144
           },
           {
-            "address": 8517404,
+            "address": 8517464,
             "name": "draw_entry",
             "size": 56
           },
           {
-            "address": 8517460,
+            "address": 8517520,
             "name": "sprite_baseline",
             "size": 96
           },
           {
-            "address": 8517556,
+            "address": 8517616,
             "name": "outline_baseline",
             "size": 120
           },
@@ -406,9 +397,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3918860288,
-      "source_sha256": "f2561f2181e1cfadda00e9f635bb3715ea91816e662c43768782f9b0675423d5"
+      "source_sha256": "6253142d1f82f7792fc9dbb484960021b0ed9d78a3edabaaf86f21af059823b4"
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-sp/cefab335078cfa95998c98b4a123b7995caec3ff75cc488fa1c8188127049d59/project"
+  "workspace": "build/editions/zh-release-sp/8ba0955c4d97ec883fe4ad5be9b58b6a9e4a91b275395636fce135b455c05ff9/project"
 }
