@@ -2,7 +2,7 @@
   "adapter": "sp-full-text-v1",
   "base_output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "5b054247712152c0f771b24d587c2453a1f8e9b5cebeb75cd898e154d1b390d7",
+    "sha256": "b3d73c5916fbc0dbb0623482823a59bf3ce51717fa1f9968d42b4b802fe68260",
     "size": 3918860288
   },
   "battle_square_skip": {
@@ -60,17 +60,17 @@
     "world_steps_per_frame": 1
   },
   "component_modes": {
-    "frame": "rebuilt",
-    "image-labels": "rebuilt",
-    "srvc": "rebuilt",
-    "stage": "rebuilt",
-    "system": "rebuilt"
+    "frame": "reused",
+    "image-labels": "reused",
+    "srvc": "reused",
+    "stage": "reused",
+    "system": "reused"
   },
   "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
   "edition_id": "sp",
   "event_gallery": {
     "caption_count": 37,
-    "elf_sha256": "97696ef8e2e75a9a95b70c0befac0b30f0f5a74353f30ae934bb823a5b246f56",
+    "elf_sha256": "53c10a1a4e5e86a55639a44b8628af8227df6d155b50af66f91cd901e7167ff9",
     "scene_count": 22
   },
   "gunleon_sprite": {
@@ -87,67 +87,77 @@
     "member": "BTL/TWP.BIN",
     "packed_bytes": 592711,
     "verification": {
-      "after_sha256": "af82f520a45ecca170ceb1c93c6e0af73af96db2a224c0de3d3c2584f4d30463",
+      "after_sha256": "00cc459e15eae3edcca6dd1402202f09eda0b4ab7075540fbe33c54d1646d5db",
       "bytes": 3918158912,
-      "sha256": "bd15abbc2589257ff816df4a844a244eb3d6a18c63ea78c512cb62ee23bc621b"
+      "sha256": "82bfc05a8c156f671585b99dfdaf3b64975bed3446df022676f8c7ea7dbc0ea8"
     }
   },
-  "input_digest": "27eed9e560c7ab5891490add2356caa0fcde21e33e8a3a2f1d15f6e66a29c0a9",
+  "input_digest": "034b98b7931cf20ce074e23bcaa21a9a8ac750a2cf8a2b3ff85e29dd8d4647ef",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "af82f520a45ecca170ceb1c93c6e0af73af96db2a224c0de3d3c2584f4d30463",
+    "sha256": "00cc459e15eae3edcca6dd1402202f09eda0b4ab7075540fbe33c54d1646d5db",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/73629bd346ad565757bc638838c850aa828f2cd197b4905b4d5645f3f807fc7f/project/build/iso/special-disc/sp-current.json",
-    "sha256": "a90812005d94c24e17cb71d4f6c26139fe054d747cb4468da2e144647e711793"
+    "path": "build/editions/zh-release-sp/7e57993da51cbcdf83843eba9caee744c0d2f49ce0c4c8eb34feb84c37502c39/project/build/iso/special-disc/sp-current.json",
+    "sha256": "92a9f438630652531cad3f39585bb48b57125a80a70a9cb67461fbfc305ae088"
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "925efbb3857da9db20a6e63c881ee602e67d3f52",
+  "source_head": "03e430fcde28c5a5dd720640761f79e083ee5b78",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
   "typography": {
     "input": {
       "path": "build/iso/special-disc/sp-current.iso",
-      "sha256": "5b054247712152c0f771b24d587c2453a1f8e9b5cebeb75cd898e154d1b390d7",
+      "sha256": "b3d73c5916fbc0dbb0623482823a59bf3ce51717fa1f9968d42b4b802fe68260",
       "size": 3918860288
     },
     "verification": {
       "edition": "sp",
-      "executable_sha256": "9027b6a202aedfeeadf38e25e03ca2bb8525340bee16394ecf3a4ca2081ff02e",
+      "executable_sha256": "da6c96b3ef43358fb935883609473dcd5441abe91823f4865346518c7bc72f80",
       "member": "SLPS_259.20",
       "member_lba": 1851456,
       "member_size": 4141568,
-      "metrics_sha256": "bd83aba20659da669664e847c0926f761a160808b609c732edc6f2e4b7fdad8f",
-      "output_sha256": "541141b563a504dfecff2bcdaca3ceca5d6d912a783e87d286fd40e5e05cc998",
+      "metrics_sha256": "48a37727beb863c20d2dca5d763cf8544d7225307250a0ca32ec633e7a75a376",
+      "output_sha256": "682419154f890163f90837137d84e5950da65db16ebb183c7888bc9e7e405560",
       "outside_executable_bytes_compared": 3914718720,
       "payload": {
         "base": 8512000,
-        "codeBytes": 5736,
+        "battle_select_titles": {
+          "config_sha256": "e54f1029d109239f3bd98ea55618ef891b5de4968b1a8adfb5a52990be1d3ec9",
+          "labels": [
+            "选择阵型",
+            "排列队员",
+            "选择机体",
+            "选择机师",
+            "选择战舰"
+          ]
+        },
+        "codeBytes": 5816,
         "edition": "sp",
-        "fontSha256": "c4da7aea11fb5c17821df9e23a71face185ccac3a1d1a928628782c679b3ddd6",
+        "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
         "metricsSchema": 7,
         "patches": [
           {
             "address": 1289520,
-            "after": "3a7d200800000000",
+            "after": "4e7d200800000000",
             "before": "a0ffbd274f00013c"
           },
           {
             "address": 1287584,
-            "after": "6b7d200800000000",
+            "after": "7f7d200800000000",
             "before": "b0ffbd272d100000"
           },
           {
             "address": 2254220,
-            "after": "9c7d200c",
+            "after": "b07d200c",
             "before": "9095060c"
           },
           {
             "address": 2254272,
-            "after": "a87d200c00000000",
+            "after": "bc7d200c00000000",
             "before": "0200022621904202"
           },
           {
@@ -157,27 +167,27 @@
           },
           {
             "address": 1293832,
-            "after": "e47d200800000000",
+            "after": "f87d200800000000",
             "before": "080084241c00e880"
           },
           {
             "address": 1292772,
-            "after": "fc7d200800000000",
+            "after": "107e200800000000",
             "before": "1c00e88008008424"
           },
           {
             "address": 1291768,
-            "after": "d67d200800000000",
+            "after": "ea7d200800000000",
             "before": "2400238e140003ae"
           },
           {
             "address": 1287704,
-            "after": "0c7d200800000000",
+            "after": "207d200800000000",
             "before": "00008b9062006011"
           }
         ],
         "payloadBytes": 6400,
-        "payloadSha256": "c95ad1fb76ed6d67ae0ae7cf5cc79c4fe5e413dcc26f1bc27636ff13238dee37",
+        "payloadSha256": "7472e14c3e64ce16db2d29c5dd78f128f565f3bc00fc86b335a702249cbd5d0b",
         "reservation": {
           "base": 8512000,
           "capacity": 6400,
@@ -188,15 +198,19 @@
           "heapUnchanged": true,
           "nonloadedSectionMetadataRemoved": true,
           "payloadBytes": 6400,
-          "resultSha256": "02b76410a01e9cc8dbffd1d00ead0f183b988180e0df915f6e352368a7b159d9",
+          "resultSha256": "44d0707b1e3f5374da3fe8c98805a968fb02e130fe4a9cc0cb37aa1f3c2df40b",
           "runtimeVerified": false,
-          "sourceSha256": "5de13636f8887889f80aeb08d1053546e7508b9bd39181bc4d41c92760b284c0"
+          "sourceSha256": "841e3197511920c9b41896c06a71fe7b477070250b1fac6418eec4c7fbb1cdd8"
         },
-        "resultSha256": "9027b6a202aedfeeadf38e25e03ca2bb8525340bee16394ecf3a4ca2081ff02e",
+        "resultSha256": "da6c96b3ef43358fb935883609473dcd5441abe91823f4865346518c7bc72f80",
         "routes": [
           {
             "name": "story",
             "scene": "story"
+          },
+          {
+            "name": "sp_story_map",
+            "scene": "sp_story_map"
           },
           {
             "name": "battle",
@@ -244,140 +258,150 @@
           {
             "address": 8512368,
             "name": "story_cjk",
-            "size": 114
+            "size": 110
           },
           {
-            "address": 8512484,
+            "address": 8512480,
             "name": "story_geometry",
             "size": 5
           },
           {
-            "address": 8512492,
-            "name": "battle_cjk",
-            "size": 102
+            "address": 8512488,
+            "name": "sp_story_map_cjk",
+            "size": 110
           },
           {
-            "address": 8512596,
+            "address": 8512600,
+            "name": "sp_story_map_geometry",
+            "size": 5
+          },
+          {
+            "address": 8512608,
+            "name": "battle_cjk",
+            "size": 98
+          },
+          {
+            "address": 8512708,
             "name": "battle_geometry",
             "size": 5
           },
           {
-            "address": 8512604,
+            "address": 8512716,
             "name": "sp_flow_metrics",
             "size": 324
           },
           {
-            "address": 8512928,
+            "address": 8513040,
             "name": "sp_flow_cjk",
-            "size": 108
+            "size": 104
           },
           {
-            "address": 8513036,
+            "address": 8513144,
             "name": "sp_flow_geometry",
             "size": 5
           },
           {
-            "address": 8513044,
+            "address": 8513152,
             "name": "sp_scroll_metrics",
             "size": 324
           },
           {
-            "address": 8513368,
+            "address": 8513476,
             "name": "sp_scroll_cjk",
-            "size": 108
+            "size": 104
           },
           {
-            "address": 8513476,
+            "address": 8513580,
             "name": "sp_scroll_geometry",
             "size": 5
           },
           {
-            "address": 8513484,
+            "address": 8513588,
             "name": "library_robot_geometry",
             "size": 5
           },
           {
-            "address": 8513492,
+            "address": 8513596,
             "name": "keyword_list_cjk",
-            "size": 108
+            "size": 104
           },
           {
-            "address": 8513600,
+            "address": 8513700,
             "name": "keyword_list_geometry",
             "size": 5
           },
           {
-            "address": 8513608,
+            "address": 8513708,
             "name": "weapon_geometry",
             "size": 5
           },
           {
-            "address": 8513616,
+            "address": 8513716,
             "name": "metric_selection",
             "size": 1724
           },
           {
-            "address": 8515340,
+            "address": 8515440,
             "name": "shared_draw",
             "size": 580
           },
           {
-            "address": 8515920,
+            "address": 8516020,
             "name": "shared_measure",
             "size": 292
           },
           {
-            "address": 8516212,
+            "address": 8516312,
             "name": "scene_descriptors",
-            "size": 192
+            "size": 196
           },
           {
-            "address": 8516404,
+            "address": 8516508,
             "name": "draw_routes",
-            "size": 252
+            "size": 228
           },
           {
-            "address": 8516656,
+            "address": 8516736,
             "name": "measure_routes",
             "size": 184
           },
           {
-            "address": 8516840,
+            "address": 8516920,
             "name": "draw_source",
             "size": 196
           },
           {
-            "address": 8517036,
+            "address": 8517116,
             "name": "measure_source",
             "size": 196
           },
           {
-            "address": 8517232,
+            "address": 8517312,
             "name": "underline_copy",
             "size": 48
           },
           {
-            "address": 8517280,
+            "address": 8517360,
             "name": "underline_restore",
             "size": 40
           },
           {
-            "address": 8517320,
+            "address": 8517400,
             "name": "underline_dispatch",
             "size": 144
           },
           {
-            "address": 8517464,
+            "address": 8517544,
             "name": "draw_entry",
             "size": 56
           },
           {
-            "address": 8517520,
+            "address": 8517600,
             "name": "sprite_baseline",
             "size": 96
           },
           {
-            "address": 8517616,
+            "address": 8517696,
             "name": "outline_baseline",
             "size": 120
           },
@@ -392,14 +416,43 @@
             "size": 64
           }
         ],
-        "sharedSelection": true
+        "sharedSelection": true,
+        "sp_tm_spacing": {
+          "writes": [
+            {
+              "address": "0x4412dc",
+              "sha256": "884fffe7fbe3ab398b5833ab1908daf4792c8801adbcd47e5c1cd89c5ab2e9ab",
+              "size": 4
+            },
+            {
+              "address": "0x441390",
+              "sha256": "bf05b3f901f396e11578e4e0e8ec4066ffaec98e5d1a67b288d11f849cab2239",
+              "size": 4
+            },
+            {
+              "address": "0x4413fc",
+              "sha256": "884fffe7fbe3ab398b5833ab1908daf4792c8801adbcd47e5c1cd89c5ab2e9ab",
+              "size": 4
+            },
+            {
+              "address": "0x44183c",
+              "sha256": "169ebd2f2910bbf7c619dede8620345d495be7978da6d8cbe89d47ea9e59e81a",
+              "size": 8
+            },
+            {
+              "address": "0x822ec0",
+              "sha256": "ed1bbf36c732293beaef05e161923badae686e9642e526aa90ff2d45f3018596",
+              "size": 240
+            }
+          ]
+        }
       },
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3918860288,
-      "source_sha256": "5b054247712152c0f771b24d587c2453a1f8e9b5cebeb75cd898e154d1b390d7"
+      "source_sha256": "b3d73c5916fbc0dbb0623482823a59bf3ce51717fa1f9968d42b4b802fe68260"
     }
   },
-  "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-sp/73629bd346ad565757bc638838c850aa828f2cd197b4905b4d5645f3f807fc7f/project"
+  "version": "v0.5.0",
+  "workspace": "build/editions/zh-release-sp/7e57993da51cbcdf83843eba9caee744c0d2f49ce0c4c8eb34feb84c37502c39/project"
 }

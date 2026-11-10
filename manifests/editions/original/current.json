@@ -2,7 +2,7 @@
   "adapter": "original-production-v1",
   "base_output": {
     "path": "build/iso/zh-release-full-story/current-original.iso",
-    "sha256": "286ff013d7d80faa1d7e3a69a108fcd06870962bdb92c6fb939cc5d98790946e",
+    "sha256": "ae53c968e3f017f86c7c57f7f7e5a5d7ec5a49c6637d9c074ada7b7345fb0a9b",
     "size": 3758358528
   },
   "battle_square_skip": {
@@ -64,12 +64,12 @@
   "event_subtitles": {
     "base_iso": {
       "path": "build/iso/zh-release-full-story/current-original.iso",
-      "sha256": "286ff013d7d80faa1d7e3a69a108fcd06870962bdb92c6fb939cc5d98790946e",
+      "sha256": "ae53c968e3f017f86c7c57f7f7e5a5d7ec5a49c6637d9c074ada7b7345fb0a9b",
       "size": 3758358528
     },
     "iso": {
       "path": "build/iso/zh-release-full-story/current-original-captioned.iso",
-      "sha256": "dea56c90337eecfb72f15c79677afb98ec28f70027410931a90140af1ceabbf1",
+      "sha256": "5783bfeb09b6887f558c5164d0bada45372a2bfaf16c2f3c68ac9ef150fcb995",
       "size": 3799459840
     },
     "member_readback": {
@@ -197,7 +197,7 @@
             "previous_size": 36890512
           }
         ],
-        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-original/ff645eb3d051d2502117f7316f0ee89dc6c09f64d2da8ce4d8ae36b5a3aa8a8a/project/build/iso/zh-release-full-story/current-original-captioned.iso",
+        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-original/6be491013d2b4ca9ed4837f28b635c96efb941d5e5e0164210b1d0720ba3bb34/project/build/iso/zh-release-full-story/current-original-captioned.iso",
         "image_blocks": 1855205,
         "metadata_blocks_written": [
           34,
@@ -1332,8 +1332,8 @@
     "untouched_base_bytes": {
       "base_bytes": 3758358528,
       "compared_bytes": 3758345168,
-      "final_sha256": "dea56c90337eecfb72f15c79677afb98ec28f70027410931a90140af1ceabbf1",
-      "sha256": "c93fdc9d110af9f176d74ab4dbc9509daadb24bede6d7d14987c5716b890df04",
+      "final_sha256": "5783bfeb09b6887f558c5164d0bada45372a2bfaf16c2f3c68ac9ef150fcb995",
+      "sha256": "f4ca5872465539142bb1c61fb7edadaea9db69e97765497e86a0c288c486b872",
       "spans": [
         [
           32848,
@@ -1392,12 +1392,12 @@
     "member": "BTL/TWP.BIN",
     "packed_bytes": 592711,
     "verification": {
-      "after_sha256": "061443c5aafc95cdb2f5c5dd3e6690f7e74bde0b940a1aa51cc1abd30eef1ed6",
+      "after_sha256": "0c2bf20f5fe08e83e41bd857832d606f04cc7e8d77b32312e881bc2e608c615c",
       "bytes": 3798758464,
-      "sha256": "012e82f141ee3247e2f5fc79dc07c5a3023cf7bf0413f8cb659e3bba6f1fd13a"
+      "sha256": "f2d66db0e48cab0f7b5e77bbcc97fc082d12088921ee77e1b5a0991349047d1c"
     }
   },
-  "input_digest": "27eed9e560c7ab5891490add2356caa0fcde21e33e8a3a2f1d15f6e66a29c0a9",
+  "input_digest": "034b98b7931cf20ce074e23bcaa21a9a8ac750a2cf8a2b3ff85e29dd8d4647ef",
   "legacy_equivalence": {
     "baseline_iso_sha256": "6ae9b61605a0491adb6a07c4204bb1cd66563a067bed4fb4faf679a0afcb1b8e",
     "member_count": 25,
@@ -1406,25 +1406,25 @@
   },
   "output": {
     "path": "build/iso/zh-release-original/current-original.iso",
-    "sha256": "061443c5aafc95cdb2f5c5dd3e6690f7e74bde0b940a1aa51cc1abd30eef1ed6",
+    "sha256": "0c2bf20f5fe08e83e41bd857832d606f04cc7e8d77b32312e881bc2e608c615c",
     "size": 3799459840
   },
   "readback": {
-    "path": "build/editions/zh-release-original/ff645eb3d051d2502117f7316f0ee89dc6c09f64d2da8ce4d8ae36b5a3aa8a8a/project/manifests/zh-release-full-story-iso-content-validation.json",
-    "sha256": "72161b4c076f4cdc8012c001135e22f7fe6cc6fb6d51d3fd9c929442f16fd169",
+    "path": "build/editions/zh-release-original/6be491013d2b4ca9ed4837f28b635c96efb941d5e5e0164210b1d0720ba3bb34/project/manifests/zh-release-full-story-iso-content-validation.json",
+    "sha256": "9b877779338704ea945cdbd66ae44b4f0cd72304755877f99ddaadff894e1544",
     "stage_count": 170,
     "translation_entry_count": 93071
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "925efbb3857da9db20a6e63c881ee602e67d3f52",
+  "source_head": "03e430fcde28c5a5dd720640761f79e083ee5b78",
   "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
   "status": "edition_iso_static_validated_runtime_pending",
   "typography": {
     "input": {
       "path": "build/iso/zh-release-full-story/current-original-captioned.iso",
-      "sha256": "dea56c90337eecfb72f15c79677afb98ec28f70027410931a90140af1ceabbf1",
+      "sha256": "5783bfeb09b6887f558c5164d0bada45372a2bfaf16c2f3c68ac9ef150fcb995",
       "size": 3799459840
     },
     "verification": {
@@ -1433,8 +1433,8 @@
       "member": "SLPS_258.87",
       "member_lba": 1835136,
       "member_size": 3538944,
-      "metrics_sha256": "bd83aba20659da669664e847c0926f761a160808b609c732edc6f2e4b7fdad8f",
-      "output_sha256": "7c94c7436736dc55803ceb15da68dcf89bcf12f85d64b8cc63829f553932dcfb",
+      "metrics_sha256": "48a37727beb863c20d2dca5d763cf8544d7225307250a0ca32ec633e7a75a376",
+      "output_sha256": "fac85290ac86497d542a08059f2f876f97bed8fee943821af6a7a4e8ad330d9e",
       "outside_executable_bytes_compared": 3795920896,
       "payload": {
         "base": 7904768,
@@ -1449,7 +1449,7 @@
         },
         "codeBytes": 5876,
         "edition": "original",
-        "fontSha256": "c4da7aea11fb5c17821df9e23a71face185ccac3a1d1a928628782c679b3ddd6",
+        "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
         "metricsSchema": 7,
         "patches": [
           {
@@ -1733,9 +1733,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3799459840,
-      "source_sha256": "dea56c90337eecfb72f15c79677afb98ec28f70027410931a90140af1ceabbf1"
+      "source_sha256": "5783bfeb09b6887f558c5164d0bada45372a2bfaf16c2f3c68ac9ef150fcb995"
     }
   },
-  "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-original/ff645eb3d051d2502117f7316f0ee89dc6c09f64d2da8ce4d8ae36b5a3aa8a8a/project"
+  "version": "v0.5.0",
+  "workspace": "build/editions/zh-release-original/6be491013d2b4ca9ed4837f28b635c96efb941d5e5e0164210b1d0720ba3bb34/project"
 }
