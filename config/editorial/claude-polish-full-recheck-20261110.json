@@ -1,0 +1,2623 @@
+{
+  "schema_version": 1,
+  "review_id": "claude-polish-full-recheck-20261110",
+  "status": "applied_local",
+  "scope": "1504 Japanese/Chinese pairs read; context expanded for semantic doubts; all 335 notes triaged, with technical holds explicitly unresolved",
+  "entries": [
+    {
+      "id": "story/026/dialogue/02.05/0003",
+      "file": "corpus/zh/story-dialogue/stage-026.json",
+      "before": "“喂喂，甲儿……这所谓的宝贝，不就是\n　上次战斗中损坏的双重斯派扎的\n　部件吗？”",
+      "after": "“喂喂，甲儿……这所谓的宝贝，不就是上次战斗中\n　损坏的双重斯派扎的部件吗？”",
+      "source_text_sha256": "47b382273d13171a18b94c085d3e626653373e88b375e372eaafd31dacbff99d",
+      "reason": "重排孤立末行，保留原意。",
+      "ja": "「おいおい、甲児…。\n　この掘り出し物ってのは、前の戦闘で破損した\n　ダブルスペイザーのパーツじゃないか」",
+      "speaker": "杰利",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/026/dialogue/02.05/0001",
+          "ja": "キングビアル　格納庫",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-026.json",
+          "translation": "帝皇比亚路机库"
+        },
+        {
+          "id": "story/026/dialogue/02.05/0002",
+          "ja": "キングビアル　格納庫",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-026.json",
+          "translation": "帝皇比亚路机库"
+        },
+        {
+          "id": "story/026/dialogue/02.05/0003",
+          "ja": "「おいおい、甲児…。\n　この掘り出し物ってのは、前の戦闘で破損した\n　ダブルスペイザーのパーツじゃないか」",
+          "speaker": "杰利",
+          "file": "corpus/zh/story-dialogue/stage-026.json",
+          "translation": "“喂喂，甲儿……这所谓的宝贝，不就是\n　上次战斗中损坏的双重斯派扎的\n　部件吗？”"
+        },
+        {
+          "id": "story/026/dialogue/02.05/0004",
+          "ja": "「そんなの、俺だって見ればわかるさ」",
+          "speaker": "甲儿",
+          "file": "corpus/zh/story-dialogue/stage-026.json",
+          "translation": "“那种事，我一看就知道。”"
+        },
+        {
+          "id": "story/026/dialogue/02.05/0005",
+          "ja": "「どうするんだよ、これ？\n　もうダブルスペイザーの修理は\n　終わってるんだろ？」",
+          "speaker": "斗志也",
+          "file": "corpus/zh/story-dialogue/stage-026.json",
+          "translation": "“你打算怎么办？双重斯派扎已经修好了吧？”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/031/dialogue/02.01/0138",
+      "file": "corpus/zh/story-dialogue/stage-031.json",
+      "before": "“他们口中那个叫真的少年……明明是扎夫特军人，\n　为什么会去慰灵碑？”",
+      "after": "“他们口中那个叫‘真’的少年……\n　明明是扎夫特军人，为什么会去慰灵碑？”",
+      "source_text_sha256": "96443b3015789b16d0c533859e3fd5434d3b67f9765c576fb605c9228211e2ae",
+      "reason": "为人名加内引号，避免“叫真”被读成较真。",
+      "ja": "「彼らがシンと呼んでいた少年…\n　ザフトの軍人でありながら、\n　どうして慰霊碑に？」",
+      "speaker": "户高",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/031/dialogue/02.01/0136",
+          "ja": "「いや…それは構わないのだが、\n　少し尋ねたい事があってね」",
+          "speaker": "户高",
+          "file": "corpus/zh/story-dialogue/stage-031.json",
+          "translation": "“不……这倒没关系，但我有点事想问你们。”"
+        },
+        {
+          "id": "story/031/dialogue/02.01/0137",
+          "ja": "「私達でよければ、\n　代わりにお答えしますが」",
+          "speaker": "爱玛",
+          "file": "corpus/zh/story-dialogue/stage-031.json",
+          "translation": "“您若不介意，由我们代为回答吧。”"
+        },
+        {
+          "id": "story/031/dialogue/02.01/0138",
+          "ja": "「彼らがシンと呼んでいた少年…\n　ザフトの軍人でありながら、\n　どうして慰霊碑に？」",
+          "speaker": "户高",
+          "file": "corpus/zh/story-dialogue/stage-031.json",
+          "translation": "“他们口中那个叫真的少年……明明是扎夫特军人，\n　为什么会去慰灵碑？”"
+        },
+        {
+          "id": "story/031/dialogue/02.01/0139",
+          "ja": "「あれは前大戦のオーブ攻防戦での\n　戦没者のためのものだが…」",
+          "speaker": "户高",
+          "file": "corpus/zh/story-dialogue/stage-031.json",
+          "translation": "“那是为了纪念前大战奥布攻防战中的阵亡者而建\n　的……”"
+        },
+        {
+          "id": "story/031/dialogue/02.01/0140",
+          "ja": "「詳しい話は聞いていませんが…\n　彼はオーブの生まれであり、戦いの中で\n　家族を亡くしたそうです」",
+          "speaker": "蕾柯亚",
+          "file": "corpus/zh/story-dialogue/stage-031.json",
+          "translation": "“我们没有听说详细情况……但他出生在奥布，据说\n　在战斗中失去了家人。”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/037/dialogue/02.01/0111",
+      "file": "corpus/zh/story-dialogue/stage-037.json",
+      "before": "“真好啊……明明是月球……是敌方的人，\n　却还是被接纳了……”",
+      "after": "“真好啊……明明是月球来的……是敌方的人，\n　却还是被接纳了……”",
+      "source_text_sha256": "ca626a9a35bcaf1a3ba94b1e60ecbed11537458ebacafe06112afcba13b68992",
+      "reason": "补足月球所属关系，避免说人成了月球。",
+      "ja": "「いいよな…。\n　月の…敵の人間だってのに\n　受け入れてもらって…」",
+      "speaker": "胜平",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/037/dialogue/02.01/0109",
+          "ja": "「そういや…ロランの兄ちゃんは\n　ムーンレィスだったっけな…」",
+          "speaker": "胜平",
+          "file": "corpus/zh/story-dialogue/stage-037.json",
+          "translation": "“说起来……罗兰大哥是月之民来着……”"
+        },
+        {
+          "id": "story/037/dialogue/02.01/0110",
+          "ja": "「どうしたの、勝平？」",
+          "speaker": "罗兰",
+          "file": "corpus/zh/story-dialogue/stage-037.json",
+          "translation": "“怎么了，胜平？”"
+        },
+        {
+          "id": "story/037/dialogue/02.01/0111",
+          "ja": "「いいよな…。\n　月の…敵の人間だってのに\n　受け入れてもらって…」",
+          "speaker": "胜平",
+          "file": "corpus/zh/story-dialogue/stage-037.json",
+          "translation": "“真好啊……明明是月球……是敌方的人，\n　却还是被接纳了……”"
+        },
+        {
+          "id": "story/037/dialogue/02.01/0112",
+          "ja": "「俺ん家なんか\n　街の人達に異星人の仲間だって\n　追い出されたようなものなのに…」",
+          "speaker": "胜平",
+          "file": "corpus/zh/story-dialogue/stage-037.json",
+          "translation": "“我家却因为被当成外星人的同伙，被镇上的人赶了\n　出来……”"
+        },
+        {
+          "id": "story/037/dialogue/02.01/0113",
+          "ja": "「勝平…」",
+          "speaker": "罗兰",
+          "file": "corpus/zh/story-dialogue/stage-037.json",
+          "translation": "“胜平……”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/063/dialogue/02.01/0058",
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "before": "“可是！做出那种事的家伙，\n　一分一秒都不能放过！”",
+      "after": "“可是！做出那种事的家伙，\n　我们一刻也不能放任不管！”",
+      "source_text_sha256": "c253c328f115bcf2ccc44574422aa5257def55f01153dbcee6ad6d0873387729",
+      "reason": "放っておく是放任不管；时间修饰不能继续放任，非不能放过。",
+      "ja": "「だけどよ！\n　あんな事をするような連中を一分一秒でも\n　放っておくわけにはいかないぜ！」",
+      "speaker": "英司",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/063/dialogue/02.01/0056",
+          "ja": "「ガイゾックはベガやエルダー、\n　アルデバロンと連合を組んでいる…」",
+          "speaker": "铁也",
+          "file": "corpus/zh/story-dialogue/stage-063.json",
+          "translation": "“盖佐克与维加、伊尔塔、阿尔德巴朗组成了\n　联合……”"
+        },
+        {
+          "id": "story/063/dialogue/02.01/0057",
+          "ja": "「その戦力と正面からぶつかれば、\n　いくら俺達でも死にに行くようなものだ」",
+          "speaker": "铁也",
+          "file": "corpus/zh/story-dialogue/stage-063.json",
+          "translation": "“正面和那种战力冲突，就算是我们也等于去送\n　死。”"
+        },
+        {
+          "id": "story/063/dialogue/02.01/0058",
+          "ja": "「だけどよ！\n　あんな事をするような連中を一分一秒でも\n　放っておくわけにはいかないぜ！」",
+          "speaker": "英司",
+          "file": "corpus/zh/story-dialogue/stage-063.json",
+          "translation": "“可是！做出那种事的家伙，\n　一分一秒都不能放过！”"
+        },
+        {
+          "id": "story/063/dialogue/02.01/0059",
+          "ja": "「そうよ！\n　かなわないまでも全力でやろうよ！」",
+          "speaker": "琉菜",
+          "file": "corpus/zh/story-dialogue/stage-063.json",
+          "translation": "“就是啊！就算打不过，也要全力上啊！”"
+        },
+        {
+          "id": "story/063/dialogue/02.01/0060",
+          "ja": "「キング・ビアルがやらないってんなら、\n　ザンボットだけでも行くぜ！」",
+          "speaker": "胜平",
+          "file": "corpus/zh/story-dialogue/stage-063.json",
+          "translation": "“要是帝皇比亚路不出动，我就只开赞波特去！”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/090/dialogue/02.02/0019",
+      "file": "corpus/zh/story-dialogue/stage-090.json",
+      "before": "“你恨我吧，马林！？恨我这个杀了你父亲和\n　朋友的阿尔德巴朗人！那就杀了我！”",
+      "after": "“你恨我吧，马林！？我也是杀害你父亲和朋友的\n　阿尔德巴朗的一员！那就杀了我！”",
+      "source_text_sha256": "a48474bcb40e688476b0c5b3519225972fe8079f4035fb466ef14f1f1d40a91c",
+      "reason": "父を、友を殺した修饰阿尔德巴朗，不能改成说话人亲手杀害。",
+      "ja": "「私を憎いのだろう、マリン！？\n　父を、友を殺したアルデバロンの私が！\n　ならば、殺せ！」",
+      "speaker": "阿芙罗蒂亚",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/090/dialogue/02.02/0017",
+          "ja": "「貴様のたわ言など聞く気もない！\n　早く殺すがいい！」",
+          "speaker": "阿芙罗蒂亚",
+          "file": "corpus/zh/story-dialogue/stage-090.json",
+          "translation": "“我没兴趣听你的胡言乱语！快点杀了我！”"
+        },
+        {
+          "id": "story/090/dialogue/02.02/0018",
+          "ja": "「………」",
+          "speaker": "马林",
+          "file": "corpus/zh/story-dialogue/stage-090.json",
+          "translation": "“……”"
+        },
+        {
+          "id": "story/090/dialogue/02.02/0019",
+          "ja": "「私を憎いのだろう、マリン！？\n　父を、友を殺したアルデバロンの私が！\n　ならば、殺せ！」",
+          "speaker": "阿芙罗蒂亚",
+          "file": "corpus/zh/story-dialogue/stage-090.json",
+          "translation": "“你恨我吧，马林！？恨我这个杀了你父亲和\n　朋友的阿尔德巴朗人！那就杀了我！”"
+        },
+        {
+          "id": "story/090/dialogue/02.02/0020",
+          "ja": "「だが、アルデバロンは止まらんぞ！\n　必ずや地球人を駆逐し、この星を\n　新たなＳ−１星にしてみせる！」",
+          "speaker": "阿芙罗蒂亚",
+          "file": "corpus/zh/story-dialogue/stage-090.json",
+          "translation": "“但阿尔德巴朗不会停止！一定要驱逐地球人，把\n　这个星球变成新的S-1星！”"
+        },
+        {
+          "id": "story/090/dialogue/02.02/0021",
+          "ja": "「…アフロディア、お前は殺さない。\n　お前にはガットラーへの宣戦布告を\n　伝える役をやってもらう…！」",
+          "speaker": "马林",
+          "file": "corpus/zh/story-dialogue/stage-090.json",
+          "translation": "“……阿芙罗蒂亚，我不会杀你。我要你替我去向\n　加特勒宣战！”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/127/dialogue/01.22/0003",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "before": "“你不会懂的！拥有超越人类的力量却得不到评价\n　的人的痛苦！”",
+      "after": "“你不会懂的！拥有超越人类的力量，\n　却得不到认可的人的痛苦！”",
+      "source_text_sha256": "5204c6eb67daa631273bb6476d8a8ecc358113bce298aecb4878ad09fbb8daee",
+      "reason": "評価を受けぬ在此指不获认可，不是没有评价。",
+      "ja": "「貴様にはわかるまい！\n　人を超えた力を持ちながら、\n　評価を受けぬ者の苦しみを！」",
+      "speaker": "夏基亚",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/127/dialogue/01.22/0001",
+          "ja": "「我々は復讐する！\n　あの男と、あの男の作る運命と、\n　我々を認めなかった世界の全てに！」",
+          "speaker": "夏基亚",
+          "file": "corpus/zh/story-dialogue/stage-127.json",
+          "translation": "“我们要复仇！向那个男人、向那个男人创造的\n　命运、向不承认我们的整个世界！”"
+        },
+        {
+          "id": "story/127/dialogue/01.22/0002",
+          "ja": "「それがお前達の憎しみの理由か！」",
+          "speaker": "卡洛德",
+          "file": "corpus/zh/story-dialogue/stage-127.json",
+          "translation": "“那就是你们憎恨的理由吗！”"
+        },
+        {
+          "id": "story/127/dialogue/01.22/0003",
+          "ja": "「貴様にはわかるまい！\n　人を超えた力を持ちながら、\n　評価を受けぬ者の苦しみを！」",
+          "speaker": "夏基亚",
+          "file": "corpus/zh/story-dialogue/stage-127.json",
+          "translation": "“你不会懂的！拥有超越人类的力量却得不到评价\n　的人的痛苦！”"
+        },
+        {
+          "id": "story/127/dialogue/01.22/0004",
+          "ja": "「僕らが味わった屈辱！\n　そして絶望！　それはこの世界の\n　滅亡と引き換えにしてこそ癒される！」",
+          "speaker": "奥尔巴",
+          "file": "corpus/zh/story-dialogue/stage-127.json",
+          "translation": "“我们尝到的屈辱！还有绝望！只有用这个世界的灭\n　亡来交换才能治愈！”"
+        },
+        {
+          "id": "story/127/dialogue/01.22/0005",
+          "ja": "「そして、全てが破壊し尽くされてから、\n　新たな秩序が築かれるのだ！」",
+          "speaker": "夏基亚",
+          "file": "corpus/zh/story-dialogue/stage-127.json",
+          "translation": "“然后，当一切都被破坏殆尽后，新的秩序就会\n　建立！”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/128/dialogue/01.02/0006",
+      "file": "corpus/zh/story-dialogue/stage-128.json",
+      "before": "“她说他们只是如实接受自然的流动。”",
+      "after": "“她说，他们只是顺应自然的发展。”",
+      "source_text_sha256": "d16d54ccfe604c53f0727fe3f783fc60861a60e648909a0e4426a38ce003e833",
+      "reason": "自然の流れ指自然发展过程，避免如实接受流动的直译。",
+      "ja": "「自然の流れをあるがままに\n　受け止めるだけだと」",
+      "speaker": "罗杰",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/128/dialogue/01.02/0004",
+          "ja": "「そこまでは知らねえよ」",
+          "speaker": "霍兰德",
+          "file": "corpus/zh/story-dialogue/stage-128.json",
+          "translation": "“那我就不知道了。”"
+        },
+        {
+          "id": "story/128/dialogue/01.02/0005",
+          "ja": "「シベリアで会ったヴォダラク教徒の\n　ミズ・ティプトリーは言っていた」",
+          "speaker": "罗杰",
+          "file": "corpus/zh/story-dialogue/stage-128.json",
+          "translation": "“在西伯利亚遇到的补陀落教徒米兹·蒂普特里说\n　过。”"
+        },
+        {
+          "id": "story/128/dialogue/01.02/0006",
+          "ja": "「自然の流れをあるがままに\n　受け止めるだけだと」",
+          "speaker": "罗杰",
+          "file": "corpus/zh/story-dialogue/stage-128.json",
+          "translation": "“她说他们只是如实接受自然的流动。”"
+        },
+        {
+          "id": "story/128/dialogue/01.02/0007",
+          "ja": "「自然と触れ合うために\n　旅に出たって言うのかい？」",
+          "speaker": "阿蒂特",
+          "file": "corpus/zh/story-dialogue/stage-128.json",
+          "translation": "“你是说他们为了接触自然而踏上旅途吗？”"
+        },
+        {
+          "id": "story/128/dialogue/01.02/0008",
+          "ja": "「よくわからんが、\n　余程、この世界が気に入ったらしいな、\n　そのヴォダラクさん達は」",
+          "speaker": "该隐",
+          "file": "corpus/zh/story-dialogue/stage-128.json",
+          "translation": "“虽然不太清楚，但那些补陀落的人似乎非常喜欢\n　这个世界。”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/143/dialogue/02.03/0060",
+      "file": "corpus/zh/story-dialogue/stage-143.json",
+      "before": "（最喜欢大家了……我爱你们。我重要的东西，\n　我的家人……）",
+      "after": "（最喜欢大家了……我爱你们。你们是我珍视的人，\n　是我的家人……）",
+      "source_text_sha256": "352beebd7bb5874fde1a6ad4551a342661091dbfcd358d2329ba4a14f6cec8f0",
+      "reason": "前句列明孩子及兰顿；大切なもの指珍视之人。",
+      "ja": "（みんな、大好き…愛してる。\n　私の大切なもの、私の家族…）",
+      "speaker": "优莱卡",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/143/dialogue/02.03/0058",
+          "ja": "？？？",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-143.json",
+          "translation": "？？？"
+        },
+        {
+          "id": "story/143/dialogue/02.03/0059",
+          "ja": "（…私には大切なものがある…。\n　リンク、メーテル、モーリス…。\n　そして、レントン…）",
+          "speaker": "优莱卡",
+          "file": "corpus/zh/story-dialogue/stage-143.json",
+          "translation": "（……我有重要的东西……林克、梅蒂儿、\n　莫里斯……还有，兰顿……）"
+        },
+        {
+          "id": "story/143/dialogue/02.03/0060",
+          "ja": "（みんな、大好き…愛してる。\n　私の大切なもの、私の家族…）",
+          "speaker": "优莱卡",
+          "file": "corpus/zh/story-dialogue/stage-143.json",
+          "translation": "（最喜欢大家了……我爱你们。我重要的东西，\n　我的家人……）"
+        },
+        {
+          "id": "story/143/dialogue/02.03/0061",
+          "ja": "（何も無かった私に色んな事を教えてくれた…。\n　何も無かった私を全部受け入れてくれた…）",
+          "speaker": "优莱卡",
+          "file": "corpus/zh/story-dialogue/stage-143.json",
+          "translation": "（教会了一无所有的我许多东西……接纳了一无所有\n　的我的全部……）"
+        },
+        {
+          "id": "story/143/dialogue/02.03/0062",
+          "ja": "（私を私でいさせてくれる私が大好きで…\n　そして、一番守りたいもの…）",
+          "speaker": "优莱卡",
+          "file": "corpus/zh/story-dialogue/stage-143.json",
+          "translation": "（让我能够做自己……\n　是我最喜欢、最想守护的存在……）"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/148/dialogue/02.03/0060",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "before": "（最喜欢大家了……我爱你们。我重要的东西，\n　我的家人……）",
+      "after": "（最喜欢大家了……我爱你们。你们是我珍视的人，\n　是我的家人……）",
+      "source_text_sha256": "352beebd7bb5874fde1a6ad4551a342661091dbfcd358d2329ba4a14f6cec8f0",
+      "reason": "前句列明孩子及兰顿；大切なもの指珍视之人。；同源关联位置逐条核对。",
+      "ja": "（みんな、大好き…愛してる。\n　私の大切なもの、私の家族…）",
+      "speaker": "优莱卡",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/148/dialogue/02.03/0058",
+          "ja": "？？？",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-148.json",
+          "translation": "？？？"
+        },
+        {
+          "id": "story/148/dialogue/02.03/0059",
+          "ja": "（…私には大切なものがある…。\n　リンク、メーテル、モーリス…。\n　そして、レントン…）",
+          "speaker": "优莱卡",
+          "file": "corpus/zh/story-dialogue/stage-148.json",
+          "translation": "（……我有重要的东西……林克、梅蒂儿、\n　莫里斯……还有兰顿……）"
+        },
+        {
+          "id": "story/148/dialogue/02.03/0060",
+          "ja": "（みんな、大好き…愛してる。\n　私の大切なもの、私の家族…）",
+          "speaker": "优莱卡",
+          "file": "corpus/zh/story-dialogue/stage-148.json",
+          "translation": "（最喜欢大家了……我爱你们。我重要的东西，\n　我的家人……）"
+        },
+        {
+          "id": "story/148/dialogue/02.03/0061",
+          "ja": "（何も無かった私に色んな事を教えてくれた…。\n　何も無かった私を全部受け入れてくれた…）",
+          "speaker": "优莱卡",
+          "file": "corpus/zh/story-dialogue/stage-148.json",
+          "translation": "（教会了一无所有的我许多东西……接纳了一无所有\n　的我的全部……）"
+        },
+        {
+          "id": "story/148/dialogue/02.03/0062",
+          "ja": "（私を私でいさせてくれる私が大好きで…\n　そして、一番守りたいもの…）",
+          "speaker": "优莱卡",
+          "file": "corpus/zh/story-dialogue/stage-148.json",
+          "translation": "（让我能够做自己……\n　是我最喜欢、最想守护的存在……）"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/132/dialogue/01.31/0000",
+      "file": "corpus/zh/story-dialogue/stage-132.json",
+      "before": "“呃！这台泽拉维翁竟会败！”",
+      "after": "“呃！这台泽拉维昂竟会败！”",
+      "source_text_sha256": "bf686dcbf28a7add803f44527ed3f02a0f860f0f0bbf26a9f60ce4283b53a742",
+      "reason": "与现有机体显示名及SP共享名称ゼラヴィオン一致。",
+      "ja": "「くうっ！\n　このゼラヴィオンが敗れるとは！」",
+      "speaker": "修基",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/132/dialogue/01.31/0000",
+          "ja": "「くうっ！\n　このゼラヴィオンが敗れるとは！」",
+          "speaker": "修基",
+          "file": "corpus/zh/story-dialogue/stage-132.json",
+          "translation": "“呃！这台泽拉维翁竟会败！”"
+        },
+        {
+          "id": "story/132/dialogue/01.31/0001",
+          "ja": "「かくなる上は！！」",
+          "speaker": "修基",
+          "file": "corpus/zh/story-dialogue/stage-132.json",
+          "translation": "“事已至此！！”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:15615",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“被打中啦啦啦啦啦—！”",
+      "after": "“啊痛痛痛痛痛—！”",
+      "source_text_sha256": "983146763f8a3bf488dcb65e30406c9cf3a8078ab1c612748ac83f66cae5ab8d",
+      "reason": "被弹大伤害中的连续痛呼，不是命中宣告。",
+      "ja": "「あたったったったったー！」",
+      "speaker": "布彻",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:15615",
+        "ja": "「あたったったったったー！」",
+        "zh": "打中了中中中中中—！",
+        "s": [
+          "被弹（大伤害 B）"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:17161",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“远处的婚事，不如眼前的威胁！”",
+      "after": "“婚事还远着呢，\\n　先顾眼前的威胁！”",
+      "source_text_sha256": "a967bf13a46281862aff79fad505f1e23b9f2d136afb5861562bb14add5cc929",
+      "reason": "保留结婚反差笑点，明确先应付眼前危险，非偏好威胁。",
+      "ja": "「遠くの結婚より、近くの脅威！」",
+      "speaker": "玛伊",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:17161",
+        "ja": "「遠くの結婚より、近くの脅威！」",
+        "zh": "远水救不了近火！",
+        "s": [
+          "攻击（反击）"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "story/022/dialogue/02.01/0084",
+      "file": "corpus/zh/story-dialogue/stage-022.json",
+      "before": "“然后，太阳之翼的转世就在这条街上，我们就是来\n　调查的。”",
+      "after": "“然后，太阳之翼的转世就在这座城里，我们就是来\n　调查的。”",
+      "source_text_sha256": "5a3d55a7e2dc985e21fe5bd96d37c2fabf82792b2a6214daf15bf6a9b9016c0f",
+      "reason": "谈论转世所在城镇，并非某一街道。",
+      "ja": "「で、太陽の翼の生まれ変わりが\n　この街にいるって話になって、\n　俺達が調べに来たってわけだ」",
+      "speaker": "皮耶尔",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/022/dialogue/02.01/0082",
+          "ja": "「…やめろ、シルヴィア。\n　私が過去生を思い出せない以上、\n　太陽の翼は別の人間の可能性もある」",
+          "speaker": "西利乌斯",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“……别说了，西尔维娅。既然我想不起过去生，\n　太阳之翼也可能是别人。”"
+        },
+        {
+          "id": "story/022/dialogue/02.01/0083",
+          "ja": "「でも…」",
+          "speaker": "西尔维娅",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“可是……”"
+        },
+        {
+          "id": "story/022/dialogue/02.01/0084",
+          "ja": "「で、太陽の翼の生まれ変わりが\n　この街にいるって話になって、\n　俺達が調べに来たってわけだ」",
+          "speaker": "皮耶尔",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“然后，太阳之翼的转世就在这条街上，我们就是来\n　调查的。”"
+        },
+        {
+          "id": "story/022/dialogue/02.01/0085",
+          "ja": "「ピエール…！」",
+          "speaker": "西尔维娅",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“皮耶尔……！”"
+        },
+        {
+          "id": "story/022/dialogue/02.01/0086",
+          "ja": "「俺の名前はピエール・ヴィエラ。\n　可愛い子ちゃんのハートに炎のゴールを\n　決める男だ」",
+          "speaker": "皮耶尔",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“我叫皮耶尔·维埃拉。是能在可爱女孩心中踢进\n　火热一球的男人。”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/022/dialogue/02.01/0095",
+      "file": "corpus/zh/story-dialogue/stage-022.json",
+      "before": "“但是，既然这条街有可能再次转移，我想避免\n　移动。”",
+      "after": "“但是，既然这座城有可能再次转移，我想避免\n　移动。”",
+      "source_text_sha256": "0dbc12dec8119aa4d9d12407befe36846ea38ebf2f00f5567821023c3751015a",
+      "reason": "同场城镇范围。",
+      "ja": "「だが、この街が再び転移する可能性が\n　ある以上、移動するのは避けたい」",
+      "speaker": "西利乌斯",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/022/dialogue/02.01/0093",
+          "ja": "「そんな…！」",
+          "speaker": "西尔维娅",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“怎么会……！”"
+        },
+        {
+          "id": "story/022/dialogue/02.01/0094",
+          "ja": "「どうする？\n　ノックスの街に戻れば、もうちょっと\n　ちゃんとした手当てが出来ると思うけど…」",
+          "speaker": "艾露琪",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“怎么办？如果回到诺克斯镇，应该能做更妥善的处\n　理……”"
+        },
+        {
+          "id": "story/022/dialogue/02.01/0095",
+          "ja": "「だが、この街が再び転移する可能性が\n　ある以上、移動するのは避けたい」",
+          "speaker": "西利乌斯",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“但是，既然这条街有可能再次转移，我想避免\n　移动。”"
+        },
+        {
+          "id": "story/022/dialogue/02.01/0096",
+          "ja": "「でも、ここにいたら、\n　またあのガイコツに襲われるかも\n　知れないんじゃないの？」",
+          "speaker": "吉隆",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“可是，待在这里的话，说不定又会遭到那些骷髅\n　袭击吧？”"
+        },
+        {
+          "id": "story/022/dialogue/02.01/0097",
+          "ja": "「あのガイコツの化け物が\n　堕天翅なのか？」",
+          "speaker": "兰德",
+          "file": "corpus/zh/story-dialogue/stage-022.json",
+          "translation": "“那些骷髅怪物是堕天翅吗？”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/049/dialogue/00.01/0004",
+      "file": "corpus/zh/story-dialogue/stage-049.json",
+      "before": "“啊——……难得又见到多萝茜小姐，却马上又要分\n　别了。”",
+      "after": "“啊——……难得又见到多萝西小姐，却马上又要分\n　别了。”",
+      "source_text_sha256": "84c7a6a4ca7d62de294de554e2b252af5c5ff09e6f3032f858ee1ab0b02850a8",
+      "reason": "同一角色姓名回归当前显示名。",
+      "ja": "「あ〜あ…せっかくドロシーさんと\n　また会えたのに、すぐにお別れかぁ」",
+      "speaker": "摩姆",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/049/dialogue/00.01/0002",
+          "ja": "「あの人って、\n　ちょっと変わったこだわりを\n　持ってますよね」",
+          "speaker": "美玲",
+          "file": "corpus/zh/story-dialogue/stage-049.json",
+          "translation": "“那个人有些与众不同的讲究呢。”"
+        },
+        {
+          "id": "story/049/dialogue/00.01/0003",
+          "ja": "「彼流の美学ってところね」",
+          "speaker": "塔丽亚",
+          "file": "corpus/zh/story-dialogue/stage-049.json",
+          "translation": "“算是他自己的美学吧。”"
+        },
+        {
+          "id": "story/049/dialogue/00.01/0004",
+          "ja": "「あ〜あ…せっかくドロシーさんと\n　また会えたのに、すぐにお別れかぁ」",
+          "speaker": "摩姆",
+          "file": "corpus/zh/story-dialogue/stage-049.json",
+          "translation": "“啊——……难得又见到多萝茜小姐，却马上又要分\n　别了。”"
+        },
+        {
+          "id": "story/049/dialogue/00.01/0005",
+          "ja": "「何を言うか、モーム。\n　同じロボット仲間なら、このワシが\n　いるだろうが」",
+          "speaker": "上尉",
+          "file": "corpus/zh/story-dialogue/stage-049.json",
+          "translation": "“说什么呢，摩姆。同为机器人，不是还有老夫在\n　吗？”"
+        },
+        {
+          "id": "story/049/dialogue/00.01/0006",
+          "ja": "「じゃあ、大尉…！\n　お洗濯やお掃除、手伝ってくれます？」",
+          "speaker": "摩姆",
+          "file": "corpus/zh/story-dialogue/stage-049.json",
+          "translation": "“那么，上尉……！能帮忙洗衣服、打扫吗？”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/088/dialogue/01.14/0023",
+      "file": "corpus/zh/story-dialogue/stage-088.json",
+      "before": "“开幕了，我的甜心！来点老规矩的助兴曲！”",
+      "after": "“开幕了，我的甜心！\n　像平时一样，说句提气的话吧！”",
+      "source_text_sha256": "cba87f10b13e3551ac9386c15cc39551421ce4979ae340db557565b22220b007",
+      "reason": "下句雷说我爱你，不是唱曲。",
+      "ja": "「開幕だ、マイハニー！\n　いつもの景気いい奴を頼むぜ！」",
+      "speaker": "查尔斯",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/088/dialogue/01.14/0021",
+          "ja": "「でも、ホランドはやる…。\n　そういう奴だから…」",
+          "speaker": "塔尔荷",
+          "file": "corpus/zh/story-dialogue/stage-088.json",
+          "translation": "“但是，霍兰德会做到的……他就是那种人……”"
+        },
+        {
+          "id": "story/088/dialogue/01.14/0022",
+          "ja": "「チャールズさん…レイさん…！」",
+          "speaker": "兰顿",
+          "file": "corpus/zh/story-dialogue/stage-088.json",
+          "translation": "“查尔斯先生……雷女士……！”"
+        },
+        {
+          "id": "story/088/dialogue/01.14/0023",
+          "ja": "「開幕だ、マイハニー！\n　いつもの景気いい奴を頼むぜ！」",
+          "speaker": "查尔斯",
+          "file": "corpus/zh/story-dialogue/stage-088.json",
+          "translation": "“开幕了，我的甜心！来点老规矩的助兴曲！”"
+        },
+        {
+          "id": "story/088/dialogue/01.14/0024",
+          "ja": "「愛しているわ、チャールズ！」",
+          "speaker": "雷",
+          "file": "corpus/zh/story-dialogue/stage-088.json",
+          "translation": "“我爱你，查尔斯！”"
+        },
+        {
+          "id": "story/088/dialogue/01.14/0025",
+          "ja": "「チャールズ！　悪いが\n　てめえらの好きにはさせねえ！」",
+          "speaker": "霍兰德",
+          "file": "corpus/zh/story-dialogue/stage-088.json",
+          "translation": "“查尔斯！抱歉啊，我可不能由着你们乱来！”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/131/dialogue/01.09/0019",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "before": "“各机迎击维加和百鬼！同时救出被囚禁的人！”",
+      "after": "“各机迎击贝加和百鬼！同时救出被囚禁的人！”",
+      "source_text_sha256": "053fbf19fd3219b4037da5bbd6a810599d4b783202452a868689a71c649317b5",
+      "reason": "与贝加大王及贝加星联合军定稿一致。",
+      "ja": "「各機は、ベガと百鬼を迎え撃て！\n　その上で捕われた人達を救出する！」",
+      "speaker": "源五郎",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/131/dialogue/01.09/0017",
+          "ja": "「待って！\n　向こうの戦艦には、\n　捕われている人達がいるんだ！」",
+          "speaker": "基拉",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“等等！对方的战舰上还有被囚禁的人！”"
+        },
+        {
+          "id": "story/131/dialogue/01.09/0018",
+          "ja": "「く…」",
+          "speaker": "斗志也",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“唔……”"
+        },
+        {
+          "id": "story/131/dialogue/01.09/0019",
+          "ja": "「各機は、ベガと百鬼を迎え撃て！\n　その上で捕われた人達を救出する！」",
+          "speaker": "源五郎",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“各机迎击维加和百鬼！同时救出被囚禁的人！”"
+        },
+        {
+          "id": "story/131/dialogue/01.09/0020",
+          "ja": "「風見博士の艦は撃墜するな！\n　まずは動きを止めるんだ！」",
+          "speaker": "兵左卫门",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“别击坠风见博士的舰！先让它停下来！”"
+        },
+        {
+          "id": "story/131/dialogue/01.09/0021",
+          "ja": "「行くぞ、闘志也…！\n　俺達で博士を止めるんだ！」",
+          "speaker": "吉良谦",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“上吧，斗志也……！我们来阻止博士！”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:25254",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“面对这伊斯丘隆竟敢…！”",
+      "after": "“面对这伊斯库隆竟敢…！”",
+      "source_text_sha256": "6dab1ff73bbb3dc045bac15a26a4c76b829c3d7aac782991e38e4e85898e291f",
+      "reason": "术语表已审定凯鲁宾·伊斯库隆。",
+      "ja": "「このイスキューロン相手によくも…！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:25254",
+        "ja": "「このイスキューロン相手によくも…！」",
+        "zh": "面对这伊斯丘隆竟敢…！",
+        "s": [
+          "被弹（大伤害 B）"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:20453",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“这距离…炮手的话…！”",
+      "after": "“这距离…炮战型的话…！”",
+      "source_text_sha256": "b7c54fc2969684bd9f259ad3c64a30c333bdc419f8c22a0851bd1769cc15b007",
+      "reason": "ガナー指炮战型装备，不是炮手。",
+      "ja": "「この距離…ガナーならば…！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:20453",
+        "ja": "「この距離…ガナーならば…！」",
+        "zh": "这距离…炮手的话…！",
+        "s": [
+          "攻击（主动）",
+          "攻击（反击）",
+          "武器共通台词 A"
+        ],
+        "o": [
+          "炮战型扎古勇士"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:06730",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“那台高达…\\n　就是发射月光炮的家伙吗！！”",
+      "after": "“那台高达…\\n　就是射出月光的家伙吗！！”",
+      "source_text_sha256": "5d74194f1426c7b685615f17bdc07f76e102448528e46b4536ea0c6a7cfafb0b",
+      "reason": "原文未命名月光炮，避免与卫星炮武器名相冲突。",
+      "ja": "「そのガンダムは…\\n　月の光を撃ちやがった奴か！！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:06730",
+        "ja": "「そのガンダムは…\\n　月の光を撃ちやがった奴か！！」",
+        "zh": "那台高达…/就是发射月光炮的家伙吗！！",
+        "s": [
+          "攻击（主动）",
+          "攻击（反击）",
+          "攻击",
+          "武器共通台词 A"
+        ],
+        "o": [
+          "高达X"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:18443",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“骗、骗人！？被打中了！？”",
+      "after": "“骗、骗人！？被打下来了！？”",
+      "source_text_sha256": "5d7576e28a350f520f2eed8a50664bd1bcf53ecb4c0a36db1c4203e29d974682",
+      "reason": "被击坠场景やられた，不止中弹。",
+      "ja": "「う、嘘！？　やられちゃったの！？」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:18443",
+        "ja": "「う、嘘！？　やられちゃったの！？」",
+        "zh": "骗、骗人！？被打中了！？",
+        "s": [
+          "被击坠"
+        ],
+        "prev": 1
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:07596",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“右舷大破！机关部发生火灾！”",
+      "after": "“右舷大破！引擎部发生火灾！”",
+      "source_text_sha256": "d8bfecc67e8eaa0b764d176cbd747406d1de850e0cf632545ec6012533df71a0",
+      "reason": "機関部为动力引擎部位，非组织机关。",
+      "ja": "「右舷大破！　機関部に火災発生！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:07596",
+        "ja": "「右舷大破！　機関部に火災発生！」",
+        "zh": "右舷大破！机关部发生火灾！",
+        "s": [
+          "被弹（大伤害 A）"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:07651",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“右舷机关部中弹！”",
+      "after": "“右舷引擎部中弹！”",
+      "source_text_sha256": "8899a70431b0fc0ab2213b1c0494fd898e39e78e8dc6b2a3ca26ff7bf18ad09c",
+      "reason": "機関部为动力引擎部位。",
+      "ja": "「右舷機関部に被弾しました！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:07651",
+        "ja": "「右舷機関部に被弾しました！」",
+        "zh": "右舷机关部中弹！",
+        "s": [
+          "被弹（大伤害 B）"
+        ],
+        "others": [
+          "贾米尔"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:00884",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“忍法在搞什么鬼！？”",
+      "after": "“那个忍者在搞什么鬼！？”",
+      "source_text_sha256": "d96411c41d965cb27e1b3f09b3ef8af8dc6b90dcbca3373e7031e1c769e1d300",
+      "reason": "ニンポー是对援护对象高富利的绰称，非招式自主行动。",
+      "ja": "「ニンポーは何やってんだい！？」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:00884",
+        "ja": "「ニンポーは何やってんだい！？」",
+        "zh": "忍法在搞什么鬼！？",
+        "s": [
+          "援护防御"
+        ],
+        "o": [
+          "高富利"
+        ],
+        "c": [
+          "第23话《百鬼的挑战书》起"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:06676",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“高达酱，快出来啊！\\n　高达！”",
+      "after": "“小高达，快出来啊！\\n　高达！”",
+      "source_text_sha256": "ba1a658644af6eceb95a9d9e95fc2c97ab6432268430db2ddb4b3650c7185fd2",
+      "reason": "保留科伦戏谑亲昵称呼，避免音译ちゃん。",
+      "ja": "「ガンダムちゃん、出てきてよぉ！　\\n　ガンダム！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:06676",
+        "ja": "「ガンダムちゃん、出てきてよぉ！　\\n　ガンダム！」",
+        "zh": "高达酱，快出来啊！/高达！",
+        "s": [
+          "攻击（主动）",
+          "攻击（反击）",
+          "武器共通台词 A"
+        ],
+        "c": [
+          "对手机体非《机动战士高达SEED DESTINY》机体（标签 #2）",
+          "对手机体非《高达系》机体（标签 #4）"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:06692",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“你、你还挺能干的嘛，\\n　高达酱！”",
+      "after": "“你、你还挺能干的嘛，\\n　小高达！”",
+      "source_text_sha256": "1190c96d990e0b12b416f95771c8e923d82d2a6721ae4e97178e90cddf9db892",
+      "reason": "同一人物口癖。",
+      "ja": "「や、やってくれるじゃねえか、\\n　ガンダムちゃんよぉ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:06692",
+        "ja": "「や、やってくれるじゃねえか、\\n　ガンダムちゃんよぉ！」",
+        "zh": "你、你还挺能干的嘛，/高达酱！",
+        "s": [
+          "被弹（大伤害 A）"
+        ],
+        "c": [
+          "对手机体为《机动战士高达SEED DESTINY》机体（标签 #2）",
+          "第15话《奔向未知的明天》起",
+          "对手机体为《高达系》机体（标签 #4）"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:21298",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“齐射攻击！配合我！”",
+      "after": "“一起攻击！配合我！”",
+      "source_text_sha256": "cf142a097ebacb9d5e34d67e25ad6348856ff73e991cfdfca400a0bdef9a5072",
+      "reason": "小队一齐攻击不限定为射击。",
+      "ja": "「一斉攻撃だ！　私に合わせてくれ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:21298",
+        "ja": "「一斉攻撃だ！　私に合わせてくれ！」",
+        "zh": "齐射攻击！配合我！",
+        "s": [
+          "小队攻击号令"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:18624",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“还差得远呢，小鬼！”",
+      "after": "“这距离感，还是小孩子的水平！”",
+      "source_text_sha256": "65a111dc17371e9808374fffad60950c28400449c0afe749391481895ade4d5c",
+      "reason": "子供修饰距离把握的水平，不凭空断言对手是小孩。",
+      "ja": "「まだ子供の間合いだな！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:18624",
+        "ja": "「まだ子供の間合いだな！」",
+        "zh": "还差得远呢，小鬼！",
+        "s": [
+          "回避"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:13695",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“GS战斗术…！\\n　交叉距离！”",
+      "after": "“GS战斗术…！\\n　近距离！”",
+      "source_text_sha256": "f359361324e66de8191b97ab2bae74c0b37dfd3e5228d39ff7fca982e129b07a",
+      "reason": "クロス・レンジ为近距战斗；同系列既有近距模式可互证。",
+      "ja": "「ＧＳコンバット・アクション…！　\\n　クロス・レンジ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:13695",
+        "ja": "「ＧＳコンバット・アクション…！　\\n　クロス・レンジ！」",
+        "zh": "GS战斗术…！/交叉距离！",
+        "s": [
+          "武器台词"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:16412",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“干嘛？\\n　当是雅邦传统的十元拳击吗？”",
+      "after": "“干嘛？想学雅邦人\\n　拿十元硬币划车漆吗？”",
+      "source_text_sha256": "00646ec36fa8d467907be67244c5014b8999f8fe7353072b3116990806f7b8c6",
+      "reason": "１０円パンチ指硬币刮车漆的恶作剧；被弹轻伤时讥讽只刮花表面。",
+      "ja": "「なんだぁ？　ヤーパン伝統の\\n　１０円パンチのつもりかぁ？」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:16412",
+        "ja": "「なんだぁ？　ヤーパン伝統の\\n　１０円パンチのつもりかぁ？」",
+        "zh": "干嘛？/当是雅邦传统的十元拳击吗？",
+        "s": [
+          "被弹（轻伤害）"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:01563",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“请手下留情！”",
+      "after": "“请温柔一点！”",
+      "source_text_sha256": "b3a192398883dae105912c7703804e16ac944d5699ee1e96b705a5cc03771098",
+      "reason": "攻击过程中搭档请求驾驶动作轻柔；避免误读为向敌方求饶。",
+      "ja": "「お手柔らかにお願いしますっ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "id": "battle:01563",
+        "ja": "「お手柔らかにお願いしますっ！」",
+        "zh": "请手下留情！",
+        "s": [
+          "攻击（主动）",
+          "攻击（反击）"
+        ],
+        "o": [
+          "鸫"
+        ],
+        "c": [
+          "至第28话《灵魂的Cosplayer》为止",
+          "第29话《局外人》起"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "story/100/dialogue/01.23/0009",
+      "file": "corpus/zh/story-dialogue/stage-100.json",
+      "before": "“$c，请回答！这里是卡拉巴的小林\n　隼人。”",
+      "after": "“$c，请回答！\n　这里是卡拉巴的小林隼人。”",
+      "source_text_sha256": "475dd9c6bef2c1544681a89aa124e01c851ff254361bad990d1c8e997cc1f5ad",
+      "reason": "避免将完整人名从中断开。",
+      "ja": "「$c、応答願う！\n　こちらはカラバのハヤト・コバヤシだ」",
+      "speaker": "隼人",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/100/dialogue/01.23/0007",
+          "ja": "「はい…」",
+          "speaker": "蒂珐",
+          "file": "corpus/zh/story-dialogue/stage-100.json",
+          "translation": "“是的……”"
+        },
+        {
+          "id": "story/100/dialogue/01.23/0008",
+          "ja": "「要するに戦いは\n　避けられねえってわけかよ！」",
+          "speaker": "阿波罗",
+          "file": "corpus/zh/story-dialogue/stage-100.json",
+          "translation": "“总之，战斗是不可避免了是吧！”"
+        },
+        {
+          "id": "story/100/dialogue/01.23/0009",
+          "ja": "「$c、応答願う！\n　こちらはカラバのハヤト・コバヤシだ」",
+          "speaker": "隼人",
+          "file": "corpus/zh/story-dialogue/stage-100.json",
+          "translation": "“$c，请回答！这里是卡拉巴的小林\n　隼人。”"
+        },
+        {
+          "id": "story/100/dialogue/01.23/0010",
+          "ja": "「カラバって\n　エゥーゴの地上の支援組織の！？」",
+          "speaker": "帕拉",
+          "file": "corpus/zh/story-dialogue/stage-100.json",
+          "translation": "“卡拉巴是奥古的地面支援组织！？”"
+        },
+        {
+          "id": "story/100/dialogue/01.23/0011",
+          "ja": "「そうだ。\n　ブレックス准将の指示で我々は\n　アーガマとは別系統で活動している」",
+          "speaker": "隼人",
+          "file": "corpus/zh/story-dialogue/stage-100.json",
+          "translation": "“没错。根据布雷克斯准将的指示，\n　我们与阿伽玛分属不同的行动体系。”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:05631",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“要是把回合的力量用尽，\\n　说不定地球就不会被毁灭了！”",
+      "after": "“要是两台Turn都耗尽力量，\\n　说不定地球就不会被毁灭了！”",
+      "source_text_sha256": "f6cb4f9f93096818878042a009cf0708e6a3dfcc77aaf4c08be1f61d454635bf",
+      "reason": "用户此前已选择采用建议；本轮同步本地写回。",
+      "ja": "「ターン同士の力を使い切れば、\\n　地球は滅ぼされないかも知れんぞ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "receipt:gingham-self-address-20260907.json"
+      ],
+      "context": {
+        "id": "battle:05631",
+        "ja": "「ターン同士の力を使い切れば、\\n　地球は滅ぼされないかも知れんぞ！」",
+        "zh": "要是把回合的力量用尽，/说不定地球就不会被毁灭了！",
+        "s": [
+          "被弹（大伤害 A）"
+        ],
+        "rev": [
+          "人工定稿 gingham-self-address-20260907"
+        ]
+      },
+      "user_confirmed": true
+    },
+    {
+      "id": "battle:17961",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“操你妈！分心了！”",
+      "after": "“吵死了！害我分心！”",
+      "source_text_sha256": "93393f238fbb14e4ceec59241eae819ce18dd05495a7e278b4c64a56d383ab30",
+      "reason": "用户此前已选择采用建议；本轮同步本地写回。",
+      "ja": "「うるさい！　気が散る！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:adopted"
+      ],
+      "context": {
+        "id": "battle:17961",
+        "ja": "「うるさい！　気が散る！」",
+        "zh": "操你妈！分心了！",
+        "s": [
+          "被弹（轻伤害）"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ],
+        "rev": [
+          "线上意见（已采纳）：建议“操你妈！分心了！”"
+        ]
+      },
+      "user_confirmed": true
+    },
+    {
+      "id": "battle:17957",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“你妈生你出来就后悔给了你张嘴\\n　老老实实看仪表！”",
+      "after": "“有空说废话，\\n　不如看好仪表！”",
+      "source_text_sha256": "33f06b0e632252b6558b2d1911e677ea263a0ec77e7c4c321e71bcd68f4b3fed",
+      "reason": "用户此前已选择采用建议；本轮同步本地写回。",
+      "ja": "「無駄口叩いてる暇があったら、\\n　計器に気を配ってろ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:alternative"
+      ],
+      "context": {
+        "id": "battle:17957",
+        "ja": "「無駄口叩いてる暇があったら、\\n　計器に気を配ってろ！」",
+        "zh": "你妈生你出来就后悔给了你张嘴/老老实实看仪表！",
+        "s": [
+          "被弹（轻伤害）"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ],
+        "rev": [
+          "线上意见（另行定稿）：建议“你妈生你出来就后悔给了你张嘴/老老实实看仪表！”"
+        ]
+      },
+      "user_confirmed": true
+    },
+    {
+      "id": "battle:18050",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“他妈了个B的混蛋！你在干什么！”",
+      "after": "“你这混蛋！在搞什么！”",
+      "source_text_sha256": "e80edcbb0e4d91a359068a786392aa8ca221610bc6eee69fde6afcadeaed84ef",
+      "reason": "用户此前已选择采用建议；本轮同步本地写回。",
+      "ja": "「このバカ野郎！　何やってやがる！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:adopted"
+      ],
+      "context": {
+        "id": "battle:18050",
+        "ja": "「このバカ野郎！　何やってやがる！」",
+        "zh": "他妈了个B的混蛋！你在干什么！",
+        "s": [
+          "被击坠"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ],
+        "rev": [
+          "线上意见（已采纳）：建议“他妈了个B的混蛋！你在干什么！”"
+        ]
+      },
+      "user_confirmed": true
+    },
+    {
+      "id": "battle:17922",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“那些B话\\n　看了雷达再说！”",
+      "after": "“这种话，\\n　看了雷达再说！”",
+      "source_text_sha256": "0ed46f11a7d03bbe2b8473b6bbfb13385a83bbda7ee989071d3445d796635516",
+      "reason": "用户此前已选择采用建议；本轮同步本地写回。",
+      "ja": "「そういうセリフは\\n　レーダーを見てから言え！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:alternative"
+      ],
+      "context": {
+        "id": "battle:17922",
+        "ja": "「そういうセリフは\\n　レーダーを見てから言え！」",
+        "zh": "那些B话/看了雷达再说！",
+        "s": [
+          "攻击（对手无法反击：射程外）"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ],
+        "rev": [
+          "线上意见（另行定稿）：建议“那些B话/看了雷达再说！”"
+        ]
+      },
+      "user_confirmed": true
+    },
+    {
+      "id": "battle:17963",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“说的没错！滚回娘胎吧！”",
+      "after": "“没错！回去重练吧！”",
+      "source_text_sha256": "607e7a1d450a13d2d1cf8290050f8c49bf829b32a20fb914fe63ee6defa1bacb",
+      "reason": "用户此前已选择采用建议；本轮同步本地写回。",
+      "ja": "「その通り！　出直してくるんだな！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:adopted"
+      ],
+      "context": {
+        "id": "battle:17963",
+        "ja": "「その通り！　出直してくるんだな！」",
+        "zh": "说的没错！滚回娘胎吧！",
+        "s": [
+          "被弹（轻伤害）"
+        ],
+        "c": [
+          "自身非《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ],
+        "rev": [
+          "线上意见（已采纳）：建议“说的没错！滚回娘胎吧！”"
+        ]
+      },
+      "user_confirmed": true
+    },
+    {
+      "id": "battle:18009",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“狗嘴吐不出象牙的东西！\\n　我不也是命悬一线吗！”",
+      "after": "“怎么可能！\\n　我也是在拼命战斗！”",
+      "source_text_sha256": "b63f0f4dc0af9b6ed0d73f7c4ed505c494ebbe70ceab361b31b5d5c46ae34386",
+      "reason": "用户此前已选择采用建议；本轮同步本地写回。",
+      "ja": "「そんなわけがあるか！　\\n　俺だって命懸けでやっているんだ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:alternative"
+      ],
+      "context": {
+        "id": "battle:18009",
+        "ja": "「そんなわけがあるか！　\\n　俺だって命懸けでやっているんだ！」",
+        "zh": "狗嘴吐不出象牙的东西！/我不也是命悬一线吗！",
+        "s": [
+          "被弹（大伤害 B）"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）",
+          "对手为《宇宙战士巴鲁迪奥斯》角色（标签 #3）",
+          "至第35话《Morning Glory》为止"
+        ],
+        "rev": [
+          "线上意见（另行定稿）：建议“狗嘴吐不出象牙的东西！/我不也是命悬一线吗！”"
+        ]
+      },
+      "user_confirmed": true
+    },
+    {
+      "id": "battle:11644",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“叫我吗？”",
+      "after": "“没你的——”",
+      "source_text_sha256": "33c651d1ef3b87c087a824f2e9c2372152beb32b0c963e667d6d1fc469f26f3a",
+      "reason": "与11645同chunk及同回避触发对象，お呼びじゃないの被拆成接话，非叫我吗。",
+      "ja": "「お呼びじゃ」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "ja": "「お呼びじゃ」",
+        "source_catalog": "../srwz-community-web/public/data/catalog/work-09.json",
+        "triggerVariants": [
+          {
+            "scenes": [
+              15
+            ],
+            "objects": [
+              {
+                "kind": "ally-character",
+                "role": "ally",
+                "label": "友军／援护对象",
+                "targetText": "戴克",
+                "targetSourceText": "ダイク"
+              }
+            ],
+            "conditions": [],
+            "additionalConditionCount": 0,
+            "additionalConditionKinds": [],
+            "occurrenceCount": 1,
+            "evidence": "original-srvc"
+          },
+          {
+            "scenes": [
+              15
+            ],
+            "objects": [
+              {
+                "kind": "ally-character",
+                "role": "ally",
+                "label": "友军／援护对象",
+                "targetText": "布鲁梅",
+                "targetSourceText": "ブルメ"
+              }
+            ],
+            "conditions": [],
+            "additionalConditionCount": 0,
+            "additionalConditionKinds": [],
+            "occurrenceCount": 1,
+            "evidence": "original-srvc"
+          }
+        ],
+        "personRefs": [
+          {
+            "id": "person/09/703393354240",
+            "translation": "戴克",
+            "workId": 9
+          },
+          {
+            "id": "person/09/b892ca16f62b",
+            "translation": "布鲁梅",
+            "workId": 9
+          }
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:11645",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“啊！”",
+      "after": "“事儿！”",
+      "source_text_sha256": "00158398559cbd81fa371c1ae17dd63d0218931e351848a76360ac5757b33cd1",
+      "reason": "接11644：没你的——事儿！原文ないの，不是感叹啊。",
+      "ja": "「ないの！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "ja": "「ないの！」",
+        "source_catalog": "../srwz-community-web/public/data/catalog/work-09.json",
+        "triggerVariants": [
+          {
+            "scenes": [
+              15
+            ],
+            "objects": [
+              {
+                "kind": "ally-character",
+                "role": "ally",
+                "label": "友军／援护对象",
+                "targetText": "戴克",
+                "targetSourceText": "ダイク"
+              }
+            ],
+            "conditions": [],
+            "additionalConditionCount": 0,
+            "additionalConditionKinds": [],
+            "occurrenceCount": 1,
+            "evidence": "original-srvc"
+          },
+          {
+            "scenes": [
+              15
+            ],
+            "objects": [
+              {
+                "kind": "ally-character",
+                "role": "ally",
+                "label": "友军／援护对象",
+                "targetText": "布鲁梅",
+                "targetSourceText": "ブルメ"
+              }
+            ],
+            "conditions": [],
+            "additionalConditionCount": 0,
+            "additionalConditionKinds": [],
+            "occurrenceCount": 1,
+            "evidence": "original-srvc"
+          }
+        ],
+        "personRefs": [
+          {
+            "id": "person/09/703393354240",
+            "translation": "戴克",
+            "workId": 9
+          },
+          {
+            "id": "person/09/b892ca16f62b",
+            "translation": "布鲁梅",
+            "workId": 9
+          }
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:02123",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“让你见识S-1星司令部的实力！”",
+      "after": "“让你见识S-1星突击队的实力！”",
+      "source_text_sha256": "ad56ad5933b0ae3810a505e54987f7982959d9d280b7cf08e27368f0b5b3d17b",
+      "reason": "原始catalog说话人为普通阿尔德巴朗士兵；コマンド是战斗队员而非司令部。",
+      "ja": "「Ｓ—１星コマンドの実力を見せてやる！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "ja": "「Ｓ—１星コマンドの実力を見せてやる！」",
+        "source_catalog": "../srwz-community-web/public/data/catalog/work-04.json",
+        "triggerVariants": [
+          {
+            "scenes": [
+              0
+            ],
+            "objects": [],
+            "conditions": [],
+            "additionalConditionCount": 0,
+            "additionalConditionKinds": [],
+            "occurrenceCount": 2,
+            "evidence": "original-srvc"
+          }
+        ],
+        "personRefs": [
+          {
+            "id": "person/04/a12f27cda371",
+            "translation": "阿尔德巴朗士兵",
+            "workId": 4
+          }
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:02135",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“干什么呢！还算是司令部的人吗！”",
+      "after": "“干什么呢！还算是突击队员吗！”",
+      "source_text_sha256": "bcf66942b13d528fa3a325692c42026fb1db3c58f59de1ee8ec308acc3ec8b9d",
+      "reason": "原始catalog援护对象标签成员仅阿尔德巴朗士兵，不是司令部。",
+      "ja": "「何をしている！　それでもコマンドか！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "ja": "「何をしている！　それでもコマンドか！」",
+        "source_catalog": "../srwz-community-web/public/data/catalog/work-04.json",
+        "triggerVariants": [
+          {
+            "scenes": [
+              25
+            ],
+            "objects": [],
+            "conditions": [
+              {
+                "kind": "tag",
+                "text": "友军／援护对象为《宇宙战士巴鲁迪奥斯》角色（标签 #1）",
+                "title": "标签成员共 1 项，例如：阿尔德巴朗士兵"
+              }
+            ],
+            "additionalConditionCount": 0,
+            "additionalConditionKinds": [],
+            "occurrenceCount": 1,
+            "evidence": "original-srvc"
+          },
+          {
+            "scenes": [
+              25
+            ],
+            "objects": [],
+            "conditions": [],
+            "additionalConditionCount": 0,
+            "additionalConditionKinds": [],
+            "occurrenceCount": 1,
+            "evidence": "original-srvc"
+          }
+        ],
+        "personRefs": [
+          {
+            "id": "person/04/a12f27cda371",
+            "translation": "阿尔德巴朗士兵",
+            "workId": 4
+          }
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:04438",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“你这混蛋！\\n　还算是S-1星的指挥官吗！”",
+      "after": "“你这混蛋！还算是S-1星的突击队员吗！”",
+      "source_text_sha256": "f2df95fd99a093f7aeae5e9090dfdc0f8e7504268ab8f408f8285fb6d57c9e52",
+      "reason": "原始catalog援护对象标签成员仅普通士兵，不是指挥官。",
+      "ja": "「貴様！　\\n　それでもＳ—１星のコマンドか！」",
+      "speaker": "战斗角色",
+      "original_reviews": [],
+      "context": {
+        "ja": "「貴様！　\\n　それでもＳ—１星のコマンドか！」",
+        "source_catalog": "../srwz-community-web/public/data/catalog/work-04.json",
+        "triggerVariants": [
+          {
+            "scenes": [
+              25
+            ],
+            "objects": [],
+            "conditions": [
+              {
+                "kind": "tag",
+                "text": "友军／援护对象为《宇宙战士巴鲁迪奥斯》角色（标签 #1）",
+                "title": "标签成员共 1 项，例如：阿尔德巴朗士兵"
+              }
+            ],
+            "additionalConditionCount": 0,
+            "additionalConditionKinds": [],
+            "occurrenceCount": 1,
+            "evidence": "original-srvc"
+          }
+        ],
+        "personRefs": [
+          {
+            "id": "person/04/8b7a6ba090a5",
+            "translation": "加特勒",
+            "workId": 4
+          }
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "story/050/dialogue/02.01/0089",
+      "file": "corpus/zh/story-dialogue/stage-050.json",
+      "before": "密涅瓦号　炮房",
+      "after": "密涅瓦号　驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/050/dialogue/02.01/0087",
+          "ja": "（あのセッケン…\n　サンドマンが持たせてくれたものか…）",
+          "speaker": "阿姆罗",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "（那块肥皂……是桑德曼给我的吗……）"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0088",
+          "ja": "（彼に感謝しなくてはな…）",
+          "speaker": "阿姆罗",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "（得感谢他才行……）"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0089",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0090",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0091",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/050/dialogue/02.01/0090",
+      "file": "corpus/zh/story-dialogue/stage-050.json",
+      "before": "密涅瓦号　炮房",
+      "after": "密涅瓦号　驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/050/dialogue/02.01/0088",
+          "ja": "（彼に感謝しなくてはな…）",
+          "speaker": "阿姆罗",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "（得感谢他才行……）"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0089",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0090",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0091",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0092",
+          "ja": "「あったぞ…。\n　これがベルトーチカって人が言っていた\n　記事だ」",
+          "speaker": "卡缪",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "“找到了……这就是贝托蒂嘉说的那篇报道。”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/050/dialogue/02.01/0091",
+      "file": "corpus/zh/story-dialogue/stage-050.json",
+      "before": "密涅瓦号　炮房",
+      "after": "密涅瓦号　驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/050/dialogue/02.01/0089",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0090",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0091",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "密涅瓦号　炮房"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0092",
+          "ja": "「あったぞ…。\n　これがベルトーチカって人が言っていた\n　記事だ」",
+          "speaker": "卡缪",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "“找到了……这就是贝托蒂嘉说的那篇报道。”"
+        },
+        {
+          "id": "story/050/dialogue/02.01/0093",
+          "ja": "「俺達が日本を解放した後に\n　政府がＵＮを通じて発表した声明か…」",
+          "speaker": "真",
+          "file": "corpus/zh/story-dialogue/stage-050.json",
+          "translation": "“是我们解放日本后，政府通过UN发表的声明\n　吗……”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/053/dialogue/02.01/0018",
+      "file": "corpus/zh/story-dialogue/stage-053.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/053/dialogue/02.01/0016",
+          "ja": "「わかっている。\n　だが、それは成功したらの話だ」",
+          "speaker": "米德加尔德",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "“我知道。但那是成功之后的事。”"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0017",
+          "ja": "「ディアナ・ソレルの暗殺…。\n　必ずやってみせるさ…」",
+          "speaker": "特泰丝",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "“暗杀迪安娜·索雷尔……我一定会做到的……”"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0018",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0019",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0020",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/053/dialogue/02.01/0019",
+      "file": "corpus/zh/story-dialogue/stage-053.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/053/dialogue/02.01/0017",
+          "ja": "「ディアナ・ソレルの暗殺…。\n　必ずやってみせるさ…」",
+          "speaker": "特泰丝",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "“暗杀迪安娜·索雷尔……我一定会做到的……”"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0018",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0019",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0020",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0021",
+          "ja": "　　　　〜ミネルバ　パイロット待機室〜",
+          "speaker": "　",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "　　　　　　〜密涅瓦号驾驶员待命室〜"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/053/dialogue/02.01/0020",
+      "file": "corpus/zh/story-dialogue/stage-053.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/053/dialogue/02.01/0018",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0019",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0020",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0021",
+          "ja": "　　　　〜ミネルバ　パイロット待機室〜",
+          "speaker": "　",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "　　　　　　〜密涅瓦号驾驶员待命室〜"
+        },
+        {
+          "id": "story/053/dialogue/02.01/0022",
+          "ja": "「あ…」",
+          "speaker": "真",
+          "file": "corpus/zh/story-dialogue/stage-053.json",
+          "translation": "“啊……”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/066/dialogue/02.01/0000",
+      "file": "corpus/zh/story-dialogue/stage-066.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/066/dialogue/02.01/0000",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0001",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0002",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/066/dialogue/02.01/0001",
+      "file": "corpus/zh/story-dialogue/stage-066.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/066/dialogue/02.01/0000",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0001",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0002",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0003",
+          "ja": "「人間爆弾…！？」",
+          "speaker": "卡缪",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "“人体炸弹……！？”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/066/dialogue/02.01/0002",
+      "file": "corpus/zh/story-dialogue/stage-066.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/066/dialogue/02.01/0000",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0001",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0002",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0003",
+          "ja": "「人間爆弾…！？」",
+          "speaker": "卡缪",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "“人体炸弹……！？”"
+        },
+        {
+          "id": "story/066/dialogue/02.01/0004",
+          "ja": "「ああ、そうだ。\n　ガイゾックはさらった人間に爆弾を埋め込み、\n　無差別テロを起こしてやがった…」",
+          "speaker": "斗志也",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "“啊，没错。盖佐克在抓来的人体内埋入炸弹，搞\n　无差别恐怖袭击……”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/066/dialogue/02.02/0016",
+      "file": "corpus/zh/story-dialogue/stage-066.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/066/dialogue/02.02/0014",
+          "ja": "（ごめん…ごめんよ、ステラ…）",
+          "speaker": "真",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "（对不起……对不起啊，史黛拉……）"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0015",
+          "ja": "（フォウ…俺は…）",
+          "speaker": "卡缪",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "（凤……我……）"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0016",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0017",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0018",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/066/dialogue/02.02/0017",
+      "file": "corpus/zh/story-dialogue/stage-066.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/066/dialogue/02.02/0015",
+          "ja": "（フォウ…俺は…）",
+          "speaker": "卡缪",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "（凤……我……）"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0016",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0017",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0018",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0019",
+          "ja": "「…カミーユとシンは？」",
+          "speaker": "阿姆罗",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "“……卡缪和真呢？”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/066/dialogue/02.02/0018",
+      "file": "corpus/zh/story-dialogue/stage-066.json",
+      "before": "密涅瓦号炮房",
+      "after": "密涅瓦号驾驶员待机室",
+      "source_text_sha256": "80310150a9451789e79d9cad2054b13953501560687c1489a0cac5d8cb44b452",
+      "reason": "053/02.01/0021同场明确写パイロット待機室；核对全部ガンルーム关联位置。",
+      "ja": "ミネルバ　ガンルーム",
+      "speaker": "（场景文字）",
+      "original_reviews": [],
+      "context": [
+        {
+          "id": "story/066/dialogue/02.02/0016",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0017",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0018",
+          "ja": "ミネルバ　ガンルーム",
+          "speaker": "（场景文字）",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "密涅瓦号炮房"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0019",
+          "ja": "「…カミーユとシンは？」",
+          "speaker": "阿姆罗",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "“……卡缪和真呢？”"
+        },
+        {
+          "id": "story/066/dialogue/02.02/0020",
+          "ja": "「まだ外にいるようです」",
+          "speaker": "阿斯兰",
+          "file": "corpus/zh/story-dialogue/stage-066.json",
+          "translation": "“好像还在外面。”"
+        }
+      ],
+      "user_confirmed": false
+    }
+  ],
+  "files": [
+    {
+      "file": "corpus/zh/story-dialogue/stage-026.json",
+      "before_sha256": "da9d18fe4ca6158ba1a2b2e6ec5716f92bd01fccc392c42ac8939d81b09b9505",
+      "after_sha256": "f7c8f56d375779026bae4d898155617b675d7772725cc36829002d9bca0c1d5a"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-031.json",
+      "before_sha256": "64bd5d60e22bd7d6534dd9358a2d11a264a0eeed017e2422cf3a2a9dff59b9b3",
+      "after_sha256": "50a9251aa5976740dfb31318da1ddbf36123a4aff321882b6a668fe0487d996a"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-037.json",
+      "before_sha256": "f916c3ddf3bbe87944d2ccc8250441b951d59c923850397d060dd9d424f55a86",
+      "after_sha256": "b9e19d8cc578620585f03abd4eb58855bd55d156ff715176226511d0bcf65c64"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "before_sha256": "3328cee1f27434050d08306ce0315d8cfe666176e0cc9951a0898b83504205fd",
+      "after_sha256": "3ec554372fde28f3dd5a7733eacbc0c4206e68f0e266949babe207b31e4522ad"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-090.json",
+      "before_sha256": "a33e3bace8218c749b8d87f660a25c078eef3169e7c37ea10778305f679d64c3",
+      "after_sha256": "2de4f081c9277461439e0887effe4e78c28fd23e691616066e4da3d8b0a02c1c"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "before_sha256": "af853a941c1140bd1947bc27d8af7f9e39b36cca74f7a8a281b595d963e9c71c",
+      "after_sha256": "9b0645cf6043252dd3480dad15b1b1ef20469ca4b4f5085089a43db89ee0fcc5"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-128.json",
+      "before_sha256": "fd2c75d3d19d8c26d095bcdf4221a75c638aa671391fdc7af83d88023025e6b4",
+      "after_sha256": "c4b05b8aeeca3cf0323e762075b2a609ac9e0db2f0c9aa1a082b0628c9b6cc00"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-143.json",
+      "before_sha256": "1cface06e95a2acb8bba72d6394f115ba1f4238d2ec212689a209efa5643da18",
+      "after_sha256": "000522faed11b1390569eda63054009a07059ede160e408eef7d359a8df364ec"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "before_sha256": "3267295989a2013d44be5c10a9bbffff12f4fc4a1bb2bb595d9cc8e029601d4a",
+      "after_sha256": "d85c4989631ff9e976bf1370ec97614e614d4921fb193ae535c694fbc880bf60"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-132.json",
+      "before_sha256": "d7419a0ea2a6621eb5a09b1d4a82a4b03dfc81c4d0817f91265a90577c34b86c",
+      "after_sha256": "83d1a8a66ef2d857d7cd6ab8bdd1b133d65dbc5a6b1127ff10d68cb6228616ff"
+    },
+    {
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before_sha256": "194c289e98f882fbe85f2e80551441115a7652c26e5603a8167ed254a78535af",
+      "after_sha256": "b01906735424a5652e780d2a333f5f0824c221256a5562f83e2b9eaeb51315cd"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-022.json",
+      "before_sha256": "a88273b61f839a7fb943d859cd34345e4bd95e7c93044c7af5c43012b266056c",
+      "after_sha256": "39eef68abb6cf9259758e7bcd5fd05bf3e3dfe8d85db1adbb0eb64e5163a8f00"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-049.json",
+      "before_sha256": "57a19fb4582fb527839d3f6ce7879a0d87d568bff913b6501736d03a8df3ec06",
+      "after_sha256": "d2f9f0108a2ee1bf5b0c59b0f7f3d182e1400cb55e154024db415f63c9050738"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-088.json",
+      "before_sha256": "aaaba91adcc39205c82b4746beb1189d6b0de0f048ace253d26ef3116de8f818",
+      "after_sha256": "76d9b44f9785a0659fe1e4eeeb637f43ff48c25f7113550bfd7d556011ed2ff6"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "before_sha256": "9af65e9cd575e68fecc72b7cc6d4b8977104bee155b2fa7e6be5ce16fdde8c8d",
+      "after_sha256": "24b63ad70b95487425760c5391513d4deef7be291fca7897739cf6e6a4adae01"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-100.json",
+      "before_sha256": "cfc0a1137f27ede695ef0d80cda2f769d55ca4addbe730d0e298323342dd9f1a",
+      "after_sha256": "8c58bc3ea1ee145e056c58039cb0eac853305c92f089516997b654b9fd161443"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-050.json",
+      "before_sha256": "b95039db34aef63c38995530e20a69cceb9e84bc914fdfa9e47ab27faf3f1214",
+      "after_sha256": "2e7a4a4b876ea52a92b0eb33780992f1711ea2b4cdf4a4db8b5a486e20beb472"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-053.json",
+      "before_sha256": "cc376aabf61e09b670425759a992d6bc6be6ff801d16c730dd2117b1d86c5997",
+      "after_sha256": "c353686778d229f36c1d71086786f1a7133423fc9d043b057cc8f25da4bcde37"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-066.json",
+      "before_sha256": "4eb2ba045bd44ec63e66ef6a5e238c5b7b8d4889f2ee527bedcf2d2ae3426d4d",
+      "after_sha256": "f869d506008ead51b1b4e58ba92478a516980785f4f022af3ca6f90642e65b85"
+    }
+  ],
+  "history_hashes_preserved": {
+    "config/editorial/story-polish-20261110.json": "bda296c6e478e363e87a8d92e45a36cb6dbce0b216eedac500417fadfd506b35",
+    "config/editorial/battle-polish-20261110.json": "ab80717ef3eaeaffb8154e9b940cb089256533660064100db60bf5395cd038dc",
+    "config/editorial/claude-polish-audit-20261110.json": "2fb1d60f5e91fdeb0c36ee71677906fd1ed155ee1ac77a5edb68bde19fb2db26"
+  },
+  "pending_user": [
+    {
+      "id": "battle:05590",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“怎么了？\\n　Turn的名号都要哭了，白胡子！”",
+      "after": "“怎么了，白胡子？\\n　别给Turn的名号丢脸啊！”",
+      "source_text_sha256": "cd6fa1de5cd27186d361a07354bb935b5a9e4fc3b6dcf96891e931e470fc9b98",
+      "reason": "名が泣く指有损名号，不是名号哭泣；已有审定，交用户确认。",
+      "ja": "「どうした？　\\n　ターンの名が泣くぞ、白ヒゲよ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:alternative",
+        "receipt:gingham-self-address-20260907.json",
+        "{\"targetId\": \"battle:05590\", \"displayNameSnapshot\": \"桑德曼\", \"proposedTranslation\": \"“怎么了？\\\\n　Turn的名号都要哭了，白胡子！”\", \"reason\": \"\", \"resolution\": \"alternative\", \"adminReason\": null}"
+      ],
+      "context": {
+        "id": "battle:05590",
+        "ja": "「どうした？　\\n　ターンの名が泣くぞ、白ヒゲよ！」",
+        "zh": "怎么了？/Turn的名号都要哭了，白胡子！",
+        "s": [
+          "回避"
+        ],
+        "rev": [
+          "线上意见（另行定稿）：建议“怎么了？/Turn的名号都要哭了，白胡子！”",
+          "人工定稿 gingham-self-address-20260907"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "story/109/dialogue/02.01/0269",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "before": "““不可饶恕……不可饶恕！无论是谁，都不能妨碍\n　老夫的科学！！”",
+      "after": "“不可饶恕……不可饶恕！无论是谁，都不能妨碍\n　老夫的科学！！”",
+      "source_text_sha256": "791233a9443d335b7f357de061c968f8d734a2d4f802cb93bac4d5d11a8474ee",
+      "reason": "重复开引号。",
+      "ja": "「許さん…許さんぞ！\n　ワシの科学の邪魔をする者は\n　誰であろうと！！」",
+      "speaker": "风见",
+      "original_reviews": [
+        "online:alternative",
+        "receipt:site-decisions-20260927.json",
+        "{\"targetId\": \"story/109/dialogue/02.01/0269\", \"displayNameSnapshot\": \"兰德\", \"proposedTranslation\": \"““不可饶恕……不可饶恕！\\n无论是谁，都不能妨碍老夫的科学！！”\", \"reason\": \"\", \"resolution\": \"alternative\", \"adminReason\": null}"
+      ],
+      "context": [
+        {
+          "id": "story/109/dialogue/02.01/0267",
+          "ja": "「もうやめてください、博士！\n　博士のやっている事は\n　人の道に外れた行いです！」",
+          "speaker": "理惠",
+          "file": "corpus/zh/story-dialogue/stage-109.json",
+          "translation": "“请住手吧，博士！博士所做的事，是违背人伦的\n　行为！”"
+        },
+        {
+          "id": "story/109/dialogue/02.01/0268",
+          "ja": "「確かに堕天翅は敵だけど、\n　戦う力をなくした子供にひどい事するなんて\n　おかしいよ！」",
+          "speaker": "美奈子",
+          "file": "corpus/zh/story-dialogue/stage-109.json",
+          "translation": "“堕天翅确实是敌人，但这样虐待失去战斗力的\n　孩子，是不对的！”"
+        },
+        {
+          "id": "story/109/dialogue/02.01/0269",
+          "ja": "「許さん…許さんぞ！\n　ワシの科学の邪魔をする者は\n　誰であろうと！！」",
+          "speaker": "风见",
+          "file": "corpus/zh/story-dialogue/stage-109.json",
+          "translation": "““不可饶恕……不可饶恕！无论是谁，都不能妨碍\n　老夫的科学！！”"
+        },
+        {
+          "id": "story/109/dialogue/02.01/0270",
+          "ja": "「博士…」",
+          "speaker": "杰利",
+          "file": "corpus/zh/story-dialogue/stage-109.json",
+          "translation": "“博士……”"
+        },
+        {
+          "id": "story/109/dialogue/02.01/0271",
+          "ja": "「さあ、アフロディア司令…。\n　私の肩につかまってください」",
+          "speaker": "露比娜",
+          "file": "corpus/zh/story-dialogue/stage-109.json",
+          "translation": "“来吧，阿芙罗蒂亚司令……请抓住我的肩膀。”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "story/131/dialogue/02.01/0140",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "before": "“如果要对我和多萝西下手，我只能想到那个自诩为\n　街王之王的亚历克斯。”",
+      "after": "“如果要对我和多萝西下手，我只能想到那个自诩为\n　那座城市之王的亚历克斯。”",
+      "source_text_sha256": "cdfb920f06624c7fd178a6d01f6a0592c7cb8ea2e4338e2eda7c1a921b9d204a",
+      "reason": "あの街の王，不是街王之王。",
+      "ja": "「私やドロシーに手を出すとしたら\n　あの街の王を気取るアレックスしか\n　考えられない」",
+      "speaker": "罗杰",
+      "original_reviews": [
+        "field:notes",
+        "online-same-source:dialogue",
+        "prior-review:prior-reviewed-reassessment.json",
+        "prior-review:prior-reviewed-scope.json",
+        "receipt:story-review-confirmed-20261109.json"
+      ],
+      "context": [
+        {
+          "id": "story/131/dialogue/02.01/0138",
+          "ja": "「それらは何らかの意味を持ち、\n　互いに関係していると私は見ている」",
+          "speaker": "罗杰",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“我认为这些都有某种意义，并且互相关联。”"
+        },
+        {
+          "id": "story/131/dialogue/02.01/0139",
+          "ja": "「………」",
+          "speaker": "安琪尔",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“……”"
+        },
+        {
+          "id": "story/131/dialogue/02.01/0140",
+          "ja": "「私やドロシーに手を出すとしたら\n　あの街の王を気取るアレックスしか\n　考えられない」",
+          "speaker": "罗杰",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“如果要对我和多萝西下手，我只能想到那个自诩为\n　街王之王的亚历克斯。”"
+        },
+        {
+          "id": "story/131/dialogue/02.01/0141",
+          "ja": "「さすがと言っておくわ」",
+          "speaker": "安琪尔",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“不愧是你。”"
+        },
+        {
+          "id": "story/131/dialogue/02.01/0142",
+          "ja": "「奴は何のためにドロシーをさらった？」",
+          "speaker": "罗杰",
+          "file": "corpus/zh/story-dialogue/stage-131.json",
+          "translation": "“那家伙为什么要掳走多萝西？”"
+        }
+      ],
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:11986",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“飞蛾扑火！\\n　派出哈比部驱散他们！”",
+      "after": "“飞蛾扑火！\\n　派出哈比部队驱散他们！”",
+      "source_text_sha256": "35f620a5f705655649fc11cac5cc1cb75c004d18f77d7c1094dc863190197dca",
+      "reason": "ハルピー部隊，补漏字。",
+      "ja": "「飛んで火にいる夏の虫だ！　\\n　ハルピー部隊で蹴散らせ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:alternative",
+        "{\"targetId\": \"battle:11986\", \"displayNameSnapshot\": \"桑德曼\", \"proposedTranslation\": \"“飞蛾扑火！\\\\n　派出哈比部驱散他们！”\", \"reason\": \"\", \"resolution\": \"alternative\", \"adminReason\": null}"
+      ],
+      "context": {
+        "id": "battle:11986",
+        "ja": "「飛んで火にいる夏の虫だ！　\\n　ハルピー部隊で蹴散らせ！」",
+        "zh": "飞蛾扑火！/派出哈比部驱散他们！",
+        "s": [
+          "武器台词"
+        ],
+        "rev": [
+          "线上意见（另行定稿）：建议“飞蛾扑火！/派出哈比部驱散他们！”"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:00820",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“确实解决…！”",
+      "after": "“一定解决…！”",
+      "source_text_sha256": "821fef810b3348432af0f3850c563030ca411a0d86a13144a28a9d4dc34baca4",
+      "reason": "確実に表达把握，非中文的的确。",
+      "ja": "「確実に仕留める…！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online-same-source:battle-line"
+      ],
+      "context": {
+        "id": "battle:00820",
+        "ja": "「確実に仕留める…！」",
+        "zh": "确实解决…！",
+        "s": [
+          "攻击（主动）",
+          "攻击",
+          "武器共通台词 A",
+          "武器台词"
+        ],
+        "others": [
+          "亚历克斯",
+          "托比"
+        ],
+        "rev": [
+          "同一句原文在别处有线上意见"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:18078",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“就是他吧，在背地混淆黑白的家伙！”",
+      "after": "“就是他吧，在幕后操纵事件的家伙！”",
+      "source_text_sha256": "fc3613067ecb97e7b516995ab2f27a8e485342a5db353f7f88b0f2cfb65bd0dc",
+      "reason": "裏から操る是幕后操纵，非混淆是非。",
+      "ja": "「奴か、事件を裏から操っていたのは！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:adopted",
+        "{\"targetId\": \"battle:18078\", \"displayNameSnapshot\": \"桑德曼\", \"proposedTranslation\": \"“就是他吧，在背地混淆黑白的家伙！”\", \"reason\": \"\", \"resolution\": \"adopted\", \"adminReason\": null}"
+      ],
+      "context": {
+        "id": "battle:18078",
+        "ja": "「奴か、事件を裏から操っていたのは！」",
+        "zh": "就是他吧，在背地混淆黑白的家伙！",
+        "s": [
+          "攻击（主动）",
+          "攻击（反击）"
+        ],
+        "c": [
+          "对手属于：阿萨基姆／？？？",
+          "第47话《倒计时》起"
+        ],
+        "rev": [
+          "线上意见（已采纳）：建议“就是他吧，在背地混淆黑白的家伙！”"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:10945",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“把所有的弹药都赏给你吃！”",
+      "after": "“把所有弹药都给他招呼上去！”",
+      "source_text_sha256": "904025007dfc849079f09a3404db8d83e0709a642ad80e34177be7996a96e1cd",
+      "reason": "食らわせてやれ是对队员发号施令。",
+      "ja": "「ありったけの弾、食らわせてやれ！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "receipt:reference-role-confirmations-20260910.json"
+      ],
+      "context": {
+        "id": "battle:10945",
+        "ja": "「ありったけの弾、食らわせてやれ！」",
+        "zh": "把所有的弹药都赏给你吃！",
+        "s": [
+          "小队攻击号令"
+        ],
+        "rev": [
+          "人工定稿 reference-role-confirmations-20260910"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:25503",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“能打下来吗！”",
+      "after": "“休想击落他！”",
+      "source_text_sha256": "2548fdf3f07e96069724ec089fd6ff8ccdd4148a8a27a087597aff9fd43c6c28",
+      "reason": "援护防御：不让敌方击落友军。",
+      "ja": "「落とさせるか！」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "receipt:obvious-errors-followup-20260907.json"
+      ],
+      "context": {
+        "id": "battle:25503",
+        "ja": "「落とさせるか！」",
+        "zh": "能打下来吗！",
+        "s": [
+          "援护防御"
+        ],
+        "others": [
+          "身份不明士兵",
+          "联邦军士兵",
+          "联合军士兵"
+        ],
+        "rev": [
+          "人工定稿 obvious-errors-followup-20260907"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:18390",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“头脑根本不在一个档次！脑子”",
+      "after": "“头脑根本不在一个档次！我是说脑子”",
+      "source_text_sha256": "1b5e0dffd14bd4b9de4d2a272026b66251bf726ac6826f0d24129650b61c1ab7",
+      "reason": "补足重复强调的句尾，保留不在一个档次的既有风格。",
+      "ja": "「頭の出来が違うのだ、頭の出来が」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:adopted",
+        "{\"targetId\": \"battle:18390\", \"displayNameSnapshot\": \"桑德曼\", \"proposedTranslation\": \"“头脑根本不在一个档次！脑子”\", \"reason\": \"\", \"resolution\": \"adopted\", \"adminReason\": null}"
+      ],
+      "context": {
+        "id": "battle:18390",
+        "ja": "「頭の出来が違うのだ、頭の出来が」",
+        "zh": "头脑根本不在一个档次！脑子",
+        "s": [
+          "屏障（通用）"
+        ],
+        "rev": [
+          "线上意见（已采纳）：建议“头脑根本不在一个档次！脑子”"
+        ]
+      },
+      "user_confirmed": false
+    },
+    {
+      "id": "battle:06641",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“剩下的交给我！……随口吹的啦。我该不会染\\n　上爱耍帅的毛病吧？”",
+      "after": "“剩下的交给我！……随口吹的啦。\\n　我该不会染上爱耍帅的毛病吧？”",
+      "source_text_sha256": "d444a9b4df434789c641a145da34aef41bf5780d097c354e0d811e4905d83a07",
+      "reason": "保留已审定措辞，仅恢复原意见所给断行，避免拆开染上。",
+      "ja": "「後は任せろ！　…なんてな。\\n　ええカッコしいがうつったかな？」",
+      "speaker": "战斗角色",
+      "original_reviews": [
+        "online:alternative",
+        "receipt:community-20261014-accepted.json",
+        "receipt:community-20261015-accepted.json",
+        "{\"targetId\": \"battle:06641\", \"displayNameSnapshot\": \"黑泽小皮\", \"proposedTranslation\": \"“剩下的交给我！ ……随口吹的啦。\\\\n　我该不会染上爱耍帅的毛病吧？”\", \"reason\": \"\", \"resolution\": \"alternative\", \"adminReason\": null}",
+        "{\"targetId\": \"battle:06641\", \"displayNameSnapshot\": \"黑泽小皮\", \"proposedTranslation\": \"“剩下的交给我！…开玩笑的啦。\\\\n　拍下我刚才耍帅的镜头了吗？”\", \"reason\": \"不是被传染。1 移った（うつった）→ 传染、沾染、转移\\n2映った（うつった）→ 映照、入镜、拍进画面。二者读音相同。\", \"resolution\": \"alternative\", \"adminReason\": null}"
+      ],
+      "context": {
+        "id": "battle:06641",
+        "ja": "「後は任せろ！　…なんてな。\\n　ええカッコしいがうつったかな？」",
+        "zh": "剩下的交给我！……随口吹的啦。我该不会染/上爱耍帅的毛病吧？",
+        "s": [
+          "援护攻击"
+        ],
+        "rev": [
+          "线上意见（另行定稿）：建议“剩下的交给我！ ……随口吹的啦。/我该不会染上爱耍帅的毛病吧？”",
+          "线上意见（另行定稿）：建议“剩下的交给我！…开玩笑的啦。/拍下我刚才耍帅的镜头了吗？”，理由：不是被传染。1 移った（うつった）→ 传染、沾染、转移\n2映った（うつった）→ 映照、入镜、拍进画面。二者读音相同。",
+          "人工定稿 community-20261014-accepted、人工定稿 community-20261015-accepted"
+        ]
+      },
+      "user_confirmed": false
+    }
+  ],
+  "user_keep": [
+    "battle:24641",
+    "story/015/dialogue/01.02/0003"
+  ],
+  "validation": {
+    "checked": 67,
+    "errors": []
+  },
+  "online_processed": false,
+  "build_performed": false,
+  "post_writeback_verification": {
+    "checked_current_union": {
+      "story": 913,
+      "battle": 647
+    },
+    "errors": [],
+    "unchanged_pending": 10,
+    "history_preserved": true,
+    "no_collateral_edits": true,
+    "local_entries_written": 56,
+    "runtime_tested": false
+  }
+}

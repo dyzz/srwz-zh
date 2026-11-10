@@ -1,0 +1,654 @@
+{
+  "review_id": "claude-polish-technical-resolution-20261110",
+  "status": "applied_local",
+  "entries": [
+    {
+      "id": "battle:07305",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“怎么样？\\n　魔神Z的驾驶技术也不错吧？”",
+      "after": "“怎么样？\\n　魔神的驾驶技术也不错吧？”",
+      "source_text_sha256": "09c21cce83662c95bd242f5fa2039db8ad20f768e3ab11544b11d24bb62f10c6",
+      "ja": "「どう？　\\n　マジンガーの操縦だって上手でしょ？」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            15
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:07312",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“那种攻击，\\n　魔神Z根本纹丝不动！”",
+      "after": "“那种攻击，\\n　魔神根本纹丝不动！”",
+      "source_text_sha256": "6a914cec41d3e9725e2521ac8eb384378875653626ea01eb9c320f2d0a32fcf8",
+      "ja": "「そんなんじゃ、\\n　マジンガーはビクともしないわよ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            13
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:07319",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“不愧是魔神Z，真结实啊！”",
+      "after": "“不愧是魔神，真结实啊！”",
+      "source_text_sha256": "6b868518e69667e25079f943951300f6054f82eee43fe531667161283d801826",
+      "ja": "「さっすが、マジンガー！　頑丈ねえ」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            12
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22545",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“该死！\\n　魔神Z居然会被干掉！！”",
+      "after": "“该死！\\n　魔神居然会被干掉！！”",
+      "source_text_sha256": "2eedcab6c82cc371ee192881c66927435d5b7e75b87dad887f0020200f8efcf1",
+      "ja": "「ちくしょう！\\n　マジンガーがやられるなんて！！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            10
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22550",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“可恶！魔神Z\\n　怎么能被这种东西干掉！”",
+      "after": "“可恶！魔神\\n　怎么能被这种东西干掉！”",
+      "source_text_sha256": "ba3b25c868bfaf601dc405f52852e888783763bfdd9e96dac0614f8becaae6bf",
+      "ja": "「くそっ！　マジンガーが\\n　こんなもんでやられるかよっ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            12
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22553",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“就凭那种东西，\\n　想打倒这台魔神Z吗！”",
+      "after": "“就凭那种东西，\\n　想打倒这台魔神吗！”",
+      "source_text_sha256": "478b118a212622937b3847e5d6c88a589434af54b68649b4fdfe875334a07002",
+      "ja": "「そんなもんで、\\n　このマジンガーを倒す気かよ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            13
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22570",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“可恶！既然如此，\\n　就让你见识魔神Z的底力！”",
+      "after": "“可恶！既然如此，\\n　就让你见识魔神的底力！”",
+      "source_text_sha256": "150ee9d05841454e958aa650f2a13831e9d92d97d1b0e288e8f622cabca2904e",
+      "ja": "「くそっ！　こうなったら、\\n　マジンガーの底力を見せてやるぜ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            11
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22574",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“怎么了，魔神Z！\\n　动啊，快动啊！！”",
+      "after": "“怎么了，魔神！\\n　动啊，快动啊！！”",
+      "source_text_sha256": "f1f90aee5730a3584b2706a3664cb003361b8cc23c6dcc9959420fcde3ce18c9",
+      "ja": "「どうした、マジンガー！\\n　動け、動いてくれ！！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            11
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22579",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“嘿，有两下子嘛，\\n　居然能和魔神Z打成平手！”",
+      "after": "“嘿，有两下子嘛，\\n　居然能和魔神打成平手！”",
+      "source_text_sha256": "3f5c9835dfea7cd2b6a1c92e6c87d95f6efb05f0c86533dcee19182c82b9d816",
+      "ja": "「ヘッ、やるじゃねえか、\\n　マジンガーと互角に渡り合うなんてよ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            12
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22580",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“别开玩笑了，我和魔神Z\\n　会栽在这种东西手里吗！”",
+      "after": "“别开玩笑了，我和魔神\\n　会栽在这种东西手里吗！”",
+      "source_text_sha256": "239e43b350fb3c10b16c5ca43a5a3f82d5f166d7918b133f3aaeecc676d47eab",
+      "ja": "「笑わせんな、俺とマジンガーが\\n　そんなもんでくたばるか！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            12
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22583",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“你的攻击\\n　对我的魔神Z可不管用！”",
+      "after": "“你的攻击\\n　对我的魔神可不管用！”",
+      "source_text_sha256": "8c19ace493991a20e417938b13ac6a5e352c337198511b767c808c31b76ada76",
+      "ja": "「てめえの攻撃なんざ、\\n　俺のマジンガーにゃ通用しねえぜ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            12
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22585",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“你这种人\\n　根本不配做魔神Z的对手！”",
+      "after": "“你这种人\\n　根本不配做魔神的对手！”",
+      "source_text_sha256": "5b9f4c5373fb2087c62e133f714ba783b854011de12efaf2ad80d86d1dda8834",
+      "ja": "「てめえなんざ、\\n　マジンガーの相手にならねえよ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            13
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22589",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“怎么样？\\n　知道我和魔神Z是无敌的了吧？”",
+      "after": "“怎么样？\\n　知道我和魔神是无敌的了吧？”",
+      "source_text_sha256": "f0c4cbc530aa96572b2070828298407b539a822646c305bcd92111b372219aab",
+      "ja": "「どうだ？　俺とマジンガーは\\n　無敵だってこと、わかったかよ？」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            13
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22593",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“我的魔神Z\\n　连一道伤疤都不会有！”",
+      "after": "“我的魔神\\n　连一道伤疤都不会有！”",
+      "source_text_sha256": "c3c4f479b7cb43a8505a7d8a48d0068121edae6e767d6e99957a99b704d7f5b7",
+      "ja": "「俺のマジンガーにゃ\\n　傷一つ付けられねえぜ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            15
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:22595",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“不过，就算打中了\\n　魔神Z也没事就是了”",
+      "after": "“不过，就算打中了\\n　魔神也没事就是了”",
+      "source_text_sha256": "05f079a8abd5468cf06b70302db90469d06f33781faa18e5ef8b687f7f09be99",
+      "ja": "「ま、当たっても\\n　マジンガーは大丈夫だけどな」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            15
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "自身机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 1,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:24608",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“无、无论如何\\n　也要取魔神Z的性命……！”",
+      "after": "“无、无论如何\\n　也要取魔神的性命……！”",
+      "source_text_sha256": "aeb0079139fe1f81ab617a11b38055faf912d9494c176ecae7e9c914e2bc848f",
+      "ja": "「な、何としても\\n　マジンガーの息の根を止めねば…！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            11
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "对手机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 3,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:24617",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“魔神Z！\\n　这里就是你的坟墓！”",
+      "after": "“魔神！\\n　这里就是你的坟墓！”",
+      "source_text_sha256": "9e6683dcc5323c7a9074eeec483a80c4deda7cb5a2574ad5b23e5657618d9094",
+      "ja": "「マジンガー！　\\n　ここが貴様の墓場となるのだ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            0,
+            1
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "对手机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            },
+            {
+              "kind": "exclude",
+              "text": "自身机体非：百鬼战斗机",
+              "title": "机体资源 0x0110"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 4,
+          "evidence": "original-srvc"
+        },
+        {
+          "scenes": [
+            0,
+            1
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "对手机体为《魔神／盖塔系》机体（标签 #1）",
+              "title": "标签成员共 3 项，例如：盖塔波塞冬、盖塔狮虎、盖塔龙"
+            },
+            {
+              "kind": "exclude",
+              "text": "自身机体非：百鬼战斗机",
+              "title": "机体资源 0x0110"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 2,
+          "evidence": "original-srvc"
+        }
+      ]
+    },
+    {
+      "id": "battle:24622",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“魔神Z根本不是对手！”",
+      "after": "“魔神根本不是对手！”",
+      "source_text_sha256": "9742527e649aa3fcd5e54b53df58c2dbc3bb751bd04c1a2e49b1247cff163767",
+      "ja": "「マジンガーなど敵ではないわ！」",
+      "reason": "原文为通称マジンガー；触发标签0同时包含大魔神和魔神Z，去掉擅自限定机型的Z。",
+      "trigger_variants": [
+        {
+          "scenes": [
+            0,
+            1
+          ],
+          "objects": [],
+          "conditions": [
+            {
+              "kind": "tag",
+              "text": "对手机体为《魔神／盖塔系》机体（标签 #0）",
+              "title": "标签成员共 2 项，例如：大魔神、魔神Z"
+            }
+          ],
+          "additionalConditionCount": 0,
+          "additionalConditionKinds": [],
+          "occurrenceCount": 6,
+          "evidence": "original-srvc"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "id": "battle:07305",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "09c21cce83662c95bd242f5fa2039db8ad20f768e3ab11544b11d24bb62f10c6"
+    },
+    {
+      "id": "battle:07312",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "6a914cec41d3e9725e2521ac8eb384378875653626ea01eb9c320f2d0a32fcf8"
+    },
+    {
+      "id": "battle:07319",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "6b868518e69667e25079f943951300f6054f82eee43fe531667161283d801826"
+    },
+    {
+      "id": "battle:22545",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "2eedcab6c82cc371ee192881c66927435d5b7e75b87dad887f0020200f8efcf1"
+    },
+    {
+      "id": "battle:22550",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "ba3b25c868bfaf601dc405f52852e888783763bfdd9e96dac0614f8becaae6bf"
+    },
+    {
+      "id": "battle:22553",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "478b118a212622937b3847e5d6c88a589434af54b68649b4fdfe875334a07002"
+    },
+    {
+      "id": "battle:22570",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "150ee9d05841454e958aa650f2a13831e9d92d97d1b0e288e8f622cabca2904e"
+    },
+    {
+      "id": "battle:22574",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "f1f90aee5730a3584b2706a3664cb003361b8cc23c6dcc9959420fcde3ce18c9"
+    },
+    {
+      "id": "battle:22579",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "3f5c9835dfea7cd2b6a1c92e6c87d95f6efb05f0c86533dcee19182c82b9d816"
+    },
+    {
+      "id": "battle:22580",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "239e43b350fb3c10b16c5ca43a5a3f82d5f166d7918b133f3aaeecc676d47eab"
+    },
+    {
+      "id": "battle:22583",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "8c19ace493991a20e417938b13ac6a5e352c337198511b767c808c31b76ada76"
+    },
+    {
+      "id": "battle:22585",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "5b9f4c5373fb2087c62e133f714ba783b854011de12efaf2ad80d86d1dda8834"
+    },
+    {
+      "id": "battle:22589",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "f0c4cbc530aa96572b2070828298407b539a822646c305bcd92111b372219aab"
+    },
+    {
+      "id": "battle:22593",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "c3c4f479b7cb43a8505a7d8a48d0068121edae6e767d6e99957a99b704d7f5b7"
+    },
+    {
+      "id": "battle:22595",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "05f079a8abd5468cf06b70302db90469d06f33781faa18e5ef8b687f7f09be99"
+    },
+    {
+      "id": "battle:24608",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "aeb0079139fe1f81ab617a11b38055faf912d9494c176ecae7e9c914e2bc848f"
+    },
+    {
+      "id": "battle:24617",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "9e6683dcc5323c7a9074eeec483a80c4deda7cb5a2574ad5b23e5657618d9094"
+    },
+    {
+      "id": "battle:24622",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "9742527e649aa3fcd5e54b53df58c2dbc3bb751bd04c1a2e49b1247cff163767"
+    }
+  ],
+  "validation": {
+    "checked": 18,
+    "errors": [],
+    "metadata_preserved": true,
+    "line_breaks_preserved": true
+  },
+  "history_hashes_preserved": {
+    "config/editorial/claude-polish-user-confirmed-20261110.json": "a35039dcec0da27aeb95d7dab45673068a3abe43ccbe446230cce35f8d9ed40f",
+    "config/editorial/claude-polish-full-recheck-20261110.json": "389a79d04758b086e8c88a91684c5728c05c2ec4a0ca7cc392372a66f35beedf",
+    "config/editorial/claude-polish-audit-20261110.json": "2fb1d60f5e91fdeb0c36ee71677906fd1ed155ee1ac77a5edb68bde19fb2db26",
+    "config/editorial/story-polish-20261110.json": "bda296c6e478e363e87a8d92e45a36cb6dbce0b216eedac500417fadfd506b35",
+    "config/editorial/battle-polish-20261110.json": "ab80717ef3eaeaffb8154e9b940cb089256533660064100db60bf5395cd038dc"
+  },
+  "online_processed": false,
+  "build_performed": false,
+  "excluded_unused_tutorial": {
+    "ids": [
+      "story/185/dialogue/02.01/0047",
+      "story/185/dialogue/02.01/0049"
+    ],
+    "reason": "用户确认游戏只有一条教学流程，另一路无需检查。本轮对185的两处补写已恢复，最终无净改动。"
+  }
+}

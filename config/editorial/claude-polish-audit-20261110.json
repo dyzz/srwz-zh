@@ -1,0 +1,527 @@
+{
+  "schema_version": 1,
+  "review_id": "claude-polish-audit-20261110",
+  "status": "applied_local",
+  "online_processed": false,
+  "original_receipts_preserved": [
+    "config/editorial/story-polish-20261110.json",
+    "config/editorial/battle-polish-20261110.json"
+  ],
+  "scope": "19 held decisions, integrity audit of 1504 applied records, semantic risk checks, note triage; not a second full-context reading of all 1504 lines",
+  "entries": [
+    {
+      "id": "story/006/dialogue/02.03/0008",
+      "file": "corpus/zh/story-dialogue/stage-006.json",
+      "before": "“各地正在交战的部队，正逐渐集中到骏河湾。”",
+      "after": "“在各地作战的敌方部队，\\n　正逐渐向骏河湾集中。”",
+      "source_text_sha256": "901dc5cd376ef23ed8ce36af4c09db5f89b6a900d957877e1fcae5ceb31cf794",
+      "ja": "「各地で戦っていた部隊が\n　駿河湾に集中しつつある」",
+      "speaker": "月影",
+      "reason": "前句明确询问神秘敌人的动向，后句继续分析敌人的目标。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/020/dialogue/02.02/0053",
+      "file": "corpus/zh/story-dialogue/stage-020.json",
+      "before": "“那只是说到你关掉城堡电源、带那孩子逃出去为止\n　的事。”",
+      "after": "“我只答应帮到城堡断电、\\n　你把那孩子带出来为止。”",
+      "source_text_sha256": "c40fa995593c6cfc03756109c892de2b8a18112d5a18f9162b6f663318a0076c",
+      "ja": "「それは、城の電源を落として、\n　あなたがその子を連れ出すまでの話よ」",
+      "speaker": "艾妮尔",
+      "reason": "回应0052的求助约定；原文未明示断电动作主体，译文不补成“你切断”或“我切断”。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/027/dialogue/02.01/0166",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "before": "（这是多么闷热的空间啊……！）",
+      "after": "（这股热血劲儿，真让人受不了……！）",
+      "source_text_sha256": "b4f938039f4f1214605f5d58c76c927c951e360811d5393ab55f18e9dd42c26e",
+      "ja": "（何という暑苦しい空間だ…！）",
+      "speaker": "波",
+      "reason": "0163—0165是兰德与科伦互相认可的热血对话，0168继续说粗犷汉子，非客观气温。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/029/dialogue/02.02/0167",
+      "file": "corpus/zh/story-dialogue/stage-029.json",
+      "before": "“那是骗人的……只是苦而已～♪”",
+      "after": "“骗人的……只有苦涩～♪”",
+      "source_text_sha256": "eafd3832982381b201dff98f345e366db3ff9f9efe3af25fb8e4f6a39490c0ca",
+      "ja": "「そんなの嘘さ…ただ苦いだけ〜♪」",
+      "speaker": "塔尔荷",
+      "reason": "同包02.01/0099兰顿原话、0112塔尔荷复述均已有“骗人的……只有苦涩”，保留本句音符。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/058/dialogue/01.40/0004",
+      "file": "corpus/zh/story-dialogue/stage-058.json",
+      "before": "“那种男人——！！”",
+      "after": "“我才不会输给那种男人——！！”",
+      "source_text_sha256": "914f442e3ed65625f402db9ca6d88c3ddd88c71f59d3d79083f3ed2cb31278b7",
+      "ja": "「そんな男なんかにーっ！！」",
+      "speaker": "卡缪",
+      "reason": "01.40为捷利特扬言复仇、卡缪斥其私怨；助词に接的是不服输的对敌喊话。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/061/dialogue/02.01/0030",
+      "file": "corpus/zh/story-dialogue/stage-061.json",
+      "before": "“你那是……”",
+      "after": "“可你对这件事却……”",
+      "source_text_sha256": "2c5b3d81d0745ce85c4d198011019d6116324c4b67877f69fb04f9b163671b0a",
+      "ja": "「君はそれを…」",
+      "speaker": "阿斯兰",
+      "reason": "それ承接史黛拉曾杀死扎夫特士兵这一事实；保留被打断的半句，不补“无视”等动词。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/140/dialogue/02.01/0134",
+      "file": "corpus/zh/story-dialogue/stage-140.json",
+      "before": "“比起成为一体，增加更好。”",
+      "after": "“比起成为一体，还是多添几个人更好。”",
+      "source_text_sha256": "809c9166fdfc0b23e9937a866cb3d5fe2a598863128b6324b3317f13b8a5f3d2",
+      "ja": "「一つになるよりも増える方がいい」",
+      "speaker": "霍兰德",
+      "reason": "后两句明确说塔尔荷怀有自己的孩子，继而谈家人和生老病死。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/140/dialogue/02.01/0283",
+      "file": "corpus/zh/story-dialogue/stage-140.json",
+      "before": "“比起成为一体，增加更好。”",
+      "after": "“比起成为一体，还是多添几个人更好。”",
+      "source_text_sha256": "809c9166fdfc0b23e9937a866cb3d5fe2a598863128b6324b3317f13b8a5f3d2",
+      "ja": "「一つになるよりも増える方がいい」",
+      "speaker": "霍兰德",
+      "reason": "与0134同源分支，后两句同样明确怀孕与家人。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/148/dialogue/02.01/0264",
+      "file": "corpus/zh/story-dialogue/stage-148.json",
+      "before": "“但是，火焰射门……”",
+      "after": "“可是，你刚才还喊烈火爆裂蹴……”",
+      "source_text_sha256": "151579c7b3ee997ea392cdb220bf5c7d5dfd744d40b7709efcd0fe7562322c03",
+      "ja": "「でも、ファイヤーゴールって…」",
+      "speaker": "盖纳",
+      "reason": "0261是灼熱のファイヤーゴール，0264重复其简称反驳；词表weapon/0607已审定烈火爆裂蹴。",
+      "origin": "story-held"
+    },
+    {
+      "id": "story/029/dialogue/02.02/0120",
+      "file": "corpus/zh/story-dialogue/stage-029.json",
+      "before": "“最终，它成了既非地球联合也非PLANT的第三方\n　势力终结战争的力量。”",
+      "after": "“最终，它加入了地球联合与PLANT之外的第三方\\n　势力，成为终结战争的力量。”",
+      "source_text_sha256": "ab0f5ff5b33414453b985cab7ec80f9fd673245799fedf65827131bb48db7cf5",
+      "ja": "「最後は地球連合でもプラントでもない\n　第三勢力として戦争を終結させる力と\n　なりました」",
+      "speaker": "雷",
+      "reason": "0119主语确为自由高达，但Claude改稿“第三方势力终结战争的力量”连缀生硬；按0121补清机体与第三势力的关系。",
+      "origin": "applied-followup"
+    },
+    {
+      "id": "battle:12677",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“必杀！噗通咕噜拳！”",
+      "after": "“必杀！萨芬格尔～拳！”",
+      "source_text_sha256": "0924f877df856f6bd0c757130039edbd2e2cd9d8eea98d14c1f7fa94e52885f8",
+      "ja": "「必殺！　ざぶんぐるぱ〜んちっ！」",
+      "speaker": "琪露",
+      "reason": "对象为萨芬格尔的武器台词；平假名表示童声喊法，不能把机体专名误作拟声词。",
+      "origin": "battle-held-or-note"
+    },
+    {
+      "id": "battle:10735",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“当是捉迷藏吗？”",
+      "after": "“当是在玩抓人游戏吗？”",
+      "source_text_sha256": "bb779f93a565319a13713cfb94f02fcd0ce326ed739db75be0b7364b9152fa91",
+      "ja": "「鬼ごっこのつもり？」",
+      "speaker": "辛西亚",
+      "reason": "鬼ごっこ是追逐抓人的游戏，不是捉迷藏；回避场景一致。",
+      "origin": "battle-held-or-note"
+    },
+    {
+      "id": "battle:14970",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "before": "“不愧是腿部，耐久性就是不一样！”",
+      "after": "“果然，耐久性就是和雷格不一样！”",
+      "source_text_sha256": "d7927f116121f9969d1a2049b92a79e1e328f5da0971c6ef7c914f99a317668a",
+      "ja": "「さすが、レッグとは耐久性が違うわ！」",
+      "speaker": "比琳",
+      "reason": "レッグとは表示与雷格相比，原译把比较对象误作自己。图鉴已审定“驾驶小型步行机甲雷格”，无需新造腿型译名。",
+      "origin": "battle-held-or-note"
+    }
+  ],
+  "files": [
+    {
+      "path": "corpus/zh/story-dialogue/stage-006.json",
+      "before_sha256": "ece644d176ae501e0e0b909d44df0591d0bb6b38f681d3768a71441ef7c043fd",
+      "after_sha256": "9c7a83335f4cc41ae2ac7260c336937499d1d5edfe3c71e37894fef18c8548a3"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-020.json",
+      "before_sha256": "3edf43f821a7b90d47183058c1fd8a47e82cb5dcc7a08260067a2f6d3200455d",
+      "after_sha256": "6d0fbadd7baf2ec249035a5f1c1817ef9acc7f7480c6d39e65ac9b2493c8be20"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-027.json",
+      "before_sha256": "90b0ebf4a15ab91a4739bf4d63e6b0862bf49952d180786f46e57db554c5b2c0",
+      "after_sha256": "b1e2633485a8cb9089c62c4ddaca30fbb45a74aa71d578de6a5f49677b318036"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-029.json",
+      "before_sha256": "51e014a02dbbdfc1c325405a9fc0fa41225267421da1a24fa62743103672ad8f",
+      "after_sha256": "31cd33a2fc30aa5634c787576dcbde511fb9bae5ccfe2fab43e576906578632b"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-058.json",
+      "before_sha256": "8c4adf7df26edba0ba5c264cff9c936399aefe4829a00a5bea7e4c045dc2953b",
+      "after_sha256": "15ce9db5246bd78788b7d304c69cea921e945ea864bf12fa9aaa842b834478c2"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-061.json",
+      "before_sha256": "537a3b9f11e17ed479fc481e2f50ba27e200cc56557d89160cd382e1083ab457",
+      "after_sha256": "78a6b43038213c579d1a73fec50d679ca7acf39facbdcf4dd54620eb825dd721"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-140.json",
+      "before_sha256": "0161fd48dfb26452f062b19c045d6d3a0f296dcf75d69a5fba34d6ffaba55a3e",
+      "after_sha256": "16b47ae1406a023ad4f51abd8418f19b1da11209f9c2ba7b9f169bec0afd3943"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-148.json",
+      "before_sha256": "1b52181a96993c509d093f5536b62af6a7ab5e0cccd79c4bbfa3ca043a8284d8",
+      "after_sha256": "3267295989a2013d44be5c10a9bbffff12f4fc4a1bb2bb595d9cc8e029601d4a"
+    },
+    {
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "before_sha256": "512dfa8a8b639291c84c6da2e1679f6d3d2a70ba982a9cb03475396021890aad",
+      "after_sha256": "194c289e98f882fbe85f2e80551441115a7652c26e5603a8167ed254a78535af"
+    }
+  ],
+  "active_lock_refresh": [
+    {
+      "before": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6989360,
+        "sha256": "512dfa8a8b639291c84c6da2e1679f6d3d2a70ba982a9cb03475396021890aad"
+      },
+      "after": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6989372,
+        "sha256": "194c289e98f882fbe85f2e80551441115a7652c26e5603a8167ed254a78535af"
+      }
+    }
+  ],
+  "held_decisions": [
+    {
+      "id": "story/006/dialogue/02.03/0008",
+      "number": 5,
+      "decision": "apply",
+      "claude": "“在各地作战的敌方部队，\n　正逐渐向骏河湾集中。”",
+      "final": "“在各地作战的敌方部队，\n　正逐渐向骏河湾集中。”",
+      "reason": "前句明确询问神秘敌人的动向，后句继续分析敌人的目标。"
+    },
+    {
+      "id": "story/020/dialogue/02.02/0053",
+      "number": 50,
+      "decision": "apply",
+      "claude": "“那只到我切断城堡电源、让你带那孩子逃出去\n　为止。”",
+      "final": "“我只答应帮到城堡断电、\n　你把那孩子带出来为止。”",
+      "reason": "回应0052的求助约定；原文未明示断电动作主体，译文不补成“你切断”或“我切断”。"
+    },
+    {
+      "id": "story/026/dialogue/01.24/0009",
+      "number": 86,
+      "decision": "keep",
+      "claude": "“据奥利弗他们说，里面像是驾驶员的人\n　果然昏过去了。”",
+      "final": "“据奥利弗他们说，里面像驾驶员的人物也昏过去\n　了。”",
+      "reason": "やはり可以表示同样或果然；现有上下文不足以排除“也”，不以单词机械替换。"
+    },
+    {
+      "id": "story/027/dialogue/02.01/0166",
+      "number": 106,
+      "decision": "apply",
+      "claude": "（这里简直热得让人喘不过气……！）",
+      "final": "（这股热血劲儿，真让人受不了……！）",
+      "reason": "0163—0165是兰德与科伦互相认可的热血对话，0168继续说粗犷汉子，非客观气温。"
+    },
+    {
+      "id": "story/028/dialogue/01.25/0001",
+      "number": 112,
+      "decision": "keep",
+      "claude": "“父亲，从今天的战斗来看，盖佐克和伊尔塔\n　似乎联手了。”",
+      "final": "“爷爷，从今天的战斗来看，盖佐克和伊尔塔似乎联\n　手了。”",
+      "reason": "随孩子辈称爷爷在家庭称谓中成立，不能仅凭亲属关系判为错译。"
+    },
+    {
+      "id": "story/029/dialogue/02.02/0167",
+      "number": 127,
+      "decision": "apply",
+      "claude": "“骗人的……只有苦涩～♪”",
+      "final": "“骗人的……只有苦涩～♪”",
+      "reason": "同包02.01/0099兰顿原话、0112塔尔荷复述均已有“骗人的……只有苦涩”，保留本句音符。"
+    },
+    {
+      "id": "story/058/dialogue/01.40/0004",
+      "number": 259,
+      "decision": "apply",
+      "claude": "“我才不会输给那种男人——！！”",
+      "final": "“我才不会输给那种男人——！！”",
+      "reason": "01.40为捷利特扬言复仇、卡缪斥其私怨；助词に接的是不服输的对敌喊话。"
+    },
+    {
+      "id": "story/058/dialogue/02.01/0045",
+      "number": 260,
+      "decision": "keep",
+      "claude": "“得救了，$n小姐。感谢您的支援。”",
+      "final": "“得救了，$n。感谢你的支援。”",
+      "reason": "さん沿用现有处理，不因敬语自动增补小姐；本句原译语义成立。"
+    },
+    {
+      "id": "story/061/dialogue/02.01/0030",
+      "number": 278,
+      "decision": "apply",
+      "claude": "“你却把这一点……”",
+      "final": "“可你对这件事却……”",
+      "reason": "それ承接史黛拉曾杀死扎夫特士兵这一事实；保留被打断的半句，不补“无视”等动词。"
+    },
+    {
+      "id": "story/088/dialogue/02.01/0046",
+      "number": 411,
+      "decision": "keep",
+      "claude": "“讨厌！明明你也想的！”",
+      "final": "“讨厌！你也一样！”",
+      "reason": "“你也一样”已准确接住查尔斯将愿望推给雷的对话，不必补“想”。"
+    },
+    {
+      "id": "story/106/dialogue/02.02/0096",
+      "number": 501,
+      "decision": "keep",
+      "claude": "“如果活着，会自己回来的。毕竟他好歹也曾\n　当过一阵伊尔塔的司令。”",
+      "final": "“如果活着，会自己回来的。毕竟他好歹也曾一度\n　自称伊尔塔的司令。”",
+      "reason": "加根拒绝营救并贬低前任，自称保留其轻蔑语气；不据名乗る单词删除讽刺。"
+    },
+    {
+      "id": "story/119/dialogue/01.81/0000",
+      "number": 577,
+      "decision": "keep",
+      "claude": "“驾驶Turn Type的人！那股力量正是终结黑历史的\n　末日之力之一！”",
+      "final": "“驾驶Turn Type的人！那股力量正是终结黑历史的\n　终结之力之一！”",
+      "reason": "重复“终结”不是语义错误，现有固定表达先保留，不仅为避重改成末日。"
+    },
+    {
+      "id": "story/140/dialogue/02.01/0134",
+      "number": 675,
+      "decision": "apply",
+      "claude": "“比起成为一体，还是多添几个人更好。”",
+      "final": "“比起成为一体，还是多添几个人更好。”",
+      "reason": "后两句明确说塔尔荷怀有自己的孩子，继而谈家人和生老病死。"
+    },
+    {
+      "id": "story/140/dialogue/02.01/0283",
+      "number": 676,
+      "decision": "apply",
+      "claude": "“比起成为一体，还是多添几个人更好。”",
+      "final": "“比起成为一体，还是多添几个人更好。”",
+      "reason": "与0134同源分支，后两句同样明确怀孕与家人。"
+    },
+    {
+      "id": "story/148/dialogue/02.01/0264",
+      "number": 743,
+      "decision": "apply",
+      "claude": "“但是，都叫烈火爆裂蹴了……”",
+      "final": "“可是，你刚才还喊烈火爆裂蹴……”",
+      "reason": "0261是灼熱のファイヤーゴール，0264重复其简称反驳；词表weapon/0607已审定烈火爆裂蹴。"
+    },
+    {
+      "id": "battle:05631",
+      "decision": "human-review",
+      "reason": "回合误译明确，但已有人工审定；单列供用户确认两台Turn的表达。"
+    },
+    {
+      "id": "battle:19958",
+      "decision": "keep",
+      "reason": "反击时含蓄的礼物/伴手礼比喻成立，原文不明示谁带给谁，候选“带回去”增加方向。"
+    },
+    {
+      "id": "battle:12677",
+      "decision": "apply",
+      "reason": "按触发机体恢复萨芬格尔专名，童声由波浪号保留。"
+    },
+    {
+      "id": "battle:03069",
+      "decision": "keep",
+      "reason": "候选“太过女人”中文更生硬；现译保留原句的性别化措辞，不擅自扩写为性格或动机分析。"
+    }
+  ],
+  "pending_human": [
+    {
+      "id": "battle:05631",
+      "group": "Turn误译",
+      "before": "“要是把回合的力量用尽，\\n　说不定地球就不会被毁灭了！”",
+      "after": "“要是两台Turn都耗尽力量，\\n　说不定地球就不会被毁灭了！”",
+      "ja": "「ターン同士の力を使い切れば、\\n　地球は滅ぼされないかも知れんぞ！」",
+      "speaker": "金卡拉姆",
+      "original_reviews": [
+        "人工定稿 gingham-self-address-20260907"
+      ],
+      "context": {
+        "s": [
+          "被弹（大伤害 A）"
+        ]
+      },
+      "reason": "原文与现译存在明确语义或语法问题；保留已审定记录，待用户把关。"
+    },
+    {
+      "id": "battle:17961",
+      "group": "马林六句越界加戏",
+      "before": "“操你妈！分心了！”",
+      "after": "“吵死了！害我分心！”",
+      "ja": "「うるさい！　気が散る！」",
+      "speaker": "马林",
+      "original_reviews": [
+        "线上意见（已采纳）：建议“操你妈！分心了！”"
+      ],
+      "context": {
+        "s": [
+          "被弹（轻伤害）"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ]
+      },
+      "reason": "原文没有涉及亲属的辱骂或性粗口，且部分句子改变原意，建议恢复忠实的强硬语气。"
+    },
+    {
+      "id": "battle:17957",
+      "group": "马林六句越界加戏",
+      "before": "“你妈生你出来就后悔给了你张嘴\\n　老老实实看仪表！”",
+      "after": "“有空说废话，\\n　不如看好仪表！”",
+      "ja": "「無駄口叩いてる暇があったら、\\n　計器に気を配ってろ！」",
+      "speaker": "马林",
+      "original_reviews": [
+        "线上意见（另行定稿）：建议“你妈生你出来就后悔给了你张嘴/老老实实看仪表！”"
+      ],
+      "context": {
+        "s": [
+          "被弹（轻伤害）"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ]
+      },
+      "reason": "原文没有涉及亲属的辱骂或性粗口，且部分句子改变原意，建议恢复忠实的强硬语气。"
+    },
+    {
+      "id": "battle:18050",
+      "group": "马林六句越界加戏",
+      "before": "“他妈了个B的混蛋！你在干什么！”",
+      "after": "“你这混蛋！在搞什么！”",
+      "ja": "「このバカ野郎！　何やってやがる！」",
+      "speaker": "马林",
+      "original_reviews": [
+        "线上意见（已采纳）：建议“他妈了个B的混蛋！你在干什么！”"
+      ],
+      "context": {
+        "s": [
+          "被击坠"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ]
+      },
+      "reason": "原文没有涉及亲属的辱骂或性粗口，且部分句子改变原意，建议恢复忠实的强硬语气。"
+    },
+    {
+      "id": "battle:17922",
+      "group": "马林六句越界加戏",
+      "before": "“那些B话\\n　看了雷达再说！”",
+      "after": "“这种话，\\n　看了雷达再说！”",
+      "ja": "「そういうセリフは\\n　レーダーを見てから言え！」",
+      "speaker": "马林",
+      "original_reviews": [
+        "线上意见（另行定稿）：建议“那些B话/看了雷达再说！”"
+      ],
+      "context": {
+        "s": [
+          "攻击（对手无法反击：射程外）"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ]
+      },
+      "reason": "原文没有涉及亲属的辱骂或性粗口，且部分句子改变原意，建议恢复忠实的强硬语气。"
+    },
+    {
+      "id": "battle:17963",
+      "group": "马林六句越界加戏",
+      "before": "“说的没错！滚回娘胎吧！”",
+      "after": "“没错！回去重练吧！”",
+      "ja": "「その通り！　出直してくるんだな！」",
+      "speaker": "马林",
+      "original_reviews": [
+        "线上意见（已采纳）：建议“说的没错！滚回娘胎吧！”"
+      ],
+      "context": {
+        "s": [
+          "被弹（轻伤害）"
+        ],
+        "c": [
+          "自身非《宇宙战士巴鲁迪奥斯》角色（标签 #0）"
+        ]
+      },
+      "reason": "原文没有涉及亲属的辱骂或性粗口，且部分句子改变原意，建议恢复忠实的强硬语气。"
+    },
+    {
+      "id": "battle:18009",
+      "group": "马林六句越界加戏",
+      "before": "“狗嘴吐不出象牙的东西！\\n　我不也是命悬一线吗！”",
+      "after": "“怎么可能！\\n　我也是在拼命战斗！”",
+      "ja": "「そんなわけがあるか！　\\n　俺だって命懸けでやっているんだ！」",
+      "speaker": "马林",
+      "original_reviews": [
+        "线上意见（另行定稿）：建议“狗嘴吐不出象牙的东西！/我不也是命悬一线吗！”"
+      ],
+      "context": {
+        "s": [
+          "被弹（大伤害 B）"
+        ],
+        "c": [
+          "自身为《宇宙战士巴鲁迪奥斯》角色（标签 #0）",
+          "对手为《宇宙战士巴鲁迪奥斯》角色（标签 #3）",
+          "至第35话《Morning Glory》为止"
+        ]
+      },
+      "reason": "原文没有涉及亲属的辱骂或性粗口，且部分句子改变原意，建议恢复忠实的强硬语气。"
+    },
+    {
+      "id": "battle:24641",
+      "group": "风见语义与病句",
+      "before": "“吉良谦！\\n　你这杂种能懂老夫的梦想的什么！”",
+      "after": "“吉良谦！\\n　你怎么可能懂老夫的梦想！”",
+      "ja": "「キラケン！　\\n　お前にワシの夢がわかってたまるか！」",
+      "speaker": "风见",
+      "original_reviews": [
+        "线上意见（另行定稿）：建议“吉良谦！/你这杂种能懂老夫的梦想的什么！”"
+      ],
+      "context": {
+        "s": [
+          "攻击（主动）"
+        ],
+        "o": [
+          "巨神Σ"
+        ]
+      },
+      "reason": "原文与现译存在明确语义或语法问题；保留已审定记录，待用户把关。"
+    }
+  ],
+  "validation": {
+    "checked": {
+      "story": 895,
+      "battle": 621
+    },
+    "errors": []
+  }
+}

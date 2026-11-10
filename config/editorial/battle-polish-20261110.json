@@ -1,0 +1,5641 @@
+{
+  "schema_version": 1,
+  "review_id": "battle-polish-20261110",
+  "translation_writeback": true,
+  "purpose": "战斗台词第三轮润色：全部台词带场景重读，Claude 逐条复核后确认的改动。审阅过的句子只在确实译错、漏译或有错字时改，证据记在条目里。",
+  "authorization": "用户 2026-11-10：“战斗台词继续来一轮润色，同样要尊重审阅意见，除非错了”；“你再自己过一遍，能确认的就直接确认，留下疑问点”。",
+  "feedback_snapshot_at": "2026-11-10T01:28:24.482600+00:00",
+  "feedback_snapshot_total": 3891,
+  "decisions": {
+    "path": "work/review/battle-polish-20261110/decisions-claude-20261110.json",
+    "sha256": "efdc5e8d29a5ec081f6f8998f7969cdfe7d23d8e53e9e4377a4d6fef7e75ed46"
+  },
+  "summary": {
+    "decisions": 627,
+    "accepted": 618,
+    "rejected": 5,
+    "held": 4,
+    "write": 618,
+    "skipped": 0,
+    "by_source": {
+      "reviewed": 15,
+      "plain": 589,
+      "note": 9,
+      "note-reviewed": 5
+    },
+    "online_drafted_at": "2026-11-10T01:08:57.005245+00:00",
+    "online_snapshot_at": "2026-11-10T01:28:24.482600+00:00",
+    "online_snapshot_total": 3891,
+    "online_changed_since_draft": 0
+  },
+  "application": {
+    "files": [
+      {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "before_sha256": "11562d40faf995d86f8b18c5d7830197b748384edd1f23915a9a231290a65ca4",
+        "after_sha256": "512dfa8a8b639291c84c6da2e1679f6d3d2a70ba982a9cb03475396021890aad"
+      }
+    ],
+    "input_lock_refresh": {
+      "before": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6988098,
+        "sha256": "11562d40faf995d86f8b18c5d7830197b748384edd1f23915a9a231290a65ca4"
+      },
+      "after": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6989360,
+        "sha256": "512dfa8a8b639291c84c6da2e1679f6d3d2a70ba982a9cb03475396021890aad"
+      },
+      "files": [
+        "config/full-story-components.json"
+      ]
+    },
+    "site_writeback": false
+  },
+  "entries": [
+    {
+      "id": "battle:13577",
+      "before": "“什么！！”",
+      "after": "“这算什么！！”",
+      "kind": "mistranslation",
+      "why": "何の是“这点小事”，非惊问",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：「何のっ！！」是「何のこれしき」的省略，意思是“这算什么／小意思”，是躲开攻击时的逞强喊声。本句场景为回避（成功躲开），现译“什么！！”在中文里是吃惊的反问，与躲开攻击的场景相反。同原文的另一条定稿（弁庆）建议一并核对。　｜　当时的审阅记录：同原文的另一条已定稿"
+    },
+    {
+      "id": "battle:22078",
+      "before": "“魔神，难度想试探我的实力吗？”",
+      "after": "“魔神，难道想试探我的实力吗？”",
+      "kind": "mistranslation",
+      "why": "错别字：难度→难道",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：原文「様子見のつもりか？」是反问“你是打算先试探吗”，现译“难度想试探”中的“难度”是“难道”的错别字，句子读不通。只改这一个字。　｜　当时的审阅记录：线上意见（已采纳）：建议“魔神，难度想试探我的实力吗？”"
+    },
+    {
+      "id": "battle:09623",
+      "before": "“能打中月之民的攻击吗！”",
+      "after": "“月之民的攻击怎么可能打中我！”",
+      "kind": "mistranslation",
+      "why": "主宾弄反",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：日文「ムーンレィスの攻撃なんかに当たるか」是回避时说“我怎么会被月之民的攻击打中”；现译“能打中月之民的攻击吗”变成了我方去打对方的攻击，与回避场景不符。　｜　当时的审阅记录：人工定稿 obvious-errors-followup-20260907"
+    },
+    {
+      "id": "battle:09915",
+      "before": "“我不会让格伦得逞的！”",
+      "after": "“我不会让你伤到格伦的！”",
+      "kind": "mistranslation",
+      "why": "格伦是被掩护的队友，非敌人",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：此句只在援护防御、对象为格伦时触发，是西尔维娅替队友格伦挡下攻击时对敌人喊的。「グレンはやらせない」意为不让格伦被打倒（与同组「お兄様に手出しはさせない」同构）。现译“不会让格伦得逞”把格伦当成了敌人，与场景相反。　｜　当时的审阅记录：人工定稿 reference-role-confirmations-20260910"
+    },
+    {
+      "id": "battle:18035",
+      "before": "“看来到你偿命的时候了。”",
+      "after": "“看来到我们认命的时候了。”",
+      "kind": "mistranslation",
+      "why": "主语弄反，是己方自叹末日",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：「年貢の納め時」指“自己该认栽、气数已尽”。此句只在己方巴鲁迪奥斯受重创（被弹大伤害A）时由副驾驶说出，下一句紧接「どうせ死ぬんなら、一か八かやってみようぜ」（反正要死，不如赌一把），说的是自己一方要完了；现译“到你偿命的时候了”变成对敌人放话，方向相反。　｜　当时的审阅记录：人工定稿 low-hanging-application-20260907"
+    },
+    {
+      "id": "battle:22992",
+      "before": "“能让你想干什么\\n　就干什么吗！”",
+      "after": "“好不容易守住的地球，\\n　能让你想干什么就干什么吗！”",
+      "kind": "omission",
+      "why": "漏掉前半句守护至今的地球",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：日文前半「せっかく守ってきた地球を」意为“好不容易守护至今的地球”，是「好きにさせるかよ」的宾语；现译整句没有“地球”，只剩“能让你想干什么就干什么吗”，前半句完全漏译。　｜　当时的审阅记录：线上意见（另行定稿）：建议“好不容易守护下来的地球，/能让你想干什么就什么吗！”；人工定稿 obvious-errors-followup-20260907"
+    },
+    {
+      "id": "battle:18698",
+      "before": "“把她打下来，可就真是立大功了”",
+      "after": "“把它打下来，可就真是立大功了”",
+      "kind": "mistranslation",
+      "why": "对象是百式，“她”指代错",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：此句只在对手机体为百式时触发，原文「落とせば」没有人称，说的是击落这台金色机体（金星双关）；百式的驾驶员克瓦特罗是男性，现译的“她”指代错误，应为“它”。　｜　当时的审阅记录：线上意见（另行定稿）：建议“打下来，就真能拿金星了”"
+    },
+    {
+      "id": "battle:15471",
+      "before": "“我绝不会让卡缪得手！”",
+      "after": "“我绝不会让你伤到卡缪！”",
+      "kind": "mistranslation",
+      "why": "保护卡缪，现译意思反了",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：カミーユはやらせるものか＝绝不让卡缪被（敌人）干掉；本句是凤替友军卡缪挡枪的援护防御台词。现译“让卡缪得手”成了阻止卡缪成功，对象弄反。　｜　当时的审阅记录：人工定稿 obvious-errors-followup-20260907"
+    },
+    {
+      "id": "battle:20365",
+      "before": "“基拉·大和，我不会让你得逞！”",
+      "after": "“基拉·大和，我不会让你有事！”",
+      "kind": "mistranslation",
+      "why": "援护防御护基拉，得逞是对敌人说的",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：此句只在援护防御且援护对象为基拉时触发，是雷替基拉挡枪时对基拉说的。「あなたをやらせはしない」意为“不会让你被干掉”，「やらせる」的受害者是「あなた」（基拉）。现译“我不会让你得逞”是对敌人说的话，把被保护的队友说成了要阻止的对象，意思相反。　｜　当时的审阅记录：人工定稿 obvious-errors-followup-20260907"
+    },
+    {
+      "id": "battle:19379",
+      "before": "“打爆头就分胜负！\\n　简单点来！”",
+      "after": "“干掉头目就分胜负！\\n　简单点来！”",
+      "kind": "mistranslation",
+      "why": "頭指敌方首领，不是爆头",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：「頭を潰す」是惯用说法，意为打掉对方的头目；此句只对带首领标签的对手（第53话月面决战起的敌方头领）触发，同组另一句直呼对手「大将」。现译“打爆头”读成了攻击头部。　｜　当时的审阅记录：人工定稿 mail-rand-personality-pilot-20260907"
+    },
+    {
+      "id": "battle:12807",
+      "before": "“你是拯救我的人…\\n　我不会让你得逞！”",
+      "after": "“你是拯救我的人…\\n　我不会让他们得逞！”",
+      "kind": "mistranslation",
+      "why": "后半句对象是敌人，不是阿萨基姆",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：这是援护防御阿萨基姆时的台词：前半句「あなた」指阿萨基姆，后半句「やらせはしない」是不让敌人伤到他。现译两句都用“你”，读成“不让阿萨基姆得逞”，与替他挡枪的场景矛盾。　｜　当时的审阅记录：人工定稿 obvious-errors-followup-20260907"
+    },
+    {
+      "id": "battle:11302",
+      "before": "“打中你的攻击，\\n　只会让你得意…！”",
+      "after": "“被你的攻击打中，\\n　只会让你得意…！”",
+      "kind": "mistranslation",
+      "why": "挨打方向读反",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：日文「攻撃に当たれば」是“我要是被（你的）攻击打中”，这句是节子躲开兹妮攻击时说的；现译“打中你的攻击”读成节子打中对方或对方被打中，施受方向不通，补上“被”即可。　｜　当时的审阅记录：人工定稿 obvious-errors-application-20260907"
+    },
+    {
+      "id": "battle:08510",
+      "before": "“不能让莉亚上！”",
+      "after": "“不能让莉亚被干掉！”",
+      "kind": "mistranslation",
+      "why": "やらせる是被击落，现译意思反了",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：日文「リーアをやらせては駄目」是“不能让莉亚被（敌人）干掉”，触发场景是夏伊亚替莉亚援护防御；现译“不能让莉亚上”变成了不许莉亚出战，与挡枪场景矛盾。同包 08508「桂をやらせるわけにはいかない」现译即“可不能让他们干掉桂”。　｜　当时的审阅记录：人工定稿 reference-role-confirmations-20260910"
+    },
+    {
+      "id": "battle:18788",
+      "before": "“我亚萨巴，会输给你这种家伙！”",
+      "after": "“我亚萨巴，岂会输给你这种家伙！”",
+      "kind": "mistranslation",
+      "why": "反问译成了肯定，意思相反",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：日文「お前ごときにやられるか！」是反问，意为“怎么可能被你这种货色干掉”。现译“会输给你这种家伙！”以感叹号结尾，读成了承认自己会输，意思正相反。　｜　当时的审阅记录：人工定稿 obvious-errors-followup-20260907"
+    },
+    {
+      "id": "battle:08852",
+      "before": "“凭蛮力WM！”",
+      "after": "“区区只凭蛮力的WM！”",
+      "kind": "omission",
+      "why": "现译残缺读不通，丢了轻蔑",
+      "edited": false,
+      "source": "reviewed",
+      "evidence": "证据：日文「力任せのウォーカーマシンなんかに！」意为“区区只靠蛮力的WM（也想伤我）”，是挨打后对敌机的轻蔑。现译“凭蛮力WM！”缺“的”字且丢掉なんかに，读起来像是自己凭蛮力，不成句。　｜　当时的审阅记录：人工定稿 glossary_exceptions"
+    },
+    {
+      "id": "battle:02258",
+      "before": "“出乎意料，始料未及啊，这个”",
+      "after": "“这可真是出乎意料，始料未及啊”",
+      "kind": "stiff",
+      "why": "句尾“这个”照搬日文倒装，不像中文",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02282",
+      "before": "“那、那股力量…凡人之身！！”",
+      "after": "“那、那股力量…明明只是凡人之身！！”",
+      "kind": "stiff",
+      "why": "“凡人之身！！”孤悬读不通，补出转折",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09187",
+      "before": "“终究是腐败之狗的攻击”",
+      "after": "“终究只是腐朽走狗的攻击”",
+      "kind": "voice",
+      "why": "腐败之狗生硬，与定稿09140腐朽的走狗不一",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09218",
+      "before": "“区区腐败之狗竟敢！”",
+      "after": "“区区腐朽的走狗竟敢！”",
+      "kind": "voice",
+      "why": "同上，腐った犬向定稿译法靠拢",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21321",
+      "before": "“这连三流新闻都上不了，\\n　施瓦兹！”",
+      "after": "“这连社会版都上不了，\\n　施瓦兹！”",
+      "kind": "mistranslation",
+      "why": "三面記事是社会版新闻，不是三流新闻",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21421",
+      "before": "“虽然是被报酬吸引，\\n　但真该选一下委托人的……！”",
+      "after": "“就算是冲着报酬来的，\\n　你也该挑挑委托人啊……！”",
+      "kind": "mistranslation",
+      "why": "说的是对手，现译读成罗杰自悔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16211",
+      "before": "“真正的花花公子不是你！\\n　是本大爷我～！”",
+      "after": "“真正的型男不是你！\\n　是本大爷我～！”",
+      "kind": "mistranslation",
+      "why": "伊達男指潇洒帅气，非花花公子",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16219",
+      "before": "“没时间逃了！”",
+      "after": "“你没时间逃了！”",
+      "kind": "mistranslation",
+      "why": "逃的是对手，现译像在说自己",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16221",
+      "before": "“干嘛？还待在这种地方啊”",
+      "after": "“怎么？还待在那种地方啊”",
+      "kind": "mistranslation",
+      "why": "そんな所指对手所在，应为那",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16237",
+      "before": "“切！这样下去会慢性死亡！”",
+      "after": "“切！这样下去只会越来越惨！”",
+      "kind": "stiff",
+      "why": "慢性死亡生硬，ジリ貧是每况愈下",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16278",
+      "before": "“你这混蛋！竟敢下此毒手！”",
+      "after": "“你这混蛋！真敢下手啊！”",
+      "kind": "tone",
+      "why": "下此毒手太文，不像混混骂人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16285",
+      "before": "“怎么能\\n　被你抓住两次三次！”",
+      "after": "“哪能三番两次\\n　被你抓住！”",
+      "kind": "stiff",
+      "why": "抓住两次三次语序生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02020",
+      "before": "“把你碎尸万段看起来真有趣！”",
+      "after": "“把你碎尸万段，想必很有趣！”",
+      "kind": "stiff",
+      "why": "看起来真有趣是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02049",
+      "before": "“还～待在这种地方啊！”",
+      "after": "“还～待在那种地方啊！”",
+      "kind": "mistranslation",
+      "why": "そんな所指对手所在，应为那",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13497",
+      "before": "“要走的话，先打倒我再说！”",
+      "after": "“要过去的话，先打倒我再说！”",
+      "kind": "mistranslation",
+      "why": "行く是从此通过，不是离开",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16154",
+      "before": "“嘎哈！你瞄哪儿呢！”",
+      "after": "“嘎哈哈！你瞄哪儿呢！”",
+      "kind": "voice",
+      "why": "同人物笑声其余句均作嘎哈哈",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20200",
+      "before": "“被逼到无法反击的位置了…！？”",
+      "after": "“被对方占住了无法反击的位置…！？”",
+      "kind": "mistranslation",
+      "why": "是对方抢占位置，不是自己被逼过去",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18255",
+      "before": "“一机也不许放跑！”",
+      "after": "“一架也不许放跑！”",
+      "kind": "stiff",
+      "why": "一机不是中文量词说法",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18270",
+      "before": "“糟、糟了…快逃！”",
+      "after": "“糟、糟了…得逃出去！”",
+      "kind": "mistranslation",
+      "why": "是自己要脱出，不是叫别人逃",
+      "edited": true,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18313",
+      "before": "“地球人，可没那么容易倒下！”",
+      "after": "“地球人，我可没那么容易倒下！”",
+      "kind": "stiff",
+      "why": "缺主语，像在说对方不倒",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18346",
+      "before": "“用那种原始机器！”",
+      "after": "“就凭那种原始机器！”",
+      "kind": "stiff",
+      "why": "半截话直译，不像嘲讽",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10851",
+      "before": "“轻轻揍你一顿吧！！”",
+      "after": "“就随手揍你两下吧！！”",
+      "kind": "stiff",
+      "why": "轻轻揍你一顿搭配别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14448",
+      "before": "“请允许我反击！”",
+      "after": "“容我反击！”",
+      "kind": "stiff",
+      "why": "向敌人请示太直译，与同人物容我句式统一",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14487",
+      "before": "“我的攻击竟无法触及…\\n　看来我还太天真了”",
+      "after": "“我的攻击竟无法触及…\\n　看来我也还不到家啊”",
+      "kind": "stiff",
+      "why": "甘い指自己火候不够，不是天真",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05220",
+      "before": "“可不能输给英格利萨那混蛋！”",
+      "after": "“可不能输给英格利萨那帮家伙！”",
+      "kind": "mistranslation",
+      "why": "野郎指英格利萨民兵，非某一人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05300",
+      "before": "“这门大炮的话，能行！！”",
+      "after": "“有这门大炮就能行！！”",
+      "kind": "stiff",
+      "why": "的话直译なら，生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18538",
+      "before": "“麻烦的对手呢，基姆·金卡拉姆！”",
+      "after": "“这敌人说不定很棘手呢，基姆·金卡拉姆！”",
+      "kind": "mistranslation",
+      "why": "是对上司说敌人棘手，现译像在说金卡拉姆",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18584",
+      "before": "“从那种地方…真有你的！”",
+      "after": "“从那种地方…你竟敢！”",
+      "kind": "tone",
+      "why": "よくも是恼恨，真有你的成了夸奖",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16655",
+      "before": "“杂鱼就碾碎！”",
+      "after": "“把杂鱼统统碾碎！”",
+      "kind": "stiff",
+      "why": "杂鱼就碾碎不成句，喊不出口",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16684",
+      "before": "“我也\\n　要和高达势均力敌地战斗！”",
+      "after": "“就算是我，\\n　也能跟高达打个平手！”",
+      "kind": "stiff",
+      "why": "势均力敌地战斗是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06690",
+      "before": "“我也没那么结实，\\n　能战胜地球重力啊！”",
+      "after": "“我也没结实到\\n　能赢过地球重力啊！”",
+      "kind": "stiff",
+      "why": "语序倒装，读着别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06716",
+      "before": "“哦哦！没用！”",
+      "after": "“哎哟！没用！”",
+      "kind": "tone",
+      "why": "おおっと是险些中招的惊呼",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06750",
+      "before": "“基姆·金卡拉姆！\\n　不能再让你妨碍公主殿下！”",
+      "after": "“基姆·金卡拉姆！\\n　不能再让你妨碍公主！”",
+      "kind": "voice",
+      "why": "本包姫様其余三处均作公主",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09617",
+      "before": "“啧…\\n　电视机的状态不好吗？”",
+      "after": "“啧…电视机出毛病了吗？”",
+      "kind": "stiff",
+      "why": "状态不好吗不像口语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09620",
+      "before": "“你在瞄准哪里攻击！？”",
+      "after": "“你往哪儿打呢！？”",
+      "kind": "stiff",
+      "why": "瞄准哪里攻击语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21649",
+      "before": "“只要能阻止倒X的话！”",
+      "after": "“只要是为了阻止倒X！”",
+      "kind": "stiff",
+      "why": "原意为了阻止才动用，现译条件关系不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21688",
+      "before": "“用那种力量战斗是不行的！”",
+      "after": "“凭那点力量是没法战斗的！”",
+      "kind": "stiff",
+      "why": "现译拗口，轻伤时说对方火力太弱",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21728",
+      "before": "“∀的话，是倒X的哥哥吧！”",
+      "after": "“既然是∀，就是倒X的哥哥吧！”",
+      "kind": "stiff",
+      "why": "是在激励∀，现译像陈述句读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21804",
+      "before": "“白色人偶的话能挡住！”",
+      "after": "“白色人偶的话就能阻止！”",
+      "kind": "mistranslation",
+      "why": "攻击台词，是阻止对手而非挡住攻击",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18438",
+      "before": "“我会继续攻击！”",
+      "after": "“我接着上了！”",
+      "kind": "stiff",
+      "why": "我会继续攻击太书面",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18440",
+      "before": "“这种时候总该让我活跃一下吧！”",
+      "after": "“这种时候总该让我表现一下吧！”",
+      "kind": "stiff",
+      "why": "活跃一下是日文直搬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18483",
+      "before": "“嘉班队长！\\n　不更猛烈地进攻可不行！”",
+      "after": "“嘉班队长！\\n　进攻得再猛一点才行！”",
+      "kind": "stiff",
+      "why": "双重否定拗口，不像喊话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18519",
+      "before": "“在空中战斗\\n　可是我的本分！”",
+      "after": "“在空中战斗\\n　可是我的本行！”",
+      "kind": "stiff",
+      "why": "本分照搬日文汉字，中文义偏",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15231",
+      "before": "“可恶！\\n　竟敢展现出如此抵抗力！！”",
+      "after": "“可恶！竟能顽抗到这种地步！！”",
+      "kind": "stiff",
+      "why": "展现出如此抵抗力生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15243",
+      "before": "“看来\\n　没必要特意让我出马了”",
+      "after": "“看来用不着我\\n　特地跑这一趟啊”",
+      "kind": "stiff",
+      "why": "是已出马后嫌多余，现译像还没出马",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13050",
+      "before": "“咳…让太阳号后撤！”",
+      "after": "“唔…让太阳号后撤！”",
+      "kind": "tone",
+      "why": "くっ是吃痛咬牙，咳像咳嗽",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02653",
+      "before": "“兰顿！测量与敌人的距离！”",
+      "after": "“兰顿！测一下跟敌人的距离！”",
+      "kind": "stiff",
+      "why": "测量与敌人的距离太书面",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02665",
+      "before": "“至少得减少一点数量…！”",
+      "after": "“能减少一点是一点…！”",
+      "kind": "stiff",
+      "why": "至少得减少一点数量语句别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20869",
+      "before": "“尼尔瓦修……\\n　它会照我的意志行动！”",
+      "after": "“尼尔瓦修……\\n　它完全照我想的在动！”",
+      "kind": "stiff",
+      "why": "照我的意志行动太书面，不像少年喊的",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20906",
+      "before": "“呜…面对科拉利安，\\n　办法不够用了…！”",
+      "after": "“呜…对上科拉利安，\\n　根本打不过来…！”",
+      "kind": "mistranslation",
+      "why": "手数指出手数量跟不上，不是办法",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20942",
+      "before": "“叫阿姨可不行哦！”",
+      "after": "“大妈可不在好球区哦！”",
+      "kind": "mistranslation",
+      "why": "是说大妈不在好球区，非称呼问题",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20988",
+      "before": "“啧！不顺利！”",
+      "after": "“啧！怎么都不顺！”",
+      "kind": "stiff",
+      "why": "不顺利不像喊出来的话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21012",
+      "before": "“还要更快！还要更高！\\n　飞得更高！！”",
+      "after": "“还不够！再快一点！\\n　要飞得更高！！”",
+      "kind": "stiff",
+      "why": "更高重复，もっとだ漏译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12120",
+      "before": "“肯刚！多余的同情没必要！”",
+      "after": "“肯刚！别讲多余的情面！”",
+      "kind": "stiff",
+      "why": "同情没必要是翻译腔，不像喊话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12138",
+      "before": "“别在那松懈！再来一击！”",
+      "after": "“这时候别松懈！再来一击！”",
+      "kind": "mistranslation",
+      "why": "そこで指此时，非在那儿",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12150",
+      "before": "“兰顿！别半吊子攻击！”",
+      "after": "“兰顿！出手别这么半吊子！”",
+      "kind": "stiff",
+      "why": "别半吊子攻击语序生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12199",
+      "before": "“被敌机的失误救了…”",
+      "after": "“全靠敌机失误才得救啊…”",
+      "kind": "stiff",
+      "why": "被失误救了是被动式翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12204",
+      "before": "“军队的质量也下降了呢”",
+      "after": "“军队的素质也下降了呢”",
+      "kind": "stiff",
+      "why": "军队说质量不自然，应为素质",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12219",
+      "before": "“太天真！\\n　下次给我躲得更快！”",
+      "after": "“还嫩着呢！\\n　下次给我躲得更快！”",
+      "kind": "tone",
+      "why": "甘い是训多吉火候不够，非天真",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12229",
+      "before": "“因为我们舰长的优秀嘛”",
+      "after": "“谁叫我们的舰长这么优秀呢”",
+      "kind": "stiff",
+      "why": "因为…的优秀嘛是名词化翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12235",
+      "before": "“就那样想跟我们较量，\\n　早了一千年！”",
+      "after": "“就凭这点本事想跟我们较量，\\n　早了一千年！”",
+      "kind": "stiff",
+      "why": "就那样想…读不顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12244",
+      "before": "“就这种程度…\\n　军队的质量也下降了呢”",
+      "after": "“就这种程度…\\n　军队的素质也下降了呢”",
+      "kind": "stiff",
+      "why": "军队说质量不自然，应为素质",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12246",
+      "before": "“作为军队的攻击，还差一点呢”",
+      "after": "“就军队的攻击来说，不怎么样呢”",
+      "kind": "stiff",
+      "why": "作为…的攻击还差一点生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12310",
+      "before": "“啧！对方这是不讲道理啊…！”",
+      "after": "“啧！对方这是不由分说啊…！”",
+      "kind": "mistranslation",
+      "why": "問答無用是不容分说，非不讲理",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12313",
+      "before": "“啧！一个个都\\n　这么随心所欲！”",
+      "after": "“啧！一个个都\\n　这么为所欲为！”",
+      "kind": "tone",
+      "why": "挨打时骂人，随心所欲太中性",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12348",
+      "before": "“不愧是霍兰德大哥…！\\n　该出手时就出手！”",
+      "after": "“不愧是霍兰德的哥哥…！\\n　该出手时就出手！”",
+      "kind": "mistranslation",
+      "why": "指杜威是霍兰德之兄，非称霍兰德大哥",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12382",
+      "before": "“咣当—！\\n　感觉被干掉了啊！”",
+      "after": "“咣当—！的一下，\\n　感觉结结实实挨了一记啊！”",
+      "kind": "mistranslation",
+      "why": "只是中弹，被干掉了像被击坠",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12387",
+      "before": "“别退缩！腰都软了！！”",
+      "after": "“别退缩！你腿都软了！！”",
+      "kind": "stiff",
+      "why": "腰が引ける逐字成腰软，中文说腿软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18828",
+      "before": "“为了开辟未来的战斗！\\n　真是太好了！”",
+      "after": "“为了开辟未来的战斗！\\n　这不是很好嘛！”",
+      "kind": "tone",
+      "why": "真是太好了像庆幸，原意是赞赏",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18844",
+      "before": "“把舰船插进去！”",
+      "after": "“把舰横插进去！”",
+      "kind": "stiff",
+      "why": "把舰船插进去别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18864",
+      "before": "“不用你说我也知道！\\n　稍微安静点！”",
+      "after": "“不用你说我也知道！\\n　你先安静一会儿！”",
+      "kind": "stiff",
+      "why": "稍微安静点是逐字翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18911",
+      "before": "“舰、舰长！你没事吧！？”",
+      "after": "“舰、舰长！不要紧吧！？”",
+      "kind": "mistranslation",
+      "why": "问的是舰撑不撑得住，非问舰长本人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18921",
+      "before": "“月光号……！\\n　竟敢耍我们！”",
+      "after": "“月光号……！\\n　竟敢如此嚣张！”",
+      "kind": "mistranslation",
+      "why": "いい様にやる是任意妄为，非耍弄",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18923",
+      "before": "“不能再任由对方失控下去！”",
+      "after": "“不能再任由他暴走下去！”",
+      "kind": "stiff",
+      "why": "奴指杜威，对方失控生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14998",
+      "before": "“找到了！上了！”",
+      "after": "“找到了！要上了！”",
+      "kind": "stiff",
+      "why": "上了不成句",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15003",
+      "before": "“我们彼此都别留后患吧！”",
+      "after": "“咱们干干净净做个了断吧！”",
+      "kind": "mistranslation",
+      "why": "後腐れなく是不留纠葛，非别留后患",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15035",
+      "before": "“真是的！那些家伙算什么啊！？”",
+      "after": "“真是的！那些家伙到底是什么啊！？”",
+      "kind": "mistranslation",
+      "why": "何なのよ是问来历，算什么成了轻蔑",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15084",
+      "before": "“啊真是的！压力好大啊！！”",
+      "after": "“啊真是的！憋屈死了！！”",
+      "kind": "tone",
+      "why": "ストレス溜まる是憋火，非压力大",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15097",
+      "before": "“啊、让那架机体过去的话，\\n　兰顿和优莱卡就危险了…！”",
+      "after": "“让、让那架机体过去的话，\\n　兰顿和优莱卡就危险了…！”",
+      "kind": "mistranslation",
+      "why": "あ、あの是结巴，不是感叹词啊",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13376",
+      "before": "“让他们断气！”",
+      "after": "“将他们置于死地！”",
+      "kind": "stiff",
+      "why": "让他们断气生硬，不合统帅口吻",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13396",
+      "before": "“阿德罗克的遗产，\\n　我来消灭掉！”",
+      "after": "“阿德罗克的遗产，\\n　就由我来抹去！”",
+      "kind": "tone",
+      "why": "消し去ってくれる力度不足",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13427",
+      "before": "“呃，立刻重整态势！”",
+      "after": "“可恶，立刻重整态势！”",
+      "kind": "tone",
+      "why": "ええい是恼怒，不是呻吟",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12496",
+      "before": "“要是想施舍同情…\\n　你会死的”",
+      "after": "“要是打算手下留情…\\n　你会死的”",
+      "kind": "stiff",
+      "why": "施舍同情搭配生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12509",
+      "before": "“今天状态不错啊，我！”",
+      "after": "“我今天状态正好！”",
+      "kind": "stiff",
+      "why": "句末倒装“，我”不像中文",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23924",
+      "before": "“这下补刀了！”",
+      "after": "“再补上最后一击！”",
+      "kind": "stiff",
+      "why": "这下补刀了不像喊话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23935",
+      "before": "“那是什么！”",
+      "after": "“那算什么！”",
+      "kind": "tone",
+      "why": "回避时的嘲弄，不是发问",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23882",
+      "before": "“切，居然让它溜了”",
+      "after": "“切，居然没把它打下来”",
+      "kind": "mistranslation",
+      "why": "撃ちもらす是没击落，中弹时并非溜走",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23886",
+      "before": "“呃！绝不能再让它靠近本舰！”",
+      "after": "“可恶！绝不能再让它靠近本舰！”",
+      "kind": "tone",
+      "why": "ええい是恼怒，不是呻吟",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23901",
+      "before": "“进退两难了吗…！！”",
+      "after": "“走投无路了吗…！！”",
+      "kind": "mistranslation",
+      "why": "進退窮まる是无路可走，非两难",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01168",
+      "before": "“出来了！我们的敌人！”",
+      "after": "“出现了！我们的敌人！”",
+      "kind": "stiff",
+      "why": "出たわね是敌人现身，出来了不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01204",
+      "before": "“呀哈哈！\\n　看来只是外表像而已！”",
+      "after": "“啊哈哈！\\n　看来只是外表像而已！”",
+      "kind": "voice",
+      "why": "キャハハ本人定稿均作啊哈哈",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01210",
+      "before": "“什么啊，那是？瞧不起我吗？”",
+      "after": "“那算什么啊？瞧不起我吗？”",
+      "kind": "stiff",
+      "why": "倒装翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20255",
+      "before": "“那种残酷的地方…我喜欢”",
+      "after": "“你这残酷的一面…我喜欢”",
+      "kind": "stiff",
+      "why": "所译成地方易读成地点",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16997",
+      "before": "“继续上，希尔达！”",
+      "after": "“我来接上，希尔达！”",
+      "kind": "mistranslation",
+      "why": "続く是自己跟进，现译像命令希尔达",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17000",
+      "before": "“干什么呢！\\n　冷静点看准攻击！”",
+      "after": "“干什么呢！\\n　冷静点，看清对方的攻击！”",
+      "kind": "mistranslation",
+      "why": "援护防御时让队友看清来袭，非瞄准",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17127",
+      "before": "“切！\\n　看来我也老糊涂了啊！”",
+      "after": "“切！看来我也不中用了啊！”",
+      "kind": "mistranslation",
+      "why": "ヤキが回る是本事退步，非老糊涂",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17367",
+      "before": "“出来了！怪物们！”",
+      "after": "“出现了！怪物们！”",
+      "kind": "stiff",
+      "why": "出たな是敌人现身，出来了不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17424",
+      "before": "“从那种地方瞄准…不狡猾吗？”",
+      "after": "“从那种地方瞄我…不觉得赖皮吗？”",
+      "kind": "stiff",
+      "why": "不狡猾吗是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17462",
+      "before": "“糟了，弄伤了…！”",
+      "after": "“糟了，给刮伤了…！”",
+      "kind": "stiff",
+      "why": "弄伤了像伤到人，实指机体挂彩",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17480",
+      "before": "“情绪高涨起来了，\\n　这种时候…！”",
+      "after": "“碰上这种状况，\\n　反倒来劲了…！”",
+      "kind": "stiff",
+      "why": "情绪高涨起来了是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09511",
+      "before": "“想做还是能做到的嘛，纯！”",
+      "after": "“这不是做得到嘛，纯！”",
+      "kind": "stiff",
+      "why": "想做还是能做到的嘛，逐字硬译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09559",
+      "before": "“幸福是虚幻的…这也是我的错吧…”",
+      "after": "“幸福总是短暂的…这也是我的错吧…”",
+      "kind": "mistranslation",
+      "why": "儚い是转瞬即逝，不是虚幻",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09948",
+      "before": "“打中了！？”",
+      "after": "“被打中了！？”",
+      "kind": "mistranslation",
+      "why": "被弹场景，是自己挨打",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14730",
+      "before": "“真冷淡啊，丽花。\\n　不过那点很可爱！”",
+      "after": "“真冷淡啊，丽花。\\n　不过这点才可爱！”",
+      "kind": "stiff",
+      "why": "那点很可爱，语感生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25285",
+      "before": "“鸫！好好看着，感受！”",
+      "after": "“鸫！仔细看，用心感受！”",
+      "kind": "stiff",
+      "why": "单喊感受二字突兀",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25323",
+      "before": "“运气不好呢！”",
+      "after": "“算你运气不好！”",
+      "kind": "tone",
+      "why": "对敌人的奚落，呢字太软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25382",
+      "before": "“我没事。走吧”",
+      "after": "“我没事。上吧”",
+      "kind": "tone",
+      "why": "出招前的いきましょ是上吧",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23155",
+      "before": "“哼，太阳之翼也就\\n　这样嘛”",
+      "after": "“哦——说是太阳之翼，\\n　也不过如此嘛”",
+      "kind": "tone",
+      "why": "ふうん是不以为然，漏了虽说是",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23989",
+      "before": "“给你点苦头尝尝”",
+      "after": "“让我赐予你痛苦吧”",
+      "kind": "voice",
+      "why": "头翅口吻优雅，现译像混混",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24081",
+      "before": "“原来如此…你的力量我懂了…！”",
+      "after": "“原来如此…你的力量我摸清了…！”",
+      "kind": "stiff",
+      "why": "把握した是摸清，懂了不贴",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14653",
+      "before": "“嗯，看着吧！”",
+      "after": "“好啦，看着吧！”",
+      "kind": "stiff",
+      "why": "まあ译成嗯不像说话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14656",
+      "before": "“没时间磨蹭了……！”",
+      "after": "“现在不是发牢骚的时候……！”",
+      "kind": "mistranslation",
+      "why": "うだうだ言う是啰嗦抱怨，非磨蹭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14736",
+      "before": "“可恶！\\n　那家伙，微妙地强啊！”",
+      "after": "“可恶！那家伙，\\n　好像还挺强！”",
+      "kind": "stiff",
+      "why": "微妙地强是日语直搬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14761",
+      "before": "“皮耶尔！\\n　你就打算这么沉默下去！？”",
+      "after": "“皮耶尔！\\n　你打算就这么忍着！？”",
+      "kind": "stiff",
+      "why": "黙っている指挨打不还手，非沉默",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09465",
+      "before": "“不、不反击的话！”",
+      "after": "“得、得反击才行！”",
+      "kind": "stiff",
+      "why": "しないと是必须做，半截话不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19982",
+      "before": "“把它们踢飞吧，丽花！”",
+      "after": "“把它们打个落花流水吧，丽花！”",
+      "kind": "stiff",
+      "why": "蹴散らす是击溃，不是踢飞",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20012",
+      "before": "“居然被凯鲁宾兵\\n　纠缠到这种地步……！”",
+      "after": "“对付个凯鲁宾兵\\n　居然这么费劲……！”",
+      "kind": "mistranslation",
+      "why": "手こずる是费劲，不是被纠缠",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20034",
+      "before": "“脚下功夫疏忽了哦，\\n　西利乌斯”",
+      "after": "“你脚下可没留神哦，\\n　西利乌斯”",
+      "kind": "stiff",
+      "why": "脚下功夫疏忽不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09703",
+      "before": "“是月狂弓术！”",
+      "after": "“用月狂弓术！”",
+      "kind": "stiff",
+      "why": "是指示队友出招，不是辨认招式",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09736",
+      "before": "“危险…！\\n　看攻击看得入迷了…！”",
+      "after": "“好险啊…！\\n　看攻击看得入迷了…！”",
+      "kind": "stiff",
+      "why": "躲开后的危ない应是好险",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09770",
+      "before": "“不可能！这种事态！”",
+      "after": "“不可能！怎么会变成这样！”",
+      "kind": "stiff",
+      "why": "这种事态半截话，不像喊出来的",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09779",
+      "before": "“凯鲁宾兵…\\n　看来力量不小…！”",
+      "after": "“凯鲁宾兵…\\n　看来也就力气大而已…！”",
+      "kind": "tone",
+      "why": "力だけは的轻蔑没译出",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09801",
+      "before": "“纯的话还差决定性一击吗…！”",
+      "after": "“纯还是缺少决定性的一击吗…！”",
+      "kind": "stiff",
+      "why": "纯的话还差，翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09810",
+      "before": "“侮辱妹妹不可饶恕！！”",
+      "after": "“羞辱我妹妹，绝不饶恕！！”",
+      "kind": "stiff",
+      "why": "侮辱妹妹不可饶恕，不像人话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09837",
+      "before": "“皮耶尔！看着！”",
+      "after": "“皮耶尔！看好了！”",
+      "kind": "tone",
+      "why": "看着二字生硬，应是看好了",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09877",
+      "before": "“我已经生气了！”",
+      "after": "“我可真的生气了！”",
+      "kind": "tone",
+      "why": "もう怒った是发火，已经生气太平",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09932",
+      "before": "“呼～！\\n　西尔维娅小姐，真行啊！”",
+      "after": "“呼～！西尔维娅，真行啊！”",
+      "kind": "voice",
+      "why": "ちゃん按规则不保留，同人他句均省",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09964",
+      "before": "“喂喂，拜托了，西尔维娅！”",
+      "after": "“喂喂，拜托啊，西尔维娅！”",
+      "kind": "tone",
+      "why": "是挨打后的埋怨，不是请求",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22721",
+      "before": "“居然向曾经的同伴举枪……\\n　你们果然很丑陋！”",
+      "after": "“居然向曾经的同伴亮出武器……\\n　你们果然很丑陋！”",
+      "kind": "mistranslation",
+      "why": "武器不限于枪，对手多为持剑机体",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22740",
+      "before": "“我居然会犯这种无聊的错误……！”",
+      "after": "“我居然会犯这种低级失误……！”",
+      "kind": "stiff",
+      "why": "无聊的错误是逐字硬译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22750",
+      "before": "“失去气质了啊……西尔维娅……”",
+      "after": "“有失优雅啊……西尔维娅……”",
+      "kind": "stiff",
+      "why": "失去气质不成话，気品指高雅风度",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22752",
+      "before": "“对凯鲁宾·火星的攻击无效”",
+      "after": "“这种攻击对凯鲁宾·火星没用”",
+      "kind": "stiff",
+      "why": "现译像系统提示，不像人说话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01558",
+      "before": "“冲进去，西尔维娅！”",
+      "after": "“要冲了，西尔维娅！”",
+      "kind": "mistranslation",
+      "why": "是自己宣告要冲，不是命令对方冲",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01615",
+      "before": "“燃烧…！心与身体！”",
+      "after": "“燃起来了…！心和身体都是！”",
+      "kind": "stiff",
+      "why": "现译像词语罗列，不像喊话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01664",
+      "before": "“我也攻击，格伦！”",
+      "after": "“我也上了，格伦！”",
+      "kind": "stiff",
+      "why": "我也攻击不像口语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01678",
+      "before": "“格伦！\\n　你的命能让你随便送掉吗！”",
+      "after": "“格伦！怎么能让你把命丢了！”",
+      "kind": "stiff",
+      "why": "现译绕口，意思难懂",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01683",
+      "before": "“把能用的全灌进去吧！”",
+      "after": "“把所有的全都砸过去吧！”",
+      "kind": "stiff",
+      "why": "灌进去搭配别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01769",
+      "before": "“叽叽喳喳吵死了！\\n　会分心给我闭嘴！”",
+      "after": "“叽叽喳喳吵死了！\\n　害我分心，给我闭嘴！”",
+      "kind": "stiff",
+      "why": "会分心给我闭嘴读不顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01787",
+      "before": "“是以力量自豪的神话兽吗！！”",
+      "after": "“是头仗着蛮力的神话兽吗！！”",
+      "kind": "stiff",
+      "why": "以力量自豪是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01793",
+      "before": "“这就完了吗…！？\\n　完全没效果…！！”",
+      "after": "“这就完了吗…！？\\n　根本不痛不痒…！！”",
+      "kind": "tone",
+      "why": "挨打后逞强，没效果指向不清",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01803",
+      "before": "“呃啊！！\\n　就因为你这混蛋当头部…！”",
+      "after": "“呃啊！！就因为让你这种人当头部…！”",
+      "kind": "voice",
+      "why": "王子口吻高傲，不骂混蛋",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22221",
+      "before": "“你以为能亲手抓住我吗…？”",
+      "after": "“你以为凭你的手抓得住我吗…？”",
+      "kind": "tone",
+      "why": "お前の手で是轻蔑凭你，非亲手",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22232",
+      "before": "“你似乎还没意识到\\n　自己正在犯罪…”",
+      "after": "“你似乎还没意识到\\n　自己正在犯下罪孽…”",
+      "kind": "tone",
+      "why": "天翅口吻，犯罪一词太现代法律腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22244",
+      "before": "“呜呜！？何等邪恶的力量…！\\n　必须狩猎，唯独这家伙！”",
+      "after": "“呜呜！？何等邪恶的力量…！\\n　唯独这家伙，非猎杀不可！”",
+      "kind": "stiff",
+      "why": "必须狩猎唯独这家伙语序生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09788",
+      "before": "“哇〜嗯，该怎么办啊！？”",
+      "after": "“呜哇〜，该怎么办啊！？”",
+      "kind": "stiff",
+      "why": "わぁ〜ん是哭声，哇嗯是音译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12909",
+      "before": "“呃，要是客气的话，\\n　会被一击干掉的…！”",
+      "after": "“要、要是手下留情的话，\\n　会被一击干掉的…！”",
+      "kind": "mistranslation",
+      "why": "え是遠慮的结巴，不是呃",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12910",
+      "before": "“你、你不管是谁，我都不会输！”",
+      "after": "“不、不管你是谁，我都不会输！”",
+      "kind": "stiff",
+      "why": "你不管是谁语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12929",
+      "before": "“继续上吧，皮耶尔前辈！”",
+      "after": "“我接着上了，皮耶尔前辈！”",
+      "kind": "mistranslation",
+      "why": "援护时是自己接着打，非催对方",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12991",
+      "before": "“必须下定决心了…！”",
+      "after": "“看来得做好觉悟了…！”",
+      "kind": "mistranslation",
+      "why": "重伤时的覚悟是做好最坏准备",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16885",
+      "before": "“混蛋，别得意忘形！\\n　你这这这这这！”",
+      "after": "“混蛋，别得意忘形！\\n　我打我打我打我打！”",
+      "kind": "stiff",
+      "why": "このこの是连打的吆喝，你这这这不成话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04127",
+      "before": "“打倒你，\\n　修基会懊悔吧”",
+      "after": "“打倒了你，\\n　修基想必很不甘心吧”",
+      "kind": "mistranslation",
+      "why": "悔しがる是不甘心，不是懊悔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04162",
+      "before": "“地球的机械，\\n　在这加尔戈斯面前太可爱了”",
+      "after": "“地球的机械，\\n　在这加尔戈斯面前不过是小儿科”",
+      "kind": "mistranslation",
+      "why": "可愛いもの是不值一提，非可爱",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24182",
+      "before": "“嘿嘿，这简直是轻松取胜啊！”",
+      "after": "“嘿嘿，这样的话轻松拿下！”",
+      "kind": "stiff",
+      "why": "简直是轻松取胜是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24312",
+      "before": "“住手，吉良谦…！\\n　只能战斗了！”",
+      "after": "“够了，吉良谦…！\\n　只能战斗了！”",
+      "kind": "mistranslation",
+      "why": "よせ是劝他别再喊博士，不是住手",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24349",
+      "before": "“成为超越你的科学家，\\n　是我的目标！”",
+      "after": "“成为超越你的科学家，\\n　曾是我的目标！”",
+      "kind": "mistranslation",
+      "why": "だった是过去式，对叛变的恩师说",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18380",
+      "before": "“叫吧，迪拉尔！\\n　那才是叛徒应有的下场！”",
+      "after": "“尽管嚎吧，迪拉尔！\\n　那才是叛徒应有的下场！”",
+      "kind": "tone",
+      "why": "わめけ是嘲弄对方哀嚎，“叫吧”太平",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13604",
+      "before": "“最后一击由我亲手了结！”",
+      "after": "“就由我亲手给你最后一击！”",
+      "kind": "stiff",
+      "why": "“最后一击…了结”搭配不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19877",
+      "before": "“粉碎吧！”",
+      "after": "“粉碎他们！”",
+      "kind": "stiff",
+      "why": "对部下下令，“粉碎吧”不成话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04463",
+      "before": "“切！\\n　这损伤，果然不能无视吗！”",
+      "after": "“切！这损伤，\\n　终究没法无视了吗！”",
+      "kind": "mistranslation",
+      "why": "さすがに是终究，不是果然",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04484",
+      "before": "“马林！\\n　为了杀鸡儆猴，老夫在这里打倒你！”",
+      "after": "“马林！老夫就在这里\\n　打倒你，以儆效尤！”",
+      "kind": "stiff",
+      "why": "为了杀鸡儆猴语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04489",
+      "before": "“为了向盖佐克复仇而战吗……\\n　呵呵，真是可嘉啊。”",
+      "after": "“为了向盖佐克复仇而战吗……\\n　呵呵，精神可嘉啊。”",
+      "kind": "stiff",
+      "why": "真是可嘉不成话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13307",
+      "before": "“我是大卫！\\n　继续进攻！”",
+      "after": "“我是大卫！\\n　跟进攻击！”",
+      "kind": "mistranslation",
+      "why": "援护时是接着队友跟进，非继续",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13317",
+      "before": "“明白！\\n　阵型保持一致！”",
+      "after": "“明白了！\\n　阵型我来配合！”",
+      "kind": "mistranslation",
+      "why": "应答句，是我去配合阵型，非下令",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13340",
+      "before": "“切，露出丑态了！”",
+      "after": "“切，这下出丑了！”",
+      "kind": "stiff",
+      "why": "露出丑态是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02210",
+      "before": "“巴鲁迪奥斯！只有那家伙！”",
+      "after": "“巴鲁迪奥斯！唯独那家伙！”",
+      "kind": "stiff",
+      "why": "奴だけは是唯独不放过，只有读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01299",
+      "before": "“真会垂死挣扎！”",
+      "after": "“净做些无谓的挣扎！”",
+      "kind": "stiff",
+      "why": "真会垂死挣扎不通，且对手并非垂死",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18098",
+      "before": "“别太紧张了，马林！”",
+      "after": "“别冲过头了，马林！”",
+      "kind": "mistranslation",
+      "why": "気負う是冲劲过头，不是紧张",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10158",
+      "before": "“我咬住你了！”",
+      "after": "“咬住你不放！”",
+      "kind": "mistranslation",
+      "why": "てやる是意志，不是已咬住",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10168",
+      "before": "“比琳！这边交给我们！”",
+      "after": "“比琳！剩下的交给我们！”",
+      "kind": "mistranslation",
+      "why": "後は是剩下的，不是这边",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10175",
+      "before": "“就算是天下第一配角，\\n　也得有才行！”",
+      "after": "“就算是天下第一配角，\\n　没了你也不行啊！”",
+      "kind": "stiff",
+      "why": "也得有才行读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10217",
+      "before": "“垂眼角的！竟敢如此！”",
+      "after": "“你这下垂眼！干的好事！”",
+      "kind": "voice",
+      "why": "タレ目他句作下垂眼；竟敢如此太文",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10222",
+      "before": "“呜~！缝隙的风太冷了……！”",
+      "after": "“呜~！缝里灌进来的风太冷了……！”",
+      "kind": "stiff",
+      "why": "缝隙的风生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15898",
+      "before": "“这样下去，\\n　不好好干可出不了风头！”",
+      "after": "“事到如今，\\n　不好好干可出不了风头！”",
+      "kind": "mistranslation",
+      "why": "こうなりゃ是事到如今",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15901",
+      "before": "“哦哦！难道是我的出场？\\n　哎呀，嘿嘿嘿，真不好意思”",
+      "after": "“哦哦！难道轮到我露脸了？\\n　哎呀，嘿嘿嘿，真不好意思”",
+      "kind": "stiff",
+      "why": "見せ場是表现机会，出场不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13256",
+      "before": "“呜哦哦哦！\\n　呃，没想到会做到这种地步……”",
+      "after": "“呜哦哦哦！\\n　呃，没想到你能打到这地步……”",
+      "kind": "stiff",
+      "why": "会做到这种地步是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11600",
+      "before": "“这样下去，主角机不出场可不行！”",
+      "after": "“既然这样，主角机不出场可不行！”",
+      "kind": "mistranslation",
+      "why": "こうなりゃ是既然如此",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19050",
+      "before": "“太兴奋了！拉格！”",
+      "after": "“你太起劲了！拉格！”",
+      "kind": "stiff",
+      "why": "はりきり是干劲过头，非兴奋",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19103",
+      "before": "“……等我有空了，\\n　非把你打个稀巴烂不可！”",
+      "after": "“……等我腾出手来，\\n　非把你打个稀巴烂不可！”",
+      "kind": "stiff",
+      "why": "手が空く是腾出手，非有空",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05722",
+      "before": "“这家伙，动啊！哎—呀！”",
+      "after": "“这家伙，动啊！可恶—！”",
+      "kind": "tone",
+      "why": "ええい是焦躁咒骂，非哎呀",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05723",
+      "before": "“哎呀！\\n　怎么能死在这里！”",
+      "after": "“可恶啊！\\n　怎么能死在这里！”",
+      "kind": "tone",
+      "why": "ええい是焦躁咒骂，非哎呀",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05727",
+      "before": "“有两下子嘛！\\n　长着张可爱的脸！”",
+      "after": "“有两下子嘛！\\n　亏你长着张可爱的脸！”",
+      "kind": "stiff",
+      "why": "后半句悬空，接不上前句",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14917",
+      "before": "“哎呀，看来是疏忽了！”",
+      "after": "“哎呀，看来你大意了呢！”",
+      "kind": "mistranslation",
+      "why": "大意的是对手，现译像说自己",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14922",
+      "before": "“我！\\n　可是能做到的！”",
+      "after": "“我！也是！\\n　能行的！”",
+      "kind": "omission",
+      "why": "だって是我也能，漏了也",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14947",
+      "before": "“啊！进退两难！？”",
+      "after": "“啊！前进后退都不行了！？”",
+      "kind": "mistranslation",
+      "why": "是机体动不了，非进退两难",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14957",
+      "before": "“手臂受伤了！？不过，还没完！”",
+      "after": "“手臂被打坏了！？不过，还没完！”",
+      "kind": "stiff",
+      "why": "机体手臂被毁，受伤像说人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15964",
+      "before": "“大姐，要不要跟我玩玩啊？”",
+      "after": "“小妞，要不要跟我玩玩啊？”",
+      "kind": "tone",
+      "why": "混混搭讪，大姐像敬称，不合口吻",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16003",
+      "before": "“哇啊！\\n　从什么地方打过来的啊！”",
+      "after": "“哇啊！居然从那种地方打过来！”",
+      "kind": "mistranslation",
+      "why": "何てとこから是惊叹，不是问哪里",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16015",
+      "before": "“你啊！运气不好啊！”",
+      "after": "“你啊！算你不走运！”",
+      "kind": "stiff",
+      "why": "两个啊连用，喊出来别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16032",
+      "before": "“好—了，怎么样！活下来了！”",
+      "after": "“好—嘞，怎么样！活下来了！”",
+      "kind": "stiff",
+      "why": "好—了像在说完事，应为叫好",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16035",
+      "before": "“偶尔也该客气点攻击啊！”",
+      "after": "“偶尔下手也给我客气点啊！”",
+      "kind": "stiff",
+      "why": "客气点攻击是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16059",
+      "before": "“给我撞上去碎掉吧！”",
+      "after": "“给我撞个粉身碎骨吧！”",
+      "kind": "stiff",
+      "why": "撞上去碎掉不像人喊的话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16082",
+      "before": "“那就算是认真的吗！？”",
+      "after": "“那也算动真格的吗！？”",
+      "kind": "stiff",
+      "why": "那就算是认真的语序生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16114",
+      "before": "“唉，重新来过！”",
+      "after": "“可恶，回头再来！”",
+      "kind": "tone",
+      "why": "ええい是恼火不是叹气",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16123",
+      "before": "“杂鱼给我滚一边去！\\n　唔…真是个好词啊”",
+      "after": "“杂鱼给我滚一边去！\\n　唔…这话说着真带劲”",
+      "kind": "tone",
+      "why": "是说这句台词过瘾，好词太平",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03337",
+      "before": "“我会好好报答你的！”",
+      "after": "“我会好好回敬你的！”",
+      "kind": "tone",
+      "why": "反击时的讽刺，报答读成字面",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03381",
+      "before": "“呀—，你瞄哪儿呢！”",
+      "after": "“哟—，你瞄哪儿呢！”",
+      "kind": "tone",
+      "why": "や〜い是起哄嘲笑，呀像惊叫",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03397",
+      "before": "“为什么我不能从这边攻击啊，\\n　好不甘心—！”",
+      "after": "“为什么我这边就打不到啊，\\n　好不甘心—！”",
+      "kind": "stiff",
+      "why": "不能从这边攻击是逐字直译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03442",
+      "before": "“哼！\\n　一个个都自说自话！”",
+      "after": "“哼！一个个都想说什么就说什么！”",
+      "kind": "mistranslation",
+      "why": "勝手言う是随口乱提要求，非自说自话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03491",
+      "before": "“三连装缓燃性…\\n　麻烦，波坦炮，发射！！”",
+      "after": "“三连装缓燃性…\\n　太麻烦了，波坦炮，发射！！”",
+      "kind": "stiff",
+      "why": "单说麻烦不成句",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03493",
+      "before": "“本来就是为了打架而装\\n　的手和脚！看着吧—！”",
+      "after": "“这手脚本来就是\\n　装来打架的！看好了—！”",
+      "kind": "stiff",
+      "why": "为了打架而装的手和脚是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03507",
+      "before": "“弹药用完了？\\n　所以说了别浪费弹药啊！”",
+      "after": "“弹药用完了？\\n　所以我才说别浪费弹药啊！”",
+      "kind": "stiff",
+      "why": "所以说了别…不通顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16755",
+      "before": "“哈哈哈，\\n　回去吃你妈的奶吧！”",
+      "after": "“哈哈哈，\\n　回家吃妈妈的奶去吧！”",
+      "kind": "stiff",
+      "why": "你妈的奶读成骂人话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16792",
+      "before": "“不是下垂眼！\\n　闭嘴，馒头脸！”",
+      "after": "“我才不是下垂眼！\\n　闭嘴，馒头脸！”",
+      "kind": "stiff",
+      "why": "缺主语，听不出是在否认自己",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16832",
+      "before": "“大哥，您捡了东西吃吗？”",
+      "after": "“大哥，您是乱捡东西吃了吗？”",
+      "kind": "stiff",
+      "why": "捡了东西吃语义不清",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16834",
+      "before": "“格拉巴！\\n　你这混蛋，船长是我！”",
+      "after": "“格拉巴！\\n　你这混蛋，都说了船长是我！”",
+      "kind": "omission",
+      "why": "漏了だっつってんだろ的反复强调",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24817",
+      "before": "“考虑周边损害再攻击！”",
+      "after": "“攻击时要顾及周边的损失！”",
+      "kind": "stiff",
+      "why": "现译生硬，像条文不像号令",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15528",
+      "before": "“那就是伊尔塔瞄准的巨神Σ吗！”",
+      "after": "“那就是伊尔塔盯上的巨神Σ吗！”",
+      "kind": "mistranslation",
+      "why": "狙っておる是觊觎盯上，非瞄准",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15559",
+      "before": "“你以为那种东西\\n　能赢我吗？”",
+      "after": "“你以为那种东西\\n　能赢老夫吗？”",
+      "kind": "voice",
+      "why": "布彻自称わし本包他处均作老夫",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15615",
+      "before": "“打中了中中中中中—！”",
+      "after": "“被打中啦啦啦啦啦—！”",
+      "kind": "stiff",
+      "why": "挨打方喊打中了不通，改为被打中",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23028",
+      "before": "“呃！对手是机械邦多克，\\n　不能掉以轻心啊…！”",
+      "after": "“呃！对手是机械邦多克，\\n　果然没那么好对付吗…！”",
+      "kind": "mistranslation",
+      "why": "一筋縄じゃいかねえ是不好对付，不是别大意",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23080",
+      "before": "“这点伤，比起亚纪等人的痛苦算什么！！”",
+      "after": "“这点伤，比起亚纪他们的痛苦算什么！！”",
+      "kind": "voice",
+      "why": "少年怒喊，等人太书面",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25053",
+      "before": "“哼，小菜一碟。”",
+      "after": "“哼，不痛不痒。”",
+      "kind": "tone",
+      "why": "挨打时说攻击太轻，非小菜一碟",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25064",
+      "before": "“唔！这个距离恐怕够不着。”",
+      "after": "“啧！这个距离恐怕够不着。”",
+      "kind": "voice",
+      "why": "ちっ是咂嘴，本人他句作啧",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18614",
+      "before": "“从外面把你串起来！！”",
+      "after": "“从外面把你刺个对穿！！”",
+      "kind": "tone",
+      "why": "串刺し是刺穿，“串起来”力度不对",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18656",
+      "before": "“嘛，再陪你玩玩也不是不行”",
+      "after": "“也罢，再陪你玩玩也不是不行”",
+      "kind": "stiff",
+      "why": "句首“嘛”是日语ま的照搬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18671",
+      "before": "“这道伤疤，我会加倍奉还！”",
+      "after": "“这道伤，我会加倍奉还！”",
+      "kind": "mistranslation",
+      "why": "傷是刚受的伤，不是伤疤",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18699",
+      "before": "“能从亚赞和汉布拉比的组合\\n　下逃掉吗！？”",
+      "after": "“亚赞加汉布拉比这对组合，\\n　你逃得掉吗！？”",
+      "kind": "stiff",
+      "why": "“组合/下逃掉”拆词且语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16502",
+      "before": "“援护射击！推上前线！”",
+      "after": "“援护射击！把舰开上前！”",
+      "kind": "stiff",
+      "why": "前に出せ是令本舰前出",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16540",
+      "before": "“提坦斯，\\n　老子正面奉陪！”",
+      "after": "“提坦斯，\\n　我来正面奉陪！”",
+      "kind": "voice",
+      "why": "舰长自称老子，口吻像混混",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16544",
+      "before": "“这场仗，打赢了就能扬眉吐气！”",
+      "after": "“这场仗，一定要赢个风风光光！”",
+      "kind": "mistranslation",
+      "why": "是决意打赢，非赢了就能",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05983",
+      "before": "“这股强烈的波动…\\n　以前也有过印象！”",
+      "after": "“这股强烈的波动…\\n　我以前也感受过！”",
+      "kind": "stiff",
+      "why": "“有过印象”是覚えがある的硬译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04203",
+      "before": "“叛徒爱玛中尉吗！！”",
+      "after": "“是叛徒爱玛中尉吗！！”",
+      "kind": "stiff",
+      "why": "缺判断词，读着是半截话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04549",
+      "before": "“明明不出来就不会被干掉了！”",
+      "after": "“你不出来，就不会被干掉了！”",
+      "kind": "stiff",
+      "why": "明明不出来就不会…语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04598",
+      "before": "“切…竟然什么都做不了！”",
+      "after": "“唔…竟然什么都做不了！”",
+      "kind": "voice",
+      "why": "くっ是憋闷声，切成了不屑",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04607",
+      "before": "“发电机还活着！\\n　还有反击的机会！”",
+      "after": "“发电机还在运转！\\n　还有反击的机会！”",
+      "kind": "stiff",
+      "why": "机器还活着是日语直译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04608",
+      "before": "“这、这股强大的压力\\n　是什么！？”",
+      "after": "“这、这股强大的压迫感\\n　是什么！？”",
+      "kind": "voice",
+      "why": "本人定稿句均作压迫感",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04610",
+      "before": "“被那股压力迷惑了吗！？”",
+      "after": "“被那股压迫感迷惑了吗！？”",
+      "kind": "voice",
+      "why": "本人定稿句均作压迫感",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04661",
+      "before": "“阿姆罗先生！…不会让你得逞！”",
+      "after": "“阿姆罗先生！…不会让他得逞！”",
+      "kind": "mistranslation",
+      "why": "后半句对敌，现译像在对阿姆罗说",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04703",
+      "before": "“切！被那个动作迷惑了！”",
+      "after": "“唔！被那个动作迷惑了！”",
+      "kind": "voice",
+      "why": "くっ是中弹闷哼，切成了不屑",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04725",
+      "before": "“把人当成自私的工具！\\n　这是最不该做的事！！”",
+      "after": "“把人当成满足私心的工具！\\n　这是最不该做的事！！”",
+      "kind": "stiff",
+      "why": "自私的工具读成工具自私",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21845",
+      "before": "“大可不代表就好！”",
+      "after": "“不是个头大就行的！”",
+      "kind": "stiff",
+      "why": "大可不代表就好读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21908",
+      "before": "“果然，\\n　那家伙不只是MS！”",
+      "after": "“果然，那家伙\\n　不是普通的MS！”",
+      "kind": "mistranslation",
+      "why": "ただの是普通的，非不只是",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21915",
+      "before": "“为、为什么能打中那里！？”",
+      "after": "“为、为什么偏打那里！？”",
+      "kind": "mistranslation",
+      "why": "是埋怨对方打那里，非惊讶能打中",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14334",
+      "before": "“能被我所杀，你应该感到幸运！”",
+      "after": "“能败在我手下，你该感到幸运！”",
+      "kind": "stiff",
+      "why": "“被我所杀”书面腔，倒す非杀",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22280",
+      "before": "“虽免于致命伤，但下次…！”",
+      "after": "“躲过了致命伤，可下次…！”",
+      "kind": "stiff",
+      "why": "“虽免于”书面腔，不像士兵喊话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15744",
+      "before": "“下次别想逃！”",
+      "after": "“这次别想逃！”",
+      "kind": "mistranslation",
+      "why": "再攻击时“次”即眼前这一击",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15684",
+      "before": "“索敌怎么了！？”",
+      "after": "“索敌怎么搞的！？”",
+      "kind": "tone",
+      "why": "是责问索敌失职，非询问",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15706",
+      "before": "“好，把王牌打进去！”",
+      "after": "“好，把真家伙轰进去！”",
+      "kind": "stiff",
+      "why": "本命指主攻一击，王牌不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13164",
+      "before": "“切…不愧是高达吗！”",
+      "after": "“切…该说不愧是高达吗！”",
+      "kind": "stiff",
+      "why": "“不愧是…吗”不通，补出と言うべきか",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16476",
+      "before": "“嗯，这个距离无法出手…！”",
+      "after": "“唔，这个距离出不了手…！”",
+      "kind": "tone",
+      "why": "むう是懊恼，“嗯”像在应答",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16490",
+      "before": "“快重整舰的态势！下一波来了！”",
+      "after": "“快把舰身稳住！下一波来了！”",
+      "kind": "stiff",
+      "why": "“重整舰的态势”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03081",
+      "before": "“唔，机体控制…！”",
+      "after": "“唔，机体控制不住…！”",
+      "kind": "stiff",
+      "why": "“机体控制…”半截话读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04504",
+      "before": "“导弹发射管解放！开火——！”",
+      "after": "“导弹发射管开放！开火——！”",
+      "kind": "stiff",
+      "why": "解放是日文照搬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04539",
+      "before": "“喂！\\n　对空炮火在干什么！”",
+      "after": "“可恶！对空炮火在干什么！”",
+      "kind": "tone",
+      "why": "ええい是恼火，不是喊人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21500",
+      "before": "“哦，还有有骨气的家伙嘛！”",
+      "after": "“嚯，有个有骨气的家伙嘛！”",
+      "kind": "stiff",
+      "why": "“还有有”叠字拗口",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21192",
+      "before": "“果然到那里来了！”",
+      "after": "“果然冲那儿来了！”",
+      "kind": "stiff",
+      "why": "“到那里来了”不像躲开攻击时说的话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21195",
+      "before": "“就算打在盾上！”",
+      "after": "“打中盾牌又怎样！”",
+      "kind": "stiff",
+      "why": "からって是不屑，现译像半截让步句",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18427",
+      "before": "“米加粒子炮，要发射了！！”",
+      "after": "“那个叫米加粒子炮的，要打了！！”",
+      "kind": "omission",
+      "why": "漏掉っての的生疏口吻",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25667",
+      "before": "“打中你！”",
+      "after": "“看我打中你！”",
+      "kind": "stiff",
+      "why": "半截话，不像喊出来的",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25702",
+      "before": "“呃、呃啊！\\n　光荣的我们竟会到这种地步！”",
+      "after": "“呃、呃啊！\\n　光荣的我们岂会败在这种程度！”",
+      "kind": "mistranslation",
+      "why": "この程度で是不甘，非感叹落魄",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15172",
+      "before": "“没看到敌人的轨道…！”",
+      "after": "“没看清敌人的轨迹…！”",
+      "kind": "stiff",
+      "why": "軌道指运动轨迹，“轨道”易误解",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07692",
+      "before": "“既然你要出手的话！”",
+      "after": "“既然你要出手！”",
+      "kind": "stiff",
+      "why": "“既然…的话”关联词打架",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07701",
+      "before": "“卡兹，你太天真了！”",
+      "after": "“卡兹，你收尾不够利落！”",
+      "kind": "mistranslation",
+      "why": "詰めが甘い指没补上最后一击，非天真",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07711",
+      "before": "“我的对手是你呢！”",
+      "after": "“我的对手就是你了！”",
+      "kind": "stiff",
+      "why": "句尾“呢”是翻译腔，喊不出口",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07767",
+      "before": "“只要有你在，帕普提马斯大人就会！”",
+      "after": "“有你在，帕普提马斯大人就会！”",
+      "kind": "tone",
+      "why": "“只要有你在”读成褒义，原意是威胁",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18986",
+      "before": "“力气不够呢！”",
+      "after": "“威力不够呢！”",
+      "kind": "stiff",
+      "why": "对机体攻击说力气不贴切",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19009",
+      "before": "“这种嘈杂的感觉……！\\n　到底是什么……！？”",
+      "after": "“这种躁动不安的感觉……！\\n　到底是什么……！？”",
+      "kind": "mistranslation",
+      "why": "ザワザワ是心里躁动，非嘈杂",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01833",
+      "before": "“大意了！”",
+      "after": "“太大意了！”",
+      "kind": "mistranslation",
+      "why": "攻击时说对手大意，现译像说自己",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20723",
+      "before": "“下次一定…！”",
+      "after": "“这次一定…！”",
+      "kind": "mistranslation",
+      "why": "再攻击时“次”即眼前这一击",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20783",
+      "before": "“呃！这样持续受伤的话…！”",
+      "after": "“呃！再这样挨打下去…！”",
+      "kind": "stiff",
+      "why": "“持续受伤的话”书面腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12417",
+      "before": "“什么！那么远的距离！？”",
+      "after": "“什么！从那么远的地方！？”",
+      "kind": "omission",
+      "why": "漏了から，指从远处打来",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01882",
+      "before": "“身体还记得怎么战斗吗…”",
+      "after": "“看来身体还记得怎么战斗…”",
+      "kind": "tone",
+      "why": "か是自我确认，现译读成疑问",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01519",
+      "before": "“就拿新型机的力量试试吧！”",
+      "after": "“就让我试试新型机的力量！”",
+      "kind": "stiff",
+      "why": "是试新机的力量，不是拿它去试",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02308",
+      "before": "“用哥德菲尔特迎击！\\n　理事请闭嘴！”",
+      "after": "“用哥德菲尔特迎击！\\n　理事请安静！”",
+      "kind": "voice",
+      "why": "舰长对上司用敬语，“请闭嘴”口吻错位",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02398",
+      "before": "“身手变钝了吗，阿斯兰！”",
+      "after": "“身手生疏了吗，阿斯兰！”",
+      "kind": "stiff",
+      "why": "“身手变钝”搭配生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02400",
+      "before": "“退下！红衣会哭的！”",
+      "after": "“退下！别给红衣丢脸！”",
+      "kind": "mistranslation",
+      "why": "〜が泣く是有辱名声的惯用语，被逐字译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02424",
+      "before": "“我也有自尊…！\\n　绝不容忍！”",
+      "after": "“我也有自尊…！\\n　不许你再放肆！”",
+      "kind": "omission",
+      "why": "漏了これ以上，句子悬空",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06901",
+      "before": "“擦伤什么的才不在乎！”",
+      "after": "“这点擦伤哪顾得上！”",
+      "kind": "tone",
+      "why": "“什么的才不在乎”口吻不像老兵",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11140",
+      "before": "“会死！会死不行！”",
+      "after": "“会死的！死掉不行！”",
+      "kind": "stiff",
+      "why": "“会死不行”读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11150",
+      "before": "“如果碍事的话！！”",
+      "after": "“要是敢碍事！！”",
+      "kind": "tone",
+      "why": "威胁的半截话，“如果…的话”太平",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11793",
+      "before": "“那样红服会哭的哦，\\n　露娜玛丽亚！”",
+      "after": "“这样可对不起那身红服哦，\\n　露娜玛丽亚！”",
+      "kind": "stiff",
+      "why": "“〜が泣く”是惯用语，逐字译成会哭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11822",
+      "before": "“要是被那架机体击沉，\\n　可真是一场烂喜剧”",
+      "after": "“要是被那架机体击沉，\\n　可真是出拙劣的喜剧了”",
+      "kind": "tone",
+      "why": "“烂喜剧”不合舰长口吻",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11902",
+      "before": "“切！用抢来的机体竟能到这地步…！”",
+      "after": "“唔！用抢来的机体竟能到这地步…！”",
+      "kind": "tone",
+      "why": "くっ是吃痛不甘，“切”成了不屑",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00193",
+      "before": "“嘛，我们是团队嘛！”",
+      "after": "“反正咱们是一队的嘛！”",
+      "kind": "stiff",
+      "why": "句首“嘛”是照搬日语语气词，前后两个嘛",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00217",
+      "before": "“啊〜太好了！\\n　偷的不是那家伙！”",
+      "after": "“啊〜太好了！\\n　偷的不是那台！”",
+      "kind": "stiff",
+      "why": "そいつ指脉冲机体，“那家伙”易误读成人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00221",
+      "before": "“可恶！别开玩笑了！”",
+      "after": "“可恶！开什么玩笑！”",
+      "kind": "tone",
+      "why": "挨打怒骂，“别开玩笑了”太软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03703",
+      "before": "“已、已经到此为止了！”",
+      "after": "“已、已经撑不住了！”",
+      "kind": "stiff",
+      "why": "“已经到此为止了”搭配别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13978",
+      "before": "“不错的计策！我接受了！”",
+      "after": "“不错的计策！算我一个！”",
+      "kind": "stiff",
+      "why": "乗らせてもらう是入伙，我接受了生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13988",
+      "before": "“哦！刚才好险啊！”",
+      "after": "“哎哟！刚才好险啊！”",
+      "kind": "stiff",
+      "why": "おっと是惊险时的哎哟，哦不像闪避",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13996",
+      "before": "“怎么了？\\n　这样王牌的名声可要哭了！”",
+      "after": "“怎么了？\\n　这样可对不起王牌的名号！”",
+      "kind": "stiff",
+      "why": "名が泣く逐字拆成名声要哭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14021",
+      "before": "“没用没用！没打中！”",
+      "after": "“没用没用！根本打不到我！”",
+      "kind": "mistranslation",
+      "why": "屏障挡下，届いてない非没打中",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14055",
+      "before": "“真没意思，\\n　被你打成这样…！”",
+      "after": "“真叫人不爽，\\n　被你打成这样…！”",
+      "kind": "mistranslation",
+      "why": "面白くない是不爽，不是没意思",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14099",
+      "before": "“这样，\\n　我出来的意义就没有了…！”",
+      "after": "“这样的话，\\n　我不就白出场了吗…！”",
+      "kind": "stiff",
+      "why": "意义就没有了是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14564",
+      "before": "“竟敢出现在虎面前！”",
+      "after": "“竟敢跑到老虎面前来！”",
+      "kind": "stiff",
+      "why": "“虎面前”念不顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14567",
+      "before": "“我可没基拉那么厉害！\\n　会把你打下来的！”",
+      "after": "“我技术可没基拉那么好！\\n　会把你打下来的！”",
+      "kind": "stiff",
+      "why": "“没那么厉害”与后句逻辑接不上",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14600",
+      "before": "“啧……！\\n　这可比咖啡还苦的体验啊……！”",
+      "after": "“啧……！这可是\\n　比咖啡还苦的体验啊……！”",
+      "kind": "stiff",
+      "why": "缺“是”，句子不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14607",
+      "before": "“哦！只能说可惜了！”",
+      "after": "“哎哟！就说一声可惜了吧！”",
+      "kind": "tone",
+      "why": "言っておこう是居高临下的客套",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07183",
+      "before": "“如果这次攻击能拖延时间！”",
+      "after": "“只要这一击能拖住敌人！”",
+      "kind": "mistranslation",
+      "why": "足止め是拖住对方脚步，非拖延时间",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19214",
+      "before": "“不，舰长。我会一直\\n　与这艘永恒号同在。”",
+      "after": "“不，舰长。我直到最后\\n　都与这艘永恒号同在。”",
+      "kind": "omission",
+      "why": "漏了最後まで，回应的正是“最坏情况”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19236",
+      "before": "“为什么而战！？\\n　姐姐你为什么要战斗！？”",
+      "after": "“为什么要战斗！？\\n　姐姐你为什么要战斗！？”",
+      "kind": "tone",
+      "why": "美玲哭喊质问姐姐，“为什么而战”太书面",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10926",
+      "before": "“好不容易来了！就去死吧！”",
+      "after": "“难得你来一趟！去死吧！”",
+      "kind": "tone",
+      "why": "せっかく来たんだ是嘲讽对方，现译缺主语发僵",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10965",
+      "before": "“还以为能打两下…真是期待落空”",
+      "after": "“还以为能打两下…真让人失望”",
+      "kind": "stiff",
+      "why": "“期待落空”是日语直搬，不像口语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11009",
+      "before": "“切！不管在哪都受欢迎啊，\\n　这种机体！”",
+      "after": "“切！哪个世界都这么受欢迎啊，\\n　这种机体！”",
+      "kind": "omission",
+      "why": "漏了どこの世界でも的“世界”，多元世界梗",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17784",
+      "before": "“敌攻击，掠过本舰侧面！”",
+      "after": "“敌方攻击从本舰侧面掠过！”",
+      "kind": "stiff",
+      "why": "“敌攻击，掠过”生硬，不像舰桥报告",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17793",
+      "before": "“啧！居然做到这种地步！”",
+      "after": "“啧！居然这么厉害！”",
+      "kind": "stiff",
+      "why": "やる是厉害，“做到这种地步”逐字直译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10414",
+      "before": "“哪有时间让你反击！”",
+      "after": "“才不给你反击的时间！”",
+      "kind": "mistranslation",
+      "why": "やるかよ是不给，非没有时间",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10420",
+      "before": "“为了保护世界，\\n　不管对手是谁我都战斗！”",
+      "after": "“为了保护世界，\\n　不管对手是谁我都奉陪！”",
+      "kind": "stiff",
+      "why": "我都战斗不成句，戦ってやる力度",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10505",
+      "before": "“我自认看穿了你的打法！”",
+      "after": "“你的打法我还是清楚的！”",
+      "kind": "voice",
+      "why": "自认看穿太书面，不像真的口气",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10570",
+      "before": "“你……别开玩笑了啊啊啊！！”",
+      "after": "“你……开什么玩笑啊啊啊！！”",
+      "kind": "tone",
+      "why": "ふざけるな是怒吼，别开玩笑了太软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10623",
+      "before": "“谁敢碍事，不管是谁！”",
+      "after": "“敢碍事的话，管你是谁！”",
+      "kind": "stiff",
+      "why": "谁敢…不管是谁前后重复",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22807",
+      "before": "“切，在这里耽误时间！”",
+      "after": "“切，要是在这里耽搁了！”",
+      "kind": "stiff",
+      "why": "手間取っては是假设半截句，现译成了陈述",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25499",
+      "before": "“瞄准了队长机吗！”",
+      "after": "“冲着队长机来的吗！”",
+      "kind": "mistranslation",
+      "why": "狙ってきた是敌方盯上队长机，现译像己方瞄准",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25584",
+      "before": "“没空东张西望！”",
+      "after": "“你可没空东张西望！”",
+      "kind": "stiff",
+      "why": "对敌人说的话，现译像在说自己没空",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:25597",
+      "before": "“呃！\\n　但既然不直接命中…！”",
+      "after": "“呃！但既然你不打要害…！”",
+      "kind": "stiff",
+      "why": "“不直接命中”不通，指对方故意避开要害",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20340",
+      "before": "“大意了。破绽百出…！”",
+      "after": "“你大意了。破绽百出…！”",
+      "kind": "mistranslation",
+      "why": "无主语读成自己大意，实指对手",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20349",
+      "before": "“露娜玛丽亚，你也能做到嘛”",
+      "after": "“露娜玛丽亚，认真起来还是行的嘛”",
+      "kind": "mistranslation",
+      "why": "やれば出来る是肯干就行，非你也能",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20463",
+      "before": "“不是为了别人……\\n　而是为了我们期望的世界！”",
+      "after": "“不是别的什么人……\\n　为了我们自己期望的世界！”",
+      "kind": "mistranslation",
+      "why": "他の誰でもない修饰俺達，非不为别人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20467",
+      "before": "“我要摆脱！世\\n　界和我内心的黑暗！”",
+      "after": "“我一定会驱散！\\n　世界和我内心的黑暗！”",
+      "kind": "stiff",
+      "why": "换行把世界拆成两行，摆脱黑暗搭配别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14275",
+      "before": "“这也是为了自卫的战斗……！”",
+      "after": "“这也是为了自卫而战……！”",
+      "kind": "stiff",
+      "why": "“为了自卫的战斗”是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05449",
+      "before": "“输出比以前\\n　下降了吗……？”",
+      "after": "“输出比以前那台\\n　下降了吗……？”",
+      "kind": "omission",
+      "why": "以前の物指前代机，现译像说同一台",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05456",
+      "before": "“我们的动作被预判了！？”",
+      "after": "“我的动作被预判了！？”",
+      "kind": "mistranslation",
+      "why": "こちら是基拉自己，不是我们",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05458",
+      "before": "“好快！\\n　完全跟上我们了…！”",
+      "after": "“好快！完全跟上我了…！”",
+      "kind": "mistranslation",
+      "why": "こちら是基拉自己，不是我们",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01354",
+      "before": "“就算有除我之外拥有力量的人，\\n　排除掉就行了！”",
+      "after": "“就算还有别人拥有力量，\\n　排除掉就是了！”",
+      "kind": "stiff",
+      "why": "“有除我之外拥有力量的人”拗口",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01375",
+      "before": "“只能从这边接近了吗！”",
+      "after": "“只能由我主动靠过去了吗！”",
+      "kind": "stiff",
+      "why": "こちらから是由我方，“从这边”直译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01399",
+      "before": "“竟敢对身为被选中存在的我！”",
+      "after": "“竟敢这样对待被选中的我！”",
+      "kind": "stiff",
+      "why": "“身为被选中存在的我”翻译腔，半截话不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01405",
+      "before": "“能抓住我，值得夸奖！”",
+      "after": "“能打中我，值得夸奖！”",
+      "kind": "mistranslation",
+      "why": "捉えた指命中，被弹时说“抓住”不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01414",
+      "before": "“还没完！身为被选中存在的我，\\n　不可能输！”",
+      "after": "“还没完！我是被选中的人，\\n　不可能输！”",
+      "kind": "stiff",
+      "why": "“身为被选中存在的我”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19299",
+      "before": "“有两下，少年！”",
+      "after": "“有两下子，少年！”",
+      "kind": "stiff",
+      "why": "“有两下”半截，他处均作有两下子",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19312",
+      "before": "“可别以为我只是架战斗机！”",
+      "after": "“可别以为这只是架战斗机！”",
+      "kind": "stiff",
+      "why": "说的是机体，不是“我”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04789",
+      "before": "“我…输了…？”",
+      "after": "“我…落了下风…？”",
+      "kind": "mistranslation",
+      "why": "負けてる是正处下风，尚未落败",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04811",
+      "before": "“下次最好换个机体\\n　来当对手…”",
+      "after": "“下次最好去找\\n　别的机体当对手…”",
+      "kind": "mistranslation",
+      "why": "是劝对方另找目标，现译像让对方换机",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04817",
+      "before": "“看来被看穿了距离…”",
+      "after": "“看来对方算准了距离…”",
+      "kind": "stiff",
+      "why": "“被看穿了距离”语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02534",
+      "before": "“嘛，这点损伤\\n　算在允许范围内吧…”",
+      "after": "“哎，这点损伤\\n　算在允许范围内吧…”",
+      "kind": "stiff",
+      "why": "句首“嘛”是日语腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04856",
+      "before": "“兰斯洛！下一个我来！”",
+      "after": "“兰斯洛！接下来看我的！”",
+      "kind": "mistranslation",
+      "why": "次は是接下来，不是下一个敌人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04859",
+      "before": "“和平号请后退！”",
+      "after": "“和平号快后退！”",
+      "kind": "voice",
+      "why": "卡洛德对自家舰不会说“请”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04894",
+      "before": "“只要比感知到的速度更快就行！”",
+      "after": "“只要动得比对方感应的更快就行！”",
+      "kind": "mistranslation",
+      "why": "感じられた是被对方感应，现译主语不清",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04909",
+      "before": "“这点小伤！\\n　拿出骨气就没事了！”",
+      "after": "“这点小伤！\\n　靠毅力就能挺过去！”",
+      "kind": "mistranslation",
+      "why": "根性是毅力，不是骨气",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04928",
+      "before": "“别小看我，老子从一开始就拼了命！”",
+      "after": "“别小看我，我可是从一开始就在拼命！”",
+      "kind": "voice",
+      "why": "卡洛德全包自称“我”，仅此句“老子”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04949",
+      "before": "“如果是高输出的分裂者光束的话！”",
+      "after": "“凭分裂者的高输出光束！”",
+      "kind": "stiff",
+      "why": "“如果是…的话”翻译腔半截话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04965",
+      "before": "“和G猎鹰合体的\\n　这架高达的话！”",
+      "after": "“和G猎鹰合体后的\\n　这架高达一定行！”",
+      "kind": "stiff",
+      "why": "“这架高达的话”翻译腔半截话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04974",
+      "before": "“这家伙！实力完全不同！”",
+      "after": "“这家伙！实力完全不在一个档次！”",
+      "kind": "stiff",
+      "why": "“实力完全不同”不像人话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04975",
+      "before": "“光靠骨气是行不通的，\\n　现实这东西…”",
+      "after": "“光靠毅力是行不通的，\\n　现实这东西…”",
+      "kind": "mistranslation",
+      "why": "根性是毅力，不是骨气",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04984",
+      "before": "“呜啊！可恶，在哪，敌人！？”",
+      "after": "“呜啊！可恶，敌人在哪！？”",
+      "kind": "stiff",
+      "why": "照搬日文倒装，语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04993",
+      "before": "“不会再被干掉了！！”",
+      "after": "“我才不会再中招！！”",
+      "kind": "mistranslation",
+      "why": "回避台词，“再被干掉”像已被击坠过",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05005",
+      "before": "“没关系，卡洛德…”",
+      "after": "“没事的，卡洛德…”",
+      "kind": "tone",
+      "why": "是安抚不是回应道歉",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05063",
+      "before": "“哎呀，到底哪个是本体啊！？”",
+      "after": "“真是的，到底哪个是本体啊！？”",
+      "kind": "tone",
+      "why": "えーい是焦躁，“哎呀”太软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05075",
+      "before": "“不用担心…还没事…”",
+      "after": "“不用担心…还撑得住…”",
+      "kind": "stiff",
+      "why": "“还没事”不通顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08639",
+      "before": "“不被认可力量之人的怨恨！尝尝吧！”",
+      "after": "“尝尝力量不被认可者的怨恨吧！”",
+      "kind": "stiff",
+      "why": "“不被认可力量之人”拗口",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08648",
+      "before": "“不能只让奥尔巴\\n　一个人承担负担啊”",
+      "after": "“不能只让奥尔巴\\n　一个人扛着啊”",
+      "kind": "stiff",
+      "why": "“承担负担”重复累赘",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08696",
+      "before": "“打中了吗…就这点值得夸奖”",
+      "after": "“打中了吗…光凭这点就夸你一句吧”",
+      "kind": "tone",
+      "why": "誉めてやろう的居高临下没出来",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08738",
+      "before": "“看来你确实拥有\\n　相应的力量……但是”",
+      "after": "“看来你确实\\n　有几分实力……但是”",
+      "kind": "stiff",
+      "why": "“相应的力量”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08765",
+      "before": "“你真碍眼啊，你的存在”",
+      "after": "“真碍眼啊，你这样的存在”",
+      "kind": "stiff",
+      "why": "“你…你的存在”重复不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08776",
+      "before": "“真是碍眼的船！”",
+      "after": "“老是这么碍眼的船！”",
+      "kind": "omission",
+      "why": "漏了いつまでも",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03902",
+      "before": "“你是说找回了过去的力量吗？”",
+      "after": "“难道说你找回了过去的力量？”",
+      "kind": "mistranslation",
+      "why": "とでも言うのか是“难道说”，非转述对方",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02498",
+      "before": "“哦啦！再来一发！！”",
+      "after": "“喝啊！再来一发！！”",
+      "kind": "tone",
+      "why": "オラ是吆喝，“哦啦”不像喊声",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02511",
+      "before": "“干得好啊，怪胎高达！”",
+      "after": "“你干的好事啊，怪胎高达！”",
+      "kind": "tone",
+      "why": "挨打后的怒骂，“干得好啊”像夸奖",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14235",
+      "before": "“呃，\\n　根本分不清哪个是本体！”",
+      "after": "“可恶，根本分不清\\n　哪个是本体！”",
+      "kind": "tone",
+      "why": "ええい是烦躁，“呃”太平",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14239",
+      "before": "“那么，出发吧！”",
+      "after": "“那么，这就上吧！”",
+      "kind": "stiff",
+      "why": "攻击时说“出发吧”与场景不合",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21093",
+      "before": "“我可没那么老好人。”",
+      "after": "“我可没好心到那个份上。”",
+      "kind": "stiff",
+      "why": "“没那么老好人”不成话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21094",
+      "before": "“嘛，当然的结果”",
+      "after": "“嘛，理所当然的结果吧”",
+      "kind": "stiff",
+      "why": "“当然的结果”翻译腔，补回かな语气",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21099",
+      "before": "“什、什么啊\\n　这不是被打得落花流水吗……！？”",
+      "after": "“怎、怎么好像\\n　被打得落花流水了啊……！？”",
+      "kind": "mistranslation",
+      "why": "何か是“总觉得”，不是“什么啊”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21989",
+      "before": "“哎呀，被绕到死角了吗！”",
+      "after": "“可恶，被绕到死角了吗！”",
+      "kind": "tone",
+      "why": "ええい是恼火，“哎呀”太软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21992",
+      "before": "“切，眼神不错嘛！”",
+      "after": "“切，眼力不错嘛！”",
+      "kind": "mistranslation",
+      "why": "いい目指瞄得准，不是眼神",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22013",
+      "before": "“那、那种颜色还拿着锤子，\\n　简直像…！”",
+      "after": "“那、那种颜色要是再拿把锤子，\\n　简直就…！”",
+      "kind": "mistranslation",
+      "why": "持っていたら是假设，现译成了已拿着",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07561",
+      "before": "“反正已经上了贼船！干吧！”",
+      "after": "“既然上了这条船！干吧！”",
+      "kind": "mistranslation",
+      "why": "乗りかかった船是干到底，非上当",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07624",
+      "before": "“没弹药了…\\n　我们这边财政也很紧张啊…”",
+      "after": "“没弹药了…\\n　我们手头本来就够紧了啊…”",
+      "kind": "stiff",
+      "why": "“也很紧张”的“也”无所指",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07656",
+      "before": "“呃…！\\n　现在这样似乎是最好的选择了…！”",
+      "after": "“呃…！眼下这么做\\n　似乎是最好的选择…！”",
+      "kind": "stiff",
+      "why": "“现在这样”指代不清，原意是照办",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08948",
+      "before": "“新的力量之芽……\\n　绝不能让它被摘除！”",
+      "after": "“新力量的萌芽……\\n　绝不能任人扼杀！”",
+      "kind": "stiff",
+      "why": "“摘除…之芽”搭配生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08962",
+      "before": "“不能让你摘除希望之芽！”",
+      "after": "“不能让你扼杀希望的萌芽！”",
+      "kind": "stiff",
+      "why": "“摘除希望之芽”搭配生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08970",
+      "before": "“呃！\\n　不愧是弗罗斯特兄弟吗！”",
+      "after": "“呃！真不愧是弗罗斯特兄弟！”",
+      "kind": "stiff",
+      "why": "“不愧是…吗”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09000",
+      "before": "“这股力量曾一度封闭了未来…！”",
+      "after": "“这股力量曾一度断送了未来…！”",
+      "kind": "stiff",
+      "why": "“封闭了未来”不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09019",
+      "before": "“时机配合你的指示！”",
+      "after": "“时机就按你的指示来！”",
+      "kind": "stiff",
+      "why": "“时机配合指示”语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09022",
+      "before": "“即使内心拒绝，\\n　身体却还记得吗…”",
+      "after": "“内心虽然抗拒，\\n　身体却还记得吗…”",
+      "kind": "stiff",
+      "why": "“即使…却”关联词不搭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09060",
+      "before": "“来了吗…对手是弗罗斯特兄弟吗…！”",
+      "after": "“来了啊…对手是弗罗斯特兄弟吗…！”",
+      "kind": "tone",
+      "why": "来たな是确认语气，连用两个吗",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09064",
+      "before": "“现在不是继续\\n　在地球和宇宙争斗的时候！”",
+      "after": "“现在不是地球和宇宙\\n　继续相争的时候！”",
+      "kind": "mistranslation",
+      "why": "是地球与宇宙双方相争，非地点",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09068",
+      "before": "“啊！\\n　这边已经完成了！”",
+      "after": "“嗯！这边已经完成了！”",
+      "kind": "tone",
+      "why": "ああ是应答，不是惊叫",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13668",
+      "before": "“目标接近！看招！！”",
+      "after": "“接近目标！看招！！”",
+      "kind": "mistranslation",
+      "why": "是己方逼近目标，方向弄反",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13680",
+      "before": "“冒牌货！\\n　让你见识下GS动作的真髓！”",
+      "after": "“冒牌货！\\n　让你见识下GS动作的精髓！”",
+      "kind": "stiff",
+      "why": "真髓为日文汉字词，中文说精髓",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13703",
+      "before": "“不补刀的话，反击就会来！”",
+      "after": "“没能一击毙命，就等着挨反击吧！”",
+      "kind": "tone",
+      "why": "刺せなきゃ是没能打死；补刀口吻不合",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13706",
+      "before": "“托比，肯让我出风头吗！”",
+      "after": "“要把风头让给我吗，托比！”",
+      "kind": "stiff",
+      "why": "肯让我出风头吗读着别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13717",
+      "before": "“目标接近！\\n　跟我上！！”",
+      "after": "“接近目标！\\n　跟我上！！”",
+      "kind": "mistranslation",
+      "why": "是己方逼近目标，方向弄反",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13751",
+      "before": "“该死！输给冒牌货，\\n　荣耀之星的名声都要哭了！”",
+      "after": "“该死！输给冒牌货，\\n　荣耀之星的招牌就砸了！”",
+      "kind": "stiff",
+      "why": "名が泣く逐字译成名声要哭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:09273",
+      "before": "“我打算完成被赋予的任务”",
+      "after": "“交给我的任务，我自会完成”",
+      "kind": "stiff",
+      "why": "被赋予的任务翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19359",
+      "before": "“超限人就是\\n　太灵活了真麻烦！”",
+      "after": "“超限人就是太灵活，\\n　真叫人受不了！”",
+      "kind": "stiff",
+      "why": "现译两截连读不通顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19382",
+      "before": "“你没有\\n　领导别人的器量！”",
+      "after": "“你根本不是\\n　带领别人的料！”",
+      "kind": "stiff",
+      "why": "器じゃない是不是那块料，器量生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19467",
+      "before": "“厚装甲用这个一下搞定！！”",
+      "after": "“再厚的装甲，用这家伙也一下搞定！！”",
+      "kind": "stiff",
+      "why": "漏了も的让步语气，现译太干",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19581",
+      "before": "“祭典开始了！来场华丽的吧！”",
+      "after": "“祭典开始了！大闹一场吧！”",
+      "kind": "stiff",
+      "why": "来场华丽的是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12791",
+      "before": "“我受过的怨恨，可不会忘记…！”",
+      "after": "“这笔仇，我可不会忘记…！”",
+      "kind": "mistranslation",
+      "why": "受けた恨み是结下的仇，非受怨恨",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12848",
+      "before": "“对破破烂烂的我，\\n　多一道伤又算什么…！”",
+      "after": "“我早就遍体鳞伤了，\\n　多一道伤又算什么…！”",
+      "kind": "stiff",
+      "why": "对破破烂烂的我是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12851",
+      "before": "“你的热情，只是虚张声势吗？”",
+      "after": "“你的热情，只是虚有其表吗？”",
+      "kind": "mistranslation",
+      "why": "見掛け倒し是虚有其表，非虚张声势",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13805",
+      "before": "“作为军用武器还挺时髦的，这家伙！”",
+      "after": "“就军用武器来说，这玩意儿还挺时髦！”",
+      "kind": "stiff",
+      "why": "指武器不宜称这家伙，倒装生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13827",
+      "before": "“其实我真不擅长\\n　干这种事…！”",
+      "after": "“其实这种事\\n　真不像我的作风…！”",
+      "kind": "mistranslation",
+      "why": "ガラじゃない是不合作风，非不擅长",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13828",
+      "before": "“嘛…偶尔也发扬一下志愿精神嘛！”",
+      "after": "“也罢…偶尔也发扬一下志愿精神嘛！”",
+      "kind": "stiff",
+      "why": "句首嘛…是日语ま的音译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13830",
+      "before": "“没架子就是队长的魅力嘛！”",
+      "after": "“毫发无伤就是队长的魅力嘛！”",
+      "kind": "mistranslation",
+      "why": "おケがない是无伤/无毛双关，非没架子",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13834",
+      "before": "“感觉配对三对三！\\n　感动的重逢！”",
+      "after": "“感觉配对三对三！\\n　感动的会面！”",
+      "kind": "mistranslation",
+      "why": "ご対面是初次照面，不是重逢",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:13844",
+      "before": "“开头有点太兴奋了！”",
+      "after": "“开局有点用力过猛了！”",
+      "kind": "mistranslation",
+      "why": "張り切り過ぎ指打得太猛耗光，非兴奋",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08034",
+      "before": "“我上了，我！”",
+      "after": "“我这就来，我！”",
+      "kind": "mistranslation",
+      "why": "援护时是赶来帮另一个自己",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08052",
+      "before": "“啊～啊……还以为能体验\\n　一场顶级战斗呢……”",
+      "after": "“唉～……还以为能体验\\n　一场顶级战斗呢……”",
+      "kind": "tone",
+      "why": "あ〜あ是失望叹气，不是啊啊",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02802",
+      "before": "“特异点的存在不需要！\\n　我来创造新世界！”",
+      "after": "“不需要什么特异点！\\n　我来创造新世界！”",
+      "kind": "stiff",
+      "why": "的存在不需要语序生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02806",
+      "before": "“哭喊吧。\\n　送你回同伴身边”",
+      "after": "“哭喊吧。\\n　送你去见你的同伴”",
+      "kind": "mistranslation",
+      "why": "是送去已死同伴处，非送回",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02821",
+      "before": "“分解得比原子还细”",
+      "after": "“把你分解得比原子还细”",
+      "kind": "stiff",
+      "why": "缺对象，半截话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02830",
+      "before": "“敢反抗我…敢反抗我吗！！”",
+      "after": "“敢反抗我…竟敢反抗我！！”",
+      "kind": "tone",
+      "why": "この私に的递进怒意没出来",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02836",
+      "before": "“我来借你力量”",
+      "after": "“我就助你一臂之力吧”",
+      "kind": "stiff",
+      "why": "借你力量有歧义，像向对方借",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:02839",
+      "before": "“好比猴子的浅薄智慧”",
+      "after": "“打个比方，就是猴子的小聪明”",
+      "kind": "stiff",
+      "why": "浅薄智慧直译生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11170",
+      "before": "“用队长教我的\\n　读取敌机轨道的方法…！”",
+      "after": "“用队长教我的\\n　预判敌机轨迹的方法…！”",
+      "kind": "stiff",
+      "why": "“读取轨道”生硬，不像口语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11184",
+      "before": "“那些看不清世界局势的人…！”",
+      "after": "“怎么能输给看不清世界局势的人…！”",
+      "kind": "omission",
+      "why": "漏了なんかに，现译成了半截主语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11209",
+      "before": "“让你说出一切！\\n　打倒你！！”",
+      "after": "“我要你说出一切！\\n　在打倒你之后！！”",
+      "kind": "stiff",
+      "why": "两句断开，丢了打倒后逼问的关系",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11275",
+      "before": "“因为是同伴，所以要守护！”",
+      "after": "“毕竟是同伴，我会保护你！”",
+      "kind": "stiff",
+      "why": "因为所以句式是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11288",
+      "before": "“被看穿了消耗程度…！？”",
+      "after": "“我这边的消耗被看穿了…！？”",
+      "kind": "stiff",
+      "why": "语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11297",
+      "before": "“还没完…！\\n　巴尔戈拉应该还能更快！”",
+      "after": "“还不够…！\\n　巴尔戈拉应该还能更快！”",
+      "kind": "mistranslation",
+      "why": "回避后的まだだ是还不够，不是还没完",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11416",
+      "before": "“收集这台武装的数据，\\n　是我的职责…！”",
+      "after": "“收集这套武装的数据，\\n　是我的职责…！”",
+      "kind": "stiff",
+      "why": "量词“台”与武装不搭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:11451",
+      "before": "“托比！这里请依靠我！”",
+      "after": "“托比！这里就依靠我吧！”",
+      "kind": "stiff",
+      "why": "“这里请依靠我”是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20570",
+      "before": "“什么？你到底想干什么？”",
+      "after": "“怎么？你刚才是想干什么？”",
+      "kind": "tone",
+      "why": "躲开后的嘲弄，现译像受惊质问",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20666",
+      "before": "“在我牵制的时候！”",
+      "after": "“趁我牵制的时候！”",
+      "kind": "stiff",
+      "why": "“在…的时候”半截不通，应为趁",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:20710",
+      "before": "“生还是士兵的职责…！\\n　我要完成它！”",
+      "after": "“活着回去是士兵的职责…！\\n　我一定做到！”",
+      "kind": "stiff",
+      "why": "“生还是”易误读，“完成它”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00302",
+      "before": "“燃烧自己吧。在甘美的绝望中。”",
+      "after": "“受尽煎熬吧。在甘美的绝望中。”",
+      "kind": "mistranslation",
+      "why": "身を焦がす是受煎熬，非燃烧自己",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00305",
+      "before": "“呵呵呵…这次夺你什么好呢”",
+      "after": "“呵呵呵…这次从你那儿夺走什么好呢”",
+      "kind": "stiff",
+      "why": "夺你什么不通顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00340",
+      "before": "“兹妮……之后由我来狩猎。”",
+      "after": "“兹妮……剩下的由我来狩猎。”",
+      "kind": "mistranslation",
+      "why": "後は指剩下的，不是之后",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00360",
+      "before": "“尽管来多少次都行。”",
+      "after": "“不管多少次，尽管放马过来。”",
+      "kind": "stiff",
+      "why": "尽管来多少次都行语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00394",
+      "before": "“我见过。\\n　用这双眼，人类战斗的历史……”",
+      "after": "“我一路看过来了。\\n　用这双眼，看着人类战斗的历史……”",
+      "kind": "stiff",
+      "why": "第二行缺动词，读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00407",
+      "before": "“被囚禁着…你我也是”",
+      "after": "“被囚禁着…你也是，我也是”",
+      "kind": "stiff",
+      "why": "你我也是不通，原文是你也我也",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24899",
+      "before": "“哇啊！这下中招了！”",
+      "after": "“哇啊！这下被干掉了！”",
+      "kind": "mistranslation",
+      "why": "被击坠遗言，“中招”只是挨打",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24915",
+      "before": "“嗯，这点算什么！！”",
+      "after": "“唔，这点算什么！！”",
+      "kind": "tone",
+      "why": "うーん是挨打硬撑的闷哼，“嗯”像应答",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24922",
+      "before": "“弁庆！刚才可是正面命中！”",
+      "after": "“弁庆！刚才可是结结实实挨了一下！”",
+      "kind": "stiff",
+      "why": "己方挨打，“正面命中”像是我方打中",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22311",
+      "before": "“百鬼老兵不死！\\n　岂能死！！”",
+      "after": "“百鬼老兵不死！\\n　绝不会死！！”",
+      "kind": "stiff",
+      "why": "“岂能死”喊出来拗口",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24398",
+      "before": "“碰上我是你的运气到头了！”",
+      "after": "“碰上我，算你运气到头了！”",
+      "kind": "stiff",
+      "why": "“是你的运气到头了”语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18173",
+      "before": "“被击坠了。\\n　大家，接下来拜托了！”",
+      "after": "“被打下来了。\\n　大家，接下来拜托了！”",
+      "kind": "tone",
+      "why": "やられちゃった是口语，“被击坠了”像术语播报",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23248",
+      "before": "“这样没法反击吗！”",
+      "after": "“这样就没法反击了！”",
+      "kind": "stiff",
+      "why": "か是自语确认，译成疑问句不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:24451",
+      "before": "“切…这样下去不利吗！？”",
+      "after": "“切…这样下去会落下风吗！？”",
+      "kind": "stiff",
+      "why": "“不利吗”是直译腔，不像喊出来的话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16570",
+      "before": "“队长……我会为你报仇！”",
+      "after": "“队长……我会为您报仇！”",
+      "kind": "voice",
+      "why": "对队长用敬语，本包他处称“您”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16571",
+      "before": "“队长已死，我不做谁做！”",
+      "after": "“队长不在了，我不上谁上！”",
+      "kind": "tone",
+      "why": "“已死”对敬重的队长太冷，“不做谁做”生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16609",
+      "before": "“呼呼呼……这下逃不了了吧……！”",
+      "after": "“呵呵呵……这下逃不了了吧……！”",
+      "kind": "stiff",
+      "why": "“呼呼呼”不是中文笑声",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16618",
+      "before": "“呼呼呼……特异点，着急了呢……！”",
+      "after": "“呵呵呵……特异点，着急了呢……！”",
+      "kind": "stiff",
+      "why": "“呼呼呼”不是中文笑声",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16619",
+      "before": "“挣扎吧，特异点……！\\n　先给你绝望！”",
+      "after": "“挣扎吧，特异点……！\\n　先让你尝尝绝望的滋味！”",
+      "kind": "stiff",
+      "why": "“先给你绝望”逐字直译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03115",
+      "before": "“对手是奇拉姆的话，情况不利…！”",
+      "after": "“对手是奇拉姆，虽说占下风…！”",
+      "kind": "omission",
+      "why": "漏了が的转折，进攻句成了泄气话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03127",
+      "before": "“这是追加的一击！”",
+      "after": "“再给你补上一击！”",
+      "kind": "stiff",
+      "why": "追加的一击像说明文，不像喊话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08483",
+      "before": "“喂蜜姆晶，左边的…”",
+      "after": "“哎，蜜姆晶，左边的…”",
+      "kind": "tone",
+      "why": "夏伊亚慢悠悠的ねぇ，“喂”太冲",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08531",
+      "before": "“呵呵，\\n　花大价钱装上去的值了”",
+      "after": "“呵呵，花大价钱\\n　装上它真是值了”",
+      "kind": "stiff",
+      "why": "“装上去的值了”不通顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08634",
+      "before": "“哦哦…\\n　太好了，好好挡住了”",
+      "after": "“哦哦…太好了，\\n　真的帮我们挡住了”",
+      "kind": "stiff",
+      "why": "“好好挡住了”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12648",
+      "before": "“既然如此，就算拖着对方一起下水…！”",
+      "after": "“既然如此，就算拉那家伙垫背…！”",
+      "kind": "mistranslation",
+      "why": "道連れ是同归于尽，拖下水是另一义",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12653",
+      "before": "“那、那种家伙成了敌人…！”",
+      "after": "“那、那种家伙竟然成了敌人…！”",
+      "kind": "tone",
+      "why": "とは的惊愕没译出",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:12559",
+      "before": "“只要不直接命中机关部…！”",
+      "after": "“只要机关部不被直接命中…！”",
+      "kind": "stiff",
+      "why": "现译像己方去命中，受动方不清",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03800",
+      "before": "“只能重新部署一次了。”",
+      "after": "“只能先重整态势了。”",
+      "kind": "stiff",
+      "why": "“重新部署一次”逐字译一度，不像口语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03822",
+      "before": "“哎呀，大意了吗！”",
+      "after": "“可恶，大意了吗！”",
+      "kind": "tone",
+      "why": "ええい是恼火，“哎呀”太软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03851",
+      "before": "“埃曼的腕式装置吗……真是鲁莽！”",
+      "after": "“埃曼带手臂的装置吗……真是鲁莽！”",
+      "kind": "mistranslation",
+      "why": "腕つき是带手臂，不是腕式",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03857",
+      "before": "“不可思议，感觉不会输。”",
+      "after": "“说来也怪，我不觉得会输。”",
+      "kind": "stiff",
+      "why": "“不可思议，感觉不会输”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03764",
+      "before": "“撤退了，桂！”",
+      "after": "“脱离了，桂！”",
+      "kind": "mistranslation",
+      "why": "離脱是合击后脱离，不是撤退",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22365",
+      "before": "“被夜雾包围的逃亡之旅\\n　…就这种感觉吧！”",
+      "after": "“夜雾笼罩下的私奔之旅…\\n　就照这感觉来吧！”",
+      "kind": "tone",
+      "why": "逃避行指私奔，后半漏了“来吧”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22380",
+      "before": "“我先失陪了！”",
+      "after": "“那我先走一步！”",
+      "kind": "stiff",
+      "why": "抢先出手，“失陪”像是离场",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22381",
+      "before": "“切，不起眼的角色…”",
+      "after": "“切，真是个不起眼的差事…”",
+      "kind": "stiff",
+      "why": "役回り是差事，“角色”读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22482",
+      "before": "“可恶！都到这里了，还来这套！？”",
+      "after": "“可恶！都到这一步了，竟是这下场！？”",
+      "kind": "mistranslation",
+      "why": "被击坠的不甘，非“对方又来这套”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22495",
+      "before": "“啊可恶，把老子当商品！”",
+      "after": "“啊可恶，居然把人当商品！”",
+      "kind": "voice",
+      "why": "桂全包自称我，“老子”掉队",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22529",
+      "before": "“习惯了。忍不住就想\\n　把女性给泡到手”",
+      "after": "“习惯了。一见到女性\\n　就忍不住想拿下”",
+      "kind": "tone",
+      "why": "落とす击坠双关，同22516用“拿下”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17161",
+      "before": "“远水救不了近火！”",
+      "after": "“远处的婚事，不如眼前的威胁！”",
+      "kind": "mistranslation",
+      "why": "原文拿结婚仿俗语，现译换成别义成语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17199",
+      "before": "“狡猾，狡猾！\\n　就没有点公平精神吗！？”",
+      "after": "“耍赖，耍赖！\\n　就没有点公平精神吗！？”",
+      "kind": "stiff",
+      "why": "“狡猾，狡猾”是ずるい的翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17213",
+      "before": "“没效，没效♪”",
+      "after": "“没用，没用♪”",
+      "kind": "stiff",
+      "why": "“没效”不成词",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:17240",
+      "before": "“呜——，\\n　被奇拉姆袭击死掉什么的不要啊！”",
+      "after": "“呜——，我才不要\\n　被奇拉姆打死啊！”",
+      "kind": "stiff",
+      "why": "“死掉什么的不要啊”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21549",
+      "before": "“赌上我的军人生命，\\n　一定要夺取特异点！”",
+      "after": "“赌上我的军人生涯，\\n　一定要夺取特异点！”",
+      "kind": "stiff",
+      "why": "軍人生命指军旅前途，照搬生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21565",
+      "before": "“看来在我手下不满啊，雅典娜少尉！”",
+      "after": "“看来在我手下你很不满啊，雅典娜少尉！”",
+      "kind": "stiff",
+      "why": "缺主语，在我手下不满读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21570",
+      "before": "“一架一架，逐一彻底击溃……！”",
+      "after": "“一架一架，稳稳地解决掉……！”",
+      "kind": "stiff",
+      "why": "一架一架与逐一重复，確実に译偏",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21582",
+      "before": "“哦……！\\n　被特异点杀了可不行！”",
+      "after": "“哎哟哟……！\\n　被特异点杀了可不行！”",
+      "kind": "tone",
+      "why": "おっと是惊险脱口，哦太平",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21594",
+      "before": "“竟能抓住我！”",
+      "after": "“竟然能打中我！”",
+      "kind": "mistranslation",
+      "why": "捉える是被命中，不是被抓住",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:21598",
+      "before": "“你这混蛋，逃兵！”",
+      "after": "“可恶啊，你这逃兵！”",
+      "kind": "stiff",
+      "why": "你这混蛋，逃兵两个称呼叠着别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:19865",
+      "before": "“唔，这样就行了吗…！”",
+      "after": "“唔，这样真的好吗…！”",
+      "kind": "mistranslation",
+      "why": "是对与旧友交战的迟疑，不是问够不够",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01079",
+      "before": "“手下留情？因我是女人就侮辱，不可饶恕！”",
+      "after": "“手下留情？因为是女人就羞辱我，休想！”",
+      "kind": "stiff",
+      "why": "“因我是女人就侮辱”半截不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01081",
+      "before": "“就这点本事就退下！\\n　打也是白费！”",
+      "after": "“这点本事就给我退下！\\n　打也是白费！”",
+      "kind": "stiff",
+      "why": "“就…就退下”叠用拗口，命令语气弱",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:01094",
+      "before": "“不愧是特异点…！\\n　看来我出场是有意义的！”",
+      "after": "“不愧是特异点…！\\n　看来我出击是有意义的！”",
+      "kind": "stiff",
+      "why": "出た指出击，“出场”像登台",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23380",
+      "before": "“对啊，莉露！一起去吧！”",
+      "after": "“对啊，莉露！一起上吧！”",
+      "kind": "stiff",
+      "why": "出击喊话，去吧像出门",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23489",
+      "before": "“后面交给我们！”",
+      "after": "“剩下的交给我们！”",
+      "kind": "stiff",
+      "why": "後は指接下来，后面易读成后方",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23491",
+      "before": "“桑德曼！后面交给我了！”",
+      "after": "“桑德曼！剩下的交给我！”",
+      "kind": "stiff",
+      "why": "後は指接下来，后面易读成后方",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23505",
+      "before": "“这样会被狙击的，\\n　斗牙先生！”",
+      "after": "“斗牙先生，这样下去\\n　会被当成靶子打的！”",
+      "kind": "voice",
+      "why": "去掉先生，与莉露定稿句一致",
+      "edited": true,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23529",
+      "before": "“是！\\n　斗牙先生请集中攻击！”",
+      "after": "“是！斗牙先生，\\n　请专心攻击！”",
+      "kind": "voice",
+      "why": "去先生；集中攻击易读成集火",
+      "edited": true,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23532",
+      "before": "“红之牙无法被粉碎！”",
+      "after": "“红之牙是粉碎不了的！”",
+      "kind": "stiff",
+      "why": "无法被粉碎是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23536",
+      "before": "“不行！抓不住……！”",
+      "after": "“不行！捕捉不到……！”",
+      "kind": "stiff",
+      "why": "捉えきれない指锁不住敌人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23553",
+      "before": "“要保护地球不受那家伙侵害……！\\n　绝不能倒下！”",
+      "after": "“要从那家伙手中守住地球……！\\n　绝不能倒下！”",
+      "kind": "stiff",
+      "why": "保护…不受…侵害太书面",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23646",
+      "before": "“或、或许不行了……”",
+      "after": "“可、可能不行了……”",
+      "kind": "stiff",
+      "why": "或、或许不像慌乱时的口语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23680",
+      "before": "“被乐园放逐的天使吗……\\n　光说倒是挺浪漫的”",
+      "after": "“被乐园放逐的天使吗……\\n　字面上倒是挺浪漫的”",
+      "kind": "stiff",
+      "why": "言葉だけは指说法本身，光说有歧义",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23684",
+      "before": "“如果手下留情，\\n　我们这边也不会平安无事……！”",
+      "after": "“要是手下留情，\\n　我们也会有危险……！”",
+      "kind": "stiff",
+      "why": "不会平安无事是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23760",
+      "before": "“G战影驾驶舱。\\n　集中前方敌机，别管周围”",
+      "after": "“G战影驾驶舱。\\n　专心对付前方敌机，别管周围”",
+      "kind": "stiff",
+      "why": "集中前方敌机缺动词，读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23785",
+      "before": "“不愧是媚月大人！\\n　真是工作热心！”",
+      "after": "“不愧是媚月大人！\\n　真是敬业！”",
+      "kind": "stiff",
+      "why": "工作热心是日文照搬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23808",
+      "before": "“不、不行！操作系统\\n　出了一大堆错误！”",
+      "after": "“不、不行！操纵系统\\n　出了一大堆错误！”",
+      "kind": "mistranslation",
+      "why": "操作系統是操纵系统，非电脑OS",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:23827",
+      "before": "“竟然忘了确认库存…\\n　作为女仆失格了…”",
+      "after": "“竟然忘了确认库存…\\n　我不配当女仆…”",
+      "kind": "stiff",
+      "why": "作为女仆失格了是日文照搬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07777",
+      "before": "“创星机的力量，用身体接招吧！”",
+      "after": "“创星机的力量，就请你亲身领教！”",
+      "kind": "stiff",
+      "why": "“用身体接招”是逐字硬译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07781",
+      "before": "“下次一定要打倒…！”",
+      "after": "“这次一定要打倒你…！”",
+      "kind": "mistranslation",
+      "why": "再攻击时「次こそ」指眼下这一击",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07839",
+      "before": "“不能抹杀人类的希望！”",
+      "after": "“人类的希望绝不能熄灭！”",
+      "kind": "mistranslation",
+      "why": "援护防御，“抹杀”像自己动手",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07848",
+      "before": "“打乱统制！”",
+      "after": "“打乱他们的阵脚！”",
+      "kind": "stiff",
+      "why": "“打乱统制”不成话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07860",
+      "before": "“回避成功吗。\\n　那就进入下一步行动吧”",
+      "after": "“回避成功了。\\n　那就进入下一步行动吧”",
+      "kind": "stiff",
+      "why": "「か」是自我确认，不是疑问",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07907",
+      "before": "“杰诺赛德隆系统之类，\\n　世上不需要！”",
+      "after": "“杰诺赛德隆系统这种东西，\\n　这世上根本不需要！”",
+      "kind": "stiff",
+      "why": "“之类，世上不需要”生硬无力",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07923",
+      "before": "“与杰诺赛德隆系统\\n　相同的存在这里也有吗！”",
+      "after": "“这里也有\\n　和杰诺赛德隆系统一样的东西吗！”",
+      "kind": "stiff",
+      "why": "日文语序，读着别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07927",
+      "before": "“我们这边有领域！”",
+      "after": "“我们这边有力场！”",
+      "kind": "mistranslation",
+      "why": "フィールド是防护力场，非“领域”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14896",
+      "before": "“绝不能输给你！\\n　连露菲拉都救不了的你！！”",
+      "after": "“唯独不会败给你！\\n　连露菲拉都救不了的你！！”",
+      "kind": "omission",
+      "why": "漏了「だけは」的唯独",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15289",
+      "before": "“我要战胜斗牙……桑德曼！”",
+      "after": "“我要战胜斗牙……战胜桑德曼！”",
+      "kind": "stiff",
+      "why": "原句像并列漏字，补上动词",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15299",
+      "before": "“以此\\n　为与泽拉拜亚的战斗画上句号！”",
+      "after": "“就此为泽拉拜亚之战\\n　画上句号！”",
+      "kind": "stiff",
+      "why": "“以此为与…的”助词堆叠",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15333",
+      "before": "“捕捉敌机！集中攻击！”",
+      "after": "“捕捉到敌机！集中攻击！”",
+      "kind": "stiff",
+      "why": "是报告已捕捉，不是命令",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:15366",
+      "before": "“泽拉拜亚…！\\n　我绝不会被你们打倒…！”",
+      "after": "“泽拉拜亚…！\\n　唯独你们休想打倒我…！”",
+      "kind": "omission",
+      "why": "漏了「だけには」的唯独",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00005",
+      "before": "“你来了啊！”",
+      "after": "“跑到那儿了吗！”",
+      "kind": "tone",
+      "why": "“你来了啊”像打招呼，不像开火前的话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00046",
+      "before": "“只要瞄准的话！”",
+      "after": "“只要集中瞄准！”",
+      "kind": "stiff",
+      "why": "“只要…的话！”翻译腔，且漏了絞る",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18764",
+      "before": "“切，真吵的家伙！”",
+      "after": "“切，烦人的家伙！”",
+      "kind": "tone",
+      "why": "回避时的うるせぇ是嫌烦，不是嫌吵",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18772",
+      "before": "“呼呼呼呼，这就完了？\\n　别笑死人了！”",
+      "after": "“哼哼哼哼，这就完了？\\n　别笑死人了！”",
+      "kind": "stiff",
+      "why": "“呼呼呼呼”不是中文的笑声",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18805",
+      "before": "“破坏者！\\n　被多少钱雇来的！”",
+      "after": "“破坏者！\\n　到底是多少钱雇来的！”",
+      "kind": "stiff",
+      "why": "“被多少钱雇来的”语序别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:18814",
+      "before": "“平民不能用\\n　两条腿的机器！”",
+      "after": "“平民别给我用\\n　两条腿的机器！”",
+      "kind": "tone",
+      "why": "使うんじゃねェ是喝令，不是陈述规定",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04209",
+      "before": "“扰乱运行图的家伙，我就碾碎你！”",
+      "after": "“谁扰乱运行图，我就碾碎谁！”",
+      "kind": "stiff",
+      "why": "“…的家伙，我就碾碎你”前后人称不接",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04267",
+      "before": "“被躲开吓到了？\\n　…就是这种敌人哦！”",
+      "after": "“被躲开吓到了？…\\n　我就是这种敌人哦！”",
+      "kind": "stiff",
+      "why": "缺主语，不知说谁",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05136",
+      "before": "“没兴趣了。快死吧”",
+      "after": "“没兴趣了。赶紧去死吧”",
+      "kind": "tone",
+      "why": "さっさと死ね力度偏软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05137",
+      "before": "“正因为是铁道王才能做到的事啊…！”",
+      "after": "“这可是只有铁道王才办得到的绝活…！”",
+      "kind": "stiff",
+      "why": "正因为…才能做到的事是翻译腔，芸当是绝活",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05158",
+      "before": "“既然你们也来到这个世界，\\n　就服从我的轨道”",
+      "after": "“既然你们也来到这个世界，\\n　就乖乖走我铺的轨道”",
+      "kind": "stiff",
+      "why": "服从我的轨道搭配生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05172",
+      "before": "“那家伙，选了安全策略吗…”",
+      "after": "“那家伙，求稳了吗…”",
+      "kind": "stiff",
+      "why": "选了安全策略是逐字硬译",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05186",
+      "before": "“不必在意的攻击”",
+      "after": "“这种攻击不值一提”",
+      "kind": "stiff",
+      "why": "不必在意的攻击是半截翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05193",
+      "before": "“雅邦那家伙，搞不清状况吗”",
+      "after": "“雅邦这帮人，搞不清状况吗”",
+      "kind": "mistranslation",
+      "why": "ヤーパン指雅邦一众，不是某个家伙",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:05210",
+      "before": "“打倒了我\\n　还要继续大逃亡吗！？”",
+      "after": "“你们想打倒我，\\n　把大逃亡继续下去吗！？”",
+      "kind": "mistranslation",
+      "why": "是质问对方的打算，现译像已被打倒",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03537",
+      "before": "“对健康好！尝尝吧！！”",
+      "after": "“对身体有好处！尝尝吧！！”",
+      "kind": "stiff",
+      "why": "“对健康好”生硬，不像喊话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03587",
+      "before": "“黑色南十字星的话另当别论，\\n　小鬼的话！”",
+      "after": "“黑色南十字星倒也罢了，\\n　一个小鬼哪行啊！”",
+      "kind": "stiff",
+      "why": "后半“小鬼的话！”是半截话，读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03595",
+      "before": "“振动波能变成屏障吗！”",
+      "after": "“振动波还能当屏障啊！”",
+      "kind": "tone",
+      "why": "屏障已生效，是感叹不是疑问",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03597",
+      "before": "“啊—啊…你惹火我了？”",
+      "after": "“啊—啊…你可把我惹火了哦？”",
+      "kind": "stiff",
+      "why": "“你惹火我了？”读成疑问，语气不对",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03601",
+      "before": "“好啦好啦！\\n　知道了就快回妈妈那儿去！”",
+      "after": "“好啦好啦！\\n　我知道了，快回妈妈那儿去吧！”",
+      "kind": "mistranslation",
+      "why": "わかったから是我明白了，非条件句",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06770",
+      "before": "“只要特务上尉能驾驭的话！”",
+      "after": "“既然特务上尉阁下都能驾驭！”",
+      "kind": "mistranslation",
+      "why": "であれば是“既然他能用”，非假设条件",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06113",
+      "before": "“成为真正之王的我的话…！”",
+      "after": "“如今我已是真正的王者…！”",
+      "kind": "stiff",
+      "why": "“的我的话”助词堆叠",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06114",
+      "before": "“能看穿…！\\n　超越自我的现在…！”",
+      "after": "“能看穿…！\\n　现在的我已经超越自我…！”",
+      "kind": "stiff",
+      "why": "“超越自我的现在”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06117",
+      "before": "“就算是圣雷根，\\n　对王者盖纳也！”",
+      "after": "“就算是圣雷根，\\n　也拿王者盖纳没办法！”",
+      "kind": "stiff",
+      "why": "“对王者盖纳也！”半截读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06205",
+      "before": "“我们也是王者盖纳！\\n　就算对手是超限人！”",
+      "after": "“我这边可是王者盖纳！\\n　就算对手是超限人！”",
+      "kind": "stiff",
+      "why": "“我们也是王者盖纳”不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06213",
+      "before": "“西伯铁！！”",
+      "after": "“西伯铁的家伙！！”",
+      "kind": "tone",
+      "why": "「が」的骂意没出来",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06218",
+      "before": "“连正式命令都没来吧，\\n　真奇怪啊！”",
+      "after": "“正式命令都还没下来吧，\\n　这太不对劲了！”",
+      "kind": "tone",
+      "why": "「おかしいですよ」是质问不是感叹",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06243",
+      "before": "“我没有大逃亡…！”",
+      "after": "“我才没有什么大逃亡…！”",
+      "kind": "tone",
+      "why": "「なんて」的不屑没出来",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06276",
+      "before": "“这就是你\\n　对同伴下手的方式！”",
+      "after": "“像这样对搭档下手，\\n　就是你的作风！”",
+      "kind": "stiff",
+      "why": "原句定语套叠，意思含糊",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06282",
+      "before": "“超限冻结没来得及\\n　吗！？他们的抵抗没减弱…！”",
+      "after": "“超限冻结跟不上吗！？\\n　他们的抵抗没有减弱…！”",
+      "kind": "stiff",
+      "why": "“吗”被甩到行首，且是跟不上",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06300",
+      "before": "“女…女人…！”",
+      "after": "“女人…女人这种东西…！”",
+      "kind": "tone",
+      "why": "「なんて」的嫌恶没出来",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07384",
+      "before": "“学学高富利队长……分身之术！”",
+      "after": "“学着高富利队长……分身之术！”",
+      "kind": "stiff",
+      "why": "是自己效仿队长，“学学”像在劝别人",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07397",
+      "before": "“辛西亚，真有你的！我也要！”",
+      "after": "“辛西亚，真有你的！我也来！”",
+      "kind": "stiff",
+      "why": "“我也要”读成想要东西，原意是我也上",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07429",
+      "before": "“切！\\n　这不是在玩啊，辛西亚！”",
+      "after": "“唔！这不是在玩啊，\\n　辛西亚！”",
+      "kind": "tone",
+      "why": "くっ是吃紧的闷哼，不是不屑的“切”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07432",
+      "before": "“我自认了解你们的套路！”",
+      "after": "“你们的套路我可是清楚的！”",
+      "kind": "stiff",
+      "why": "“我自认了解”书面腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07458",
+      "before": "“呜呜！你说这和游戏一样，\\n　辛西亚！？”",
+      "after": "“唔！你说这和游戏一样，\\n　辛西亚！？”",
+      "kind": "tone",
+      "why": "挨重击的闷哼，“呜呜”像在哭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07503",
+      "before": "“就算昔日同伴…！”",
+      "after": "“就算对手是昔日同伴…！”",
+      "kind": "stiff",
+      "why": "现译缺“对手是”，半截话读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07510",
+      "before": "“好啊，辛西亚！\\n　让它们见识见识！”",
+      "after": "“好啊，辛西亚！\\n　让他们见识见识！”",
+      "kind": "stiff",
+      "why": "对敌人用“它们”别扭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06363",
+      "before": "“课外活动，辛苦了！”",
+      "after": "“课外教学，辛苦了！”",
+      "kind": "mistranslation",
+      "why": "授業是授课，对象是教师阿蒂特",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06394",
+      "before": "“哦！那可不会让你得逞！”",
+      "after": "“哎哟！那可不会让你得逞！”",
+      "kind": "tone",
+      "why": "おっと不宜用“哦！”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06409",
+      "before": "“你那边的习惯我可没忘！”",
+      "after": "“你的老习惯我可没忘！”",
+      "kind": "stiff",
+      "why": "“你那边的习惯”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06459",
+      "before": "“混进西伯铁也要瞄准我吗，\\n　阿斯哈姆！”",
+      "after": "“不惜混进西伯铁也要追着我吗，\\n　阿斯哈姆！”",
+      "kind": "stiff",
+      "why": "狙う是盯上追杀，“瞄准我”生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:06474",
+      "before": "“雇主是西伯铁吗…\\n　真不想增加工作量啊”",
+      "after": "“雇主是西伯铁吗…\\n　可别给我增加工作量啊”",
+      "kind": "mistranslation",
+      "why": "是希望对方别添活，主语偏了",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16365",
+      "before": "“果然你很厉害啊，盖纳！”",
+      "after": "“你果然厉害啊，盖纳！”",
+      "kind": "stiff",
+      "why": "“果然你很厉害”语序翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16407",
+      "before": "“什么啊，那是！\\n　小看我们吗！”",
+      "after": "“那算什么啊！\\n　小看我们吗！”",
+      "kind": "stiff",
+      "why": "“什么啊，那是”照搬日文倒装",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:16409",
+      "before": "“哈，敢对贝罗大人出手…！\\n　…好痛，咬到了！”",
+      "after": "“哈，敢对贝罗大人出手…！\\n　好痛，咬到舌头了！”",
+      "kind": "stiff",
+      "why": "“咬到了”不知咬到什么，补明舌头",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08791",
+      "before": "“呀！打中了打中了！”",
+      "after": "“太好了！打中了打中了！”",
+      "kind": "mistranslation",
+      "why": "やたっ是欢呼，不是惊叫“呀”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08802",
+      "before": "“如果你还在那里的话！”",
+      "after": "“既然你还待在那儿！”",
+      "kind": "stiff",
+      "why": "“如果…的话”翻译腔，原意为既然",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08820",
+      "before": "“主力是队长的攻击！”",
+      "after": "“虽说重头戏是队长的攻击！”",
+      "kind": "omission",
+      "why": "漏了だけど的转折",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08825",
+      "before": "“肌肉引擎\\n　坏掉了吗！？”",
+      "after": "“肌肉引擎\\n　没劲儿了吗！？”",
+      "kind": "mistranslation",
+      "why": "ヘタる是没劲，EN不足并非坏掉",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08828",
+      "before": "“什么！？从哪攻击的！？”",
+      "after": "“什么！？从哪儿打过来的！？”",
+      "kind": "stiff",
+      "why": "“从哪攻击的”不像口语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08830",
+      "before": "“呀！很危险啊！”",
+      "after": "“呀！多危险啊！”",
+      "kind": "stiff",
+      "why": "“很危险啊”平板，原句是抱怨",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08834",
+      "before": "“就是太天真了！”",
+      "after": "“所以说你太天真了！”",
+      "kind": "stiff",
+      "why": "缺主语，半截话读不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08896",
+      "before": "“嘛，失败了就推给凯吉南……”",
+      "after": "“反正失败了就推给凯吉南……”",
+      "kind": "stiff",
+      "why": "句首“嘛”是日语腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08900",
+      "before": "“姐姐大人！会打中的！”",
+      "after": "“姐姐大人！会被打中的！”",
+      "kind": "mistranslation",
+      "why": "援护防御，是对方要挨打，缺被动",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:08907",
+      "before": "“喂！？没子弹了！？”",
+      "after": "“咦！？没子弹了！？”",
+      "kind": "mistranslation",
+      "why": "いいっ是惊愕声，不是招呼人的“喂”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10656",
+      "before": "“难得这么真实，\\n　要比游戏更好玩才行啊！”",
+      "after": "“难得是来真的，\\n　要比游戏更好玩才行啊！”",
+      "kind": "mistranslation",
+      "why": "リアル指现实实战，不是“很真实”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10659",
+      "before": "“瞧~慢吞吞的话！”",
+      "after": "“瞧~谁叫你慢吞吞的！”",
+      "kind": "stiff",
+      "why": "“慢吞吞的话！”半截话不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10721",
+      "before": "“一对一我可不会落后！”",
+      "after": "“一对一我可不会输！”",
+      "kind": "stiff",
+      "why": "遅れをとる是落败，非落后",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10746",
+      "before": "“雅邦忍法！…合适吗？”",
+      "after": "“雅邦忍法！…适合我吗？”",
+      "kind": "stiff",
+      "why": "似合う问的是适不适合自己",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10765",
+      "before": "“哼！讨厌的家伙！”",
+      "after": "“唔！讨厌的家伙！”",
+      "kind": "tone",
+      "why": "挨重击的闷哼，不是冷哼",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10808",
+      "before": "“不行…不好好逃的话…”",
+      "after": "“不行哦…得好好逃才行…”",
+      "kind": "stiff",
+      "why": "ないと是“得…才行”，现译半截",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:10839",
+      "before": "“不管了。超限恶魔在生气…”",
+      "after": "“我可不管哦。超限恶魔生气了…”",
+      "kind": "tone",
+      "why": "知らないよ是后果自负，非放弃",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00463",
+      "before": "“做好埋骨西伯利亚的觉悟！”",
+      "after": "“我已有埋骨西伯利亚的觉悟！”",
+      "kind": "mistranslation",
+      "why": "是自己的决心，现译像命令对方",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00467",
+      "before": "“看哪里！我在这里！”",
+      "after": "“往哪儿看呢！我在这里！”",
+      "kind": "stiff",
+      "why": "“看哪里！”不像喝问",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00486",
+      "before": "“既然冰封之门能打开，\\n　这种把戏也能做到吧哦哦哦！！”",
+      "after": "“既然冰封之门能打开，\\n　这种把戏自然也办得到——！！”",
+      "kind": "stiff",
+      "why": "“做到吧哦哦哦”拗口",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00497",
+      "before": "“对扎奇来说，算是很有觉悟了！”",
+      "after": "“以扎奇来说，算是很有觉悟了！”",
+      "kind": "stiff",
+      "why": "にしては是“就他而言”，非“对他来说”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00499",
+      "before": "“外行集团\\n　至少能当个牵制角色了…！”",
+      "after": "“一群外行\\n　好歹也起到牵制作用了吗…！”",
+      "kind": "stiff",
+      "why": "“外行集团”“牵制角色”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00512",
+      "before": "“我来当牵制角色！”",
+      "after": "“牵制就由我来！”",
+      "kind": "stiff",
+      "why": "“当牵制角色”翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00521",
+      "before": "“浪费时间…真不快…！”",
+      "after": "“浪费时间…真让人不快…！”",
+      "kind": "stiff",
+      "why": "“真不快”不成话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00536",
+      "before": "“只要熟练运用多米尼达的\\n　超限技的话！”",
+      "after": "“只要把多米尼达的\\n　超限技运用自如！”",
+      "kind": "stiff",
+      "why": "“只要…的话！”悬着读不顺",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00547",
+      "before": "“超限感应会让神经刺痛……\\n　就是这么回事吧！”",
+      "after": "“超限感应会让人神经焦躁……\\n　就是这么回事吧！”",
+      "kind": "mistranslation",
+      "why": "ささくれさせる是让神经毛躁，非刺痛",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00564",
+      "before": "“咕！\\n　你这慢吞吞的长毛象以下的野蛮人！”",
+      "after": "“咕！你这野蛮人，\\n　连迟钝的长毛象都不如！”",
+      "kind": "stiff",
+      "why": "“长毛象以下”是日文照搬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00568",
+      "before": "“算了吧算了吧，事到如今做什么\\n　超冻结也无法挽回了！”",
+      "after": "“算了吧算了吧，事到如今做什么\\n　都奈何不了超限冻结！”",
+      "kind": "mistranslation",
+      "why": "是对超限冻结无可奈何；译名缺“限”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00580",
+      "before": "“要不是这多米尼达\\n　就变成海底藻屑了……！”",
+      "after": "“要不是这多米尼达\\n　早就粉身碎骨了……！”",
+      "kind": "stiff",
+      "why": "“海底藻屑”照搬日文，中文无此说法",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00586",
+      "before": "“异邦人！\\n　这西伯利亚不会让你们为所欲为！”",
+      "after": "“异邦人！\\n　休想在这西伯利亚为所欲为！”",
+      "kind": "stiff",
+      "why": "现译主语成了西伯利亚，不通",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00591",
+      "before": "“你也有恶魔的能量\\n　吧啊啊！”",
+      "after": "“你不也有\\n　恶魔的能量吗——！”",
+      "kind": "stiff",
+      "why": "“吧啊啊”拗口，だろうが是反诘",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00614",
+      "before": "“唉！浪费太多子弹了吗！”",
+      "after": "“啧！浪费太多子弹了吗！”",
+      "kind": "tone",
+      "why": "ええい是恼火，不是叹气的“唉”",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00863",
+      "before": "“哦！怎么可能放过你！”",
+      "after": "“哎哟！怎么可能放过你！”",
+      "kind": "tone",
+      "why": "おっと是拦人的口气，“哦”太平",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00892",
+      "before": "“队长的命令！开始攻击！”",
+      "after": "“队长大人的命令！开始攻击！”",
+      "kind": "tone",
+      "why": "自称“队长大人”的得意劲漏了",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00908",
+      "before": "“哼，\\n　西伯利亚铁路的质量也下降了啊…”",
+      "after": "“哼，西伯利亚铁路的水准\\n　也下降了啊…”",
+      "kind": "stiff",
+      "why": "说人的本事用“质量”不搭",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00916",
+      "before": "“没手感吧？那是幻觉！”",
+      "after": "“没手感吧？那叫幻影！”",
+      "kind": "mistranslation",
+      "why": "分身回避，幻是幻影不是幻觉",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00920",
+      "before": "“呜，盾牌都瘪了！”",
+      "after": "“呃，盾牌都要砸瘪了！”",
+      "kind": "tone",
+      "why": "うえっ是嫌弃，“呜”像哭腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00921",
+      "before": "“不熟练使用选装装备可不行”",
+      "after": "“选装装备总得用得顺手啊”",
+      "kind": "stiff",
+      "why": "“不熟练使用…可不行”书面腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00935",
+      "before": "“真讨厌…！\\n　不愧是运行部长的攻击方式！”",
+      "after": "“真阴险…！\\n　果然是运行部长的打法！”",
+      "kind": "tone",
+      "why": "嫌らしい是骂阴损，“真讨厌”太软",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00944",
+      "before": "“你干了什么好事，你这家伙！”",
+      "after": "“看你干的好事，你这家伙！”",
+      "kind": "stiff",
+      "why": "是责骂不是发问",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00946",
+      "before": "“哎呀！\\n　凯吉南那家伙马上就得意忘形！”",
+      "after": "“啧！凯吉南那家伙\\n　动不动就得意忘形！”",
+      "kind": "tone",
+      "why": "ええーい是恼火；すぐ是动不动就",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00947",
+      "before": "“这招是恩盖的吧！\\n　真是讨厌！”",
+      "after": "“这招是恩盖的吧！\\n　真够阴的！”",
+      "kind": "tone",
+      "why": "嫌らしい是骂阴损，与上句统一",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00954",
+      "before": "“咳，这什么样子！\\n　我居然被逼到这种地步！”",
+      "after": "“咳，真够狼狈的！\\n　我居然被逼到这种地步！”",
+      "kind": "stiff",
+      "why": "“这什么样子”不成话",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00968",
+      "before": "“哎呀，是启动干扰吗！？\\n　怪物…！！”",
+      "after": "“可恶，是启动干扰吗！？\\n　这怪物…！！”",
+      "kind": "tone",
+      "why": "ええい是恼火，“哎呀”太轻",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00975",
+      "before": "“真难看，\\n　叽叽喳喳歇斯底里的！”",
+      "after": "“真难看，\\n　尖着嗓子歇斯底里的！”",
+      "kind": "mistranslation",
+      "why": "キーキー是尖声叫，非叽叽喳喳",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00976",
+      "before": "“想随心所欲的话，\\n　去阴间做吧！”",
+      "after": "“想随心所欲的话，\\n　到阴间去折腾吧！”",
+      "kind": "stiff",
+      "why": "“去阴间做吧”生硬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00988",
+      "before": "“嘿嘿…！\\n　对手是贾博利的话轻松取胜！”",
+      "after": "“嘿嘿…！对手是贾博利，\\n　那就轻松了！”",
+      "kind": "stiff",
+      "why": "“的话轻松取胜”不像口语",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:00991",
+      "before": "“我可没把你养成这么没出息的男人！\\n　盖纳！”",
+      "after": "“我可没把你教成\\n　这么没出息的男人！盖纳！”",
+      "kind": "voice",
+      "why": "她是老师，“养成”像家长",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:03950",
+      "before": "“虽然不是忍法，但分身术！”",
+      "after": "“虽然不是忍法，看我分身术！”",
+      "kind": "stiff",
+      "why": "“但分身术”不成句",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04018",
+      "before": "“都是同型剪影机！\\n　力量没差别！”",
+      "after": "“同样是剪影机！\\n　力量没差别！”",
+      "kind": "mistranslation",
+      "why": "同じ指同为剪影机，非同型号",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:04022",
+      "before": "“真厉害……！\\n　连我的忍法都躲不过吗！”",
+      "after": "“真厉害……！\\n　用我的忍法也躲不开吗！”",
+      "kind": "stiff",
+      "why": "现译易读成对方躲不过我的忍法",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07279",
+      "before": "“虽然不觉得会有效…\\n　波士飞拳！！”",
+      "after": "“虽然觉得不怎么管用…\\n　波士飞拳！！”",
+      "kind": "stiff",
+      "why": "不觉得会有效是翻译腔",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07307",
+      "before": "“哎呀？打中什么了？”",
+      "after": "“哎呀？有东西打中我了吗？”",
+      "kind": "mistranslation",
+      "why": "被弹台词，现译像己方打中了什么",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07308",
+      "before": "“不用客气也没关系哦？”",
+      "after": "“用不着跟我客气哦？”",
+      "kind": "stiff",
+      "why": "不用…也没关系叠床架屋",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07311",
+      "before": "“戴安娜A，\\n　这种程度没问题！”",
+      "after": "“这点攻击，\\n　戴安娜A还扛得住！”",
+      "kind": "stiff",
+      "why": "现译像在对机体喊话，原文是说它扛得住",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:07335",
+      "before": "“呸，打不中的！”",
+      "after": "“略~，打不中的！”",
+      "kind": "tone",
+      "why": "べーだ是吐舌头做鬼脸，呸太粗",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22595",
+      "before": "“嘛，就算打中了\\n　魔神Z也没事就是了”",
+      "after": "“不过，就算打中了\\n　魔神Z也没事就是了”",
+      "kind": "stiff",
+      "why": "句首嘛是日语ま的硬搬",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:22639",
+      "before": "“去你的！\\n　少来这套！”",
+      "after": "“去你的！\\n　给我滚远点！”",
+      "kind": "mistranslation",
+      "why": "おととい来やがれ是叫对方滚、别再来",
+      "edited": false,
+      "source": "plain"
+    },
+    {
+      "id": "battle:14873",
+      "before": "“你们阻止不了\\n　我的泽拉拜亚”",
+      "after": "“你们阻止不了\\n　我的泽拉维昂”",
+      "kind": "mistranslation",
+      "why": "原文是修基座机泽拉维昂，现译写成敌方总称泽拉拜亚",
+      "edited": false,
+      "source": "note"
+    },
+    {
+      "id": "battle:04062",
+      "before": "“分身是日本忍者的专利！”",
+      "after": "“分身是雅邦忍者的专利！”",
+      "kind": "mistranslation",
+      "why": "ヤーパン他处均作雅邦",
+      "edited": false,
+      "source": "note"
+    },
+    {
+      "id": "battle:13548",
+      "before": "“差点打中要害！”",
+      "after": "“专往要命的地方打！”",
+      "kind": "mistranslation",
+      "why": "大伤害时已被打中，“差点”读成没中",
+      "edited": false,
+      "source": "note"
+    },
+    {
+      "id": "battle:16269",
+      "before": "“嗯？\\n　T-Bone，刚才打中什么了吗？”",
+      "after": "“嗯？\\n　T-Bone，刚才被什么打中了吗？”",
+      "kind": "mistranslation",
+      "why": "被弹时问是否挨了一下，现译像己方打中了东西",
+      "edited": false,
+      "source": "note"
+    },
+    {
+      "id": "battle:04738",
+      "before": "“住手，真！\\n　那样连你自己也走向毁灭的！”",
+      "after": "“住手，真！\\n　那样连你自己也会走向毁灭的！”",
+      "kind": "omission",
+      "why": "漏“会”字，句子不通",
+      "edited": false,
+      "source": "note-reviewed",
+      "evidence": "审阅意见的文本本身带了笔误或残留符号，只修这一处：漏“会”字，句子不通"
+    },
+    {
+      "id": "battle:04746",
+      "before": "“蕾柯亚小姐，你不明白西罗克很危险吗！？\\n　”",
+      "after": "“蕾柯亚小姐，你不明白西罗克很危险吗！？”",
+      "kind": "omission",
+      "why": "去掉句尾残留的空第二行",
+      "edited": false,
+      "source": "note-reviewed",
+      "evidence": "审阅意见的文本本身带了笔误或残留符号，只修这一处：去掉句尾残留的空第二行"
+    },
+    {
+      "id": "battle:23340",
+      "before": "“一下决出胜负！·\\n　终极豪烈特攻！”",
+      "after": "“一下决出胜负！\\n　终极豪烈特攻！”",
+      "kind": "omission",
+      "why": "去掉第一行末尾残留的间隔号",
+      "edited": false,
+      "source": "note-reviewed",
+      "evidence": "审阅意见的文本本身带了笔误或残留符号，只修这一处：去掉第一行末尾残留的间隔号"
+    },
+    {
+      "id": "battle:24528",
+      "before": "“我们可是被你彻头彻尾的骗了啊！”",
+      "after": "“我们可是被你彻头彻尾地骗了啊！”",
+      "kind": "omission",
+      "why": "错字：的→地",
+      "edited": false,
+      "source": "note-reviewed",
+      "evidence": "审阅意见的文本本身带了笔误或残留符号，只修这一处：错字：的→地"
+    },
+    {
+      "id": "battle:02569",
+      "before": "“就这水平只会让你死的更快！”",
+      "after": "“就这水平只会让你死得更快！”",
+      "kind": "omission",
+      "why": "错字：的→得",
+      "edited": false,
+      "source": "note-reviewed",
+      "evidence": "审阅意见的文本本身带了笔误或残留符号，只修这一处：错字：的→得"
+    },
+    {
+      "id": "battle:05243",
+      "before": "“呃！\\n　这、再这样下去…到极限了吗！？”",
+      "after": "“呃！\\n　这、这样下去…到极限了吗！？”",
+      "kind": "stiff",
+      "why": "结巴前后字不一致",
+      "edited": false,
+      "source": "note"
+    },
+    {
+      "id": "battle:11915",
+      "before": "“切！\\n　虽然遗憾，但我要脱离战线！”",
+      "after": "“唔！\\n　虽然遗憾，但我要脱离战线！”",
+      "kind": "tone",
+      "why": "くっ是吃痛，与同人物 11902 一致",
+      "edited": false,
+      "source": "note"
+    },
+    {
+      "id": "battle:13920",
+      "before": "“哦哦！\\n　可不能让你跑了！”",
+      "after": "“哎哟！\\n　可不能让你跑了！”",
+      "kind": "tone",
+      "why": "おおっと是拦人口气，与同人物 13988 一致",
+      "edited": false,
+      "source": "note"
+    },
+    {
+      "id": "battle:12423",
+      "before": "“吃Hyper Boil！”",
+      "after": "“尝尝Hyper Boil吧！”",
+      "kind": "stiff",
+      "why": "“吃Hyper Boil！”不成句",
+      "edited": false,
+      "source": "note"
+    },
+    {
+      "id": "battle:10463",
+      "before": "“不愧是FAITH\\n　成员吗”",
+      "after": "“该说不愧是FAITH吗”",
+      "kind": "tone",
+      "why": "带刺的反问，现译像在问身份",
+      "edited": false,
+      "source": "note"
+    }
+  ],
+  "skipped": []
+}
