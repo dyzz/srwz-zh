@@ -32,7 +32,8 @@ class IntegratedPayloadTests(unittest.TestCase):
    payload,patches,report=build_payload(self.registry,edition,scene_dispatch=True)
    ranges=sorted((s['address'],s['address']+s['size']) for s in report['sections'])
    for (_,end),(start,_) in zip(ranges,ranges[1:]):self.assertLessEqual(end,start)
-   self.assertEqual(len({CJK_NATIVE[s] for s in SCENES[edition]}),8 if edition in ('original','best') else 7)
+   self.assertEqual(len({CJK_NATIVE[s] for s in SCENES[edition]}),8)
+   self.assertEqual('sp_story_map' in SCENES[edition],edition=='sp')
    self.assertEqual({r['scene'] for r in report['routes']},set(SCENES[edition]))
    self.assertEqual(len({p[0] for p in patches}),len(patches))
    for name in SCENES[edition]:

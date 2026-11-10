@@ -27,7 +27,16 @@ for domain,height in BODY_HEIGHTS.items():
  name='library_'+domain;p=profiles[name];step=p.default_advance_px
  scenes[name]=dict(id=name,profileId=name,kind='prose',width=step,height=height,step=step,lineStep=12 if domain=='robot' else 14,columns=p.maximum_width,widthPx=p.maximum_width*step,maxLines=None,continuationIndent='',compact=dict(width=14,space=12,letter=11 if domain=='robot' else 12,digit=10 if domain=='robot' else 11,restore_width=step,restore_space=step,restore_height=height),protectedTerms=[],packing=prose_policy['packing'],protectWords=prose_policy['protect_words'],widthSelection=prose_policy['width_selection'],widthSelectionExtraLines=prose_policy['maximum_extra_lines'])
 for name,variant in overrides['variants'].items():
- scenes[name]=dict(scenes[variant['base']],id=name,columns=variant['columns'],widthPx=variant['columns']*scenes[variant['base']]['step'])
+ base=scenes[variant['base']]
+ step=variant.get('step',base['step'])
+ width_px=variant['width_px'] if 'width_px' in variant else variant['columns']*step
+ scenes[name]=dict(base,id=name,columns=width_px//step,widthPx=width_px)
+ if 'width' in variant:
+  width,height=variant['width'],variant['height']
+  scenes[name].update(width=width,height=height,step=step,compact=dict(base['compact'],
+      restore_width=width,restore_space=step,restore_height=height),
+      trailingPunctuationPx=variant['trailing_punctuation_px'],
+      preserveAuthoredRows=variant['preserve_authored_rows'])
 files=[P,N,R/overrides['evidence'],proof,R/'tools/srwz/compact_scopes.py',R/'tools/srwz/library_typography.py',R/'tools/srwz/control_layout.py',R/'tools/srwz/text.py']
 files += [R/'config/text-layout'/name for name in sorted({name for profile in json.loads(P.read_text())['profiles'].values() for name in profile.get('unbroken_terms_files',[])})]
 d=dict(schemaVersion=1,scenes=scenes,resourceSceneOverrides={resource:name for name,v in overrides['variants'].items() for resource in v['resource_ids']},controls=CONTROL_NOTATION.pattern.replace(r'\A','^'),compactCharacters=VISIBLE,forbiddenStart=''.join(sorted(FORBIDDEN_LINE_START_CHARACTERS)),forbiddenEnd=''.join(sorted(FORBIDDEN_LINE_END_CHARACTERS)),sources={str(p.relative_to(R)):hashlib.sha256(p.read_bytes()).hexdigest()for p in files})

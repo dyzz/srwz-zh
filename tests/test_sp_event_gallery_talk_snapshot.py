@@ -22,16 +22,19 @@ class TalkSnapshotTests(unittest.TestCase):
         scenes = copy.deepcopy(self.scenes)
         record = next(r for d in scenes.values() for sec in d['sections']
                       for r in sec['records'] if 'text' in r)
-        # Fits the 483px conversation box, but exceeds the 420px map box.
-        record['text'] = '中' * 21
-        with self.assertRaisesRegex(ValueError, 'story_map geometry'):
+        # An authored three-row card cannot add the break its wide row needs.
+        record['text'] = '中' * 22 + '\n原有第二行\n原有第三行'
+        with self.assertRaisesRegex(ValueError, 'Authored row exceeds the map box'):
             encode_talk(scenes, Path('/unused-codebook'))
 
     def test_all_expanded_gallery_lines_fit_map_box(self):
-        from srwz.build_layout import verify_stored
-        rows = [(r['source']['id'], r['text'], False) for d in self.scenes.values()
+        from srwz.build_layout import fit_sp_map_dialogue, verify_stored
+        rows = [(r['source']['id'], r['text']) for d in self.scenes.values()
                 for sec in d['sections'] for r in sec['records'] if 'text' in r]
-        self.assertEqual(verify_stored(rows, 'story_map'), len(rows))
+        fitted = fit_sp_map_dialogue(rows)
+        self.assertEqual(verify_stored([(identity, text, False)
+                                       for (identity, _), text in zip(rows, fitted, strict=True)],
+                                      'sp_story_map'), len(rows))
 
     def test_text_and_speaker_edits_are_reported(self):
         scenes = copy.deepcopy(self.scenes)

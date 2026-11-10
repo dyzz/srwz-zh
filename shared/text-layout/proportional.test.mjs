@@ -2,7 +2,52 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {measure,center,layout,migrateCompact} from './proportional.mjs';
-import {measure as legacyMeasure} from './engine.mjs';
+import {measure as legacyMeasure, validate} from './engine.mjs';
+
+test('SP map dialogue uses pixel widths and reserves four pixels for final punctuation',()=>{
+ const scene='sp_story_map', options={typography:'proportional',chinesePunctuation:'compact'};
+ const mixed='“4分钟内击坠100架敌机，作战即告成功。”';
+ assert.equal(layout(mixed,scene).text,mixed);
+ assert.equal(measure('中'.repeat(21),scene).rows[0].occupiedPx,420);
+ const hanging='中'.repeat(19)+'20。';
+ const measured=validate(hanging,scene,options);
+ assert.equal(measured.rows[0].occupiedPx,424);
+ assert.equal(measured.rows[0].fitPx,420);
+ assert.equal(measured.valid,true);
+ assert.equal(layout(hanging,scene).text,hanging);
+ assert.equal(validate(hanging+'中',scene,options).valid,false);
+ assert.equal(validate('中'.repeat(20)+'20',scene,options).valid,false);
+ assert.equal(validate('中'.repeat(20)+'2。',scene,options).valid,false);
+});
+
+test('SP map wrapping adds breaks only inside the overflowing authored row',()=>{
+ const scene='sp_story_map', short='　原有断行。';
+ const manual='　第一句。\n'+short;
+ assert.equal(layout(manual,scene).text,manual);
+ const long='“'+ '中'.repeat(23);
+ const input=long+'\n'+short+'”';
+ const fitted=layout(input,scene).text;
+ assert.equal(fitted.split('\n').length,3);
+ assert.ok(fitted.endsWith('\n'+short+'”'));
+ assert.equal(fitted.replace('\n　',''),input);
+ assert.equal(layout(fitted,scene).text,fitted);
+ assert.throws(()=>layout(input+'\n尾句。',scene),{code:'overflow'});
+});
+
+test('SP map numeric templates reserve one unbreakable runtime slot',()=>{
+ const scene='sp_story_map';
+ for(const template of ['＜ｔｍ＞获得资金＜／ｔｍ＞','＜tm＞获得资金＜／tm＞','<tm>获得资金</tm>']){
+  const authored='“获得资金'+template+'！\n　目标达成！”';
+  const checked=layout(authored,scene);
+  assert.equal(checked.text,authored);
+  assert.equal(checked.rows[0].glyphs.find(g=>g.placeholder).width,160);
+  const long='“'+'中'.repeat(17)+template+'！目标达成！”';
+  const wrapped=layout(long,scene);
+  assert.ok(wrapped.rows.length>1);
+  assert.ok(wrapped.rows.some(row=>row.text.includes(template)));
+  assert.throws(()=>layout(authored.replace(template,template.replace('资金','\n　资金')),scene),{code:'owner_contract'});
+ }
+});
 
 test('tag-free measurement reproduces recorded ARMSX2 Side 3 draw geometry',()=>{
  const proof=JSON.parse(readFileSync(new URL('./fixtures/proportional-side3.json',import.meta.url)));

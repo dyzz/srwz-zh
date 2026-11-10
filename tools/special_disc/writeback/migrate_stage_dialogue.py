@@ -22,7 +22,8 @@ import migrate_slps_text as mst
 from stage_bindings import StageBindings, BindingError
 from stage_auxiliary import formation_groups, scalar_sites, write_formations
 from write_system_text import OVERLAY, overlay_member
-from srwz.build_layout import verify_stored,fit_story as fit_js_story,runtime_inputs,fit_candidate_stories,dialogue_scene
+from srwz.build_layout import (verify_stored, fit_story as fit_js_story, runtime_inputs,
+                               fit_candidate_stories, dialogue_scene, fit_sp_map_dialogue)
 from srwz.renderer_metrics import prime_text_extents
 from srwz.typography_policy import candidate_enabled
 from srwz import continuation_indent
@@ -31,7 +32,7 @@ from srwz.codec import DEFAULT_MAX_MATCH_CHAIN, DEFAULT_MIN_MATCH_LENGTH, decode
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from srwz.compact_scopes import expand as expand_compact_scopes
-from srwz.text import decode_text, normalize_original_fullwidth_ascii, encode_text, two_byte_visible_spaces
+from srwz.text import TM_DELIMITER, decode_text, normalize_original_fullwidth_ascii, encode_text, two_byte_visible_spaces
 from srwz.writers import repack_stage_texts_in_place
 from srwz.writeback import WritebackError
 
@@ -118,6 +119,7 @@ def check_unowned_bytes(before, after, regions, pointer_sites):
 
 def stored_stage_translation(text):
     """Keep logical Latin/digits and encode visible separators as two bytes."""
+    text = TM_DELIMITER.sub(lambda match: '＜／tm＞' if any(match.groups()) else '＜tm＞', text)
     return two_byte_visible_spaces(expand_compact_scopes(normalize_original_fullwidth_ascii(text)))
 
 
@@ -155,7 +157,8 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
         row = bindings.resolve(target, entry.kind, entry.text)
         text = stored_stage_translation(row["translation"])
         if uses_story_layout(entry, row):
-            if not candidate_enabled():text = fit_js_story(text, profile=profile).text
+            if not candidate_enabled() and dialogue_scene(entry.entry_id, edition='sp') == 'story':
+                text = fit_js_story(text, profile=profile).text
             row["layout"] = "story_dialogue"
         else:
             # Labels/conditions retain their explicit line structure, without dialogue indentation.
@@ -173,13 +176,16 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
             speakers[entry.speaker_id] = text
         else:
             replacements[entry.entry_id] = text
+    dialogue = [row for row in rows if row['layout'] == 'story_dialogue']
+    map_rows = [row for row in dialogue if dialogue_scene(row['native_id'], edition='sp') == 'sp_story_map']
+    story_rows = [row for row in dialogue if dialogue_scene(row['native_id'], edition='sp') == 'story']
+    for row, text in zip(map_rows, fit_sp_map_dialogue((row['native_id'], row['output_text']) for row in map_rows), strict=True):
+        row['output_text'] = replacements[row['native_id']] = text
     if candidate_enabled():
-        dialogue=[row for row in rows if row['layout']=='story_dialogue']
-        for row,text in zip(dialogue,fit_candidate_stories([row['output_text'] for row in dialogue],profile=profile,scenes=[dialogue_scene(row['native_id']) for row in dialogue])):
-            row['output_text']=text;replacements[row['native_id']]=text
-    for scene in ('story', 'story_map'):
-        verify_stored([(row['native_id'], row['output_text'], False) for row in rows
-                       if row['layout'] == 'story_dialogue' and dialogue_scene(row['native_id']) == scene], scene)
+        for row, text in zip(story_rows, fit_candidate_stories([row['output_text'] for row in story_rows], profile=profile), strict=True):
+            row['output_text'] = replacements[row['native_id']] = text
+    for scene, group in (('story', story_rows), ('sp_story_map', map_rows)):
+        verify_stored([(row['native_id'], row['output_text'], False) for row in group], scene)
     if candidate_enabled():
         # Reports keep corpus text; only the stored bytes carry the indent glyph.
         for row in rows:

@@ -11,6 +11,9 @@ const hex = n => n.toString(16).toUpperCase().padStart(2, '0');
 const safeHeight = n => n === 10 ? 0x8A : n;
 const controlRE = new RegExp(contracts.controls, 'y');
 const scopeRE = new RegExp(`<z>([${contracts.compactCharacters}]+)</z>`, 'y');
+const tmTagRE = /＜[／/]?[ｔt][ｍm]＞|<\/?tm>/;
+const tmScopeRE = /＜[ｔt][ｍm]＞[^＜＞\n]+＜[／/][ｔt][ｍm]＞|<tm>[^<>\n]+<\/tm>/y;
+const tmScopesRE = new RegExp(tmScopeRE.source, 'g');
 const nativeScopeRE = new RegExp('<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>(?:<height:[0-9A-Fa-f]{2}>)?' +
   '(?:[A-Za-z0-9Ａ-Ｚａ-ｚ０-９ .,:：．_\x27/／＋+％%~～〜×÷±＝=　－−·《》（）-]|<height:[0-9A-Fa-f]{2}>)+?' +
   '(?:<width:[0-9A-Fa-f]{2}><space:[0-9A-Fa-f]{2}>|<space:[0-9A-Fa-f]{2}><width:[0-9A-Fa-f]{2}>)(?:<height:[0-9A-Fa-f]{2}>)?', 'y');
@@ -82,9 +85,14 @@ export function expandCompact(text, sceneId, options = {}) {
   }
   return out;
 }
-function rejectDynamic(text) {
-  if (/＜\/?ｔｍ＞|<\/?tm>|^@[+-]?[0-9<]|\[[+-]?(?:[0-9]|<(?:color|width|height|space):)/.test(text))
+function rejectDynamic(text, scene) {
+  if (tmTagRE.test(text) && (scene?.id !== 'sp_story_map' || tmTagRE.test(text.replace(tmScopesRE, '')))
+      || /^@[+-]?[0-9<]|\[[+-]?(?:[0-9]|<(?:color|width|height|space):)/.test(text))
     fail('owner_contract', 'Dynamic template, repeat, or square parameter needs an owner-specific contract');
+}
+function mapNumberTemplate(text, scene, offset) {
+  return scene.id === 'sp_story_map' && (text[offset] === '＜' || text[offset] === '<')
+    ? match(tmScopeRE, text, offset)?.[0] : undefined;
 }
 function keywordSpans(text) {
   let open = -1; const spans = new Map();
@@ -99,11 +107,21 @@ function keywordSpans(text) {
   return spans;
 }
 function measureRow(text, scene, start, options, collectGlyphs = true) {
-  text = expandCompact(text, scene.id, options); rejectDynamic(text);
+  text = expandCompact(text, scene.id, options); rejectDynamic(text, scene);
   if (/[\r\n]/.test(text)) fail('input', 'Row measurement accepts one physical row');
   if (options.keywordLinks) keywordSpans(text);
   let state = { ...start }, x = 0, right = 0, i = 0; const glyphs = [];
   while (i < text.length) {
+    const template = mapNumberTemplate(text, scene, i);
+    if (template) {
+      // Reserve the full native advance for the formatter’s eight digits, including fallback drawing.
+      const advance = 8 * scene.step;
+      if (collectGlyphs) glyphs.push({text:template, x, width:advance, height:state.height, advance, yOffset:0, baselineResidual16:0, placeholder:true});
+      x += advance;
+      right = Math.max(right, x);
+      i += template.length;
+      continue;
+    }
     const m = match(controlRE, text, i);
     if (m) {
       const token = m[0], dim = /^<(width|space|height):([0-9A-Fa-f]{2})>$/.exec(token);
@@ -137,6 +155,15 @@ function measureRow(text, scene, start, options, collectGlyphs = true) {
   }
   return { text, advancePx: x, occupiedPx: Math.max(x, right), glyphs, state };
 }
+function fitWidth(row, scene) {
+  const last = row.glyphs.at(-1);
+  if (!scene.trailingPunctuationPx || !last || !'，。、；：？！…”’）》】'.includes(last.text)) return row.occupiedPx;
+  let bodyEdge = row.advancePx - last.advance;
+  for (const glyph of row.glyphs.slice(0, -1)) {
+    if (glyph.text !== ' ' && glyph.text !== '　') bodyEdge = Math.max(bodyEdge, glyph.x + glyph.width);
+  }
+  return Math.max(bodyEdge, row.occupiedPx - scene.trailingPunctuationPx);
+}
 export function measure(text, sceneId, options = {}) {
   const scene = effectiveScene(sceneId,options); checkOptions(options,scene); text = normalize(text);
   if (options.escapedNewlines) text = text.replace(/\\n/g, '\n');
@@ -154,6 +181,7 @@ export function measure(text, sceneId, options = {}) {
       for (const glyph of row.glyphs.slice(1)) glyph.x -= delta;
       row.advancePx -= delta; row.occupiedPx -= delta;
     }
+    if (scene.trailingPunctuationPx) row.fitPx = fitWidth(row, scene);
     return row;
   });
   return { scene: scene.id, rows, state, ...(options.typography==='proportional'?{fontSha256:proportionalFontSha256}:{}) };
@@ -195,14 +223,16 @@ function controlledTerms(text, termIndex, options) {
   return result;
 }
 function tokensFor(text, scene, startState, options) {
-  rejectDynamic(text); const terms = termsFor(scene, options.protectedTerms);
+  rejectDynamic(text, scene); const terms = termsFor(scene, options.protectedTerms);
   const links = options.keywordLinks ? keywordSpans(text) : new Map();
   const controlled=controlledTerms(text,terms,options);
   const tokens=[]; let offset=0, state={...startState}, pending='', pendingBefore=null;
   while(offset<text.length) {
     let value='', atomic=false;
+    const template=mapNumberTemplate(text,scene,offset);
     const scope=match(scopeRE,text,offset), native=match(nativeScopeRE,text,offset), control=match(controlRE,text,offset);
-    if(controlled.has(offset)){value=controlled.get(offset);atomic=true;}
+    if(template){value=template;atomic=true;}
+    else if(controlled.has(offset)){value=controlled.get(offset);atomic=true;}
     else if(scope) {value=scope[0];atomic=true;}
     else if(native) {value=native[0];atomic=true;}
     else if(links.has(offset)){value=links.get(offset);atomic=true;}
@@ -223,7 +253,7 @@ function tokensFor(text, scene, startState, options) {
     }
     const before=pendingBefore||{...state}; const extent=measureRow(value,scene,state,options,false);state=extent.state;offset+=value.length;
     if(!extent.advancePx){pendingBefore=before;pending+=value;continue;}
-    const token={text:pending+value,advance:extent.advancePx,occupied:extent.occupiedPx,before,after:{...state},atomic,visible:visible(value)};
+    const token={text:pending+value,advance:extent.advancePx,occupied:extent.occupiedPx,before,after:{...state},atomic,visible:template?'名':visible(value)};
     pending='';pendingBefore=null;
     if(token.occupied>scene.widthPx && !atomic && Array.from(value).length>1) {
       tokens.push(...tokensFor(value,scene,before,{...options,protectWords:false,[splitIdentifierKey]:true}));
@@ -237,22 +267,24 @@ function legal(tokens,end,scene) {
   const left=Array.from(tokens[end-1].visible).at(-1), right=Array.from(tokens[end].visible)[0];
   // A generated prose continuation must not turn an internal separator into
   // an authored paragraph indent on the next formatting pass.
-  if(scene?.kind==='prose'&&(right===' '||right==='　'))return false;
+  if((scene.kind==='prose'||scene.preserveAuthoredRows)&&(right===' '||right==='　'))return false;
   return !contracts.forbiddenEnd.includes(left||'\0')&&!contracts.forbiddenStart.includes(right||'\0');
 }
-function partition(text,scene,options,firstIndent='',continuationIndent='',exactRows=null,maxRows=scene.maxLines) {
+function partition(text,scene,options,firstIndent='',continuationIndent='',exactRows=null,maxRows=scene.maxLines,authored=null) {
   const start=options.initialState||initial(scene), tokens=tokensFor(text,scene,start,options), n=tokens.length;
   if(!n)return [firstIndent];
   if(n>6000)fail('complexity','Too many layout tokens');
   const prefix=[0];for(const t of tokens)prefix.push(prefix.at(-1)+t.advance);
-  const narrowIndent=continuationIndent==='　'?openerIndent(firstIndent+text,scene,options):null;
+  const narrowIndent=authored?authored.narrowIndent:continuationIndent==='　'?openerIndent(firstIndent+text,scene,options):null;
+  const measureRanges=options.typography==='proportional'||scene.trailingPunctuationPx;
   const cache=options[rangeCacheKey],cacheId=JSON.stringify([scene.id,tokens.map(t=>t.text),start]);
   if(cache&&!cache.has(cacheId))cache.set(cacheId,new Map());
   const widths=cache?.get(cacheId);
-  const range=(a,b)=>{if(options.typography==='proportional'){
+  const range=(a,b)=>{if(measureRanges){
     const key=a*(n+1)+b;
     if(widths?.has(key))return widths.get(key);
-    const width=measureRow(tokens.slice(a,b).map(t=>t.text).join(''),scene,tokens[a].before,options,false).occupiedPx;
+    const row=measureRow(tokens.slice(a,b).map(t=>t.text).join(''),scene,tokens[a].before,options,Boolean(scene.trailingPunctuationPx));
+    const width=scene.trailingPunctuationPx?fitWidth(row,scene):row.occupiedPx;
     widths?.set(key,width);return width;
   }let edge=0;for(let i=a;i<b;i++)edge=Math.max(edge,prefix[i]-prefix[a]+tokens[i].occupied);return Math.max(prefix[b]-prefix[a],edge);};
   // A newly appended Latin character can narrow the preceding space. Allow
@@ -260,13 +292,13 @@ function partition(text,scene,options,firstIndent='',continuationIndent='',exact
   // Legal edges are cached once and independent of row count.
   const edges=Array.from({length:n},()=>[]);
   for(let a=0;a<n;a++)for(let b=a+1;b<=n;b++){
-    const w=range(a,b);if(w>scene.widthPx){if(options.typography==='proportional'&&w<=scene.widthPx+126)continue;break;}if(legal(tokens,b,scene))edges[a].push({end:b,width:w});
+    const w=range(a,b);if(w>scene.widthPx){if(measureRanges&&w<=scene.widthPx+126)continue;break;}if(legal(tokens,b,scene))edges[a].push({end:b,width:w});
   }
   // Exact lower bound from the legal-edge graph, ignoring indentation. This
   // remains safe when a row boundary changes contextual Latin spacing.
   const remainingRows=new Array(n+1).fill(Infinity);remainingRows[n]=0;
   for(let a=n-1;a>=0;a--)for(const e of edges[a])remainingRows[a]=Math.min(remainingRows[a],1+remainingRows[e.end]);
-  const ceiling=Math.min(maxRows??n,n), minimum=exactRows??(options.typography==='proportional'?Math.min(ceiling,remainingRows[0]):Math.max(1,Math.ceil(prefix[n]/scene.widthPx))), limit=exactRows??ceiling;
+  const ceiling=Math.min(maxRows??n,n), minimum=exactRows??(measureRanges?Math.min(ceiling,remainingRows[0]):Math.max(1,Math.ceil(prefix[n]/scene.widthPx))), limit=exactRows??ceiling;
   if(!Number.isInteger(ceiling)||ceiling<1||!Number.isInteger(minimum)||minimum<1||limit>ceiling)fail('rows','Invalid physical row budget');
   for(let rows=minimum;rows<=limit;rows++){
     const memo=new Map();
@@ -275,10 +307,11 @@ function partition(text,scene,options,firstIndent='',continuationIndent='',exact
     const solve=(a,k)=>{
       if(k===rows)return a===n?[]:null;if(a===n||n-a<rows-k||remainingRows[a]>rows-k)return null;
       const key=a+':'+k;if(memo.has(key))return memo.get(key);
-      if(options.typography!=='proportional'&&prefix[n]-prefix[a]>(rows-k)*scene.widthPx){memo.set(key,null);return null;}
+      if(!measureRanges&&prefix[n]-prefix[a]>(rows-k)*scene.widthPx){memo.set(key,null);return null;}
       const indent=k===0?firstIndent:continuationIndent;
       const state=a===0?start:tokens[a-1].after;
-      const indentWidth=k>0&&narrowIndent?narrowIndent.advance:measureRow(indent,scene,state,options,false).occupiedPx;
+      const compactIndent=k===0?authored?.firstIndent:narrowIndent;
+      const indentWidth=compactIndent?compactIndent.advance:measureRow(indent,scene,state,options,false).occupiedPx;
       const candidates=edges[a];let best=null;
       for(let j=candidates.length-1;j>=0;j--){const e=candidates[j];if(e.width+indentWidth>scene.widthPx)continue;
         const tail=solve(e.end,k+1);if(tail){
@@ -294,6 +327,24 @@ function partition(text,scene,options,firstIndent='',continuationIndent='',exact
   fail('overflow',`Text cannot fit ${exactRows??ceiling} rows within ${scene.widthPx}px`,{scene:scene.id,widthPx:scene.widthPx,maxRows:exactRows??ceiling});
 }
 function logical(text){return text.split('\n').map((line,i)=>i?line.replace(/^[　 ]+/, ''):line).join('');}
+function preserveRows(text,scene,options) {
+  const {rows}=measure(text,scene.id,options), maxRows=options.maxLines??scene.maxLines;
+  if(rows.length>maxRows)fail('rows','Authored rows exceed the map box',{scene:scene.id,maxRows});
+  const narrowIndent=openerIndent(text,scene,options), lines=[];
+  let state=initial(scene);
+  for(const [i,row] of rows.entries()) {
+    if(row.fitPx<=scene.widthPx)lines.push(row.text);
+    else {
+      const indent=/^[　 ]*/.exec(row.text)[0], body=row.text.slice(indent.length);
+      const remaining=maxRows-lines.length-(rows.length-i-1);
+      if(remaining<2||!body)fail('overflow','Authored row exceeds the map box',{scene:scene.id,row:i+1,widthPx:row.occupiedPx,maxRows});
+      const firstIndent=i>0&&indent==='　'?narrowIndent:null;
+      lines.push(...partition(body,scene,{...options,initialState:state},indent,scene.continuationIndent,null,remaining,{narrowIndent,firstIndent}));
+    }
+    state=measureRow(row.text,scene,state,options,false).state;
+  }
+  return lines;
+}
 // Battle subtitles clip at screen X=640. Measured per trailing glyph on Metal 4x, then 2px of margin.
 // Validation only: automatic wrapping still packs to scene.widthPx.
 const BATTLE_TRAILING_ALLOWANCE_PX={'？':20,'》':20,'：':21,'】':21,'”':22,'）':22,'。':23,'、':24,'，':26,'；':26,'！':27};
@@ -306,7 +357,8 @@ export function validate(text,sceneId,options={}) {
   const scene=effectiveScene(sceneId,options),result=measure(text,scene.id,options), issues=[];
   if(result.rows.length>(options.maxLines??scene.maxLines??Infinity))issues.push({code:'rows',message:'Too many physical rows'});
   result.rows.forEach((row,i)=>{
-    if(row.occupiedPx>scene.widthPx&&!battleTrailingHangs(row,scene,options))issues.push({code:'width',row:i+1,widthPx:row.occupiedPx,limitPx:scene.widthPx});
+    if((row.fitPx??row.occupiedPx)>scene.widthPx&&!battleTrailingHangs(row,scene,options))issues.push({code:'width',row:i+1,widthPx:row.occupiedPx,limitPx:scene.widthPx});
+    if(scene.preserveAuthoredRows)return;
     if(scene.kind==='dialogue'&&i>0&&!/^　[^　 ]/.test(row.text))issues.push({code:'indent',row:i+1,message:'Expected one fullwidth continuation indent'});
     const v=visible(row.text).replace(/^[　 ]+/,'');
     if(v&&i>0&&contracts.forbiddenStart.includes(Array.from(v)[0]))issues.push({code:'punctuation_start',row:i+1});
@@ -319,13 +371,14 @@ function layoutFixed(text,sceneId,options={},targetWidth=null) {
   if(targetWidth!==null)scene.widthPx=targetWidth;
   options={protectWords:scene.protectWords,...options};
   if(options.escapedNewlines)text=original.replace(/\\n/g,'\n');else text=original;
-  rejectDynamic(text);
+  rejectDynamic(text,scene);
   if(!text.trim())fail('input','Text must not be empty');
   // Alignment cards and independent option rows are distinct owners, not prose.
-  if(scene.kind==='dialogue'&&(/^[　 ]/.test(text)||/”\n[　 ]*“/.test(visible(text))))
+  if(scene.kind==='dialogue'&&!scene.preserveAuthoredRows&&(/^[　 ]/.test(text)||/”\n[　 ]*“/.test(visible(text))))
     fail('owner_contract','Aligned cards and independent choices need an owner-specific contract');
   let lines;
-  if(scene.kind==='dialogue'){
+  if(scene.preserveAuthoredRows)lines=preserveRows(text,scene,options);
+  else if(scene.kind==='dialogue'){
     const count=text.split('\n').length;
     const exact=options.preserveLineCount===true||(scene.id==='battle'&&options.preserveLineCount!==false)?count:null;
     lines=partition(logical(text),scene,options,'',scene.continuationIndent,exact,options.maxLines??scene.maxLines);

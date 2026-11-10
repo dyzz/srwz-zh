@@ -58,7 +58,7 @@ class ContinuationIndentTests(unittest.TestCase):
         for scene, profile in self.registry["profiles"].items():
             compact = profile["cjkPunctuation"]
             width = compact["，"]["width"]
-            expected = width == CONTINUATION_INDENT_WIDTH and "“" not in CJK_FULL_WIDTH.get(scene, "")
+            expected = (width == CONTINUATION_INDENT_WIDTH or scene == 'sp_story_map') and "“" not in CJK_FULL_WIDTH.get(scene, "")
             self.assertEqual("continuationIndent" in profile, expected, scene)
             if not expected:
                 continue
@@ -68,6 +68,7 @@ class ContinuationIndentTests(unittest.TestCase):
             for opener in indent.OPENERS:
                 self.assertEqual(compact[opener]["advance"], record["advance"], (scene, opener))
         self.assertEqual(self.registry["profiles"]["story"]["continuationIndent"]["advance"], 16)
+        self.assertEqual(self.registry["profiles"]["sp_story_map"]["continuationIndent"]["advance"], 15)
         self.assertNotIn("continuationIndent", self.registry["profiles"]["battle"])
 
     def test_runtime_table_carries_the_indent_record(self):

@@ -5,7 +5,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from srwz.chinese_layout import (tokenize_dialogue,dialogue_line_widths,
     fit_chinese_dialogue_layout,ChineseLayoutProfile,ChineseLayoutError)
 from srwz.renderer_metrics import text_extent
-from srwz.text import TextTable,decode_text,runtime_control_bytes
+from srwz.text import TM_STOCK_KEYS, TextTable,decode_text,encode_text,runtime_control_bytes
 
 class ControlLayoutContractTests(unittest.TestCase):
     def test_composites_stay_atomic_and_have_identical_cell_and_pixel_budgets(self):
@@ -43,5 +43,24 @@ class ControlLayoutContractTests(unittest.TestCase):
             with self.subTest(text=text):
                 with self.assertRaises(ValueError):text_extent(text,default_advance_px=21)
                 with self.assertRaises(ChineseLayoutError):tokenize_dialogue(text,default_advance_px=21)
+
+    def test_numeric_template_delimiters_bypass_the_visible_slash_alias(self):
+        table=TextTable({0x93BE:'得'}, {})
+        overrides={'／':0x8FDE}
+        native='＜ｔｍ＞得＜／ｔｍ＞'.encode('cp932')
+        for template in ('＜tm＞得＜／tm＞', '＜ｔｍ＞得＜／ｔｍ＞', '<tm>得</tm>'):
+            self.assertEqual(encode_text(template+'／',table,overrides=overrides), native+bytes.fromhex('8fde'))
+
+    def test_stock_numeric_keys_ignore_the_visible_font_mapping(self):
+        original = TextTable({0x8294: 'ｔ', 0x828D: 'ｍ'}, {})
+        projected = TextTable({0x8294: 't', 0x828D: 'm', 0x8A6C: '获'}, {})
+        for key in TM_STOCK_KEYS:
+            with self.subTest(key=key):
+                original_scope = f'＜ｔｍ＞{key}＜／ｔｍ＞'
+                projected_scope = f'＜tm＞{key}＜／tm＞'
+                raw = original_scope.encode('cp932')
+                self.assertEqual(encode_text(projected_scope, projected, overrides={'獲': 0x8FDE}), raw)
+                self.assertEqual(decode_text(raw+b'\0', 0, original).text, original_scope)
+                self.assertEqual(decode_text(raw+b'\0', 0, projected).text, projected_scope)
 
 if __name__=='__main__':unittest.main()

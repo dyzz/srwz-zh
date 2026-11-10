@@ -91,14 +91,16 @@ def encode_talk(talk: dict, proposal: Path) -> dict:
     """Encode every dialogue line with the SP codebook, as the SP stage writer stores it."""
     from special_disc.writeback.migrate_slps_text import encoding_tables
     from special_disc.writeback.migrate_stage_dialogue import stored_stage_translation
+    from srwz import continuation_indent
+    from srwz.build_layout import fit_sp_map_dialogue
     from srwz.text import encode_text
+    from srwz.typography_policy import candidate_enabled
     # Gallery dialogue uses the tactical-map portrait box, including expanded names.
-    from srwz.build_layout import verify_stored
-    verify_stored([(f"gallery/{scene}/{record.get('source', {}).get('id', index)}",
-                    record["text"], False)
-                   for scene, data in talk.items() for section in data["sections"]
-                   for index, record in enumerate(section["records"]) if "text" in record],
-                  "story_map")
+    fitted = iter(fit_sp_map_dialogue(
+        (f"gallery/{scene}/{record.get('source', {}).get('id', index)}", stored_stage_translation(record['text']))
+        for scene, data in talk.items() for section in data['sections']
+        for index, record in enumerate(section['records']) if 'text' in record
+    ))
     table, _, overrides, _ = encoding_tables(proposal)
     encoded = {}
     for scene, data in talk.items():
@@ -110,8 +112,12 @@ def encode_talk(talk: dict, proposal: Path) -> dict:
                 text = None
                 if "text" in record:
                     words[3] = record["pilot_sp"]
-                    shown = record["speaker"] + "\n" + record["text"] if record["speaker"] else record["text"]
-                    text = encode_text(stored_stage_translation(shown), table, overrides=overrides, terminate=True)
+                    body = next(fitted)
+                    if candidate_enabled():
+                        body = continuation_indent.store(body)
+                    speaker = stored_stage_translation(record['speaker'])
+                    shown = speaker + '\n' + body if speaker else body
+                    text = encode_text(shown, table, overrides=overrides, terminate=True)
                 records.append({"words": words, "text": text})
             sections.append({"section": section["section"], "header": section["header"], "records": records})
         encoded[scene] = sections

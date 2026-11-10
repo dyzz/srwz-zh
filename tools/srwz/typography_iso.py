@@ -9,6 +9,7 @@ from pathlib import Path
 from .iso9660 import member_map, scan_iso9660
 from .release_inputs import copy_file
 from .tag_free_integrated import install
+from .sp_tm_spacing import install as install_sp_tm_spacing
 from .ui_battle_select import CONFIG as BATTLE_SELECT, SP_CONFIG as SP_BATTLE_SELECT
 from .ui_battle_select import apply_atlas as apply_select_atlas, apply_executable
 
@@ -38,6 +39,11 @@ def _expected(root, edition, source):
         payload["battle_select_titles"] = {
             "config_sha256": sha256(raw).hexdigest(), "labels": contract["labels"],
         }
+    if edition == 'sp':
+        patched, spacing = install_sp_tm_spacing(patched)
+        if spacing is not None:
+            payload["sp_tm_spacing"] = spacing
+            payload["resultSha256"] = sha256(patched).hexdigest()
     if len(patched) != member.size:
         raise ValueError('Typography executable size changed')
     return members, member, patched, payload, sha256(registry_bytes).hexdigest()

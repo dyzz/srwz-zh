@@ -11,7 +11,7 @@ import unicodedata
 from .font import decode_glyph, standard_glyph_index
 
 PROFILES = {
-    'story': (14, 13, 12), 'battle': (14, 12, 11),
+    'story': (14, 13, 12), 'sp_story_map': (14, 12, 11), 'battle': (14, 12, 11),
     'main_flow': (12, 11, 10), 'sp_flow': (12, 11, 10),
     'main_scroll': (24, 13, 12), 'main_scroll_strip': (24, 13, 12),
     'sp_scroll': (25, 13, 12), 'weapon': (12, 10, 9),
@@ -23,6 +23,7 @@ PROFILES = {
 CJK_PUNCTUATION='，。、！？：；“”‘’（）《》【】'
 CJK_NATIVE={name:((24,12) if name.startswith('main_scroll') else (25,12) if name=='sp_scroll' else (16,9) if name=='weapon' else (16,10) if name in {'main_flow','sp_flow'} else (21,10) if name=='library_robot' else (21,12)) for name in PROFILES}
 CJK_NATIVE['battle']=(22,11)
+CJK_NATIVE['sp_story_map']=(20,11)
 # Term index names use 18x12 cells, distinct from the 21x12 body.
 CJK_NATIVE['keyword_list']=(18,12)
 # Main-game combat weapon lists are 20x9; SP Battle Viewer uses 16x9.
@@ -108,7 +109,7 @@ def build_registry(font):
             bearing=max(0,round(b['x0']*native_width/24)-desired)
             compact[char]=dict(code=b['code'],width=native_width,height=native_height,bearing=bearing,advance=advance)
         profiles[name]['cjkPunctuation']=compact
-        if native_width==CONTINUATION_INDENT_WIDTH and '“' in compact:
+        if (native_width==CONTINUATION_INDENT_WIDTH or name=='sp_story_map') and '“' in compact:
             from .continuation_indent import CODE,OPENERS
             if {compact[char]['advance'] for char in OPENERS}!={compact['“']['advance']}:
                 raise ValueError('Compact opening punctuation no longer shares one advance')

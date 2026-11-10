@@ -30,7 +30,7 @@ def table_address(a,reg,value,delta=0):
         if delta:a.i(9,reg,reg,delta)
     else:a.li(reg,value+delta)
 
-def cjk_runtime_table(profile):
+def cjk_runtime_table(profile, *, compact_sentinel=False):
     """Six-byte code/metric records, followed by a zero-code sentinel.
 
     The continuation indent is one more record: a blank glyph with the opener's advance.
@@ -38,7 +38,7 @@ def cjk_runtime_table(profile):
     records=[*profile['cjkPunctuation'].values()]
     if 'continuationIndent' in profile:records.append(profile['continuationIndent'])
     return b''.join(struct.pack('<H4B',m['code'],m['bearing'],m['advance'],m['width'],0)
-                    for m in records)+bytes(6)
+                    for m in records)+bytes(2 if compact_sentinel else 6)
 
 def cjk_lookup(a,table):
     # t3 is the encoded character; at/t4/t8 are caller scratch registers.

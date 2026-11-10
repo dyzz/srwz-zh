@@ -15,6 +15,20 @@ PRINTABLE_ASCII = frozenset(
     "".join((string.digits, string.ascii_letters, string.punctuation, " "))
 )
 ORIGINAL_FULLWIDTH_ASCII = frozenset(string.digits + string.ascii_letters)
+TM_DELIMITER = re.compile(r'＜([／/]?)[ｔt][ｍm]＞|<(/?)tm>')
+TM_OPEN_BYTES = '＜ｔｍ＞'.encode('cp932')
+TM_CLOSE_BYTES = '＜／ｔｍ＞'.encode('cp932')
+TM_SCOPE = re.compile(r'＜[ｔt][ｍm]＞([^＜＞\n]+)＜[／/][ｔt][ｍm]＞|<tm>([^<>\n]+)</tm>')
+# SP's five original lookup keys are wire data, even when the font reuses their codes.
+TM_STOCK_KEYS = {
+    key: key.encode('cp932') for key in (
+        '獲得資金', '獲得ブルーストーン', '撃墜数', '被撃墜数', '特定イベント時の与ダメージ',
+    )
+}
+TM_STOCK_SCOPES = {
+    TM_OPEN_BYTES + wire + TM_CLOSE_BYTES: key
+    for key, wire in TM_STOCK_KEYS.items()
+}
 RUNTIME_FORMAT_TOKEN = re.compile(
     r"%(?:(?:\d+)\$)?[-+#0 ]*(?:\d+|\*)?(?:\.(?:\d+|\*))?"
     r"[diouxXeEfFgGcrsa]"
@@ -348,6 +362,17 @@ def decode_text(
         return value
 
     while current < limit:
+        if data.startswith(TM_OPEN_BYTES, current, limit):
+            for wire, key in TM_STOCK_SCOPES.items():
+                if data.startswith(wire, current, limit):
+                    tag = table.characters.get(0x8294, 'ｔ') + table.characters.get(0x828D, 'ｍ')
+                    parts.append(f'＜{tag}＞{key}＜／{tag}＞')
+                    current += len(wire)
+                    break
+            else:
+                wire = None
+            if wire is not None:
+                continue
         code = data[current]
         current += 1
 
@@ -589,6 +614,17 @@ def _encode_text_prepared(
                 "unexpanded <z> scope; expand it for its display surface first",
                 character_index=index,
             )
+
+        if character in ('＜', '<'):
+            scope = TM_SCOPE.match(text, index)
+            if scope and (key := TM_STOCK_KEYS.get(scope.group(1) or scope.group(2))):
+                output.extend(TM_OPEN_BYTES + key + TM_CLOSE_BYTES)
+                index = scope.end()
+                continue
+            if delimiter := TM_DELIMITER.match(text, index):
+                output.extend(TM_CLOSE_BYTES if any(delimiter.groups()) else TM_OPEN_BYTES)
+                index = delimiter.end()
+                continue
 
         runtime_token = runtime_tokens.get(index)
         if runtime_token is not None:

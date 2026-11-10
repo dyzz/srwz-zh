@@ -70,6 +70,9 @@ def build_payload(registry,edition,*,routes=None,shared_selection=True,scene_dis
   routes=[dict(name=s,scene=s) for s in SCENES[edition]];shared_selection=True
  routes=ROUTES[edition] if routes is None else routes
  keyword=edition in ('original','best') or scene_dispatch
+ # SP's smaller cave uses only the sentinel fields the lookup reads. Its
+ # integrated draw entry already clears the sidecar before scene selection.
+ compact_dispatch=edition=='sp' and scene_dispatch
  if edition=='best' and not scene_dispatch:raise ValueError('Best requires native-entry scene dispatch')
  text_state={'original':0x46e330,'best':0x46eb30,'sp':0x4ed5b0}[edition]
  c=LAYOUTS[edition];base=c['base'];limit=c['capacity']-(0x240 if keyword else 0x220)
@@ -93,7 +96,7 @@ def build_payload(registry,edition,*,routes=None,shared_selection=True,scene_dis
     m.update(height=0,yOffset=0,baselineResidual16=0)
    data=runtime_table(normalized)
    if data not in metric_cache:metric_cache[data]=add(r['name']+'_metrics',data)
-   cjk=cjk_runtime_table(profile)
+   cjk=cjk_runtime_table(profile,compact_sentinel=compact_dispatch)
    if cjk not in cjk_cache:cjk_cache[cjk]=add(r['name']+'_cjk',cjk)
    letter,digit=profile['glyphs']['A'],profile['glyphs']['3']
    geometry=bytes([letter['height'],digit['height'],letter['yOffset']&255,letter['baselineResidual16']&255,digit['baselineResidual16']&255])
@@ -107,8 +110,9 @@ def build_payload(registry,edition,*,routes=None,shared_selection=True,scene_dis
  select=style_selector if scene_dispatch else selector
  options=dict(state=text_state) if scene_dispatch else {}
  if scene_dispatch:
-  descriptors=b''.join(words(*CJK_NATIVE[r['scene']],*target) for r,target in zip(routes,targets))+bytes(24)
+  descriptors=b''.join(words(*CJK_NATIVE[r['scene']],*target) for r,target in zip(routes,targets))+bytes(4 if compact_dispatch else 24)
   options['descriptors']=add('scene_descriptors',descriptors)
+  options['sidecar_precleared']=compact_dispatch
  draw_entry=add('draw_routes',select(routes,targets,globals_,sidecar,native_draw,generic_draw,'draw',**options))
  measure_entry=add('measure_routes',select(routes,targets,globals_,sidecar,native_measure,generic_measure,'measure',**options))
  patches=[]

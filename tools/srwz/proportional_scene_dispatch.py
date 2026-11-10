@@ -10,7 +10,7 @@ from .proportional_metrics import CJK_NATIVE
 SCENES={
  'original':('story','battle','main_flow','main_scroll','library_robot','keyword_list','weapon','weapon_main'),
  'best':('story','battle','main_flow','main_scroll','library_robot','keyword_list','weapon','weapon_main'),
- 'sp':('story','battle','sp_flow','sp_scroll','library_robot','keyword_list','weapon'),
+ 'sp':('story','sp_story_map','battle','sp_flow','sp_scroll','library_robot','keyword_list','weapon'),
 }
 
 def source_entry(globals_,return_site,displaced):
@@ -35,12 +35,13 @@ def source_entry(globals_,return_site,displaced):
  for w in displaced:a.emit(w)
  a.jump(return_site);return a.finish()
 
-def style_selector(routes,targets,globals_,sidecar,native,generic,kind,*,state,descriptors=None):
+def style_selector(routes,targets,globals_,sidecar,native,generic,kind,*,state,descriptors=None,sidecar_precleared=False):
  a=Asm();saved=['at','t3','t4','t8'];a.i(9,'sp','sp',-64)
  for n,r in enumerate(saved):a.i(0x1f,'sp',r,n*16)
  if kind=='draw':
-  a.i(12,'s0','t8',0x3fff);a.r('zero','t8','t8',2,5);a.li('at',sidecar)
-  a.r('at','t8','at',0x21);a.i(0x28,'at','zero',0)
+  if not sidecar_precleared:
+   a.i(12,'s0','t8',0x3fff);a.r('zero','t8','t8',2,5);a.li('at',sidecar)
+   a.r('at','t8','at',0x21);a.i(0x28,'at','zero',0)
   a.li('at',0x70000068);a.i(0x21,'at','t8',0)
   a.branch(4,'t8','zero','explicit')
   a.li('at',state);a.i(0x21,'at','t3',0x38);a.i(0x21,'at','t4',0x3a)

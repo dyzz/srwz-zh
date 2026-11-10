@@ -77,10 +77,12 @@ def reflow_prose(text,*,scene,maximum_lines=None,resource_id=None,typography=Non
 # Block 1 of a stage script runs on the tactical map: the portrait pushes the
 # box right, so text starts near x=212 and the screen ends at 640.
 MAP_DIALOGUE_SECTION=re.compile(r'/dialogue/01\.')
-SCENE_WIDTH_LIMITS={'battle':462,'story_map':420}
+SCENE_WIDTH_LIMITS={'battle':462,'story_map':420,'sp_story_map':420}
 
-def dialogue_scene(entry_id):
-    return 'story_map' if MAP_DIALOGUE_SECTION.search(entry_id) else 'story'
+def dialogue_scene(entry_id, *, edition=None):
+    if MAP_DIALOGUE_SECTION.search(entry_id):
+        return 'sp_story_map' if edition == 'sp' else 'story_map'
+    return 'story'
 
 def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None):
     """Rows are (identity, text, keyword_links); reject geometry without reflow.
@@ -98,7 +100,7 @@ def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_p
                 issues[identity]=(f'JS {response["error"]["message"]}',)
                 continue
             measured=response['result'];limit=SCENE_WIDTH_LIMITS.get(scene,483);maximum=2 if scene=='battle'else 3
-            if len(measured['rows'])>maximum or any(r['occupiedPx']>limit and not (scene=='battle' and battle_trailing_hangs(r,limit)) for r in measured['rows']):
+            if len(measured['rows'])>maximum or any(r.get('fitPx',r['occupiedPx'])>limit and not (scene=='battle' and battle_trailing_hangs(r,limit)) for r in measured['rows']):
                 issues[identity]=(f'shared JS {scene} geometry exceeds {maximum} rows / {limit}px',)
     return issues
 
@@ -118,6 +120,23 @@ def verify_stored(rows,scene,*,batch_size=256,typography=None,chinese_punctuatio
         identity=next(iter(issues))
         raise ValueError(f'{identity}: {"; ".join(issues[identity])}')
     return len(rows)
+
+
+def fit_sp_map_dialogue(rows):
+    """Preserve authored breaks in a tactical portrait box, adding breaks as needed."""
+    rows = list(rows)
+    typography, punctuation = typography_options()
+    options = dict(typography=typography, chinesePunctuation=punctuation, packing='balanced_width')
+    result = []
+    for start in range(0, len(rows), 128):
+        group = rows[start:start+128]
+        requests = [dict(scene='sp_story_map', text=text, options=options) for _, text in group]
+        for (identity, _), response in zip(group, layout_batch(requests), strict=True):
+            if not response['ok']:
+                error = response['error']
+                raise ValueError(f"{identity}: {error['message']} ({error.get('details', {})})")
+            result.append(response['result']['compiledText'])
+    return result
 
 PROSE_HANGING_PX = 12
 PROSE_HANGING_PUNCTUATION = frozenset('，。、；：？！')

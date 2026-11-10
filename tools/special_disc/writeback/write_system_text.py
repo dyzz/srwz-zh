@@ -51,6 +51,7 @@ from special_disc.writeback.slot_codec import encode_slot
 from special_disc.writeback.battle_viewer_descriptions import description_overrides, verify_name_marker
 import migrate_compdata as mc  # noqa: E402
 import migrate_slps_text as mst  # noqa: E402
+from special_disc.writeback.tm_keys import stock_key_slots
 from special_disc.writeback.exe_data_guard import require_text_range  # noqa: E402
 
 CORPUS = ROOT / "corpus/zh/special-disc/system-text.json"
@@ -194,6 +195,7 @@ def main() -> None:
 
     # ---- executable
     exe_base = base(EXE)
+    tm_slots = stock_key_slots(exe_base, verify=False)
     exe = bytearray(exe_base)
     inventory = json.loads(mst.SD_STRINGS.read_text())["SD"]
     exe_starts = sorted({r["off"] for group in ("referenced", "unreferenced") for r in inventory[group]})
@@ -207,8 +209,16 @@ def main() -> None:
                     exe_left.append(dict(id=e["id"], offset=hex(offset), reason="does not fit"))
             continue
         offset = int(e["id"].split("/")[-1], 16)
+        if offset in tm_slots:
+            continue  # Internal lookup key, not displayed system text.
         if writer.put(exe, offset, e["source_text"], e["translation"], exe_starts, e["id"]) is None:
             exe_left.append(dict(id=e["id"], reason="does not fit"))
+
+    # The locked intermediate already localized three keys. Restore their
+    # original bytes here and keep all five out of visible-text writeback.
+    for offset, wire in tm_slots.items():
+        exe[offset:offset + len(wire)] = wire
+    stock_key_slots(exe)
 
     # ---- COMPDATA
     cd_stored = base(COMPDATA)

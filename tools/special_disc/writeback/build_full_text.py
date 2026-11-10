@@ -58,7 +58,8 @@ from srwz.library_body_metrics import apply_library_body_metrics
 from srwz.library_optical_metrics import apply_library_optical_metrics
 from srwz.library_button_labels import apply_library_button_labels
 from srwz.dialogue_speaker_colors import apply_dialogue_speaker_prefixes
-from srwz.text import PreparedTextEncoder
+from srwz.text import PreparedTextEncoder, TM_SCOPE
+from special_disc.writeback.tm_keys import stock_key_slots
 from srwz.font_profile import load_font_profile
 from special_disc.writeback.incremental import CACHE_PATH, ComponentCache, seed_components
 from special_disc.writeback.shared_library import apply_shared_library
@@ -250,7 +251,7 @@ def assemble():
     displayed.extend(r['output_text'] for r in reports['frame']['key_help'])
     displayed.extend(r['output_text'] for r in reports['frame']['episode_labels'])
     displayed.extend(r['output_text'] for r in reports['frame']['z_ending_titles'])
-    missing=sorted({ch for text in displayed for ch in text if ord(ch)>127 and ch!='　' and ch not in verified_chars})
+    missing=sorted({ch for text in displayed for ch in TM_SCOPE.sub("", text) if ord(ch)>127 and ch!='　' and ch not in verified_chars})
     require(not missing,f'display characters outside verified shared font: {missing}')
     stats['unassigned_display_characters']=missing
     members=member_map(scan_iso9660(BASE));base=timed('read-base-members',lambda:{n:read_member(BASE,members,n)for n in {n for c in components.values()for n in c if not n.endswith(OVERLAY)}|{EXE,VT1}})
@@ -258,6 +259,7 @@ def assemble():
     old_system=ROOT/'work/build/special-disc/components/system-text';old_report=load(old_system/'report.json');old_exe=(old_system/EXE).read_bytes()
     require(sha(old_exe)==old_report['files'][EXE],'old system executable drift')
     patches[EXE],delta_count=merge_delta(base[EXE],old_exe,components['system'][EXE])
+    stock_key_slots(patches[EXE])
     for site in (0x3B0E0,0x168A1C):require(patches[EXE][site:site+4]==bytes.fromhex('9f820134'),'special-range patch missing')
     require(reports['stage']['baseline']['sha256']==reports['system']['files'][STAGE+OVERLAY],'stage/system composition drift')
     stage_data=components['stage'][STAGE];frame_stage=components['frame'][STAGE]

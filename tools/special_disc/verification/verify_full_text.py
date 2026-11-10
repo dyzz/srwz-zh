@@ -11,12 +11,14 @@ ROOT=Path(__file__).resolve().parents[3]
 sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'tools/special_disc/writeback')]
 from build_full_text import BASE_SHA,DEST,WORK,PROPOSAL,CHUNKS
 from special_disc.baselines import baseline_iso
+from special_disc.writeback.tm_keys import stock_key_slots
 from build_text_candidate import load,sha,file_sha,require,read_member,write_json
 import migrate_stage_dialogue as st
 from write_system_text import tickers,FULLWIDTH_DIGITS
 from srwz.iso9660 import scan_iso9660,member_map
 from srwz.codec import decode_production
-from srwz.text import decode_text,normalize_original_fullwidth_ascii,two_byte_visible_spaces,verify_runtime_control_bytes
+from srwz.text import (TM_CLOSE_BYTES, TM_DELIMITER, TM_OPEN_BYTES, TM_SCOPE, decode_text,
+                       normalize_original_fullwidth_ascii, two_byte_visible_spaces, verify_runtime_control_bytes)
 from srwz import continuation_indent
 from srwz.typography_policy import candidate_enabled
 from srwz.summary import parse_summary, validate_scroll_placeholders
@@ -60,6 +62,9 @@ from special_disc.writeback.battle_status import verify_status_labels, MEMBER as
 from special_disc.writeback.battle_prompts import verify_prompt_labels
 from special_disc.writeback.battle_titles import verify_title_labels
 from special_disc.writeback.battle_abilities import verify_ability_labels
+
+
+_TM_BYTES = re.compile(re.escape(TM_OPEN_BYTES) + rb'([^\x00\x0a]+?)' + re.escape(TM_CLOSE_BYTES))
 
 
 def main(iso=None, work=None):
@@ -180,6 +185,9 @@ def main(iso=None, work=None):
     require(file_sha(ROOT/keyword_corpus['path'])==keyword_corpus['sha256'],'keyword corpus drift')
     counts['keyword_list_names']=len(keyword_names)
     exe=member('SLPS_259.20');arc=member(st.STAGE);hb=member(st.HB)
+    tm_slots = stock_key_slots(exe)
+    tm_keys = {wire[:-1] for wire in tm_slots.values()}
+    counts['stock_numeric_template_keys'] = len(tm_slots)
     qa_layout=load(ROOT/'config/products/special-disc/qa-layout.json')
     native_entries={r['id']:r for r in load(ROOT/'corpus/zh/special-disc/native-text.json')['entries']}
     qa_start,qa_end=struct.unpack_from('<II',exe,0x384A00+6*4)
@@ -264,6 +272,13 @@ def main(iso=None, work=None):
                 e=actual[row['native_id']]
                 stored=continuation_indent.store(row['output_text']) if row['layout']=='story_dialogue' and candidate_enabled() else row['output_text']
                 require(e.text==stored,f"stage ISO reread: {row['target']}")
+                if TM_DELIMITER.search(e.text):
+                    raw = data[e.text_offset:decode_text(data, e.text_offset, readback).end]
+                    keys = _TM_BYTES.findall(raw)
+                    require(not TM_DELIMITER.search(TM_SCOPE.sub('', e.text)) and
+                            len(keys) == len(TM_SCOPE.findall(e.text)) and all(key in tm_keys for key in keys),
+                            f"stage numeric template does not match executable: {row['target']}")
+                    counts['stage_number_templates'] += len(keys)
                 if e.kind=='dialogue':
                     prefix=decode_text(data,e.text_offset,readback,stop_at_newline=True)
                     sid=source[e.entry_id].speaker_id
@@ -396,6 +411,8 @@ def main(iso=None, work=None):
         else:
             require(target.startswith(('sd/exe/','sd/compdata/')),'unknown system source kind')
             at=int(shared[target]['now'],16) if target in shared else int(target.rsplit('/',1)[1],16)
+            if target.startswith('sd/exe/') and at in tm_slots:
+                continue  # The executable lookup table was verified byte for byte above.
             data=exe if target.startswith('sd/exe/') else cd
             if target.startswith('sd/compdata/') and at in work_title_locations:
                 binding=work_title_locations[at]
