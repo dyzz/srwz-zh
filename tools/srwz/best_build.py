@@ -462,7 +462,9 @@ class BestCompiler:
                 require(s.metadata == t.metadata and output[t.archive_text_start:t.archive_text_end] == by_text[s.text], 'BEST subtitle metadata/text readback mismatch')
         require(count == 58751, 'BEST subtitle coverage drift')
         self.srvc_proof = {'records':count, 'additional_native_records':count-sum(len(c.records) for c in pa), 'minimum_headroom':min(headroom), 'native_metadata_and_tail_preserved':True}
-        return bytes(output)
+        from .srvc_selector_fixes import repair_srvc_selectors
+        output, self.srvc_proof["selector_repairs"] = repair_srvc_selectors(bytes(output), bo)
+        return output
 
     def pack_archive(self, member, prepared):
         def compress(row):

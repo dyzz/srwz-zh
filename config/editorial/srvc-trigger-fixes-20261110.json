@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "review_id": "srvc-trigger-fixes-20261110",
+  "authorization": "用户要求这3个修复，换成正确的触发对象",
+  "status": "implemented_component_readback_and_controlled_armsx2_verified",
+  "changes": [
+    {
+      "id": "battle:04377",
+      "speaker": "卡兹",
+      "before": "对手：西罗克（语音组129）",
+      "after": "对手：《Z高达》莎拉（语音组104）",
+      "candidates": [
+        "60/162",
+        "60/180"
+      ],
+      "preserved": "阶段门槛0x30、轻伤/回避场景、权重及台词"
+    },
+    {
+      "id": "battle:04245",
+      "speaker": "卡西马尔",
+      "before": "援护友方：恩盖",
+      "after": "援护友方：基兹",
+      "candidates": [
+        "59/131"
+      ],
+      "preserved": "援护防御场景及台词"
+    },
+    {
+      "id": "battle:04246",
+      "speaker": "卡西马尔",
+      "before": "援护友方：基兹",
+      "after": "援护友方：恩盖",
+      "candidates": [
+        "59/130"
+      ],
+      "preserved": "援护防御场景及台词"
+    },
+    {
+      "id": "battle:24617",
+      "speaker": "百人众／百鬼兵",
+      "before": "Original角色块335：盖塔系标签1",
+      "after": "Original角色块335：魔神系标签0（魔神Z、大魔神）",
+      "candidates": [
+        "335/30",
+        "335/59"
+      ],
+      "preserved": "百鬼战斗机排除条件、主动/反击场景及台词；Best官方已修正，不重复改写"
+    }
+  ],
+  "original": {
+    "repairs": [
+      {
+        "chunk": 59,
+        "status": "repaired",
+        "changed_candidates": [
+          130,
+          131
+        ],
+        "all_other_condition_sequences_preserved": true,
+        "predicate_capacity": 25,
+        "used_predicates": 23,
+        "prefix_before_sha256": "072517f0ca55e1b341bf15da6973f00fcea23cddd289ecaeb75319efeae493ed",
+        "prefix_after_sha256": "1d12dc38e2efbb7d4dcf4d6af2634e1eea792a248c560b32b702f3528288a5fd"
+      },
+      {
+        "chunk": 60,
+        "status": "repaired",
+        "changed_candidates": [
+          162,
+          180
+        ],
+        "all_other_condition_sequences_preserved": true,
+        "predicate_capacity": 29,
+        "used_predicates": 28,
+        "prefix_before_sha256": "262fff7b688eaf190c19f21f18bf8b6fa035c1cb8bd1fe216beab560e2cf4b0d",
+        "prefix_after_sha256": "628db7f99cd2ea4749dc134c9181fa23ac5cd0587a958f53f4a8cb31eaa39ad1"
+      },
+      {
+        "chunk": 335,
+        "status": "repaired",
+        "changed_candidates": [
+          30,
+          59
+        ],
+        "all_other_condition_sequences_preserved": true,
+        "predicate_capacity": 28,
+        "used_predicates": 25,
+        "prefix_before_sha256": "c9b7f421acb5d9d01dd4483f00c37699928d6d666853595206a8accdad81d79b",
+        "prefix_after_sha256": "7fc723ea9b86628f3219c87320bb77b6ab4e5be7b4184593fc42f14e17c3b8a6"
+      }
+    ],
+    "archive_size_preserved": true,
+    "text_and_metadata_preserved": true
+  },
+  "best": {
+    "repairs": [
+      {
+        "chunk": 59,
+        "status": "repaired",
+        "changed_candidates": [
+          130,
+          131
+        ],
+        "all_other_condition_sequences_preserved": true,
+        "predicate_capacity": 25,
+        "used_predicates": 23,
+        "prefix_before_sha256": "072517f0ca55e1b341bf15da6973f00fcea23cddd289ecaeb75319efeae493ed",
+        "prefix_after_sha256": "1d12dc38e2efbb7d4dcf4d6af2634e1eea792a248c560b32b702f3528288a5fd"
+      },
+      {
+        "chunk": 60,
+        "status": "repaired",
+        "changed_candidates": [
+          162,
+          180
+        ],
+        "all_other_condition_sequences_preserved": true,
+        "predicate_capacity": 29,
+        "used_predicates": 28,
+        "prefix_before_sha256": "262fff7b688eaf190c19f21f18bf8b6fa035c1cb8bd1fe216beab560e2cf4b0d",
+        "prefix_after_sha256": "628db7f99cd2ea4749dc134c9181fa23ac5cd0587a958f53f4a8cb31eaa39ad1"
+      },
+      {
+        "chunk": 335,
+        "status": "native_best_already_correct",
+        "changed_candidates": []
+      }
+    ],
+    "archive_size_preserved": true,
+    "text_and_metadata_preserved": true
+  },
+  "runtime": {
+    "evidence_kind": "ARMSX2 controlled original-game candidate evaluator",
+    "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-original/current-original.iso",
+    "natural_battle_reproduction": false,
+    "fixture_cases": 32,
+    "passed": 32,
+    "game_function": "0x2eb5f0",
+    "hook_restored": true
+  },
+  "tests": {
+    "srvc": 7,
+    "best_build": 12,
+    "passed": 19
+  },
+  "component_readback": {
+    "original_records": 58740,
+    "best_records": 58751,
+    "archive_size_and_seg_unchanged": true,
+    "metadata_text_bindings_and_weights_unchanged": true
+  },
+  "sp_policy": "不套用本篇编号。SP莎拉使用Z系列标签、基兹句已指向基兹、魔神句的SP标签1实际是魔神Z/大魔神；本次未改SP条件。",
+  "files": [
+    {
+      "path": "tools/srwz/srvc_selector_fixes.py",
+      "sha256": "e28a4965ff8d9df9640aa86b876b2857d8e6d81075cec1e0d5f283e79c7f6944"
+    },
+    {
+      "path": "tools/build_full_story_components.py",
+      "sha256": "4ff58afbfa5bb8448c94bfa821cb216ef6c3fb148e3d54658a7c19fd09f43b46"
+    },
+    {
+      "path": "tools/srwz/best_build.py",
+      "sha256": "214a770f571f14563eb2c0869aaa2c689a3d236441fdd521e616f42cad57b8dd"
+    },
+    {
+      "path": "tests/test_srvc_selector_fixes.py",
+      "sha256": "270196b2cabc36489407e9a96aba8404d928eeea52f68c208c93977b87b89c24"
+    },
+    {
+      "path": "config/full-story-components.json",
+      "sha256": "5b4686f31ed2f79e1e5c7db72c89d68752013dd60849e51b327f34cf67312196"
+    }
+  ],
+  "production_iso_rebuilt": false,
+  "online_processed": false,
+  "committed": false,
+  "pushed": false
+}

@@ -814,6 +814,7 @@ INPUT_IMPACTS = {
     "srvc_battle_text_corpus": set(SRVC_MEMBERS),
     "original_srvc_bin": set(SRVC_MEMBERS),
     "original_srvc_seg": set(SRVC_MEMBERS),
+    "srvc_selector_repairs": set(SRVC_MEMBERS),
     "font_slps": CONFIG_SECTION_IMPACTS["full_story_font"],
     "font_vt1": CONFIG_SECTION_IMPACTS["full_story_font"],
     "font_component_report": CONFIG_SECTION_IMPACTS["full_story_font"],
@@ -7343,6 +7344,9 @@ def _apply_srvc_battle_text(
         "zero_record_chunks_preserved_byte_exact": True,
         "seg_preserved_byte_exact": output_seg == source_seg,
     }
+    _locked_file(reference.get("selector_repairs"), label="SRVC selector repair implementation")
+    from srwz.srvc_selector_fixes import repair_srvc_selectors
+    output_bin, report["selector_repairs"] = repair_srvc_selectors(output_bin, offsets)
     return output_bin, output_seg, report, (corpus_path, bin_path, seg_path)
 
 
@@ -11202,6 +11206,10 @@ def _build_components(
             ),
             "original_srvc_seg": _file_lock(
                 srvc_input_paths[2], srvc_input_paths[2].read_bytes()
+            ),
+            "srvc_selector_repairs": _file_lock(
+                PROJECT_ROOT / "tools/srwz/srvc_selector_fixes.py",
+                (PROJECT_ROOT / "tools/srwz/srvc_selector_fixes.py").read_bytes(),
             ),
             "font_slps": _file_lock(font_slps_path, font_slps),
             "font_vt1": _file_lock(font_vt1_path, font_vt1),
