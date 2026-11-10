@@ -60,11 +60,11 @@
     "world_steps_per_frame": 1
   },
   "component_modes": {
-    "frame": "reused",
-    "image-labels": "reused",
-    "srvc": "reused",
-    "stage": "reused",
-    "system": "reused"
+    "frame": "rebuilt",
+    "image-labels": "rebuilt",
+    "srvc": "rebuilt",
+    "stage": "rebuilt",
+    "system": "rebuilt"
   },
   "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
   "edition_id": "sp",
@@ -92,20 +92,32 @@
       "sha256": "1e8e108281a702d693997ee51142ddc6dce860756c3d0d3bb59acd088b2bdb82"
     }
   },
-  "input_digest": "8cf3d615e09f93a6914a5a9b7839fb05efa954af569770af5fc1ef0fd89c929f",
+  "input_digest": "264f92532c07400300d5839a34c3928bc8e1b5d8ab2b8658c240b9e73c66bc1c",
+  "male_opening_and_world_history_review_20261110": {
+    "iso_readback": {
+      "byte_identical_to_previous_rc": true,
+      "counts": {
+        "placeholder_rows": 8,
+        "scroll_fields": 10,
+        "synopsis_fields": 21
+      },
+      "native_scroll_placeholders_exact": true,
+      "text_and_line_breaks_exact": true
+    }
+  },
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
     "sha256": "26026eae755ceaf4bf8edd9233e252d7c4e312a7d54c32bdb04d8ae47f7cabe7",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/8ba0955c4d97ec883fe4ad5be9b58b6a9e4a91b275395636fce135b455c05ff9/project/build/iso/special-disc/sp-current.json",
-    "sha256": "33c945bd8f2d18af3c7ab71c7e480c39f021552c0eff47bb6cc89f50948008b6"
+    "path": "build/editions/zh-release-sp/1237163b399cb17621230051808e8834a7a9a79774e50ad45213d86b83aa4d46/project/build/iso/special-disc/sp-current.json",
+    "sha256": "8232a7da5248735b8506f613e835d3b2ec779b667e372c30ff0cdaf8594dcc1e"
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "d15fbe960e9b08c559284817c7e726059e353a0a",
+  "source_head": "441dbbcf610d8a8866820308a6c82f1903e06873",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
   "typography": {
@@ -401,5 +413,5 @@
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-sp/8ba0955c4d97ec883fe4ad5be9b58b6a9e4a91b275395636fce135b455c05ff9/project"
+  "workspace": "build/editions/zh-release-sp/1237163b399cb17621230051808e8834a7a9a79774e50ad45213d86b83aa4d46/project"
 }

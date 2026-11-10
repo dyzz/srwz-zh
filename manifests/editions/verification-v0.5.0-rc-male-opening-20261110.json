@@ -1,0 +1,361 @@
+{
+  "batch_manifest": {
+    "path": "work/editions/264f92532c07400300d5839a34c3928bc8e1b5d8ab2b8658c240b9e73c66bc1c/original-best-sp.json",
+    "sha256": "7bd72ee5e735ce64f3b6bed5e7622a0f3abc883d2e8d2283f4d3fd6e635115dd"
+  },
+  "focused_unittest": {
+    "passed": 25,
+    "skipped": 0
+  },
+  "input_digest": "264f92532c07400300d5839a34c3928bc8e1b5d8ab2b8658c240b9e73c66bc1c",
+  "outputs": {
+    "best": {
+      "armsx2": {
+        "male-opening": {
+          "fields": {
+            "summary/01/000": {
+              "expected_rows": 15,
+              "native_blank_rows": [
+                5,
+                14
+              ],
+              "visible_rows": 15
+            }
+          },
+          "program": 1,
+          "receipt": {
+            "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/best/male-opening/capture.json",
+            "sha256": "7ce74f75f0c130f56bde739a01c91f5ba74d2d2824c2a566c71bcba7af430daf"
+          },
+          "renderer": "sw",
+          "route": "native Rand new game",
+          "upscale": 1
+        },
+        "world-collapse": {
+          "fields": {
+            "summary/02/000": {
+              "expected_rows": 3,
+              "native_blank_rows": [],
+              "visible_rows": 3
+            },
+            "summary/02/001": {
+              "expected_rows": 1,
+              "native_blank_rows": [],
+              "visible_rows": 1
+            },
+            "summary/02/002": {
+              "expected_rows": 2,
+              "native_blank_rows": [],
+              "visible_rows": 2
+            }
+          },
+          "program": 2,
+          "receipt": {
+            "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/best/world-collapse/capture.json",
+            "sha256": "2527e9fb55798e523593f164461f12b9165cd26503681e9c5c34c9b17c54f175"
+          },
+          "renderer": "sw",
+          "route": "native world-history program from the final ISO, triggered through the Rand intro selector in RAM",
+          "upscale": 1
+        }
+      },
+      "current_receipt": "manifests/editions/best/current.json",
+      "iso_readback": {
+        "archive_sectors": 5,
+        "archive_size_bytes": 9056,
+        "changed_chunks": [
+          1,
+          2,
+          3
+        ],
+        "counts": {
+          "placeholder_rows": 14,
+          "scroll_fields": 28,
+          "synopsis_fields": 110
+        },
+        "fields": {
+          "summary/01/000": {
+            "allocated_bytes": 809,
+            "native_blank_row_numbers": [
+              5,
+              14
+            ],
+            "payload_sha256": "fbd078f0209485a0d06ad950f161700bb7569335452362efd03941d80769262d",
+            "physical_rows": 17
+          },
+          "summary/02/000": {
+            "allocated_bytes": 124,
+            "native_blank_row_numbers": [],
+            "payload_sha256": "670ec8a5547af5cb5c8ae05a1268e984382d81727002f5c8c0c0033810ace0eb",
+            "physical_rows": 3
+          },
+          "summary/02/001": {
+            "allocated_bytes": 34,
+            "native_blank_row_numbers": [],
+            "payload_sha256": "f1f10cb74e4fd13995bed998195ea5c7f24caff33d28758460e95eb9f9daa850",
+            "physical_rows": 1
+          },
+          "summary/02/002": {
+            "allocated_bytes": 108,
+            "native_blank_row_numbers": [],
+            "payload_sha256": "5080be1fbb9e55b7f08fa5c93fff0b27a332822183c761e9830181a11f776b84",
+            "physical_rows": 2
+          },
+          "summary/03/000": {
+            "allocated_bytes": 557,
+            "native_blank_row_numbers": [],
+            "payload_sha256": "1a0437103dad987b81314d29af674d7d8cbc0b9a38bf632a61d474ae05849238",
+            "physical_rows": 12
+          }
+        },
+        "member_lbas_exact": true,
+        "native_scroll_placeholders_exact": true,
+        "only_scroll_archive_and_offsets_changed_within_members": true,
+        "previous_archive_size_bytes": 9056,
+        "text_and_line_breaks_exact": true
+      },
+      "output": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "530401b4d9d04b5d24e939ac6c7db7b8887ae93398d060ef6c1183eb136eaa5e",
+        "size": 3796187136
+      }
+    },
+    "original": {
+      "armsx2": {
+        "male-opening": {
+          "fields": {
+            "summary/01/000": {
+              "expected_rows": 15,
+              "native_blank_rows": [
+                5,
+                14
+              ],
+              "visible_rows": 15
+            }
+          },
+          "program": 1,
+          "receipt": {
+            "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/male-opening/capture.json",
+            "sha256": "ef757849ce2527b618cff32dca9782c8991665ab6623e96828b7a4979a8da162"
+          },
+          "renderer": "metal",
+          "route": "native Rand new game",
+          "upscale": 4,
+          "video": {
+            "duration_seconds": 50.734,
+            "frames": 3041,
+            "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/male-opening/male-opening.mp4",
+            "sha256": "aa7304c7fe88603c9d91d1ab59d20c5bb465fe661e0c4ba6bd5ac37176ea8a2f",
+            "visible_frames": {
+              "summary/01/000": {
+                "consecutive_visible_frames": 2190,
+                "end_frame": 2444,
+                "start_frame": 255,
+                "trace_samples": [
+                  430,
+                  700,
+                  1000,
+                  1280,
+                  1550,
+                  1820,
+                  2080,
+                  2320
+                ]
+              }
+            }
+          },
+          "video_audit": {
+            "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/male-opening/visibility-audit.json",
+            "sha256": "19d6a99e0d3cb76dbdf21f3e43acd49d2e443e974a13feb5de342030a86e1255"
+          }
+        },
+        "world-collapse": {
+          "fields": {
+            "summary/02/000": {
+              "expected_rows": 3,
+              "native_blank_rows": [],
+              "visible_rows": 3
+            },
+            "summary/02/001": {
+              "expected_rows": 1,
+              "native_blank_rows": [],
+              "visible_rows": 1
+            },
+            "summary/02/002": {
+              "expected_rows": 2,
+              "native_blank_rows": [],
+              "visible_rows": 2
+            }
+          },
+          "program": 2,
+          "receipt": {
+            "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/world-collapse/capture.json",
+            "sha256": "18fc49bd4fec93a2ac4960ac8e49d5eb28e8e347c5bc30d7ffd94b88f906ca0e"
+          },
+          "renderer": "metal",
+          "route": "native world-history program from the final ISO, triggered through the Rand intro selector in RAM",
+          "upscale": 4,
+          "video": {
+            "duration_seconds": 27.377378,
+            "frames": 1641,
+            "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/world-collapse/world-collapse.mp4",
+            "sha256": "d113c9b36193bc75ecd7cd6581f33fbd30c3a5791fc4197f87d528756eabb34f",
+            "visible_frames": {
+              "summary/02/000": {
+                "consecutive_visible_frames": 400,
+                "end_frame": 605,
+                "start_frame": 206,
+                "trace_samples": [
+                  275,
+                  360,
+                  500
+                ],
+                "trace_samples_outside_visible_window": [
+                  640
+                ]
+              },
+              "summary/02/001": {
+                "consecutive_visible_frames": 142,
+                "end_frame": 843,
+                "start_frame": 702,
+                "trace_samples": [
+                  760,
+                  820
+                ],
+                "trace_samples_outside_visible_window": []
+              },
+              "summary/02/002": {
+                "consecutive_visible_frames": 400,
+                "end_frame": 1339,
+                "start_frame": 940,
+                "trace_samples": [
+                  980,
+                  1050,
+                  1140,
+                  1300
+                ],
+                "trace_samples_outside_visible_window": [
+                  900
+                ]
+              }
+            }
+          },
+          "video_audit": {
+            "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/original/world-collapse/visibility-audit.json",
+            "sha256": "8483e590e6980d1cd3b24f23702aaba2c8c3ed875131ff7058f01cecdd625af8"
+          }
+        }
+      },
+      "current_receipt": "manifests/editions/original/current.json",
+      "iso_readback": {
+        "archive_sectors": 5,
+        "archive_size_bytes": 8432,
+        "changed_chunks": [
+          1,
+          2,
+          3
+        ],
+        "counts": {
+          "placeholder_rows": 14,
+          "scroll_fields": 28,
+          "synopsis_fields": 110
+        },
+        "fields": {
+          "summary/01/000": {
+            "allocated_bytes": 809,
+            "native_blank_row_numbers": [
+              5,
+              14
+            ],
+            "payload_sha256": "fbd078f0209485a0d06ad950f161700bb7569335452362efd03941d80769262d",
+            "physical_rows": 17
+          },
+          "summary/02/000": {
+            "allocated_bytes": 124,
+            "native_blank_row_numbers": [],
+            "payload_sha256": "670ec8a5547af5cb5c8ae05a1268e984382d81727002f5c8c0c0033810ace0eb",
+            "physical_rows": 3
+          },
+          "summary/02/001": {
+            "allocated_bytes": 34,
+            "native_blank_row_numbers": [],
+            "payload_sha256": "f1f10cb74e4fd13995bed998195ea5c7f24caff33d28758460e95eb9f9daa850",
+            "physical_rows": 1
+          },
+          "summary/02/002": {
+            "allocated_bytes": 108,
+            "native_blank_row_numbers": [],
+            "payload_sha256": "5080be1fbb9e55b7f08fa5c93fff0b27a332822183c761e9830181a11f776b84",
+            "physical_rows": 2
+          },
+          "summary/03/000": {
+            "allocated_bytes": 557,
+            "native_blank_row_numbers": [],
+            "payload_sha256": "1a0437103dad987b81314d29af674d7d8cbc0b9a38bf632a61d474ae05849238",
+            "physical_rows": 12
+          }
+        },
+        "member_lbas_exact": true,
+        "native_scroll_placeholders_exact": true,
+        "only_scroll_archive_and_offsets_changed_within_members": true,
+        "previous_archive_size_bytes": 8400,
+        "text_and_line_breaks_exact": true
+      },
+      "output": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "c7924885d0292edda98c8f9cdd29cd656b61a540173e358a1a3ddc663150eabe",
+        "size": 3799459840
+      }
+    },
+    "sp": {
+      "current_receipt": "manifests/editions/sp/current.json",
+      "iso_readback": {
+        "byte_identical_to_previous_rc": true,
+        "counts": {
+          "placeholder_rows": 8,
+          "scroll_fields": 10,
+          "synopsis_fields": 21
+        },
+        "native_scroll_placeholders_exact": true,
+        "text_and_line_breaks_exact": true
+      },
+      "output": {
+        "path": "build/iso/special-disc/sp-current.iso",
+        "sha256": "26026eae755ceaf4bf8edd9233e252d7c4e312a7d54c32bdb04d8ae47f7cabe7",
+        "size": 3918860288
+      }
+    }
+  },
+  "schema_version": 1,
+  "source_head": "441dbbcf610d8a8866820308a6c82f1903e06873",
+  "verification": {
+    "both_editions": true,
+    "final_gunleon_sprite_stage": {
+      "best": {
+        "final_sha256": "530401b4d9d04b5d24e939ac6c7db7b8887ae93398d060ef6c1183eb136eaa5e",
+        "only_gunleon_sprite_slot_changed": true,
+        "typography_output_sha256": "43a9cf64ea936f0044a751c5bb474fe508f4a7027385760b86ce6b0a1c460c85"
+      },
+      "original": {
+        "final_sha256": "c7924885d0292edda98c8f9cdd29cd656b61a540173e358a1a3ddc663150eabe",
+        "only_gunleon_sprite_slot_changed": true,
+        "typography_output_sha256": "b2516ebf72fef2020a4f1059aa43650869577cd6fbcc2d20113a9fa84f51d9fa"
+      },
+      "sp": {
+        "final_sha256": "26026eae755ceaf4bf8edd9233e252d7c4e312a7d54c32bdb04d8ae47f7cabe7",
+        "only_gunleon_sprite_slot_changed": true,
+        "typography_output_sha256": "8a285908f229c588a9d5046a508ff30b7485688cceb88dd8add73283d136202e"
+      }
+    },
+    "input_digest": "264f92532c07400300d5839a34c3928bc8e1b5d8ab2b8658c240b9e73c66bc1c",
+    "runtime": "not_tested",
+    "scope": "stock verifier through typography, followed by independent final Gunleon sprite and ISO checks",
+    "status": "edition_batch_receipt_integrity_passed",
+    "verified_editions": [
+      "original",
+      "best",
+      "sp"
+    ]
+  },
+  "version": "v0.5.0-rc"
+}

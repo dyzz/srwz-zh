@@ -2,7 +2,7 @@
   "adapter": "best-current-source-v1",
   "base_output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "9a3ae825866116a34e6c30f46e1369caf95fa66b24ccc86ebec35cf75242137d",
+    "sha256": "73c59e067df17193bbf34ced685403280f8e0d428ab6d97fabf888d22e877698",
     "size": 3755081728
   },
   "battle_square_skip": {
@@ -64,12 +64,12 @@
   "event_subtitles": {
     "base_iso": {
       "path": "build/iso/zh-release-best/current-best.iso",
-      "sha256": "9a3ae825866116a34e6c30f46e1369caf95fa66b24ccc86ebec35cf75242137d",
+      "sha256": "73c59e067df17193bbf34ced685403280f8e0d428ab6d97fabf888d22e877698",
       "size": 3755081728
     },
     "iso": {
       "path": "build/iso/zh-release-best/current-best-captioned.iso",
-      "sha256": "d9d4c5d39602a1d0e3515b583a9e257c8db2b951c18b4e05b6322e42db307620",
+      "sha256": "d14e2c16168c015e3dd973ffee0bc40a588dc9810ad70cc6320d2fcdb5c2c497",
       "size": 3796187136
     },
     "member_readback": {
@@ -79,11 +79,11 @@
     },
     "members": {
       "EFF/VEFF2DX.BIN": "75b482f4f2046891eb524f201adb5ae24cabfb9ed01a1079af13228dfd2030f3",
-      "SLPS_732.70": "90ea770a390a170232f8b4bc5b4214ca3fc417ec89462ed036305076059c4ac0"
+      "SLPS_732.70": "37aa2d6e7b40300b68e799ee12a397daf735330fc20e3debdb77a2378c27607a"
     },
     "relocation": {
       "appended_bytes": 40579072,
-      "appended_sha256": "f12da860ea82f07b85b1946dcd49eb723afa2aaf7370c12c934039d8e2ca86a6",
+      "appended_sha256": "576eb1e0e90d4fe42c4a6ea549e11a3dd31da2dfb225e5005d36783700d6c5db",
       "catalog": {
         "edits": [
           {
@@ -184,7 +184,7 @@
             "previous_size": 36890512
           }
         ],
-        "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-best/7c80d0aee8c32d2006f3d419045e4c65c11316874eb6662b73643b4b83439a59/project/build/iso/zh-release-best/current-best-captioned.iso",
+        "image": "/Users/nate/.codex/worktrees/opening-scroll-rc/srwz-zh/build/editions/zh-release-best/40dfd4432eb63e73109c691d55f3c99e787bab96b171fd9b3c076ec7aa6394e6/project/build/iso/zh-release-best/current-best-captioned.iso",
         "image_blocks": 1853607,
         "metadata_blocks_written": [
           34,
@@ -236,13 +236,13 @@
         273,
         282
       ],
-      "elf_sha256": "90ea770a390a170232f8b4bc5b4214ca3fc417ec89462ed036305076059c4ac0",
+      "elf_sha256": "37aa2d6e7b40300b68e799ee12a397daf735330fc20e3debdb77a2378c27607a",
       "font": {
         "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
         "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
       },
       "gallery_menu_or_scene_driver_added": false,
-      "input_elf_sha256": "d0ef2d49d8c23dd77d127f8db85b9d476f2919de971328fefc6711fdb63dbc14",
+      "input_elf_sha256": "b61dacb499bed37016ab35d1d9c2b0e59be9be808edeb0ac483f6fa6d963715e",
       "input_veff_sha256": "63dad8963f35b80beaef0e23062a4ec6e35111207dfaa094b2b82ac3f7128217",
       "payload": {
         "address": "0x790000",
@@ -1319,8 +1319,8 @@
     "untouched_base_bytes": {
       "base_bytes": 3755081728,
       "compared_bytes": 3755068368,
-      "final_sha256": "d9d4c5d39602a1d0e3515b583a9e257c8db2b951c18b4e05b6322e42db307620",
-      "sha256": "ba27ac7fd4359b0145587d37aee050617631fe33f26ef6bafc12c19251ff9905",
+      "final_sha256": "d14e2c16168c015e3dd973ffee0bc40a588dc9810ad70cc6320d2fcdb5c2c497",
+      "sha256": "edc0b753f9a6f5c4f6a2f269fff2556d27e1505cf110147fe9e275554f6f2c0f",
       "spans": [
         [
           32848,
@@ -1379,20 +1379,125 @@
     "member": "BTL/TWP.BIN",
     "packed_bytes": 592711,
     "verification": {
-      "after_sha256": "0323ba82c5c733b5c01bc805978dacbeaf1ecc23070f4abb228ae81eee762f05",
+      "after_sha256": "530401b4d9d04b5d24e939ac6c7db7b8887ae93398d060ef6c1183eb136eaa5e",
       "bytes": 3795485760,
-      "sha256": "4c5cd4db811b9528df97820a3a51e978342d97682f8b6bd81784e081584f6d14"
+      "sha256": "e5713803c5d09d80f42fbebdd660854209439cd63e1d6867a05a9c7d1a868efc"
     }
   },
-  "input_digest": "8cf3d615e09f93a6914a5a9b7839fb05efa954af569770af5fc1ef0fd89c929f",
+  "input_digest": "264f92532c07400300d5839a34c3928bc8e1b5d8ab2b8658c240b9e73c66bc1c",
+  "male_opening_and_world_history_review_20261110": {
+    "armsx2": {
+      "male-opening": {
+        "fields": {
+          "summary/01/000": {
+            "expected_rows": 15,
+            "native_blank_rows": [
+              5,
+              14
+            ],
+            "visible_rows": 15
+          }
+        },
+        "program": 1,
+        "receipt": {
+          "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/best/male-opening/capture.json",
+          "sha256": "7ce74f75f0c130f56bde739a01c91f5ba74d2d2824c2a566c71bcba7af430daf"
+        },
+        "renderer": "sw",
+        "route": "native Rand new game",
+        "upscale": 1
+      },
+      "world-collapse": {
+        "fields": {
+          "summary/02/000": {
+            "expected_rows": 3,
+            "native_blank_rows": [],
+            "visible_rows": 3
+          },
+          "summary/02/001": {
+            "expected_rows": 1,
+            "native_blank_rows": [],
+            "visible_rows": 1
+          },
+          "summary/02/002": {
+            "expected_rows": 2,
+            "native_blank_rows": [],
+            "visible_rows": 2
+          }
+        },
+        "program": 2,
+        "receipt": {
+          "path": "work/review/scroll-audit-20261109/runtime/release-male-opening-20261110/best/world-collapse/capture.json",
+          "sha256": "2527e9fb55798e523593f164461f12b9165cd26503681e9c5c34c9b17c54f175"
+        },
+        "renderer": "sw",
+        "route": "native world-history program from the final ISO, triggered through the Rand intro selector in RAM",
+        "upscale": 1
+      }
+    },
+    "iso_readback": {
+      "archive_sectors": 5,
+      "archive_size_bytes": 9056,
+      "changed_chunks": [
+        1,
+        2,
+        3
+      ],
+      "counts": {
+        "placeholder_rows": 14,
+        "scroll_fields": 28,
+        "synopsis_fields": 110
+      },
+      "fields": {
+        "summary/01/000": {
+          "allocated_bytes": 809,
+          "native_blank_row_numbers": [
+            5,
+            14
+          ],
+          "payload_sha256": "fbd078f0209485a0d06ad950f161700bb7569335452362efd03941d80769262d",
+          "physical_rows": 17
+        },
+        "summary/02/000": {
+          "allocated_bytes": 124,
+          "native_blank_row_numbers": [],
+          "payload_sha256": "670ec8a5547af5cb5c8ae05a1268e984382d81727002f5c8c0c0033810ace0eb",
+          "physical_rows": 3
+        },
+        "summary/02/001": {
+          "allocated_bytes": 34,
+          "native_blank_row_numbers": [],
+          "payload_sha256": "f1f10cb74e4fd13995bed998195ea5c7f24caff33d28758460e95eb9f9daa850",
+          "physical_rows": 1
+        },
+        "summary/02/002": {
+          "allocated_bytes": 108,
+          "native_blank_row_numbers": [],
+          "payload_sha256": "5080be1fbb9e55b7f08fa5c93fff0b27a332822183c761e9830181a11f776b84",
+          "physical_rows": 2
+        },
+        "summary/03/000": {
+          "allocated_bytes": 557,
+          "native_blank_row_numbers": [],
+          "payload_sha256": "1a0437103dad987b81314d29af674d7d8cbc0b9a38bf632a61d474ae05849238",
+          "physical_rows": 12
+        }
+      },
+      "member_lbas_exact": true,
+      "native_scroll_placeholders_exact": true,
+      "only_scroll_archive_and_offsets_changed_within_members": true,
+      "previous_archive_size_bytes": 9056,
+      "text_and_line_breaks_exact": true
+    }
+  },
   "output": {
     "path": "build/iso/zh-release-best/current-best.iso",
-    "sha256": "0323ba82c5c733b5c01bc805978dacbeaf1ecc23070f4abb228ae81eee762f05",
+    "sha256": "530401b4d9d04b5d24e939ac6c7db7b8887ae93398d060ef6c1183eb136eaa5e",
     "size": 3796187136
   },
   "readback": {
-    "path": "build/editions/zh-release-best/7c80d0aee8c32d2006f3d419045e4c65c11316874eb6662b73643b4b83439a59/project/work/build/best-current/iso-readback.json",
-    "sha256": "6ff467968b6f8ef2f80004d185106346e036e45260fdfc1f2f95742dca693ad1",
+    "path": "build/editions/zh-release-best/40dfd4432eb63e73109c691d55f3c99e787bab96b171fd9b3c076ec7aa6394e6/project/work/build/best-current/iso-readback.json",
+    "sha256": "e2a09b352f79177525da46c9fe47b72c8dc01e92d0fbd4053443061e139f837b",
     "stage_count": 205,
     "translation_entry_count": 84338
   },
@@ -1400,28 +1505,32 @@
   "schema_version": 1,
   "shared_frontend": {
     "edition": "original",
-    "input_digest": "8cf3d615e09f93a6914a5a9b7839fb05efa954af569770af5fc1ef0fd89c929f",
-    "iso_sha256": "c5abcfbc82108a086a1db011d92c87bd2d8a487227f19df268fdda41258e1900",
-    "readback_sha256": "c35c21dfe59119279f59f8fa748aaa90193516bde92b0db9daca9996fc7e9598"
+    "input_digest": "264f92532c07400300d5839a34c3928bc8e1b5d8ab2b8658c240b9e73c66bc1c",
+    "iso_sha256": "53cc76b170dc4046f49bf9b7b156ce553f22fdfd95429bfa1262c86ec5991ebc",
+    "readback_sha256": "eb8b9a73fffb103c436726b8c1c18ffb3f519f4f6d4d3597424cfd2d37b8ce4c"
   },
   "skip_enabled": true,
-  "source_head": "d15fbe960e9b08c559284817c7e726059e353a0a",
+  "source_head": "441dbbcf610d8a8866820308a6c82f1903e06873",
   "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
   "status": "edition_iso_static_validated_runtime_pending",
+  "title_badge_readback": {
+    "image_sha256": "1499f3fb078b9325554987e337ab228bda075f8a999cdfabb2ac6e6510fafa25",
+    "text": "v0.5.0-rc"
+  },
   "typography": {
     "input": {
       "path": "build/iso/zh-release-best/current-best-captioned.iso",
-      "sha256": "d9d4c5d39602a1d0e3515b583a9e257c8db2b951c18b4e05b6322e42db307620",
+      "sha256": "d14e2c16168c015e3dd973ffee0bc40a588dc9810ad70cc6320d2fcdb5c2c497",
       "size": 3796187136
     },
     "verification": {
       "edition": "best",
-      "executable_sha256": "55bb4f52ad32d91079b10ce66d6808e7f469d1358df19e168aced2a224c44bb2",
+      "executable_sha256": "547b32feaa6d11ec0a2111e81a915c4f2b511a8cf2a07d39577d4721da4e3140",
       "member": "SLPS_732.70",
       "member_lba": 1833536,
       "member_size": 3543040,
       "metrics_sha256": "bd83aba20659da669664e847c0926f761a160808b609c732edc6f2e4b7fdad8f",
-      "output_sha256": "7255bcddf45f0c76dbec28ef66d49349abd53b79786a2ca2dab84c640f9818e0",
+      "output_sha256": "43a9cf64ea936f0044a751c5bb474fe508f4a7027385760b86ce6b0a1c460c85",
       "outside_executable_bytes_compared": 3792644096,
       "payload": {
         "base": 7906816,
@@ -1497,11 +1606,11 @@
           "heapUnchanged": true,
           "nonloadedSectionMetadataRemoved": true,
           "payloadBytes": 10496,
-          "resultSha256": "a44d3d975e81dd067422db54c718d0693024fb3b44d60b76005744d69e8551c2",
+          "resultSha256": "dfb87784e6bd563bdf387ea2992a89cef431fde227227e37ec4cfe6b068fff56",
           "runtimeVerified": false,
-          "sourceSha256": "90ea770a390a170232f8b4bc5b4214ca3fc417ec89462ed036305076059c4ac0"
+          "sourceSha256": "37aa2d6e7b40300b68e799ee12a397daf735330fc20e3debdb77a2378c27607a"
         },
-        "resultSha256": "55bb4f52ad32d91079b10ce66d6808e7f469d1358df19e168aced2a224c44bb2",
+        "resultSha256": "547b32feaa6d11ec0a2111e81a915c4f2b511a8cf2a07d39577d4721da4e3140",
         "routes": [
           {
             "name": "story",
@@ -1720,9 +1829,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3796187136,
-      "source_sha256": "d9d4c5d39602a1d0e3515b583a9e257c8db2b951c18b4e05b6322e42db307620"
+      "source_sha256": "d14e2c16168c015e3dd973ffee0bc40a588dc9810ad70cc6320d2fcdb5c2c497"
     }
   },
   "version": "v0.5.0-rc",
-  "workspace": "build/editions/zh-release-best/7c80d0aee8c32d2006f3d419045e4c65c11316874eb6662b73643b4b83439a59/project"
+  "workspace": "build/editions/zh-release-best/40dfd4432eb63e73109c691d55f3c99e787bab96b171fd9b3c076ec7aa6394e6/project"
 }
