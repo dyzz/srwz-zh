@@ -91,6 +91,13 @@ def encode_talk(talk: dict, proposal: Path) -> dict:
     from special_disc.writeback.migrate_slps_text import encoding_tables
     from special_disc.writeback.migrate_stage_dialogue import stored_stage_translation
     from srwz.text import encode_text
+    # Gallery dialogue uses the tactical-map portrait box, including expanded names.
+    from srwz.build_layout import verify_stored
+    verify_stored([(f"gallery/{scene}/{record.get('source', {}).get('id', index)}",
+                    record["text"], False)
+                   for scene, data in talk.items() for section in data["sections"]
+                   for index, record in enumerate(section["records"]) if "text" in record],
+                  "story_map")
     table, _, overrides, _ = encoding_tables(proposal)
     encoded = {}
     for scene, data in talk.items():
