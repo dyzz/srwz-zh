@@ -1,0 +1,106 @@
+{
+  "config": {
+    "path": "config/assets/special-disc/battle-select-titles-zh.json",
+    "sha256": "e54f1029d109239f3bd98ea55618ef891b5de4968b1a8adfb5a52990be1d3ec9"
+  },
+  "edition": "sp",
+  "input": {
+    "path": "build/iso/sp-select-titles-20261110/sp-before-select-titles.iso",
+    "sha256": "af82f520a45ecca170ceb1c93c6e0af73af96db2a224c0de3d3c2584f4d30463",
+    "size": 3918860288
+  },
+  "labels": [
+    "选择阵型",
+    "排列队员",
+    "选择机体",
+    "选择机师",
+    "选择战舰"
+  ],
+  "members": {
+    "KURODATA/KVMDATA.BIN": {
+      "lba": 1910944,
+      "sha256": "58ebb780d87dadb8be2f35810f76319ac7cefeb497e33287e7bf7e9784ae0542",
+      "size": 4720512
+    },
+    "SLPS_259.20": {
+      "lba": 1851456,
+      "sha256": "ccad0d6a2bf23bb4ee6a615e460ee303ed68ddb628dcdc277d8d2dc27bb193c1",
+      "size": 4141568
+    }
+  },
+  "output": {
+    "path": "build/iso/sp-select-commit-20261110/sp-five-select.iso",
+    "sha256": "53e9974c85d1434070c48884553ab8a890a62381fa663266a59e0cbd094da010",
+    "size": 3918860288
+  },
+  "readback": {
+    "formal_atlas_and_executable_exact": true,
+    "native_ship_pixels_exact": true,
+    "native_ship_rect": [
+      2,
+      80,
+      0,
+      48,
+      16
+    ],
+    "non_target_iso_bytes_exact": true,
+    "unchanged_kvp_sha256": "4ff37d3cdbe7ec085033e1bc517dcc56053dd7709199f57b8ac3554648d9cbcf",
+    "unchanged_lbas_and_sizes": true
+  },
+  "runtime": {
+    "iso_sha256": "53e9974c85d1434070c48884553ab8a890a62381fa663266a59e0cbd094da010",
+    "renderer": "ARMSX2 Metal 4x",
+    "shots": {
+      "formation-sort": {
+        "labels": [
+          "选择阵型",
+          "排列队员"
+        ],
+        "shot_sha256": "1277a7c66990bc880dccfce7cd29827a6abb030b4be8f01e98e0968b16769e4d",
+        "trace_sha256": "888451e9dcf60c255f07cace94d6c825aa0d612e6e4ef79dbf1ebb65d77e33a8"
+      },
+      "pilot": {
+        "labels": [
+          "选择机师"
+        ],
+        "shot_sha256": "c38bfc8ec16ae454cd01afa33f045f23c9487bdbba8d6bb294e56e21b5cc7711",
+        "trace_sha256": "73eaaca2c2d3ae1ab1bfe7f4cddf84d1b2d509c741206954d2209be2e96836d5"
+      },
+      "robot": {
+        "labels": [
+          "选择机体"
+        ],
+        "shot_sha256": "3863eb87bf2c6876eb202929d0536e22fa01609e1066c04046b1afc0db039c65",
+        "trace_sha256": "5b51c537c212e90ec8ba2f4503be4b7966451d27a8088f5ee8b27ad2fb84e7bc"
+      },
+      "ship": {
+        "draws": [
+          {
+            "hits": 4,
+            "pointer": "0x845b00",
+            "return_address": "0x0037c0b0"
+          },
+          {
+            "hits": 4,
+            "pointer": "0x0",
+            "return_address": "0x0037c0d4"
+          }
+        ],
+        "labels": [
+          "选择战舰"
+        ],
+        "scenario": "EX-HARD MISSION 1",
+        "session_unlock_flags": {
+          "address": "0x75fb70",
+          "after": "010101",
+          "before": "010000"
+        },
+        "shot_sha256": "87085907d91f6b8142ca6fd4611be8bbfc8f1912a3a31223f84b0fa36d92f501",
+        "trace_sha256": "08ef82858a862594d5488f9a57ddd068449acdc976f7674a71a519918d949bf4"
+      }
+    }
+  },
+  "schema_version": 1,
+  "scope": "Five localized battle SELECT headings",
+  "source_head": "3686970bf0ad09e8de3f9c6a2f4692d0033e71e3"
+}

@@ -9,7 +9,8 @@ from pathlib import Path
 from .iso9660 import member_map, scan_iso9660
 from .release_inputs import copy_file
 from .tag_free_integrated import install
-from .ui_battle_select import CONFIG as BATTLE_SELECT, apply_atlas as apply_select_atlas, apply_executable
+from .ui_battle_select import CONFIG as BATTLE_SELECT, SP_CONFIG as SP_BATTLE_SELECT
+from .ui_battle_select import apply_atlas as apply_select_atlas, apply_executable
 
 EXECUTABLES = {'original': 'SLPS_258.87', 'best': 'SLPS_732.70', 'sp': 'SLPS_259.20'}
 
@@ -24,9 +25,8 @@ def _expected(root, edition, source):
         stream.seek(start)
         original = stream.read(member.size)
     patched, payload = install(original, registry, edition, scene_dispatch=True)
-    select_path = root / BATTLE_SELECT
-    # Historical snapshots and the Special Disc keep their own renderer contract.
-    if edition in ("original", "best") and select_path.is_file():
+    select_path = root / (SP_BATTLE_SELECT if edition == "sp" else BATTLE_SELECT)
+    if select_path.is_file():
         raw = select_path.read_bytes()
         contract = json.loads(raw)
         atlas = members["KURODATA/KVMDATA.BIN"]

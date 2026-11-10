@@ -17,6 +17,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 from srwz.codec import decode_production
+from srwz.ui_battle_select import SP_SHIP_DRAW_ADDRESS
 from special_disc.event_gallery.aid import patch_aid
 from special_disc.event_gallery.menu import build as build_menu
 from special_disc.event_gallery.ligature import build_w, W_ADDRESS
@@ -214,6 +215,8 @@ def apply_event_gallery(elf: bytes, aid: bytes, veff: bytes, *, config: dict | N
     code_end = PACKET_BASE - RUNTIME_BASE
     if len(menu) >= 0x1F00 or 0x2000 + len(runtime) > PAYLOAD_SIZE:
         raise ValueError("Gallery payload overlaps its state or exceeds the loaded segment")
+    if RUNTIME_BASE + len(runtime) > SP_SHIP_DRAW_ADDRESS:
+        raise ValueError("Gallery runtime overlaps the SP ship title drawing slot")
     if any(runtime[code_end:TALK_BASE - RUNTIME_BASE]):
         raise ValueError("Gallery runtime overlaps the per-frame GIF packet buffer")
     payload[:len(menu)] = menu

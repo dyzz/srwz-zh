@@ -86,6 +86,9 @@ def main():
     outputs[KVP], frame_uv_report = apply_frame_uv_patches(outputs[KVP], load_frame_uv_contract(ROOT, 'sp'))
     from srwz.ui_frame_joins import apply_frame_joins, load_join_contract
     outputs[KVP], frame_join_report = apply_frame_joins(outputs[KVP], load_join_contract(ROOT, 'sp'))
+    from srwz.ui_battle_select import SP_CONFIG as SP_BATTLE_SELECT, apply_atlas as apply_select_atlas
+    select_config = (ROOT / SP_BATTLE_SELECT).read_bytes()
+    outputs[name] = apply_select_atlas(outputs[name], json.loads(select_config))
     for target,box in patches:reports.append(dict(target=target,member=name,chunk=11,rect=box))
     name='MAP/MAPMODEL.BIN';base=writer.member(name);arc=bytearray(base);off=sd.table_offsets(writer.exe,0x3542F0,len(base))
     for index in (195,196,197):
@@ -109,6 +112,7 @@ def main():
     report['menu_restore'] = menu_report
     report['shared_frame_uv'] = frame_uv_report
     report['frame_joins'] = frame_join_report
+    report['battle_select_titles'] = dict(config_sha256=stage.sha256(select_config))
     report['world_map_titles'] = world_map_report
     for name,data in outputs.items():
         p=args.output/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)

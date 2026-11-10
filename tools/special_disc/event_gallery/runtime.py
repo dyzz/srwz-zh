@@ -161,7 +161,9 @@ def generate(entries: Sequence[dict[str, Any]], outdir: Path | str,
         for obj in scene['stage_objects']:
             lines.append("    .word " + ",".join(str(obj[k]) for k in ('model', 'frame', 'mode', 'visible')))
         lines.append("    .word -1,0,0,0")
-    lines += ["gallery_low_data_end:", ".org 0x4800", ".globl gallery_script", "gallery_script:"]
+    # The SELECT overlay owns 0x824800..0x825800, before the caption table.
+    lines += ["gallery_low_data_end:", ".org 0x2800", ".org 0x4800",
+              ".globl gallery_script", "gallery_script:"]
     data_lines: list[str] = []
     talk_chunks: list[list[str]] = []
     talk_op_tables: list[str] = []
