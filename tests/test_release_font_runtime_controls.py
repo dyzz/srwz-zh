@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+from srwz.release_font import rendered_characters
 from srwz.text import TextTable, decode_text
 from verify_zh_release_font import runtime_placeholder_bytes_are_exact
 
@@ -36,6 +37,11 @@ class ReleaseFontRuntimeControlTests(unittest.TestCase):
             with self.subTest(damaged=damaged):
                 with patch("verify_zh_release_font.encode_text", return_value=damaged):
                     self.assertFalse(runtime_placeholder_bytes_are_exact("<0>", self.table))
+
+    def test_tm_lookup_key_is_not_a_glyph_but_visible_text_still_is(self):
+        text = "撃＜ｔｍ＞撃墜数＜／ｔｍ＞！<tm>獲得資金</tm>。"
+        self.assertEqual(rendered_characters(text), tuple("撃！。"))
+        self.assertIn("獲", rendered_characters("<tm>獲得資金誤記</tm>"))
 
 
 if __name__ == "__main__":

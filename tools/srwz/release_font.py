@@ -21,6 +21,8 @@ from .font import (
 )
 from .library import SoundTitleSpanLock, verify_sound_title_source
 from .text import (
+    TM_SCOPE,
+    TM_STOCK_KEYS,
     control_notation_positions,
     control_notation_tokens,
     original_fullwidth_ascii_overrides,
@@ -1380,6 +1382,15 @@ def rendered_characters(text: str) -> tuple[str, ...]:
     if not isinstance(text, str):
         raise TypeError("rendered text must be a string")
     skipped = control_notation_positions(text)
+    if "＜" in text or "<tm>" in text:
+        # The SP renderer looks up stock keys and draws the resulting number.
+        # Keep unknown bodies visible to the audit so typos cannot hide glyphs.
+        skipped = skipped.union(
+            index
+            for match in TM_SCOPE.finditer(text)
+            if (match.group(1) or match.group(2)) in TM_STOCK_KEYS
+            for index in range(match.start(), match.end())
+        )
     return tuple(
         character
         for index, character in enumerate(text)
