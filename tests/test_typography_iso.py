@@ -35,8 +35,20 @@ class TypographyIsoTests(unittest.TestCase):
                 with patch('srwz.typography_iso.scan_iso9660', return_value=None), patch('srwz.typography_iso.member_map', return_value=members):
                     proof = seal_iso(root, edition, source, output)
                     self.assertEqual(proof['payload']['sceneDispatch'], True)
+                    exhaustion = proof['payload']['text_atlas_exhaustion']
+                    self.assertEqual(exhaustion['after'], '5e000010')
+                    at = 4096 + exhaustion['file_offset']
+                    self.assertEqual(output.read_bytes()[at:at + 4], bytes.fromhex('5e000010'))
                     self.assertEqual(proof['outside_executable_bytes_compared'], 4096 + 27)
                     self.assertEqual(verify_iso(root, edition, source, output, proof), proof)
+                    with output.open('r+b') as stream:
+                        stream.seek(at)
+                        stream.write(bytes.fromhex(exhaustion['before']))
+                    with self.assertRaisesRegex(ValueError, 'regenerated patch'):
+                        verify_iso(root, edition, source, output, proof)
+                    with output.open('r+b') as stream:
+                        stream.seek(at)
+                        stream.write(bytes.fromhex(exhaustion['after']))
                     with output.open('r+b') as stream:
                         stream.seek(0)
                         stream.write(b'!')
