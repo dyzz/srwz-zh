@@ -34,11 +34,14 @@ def build_image(W: Path, src: Path, dst: Path, replace=False, music_prefix=None,
         assert symbols['__end']<0xdb0000,'Z native heap initialization would overlap payload'
         addresses=[0x1001d0,0x1001d8,0x140644,0x140650,(0x3f4734 if game=='best' else 0x3f3fb4)]
         heap=tuple(struct.unpack_from('<I',b,off(a))[0] for a in addresses)
-        allowed=[(0x3c040079,0x2484a500,0x3c040079,0x2484a500,0x78a500) if game=='best' else (0x3c040079,0x24849d00,0x3c040079,0x24849d00,0x789d00),(0x3c04008b,0x24840000,0x3c04008b,0x24840000,0x8c0000)]
+        allowed=[(0x3c040079,0x2484a500,0x3c040079,0x2484a500,0x78a500) if game=='best' else (0x3c040079,0x24849d00,0x3c040079,0x24849d00,0x789d00),(0x3c04008b,0x24840000,0x3c04008b,0x24840000,0x8c0000),
+                 # Chinese builds: the event-caption payload at 0x790000 already moved the heap to 0x7a0000.
+                 (0x3c04007a,0x24840000,0x3c04007a,0x24840000,0x7a0000)]
         if heap not in allowed:raise ValueError('Unsupported '+game+' heap layout: '+repr(heap))
         for a,old,new in zip(addresses,heap,[0x3c0400db,0x24840000,0x3c0400db,0x24840000,end]):patch(a,[old],[new])
     for t,o,v,p,n,mem,fl,al in headers:
         if t==1 and max(v,0x8c0000)<min(v+mem,end):raise ValueError('Existing executable segment overlaps the music player reserve')
+    b,headers=make_header_room(b,ph,num,headers)
     payload=(W/'payload.bin').read_bytes();fileoff=(len(b)+4095)&~4095;b+=bytes(fileoff-len(b))+payload
     assert ph+(num+1)*32<=min(x[1] for x in headers if x[4])
     struct.pack_into('<8I',b,ph+num*32,1,fileoff,0x8c0000,0x8c0000,len(payload),end-0x8c0000,7,64);struct.pack_into('<H',b,44,num+1)
@@ -53,6 +56,25 @@ def build_image(W: Path, src: Path, dst: Path, replace=False, music_prefix=None,
     out=dict(game=game,executable=exe,source=str(src),iso=str(dst),elf_sha256=hashlib.sha256(b).hexdigest(),source_elf_sha256=hashlib.sha256(read(exe)).hexdigest(),payload_bytes=len(payload),private_end=end,symbols={n:symbols[n] for n in ['hook_update','hook_load','hook_loaded','telemetry','__end']},original_bgm_unchanged=True,music=music,relocation=rec,readback=verify)
     out['untouched']=verify_untouched(src,dst,rec['touched_spans']+[(a,min(z,src.stat().st_size)) for a,z in music['metadata_spans'] if a<src.stat().st_size])
     (W/'build-receipt.json').write_text(json.dumps(out,indent=2)+'\n');print(out['symbols'],len(b),music['lba'])
+
+def make_header_room(b,ph,num,headers):
+    """Free one program-header slot by moving file data back by whole alignment units.
+
+    Chinese Original/Best ELFs already used the spare slot (event captions) and the
+    end marker (proportional text). Every p_offset moves by the same multiple of the
+    largest p_align, so each segment still loads the same bytes at the same address.
+    """
+    first=min(h[1] for h in headers if h[4]);need=ph+(num+1)*32
+    if need<=first:return b,headers
+    if struct.unpack_from('<I',b,32)[0] or struct.unpack_from('<H',b,48)[0]:raise ValueError('Cannot move ELF data with a section header table')
+    if any(b[ph+num*32:first]):raise ValueError('Unexpected data after the program header table')
+    if any(h[1]<first for h in headers):raise ValueError('Program header offset precedes the first file data')
+    unit=max([16]+[h[7] for h in headers]);delta=(need-first+unit-1)//unit*unit
+    if any(h[7] and (h[1]+delta-h[2])%h[7] for h in headers):raise ValueError('Moved segment would break alignment')
+    b=bytearray(b[:first])+bytes(delta)+b[first:]
+    headers=[(t,o+delta,*rest) for t,o,*rest in headers]
+    for i,h in enumerate(headers):struct.pack_into('<8I',b,ph+i*32,*h)
+    return b,headers
 
 def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,replace):
     """Update only the reserved container when the installed player matches exactly."""
