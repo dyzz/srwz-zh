@@ -87,12 +87,13 @@ def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,rep
     if segment is None:raise ValueError('缺少播放器保留区')
     installed=bytes(b[segment[1]:segment[1]+segment[4]])
     current=segment[4]==len(payload) and installed==payload
-    from profiles import LEGACY_PLAYERS,LEGACY_HOOKS
-    legacy=LEGACY_PLAYERS[game]
-    upgrade=not current and segment[4]==legacy['size'] and hashlib.sha256(installed).hexdigest()==legacy['sha256']
+    from profiles import LEGACY_PLAYERS
+    digest=hashlib.sha256(installed).hexdigest()
+    legacy=None if current else next((p for p in LEGACY_PLAYERS[game] if segment[4]==p['size'] and digest==p['sha256']),None)
+    upgrade=legacy is not None
     if not current and not upgrade:raise ValueError('播放器版本不匹配，请从原盘或汉化基础镜像重新安装')
     if segment[5]!=0x500000 or symbols['__end']>segment[2]+segment[5]:raise ValueError('播放器保留区大小不匹配')
-    installed_symbols=LEGACY_HOOKS if upgrade else symbols
+    installed_symbols=legacy['hooks'] if upgrade else symbols
     if any(h is not segment and h[0]==1 and max(h[2],segment[2])<min(h[2]+h[5],segment[2]+segment[5]) for h in headers):raise ValueError('Installed player reserve overlaps another executable segment')
     def off(a):
         for t,o,v,p,n,*_ in headers:
@@ -125,5 +126,5 @@ def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,rep
             pos+=n
         f.flush();f.seek(start);assert f.read(len(prefix))==prefix
     untouched=verify_untouched(src,dst,[(start,end)]+(relocation['touched_spans'] if relocation else []))
-    out=dict(game=game,executable=profile['executable'],source=str(src),iso=str(dst),update_existing=True,player_upgraded=upgrade,relocation=relocation,readback=readback,elf_sha256=hashlib.sha256(b).hexdigest(),payload_bytes=len(payload),symbols={n:symbols[n] for n in ['hook_update','hook_load','hook_native','telemetry','__end']},original_bgm_unchanged=True,music=dict(path='BGM/VOCAL.BIN',lba=member.extent_lba,capacity=CAPACITY,used=len(prefix)),untouched=untouched)
+    out=dict(game=game,executable=profile['executable'],source=str(src),iso=str(dst),update_existing=True,player_upgraded=upgrade,upgraded_from=legacy['version'] if upgrade else None,relocation=relocation,readback=readback,elf_sha256=hashlib.sha256(b).hexdigest(),payload_bytes=len(payload),symbols={n:symbols[n] for n in ['hook_update','hook_load','hook_native','telemetry','__end']},original_bgm_unchanged=True,music=dict(path='BGM/VOCAL.BIN',lba=member.extent_lba,capacity=CAPACITY,used=len(prefix)),untouched=untouched)
     (W/'build-receipt.json').write_text(json.dumps(out,indent=2)+'\n');return out

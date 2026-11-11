@@ -22,6 +22,8 @@ libsd_IMPORTS_start
 I_sceSdSetParam
 I_sceSdBlockTrans
 I_sceSdBlockTransStatus
+I_sceSdVoiceTrans
+I_sceSdVoiceTransStatus
 I_sceSdGetTransIntrHandlerArgument
 I_sceSdSetTransIntrHandler
 libsd_IMPORTS_end
@@ -29,6 +31,14 @@ sysclib_IMPORTS_start
 I_memcpy
 I_memset
 sysclib_IMPORTS_end
+
+sysmem_IMPORTS_start
+I_QueryMaxFreeMemSize
+sysmem_IMPORTS_end
+
+loadcore_IMPORTS_start
+I_FlushIcache
+loadcore_IMPORTS_end
 
 ioman_IMPORTS_start
 I_open

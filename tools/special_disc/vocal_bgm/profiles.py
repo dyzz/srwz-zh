@@ -17,11 +17,18 @@ def hook_source(text,game='z'):
  text=re.sub(r'0x[0-9a-f]+',lambda m:hex((BEST_HOOK_RELOCATIONS if game=='best' else Z_HOOK_RELOCATIONS).get(int(m[0],16),int(m[0],16))),text)
  return text.replace('lui $2,0x47','lui $2,0x41')
 
-# Exact first-generation browser players. Migration accepts only these payloads
-# and verifies every installed hook before replacing the reserved ELF segment.
-LEGACY_PLAYERS={
- 'sp':dict(sha256='c4aee88978fb199fcc7449cb6ed0a7fc49fab31e900058627ce82b7e06badc2a',size=139460),
- 'z':dict(sha256='d93ea0ffb10fa9fb3ee1df83a5bab4a87022094271b6173f55f3286d4d331278',size=139460),
- 'best':dict(sha256='154fe43be30e191437e75d734cadff41680c3d1b0af8921c51331dfae8990ea9',size=139460),
-}
+# Exact earlier browser players. Migration accepts only these payloads and
+# verifies every installed hook (at that version's addresses) before replacing
+# the reserved ELF segment. v1: first browser player (2026-11-05).
+# v2: asynchronous loader (2026-11-06); its AutoDMA blocked native core-1
+# sound-effect uploads, so v2 images must be upgraded to the current player.
 LEGACY_HOOKS=dict(hook_stop=0x8ce8f0,hook_update=0x8ce5e0,hook_load=0x8ce6e0,hook_native=0x8ce9f0)
+V2_HOOKS=dict(hook_stop=0x8cea50,hook_update=0x8ce740,hook_load=0x8ce840,hook_native=0x8ceb50)
+LEGACY_PLAYERS={
+ 'sp':[dict(version=1,sha256='c4aee88978fb199fcc7449cb6ed0a7fc49fab31e900058627ce82b7e06badc2a',size=139460,hooks=LEGACY_HOOKS),
+       dict(version=2,sha256='74c00c73c7fc253ce51311b362e160385a6a66732b1a0fad519676ded287f197',size=139780,hooks=V2_HOOKS)],
+ 'z':[dict(version=1,sha256='d93ea0ffb10fa9fb3ee1df83a5bab4a87022094271b6173f55f3286d4d331278',size=139460,hooks=LEGACY_HOOKS),
+      dict(version=2,sha256='b9005930bee1360ae82d8713b979cf228c86ff3db79b30e4ec6721e2b282c7ca',size=139780,hooks=V2_HOOKS)],
+ 'best':[dict(version=1,sha256='154fe43be30e191437e75d734cadff41680c3d1b0af8921c51331dfae8990ea9',size=139460,hooks=LEGACY_HOOKS),
+         dict(version=2,sha256='c9458404c9f1f891f5fb5b04c8d35b42fe62ece0a8c5ecd0b6a5501ad8e3ba08',size=139780,hooks=V2_HOOKS)],
+}

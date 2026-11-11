@@ -7,3 +7,5 @@
 #include <sysclib.h>
 
 #include <ioman.h>
+#include <loadcore.h>
+#include <sysmem.h>
