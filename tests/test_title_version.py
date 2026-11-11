@@ -70,8 +70,14 @@ class TitleVersionTests(unittest.TestCase):
                              self.contract['version_badge']['latest_release_tag'] + '+20261004')
 
     def test_current_rc_is_kept_on_untagged_builds(self):
-        with patch('tools.freeze_title_version.subprocess.check_output', return_value=''):
-            self.assertEqual(version_text(ROOT), 'v0.5.0-rc')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = root / 'config/assets/title-menu-zh.json'
+            config.parent.mkdir(parents=True)
+            config.write_text(json.dumps({'version_badge': {'text': 'v0.5.0-rc'}}))
+            with patch('tools.freeze_title_version.subprocess.check_output', return_value='') as command:
+                self.assertEqual(version_text(root), 'v0.5.0-rc')
+                command.assert_called_once()
 
     def test_frozen_glyphs_render_without_a_system_font(self):
         badge = freeze(self.contract['version_badge']['text'], root=ROOT)
