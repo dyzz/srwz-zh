@@ -35,7 +35,7 @@ static SifRpcServerData_t server,file_server;
 static volatile unsigned wr,rd,active,underruns,interrupts,draining;
 /* Native core-1 use: a voice transfer in DMA mode still running, or a native
  * block transfer that owns the channel until it is stopped. */
-static volatile unsigned native_voice,native_block;
+static volatile unsigned native_voice,native_block,native_io;
 static int sema;
 static int music_fd=-1;
 static unsigned file_result[(FILE_CHUNK+64)/4] __attribute__((aligned(64)));
@@ -58,15 +58,21 @@ static void adma_stop(void){
 }
 static int channel_free(void){
  if(native_voice&&sceSdVoiceTransStatus(1,0)==1)native_voice=0;
- return !native_voice&&!native_block;
+ return !native_voice&&!native_block&&!native_io;
 }
 
 static int wrap_voice(s16 ch,u16 mode,u8 *iop,u32 *spu,u32 size){
  int s;
  if((ch&1)==1){
   CpuSuspendIntr(&s);if(active){adma_stop();stats[4]++;}stats[3]++;stats[7]=mode;
-  if(!(mode&SD_TRANS_MODE_IO)&&(mode&3)!=SD_TRANS_STOP)native_voice=1;
+  if((mode&3)!=SD_TRANS_STOP){if(mode&SD_TRANS_MODE_IO)native_io++;else native_voice=1;}
   CpuResumeIntr(s);
+  /* An IO-mode transfer is written by the CPU in this call; keep the channel
+   * marked busy until it returns so a PCM restart cannot preempt it. */
+  if(!(mode&SD_TRANS_MODE_IO)||(mode&3)==SD_TRANS_STOP)return sceSdVoiceTrans(ch,mode,iop,spu,size);
+  int r=sceSdVoiceTrans(ch,mode,iop,spu,size);
+  CpuSuspendIntr(&s);native_io--;CpuResumeIntr(s);
+  return r;
  }
  return sceSdVoiceTrans(ch,mode,iop,spu,size);
 }
@@ -74,6 +80,8 @@ static int wrap_block(s16 ch,u16 mode,u8 *iop,u32 size,u32 extra){
  int s;
  if((ch&1)==1){
   CpuSuspendIntr(&s);stats[5]++;
+  /* A native stop for a block transfer it never started would stop our PCM. */
+  if((mode&3)==SD_TRANS_STOP&&!native_block&&active){CpuResumeIntr(s);return 0;}
   if((mode&3)==SD_TRANS_STOP)native_block=0;
   else{if(active){adma_stop();stats[4]++;}native_block=1;}
   CpuResumeIntr(s);
