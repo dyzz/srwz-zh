@@ -1,0 +1,95 @@
+{
+  "channel": "stable",
+  "editions": {
+    "best": {
+      "edition_config": "config/editions/best/edition.json",
+      "patch_filename": "srwz-zh-v0.5.0-best.xdelta",
+      "source_iso": {
+        "path": "rom/best.iso",
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+        "size": 3755081728
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-best.iso",
+        "sha256": "6f0df648c20e495e776c769ebe862af7918a2ae9f00a50775049bca8756318fc",
+        "size": 3796187136
+      }
+    },
+    "original": {
+      "edition_config": "config/editions/original/edition.json",
+      "patch_filename": "srwz-zh-v0.5.0-original.xdelta",
+      "source_iso": {
+        "path": "rom/original.iso",
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+        "size": 3758358528
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-original.iso",
+        "sha256": "2a76a11f84bb9d0b75363fce528e4f5e319d102597d11f807b1a07644bfc7749",
+        "size": 3799459840
+      }
+    },
+    "sp": {
+      "edition_config": "config/editions/sp/edition.json",
+      "patch_filename": "srwz-zh-v0.5.0-sp.xdelta",
+      "source_iso": {
+        "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+        "sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+        "size": 3791781888
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-sp.iso",
+        "sha256": "e09afe50f0131691456489e300ba089aef8e768f0c2ffb9dd018b91b725e1c37",
+        "size": 3918860288
+      }
+    }
+  },
+  "evidence": [
+    "config/release/v0.5.0.json",
+    "config/full-story-components.json",
+    "config/products/special-disc/battle-square-skip.json",
+    "config/editions/original/edition.json",
+    "config/editions/best/edition.json",
+    "config/editions/sp/edition.json",
+    "tools/build_release.py",
+    "tools/freeze_release.py",
+    "docs/RELEASE_NOTES_V0.5.0.md",
+    "manifests/releases/v0.5.0/best-battle-select.json",
+    "manifests/releases/v0.5.0/best-pre-typography.elf",
+    "manifests/releases/v0.5.0/best-readback.json",
+    "manifests/releases/v0.5.0/best-skip-readback.json",
+    "manifests/releases/v0.5.0/original-battle-select.json",
+    "manifests/releases/v0.5.0/original-pre-typography.elf",
+    "manifests/releases/v0.5.0/original-readback.json",
+    "manifests/releases/v0.5.0/original-skip-readback.json",
+    "manifests/releases/v0.5.0/proportional-metrics.mjs",
+    "manifests/releases/v0.5.0/sp-battle-select.json",
+    "manifests/releases/v0.5.0/sp-independent-readback.json",
+    "manifests/releases/v0.5.0/sp-pre-typography.elf",
+    "manifests/releases/v0.5.0/sp-readback.json",
+    "manifests/releases/v0.5.0/sp-skip-readback.json",
+    "manifests/releases/v0.5.0/validation.json"
+  ],
+  "known_limitations": [],
+  "output": {
+    "directory": "build/release/v0.5.0"
+  },
+  "schema_version": 6,
+  "skip": "built_in",
+  "tag": "v0.5.0",
+  "typography": "proportional",
+  "validation": "manifests/releases/v0.5.0/validation.json",
+  "version": "0.5.0",
+  "xdelta": {
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw",
+      "-A",
+      "-a"
+    ],
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald"
+  }
+}

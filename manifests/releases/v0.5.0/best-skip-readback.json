@@ -1,0 +1,66 @@
+{
+  "battle_square_skip": {
+    "all_replacements_exact": true,
+    "already_applied": true,
+    "cave_file_offset": "0x2F7A80",
+    "cave_preimage_all_zero": false,
+    "cave_size": 2048,
+    "cave_virtual_address": "0x3F6000",
+    "changed_byte_count": 0,
+    "configuration_matches_before": true,
+    "edition": "best",
+    "enabled": true,
+    "executable_size_preserved": true,
+    "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+    "hook_size": 1728,
+    "member": "SLPS_732.70",
+    "native_resource_waits_preserved": true,
+    "native_result_processing_preserved": true,
+    "patches": [
+      {
+        "file_offset": "0x1E5C44",
+        "id": "battle_step_world_call",
+        "kind": "jal",
+        "original_instruction_hex": "a0210c0c",
+        "replacement_instruction_hex": "00d80f0c",
+        "state_before": "applied",
+        "surface": "battle step world call",
+        "virtual_address": "0x2E41C4"
+      },
+      {
+        "file_offset": "0x1EDD60",
+        "id": "queue_append_prologue_0",
+        "kind": "j",
+        "original_instruction_hex": "20038290",
+        "replacement_instruction_hex": "40d90f08",
+        "state_before": "applied",
+        "surface": "queue append prologue 0",
+        "virtual_address": "0x2EC2E0"
+      },
+      {
+        "file_offset": "0x1EDD64",
+        "id": "queue_append_prologue_1",
+        "kind": "nop",
+        "original_instruction_hex": "c0100200",
+        "replacement_instruction_hex": "00000000",
+        "state_before": "applied",
+        "surface": "queue append prologue 1",
+        "virtual_address": "0x2EC2E4"
+      }
+    ],
+    "policy": "square_skips_battle_animation_via_native_tail",
+    "site_count": 3,
+    "state_marker": "0x4E540005",
+    "world_steps_per_frame": 1
+  },
+  "edition": "best",
+  "iso": {
+    "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-best.iso",
+    "sha256": "6f0df648c20e495e776c769ebe862af7918a2ae9f00a50775049bca8756318fc",
+    "size": 3796187136
+  },
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "skip_enabled": true,
+  "status": "built_in_skip_hook_readback_passed"
+}

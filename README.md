@@ -2,24 +2,19 @@
 
 这是《超级机器人大战 Z》PS2 日文版的非官方简体中文化项目。
 
-当前版本为 **v0.4.2 紧急修复版**，同时支持 Original（初版）和 The Best（廉价版）。
-本次修复 The Best 第 47 话标题后黑屏及另一关卡段落的地图事件失效。
-**旧版 The Best 汉化用户请升级。** v0.4.2 发布时默认推荐不带方块 skip 的版本，另提供可选 skip 版本。
-完整内容见 [v0.4.2 发布说明](docs/RELEASE_NOTES_V0.4.2.md)。
-
-**后续 release 固定包含 Original、The Best 和 SP，三版统一默认内置方块 skip，每种原盘只提供一份补丁，不再区分带／不带 skip。**
-依赖 Original（初版）金手指的玩家可继续选择 Original 补丁。战斗动画中按住方块键（□）可跳到下一个阶段。
-下方四补丁下载说明仅对应已发布的 v0.4.2，后续构建与发布流程见[统一构建说明](docs/BUILD_EDITIONS.md)。
+当前版本为 **v0.5.0 正式版**，支持 Original（初版）、The Best（廉价版），并首次正式加入 SP 特别盘汉化。
+依赖 Original（初版）金手指的玩家可继续选择 Original 补丁。
+完整内容见 [v0.5.0 发布说明](docs/RELEASE_NOTES_V0.5.0.md)。
 
 想了解官方原盘改了什么，见 [初版与 The Best 详细差异（面向玩家）](docs/BEST_VERSION_GUIDE.md)，
 一篇看完程序、战斗演出、音库修正，以及剧情、字幕、说明和图鉴的前后差异。
 
 ## 本次更新
 
-- The Best：修复第 47 话“我们的去向”标题后黑屏，以及“我的未来，你的未来”相关段落的地图事件失效。
-- 两版：收录已合入的社区译文、术语、图鉴姓名及改名显示、标题排版和文字宽度调整。
-- 两版各提供不带 skip、带方块 skip 两种补丁，均直接用于对应日文原盘。
-- 保留 [v0.4.1 的修复](docs/RELEASE_NOTES_V0.4.1.md)。
+- SP 特别盘新增中文剧情、挑战、图鉴及鉴赏内容，名场面集可选择播放演出或连同对白观看。
+- 本篇原关卡的部分事件演出补上中文字幕，三版同步更新译文、战斗台词、术语及排版。
+- 三版内置方块 skip，战斗动画中按住方块键（□）可跳到下一个阶段。
+- Original 与 The Best 的图鉴和梗概按原版进度解锁，并提供两组独立的[可选全开金手指](docs/LIBRARY_UNLOCK_TEST_CHEATS_20261106.md)。
 
 [机战 Z 中文化审阅站](https://srwz.dreamquest.club) 支持中日文对照、全文搜索、
 逐条改稿建议和更新追踪。运行问题也可通过 [GitHub Issues](https://github.com/dyzz/srwz-zh/issues)
@@ -27,24 +22,17 @@
 
 ## 下载与使用
 
-前往 [v0.4.2 GitHub Release](https://github.com/dyzz/srwz-zh/releases/tag/v0.4.2)，
+前往 [v0.5.0 GitHub Release](https://github.com/dyzz/srwz-zh/releases/tag/v0.5.0)，
 按自己持有的日文原盘选择 **一个** 补丁：
 
-| 原盘 | 默认推荐：不带 skip | 可选：带方块 skip |
-| --- | --- | --- |
-| Original 初版，SLPS-25887 / 1.04 | `srwz-zh-v0.4.2-original.xdelta` | `srwz-zh-v0.4.2-original-skip.xdelta` |
-| The Best 廉价版，SLPS-73270 / 2.00 | `srwz-zh-v0.4.2-best.xdelta` | `srwz-zh-v0.4.2-best-skip.xdelta` |
+| 日文原盘 | 补丁 |
+| --- | --- |
+| Original 初版，SLPS-25887 / 1.04 | `srwz-zh-v0.5.0-original.xdelta` |
+| The Best 廉价版，SLPS-73270 / 2.00 | `srwz-zh-v0.5.0-best.xdelta` |
+| SP 特别盘，SLPS-25920 / 1.01 | `srwz-zh-v0.5.0-sp.xdelta` |
 
-**带 skip 版：类似《破界篇》引入的快进，战斗动画中按住方块键（□），跳到战斗动画的下一个阶段。**
-
-四个补丁分别从对应日文原盘生成完整中文版本，不互相叠加。请勿在旧汉化版或其他修改版镜像上
-重复打补丁，操作前请备份镜像和存档。原盘及成品校验值、xdelta3 命令见
-[选择补丁与校验](docs/RELEASE_NOTES_V0.4.2.md#选择补丁)。
-
-游戏以 xdelta 补丁分发，不提供游戏 ISO 或其他原版游戏数据。
-另为 [Issue #28](https://github.com/dyzz/srwz-zh/issues/28) 提供了用于复现问题的记忆卡附件。
-构建、静态回读、补丁还原及 LRPS2 检查的精确镜像和范围见
-[v0.4.2 构建与发布记录](docs/RELEASE_BUILD_V0.4.2.md)。本次未重新执行 PCSX2，也未完成全路线运行验收。
+请备份原盘与记忆卡存档，直接使用对应的未修改日文 ISO 打补丁。操作示例和校验方式见
+[选择补丁与校验](docs/RELEASE_NOTES_V0.5.0.md#选择补丁与校验)。发行附件为 xdelta 补丁及说明。
 
 ## 从源码构建
 
@@ -75,7 +63,7 @@ Redump 校验值为 CRC-32 `0d9deb37`、MD5
 
 ```bash
 python3 tools/build_editions.py                      # 默认构建 Original、The Best 和 SP
-python3 tools/build_editions.py --release-version 0.5.0-rc
+python3 tools/build_editions.py --release-version 0.5.0
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
 python3 tools/build_editions.py --force-rebuild      # 不复用任何组件与文件身份记录，完整重算（内容寻址的压缩结果缓存仍可命中）
@@ -98,7 +86,7 @@ SP 需要日文原盘、xdelta3 和锁定的字体／基线组件；准备方法
 （`rebuild_zh_font.py`、`build_iso.py`、`verify_full_story_iso_content.py` 等）
 只用于排错和资源维护，见 [构建与运行验收](docs/BUILD_AND_RUNTIME.md)。
 
-本地完整 ISO 只用于开发和运行验证，不进入发布包。从下一版起 release 固定包含
+本地完整 ISO 用于开发和运行验证。release 固定包含
 Original、The Best 和 SP，三版全部内置方块 skip，每版一份补丁。先冻结同一批次的
 三版已验证镜像并回读 skip hook，再生成发布包：
 
@@ -150,8 +138,7 @@ HarmonyOS Sans，并对少数字符使用 Noto Sans CJK；第三方字体及许�
 本项目是非官方、非商业的爱好者项目，与原作权利方不存在隶属或授权关系。
 《超级机器人大战 Z》及相关作品、角色和名称的权利归各自权利方所有。
 
-发布镜像的精确身份见 [v0.4.2 发布验证清单](manifests/releases/v0.4.2/validation.json)。
-`current-original.iso` 与 `current-best.iso` 用于后续开发，版本化发布镜像保持独立。
+发布镜像的精确身份和验收范围见 [v0.5.0 构建与发布记录](docs/RELEASE_BUILD_V0.5.0.md)。
 
 开发、构建与验证资料见 [项目文档](docs/README.md)，参与贡献前请阅读
 [贡献与发布约定](CONTRIBUTING.md)。

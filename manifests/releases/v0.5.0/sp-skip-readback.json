@@ -1,0 +1,66 @@
+{
+  "battle_square_skip": {
+    "all_replacements_exact": true,
+    "already_applied": true,
+    "cave_file_offset": "0x351100",
+    "cave_preimage_all_zero": false,
+    "cave_size": 2048,
+    "cave_virtual_address": "0x450780",
+    "changed_byte_count": 0,
+    "configuration_matches_before": true,
+    "edition": "sp",
+    "enabled": true,
+    "executable_size_preserved": true,
+    "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+    "hook_size": 1728,
+    "member": "SLPS_259.20",
+    "native_resource_waits_preserved": true,
+    "native_result_processing_preserved": true,
+    "patches": [
+      {
+        "file_offset": "0x1EA5C8",
+        "id": "battle_step_world_call",
+        "kind": "jal",
+        "original_instruction_hex": "ec390c0c",
+        "replacement_instruction_hex": "e041110c",
+        "state_before": "applied",
+        "surface": "battle step world call",
+        "virtual_address": "0x2E9C48"
+      },
+      {
+        "file_offset": "0x1F2C00",
+        "id": "queue_append_prologue_0",
+        "kind": "j",
+        "original_instruction_hex": "20038290",
+        "replacement_instruction_hex": "20431108",
+        "state_before": "applied",
+        "surface": "queue append prologue 0",
+        "virtual_address": "0x2F2280"
+      },
+      {
+        "file_offset": "0x1F2C04",
+        "id": "queue_append_prologue_1",
+        "kind": "nop",
+        "original_instruction_hex": "c0100200",
+        "replacement_instruction_hex": "00000000",
+        "state_before": "applied",
+        "surface": "queue append prologue 1",
+        "virtual_address": "0x2F2284"
+      }
+    ],
+    "policy": "square_skips_battle_animation_via_native_tail",
+    "site_count": 3,
+    "state_marker": "0x4E540005",
+    "world_steps_per_frame": 1
+  },
+  "edition": "sp",
+  "iso": {
+    "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-sp.iso",
+    "sha256": "e09afe50f0131691456489e300ba089aef8e768f0c2ffb9dd018b91b725e1c37",
+    "size": 3918860288
+  },
+  "runtime": "not_tested",
+  "schema_version": 1,
+  "skip_enabled": true,
+  "status": "built_in_skip_hook_readback_passed"
+}

@@ -1,0 +1,250 @@
+{
+  "status": "armsx2_frozen_iso_runtime_samples_passed",
+  "scope": "Cold boots with isolated memory-card copies. Library page comparisons reload a state from the same session after the native instruction check.",
+  "runs": [
+    {
+      "edition": "original",
+      "mode": "blank",
+      "iso": {
+        "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-original.iso",
+        "sha256": "2a76a11f84bb9d0b75363fce528e4f5e319d102597d11f807b1a07644bfc7749",
+        "size": 3799459840
+      },
+      "renderer": "metal",
+      "upscale": 4,
+      "cold_boot": true,
+      "ram_patches": false,
+      "card_sha256": "47ebe237a3987f843fc19b0f801ce1edc1690768ef6b18e4b03a12ca6b298358",
+      "native_progress_instructions": [
+        "00A21024",
+        "00A21024",
+        "00451024",
+        "00821024"
+      ],
+      "observed_checks": [
+        "v0.5.0 title badge",
+        "robot, character, keyword and scenario-flow pages inaccessible with no progress"
+      ],
+      "local_screenshots": [
+        {
+          "path": "work/release/v0.5.0/runtime/original-blank/character.png",
+          "sha256": "fc98806ac87dc3b09083958985be10399bbaaa9626705fdbeff54b4bb01dc413"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-blank/flow.png",
+          "sha256": "82c15ea8e6d5a43cfd181660f9ac87639f20be657f6b1f1b26ea3c6e27642652"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-blank/keywords.png",
+          "sha256": "2edfc20efb5f4077ad38a9260e97ea061432bb3e52608f5b0fc49857cd3bdd57"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-blank/library-menu.png",
+          "sha256": "77502816ea112e48a6fe3da9e25e478929f8e003ac87bc614876fdafbe0f833c"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-blank/robot.png",
+          "sha256": "20eb152d148823719fb78c0c85a51ef8c71cbb58fbc1727e46a3cdbc8944f9db"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-blank/title.png",
+          "sha256": "d8d17f39262c274be68959ccbe4e2361fb10b424be385713727b7ea5606e9fb4"
+        }
+      ]
+    },
+    {
+      "edition": "original",
+      "mode": "progress",
+      "iso": {
+        "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-original.iso",
+        "sha256": "2a76a11f84bb9d0b75363fce528e4f5e319d102597d11f807b1a07644bfc7749",
+        "size": 3799459840
+      },
+      "renderer": "metal",
+      "upscale": 4,
+      "cold_boot": true,
+      "ram_patches": false,
+      "card_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "native_progress_instructions": [
+        "00A21024",
+        "00A21024",
+        "00451024",
+        "00821024"
+      ],
+      "observed_checks": [
+        "v0.5.0 title badge",
+        "robot, character and keyword lists open",
+        "scenario flow and chapter 21 synopsis open"
+      ],
+      "local_screenshots": [
+        {
+          "path": "work/release/v0.5.0/runtime/original-progress/character.png",
+          "sha256": "b63776d7c7043a1fab7642a80840148e61c53e1b82c04c667e29db175c0ad926"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-progress/flow.png",
+          "sha256": "37a3e78e017915fb5ac33ad57c2272b1338704acd277ba8713c6c5cc031dcdc1"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-progress/keywords.png",
+          "sha256": "65f9a33a2222a155ad806a01d2f65de319f704378a341c3882f073106f4093e4"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-progress/library-menu.png",
+          "sha256": "77502816ea112e48a6fe3da9e25e478929f8e003ac87bc614876fdafbe0f833c"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-progress/robot.png",
+          "sha256": "c9d33d42a34924c6d3a7061d27f84af2fb99c1e397b92fb769a3b3f1a937e07a"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-progress/title.png",
+          "sha256": "d8d17f39262c274be68959ccbe4e2361fb10b424be385713727b7ea5606e9fb4"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/original-synopsis/synopsis.png",
+          "sha256": "de474a8042227b66689e163de273dfe0436c6031b5a2c31388d4e7b0c08eba44"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "mode": "blank",
+      "iso": {
+        "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-best.iso",
+        "sha256": "6f0df648c20e495e776c769ebe862af7918a2ae9f00a50775049bca8756318fc",
+        "size": 3796187136
+      },
+      "renderer": "metal",
+      "upscale": 4,
+      "cold_boot": true,
+      "ram_patches": false,
+      "card_sha256": "47ebe237a3987f843fc19b0f801ce1edc1690768ef6b18e4b03a12ca6b298358",
+      "native_progress_instructions": [
+        "00A21024",
+        "00A21024",
+        "00451024",
+        "00821024"
+      ],
+      "observed_checks": [
+        "v0.5.0 title badge",
+        "robot, character, keyword and scenario-flow pages inaccessible with no progress"
+      ],
+      "local_screenshots": [
+        {
+          "path": "work/release/v0.5.0/runtime/best-blank/character.png",
+          "sha256": "2dceaa2a384519441650eed3d69af4ae0c8d3d1f6ba2cce71c7dc905606682d0"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-blank/flow.png",
+          "sha256": "e1d7d0b222db5ff2b75216d07a7455b7f636c6182ee1665b0b99d5a8de788cd6"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-blank/keywords.png",
+          "sha256": "05927cc98e26df2fe48ed6f112ee9c3a8237493230b96eeaf422a0108cb83e08"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-blank/library-menu.png",
+          "sha256": "20eb152d148823719fb78c0c85a51ef8c71cbb58fbc1727e46a3cdbc8944f9db"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-blank/robot.png",
+          "sha256": "77502816ea112e48a6fe3da9e25e478929f8e003ac87bc614876fdafbe0f833c"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-blank/title.png",
+          "sha256": "4da2edd6147b420a871474bd75c872e3d6371fb7c9c8c1d73837d92043f918f2"
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "mode": "progress",
+      "iso": {
+        "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-best.iso",
+        "sha256": "6f0df648c20e495e776c769ebe862af7918a2ae9f00a50775049bca8756318fc",
+        "size": 3796187136
+      },
+      "renderer": "metal",
+      "upscale": 4,
+      "cold_boot": true,
+      "ram_patches": false,
+      "card_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "native_progress_instructions": [
+        "00A21024",
+        "00A21024",
+        "00451024",
+        "00821024"
+      ],
+      "observed_checks": [
+        "v0.5.0 title badge",
+        "robot, character and keyword lists open",
+        "scenario flow and chapter 21 synopsis open"
+      ],
+      "local_screenshots": [
+        {
+          "path": "work/release/v0.5.0/runtime/best-progress/character.png",
+          "sha256": "792100980385246188e94ce2c725104d26446dd16ac1127ca4bc384d9534c926"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-progress/flow.png",
+          "sha256": "22ecca0614c31d1fa2e2a79c84373603e17afdafd765edf123e8af993207fa84"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-progress/keywords.png",
+          "sha256": "80807689d974a0b43a8e19f177c36189aa7289e4a2bec04211b33470ea68b69a"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-progress/library-menu.png",
+          "sha256": "20eb152d148823719fb78c0c85a51ef8c71cbb58fbc1727e46a3cdbc8944f9db"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-progress/robot.png",
+          "sha256": "7e9682977033afcb97194d2f1561c988579ce18c9efe18b8e14ec71b51ec7140"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-progress/title.png",
+          "sha256": "4da2edd6147b420a871474bd75c872e3d6371fb7c9c8c1d73837d92043f918f2"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/best-synopsis/synopsis.png",
+          "sha256": "2923d5ba6649d940b48bd5951b7aec1a593f47bd80fc34cf51550259b457b564"
+        }
+      ]
+    },
+    {
+      "edition": "sp",
+      "mode": "battle",
+      "iso": {
+        "path": "build/iso/v0.5.0/srwz-zh-v0.5.0-sp.iso",
+        "sha256": "e09afe50f0131691456489e300ba089aef8e768f0c2ffb9dd018b91b725e1c37",
+        "size": 3918860288
+      },
+      "renderer": "metal",
+      "upscale": 4,
+      "cold_boot": true,
+      "ram_patches": false,
+      "card_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "native_progress_instructions": [],
+      "observed_checks": [
+        "Chinese title menu",
+        "Battle Viewer settings",
+        "battle playback"
+      ],
+      "local_screenshots": [
+        {
+          "path": "work/release/v0.5.0/runtime/sp-battle/battle-settings.png",
+          "sha256": "50d5b1a99a158a4311665d561744f0e2b8fb63ffc9dbb03324c95466eb3ca8db"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/sp-battle/battle.png",
+          "sha256": "8f114ce02f9be7f84ca464cf51d6f75aa5bd90e8d24985d91b2b8cfb28159ada"
+        },
+        {
+          "path": "work/release/v0.5.0/runtime/sp-battle/title.png",
+          "sha256": "d11153fbb72554ce5af53476b8b1a76f2beb5656cded9936e8ed198e30d370d9"
+        }
+      ]
+    }
+  ]
+}
