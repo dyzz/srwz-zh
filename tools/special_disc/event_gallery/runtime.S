@@ -1256,10 +1256,10 @@ gallery_cancel_check:
     sw      $t0,0x38($s1)
     nor     $t1,$t1,$zero    /* buttons not held last frame */
     and     $t0,$t0,$t1
-    /* Circle pages the dialogue window and never cancels. During map dialogue
-     * (script op 0x0f) and for 60 frames after it, only START cancels, so an
-     * extra page press after the last line does not end the scene. Raw pad
-     * order: cross 0x0040, START 0x0800. +0xcc = last frame inside dialogue. */
+    /* Circle pages dialogue; cross and START both cancel in every phase.
+     * Retain this block's layout and dialogue clock so existing native hooks
+     * into the runtime keep their addresses when updating a patched ISO.
+     * All three paths use the same mask (cross 0x0040 | START 0x0800). */
     lui     $t2,0x0062
     lh      $t2,-0x2150($t2) /* 0061deb0 script opcode */
     addiu   $t3,$zero,0x0f
@@ -1267,13 +1267,13 @@ gallery_cancel_check:
     lw      $t4,0x34($s1)
     sw      $t4,0xcc($s1)
     b       cancel_mask_done
-    andi    $t1,$t0,0x0800
+    andi    $t1,$t0,0x0840
 cancel_after_talk:
     lw      $t5,0xcc($s1)
     subu    $t5,$t4,$t5
     sltiu   $t5,$t5,60
     bne     $t5,$zero,cancel_mask_done
-    andi    $t1,$t0,0x0800
+    andi    $t1,$t0,0x0840
     andi    $t1,$t0,0x0840
 cancel_mask_done:
     beq     $t1,$zero,cancel_none
