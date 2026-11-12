@@ -35,6 +35,12 @@
       "x_offset": 0,
       "y_offset": 1,
       "reason": "Render every CJK glyph from the global HarmonyOS Sans SC Regular source at one 22px em and one shared baseline in the fixed 24x24 cell. Character-specific trimming, resizing, point sizes and corrections are forbidden."
+    },
+    "cjk_bottom_row_drop": {
+      "ink_bottom_row": 20,
+      "ink_threshold": 8,
+      "rows": 1,
+      "reason": "At 22px about 1,400 ideographs end their ink on row 20 and about 1,800 on row 21, so the first group floats one scanline above its neighbours and above Latin text (user decision 2026-11-12). One font-wide rule decided from the rendered glyph: an ideograph whose lowest inked row is 20 is lowered one row. This is not a per-character table."
     }
   }
 }

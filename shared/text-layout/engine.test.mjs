@@ -238,7 +238,8 @@ test('battle trailing punctuation may pass the width by its own measured allowan
  const o={typography:'proportional',chinesePunctuation:'compact'};
  const width=t=>validate(t,'battle',o).issues.filter(i=>i.code==='width').length;
  assert.equal(width('“国国国国国国国国国国i国国国国国国国国国国”'),0);
- assert.equal(width('“国国国国国国国国国Wa国国国国国国国国国国？'),0);
+ // 'aa' brings the row to exactly the 20 px a closing ？ may hang.
+ assert.equal(width('“国国国国国国国国国aa国国国国国国国国国国？'),0);
  assert.equal(width('“国国国国国国国国国国l国国国国国国国国国国？'),1);
  assert.equal(width('“国国国国国国国国国国g国国国国国国国国国国，'),1);
  assert.equal(width('“国国国国国国国国国A国国国国国国国国国国…'),1);

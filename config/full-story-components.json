@@ -28,8 +28,8 @@
   },
   "title_menu": {
     "path": "config/assets/title-menu-zh.json",
-    "size": 8311,
-    "sha256": "be63c6ed9fab90ba1936185d1fab28b1b5314870377446ac0caba910a7d31f84"
+    "size": 8444,
+    "sha256": "d7aacc01361bb837566bb1fb20d5fa7fd785c24a09ac39943a72c2e56957356b"
   },
   "menu_text_release": {
     "corpus": {
@@ -47,34 +47,34 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 76390,
-      "sha256": "2867256d16b5811fa10e18c73e63e7a24703a4ec35a77b960573014ce7357a9a"
+      "size": 77662,
+      "sha256": "827c43ff79d8ce366785804a3e5e072aa73ec5add8574baea7de5725307b0b2c"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "f8a00713e97497f8177ae8b7986fea18bb5b93d0cdc7fe54bcbdca9f0a9c7c40"
+      "sha256": "296e5a2bed2c0019119885f280891360cfba506e3ed1dbb8778b7826e278d7c7"
     },
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "cee6e3d9bb63d125d3ebf08c59dc28f47a7a497d4cf23c5051cf4f5a74d12c82"
+      "sha256": "97bd81e4e429a2edfe207bd38f99a2fd7791b3fc698b67e2267b01178621c85e"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18308274,
-      "sha256": "77280604af02ce3ec56a60a4ca2318f4ca1dfc8acc317684e1d12ddcf04c3c65"
+      "size": 18301323,
+      "sha256": "4fe07a59e171ac73874f8df04f9babca6238c29c2b87a8c3ed964f8be1e19007"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN.overlay",
       "size": 11541267,
-      "sha256": "feb0bf80cd3c2de2ee7b61132a4af07860a632d93903e61fd575a8d2102ac42e"
+      "sha256": "f64cf9b77256c6393bc0afbbd95ba654305ffc0f08c557f6111e6961e08bbcd1"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -3037,12 +3037,12 @@
     "library_archive": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
       "size": 29936,
-      "sha256": "9c1e19a3f691f06a888d47f6d4212eb91466e97e1138531599ecb18ed562dd8a"
+      "sha256": "320658414fc6a6b0714b14290feebff4ea731efcfb8dae0bb33f3e7a5a2a8fac"
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 816141,
-      "sha256": "208b5833c4880358ea0e556797b825de81890e14b32d8dcf818f02344b83e5be"
+      "size": 816168,
+      "sha256": "30b64f6ded106d8813d5e79cfa1e3121d13dccf36495d18827db8d2428566596"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -3129,12 +3129,12 @@
       "mode": "direct-original-writeback",
       "menu_assignment_count": 1803,
       "menu_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3533,
-      "release_assignment_mapping_sha256": "1f895c340fc1fe5ea17c54b24861f667511eabedf421e319d8a8507288738183",
-      "release_snapshot_primary_mapping_sha256": "f6062430d166748fbfb187b535e730d44a51fcec078f1b93d1d5d2b4ed67120f",
+      "release_assignment_count": 3537,
+      "release_assignment_mapping_sha256": "776895b1efcc8d2c46a6551d8bc432eeb3f4a4e50544950e420040958f20cc8c",
+      "release_snapshot_primary_mapping_sha256": "bdb6466012dfbf2c057c9da90229b5da692cb899ae683edde09505509eef333b",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "177777f42d72281f1e69c7cbe4b13fc53f417c1e6df6d698953f7afd01e7e942",
+        "sha256": "f8a2433d44c49f78f9f413980a033220e5f4fe8e9de05116f3556e3342d42590",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."

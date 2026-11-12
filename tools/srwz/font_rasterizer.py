@@ -78,6 +78,62 @@ def _fixed_canvas(rasterizer: Mapping) -> dict | None:
     return dict(raw)
 
 
+def _bottom_row_drop(rasterizer: Mapping) -> dict | None:
+    raw = rasterizer.get("cjk_bottom_row_drop")
+    if raw is None:
+        return None
+    if not isinstance(raw, Mapping) or set(raw) != {
+        "ink_bottom_row",
+        "ink_threshold",
+        "rows",
+        "reason",
+    }:
+        raise FontRasterizerError("CJK bottom-row drop policy is malformed")
+    bottom, threshold, rows, reason = (
+        raw["ink_bottom_row"], raw["ink_threshold"], raw["rows"], raw["reason"])
+    if (
+        any(not isinstance(value, int) or isinstance(value, bool)
+            for value in (bottom, threshold, rows))
+        or not 0 <= bottom < GLYPH_HEIGHT
+        or not 1 <= threshold <= 15
+        or not 1 <= rows < GLYPH_HEIGHT - bottom
+        or not isinstance(reason, str)
+        or not reason.strip()
+    ):
+        raise FontRasterizerError("CJK bottom-row drop policy is invalid")
+    if _fixed_canvas(rasterizer) is None:
+        raise FontRasterizerError("CJK bottom-row drop needs the fixed canvas")
+    return dict(raw)
+
+
+def _is_cjk_ideograph(character: str) -> bool:
+    return "\u4e00" <= character <= "\u9fff" or "\u3400" <= character <= "\u4dbf"
+
+
+def apply_bottom_row_drop(gray: bytes, character: str, rasterizer: Mapping) -> bytes:
+    """Lower an ideograph whose ink stops on the configured row above the common bottom.
+
+    One rule for the whole font, decided from the rendered glyph alone: when the
+    lowest row holding ink at or above the threshold is ``ink_bottom_row``, the
+    canvas moves down ``rows`` rows. Rows that leave the canvas are empty because
+    the ink ended ``rows`` rows above them at most. No per-character table.
+    """
+
+    policy = _bottom_row_drop(rasterizer)
+    if policy is None or not _is_cjk_ideograph(character):
+        return gray
+    pixels = quantize_gray_4bpp(gray)
+    inked = [
+        row for row in range(GLYPH_HEIGHT)
+        if any(value >= policy["ink_threshold"]
+               for value in pixels[row * GLYPH_WIDTH:(row + 1) * GLYPH_WIDTH])
+    ]
+    if not inked or inked[-1] != policy["ink_bottom_row"]:
+        return gray
+    shift = policy["rows"] * GLYPH_WIDTH
+    return bytes(shift) + gray[:len(gray) - shift]
+
+
 def _rasterizer_environment() -> dict[str, str]:
     # Glyph canvases are 24x24: ImageMagick's per-process OpenMP pool only
     # thrashes when many renderers run side by side. Pixels do not depend on it.
@@ -183,7 +239,8 @@ def rasterize_character(
     if character == " ":
         gray = bytes(GLYPH_WIDTH * GLYPH_HEIGHT)
     else:
-        gray = _run_rasterizer([executable, *arguments, "gray:-"], character)
+        gray = apply_bottom_row_drop(
+            _run_rasterizer([executable, *arguments, "gray:-"], character), character, rasterizer)
     pixels = quantize_gray_4bpp(gray)
     return gray, pixels, encode_glyph(pixels)
 
@@ -241,7 +298,7 @@ def rasterize_characters(
         outputs = list(pool.map(render, batches))
     for batch, output in zip(batches, outputs):
         for index, character in enumerate(batch):
-            gray = output[index * size:(index + 1) * size]
+            gray = apply_bottom_row_drop(output[index * size:(index + 1) * size], character, rasterizer)
             pixels = quantize_gray_4bpp(gray)
             results[character] = (gray, pixels, encode_glyph(pixels))
     return results
@@ -249,6 +306,7 @@ def rasterize_characters(
 
 __all__ = [
     "FontRasterizerError",
+    "apply_bottom_row_drop",
     "quantize_gray_4bpp",
     "rasterize_character",
     "rasterize_characters",

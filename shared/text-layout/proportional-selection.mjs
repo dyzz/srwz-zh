@@ -8,8 +8,8 @@ const key=ch=>{
 };
 const alnum=ch=>/^[A-Za-z0-9]$/.test(key(ch));
 /** Blank-glyph indent of dialogue continuation rows, as wide as the compact opening quote. */
-// Map dialogue is the story font in a narrower box.
-const profileOf=scene=>proportionalMetrics.profiles[scene==='story_map'?'story':scene];
+// Tactical-map dialogue draws the 20x11 cell in every edition; main-game and SP map boxes share one profile.
+const profileOf=scene=>proportionalMetrics.profiles[scene==='story_map'?'sp_story_map':scene];
 export const continuationIndentMetric=scene=>profileOf(scene)?.continuationIndent??null;
 export function proportionalMetric(text,at,scene,options={},state=null){
  const profile=profileOf(scene);

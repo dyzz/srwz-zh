@@ -24,7 +24,13 @@ class IntegratedPayloadTests(unittest.TestCase):
    self.assertEqual(new[:METRIC_BYTES],old);self.assertEqual(len(new),METRIC_BYTES+METRIC_SLOTS)
    for c in 'Hgypqj':self.assertEqual(p['glyphs'][c]['baselineResidual16'],p['glyphs']['H']['baselineResidual16'])
    for c in '0123456789':self.assertEqual(p['glyphs'][c]['baselineResidual16'],p['glyphs']['0']['baselineResidual16'])
-   if name in ('story','main_scroll','library_character','sp_flow'):self.assertEqual(p['glyphs']['0']['baselineResidual16'],16)
+   # HarmonyOS bank glyphs share the hanzi rasterizer and baseline: every scene draws
+   # them in its own hanzi cell, without lift or baseline residual (2026-11-12).
+   from srwz.proportional_metrics import CJK_NATIVE
+   native=CJK_NATIVE[name]
+   for c in 'A0':
+    m=p['glyphs'][c]
+    self.assertEqual((m['width'],m['height'],m['yOffset'],m['baselineResidual16']),(*native,0,0))
  def test_scene_dispatch_fits_and_keeps_all_body_geometries(self):
   from srwz.proportional_scene_dispatch import SCENES
   from srwz.proportional_metrics import CJK_NATIVE
@@ -32,8 +38,8 @@ class IntegratedPayloadTests(unittest.TestCase):
    payload,patches,report=build_payload(self.registry,edition,scene_dispatch=True)
    ranges=sorted((s['address'],s['address']+s['size']) for s in report['sections'])
    for (_,end),(start,_) in zip(ranges,ranges[1:]):self.assertLessEqual(end,start)
-   self.assertEqual(len({CJK_NATIVE[s] for s in SCENES[edition]}),8)
-   self.assertEqual('sp_story_map' in SCENES[edition],edition=='sp')
+   self.assertEqual(len({CJK_NATIVE[s] for s in SCENES[edition]}),len(SCENES[edition]))
+   self.assertIn('sp_story_map',SCENES[edition])
    self.assertEqual({r['scene'] for r in report['routes']},set(SCENES[edition]))
    self.assertEqual(len({p[0] for p in patches}),len(patches))
    for name in SCENES[edition]:

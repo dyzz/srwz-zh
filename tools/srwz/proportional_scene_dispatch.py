@@ -7,9 +7,12 @@ newlines as bytes. Invalid or overlong buffers fail closed.
 from .proportional_hooks import Asm
 from .proportional_metrics import CJK_NATIVE
 
+# The tactical-map dialogue box draws a 20x11 cell in every edition. It precedes
+# weapon_main (20x9) so width-only native measurement selects the map profile;
+# both share horizontal metrics.
 SCENES={
- 'original':('story','battle','main_flow','main_scroll','library_robot','keyword_list','weapon','weapon_main'),
- 'best':('story','battle','main_flow','main_scroll','library_robot','keyword_list','weapon','weapon_main'),
+ 'original':('story','sp_story_map','battle','main_flow','main_scroll','library_robot','keyword_list','weapon','weapon_main'),
+ 'best':('story','sp_story_map','battle','main_flow','main_scroll','library_robot','keyword_list','weapon','weapon_main'),
  'sp':('story','sp_story_map','battle','sp_flow','sp_scroll','library_robot','keyword_list','weapon'),
 }
 

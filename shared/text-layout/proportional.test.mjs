@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {measure,center,layout,migrateCompact} from './proportional.mjs';
-import {measure as legacyMeasure, validate} from './engine.mjs';
+import {measure as legacyMeasure, validate, getScene} from './engine.mjs';
+import {proportionalMetrics} from './proportional-metrics.mjs';
 
 test('SP map dialogue uses pixel widths and reserves four pixels for final punctuation',()=>{
  const scene='sp_story_map', options={typography:'proportional',chinesePunctuation:'compact'};
@@ -11,8 +12,8 @@ test('SP map dialogue uses pixel widths and reserves four pixels for final punct
  assert.equal(measure('中'.repeat(21),scene).rows[0].occupiedPx,420);
  const hanging='中'.repeat(19)+'20。';
  const measured=validate(hanging,scene,options);
- assert.equal(measured.rows[0].occupiedPx,424);
- assert.equal(measured.rows[0].fitPx,420);
+ assert.equal(measured.rows[0].occupiedPx,422);
+ assert.equal(measured.rows[0].fitPx,418);
  assert.equal(measured.valid,true);
  assert.equal(layout(hanging,scene).text,hanging);
  assert.equal(validate(hanging+'中',scene,options).valid,false);
@@ -49,22 +50,27 @@ test('SP map numeric templates reserve one unbreakable runtime slot',()=>{
  }
 });
 
-test('tag-free measurement reproduces recorded ARMSX2 Side 3 draw geometry',()=>{
- const proof=JSON.parse(readFileSync(new URL('./fixtures/proportional-side3.json',import.meta.url)));
- const measured=measure(proof.text,'main_scroll');
- assert.equal(measured.fontSha256,proof.fontSha256);
- assert.deepEqual(measured.rows[0].glyphs.map(g=>[g.x,g.width,g.height]),proof.glyphs.map(g=>[g.x,g.width,g.height]));
- assert.equal(measured.rows[0].advancePx,24+83);
+test('scroll measurement reproduces the 2026-11-12 ARMSX2 capture with the HarmonyOS bank',()=>{
+ // Replaces the Side 3 capture taken with the stock full-width Latin glyphs.
+ const proof=JSON.parse(readFileSync(new URL('./fixtures/proportional-scroll-runtime-20261112.json',import.meta.url)));
+ const measured=measure(proof.text,'main_scroll',{chinesePunctuation:'compact'});
+ assert.equal(measured.rows.length,proof.rows.length);
+ const order=(a,b)=>a[0]-b[0]||a[1]-b[1];
+ measured.rows.forEach((row,i)=>{
+  const left=proof.rows[i][0][0]-row.glyphs[0].x;
+  assert.deepEqual(row.glyphs.map(g=>[g.x+left,g.width,g.height]).sort(order),proof.rows[i].map(([x,,w,h])=>[x,w,h]).sort(order),`row ${i+1}`);
+ });
+ assert.equal(measure('　Side 3','main_scroll').rows[0].advancePx,24+57);
 });
 test('contextual word space leaves Chinese and paragraph indentation alone',()=>{
  const a=measure('　Side 3　中文','main_scroll').rows[0].glyphs;
- assert.deepEqual(a.filter(g=>/[ 　]/.test(g.text)).map(g=>g.advance),[24,8,24]);
- assert.equal(measure('Ｓｉｄｅ　３','main_scroll').rows[0].advancePx,83);
+ assert.deepEqual(a.filter(g=>/[ 　]/.test(g.text)).map(g=>g.advance),[24,5,24]);
+ assert.equal(measure('Ｓｉｄｅ　３','main_scroll').rows[0].advancePx,57);
  assert.equal(measure('Side  3','main_scroll').rows[0].glyphs[4].advance,24);
 });
 test('centering shares advance and native odd-width truncation',()=>{
  const r=center('Side 3','main_scroll',100).rows[0];
- assert.equal(r.originX,59);assert.equal(r.glyphs[0].x,56);
+ assert.equal(r.originX,72);assert.equal(r.glyphs[0].x,72-proportionalMetrics.profiles.main_scroll.glyphs.S.bearing);
  assert.equal(r.advancePx,measure('Side 3','main_scroll').rows[0].advancePx);
 });
 test('migration emits neither scopes nor per-character dimensions',()=>{
@@ -85,28 +91,29 @@ test('tag-free wrapping protects Side 3 and preserves controls',()=>{
 });
 test('candidate selection does not silently change production measurement',()=>{
  assert.equal(legacyMeasure('Side 3','main_scroll').rows[0].advancePx,144);
- assert.equal(measure('Side 3','main_scroll').rows[0].advancePx,83);
+ assert.equal(measure('Side 3','main_scroll').rows[0].advancePx,57);
 });
 test('tag-free reflow matches actual corpus dialogue replay in ARMSX2',()=>{
  const proof=JSON.parse(readFileSync(new URL('./fixtures/proportional-dialogue.json',import.meta.url)));
  for(const c of proof.cases){
   const r=layout(c.source,'story');
+  // The line breaks still hold; the glyph geometry recorded here used the stock Latin
+  // glyphs and is superseded by the HarmonyOS-bank recapture checked below.
   assert.equal(r.text,c.text,c.id);assert.equal(r.fontSha256,c.fontSha256);
-  assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-240,61+i*14,g.width,g.height])),c.geometry,c.id);
  }
 });
 test('identifier punctuation matches native EE measured widths and preserves standalone punctuation',()=>{
- for(const [text,width] of [['Mk-II',59],['12.5',54],['A/B',50],['-',24]])
+ for(const [text,width] of [['Mk-II',48],['12.5',44],['A/B',35],['-',24]])
   assert.equal(measure(text,'main_scroll').rows[0].advancePx,width,text);
  assert.equal(measure('甲-乙','main_scroll').rows[0].advancePx,72);
  assert.equal(measure('A<color:03> B','main_scroll').rows[0].glyphs[1].advance,24);
  assert.equal(measure('A <color:03>B','main_scroll').rows[0].glyphs[1].advance,24);
 });
-test('weapon measurement reproduces real-name ARMSX2 list geometry',()=>{
+test('weapon measurement reproduces the 2026-11-12 SP Battle Viewer list capture',()=>{
+ // "12.5毫米CIWS" replayed into the SP weapon list on the HarmonyOS-bank candidate.
  const c=JSON.parse(readFileSync(new URL('./fixtures/proportional-weapon.json',import.meta.url)));
- const r=measure(c.text,'weapon');assert.equal(r.fontSha256,c.fontSha256);
+ const r=measure(c.text,'weapon',{chinesePunctuation:'compact'});assert.equal(r.fontSha256,c.fontSha256);
  assert.deepEqual(r.rows[0].glyphs.map(g=>[g.x-159,-52,g.width,g.height]),c.geometry);
- assert.equal(r.rows[0].advancePx,c.advance);
 });
 test('control parameters cannot be mistaken for visible source digits',()=>{
  assert.equal(measure('<color:03>3.5','weapon').rows[0].advancePx,measure('3.5','weapon').rows[0].advancePx);
@@ -140,42 +147,47 @@ test('a trailing fullwidth space may shrink when the next word joins the row',()
  assert.ok(measure(source,'story').rows[0].occupiedPx<=483);
  const r=layout(source,'story');assert.equal(r.rows.length,1);assert.equal(r.text,source);
 });
-test('centering agrees with natural menu consumers in ARMSX2',()=>{
- const proof=JSON.parse(readFileSync(new URL('./fixtures/proportional-alignment.json',import.meta.url)));
- for(const c of proof.cases){
-  const r=center(c.text,'weapon',c.center).rows[0];
-  assert.equal(c.candidateMeasure,c.measureReturnsFullWidth?r.advancePx:-Math.trunc(r.advancePx/2));
-  assert.deepEqual(r.glyphs.map(g=>[g.x,c.geometry[0][1],g.width,g.height]),c.geometry);
- }
+test('centering agrees with the name the SP Battle Viewer centres itself',()=>{
+ // Natural draw, no replay: the game measures "巴尔戈拉（1号机）" and centres it on x=170.
+ const c=JSON.parse(readFileSync(new URL('./fixtures/proportional-centering-runtime-20261112.json',import.meta.url)));
+ const r=center(c.text,'weapon',170,{chinesePunctuation:'compact'}).rows[0];
+ assert.equal(r.originX,170-Math.trunc(r.advancePx/2));
+ assert.deepEqual(r.glyphs.map(g=>[g.x,-15,g.width,g.height]),c.geometry);
 });
 test('keyword segments match real EE geometry including consecutive and mixed terms',()=>{
+ // Packed dialogue replayed on the HarmonyOS-bank candidate (2026-11-12). The packed bytes
+ // predate the opener-width continuation indent, so rows 2+ begin with a full-width space.
  const cases=JSON.parse(readFileSync(new URL('./fixtures/proportional-keywords.json',import.meta.url)));
+ assert.equal(cases.length,4);
  for(const c of cases){
-  const r=layout(c.source,'story',{keywordLinks:true});
-  assert.equal(r.compiledText,c.text,c.id);
+  assert.equal(layout(c.source,'story',{keywordLinks:true}).compiledText,c.text,c.id);
+  const r=measure(c.text,'story',{keywordLinks:true,chinesePunctuation:'compact',continuationIndent:'fullwidth'});
   assert.equal(r.fontSha256,c.fontSha256,c.id);
   assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-240,61+14*i,g.width,g.height])),c.geometry,c.id);
  }
 });
-test('historical SP synopsis rows retain recorded ARMSX2 glyph geometry',()=>{
- const cases=JSON.parse(readFileSync(new URL('./fixtures/proportional-flow.json',import.meta.url)));
- for(const c of cases){
-  const r=measure(c.text,'sp_flow');
-  assert.equal(r.text,c.text);assert.equal(r.fontSha256,c.fontSha256);
-  assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-224,-48+i*12,g.width,g.height])),c.geometry);
- }
+test('SP synopsis rows match the 2026-11-12 ARMSX2 capture',()=>{
+ // Natural synopsis page of the SP candidate with the HarmonyOS bank: eight visible rows.
+ const c=JSON.parse(readFileSync(new URL('./fixtures/proportional-flow-runtime-20261112.json',import.meta.url)));
+ const r=measure(c.text,'sp_flow',{chinesePunctuation:'compact'});
+ assert.equal(r.rows.length,8);
+ assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-224,c.originY+i*c.rowStep,g.width,g.height])),c.geometry);
 });
-test('historical vertical scroll rows retain recorded ARMSX2 glyph geometry',()=>{
+test('vertical scroll rows match the 2026-11-12 ARMSX2 capture of the same text',()=>{
+ // The stored rows replayed into the opening scroll of the HarmonyOS-bank candidate;
+ // the screen shows the first 13 of the 16 rows.
  const c=JSON.parse(readFileSync(new URL('./fixtures/proportional-scroll.json',import.meta.url)));
- const r=measure(c.text,'main_scroll',{resourceId:c.resourceId});
+ const r=measure(c.text,'main_scroll',{resourceId:c.resourceId,chinesePunctuation:'compact'});
  assert.equal(r.text,c.text);assert.equal(r.fontSha256,c.fontSha256);
- assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-252,c.originY+i*12,g.width,g.height])),c.geometry);
+ const geometry=r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-252,c.originY+i*12,g.width,g.height]));
+ assert.equal(c.evidence.rowsCaptured,13);
+ assert.deepEqual(geometry.slice(0,c.geometry.length),c.geometry);
  assert.deepEqual(r.text.split('\n').filter(x=>!x.trim()),['　','　']);
 });
 test('Chinese punctuation reduces advance without scaling existing glyph cells',()=>{
  const text='“高达Mk-II，出击！目标是Side 3。”';
  const native=measure(text,'story').rows[0];const compact=measure(text,'story',{chinesePunctuation:'compact'}).rows[0];
- assert.equal(native.advancePx,344);assert.equal(compact.advancePx,319);
+ assert.equal(native.advancePx,343);assert.equal(compact.advancePx,318);
  for(let i=0;i<native.glyphs.length;i++){
   assert.equal(compact.glyphs[i].width,native.glyphs[i].width);
   assert.equal(compact.glyphs[i].height,native.glyphs[i].height);
@@ -193,23 +205,37 @@ test('Chinese punctuation preserves pairs, authored controls and line-break rule
  assert.ok(!r.text.includes('…\n…'));assert.ok(!r.text.includes('—\n—'));
  assert.equal(r.text.replaceAll('\n','').replaceAll('　',''),text);
 });
-test('Latin baseline offset preserves descenders and leaves horizontal metrics unchanged',()=>{
+test('story letters sit on the hanzi baseline at hanzi height and keep horizontal metrics',()=>{
  const r=measure('目标是Side 3，Hgpxyq。','story',{chinesePunctuation:'compact'}).rows[0];
  for(const g of r.glyphs){
-  assert.equal(g.yOffset,/[A-Za-z0-9]/.test(g.text)?-1:0);
+  assert.equal(g.yOffset,0);
  }
  assert.equal(measure('Side 3','story').rows[0].advancePx,measure('Side 3','story',{chinesePunctuation:'compact'}).rows[0].advancePx);
  const letters=r.glyphs.filter(g=>/[Hgpxyq]/.test(g.text));
- assert.ok(letters.every(g=>g.height===13&&g.yOffset===-1));
+ assert.ok(letters.every(g=>g.height===12&&g.yOffset===0));
 });
-test('letter and numeral baselines match actual ARMSX2 submitted Y coordinates',()=>{
- const cases=JSON.parse(readFileSync(new URL('./fixtures/proportional-numeric-baseline.json',import.meta.url)));
- for(const c of cases){
-  // Historical schema5 capture precedes slash-spacing integration and the
-  // opener-width continuation indent (rows then began with a full-width 0x8140).
-  const r=measure(c.text,'story',{chinesePunctuation:'compact',spacedSlash:false,continuationIndent:'fullwidth'});
-  assert.equal(r.fontSha256,c.fontSha256);
-  assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-240,61+i*14+(g.yOffset??0),g.width,g.height])),c.geometry);
+test('ADV glyph geometry matches the 2026-11-12 ARMSX2 recapture exactly',()=>{
+ // Dialogue lines, numerals, mixed identifiers and 0/O pairs, recorded on the candidate
+ // with the HarmonyOS bank: every glyph, Latin included, is submitted in the 21x12 cell.
+ const proof=JSON.parse(readFileSync(new URL('./fixtures/proportional-adv-runtime-20261112.json',import.meta.url)));
+ assert.ok(proof.cases.length>=5);
+ for(const c of proof.cases){
+  const r=measure(c.text,'story',{chinesePunctuation:'compact'});
+  assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x-240,61+i*14+(g.yOffset??0),g.width,g.height])),c.geometry,c.id);
+ }
+});
+
+test('battle subtitle and tactical-map glyph geometry match the 2026-11-12 ARMSX2 captures',()=>{
+ // Promoted current ISOs with the HarmonyOS bank: SP battle line buffer (22x11 cell, rows from x=-160)
+ // and the Original stage 013 map box (20x11 cell). Body rows only, in drawing order.
+ for(const [name,scene] of [['battle','battle'],['map','story_map']]){
+  const proof=JSON.parse(readFileSync(new URL(`./fixtures/proportional-${name}-runtime-20261112.json`,import.meta.url)));
+  assert.ok(proof.cases.length>=2,name);
+  for(const c of proof.cases){
+   const r=measure(c.text,scene,{chinesePunctuation:'compact'});
+   const left=c.geometry[0][0]-r.rows[0].glyphs[0].x,top=c.geometry[0][1];
+   assert.deepEqual(r.rows.flatMap((row,i)=>row.glyphs.map(g=>[g.x+left,top+i*getScene(scene).lineStep+(g.yOffset??0),g.width,g.height])),c.geometry,c.id);
+  }
  }
 });
 
@@ -240,8 +266,22 @@ test('main combat and SP weapon lists retain distinct native geometry',()=>{
  const sp=measure('中CIWS / RX-78文','weapon',{chinesePunctuation:'compact'}).rows[0];
  assert.equal(main.glyphs[0].width,20);assert.equal(main.glyphs[0].advance,20);
  assert.equal(sp.glyphs[0].width,16);assert.equal(sp.glyphs[0].advance,16);
- assert.equal(main.glyphs[1].width,14);assert.equal(sp.glyphs[1].width,12);
+ // Bank Latin is drawn in the scene's own hanzi cell.
+ assert.equal(main.glyphs[1].width,20);assert.equal(sp.glyphs[1].width,16);
  assert.equal(main.glyphs[0].height,9);assert.equal(sp.glyphs[0].height,9);
  assert.equal(measure('<z>CIWS/RX-78</z>','weapon_main').rows[0].advancePx,
               measure('CIWS/RX-78','weapon_main').rows[0].advancePx);
+});
+test('every scene draws bank Latin in its own hanzi cell, without lift or residual',()=>{
+ const native={story:[21,12],sp_story_map:[20,11],battle:[22,11],main_flow:[16,10],sp_flow:[16,10],main_scroll:[24,12],main_scroll_strip:[24,12],sp_scroll:[25,12],weapon:[16,9],weapon_main:[20,9],library_character:[21,12],keyword_list:[18,12],library_robot:[21,10],library_glossary:[21,12]};
+ assert.deepEqual(Object.keys(proportionalMetrics.profiles).sort(),Object.keys(native).sort());
+ for(const [scene,[w,h]] of Object.entries(native)){
+  const p=proportionalMetrics.profiles[scene];
+  for(const m of [...Object.values(p.glyphs),...Object.values(p.punctuation)])
+   assert.deepEqual([m.width,m.height,m.yOffset,m.baselineResidual16,m.advanceBox],[w,h,0,0,true],scene);
+ }
+ // Scenes of one width class share the horizontal metrics (three runtime tables).
+ const horizontal=s=>JSON.stringify(Object.values(proportionalMetrics.profiles[s].glyphs).map(m=>[m.bearing,m.advance]));
+ for(const group of [['story','sp_story_map','battle','weapon_main','library_character','library_robot','library_glossary'],['main_flow','sp_flow','weapon','keyword_list'],['main_scroll','main_scroll_strip','sp_scroll']])
+  for(const scene of group)assert.equal(horizontal(scene),horizontal(group[0]),scene);
 });

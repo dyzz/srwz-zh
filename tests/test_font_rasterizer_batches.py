@@ -34,3 +34,41 @@ class BatchedRasterTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BottomRowDropTests(unittest.TestCase):
+    POLICY = {**RASTERIZER, "cjk_bottom_row_drop": {"ink_bottom_row": 20, "ink_threshold": 8, "rows": 1, "reason": "test"}}
+
+    @staticmethod
+    def canvas(top, bottom, faint_row=None):
+        gray = bytearray(24 * 24)
+        for row in range(top, bottom + 1):
+            gray[row * 24 + 5:row * 24 + 19] = bytes([255]) * 14
+        if faint_row is not None:
+            gray[faint_row * 24 + 5:faint_row * 24 + 19] = bytes([34]) * 14  # quantizes to 2, below the threshold
+        return bytes(gray)
+
+    def rows(self, gray):
+        pixels = font_rasterizer.quantize_gray_4bpp(gray)
+        inked = [row for row in range(24) if any(value >= 8 for value in pixels[row * 24:(row + 1) * 24])]
+        return inked[0], inked[-1]
+
+    def test_only_ideographs_ending_on_the_configured_row_move(self):
+        drop = font_rasterizer.apply_bottom_row_drop
+        self.assertEqual(self.rows(drop(self.canvas(2, 20, faint_row=21), "说", self.POLICY)), (3, 21))
+        self.assertEqual(self.rows(drop(self.canvas(3, 20), "距", self.POLICY)), (4, 21))
+        for top, bottom in ((1, 21), (2, 19), (2, 22)):
+            gray = self.canvas(top, bottom)
+            self.assertEqual(drop(gray, "离", self.POLICY), gray)
+        for character in "A0，。あ":
+            gray = self.canvas(2, 20)
+            self.assertEqual(drop(gray, character, self.POLICY), gray)
+        self.assertEqual(drop(self.canvas(2, 20), "说", RASTERIZER), self.canvas(2, 20))
+
+    def test_policy_is_validated(self):
+        bad = {**RASTERIZER, "cjk_bottom_row_drop": {"ink_bottom_row": 23, "ink_threshold": 8, "rows": 1, "reason": "x"}}
+        with self.assertRaises(font_rasterizer.FontRasterizerError):
+            font_rasterizer.apply_bottom_row_drop(self.canvas(2, 20), "说", bad)
+        without_canvas = {k: v for k, v in self.POLICY.items() if k != "cjk_fixed_canvas"}
+        with self.assertRaises(font_rasterizer.FontRasterizerError):
+            font_rasterizer.apply_bottom_row_drop(self.canvas(2, 20), "说", without_canvas)

@@ -22,6 +22,24 @@ class Asm:
             self.words[at]|=offset&65535
         return struct.pack('<'+'I'*len(self.words),*self.words)
 
+# Metric record size the generated code indexes: 4 bytes (bearing, advance, height,
+# offset/enable) or the compact 2 bytes (bearing, advance; advance 0 = absent) used with
+# scene geometry dispatch, where height and offset come from the scene record.
+_RECORD_BYTES=4
+
+class compact_records:
+    """Generate hooks for two-byte metric records inside the ``with`` block."""
+    def __enter__(self):
+        global _RECORD_BYTES
+        self.previous=_RECORD_BYTES;_RECORD_BYTES=2
+    def __exit__(self,*_):
+        global _RECORD_BYTES
+        _RECORD_BYTES=self.previous
+
+def slot_offset(offset):
+    """Byte offset of a metric slot given its offset in the four-byte layout."""
+    return offset*_RECORD_BYTES//4
+
 def table_address(a,reg,value,delta=0):
     if isinstance(value,tuple):
         kind,address=value
@@ -88,8 +106,8 @@ def measure_hook(owner,end,table,site=0x139b78,epilogue=0x139d08,*,cjk_table=Non
 def lookup(a,table,fallback):
     a.i(13,'zero','at',0x824f);a.r('t3','at','t4',0x23)
     a.i(0xb,'t4','t8',76);a.branch(4,'t8','zero',fallback)
-    a.r('zero','t4','t4',0,2);table_address(a,'at',table);a.r('at','t4','at',0x21)
-    a.i(0x24,'at','t8',3);a.branch(4,'t8','zero',fallback)
+    a.r('zero','t4','t4',0,2 if _RECORD_BYTES==4 else 1);table_address(a,'at',table);a.r('at','t4','at',0x21)
+    a.i(0x24,'at','t8',3 if _RECORD_BYTES==4 else 1);a.branch(4,'t8','zero',fallback)
 
 def load_bound(a,bound,delta=0):
     """An absolute owner address or a verified preserved-register bound."""
@@ -133,6 +151,8 @@ def draw_hook(owner,end,table,width,site=0x13ab58,caller=None,*,cjk_table=None,n
     if geometry is not None:
         if residual_sidecar is None:raise ValueError('Scene geometry requires baseline sidecar')
         a.li('t8',0x70000060);a.i(0x25,'t8','t4',0)
+        # Only the stock space takes the space cell; the release space alias is a blank
+        # glyph, so letter geometry draws it identically and keeps the SP cave in budget.
         a.i(13,'zero','t8',0x8140);a.branch(5,'t4','t8','visible_geometry')
         table_address(a,'t3',geometry);a.i(0x24,'t3','t4',1);a.i(0x29,'s0','t4',14)
         table_address(a,'t3',width);a.i(0x29,'s0','t3',12)
@@ -153,19 +173,21 @@ def draw_hook(owner,end,table,width,site=0x13ab58,caller=None,*,cjk_table=None,n
         a.r('t8','t4','t8',0x21);a.i(0x28,'t8','t3',0)
         table_address(a,'t3',width);a.i(0x29,'s0','t3',12)
         a.branch(4,'zero','zero','bearing')
-    if residual_sidecar is not None:
-        table_address(a,'t3',table)
-        a.r('at','t3','t4',0x23);a.r('zero','t4','t4',2,2)
-        a.r('t3','t4','t3',0x21);a.i(0x20,'t3','t3',METRIC_BYTES)
-        a.i(12,'s0','t4',0x3fff);a.r('zero','t4','t4',2,5)
-        a.li('t8',residual_sidecar);a.r('t8','t4','t8',0x21);a.i(0x28,'t8','t3',0)
-    if isinstance(width,tuple):table_address(a,'t3',width)
-    else:a.i(9,'zero','t3',width)
-    a.i(0x29,'s0','t3',12)
-    a.i(0x24,'at','t3',2);a.i(0x29,'s0','t3',14)
-    # Decode the signed seven-bit baseline offset, preserving glyph shape.
-    a.i(0x20,'at','t3',3);a.r('zero','t3','t3',3,1)
-    a.i(0x21,'s0','t4',6);a.r('t4','t3','t4',0x21);a.i(0x29,'s0','t4',6)
+    if geometry is None:
+        # Reached only without scene geometry: both geometry branches jump to 'bearing'.
+        if residual_sidecar is not None:
+            table_address(a,'t3',table)
+            a.r('at','t3','t4',0x23);a.r('zero','t4','t4',2,2)
+            a.r('t3','t4','t3',0x21);a.i(0x20,'t3','t3',METRIC_BYTES)
+            a.i(12,'s0','t4',0x3fff);a.r('zero','t4','t4',2,5)
+            a.li('t8',residual_sidecar);a.r('t8','t4','t8',0x21);a.i(0x28,'t8','t3',0)
+        if isinstance(width,tuple):table_address(a,'t3',width)
+        else:a.i(9,'zero','t3',width)
+        a.i(0x29,'s0','t3',12)
+        a.i(0x24,'at','t3',2);a.i(0x29,'s0','t3',14)
+        # Decode the signed seven-bit baseline offset, preserving glyph shape.
+        a.i(0x20,'at','t3',3);a.r('zero','t3','t3',3,1)
+        a.i(0x21,'s0','t4',6);a.r('t4','t3','t4',0x21);a.i(0x29,'s0','t4',6)
     a.label('bearing')
     a.i(0x24,'at','t3',0);a.i(0x21,'s0','t4',4);a.r('t4','t3','t4',0x23);a.i(0x29,'s0','t4',4)
     a.i(0x24,'at','t3',1);a.li('at',0x70000000)
@@ -205,6 +227,8 @@ def select_metric(a,table,source,offset,owner,end,fallback,done,*,spaced_slash=F
     if spaced_slash:
         slash_code,slash_slot=slots[-1]
         a.i(13,'zero','at',slash_code);a.branch(4,'t3','at','slash_current')
+        # Spaced-slash forms ("A / B") occur once, in a menu that stores 0x8140; the
+        # release space alias is matched only by the plain word-space path below.
         a.i(13,'zero','at',0x8140);a.branch(4,'t3','at','space_current')
         a.branch(4,'zero','zero','spaced_done')
         def read_neighbor(delta,fail):
@@ -221,14 +245,14 @@ def select_metric(a,table,source,offset,owner,end,fallback,done,*,spaced_slash=F
         a.label('slash_current')
         for delta,label in [(-2,'slash_left'),(2,'slash_right')]:
             optional_space(delta,label,'spaced_done')
-        table_address(a,'at',table,slash_slot);a.branch(4,'zero','zero',done)
+        table_address(a,'at',table,slot_offset(slash_slot));a.branch(4,'zero','zero',done)
         a.label('space_current')
         for direction,label,fail in [(1,'space_right','space_left_try'),(-1,'space_left','spaced_done')]:
             read_neighbor(-2*direction,fail);lookup(a,table,fail)
             read_neighbor(2*direction,fail)
             a.i(13,'zero','at',slash_code);a.branch(5,'t3','at',fail)
             optional_space(4*direction,label,fail)
-            table_address(a,'at',table,304);a.branch(4,'zero','zero',done)
+            table_address(a,'at',table,slot_offset(304));a.branch(4,'zero','zero',done)
             if direction==1:a.label(fail)
         a.label('spaced_done')
         a.i(0x24,source,'t3',offset);a.r('zero','t3','t3',0,8)
@@ -245,11 +269,15 @@ def select_metric(a,table,source,offset,owner,end,fallback,done,*,spaced_slash=F
         lookup(a,table,fallback)
     a.i(0x24,source,'t3',offset);a.r('zero','t3','t3',0,8)
     a.i(0x24,source,'t4',offset+1);a.r('t3','t4','t3',0x25)
+    # Only codes listed in slots reach 'context', so a code that matches no punctuation
+    # slot is one of the space codes: fall through to the shared space record.
+    space_slot=slots[0][1]
     for code,slot in slots:
-        a.i(13,'zero','at',code);a.branch(4,'t3','at',f'slot{slot}')
-    a.branch(4,'zero','zero',fallback)
-    for code,slot in slots:
-        a.label(f'slot{slot}');table_address(a,'at',table,slot);a.branch(4,'zero','zero',done)
+        if slot!=space_slot:
+            a.i(13,'zero','at',code);a.branch(4,'t3','at',f'slot{slot}')
+    a.label(f'slot{space_slot}');table_address(a,'at',table,slot_offset(space_slot));a.branch(4,'zero','zero',done)
+    for slot in dict.fromkeys(slot for _,slot in slots if slot!=space_slot):
+        a.label(f'slot{slot}');table_address(a,'at',table,slot_offset(slot));a.branch(4,'zero','zero',done)
 
 
 def keyword_underline_hooks(scratch, draw_fallback, *, state=0x46e340,
@@ -284,3 +312,53 @@ def keyword_underline_hooks(scratch, draw_fallback, *, state=0x46e340,
     for n,r in enumerate(saved):a.i(0x1e,'sp',r,n*16)
     a.i(9,'sp','sp',64);a.jump(draw_fallback)
     return copy,restore,a.finish()
+
+
+def glyph_bank_hook(globals_,descriptors,state,site,*,bank_base,punctuation,dynamic_path):
+    """Draw Latin text from the HarmonyOS glyph bank in the proportional scenes.
+
+    Hooked where the native draw loop has resolved the glyph index of the current
+    character (scratch 0x70000062, about to be published at 0x70000000). When the
+    character is a Latin letter, digit or identifier punctuation, the string is one
+    the proportional hooks own and the cell size names a proportional scene, the
+    index becomes the bank slot. Digits then skip the pre-rendered shared digit cells
+    and take the per-occurrence path, so fixed-pitch text on the same screen keeps the
+    stock numerals. The text code at 0x70000060 is untouched: metric selection and
+    measurement still see the stored character.
+
+    at, v0, v1 and a0 are dead at the hook; t8/t9 are saved. ``site`` is the address
+    of the two displaced instructions (lui at,0x7000; lhu v0,0x62(at)).
+    """
+    a=Asm()
+    a.i(15,'zero','at',0x7000);a.i(0x25,'at','v0',0x62)
+    a.i(0x25,'at','a0',0x60)
+    a.i(13,'zero','v1',0x824f);a.r('a0','v1','v1',0x23)
+    a.i(0xb,'v1','at',10);a.branch(5,'at','zero','scene')
+    for first in (0x8260-0x824f,0x8281-0x824f):
+        a.i(9,'v1','at',-first);a.i(0xb,'at','at',26);a.branch(5,'at','zero','scene')
+    for index,code in enumerate(punctuation):
+        a.i(9,'zero','v1',76+index);a.i(13,'zero','at',code);a.branch(4,'a0','at','scene')
+    a.branch(4,'zero','zero','resume')
+    a.label('scene')
+    a.i(9,'sp','sp',-32);a.i(0x1f,'sp','t8',0);a.i(0x1f,'sp','t9',16)
+    # Only strings captured by the draw entry: the code just read is at s4-2.
+    a.li('at',globals_);a.i(0x23,'at','t8',0);a.branch(4,'t8','zero','out')
+    a.i(9,'s4','t9',-2);a.r('t9','t8','t9',0x2b);a.branch(5,'t9','zero','out')
+    a.i(0x23,'at','t8',4);a.r('t8','s4','t9',0x2b);a.branch(5,'t9','zero','out')
+    # Cell size exactly as the draw selector reads it: explicit record size, else state.
+    a.i(15,'zero','at',0x7000);a.i(0x21,'at','t8',0x68);a.branch(5,'t8','zero','state_size')
+    a.i(0x21,'at','t8',0x3c);a.i(0x21,'at','t9',0x3e);a.branch(4,'zero','zero','lookup')
+    a.label('state_size');a.li('at',state);a.i(0x21,'at','t8',0x38);a.i(0x21,'at','t9',0x3a)
+    a.label('lookup');a.li('a0',descriptors)
+    a.label('route');a.i(0x23,'a0','at',0);a.branch(4,'at','zero','out')
+    a.branch(5,'at','t8','next');a.i(0x23,'a0','at',4);a.branch(4,'at','t9','hit')
+    a.label('next');a.i(9,'a0','a0',24);a.branch(4,'zero','zero','route')
+    a.label('hit')
+    a.i(0x1e,'sp','t8',0);a.i(0x1e,'sp','t9',16);a.i(9,'sp','sp',32)
+    a.i(9,'v1','v0',bank_base);a.i(15,'zero','at',0x7000);a.i(0x29,'at','v0',0x62)
+    a.i(0xb,'v1','a0',10);a.branch(4,'a0','zero','resume')
+    a.i(0x2b,'at','v0',0);a.i(0x25,'at','a0',0x60);a.jump(dynamic_path)
+    a.label('out')
+    a.i(0x1e,'sp','t8',0);a.i(0x1e,'sp','t9',16);a.i(9,'sp','sp',32)
+    a.label('resume');a.jump(site+8)
+    return a.finish()

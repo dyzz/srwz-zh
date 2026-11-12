@@ -5,8 +5,8 @@ selected globals are consumed before returning to native code. No ISO growth.
 """
 import struct
 from hashlib import sha256
-from .proportional_hooks import Asm,draw_hook,measure_hook,cjk_runtime_table,keyword_underline_hooks,metric_selection_subroutine
-from .proportional_metrics import runtime_table,CJK_NATIVE
+from .proportional_hooks import Asm,draw_hook,measure_hook,cjk_runtime_table,keyword_underline_hooks,metric_selection_subroutine,glyph_bank_hook,compact_records
+from .proportional_metrics import runtime_table,compact_runtime_table,CJK_NATIVE
 from .proportional_payload import LAYOUTS,reserve_payload
 from .proportional_routes import SITES
 
@@ -65,6 +65,12 @@ def selector(routes,targets,globals_,sidecar,native,generic,kind):
  leave(native);return a.finish()
 
 def build_payload(registry,edition,*,routes=None,shared_selection=True,scene_dispatch=False):
+ """Scene dispatch indexes two-byte metric records; the legacy explicit routes keep four."""
+ if scene_dispatch:
+  with compact_records():return _build_payload(registry,edition,routes=routes,shared_selection=shared_selection,scene_dispatch=True)
+ return _build_payload(registry,edition,routes=routes,shared_selection=shared_selection,scene_dispatch=False)
+
+def _build_payload(registry,edition,*,routes=None,shared_selection=True,scene_dispatch=False):
  if scene_dispatch:
   from .proportional_scene_dispatch import SCENES,source_entry,style_selector
   routes=[dict(name=s,scene=s) for s in SCENES[edition]];shared_selection=True
@@ -94,7 +100,7 @@ def build_payload(registry,edition,*,routes=None,shared_selection=True,scene_dis
    normalized=copy.deepcopy(profile)
    for m in [*normalized['glyphs'].values(),*normalized['punctuation'].values(),normalized['space']]:
     m.update(height=0,yOffset=0,baselineResidual16=0)
-   data=runtime_table(normalized)
+   data=compact_runtime_table(normalized)
    if data not in metric_cache:metric_cache[data]=add(r['name']+'_metrics',data)
    cjk=cjk_runtime_table(profile,compact_sentinel=compact_dispatch)
    if cjk not in cjk_cache:cjk_cache[cjk]=add(r['name']+'_cjk',cjk)
@@ -117,6 +123,13 @@ def build_payload(registry,edition,*,routes=None,shared_selection=True,scene_dis
  measure_entry=add('measure_routes',select(routes,targets,globals_,sidecar,native_measure,generic_measure,'measure',**options))
  patches=[]
  if scene_dispatch:
+  # HarmonyOS Latin bank: swap the glyph index before the native loop queues it.
+  from . import latin_bank
+  from .proportional_metrics import punctuation_codes
+  bank_site=0x13a990+delta
+  bank_at=add('glyph_bank',glyph_bank_hook(globals_,options['descriptors'],text_state,bank_site,
+   bank_base=latin_bank.base_glyph_index(),punctuation=list(punctuation_codes().values()),dynamic_path=0x13aa20+delta))
+  patches.append((bank_site,words(0x3c017000,0x94220062),words(0x08000000|(bank_at>>2),0)))
   for name,entry,displaced in [('draw_source',0x13a290+delta,(0x27bdffa0,0x3c010047 if edition in ('original','best') else 0x3c01004f)),('measure_source',0x139b00+delta,(0x27bdffb0,0x0000102d))]:
    at=add(name,source_entry(globals_,entry+8,displaced))
    patches.append((entry,words(*displaced),words(0x08000000|(at>>2),0)))

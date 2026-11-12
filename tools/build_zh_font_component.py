@@ -16,6 +16,7 @@ from srwz.font_rasterizer import (
     rasterize_character,
     rasterizer_point_size,
 )
+from srwz import latin_bank
 from srwz.codec import decode_production as decode, reencode_changed_suffix
 from srwz.diagnostics import require_work_output
 from srwz.font import (
@@ -389,13 +390,42 @@ def main() -> int:
             }
         )
 
+    # HarmonyOS Latin bank for the proportional scenes: the whole unused Cyrillic
+    # slot run is owned by the bank (glyph slots, blank gaps and spares).
+    bank_indices = latin_bank.glyph_indices()
+    if seen_glyphs & set(bank_indices):
+        raise SystemExit("a font assignment collides with the Latin glyph bank")
+    try:
+        bank_config = latin_bank.load(PROJECT_ROOT)
+        bank_rasters = latin_bank.rasters(PROJECT_ROOT, rasterizer, bank_config)
+    except latin_bank.LatinBankError as error:
+        raise SystemExit(str(error)) from error
+    bank_before = b"".join(
+        modified_font[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE] for index in bank_indices
+    )
+    if bank_before != b"".join(
+        original_font.decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE] for index in bank_indices
+    ):
+        raise SystemExit("Latin glyph bank slots were modified before the bank")
+    bank_font = bytearray(modified_font)
+    for slot, glyph_index in enumerate(bank_indices):
+        packed = bank_rasters[slot][2] if slot in bank_rasters else bytes(GLYPH_SIZE)
+        bank_font[glyph_index * GLYPH_SIZE : (glyph_index + 1) * GLYPH_SIZE] = packed
+    modified_font = bytes(bank_font)
+    bank_changed = {
+        index
+        for index in bank_indices
+        if original_font.decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
+        != modified_font[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
+    }
+
     changed_glyphs = [
         index
         for index in range(GLYPH_COUNT)
         if original_font.decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
         != modified_font[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
     ]
-    if changed_glyphs != sorted(seen_glyphs - unchanged_assignment_glyphs):
+    if changed_glyphs != sorted((seen_glyphs - unchanged_assignment_glyphs) | bank_changed):
         raise SystemExit("font changed outside proposed glyph assignments")
 
     clean_migrations = [
@@ -417,6 +447,9 @@ def main() -> int:
         raise SystemExit("clean CJK-primary restored-slot inventory drift")
     for row in restored_low_slots:
         glyph_index = row["from_glyph_index"]
+        if glyph_index in set(bank_indices):
+            # Restored to stock before the bank took the slot (checked above).
+            continue
         start = glyph_index * GLYPH_SIZE
         end = start + GLYPH_SIZE
         if modified_font[start:end] != original_font.decoded[start:end]:
@@ -429,6 +462,8 @@ def main() -> int:
         try:
             glyph_index = standard_glyph_index(code)
         except ValueError:
+            continue
+        if glyph_index in bank_changed or glyph_index in set(bank_indices):
             continue
         low_zone_glyph_indices.append(glyph_index)
         start = glyph_index * GLYPH_SIZE
@@ -572,6 +607,20 @@ def main() -> int:
         ],
         "changed_glyph_count": len(changed_glyphs),
         "unchanged_assignment_count": len(unchanged_assignment_glyphs),
+        "latin_bank": {
+            "config": {
+                "path": latin_bank.CONFIG,
+                "sha256": sha256_bytes((PROJECT_ROOT / latin_bank.CONFIG).read_bytes()),
+            },
+            "bank_id": bank_config["bank_id"],
+            "first_glyph_index": bank_indices[0],
+            "slot_count": len(bank_indices),
+            "glyph_count": len(bank_rasters),
+            "changed_slot_count": len(bank_changed),
+            "decoded_sha256": sha256_bytes(b"".join(
+                modified_font[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE] for index in bank_indices
+            )),
+        },
         "allocation_registry": proposal["allocation_registry"],
         "font_source": proposal["font_source"],
         **(

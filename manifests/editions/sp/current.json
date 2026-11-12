@@ -2,7 +2,7 @@
   "adapter": "sp-full-text-v1",
   "base_output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "1e67530591ee72e730f00bc6b72ba7406a9bd554c6e39a63d6fe63971c960326",
+    "sha256": "da1d395664732d0820aa09b2a27be1377f31dd1f1368decf6c7646c88896b9e9",
     "size": 3918860288
   },
   "battle_square_skip": {
@@ -70,7 +70,7 @@
   "edition_id": "sp",
   "event_gallery": {
     "caption_count": 37,
-    "elf_sha256": "d8f605388c5b72f5ec084a1f14c8a060733f90f4b89e3c07e35b62ac048b77a7",
+    "elf_sha256": "31a6aa84e3e1b70865eb2a82838020d4808ff4f991080b925c050fef378cd262",
     "scene_count": 22
   },
   "gunleon_sprite": {
@@ -87,41 +87,41 @@
     "member": "BTL/TWP.BIN",
     "packed_bytes": 592711,
     "verification": {
-      "after_sha256": "e09afe50f0131691456489e300ba089aef8e768f0c2ffb9dd018b91b725e1c37",
+      "after_sha256": "aa70436020a97ae4dee567a8e2eed4d61d7d92d0803056427408c86c88e1ddbb",
       "bytes": 3918158912,
-      "sha256": "3a6cccd2dc9f5043c80ee6999dd75a5aaba91fcb3521f9b890e2dcb978dfc273"
+      "sha256": "ddef486525a78cfeb6767fe6f0e104ed825ec9e4518302214d9d6194eadf04d8"
     }
   },
-  "input_digest": "e007abb22f3355e4d9ee08585c73572b53bf641e26fc511d407a29b93bbfd0c5",
+  "input_digest": "b8da8cc57362f7c7a1a20c16dd51b3407494083897d05f099f8c86664cef1c9c",
   "output": {
     "path": "build/iso/special-disc/sp-current.iso",
-    "sha256": "e09afe50f0131691456489e300ba089aef8e768f0c2ffb9dd018b91b725e1c37",
+    "sha256": "aa70436020a97ae4dee567a8e2eed4d61d7d92d0803056427408c86c88e1ddbb",
     "size": 3918860288
   },
   "readback": {
-    "path": "build/editions/zh-release-sp/e973f2ef5cb2b7742a2437fca1bef5f154cc8a52c042322af07a9d9f252d97a7/project/build/iso/special-disc/sp-current.json",
-    "sha256": "eb02dabf9b7c6bb7a3934447c75ca06ca1b31bc32b1c24fca03a918915476a4a"
+    "path": "build/editions/zh-release-sp/c6ec98c4e6398788ffdd6746cb773b8e1a9b691aedfdf6a22e9eb2954fe9f8a8/project/build/iso/special-disc/sp-current.json",
+    "sha256": "a64e94bc6b6d572ca70a7bea1ee14437d6feffc22b401faaaa227f7716e5dc84"
   },
   "runtime": "not_tested",
   "schema_version": 1,
   "skip_enabled": true,
-  "source_head": "90d28c2120180d6469d933c024234df929e0d82d",
+  "source_head": "d8e8491bd07e5738202f4b0d046683b1f358daba",
   "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
   "status": "edition_iso_static_validated_runtime_pending",
   "typography": {
     "input": {
       "path": "build/iso/special-disc/sp-current.iso",
-      "sha256": "1e67530591ee72e730f00bc6b72ba7406a9bd554c6e39a63d6fe63971c960326",
+      "sha256": "da1d395664732d0820aa09b2a27be1377f31dd1f1368decf6c7646c88896b9e9",
       "size": 3918860288
     },
     "verification": {
       "edition": "sp",
-      "executable_sha256": "92843f007005e60f068c13a27283f02e14eb408ac5282d10749b087fc5dbd35b",
+      "executable_sha256": "759582e785755d9d58341a13af2f1e10e9f1961150bb0c760218006f88147ceb",
       "member": "SLPS_259.20",
       "member_lba": 1851456,
       "member_size": 4141568,
-      "metrics_sha256": "48a37727beb863c20d2dca5d763cf8544d7225307250a0ca32ec633e7a75a376",
-      "output_sha256": "9e7adf01bb1816ff2afda699b31dfab097131c1653d033779b3a465ef0a9f47a",
+      "metrics_sha256": "4b31858d9e09bd78a4285ed47f942fc09f5f9b2af4bb9faa2d7a9298fcaba0ed",
+      "output_sha256": "bcd68dd9ef42ded747b078c1fc4bd407bf624ce6cdf4f2272b4dffd14f235285",
       "outside_executable_bytes_compared": 3914718720,
       "payload": {
         "base": 8512000,
@@ -135,29 +135,34 @@
             "选择战舰"
           ]
         },
-        "codeBytes": 5816,
+        "codeBytes": 5612,
         "edition": "sp",
-        "fontSha256": "200ad07d7953496154de6767d7deefd2543f16b8612aca0bc647c85fa351913c",
+        "fontSha256": "446f97ddef48f36c60549443e78045b0e21fb9d375325fe260205d71c1fb9ea1",
         "metricsSchema": 7,
         "patches": [
           {
+            "address": 1291312,
+            "after": "be7c200800000000",
+            "before": "0070013c62002294"
+          },
+          {
             "address": 1289520,
-            "after": "4e7d200800000000",
+            "after": "1b7d200800000000",
             "before": "a0ffbd274f00013c"
           },
           {
             "address": 1287584,
-            "after": "7f7d200800000000",
+            "after": "4c7d200800000000",
             "before": "b0ffbd272d100000"
           },
           {
             "address": 2254220,
-            "after": "b07d200c",
+            "after": "7d7d200c",
             "before": "9095060c"
           },
           {
             "address": 2254272,
-            "after": "bc7d200c00000000",
+            "after": "897d200c00000000",
             "before": "0200022621904202"
           },
           {
@@ -167,27 +172,27 @@
           },
           {
             "address": 1293832,
-            "after": "f87d200800000000",
+            "after": "c57d200800000000",
             "before": "080084241c00e880"
           },
           {
             "address": 1292772,
-            "after": "107e200800000000",
+            "after": "dd7d200800000000",
             "before": "1c00e88008008424"
           },
           {
             "address": 1291768,
-            "after": "ea7d200800000000",
+            "after": "b77d200800000000",
             "before": "2400238e140003ae"
           },
           {
             "address": 1287704,
-            "after": "207d200800000000",
+            "after": "907c200800000000",
             "before": "00008b9062006011"
           }
         ],
         "payloadBytes": 6400,
-        "payloadSha256": "7472e14c3e64ce16db2d29c5dd78f128f565f3bc00fc86b335a702249cbd5d0b",
+        "payloadSha256": "8e1b4cffd6f8bdd8121ed5a3038f7db7807dbf33f9a618b080ed74c664624898",
         "reservation": {
           "base": 8512000,
           "capacity": 6400,
@@ -198,11 +203,11 @@
           "heapUnchanged": true,
           "nonloadedSectionMetadataRemoved": true,
           "payloadBytes": 6400,
-          "resultSha256": "2a5550495cf1103ebdc1d7b12858cdb73f47e5b1ea2ee7b71c40ed718acda66d",
+          "resultSha256": "20cd4c4fa96e17a147678f1825a7dc031427f81460a388ccf9022d805502f002",
           "runtimeVerified": false,
-          "sourceSha256": "c4873cc823c0d2d230a8ac6c53565e3074f496ac6d53d0c04b0838845cf279c9"
+          "sourceSha256": "4903c488a303ef62c1e569ab730a0f6016d13ac03266ec9ec8ffdaff4a676032"
         },
-        "resultSha256": "92843f007005e60f068c13a27283f02e14eb408ac5282d10749b087fc5dbd35b",
+        "resultSha256": "759582e785755d9d58341a13af2f1e10e9f1961150bb0c760218006f88147ceb",
         "routes": [
           {
             "name": "story",
@@ -253,155 +258,160 @@
           {
             "address": 8512044,
             "name": "story_metrics",
-            "size": 324
+            "size": 162
           },
           {
-            "address": 8512368,
+            "address": 8512208,
             "name": "story_cjk",
             "size": 110
           },
           {
-            "address": 8512480,
+            "address": 8512320,
             "name": "story_geometry",
             "size": 5
           },
           {
-            "address": 8512488,
+            "address": 8512328,
             "name": "sp_story_map_cjk",
             "size": 110
           },
           {
-            "address": 8512600,
+            "address": 8512440,
             "name": "sp_story_map_geometry",
             "size": 5
           },
           {
-            "address": 8512608,
+            "address": 8512448,
             "name": "battle_cjk",
             "size": 98
           },
           {
-            "address": 8512708,
+            "address": 8512548,
             "name": "battle_geometry",
             "size": 5
           },
           {
-            "address": 8512716,
+            "address": 8512556,
             "name": "sp_flow_metrics",
-            "size": 324
+            "size": 162
           },
           {
-            "address": 8513040,
+            "address": 8512720,
             "name": "sp_flow_cjk",
             "size": 104
           },
           {
-            "address": 8513144,
+            "address": 8512824,
             "name": "sp_flow_geometry",
             "size": 5
           },
           {
-            "address": 8513152,
+            "address": 8512832,
             "name": "sp_scroll_metrics",
-            "size": 324
+            "size": 162
           },
           {
-            "address": 8513476,
+            "address": 8512996,
             "name": "sp_scroll_cjk",
             "size": 104
           },
           {
-            "address": 8513580,
+            "address": 8513100,
             "name": "sp_scroll_geometry",
             "size": 5
           },
           {
-            "address": 8513588,
+            "address": 8513108,
             "name": "library_robot_geometry",
             "size": 5
           },
           {
-            "address": 8513596,
+            "address": 8513116,
             "name": "keyword_list_cjk",
             "size": 104
           },
           {
-            "address": 8513700,
+            "address": 8513220,
             "name": "keyword_list_geometry",
             "size": 5
           },
           {
-            "address": 8513708,
+            "address": 8513228,
             "name": "weapon_geometry",
             "size": 5
           },
           {
-            "address": 8513716,
+            "address": 8513236,
             "name": "metric_selection",
-            "size": 1724
+            "size": 1716
           },
           {
-            "address": 8515440,
+            "address": 8514952,
             "name": "shared_draw",
-            "size": 580
+            "size": 492
           },
           {
-            "address": 8516020,
+            "address": 8515444,
             "name": "shared_measure",
             "size": 292
           },
           {
-            "address": 8516312,
+            "address": 8515736,
             "name": "scene_descriptors",
             "size": 196
           },
           {
-            "address": 8516508,
+            "address": 8515932,
             "name": "draw_routes",
             "size": 228
           },
           {
-            "address": 8516736,
+            "address": 8516160,
             "name": "measure_routes",
             "size": 184
           },
           {
-            "address": 8516920,
+            "address": 8516344,
+            "name": "glyph_bank",
+            "size": 372
+          },
+          {
+            "address": 8516716,
             "name": "draw_source",
             "size": 196
           },
           {
-            "address": 8517116,
+            "address": 8516912,
             "name": "measure_source",
             "size": 196
           },
           {
-            "address": 8517312,
+            "address": 8517108,
             "name": "underline_copy",
             "size": 48
           },
           {
-            "address": 8517360,
+            "address": 8517156,
             "name": "underline_restore",
             "size": 40
           },
           {
-            "address": 8517400,
+            "address": 8517196,
             "name": "underline_dispatch",
             "size": 144
           },
           {
-            "address": 8517544,
+            "address": 8517340,
             "name": "draw_entry",
             "size": 56
           },
           {
-            "address": 8517600,
+            "address": 8517396,
             "name": "sprite_baseline",
             "size": 96
           },
           {
-            "address": 8517696,
+            "address": 8517492,
             "name": "outline_baseline",
             "size": 120
           },
@@ -458,9 +468,9 @@
       "runtime": "not_tested",
       "schema_version": 1,
       "size": 3918860288,
-      "source_sha256": "1e67530591ee72e730f00bc6b72ba7406a9bd554c6e39a63d6fe63971c960326"
+      "source_sha256": "da1d395664732d0820aa09b2a27be1377f31dd1f1368decf6c7646c88896b9e9"
     }
   },
-  "version": "v0.5.0",
-  "workspace": "build/editions/zh-release-sp/e973f2ef5cb2b7742a2437fca1bef5f154cc8a52c042322af07a9d9f252d97a7/project"
+  "version": "v0.5.0+20261112",
+  "workspace": "build/editions/zh-release-sp/c6ec98c4e6398788ffdd6746cb773b8e1a9b691aedfdf6a22e9eb2954fe9f8a8/project"
 }

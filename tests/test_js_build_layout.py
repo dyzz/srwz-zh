@@ -99,7 +99,7 @@ class JsBuildLayoutTests(unittest.TestCase):
   self.assertEqual(json.loads(table.replace("'",'"')),BATTLE_TRAILING_ALLOWANCE_PX)
   row=lambda text:[('battle:test',text,False)]
   self.assertEqual(verify_stored(row('“国国国国国国国国国国i国国国国国国国国国国”'),'battle'),1)
-  self.assertEqual(verify_stored(row('“国国国国国国国国国Wa国国国国国国国国国国？'),'battle'),1)
+  self.assertEqual(verify_stored(row('“国国国国国国国国国aa国国国国国国国国国国？'),'battle'),1)
   for invalid in ('“国国国国国国国国国国l国国国国国国国国国国？','“国国国国国国国国国国g国国国国国国国国国国，','“国国国国国国国国国A国国国国国国国国国国…'):
    with self.assertRaisesRegex(ValueError,'462px'):
     verify_stored(row(invalid),'battle')

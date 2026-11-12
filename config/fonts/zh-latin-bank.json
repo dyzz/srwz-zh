@@ -1,0 +1,367 @@
+{
+ "schema_version": 1,
+ "bank_id": "srwz-zh-latin-bank-v1",
+ "base_code": "8440",
+ "purpose": "HarmonyOS Latin letters, digits and identifier punctuation for the proportional text scenes only. Stored in the unused Cyrillic glyph slots; text codes are unchanged and fixed-pitch UI keeps the stock glyphs.",
+ "sources": {
+  "letters": {
+   "font_lock": "config/fonts/harmonyos-sans-condensed.lock.json",
+   "font_lock_sha256": "d6ecb9b40e7415db8a45b71d1013aa97d6e64540a10534ea7be0b7c4555092b5",
+   "family": "HarmonyOS Sans Condensed",
+   "style": "Regular"
+  },
+  "digits": {
+   "font_lock": "config/fonts/harmonyos-sans-sc.lock.json",
+   "font_lock_sha256": "1f009920c771a90c8937e73633aa97ef05410b53ffaa9ba6a114be20568becd2",
+   "family": "HarmonyOS Sans SC",
+   "style": "Regular"
+  }
+ },
+ "baseline_shift_rows": -1,
+ "digits": {
+  "supersample": 8,
+  "scale_1000": 990,
+  "y_offset_supersampled": 13,
+  "reason": "Regular-width digits drawn on the Condensed capitals' rows 5..20 (same height and baseline); the families' own vertical metrics differ."
+ },
+ "zero_dot": {
+  "radius_64": 83,
+  "reason": "Round centre dot so 0 and O cannot be confused (user reference 2026-11-12)."
+ },
+ "word_space": {
+  "advance_64": 324,
+  "minimum_px": 5
+ },
+ "glyphs": {
+  "0": {
+   "slot": 0,
+   "advance_64": 795,
+   "raw_gray_sha256": "2f56d3bb74125cad53e08ba7c2688d7dbbdd8d2fbc940d4c66533f7ad519a1dd"
+  },
+  "1": {
+   "slot": 1,
+   "advance_64": 795,
+   "raw_gray_sha256": "caa827052d7583c76b7b0545b52a1d19d65910cb7d4e8900db5f3d419bcdca76"
+  },
+  "2": {
+   "slot": 2,
+   "advance_64": 795,
+   "raw_gray_sha256": "5723ba205d47588565c4f021aa9ed9f9d31f8334fc0093ceb17cdaee306141d7"
+  },
+  "3": {
+   "slot": 3,
+   "advance_64": 795,
+   "raw_gray_sha256": "19355cbba9641b8ea4855937153c17a9c5a35905bf81b74f2c7aacfa766d1b5a"
+  },
+  "4": {
+   "slot": 4,
+   "advance_64": 795,
+   "raw_gray_sha256": "5ab25c23aeb6e15098a900bda152b5f414f9ca94e7ddf7e533ee5bce96944e74"
+  },
+  "5": {
+   "slot": 5,
+   "advance_64": 795,
+   "raw_gray_sha256": "f7c2816eba96e8b566c6c2dcefc5a0c4dadf4dba9d80ef1e997b2a02820974d3"
+  },
+  "6": {
+   "slot": 6,
+   "advance_64": 795,
+   "raw_gray_sha256": "278d4b8071e629b449adf0c4722db1a40d842a513df41bb9a4822f500524b66f"
+  },
+  "7": {
+   "slot": 7,
+   "advance_64": 795,
+   "raw_gray_sha256": "7208943d1c2242128a20936e7a27769349591fd6d3a460f909d84db65fa21a85"
+  },
+  "8": {
+   "slot": 8,
+   "advance_64": 795,
+   "raw_gray_sha256": "0766ae5240a0c2b12f837c4ce74700c97f4853588db7ae6eec4758826c7cb93e"
+  },
+  "9": {
+   "slot": 9,
+   "advance_64": 795,
+   "raw_gray_sha256": "1b376e74954db67a48f1d0ea7c6562661db080d56e5c4d3b045c712d89227faa"
+  },
+  "A": {
+   "slot": 17,
+   "advance_64": 834,
+   "raw_gray_sha256": "6cb3733dd6839e982e18271831e7cdafb80cc0dd279362f47f00d2819510b785"
+  },
+  "B": {
+   "slot": 18,
+   "advance_64": 783,
+   "raw_gray_sha256": "4e1575e9e9e52f1cb17fd01a20a3b5da740369f92e2abe28fdeadcceeb53f24d"
+  },
+  "C": {
+   "slot": 19,
+   "advance_64": 774,
+   "raw_gray_sha256": "b33384e0ecd2d8c95472ab7fb3944f91ef687735ad84af4b618fea5149badf3a"
+  },
+  "D": {
+   "slot": 20,
+   "advance_64": 851,
+   "raw_gray_sha256": "49caca81cc9840f22fddbf4a709e01cdaf8ca3d857f7de9d5ece2053ad4e7d18"
+  },
+  "E": {
+   "slot": 21,
+   "advance_64": 710,
+   "raw_gray_sha256": "2fd6043c919ae94551892d494aacdf003bde0b0071c8413f52e481f0b67527e1"
+  },
+  "F": {
+   "slot": 22,
+   "advance_64": 680,
+   "raw_gray_sha256": "71f61a38e75be633f69e0d5de58a2be62a3092b7b43aadf0cc1bfbedbf8bc53b"
+  },
+  "G": {
+   "slot": 23,
+   "advance_64": 826,
+   "raw_gray_sha256": "ee16bfba06adf87f79417653c19e423c7291d5b6382f8e4451404eaac445043e"
+  },
+  "H": {
+   "slot": 24,
+   "advance_64": 891,
+   "raw_gray_sha256": "4be117a2d6585bae071dbb8782b97b9071aa5b46d8b378ba06e8712e11111739"
+  },
+  "I": {
+   "slot": 25,
+   "advance_64": 339,
+   "raw_gray_sha256": "c769a767a9de2feaeba70779dbfdea6780d0194a7bc5d0fd9b9ebc77c4efa003"
+  },
+  "J": {
+   "slot": 26,
+   "advance_64": 577,
+   "raw_gray_sha256": "6879c7d47a054f222e8c6daf7e53766bb3d9368e4caa54ff0887f5b2cd6e04ba"
+  },
+  "K": {
+   "slot": 27,
+   "advance_64": 810,
+   "raw_gray_sha256": "f9236af936ef78183995676a4aa971105e11705b27a6dc79502a22f98f41fce2"
+  },
+  "L": {
+   "slot": 28,
+   "advance_64": 678,
+   "raw_gray_sha256": "80cf361b1ebc2b184cc3f9a93a1c8eccb8cbcde192f010654ce0365099e5e0bd"
+  },
+  "M": {
+   "slot": 29,
+   "advance_64": 1022,
+   "raw_gray_sha256": "04e3f452f64c2881c5bc3fd7de0b669c1d678f64cd2fbde38a64ed679882979b"
+  },
+  "N": {
+   "slot": 30,
+   "advance_64": 881,
+   "raw_gray_sha256": "f8960c1a49a771ac32a83458951e73d0cf90afd49c178f73b4230763bdcdc5cb"
+  },
+  "O": {
+   "slot": 31,
+   "advance_64": 898,
+   "raw_gray_sha256": "4239307a3cbabc690acd45529eeb3a0126c88b1a3b86f7f77e0c90a9a4a5ebbe"
+  },
+  "P": {
+   "slot": 32,
+   "advance_64": 725,
+   "raw_gray_sha256": "0ae74434b89b2d7ab62728e41b6e5f10abd8f6fb53ebde6c1abe6c0fa519e2ca"
+  },
+  "Q": {
+   "slot": 33,
+   "advance_64": 901,
+   "raw_gray_sha256": "d0f31e76d0c320f2a6a0c17cf80ddd52422367c2bf3a114ed9072bef0df64107"
+  },
+  "R": {
+   "slot": 34,
+   "advance_64": 763,
+   "raw_gray_sha256": "b2db7a24a1184cffc9afeb21da59fd2482fd415f92c46d3c89785e3bbf8637c1"
+  },
+  "S": {
+   "slot": 35,
+   "advance_64": 691,
+   "raw_gray_sha256": "dfc04ec6a7bd409a3a75f0238671cdefcf8a9fee7b6304462f31cdbdc0d343a3"
+  },
+  "T": {
+   "slot": 36,
+   "advance_64": 693,
+   "raw_gray_sha256": "1a4265c5c211de9f35fdfba715787093cbd1faf31c5ddcb9615a4747b3184757"
+  },
+  "U": {
+   "slot": 37,
+   "advance_64": 873,
+   "raw_gray_sha256": "246e15fb6847851e7ac41e28027647d372b7607089e642cbdb918fb45e9f3380"
+  },
+  "V": {
+   "slot": 38,
+   "advance_64": 824,
+   "raw_gray_sha256": "134c14e6cf5690a642361114e84339eac6ec57d1342b5bee03b420af77f27c54"
+  },
+  "W": {
+   "slot": 39,
+   "advance_64": 1197,
+   "raw_gray_sha256": "8b1aecd852ab9255f7930a08628dcefea0cee077e6d9292cb2fe17f7321f8bda"
+  },
+  "X": {
+   "slot": 40,
+   "advance_64": 807,
+   "raw_gray_sha256": "e2c253d23e4a29128935812d84ae8149b67b8c89914e34714f02646b7ee868eb"
+  },
+  "Y": {
+   "slot": 41,
+   "advance_64": 759,
+   "raw_gray_sha256": "446aea5a75d3cd0c4d16c80886da662d31c8e5425ba1212f6b37502fdbb336bf"
+  },
+  "Z": {
+   "slot": 42,
+   "advance_64": 694,
+   "raw_gray_sha256": "7c39c5a4dd22747bca0dab2d4b1ac271240fdc79c3de17af6e2a1df42caa6516"
+  },
+  "a": {
+   "slot": 50,
+   "advance_64": 663,
+   "raw_gray_sha256": "2033339e26310051f55678c97da2396cc321718703cc86d1e7082eb89d6d8884"
+  },
+  "b": {
+   "slot": 51,
+   "advance_64": 731,
+   "raw_gray_sha256": "39e2005439fa601bf7dfbbffc2d417b9a0a520b8540b3734e945a084db4716e4"
+  },
+  "c": {
+   "slot": 52,
+   "advance_64": 587,
+   "raw_gray_sha256": "bc533fcf5db35b2aa21357d40907b8637da429ee806f4c87cca793679170963c"
+  },
+  "d": {
+   "slot": 53,
+   "advance_64": 731,
+   "raw_gray_sha256": "7140490e2aa304a6762de203b22bf00595c058ec88981a30f7c41943615c2f8d"
+  },
+  "e": {
+   "slot": 54,
+   "advance_64": 646,
+   "raw_gray_sha256": "f4270a2c0780c398a034cbcf4dbfa2d2c02fec8f3e2466099c6812b9eef63add"
+  },
+  "f": {
+   "slot": 55,
+   "advance_64": 415,
+   "raw_gray_sha256": "874ce9ad33cddd3ed80ea61d4163c83aafc73b1f0b14c94f63bce1eab9c8465a"
+  },
+  "g": {
+   "slot": 56,
+   "advance_64": 730,
+   "raw_gray_sha256": "6cd51c6f3464b6d668e209f1a7add42d5ca5e1da05dd90b59326f6615874e295"
+  },
+  "h": {
+   "slot": 57,
+   "advance_64": 700,
+   "raw_gray_sha256": "e9c92427348f33dc7c1a5dfea87bd834df01d9c1af361adc8a41d21f46def837"
+  },
+  "i": {
+   "slot": 58,
+   "advance_64": 301,
+   "raw_gray_sha256": "9c3fe194e7e0a5f50f69e5da9397e136a7e21cf7b7464abddfcbcb1ae6927bab"
+  },
+  "j": {
+   "slot": 59,
+   "advance_64": 300,
+   "raw_gray_sha256": "86224dca878d9c925ac6c7325d2a1c1275c9a6242a47db20e661ffc6674e9cb5"
+  },
+  "k": {
+   "slot": 60,
+   "advance_64": 647,
+   "raw_gray_sha256": "e907733d2fb4336e7a26c6cd40e3bee73ff5b5635f0f7e4cbf15b70b7aee143c"
+  },
+  "l": {
+   "slot": 61,
+   "advance_64": 301,
+   "raw_gray_sha256": "566be920a38f59f57a660f4a08f7211979290c37c30ae71b227fa36d82432005"
+  },
+  "m": {
+   "slot": 62,
+   "advance_64": 1017,
+   "raw_gray_sha256": "7e449e6963a292b0519425c9a9dc31505f0b268e1d0e46f3a157012b0c2eb12c"
+  },
+  "n": {
+   "slot": 63,
+   "advance_64": 700,
+   "raw_gray_sha256": "1e79cce9999c35a3f65e65d642d2be2bc51e08ca05da33cc81d6810652741c33"
+  },
+  "o": {
+   "slot": 64,
+   "advance_64": 705,
+   "raw_gray_sha256": "c642054d9338efc1bc293088caa28e886556c11b4cf9dba06f839267cde568ac"
+  },
+  "p": {
+   "slot": 65,
+   "advance_64": 731,
+   "raw_gray_sha256": "32764ac3cdca5838027cc98a20a0021cdf4dd7c0b448d779e01247b2aff7020d"
+  },
+  "q": {
+   "slot": 66,
+   "advance_64": 731,
+   "raw_gray_sha256": "1baa2a9fb8cd4b103e132abbcdbd61c8a6e7b2929419cee51cecb5e1cd1799cd"
+  },
+  "r": {
+   "slot": 67,
+   "advance_64": 467,
+   "raw_gray_sha256": "cadf1b70a8793694e7442608a04dae2212ed579b81d2816dd947aadb67cf45e4"
+  },
+  "s": {
+   "slot": 68,
+   "advance_64": 549,
+   "raw_gray_sha256": "2aa48d59ccd61fd9a3e929ca1db07b66c8510ed90e432e532ada735ea116fb30"
+  },
+  "t": {
+   "slot": 69,
+   "advance_64": 458,
+   "raw_gray_sha256": "587bd5ecf2087bb91fe95fd90adc97c29d68900e00476409a45174f18b231af7"
+  },
+  "u": {
+   "slot": 70,
+   "advance_64": 700,
+   "raw_gray_sha256": "ad366c5fce3fb1b006d97132a829c0433304f234d63e0a52b16c8590b17b44fd"
+  },
+  "v": {
+   "slot": 71,
+   "advance_64": 634,
+   "raw_gray_sha256": "fbdc232719a3bc5e1022f04bfa79234313692fd7966afed65c545adc6abc23fe"
+  },
+  "w": {
+   "slot": 72,
+   "advance_64": 946,
+   "raw_gray_sha256": "c9748cf9a9f300805ad2ebe54edab5fea127343cd4b139833780958833dbc5d9"
+  },
+  "x": {
+   "slot": 73,
+   "advance_64": 607,
+   "raw_gray_sha256": "65a9a91b2959f17d06d1fc489afae7a3973c67c5a7982dceb3b3e31f4c705c1d"
+  },
+  "y": {
+   "slot": 74,
+   "advance_64": 636,
+   "raw_gray_sha256": "6e702de6fe6079d13f270c651e3555d8ac178032c67b118428c5ab136140673d"
+  },
+  "z": {
+   "slot": 75,
+   "advance_64": 542,
+   "raw_gray_sha256": "d4daf0a0ba6903149a45dc7fff0e7e8ec44beca3af4d13289f4587bfcbb01a28"
+  },
+  "-": {
+   "slot": 76,
+   "advance_64": 543,
+   "raw_gray_sha256": "7eb1b6b5dd5cbe90e45ad2b0568146b4e7147a186b49cbf51fcdd7c5d0831813"
+  },
+  ".": {
+   "slot": 77,
+   "advance_64": 269,
+   "raw_gray_sha256": "6995b694cbb5f55ff2f88d374142dff958625db644f396b9892e6377885915b4"
+  },
+  "'": {
+   "slot": 78,
+   "advance_64": 258,
+   "raw_gray_sha256": "1ce09810c2c2b1be5f09674ed865480f3534fb6d4661b0d68f185d11239f86df"
+  },
+  "/": {
+   "slot": 79,
+   "advance_64": 483,
+   "raw_gray_sha256": "5a257e33b5440724192fcfa9fdf596e3dee4c094742c9146baa40d4e0f2808f5"
+  }
+ }
+}

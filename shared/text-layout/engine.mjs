@@ -150,7 +150,8 @@ function measureRow(text, scene, start, options, collectGlyphs = true) {
     const metric=options.typography==='proportional'?proportionalMetric(text,i-ch.length,scene.id,options,state):null;
     const gx=x-(metric?.bearing||0),width=metric?.width??state.width,advance=metric?.advance??state.step;
     if(collectGlyphs)glyphs.push({text:ch,yOffset:metric?.yOffset??0,baselineResidual16:metric?.baselineResidual16??0,x:gx,width,height:metric?.height??state.height,advance,placeholder:false});
-    if (ch !== ' ' && ch !== '　') right = Math.max(right, gx + width);
+    // Bank Latin glyphs sit centred in a hanzi-wide cell: their ink ends with the advance.
+    if (ch !== ' ' && ch !== '　') right = Math.max(right, metric?.advanceBox ? x + advance : gx + width);
     x += advance;
   }
   return { text, advancePx: x, occupiedPx: Math.max(x, right), glyphs, state };
