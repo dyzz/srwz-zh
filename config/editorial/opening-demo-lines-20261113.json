@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "review_id": "opening-demo-lines-20261113",
+  "translation_writeback": true,
+  "purpose": "标题画面闲置 demo（BTL/OP0-2.BIN）所用的 99 条战斗台词精翻：ARMSX2 实录取全集，Claude 提建议，用户在挑选页逐条选定；ブレストバーン 台词跟武器表统一为“胸部火焰”。",
+  "authorization": "用户 2026-11-13：“我们把这里涉及到的台词都整理，并且精翻一次”；挑选页选择 {\"term\":\"unify\", 10 条 new, battle:10512 now, 3 条 cur}",
+  "feedback_snapshot_at": "2026-11-13T04:58:28.341622+00:00",
+  "feedback_snapshot_total": 3898,
+  "decisions": {
+    "path": "work/review/opening-demo-lines-20261113/decisions-user-20261113.json",
+    "sha256": "873a7aa9a02ec300a0a6391eaea4b4ad992154307582bcea3f6d806c10dea252"
+  },
+  "summary": {
+    "page_lines": 99,
+    "offered": 15,
+    "picked": 12,
+    "write": 12,
+    "skipped": 0,
+    "kept_current": [
+      "battle:01541",
+      "battle:04941",
+      "battle:10584"
+    ],
+    "online_page_snapshot_at": "2026-11-13T04:37:44.996742+00:00",
+    "online_snapshot_at": "2026-11-13T04:58:28.341622+00:00",
+    "online_snapshot_total": 3898,
+    "online_changed_since_page": 0
+  },
+  "application": {
+    "files": [
+      {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "before_sha256": "8c20c5d2fb4fae5b1f8969bf9a06cc7ba8d8da02dee3f1f1441aface15b46493",
+        "after_sha256": "0576e8547db1c4bad27f275eebde1d9ecce8954442c7997928cb71778d6ecff6"
+      }
+    ],
+    "input_lock_refresh": {
+      "before": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6989405,
+        "sha256": "8c20c5d2fb4fae5b1f8969bf9a06cc7ba8d8da02dee3f1f1441aface15b46493"
+      },
+      "after": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6989474,
+        "sha256": "0576e8547db1c4bad27f275eebde1d9ecce8954442c7997928cb71778d6ecff6"
+      },
+      "files": [
+        "config/full-story-components.json"
+      ]
+    },
+    "site_writeback": false
+  },
+  "entries": [
+    {
+      "id": "battle:10512",
+      "before": "“就算是第二系列机体！”",
+      "after": "“就算是第二世代机体又怎样！”",
+      "kind": "mistranslation",
+      "why": "だからって＝别仗着；术语统一",
+      "evidence": "「セカンドシリーズの機体だからって！」是“别仗着是第二世代机体（就嚣张）”，触发场景为对 SEED D 机体时被弹/回避；原译“第二系列”与全库“第二世代”不一致。"
+    },
+    {
+      "id": "battle:22621",
+      "before": "“别乱蹦乱跳的！！”",
+      "after": "“别给我到处乱窜！！”",
+      "kind": "stiff",
+      "why": "ちょこまか＝到处乱窜"
+    },
+    {
+      "id": "battle:01608",
+      "before": "“伸长吧啊啊啊！！”",
+      "after": "“给我伸长啊啊啊！！”",
+      "kind": "stiff",
+      "why": "伸びろ是命令式"
+    },
+    {
+      "id": "battle:16305",
+      "before": "“巨神…！\\n　到底有多强的力量！”",
+      "after": "“该死的巨神…！\\n　到底有多大的力量啊！”",
+      "kind": "omission",
+      "why": "漏了め的咒骂语气"
+    },
+    {
+      "id": "battle:23310",
+      "before": "“切……看来我的特训\\n　还不够啊”",
+      "after": "“切……看来我的特训\\n　还远远不够啊”",
+      "kind": "omission",
+      "why": "漏了まだまだ"
+    },
+    {
+      "id": "battle:01990",
+      "before": "“这种程度！！”",
+      "after": "“这种程度算什么！！”",
+      "kind": "stiff",
+      "why": "现译是半截话"
+    },
+    {
+      "id": "battle:06211",
+      "before": "“西伯铁也会动脑子吗！”",
+      "after": "“西伯铁的人也会动脑子吗！”",
+      "kind": "stiff",
+      "why": "避免读成“铁也”"
+    },
+    {
+      "id": "battle:06156",
+      "before": "“可恶！对超限人\\n　本不该输的！”",
+      "after": "“可恶！对付超限人\\n　我明明不该输的！”",
+      "kind": "stiff",
+      "why": "はずなのに语气没出来"
+    },
+    {
+      "id": "battle:05018",
+      "before": "“唯独你们兄弟俩不可饶恕！”",
+      "after": "“唯独你们兄弟俩，我绝饶不了！”",
+      "kind": "tone",
+      "why": "卡洛德口吻粗，现译书面"
+    },
+    {
+      "id": "battle:21705",
+      "before": "“I力场启动！警告\\n　自动反应！设定！索敌！”",
+      "after": "“I力场启动！警告时\\n　自动反应！设定！索敌！”",
+      "kind": "mistranslation",
+      "why": "警告に＝遇警告时"
+    },
+    {
+      "id": "battle:21774",
+      "before": "“用自动回避！”",
+      "after": "“交给自动回避！”",
+      "kind": "stiff",
+      "why": "“用自动回避”不通顺"
+    },
+    {
+      "id": "battle:07277",
+      "before": "“胸甲爆炎！！”",
+      "after": "“胸部火焰！！”",
+      "kind": "term",
+      "why": "ブレストバーン跟武器表统一为“胸部火焰”"
+    }
+  ]
+}
