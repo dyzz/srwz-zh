@@ -7231,10 +7231,7 @@ def main() -> int:
     expected_land_translation = (
         "“哦！把自己机体弄坏的那家伙，\n　罚你帮忙修理。”"
     )
-    from srwz.typography_policy import candidate_enabled
-    if candidate_enabled():
-        from srwz.build_layout import reflow_story
-        expected_land_translation = reflow_story(expected_land_translation, profile=dialogue_profile).text
+    # The corpus stores the reviewed break itself since the 2026-11-13 break restoration.
     if reported_land_translation != expected_land_translation:
         raise SystemExit(
             "reported Land dialogue mismatch: "

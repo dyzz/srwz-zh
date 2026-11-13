@@ -199,14 +199,19 @@ def fit_story(text,*,profile,protected_terms=(),stage_keyword_links=False,**kwar
     return reflow_story(text,profile=profile,protected_terms=protected_terms,stage_keyword_links=stage_keyword_links)
 
 def fit_candidate_stories(texts,*,profile,scenes=None):
-    """Batch candidate dialogue; structured owners keep their authored rows."""
+    """Batch candidate dialogue; authored rows that fit stay, structured owners always keep theirs."""
     if not candidate_enabled():raise ValueError('Candidate dialogue policy is not enabled')
     texts=list(texts);result=[];scenes=list(scenes) if scenes is not None else ['story']*len(texts)
     if len(scenes) != len(texts):raise ValueError('Dialogue texts and scenes must have equal lengths')
     for start in range(0,len(texts),128):
         group=texts[start:start+128];requests=[]
-        for text,scene in zip(group,scenes[start:start+128]):
-            structured=text.startswith((' ','　')) or bool(re.search(r'”\n[　 ]*“',text))
+        owners=scenes[start:start+128];fitting=set()
+        for scene in sorted(set(owners)):
+            indexed=[(str(i),text,False) for i,text in enumerate(group) if owners[i]==scene]
+            overflowing=stored_geometry_issues(indexed,scene)
+            fitting.update(int(i) for i,_,_ in indexed if i not in overflowing)
+        for i,(text,scene) in enumerate(zip(group,scenes[start:start+128])):
+            structured=i in fitting or text.startswith((' ','　')) or bool(re.search(r'”\n[　 ]*“',text))
             requests.append(dict(text=text,scene=scene,action='measure' if structured else 'layout',options=dict(**({'packing':'balanced_width'} if scene=='story_map' and not structured else {}),typography='proportional',chinesePunctuation='compact',maxLines=profile.maximum_lines)))
         for request,response in zip(requests,layout_batch(requests)):
             if not response['ok']:raise JsLayoutError(response['error'])

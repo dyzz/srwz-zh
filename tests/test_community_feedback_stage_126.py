@@ -23,13 +23,13 @@ class CommunityFeedbackStage126Test(unittest.TestCase):
         entries = load_entries("corpus/zh/story-dialogue/stage-126.json")
         expected = {
             "story/126/dialogue/01.02/0002": (
-                '“男人……？我觉得问题不在这里……”'
+                '“男人……？\n　我觉得问题不在这里……”'
             ),
             "story/126/dialogue/01.03/0002": (
-                '“今后，她大概会动真格，把\n\u3000拒绝她的我们消灭掉吧。”'
+                '“今后，她大概会动真格，\n\u3000把拒绝她的我们消灭掉吧。”'
             ),
             "story/126/dialogue/01.05/0000": (
-                '“哈曼·卡恩……！竟敢擅自与\n\u3000$c会谈，甚至还挑起战斗！”'
+                '“哈曼·卡恩……！\n\u3000竟敢擅自与$c会谈，\n\u3000甚至还挑起战斗！”'
             ),
             "story/126/dialogue/01.13/0004": (
                 '“居然不先对付那门大炮，而是我们，\n\u3000你也太看得起我们了，大哥。”'
