@@ -12,7 +12,7 @@ from srwz.best_build import (
 from srwz.edition import EditionError
 from srwz.library_button_labels import SITES as BUTTON_SITES
 from srwz.library_body_metrics import EDITIONS as BODY_EDITIONS
-from srwz.style_slot_scissor import EDITION_SITES as SCISSOR_SITES, NATIVE_BLOCK as SCISSOR_NATIVE
+from srwz.style_slot_scissor import EDITION_SITES as SCISSOR_SITES, NATIVE_BLOCK as SCISSOR_NATIVE, KIND6_NATIVE, KIND6_NATIVE_DELAY, KIND6_PREFIX, TILE_NATIVE, TILE_PREFIX, TILE_SUFFIX
 from srwz.library_optical_metrics import native_preimages
 from srwz.stage import _condition_entries
 from srwz.text import TextTable
@@ -35,16 +35,24 @@ def native_body_hook_fixture(data):
     fixture = json.loads((REPO / 'tests/fixtures/library-button-labels-native.json').read_text())['best']
     offset = BUTTON_SITES['best'][0]
     result[offset:offset+172] = bytes.fromhex(fixture)
-    # Real Best ELF mapping plus the native style-slot scissor block.
-    _, site, vaddr, builder = SCISSOR_SITES['best']
+    # Real Best ELF mapping plus both native style-slot scissor blocks.
+    site = SCISSOR_SITES['best']
+    (off5, vaddr5), (off6, _) = site['kind5'], site['kind6']
+    jal = struct.pack('<I', 3<<26 | site['builder']>>2)
     result[:4] = b'\x7fELF'
     struct.pack_into('<I', result, 28, 0x34)
     struct.pack_into('<H', result, 44, 1)
-    struct.pack_into('<6I', result, 0x34, 1, 0x1000, vaddr - site + 0x1000, vaddr - site + 0x1000,
+    struct.pack_into('<6I', result, 0x34, 1, 0x1000, vaddr5 - off5 + 0x1000, vaddr5 - off5 + 0x1000,
                      len(result) - 0x1000, len(result) - 0x1000)
-    result[site:site+72] = SCISSOR_NATIVE
-    struct.pack_into('<I', result, site+72, 3<<26 | builder>>2)
-    result[site+76:site+80] = bytes.fromhex('2d204002')
+    result[off5:off5+72] = SCISSOR_NATIVE
+    result[off5+72:off5+80] = jal + bytes.fromhex('2d204002')
+    result[off6-8:off6] = KIND6_PREFIX
+    result[off6:off6+60] = KIND6_NATIVE
+    result[off6+60:off6+68] = jal + KIND6_NATIVE_DELAY
+    off_tile = site['tile'][0]
+    result[off_tile-8:off_tile] = TILE_PREFIX
+    result[off_tile:off_tile+12] = TILE_NATIVE
+    result[off_tile+12:off_tile+16] = TILE_SUFFIX
     return bytes(result)
 
 

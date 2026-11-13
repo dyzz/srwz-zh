@@ -2983,29 +2983,41 @@
   "style_slot_scissor": {
     "enabled": true,
     "policy": "stretched_style_slot_scissor_far_edge_margin",
-    "surface": "KVP style-engine stretched slots get a one-pixel far-edge scissor margin so fractional emulator upscales leave no seam (MAP DATA etc.)",
+    "surface": "KVP style-engine stretched slots (kind-5 and kind-6 records) get a one-pixel far-edge scissor margin so fractional emulator upscales leave no seam (MAP DATA, save/load popup, ...); vertically tiled child slots skip a last tile with fewer than two rows inside the slot (line under the last command button when upscaled)",
     "sites": {
       "original": {
         "member": "SLPS_258.87",
-        "file_offset": "0x2698DC",
-        "virtual_address": "0x367E5C",
-        "scissor_builder": "0x3699A0"
+        "scissor_builder": "0x3699A0",
+        "kind5_file_offset": "0x2698DC",
+        "kind5_virtual_address": "0x367E5C",
+        "kind6_file_offset": "0x269EC4",
+        "kind6_virtual_address": "0x368444",
+        "tile_file_offset": "0x26B128",
+        "tile_virtual_address": "0x3696A8"
       },
       "best": {
         "member": "SLPS_732.70",
-        "file_offset": "0x269EDC",
-        "virtual_address": "0x36845C",
-        "scissor_builder": "0x369FA0"
+        "scissor_builder": "0x369FA0",
+        "kind5_file_offset": "0x269EDC",
+        "kind5_virtual_address": "0x36845C",
+        "kind6_file_offset": "0x26A4C4",
+        "kind6_virtual_address": "0x368A44",
+        "tile_file_offset": "0x26B728",
+        "tile_virtual_address": "0x369CA8"
       },
       "sp": {
         "member": "SLPS_259.20",
-        "file_offset": "0x28DF2C",
-        "virtual_address": "0x38D5AC",
-        "scissor_builder": "0x38F0F0"
+        "scissor_builder": "0x38F0F0",
+        "kind5_file_offset": "0x28DF2C",
+        "kind5_virtual_address": "0x38D5AC",
+        "kind6_file_offset": "0x28E514",
+        "kind6_virtual_address": "0x38DB94",
+        "tile_file_offset": "0x28F778",
+        "tile_virtual_address": "0x38EDF8"
       }
     },
-    "native_block_sha256": "eab74d9659c5298cdbc1f662832e667464443a8bbf1f6872eb3dea426f015344",
-    "patched_block_sha256": "64542e9112baf356381bfac693a1473a8450b971b29a639ff2d39fa05eba8bbe"
+    "native_sha256": "085edf6dbb4390ee5db70dc73b093314c44a65b4b039307d698442ca5965a7bd",
+    "patched_sha256": "271065340afc12b5d29f4a071e68e6d3188aea675ee85a391c6584eada0cc952"
   },
   "spirit_cost_templates": {
     "mode": "native_spirit_cost_templates",
