@@ -49,9 +49,9 @@ import fs from 'fs';
 const LIM={story:483,story_map:420,sp_story_map:420};
 const OPT=r=>({typography:'proportional',chinesePunctuation:'compact',keywordLinks:!!r.links});
 const logical=t=>t.replace(/\n[　 ]*/g,'');
-// A row may not start with an ellipsis (layout contract), so “。……” stays one group and the
-// ellipsis that opens the next Japanese row hangs at the end of the previous Chinese row.
-const PJ=/[。！？、…―!?]+[」』）]*/g, PZ=/[。！？，、…—；：!?]+[”’）」』]*/g;
+// A row may open with an ellipsis (user rule 2026-11-13), so punctuation followed by an ellipsis is two
+// groups: the break lands before the ellipsis that opens the next Japanese row.
+const PJ=/[。！？!?、]+(?=…)|[。！？、…―!?]+[」』）]*/g, PZ=/[。！？!?，、]+(?=…)|[。！？，、…—；：!?]+[”’）」』]*/g;
 const HARD=new Set([...'。！？!?…']);
 const WEAK={'。':0,'！':0,'？':0,'…':0,'!':0,'?':0,'；':1,'：':1,'—':1,'，':2,'、':4};
 function groups(t,re,stutter=false){const o=[];for(const m of t.matchAll(re)){const e=m.index+m[0].length;if(e>=t.length)continue;
@@ -122,6 +122,14 @@ function decide(r){
       else d={cat:'old_matches_jp',text:r.old};}
     else if(oldOk&&(p.cat.includes('split')||p.cat==='jp_none'||!p.cat.startsWith('jp_')))d={cat:'old_kept',text:r.old};
     else d={cat:p.cat,text:p.text};
+  }
+  // Readers expect the ellipsis that opens a Japanese row to open the Chinese row too, reviewed
+  // records included: earlier tooling could only hang it at the end of the previous row.
+  if(d.cat!=='keep_structured'&&/\n　?…/.test(r.jp||'')){
+    const rs=d.text.split('\n');let moved=false;
+    for(let i=0;i<rs.length-1;i++){const m=rs[i].match(/^(.*[。！？!?，、”’）])(…+)$/);
+      if(m&&!rs[i+1].startsWith('　…')){rs[i]=m[1];rs[i+1]='　'+m[2]+rs[i+1].slice(1);moved=true;}}
+    if(moved&&fitsScene(rs.join('\n'),r))d={...d,text:rs.join('\n'),ellipsis:true};
   }
   if(logical(d.text)!==L)throw new Error(r.id);
   return d;

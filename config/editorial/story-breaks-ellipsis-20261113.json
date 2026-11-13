@@ -1,0 +1,587 @@
+{
+  "batch_id": "story-breaks-ellipsis-20261113",
+  "tool": "tools/text_layout/relayout_story_breaks.py",
+  "pre_reflow_commit": "d2a96df2",
+  "online_snapshot_sha256": "baffbfae3745bc8a1a6fead47e2bffc15d4e79cb215fb5470ef2b57fa3f516a4",
+  "records": 91198,
+  "changed": 535,
+  "categories": {
+    "jp_exact": 17532,
+    "jp_exact+split": 14,
+    "jp_none": 176,
+    "jp_none+split": 88,
+    "jp_partial": 16466,
+    "jp_partial+split": 197,
+    "keep_structured": 17,
+    "main_twin": 217,
+    "old_kept": 7123,
+    "old_matches_jp": 41045,
+    "old_midword_fixed": 24,
+    "reviewed_old": 8142,
+    "reviewed_opinion": 1,
+    "same_line_copy": 155,
+    "split_only": 1
+  },
+  "files": {
+    "corpus/zh/story-dialogue/stage-001.json": {
+      "records": 3,
+      "sha256": "2b68de88a42233ed01b45bc61a65b50103858d0f38551a4cb4b46979f1993be1"
+    },
+    "corpus/zh/story-dialogue/stage-002.json": {
+      "records": 1,
+      "sha256": "d7457e7f23d1db25bf7a9f6cca7e2717b681a6bbb552d8197e3954d3ed7b7a5d"
+    },
+    "corpus/zh/story-dialogue/stage-003.json": {
+      "records": 1,
+      "sha256": "918f51760c23f6fb9833aaa3d0b183bf7e4c03ef3c2f2d8e957720c8892fd17b"
+    },
+    "corpus/zh/story-dialogue/stage-004.json": {
+      "records": 6,
+      "sha256": "a1462698c37e24017e3b3c1e4bf910936986961ae7b1f11e107917c5485986b4"
+    },
+    "corpus/zh/story-dialogue/stage-006.json": {
+      "records": 1,
+      "sha256": "da6742708790c4eb29b01ff22c2c3800258d1f473432a1f9254b80e27db88e5b"
+    },
+    "corpus/zh/story-dialogue/stage-007.json": {
+      "records": 3,
+      "sha256": "23a1972287cf86da1fe1d83219602f966720bd2c1210bfca867a62b9d81b48a6"
+    },
+    "corpus/zh/story-dialogue/stage-008.json": {
+      "records": 1,
+      "sha256": "7197318a4b9e289b58573731cc2c6813a2d7882481cc6d8946d33a47640bf204"
+    },
+    "corpus/zh/story-dialogue/stage-009.json": {
+      "records": 1,
+      "sha256": "ed7973611cbdaf8beab68a5a28f28bac6019aee7f5bc4fb470fdd7570924e27d"
+    },
+    "corpus/zh/story-dialogue/stage-010.json": {
+      "records": 5,
+      "sha256": "b5b96c93c4060b0be09f278c6b135fece284dae9fab7f1c57b3255a7c26ae660"
+    },
+    "corpus/zh/story-dialogue/stage-012.json": {
+      "records": 7,
+      "sha256": "5d0a2885b0316e29731525baef84be4e3eaed504e0d1565024e7c866a3e8ee4e"
+    },
+    "corpus/zh/story-dialogue/stage-013.json": {
+      "records": 2,
+      "sha256": "7495c56f68997b30284c554ed9691ce1c3d7757dea31c8661b819c77ba0c289c"
+    },
+    "corpus/zh/story-dialogue/stage-014.json": {
+      "records": 2,
+      "sha256": "2c6c5b36b8822df8736ebec235bd4ecc4731678bf3ef118925f164e090e2f851"
+    },
+    "corpus/zh/story-dialogue/stage-015.json": {
+      "records": 1,
+      "sha256": "b4e7da344be670c4b32a0dca98b9f385d33f6c6ba28abc5135f18eb1889626b6"
+    },
+    "corpus/zh/story-dialogue/stage-016.json": {
+      "records": 2,
+      "sha256": "e15a39aac7480a3828237eef6b75daef3d800a8651239498bd56c8853f7753f9"
+    },
+    "corpus/zh/story-dialogue/stage-020.json": {
+      "records": 2,
+      "sha256": "5ce9185c303a937a5e3ff1d2d57fec9f9712421211ba04a00dc944f32adef6a5"
+    },
+    "corpus/zh/story-dialogue/stage-021.json": {
+      "records": 1,
+      "sha256": "9d0cf7d20ed7d98cb3c3a304193b633173123f2605a8acfa7b79192601433f33"
+    },
+    "corpus/zh/story-dialogue/stage-023.json": {
+      "records": 2,
+      "sha256": "8130acabec85dc9e14bc3a8f9485655853c5b27826d180636269354f5b0d0753"
+    },
+    "corpus/zh/story-dialogue/stage-024.json": {
+      "records": 6,
+      "sha256": "2c3659676d63284448d302ef1c43561376011234f54750c4b75ed6adb86457cc"
+    },
+    "corpus/zh/story-dialogue/stage-025.json": {
+      "records": 5,
+      "sha256": "780b840a3fab93ffdfb84d5fd2060d46b8fddc7fd545a35530eb0872e424b81e"
+    },
+    "corpus/zh/story-dialogue/stage-026.json": {
+      "records": 1,
+      "sha256": "c86414b34b2a187519d9d8e1fac83a6cb944bc6277e92427ec210391bfdcae43"
+    },
+    "corpus/zh/story-dialogue/stage-027.json": {
+      "records": 6,
+      "sha256": "902321f29520fcb8084b690c11aecaf50ed3ef94c4aa49faaf544f6d16d7d7d5"
+    },
+    "corpus/zh/story-dialogue/stage-028.json": {
+      "records": 10,
+      "sha256": "aec06cfeeb4c1d57b845f3b5e4b842381bec6bb3cbac5dd0ebb4c75b00920549"
+    },
+    "corpus/zh/story-dialogue/stage-029.json": {
+      "records": 9,
+      "sha256": "5e148e7d388d73db7db41cfd8d59aa4e0f03bcace7ce8ec61f770ccc0116b5cc"
+    },
+    "corpus/zh/story-dialogue/stage-030.json": {
+      "records": 6,
+      "sha256": "3450638e4bf1153f0d6b095105f6c52b3d2e60436a4e4ce7b2c62420a44acfe7"
+    },
+    "corpus/zh/story-dialogue/stage-031.json": {
+      "records": 5,
+      "sha256": "b9deb41a07061d593ffa11d93c234b747d6fb0e4d2eaffea2260f4be45164d8d"
+    },
+    "corpus/zh/story-dialogue/stage-032.json": {
+      "records": 4,
+      "sha256": "43e9d72ccaa956ab8bdf35d5591287dd97223e12c2207d71f5ab89b3c29269cc"
+    },
+    "corpus/zh/story-dialogue/stage-033.json": {
+      "records": 1,
+      "sha256": "b653e0047aa50e606c0873c27a2dc8a3e3cf51d40ba4a04b4f4526105cdafc13"
+    },
+    "corpus/zh/story-dialogue/stage-034.json": {
+      "records": 4,
+      "sha256": "a02914682769d93d5a7e99d9ded9bc8530e2a5ad67087dd6d4e1028c996fe291"
+    },
+    "corpus/zh/story-dialogue/stage-035.json": {
+      "records": 1,
+      "sha256": "12abca67472395c5a2772c5458afe880196d2d3047d6fa17ede12c5b3314493f"
+    },
+    "corpus/zh/story-dialogue/stage-036.json": {
+      "records": 1,
+      "sha256": "6b53f16b48ca5a62d6f1321ec3ea6900fbd255313469a8032053002ca7614568"
+    },
+    "corpus/zh/story-dialogue/stage-037.json": {
+      "records": 6,
+      "sha256": "6ea48a4b9d336e77f3be7457d6eab6d290dcbe4e9438d028b734c8ea5b8b83a3"
+    },
+    "corpus/zh/story-dialogue/stage-038.json": {
+      "records": 5,
+      "sha256": "ca2cf1036182d0bb48889d7e957c5ac1d4de0291cfa1119354b87b5f1b492540"
+    },
+    "corpus/zh/story-dialogue/stage-039.json": {
+      "records": 2,
+      "sha256": "2c0c082bf475d4adeaeafad93a5e1014fd1bfde9ad20588a0590c72bd9e6f7b2"
+    },
+    "corpus/zh/story-dialogue/stage-040.json": {
+      "records": 3,
+      "sha256": "89ad59a58295a054ae4bd9b0177e9b66815140454fca2b0f39fb0ab1bbe905b7"
+    },
+    "corpus/zh/story-dialogue/stage-041.json": {
+      "records": 4,
+      "sha256": "46d5fdeb3a66fbe7676dd7e88d1ed1e5850566ab2809acfdc2f38fef6e3c59b5"
+    },
+    "corpus/zh/story-dialogue/stage-042.json": {
+      "records": 4,
+      "sha256": "fef2ac65f2d98d63eb00b77bcb291cfd44f2de331f18806b5bee5fa77f56b0ab"
+    },
+    "corpus/zh/story-dialogue/stage-043.json": {
+      "records": 3,
+      "sha256": "b812d119f77b806ba89747c54a462d6759eaf05a66125bb010f35734be73e18f"
+    },
+    "corpus/zh/story-dialogue/stage-044.json": {
+      "records": 1,
+      "sha256": "51dbdbda72af1dbdfd132918b006efc631b02cecbdadf34f0719779ebed813af"
+    },
+    "corpus/zh/story-dialogue/stage-045.json": {
+      "records": 6,
+      "sha256": "2489eaea8b957426adcff9bc861ae33c76b82e8577bd25bfee34adfe281961ba"
+    },
+    "corpus/zh/story-dialogue/stage-048.json": {
+      "records": 3,
+      "sha256": "6c22f1bf869ccbb98a7aeb256da0c71833f387ef1d88ef3bfd16231e0e461d3d"
+    },
+    "corpus/zh/story-dialogue/stage-049.json": {
+      "records": 2,
+      "sha256": "0e8a38c94e76bbb028531160e35820ffec1be125ce520b419b131bbb32eb0a77"
+    },
+    "corpus/zh/story-dialogue/stage-050.json": {
+      "records": 3,
+      "sha256": "b49c52ebc9075e1842b3913e2bd64cf7e1736b6dab9658e0de2c7347268b2a92"
+    },
+    "corpus/zh/story-dialogue/stage-052.json": {
+      "records": 1,
+      "sha256": "859cb40d062015e7a512e853561657aa1d70717f6346baf6a33b11596f3361ea"
+    },
+    "corpus/zh/story-dialogue/stage-053.json": {
+      "records": 7,
+      "sha256": "d18c1ef0f3f057fdcf473b0a1a21406f8cf7c1eb23f8b318a52819be063f24da"
+    },
+    "corpus/zh/story-dialogue/stage-054.json": {
+      "records": 2,
+      "sha256": "0d6a7eb049ba36988e91482df1c3a3855a5feeccb1e1ff6f7a66575ef68fd77b"
+    },
+    "corpus/zh/story-dialogue/stage-055.json": {
+      "records": 4,
+      "sha256": "66eda53cedab02dc05ec91affa9235f0259ba9af937a7cc28e4bee9b3a169c60"
+    },
+    "corpus/zh/story-dialogue/stage-056.json": {
+      "records": 4,
+      "sha256": "3505aac185ed571c5fa40c305cc2838e740ad0e2404c4ac480043631fe522bc9"
+    },
+    "corpus/zh/story-dialogue/stage-057.json": {
+      "records": 1,
+      "sha256": "c9c5516a45e0809d44b6c869ae6e8790951c3287f5b55b7f229374133c7097a7"
+    },
+    "corpus/zh/story-dialogue/stage-058.json": {
+      "records": 2,
+      "sha256": "9b93bf775c772a15c6266a685c1483c7faf038d125f8266be115b64bf84f915a"
+    },
+    "corpus/zh/story-dialogue/stage-059.json": {
+      "records": 3,
+      "sha256": "d35107b2f4a167bf2311e62ee5888719e3a24486015b832d972f5623058de080"
+    },
+    "corpus/zh/story-dialogue/stage-060.json": {
+      "records": 3,
+      "sha256": "1020f5e4400895c47f85bc039fd7cf1fddcb2e0fadd02a30efc0d19c06fecdd8"
+    },
+    "corpus/zh/story-dialogue/stage-061.json": {
+      "records": 7,
+      "sha256": "b1b67263d66f2e673c52b09536aecf2b9d5a22e35ad8b879226fcec4e6d1fcbb"
+    },
+    "corpus/zh/story-dialogue/stage-062.json": {
+      "records": 4,
+      "sha256": "75b2aeff32578175889fa9db9ef253f7cd01873769ba495e113742603241a7a9"
+    },
+    "corpus/zh/story-dialogue/stage-063.json": {
+      "records": 3,
+      "sha256": "72b2ec3720505649f1bc8393b1efe008d8d1734b63b574b62d4a03a193853bfa"
+    },
+    "corpus/zh/story-dialogue/stage-064.json": {
+      "records": 4,
+      "sha256": "2ed10e0e52c01c23846f7fa9aed47427b10dba6c8126424fce93dee4985eddc7"
+    },
+    "corpus/zh/story-dialogue/stage-065.json": {
+      "records": 5,
+      "sha256": "bdcce5d240819c860210439ab3eda56c7e0e15c0dfe20f350006578024591971"
+    },
+    "corpus/zh/story-dialogue/stage-066.json": {
+      "records": 3,
+      "sha256": "ed3e0ace12fbd27745b47b381e46eb4363b8c0ac3b3b59c26ff34909d1c0d012"
+    },
+    "corpus/zh/story-dialogue/stage-067.json": {
+      "records": 1,
+      "sha256": "3228a43b591e06ec006407195261d228ba5d3860c2efe76a063c273e849f0fdb"
+    },
+    "corpus/zh/story-dialogue/stage-068.json": {
+      "records": 2,
+      "sha256": "4a12df216d489be771b0d8b30284c8cb294b1157f2ddfa0fbbbea5e5011010d4"
+    },
+    "corpus/zh/story-dialogue/stage-069.json": {
+      "records": 6,
+      "sha256": "b562ca8e9d806d2748699ec07354b596041001b1064e4946833432b0c87239ec"
+    },
+    "corpus/zh/story-dialogue/stage-070.json": {
+      "records": 2,
+      "sha256": "239236daa8f75682ea805718ba8d213dde91c51fdce457e6c5332c8b233cf6f9"
+    },
+    "corpus/zh/story-dialogue/stage-071.json": {
+      "records": 1,
+      "sha256": "10c2efdfc58fe9e18f849b9cb372c2422ef71539715b9f9b5125f9b689500b56"
+    },
+    "corpus/zh/story-dialogue/stage-072.json": {
+      "records": 1,
+      "sha256": "a1651efa94ce641ef7680c5edfed02a4959e7075cefdb78c21b88360d4f22756"
+    },
+    "corpus/zh/story-dialogue/stage-073.json": {
+      "records": 4,
+      "sha256": "40e286ddfac96d5220bb13bc06830aa0e0714bb2ea6c0c6e2867a5aedf0a4a2e"
+    },
+    "corpus/zh/story-dialogue/stage-075.json": {
+      "records": 5,
+      "sha256": "349e00324b0805d184b23560829ab41f54fc3cb0a2945c6c19c03aa6658f06fd"
+    },
+    "corpus/zh/story-dialogue/stage-077.json": {
+      "records": 2,
+      "sha256": "b172b9d8887cf9a4e78267e93b78c0cc9b6fc1df759841c0df23e657c6c4a763"
+    },
+    "corpus/zh/story-dialogue/stage-078.json": {
+      "records": 2,
+      "sha256": "115095d0ea447e6d09de652bc802882fcc49a02069bb27de28278ae88e438c14"
+    },
+    "corpus/zh/story-dialogue/stage-079.json": {
+      "records": 2,
+      "sha256": "ae6c20917aed770ec0346d26761b02fbff66f1a6a9fd8ec55e6660399fbfece2"
+    },
+    "corpus/zh/story-dialogue/stage-080.json": {
+      "records": 2,
+      "sha256": "c4b0452f00b190fcc9d5990f1d6fc53d591d984e1c6da93409a4f4b1f7d22b77"
+    },
+    "corpus/zh/story-dialogue/stage-081.json": {
+      "records": 1,
+      "sha256": "1681f3faa57fb082bfb83799e1a8418b9ed022e48b1197ecfd63f1bd91c0529f"
+    },
+    "corpus/zh/story-dialogue/stage-082.json": {
+      "records": 3,
+      "sha256": "76f1f7bd5df0741a1ed2bab780345403f97f9c3a6e152bd9ed521ee9bcc7c583"
+    },
+    "corpus/zh/story-dialogue/stage-083.json": {
+      "records": 9,
+      "sha256": "7f6f40363e376177393db47a1d2bfa0c1a75c15362ea68ecc9e003310e745921"
+    },
+    "corpus/zh/story-dialogue/stage-084.json": {
+      "records": 3,
+      "sha256": "8bd86e8cba0cce5f20c5b2565dd91fa5c0e34efa19e04204a50dac7648d42352"
+    },
+    "corpus/zh/story-dialogue/stage-085.json": {
+      "records": 5,
+      "sha256": "39d781f04b75d881dcea51c762d09684ba206e40b92e395f3b82add77174cb22"
+    },
+    "corpus/zh/story-dialogue/stage-086.json": {
+      "records": 3,
+      "sha256": "fabc348c77939efb20801892859ca9f8898d0f73daf92dd818f6220a59a26c3d"
+    },
+    "corpus/zh/story-dialogue/stage-087.json": {
+      "records": 1,
+      "sha256": "43fe5683499dd7054bf6431d03b62307889b6ea213c479c857225d0eb9560af5"
+    },
+    "corpus/zh/story-dialogue/stage-088.json": {
+      "records": 2,
+      "sha256": "4f11e00303ce3b787b730e6aa08fde6b9b9cb4f00c9fd4cf04810451c560736d"
+    },
+    "corpus/zh/story-dialogue/stage-090.json": {
+      "records": 2,
+      "sha256": "97cea516e1592fc1e3441361a5363ab83d8133391c005e0b360fcba4c2d53b72"
+    },
+    "corpus/zh/story-dialogue/stage-091.json": {
+      "records": 2,
+      "sha256": "5a589adf379a1fafd990ee87b1f32888dcc6630a02125dd325865b4bb9626e45"
+    },
+    "corpus/zh/story-dialogue/stage-092.json": {
+      "records": 1,
+      "sha256": "9f5cbaf88c9f46b75c723ac63e2cfa6607502b2ee20b623bac337d72efb5414e"
+    },
+    "corpus/zh/story-dialogue/stage-093.json": {
+      "records": 1,
+      "sha256": "8bceb150d7e6db502f1eeed0497a6d86475bf7e44cf7c17ed548cfe57f8f8274"
+    },
+    "corpus/zh/story-dialogue/stage-095.json": {
+      "records": 4,
+      "sha256": "3f06d2a40923008d0c1a2f31e20bca101a969a4c50058f418cebf772d4681c09"
+    },
+    "corpus/zh/story-dialogue/stage-096.json": {
+      "records": 2,
+      "sha256": "2bb267e1290d7c9c59b9d923207a4d23fef4577126c71b0b7d7da66d63b5b023"
+    },
+    "corpus/zh/story-dialogue/stage-097.json": {
+      "records": 2,
+      "sha256": "69f6ad099a7cba7bb0128d1da488ee510d5734da7798e094fe852325a489a854"
+    },
+    "corpus/zh/story-dialogue/stage-098.json": {
+      "records": 3,
+      "sha256": "ff3a978156e767d4142639c3e4bada3b6c6ede1f3339e2159412888573ee83c9"
+    },
+    "corpus/zh/story-dialogue/stage-099.json": {
+      "records": 1,
+      "sha256": "54abba5ae1e5e457f1abe167d028bb0d9448683830441dc034671bacb6c8d2fe"
+    },
+    "corpus/zh/story-dialogue/stage-100.json": {
+      "records": 8,
+      "sha256": "2acd7883c023808c770c207af3089a7a3b0563d04a69143b7f3ae59f8fa720d3"
+    },
+    "corpus/zh/story-dialogue/stage-101.json": {
+      "records": 3,
+      "sha256": "ddb20742189a7d483555c4dd06249f592e84f3c7b2d975a0c79449a336e62bad"
+    },
+    "corpus/zh/story-dialogue/stage-102.json": {
+      "records": 7,
+      "sha256": "1d1032b0920d9b159894c79a0db87ef8e2c882f9cf1f2bc2a9009e8b6c6a42c8"
+    },
+    "corpus/zh/story-dialogue/stage-103.json": {
+      "records": 1,
+      "sha256": "934fca1488ac562cfdb96fca5419256243c0d10065db33f50d98a102a5f8deb0"
+    },
+    "corpus/zh/story-dialogue/stage-104.json": {
+      "records": 7,
+      "sha256": "b634584672021992a07c0665d70c1528b68ca789a04b2b53b88d6f3904ee97f8"
+    },
+    "corpus/zh/story-dialogue/stage-105.json": {
+      "records": 7,
+      "sha256": "af5112559c1da40571a25ccd877dc2b1a523eccd16a9b43c638b91598bccaa07"
+    },
+    "corpus/zh/story-dialogue/stage-106.json": {
+      "records": 4,
+      "sha256": "d2d54ec01fdc3cfba489f2f470b1e0f195e9aa49267d68c791168c5b4fa5dd0a"
+    },
+    "corpus/zh/story-dialogue/stage-107.json": {
+      "records": 5,
+      "sha256": "e6138cb2fb1450750edb4facfdf87141e880c77c0ec7cfef1dee17996f57b0f9"
+    },
+    "corpus/zh/story-dialogue/stage-108.json": {
+      "records": 6,
+      "sha256": "c50d124639fa1d320dd64c3f90d285406e1ea32f333894b16111bc532da8d76a"
+    },
+    "corpus/zh/story-dialogue/stage-109.json": {
+      "records": 9,
+      "sha256": "3fa5e7524e2f1e1c8336742f51e22aeae5c971bf3b6e3622038d257f726cd4ec"
+    },
+    "corpus/zh/story-dialogue/stage-110.json": {
+      "records": 5,
+      "sha256": "43a06a4f8a88814c481646dc64943c87b71f7df59fccdc1658397effc565afa5"
+    },
+    "corpus/zh/story-dialogue/stage-111.json": {
+      "records": 12,
+      "sha256": "a2e3815271ddc4d4ddb865cb5ffedb88787e0403b7d61be14cd674e94c72adea"
+    },
+    "corpus/zh/story-dialogue/stage-112.json": {
+      "records": 3,
+      "sha256": "3f864f4d1af8bf52cbc9bcad6b76734945cb19b0b373b21d924300679cce477c"
+    },
+    "corpus/zh/story-dialogue/stage-113.json": {
+      "records": 6,
+      "sha256": "84f82ca80a7293de22c6b6c6523302ed34ab9a291d68b88280dce7ed89e6d071"
+    },
+    "corpus/zh/story-dialogue/stage-115.json": {
+      "records": 1,
+      "sha256": "9136f87d73ee6d83883ede02c301fe2815b251474fd7f56bc3b34f5a01199099"
+    },
+    "corpus/zh/story-dialogue/stage-117.json": {
+      "records": 3,
+      "sha256": "328f17fe7fc82b11829dc4f8b26f6d28be42d392c3848fa8a6fbeb65886feb87"
+    },
+    "corpus/zh/story-dialogue/stage-118.json": {
+      "records": 4,
+      "sha256": "6222748081452007de358634190c8875237ad4fb8a56a0794554f0f9ed95b257"
+    },
+    "corpus/zh/story-dialogue/stage-119.json": {
+      "records": 3,
+      "sha256": "3579c7cc5b3d66f04fef0bb52168b8d96f6f82e42f544aec25f5cf078910637e"
+    },
+    "corpus/zh/story-dialogue/stage-120.json": {
+      "records": 4,
+      "sha256": "4cb1951f1ca4b6a7cbf56ea892b7bc201430eb4bd45e4214b38a536c10f821f9"
+    },
+    "corpus/zh/story-dialogue/stage-122.json": {
+      "records": 3,
+      "sha256": "51fc63fe1c2285b883bbc14ab69c4d2d31afd73eb7ee4da014a8a7d3fd490492"
+    },
+    "corpus/zh/story-dialogue/stage-125.json": {
+      "records": 3,
+      "sha256": "4e6dba7955925f413efd49eb661588be4cbcabef8e7e7c2298fd03e7d09898b0"
+    },
+    "corpus/zh/story-dialogue/stage-126.json": {
+      "records": 2,
+      "sha256": "5e25df4799aa8914fc451a359a385b84b042aa2e854d5c32f1d141d625550b77"
+    },
+    "corpus/zh/story-dialogue/stage-127.json": {
+      "records": 4,
+      "sha256": "11c53aac9e5ca976d344891ccb4ebbddd3d895418c05a096a43dd672c617e3c6"
+    },
+    "corpus/zh/story-dialogue/stage-128.json": {
+      "records": 2,
+      "sha256": "c9d038cabd2c698a9d794ef2887952920296422b29d67dd5e1f699dff5cffec3"
+    },
+    "corpus/zh/story-dialogue/stage-129.json": {
+      "records": 1,
+      "sha256": "75efd3986716c073ecfe8786d3397bb0f4a92c5b6d59486067de97d72dace9de"
+    },
+    "corpus/zh/story-dialogue/stage-130.json": {
+      "records": 3,
+      "sha256": "a5527a66283c19dcd24dbec3cc3a632f2092a61e257ce806c62b0258a198264f"
+    },
+    "corpus/zh/story-dialogue/stage-131.json": {
+      "records": 7,
+      "sha256": "aaae53a55dfabadd12e18d5892118f96fce698a1fc605466abcd045e163c7e64"
+    },
+    "corpus/zh/story-dialogue/stage-132.json": {
+      "records": 3,
+      "sha256": "8b4e3f2c7579e02756cb8590eccb86bdb5f4018352afec7275545b1e7be79d96"
+    },
+    "corpus/zh/story-dialogue/stage-133.json": {
+      "records": 1,
+      "sha256": "0274a47930fb448f4bcb47851a454cd085f6d75ee20bc34fae2415fe4fa3fac3"
+    },
+    "corpus/zh/story-dialogue/stage-135.json": {
+      "records": 3,
+      "sha256": "fa2a26c39cf88c0f7a0043f41f5b0e31ee15706cc419f4418951a1ebfa3596c7"
+    },
+    "corpus/zh/story-dialogue/stage-136.json": {
+      "records": 1,
+      "sha256": "13ea26649a03bd6c986d3568615abf02622c369a28ba64b11da12b500e6089e2"
+    },
+    "corpus/zh/story-dialogue/stage-138.json": {
+      "records": 4,
+      "sha256": "9cb0b73092e1ff8f5fc7317368d0e0568c5e9caa8e2063fe06d667e25511d3ba"
+    },
+    "corpus/zh/story-dialogue/stage-139.json": {
+      "records": 2,
+      "sha256": "935d26db3ef17443a66c73c07f1fbbe2a7317bb9392b81f313487e8585d80a88"
+    },
+    "corpus/zh/story-dialogue/stage-140.json": {
+      "records": 6,
+      "sha256": "feb711f6ecce97420e1336b701e469b83caf037e2fa3629eefac209f0f722611"
+    },
+    "corpus/zh/story-dialogue/stage-142.json": {
+      "records": 1,
+      "sha256": "bf2f47cac23f40cb41ca85cd5911def45427b1945bffc33014724c66b187d31f"
+    },
+    "corpus/zh/story-dialogue/stage-143.json": {
+      "records": 14,
+      "sha256": "bbe4ddbbcba498f2d52886aa2bb075ae1c2514a1721f17eb72b6f64c6066783c"
+    },
+    "corpus/zh/story-dialogue/stage-144.json": {
+      "records": 3,
+      "sha256": "322ce94203df491f51e0d64d970e6f0acdd584cde36051c4ea63e134dd207f20"
+    },
+    "corpus/zh/story-dialogue/stage-145.json": {
+      "records": 14,
+      "sha256": "6292f661ad4d7731dfcb7579ea9fac1b45f5cba5a114070bf789120ed3601184"
+    },
+    "corpus/zh/story-dialogue/stage-147.json": {
+      "records": 1,
+      "sha256": "efcb3b4e95215a325a3a42a816cf42cc2e39c7cef790d749551c1343267d7bb6"
+    },
+    "corpus/zh/story-dialogue/stage-148.json": {
+      "records": 17,
+      "sha256": "48c3aaf7d7b2c4a6f21110d388a72a2856460cbe7070457bc12c393848d024c9"
+    },
+    "corpus/zh/story-dialogue/stage-149.json": {
+      "records": 5,
+      "sha256": "1c76865aa1d3dfc0259aaec233b54ffb5dbbd84078d54bc107ca00cd9107c3bf"
+    },
+    "corpus/zh/story-dialogue/stage-150.json": {
+      "records": 13,
+      "sha256": "b4ff50411048bdebb5fd4808dbb55aef00983c97efe94c5f41499cd6202984de"
+    },
+    "corpus/zh/story-dialogue/stage-151.json": {
+      "records": 1,
+      "sha256": "ce94dede4d8f0b0d442a89c1f44814d871e27410980d5b5aa06f408d0e668ee1"
+    },
+    "corpus/zh/story-dialogue/stage-154.json": {
+      "records": 2,
+      "sha256": "0f222c1d356846a1f01ca02da1256fee864bedc16db7d9eb90327fb1d28b6b86"
+    },
+    "corpus/zh/story-dialogue/stage-155.json": {
+      "records": 1,
+      "sha256": "8ab790e4030bb6ccc4002fc50839bd1392eb311a5e41464f17375bee9b989214"
+    },
+    "corpus/zh/story-dialogue/stage-156.json": {
+      "records": 1,
+      "sha256": "c84d0fcc4d9a5640350f3cbfbf8a5b412433f73ee1a6494d1353b4888237d068"
+    },
+    "corpus/zh/story-dialogue/stage-160.json": {
+      "records": 3,
+      "sha256": "5a82c7bc0a18628e1ac18182091f0ef11da18331ae6df74ddbb883691c03ff87"
+    },
+    "corpus/zh/story-dialogue/stage-163.json": {
+      "records": 1,
+      "sha256": "ee11eda7bacd9db1eae5c4317c5ab5a5f5c680b3b3f1e36a2a625cd42368c6f7"
+    },
+    "corpus/zh/story-dialogue/stage-164.json": {
+      "records": 1,
+      "sha256": "6bfd7d33bd8b4649ae5c9ca40a8666be8bda36ddd38eacadd92feb0df5869288"
+    },
+    "corpus/zh/story-dialogue/stage-185.json": {
+      "records": 2,
+      "sha256": "5dd5d415dda0053351e9e7c2610105a48288033d8a064b6141d88c2565eb302b"
+    },
+    "corpus/zh/story-dialogue/stage-186.json": {
+      "records": 1,
+      "sha256": "d664e14f6c829ea430bc8d0c4c4dbfe2eaf58f26ef4ddd60f6e0ce320b54cb7e"
+    },
+    "corpus/zh/special-disc/story-dialogue.json": {
+      "records": 33,
+      "sha256": "e9d29be5879ec8dd20e86b7e50f7964e33104753433c08a4f383d0ff375ddf93"
+    },
+    "corpus/zh/special-disc/challenge-dialogue.json": {
+      "records": 2,
+      "sha256": "c49a11a67831814ae3adf0b97bde30a6b0c7f3664da394a72f6e42378b1f3472"
+    },
+    "config/editorial/special-disc/stage-context-reuse.json": {
+      "records": 6,
+      "sha256": "1f467c0ddc9d8523bae98ea94e1306dda4948a738ffc5feab06f600fc51a3a86"
+    }
+  }
+}

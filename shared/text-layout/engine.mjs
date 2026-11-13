@@ -362,7 +362,8 @@ export function validate(text,sceneId,options={}) {
     if(scene.preserveAuthoredRows)return;
     if(scene.kind==='dialogue'&&i>0&&!/^　[^　 ]/.test(row.text))issues.push({code:'indent',row:i+1,message:'Expected one fullwidth continuation indent'});
     const v=visible(row.text).replace(/^[　 ]+/,'');
-    if(v&&i>0&&contracts.forbiddenStart.includes(Array.from(v)[0]))issues.push({code:'punctuation_start',row:i+1});
+    // An authored dialogue row may open with an ellipsis, as the Japanese rows do; automatic breaks still never put one there.
+    if(v&&i>0&&contracts.forbiddenStart.includes(Array.from(v)[0])&&!(scene.kind==='dialogue'&&Array.from(v)[0]==='…'))issues.push({code:'punctuation_start',row:i+1});
     if(v&&i<result.rows.length-1&&contracts.forbiddenEnd.includes(Array.from(v).at(-1)))issues.push({code:'punctuation_end',row:i+1});
   });
   return {...result,valid:issues.length===0,issues};
