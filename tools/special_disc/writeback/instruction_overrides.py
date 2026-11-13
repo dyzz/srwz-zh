@@ -134,8 +134,9 @@ def apply_pages(current, original, chunk, rows, layouts, encoder, table, runtime
             continue
         n = binding['page']; source, before = get_page(original, chunk, n), get_page(current, chunk, n)
         require(sha(page_text(source, table)) == r['source_text_sha256'], 'Instruction page source drift: ' + r['id'])
-        require(record_hash(shared_records(before, runtime)) == binding['baseline_records_sha256'],
-                'Instruction page preimage drift: ' + r['id'])
+        preimage = record_hash(shared_records(before, runtime))
+        require(preimage == binding['baseline_records_sha256'],
+                'Instruction page preimage drift: ' + r['id'] + ' (current ' + preimage + ')')
         require(before['start'] == source['start'] and before['size'] == source['size'] == binding['allocation']
                 and before['sprite_bytes'] == source['sprite_bytes'], 'Instruction page container drift')
         records = binding['records']
