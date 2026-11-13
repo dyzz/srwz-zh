@@ -29,21 +29,58 @@ The browser runs the same `container.py` serializer through Pyodide.
 
 ## Build
 
-From `srwz-zh`, prepare the default nominal 64 kbit/s VBR preset (quality 0) without truncation:
+Nothing outside this directory is required beyond the two pinned upstreams in
+`upstream.lock.json`, neither of which is vendored here:
+
+| Dependency | Pin | Licence |
+| --- | --- | --- |
+| [ps2dev](https://github.com/ps2dev/ps2dev/releases/tag/v2.0.0) toolchain (EE/IOP GCC 15.2.0 + PS2SDK) | `v2.0.0`, asset `ps2dev-macos-latest.tar.gz` | per upstream |
+| [citronalco/ps2-libtremor](https://github.com/citronalco/ps2-libtremor) (Xiph Tremor, fixed-point Vorbis) | commit `ae62505aee8f4fc15cce97332133229ed8da0d5a` | BSD-3-Clause, `licenses/` |
+
+Also needed: Python 3, `ffprobe`, and a 48 kHz stereo Vorbis file of at most
+4 MiB. PS2SDK libogg ships inside the ps2dev toolchain.
+
+Extract the ps2dev release somewhere and point `--toolchain` at its root (the
+directory holding `ee/`, `iop/` and `ps2sdk/`). Tremor is fetched for you:
 
 ```sh
-ffmpeg -i /Users/nate/gba-sound/test.mp3 -ar 48000 -ac 2 -c:a libvorbis -q:a 0 /tmp/test-full64.ogg
+# optional; build_candidate.py runs this itself when --tremor-source is omitted
+python3 tools/special_disc/vocal_bgm/bootstrap_tremor.py
+```
+
+It clones the pinned commit to `work/toolchain/ps2-libtremor-<short>/` (ignored
+by git), refuses a checkout that is modified or at the wrong commit, and is
+safe to re-run. Then, from `srwz-zh`:
+
+```sh
 python3 tools/special_disc/vocal_bgm/build_candidate.py \
-  --ogg /tmp/test-full64.ogg \
-  --toolchain work/analysis/vorbis-tremor-20261105/toolchain/ps2dev \
-  --tremor-source /Users/nate/gba-sound/vorbis-preview-20261105/ps2-libtremor \
+  --game sp \
+  --ogg /path/to/song.ogg \
+  --toolchain /path/to/ps2dev \
   --workdir work/analysis/sp-vocal-rebuild \
   --output-iso build/iso/test/sp-vocal-rebuild.iso
 ```
 
-Use `--replace` only for an owned test image. `--payload-only` omits ISO construction. Input is 48 kHz stereo Vorbis, at most 4 MiB. Resampling does not increase source fidelity. Actual average VBR bitrate depends on the song.
+`--tremor-source` overrides the managed checkout if you need a local tree.
+`--game` selects `sp` (SLPS_259.20), `z` (SLPS_258.87) or `best` (SLPS_732.70).
+`--payload-only` stops after `payload.bin` and needs no source ISO. Use
+`--replace` only for a test image you own.
 
-Dependencies: native macOS arm64 ps2dev v2.0.0 toolchain, FFprobe, PS2SDK libogg, Tremor commit `ae62505aee8f4fc15cce97332133229ed8da0d5a`. GCC 15's legacy int*/long* warnings involve 32-bit EE types; compile uses `-fno-strict-aliasing`. Codec licenses are retained in `licenses/`.
+To produce a song in the default nominal 64 kbit/s VBR preset (quality 0), with
+an ffmpeg built with libvorbis:
+
+```sh
+ffmpeg -i input.mp3 -ar 48000 -ac 2 -c:a libvorbis -q:a 0 song.ogg
+```
+
+Resampling does not increase source fidelity, and the actual average VBR
+bitrate depends on the song.
+
+The build is reproducible: with the pins above, the three v5 payloads rebuild
+byte-identically (`payload.bin` sha256 `8f1b1a83…` best, `9253029f…` z,
+`587d4c51…` sp; verified 2026-11-13). GCC 15 emits legacy `int*`/`long*`
+warnings from Tremor on 32-bit EE types; the compile uses `-fno-strict-aliasing`
+and they are expected.
 
 ## Browser tool and validation
 

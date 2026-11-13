@@ -1,0 +1,32 @@
+{
+  "_comment": "Pinned external sources for the VOCAL.BIN music player. Neither is vendored in this repository.",
+  "tremor": {
+    "name": "citronalco/ps2-libtremor",
+    "repository": "https://github.com/citronalco/ps2-libtremor.git",
+    "branch": "master",
+    "commit": "ae62505aee8f4fc15cce97332133229ed8da0d5a",
+    "license_spdx": "BSD-3-Clause",
+    "license_file": "COPYING",
+    "description": "Xiph Tremor (fixed-point Vorbis decoder), PS2 flavour. Linked into the VOCAL.BIN music player; not vendored in this repository.",
+    "source_dir": "work/toolchain/ps2-libtremor-ae62505",
+    "expect_files": [
+      "COPYING",
+      "ivorbiscodec.h",
+      "ivorbisfile.h",
+      "mdct.c",
+      "synthesis.c",
+      "vorbisfile.c"
+    ]
+  },
+  "ps2dev": {
+    "name": "ps2dev/ps2dev",
+    "release": "https://github.com/ps2dev/ps2dev/releases/tag/v2.0.0",
+    "tag": "v2.0.0",
+    "asset": "ps2dev-macos-latest.tar.gz",
+    "asset_bytes": 235697578,
+    "asset_sha256": "6f6df659d2d49738f21f53a53c361a74182d0e4c2495e31e76972ff818bc21cb",
+    "compiler": "mips64r5900el-ps2-elf-gcc (GCC) 15.2.0",
+    "description": "PS2 toolchain (EE/IOP GCC + PS2SDK). Extract and pass its root as --toolchain; the tree must contain ee/, iop/ and ps2sdk/.",
+    "note": "sha256 is of the macOS arm64 asset as downloaded 2026-11-05; other platforms' assets differ."
+  }
+}
