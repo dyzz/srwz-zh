@@ -95,6 +95,10 @@ try:
         DialogueSpeakerColorError,
         apply_dialogue_speaker_quote_constant,
     )
+    from srwz.style_slot_scissor import (
+        StyleSlotScissorError,
+        apply_style_slot_scissor,
+    )
     from srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
         build_nisv_library_menu,
@@ -305,6 +309,10 @@ except ModuleNotFoundError:
     from tools.srwz.dialogue_speaker_colors import (
         DialogueSpeakerColorError,
         apply_dialogue_speaker_quote_constant,
+    )
+    from tools.srwz.style_slot_scissor import (
+        StyleSlotScissorError,
+        apply_style_slot_scissor,
     )
     from tools.srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
@@ -749,6 +757,7 @@ CONFIG_SECTION_IMPACTS = {
     "text_measurement_range": {SLPS_MEMBER},
     "runtime_movement_type_labels": {SLPS_MEMBER},
     "dialogue_speaker_colors": {SLPS_MEMBER},
+    "style_slot_scissor": {SLPS_MEMBER},
     "runtime_weapon_category_labels": {SLPS_MEMBER},
     "weapon_detail_parentheses": {SLPS_MEMBER},
     "spirit_cost_templates": {SLPS_MEMBER},
@@ -10861,6 +10870,15 @@ def _build_components(
         ) from error
 
     try:
+        output_slps, style_slot_scissor_report = apply_style_slot_scissor(
+            output_slps, "original", config["style_slot_scissor"]
+        )
+    except (KeyError, ValueError, StyleSlotScissorError) as error:
+        raise FullStoryComponentError(
+            f"style-slot scissor patch failed: {error}"
+        ) from error
+
+    try:
         output_slps, weapon_category_label_report = (
             apply_runtime_weapon_category_labels(
                 output_slps,
@@ -11337,6 +11355,7 @@ def _build_components(
         "text_measurement_range": text_measurement_range_report,
         "runtime_movement_type_labels": movement_type_label_report,
         "dialogue_speaker_colors": dialogue_speaker_color_report,
+        "style_slot_scissor": style_slot_scissor_report,
         "runtime_weapon_category_labels": weapon_category_label_report,
         "weapon_detail_parentheses": weapon_detail_parentheses_report,
         "spirit_cost_templates": spirit_cost_templates_report,
@@ -11752,6 +11771,11 @@ def _build_components(
                 and dialogue_speaker_color_report[
                     "executable_size_preserved"
                 ]
+            ),
+            "style_slot_scissor_far_edge_margin": (
+                style_slot_scissor_report["replacement_reread_exact"]
+                and style_slot_scissor_report["builder_call_preserved"]
+                and style_slot_scissor_report["executable_size_preserved"]
             ),
             "search_tabs_aligned_as_five_label_set": (
                 search_tab_alignment_report["surface_count"] == 5

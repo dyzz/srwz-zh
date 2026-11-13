@@ -12,6 +12,7 @@ from srwz.best_build import (
 from srwz.edition import EditionError
 from srwz.library_button_labels import SITES as BUTTON_SITES
 from srwz.library_body_metrics import EDITIONS as BODY_EDITIONS
+from srwz.style_slot_scissor import EDITION_SITES as SCISSOR_SITES, NATIVE_BLOCK as SCISSOR_NATIVE
 from srwz.library_optical_metrics import native_preimages
 from srwz.stage import _condition_entries
 from srwz.text import TextTable
@@ -34,6 +35,16 @@ def native_body_hook_fixture(data):
     fixture = json.loads((REPO / 'tests/fixtures/library-button-labels-native.json').read_text())['best']
     offset = BUTTON_SITES['best'][0]
     result[offset:offset+172] = bytes.fromhex(fixture)
+    # Real Best ELF mapping plus the native style-slot scissor block.
+    _, site, vaddr, builder = SCISSOR_SITES['best']
+    result[:4] = b'\x7fELF'
+    struct.pack_into('<I', result, 28, 0x34)
+    struct.pack_into('<H', result, 44, 1)
+    struct.pack_into('<6I', result, 0x34, 1, 0x1000, vaddr - site + 0x1000, vaddr - site + 0x1000,
+                     len(result) - 0x1000, len(result) - 0x1000)
+    result[site:site+72] = SCISSOR_NATIVE
+    struct.pack_into('<I', result, site+72, 3<<26 | builder>>2)
+    result[site+76:site+80] = bytes.fromhex('2d204002')
     return bytes(result)
 
 

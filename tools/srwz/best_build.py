@@ -35,6 +35,7 @@ from .battle_square_skip import apply_battle_square_skip, verify_battle_square_s
 from .weapon_detail_parentheses import verify_weapon_detail_parentheses
 from .spirit_cost_templates import verify_spirit_cost_templates
 from .dialogue_speaker_colors import verify_dialogue_speaker_prefixes
+from .style_slot_scissor import apply_style_slot_scissor, verify_style_slot_scissor, write_ranges as style_scissor_ranges
 from .text import PreparedTextEncoder
 
 
@@ -312,8 +313,10 @@ class BestCompiler:
         square_skip = getattr(self, 'square_skip', None)  # absent only in unit-test fixtures
         library_body_offsets = {o for lo, hi in [*library_body_ranges('original'), *library_optical_ranges('original'), *library_button_ranges('original')] for o in range(lo, hi, 4)}
         square_skip_offsets = {o for lo, hi in square_skip_ranges(square_skip, 'original') for o in range(lo, hi, 4)} if square_skip else set()
+        # The style-slot scissor block is re-applied at the BEST site below.
+        style_scissor_offsets = {o for lo, hi in style_scissor_ranges('original') for o in range(lo, hi, 4)}
         for offset in range(0, len(c)-3, 4):
-            if a[offset:offset+4] == c[offset:offset+4] or slot['original_start'] <= offset < slot['original_end'] or offset in archive_offsets or offset in square_skip_offsets or offset in library_body_offsets:
+            if a[offset:offset+4] == c[offset:offset+4] or slot['original_start'] <= offset < slot['original_end'] or offset in archive_offsets or offset in square_skip_offsets or offset in library_body_offsets or offset in style_scissor_offsets:
                 continue
             if library_start <= offset < library_end:
                 continue  # Compile from the independently pinned native function below.
@@ -360,11 +363,16 @@ class BestCompiler:
             require(not self.square_skip_proof['already_applied'] and self.square_skip_proof['all_replacements_exact'], 'BEST square-skip preimage drift')
             out = bytearray(patched)
             writes.extend([lo, hi] for lo, hi in square_skip_ranges(square_skip, 'best'))
+        patched, self.style_scissor_proof = apply_style_slot_scissor(bytes(out), 'best')
+        require(not self.style_scissor_proof['already_patched'], 'BEST style-slot scissor preimage drift')
+        out = bytearray(patched)
+        writes.extend([lo, hi] for lo, hi in style_scissor_ranges('best'))
         self.elf_writes = writes
         return out
 
     def verify_elf_policy(self, output):
         verify_dialogue_speaker_prefixes(bytes(output), 'best', encoded_prefixes=self.dialogue_prefixes)
+        verify_style_slot_scissor(bytes(output), 'best')
         if getattr(self, 'square_skip', None):
             verify_battle_square_skip(bytes(output), self.square_skip, 'best', self.square_skip_proof)
         native = self.native['best']['SLPS_732.70']
@@ -604,6 +612,7 @@ class BestCompiler:
         weapon_parentheses = verify_weapon_detail_parentheses(bytes(elf), 'best')
         spirit_costs = verify_spirit_cost_templates(bytes(elf), 'best')
         dialogue_colors = verify_dialogue_speaker_prefixes(bytes(elf), 'best', encoded_prefixes=self.dialogue_prefixes)
+        style_scissor = verify_style_slot_scissor(bytes(elf), 'best')
         name_corpus = load_json(self.common / 'corpus/zh/menu/ui-name-tables.json')
         name_table = project_runtime_text_table(self.zh_table, original_fullwidth_ascii_overrides(self.table))
         original_offsets = self.offsets('DATA/NISVDATA.BIN', 'original')
@@ -634,6 +643,7 @@ class BestCompiler:
                   'weapon_detail_parentheses':weapon_parentheses,
                   'spirit_cost_templates':spirit_costs,
                   'dialogue_speaker_colors':dialogue_colors,
+                  'style_slot_scissor':style_scissor,
                   'native_elf_outside_declared_writes_preserved':True,'elf_write_ranges':self.elf_writes,
                   'compdata_native_corrections_preserved':True,'library_policy':'native_progress','runtime':'not_tested'}
         write_json(self.work/'component-validation.json',report)
@@ -708,6 +718,7 @@ class BestCompiler:
         weapon_parentheses = verify_weapon_detail_parentheses(final_members['SLPS_732.70'], 'best')
         spirit_costs = verify_spirit_cost_templates(final_members['SLPS_732.70'], 'best')
         dialogue_colors = verify_dialogue_speaker_prefixes(final_members['SLPS_732.70'], 'best', encoded_prefixes=self.dialogue_prefixes)
+        style_scissor = verify_style_slot_scissor(final_members['SLPS_732.70'], 'best')
         publish_verified(temporary, target, final_sha256)
         proof = {'schema_version':1,'status':'best_final_iso_static_content_readback_passed','input_digest':self.input_digest,
                  'iso':{'path':target.relative_to(self.root).as_posix(),'size':target.stat().st_size,'sha256':final_sha256},
@@ -718,6 +729,7 @@ class BestCompiler:
                  'weapon_detail_parentheses':weapon_parentheses,
                  'spirit_cost_templates':spirit_costs,
                  'dialogue_speaker_colors':dialogue_colors,
+                 'style_slot_scissor':style_scissor,
                  'component_readback':{'path':(self.work/'component-validation.json').relative_to(self.root).as_posix(),'sha256':sha256_file(self.work/'component-validation.json')}}
         write_json(self.work/'iso-readback.json',proof)
         return proof

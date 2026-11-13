@@ -27,6 +27,7 @@ from srwz.chinese_layout import (
 from srwz.codec import decode_production as decode
 from srwz.parallel import map_processes, merge_shard_values, split_shards
 from srwz.dialogue_speaker_colors import verify_dialogue_speaker_prefixes
+from srwz.style_slot_scissor import verify_style_slot_scissor
 from srwz.compact_scopes import expand as expand_compact_scopes
 from srwz.text import PreparedTextEncoder
 from srwz.ui_name_tables import NISV_SPEC, verify_name_table
@@ -5477,6 +5478,7 @@ def main() -> int:
         encoded_prefixes={text: dialogue_encoder.encode(text, terminate=False)
                           for text in ("“", "（")},
     )
+    style_slot_scissor = verify_style_slot_scissor(slps, "original")
     table = project_runtime_text_table(source_table, overrides)
     compdata_table = project_runtime_text_table(table, surface_aliases)
     ascii_overrides = original_fullwidth_ascii_overrides(source_table)
@@ -7446,6 +7448,7 @@ def main() -> int:
         "speaker_count": total_speakers,
         "post_release_runtime_surfaces": post_release_runtime_surfaces,
         "dialogue_speaker_colors": dialogue_speaker_colors,
+        "style_slot_scissor": style_slot_scissor,
         "issue_036_tutorial": issue_036_tutorial,
         "weapon_special_effect_2": weapon_effect_2_readback,
         "runtime_full_name_order": full_name_order_readback,

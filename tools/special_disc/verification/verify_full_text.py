@@ -49,6 +49,7 @@ from srwz.library_body_metrics import verify_library_body_metrics
 from srwz.library_optical_metrics import verify_library_optical_metrics
 from srwz.library_button_labels import verify_library_button_labels
 from srwz.dialogue_speaker_colors import verify_dialogue_speaker_prefixes
+from srwz.style_slot_scissor import verify_style_slot_scissor
 from srwz.text import PreparedTextEncoder
 from special_disc.writeback.shared_library import verify_shared_library
 from write_system_text import overlay_member
@@ -240,6 +241,9 @@ def main(iso=None, work=None):
                                   for text in ('“','（')})
     for key,value in dialogue_colors.items():
         require(manifest['dialogue_speaker_colors'][key]==value,'SP dialogue speaker-color receipt drift')
+    style_scissor=verify_style_slot_scissor(exe,'sp')
+    for key,value in style_scissor.items():
+        require(manifest['style_slot_scissor'][key]==value,'SP style-slot scissor receipt drift')
     for key,value in weapon_parentheses.items():
         require(manifest['weapon_detail_parentheses'][key]==value,'weapon parenthesis receipt drift')
     require(weapon_labels==manifest['weapon_detail_labels']['labels'],'weapon label receipt drift')
@@ -439,6 +443,7 @@ def main(iso=None, work=None):
     result['native_parentheses']=native_parentheses
     result['data_link_bonus']=link_bonus
     result['battle_square_skip']=skip_report
+    result['style_slot_scissor']=style_scissor
     if gallery is not None:
         result['event_gallery']=gallery
         result['scope']+=' Event gallery hooks, payload segment and subtitled effect chunks.'

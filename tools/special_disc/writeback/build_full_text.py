@@ -58,6 +58,7 @@ from srwz.library_body_metrics import apply_library_body_metrics
 from srwz.library_optical_metrics import apply_library_optical_metrics
 from srwz.library_button_labels import apply_library_button_labels
 from srwz.dialogue_speaker_colors import apply_dialogue_speaker_prefixes
+from srwz.style_slot_scissor import apply_style_slot_scissor
 from srwz.text import PreparedTextEncoder, TM_SCOPE
 from special_disc.writeback.tm_keys import stock_key_slots
 from srwz.font_profile import load_font_profile
@@ -329,6 +330,7 @@ def assemble():
     patches[EXE],patches[VT1],link_report=apply_data_link_bonus(
         patches[EXE],patches[VT1],source_table,stored_overrides,runtime_table)
     patches[EXE],skip_report=apply_skip(patches[EXE])
+    patches[EXE],style_scissor_report=apply_style_slot_scissor(patches[EXE],'sp')
     patches,instruction_report=timed('instructions',apply_overrides,patches,read_disc_member,source_table,stored_overrides,runtime_table)
     require(patches[CD] is cd_workspace,'COMPDATA left its decoded workspace')
     patches[CD]=timed('compress-compdata',compress_compdata,cd_workspace,cd_allocation,(unit_report,pilot_report,keyword_report))
@@ -412,6 +414,7 @@ def assemble():
     report['native_parentheses']=parenthesis_report
     report['data_link_bonus']=link_report
     report['battle_square_skip']=skip_report
+    report['style_slot_scissor']=style_scissor_report
     report['qa_layout']=qa_report
     report['instruction_overrides']=instruction_report
     report['library_menu']=library_menu_report

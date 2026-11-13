@@ -2980,6 +2980,33 @@
     "original_block_hex": "81750000000000008169000000000000",
     "replacement_block_hex": "91410000000000008FE8000000000000"
   },
+  "style_slot_scissor": {
+    "enabled": true,
+    "policy": "stretched_style_slot_scissor_far_edge_margin",
+    "surface": "KVP style-engine stretched slots get a one-pixel far-edge scissor margin so fractional emulator upscales leave no seam (MAP DATA etc.)",
+    "sites": {
+      "original": {
+        "member": "SLPS_258.87",
+        "file_offset": "0x2698DC",
+        "virtual_address": "0x367E5C",
+        "scissor_builder": "0x3699A0"
+      },
+      "best": {
+        "member": "SLPS_732.70",
+        "file_offset": "0x269EDC",
+        "virtual_address": "0x36845C",
+        "scissor_builder": "0x369FA0"
+      },
+      "sp": {
+        "member": "SLPS_259.20",
+        "file_offset": "0x28DF2C",
+        "virtual_address": "0x38D5AC",
+        "scissor_builder": "0x38F0F0"
+      }
+    },
+    "native_block_sha256": "eab74d9659c5298cdbc1f662832e667464443a8bbf1f6872eb3dea426f015344",
+    "patched_block_sha256": "64542e9112baf356381bfac693a1473a8450b971b29a639ff2d39fa05eba8bbe"
+  },
   "spirit_cost_templates": {
     "mode": "native_spirit_cost_templates",
     "template_count": 2,
