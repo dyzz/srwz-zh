@@ -2,6 +2,7 @@ thbase_IMPORTS_start
 I_CreateThread
 I_StartThread
 I_GetThreadId
+I_GetSystemTime
 I_DelayThread
 thbase_IMPORTS_end
 thsemap_IMPORTS_start
@@ -22,6 +23,7 @@ I_sceSifRpcLoop
 sifcmd_IMPORTS_end
 libsd_IMPORTS_start
 I_sceSdSetParam
+I_sceSdGetParam
 I_sceSdBlockTrans
 I_sceSdBlockTransStatus
 I_sceSdVoiceTrans
@@ -32,6 +34,7 @@ libsd_IMPORTS_end
 sysclib_IMPORTS_start
 I_memcpy
 I_memset
+I_memmove
 sysclib_IMPORTS_end
 
 sysmem_IMPORTS_start

@@ -24,7 +24,7 @@ extern unsigned char irx_start[],irx_end[];
 #define READ_MARGIN 16384
 #define LOOKAHEAD (128*1024)
 static unsigned char song_start[SONG_MAX] __attribute__((aligned(64)));
-static unsigned song_size, song_frames, song_loop_start, song_loop_end, song_once, song_gain, song_finished, drain_at;
+static unsigned song_size, song_frames, song_loop_start, song_loop_end, song_once, song_gain, song_finished;
 static unsigned char metadata[18432] __attribute__((aligned(64)));
 static unsigned io_reply[(FILE_CHUNK+64)/4] __attribute__((aligned(64)));
 volatile uint32_t telemetry[32]={0x564f5231};
@@ -199,6 +199,13 @@ static int decode_step(void){
  fill=0;call(2,packet,8192);if(song_finished)call(6,0,0);
  return 1;
 }
+/* IOP draining replies include preserved PCM and the current DMA grace period.
+ * A native transfer can suspend a one-shot too: keep retrying until it drains. */
+static void pump_drain(void){
+ telemetry[1]=4;
+ if(reply[1]==0)player_stop();
+ else if(!reply[2])call(3,0,0);
+}
 void player_pump(void){
  telemetry[12]++;
  if(wanted&&!ready){int e=init();if(e<0){fallback(1);return;}}
@@ -218,11 +225,11 @@ void player_pump(void){
    if(starved&&!loaded_all){if(opened){ov_clear(&vf);opened=0;}telemetry[25]++;return;}
    fallback(7);return;
   }
-  call(5,&requested_volume,4);song_finished=drain_at=0;fill=0;call(1,0,0);telemetry[13]=0;telemetry[15]=2166136261u;telemetry[1]=1;
+  call(5,&requested_volume,4);song_finished=0;fill=0;call(1,0,0);telemetry[13]=0;telemetry[15]=2166136261u;telemetry[1]=1;
  }
  if(telemetry[27]&&!loaded_all)seek_wait=1;
  if(telemetry[27]&&loaded_all){seek_wait=0;unsigned seek=telemetry[27];telemetry[27]=0;call(4,0,0);int e=ov_pcm_seek(&vf,(ogg_int64_t)seek*48000);telemetry[28]=seek;telemetry[29]=e;if(e<0){fallback(8);return;}fill=0;telemetry[13]=seek*48000;telemetry[15]=2166136261u;call(1,0,0);}
- call(0,0,0);if(song_finished){telemetry[1]=4;if(reply[1]==0){if(!drain_at)drain_at=reply[4]+1;if(reply[4]+1>=drain_at+2)player_stop();}return;}int budget=1;
+ call(0,0,0);if(song_finished){pump_drain();return;}int budget=1;
  /* Keep the IOP ring 2 blocks short of the capacity it reports. */
  unsigned cap=(reply[0]>>8)==0x50434d?reply[0]&0xff:14;
  while(reply[1]<cap-2 && budget-- && !song_finished){if(decode_step()<0)return;}
