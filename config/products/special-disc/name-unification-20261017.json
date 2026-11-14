@@ -118,9 +118,16 @@
     "m17",
     "m18"
    ]
+  },
+  {
+   "path": "config/editorial/ageha-rename-20261114.json",
+   "sha256": "00f115838183fa07d8ec3b94f13b4de4bc47ff950455df3b77183175f4eb1786",
+   "ids": [
+    "a01"
+   ]
   }
  ],
- "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。 2026-10-17 本篇旧译统一（main-old-renderings-20261017）追加 SP 继承的 26 个槽位。",
+ "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。 2026-10-17 本篇旧译统一（main-old-renderings-20261017）追加 SP 继承的 26 个槽位。 2026-11-14 アゲハ隊改定为展翅队（ageha-rename-20261114）追加 SP 继承的 4 个驾驶员名槽位。",
  "entries": [
   {
    "kind": "pilot_field",
@@ -2032,6 +2039,58 @@
    "translation": "身份不明士兵（2）",
    "decision": "p11",
    "decision_record": "config/editorial/name-unification-20261017.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 718,
+   "field": "display",
+   "offset": 138894,
+   "capacity": 21,
+   "source_text": "アゲハ隊",
+   "source_hex": "83418351836e91e000000000000000000000000000",
+   "previous_hex": "88a2947093b597c400000000000000000000000000",
+   "translation": "展翅队",
+   "decision": "a01",
+   "decision_record": "config/editorial/ageha-rename-20261114.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 718,
+   "field": "given",
+   "offset": 138938,
+   "capacity": 23,
+   "source_text": "アゲハ隊",
+   "source_hex": "83418351836e91e0000000000000000000000000000000",
+   "previous_hex": "88a2947093b597c4000000000000000000000000000000",
+   "translation": "展翅队",
+   "decision": "a01",
+   "decision_record": "config/editorial/ageha-rename-20261114.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 719,
+   "field": "display",
+   "offset": 139072,
+   "capacity": 21,
+   "source_text": "アゲハ隊",
+   "source_hex": "83418351836e91e000000000000000000000000000",
+   "previous_hex": "88a2947093b597c400000000000000000000000000",
+   "translation": "展翅队",
+   "decision": "a01",
+   "decision_record": "config/editorial/ageha-rename-20261114.json"
+  },
+  {
+   "kind": "pilot_field",
+   "pilot_index": 719,
+   "field": "given",
+   "offset": 139116,
+   "capacity": 23,
+   "source_text": "アゲハ隊",
+   "source_hex": "83418351836e91e0000000000000000000000000000000",
+   "previous_hex": "88a2947093b597c4000000000000000000000000000000",
+   "translation": "展翅队",
+   "decision": "a01",
+   "decision_record": "config/editorial/ageha-rename-20261114.json"
   }
  ]
 }
