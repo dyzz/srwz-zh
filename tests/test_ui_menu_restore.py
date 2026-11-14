@@ -114,4 +114,45 @@ class MenuRestoreGuardTests(unittest.TestCase):
         self.assertEqual(native['kind'],'native_restore')
         self.assertEqual(native['rect'],[40,232,215,23])
 
+    def test_sp_standalone_command_title_reuses_the_main_game_title(self):
+        import struct
+        sp=json.loads((ROOT/'config/assets/special-disc/menu-atlas-overlap.json').read_bytes())
+        main=json.loads((ROOT/'config/assets/ui-command-title-zh.json').read_bytes())
+        title=sp['command_title']
+        restore=json.loads((ROOT/'config/assets/ui-menu-native-restore.json').read_bytes())['profiles']['sp']['patches']
+        approved=bytes.fromhex(main['drawing']['after_hex'])
+        x,y,w,h=title['reclaimed_rect']
+        self.assertEqual(title['chunks'],{'162':24032,'163':24144,'167':24912,'168':25024})
+        tints=set()
+        self.assertEqual(title['centre_shift'],{'162':0,'163':34,'167':4,'168':28})
+        for chunk,offset in title['chunks'].items():
+            block=next(d for d in sp['drawings'] if d['offset']==offset)
+            native=next(bytes.fromhex(a['native_hex'])+bytes.fromhex(b['native_hex'])
+                        for a,b in zip(restore,restore[1:]) if a['offset']==offset and b['offset']==offset+34)
+            self.assertEqual((block['size'],block['before_sha256']),(68,sha(native)))
+            delta=zlib.decompress(base64.b64decode(block['xor_zlib_base64']))
+            record=bytes(a^b for a,b in zip(native,delta))
+            self.assertEqual(sha(record),block['after_sha256'])
+            tints.add(record[40:43])
+            for at,role,centre in ((0,'border',52),(34,'face',50)):
+                # Native material and tint; the approved quad, centred in its window; page 6 texels, page 4 ramp.
+                self.assertEqual(record[at:at+4]+record[at+5:at+10],native[at:at+4]+native[at+5:at+10])
+                self.assertEqual(record[at+4],0x46)
+                u0,v0,u1,v1=record[at+30:at+34]
+                self.assertEqual([u0,v0,u1,v1],title[role]['uv'])
+                self.assertTrue(x<=u0<u1<=x+w and y<=v0<v1<=y+h)
+                dx=struct.unpack_from('<h',native,at+10)[0]-centre
+                self.assertIn(dx,(0,6))
+                dx+=title['centre_shift'][chunk]
+                corners=lambda r,d=0:sorted((px+d,py) for px,py in zip(*[iter(struct.unpack_from('<8h',r,at+14))]*2))
+                self.assertEqual(corners(record),corners(approved,dx))
+                self.assertEqual(struct.unpack_from('<2h',record,at+10),
+                                 (struct.unpack_from('<h',approved,at+10)[0]+dx,struct.unpack_from('<h',approved,at+12)[0]))
+        self.assertEqual(len(tints),4)
+        face=next(c for c in main['cells'] if c['role']=='face')
+        tile=zlib.decompress(base64.b64decode(face['indices_zlib_base64']))
+        upright=bytes(tile[col*18+17-row] for row in range(18) for col in range(38))
+        self.assertEqual(sha(upright),title['face']['sha256'])
+        self.assertLess(title['face']['uv'][2],title['border']['uv'][0])
+
 if __name__=='__main__':unittest.main()
