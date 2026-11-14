@@ -74,7 +74,7 @@ from special_disc.event_gallery.voices import MSB as VOICE_MSB, MSH as VOICE_MSH
 from special_disc.iso_relocation import append_members, merge_spans, verify_relocation
 
 WORK=ROOT/'work/build/special-disc/full-text'
-BASE_SHA='cd73c3420049579c3281231c1d493b9bad5e23e656637037ff9743ffd4273f02'
+BASE_SHA='89cb2b0798d071d019be482792a21f377f34b8e9bd189a58846596bd93a77c4c'
 FONT=ROOT/'work/build/special-disc/text-candidate'
 PROPOSAL=FONT/'font/proposal.json'
 DEST=CURRENT_ISO
