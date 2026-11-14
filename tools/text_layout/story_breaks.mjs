@@ -7,6 +7,7 @@
 //   1b. a Special Disc record bound to a main-game record takes that record's breaks;
 //   2. a reviewed record keeps the breaks it had before the 2026-11-08 mechanical reflow,
 //      or the breaks of a review opinion that edited the breaks themselves;
+//      a break-only opinion (r.break_only) outranks the earlier breaks;
 //   3. earlier breaks with the Japanese row count stay (mid-word cuts move to the mapped cut);
 //   4. otherwise Japanese breaks map onto the matching Chinese punctuation, rows are not
 //      merged just because they would fit, and an overflowing row splits at a word boundary;
@@ -113,6 +114,7 @@ function decide(r){
   const legal=t=>{const pts=cutPoints(L);return cutsOf(t).every(c=>pts.has(c));};
   if(structured||!r.jp)d={cat:'keep_structured',text:r.zh};
   else if(r.twin&&logical(r.twin)===L&&indented(r.twin)&&fitsScene(r.twin,r))d={cat:'main_twin',text:r.twin};
+  else if(r.break_only?.length&&indented(r.break_only[0])&&!/[·・$]\n|\n　[·・]/.test(r.break_only[0])&&fitsScene(r.break_only[0],r))d={cat:'reviewed_breaks',text:r.break_only[0]};
   else if(r.reviewed.length&&oldOk)d={cat:'reviewed_old',text:r.old};
   else if(r.opinion.length&&indented(r.opinion[0])&&!/[·・$]\n|\n　[·・]/.test(r.opinion[0])&&fitsScene(r.opinion[0],r))d={cat:'reviewed_opinion',text:r.opinion[0]};
   else{

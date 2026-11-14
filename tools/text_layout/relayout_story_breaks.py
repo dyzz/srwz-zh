@@ -75,6 +75,7 @@ def pre_reflow_texts():
 def reviewed_records(snapshot):
     """Return ({id: reasons}, {id: [opinion texts whose breaks were themselves reviewed]})."""
     reasons, opinions = collections.defaultdict(set), collections.defaultdict(list)
+    break_only = collections.defaultdict(list)
     for path in sorted((PROJECT_ROOT / "config/editorial").rglob("*.json")):
         if MECHANICAL.match(path.name) or "special-disc" in path.parts:
             continue
@@ -88,10 +89,13 @@ def reviewed_records(snapshot):
             continue
         proposed, base = untagged(opinion.get("proposedTranslation")), untagged(opinion.get("currentTranslation"))
         # After the reflow an opinion inherits mechanical breaks unless it edits only the breaks.
-        if "\n" in proposed and (opinion["createdAt"] < REFLOW_DATE
-                                 or (logical(proposed) == logical(base) and proposed != base)):
+        if "\n" in proposed and opinion["createdAt"] < REFLOW_DATE:
             opinions[opinion["targetId"]].append(proposed)
-    return reasons, opinions
+        elif opinion["createdAt"] >= REFLOW_DATE and logical(proposed) == logical(base) and proposed != base:
+            # A break-only opinion posted after the reflow is the newest review of the breaks,
+            # joining rows included; it outranks the earlier breaks.
+            break_only[opinion["targetId"]].append(proposed)
+    return reasons, opinions, break_only
 
 
 def main() -> int:
@@ -104,7 +108,7 @@ def main() -> int:
 
     japanese = disc_sources()[1]
     earlier = pre_reflow_texts()
-    reasons, opinions = reviewed_records(json.loads(args.online_snapshot.read_text(encoding="utf-8"))["all"])
+    reasons, opinions, break_only = reviewed_records(json.loads(args.online_snapshot.read_text(encoding="utf-8"))["all"])
     links = keyword_link_ids()
     documents, rows = {}, []
     for path in sorted(DIALOGUE_ROOT.glob("stage-*.json")):
@@ -117,7 +121,8 @@ def main() -> int:
                 id=entry["id"], zh=text, jp=japanese.get(entry["id"]), old=earlier.get(entry["id"]),
                 scene=dialogue_scene(entry["id"]), links=entry["id"] in links,
                 reviewed=sorted(reasons.get(entry["id"], ())),
-                opinion=[t for t in opinions.get(entry["id"], ()) if logical(t) == logical(text)][-1:]))
+                opinion=[t for t in opinions.get(entry["id"], ()) if logical(t) == logical(text)][-1:],
+                break_only=[t for t in break_only.get(entry["id"], ()) if logical(t) == logical(text)][-1:]))
     # Special Disc: the stored breaks are the authored ones (its build used to re-break
     # them); reviewed entries keep theirs, drafts follow the Japanese rows.
     for path in SP_FILES:
@@ -151,7 +156,7 @@ def main() -> int:
 
     def rank(record):
         decision, row = decisions[record], by_id[record]
-        tier = {"reviewed_opinion": 0, "reviewed_old": 1}.get(
+        tier = {"reviewed_breaks": 0, "reviewed_opinion": 0, "reviewed_old": 1}.get(
             decision["cat"], 2 if decision["text"].count("\n") == (row["jp"] or "").count("\n") else 3)
         return tier, -texts[decision["text"]], decision["text"]
 
