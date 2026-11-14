@@ -23,7 +23,7 @@ import threading
 import time
 from datetime import datetime, timezone
 
-from srwz.build_layout import check_runtime as check_js_runtime
+from srwz.build_layout import ENV_LAYOUT_CACHE, ENV_LAYOUT_CACHE_REFRESH, check_runtime as check_js_runtime
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
 from srwz.codec import ENV_COMPRESSION_CACHE, prune_compression_cache
 from srwz.file_identity import ENV_STORE, publish_verified, sha256_range
@@ -149,6 +149,7 @@ def phase_environment(root: Path) -> dict[str, str]:
     environment = dict(os.environ)
     environment.setdefault(ENV_STORE, str(project_path(root, "work/cache/file-identity.json", "work/cache")))
     environment.setdefault(ENV_COMPRESSION_CACHE, str(project_path(root, "work/cache/compression", "work/cache")))
+    environment.setdefault(ENV_LAYOUT_CACHE, str(project_path(root, "work/cache/layout", "work/cache")))
     return environment
 
 
@@ -230,7 +231,7 @@ def reset_relocated_cmake(root: Path, config: dict) -> None:
 
 
 def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
-                   force_rebuild: bool = False, publish: bool = True) -> dict:
+                   force_rebuild: bool = False, publish: bool = True, base_ready=None) -> dict:
     root = context.project_root
     root.mkdir(parents=True, exist_ok=True)
     snapshot.materialize(root)
@@ -242,6 +243,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     # baseline are carried forward unless a component build definition changed.
     # When they are unavailable the component pipeline still applies its own
     # per-consumer verified caches; only an explicit --force-rebuild disables them.
+    prepare_started = time.perf_counter()
     reused = not force_rebuild and seed_text_update(context, snapshot)
     print(f"[original] previous validated component caches: {'seeded' if reused else 'unavailable'}", flush=True)
     print("[original] prepare private, independently writable caches", flush=True)
@@ -259,6 +261,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     prepare_original_members(context)
     chain = load_json(root / "config/fonts/zh-font-build-chain.json")
     reset_relocated_cmake(root, baseline)
+    record_phase(context, "prepare", prepare_started)
     run_phase(context, "codec", ["tools/build_rust_compressor.py", "--force"])
     run_phase(context, "iso-toolchain", ["tools/bootstrap_mkps2iso.py", "--config", LEGACY_CONFIG])
     run_phase(context, "fonts", ["tools/fetch_zh_font.py", "--flavor", chain["font_flavor"]])
@@ -286,6 +289,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
             captions = pool.submit(apply_main_event_subtitles, context, output, root / CAPTION_FONT)
         run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", *(["--force"] if force_rebuild else []),
                                         "--cache", "work/cache/editions/original/iso-content.json"])
+    stage_started = time.perf_counter()
     readback = load_json(root / "manifests/zh-release-full-story-iso-content-validation.json")
     actual_hash = sha256_file(output)
     if (actual_hash != cfg["output"]["expected_sha256"] or actual_hash != readback["iso"]["sha256"]
@@ -297,6 +301,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     if legacy_equivalence and not equivalent:
         raise EditionError("new Original entry is not byte-identical to the frozen legacy output locks")
     verify_files(snapshot.project_root, list(snapshot.files))
+    record_phase(context, "proof-binding", stage_started)
     result = {
         "schema_version": 1, "edition_id": context.profile.edition_id,
         "status": "edition_iso_static_validated_runtime_pending",
@@ -311,11 +316,18 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
                      "stage_count": readback["stage_count"], "translation_entry_count": readback["translation_entry_count"]},
         "workspace": root.relative_to(context.root).as_posix(), "runtime": "not_tested",
     }
+    if base_ready is not None:
+        # BEST consumes only the verified base image and its readback, so it
+        # starts here and overlaps the captions, typography and publication.
+        base_ready(result)
     if not publish:
         return result
     final, subtitles = captions.result()
     record_phase(context, "event-subtitles", caption_started)
+    stage_started = time.perf_counter()
     final, typography = apply_typography(context, final)
+    record_phase(context, "typography", stage_started)
+    stage_started = time.perf_counter()
     final_hash = typography["verification"]["output_sha256"] if typography else subtitles["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     pending = context.output_iso.with_suffix(".iso.tmp")
@@ -324,6 +336,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     sprite_repair = build_fixed_iso(final, pending, "original")
     final_hash = sprite_repair["verification"]["after_sha256"]
     publish_verified(pending, context.output_iso, final_hash)
+    record_phase(context, "sprite-repair-and-publish", stage_started)
     return {
         **result,
         "output": {"path": context.output_iso.relative_to(context.root).as_posix(), "size": final.stat().st_size, "sha256": final_hash},
@@ -336,12 +349,14 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
 
 def build_best(context: BuildContext, snapshot, common: BuildContext, common_result: dict) -> dict:
     root = context.project_root
+    prepare_started = time.perf_counter()
     root.mkdir(parents=True, exist_ok=True)
     snapshot.materialize(root)
     iso = project_path(root, context.profile.source_iso.path, "rom")
     if not iso.exists():
         copy_file(project_path(context.root, context.profile.source_iso.path, "rom"), iso)
     verify_disc(root, context.profile)
+    record_phase(context, "prepare", prepare_started)
     binary = "work/toolchain/srwz-compressor-rs/target/release/srwz-compress"
     copy_file(common.project_root / binary, root / binary)
     receipt = root / "work/common-input.json"
@@ -350,6 +365,7 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
               "--common-receipt", str(receipt), "--input-digest", snapshot.digest])
     proof_path = root / "work/build/best-current/iso-readback.json"
     proof = load_json(proof_path)
+    stage_started = time.perf_counter()
     if proof["status"] != "best_final_iso_static_content_readback_passed" or proof["input_digest"] != snapshot.digest:
         raise EditionError("BEST final proof/input binding mismatch")
     output = project_path(root, proof["iso"]["path"], "build/iso")
@@ -358,10 +374,14 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     verify_files(snapshot.project_root, list(snapshot.files))
     # The caption font is a seeded cache of the shared frontend workspace.
     copy_file(common.project_root / CAPTION_FONT, root / CAPTION_FONT)
+    record_phase(context, "proof-binding", stage_started)
     run_phase_started = time.perf_counter()
     final, subtitles = apply_main_event_subtitles(context, output, root / CAPTION_FONT)
     record_phase(context, "event-subtitles", run_phase_started)
+    stage_started = time.perf_counter()
     final, typography = apply_typography(context, final)
+    record_phase(context, "typography", stage_started)
+    stage_started = time.perf_counter()
     final_hash = typography["verification"]["output_sha256"] if typography else subtitles["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     pending = context.output_iso.with_suffix(".iso.tmp")
@@ -370,6 +390,7 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
     sprite_repair = build_fixed_iso(final, pending, "best")
     final_hash = sprite_repair["verification"]["after_sha256"]
     publish_verified(pending, context.output_iso, final_hash)
+    record_phase(context, "sprite-repair-and-publish", stage_started)
     return {
         "schema_version": 1, "edition_id": "best", "adapter": context.profile.adapter,
         "status": "edition_iso_static_validated_runtime_pending", "input_digest": snapshot.digest,
@@ -391,6 +412,7 @@ def build_best(context: BuildContext, snapshot, common: BuildContext, common_res
 def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) -> dict:
     """Rebuild the current SP corpus over its verified native font baseline."""
     root = context.project_root
+    prepare_started = time.perf_counter()
     snapshot.materialize(root)
     locked_sp_inputs(root)
     source = context.profile.source_iso.path
@@ -409,6 +431,7 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
     if codec_target.is_dir() and not (root / "work/toolchain/srwz-compressor-rs").exists():
         # Optional warm Cargo target only; cargo --locked still rebuilds anything stale.
         shutil.copytree(codec_target, root / "work/toolchain/srwz-compressor-rs", copy_function=copy_file)
+    record_phase(context, "prepare", prepare_started)
     run_phase(context, "rust-compressor", ["tools/build_rust_compressor.py", "--force"])
     run_phase(context, "sp-full-text", ["tools/special_disc/writeback/build_full_text.py",
                                       *(["--force-rebuild"] if force_rebuild else [])])
@@ -418,12 +441,17 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
     proof = load_json(proof_path)
     # The SP publisher pins the readback to this immutable build run. Do not
     # replace that binding with a report from the legacy reusable directory.
+    stage_started = time.perf_counter()
     validate_sp_readback(root, proof)
     verify_files(snapshot.project_root, list(snapshot.files))
     # SP builders must never mutate the captured source/baseline inputs.
     verify_files(root, list(snapshot.files))
+    record_phase(context, "proof-binding", stage_started)
     built = project_path(root, proof["iso"]["path"], "build/iso/special-disc")
+    stage_started = time.perf_counter()
     final, typography = apply_typography(context, built)
+    record_phase(context, "typography", stage_started)
+    stage_started = time.perf_counter()
     final_hash = typography["verification"]["output_sha256"] if typography else proof["iso"]["sha256"]
     context.output_iso.parent.mkdir(parents=True, exist_ok=True)
     temporary = context.output_iso.with_suffix(".tmp.iso")
@@ -432,6 +460,7 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
     sprite_repair = build_fixed_iso(final, temporary, "sp")
     final_hash = sprite_repair["verification"]["after_sha256"]
     publish_verified(temporary, context.output_iso, final_hash)
+    record_phase(context, "sprite-repair-and-publish", stage_started)
     atomic_json(context.output_iso.with_suffix(".json"), {
         **proof, "iso": {**proof["iso"], "sha256": final_hash},
         "typography": typography, "gunleon_sprite": sprite_repair,
@@ -464,6 +493,8 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
         rebuild_store = project_path(root, "work/cache/file-identity-rebuild.json", "work/cache")
         rebuild_store.unlink(missing_ok=True)
         os.environ[ENV_STORE] = str(rebuild_store)
+        # A forced rebuild recomputes every library layout and rewrites its cache entry.
+        os.environ[ENV_LAYOUT_CACHE_REFRESH] = "1"
     # In-process stages (caption relocation, receipt hashing) share the same
     # identity store and compression payload cache as the phase subprocesses.
     os.environ.update(phase_environment(root))
@@ -545,8 +576,10 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                 # Keep one current image per edition. Square skip is already
                 # part of its build; verify that image instead of cloning it.
                 atomic_json(context.receipt, result)
+                skip_started = time.perf_counter()
                 result["battle_square_skip"] = verify_skip(
                     context.output_iso, snapshot.project_root, context.profile.edition_id)
+                record_phase(context, "skip-verify", skip_started)
                 result["skip_enabled"] = True
                 atomic_json(context.receipt, result)
                 return result
@@ -562,18 +595,34 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             # the identity store (both safe for concurrent writers), so it runs
             # beside the Original -> BEST chain; the pool exit waits for it even
             # when the chain fails, so the batch records every outcome.
-            with ThreadPoolExecutor(max_workers=1, thread_name_prefix="srwz-edition-sp") as pool:
+            with ThreadPoolExecutor(max_workers=2, thread_name_prefix="srwz-edition") as pool:
                 sp_future = (pool.submit(run_edition, contexts["sp"], build_sp, snapshot, force_rebuild=force_rebuild)
                              if "sp" in contexts else None)
+                best_future = None
+
+                def start_best(base_result):
+                    nonlocal best_future
+                    best_future = pool.submit(run_edition, contexts["best"], build_best, snapshot,
+                                              contexts["original"], base_result)
+
                 # One frontend execution even for reversed target order or BEST-only.
                 if "original" in contexts:
                     original = contexts["original"]
-                    results["original"] = run_edition(
-                        original, build_original, snapshot, legacy_equivalence=legacy_equivalence,
-                        force_rebuild=force_rebuild, publish="original" in requested,
-                    )
+                    try:
+                        results["original"] = run_edition(
+                            original, build_original, snapshot, legacy_equivalence=legacy_equivalence,
+                            force_rebuild=force_rebuild, publish="original" in requested,
+                            base_ready=start_best if "best" in contexts else None,
+                        )
+                    finally:
+                        # Record BEST's own outcome even when Original's publication fails.
+                        if best_future is not None:
+                            best_future.exception()
                 if "best" in contexts:
-                    results["best"] = run_edition(contexts["best"], build_best, snapshot, original, results["original"])
+                    if best_future is None:
+                        # Original was reused from its verified current receipt.
+                        start_best(results["original"])
+                    results["best"] = best_future.result()
                     atomic_json(contexts["best"].receipt, results["best"])
             if sp_future is not None:
                 results["sp"] = sp_future.result()

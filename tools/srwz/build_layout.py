@@ -28,36 +28,97 @@ def library_input(text):
     if re.search(r'<(?:width|space):',text) and not text.startswith(baseline):text=baseline+text
     return text
 
+ENV_LAYOUT_CACHE='SRWZ_LAYOUT_CACHE'
+ENV_LAYOUT_CACHE_REFRESH='SRWZ_LAYOUT_CACHE_REFRESH'
+LAYOUT_CACHE_SCHEMA=1
+_ENGINE_IDENTITY=None
+
+def _engine_identity():
+    """Everything besides the request that decides a layout answer: engine bytes and Node."""
+    global _ENGINE_IDENTITY
+    if _ENGINE_IDENTITY is None:
+        import os,shutil,subprocess
+        node=os.environ.get('SRWZ_NODE') or shutil.which('node')
+        if not node:raise RuntimeError('Node.js required for shared JS layout; set SRWZ_NODE')
+        version=subprocess.run([node,'--version'],text=True,capture_output=True,check=True,timeout=30).stdout.strip()
+        _ENGINE_IDENTITY=[LAYOUT_CACHE_SCHEMA,version,sorted((key,row['sha256'])for key,row in runtime_inputs().items())]
+    return _ENGINE_IDENTITY
+
+class _LibraryLayoutCache:
+    """Content-addressed answers of the library scene layout, one small file each.
+
+    The key binds the exact engine files, the Node version and the complete
+    request, so an entry is the answer the same engine gives again. A forced
+    rebuild sets the refresh variable: nothing is read, every answer is
+    recomputed and rewritten.
+    """
+    def __init__(self):
+        import os
+        raw=os.environ.get(ENV_LAYOUT_CACHE,'').strip()
+        self.root=Path(raw)/'library' if raw else None
+        self.read=self.root is not None and os.environ.get(ENV_LAYOUT_CACHE_REFRESH,'') in ('','0')
+    def path(self,request):
+        import json
+        digest=hashlib.sha256(json.dumps([_engine_identity(),request],ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+        return self.root/digest[:2]/(digest+'.json')
+    def get(self,path):
+        import json
+        if not self.read:return None
+        try:value=json.loads(path.read_text(encoding='utf-8'))
+        except (OSError,ValueError):return None
+        if not isinstance(value,list) or len(value)!=2:return None
+        ok,answer=value
+        if ok is False and isinstance(answer,str):return (False,answer)
+        if (ok is True and isinstance(answer,list) and len(answer)==2 and isinstance(answer[0],str)
+                and isinstance(answer[1],list) and all(type(cell) is int for cell in answer[1])):
+            return (True,(answer[0],tuple(answer[1])))
+        return None
+    def put(self,path,value):
+        import json,os
+        try:
+            path.parent.mkdir(parents=True,exist_ok=True)
+            temporary=path.with_name(f'.{path.name}.{os.getpid()}.tmp')
+            temporary.write_text(json.dumps(value,ensure_ascii=False),encoding='utf-8')
+            temporary.replace(path)
+        except OSError:
+            pass  # The cache is an optimization only.
+
 def library_batch(keys, *, typography=None, chinese_punctuation=None):
     typography,chinese_punctuation=typography_options(typography,chinese_punctuation)
     keys=list(keys);result={}
     batch_size=64 if typography=='proportional' else 256
     from .library_typography import library_typography
     from .parallel import worker_count
-    groups=[keys[start:start+batch_size] for start in range(0,len(keys),batch_size)]
-    batches=[]
-    for group in groups:
-        requests=[]
-        for kind,text in group:
-            prepared=library_input(text)
-            if typography=='proportional':
-                prepared=library_typography(prepared,'DSCR',domain={'CHAR':'character','ROBO':'robot','KYWD':'glossary'}[kind],typography=typography)
-            requests.append(dict(scene=LIBRARY_SCENES[kind],text=prepared,options=dict(typography=typography,chinesePunctuation=chinese_punctuation)))
-        batches.append(requests)
+    cache=_LibraryLayoutCache()
+    pending=[]
+    for key in dict.fromkeys(keys):
+        kind,text=key
+        prepared=library_input(text)
+        if typography=='proportional':
+            prepared=library_typography(prepared,'DSCR',domain={'CHAR':'character','ROBO':'robot','KYWD':'glossary'}[kind],typography=typography)
+        request=dict(scene=LIBRARY_SCENES[kind],text=prepared,options=dict(typography=typography,chinesePunctuation=chinese_punctuation))
+        path=cache.path(request) if cache.root is not None else None
+        known=cache.get(path) if path is not None else None
+        if known is not None:result[key]=known
+        else:pending.append((key,request,path))
+    groups=[pending[start:start+batch_size] for start in range(0,len(pending),batch_size)]
+    batches=[[request for _,request,_ in group] for group in groups]
     timeout=120 if typography=='proportional' else 30
     # The work runs in the Node child processes, so threads are enough here.
     with ThreadPoolExecutor(max_workers=worker_count(len(batches) or 1)) as pool:
         responses=list(pool.map(lambda requests:layout_batch(requests,timeout=timeout),batches))
-    for group,requests,answers in zip(groups,batches,responses):
-        for key,request,response in zip(group,requests,answers):
+    for group,answers in zip(groups,responses):
+        for (key,request,path),response in zip(group,answers,strict=True):
             if not response['ok']:
-                result[key]=(False,response['error']['message']);continue
-            value=response['result']
-            expected=request['text']
-            if typography=='proportional':expected=expected.replace('<z>','').replace('</z>','')
-            if value['text'].replace('\n','')!=expected.replace('\n',''):raise ValueError('JS library layout changed authored content')
-            result[key]=(True,(value['text'],tuple(math.ceil(r['occupiedPx']/value['step'])for r in value['rows'])))
-    return result
+                result[key]=(False,response['error']['message'])
+            else:
+                value=response['result']
+                expected=request['text']
+                if typography=='proportional':expected=expected.replace('<z>','').replace('</z>','')
+                if value['text'].replace('\n','')!=expected.replace('\n',''):raise ValueError('JS library layout changed authored content')
+                result[key]=(True,(value['text'],tuple(math.ceil(r['occupiedPx']/value['step'])for r in value['rows'])))
+            if path is not None:cache.put(path,result[key])
+    return {key:result[key] for key in keys}
 
 def reflow_story(text,*,profile,protected_terms=(),stage_keyword_links=False,**_):
     from .chinese_layout import ChineseLayoutError,ReflowResult
@@ -92,10 +153,17 @@ def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_p
     """
     typography,chinese_punctuation=typography_options(typography,chinese_punctuation)
     rows=list(rows);issues={}
-    for start in range(0,len(rows),batch_size):
-        group=rows[start:start+batch_size]
-        requests=[dict(action='measure',scene=scene,text=text.replace('\\n','\n'),options=dict(keywordLinks=links,typography=typography,chinesePunctuation=chinese_punctuation))for _,text,links in group]
-        for (identity,_,_),response in zip(group,layout_batch(requests)):
+    from .parallel import worker_count
+    groups=[rows[start:start+batch_size] for start in range(0,len(rows),batch_size)]
+    batches=[[dict(action='measure',scene=scene,text=text.replace('\\n','\n'),options=dict(keywordLinks=links,typography=typography,chinesePunctuation=chinese_punctuation))for _,text,links in group]for group in groups]
+    # The measuring runs in Node child processes, so threads are enough; answers keep batch order.
+    if len(batches)>1:
+        with ThreadPoolExecutor(max_workers=worker_count(len(batches))) as pool:
+            answers=list(pool.map(layout_batch,batches))
+    else:
+        answers=[layout_batch(requests) for requests in batches]
+    for group,responses in zip(groups,answers):
+        for (identity,_,_),response in zip(group,responses):
             if not response['ok']:
                 issues[identity]=(f'JS {response["error"]["message"]}',)
                 continue

@@ -7,6 +7,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 from .iso9660 import member_map, scan_iso9660
+from .file_identity import remember_digest
 from .release_inputs import copy_file
 from .tag_free_integrated import install
 from .sp_tm_spacing import install as install_sp_tm_spacing
@@ -104,7 +105,10 @@ def seal_iso(root: Path, edition: str, source: Path, output: Path):
         with output.open('r+b') as stream:
             stream.seek(member.extent_lba * 2048)
             stream.write(patched)
-        return verify_iso(root, edition, source, output)
+        proof = verify_iso(root, edition, source, output)
+        # The readback just hashed the finished image; later stages reuse it.
+        remember_digest(output, proof['output_sha256'], settled=True)
+        return proof
     except BaseException:
         output.unlink(missing_ok=True)
         raise
