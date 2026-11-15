@@ -1,0 +1,173 @@
+{
+  "schema_version": 6,
+  "version": "0.5.1",
+  "tag": "v0.5.1",
+  "channel": "stable",
+  "format": "xdelta3-vcdiff",
+  "patches": {
+    "original": {
+      "filename": "srwz-zh-v0.5.1-original.xdelta",
+      "size": 25519656,
+      "sha256": "85b7d2d914c2f398f7b049da593c4ba6b0e5b9ac926ce3fa756a95b723001603",
+      "source_iso": {
+        "path": "rom/original.iso",
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+        "size": 3758358528
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.1/srwz-zh-v0.5.1-original.iso",
+        "sha256": "c6754f75eb12be7c4b4af5c23993cfafa0d5be2bb4ecb78311029390becb3862",
+        "size": 3799459840
+      },
+      "reconstructed_size_matches": true,
+      "reconstructed_sha256_matches": true
+    },
+    "best": {
+      "filename": "srwz-zh-v0.5.1-best.xdelta",
+      "size": 25830845,
+      "sha256": "3ea2aea706e4b6619cd942f2c5015b97f1b7f5e59506b00988566ab0927240c0",
+      "source_iso": {
+        "path": "rom/best.iso",
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+        "size": 3755081728
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.1/srwz-zh-v0.5.1-best.iso",
+        "sha256": "90c9d05c2f9ef75a8abdfececa577fd7b0a09046045df9d1fdecc5f0ce3b0f9f",
+        "size": 3796187136
+      },
+      "reconstructed_size_matches": true,
+      "reconstructed_sha256_matches": true
+    },
+    "sp": {
+      "filename": "srwz-zh-v0.5.1-sp.xdelta",
+      "size": 113742739,
+      "sha256": "b79a869f5ee2cab4909f5218d84a53336a8372608c9c1a2d740f05f82a295b10",
+      "source_iso": {
+        "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+        "sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+        "size": 3791781888
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.1/srwz-zh-v0.5.1-sp.iso",
+        "sha256": "0175bffd0a3312db930f45d5058e56fc60058362c6941a26fb87ad8a91496ae9",
+        "size": 3918860288
+      },
+      "reconstructed_size_matches": true,
+      "reconstructed_sha256_matches": true
+    }
+  },
+  "input_digest": "2cef62d3e8408e61cae73c8453b2d376baf7908c246c174524b802b2c58b0100",
+  "runtime": "not_tested",
+  "tool": {
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw",
+      "-A",
+      "-a"
+    ],
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald"
+  },
+  "iso_in_release_package": false,
+  "evidence": [
+    {
+      "path": "config/release/v0.5.1.json",
+      "sha256": "efcf8ec00f9adcb23ce169cb505f6b89b9ac4d2e122475da8e34d8791df8cc8c"
+    },
+    {
+      "path": "config/full-story-components.json",
+      "sha256": "e096e118258cb6fbe06540769f33d25c92b4a286befe645411e9846a4e014eba"
+    },
+    {
+      "path": "config/products/special-disc/battle-square-skip.json",
+      "sha256": "ea77f46791f4ef9b456e07ee5cb60ca4b00066674a58d7adc7f7f5488bfe5040"
+    },
+    {
+      "path": "config/editions/original/edition.json",
+      "sha256": "ee1d500ef89147e128b0270ae03c01b5cbe738876bc64f07da062659ca236e1a"
+    },
+    {
+      "path": "config/editions/best/edition.json",
+      "sha256": "7aadd5ec5860d0e6e33cbee79edcbb41e3482d70ac937b05fbe3b2fb8fa660f9"
+    },
+    {
+      "path": "config/editions/sp/edition.json",
+      "sha256": "01b0a58acbbee75bf7bbdba363132ac0068bd104d5f750ca446e45f414a01860"
+    },
+    {
+      "path": "tools/build_release.py",
+      "sha256": "7e5d611e5a7fc7d81baab64b42705b7c761c836f8306d8652b92f60373ef0a31"
+    },
+    {
+      "path": "tools/freeze_release.py",
+      "sha256": "7d1c8293ce07d499971591b5c1f0efe16d0902b15ea70c960c017cec24837736"
+    },
+    {
+      "path": "docs/RELEASE_NOTES_V0.5.1.md",
+      "sha256": "757118247039d312288a44c1fc760f64f2c85727c2dbf5fbf528ddb39abdaf61"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/best-battle-select.json",
+      "sha256": "b33bd6f5bc873e7f84108d20265648b95c6993d3040d684cd96651320f58c715"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/best-pre-typography.elf",
+      "sha256": "c259e39c07fbad77345ae4be927f415e8a901db3ce6d35d2df11caa4030e8233"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/best-readback.json",
+      "sha256": "a275c226f1e5d6ddf46ae3fc09f42671c58e4a757fbeb1cfa8c8f3dbeeac1d95"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/best-skip-readback.json",
+      "sha256": "00d50411231c14f382887f05f43396bbc9158ca6aff103379b9c49d001c3434e"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/original-battle-select.json",
+      "sha256": "b33bd6f5bc873e7f84108d20265648b95c6993d3040d684cd96651320f58c715"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/original-pre-typography.elf",
+      "sha256": "747923430422fdf974e207cf7342c26ab599a1a4e00bb11b0cd99d4fa15e16a7"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/original-readback.json",
+      "sha256": "eee6db5a2660853fafbda4a705ba6978b246d89b7255ceccd999e526f39866ae"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/original-skip-readback.json",
+      "sha256": "b128ee151ad05b18c209aac3fab8e0f67060e13d9ce6293d16d7e79238aae7d2"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/proportional-metrics.mjs",
+      "sha256": "4b31858d9e09bd78a4285ed47f942fc09f5f9b2af4bb9faa2d7a9298fcaba0ed"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/sp-battle-select.json",
+      "sha256": "e54f1029d109239f3bd98ea55618ef891b5de4968b1a8adfb5a52990be1d3ec9"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/sp-independent-readback.json",
+      "sha256": "e8c2fbdc54ab5b058f83851fa667745d0473230fe9b93321490ca172fbfd940e"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/sp-pre-typography.elf",
+      "sha256": "581048229903eda5910f0a0374c8895fdaed3e74fcec1e8f7add51985093aeb3"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/sp-readback.json",
+      "sha256": "48dddc1374e4efebb8769292e919b4784bde28324b37dca78d85b8eabb0e1a1f"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/sp-skip-readback.json",
+      "sha256": "388d7a9dba58db51990c7f717ae7c05d037d47d8cd0b6dc017b5e12b885293ee"
+    },
+    {
+      "path": "manifests/releases/v0.5.1/validation.json",
+      "sha256": "3b91f29524be0f581ae94feaa3ed5127ef24e24ee36ae121a706c15f6ae70552"
+    }
+  ]
+}
