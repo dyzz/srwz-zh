@@ -76,7 +76,7 @@ xdelta3 -d -s "sp.iso" "srwz-zh-v0.5.1-sp.xdelta" "srwz-zh-v0.5.1-sp.iso"
 
 - 请先备份原盘和记忆卡存档。
 - 从 v0.5.0 升级时，换用新镜像后从**普通记忆卡存档**读取进度。模拟器即时存档会保留旧版已载入的程序和文本，不适合在新版中继续使用。
-- 金手指的镜像 CRC 每次发布都会变化，请使用 [金手指页](https://srwz.dreamquest.club/cheats/) 上标注 v0.5.1 的版本。
+- 镜像 CRC 每次发布都会变化，v0.5.1 为 Original `D297423A`、The Best `40C32570`、SP `5372252C`。[金手指页](https://srwz.dreamquest.club/cheats/) 的代码在 v0.5.1 上逐一核对过地址并抽测可用，pnach 文件按模拟器显示的 CRC 命名即可。
 
 ## 验证范围
 
