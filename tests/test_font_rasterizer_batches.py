@@ -26,6 +26,11 @@ class BatchedRasterTests(unittest.TestCase):
         self.assertTrue(any(batched["机"][0]))
         self.assertFalse(any(batched[" "][0]))
 
+    def test_hinting_switch_changes_rendered_pixels(self):
+        off = font_rasterizer.rasterize_character("magick", FONT, "距", RASTERIZER)
+        on = font_rasterizer.rasterize_character("magick", FONT, "距", {**RASTERIZER, "hinting": True})
+        self.assertNotEqual(off[0], on[0], "hinting=false must affect the rendered glyph")
+
     def test_glyph_arguments_end_without_an_output(self):
         arguments = font_rasterizer._glyph_arguments(FONT, "机", RASTERIZER)
         self.assertEqual(arguments[-4:], ["-colorspace", "Gray", "-depth", "8"])

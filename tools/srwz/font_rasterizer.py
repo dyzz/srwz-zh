@@ -190,8 +190,10 @@ def _glyph_arguments(
         str(font_path),
         "-pointsize",
         str(point_size),
-        "-define",
-        f"type:hinting={'true' if hinting else 'false'}",
+        # annotate reads an image property; -define does not disable FreeType hinting.
+        "-set",
+        "type:hinting",
+        "on" if hinting else "off",
         "-antialias" if antialias else "+antialias",
         "-gravity",
         rasterizer["gravity"],

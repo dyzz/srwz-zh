@@ -144,7 +144,9 @@ def rasters(root: Path, rasterizer: Mapping, config: Mapping | None = None) -> d
     shift_rows = config["baseline_shift_rows"]
     canvas = dict(rasterizer["cjk_fixed_canvas"])
     canvas["y_offset"] += shift_rows
-    lifted = {**rasterizer, "cjk_fixed_canvas": canvas}
+    # Preserve the established Latin bank raster while CJK disables hinting.
+    # The former -define type:hinting=false left FreeType hinting enabled.
+    lifted = {**rasterizer, "cjk_fixed_canvas": canvas, "hinting": True}
     rendered = rasterize_characters(
         rasterizer["executable"],
         lambda character: letters,

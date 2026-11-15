@@ -7690,7 +7690,7 @@ def _apply_scenario_title_geometry(
         visible_center_twice = visible_min + visible_max
         if visible_center_twice != target_center_twice:
             raise FullStoryComponentError(
-                f"scenario title visual center drift: {label}"
+                f"scenario title visual center drift: {label}: {visible_center_twice} != {target_center_twice}; quads={quad_reports}"
             )
         group_reports.append(
             {
