@@ -1,0 +1,599 @@
+{
+  "schema_version": 1,
+  "review_id": "term-leftovers-20261115-d",
+  "translation_writeback": true,
+  "purpose": "0.5.1 发布前的译名遗留：五组专名和 117／130 话两句同源歌词按用户在对话中的决定统一。每条改写绑定该记录自己的日文原文，只替换专名，不动其他措辞和换行。",
+  "authorization": {
+    "vega": "挑选页：贝加",
+    "gym": "挑选页：基姆",
+    "skullmoon": "挑选页：骷髅月联合",
+    "kenjin": "挑选页：贤人会议",
+    "gicho": "挑选页：议长",
+    "keibi": "挑选页：警备队",
+    "timewarp": "挑选页：时间跳跃",
+    "samelia": "挑选页：南阿美利亚",
+    "amelia": "挑选页：阿美利亚",
+    "turntype-fix": "ターンタイプ统一Turn系机体吧（首批漏改的一行）"
+  },
+  "note": "带审阅定稿或线上意见的行一并改写：用户是在挑选页列出这些意见的情况下定的译名。线上意见逐条记在条目里。",
+  "feedback_snapshot_at": "2026-11-14T16:40:45.276277+00:00",
+  "feedback_snapshot_total": 3945,
+  "summary": {
+    "write": 39,
+    "files": 23,
+    "by_group": {
+      "gym": 5,
+      "turntype-fix": 1,
+      "vega": 6,
+      "keibi": 2,
+      "amelia": 7,
+      "timewarp": 1,
+      "kenjin": 3,
+      "samelia": 10,
+      "skullmoon": 2,
+      "gicho": 2
+    },
+    "reviewed": 4,
+    "with_online_opinions": 0,
+    "library_override_edits": 0,
+    "online_snapshot_at": "2026-11-14T16:40:45.276277+00:00",
+    "online_snapshot_total": 3945,
+    "gate_errors": 0
+  },
+  "application": {
+    "files": [
+      {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "entries": 2,
+        "before_sha256": "7315d8e565f583c440c9d730e818cc6f121934f033cc4ecd87224fa57fa8e7e1",
+        "after_sha256": "46efa24ea65f06421b2de65ede1c96e52170c79f1f949bf69ee9157aa6d3428e"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-010.json",
+        "entries": 2,
+        "before_sha256": "b5b96c93c4060b0be09f278c6b135fece284dae9fab7f1c57b3255a7c26ae660",
+        "after_sha256": "905f14c939e37c85b07fb9c9afb54ce1a89f44492f4f45078d78a51a0523c916"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-015.json",
+        "entries": 1,
+        "before_sha256": "afd7e014b2e0bbb3f6d81480aea5b4bffdda9c8d0c3102cbd73d9619cdb32297",
+        "after_sha256": "5cc3615c35c9565ca658db5e33911a15411d36128203e2d29c908916f2354a3a"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-027.json",
+        "entries": 1,
+        "before_sha256": "ecc9e535e6df5e66fd4f9386939ce0e395173ae42ceac812bf76f1f9c102949a",
+        "after_sha256": "97480f6f1b6ad7c1387813b846667ef73f8ed76cbafaa3e8fc8619c8fe1fe90c"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-034.json",
+        "entries": 6,
+        "before_sha256": "a02914682769d93d5a7e99d9ded9bc8530e2a5ad67087dd6d4e1028c996fe291",
+        "after_sha256": "b7db9f3cc861823985c24669f9cac58640713f5e0b44325ffc74f652b35e8b07"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-052.json",
+        "entries": 1,
+        "before_sha256": "3e52517af23d986af6100eb1a18890005dcfce175ab7776e937f101dd213efe0",
+        "after_sha256": "2974b63179e015054f4da6bea7c066d7a036fbd54f12b7b47ab34c84fda68484"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-061.json",
+        "entries": 2,
+        "before_sha256": "b1b67263d66f2e673c52b09536aecf2b9d5a22e35ad8b879226fcec4e6d1fcbb",
+        "after_sha256": "36efa5ff96b12367f8897dcfcf7de54713592e3117d07365aa273f9dbba3ada0"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-063.json",
+        "entries": 3,
+        "before_sha256": "72b2ec3720505649f1bc8393b1efe008d8d1734b63b574b62d4a03a193853bfa",
+        "after_sha256": "e44657d0509d05a12332efb746b039394ced6461b16867d2e224c5eabde6729f"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-071.json",
+        "entries": 1,
+        "before_sha256": "a6041f0c913fdc788af689a47a2f1544736221eaeb39b4272d16d59b48bd0116",
+        "after_sha256": "0af01afd4bcaa2cba281d5d27535ba47c4ec95cbe266a755c58097f5b7042b53"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-081.json",
+        "entries": 3,
+        "before_sha256": "76f194d74163babb94cbac2ed13d305c3f919a99a12be161152b8112e2301a3d",
+        "after_sha256": "4c6148a20cce426683f5f4e631c671590fe33256fd31b0b331149fd02c5a872f"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-086.json",
+        "entries": 1,
+        "before_sha256": "fabc348c77939efb20801892859ca9f8898d0f73daf92dd818f6220a59a26c3d",
+        "after_sha256": "95d09dcf5c02431603be656455d99e3859464b3f188c3ac092d8e28c59536ce7"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-087.json",
+        "entries": 1,
+        "before_sha256": "43fe5683499dd7054bf6431d03b62307889b6ea213c479c857225d0eb9560af5",
+        "after_sha256": "12ac120d8894fff0be757f92b94bffe454613b9277a49c17761a3a5f228e8d1c"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-090.json",
+        "entries": 2,
+        "before_sha256": "97cea516e1592fc1e3441361a5363ab83d8133391c005e0b360fcba4c2d53b72",
+        "after_sha256": "9cb26b2c5391d56b14920fe74b1102844a80ec317d67a6244473d3efe5782334"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-095.json",
+        "entries": 1,
+        "before_sha256": "8500c241d863739572776fd65c4fd95088cc78da161d547a06921f39433d33f1",
+        "after_sha256": "526dd9d65a6bc8ce943de09de22519cf2d2c3c27d3631d3363fa0de60ce6d2d6"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-098.json",
+        "entries": 1,
+        "before_sha256": "ff3a978156e767d4142639c3e4bada3b6c6ede1f3339e2159412888573ee83c9",
+        "after_sha256": "24bc2fa876345b3dfa622a429e53dd1a74b0a702999597627f0b54a0b1c1b5ff"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-105.json",
+        "entries": 1,
+        "before_sha256": "af5112559c1da40571a25ccd877dc2b1a523eccd16a9b43c638b91598bccaa07",
+        "after_sha256": "669ad2054c575d80783dbf27c08b32003bf2807aed160bca3465aaa7fda007d2"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-108.json",
+        "entries": 1,
+        "before_sha256": "e77fb4375192b83d59e3cebd41efe3a09b6a8b6cc7a94de022df6fc57042a9f6",
+        "after_sha256": "88a5d8613bf50c673d51e806c1ac51974ef8dac7abc08789cd7eb23e920f3207"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-119.json",
+        "entries": 1,
+        "before_sha256": "5bad8e2f96e87fe90ae3ec607912e5fca522b0800ac987c077aac4070864f831",
+        "after_sha256": "c4b2459e0de7930dc453db251a794d322540074fcb78a953a9458c26dc938a75"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-120.json",
+        "entries": 1,
+        "before_sha256": "4cb1951f1ca4b6a7cbf56ea892b7bc201430eb4bd45e4214b38a536c10f821f9",
+        "after_sha256": "76d2c405e3227c49a0004fda25c16a82fbdaf295921d6f0c4c3882e9bf7b7a17"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-125.json",
+        "entries": 2,
+        "before_sha256": "4314d1a800b7e6b856f8ad337096e59925f2ad3ef1cb908f5558ae9bd8c29493",
+        "after_sha256": "e73dd352d961dd14b53b7351df8bab1e0bbcd83f3b66bece52cf896f2bea47da"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-127.json",
+        "entries": 1,
+        "before_sha256": "b3ca334859bab204b421d063dc441d560f63691422d0766a624c3194f8a6a692",
+        "after_sha256": "ed156f8cec884427200cd3a5a7ee2114281e17e977a783a4a3a5cd0800c19f6f"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-131.json",
+        "entries": 1,
+        "before_sha256": "a35166fcd9ce7ff5ce53a19fe760824ce460b31f60f444052d0692814a07aacf",
+        "after_sha256": "0ae1de14057f3c2ba77320db36ecd470f00ba62a99b26f13c7c1e6394e82c1fa"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-160.json",
+        "entries": 3,
+        "before_sha256": "5a82c7bc0a18628e1ac18182091f0ef11da18331ae6df74ddbb883691c03ff87",
+        "after_sha256": "6692b564a477b0c6e07326d53cb9557e0e2bbc90de12b5db34a53627a9f29f39"
+      }
+    ],
+    "active_lock_updates": [
+      {
+        "file": "config/full-story-components.json",
+        "edits": [
+          {
+            "pointer": "/srvc_battle_text/corpus",
+            "before": {
+              "path": "corpus/zh/battle/srvc-lines.json",
+              "size": 6989772,
+              "sha256": "7315d8e565f583c440c9d730e818cc6f121934f033cc4ecd87224fa57fa8e7e1"
+            },
+            "after": {
+              "path": "corpus/zh/battle/srvc-lines.json",
+              "size": 6989770,
+              "sha256": "46efa24ea65f06421b2de65ede1c96e52170c79f1f949bf69ee9157aa6d3428e"
+            }
+          }
+        ]
+      }
+    ],
+    "site_writeback": false
+  },
+  "entries": [
+    {
+      "id": "battle:10853",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "gym",
+      "ja": "「俺は二千年も三千年も演習をしている\\n　ギムとは違う！」",
+      "before": "“我和演习了两三千年\\n　的吉姆可不一样！”",
+      "after": "“我和演习了两三千年\\n　的基姆可不一样！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:14466",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype-fix",
+      "ja": "「これがターンタイプの\\n　モビルスーツの力か！」",
+      "before": "“这就是Turn系机体\\n　MS的力量吗！”",
+      "after": "“这就是Turn系机体\\n　的力量吗！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "story/010/dialogue/01.15/0010",
+      "file": "corpus/zh/story-dialogue/stage-010.json",
+      "group": "vega",
+      "ja": "「とりあえず、ガイゾックとベガは\n　確実に敵だろうぜ！」",
+      "before": "“总之，盖佐克和维加肯定是敌人！”",
+      "after": "“总之，盖佐克和贝加肯定是敌人！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "story/010/dialogue/01.61/0000",
+      "file": "corpus/zh/story-dialogue/stage-010.json",
+      "group": "vega",
+      "ja": "「ガイゾックにベガ…！\n　あいつら、コロニーを落とすのに\n　手を貸しているの！？」",
+      "before": "“盖佐克和维加……！\n　他们在帮助殖民卫星坠落吗！？”",
+      "after": "“盖佐克和贝加……！\n　他们在帮助殖民卫星坠落吗！？”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "story/015/dialogue/01.08/0003",
+      "file": "corpus/zh/story-dialogue/stage-015.json",
+      "group": "keibi",
+      "ja": "「あれはオーバーマン、ラッシュロッド。\n　乗っているのは、警備隊隊長の\n　ヤッサバ・ジンだ…！」",
+      "before": "“那是超限人，拉什罗德。\n　驾驶它的是警卫队队长，\n　亚萨巴·金……！”",
+      "after": "“那是超限人，拉什罗德。\n　驾驶它的是警备队队长，\n　亚萨巴·金……！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/027/dialogue/02.02/0152",
+      "file": "corpus/zh/story-dialogue/stage-027.json",
+      "group": "amelia",
+      "ja": "「んじゃ、ガリアとアメリアの中間の\n　交易ポイントまで頼むぜ」",
+      "before": "“那就拜托到加利亚和\n　亚美利加中间的贸易点。”",
+      "after": "“那就拜托到加利亚和\n　阿美利亚中间的贸易点。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/034/dialogue/01.21/0000",
+      "file": "corpus/zh/story-dialogue/stage-034.json",
+      "group": "amelia",
+      "ja": "「アメリアから新天地を探して\n　こっちに来たってわけね…」",
+      "before": "“从亚美利加寻找新天地跑到这边来了啊……”",
+      "after": "“从阿美利亚寻找新天地跑到这边来了啊……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/034/dialogue/02.01/0015",
+      "file": "corpus/zh/story-dialogue/stage-034.json",
+      "group": "amelia",
+      "ja": "「アメリアから移動してきたムーンレィス、\n　新連邦に弾圧された人々、\n　そして、戦争で家を焼かれた人達…」",
+      "before": "“从亚美利加迁移来的月之民、\n　被新联邦镇压的人们、\n　还有在战争中失去家园的人们……”",
+      "after": "“从阿美利亚迁移来的月之民、\n　被新联邦镇压的人们、\n　还有在战争中失去家园的人们……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/034/dialogue/02.01/0022",
+      "file": "corpus/zh/story-dialogue/stage-034.json",
+      "group": "amelia",
+      "ja": "「こっちのアメリア産のフルーツ、\n　目玉商品になりますよね！」",
+      "before": "“这个亚美利加产的水果，\n　会成为主打商品吧！”",
+      "after": "“这个阿美利亚产的水果，\n　会成为主打商品吧！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/034/dialogue/02.01/0034",
+      "file": "corpus/zh/story-dialogue/stage-034.json",
+      "group": "amelia",
+      "ja": "「さあいらっしゃい、いらっしゃい！\n　アメリアから産地直送のフルーツだよ！」",
+      "before": "“来啊来啊，欢迎光临！\n　亚美利加产地直送的水果！”",
+      "after": "“来啊来啊，欢迎光临！\n　阿美利亚产地直送的水果！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/034/dialogue/02.01/0043",
+      "file": "corpus/zh/story-dialogue/stage-034.json",
+      "group": "amelia",
+      "ja": "「いらっしゃいませ！\n　アメリアのフルーツはいかがですか！」",
+      "before": "“欢迎光临！\n　亚美利加的水果怎么样！”",
+      "after": "“欢迎光临！\n　阿美利亚的水果怎么样！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/034/dialogue/02.01/0099",
+      "file": "corpus/zh/story-dialogue/stage-034.json",
+      "group": "amelia",
+      "ja": "「アメリアに降りたムーンレィスも\n　こっちの大陸に来てるからな。\n　その内、シベ鉄ともぶつかるだろうぜ」",
+      "before": "“降落在亚美利加的月之民也来到这片大陆了。\n　迟早会和西伯铁冲突吧。”",
+      "after": "“降落在阿美利亚的月之民也来到这片大陆了。\n　迟早会和西伯铁冲突吧。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/052/dialogue/02.01/0029",
+      "file": "corpus/zh/story-dialogue/stage-052.json",
+      "group": "keibi",
+      "ja": "「その制服…\n　シベ鉄の警備隊のものか」",
+      "before": "“那套制服……\n　是西伯铁警卫队的吧。”",
+      "after": "“那套制服……\n　是西伯铁警备队的吧。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/061/dialogue/01.05/0009",
+      "file": "corpus/zh/story-dialogue/stage-061.json",
+      "group": "gym",
+      "ja": "「とっととしろよ、ミドガルド。\n　ギムに言われて、お前の手伝いに\n　来てやったんだからな」",
+      "before": "“快点啊，米德加尔德。\n　我可是受吉姆之命来帮你的。”",
+      "after": "“快点啊，米德加尔德。\n　我可是受基姆之命来帮你的。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/061/dialogue/01.28/0000",
+      "file": "corpus/zh/story-dialogue/stage-061.json",
+      "group": "gym",
+      "ja": "「ちっ！　ギムの命令でも\n　ディアナ・カウンターの援護なんざ\n　やっぱり気が乗らん！」",
+      "before": "“切！就算是吉姆的命令，\n　支援迪安娜回归军这种事果然提不起劲！”",
+      "after": "“切！就算是基姆的命令，\n　支援迪安娜回归军这种事果然提不起劲！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/063/dialogue/01.36/0000",
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "group": "vega",
+      "ja": "「戦いをやめろ、エルダー！\n　ガイゾックやベガと手を組むのは\n　危険だ！」",
+      "before": "“停止战斗吧，伊尔塔！\n　和盖佐克、维加联手是很危险的！”",
+      "after": "“停止战斗吧，伊尔塔！\n　和盖佐克、贝加联手是很危险的！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/063/dialogue/02.01/0056",
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "group": "vega",
+      "ja": "「ガイゾックはベガやエルダー、\n　アルデバロンと連合を組んでいる…」",
+      "before": "“盖佐克与维加、伊尔塔、\n　阿尔德巴朗组成了联合……”",
+      "after": "“盖佐克与贝加、伊尔塔、\n　阿尔德巴朗组成了联合……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/063/dialogue/02.02/0112",
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "group": "timewarp",
+      "ja": "「出来た…！　出来たぞ！\n　やはり、トリニティエネルギーを使えば、\n　タイムワープが可能になる！」",
+      "before": "“成功了……！成功了！\n　果然，使用三位一体能量，\n　就能实现时间跃迁！”",
+      "after": "“成功了……！成功了！\n　果然，使用三位一体能量，\n　就能实现时间跳跃！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/071/dialogue/01.33/0000",
+      "file": "corpus/zh/story-dialogue/stage-071.json",
+      "group": "kenjin",
+      "ja": "「賢人会議が、その存在を秘匿していた\n　コーラリアン…」",
+      "before": "“贤人会一直隐瞒其存在的科拉利安……”",
+      "after": "“贤人会议一直隐瞒其存在的科拉利安……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/081/dialogue/00.01/0003",
+      "file": "corpus/zh/story-dialogue/stage-081.json",
+      "group": "samelia",
+      "ja": "「だが、南アメリアは\n　そのほとんどが荒野だ」",
+      "before": "“但是，南亚美利亚几乎全是荒野。”",
+      "after": "“但是，南阿美利亚几乎全是荒野。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/081/dialogue/01.01/0031",
+      "file": "corpus/zh/story-dialogue/stage-081.json",
+      "group": "samelia",
+      "ja": "「奴らはエマーンの追跡をかわすため、\n　南アメリアに逃げ込んでいる」",
+      "before": "“为了躲避埃曼的追踪，\n　他们逃进了南美洲。”",
+      "after": "“为了躲避埃曼的追踪，\n　他们逃进了南阿美利亚。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/081/dialogue/01.01/0032",
+      "file": "corpus/zh/story-dialogue/stage-081.json",
+      "group": "samelia",
+      "ja": "「南アメリアか…。\n　無法地帯に逃げ込むとは\n　ネズミのやりそうな事だな」",
+      "before": "“南美洲吗……\n　逃进法外之地，\n　倒是老鼠会干的事。”",
+      "after": "“南阿美利亚吗……\n　逃进法外之地，\n　倒是老鼠会干的事。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/086/dialogue/02.01/0058",
+      "file": "corpus/zh/story-dialogue/stage-086.json",
+      "group": "samelia",
+      "ja": "「ロジャー・スミス！\n　あんたも南アメリアに来てたのか！」",
+      "before": "“罗杰·史密斯！\n　你也来南亚美利加了吗！”",
+      "after": "“罗杰·史密斯！\n　你也来南阿美利亚了吗！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/087/dialogue/01.11/0019",
+      "file": "corpus/zh/story-dialogue/stage-087.json",
+      "group": "samelia",
+      "ja": "「しかしよ…個人的な恨みで\n　南アメリアまで俺達を追っかけてくるとは\n　よくやるぜ」",
+      "before": "“不过……\n　为了私人恩怨追到南美洲来，\n　也真够可以的。”",
+      "after": "“不过……\n　为了私人恩怨追到南阿美利亚来，\n　也真够可以的。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/090/dialogue/02.01/0021",
+      "file": "corpus/zh/story-dialogue/stage-090.json",
+      "group": "vega",
+      "ja": "「このスカルムーン基地には\n　ガイゾック、エルダー、ベガ、\n　そして、我々アルデバロンが駐留している」",
+      "before": "“这个骷髅月基地驻留着盖佐克、伊尔塔、\n　维加，以及我们阿尔德巴朗。”",
+      "after": "“这个骷髅月基地驻留着盖佐克、伊尔塔、\n　贝加，以及我们阿尔德巴朗。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/090/dialogue/02.01/0032",
+      "file": "corpus/zh/story-dialogue/stage-090.json",
+      "group": "vega",
+      "ja": "「地球文明の破壊を望むガイゾック、\n　地球人の殲滅を望むエルダー、\n　地球人への復讐を望むベガ…」",
+      "before": "“企图破坏地球文明的盖佐克、\n　企图歼灭地球人的伊尔塔、\n　还有企图复仇的维加……”",
+      "after": "“企图破坏地球文明的盖佐克、\n　企图歼灭地球人的伊尔塔、\n　还有企图复仇的贝加……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/095/dialogue/01.03/0017",
+      "file": "corpus/zh/story-dialogue/stage-095.json",
+      "group": "samelia",
+      "ja": "「いえ違います！\n　これは南アメリアで活動していた方の\n　部隊です！」",
+      "before": "“不，不是！\n　这是在南亚美利加活动的那支部队！”",
+      "after": "“不，不是！\n　这是在南阿美利亚活动的那支部队！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/098/dialogue/02.01/0051",
+      "file": "corpus/zh/story-dialogue/stage-098.json",
+      "group": "samelia",
+      "ja": "「では、南アメリア中部で\n　連邦軍の指示でヴォダラクの高僧を\n　殺害した事は？」",
+      "before": "“那么，在南美洲中部，你们是否在\n　联邦军的指示下杀害了补陀落的高僧？”",
+      "after": "“那么，在南阿美利亚中部，你们是否在\n　联邦军的指示下杀害了补陀落的高僧？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/105/dialogue/02.01/0175",
+      "file": "corpus/zh/story-dialogue/stage-105.json",
+      "group": "kenjin",
+      "ja": "「ですが、あのまま賢人会議の存在を\n　放置しておくよりは、ずっといいと思います」",
+      "before": "“但我觉得，\n　这总比放任贤人会存在要好得多。”",
+      "after": "“但我觉得，\n　这总比放任贤人会议存在要好得多。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/108/dialogue/01.41/0000",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "group": "kenjin",
+      "ja": "「フロスト兄弟！\n　お前達がニュータイプを集めていたのも\n　賢人会議の指令なのか！」",
+      "before": "“弗罗斯特兄弟！\n　你们收集新人类也是贤人会的指令吗！”",
+      "after": "“弗罗斯特兄弟！\n　你们收集新人类也是贤人会议的指令吗！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/119/dialogue/01.23/0004",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "group": "gym",
+      "ja": "「アハハハ、ギム！\n　$cとあっちの人形達、\n　どっちをやるんだい！？」",
+      "before": "“啊哈哈，吉姆！\n　$c和那边的人偶，\n　你选哪个！？”",
+      "after": "“啊哈哈，基姆！\n　$c和那边的人偶，\n　你选哪个！？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/120/dialogue/02.01/0076",
+      "file": "corpus/zh/story-dialogue/stage-120.json",
+      "group": "skullmoon",
+      "ja": "「スカルムーン連合は\n　既に最終作戦に入っている」",
+      "before": "“骷髅月联盟已经进入最终作战。”",
+      "after": "“骷髅月联合已经进入最终作战。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/125/dialogue/02.02/0062",
+      "file": "corpus/zh/story-dialogue/stage-125.json",
+      "group": "gicho",
+      "ja": "「暗殺の犯人は\n　デュランダル議長の手のものだと？」",
+      "before": "“暗杀者是迪兰达尔主席派来的人吗？”",
+      "after": "“暗杀者是迪兰达尔议长派来的人吗？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/125/dialogue/02.02/0080",
+      "file": "corpus/zh/story-dialogue/stage-125.json",
+      "group": "gicho",
+      "ja": "「この和平会談…デュランダル議長の\n　あずかり知らぬ話だと？」",
+      "before": "“这次和平会谈……迪兰达尔主席不知情吗？”",
+      "after": "“这次和平会谈……迪兰达尔议长不知情吗？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/127/dialogue/01.10/0003",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "group": "gym",
+      "ja": "「アハハハ、ギム！\n　$cと新連邦軍の連中、\n　どっちをやるんだい！？」",
+      "before": "“啊哈哈，吉姆！\n　$c和新联邦军的家伙，\n　你打哪个！？”",
+      "after": "“啊哈哈，基姆！\n　$c和新联邦军的家伙，\n　你打哪个！？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/131/dialogue/02.01/0023",
+      "file": "corpus/zh/story-dialogue/stage-131.json",
+      "group": "skullmoon",
+      "ja": "「スカルムーン連合は\n　既に最終作戦に入っている」",
+      "before": "“骷髅月联盟已经进入最终作战。”",
+      "after": "“骷髅月联合已经进入最终作战。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/160/dialogue/00.01/0111",
+      "file": "corpus/zh/story-dialogue/stage-160.json",
+      "group": "samelia",
+      "ja": "「…ふうん…じゃあ、キングは\n　今は南アメリアにいるんだ」",
+      "before": "“……嗯……那么，\n　KING现在在南美洲啊。”",
+      "after": "“……嗯……那么，\n　KING现在在南阿美利亚啊。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/160/dialogue/00.01/0114",
+      "file": "corpus/zh/story-dialogue/stage-160.json",
+      "group": "samelia",
+      "ja": "「実はね、キング…。\n　あたしも今、南アメリアに来てるの」",
+      "before": "“其实啊，KING……\n　我现在也在南美洲呢。”",
+      "after": "“其实啊，KING……\n　我现在也在南阿美利亚呢。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/160/dialogue/00.01/0116",
+      "file": "corpus/zh/story-dialogue/stage-160.json",
+      "group": "samelia",
+      "ja": "「でも、南アメリアって言っても広いから\n　この前みたいにデートは出来そうにもないね」",
+      "before": "“不过，南美洲那么大，\n　恐怕没法像上次那样约会了。”",
+      "after": "“不过，南阿美利亚那么大，\n　恐怕没法像上次那样约会了。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    }
+  ],
+  "library_overrides": []
+}

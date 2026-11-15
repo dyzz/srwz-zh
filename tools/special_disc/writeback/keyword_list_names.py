@@ -18,6 +18,7 @@ CONTRACT = ROOT / 'config/products/special-disc/keyword-list-names.json'
 MEMBER = 'DATA/COMPDATA.BN'
 BASE, TABLE = 0x764F80, 0x67400
 WRITES = [(10, 0x88980, 16), (19, 0x889E8, 16), (21, 0x88A50, 24),
+          (26, 0x88AB0, 16),  # アプリリウス renamed in place on 2026-11-15
           (36, 0x88B78, 24), (41, 0x88C8A, 22)]
 EMPTY = dict(pointer_offset=0x684C0, source_offset=0x88C98, target_offset=0x88C9C)
 
@@ -127,7 +128,7 @@ def apply_keyword_names(archive, table, overrides, readback):
                                        decoded_view(output).consumed)
     labels = verify_keyword_names(output, readback)
     _, _, path = inputs()
-    return output, dict(labels=labels, repaired_entries=5, verified_entries=len(labels),
+    return output, dict(labels=labels, repaired_entries=len(WRITES), verified_entries=len(labels),
         changed=data != decoded.output, compressed_bytes=packed_size,
         allocated_bytes=None if staged else len(archive),
         decoded_sha256=sha(data), owned_ranges=[dict(offset=a, size=len(b)) for a, b in plans],

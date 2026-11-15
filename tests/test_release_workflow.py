@@ -358,7 +358,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             ),
             "story/016/dialogue/01.15/0004": "“你、你在胡说什么！”",
             "story/013/dialogue/01.02/0003": (
-                '“啊〜啊〜……现在正在测试麦克风。今天\n\u3000是个晴天……水黾好红啊，啊伊乌诶哦……”'
+                '“啊〜啊〜……现在正在测试麦克风。\n\u3000今天是个晴天……\n\u3000水黾好红啊，啊伊乌诶哦……”'
             ),
             "story/108/dialogue/02.01/0058": (
                 '“没错！锄强扶弱，勇气为伴，迎战巨恶！\n\u3000这才是男人的浪漫！”'
@@ -565,7 +565,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "story/109/dialogue/01.50/0003",
             "story/109/dialogue/01.57/0002",
         ):
-            self.assertIn("Turn型", unscoped_text(entries_109[entry_id]).replace("\n　", ""))
+            self.assertIn("Turn系机体", unscoped_text(entries_109[entry_id]).replace("\n　", ""))
             self.assertNotIn("倒转类型", entries_109[entry_id])
 
         message_ids = (

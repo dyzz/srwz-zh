@@ -106,7 +106,7 @@
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
       "size": 15984,
-      "sha256": "2bce4c3fc34c37ea289f25b36a1afeef4a1a183657bbe62ff49914136dad2d56"
+      "sha256": "cab83ebfea516f38bbb2b9cea9d446cb3b394062b6304140ef6d33559e41c26a"
     },
     "unit_name_relocations": [],
     "expected": {
@@ -153,7 +153,7 @@
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
       "size": 15984,
-      "sha256": "2bce4c3fc34c37ea289f25b36a1afeef4a1a183657bbe62ff49914136dad2d56"
+      "sha256": "cab83ebfea516f38bbb2b9cea9d446cb3b394062b6304140ef6d33559e41c26a"
     },
     "battle_archives": [
       {
@@ -447,8 +447,8 @@
   "stage_overviews": {
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89403,
-      "sha256": "bc9a2f5f4b26c03138392ee53dc38ff17e74b1ced2464fac3352eb87a310708b"
+      "size": 89406,
+      "sha256": "8996f9c461ffcc65ac0669f2a0214801ce54da358bb4a70b34b14f070013dbc0"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -629,8 +629,8 @@
     },
     "corpus": {
       "path": "corpus/zh/menu/hsfc-overviews.json",
-      "size": 22205,
-      "sha256": "edbec8a988543f00bfe26837b05c4ca78017190cb4cf5b9c178d8f28bb17776c"
+      "size": 22208,
+      "sha256": "5e0c7b332b0fa12afc4ae641d593166aaaf12413b5afd6e8f31f275a08706a18"
     },
     "expected": {
       "record_count": 180,
@@ -683,13 +683,13 @@
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
-      "size": 13188,
-      "sha256": "cd320b922a67dd577f8295b5f54b010824fa72d328ac9ea4b24fe987bbba5637"
+      "size": 13185,
+      "sha256": "f9a729b66bc785dc87df48cafbbd718a33caa51cc5a50b2ecb8244cedc7432de"
     },
     "stage_default_formation_inventory": {
       "path": "config/stage-default-formation-inventory.json",
-      "size": 187817,
-      "sha256": "8acc7f6f72aa55ac78aa47b0dbfe2d3e1acad98b79b39ab499838973c6d51459"
+      "size": 688000,
+      "sha256": "6f4606ae1a49cdb3a010065fcdf74c4f44056d3eacac543a81ab8261de7dfbf9"
     },
     "search_tab_alignment": {
       "member": "SLPS_258.87",
@@ -1418,8 +1418,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6989474,
-      "sha256": "0576e8547db1c4bad27f275eebde1d9ecce8954442c7997928cb71778d6ecff6"
+      "size": 6989770,
+      "sha256": "46efa24ea65f06421b2de65ede1c96e52170c79f1f949bf69ee9157aa6d3428e"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -2300,13 +2300,13 @@
     },
     "corpus": {
       "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
-      "size": 19856,
-      "sha256": "643f5223f87b3ffe3ee2c2ca5e7eac292207ef53dbeacfdd39cdf1edc0c6de5d"
+      "size": 19859,
+      "sha256": "0645b12873626417e6194149863a0a6e4bbdaa234f8a31b9e7d1663b3163ed6e"
     },
     "render_snapshot": {
       "path": "config/world-map-title-render-snapshot.json",
-      "size": 422894,
-      "sha256": "e546c12642584c5c92dbe1f06e542a3ff6d91d7216f5c00e06799d636b978a62"
+      "size": 422887,
+      "sha256": "4c62f13a97b3a539b91c6ad0a6a4f6a1bc63bd331e51ed20e123a885f3f9e68d"
     },
     "archive": {
       "member": "MAP/MAPMODEL.BIN",
@@ -3071,7 +3071,7 @@
     "catalog": {
       "path": "corpus/runtime/stage-keywords-v1.json",
       "size": 9700,
-      "sha256": "afd095d19091000a69a135411414094760acda01d6eb102f73c20854bae52b5c"
+      "sha256": "dfb293eaf430b291f4e251bbc8703ede849f73c3bb398177c98ba30d2aa56150"
     },
     "library_archive": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
@@ -3173,7 +3173,7 @@
       "release_snapshot_primary_mapping_sha256": "bdb6466012dfbf2c057c9da90229b5da692cb899ae683edde09505509eef333b",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "2ad2fe64bfa389f943d75187dd06804b8e4e54e5d81bdd5e71858d4050b711a1",
+        "sha256": "c84dfb98038bcafe4a7103f9a87a0891787d71f8e652ce834116d968bd85d963",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."

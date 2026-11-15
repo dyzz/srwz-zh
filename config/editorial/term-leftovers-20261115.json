@@ -1,0 +1,1338 @@
+{
+  "schema_version": 1,
+  "review_id": "term-leftovers-20261115",
+  "translation_writeback": true,
+  "purpose": "0.5.1 发布前的译名遗留：五组专名和 117／130 话两句同源歌词按用户在对话中的决定统一。每条改写绑定该记录自己的日文原文，只替换专名，不动其他措辞和换行。",
+  "authorization": {
+    "turntype": "ターンタイプ统一Turn系机体吧",
+    "aprilius": "アプリリウス统一阿普里利乌斯",
+    "golem": "アンダーゴレーム 统一 安达葛雷姆",
+    "kodama": "コダマ隊 按照当前名字的翻译统一",
+    "inga": "因果の鎖 统一 因果之链",
+    "lyric": "メタル〜オ〜バ〜マン、キングゲイナー♪ 用前一个，但是王者盖纳 改英语，和前一句一致"
+  },
+  "note": "带审阅定稿或线上意见的行一并改写：用户是在挑选页列出这些意见的情况下定的译名。线上意见逐条记在条目里。",
+  "feedback_snapshot_at": "2026-11-14T16:11:57.351636+00:00",
+  "feedback_snapshot_total": 3945,
+  "summary": {
+    "write": 99,
+    "files": 37,
+    "by_group": {
+      "golem": 7,
+      "turntype": 41,
+      "aprilius": 29,
+      "kodama": 8,
+      "inga": 11,
+      "lyric": 3
+    },
+    "reviewed": 31,
+    "with_online_opinions": 4,
+    "library_override_edits": 3,
+    "online_snapshot_at": "2026-11-14T16:11:57.351636+00:00",
+    "online_snapshot_total": 3945,
+    "gate_errors": 0
+  },
+  "application": {
+    "files": [
+      {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "entries": 21,
+        "before_sha256": "73e510eb6d453534058abc997e2992383d11d41d7587eb82ffc1d489417181ba",
+        "after_sha256": "2c9ff6c82343f962de1b3c575aec9584413bbff7d8608f6e429aba529e79e195"
+      },
+      {
+        "path": "corpus/zh/library/v0.2-reviewed.json",
+        "entries": 7,
+        "before_sha256": "7a143f635008594f185380583a48edcf2b269bb40247a23a6636624bb66b047f",
+        "after_sha256": "f65153dee9bc0579ff7e7e1dda96ba2034123c9549f1f034d2d4d5348710597f"
+      },
+      {
+        "path": "corpus/zh/menu/stage-overviews.json",
+        "entries": 1,
+        "before_sha256": "bc9a2f5f4b26c03138392ee53dc38ff17e74b1ced2464fac3352eb87a310708b",
+        "after_sha256": "8996f9c461ffcc65ac0669f2a0214801ce54da358bb4a70b34b14f070013dbc0"
+      },
+      {
+        "path": "corpus/zh/special-disc/challenge-dialogue.json",
+        "entries": 1,
+        "before_sha256": "c49a11a67831814ae3adf0b97bde30a6b0c7f3664da394a72f6e42378b1f3472",
+        "after_sha256": "18585aaf549c21072e0c4824febd4f809daa24cea1ba4db16937c8b357656af3"
+      },
+      {
+        "path": "corpus/zh/special-disc/native-text.json",
+        "entries": 1,
+        "before_sha256": "e1899d5b916de7695f719f98efc17763b407fae7ca0c8a5aeb66b16d2b96f027",
+        "after_sha256": "47d9485e793714d77f24f952e4faa31a7b84dacd7d32553140812336927e98d7"
+      },
+      {
+        "path": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+        "entries": 1,
+        "before_sha256": "2b0cc0a227ed1eada01db371c1550161a685136219d8503aaf58682db0979652",
+        "after_sha256": "57ba053ba17ecc4cb686ea08ec033cafc53080184fe6056539ccf59dece1f264"
+      },
+      {
+        "path": "corpus/zh/special-disc/squad-names.json",
+        "entries": 1,
+        "before_sha256": "9a1ae29146258bcb7bd2c72f995b5cc22857420a61e1fb833df63d688cdb4229",
+        "after_sha256": "a2a0aa7db42bf7deeaac115d9358532b522e0f55a5d171661d4b0b9b902541b6"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-035.json",
+        "entries": 2,
+        "before_sha256": "06a4afd23ad7cf6ec77379f1e72c40cb43bfff46fe2b1fa7ecae8cb217cf07c6",
+        "after_sha256": "4d7d34b47cc36b4723f1f10880e29430c1a2e3b58d853e104f99c015092dffe9"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-036.json",
+        "entries": 2,
+        "before_sha256": "46dfdd09c6e496b41f955ed4954c766f3afd869bfd8ec96d8b751a4d577e5b8e",
+        "after_sha256": "db9bd48422faa6cf5d53bab9fc2c983edb2729783f222353e0916589372e3250"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-038.json",
+        "entries": 2,
+        "before_sha256": "ca2cf1036182d0bb48889d7e957c5ac1d4de0291cfa1119354b87b5f1b492540",
+        "after_sha256": "52d84300ccc46ca5fe52fcc2b99b83969722e62d725e31d3782e5a83aa8da8af"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-040.json",
+        "entries": 4,
+        "before_sha256": "7083d662ef836448029090434e14fb100fee0eded956e90522decd26ae76938c",
+        "after_sha256": "f431499f1803bc8eacdefef98b883289759d4f317850c3e5ac8c65da1798f729"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-045.json",
+        "entries": 1,
+        "before_sha256": "2fbce46ccb4b0be438b4074c860635991d60cc38c06791fee71d401506b8de85",
+        "after_sha256": "f38395bf24bf00fde6cd5fbc5ad1d123c1ae42383d2567c08fc09725ab5d9897"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-057.json",
+        "entries": 1,
+        "before_sha256": "c9c5516a45e0809d44b6c869ae6e8790951c3287f5b55b7f229374133c7097a7",
+        "after_sha256": "ec17ce97cf2eb2cb996a5a815a73e57d91d4a8fe61be08fb268855cd0cfb4e15"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-073.json",
+        "entries": 1,
+        "before_sha256": "b21ed09670b7428a7d1613e6cc4e874cccda236ed18954ded8d7e70a34d30967",
+        "after_sha256": "481d0eb53a03509b962c77a323125a5079911c5fc53931b0c2cccaaefa5cfbb4"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-078.json",
+        "entries": 1,
+        "before_sha256": "115095d0ea447e6d09de652bc802882fcc49a02069bb27de28278ae88e438c14",
+        "after_sha256": "b4e9f46fc8a640d1a97793f890e57241b422f5e737b64807410851deace81b44"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-084.json",
+        "entries": 2,
+        "before_sha256": "f63fa7d6e505f3593a619865145b8f50f9ea8dde357ef98f803e08404ec89f9d",
+        "after_sha256": "68cfa7df482126eaff661cfc8915eaff4f17ee705761fd1d497aece9d863964b"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-104.json",
+        "entries": 1,
+        "before_sha256": "c055436e75c21cb360480c96179fb670979360ed6515353350e59bf028920d89",
+        "after_sha256": "bb7ca1f854205a9c2fbe77ec2493df4460031b4a5aa598fdf406644593a44108"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-108.json",
+        "entries": 1,
+        "before_sha256": "0f707194fb3a3c448c6717248722f92da49002ebe969a6df3a8e7718217254ed",
+        "after_sha256": "e77fb4375192b83d59e3cebd41efe3a09b6a8b6cc7a94de022df6fc57042a9f6"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-109.json",
+        "entries": 5,
+        "before_sha256": "add44dbd858f6bbc641214d270817f31d23766df5ed8c0b6105734bbd413fab9",
+        "after_sha256": "6415e0e6459b94e3d1757839e0b454f9145c68b76c6d791edb31a18e3bd147cf"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-113.json",
+        "entries": 2,
+        "before_sha256": "481ad28fe59e07a4302d3f70f6229169544807279ceea01ca3f356f1c537db29",
+        "after_sha256": "b8918464e032113dd122f623dc53f3b92f67d523b2a8afecb0f91534b5206e24"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-114.json",
+        "entries": 1,
+        "before_sha256": "f81c598cb1d61ce3eacd219e69f83458df7dce266edffd4184a6027c94745241",
+        "after_sha256": "806ab31494e95a3ec45a60b3ab6f29429ebdba2862ca18277852f7b164fc8d30"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-115.json",
+        "entries": 2,
+        "before_sha256": "9136f87d73ee6d83883ede02c301fe2815b251474fd7f56bc3b34f5a01199099",
+        "after_sha256": "3a9acf4ef787b54158deb8bba23abab5cbbf8aac74f2e5f0e7bf0301948e2988"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-117.json",
+        "entries": 1,
+        "before_sha256": "8d33746597da879132399635e5769085d69a2005adc5a4ef5a7f8d7a96c1c97e",
+        "after_sha256": "ed9ecd96e93e87a9f7eedbef31ea768f33b2716027f1c75a96db09cda2c93db3"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-118.json",
+        "entries": 1,
+        "before_sha256": "f6108cf09e78829300399996b2a7aae52663aa3047e4ec3213e228a1129582f6",
+        "after_sha256": "d68c3167e6b9cc54cdb1f9b3b920d6ef448a84342d4501869b2e14c190c1f222"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-119.json",
+        "entries": 4,
+        "before_sha256": "3579c7cc5b3d66f04fef0bb52168b8d96f6f82e42f544aec25f5cf078910637e",
+        "after_sha256": "5bad8e2f96e87fe90ae3ec607912e5fca522b0800ac987c077aac4070864f831"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-123.json",
+        "entries": 1,
+        "before_sha256": "ed28e1de5faa2b9c2fb84943adccead457b3cecf795e7b0654b2b1659430c64a",
+        "after_sha256": "c244441009058f587823e453d429468bf7cbaf0cdd3f2ba666a835129ef6beae"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-125.json",
+        "entries": 5,
+        "before_sha256": "4e6dba7955925f413efd49eb661588be4cbcabef8e7e7c2298fd03e7d09898b0",
+        "after_sha256": "4314d1a800b7e6b856f8ad337096e59925f2ad3ef1cb908f5558ae9bd8c29493"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-126.json",
+        "entries": 1,
+        "before_sha256": "7cb2339f966bdab6ec2fca74fedf688657b557e0db55174b0e45de84039b1beb",
+        "after_sha256": "8b32f720f6ea22b2f9f1d58da6807734aac4d0f85de7855d0f2da6289bdb3f32"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-127.json",
+        "entries": 3,
+        "before_sha256": "11c53aac9e5ca976d344891ccb4ebbddd3d895418c05a096a43dd672c617e3c6",
+        "after_sha256": "b3ca334859bab204b421d063dc441d560f63691422d0766a624c3194f8a6a692"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-130.json",
+        "entries": 2,
+        "before_sha256": "4918f86cf5f24b0c47e71f6c68ee6d848f203031c4953efe9195c74dfaa18675",
+        "after_sha256": "447502da83848f2bc25eef7e3abd135f0d12ebe87f1f6422a6de3939d7213946"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-135.json",
+        "entries": 7,
+        "before_sha256": "b7593480f578f8430866251d66de585afec856126eb2e737dc4bf45db9fb4e12",
+        "after_sha256": "ecad99aa8375548bd113ee2e220ed58d2274ba88d0aa8555b73addb7708ac959"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-136.json",
+        "entries": 1,
+        "before_sha256": "13ea26649a03bd6c986d3568615abf02622c369a28ba64b11da12b500e6089e2",
+        "after_sha256": "aee484a5753ae8782266a06085a50bbecf36dbb180036e01c20c91fec6b375db"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-138.json",
+        "entries": 6,
+        "before_sha256": "80119ea025a9407c50194d0b68c8d23198b43d2ead1e7e2d409ded1bcedb015d",
+        "after_sha256": "f768bff5d7b47876ff25862ec3fd1b14774cb34d53982e773e23d3bb52956b33"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-139.json",
+        "entries": 3,
+        "before_sha256": "c5b9ef4f5e027c79b2960458d833a1e4d270e97b9cb5eacf010eb211d2503809",
+        "after_sha256": "e6737e56b5490e30b1fe6c3d95db1dd579f9890f6a652ca553ae2f6cad15a35a"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-140.json",
+        "entries": 1,
+        "before_sha256": "feb711f6ecce97420e1336b701e469b83caf037e2fa3629eefac209f0f722611",
+        "after_sha256": "1a88279d7a7be53ee99a11307445a179881e8953c48ee4a13b913bb4968afe09"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-141.json",
+        "entries": 1,
+        "before_sha256": "3afb620fbf38f614c816281617900458bdc5ff7836b00c90a50b0625c19469e4",
+        "after_sha256": "d15233d5dfe4b534c0bb0360b3fdae8717b319d300e7bf2425264b1fa5bdc21f"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-146.json",
+        "entries": 1,
+        "before_sha256": "7125f47828d09f69c77bd08cef62848f3a7191ca6af7d72ee10b47a313e0e5d5",
+        "after_sha256": "12192c48c3e962b6fa2d08539345c319de34097fef34353c407a427bf38d9e9a"
+      },
+      {
+        "path": "config/library/v0.2-editorial-overrides.json",
+        "entries": 0,
+        "before_sha256": "b537560a4ed8a13ea156ca361f5628fc2550f76deab45708bbf8fe7bcf1766df",
+        "after_sha256": "6c01f945eb6bfd63a37ab133a7389c14c37feb8e5952d95ea29f26478cef2aac"
+      }
+    ],
+    "active_lock_updates": [
+      {
+        "file": "config/full-story-components.json",
+        "edits": [
+          {
+            "pointer": "/stage_overviews/corpus",
+            "before": {
+              "path": "corpus/zh/menu/stage-overviews.json",
+              "size": 89403,
+              "sha256": "bc9a2f5f4b26c03138392ee53dc38ff17e74b1ced2464fac3352eb87a310708b"
+            },
+            "after": {
+              "path": "corpus/zh/menu/stage-overviews.json",
+              "size": 89406,
+              "sha256": "8996f9c461ffcc65ac0669f2a0214801ce54da358bb4a70b34b14f070013dbc0"
+            }
+          },
+          {
+            "pointer": "/srvc_battle_text/corpus",
+            "before": {
+              "path": "corpus/zh/battle/srvc-lines.json",
+              "size": 6989474,
+              "sha256": "0576e8547db1c4bad27f275eebde1d9ecce8954442c7997928cb71778d6ecff6"
+            },
+            "after": {
+              "path": "corpus/zh/battle/srvc-lines.json",
+              "size": 6989757,
+              "sha256": "2c9ff6c82343f962de1b3c575aec9584413bbff7d8608f6e429aba529e79e195"
+            }
+          }
+        ]
+      }
+    ],
+    "site_writeback": false
+  },
+  "entries": [
+    {
+      "id": "battle:00468",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "golem",
+      "ja": "「これがアンダーゴレームの\\n　オーバースキルだ！」",
+      "before": "“这就是安达格雷姆的\\n　超限技！”",
+      "after": "“这就是安达葛雷姆的\\n　超限技！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:00540",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "golem",
+      "ja": "「アンダーゴレームには盾がある！」",
+      "before": "“安达格雷姆有盾牌！”",
+      "after": "“安达葛雷姆有盾牌！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:00597",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプめ！　オーバーデビルに\\n　喰らい尽くされるがいい！」",
+      "before": "“Turn Type！\\n　被超限恶魔吞噬殆尽吧！”",
+      "after": "“Turn系机体！\\n　被超限恶魔吞噬殆尽吧！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:02043",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプのモビルスーツ！　\\n　その真の力を目覚めさせろ！」",
+      "before": "“Turn Type的MS！\\n　觉醒你真正的力量吧！”",
+      "after": "“Turn系机体！\\n　觉醒你真正的力量吧！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:02078",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「無様だな、ターンタイプ！　\\n　お前の力はこんなものではないはずだ！」",
+      "before": "“真难看啊，Turn Type！\\n　你的力量不该只有这点！”",
+      "after": "“真难看啊，Turn系机体！\\n　你的力量不该只有这点！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:04083",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプ！　\\n　その機体、渡してもらおう！」",
+      "before": "“Turn Type！\\n　那台机体，交出来吧！”",
+      "after": "“Turn系机体！\\n　那台机体，交出来吧！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:04727",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「どこまでもターンタイプを弄ぶのか！」",
+      "before": "“还要把Turn Type玩弄到什么时候！”",
+      "after": "“还要把Turn系机体玩弄到什么时候！”",
+      "online_opinions": [
+        {
+          "id": "670a6d75-c3b7-4ed3-97f9-dbb94cffa6a6",
+          "by": "桑德曼",
+          "resolution": "alternative",
+          "proposed": "“还要玩弄Turn类型到什么时候！”"
+        }
+      ],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:05575",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「その程度でターンタイプの\\n　モビルスーツは落ちるものか！」",
+      "before": "“就那种程度，\\n　你当能击落逆式的MS吗！”",
+      "after": "“就那种程度，\\n　你当能击落Turn系机体吗！”",
+      "online_opinions": [
+        {
+          "id": "a6a59297-d8cc-4144-9e57-264e08275282",
+          "by": "克瓦特罗",
+          "resolution": "adopted",
+          "proposed": "“就那种程度，\\n　你当能击落逆式的MS吗！”"
+        }
+      ],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:05633",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプは、\\n　このターンＸ１機があればいい！」",
+      "before": "“Turn Type，\\n　有这台倒X一架就够了！”",
+      "after": "“Turn系机体，\\n　有这台倒X一架就够了！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:06163",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプだからって、調子に乗るな！」",
+      "before": "“别因为是Turn Type就得寸进尺！”",
+      "after": "“别因为是Turn系机体就得寸进尺！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:06296",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプ…呪われたマシン…。\\n　凍りつくがいい！」",
+      "before": "“Turn Type…被诅咒的机器…\\n　冻结吧！”",
+      "after": "“Turn系机体…被诅咒的机器…\\n　冻结吧！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:06513",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "golem",
+      "ja": "「これがアンダーゴレームのォ！」",
+      "before": "“这就是安达格雷姆的—！”",
+      "after": "“这就是安达葛雷姆的—！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:06764",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "golem",
+      "ja": "「アンダーゴレームのオプションは、\\n　こう使う！」",
+      "before": "“安达格雷姆的选装件\\n　要这样用！”",
+      "after": "“安达葛雷姆的选装件\\n　要这样用！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:06768",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "golem",
+      "ja": "「アンダーゴレームの\\n　マッハバンドシェイカーにかかれば！」",
+      "before": "“安达格雷姆的\\n　马赫频带振荡器一出马！”",
+      "after": "“安达葛雷姆的\\n　马赫频带振荡器一出马！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:07259",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプと言えど！」",
+      "before": "“就算是Turn Type！”",
+      "after": "“就算是Turn系机体！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:07523",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプ…\\n　お前に月光蝶は使わせない」",
+      "before": "“Turn Type…\\n　不会让你用月光蝶的”",
+      "after": "“Turn系机体…\\n　不会让你用月光蝶的”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:09158",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプ！　\\n　やはり、実在していたか！」",
+      "before": "“Turn Type！\\n　果然真实存在吗！”",
+      "after": "“Turn系机体！\\n　果然真实存在吗！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:09159",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプが目覚めた今、\\n　再び世界は闇に包まれよう！」",
+      "before": "“Turn Type觉醒的此刻，\\n　世界将再次被黑暗笼罩！”",
+      "after": "“Turn系机体觉醒的此刻，\\n　世界将再次被黑暗笼罩！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:10817",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプ…\\n　また一緒に世界を作り変えようよ…」",
+      "before": "“Turn Type…\\n　再一起重塑世界吧…”",
+      "after": "“Turn系机体…\\n　再一起重塑世界吧…”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:14466",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「これがターンタイプの\\n　モビルスーツの力か！」",
+      "before": "“这就是Turn Type\\n　MS的力量吗！”",
+      "after": "“这就是Turn系机体\\n　MS的力量吗！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:21752",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "turntype",
+      "ja": "「ターンタイプのモビルスーツが戦ったら、\\n　人類は滅びるかも知れないのに！」",
+      "before": "“要是Turn Type的MS打起来，\\n　人类说不定会灭亡啊！”",
+      "after": "“要是Turn系机体打起来，\\n　人类说不定会灭亡啊！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/1e89c95c9a713c4f",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "turntype",
+      "ja": "　元ディアナ・カウンター軍曹。\n　ロランに敗れてから出家して各地\nを放浪していたが、メリーベルの∀\nガンダムが放った月光蝶の光を見て\n自らの使命を思い出す。そしてディ\nアナの元へ向かい、軍に戻る事とタ\nーンタイプのガンダムを討つ事を許\nされると、感極まって涙を流した。\n　カプルを専用カラーに塗り替えさ\nせるなど、周囲を呆れさせる奔放ぶ\nりは相変わらずであった。だが腕の\n方は衰えておらず、不慣れなはずの\nカプルで空中戦をやってのけ、マヒ\nロー部隊を圧倒する活躍を見せた。\n　やがてターンＸまでもが月光蝶を\n発動させると、あえてソシエとメシ\nェーのカプルから燃料を奪って２人\nを戦場から離れた場所に残らせ、単\n身死地に赴き散っていった。",
+      "before": "<width:16><space:16>原迪安娜回归军军曹。败于罗兰后\n出家，流浪各地，但看到梅莉贝儿\n的∀高达发出的月光蝶之光后，想起\n了自己的使命。于是前往迪安娜处，\n获准回归军队并讨伐<width:0E><space:0C>Turn<width:16><space:16>型高达\n时，激动得热泪盈眶。将卡普尔涂\n成专用配色等，令周围人目瞪口呆\n的奔放作风依旧。但身手并未衰退，\n以本应不熟悉的卡普尔进行空战，\n展现出压制玛希罗部队的活跃表现。\n当倒X也发动月光蝶时，他故意夺\n取苏茜亚和美雪的卡普尔的燃料，让\n两人留在远离战场之处，独自赴死。",
+      "after": "<width:16><space:16>原迪安娜回归军军曹。败于罗兰后\n出家，流浪各地，但看到梅莉贝儿\n的∀高达发出的月光蝶之光后，想起\n了自己的使命。于是前往迪安娜处，\n获准回归军队并讨伐<width:0E><space:0C>Turn<width:16><space:16>系高达\n时，激动得热泪盈眶。将卡普尔涂\n成专用配色等，令周围人目瞪口呆\n的奔放作风依旧。但身手并未衰退，\n以本应不熟悉的卡普尔进行空战，\n展现出压制玛希罗部队的活跃表现。\n当倒X也发动月光蝶时，他故意夺\n取苏茜亚和美雪的卡普尔的燃料，让\n两人留在远离战场之处，独自赴死。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/6e6dba24c2d47e7b",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "turntype",
+      "ja": "　元ディアナ・カウンター軍曹。\n　ロランに敗れてから出家して各地\nを放浪していたが、メリーベルの∀\nガンダムが放った月光蝶の光を見て\n自らの使命を思い出す。そしてディ\nアナの元へ向かい、軍に戻る事とタ\nーンタイプのガンダムを討つ事を許\nされると、感極まって涙を流した。\n　カプルを専用カラーに塗り替えさ\nせるなど、周囲を呆れさせる奔放ぶ\nりは相変わらずであった。だが腕の\n方は衰えておらず、不慣れなはずの\nカプルで空中戦をやってのけ、マヒ\nロー部隊を圧倒する活躍を見せた。",
+      "before": "<width:16><space:16>原为迪安娜回归军的军曹。败给罗兰\n后出家，流浪各地，但看到梅莉贝儿\n的∀高达释放的月光蝶之光后，想起\n了自己的使命。于是前往迪安娜处，\n获准重返军队并讨伐<width:0E><space:0C>Turn<width:16><space:16>型高达\n时，激动得流下了眼泪。他将卡普尔\n涂成专用配色等，依然是我行我素\n得令人瞠目。但身手并未衰退，用本\n应不熟悉的卡普尔完成了空战，以压\n倒玛希罗部队的活跃表现大放异彩。",
+      "after": "<width:16><space:16>原为迪安娜回归军的军曹。败给罗兰\n后出家，流浪各地，但看到梅莉贝儿\n的∀高达释放的月光蝶之光后，想起\n了自己的使命。于是前往迪安娜处，\n获准重返军队并讨伐<width:0E><space:0C>Turn<width:16><space:16>系高达\n时，激动得流下了眼泪。他将卡普尔\n涂成专用配色等，依然是我行我素\n得令人瞠目。但身手并未衰退，用本\n应不熟悉的卡普尔完成了空战，以压\n倒玛希罗部队的活跃表现大放异彩。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/711640e33fa05fbe",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "golem",
+      "ja": "アンダーゴレーム",
+      "before": "安达格雷姆",
+      "after": "安达葛雷姆",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/826687071b24e7e8",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "turntype",
+      "ja": "　月のマウンテンサイクルから発掘されたモビルスーツ。\n　∀ガンダムと同じターンタイプと称され、お互いの存在\nを感知すると共鳴現象を起こす。\n　∀ガンダムと違いコックピットは頭部に存在し、単独で\nも行動が可能。また、全身を９個のパーツに分離してオー\nルレンジ攻撃を行ったり、敵を拘束してデータを奪うこと\nができる。これによって∀ガンダムのデータを取り込み、\n月光蝶までも使用可能となった。\n　ナノマシンによる自己修復機能を持つが、過去に∀ガン\nダムによってつけられたとされる胸のＸ型の傷だけが未だ\n残っており、その理由は不明である。\n　名称の『Ｘ』の由来は、『１０（Ｘ）番目の星により道\nを曲げられたもの』という意味だとも言われている。",
+      "before": "<width:16><space:16>从月球的环形山中发掘出的MS。与∀高达同属<width:0E><space:0C>Turn<width:16><space:16>型，\n彼此感知到对方存在时会引发共鸣现象。与∀高达不同，\n驾驶舱位于头部，可单独行动。此外，可将全身分离\n为9个部件进行全方位攻击，或束缚敌人夺取数据。\n由此获取了∀高达的数据，甚至能使用月光蝶。拥有纳\n米机器自我修复功能，但据称过去被∀高达留下的胸部\nX形伤痕至今仍在，原因不明。名称中“X”的由来，\n据说是“被第10（X）颗星改变了道路之物”的意思。",
+      "after": "<width:16><space:16>从月球的环形山中发掘出的MS。与∀高达同属<width:0E><space:0C>Turn<width:16><space:16>系机体，\n彼此感知到对方存在时会引发共鸣现象。与∀高达不同，\n驾驶舱位于头部，可单独行动。此外，可将全身分离\n为9个部件进行全方位攻击，或束缚敌人夺取数据。\n由此获取了∀高达的数据，甚至能使用月光蝶。拥有纳\n米机器自我修复功能，但据称过去被∀高达留下的胸部\nX形伤痕至今仍在，原因不明。名称中“X”的由来，\n据说是“被第10（X）颗星改变了道路之物”的意思。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/9287e4b64f03789b",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "turntype",
+      "ja": "　ムーンレィスの武門を司るギンガ\nナム家の総領にして、ギンガナム宇\n宙艦隊の総司令官。\n　「戦闘こそが己の存在意義である」\nとの言葉通り、常に帯刀しており、\n自らターンＸに乗り込み前線に赴く。\nこれは自分が武門の人間であるとい\nう強烈なプライドからくる行動であ\nる。\n　普段は冷静で大局的な見解を持っ\nているが、ひとたび戦闘となると傲\n慢かつ好戦的な本性をさらけ出す。\nその結果高揚して周囲が見えなくな\nり、敵味方の区別なく攻撃をしかけ\nるなどの戦闘狂ぶりを露見させる。\n　ディアナに敵対した最大の理由は、\n２５００年もの間演習を繰り返して\nきた自分達を無視し、独自にディア\nナ・カウンターを組織して地球に降\nりたことに対する反発心である。逆\nにこのことが、彼がディアナに対す\nる強い忠誠心を持っていたことの証\n明ともなっている。\n　宿敵と認めたロランの∀ガンダム\nとは、最終決戦の際にも相打ちとな\nり決着はつかなかった。そして脱出\nしたのも束の間、今度は生身でロラ\nンとの斬り合いに臨んだが、その最\n中に月光蝶の繭に取り込まれ、２機\nのターンタイプと共に大地に還った。",
+      "before": "<width:16><space:16>月之民中掌管武门的金卡拉姆家的\n总领，同时是金卡拉姆宇宙舰队的\n总司令官。正如他所说“战斗才是\n自己的存在意义”，他时常佩刀，\n亲自驾驶倒X奔赴前线。这是源于\n自己是武门之人的强烈自尊心的行\n动。平时冷静且具有大局观，但一\n旦进入战斗，便会暴露出傲慢好战\n的本性。结果因兴奋而看不清周围，\n做出不分敌我发动攻击等战斗狂行\n径。他敌对迪安娜的最大理由是，\n对于无视他们<width:0E><space:0C>2500<width:16><space:16>年来反复演习、\n擅自组织迪安娜回归军并降落地球\n一事感到反感。反过来，这也证明了\n他对迪安娜怀有强烈的忠诚心。最终\n决战中，他与认定为宿敌的罗兰及其\n∀高达拼得两败俱伤，仍未分胜负。\n而逃出后不久，又以肉身与罗兰进行\n白刃战，期间被月光蝶的茧卷入，\n与两台<width:0E><space:0C>Turn<width:16><space:16>型机体一同回归大地。",
+      "after": "<width:16><space:16>月之民中掌管武门的金卡拉姆家的\n总领，同时是金卡拉姆宇宙舰队的\n总司令官。正如他所说“战斗才是\n自己的存在意义”，他时常佩刀，\n亲自驾驶倒X奔赴前线。这是源于\n自己是武门之人的强烈自尊心的行\n动。平时冷静且具有大局观，但一\n旦进入战斗，便会暴露出傲慢好战\n的本性。结果因兴奋而看不清周围，\n做出不分敌我发动攻击等战斗狂行\n径。他敌对迪安娜的最大理由是，\n对于无视他们<width:0E><space:0C>2500<width:16><space:16>年来反复演习、\n擅自组织迪安娜回归军并降落地球\n一事感到反感。反过来，这也证明了\n他对迪安娜怀有强烈的忠诚心。最终\n决战中，他与认定为宿敌的罗兰及其\n∀高达拼得两败俱伤，仍未分胜负。\n而逃出后不久，又以肉身与罗兰进行\n白刃战，期间被月光蝶的茧卷入，\n与两台<width:0E><space:0C>Turn<width:16><space:16>系机体一同回归大地。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/c95264b7d5699e83",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "turntype",
+      "ja": "　ギンガナム艦隊のマヒロー隊を率\nいる隊長。\n　性格は粗暴、品性は下劣、部下に\n理不尽を平然と押し付けるなど、ミ\nドガルドが「名家の威光を笠にきた\n水ぶくれ」と評するのもうなずける、\n欠点だらけの男である。\n　その戦い方も、艦隊内で演習ばか\nり行ってきたために型通りの動きし\nかできず、柔軟性に欠ける面がある。\n　その最期は、ターンタイプ同士の\n戦闘に割って入った事でギンガナム\nの怒りを買い、彼に撃墜されるとい\nう情けないものであった。",
+      "before": "率领金卡拉姆舰队玛希罗队的队长。\n性格粗暴、品性低劣、对部下蛮不\n讲理地强加无理要求，米德加尔德\n评价他为“仗着名门威势的草包”\n也令人信服，是个缺点多多的男人。\n其战斗方式也因只在舰队内进行演习\n而只会照本宣科，缺乏灵活性。他的\n结局也很可悲——因介入倒A型之间\n的战斗而触怒金卡拉姆，被他击坠。",
+      "after": "率领金卡拉姆舰队玛希罗队的队长。\n性格粗暴、品性低劣、对部下蛮不\n讲理地强加无理要求，米德加尔德\n评价他为“仗着名门威势的草包”\n也令人信服，是个缺点多多的男人。\n其战斗方式也因只在舰队内进行演习\n而只会照本宣科，缺乏灵活性。他的\n结局也很可悲——因介入<width:0E><space:0C>Turn<width:16><space:16>系机体之间\n的战斗而触怒金卡拉姆，被他击坠。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/e1571f4349ee1096",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "aprilius",
+      "ja": "アプリリウス",
+      "before": "阿普利里乌斯",
+      "after": "阿普里利乌斯",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "overview:095",
+      "file": "corpus/zh/menu/stage-overviews.json",
+      "group": "aprilius",
+      "ja": "　オーブではディアナ・カウンターが自らの行いを悔い、ディ\nアナの下へ馳せ参じようとしていた。\n　ゼラバイアの移動要塞ゴーマを中心とした異星人連合を迎え\n撃つ人類。しかし、新連邦軍もアプリリウス同盟軍も、互いを\n牽制し、自らは動こうとはしなかった。\n　それを単独で迎え撃った一行は、ブッチャー、ガガーン、ガ\nットラー、ヒューギを倒し、異星人連合を壊滅させる。\n　しかし、ゴーマの内部でヒューギとの決着をつけたサンドマ\nンは、ゼラバイアと共に滅ぶ事を願う。\n　その中、ゴーマは真の姿を現そうとするのであった。\n",
+      "before": "　奥布的迪安娜回归军正为过去的所作所为后悔；\n准备赶到迪安娜身边。\n　人类迎击以泽拉拜亚移动要塞戈玛为核心的异星人联合，新联邦军\n与阿普里琉斯同盟军却互相牵制，谁也不愿主动出兵。\n　众人独自迎战，先后击败布彻、加根、加特勒与修基，彻底摧毁异星\n人联合。\n　但桑德曼在戈玛内部与修基了结恩怨后，却希望自己能与泽拉拜亚\n一同走向毁灭。\n　戈玛此时即将显露真正的形态。\n",
+      "after": "　奥布的迪安娜回归军正为过去的所作所为后悔；\n准备赶到迪安娜身边。\n　人类迎击以泽拉拜亚移动要塞戈玛为核心的异星人联合，新联邦军\n与阿普里利乌斯同盟军却互相牵制，谁也不愿主动出兵。\n　众人独自迎战，先后击败布彻、加根、加特勒与修基，彻底摧毁异星\n人联合。\n　但桑德曼在戈玛内部与修基了结恩怨后，却希望自己能与泽拉拜亚\n一同走向毁灭。\n　戈玛此时即将显露真正的形态。\n",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "story/035/dialogue/02.02/0070",
+      "file": "corpus/zh/story-dialogue/stage-035.json",
+      "group": "kodama",
+      "ja": "「行くわよ！\n　コダマ隊、えいっえいっおーっ！」",
+      "before": "“走了！\n　小玉队，嘿呀嘿呀哦——！”",
+      "after": "“走了！\n　古塔玛队，嘿呀嘿呀哦——！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/035/dialogue/02.02/0193",
+      "file": "corpus/zh/story-dialogue/stage-035.json",
+      "group": "kodama",
+      "ja": "「行くわよ！\n　コダマ隊、えいっえいっおーっ！」",
+      "before": "“走了！\n　小玉队，嘿呀嘿呀哦——！”",
+      "after": "“走了！\n　古塔玛队，嘿呀嘿呀哦——！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/036/dialogue/01.27/0001",
+      "file": "corpus/zh/story-dialogue/stage-036.json",
+      "group": "kodama",
+      "ja": "「やったぁ！\n　コダマ隊、えいっえいっおーっ！」",
+      "before": "“太好了！\n　柯达玛队，嘿！嘿！哦！”",
+      "after": "“太好了！\n　古塔玛队，嘿！嘿！哦！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/036/dialogue/01.31/0008",
+      "file": "corpus/zh/story-dialogue/stage-036.json",
+      "group": "kodama",
+      "ja": "「コダマ隊も行くわよ！\n　完全に決着をつけてやるんだから！」",
+      "before": "“柯达玛队也上！\n　一定要彻底分出胜负！”",
+      "after": "“古塔玛队也上！\n　一定要彻底分出胜负！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/038/dialogue/01.21/0021",
+      "file": "corpus/zh/story-dialogue/stage-038.json",
+      "group": "turntype",
+      "ja": "「…アーリーオーバーマン、\n　ターンタイプ、堕天翅、\n　そして、メガデウス『ザ・ビッグ』…」",
+      "before": "“……早期超限人、\n　Turn Type、堕天翅、\n　还有巨神‘The Big’……”",
+      "after": "“……早期超限人、\n　Turn系机体、堕天翅、\n　还有巨神‘The Big’……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/038/dialogue/01.22/0021",
+      "file": "corpus/zh/story-dialogue/stage-038.json",
+      "group": "turntype",
+      "ja": "「…アーリーオーバーマン、\n　ターンタイプ、堕天翅、\n　そして、メガデウス『ザ・ビッグ』…」",
+      "before": "“……早期超限人、\n　Turn Type、堕天翅、\n　还有巨神‘The Big’……”",
+      "after": "“……早期超限人、\n　Turn系机体、堕天翅、\n　还有巨神‘The Big’……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/040/dialogue/02.01/0069",
+      "file": "corpus/zh/story-dialogue/stage-040.json",
+      "group": "kodama",
+      "ja": "「コダマ隊、突撃ーっ！\n　ほら、ゲイナー君も早く！」",
+      "before": "“小玉队，突击——！\n　喂，盖纳也快点！”",
+      "after": "“古塔玛队，突击——！\n　喂，盖纳也快点！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/040/dialogue/02.01/0080",
+      "file": "corpus/zh/story-dialogue/stage-040.json",
+      "group": "kodama",
+      "ja": "「何言ってるのよ！\n　斗牙をコテンパンにしてやるって\n　コダマ隊に入ったくせに！」",
+      "before": "“说什么呢！\n　你明明加入了小玉队说要打垮斗牙！”",
+      "after": "“说什么呢！\n　你明明加入了古塔玛队说要打垮斗牙！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/040/dialogue/02.01/0107",
+      "file": "corpus/zh/story-dialogue/stage-040.json",
+      "group": "kodama",
+      "ja": "「コダマ隊もガロード隊も頑張れぇ！」",
+      "before": "“小玉队和卡洛德队都加油！”",
+      "after": "“古塔玛队和卡洛德队都加油！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/040/dialogue/02.01/0135",
+      "file": "corpus/zh/story-dialogue/stage-040.json",
+      "group": "kodama",
+      "ja": "「もう、ゲイナー君！\n　あそこで君の突撃が上手くいってれば、\n　コダマ隊の勝利だったのに！」",
+      "before": "“真是的，盖纳！\n　要是那时候你的突击成功的话，\n　明明就是小玉队赢了！”",
+      "after": "“真是的，盖纳！\n　要是那时候你的突击成功的话，\n　明明就是古塔玛队赢了！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/045/dialogue/01.28/0002",
+      "file": "corpus/zh/story-dialogue/stage-045.json",
+      "group": "inga",
+      "ja": "「全ては時の彼方の真実にある！\n　因果の鎖に縛られたお前の運命は\n　既に決まっている！」",
+      "before": "“一切都在时间的彼方的真相之中！\n　被因果之锁束缚的你的命运早已注定！”",
+      "after": "“一切都在时间的彼方的真相之中！\n　被因果之链束缚的你的命运早已注定！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/057/dialogue/02.02/0100",
+      "file": "corpus/zh/story-dialogue/stage-057.json",
+      "group": "inga",
+      "ja": "「世界が破壊された日…。\n　私も因果の鎖に囚われ、全てを失った…」",
+      "before": "“世界毁灭的那一天……\n　我也被因果锁链束缚，失去了一切……”",
+      "after": "“世界毁灭的那一天……\n　我也被因果之链束缚，失去了一切……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/073/dialogue/01.12/0001",
+      "file": "corpus/zh/story-dialogue/stage-073.json",
+      "group": "inga",
+      "ja": "「では、あの者達を使えば、\n　我らは因果の鎖から\n　解き放たれるのでしょうか？」",
+      "before": "“那么，利用那些人的话，\n　我们就能从因果的锁链中解放出来吗？”",
+      "after": "“那么，利用那些人的话，\n　我们就能从因果之链中解放出来吗？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/078/dialogue/02.01/0007",
+      "file": "corpus/zh/story-dialogue/stage-078.json",
+      "group": "inga",
+      "ja": "「それは因果の鎖を断ち切るだけでなく、\n　この無限の牢獄を破壊するまでの嵐を\n　巻き起こすかも知れませぬ…」",
+      "before": "“那不仅会斩断因果之锁，\n　还可能掀起一场足以破坏这无限牢狱的风暴……”",
+      "after": "“那不仅会斩断因果之链，\n　还可能掀起一场足以破坏这无限牢狱的风暴……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/084/dialogue/02.03/0007",
+      "file": "corpus/zh/story-dialogue/stage-084.json",
+      "group": "inga",
+      "ja": "「皮肉だね。\n　呪われたこの身を因果の鎖から\n　解き放つには…」",
+      "before": "“真是讽刺啊。\n　要让这被诅咒的身体摆脱因果锁链……”",
+      "after": "“真是讽刺啊。\n　要让这被诅咒的身体摆脱因果之链……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/084/dialogue/02.03/0012",
+      "file": "corpus/zh/story-dialogue/stage-084.json",
+      "group": "inga",
+      "ja": "「世界が破壊された日…。\n　私も因果の鎖に囚われ、全てを失った…」",
+      "before": "“世界毁灭的那一天……\n　我也被因果锁链束缚，失去了一切……”",
+      "after": "“世界毁灭的那一天……\n　我也被因果之链束缚，失去了一切……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/104/dialogue/02.01/0112",
+      "file": "corpus/zh/story-dialogue/stage-104.json",
+      "group": "aprilius",
+      "ja": "「ありがとうございます、ハマーン殿。\n　プラントでの調印式を終えれば、\n　《アプリリウス》同盟軍の誕生です」",
+      "before": "“多谢，哈曼殿。在PLANT的签字仪式\n　结束后，《阿普利里乌斯》同盟军就诞生了。”",
+      "after": "“多谢，哈曼殿。在PLANT的签字仪式\n　结束后，《阿普里利乌斯》同盟军就诞生了。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/108/dialogue/01.49/0000",
+      "file": "corpus/zh/story-dialogue/stage-108.json",
+      "group": "inga",
+      "ja": "「機械天使アクエリオン！\n　お前も堕天翅も因果の鎖に囚われし\n　あわれな罪人よ！」",
+      "before": "“机械天使阿克艾里昂！你和堕天翅\n　都是被因果锁链囚禁的可怜罪人！”",
+      "after": "“机械天使阿克艾里昂！你和堕天翅\n　都是被因果之链囚禁的可怜罪人！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/109/dialogue/01.41/0000",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "group": "turntype",
+      "ja": "「ターンＸの胸の傷がうずいている！\n　ターンタイプを亡き者にせよとな！」",
+      "before": "“倒X胸口的伤在隐隐作痛！\n　它要在下消灭掉Turn型！”",
+      "after": "“倒X胸口的伤在隐隐作痛！\n　它要在下消灭掉Turn系机体！”",
+      "online_opinions": [
+        {
+          "id": "876fab6c-fa3c-4ae2-bd04-2f7e3f9cfc45",
+          "by": "兰德",
+          "resolution": "alternative",
+          "proposed": "“倒X胸口的伤在隐隐作痛！\n　它要我消灭掉Turn型！”"
+        }
+      ],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/109/dialogue/01.50/0003",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "group": "turntype",
+      "ja": "「ターンＸの兄弟…。\n　ターンタイプのモビルスーツ…」",
+      "before": "“倒X的兄弟……Turn型的MS……”",
+      "after": "“倒X的兄弟……Turn系机体……”",
+      "online_opinions": [
+        {
+          "id": "4ae51a42-9f90-490d-95c3-b3181f4b6298",
+          "by": "兰德",
+          "resolution": "adopted",
+          "proposed": "“倒X的兄弟……Turn型的MS……”"
+        }
+      ],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/109/dialogue/01.57/0002",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "group": "turntype",
+      "ja": "「ターンＸの兄弟…。\n　ターンタイプのモビルスーツ…」",
+      "before": "“倒X的兄弟……Turn型的MS……”",
+      "after": "“倒X的兄弟……Turn系机体……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/109/dialogue/01.76/0000",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "group": "turntype",
+      "ja": "「小生はついている！\n　地球に降りた直後にターンタイプの\n　モビルスーツに遭遇するとはな！」",
+      "before": "“在下运气真好！\n　刚降落到地球就遇到了\n　Turn Type的MS！”",
+      "after": "“在下运气真好！\n　刚降落到地球就遇到了\n　Turn系机体！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/109/dialogue/01.76/0001",
+      "file": "corpus/zh/story-dialogue/stage-109.json",
+      "group": "turntype",
+      "ja": "「ターンタイプ…∀…。\n　ホワイトドールの事を言っているのか？」",
+      "before": "“Turn Type……∀……\n　你是在说白色人偶吗？”",
+      "after": "“Turn系机体……∀……\n　你是在说白色人偶吗？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/113/dialogue/02.03/0019",
+      "file": "corpus/zh/story-dialogue/stage-113.json",
+      "group": "inga",
+      "ja": "「そして、魂と翼を闇黒に染め、\n　因果の鎖に囚われてしまったのさ」",
+      "before": "“然后，灵魂与翅膀染上黑暗，\n　被因果之锁囚禁了。”",
+      "after": "“然后，灵魂与翅膀染上黑暗，\n　被因果之链囚禁了。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/113/dialogue/02.03/0020",
+      "file": "corpus/zh/story-dialogue/stage-113.json",
+      "group": "inga",
+      "ja": "「因果の鎖…」",
+      "before": "“因果之锁……”",
+      "after": "“因果之链……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/114/dialogue/01.02/0002",
+      "file": "corpus/zh/story-dialogue/stage-114.json",
+      "group": "aprilius",
+      "ja": "「照準、プラント首都アプリリウス」",
+      "before": "“瞄准，PLANT首都阿普里琉斯。”",
+      "after": "“瞄准，PLANT首都阿普里利乌斯。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/115/dialogue/02.01/0017",
+      "file": "corpus/zh/story-dialogue/stage-115.json",
+      "group": "aprilius",
+      "ja": "「アプリリウスは健在だと！？」",
+      "before": "“阿普利留斯还完好！？”",
+      "after": "“阿普里利乌斯还完好！？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/115/dialogue/02.01/0021",
+      "file": "corpus/zh/story-dialogue/stage-115.json",
+      "group": "aprilius",
+      "ja": "「再度の発射を急がせろ！\n　今度こそ、アプリリウスを\n　壊滅させるのだ！」",
+      "before": "“赶紧准备再次发射！\n　这次一定要毁灭阿普利乌斯！”",
+      "after": "“赶紧准备再次发射！\n　这次一定要毁灭阿普里利乌斯！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/117/dialogue/01.132/0000",
+      "file": "corpus/zh/story-dialogue/stage-117.json",
+      "group": "lyric",
+      "ja": "「メタル〜オ〜バ〜マン、\n　キングゲイナー♪」",
+      "before": "“Metal〜O〜ver〜man，\n　王者盖纳♪”",
+      "after": "“Metal〜O〜ver〜man，\n　King Gainer♪”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/118/dialogue/02.01/0073",
+      "file": "corpus/zh/story-dialogue/stage-118.json",
+      "group": "aprilius",
+      "ja": "「あなた方は、このまま部隊を率いて\n　アプリリウス同盟軍の討伐を\n　行ってもらいたい」",
+      "before": "“希望你们就这样率领部队，\n　去讨伐阿普利留斯同盟军。”",
+      "after": "“希望你们就这样率领部队，\n　去讨伐阿普里利乌斯同盟军。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/119/dialogue/01.21/0000",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "group": "turntype",
+      "ja": "「兄さん！\n　ターンタイプが来る！」",
+      "before": "“哥哥！\n　Turn Type来了！”",
+      "after": "“哥哥！\n　Turn系机体来了！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/119/dialogue/01.60/0002",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "group": "turntype",
+      "ja": "「ターンタイプの力を\n　目覚めさせた者…」",
+      "before": "“让Turn Type力量觉醒的人……”",
+      "after": "“让Turn系机体力量觉醒的人……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/119/dialogue/01.81/0000",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "group": "turntype",
+      "ja": "「ターンタイプを駆る者よ！\n　その力こそが黒歴史を終わらせた\n　終末の力の一つだ！」",
+      "before": "“驾驶Turn Type的人！\n　那股力量正是终结黑历史的终结之力之一！”",
+      "after": "“驾驶Turn系机体的人！\n　那股力量正是终结黑历史的终结之力之一！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/119/dialogue/01.81/0003",
+      "file": "corpus/zh/story-dialogue/stage-119.json",
+      "group": "turntype",
+      "ja": "「ターンタイプを渡すのだ。\n　その力は我々が持つに相応しいものだ」",
+      "before": "“把Turn Type交出来。\n　那股力量由我们持有才合适。”",
+      "after": "“把Turn系机体交出来。\n　那股力量由我们持有才合适。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/123/dialogue/01.02/0002",
+      "file": "corpus/zh/story-dialogue/stage-123.json",
+      "group": "aprilius",
+      "ja": "「照準、プラント首都アプリリウス」",
+      "before": "“瞄准，PLANT首都阿普里琉斯。”",
+      "after": "“瞄准，PLANT首都阿普里利乌斯。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/125/dialogue/02.01/0017",
+      "file": "corpus/zh/story-dialogue/stage-125.json",
+      "group": "aprilius",
+      "ja": "「アプリリウスは健在だと！？」",
+      "before": "“阿普利留斯还完好！？”",
+      "after": "“阿普里利乌斯还完好！？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/125/dialogue/02.01/0021",
+      "file": "corpus/zh/story-dialogue/stage-125.json",
+      "group": "aprilius",
+      "ja": "「再度の発射を急がせろ！\n　今度こそ、アプリリウスを\n　壊滅させるのだ！」",
+      "before": "“赶紧准备再次发射！\n　这次一定要毁灭阿普利乌斯！”",
+      "after": "“赶紧准备再次发射！\n　这次一定要毁灭阿普里利乌斯！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/125/dialogue/02.02/0008",
+      "file": "corpus/zh/story-dialogue/stage-125.json",
+      "group": "aprilius",
+      "ja": "「あの威力…アプリリウス同盟軍の\n　切り札なのでしょうね」",
+      "before": "“那种威力……\n　大概是阿普利留斯同盟军的王牌吧。”",
+      "after": "“那种威力……\n　大概是阿普里利乌斯同盟军的王牌吧。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/125/dialogue/02.02/0081",
+      "file": "corpus/zh/story-dialogue/stage-125.json",
+      "group": "aprilius",
+      "ja": "「アクシズはアプリリウス同盟を離反し、\n　我々と組むと言うのか？」",
+      "before": "“阿克西斯要脱离阿普利留斯同盟，\n　和我们联手吗？”",
+      "after": "“阿克西斯要脱离阿普里利乌斯同盟，\n　和我们联手吗？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/125/dialogue/02.02/0099",
+      "file": "corpus/zh/story-dialogue/stage-125.json",
+      "group": "aprilius",
+      "ja": "「そうなれば、アプリリウス同盟を\n　討つ事も可能であろう」",
+      "before": "“那样的话，\n　讨伐阿普利留斯同盟也成为可能。”",
+      "after": "“那样的话，\n　讨伐阿普里利乌斯同盟也成为可能。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/126/dialogue/02.01/0129",
+      "file": "corpus/zh/story-dialogue/stage-126.json",
+      "group": "aprilius",
+      "ja": "「あなた方は、このまま部隊を率いて\n　アプリリウス同盟軍の討伐を\n　行ってもらいたい」",
+      "before": "“希望你们就这样率领部队，\n　去讨伐阿普利留斯同盟军。”",
+      "after": "“希望你们就这样率领部队，\n　去讨伐阿普里利乌斯同盟军。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/127/dialogue/01.24/0000",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "group": "turntype",
+      "ja": "「兄さん！\n　ターンタイプが来る！」",
+      "before": "“哥哥！\n　Turn Type来了！”",
+      "after": "“哥哥！\n　Turn系机体来了！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/127/dialogue/01.96/0000",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "group": "turntype",
+      "ja": "「ターンタイプを駆る者よ！\n　その力こそが黒歴史を終わらせた\n　終末の力の一つだ！」",
+      "before": "“驾驶Turn Type的人！\n　那股力量正是终结黑历史的终结之力之一！”",
+      "after": "“驾驶Turn系机体的人！\n　那股力量正是终结黑历史的终结之力之一！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/127/dialogue/01.96/0003",
+      "file": "corpus/zh/story-dialogue/stage-127.json",
+      "group": "turntype",
+      "ja": "「ターンタイプを渡すのだ。\n　その力は我々が持つに相応しいものだ」",
+      "before": "“把Turn Type交出来。\n　那股力量由我们持有才合适。”",
+      "after": "“把Turn系机体交出来。\n　那股力量由我们持有才合适。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/130/dialogue/01.49/0001",
+      "file": "corpus/zh/story-dialogue/stage-130.json",
+      "group": "lyric",
+      "ja": "「キ〜ング、キ〜ング、キングゲイナー♪」",
+      "before": "“King〜King〜王者盖纳♪”",
+      "after": "“King〜King〜King Gainer♪”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/130/dialogue/01.50/0000",
+      "file": "corpus/zh/story-dialogue/stage-130.json",
+      "group": "lyric",
+      "ja": "「メタル〜オ〜バ〜マン、\n　キングゲイナー♪」",
+      "before": "“Metal〜Over〜Man，\n　王者盖纳♪”",
+      "after": "“Metal〜O〜ver〜man，\n　King Gainer♪”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/135/dialogue/01.07/0003",
+      "file": "corpus/zh/story-dialogue/stage-135.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟の兵達よ！\n　この戦いに我々が勝利した時、\n　人類は新たなる時代を迎える！」",
+      "before": "“阿普利留斯同盟的士兵们！\n　当我们赢得这场战斗时，人类将迎来新时代！”",
+      "after": "“阿普里利乌斯同盟的士兵们！\n　当我们赢得这场战斗时，人类将迎来新时代！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/135/dialogue/01.08/0003",
+      "file": "corpus/zh/story-dialogue/stage-135.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟の兵達よ！\n　この戦いに我々が勝利した時、\n　人類は新たなる時代を迎える！」",
+      "before": "“阿普利留斯同盟的士兵们！\n　当我们赢得这场战斗时，人类将迎来新时代！”",
+      "after": "“阿普里利乌斯同盟的士兵们！\n　当我们赢得这场战斗时，人类将迎来新时代！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/135/dialogue/01.09/0005",
+      "file": "corpus/zh/story-dialogue/stage-135.json",
+      "group": "aprilius",
+      "ja": "「デスティニープランこそが、\n　アプリリウス同盟の真の目的…」",
+      "before": "“命运计划才是阿普利留斯\n　同盟的真正目的……”",
+      "after": "“命运计划才是阿普里利乌斯\n　同盟的真正目的……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/135/dialogue/01.09/0023",
+      "file": "corpus/zh/story-dialogue/stage-135.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟の兵士達。\n　議長の導く未来は人が望むものでは\n　ありません」",
+      "before": "“阿普利留斯同盟的士兵们。\n　议长指引的未来并非人们所期望的。”",
+      "after": "“阿普里利乌斯同盟的士兵们。\n　议长指引的未来并非人们所期望的。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/135/dialogue/02.02/0010",
+      "file": "corpus/zh/story-dialogue/stage-135.json",
+      "group": "aprilius",
+      "ja": "「確かにアプリリウス同盟軍は敗れた。\n　だが、それは新連邦も同様だろう」",
+      "before": "“确实，阿普利留斯同盟军败了。\n　但新联邦不也一样吗？”",
+      "after": "“确实，阿普里利乌斯同盟军败了。\n　但新联邦不也一样吗？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/135/dialogue/02.02/0099",
+      "file": "corpus/zh/story-dialogue/stage-135.json",
+      "group": "aprilius",
+      "ja": "「確かにアプリリウス同盟軍は敗れた。\n　だが、それは新連邦も同様だろう」",
+      "before": "“确实，阿普利留斯同盟军败了。\n　但新联邦不也一样吗？”",
+      "after": "“确实，阿普里利乌斯同盟军败了。\n　但新联邦不也一样吗？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/135/dialogue/02.03/0012",
+      "file": "corpus/zh/story-dialogue/stage-135.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟が瓦解した今、\n　おそらく我々の前に立ち塞がるのは、\n　例の奴らと$cだ」",
+      "before": "“阿普利留斯同盟已经瓦解，如今挡在我们面前\n　的，大概就是那些家伙和$c了。”",
+      "after": "“阿普里利乌斯同盟已经瓦解，如今挡在我们面前\n　的，大概就是那些家伙和$c了。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/136/dialogue/01.09/0018",
+      "file": "corpus/zh/story-dialogue/stage-136.json",
+      "group": "turntype",
+      "ja": "「堕天翅とターンタイプ、\n　そして、$c…！\n　この戦いは黒歴史の再現か！」",
+      "before": "“堕天翅和Turn型，\n　还有$c……！\n　这场战斗是黑历史的重演吗！”",
+      "after": "“堕天翅和Turn系机体，\n　还有$c……！\n　这场战斗是黑历史的重演吗！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/138/dialogue/01.07/0006",
+      "file": "corpus/zh/story-dialogue/stage-138.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟の兵達よ！\n　この戦いに我々が勝利した時、\n　人類は新たなる時代を迎える！」",
+      "before": "“阿普利留斯同盟的士兵们！\n　当我们赢得这场战斗时，人类将迎来新时代！”",
+      "after": "“阿普里利乌斯同盟的士兵们！\n　当我们赢得这场战斗时，人类将迎来新时代！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/138/dialogue/01.08/0006",
+      "file": "corpus/zh/story-dialogue/stage-138.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟の兵達よ！\n　この戦いに我々が勝利した時、\n　人類は新たなる時代を迎える！」",
+      "before": "“阿普利留斯同盟的士兵们！\n　当我们赢得这场战斗时，人类将迎来新时代！”",
+      "after": "“阿普里利乌斯同盟的士兵们！\n　当我们赢得这场战斗时，人类将迎来新时代！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/138/dialogue/01.09/0005",
+      "file": "corpus/zh/story-dialogue/stage-138.json",
+      "group": "aprilius",
+      "ja": "「デスティニープランこそが、\n　アプリリウス同盟の真の目的…」",
+      "before": "“命运计划才是阿普利留斯\n　同盟的真正目的……”",
+      "after": "“命运计划才是阿普里利乌斯\n　同盟的真正目的……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/138/dialogue/01.09/0023",
+      "file": "corpus/zh/story-dialogue/stage-138.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟の兵士達。\n　議長の導く未来は人が望むものでは\n　ありません」",
+      "before": "“阿普利留斯同盟的士兵们。\n　议长指引的未来并非人们所期望的。”",
+      "after": "“阿普里利乌斯同盟的士兵们。\n　议长指引的未来并非人们所期望的。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/138/dialogue/02.02/0010",
+      "file": "corpus/zh/story-dialogue/stage-138.json",
+      "group": "aprilius",
+      "ja": "「確かにアプリリウス同盟軍は敗れた。\n　だが、それは新連邦も同様だろう」",
+      "before": "“确实，阿普利留斯同盟军败了。\n　但新联邦不也一样吗？”",
+      "after": "“确实，阿普里利乌斯同盟军败了。\n　但新联邦不也一样吗？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/138/dialogue/02.03/0011",
+      "file": "corpus/zh/story-dialogue/stage-138.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟が瓦解した今、\n　おそらく我々の前に立ち塞がるのは、\n　例の奴らと$cだ」",
+      "before": "“阿普利留斯同盟已经瓦解，如今挡在我们面前\n　的，大概就是那些家伙和$c了。”",
+      "after": "“阿普里利乌斯同盟已经瓦解，如今挡在我们面前\n　的，大概就是那些家伙和$c了。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/139/dialogue/01.08/0021",
+      "file": "corpus/zh/story-dialogue/stage-139.json",
+      "group": "turntype",
+      "ja": "「堕天翅、オーバーデビル、ターンタイプ、\n　そして、$c…！\n　この戦い、黒歴史の再現か！」",
+      "before": "“堕天翅、超限恶魔、Turn Type，\n　还有$c……！\n　这场战斗，是黑历史的重演吗！”",
+      "after": "“堕天翅、超限恶魔、Turn系机体，\n　还有$c……！\n　这场战斗，是黑历史的重演吗！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/139/dialogue/02.03/0056",
+      "file": "corpus/zh/story-dialogue/stage-139.json",
+      "group": "inga",
+      "ja": "「そして、魂と翼を闇黒に染め、\n　因果の鎖に囚われてしまったのさ」",
+      "before": "“然后，灵魂与翅膀染上黑暗，\n　被因果之锁囚禁了。”",
+      "after": "“然后，灵魂与翅膀染上黑暗，\n　被因果之链囚禁了。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/139/dialogue/02.03/0057",
+      "file": "corpus/zh/story-dialogue/stage-139.json",
+      "group": "inga",
+      "ja": "「因果の鎖…」",
+      "before": "“因果之锁……”",
+      "after": "“因果之链……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/140/dialogue/01.06/0007",
+      "file": "corpus/zh/story-dialogue/stage-140.json",
+      "group": "turntype",
+      "ja": "「ザ・ビッグ、機械天使、\n　ターンタイプ、アーリーオーバーマン、\n　そして、$c…」",
+      "before": "“The Big、机械天使、\n　Turn Type、早期超限人，\n　还有$c……”",
+      "after": "“The Big、机械天使、\n　Turn系机体、早期超限人，\n　还有$c……”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/141/dialogue/02.01/0056",
+      "file": "corpus/zh/story-dialogue/stage-141.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟軍も瓦解した今、\n　$cを討てば、\n　地球圏の統一は完了します」",
+      "before": "“阿普利里乌斯同盟军也已瓦解，只要打倒\n　$c，地球圈的统一就完成了。”",
+      "after": "“阿普里利乌斯同盟军也已瓦解，只要打倒\n　$c，地球圈的统一就完成了。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/146/dialogue/02.01/0056",
+      "file": "corpus/zh/story-dialogue/stage-146.json",
+      "group": "aprilius",
+      "ja": "「アプリリウス同盟軍も瓦解した今、\n　$cを討てば、\n　地球圏の統一は完了します」",
+      "before": "“阿普利里乌斯同盟军也已瓦解，只要打倒\n　$c，地球圈的统一就完成了。”",
+      "after": "“阿普里利乌斯同盟军也已瓦解，只要打倒\n　$c，地球圈的统一就完成了。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "sd/challenge/043/dialogue/02.01/0008",
+      "file": "corpus/zh/special-disc/challenge-dialogue.json",
+      "group": "golem",
+      "ja": "「アンダーゴレームや\n　メックスブルートまでいるのか」",
+      "before": "“连安达格雷姆和摩克斯兰都有吗。”",
+      "after": "“连安达葛雷姆和摩克斯兰都有吗。”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "sd/nisv/squad/047",
+      "file": "corpus/zh/special-disc/native-text.json",
+      "group": "turntype",
+      "ja": "ターンタイプ",
+      "before": "Turn型",
+      "after": "Turn系机体",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "sd/nisv/squad/047",
+      "file": "corpus/zh/special-disc/reviewed-non-stage-text.json",
+      "group": "turntype",
+      "ja": "ターンタイプ",
+      "before": "Turn型",
+      "after": "Turn系机体",
+      "online_opinions": [],
+      "editorial_status": ""
+    },
+    {
+      "id": "sd/squad-name/115",
+      "file": "corpus/zh/special-disc/squad-names.json",
+      "group": "turntype",
+      "ja": "ターンタイプ",
+      "before": "Turn型",
+      "after": "Turn系机体",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    }
+  ],
+  "library_overrides": [
+    {
+      "id": "library-text/6e6dba24c2d47e7b",
+      "before": "原为迪安娜回归军的军曹。败给罗兰后出家，流浪各地，但看到梅莉贝儿的∀高达释放的月光蝶之光后，想起了自己的使命。于是前往迪安娜处，获准重返军队并讨伐Turn型高达时，激动得流下了眼泪。他将卡普尔涂成专用配色等，依然是我行我素得令人瞠目。但身手并未衰退，用本应不熟悉的卡普尔完成了空战，以压倒玛希罗部队的活跃表现大放异彩。",
+      "after": "原为迪安娜回归军的军曹。败给罗兰后出家，流浪各地，但看到梅莉贝儿的∀高达释放的月光蝶之光后，想起了自己的使命。于是前往迪安娜处，获准重返军队并讨伐Turn系高达时，激动得流下了眼泪。他将卡普尔涂成专用配色等，依然是我行我素得令人瞠目。但身手并未衰退，用本应不熟悉的卡普尔完成了空战，以压倒玛希罗部队的活跃表现大放异彩。"
+    },
+    {
+      "id": "library-text/9287e4b64f03789b",
+      "before": "月之民中掌管武门的金卡拉姆家的总领，同时是金卡拉姆宇宙舰队的总司令官。正如他所说“战斗才是自己的存在意义”，他时常佩刀，亲自驾驶倒X奔赴前线。这是源于自己是武门之人的强烈自尊心的行动。平时冷静且具有大局观，但一旦进入战斗，便会暴露出傲慢好战的本性。结果因兴奋而看不清周围，做出不分敌我发动攻击等战斗狂行径。他敌对迪安娜的最大理由是，对于无视他们2500年来反复演习、擅自组织迪安娜回归军并降落地球一事感到反感。反过来，这也证明了他对迪安娜怀有强烈的忠诚心。最终决战中，他与认定为宿敌的罗兰及其∀高达拼得两败俱伤，仍未分胜负。而逃出后不久，又以肉身与罗兰进行白刃战，期间被月光蝶的茧卷入，与两台Turn型机体一同回归大地。",
+      "after": "月之民中掌管武门的金卡拉姆家的总领，同时是金卡拉姆宇宙舰队的总司令官。正如他所说“战斗才是自己的存在意义”，他时常佩刀，亲自驾驶倒X奔赴前线。这是源于自己是武门之人的强烈自尊心的行动。平时冷静且具有大局观，但一旦进入战斗，便会暴露出傲慢好战的本性。结果因兴奋而看不清周围，做出不分敌我发动攻击等战斗狂行径。他敌对迪安娜的最大理由是，对于无视他们2500年来反复演习、擅自组织迪安娜回归军并降落地球一事感到反感。反过来，这也证明了他对迪安娜怀有强烈的忠诚心。最终决战中，他与认定为宿敌的罗兰及其∀高达拼得两败俱伤，仍未分胜负。而逃出后不久，又以肉身与罗兰进行白刃战，期间被月光蝶的茧卷入，与两台Turn系机体一同回归大地。"
+    },
+    {
+      "id": "library-text/1e89c95c9a713c4f",
+      "before": "原迪安娜回归军军曹。败于罗兰后出家，流浪各地，但看到梅莉贝儿的∀高达发出的月光蝶之光后，想起了自己的使命。于是前往迪安娜处，获准回归军队并讨伐Turn型高达时，激动得热泪盈眶。将卡普尔涂成专用配色等，令周围人目瞪口呆的奔放作风依旧。但身手并未衰退，以本应不熟悉的卡普尔进行空战，展现出压制玛希罗部队的活跃表现。当倒X也发动月光蝶时，他故意夺取苏茜亚和美雪的卡普尔的燃料，让两人留在远离战场之处，独自赴死。",
+      "after": "原迪安娜回归军军曹。败于罗兰后出家，流浪各地，但看到梅莉贝儿的∀高达发出的月光蝶之光后，想起了自己的使命。于是前往迪安娜处，获准回归军队并讨伐Turn系高达时，激动得热泪盈眶。将卡普尔涂成专用配色等，令周围人目瞪口呆的奔放作风依旧。但身手并未衰退，以本应不熟悉的卡普尔进行空战，展现出压制玛希罗部队的活跃表现。当倒X也发动月光蝶时，他故意夺取苏茜亚和美雪的卡普尔的燃料，让两人留在远离战场之处，独自赴死。"
+    }
+  ]
+}

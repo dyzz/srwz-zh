@@ -125,9 +125,16 @@
    "ids": [
     "a01"
    ]
+  },
+  {
+   "path": "config/editorial/term-leftovers-20261115.json",
+   "sha256": "4b33b31f5d6d32d02047df27c62fef3a7ecea75a45eb22e37631e6fe6a36f75b",
+   "ids": [
+    "golem"
+   ]
   }
  ],
- "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。 2026-10-17 本篇旧译统一（main-old-renderings-20261017）追加 SP 继承的 26 个槽位。 2026-11-14 アゲハ隊改定为展翅队（ageha-rename-20261114）追加 SP 继承的 4 个驾驶员名槽位。",
+ "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。 2026-10-17 本篇旧译统一（main-old-renderings-20261017）追加 SP 继承的 26 个槽位。 2026-11-14 アゲハ隊改定为展翅队（ageha-rename-20261114）追加 SP 继承的 4 个驾驶员名槽位。 2026-11-15 アンダーゴレーム改定为安达葛雷姆（term-leftovers-20261115）追加 SP 继承的 2 个机体名槽位。",
  "entries": [
   {
    "kind": "pilot_field",
@@ -2091,6 +2098,37 @@
    "translation": "展翅队",
    "decision": "a01",
    "decision_record": "config/editorial/ageha-rename-20261114.json"
+  },
+  {
+   "kind": "string",
+   "offset": 543264,
+   "capacity": 24,
+   "source_text": "アンダーゴレーム",
+   "source_hex": "83418393835f815b8353838c815b83800000000000000000",
+   "previous_hex": "88c097678a69978b93c80000000000000000000000000000",
+   "reference_sites": [
+    387148,
+    387216,
+    387284
+   ],
+   "translation": "安达葛雷姆",
+   "decision": "golem",
+   "decision_record": "config/editorial/term-leftovers-20261115.json"
+  },
+  {
+   "kind": "string",
+   "offset": 632400,
+   "capacity": 24,
+   "source_text": "アンダーゴレーム",
+   "source_hex": "83418393835f815b8353838c815b83800000000000000000",
+   "previous_hex": "88c097678a69978b93c80000000000000000000000000000",
+   "reference_sites": [
+    455432,
+    455492
+   ],
+   "translation": "安达葛雷姆",
+   "decision": "golem",
+   "decision_record": "config/editorial/term-leftovers-20261115.json"
   }
  ]
 }
