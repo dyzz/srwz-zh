@@ -35,6 +35,23 @@ class SpecialDiscFontRefreshTests(unittest.TestCase):
         self.assertEqual(output[b:], self.vt1[b:])
         self.assertEqual(decode_production(output[a:b]).output, decode_production(self.font).output)
 
+    def test_growth_preserves_audio_and_later_chunks(self):
+        size = (len(self.font) + 15) // 16 * 16
+        offsets = [0, 16, 1024, 2048, 2048 + size - 16, 2048 + size + 64]
+        exe = bytearray(fonts.VT1_TABLE + 24)
+        struct.pack_into('<6I', exe, fonts.VT1_TABLE, *offsets)
+        vt = bytearray(offsets[-1]); vt[1024:2048] = bytes(range(256)) * 4
+        vt[offsets[4]:] = b'Z' * (offsets[-1] - offsets[4])
+        output, patched, proof = fonts.replace_font_with_relocation(bytes(vt), bytes(exe), self.font, self.digest)
+        self.assertEqual(proof['borrowed_bytes'], 16)
+        self.assertEqual(output[1008:2032], vt[1024:2048])
+        self.assertEqual(output[offsets[4]:], vt[offsets[4]:])
+        self.assertEqual(len(output), len(vt))
+        self.assertEqual(fonts.sp_offsets(patched, fonts.VT1_TABLE, len(output)), [0,16,1008,2032,*offsets[4:]])
+        vt[1023] = 1
+        with self.assertRaisesRegex(ValueError, 'nonzero donor'):
+            fonts.replace_font_with_relocation(bytes(vt), bytes(exe), self.font, self.digest)
+
     def test_rejects_wrong_font_identity(self):
         with self.assertRaisesRegex(ValueError, 'identity drift'):
             fonts.replace_font_slot(self.vt1, self.exe, self.font, '0' * 64)

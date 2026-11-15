@@ -26,7 +26,7 @@ from srwz.codec import decode_production,reencode_changed_suffix
 from srwz.compressed_workspace import CompressedStreamWorkspace,decoded_view
 from special_disc.writeback.slot_codec import encode_slot
 from write_system_text import OVERLAY, overlay_member
-from install_font import sp_offsets,VT1_TABLE,replace_font_slot
+from install_font import sp_offsets,VT1_TABLE,replace_font_with_relocation
 from migrate_stage_dialogue import read_disc_member
 from chart_visibility import apply_chart_visibility
 from special_disc.writeback.gravion_labels import apply_gravion_labels
@@ -307,7 +307,7 @@ def assemble():
     patches[EXE],library_body_metrics_report=apply_library_body_metrics(patches[EXE],'sp')
     patches[EXE],library_optical_metrics_report=apply_library_optical_metrics(patches[EXE],'sp')
     patches[EXE],library_button_labels_report=apply_library_button_labels(patches[EXE],'sp')
-    patches[VT1]=replace_font_slot(patches[VT1],patches[EXE],(FONT/'sp-font/font.bin').read_bytes(),font_report['font']['decoded_sha256'])
+    patches[VT1],patches[EXE],font_relocation_report=replace_font_with_relocation(patches[VT1],patches[EXE],(FONT/'sp-font/font.bin').read_bytes(),font_report['font']['decoded_sha256'])
     vt=sp_offsets(patches[EXE],VT1_TABLE,len(patches[VT1]));decoded_font=decode_production(patches[VT1][vt[3]:vt[4]]).output
     require(sha(decoded_font)==font_report['font']['decoded_sha256'],'assembled shared font mismatch')
     font_assignments=[r for key in ('assignments','surface_alias_assignments',
@@ -401,6 +401,7 @@ def assemble():
     spans=[(members[n].extent_lba*2048,members[n].extent_lba*2048+len(d))for n,d in patches.items()]+[tuple(x)for x in relocation['touched_spans']]
     protected=timed('protected-ranges',verify_iso_ranges,BASE,temporary,merge_spans(spans))
     report=dict(schema_version=1,scenario_chart=chart_report,status='all_current_draft_text_written_static_verified_runtime_pending',iso=dict(path=str(DEST.relative_to(ROOT)),size=temporary.stat().st_size,sha256=protected['after_sha256']),baseline=dict(path=str(BASE.relative_to(ROOT)),sha256=BASE_SHA),coverage=stats,files={n:sha(d)for n,d in {**patches,**relocated}.items()},protected_iso_ranges=protected,relocated_members=relocation,relocation_readback=relocation_readback,event_gallery=gallery['receipt'],event_gallery_voices=dict(voices['receipt'],readback=voice_readback),event_gallery_readback=gallery_readback,system_executable_changed_bytes=delta_count,proposal_sha256=proposal_sha,decoded_font_sha256=sha(decoded_font),components={str((WORK/k/'report.json').relative_to(ROOT)):file_sha(WORK/k/'report.json')for k in reports},source_files={str(p.relative_to(ROOT)):file_sha(p)for p in sorted((ROOT/'tools/special_disc/writeback').glob('*.py'))},runtime='pending',editorial='draft',not_claimed=['all game surfaces translated','all stages runtime verified','PCSX2 manual acceptance','save/load regression'])
+    report['font_relocation']=font_relocation_report
     report['battle_viewer_no_bgm']=no_bgm_report
     report['weapon_detail_labels']=weapon_report
     report['current_shared_library']=library_report

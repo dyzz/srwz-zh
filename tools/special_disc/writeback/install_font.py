@@ -90,6 +90,45 @@ def replace_font_slot(vt1: bytes, exe: bytes, font: bytes, expected_sha256: str)
     return output
 
 
+def replace_font_with_relocation(vt1: bytes, exe: bytes, font: bytes, expected_sha256: str):
+    """Grow only into verified zero padding before the preceding raw audio block."""
+    offsets = sp_offsets(exe, VT1_TABLE, len(vt1))
+    if offsets != sorted(set(offsets)) or offsets[0] != 0:
+        raise ValueError('SP font archive offsets invalid')
+    decoded = decode_production(font)
+    if len(decoded.output) != FONT_DECODED_SIZE or sha256(decoded.output) != expected_sha256:
+        raise ValueError('SP replacement font identity drift')
+    audio_start, start, end = offsets[AUDIO_CHUNK:FONT_CHUNK + 2]
+    needed = (decoded.consumed + 15) // 16 * 16
+    borrow = max(0, needed - (end - start))
+    if not borrow:
+        return replace_font_slot(vt1, exe, font, expected_sha256), exe, {'borrowed_bytes': 0}
+    if audio_start - borrow < offsets[AUDIO_CHUNK - 1] or any(vt1[audio_start - borrow:audio_start]):
+        raise ValueError('SP font growth would overwrite nonzero donor bytes')
+    audio = vt1[audio_start:start]
+    output = bytearray(vt1)
+    output[audio_start - borrow:start - borrow] = audio
+    output[start - borrow:end] = font[:decoded.consumed] + bytes(needed - decoded.consumed)
+    executable = bytearray(exe)
+    for index in (AUDIO_CHUNK, FONT_CHUNK):
+        struct.pack_into('<I', executable, VT1_TABLE + index * 4, offsets[index] - borrow)
+    after = sp_offsets(executable, VT1_TABLE, len(output))
+    if (len(output) != len(vt1) or after[:AUDIO_CHUNK] != offsets[:AUDIO_CHUNK]
+            or after[FONT_CHUNK + 1:] != offsets[FONT_CHUNK + 1:]
+            or output[:audio_start - borrow] != vt1[:audio_start - borrow]
+            or output[end:] != vt1[end:]
+            or output[after[AUDIO_CHUNK]:after[FONT_CHUNK]] != audio
+            or decode_production(output[after[FONT_CHUNK]:end]).output != decoded.output):
+        raise ValueError('SP relocated font/audio readback drift')
+    return bytes(output), bytes(executable), {
+        'borrowed_bytes': borrow, 'donor_tail_zero': True,
+        'audio_sha256': sha256(audio), 'audio_bytes_preserved': True,
+        'archive_size_preserved': True, 'following_offsets_preserved': True,
+        'old_audio_start': audio_start, 'new_audio_start': after[AUDIO_CHUNK],
+        'old_font_start': start, 'new_font_start': after[FONT_CHUNK],
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=ZH_COMPONENTS)
