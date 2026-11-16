@@ -73,7 +73,15 @@ against controlled libsd/interrupt stubs under ASan/UBSan:
 python3 -m unittest discover -s tests -p 'test_vocal*.py'
 ```
 
-That is 11 PCM cases and 8 container cases. They cover half/fresh refill
+`test_vocal_stream.py` compiles the player's stream core verbatim with host
+Tremor plus `seek.c`, encodes test songs with libvorbis q0 (as the web page
+does; needs libogg/libvorbis headers and ffmpeg), feeds them through simulated
+disc reads with random latency and long stalls, and compares every output frame
+with a whole-file decode laid out as first pass + repeated loops: whole loops,
+late loops in a 198 s song, loop starts inside long silent pages, a loop shorter
+than one read, one-shot, and a song too short to have a separate tail.
+
+That is 11 PCM cases, 8 container cases and 9 stream cases. The PCM cases cover half/fresh refill
 combinations, partial ring consumption, tail relocation, busy-channel recovery,
 restart grace, handler/STOP interleavings on both cores, failed-start retry,
 stale signals and stop/reset — but they do not emulate hardware timing.
@@ -82,10 +90,16 @@ stale signals and stop/reset — but they do not emulate hardware timing.
 
 **Loading.** Tracks are read from `cdrom0:\BGM\VOCAL.BIN;1` over a dedicated
 non-blocking SIF RPC client with its own IOP thread, so a PCM request never
-queues behind a CD read. Playback begins before the whole song has arrived: the
-last 64 KiB (Tremor scans it when opening) and the first 64 KiB are read first,
-then the head is kept 128 KiB ahead of the decoder. Custom loop ranges and
-seeks read the remainder at once. The body CRC is still checked at the end.
+queues behind a CD read. The song is never held whole in EE memory (since v6).
+The last 64 KiB (Tremor scans it when opening) and the first 64 KiB are read
+first; after that a 192 KiB ring over the rest of the file stays 128 KiB ahead
+of the decoder. On the first pass the player remembers the page boundary it
+passed 6 s before the loop start and keeps up to 192 KiB from there in a loop
+buffer. At the loop end, `ov_raw_pcm_seek` (`seek.c`: Tremor's `ov_raw_seek`
+followed by `ov_pcm_seek`'s own track-only skip) restarts at that page and lands
+on the exact loop-start frame, while the ring refills behind the loop buffer.
+The body CRC is checked once the first pass has read the whole file; a loop
+that ends earlier plays without that check.
 
 **Decoding and output.** Tremor (EE, normal precision) decodes at most one
 packet per update-hook call. The IOP sink feeds SPU2 through a block transfer
@@ -97,16 +111,19 @@ game's own transfers (see *Sharing SPU2* below).
 frame count, restarts the already-loaded native score. The fallback path guards
 the native start hook against re-entry.
 
-**Memory.** The payload occupies the private EE range `0x8c0000..0xdc0000`;
-heap initialization and the native break are moved accordingly, and the gallery
-segment is preserved. The build asserts hook preimages, the BGM hash, ELF
+**Memory.** The payload occupies the private EE range `0x8c0000..0xa00000`
+(v1–v5: `..0xdc0000`, 5 MiB, which left the Special Disc event gallery short of
+native heap); heap initialization and the native break are moved accordingly,
+and the gallery segment is preserved. `build_image.reserve_end()` derives the
+end from the payload's `__end`. The build asserts hook preimages, the BGM hash, ELF
 capacity, payload bounds and that no byte outside the explicit patch spans
 changed. ISO9660, VMAP and UDF all name the new file.
 
 **Upgrading an existing disc.** `update_existing_image()` recognises installed
-v1–v4 players on all three games by exact payload hash and hook addresses
-(`profiles.LEGACY_PLAYERS`), rewrites only the fixed VOCAL.BIN extent and the
-ELF, and compares every other byte to the source. Songs and gain settings
+v1–v5 players on all three games by exact payload hash and hook addresses
+(`profiles.LEGACY_PLAYERS`), checks the heap boundary words they wrote, moves
+the heap boundary back down to the new reserve end, rewrites only the fixed
+VOCAL.BIN extent and the ELF, and compares every other byte to the source. Songs and gain settings
 survive. An unknown player build or a changed hook is rejected, and a base ISO
 is required instead. Cold-boot the result: an old savestate still holds the old
 code.
@@ -188,4 +205,5 @@ the history below.
 - **v2** (2026-11-06) — all IDs 0–100, container v2 (range loop, one-shot, Q16 gain). Hooks the shared native sequence-start RPC with a re-entry guard, covering both Battle Viewer and Music Select. Z Original and The Best profiles added; the container is shared because Z and SP music data and IDs were verified identical.
 - **v3** (2026-11-11) — installs on v0.5.0 Chinese Original/Best; streams instead of preloading. Fixed battle sound effects playing stale samples: v2 held SPU2 core 1 AutoDMA while music played, so the game's uploads failed. Reported by Bilibili user PicACGLite; v0.5.0 installation reported by 绯红之诗.
 - **v4** (2026-11-11) — fixed sound effects going silent in the first battle after a song began loading: our disc reads made the game's non-retrying `sceCdRead` fail, so a bank was never keyed. Added disc-read arbitration and closed a DMA-mode race in the transfer wrapper.
+- **v6** (2026-11-16) — fixed the Special Disc event gallery freezing (or crashing) in triangle mode at 格兰维昂合神 on any music disc: v1–v5 kept the whole song in a 4 MiB EE buffer inside a 5 MiB reserve, and the gallery's combination effect then failed a native heap allocation. v6 streams through a ring plus a loop buffer (reserve 1.25 MiB, heap boundary back from 0xdc0000 to 0xa00000). Z Original plays the same combination in its own stage (STAGE007 event 10) without trouble even under v5: heap peak 0x1a27000, against an SP gallery allocation that failed ending at 0x1f4b7b0.
 - **v5** (2026-11-13) — fixed music skipping when the attacking side changed. v4 stopped the stream for every 32 KiB piece of a sound-effect burst (8–9 stops and 489–568 ms of silence per battle); v5 moves the stream to the other core instead. Review fixes the same day replaced an EE interrupt-count heuristic with an IOP grace period of three half-transfer interrupts, and hardened restart, STOP and handler-registration paths.

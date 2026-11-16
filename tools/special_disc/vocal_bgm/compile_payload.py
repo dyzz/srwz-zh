@@ -5,7 +5,7 @@ def compile_payload(W: Path, TC: Path, tremor: Path, ogg: Path, game="sp"):
     source = Path(__file__).resolve().parent
     W.mkdir(parents=True, exist_ok=True)
     (W/'iop').mkdir(exist_ok=True)
-    for name in ['player.c','arena.c','hooks.S','payload.ld']:
+    for name in ['player.c','seek.c','arena.c','hooks.S','payload.ld']:
         shutil.copyfile(source/name,W/name)
     for name in ['pcm.c','imports.lst','irx_imports.h','Makefile']:
         shutil.copyfile(source/'iop'/name,W/'iop'/name)
@@ -26,9 +26,10 @@ def compile_payload(W: Path, TC: Path, tremor: Path, ogg: Path, game="sp"):
     cc=TC/'ee/bin/mips64r5900el-ps2-elf-gcc'
     flags=['-O2','-G0','-fno-builtin','-ffunction-sections','-fdata-sections','-fsigned-char','-fno-strict-aliasing','-Wno-error=incompatible-pointer-types','-DLITTLE_ENDIAN=1234','-DBIG_ENDIAN=4321','-DBYTE_ORDER=1234','-I'+str(src),'-I'+str(SDK/'ports/include')]
     objects=[]
-    for name in 'mdct block codebook floor0 floor1 info mapping0 registry res012 sharedbook synthesis vorbisfile window'.split():
+    # vorbisfile.c is built through seek.c, which includes it and adds ov_raw_pcm_seek.
+    for name in 'mdct block codebook floor0 floor1 info mapping0 registry res012 sharedbook synthesis window'.split():
      run([cc,*flags,'-c',src/(name+'.c'),'-o',W/(name+'.o')]);objects.append(name+'.o')
-    for name in ['player.c','arena.c','hooks.S','assets.S']:
+    for name in ['player.c','seek.c','arena.c','hooks.S','assets.S']:
      obj=Path(name).stem+'.o';run([cc,*flags,'-c',W/name,'-o',W/obj]);objects.append(obj)
     run([cc,'-nostartfiles','-nostdlib','-G0','-Wl,--gc-sections','-T',W/'payload.ld','-o',W/'payload.elf',*objects,'-L'+str(SDK/'ports/lib'),'-logg','-lc','-lgcc'])
     run([TC/'ee/bin/mips64r5900el-ps2-elf-objcopy','-O','binary',W/'payload.elf',W/'payload.bin'])
