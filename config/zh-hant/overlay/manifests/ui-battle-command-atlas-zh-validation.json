@@ -1,0 +1,1150 @@
+{
+  "schema_version": 1,
+  "status": "static_localized_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-battle-command-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the COMMAND MENU locator inside the locked KVMDATA chunk 4 mapping mask. Static construction does not prove which runtime battle pages consume this atlas.",
+  "content_policy": "Hashes, coordinates, counts and render parameters only; game bytes, localized text and preview PNGs remain outside this committed manifest.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-battle-command-atlas-zh.json",
+      "size": 8372,
+      "sha256": "811a16322baf70c44aa348237906ea5e33cfde9a3ac7dac84aa1951cfddc0ea6"
+    },
+    "base_mapping": {
+      "config": {
+        "path": "config/assets/maps/tim2-kvm4-battle-command.json",
+        "size": 3608,
+        "sha256": "376c27e93a93587a4ff67dd4064dcd92ea0091ec9039ac639558d1783b57472e"
+      },
+      "manifest": {
+        "path": "manifests/ui-battle-command-atlas-map-canary-validation.json",
+        "size": 12091,
+        "sha256": "a0b267f0eb08246b36f0f83b202ea7fe8b662fb0212e618633b4821d199ae25e"
+      },
+      "profile_id": "ui-battle-command-atlas-map-canary",
+      "status": "static_component_validated_runtime_mapping_pending",
+      "archive": {
+        "size": 3335408,
+        "sha256": "6f186cdcfd84b62736d023d492ddb0963f26a3aa12787c7f2c8c642a527be13a"
+      }
+    },
+    "font": {
+      "flavor": {
+        "font_flavor_id": "srwz-zh-harmonyos-sans-sc-regular-v1",
+        "path": "config/fonts/zh-localization-font.json",
+        "sha256": "3f41b4774469e838109accb0e0a87525ff9fdc1e7c02387d067a49106e735c8b",
+        "font_lock": "config/fonts/harmonyos-sans-sc.lock.json",
+        "font_lock_sha256": "1f009920c771a90c8937e73633aa97ef05410b53ffaa9ba6a114be20568becd2"
+      },
+      "source": {
+        "family": "HarmonyOS Sans SC",
+        "version": "1.0",
+        "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
+        "license_spdx": "LicenseRef-HarmonyOS-Sans-Fonts-License",
+        "license_sha256": "b2ffec0e6269ee41c3b5fc0345ab37600b46d66ebea6c9c58ff37f517bdfa164",
+        "source_kind": "pinned-official-archive",
+        "source_id": "huawei-harmonyos-sans",
+        "distribution": "commercial_use_with_notice"
+      }
+    },
+    "translation_source": {
+      "file": {
+        "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+        "size": 7367,
+        "sha256": "7fb420f046bdf3d952d56b831ba3f603816be3aa02adec77b7c11fc6a1c8519a"
+      },
+      "batch_id": "v1-ui-atlas-core-menus",
+      "entry_id": "ui-atlas/kvm4/command-menu",
+      "editorial_status": "reviewed",
+      "source_ref_count": 2
+    },
+    "render_snapshot": {
+      "path": "config/assets/ui-battle-command-atlas-render-snapshot.json",
+      "size": 40414,
+      "sha256": "65ec2ecf46912e610a47632c197b70ee1d834072c0c5fb1f15969549d7f09c41"
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 4,
+    "chunk_start": 133376,
+    "chunk_end": 166720,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "COMMAND MENU",
+    "operation": "replace_erased_locator_with_text",
+    "candidate_scene_ids": [
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment"
+    ],
+    "mask": {
+      "x": 2,
+      "y": 100,
+      "width": 164,
+      "height": 17,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "masks": [
+      {
+        "x": 2,
+        "y": 100,
+        "width": 164,
+        "height": 17,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      {
+        "x": 114,
+        "y": 16,
+        "width": 46,
+        "height": 16,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      {
+        "x": 171,
+        "y": 16,
+        "width": 37,
+        "height": 16,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      }
+    ],
+    "mask_audit": {
+      "changed_pixel_count": 3040,
+      "changed_pixel_indexes_sha256": "90f03de9172f5def80bbba2489a6138c8943e26c46dcba306a5b4b265427e7bd",
+      "mask_count": 3,
+      "outside_masks_rgba_exact": true
+    }
+  },
+  "localized_label": {
+    "source_locator_sha256": "feb876749d2d67995be194160b16883ef3bafa69997f980bdf306c437d8d7da8",
+    "text_sha256": "d91726537ef09ea4c415ad7baf5c967f0bfbc1687cf06d9ed964e4e09ed4dd65",
+    "character_count": 4,
+    "render": {
+      "point_size": 14,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.35,
+      "fill_stroke_width": 0,
+      "supersample_factor": 4,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "606060ff",
+        "686868ff",
+        "707070ff",
+        "787878ff"
+      ],
+      "indexed_layers": {
+        "outline": [
+          {
+            "rgba": "101010ff",
+            "palette_index": 1
+          },
+          {
+            "rgba": "202020ff",
+            "palette_index": 2
+          },
+          {
+            "rgba": "303030ff",
+            "palette_index": 3
+          },
+          {
+            "rgba": "404040ff",
+            "palette_index": 4
+          },
+          {
+            "rgba": "505050ff",
+            "palette_index": 5
+          },
+          {
+            "rgba": "606060ff",
+            "palette_index": 6
+          },
+          {
+            "rgba": "707070ff",
+            "palette_index": 7
+          }
+        ],
+        "fill": [
+          {
+            "rgba": "000000ff",
+            "palette_index": 8
+          },
+          {
+            "rgba": "101010ff",
+            "palette_index": 9
+          },
+          {
+            "rgba": "202020ff",
+            "palette_index": 10
+          },
+          {
+            "rgba": "303030ff",
+            "palette_index": 11
+          },
+          {
+            "rgba": "404040ff",
+            "palette_index": 12
+          },
+          {
+            "rgba": "505050ff",
+            "palette_index": 13
+          },
+          {
+            "rgba": "686868ff",
+            "palette_index": 14
+          },
+          {
+            "rgba": "787878ff",
+            "palette_index": 15
+          }
+        ]
+      },
+      "text_mask": {
+        "size": 2788,
+        "sha256": "2fd8b129a38617cad9788a4257faf1acae5dafef4c710f9b954b4a6401959ad4",
+        "nonzero_pixel_count": 561
+      }
+    }
+  },
+  "additional_localized_labels": [
+    {
+      "source_locator_sha256": "cd25194ae75d9e777c336d73f9364e37c0ea212beef371c5279d4fe02826b933",
+      "text_sha256": "c0c253c2710b4e91f3de60d1e8737902b327ee3d7f419d4046b1c8cf3ea4cf67",
+      "character_count": 2,
+      "mask": {
+        "x": 114,
+        "y": 16,
+        "width": 46,
+        "height": 16,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "render": {
+        "point_size": 13,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.35,
+        "fill_stroke_width": 0,
+        "supersample_factor": 4,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "606060ff",
+          "686868ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layers": {
+          "outline": [
+            {
+              "rgba": "101010ff",
+              "palette_index": 1
+            },
+            {
+              "rgba": "202020ff",
+              "palette_index": 2
+            },
+            {
+              "rgba": "303030ff",
+              "palette_index": 3
+            },
+            {
+              "rgba": "404040ff",
+              "palette_index": 4
+            },
+            {
+              "rgba": "505050ff",
+              "palette_index": 5
+            },
+            {
+              "rgba": "606060ff",
+              "palette_index": 6
+            },
+            {
+              "rgba": "707070ff",
+              "palette_index": 7
+            }
+          ],
+          "fill": [
+            {
+              "rgba": "000000ff",
+              "palette_index": 8
+            },
+            {
+              "rgba": "101010ff",
+              "palette_index": 9
+            },
+            {
+              "rgba": "202020ff",
+              "palette_index": 10
+            },
+            {
+              "rgba": "303030ff",
+              "palette_index": 11
+            },
+            {
+              "rgba": "404040ff",
+              "palette_index": 12
+            },
+            {
+              "rgba": "505050ff",
+              "palette_index": 13
+            },
+            {
+              "rgba": "686868ff",
+              "palette_index": 14
+            },
+            {
+              "rgba": "787878ff",
+              "palette_index": 15
+            }
+          ]
+        },
+        "text_mask": {
+          "semantic_locator_sha256": "cd25194ae75d9e777c336d73f9364e37c0ea212beef371c5279d4fe02826b933",
+          "size": 736,
+          "sha256": "8c453f52d640b3b6d06470196344edbf8a073fd862de03bd0b08e1c09356c7e2",
+          "nonzero_pixel_count": 253
+        }
+      }
+    },
+    {
+      "source_locator_sha256": "aee7e141d60573ebeb56518432a47daa789a34d65ae04e8c4c9bf263ff31b5f7",
+      "text_sha256": "9fb1d89660c28e488f979606377cfd65e01380649e060f692729c104d085085f",
+      "character_count": 2,
+      "mask": {
+        "x": 171,
+        "y": 16,
+        "width": 37,
+        "height": 16,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "render": {
+        "point_size": 13,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.35,
+        "fill_stroke_width": 0,
+        "supersample_factor": 4,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "606060ff",
+          "686868ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layers": {
+          "outline": [
+            {
+              "rgba": "101010ff",
+              "palette_index": 1
+            },
+            {
+              "rgba": "202020ff",
+              "palette_index": 2
+            },
+            {
+              "rgba": "303030ff",
+              "palette_index": 3
+            },
+            {
+              "rgba": "404040ff",
+              "palette_index": 4
+            },
+            {
+              "rgba": "505050ff",
+              "palette_index": 5
+            },
+            {
+              "rgba": "606060ff",
+              "palette_index": 6
+            },
+            {
+              "rgba": "707070ff",
+              "palette_index": 7
+            }
+          ],
+          "fill": [
+            {
+              "rgba": "000000ff",
+              "palette_index": 8
+            },
+            {
+              "rgba": "101010ff",
+              "palette_index": 9
+            },
+            {
+              "rgba": "202020ff",
+              "palette_index": 10
+            },
+            {
+              "rgba": "303030ff",
+              "palette_index": 11
+            },
+            {
+              "rgba": "404040ff",
+              "palette_index": 12
+            },
+            {
+              "rgba": "505050ff",
+              "palette_index": 13
+            },
+            {
+              "rgba": "686868ff",
+              "palette_index": 14
+            },
+            {
+              "rgba": "787878ff",
+              "palette_index": 15
+            }
+          ]
+        },
+        "text_mask": {
+          "semantic_locator_sha256": "aee7e141d60573ebeb56518432a47daa789a34d65ae04e8c4c9bf263ff31b5f7",
+          "size": 592,
+          "sha256": "3e83a931e6032a5c3b031ab92f996e39f4e19322d10e15a2be567b49dd2c0fde",
+          "nonzero_pixel_count": 242
+        }
+      }
+    }
+  ],
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+    "text_render_source": "locked_snapshot"
+  },
+  "text_audit": {
+    "added_pixel_count": 1056,
+    "label_count": 3,
+    "labels": [
+      {
+        "added_pixel_count": 561,
+        "added_pixel_indexes_sha256": "4dcf0d56408d6f2dee2e07cdb5769395d468fc7a1f56b8421aba73d2b2716101",
+        "indexed_layer_counts": {
+          "outline": {
+            "2": 14,
+            "3": 12,
+            "4": 5,
+            "7": 1
+          },
+          "fill": {
+            "8": 32,
+            "9": 39,
+            "10": 84,
+            "11": 48,
+            "12": 79,
+            "13": 90,
+            "14": 45,
+            "15": 112
+          }
+        },
+        "fill_mask_sha256": "901da607faddeccc5ddfebc7abc04f14f6e8ad58977c26ea07a5a2ac032b469f",
+        "fill_mask_nonzero_pixel_count": 529,
+        "outside_mask_rgba_exact": true,
+        "erased_background_preimage_exact": true
+      },
+      {
+        "added_pixel_count": 253,
+        "added_pixel_indexes_sha256": "28477cc4118e215b3e9a7bd38278e663b6dbb6f8e5674963132473bb0025e1ae",
+        "indexed_layer_counts": {
+          "outline": {
+            "2": 4,
+            "7": 2
+          },
+          "fill": {
+            "8": 17,
+            "9": 24,
+            "10": 24,
+            "11": 28,
+            "12": 51,
+            "13": 26,
+            "14": 35,
+            "15": 42
+          }
+        },
+        "fill_mask_sha256": "be7757bd07afb9bca4a1926bc1a3c49a4eda3384138c79e86da019b58f00de2d",
+        "fill_mask_nonzero_pixel_count": 247,
+        "outside_mask_rgba_exact": true,
+        "erased_background_preimage_exact": true
+      },
+      {
+        "added_pixel_count": 242,
+        "added_pixel_indexes_sha256": "b5bd45e42cdc04671521f1600acce387f99e8c363c3871d4262fcc518c065304",
+        "indexed_layer_counts": {
+          "outline": {
+            "2": 9,
+            "3": 8,
+            "5": 1,
+            "7": 1
+          },
+          "fill": {
+            "8": 22,
+            "9": 8,
+            "10": 46,
+            "11": 10,
+            "12": 39,
+            "13": 33,
+            "14": 9,
+            "15": 56
+          }
+        },
+        "fill_mask_sha256": "15293001cae75709d817f26c9285db49cc3b2b6bf15171375a01b76a2b34375b",
+        "fill_mask_nonzero_pixel_count": 223,
+        "outside_mask_rgba_exact": true,
+        "erased_background_preimage_exact": true
+      }
+    ],
+    "source_elements": [
+      {
+        "source_element_id": "command-menu-164x17",
+        "width": 164,
+        "height": 17,
+        "rgba_size": 11152,
+        "rgba_sha256": "139d00a1f7d711aab1699301eece440d6c43de68fcd6492483b413fd41a1c5a7"
+      },
+      {
+        "source_element_id": "charge-46x16",
+        "width": 46,
+        "height": 16,
+        "rgba_size": 2944,
+        "rgba_sha256": "9068cab22c345aad2db4ed2b963002aabe210d17073aa487d4c700ad4e8dd459"
+      },
+      {
+        "source_element_id": "turn-37x16",
+        "width": 37,
+        "height": 16,
+        "rgba_size": 2368,
+        "rgba_sha256": "adb183a3b0967a2fe9bc7e49c9c16d6f26b49a25d4986245a1344cecd6b79b28"
+      }
+    ],
+    "outside_masks_rgba_exact": true,
+    "erased_background_preimage_exact": true,
+    "delta_from_erased": {
+      "changed_pixel_count": 1056,
+      "changed_pixel_indexes_sha256": "6633f356874cb789e5c8704f7513be0c292b892428537991b7400f515d218617",
+      "mask_count": 3,
+      "outside_masks_rgba_exact": true
+    },
+    "delta_from_original": {
+      "changed_pixel_count": 3040,
+      "changed_pixel_indexes_sha256": "90f03de9172f5def80bbba2489a6138c8943e26c46dcba306a5b4b265427e7bd",
+      "mask_count": 3,
+      "outside_masks_rgba_exact": true
+    }
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 1270,
+    "changed_image_byte_count": 724,
+    "changed_image_byte_ranges": [
+      {
+        "start": 2126,
+        "end": 2128
+      },
+      {
+        "start": 2236,
+        "end": 2238
+      },
+      {
+        "start": 2240,
+        "end": 2242
+      },
+      {
+        "start": 2246,
+        "end": 2247
+      },
+      {
+        "start": 2248,
+        "end": 2249
+      },
+      {
+        "start": 2251,
+        "end": 2256
+      },
+      {
+        "start": 2263,
+        "end": 2265
+      },
+      {
+        "start": 2273,
+        "end": 2275
+      },
+      {
+        "start": 2363,
+        "end": 2366
+      },
+      {
+        "start": 2368,
+        "end": 2370
+      },
+      {
+        "start": 2373,
+        "end": 2384
+      },
+      {
+        "start": 2391,
+        "end": 2399
+      },
+      {
+        "start": 2401,
+        "end": 2403
+      },
+      {
+        "start": 2489,
+        "end": 2509
+      },
+      {
+        "start": 2510,
+        "end": 2511
+      },
+      {
+        "start": 2519,
+        "end": 2527
+      },
+      {
+        "start": 2528,
+        "end": 2532
+      },
+      {
+        "start": 2617,
+        "end": 2621
+      },
+      {
+        "start": 2622,
+        "end": 2635
+      },
+      {
+        "start": 2636,
+        "end": 2637
+      },
+      {
+        "start": 2638,
+        "end": 2640
+      },
+      {
+        "start": 2647,
+        "end": 2663
+      },
+      {
+        "start": 2747,
+        "end": 2750
+      },
+      {
+        "start": 2751,
+        "end": 2761
+      },
+      {
+        "start": 2762,
+        "end": 2764
+      },
+      {
+        "start": 2766,
+        "end": 2768
+      },
+      {
+        "start": 2775,
+        "end": 2791
+      },
+      {
+        "start": 2873,
+        "end": 2893
+      },
+      {
+        "start": 2894,
+        "end": 2896
+      },
+      {
+        "start": 2902,
+        "end": 2918
+      },
+      {
+        "start": 3001,
+        "end": 3009
+      },
+      {
+        "start": 3010,
+        "end": 3021
+      },
+      {
+        "start": 3022,
+        "end": 3023
+      },
+      {
+        "start": 3030,
+        "end": 3041
+      },
+      {
+        "start": 3044,
+        "end": 3046
+      },
+      {
+        "start": 3129,
+        "end": 3140
+      },
+      {
+        "start": 3141,
+        "end": 3151
+      },
+      {
+        "start": 3158,
+        "end": 3174
+      },
+      {
+        "start": 3257,
+        "end": 3261
+      },
+      {
+        "start": 3263,
+        "end": 3268
+      },
+      {
+        "start": 3269,
+        "end": 3275
+      },
+      {
+        "start": 3277,
+        "end": 3279
+      },
+      {
+        "start": 3286,
+        "end": 3287
+      },
+      {
+        "start": 3288,
+        "end": 3302
+      },
+      {
+        "start": 3387,
+        "end": 3389
+      },
+      {
+        "start": 3391,
+        "end": 3403
+      },
+      {
+        "start": 3404,
+        "end": 3407
+      },
+      {
+        "start": 3416,
+        "end": 3425
+      },
+      {
+        "start": 3427,
+        "end": 3430
+      },
+      {
+        "start": 3515,
+        "end": 3517
+      },
+      {
+        "start": 3519,
+        "end": 3529
+      },
+      {
+        "start": 3530,
+        "end": 3534
+      },
+      {
+        "start": 3543,
+        "end": 3557
+      },
+      {
+        "start": 3643,
+        "end": 3645
+      },
+      {
+        "start": 3646,
+        "end": 3662
+      },
+      {
+        "start": 3671,
+        "end": 3685
+      },
+      {
+        "start": 3770,
+        "end": 3772
+      },
+      {
+        "start": 3774,
+        "end": 3776
+      },
+      {
+        "start": 3777,
+        "end": 3780
+      },
+      {
+        "start": 3781,
+        "end": 3789
+      },
+      {
+        "start": 3798,
+        "end": 3802
+      },
+      {
+        "start": 3805,
+        "end": 3813
+      },
+      {
+        "start": 3897,
+        "end": 3900
+      },
+      {
+        "start": 3905,
+        "end": 3907
+      },
+      {
+        "start": 3915,
+        "end": 3917
+      },
+      {
+        "start": 3926,
+        "end": 3928
+      },
+      {
+        "start": 3938,
+        "end": 3939
+      },
+      {
+        "start": 4033,
+        "end": 4035
+      },
+      {
+        "start": 4054,
+        "end": 4055
+      },
+      {
+        "start": 12957,
+        "end": 12960
+      },
+      {
+        "start": 12966,
+        "end": 12967
+      },
+      {
+        "start": 12972,
+        "end": 12973
+      },
+      {
+        "start": 12974,
+        "end": 12976
+      },
+      {
+        "start": 12978,
+        "end": 12984
+      },
+      {
+        "start": 13085,
+        "end": 13091
+      },
+      {
+        "start": 13093,
+        "end": 13096
+      },
+      {
+        "start": 13098,
+        "end": 13112
+      },
+      {
+        "start": 13212,
+        "end": 13219
+      },
+      {
+        "start": 13221,
+        "end": 13224
+      },
+      {
+        "start": 13226,
+        "end": 13240
+      },
+      {
+        "start": 13340,
+        "end": 13347
+      },
+      {
+        "start": 13348,
+        "end": 13353
+      },
+      {
+        "start": 13354,
+        "end": 13368
+      },
+      {
+        "start": 13468,
+        "end": 13496
+      },
+      {
+        "start": 13597,
+        "end": 13617
+      },
+      {
+        "start": 13618,
+        "end": 13623
+      },
+      {
+        "start": 13724,
+        "end": 13738
+      },
+      {
+        "start": 13739,
+        "end": 13744
+      },
+      {
+        "start": 13746,
+        "end": 13751
+      },
+      {
+        "start": 13852,
+        "end": 13865
+      },
+      {
+        "start": 13867,
+        "end": 13872
+      },
+      {
+        "start": 13874,
+        "end": 13879
+      },
+      {
+        "start": 13980,
+        "end": 13993
+      },
+      {
+        "start": 13994,
+        "end": 14001
+      },
+      {
+        "start": 14002,
+        "end": 14007
+      },
+      {
+        "start": 14109,
+        "end": 14115
+      },
+      {
+        "start": 14116,
+        "end": 14118
+      },
+      {
+        "start": 14119,
+        "end": 14121
+      },
+      {
+        "start": 14122,
+        "end": 14129
+      },
+      {
+        "start": 14130,
+        "end": 14135
+      },
+      {
+        "start": 14237,
+        "end": 14243
+      },
+      {
+        "start": 14244,
+        "end": 14249
+      },
+      {
+        "start": 14251,
+        "end": 14256
+      },
+      {
+        "start": 14257,
+        "end": 14264
+      },
+      {
+        "start": 14364,
+        "end": 14371
+      },
+      {
+        "start": 14373,
+        "end": 14376
+      },
+      {
+        "start": 14378,
+        "end": 14392
+      },
+      {
+        "start": 14492,
+        "end": 14499
+      },
+      {
+        "start": 14502,
+        "end": 14505
+      },
+      {
+        "start": 14506,
+        "end": 14508
+      },
+      {
+        "start": 14509,
+        "end": 14510
+      },
+      {
+        "start": 14511,
+        "end": 14513
+      },
+      {
+        "start": 14516,
+        "end": 14517
+      },
+      {
+        "start": 14620,
+        "end": 14624
+      },
+      {
+        "start": 14625,
+        "end": 14627
+      },
+      {
+        "start": 14631,
+        "end": 14633
+      },
+      {
+        "start": 14634,
+        "end": 14635
+      },
+      {
+        "start": 14637,
+        "end": 14638
+      },
+      {
+        "start": 14640,
+        "end": 14641
+      },
+      {
+        "start": 14644,
+        "end": 14645
+      }
+    ],
+    "available_color_count": 11,
+    "archive_diff_from_erased_base": {
+      "diff_count": 724,
+      "range_count": 120,
+      "first_offset": 135566,
+      "last_offset": 148084,
+      "offsets_sha256": "69224baf47acfaf83dd3d8d15096029c0a279dfb8f87f50b1436ab5622ef82bb",
+      "ranges_sha256": "5ec3c78e4f1b1fa2d84af81863b95cd38b7080d2057e4db48854ef1907226e7f",
+      "before_values_sha256": "1643fd9b0d3436a78cd3e99e0e2fc78b60c881367fd5e053cff10ddc573ca7e1",
+      "after_values_sha256": "27c16f49846ab9aaa5fa8a186b243ae56bacd93589cee1f631a051bf494660f6"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "21c35763e187fad40a23c8f25f0753b8a331045ef9b007ac8a2fd92d6847f591"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "e861c078c4683f11d2faea9ee6496af836b99d7803e547fd7953cc3bec73c790"
+    },
+    "reference_png": {
+      "size": 27121,
+      "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
+    },
+    "localized_png": {
+      "size": 26356,
+      "sha256": "cd44d2db239b9641f0709f7a99201afa2ddc3f2e338c42e113db4e904679512e"
+    }
+  },
+  "expected_lock": {
+    "text_mask": {
+      "size": 2788,
+      "sha256": "2fd8b129a38617cad9788a4257faf1acae5dafef4c710f9b954b4a6401959ad4",
+      "nonzero_pixel_count": 561
+    },
+    "reference_png": {
+      "size": 27121,
+      "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
+    },
+    "localized_png": {
+      "size": 26356,
+      "sha256": "cd44d2db239b9641f0709f7a99201afa2ddc3f2e338c42e113db4e904679512e"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "21c35763e187fad40a23c8f25f0753b8a331045ef9b007ac8a2fd92d6847f591"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "e861c078c4683f11d2faea9ee6496af836b99d7803e547fd7953cc3bec73c790"
+    },
+    "added_pixel_count": 1056,
+    "original_changed_pixel_count": 3040,
+    "original_changed_pixel_indexes_sha256": "90f03de9172f5def80bbba2489a6138c8943e26c46dcba306a5b4b265427e7bd",
+    "changed_archive_byte_count": 724,
+    "changed_archive_range_count": 120,
+    "additional_text_masks": [
+      {
+        "semantic_locator_sha256": "cd25194ae75d9e777c336d73f9364e37c0ea212beef371c5279d4fe02826b933",
+        "size": 736,
+        "sha256": "8c453f52d640b3b6d06470196344edbf8a073fd862de03bd0b08e1c09356c7e2",
+        "nonzero_pixel_count": 253
+      },
+      {
+        "semantic_locator_sha256": "aee7e141d60573ebeb56518432a47daa789a34d65ae04e8c4c9bf263ff31b5f7",
+        "size": 592,
+        "sha256": "3e83a931e6032a5c3b031ab92f996e39f4e19322d10e15a2be567b49dd2c0fde",
+        "nonzero_pixel_count": 242
+      }
+    ]
+  },
+  "acceptance": {
+    "base_mapping_reproduced_exact": true,
+    "font_and_license_locked": true,
+    "text_mask_hash_locked": true,
+    "frozen_render_snapshot_consumed": true,
+    "ramp_uses_only_source_palette_rgba": true,
+    "localized_pixels_within_mapping_mask": true,
+    "source_element_rectangles_and_rgba_locked": true,
+    "indexed_outline_and_fill_layers_rebuilt": true,
+    "erased_locator_preimage_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove that KVMDATA chunk 4 supplies the tactical command-menu locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_battle_save",
+      "open_command_menu_for_two_units",
+      "visit_move_attack_target_and_battle_status_routes",
+      "capture_visible_chinese_command_menu_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original COMMAND MENU locator is replaced by the locked compact Chinese command-menu label while adjacent symbols, number rows, HP, EN and formation labels remain intact.",
+    "promotion_rule": "Only a matching battle screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  }
+}

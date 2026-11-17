@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "v1-mtv-prop-chapter-intertitles",
+  "language": "zh-Hant",
+  "scope": "All visible Japanese chapter-transition text found by manual visual review of all 23 original-disc MTV_PROP TIM2 chunks.",
+  "selection_authority": "complete_23_chunk_tim2_inventory_plus_manual_visual_review",
+  "offset_table_start": 3324784,
+  "offset_table_end": 3324880,
+  "expected_chunk_count": 23,
+  "inventory_sha256": "0d2fa2aded9f85bb0233555bb447d0fdad94b0e88683041d70326f5b36e3156e",
+  "visible_japanese_text_chunk_indices": [
+    21,
+    22
+  ],
+  "render": {
+    "font_size": 8261128,
+    "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
+    "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+    "width": 640,
+    "height": 448,
+    "strip_y": 200,
+    "strip_height": 48,
+    "point_size": 29,
+    "supersample_factor": 2,
+    "palette_rounding": "nearest_gray_16_cap_15",
+    "storage_layout": "linear_row_major_despite_psmt8_header",
+    "source_palette_sha256": "68617f008460d9be5e005b6920bfccc50d4c9e97745d8bc2832710018f998077"
+  },
+  "output_archive_sha256": "8078c455a8b6e8a2ce9005e252ca116f0a0290af99301b7b57673bbe3e2adaa1",
+  "entries": [
+    {
+      "id": "chapter-intertitle/world-collapse",
+      "chunk_index": 21,
+      "source_text": "その日、世界は崩壊した……",
+      "translation": "那一天，世界崩壞了……",
+      "editorial_status": "reviewed",
+      "source_decoded_sha256": "f0523acd47f9e6d26dba1fb12dbcf788f4415e95c8179266e769cef5cf676998",
+      "source_linear_indexes_sha256": "895d24edcf79d6762607a948d3e7357a51a20cd2648630a94df1d4d1e1ffc778",
+      "source_bbox": [
+        128,
+        209,
+        520,
+        238
+      ],
+      "render_mask_sha256": "e650dd011d17ec3b13e4f88440abda66db4395cb7fc6f45ab65238296bee74c8",
+      "output_linear_indexes_sha256": "b5dc94403ddb415b77ac4a97fbfb8102c3b684367c904397f1bb447104d9d204",
+      "output_decoded_sha256": "726295300cd2779f3f736eaadc53cf6d163705de9e1b65fb547c2012cb3f5564",
+      "output_encoded_size": 1982,
+      "output_encoded_sha256": "a5616329b97fd32e9f2ee906529f7edff114be724317c385ac5f767e90d463fa",
+      "zh_hans_sha256": "58087cd1a38611f530269fe6c6315c48a6435d3e45492b33332b15bb761255d4",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "chapter-intertitle/new-world-begins",
+      "chunk_index": 22,
+      "source_text": "そして、新しい世界が始まる……",
+      "translation": "隨後，新的世界開始了……",
+      "editorial_status": "reviewed",
+      "source_decoded_sha256": "b132a5e588a05e20d661bb66fa6381f3849425564358109860d4bce74fbc29e7",
+      "source_linear_indexes_sha256": "8006666d3462b6cbf67b42d09aff82aeb4872d6a8126acfc60fe3e4a4065d972",
+      "source_bbox": [
+        96,
+        208,
+        549,
+        238
+      ],
+      "render_mask_sha256": "ce3eee1690048e6d371be7f2b079a780cf51b6ea9c7de7c09ba10b658ba5dbed",
+      "output_linear_indexes_sha256": "0b34368c2032579f8bb789f91bc172d33399f099c8b9d221b0ef72f280f5658c",
+      "output_decoded_sha256": "ce52569adbc975629564ed080e04c007655c5383d58b89c6747d9e56a5873c86",
+      "output_encoded_size": 2737,
+      "output_encoded_sha256": "f09c3ebfb39ce72bdecf496a58f32ed72d738c50b9911d7bca512407a79f908b",
+      "zh_hans_sha256": "de0bf2deb799aae728544ab03a06f8272843157d517a57d5a7f92f448f862b87",
+      "zh_hant_status": "draft"
+    }
+  ]
+}

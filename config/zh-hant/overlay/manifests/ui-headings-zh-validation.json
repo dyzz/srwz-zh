@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "profile_id": "formation-help-headings-zh",
+  "status": "static_component_validated_runtime_pending",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-headings-zh.json",
+      "size": 36781,
+      "sha256": "10eb7a8bd24c84eb18924c8f7e44b69c11519a704cc0ce2370aae5b7e1b872d2"
+    },
+    "base_atlas": {
+      "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "1a6c3f153055e01a6bb5c244889ede396bc7b32b076e07888432beb471aa55a8"
+    },
+    "corpus": {
+      "path": "corpus/zh/ui-atlas/formation-help-headings.json",
+      "size": 1055,
+      "sha256": "71dd2721d105d452a5851e70a3c551f8eeab45d90503b6b76d6bdc90a7020941"
+    },
+    "snapshot": {
+      "path": "config/assets/ui-headings-render-snapshot.json",
+      "size": 5353,
+      "sha256": "c1f974363de54ff2dd77de42132b57d47775901ef1bdf83024d01ec9d6c6f5dc"
+    },
+    "menu_restore": {
+      "path": "config/assets/ui-menu-native-restore.json",
+      "size": 48134,
+      "sha256": "1f3bb6ffb798ed5b71540ed59c46e7975f1f3c2cc82a363a6e7b2c398ea98af8"
+    },
+    "text_clarity": {
+      "path": "config/assets/ui-text-clarity.json",
+      "size": 14225,
+      "sha256": "9c0e497ec337146753fa96d55e001f96a458d946df5c27f0ecc2cf60811705d6"
+    },
+    "native_select": {
+      "path": "config/assets/ui-select-native.json",
+      "size": 25407,
+      "sha256": "554ed8c08eea221e1edc05ccb1d8d1994a9f1be20542bef1284c2f1cb6cbfb73"
+    },
+    "help_titles": {
+      "path": "config/assets/ui-help-titles-zh.json",
+      "size": 4210,
+      "sha256": "e8492bcc23442993c0270cdc1395725cd5045e31a66e61d810f3312c2749405d"
+    },
+    "support_title": {
+      "path": "config/assets/ui-support-spirit-title-zh.json",
+      "size": 3200,
+      "sha256": "096683a27aa19eb201c29eb8749facaf4197483217791c2fe68874ac61e7b039"
+    },
+    "command_title": {
+      "path": "config/assets/ui-command-title-zh.json",
+      "size": 1677,
+      "sha256": "1be78782e1c0b6b57ffeea6160c713160775ae76ff234fb529d86e57fb7da553"
+    },
+    "battle_select": {
+      "path": "config/assets/ui-battle-select-titles-zh.json",
+      "size": 7906,
+      "sha256": "3a0ea20e54fd27465144f5757df800d8f6cf18a441fb5f68b2debdb6d725bc2b"
+    },
+    "frame_joins": {
+      "path": "config/assets/ui-frame-joins.json",
+      "size": 8277,
+      "sha256": "8881253b87145166c3907c048c9eb84e3bc7565fa0697f259739cfdb2c5f303a"
+    }
+  },
+  "source_drawings": {
+    "member": "KURODATA/KVPDATA.BIN",
+    "size": 239664,
+    "sha256": "39caf7f108b6f98226d9bd5860fc6287389e5ba69a69f3e443434ccec55c5e2a"
+  },
+  "menu_restore": {
+    "config_sha256": "1f3bb6ffb798ed5b71540ed59c46e7975f1f3c2cc82a363a6e7b2c398ea98af8",
+    "profile": "original",
+    "restored_chunks": [
+      158,
+      159,
+      160,
+      161,
+      162,
+      204
+    ],
+    "moved_cells": 3,
+    "runtime": "pending",
+    "text_clarity": {
+      "config_sha256": "9c0e497ec337146753fa96d55e001f96a458d946df5c27f0ecc2cf60811705d6",
+      "cells": [
+        "formation",
+        "select",
+        "key",
+        "help",
+        "item",
+        "sort"
+      ]
+    },
+    "native_select": {
+      "config_sha256": "554ed8c08eea221e1edc05ccb1d8d1994a9f1be20542bef1284c2f1cb6cbfb73",
+      "patches": 27
+    },
+    "help_titles": {
+      "config_sha256": "e8492bcc23442993c0270cdc1395725cd5045e31a66e61d810f3312c2749405d",
+      "drawings": 6
+    },
+    "support_title": {
+      "config_sha256": "096683a27aa19eb201c29eb8749facaf4197483217791c2fe68874ac61e7b039",
+      "chunk": 204
+    },
+    "command_title": {
+      "config_sha256": "1be78782e1c0b6b57ffeea6160c713160775ae76ff234fb529d86e57fb7da553",
+      "chunk": 158
+    }
+  },
+  "shared_frame_uv": {
+    "style_id": 89,
+    "chunk_index": 1401,
+    "byte_offsets": [
+      193780,
+      193802,
+      193912,
+      193934,
+      194022,
+      194044,
+      194182,
+      194248,
+      194292
+    ],
+    "byte_count": 9,
+    "patched_chunk_sha256": "6138c61bb629d22da4f7dd23968b02f9f6ba8e7eeca2472b9e23a15db2b48148",
+    "scope": "all references to the shared style",
+    "input": {
+      "size": 239664,
+      "sha256": "9a332b2745a88baff9b8eabd1d45921a4de921f26fc8591a24d9ca7fb5e6b481"
+    },
+    "output": {
+      "size": 239664,
+      "sha256": "168a21ba223a2c31a3e01d3ae1398c64175199508019fe4edd6fef43121c4a3b"
+    },
+    "runtime": "see external ISO and renderer evidence"
+  },
+  "frame_joins": {
+    "patched_chunks": {
+      "749": "e0d2e506d57073251f7affbf5e76904fb66dfc7f924c15142132b6e290be5857",
+      "751": "66fbdd33cbe0f8b8df8f799038791e3eede60b095194787f89f231635c1e4227",
+      "752": "522173a715e4a29dd642cf6588459c8be11bc4fcb3321d88f786922054d30b50",
+      "1398": "7e421bbc3fc14960f92a31dd54813cef692dd72a9a2e371b8ebadc0d06b306ec",
+      "1399": "7127093da223e5790609be69f4c9967085285f10a5d2b2ab4b3356342ad5f1bb",
+      "1400": "634f1b54e9456aff4fc2b7f88ff0111c8efcc5902e5035b53b148006b04e4500"
+    },
+    "byte_offsets": [
+      79892,
+      79908,
+      79934,
+      79958,
+      79974,
+      80000,
+      80052,
+      80068,
+      80094,
+      80436,
+      80448,
+      80452,
+      80478,
+      80502,
+      80514,
+      80518,
+      80544,
+      80596,
+      80608,
+      80612,
+      80638,
+      80708,
+      80724,
+      80750,
+      80786,
+      80814,
+      80852,
+      80904,
+      80920,
+      80946,
+      192068,
+      192420,
+      192628,
+      192992,
+      193204,
+      193568
+    ],
+    "byte_count": 36
+  },
+  "heading_count": 6,
+  "cell_count": 8,
+  "drawing_patch_count": 79,
+  "shared_letter_patch_count": 6,
+  "outputs": {
+    "KURODATA/KVMDATA.BIN": {
+      "path": "work/build/ui-headings-zh/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "733c0de13814a97d6232e97d26739ef4835b3d40badd642fef770b94e22b9f4a"
+    },
+    "KURODATA/KVPDATA.BIN": {
+      "path": "work/build/ui-headings-zh/components/KURODATA/KVPDATA.BIN",
+      "size": 239664,
+      "sha256": "85a2f947e3195eb1a978fd10382ad1638d9a9a0597668b4eb7e4a834559dfb91"
+    }
+  },
+  "acceptance": {
+    "locked_translation_and_index_snapshot": true,
+    "non_target_indices_exact": true,
+    "headers_clut_and_trailing_bytes_exact": true,
+    "polygon_preimages_and_non_target_bytes_exact": true,
+    "polygon_topology_material_color_and_termination_preserved": true,
+    "member_sizes_preserved": true,
+    "indexed_round_trip_exact": true
+  },
+  "runtime": {
+    "status": "not_tested"
+  }
+}

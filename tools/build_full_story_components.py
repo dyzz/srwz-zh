@@ -27,6 +27,7 @@ try:
     from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
     from srwz import continuation_indent
+    from srwz.build_language import corpus_language, expected_literal
     from srwz.typography_policy import candidate_enabled as compact_typography_enabled
     from srwz.build_layout import PROSE_HANGING_PX, verify_stored as verify_js_stored, verify_prose as verify_js_prose
     from srwz.chinese_layout import load_layout_profiles
@@ -243,6 +244,7 @@ except ModuleNotFoundError:
     from tools.srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from tools.srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
     from tools.srwz import continuation_indent
+    from tools.srwz.build_language import corpus_language, expected_literal
     from tools.srwz.typography_policy import candidate_enabled as compact_typography_enabled
     from tools.srwz.build_layout import PROSE_HANGING_PX, verify_stored as verify_js_stored, verify_prose as verify_js_prose
     from tools.srwz.diagnostics import require_work_output
@@ -3117,10 +3119,10 @@ def _apply_full_stage_title_graphics(
     stage_37 = title_reports[71]
     stage_38 = title_reports[72]
     if (
-        stage_37["text"] != "肃清风暴"
+        stage_37["text"] != expected_literal("肃清风暴", PROJECT_ROOT)
         or stage_37["selector"] != 72
         or stage_37["loader_table_index"] != 80
-        or stage_38["text"] != "被操纵的决战"
+        or stage_38["text"] != expected_literal("被操纵的决战", PROJECT_ROOT)
         or stage_38["selector"] != 73
         or stage_38["loader_table_index"] != 81
     ):
@@ -3425,7 +3427,7 @@ def _apply_full_stage_titles(
         workspace=workspace,
     )
     example_id = "menu/Compdata/03/0072"
-    if stage_replacements.get(example_id) != "被操纵的决战":
+    if stage_replacements.get(example_id) != expected_literal("被操纵的决战", PROJECT_ROOT):
         raise FullStoryComponentError("stage 38 title decision drift")
     output_vt1, graphic_report = _apply_full_stage_title_graphics(
         slps_write.data,
@@ -3816,7 +3818,7 @@ def _apply_stage_default_formation_names(
     expected = reference.get("expected")
     if (
         document.get("schema_version") != 1
-        or document.get("language") != "zh-Hans"
+        or document.get("language") != corpus_language(PROJECT_ROOT)
         or document.get("editorial_status") != "reviewed"
         or document.get("policy", {}).get("source_text_authority")
         != "original_disc_only"
@@ -6737,7 +6739,7 @@ def _apply_compdata_battle_lines(
     expected = reference.get("expected")
     if (
         document.get("batch_id") != "v1-menu-battle-lines"
-        or document.get("language") != "zh-Hans"
+        or document.get("language") != corpus_language(PROJECT_ROOT)
         or not isinstance(scope, dict)
         or scope.get("domain") != "menu"
         or scope.get("section") != "Battle Lines"
@@ -6951,7 +6953,7 @@ def _apply_reviewed_weapon_names(
     expected = reference.get("expected")
     if (
         document.get("batch_id") != "v1-menu-weapons"
-        or document.get("language") != "zh-Hans"
+        or document.get("language") != corpus_language(PROJECT_ROOT)
         or not isinstance(entries, list)
         or not isinstance(expected, dict)
         or len(entries) != expected.get("entry_count")
@@ -7155,7 +7157,7 @@ def _apply_srvc_battle_text(
     entries = corpus.get("entries")
     if (
         corpus.get("corpus_id") != "srwz-srvc-battle-lines-zh-v1"
-        or corpus.get("language") != "zh-Hans"
+        or corpus.get("language") != corpus_language(PROJECT_ROOT)
         or not isinstance(expected, dict)
         or not isinstance(entries, list)
         or len(entries) != expected.get("unique_text_count")
@@ -8342,7 +8344,7 @@ def _apply_auto_demo_overlays(
     unit_names = json.loads(unit_name_data.decode("utf-8"))
     unit_segments = unit_names.get("segments")
     if (
-        title_corpus.get("language") != "zh-Hans"
+        title_corpus.get("language") != corpus_language(PROJECT_ROOT)
         or title_corpus.get("scope", {}).get("surface")
         != "title-idle-auto-demo"
         or not isinstance(title_entries, list)
@@ -11448,9 +11450,10 @@ def _build_components(
             "world_map_titles_reread_exact": (
                 world_map_title_report["unique_title_count"] == 78
                 and world_map_title_report["translated_unique_title_count"]
-                == 70
+                == config["world_map_titles"]["expected"]["translated_unique_title_count"]
                 and world_map_title_report["member_count"] == 115
-                and world_map_title_report["translated_member_count"] == 101
+                and world_map_title_report["translated_member_count"]
+                == config["world_map_titles"]["expected"]["translated_member_count"]
                 and world_map_title_report["archive_size_preserved"]
                 and world_map_title_report["top_level_offsets_preserved"]
                 and world_map_title_report[
@@ -11480,7 +11483,9 @@ def _build_components(
             ),
             "original_members_are_only_binary_baseline": True,
             "title_menu_rebuilt_from_reviewed_masks": (
-                title_menu_report["changed_pixel_count"] == 12514
+                title_menu_report["changed_pixel_count"]
+                == json.loads((PROJECT_ROOT / config["title_menu"]["path"]).read_text(encoding="utf-8"))[
+                    "target"]["expected_changed_pixel_count"]
                 and title_menu_report["archive_size_preserved"]
                 and title_menu_report["non_target_decoded_bytes_exact"]
                 and title_menu_report["codec_round_trip_exact"]
@@ -11729,7 +11734,7 @@ def _build_components(
                     site["translation"]
                     for site in movement_type_label_report["sites"]
                 ]
-                == ["空专用", "陆专用"]
+                == [expected_literal(text, PROJECT_ROOT) for text in ("空专用", "陆专用")]
                 and movement_type_label_report["preserved_parallel_type"][
                     "preserved_byte_exact"
                 ]
@@ -11750,7 +11755,7 @@ def _build_components(
                     site["translation"]
                     for site in weapon_category_label_report["sites"]
                 ]
-                == ["格斗武器（　　）", "射击武器（　　）"]
+                == [expected_literal(text, PROJECT_ROOT) for text in ("格斗武器（　　）", "射击武器（　　）")]
             ),
             "dialogue_speaker_colors_restored": (
                 dialogue_speaker_color_report["source_quote"] == "「"
@@ -11932,7 +11937,7 @@ def _build_components(
             ],
             "full_story_stage_titles_reread_exact": (
                 stage_title_report["stage_title_entry_count"] == 122
-                and stage_title_report["stage_38_title"] == "被操纵的决战"
+                and stage_title_report["stage_38_title"] == expected_literal("被操纵的决战", PROJECT_ROOT)
                 and stage_title_report["compdata_round_trip_exact"]
                 and stage_title_report["block_unowned_bytes_zero"]
                 and stage_title_report["block_repack_entry_count"] == 122
@@ -11965,7 +11970,7 @@ def _build_components(
                     "translated_reread_exact"
                 ]
                 and stage_title_report["graphics"]["stage_38"]["text"]
-                == "被操纵的决战"
+                == expected_literal("被操纵的决战", PROJECT_ROOT)
             ),
             "stage_overviews_reread_exact": (
                 stage_overview_report["translated_readback_exact"]

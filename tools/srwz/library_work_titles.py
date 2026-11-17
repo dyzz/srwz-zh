@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import struct
 from .library_typography import library_typography
+from .build_language import corpus_language
 from .text import encode_text, decode_text, normalize_original_fullwidth_ascii, two_byte_visible_spaces
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -45,7 +46,7 @@ def inputs(edition='original', canonical=None):
     c = contract['variants'][edition]
     corpus = canonical or json.loads((ROOT / contract['canonical_corpus']).read_text())
     rows = {r['id']: r for r in corpus['entries']}
-    require(corpus['language'] == 'zh-Hans' and len(rows) == 22 and
+    require(corpus['language'] == corpus_language(ROOT) and len(rows) == 22 and
             set(rows) == {r['id'] for r in c['entries']}, 'library work title coverage drift')
     for r in rows.values():
         require(r['editorial_status'] == 'reviewed' and r['translation'] and

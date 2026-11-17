@@ -2,6 +2,12 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
+from .build_language import expected_literal
+
+ROOT = Path(__file__).resolve().parents[2]
+
 import hashlib
 from typing import Mapping
 
@@ -89,7 +95,7 @@ def apply_command_status_label_alignment(
         raise CommandStatusLabelAlignmentError(
             "command-status Japanese source label drift"
         )
-    if patch.get("translated_text") != "SR点数":
+    if patch.get("translated_text") != expected_literal("SR点数", ROOT):
         raise CommandStatusLabelAlignmentError(
             "command-status translated label drift"
         )

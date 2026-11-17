@@ -314,7 +314,13 @@ def keyword_underline_hooks(scratch, draw_fallback, *, state=0x46e340,
     return copy,restore,a.finish()
 
 
-def glyph_bank_hook(globals_,descriptors,state,site,*,bank_base,punctuation,dynamic_path):
+DISPLAY_OPTIONS_MARKER=b'SRWZOPT1'
+OPTION_PLAIN_ZERO=1
+OPTION_JAPANESE_QUOTES=2
+QUOTE_CODES=((80,(0x9141,0x8167)),(81,(0x8FE7,0x8168)))   # bank slot, (narrow alias, primary) of “ / ”
+QUOTE_SCENES=2                                            # descriptors 0-1: story dialogue box, map dialogue box
+
+def glyph_bank_hook(globals_,descriptors,state,site,*,bank_base,punctuation,dynamic_path,options=None):
     """Draw Latin text from the HarmonyOS glyph bank in the proportional scenes.
 
     Hooked where the native draw loop has resolved the glyph index of the current
@@ -328,10 +334,22 @@ def glyph_bank_hook(globals_,descriptors,state,site,*,bank_base,punctuation,dyna
 
     at, v0, v1 and a0 are dead at the hook; t8/t9 are saved. ``site`` is the address
     of the two displaced instructions (lui at,0x7000; lhu v0,0x62(at)).
+
+    ``options`` is the address of the display-options word (the dual-disc settings box writes it): bit 0 draws
+    the zero without its centre dot (bank slot 10), bit 1 draws the dialogue's “” as 「」 (slots 80/81) in
+    the dialogue scenes only. The stored codes stay “”, so speaker colours, the backlog and every width are
+    unchanged. A zero word draws exactly what the hook drew before.
     """
     a=Asm()
     a.i(15,'zero','at',0x7000);a.i(0x25,'at','v0',0x62)
     a.i(0x25,'at','a0',0x60)
+    if options is not None:
+        a.li('at',options);a.i(0x23,'at','at',0);a.i(12,'at','at',OPTION_JAPANESE_QUOTES)
+        a.branch(4,'at','zero','latin')
+        for slot,codes in QUOTE_CODES:
+            for code in codes:
+                a.i(9,'zero','v1',slot);a.i(13,'zero','at',code);a.branch(4,'a0','at','scene')
+        a.label('latin')
     a.i(13,'zero','v1',0x824f);a.r('a0','v1','v1',0x23)
     a.i(0xb,'v1','at',10);a.branch(5,'at','zero','scene')
     for first in (0x8260-0x824f,0x8281-0x824f):
@@ -355,8 +373,21 @@ def glyph_bank_hook(globals_,descriptors,state,site,*,bank_base,punctuation,dyna
     a.label('next');a.i(9,'a0','a0',24);a.branch(4,'zero','zero','route')
     a.label('hit')
     a.i(0x1e,'sp','t8',0);a.i(0x1e,'sp','t9',16);a.i(9,'sp','sp',32)
+    if options is not None:
+        # quotes: only in the dialogue scenes (a0 = the matched scene descriptor)
+        a.i(0xb,'v1','at',80);a.branch(5,'at','zero','latin_hit')
+        a.li('at',descriptors);a.r('a0','at','at',0x23);a.i(0xb,'at','at',24*QUOTE_SCENES)
+        a.branch(4,'at','zero','resume')
+        a.label('latin_hit')
+    a.i(0xb,'v1','a0',10)                                  # digits take the per-occurrence path
+    if options is not None:
+        a.branch(5,'v1','zero','index')
+        a.li('at',options);a.i(0x23,'at','at',0);a.i(12,'at','at',OPTION_PLAIN_ZERO)
+        a.branch(4,'at','zero','index')
+        a.i(9,'zero','v1',10)
+        a.label('index')
     a.i(9,'v1','v0',bank_base);a.i(15,'zero','at',0x7000);a.i(0x29,'at','v0',0x62)
-    a.i(0xb,'v1','a0',10);a.branch(4,'a0','zero','resume')
+    a.branch(4,'a0','zero','resume')
     a.i(0x2b,'at','v0',0);a.i(0x25,'at','a0',0x60);a.jump(dynamic_path)
     a.label('out')
     a.i(0x1e,'sp','t8',0);a.i(0x1e,'sp','t9',16);a.i(9,'sp','sp',32)

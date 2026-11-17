@@ -89,8 +89,21 @@ def build_mtv_prop_intertitles(
     source_slps: bytes,
     font_path: Path,
     contract: Mapping[str, object],
+    relock: dict | None = None,
 ) -> tuple[bytes, dict]:
-    """Render and inject the two reviewed Chinese transition subtitles."""
+    """Render and inject the two reviewed Chinese transition subtitles.
+
+    ``relock`` (authoring only, tools/zh_hant/author_intertitles.py): output locks that differ are recorded into
+    it as {chunk_index: {field: value}} / {"archive": value} instead of failing. Builds never pass it.
+    """
+
+    def output_lock(actual, owner, key, chunk_index=None):
+        if actual == owner.get(key):
+            return True
+        if relock is None:
+            return False
+        relock.setdefault("archive" if chunk_index is None else chunk_index, {})[key] = actual
+        return True
 
     table_start = contract.get("offset_table_start")
     table_end = contract.get("offset_table_end")
@@ -227,7 +240,7 @@ def build_mtv_prop_intertitles(
             stroke_width=0,
             supersample_factor=render["supersample_factor"],
         )
-        if _sha256(mask) != entry.get("render_mask_sha256"):
+        if not output_lock(_sha256(mask), entry, "render_mask_sha256", chunk_index):
             raise MtvPropIntertitleError(
                 f"intertitle frozen render drift: chunk={chunk_index}"
             )
@@ -240,7 +253,7 @@ def build_mtv_prop_intertitles(
                     15,
                     (mask[mask_row + x] + 8) // 16,
                 )
-        if _sha256(linear) != entry.get("output_linear_indexes_sha256"):
+        if not output_lock(_sha256(linear), entry, "output_linear_indexes_sha256", chunk_index):
             raise MtvPropIntertitleError(
                 f"intertitle output index drift: chunk={chunk_index}"
             )
@@ -251,7 +264,7 @@ def build_mtv_prop_intertitles(
             modified_bytes[:image_offset] != decoded.output[:image_offset]
             or modified_bytes[image_end:] != decoded.output[image_end:]
             or scan_tim2(modified_bytes) != records
-            or _sha256(modified_bytes) != entry.get("output_decoded_sha256")
+            or not output_lock(_sha256(modified_bytes), entry, "output_decoded_sha256", chunk_index)
         ):
             raise MtvPropIntertitleError(
                 f"intertitle write escaped indexed pixels: chunk={chunk_index}"
@@ -267,8 +280,8 @@ def build_mtv_prop_intertitles(
             original_result=decoded,
         )
         if (
-            len(encoded) != entry.get("output_encoded_size")
-            or _sha256(encoded) != entry.get("output_encoded_sha256")
+            not output_lock(len(encoded), entry, "output_encoded_size", chunk_index)
+            or not output_lock(_sha256(encoded), entry, "output_encoded_sha256", chunk_index)
         ):
             raise MtvPropIntertitleError(
                 "intertitle encoded output drift: "
@@ -314,7 +327,7 @@ def build_mtv_prop_intertitles(
     output_bytes = bytes(output)
     if (
         len(output_bytes) != len(source_archive)
-        or _sha256(output_bytes) != contract.get("output_archive_sha256")
+        or not output_lock(_sha256(output_bytes), contract, "output_archive_sha256")
         or any(
             before != after and index not in owned_archive_indexes
             for index, (before, after) in enumerate(

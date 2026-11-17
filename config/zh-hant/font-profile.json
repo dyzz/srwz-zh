@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "purpose": "Traditional font profile: merged by build_dual.py onto config/fonts/zh-release-font.json in the Traditional build.",
+  "font_capacity": {
+    "glyph_count": 4992,
+    "linear_area": true,
+    "reason": "Traditional font: characters past the stock 4,480-glyph store go to the linear area, lead bytes 0x99-0x9A (glyphs 4608-4991)."
+  },
+  "expected": {
+    "primary_assignment_count": 3734,
+    "surface_alias_assignment_count": 54,
+    "source_compatibility_assignment_count": 36,
+    "allocation_assignment_count": 2105,
+    "reraster_existing_assignment_count": 1629,
+    "historical_primary_assignment_count": 3158,
+    "added_global_assignment_count": 49,
+    "remaining_candidate_slot_count": 0
+  },
+  "translation_tree_extra_exclude_globs": [
+    "special-disc/*.json",
+    "special-disc/*/*.json",
+    "special-disc/*/*/*.json"
+  ],
+  "translation_tree_extra_exclude_reason": "The Traditional build is the Original disc only; the Special Disc corpus stays Simplified and is not part of the Traditional font."
+}

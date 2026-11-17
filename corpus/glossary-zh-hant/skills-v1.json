@@ -1,0 +1,727 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-skills-v1",
+  "language": "zh-Hant",
+  "terms": [
+    {
+      "id": "skill/blocking",
+      "source_terms": [
+        "ブロッキング"
+      ],
+      "translation": "格擋",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "持盾时发动盾牌防御、持剑时发动斩切的复合防御技能。"
+    },
+    {
+      "id": "skill/potential",
+      "source_terms": [
+        "底力"
+      ],
+      "translation": "底力",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "HP 越低、对应战斗能力越高的系列技能。"
+    },
+    {
+      "id": "skill/counter",
+      "source_terms": [
+        "カウンター"
+      ],
+      "translation": "先手反擊",
+      "deprecated_translations": [
+        "反擊"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "选择反击时抢先于攻击方行动的技能；2026-08-28按再世篇对照确认名称。"
+    },
+    {
+      "id": "skill/support-attack",
+      "source_terms": [
+        "援護攻撃"
+      ],
+      "translation": "援護攻擊",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "机战系列通行系统术语。"
+    },
+    {
+      "id": "skill/attack-again",
+      "source_terms": [
+        "再攻撃"
+      ],
+      "translation": "再攻擊",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "技量高于对手时追加一次自身援护攻击。"
+    },
+    {
+      "id": "skill/support-defense",
+      "source_terms": [
+        "援護防御"
+      ],
+      "translation": "援護防禦",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "替同小队单位或邻接战舰承受攻击。"
+    },
+    {
+      "id": "skill/sp-recovery",
+      "source_terms": [
+        "ＳＰ回復"
+      ],
+      "translation": "SP回覆",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "每回合回复精神点数。"
+    },
+    {
+      "id": "skill/sp-up",
+      "source_terms": [
+        "ＳＰアップ"
+      ],
+      "translation": "SP提升",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "提高最大精神点数。"
+    },
+    {
+      "id": "skill/fighting-spirit",
+      "source_terms": [
+        "闘争心"
+      ],
+      "translation": "鬥爭心",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "出击时提高初始气力。"
+    },
+    {
+      "id": "skill/morale-up",
+      "source_terms": [
+        "戦意高揚"
+      ],
+      "translation": "戰意高揚",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "从第二回合起每回合提高气力。"
+    },
+    {
+      "id": "skill/morale-evasion",
+      "source_terms": [
+        "気力＋（回避）"
+      ],
+      "translation": "氣力＋（迴避）",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "回避敌方攻击时追加气力。"
+    },
+    {
+      "id": "skill/morale-hit",
+      "source_terms": [
+        "気力＋（命中）"
+      ],
+      "translation": "氣力＋（命中）",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "命中敌方时追加气力。"
+    },
+    {
+      "id": "skill/morale-damage",
+      "source_terms": [
+        "気力＋（ダメージ）"
+      ],
+      "translation": "氣力＋（傷害）",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "受到敌方伤害时追加气力；括号内措辞待人工复核。"
+    },
+    {
+      "id": "skill/morale-destroy",
+      "source_terms": [
+        "気力＋（撃破）"
+      ],
+      "translation": "氣力＋（擊破）",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "友方击坠敌机或歼灭敌方小队时追加气力。"
+    },
+    {
+      "id": "skill/morale-limit-break",
+      "source_terms": [
+        "気力限界突破"
+      ],
+      "translation": "氣力上限突破",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "将气力上限提高至 170。"
+    },
+    {
+      "id": "skill/e-save",
+      "source_terms": [
+        "Ｅセーブ"
+      ],
+      "translation": "E節省",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "降低武器 EN 消耗；字母缩写形式待人工批准。"
+    },
+    {
+      "id": "skill/b-save",
+      "source_terms": [
+        "Ｂセーブ"
+      ],
+      "translation": "B節省",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "增加武器弹数；字母缩写形式待人工批准。"
+    },
+    {
+      "id": "skill/cooperative-attack",
+      "source_terms": [
+        "連携攻撃"
+      ],
+      "translation": "連攜攻擊",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "让援护攻击与再攻击必定暴击。"
+    },
+    {
+      "id": "skill/supporting-attack",
+      "source_terms": [
+        "支援攻撃"
+      ],
+      "translation": "支援攻擊",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "作为小队员参与小队攻击时提高伤害。"
+    },
+    {
+      "id": "skill/focused-attack",
+      "source_terms": [
+        "集束攻撃"
+      ],
+      "translation": "集束攻擊",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "减轻 ALL 武器对少于三机小队的伤害衰减。"
+    },
+    {
+      "id": "skill/ignore-size",
+      "source_terms": [
+        "サイズ差補正無視"
+      ],
+      "translation": "無視尺寸差修正",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "无视尺寸差造成的输出伤害降低。"
+    },
+    {
+      "id": "skill/commander",
+      "source_terms": [
+        "指揮官"
+      ],
+      "translation": "指揮官",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "提升周围友方最终命中率与回避率。"
+    },
+    {
+      "id": "skill/genius",
+      "source_terms": [
+        "天才"
+      ],
+      "translation": "天才",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "提升命中率、回避率与暴击率。"
+    },
+    {
+      "id": "skill/extreme",
+      "source_terms": [
+        "極"
+      ],
+      "translation": "極",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "气力达到 130 后大幅提升最终命中、回避和暴击。"
+    },
+    {
+      "id": "skill/intuition",
+      "source_terms": [
+        "見切り"
+      ],
+      "translation": "看穿",
+      "deprecated_translations": [
+        "識破"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "气力达到 130 后提升最终命中、回避和暴击；2026-08-28按再世篇对照确认名称。"
+    },
+    {
+      "id": "skill/guard",
+      "source_terms": [
+        "ガード"
+      ],
+      "translation": "防護",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "气力达到 130 后降低最终承受伤害。"
+    },
+    {
+      "id": "skill/mental-resistance",
+      "source_terms": [
+        "精神耐性"
+      ],
+      "translation": "精神耐性",
+      "deprecated_translations": [
+        "精神抗性"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "使 P 系特殊效果无效；2026-08-28按再世篇对照确认名称。"
+    },
+    {
+      "id": "skill/hit-and-away",
+      "source_terms": [
+        "ヒット＆アウェイ"
+      ],
+      "translation": "一擊脫離",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "未移动攻击后仍可移动；采用中文机战资料常见译名。"
+    },
+    {
+      "id": "skill/repair-skill",
+      "source_terms": [
+        "修理技能"
+      ],
+      "translation": "修理技能",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "提高修理指令的 HP 回复量。"
+    },
+    {
+      "id": "skill/resupply-skill",
+      "source_terms": [
+        "補給技能"
+      ],
+      "translation": "補給技能",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "允许搭乘补给机体后移动补给。"
+    },
+    {
+      "id": "skill/psychic-power",
+      "source_terms": [
+        "超能力"
+      ],
+      "translation": "超能力",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "提升命中率与回避率的等级制技能。"
+    },
+    {
+      "id": "skill/newtype",
+      "source_terms": [
+        "ニュータイプ"
+      ],
+      "translation": "新人類",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "高达系列通行译名；也会命中带括号的 Newtype 派生技能。"
+    },
+    {
+      "id": "skill/cyber-newtype",
+      "source_terms": [
+        "強化人間"
+      ],
+      "translation": "強化人",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "宇宙世纪高达术语，采用简体常见译名。"
+    },
+    {
+      "id": "skill/newtype-x",
+      "source_terms": [
+        "ニュータイプ（Ｘ）"
+      ],
+      "translation": "新人類（X）",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》的 Newtype 技能，X 采用半角。"
+    },
+    {
+      "id": "skill/artificial-newtype",
+      "source_terms": [
+        "人工ニュータイプ"
+      ],
+      "translation": "人工新人類",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》术语。"
+    },
+    {
+      "id": "skill/category-f",
+      "source_terms": [
+        "カテゴリーＦ"
+      ],
+      "translation": "F類",
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story",
+        "battle",
+        "library"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》术语；2026-09-04 经人工复核统一定稿为“F类”。Category 在原作中是新人类研究所依据能否启动 Flash System 作出的研究分类／标签：能启动者被认定为 Newtype，不能启动者即使拥有其他特殊能力也被归入 Category F。F 同时暗指 Fake（伪物、冒牌货），因此这个分类本身带有明显侮辱意味。“伪新人类”可以解释其贬义内涵，但会省略 Category 这一正式分类层；“F等级／F级”又容易误解为能力强弱的等级。故名称统一译为“F类”，在具体台词中另通过上下文和语气呈现其蔑称色彩。"
+    },
+    {
+      "id": "skill/seed",
+      "source_terms": [
+        "ＳＥＥＤ"
+      ],
+      "translation": "SEED",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "高达 SEED 系列专有能力，统一采用半角大写。"
+    },
+    {
+      "id": "concept/biological-cpu",
+      "source_terms": [
+        "生体ＣＰＵ",
+        "生体CPU"
+      ],
+      "translation": "生體CPU",
+      "deprecated_translations": [
+        "生物CPU",
+        "生化CPU"
+      ],
+      "category": "concept",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED》前代强化驾驶员的正式称呼；保留大陆高达社区通行的日文汉字写法，与《DESTINY》的“扩展人”分开。"
+    },
+    {
+      "id": "skill/extended",
+      "source_terms": [
+        "エクステンデッド"
+      ],
+      "translation": "擴展人",
+      "deprecated_translations": [
+        "強化人SEED"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》的エクステンデッド；大陆社区通行译作“扩展人”。与《SEED》的“生体CPU”和宇宙世纪“强化人”分开。"
+    },
+    {
+      "id": "skill/lift-technique",
+      "source_terms": [
+        "リフテクニック"
+      ],
+      "translation": "滑空技巧",
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》LFO／KLF 驾驶技能；与全局运动术语“滑空”保持一致。"
+    },
+    {
+      "id": "skill/oversense",
+      "source_terms": [
+        "オーバーセンス"
+      ],
+      "translation": "超限感應",
+      "deprecated_translations": [
+        "超感知"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》OverSense；2026-08-28 用户对照《再世篇》汉化2.5后定稿为“超限感应”。"
+    },
+    {
+      "id": "skill/gamer",
+      "source_terms": [
+        "ゲーマー"
+      ],
+      "translation": "遊戲玩家",
+      "deprecated_translations": [
+        "玩家"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "气力达到 130 后增加技量；2026-08-28 用户对照《再世篇》汉化2.5后定稿。"
+    },
+    {
+      "id": "skill/game-champ",
+      "source_terms": [
+        "ゲームチャンプ"
+      ],
+      "translation": "遊戲冠軍",
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "“游戏玩家”的上位技能；2026-08-28 用户确认人物技能口径。"
+    },
+    {
+      "id": "skill/negotiator",
+      "source_terms": [
+        "ネゴシエイター"
+      ],
+      "translation": "談判專家",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "降低交战对象气力，并令己方修理费归零。"
+    },
+    {
+      "id": "skill/two-actions",
+      "source_terms": [
+        "２回行動"
+      ],
+      "translation": "二次行動",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "每回合可行动两次。"
+    },
+    {
+      "id": "skill/very-lucky",
+      "source_terms": [
+        "強運"
+      ],
+      "translation": "強運",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "提高击坠敌方单位时获得的资金。"
+    }
+  ],
+  "zh_hant_meta": {
+    "zh_hans_sha256": "c5294f6fec1b14e1f1b844a2141adc9a86524482bb76532ea29ea00f9fa2cb76",
+    "zh_hant_status": "draft"
+  }
+}

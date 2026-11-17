@@ -27,6 +27,7 @@ from srwz.font import (
     ascii_glyph_index,
     decode_glyph,
     decode_vt1_font_segment,
+    font_capacity,
     encode_glyph,
     glyph_raster_metrics,
     glyph_index_for_code,
@@ -172,7 +173,12 @@ def main() -> int:
         source_vt1,
         decoder=decode,
     )
-    modified_font = original_font.decoded
+    capacity = font_capacity(json.loads(font_config_path.read_text(encoding="utf-8")))
+    # A raised capacity appends blank cells (the linear area) to the original store.
+    original_decoded = original_font.decoded + bytes(
+        max(0, capacity.glyph_count * GLYPH_SIZE - len(original_font.decoded))
+    )
+    modified_font = original_decoded
     extended_entries = read_extended_glyph_table(source_slps)
     seen_codes = set()
     seen_glyphs = set()
@@ -218,9 +224,9 @@ def main() -> int:
         character = assignment["character"]
         if character == SQUAD_LIGATURE:
             validate_ligature_assignment(assignment)
-            return ligature_raster(original_font.decoded)
+            return ligature_raster(original_decoded)
         if character in PERIOD_CHARACTERS:
-            return native_period_raster(original_font.decoded)
+            return native_period_raster(original_decoded)
         if character in raster_grays:
             return _handoff_raster(raster_grays[character], assignment["raster"]["raw_gray_sha256"])
         return rasterize_character(
@@ -255,7 +261,9 @@ def main() -> int:
             in {"printable_ascii", "runtime_ascii_reraster"}
             else glyph_index
             if assignment.get("mapping") == "extended_shared_glyph_alias"
-            else glyph_index_for_code(code, extended_entries)
+            else glyph_index_for_code(
+                code, extended_entries, glyph_count=capacity.glyph_count, linear=capacity.linear
+            )
         )
         repeated_runtime_digit_slot = (
             glyph_index in seen_glyphs
@@ -277,14 +285,14 @@ def main() -> int:
                 and not repeated_shared_glyph_alias
             )
             or resolved_glyph_index != glyph_index
-            or not 0 <= glyph_index < GLYPH_COUNT
+            or not 0 <= glyph_index < capacity.glyph_count
         ):
             raise SystemExit(f"invalid assignment for {character!r}")
         seen_codes.add(code)
         seen_glyphs.add(glyph_index)
         glyph_characters.setdefault(glyph_index, character)
         start = glyph_index * GLYPH_SIZE
-        before = original_font.decoded[start : start + GLYPH_SIZE]
+        before = original_decoded[start : start + GLYPH_SIZE]
         expected_preimage = assignment["allocation"]["glyph_preimage_sha256"]
         if sha256_bytes(before) != expected_preimage:
             raise SystemExit(f"glyph preimage drift for {character!r}")
@@ -336,10 +344,10 @@ def main() -> int:
             ):
                 raise SystemExit("stock glyph copy is not a matching alias")
             source_index = standard_glyph_index(int(source_code, 16))
-            source_packed = original_font.decoded[
+            source_packed = original_decoded[
                 source_index * GLYPH_SIZE : (source_index + 1) * GLYPH_SIZE
             ]
-            pixels = decode_glyph(original_font.decoded, source_index)
+            pixels = decode_glyph(original_decoded, source_index)
             packed = source_packed
             actual_raster = {
                 "mode": "copy_original_iso_glyph",
@@ -366,9 +374,9 @@ def main() -> int:
             if "metrics" in assignment["raster"]:
                 actual_raster["metrics"] = glyph_raster_metrics(pixels)
             if character == SQUAD_LIGATURE:
-                actual_raster = ligature_metadata(original_font.decoded)
+                actual_raster = ligature_metadata(original_decoded)
             if character in PERIOD_CHARACTERS:
-                actual_raster = native_period_metadata(original_font.decoded)
+                actual_raster = native_period_metadata(original_decoded)
         if actual_raster != assignment["raster"]:
             raise SystemExit(f"raster lock drift for {character!r}")
         if before == packed:
@@ -404,7 +412,7 @@ def main() -> int:
         modified_font[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE] for index in bank_indices
     )
     if bank_before != b"".join(
-        original_font.decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE] for index in bank_indices
+        original_decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE] for index in bank_indices
     ):
         raise SystemExit("Latin glyph bank slots were modified before the bank")
     bank_font = bytearray(modified_font)
@@ -415,14 +423,14 @@ def main() -> int:
     bank_changed = {
         index
         for index in bank_indices
-        if original_font.decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
+        if original_decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
         != modified_font[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
     }
 
     changed_glyphs = [
         index
-        for index in range(GLYPH_COUNT)
-        if original_font.decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
+        for index in range(capacity.glyph_count)
+        if original_decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
         != modified_font[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
     ]
     if changed_glyphs != sorted((seen_glyphs - unchanged_assignment_glyphs) | bank_changed):
@@ -452,7 +460,7 @@ def main() -> int:
             continue
         start = glyph_index * GLYPH_SIZE
         end = start + GLYPH_SIZE
-        if modified_font[start:end] != original_font.decoded[start:end]:
+        if modified_font[start:end] != original_decoded[start:end]:
             raise SystemExit(
                 "low-zone stock glyph was not restored: "
                 f"{row['from_code']}={row['character']}"
@@ -468,7 +476,7 @@ def main() -> int:
         low_zone_glyph_indices.append(glyph_index)
         start = glyph_index * GLYPH_SIZE
         end = start + GLYPH_SIZE
-        if modified_font[start:end] != original_font.decoded[start:end]:
+        if modified_font[start:end] != original_decoded[start:end]:
             raise SystemExit(
                 f"complete low-zone glyph restoration failed: {code:04X}"
             )
@@ -653,7 +661,7 @@ def main() -> int:
         },
         "font": {
             "decoded_size": len(modified_font),
-            "source_decoded_sha256": sha256_bytes(original_font.decoded),
+            "source_decoded_sha256": sha256_bytes(original_decoded),
             "output_decoded_sha256": sha256_bytes(modified_font),
             "source_encoded_size": original_font.consumed,
             "output_encoded_size": len(encoded_font),

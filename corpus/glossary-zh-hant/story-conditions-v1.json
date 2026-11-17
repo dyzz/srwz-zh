@@ -1,0 +1,2308 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-conditions-v1",
+  "language": "zh-Hant",
+  "default_source_match": "substring",
+  "terms": [
+    {
+      "id": "system/condition-shot-down",
+      "source_terms": [
+        "撃墜"
+      ],
+      "translation": "擊墜",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "胜利、败北和SR条件中统一使用的动作术语。"
+    },
+    {
+      "id": "system/hp",
+      "source_terms": [
+        "ＨＰ"
+      ],
+      "translation": "HP",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "界面数值缩写统一转为半角HP。"
+    },
+    {
+      "id": "system/turn",
+      "source_terms": [
+        "ターン"
+      ],
+      "translation": "回合",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "关卡条件中的回合计数。片假名“ターン”也会作为子串出现在“ティターンズ”中；剧情记录遇到该组织名时必须登记显式例外，不能误译为“回合”。"
+    },
+    {
+      "id": "system/annihilation",
+      "source_terms": [
+        "全滅"
+      ],
+      "translation": "全滅",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "关卡条件中的全体歼灭状态。"
+    },
+    {
+      "id": "system/clear-map",
+      "source_terms": [
+        "マップをクリアする",
+        "マップをクリア"
+      ],
+      "translation": "過關",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "限定回合内完成整张地图的条件。"
+    },
+    {
+      "id": "system/victory-condition",
+      "source_terms": [
+        "勝利条件"
+      ],
+      "translation": "勝利條件",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "关卡显示的胜利条件。"
+    },
+    {
+      "id": "system/ally-phase",
+      "source_terms": [
+        "味方フェイズ"
+      ],
+      "translation": "我方階段",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "回合内的我方行动阶段。"
+    },
+    {
+      "id": "system/map-edge",
+      "source_terms": [
+        "マップ端"
+      ],
+      "translation": "地圖邊緣",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "单位到达地图边缘的判定。"
+    },
+    {
+      "id": "system/map-south-edge",
+      "source_terms": [
+        "マップ南端"
+      ],
+      "translation": "地圖南端",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "单位到达地图南端的判定。"
+    },
+    {
+      "id": "system/designated-point",
+      "source_terms": [
+        "指定ポイント"
+      ],
+      "translation": "指定地點",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "地图上的指定位置。"
+    },
+    {
+      "id": "system/target-location",
+      "source_terms": [
+        "目標地点"
+      ],
+      "translation": "目標地點",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "剧情条件指定的目标位置。"
+    },
+    {
+      "id": "system/enemy-reinforcement",
+      "source_terms": [
+        "敵増援"
+      ],
+      "translation": "敵方增援",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "敌方增援部队出现事件。"
+    },
+    {
+      "id": "people/apolly",
+      "source_terms": [
+        "アポリー"
+      ],
+      "translation": "阿波利",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》角色Apolly Bay的暂定简体译名。"
+    },
+    {
+      "id": "people/roberto",
+      "source_terms": [
+        "ロベルト"
+      ],
+      "translation": "羅伯托",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》角色Roberto的暂定简体译名。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "people/kamille",
+      "source_terms": [
+        "カミーユ"
+      ],
+      "translation": "卡繆",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》主人公卡缪·维丹。"
+    },
+    {
+      "id": "people/alex",
+      "source_terms": [
+        "アレックス"
+      ],
+      "translation": "亞歷克斯",
+      "deprecated_translations": [
+        "亞歷士"
+      ],
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Alex 的大陆通行音译；本轮人工审核统一为“亚历克斯”。具体身份仍由各场景上下文区分。"
+    },
+    {
+      "id": "people/ian",
+      "source_terms": [
+        "イアン"
+      ],
+      "translation": "伊安",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "短词会误命中“アイアン・ギアー”，仅在明确指角色Ian时引用。"
+    },
+    {
+      "id": "people/sting",
+      "source_terms": [
+        "スティング"
+      ],
+      "translation": "斯汀",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》角色斯汀·奥克雷。"
+    },
+    {
+      "id": "people/auel",
+      "source_terms": [
+        "アウル"
+      ],
+      "translation": "奧爾",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》角色奥尔·尼达。"
+    },
+    {
+      "id": "people/stella",
+      "source_terms": [
+        "ステラ"
+      ],
+      "translation": "史黛拉",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》角色史黛拉·路歇。"
+    },
+    {
+      "id": "people/sato",
+      "source_terms": [
+        "サトー"
+      ],
+      "translation": "佐藤",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》角色佐藤。"
+    },
+    {
+      "id": "people/geraba",
+      "source_terms": [
+        "ゲラバ"
+      ],
+      "translation": "格拉巴",
+      "deprecated_translations": [
+        "傑拉巴"
+      ],
+      "variant_scope": "source_bound",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《战斗机甲萨芬格尔》角色Geraba Geraba；与大陆模型社区和图鉴全名“格拉巴·格拉巴”统一，修正早期误归类及“杰拉巴”混用。"
+    },
+    {
+      "id": "people/adette",
+      "source_terms": [
+        "アデット"
+      ],
+      "translation": "阿蒂特",
+      "deprecated_translations": [
+        "亞蒂特",
+        "阿黛特"
+      ],
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的阿蒂特·基斯拉；2026-08-28 用户确认采用《再世篇》人名口径。"
+    },
+    {
+      "id": "people/sara",
+      "source_terms": [
+        "サラ"
+      ],
+      "translation": "莎拉",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "短词会误命中萨拉米斯等长词，仅在明确指角色莎拉·古塔玛时引用；2026-08-28 用户确认全名。"
+    },
+    {
+      "id": "people/gain",
+      "source_terms": [
+        "ゲイン"
+      ],
+      "translation": "該隱",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的该隐·比琼；2026-08-28 用户确认保留“该隐”并采用“比琼”。"
+    },
+    {
+      "id": "people/loran",
+      "source_terms": [
+        "ロラン"
+      ],
+      "translation": "羅蘭",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》主人公罗兰·瑟亚克。"
+    },
+    {
+      "id": "people/laura",
+      "source_terms": [
+        "ローラ"
+      ],
+      "translation": "羅拉",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "罗兰以女性身份活动时使用的名字。"
+    },
+    {
+      "id": "people/shagia",
+      "source_terms": [
+        "シャギア"
+      ],
+      "translation": "夏基亞",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》角色Shagia Frost；本轮人工审核定稿。"
+    },
+    {
+      "id": "people/olba",
+      "source_terms": [
+        "オルバ"
+      ],
+      "translation": "奧爾巴",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》角色Olba Frost的暂定音译。"
+    },
+    {
+      "id": "people/harry",
+      "source_terms": [
+        "ハリー"
+      ],
+      "translation": "哈利",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》角色哈利·奥德。"
+    },
+    {
+      "id": "people/kei",
+      "source_terms": [
+        "桂"
+      ],
+      "translation": "桂",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪ORGUSS》主人公桂木桂在条件文本中的简称。"
+    },
+    {
+      "id": "people/toshiya",
+      "source_terms": [
+        "闘志也"
+      ],
+      "translation": "鬥志也",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝God Sigma》角色坛斗志也。"
+    },
+    {
+      "id": "people/poe",
+      "source_terms": [
+        "ポゥ"
+      ],
+      "translation": "波",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》角色波·艾吉的简称。"
+    },
+    {
+      "id": "people/corin",
+      "source_terms": [
+        "コレン"
+      ],
+      "translation": "科倫",
+      "deprecated_translations": [
+        "柯連"
+      ],
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》角色Corin Nander的暂定简体译名。"
+    },
+    {
+      "id": "people/kira",
+      "source_terms": [
+        "キラ"
+      ],
+      "translation": "基拉",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED》系列角色基拉·大和。"
+    },
+    {
+      "id": "people/kappei",
+      "source_terms": [
+        "勝平"
+      ],
+      "translation": "勝平",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《无敌超人赞波3》角色神胜平。"
+    },
+    {
+      "id": "people/teral",
+      "source_terms": [
+        "テラル"
+      ],
+      "translation": "迪拉爾",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝God Sigma》角色Teral的暂定音译。"
+    },
+    {
+      "id": "people/bran",
+      "source_terms": [
+        "ブラン"
+      ],
+      "translation": "布蘭",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》角色布兰·布尔达克。"
+    },
+    {
+      "id": "people/rosamia",
+      "source_terms": [
+        "ロザミア"
+      ],
+      "translation": "羅莎米婭",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》角色罗莎米娅·巴达姆。"
+    },
+    {
+      "id": "people/suesson",
+      "source_terms": [
+        "スエッソン"
+      ],
+      "translation": "史瓦特森",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》角色史瓦特森·史特洛的简称。"
+    },
+    {
+      "id": "people/athrun",
+      "source_terms": [
+        "アスラン"
+      ],
+      "translation": "阿斯蘭",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED》系列角色阿斯兰·萨拉。"
+    },
+    {
+      "id": "people/tsine",
+      "source_terms": [
+        "ツィーネ"
+      ],
+      "translation": "茲妮",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创角色Tsine Espio的暂定简体译名。"
+    },
+    {
+      "id": "people/holland",
+      "source_terms": [
+        "ホランド"
+      ],
+      "translation": "霍蘭德",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》角色霍兰德·诺沃克。"
+    },
+    {
+      "id": "people/olson",
+      "source_terms": [
+        "オルソン"
+      ],
+      "translation": "奧爾森",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪ORGUSS》角色Olson D. Verne的暂定音译。"
+    },
+    {
+      "id": "people/waltfeld",
+      "source_terms": [
+        "バルトフェルド"
+      ],
+      "translation": "巴爾特菲爾德",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED》系列角色安德鲁·巴尔特菲尔德。"
+    },
+    {
+      "id": "people/enil",
+      "source_terms": [
+        "エニル"
+      ],
+      "translation": "艾妮爾",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》角色Ennil El的暂定简体译名。"
+    },
+    {
+      "id": "people/garrod",
+      "source_terms": [
+        "ガロード"
+      ],
+      "translation": "卡洛德",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》主人公卡洛德·兰。"
+    },
+    {
+      "id": "people/asuham",
+      "source_terms": [
+        "アスハム"
+      ],
+      "translation": "阿斯哈姆",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》角色Asuham Boone的暂定音译。"
+    },
+    {
+      "id": "people/holla",
+      "source_terms": [
+        "ホーラ"
+      ],
+      "translation": "霍拉",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《战斗机甲萨芬格尔》角色Kidd Horla的暂定简称。"
+    },
+    {
+      "id": "people/greta",
+      "source_terms": [
+        "グレタ"
+      ],
+      "translation": "格蕾塔",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《战斗机甲萨芬格尔》角色Greta Karas的暂定音译。"
+    },
+    {
+      "id": "people/athena",
+      "source_terms": [
+        "アテナ"
+      ],
+      "translation": "雅典娜",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪ORGUSS》角色Athena Henderson。"
+    },
+    {
+      "id": "people/charles",
+      "source_terms": [
+        "チャールズ"
+      ],
+      "translation": "查爾斯",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》角色查尔斯·比姆斯。"
+    },
+    {
+      "id": "people/marin",
+      "source_terms": [
+        "マリン",
+        "マリン・レイガン"
+      ],
+      "translation": "馬林",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙战士巴鲁迪奥斯》马林·雷根；日本制作方角色表确认原名，中文沿用用户首轮人物审核结果。"
+    },
+    {
+      "id": "people/flick",
+      "source_terms": [
+        "フリック"
+      ],
+      "translation": "弗裡克",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "角色Flick的暂定音译。"
+    },
+    {
+      "id": "people/elchi",
+      "source_terms": [
+        "エルチ"
+      ],
+      "translation": "艾露琪",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《战斗机甲萨芬格尔》角色艾露琪·卡戈。"
+    },
+    {
+      "id": "people/lancerow",
+      "source_terms": [
+        "ランスロー"
+      ],
+      "translation": "蘭斯洛",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》角色Lancerow Dawell；本轮人工审核定稿。"
+    },
+    {
+      "id": "people/banjo",
+      "source_terms": [
+        "万丈"
+      ],
+      "translation": "萬丈",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《无敌钢人泰坦3》主人公破岚万丈；与全名词条统一。"
+    },
+    {
+      "id": "people/apollo",
+      "source_terms": [
+        "アポロ"
+      ],
+      "translation": "阿波羅",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣的大天使》主人公阿波罗。"
+    },
+    {
+      "id": "people/rey-za-burrel",
+      "source_terms": [
+        "シン・レイ・ルナマリア"
+      ],
+      "translation": "雷",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "仅用完整并列片段识别《高达SEED DESTINY》的雷·扎·巴雷尔，避免与雷·比姆斯混淆。"
+    },
+    {
+      "id": "people/lunamaria",
+      "source_terms": [
+        "ルナマリア"
+      ],
+      "translation": "露娜瑪麗亞",
+      "deprecated_translations": [
+        "露娜瑪利亞"
+      ],
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》角色；中国大陆万代现行商品页采用“露娜玛丽亚·霍克”，旧大陆授权游戏曾采用“露娜玛利亚”。"
+    },
+    {
+      "id": "people/yzak",
+      "source_terms": [
+        "イザーク"
+      ],
+      "translation": "伊扎克",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED》系列角色伊扎克·焦耳。"
+    },
+    {
+      "id": "people/paula",
+      "source_terms": [
+        "パーラ"
+      ],
+      "translation": "帕拉",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》角色Pala Sys；本轮人工审核定稿。"
+    },
+    {
+      "id": "people/moroha",
+      "source_terms": [
+        "両翅"
+      ],
+      "translation": "兩翅",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》堕天翅族角色；按用户审核的人物名统一。 2026-09-13 用户确认：両翅（Moroha）译为两翅，区别双翅（Futaba）；适用于图鉴、剧情、驾驶员姓名与战斗台词。"
+    },
+    {
+      "id": "people/sirius-wing",
+      "source_terms": [
+        "詩翅"
+      ],
+      "translation": "詩翅",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》剧情中的称号；按用户审核的人物名统一。"
+    },
+    {
+      "id": "people/anemone",
+      "source_terms": [
+        "アネモネ"
+      ],
+      "translation": "阿尼莫奈",
+      "deprecated_translations": [
+        "安妮莫奈"
+      ],
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》角色 Anemone；本作对应的中国大陆哔哩哔哩正版 TV 版人物表采用“阿尼莫奈”。"
+    },
+    {
+      "id": "people/frost-brothers",
+      "source_terms": [
+        "フロスト兄弟"
+      ],
+      "translation": "弗羅斯特兄弟",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》的弗罗斯特兄弟。"
+    },
+    {
+      "id": "people/ghingham",
+      "source_terms": [
+        "ギンガナム"
+      ],
+      "translation": "金卡拉姆",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》角色Gym Ghingham的中文译名分歧较大，暂用金卡拉姆。"
+    },
+    {
+      "id": "people/beck",
+      "source_terms": [
+        "ベック"
+      ],
+      "translation": "貝克",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》角色贝克。"
+    },
+    {
+      "id": "unit/girty-lue",
+      "source_terms": [
+        "ガーティ・ルー"
+      ],
+      "translation": "加迪·魯",
+      "deprecated_translations": [
+        "卡迪·露"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》战舰 Girty Lue；大陆社区采用“加迪·鲁”，用户已在本地审核页明确确认该形式。"
+    },
+    {
+      "id": "unit/exus",
+      "source_terms": [
+        "エグザス"
+      ],
+      "translation": "埃格薩斯",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》机动兵器Exus的暂定音译。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "unit/alexandria",
+      "source_terms": [
+        "アレキサンドリア"
+      ],
+      "translation": "亞歷山大",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》战舰亚历山大号，canonical形式不带“号”。"
+    },
+    {
+      "id": "unit/king-of-vega",
+      "source_terms": [
+        "キング・オブ・ベガ"
+      ],
+      "translation": "貝加之王",
+      "deprecated_translations": [
+        "貝加大王"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "2026-09-07 用户确认机体キング・オブ・ベガ定名为“贝加之王”；与人物ベガ大王的“贝加大王”区分。条件、图鉴、剧情与战场机体显示名同步。"
+    },
+    {
+      "id": "unit/d-kryl",
+      "source_terms": [
+        "ディクリール"
+      ],
+      "translation": "迪克利爾",
+      "deprecated_translations": [
+        "迪克里爾"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与已审核机体名表及资料库统一。"
+    },
+    {
+      "id": "unit/ginn-high-maneuver-ii",
+      "source_terms": [
+        "ジン・ハイマニューバ２型",
+        "高機動型ジン"
+      ],
+      "translation": "高機動型基恩II",
+      "deprecated_translations": [
+        "吉恩高機動2型",
+        "高機動型金恩II",
+        "高機動型金Ⅱ",
+        "高機動型金"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》机体 GINN High Maneuver Type II；旧中文官网用“基恩”，现行大陆商品基础机名用“金恩”；本项目经人工审核定案为“高机动型基恩II”。剧情中的简称“高機動型ジン”按同一机体统一。"
+    },
+    {
+      "id": "unit/dogozzo",
+      "source_terms": [
+        "ドゴッゾ"
+      ],
+      "translation": "多格佐",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "沿用项目机体显示名；字幕组音译仅作读音参考。"
+    },
+    {
+      "id": "unit/rush-rod",
+      "source_terms": [
+        "ラッシュロッド"
+      ],
+      "translation": "拉什羅德",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "用户定稿为“拉什罗德”；字幕组“拉修洛特”仅作为读音证据，不覆盖用户决定。"
+    },
+    {
+      "id": "unit/buffalo",
+      "source_terms": [
+        "バッファロー"
+      ],
+      "translation": "布法羅",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》单位专名暂保留英文。"
+    },
+    {
+      "id": "unit/iron-gear",
+      "source_terms": [
+        "アイアン・ギアー"
+      ],
+      "translation": "鋼鐵齒輪",
+      "deprecated_translations": [
+        "鋼鐵基亞",
+        "鐵甲吉亞",
+        "鐵甲艦"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《战斗机甲萨芬格尔》陆行舰 Iron Gear；大陆模型社区普遍使用“钢铁齿轮”，canonical 形式不带“号”。"
+    },
+    {
+      "id": "unit/wodom",
+      "source_terms": [
+        "ウォドム"
+      ],
+      "translation": "瓦多姆",
+      "deprecated_translations": [
+        "沃多姆"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》机体 Wodom；大陆高达资料与大陆近期设定整理采用“瓦多姆”。"
+    },
+    {
+      "id": "unit/almeyer",
+      "source_terms": [
+        "アルマイヤー"
+      ],
+      "translation": "阿麥雅級",
+      "deprecated_translations": [
+        "阿爾邁亞號"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》战舰Almayer，canonical形式不带“号”。"
+    },
+    {
+      "id": "unit/aquarion",
+      "source_terms": [
+        "アクエリオン"
+      ],
+      "translation": "阿克艾里昂",
+      "deprecated_translations": [
+        "亞庫艾裡翁"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》机体总称；用于不指向某一固定合体形态的语境。 2026-09-07 用户确认通称统一为“阿克艾里昂”，固定形态沿用各自定稿名称。"
+    },
+    {
+      "id": "unit/glomar",
+      "source_terms": [
+        "グローマ"
+      ],
+      "translation": "格羅瑪",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪ORGUSS》战舰Glomar，canonical形式不带“号”。"
+    },
+    {
+      "id": "unit/beck-victory-deluxe",
+      "source_terms": [
+        "ベック・ビクトリー・デラックス",
+        "ベック・ビクトリー・\n　デラックス"
+      ],
+      "translation": "貝克·勝利·豪華型",
+      "deprecated_translations": [
+        "貝克勝利豪華型",
+        "貝克·勝利·豪華版"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》贝克所驾驶机体；补录剧情原文的换行写法。"
+    },
+    {
+      "id": "unit/mummy",
+      "source_terms": [
+        "マミー"
+      ],
+      "translation": "木乃伊",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》单位Mummy的暂定意译。"
+    },
+    {
+      "id": "unit/archetype",
+      "source_terms": [
+        "アーキタイプ"
+      ],
+      "translation": "原型",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》《交响诗篇 优莱卡7》技术名词；按“archetype”语义及大陆简体字幕统一为“原型”。"
+    },
+    {
+      "id": "unit/messala",
+      "source_terms": [
+        "メッサーラ"
+      ],
+      "translation": "梅薩拉",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》机体梅萨拉。"
+    },
+    {
+      "id": "unit/king-beal",
+      "source_terms": [
+        "キング・ビアル"
+      ],
+      "translation": "帝皇比亞路",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《无敌超人赞波3》战舰帝皇比亚路号，canonical形式不带“号”。"
+    },
+    {
+      "id": "unit/ishkick-commander",
+      "source_terms": [
+        "イシュキック・コマンダー"
+      ],
+      "translation": "伊修基克·指揮官",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪ORGUSS》Ishkick Commander的暂定译名。"
+    },
+    {
+      "id": "unit/windam",
+      "source_terms": [
+        "ウィンダム"
+      ],
+      "translation": "溫達姆",
+      "deprecated_translations": [
+        "威達"
+      ],
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》量产机温达姆。"
+    },
+    {
+      "id": "unit/zamza-zah",
+      "source_terms": [
+        "ザムザザー"
+      ],
+      "translation": "扎姆扎扎",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》大型MA扎姆扎扎。"
+    },
+    {
+      "id": "unit/golem",
+      "source_terms": [
+        "ゴレーム"
+      ],
+      "translation": "葛雷姆",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "采用《返乡战士》YYDM／11FANS 全26集字幕译名；字幕中“葛雷姆”共出现37次，未使用“魔像”。"
+    },
+    {
+      "id": "unit/big-o",
+      "source_terms": [
+        "ビッグオー"
+      ],
+      "translation": "BIG-O",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE BIG-O》主角机BIG-O。"
+    },
+    {
+      "id": "unit/gold-sumo",
+      "source_terms": [
+        "ゴールドスモー"
+      ],
+      "translation": "金色斯摩",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》机体金色斯摩。"
+    },
+    {
+      "id": "unit/jinba",
+      "source_terms": [
+        "ジンバ"
+      ],
+      "translation": "金巴",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》机体Jinba的暂定音译。"
+    },
+    {
+      "id": "unit/soleil",
+      "source_terms": [
+        "ソレイユ"
+      ],
+      "translation": "太陽號",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》战舰Soleil，中文资料存在异译，canonical形式不带“号”。"
+    },
+    {
+      "id": "unit/planetta",
+      "source_terms": [
+        "プラネッタ"
+      ],
+      "translation": "普拉涅塔",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "沿用项目机体显示名“普拉涅塔”；字幕组“普拉涅特”仅作读音参考。"
+    },
+    {
+      "id": "unit/mexbrute",
+      "source_terms": [
+        "メックスブルート"
+      ],
+      "translation": "摩克斯蘭",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "机体Mexbrute的暂定音译。"
+    },
+    {
+      "id": "unit/shurouga",
+      "source_terms": [
+        "シュロウガ"
+      ],
+      "translation": "狩狼牙",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创机体Shurouga的玩家常见译名。"
+    },
+    {
+      "id": "unit/dominator",
+      "source_terms": [
+        "ドミネーター"
+      ],
+      "translation": "多米尼達",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "沿用项目机体显示名的语义译法“多米尼达”；字幕组音译仅作读音参考。"
+    },
+    {
+      "id": "unit/big-duo",
+      "source_terms": [
+        "ビッグデュオ",
+        "ビッグ・デュオ"
+      ],
+      "translation": "BIG-DUO",
+      "deprecated_translations": [
+        "Big Duo"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》机体BIG-DUO；补录剧情中带间隔点的日文写法。"
+    },
+    {
+      "id": "unit/mecha-tekkoki",
+      "source_terms": [
+        "メカ鉄甲鬼"
+      ],
+      "translation": "機械鐵甲鬼",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《盖塔机器人G》机械铁甲鬼。"
+    },
+    {
+      "id": "unit/psycho-gundam",
+      "source_terms": [
+        "サイコ・ガンダム"
+      ],
+      "translation": "精神感應高達",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》机体精神感应高达。"
+    },
+    {
+      "id": "unit/kragen",
+      "source_terms": [
+        "クラーゲン"
+      ],
+      "translation": "克拉根",
+      "deprecated_translations": [
+        "克拉肯"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝God Sigma》敌方单位Kragen的暂定音译。"
+    },
+    {
+      "id": "unit/mahiroo",
+      "source_terms": [
+        "マヒロー"
+      ],
+      "translation": "瑪希羅",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》机体玛希罗。"
+    },
+    {
+      "id": "unit/naikick",
+      "source_terms": [
+        "ナイキック"
+      ],
+      "translation": "奈基克",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪ORGUSS》机体Naikick的暂定音译。"
+    },
+    {
+      "id": "unit/eliphas",
+      "source_terms": [
+        "エリファス"
+      ],
+      "translation": "埃利法斯",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ登场单位Eliphas的暂定音译。"
+    },
+    {
+      "id": "organization/phantom-pain",
+      "source_terms": [
+        "ファントムペイン"
+      ],
+      "translation": "幻痛部隊",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》特殊部队Phantom Pain。"
+    },
+    {
+      "id": "unit/bandok",
+      "source_terms": [
+        "バンドック"
+      ],
+      "translation": "機械邦多克",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《无敌超人赞波3》敌方要塞机械邦多克。"
+    },
+    {
+      "id": "unit/eldar-battleship",
+      "source_terms": [
+        "エルダー戦艦"
+      ],
+      "translation": "伊爾塔戰艦",
+      "deprecated_translations": [
+        "艾爾達戰艦",
+        "埃爾達戰艦",
+        "埃爾德戰艦"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝神西格玛》的伊尔塔战舰；按大陆旧译统一。"
+    },
+    {
+      "id": "unit/gran-trooper",
+      "source_terms": [
+        "グラントルーパー"
+      ],
+      "translation": "格蘭騎兵",
+      "deprecated_translations": [
+        "超重騎警",
+        "格蘭特魯珀",
+        "格蘭特魯帕"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "2026-09-04 审阅站术语专项经用户确认改定为“格兰骑警”。"
+    },
+    {
+      "id": "unit/destroy-gundam",
+      "source_terms": [
+        "デストロイガンダム"
+      ],
+      "translation": "毀滅高達",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》机体毁灭高达。"
+    },
+    {
+      "id": "unit/freedom-gundam",
+      "source_terms": [
+        "フリーダムガンダム",
+        "フリーダム"
+      ],
+      "translation": "自由高達",
+      "deprecated_translations": [
+        "自由號"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED》机体 Freedom Gundam，简称フリーダム时也统一为“自由高达”；与《高达X》的フリーデン“和平号”按日文源词区分。贴吧用户 selkie诗依路反馈两者曾混用。"
+    },
+    {
+      "id": "unit/strike-freedom-gundam",
+      "source_terms": [
+        "ストライクフリーダム",
+        "Ｓフリーダムガンダム"
+      ],
+      "translation": "強襲自由高達",
+      "deprecated_translations": [
+        "強襲自由"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》机体 Strike Freedom Gundam；与前代自由高达分开绑定。"
+    },
+    {
+      "id": "species/coralian",
+      "source_terms": [
+        "コーラリアン"
+      ],
+      "translation": "科拉利安",
+      "deprecated_translations": [
+        "柯拉利安"
+      ],
+      "variant_scope": "source_bound",
+      "category": "species",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》生命／现象称呼；大陆 SGS＆dmhy 简体字幕及大陆社区长期使用“科拉利安”，并与“珊瑚岩”明确区分。 2026-10-03 修正别名范围：珊瑚岩是スカブコーラル的正式译名，不再作为科拉利安的替换别名。"
+    },
+    {
+      "id": "unit/nirvash-the-end",
+      "source_terms": [
+        "ニルヴァーシュ　ｔｈｅ　ＥＮＤ",
+        "ジ・エンド",
+        "ｔｈｅ　ＥＮＤ"
+      ],
+      "translation": "尼爾瓦修終式",
+      "deprecated_translations": [
+        "吉·恩德",
+        "the END",
+        "THE END"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》机体；用户确认统一采用尼尔瓦修终式，单独出现的全角“ｔｈｅ　ＥＮＤ”也按同一机体绑定。"
+    },
+    {
+      "id": "unit/nirvash-type-zero",
+      "source_terms": [
+        "ニルヴァーシュｔｙｐｅＺＥＲＯ",
+        "ｔｙｐｅＺＥＲＯ",
+        "ｔｙｐｅ　ＺＥＲＯ",
+        "タイプゼロ",
+        "タイプ・ゼロ"
+      ],
+      "translation": "尼爾瓦修零式",
+      "deprecated_translations": [
+        "Type Zero",
+        "type ZERO",
+        "尼爾瓦修type ZERO",
+        "零型",
+        "零式"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》主角机Nirvash type ZERO；中国大陆资料与模型社区普遍采用“尼尔瓦修零式”，正文不再混用英文或仅写“零式”。"
+    },
+    {
+      "id": "unit/rasveht",
+      "source_terms": [
+        "ラスヴェート"
+      ],
+      "translation": "拉斯維特",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》机体Rasveht的暂定音译。"
+    },
+    {
+      "id": "unit/patulia",
+      "source_terms": [
+        "パトゥーリア"
+      ],
+      "translation": "帕特利亞",
+      "deprecated_translations": [
+        "帕圖利亞"
+      ],
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》大型MAPatulia的暂定音译。"
+    },
+    {
+      "id": "unit/gouf-ignited",
+      "source_terms": [
+        "グフイグナイテッド"
+      ],
+      "translation": "烈焰老虎",
+      "deprecated_translations": [
+        "老虎烈焰型",
+        "烈焰型古夫",
+        "古夫烈焰型"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》机体 GOUF Ignited；2026-09-04 审阅站术语专项经用户确认改定为“烈焰老虎”。"
+    },
+    {
+      "id": "unit/chiram-attack-carrier",
+      "source_terms": [
+        "チラム攻撃空母"
+      ],
+      "translation": "奇拉姆攻擊航母",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪ORGUSS》的奇拉姆攻击航母。"
+    },
+    {
+      "id": "unit/mecha-fortress-oni",
+      "source_terms": [
+        "メカ要塞鬼"
+      ],
+      "translation": "機械要塞鬼",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《盖塔机器人G》机械要塞鬼。"
+    },
+    {
+      "id": "unit/force-impulse-gundam",
+      "source_terms": [
+        "フォースインパルスガンダム"
+      ],
+      "translation": "強攻型脈衝高達",
+      "deprecated_translations": [
+        "空影脈衝高達",
+        "空戰脈衝高達"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "采用中国大陆万代模型现行商品名“强攻型脉冲高达”；“空影脉冲高达”为旧版中文官网用名。"
+    },
+    {
+      "id": "unit/cherubim-shururukubera",
+      "source_terms": [
+        "ケルビム・シュルルクベラ"
+      ],
+      "translation": "凱魯賓·修魯魯克貝拉",
+      "deprecated_translations": [
+        "凱魯比姆·修爾爾克貝拉"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》机体名；按用户审核的固定机体显示名统一。"
+    },
+    {
+      "id": "unit/ishkick-commander-ii",
+      "source_terms": [
+        "イシュキック・コマンダーⅡ"
+      ],
+      "translation": "伊修基克·指揮官II",
+      "deprecated_translations": [
+        "伊修基克·指揮官型Ⅱ"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Ishkick Commander II的暂定译名。"
+    },
+    {
+      "id": "unit/saviour-gundam",
+      "source_terms": [
+        "セイバーガンダム"
+      ],
+      "translation": "救世主高達",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》机体救世主高达。"
+    },
+    {
+      "id": "unit/salamis-kai",
+      "source_terms": [
+        "サラミス改"
+      ],
+      "translation": "薩拉米斯改",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "宇宙世纪战舰萨拉米斯改。"
+    },
+    {
+      "id": "unit/artificial-sun",
+      "source_terms": [
+        "人工太陽"
+      ],
+      "translation": "人工太陽",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "剧情目标人工太阳。"
+    },
+    {
+      "id": "unit/sol-gravion",
+      "source_terms": [
+        "ソルグラヴィオン"
+      ],
+      "translation": "烈陽格蘭維昂",
+      "deprecated_translations": [
+        "太陽超重王",
+        "索爾格拉維翁",
+        "索爾格拉維昂",
+        "索爾重力王",
+        "太陽Gran Σ王",
+        "太陽重力王",
+        "超重神重力王"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "2026-09-04 审阅站术语专项经用户确认改定为“炎阳格兰维昂”；注意ソルグラヴィオン是机体，不能与武器词根ソルグラヴィトン混淆。"
+    },
+    {
+      "id": "unit/clouda",
+      "source_terms": [
+        "クラウダ"
+      ],
+      "translation": "克魯達",
+      "deprecated_translations": [
+        "克勞達"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》机体Crouda；采用大陆高达社区通行译名。"
+    },
+    {
+      "id": "unit/virgola",
+      "source_terms": [
+        "バルゴラ"
+      ],
+      "translation": "巴爾戈拉",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创机体Virgola的暂定简体音译。"
+    },
+    {
+      "id": "unit/chaos-leo",
+      "source_terms": [
+        "カオス・レオー"
+      ],
+      "translation": "混沌·雷歐",
+      "deprecated_translations": [
+        "混沌利奧"
+      ],
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创机体Chaos Leo的暂定译名。"
+    },
+    {
+      "id": "unit/chaos-anguis",
+      "source_terms": [
+        "カオス・アングイス"
+      ],
+      "translation": "混沌·安圭斯",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创机体Chaos Anguis的暂定译名。"
+    },
+    {
+      "id": "unit/chaos-capel",
+      "source_terms": [
+        "カオス・カペル"
+      ],
+      "translation": "混沌·卡佩爾",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创机体Chaos Capel的暂定译名。"
+    },
+    {
+      "id": "organization/chimera",
+      "source_terms": [
+        "カイメラ"
+      ],
+      "translation": "奇美拉",
+      "category": "organization",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创组织Chimera的暂定译名。"
+    },
+    {
+      "id": "unit/aquarion-alpha",
+      "source_terms": [
+        "アクエリオンアルファ"
+      ],
+      "translation": "阿克艾里昂·阿爾法",
+      "deprecated_translations": [
+        "Aquarion Alpha",
+        "亞庫艾裡翁阿爾法",
+        "阿爾法機械天使"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "2026-09-07 按审阅站已采纳的机体显示名同步图鉴；镜像形态保留镜像前缀，机体总称仍按独立词条处理。"
+    },
+    {
+      "id": "unit/big-duo-inferno",
+      "source_terms": [
+        "ビッグデュオ・インフェルノ"
+      ],
+      "translation": "BIG-DUO地獄",
+      "deprecated_translations": [
+        "Big Duo Inferno"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》机体Big Duo Inferno。"
+    },
+    {
+      "id": "unit/science-fortress-island",
+      "source_terms": [
+        "科学要塞島"
+      ],
+      "translation": "科學要塞島",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《盖塔机器人G》百鬼帝国基地科学要塞岛。"
+    },
+    {
+      "id": "unit/cherubim-iscuron",
+      "source_terms": [
+        "ケルビム・イスキューロン"
+      ],
+      "translation": "凱魯賓·伊斯庫隆",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》机体名；按用户审核的固定机体显示名统一。"
+    },
+    {
+      "id": "unit/cherubim-mars",
+      "source_terms": [
+        "ケルビムマーズ"
+      ],
+      "translation": "凱魯賓·火星",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》机体名；按用户审核的固定机体显示名统一。"
+    },
+    {
+      "id": "unit/goma",
+      "source_terms": [
+        "ゴーマ"
+      ],
+      "translation": "戈瑪",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超重神GRAVION》泽拉拜亚本星戈玛；与现有剧情和资料库统一。"
+    },
+    {
+      "id": "unit/assault-aquarion",
+      "source_terms": [
+        "強攻型アクエリオン"
+      ],
+      "translation": "強攻型阿克艾里昂",
+      "deprecated_translations": [
+        "強攻型亞庫艾裡翁"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》强攻型机体总称；与用户审核的各固定形态名配套使用。 2026-09-07 用户确认通称统一为“阿克艾里昂”，固定形态沿用各自定稿名称。"
+    },
+    {
+      "id": "unit/big-fau",
+      "source_terms": [
+        "ビッグファウ"
+      ],
+      "translation": "BIG-FAU",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》机体BIG-FAU。"
+    },
+    {
+      "id": "unit/the-big",
+      "source_terms": [
+        "ザ・ビッグ"
+      ],
+      "translation": "The Big",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》作品中的MegaDeus类别／称呼。"
+    },
+    {
+      "id": "unit/lemures",
+      "source_terms": [
+        "レムレース"
+      ],
+      "translation": "雷姆雷斯",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创机体Lemures的暂定音译。"
+    },
+    {
+      "id": "unit/chaos-lemures",
+      "source_terms": [
+        "カオス・レムレース"
+      ],
+      "translation": "混沌·雷姆雷斯",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ原创机体Chaos Lemures的暂定译名。"
+    },
+    {
+      "id": "technology/command-cluster",
+      "source_terms": [
+        "司令クラスター"
+      ],
+      "translation": "司令簇",
+      "category": "technology",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》的Command Cluster，暂译司令簇。"
+    },
+    {
+      "id": "unit/galapagos",
+      "source_terms": [
+        "ガラバゴス"
+      ],
+      "translation": "加拉巴戈斯",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "教学关卡单位Galapagos的暂定音译。"
+    },
+    {
+      "id": "organization/federation-forces",
+      "source_terms": [
+        "連邦軍"
+      ],
+      "translation": "聯邦軍",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "条件文本中的联邦军简称。"
+    }
+  ],
+  "zh_hant_meta": {
+    "zh_hans_sha256": "d8025f9c811b6b5de3e713f12dbdac58a6f07533ea500ade928b3451d8dc58e6",
+    "zh_hant_status": "draft"
+  }
+}

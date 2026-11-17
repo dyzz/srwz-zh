@@ -1,0 +1,1183 @@
+{
+  "schema_version": 1,
+  "batch_id": "v1-menu-system-ui",
+  "language": "zh-Hant",
+  "scope": {
+    "domain": "menu",
+    "section": "Unit-Mech-Pilot-Weapons",
+    "entry_count": 104
+  },
+  "entries": [
+    {
+      "id": "menu/SLPS/11/0000",
+      "source_text_sha256": "f9b247f009d5a3d3c250f62813c58dcb35e832d4aa58b4639c69b247a686b39e",
+      "translation": "單位能力",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/unit"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "2872e4b64c645809353c0e896598e82307f0237cb9076d13dbdb1a4c23d9a863",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0001",
+      "source_text_sha256": "9dc6f6a6b7656e93a25f029d4ff78f49e728b809ed29b6d0404516241966d898",
+      "translation": "駕駛員能力",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/pilot"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "bb17f9415ff530c3f35d8696bc1131d7017947fa37ac188c1ea6f725514b0505",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0002",
+      "source_text_sha256": "12ec48a4eb3c790cb7d14425b798a7bbbeb8d7c5308b56fd682f988e2552affc",
+      "translation": "機體能力",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "c7da8b5c0fba32a6500f6ab627a19052630c6298e52c22c2e1bc7e99a4e5e002",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0003",
+      "source_text_sha256": "669bc2aa01a7f799626c892a6227218ab6379096dd8d61cfa4d6f529a6118cb5",
+      "translation": "武器性能",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "0c966aa4b4d0e5229bb6147e54002668af53a119e5e73dc74b1caf726e0dd741",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0004",
+      "source_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "translation": "",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "空字符串结构记录。",
+      "zh_hans_sha256": "8594a190c7e868525d4a5396a10d8d49413e5844ba963614a8d8dbc4551e2b93",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0005",
+      "source_text_sha256": "f019e97e7ba7ef12555ec1e946b4feda46c657280e4d681a3256a1abfc56b38f",
+      "translation": "SP降低（P系）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/sp",
+        "system/pilot-status-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "fd3c63bda8beeb55858de753f7246dc6d26f04ba82929f01df053274d85eab2e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0006",
+      "source_text_sha256": "acac33df6262f7adb4e613651652356473081abc21ef3510217e6d381c138303",
+      "translation": "運動性降低（R系）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/mobility",
+        "system/robot-status-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "48218ccd5101639ee5e3ccd6774d74b287e66f8840c2cd96e96a743c84cca760",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0007",
+      "source_text_sha256": "679863d80a90266456d0cf6db85f2e27bc29361b29053daac99a652ec78fd24d",
+      "translation": "氣力降低（P系）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/morale",
+        "system/pilot-status-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "470ee3f509ba5de38edc6c9ec512fd5ddae72f1edf6d04810880ec0042588f67",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0008",
+      "source_text_sha256": "2d1c39c5057fe07cd74d208e89a9cfda7cab36e5c65115d86ff9db2d5f583514",
+      "translation": "無法戰鬥（P系）",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "system/pilot-status-effect"
+      ],
+      "notes": "特殊效果1术语复核。",
+      "zh_hans_sha256": "6e8ac87c28da481298bd8f2ff40f14894e00f8f269378ee54a0ad7257fe9f6b0",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0009",
+      "source_text_sha256": "980198b3487adf1d04f707d522bfef87922fe4159e674bc75db9359e7e28b4e6",
+      "translation": "裝甲值降低（R系）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/armor",
+        "system/robot-status-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "b6ae37a3816737ba58c865c296aa7fcc44526ae3ec5786a2b09384847a0aaefa",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0010",
+      "source_text_sha256": "02e09f7bd893a5286e5772ba68fc8ee3e8215fc7163b96538ce16dadff9870fd",
+      "translation": "能力減半（P系）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/pilot-status-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "9123d89913f99de1f0a732d719dbe333beb3b3037d241d4b6e1b6abbd4dad6a1",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0011",
+      "source_text_sha256": "ab960f7e40b4de2d787ad63b3b462dfc1ff189531ff157101b26ae7509417d28",
+      "translation": "瞄準值降低（R系）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/aiming",
+        "system/robot-status-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "cd34c7c057b633c5acaa05a8cfbe69e1ffdd4b56ac780a6041eebaf95b0a2530",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0012",
+      "source_text_sha256": "edf050b97667bc26a69284889723c89d31805383833b61dfdf55e65285914142",
+      "translation": "EN降低（R系）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/robot-status-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "889899240650d09b0cfe5a93690ff2a14b9e40acf1aa1af2ae0c148e2c0fd59a",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0013",
+      "source_text_sha256": "383bbb5e8490445a209b509cb1df049413a7b9a53a859c268ffbd3e841b46a9d",
+      "translation": "無效",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "c06fd88419c3dcef5d01450926594fc25c7ac71a01f2cacce376e7cdee91cfee",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0014",
+      "source_text_sha256": "3ac909bffc994b065cfcab040b7ea03c48e81a273ce8a227722d31e2318af3cc",
+      "translation": "有效",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "4acb03303fd5dea0ccd4dcc32e8dcba160d7cc1d2a2057bf2b1c591b8b73d2fb",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0015",
+      "source_text_sha256": "c04583c11875032b1fd97eeee7e4702065a03272f40d48c7817076e41b3d2724",
+      "translation": "ーーーーーー",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "原界面横线占位符。",
+      "zh_hans_sha256": "2965c9aab5d996b9bb0a1c8a96c3130ab78bb3bb09eb59b2bf8f43c46743dc92",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0016",
+      "source_text_sha256": "1c09da42933012ee16a2204fa882b16f0310b95653463f38b2b7dde77c2067f1",
+      "translation": "自身中心型",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "MAP 武器范围类型；原位 UI 分类名。",
+      "zh_hans_sha256": "d193b55c383e71cb2da0b1e5d8c28c67491c71440446a26529299b86fdeff5b5",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0017",
+      "source_text_sha256": "99a696d8f64e45b882c7083c8207f96f8de58a88d0749659e319c800127cfc9c",
+      "translation": "指定落點",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "MAP 武器范围类型。",
+      "zh_hans_sha256": "8a13d639f2e6ce12a3225a0929b9007b425deb645e2d39f9c137244c92c23b49",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0018",
+      "source_text_sha256": "dfe0ea1e1bf6ee191bc8c7bb893a27682111e8ff5bf1576c3cad543bbe9df970",
+      "translation": "直線搜索",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "MAP 武器范围类型；“探索”的实际选区行为待运行界面确认。",
+      "zh_hans_sha256": "0bb9b5643e63ea17da36b6fece4aaf3c64b9b8c598a1d83d81d36e12bc1d3dc6",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0019",
+      "source_text_sha256": "d0a2bf0077d3d2bf5730767deb26aec5e61aa58c7b93bf2e5a5194612005cbbd",
+      "translation": "指定方向",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "MAP 武器范围类型。",
+      "zh_hans_sha256": "4c43bc9a654275bf2a4b37b561a63a4e24ad86cf36121d4c3906deb481481da5",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0020",
+      "source_text_sha256": "38630d5c12e1700059a941e0e743f5d4b2af63c66f379ec73103d9c0ae02297d",
+      "translation": "／",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "结构分隔符。",
+      "zh_hans_sha256": "6921d93fc0ba609f2d9811fb477b8b27e5b2eb72cb6ce9eb8c5951180a9c1ad0",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0021",
+      "source_text_sha256": "2ac975024b605b07eae1f4992ef368ca3af6027b524ee79f235baa41d38916b8",
+      "translation": "＋　＋　＋　＋",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "界面结构占位符。",
+      "zh_hans_sha256": "70c72748ae4da00330d050522273320f7241f1a7a1e40b20514d684674d31ee0",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0022",
+      "source_text_sha256": "2cea5b2f66ffbccc373ec77e02dfdc25f2b2e5b572ee52d047ea9c4214c1d6c5",
+      "translation": "　＜無搭乘機體＞",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "af0abb90a085abdf76cb09252f7f6db234c9156e1a2a756b67f1b982409cecf3",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0023",
+      "source_text_sha256": "15dd1636cc70151393c323c57ce28b0167a9ee06675d645d8cf5bf23f79a9b6b",
+      "translation": "（？？？）",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "未知内容占位符。",
+      "zh_hans_sha256": "152ad048189acb1ddc20238f697ea36807d3da94e14d09dac613d40c709947ce",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0024",
+      "source_text_sha256": "7d0d15cc3805f53270c91499b5183fc3fb79729d7a0f95b44de6bfcd49480f28",
+      "translation": "（　　　）",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "动态内容占位框。",
+      "zh_hans_sha256": "efecb896a52ba4b017de1ad8140f7ab95c39f9df712d8cad51770880a17e3256",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0025",
+      "source_text_sha256": "64fdac8cf5e53eed794ccd13ceec8408f4042c33b2541546111f7a83e2ce1adb",
+      "translation": "・全能力▼",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "b66963e501aaeed1c2b9e5b134f00e914751d8114fe87438353998b376027556",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0026",
+      "source_text_sha256": "7104569739403e585ec39f4a96ff1176340549d404d85c6191a816def9eae1cc",
+      "translation": "・無法戰鬥",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "d660a52491ab5128188684cbc04904e28f096bccc400c40e3afe83466e4fa065",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0027",
+      "source_text_sha256": "ecc6a9e27b9e5e4c62bf999ad9bb1c721a4de1a35cd3a94d187113a5924b977b",
+      "translation": "・裝甲值▼",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/armor"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "a2d5bd423a964e0dd3be8053b4fbbbfe8ee0787c8f65002c3416311b7522ff75",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0028",
+      "source_text_sha256": "3674b3f541acda00127ce9d3a201c9635bd3a77cb732d62c268f704f429b637a",
+      "translation": "・運動性▼",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/mobility"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "ad2aeb8a400f8802a4483399f4588db6a4014bff9badeff332ca8e96e39cdc22",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0029",
+      "source_text_sha256": "7dcb2c8a3db53fa128f0de271a5e04c3dd64698b25828a85c0f7fa7dc3529563",
+      "translation": "・瞄準值▼",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/aiming"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "785750a4e4ccf6a485dd4b19f6956a89e65980656ef575f4c0c3bdb5e1b425c2",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0030",
+      "source_text_sha256": "5b55ec547cf90bc8411488d2721b9255fdaebb01bf778c03dee3d8ca12fe722d",
+      "translation": "空　陸　海　宇",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "四类地形的界面缩写。",
+      "zh_hans_sha256": "0cb20052e77c6fd0644152d3ece8f38c2a8b1938a9e81d50e2b7729c7fe11f9d",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0031",
+      "source_text_sha256": "c8e606a861f77444d026dd16c89388d6f284682477fc383cac5469951728348a",
+      "translation": "武器名",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "40d0939f1906f59779491aa473e698b161b8b9e68b3210c1bf5b0989b4288c21",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0032",
+      "source_text_sha256": "8e9e091ff00642ede59502ccef12a4092439fcb256633481c82f5aef4c1e85ba",
+      "translation": "CRT",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/crt"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "b27a4544acedcb57ec1b54aa88680ea99d71044cf01cf66da50f7cbbdf9160a5",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0033",
+      "source_text_sha256": "0b8057215b7985c448ef92f6e4d7addbc57234cdf582287ae74947809235269b",
+      "translation": "％",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "数值单位符号。",
+      "zh_hans_sha256": "cc82c4b4d260fc9da25b99e5eaaae186bb049c46df885981ab144c4d2e61d868",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0034",
+      "source_text_sha256": "dec94d8a91447a553162862fa2bc96233ffa32acea08fb6adc5180e40f477ea9",
+      "translation": "：培養",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "原位按钮提示。",
+      "zh_hans_sha256": "d509e728baa4085638d03fef6ec454bb379c2c1c871af7dcf3566e324f60e994",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0035",
+      "source_text_sha256": "19dc1f69f51fd49b27c6afe350ff20f74d4da0a67062b82b7c95e2be38e3b288",
+      "translation": "：改造",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "原位按钮提示。",
+      "zh_hans_sha256": "afa78bc08b8cf1cf90728956face2a5d27368cda5182057414576fad27f3ee1e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0036",
+      "source_text_sha256": "d14d9f3784be90cd0308f6ab4c8e782b42ae9724a747726febf5c38e948b5b1f",
+      "translation": "Lv",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/level-abbreviation"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "38439ceca8246d84f3c90b4b1c66d70e0b1de1d3c0f4d476ebf0edd56d617ca1",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0037",
+      "source_text_sha256": "a96df030eed7e410c22fa628af1f716a871b295403d51b71c500b8dd783c2fc4",
+      "translation": "氣力",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/morale"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "3bb3db7a28a8a460e8db8b4aa16d00d8e986944fa02f5688d67ac4a2094d3abb",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0038",
+      "source_text_sha256": "27aacd60a8a886bda2f4c3be8d103fe70f34a05c69038a447c895e332957a62e",
+      "translation": "SP",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/sp"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "d597a657382f56e9ac449334069895032da362bd30133569b07e408bf22d0722",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0039",
+      "source_text_sha256": "afd52e9e2a90cac1061d08876c0fbcb34727a2afa5ea51b7cdac8164572ce3ef",
+      "translation": "格鬥",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/melee"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "92aec8c1f4694440a84e5a420eb2355eefda7750c5cca4c5f95ef21a7fd40264",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0040",
+      "source_text_sha256": "d9ee3e0a5c2973fcc6044b705db3772bc4fe69ea0cb4c276a5273f821e9eed31",
+      "translation": "射擊",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/ranged"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "48e5ea8964518644d8927afbbf358f37a5d1ecb21508bdff60d449e8df668eb9",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0041",
+      "source_text_sha256": "c886581f2ced5853db30ea33982c2a34cc0b94ab3a1e297876c14fe145e90ee7",
+      "translation": "技量",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/skill-stat"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "fe026dc6384decfbeffd8ba583ce7f9acbfbfda7016accb8ad68d284fda7b0cc",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0042",
+      "source_text_sha256": "75ba7a572706c98eaf57aab152664e4b3f6d6bbc0430a2d469155aa95d463466",
+      "translation": "防禦",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/defense"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "09d899efc70ea470da1b2a0b6c3032974ceaa724813ed155e33d2ff16f0f23ab",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0043",
+      "source_text_sha256": "3e8d0ff0d13deb3acdd01554d924e3f1b19d8f4f7cf5a5a122d6856fae18aef8",
+      "translation": "迴避",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/evasion"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "acc4ea440de2cedfb6415c607c9124b94471edab0bac13898b51feacec840e40",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0044",
+      "source_text_sha256": "393df9bb13ea4900352dc3e57d54ab4c734201384bfff92cbf4b9812a45bd5d5",
+      "translation": "命中",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/accuracy"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "ca8d25946828a840f761f90efdfa4f51e03f9167636e3b1f7bfb14b918036f4e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0045",
+      "source_text_sha256": "de2596ff85520b36a78110aba0914c332db890cdc3bbd27e730b2b2c03408536",
+      "translation": "移動",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "53787d92c4bede66430b4b2b4df9e3f984c71ef86b8715cf3844517eafc71e61",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0046",
+      "source_text_sha256": "a7efe890de54d0ba7dcb191de80d430e5d92b523634b1a86b162db7b65299d33",
+      "translation": "裝甲",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/armor"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "aceacd82f292cf8c7b7629b679fee533027b5e0c614ba7c5677e6b3803fc0759",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0047",
+      "source_text_sha256": "cca01fed6d4d23e5ec24c86308b8bb383a22ebe49e549354c5db9a2dfcac5821",
+      "translation": "運動性",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/mobility"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "5d00c28632af98bf807f1a744b802ea0d9e356fc7e30c8e302e6bdefa365868a",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0048",
+      "source_text_sha256": "fd8d20a4c006652b7c9a2f4eb962c2a756363d1eddf78d8204a652bbe2d74b32",
+      "translation": "瞄準值",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/aiming"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "6c86c5069a3022be4465f6a951a8673a7e041770410a3af380ca4a69477fe0fc",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0049",
+      "source_text_sha256": "bafd94e5a52445bab718c445e3266182cab30eda2492689db1b05a7c09873477",
+      "translation": "特\n殊\n技\n能",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "glossary_exceptions": [
+        "system/special-skill"
+      ],
+      "notes": "纵排界面标签；换行导致 canonical 连续字符串不成立。",
+      "zh_hans_sha256": "12cb9223efab879fe793103588b6bf6725dd574547eba313a6e4eb9a7fad7ab7",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0050",
+      "source_text_sha256": "c1689312720c36c47abb5d4853ce442c1eca384ad18a0628883674091ee782bf",
+      "translation": "特\n殊\n能\n力",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "glossary_exceptions": [
+        "system/special-ability"
+      ],
+      "notes": "纵排界面标签；换行导致 canonical 连续字符串不成立。",
+      "zh_hans_sha256": "548ba423f7dde71d8d55d46d9f1130d0d898e5af03563ba011ff67aa1cb26a54",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0051",
+      "source_text_sha256": "9d441d20b8a2eb4905b3e8298c52c010aaa464b7c77068fc9ce0108f5cace59f",
+      "translation": "強\n化\n零\n件",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "glossary_exceptions": [
+        "system/part",
+        "system/enhancement-part"
+      ],
+      "notes": "纵排界面标签；换行导致两个 canonical 连续字符串均不成立。",
+      "zh_hans_sha256": "ce8887c62926ddb02955ca2e76d292702ee946f9b5893582371d4011c8e5ce6c",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0052",
+      "source_text_sha256": "dab050bd1e921c5d679086d83e16bf512711adaf81234d91cd30e19b086cbb1d",
+      "translation": "PP",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/pp"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "93a84033c011683e6daee74432671856bcb74611108940e5cd7e24daded35b19",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0053",
+      "source_text_sha256": "5ffc69d1dc04ab91e4d252ec35bd817d6f6f55d485fe8b1fad184e73dbf44ece",
+      "translation": "Next",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "保留界面英文标签，统一改为半角。",
+      "zh_hans_sha256": "dfa10fa3f4d79b700688898d511b7179e6826ae1bc360048f73f04c8b9660b96",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0054",
+      "source_text_sha256": "4cbde056c984f79acf3919677a8265ec5c474f46d20a1038c14d27f047fd0ed9",
+      "translation": "隊長效果",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/captain-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "792b86448af5caa27427ec12325a14793c9a06efcfab0ffd134022de1a25f130",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0055",
+      "source_text_sha256": "eee88edb42d06b856e7c3ce1d51ea26f0a369f415dad9b32fd0482093c1746c7",
+      "translation": "艦長效果",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/ship-captain-effect"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "e882cb0875d0d59b0557647b3b7e6347cb1f4443a10976b16e03ca6b6b90ba16",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0056",
+      "source_text_sha256": "42abb81858b58c542ba8635c47c09e09ef5514d1b8fc0c6e1c6949d8337c77a8",
+      "translation": "命",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "“命中”的单字界面缩写。",
+      "zh_hans_sha256": "085c0f20d854398d7030dcd37f14c013a99241d0f3fb1775a07c684e0134e522",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0057",
+      "source_text_sha256": "5628d7c367d4265b513bd278ebc96955fab56025b3726ff5827075fc3e6c6504",
+      "translation": "射",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "“射击”的单字界面缩写。",
+      "zh_hans_sha256": "c9c90c3ac6fc7f0d0a06c461390632643999ceb310011825a5e20f769b96e37c",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0058",
+      "source_text_sha256": "6da3e5c03ac7e66cdc5f307308e136ff9a65b05fdd2022bd96fc27132b9d6373",
+      "translation": "回",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "“回避”的单字界面缩写。",
+      "zh_hans_sha256": "7e42b614d840e9b0d282d37ba45289e669b2b2afc95e5f085d8afa4ae2707f91",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0059",
+      "source_text_sha256": "2c4b6a3c62adb1cf30d8907f431611b23c2b5b5e250df230bfa3065654482ca2",
+      "translation": "技",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "“技量”的单字界面缩写。",
+      "zh_hans_sha256": "4de52d4ba2807ecd52e698f9a0d395c990b2480fb4875324cb82f17224d25105",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0060",
+      "source_text_sha256": "9fe4d2ec5f9d6cf235114f28407044dfae360008d976be8a7268e79378a9666b",
+      "translation": "防",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "“防御”的单字界面缩写。",
+      "zh_hans_sha256": "28e0db4a0484eeadedb9011a32aa91020b7266b535562f315c850b24da3725bc",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0061",
+      "source_text_sha256": "06f2f8e0a8f4cb1dbf98595dd1e93e5a6709030358e5206c1b0d0e05df147b1c",
+      "translation": "格",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "“格斗”的单字界面缩写。",
+      "zh_hans_sha256": "b61af9bb1502f99aa245fd5fdc98b65e33155dc21d59cde4a14be7775eb9d7c3",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0062",
+      "source_text_sha256": "d13ccaf2da5f98bf59a3071b5343e622a0eabd2bc48727f9883a2d5dc1fe9edf",
+      "translation": "小隊",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/squad"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "2f95ae88f7e84c988c85f5b18051120b4afdf3ca6377865b56a8f0d38005a597",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0063",
+      "source_text_sha256": "40d4ffff0f30d58f9a1a0f65e7e47f232ad06fe5a14523cb56384bcd1ef5794c",
+      "translation": "HP",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "c96982932b1a6e17419a1d61c826d235f08c6828fc3799751c32537f2a78f4b4",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0064",
+      "source_text_sha256": "95a435edee64c9762fdbeb1d0589c185de8388045e85b73585d36a439e57e71a",
+      "translation": "EN",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "5a3b2d8e6e1250659be0fe0360a83039248ff8d36db693984ad48144b1a082b3",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0065",
+      "source_text_sha256": "572a6a52e9a6e8ae7e47849da19b36d05c97bf2b072078e01a9add4358604cd3",
+      "translation": "類型",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "079305ab74ae71a54bd10b843b1701958970638c402b2f672f8d0934ebb8d82f",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0066",
+      "source_text_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
+      "translation": "強化零件",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/part",
+        "system/enhancement-part"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "9b1f7e56bdf95b44829ccb5f6fd58a50c68566d25c8bf2fc2200af9e6dd505c2",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0067",
+      "source_text_sha256": "f9db63169ccb00f2e868668fc4427ad630e90a72ea4d7d7056df555255f09630",
+      "translation": "特殊能力",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/special-ability"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "52478abf15dbba4be9d8827352dc6fba59be64bba8a293b90c9f666083259e80",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0068",
+      "source_text_sha256": "e863593ab13089877d54485073b32a465df631335c75c9e1f8c6dd4d062235e5",
+      "translation": "擊墜數",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/kill-count"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "146f89119db02ac0250c278685359c649fae228fce33fe4747b7f41c6d77a614",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0069",
+      "source_text_sha256": "3e2f014e96eed0253b8184b954efccbe457502a4c0ce811de56b74436e746538",
+      "translation": "EXP",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/exp-abbreviation"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "9fa73b246dd24ad8db1954caf972c18877ce54d1ddf6fc780bdfa17e8dae7a1d",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0070",
+      "source_text_sha256": "4f58b64aea80852a2835166da12404f1859109f20bb63712de7a9790eafc8e94",
+      "translation": "Next-Lv",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/level-abbreviation"
+      ],
+      "notes": "下一级所需经验界面标签，统一采用半角。",
+      "zh_hans_sha256": "2c1c09cece685ee15c5bac641b5e07ce459ff233c03d2d344a3ae545827f1db4",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0071",
+      "source_text_sha256": "5c5374dd958bcb79c1fe83a1b7a6c25df36603eec36f15f180a916af2022cee1",
+      "translation": "能力",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "a0a85dce7fb641d3e3f8ed00e337672960cd4b4feba553dcd265197f22ee8523",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0072",
+      "source_text_sha256": "150a505d90423e1f879da69e772729f10fd76204bc74fdfc558bca8b5c28c9c7",
+      "translation": "特殊技能",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/special-skill"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "62098dd5a31ea59d55bd643c14c32e6717e993030e9ee0e568cad9730a79d2d9",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0073",
+      "source_text_sha256": "4ae26ccac64d19b9719d5b3b1576c4d11442d3b42daa35009e69ac5679864b9a",
+      "translation": "精神指令／SP",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/spirit-command",
+        "system/sp"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "e539a1a69f0ac60fe825ba8efbe8ddb338b559edec4572852d21ba1412a3115e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0074",
+      "source_text_sha256": "e9536efb0d9f23abe950448a0cbf5062684a18fb6511de0cf3d0521218903780",
+      "translation": "MAP武器（　　　）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/map-weapon"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "5fcc6630d79383618544056aa161f86beb48aeee76731d3686feae4f2464dff7",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0075",
+      "source_text_sha256": "0baed803becfbc49eef20b79e0ba62b91783a18591bd2ac400209c9e5b626696",
+      "translation": "TRI武器（　　　）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/tri-weapon"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "e7d1b328eb3368a7ba2808a7d71c1f99c7ba1d3af29225ccabc2a69aa5076abd",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0076",
+      "source_text_sha256": "5ce273aab8b0e5236af9597e603e56534ad3c17cd88e4bb286aabd6b98551a7c",
+      "translation": "全體攻擊武器（　　　）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/all-target-weapon",
+        "system/all-target-attack"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "9aa69c5d5b697c76546845596e180918005c31eba2bde9aef28cc4eae56d8fae",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0077",
+      "source_text_sha256": "c5619c77fb5edfe3537c8789193633ce880fb4591c89b66f7e43109b5d3ae7d5",
+      "translation": "PLA攻擊武器（　　　）",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/pla-weapon"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "99ea688f125aef9bfa57c01c44b4e21d4eaa6a575d208e4d2b7b5779868c0ad2",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0078",
+      "source_text_sha256": "1b1b02856e407bf229bdd0ee651e76ffaf464754f5d153ed08af24c14503bde7",
+      "translation": "特殊攻擊武器",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "92830feb00d043436a98e186d2db41d37d2e1dcd8794179dd4ab1dbdf714fd77",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0079",
+      "source_text_sha256": "d0ae0f6bddd3a870802c5b004b022662c40fb4fe627070bd687729a6d7d0d537",
+      "translation": "移動後可用",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/post-movement-use"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "f636316f8a6a9e34a5acd174833b631a258c61eb90e099a9fe1da64e3f254f26",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0080",
+      "source_text_sha256": "bd4d7fc933c782d84d1cd7689916ee19753ef8731af084306e815ef35a54e6ad",
+      "translation": "光束武器",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/beam-weapon"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "317f0d584b903956524ac76efd0bd016d4dc436847cf927c6b050f1152613763",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0081",
+      "source_text_sha256": "1b941af619fd4597ed2271d9767a964379911e8a19862510ef25267b604cc610",
+      "translation": "（　）",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "动态内容占位框。",
+      "zh_hans_sha256": "d9ada545c04de3643fdaf61d98ac80e51b534b20ea6159ce12eae63e90b863ce",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0082",
+      "source_text_sha256": "06ecbd9fdec25b84a4bf431020efaa4c8b7dd01fc51d936590a134e3930ba1f7",
+      "translation": "（　　）",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "动态内容占位框。",
+      "zh_hans_sha256": "be6be131239cf326ede9443ccc362d0338055e6f2f9acd6f54bc24477e2a015c",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0083",
+      "source_text_sha256": "d3fc4a3d1e13c0394d6ed578e240c885d1fa4599289c0d03fa82663334da6802",
+      "translation": "%s〜%s",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "保留两个动态占位符，范围符号统一为中文全角波浪号。",
+      "zh_hans_sha256": "b1d97f6ba2c3f341b8da6171ed648a363561de60d5d7491bc35fcf4fd6700327",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0084",
+      "source_text_sha256": "456fd354650a4fed6c7151188dbb83b787dd1ecf783594cc76bc02fc1488b36f",
+      "translation": "　1〜",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "保留前导全角空格。",
+      "zh_hans_sha256": "4827a4be0ed8e5d8f86a403862a59fc102583acb41b14935cb91a04480118a32",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0085",
+      "source_text_sha256": "4017e0b06e9c07c11a780b4cd59ead3407220ea37c7c5bbbbb079c8cddaeff65",
+      "translation": "%sL",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "保留动态占位符，等级后缀统一采用半角 L。",
+      "zh_hans_sha256": "e2666b46ff64c85ac8560201ce60897743439411392cc248f2db61ae8e3d6bee",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0086",
+      "source_text_sha256": "f684c73cba75b2ba0b6833f62a8fa8af6b8a2d3711b775d52596105f4917e38d",
+      "translation": "%s",
+      "translation_action": "preserve",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "格式占位符。",
+      "zh_hans_sha256": "896441b11d96c055254059a6e29175cb5756d5331a2d1e635a0b5edc90511aca",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0087",
+      "source_text_sha256": "d415668ad524587966ed48904019365f4bf727f5f96299c303ca559a8bc47143",
+      "translation": "彈數",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/ammo"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "422f62ed4750ec326223e06796dc4c948a14f886228553c3da3510a0eed4d82b",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0088",
+      "source_text_sha256": "85d5125cfe7268da48ecfbc40d76b168c1b4045244c24b59199e4d7f2e25d91d",
+      "translation": "EN消耗",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/en-consumption"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "7b8993f6b3956ecb012c81b273ad95cfb628f7fbffb065af6bbd6c2b5a9e82c8",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0089",
+      "source_text_sha256": "ea7c9ad9d67af5f6f8d63b18afab8b197d59f2c530b723841629a8a57244d260",
+      "translation": "必要氣力",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/morale",
+        "system/required-morale"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "52ea50be5bd014f472a58170aa834003f5005a51ca6903abdaf5859b89b8d356",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0090",
+      "source_text_sha256": "f5f787737d22b0b65708064d4c44a6483766b27a05e46f827c541c8066cc495b",
+      "translation": "必要技能",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/required-skill"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "db4a0cda4374cb134b69488f72ee6de6269ecedffaa9829a717fe7a4e976bf7b",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0091",
+      "source_text_sha256": "cff66908b031c754be5aae2eff64614ee097c4919051c90d3de9649d458ba102",
+      "translation": "地形適應",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/terrain-adaptation"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "55674248583d220dd2fbccadc9c3c3017b81e4578266a635fa8c851668f1d511",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0092",
+      "source_text_sha256": "02a16e6c32f251f0ad094bc13e1bac0fb3d959ef4974e7679d001a7e97bfd8cc",
+      "translation": "特殊效果1",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "482158a62d02941b15357599c1cd18c09b51912730daa723ae713f742024e02e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0093",
+      "source_text_sha256": "dca74d9dd0d06cadf004fef658a73e4c9efaf8da43365ee0c1cd57b62825d0fa",
+      "translation": "特殊效果2",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "69a19f17fc6f7aba98d1e9b3f892a7cb3c632b2ffeff067a7a2226bce5cc97af",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0094",
+      "source_text_sha256": "d40253c8f0ca94cd47c67e61e3e220f14f424a355078206fb509f60314dcd675",
+      "translation": "改造等級",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/upgrade-level"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "dbe498dda8c3c5ac6e117fead8a626c48e93a33f9c8496ae551df257eee18994",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0095",
+      "source_text_sha256": "4100e90e79b574d0c074961902680d518ea08e5122b0b7a5eca214acc6da17b8",
+      "translation": "分類",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "e9cf51d4e4a78d6962f124f8a22b6437f83d7d3b5219fa7dd39e7e9cdac8d0e3",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0096",
+      "source_text_sha256": "7ec26292414bccefa35290004928d8cf8f5e19d2bfb8b0c0322ee9e8b2854349",
+      "translation": "名稱",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "5d42e3ec304eddf6b72701194fbb16b52c861592dab3776696502f797206257f",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0097",
+      "source_text_sha256": "8c7622ae1cc6ad75eacc727c4726e5e67a9e67e1b008fbc392748d4f6752a975",
+      "translation": "種類",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "61aadda1df25c305f2db9b08659dc55dd90dbe88d49af5146264945ce47054d4",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0098",
+      "source_text_sha256": "86de52d178203799951d818b1d3af85f13288de66bf2b0373cc21f53b1e42ff4",
+      "translation": "屬性",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "24cc40570151db625e28d6a302be642da2e1fde3afb69de871246dc801499e0b",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0099",
+      "source_text_sha256": "c79dff74a0237a8dd4ded0af32224774a4ea3cfb35e4fd634a891d0d3b6b50c9",
+      "translation": "敵我識別",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "f36e131923f4482de531ee2edc00ca58649bf7982660997f5b3add4f979a4464",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0100",
+      "source_text_sha256": "9dbd48a9b2d20e21ee5747f8f7a33be352900d15061d8607ddbb442524eaaef2",
+      "translation": "形式",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "",
+      "zh_hans_sha256": "1e9f53465e577f9c5fc7deab7879e93ee63908d8364674c1def3ac2372b57041",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0101",
+      "source_text_sha256": "febbd1262ce9450031f0e48cdefcdaaf1e501ca2c11dc42d698853d4b5de96bf",
+      "translation": "攻擊力",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/attack-power"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "0eea9bf407a34a9ab58bfc4331e64987ae8756fa496e631a4748d19b200e0c02",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0102",
+      "source_text_sha256": "5262a412adb87f6333d4e778713f1deff208593e369d0f0326a4ea59d382ba8d",
+      "translation": "射程",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "system/range"
+      ],
+      "notes": "",
+      "zh_hans_sha256": "24fd3bfe1bddcd4aa117b957ea9a3a7df98c44786c66829afdb858fb7060db5a",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/SLPS/11/0103",
+      "source_text_sha256": "f53e5269c3cd371b3349bbe4c79382632203eb5aadbbb1c6f9622506c8456391",
+      "translation": "HIT",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "武器命中修正界面缩写，统一采用半角。",
+      "zh_hans_sha256": "0c5ba8052ec6743f025dd81510a00c5466e0dc99432366070733b638c4d4b731",
+      "zh_hant_status": "draft"
+    }
+  ]
+}

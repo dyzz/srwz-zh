@@ -293,6 +293,14 @@ def render_palette_montage(pictures: Sequence[bytes], clut: bytes) -> bytes:
     return bytes(output)
 
 
+def _render_label_masks_for(entry_id, *args, **kwargs):
+    """_render_label_masks, naming the label when it fails."""
+    try:
+        return _render_label_masks(*args, **kwargs)
+    except TricmnBattleOverlayError as error:
+        raise TricmnBattleOverlayError(f"{entry_id} ({args[2]}): {error}") from error
+
+
 def _render_label_masks(
     executable: str,
     font_path: Path,
@@ -4418,7 +4426,8 @@ def build_tricmn_battle_overlay(
             vector_fill_mask,
             vector_effect_scale,
             effective_character_spacing,
-        ) = _render_label_masks(
+        ) = _render_label_masks_for(
+            entry_id,
             executable,
             render_font_path,
             text,

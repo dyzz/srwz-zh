@@ -1,0 +1,938 @@
+{
+  "schema_version": 1,
+  "glossary_id": "story-dialogue-full-v1",
+  "language": "zh-Hant",
+  "default_source_match": "substring",
+  "research_basis": "全文術語審核頁的用戶定稿；只收錄需由正式構建器強制檢查的全局唯一術語，以及既有草稿已引用的玖爾隊條目。",
+  "terms": [
+    {
+      "id": "organization/ageha-team",
+      "source_terms": [
+        "アゲハ隊"
+      ],
+      "translation": "展翅隊",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "deprecated_translations": [
+        "鳳蝶隊",
+        "揚羽隊",
+        "阿蓋哈隊"
+      ],
+      "enforce": true,
+      "notes": "用户于 2026-08-13 定稿为音译阿盖哈队；2026-09-28 确认UP的展翅与之对应。 2026-11-14 用户改定为意译“展翅”（审阅站咲夜的意见：アゲハ出自蝴蝶意象），原音译阿盖哈纳入异译。"
+    },
+    {
+      "id": "concept/ageha-plan",
+      "source_terms": [
+        "アゲハ構想"
+      ],
+      "translation": "展翅構想",
+      "category": "concept",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "deprecated_translations": [
+        "鳳蝶構想",
+        "鳳蝶計劃",
+        "揚羽構想",
+        "揚羽蝶構想",
+        "阿蓋哈計劃",
+        "阿蓋哈構想",
+        "展翅計劃"
+      ],
+      "enforce": true,
+      "notes": "组合词统一使用构想，不改写为计划。 2026-11-14 用户改定为意译“展翅”（审阅站咲夜的意见：アゲハ出自蝴蝶意象），原音译阿盖哈纳入异译。"
+    },
+    {
+      "id": "term/ageha",
+      "source_terms": [
+        "アゲハ"
+      ],
+      "translation": "展翅",
+      "category": "term",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "deprecated_translations": [
+        "鳳蝶",
+        "揚羽",
+        "揚羽蝶",
+        "阿蓋哈"
+      ],
+      "enforce": true,
+      "notes": "较长的アゲハ隊、アゲハ構想和アゲハ蝶优先匹配。 2026-11-14 用户改定为意译“展翅”（审阅站咲夜的意见：アゲハ出自蝴蝶意象），原音译阿盖哈纳入异译。"
+    },
+    {
+      "id": "biology/ageha-butterfly",
+      "source_terms": [
+        "アゲハ蝶"
+      ],
+      "translation": "鳳蝶",
+      "category": "biology",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "明确指昆虫时意译凤蝶，并覆盖较短的作品专名アゲハ（专名译作展翅）。"
+    },
+    {
+      "id": "people/black-charisma",
+      "source_terms": [
+        "黒のカリスマ"
+      ],
+      "translation": "黑之卡里斯馬",
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "用户在全文术语审核中定稿；统一黑色魅力、黑色魅影、黑之救世主等机器异译。"
+    },
+    {
+      "id": "provisional/story-dialogue/joule-team",
+      "source_terms": [
+        "ジュール隊"
+      ],
+      "translation": "玖爾隊",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "保留完整模型草稿已经审计引用的稳定 ID；本条不强制全文替换。"
+    },
+    {
+      "id": "user/unit/rush-rod",
+      "source_terms": [
+        "ラッシュロッド"
+      ],
+      "translation": "拉什羅德",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "用户全文术语定稿；仅由已晋升剧情行显式引用，不反向改写既有条件文本。"
+    },
+    {
+      "id": "user/unit/buffalo",
+      "source_terms": [
+        "バッファロー"
+      ],
+      "translation": "布法羅",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "用户采用字幕与项目显示名一致的译法。"
+    },
+    {
+      "id": "user/unit/aquarion",
+      "source_terms": [
+        "アクエリオン"
+      ],
+      "translation": "阿克艾里昂",
+      "deprecated_translations": [
+        "亞庫艾裡翁"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "用户全文术语定稿；剧情行显式引用。 2026-09-07 用户确认通称统一为“阿克艾里昂”，固定形态沿用各自定稿名称。"
+    },
+    {
+      "id": "user/unit/dominator",
+      "source_terms": [
+        "ドミネーター"
+      ],
+      "translation": "多米尼達",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "用户采用项目显示名的中文译法。"
+    },
+    {
+      "id": "user/unit/assault-aquarion",
+      "source_terms": [
+        "強攻型アクエリオン"
+      ],
+      "translation": "強攻型阿克艾里昂",
+      "deprecated_translations": [
+        "強攻型亞庫艾裡翁"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "随阿克艾里昂系列名统一。 2026-09-07 用户确认通称统一为“阿克艾里昂”，固定形态沿用各自定稿名称。"
+    },
+    {
+      "id": "unit/god-sigma",
+      "source_terms": [
+        "ゴッドシグマ"
+      ],
+      "translation": "巨神Σ",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "沿用既有剧情语料中机体 God Sigma 的统一译名，避免与《超重神GRAVION》的巨神Σ格兰维昂混淆。 2026-08-30 审阅站术语专项经用户确认定稿。",
+      "deprecated_translations": [
+        "巨神西格瑪"
+      ]
+    },
+    {
+      "id": "title/the-heat",
+      "source_terms": [
+        "ザ・ヒート"
+      ],
+      "translation": "THE HEAT",
+      "deprecated_translations": [
+        "熱火",
+        "熱力",
+        "熱力男",
+        "熱浪",
+        "熱風",
+        "THE·HEAT",
+        "扎·希特"
+      ],
+      "category": "title",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "兰德的自称；沿用人物简介、剧情和战斗台词中的既有统一写法。"
+    },
+    {
+      "id": "title/the-crusher",
+      "source_terms": [
+        "ザ・クラッシャー"
+      ],
+      "translation": "THE CRUSHER",
+      "deprecated_translations": [
+        "破壞者",
+        "粉碎者",
+        "破壞狂",
+        "THE·CRUSHER"
+      ],
+      "category": "title",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "兰德的正式称号；只绑定日文源词ザ・クラッシャー。普通ブレーカー、壊し屋仍按语境译为破坏者。"
+    },
+    {
+      "id": "system/hangar",
+      "source_terms": [
+        "格納庫"
+      ],
+      "translation": "機庫",
+      "deprecated_translations": [
+        "格納庫"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "大陆简体通用军事用语；清理日文汉字直译“格纳库”。"
+    },
+    {
+      "id": "place/moonlight-living-room",
+      "source_terms": [
+        "月光号　居間"
+      ],
+      "translation": "月光號起居室",
+      "deprecated_translations": [
+        "月光號客廳",
+        "月光號　居間",
+        "月光號　起居室"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "作为舰内地点标签统一为“起居室”，并去除日文汉字直译“居间”。"
+    },
+    {
+      "id": "place/glomar-living-room",
+      "source_terms": [
+        "グローマ　居間"
+      ],
+      "translation": "格羅瑪起居室",
+      "deprecated_translations": [
+        "格羅瑪客廳",
+        "格羅瑪　客廳",
+        "格羅瑪　起居室"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "作为舰内地点标签统一为“起居室”。"
+    },
+    {
+      "id": "weapon/requiem",
+      "source_terms": [
+        "レクイエム"
+      ],
+      "translation": "鎮魂曲",
+      "deprecated_translations": [
+        "安魂曲"
+      ],
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》的月面光束武器 Requiem；沿用本项目资料库与多数现有剧情的“镇魂曲”。"
+    },
+    {
+      "id": "place/bazaar-venue",
+      "source_terms": [
+        "バザー会場"
+      ],
+      "translation": "集市會場",
+      "deprecated_translations": [
+        "巴扎會場",
+        "跳蚤市場會場"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一系统地点标签；“集市”与本作交易系统现有译法一致。"
+    },
+    {
+      "id": "unit/bachcron",
+      "source_terms": [
+        "バッハクロン"
+      ],
+      "translation": "巴赫克隆",
+      "deprecated_translations": [
+        "巴赫克倫號",
+        "巴赫克倫",
+        "巴哈克倫",
+        "巴赫克龍"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与机体显示名、默认编队名和已审资料库统一。"
+    },
+    {
+      "id": "place/bostonia",
+      "source_terms": [
+        "ボストニア"
+      ],
+      "translation": "博斯托尼亞",
+      "deprecated_translations": [
+        "波斯特尼亞"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "沿用同作品多数既有剧情译名。"
+    },
+    {
+      "id": "organization/deava",
+      "source_terms": [
+        "ディーバ"
+      ],
+      "translation": "DEAVA",
+      "deprecated_translations": [
+        "迪巴",
+        "迪瓦",
+        "迪娃"
+      ],
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story",
+        "battle",
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》地球再生机构的作品内缩写；与已审资料库及剧情统一。"
+    },
+    {
+      "id": "place/yapans-ceiling",
+      "source_terms": [
+        "ヤーパンの天井"
+      ],
+      "translation": "雅邦天井",
+      "deprecated_translations": [
+        "雅邦的天井",
+        "雅邦的天頂",
+        "雅邦天頂",
+        "雅邦的天花板",
+        "雅邦天花板",
+        "雅邦之天蓋",
+        "雅帕恩天頂",
+        "雅邦高層"
+      ],
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》官网定义为从乌鲁古斯克出发、向雅邦进行大逃亡的盖纳一行人的称呼；游戏中亦借指其牵引的移动居住单元群。译名统一为“雅邦天井”。"
+    },
+    {
+      "id": "place/trinity-base",
+      "source_terms": [
+        "トリニティ基地"
+      ],
+      "translation": "三位一體基地",
+      "deprecated_translations": [
+        "特里尼蒂基地",
+        "特立尼提基地",
+        "三一基地"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝神西格玛》的 Trinity Base；用户于 2026-08-13 确认采用意译体系。专用能力名后来因界面宽度缩为“充能”。"
+    },
+    {
+      "id": "place/atlandia",
+      "source_terms": [
+        "アトランディア"
+      ],
+      "translation": "亞特蘭迪亞",
+      "deprecated_translations": [
+        "亞特蘭蒂亞"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story",
+        "battle",
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "《创圣机械天使》专名 Atlandia；与中文作品资料及已审资料库统一。"
+    },
+    {
+      "id": "place/genganam",
+      "source_terms": [
+        "ゲンガナム"
+      ],
+      "translation": "根加納姆",
+      "deprecated_translations": [
+        "金加納姆"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》的月球首都；与人物金卡拉姆（ギンガナム）区分，并与已审资料库统一。由于两者会在同一句中并列，不把“金卡拉姆”登记为可全句扫描的废弃译名。"
+    },
+    {
+      "id": "place/mountain-cycle",
+      "source_terms": [
+        "マウンテンサイクル",
+        "マウンテン・サイクル"
+      ],
+      "translation": "環形山",
+      "deprecated_translations": [
+        "山嶽循環",
+        "山脈循環",
+        "山地循環",
+        "山嶽週期",
+        "月之山嶽週期",
+        "環形山循環帶",
+        "環形山循環"
+      ],
+      "variant_scope": "source_bound",
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》黑历史遗产埋藏地 Mountain Cycle；大陆高达资料与大陆授权游戏资料采用“环形山”。"
+    },
+    {
+      "id": "place/vicinity",
+      "source_terms": [
+        "ビシニティ"
+      ],
+      "translation": "比西尼提",
+      "deprecated_translations": [
+        "維西尼提",
+        "維西尼蒂"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》英格利萨领地的地名 Vicinity；大陆正版 IP 手游公开稿与大陆高达社区资料均采用“比西尼提”。"
+    },
+    {
+      "id": "place/un-station",
+      "source_terms": [
+        "ＵＮステーション"
+      ],
+      "translation": "UN空間站",
+      "deprecated_translations": [
+        "UN站點",
+        "UN站"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一为能准确表达设施性质的“UN空间站”。"
+    },
+    {
+      "id": "system/office",
+      "source_terms": [
+        "執務室"
+      ],
+      "translation": "辦公室",
+      "deprecated_translations": [
+        "執務室"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "清理日文汉字直译“执务室”，统一为大陆简体常用的“办公室”。"
+    },
+    {
+      "id": "place/roger-mansion",
+      "source_terms": [
+        "ロジャー邸"
+      ],
+      "translation": "羅傑宅邸",
+      "deprecated_translations": [
+        "羅傑宅"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "作为地点专名统一为完整的“罗杰宅邸”。"
+    },
+    {
+      "id": "place/argama-private-room",
+      "source_terms": [
+        "アーガマ　個室",
+        "アーガマ個室"
+      ],
+      "translation": "阿伽瑪單人房",
+      "deprecated_translations": [
+        "阿伽瑪單人房間",
+        "阿伽瑪　單間",
+        "阿伽瑪單間",
+        "阿伽瑪　個人房間",
+        "阿伽瑪個人房間"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一舰内地点标签，避免“个人房间”“单间”等异译。"
+    },
+    {
+      "id": "place/minerva-private-room",
+      "source_terms": [
+        "ミネルバ　個室"
+      ],
+      "translation": "密涅瓦號單人房",
+      "deprecated_translations": [
+        "密涅瓦　個人房間",
+        "密涅瓦個人房間",
+        "密涅瓦　單人房",
+        "密涅瓦單人房"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "2026-09-12 用户明确确认三艘 SEED 舰船均补回“号”；对应舰名、舰内地点及关联用例统一。仅按日文源词绑定，保留普通词义和原文对“大天使”一词的修辞用法。",
+      "variant_scope": "source_bound"
+    },
+    {
+      "id": "place/iron-gear-private-room",
+      "source_terms": [
+        "アイアン・ギアー　個室"
+      ],
+      "translation": "鋼鐵齒輪單人房",
+      "deprecated_translations": [
+        "鋼鐵齒輪單間",
+        "鋼鐵齒輪個人房間"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一舰内地点标签。"
+    },
+    {
+      "id": "title/council-chair",
+      "source_terms": [
+        "評議会議長"
+      ],
+      "translation": "評議會議長",
+      "deprecated_translations": [
+        "評議會主席"
+      ],
+      "category": "title",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与《高达SEED DESTINY》人物称谓及多数现有剧情统一。"
+    },
+    {
+      "id": "place/three-sages-chamber",
+      "source_terms": [
+        "三賢人の間"
+      ],
+      "translation": "三賢人廳",
+      "deprecated_translations": [
+        "三賢人之間",
+        "三賢者之間"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日文“间”在此指房间，改为中文地点标签“厅”，不译作方位关系“之间”。"
+    },
+    {
+      "id": "place/white-palace",
+      "source_terms": [
+        "白の宮殿"
+      ],
+      "translation": "白之宮殿",
+      "deprecated_translations": [
+        "白色宮殿"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》根加纳姆内的宫殿专名；与已审资料库统一。"
+    },
+    {
+      "id": "place/bachcron-bridge",
+      "source_terms": [
+        "バッハクロンブリッジ"
+      ],
+      "translation": "巴赫克隆艦橋",
+      "deprecated_translations": [
+        "巴赫克隆橋"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "此处 bridge 指舰桥，不是桥梁。"
+    },
+    {
+      "id": "place/ingressa",
+      "source_terms": [
+        "イングレッサ"
+      ],
+      "translation": "英格利薩",
+      "deprecated_translations": [
+        "英格萊薩",
+        "英格雷薩",
+        "因格雷薩",
+        "英格蕾薩",
+        "英格列薩"
+      ],
+      "variant_scope": "source_bound",
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》地名 Inglessa；大陆高达资料稳定使用“英格利萨”。"
+    },
+    {
+      "id": "place/agato-crystal",
+      "source_terms": [
+        "アガトの結晶"
+      ],
+      "translation": "阿加托結晶",
+      "deprecated_translations": [
+        "阿加特結晶",
+        "阿加托的結晶",
+        "阿加特的結晶"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的设施专名；与已审资料库多数译法统一。"
+    },
+    {
+      "id": "place/urugsk",
+      "source_terms": [
+        "ウルグスク"
+      ],
+      "translation": "烏魯古斯克",
+      "deprecated_translations": [
+        "烏爾古斯克",
+        "烏爾格斯克",
+        "烏魯古斯庫"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》圆顶都市 Urugsk；按原文音节及已审资料库主要译法统一。"
+    },
+    {
+      "id": "people/gareji-thurston",
+      "source_terms": [
+        "ガレエジ・サーストン",
+        "ガレヱジ・サーストン"
+      ],
+      "translation": "薩斯頓修理廠",
+      "deprecated_translations": [
+        "加雷吉·薩斯頓",
+        "加雷基·薩斯頓",
+        "車庫·薩斯頓"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》中阿克塞尔经营的 Garage Thurston；剧情中的场景标题及图鉴中的制造者说明均按设施名译为“萨斯顿修理厂”，不是人物名。"
+    },
+    {
+      "id": "place/hyakkitei-emperor-hall",
+      "source_terms": [
+        "百鬼帝国　大帝の間"
+      ],
+      "translation": "百鬼帝國大帝殿",
+      "deprecated_translations": [
+        "百鬼帝國　大帝之間",
+        "百鬼帝國大帝之間"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日文“间”在此指宫殿内厅堂，统一为“大帝殿”。"
+    },
+    {
+      "id": "place/requiem-interior",
+      "source_terms": [
+        "レクイエム内"
+      ],
+      "translation": "鎮魂曲內部",
+      "deprecated_translations": [
+        "鎮魂曲內"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一地点标签表述。"
+    },
+    {
+      "id": "place/king-beal-bridge",
+      "source_terms": [
+        "キング・ビアル　ブリッジ"
+      ],
+      "translation": "帝皇比亞路艦橋",
+      "deprecated_translations": [
+        "帝皇比亞路號艦橋"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与机体显示名“帝皇比亚路”统一。"
+    },
+    {
+      "id": "weapon/oratorio-no-8",
+      "source_terms": [
+        "オラトリオＮｏ．８",
+        "オラトリオＮｏ，８"
+      ],
+      "translation": "奧拉托里奧No.8",
+      "deprecated_translations": [
+        "聖詠第8號",
+        "清唱劇8號",
+        "奧拉托利歐8號"
+      ],
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》的卫星轨道微波兵器专名；编号属于名称的一部分，统一保留为No.8。"
+    },
+    {
+      "id": "weapon/oratorio",
+      "source_terms": [
+        "オラトリオ"
+      ],
+      "translation": "奧拉托里奧",
+      "deprecated_translations": [
+        "聖詠",
+        "清唱劇",
+        "奧拉托利歐",
+        "Oratorio",
+        "oratorio"
+      ],
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》的兵器专名；统一采用音译，不按普通名词意译为圣咏或清唱剧，也不直接保留拉丁字母。"
+    },
+    {
+      "id": "nickname/geroncho",
+      "source_terms": [
+        "ゲロンチョ"
+      ],
+      "translation": "嘔吐鬼",
+      "deprecated_translations": [
+        "格隆喬",
+        "吐貨",
+        "鼻涕蟲"
+      ],
+      "category": "nickname",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "优莱卡收养的三个孩子因兰顿曾经呕吐而给他起的嘲弄性外号；用户于 2026-08-25 定稿为“呕吐鬼”。"
+    },
+    {
+      "id": "organization/big-o-union",
+      "source_terms": [
+        "ユニオン"
+      ],
+      "translation": "Union",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "deprecated_translations": [
+        "聯盟",
+        "聯合"
+      ],
+      "variant_scope": "source_bound",
+      "registry_match": "explicit_only",
+      "enforce": true,
+      "notes": "用户于 2026-09-07 确认其余六组定稿，BIG-O 组织统一为 Union；作为项目定名，不声称官方中文译名。只约束本次源文含ユニオン的 23 条剧情显式引用，不全局替换中文联盟或联合。"
+    }
+  ],
+  "zh_hant_meta": {
+    "zh_hans_sha256": "7d2b0814071a58b9dadd15142842bde1711bd6dc862936b02271d1504f78900f",
+    "zh_hant_status": "draft"
+  }
+}

@@ -40,6 +40,14 @@ PUNCTUATION = "-.'/"
 SLOT_COUNT = 82
 
 
+# Glyphs the display options draw instead (srwz.proportional_hooks.glyph_bank_hook, flags set by the dual-disc
+# settings box): a zero without the centre dot, and narrow 「」 at the ink position of the narrow “” the
+# dialogue stores (16 px advance), so switching the quote style changes no layout. Slot 10 is a blank gap
+# between the digits and the capitals; 80 and 81 are the spares.
+EXTRA_SLOTS = {10: "zero_plain", 80: "quote_open", 81: "quote_close"}
+QUOTE_INK = {"quote_open": ("「", "left", 8), "quote_close": ("」", "right", 14)}
+
+
 class LatinBankError(ValueError):
     """The Latin glyph bank contract is violated."""
 
@@ -170,6 +178,23 @@ def rasters(root: Path, rasterizer: Mapping, config: Mapping | None = None) -> d
         if expected is not None and hashlib.sha256(gray).hexdigest() != expected:
             raise LatinBankError(f"Latin bank raster drift for {character!r}")
         result[slot] = (character, gray, packed)
+    extras = config.get("extras", {})
+    quotes = rasterize_characters(rasterizer["executable"], lambda character: digits,
+                                  [QUOTE_INK[name][0] for name in QUOTE_INK], rasterizer)
+    for slot, name in EXTRA_SLOTS.items():
+        if name == "zero_plain":
+            gray = _digit_gray("0", digits, rasterizer, config["digits"], shift_rows)
+        else:
+            character, edge, column = QUOTE_INK[name]
+            source = quotes[character][0]
+            ink = [x for x in range(GLYPH_WIDTH) if any(source[y * GLYPH_WIDTH + x] >= 128 for y in range(GLYPH_HEIGHT))]
+            shift = column - (ink[0] if edge == "left" else ink[-1])
+            gray = bytes(source[y * GLYPH_WIDTH + x - shift] if 0 <= x - shift < GLYPH_WIDTH else 0
+                         for y in range(GLYPH_HEIGHT) for x in range(GLYPH_WIDTH))
+        expected = extras.get(name, {}).get("raw_gray_sha256")
+        if expected is not None and hashlib.sha256(gray).hexdigest() != expected:
+            raise LatinBankError(f"Latin bank raster drift for {name}")
+        result[slot] = (name, gray, encode_glyph(quantize_gray_4bpp(gray)))
     return result
 
 
@@ -192,5 +217,5 @@ def space_advance(config: Mapping, width: int) -> int:
                (natural * width + GLYPH_WIDTH * 32) // (GLYPH_WIDTH * 64))
 
 
-__all__ = ["ALNUM_BASE", "ALNUM_SLOTS", "BASE_CODE", "CONFIG", "LatinBankError", "PUNCTUATION", "SLOT_COUNT",
+__all__ = ["ALNUM_BASE", "ALNUM_SLOTS", "BASE_CODE", "CONFIG", "EXTRA_SLOTS", "LatinBankError", "PUNCTUATION", "SLOT_COUNT",
            "advance_px", "base_glyph_index", "glyph_indices", "load", "rasters", "slot_characters", "space_advance"]

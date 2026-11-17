@@ -1,0 +1,705 @@
+{
+  "schema_version": 1,
+  "batch_id": "v1-display-names-units-full",
+  "language": "zh-Hant",
+  "scope": {
+    "domain": "display-names",
+    "table": "unit",
+    "expected_unique_name_count": 348,
+    "index_policy": "Each translation is bound to display-name/unit/{record_index:04d}/name; no pointer bytes may be changed."
+  },
+  "source": {
+    "structure_config": "config/display-names/compdata.json",
+    "structure_manifest": "manifests/display-name-structure.json"
+  },
+  "translation_policy": [
+    "Prefer official Simplified Chinese names and the user-approved Biligame Gundam terminology.",
+    "Use aligned RoboInfo Japanese/Traditional Chinese mecha records as a secondary reference and normalize them to Simplified Chinese.",
+    "Use stable mainland-community transliteration for records without an attributable Chinese title; keep those segments draft for later human review.",
+    "Internal question-mark and reserve records remain semantically equivalent so table order and debug behavior stay intact."
+  ],
+  "segments": [
+    {
+      "range": [
+        0,
+        1
+      ],
+      "work": "魔神Z",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "robinfo:works/29",
+        "community-mainland"
+      ],
+      "translations": [
+        "魔神Z",
+        "戴安娜A"
+      ]
+    },
+    {
+      "range": [
+        2,
+        3
+      ],
+      "work": "大魔神",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "robinfo:works/30",
+        "community-mainland"
+      ],
+      "translations": [
+        "大魔神",
+        "維納斯A"
+      ]
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "work": "魔神Z",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "robinfo:works/29",
+        "community-mainland"
+      ],
+      "translations": [
+        "波士機器人"
+      ]
+    },
+    {
+      "range": [
+        5,
+        14
+      ],
+      "work": "UFO機器人 古連泰沙",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/31",
+        "community-mainland"
+      ],
+      "translations": [
+        "斯派扎",
+        "古連泰沙",
+        "TFO",
+        "雙重斯派扎",
+        "海洋斯派扎",
+        "鑽頭斯派扎",
+        "中型碟",
+        "圓盤獸戈爾戈爾",
+        "貝加獸格拉格拉",
+        "貝加之王"
+      ]
+    },
+    {
+      "range": [
+        15,
+        26
+      ],
+      "work": "蓋塔機器人G",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "robinfo:works/35",
+        "community-mainland"
+      ],
+      "translations": [
+        "蓋塔龍",
+        "蓋塔獅虎",
+        "蓋塔波塞冬",
+        "仕女指揮機",
+        "百鬼戰鬥機",
+        "機械一角鬼",
+        "機械獨眼鬼",
+        "機械鐵甲鬼",
+        "機械牛劍鬼",
+        "機械要塞鬼",
+        "合體百鬼機器人",
+        "科學要塞島"
+      ]
+    },
+    {
+      "range": [
+        27,
+        38
+      ],
+      "work": "宇宙戰士巴魯迪奧斯",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/67",
+        "community-mainland"
+      ],
+      "translations": [
+        "巴魯迪奧斯",
+        "菲克薩1號",
+        "透明飛碟",
+        "巨型章魚",
+        "阿庫代坎",
+        "喬拉",
+        "戰鬥航母",
+        "人工太陽",
+        "精神·加特勒",
+        "新燃燒脈衝號",
+        "勇者突進號",
+        "履帶遊俠號"
+      ]
+    },
+    {
+      "range": [
+        39,
+        48
+      ],
+      "work": "宇宙大帝巨神Σ",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/66",
+        "community-mainland"
+      ],
+      "translations": [
+        "空雷王",
+        "巨神Σ",
+        "哈比",
+        "格拉肯",
+        "傑羅加拉斯",
+        "巴里拉特",
+        "伊爾塔戰艦",
+        "加爾戈斯",
+        "海鳴王",
+        "陸震王"
+      ]
+    },
+    {
+      "range": [
+        49,
+        64
+      ],
+      "work": "無敵超人贊波特3",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/38",
+        "community-mainland"
+      ],
+      "translations": [
+        "贊波特3",
+        "贊波鳥",
+        "贊波ACE",
+        "多米拉",
+        "蜘蛛蟹",
+        "克拉根",
+        "丹加魯",
+        "赤騎士死神凱恩",
+        "青騎士地獄戴恩",
+        "機械邦多克",
+        "贊波牛",
+        "贊波座",
+        "比亞路I世",
+        "比亞路II世",
+        "比亞路III世",
+        "帝皇比亞路"
+      ]
+    },
+    {
+      "range": [
+        65,
+        67
+      ],
+      "work": "無敵鋼人泰坦3",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "robinfo:works/37"
+      ],
+      "translations": [
+        "泰坦3",
+        "泰坦戰機",
+        "泰坦戰車"
+      ]
+    },
+    {
+      "range": [
+        68,
+        86
+      ],
+      "work": "超時空世紀奧格斯",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/76",
+        "community-mainland"
+      ],
+      "translations": [
+        "奧卡斯",
+        "奧卡斯·飛行型",
+        "奧卡斯II",
+        "奧卡斯II·飛行型",
+        "奧卡斯II·奧爾森",
+        "摩拉伯-瑪伊",
+        "摩拉伯-里亞",
+        "布隆科II",
+        "格羅瑪",
+        "伊修福恩",
+        "伊修基克",
+        "伊修基克·指揮官",
+        "伊修基克·指揮官II",
+        "奈基克-雅典娜機",
+        "奈基克-奧爾森機",
+        "奈基克",
+        "奇拉姆攻擊航母",
+        "埃曼艦",
+        "迪莫拉"
+      ]
+    },
+    {
+      "range": [
+        87,
+        104
+      ],
+      "work": "戰鬥機甲薩芬格爾",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/74",
+        "community-mainland"
+      ],
+      "translations": [
+        "薩芬格爾",
+        "沃卡加利亞",
+        "鋼鐵齒輪（LS）",
+        "鋼鐵齒輪（WM）",
+        "特拉德11",
+        "達格",
+        "卡普里科",
+        "普羅米斯",
+        "加布門特",
+        "加拉巴戈斯",
+        "多蘭",
+        "布洛克利",
+        "布法羅",
+        "大地雷霆",
+        "雙槳",
+        "皇帝改",
+        "基亞·基亞（LS）",
+        "基亞·基亞（WM）"
+      ]
+    },
+    {
+      "range": [
+        105,
+        139
+      ],
+      "work": "機動戰士Z高達",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "biligame-gundam",
+        "roster_names.tsv",
+        "robinfo:works/2"
+      ],
+      "translations": [
+        "高達Mk-II",
+        "超級高達",
+        "Z高達",
+        "衝浪者",
+        "百式",
+        "迪傑",
+        "裡克·迪亞斯",
+        "雷姆",
+        "梅塔斯",
+        "梅塔斯（MA）",
+        "高扎古",
+        "加里波第β",
+        "瑪拉塞",
+        "加撒C",
+        "亞希瑪",
+        "加普蘭",
+        "梅薩拉",
+        "加布斯雷",
+        "漢布拉比",
+        "獵犬",
+        "拜亞蘭",
+        "帕拉斯·雅典娜",
+        "精神感應高達",
+        "波利諾克·沙曼",
+        "卡碧尼",
+        "鐵奧",
+        "阿伽瑪",
+        "拉迪修",
+        "薩拉米斯改",
+        "迦樓羅級",
+        "亞歷山大",
+        "多戈斯·基亞",
+        "恩多拉",
+        "格瓦丹",
+        "飛行裝甲"
+      ]
+    },
+    {
+      "range": [
+        140,
+        141
+      ],
+      "work": "機動戰士高達：逆襲的夏亞",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "biligame-gundam",
+        "roster_names.tsv",
+        "robinfo:works/12"
+      ],
+      "translations": [
+        "靈·格斯",
+        "ν高達"
+      ]
+    },
+    {
+      "range": [
+        142,
+        155
+      ],
+      "work": "∀高達",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "biligame-gundam",
+        "roster_names.tsv",
+        "robinfo:works/79"
+      ],
+      "translations": [
+        "∀高達",
+        "卡普爾",
+        "科倫卡普爾",
+        "博加農",
+        "斯摩（銀色型）",
+        "斯摩（金色型）",
+        "瓦德",
+        "瓦多姆",
+        "伊格爾",
+        "瑪希羅",
+        "班迪特",
+        "倒X",
+        "太陽號",
+        "阿麥雅級"
+      ]
+    },
+    {
+      "range": [
+        156,
+        175
+      ],
+      "work": "機動新世紀高達X",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "biligame-gundam",
+        "robinfo:works/78",
+        "community-mainland"
+      ],
+      "translations": [
+        "高達X",
+        "高達X分裂者",
+        "高達X分裂者",
+        "空中霸王爆裂者高達",
+        "斑豹毀滅者高達",
+        "高達DX",
+        "高達DX+G獵鷹",
+        "G獵鷹",
+        "和平號",
+        "傑尼斯改·艾妮爾專用",
+        "艾斯佩蘭扎",
+        "維薩戈高達·破壞者",
+        "阿斯塔隆高達HC",
+        "拉斯維特",
+        "加迪爾",
+        "新多托列斯",
+        "克魯達",
+        "帕特利亞",
+        "貝迪哥",
+        "D.O.M.E.G-Bit"
+      ]
+    },
+    {
+      "range": [
+        176,
+        219
+      ],
+      "work": "機動戰士高達SEED DESTINY",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "https://bandaihobbysite.cn/index/index/detail/id/2414",
+        "https://bandaihobbysite.cn/index/index/detail/id/2739",
+        "https://gundam-official.cn/seed/destiny/product/",
+        "https://wiki.biligame.com/gundam/SEED_DESTINY",
+        "biligame-gundam",
+        "roster_names.tsv",
+        "robinfo:works/55"
+      ],
+      "translations": [
+        "強攻型脈衝高達",
+        "巨劍型脈衝高達",
+        "轟擊型脈衝高達",
+        "扎古勇士",
+        "炮戰型扎古勇士",
+        "瞬髮型扎古幻影",
+        "烈焰老虎",
+        "蓋茨R",
+        "高機動型基恩II",
+        "巴比",
+        "短劍L",
+        "埃格薩斯",
+        "溫達姆",
+        "混沌高達",
+        "深淵高達",
+        "蓋亞高達",
+        "救世主高達",
+        "命運高達",
+        "傳說高達",
+        "自由高達",
+        "強襲自由高達",
+        "無限正義高達",
+        "強襲嫣紅",
+        "翔翼型強襲高達",
+        "拂曉高達",
+        "村雨",
+        "扎姆扎扎",
+        "蓋爾茲格",
+        "歐幾里得",
+        "毀滅高達",
+        "密涅瓦號",
+        "加迪·魯",
+        "大天使號",
+        "永恆號",
+        "納斯卡級",
+        "岡瓦納級",
+        "德雷克級",
+        "阿伽門農級",
+        "核心飛梭",
+        "胸部飛行器",
+        "腿部飛行器",
+        "劍裝魅影",
+        "強攻魅影",
+        "穿梭機"
+      ]
+    },
+    {
+      "range": [
+        220,
+        238
+      ],
+      "work": "返鄉戰士",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/84",
+        "community-mainland"
+      ],
+      "translations": [
+        "王者蓋納",
+        "獵豹",
+        "加奇科",
+        "安佩蘭扎",
+        "多格佐",
+        "多貝克",
+        "拉什羅德",
+        "安達葛雷姆",
+        "葛雷姆",
+        "普拉涅塔",
+        "摩克斯蘭",
+        "金巴",
+        "多米尼達",
+        "多米尼達-黑",
+        "超限惡魔",
+        "蓋納B（黑方）",
+        "切爾諾伯格",
+        "巴赫克隆",
+        "斯瓦羅基奇"
+      ]
+    },
+    {
+      "range": [
+        239,
+        248
+      ],
+      "work": "The Big O",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/11",
+        "community-mainland"
+      ],
+      "translations": [
+        "BIG-O",
+        "木乃伊",
+        "BIG-DUO",
+        "BIG-DUO地獄",
+        "BIG-FAU",
+        "貝克·勝利·豪華型",
+        "大貝克RX3",
+        "原型",
+        "波拿巴",
+        "草原犬鼠"
+      ]
+    },
+    {
+      "range": [
+        249,
+        272
+      ],
+      "work": "超重神GRAVION",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/85",
+        "community-mainland"
+      ],
+      "translations": [
+        "格蘭凱撒",
+        "格蘭維昂",
+        "烈陽格蘭維昂",
+        "巨神Σ格蘭維昂",
+        "格蘭騎兵",
+        "澤拉拜亞士兵",
+        "迪克利爾",
+        "朱埃塔爾",
+        "修德埃爾",
+        "馬格加爾德",
+        "扎羅格羅斯",
+        "澤拉維昂",
+        "戈瑪",
+        "烈陽格蘭維昂",
+        "G攻擊機",
+        "G打擊機",
+        "G鑽機",
+        "G戰影",
+        "Geo幻象",
+        "Geo投槍",
+        "Geo聖劍",
+        "Geo刺針",
+        "Gran Σ",
+        "超重要塞"
+      ]
+    },
+    {
+      "range": [
+        273,
+        296
+      ],
+      "work": "創聖的大天使",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/86",
+        "community-mainland"
+      ],
+      "translations": [
+        "太陽阿克艾里昂",
+        "火星阿克艾里昂",
+        "月亮阿克艾里昂",
+        "阿克艾里昂天使",
+        "阿克艾里昂·阿爾法",
+        "阿克艾里昂·歐米伽",
+        "阿克艾里昂·德爾塔",
+        "凱魯賓·火星",
+        "凱魯賓·維爾魯澤巴",
+        "凱魯賓·修魯魯克貝拉",
+        "凱魯賓·伊斯庫隆",
+        "凱魯賓兵",
+        "格拉維·凱魯賓",
+        "鏡像太陽阿克艾里昂",
+        "鏡像火星阿克艾里昂",
+        "鏡像月亮阿克艾里昂",
+        "希巴爾巴",
+        "收穫獸",
+        "太陽戰機",
+        "火星戰機",
+        "月亮戰機",
+        "德爾塔戰機",
+        "阿爾法戰機",
+        "歐米伽戰機"
+      ]
+    },
+    {
+      "range": [
+        297,
+        315
+      ],
+      "work": "交響詩篇 優萊卡7",
+      "editorial_status": "draft",
+      "source_refs": [
+        "robinfo:works/89",
+        "community-mainland"
+      ],
+      "translations": [
+        "尼爾瓦修",
+        "尼爾瓦修 spec2",
+        "尼爾瓦修 spec3",
+        "塔米納斯606",
+        "塔米納斯808",
+        "塔米納斯909",
+        "塔米納斯303",
+        "月光號",
+        "蒙蘇諾10",
+        "蒙蘇諾20",
+        "尼爾瓦修終式",
+        "VC-10",
+        "塔州聯邦軍空中戰艦",
+        "銀河號",
+        "AFX",
+        "矛頭",
+        "白鳥號",
+        "飛魚",
+        "抗體科拉利安"
+      ]
+    },
+    {
+      "range": [
+        316,
+        335
+      ],
+      "work": "機戰Z原創",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "robinfo:srw/mecha",
+        "akurasu:srwz-originals",
+        "community-mainland"
+      ],
+      "translations": [
+        "巴爾戈拉（1號機）",
+        "巴爾戈拉（2號機）",
+        "巴爾戈拉（3號機）",
+        "巴爾戈拉改",
+        "巴爾戈拉·榮耀",
+        "鋼獅子",
+        "科爾尼克斯",
+        "？？？",
+        "雷克斯·科爾尼克斯",
+        "混沌·雷歐",
+        "雷歐",
+        "混沌·安圭斯",
+        "安圭斯",
+        "混沌·卡佩爾",
+        "埃利法斯",
+        "卡佩爾",
+        "雷姆雷斯",
+        "混沌·雷姆雷斯",
+        "狩狼牙",
+        "光球"
+      ]
+    },
+    {
+      "range": [
+        336,
+        347
+      ],
+      "work": "內部預留槽",
+      "editorial_status": "final",
+      "source_refs": [
+        "structural-preservation"
+      ],
+      "translations": [
+        "預留1",
+        "預留2",
+        "預留3",
+        "預留4",
+        "預留5",
+        "預留6",
+        "預留10",
+        "預留11",
+        "預留12",
+        "預留13",
+        "預留14",
+        "預留15"
+      ]
+    }
+  ],
+  "zh_hant_meta": {
+    "zh_hans_sha256": "54c4ce0c8f099ed3f8fce3adfb5a4e1200e03406b537a6341f1811a03bf31afe",
+    "zh_hant_status": "draft"
+  }
+}

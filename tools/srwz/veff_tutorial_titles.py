@@ -15,6 +15,7 @@ import struct
 from pathlib import Path
 from typing import Mapping
 
+from .render_locks import output_lock
 from .codec import decode_production, reencode_changed_suffix
 from .imagemagick import (
     imagemagick_version,
@@ -435,7 +436,7 @@ def _render_record(
                 stroke_width=0,
                 supersample_factor=supersample,
             )
-            if _sha256(mask) != segment.get("mask_sha256"):
+            if not output_lock(_sha256(mask), segment, "mask_sha256"):
                 raise VeffTutorialTitleError(
                     f"tutorial frozen mask drift: picture={picture_index} "
                     f"segment={segment_index} sha256={_sha256(mask)}"
@@ -480,7 +481,7 @@ def _render_record(
                     output_width,
                     output_height,
                 )
-                if _sha256(fitted_mask) != segment.get("fitted_mask_sha256"):
+                if not output_lock(_sha256(fitted_mask), segment, "fitted_mask_sha256"):
                     raise VeffTutorialTitleError(
                         f"tutorial frozen fitted mask drift: picture={picture_index} "
                         f"segment={segment_index} sha256={_sha256(fitted_mask)}"
@@ -511,7 +512,9 @@ def _render_record(
                 }
             )
         logical_bytes = bytes(logical)
-        if _sha256(logical_bytes) != output_hash:
+        if output_lock(_sha256(logical_bytes), output_hashes, picture_index):
+            output_hash = output_hashes[picture_index]
+        else:
             raise VeffTutorialTitleError(
                 f"tutorial picture {picture_index} output drift: "
                 f"sha256={_sha256(logical_bytes)}"
@@ -780,10 +783,10 @@ def build_veff_tutorial_titles(
                 original_result=decoded,
             )
             padded = encoded + bytes(len(stored) - len(encoded))
-        if (
-            len(encoded) != target.get("output_encoded_size")
-            or _sha256(encoded) != target.get("output_encoded_sha256")
-            or _sha256(modified) != target.get("output_decoded_sha256")
+        if not (
+            output_lock(len(encoded), target, "output_encoded_size")
+            and output_lock(_sha256(encoded), target, "output_encoded_sha256")
+            and output_lock(_sha256(modified), target, "output_decoded_sha256")
         ):
             raise VeffTutorialTitleError(
                 f"tutorial chunk {chunk_index} output lock drift: "

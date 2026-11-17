@@ -13,6 +13,7 @@ from srwz.diagnostics import require_work_output
 from srwz.font import (
     GLYPH_SIZE,
     decode_vt1_font_segment,
+    font_capacity,
     glyph_index_for_code,
     read_extended_glyph_table,
     sha256_bytes,
@@ -305,6 +306,9 @@ def main() -> int:
     source_vt1 = (WORK_ROOT / "disc/DATA/VT1.BIN").read_bytes()
     original_font = decode_vt1_font_segment(source_slps, source_vt1).decoded
     extended_entries = read_extended_glyph_table(source_slps)
+    capacity = font_capacity(config)
+    # Cells past the original store (linear area) start out blank.
+    original_font = original_font + bytes(max(0, capacity.glyph_count * GLYPH_SIZE - len(original_font)))
     rasterizer = profile["rasterizer"]
     font_path = locked_paths["font"]
     stock_alias_copies = config.get("stock_glyph_alias_copies", [])
@@ -471,7 +475,12 @@ def main() -> int:
             resolved = glyph_index
         else:
             try:
-                resolved = glyph_index_for_code(int(code_text, 16), extended_entries)
+                resolved = glyph_index_for_code(
+                    int(code_text, 16),
+                    extended_entries,
+                    glyph_count=capacity.glyph_count,
+                    linear=capacity.linear,
+                )
             except ValueError as error:
                 raise SystemExit(
                     f"release font code is not renderer-addressable: {character!r}"

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "batch_id": "release-opening-protagonist-profile",
+  "language": "zh-Hant",
+  "scope": {
+    "domain": "menu",
+    "member": "DATA/COMPDATA.BN",
+    "surface": "opening/protagonist-selection",
+    "entry_count": 4
+  },
+  "entries": [
+    {
+      "id": "menu/Compdata/direct/opening-male-route-title",
+      "source_text_sha256": "c2ed73db88e98081aea6f5ca3ed1ba1879f1d9e7904b709f11a452d0770263cc",
+      "translation": "〜流浪的修理工〜",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "对应男主人公路线；与路线图既定译名保持一致，并保留原界面的波浪线装饰。",
+      "zh_hans_sha256": "8def442eec5583e9db2681a0ed84053d30dd6d6bac63ef96e5530dc5101ff216",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/Compdata/direct/opening-male-profile",
+      "source_text_sha256": "5f5ce160961ea0b1a021e756c18605d1bb7eede88e3ca1cd798ae3d44493ced5",
+      "translation": "與搭檔在荒蕪的大地上經營修理店的男人。\n自稱“烈焰”，是個豪爽磊落的熱血漢，\n美中不足的是熱情過頭，讓人有些招架不住。",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "将自称译为“烈焰”，并仅使用默认宽度字形；三行保持在24格内，避免右侧裁字。",
+      "zh_hans_sha256": "011ca52a19efc8f38936356d99d30600478e089b05acc62d878a23c341d7d254",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/Compdata/direct/opening-female-route-title",
+      "source_text_sha256": "735c8a3d374824a37cd86fcaf23d164e2df40c2ae72bdaaefb1a53acd0f042c2",
+      "translation": "〜可造之材〜",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "与第1话标题共用译名；保留原界面的波浪线装饰。",
+      "zh_hans_sha256": "3970052f5141dd4d8951c69247671c71a245bf455ec91b65c33effc0ceaef328",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "menu/Compdata/direct/opening-female-profile",
+      "source_text_sha256": "3dd9a8b80522e8f875c320dc6c096783bf98f2e93bfca4fa85f265256878a3c7",
+      "translation": "地球聯邦軍士兵，擔任新型機試飛員。\n性格膽怯，遇事總是消極，卻又十分認真，\n總會拼盡全力完成自己的任務。",
+      "editorial_status": "final",
+      "glossary_refs": [
+        "organization/earth-federation-forces"
+      ],
+      "notes": "按原文三行信息顺序重排，保留性格反差与认真完成任务的核心含义。",
+      "zh_hans_sha256": "5828f482949216ce4f7baa76204ac4bb939655456c34d71eeee70bc6d722fb3c",
+      "zh_hant_status": "draft"
+    }
+  ]
+}

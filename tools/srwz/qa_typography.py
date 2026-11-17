@@ -5,9 +5,14 @@ splits. Page allocations and sprite payloads remain the responsibility of the
 caller; pack_page checks the allocation budget and two-byte text round trip.
 """
 from collections import defaultdict
+from functools import lru_cache
+from pathlib import Path
 import re
 import struct
+from .build_language import expected_literal
 from .text import decode_text, two_byte_visible_spaces
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def require(condition, message):
@@ -20,7 +25,22 @@ def require(condition, message):
 MAX_X = 513
 CLOSE = set('。，、；：！？”’」』）】》〉,.;:!?%％')
 OPEN = set('“‘「『（【《〈')
-ATOMIC = re.compile(r'[LR][12]|[A-Za-z]+|[0-9]+(?:[.．][0-9]+)*(?:[～〜~][0-9]+)?(?:[%％]|倍|级|段|机|格|回合|人|种|次|键)?')
+ATOMIC_UNITS = ('倍', '级', '段', '机', '格', '回合', '人', '种', '次', '键')
+
+
+@lru_cache(maxsize=None)
+def _atomic():
+    units = '|'.join(re.escape(expected_literal(unit, ROOT)) for unit in ATOMIC_UNITS)
+    return re.compile(r'[LR][12]|[A-Za-z]+|[0-9]+(?:[.．][0-9]+)*(?:[～〜~][0-9]+)?(?:[%％]|' + units + r')?')
+
+
+ATOMIC = _atomic()                     # importers (special disc Q&A) use the compiled pattern directly
+
+
+@lru_cache(maxsize=None)
+def _terms(terms):
+    """Protected words in the language this build produces (srwz.build_language)."""
+    return tuple(expected_literal(term, ROOT) for term in terms)
 PROTECTED = ('SR点数', '小队攻击', 'TRI攻击', 'MAP兵器', '格斗武器', '伤害比例',
              '精神指令', '援护攻击', '援护防御', '全体攻击', '命中率', '回避率',
              '驾驶员', '移动力', '机体', '小队', '提升伤害', '最高值', '修理', '补给',
@@ -35,11 +55,11 @@ def legal_break(text, at, *, shared_boundary=False, protected_terms=None):
         return False
     if not shared_boundary and (text[at] in ' \u3000' or text[at-1] in ' \u3000'):
         return False
-    for match in ATOMIC.finditer(text):
+    for match in _atomic().finditer(text):
         if match.start() < at < match.end():
             return False
     terms = protected_terms if protected_terms is not None else (('SR点数',) if shared_boundary else PROTECTED)
-    for token in terms:
+    for token in _terms(tuple(terms)):
         for match in re.finditer(re.escape(token), text):
             if match.start() < at < match.end():
                 return False

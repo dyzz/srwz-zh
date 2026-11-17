@@ -1,0 +1,1258 @@
+{
+  "schema_version": 1,
+  "status": "static_localized_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-formation-atlas-zh",
+  "scope": "Deterministic Chinese replacements of the new-formation, reserve and squad-group locators inside their original locked KVMDATA chunk 7 rectangles. Static construction does not prove which runtime squad-formation pages consume this atlas.",
+  "content_policy": "Hashes, coordinates, counts and render parameters only; game bytes, localized text and preview PNGs remain outside this committed manifest.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-formation-atlas-zh.json",
+      "size": 8314,
+      "sha256": "48c3545599ed358627a9e0ec9290a9cf6a78e7cac40c928aa59187dcc193410a"
+    },
+    "base_mapping": {
+      "config": {
+        "path": "config/assets/maps/tim2-kvm7-formation.json",
+        "size": 3595,
+        "sha256": "01a84fb3974c2ab0828e9381897625dd976b37825b49e0c718e3809ad3cf87e6"
+      },
+      "manifest": {
+        "path": "manifests/ui-formation-atlas-map-canary-validation.json",
+        "size": 7511,
+        "sha256": "de52f30f5f73167fc9f83562b907b964b5eb00d039ee5f844eeeb2df641e5c24"
+      },
+      "profile_id": "ui-formation-atlas-map-canary",
+      "status": "static_component_validated_runtime_mapping_pending",
+      "archive": {
+        "size": 3335408,
+        "sha256": "4047e0eed26c2fb2d85340f73688229b20f1c0874ff528f6f76ee3c260036a60"
+      }
+    },
+    "font": {
+      "flavor": {
+        "font_flavor_id": "srwz-zh-harmonyos-sans-sc-regular-v1",
+        "path": "config/fonts/zh-localization-font.json",
+        "sha256": "3f41b4774469e838109accb0e0a87525ff9fdc1e7c02387d067a49106e735c8b",
+        "font_lock": "config/fonts/harmonyos-sans-sc.lock.json",
+        "font_lock_sha256": "1f009920c771a90c8937e73633aa97ef05410b53ffaa9ba6a114be20568becd2"
+      },
+      "source": {
+        "family": "HarmonyOS Sans SC",
+        "version": "1.0",
+        "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
+        "license_spdx": "LicenseRef-HarmonyOS-Sans-Fonts-License",
+        "license_sha256": "b2ffec0e6269ee41c3b5fc0345ab37600b46d66ebea6c9c58ff37f517bdfa164",
+        "source_kind": "pinned-official-archive",
+        "source_id": "huawei-harmonyos-sans",
+        "distribution": "commercial_use_with_notice"
+      }
+    },
+    "translation_source": {
+      "file": {
+        "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+        "size": 7367,
+        "sha256": "7fb420f046bdf3d952d56b831ba3f603816be3aa02adec77b7c11fc6a1c8519a"
+      },
+      "batch_id": "v1-ui-atlas-core-menus",
+      "entry_id": "ui-atlas/kvm7/new-formation",
+      "editorial_status": "reviewed",
+      "source_ref_count": 3
+    },
+    "render_snapshot": {
+      "path": "config/assets/ui-formation-atlas-render-snapshot.json",
+      "size": 37826,
+      "sha256": "aa58bb2facf2d2f65bf48a1adf22aeeec67e6ab2d6f55b8ae748e64e00429a18"
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 7,
+    "chunk_start": 233408,
+    "chunk_end": 266752,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "新規編成",
+    "operation": "replace_erased_locator_with_text",
+    "candidate_scene_ids": [
+      "intermission/main-and-options",
+      "results/level-up-and-deployment"
+    ],
+    "mask": {
+      "x": 98,
+      "y": 26,
+      "width": 74,
+      "height": 20,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "masks": [
+      {
+        "x": 98,
+        "y": 26,
+        "width": 74,
+        "height": 20,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      {
+        "x": 172,
+        "y": 26,
+        "width": 84,
+        "height": 20,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      {
+        "x": 44,
+        "y": 178,
+        "width": 67,
+        "height": 22,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      }
+    ],
+    "mask_audit": {
+      "changed_pixel_count": 3187,
+      "changed_pixel_indexes_sha256": "6b28f25f58fb79324e415a36c5cbef1b0a38fb9587771852629ad0b8d33e51aa",
+      "mask_count": 3,
+      "outside_masks_rgba_exact": true
+    },
+    "force_reindex_entire_masks": true,
+    "expected_background_palette_index": 0,
+    "forced_indexed_text_pixel_count": 2029,
+    "indexed_rgba_unchanged_pixel_count": 139
+  },
+  "localized_label": {
+    "source_locator_sha256": "5d942acc1778b526f869edd2ecdb9b6fe261d7489cac208e4261a44d72aca5b6",
+    "text_sha256": "ce0e3c4d1b16a8c4a66255a9672501c39e7466f4324ea37a9a267601ed0adcc3",
+    "character_count": 4,
+    "render": {
+      "point_size": 16,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.4,
+      "fill_stroke_width": 0,
+      "supersample_factor": 4,
+      "ramp_rgba": [
+        "101010ff",
+        "171717ff",
+        "1a1a1aff",
+        "202020ff",
+        "262626ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "808080ff"
+      ],
+      "indexed_layers": {
+        "outline": [
+          {
+            "rgba": "000000ff",
+            "palette_index": 1
+          },
+          {
+            "rgba": "020202ff",
+            "palette_index": 2
+          },
+          {
+            "rgba": "0b0b0bff",
+            "palette_index": 3
+          },
+          {
+            "rgba": "0f0f0fff",
+            "palette_index": 4
+          },
+          {
+            "rgba": "171717ff",
+            "palette_index": 5
+          },
+          {
+            "rgba": "1a1a1aff",
+            "palette_index": 6
+          },
+          {
+            "rgba": "262626ff",
+            "palette_index": 7
+          }
+        ],
+        "fill": [
+          {
+            "rgba": "00000000",
+            "palette_index": 8
+          },
+          {
+            "rgba": "000000ff",
+            "palette_index": 9
+          },
+          {
+            "rgba": "101010ff",
+            "palette_index": 10
+          },
+          {
+            "rgba": "202020ff",
+            "palette_index": 11
+          },
+          {
+            "rgba": "303030ff",
+            "palette_index": 12
+          },
+          {
+            "rgba": "404040ff",
+            "palette_index": 13
+          },
+          {
+            "rgba": "505050ff",
+            "palette_index": 14
+          },
+          {
+            "rgba": "808080ff",
+            "palette_index": 15
+          }
+        ]
+      },
+      "text_mask": {
+        "size": 1480,
+        "sha256": "4ab7474d3f4e9fac94212da913ef9753a8c53f2e44a7e5f2fb3238edf5c91b2f",
+        "nonzero_pixel_count": 688
+      }
+    }
+  },
+  "additional_localized_labels": [
+    {
+      "source_locator_sha256": "f522c7ac3284a6ad2bacf6fd1819cd399a693256b562024f3e00efb50d4250fe",
+      "text_sha256": "84612f8a3b17f9ff0f9aaf6d01ea60390dd1b231f7f3ffa6e6e8ff692db95838",
+      "character_count": 5,
+      "mask": {
+        "x": 172,
+        "y": 26,
+        "width": 84,
+        "height": 20,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "render": {
+        "point_size": 14,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.4,
+        "fill_stroke_width": 0,
+        "supersample_factor": 4,
+        "ramp_rgba": [
+          "101010ff",
+          "171717ff",
+          "1a1a1aff",
+          "202020ff",
+          "262626ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "808080ff"
+        ],
+        "indexed_layers": {
+          "outline": [
+            {
+              "rgba": "000000ff",
+              "palette_index": 1
+            },
+            {
+              "rgba": "020202ff",
+              "palette_index": 2
+            },
+            {
+              "rgba": "0b0b0bff",
+              "palette_index": 3
+            },
+            {
+              "rgba": "0f0f0fff",
+              "palette_index": 4
+            },
+            {
+              "rgba": "171717ff",
+              "palette_index": 5
+            },
+            {
+              "rgba": "1a1a1aff",
+              "palette_index": 6
+            },
+            {
+              "rgba": "262626ff",
+              "palette_index": 7
+            }
+          ],
+          "fill": [
+            {
+              "rgba": "00000000",
+              "palette_index": 8
+            },
+            {
+              "rgba": "000000ff",
+              "palette_index": 9
+            },
+            {
+              "rgba": "101010ff",
+              "palette_index": 10
+            },
+            {
+              "rgba": "202020ff",
+              "palette_index": 11
+            },
+            {
+              "rgba": "303030ff",
+              "palette_index": 12
+            },
+            {
+              "rgba": "404040ff",
+              "palette_index": 13
+            },
+            {
+              "rgba": "505050ff",
+              "palette_index": 14
+            },
+            {
+              "rgba": "808080ff",
+              "palette_index": 15
+            }
+          ]
+        },
+        "text_mask": {
+          "semantic_locator_sha256": "f522c7ac3284a6ad2bacf6fd1819cd399a693256b562024f3e00efb50d4250fe",
+          "size": 1680,
+          "sha256": "5d19de6ced970c3759a4b363e9de0243276b169e140783840080bf8ce295d8e9",
+          "nonzero_pixel_count": 770
+        }
+      }
+    },
+    {
+      "source_locator_sha256": "3aa1afec7941bc733161ab77e56295c4e551f93a6453d1ab9d3a08b760dfb548",
+      "text_sha256": "311241cf796e1d85acbaf7df0b6b9701957d8685bad2a433237c21e5a00be80b",
+      "character_count": 5,
+      "mask": {
+        "x": 44,
+        "y": 178,
+        "width": 67,
+        "height": 22,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "render": {
+        "point_size": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.4,
+        "fill_stroke_width": 0,
+        "supersample_factor": 4,
+        "ramp_rgba": [
+          "101010ff",
+          "171717ff",
+          "1a1a1aff",
+          "202020ff",
+          "262626ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "808080ff"
+        ],
+        "indexed_layers": {
+          "outline": [
+            {
+              "rgba": "000000ff",
+              "palette_index": 1
+            },
+            {
+              "rgba": "020202ff",
+              "palette_index": 2
+            },
+            {
+              "rgba": "0b0b0bff",
+              "palette_index": 3
+            },
+            {
+              "rgba": "0f0f0fff",
+              "palette_index": 4
+            },
+            {
+              "rgba": "171717ff",
+              "palette_index": 5
+            },
+            {
+              "rgba": "1a1a1aff",
+              "palette_index": 6
+            },
+            {
+              "rgba": "262626ff",
+              "palette_index": 7
+            }
+          ],
+          "fill": [
+            {
+              "rgba": "00000000",
+              "palette_index": 8
+            },
+            {
+              "rgba": "000000ff",
+              "palette_index": 9
+            },
+            {
+              "rgba": "101010ff",
+              "palette_index": 10
+            },
+            {
+              "rgba": "202020ff",
+              "palette_index": 11
+            },
+            {
+              "rgba": "303030ff",
+              "palette_index": 12
+            },
+            {
+              "rgba": "404040ff",
+              "palette_index": 13
+            },
+            {
+              "rgba": "505050ff",
+              "palette_index": 14
+            },
+            {
+              "rgba": "808080ff",
+              "palette_index": 15
+            }
+          ]
+        },
+        "text_mask": {
+          "semantic_locator_sha256": "3aa1afec7941bc733161ab77e56295c4e551f93a6453d1ab9d3a08b760dfb548",
+          "size": 1474,
+          "sha256": "1579aa05151570ab58085ad7bdad0dd26fd01349a197f6cf06358bb369668073",
+          "nonzero_pixel_count": 571
+        }
+      }
+    }
+  ],
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+    "text_render_source": "locked_snapshot"
+  },
+  "text_audit": {
+    "added_pixel_count": 2029,
+    "label_count": 3,
+    "labels": [
+      {
+        "added_pixel_count": 688,
+        "added_pixel_indexes_sha256": "6b6f8d4f636618c9745b37a2ff61aa5adedd9be5dc37b765acc8f62e1a76e21b",
+        "indexed_layer_counts": {
+          "outline": {
+            "2": 20,
+            "3": 8,
+            "4": 3,
+            "5": 2,
+            "6": 6,
+            "7": 12
+          },
+          "fill": {
+            "8": 47,
+            "9": 48,
+            "10": 66,
+            "11": 43,
+            "12": 104,
+            "13": 84,
+            "14": 104,
+            "15": 141
+          }
+        },
+        "fill_mask_sha256": "477eda67cc1abb706c8e6ced1f9abb620fc99f22545c363b052bdbc76b00fd6e",
+        "fill_mask_nonzero_pixel_count": 637,
+        "outside_mask_rgba_exact": true,
+        "erased_background_preimage_exact": true
+      },
+      {
+        "added_pixel_count": 770,
+        "added_pixel_indexes_sha256": "6e5566320441fa31617ce650ebdd1582505b3af3861dd61fc305e1fa510d08af",
+        "indexed_layer_counts": {
+          "outline": {
+            "2": 22,
+            "3": 11,
+            "4": 2,
+            "5": 1,
+            "6": 2,
+            "7": 1
+          },
+          "fill": {
+            "8": 53,
+            "9": 63,
+            "10": 94,
+            "11": 53,
+            "12": 134,
+            "13": 91,
+            "14": 89,
+            "15": 154
+          }
+        },
+        "fill_mask_sha256": "01194d77eba948fd6349c89ab98603982be0469cd8ba13793b1cbe7c3c78bd4c",
+        "fill_mask_nonzero_pixel_count": 731,
+        "outside_mask_rgba_exact": true,
+        "erased_background_preimage_exact": true
+      },
+      {
+        "added_pixel_count": 571,
+        "added_pixel_indexes_sha256": "0c2c9b8c0fb688a2bcd23a08347e5e82e04b04079ca4b83fb5d47cf48817170d",
+        "indexed_layer_counts": {
+          "outline": {
+            "2": 28,
+            "3": 5,
+            "4": 13,
+            "6": 3,
+            "7": 1
+          },
+          "fill": {
+            "8": 39,
+            "9": 49,
+            "10": 81,
+            "11": 52,
+            "12": 54,
+            "13": 76,
+            "14": 49,
+            "15": 121
+          }
+        },
+        "fill_mask_sha256": "c37a6aeb7c7e5c51e022fa233e385462641a75cb9ba1a85d87dcae566e514bc2",
+        "fill_mask_nonzero_pixel_count": 521,
+        "outside_mask_rgba_exact": true,
+        "erased_background_preimage_exact": true
+      }
+    ],
+    "source_elements": [
+      {
+        "source_element_id": "new-formation-74x20",
+        "width": 74,
+        "height": 20,
+        "rgba_size": 5920,
+        "rgba_sha256": "d8903fd69887255b7c4a4be34ce40d2f2888390a077c6bccb643565ee3a53819"
+      },
+      {
+        "source_element_id": "reserve-84x20",
+        "width": 84,
+        "height": 20,
+        "rgba_size": 6720,
+        "rgba_sha256": "28f0226fa807db9a426cde37bc6c900f11dbf898d06d2d4a8fa029673f54160b"
+      },
+      {
+        "source_element_id": "squad-group-67x22",
+        "width": 67,
+        "height": 22,
+        "rgba_size": 5896,
+        "rgba_sha256": "b6e64cee8af6c3dc138b2825e8a0fd99bc9eee56edd08ccaf4153bbc5415a476"
+      }
+    ],
+    "outside_masks_rgba_exact": true,
+    "erased_background_preimage_exact": true,
+    "delta_from_erased": {
+      "changed_pixel_count": 1890,
+      "changed_pixel_indexes_sha256": "ea3b88e109c2709db364a37f839a50893bcd224cb0a20178acf61da4f924805c",
+      "mask_count": 3,
+      "outside_masks_rgba_exact": true
+    },
+    "delta_from_original": {
+      "changed_pixel_count": 3187,
+      "changed_pixel_indexes_sha256": "6b28f25f58fb79324e415a36c5cbef1b0a38fb9587771852629ad0b8d33e51aa",
+      "mask_count": 3,
+      "outside_masks_rgba_exact": true
+    }
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 2671,
+    "changed_image_byte_count": 1466,
+    "changed_image_byte_ranges": [
+      {
+        "start": 3428,
+        "end": 3430
+      },
+      {
+        "start": 3444,
+        "end": 3447
+      },
+      {
+        "start": 3509,
+        "end": 3510
+      },
+      {
+        "start": 3520,
+        "end": 3521
+      },
+      {
+        "start": 3535,
+        "end": 3536
+      },
+      {
+        "start": 3537,
+        "end": 3538
+      },
+      {
+        "start": 3543,
+        "end": 3546
+      },
+      {
+        "start": 3547,
+        "end": 3549
+      },
+      {
+        "start": 3551,
+        "end": 3554
+      },
+      {
+        "start": 3555,
+        "end": 3559
+      },
+      {
+        "start": 3571,
+        "end": 3575
+      },
+      {
+        "start": 3637,
+        "end": 3639
+      },
+      {
+        "start": 3641,
+        "end": 3643
+      },
+      {
+        "start": 3648,
+        "end": 3649
+      },
+      {
+        "start": 3655,
+        "end": 3657
+      },
+      {
+        "start": 3660,
+        "end": 3667
+      },
+      {
+        "start": 3671,
+        "end": 3687
+      },
+      {
+        "start": 3691,
+        "end": 3692
+      },
+      {
+        "start": 3699,
+        "end": 3703
+      },
+      {
+        "start": 3764,
+        "end": 3779
+      },
+      {
+        "start": 3783,
+        "end": 3785
+      },
+      {
+        "start": 3788,
+        "end": 3796
+      },
+      {
+        "start": 3799,
+        "end": 3816
+      },
+      {
+        "start": 3817,
+        "end": 3837
+      },
+      {
+        "start": 3892,
+        "end": 3899
+      },
+      {
+        "start": 3900,
+        "end": 3907
+      },
+      {
+        "start": 3911,
+        "end": 3914
+      },
+      {
+        "start": 3916,
+        "end": 3925
+      },
+      {
+        "start": 3927,
+        "end": 3965
+      },
+      {
+        "start": 4020,
+        "end": 4025
+      },
+      {
+        "start": 4028,
+        "end": 4036
+      },
+      {
+        "start": 4037,
+        "end": 4042
+      },
+      {
+        "start": 4044,
+        "end": 4052
+      },
+      {
+        "start": 4055,
+        "end": 4092
+      },
+      {
+        "start": 4148,
+        "end": 4153
+      },
+      {
+        "start": 4156,
+        "end": 4164
+      },
+      {
+        "start": 4165,
+        "end": 4171
+      },
+      {
+        "start": 4172,
+        "end": 4179
+      },
+      {
+        "start": 4183,
+        "end": 4220
+      },
+      {
+        "start": 4275,
+        "end": 4291
+      },
+      {
+        "start": 4292,
+        "end": 4294
+      },
+      {
+        "start": 4295,
+        "end": 4299
+      },
+      {
+        "start": 4300,
+        "end": 4307
+      },
+      {
+        "start": 4311,
+        "end": 4348
+      },
+      {
+        "start": 4403,
+        "end": 4419
+      },
+      {
+        "start": 4420,
+        "end": 4422
+      },
+      {
+        "start": 4423,
+        "end": 4427
+      },
+      {
+        "start": 4428,
+        "end": 4435
+      },
+      {
+        "start": 4439,
+        "end": 4477
+      },
+      {
+        "start": 4532,
+        "end": 4539
+      },
+      {
+        "start": 4540,
+        "end": 4547
+      },
+      {
+        "start": 4548,
+        "end": 4550
+      },
+      {
+        "start": 4551,
+        "end": 4555
+      },
+      {
+        "start": 4556,
+        "end": 4564
+      },
+      {
+        "start": 4567,
+        "end": 4605
+      },
+      {
+        "start": 4659,
+        "end": 4667
+      },
+      {
+        "start": 4668,
+        "end": 4675
+      },
+      {
+        "start": 4676,
+        "end": 4678
+      },
+      {
+        "start": 4679,
+        "end": 4683
+      },
+      {
+        "start": 4684,
+        "end": 4691
+      },
+      {
+        "start": 4695,
+        "end": 4734
+      },
+      {
+        "start": 4787,
+        "end": 4795
+      },
+      {
+        "start": 4796,
+        "end": 4803
+      },
+      {
+        "start": 4804,
+        "end": 4806
+      },
+      {
+        "start": 4807,
+        "end": 4819
+      },
+      {
+        "start": 4823,
+        "end": 4862
+      },
+      {
+        "start": 4916,
+        "end": 4923
+      },
+      {
+        "start": 4924,
+        "end": 4934
+      },
+      {
+        "start": 4935,
+        "end": 4937
+      },
+      {
+        "start": 4938,
+        "end": 4947
+      },
+      {
+        "start": 4951,
+        "end": 4974
+      },
+      {
+        "start": 4975,
+        "end": 4991
+      },
+      {
+        "start": 5044,
+        "end": 5051
+      },
+      {
+        "start": 5052,
+        "end": 5061
+      },
+      {
+        "start": 5063,
+        "end": 5065
+      },
+      {
+        "start": 5066,
+        "end": 5076
+      },
+      {
+        "start": 5079,
+        "end": 5093
+      },
+      {
+        "start": 5096,
+        "end": 5102
+      },
+      {
+        "start": 5103,
+        "end": 5119
+      },
+      {
+        "start": 5171,
+        "end": 5179
+      },
+      {
+        "start": 5180,
+        "end": 5185
+      },
+      {
+        "start": 5188,
+        "end": 5190
+      },
+      {
+        "start": 5191,
+        "end": 5193
+      },
+      {
+        "start": 5194,
+        "end": 5195
+      },
+      {
+        "start": 5196,
+        "end": 5204
+      },
+      {
+        "start": 5208,
+        "end": 5215
+      },
+      {
+        "start": 5216,
+        "end": 5237
+      },
+      {
+        "start": 5238,
+        "end": 5247
+      },
+      {
+        "start": 5299,
+        "end": 5321
+      },
+      {
+        "start": 5324,
+        "end": 5325
+      },
+      {
+        "start": 5326,
+        "end": 5332
+      },
+      {
+        "start": 5335,
+        "end": 5342
+      },
+      {
+        "start": 5344,
+        "end": 5365
+      },
+      {
+        "start": 5366,
+        "end": 5375
+      },
+      {
+        "start": 5428,
+        "end": 5437
+      },
+      {
+        "start": 5438,
+        "end": 5444
+      },
+      {
+        "start": 5445,
+        "end": 5448
+      },
+      {
+        "start": 5451,
+        "end": 5453
+      },
+      {
+        "start": 5455,
+        "end": 5458
+      },
+      {
+        "start": 5463,
+        "end": 5469
+      },
+      {
+        "start": 5472,
+        "end": 5476
+      },
+      {
+        "start": 5480,
+        "end": 5483
+      },
+      {
+        "start": 5485,
+        "end": 5491
+      },
+      {
+        "start": 5500,
+        "end": 5502
+      },
+      {
+        "start": 5558,
+        "end": 5560
+      },
+      {
+        "start": 5580,
+        "end": 5582
+      },
+      {
+        "start": 5588,
+        "end": 5589
+      },
+      {
+        "start": 5591,
+        "end": 5596
+      },
+      {
+        "start": 5600,
+        "end": 5604
+      },
+      {
+        "start": 5615,
+        "end": 5618
+      },
+      {
+        "start": 5720,
+        "end": 5723
+      },
+      {
+        "start": 5728,
+        "end": 5731
+      },
+      {
+        "start": 22938,
+        "end": 22940
+      },
+      {
+        "start": 22942,
+        "end": 22950
+      },
+      {
+        "start": 22951,
+        "end": 22959
+      },
+      {
+        "start": 23065,
+        "end": 23068
+      },
+      {
+        "start": 23070,
+        "end": 23087
+      },
+      {
+        "start": 23193,
+        "end": 23196
+      },
+      {
+        "start": 23198,
+        "end": 23215
+      },
+      {
+        "start": 23321,
+        "end": 23324
+      },
+      {
+        "start": 23326,
+        "end": 23343
+      },
+      {
+        "start": 23344,
+        "end": 23347
+      },
+      {
+        "start": 23447,
+        "end": 23478
+      },
+      {
+        "start": 23575,
+        "end": 23606
+      },
+      {
+        "start": 23703,
+        "end": 23733
+      },
+      {
+        "start": 23831,
+        "end": 23861
+      },
+      {
+        "start": 23958,
+        "end": 23990
+      },
+      {
+        "start": 24086,
+        "end": 24118
+      },
+      {
+        "start": 24214,
+        "end": 24247
+      },
+      {
+        "start": 24342,
+        "end": 24375
+      },
+      {
+        "start": 24470,
+        "end": 24503
+      },
+      {
+        "start": 24598,
+        "end": 24631
+      },
+      {
+        "start": 24726,
+        "end": 24732
+      },
+      {
+        "start": 24733,
+        "end": 24759
+      },
+      {
+        "start": 24856,
+        "end": 24860
+      },
+      {
+        "start": 24862,
+        "end": 24878
+      },
+      {
+        "start": 24884,
+        "end": 24887
+      },
+      {
+        "start": 24984,
+        "end": 24988
+      },
+      {
+        "start": 24990,
+        "end": 25006
+      },
+      {
+        "start": 25112,
+        "end": 25116
+      },
+      {
+        "start": 25118,
+        "end": 25121
+      },
+      {
+        "start": 25122,
+        "end": 25125
+      },
+      {
+        "start": 25127,
+        "end": 25134
+      },
+      {
+        "start": 25259,
+        "end": 25261
+      }
+    ],
+    "available_color_count": 14,
+    "archive_diff_from_erased_base": {
+      "diff_count": 1466,
+      "range_count": 144,
+      "first_offset": 236900,
+      "last_offset": 258732,
+      "offsets_sha256": "6432aa0817c60fc12463bab3d637246fdab960e001d0d9088304ccc43643ff4b",
+      "ranges_sha256": "3cd93902c9a8c180417d520af264149c7327ce465677a969c5f44adab77c7ab0",
+      "before_values_sha256": "53d5bbf0a2e9965043eb651180bec85522fdf2a9fabdb233baf5c6527750c326",
+      "after_values_sha256": "593d9082c966c6c85a26bf409a1eb2e206d52ebb327699e8805840b8be7023fb"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "d77ae691fcd3eaffa7902491d25b77d3d4f525624f022088b2542ffdf52d0db2"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "f4e1cf5e396f1c616319a62cb10f2194716636970b62eb8c58c69edf1b7a374f"
+    },
+    "reference_png": {
+      "size": 23240,
+      "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
+    },
+    "localized_png": {
+      "size": 22554,
+      "sha256": "ac5d3cd173fc810dae2c810c9bebf757c0569814e1ac89d26aee0a498a07a56f"
+    }
+  },
+  "expected_lock": {
+    "text_mask": {
+      "size": 1480,
+      "sha256": "4ab7474d3f4e9fac94212da913ef9753a8c53f2e44a7e5f2fb3238edf5c91b2f",
+      "nonzero_pixel_count": 688
+    },
+    "reference_png": {
+      "size": 23240,
+      "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
+    },
+    "localized_png": {
+      "size": 22554,
+      "sha256": "ac5d3cd173fc810dae2c810c9bebf757c0569814e1ac89d26aee0a498a07a56f"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "d77ae691fcd3eaffa7902491d25b77d3d4f525624f022088b2542ffdf52d0db2"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "f4e1cf5e396f1c616319a62cb10f2194716636970b62eb8c58c69edf1b7a374f"
+    },
+    "added_pixel_count": 2029,
+    "original_changed_pixel_count": 3187,
+    "original_changed_pixel_indexes_sha256": "6b28f25f58fb79324e415a36c5cbef1b0a38fb9587771852629ad0b8d33e51aa",
+    "changed_archive_byte_count": 1466,
+    "changed_archive_range_count": 144,
+    "additional_text_masks": [
+      {
+        "semantic_locator_sha256": "f522c7ac3284a6ad2bacf6fd1819cd399a693256b562024f3e00efb50d4250fe",
+        "size": 1680,
+        "sha256": "5d19de6ced970c3759a4b363e9de0243276b169e140783840080bf8ce295d8e9",
+        "nonzero_pixel_count": 770
+      },
+      {
+        "semantic_locator_sha256": "3aa1afec7941bc733161ab77e56295c4e551f93a6453d1ab9d3a08b760dfb548",
+        "size": 1474,
+        "sha256": "1579aa05151570ab58085ad7bdad0dd26fd01349a197f6cf06358bb369668073",
+        "nonzero_pixel_count": 571
+      }
+    ]
+  },
+  "acceptance": {
+    "base_mapping_reproduced_exact": true,
+    "font_and_license_locked": true,
+    "text_mask_hash_locked": true,
+    "frozen_render_snapshot_consumed": true,
+    "ramp_uses_only_source_palette_rgba": true,
+    "localized_pixels_within_mapping_mask": true,
+    "source_element_rectangles_and_rgba_locked": true,
+    "mask_background_palette_index_rebuilt": true,
+    "indexed_outline_and_fill_layers_rebuilt": true,
+    "erased_locator_preimage_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove that KVMDATA chunk 7 supplies the new-squad locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_squad_formation_and_deployment_pages",
+      "visit_new_formation_reserve_and_squad_group_routes",
+      "capture_visible_chinese_new_squad_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The three original locators are replaced inside their own rectangles while adjacent hexagons, counters and number rows remain intact.",
+    "promotion_rule": "Only matching formation screenshots and exact original-to-localized texture deltas may promote both the scene mapping and localized atlas."
+  }
+}

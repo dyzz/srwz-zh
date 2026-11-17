@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-dialogue-stage-007-v1",
+  "language": "zh-Hant",
+  "default_source_match": "substring",
+  "research_basis": [
+    "Stage 007 source dialogue and the existing SRWZ display-name glossary",
+    "Stage 006-008 terminology for Zambot 3 and Gravion",
+    "Existing Chinese naming for ICPO and the Earthgertz cast"
+  ],
+  "terms": [
+    {
+      "id": "unit/g-striker",
+      "source_terms": [
+        "Ｇストライカー"
+      ],
+      "translation": "G打擊機",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与本项目机体显示名一致。"
+    },
+    {
+      "id": "unit/g-attacker",
+      "source_terms": [
+        "Ｇアタッカー"
+      ],
+      "translation": "G攻擊機",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与本项目机体显示名一致。"
+    },
+    {
+      "id": "unit/g-driller",
+      "source_terms": [
+        "Ｇドリラー"
+      ],
+      "translation": "G鑽機",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "依据下载字幕统一；G钻机检出9次。"
+    },
+    {
+      "id": "unit/gran-fortress",
+      "source_terms": [
+        "グランフォートレス"
+      ],
+      "translation": "超重要塞",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "依据下载的《超重神 GRAVION Zwei》字幕统一为超重要塞。"
+    },
+    {
+      "id": "organization/etranger",
+      "source_terms": [
+        "エトランゼ"
+      ],
+      "translation": "異世界來訪者",
+      "category": "organization",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一采用剧情语境中的中文称呼，避免保留不一致的 Etranger/Etranze。"
+    },
+    {
+      "id": "people/sanjo-reika",
+      "source_terms": [
+        "三条レイカ"
+      ],
+      "translation": "三條麗香",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "ICPO角色名；与本项目角色短名一致。"
+    },
+    {
+      "id": "species/bial-people",
+      "source_terms": [
+        "ビアル星人"
+      ],
+      "translation": "比亞路星人",
+      "deprecated_translations": [
+        "比亞爾星人"
+      ],
+      "variant_scope": "source_bound",
+      "category": "species",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与用户确认的比亚路I世至III世及授权番剧页“帝皇比亚路”统一。"
+    }
+  ],
+  "zh_hant_meta": {
+    "zh_hans_sha256": "4242879f38378a2ef1d5a6223274788ee61ff3f00b63372d6dcb69242c086d05",
+    "zh_hant_status": "draft"
+  }
+}

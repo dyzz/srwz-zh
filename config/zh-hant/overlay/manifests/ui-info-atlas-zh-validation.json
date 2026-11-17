@@ -1,0 +1,419 @@
+{
+  "schema_version": 1,
+  "status": "static_localized_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-info-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the SHIP locator inside the locked KVMDATA chunk 2 mapping mask. Static construction does not prove which runtime information pages consume this atlas.",
+  "content_policy": "Hashes, coordinates, counts and render parameters only; game bytes, localized text and preview PNGs remain outside this committed manifest.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-info-atlas-zh.json",
+      "size": 5573,
+      "sha256": "d7cca5d13a38afa31017e1e0d6e9113b2c13a77d91e2dc9ddb293648e116c400"
+    },
+    "base_mapping": {
+      "config": {
+        "path": "config/assets/maps/tim2-kvm2-info.json",
+        "size": 3439,
+        "sha256": "ce50de1fbc0872ad17379ac13c80a5eb31a8b901b3a212178974a6aaba2a777f"
+      },
+      "manifest": {
+        "path": "manifests/ui-info-atlas-map-canary-validation.json",
+        "size": 8253,
+        "sha256": "f07793f5c2cf94ceb8043aed0e733df4c34a4f57de3d50b4b3cf579e85c1198b"
+      },
+      "profile_id": "ui-info-atlas-map-canary",
+      "status": "static_component_validated_runtime_mapping_pending",
+      "archive": {
+        "size": 3335408,
+        "sha256": "507548f7bff48dbdd18203a20a01205ec43f6d4e556c023152cc7af2cf20b19a"
+      }
+    },
+    "font": {
+      "flavor": {
+        "font_flavor_id": "srwz-zh-harmonyos-sans-sc-regular-v1",
+        "path": "config/fonts/zh-localization-font.json",
+        "sha256": "3f41b4774469e838109accb0e0a87525ff9fdc1e7c02387d067a49106e735c8b",
+        "font_lock": "config/fonts/harmonyos-sans-sc.lock.json",
+        "font_lock_sha256": "1f009920c771a90c8937e73633aa97ef05410b53ffaa9ba6a114be20568becd2"
+      },
+      "source": {
+        "family": "HarmonyOS Sans SC",
+        "version": "1.0",
+        "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
+        "license_spdx": "LicenseRef-HarmonyOS-Sans-Fonts-License",
+        "license_sha256": "b2ffec0e6269ee41c3b5fc0345ab37600b46d66ebea6c9c58ff37f517bdfa164",
+        "source_kind": "pinned-official-archive",
+        "source_id": "huawei-harmonyos-sans",
+        "distribution": "commercial_use_with_notice"
+      }
+    },
+    "translation_source": {
+      "file": {
+        "path": "corpus/zh/ui-atlas/info-v1.json",
+        "size": 678,
+        "sha256": "337c04cfb2e339b060537f7c330d82799847fb4c8f0b2d7907a5c3b57a13d013"
+      },
+      "batch_id": "v1-ui-atlas-information",
+      "entry_id": "ui-atlas/kvm2/ship",
+      "editorial_status": "reviewed",
+      "source_ref_count": 1
+    },
+    "render_snapshot": {
+      "path": "config/assets/ui-info-atlas-render-snapshot.json",
+      "size": 31096,
+      "sha256": "efa76aec7a2305985936de28a8781be1a2a63c78c32b81886adfc6162b8e4663"
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 2,
+    "chunk_start": 66688,
+    "chunk_end": 100032,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "SHIP",
+    "operation": "replace_erased_locator_with_text",
+    "candidate_scene_ids": [
+      "information/unit-pilot-mech-core",
+      "search/filter-and-results",
+      "battle/map-and-tactical"
+    ],
+    "mask": {
+      "x": 80,
+      "y": 0,
+      "width": 49,
+      "height": 16,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 435,
+      "changed_pixel_indexes_sha256": "88ecf1ef9b3d4b7ec366928ec179c35d36897e0dde298676ebf251e8c2efea3f",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "localized_label": {
+    "source_locator_sha256": "39e1775d82d2eb9cf0d2862d6e2d59c5b7a1e85c543d89a8fe0594b51115f427",
+    "text_sha256": "2d494b980ed2f064506247bdacc74eb40f3d51ffd5c5218b98feb8e2c70baab2",
+    "character_count": 2,
+    "render": {
+      "point_size": 14,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.35,
+      "fill_stroke_width": 0,
+      "supersample_factor": 4,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "606060ff",
+        "686868ff",
+        "707070ff",
+        "787878ff"
+      ],
+      "indexed_layers": {
+        "outline": [
+          {
+            "rgba": "101010ff",
+            "palette_index": 1
+          },
+          {
+            "rgba": "202020ff",
+            "palette_index": 2
+          },
+          {
+            "rgba": "303030ff",
+            "palette_index": 3
+          },
+          {
+            "rgba": "404040ff",
+            "palette_index": 4
+          },
+          {
+            "rgba": "505050ff",
+            "palette_index": 5
+          },
+          {
+            "rgba": "606060ff",
+            "palette_index": 6
+          },
+          {
+            "rgba": "707070ff",
+            "palette_index": 7
+          }
+        ],
+        "fill": [
+          {
+            "rgba": "000000ff",
+            "palette_index": 8
+          },
+          {
+            "rgba": "101010ff",
+            "palette_index": 9
+          },
+          {
+            "rgba": "202020ff",
+            "palette_index": 10
+          },
+          {
+            "rgba": "303030ff",
+            "palette_index": 11
+          },
+          {
+            "rgba": "404040ff",
+            "palette_index": 12
+          },
+          {
+            "rgba": "505050ff",
+            "palette_index": 13
+          },
+          {
+            "rgba": "686868ff",
+            "palette_index": 14
+          },
+          {
+            "rgba": "787878ff",
+            "palette_index": 15
+          }
+        ]
+      },
+      "text_mask": {
+        "size": 784,
+        "sha256": "bc92e3687e8a9abdc2fe0dd4c7086fc977b471db7949abd6bf27edf0f556e833",
+        "nonzero_pixel_count": 334
+      }
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+    "text_render_source": "locked_snapshot"
+  },
+  "text_audit": {
+    "added_pixel_count": 334,
+    "added_pixel_indexes_sha256": "9a79148f2b67b76d5509f92954bc8b275bde4fc7eb23f3c93f742ad474f1153b",
+    "indexed_layer_counts": {
+      "outline": {
+        "4": 7,
+        "7": 3
+      },
+      "fill": {
+        "8": 10,
+        "9": 35,
+        "10": 30,
+        "11": 35,
+        "12": 46,
+        "13": 49,
+        "14": 49,
+        "15": 70
+      }
+    },
+    "fill_mask_sha256": "2e5be43197077b83c1727b3b4ba1f37aac22d948091548d0742df1801e3c1d47",
+    "fill_mask_nonzero_pixel_count": 324,
+    "outside_mask_rgba_exact": true,
+    "erased_background_preimage_exact": true,
+    "delta_from_erased": {
+      "changed_pixel_count": 334,
+      "changed_pixel_indexes_sha256": "9a79148f2b67b76d5509f92954bc8b275bde4fc7eb23f3c93f742ad474f1153b",
+      "outside_mask_rgba_exact": true
+    },
+    "delta_from_original": {
+      "changed_pixel_count": 435,
+      "changed_pixel_indexes_sha256": "88ecf1ef9b3d4b7ec366928ec179c35d36897e0dde298676ebf251e8c2efea3f",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 334,
+    "changed_image_byte_count": 179,
+    "changed_image_byte_ranges": [
+      {
+        "start": 46,
+        "end": 47
+      },
+      {
+        "start": 49,
+        "end": 51
+      },
+      {
+        "start": 56,
+        "end": 58
+      },
+      {
+        "start": 174,
+        "end": 180
+      },
+      {
+        "start": 181,
+        "end": 186
+      },
+      {
+        "start": 302,
+        "end": 308
+      },
+      {
+        "start": 309,
+        "end": 315
+      },
+      {
+        "start": 429,
+        "end": 436
+      },
+      {
+        "start": 437,
+        "end": 443
+      },
+      {
+        "start": 557,
+        "end": 564
+      },
+      {
+        "start": 565,
+        "end": 571
+      },
+      {
+        "start": 686,
+        "end": 699
+      },
+      {
+        "start": 814,
+        "end": 827
+      },
+      {
+        "start": 941,
+        "end": 956
+      },
+      {
+        "start": 1069,
+        "end": 1084
+      },
+      {
+        "start": 1197,
+        "end": 1211
+      },
+      {
+        "start": 1325,
+        "end": 1339
+      },
+      {
+        "start": 1454,
+        "end": 1467
+      },
+      {
+        "start": 1582,
+        "end": 1588
+      },
+      {
+        "start": 1589,
+        "end": 1596
+      },
+      {
+        "start": 1710,
+        "end": 1716
+      },
+      {
+        "start": 1717,
+        "end": 1724
+      },
+      {
+        "start": 1838,
+        "end": 1840
+      }
+    ],
+    "available_color_count": 11,
+    "archive_diff_from_erased_base": {
+      "diff_count": 179,
+      "range_count": 23,
+      "first_offset": 66798,
+      "last_offset": 68591,
+      "offsets_sha256": "d1d182a5e6b3f223e9a3e43fea57920748248c6b97e0e4f2d8c84252d1ff60b6",
+      "ranges_sha256": "c4ea6c8ceb27b35a52ad66a6b715d8a842529f15924040b94e29ea0cec793cda",
+      "before_values_sha256": "5e06bfa9ebccfa3d8759270620b6860f0b92be9d69ef7d7802b78ee5b5f07f96",
+      "after_values_sha256": "60120d8669d9d8e2c54444e723542b47ea535c7dcb921aa9e6cc22f1b9abfbea"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "aa667ffd88955610ddf764c6cfd7e1b1f4a69e8845ce1305c7990767909c9516"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "c2dfd4bdc32aaacaa3e8a0b01fead1e1ea51f6ee1d52981298199c125562ced9"
+    },
+    "reference_png": {
+      "size": 21229,
+      "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
+    },
+    "localized_png": {
+      "size": 21649,
+      "sha256": "e7ad5764301f3c649fc3f206cb38ceac972fbdea9604bc27da5aef8a5638771a"
+    }
+  },
+  "expected_lock": {
+    "text_mask": {
+      "size": 784,
+      "sha256": "bc92e3687e8a9abdc2fe0dd4c7086fc977b471db7949abd6bf27edf0f556e833",
+      "nonzero_pixel_count": 334
+    },
+    "reference_png": {
+      "size": 21229,
+      "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
+    },
+    "localized_png": {
+      "size": 21649,
+      "sha256": "e7ad5764301f3c649fc3f206cb38ceac972fbdea9604bc27da5aef8a5638771a"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "aa667ffd88955610ddf764c6cfd7e1b1f4a69e8845ce1305c7990767909c9516"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "c2dfd4bdc32aaacaa3e8a0b01fead1e1ea51f6ee1d52981298199c125562ced9"
+    },
+    "added_pixel_count": 334,
+    "original_changed_pixel_count": 435,
+    "original_changed_pixel_indexes_sha256": "88ecf1ef9b3d4b7ec366928ec179c35d36897e0dde298676ebf251e8c2efea3f",
+    "changed_archive_byte_count": 179,
+    "changed_archive_range_count": 23
+  },
+  "acceptance": {
+    "base_mapping_reproduced_exact": true,
+    "font_and_license_locked": true,
+    "text_mask_hash_locked": true,
+    "frozen_render_snapshot_consumed": true,
+    "ramp_uses_only_source_palette_rgba": true,
+    "localized_pixels_within_mapping_mask": true,
+    "source_element_rectangles_and_rgba_locked": true,
+    "indexed_outline_and_fill_layers_rebuilt": true,
+    "erased_locator_preimage_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove that KVMDATA chunk 2 supplies the unit-information locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_memory_card",
+      "open_unit_information_for_two_units",
+      "visit_pilot_weapon_parts_skill_and_spirit_subpages",
+      "capture_visible_chinese_unit_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original SHIP locator is replaced by the locked compact Chinese unit label while SELECT and SHAPE PARTS remain intact.",
+    "promotion_rule": "Only a matching screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  }
+}

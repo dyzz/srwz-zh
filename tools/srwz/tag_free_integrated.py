@@ -127,8 +127,15 @@ def _build_payload(registry,edition,*,routes=None,shared_selection=True,scene_di
   from . import latin_bank
   from .proportional_metrics import punctuation_codes
   bank_site=0x13a990+delta
+  display_options=None
+  if edition in ('original','best'):
+   # Display options word (plain zero, Japanese quotes), written by the dual-disc settings box; the assembler
+   # finds it by the marker. Zero = the default look.
+   from .proportional_hooks import DISPLAY_OPTIONS_MARKER
+   display_options=add('display_options',DISPLAY_OPTIONS_MARKER+bytes(4))+len(DISPLAY_OPTIONS_MARKER)
   bank_at=add('glyph_bank',glyph_bank_hook(globals_,options['descriptors'],text_state,bank_site,
-   bank_base=latin_bank.base_glyph_index(),punctuation=list(punctuation_codes().values()),dynamic_path=0x13aa20+delta))
+   bank_base=latin_bank.base_glyph_index(),punctuation=list(punctuation_codes().values()),dynamic_path=0x13aa20+delta,
+   options=display_options))
   patches.append((bank_site,words(0x3c017000,0x94220062),words(0x08000000|(bank_at>>2),0)))
   for name,entry,displaced in [('draw_source',0x13a290+delta,(0x27bdffa0,0x3c010047 if edition in ('original','best') else 0x3c01004f)),('measure_source',0x139b00+delta,(0x27bdffb0,0x0000102d))]:
    at=add(name,source_entry(globals_,entry+8,displaced))

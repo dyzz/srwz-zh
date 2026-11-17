@@ -37,17 +37,25 @@ class Memory:
         store[start:stop] = value
 
 
+OPTIONS = 0x3800
+
+
 class GlyphBankHookTests(unittest.TestCase):
-    def run_hook(self, code, *, native_index=1234, size=(21, 12), explicit=True, source=0x2010, owner=0x2000, end=0x2040):
-        hook = glyph_bank_hook(GLOBALS, DESCRIPTORS, STATE, SITE, bank_base=BASE, punctuation=PUNCTUATION, dynamic_path=DYNAMIC)
+    def run_hook(self, code, *, native_index=1234, size=(21, 12), explicit=True, source=0x2010, owner=0x2000, end=0x2040,
+                 options=None):
+        hook = glyph_bank_hook(GLOBALS, DESCRIPTORS, STATE, SITE, bank_base=BASE, punctuation=PUNCTUATION, dynamic_path=DYNAMIC,
+                               options=None if options is None else OPTIONS)
 
         def attempt(stop, trap):
             memory = Memory()
             memory[CODE:CODE + len(hook)] = hook
             memory[trap:trap + 4] = b'\xff\xff\xff\xff'           # the other exit must not be reached
             memory[GLOBALS:GLOBALS + 8] = struct.pack('<II', owner, end)
-            # Two scenes: 21x12 dialogue and 16x9 list; a zero word ends the table.
-            memory[DESCRIPTORS:DESCRIPTORS + 52] = struct.pack('<6I', 21, 12, 0, 0, 21, 0) + struct.pack('<6I', 16, 9, 0, 0, 16, 0) + bytes(4)
+            # Scenes: 21x12 dialogue, 20x11 map dialogue, 16x9 list; a zero word ends the table.
+            memory[DESCRIPTORS:DESCRIPTORS + 76] = (struct.pack('<6I', 21, 12, 0, 0, 21, 0) + struct.pack('<6I', 20, 11, 0, 0, 20, 0)
+                                                    + struct.pack('<6I', 16, 9, 0, 0, 16, 0) + bytes(4))
+            if options is not None:
+                memory[OPTIONS:OPTIONS + 4] = struct.pack('<I', options)
             memory[SCRATCH + 0x60:SCRATCH + 0x62] = struct.pack('<H', code)
             memory[SCRATCH + 0x62:SCRATCH + 0x64] = struct.pack('<H', native_index)
             if explicit:
@@ -94,6 +102,31 @@ class GlyphBankHookTests(unittest.TestCase):
         self.assertEqual(self.run_hook(0x8260, size=(16, 9))[:3], (SITE + 8, BASE + 17, BASE + 17))
         self.assertEqual(self.run_hook(0x8260, explicit=False)[:3], (SITE + 8, BASE + 17, BASE + 17))
         self.assertEqual(self.run_hook(0x8260, explicit=False, size=(30, 12))[:3], native)
+
+    def test_display_options_zero_word_keeps_the_default_look(self):
+        for code in (0x824F, 0x8250, 0x8260):
+            self.assertEqual(self.run_hook(code, options=0), self.run_hook(code), hex(code))
+        for code in (0x9141, 0x8167, 0x8FE7, 0x8168):
+            self.assertEqual(self.run_hook(code, options=0)[:3], (SITE + 8, 1234, 1234), hex(code))
+
+    def test_plain_zero_option_swaps_only_the_zero(self):
+        stop, _, scratch_index, published = self.run_hook(0x824F, options=1)
+        self.assertEqual((stop, scratch_index, published), (DYNAMIC, BASE + 10, BASE + 10))
+        stop, _, scratch_index, _ = self.run_hook(0x8255, options=1)
+        self.assertEqual((stop, scratch_index), (DYNAMIC, BASE + 6))
+        self.assertEqual(self.run_hook(0x9141, options=1)[:3], (SITE + 8, 1234, 1234))
+
+    def test_japanese_quote_option_only_in_the_dialogue_scenes(self):
+        for code, slot in ((0x9141, 80), (0x8167, 80), (0x8FE7, 81), (0x8168, 81)):
+            for size in ((21, 12), (20, 11)):
+                self.assertEqual(self.run_hook(code, options=2, size=size)[:3], (SITE + 8, BASE + slot, BASE + slot), hex(code))
+            self.assertEqual(self.run_hook(code, options=2, size=(16, 9))[:3], (SITE + 8, 1234, 1234), hex(code))
+            self.assertEqual(self.run_hook(code, options=2, owner=0)[:3], (SITE + 8, 1234, 1234), hex(code))
+        self.assertEqual(self.run_hook(0x824F, options=2)[2], BASE)        # the zero keeps its dot
+
+    def test_extra_slots_are_free_bank_cells(self):
+        self.assertFalse(set(latin_bank.EXTRA_SLOTS) & set(latin_bank.slot_characters()))
+        self.assertTrue(all(0 <= slot < latin_bank.SLOT_COUNT for slot in latin_bank.EXTRA_SLOTS))
 
 
 if __name__ == '__main__':

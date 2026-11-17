@@ -2,6 +2,12 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
+from .build_language import expected_literal
+
+ROOT = Path(__file__).resolve().parents[2]
+
 import struct
 from collections.abc import Mapping
 
@@ -123,6 +129,7 @@ def apply_runtime_movement_type_labels(
         site_id = raw_site.get("id")
         assert isinstance(site_id, str)
         source_text, translation = expected_semantics[site_id]
+        translation = expected_literal(translation, ROOT)
         if (
             raw_site.get("source_text") != source_text
             or raw_site.get("translation") != translation
@@ -247,7 +254,7 @@ def apply_runtime_movement_type_labels(
         "site_count": len(reports),
         "sites": reports,
         "source_suffix": "専用",
-        "output_suffix": "专用",
+        "output_suffix": expected_literal("专用", ROOT),
         "preserved_parallel_type": {
             "id": "air_water",
             "text": "空水用",

@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-dialogue-stage-008-v1",
+  "language": "zh-Hant",
+  "default_source_match": "substring",
+  "research_basis": [
+    "Stage 008 source dialogue and existing SRWZ story/display-name terminology",
+    "Chinese community naming for Earthgertz and the Saint-Germain Castle cast",
+    "Existing unit table names for the Gravion machines"
+  ],
+  "terms": [
+    {
+      "id": "unit/one-robot",
+      "source_terms": [
+        "１号ロボ"
+      ],
+      "translation": "1號機器人",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一采用半角数字，避免日文全角数字造成字体宽度分裂。"
+    },
+    {
+      "id": "place/saint-germain-castle",
+      "source_terms": [
+        "サンジェルマン城"
+      ],
+      "translation": "聖日耳曼城",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "超重神GRAVION 的 Saint-Germain Castle；沿用中文社区通行译名。"
+    },
+    {
+      "id": "unit/ryujinmaru",
+      "source_terms": [
+        "竜神丸"
+      ],
+      "translation": "龍神丸",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "魔神英雄传机体名，日文旧字龙统一为简体龙。"
+    },
+    {
+      "id": "unit/gran-kaiser",
+      "source_terms": [
+        "グランカイザー"
+      ],
+      "translation": "格蘭凱撒",
+      "deprecated_translations": [
+        "重力凱撒",
+        "超重皇",
+        "Gran Kaiser"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "2026-09-04 审阅站术语专项经用户确认改定为“格兰凯撒”。"
+    },
+    {
+      "id": "unit/gran-diva",
+      "source_terms": [
+        "グランディーヴァ"
+      ],
+      "translation": "超重機組",
+      "deprecated_translations": [
+        "格蘭迪瓦",
+        "Gran Σ機"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Good Smile Company《GRAVION》版权方中文专题页列出四架组成机；结合下载的 POPGO/FREEWIND 字幕，统一为“超重机组”。"
+    },
+    {
+      "id": "unit/proto-gran-diva",
+      "source_terms": [
+        "プロトグランディーヴァ"
+      ],
+      "translation": "原型超重機組",
+      "deprecated_translations": [
+        "原初大地女神",
+        "原型格蘭迪瓦",
+        "原型迪瓦",
+        "Proto Grandiva"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "グランディーヴァ的原型人工生命体；沿用剧情中已稳定使用的“原型超重机组”，并与基础术语“超重机组”保持构词一致。"
+    },
+    {
+      "id": "unit/g-shadow",
+      "source_terms": [
+        "Ｇシャドゥ",
+        "Ｇシャドウ",
+        "Gシャドウ"
+      ],
+      "translation": "G戰影",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "按当前正式剧情、战斗台词和显示名统一为 G战影。"
+    },
+    {
+      "id": "organization/earthgertz",
+      "source_terms": [
+        "アースガルツ"
+      ],
+      "translation": "地球戰騎隊",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Earthgertz 的中文社区通行译名；与格兰骑士团区分。"
+    },
+    {
+      "id": "organization/gran-knights",
+      "source_terms": [
+        "グランナイツ"
+      ],
+      "translation": "格蘭騎士團",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Gran Knights 的中文译名；与地球战骑队区分。"
+    },
+    {
+      "id": "system/trinity-energy",
+      "source_terms": [
+        "トリニティエネルギー",
+        "トリニティ・エネルギー"
+      ],
+      "translation": "三位一體能量",
+      "deprecated_translations": [
+        "三一能量",
+        "三一能源",
+        "特里尼蒂能量",
+        "特里尼蒂能源",
+        "特立尼提能量",
+        "特立尼提能源"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝神西格玛》的 Trinity Energy；用户于 2026-08-13 确认采用意译体系。专用能力名后来因界面宽度缩为“充能”。"
+    },
+    {
+      "id": "people/fishing-master",
+      "source_terms": [
+        "網元"
+      ],
+      "translation": "漁業頭領",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日语网元指统领渔民和渔业经营的头领，按对白语境译为渔业头领。"
+    }
+  ],
+  "zh_hant_meta": {
+    "zh_hans_sha256": "2cf4bec0b3d4335527e678bb2d96eff7a8d62b000ae8171b5741dd4ff9f842bd",
+    "zh_hant_status": "draft"
+  }
+}

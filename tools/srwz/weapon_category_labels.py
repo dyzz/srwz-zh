@@ -2,6 +2,12 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
+from .build_language import corpus_language, expected_literal
+
+ROOT = Path(__file__).resolve().parents[2]
+
 import struct
 from collections.abc import Mapping
 
@@ -164,7 +170,13 @@ def apply_runtime_weapon_category_labels(
             )
         site_id = raw_site.get("id")
         assert isinstance(site_id, str)
-        semantics = expected[site_id]
+        semantics = dict(expected[site_id])
+        if corpus_language(ROOT) != "zh-Hans":
+            # Another language's build re-encodes the label in its own codebook (tools/zh_hant/build_dual.py):
+            # the output text comes from the site, and only the builder immediates may change.
+            semantics["translation"] = expected_literal(semantics["translation"], ROOT)
+            semantics["output_hex"] = str(raw_site.get("output_materialized_hex", "")).upper()
+            semantics["changed_indexes"] = None
         if (
             raw_site.get("source_text") != semantics["source_text"]
             or raw_site.get("translation") != semantics["translation"]
@@ -236,7 +248,17 @@ def apply_runtime_weapon_category_labels(
             )
             if before != after
         ]
-        if changed_indexes != semantics["changed_indexes"]:
+        immediate_indexes = {
+            word * 4 + byte
+            for pair in semantics["word_pairs"]
+            for word in pair
+            for byte in (0, 1)
+        }
+        if (
+            changed_indexes != semantics["changed_indexes"]
+            if semantics["changed_indexes"] is not None
+            else not set(changed_indexes) <= immediate_indexes
+        ):
             raise WeaponCategoryLabelError(
                 f"{site_id} changes outside the category prefix immediate"
             )

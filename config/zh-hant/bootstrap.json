@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "purpose": "Drafting only: how tools/zh_hant/sync_corpus.py writes a machine draft (zh_hant_status=draft) for a Traditional entry that is new or whose Simplified source changed. The Traditional corpora themselves are the parallel files under corpus/*-zh-hant and corpus/zh-hant.",
+  "opencc": "s2tw",
+  "opencc_note": "s2tw converts the character standard only. Its phrase table still errs (e.g. 回归 -> 迴歸; Taiwan writes 回歸); drafts need review. s2twp is not used: its IT phrase table breaks prose (士兵 -> 計程車兵).",
+  "terms": [
+    {
+      "sc": "传感器",
+      "tc": "感測器",
+      "note": "sensor"
+    },
+    {
+      "sc": "屏幕",
+      "tc": "螢幕",
+      "note": "screen"
+    },
+    {
+      "sc": "信号",
+      "tc": "訊號",
+      "note": "signal"
+    },
+    {
+      "sc": "数据",
+      "tc": "資料",
+      "note": "data (also 数据库 -> 資料庫)"
+    },
+    {
+      "sc": "远程攻击",
+      "tc": "遠距攻擊",
+      "note": "ranged attack"
+    }
+  ]
+}

@@ -52,6 +52,8 @@ def run_mips(memory, registers, pc, stop):
             registers[rt] = imm << 16
         elif op == 13:
             registers[rt] = registers[rs] | imm
+        elif op == 12:
+            registers[rt] = registers[rs] & imm
         elif op in (4, 5):
             equal = registers[rs] == registers[rt]
             if equal == (op == 4):

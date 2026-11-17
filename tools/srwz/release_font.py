@@ -332,7 +332,7 @@ def baseline_with_original_ascii(
         synthetic = {
             "code_value": code,
             "mapping": "original_fullwidth_ascii",
-            "glyph_index": glyph_index_for_code(code, extended_entries),
+            "glyph_index": glyph_index_for_code(code, extended_entries, **baseline.get("glyph_lookup", {})),
         }
         assignments[character] = synthetic
         assignments[source_character] = synthetic
@@ -391,7 +391,7 @@ def baseline_with_protected_original_glyphs(
         assignments[character] = {
             "code_value": code,
             "mapping": "protected_original_glyph",
-            "glyph_index": glyph_index_for_code(code, extended_entries),
+            "glyph_index": glyph_index_for_code(code, extended_entries, **baseline.get("glyph_lookup", {})),
         }
     return {**baseline, "proposal_assignments": assignments}
 
@@ -1452,7 +1452,7 @@ def audit_entry_font(
             continue
         if glyph_index is None:
             try:
-                glyph_index = glyph_index_for_code(code, extended_entries)
+                glyph_index = glyph_index_for_code(code, extended_entries, **baseline.get("glyph_lookup", {}))
             except ValueError:
                 missing.append({
                     "character": character,

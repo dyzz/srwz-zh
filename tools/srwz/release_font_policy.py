@@ -145,6 +145,9 @@ def validate_new_character_allocations(
                 isinstance(character, str)
                 and character
                 and allocation_width_class(code) == DEFAULT_WIDTH_CLASS
+                # Legacy-save formation rows only decode names already stored on memory cards; encoders never
+                # use them, so a translation that needs the same character still gets one primary slot.
+                and row.get("mapping") != "legacy_save_formation_source_compatibility"
             ):
                 safe_owners.setdefault(character, []).append(
                     f"{group_name}:0x{code:04X}"

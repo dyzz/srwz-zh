@@ -1,4 +1,5 @@
 """Restore native menu words after moving their Chinese consumers to frozen blank cells."""
+from .render_locks import output_lock
 import base64
 import hashlib
 import json
@@ -228,7 +229,7 @@ def apply_menu_restore(atlas, drawings, root: Path, edition='original', config=N
                     'menu native drawing drift')
         draw[off:off+len(after)] = after
     result = bytes(out), bytes(draw)
-    require(sha(result[0]) == c['after']['atlas'] and sha(result[1]) == c['after']['drawings'],
+    require(output_lock(sha(result[0]), c['after'], 'atlas') and output_lock(sha(result[1]), c['after'], 'drawings'),
             'menu output identity drift')
     if config is None:
         refined, report['text_clarity'] = apply_atlas(result[0], root, edition)

@@ -11,6 +11,7 @@ from srwz.squad_name_ligature import (CHARACTER as SQUAD_LIGATURE, ligature_rast
 from srwz.font import (
     GLYPH_SIZE,
     decode_vt1_font_segment,
+    font_capacity,
     read_extended_glyph_table,
     sha256_bytes,
     standard_glyph_index,
@@ -167,6 +168,8 @@ def main() -> int:
     source_slps = (WORK_ROOT / "disc/SLPS_258.87").read_bytes()
     source_vt1 = (WORK_ROOT / "disc/DATA/VT1.BIN").read_bytes()
     source_font = decode_vt1_font_segment(source_slps, source_vt1).decoded
+    # A raised capacity (linear area) starts from blank cells past the original store.
+    source_font += bytes(max(0, font_capacity(config).glyph_count * GLYPH_SIZE - len(source_font)))
     assignments = [*primary, *aliases, *compatibility]
     for assignment in assignments:
         glyph_index = assignment["glyph_index"]
@@ -261,6 +264,10 @@ def main() -> int:
     baseline = {
         "table": table,
         "extended_entries": read_extended_glyph_table(candidate_slps),
+        "glyph_lookup": {
+            "glyph_count": font_capacity(config).glyph_count,
+            "linear": font_capacity(config).linear,
+        },
         "font": candidate_font,
         "base_assignments": assignment_index(base_codebook_path),
         "proposal_assignments": assignment_index(proposal_path),

@@ -40,8 +40,10 @@ path = ROOT / latin_bank.CONFIG
 path.write_text(json.dumps(config, ensure_ascii=False, indent=1) + '\n') if not path.exists() else None
 draft = latin_bank.load(ROOT) if path.exists() else None
 loaded = dict(config); loaded['sources'] = {k: dict(v, path=draft['sources'][k]['path']) for k, v in sources.items()}
-for slot, (character, gray, _) in latin_bank.rasters(ROOT, rasterizer, {**loaded, 'glyphs': {c: dict(g) for c, g in config['glyphs'].items()}}).items():
-    config['glyphs'][character]['raw_gray_sha256'] = hashlib.sha256(gray).hexdigest()
+config['extras'] = {name: dict(slot=slot) for slot, name in latin_bank.EXTRA_SLOTS.items()}
+for slot, (character, gray, _) in latin_bank.rasters(ROOT, rasterizer, {**loaded, 'glyphs': {c: dict(g) for c, g in config['glyphs'].items()}, 'extras': {}}).items():
+    target = config['extras'][character] if character in config['extras'] else config['glyphs'][character]
+    target['raw_gray_sha256'] = hashlib.sha256(gray).hexdigest()
 content = json.dumps(config, ensure_ascii=False, indent=1) + '\n'
 if a.check:
     assert path.read_text() == content, 'Latin bank config stale'

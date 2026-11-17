@@ -18,6 +18,7 @@ from srwz.scoped_translations import (
 from srwz.archive import sha256_file
 from srwz.build_layout import PROSE_HANGING_PX, prose_widths
 from srwz import continuation_indent
+from srwz.build_language import corpus_language, expected_characters, expected_literal
 from srwz.typography_policy import candidate_enabled as compact_typography_enabled
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
@@ -42,6 +43,7 @@ from srwz.font import (
     GLYPH_SIZE,
     ascii_glyph_index,
     decode_vt1_font_segment,
+    font_capacity,
     glyph_index_for_code,
     read_extended_glyph_table,
     sha256_bytes,
@@ -440,6 +442,28 @@ def load_overrides(
     return overrides, aliases, proposal
 
 
+def _expected_text(text: str) -> str:
+    """A literal Simplified readback target in the language this build produces (srwz.build_language)."""
+    try:
+        return expected_literal(text, PROJECT_ROOT)
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
+
+
+def _glyph_text(text: str) -> str:
+    """Characters a glyph check needs, in this build's language (srwz.build_language)."""
+    return expected_characters(text, PROJECT_ROOT)
+
+
+def _expected_values(expectations: dict) -> dict:
+    return {key: _expected_text(value) for key, value in expectations.items()}
+
+
+def _release_font_capacity():
+    """Font capacity of the release profile (the stock 4,480-glyph store unless raised)."""
+    return font_capacity(json.loads((PROJECT_ROOT / "config/fonts/zh-release-font.json").read_text(encoding="utf-8")))
+
+
 def expected_font_component(
     config: dict,
     component_manifest: dict | None,
@@ -452,7 +476,7 @@ def expected_font_component(
     composition = component_manifest["composition"]
     return {
         "encoded_size": composition["font_encoded_size"],
-        "decoded_size": GLYPH_COUNT * GLYPH_SIZE,
+        "decoded_size": _release_font_capacity().glyph_count * GLYPH_SIZE,
         "decoded_sha256": composition["font_decoded_sha256"],
     }
 
@@ -793,7 +817,7 @@ def verify_auto_demo_overlays(
         if item["member"] == "BTL/OP0.BIN"
         and item["offset"] == 0x40B0C
     ]
-    if len(kamille) != 1 or kamille[0]["translation"] != "卡缪":
+    if len(kamille) != 1 or kamille[0]["translation"] != _expected_text("卡缪"):
         raise SystemExit("final ISO auto-demo Kamille name mismatch")
     return {
         "title_entry_count": len(title_reports),
@@ -832,6 +856,8 @@ def verify_stock_ascii_glyphs(
         source_members["slps"],
         source_members["vt1"],
     ).decoded
+    # A raised capacity (linear area) extends the stock store with blank cells.
+    source_font += bytes(max(0, _release_font_capacity().glyph_count * GLYPH_SIZE - len(source_font)))
     if len(source_font) != len(final_font):
         raise SystemExit("source/final decoded font sizes differ")
 
@@ -887,6 +913,7 @@ def verify_targeted_ui_glyphs(
         "reported_land_dialogue": "哦把自己机体弄坏的那家伙罚你帮忙修理",
         "reported_kejinan_retreat": "今今天只是身体不舒服你们给我记住",
     }
+    target_texts = {key: _glyph_text(value) for key, value in target_texts.items()}
     extended = read_extended_glyph_table(slps)
     by_character = {}
     for character in sorted(set("".join(target_texts.values()))):
@@ -895,7 +922,10 @@ def verify_targeted_ui_glyphs(
             raise SystemExit(
                 f"targeted new-game glyph has no output code: {character!r}"
             )
-        glyph_index = glyph_index_for_code(code, extended)
+        capacity = _release_font_capacity()
+        glyph_index = glyph_index_for_code(
+            code, extended, glyph_count=capacity.glyph_count, linear=capacity.linear
+        )
         start = glyph_index * GLYPH_SIZE
         packed = final_font[start : start + GLYPH_SIZE]
         ink_pixel_count = sum(
@@ -1858,7 +1888,7 @@ def verify_stage_default_formation(
     translations_by_source = document.get("translations_by_source_text")
     if (
         document.get("schema_version") != 1
-        or document.get("language") != "zh-Hans"
+        or document.get("language") != corpus_language(PROJECT_ROOT)
         or document.get("editorial_status") != "reviewed"
         or document.get("policy", {}).get("source_text_authority")
         != "original_disc_only"
@@ -2639,6 +2669,7 @@ def verify_final_compdata(
         "menu/Compdata/07/0000": "：确定",
         "menu/Compdata/07/0004": "：返回",
     }
+    button_prompts = _expected_values(button_prompts)
     for entry_id, expected_text in button_prompts.items():
         if menu_by_id.get(entry_id) != expected_text:
             raise SystemExit(
@@ -2895,7 +2926,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in new_game_name_expectations
-    } != new_game_name_expectations:
+    } != _expected_values(new_game_name_expectations):
         raise SystemExit("male new-game default-name offset contract drift")
     male_default_unit_name_expectations = {
         "0x3479E0": "钢狮子",
@@ -2903,7 +2934,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in male_default_unit_name_expectations
-    } != male_default_unit_name_expectations:
+    } != _expected_values(male_default_unit_name_expectations):
         raise SystemExit("male default-unit-name offset contract drift")
     female_default_name_expectations = {
         "0x337728": "节子",
@@ -2915,7 +2946,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in female_default_name_expectations
-    } != female_default_name_expectations:
+    } != _expected_values(female_default_name_expectations):
         raise SystemExit("female new-game default-name offset contract drift")
     female_default_unit_name_expectations = {
         "0x347A00": "巴尔戈拉",
@@ -2923,7 +2954,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in female_default_unit_name_expectations
-    } != female_default_unit_name_expectations:
+    } != _expected_values(female_default_unit_name_expectations):
         raise SystemExit("female default-unit-name offset contract drift")
     formation_action_label_expectations = {
         "0x342580": "攻击",
@@ -2933,7 +2964,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in formation_action_label_expectations
-    } != formation_action_label_expectations:
+    } != _expected_values(formation_action_label_expectations):
         raise SystemExit("formation action-label offset contract drift")
     map_formation_name_expectations = {
         "0x345DC8": "TRI",
@@ -2943,7 +2974,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in map_formation_name_expectations
-    } != map_formation_name_expectations:
+    } != _expected_values(map_formation_name_expectations):
         raise SystemExit("map formation-name offset contract drift")
     weapon_effect_1_expectations = {
         "0x3462A0": "SP降低（P系）",
@@ -2958,7 +2989,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in weapon_effect_1_expectations
-    } != weapon_effect_1_expectations:
+    } != _expected_values(weapon_effect_1_expectations):
         raise SystemExit("weapon special-effect-1 offset contract drift")
     squad_formation_name_expectations = {
         "0x7F580": "TRI阵型",
@@ -2971,7 +3002,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["compdata_direct_by_offset"].get(offset)
         for offset in squad_formation_name_expectations
-    } != squad_formation_name_expectations:
+    } != _expected_values(squad_formation_name_expectations):
         raise SystemExit("squad formation-name offset contract drift")
     spirit_acronym_expectations = {
         "0x343FB0": "热魂闪不铁集必加迅觉手狙直努乱分",
@@ -2984,7 +3015,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in spirit_acronym_expectations
-    } != spirit_acronym_expectations:
+    } != _expected_values(spirit_acronym_expectations):
         raise SystemExit("spirit-acronym offset contract drift")
     scenario_button_expectations = {
         "0x33BD4A": "：确定",
@@ -2993,7 +3024,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in scenario_button_expectations
-    } != scenario_button_expectations:
+    } != _expected_values(scenario_button_expectations):
         raise SystemExit("scenario-select button-label offset contract drift")
     library_runtime_text_expectations = {
         "0x340BD8": "攻略Q&A",
@@ -3013,7 +3044,7 @@ def verify_final_compdata(
             **remaining_document["slps_by_offset"],
         }.get(offset)
         for offset in library_runtime_text_expectations
-    } != library_runtime_text_expectations:
+    } != _expected_values(library_runtime_text_expectations):
         raise SystemExit("LIBRARY runtime-text offset contract drift")
     confirm_prompt_expectations = {
         "0x3407B0": "：确定",
@@ -3030,7 +3061,7 @@ def verify_final_compdata(
             **remaining_document["slps_by_offset"],
         }.get(offset)
         for offset in confirm_prompt_expectations
-    } != confirm_prompt_expectations:
+    } != _expected_values(confirm_prompt_expectations):
         raise SystemExit("global confirm-prompt offset contract drift")
     raw_decision_glyph = bytes.fromhex("8c8892e8")
     residual_raw_decision_count = slps.count(raw_decision_glyph)
@@ -3047,7 +3078,7 @@ def verify_final_compdata(
         "自称“烈焰”，是个豪爽磊落的热血汉，\n"
         "美中不足的是热情过头，让人有些招架不住。"
     )
-    if male_profile != expected_profile:
+    if male_profile != _expected_text(expected_profile):
         raise SystemExit("male new-game profile contract drift")
     profile_line_lengths = [len(line) for line in male_profile.splitlines()]
     if len(profile_line_lengths) != 3 or max(profile_line_lengths) > 24:
@@ -3342,7 +3373,7 @@ def verify_final_compdata(
     unit_ascii_storage_examples = {}
     for entry_id, expectation in unit_ascii_expectations.items():
         entry = unit_by_id.get(entry_id)
-        if entry is None or entry.text != expectation["text"]:
+        if entry is None or entry.text != _expected_text(expectation["text"]):
             raise SystemExit(
                 f"final ISO unit ASCII example mismatch: {entry_id}"
             )
@@ -3511,6 +3542,7 @@ def verify_post_release_runtime_surfaces(
         0x31B6EC: "永恒号",
         0x31B700: "拉迪修",
     }
+    expected_auto_roots = _expected_values(expected_auto_roots)
     auto_root_readbacks = {}
     for offset, translation in expected_auto_roots.items():
         raw_offset = f"0x{offset:X}"
@@ -3564,7 +3596,7 @@ def verify_post_release_runtime_surfaces(
             )
             raw = z_report_stage[offset : offset + actual.consumed]
             if (
-                actual.text != translation
+                actual.text != _expected_text(translation)
                 or (stage_index == 36 and b"PP+50" in raw)
             ):
                 raise SystemExit(
@@ -3636,7 +3668,7 @@ def verify_post_release_runtime_surfaces(
             stage_data[offset - 4 : offset], byteorder="little"
         )
         if (
-            actual.text != translation
+            actual.text != _expected_text(translation)
             or stage_data[offset - 10 : offset - 4] != b"\xFF" * 6
             or actual_prefix_word != prefix_word
         ):
@@ -4619,7 +4651,7 @@ def main() -> int:
     )
     if (
         sound_label.get("id") != "sound-select-title"
-        or sound_label.get("translation") != "音乐选择"
+        or sound_label.get("translation") != _expected_text("音乐选择")
         or sha256_bytes(sound_crop) != sound_label.get("output_indexes_sha256")
         or not any(sound_crop)
     ):
@@ -4941,7 +4973,7 @@ def main() -> int:
         or movement_type_readback["site_count"] != 2
         or movement_type_readback["changed_byte_count"] != 0
         or movement_type_readback["source_suffix"] != "専用"
-        or movement_type_readback["output_suffix"] != "专用"
+        or movement_type_readback["output_suffix"] != _expected_text("专用")
         or movement_type_readback["preserved_parallel_type"]
         != movement_type_component.get("preserved_parallel_type")
         or not movement_type_readback["all_materialization_sequences_exact"]
@@ -6223,7 +6255,7 @@ def main() -> int:
     )
     if (
         label.get("id") != "scenario-chart-title"
-        or label.get("translation") != "剧情流程"
+        or label.get("translation") != _expected_text("剧情流程")
         or sha256_bytes(label_crop) != label.get("output_indexes_sha256")
         or not any(label_crop)
     ):
@@ -6243,7 +6275,7 @@ def main() -> int:
             final_scenario_decoded.output[final_record.offset:final_record.end]
         ),
         "storage_layout": "linear_indexed8",
-        "translation": "剧情流程",
+        "translation": _expected_text("剧情流程"),
         "output_logical_indexes_sha256": sha256_bytes(final_indexes),
         "source_alpha_plane_sha256": sha256_bytes(original_alpha),
         "output_alpha_plane_sha256": sha256_bytes(final_alpha),
@@ -7232,7 +7264,7 @@ def main() -> int:
         "“哦！把自己机体弄坏的那家伙，\n　罚你帮忙修理。”"
     )
     # The corpus stores the reviewed break itself since the 2026-11-13 break restoration.
-    if reported_land_translation != expected_land_translation:
+    if reported_land_translation != _expected_text(expected_land_translation):
         raise SystemExit(
             "reported Land dialogue mismatch: "
             f"expected={expected_land_translation!r} "
@@ -7644,7 +7676,7 @@ def main() -> int:
                     site["translation"]
                     for site in movement_type_readback["sites"]
                 ]
-                == ["空专用", "陆专用"]
+                == [_expected_text(text) for text in ("空专用", "陆专用")]
                 and movement_type_readback["preserved_parallel_type"][
                     "preserved_byte_exact"
                 ]
@@ -7664,7 +7696,7 @@ def main() -> int:
                     site["translation"]
                     for site in weapon_category_readback["sites"]
                 ]
-                == ["格斗武器（　　）", "射击武器（　　）"]
+                == [_expected_text(text) for text in ("格斗武器（　　）", "射击武器（　　）")]
             ),
             "search_tab_five_label_alignment_exact": (
                 search_tab_alignment_readback["surface_count"] == 5
@@ -7887,7 +7919,7 @@ def main() -> int:
                 and auto_demo_overlays["unknown_code_count"] == 0
                 and auto_demo_overlays["translated_reread_exact"]
                 and auto_demo_overlays["kamille_name"]["translation"]
-                == "卡缪"
+                == _expected_text("卡缪")
             ),
             "hb_stage_offsets_valid": True,
             "default_formation_names_exact": (
@@ -7965,7 +7997,7 @@ def main() -> int:
                 len(player_choice_readbacks) == len(player_choice_entry_ids)
             ),
             "reported_land_dialogue_exact": (
-                reported_land_translation == expected_land_translation
+                reported_land_translation == _expected_text(expected_land_translation)
             ),
             "unknown_code_count_zero": True,
             "translation_entry_count_exact": total_entries

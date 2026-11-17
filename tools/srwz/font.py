@@ -444,6 +444,70 @@ def standard_code_for_glyph_index(
     return code
 
 
+# Linear area: glyph cells past the original 4,480-glyph store, addressed by
+# lead bytes 0x99.. through the executable's linear fallback (extended-table
+# miss -> standard formula). Only used when a font profile raises capacity.
+LINEAR_LEAD_START = 0x99
+LINEAR_GLYPH_START = (LINEAR_LEAD_START - STANDARD_LEAD_START) * STANDARD_GLYPH_STRIDE  # 4608
+
+
+@dataclass(frozen=True)
+class FontCapacity:
+    """Decoded-font capacity of one release font profile."""
+
+    glyph_count: int = GLYPH_COUNT
+    linear: bool = False
+
+
+def font_capacity(config: Mapping) -> FontCapacity:
+    """Read ``font_capacity`` from a release font config; absent = the stock store."""
+
+    raw = config.get("font_capacity") if isinstance(config, Mapping) else None
+    if raw is None:
+        return FontCapacity()
+    if not isinstance(raw, Mapping) or set(raw) - {"glyph_count", "linear_area", "reason"}:
+        raise ValueError("font_capacity is malformed")
+    count = raw.get("glyph_count")
+    linear = raw.get("linear_area")
+    if (
+        not isinstance(count, int) or isinstance(count, bool) or linear is not True
+        or count <= LINEAR_GLYPH_START or count % STANDARD_GLYPH_STRIDE
+        or count > (0xA0 - STANDARD_LEAD_START) * STANDARD_GLYPH_STRIDE
+    ):
+        raise ValueError("font_capacity must name a whole linear lead row above 4608 glyphs")
+    return FontCapacity(glyph_count=count, linear=True)
+
+
+def linear_glyph_index(code: int, *, glyph_count: int) -> int:
+    """Glyph index of a linear-area code (lead 0x99.., trail 0x40..0xFF)."""
+
+    lead, trail = code >> 8, code & 0xFF
+    if lead < LINEAR_LEAD_START or trail < STANDARD_TRAIL_START:
+        raise ValueError("text code is outside the linear glyph area")
+    index = (lead - STANDARD_LEAD_START) * STANDARD_GLYPH_STRIDE + trail - STANDARD_TRAIL_START
+    if not LINEAR_GLYPH_START <= index < glyph_count:
+        raise ValueError("linear text code resolves outside font data")
+    return index
+
+
+def linear_area_codes(
+    extended_entries: Iterable[ExtendedGlyphEntry],
+    *,
+    glyph_count: int,
+) -> list[tuple[int, int]]:
+    """(code, glyph index) of every linear cell the extension table does not shadow."""
+
+    shadowed = {entry.code for entry in extended_entries}
+    rows = []
+    for index in range(LINEAR_GLYPH_START, glyph_count):
+        code = ((STANDARD_LEAD_START + index // STANDARD_GLYPH_STRIDE) << 8) | (
+            STANDARD_TRAIL_START + index % STANDARD_GLYPH_STRIDE
+        )
+        if code not in shadowed:
+            rows.append((code, index))
+    return rows
+
+
 def extended_glyph_index(row: int, packed_position: int) -> int:
     """Decode the signed row and packed 8-bit position used by the table."""
 
@@ -517,8 +581,14 @@ def glyph_index_for_code(
     extended_entries: Iterable[ExtendedGlyphEntry],
     *,
     glyph_count: int = GLYPH_COUNT,
+    linear: bool = False,
 ) -> int:
-    """Resolve one two-byte text code to a verified decoded-font index."""
+    """Resolve one two-byte text code to a verified decoded-font index.
+
+    ``linear`` mirrors the executable's linear glyph fallback (installed by the
+    Traditional-Chinese language patch): an extended code absent from the table
+    resolves by the standard formula, restricted to the linear area.
+    """
 
     if not isinstance(code, int):
         raise TypeError("text code must be an integer")
@@ -527,6 +597,8 @@ def glyph_index_for_code(
     if not 0 <= code <= 0xFFFF:
         raise ValueError("text code is outside two bytes")
     index = extended_glyph_mapping(extended_entries).get(code)
+    if index is None and linear:
+        return linear_glyph_index(code, glyph_count=glyph_count)
     if index is None:
         raise ValueError("text code is absent from extended glyph table")
     if not 0 <= index < glyph_count:
@@ -927,6 +999,12 @@ __all__ = [
     "FONT_SEGMENT_INDEX",
     "FontPatchAnalysis",
     "GLYPH_COUNT",
+    "FontCapacity",
+    "LINEAR_GLYPH_START",
+    "LINEAR_LEAD_START",
+    "font_capacity",
+    "linear_area_codes",
+    "linear_glyph_index",
     "GLYPH_BITS_PER_PIXEL",
     "GLYPH_HEIGHT",
     "GLYPH_ROW_BYTES",

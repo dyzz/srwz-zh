@@ -12,7 +12,9 @@ from srwz.font import (
     ASCII_LAST,
     GLYPH_COUNT,
     ascii_glyph_index,
+    font_capacity,
     glyph_index_for_code,
+    linear_area_codes,
     read_extended_glyph_table,
     sha256_bytes,
     standard_code_for_glyph_index,
@@ -325,9 +327,11 @@ def main() -> int:
     # particular, 0x8140 is the ideographic space used by stored UI text.
     source_slps = (WORK_ROOT / "disc/SLPS_258.87").read_bytes()
     extended = read_extended_glyph_table(source_slps)
+    capacity = font_capacity(config)
+    lookup = {"glyph_count": capacity.glyph_count, "linear": capacity.linear}
     for code in protected_runtime_codes:
         try:
-            occupied_glyphs.add(glyph_index_for_code(code, extended))
+            occupied_glyphs.add(glyph_index_for_code(code, extended, **lookup))
         except ValueError:
             pass
     preserved_codes = {
@@ -338,7 +342,7 @@ def main() -> int:
     occupied_codes.update(preserved_codes)
     for code in preserved_codes:
         try:
-            occupied_glyphs.add(glyph_index_for_code(code, extended))
+            occupied_glyphs.add(glyph_index_for_code(code, extended, **lookup))
         except ValueError:
             pass
     trusted_candidates = snapshot.get("remaining_allocation_candidates")
@@ -389,7 +393,7 @@ def main() -> int:
             and code not in occupied_codes
         ):
             try:
-                candidate_glyph = glyph_index_for_code(code, extended)
+                candidate_glyph = glyph_index_for_code(code, extended, **lookup)
             except ValueError:
                 candidate_glyph = None
             if (
@@ -409,6 +413,21 @@ def main() -> int:
                 occupied_glyphs,
                 width_class=DEFAULT_WIDTH_CLASS,
             )
+            if pooled_candidate is None and capacity.linear:
+                # Profiles with a raised capacity continue into the linear area
+                # (lead 0x99..), never into a cell the extension table shadows.
+                pooled_candidate = next(
+                    (
+                        (linear_code, linear_glyph, "linear_area_allocation", None)
+                        for linear_code, linear_glyph in linear_area_codes(
+                            extended, glyph_count=capacity.glyph_count
+                        )
+                        if linear_code not in occupied_codes
+                        and linear_glyph not in occupied_glyphs
+                        and allocation_width_class(linear_code) == DEFAULT_WIDTH_CLASS
+                    ),
+                    None,
+                )
         if glyph_index is not None and direct_width_class == DEFAULT_WIDTH_CLASS:
             row = {
                 "character": character,

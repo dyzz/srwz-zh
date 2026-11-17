@@ -1,0 +1,576 @@
+{
+  "schema_version": 1,
+  "status": "static_localized_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-stage-clear-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the fixed までクリア！ suffix in KVMDATA chunk 11. It preserves 第, 話, the quotes, the numeric sprite, and the runtime-composed stage title.",
+  "content_policy": "Hashes, coordinates, counts and render parameters only; game bytes, localized text and preview PNGs remain outside this committed manifest.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-stage-clear-atlas-zh.json",
+      "size": 5805,
+      "sha256": "33d241955ef61c3564dc8c40f01ac26b85501d7d6760f11c4ec4d0f249779be4"
+    },
+    "base_mapping": {
+      "config": {
+        "path": "config/assets/maps/tim2-kvm11-stage-clear.json",
+        "size": 3638,
+        "sha256": "967cf5341f295456169ec4a2c94c2b0307ed65634815e47040d43cc6603a21e0"
+      },
+      "manifest": {
+        "path": "manifests/ui-stage-clear-atlas-map-canary-validation.json",
+        "size": 11599,
+        "sha256": "4be221fc93b07ae77953b1d52d16a2d234848c932ae1be84c0bce71f1b18c549"
+      },
+      "profile_id": "ui-stage-clear-atlas-map-canary",
+      "status": "static_component_validated_runtime_mapping_pending",
+      "archive": {
+        "size": 3335408,
+        "sha256": "ead2dbd0bc3a6402bd754ee118a4c966670a3bcd8b137f3ad840c149bfe3c458"
+      }
+    },
+    "font": {
+      "flavor": {
+        "font_flavor_id": "srwz-zh-harmonyos-sans-sc-light-v1",
+        "path": "config/fonts/zh-localization-font-light.json",
+        "sha256": "9c6d630aff578653628598f751401a7440d721ddced6d19c3cd7aa0cef077010",
+        "font_lock": "config/fonts/harmonyos-sans-sc-light.lock.json",
+        "font_lock_sha256": "d051c396cf5380f7a6a6e78bed7de0d33020ae5a3576bad36500f340764d4526"
+      },
+      "source": {
+        "family": "HarmonyOS Sans SC",
+        "version": "1.0",
+        "font_sha256": "dd366290b40861bc6ced85801e850ab66d6fe4c5b33bc43095a9747fa29288d8",
+        "license_spdx": "LicenseRef-HarmonyOS-Sans-Fonts-License",
+        "license_sha256": "b2ffec0e6269ee41c3b5fc0345ab37600b46d66ebea6c9c58ff37f517bdfa164",
+        "source_kind": "pinned-official-archive",
+        "source_id": "huawei-harmonyos-sans",
+        "distribution": "commercial_use_with_notice"
+      }
+    },
+    "translation_source": {
+      "file": {
+        "path": "corpus/zh/ui-atlas/stage-clear-v1.json",
+        "size": 836,
+        "sha256": "392449f26a8b7111a260ada7a93f528d2ec0bb5cb5cc8cea81d26f3d175440fd"
+      },
+      "batch_id": "v1-ui-atlas-stage-clear",
+      "entry_id": "ui-atlas/kvm11/stage-clear-suffix",
+      "editorial_status": "reviewed",
+      "source_ref_count": 1
+    },
+    "render_snapshot": {
+      "path": "config/assets/ui-stage-clear-atlas-render-snapshot.json",
+      "size": 6523,
+      "sha256": "02e8017092b2deab65deb1eb14ccad5955600f44e1a3c4aae08e13f61e0be343"
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 11,
+    "chunk_start": 335984,
+    "chunk_end": 369328,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "までクリア！",
+    "operation": "replace_erased_locator_with_text",
+    "candidate_scene_ids": [
+      "intermission/stage-clear-ticker"
+    ],
+    "mask": {
+      "x": 60,
+      "y": 0,
+      "width": 94,
+      "height": 24,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 700,
+      "changed_pixel_indexes_sha256": "7ab70b6ff092d80ed063e5acb054467e1c22f0588b834722f072b1de8e75e56c",
+      "outside_mask_rgba_exact": true
+    },
+    "force_reindex_entire_masks": true,
+    "expected_background_palette_index": 0,
+    "forced_indexed_text_pixel_count": 542,
+    "indexed_rgba_unchanged_pixel_count": 0
+  },
+  "localized_label": {
+    "source_locator_sha256": "fd2d6f0d3db9b7c3216777991f8b94b650523d5aa5dd2774a1f536e33a7d39fe",
+    "text_sha256": "5c04f887c552a5410a563fb0074927ec26c98393fba6eeb004b030f41cd7707c",
+    "character_count": 4,
+    "render": {
+      "point_size": 16,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.5,
+      "fill_stroke_width": 0,
+      "supersample_factor": 4,
+      "horizontal_offset": -16,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "606060ff",
+        "707070ff"
+      ],
+      "indexed_layers": {
+        "outline": [
+          {
+            "rgba": "101010ff",
+            "palette_index": 1
+          },
+          {
+            "rgba": "202020ff",
+            "palette_index": 2
+          },
+          {
+            "rgba": "303030ff",
+            "palette_index": 3
+          },
+          {
+            "rgba": "404040ff",
+            "palette_index": 4
+          },
+          {
+            "rgba": "505050ff",
+            "palette_index": 5
+          },
+          {
+            "rgba": "606060ff",
+            "palette_index": 6
+          },
+          {
+            "rgba": "707070ff",
+            "palette_index": 7
+          }
+        ],
+        "fill": [
+          {
+            "rgba": "000000ff",
+            "palette_index": 8
+          },
+          {
+            "rgba": "1b1b1bff",
+            "palette_index": 9
+          },
+          {
+            "rgba": "1b1b1bff",
+            "palette_index": 10
+          },
+          {
+            "rgba": "1b1b1bff",
+            "palette_index": 11
+          },
+          {
+            "rgba": "1b1b1bff",
+            "palette_index": 12
+          },
+          {
+            "rgba": "1b1b1bff",
+            "palette_index": 13
+          },
+          {
+            "rgba": "1b1b1bff",
+            "palette_index": 14
+          },
+          {
+            "rgba": "1b1b1bff",
+            "palette_index": 15
+          }
+        ]
+      },
+      "text_mask": {
+        "size": 2256,
+        "sha256": "bb7fb4033e7747a5383dd2fddaf63d8fae80e13cb33ee28dcc77d4c25999dc6a",
+        "nonzero_pixel_count": 542
+      }
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+    "text_render_source": "locked_snapshot"
+  },
+  "text_audit": {
+    "added_pixel_count": 542,
+    "added_pixel_indexes_sha256": "2023eb3aa3efff107c72761c767a1870840633c11a3dba91fe663f04eb398cf3",
+    "indexed_layer_counts": {
+      "outline": {
+        "2": 23,
+        "3": 5,
+        "4": 2,
+        "5": 2,
+        "6": 3,
+        "7": 1
+      },
+      "fill": {
+        "8": 33,
+        "9": 55,
+        "10": 101,
+        "11": 25,
+        "12": 109,
+        "13": 78,
+        "14": 78,
+        "15": 27
+      }
+    },
+    "fill_mask_sha256": "72b863cfd482a1bf5b0633e62640abc11945db35766c7ca741e3e9a1d5bde2d9",
+    "fill_mask_nonzero_pixel_count": 506,
+    "outside_mask_rgba_exact": true,
+    "erased_background_preimage_exact": true,
+    "delta_from_erased": {
+      "changed_pixel_count": 542,
+      "changed_pixel_indexes_sha256": "2023eb3aa3efff107c72761c767a1870840633c11a3dba91fe663f04eb398cf3",
+      "outside_mask_rgba_exact": true
+    },
+    "delta_from_original": {
+      "changed_pixel_count": 700,
+      "changed_pixel_indexes_sha256": "7ab70b6ff092d80ed063e5acb054467e1c22f0588b834722f072b1de8e75e56c",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 542,
+    "changed_image_byte_count": 301,
+    "changed_image_byte_ranges": [
+      {
+        "start": 550,
+        "end": 551
+      },
+      {
+        "start": 552,
+        "end": 557
+      },
+      {
+        "start": 558,
+        "end": 565
+      },
+      {
+        "start": 670,
+        "end": 677
+      },
+      {
+        "start": 678,
+        "end": 685
+      },
+      {
+        "start": 686,
+        "end": 693
+      },
+      {
+        "start": 694,
+        "end": 696
+      },
+      {
+        "start": 798,
+        "end": 805
+      },
+      {
+        "start": 806,
+        "end": 808
+      },
+      {
+        "start": 809,
+        "end": 813
+      },
+      {
+        "start": 814,
+        "end": 821
+      },
+      {
+        "start": 822,
+        "end": 824
+      },
+      {
+        "start": 926,
+        "end": 928
+      },
+      {
+        "start": 931,
+        "end": 933
+      },
+      {
+        "start": 934,
+        "end": 941
+      },
+      {
+        "start": 942,
+        "end": 949
+      },
+      {
+        "start": 950,
+        "end": 952
+      },
+      {
+        "start": 1054,
+        "end": 1056
+      },
+      {
+        "start": 1059,
+        "end": 1061
+      },
+      {
+        "start": 1063,
+        "end": 1069
+      },
+      {
+        "start": 1070,
+        "end": 1077
+      },
+      {
+        "start": 1078,
+        "end": 1080
+      },
+      {
+        "start": 1182,
+        "end": 1184
+      },
+      {
+        "start": 1187,
+        "end": 1197
+      },
+      {
+        "start": 1198,
+        "end": 1205
+      },
+      {
+        "start": 1206,
+        "end": 1208
+      },
+      {
+        "start": 1310,
+        "end": 1325
+      },
+      {
+        "start": 1326,
+        "end": 1333
+      },
+      {
+        "start": 1334,
+        "end": 1336
+      },
+      {
+        "start": 1438,
+        "end": 1445
+      },
+      {
+        "start": 1447,
+        "end": 1453
+      },
+      {
+        "start": 1454,
+        "end": 1461
+      },
+      {
+        "start": 1462,
+        "end": 1464
+      },
+      {
+        "start": 1566,
+        "end": 1568
+      },
+      {
+        "start": 1575,
+        "end": 1581
+      },
+      {
+        "start": 1582,
+        "end": 1589
+      },
+      {
+        "start": 1590,
+        "end": 1592
+      },
+      {
+        "start": 1694,
+        "end": 1696
+      },
+      {
+        "start": 1700,
+        "end": 1701
+      },
+      {
+        "start": 1703,
+        "end": 1709
+      },
+      {
+        "start": 1710,
+        "end": 1717
+      },
+      {
+        "start": 1718,
+        "end": 1720
+      },
+      {
+        "start": 1822,
+        "end": 1824
+      },
+      {
+        "start": 1828,
+        "end": 1830
+      },
+      {
+        "start": 1831,
+        "end": 1837
+      },
+      {
+        "start": 1838,
+        "end": 1845
+      },
+      {
+        "start": 1846,
+        "end": 1848
+      },
+      {
+        "start": 1950,
+        "end": 1952
+      },
+      {
+        "start": 1956,
+        "end": 1957
+      },
+      {
+        "start": 1958,
+        "end": 1965
+      },
+      {
+        "start": 1966,
+        "end": 1973
+      },
+      {
+        "start": 2078,
+        "end": 2080
+      },
+      {
+        "start": 2084,
+        "end": 2085
+      },
+      {
+        "start": 2086,
+        "end": 2093
+      },
+      {
+        "start": 2094,
+        "end": 2101
+      },
+      {
+        "start": 2102,
+        "end": 2104
+      },
+      {
+        "start": 2206,
+        "end": 2229
+      },
+      {
+        "start": 2230,
+        "end": 2232
+      },
+      {
+        "start": 2335,
+        "end": 2343
+      },
+      {
+        "start": 2344,
+        "end": 2357
+      },
+      {
+        "start": 2359,
+        "end": 2360
+      }
+    ],
+    "available_color_count": 10,
+    "archive_diff_from_erased_base": {
+      "diff_count": 301,
+      "range_count": 61,
+      "first_offset": 336598,
+      "last_offset": 338407,
+      "offsets_sha256": "64dc17e0b05c7c157dfdb874c61910d232bcc344744deb1d73ac5eec0e085c8e",
+      "ranges_sha256": "d456ef39a03e12f03968d8e10a2bed3a42a42b7e571959a456d89bea0aa34f07",
+      "before_values_sha256": "1386bff17a8c6c42bc4a3e0d13b31ba158bfbcbf941a5e0b22c6bed8cc6a4a0b",
+      "after_values_sha256": "d37a4f1cb68a5c362cf5b9013b38ba65030e3ae4164dfa40d4fe437e051a5f6d"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "855e40d4c2d6776b4884bbc1604c50570b9649506f6c6eab47705d44747a1aa4"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "f6db3deb3ad450060f396e69e798de4782de14e25cf0b943fec69823dfc5fb01"
+    },
+    "reference_png": {
+      "size": 3414,
+      "sha256": "3857343a6d5262a0a4667c4821775ee0266f1bd27753ea2e673bcac5d94ede1a"
+    },
+    "localized_png": {
+      "size": 2985,
+      "sha256": "e1d92ba4787e6f368c0c9680b1a66c18cc2ad92fbc2e99e17fc9cac55930eff1"
+    }
+  },
+  "expected_lock": {
+    "text_mask": {
+      "size": 2256,
+      "sha256": "bb7fb4033e7747a5383dd2fddaf63d8fae80e13cb33ee28dcc77d4c25999dc6a",
+      "nonzero_pixel_count": 542
+    },
+    "reference_png": {
+      "size": 3414,
+      "sha256": "3857343a6d5262a0a4667c4821775ee0266f1bd27753ea2e673bcac5d94ede1a"
+    },
+    "localized_png": {
+      "size": 2985,
+      "sha256": "e1d92ba4787e6f368c0c9680b1a66c18cc2ad92fbc2e99e17fc9cac55930eff1"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "855e40d4c2d6776b4884bbc1604c50570b9649506f6c6eab47705d44747a1aa4"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "f6db3deb3ad450060f396e69e798de4782de14e25cf0b943fec69823dfc5fb01"
+    },
+    "added_pixel_count": 542,
+    "original_changed_pixel_count": 700,
+    "original_changed_pixel_indexes_sha256": "7ab70b6ff092d80ed063e5acb054467e1c22f0588b834722f072b1de8e75e56c",
+    "changed_archive_byte_count": 301,
+    "changed_archive_range_count": 61
+  },
+  "acceptance": {
+    "base_mapping_reproduced_exact": true,
+    "font_and_license_locked": true,
+    "text_mask_hash_locked": true,
+    "frozen_render_snapshot_consumed": true,
+    "ramp_uses_only_source_palette_rgba": true,
+    "localized_pixels_within_mapping_mask": true,
+    "source_element_rectangles_and_rgba_locked": true,
+    "fixed_element_palette_indexes_rebuilt": true,
+    "indexed_outline_and_fill_layers_rebuilt": true,
+    "erased_locator_preimage_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Confirm that the localized fixed suffix composes with the unchanged chapter markers, numeric sprite, closing quote, and translated runtime stage title.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_a_hash_locked_post-stage_save",
+      "enter_intermission_and_capture_the_scrolling_stage-clear_ticker",
+      "confirm_the_composed_text_reads_第N話_标题_已通关",
+      "capture_the_matching_texture_dump_delta"
+    ],
+    "expected_visual_effect": "The ticker reads 第N話「translated stage title」已通关！ with no residual までクリア！ pixels; 第 and 話 remain unchanged.",
+    "promotion_rule": "Only a matching screenshot and exact original-to-localized chunk 11 texture delta may promote the runtime result."
+  }
+}
