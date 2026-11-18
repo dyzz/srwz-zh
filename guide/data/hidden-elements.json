@@ -467,7 +467,7 @@
       "id": "system-ending-points",
       "category": "system",
       "title": "结局点数与最终结局",
-      "summary": "第41话后累计。7点以下受第59话选择影响；8–17点为较稳定结局；18点以上可选两种最佳结局。",
+      "summary": "从第41话起累计。6点及以下进入低分档，第59话有两个选择。7–17点固定进入较稳定结局。18点及以上可选两种最佳结局。",
       "term_refs": ["people/olson", "people/athena", "people/speaker-b85bd152a7ad", "people/holland", "people/jiron", "people/rand", "people/speaker-c2810db52aa2", "people/ghingham", "people/shagia", "people/olba", "people/beck", "people/moroha", "people/quattro", "people/kamille", "people/emma", "people/speaker-a23753fe36e8", "people/speaker-58ffc6397f82", "people/lunamaria", "unit/sol-gravion", "people/speaker-98397dd93972"],
       "steps": [
         {"stage": 41, "text": "奇拉姆增援前，除埃曼舰外不击坠其他埃曼单位：＋1；全灭其他埃曼单位：－1；{{people/olson}}说得{{people/athena}}：＋1。", "evidence_level": "stage-static"},
@@ -492,7 +492,7 @@
         {"stage": 56, "ordinals": [99], "text": "ZAFT路线：真仍在场时由拉克丝说得露娜玛丽亚，＋1；击坠哈曼，＋1；露娜玛丽亚被击坠，－1。", "evidence_level": "stage-static"},
         {"stage": 57, "ordinals": [98, 100], "text": "两条路线同时击坠音翅与头翅，＋1。", "evidence_level": "stage-static"},
         {"stage": 58, "text": "选择“留在{{place/paradigm-city}}生活”，结局点数－15。", "evidence_level": "stage-static"},
-        {"stage": 59, "ordinals": [102, 104], "text": "7点以下：选“无法独自决定”进入黑历史结局，选“希望世界稳定”进入不稳定世界结局；8–17点固定为较稳定结局；18点以上可在世界完全稳定与恢复原状两种最佳结局间选择。", "evidence_level": "cross-stage"}
+        {"stage": 59, "ordinals": [102, 104], "text": "6点及以下，选“无法自行决定”进入黑历史结局，选“希望世界稳定”进入不稳定世界结局。7–17点没有选项，固定进入较稳定结局。18点及以上，选“希望世界稳定”让多元世界完全稳定，选“希望一切恢复原样”让各个世界恢复原状。", "evidence_level": "cross-stage"}
       ]
     }
   ]
