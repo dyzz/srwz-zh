@@ -74,8 +74,7 @@ SP_CONFIG_DRAFTS = ['config/editorial/special-disc/stage-context-reuse.json',
 # Main-game asset configs that SP's own image chain applies to SP's atlas (menu restore, bazaar heading). The
 # Traditional overlays of these describe the Original atlas, so the SP clone keeps the Simplified ones until SP's
 # own Traditional image chain exists (S5).
-SP_KEEP_SC = ['config/assets/ui-menu-native-restore.json', 'config/assets/ui-bazaar-atlas-render-snapshot.json',
-              'config/world-map-title-render-snapshot.json']            # SP world-map title bindings
+SP_KEEP_SC = ['config/assets/ui-menu-native-restore.json', 'config/assets/ui-bazaar-atlas-render-snapshot.json']
 
 
 def sp_keep_sc(tc: Path) -> None:
@@ -106,11 +105,16 @@ def sp_images_stay_sc(tc: Path) -> None:
     doc = json.loads((tc / rel).read_text(encoding='utf-8'))
     n = 0
     for e in doc['entries']:
-        if e.get('category') == 'image-label':
+        if e.get('category') == 'image-label' and any(l.startswith('sd/image/kvmdata/') for l in e['locations']):
             e['translation'] = sc[e['id']]['translation']; n += 1
     bd.dump(tc / rel, doc)
     from locks import refresh_locks
-    print('SP image labels kept Simplified:', n, 'locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+    print('SP menu-atlas labels kept Simplified:', n, 'locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+    # the other image labels (the three newer world-map titles in MAPMODEL) are authored in Traditional
+    bd.run('python3', 'tools/special_disc/writeback/write_image_labels.py', '--refreeze',
+           '--output', tc / 'build/zh-hant-sp/image-labels', cwd=tc)
+    snap = 'config/assets/special-disc/full-text-image-labels.json'
+    print('SP image labels re-authored; locks refreshed:', refresh_locks(tc, [snap]), flush=True)
 
 
 def sp_instruction_layout(tc: Path) -> None:
@@ -133,18 +137,22 @@ def sp_instruction_layout(tc: Path) -> None:
     print('SP instruction layout rebound:', len(doc['pages']), 'pages; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
-def sp_stage_title_bindings(tc: Path) -> None:
-    """The 21 SP stage-title images bind to the episode-title texts, which are also written as text (flow,
-    titles), so the texts are Traditional; the image snapshot's bindings follow them while its pixels stay as
-    authored until the Traditional images (S5)."""
-    rel = 'config/assets/special-disc/stage-title-graphics.json'
+def sp_world_map_titles(tc: Path) -> None:
+    """SP's ten world-map titles reuse the Original world-map title renders (config/world-map-title-render-snapshot.json,
+    Traditional in the clone): the SP bindings take the Traditional rows."""
+    import hashlib
+    rel = 'config/assets/special-disc/world-map-title-bindings.json'
     doc = json.loads((tc / rel).read_text(encoding='utf-8'))
-    rows = {e['id']: e for e in json.loads((tc / 'corpus/zh/special-disc/frame-text.json').read_text(encoding='utf-8'))['entries']}
-    for t in doc['titles']:
-        t['translation'] = rows[t['corpus_id']]['translation']
+    snap_path = tc / doc['snapshot']['path']
+    rows = {e['id']: e for e in json.loads(snap_path.read_text(encoding='utf-8'))['entries']}
+    for b in doc['bindings']:
+        row = rows[b['snapshot_id']]
+        if row['source_raw_sha256'] != b['source_raw_sha256']: raise SystemExit(f"{b['snapshot_id']}: source drift")
+        b['translation'] = row['translation']; b['output_raw_sha256'] = row['output_raw_sha256']
+    doc['snapshot']['sha256'] = hashlib.sha256(snap_path.read_bytes()).hexdigest()
     bd.dump(tc / rel, doc)
     from locks import refresh_locks
-    print('SP stage-title bindings follow the Traditional texts; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+    print('SP world-map titles bound to the Traditional renders; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
 def sp_qa_layout(tc: Path) -> None:
@@ -245,6 +253,21 @@ def sp_gallery_talk(tc: Path) -> None:
     print('SP gallery dialogue re-authored; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
+def sp_stage_titles(tc: Path) -> None:
+    """The 21 SP stage-title images, authored from the Traditional texts with the Traditional SP font (the text
+    canary baseline carries it) by SP's own authoring tool; the snapshot's locks follow."""
+    script = ("import sys; sys.path[:0] = ['tools', 'tools/special_disc/writeback', 'tools/special_disc/images']\n"
+              "from special_disc.baselines import baseline_iso\n"
+              "iso = baseline_iso('text-canary')\n"
+              "sys.argv = ['freeze_stage_titles', '--font-iso', str(iso), '--proposal',\n"
+              "            'work/build/special-disc/text-candidate/font/proposal.json', '--output', 'build/zh-hant-sp/stage-titles']\n"
+              "import freeze_stage_titles\nfreeze_stage_titles.main()\n")
+    bd.run('python3', '-c', script, cwd=tc)
+    from locks import refresh_locks
+    rel = 'config/assets/special-disc/stage-title-graphics.json'
+    print('SP stage titles authored in Traditional; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+
+
 def build(project: Path, version: str) -> Path:
     (project / 'manifests/editions/sp/candidate.json').unlink(missing_ok=True)
     bd.run('python3', 'tools/build_editions.py', '--editions', 'sp', '--candidate', '--release-version', version, cwd=project)
@@ -271,8 +294,8 @@ def main() -> None:
     sp_keep_sc(tc)
     sp_font(tc)
     sp_config_drafts(tc)
+    sp_world_map_titles(tc)
     sp_images_stay_sc(tc)
-    sp_stage_title_bindings(tc)
     sp_qa_layout(tc)
     sp_instruction_layout(tc)
     sp_weapon_categories(tc)
@@ -284,6 +307,7 @@ def main() -> None:
     bd.run(sys.executable, HERE / 'sp_tc_baseline.py', tc, '--answer-key', answer_key[0])
     sp_encoded_contracts(tc)
     sp_gallery_talk(tc)
+    sp_stage_titles(tc)
     tc_iso = build(tc, a.release_version)
     if a.tc_only:
         print(tc_iso); return

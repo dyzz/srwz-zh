@@ -50,6 +50,7 @@ TITLE_TABLE, TITLE_COUNT = 0x41A2B0, 117
 SP_VT1_TABLE, SP_FONT_CHUNK, SP_FONT_DONOR, SP_VT1_TAIL = 0x452E10, 3, 1, 37   # SP: font chunk 3 (chunk 1 donates its
                                                          # zero tail when a bigger font is installed), tail groups 37..
 SP_FONT_BUFFER = 0x4524E8
+SP_TITLE_GROUP, SP_TITLE_TABLE = 9, 0x475A60
 SP_FONT_LOADER = {0x13AC14: 0x84232DE4, 0x13AC24: 0x84222DE6, 0x13AC3C: 0x8C650000, 0x13AC40: 0x8C420000,
                   0x13AC48: 0x00453023, 0x13B3FC: 0x1000000C, 0x13B400: 0xA4200062}
 # Settings-panel text, per display language (each encoded with that language's codebook). MSG_KEYS is the
@@ -279,6 +280,7 @@ def main() -> None:
     v_sc, v_tc = sc.read('DATA/VT1.BIN'), tc.read('DATA/VT1.BIN')
     tc_exe = Elf(bytes(exe_tc.b))
     font = None; menu_chunk = title_shift = None
+    appended_vt1 = None
     if ED.key == 'original':
         o_sc = read_executable_archive_offsets(bytes(exe_sc.b), CORE_ARCHIVE_SPECS['VT1.BIN'], len(v_sc))
         o_tc = read_executable_archive_offsets(bytes(exe_tc.b), CORE_ARCHIVE_SPECS['VT1.BIN'], len(v_tc))
@@ -335,53 +337,38 @@ def main() -> None:
 
 
     elif ED.key == 'sp' and v_sc != v_tc:
-        # SP: VT1's offset table is start offsets ending with the archive size (0x452E10). The disc keeps the SC
-        # VT1; in Traditional mode (patch records) the font loader reads the TC font from DMY through immediates,
-        # and chunks 37..107 (four groups, each read in one go from its start to the next group's start) are read
-        # from one DMY copy of the TC range: their table entries shift together, so every group keeps its length.
+        # SP: VT1 is read in groups whose length is the next group's start in one offset table, so no single chunk
+        # can be moved without breaking its neighbour. In Traditional mode the whole VT1 member is redirected (VMAP
+        # row) to a complete Traditional copy appended after the image; the TC executable keeps its own VT1 table,
+        # and only the font buffer grows (Traditional mode only: the hook runs before the font is loaded).
+        vt1_row = rows.get('DATA/VT1.BIN')
+        if vt1_row is None or vt1_row[1] != vt1m.extent_lba: raise SystemExit('SP VT1 VMAP row missing or stale')
+        from srwz.codec import decode
         def sp_table(elf, size):
             out, va = [], SP_VT1_TABLE
             while True:
                 x = elf.word(va); out.append(x); va += 4
                 if x == size: return out
-        o_sc, o_tc = sp_table(exe_sc, len(v_sc)), sp_table(exe_tc, len(v_tc))
-        if len(o_sc) != len(o_tc): raise SystemExit('SP VT1 chunk count differs')
-        nchunks = len(o_sc) - 1
-        chunk = lambda v, o, i: v[o[i]:o[i + 1]]
-        differing = [i for i in range(nchunks) if chunk(v_sc, o_sc, i).rstrip(b'\0') != chunk(v_tc, o_tc, i).rstrip(b'\0')]
-        from srwz.codec import decode
-        font = chunk(v_tc, o_tc, SP_FONT_CHUNK).rstrip(b'\0')
-        tc_glyphs = decode(font).output
+        o_tc = sp_table(exe_tc, len(v_tc))
+        tc_glyphs = decode(v_tc[o_tc[SP_FONT_CHUNK]:o_tc[SP_FONT_CHUNK + 1]]).output
         if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the font buffer')
-        font_lba = place('TC font (SP VT1 chunk 3)', font); font_offset = (font_lba - vt1m.extent_lba) * 2048
-        tail = [i for i in differing if i >= SP_VT1_TAIL]
-        unsupported = [i for i in differing if i not in (SP_FONT_CHUNK, SP_FONT_DONOR) and i < SP_VT1_TAIL]
-        if unsupported: raise SystemExit(f'SP VT1 chunks {unsupported} differ and have no Traditional loader')
-        tc_exe.put(SP_VT1_TABLE, exe_sc.get(SP_VT1_TABLE, 4 * len(o_sc)))     # disc keeps the SC VT1
-        tail_shift = None
-        if tail:
-            block = v_tc[o_tc[SP_VT1_TAIL]:o_tc[nchunks]]
-            tlba = place(f'TC VT1 chunks {SP_VT1_TAIL}..{nchunks - 1}', block)
-            base = (tlba - vt1m.extent_lba) * 2048
-            for i in range(SP_VT1_TAIL, nchunks + 1):
-                tc_exe.putw(SP_VT1_TABLE + 4 * i, base + o_tc[i] - o_tc[SP_VT1_TAIL])
-            tail_shift = dict(first_chunk=SP_VT1_TAIL, vt1_relative_offset=base, bytes=len(block), differing=tail)
-        for va, w in SP_FONT_LOADER.items():
-            if tc_exe.word(va) != w: raise SystemExit(f'SP font loader preimage drift at {va:#x}')
-        lui = lambda rt, v: 0x3C000000 | rt << 16 | v
-        ori = lambda rt, v: 0x34000000 | rt << 21 | rt << 16 | v
-        for va, w in [(0x13AC14, lui(6, len(font) >> 16)), (0x13AC24, ori(6, len(font) & 0xFFFF)),
-                      (0x13AC3C, lui(5, font_offset >> 16)), (0x13AC40, ori(5, font_offset & 0xFFFF)), (0x13AC48, 0),
-                      (0x13B3FC, 0x10000002), (0x13B400, 0x90240061)]:
-            tc_exe.putw(va, w)
-        tc_exe.putw(SP_FONT_BUFFER, GLYPHS * 288)       # Traditional mode only: Simplified keeps the stock heap
-        report['vt1'] = {'font_bytes': len(font), 'font': {'glyphs': len(tc_glyphs) // 288},
-                         'font_vt1_relative_offset': font_offset, 'differing_chunks': differing, 'tail': tail_shift}
-        sp_font = (font_offset, font)
+        tc_exe.putw(SP_FONT_BUFFER, GLYPHS * 288)
+        for va in (0x13B3FC, 0x13B400):                     # linear glyph fallback (lead 0x99.. codes), as Original
+            if tc_exe.word(va) != SP_FONT_LOADER[va]: raise SystemExit(f'SP glyph fallback preimage drift at {va:#x}')
+        tc_exe.putw(0x13B3FC, 0x10000002); tc_exe.putw(0x13B400, 0x90240061)
+        appended_vt1 = v_tc
+        report['vt1'] = {'redirect': 'whole member appended after the image', 'bytes': len(v_tc),
+                         'font': {'glyphs': len(tc_glyphs) // 288}}
     elif v_sc != v_tc:
         raise SystemExit(f'{ED.key}: VT1 differs and the Traditional VT1 loaders are not implemented yet')
     else:
         report['vt1'] = {'identical': True}
+
+    vt1_tail_lba = None
+    if appended_vt1 is not None:
+        vt1_tail_lba = a.sc.stat().st_size // 2048           # written at the image end, before the executable moves
+        vmap_rows.append((rows['DATA/VT1.BIN'][0], vt1_tail_lba, -(-len(appended_vt1) // 2048)))
+        report['vt1']['lba'] = vt1_tail_lba
 
     def build_patch(code, syms):
         s, t = Elf(bytes(exe_sc.b)), Elf(bytes(tc_exe.b))
@@ -422,6 +409,13 @@ def main() -> None:
             f.seek(lba * 2048); f.write(data + bytes(n - len(data))); spans.append((lba * 2048, lba * 2048 + n))
         if len(SC.b) == exe_e.size:
             f.seek(exe_e.extent_lba * 2048); f.write(SC.b); spans.append((exe_e.extent_lba * 2048, exe_e.extent_lba * 2048 + len(SC.b)))
+    if appended_vt1 is not None:
+        with open(a.out, 'r+b') as f:
+            end = f.seek(0, 2)
+            if end != vt1_tail_lba * 2048: raise SystemExit('image end moved before the VT1 copy')
+            f.write(appended_vt1 + bytes(-len(appended_vt1) % 2048))
+            f.seek(vt1_tail_lba * 2048)
+            if f.read(len(appended_vt1)) != appended_vt1: raise SystemExit('readback appended VT1')
     relocation = None
     if len(SC.b) != exe_e.size:                             # SP: the executable grew by the cave segment
         from special_disc.iso_relocation import append_members, verify_relocation
@@ -431,6 +425,7 @@ def main() -> None:
     with open(a.out, 'rb') as f:
         def at(off, n): f.seek(off); return f.read(n)
         for off, lba, n in vmap_rows:
+            if lba == vt1_tail_lba: continue                   # the appended VT1 copy (read back when written)
             name = next(k for k, v in report['copied_members'].items() if v['tc_lba'] == lba)
             if at(lba * 2048, len(copied[name])) != copied[name]: raise SystemExit(f'readback {name}')
         if font is not None and at(vt1m.extent_lba * 2048 + font_offset, len(font)) != font: raise SystemExit('readback font')
@@ -441,9 +436,10 @@ def main() -> None:
         if menu_chunk is not None and at(vt1m.extent_lba * 2048 + menu_chunk[0], menu_chunk[1]) != menu_bytes:
             raise SystemExit('readback title menu')
         if title_shift is not None:
-            inner = struct.unpack('<%dI' % TITLE_COUNT, TC.get(TITLE_TABLE, TITLE_COUNT * 4))
-            base = vt1m.extent_lba * 2048 + o_sc[TITLE_GROUP]
-            if at(base + inner[0], inner[-1] - inner[0]) != chunk(v_tc, o_tc, TITLE_GROUP): raise SystemExit('readback titles')
+            table, count, group = (SP_TITLE_TABLE, 28, SP_TITLE_GROUP) if ED.key == 'sp' else (TITLE_TABLE, TITLE_COUNT, TITLE_GROUP)
+            inner = struct.unpack('<%dI' % count, TC.get(table, count * 4))
+            base = vt1m.extent_lba * 2048 + o_sc[group]
+            if at(base + inner[0], inner[-1] - inner[0]) != chunk(v_tc, o_tc, group): raise SystemExit('readback titles')
     merged = []
     for st, e in sorted(spans):
         if merged and st <= merged[-1][1]: merged[-1][1] = max(merged[-1][1], e)
