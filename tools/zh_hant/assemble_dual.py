@@ -37,9 +37,11 @@ sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from srwz.iso9660 import scan_iso9660, member_map  # noqa: E402
 from srwz.iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets  # noqa: E402
+from editions import EDITIONS, edition_inc, paths_inc  # noqa: E402
 
-EXE = 'SLPS_258.87'
-CAVE, CAVE_END = 0x78B640, 0x78C4C0      # free tail of the Latin-bank segment (payload ends 0x78b610)
+ED = EDITIONS['original']                # set by --edition (main)
+EXE = ED.exe
+CAVE, CAVE_END = ED.cave
 SCRATCH, SCRATCH_MAX = 0x1C00000, 0x80000
 GLYPHS = 4992                            # font buffer sized once for both languages (Traditional profile: 4,992)
 VT1_TABLE = 0x3F8680                     # executable VT1 offset table (file 0x2fa100), 15 words
@@ -75,9 +77,11 @@ MENU_LOADER = {0x154C8C: 0x8422_8668, 0x154C90: 0x0002_1080, 0x154C98: 0x00A2_28
                0x154CA4: 0x8CA5_0000, 0x154CA8: 0x8C42_0000}     # lh v0,-0x7998(at); sll; addu a1; addu v0; lw a1; lw v0
 FONT_LOADER = {0x13A174: 0x84238664, 0x13A184: 0x84228666, 0x13A19C: 0x8C650000, 0x13A1A0: 0x8C420000, 0x13A1A8: 0x00453023,
                0x13A95C: 0x1000000C, 0x13A960: 0xA4200062}
-FORBIDDEN = [(CAVE, CAVE_END), (0x141010, 0x141018), (0x155CF8, 0x155CFC), (0x3F7D68, 0x3F7D6C), (0x798000, 0x7A0000),
-             *((a, a + 8) for a in (0x189580, 0x189B70, 0x189600, 0x18AC10)),                   # music hooks
-             *((a, a + 4) for a in (0x1001D0, 0x1001D8, 0x140644, 0x140650, 0x3F3FB4))]         # heap words
+
+
+def forbidden():
+    return [(CAVE, CAVE_END), (ED.boot_site[0], ED.boot_site[0] + 8), (ED.title_site[0], ED.title_site[0] + 4),
+            *ED.forbidden]
 sha = lambda b: hashlib.sha256(b).hexdigest()
 
 
@@ -161,7 +165,9 @@ def assemble_hook(work: Path, patch_lba: int, patch_sectors: int, codebooks: dic
     (work / 'params.inc').write_text(f'        .equ PATCH_LBA, {patch_lba:#x}\n        .equ PATCH_SECTORS, {patch_sectors}\n'
                                      f'        .equ SCRATCH, {SCRATCH:#x}\n        .equ OPTIONS, {options:#x}\n')
     (work / 'messages.inc').write_text(codebook_messages(codebooks))
-    title = 'スーパーロボット大戦Ｚ言語設定'.encode('shift_jis'); assert len(title) <= 64
+    (work / 'edition.inc').write_text(edition_inc(ED))
+    (work / 'paths.inc').write_text(paths_inc(ED))
+    title = ED.icon_title.encode('shift_jis'); assert len(title) <= 64
     (work / 'icon_title.inc').write_text('icon_title:  # card browser title (Shift-JIS, line 2 from byte 22)\n        .byte '
                                          + ', '.join(str(x) for x in title + bytes(64 - len(title))) + '\n')
     def tool(t, *a, out=False):
@@ -180,13 +186,33 @@ def assemble_hook(work: Path, patch_lba: int, patch_sectors: int, codebooks: dic
 
 
 def static_words(elf: Elf, code: bytes, syms: dict):
-    if not (elf.word(0x3F7D68) in (0x13B000, GLYPHS * 288) and elf.word(0x141010) == 0x0C0400BC and elf.word(0x155CF8) == 0x0C0553EC):
-        raise SystemExit('executable preimages drift (hook sites / font buffer)')
+    (boot, boot_word), (title, title_word) = ED.boot_site, ED.title_site
+    if not (elf.word(boot) == boot_word and elf.word(title) == title_word):
+        raise SystemExit('executable preimages drift (hook sites)')
+    if ED.key == 'original':
+        if elf.word(0x3F7D68) not in (0x13B000, GLYPHS * 288): raise SystemExit('executable preimage drift (font buffer)')
+        elf.putw(0x3F7D68, GLYPHS * 288)
     if any(elf.get(CAVE, CAVE_END - CAVE)): raise SystemExit('hook cave not empty')
-    elf.putw(0x3F7D68, GLYPHS * 288)
-    elf.putw(0x141010, 0x0C000000 | CAVE >> 2)
-    elf.putw(0x155CF8, 0x0C000000 | syms['title_hook'] >> 2)
+    elf.putw(boot, 0x0C000000 | CAVE >> 2)
+    elf.putw(title, 0x0C000000 | syms['title_hook'] >> 2)
     elf.put(CAVE, code)
+
+
+def add_cave_segment(data: bytes) -> bytes:
+    """SP: the hook cave lies above the stock image end with no file data behind it. Append a zero-filled,
+    page-aligned PT_LOAD for it in the spare program-header slot (both languages get the same layout)."""
+    b = bytearray(data)
+    ph, n = struct.unpack_from('<I', b, 28)[0], struct.unpack_from('<H', b, 44)[0]
+    hs = [struct.unpack_from('<8I', b, ph + 32 * i) for i in range(n)]
+    if any(t == 1 and v < CAVE_END and CAVE < v + ms for t, o, v, p, fs, ms, fl, al in hs):
+        raise SystemExit('hook cave overlaps a loaded segment')
+    first = min(o for t, o, v, p, fs, ms, fl, al in hs if fs)
+    if ph + (n + 1) * 32 > first or any(b[ph + n * 32:ph + (n + 1) * 32]): raise SystemExit('no free program header slot')
+    off = (len(b) + 4095) & ~4095
+    b += bytes(off - len(b)) + bytes(CAVE_END - CAVE)
+    struct.pack_into('<8I', b, ph + n * 32, 1, off, CAVE, CAVE, CAVE_END - CAVE, CAVE_END - CAVE, 7, 16)
+    struct.pack_into('<H', b, 44, n + 1)
+    return bytes(b)
 
 
 def diff_records(a: Elf, b: Elf):
@@ -208,10 +234,16 @@ def main() -> None:
     p.add_argument('--codebook', type=Path, default=ROOT / 'config/encoding/zh-release-font-assignments.json')
     p.add_argument('--tc-codebook', type=Path, required=True, help='the Traditional release codebook (message-box text)')
     p.add_argument('--work', type=Path, default=ROOT / 'build/zh-hant/assemble')
+    p.add_argument('--edition', choices=sorted(EDITIONS), default='original')
     a = p.parse_args()
+    global ED, EXE, CAVE, CAVE_END
+    ED = EDITIONS[a.edition]; EXE = ED.exe; CAVE, CAVE_END = ED.cave
     if a.out.resolve().parent != (ROOT / 'build/iso/test').resolve(): raise SystemExit('output must be under build/iso/test')
     sc, tc = Disc(a.sc), Disc(a.tc)
-    exe_sc, exe_tc = Elf(sc.read(EXE)), Elf(tc.read(EXE))
+    if ED.key == 'sp':
+        exe_sc, exe_tc = Elf(add_cave_segment(sc.read(EXE))), Elf(add_cave_segment(tc.read(EXE)))
+    else:
+        exe_sc, exe_tc = Elf(sc.read(EXE)), Elf(tc.read(EXE))
     if exe_sc.loads != exe_tc.loads or len(exe_sc.b) != len(exe_tc.b): raise SystemExit('executable layouts differ')
     dmy, vt1m = sc.m['DMY/DMY.BIN'], sc.m['DATA/VT1.BIN']
     if dmy.extent_lba <= vt1m.extent_lba: raise SystemExit('DMY must follow VT1 (TC data is read through the VT1 handle)')
@@ -240,59 +272,67 @@ def main() -> None:
 
     # ---- VT1: font chunk, stage-title group ------------------------------------------------------------
     v_sc, v_tc = sc.read('DATA/VT1.BIN'), tc.read('DATA/VT1.BIN')
-    o_sc = read_executable_archive_offsets(bytes(exe_sc.b), CORE_ARCHIVE_SPECS['VT1.BIN'], len(v_sc))
-    o_tc = read_executable_archive_offsets(bytes(exe_tc.b), CORE_ARCHIVE_SPECS['VT1.BIN'], len(v_tc))
-    chunk = lambda v, o, i: v[o[i]:o[i + 1]]
-    same_chunk = lambda i: chunk(v_sc, o_sc, i).rstrip(b'\0') == chunk(v_tc, o_tc, i).rstrip(b'\0')   # slot padding moves
-    from srwz.codec import decode
-    font = chunk(v_tc, o_tc, FONT_CHUNK)                  # the Traditional build's own font, as built
-    tc_glyphs = decode(font).output
-    if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the fixed font buffer')
-    font_report = {'glyphs': len(tc_glyphs) // 288}
-    font_lba = place('TC font (VT1 chunk 2)', font)
-    font_offset = (font_lba - vt1m.extent_lba) * 2048
-    title_shift = None
-    menu_chunk = menu_bytes = None                          # (VT1-relative offset, size) of the TC title-menu chunk
-    for i in range(len(o_sc) - 1):
-        if i == FONT_CHUNK or same_chunk(i): continue
-        if i == TITLE_GROUP:
-            g = chunk(v_tc, o_tc, i); glba = place('TC stage-title group (VT1 chunk 8)', g)
-            title_shift = (glba - vt1m.extent_lba) * 2048 - o_sc[i]
-        elif i == MENU_CHUNK:
-            menu_bytes = chunk(v_tc, o_tc, i).rstrip(b'\0'); glba = place('TC title menu (VT1 chunk 6)', menu_bytes)
-            menu_chunk = ((glba - vt1m.extent_lba) * 2048, len(menu_bytes))
-        else:
-            raise SystemExit(f'VT1 chunk {i} differs and has no Traditional loader')
-    report['vt1'] = {'font_bytes': len(font), 'font': font_report, 'sc_font_bytes': o_sc[FONT_CHUNK + 1] - o_sc[FONT_CHUNK],
-                     'font_vt1_relative_offset': font_offset, 'title_group_shift': title_shift,
-                     'title_menu_chunk': menu_chunk}
-
-    # ---- executables ------------------------------------------------------------------------------------
     tc_exe = Elf(bytes(exe_tc.b))
-    tc_exe.put(VT1_TABLE, exe_sc.get(VT1_TABLE, 15 * 4))          # disc keeps the SC VT1
-    for va, w in FONT_LOADER.items():
-        if tc_exe.word(va) != w: raise SystemExit(f'font loader preimage drift at {va:#x}')
-    lui = lambda rt, v: 0x3C000000 | rt << 16 | v
-    ori = lambda rt, v: 0x34000000 | rt << 21 | rt << 16 | v
-    for va, w in [(0x13A174, lui(6, len(font) >> 16)), (0x13A184, ori(6, len(font) & 0xFFFF)),
-                  (0x13A19C, lui(5, font_offset >> 16)), (0x13A1A0, ori(5, font_offset & 0xFFFF)), (0x13A1A8, 0),
-                  (0x13A95C, 0x10000002), (0x13A960, 0x90240061)]:
-        tc_exe.putw(va, w)
-    if menu_chunk is not None:
-        # The title screen reads chunk 6 at 0x154C8C-0x154CB0: a1 = table[hw 0x3F8668], v0 = table[that + 1],
-        # 0x139620(VT1 handle, a1, v0 - a1). Load the DMY offset and its end as immediates instead (the read
-        # routine does not clip at the file end, as for the font).
-        for va, w in MENU_LOADER.items():
-            if tc_exe.word(va) != w: raise SystemExit(f'title-menu loader preimage drift at {va:#x}')
-        start, size = menu_chunk; end = start + size
-        for va, w in [(0x154C8C, lui(5, start >> 16)), (0x154C90, ori(5, start & 0xFFFF)),
-                      (0x154C98, lui(2, end >> 16)), (0x154CA0, ori(2, end & 0xFFFF)),
-                      (0x154CA4, 0), (0x154CA8, 0)]:
+    font = None; menu_chunk = title_shift = None
+    if ED.key == 'original':
+        o_sc = read_executable_archive_offsets(bytes(exe_sc.b), CORE_ARCHIVE_SPECS['VT1.BIN'], len(v_sc))
+        o_tc = read_executable_archive_offsets(bytes(exe_tc.b), CORE_ARCHIVE_SPECS['VT1.BIN'], len(v_tc))
+        chunk = lambda v, o, i: v[o[i]:o[i + 1]]
+        same_chunk = lambda i: chunk(v_sc, o_sc, i).rstrip(b'\0') == chunk(v_tc, o_tc, i).rstrip(b'\0')   # slot padding moves
+        from srwz.codec import decode
+        font = chunk(v_tc, o_tc, FONT_CHUNK)                  # the Traditional build's own font, as built
+        tc_glyphs = decode(font).output
+        if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the fixed font buffer')
+        font_report = {'glyphs': len(tc_glyphs) // 288}
+        font_lba = place('TC font (VT1 chunk 2)', font)
+        font_offset = (font_lba - vt1m.extent_lba) * 2048
+        title_shift = None
+        menu_chunk = menu_bytes = None                          # (VT1-relative offset, size) of the TC title-menu chunk
+        for i in range(len(o_sc) - 1):
+            if i == FONT_CHUNK or same_chunk(i): continue
+            if i == TITLE_GROUP:
+                g = chunk(v_tc, o_tc, i); glba = place('TC stage-title group (VT1 chunk 8)', g)
+                title_shift = (glba - vt1m.extent_lba) * 2048 - o_sc[i]
+            elif i == MENU_CHUNK:
+                menu_bytes = chunk(v_tc, o_tc, i).rstrip(b'\0'); glba = place('TC title menu (VT1 chunk 6)', menu_bytes)
+                menu_chunk = ((glba - vt1m.extent_lba) * 2048, len(menu_bytes))
+            else:
+                raise SystemExit(f'VT1 chunk {i} differs and has no Traditional loader')
+        report['vt1'] = {'font_bytes': len(font), 'font': font_report, 'sc_font_bytes': o_sc[FONT_CHUNK + 1] - o_sc[FONT_CHUNK],
+                         'font_vt1_relative_offset': font_offset, 'title_group_shift': title_shift,
+                         'title_menu_chunk': menu_chunk}
+
+        # ---- executables ------------------------------------------------------------------------------------
+        tc_exe.put(VT1_TABLE, exe_sc.get(VT1_TABLE, 15 * 4))          # disc keeps the SC VT1
+        for va, w in FONT_LOADER.items():
+            if tc_exe.word(va) != w: raise SystemExit(f'font loader preimage drift at {va:#x}')
+        lui = lambda rt, v: 0x3C000000 | rt << 16 | v
+        ori = lambda rt, v: 0x34000000 | rt << 21 | rt << 16 | v
+        for va, w in [(0x13A174, lui(6, len(font) >> 16)), (0x13A184, ori(6, len(font) & 0xFFFF)),
+                      (0x13A19C, lui(5, font_offset >> 16)), (0x13A1A0, ori(5, font_offset & 0xFFFF)), (0x13A1A8, 0),
+                      (0x13A95C, 0x10000002), (0x13A960, 0x90240061)]:
             tc_exe.putw(va, w)
-    if title_shift is not None:
-        inner = struct.unpack('<%dI' % TITLE_COUNT, tc_exe.get(TITLE_TABLE, TITLE_COUNT * 4))
-        if inner[0] != 0: raise SystemExit('TC title table does not start at 0')
-        tc_exe.put(TITLE_TABLE, struct.pack('<%dI' % TITLE_COUNT, *(title_shift + x for x in inner)))
+        if menu_chunk is not None:
+            # The title screen reads chunk 6 at 0x154C8C-0x154CB0: a1 = table[hw 0x3F8668], v0 = table[that + 1],
+            # 0x139620(VT1 handle, a1, v0 - a1). Load the DMY offset and its end as immediates instead (the read
+            # routine does not clip at the file end, as for the font).
+            for va, w in MENU_LOADER.items():
+                if tc_exe.word(va) != w: raise SystemExit(f'title-menu loader preimage drift at {va:#x}')
+            start, size = menu_chunk; end = start + size
+            for va, w in [(0x154C8C, lui(5, start >> 16)), (0x154C90, ori(5, start & 0xFFFF)),
+                          (0x154C98, lui(2, end >> 16)), (0x154CA0, ori(2, end & 0xFFFF)),
+                          (0x154CA4, 0), (0x154CA8, 0)]:
+                tc_exe.putw(va, w)
+        if title_shift is not None:
+            inner = struct.unpack('<%dI' % TITLE_COUNT, tc_exe.get(TITLE_TABLE, TITLE_COUNT * 4))
+            if inner[0] != 0: raise SystemExit('TC title table does not start at 0')
+            tc_exe.put(TITLE_TABLE, struct.pack('<%dI' % TITLE_COUNT, *(title_shift + x for x in inner)))
+
+
+    elif v_sc != v_tc:
+        raise SystemExit(f'{ED.key}: VT1 differs and the Traditional VT1 loaders are not implemented yet')
+    else:
+        report['vt1'] = {'identical': True}
 
     def build_patch(code, syms):
         s, t = Elf(bytes(exe_sc.b)), Elf(bytes(tc_exe.b))
@@ -300,7 +340,7 @@ def main() -> None:
         recs = diff_records(s, t)
         body = b''.join(struct.pack('<3I', *r) for r in vmap_rows)
         for va, data in recs:
-            if not data or any(va < e and st < va + len(data) for st, e in FORBIDDEN): raise SystemExit(f'patch record in a forbidden range: {va:#x}')
+            if not data or any(va < e and st < va + len(data) for st, e in forbidden()): raise SystemExit(f'patch record in a forbidden range: {va:#x}')
             body += struct.pack('<2I', va, len(data)) + data + bytes(-len(data) % 4)
         head = struct.pack('<4s5I', b'ZHTP', 1, len(vmap_rows), len(recs), len(body), sum(struct.unpack(f'<{len(body) // 4}I', body)) & 0xFFFFFFFF)
         return s, t, recs, head + bytes(32 - len(head)) + body
@@ -331,23 +371,34 @@ def main() -> None:
         for name, lba, data in items:
             n = -(-len(data) // 2048) * 2048
             f.seek(lba * 2048); f.write(data + bytes(n - len(data))); spans.append((lba * 2048, lba * 2048 + n))
-        f.seek(exe_e.extent_lba * 2048); f.write(SC.b); spans.append((exe_e.extent_lba * 2048, exe_e.extent_lba * 2048 + len(SC.b)))
+        if len(SC.b) == exe_e.size:
+            f.seek(exe_e.extent_lba * 2048); f.write(SC.b); spans.append((exe_e.extent_lba * 2048, exe_e.extent_lba * 2048 + len(SC.b)))
+    relocation = None
+    if len(SC.b) != exe_e.size:                             # SP: the executable grew by the cave segment
+        from special_disc.iso_relocation import append_members, verify_relocation
+        relocation = append_members(a.out, sc.m, {EXE: bytes(SC.b)}, catalog_policy='inherit')
+        verify_relocation(a.out, sc.m, {EXE: bytes(SC.b)}, relocation)
+        spans += [tuple(x) for x in relocation['touched_spans']]
     with open(a.out, 'rb') as f:
         def at(off, n): f.seek(off); return f.read(n)
         for off, lba, n in vmap_rows:
             name = next(k for k, v in report['copied_members'].items() if v['tc_lba'] == lba)
             if at(lba * 2048, len(copied[name])) != copied[name]: raise SystemExit(f'readback {name}')
-        if at(vt1m.extent_lba * 2048 + font_offset, len(font)) != font: raise SystemExit('readback font')
+        if font is not None and at(vt1m.extent_lba * 2048 + font_offset, len(font)) != font: raise SystemExit('readback font')
         if menu_chunk is not None and at(vt1m.extent_lba * 2048 + menu_chunk[0], menu_chunk[1]) != menu_bytes:
             raise SystemExit('readback title menu')
         if title_shift is not None:
             inner = struct.unpack('<%dI' % TITLE_COUNT, TC.get(TITLE_TABLE, TITLE_COUNT * 4))
             base = vt1m.extent_lba * 2048 + o_sc[TITLE_GROUP]
             if at(base + inner[0], inner[-1] - inner[0]) != chunk(v_tc, o_tc, TITLE_GROUP): raise SystemExit('readback titles')
-    spans.sort(); pos = 0
+    merged = []
+    for st, e in sorted(spans):
+        if merged and st <= merged[-1][1]: merged[-1][1] = max(merged[-1][1], e)
+        else: merged.append([st, e])
+    spans = [tuple(x) for x in merged]; pos = 0
     with open(a.sc, 'rb') as x, open(a.out, 'rb') as y:
         size = x.seek(0, 2)
-        if size != y.seek(0, 2): raise SystemExit('image size changed')
+        if size != y.seek(0, 2) and relocation is None: raise SystemExit('image size changed')
         for st, e in spans + [(size, size)]:
             x.seek(pos); y.seek(pos); n = st - pos
             while n > 0:
@@ -360,7 +411,9 @@ def main() -> None:
                'dmy_used_bytes': (cur - dmy.extent_lba) * 2048, 'dmy_bytes': dmy.size,
                'patch': {'lba': patch_lba, 'sectors': patch_sectors, 'bytes': len(pf), 'vmap_rows': len(vmap_rows),
                          'records': len(recs), 'record_bytes': sum(len(d) for _, d in recs)},
-               'sc_exe_sha256': sha(SC.b), 'tc_exe_sha256': sha(TC.b), **report}
+               'sc_exe_sha256': sha(SC.b), 'tc_exe_sha256': sha(TC.b), 'edition': ED.key,
+               'executable_relocation': relocation and {k: relocation[k] for k in ('changes', 'old_size', 'new_size')},
+               **report}
     path = a.receipt or a.out.with_suffix('.receipt.json')
     path.write_text(json.dumps(receipt, ensure_ascii=False, indent=1) + '\n')
     print(json.dumps({k: receipt[k] for k in ('hook_bytes', 'patch', 'dmy_used_bytes', 'copied_members', 'vt1')}, ensure_ascii=False, indent=1))

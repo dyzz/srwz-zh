@@ -18,11 +18,7 @@
         .set noreorder
         .set noat
         .include "params.inc"           # PATCH_LBA, PATCH_SECTORS, SCRATCH, OPTIONS
-        .equ    ICON_OK, 47             # KVP styles: small lit ○ / × button (45/37 large, +1 dimmed)
-        .equ    ICON_CANCEL, 39
-        .equ    ICON_Y, -12             # hint row of the panel box (style y: screen ≈ 2y + 226 in 448 lines)
-        .equ    ICON_OK_X, -63          # style x: symbol centre ≈ x + 334; over the hint's blanks before 保存 / 取消
-        .equ    ICON_CANCEL_X, 17       # ("　　保存　　　取消", 16 px a code, centred on x ≈ 322), 3 px left of the cell centre
+        .include "edition.inc"          # the edition's engine addresses and panel geometry (tools/zh_hant/editions.py)
         .text
         .globl lang_hook
 lang_hook:
@@ -32,11 +28,11 @@ lang_hook:
         sd      $s1, 16($sp)
         sd      $s2, 24($sp)
         sd      $s3, 32($sp)
-        jal     0x1002f0                # the call this hook replaced
+        jal     BOOT_CALL               # the call this hook replaced
         nop
 # ---- language source: SELECT on port 0 ------------------------------------------------------------------
-        lui     $s0, 0x2059             # pad port 0 buffer 0x59c100 through the uncached mirror
-        ori     $s0, $s0, 0xc100
+        lui     $s0, ((PAD_BUF + 0x20000000) >> 16) & 0xffff   # pad port 0 buffer through the uncached mirror
+        ori     $s0, $s0, (PAD_BUF + 0x20000000) & 0xffff
         mfc0    $s1, $9                 # Count: timeout start
         addiu   $s3, $zero, 1           # SELECT not held (active low)
         lui     $t9, 0x0aba             # ~0.6 s at 294.912 MHz
@@ -103,8 +99,8 @@ tc:
 # ---- VMAP rows: point the loaded table at the DMY copies ------------------------------------------------
         lw      $s2, 8($s0)
         addiu   $s1, $s0, 32
-        lui     $t9, 0x47
-        lw      $t9, -0x20f8($t9)               # 0x46df08: loaded VMAP
+        lui     $t9, %hi(VMAP_PTR)
+        lw      $t9, %lo(VMAP_PTR)($t9)         # the loaded VMAP
 3:      beqz    $s2, 4f
         lw      $t2, 0($s1)
         lw      $t4, 4($s1)
@@ -174,7 +170,7 @@ read_setting:
         move    $a1, $zero                      # file calls on a card nobody has queried yet (-13)
         addiu   $a2, $sp, 24
         addiu   $a3, $sp, 28
-        jal     0x132470
+        jal     MC_GETINFO
         addiu   $t0, $sp, 32
         bnez    $v0, rs_no
         nop
@@ -191,7 +187,7 @@ read_setting:
         move    $a1, $zero                      # slot 0
         lui     $a2, %hi(lang_path)
         addiu   $a2, $a2, %lo(lang_path)
-        jal     0x131d10                        # sceMcOpen(port, slot, name, O_RDONLY)
+        jal     MC_OPEN                         # sceMcOpen(port, slot, name, O_RDONLY)
         addiu   $a3, $zero, 1
         bnez    $v0, rs_no
         nop
@@ -202,7 +198,7 @@ read_setting:
         move    $a0, $s0
         lui     $a1, %hi(setting)
         addiu   $a1, $a1, %lo(setting)
-        jal     0x1320c0                        # sceMcRead(fd, buffer, 16)
+        jal     MC_READ                         # sceMcRead(fd, buffer, 16)
         addiu   $a2, $zero, 16
         bnez    $v0, rs_close
         nop
@@ -210,7 +206,7 @@ read_setting:
         nop
         sw      $v0, 16($sp)
 rs_close:
-        jal     0x131e70                        # sceMcClose(fd)
+        jal     MC_CLOSE                        # sceMcClose(fd)
         move    $a0, $s0
         bnez    $v0, rs_check
         nop
@@ -258,7 +254,7 @@ mc_wait:
         sd      $ra, 0($sp)
         move    $a0, $zero
         addiu   $a1, $sp, 16
-        jal     0x132350
+        jal     MC_SYNC
         addiu   $a2, $sp, 20
         lw      $v0, 20($sp)
         ld      $ra, 0($sp)
@@ -282,11 +278,21 @@ title_hook:
         lw      $t0, %lo(dlg_state)($s1)
         bnez    $t0, th_active
         nop
-        lhu     $t1, -0x7a2c($gp)               # title substate
-        addiu   $t2, $zero, 3
+        .if TITLE_MODE_WORD
+        lui     $t1, %hi(TITLE_MODE_WORD)       # SP: the dispatcher's mode word, menu waiting for input
+        lw      $t1, %lo(TITLE_MODE_WORD)($t1)
+        addiu   $t2, $zero, TITLE_IDLE
         bne     $t1, $t2, th_title
-        lui     $t3, 0x5a
-        lhu     $t3, -0x3db2($t3)               # 0x59c24e: pressed this frame
+        lui     $t1, %hi(TITLE_READY)
+        lw      $t1, %lo(TITLE_READY)($t1)
+        beqz    $t1, th_title
+        .else
+        lhu     $t1, TITLE_SUBSTATE($gp)        # Original: title substate
+        addiu   $t2, $zero, TITLE_IDLE
+        bne     $t1, $t2, th_title
+        .endif
+        lui     $t3, %hi(PAD_PRESSED)
+        lhu     $t3, %lo(PAD_PRESSED)($t3)      # pressed this frame
         andi    $t3, $t3, 0x0100                # SELECT
         beqz    $t3, th_title
         nop
@@ -295,31 +301,31 @@ title_hook:
         nop
         ld      $a0, 24($sp)
 th_title:
-        jal     0x154fb0
+        jal     TITLE_CALL
         nop
         b       th_ret
         nop
 th_active:
-        lui     $t9, 0x5a
-        lhu     $t2, -0x3db2($t9)               # pressed edges
-        lhu     $t3, -0x3dae($t9)               # repeat edges
+        lui     $t9, %hi(PAD_PRESSED)
+        lhu     $t2, %lo(PAD_PRESSED)($t9)      # pressed edges
+        lhu     $t3, %lo(PAD_REPEAT)($t9)       # repeat edges
         sh      $t2, 34($sp)
         sh      $t3, 36($sp)
-        sh      $zero, -0x3db2($t9)
-        jal     0x154fb0
-        sh      $zero, -0x3dae($t9)
+        sh      $zero, %lo(PAD_PRESSED)($t9)
+        jal     TITLE_CALL
+        sh      $zero, %lo(PAD_REPEAT)($t9)
         move    $s0, $v0
         lw      $t0, %lo(dlg_state)($s1)
         addiu   $t1, $zero, 1
         bne     $t0, $t1, 1f
-        lui     $a0, 0x5a
-        jal     0x36bc30                        # panel: the box takes in new text, sees no edges (handled below)
-        addiu   $a0, $a0, -0x3f00
-1:      lui     $t9, 0x5a
+        lui     $a0, %hi(PAD_BUF)
+        jal     MB_INPUT                        # panel: the box takes in new text, sees no edges (handled below)
+        addiu   $a0, $a0, %lo(PAD_BUF)
+1:      lui     $t9, %hi(PAD_PRESSED)
         lhu     $t2, 34($sp)
         lhu     $t3, 36($sp)
-        sh      $t2, -0x3db2($t9)
-        sh      $t3, -0x3dae($t9)
+        sh      $t2, %lo(PAD_PRESSED)($t9)
+        sh      $t3, %lo(PAD_REPEAT)($t9)
         lw      $t0, %lo(dlg_state)($s1)
         addiu   $t1, $zero, 1
         bne     $t0, $t1, th_result
@@ -331,13 +337,13 @@ th_active:
         b       th_draw
         nop
 th_result:
-        lui     $a0, 0x5a
-        jal     0x36bc30                        # result line: any answer closes
-        addiu   $a0, $a0, -0x3f00               # 0x59c100 pad state
+        lui     $a0, %hi(PAD_BUF)
+        jal     MB_INPUT                        # result line: any answer closes
+        addiu   $a0, $a0, %lo(PAD_BUF)          # pad state
         beqz    $v0, th_draw
         nop
 th_close:
-        jal     0x36bd50
+        jal     MB_DESTROY
         nop
         jal     restore_msg
         nop
@@ -346,9 +352,9 @@ th_close:
         move    $v0, $s0
 th_draw:
         move    $a0, $s0
-        addiu   $a1, $zero, -0x2f               # centred on the 640-wide title (mc screens use -0x3a)
-        addiu   $a2, $zero, -0x2e
-        jal     0x36bcc0
+        addiu   $a1, $zero, BOX_X               # centred on the 640-wide title (mc screens use -0x3a)
+        addiu   $a2, $zero, BOX_Y
+        jal     MB_DRAW
         move    $a3, $zero
         lw      $t0, %lo(dlg_state)($s1)
         addiu   $t1, $zero, 1
@@ -363,7 +369,7 @@ th_draw:
         jal     draw_icon
         addiu   $a2, $zero, ICON_CANCEL_X
         move    $s0, $v0
-2:      jal     0x13ac90                        # request this frame's text pass (the box lines)
+2:      jal     TEXT_PASS                        # request this frame's text pass (the box lines)
         nop
         move    $v0, $s0
 th_ret: ld      $ra, 0($sp)
@@ -377,7 +383,7 @@ draw_icon:
         addiu   $a3, $zero, ICON_Y
         move    $t0, $zero
         addiu   $t1, $zero, 128
-        j       0x36b330
+        j       KVP_DRAW
         move    $t2, $t1
 
 open_panel:
@@ -399,7 +405,7 @@ open_panel:
         sw      $t2, 8($t9)
         srl     $t2, $t1, 1
         andi    $t2, $t2, 1
-        jal     0x36bbe0                        # create the box
+        jal     MB_CREATE                       # create the box
         sw      $t2, 12($t9)
         jal     show_panel
         nop
@@ -591,13 +597,13 @@ set_msg:
         ld      $a1, 32($sp)
         ld      $a2, 40($sp)
         sll     $t0, $a0, 2
-        lui     $s0, 0x41                       # 0x4171f0: message text pointers
-        addiu   $s0, $s0, 0x71f0
+        lui     $s0, %hi(MSG_TEXT)              # message text pointers
+        addiu   $s0, $s0, %lo(MSG_TEXT)
         addu    $s0, $s0, $t0
         sll     $t0, $a0, 3
         subu    $t0, $t0, $a0                   # id * 7
-        lui     $s1, 0x43                       # 0x42bf90: message attributes
-        addiu   $s1, $s1, -0x4070
+        lui     $s1, %hi(MSG_ATTR)              # message attributes
+        addiu   $s1, $s1, %lo(MSG_ATTR)
         addu    $s1, $s1, $t0
         lui     $t9, %hi(lent)
         addiu   $t9, $t9, %lo(lent)
@@ -618,7 +624,7 @@ set_msg:
         sltiu   $t3, $t2, 7
         bnez    $t3, 5b
         nop
-        jal     0x36bc20
+        jal     MB_SELECT
         nop
         ld      $ra, 0($sp)
         ld      $s0, 8($sp)
@@ -658,14 +664,14 @@ write_setting:
         sd      $s1, 16($sp)
         addiu   $a0, $zero, 1                   # libmc idle? (sceMcSync(1) == -1)
         addiu   $a1, $sp, 24
-        jal     0x132350
+        jal     MC_SYNC
         addiu   $a2, $sp, 28
         addiu   $t0, $zero, -1
         bne     $v0, $t0, ws_no
         move    $a0, $zero
         move    $a1, $zero
         lui     $a2, %hi(lang_dir)
-        jal     0x131e38                        # mkdir (sceMcOpen mode 0x40)
+        jal     MC_MKDIR                        # mkdir (sceMcOpen mode 0x40)
         addiu   $a2, $a2, %lo(lang_dir)
         bnez    $v0, ws_no
         nop
@@ -677,8 +683,8 @@ write_setting:
         bnez    $v0, ws_no
         nop
         # new directory: icon.sys with our title (bytes 0xc0.., line break at byte 6), then the icon
-        lui     $s1, 0x41
-        addiu   $s1, $s1, 0x4080                # 0x414080 icon.sys template
+        lui     $s1, %hi(ICON_SYS)
+        addiu   $s1, $s1, %lo(ICON_SYS)         # icon.sys template
         lhu     $t0, 6($s1)
         sh      $t0, 104($sp)
         move    $t2, $zero
@@ -717,10 +723,10 @@ write_setting:
         beqz    $s0, ws_no
         lui     $a0, %hi(icon_path)
         addiu   $a0, $a0, %lo(icon_path)
-        lui     $a1, 0x41
-        addiu   $a1, $a1, 0x4450                # 0x414450 save icon model
+        lui     $a1, %hi(SAVE_ICON)
+        addiu   $a1, $a1, %lo(SAVE_ICON)        # save icon model
         jal     write_file
-        addiu   $a2, $zero, 11664
+        addiu   $a2, $zero, SAVE_ICON_SIZE
         beqz    $v0, ws_no
         nop
 ws_lang:
@@ -768,7 +774,7 @@ write_file:
         move    $a2, $a0
         move    $a0, $zero
         move    $a1, $zero
-        jal     0x131d10                        # sceMcOpen(0, 0, path, CREAT | WRONLY)
+        jal     MC_OPEN                         # sceMcOpen(0, 0, path, CREAT | WRONLY)
         addiu   $a3, $zero, 0x202
         bnez    $v0, wf_no
         nop
@@ -779,14 +785,14 @@ write_file:
         sw      $zero, 32($sp)
         move    $a0, $s0
         move    $a1, $s1
-        jal     0x1321d8                        # sceMcWrite(fd, buffer, length)
+        jal     MC_WRITE                        # sceMcWrite(fd, buffer, length)
         move    $a2, $s2
         bnez    $v0, 3f
         nop
         jal     mc_wait
         nop
         sw      $v0, 32($sp)
-3:      jal     0x131e70                        # sceMcClose(fd)
+3:      jal     MC_CLOSE                        # sceMcClose(fd)
         move    $a0, $s0
         bnez    $v0, wf_no
         nop
@@ -816,26 +822,26 @@ read_sectors:
         move    $s0, $a0
         move    $s1, $a1
         move    $s2, $a2
-        jal     0x12f698
+        jal     CD_PREP
         move    $a0, $zero
-r1:     lui     $a3, 0x47
+r1:     lui     $a3, %hi(CD_MODE)
         move    $a0, $s0
         move    $a1, $s1
         move    $a2, $s2
-        jal     0x12f8b8                # sceCdRead(lba, sectors, buffer, mode 0x46df10)
-        addiu   $a3, $a3, -0x20f0
+        jal     CD_READ                 # sceCdRead(lba, sectors, buffer, mode)
+        addiu   $a3, $a3, %lo(CD_MODE)
         addiu   $v1, $zero, 1
         bne     $v0, $v1, r1
         nop
-        jal     0x12ee80                # sync
+        jal     CD_SYNC                 # sync
         move    $a0, $zero
         bnez    $v0, r1
         nop
-        jal     0x12fa98                # error status
+        jal     CD_ERROR                # error status
         nop
         beqz    $v0, r2
         nop
-        jal     0x12f698
+        jal     CD_PREP
         move    $a0, $zero
         b       r1
         nop
@@ -849,14 +855,7 @@ r2:     ld      $ra, 0($sp)
 setting:                                # LANG.BIN buffer (cache-line aligned for the card DMA); also the panel
 panel_buf:                              # text (84 bytes at most), rebuilt on every change and never in use while
         .space  84                      # the card is read (boot) or written (the result line replaces the panel)
-lang_path:
-        .asciz  "/BISLPS-25887L/LANG.BIN"
-lang_dir:
-        .asciz  "/BISLPS-25887L"
-icon_sys_path:
-        .asciz  "/BISLPS-25887L/icon.sys"
-icon_path:
-        .asciz  "/BISLPS-25887L/a20.ico"
+        .include "paths.inc"                                    # lang_path, lang_dir, icon_sys_path, icon_path
         .include "icon_title.inc"                               # icon_title: 64 bytes Shift-JIS
 attr_panel:
         .byte   0x02, 0x04, 0xff, 0x05, 0x05, 0x05, 0x05        # notice, 4 lines (3 settings + key hint)

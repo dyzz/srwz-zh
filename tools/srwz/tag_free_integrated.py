@@ -128,7 +128,7 @@ def _build_payload(registry,edition,*,routes=None,shared_selection=True,scene_di
   from .proportional_metrics import punctuation_codes
   bank_site=0x13a990+delta
   display_options=None
-  if edition in ('original','best'):
+  if edition in ('original','best','sp'):
    # Display options word (plain zero, Japanese quotes), written by the dual-disc settings box; the assembler
    # finds it by the marker. Zero = the default look.
    from .proportional_hooks import DISPLAY_OPTIONS_MARKER
