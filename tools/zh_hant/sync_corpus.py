@@ -2,7 +2,7 @@
 """Keep the parallel Traditional corpora in step with the Simplified ones.
 
 Traditional text is maintained as its own files, parallel to the Simplified trees:
-    corpus/zh        -> corpus/zh-hant           (except special-disc/: the SP disc is out of scope)
+    corpus/zh        -> corpus/zh-hant           (special-disc/ too, since the SP dual disc: see SP_FROZEN)
     corpus/glossary  -> corpus/glossary-zh-hant
     corpus/runtime   -> corpus/runtime-zh-hant
 Each entry (object with an "id" or an "entry_index") carries
@@ -32,9 +32,16 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-TREES = [('corpus/zh', 'corpus/zh-hant', {'special-disc'}),
+TREES = [('corpus/zh', 'corpus/zh-hant', set()),
          ('corpus/glossary', 'corpus/glossary-zh-hant', set()),
          ('corpus/runtime', 'corpus/runtime-zh-hant', set())]
+# SP corpus fields that are keys or bindings, not display text: Japanese speaker names (kanji-only ones would be
+# converted), Chinese location ids such as sd/image/kvmdata/结算提示图集/0, writeback bindings and provenance.
+SP_TREE = 'special-disc'
+SP_FROZEN = {'speaker', 'speaker_guess', 'voice_group', 'triggers', 'locations', 'location', 'scope', 'module', 'origin',
+             'origin_legend', 'product', 'corpus_path', 'corpus_id', 'config', 'translation_source', 'source_inventory',
+             'episode', 'section', 'kind', 'episode_file', 'writeback_contract', 'writeback_binding', 'writeback_status',
+             'qa_review_import', 'disposition', 'exception', 'source_classification', 'flags', 'source_corpus'}
 KANA = re.compile('[぀-ヺー-ヿㇰ-ㇿｦ-ﾟ]')     # not U+30FB ・ (Chinese names)
 HAN = re.compile('[㐀-鿿]')
 FROZEN_KEYS = {'id', 'source', 'source_text', 'source_term', 'source_terms', 'notes', 'reason', 'review_history',
@@ -55,6 +62,7 @@ class Drafter:
         cfg = json.loads(bootstrap.read_text(encoding='utf-8'))
         self.cc = opencc.OpenCC(cfg['opencc'])
         self.terms = sorted(((t['sc'], t['tc']) for t in cfg['terms']), key=lambda t: -len(t[0]))
+        self.frozen = FROZEN_KEYS              # per tree (main() widens it for the SP corpus)
 
     def text(self, s: str) -> str:
         if not HAN.search(s) or KANA.search(s):
@@ -70,11 +78,11 @@ class Drafter:
 
     def value(self, v, key=None):
         if isinstance(v, str):
-            return v if key in FROZEN_KEYS else self.text(v)
+            return v if key in self.frozen else self.text(v)
         if isinstance(v, list):
             return [self.value(x, key) for x in v]
         if isinstance(v, dict):
-            return {k: (x if k in FROZEN_KEYS or k.endswith('_sha256') or k in META else self.value(x, k)) for k, x in v.items()}
+            return {k: (x if k in self.frozen or k.endswith('_sha256') or k in META else self.value(x, k)) for k, x in v.items()}
         return v
 
 
@@ -83,8 +91,12 @@ def translation_view(entry: dict) -> dict:
     return {k: v for k, v in entry.items() if k not in FROZEN_KEYS and not k.endswith('_sha256') and k not in META}
 
 
+KEY_FIELDS = ('id', 'entry_index')          # main() adds 'source' for the SP corpus (terrain names have no id)
+
+
 def entry_key(e):
-    return e.get('id', e.get('entry_index')) if isinstance(e, dict) else None
+    if not isinstance(e, dict): return None
+    return next((e[k] for k in KEY_FIELDS if k in e), None)
 
 
 def strip_meta(doc):
@@ -154,6 +166,11 @@ def main() -> None:
             rel = f.relative_to(src)
             if rel.parts[0] in excluded: continue
             wanted.add(rel)
+            global KEY_FIELDS
+            sp = rel.parts[0] == SP_TREE and src_root == 'corpus/zh'
+            # review_history keeps earlier translations, which the font allocator also reads: draft them as well
+            drafter.frozen = (FROZEN_KEYS - {'review_history'}) | SP_FROZEN if sp else FROZEN_KEYS
+            KEY_FIELDS = ('id', 'entry_index', 'source') if sp else ('id', 'entry_index')
             sc = json.loads(f.read_text(encoding='utf-8'))
             target = dst / rel
             tc = json.loads(target.read_text(encoding='utf-8')) if target.exists() else None

@@ -26,8 +26,17 @@ class SpecialDiscFontRefreshTests(unittest.TestCase):
         cls.font = (root / 'font.bin').read_bytes()
         cls.digest = json.loads((root / 'report.json').read_text())['font']['decoded_sha256']
         cls.offsets = fonts.sp_offsets(cls.exe, fonts.VT1_TABLE, len(cls.vt1))
+        start, end = cls.offsets[fonts.FONT_CHUNK:fonts.FONT_CHUNK + 2]
+        cls.fits_current_slot = decode_production(cls.font).consumed <= end - start
 
     def test_font_refresh_preserves_every_other_byte(self):
+        if not self.fits_current_slot:
+            # The verified font grew past the slot of the current SP ISO (a font refresh before the next SP
+            # release); the build then borrows padding, which test_growth_preserves_audio_and_later_chunks covers.
+            self.skipTest('verified font is larger than the current SP ISO font slot')
+        self._refresh_in_slot()
+
+    def _refresh_in_slot(self):
         output = fonts.replace_font_slot(self.vt1, self.exe, self.font, self.digest)
         a, b = self.offsets[3:5]
         self.assertEqual(len(output), len(self.vt1))
