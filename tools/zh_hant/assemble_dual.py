@@ -256,6 +256,8 @@ def main() -> None:
     rows = sc.vmap()
     report = {'identical_members': 0, 'copied_members': {}, 'vt1': {}}
 
+    tail_items = []
+    tail_lba = a.sc.stat().st_size // 2048
     items, cur = [], dmy.extent_lba + 16
     def place(name, data):
         nonlocal cur
@@ -267,10 +269,31 @@ def main() -> None:
         if name in (EXE, 'DATA/VT1.BIN', 'DMY/DMY.BIN') or name not in sc.m: continue
         a_b, b_b = sc.read(name), tc.read(name)
         if a_b == b_b: report['identical_members'] += 1; continue
+        if ED.key == 'sp' and name == 'VMAP.DAT':
+            # The single-language gallery build relocates archives. Check that
+            # these bytes only describe the two input discs' own ISO extents.
+            expected = bytearray(a_b)
+            for member, (offset, lba, sectors) in rows.items():
+                sc_entry, tc_entry = sc.m[member], tc.m[member]
+                if (sc_entry.extent_lba, sc_entry.size) == (tc_entry.extent_lba, tc_entry.size):
+                    continue
+                if (lba, sectors) != (sc_entry.extent_lba, -(-sc_entry.size // 2048)):
+                    raise SystemExit(f'SP VMAP source allocation drift: {member}')
+                struct.pack_into('<II', expected, offset + 40, tc_entry.extent_lba, -(-tc_entry.size // 2048))
+            if expected != b_b: raise SystemExit('unexpected SP VMAP differences')
+            continue
         if name.upper() not in rows: raise SystemExit(f'{name} differs but has no VMAP row')
         off, lba, sec = rows[name.upper()]
         if lba != sc.m[name].extent_lba: raise SystemExit(f'VMAP row of {name} does not match the ISO directory')
-        tl = place(name, b_b); n = -(-len(b_b) // 2048)
+        n = -(-len(b_b) // 2048)
+        # The Traditional theatre artwork changes the whole AID archive. Like VT1,
+        # it is read through VMAP and exceeds the space left in the SP dummy member.
+        if ED.key == 'sp' and name == 'AID_DATA/AIDDATA.BIN':
+            tl = tail_lba
+            tail_items.append((name, tl, b_b))
+            tail_lba += n
+        else:
+            tl = place(name, b_b)
         vmap_rows.append((off, tl, n)); copied[name] = b_b
         report['copied_members'][name] = {'sc_bytes': len(a_b), 'tc_bytes': len(b_b), 'tc_lba': tl, 'tc_sectors': n}
     for name in tc.m:
@@ -366,9 +389,10 @@ def main() -> None:
 
     vt1_tail_lba = None
     if appended_vt1 is not None:
-        vt1_tail_lba = a.sc.stat().st_size // 2048           # written at the image end, before the executable moves
+        vt1_tail_lba = tail_lba           # written at the image end, before the executable moves
         vmap_rows.append((rows['DATA/VT1.BIN'][0], vt1_tail_lba, -(-len(appended_vt1) // 2048)))
         report['vt1']['lba'] = vt1_tail_lba
+        tail_items.append(('DATA/VT1.BIN', vt1_tail_lba, appended_vt1))
 
     def build_patch(code, syms):
         s, t = Elf(bytes(exe_sc.b)), Elf(bytes(tc_exe.b))
@@ -409,13 +433,13 @@ def main() -> None:
             f.seek(lba * 2048); f.write(data + bytes(n - len(data))); spans.append((lba * 2048, lba * 2048 + n))
         if len(SC.b) == exe_e.size:
             f.seek(exe_e.extent_lba * 2048); f.write(SC.b); spans.append((exe_e.extent_lba * 2048, exe_e.extent_lba * 2048 + len(SC.b)))
-    if appended_vt1 is not None:
-        with open(a.out, 'r+b') as f:
-            end = f.seek(0, 2)
-            if end != vt1_tail_lba * 2048: raise SystemExit('image end moved before the VT1 copy')
-            f.write(appended_vt1 + bytes(-len(appended_vt1) % 2048))
-            f.seek(vt1_tail_lba * 2048)
-            if f.read(len(appended_vt1)) != appended_vt1: raise SystemExit('readback appended VT1')
+    with open(a.out, 'r+b') as f:
+        for name, lba, data in tail_items:
+            if f.seek(0, 2) != lba * 2048: raise SystemExit(f'image end moved before {name}')
+            f.write(data)
+            f.write(bytes(-len(data) % 2048))
+            f.seek(lba * 2048)
+            if f.read(len(data)) != data: raise SystemExit(f'readback appended {name}')
     relocation = None
     if len(SC.b) != exe_e.size:                             # SP: the executable grew by the cave segment
         from special_disc.iso_relocation import append_members, verify_relocation

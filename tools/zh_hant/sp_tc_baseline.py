@@ -10,7 +10,7 @@ give the Traditional text, from the same parallel corpus as Original.
 Steps (in the clone): point the converters' answer-key path at the Traditional Original components and their font
 proposal at the Traditional SP one; run the converter chain; return the strings the SP system-text writer owns to
 their Japanese bytes (in September the converters left them, the system-text writer translates them); rebuild the
-system-text component, the preview baseline (pictures stay as they are until S5) and the text canary; point the
+system-text component, the preview baseline (including the frozen Traditional pictures) and the text canary; point the
 SP builder at the new canary and refresh every lock.
 
 Usage: sp_tc_baseline.py CLONE --answer-key TC_ORIGINAL_COMPONENTS
@@ -245,6 +245,8 @@ def main() -> None:
     run(c, 'python3', 'tools/special_disc/writeback/write_system_text.py', '--proposal', PROPOSAL)
     print('Traditional SP components rebuilt', flush=True)
     # preview baseline (components + pictures), then the text canary on it (font + canary stage component)
+    from sp_pictures import install_sp_pictures
+    install_sp_pictures(c)
     run(c, 'python3', 'tools/special_disc/writeback/build_preview.py')
     preview = json.loads((c / 'work/build/special-disc/baselines/preview.json').read_text())['iso_sha256']
     btc = c / 'tools/special_disc/writeback/build_text_candidate.py'
