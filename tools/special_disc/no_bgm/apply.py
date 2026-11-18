@@ -19,7 +19,8 @@ def apply_no_bgm(elf: bytes, *, workdir: Path, proposal: Path | None = None):
  assert struct.unpack_from('<I',b,off(0x44e734))[0]>=limit
  table,_,overrides,_=encoding_tables(proposal)
  writer=Writer(table,overrides,None)
- for file,text in [('label.bin','无 BGM'),('option.bin','关闭 BGM（保留音效）'),('help.bin','关闭战斗背景音乐，保留驾驶员台词和音效。')]:
+ from srwz.build_language import expected_literal  # Traditional build: the parallel wording
+ for file,text in [(f,expected_literal(t,Path(__file__).resolve().parents[3])) for f,t in [('label.bin','无 BGM'),('option.bin','关闭 BGM（保留音效）'),('help.bin','关闭战斗背景音乐，保留驾驶员台词和音效。')]]:
   (w/file).write_bytes(writer.encode(text))
  asm=Path(__file__).with_name('runtime.S');subprocess.run(['mipsel-linux-gnu-as','-march=r5900','-o',str(w/'runtime.o'),str(asm)],cwd=w,check=True)
  subprocess.run(['mipsel-linux-gnu-ld','-Ttext',hex(base),'-e','settings_init','-o',str(w/'runtime.elf'),str(w/'runtime.o')],check=True)

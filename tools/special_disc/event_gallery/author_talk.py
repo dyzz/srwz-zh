@@ -75,6 +75,9 @@ SCENES: dict[str, tuple[int, list]] = {
 # "$F" is the protagonist's full name (e.g. アサキム's "$Fとメール・ビーターとガンレオン").
 PROTAGONIST_FULL = {"兰德": "兰德·特拉维斯"}
 PROTAGONIST = {"effect-273": "节子", "effect-282": "节子", "effect-264": "节子", "effect-239": "兰德", "effect-246": "兰德", "effect-297": "兰德", "effect-298": "节子"}
+from srwz.build_language import expected_literal  # noqa: E402  (Traditional build: the parallel names)
+PROTAGONIST = {k: expected_literal(v, ROOT) for k, v in PROTAGONIST.items()}
+PROTAGONIST_FULL = {expected_literal(k, ROOT): expected_literal(v, ROOT) for k, v in PROTAGONIST_FULL.items()}
 
 
 def _sha256(text: str) -> str:

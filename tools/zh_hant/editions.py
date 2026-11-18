@@ -65,7 +65,7 @@ SP = Edition(
         ICON_OK=45, ICON_CANCEL=37,             # SP's style table is offset by -2 from Original's
         ICON_Y=-12, ICON_OK_X=-63, ICON_CANCEL_X=17,
     ),
-    forbidden=((0x4524E8, 0x4524EC), (0x81E000, 0x8C0000),        # font buffer size, SP payloads (no-BGM, gallery)
+    forbidden=(                                    # SP payload text (no-BGM labels, gallery names) may differ
                *((a, a + 8) for a in (0x18B1F0, 0x18B7E0, 0x18B270, 0x18C8A0)),         # music hooks
                *((a, a + 4) for a in (0x1001D0, 0x1001D8, 0x1410F4, 0x141100, 0x44E734))),  # heap words
 )

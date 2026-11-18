@@ -50,6 +50,7 @@ FROZEN_KEYS = {'id', 'source', 'source_text', 'source_term', 'source_terms', 'no
 META = ('zh_hans_sha256', 'zh_hant_status')
 STATUSES = {'draft', 'edited', 'reviewed'}
 PRIVATE = 0xF0000
+TM_SCOPE = re.compile(r'＜[ｔt][ｍm]＞[^＜＞\n]+＜[／/][ｔt][ｍm]＞|<tm>[^<>\n]+</tm>')
 
 
 def sha(value) -> str:
@@ -68,6 +69,9 @@ class Drafter:
         if not HAN.search(s) or KANA.search(s):
             return s
         slots = []
+        # numeric template keys (＜ｔｍ＞撃墜数＜／ｔｍ＞) are lookup data the executable matches byte for byte
+        for m in TM_SCOPE.findall(s):
+            s = s.replace(m, chr(PRIVATE + len(slots)), 1); slots.append(m)
         for sc, tc in self.terms:
             if sc in s:
                 s = s.replace(sc, chr(PRIVATE + len(slots))); slots.append(tc)
@@ -91,6 +95,7 @@ def translation_view(entry: dict) -> dict:
     return {k: v for k, v in entry.items() if k not in FROZEN_KEYS and not k.endswith('_sha256') and k not in META}
 
 
+REDRAFT = False
 KEY_FIELDS = ('id', 'entry_index')          # main() adds 'source' for the SP corpus (terrain names have no id)
 
 
@@ -129,7 +134,7 @@ def _sync_document(sc: dict, tc: dict | None, drafter: Drafter, rel: str, report
             if prev is None:
                 new = drafter.value(e); new.update(zh_hans_sha256=want, zh_hant_status='draft')
                 report['drafted' if key is not None else 'unkeyed_drafted'] += 1
-            elif prev.get('zh_hans_sha256') == want:
+            elif prev.get('zh_hans_sha256') == want and not (REDRAFT and prev.get('zh_hant_status', 'draft') == 'draft'):
                 new = prev; report['kept'] += 1
             elif prev.get('zh_hant_status', 'draft') == 'draft':
                 new = drafter.value(e); new.update(zh_hans_sha256=want, zh_hant_status='draft'); report['redrafted'] += 1
@@ -155,8 +160,11 @@ def _sync_document(sc: dict, tc: dict | None, drafter: Drafter, rel: str, report
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     p.add_argument('--check', action='store_true')
+    p.add_argument('--redraft', action='store_true', help='re-draft every entry still in draft status (drafter rules changed)')
     p.add_argument('--bootstrap', type=Path, default=ROOT / 'config/zh-hant/bootstrap.json')
     a = p.parse_args()
+    global REDRAFT
+    REDRAFT = a.redraft
     drafter = Drafter(a.bootstrap)
     report = {'drafted': 0, 'unkeyed_drafted': 0, 'redrafted': 0, 'kept': 0, 'removed': 0, 'stale': [], 'files_written': 0}
     for src_root, dst_root, excluded in TREES:

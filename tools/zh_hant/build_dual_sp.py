@@ -22,6 +22,8 @@ import build_dual as bd  # noqa: E402
 
 ROOT = bd.ROOT
 SP_TREES = ['work/build/special-disc']
+SP_FILES = ['work/analysis/sp-event-fidelity-20261013/' + n for n in      # author_talk.py's id map and name helper
+            ('id-map.json', 'names.py', 'original-compdata.bin', 'sp-jp-compdata.bin')]
 DISC_INVENTORY = ROOT / 'config/products/special-disc/disc-inventory.json'
 SP_ISO = json.loads(DISC_INVENTORY.read_text(encoding='utf-8'))['sp']['path']   # rom/... (the clone's rom/ is build/iso/sources)
 
@@ -31,6 +33,9 @@ def clone(name: str) -> Path:
     for tree in SP_TREES:
         (dst / tree).parent.mkdir(parents=True, exist_ok=True)
         bd.run('cp', '-cR', ROOT / tree, dst / tree)
+    for rel in SP_FILES:
+        (dst / rel).parent.mkdir(parents=True, exist_ok=True)
+        bd.run('cp', '-c', ROOT / rel, dst / rel)
     src = (ROOT / SP_ISO).resolve()
     bd.run('cp', '-c', src, dst / 'build/iso/sources' / src.name)
     return dst
@@ -62,7 +67,8 @@ SP_CONFIG_DRAFTS = ['config/editorial/special-disc/stage-context-reuse.json',
                     'config/editorial/special-disc/chart-key-help.json',
                     'config/editorial/special-disc/chart-z-ending-titles.json',
                     'config/products/special-disc/shared-name-reference.json',   # Japanese name -> translations
-                    'config/products/special-disc/name-unification-20261017.json']
+                    'config/products/special-disc/name-unification-20261017.json',
+                    'config/products/special-disc/event-gallery.json']             # 名场面集 scene names
 
 
 # Main-game asset configs that SP's own image chain applies to SP's atlas (menu restore, bazaar heading). The
@@ -105,6 +111,40 @@ def sp_images_stay_sc(tc: Path) -> None:
     bd.dump(tc / rel, doc)
     from locks import refresh_locks
     print('SP image labels kept Simplified:', n, 'locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+
+
+def sp_instruction_layout(tc: Path) -> None:
+    """Tutorial / Q&A instruction pages are bound to styled records (config/editorial/special-disc/
+    instructions-layout.json): rebind each to its Traditional translation, record texts cut at the same lengths."""
+    import hashlib
+    rel = 'config/editorial/special-disc/instructions-layout.json'
+    doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
+    tc_rows = {e['id']: e for e in json.loads((tc / 'corpus/zh/special-disc/instructions-overrides.json').read_text(encoding='utf-8'))['entries']}
+    for page in doc['pages']:
+        text = tc_rows[page['id']]['translation']; flat = text.replace('\n', '')
+        if len(flat) != sum(len(r['text']) for r in page['records']):
+            raise SystemExit(f"{page['id']}: Traditional instruction text has another length")
+        pos = 0
+        for r in page['records']:
+            n = len(r['text']); r['text'] = flat[pos:pos + n]; pos += n
+        page['translation_sha256'] = hashlib.sha256(text.encode()).hexdigest()
+    bd.dump(tc / rel, doc)
+    from locks import refresh_locks
+    print('SP instruction layout rebound:', len(doc['pages']), 'pages; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+
+
+def sp_stage_title_bindings(tc: Path) -> None:
+    """The 21 SP stage-title images bind to the episode-title texts, which are also written as text (flow,
+    titles), so the texts are Traditional; the image snapshot's bindings follow them while its pixels stay as
+    authored until the Traditional images (S5)."""
+    rel = 'config/assets/special-disc/stage-title-graphics.json'
+    doc = json.loads((tc / rel).read_text(encoding='utf-8'))
+    rows = {e['id']: e for e in json.loads((tc / 'corpus/zh/special-disc/frame-text.json').read_text(encoding='utf-8'))['entries']}
+    for t in doc['titles']:
+        t['translation'] = rows[t['corpus_id']]['translation']
+    bd.dump(tc / rel, doc)
+    from locks import refresh_locks
+    print('SP stage-title bindings follow the Traditional texts; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
 def sp_qa_layout(tc: Path) -> None:
@@ -180,6 +220,31 @@ def sp_localize(tc: Path) -> None:
     print('SP config literals mapped:', n, 'locks refreshed:', refresh_locks(tc, SP_LOCALIZE), flush=True)
 
 
+def sp_encoded_contracts(tc: Path) -> None:
+    """SP contracts that store the expected encoded bytes of a translation (keyword list labels): recompute them
+    from the Traditional translation with the Traditional SP encoding tables, inside the clone."""
+    script = (
+        "import json, sys; from pathlib import Path; sys.path[:0] = ['tools', 'tools/special_disc/writeback']\n"
+        "from migrate_slps_text import encoding_tables\n"
+        "import special_disc.writeback.keyword_list_names as k\n"
+        "table, _, overrides, _ = encoding_tables(Path('work/build/special-disc/text-candidate/font/proposal.json'))\n"
+        "c, rows, _ = k.inputs(); doc = json.loads(k.CONTRACT.read_text())\n"
+        "for w in doc['writes']: w['target_hex'] = k.payload(rows[w['index']]['translation'], table, overrides).hex().upper()\n"
+        "k.CONTRACT.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + '\\n')\n")
+    bd.run('python3', '-c', script, cwd=tc)
+    from locks import refresh_locks
+    rel = 'config/products/special-disc/keyword-list-names.json'
+    print('SP keyword targets re-encoded; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+
+
+def sp_gallery_talk(tc: Path) -> None:
+    """The 名场面集 dialogue is a corpus snapshot (event-gallery-talk.json): author it from the Traditional corpus."""
+    bd.run('python3', 'tools/special_disc/event_gallery/author_talk.py', cwd=tc)
+    from locks import refresh_locks
+    rel = 'config/products/special-disc/event-gallery-talk.json'
+    print('SP gallery dialogue re-authored; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+
+
 def build(project: Path, version: str) -> Path:
     (project / 'manifests/editions/sp/candidate.json').unlink(missing_ok=True)
     bd.run('python3', 'tools/build_editions.py', '--editions', 'sp', '--candidate', '--release-version', version, cwd=project)
@@ -207,9 +272,18 @@ def main() -> None:
     sp_font(tc)
     sp_config_drafts(tc)
     sp_images_stay_sc(tc)
+    sp_stage_title_bindings(tc)
     sp_qa_layout(tc)
+    sp_instruction_layout(tc)
     sp_weapon_categories(tc)
     sp_localize(tc)
+    # SP's frozen baseline in Traditional: the September converters with the Traditional Original build as the
+    # answer key (sp_tc_baseline.py), so inherited text comes from the same parallel corpus as Original.
+    answer_key = sorted((bd.BASE / 'project-tc/build/editions/zh-release-original').glob('*/project/work/build/zh-release-full-story/components'))
+    if len(answer_key) != 1: raise SystemExit('need exactly one Traditional Original build in build/zh-hant/project-tc (run build_dual.py)')
+    bd.run(sys.executable, HERE / 'sp_tc_baseline.py', tc, '--answer-key', answer_key[0])
+    sp_encoded_contracts(tc)
+    sp_gallery_talk(tc)
     tc_iso = build(tc, a.release_version)
     if a.tc_only:
         print(tc_iso); return

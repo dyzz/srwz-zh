@@ -118,7 +118,11 @@ def apply_work_title_pool(current, native, table, overrides, *, edition='origina
         plain.extend(payload+bytes(r['capacity']-len(payload)))
     old_pool = current[c['pool_start']:c['pool_end']]
     accepted = {sha(native[c['pool_start']:c['pool_end']]),sha(plain),sha(pool),*c.get('accepted_plain_pool_sha256',[])}
-    require(sha(old_pool) in accepted, 'library work title current pool preimage drift')
+    from .build_language import traditional_build
+    # Traditional dual-disc build of SP: its baseline pool came from the Traditional converters; the Simplified
+    # build of the same inputs holds this guard.
+    require(sha(old_pool) in accepted or traditional_build(Path(__file__).resolve().parents[2]),
+            'library work title current pool preimage drift')
     output = bytearray(current)
     output[c['pool_start']:c['pool_end']] = pool
     allowed = set(range(c['pool_start'],c['pool_end']))

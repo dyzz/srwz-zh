@@ -47,6 +47,11 @@ GLYPHS = 4992                            # font buffer sized once for both langu
 VT1_TABLE = 0x3F8680                     # executable VT1 offset table (file 0x2fa100), 15 words
 FONT_CHUNK, TITLE_GROUP, MENU_CHUNK = 2, 8, 6
 TITLE_TABLE, TITLE_COUNT = 0x41A2B0, 117
+SP_VT1_TABLE, SP_FONT_CHUNK, SP_FONT_DONOR, SP_VT1_TAIL = 0x452E10, 3, 1, 37   # SP: font chunk 3 (chunk 1 donates its
+                                                         # zero tail when a bigger font is installed), tail groups 37..
+SP_FONT_BUFFER = 0x4524E8
+SP_FONT_LOADER = {0x13AC14: 0x84232DE4, 0x13AC24: 0x84222DE6, 0x13AC3C: 0x8C650000, 0x13AC40: 0x8C420000,
+                  0x13AC48: 0x00453023, 0x13B3FC: 0x1000000C, 0x13B400: 0xA4200062}
 # Settings-panel text, per display language (each encoded with that language's codebook). MSG_KEYS is the
 # order lang_hook.S indexes (pick_msg); the panel line is cursor/blank + label + value, the values come in pairs
 # (setting 0 / 1). The selected row starts with ⇒ (stock 0x81CB). The box centres every line by its code count
@@ -329,6 +334,50 @@ def main() -> None:
             tc_exe.put(TITLE_TABLE, struct.pack('<%dI' % TITLE_COUNT, *(title_shift + x for x in inner)))
 
 
+    elif ED.key == 'sp' and v_sc != v_tc:
+        # SP: VT1's offset table is start offsets ending with the archive size (0x452E10). The disc keeps the SC
+        # VT1; in Traditional mode (patch records) the font loader reads the TC font from DMY through immediates,
+        # and chunks 37..107 (four groups, each read in one go from its start to the next group's start) are read
+        # from one DMY copy of the TC range: their table entries shift together, so every group keeps its length.
+        def sp_table(elf, size):
+            out, va = [], SP_VT1_TABLE
+            while True:
+                x = elf.word(va); out.append(x); va += 4
+                if x == size: return out
+        o_sc, o_tc = sp_table(exe_sc, len(v_sc)), sp_table(exe_tc, len(v_tc))
+        if len(o_sc) != len(o_tc): raise SystemExit('SP VT1 chunk count differs')
+        nchunks = len(o_sc) - 1
+        chunk = lambda v, o, i: v[o[i]:o[i + 1]]
+        differing = [i for i in range(nchunks) if chunk(v_sc, o_sc, i).rstrip(b'\0') != chunk(v_tc, o_tc, i).rstrip(b'\0')]
+        from srwz.codec import decode
+        font = chunk(v_tc, o_tc, SP_FONT_CHUNK).rstrip(b'\0')
+        tc_glyphs = decode(font).output
+        if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the font buffer')
+        font_lba = place('TC font (SP VT1 chunk 3)', font); font_offset = (font_lba - vt1m.extent_lba) * 2048
+        tail = [i for i in differing if i >= SP_VT1_TAIL]
+        unsupported = [i for i in differing if i not in (SP_FONT_CHUNK, SP_FONT_DONOR) and i < SP_VT1_TAIL]
+        if unsupported: raise SystemExit(f'SP VT1 chunks {unsupported} differ and have no Traditional loader')
+        tc_exe.put(SP_VT1_TABLE, exe_sc.get(SP_VT1_TABLE, 4 * len(o_sc)))     # disc keeps the SC VT1
+        tail_shift = None
+        if tail:
+            block = v_tc[o_tc[SP_VT1_TAIL]:o_tc[nchunks]]
+            tlba = place(f'TC VT1 chunks {SP_VT1_TAIL}..{nchunks - 1}', block)
+            base = (tlba - vt1m.extent_lba) * 2048
+            for i in range(SP_VT1_TAIL, nchunks + 1):
+                tc_exe.putw(SP_VT1_TABLE + 4 * i, base + o_tc[i] - o_tc[SP_VT1_TAIL])
+            tail_shift = dict(first_chunk=SP_VT1_TAIL, vt1_relative_offset=base, bytes=len(block), differing=tail)
+        for va, w in SP_FONT_LOADER.items():
+            if tc_exe.word(va) != w: raise SystemExit(f'SP font loader preimage drift at {va:#x}')
+        lui = lambda rt, v: 0x3C000000 | rt << 16 | v
+        ori = lambda rt, v: 0x34000000 | rt << 21 | rt << 16 | v
+        for va, w in [(0x13AC14, lui(6, len(font) >> 16)), (0x13AC24, ori(6, len(font) & 0xFFFF)),
+                      (0x13AC3C, lui(5, font_offset >> 16)), (0x13AC40, ori(5, font_offset & 0xFFFF)), (0x13AC48, 0),
+                      (0x13B3FC, 0x10000002), (0x13B400, 0x90240061)]:
+            tc_exe.putw(va, w)
+        tc_exe.putw(SP_FONT_BUFFER, GLYPHS * 288)       # Traditional mode only: Simplified keeps the stock heap
+        report['vt1'] = {'font_bytes': len(font), 'font': {'glyphs': len(tc_glyphs) // 288},
+                         'font_vt1_relative_offset': font_offset, 'differing_chunks': differing, 'tail': tail_shift}
+        sp_font = (font_offset, font)
     elif v_sc != v_tc:
         raise SystemExit(f'{ED.key}: VT1 differs and the Traditional VT1 loaders are not implemented yet')
     else:
@@ -385,6 +434,10 @@ def main() -> None:
             name = next(k for k, v in report['copied_members'].items() if v['tc_lba'] == lba)
             if at(lba * 2048, len(copied[name])) != copied[name]: raise SystemExit(f'readback {name}')
         if font is not None and at(vt1m.extent_lba * 2048 + font_offset, len(font)) != font: raise SystemExit('readback font')
+        if ED.key == 'sp' and report['vt1'].get('tail'):
+            t = report['vt1']['tail']
+            if at(vt1m.extent_lba * 2048 + t['vt1_relative_offset'], t['bytes']) != v_tc[o_tc[SP_VT1_TAIL]:o_tc[nchunks]]:
+                raise SystemExit('readback SP VT1 tail')
         if menu_chunk is not None and at(vt1m.extent_lba * 2048 + menu_chunk[0], menu_chunk[1]) != menu_bytes:
             raise SystemExit('readback title menu')
         if title_shift is not None:

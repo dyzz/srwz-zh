@@ -63,6 +63,10 @@ PAGE_LINES = (
     '',
     '　　　返回剧情选择吗？',
 )
+from pathlib import Path as _Path
+from srwz.build_language import expected_literal as _lit   # Traditional build: the parallel wording
+_ROOT = _Path(__file__).resolve().parents[3]
+PAGE_LINES = tuple(_lit(line, _ROOT) for line in PAGE_LINES)
 PAGE_TEXT = '\n'.join(PAGE_LINES)
 PAGE_SIZE = 9 * 57
 HINTS = (
@@ -70,6 +74,7 @@ HINTS = (
     (0x3C4710, 0x40, '无需读取本篇存档，开始各组剧情时可选择领取。'),
     (0x3C4750, 0x2E, '查看奖励说明。'),
 )
+HINTS = tuple((at, size, _lit(text, _ROOT)) for at, size, text in HINTS)
 TEXT_OVERRIDES = {'sd/vt1/40/0': PAGE_TEXT,
                   **{f'sd/exe/{at:X}': text for at, _, text in HINTS}}
 
