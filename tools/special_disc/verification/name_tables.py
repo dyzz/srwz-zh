@@ -54,6 +54,15 @@ def text_codes(raw):
     raise ValueError('SP name missing NUL')
 
 
+def _capacity():
+    """The active release font's capacity (the Traditional dual-disc font has a linear area)."""
+    import json
+    from pathlib import Path
+    from srwz.font import font_capacity
+    root = Path(__file__).resolve().parents[3]
+    return font_capacity(json.loads((root / 'config/fonts/zh-release-font.json').read_text(encoding='utf-8')))
+
+
 def verify_encoded_glyphs(raw, font, proposal, *, extended=None, cache=None):
     """Check the encoded code, not merely the Unicode character's registration."""
     assignments = {int(r['code'], 16): r for group in
@@ -67,7 +76,8 @@ def verify_encoded_glyphs(raw, font, proposal, *, extended=None, cache=None):
         if code < 0x80:
             index = ascii_glyph_index(code)
         elif extended is not None:
-            index = glyph_index_for_code(code, extended)
+            cap = _capacity()
+            index = glyph_index_for_code(code, extended, glyph_count=cap.glyph_count, linear=cap.linear)
         elif code < 0x989F:
             index = standard_glyph_index(code)
         else:

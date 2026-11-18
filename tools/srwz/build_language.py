@@ -41,6 +41,13 @@ def expected_literals(expectations: dict, project_root: Path) -> dict:
     return {key: expected_literal(value, project_root) for key, value in expectations.items()}
 
 
+def traditional_build(project_root: Path) -> bool:
+    """True in the Traditional build of the dual disc. Its inputs are the parallel of a Simplified build's
+    (tools/zh_hant/sync_corpus.py --check), so guards that compare the frozen Simplified baseline with the text
+    about to be written (concurrent-edit guards) are decided by that Simplified build."""
+    return _literals(str(project_root)) is not None
+
+
 def corpus_language(project_root: Path) -> str:
     """The "language" tag the translation corpora of this build carry."""
     return "zh-Hant" if _literals(str(project_root)) is not None else "zh-Hans"

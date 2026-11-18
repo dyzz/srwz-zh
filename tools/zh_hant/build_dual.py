@@ -110,7 +110,9 @@ def literal_pairs(sc_root: Path, tc_root: Path) -> dict:
     return pairs
 
 
-BUILD_TOOL_SOURCES = ('tools/srwz/*.py', 'tools/build_full_story_components.py', 'tools/verify_full_story_iso_content.py')
+BUILD_TOOL_SOURCES = ('tools/srwz/*.py', 'tools/build_full_story_components.py', 'tools/verify_full_story_iso_content.py',
+                      'tools/special_disc/writeback/*.py', 'tools/special_disc/event_gallery/*.py',      # SP (build_dual_sp.py)
+                      'tools/special_disc/no_bgm/*.py', 'tools/special_disc/verification/*.py')
 LITERAL_SKIP = {'tutorial_title_effects'}        # replaced as a whole by its Traditional section (author_textures.py)
 
 

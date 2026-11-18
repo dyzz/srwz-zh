@@ -6,7 +6,9 @@ SOURCE_CODES = {"（": 0x8169, "）": 0x816A}
 
 
 def replace_parenthesis_slots(font: bytes, original_font: bytes, assignments: list[dict]):
-    if len(font) != len(original_font) or len(font) % GLYPH_SIZE:
+    # The localized font may be larger than the native one (the Traditional dual-disc font has a linear area);
+    # the native parentheses are read from the native glyph store either way.
+    if len(font) < len(original_font) or len(font) % GLYPH_SIZE or len(original_font) % GLYPH_SIZE:
         raise ValueError("parenthesis font geometry mismatch")
     targets = {}
     for row in assignments:

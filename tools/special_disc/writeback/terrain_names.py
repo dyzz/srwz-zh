@@ -13,6 +13,7 @@ from srwz.font import read_extended_glyph_table
 from special_disc.verification.name_tables import verify_encoded_glyphs, EXTENDED_TABLE
 
 ROOT = Path(__file__).resolve().parents[3]
+from srwz.build_language import traditional_build  # noqa: E402
 MEMBER = 'MAP/MAPMODEL.BIN'
 CONTRACT = ROOT / 'config/products/special-disc/terrain-name-inventory.json'
 
@@ -92,7 +93,7 @@ def apply_terrain_names(archive, exe, source, table, overrides, readback):
                 prior = bytes.fromhex(previous)
                 require(len(prior) <= size, 'SP terrain previous encoding overflow')
                 accepted.add(prior.ljust(size, b'\0'))
-            require(bytes(data[at:at + size]) in accepted,
+            require(bytes(data[at:at + size]) in accepted or traditional_build(ROOT),     # baseline holds Simplified bytes
                     f'SP terrain preimage drift: {index}/{at:#x}')
             if bytes(data[at:at + size]) == replacement:
                 continue

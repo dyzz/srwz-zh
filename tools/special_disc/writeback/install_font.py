@@ -44,7 +44,15 @@ AUDIO_CHUNK = 2
 # the main game's finished Chinese font component
 ZH_COMPONENTS = ROOT / "work/build/zh-release-font/components"
 ZH_FONT_CHUNK = 2
-FONT_DECODED_SIZE = 1290240
+def _font_glyphs() -> int:
+    """Glyph count of the active release font profile: the stock 4,480, or a larger font_capacity (the
+    Traditional build of the dual disc: 4,992 glyphs with the linear area)."""
+    import json
+    profile = json.loads((ROOT / "config/fonts/zh-release-font.json").read_text(encoding="utf-8"))
+    return (profile.get("font_capacity") or {}).get("glyph_count", 4480)
+
+
+FONT_DECODED_SIZE = _font_glyphs() * 288      # 1,290,240 for the stock 4,480 glyphs
 JAPANESE_FONT_SHA256 = "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd"
 
 

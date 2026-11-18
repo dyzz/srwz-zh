@@ -35,7 +35,8 @@ EPISODE_LABELS=ROOT/'config/editorial/special-disc/chart-episode-labels.json'
 Z_ENDINGS=ROOT/'config/editorial/special-disc/chart-z-ending-titles.json'
 Z_TITLE_CORPUS=ROOT/'corpus/zh/menu/stage-names.json'
 KEY_HELP=ROOT/'config/editorial/special-disc/chart-key-help.json'
-HSFC_PROTECTED_TERMS=('麦康奈尔','布兰少校','西尔维娅','金卡拉姆','不合群者')
+from srwz.build_language import expected_literal  # noqa: E402  (Traditional build: literals follow the parallel corpus)
+HSFC_PROTECTED_TERMS=tuple(expected_literal(t,ROOT) for t in ('麦康奈尔','布兰少校','西尔维娅','金卡拉姆','不合群者'))
 # The 640x448 SP detail panel displays 11 rows. A 31st full-width
 # characters fit the reviewed native 30-cell region; all prose uses shared JS.
 FLOW_LAYOUT_PATH=ROOT/'config/products/special-disc/flow-layout.json'
@@ -172,7 +173,7 @@ class Writer:
                         title=self.targets[f'sd/group/{page}']['translation']
                         self.bind(f'sd/group/{page}',lines[0].strip('　'))
                         self.record(f'sd/group/{page}',title,member=name,chunk=index,page=page,row=0)
-                    else:title='数据链接'
+                    else:title=expected_literal('数据链接',ROOT)
                     body=['　'+title]+body
                 for number,line in enumerate(body):
                     payload=self.encoded(line,False)
