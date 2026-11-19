@@ -71,7 +71,8 @@ _TM_BYTES = re.compile(re.escape(TM_OPEN_BYTES) + rb'([^\x00\x0a]+?)' + re.escap
 
 def main(iso=None, work=None):
     global DEST, WORK
-    if iso is not None:DEST=Path(iso).resolve()
+    from special_disc.resource_view import open_view
+    if iso is not None:DEST=open_view(iso).resolve()
     # Component reports are pinned to the immutable build run in the manifest.
     manifest=load(DEST.with_suffix('.json'))
     roots={str((ROOT/path).parent.parent) for path in manifest['components']}

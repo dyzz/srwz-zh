@@ -383,8 +383,12 @@ def assemble():
     stats['event_gallery_scenes']=gallery['receipt']['scene_count']
     stats['event_gallery_captions']=gallery['receipt']['caption_count']
     DEST.parent.mkdir(parents=True,exist_ok=True);temporary=DEST.with_suffix('.tmp.iso')
-    require(not temporary.exists(),'another ISO assembly is in progress')
-    timed('clone-baseline',copy_file,BASE,temporary)
+    from special_disc import resource_view
+    if resource_view.enabled():
+        temporary = resource_view.ResourceView.create(WORK/'compiled.spview', BASE)
+    else:
+        require(not temporary.exists(),'another ISO assembly is in progress')
+        timed('clone-baseline',copy_file,BASE,temporary)
     def write_members():
         with temporary.open('r+b')as stream:
             for name,data in patches.items():
@@ -440,7 +444,29 @@ def assemble():
     if COMPONENT_CACHE is not None:
         report['incremental'] = COMPONENT_CACHE.receipt()
     # Verification must finish before either the current ISO or its receipt changes.
-    timed('independent-readback-and-publication',verify_and_publish,temporary,DEST,WORK,report,original_iso_sha,original_manifest)
+    if resource_view.enabled():
+        temporary.save()
+        write_json(temporary.with_suffix('.json'), report)
+        with (WORK/'verify_full_text.log').open('w') as log:
+            subprocess.run([sys.executable, str(ROOT/'tools/special_disc/verification/verify_full_text.py'),
+                            '--iso', str(temporary), '--work-directory', str(WORK)], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True)
+        final = resource_view.ResourceView.create(WORK/'final.spview', temporary)
+        from srwz.typography_policy import load_policy
+        if load_policy(ROOT)['mode'] != 'native':
+            from srwz.typography_iso import _expected
+            _, member, payload, _, _ = _expected(ROOT, 'sp', temporary)
+            with final.open('r+b') as stream:
+                stream.seek(member.extent_lba * 2048)
+                stream.write(payload)
+        from srwz.gunleon_sprite import animation_slot, repaired_slot
+        offset, encoded = animation_slot(final, 'sp')
+        with final.open('r+b') as stream:
+            stream.seek(offset)
+            stream.write(repaired_slot(encoded))
+        final.save()
+    else:
+        timed('independent-readback-and-publication',verify_and_publish,temporary,DEST,WORK,report,original_iso_sha,original_manifest)
     write_json(WORK/'coverage.json',stats)
     print(json.dumps(report['iso'],ensure_ascii=False,indent=2))
 

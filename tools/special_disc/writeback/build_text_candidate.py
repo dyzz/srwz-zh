@@ -34,7 +34,8 @@ def sha(data):
 
 def file_sha(path):
     """Identity-cached SHA-256; see srwz.file_identity."""
-    return sha256_file(path)
+    from special_disc.resource_view import ResourceView
+    return path.digest() if isinstance(path, ResourceView) else sha256_file(path)
 
 
 def write_json(path, value):
@@ -88,7 +89,8 @@ def verify_iso_ranges(before, after, patches):
     the file-identity store so later steps and child processes do not read the
     multi-GB image again.
     """
-    before, after = Path(before), Path(after)
+    from special_disc.resource_view import open_view, ResourceView
+    before, after = open_view(before), open_view(after)
     size = before.stat().st_size
     spans = []
     for a, b in sorted((int(a), int(b)) for a, b in patches):
@@ -118,13 +120,15 @@ def verify_iso_ranges(before, after, patches):
             if not b: break
             whole.update(b)
     after_sha256 = whole.hexdigest()
-    remember_digest(after, after_sha256, settled=True)
+    if not isinstance(after, ResourceView):
+        remember_digest(after, after_sha256, settled=True)
     return dict(bytes=count, sha256=unowned.hexdigest(), after_sha256=after_sha256)
 
 
 def assemble():
     PREVIEW = baseline_iso('preview')
-    DEST = new_temp_iso('text-canary-build')
+    from special_disc import resource_view, baselines
+    DEST = None if resource_view.enabled() else new_temp_iso('text-canary-build')
     require(file_sha(PREVIEW) == PREVIEW_SHA256, 'preview ISO identity drift')
     stage_report = load(WORK/'stage/report.json')
     font_report = load(WORK/'sp-font/report.json')
@@ -170,6 +174,9 @@ def assemble():
     font_decoded = decode_production(patched_vt1[new[3]:new[4]]).output
     require(sha(font_decoded) == font_report['font']['decoded_sha256'], 'candidate font readback mismatch')
     patches = {EXE: bytes(patched_exe), VT1: patched_vt1, STAGE: (WORK/'stage'/STAGE).read_bytes()}
+    if resource_view.enabled():
+        baselines.store_resource_baseline('text-canary', PREVIEW, members, patches)
+        return
     DEST.parent.mkdir(parents=True,exist_ok=True)
     temporary = DEST.with_suffix('.tmp.iso')
     copy_file(PREVIEW, temporary)

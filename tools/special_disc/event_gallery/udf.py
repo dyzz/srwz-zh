@@ -174,7 +174,7 @@ def relocate(imagePath, changes, *, allowed_members=None):
     anchor. ISO9660 Volume Space Size is also refreshed because the caller's
     earlier directory update may have preceded this final metadata extension.
     """
-    path = Path(imagePath)
+    path = Path(imagePath) if isinstance(imagePath, (str, os.PathLike)) else imagePath
     normalized = {name.upper().strip("/"): tuple(map(int, value)) for name, value in changes.items()}
     allowed = ALLOWED if allowed_members is None else frozenset(allowed_members)
     if allowed not in (ALLOWED, {"SLPS_258.87", "EFF/VEFF2DX.BIN"},
@@ -192,7 +192,7 @@ def relocate(imagePath, changes, *, allowed_members=None):
         raise ValueError("refuses source/production ISO; supply an isolated candidate")
     with path.open("r+b") as f:
         disc = Disc(f)
-        original_bytes = os.fstat(f.fileno()).st_size
+        original_bytes = path.stat().st_size
         if original_bytes % BLOCK:
             raise ValueError("candidate image is not sector-aligned")
         total_blocks = original_bytes // BLOCK

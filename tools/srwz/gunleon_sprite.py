@@ -81,11 +81,7 @@ def verify_fixed_iso(source: Path, output: Path, edition: str, receipt=None) -> 
     return result
 
 
-def build_fixed_iso(source: Path, output: Path, edition: str) -> dict:
-    """Write a private candidate and verify the fixed allocation and ISO readback."""
-    if source.resolve() == output.resolve():
-        raise ValueError("Gunleon repair requires a separate output ISO")
-    offset, encoded = animation_slot(source, edition)
+def repaired_slot(encoded):
     size = len(encoded)
     decoded = decode_production(encoded)
     fixed = repair_animation(decoded.output)
@@ -93,6 +89,18 @@ def build_fixed_iso(source: Path, output: Path, edition: str) -> dict:
         encoded, fixed, strategy="rust-patch", max_output_size=size, original_result=decoded,
     )
     payload = replacement.ljust(size, b"\0")
+    if decode_production(payload).output != fixed:
+        raise ValueError('sprite resource readback failed')
+    return payload
+
+
+def build_fixed_iso(source: Path, output: Path, edition: str) -> dict:
+    """Write a private candidate and verify the fixed allocation and ISO readback."""
+    if source.resolve() == output.resolve():
+        raise ValueError("Gunleon repair requires a separate output ISO")
+    offset, encoded = animation_slot(source, edition)
+    size = len(encoded)
+    payload = repaired_slot(encoded)
     copy_file(source, output)
     with output.open("r+b") as stream:
         stream.seek(offset)

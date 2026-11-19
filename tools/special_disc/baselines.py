@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import tempfile
 
-from special_disc import view_cache
+from special_disc import resource_view, view_cache
 from special_disc.source import ROOT, SOURCE_ISO
 from srwz.file_identity import remember_digest, sha256_file
 from srwz.release_inputs import copy_file
@@ -32,6 +32,8 @@ def environment_name(name):
 def export_baseline(name):
     """Restore once and let every child process of this build reuse the same verified file."""
     restored = baseline_iso(name)
+    if resource_view.enabled():
+        return restored
     os.environ[environment_name(name)] = str(restored)
     return restored
 
@@ -100,6 +102,9 @@ def baseline_iso(name):
     if name in _CACHE:
         return _CACHE[name]
     record = json.loads((DIRECTORY / f'{name}.json').read_text())
+    if resource_view.enabled():
+        _CACHE[name] = resource_baseline(name, record)
+        return _CACHE[name]
     exported = os.environ.get(environment_name(name))
     if exported:
         # A parent build already restored and verified this baseline. The file
@@ -201,3 +206,57 @@ def _record_sparse(name, record, restored):
                 source_sha256=record['source_sha256'], data_sha256=digest(data_path),
                 span_count=len(spans), data_bytes=sum(length for _, length in spans), spans=spans)
     meta_path.write_text(json.dumps(meta) + '\n')
+
+
+def resource_baseline(name, record):
+    """Read a regional member layer, or derive the retail SC input from its locked delta."""
+    from special_disc.resource_view import ResourceView
+    path = DIRECTORY / (name + '.spview')
+    if path.exists():
+        return ResourceView.load(path)
+    if digest(SOURCE_ISO) != record['source_sha256']:
+        raise ValueError('resource baseline source drift')
+    view = ResourceView.create(path, SOURCE_ISO)
+    meta_path, data = _sparse_paths(name)
+    meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
+    if (meta.get('source_sha256') == record['source_sha256'] and meta.get('iso_sha256') == record['iso_sha256']
+            and data.is_file() and digest(data) == meta['data_sha256']):
+        start = 0
+        for offset, length in meta['spans']:
+            view.add(offset, length, data, start)
+            start += length
+    else:
+        patch = DIRECTORY / record['patch']
+        if digest(patch) != record['patch_sha256']:
+            raise ValueError('resource baseline delta drift')
+        with subprocess.Popen([xdelta(), '-d', '-c', '-s', str(SOURCE_ISO), str(patch)], stdout=subprocess.PIPE) as proc:
+            with SOURCE_ISO.open('rb') as src, view.open('r+b') as overlay:
+                while block := proc.stdout.read(SPARSE_BLOCK):
+                    offset = src.tell()
+                    if src.read(len(block)) != block:
+                        overlay.seek(offset)
+                        overlay.write(block)
+            if proc.wait():
+                raise ValueError('baseline decode failed')
+    if view.digest() != record['iso_sha256']:
+        raise ValueError('resource baseline hash mismatch')
+    view.save()
+    return view
+
+
+def store_resource_baseline(name, base, members, replacements):
+    from special_disc.resource_view import ResourceView
+    view = ResourceView.create(DIRECTORY / (name + '.spview'), base)
+    with view.open('r+b') as stream:
+        for member, payload in replacements.items():
+            entry = members[member]
+            if len(payload) != entry.size:
+                raise ValueError(f'baseline member size drift: {member}')
+            stream.seek(entry.extent_lba * 2048)
+            stream.write(payload)
+    view.save()
+    lock = DIRECTORY / (name + '.json')
+    lock.write_text(json.dumps({'iso_sha256': view.digest(), 'iso_size': view.size,
+                                'source_sha256': digest(SOURCE_ISO)}, indent=2)+'\n')
+    _CACHE.pop(name, None)
+    return view

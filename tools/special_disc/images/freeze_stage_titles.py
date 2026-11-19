@@ -39,6 +39,8 @@ def main():
     table_bytes = exe[TITLE_TABLE:TITLE_TABLE + 28 * 4]
     offsets = struct.unpack('<28I', table_bytes)
     require(offsets[0] == 0 and offsets[-1] == b-a, 'source title table bounds drift')
+    from special_disc.resource_view import open_view
+    args.font_iso = open_view(args.font_iso)
     members = member_map(scan_iso9660(args.font_iso))
     with args.font_iso.open('rb') as f:
         m = members['SLPS_259.20']; f.seek(m.extent_lba * 2048); current_exe = f.read(m.size)

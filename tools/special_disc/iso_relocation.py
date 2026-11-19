@@ -14,6 +14,7 @@ import hashlib
 import math
 import struct
 from pathlib import Path
+from special_disc.resource_view import open_view
 
 from srwz.file_identity import remember_digest
 from srwz.iso9660 import member_map, scan_iso9660
@@ -97,7 +98,7 @@ def append_members(image: Path, before: dict, members: dict[str, bytes], *, allo
     member keeps its LBA and every catalog records its new size.
     """
     patch_rows = CATALOG_POLICIES[catalog_policy]
-    image = Path(image)
+    image = open_view(image)
     if not members:
         raise ValueError("no members to relocate")
     for name in members:
@@ -188,7 +189,7 @@ def verify_relocation(image: Path, before: dict, members: dict[str, bytes], rece
     """Re-read the image: unchanged members keep their extents, relocated members
     and the catalog read back exactly, grown members keep their LBA and carry the
     appended bytes, and the tail is payloads plus UDF metadata."""
-    image = Path(image)
+    image = open_view(image)
     grow = grow or {}
     after = member_map(scan_iso9660(image))
     for name, member in before.items():

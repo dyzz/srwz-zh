@@ -337,6 +337,10 @@ def main() -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(bytes(data))
     (OUT / EXE).write_bytes(bytes(exe))
+    from special_disc import resource_view, baselines
+    if resource_view.enabled():
+        baselines.store_resource_baseline('preview', ISO, members, {**archives, **extras, EXE: exe})
+        return
     iso_out = new_temp_iso('preview-build')
     copy_file(ISO, iso_out)
     with iso_out.open("r+b") as f:
