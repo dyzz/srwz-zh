@@ -8,16 +8,18 @@
 #
 # Settings source: /BISLPS-25887L/LANG.BIN on the memory card in port 0 (16 bytes: 'ZHLG', version, value,
 # ~value). Version 1: value = lang. Version 2: value = lang | plain zero << 8 | Japanese quotes << 16.
-# lang 1 = Traditional. No card, no file or any mismatch = Simplified with the default look. Debug override:
-# SELECT held on port 0 at boot forces Traditional without touching the card. The two display flags go to the
-# proportional hooks' options word (OPTIONS, srwz.proportional_hooks) in both languages.
+# lang 1 = Traditional (Taiwan), lang 2 = Traditional (Hong Kong, three-language discs: LANGS = 3; each Traditional
+# variant has its own patch file, PATCH_* / PATCH2_*). No card, no file, a language the disc lacks or any mismatch =
+# Simplified with the default look. Debug override: SELECT held on port 0 at boot forces Taiwan without touching the
+# card. The two display flags go to the proportional hooks' options word (OPTIONS, srwz.proportional_hooks) in every
+# language.
 #
 # Patch file (little endian): 32-byte header
 #   +0 'ZHTP'  +4 version  +8 vmap row count  +12 record count  +16 body bytes  +20 u32 sum of body words
 # body: vmap rows (row offset, lba, sectors), then records (address, length, bytes padded to 4).
         .set noreorder
         .set noat
-        .include "params.inc"           # PATCH_LBA, PATCH_SECTORS, SCRATCH, OPTIONS
+        .include "params.inc"           # PATCH_LBA/SECTORS, PATCH2_LBA/SECTORS, PATCH_MAX, LANGS, SCRATCH, OPTIONS, RUNTIME_BUF
         .include "edition.inc"          # the edition's engine addresses and panel geometry (tools/zh_hant/editions.py)
         .text
         .globl lang_hook
@@ -29,9 +31,8 @@ lang_hook:
         sd      $s2, 24($sp)
         sd      $s3, 32($sp)
         jal     BOOT_CALL               # the call this hook replaced
-        nop
 # ---- language source: SELECT on port 0 ------------------------------------------------------------------
-        lui     $s0, ((PAD_BUF + 0x20000000) >> 16) & 0xffff   # pad port 0 buffer through the uncached mirror
+        lui     $s0, ((PAD_BUF + 0x20000000) >> 16) & 0xffff   # (delay slot; s0 is callee-saved) pad port 0
         ori     $s0, $s0, (PAD_BUF + 0x20000000) & 0xffff
         mfc0    $s1, $9                 # Count: timeout start
         addiu   $s3, $zero, 1           # SELECT not held (active low)
@@ -59,18 +60,23 @@ got:    lbu     $t0, 2($t3)             # buttons, active low; bit 0 = SELECT
         andi    $s3, $t0, 1
 card:   jal     read_setting            # language and display flags (always: the flags apply in both)
         nop
-        beqz    $s3, tc                 # SELECT held: debug override
+        bnez    $s3, 1f
         nop
-        beqz    $v0, done
-        nop
-tc:
+        addiu   $v0, $zero, 1           # SELECT held: debug override, Traditional (Taiwan)
+1:      beqz    $v0, done
+        sw      $v0, 40($sp)            # the language this boot asks for (1 Taiwan, 2 Hong Kong)
 # ---- read the patch file -------------------------------------------------------------------------------
         addiu   $v1, $zero, 0x64        # FlushCache(0): no dirty line may shadow the DMA target
         move    $a0, $zero
         syscall
+        lw      $t0, 40($sp)
+        addiu   $t1, $zero, 2
         li      $a0, PATCH_LBA
-        li      $a1, PATCH_SECTORS
-        li      $a2, SCRATCH
+        bne     $t0, $t1, 2f
+        addiu   $a1, $zero, PATCH_SECTORS
+        li      $a0, PATCH2_LBA         # Hong Kong: its own patch file (equals PATCH_* on a two-language disc)
+        li      $a1, PATCH2_SECTORS
+2:      li      $a2, SCRATCH
         jal     read_sectors
         nop
         li      $s0, SCRATCH | 0x20000000       # read it back uncached
@@ -81,7 +87,7 @@ tc:
         addiu   $t1, $zero, 1
         bne     $t0, $t1, wipe
         lw      $t1, 16($s0)                    # body bytes
-        li      $t2, PATCH_SECTORS * 2048 - 32
+        li      $t2, PATCH_MAX * 2048 - 32
         sltu    $t2, $t2, $t1
         bnez    $t2, wipe
         addiu   $t3, $s0, 32
@@ -132,11 +138,11 @@ tc:
         b       5b
         addiu   $s2, $s2, -1
 7:      lui     $t0, %hi(lang)
-        addiu   $t1, $zero, 1
+        lw      $t1, 40($sp)
         sw      $t1, %lo(lang)($t0)
 # ---- wipe the scratch buffer (it was all zero before the read) and flush ---------------------------------
 wipe:   li      $t0, SCRATCH | 0x20000000
-        li      $t1, (SCRATCH | 0x20000000) + PATCH_SECTORS * 2048
+        li      $t1, (SCRATCH | 0x20000000) + PATCH_MAX * 2048
 8:      sd      $zero, 0($t0)
         sd      $zero, 8($t0)
         addiu   $t0, $t0, 16
@@ -240,8 +246,10 @@ rs_check:
         or      $t1, $t1, $t3
         lui     $t3, %hi(disp)
         sw      $t1, %lo(disp)($t3)
-        b       rs_ret
-        andi    $v0, $t0, 1
+        andi    $v0, $t0, 0xff                  # language: 0 Simplified, 1 Taiwan, 2 Hong Kong
+        sltiu   $t1, $v0, LANGS                 # a value this disc does not carry: Simplified
+        bnez    $t1, rs_ret
+        nop
 rs_no:  move    $v0, $zero
 rs_ret: ld      $ra, 0($sp)
         ld      $s0, 8($sp)
@@ -346,8 +354,7 @@ th_close:
         jal     MB_DESTROY
         nop
         jal     restore_msg
-        nop
-        sw      $zero, %lo(dlg_state)($s1)
+        sw      $zero, %lo(dlg_state)($s1)      # (delay slot: restore_msg does not read it)
         b       th_ret
         move    $v0, $s0
 th_draw:
@@ -434,14 +441,23 @@ panel_input:
         andi    $t0, $a0, 0x4000                # down: row + 1
         bnez    $t0, pi_row
         addiu   $t2, $t1, 1
-        andi    $t0, $a0, 0xa000                # left / right: flip the row's value
+        andi    $t0, $a0, 0xa000                # left / right: change the row's value
         beqz    $t0, pi_keep
         sll     $t2, $t1, 2
         addu    $t2, $t9, $t2
         lw      $t3, 4($t2)
-        xori    $t3, $t3, 1
-        b       pi_show
-        sw      $t3, 4($t2)
+        bnez    $t1, 4f                         # rows 1 and 2: two values, flip
+        xori    $t4, $t3, 1
+        andi    $t0, $a0, 0x8000                # row 0: LANGS languages, right +1 / left -1 (mod LANGS)
+        beqz    $t0, 5f
+        addiu   $t4, $t3, 1
+        addiu   $t4, $t3, LANGS - 1
+5:      sltiu   $t0, $t4, LANGS
+        bnez    $t0, 4f
+        nop
+        addiu   $t4, $t4, -LANGS
+4:      b       pi_show
+        sw      $t4, 4($t2)
 pi_row: sltiu   $t3, $t2, 3
         bnez    $t3, 1f
         nop
@@ -521,8 +537,14 @@ sp_row: lui     $t9, %hi(panel)
         lw      $t1, 4($t0)
         sll     $a0, $s1, 1
         addiu   $a0, $a0, 5
-        jal     append
-        addu    $a0, $a0, $t1                   # value
+        addu    $a0, $a0, $t1                   # value: fragment 5 + 2 * row + value
+        bnez    $s1, 6f
+        addiu   $t2, $zero, 2
+        bne     $t1, $t2, 6f
+        nop
+        addiu   $a0, $zero, 15                  # language row, Hong Kong: the last fragment
+6:      jal     append
+        nop
         jal     append
         addiu   $a0, $zero, 14                  # line break
         addiu   $s1, $s1, 1
@@ -566,7 +588,11 @@ append:
 pick_msg:
         lui     $t0, %hi(lang)
         lw      $t0, %lo(lang)($t0)
-        sll     $t0, $t0, 5                     # lang * 32 (16 halfword offsets a language)
+        sltiu   $t1, $t0, 2                     # Hong Kong (2) shows the Taiwan text set
+        beqz    $t1, 1f
+        addiu   $t2, $zero, 1
+        move    $t2, $t0
+1:      sll     $t0, $t2, 5                     # set * 32 (16 halfword offsets a set)
         sll     $a0, $a0, 1
         addu    $t0, $t0, $a0
         lui     $t1, %hi(msg_table)
@@ -851,10 +877,16 @@ r2:     ld      $ra, 0($sp)
         ld      $s2, 24($sp)
         jr      $ra
         addiu   $sp, $sp, 48
+hook_data:                              # code ends here (assemble_dual checks the code for $at)
+        .if RUNTIME_BUF
+        .equ    setting, RUNTIME_BUF            # LANG.BIN buffer and panel text outside the image (runtime only:
+        .equ    panel_buf, RUNTIME_BUF          # cache-line aligned for the card DMA, 84 bytes, see editions.py)
+        .else
         .align  6
 setting:                                # LANG.BIN buffer (cache-line aligned for the card DMA); also the panel
 panel_buf:                              # text (84 bytes at most), rebuilt on every change and never in use while
         .space  84                      # the card is read (boot) or written (the result line replaces the panel)
+        .endif
         .include "paths.inc"                                    # lang_path, lang_dir, icon_sys_path, icon_path
         .include "icon_title.inc"                               # icon_title: 64 bytes Shift-JIS
 attr_panel:
@@ -875,4 +907,4 @@ msg_id: .word   22
 lent:   .word   0, 0, 0, 0, 0           # text slot, attribute slot, original pointer, original attributes (7)
         .align  2
         .globl  lang
-lang:   .word   0                       # 0 = Simplified, 1 = Traditional (for later consumers)
+lang:   .word   0                       # 0 = Simplified, 1 = Traditional (Taiwan), 2 = Traditional (Hong Kong)

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Assemble one Original disc holding Simplified and Traditional from two single-language builds.
+"""Assemble one disc holding Simplified and Traditional from single-language builds (--edition original | best | sp).
+
+The addresses named below are the Original's; BEST's and SP's are in editions.py.
 
 Inputs are two complete ISOs built by the same pipeline: --sc (Simplified, the production build) and --tc
 (the same build fed the Traditional corpus, codebook and font). The output is the SC image plus:
@@ -26,17 +28,18 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import struct
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from srwz.iso9660 import scan_iso9660, member_map  # noqa: E402
-from srwz.iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets  # noqa: E402
 from editions import EDITIONS, edition_inc, paths_inc  # noqa: E402
 
 ED = EDITIONS['original']                # set by --edition (main)
@@ -44,9 +47,8 @@ EXE = ED.exe
 CAVE, CAVE_END = ED.cave
 SCRATCH, SCRATCH_MAX = 0x1C00000, 0x80000
 GLYPHS = 4992                            # font buffer sized once for both languages (Traditional profile: 4,992)
-VT1_TABLE = 0x3F8680                     # executable VT1 offset table (file 0x2fa100), 15 words
-FONT_CHUNK, TITLE_GROUP, MENU_CHUNK = 2, 8, 6
-TITLE_TABLE, TITLE_COUNT = 0x41A2B0, 117
+FONT_CHUNK, TITLE_GROUP, MENU_CHUNK = 2, 8, 6     # main game (Original, BEST): addresses in editions.Edition.main
+TITLE_COUNT, VT1_CHUNKS = 117, 15
 SP_VT1_TABLE, SP_FONT_CHUNK, SP_FONT_DONOR, SP_VT1_TAIL = 0x452E10, 3, 1, 37   # SP: font chunk 3 (chunk 1 donates its
                                                          # zero tail when a bigger font is installed), tail groups 37..
 SP_FONT_BUFFER = 0x4524E8
@@ -55,34 +57,62 @@ SP_FONT_LOADER = {0x13AC14: 0x84232DE4, 0x13AC24: 0x84222DE6, 0x13AC3C: 0x8C6500
                   0x13AC48: 0x00453023, 0x13B3FC: 0x1000000C, 0x13B400: 0xA4200062}
 # Settings-panel text, per display language (each encoded with that language's codebook). MSG_KEYS is the
 # order lang_hook.S indexes (pick_msg); the panel line is cursor/blank + label + value, the values come in pairs
-# (setting 0 / 1). The selected row starts with ⇒ (stock 0x81CB). The box centres every line by its code count
-# (0x139B00: font 6 counts 16 for every code, blanks included), so all three rows are 10 codes (labels 5 codes, padded
-# on the left if shorter; values padded to 4 on the right) and line up as a column with the colons aligned. The hint row's
-# second blank and its last middle blank are where lang_hook.S draws the ○ / × button sprites; the extra leading blank
-# moves the row half a code right, under the middle of the column (user, 2026-11-17). Identical fragments are stored once.
+# (setting 0 / 1; the language row adds v_hk as value 2 on three-language discs). The selected row starts with ⇒
+# (stock 0x81CB). The box centres every line by its code count (0x139B00: font 6 counts 16 for every code, blanks
+# included), so all three rows have the same code count (labels 5 codes, padded on the left if shorter; values padded
+# on the right: 4 codes on a two-language disc, 6 with the regional language names) and line up as a column with the
+# colons aligned. The hint row's second blank and its last middle blank are where lang_hook.S draws the ○ / × button
+# sprites; the extra leading blank moves the row half a code right, under the middle of the column (user, 2026-11-17).
+# Identical fragments are stored once.
 MSG_KEYS = ['cursor', 'blank', 'lbl_lang', 'lbl_zero', 'lbl_quote', 'v_sc', 'v_tc', 'v_dot', 'v_plain', 'v_cn', 'v_jp',
-            'hint', 'ok', 'fail', 'nl', 'spare']
+            'hint', 'ok', 'fail', 'nl', 'v_hk']
 # The zero row shows the two zeros themselves: U+E000 / U+E001 stand for the Latin bank's dotted zero (code
 # 0x8440, slot 0) and plain zero (0x844A, slot 10); the message box draws those codes' glyphs directly.
-MESSAGES = {
+_BASE = {
     'sc': {'cursor': '⇒', 'blank': '　', 'lbl_lang': '游戏语言：', 'lbl_zero': '数字样式：', 'lbl_quote': '对话引号：',
-           'v_sc': '简体中文', 'v_tc': '繁体中文', 'v_dot': '\ue000　　　', 'v_plain': '\ue001　　　', 'v_cn': '中文“”', 'v_jp': '日文「」',
-           'hint': '　　保存　　　取消', 'ok': '设定已保存。\n（语言在重新启动游戏后生效）', 'fail': '无法写入记忆卡。', 'nl': '\n', 'spare': ''},
+           'v_sc': '简体中文', 'v_tc': '繁体中文', 'v_dot': '\ue000', 'v_plain': '\ue001', 'v_cn': '中文“”', 'v_jp': '日文「」',
+           'hint': '　　保存　　　取消', 'ok': '设定已保存。\n（语言在重新启动游戏后生效）', 'fail': '无法写入记忆卡。', 'nl': '\n',
+           'v_tw': '台湾繁体', 'v_hk': '香港繁体'},
     'tc': {'cursor': '⇒', 'blank': '　', 'lbl_lang': '遊戲語言：', 'lbl_zero': '數字樣式：', 'lbl_quote': '對話引號：',
-           'v_sc': '簡體中文', 'v_tc': '繁體中文', 'v_dot': '\ue000　　　', 'v_plain': '\ue001　　　', 'v_cn': '中文“”', 'v_jp': '日文「」',
-           'hint': '　　保存　　　取消', 'ok': '設定已保存。\n（語言在重新啟動遊戲後生效）', 'fail': '無法寫入記憶卡。', 'nl': '\n', 'spare': ''},
+           'v_sc': '簡體中文', 'v_tc': '繁體中文', 'v_dot': '\ue000', 'v_plain': '\ue001', 'v_cn': '中文“”', 'v_jp': '日文「」',
+           'hint': '　　保存　　　取消', 'ok': '設定已保存。\n（語言在重新啟動遊戲後生效）', 'fail': '無法寫入記憶卡。', 'nl': '\n',
+           'v_tw': '台灣繁體', 'v_hk': '香港繁體'},
+    'hk': {'cursor': '⇒', 'blank': '　', 'lbl_lang': '遊戲語言：', 'lbl_zero': '數字樣式：', 'lbl_quote': '對話引號：',
+           'v_sc': '簡體中文', 'v_tc': '繁體中文', 'v_dot': '\ue000', 'v_plain': '\ue001', 'v_cn': '中文“”', 'v_jp': '日文「」',
+           'hint': '　　保存　　　取消', 'ok': '設定已保存。\n（語言在重新啓動遊戲後生效）', 'fail': '無法寫入記憶卡。', 'nl': '\n',
+           'v_tw': '台灣繁體', 'v_hk': '香港繁體'},
 }
-for _m in MESSAGES.values():                         # equal rows (see above); 3 rows + hint fit panel_buf (84 bytes)
-    _rows = [(_m[l], (_m[a], _m[b])) for l, a, b in (('lbl_lang', 'v_sc', 'v_tc'), ('lbl_zero', 'v_dot', 'v_plain'),
-                                                       ('lbl_quote', 'v_cn', 'v_jp'))]
-    assert {1 + len(l) + len(v) for l, vs in _rows for v in vs} == {10}, 'panel rows must be 10 codes'
-    assert 3 * (2 * 10 + 1) + 2 * len(_m['hint']) + 1 <= 84, 'panel text exceeds panel_buf'
+
+
+def panel_messages(langs: int) -> dict:
+    """Panel fragments per display language for a disc with `langs` languages (2: SC / TC, 3: SC / Taiwan / Hong Kong).
+    Hong Kong shows the Taiwan panel text (lang_hook.pick_msg), so a three-language disc still has two text sets."""
+    out = {}
+    for lang in ('sc', 'tc'):
+        m = dict(_BASE[lang])
+        if langs == 3: m['v_tc'] = m['v_tw']
+        else: m['v_hk'] = ''
+        for k in ('v_sc', 'v_tc', 'v_dot', 'v_plain', 'v_cn', 'v_jp', 'v_hk'):
+            if m[k]: m[k] = m[k] + '　' * (4 - len(m[k]))
+        rows = [(m[l], vs) for l, vs in (('lbl_lang', [m['v_sc'], m['v_tc']] + ([m['v_hk']] if langs == 3 else [])),
+                                          ('lbl_zero', [m['v_dot'], m['v_plain']]), ('lbl_quote', [m['v_cn'], m['v_jp']]))]
+        assert {1 + len(l) + len(v) for l, vs in rows for v in vs} == {10}, 'panel rows must be 10 codes'
+        assert 3 * (2 * 10 + 1) + 2 * len(m['hint']) + 1 <= 84, 'panel text exceeds panel_buf'
+        out[lang] = {k: m[k] for k in MSG_KEYS}
+    return out
+
+
+MESSAGES = panel_messages(2)                     # set for the disc being assembled (main)
 STOCK_CODES = {'０': '824F', '　': '8140', '：': '8146', '⇒': '81CB', '\ue000': '8440', '\ue001': '844A'}   # stock full-width codes the release codebooks do not list
 OPTIONS_MARKER = b'SRWZOPT1'                              # srwz.proportional_hooks.DISPLAY_OPTIONS_MARKER
-MENU_LOADER = {0x154C8C: 0x8422_8668, 0x154C90: 0x0002_1080, 0x154C98: 0x00A2_2821, 0x154CA0: 0x0062_1021,
-               0x154CA4: 0x8CA5_0000, 0x154CA8: 0x8C42_0000}     # lh v0,-0x7998(at); sll; addu a1; addu v0; lw a1; lw v0
-FONT_LOADER = {0x13A174: 0x84238664, 0x13A184: 0x84228666, 0x13A19C: 0x8C650000, 0x13A1A0: 0x8C420000, 0x13A1A8: 0x00453023,
-               0x13A95C: 0x1000000C, 0x13A960: 0xA4200062}
+
+
+def vt1_offsets(elf, size: int) -> tuple:
+    """The main game's VT1 chunk offsets from the executable's table, closed by the archive size."""
+    offsets = struct.unpack(f'<{VT1_CHUNKS}I', elf.get(ED.main['vt1_table'], VT1_CHUNKS * 4))
+    if offsets[0] != 0 or any(x >= y for x, y in zip(offsets, offsets[1:])) or offsets[-1] > size:
+        raise SystemExit('VT1 offset table is not the expected table')
+    return offsets + ((size,) if offsets[-1] < size else ())
 
 
 def forbidden():
@@ -166,10 +196,16 @@ def options_address(*exes) -> int:
     return found.pop()
 
 
-def assemble_hook(work: Path, patch_lba: int, patch_sectors: int, codebooks: dict, options: int):
+def assemble_hook(work: Path, patches: list, codebooks: dict, options: int):
+    """patches: [(lba, sectors)] per Traditional variant (Taiwan, then Hong Kong on a three-language disc)."""
     work.mkdir(parents=True, exist_ok=True)
-    (work / 'params.inc').write_text(f'        .equ PATCH_LBA, {patch_lba:#x}\n        .equ PATCH_SECTORS, {patch_sectors}\n'
-                                     f'        .equ SCRATCH, {SCRATCH:#x}\n        .equ OPTIONS, {options:#x}\n')
+    (p1, n1), (p2, n2) = patches[0], patches[-1]
+    langs = 1 + len(patches)
+    (work / 'params.inc').write_text(f'        .equ PATCH_LBA, {p1:#x}\n        .equ PATCH_SECTORS, {n1}\n'
+                                     f'        .equ PATCH2_LBA, {p2:#x}\n        .equ PATCH2_SECTORS, {n2}\n'
+                                     f'        .equ PATCH_MAX, {max(n1, n2)}\n        .equ LANGS, {langs}\n'
+                                     f'        .equ SCRATCH, {SCRATCH:#x}\n        .equ OPTIONS, {options:#x}\n'
+                                     f'        .equ RUNTIME_BUF, {ED.runtime_buf:#x}\n')
     (work / 'messages.inc').write_text(codebook_messages(codebooks))
     (work / 'edition.inc').write_text(edition_inc(ED))
     (work / 'paths.inc').write_text(paths_inc(ED))
@@ -182,7 +218,7 @@ def assemble_hook(work: Path, patch_lba: int, patch_sectors: int, codebooks: dic
     tool('ld', '-EL', f'-Ttext={CAVE:#x}', '-e', 'lang_hook', '-o', str(work / 'hook.elf'), str(work / 'hook.o'))
     tool('objcopy', '-O', 'binary', '-j', '.text', str(work / 'hook.elf'), str(work / 'hook.bin'))
     (work / 'hook.o').unlink()
-    dis = re.split(r'<(?:setting|panel_buf)>:', tool('objdump', '-d', str(work / 'hook.elf')))[0]   # code only
+    dis = re.split(r'<hook_data>:', tool('objdump', '-d', str(work / 'hook.elf')))[0]   # code only
     if ' $at' in dis or ',at' in dis or '\tat,' in dis: raise SystemExit('assembler expanded a macro through $at')
     syms = tool('nm', str(work / 'hook.elf')); (work / 'symbols.txt').write_text(syms)
     syms = {l.split()[2]: int(l.split()[0], 16) for l in syms.splitlines() if len(l.split()) == 3}
@@ -195,9 +231,10 @@ def static_words(elf: Elf, code: bytes, syms: dict):
     (boot, boot_word), (title, title_word) = ED.boot_site, ED.title_site
     if not (elf.word(boot) == boot_word and elf.word(title) == title_word):
         raise SystemExit('executable preimages drift (hook sites)')
-    if ED.key == 'original':
-        if elf.word(0x3F7D68) not in (0x13B000, GLYPHS * 288): raise SystemExit('executable preimage drift (font buffer)')
-        elf.putw(0x3F7D68, GLYPHS * 288)
+    if ED.main:
+        buffer = ED.main['font_buffer']
+        if elf.word(buffer) not in (0x13B000, GLYPHS * 288): raise SystemExit('executable preimage drift (font buffer)')
+        elf.putw(buffer, GLYPHS * 288)
     if any(elf.get(CAVE, CAVE_END - CAVE)): raise SystemExit('hook cave not empty')
     elf.putw(boot, 0x0C000000 | CAVE >> 2)
     elf.putw(title, 0x0C000000 | syms['title_hook'] >> 2)
@@ -236,196 +273,256 @@ def diff_records(a: Elf, b: Elf):
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     p.add_argument('--sc', type=Path, required=True); p.add_argument('--tc', type=Path, required=True)
+    p.add_argument('--hk', type=Path, help='Traditional (Hong Kong) build of the same pipeline: a three-language disc '
+                                           '(language 1 = --tc as Taiwan, language 2 = --hk)')
     p.add_argument('--out', type=Path, required=True); p.add_argument('--receipt', type=Path)
     p.add_argument('--codebook', type=Path, default=ROOT / 'config/encoding/zh-release-font-assignments.json')
     p.add_argument('--tc-codebook', type=Path, required=True, help='the Traditional release codebook (message-box text)')
     p.add_argument('--work', type=Path, default=ROOT / 'build/zh-hant/assemble')
     p.add_argument('--edition', choices=sorted(EDITIONS), default='original')
     a = p.parse_args()
-    global ED, EXE, CAVE, CAVE_END
-    ED = EDITIONS[a.edition]; EXE = ED.exe; CAVE, CAVE_END = ED.cave
     if a.out.resolve().parent != (ROOT / 'build/iso/test').resolve(): raise SystemExit('output must be under build/iso/test')
-    sc, tc = Disc(a.sc), Disc(a.tc)
-    if ED.key == 'sp':
-        exe_sc, exe_tc = Elf(add_cave_segment(sc.read(EXE))), Elf(add_cave_segment(tc.read(EXE)))
-    else:
-        exe_sc, exe_tc = Elf(sc.read(EXE)), Elf(tc.read(EXE))
-    if exe_sc.loads != exe_tc.loads or len(exe_sc.b) != len(exe_tc.b): raise SystemExit('executable layouts differ')
+    receipt = a.receipt or a.out.with_suffix('.receipt.json')
+    if receipt.resolve() in {p.resolve() for p in (a.out, a.sc, a.tc, a.hk) if p}:
+        raise SystemExit('receipt aliases a disc')
+    if a.out.resolve() in {p.resolve() for p in (a.sc, a.tc, a.hk) if p}:
+        raise SystemExit('output aliases an input disc')
+    with tempfile.TemporaryDirectory(dir=a.out.parent) as image_dir, tempfile.TemporaryDirectory(dir=receipt.parent) as receipt_dir:
+        staged = Path(image_dir) / 'verified.iso'
+        staged_receipt = Path(receipt_dir) / 'verified.json'
+        assemble(a, staged, staged_receipt)
+        publish(staged, a.out, staged_receipt, receipt)
+
+
+def publish(staged: Path, output: Path, staged_receipt: Path, receipt: Path) -> None:
+    previous_image = staged.parent / 'previous.iso'
+    previous_receipt = staged_receipt.parent / 'previous.json'
+    if output.exists():
+        os.link(output, previous_image)
+    if receipt.exists():
+        receipt.replace(previous_receipt)
+    try:
+        staged.replace(output)
+        try:
+            staged_receipt.replace(receipt)
+        except OSError:
+            if previous_image.exists():
+                previous_image.replace(output)
+            else:
+                output.unlink()
+            raise
+    except OSError:
+        if previous_receipt.exists():
+            previous_receipt.replace(receipt)
+        raise
+
+
+def assemble(a, staged: Path, staged_receipt: Path) -> None:
+    global ED, EXE, CAVE, CAVE_END, MESSAGES
+    ED = EDITIONS[a.edition]; EXE = ED.exe; CAVE, CAVE_END = ED.cave
+    sc = Disc(a.sc)
+    discs = [('tc', Disc(a.tc))] + ([('hk', Disc(a.hk))] if a.hk else [])
+    langs = 1 + len(discs)
+    MESSAGES = panel_messages(langs)
+    load_exe = (lambda d: Elf(add_cave_segment(d.read(EXE)))) if ED.key == 'sp' else (lambda d: Elf(d.read(EXE)))
+    exe_sc = load_exe(sc)
     dmy, vt1m = sc.m['DMY/DMY.BIN'], sc.m['DATA/VT1.BIN']
     if dmy.extent_lba <= vt1m.extent_lba: raise SystemExit('DMY must follow VT1 (TC data is read through the VT1 handle)')
     rows = sc.vmap()
-    report = {'identical_members': 0, 'copied_members': {}, 'vt1': {}}
 
     tail_items = []
     tail_lba = a.sc.stat().st_size // 2048
     items, cur = [], dmy.extent_lba + 16
+    placed, tail_placed = {}, {}
     def place(name, data):
+        """Copy data into DMY once; a variant whose bytes equal an earlier copy shares it."""
         nonlocal cur
-        lba = cur; items.append((name, lba, data)); cur += -(-len(data) // 2048); return lba
+        k = sha(data)
+        if k in placed: return placed[k]
+        lba = cur; items.append((name, lba, data)); cur += -(-len(data) // 2048); placed[k] = lba; return lba
+    def place_tail(name, data):
+        nonlocal tail_lba
+        k = sha(data)
+        if k in tail_placed: return tail_placed[k]
+        lba = tail_lba; tail_items.append((name, lba, data)); tail_lba += -(-len(data) // 2048); tail_placed[k] = lba
+        return lba
 
-    # ---- members ----------------------------------------------------------------------------------------
-    vmap_rows, copied = [], {}
-    for name, e in sorted(tc.m.items()):
-        if name in (EXE, 'DATA/VT1.BIN', 'DMY/DMY.BIN') or name not in sc.m: continue
-        a_b, b_b = sc.read(name), tc.read(name)
-        if a_b == b_b: report['identical_members'] += 1; continue
-        if ED.key == 'sp' and name == 'VMAP.DAT':
-            # The single-language gallery build relocates archives. Check that
-            # these bytes only describe the two input discs' own ISO extents.
-            expected = bytearray(a_b)
-            for member, (offset, lba, sectors) in rows.items():
-                sc_entry, tc_entry = sc.m[member], tc.m[member]
-                if (sc_entry.extent_lba, sc_entry.size) == (tc_entry.extent_lba, tc_entry.size):
-                    continue
-                if (lba, sectors) != (sc_entry.extent_lba, -(-sc_entry.size // 2048)):
-                    raise SystemExit(f'SP VMAP source allocation drift: {member}')
-                struct.pack_into('<II', expected, offset + 40, tc_entry.extent_lba, -(-tc_entry.size // 2048))
-            if expected != b_b: raise SystemExit('unexpected SP VMAP differences')
-            continue
-        if name.upper() not in rows: raise SystemExit(f'{name} differs but has no VMAP row')
-        off, lba, sec = rows[name.upper()]
-        if lba != sc.m[name].extent_lba: raise SystemExit(f'VMAP row of {name} does not match the ISO directory')
-        n = -(-len(b_b) // 2048)
-        # The Traditional theatre artwork changes the whole AID archive. Like VT1,
-        # it is read through VMAP and exceeds the space left in the SP dummy member.
-        if ED.key == 'sp' and name == 'AID_DATA/AIDDATA.BIN':
-            tl = tail_lba
-            tail_items.append((name, tl, b_b))
-            tail_lba += n
-        else:
-            tl = place(name, b_b)
-        vmap_rows.append((off, tl, n)); copied[name] = b_b
-        report['copied_members'][name] = {'sc_bytes': len(a_b), 'tc_bytes': len(b_b), 'tc_lba': tl, 'tc_sectors': n}
-    for name in tc.m:
-        if name not in sc.m: raise SystemExit(f'TC build has an extra member {name}')
-
-    # ---- VT1: font chunk, stage-title group ------------------------------------------------------------
-    v_sc, v_tc = sc.read('DATA/VT1.BIN'), tc.read('DATA/VT1.BIN')
-    tc_exe = Elf(bytes(exe_tc.b))
-    font = None; menu_chunk = title_shift = None
-    appended_vt1 = None
-    if ED.key == 'original':
-        o_sc = read_executable_archive_offsets(bytes(exe_sc.b), CORE_ARCHIVE_SPECS['VT1.BIN'], len(v_sc))
-        o_tc = read_executable_archive_offsets(bytes(exe_tc.b), CORE_ARCHIVE_SPECS['VT1.BIN'], len(v_tc))
-        chunk = lambda v, o, i: v[o[i]:o[i + 1]]
-        same_chunk = lambda i: chunk(v_sc, o_sc, i).rstrip(b'\0') == chunk(v_tc, o_tc, i).rstrip(b'\0')   # slot padding moves
-        from srwz.codec import decode
-        font = chunk(v_tc, o_tc, FONT_CHUNK)                  # the Traditional build's own font, as built
-        tc_glyphs = decode(font).output
-        if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the fixed font buffer')
-        font_report = {'glyphs': len(tc_glyphs) // 288}
-        font_lba = place('TC font (VT1 chunk 2)', font)
-        font_offset = (font_lba - vt1m.extent_lba) * 2048
-        title_shift = None
-        menu_chunk = menu_bytes = None                          # (VT1-relative offset, size) of the TC title-menu chunk
-        for i in range(len(o_sc) - 1):
-            if i == FONT_CHUNK or same_chunk(i): continue
-            if i == TITLE_GROUP:
-                g = chunk(v_tc, o_tc, i); glba = place('TC stage-title group (VT1 chunk 8)', g)
-                title_shift = (glba - vt1m.extent_lba) * 2048 - o_sc[i]
-            elif i == MENU_CHUNK:
-                menu_bytes = chunk(v_tc, o_tc, i).rstrip(b'\0'); glba = place('TC title menu (VT1 chunk 6)', menu_bytes)
-                menu_chunk = ((glba - vt1m.extent_lba) * 2048, len(menu_bytes))
+    def variant(tag, tc):
+        """Members, VT1 and executable of one Traditional variant against the Simplified disc."""
+        V = {'tag': tag, 'report': {'identical_members': 0, 'copied_members': {}, 'vt1': {}}, 'vmap_rows': [], 'copied': {},
+             'font': None, 'font_offset': None, 'menu_chunk': None, 'menu_bytes': None, 'title_shift': None,
+             'vt1_tail_lba': None}
+        report, vmap_rows, copied = V['report'], V['vmap_rows'], V['copied']
+        label = (lambda s: s) if tag == 'tc' else (lambda s: f'HK {s}')
+        exe_tc = load_exe(tc)
+        if exe_sc.loads != exe_tc.loads or len(exe_sc.b) != len(exe_tc.b): raise SystemExit(f'{tag}: executable layouts differ')
+        # ---- members ------------------------------------------------------------------------------------
+        for name, e in sorted(tc.m.items()):
+            if name in (EXE, 'DATA/VT1.BIN', 'DMY/DMY.BIN') or name not in sc.m: continue
+            a_b, b_b = sc.read(name), tc.read(name)
+            if a_b == b_b: report['identical_members'] += 1; continue
+            if ED.key == 'sp' and name == 'VMAP.DAT':
+                # The single-language gallery build relocates archives. Check that
+                # these bytes only describe the two input discs' own ISO extents.
+                expected = bytearray(a_b)
+                for member, (offset, lba, sectors) in rows.items():
+                    sc_entry, tc_entry = sc.m[member], tc.m[member]
+                    if (sc_entry.extent_lba, sc_entry.size) == (tc_entry.extent_lba, tc_entry.size):
+                        continue
+                    if (lba, sectors) != (sc_entry.extent_lba, -(-sc_entry.size // 2048)):
+                        raise SystemExit(f'SP VMAP source allocation drift: {member}')
+                    struct.pack_into('<II', expected, offset + 40, tc_entry.extent_lba, -(-tc_entry.size // 2048))
+                if expected != b_b: raise SystemExit(f'{tag}: unexpected SP VMAP differences')
+                continue
+            if name.upper() not in rows: raise SystemExit(f'{name} differs but has no VMAP row')
+            off, lba, sec = rows[name.upper()]
+            if lba != sc.m[name].extent_lba: raise SystemExit(f'VMAP row of {name} does not match the ISO directory')
+            n = -(-len(b_b) // 2048)
+            # The Traditional theatre artwork changes the whole AID archive. Like VT1,
+            # it is read through VMAP and exceeds the space left in the SP dummy member.
+            if ED.key == 'sp' and name == 'AID_DATA/AIDDATA.BIN':
+                tl = place_tail(label(name), b_b)
             else:
-                raise SystemExit(f'VT1 chunk {i} differs and has no Traditional loader')
-        report['vt1'] = {'font_bytes': len(font), 'font': font_report, 'sc_font_bytes': o_sc[FONT_CHUNK + 1] - o_sc[FONT_CHUNK],
-                         'font_vt1_relative_offset': font_offset, 'title_group_shift': title_shift,
-                         'title_menu_chunk': menu_chunk}
+                tl = place(label(name), b_b)
+            vmap_rows.append((off, tl, n)); copied[name] = b_b
+            report['copied_members'][name] = {'sc_bytes': len(a_b), 'tc_bytes': len(b_b), 'tc_lba': tl, 'tc_sectors': n}
+        for name in tc.m:
+            if name not in sc.m: raise SystemExit(f'{tag} build has an extra member {name}')
 
-        # ---- executables ------------------------------------------------------------------------------------
-        tc_exe.put(VT1_TABLE, exe_sc.get(VT1_TABLE, 15 * 4))          # disc keeps the SC VT1
-        for va, w in FONT_LOADER.items():
-            if tc_exe.word(va) != w: raise SystemExit(f'font loader preimage drift at {va:#x}')
-        lui = lambda rt, v: 0x3C000000 | rt << 16 | v
-        ori = lambda rt, v: 0x34000000 | rt << 21 | rt << 16 | v
-        for va, w in [(0x13A174, lui(6, len(font) >> 16)), (0x13A184, ori(6, len(font) & 0xFFFF)),
-                      (0x13A19C, lui(5, font_offset >> 16)), (0x13A1A0, ori(5, font_offset & 0xFFFF)), (0x13A1A8, 0),
-                      (0x13A95C, 0x10000002), (0x13A960, 0x90240061)]:
-            tc_exe.putw(va, w)
-        if menu_chunk is not None:
-            # The title screen reads chunk 6 at 0x154C8C-0x154CB0: a1 = table[hw 0x3F8668], v0 = table[that + 1],
-            # 0x139620(VT1 handle, a1, v0 - a1). Load the DMY offset and its end as immediates instead (the read
-            # routine does not clip at the file end, as for the font).
-            for va, w in MENU_LOADER.items():
-                if tc_exe.word(va) != w: raise SystemExit(f'title-menu loader preimage drift at {va:#x}')
-            start, size = menu_chunk; end = start + size
-            for va, w in [(0x154C8C, lui(5, start >> 16)), (0x154C90, ori(5, start & 0xFFFF)),
-                          (0x154C98, lui(2, end >> 16)), (0x154CA0, ori(2, end & 0xFFFF)),
-                          (0x154CA4, 0), (0x154CA8, 0)]:
+        # ---- VT1: font chunk, stage-title group ---------------------------------------------------------
+        v_sc, v_tc = sc.read('DATA/VT1.BIN'), tc.read('DATA/VT1.BIN')
+        V['v_tc'] = v_tc
+        tc_exe = Elf(bytes(exe_tc.b))
+        appended_vt1 = None
+        if ED.main:
+            o_sc, o_tc = vt1_offsets(exe_sc, len(v_sc)), vt1_offsets(exe_tc, len(v_tc))
+            V['o_sc'], V['o_tc'] = o_sc, o_tc
+            chunk = lambda v, o, i: v[o[i]:o[i + 1]]
+            same_chunk = lambda i: chunk(v_sc, o_sc, i).rstrip(b'\0') == chunk(v_tc, o_tc, i).rstrip(b'\0')   # slot padding moves
+            from srwz.codec import decode
+            font = chunk(v_tc, o_tc, FONT_CHUNK)                  # the Traditional build's own font, as built
+            tc_glyphs = decode(font).output
+            if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the fixed font buffer')
+            font_report = {'glyphs': len(tc_glyphs) // 288}
+            font_lba = place(label('TC font (VT1 chunk 2)'), font)
+            font_offset = (font_lba - vt1m.extent_lba) * 2048
+            title_shift = None
+            menu_chunk = menu_bytes = None                          # (VT1-relative offset, size) of the TC title-menu chunk
+            for i in range(len(o_sc) - 1):
+                if i == FONT_CHUNK or same_chunk(i): continue
+                if i == TITLE_GROUP:
+                    g = chunk(v_tc, o_tc, i); glba = place(label('TC stage-title group (VT1 chunk 8)'), g)
+                    title_shift = (glba - vt1m.extent_lba) * 2048 - o_sc[i]
+                elif i == MENU_CHUNK:
+                    menu_bytes = chunk(v_tc, o_tc, i).rstrip(b'\0'); glba = place(label('TC title menu (VT1 chunk 6)'), menu_bytes)
+                    menu_chunk = ((glba - vt1m.extent_lba) * 2048, len(menu_bytes))
+                else:
+                    raise SystemExit(f'VT1 chunk {i} differs and has no Traditional loader')
+            V.update(font=font, font_offset=font_offset, menu_chunk=menu_chunk, menu_bytes=menu_bytes, title_shift=title_shift)
+            report['vt1'] = {'font_bytes': len(font), 'font': font_report, 'sc_font_bytes': o_sc[FONT_CHUNK + 1] - o_sc[FONT_CHUNK],
+                             'font_vt1_relative_offset': font_offset, 'title_group_shift': title_shift,
+                             'title_menu_chunk': menu_chunk}
+
+            # ---- executable ------------------------------------------------------------------------------
+            vt1_table = ED.main['vt1_table']
+            tc_exe.put(vt1_table, exe_sc.get(vt1_table, VT1_CHUNKS * 4))  # disc keeps the SC VT1
+            for va, w in ED.main['font_loader']:
+                if tc_exe.word(va) != w: raise SystemExit(f'font loader preimage drift at {va:#x}')
+            lui = lambda rt, v: 0x3C000000 | rt << 16 | v
+            ori = lambda rt, v: 0x34000000 | rt << 21 | rt << 16 | v
+            sites = [va for va, _ in ED.main['font_loader']]
+            for va, w in zip(sites, [lui(6, len(font) >> 16), ori(6, len(font) & 0xFFFF),
+                                     lui(5, font_offset >> 16), ori(5, font_offset & 0xFFFF), 0,
+                                     0x10000002, 0x90240061]):
                 tc_exe.putw(va, w)
-        if title_shift is not None:
-            inner = struct.unpack('<%dI' % TITLE_COUNT, tc_exe.get(TITLE_TABLE, TITLE_COUNT * 4))
-            if inner[0] != 0: raise SystemExit('TC title table does not start at 0')
-            tc_exe.put(TITLE_TABLE, struct.pack('<%dI' % TITLE_COUNT, *(title_shift + x for x in inner)))
+            if menu_chunk is not None:
+                # The title screen reads chunk 6 at 0x154C8C-0x154CB0: a1 = table[hw 0x3F8668], v0 = table[that + 1],
+                # 0x139620(VT1 handle, a1, v0 - a1). Load the DMY offset and its end as immediates instead (the read
+                # routine does not clip at the file end, as for the font).
+                for va, w in ED.main['menu_loader']:
+                    if tc_exe.word(va) != w: raise SystemExit(f'title-menu loader preimage drift at {va:#x}')
+                start, size = menu_chunk; end = start + size
+                sites = [va for va, _ in ED.main['menu_loader']]
+                for va, w in zip(sites, [lui(5, start >> 16), ori(5, start & 0xFFFF),
+                                         lui(2, end >> 16), ori(2, end & 0xFFFF), 0, 0]):
+                    tc_exe.putw(va, w)
+            if title_shift is not None:
+                title_table = ED.main['title_table']
+                inner = struct.unpack('<%dI' % TITLE_COUNT, tc_exe.get(title_table, TITLE_COUNT * 4))
+                if inner[0] != 0: raise SystemExit('TC title table does not start at 0')
+                tc_exe.put(title_table, struct.pack('<%dI' % TITLE_COUNT, *(title_shift + x for x in inner)))
+        elif ED.key == 'sp' and v_sc != v_tc:
+            # SP: VT1 is read in groups whose length is the next group's start in one offset table, so no single chunk
+            # can be moved without breaking its neighbour. In Traditional mode the whole VT1 member is redirected (VMAP
+            # row) to a complete Traditional copy appended after the image; the TC executable keeps its own VT1 table,
+            # and only the font buffer grows (Traditional mode only: the hook runs before the font is loaded).
+            vt1_row = rows.get('DATA/VT1.BIN')
+            if vt1_row is None or vt1_row[1] != vt1m.extent_lba: raise SystemExit('SP VT1 VMAP row missing or stale')
+            from srwz.codec import decode
+            def sp_table(elf, size):
+                out, va = [], SP_VT1_TABLE
+                while True:
+                    x = elf.word(va); out.append(x); va += 4
+                    if x == size: return out
+            o_tc = sp_table(exe_tc, len(v_tc))
+            tc_glyphs = decode(v_tc[o_tc[SP_FONT_CHUNK]:o_tc[SP_FONT_CHUNK + 1]]).output
+            if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the font buffer')
+            tc_exe.putw(SP_FONT_BUFFER, GLYPHS * 288)
+            for va in (0x13B3FC, 0x13B400):                     # linear glyph fallback (lead 0x99.. codes), as Original
+                if tc_exe.word(va) != SP_FONT_LOADER[va]: raise SystemExit(f'SP glyph fallback preimage drift at {va:#x}')
+            tc_exe.putw(0x13B3FC, 0x10000002); tc_exe.putw(0x13B400, 0x90240061)
+            appended_vt1 = v_tc
+            report['vt1'] = {'redirect': 'whole member appended after the image', 'bytes': len(v_tc),
+                             'font': {'glyphs': len(tc_glyphs) // 288}}
+        elif v_sc != v_tc:
+            raise SystemExit(f'{ED.key}: VT1 differs and the Traditional VT1 loaders are not implemented yet')
+        else:
+            report['vt1'] = {'identical': True}
+        if appended_vt1 is not None:
+            V['vt1_tail_lba'] = place_tail(label('DATA/VT1.BIN'), appended_vt1)  # written at the image end
+            vmap_rows.append((rows['DATA/VT1.BIN'][0], V['vt1_tail_lba'], -(-len(appended_vt1) // 2048)))
+            report['vt1']['lba'] = V['vt1_tail_lba']
+        V['exe'] = tc_exe
+        return V
 
+    VS = [variant(tag, d) for tag, d in discs]
 
-    elif ED.key == 'sp' and v_sc != v_tc:
-        # SP: VT1 is read in groups whose length is the next group's start in one offset table, so no single chunk
-        # can be moved without breaking its neighbour. In Traditional mode the whole VT1 member is redirected (VMAP
-        # row) to a complete Traditional copy appended after the image; the TC executable keeps its own VT1 table,
-        # and only the font buffer grows (Traditional mode only: the hook runs before the font is loaded).
-        vt1_row = rows.get('DATA/VT1.BIN')
-        if vt1_row is None or vt1_row[1] != vt1m.extent_lba: raise SystemExit('SP VT1 VMAP row missing or stale')
-        from srwz.codec import decode
-        def sp_table(elf, size):
-            out, va = [], SP_VT1_TABLE
-            while True:
-                x = elf.word(va); out.append(x); va += 4
-                if x == size: return out
-        o_tc = sp_table(exe_tc, len(v_tc))
-        tc_glyphs = decode(v_tc[o_tc[SP_FONT_CHUNK]:o_tc[SP_FONT_CHUNK + 1]]).output
-        if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the font buffer')
-        tc_exe.putw(SP_FONT_BUFFER, GLYPHS * 288)
-        for va in (0x13B3FC, 0x13B400):                     # linear glyph fallback (lead 0x99.. codes), as Original
-            if tc_exe.word(va) != SP_FONT_LOADER[va]: raise SystemExit(f'SP glyph fallback preimage drift at {va:#x}')
-        tc_exe.putw(0x13B3FC, 0x10000002); tc_exe.putw(0x13B400, 0x90240061)
-        appended_vt1 = v_tc
-        report['vt1'] = {'redirect': 'whole member appended after the image', 'bytes': len(v_tc),
-                         'font': {'glyphs': len(tc_glyphs) // 288}}
-    elif v_sc != v_tc:
-        raise SystemExit(f'{ED.key}: VT1 differs and the Traditional VT1 loaders are not implemented yet')
-    else:
-        report['vt1'] = {'identical': True}
-
-    vt1_tail_lba = None
-    if appended_vt1 is not None:
-        vt1_tail_lba = tail_lba           # written at the image end, before the executable moves
-        vmap_rows.append((rows['DATA/VT1.BIN'][0], vt1_tail_lba, -(-len(appended_vt1) // 2048)))
-        report['vt1']['lba'] = vt1_tail_lba
-        tail_items.append(('DATA/VT1.BIN', vt1_tail_lba, appended_vt1))
-
-    def build_patch(code, syms):
-        s, t = Elf(bytes(exe_sc.b)), Elf(bytes(tc_exe.b))
+    def build_patch(code, syms, V):
+        s, t = Elf(bytes(exe_sc.b)), Elf(bytes(V['exe'].b))
         static_words(s, code, syms); static_words(t, code, syms)
         recs = diff_records(s, t)
-        body = b''.join(struct.pack('<3I', *r) for r in vmap_rows)
+        body = b''.join(struct.pack('<3I', *r) for r in V['vmap_rows'])
         for va, data in recs:
             if not data or any(va < e and st < va + len(data) for st, e in forbidden()): raise SystemExit(f'patch record in a forbidden range: {va:#x}')
             body += struct.pack('<2I', va, len(data)) + data + bytes(-len(data) % 4)
-        head = struct.pack('<4s5I', b'ZHTP', 1, len(vmap_rows), len(recs), len(body), sum(struct.unpack(f'<{len(body) // 4}I', body)) & 0xFFFFFFFF)
+        head = struct.pack('<4s5I', b'ZHTP', 1, len(V['vmap_rows']), len(recs), len(body), sum(struct.unpack(f'<{len(body) // 4}I', body)) & 0xFFFFFFFF)
         return s, t, recs, head + bytes(32 - len(head)) + body
 
     codebooks = {'sc': a.codebook, 'tc': a.tc_codebook}
-    options = options_address(exe_sc, exe_tc)
-    code0, syms0 = assemble_hook(a.work, 0, 1, codebooks, options)
-    _, _, recs, pf = build_patch(code0, syms0)
-    patch_sectors = -(-len(pf) // 2048)
-    if patch_sectors * 2048 > SCRATCH_MAX: raise SystemExit('patch file exceeds the scratch buffer')
-    patch_lba = place('patch file', pf)
-    code, syms = assemble_hook(a.work, patch_lba, patch_sectors, codebooks, options)
-    SC, TC, recs2, pf2 = build_patch(code, syms)
-    if recs2 != recs or pf2 != pf: raise SystemExit('patch depends on the hook bytes')
-    replay = Elf(bytes(SC.b)); body = pf[32:]; nv, nr = struct.unpack_from('<2I', pf, 8); q = nv * 12
-    for _ in range(nr):
-        va, n = struct.unpack_from('<2I', body, q); q += 8; replay.put(va, body[q:q + n]); q += n + (-n % 4)
-    if replay.b != TC.b: raise SystemExit('patch replay differs from the TC executable')
+    options = options_address(exe_sc, *(V['exe'] for V in VS))
+    code0, syms0 = assemble_hook(a.work, [(0, 1)] * len(VS), codebooks, options)
+    patches = []
+    for V in VS:
+        _, _, V['recs'], V['pf'] = build_patch(code0, syms0, V)
+        V['patch_sectors'] = -(-len(V['pf']) // 2048)
+        if V['patch_sectors'] * 2048 > SCRATCH_MAX: raise SystemExit(f"{V['tag']}: patch file exceeds the scratch buffer")
+        V['patch_lba'] = place(('patch file' if V['tag'] == 'tc' else 'HK patch file'), V['pf'])
+        patches.append((V['patch_lba'], V['patch_sectors']))
+    code, syms = assemble_hook(a.work, patches, codebooks, options)
+    for V in VS:
+        SC, TC, recs2, pf2 = build_patch(code, syms, V)
+        if recs2 != V['recs'] or pf2 != V['pf']: raise SystemExit(f"{V['tag']}: patch depends on the hook bytes")
+        replay = Elf(bytes(SC.b)); pf = V['pf']; body = pf[32:]; nv, nr = struct.unpack_from('<2I', pf, 8); q = nv * 12
+        for _ in range(nr):
+            va, n = struct.unpack_from('<2I', body, q); q += 8; replay.put(va, body[q:q + n]); q += n + (-n % 4)
+        if replay.b != TC.b: raise SystemExit(f"{V['tag']}: patch replay differs from its executable")
+        V['exe_out'] = TC
     if cur > dmy.extent_lba + dmy.size // 2048: raise SystemExit('DMY is full')
 
     # ---- write and read back ----------------------------------------------------------------------------
-    if a.out.exists(): a.out.unlink()
-    subprocess.run(['cp', '-c', str(a.sc), str(a.out)], check=True)
+    subprocess.run(['cp', '-c', str(a.sc), str(staged)], check=True)
     exe_e = sc.m[EXE]; spans = []
-    with open(a.out, 'r+b') as f:
+    with open(staged, 'r+b') as f:
         f.seek(dmy.extent_lba * 2048)
         if any(f.read((cur - dmy.extent_lba) * 2048)): raise SystemExit('DMY area not empty')
         for name, lba, data in items:
@@ -433,7 +530,7 @@ def main() -> None:
             f.seek(lba * 2048); f.write(data + bytes(n - len(data))); spans.append((lba * 2048, lba * 2048 + n))
         if len(SC.b) == exe_e.size:
             f.seek(exe_e.extent_lba * 2048); f.write(SC.b); spans.append((exe_e.extent_lba * 2048, exe_e.extent_lba * 2048 + len(SC.b)))
-    with open(a.out, 'r+b') as f:
+    with open(staged, 'r+b') as f:
         for name, lba, data in tail_items:
             if f.seek(0, 2) != lba * 2048: raise SystemExit(f'image end moved before {name}')
             f.write(data)
@@ -443,35 +540,37 @@ def main() -> None:
     relocation = None
     if len(SC.b) != exe_e.size:                             # SP: the executable grew by the cave segment
         from special_disc.iso_relocation import append_members, verify_relocation
-        relocation = append_members(a.out, sc.m, {EXE: bytes(SC.b)}, catalog_policy='inherit')
-        verify_relocation(a.out, sc.m, {EXE: bytes(SC.b)}, relocation)
+        relocation = append_members(staged, sc.m, {EXE: bytes(SC.b)}, catalog_policy='inherit')
+        verify_relocation(staged, sc.m, {EXE: bytes(SC.b)}, relocation)
         spans += [tuple(x) for x in relocation['touched_spans']]
-    with open(a.out, 'rb') as f:
+    with open(staged, 'rb') as f:
         def at(off, n): f.seek(off); return f.read(n)
-        for off, lba, n in vmap_rows:
-            if lba == vt1_tail_lba: continue                   # the appended VT1 copy (read back when written)
-            name = next(k for k, v in report['copied_members'].items() if v['tc_lba'] == lba)
-            if at(lba * 2048, len(copied[name])) != copied[name]: raise SystemExit(f'readback {name}')
-        if font is not None and at(vt1m.extent_lba * 2048 + font_offset, len(font)) != font: raise SystemExit('readback font')
-        if ED.key == 'sp' and report['vt1'].get('tail'):
-            t = report['vt1']['tail']
-            if at(vt1m.extent_lba * 2048 + t['vt1_relative_offset'], t['bytes']) != v_tc[o_tc[SP_VT1_TAIL]:o_tc[nchunks]]:
-                raise SystemExit('readback SP VT1 tail')
-        if menu_chunk is not None and at(vt1m.extent_lba * 2048 + menu_chunk[0], menu_chunk[1]) != menu_bytes:
-            raise SystemExit('readback title menu')
-        if title_shift is not None:
-            table, count, group = (SP_TITLE_TABLE, 28, SP_TITLE_GROUP) if ED.key == 'sp' else (TITLE_TABLE, TITLE_COUNT, TITLE_GROUP)
-            inner = struct.unpack('<%dI' % count, TC.get(table, count * 4))
-            base = vt1m.extent_lba * 2048 + o_sc[group]
-            if at(base + inner[0], inner[-1] - inner[0]) != chunk(v_tc, o_tc, group): raise SystemExit('readback titles')
+        for V in VS:
+            if at(V['patch_lba'] * 2048, len(V['pf'])) != V['pf']:
+                raise SystemExit(f"readback {V['tag']} ZHTP patch")
+            for off, lba, n in V['vmap_rows']:
+                if lba == V['vt1_tail_lba']: continue                   # the appended VT1 copy (read back when written)
+                name = next(k for k, v in V['report']['copied_members'].items() if v['tc_lba'] == lba)
+                if at(lba * 2048, len(V['copied'][name])) != V['copied'][name]: raise SystemExit(f"readback {V['tag']} {name}")
+            if V['font'] is not None and at(vt1m.extent_lba * 2048 + V['font_offset'], len(V['font'])) != V['font']:
+                raise SystemExit(f"readback {V['tag']} font")
+            if V['menu_chunk'] is not None and at(vt1m.extent_lba * 2048 + V['menu_chunk'][0], V['menu_chunk'][1]) != V['menu_bytes']:
+                raise SystemExit(f"readback {V['tag']} title menu")
+            if V['title_shift'] is not None:
+                table, count, group = (SP_TITLE_TABLE, 28, SP_TITLE_GROUP) if ED.key == 'sp' else (ED.main['title_table'], TITLE_COUNT, TITLE_GROUP)
+                inner = struct.unpack('<%dI' % count, V['exe_out'].get(table, count * 4))
+                base = vt1m.extent_lba * 2048 + V['o_sc'][group]
+                o_tc = V['o_tc']
+                if at(base + inner[0], inner[-1] - inner[0]) != V['v_tc'][o_tc[group]:o_tc[group + 1]]:
+                    raise SystemExit(f"readback {V['tag']} titles")
     merged = []
     for st, e in sorted(spans):
         if merged and st <= merged[-1][1]: merged[-1][1] = max(merged[-1][1], e)
         else: merged.append([st, e])
     spans = [tuple(x) for x in merged]; pos = 0
-    with open(a.sc, 'rb') as x, open(a.out, 'rb') as y:
+    with open(a.sc, 'rb') as x, open(staged, 'rb') as y:
         size = x.seek(0, 2)
-        if size != y.seek(0, 2) and relocation is None: raise SystemExit('image size changed')
+        if size != y.seek(0, 2) and relocation is None and not tail_items: raise SystemExit('image size changed')
         for st, e in spans + [(size, size)]:
             x.seek(pos); y.seek(pos); n = st - pos
             while n > 0:
@@ -479,17 +578,24 @@ def main() -> None:
                 if x.read(k) != y.read(k): raise SystemExit('bytes outside the written spans changed')
                 n -= k
             pos = e
-    receipt = {'sc_iso': str(a.sc), 'tc_iso': str(a.tc), 'iso': str(a.out), 'sc_iso_sha256_head': None,
+    def patch_report(V):
+        return {'lba': V['patch_lba'], 'sectors': V['patch_sectors'], 'bytes': len(V['pf']), 'vmap_rows': len(V['vmap_rows']),
+                'records': len(V['recs']), 'record_bytes': sum(len(d) for _, d in V['recs'])}
+    tw = VS[0]
+    receipt = {'sc_iso': str(a.sc), 'tc_iso': str(a.tc), 'iso': str(a.out), 'sc_iso_sha256_head': None, 'languages': langs,
                'hook_bytes': len(code), 'dmy': [{'item': n, 'lba': l, 'bytes': len(d)} for n, l, d in items],
                'dmy_used_bytes': (cur - dmy.extent_lba) * 2048, 'dmy_bytes': dmy.size,
-               'patch': {'lba': patch_lba, 'sectors': patch_sectors, 'bytes': len(pf), 'vmap_rows': len(vmap_rows),
-                         'records': len(recs), 'record_bytes': sum(len(d) for _, d in recs)},
-               'sc_exe_sha256': sha(SC.b), 'tc_exe_sha256': sha(TC.b), 'edition': ED.key,
+               'tail': [{'item': n, 'lba': l, 'bytes': len(d)} for n, l, d in tail_items],
+               'patch': patch_report(tw), 'sc_exe_sha256': sha(SC.b), 'tc_exe_sha256': sha(tw['exe_out'].b), 'edition': ED.key,
                'executable_relocation': relocation and {k: relocation[k] for k in ('changes', 'old_size', 'new_size')},
-               **report}
-    path = a.receipt or a.out.with_suffix('.receipt.json')
-    path.write_text(json.dumps(receipt, ensure_ascii=False, indent=1) + '\n')
+               **tw['report']}
+    if a.hk:
+        hk = VS[1]
+        receipt['hk'] = {'hk_iso': str(a.hk), 'patch': patch_report(hk), 'hk_exe_sha256': sha(hk['exe_out'].b), **hk['report']}
+    staged_receipt.write_text(json.dumps(receipt, ensure_ascii=False, indent=1) + '\n')
     print(json.dumps({k: receipt[k] for k in ('hook_bytes', 'patch', 'dmy_used_bytes', 'copied_members', 'vt1')}, ensure_ascii=False, indent=1))
+    if a.hk:
+        print(json.dumps({'hk_patch': receipt['hk']['patch'], 'hk_copied': list(receipt['hk']['copied_members'])}, ensure_ascii=False))
 
 
 if __name__ == '__main__':
