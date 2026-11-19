@@ -66,7 +66,10 @@ def main() -> None:
     parser.add_argument('--output', type=Path, default=OUT)
     parser.add_argument('--include-sp', action='store_true')
     parser.add_argument('--allow-draft', action='store_true')
+    parser.add_argument('--corpus-tree', choices=('zh', 'zh-hant', 'zh-hant-hk'), default='zh')
     args = parser.parse_args()
+    tree = ROOT / 'corpus' / args.corpus_tree
+    corpus_path = tree / 'battle/srvc-lines.json'
     locks = {m["path"]: m["sha256"] for m in json.loads(LOCKS.read_text())["sp"]["members"]}
     members = member_map(scan_iso9660(ISO))
     source_bin = read_member(members, locks, BIN)
@@ -78,11 +81,11 @@ def main() -> None:
     chunks = parse_srvc_archive(source_bin, offsets, table)
     records = [record for chunk in chunks for record in chunk.records]
 
-    corpus = json.loads(CORPUS.read_text(encoding="utf-8"))
+    corpus = json.loads(corpus_path.read_text(encoding="utf-8"))
     by_hash = {e["source_text_sha256"]: e["translation"] for e in corpus["entries"]
                if e.get("editorial_status") == "reviewed" and e.get("translation")}
     sp_rows = []
-    sp_path = ROOT / 'corpus/zh/special-disc/battle-lines.json'
+    sp_path = tree / 'special-disc/battle-lines.json'
     if args.include_sp:
         sp_rows = json.loads(sp_path.read_text())['entries']
         seen = set()
@@ -153,7 +156,7 @@ def main() -> None:
     unique = {r.text for r in records}
     report = dict(
         proposal_sha256=sha256(args.proposal.read_bytes()) if args.proposal else None,
-        corpus=str(CORPUS.relative_to(ROOT)), corpus_sha256=sha256(CORPUS.read_bytes()),
+        corpus=str(corpus_path.relative_to(ROOT)), corpus_sha256=sha256(corpus_path.read_bytes()),
         records=len(records), unique_lines=len(unique),
         translated_unique=len(unique) - len(kept_raw), untranslated_unique=len(kept_raw),
         translated_records=translated, untranslated_records=kept,
