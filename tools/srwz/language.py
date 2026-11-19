@@ -69,12 +69,17 @@ def make_view(root: Path, language: str, editions: tuple[str, ...], *, candidate
                         "--simplified-answer-key", str(_answer_key(root, "", candidate))]
         environment = os.environ.copy()
         environment.setdefault("SRWZ_COMPRESSION_CACHE", str(root / "work/cache/compression"))
+        if "sp" in editions and os.environ.get("SRWZ_REHASH", "0") in ("", "0"):
+            environment["SRWZ_SP_VIEW_CACHE"] = str(root / "work/cache/editions/sp-views" / language)
         result = subprocess.run(command, cwd=root, env=environment, capture_output=True, text=True)
         if result.returncode:
             raise EditionError(f"{language} input view failed:\n{(result.stdout + result.stderr)[-3000:]}")
         lines = result.stdout.rstrip().splitlines()
         if not lines or not lines[-1].startswith("additional: "):
             raise EditionError(f"{language} input view did not report its frozen dependencies")
+        for line in lines:
+            if line.startswith(("[sp-view]", "[sp-cache]")):
+                print(f"[{language}] {line}", flush=True)
         print(f"[{language}] input view: " + "\n".join(line[:240] for line in lines[-12:-1]), flush=True)
         return tuple(json.loads(lines[-1][len("additional: "):]))
     return view

@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import tempfile
 
+from special_disc import view_cache
 from special_disc.source import ROOT, SOURCE_ISO
 from srwz.file_identity import remember_digest, sha256_file
 from srwz.release_inputs import copy_file
@@ -59,17 +60,35 @@ def freeze_baseline(name, iso, *, source=SOURCE_ISO):
     temporary = target.with_suffix('.tmp.xdelta')
     if temporary.exists():
         raise ValueError(f'baseline write already pending: {temporary}')
-    subprocess.run([xdelta(), '-e', '-s', str(source), str(iso), str(temporary)], check=True)
-    record = dict(schema_version=1, source_sha256=digest(source), iso_sha256=digest(iso),
+    source_hash, target_hash = digest(source), digest(iso)
+    tool = xdelta()
+    directory = os.environ.get(view_cache.ENV)
+    slot = Path(directory) / f'{name}.delta' if directory else None
+    key = view_cache.cache_key([source_hash, target_hash, source.name, iso.name,
+                                digest(Path(tool)), os.environ.get('XDELTA', '')]) if slot else None
+    cached = view_cache.read_entry(slot, key) if slot else None
+    if cached is None:
+        subprocess.run([tool, '-e', '-s', str(source), str(iso), str(temporary)], check=True)
+        restored = new_temp_iso(f'check-{name}')
+        subprocess.run([tool, '-d', '-s', str(source), str(temporary), str(restored)], check=True)
+        if digest(restored) != target_hash or restored.stat().st_size != iso.stat().st_size:
+            raise ValueError('SP baseline delta roundtrip failed')
+        restored.unlink()
+        if slot:
+            view_cache.write_entry(slot, key, temporary.read_bytes())
+    else:
+        temporary.write_bytes(cached)
+        print(f'[sp-cache] {name}: reused roundtrip-verified delta', flush=True)
+    record = dict(schema_version=1, source_sha256=source_hash, iso_sha256=target_hash,
                   iso_size=iso.stat().st_size, patch_sha256=digest(temporary), patch=target.name)
-    restored = new_temp_iso(f'check-{name}')
-    subprocess.run([xdelta(), '-d', '-s', str(source), str(temporary), str(restored)], check=True)
-    if digest(restored) != record['iso_sha256'] or restored.stat().st_size != record['iso_size']:
-        raise ValueError('SP baseline delta roundtrip failed')
-    restored.unlink()
     temporary.replace(target)
     lock = target.with_suffix('.json')
     lock.write_text(json.dumps(record, indent=2) + '\n')
+    if directory:
+        # Private language-view workspace only. Later independent tools in this capture
+        # need the same bytes; snapshot cleanup removes these disposable ISO clones.
+        materialized = ISO_TEMP_DIRECTORY / f'verified-{name}.iso'
+        copy_file(iso, materialized)
     _CACHE.pop(name, None)
     return lock
 
@@ -93,6 +112,12 @@ def baseline_iso(name):
         return shared
     if digest(SOURCE_ISO) != record['source_sha256']:
         raise ValueError('SP baseline patch/source hash drift')
+    if os.environ.get(view_cache.ENV):
+        materialized = ISO_TEMP_DIRECTORY / f'verified-{name}.iso'
+        if (materialized.is_file() and materialized.stat().st_size == record['iso_size']
+                and digest(materialized) == record['iso_sha256']):
+            _CACHE[name] = materialized
+            return materialized
     restored = _restore_sparse(name, record)
     if restored is None:
         patch = DIRECTORY / f'{name}.xdelta'

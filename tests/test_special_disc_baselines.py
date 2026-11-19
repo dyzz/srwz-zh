@@ -43,6 +43,27 @@ class BaselineTests(unittest.TestCase):
         self.assertNotEqual(restored, CURRENT_ISO)
         self.assertTrue(restored.is_relative_to(baselines.ISO_TEMP_DIRECTORY))
 
+    def test_view_reuses_only_verified_delta_and_materialized_bytes(self):
+        directory = self.directory / 'cache'
+        with patch.dict(baselines.os.environ, {baselines.view_cache.ENV: str(directory)}):
+            self.freeze()
+            with patch.object(baselines.subprocess, 'run', wraps=baselines.subprocess.run) as command:
+                self.freeze()
+                self.assertFalse(any(call.args[0][1] in ('-e', '-d') for call in command.call_args_list))
+                edited = self.edited.read_bytes() + b'changed'
+                self.edited.write_bytes(edited)
+                self.freeze()
+                self.assertTrue(any(call.args[0][1] == '-e' for call in command.call_args_list))
+            cached = baselines.baseline_iso('text-canary')
+            self.assertEqual(cached.read_bytes(), edited)
+            cached.write_bytes(b'wrong')
+            baselines._CACHE.clear()
+            self.assertEqual(baselines.baseline_iso('text-canary').read_bytes(), edited)
+            (directory / 'text-canary.delta').write_bytes(b'wrong')
+            with patch.object(baselines.subprocess, 'run', wraps=baselines.subprocess.run) as command:
+                self.freeze()
+                self.assertTrue(any(call.args[0][1] == '-d' for call in command.call_args_list))
+
     def test_changed_source_fails_closed(self):
         self.freeze();self.source.write_bytes(b'wrong')
         with self.assertRaisesRegex(ValueError, 'patch/source hash drift'):
@@ -105,6 +126,22 @@ class BaselineTests(unittest.TestCase):
     def test_unknown_baseline_rejected(self):
         with self.assertRaisesRegex(ValueError, 'unknown SP baseline'):
             baselines.baseline_iso('../arbitrary')
+
+
+class ViewCacheTests(unittest.TestCase):
+    def test_only_the_payload_bound_to_the_current_inputs_is_accepted(self):
+        cache = baselines.view_cache
+        with tempfile.TemporaryDirectory() as directory:
+            slot = Path(directory) / 'atlas.texture'
+            key = cache.cache_key({'pixels': 'a', 'table': [0, 64]})
+            other = cache.cache_key({'pixels': 'a', 'table': [0, 48]})
+            cache.write_entry(slot, key, b'first')
+            self.assertEqual(cache.read_entry(slot, key), b'first')
+            self.assertIsNone(cache.read_entry(slot, other))
+            cache.write_entry(slot, other, b'second')
+            self.assertIsNone(cache.read_entry(slot, key))
+            slot.write_bytes(slot.read_bytes()[:-1] + b'!')
+            self.assertIsNone(cache.read_entry(slot, other))
 
 
 class CurrentOutputTests(unittest.TestCase):
