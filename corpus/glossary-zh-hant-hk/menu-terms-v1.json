@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-menu-terms-v1",
+  "language": "zh-Hant",
+  "default_source_match": "substring",
+  "terms": [
+    {
+      "id": "unit/gunleon",
+      "source_terms": [
+        "ガンレオン"
+      ],
+      "translation": "鋼獅子",
+      "deprecated_translations": [
+        "鋼獅"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "原创主角机 Gunleon；依据中国大陆万代官方商品名及本轮人工审核，统一为“钢狮子”。"
+    },
+    {
+      "id": "system/combined-attack",
+      "source_terms": [
+        "合体攻撃"
+      ],
+      "translation": "合體攻擊",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "多台指定机体共同发动的攻击；与普通合体行动区分。"
+    },
+    {
+      "id": "system/counterattack",
+      "source_terms": [
+        "反撃"
+      ],
+      "translation": "反擊",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "敌方攻击后的战斗行动。"
+    },
+    {
+      "id": "system/end-phase",
+      "source_terms": [
+        "フェイズ終了"
+      ],
+      "translation": "結束階段",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "结束当前我方／敌方行动阶段的全体指令。"
+    },
+    {
+      "id": "system/battle-demo",
+      "source_terms": [
+        "デモ"
+      ],
+      "translation": "演出",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "此处指战斗动画演出开关，不译作普通“演示”。"
+    },
+    {
+      "id": "system/bgm",
+      "source_terms": [
+        "ＢＧＭ"
+      ],
+      "translation": "BGM",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "背景音乐缩写，统一为半角 BGM。"
+    },
+    {
+      "id": "system/quick-command",
+      "source_terms": [
+        "クイックコマンド"
+      ],
+      "translation": "快捷指令",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "战斗地图上的方向键快捷指令设置。"
+    },
+    {
+      "id": "system/all-target-attack",
+      "source_terms": [
+        "全体攻撃"
+      ],
+      "translation": "全體攻擊",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "以敌方小队全体为目标的攻击。"
+    },
+    {
+      "id": "system/tri-attack",
+      "source_terms": [
+        "トライチャージ攻撃",
+        "トライチャージ"
+      ],
+      "translation": "TRI攻擊",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 三机小队在 TRI 阵型下发动的攻击方式，统一为 TRI攻击；明确指武器的トライチャージ兵器／トライチャージ攻撃武器使用 TRI武器。与 Trinity Charge 专有指令区分。"
+    },
+    {
+      "id": "system/wide-formation",
+      "source_terms": [
+        "ワイド・フォーメーション"
+      ],
+      "translation": "分散陣型",
+      "deprecated_translations": [
+        "廣域隊形",
+        "廣域陣型",
+        "Wide隊形",
+        "寬幅隊形"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "队长与队员分散展开、分别攻击目标的阵型；简称为“分散”，原界面 W 标记保留。"
+    },
+    {
+      "id": "system/center-formation",
+      "source_terms": [
+        "センター・フォーメーション"
+      ],
+      "translation": "集中陣型",
+      "deprecated_translations": [
+        "中央隊形",
+        "中央陣型",
+        "CENTER隊形"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "按小队集中攻击单个目标的特点命名；简称为“集中”，原界面 C 标记保留。"
+    },
+    {
+      "id": "system/tri-formation",
+      "source_terms": [
+        "トライ・フォーメーション"
+      ],
+      "translation": "TRI陣型",
+      "deprecated_translations": [
+        "TRI隊形",
+        "三重隊形"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 小队阵型名；界面统一使用“TRI阵型”。"
+    },
+    {
+      "id": "system/reboard",
+      "source_terms": [
+        "のせかえ"
+      ],
+      "translation": "換乘",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "让驾驶员改乘另一台可驾驶机体的整备界面功能。"
+    },
+    {
+      "id": "system/full-upgrade-bonus",
+      "source_terms": [
+        "フル改造ボーナス"
+      ],
+      "translation": "全改造獎勵",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "机体完成全部项目改造后选择的额外奖励。"
+    },
+    {
+      "id": "system/satellite-charge",
+      "source_terms": [
+        "サテライトチャージ"
+      ],
+      "translation": "衞星充能",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "GUNDAM X 卫星加农炮的充能条件。"
+    },
+    {
+      "id": "system/negotiation",
+      "source_terms": [
+        "ネゴシエーション"
+      ],
+      "translation": "交涉",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》罗杰相关结算机制名称。"
+    },
+    {
+      "id": "people/roger",
+      "source_terms": [
+        "ロジャー"
+      ],
+      "translation": "羅傑",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《THE Big O》主人公 Roger Smith 的名。"
+    },
+    {
+      "id": "system/reassignment",
+      "source_terms": [
+        "編入"
+      ],
+      "translation": "編入",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "把机体／驾驶员加入当前小队的编成操作。"
+    },
+    {
+      "id": "system/sort",
+      "source_terms": [
+        "ソート"
+      ],
+      "translation": "排序",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "列表与小队的排序功能。"
+    },
+    {
+      "id": "system/save",
+      "source_terms": [
+        "セーブ"
+      ],
+      "translation": "保存",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "source_match": "token",
+      "notes": "存档操作的通用词根；“途中セーブ”仍采用完整术语“中断保存”。"
+    },
+    {
+      "id": "system/load-save",
+      "source_terms": [
+        "ロード"
+      ],
+      "translation": "讀取",
+      "category": "system",
+      "status": "proposed",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "读取存档；与标题菜单既有“读取”保持一致。"
+    }
+  ],
+  "zh_hant_meta": {
+    "zh_hans_sha256": "684762b3a30fc706aea8470393d85448141a7a6fcb3969e332e3889c422fe400",
+    "zh_hant_status": "draft"
+  }
+}

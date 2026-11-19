@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "corpus_id": "srwz-aid-battle-prompts-zh-v1",
+  "language": "zh-Hant",
+  "scope": "AIDDATA battle-result and weapon-effect prompt atlas labels. Existing Latin prompts, digits and symbols remain byte-exact.",
+  "entries": [
+    {
+      "id": "aid/shield",
+      "source_text": "シールド",
+      "translation": "護盾",
+      "editorial_status": "reviewed",
+      "zh_hans_sha256": "bc67b37055b764b647f370e881aded0e6e1982d54e0f85526ae16113b812624e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/defense",
+      "source_text": "防御",
+      "translation": "防禦",
+      "editorial_status": "reviewed",
+      "zh_hans_sha256": "09d899efc70ea470da1b2a0b6c3032974ceaa724813ed155e33d2ff16f0f23ab",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/morale",
+      "source_text": "気力",
+      "translation": "氣力",
+      "editorial_status": "reviewed",
+      "zh_hans_sha256": "3bb3db7a28a8a460e8db8b4aa16d00d8e986944fa02f5688d67ac4a2094d3abb",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/canceller",
+      "source_text": "キャンセラー",
+      "translation": "完全抗性",
+      "editorial_status": "reviewed",
+      "notes": "The atlas shortens the オールキャンセラー effect prompt; use the approved ability term.",
+      "zh_hans_sha256": "279cb64e8349fec9e73f6033c34ebbacbcc79c48379d1248ed85ffba43c13f51",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/down",
+      "source_text": "ダウン",
+      "translation": "下降",
+      "editorial_status": "reviewed",
+      "zh_hans_sha256": "708c8ca253ea288955267c1382f999a70c55bf91467a3749590fe4c5b0108bb4",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/mobility",
+      "source_text": "運動性",
+      "translation": "運動性",
+      "editorial_status": "reviewed",
+      "zh_hans_sha256": "5d00c28632af98bf807f1a744b802ea0d9e356fc7e30c8e302e6bdefa365868a",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/armor",
+      "source_text": "装甲値",
+      "translation": "裝甲值",
+      "editorial_status": "reviewed",
+      "zh_hans_sha256": "6d3b5a9edfff23641c8fdc6fbc3ab7af8f77d83389011955cd80f8f94c91cb84",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/accuracy",
+      "source_text": "照準値",
+      "translation": "瞄準值",
+      "editorial_status": "reviewed",
+      "zh_hans_sha256": "6c86c5069a3022be4465f6a951a8673a7e041770410a3af380ca4a69477fe0fc",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/counter",
+      "source_text": "カウンター",
+      "translation": "先手反擊",
+      "editorial_status": "reviewed",
+      "notes": "Matches the approved Counter skill term rather than the generic verb 反击.",
+      "zh_hans_sha256": "47f0004a448a695a7195aea5b4912a05132d02f317ad58fa66f8ffbe9605a14c",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "aid/tri-attack",
+      "source_text": "トライチャージ",
+      "translation": "TRI攻擊",
+      "editorial_status": "reviewed",
+      "notes": "User-confirmed compact battle prompt; TRI remains Latin.",
+      "zh_hans_sha256": "046a9ca89345c338cae530df32bbcfdcd910cb3817d2110299349c416f919244",
+      "zh_hant_status": "draft"
+    }
+  ]
+}

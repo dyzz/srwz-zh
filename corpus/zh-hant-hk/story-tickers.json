@@ -1,0 +1,615 @@
+{
+  "schema_version": 1,
+  "batch_id": "v1-story-tickers",
+  "language": "zh-Hant",
+  "scope": "Complete reviewed Chinese inventory for bazaar scrolling ticker fields owned by initialized intermission script records.",
+  "inventory": {
+    "selection_authority": "initialized_intermission_script",
+    "command_size": 12,
+    "intermission_opcode": 10,
+    "record_pointer_offset": 8,
+    "record_size": 544,
+    "ticker_offset": 404,
+    "slot_allocation_size": 140,
+    "expected_records_per_stage": 1
+  },
+  "entries": [
+    {
+      "id": "story-ticker/travel-repair-supplies",
+      "source_text": "旅のお供にリペアキットとプロペラントタンクを。",
+      "source_text_sha256": "58f8f4408eebb7d17e4b0c8a18d7e7c2fbbb0ea7867548fbecfe0f1c8701b4b5",
+      "translation": "旅途必備：補修套件和增裝燃料槽。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/repair-kit",
+        "part/propellant-tank"
+      ],
+      "zh_hans_sha256": "88af40780d19617d3d098222d809cf22a54e1265900b59c4fc4eb65714bec4f0",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/super-repair-kit-sale",
+      "source_text": "あらゆる状況に対応！　スーパーリペアキット販売中！",
+      "source_text_sha256": "d0b405ddc95f8f8e1bfc28018e045700edeef9bdee1d82cfdbccd3ece5197e7f",
+      "translation": "應對各種狀況！超級補修套件出售中！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/super-repair-kit"
+      ],
+      "zh_hans_sha256": "f07a2b33d051994d9c904d0f63be19422c4bd5632c7d0b1b2e2ebfb171c6c186",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/yapan-exodus-preparation",
+      "source_text": "ヤーパンへのエクソダス。旅の準備は忘れずに。",
+      "source_text_sha256": "06f56a6c3c711d1a21d15a9700944e237850c1e77207f023377ec3799009c470",
+      "translation": "前往雅邦的大逃亡。別忘了做好旅途準備。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "place/yapan",
+        "event/exodus"
+      ],
+      "zh_hans_sha256": "17c508bdd40b06575dae9d1aea39a46bbb576b0f5b792656c299e5d763463350",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/exodus-success-sale",
+      "source_text": "祝エクソダス成功！　全品、大サービス！！",
+      "source_text_sha256": "a84e1a1ec72f05ca9785a4f776b7b19a130ce779b11875129be145f9fca3359c",
+      "translation": "慶祝大逃亡成功！全場大優惠！！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "event/exodus",
+        "system/sell"
+      ],
+      "zh_hans_sha256": "9e848c5be70b17be3c4c99e7e42ad6886a1b99894abc48334be7969f8f392a6e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/booster-clearance",
+      "source_text": "ブースター、安値放出！　ここだけの大サービス！",
+      "source_text_sha256": "deed1264738b94ccb639e289448942d562bae2374424a81de63b331da007e2d4",
+      "translation": "推進器低價清倉！僅此一處的特別優惠！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/booster"
+      ],
+      "zh_hans_sha256": "20a446ae87447a2cea26d83a4128ca829257d9880af05c86671637fec1e7f503",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/knox-donkey-bread",
+      "source_text": "ノックス名物、ドンキーのパン！　焼き立て発売中！",
+      "source_text_sha256": "e985d2fb3757c450ea83670d028a2a1ad42f8c02ddddee3bfdf935fa55eff97f",
+      "translation": "諾克斯名產唐吉的麪包！新鮮出爐，熱賣中！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/donkey-bread"
+      ],
+      "zh_hans_sha256": "ee4ae1df16f762c5a28fe2f4c7d6441046e3a869d73b0cacd206642e26daa98e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/donkey-bread-half-price",
+      "source_text": "ドンキーのパン、大安売り！　通常価格の半額でサービス！",
+      "source_text_sha256": "17e742d9bd06b88a64d024149cdcb8cd72cba866d52bbd64bc73440c99064415",
+      "translation": "唐吉的麪包大減價！半價優惠！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/donkey-bread"
+      ],
+      "zh_hans_sha256": "57d350cfda029d9c221287165590d2540d23f31db5f81e0a5e350420e735f389",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/food-buyback",
+      "source_text": "食べ物高価買取中。",
+      "source_text_sha256": "e22d9fe40669a0a205e9a04c49dd5439c2f39cb49c0871c84eab6f619f280272",
+      "translation": "高價收購食品。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "system/sell"
+      ],
+      "zh_hans_sha256": "0689481ec80aaa24b1d15abfadbeeef9a526a4c0f11f6c176a6e451466669bbd",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/pancha-fruit-arrival",
+      "source_text": "珍味パンチャの実、入荷中。オススメの一品。",
+      "source_text_sha256": "676beb601bce22b0f86c44cded98ad58b3dfbd887dd7fb0a87341935dad59fa1",
+      "translation": "珍味潘查果實到貨。推薦佳品。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/pancha-fruit"
+      ],
+      "zh_hans_sha256": "6192d662a1d652f78dfafc5c9622b654ce99e89c62b7d3495da879158af204a9",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/sleep-learning-device",
+      "source_text": "オススメの一品、睡眠学習装置。効果は保証付き。",
+      "source_text_sha256": "21d92082fd826f993dae07f24183342ae937c8960317635c13ed11206f48f31c",
+      "translation": "推薦佳品：睡眠學習裝置，效果有保證。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/sleep-learning-device"
+      ],
+      "zh_hans_sha256": "5aef02122a5915b567352a02cfa3e64aebaad4de03cfde9a0ebe9b6120a0d932",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/apogee-booster-sale",
+      "source_text": "アポジモーター・ブースター、大安売り！",
+      "source_text_sha256": "b71ce10f0f3287069777fde02525652a4ff1d7dea80f5024a9bfad8dd23298b2",
+      "translation": "遠地點發動機、推進器大減價！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/apogee-motor",
+        "part/booster"
+      ],
+      "zh_hans_sha256": "ebd8befa2aab270bc4929fe31edc3aec31dcca581dcdc5894fb7f5dc921fcf3d",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/tropical-pancha-fruit",
+      "source_text": "常夏の珍味パンチャの実、発売中。お味と効果は保証付き。",
+      "source_text_sha256": "2ba0d3980f8ba5318b8cdf5d1d40a3b1b84eca020d1550ad9a96e5a96d3389a3",
+      "translation": "常夏珍味潘查果實開售，味道與效果均有保證。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/pancha-fruit"
+      ],
+      "zh_hans_sha256": "b9b44df34a72265ca64880f05b9602a79b2501a3d8d2514b7f24e2e420a99eca",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/screw-module",
+      "source_text": "オススメの一品、スクリューモジュール。海中戦闘に効果バツグン。",
+      "source_text_sha256": "6a004c05be6548a93c7c7e8de5ba3b2640509c6aa95efff3ed76ea94b335a72d",
+      "translation": "推薦佳品：螺旋槳模塊，水下作戰效果絕佳。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/screw-module"
+      ],
+      "zh_hans_sha256": "551ea334dbc8c577a18833809ea43924d93537a59d586377b3bf6904e60be50d",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/radar-discount",
+      "source_text": "お買い得品、高性能レーダー。絶賛値引き中。",
+      "source_text_sha256": "4915aa78e0501e3512ce6365db5b3ce7b49c7bd6038f6c2a566331b07bd71102",
+      "translation": "特價商品高性能雷達，正在大幅降價。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/high-performance-radar"
+      ],
+      "zh_hans_sha256": "3f80f19f4e0e936b31d3465c5a8944ef2b6a77aa49321f672dcb1cab9f7470b8",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/walker-machine",
+      "source_text": "ウォーカーマシン販売中。ガソリン満タン、保証書付き。",
+      "source_text_sha256": "0e79463113c1137e62990f05ed43e6d9ce81b88bd44e1dca3ecf81408a5d7575",
+      "translation": "步行機甲出售中，加滿汽油並附保修單。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "unit/walker-machine"
+      ],
+      "zh_hans_sha256": "cf575503625a8f14c0f0cb21de111c4498906daebe46ccac174dee1083435160",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/relay-race-sale",
+      "source_text": "エキデン開催記念。アポジモーター・ブースター、大放出。",
+      "source_text_sha256": "7ca184a7cd30d93d671f00efbf9604b1d90d47f3409a3dd704b09ed552dfbe12",
+      "translation": "紀念接力賽舉辦，遠地點發動機、推進器大放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/apogee-motor",
+        "part/booster"
+      ],
+      "zh_hans_sha256": "2ae0c69e262e55f52b01e4d1581975f52063c3818e9347dccd0f10ef5dd09bca",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/radar-clearance",
+      "source_text": "高性能レーダー、大放出。",
+      "source_text_sha256": "57fcfcd1a00690458c42d41033ec4bf4039c0186bdc5b7a9e9e903d7c26a6be3",
+      "translation": "高性能雷達大放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/high-performance-radar"
+      ],
+      "zh_hans_sha256": "c7184c8db76c53d7b0d77c5081b3530307191fed2e39ecdc9cebcfa5bb8b5720",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/siberian-railway-market",
+      "source_text": "シベ鉄の大マーケット。旅の皆様にお値打ち品を大放出。",
+      "source_text_sha256": "b8a28b4d8881a5b280cd736c6b75dd9ecddd582ad981e31200491049c1fafeba",
+      "translation": "西伯鐵大市場，為旅客大放送超值商品。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "organization/siberian-railway"
+      ],
+      "zh_hans_sha256": "14d3842ee6b6937f8a22bfd0db25d825d74d1dd404b36cd602a96dd20e0f1281",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/combat-manual-sale",
+      "source_text": "小隊員のあなたは必読。戦技マニュアル、発売中。",
+      "source_text_sha256": "4b884fe5ee46133930760d6b9aec813dd2f1247722020f71afa9185c98a047b0",
+      "translation": "小隊員必讀，戰技手冊發售中。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/combat-manual"
+      ],
+      "zh_hans_sha256": "e4713b65dfdfeafa1a20130023f52078535546af18662cb1ba272f39aba68a9b",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/hybrid-armor",
+      "source_text": "備えあれば憂いなし。ハイブリッドアーマー、大放出。",
+      "source_text_sha256": "4f0db1fe799af03e6768de07f44ddd943ff9f19f9b9727eebbb5e1880f242cdb",
+      "translation": "有備無患，混合式裝甲大放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/hybrid-armor"
+      ],
+      "zh_hans_sha256": "1f32b6680784918db9e21855b4937d15a53834af618eaef11db4faf9f3245fc6",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/a-adapter-hot-sale",
+      "source_text": "あらゆる局面で最大限の戦闘力を。Ａ−アダプター、絶賛発売中。",
+      "source_text_sha256": "638cf3da7f2645ce073577961fc5f024658bc77da3789be2cb53617352b7a976",
+      "translation": "應對各種局面，發揮最大戰力。A適配器熱賣中。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/a-adapter"
+      ],
+      "zh_hans_sha256": "92864e5355f838d5032f8a31ac317e2be580f6f862ccb8049c15ff7273caf387",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/luio-market",
+      "source_text": "ルオ商会のマーケット。消費系３点セットを大放出。",
+      "source_text_sha256": "625a3684ece19e26953fb0a2e0745d93e052dcfebe9162f323edb03a7a6718a3",
+      "translation": "羅商會市場，消耗類3件套大放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "organization/luio-and-co"
+      ],
+      "zh_hans_sha256": "c350ea91e554875c0a58f302d655edf5b1a60794e653b32e3a15a7bb337276dd",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/attuned-helmet",
+      "source_text": "これがあれば百発百中。感応ヘルメットを大放出。",
+      "source_text_sha256": "be511e201567399f75a53be426d2cc47b8e320407081dce70bd1dad57e161a24",
+      "translation": "有了它百發百中，感應頭盔大放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/attuned-helmet"
+      ],
+      "zh_hans_sha256": "69ded57cc37a79e12140cf00b0ad66332388deb16529b89a93fbbf5cdf1368fd",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/mega-booster-rare",
+      "source_text": "目玉商品、メガブースター。滅多に出ない逸品。",
+      "source_text_sha256": "78a244a22f29d1e4d68b0fc162afe20371558c81638d49430476a6d473c36e56",
+      "translation": "主打商品強化推進器，難得一見的精品。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/mega-booster"
+      ],
+      "zh_hans_sha256": "d300e5fc73c36a0ae249d5496dc97d6a5bb450d5b9f1d6bfacff7da30e707242",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/battlefield-junk",
+      "source_text": "戦場で回収したジャンクを大放出。思わぬ目玉商品も販売中。",
+      "source_text_sha256": "db93bb349c2af82580ca2c2cb70bf6845411f65b570f937b51fde8fe80db7569",
+      "translation": "戰場回收零件大放送，另有意外好貨出售。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "system/parts"
+      ],
+      "zh_hans_sha256": "91b671ee7d8448159e0b4da355faa0bcc25bd9e0706e81950a46028c25396d89",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/combat-manual-hot-sale",
+      "source_text": "小隊員のあなたは必読！　戦技マニュアル、絶賛発売中！",
+      "source_text_sha256": "b7efb5965ea830ff2c8b7726dc6494f12dfd0bc79cdc96fc37090d77ee49da9c",
+      "translation": "小隊員必讀！戰技手冊熱賣中！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/combat-manual"
+      ],
+      "zh_hans_sha256": "78bed7c031d44723a85d763ffc82b55a3ca8d4b108fa2680fb2c22353296b9c3",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/transformable-mobile-suit",
+      "source_text": "最新鋭モビルスーツ入荷！　可変機構搭載のスゴイ奴！",
+      "source_text_sha256": "905973bc48812c47353de5ebe240dcab2130fdbb547b91764cd741fced02695a",
+      "translation": "最新型MS到貨！搭載變形機構的強力機體！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "system/mobile-suit",
+        "system/transform"
+      ],
+      "zh_hans_sha256": "b3ea200498b916b8867058edff600ccd9ce24fc15b9fabb5472f5f248d566174",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/gibraltar-surplus",
+      "source_text": "ジブラルタル基地からの放出品を大セール。",
+      "source_text_sha256": "c2b16013c78c2b508ece12834da33fac12b16cf6bed2725bb40645476eb1f1e0",
+      "translation": "直布羅陀基地放出品大減價。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "place/gibraltar"
+      ],
+      "zh_hans_sha256": "ba30ec272fb37e4a5469abf767287203d2895e97015115a4927432745c713e36",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/linear-seat",
+      "source_text": "高い操縦性と視認性を両立。リニアシート、大サービス放出。",
+      "source_text_sha256": "b9d7b3eb34c76e17b69ed588abd16cf79bc8757596bd95451124b309c0600321",
+      "translation": "兼顧操縱性與視野，線性座椅優惠放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/linear-seat"
+      ],
+      "zh_hans_sha256": "95775bb672f3fe08d692513ab6d1e884eb4a6b0397a8b604e49061793e0db331",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/barrier-field",
+      "source_text": "ダメージ軽減。バリア・フィールド、大サービス放出。",
+      "source_text_sha256": "649f52217bcba41147356970eb29c3f81b6c8269f2f463b618d004394bef17dc",
+      "translation": "減輕傷害，防護力場優惠放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/barrier-field"
+      ],
+      "zh_hans_sha256": "3ebe007ee207da05899b985e15b07f694e86222c652eeda2dc14bafb2de4466f",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/charity-sale",
+      "source_text": "チャリティセール開催中。売却大歓迎。",
+      "source_text_sha256": "ad026feeb43628bbc2b51f422366ad07c91eabe9c1a4e2d4888f60244f03ecaa",
+      "translation": "慈善義賣進行中，歡迎出售。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "system/sell"
+      ],
+      "zh_hans_sha256": "1cd64d2adebb2bd6f1f2e40b00121a81f901bfe2774b77effa1763e5e3a56528",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/mega-booster-mobility",
+      "source_text": "戦場へ素早く移動。大サービス品、メガブースター。",
+      "source_text_sha256": "7a0edcbaef762ff708812ccf7c923acb0a0a0a7f9f25f985f30d5497ee568afc",
+      "translation": "快速奔赴戰場，特價強化推進器。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/mega-booster"
+      ],
+      "zh_hans_sha256": "d8bb82a609eec04f85e224f24ce82e69bd9d5f31bc85504b0478bc33971d4bde",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/wanted-factory",
+      "source_text": "お尋ね者ファクトリー。発見者はトーブ家に連絡を。",
+      "source_text_sha256": "539b17bfef80298ba744a6a3ee5cb5c64b6c5f4c1036522cbdbcf941f7fe8b49",
+      "translation": "工廠遭通緝，發現者請聯繫托布家。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "faction/factory"
+      ],
+      "zh_hans_sha256": "4b469c0871144a471cc9d293baaf9eaf6be854904b9fc2fe29403dc3a98c69dc",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/combat-manual-premium-sale",
+      "source_text": "小隊員のあなたは必読。戦技マニュアル、絶賛発売中。",
+      "source_text_sha256": "8a366e367976c789e3d00cb929eee109eb63cb777baa9289c1a6503f983422f3",
+      "translation": "小隊員必讀，戰技手冊熱賣中。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/combat-manual"
+      ],
+      "zh_hans_sha256": "263a9fefc2a2d225f24391da55eca80b5b169feef7e831973674c6828a38d7df",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/event-flea-market",
+      "source_text": "イベントと連動のフリマ開催中！　感応ヘルメット、大安売り！",
+      "source_text_sha256": "cb4d2e9de5bc1e3994f749a164b439adbed0b0b2a46fd717ef0ecb4421167c18",
+      "translation": "配合活動，跳蚤市場開辦中！感應頭盔大減價！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/attuned-helmet"
+      ],
+      "zh_hans_sha256": "31631376fc3160cd616bee4e6c8114969736b2c0f04d69b0ca7923d80a735817",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/daily-flea-market",
+      "source_text": "本日もフリマ開催中！　ハイブリッドアーマー、大放出！",
+      "source_text_sha256": "4d4251eab2f2912946de5b06e237f3541027dadd86ad2c342c1c8d8333858aa3",
+      "translation": "今日跳蚤市場繼續開辦！混合式裝甲大放送！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/hybrid-armor"
+      ],
+      "zh_hans_sha256": "41461b34638ee5bf4b8e8a8e97c6fed8b5a2fe4b005396dd61dff4901dbea4fc",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/mega-booster-dash",
+      "source_text": "戦場へダッシュ！　メガブースター大放出！",
+      "source_text_sha256": "f332e08119f8db0fc6cacb2bed93f5a18bd28aa7f9836e8ed03467c4ab30a7b5",
+      "translation": "衝向戰場！強化推進器大放送！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/mega-booster"
+      ],
+      "zh_hans_sha256": "f9d7450f36c9d4cef7aa4f2ca3b28795ea96d3705e563442e12a198081e45970",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/battlefield-relief-market",
+      "source_text": "戦地救済マーケット。物資不足につき売却大歓迎。",
+      "source_text_sha256": "05c46763fa9b747011d3c0a09a9b312317e5e756c808fb2e05ec7ba95d7af4f3",
+      "translation": "戰區救援市場，物資短缺，歡迎出售。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "system/sell"
+      ],
+      "zh_hans_sha256": "06dedbe154fee7845851ea987846bf9b3ae2d513685cd13d1987c33aa7bc01e6",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/tin-goldfish-buyback",
+      "source_text": "求む、ブリキの金魚！　高価買取中！",
+      "source_text_sha256": "4b122bc6069a7d46db12a336ff9e64201857b9adee1662d03df83f966eaf8ee5",
+      "translation": "求購鐵皮金魚！高價收購中！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/tin-goldfish"
+      ],
+      "zh_hans_sha256": "6d620e3b9ec5ed950a807936543885438d4b1133f65d01d82af77e2289de6fc5",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/thruster-module",
+      "source_text": "宇宙戦闘の必需品、スラスターモジュール！　絶賛発売中！",
+      "source_text_sha256": "e07ac8d87b4a795b6a6e010939b7553a57eea4fc205b52f0ee5954566e4b28d7",
+      "translation": "宇宙作戰必需品噴射模組！熱賣中！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/thruster-module"
+      ],
+      "zh_hans_sha256": "b53dae7056e14b492324fddff02d6f56f7c301fd64bee84d5e55acd46bc9d07c",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/alien-defeat-a-adapter",
+      "source_text": "異星人撃退記念！　Ａ−アダプター、大幅値下げ！",
+      "source_text_sha256": "e2b94a103781558ae1ee0c3838381c37b4500573a288d5676b77512787bc6b64",
+      "translation": "紀念擊退外星人！A適配器大幅降價！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/a-adapter"
+      ],
+      "zh_hans_sha256": "669059921a18d369da03ed1d1d1719a59a63793923347ae5a9dbd38eb8d6b469",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/donkey-bread-taste",
+      "source_text": "味は保証付き！　ドンキーのパン、大安売り！",
+      "source_text_sha256": "f49312d5d8223410c685d4358264902a2464f4cf620d063e273c70459f1e31ec",
+      "translation": "味道有保證！唐吉的麪包大減價！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/donkey-bread"
+      ],
+      "zh_hans_sha256": "c48f2c5bdb0ced044eba5ecc9d8cfb5225d5b76ef09e2048a8f71ea94c019258",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/emaan-selection",
+      "source_text": "エマーンならではの品揃え。ドンキーのパンも販売中。",
+      "source_text_sha256": "d815bcb473ca6198b2e0dbb707f80c57c95a639ac756845df3cf6774f864002d",
+      "translation": "埃曼特色商品齊全，唐吉的麪包也有出售。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "organization/emaan",
+        "part/donkey-bread"
+      ],
+      "zh_hans_sha256": "13067140430f014db7e8786b41a9d18fdb4a94afeda60715d19db5d0692375ab",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/solar-panel",
+      "source_text": "エネルギー不足は、これで解消。ソーラーパネル、販売中。",
+      "source_text_sha256": "eae827449afcbfa03f4398749edf569d0add84123cfb47a518b1bc36ba032003",
+      "translation": "能源不足就用它解決，太陽能板出售中。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/solar-panel"
+      ],
+      "zh_hans_sha256": "abe952aeeabb91e2dbbf73ec9d99a28794bc01ada733d7c89dde47febba6c9ea",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/storewide-clearance",
+      "source_text": "大バーゲン！　全品赤字覚悟の大放出！",
+      "source_text_sha256": "a6ccc4651ea91de3fb62f4df6c30a8c4c3e93c2a390bceca22f54fb926d150b2",
+      "translation": "大甩賣！全場虧本大放送！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "system/sell"
+      ],
+      "zh_hans_sha256": "cf8603483ffb680f40945da65705f62711b770197e60880c2f6644e339267337",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/diana-counter-mobile-suit",
+      "source_text": "ディアナ・カウンターの特殊モビルスーツ入荷。ここだけの大放出。",
+      "source_text_sha256": "50beb1556891ff4964c6cfed40b7432be97769393d68ef17b1f5914d02821133",
+      "translation": "迪安娜迴歸軍的特殊MS到貨，僅此一處大放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "faction/diana-counter",
+        "system/mobile-suit"
+      ],
+      "zh_hans_sha256": "752e5ee1a37800cadb1e82407ed3cfb6fdbdbac978a55eb8e5a312d742b4ba81",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/a-adapter-clearance",
+      "source_text": "あらゆる局面で最大限の戦闘力を。Ａ−アダプター、大放出。",
+      "source_text_sha256": "2087046bdf7e6e61020902bf1b5209366c97befcb3742759410860db6c799386",
+      "translation": "應對各種局面，發揮最大戰力。A適配器大放送。",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/a-adapter"
+      ],
+      "zh_hans_sha256": "0822bc0d3fc600ac307253f1498a9e4907b1cf38b7cc8bfa6fd30acfda45d3e4",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/final-clearance",
+      "source_text": "最終大売出し！　全品大サービス！",
+      "source_text_sha256": "5c4168c8b80f59fdd9e3d5234ee453301cd2d45f637c202dae394119b3e7b6f8",
+      "translation": "最終大甩賣！全場大優惠！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "system/sell"
+      ],
+      "zh_hans_sha256": "6df5e707f80cf29caf7f064cbfa8bb168a94831e2d1d522b43cbc5115d40597e",
+      "zh_hant_status": "draft"
+    },
+    {
+      "id": "story-ticker/heavens-base-thruster-sale",
+      "source_text": "ヘブンズベースから大放出！　スラスターモジュール、大幅値下げ！　",
+      "source_text_sha256": "8aceecaa3ddea960ae622fdf6d8fd1e39421f5024974acca543b7648b3a668cd",
+      "translation": "天堂基地庫存大放送！噴射模組大特惠！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/thruster-module"
+      ],
+      "notes": "用户于 2026-10-05 采用“大放送／大特惠”的广告表达。天堂基地沿用 story/108/dialogue/01.01/0000 等剧情译名；喷射模组按已批准零件术语。",
+      "zh_hans_sha256": "581eaf5b57fbedf240d9be3680175717fcbb3ed17b236dfe6edd69be50ab863b",
+      "zh_hant_status": "draft"
+    }
+  ]
+}

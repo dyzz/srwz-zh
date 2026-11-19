@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "glossary_id": "story-dialogue-stage-009-v1",
+  "language": "zh-Hant",
+  "default_source_match": "substring",
+  "research_basis": "第9話日文原文、項目既有角色/機體術語表與已審校第6至8話譯文；本表只補充第9話新出現或需明確鎖定的術語。",
+  "terms": [
+    {
+      "id": "unit/zambot-three",
+      "source_terms": [
+        "ザンボット３",
+        "ザンボット3"
+      ],
+      "translation": "贊波特3",
+      "deprecated_translations": [
+        "桑波特3",
+        "桑波3",
+        "贊波3"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "按用户首轮机体名审核定稿为“赞波特3”；授权番剧页亦支持主词根使用“赞”而非“桑”。"
+    },
+    {
+      "id": "unit/zambot",
+      "source_terms": [
+        "ザンボット"
+      ],
+      "translation": "贊波特",
+      "deprecated_translations": [
+        "桑波特",
+        "桑波"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "不带数字的ザンボット短称；与用户确认的完整机体名“赞波特3”统一。"
+    },
+    {
+      "id": "phrase/zambot-combination",
+      "source_terms": [
+        "ザンボット・コンビネーション"
+      ],
+      "translation": "贊波特合體",
+      "deprecated_translations": [
+        "桑波特合體",
+        "桑波特組合",
+        "贊波特組合"
+      ],
+      "variant_scope": "source_bound",
+      "category": "phrase",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "赞波特3的合体口令；按剧情动作译为“赞波特合体”。"
+    },
+    {
+      "id": "unit/zambull",
+      "source_terms": [
+        "ザンブル"
+      ],
+      "translation": "贊波牛",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "按用户首轮机体名审核定稿。"
+    },
+    {
+      "id": "unit/air-rai-oh",
+      "source_terms": [
+        "空雷王"
+      ],
+      "translation": "空雷王",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "《宇宙大帝God Sigma》机体名；禁止机器稿误写为空雷、仓王或天雷王。"
+    },
+    {
+      "id": "unit/bial-second",
+      "source_terms": [
+        "ビアルⅡ世",
+        "ビアルII世"
+      ],
+      "translation": "比亞路II世",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "按用户首轮机体名审核定稿；与比亚路I世及III世的半角罗马数字格式一致。"
+    },
+    {
+      "id": "unit/bial-third",
+      "source_terms": [
+        "ビアルⅢ世",
+        "ビアルIII世"
+      ],
+      "translation": "比亞路III世",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "按用户首轮机体名审核定稿；与比亚路I世及II世的半角罗马数字格式一致。"
+    },
+    {
+      "id": "people/dan-toshiya",
+      "source_terms": [
+        "壇闘志也"
+      ],
+      "translation": "鬥志也",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "《宇宙大帝God Sigma》主人公坛斗志也，场内短称统一为斗志也。"
+    },
+    {
+      "id": "people/katsuki-shingo",
+      "source_terms": [
+        "香月君",
+        "香月さん",
+        "香月の野郎",
+        "香月の奴",
+        "香月君達"
+      ],
+      "translation": "香月",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "保留敬称的语气变化，但人名本体固定为香月。"
+    },
+    {
+      "id": "people/michi",
+      "source_terms": [
+        "ミチ"
+      ],
+      "translation": "美知",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "沿用 story-speakers 既有角色译名。"
+    },
+    {
+      "id": "people/aki",
+      "source_terms": [
+        "アキ"
+      ],
+      "translation": "亞紀",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "沿用 story-speakers 既有角色译名。"
+    },
+    {
+      "id": "people/hamamoto",
+      "source_terms": [
+        "浜本"
+      ],
+      "translation": "濱本",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "沿用 story-speakers 既有角色译名。"
+    },
+    {
+      "id": "place/unious-seven",
+      "source_terms": [
+        "ユニウスセブン"
+      ],
+      "translation": "尤尼烏斯7",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "采用高达 WIKI 简体惯用名；全局统一写作“尤尼乌斯7”，不加“号”。"
+    },
+    {
+      "id": "organization/vega-alliance-force-stage-009",
+      "source_terms": [
+        "ベガ星連合軍"
+      ],
+      "translation": "貝加星聯合軍",
+      "deprecated_translations": [
+        "維加星聯合軍"
+      ],
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "与基础术语表一致。"
+    },
+    {
+      "id": "people/vega-king-stage-009",
+      "source_terms": [
+        "ベガ大王"
+      ],
+      "translation": "貝加大王",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "沿用既有 story-speakers 译名。"
+    },
+    {
+      "id": "place/antarctic-suruga-bay-stage-009",
+      "source_terms": [
+        "駿河湾"
+      ],
+      "translation": "駿河灣",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "与第5话地理术语一致。"
+    },
+    {
+      "id": "technology/graviton-tornado-punch",
+      "source_terms": [
+        "グラヴィトントルネードパンチ"
+      ],
+      "translation": "超重龍捲拳",
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "依据下载的《超重神 GRAVION》字幕统一。"
+    },
+    {
+      "id": "technology/gravity-crescent",
+      "source_terms": [
+        "グラヴィティクレッセント"
+      ],
+      "translation": "超重新月鏢",
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "依据下载的《超重神 GRAVION》字幕统一。"
+    }
+  ],
+  "zh_hant_meta": {
+    "zh_hans_sha256": "5f3b45567e5f16f151c538c17005df74685fffa7049460509aef8edeb90d649f",
+    "zh_hant_status": "draft"
+  }
+}
