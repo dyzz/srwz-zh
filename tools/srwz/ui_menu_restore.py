@@ -12,6 +12,8 @@ CONFIG = 'config/assets/ui-menu-native-restore.json'
 HELP_TITLES_CONFIG = 'config/assets/ui-help-titles-zh.json'
 SP_ITEM_HELP_CONFIG = 'config/assets/special-disc/item-help-title.json'
 SP_ATLAS_OVERLAP_CONFIG = 'config/assets/special-disc/menu-atlas-overlap.json'
+# Present only in the Traditional build (tools/zh_hant/sp_menu_atlas.py): Simplified chain result -> Traditional.
+SP_TRADITIONAL_ATLAS_CONFIG = 'config/assets/special-disc/menu-atlas-zh-hant.json'
 SUPPORT_TITLE_CONFIG = 'config/assets/ui-support-spirit-title-zh.json'
 COMMAND_TITLE_CONFIG = 'config/assets/ui-command-title-zh.json'
 SLOTS = (0, 1, 2, 3, 4, 5, 5, 5, 5, 3)
@@ -71,6 +73,14 @@ def apply_sp_atlas_overlap(atlas, drawings, root: Path, *, reverse=False, strict
     """Restore native SHIP and minus pixels and install the standalone SP setup title."""
     return _apply_title_delta(atlas, drawings, root / SP_ATLAS_OVERLAP_CONFIG,
                               reverse=reverse, strict=strict)
+
+
+def apply_sp_traditional_atlas(atlas, drawings, root: Path, *, reverse=False, strict=False):
+    """The Traditional text cells over SP's finished Simplified chain; a no-op without the Traditional config."""
+    path = root / SP_TRADITIONAL_ATLAS_CONFIG
+    if not path.exists():
+        return atlas, drawings, None
+    return _apply_title_delta(atlas, drawings, path, reverse=reverse, strict=strict)
 
 
 def _apply_title_delta(atlas, drawings, path, *, reverse, strict):

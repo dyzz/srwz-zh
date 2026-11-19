@@ -56,7 +56,7 @@ from special_disc.writeback.shared_library import verify_shared_library
 from write_system_text import overlay_member
 from srwz.library_work_titles import verify_work_title_pool
 from special_disc.writeback.bazaar_heading import verify_bazaar_heading
-from srwz.ui_menu_restore import apply_sp_atlas_overlap, verify_menu_restore
+from srwz.ui_menu_restore import apply_sp_atlas_overlap, apply_sp_traditional_atlas, verify_menu_restore
 from srwz.ui_battle_select import SP_CONFIG as SP_BATTLE_SELECT, apply_atlas as apply_select_atlas
 from srwz.ui_frame_uv import load_frame_uv_contract, verify_frame_uv_patches, frame_uv_preimage_for_verification
 from srwz.ui_frame_joins import frame_join_preimage_for_verification, load_join_contract
@@ -116,8 +116,11 @@ def main(iso=None, work=None):
     require(verify_bazaar_heading(member('KURODATA/KVMDATA.BIN')) == image_report['bazaar_heading'],
             'SP bazaar independent readback receipt drift')
     counts['enlarged_bazaar_headings'] = 1
-    select_atlas, joined_drawings, overlap = apply_sp_atlas_overlap(
+    chain_atlas, chain_drawings, traditional = apply_sp_traditional_atlas(
         member('KURODATA/KVMDATA.BIN'), member('KURODATA/KVPDATA.BIN'), ROOT, reverse=True, strict=True)
+    require(traditional == image_report.get('traditional_atlas'), 'SP Traditional atlas independent readback drift')
+    select_atlas, joined_drawings, overlap = apply_sp_atlas_overlap(
+        chain_atlas, chain_drawings, ROOT, reverse=True, strict=True)
     require(overlap == image_report['menu_atlas_overlap'], 'SP menu overlap independent readback drift')
     pre_join_drawings, joins = frame_join_preimage_for_verification(
         joined_drawings, load_join_contract(ROOT, 'sp'))

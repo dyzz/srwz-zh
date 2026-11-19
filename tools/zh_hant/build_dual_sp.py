@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
-"""One Special Disc with Simplified and Traditional (docs/ZH_HANT_SP_DUAL_PLAN_20261117.md).
+"""SP's Traditional inputs (docs/ZH_HANT_SP_DUAL_PLAN_20261117.md).
 
-Same scheme as build_dual.py (Original): the unchanged pipeline builds SP once per language, each in an APFS clone
-of the build inputs, and assemble_dual.py --edition sp turns the two images into one disc. SP is built on its
-frozen Simplified baseline (work/build/special-disc/baselines); the Traditional build keeps that baseline: under
-the Traditional codebook its Simplified bytes read as their Traditional forms, except for the few codes listed by
---audit-codes.
-
-Usage: build_dual_sp.py [--release-version 0.5.1] [--skip-sc] [--out build/iso/test/NAME.iso]
+Same scheme as build_dual.py (Original): the unchanged pipeline builds SP once per language from this checkout
+(build_editions.py --editions sp --language ...). SP is built on a frozen baseline whose inherited text comes
+from the Original build; sp_prepare below rebuilds that baseline in the language, inside the view that
+language_view.py makes when the build freezes its inputs, with the same language's Original build as answer key.
 """
 from __future__ import annotations
 
-import argparse
 import json
 import sys
 from pathlib import Path
@@ -21,24 +17,10 @@ sys.path.insert(0, str(HERE))
 import build_dual as bd  # noqa: E402
 
 ROOT = bd.ROOT
-SP_TREES = ['work/build/special-disc']
 SP_FILES = ['work/analysis/sp-event-fidelity-20261013/' + n for n in      # author_talk.py's id map and name helper
             ('id-map.json', 'names.py', 'original-compdata.bin', 'sp-jp-compdata.bin')]
 DISC_INVENTORY = ROOT / 'config/products/special-disc/disc-inventory.json'
-SP_ISO = json.loads(DISC_INVENTORY.read_text(encoding='utf-8'))['sp']['path']   # rom/... (the clone's rom/ is build/iso/sources)
-
-
-def clone(name: str) -> Path:
-    dst = bd.clone(name)
-    for tree in SP_TREES:
-        (dst / tree).parent.mkdir(parents=True, exist_ok=True)
-        bd.run('cp', '-cR', ROOT / tree, dst / tree)
-    for rel in SP_FILES:
-        (dst / rel).parent.mkdir(parents=True, exist_ok=True)
-        bd.run('cp', '-c', ROOT / rel, dst / rel)
-    src = (ROOT / SP_ISO).resolve()
-    bd.run('cp', '-c', src, dst / 'build/iso/sources' / src.name)
-    return dst
+SP_ISO = json.loads(DISC_INVENTORY.read_text(encoding='utf-8'))['sp']['path']   # rom/...
 
 
 SP_FONT_FILES = ['work/build/special-disc/text-candidate/font/' + n for n in ('manifest.json', 'profile.json', 'proposal.json')] + \
@@ -50,7 +32,7 @@ def sp_font(tc: Path) -> None:
     build_text_candidate.py (not its baseline assembly: SP keeps the Simplified baseline), then the SP input locks."""
     # build_text_candidate.build() minus its last step (migrate_stage_dialogue: the canary stage component, an
     # input of the baseline assembly only)
-    bd.run('python3', '-c', "import sys, subprocess; sys.path[:0] = ['tools', 'tools/special_disc/writeback']; "
+    bd.run(sys.executable, '-c', "import sys, subprocess; sys.path[:0] = ['tools', 'tools/special_disc/writeback']; "
            "import build_text_candidate as b; b.WORK.mkdir(parents=True, exist_ok=True); real = b.subprocess.run; "
            "b.subprocess.run = lambda cmd, **k: None if 'migrate_stage_dialogue' in str(cmd[1]) else real(cmd, **k); "
            "b.build()", cwd=tc)
@@ -85,9 +67,9 @@ def sp_keep_sc(tc: Path) -> None:
     print('SP keeps Simplified', SP_KEEP_SC, 'locks refreshed:', refresh_locks(tc, SP_KEEP_SC), flush=True)
 
 
-def sp_config_drafts(tc: Path) -> None:
-    from sync_corpus import Drafter, FROZEN_KEYS, SP_FROZEN
-    drafter = Drafter(bd.ZH_HANT / 'bootstrap.json')
+def sp_config_drafts(tc: Path, variant: str = 'tw') -> None:
+    from sync_corpus import FROZEN_KEYS, SP_FROZEN
+    drafter = bd.make_drafter(variant)
     drafter.frozen = (FROZEN_KEYS - {'review_history'}) | SP_FROZEN | {'source_locks'}
     for rel in SP_CONFIG_DRAFTS:
         doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
@@ -110,8 +92,15 @@ def sp_images_stay_sc(tc: Path) -> None:
     bd.dump(tc / rel, doc)
     from locks import refresh_locks
     print('SP menu-atlas labels kept Simplified:', n, 'locks refreshed:', refresh_locks(tc, [rel]), flush=True)
-    # the other image labels (the three newer world-map titles in MAPMODEL) are authored in Traditional
-    bd.run('python3', 'tools/special_disc/writeback/write_image_labels.py', '--refreeze',
+    sp_image_labels_refreeze(tc)
+
+
+def sp_image_labels_refreeze(tc: Path) -> None:
+    """Refreeze SP's image-label snapshot on the clone's current baseline: the other image labels (the three newer
+    world-map titles in MAPMODEL) are authored in Traditional; the settlement-label chunk's source changes again once
+    the Traditional baseline carries the Original's Traditional texture delta (its 已通關)."""
+    from locks import refresh_locks
+    bd.run(sys.executable, 'tools/special_disc/writeback/write_image_labels.py', '--refreeze',
            '--output', tc / 'build/zh-hant-sp/image-labels', cwd=tc)
     snap = 'config/assets/special-disc/full-text-image-labels.json'
     print('SP image labels re-authored; locks refreshed:', refresh_locks(tc, [snap]), flush=True)
@@ -179,12 +168,11 @@ def sp_qa_layout(tc: Path) -> None:
     print('SP Q&A layout rebound:', len(doc['pages']), 'pages; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
-def sp_weapon_categories(tc: Path) -> None:
+def sp_weapon_categories(tc: Path, variant: str = 'tw') -> None:
     """SP's weapon-category labels are LUI/ORI immediates like Original's: Traditional label, re-encoded with the
     Traditional codebook (build_dual.reencode_weapon_categories on SP's own contract)."""
     import struct
-    from sync_corpus import Drafter
-    drafter = Drafter(bd.ZH_HANT / 'bootstrap.json')
+    drafter = bd.make_drafter(variant)
     rel = 'config/products/special-disc/weapon-detail-labels.json'
     sc_doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
     doc = json.loads((tc / rel).read_text(encoding='utf-8'))
@@ -239,7 +227,7 @@ def sp_encoded_contracts(tc: Path) -> None:
         "c, rows, _ = k.inputs(); doc = json.loads(k.CONTRACT.read_text())\n"
         "for w in doc['writes']: w['target_hex'] = k.payload(rows[w['index']]['translation'], table, overrides).hex().upper()\n"
         "k.CONTRACT.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + '\\n')\n")
-    bd.run('python3', '-c', script, cwd=tc)
+    bd.run(sys.executable, '-c', script, cwd=tc)
     from locks import refresh_locks
     rel = 'config/products/special-disc/keyword-list-names.json'
     print('SP keyword targets re-encoded; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
@@ -247,7 +235,7 @@ def sp_encoded_contracts(tc: Path) -> None:
 
 def sp_gallery_talk(tc: Path) -> None:
     """The 名场面集 dialogue is a corpus snapshot (event-gallery-talk.json): author it from the Traditional corpus."""
-    bd.run('python3', 'tools/special_disc/event_gallery/author_talk.py', cwd=tc)
+    bd.run(sys.executable, 'tools/special_disc/event_gallery/author_talk.py', cwd=tc)
     from locks import refresh_locks
     rel = 'config/products/special-disc/event-gallery-talk.json'
     print('SP gallery dialogue re-authored; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
@@ -262,59 +250,65 @@ def sp_stage_titles(tc: Path) -> None:
               "sys.argv = ['freeze_stage_titles', '--font-iso', str(iso), '--proposal',\n"
               "            'work/build/special-disc/text-candidate/font/proposal.json', '--output', 'build/zh-hant-sp/stage-titles']\n"
               "import freeze_stage_titles\nfreeze_stage_titles.main()\n")
-    bd.run('python3', '-c', script, cwd=tc)
+    bd.run(sys.executable, '-c', script, cwd=tc)
     from locks import refresh_locks
     rel = 'config/assets/special-disc/stage-title-graphics.json'
     print('SP stage titles authored in Traditional; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
-def build(project: Path, version: str) -> Path:
-    (project / 'manifests/editions/sp/candidate.json').unlink(missing_ok=True)
-    bd.run('python3', 'tools/build_editions.py', '--editions', 'sp', '--candidate', '--release-version', version, cwd=project)
-    return project / 'build/iso/test/integrated-sp.iso'
-
-
-def main() -> None:
-    p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    p.add_argument('--release-version', default='0.5.1')
-    p.add_argument('--skip-sc', action='store_true', help='reuse build/zh-hant/project-sp from an earlier run')
-    p.add_argument('--tc-only', action='store_true', help='stop after the Traditional build')
-    p.add_argument('--out', type=Path, default=ROOT / 'build/iso/test/zh-hant-dual-sp.iso')
-    a = p.parse_args()
-    check = bd.run(sys.executable, HERE / 'sync_corpus.py', '--check', check=False)
-    if check.returncode:
-        raise SystemExit('parallel Traditional corpora are out of sync; run tools/zh_hant/sync_corpus.py\n' + check.stdout)
-    sc_iso = bd.BASE / 'project-sp/build/iso/test/integrated-sp.iso'
-    if not (a.skip_sc and sc_iso.exists()):
-        sc_iso = build(clone('project-sp'), a.release_version)
-    tc = clone('project-sp-tc')
-    bd.prepare_tc(tc)
-    bd.codebook_step(tc, False)
-    bd.menu_codebook(tc)
+def sp_prepare(tc: Path, variant: str, answer_key: Path, tw_key: Path, sc_key: Path) -> None:
+    """SP's own Traditional inputs, in a project that already holds the language's corpus, codebook and menu
+    codebook (build_dual.prepare_tc / menu_codebook) and SP's support trees (work/build/special-disc, discs)."""
     sp_keep_sc(tc)
     sp_font(tc)
-    sp_config_drafts(tc)
+    sp_config_drafts(tc, variant)
     sp_world_map_titles(tc)
     sp_images_stay_sc(tc)
     sp_qa_layout(tc)
     sp_instruction_layout(tc)
-    sp_weapon_categories(tc)
+    sp_weapon_categories(tc, variant)
     sp_localize(tc)
     # SP's frozen baseline in Traditional: the September converters with the Traditional Original build as the
     # answer key (sp_tc_baseline.py), so inherited text comes from the same parallel corpus as Original.
-    answer_key = sorted((bd.BASE / 'project-tc/build/editions/zh-release-original').glob('*/project/work/build/zh-release-full-story/components'))
-    if len(answer_key) != 1: raise SystemExit('need exactly one Traditional Original build in build/zh-hant/project-tc (run build_dual.py)')
-    bd.run(sys.executable, HERE / 'sp_tc_baseline.py', tc, '--answer-key', answer_key[0])
+    bd.run(sys.executable, HERE / 'sp_tc_baseline.py', tc, '--answer-key', answer_key, '--simplified-answer-key', sc_key,
+           '--variant', variant)
+    sp_image_labels_refreeze(tc)
     sp_encoded_contracts(tc)
     sp_gallery_talk(tc)
     sp_stage_titles(tc)
-    tc_iso = build(tc, a.release_version)
-    if a.tc_only:
-        print(tc_iso); return
-    bd.run(sys.executable, HERE / 'assemble_dual.py', '--edition', 'sp', '--sc', sc_iso, '--tc', tc_iso,
-           '--tc-codebook', bd.ZH_HANT / 'encoding/zh-release-font-assignments.json', '--out', a.out,
-           '--work', bd.BASE / 'assemble-sp')
+    # SP's own image chain stays Simplified (its seals); its text cells become Traditional in one final delta
+    bd.run(sys.executable, HERE / 'sp_menu_atlas.py', tc, '--simplified', sc_key, '--traditional', tw_key,
+           '--review', bd.BASE / f'sp-menu-atlas-review-{variant}')
 
 
-if __name__ == '__main__':
-    main()
+def sp_shared_from_taiwan(tc: Path) -> None:
+    """Hong Kong SP: rows whose output is shared with the Taiwan build take the Taiwan text, so the disc keeps one
+    copy of each big member (the Original's texture sources and terrain names do the same):
+      * frame-corpus image labels (world-map titles, KVM labels) and stage names (the 21 stage-title images);
+      * frame-corpus rows stored in VT1 (sd/vt1/...): SP's VT1 can only be redirected whole (196 MB);
+      * the Data Link page (data_link_bonus.py, VT1 group 40);
+      * terrain names: stored in every map chunk of MAPMODEL (37.7 MB)."""
+    rel = 'corpus/zh/special-disc/frame-text.json'
+    tw = {e['id']: e for e in json.loads((ROOT / 'corpus/zh-hant/special-disc/frame-text.json').read_text(encoding='utf-8'))['entries']}
+    doc = json.loads((tc / rel).read_text(encoding='utf-8'))
+    n = 0
+    for e in doc['entries']:
+        if e.get('category') == 'image-label' or any(l.startswith(('sd/stage-name/', 'sd/vt1/')) for l in e.get('locations', [])):
+            if e['translation'] != tw[e['id']]['translation']: n += 1
+            e['translation'] = tw[e['id']]['translation']
+    bd.dump(tc / rel, doc)
+    terrain = 'corpus/zh/special-disc/terrain-names.json'
+    bd.dump(tc / terrain, bd.strip_meta(json.loads((ROOT / 'corpus/zh-hant/special-disc/terrain-names.json').read_text(encoding='utf-8'))))
+    # the Data Link page (data_link_bonus.PAGE_LINES, VT1 group 40) is a tool constant: its readback literals too
+    import ast, re
+    src = (ROOT / 'tools/special_disc/writeback/data_link_bonus.py').read_text(encoding='utf-8')
+    lines = ast.literal_eval(re.search(r'^PAGE_LINES = (\(.*?^\))', src, re.S | re.M).group(1))
+    lit_path = tc / 'config/zh-hant/readback-literals.json'
+    lit = json.loads(lit_path.read_text(encoding='utf-8'))
+    tw_draft = bd.make_drafter('tw')
+    tw_lit = bd.literal_pairs(ROOT / 'corpus/zh', ROOT / 'corpus/zh-hant')
+    for s in lines:
+        if s: lit['literals'][s] = tw_lit.get(s) or tw_draft.text(s)
+    bd.dump(lit_path, lit)
+    from locks import refresh_locks
+    print('SP rows kept Taiwan:', n, '+ terrain names + Data Link page; locks refreshed:', refresh_locks(tc, [rel, terrain]), flush=True)

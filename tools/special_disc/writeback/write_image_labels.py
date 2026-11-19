@@ -90,6 +90,8 @@ def main():
     select_config = (ROOT / SP_BATTLE_SELECT).read_bytes()
     outputs[name] = apply_select_atlas(outputs[name], json.loads(select_config))
     outputs[name], outputs[KVP], overlap_report = apply_sp_atlas_overlap(outputs[name], outputs[KVP], ROOT)
+    from srwz.ui_menu_restore import apply_sp_traditional_atlas
+    outputs[name], outputs[KVP], traditional_report = apply_sp_traditional_atlas(outputs[name], outputs[KVP], ROOT)
     for target,box in patches:reports.append(dict(target=target,member=name,chunk=11,rect=box))
     name='MAP/MAPMODEL.BIN';base=writer.member(name);arc=bytearray(base);off=sd.table_offsets(writer.exe,0x3542F0,len(base))
     for index in (195,196,197):
@@ -115,6 +117,8 @@ def main():
     report['frame_joins'] = frame_join_report
     report['battle_select_titles'] = dict(config_sha256=stage.sha256(select_config))
     report['menu_atlas_overlap'] = overlap_report
+    if traditional_report:
+        report['traditional_atlas'] = traditional_report
     report['world_map_titles'] = world_map_report
     for name,data in outputs.items():
         p=args.output/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)

@@ -13,7 +13,7 @@ their Japanese bytes (in September the converters left them, the system-text wri
 system-text component, the preview baseline (including the frozen Traditional pictures) and the text canary; point the
 SP builder at the new canary and refresh every lock.
 
-Usage: sp_tc_baseline.py CLONE --answer-key TC_ORIGINAL_COMPONENTS
+Usage: sp_tc_baseline.py CLONE --answer-key TC_ORIGINAL_COMPONENTS --simplified-answer-key SC_ORIGINAL_COMPONENTS
 """
 from __future__ import annotations
 
@@ -34,8 +34,11 @@ ANSWER_KEY_DIR = ('work/build/zh-release-original/388152fa50e72ed8f4edf6887d9eb1
 PROPOSAL = 'work/writeback/zh-release-codebook-proposal.json'
 SP_PROPOSAL = 'work/build/special-disc/text-candidate/font/proposal.json'
 CHAIN = ['migrate_slps_text', 'migrate_srvc', 'migrate_compdata', 'migrate_library', 'migrate_nisv', 'migrate_names',
-         'migrate_flow', 'migrate_exe_patches']      # migrate_textures: images, kept as built (S5)
+         'migrate_flow', 'migrate_exe_patches']
+# migrate_textures is not re-run: the Original's atlases changed after September, so SP keeps its Simplified textures
+# component plus the Original's own Simplified -> Traditional delta (sp_textures.py).
 EXE = 'SLPS_259.20'
+HELD_KVM = 'build/zh-hant-sp/kvmdata-traditional-delta.bin'   # sp_menu_atlas.py applies it after SP's image chain
 
 
 def sha(data: bytes) -> str:
@@ -150,8 +153,8 @@ class Transcoder:
     character -> Traditional form (corpus drafter) -> Traditional codebook). Used only where the Simplified
     component translated a string the Traditional answer key left Japanese."""
     def __init__(self, clone: Path):
-        from sync_corpus import Drafter
-        self.draft = Drafter(HERE.parents[1] / 'config/zh-hant/bootstrap.json')
+        from build_dual import make_drafter
+        self.draft = make_drafter(VARIANT)               # the clone's Traditional variant (Taiwan / Hong Kong)
         def codes(path):
             led = json.loads(Path(path).read_text(encoding='utf-8')); out = {}
             for k in ('assignments', 'primary_assignments', 'surface_alias_assignments', 'source_compatibility_assignments'):
@@ -217,11 +220,19 @@ def guide_flow(clone: Path, root: Path) -> int:
     return reverted
 
 
+VARIANT = 'tw'
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     p.add_argument('clone', type=Path)
     p.add_argument('--answer-key', type=Path, required=True)
+    p.add_argument('--simplified-answer-key', type=Path, required=True,
+                   help='the Simplified Original components built from the same inputs (texture delta)')
+    p.add_argument('--variant', choices=('tw', 'hk'), default='tw', help='Traditional variant of the clone (drafting)')
     a = p.parse_args()
+    global VARIANT
+    VARIANT = a.variant
     c = a.clone.resolve()
     key = c / ANSWER_KEY_DIR
     key.parent.mkdir(parents=True, exist_ok=True)
@@ -235,24 +246,26 @@ def main() -> None:
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     for step in CHAIN:
         args = ['--proposal', PROPOSAL] if step == 'migrate_srvc' else []
-        run(c, 'python3', f'tools/special_disc/writeback/{step}.py', *args)
+        run(c, sys.executable, f'tools/special_disc/writeback/{step}.py', *args)
         if step == 'migrate_slps_text':
             print('strings returned to the system-text writer:', return_system_text_strings(c), flush=True)
         if step == 'migrate_flow':
             print('flow runs back to Japanese (Simplified-guided):', guide_flow(c, ROOT), flush=True)
         if step == 'migrate_compdata':
             print('COMPDATA strings returned to the system-text writer:', return_compdata_strings(c), flush=True)
-    run(c, 'python3', 'tools/special_disc/writeback/write_system_text.py', '--proposal', PROPOSAL)
+    run(c, sys.executable, 'tools/special_disc/writeback/write_system_text.py', '--proposal', PROPOSAL)
+    print(run(c, sys.executable, HERE / 'sp_textures.py', c, '--simplified', a.simplified_answer_key.resolve(),
+              '--traditional', a.answer_key.resolve(), '--hold', f'KURODATA/KVMDATA.BIN={c / HELD_KVM}'), flush=True)
     print('Traditional SP components rebuilt', flush=True)
     # preview baseline (components + pictures), then the text canary on it (font + canary stage component)
     from sp_pictures import install_sp_pictures
     install_sp_pictures(c)
-    run(c, 'python3', 'tools/special_disc/writeback/build_preview.py')
+    run(c, sys.executable, 'tools/special_disc/writeback/build_preview.py')
     preview = json.loads((c / 'work/build/special-disc/baselines/preview.json').read_text())['iso_sha256']
     btc = c / 'tools/special_disc/writeback/build_text_candidate.py'
     btc.write_text(re.sub(r"^PREVIEW_SHA256 = '[0-9a-f]+'", f"PREVIEW_SHA256 = '{preview}'", btc.read_text(), flags=re.M))
-    run(c, 'python3', 'tools/special_disc/writeback/migrate_stage_dialogue.py', '--allow-draft', '--proposal', SP_PROPOSAL)
-    run(c, 'python3', 'tools/special_disc/writeback/build_text_candidate.py', '--assemble-only')
+    run(c, sys.executable, 'tools/special_disc/writeback/migrate_stage_dialogue.py', '--allow-draft', '--proposal', SP_PROPOSAL)
+    run(c, sys.executable, 'tools/special_disc/writeback/build_text_candidate.py', '--assemble-only')
     canary = json.loads((c / 'work/build/special-disc/baselines/text-canary.json').read_text())['iso_sha256']
     bft = c / 'tools/special_disc/writeback/build_full_text.py'
     bft.write_text(re.sub(r"^BASE_SHA='[0-9a-f]+'", f"BASE_SHA='{canary}'", bft.read_text(), flags=re.M))
