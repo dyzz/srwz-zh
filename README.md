@@ -58,27 +58,20 @@ Redump 校验值为 CRC-32 `0d9deb37`、MD5
 `b8ea8ff82ce2d6e09aa550635a5f61b4`、SHA-1
 `e8dbe37e88afe8f82d48889b0775274ccde3cf99`。
 
-唯一的生产构建入口是统一入口，它会自行完成原盘校验、成员提取、工具链、字体、
-组件、封盘和整盘回读，并按版本写出独立 ISO 与回执：
+默认构建本篇、The Best 和 SP 的三合一镜像，每版可在标题画面选择简体、台湾繁体和香港繁体。准备三版日文原盘，并使用装有 `OpenCC==1.4.2`、NumPy 和 Pillow 的 Python 运行语言工具。
 
 ```bash
-python3 tools/build_editions.py                      # 默认构建 Original、The Best 和 SP
-python3 tools/build_editions.py --release-version 0.5.1
+export SRWZ_LANGUAGE_PYTHON=/path/to/python-with-opencc
+python3 tools/build_editions.py
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
-python3 tools/build_editions.py --force-rebuild      # 不复用任何组件与文件身份记录，完整重算（内容寻址的压缩结果缓存仍可命中）
+python3 tools/build_editions.py --force-rebuild
 ```
 
-输入未变时直接复用已验证的当前 ISO；只改语料时沿用上一批的已验证组件缓存，
-只重建受影响组件。Original 支持成员级增量封盘，SP 仍完整合成 ISO 并独立回读。
-The Best 使用 Original 共享前端。单独构建 The Best 时，Original 只作为构建中间步骤。
-各版当前镜像的路径如下。
-
-```text
-build/iso/zh-release-original/current-original.iso
-build/iso/zh-release-best/current-best.iso
-build/iso/special-disc/sp-current.iso
-```
+三合一镜像与对应的 `.receipt.json` 位于 `build/iso/test/`，镜像名为
+`multilang-original.iso`、`multilang-best.iso` 和 `multilang-sp.iso`。
+通常构建可复用已验证的单语中间产物。`--force-rebuild` 要求各单语任务完整重建组件，内容寻址的压缩缓存仍可命中。
+合盘和回读流程见 [三合一技术说明](docs/MULTILANG_DISC_TECH_20261119.md)。
 
 SP 需要日文原盘、xdelta3 和锁定的字体／基线组件；准备方法、输出路径、缓存规则与
 验证命令见 [三版本构建](docs/BUILD_EDITIONS.md)。本篇原盘身份及运行验证边界见
@@ -88,9 +81,10 @@ SP 需要日文原盘、xdelta3 和锁定的字体／基线组件；准备方法
 
 本地完整 ISO 用于开发和运行验证。release 固定包含
 Original、The Best 和 SP，三版全部内置方块 skip，每版一份补丁。先冻结同一批次的
-三版已验证镜像并回读 skip hook，再生成发布包：
+三版已验证的简体单语镜像并回读 skip hook，再生成发布包：
 
 ```bash
+python3 tools/build_editions.py --single-language --release-version <x.y.z>
 python3 tools/freeze_release.py --manifest work/editions/<摘要>/original-best-sp.json --version <x.y.z>
 python3 tools/build_release.py --config config/release/v<x.y.z>.json
 ```

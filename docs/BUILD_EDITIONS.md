@@ -1,8 +1,10 @@
 # Original、The Best 与 SP 的统一构建
 
-`python3 tools/build_editions.py` 默认构建 Original、The Best 和 SP，三版均内置方块键跳过战斗动画（skip）。单独构建 The Best 时，Original 只作为构建中间步骤。
+`python3 tools/build_editions.py` 默认构建 Original、The Best 和 SP 的三合一盘（简体、台湾繁体、香港繁体），三版均内置方块键跳过战斗动画（skip）。单独构建 The Best 时，Original 只作为构建中间步骤。
 
-输入未变且回执、ISO 与日常副本验证通过时直接复用。Original 语料更新使用已验证的组件缓存。每版都有独立的写入锁、工作目录、原盘身份和最终回执。旧发布快照不被覆盖，完整 ISO 不提交到 Git。
+三合一产物在 `build/iso/test/multilang-{original,best,sp}.iso`，语言工具依赖 `OpenCC==1.4.2`，SP 另需 NumPy 和 Pillow（可用 `SRWZ_LANGUAGE_PYTHON` 指定解释器）。调度、计时与成品回读见 [三合一技术说明](MULTILANG_DISC_TECH_20261119.md)。
+
+单语中间构建输入未变且回执、ISO 与日常副本验证通过时直接复用。Original 语料更新使用已验证的组件缓存。每版都有独立的写入锁、工作目录、原盘身份和最终回执。旧发布快照不被覆盖，完整 ISO 不提交到 Git。
 
 ```bash
 python3 tools/build_editions.py --plan
@@ -10,7 +12,6 @@ python3 tools/build_editions.py
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
 python3 tools/build_editions.py --force-rebuild
-python3 tools/verify_editions.py --manifest work/editions/<input_digest>/original-best-sp.json
 ```
 
 注册表沿用 `config/release/dual-current.json` 路径。下一版发布 Original、The Best 和 SP，每版一份补丁。
@@ -18,7 +19,8 @@ python3 tools/verify_editions.py --manifest work/editions/<input_digest>/origina
 Original 和 The Best 的图鉴与梗概按原版进度解锁，可选全开金手指见 [图鉴／流程全开说明](LIBRARY_UNLOCK_TEST_CHEATS_20261106.md)。
 
 ```bash
-python3 tools/build_editions.py --release-version <x.y.z>
+python3 tools/build_editions.py --single-language --release-version <x.y.z>
+python3 tools/verify_editions.py --manifest work/editions/<input_digest>/original-best-sp.json
 python3 tools/freeze_release.py --manifest work/editions/<input_digest>/original-best-sp.json --version <x.y.z>
 python3 tools/build_release.py --config config/release/v<x.y.z>.json
 python3 tools/build_release_chd.py --config config/release/v<x.y.z>.json
@@ -35,7 +37,7 @@ SP 独立语义回读、比例渲染前 ELF、字体度量表和战斗 SELECT �
 最后验证字幕和语义回读的前后绑定，临时镜像检查后删除。
 历史 schema 1–5 保留兼容，既有 v0.4.2 文件不改写。
 
-| 版本 | 日文输入 | 当前输出 |
+| 版本 | 日文输入 | 简体单语发布用输出 |
 | --- | --- | --- |
 | Original | `rom/original.iso` | `build/iso/zh-release-original/current-original.iso` |
 | The Best | `rom/best.iso` | `build/iso/zh-release-best/current-best.iso` |
