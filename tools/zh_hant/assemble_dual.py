@@ -127,11 +127,11 @@ class Disc:
 
     def read(self, name: str) -> bytes:
         e = self.m[name]
-        with open(self.path, 'rb') as f:
+        with self.path.open('rb') as f:
             f.seek(e.extent_lba * 2048); return f.read(e.size)
 
     def vmap(self) -> dict:
-        with open(self.path, 'rb') as f:
+        with self.path.open('rb') as f:
             f.seek(450 * 2048); raw = f.read(4 * 2048)
         rows = {}
         for i in range(0, len(raw) - 47, 48):
@@ -359,6 +359,14 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
         # ---- members ------------------------------------------------------------------------------------
         for name, e in sorted(tc.m.items()):
             if name in (EXE, 'DATA/VT1.BIN', 'DMY/DMY.BIN') or name not in sc.m: continue
+            if e.size == sc.m[name].size and e.size > 256 << 20:
+                with sc.path.open('rb') as left, tc.path.open('rb') as right:
+                    left.seek(sc.m[name].extent_lba * 2048)
+                    right.seek(e.extent_lba * 2048)
+                    if all(left.read(min(8 << 20, e.size-at)) == right.read(min(8 << 20, e.size-at))
+                           for at in range(0, e.size, 8 << 20)):
+                        report['identical_members'] += 1
+                        continue
             a_b, b_b = sc.read(name), tc.read(name)
             if a_b == b_b: report['identical_members'] += 1; continue
             if ED.key == 'sp' and name == 'VMAP.DAT':
@@ -520,7 +528,11 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
     if cur > dmy.extent_lba + dmy.size // 2048: raise SystemExit('DMY is full')
 
     # ---- write and read back ----------------------------------------------------------------------------
-    subprocess.run(['cp', '-c', str(a.sc), str(staged)], check=True)
+    from special_disc.resource_view import ResourceView
+    if isinstance(a.sc, ResourceView):
+        a.sc.materialize(staged)
+    else:
+        subprocess.run(['cp', '-c', str(a.sc), str(staged)], check=True)
     exe_e = sc.m[EXE]; spans = []
     with open(staged, 'r+b') as f:
         f.seek(dmy.extent_lba * 2048)
@@ -568,7 +580,7 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
         if merged and st <= merged[-1][1]: merged[-1][1] = max(merged[-1][1], e)
         else: merged.append([st, e])
     spans = [tuple(x) for x in merged]; pos = 0
-    with open(a.sc, 'rb') as x, open(staged, 'rb') as y:
+    with a.sc.open('rb') as x, open(staged, 'rb') as y:
         size = x.seek(0, 2)
         if size != y.seek(0, 2) and relocation is None and not tail_items: raise SystemExit('image size changed')
         for st, e in spans + [(size, size)]:

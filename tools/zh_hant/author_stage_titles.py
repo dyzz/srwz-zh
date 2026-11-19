@@ -39,8 +39,8 @@ def sha(data: bytes) -> str:
 
 
 def tc_font(iso: Path) -> bytes:
-    disc = Disc(iso)
-    exe, vt1 = disc.read('SLPS_258.87'), disc.read('DATA/VT1.BIN')
+    read = (lambda name: (iso / name).read_bytes()) if iso.is_dir() else Disc(iso).read
+    exe, vt1 = read('SLPS_258.87'), read('DATA/VT1.BIN')
     offsets = read_executable_archive_offsets(exe, CORE_ARCHIVE_SPECS['VT1.BIN'], len(vt1))
     return decode(vt1[offsets[2]:offsets[3]]).output
 

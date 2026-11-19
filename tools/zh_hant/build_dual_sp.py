@@ -311,15 +311,19 @@ def sp_shared_from_taiwan(tc: Path) -> None:
     terrain = 'corpus/zh/special-disc/terrain-names.json'
     bd.dump(tc / terrain, bd.strip_meta(json.loads((ROOT / 'corpus/zh-hant/special-disc/terrain-names.json').read_text(encoding='utf-8'))))
     # the Data Link page (data_link_bonus.PAGE_LINES, VT1 group 40) is a tool constant: its readback literals too
-    import ast, re
-    src = (ROOT / 'tools/special_disc/writeback/data_link_bonus.py').read_text(encoding='utf-8')
-    lines = ast.literal_eval(re.search(r'^PAGE_LINES = (\(.*?^\))', src, re.S | re.M).group(1))
     lit_path = tc / 'config/zh-hant/readback-literals.json'
     lit = json.loads(lit_path.read_text(encoding='utf-8'))
-    tw_draft = bd.make_drafter('tw')
-    tw_lit = bd.literal_pairs(ROOT / 'corpus/zh', ROOT / 'corpus/zh-hant')
-    for s in lines:
-        if s: lit['literals'][s] = tw_lit.get(s) or tw_draft.text(s)
+    lit['literals'].update(taiwan_data_link_literals())
     bd.dump(lit_path, lit)
     from locks import refresh_locks
     print('SP rows kept Taiwan:', n, '+ terrain names + Data Link page; locks refreshed:', refresh_locks(tc, [rel, terrain]), flush=True)
+
+
+def taiwan_data_link_literals():
+    """The Taiwan literal mapping actually consumed by Hong Kong's shared Data Link page."""
+    import ast, re
+    src = (ROOT / 'tools/special_disc/writeback/data_link_bonus.py').read_text(encoding='utf-8')
+    lines = ast.literal_eval(re.search(r'^PAGE_LINES = (\(.*?^\))', src, re.S | re.M).group(1))
+    tw_draft = bd.make_drafter('tw')
+    tw_lit = bd.literal_pairs(ROOT / 'corpus/zh', ROOT / 'corpus/zh-hant')
+    return {s: tw_lit.get(s) or tw_draft.text(s) for s in lines if s}

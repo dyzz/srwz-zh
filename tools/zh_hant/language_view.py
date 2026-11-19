@@ -34,7 +34,13 @@ SP_SUPPORT_TREES = ['work/build/special-disc', 'work/disc', 'work/font-source', 
 
 def place_sp_support(project: Path) -> None:
     import build_dual_sp as sp
+    from special_disc.resource_view import enabled
     for tree in SP_SUPPORT_TREES:
+        if enabled() and tree == 'work/build/special-disc':
+            for child in (ROOT/tree).iterdir():
+                if child.is_dir() and not child.name.startswith('full-text'):
+                    shutil.copytree(child, project/tree/child.name, copy_function=copy_file, dirs_exist_ok=True)
+            continue
         shutil.copytree(ROOT / tree, project / tree, copy_function=copy_file, dirs_exist_ok=True, symlinks=True)
     for rel in sp.SP_FILES:
         copy_file(ROOT / rel, project / rel)
@@ -48,7 +54,12 @@ def place_sp_support(project: Path) -> None:
     # the discs, under both names the tools use (rom/ is the repository's alias of build/iso/sources/)
     for iso in ((ROOT / 'rom/original.iso').resolve(), (ROOT / sp.SP_ISO).resolve()):
         for directory in ('rom', 'build/iso/sources'):
-            copy_file(iso, project / directory / iso.name)
+            target = project / directory / iso.name
+            if enabled():
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.symlink_to(iso)
+            else:
+                copy_file(iso, target)
 
 
 def main() -> None:

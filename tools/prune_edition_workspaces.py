@@ -52,7 +52,8 @@ def load_json(path: Path) -> dict:
 def referenced_by_receipts(root: Path) -> tuple[set[Path], set[str]]:
     runs, digests = set(), set()
     for receipt in sorted([*(root / "manifests/editions").glob("*/current*.json"),
-                           *(root / "manifests/editions").glob("*/candidate*.json")]):
+                           *(root / "manifests/editions").glob("*/candidate*.json"),
+                           *(root / "work/cache/editions/sp-frontends").glob("*.json")]):
         document = load_json(receipt)
         workspace = document.get("workspace")
         if isinstance(workspace, str):

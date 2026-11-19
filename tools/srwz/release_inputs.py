@@ -281,7 +281,7 @@ def seed_original_caches(source: Path, target: Path, *, overwrite_cache: bool = 
     directories = [source / "work" / name for name in ("disc", "font-source", "toolchain", "writeback")]
     build = source / "work/build"
     if build.is_dir():
-        skipped = ("best-", "zh-release-original", "zh-release-best", "zh-release-sp", "shared", "stage-canary", "special-disc")
+        skipped = ("best-", "zh-release-original", "zh-release-best", "zh-release-sp", "shared", "stage-canary", "special-disc", "sp-multilang-resources")
         directories.extend(path for path in build.iterdir() if path.is_dir()
                            and not path.name.startswith(skipped) and path.name not in exclude_build_dirs)
     directories.extend(source / "work/review" / name for name in ("aid-battle-prompts-zh", "tricmn-battle-overlays-zh"))

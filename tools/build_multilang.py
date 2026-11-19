@@ -2,16 +2,9 @@
 """One disc per edition with every language: Simplified, Traditional (Taiwan), Traditional (Hong Kong).
 
 The corpora of all languages live in this checkout (corpus/zh, corpus/zh-hant and corpus/zh-hant-hk).
-Each language is an ordinary build_editions.py build of the same pipeline (--language), run from this directory:
-no project copies, shared caches. tools/zh_hant/assemble_dual.py then puts the languages of an edition on one disc.
-
-  phase 1 (parallel)  Original and BEST in every language (BEST is built from the same language's Original
-                      frontend, in one build), SP in Simplified
-  phase 2 (parallel)  SP in each Traditional language (its inherited text comes from that language's Original)
-  assemble            build/iso/test/multilang-original.iso, multilang-best.iso, multilang-sp.iso
-
-The three-language disc is the only product: there is no two-language or single-language variant of this build
-(the single-language images under build/iso/test/integrated-* are its intermediates).
+Original and BEST use per-language candidate discs. SP compiles three language resource sets in parallel
+and writes one multilingual disc from Japanese retail data. An SP-only build consumes Original frontend
+members directly, without building Original discs.
 
 Usage: build_multilang.py [--editions original,best,sp] [--release-version 0.5.1]
 A Traditional view needs opencc: set SRWZ_LANGUAGE_PYTHON to an interpreter that has it when this one does not.
@@ -53,9 +46,11 @@ def run(name: str, command: list[str]) -> float:
     return elapsed
 
 
-def build(edition: str, language: str, badge: str, force_rebuild: bool) -> float:
+def build(edition: str, language: str, badge: str, force_rebuild: bool, frontend_only: bool = False) -> float:
     command = [sys.executable, "tools/build_editions.py", "--editions", edition, "--candidate",
                "--frozen-badge", badge]
+    if frontend_only:
+        command.append("--sp-frontend-only")
     if force_rebuild:
         command.append("--force-rebuild")
     if language:
@@ -69,19 +64,25 @@ def image(edition: str, language: str) -> Path:
     return ROOT / receipt["output"]["path"]
 
 
-def check_authored(languages: list[str]) -> None:
+def check_authored(languages: list[str], frontend_only=False) -> None:
     """Traditional pictures are authored ahead of the build and kept in config/zh-hant; a build made from newer
     text or a grown codebook must not ship the old pictures."""
     sys.path.insert(0, str(ZH_HANT))
     from build_dual import stale_stage_titles
-    stale = stale_stage_titles(image("original", "zh-hant-tw"))
-    if stale:
-        raise SystemExit(f"Traditional stage-title pictures are stale ({', '.join(stale)}): run "
-                         f"tools/zh_hant/author_stage_titles.py --iso {image('original', 'zh-hant-tw')} and build again")
-    if stale_stage_titles(image("original", "zh-hant-hk")):
-        raise SystemExit("the Hong Kong build does not carry the Taiwan font / stage titles")
-    # author_textures.stale reads the Taiwan view the build just froze (it drafts with opencc: language python)
-    receipt = json.loads((ROOT / "manifests/editions/original/candidate-zh-hant-tw.json").read_text(encoding="utf-8"))
+    def receipt_for(language):
+        if frontend_only:
+            path = ROOT / f"work/cache/editions/sp-frontends/{language}.json"
+        else:
+            path = ROOT / f"manifests/editions/original/candidate-{language}.json"
+        return json.loads(path.read_text())
+
+    for language in languages:
+        frontend = receipt_for(language)
+        components = ROOT / frontend['workspace'] / 'work/build/zh-release-full-story/components'
+        stale = stale_stage_titles(components)
+        if stale:
+            raise SystemExit(f'{language}: stale stage-title pictures: {stale}')
+    receipt = receipt_for('zh-hant-tw')
     view = ROOT / "work/build/shared" / receipt["input_digest"] / "project"
     probe = subprocess.run([language_python(), "-c", "import sys; sys.path.insert(0, sys.argv[1]); "
                             "from author_textures import stale; from pathlib import Path; "
@@ -176,23 +177,22 @@ def build_discs(args, editions: list[str], languages: list[str]) -> None:
     print(f"[preflight] {time.perf_counter() - started:.2f}s", flush=True)
     # SP inherits text from the Original build of the same language, in every language.
     main = "original,best" if "best" in editions else "original"      # Original is BEST's and SP's text frontend
-    first = [(main, language) for language in ("", *languages)] + ([("sp", "")] if "sp" in editions else [])
-    second = [("sp", language) for language in languages] if "sp" in editions else []
-    for batch in (first, second):
-        if not batch:
-            continue
-        phase_start = time.perf_counter()
-        with ThreadPoolExecutor(max_workers=len(batch)) as pool:
-            futures = [pool.submit(build, edition, language, badge, args.force_rebuild) for edition, language in batch]
-            for future in futures:
-                future.result()
-        print(f"[phase {1 if batch is first else 2}] {time.perf_counter() - phase_start:.2f}s", flush=True)
-        if batch is first:
-            check_start = time.perf_counter()
-            check_authored(languages)
-            print(f"[artwork verification] {time.perf_counter() - check_start:.2f}s", flush=True)
+    phase_start = time.perf_counter()
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        jobs = [pool.submit(build, main, language, badge, args.force_rebuild, editions == ['sp']) for language in ("", *languages)]
+        for job in jobs:
+            job.result()
+    print(f"[Original frontends] {time.perf_counter()-phase_start:.2f}s", flush=True)
+    check_authored(languages, frontend_only=editions == ["sp"])
     for edition in editions:
-        assemble(edition, args.out_dir / f"multilang-{edition}.iso", args.force_rebuild)
+        out = args.out_dir / f"multilang-{edition}.iso"
+        if edition == "sp":
+            cmd = [language_python(), str(ZH_HANT / "build_sp_resources.py"), "--out", str(out), "--badge", badge]
+            if editions == ["sp"]:
+                cmd.append("--component-frontends")
+            run("sp-resources", cmd + (["--force-rebuild"] if args.force_rebuild else []))
+        else:
+            assemble(edition, out, args.force_rebuild)
     print(f"total {time.perf_counter() - started:.2f}s", flush=True)
 
 

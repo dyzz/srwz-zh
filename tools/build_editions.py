@@ -232,7 +232,7 @@ def reset_relocated_cmake(root: Path, config: dict) -> None:
 
 
 def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
-                   force_rebuild: bool = False, publish: bool = True, base_ready=None) -> dict:
+                   force_rebuild: bool = False, publish: bool = True, base_ready=None, resources_only=False) -> dict:
     root = context.project_root
     root.mkdir(parents=True, exist_ok=True)
     snapshot.materialize(root)
@@ -245,7 +245,7 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     # When they are unavailable the component pipeline still applies its own
     # per-consumer verified caches; only an explicit --force-rebuild disables them.
     prepare_started = time.perf_counter()
-    reused = not force_rebuild and seed_text_update(context, snapshot)
+    reused = not (force_rebuild or resources_only) and seed_text_update(context, snapshot)
     print(f"[original] previous validated component caches: {'seeded' if reused else 'unavailable'}", flush=True)
     print("[original] prepare private, independently writable caches", flush=True)
     # Without a validated seed the integrated component root must start empty:
@@ -264,19 +264,37 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
     reset_relocated_cmake(root, baseline)
     record_phase(context, "prepare", prepare_started)
     run_phase(context, "codec", ["tools/build_rust_compressor.py", "--force"])
-    run_phase(context, "iso-toolchain", ["tools/bootstrap_mkps2iso.py", "--config", LEGACY_CONFIG])
+    if not resources_only:
+        run_phase(context, "iso-toolchain", ["tools/bootstrap_mkps2iso.py", "--config", LEGACY_CONFIG])
     run_phase(context, "fonts", ["tools/fetch_zh_font.py", "--flavor", chain["font_flavor"]])
     with ThreadPoolExecutor(max_workers=1, thread_name_prefix="srwz-iso-extract") as pool:
         # A full rebuild re-extracts the 3.7 GB disc layout; that depends on
         # the source disc and toolchain only, so it overlaps the components.
         extraction = (pool.submit(run_phase, context, "iso-extract", ["tools/build_iso.py", "--config", LEGACY_CONFIG,
                                                                      "--refresh-extraction", "--extract-only"])
-                      if force_rebuild else None)
+                      if force_rebuild and not resources_only else None)
         run_phase(context, "components", ["tools/rebuild_zh_font.py", "--skip-fetch", "--refresh-manifests",
                                           *(["--force-rebuild"] if force_rebuild else []),
                                           "--cache", "work/cache/editions/original/font-chain.json"])
         if extraction is not None:
             extraction.result()
+    if resources_only:
+        config = load_json(root / LEGACY_CONFIG)
+        validation = load_json(root / config["component_validation_manifest"])
+        outputs = validation["outputs"]
+        replacements = config["replacements"]
+        if (validation["status"] != config["component_required_status"] or
+                set(outputs) != {row["member"] for row in replacements}):
+            raise EditionError("Original frontend validation manifest drift")
+        for row in replacements:
+            lock = outputs[row["member"]]
+            path = root / row["source"]
+            if (lock["path"] != row["source"] or path.stat().st_size != lock["size"] or
+                    sha256_file(path) != lock["sha256"]):
+                raise EditionError(f"Original frontend member drift: {row['member']}")
+            row.update(size=lock["size"], sha256=lock["sha256"])
+        return {"input_digest": snapshot.digest, "workspace": str(root.relative_to(context.root)),
+                "files": replacements}
     run_phase(context, "iso", ["tools/build_iso.py", "--config", LEGACY_CONFIG, "--refresh-output-locks",
                                *([] if force_rebuild else ["--incremental"])])
     cfg = load_json(root / LEGACY_CONFIG)
@@ -484,7 +502,7 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
 
 
 def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False, force_rebuild: bool = False, candidate: bool = False,
-          language: str = "", badge_text: str | None = None) -> dict:
+          language: str = "", badge_text: str | None = None, frontend_only=False) -> dict:
     started = time.perf_counter()
     started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
@@ -542,6 +560,22 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
             raise EditionError("edition contracts changed during input capture")
         contexts = {name: BuildContext(root, profile, snapshot.digest, candidate=candidate, language=language)
                     for name, profile in build_profiles.items()}
+        if frontend_only:
+            if requested != ("original",) or not candidate:
+                raise EditionError("SP frontend mode requires the Original candidate profile")
+            key = hashlib.sha256(("sp-components " + snapshot.digest).encode()).hexdigest()
+            context = BuildContext(root, build_profiles["original"], key, candidate=True, language=language)
+            receipt = root / f"work/cache/editions/sp-frontends/{language or 'zh'}.json"
+            if receipt.is_file() and not force_rebuild:
+                previous = load_json(receipt)
+                if previous["input_digest"] == snapshot.digest and all(
+                        (context.project_root / row["source"]).is_file() and
+                        sha256_file(context.project_root / row["source"]) == row["sha256"] for row in previous["files"]):
+                    return previous
+            result = build_original(context, snapshot, legacy_equivalence=False,
+                                    force_rebuild=force_rebuild, publish=False, resources_only=True)
+            atomic_json(receipt, result)
+            return result
         for context in contexts.values():
             context.project_root  # Also check aliases under this exact input key.
         batch_path = project_path(root, f"work/editions/{snapshot.digest}/{'-'.join(requested)}{'-candidate' if candidate else ''}{suffix}.json", "work")
@@ -671,6 +705,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--single-language", action="store_true", help="Build Simplified only (the default product is a three-language disc).")
+    parser.add_argument("--sp-frontend-only", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--frozen-badge", help=argparse.SUPPRESS)
     parser.add_argument("--config", default=DEFAULT_CONFIG)
     parser.add_argument("--editions", default="original,best,sp", help="Comma-separated target editions (default: original,best,sp); Best uses Original as a private frontend unless Original is explicitly requested.")
@@ -701,7 +736,7 @@ def main() -> int:
             print(f'[title] version: {badge_text}', flush=True)
         result = build(PROJECT_ROOT, args.config, tuple(x.strip() for x in args.editions.split(",")),
                        plan=args.plan, legacy_equivalence=args.require_legacy_equivalence, force_rebuild=args.force_rebuild, candidate=args.candidate,
-                       language=args.language, badge_text=badge_text if args.language else None)
+                       language=args.language, badge_text=badge_text if args.language else None, frontend_only=args.sp_frontend_only)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     except (EditionError, OSError, ValueError, subprocess.SubprocessError) as error:
