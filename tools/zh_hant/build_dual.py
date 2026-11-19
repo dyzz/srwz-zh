@@ -79,12 +79,9 @@ TEXTURE_DEFERRED = {'corpus/zh-hant/ui-atlas/formation-help-headings.json'}
 
 OVERLAID: list = []       # build paths of the parallel files placed by overlay_tree (their locks are refreshed)
 
-# Where each Traditional variant's text comes from (docs/ZH_HANT_HK_TW_PLAN_20261118.md). Taiwan is the parallel
-# corpus itself; Hong Kong is derived from it into build/zh-hant-hk by derive_hk.py (never edited by hand).
-HK_BASE = ROOT / 'build/zh-hant-hk'
 VARIANTS = {
-    'tw': {'trees': ROOT, 'layout': ZH_HANT / 'text-layout'},
-    'hk': {'trees': HK_BASE, 'layout': HK_BASE / 'text-layout'},
+    'tw': {'suffix': 'zh-hant', 'layout': ZH_HANT / 'text-layout'},
+    'hk': {'suffix': 'zh-hant-hk', 'layout': ZH_HANT / 'text-layout-hk'},
 }
 # Texture sources: the two variants share one set of Traditional textures (user, 2026-11-18), so a Hong Kong clone
 # takes the Taiwan text of every file the textures are authored from (author_textures.py fingerprint inputs and the
@@ -100,11 +97,11 @@ def texture_sources() -> list:
     return sorted(({k for k in fp['files'] if k.startswith('corpus/')} | set(TEXTURE_SOURCES_EXTRA)) - TEXTURE_DEFERRED)
 
 
-def overlay_tree(src: Path, dst: Path, base: Path = ROOT) -> int:
+def overlay_tree(src: Path, dst: Path) -> int:
     """Replace each file of dst that src has a parallel of (metadata stripped); keep dst's other files."""
     n = 0
     for f in src.rglob('*.json'):
-        if any(str(f.relative_to(base)).startswith(d) for d in TEXTURE_DEFERRED): continue
+        if src.name.startswith('zh-hant') and 'corpus/zh-hant/' + str(f.relative_to(src)) in TEXTURE_DEFERRED: continue
         target = dst / f.relative_to(src)
         dump(target, strip_meta(json.loads(f.read_text(encoding='utf-8')))); n += 1
         OVERLAID.append(str(target.relative_to(dst.parents[1])))              # dst is <clone>/corpus/<tree>
@@ -215,12 +212,13 @@ def stale_stage_titles(tc_iso: Path) -> list:
 
 
 def prepare_tc(tc: Path, variant: str = 'tw') -> None:
-    src = VARIANTS[variant]['trees']
-    for parallel in ('zh-hant', 'glossary-zh-hant', 'runtime-zh-hant'):
-        shutil.rmtree(tc / 'corpus' / parallel, ignore_errors=True)     # sources of the overlay, not build inputs
-    stats = {'corpus/zh': overlay_tree(src / 'corpus/zh-hant', tc / 'corpus/zh', src),
-             'corpus/glossary': overlay_tree(src / 'corpus/glossary-zh-hant', tc / 'corpus/glossary', src),
-             'corpus/runtime': overlay_tree(src / 'corpus/runtime-zh-hant', tc / 'corpus/runtime', src)}
+    suffix = VARIANTS[variant]['suffix']
+    regional = ROOT / 'corpus' / suffix
+    stats = {}
+    for group, prefix in [('zh', ''), ('glossary', 'glossary-'), ('runtime', 'runtime-')]:
+        stats[group] = overlay_tree(ROOT / 'corpus' / (prefix + suffix), tc / 'corpus' / group)
+        for inputs in VARIANTS.values():
+            shutil.rmtree(tc / 'corpus' / (prefix + inputs['suffix']), ignore_errors=True)
     if variant != 'tw':
         for rel in texture_sources():                                 # shared textures: their Taiwan sources
             dump(tc / 'corpus/zh' / Path(rel).relative_to('corpus/zh-hant'),
@@ -253,7 +251,7 @@ def prepare_tc(tc: Path, variant: str = 'tw') -> None:
     reduced = [t['ordinal'] for t in snap['titles'] if t['quantization_levels'] < 16]
     graphics['expected'].update(full_precision_count=len(snap['titles']) - len(reduced), reduced_precision_ordinals=reduced)
     dump(components, comp)
-    literals = literal_pairs(ROOT / 'corpus/zh', src / 'corpus/zh-hant')
+    literals = literal_pairs(ROOT / 'corpus/zh', regional)
     if variant != 'tw':
         for rel in texture_sources():                     # texture files are the Taiwan ones in this clone
             literals.update(file_pairs(ROOT / 'corpus/zh' / Path(rel).relative_to('corpus/zh-hant'), ROOT / rel))
@@ -389,8 +387,6 @@ def main() -> None:
         raise SystemExit('parallel Traditional corpora are out of sync with the Simplified ones; run '
                          'tools/zh_hant/sync_corpus.py and review build/zh-hant/sync-report.json\n' + check.stdout)
     run(sys.executable, HERE / 'author_intertitles.py')
-    if a.variant == 'hk':
-        run(sys.executable, HERE / 'derive_hk.py')
     name = 'project-tc' if a.variant == 'tw' else f'project-{a.variant}'
     project = prepared_project(name, a.variant)
     # Hong Kong characters join the one Traditional codebook: grow it from the Hong Kong text first, then Taiwan.

@@ -24,7 +24,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import shutil
 import struct
 import sys
 from pathlib import Path
@@ -35,6 +34,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 from srwz.codec import decode_production, reencode_changed_suffix  # noqa: E402
+from srwz.release_inputs import copy_file
 from srwz.iso9660 import member_map, scan_iso9660  # noqa: E402
 from srwz.tim2 import parse_tim2  # noqa: E402
 from srwz.psmt4 import swizzle_psmt4, unswizzle_psmt4  # noqa: E402
@@ -338,7 +338,7 @@ def main() -> None:
         path.write_bytes(bytes(data))
     (OUT / EXE).write_bytes(bytes(exe))
     iso_out = new_temp_iso('preview-build')
-    shutil.copyfile(ISO, iso_out)
+    copy_file(ISO, iso_out)
     with iso_out.open("r+b") as f:
         for name, data in list(archives.items()) + list(extras.items()) + [(EXE, exe)]:
             m = members[name]

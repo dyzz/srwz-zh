@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """One disc per edition with every language: Simplified, Traditional (Taiwan), Traditional (Hong Kong).
 
-The corpora of all languages live in this checkout (corpus/zh, corpus/zh-hant; Hong Kong is derived from Taiwan).
+The corpora of all languages live in this checkout (corpus/zh, corpus/zh-hant and corpus/zh-hant-hk).
 Each language is an ordinary build_editions.py build of the same pipeline (--language), run from this directory:
 no project copies, shared caches. tools/zh_hant/assemble_dual.py then puts the languages of an edition on one disc.
 
@@ -23,6 +23,7 @@ from concurrent.futures import ThreadPoolExecutor
 import json
 import os
 import re
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -32,7 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ZH_HANT = ROOT / "tools/zh_hant"
 LOGS = ROOT / "build/multilang/logs"
 ENV_PYTHON = "SRWZ_LANGUAGE_PYTHON"
-LANGUAGES = ["zh-hant-tw", "zh-hant-hk"]      # beside Simplified; Hong Kong is derived from Taiwan
+LANGUAGES = ["zh-hant-tw", "zh-hant-hk"]
 
 
 def language_python() -> str:
@@ -93,13 +94,49 @@ def check_authored(languages: list[str]) -> None:
         raise SystemExit("Traditional picture check failed:\n" + (probe.stdout + probe.stderr)[-2000:])
 
 
-def assemble(edition: str, languages: list[str], out: Path) -> float:
+def assembly_inputs(edition: str) -> dict:
+    from srwz.file_identity import identity_key
+    proofs = {}
+    for language in ["", *LANGUAGES]:
+        suffix = f"-{language}" if language else ""
+        path = ROOT / f"manifests/editions/{edition}/candidate{suffix}.json"
+        receipt = json.loads(path.read_text())
+        proofs[language] = [receipt["input_digest"], receipt["output"]]
+    # The snapshot includes the assembler, hook and both codebooks. The external
+    # binutils suite is installed outside the snapshot.
+    for tool in ("as", "ld", "objcopy", "objdump", "nm"):
+        binary = shutil.which("mipsel-linux-gnu-" + tool)
+        if binary is None:
+            raise SystemExit(f"missing MIPS binutils tool: {tool}")
+        proofs[tool] = identity_key(Path(binary).stat())
+    return proofs
+
+
+def assemble(edition: str, out: Path, force: bool) -> None:
+    from build_editions import atomic_json
+    from srwz.file_identity import identity_key
+    cache = ROOT / f"work/cache/editions/multilang/{edition}.json"
+    receipt = out.with_suffix(".receipt.json")
+    inputs = assembly_inputs(edition)
+    def proof():
+        return {"inputs": inputs, "iso": identity_key(out.stat()), "receipt": identity_key(receipt.stat())}
+    if not force and cache.exists() and out.exists() and receipt.exists():
+        try:
+            previous = json.loads(cache.read_text())
+        except ValueError:
+            previous = None
+        if previous == proof():
+            print(f"[assemble-{edition}] reused verified ISO", flush=True)
+            return
     command = [sys.executable, str(ZH_HANT / "assemble_dual.py"), "--edition", edition,
                "--sc", str(image(edition, "")), "--tc", str(image(edition, "zh-hant-tw")),
                "--tc-codebook", str(ROOT / "config/zh-hant/encoding/zh-release-font-assignments.json"),
                "--hk", str(image(edition, "zh-hant-hk")),
                "--out", str(out), "--work", str(ROOT / f"build/multilang/assemble-{edition}")]
-    return run(f"assemble-{edition}", command)
+    run(f"assemble-{edition}", command)
+    if assembly_inputs(edition) != inputs:
+        raise SystemExit(f"{edition} candidate changed during assembly")
+    atomic_json(cache, proof())
 
 
 def main() -> None:
@@ -129,11 +166,7 @@ def build_discs(args, editions: list[str], languages: list[str]) -> None:
         if dependencies.returncode:
             raise SystemExit(f"SP language tools require OpenCC, NumPy and Pillow in {language_python()}:\n"
                              + dependencies.stderr)
-    check = subprocess.run([language_python(), str(ZH_HANT / "sync_corpus.py"), "--check"], cwd=ROOT,
-                           capture_output=True, text=True)
-    if check.returncode:
-        raise SystemExit("parallel Traditional corpora are out of sync with the Simplified ones; run "
-                         "tools/zh_hant/sync_corpus.py and review build/zh-hant/sync-report.json\n" + check.stdout + check.stderr)
+    run("corpus-coverage", [language_python(), str(ZH_HANT / "fill_corpora.py")])
     # Traditional render locks that live in the parallel corpus follow its text (deterministic, a few seconds).
     run("author-intertitles", [language_python(), str(ZH_HANT / "author_intertitles.py")])
     # One badge refresh before the parallel builds, so none of them rewrites a file another is capturing.
@@ -159,7 +192,7 @@ def build_discs(args, editions: list[str], languages: list[str]) -> None:
             check_authored(languages)
             print(f"[artwork verification] {time.perf_counter() - check_start:.2f}s", flush=True)
     for edition in editions:
-        assemble(edition, languages, args.out_dir / f"multilang-{edition}.iso")
+        assemble(edition, args.out_dir / f"multilang-{edition}.iso", args.force_rebuild)
     print(f"total {time.perf_counter() - started:.2f}s", flush=True)
 
 

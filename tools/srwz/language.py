@@ -67,7 +67,9 @@ def make_view(root: Path, language: str, editions: tuple[str, ...], *, candidate
             command += ["--answer-key", str(_answer_key(root, language, candidate)),
                         "--taiwan-answer-key", str(_answer_key(root, "zh-hant-tw", candidate)),
                         "--simplified-answer-key", str(_answer_key(root, "", candidate))]
-        result = subprocess.run(command, cwd=root, capture_output=True, text=True)
+        environment = os.environ.copy()
+        environment.setdefault("SRWZ_COMPRESSION_CACHE", str(root / "work/cache/compression"))
+        result = subprocess.run(command, cwd=root, env=environment, capture_output=True, text=True)
         if result.returncode:
             raise EditionError(f"{language} input view failed:\n{(result.stdout + result.stderr)[-3000:]}")
         lines = result.stdout.rstrip().splitlines()

@@ -9,7 +9,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import shutil
 import struct
 import subprocess
 import sys
@@ -17,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path[:0] = [str(ROOT / 'tools'), str(Path(__file__).resolve().parent)]
+from srwz.release_inputs import copy_file
 from srwz.iso9660 import member_map, scan_iso9660
 from srwz.file_identity import remember_digest, sha256_file
 from srwz.codec import decode_production
@@ -172,7 +172,7 @@ def assemble():
     patches = {EXE: bytes(patched_exe), VT1: patched_vt1, STAGE: (WORK/'stage'/STAGE).read_bytes()}
     DEST.parent.mkdir(parents=True,exist_ok=True)
     temporary = DEST.with_suffix('.tmp.iso')
-    shutil.copyfile(PREVIEW,temporary)
+    copy_file(PREVIEW, temporary)
     with temporary.open('r+b') as output:
         for name, data in patches.items():
             require(len(data) == members[name].size, f'member length changed: {name}')

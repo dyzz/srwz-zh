@@ -30,7 +30,9 @@ def main() -> None:
     by_chunk = {e['chunk_index']: e for e in doc['entries']}
     for owner, values in relock.items():
         (doc if owner == 'archive' else by_chunk[owner]).update(values)
-    TC.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    encoded = json.dumps(doc, ensure_ascii=False, indent=2) + '\n'
+    if TC.read_text(encoding='utf-8') != encoded:
+        TC.write_text(encoded, encoding='utf-8')
     build_mtv_prop_intertitles(*args, strip_meta(doc))                 # must now pass as a build would run it
     print(json.dumps({'relocked': {str(k): sorted(v) for k, v in relock.items()},
                       'texts': [e['translation'] for e in doc['entries']]}, ensure_ascii=False))

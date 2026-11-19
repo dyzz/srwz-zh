@@ -24,6 +24,7 @@ SKIP_PREFIXES = ("config/editorial/", "manifests/editions/")
 # the frozen input set stops a README edit from forcing a full rebuild.
 SKIP_SUFFIXES = (".md", ".DS_Store")
 SKIP_SOURCE_PREFIXES = (
+    "tools/zh_hant/fill_corpora.py",  # preflight only; the resolved corpus bytes are captured below
     "tools/editorial_review/",
     "tools/templates/",
     "tools/native/battle-square-skip/",
@@ -67,7 +68,7 @@ def copy_file(source: Path | str, target: Path | str) -> str:
     return str(target)
 
 
-def source_inventory(root: Path, additional_paths: tuple[str, ...] = ()) -> list[dict]:
+def source_inventory(root: Path, additional_paths: tuple[str, ...] = (), *, language: str | None = None) -> list[dict]:
     root = root.resolve()
     rows = []
     for name in SOURCE_ROOTS:
@@ -76,6 +77,11 @@ def source_inventory(root: Path, additional_paths: tuple[str, ...] = ()) -> list
             raise EditionError(f"missing build input tree: {name}")
         for directory, children, files in os.walk(start, followlinks=False):
             children[:] = sorted(c for c in children if c not in SKIP_PARTS)
+            if Path(directory) == root / "corpus" and language is not None:
+                if language != "zh-hant-hk":
+                    children[:] = [c for c in children if c not in ("zh-hant-hk", "glossary-zh-hant-hk", "runtime-zh-hant-hk")]
+                if not language:
+                    children[:] = [c for c in children if c not in ("zh-hant", "glossary-zh-hant", "runtime-zh-hant")]
             for child in children:
                 if (Path(directory) / child).is_symlink():
                     raise EditionError(f"build input directory is a symlink: {Path(directory) / child}")
@@ -138,7 +144,7 @@ def freeze_inputs(root: Path, additional_paths: tuple[str, ...] = (), *, languag
     ``view(project)`` rewrites a private copy of the inputs in place (srwz.language) and the snapshot, its
     digest and every later identity check are those of the rewritten tree."""
     root = root.resolve()
-    rows = source_inventory(root, additional_paths)
+    rows = source_inventory(root, additional_paths, language=language)
     shared = project_path(root, "work/build/shared", "work/build")
     shared.mkdir(parents=True, exist_ok=True)
     if language:
@@ -159,7 +165,7 @@ def freeze_inputs(root: Path, additional_paths: tuple[str, ...] = (), *, languag
             copy_file(root / row["path"], temporary / "project" / row["path"])
         verify_files(temporary / "project", rows)
         # Detect edits and newly added input files during capture, before using it.
-        if source_inventory(root, additional_paths) != rows:
+        if source_inventory(root, additional_paths, language=language) != rows:
             raise EditionError("build inputs changed during snapshot capture; retry with the new inputs")
         (temporary / "inputs.json").write_bytes(json_bytes({
             "schema_version": 1, "input_digest": digest, "source_head": source_head,
@@ -224,7 +230,7 @@ def _freeze_language_view(root: Path, rows: list[dict], additional_paths: tuple[
         verify_files(project, rows)
         # The view names its own frozen dependencies outside the source trees (it may rebuild them).
         view_additional = tuple(view(project) or ())
-        if source_inventory(root, additional_paths) != rows:
+        if source_inventory(root, additional_paths, language=language) != rows:
             raise EditionError("build inputs changed during snapshot capture; retry with the new inputs")
         additional_paths = view_additional
         view_rows = source_inventory(project, additional_paths)

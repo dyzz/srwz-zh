@@ -4,7 +4,7 @@
 build_editions.py --language zh-hant-tw / zh-hant-hk freezes its inputs through this tool: the copy's corpus/zh,
 glossary, runtime keywords, layout word lists, codebook, font profile and texture configs become the Traditional
 ones, and every file lock that names a replaced file follows. Taiwan text is the parallel corpus
-(corpus/zh-hant); Hong Kong text is derived from it (derive_hk.py). The pipeline then builds the copy unchanged.
+(corpus/zh-hant); Hong Kong has its own parallel corpus (corpus/zh-hant-hk). The pipeline then builds the copy unchanged.
 
 SP is built on a frozen baseline whose inherited text comes from the Original build. For --editions sp the view
 also carries that baseline in the language (build_dual_sp.sp_prepare): the converters run here against the same
@@ -20,7 +20,6 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
-import subprocess
 import sys
 from pathlib import Path
 
@@ -65,8 +64,6 @@ def main() -> None:
     editions = set(a.editions.split(','))
     if 'sp' in editions and editions != {'sp'}:
         raise SystemExit('a Traditional SP view carries SP-only inputs: build SP on its own')
-    if a.variant == 'hk':
-        subprocess.run([sys.executable, str(HERE / 'derive_hk.py')], check=True, stdout=subprocess.DEVNULL)
     additional = []
     if 'sp' in editions:
         import build_dual_sp as sp
