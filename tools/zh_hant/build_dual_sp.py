@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import sys
+import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -259,8 +260,11 @@ def sp_stage_titles(tc: Path) -> None:
 def sp_prepare(tc: Path, variant: str, answer_key: Path, tw_key: Path, sc_key: Path) -> None:
     """SP's own Traditional inputs, in a project that already holds the language's corpus, codebook and menu
     codebook (build_dual.prepare_tc / menu_codebook) and SP's support trees (work/build/special-disc, discs)."""
+    started = time.perf_counter()
     sp_keep_sc(tc)
     sp_font(tc)
+    print(f'[sp-view] font: {time.perf_counter()-started:.2f}s', flush=True)
+    started = time.perf_counter()
     sp_config_drafts(tc, variant)
     sp_world_map_titles(tc)
     sp_images_stay_sc(tc)
@@ -268,17 +272,24 @@ def sp_prepare(tc: Path, variant: str, answer_key: Path, tw_key: Path, sc_key: P
     sp_instruction_layout(tc)
     sp_weapon_categories(tc, variant)
     sp_localize(tc)
+    print(f'[sp-view] configs-and-labels: {time.perf_counter()-started:.2f}s', flush=True)
     # SP's frozen baseline in Traditional: the September converters with the Traditional Original build as the
     # answer key (sp_tc_baseline.py), so inherited text comes from the same parallel corpus as Original.
+    started = time.perf_counter()
     bd.run(sys.executable, HERE / 'sp_tc_baseline.py', tc, '--answer-key', answer_key, '--simplified-answer-key', sc_key,
            '--variant', variant)
+    print(f'[sp-view] baseline-total: {time.perf_counter()-started:.2f}s', flush=True)
+    started = time.perf_counter()
     sp_image_labels_refreeze(tc)
     sp_encoded_contracts(tc)
     sp_gallery_talk(tc)
     sp_stage_titles(tc)
+    print(f'[sp-view] post-baseline-assets: {time.perf_counter()-started:.2f}s', flush=True)
     # SP's own image chain stays Simplified (its seals); its text cells become Traditional in one final delta
+    started = time.perf_counter()
     bd.run(sys.executable, HERE / 'sp_menu_atlas.py', tc, '--simplified', sc_key, '--traditional', tw_key,
            '--review', bd.BASE / f'sp-menu-atlas-review-{variant}')
+    print(f'[sp-view] menu-atlas: {time.perf_counter()-started:.2f}s', flush=True)
 
 
 def sp_shared_from_taiwan(tc: Path) -> None:

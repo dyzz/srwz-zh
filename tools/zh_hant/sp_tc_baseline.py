@@ -23,6 +23,7 @@ import json
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -47,9 +48,14 @@ def sha(data: bytes) -> str:
 
 def run(clone: Path, *cmd):
     print('$', ' '.join(map(str, cmd)), flush=True)
+    started = time.perf_counter()
     r = subprocess.run(list(map(str, cmd)), cwd=clone, capture_output=True, text=True)
     if r.returncode:
         raise SystemExit(f'{cmd[1] if len(cmd) > 1 else cmd[0]} failed:\n' + (r.stdout + r.stderr)[-3000:])
+    print(f'[sp-view] baseline/{Path(cmd[1]).stem}: {time.perf_counter()-started:.2f}s', flush=True)
+    for line in r.stdout.splitlines():
+        if line.startswith('[sp-cache]'):
+            print(line, flush=True)
     return r.stdout
 
 
@@ -254,8 +260,8 @@ def main() -> None:
         if step == 'migrate_compdata':
             print('COMPDATA strings returned to the system-text writer:', return_compdata_strings(c), flush=True)
     run(c, sys.executable, 'tools/special_disc/writeback/write_system_text.py', '--proposal', PROPOSAL)
-    print(run(c, sys.executable, HERE / 'sp_textures.py', c, '--simplified', a.simplified_answer_key.resolve(),
-              '--traditional', a.answer_key.resolve(), '--hold', f'KURODATA/KVMDATA.BIN={c / HELD_KVM}'), flush=True)
+    run(c, sys.executable, HERE / 'sp_textures.py', c, '--simplified', a.simplified_answer_key.resolve(),
+              '--traditional', a.answer_key.resolve(), '--hold', f'KURODATA/KVMDATA.BIN={c / HELD_KVM}')
     print('Traditional SP components rebuilt', flush=True)
     # preview baseline (components + pictures), then the text canary on it (font + canary stage component)
     from sp_pictures import install_sp_pictures
@@ -269,11 +275,12 @@ def main() -> None:
     canary = json.loads((c / 'work/build/special-disc/baselines/text-canary.json').read_text())['iso_sha256']
     bft = c / 'tools/special_disc/writeback/build_full_text.py'
     bft.write_text(re.sub(r"^BASE_SHA='[0-9a-f]+'", f"BASE_SHA='{canary}'", bft.read_text(), flags=re.M))
+    from srwz.file_identity import sha256_file as filecmp_digest
     changed = []
     for f in (c / 'work/build/special-disc').rglob('*'):
         if f.is_file() and not f.is_symlink():
             rel = f.relative_to(c); o = ROOT / rel
-            if not o.exists() or o.read_bytes() != f.read_bytes(): changed.append(str(rel))
+            if not o.exists() or filecmp_digest(o) != filecmp_digest(f): changed.append(str(rel))
     sys.path.insert(0, str(HERE))
     from locks import refresh_locks
     print('Traditional SP baseline: preview', preview[:12], 'canary', canary[:12], 'changed files', len(changed),

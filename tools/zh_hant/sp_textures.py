@@ -22,6 +22,8 @@ import argparse
 import collections
 import hashlib
 import json
+import os
+import zlib
 import sys
 from pathlib import Path
 
@@ -101,6 +103,16 @@ def paste(px, w, box, tile: bytes) -> None:
         px[y * w + x0:y * w + x1] = tile[r * k:(r + 1) * k]
 
 
+def install_member(member, output, held, path, report):
+    if output is None:
+        return
+    target = Path(held[member]) if member in held else path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(output)
+    if member not in held:
+        report['files'][member] = sha(output)
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     p.add_argument('clone', type=Path)
@@ -128,6 +140,18 @@ def main() -> None:
     report = json.loads(report_path.read_text())
     summary, unheld, relabeled = {}, [], []
 
+    from special_disc import view_cache
+    from srwz.codec import _rust_compressor_path
+    from srwz.file_identity import sha256_file
+    directory = os.environ.get(view_cache.ENV) if not a.review else None
+    algorithms = []
+    if directory:
+        srwz = clone / 'tools/srwz'
+        algorithms = [sha256_file(p) for p in (Path(__file__), Path(mt.__file__), _rust_compressor_path(),
+                      srwz/'codec.py', srwz/'codec_contract.py', srwz/'codec_worker.py', srwz/'psmt4.py', srwz/'tim2.py')]
+    held = dict(h.split('=', 1) for h in a.hold)
+    cached_unheld = 0
+
     for member, (og_spec, sp_spec, storage) in mt.ARCHIVES.items():
         sc, tc = (a.simplified / member).read_bytes(), (a.traditional / member).read_bytes()
         og_jp = (ROOT / mt.OG_JAPANESE[member].relative_to(mt.ROOT)).read_bytes()
@@ -146,6 +170,23 @@ def main() -> None:
             st = mt.table_at(sp_exe, sp_spec, len(sp))
         if jt != zt:
             raise SystemExit(f'{member}: the Simplified and Traditional Original builds lay out chunks differently')
+
+        # Cache each archive against its actual pixels, source bytes and parsed offset tables.
+        # An unrelated executable edit or new Original workspace can still use the same result.
+        slot = Path(directory) / (member.replace('/', '-') + '.texture') if directory else None
+        if slot:
+            key = view_cache.cache_key([algorithms, member, storage, member in held, jt, st,
+                                        sha(sc), sha(tc), sha(og_jp), sha(sp), sha(sp_jp)])
+            entry = view_cache.read_entry(slot, key)
+            if entry is not None:
+                header, payload = entry.split(b'\n', 1)
+                counts, missing = json.loads(header)
+                install_member(member, zlib.decompress(payload) if payload else None, held, path, report)
+                summary[member] = counts
+                cached_unheld += missing
+                print(f'[sp-cache] textures/{member}: reused', flush=True)
+                continue
+        before_unheld = len(unheld)
 
         def content(blob: bytes) -> tuple[bytes, bool]:
             if storage == 'raw':
@@ -286,19 +327,18 @@ def main() -> None:
                 if len(stored) > s1 - s0:
                     raise SystemExit(f'{member} chunk {k}: Traditional pixels do not fit the slot')
                 output[s0:s1] = stored + bytes(s1 - s0 - len(stored))
-            held = dict(h.split('=', 1) for h in a.hold)
             if member in held:
-                Path(held[member]).parent.mkdir(parents=True, exist_ok=True)
-                Path(held[member]).write_bytes(bytes(output))
                 counts['held for the image chain'] = 1
-            else:
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_bytes(bytes(output))
-                report['files'][member] = sha(bytes(output))
             counts['SP chunks rewritten'] = len(touched)
+        output = bytes(output) if touched else None
+        install_member(member, output, held, path, report)
         summary[member] = dict(counts)
+        if slot:
+            header = json.dumps([counts, len(unheld) - before_unheld]).encode()
+            payload = zlib.compress(output, 1) if output is not None else b''
+            view_cache.write_entry(slot, key, header + b'\n' + payload)
     report['traditional_delta'] = dict(simplified=str(a.simplified), traditional=str(a.traditional),
-                                       members=summary, regions_not_held=len(unheld))
+                                       members=summary, regions_not_held=len(unheld) + cached_unheld)
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     print(json.dumps(summary, ensure_ascii=False, indent=1))
     if a.review:
