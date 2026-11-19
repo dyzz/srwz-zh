@@ -18,6 +18,7 @@ from srwz.scoped_translations import (
 from srwz.archive import sha256_file
 from srwz.build_layout import PROSE_HANGING_PX, prose_widths
 from srwz import continuation_indent
+from srwz import protagonist_profile
 from srwz.build_language import corpus_language, expected_characters, expected_literal
 from srwz.typography_policy import candidate_enabled as compact_typography_enabled
 from srwz.renderer_metrics import text_extent
@@ -2694,6 +2695,7 @@ def verify_final_compdata(
         label: str,
         *,
         storage_control_prefixes: dict[str, str] | None = None,
+        deferred_offsets: set[int] | None = None,
     ) -> dict:
         minimum_headroom = None
         zero_padding_extension_count = 0
@@ -2723,6 +2725,8 @@ def verify_final_compdata(
                 raise SystemExit(
                     f"{label} control-token drift at {raw_offset}"
                 )
+            if deferred_offsets and offset in deferred_offsets:
+                continue
             storage_prefix = prefixes.get(raw_offset, "")
             if storage_prefix:
                 if not isinstance(storage_prefix, str):
@@ -2872,7 +2876,36 @@ def verify_final_compdata(
         storage_control_prefixes=remaining_document.get(
             "compdata_render_control_prefixes_by_offset", {}
         ),
+        deferred_offsets={
+            protagonist_profile.MALE_OFFSET,
+            protagonist_profile.FEMALE_OFFSET,
+        },
     )
+    try:
+        direct_report["protagonist_profiles"] = protagonist_profile.verify(
+            decoded_compdata.output,
+            original_compdata.output,
+            normalize_original_fullwidth_ascii(
+                remaining_document["compdata_direct_by_offset"][
+                    protagonist_profile.RAW_OFFSETS[0]
+                ]
+            ),
+            normalize_original_fullwidth_ascii(
+                remaining_document["compdata_direct_by_offset"][
+                    protagonist_profile.RAW_OFFSETS[1]
+                ]
+            ),
+            decode=lambda data, offset: decode_text(
+                data, offset, output_table
+            ).text,
+            original_female_consumed=decode_text(
+                original_compdata.output,
+                protagonist_profile.FEMALE_OFFSET,
+                source_table,
+            ).consumed,
+        )
+    except protagonist_profile.ProtagonistProfileError as error:
+        raise SystemExit(str(error)) from error
     canonical_work_titles = json.loads(
         (
             PROJECT_ROOT
@@ -3074,45 +3107,62 @@ def verify_final_compdata(
         "0x7FD20"
     )
     expected_profile = (
-        "与搭档在荒芜的大地上经营修理店的男人。\n"
-        "自称“烈焰”，是个豪爽磊落的热血汉，\n"
-        "美中不足的是热情过头，让人有些招架不住。"
+        "与搭档一同在荒芜的大地上经营修理店的男人。\n"
+        "自称“THE HEAT”，是个豪爽磊落的热血汉，\n"
+        "美中不足的是热血过了头，让人有些吃不消。"
     )
     if male_profile != _expected_text(expected_profile):
         raise SystemExit("male new-game profile contract drift")
-    profile_line_lengths = [len(line) for line in male_profile.splitlines()]
-    if len(profile_line_lengths) != 3 or max(profile_line_lengths) > 24:
-        raise SystemExit("male new-game profile exceeds its 24x3 layout")
+    profile_line_pixels = protagonist_profile.line_pixels(male_profile)
+    if (
+        len(profile_line_pixels) != 3
+        or max(profile_line_pixels) > protagonist_profile.MAX_LINE_PIXELS
+    ):
+        raise SystemExit("male new-game profile exceeds its three-row box")
     stored_profile = decode_text(
         decoded_compdata.output, 0x7FD20, output_table
     )
     profile_bytes = decoded_compdata.output[
         0x7FD20 : 0x7FD20 + stored_profile.consumed
     ]
+    # Conditional-width codes are only allowed inside the narrow Latin run,
+    # where every glyph is drawn under an explicit width/advance tag.
     conditional_codes = []
     cursor = 0
+    surface_advance = protagonist_profile.SURFACE_ADVANCE
+    advance = surface_advance
     while cursor < len(profile_bytes):
         lead = profile_bytes[cursor]
         if lead in (0, 0x0A):
             cursor += 1
             continue
         if 0x31 <= lead <= 0x35:
+            if lead == 0x34:
+                advance = profile_bytes[cursor + 1]
             cursor += 2
             continue
         if 0x80 <= lead <= 0x9F or 0xE0 <= lead <= 0xEA:
             if cursor + 1 >= len(profile_bytes):
                 raise SystemExit("male new-game profile has a truncated code")
             code = (lead << 8) | profile_bytes[cursor + 1]
-            if 0x8140 <= code < 0x889F:
+            latin = code == 0x8140 or 0x8260 <= code <= 0x829A
+            if 0x8140 <= code < 0x889F and not (
+                latin and advance < surface_advance
+            ):
                 conditional_codes.append(code)
             cursor += 2
             continue
-        cursor += 1
+        raise SystemExit(
+            "male new-game profile stores a raw one-byte glyph "
+            f"0x{lead:02X}; it desyncs the two-byte pairing"
+        )
     if conditional_codes:
         raise SystemExit(
             "male new-game profile still uses conditional-width codes: "
             + ", ".join(f"0x{code:04X}" for code in conditional_codes)
         )
+    if advance != surface_advance:
+        raise SystemExit("male new-game profile leaves a narrow advance set")
 
     parts_document = json.loads(
         (PROJECT_ROOT / remaining_config["parts"]["path"]).read_text(
@@ -3494,7 +3544,7 @@ def verify_final_compdata(
             "scenario_button_readback_exact": True,
             "male_profile_offset": "0x7FD20",
             "male_profile_text": expected_profile,
-            "male_profile_line_lengths": profile_line_lengths,
+            "male_profile_line_pixels": profile_line_pixels,
             "male_profile_within_24x3": True,
             "male_profile_readback_exact": True,
             "male_profile_default_width_codes_only": True,

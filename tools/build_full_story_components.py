@@ -27,6 +27,7 @@ try:
     from srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
     from srwz import continuation_indent
+    from srwz import protagonist_profile
     from srwz.build_language import corpus_language, expected_literal
     from srwz.typography_policy import candidate_enabled as compact_typography_enabled
     from srwz.build_layout import PROSE_HANGING_PX, verify_stored as verify_js_stored, verify_prose as verify_js_prose
@@ -244,6 +245,7 @@ except ModuleNotFoundError:
     from tools.srwz.compressed_workspace import CompressedArchiveWorkspace, CompressedStreamWorkspace
     from tools.srwz.compact_scopes import BATTLE, expand as expand_compact_scopes
     from tools.srwz import continuation_indent
+    from tools.srwz import protagonist_profile
     from tools.srwz.build_language import corpus_language, expected_literal
     from tools.srwz.typography_policy import candidate_enabled as compact_typography_enabled
     from tools.srwz.build_layout import PROSE_HANGING_PX, verify_stored as verify_js_stored, verify_prose as verify_js_prose
@@ -5227,8 +5229,13 @@ def _apply_fixed_span_translations(
     trailing_zero_padding_offsets: set[int] | None = None,
     protected_target_offsets: set[int] | None = None,
     storage_control_prefixes: dict[str, str] | None = None,
+    deferred_offsets: set[int] | None = None,
 ) -> tuple[bytes, dict]:
-    """Write a locked offset map inside audited fixed or zero-padded spans."""
+    """Write a locked offset map inside audited fixed or zero-padded spans.
+
+    ``deferred_offsets`` are audited (span, overlap, control tokens) but left
+    for a dedicated writer that lays them out differently.
+    """
 
     if not isinstance(replacements, dict) or not replacements:
         raise FullStoryComponentError(f"{label} translation map is invalid")
@@ -5239,6 +5246,7 @@ def _apply_fixed_span_translations(
     minimum_headroom = None
     changed_offsets = set()
     zero_padding_extension_count = 0
+    deferred_count = 0
     padding_offsets = trailing_zero_padding_offsets or set()
     protected_offsets = sorted(protected_target_offsets or set())
     prefixes = storage_control_prefixes or {}
@@ -5283,6 +5291,13 @@ def _apply_fixed_span_translations(
                 f"{label} placeholder/control drift at {raw_offset}: "
                 f"source={source.text!r} translation={translation!r}"
             )
+        if deferred_offsets and offset in deferred_offsets:
+            if raw_offset in prefixes:
+                raise FullStoryComponentError(
+                    f"{label} deferred span carries a prefix at {raw_offset}"
+                )
+            deferred_count += 1
+            continue
         storage_prefix = prefixes.get(raw_offset, "")
         if storage_prefix:
             if not isinstance(storage_prefix, str):
@@ -5421,6 +5436,8 @@ def _apply_fixed_span_translations(
         "placeholder_control_tokens_preserved": True,
         "reread_exact": True,
     }
+    if deferred_count:
+        report["deferred_entry_count"] = deferred_count
     if storage_control_prefixes is not None:
         report["storage_control_prefix_entry_count"] = len(applied_prefixes)
         report["storage_control_prefixes"] = applied_prefixes
@@ -5957,7 +5974,40 @@ def _apply_remaining_ui(
             int(raw_offset, 16) for raw_offset in render_control_prefixes
         },
         protected_target_offsets={int(raw_offset, 16) for raw_offset in direct},
+        deferred_offsets={
+            protagonist_profile.MALE_OFFSET,
+            protagonist_profile.FEMALE_OFFSET,
+        },
     )
+    try:
+        compdata_output, protagonist_profile_report = protagonist_profile.apply(
+            compdata_output,
+            original_decoded.output,
+            normalize_original_fullwidth_ascii(
+                direct[protagonist_profile.RAW_OFFSETS[0]]
+            ),
+            normalize_original_fullwidth_ascii(
+                direct[protagonist_profile.RAW_OFFSETS[1]]
+            ),
+            encode=lambda text: encode_text(
+                text, table, overrides=encoding_overrides, terminate=True
+            ),
+            decode=lambda data, offset: decode_text(
+                data, offset, output_table
+            ).text,
+            original_female_consumed=decode_text(
+                original_decoded.output, protagonist_profile.FEMALE_OFFSET, table
+            ).consumed,
+        )
+    except (
+        protagonist_profile.ProtagonistProfileError,
+        SrwzTextEncodeError,
+        KeyError,
+    ) as error:
+        raise FullStoryComponentError(
+            f"protagonist profile write failed: {error}"
+        ) from error
+    direct_report["protagonist_profiles"] = protagonist_profile_report
     compdata_output, library_work_title_report = (
         _apply_library_work_title_slots(
             compdata_output,
