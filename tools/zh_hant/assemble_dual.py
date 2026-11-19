@@ -357,6 +357,10 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
         exe_tc = load_exe(tc)
         if exe_sc.loads != exe_tc.loads or len(exe_sc.b) != len(exe_tc.b): raise SystemExit(f'{tag}: executable layouts differ')
         # ---- members ------------------------------------------------------------------------------------
+        # A member only one build has would otherwise ship as the Simplified one (missing) or not at all (extra).
+        extra, missing = sorted(set(tc.m) - set(sc.m)), sorted(set(sc.m) - set(tc.m))
+        if extra or missing:
+            raise SystemExit(f'{tag} build member set differs from Simplified: extra {extra}, missing {missing}')
         for name, e in sorted(tc.m.items()):
             if name in (EXE, 'DATA/VT1.BIN', 'DMY/DMY.BIN') or name not in sc.m: continue
             if e.size == sc.m[name].size and e.size > 256 << 20:
@@ -394,8 +398,6 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
                 tl = place(label(name), b_b)
             vmap_rows.append((off, tl, n)); copied[name] = b_b
             report['copied_members'][name] = {'sc_bytes': len(a_b), 'tc_bytes': len(b_b), 'tc_lba': tl, 'tc_sectors': n}
-        for name in tc.m:
-            if name not in sc.m: raise SystemExit(f'{tag} build has an extra member {name}')
 
         # ---- VT1: font chunk, stage-title group ---------------------------------------------------------
         v_sc, v_tc = sc.read('DATA/VT1.BIN'), tc.read('DATA/VT1.BIN')
@@ -555,6 +557,10 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
         relocation = append_members(staged, sc.m, {EXE: bytes(SC.b)}, catalog_policy='inherit')
         verify_relocation(staged, sc.m, {EXE: bytes(SC.b)}, relocation)
         spans += [tuple(x) for x in relocation['touched_spans']]
+    # The executable's span is excluded from the comparison below, so read it back the way the console finds it:
+    # through the staged image's own directory. The receipt records the hash of these bytes.
+    staged_exe = Disc(staged).read(EXE)
+    if staged_exe != bytes(SC.b): raise SystemExit(f'readback {EXE}: the staged image does not hold the assembled executable')
     with open(staged, 'rb') as f:
         def at(off, n): f.seek(off); return f.read(n)
         for V in VS:
@@ -598,7 +604,7 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
                'hook_bytes': len(code), 'dmy': [{'item': n, 'lba': l, 'bytes': len(d)} for n, l, d in items],
                'dmy_used_bytes': (cur - dmy.extent_lba) * 2048, 'dmy_bytes': dmy.size,
                'tail': [{'item': n, 'lba': l, 'bytes': len(d)} for n, l, d in tail_items],
-               'patch': patch_report(tw), 'sc_exe_sha256': sha(SC.b), 'tc_exe_sha256': sha(tw['exe_out'].b), 'edition': ED.key,
+               'patch': patch_report(tw), 'sc_exe_sha256': sha(staged_exe), 'tc_exe_sha256': sha(tw['exe_out'].b), 'edition': ED.key,
                'executable_relocation': relocation and {k: relocation[k] for k in ('changes', 'old_size', 'new_size')},
                **tw['report']}
     if a.hk:
