@@ -8,7 +8,7 @@
     "config": {
       "path": "config/assets/ui-battle-command-atlas-zh.json",
       "size": 8372,
-      "sha256": "811a16322baf70c44aa348237906ea5e33cfde9a3ac7dac84aa1951cfddc0ea6"
+      "sha256": "dc3aa80107c163da87a4e52000d2cdee2699b78851a9f80c07a9aa50fc24b556"
     },
     "base_mapping": {
       "config": {
@@ -51,7 +51,7 @@
       "file": {
         "path": "corpus/zh/ui-atlas/core-menus-v1.json",
         "size": 7367,
-        "sha256": "7fb420f046bdf3d952d56b831ba3f603816be3aa02adec77b7c11fc6a1c8519a"
+        "sha256": "1369af4f592f38ef22622cc23d73b9c4888b7f30d7824425879ed17257f11b36"
       },
       "batch_id": "v1-ui-atlas-core-menus",
       "entry_id": "ui-atlas/kvm4/command-menu",
@@ -60,8 +60,8 @@
     },
     "render_snapshot": {
       "path": "config/assets/ui-battle-command-atlas-render-snapshot.json",
-      "size": 40414,
-      "sha256": "65ec2ecf46912e610a47632c197b70ee1d834072c0c5fb1f15969549d7f09c41"
+      "size": 40458,
+      "sha256": "3a7671c7b8416b36e957f12635fe2ec2d90b5b9d13d1de9836a34b95344a0a64"
     }
   },
   "target": {
@@ -120,15 +120,15 @@
       }
     ],
     "mask_audit": {
-      "changed_pixel_count": 3040,
-      "changed_pixel_indexes_sha256": "90f03de9172f5def80bbba2489a6138c8943e26c46dcba306a5b4b265427e7bd",
+      "changed_pixel_count": 3045,
+      "changed_pixel_indexes_sha256": "2774d7b746c728376cdd20692919aacc111c2137bf5af7859c3c48a6d1e7ee35",
       "mask_count": 3,
       "outside_masks_rgba_exact": true
     }
   },
   "localized_label": {
     "source_locator_sha256": "feb876749d2d67995be194160b16883ef3bafa69997f980bdf306c437d8d7da8",
-    "text_sha256": "d91726537ef09ea4c415ad7baf5c967f0bfbc1687cf06d9ed964e4e09ed4dd65",
+    "text_sha256": "18e5a5bf3bbb7aa4b2bad4025b56a5779fa04924e05c025623d3b3771d5bdfad",
     "character_count": 4,
     "render": {
       "point_size": 14,
@@ -215,8 +215,8 @@
       },
       "text_mask": {
         "size": 2788,
-        "sha256": "2fd8b129a38617cad9788a4257faf1acae5dafef4c710f9b954b4a6401959ad4",
-        "nonzero_pixel_count": 561
+        "sha256": "84c05c73026f81ae2b4367b3d5977eb832c400b0076a7c507c72623715c1f3b9",
+        "nonzero_pixel_count": 575
       }
     }
   },
@@ -437,32 +437,32 @@
     "text_render_source": "locked_snapshot"
   },
   "text_audit": {
-    "added_pixel_count": 1056,
+    "added_pixel_count": 1070,
     "label_count": 3,
     "labels": [
       {
-        "added_pixel_count": 561,
-        "added_pixel_indexes_sha256": "4dcf0d56408d6f2dee2e07cdb5769395d468fc7a1f56b8421aba73d2b2716101",
+        "added_pixel_count": 575,
+        "added_pixel_indexes_sha256": "2ff7c8a7546a16c29bfb2a3af504bde22cdbba14b2f7d8bef55ab821cd46555d",
         "indexed_layer_counts": {
           "outline": {
-            "2": 14,
-            "3": 12,
+            "2": 11,
+            "3": 13,
             "4": 5,
             "7": 1
           },
           "fill": {
-            "8": 32,
-            "9": 39,
-            "10": 84,
-            "11": 48,
-            "12": 79,
-            "13": 90,
-            "14": 45,
-            "15": 112
+            "8": 37,
+            "9": 37,
+            "10": 86,
+            "11": 45,
+            "12": 93,
+            "13": 70,
+            "14": 58,
+            "15": 119
           }
         },
-        "fill_mask_sha256": "901da607faddeccc5ddfebc7abc04f14f6e8ad58977c26ea07a5a2ac032b469f",
-        "fill_mask_nonzero_pixel_count": 529,
+        "fill_mask_sha256": "7fcbdc752d6ad340f476ce0bd19e10590d0582c4882f8f520b1efd7d17b2c07b",
+        "fill_mask_nonzero_pixel_count": 545,
         "outside_mask_rgba_exact": true,
         "erased_background_preimage_exact": true
       },
@@ -543,14 +543,14 @@
     "outside_masks_rgba_exact": true,
     "erased_background_preimage_exact": true,
     "delta_from_erased": {
-      "changed_pixel_count": 1056,
-      "changed_pixel_indexes_sha256": "6633f356874cb789e5c8704f7513be0c292b892428537991b7400f515d218617",
+      "changed_pixel_count": 1070,
+      "changed_pixel_indexes_sha256": "affc1a02d806793a0bb877c63d3d9f3933feed7e9cce127e3ddf1ccdf9e1d422",
       "mask_count": 3,
       "outside_masks_rgba_exact": true
     },
     "delta_from_original": {
-      "changed_pixel_count": 3040,
-      "changed_pixel_indexes_sha256": "90f03de9172f5def80bbba2489a6138c8943e26c46dcba306a5b4b265427e7bd",
+      "changed_pixel_count": 3045,
+      "changed_pixel_indexes_sha256": "2774d7b746c728376cdd20692919aacc111c2137bf5af7859c3c48a6d1e7ee35",
       "mask_count": 3,
       "outside_masks_rgba_exact": true
     }
@@ -558,8 +558,8 @@
   "injection": {
     "image_offset": 64,
     "image_size": 32768,
-    "changed_pixel_count": 1270,
-    "changed_image_byte_count": 724,
+    "changed_pixel_count": 1284,
+    "changed_image_byte_count": 729,
     "changed_image_byte_ranges": [
       {
         "start": 2126,
@@ -846,12 +846,8 @@
         "end": 12967
       },
       {
-        "start": 12972,
-        "end": 12973
-      },
-      {
-        "start": 12974,
-        "end": 12976
+        "start": 12970,
+        "end": 12972
       },
       {
         "start": 12978,
@@ -890,11 +886,15 @@
         "end": 13353
       },
       {
-        "start": 13354,
+        "start": 13355,
         "end": 13368
       },
       {
         "start": 13468,
+        "end": 13482
+      },
+      {
+        "start": 13483,
         "end": 13496
       },
       {
@@ -907,11 +907,7 @@
       },
       {
         "start": 13724,
-        "end": 13738
-      },
-      {
-        "start": 13739,
-        "end": 13744
+        "end": 13745
       },
       {
         "start": 13746,
@@ -923,7 +919,7 @@
       },
       {
         "start": 13867,
-        "end": 13872
+        "end": 13873
       },
       {
         "start": 13874,
@@ -934,7 +930,7 @@
         "end": 13993
       },
       {
-        "start": 13994,
+        "start": 13995,
         "end": 14001
       },
       {
@@ -954,7 +950,7 @@
         "end": 14121
       },
       {
-        "start": 14122,
+        "start": 14123,
         "end": 14129
       },
       {
@@ -970,11 +966,7 @@
         "end": 14249
       },
       {
-        "start": 14251,
-        "end": 14256
-      },
-      {
-        "start": 14257,
+        "start": 14250,
         "end": 14264
       },
       {
@@ -999,14 +991,6 @@
       },
       {
         "start": 14506,
-        "end": 14508
-      },
-      {
-        "start": 14509,
-        "end": 14510
-      },
-      {
-        "start": 14511,
         "end": 14513
       },
       {
@@ -1030,11 +1014,7 @@
         "end": 14635
       },
       {
-        "start": 14637,
-        "end": 14638
-      },
-      {
-        "start": 14640,
+        "start": 14636,
         "end": 14641
       },
       {
@@ -1044,14 +1024,14 @@
     ],
     "available_color_count": 11,
     "archive_diff_from_erased_base": {
-      "diff_count": 724,
-      "range_count": 120,
+      "diff_count": 729,
+      "range_count": 115,
       "first_offset": 135566,
       "last_offset": 148084,
-      "offsets_sha256": "69224baf47acfaf83dd3d8d15096029c0a279dfb8f87f50b1436ab5622ef82bb",
-      "ranges_sha256": "5ec3c78e4f1b1fa2d84af81863b95cd38b7080d2057e4db48854ef1907226e7f",
-      "before_values_sha256": "1643fd9b0d3436a78cd3e99e0e2fc78b60c881367fd5e053cff10ddc573ca7e1",
-      "after_values_sha256": "27c16f49846ab9aaa5fa8a186b243ae56bacd93589cee1f631a051bf494660f6"
+      "offsets_sha256": "92526d9311570fa2b561c76cea08cdc99b08d34d4bc45a20c2195e730228f9cf",
+      "ranges_sha256": "bc1d57f6420d3bb004c81641ec9e912c97d6220898f4991ebc5e371ee5b1bab4",
+      "before_values_sha256": "a0a283e0773e5fc3f3d88bdfde848f1bc873fefc2d7b6cc61fa699fb18329fc4",
+      "after_values_sha256": "b5ff3f73df6681c0fb8658a4742f410b36e61e8ff818f58d61c1b47bf177813a"
     },
     "chunk_size_unchanged": true,
     "archive_size_unchanged": true,
@@ -1061,48 +1041,48 @@
   "outputs": {
     "archive": {
       "size": 3335408,
-      "sha256": "21c35763e187fad40a23c8f25f0753b8a331045ef9b007ac8a2fd92d6847f591"
+      "sha256": "fd1832972c0c2e2a41afa9655bcecf06d4b3fc3ffd63f63fa71ce078c7299506"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "e861c078c4683f11d2faea9ee6496af836b99d7803e547fd7953cc3bec73c790"
+      "sha256": "bffe21d28c6e1a888654246b5a98083ed7b658013b3be732e0b2171e21971d43"
     },
     "reference_png": {
       "size": 27121,
       "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
     },
     "localized_png": {
-      "size": 26356,
-      "sha256": "cd44d2db239b9641f0709f7a99201afa2ddc3f2e338c42e113db4e904679512e"
+      "size": 26372,
+      "sha256": "ee0b2b86037040591422e3f3643a63651e2d59f8393e3b5ee0039bb070689135"
     }
   },
   "expected_lock": {
     "text_mask": {
       "size": 2788,
-      "sha256": "2fd8b129a38617cad9788a4257faf1acae5dafef4c710f9b954b4a6401959ad4",
-      "nonzero_pixel_count": 561
+      "sha256": "84c05c73026f81ae2b4367b3d5977eb832c400b0076a7c507c72623715c1f3b9",
+      "nonzero_pixel_count": 575
     },
     "reference_png": {
       "size": 27121,
       "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
     },
     "localized_png": {
-      "size": 26356,
-      "sha256": "cd44d2db239b9641f0709f7a99201afa2ddc3f2e338c42e113db4e904679512e"
+      "size": 26372,
+      "sha256": "ee0b2b86037040591422e3f3643a63651e2d59f8393e3b5ee0039bb070689135"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "21c35763e187fad40a23c8f25f0753b8a331045ef9b007ac8a2fd92d6847f591"
+      "sha256": "fd1832972c0c2e2a41afa9655bcecf06d4b3fc3ffd63f63fa71ce078c7299506"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "e861c078c4683f11d2faea9ee6496af836b99d7803e547fd7953cc3bec73c790"
+      "sha256": "bffe21d28c6e1a888654246b5a98083ed7b658013b3be732e0b2171e21971d43"
     },
-    "added_pixel_count": 1056,
-    "original_changed_pixel_count": 3040,
-    "original_changed_pixel_indexes_sha256": "90f03de9172f5def80bbba2489a6138c8943e26c46dcba306a5b4b265427e7bd",
-    "changed_archive_byte_count": 724,
-    "changed_archive_range_count": 120,
+    "added_pixel_count": 1070,
+    "original_changed_pixel_count": 3045,
+    "original_changed_pixel_indexes_sha256": "2774d7b746c728376cdd20692919aacc111c2137bf5af7859c3c48a6d1e7ee35",
+    "changed_archive_byte_count": 729,
+    "changed_archive_range_count": 115,
     "additional_text_masks": [
       {
         "semantic_locator_sha256": "cd25194ae75d9e777c336d73f9364e37c0ea212beef371c5279d4fe02826b933",

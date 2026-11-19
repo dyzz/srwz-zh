@@ -31,7 +31,7 @@ from srwz.tim2 import scan_tim2                                                 
 
 SC_SNAPSHOT = ROOT / 'config/assets/stage-title-graphics-indexed-snapshot.json'
 TC_SNAPSHOT = ROOT / 'config/zh-hant/stage-title-graphics-indexed-snapshot.json'
-DEFAULT_ISO = ROOT / 'build/zh-hant/project-tc/build/iso/test/integrated-original.iso'
+DEFAULT_ISO = ROOT / 'build/iso/test/integrated-original-zh-hant-tw.iso'
 
 
 def sha(data: bytes) -> str:

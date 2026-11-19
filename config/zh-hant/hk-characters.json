@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "purpose": "Hong Kong character forms for the Hong Kong derivation (docs/ZH_HANT_HK_TW_PLAN_20261118.md H2): Taiwan form -> Hong Kong form, applied to every Hong Kong string after the regional terms. Picked from OpenCC tw2t+t2hk over the Traditional corpus (2026-11-18, counts are Taiwan-text occurrences then).",
+  "map": {
+    "說": "説", "裡": "裏", "著": "着", "臺": "台", "衛": "衞", "脫": "脱", "溫": "温", "啟": "啓", "銳": "鋭",
+    "汙": "污", "洩": "泄", "麵": "麪", "鉤": "鈎", "戶": "户", "悅": "悦", "閱": "閲", "溼": "濕", "稅": "税",
+    "兌": "兑", "叄": "叁", "蘊": "藴", "醞": "醖", "臥": "卧", "痺": "痹", "蔥": "葱", "韁": "繮", "顎": "齶"
+  },
+  "left_out": {
+    "群→羣": "Hong Kong writes 群 in practice",
+    "參→蔘": "only ginseng; OpenCC maps every 參",
+    "梁→樑": "梁 is also a surname and a proper-name character",
+    "峰→峯": "proper names; both forms current in Hong Kong",
+    "床→牀": "牀 reads archaic to most readers",
+    "檯→枱": "context-dependent",
+    "柺→枴": "context-dependent",
+    "鯰→鮎": "different fish",
+    "么→幺": "different words",
+    "菸→煙": "context-dependent"
+  }
+}

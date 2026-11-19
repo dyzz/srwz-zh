@@ -16,7 +16,8 @@ Sync rules, per entry:
     hash changed, status draft              -> redrafted
     hash changed, status edited / reviewed  -> kept, listed as stale (needs review); never overwritten
 Drafts come from config/zh-hant/bootstrap.json: an OpenCC base conversion (character standard only) plus
-regional term substitutions protected through it. Japanese sources, notes, ids and hashes stay verbatim; strings
+term substitutions protected through it. Every document then gets the Taiwan vocabulary of
+config/zh-hant/regional-terms.json (tools/zh_hant/regional_terms.py), bound to the Simplified and Japanese text. Japanese sources, notes, ids and hashes stay verbatim; strings
 containing kana are treated as Japanese.
 
 Usage: sync_corpus.py [--check]    (--check: report only, exit 1 when anything is missing or stale)
@@ -30,6 +31,9 @@ import json
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import regional_terms  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 TREES = [('corpus/zh', 'corpus/zh-hant', set()),
@@ -59,6 +63,13 @@ def sha(value) -> str:
 
 class Drafter:
     def __init__(self, bootstrap: Path):
+        from importlib.metadata import PackageNotFoundError, version
+        try:
+            installed = version('OpenCC')
+        except PackageNotFoundError:
+            installed = None
+        if installed != '1.4.2':
+            raise SystemExit('Install OpenCC==1.4.2 in SRWZ_LANGUAGE_PYTHON to use the verified s2tw dictionary')
         import opencc
         cfg = json.loads(bootstrap.read_text(encoding='utf-8'))
         self.cc = opencc.OpenCC(cfg['opencc'])
@@ -68,6 +79,7 @@ class Drafter:
     def text(self, s: str) -> str:
         if not HAN.search(s) or KANA.search(s):
             return s
+        source = s
         slots = []
         # numeric template keys (＜ｔｍ＞撃墜数＜／ｔｍ＞) are lookup data the executable matches byte for byte
         for m in TM_SCOPE.findall(s):
@@ -78,7 +90,7 @@ class Drafter:
         out = self.cc.convert(s)
         for i, tc in enumerate(slots):
             out = out.replace(chr(PRIVATE + i), tc)
-        return out
+        return regional_terms.apply_string(source, out, regional_terms.DRAFT, 'tw')
 
     def value(self, v, key=None):
         if isinstance(v, str):
@@ -183,6 +195,9 @@ def main() -> None:
             target = dst / rel
             tc = json.loads(target.read_text(encoding='utf-8')) if target.exists() else None
             out = sync_document(sc, tc, drafter, f'{dst_root}/{rel}', report)
+            # Taiwan vocabulary (config/zh-hant/regional-terms.json) on every entry, whatever its status; idempotent
+            out = regional_terms.apply_doc(sc, out, 'tw', drafter.frozen, KEY_FIELDS, report.setdefault('regional', {}),
+                                          fixed=regional_terms.length_bound(f'{dst_root}/{rel}'))
             text = json.dumps(out, ensure_ascii=False, indent=2) + '\n'
             if not target.exists() or target.read_text(encoding='utf-8') != text:
                 report['files_written'] += 1

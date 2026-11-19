@@ -509,8 +509,14 @@ def current_fingerprint(clone: Path, recorded_texts: dict | None = None) -> dict
     files = sorted(set(FINGERPRINT_FILES) | {str(p.relative_to(ROOT)) for g in FINGERPRINT_GLOBS for p in ROOT.glob(g)})
     author = Author(clone)
     texts = {s: author.text(s) for s in (recorded_texts or {})}
-    return {'files': {f: hashlib.sha256((ROOT / f).read_bytes()).hexdigest() for f in files if (ROOT / f).is_file()},
-            'texts': texts}
+    digests = {f: hashlib.sha256((ROOT / f).read_bytes()).hexdigest() for f in files if (ROOT / f).is_file()}
+    # The build freezes the version badge separately in all languages. Only the
+    # title button contract belongs to the authored Traditional artwork.
+    title = 'config/assets/title-menu-zh.json'
+    contract = load_json(ROOT / title)
+    contract.pop('version_badge', None)
+    digests[title] = sha(contract)
+    return {'files': digests, 'texts': texts}
 
 
 def stale(clone: Path) -> bool:

@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "purpose": "Taiwan / Hong Kong vocabulary for the Traditional text (docs/ZH_HANT_HK_TW_PLAN_20261118.md, table confirmed by the user 2026-11-18). tools/zh_hant/regional_terms.py applies it: the Taiwan pass rewrites the parallel Traditional corpus (tc form -> tw), the Hong Kong derivation rewrites the Taiwan text (tw form -> hk). A rule fires on a string only when the paired Simplified string contains `sc` and, if `jp` is given, the record's Japanese source contains one of `jp` (and none of `jp_not`). Rules run longest `sc` first; replaced text is protected from later rules. Character names are not part of this table. In `length_bound_files` only rules that keep the length fire (魔神Z stays there).",
+  "sources": {
+    "franchise": "zh.wikipedia.org zh-tw / zh-hk variants, read 2026-11-18: 魔神Z (無敵鐵金剛 / 鐵甲萬能俠), 蓋特機器人 / 三一萬能俠 (Getter-1 三一1號), 金剛戰神 / 巨靈神, 創聖機械天使 / 創聖大天使, 機動戰士鋼彈 / 機動戰士高達. Zambot 3, Daitarn 3 and Eureka Seven showed no regional difference and stay as they are."
+  },
+  "rules": [
+    {
+      "group": "franchise",
+      "sc": "高达",
+      "tc": "高達",
+      "tw": "鋼彈",
+      "hk": "高達",
+      "note": "ガンダム; translators also write 命运高达 for デスティニー, so not bound to the Japanese. No 高达 = 'reaching' in the corpus."
+    },
+    {
+      "group": "franchise",
+      "sc": "魔神Z",
+      "tc": "魔神Z",
+      "tw": "無敵鐵金剛",
+      "hk": "鐵甲萬能俠",
+      "note": "マジンガーZ (robot and series). 大魔神 (グレートマジンガー) not covered."
+    },
+    {
+      "group": "franchise",
+      "sc": "古连泰沙",
+      "tc": "古連泰沙",
+      "tw": "金剛戰神",
+      "hk": "巨靈神",
+      "note": "グレンダイザー"
+    },
+    {
+      "group": "franchise",
+      "sc": "盖塔机器人",
+      "tc": "蓋塔機器人",
+      "tw": "蓋特機器人",
+      "hk": "三一萬能俠",
+      "note": "ゲッターロボ"
+    },
+    {
+      "group": "franchise",
+      "sc": "盖塔",
+      "tc": "蓋塔",
+      "tw": "蓋特",
+      "hk": "三一",
+      "note": "ゲッター (Getter-1 = 蓋特1號 / 三一1號); pilots keep their names"
+    },
+    {
+      "group": "franchise",
+      "sc": "创圣的大天使",
+      "tc": "創聖的大天使",
+      "tw": "創聖機械天使",
+      "hk": "創聖大天使",
+      "note": "series title"
+    },
+    {
+      "group": "franchise",
+      "sc": "机器人",
+      "tc": "機器人",
+      "tw": "機器人",
+      "hk": "機械人",
+      "note": "ロボット, includes 超級機器人大戰"
+    },
+    {
+      "group": "term",
+      "sc": "导弹",
+      "tc": "導彈",
+      "tw": "飛彈",
+      "hk": "導彈"
+    },
+    {
+      "group": "term",
+      "sc": "激光",
+      "tc": "激光",
+      "tw": "雷射",
+      "hk": "激光"
+    },
+    {
+      "group": "term",
+      "sc": "等离子",
+      "tc": "等離子",
+      "tw": "電漿",
+      "hk": "等離子"
+    },
+    {
+      "group": "term",
+      "sc": "纳米",
+      "tc": "納米",
+      "tw": "奈米",
+      "hk": "納米"
+    },
+    {
+      "group": "term",
+      "sc": "数据",
+      "tc": "資料",
+      "tw": "資料",
+      "hk": "數據",
+      "note": "the Traditional bootstrap already writes 資料"
+    },
+    {
+      "group": "term",
+      "sc": "信息",
+      "tc": "信息",
+      "tw": "資訊",
+      "hk": "資訊",
+      "jp": [
+        "情報"
+      ],
+      "jp_not": [
+        "メッセージ"
+      ],
+      "note": "information"
+    },
+    {
+      "group": "term",
+      "sc": "信息",
+      "tc": "信息",
+      "tw": "訊息",
+      "hk": "信息",
+      "note": "message (default)"
+    },
+    {
+      "group": "term",
+      "sc": "程序",
+      "tc": "程序",
+      "tw": "程式",
+      "hk": "程式",
+      "jp": [
+        "プログラム"
+      ],
+      "note": "程序 = procedure stays"
+    },
+    {
+      "group": "term",
+      "sc": "网络",
+      "tc": "網絡",
+      "tw": "網路",
+      "hk": "網絡"
+    },
+    {
+      "group": "term",
+      "sc": "软件",
+      "tc": "軟件",
+      "tw": "軟體",
+      "hk": "軟件"
+    },
+    {
+      "group": "term",
+      "sc": "硬件",
+      "tc": "硬件",
+      "tw": "硬體",
+      "hk": "硬件"
+    },
+    {
+      "group": "term",
+      "sc": "视频",
+      "tc": "視頻",
+      "tw": "影片",
+      "hk": "影片"
+    },
+    {
+      "group": "term",
+      "sc": "菜单",
+      "tc": "菜單",
+      "tw": "選單",
+      "hk": "選單"
+    },
+    {
+      "group": "term",
+      "sc": "光标",
+      "tc": "光標",
+      "tw": "游標",
+      "hk": "游標"
+    },
+    {
+      "group": "term",
+      "sc": "默认",
+      "tc": "默認",
+      "tw": "預設",
+      "hk": "預設"
+    },
+    {
+      "group": "term",
+      "sc": "存储卡",
+      "tc": "存儲卡",
+      "tw": "記憶卡",
+      "hk": "記憶卡"
+    },
+    {
+      "group": "term",
+      "sc": "文件",
+      "tc": "文件",
+      "tw": "檔案",
+      "hk": "檔案",
+      "jp": [
+        "ファイル"
+      ],
+      "note": "文件 = document stays"
+    },
+    {
+      "group": "term",
+      "sc": "接口",
+      "tc": "接口",
+      "tw": "介面",
+      "hk": "介面"
+    },
+    {
+      "group": "term",
+      "sc": "概率",
+      "tc": "概率",
+      "tw": "機率",
+      "hk": "機率"
+    },
+    {
+      "group": "term",
+      "sc": "屏幕",
+      "tc": "螢幕",
+      "tw": "螢幕",
+      "hk": "屏幕",
+      "note": "the Traditional bootstrap already writes 螢幕"
+    },
+    {
+      "group": "term",
+      "sc": "壁纸",
+      "tc": "壁紙",
+      "tw": "桌布",
+      "hk": "牆紙"
+    },
+    {
+      "group": "term",
+      "sc": "传感器",
+      "tc": "感測器",
+      "tw": "感測器",
+      "hk": "感應器",
+      "note": "bootstrap already writes 感測器"
+    },
+    {
+      "group": "term",
+      "sc": "信号",
+      "tc": "訊號",
+      "tw": "訊號",
+      "hk": "信號",
+      "note": "bootstrap already writes 訊號"
+    },
+    {
+      "group": "term",
+      "sc": "智能",
+      "tc": "智能",
+      "tw": "智慧",
+      "hk": "智能"
+    },
+    {
+      "group": "term",
+      "sc": "搜索",
+      "tc": "搜索",
+      "tw": "搜尋",
+      "hk": "搜尋",
+      "jp": [
+        "検索"
+      ],
+      "note": "data search only; 捜索 (searching for someone) stays"
+    },
+    {
+      "group": "term",
+      "sc": "芯片",
+      "tc": "芯片",
+      "tw": "晶片",
+      "hk": "晶片"
+    },
+    {
+      "group": "term",
+      "sc": "数字",
+      "tc": "數字",
+      "tw": "數位",
+      "hk": "數碼",
+      "jp": [
+        "デジタル"
+      ],
+      "note": "digital only; 数字 = numeral stays"
+    },
+    {
+      "group": "term",
+      "sc": "摩托车",
+      "tc": "摩托車",
+      "tw": "機車",
+      "hk": "電單車"
+    },
+    {
+      "group": "term",
+      "sc": "摩托",
+      "tc": "摩托",
+      "tw": "機車",
+      "hk": "電單車"
+    },
+    {
+      "group": "term",
+      "sc": "出租车",
+      "tc": "出租車",
+      "tw": "計程車",
+      "hk": "的士"
+    },
+    {
+      "group": "term",
+      "sc": "坦克",
+      "tc": "坦克",
+      "tw": "戰車",
+      "hk": "坦克"
+    },
+    {
+      "group": "term",
+      "sc": "航母",
+      "tc": "航母",
+      "tw": "航艦",
+      "hk": "航母"
+    },
+    {
+      "group": "term",
+      "sc": "计划",
+      "tc": "計劃",
+      "tw": "計畫",
+      "hk": "計劃"
+    },
+    {
+      "group": "term",
+      "sc": "设置",
+      "tc": "設置",
+      "tw": "設定",
+      "hk": "設定",
+      "jp": [
+        "設定"
+      ],
+      "jp_not": [
+        "設置"
+      ],
+      "note": "settings only; 設置 (install) stays"
+    },
+    {
+      "group": "term",
+      "sc": "保存",
+      "tc": "保存",
+      "tw": "儲存",
+      "hk": "儲存",
+      "jp": [
+        "セーブ"
+      ],
+      "note": "save data only"
+    },
+    {
+      "group": "term",
+      "sc": "支持",
+      "tc": "支持",
+      "tw": "支援",
+      "hk": "支援",
+      "jp": [
+        "サポート"
+      ],
+      "note": "support (assist) only"
+    },
+    {
+      "group": "term",
+      "sc": "项目",
+      "tc": "項目",
+      "tw": "計畫",
+      "hk": "計劃",
+      "jp": [
+        "プロジェクト"
+      ],
+      "note": "project only; menu 項目 stays"
+    }
+  ],
+  "length_bound_files": {
+    "corpus/zh-hant/special-disc/instructions-overrides.json": "SP tutorial / Q&A pages: styled records at fixed positions, cut at the Simplified character counts (build_dual_sp.sp_instruction_layout)",
+    "corpus/zh-hant/special-disc/native-text.json": "SP Q&A answers: colour runs and table cells cut at the Simplified character counts (build_dual_sp.sp_qa_layout)"
+  }
+}

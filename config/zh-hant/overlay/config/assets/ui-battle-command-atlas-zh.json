@@ -90,7 +90,7 @@
     "source_element_rgba_sha256": "139d00a1f7d711aab1699301eece440d6c43de68fcd6492483b413fd41a1c5a7",
     "translation_source": {
       "path": "corpus/zh/ui-atlas/core-menus-v1.json",
-      "sha256": "7fb420f046bdf3d952d56b831ba3f603816be3aa02adec77b7c11fc6a1c8519a",
+      "sha256": "1369af4f592f38ef22622cc23d73b9c4888b7f30d7824425879ed17257f11b36",
       "entry_id": "ui-atlas/kvm4/command-menu",
       "minimum_editorial_status": "reviewed"
     },
@@ -117,8 +117,8 @@
   },
   "render_snapshot": {
     "path": "config/assets/ui-battle-command-atlas-render-snapshot.json",
-    "size": 40414,
-    "sha256": "65ec2ecf46912e610a47632c197b70ee1d834072c0c5fb1f15969549d7f09c41"
+    "size": 40458,
+    "sha256": "3a7671c7b8416b36e957f12635fe2ec2d90b5b9d13d1de9836a34b95344a0a64"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 4 supplies the tactical command-menu locator and that the localized label renders at the intended position.",
@@ -139,30 +139,30 @@
   "expected": {
     "text_mask": {
       "size": 2788,
-      "sha256": "2fd8b129a38617cad9788a4257faf1acae5dafef4c710f9b954b4a6401959ad4",
-      "nonzero_pixel_count": 561
+      "sha256": "84c05c73026f81ae2b4367b3d5977eb832c400b0076a7c507c72623715c1f3b9",
+      "nonzero_pixel_count": 575
     },
     "reference_png": {
       "size": 27121,
       "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
     },
     "localized_png": {
-      "size": 26356,
-      "sha256": "cd44d2db239b9641f0709f7a99201afa2ddc3f2e338c42e113db4e904679512e"
+      "size": 26372,
+      "sha256": "ee0b2b86037040591422e3f3643a63651e2d59f8393e3b5ee0039bb070689135"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "21c35763e187fad40a23c8f25f0753b8a331045ef9b007ac8a2fd92d6847f591"
+      "sha256": "fd1832972c0c2e2a41afa9655bcecf06d4b3fc3ffd63f63fa71ce078c7299506"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "e861c078c4683f11d2faea9ee6496af836b99d7803e547fd7953cc3bec73c790"
+      "sha256": "bffe21d28c6e1a888654246b5a98083ed7b658013b3be732e0b2171e21971d43"
     },
-    "added_pixel_count": 1056,
-    "original_changed_pixel_count": 3040,
-    "original_changed_pixel_indexes_sha256": "90f03de9172f5def80bbba2489a6138c8943e26c46dcba306a5b4b265427e7bd",
-    "changed_archive_byte_count": 724,
-    "changed_archive_range_count": 120,
+    "added_pixel_count": 1070,
+    "original_changed_pixel_count": 3045,
+    "original_changed_pixel_indexes_sha256": "2774d7b746c728376cdd20692919aacc111c2137bf5af7859c3c48a6d1e7ee35",
+    "changed_archive_byte_count": 729,
+    "changed_archive_range_count": 115,
     "additional_text_masks": [
       {
         "semantic_locator_sha256": "cd25194ae75d9e777c336d73f9364e37c0ea212beef371c5279d4fe02826b933",
