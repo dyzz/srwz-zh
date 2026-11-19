@@ -306,7 +306,9 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
         if publish:
             caption_started = time.perf_counter()
             captions = pool.submit(apply_main_event_subtitles, context, output, root / CAPTION_FONT)
-        run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", *(["--force"] if force_rebuild else []),
+        # This report belongs to this private workspace. A -> B -> A can
+        # revisit it, and refreshing the manifest always performs full readback.
+        run_phase(context, "readback", ["tools/verify_full_story_iso_content.py", "--refresh-manifest", "--force",
                                         "--cache", "work/cache/editions/original/iso-content.json"])
     stage_started = time.perf_counter()
     readback = load_json(root / "manifests/zh-release-full-story-iso-content-validation.json")
