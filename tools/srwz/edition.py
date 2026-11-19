@@ -117,10 +117,15 @@ class BuildContext:
     profile: EditionProfile
     input_digest: str
     candidate: bool = False
+    # "" is the Simplified build; another language (srwz.language) builds the same edition from that language's
+    # view of the inputs, with its own workspace, cache, output image and receipt.
+    language: str = ""
 
     def __post_init__(self):
         if not isinstance(self.candidate, bool):
             raise EditionError("candidate must be boolean")
+        if not isinstance(self.language, str) or not re.fullmatch(r"(?:[a-z]+(?:-[a-z]+)*)?", self.language):
+            raise EditionError("invalid build language")
         object.__setattr__(self, "root", self.root.resolve())
         if not re.fullmatch(r"[0-9a-f]{64}", self.input_digest):
             raise EditionError("invalid shared input digest")
@@ -133,7 +138,12 @@ class BuildContext:
 
     @property
     def run_key(self) -> str:
-        return hashlib.sha256((self.input_digest + self.profile.contract_sha256 + ("candidate" if self.candidate else "")).encode()).hexdigest()
+        return hashlib.sha256((self.input_digest + self.profile.contract_sha256 + ("candidate" if self.candidate else "")
+                               + self.language).encode()).hexdigest()
+
+    @property
+    def _suffix(self) -> str:
+        return f"-{self.language}" if self.language else ""
 
     @property
     def run_root(self) -> Path:
@@ -145,12 +155,14 @@ class BuildContext:
 
     @property
     def cache_root(self) -> Path:
-        return self._path(f"work/cache/editions/{self.profile.edition_id}", "work/cache")
+        return self._path(f"work/cache/editions/{self.profile.edition_id}{self._suffix}", "work/cache")
 
     @property
     def output_iso(self) -> Path:
         if self.candidate:
-            return self._path(f"build/iso/test/integrated-{self.profile.edition_id}.iso", "build/iso/test")
+            return self._path(f"build/iso/test/integrated-{self.profile.edition_id}{self._suffix}.iso", "build/iso/test")
+        if self.language:
+            return self._path(f"build/iso/{self.language}/current-{self.profile.edition_id}.iso", "build/iso")
         if self.profile.edition_id == "sp":
             return self._path("build/iso/special-disc/sp-current.iso", "build/iso")
         return self._path(f"build/iso/{self.profile.profile_id}/current-{self.profile.edition_id}.iso", "build/iso")
@@ -158,8 +170,8 @@ class BuildContext:
     @property
     def receipt(self) -> Path:
         if self.candidate:
-            return self._path(f"manifests/editions/{self.profile.edition_id}/candidate.json", "manifests/editions")
-        return self._path(f"manifests/editions/{self.profile.edition_id}/current.json", "manifests/editions")
+            return self._path(f"manifests/editions/{self.profile.edition_id}/candidate{self._suffix}.json", "manifests/editions")
+        return self._path(f"manifests/editions/{self.profile.edition_id}/current{self._suffix}.json", "manifests/editions")
 
 
 def load_release_profiles(

@@ -1,25 +1,27 @@
 #!/usr/bin/env python3
-"""One Original disc with Simplified and Traditional, built from parallel sources.
+"""Traditional inputs of the multi-language build, from parallel sources.
 
 Simplified and Traditional are parallel: each language has its own corpus, glossary, runtime keyword table,
-layout word lists and release codebook/font. The unchanged build pipeline runs once per language, each in an
-APFS clone of the build inputs under build/zh-hant/ (nothing in the repository changes), and
-assemble_dual.py turns the two single-language images into one disc.
+layout word lists and release codebook/font. The unchanged pipeline builds every language from this checkout
+(tools/build_multilang.py; build_editions.py --language): when a Traditional build freezes its inputs,
+language_view.py applies prepare_tc / menu_codebook below to the private copy, and assemble_dual.py puts the
+languages of an edition on one disc. Nothing in the repository is rewritten by a build.
 
 Traditional sources (repository):
   corpus/zh-hant/, corpus/glossary-zh-hant/, corpus/runtime-zh-hant/   parallel corpora (tools/zh_hant/sync_corpus.py)
   config/zh-hant/encoding/zh-release-font-assignments.json            Traditional codebook (build_codebook.py)
   config/zh-hant/font-profile.json                                    font_capacity + count ratchet of that codebook
   config/zh-hant/text-layout/*.json                                    Traditional layout word lists
-Generated into the Traditional clone only:
+  config/zh-hant/sections.json, overlay/, stage-title snapshot         authored Traditional pictures
+Generated into a Traditional view only:
   config/zh-hant/readback-literals.json   Simplified readback literals -> Traditional counterparts (parallel corpora)
-  stage-title snapshot text               the Traditional stage names (pixels stay Simplified until M4 textures)
 
-Steps: check the parallel corpora are in sync -> Simplified build -> Traditional build -> assemble.
-A Traditional character without a code stops the build; --update-codebook lets the pipeline's allocator append it
-and writes the grown codebook back to config/zh-hant/.
-Usage: build_dual.py [--release-version 0.5.1] [--skip-sc] [--update-codebook] [--out build/iso/test/NAME.iso]
-Needs a Python with opencc (sync check); the builds use plain python3.
+Run directly, this file is the authoring side: it makes a prepared Traditional project the picture tools work in
+(build/zh-hant/project-tc; author_textures.py, paint_hand_drawn.py) and, on request, reruns what went stale.
+Usage: build_dual.py [--variant tw|hk] [--update-codebook] [--author-textures]
+  --update-codebook   append the characters the Traditional corpus needs to the codebook (config/zh-hant/ changes)
+  --author-textures   re-author the Traditional pictures when their inputs changed (config/zh-hant/ changes)
+Needs a Python with opencc.
 """
 from __future__ import annotations
 
@@ -47,22 +49,21 @@ def run(*cmd, cwd=ROOT, check=True):
     return subprocess.run(list(map(str, cmd)), cwd=cwd, check=check, capture_output=not check, text=True)
 
 
-def clone(name: str) -> Path:
+def prepared_project(name: str, variant: str = 'tw') -> Path:
+    """A full Traditional project for the authoring tools: the build inputs and the work trees they read, copied
+    (APFS clones where the platform has them), then turned into the language's view."""
+    sys.path.insert(0, str(ROOT / 'tools'))
+    from srwz.release_inputs import copy_file
     dst = BASE / name
     if dst.exists(): shutil.rmtree(dst)
     for tree in TREES:
-        (dst / tree).parent.mkdir(parents=True, exist_ok=True)
-        run('cp', '-cR', ROOT / tree, dst / tree)
-    (dst / 'build/iso/sources').mkdir(parents=True)
-    run('cp', '-c', ROOT / 'build/iso/sources/original.iso', dst / 'build/iso/sources/original.iso')
-    (dst / 'rom').symlink_to('build/iso/sources')
+        shutil.copytree(ROOT / tree, dst / tree, copy_function=copy_file,
+                        ignore=shutil.ignore_patterns('__pycache__', 'target'))
+    iso = (ROOT / 'rom/original.iso').resolve()
+    for directory in ('rom', 'build/iso/sources'):      # both names the tools use for the source discs
+        copy_file(iso, dst / directory / iso.name)
+    prepare_tc(dst, variant)
     return dst
-
-
-def build(project: Path, version: str) -> Path:
-    (project / 'manifests/editions/original/candidate.json').unlink(missing_ok=True)
-    run('python3', 'tools/build_editions.py', '--editions', 'original', '--candidate', '--release-version', version, cwd=project)
-    return project / 'build/iso/test/integrated-original.iso'
 
 
 def dump(path: Path, doc) -> None:
@@ -78,19 +79,60 @@ TEXTURE_DEFERRED = {'corpus/zh-hant/ui-atlas/formation-help-headings.json'}
 
 OVERLAID: list = []       # build paths of the parallel files placed by overlay_tree (their locks are refreshed)
 
+# Where each Traditional variant's text comes from (docs/ZH_HANT_HK_TW_PLAN_20261118.md). Taiwan is the parallel
+# corpus itself; Hong Kong is derived from it into build/zh-hant-hk by derive_hk.py (never edited by hand).
+HK_BASE = ROOT / 'build/zh-hant-hk'
+VARIANTS = {
+    'tw': {'trees': ROOT, 'layout': ZH_HANT / 'text-layout'},
+    'hk': {'trees': HK_BASE, 'layout': HK_BASE / 'text-layout'},
+}
+# Texture sources: the two variants share one set of Traditional textures (user, 2026-11-18), so a Hong Kong clone
+# takes the Taiwan text of every file the textures are authored from (author_textures.py fingerprint inputs and the
+# chapter intertitles' render locks).
+TEXTURE_SOURCES_EXTRA = ['corpus/zh-hant/chapter-intertitles.json',
+                         # terrain names live in every map chunk of MAPMODEL (52 MB, compressed per chunk): two Hong
+                         # Kong forms (炮台, 台地) would need a second copy of the whole archive on the disc
+                         'corpus/zh-hant/menu/mapmodel-terrain-names.json']
 
-def overlay_tree(src: Path, dst: Path) -> int:
+
+def texture_sources() -> list:
+    fp = json.loads((ZH_HANT / 'author-fingerprint.json').read_text(encoding='utf-8'))
+    return sorted(({k for k in fp['files'] if k.startswith('corpus/')} | set(TEXTURE_SOURCES_EXTRA)) - TEXTURE_DEFERRED)
+
+
+def overlay_tree(src: Path, dst: Path, base: Path = ROOT) -> int:
     """Replace each file of dst that src has a parallel of (metadata stripped); keep dst's other files."""
     n = 0
     for f in src.rglob('*.json'):
-        if any(str(f.relative_to(ROOT)).startswith(d) for d in TEXTURE_DEFERRED): continue
+        if any(str(f.relative_to(base)).startswith(d) for d in TEXTURE_DEFERRED): continue
         target = dst / f.relative_to(src)
         dump(target, strip_meta(json.loads(f.read_text(encoding='utf-8')))); n += 1
         OVERLAID.append(str(target.relative_to(dst.parents[1])))              # dst is <clone>/corpus/<tree>
     return n
 
 
-def literal_pairs(sc_root: Path, tc_root: Path) -> dict:
+def make_drafter(variant: str = 'tw'):
+    """The Simplified -> Traditional converter for strings that are not corpus strings (tool constants, SP configs)."""
+    from sync_corpus import Drafter
+    if variant == 'tw':
+        return Drafter(ZH_HANT / 'bootstrap.json')
+    import regional_terms
+    from derive_hk import char_table
+
+    class HKDrafter(Drafter):
+        table = char_table()
+
+        def text(self, s: str) -> str:
+            tw = super().text(s)
+            return regional_terms.apply_string(s, tw, regional_terms.DRAFT, 'hk').translate(self.table)
+    return HKDrafter(ZH_HANT / 'bootstrap.json')
+
+
+def file_pairs(sc: Path, tc: Path) -> dict:
+    return literal_pairs(sc.parent, tc.parent, only=tc.name)
+
+
+def literal_pairs(sc_root: Path, tc_root: Path, only: str | None = None) -> dict:
     """Every translated Simplified string -> the Traditional string at the same place in the parallel file."""
     def strings(doc, key=None):
         if isinstance(doc, str):
@@ -102,7 +144,7 @@ def literal_pairs(sc_root: Path, tc_root: Path) -> dict:
                 if k not in FROZEN_KEYS and not k.endswith('_sha256') and k not in META and k != 'zh_hant_meta':
                     yield from strings(v, k)
     pairs = {}
-    for f in tc_root.rglob('*.json'):
+    for f in (tc_root.glob(only) if only else tc_root.rglob('*.json')):
         sc = sc_root / f.relative_to(tc_root)
         if sc.exists():
             for a, b in zip(strings(json.loads(sc.read_text(encoding='utf-8'))), strings(json.loads(f.read_text(encoding='utf-8')))):
@@ -172,13 +214,19 @@ def stale_stage_titles(tc_iso: Path) -> list:
     return [k for k, v in now.items() if prov.get(k) != v]
 
 
-def prepare_tc(tc: Path) -> None:
+def prepare_tc(tc: Path, variant: str = 'tw') -> None:
+    src = VARIANTS[variant]['trees']
     for parallel in ('zh-hant', 'glossary-zh-hant', 'runtime-zh-hant'):
         shutil.rmtree(tc / 'corpus' / parallel, ignore_errors=True)     # sources of the overlay, not build inputs
-    stats = {'corpus/zh': overlay_tree(ROOT / 'corpus/zh-hant', tc / 'corpus/zh'),
-             'corpus/glossary': overlay_tree(ROOT / 'corpus/glossary-zh-hant', tc / 'corpus/glossary'),
-             'corpus/runtime': overlay_tree(ROOT / 'corpus/runtime-zh-hant', tc / 'corpus/runtime')}
-    for f in (ZH_HANT / 'text-layout').glob('*.json'):
+    stats = {'corpus/zh': overlay_tree(src / 'corpus/zh-hant', tc / 'corpus/zh', src),
+             'corpus/glossary': overlay_tree(src / 'corpus/glossary-zh-hant', tc / 'corpus/glossary', src),
+             'corpus/runtime': overlay_tree(src / 'corpus/runtime-zh-hant', tc / 'corpus/runtime', src)}
+    if variant != 'tw':
+        for rel in texture_sources():                                 # shared textures: their Taiwan sources
+            dump(tc / 'corpus/zh' / Path(rel).relative_to('corpus/zh-hant'),
+                 strip_meta(json.loads((ROOT / rel).read_text(encoding='utf-8'))))
+        stats['texture sources kept Taiwan'] = len(texture_sources())
+    for f in VARIANTS[variant]['layout'].glob('*.json'):
         shutil.copyfile(f, tc / 'config/text-layout' / f.name)
     # Traditional codebook and font profile
     ledger = (ZH_HANT / 'encoding/zh-release-font-assignments.json').read_bytes()
@@ -205,9 +253,11 @@ def prepare_tc(tc: Path) -> None:
     reduced = [t['ordinal'] for t in snap['titles'] if t['quantization_levels'] < 16]
     graphics['expected'].update(full_precision_count=len(snap['titles']) - len(reduced), reduced_precision_ordinals=reduced)
     dump(components, comp)
-    literals = literal_pairs(ROOT / 'corpus/zh', ROOT / 'corpus/zh-hant')
-    from sync_corpus import Drafter
-    drafter = Drafter(ZH_HANT / 'bootstrap.json')
+    literals = literal_pairs(ROOT / 'corpus/zh', src / 'corpus/zh-hant')
+    if variant != 'tw':
+        for rel in texture_sources():                     # texture files are the Taiwan ones in this clone
+            literals.update(file_pairs(ROOT / 'corpus/zh' / Path(rel).relative_to('corpus/zh-hant'), ROOT / rel))
+    drafter = make_drafter(variant)
     # String constants of the build tools that are not whole corpus strings (layout-protected words, label
     # fragments) get the bootstrap conversion, so srwz.build_language can answer for every literal a gate names.
     extra = 0
@@ -330,45 +380,29 @@ def menu_codebook(tc: Path) -> None:
 
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    p.add_argument('--release-version', default='0.5.1')
-    p.add_argument('--skip-sc', action='store_true', help='reuse build/zh-hant/project from an earlier run')
+    p.add_argument('--variant', choices=sorted(VARIANTS), default='tw')
     p.add_argument('--update-codebook', action='store_true')
-    p.add_argument('--out', type=Path, default=ROOT / 'build/iso/test/zh-hant-dual-original.iso')
+    p.add_argument('--author-textures', action='store_true')
     a = p.parse_args()
     check = run(sys.executable, HERE / 'sync_corpus.py', '--check', check=False)
     if check.returncode:
         raise SystemExit('parallel Traditional corpora are out of sync with the Simplified ones; run '
                          'tools/zh_hant/sync_corpus.py and review build/zh-hant/sync-report.json\n' + check.stdout)
-    # Traditional render locks that live in the parallel corpus follow its text (deterministic, a few seconds).
     run(sys.executable, HERE / 'author_intertitles.py')
-    sc_iso = BASE / 'project/build/iso/test/integrated-original.iso'
-    if not (a.skip_sc and sc_iso.exists()):
-        sc_iso = build(clone('project'), a.release_version)
-    tc = clone('project-tc')
-    prepare_tc(tc)
+    if a.variant == 'hk':
+        run(sys.executable, HERE / 'derive_hk.py')
+    name = 'project-tc' if a.variant == 'tw' else f'project-{a.variant}'
+    project = prepared_project(name, a.variant)
+    # Hong Kong characters join the one Traditional codebook: grow it from the Hong Kong text first, then Taiwan.
+    codebook_step(project, a.update_codebook)
     from author_textures import stale
-    if stale(tc):
-        # Traditional textures (atlases, title buttons, headings, ...) are authored in a prepared clone and kept in
-        # config/zh-hant; their inputs changed, so author them again and start from a fresh clone.
-        run(sys.executable, HERE / 'author_textures.py', '--clone', tc)
-        tc = clone('project-tc'); prepare_tc(tc)
-    codebook_step(tc, a.update_codebook)
-    menu_codebook(tc)
-    tc_iso = build(tc, a.release_version)
-    if stale_stage_titles(tc_iso):
-        # Titles are drawn with the Traditional build's own glyphs: re-author them from the font just built
-        # (new characters, changed names or a grown codebook), then build again.
-        run(sys.executable, HERE / 'author_stage_titles.py', '--iso', tc_iso)
-        tc = clone('project-tc'); prepare_tc(tc); codebook_step(tc, False); menu_codebook(tc)
-        tc_iso = build(tc, a.release_version)
-        if stale_stage_titles(tc_iso):
-            raise SystemExit('stage-title snapshot still stale after re-authoring')
-    run(sys.executable, HERE / 'assemble_dual.py', '--sc', sc_iso, '--tc', tc_iso,
-        '--tc-codebook', ZH_HANT / 'encoding/zh-release-font-assignments.json', '--out', a.out)
-    # The builds' intermediate images are not needed once the disc is assembled; the two integrated
-    # single-language images stay for checks.
-    for iso in BASE.glob('project*/build/editions/*/project/build/iso/zh-release-full-story/*.iso'):
-        iso.unlink()
+    if a.variant == 'tw' and stale(project):
+        if not a.author_textures:
+            raise SystemExit('Traditional pictures are stale: rerun with --author-textures')
+        run(sys.executable, HERE / 'author_textures.py', '--clone', project)
+        project = prepared_project(name, a.variant)
+    menu_codebook(project)
+    print('prepared Traditional project:', project, flush=True)
 
 
 if __name__ == '__main__':

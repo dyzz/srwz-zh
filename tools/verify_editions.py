@@ -50,7 +50,8 @@ def verify_batch(root: Path, manifest: Path) -> dict:
         raise EditionError("edition results are missing, duplicated or reordered")
     for profile, result in zip(profiles, batch["results"]):
         profile.require_supported()
-        context = BuildContext(root, profile, digest, candidate=batch.get("candidate", False))
+        context = BuildContext(root, profile, digest, candidate=batch.get("candidate", False),
+                               language=batch.get("language", ""))
         if (result["input_digest"] != digest or result["edition_contract_sha256"] != profile.contract_sha256
                 or result["source_iso_sha256"] != profile.source_iso.sha256
                 or result["adapter"] != profile.adapter

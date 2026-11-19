@@ -49,6 +49,12 @@ class EditionTests(unittest.TestCase):
         with patch("srwz.release_inputs.subprocess.check_output", return_value="test-source-head\n"):
             return freeze_inputs(self.root)
 
+    def test_default_cli_dispatches_multilang_and_forwards_build_options(self):
+        arguments = ["build_editions.py", "--editions", "best,sp", "--release-version", "0.5.1", "--force-rebuild"]
+        with patch.object(sys, "argv", arguments), patch.object(build_editions.subprocess, "call", return_value=7) as call:
+            self.assertEqual(build_editions.main(), 7)
+        call.assert_called_once_with([sys.executable, str(REPO / "tools/build_multilang.py"), *arguments[1:]])
+
     def test_candidate_outputs_receipts_and_workspaces_are_isolated(self):
         profiles = load_release_profiles(self.root, build_editions.DEFAULT_CONFIG, ("original", "best", "sp"))
         for profile in profiles:
@@ -66,6 +72,65 @@ class EditionTests(unittest.TestCase):
             self.assertEqual(production.output_iso.read_bytes(), b"production sentinel")
         with self.assertRaises(EditionError):
             BuildContext(self.root, profiles[0], "a" * 64, candidate="true")
+
+    def test_each_language_has_its_own_workspace_output_receipt_and_cache(self):
+        profile = self.profiles()[0]
+        for candidate in (False, True):
+            simplified = BuildContext(self.root, profile, "a" * 64, candidate=candidate)
+            taiwan = BuildContext(self.root, profile, "a" * 64, candidate=candidate, language="zh-hant-tw")
+            hong_kong = BuildContext(self.root, profile, "a" * 64, candidate=candidate, language="zh-hant-hk")
+            for field in ("project_root", "output_iso", "receipt", "cache_root"):
+                self.assertEqual(len({getattr(c, field) for c in (simplified, taiwan, hong_kong)}), 3, field)
+        self.assertEqual(BuildContext(self.root, profile, "a" * 64, candidate=True).receipt.name, "candidate.json")
+        self.assertEqual(taiwan.receipt.name, "candidate-zh-hant-tw.json")
+        self.assertEqual(taiwan.output_iso.name, "integrated-original-zh-hant-tw.iso")
+        with self.assertRaises(EditionError):
+            BuildContext(self.root, profile, "a" * 64, language="../escape")
+        with self.assertRaisesRegex(EditionError, "unknown build language"):
+            build_editions.build(self.root, build_editions.DEFAULT_CONFIG, ("original",), language="zh-hant-xx")
+
+    def test_language_view_is_the_frozen_snapshot_and_leaves_the_sources_alone(self):
+        calls = []
+
+        def view(project):
+            calls.append(project)
+            self.assertNotEqual(project, self.root)
+            (project / "corpus/line.txt").write_text("traditional translation")
+            (project / "work/support").mkdir(parents=True)
+            (project / "work/support/scratch.bin").write_bytes(b"needed only while the view is made")
+            (project / "work/locked.bin").write_bytes(b"baseline the view rebuilt")
+            return ("work/locked.bin",)
+
+        with patch("srwz.release_inputs.subprocess.check_output", return_value="test-source-head\n"):
+            snapshot = freeze_inputs(self.root, language="zh-hant-tw", view=view, view_identity="original")
+            simplified = freeze_inputs(self.root)
+            again = freeze_inputs(self.root, language="zh-hant-tw", view=view, view_identity="original")
+        self.assertEqual((self.root / "corpus/line.txt").read_text(), "shared translation")
+        self.assertEqual((snapshot.project_root / "corpus/line.txt").read_text(), "traditional translation")
+        self.assertEqual((snapshot.project_root / "work/locked.bin").read_bytes(), b"baseline the view rebuilt")
+        self.assertFalse((snapshot.project_root / "work/support").exists())
+        self.assertIn("work/locked.bin", {row["path"] for row in snapshot.files})
+        self.assertNotEqual(snapshot.digest, simplified.digest)
+        self.assertEqual(load_json(snapshot.root / "inputs.json")["language"], "zh-hant-tw")
+        target = self.root / "work/private"
+        snapshot.materialize(target)
+        self.assertEqual((target / "corpus/line.txt").read_text(), "traditional translation")
+        # unchanged inputs find the view made before; a source edit or another dependency makes a new one
+        self.assertEqual((again.digest, again.additional_paths, len(calls)), (snapshot.digest, ("work/locked.bin",), 1))
+        with patch("srwz.release_inputs.subprocess.check_output", return_value="test-source-head\n"):
+            freeze_inputs(self.root, language="zh-hant-tw", view=view, view_identity="sp other-original-build")
+            self.assertEqual(len(calls), 2)
+            (self.root / "corpus/line.txt").write_text("later polish")
+            freeze_inputs(self.root, language="zh-hant-tw", view=view, view_identity="original")
+        self.assertEqual(len(calls), 3)
+
+    def test_source_edit_while_a_language_view_is_made_is_rejected(self):
+        def view(project):
+            (self.root / "corpus/line.txt").write_text("edited meanwhile")
+        with patch("srwz.release_inputs.subprocess.check_output", return_value="test-source-head\n"):
+            with self.assertRaisesRegex(EditionError, "changed during snapshot"):
+                freeze_inputs(self.root, language="zh-hant-tw", view=view)
+        self.assertEqual([p.name for p in (self.root / "work/build/shared").iterdir()], [])
 
     def test_pruning_retains_candidate_and_production_receipts(self):
         from prune_edition_workspaces import referenced_by_receipts

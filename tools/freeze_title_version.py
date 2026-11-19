@@ -53,15 +53,17 @@ def version_text(root: Path, *, date: str | None = None, release_tag: str | None
     return f'{release_tag}+{day}'
 
 
-def freeze(text: str, font_path: Path | None = None, *, root: Path = ROOT) -> dict:
+def freeze(text: str, font_path: Path | None = None, *, root: Path = ROOT, disc_root: Path | None = None) -> dict:
+    """``disc_root`` holds the source disc when ``root`` is a bare input tree (a language view)."""
     contract = json.loads((root / 'config/assets/title-menu-zh.json').read_text())
-    member_path = root / 'work/disc/DATA/VT1.BIN'
+    disc_root = disc_root or root
+    member_path = disc_root / 'work/disc/DATA/VT1.BIN'
     if member_path.is_file():
         source_path, source_offset = member_path, 0
     else:
         # Fresh checkouts have not extracted work/disc yet when inputs freeze.
         edition = json.loads((root / 'config/editions/original/edition.json').read_text())
-        source_path = root / edition['source_iso']['path']
+        source_path = disc_root / edition['source_iso']['path']
         member = next(m for m in scan_iso9660(source_path).members if m.path == 'DATA/VT1.BIN')
         source_offset = member.extent_lba * 2048
     with source_path.open('rb') as source:
@@ -132,9 +134,10 @@ def freeze(text: str, font_path: Path | None = None, *, root: Path = ROOT) -> di
             'glyphs': glyphs, 'authoring': authoring}
 
 
-def refresh_current_badge(root: Path = ROOT, *, text: str | None = None, font_path: Path | None = None) -> str:
+def refresh_current_badge(root: Path = ROOT, *, text: str | None = None, font_path: Path | None = None,
+                          disc_root: Path | None = None) -> str:
     text = text or version_text(root)
-    badge = freeze(text, font_path, root=root)
+    badge = freeze(text, font_path, root=root, disc_root=disc_root)
     path = root / 'config/assets/title-menu-zh.json'
     contract = json.loads(path.read_text())
     contract['version_badge'] = badge

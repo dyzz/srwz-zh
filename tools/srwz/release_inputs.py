@@ -132,12 +132,18 @@ class InputSnapshot:
             raise EditionError("private project contains inputs outside the frozen snapshot")
 
 
-def freeze_inputs(root: Path, additional_paths: tuple[str, ...] = ()) -> InputSnapshot:
+def freeze_inputs(root: Path, additional_paths: tuple[str, ...] = (), *, language: str = "",
+                  view=None, view_identity: str = "") -> InputSnapshot:
+    """Capture the build inputs once. With ``language``, capture that language's view of them instead:
+    ``view(project)`` rewrites a private copy of the inputs in place (srwz.language) and the snapshot, its
+    digest and every later identity check are those of the rewritten tree."""
     root = root.resolve()
     rows = source_inventory(root, additional_paths)
-    digest = hashlib.sha256(json_bytes(rows)).hexdigest()
     shared = project_path(root, "work/build/shared", "work/build")
     shared.mkdir(parents=True, exist_ok=True)
+    if language:
+        return _freeze_language_view(root, rows, additional_paths, shared, language, view, view_identity)
+    digest = hashlib.sha256(json_bytes(rows)).hexdigest()
     destination = shared / digest
     if destination.exists():
         existing = load_json(destination / "inputs.json")
@@ -170,6 +176,83 @@ def freeze_inputs(root: Path, additional_paths: tuple[str, ...] = ()) -> InputSn
         if temporary.exists():
             shutil.rmtree(temporary)
     return InputSnapshot(destination, digest, source_head, tuple(rows), additional_paths)
+
+
+def _keep_only(project: Path, keep: set[str]) -> None:
+    """Drop everything a view left in its private copy besides the frozen files (support trees, caches)."""
+    for directory, children, files in os.walk(project, topdown=False, followlinks=False):
+        here = Path(directory)
+        for name in files:
+            if (here / name).relative_to(project).as_posix() not in keep:
+                (here / name).unlink()
+        for name in children:
+            child = here / name
+            if child.is_symlink():
+                child.unlink()
+            elif not any(child.iterdir()) and child.relative_to(project).as_posix() not in SOURCE_ROOTS:
+                child.rmdir()
+
+
+def _freeze_language_view(root: Path, rows: list[dict], additional_paths: tuple[str, ...], shared: Path,
+                          language: str, view, view_identity: str) -> InputSnapshot:
+    source_digest = hashlib.sha256(json_bytes(rows)).hexdigest()
+    # A view is a function of the captured inputs and of what ``view_identity`` names (the Original builds an SP
+    # view takes its inherited text from). The same key finds the view made before, verified file by file.
+    memo = shared / ".views" / (hashlib.sha256(f"{source_digest} {language} {view_identity}".encode()).hexdigest() + ".json")
+    if memo.is_file():
+        known = load_json(memo)
+        destination = shared / known["input_digest"]
+        if (destination / "inputs.json").is_file():
+            existing = load_json(destination / "inputs.json")
+            if existing.get("input_digest") == known["input_digest"] and existing.get("language") == language:
+                try:
+                    verify_files(destination / "project", existing["files"])
+                except EditionError:
+                    pass
+                else:
+                    os.utime(destination)      # in use: workspace pruning keeps recent snapshots
+                    return InputSnapshot(destination, existing["input_digest"], existing["source_head"],
+                                         tuple(existing["files"]), tuple(known["additional_paths"]))
+    source_head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    temporary = Path(tempfile.mkdtemp(prefix=f".capture-{language}-", dir=shared))
+    try:
+        project = temporary / "project"
+        for name in SOURCE_ROOTS:
+            project_path(project, name).mkdir(parents=True, exist_ok=True)
+        for row in rows:
+            copy_file(root / row["path"], project / row["path"])
+        verify_files(project, rows)
+        # The view names its own frozen dependencies outside the source trees (it may rebuild them).
+        view_additional = tuple(view(project) or ())
+        if source_inventory(root, additional_paths) != rows:
+            raise EditionError("build inputs changed during snapshot capture; retry with the new inputs")
+        additional_paths = view_additional
+        view_rows = source_inventory(project, additional_paths)
+        _keep_only(project, {row["path"] for row in view_rows})
+        digest = hashlib.sha256(json_bytes(view_rows)).hexdigest()
+        destination = shared / digest
+        document = {
+            "schema_version": 1, "input_digest": digest, "source_head": source_head, "language": language,
+            "source_input_digest": source_digest, "files": view_rows,
+            "scope": "one language's view of the working-tree build definitions; output receipts and editorial state excluded",
+        }
+        if not destination.exists():
+            (temporary / "inputs.json").write_bytes(json_bytes(document))
+            try:
+                temporary.rename(destination)
+            except OSError:
+                if not destination.is_dir():
+                    raise
+        existing = load_json(destination / "inputs.json")
+        if existing.get("files") != view_rows or existing.get("language") != language:
+            raise EditionError("shared input snapshot identity drift")
+        verify_files(destination / "project", view_rows)
+        memo.parent.mkdir(parents=True, exist_ok=True)
+        memo.write_bytes(json_bytes({"input_digest": digest, "additional_paths": list(additional_paths)}))
+    finally:
+        if temporary.exists():
+            shutil.rmtree(temporary)
+    return InputSnapshot(destination, digest, source_head, tuple(view_rows), additional_paths)
 
 
 # The integrated full-story component root carries a two-phase incremental

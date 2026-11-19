@@ -33,6 +33,7 @@ from srwz.release_inputs import (INTEGRATED_COMPONENT_BUILD_DIRS, copy_file, fre
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
 from srwz.current_iso import verify_skip
 from srwz.edition_incremental import seed_text_update
+from srwz.language import make_view, require_language, view_identity
 from srwz.gunleon_sprite import build_fixed_iso
 
 
@@ -482,10 +483,13 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
     }
 
 
-def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False, force_rebuild: bool = False, candidate: bool = False) -> dict:
+def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False, force_rebuild: bool = False, candidate: bool = False,
+          language: str = "", badge_text: str | None = None) -> dict:
     started = time.perf_counter()
     started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
+    require_language(language)
+    suffix = f"-{language}" if language else ""
     if force_rebuild:
         # Trust no file identity recorded before this batch: start the batch
         # from an empty store. Digests this batch verifies (restored baselines,
@@ -512,7 +516,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
     for profile in build_profiles.values():
         profile.require_supported()
     for profile in build_profiles.values():
-        context = BuildContext(root, profile, "0" * 64, candidate=candidate)
+        context = BuildContext(root, profile, "0" * 64, candidate=candidate, language=language)
         # Reject aliases of another edition or the legacy output before I/O.
         for field in ("project_root", "cache_root", "output_iso", "receipt"):
             getattr(context, field)
@@ -522,17 +526,27 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
         verify_disc(root, profile)
     with ExitStack() as stack:
         for profile in sorted(build_profiles.values(), key=lambda p: p.edition_id):
-            stack.enter_context(edition_lock(project_path(root, f"work/cache/editions/{profile.edition_id}/build.lock", "work/cache")))
+            stack.enter_context(edition_lock(project_path(root, f"work/cache/editions/{profile.edition_id}{suffix}/build.lock", "work/cache")))
         additional = locked_sp_inputs(root) if "sp" in build_profiles else ()
-        snapshot = freeze_inputs(root, additional)
+        def language_view(project: Path) -> tuple[str, ...]:
+            frozen = make_view(root, language, tuple(build_profiles), candidate=candidate)(project)
+            if badge_text is not None:
+                # the title menu config is one of the files a language replaces: its badge follows this build
+                from freeze_title_version import refresh_current_badge
+                refresh_current_badge(project, text=badge_text, disc_root=root)
+            return frozen
+        identity = (f"{view_identity(root, language, tuple(build_profiles), candidate=candidate)} badge={badge_text}"
+                    if language else "")
+        snapshot = freeze_inputs(root, additional, language=language, view=language_view, view_identity=identity)
         if load_release_profiles(snapshot.project_root, config, tuple(build_profiles)) != tuple(build_profiles.values()):
             raise EditionError("edition contracts changed during input capture")
-        contexts = {name: BuildContext(root, profile, snapshot.digest, candidate=candidate) for name, profile in build_profiles.items()}
+        contexts = {name: BuildContext(root, profile, snapshot.digest, candidate=candidate, language=language)
+                    for name, profile in build_profiles.items()}
         for context in contexts.values():
             context.project_root  # Also check aliases under this exact input key.
-        batch_path = project_path(root, f"work/editions/{snapshot.digest}/{'-'.join(requested)}{'-candidate' if candidate else ''}.json", "work")
+        batch_path = project_path(root, f"work/editions/{snapshot.digest}/{'-'.join(requested)}{'-candidate' if candidate else ''}{suffix}.json", "work")
         batch = {"schema_version": 1, "input_digest": snapshot.digest, "requested_editions": list(requested), "candidate": candidate,
-                 "release_config": config, "shared_js_layout":shared_js_runtime, "input_snapshot": (snapshot.root / "inputs.json").relative_to(root).as_posix(),
+                 **({"language": language} if language else {}), "release_config": config, "shared_js_layout":shared_js_runtime, "input_snapshot": (snapshot.root / "inputs.json").relative_to(root).as_posix(),
                  "status": "running", "results": [], "runtime": "not_tested",
                  "timing": {"started_at": started_at, "preflight_and_snapshot_seconds": round(time.perf_counter() - started, 3), "editions": {}}}
         badge_path = snapshot.project_root / "config/assets/title-menu-zh.json"
@@ -656,24 +670,38 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--single-language", action="store_true", help="Build Simplified only (the default product is a three-language disc).")
+    parser.add_argument("--frozen-badge", help=argparse.SUPPRESS)
     parser.add_argument("--config", default=DEFAULT_CONFIG)
     parser.add_argument("--editions", default="original,best,sp", help="Comma-separated target editions (default: original,best,sp); Best uses Original as a private frontend unless Original is explicitly requested.")
     parser.add_argument("--candidate", action="store_true", help="Build isolated test ISOs and candidate receipts; leave production outputs unchanged.")
+    parser.add_argument("--language", default="", help="Build another language's view of the inputs (zh-hant-tw, zh-hant-hk); default: Simplified.")
     parser.add_argument("--plan", action="store_true", help="Show registered targets without writing or building.")
     parser.add_argument("--release-version", help="Version for the title badge, e.g. 0.5.0 or 0.5.0-rc.")
     parser.add_argument("--force-rebuild", action="store_true", help="Explicit full Original and SP component rebuild, disc re-extraction, uncached readback and re-hashing of every input; normal builds reuse verified components and file identities.")
     parser.add_argument("--require-legacy-equivalence", action="store_true", help="Fail before promotion unless all Original component and ISO bytes match the frozen legacy locks.")
     args = parser.parse_args()
     try:
+        if not (args.single_language or args.candidate or args.language or args.plan or
+                args.require_legacy_equivalence or args.config != DEFAULT_CONFIG):
+            command = [sys.executable, str(PROJECT_ROOT / "tools/build_multilang.py"), "--editions", args.editions]
+            if args.release_version:
+                command += ["--release-version", args.release_version]
+            if args.force_rebuild:
+                command.append("--force-rebuild")
+            return subprocess.call(command)
+        badge_text = None
         if not args.plan and any(x.strip() in ('original', 'best') for x in args.editions.split(',')):
             from freeze_title_version import refresh_current_badge
             import re
             if args.release_version and not re.fullmatch(r'\d+\.\d+\.\d+(?:-rc(?:\.\d+)?)?', args.release_version):
                 raise ValueError('release version must be x.y.z or x.y.z-rc[.n]')
             text = f'v{args.release_version}' if args.release_version else None
-            print(f'[title] version: {refresh_current_badge(PROJECT_ROOT, text=text)}', flush=True)
+            badge_text = args.frozen_badge or refresh_current_badge(PROJECT_ROOT, text=text)
+            print(f'[title] version: {badge_text}', flush=True)
         result = build(PROJECT_ROOT, args.config, tuple(x.strip() for x in args.editions.split(",")),
-                       plan=args.plan, legacy_equivalence=args.require_legacy_equivalence, force_rebuild=args.force_rebuild, candidate=args.candidate)
+                       plan=args.plan, legacy_equivalence=args.require_legacy_equivalence, force_rebuild=args.force_rebuild, candidate=args.candidate,
+                       language=args.language, badge_text=badge_text if args.language else None)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     except (EditionError, OSError, ValueError, subprocess.SubprocessError) as error:

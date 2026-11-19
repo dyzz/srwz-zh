@@ -37,3 +37,6 @@ target/
 # Original game audio and pages embedding it stay local (public repository).
 docs/issue-assets/**/*.wav
 docs/issue-assets/sp-event-subtitles-20261013/review.html
+
+# Machine-local intermediate receipts written by edition builds.
+/manifests/editions/*/candidate*.json
