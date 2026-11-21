@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import json
 from pathlib import Path
 import shutil
 import sys
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 import build_editions
@@ -526,6 +527,73 @@ class EditionTests(unittest.TestCase):
             manifest.write_text(json.dumps(batch))
             with self.subTest(label=label), self.assertRaises(EditionError):
                 verify_editions.verify_batch(self.root, manifest)
+
+    def test_image_readback_reuse_binds_run_receipt_and_both_images(self):
+        _, _, context, _ = self.receipt_fixture()
+        source = self.root / "source.iso"
+        source.write_bytes(b"first")
+        output = context.output_iso
+        cache = context.run_root / "sprite-readback.json"
+        receipt = {"patch": "first"}
+        verifier = Mock()
+
+        def verify():
+            verify_editions.verify_image_pair(cache, context, source, output, receipt, verifier)
+
+        verify()
+        verify()
+        self.assertEqual(verifier.call_count, 1)
+        source.write_bytes(b"other")
+        verify()
+        output.write_bytes(b"other")
+        verify()
+        receipt["patch"] = "second"
+        verify()
+        context = replace(context, input_digest="f" * 64)
+        verify()
+        cache.write_text("{")
+        verify()
+        self.assertEqual(verifier.call_count, 6)
+
+    def test_batch_reuses_each_image_check_independently(self):
+        manifest, batch, context, _ = self.receipt_fixture()
+        result = batch["results"][0]
+        result["workspace"] = context.project_root.relative_to(self.root).as_posix()
+        source = context.project_root / "build/iso/captioned.iso"
+        source.parent.mkdir(parents=True)
+        source.write_bytes(b"captioned")
+        rendered = source.with_name("captioned-proportional.iso")
+        rendered.write_bytes(b"rendered")
+        proof = {"source_sha256": sha256_file(source), "output_sha256": sha256_file(rendered),
+                 "size": source.stat().st_size}
+        result["typography"] = {"input": {"path": "build/iso/captioned.iso", "sha256": sha256_file(source),
+                                          "size": source.stat().st_size}, "verification": proof}
+        result["gunleon_sprite"] = {"patch": 1}
+        manifest.write_text(json.dumps(batch))
+        with patch("srwz.typography_policy.load_policy", return_value={"mode": "proportional"}), \
+                patch("srwz.typography_iso.verify_iso", return_value=proof) as font, \
+                patch("srwz.gunleon_sprite.verify_fixed_iso") as sprite:
+            verify_editions.verify_batch(self.root, manifest, reuse_image_checks=True)
+            verify_editions.verify_batch(self.root, manifest, reuse_image_checks=True)
+            result["gunleon_sprite"]["patch"] = 2
+            manifest.write_text(json.dumps(batch))
+            verify_editions.verify_batch(self.root, manifest, reuse_image_checks=True)
+            self.assertEqual((sprite.call_count, font.call_count), (2, 1))
+            verify_editions.verify_batch(self.root, manifest)
+            self.assertEqual((sprite.call_count, font.call_count), (3, 2))
+
+    def test_failed_or_interrupted_readback_never_seals_a_new_identity(self):
+        _, _, context, _ = self.receipt_fixture()
+        source = self.root / "source.iso"
+        source.write_bytes(b"old")
+        cache = context.run_root / "typography-readback.json"
+        args = (cache, context, source, context.output_iso, {"font": "a"})
+        with self.assertRaisesRegex(ValueError, "readback failed"):
+            verify_editions.verify_image_pair(*args, Mock(side_effect=ValueError("readback failed")))
+        self.assertFalse(cache.exists())
+        with self.assertRaisesRegex(EditionError, "images changed"):
+            verify_editions.verify_image_pair(*args, lambda: source.write_bytes(b"new"))
+        self.assertFalse(cache.exists())
 
     def test_receipt_rejects_stale_output_bytes(self):
         manifest, _, context, _ = self.receipt_fixture()

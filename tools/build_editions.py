@@ -624,7 +624,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                         atomic_json(probe, {**batch, "status": "requested_editions_static_validated_runtime_pending",
                             "requested_editions": [context.profile.edition_id], "results": [previous]})
                         try:
-                            verify_batch(root, probe)
+                            verify_batch(root, probe, reuse_image_checks=True)
                         except (OSError, ValueError, KeyError):
                             print(f"[{context.profile.edition_id}] current receipt/copy cannot be reused", flush=True)
                         else:

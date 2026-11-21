@@ -6,10 +6,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 
 from srwz.edition import BuildContext, EditionError, json_bytes, load_json, load_release_profiles, project_path
+from srwz.file_identity import identity_key
 from srwz.release_inputs import sha256_file, verify_files
 from srwz.sp_edition import locked_sp_inputs, validate_sp_readback
 from srwz.current_iso import verify_skip
@@ -28,7 +30,34 @@ def sprite_input(root: Path, result: dict) -> Path:
     return project_path(workspace, (subtitles["iso"] if subtitles else result["base_output"])["path"], "build/iso")
 
 
-def verify_batch(root: Path, manifest: Path) -> dict:
+def verify_image_pair(cache, context, source, output, receipt, check):
+    """Memoize a successful readback under the build lock. The run key binds the
+    verified snapshot (including verifier sources), edition contract and language."""
+    if cache is None:
+        return check()
+
+    def binding():
+        return {"run": context.run_key, "receipt": hashlib.sha256(json_bytes(receipt)).hexdigest(),
+                "source": [str(source), identity_key(source.stat())],
+                "output": [str(output), identity_key(output.stat())]}
+
+    before = binding()
+    try:
+        previous = json.loads(cache.read_bytes())
+    except (FileNotFoundError, ValueError):
+        previous = None
+    if previous == before:
+        print(f"[{context.profile.edition_id}] {cache.stem} reused", flush=True)
+        return
+    check()
+    if binding() != before:
+        raise EditionError(f"images changed during {cache.stem}")
+    from build_editions import atomic_json
+    atomic_json(cache, before)
+    print(f"[{context.profile.edition_id}] {cache.stem} verified", flush=True)
+
+
+def verify_batch(root: Path, manifest: Path, *, reuse_image_checks=False) -> dict:
     root = root.resolve()
     batch = load_json(manifest)
     if batch.get("status") != "requested_editions_static_validated_runtime_pending":
@@ -87,22 +116,31 @@ def verify_batch(root: Path, manifest: Path) -> dict:
         proportional = load_policy(source_path.parent / 'project')['mode'] == 'proportional'
         if bool(typography) != proportional:
             raise EditionError('Typography policy and installed renderer receipt disagree')
+        reuse = (reuse_image_checks and profile.edition_id in ("original", "best")
+                 and os.environ.get("SRWZ_REHASH", "0") in ("", "0"))
         rendered = output
         rendered_sha256 = result["output"]["sha256"]
         if sprite := result.get("gunleon_sprite"):
             from srwz.gunleon_sprite import verify_fixed_iso
             rendered = sprite_input(root, result)
-            verify_fixed_iso(rendered, output, profile.edition_id, sprite)
+            verify_image_pair(context.run_root / "sprite-readback.json" if reuse else None,
+                              context, rendered, output, sprite,
+                              lambda: verify_fixed_iso(rendered, output, profile.edition_id, sprite))
             rendered_sha256 = sha256_file(rendered)
         before_typography = rendered
         if typography:
             before_typography = project_path(context.project_root, typography['input']['path'], 'build/iso')
-            checked = verify_typography_iso(source_path.parent / 'project', profile.edition_id,
-                                            before_typography, rendered, typography['verification'])
-            if (checked['source_sha256'] != typography['input']['sha256']
-                    or checked['output_sha256'] != rendered_sha256
-                    or checked['size'] != typography['input']['size']):
-                raise EditionError('Typography input/output binding mismatch')
+            def check_typography():
+                checked = verify_typography_iso(source_path.parent / 'project', profile.edition_id,
+                                                before_typography, rendered, typography['verification'])
+                if (checked['source_sha256'] != typography['input']['sha256']
+                        or checked['output_sha256'] != rendered_sha256
+                        or checked['size'] != typography['input']['size']):
+                    raise EditionError('Typography input/output binding mismatch')
+
+            verify_image_pair(context.run_root / "typography-readback.json" if reuse else None,
+                              context, before_typography, rendered, [typography, rendered_sha256],
+                              check_typography)
         subtitles = result.get("event_subtitles")
         if "base_output" in result and profile.edition_id != "sp":
             from event_subtitles.apply import verify_subtitled_iso
