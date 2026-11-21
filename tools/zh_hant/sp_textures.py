@@ -113,11 +113,69 @@ def install_member(member, output, held, path, report):
         report['files'][member] = sha(output)
 
 
+def apply_frozen(clone: Path, frozen_path: Path, held: dict) -> None:
+    """Apply the frozen Traditional SP picture delta to the textures component (no Original build is read)."""
+    import base64
+    import migrate_textures as mt
+    from srwz.codec import decode_production
+    from srwz.iso9660 import member_map, scan_iso9660
+    doc = json.loads(frozen_path.read_text(encoding='utf-8'))
+    inventory = json.loads(mt.LOCKS.read_text())
+    locks = {m['path']: m['sha256'] for m in inventory['sp']['members']}
+    members = member_map(scan_iso9660(mt.ISO))
+    sp_exe = mt.read_member(members, locks, mt.SD_EXE)
+    out_dir = clone / COMPONENT
+    report_path = out_dir / 'report.json'
+    report = json.loads(report_path.read_text())
+    summary = {}
+    for member, (og_spec, sp_spec, storage) in mt.ARCHIVES.items():
+        chunks = doc['members'].get(member)
+        if not chunks:
+            continue
+        path = out_dir / member
+        sp = path.read_bytes() if path.exists() else mt.read_member(members, locks, member)
+        st = (mt.seg_table(mt.read_member(members, locks, sp_spec), len(sp)) if isinstance(og_spec, str)
+              else mt.table_at(sp_exe, sp_spec, len(sp)))
+        output = bytearray(sp)
+        for key, c in sorted(chunks.items(), key=lambda kv: int(kv[0])):
+            k = int(key); s0, s1 = st[k], st[k + 1]
+            raw = sp[s0:s1]
+            stream = False
+            if storage != 'raw':
+                try:
+                    base = decode_production(raw).output; stream = True
+                except Exception:  # noqa: BLE001 - not a codec stream
+                    base = raw
+            else:
+                base = raw
+            if sha(base) != c['before_sha256']:
+                raise SystemExit(f'{member} chunk {k}: the SP textures component changed under the frozen delta')
+            xor = zlib.decompress(base64.b64decode(c['xor_zlib_base64']))
+            data = bytes(x ^ y for x, y in zip(base, xor))
+            if sha(data) != c['after_sha256']:
+                raise SystemExit(f'{member} chunk {k}: frozen delta readback')
+            stored = mt.encode_into(raw, data, s1 - s0) if stream else data
+            if stream and decode_production(stored).output != data:
+                raise SystemExit(f'{member} chunk {k}: codec readback')
+            if len(stored) > s1 - s0:
+                raise SystemExit(f'{member} chunk {k}: Traditional pixels do not fit the slot')
+            output[s0:s1] = stored + bytes(s1 - s0 - len(stored))
+        install_member(member, bytes(output), held, path, report)
+        summary[member] = {'chunks written': len(chunks), 'held for the image chain': int(member in held)}
+    report['traditional_delta'] = dict(frozen=str(frozen_path.relative_to(ROOT)) if frozen_path.is_relative_to(ROOT)
+                                       else str(frozen_path), members=summary)
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    print(json.dumps(summary, ensure_ascii=False, indent=1))
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     p.add_argument('clone', type=Path)
-    p.add_argument('--simplified', type=Path, required=True)
-    p.add_argument('--traditional', type=Path, required=True)
+    p.add_argument('--simplified', type=Path)
+    p.add_argument('--traditional', type=Path)
+    p.add_argument('--freeze', type=Path, help='authoring: also write the per-chunk delta this run applies (static '
+                                               'Traditional SP pictures, config/zh-hant/sp-pictures/textures-delta.json)')
+    p.add_argument('--frozen', type=Path, help='build: apply a frozen delta instead of reading the Original builds')
     p.add_argument('--review', type=Path, help='write crops of the regions SP does not hold here')
     p.add_argument('--hold', action='append', default=[], metavar='MEMBER=PATH',
                    help='write this member to PATH instead of the component (KVMDATA: SP\'s image chain seals the '
@@ -126,6 +184,11 @@ def main() -> None:
     clone = a.clone.resolve()
     sys.path[:0] = [str(clone / 'tools'), str(clone / 'tools/special_disc/writeback')]
     import migrate_textures as mt
+    if a.frozen:
+        return apply_frozen(clone, a.frozen, dict(h.split('=', 1) for h in a.hold))
+    if not (a.simplified and a.traditional):
+        raise SystemExit('--simplified and --traditional are needed unless --frozen is given')
+    frozen_out = {}
     from srwz.codec import decode_production
     from srwz.iso9660 import member_map, scan_iso9660
     from srwz.tim2 import scan_tim2
@@ -143,7 +206,7 @@ def main() -> None:
     from special_disc import view_cache
     from srwz.codec import _rust_compressor_path
     from srwz.file_identity import sha256_file
-    directory = os.environ.get(view_cache.ENV) if not a.review else None
+    directory = os.environ.get(view_cache.ENV) if not (a.review or a.freeze) else None
     algorithms = []
     if directory:
         srwz = clone / 'tools/srwz'
@@ -321,6 +384,11 @@ def main() -> None:
             for k in sorted(touched):
                 s0, s1 = st[k], st[k + 1]
                 data = bytes(sp_data[k])
+                if a.freeze:
+                    base = content(sp[s0:s1])[0]
+                    frozen_out.setdefault(member, {})[str(k)] = dict(
+                        before_sha256=sha(base), after_sha256=sha(data),
+                        xor_zlib_base64=__import__('base64').b64encode(zlib.compress(bytes(x ^ y for x, y in zip(base, data)), 9)).decode())
                 stored = mt.encode_into(sp[s0:s1], data, s1 - s0) if sp_stream[k] else data
                 if sp_stream[k] and decode_production(stored).output != data:
                     raise SystemExit(f'{member} chunk {k}: codec readback')
@@ -337,6 +405,12 @@ def main() -> None:
             header = json.dumps([counts, len(unheld) - before_unheld]).encode()
             payload = zlib.compress(output, 1) if output is not None else b''
             view_cache.write_entry(slot, key, header + b'\n' + payload)
+    if a.freeze:
+        a.freeze.parent.mkdir(parents=True, exist_ok=True)
+        a.freeze.write_text(json.dumps({'schema_version': 1, 'members': frozen_out,
+            'purpose': ('Traditional SP pictures over the SP textures component (shared by Taiwan and Hong Kong): '
+                        'per member and chunk, the xor of the decoded chunk (sp_textures.py --frozen applies it; '
+                        'KURODATA/KVMDATA.BIN is held for the image chain).')}, indent=1) + '\n', encoding='utf-8')
     report['traditional_delta'] = dict(simplified=str(a.simplified), traditional=str(a.traditional),
                                        members=summary, regions_not_held=len(unheld) + cached_unheld)
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')

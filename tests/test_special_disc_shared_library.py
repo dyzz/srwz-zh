@@ -38,7 +38,7 @@ class SharedLibraryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'ambiguous'):
             field_translation(self.rows, self.scoped*2, 'character', self.doc, self.field)
 
-    def test_unknown_sp_text_and_binary_preserved_but_current_shared_text_replaces_canary(self):
+    def test_unknown_text_rejected_and_binary_preserved(self):
         table = load_text_table(Path(__file__).resolve().parents[1] / 'vendor/upstream-python/project/tbl_all.json')
         native = SimpleNamespace(kind='KYWD', fields=[
             SimpleNamespace(tag='KWFN', text='原名', data=b''),
@@ -46,6 +46,10 @@ class SharedLibraryTests(unittest.TestCase):
             SimpleNamespace(tag='FLAG', text=None, data=b'\x01\x02')])
         rows = {digest('原名'): dict(translation='ABC', domains=['glossary'], tags=['KWFN'])}
         base = serialize('KYWD', 1, [('KWFN', b'old'), ('ACTR', b'untouched'), ('FLAG', b'\x01\x02')])
+        with self.assertRaisesRegex(ValueError, 'missing SP library text'):
+            replacement_fields(native, base, 'glossary', (rows, [], {}, {}, (), {}), table, {})
+        native.fields[1].text = None
+        native.fields[1].data = b'untouched'
         fields, counts = replacement_fields(native, base, 'glossary', (rows, [], {}, {}, (), {}), table, {})
         self.assertEqual(fields[1:], [('ACTR', b'untouched'), ('FLAG', b'\x01\x02')])
         self.assertNotEqual(fields[0][1], b'old')

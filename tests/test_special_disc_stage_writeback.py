@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import collections
 import json
 import struct
 import sys
@@ -181,8 +180,9 @@ class SpecialDiscBindingTests(unittest.TestCase):
 
     def binder(self):
         result=StageBindings.__new__(StageBindings)
-        result.allow_draft=True;result.direct={};result.fallback=collections.defaultdict(list)
-        result.sp_fallback=collections.defaultdict(list)
+        result.allow_draft=True
+        result.direct={}
+        result.bound={}
         return result
 
     def row(self,translation,status='draft'):
@@ -199,19 +199,21 @@ class SpecialDiscBindingTests(unittest.TestCase):
         with self.assertRaisesRegex(BindingError,'native source drift'):
             binder.resolve('one','dialogue','違う')
 
-    def test_ambiguous_hash_is_rejected_independently_of_order(self):
-        binder=self.binder()
-        for rows in ([self.row('好'),self.row('是')],[self.row('是'),self.row('好')]):
-            binder.fallback['dialogue',digest('はい')]=rows
-            with self.assertRaisesRegex(BindingError,'2 fallback answers'):
-                binder.resolve('one','dialogue','はい')
+    def test_matching_source_at_another_location_cannot_supply_a_translation(self):
+        binder = self.binder()
+        binder.bound['one'] = self.row('好')
+        with self.assertRaisesRegex(BindingError, 'missing binding'):
+            binder.resolve('two', 'dialogue', 'はい')
 
-    def test_draft_gate_and_unique_reviewed_fallback(self):
-        binder=self.binder();binder.allow_draft=False;binder.direct={'one':self.row('好')}
-        with self.assertRaisesRegex(BindingError,'allow-draft'):
-            binder.resolve('one','dialogue','はい')
-        binder.fallback['dialogue',digest('はい')]=[self.row('好','reviewed'),self.row('好','reviewed')]
-        self.assertEqual(binder.resolve('two','dialogue','はい')['translation'],'好')
+    def test_explicit_binding_checks_draft_and_source(self):
+        binder = self.binder()
+        binder.allow_draft = False
+        binder.bound = {'one': self.row('好'), 'two': self.row('是', 'reviewed')}
+        with self.assertRaisesRegex(BindingError, 'allow-draft'):
+            binder.resolve('one', 'dialogue', 'はい')
+        with self.assertRaisesRegex(BindingError, 'source drift'):
+            binder.resolve('two', 'dialogue', '違う')
+        self.assertEqual(binder.resolve('two', 'dialogue', 'はい')['translation'], '是')
 
 
 if __name__=='__main__': unittest.main()

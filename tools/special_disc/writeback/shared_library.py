@@ -1,6 +1,6 @@
 """Rebuild SP encyclopedia fields from the current reviewed shared corpus.
 
-The frozen SP canary supplies SP-only fields and binary records. Japanese source
+The active SP corpus supplies the SP-only glossary pages. Japanese source
 hashes, field kinds and scoped character identities bind shared translations;
 no prior main-game build is used as an answer key.
 """
@@ -94,7 +94,8 @@ def authoring():
     layout = config['layout']
     widths = layout['body_line_widths']
     profiles, terms, profile_path, release_path, glossary_paths = load_production_layout(layout, widths)
-    inputs = [WORK_TITLE_CONTRACT, ROOT / 'corpus/zh/auto-demo-work-titles.json', ROOT / 'tools/srwz/library_work_titles.py', CORPUS, SUPPLEMENT, ROOT / 'tools/srwz/library_typography.py', CONFIG, profile_path, release_path, *glossary_paths]
+    native_path = ROOT / 'corpus/zh/special-disc/native-text.json'
+    inputs = [native_path, WORK_TITLE_CONTRACT, ROOT / 'corpus/zh/auto-demo-work-titles.json', ROOT / 'tools/srwz/library_work_titles.py', CORPUS, SUPPLEMENT, ROOT / 'tools/srwz/library_typography.py', CONFIG, profile_path, release_path, *glossary_paths]
     locks = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in inputs}
     rows = translations(corpus)
     supplement = json.loads(SUPPLEMENT.read_text())
@@ -106,11 +107,17 @@ def authoring():
             raise ValueError('SP supplemental source identity drift')
         rows[key] = row
     extend_shared_scopes(rows, supplement)
+    native = {entry['id']: entry for entry in json.loads(native_path.read_text())['entries']}
+    for index, tag in ((18, 'DSC2'), (23, 'DSCR'), (23, 'DSC2')):
+        entry = native[f'sd/library/keyword/{index:03d}/{tag}']
+        if not entry['translation'] or entry['editorial_status'] != 'reviewed':
+            raise ValueError(f"missing reviewed SP glossary text: {entry['id']}")
+        rows['glossary', index, tag] = entry
     return rows, corpus.get('field_translation_overrides', []), widths, profiles, terms, locks
 
 
-def prepared_fields(native, baseline_decoded, domain, author):
-    """Pair each canary field with the current text it should carry (``None`` keeps the canary)."""
+def prepared_fields(native, baseline_decoded, domain, author, index=None):
+    """Resolve every visible text field against the selected language."""
     rows, scoped, _widths, _profiles, _terms, _ = author
     kind, fields = raw_fields(baseline_decoded)
     if (kind != native.kind or [tag for tag, _ in fields] != [f.tag for f in native.fields]):
@@ -122,7 +129,19 @@ def prepared_fields(native, baseline_decoded, domain, author):
                 raise ValueError('SP library canary binary field drift')
             prepared.append((tag, old, None, False))
             continue
-        text = field_translation(rows, scoped, domain, native, field)
+        entry = rows.get((domain, index, tag))
+        if entry is not None:
+            if sha(field.text.encode()) != entry['source_text_sha256']:
+                raise ValueError(f"SP glossary source drift: {entry['id']}")
+            text = entry['translation']
+        elif field.text.strip():
+            text = field_translation(rows, scoped, domain, native, field)
+            if text is None:
+                raise ValueError(f'missing SP library text: {domain}/{index}/{tag}')
+        else:
+            if old != field.data:
+                raise ValueError('SP library empty field drift')
+            text = None
         if text is not None and domain in {'robot', 'character'}:
             text = library_typography(text, tag, domain=domain)
         if text is not None and tag in BODY_TAGS:
@@ -145,9 +164,9 @@ def reflow_bodies(author, keys):
     return {key: result[0] for key, (_ok, result) in results.items()}
 
 
-def replacement_fields(native, baseline_decoded, domain, author, table, overrides, reflowed=None):
+def replacement_fields(native, baseline_decoded, domain, author, table, overrides, reflowed=None, index=None):
     _rows, _scoped, widths, profiles, terms, _ = author
-    kind, prepared = prepared_fields(native, baseline_decoded, domain, author)
+    kind, prepared = prepared_fields(native, baseline_decoded, domain, author, index)
     output, counts = [], Counter()
     for tag, old, text, is_text in prepared:
         if not is_text:
@@ -155,7 +174,7 @@ def replacement_fields(native, baseline_decoded, domain, author, table, override
             continue
         if text is None:
             output.append((tag, old))
-            counts['canary_fields_preserved'] += 1
+            counts['empty_fields_preserved'] += 1
             continue
         if tag in BODY_TAGS:
             if reflowed is not None and (kind, text) in reflowed:
@@ -189,7 +208,7 @@ def apply_shared_library(executable, current_member, source_member, table, overr
             native = parse_zkn_decoded_chunk(decode_production(source[c:d]).output)
             if native.kind != kind:
                 raise ValueError('SP library document kind drift')
-            keys |= reflow_keys(*prepared_fields(native, old.output, domain, author))
+            keys |= reflow_keys(*prepared_fields(native, old.output, domain, author, len(documents)))
             documents.append((a, old, native))
         archives[member] = (base, source, start, documents)
     reflowed = reflow_bodies(author, keys)
@@ -197,7 +216,7 @@ def apply_shared_library(executable, current_member, source_member, table, overr
         base, source, start, documents = archives[member]
         stored_chunks, counts = [], Counter()
         for index, (a, old, native) in enumerate(documents):
-            fields, tally = replacement_fields(native, old.output, domain, author, table, overrides, reflowed)
+            fields, tally = replacement_fields(native, old.output, domain, author, table, overrides, reflowed, index)
             counts.update(tally)
             rebuilt = serialize(kind, native.version, fields)
             if rebuilt == old.output:
@@ -227,7 +246,7 @@ def apply_shared_library(executable, current_member, source_member, table, overr
         reports[member] = dict(documents=len(stored_chunks), used=used, capacity=len(base),
                                native_sha256=sha(source), canary_sha256=sha(base), **counts)
     report = dict(schema_version=1, inputs=author[-1], archives=reports,
-                  policy='current_reviewed_shared_fields_with_sp_canary_fallback')
+                  policy='current_reviewed_shared_and_sp_fields')
     if compdata is not None:
         decoded = decoded_view(compdata)
         native = decode_production(source_member('DATA/COMPDATA.BN')).output
@@ -259,13 +278,13 @@ def verify_shared_library(executable, actual_member, baseline_member, source_mem
         for index in range(len(offsets)-1):
             native = parse_zkn_decoded_chunk(decode_production(source[native_offsets[index]:native_offsets[index+1]]).output)
             baseline = decode_production(base[old_offsets[index]:old_offsets[index+1]]).output
-            keys |= reflow_keys(*prepared_fields(native, baseline, domain, author))
+            keys |= reflow_keys(*prepared_fields(native, baseline, domain, author, index))
             documents.append((native, baseline, actual[offsets[index]:offsets[index+1]]))
         archives[member] = documents
     reflowed = reflow_bodies(author, keys)
     for member, (domain, kind, start) in ARCHIVES.items():
         for index, (native, baseline, stored) in enumerate(archives[member]):
-            want, tally = replacement_fields(native, baseline, domain, author, table, overrides, reflowed)
+            want, tally = replacement_fields(native, baseline, domain, author, table, overrides, reflowed, index)
             got = decode_production(stored).output
             if raw_fields(got) != (kind, want):
                 raise ValueError(f'SP final library field mismatch: {member}/{index}')

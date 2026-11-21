@@ -120,9 +120,13 @@ def return_compdata_strings(clone: Path) -> int:
         if cd[off:off + n] != jp[off:off + n]:
             cd[off:off + n] = jp[off:off + n]; restored += 1
     strings = SpStrings()
-    merged, filled = fill_missing(bytes(cd), jp, translated_ranges('compdata'), strings)
-    cd = bytearray(merged); restored += filled
-    print('COMPDATA SP-only strings written from config/zh-hant/sp-strings:', filled, flush=True)
+    for entry in strings.strings:
+        start, end = int(entry['offset'], 16), int(entry['end'], 16)
+        payload = strings.encode(entry)
+        if len(payload) != end - start or end > len(cd):
+            raise ValueError(f"invalid SP COMPDATA field at {start:X}")
+        cd[start:end] = payload
+    restored += len(strings.strings)
     unification = json.loads((clone / 'config/products/special-disc/name-unification-20261017.json').read_text())
     owned_fields = frozenset(e['offset'] for e in unification['entries'])
     renamed = write_pilot_names(cd, strings, owned_fields); restored += renamed
@@ -185,31 +189,9 @@ class SpStrings:
         self.path = ROOT / 'config/zh-hant/sp-strings' / f'{VARIANT}.json'
         _, self.code_of = sp_text.codebook(ROOT / 'config/zh-hant/encoding/zh-release-font-assignments.json')
         self.entries = json.loads(self.path.read_text(encoding='utf-8'))['entries']
-        self.strings: dict = {}                       # start -> entries by end (a string can end at several NULs)
-        for e in self.entries:
-            if e['kind'] == 'string':
-                self.strings.setdefault(int(e['offset'], 16), []).append(e)
-        for v in self.strings.values():
-            v.sort(key=lambda e: int(e['end'], 16))
+        self.strings = [e for e in self.entries if e['kind'] == 'string']
         self.pilots = [e for e in self.entries if e['kind'] == 'pilot-name']
         self.encode = lambda e: sp_text.encode(e['text'], self.code_of)
-
-
-def fill_missing(tc: bytes, jp: bytes, ranges: list, strings: SpStrings) -> tuple[bytes, int]:
-    """Strings SP translates that the Original build gave no text (still Japanese here): this language's stored
-    text over the whole NUL-delimited string."""
-    out = bytearray(tc); filled = 0
-    for i, j in ranges:
-        if tc[i:j] != jp[i:j]: continue
-        start = jp.rfind(b'\0', 0, i) + 1
-        # the stored span of this run: the first one of this string that reaches the run's end
-        entry = next((e for e in strings.strings.get(start, []) if int(e['end'], 16) >= j), None)
-        if entry is None:
-            raise SystemExit(f'SP string at COMPDATA {start:X} ({jp[start:jp.find(b"\\0", j)].hex()}) has no text in '
-                             f'{strings.path.relative_to(ROOT)}')
-        end = int(entry['end'], 16)
-        out[start:end] = strings.encode(entry); filled += 1
-    return bytes(out), filled
 
 
 def write_pilot_names(cd: bytearray, strings: SpStrings, owned=frozenset()) -> int:
@@ -288,8 +270,16 @@ def main() -> None:
         if step == 'migrate_compdata':
             print('COMPDATA strings returned to the system-text writer:', return_compdata_strings(c), flush=True)
     run(c, sys.executable, 'tools/special_disc/writeback/write_system_text.py', '--proposal', PROPOSAL)
-    run(c, sys.executable, HERE / 'sp_textures.py', c, '--simplified', a.simplified_answer_key.resolve(),
-              '--traditional', a.answer_key.resolve(), '--hold', f'KURODATA/KVMDATA.BIN={c / HELD_KVM}')
+    # Traditional SP pictures over the textures component: frozen (config/zh-hant/sp-pictures, one set for Taiwan
+    # and Hong Kong); SRWZ_FREEZE_SP_PICTURES=1 re-authors it from the Original builds' Simplified -> Traditional delta
+    frozen = ROOT / 'config/zh-hant/sp-pictures/textures-delta.json'
+    if os.environ.get('SRWZ_FREEZE_SP_PICTURES') == '1':
+        run(c, sys.executable, HERE / 'sp_textures.py', c, '--simplified', a.simplified_answer_key.resolve(),
+                  '--traditional', a.answer_key.resolve(), '--hold', f'KURODATA/KVMDATA.BIN={c / HELD_KVM}',
+                  '--freeze', frozen)
+    else:
+        run(c, sys.executable, HERE / 'sp_textures.py', c, '--frozen', frozen,
+                  '--hold', f'KURODATA/KVMDATA.BIN={c / HELD_KVM}')
     print('Traditional SP components rebuilt', flush=True)
     # preview baseline (components + pictures), then the text canary on it (font + canary stage component)
     from sp_pictures import install_sp_pictures

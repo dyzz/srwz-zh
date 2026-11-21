@@ -55,7 +55,10 @@ SP_CONFIG_DRAFTS = ['config/editorial/special-disc/stage-context-reuse.json',
                     # styled layouts of the tutorial / Q&A pages: each language's own (records, lines, colour runs
                     # and cells carry that language's text, at that language's lengths)
                     'config/editorial/special-disc/instructions-layout.json',
-                    'config/products/special-disc/qa-layout.json']
+                    'config/products/special-disc/qa-layout.json',
+                    'config/products/special-disc/runtime-text.json',
+                    'config/products/special-disc/weapon-detail-labels.json',
+                    'config/products/special-disc/event-gallery-talk.json']
 
 
 # Main-game asset configs that SP's own image chain applies to SP's atlas (menu restore, bazaar heading). The
@@ -74,7 +77,7 @@ def sp_keep_sc(tc: Path) -> None:
 
 def sp_config_drafts(tc: Path, variant: str = 'tw') -> None:
     """The regional SP configs are kept per language in config/zh-hant/sp-configs/<variant> (sp_configs.py): drafted
-    from Simplified once, then edited there. A build copies them; a stale or missing copy stops it."""
+    and maintained independently. Each build installs the selected copies."""
     import shutil
     import sp_configs
     problems = [p for p in sp_configs.status() if p.startswith(f'{variant}:')]
@@ -85,62 +88,6 @@ def sp_config_drafts(tc: Path, variant: str = 'tw') -> None:
     from locks import refresh_locks
     print('SP regional configs placed:', len(sp_configs.stored_paths()), 'locks refreshed:',
           refresh_locks(tc, SP_CONFIG_DRAFTS), flush=True)
-    sp_name_reference(tc, variant)
-
-
-def sp_name_reference(tc: Path, variant: str) -> None:
-    """SP's roster check compares every unit/pilot name on the disc with shared-name-reference.json. The disc takes
-    those names from this language's corpus (unit display names, story speakers, residual names), so the reference
-    takes them from the same place: each Simplified value becomes the regional value the corpus pairs it with."""
-    suffix = '' if variant == 'tw' else '-hk'
-    pairs: dict = {}
-    def add(sc, rg):
-        if isinstance(sc, str) and isinstance(rg, str) and sc and rg: pairs.setdefault(sc, set()).add(rg)
-    sc_u = json.loads((ROOT / 'corpus/zh/display-names/units-full.json').read_text(encoding='utf-8'))['segments']
-    rg_u = json.loads((ROOT / f'corpus/zh-hant{suffix}/display-names/units-full.json').read_text(encoding='utf-8'))['segments']
-    for a, b in zip(sc_u, rg_u):
-        for x, y in zip(a['translations'], b['translations']): add(x, y)
-    sc_s = {e['id']: e['translation'] for e in json.loads((ROOT / 'corpus/zh/story-speakers.json').read_text(encoding='utf-8'))['entries']}
-    for e in json.loads((ROOT / f'corpus/zh-hant{suffix}/story-speakers.json').read_text(encoding='utf-8'))['entries']:
-        add(sc_s.get(e['id']), e['translation'])
-    sc_r = json.loads((ROOT / 'corpus/zh/menu/remaining-ui.json').read_text(encoding='utf-8')).get('display_names_by_source_text', {})
-    rg_r = json.loads((ROOT / f'corpus/zh-hant{suffix}/menu/remaining-ui.json').read_text(encoding='utf-8')).get('display_names_by_source_text', {})
-    for k, v in sc_r.items(): add(v, rg_r.get(k))
-    rel = 'config/products/special-disc/shared-name-reference.json'
-    sc_doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
-    # names without a corpus pair: this language's stored reference (static, config/zh-hant/sp-configs/<variant>)
-    doc = json.loads((bd.ZH_HANT / 'sp-configs' / variant / rel).read_text(encoding='utf-8'))
-    changed = 0
-    for kind in ('units', 'pilots'):
-        for key, values in sc_doc[kind].items():
-            out = list(doc[kind][key])
-            for i, v in enumerate(values):
-                forms = pairs.get(v)
-                if forms and len(forms) == 1 and out[i] not in forms:
-                    out[i] = next(iter(forms)); changed += 1
-            doc[kind][key] = out
-    bd.dump(tc / rel, doc)
-    from locks import refresh_locks
-    print('SP name reference bound to the corpus names:', changed, 'locks refreshed:', refresh_locks(tc, [rel]), flush=True)
-    from locks import refresh_locks
-    print('SP config drafts:', len(SP_CONFIG_DRAFTS), 'locks refreshed:', refresh_locks(tc, SP_CONFIG_DRAFTS), flush=True)
-
-
-def sp_images_stay_sc(tc: Path) -> None:
-    """S4: SP's label images (frame-text category image-label: world-map titles, KVM labels) stay Simplified in the
-    Traditional build. Their snapshot and the KVM image chain after them (command headings, title atlas, menu
-    restore, help title, ...) are bound to the Simplified pixels; the Traditional image chain is S5."""
-    rel = 'corpus/zh/special-disc/frame-text.json'
-    sc = {e['id']: e for e in json.loads((ROOT / rel).read_text(encoding='utf-8'))['entries']}
-    doc = json.loads((tc / rel).read_text(encoding='utf-8'))
-    n = 0
-    for e in doc['entries']:
-        if e.get('category') == 'image-label' and any(l.startswith('sd/image/kvmdata/') for l in e['locations']):
-            e['translation'] = sc[e['id']]['translation']; n += 1
-    bd.dump(tc / rel, doc)
-    from locks import refresh_locks
-    print('SP menu-atlas labels kept Simplified:', n, 'locks refreshed:', refresh_locks(tc, [rel]), flush=True)
-    sp_image_labels_refreeze(tc)
 
 
 def sp_image_labels_refreeze(tc: Path) -> None:
@@ -213,59 +160,6 @@ def sp_qa_layout(tc: Path) -> None:
     print('SP Q&A layout checked:', len(doc['pages']), 'pages; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
-def sp_weapon_categories(tc: Path, variant: str = 'tw') -> None:
-    """SP's weapon-category labels are LUI/ORI immediates like Original's: Traditional label, re-encoded with the
-    Traditional codebook (build_dual.reencode_weapon_categories on SP's own contract)."""
-    import struct
-    # the label text is this language's own (the readback literals of the clone, i.e. its parallel corpus), never a draft
-    literals = json.loads((tc / 'config/zh-hant/readback-literals.json').read_text(encoding='utf-8'))['literals']
-    rel = 'config/products/special-disc/weapon-detail-labels.json'
-    sc_doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
-    doc = json.loads((tc / rel).read_text(encoding='utf-8'))
-    sc_sites = {x['id']: x for x in sc_doc['runtime_weapon_category_labels']['sites']}
-    ledger = json.loads((bd.ZH_HANT / 'encoding/zh-release-font-assignments.json').read_text(encoding='utf-8'))
-    code_of = {r['character']: int(r['code'], 16) for r in ledger['primary_assignments']}
-    pairs = {'melee': ((0, 2), (4, 5), (8, 9), (12, 14)), 'ranged': ((2, 3), (4, 6), (8, 10), (12, 14))}
-    for site in doc['runtime_weapon_category_labels']['sites']:
-        sc = sc_sites[site['id']]
-        if sc['translation'] not in literals:
-            raise SystemExit(f"SP weapon category {site['id']}: {sc['translation']!r} has no {variant} text in the corpus")
-        site['translation'] = tc_text = literals[sc['translation']]
-        if len(tc_text) != len(sc['translation']): raise SystemExit(f"weapon category {site['id']}: length changes")
-        out = bytearray(bytes.fromhex(sc['output_materialized_hex']))
-        for i, (x, y) in enumerate(zip(sc['translation'], tc_text)):
-            if x != y: out[2 * i:2 * i + 2] = code_of[y].to_bytes(2, 'big')
-        block = bytearray(bytes.fromhex(sc['replacement_block_hex']))
-        words = list(struct.unpack(f'<{len(block) // 4}I', block))
-        for n, (lui, ori) in enumerate(pairs[site['id']]):
-            value = int.from_bytes(out[4 * n:4 * n + 4], 'little')
-            words[lui] = (words[lui] & 0xFFFF0000) | (value >> 16)
-            words[ori] = (words[ori] & 0xFFFF0000) | (value & 0xFFFF)
-        site['replacement_block_hex'] = struct.pack(f'<{len(words)}I', *words).hex().upper()
-        site['output_materialized_hex'] = out.hex().upper()
-    bd.dump(tc / rel, doc)
-    from locks import refresh_locks
-    print('SP weapon categories:', [x['translation'] for x in doc['runtime_weapon_category_labels']['sites']],
-          'locks refreshed:', refresh_locks(tc, [rel]), flush=True)
-
-
-# SP configs whose expected inventories list translated labels (exact corpus strings): mapped to the Traditional
-# counterparts like the Original component config (build_dual.localize_literals).
-SP_LOCALIZE = ['config/products/special-disc/weapon-detail-labels.json']
-
-
-def sp_localize(tc: Path) -> None:
-    sys.path.insert(0, str(ROOT / 'tools'))
-    from srwz.build_language import AskedLiterals
-    literals = AskedLiterals(tc)       # asked string by string: the dictionary changes with every edited line
-    n = 0
-    for rel in SP_LOCALIZE:
-        doc = json.loads((tc / rel).read_text(encoding='utf-8'))
-        n += bd.localize_literals(doc, literals); bd.dump(tc / rel, doc)
-    from locks import refresh_locks
-    print('SP config literals mapped:', n, 'locks refreshed:', refresh_locks(tc, SP_LOCALIZE), flush=True)
-
-
 def sp_encoded_contracts(tc: Path) -> None:
     """SP contracts that store the expected encoded bytes of a translation (keyword list labels): recompute them
     from the Traditional translation with the Traditional SP encoding tables, inside the clone."""
@@ -281,14 +175,6 @@ def sp_encoded_contracts(tc: Path) -> None:
     from locks import refresh_locks
     rel = 'config/products/special-disc/keyword-list-names.json'
     print('SP keyword targets re-encoded; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
-
-
-def sp_gallery_talk(tc: Path) -> None:
-    """The 名场面集 dialogue is a corpus snapshot (event-gallery-talk.json): author it from the Traditional corpus."""
-    bd.run(sys.executable, 'tools/special_disc/event_gallery/author_talk.py', cwd=tc)
-    from locks import refresh_locks
-    rel = 'config/products/special-disc/event-gallery-talk.json'
-    print('SP gallery dialogue re-authored; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
 def sp_stage_titles(tc: Path) -> None:
@@ -326,11 +212,9 @@ def sp_stage_font_configs(tc: Path, variant: str) -> None:
     started = time.perf_counter()
     sp_config_drafts(tc, variant)
     sp_world_map_titles(tc)
-    sp_images_stay_sc(tc)
+    sp_image_labels_refreeze(tc)
     sp_qa_layout(tc)
     sp_instruction_layout(tc)
-    sp_weapon_categories(tc, variant)
-    sp_localize(tc)
     print(f'[sp-view] configs-and-labels: {time.perf_counter()-started:.2f}s', flush=True)
 
 
@@ -345,56 +229,34 @@ def sp_stage_baseline_atlas(tc: Path, variant: str, answer_key: Path, tw_key: Pa
     started = time.perf_counter()
     sp_image_labels_refreeze(tc)
     sp_encoded_contracts(tc)
-    sp_gallery_talk(tc)
     sp_stage_titles(tc)
     print(f'[sp-view] post-baseline-assets: {time.perf_counter()-started:.2f}s', flush=True)
-    # SP's own image chain stays Simplified (its seals); its text cells become Traditional in one final delta
+    # SP's Traditional menu atlas is a frozen picture asset (config/zh-hant/sp-pictures, one set for Taiwan and Hong
+    # Kong): the battle SELECT tiles and the final text-cell delta the writer applies. SRWZ_FREEZE_SP_PICTURES=1
+    # re-authors both from the Original builds (sp_menu_atlas.py); a build only installs them.
     started = time.perf_counter()
-    bd.run(sys.executable, HERE / 'sp_menu_atlas.py', tc, '--simplified', sc_key, '--traditional', tw_key,
-           '--review', bd.BASE / f'sp-menu-atlas-review-{variant}')
+    import os, shutil
+    from locks import refresh_locks
+    store = ROOT / 'config/zh-hant/sp-pictures'
+    frozen = {'config/assets/special-disc/menu-atlas-zh-hant.json': store / 'menu-atlas-zh-hant.json',
+              'config/assets/special-disc/battle-select-titles-zh.json': store / 'battle-select-titles-zh.json'}
+    if os.environ.get('SRWZ_FREEZE_SP_PICTURES') == '1':
+        bd.run(sys.executable, HERE / 'sp_menu_atlas.py', tc, '--simplified', sc_key, '--traditional', tw_key,
+               '--review', bd.BASE / f'sp-menu-atlas-review-{variant}')
+        for rel, path in frozen.items():
+            path.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(tc / rel, path)
+    else:
+        for rel, path in frozen.items():
+            shutil.copyfile(path, tc / rel)
+        print('SP menu atlas installed from config/zh-hant/sp-pictures; locks refreshed:',
+              refresh_locks(tc, list(frozen)), flush=True)
     print(f'[sp-view] menu-atlas: {time.perf_counter()-started:.2f}s', flush=True)
 
 
-def sp_shared_from_taiwan(tc: Path) -> None:
-    """Hong Kong SP: rows whose output is shared with the Taiwan build take the Taiwan text, so the disc keeps one
-    copy of each big member (the Original's texture sources and terrain names do the same):
-      * frame-corpus image labels (world-map titles, KVM labels) and stage names (the 21 stage-title images);
-      * frame-corpus rows stored in VT1 (sd/vt1/...): SP's VT1 can only be redirected whole (196 MB);
-      * the Data Link page (data_link_bonus.py, VT1 group 40);
-      * terrain names: stored in every map chunk of MAPMODEL (37.7 MB)."""
+def sp_shared_pictures(tc: Path) -> None:
+    """Bind Hong Kong's picture writers to Taiwan artwork without changing episode or VT1 text."""
     rel = 'corpus/zh/special-disc/frame-text.json'
-    tw = {e['id']: e for e in json.loads((ROOT / 'corpus/zh-hant/special-disc/frame-text.json').read_text(encoding='utf-8'))['entries']}
-    doc = json.loads((tc / rel).read_text(encoding='utf-8'))
-    n = 0
-    for e in doc['entries']:
-        if e.get('category') == 'image-label' or any(l.startswith(('sd/stage-name/', 'sd/vt1/')) for l in e.get('locations', [])):
-            if e['translation'] != tw[e['id']]['translation']: n += 1
-            e['translation'] = tw[e['id']]['translation']
-    bd.dump(tc / rel, doc)
-    terrain = 'corpus/zh/special-disc/terrain-names.json'
-    bd.dump(tc / terrain, bd.strip_meta(json.loads((ROOT / 'corpus/zh-hant/special-disc/terrain-names.json').read_text(encoding='utf-8'))))
-    # the Data Link page (data_link_bonus.PAGE_LINES, VT1 group 40) is a tool constant: its readback literals too
-    lit_path = tc / 'config/zh-hant/readback-literals.json'
-    lit = json.loads(lit_path.read_text(encoding='utf-8'))
-    lit['literals'].update(taiwan_data_link_literals())
-    bd.dump(lit_path, lit)
-    from locks import refresh_locks
-    print('SP rows kept Taiwan:', n, '+ terrain names + Data Link page; locks refreshed:', refresh_locks(tc, [rel, terrain]), flush=True)
-
-
-def taiwan_data_link_literals():
-    """The Taiwan literal mapping actually consumed by Hong Kong's shared Data Link page."""
-    import ast, re
-    src = (ROOT / 'tools/special_disc/writeback/data_link_bonus.py').read_text(encoding='utf-8')
-    lines = ast.literal_eval(re.search(r'^PAGE_LINES = (\(.*?^\))', src, re.S | re.M).group(1))
-    import tool_literals
-    tw_lit = bd.literal_pairs(ROOT / 'corpus/zh', ROOT / 'corpus/zh-hant')
-    tw_tool = tool_literals.load('tw')
-    out = {}
-    for s in lines:
-        if not s: continue
-        t = tw_lit.get(s) or tw_tool.get(s)
-        if t is None:
-            raise SystemExit(f'Data Link line {s!r} has no Taiwan text (config/zh-hant/tool-literals/tw.json)')
-        out[s] = t
-    return out
+    source = json.loads((ROOT / 'corpus/zh-hant/special-disc/frame-text.json').read_text())
+    pictures = [row for row in source['entries'] if row['category'] == 'episode-title']
+    bd.dump(tc / 'config/assets/special-disc/shared-title-text.json',
+            {'entries': bd.strip_meta(pictures)})

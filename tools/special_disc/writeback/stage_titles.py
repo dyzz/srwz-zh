@@ -30,7 +30,9 @@ def require(condition, message):
 
 
 def title_entries():
-    rows = [r for r in json.loads(CORPUS.read_text())['entries']
+    shared = SNAPSHOT.with_name('shared-title-text.json')
+    source = shared if shared.is_file() else CORPUS
+    rows = [r for r in json.loads(source.read_text())['entries']
             if r['category'] == 'episode-title']
     require(len(rows) == 21 and len({r['id'] for r in rows}) == 21,
             'SP stage-title corpus scope drift')

@@ -9,7 +9,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[3]
 sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'tools/special_disc/writeback')]
-from srwz.build_language import expected_literal  # noqa: E402
+
 from build_full_text import BASE_SHA,DEST,WORK,PROPOSAL,CHUNKS
 from special_disc.baselines import baseline_iso
 from special_disc.writeback.tm_keys import stock_key_slots
@@ -329,11 +329,12 @@ def main(iso=None, work=None):
             validate_flow_layout(actual)
         counts['frame_targets']+=1
     source_flow=decode_production(st.read_disc_member(st.STAGE)).output
+    episode_labels=json.loads((ROOT/"config/editorial/special-disc/chart-episode-labels.json").read_text())
     for start,total in ((0x7510,21),(0x14B20,110)):
         for index in range(total):
             at=start+112*index
             source=decode_text(source_flow,at,table,end=at+16).text
-            expected=normalize_original_fullwidth_ascii(source.replace('最終話',expected_literal('最终话',ROOT)).replace('話',expected_literal('话',ROOT)))
+            expected=normalize_original_fullwidth_ascii(source.replace('最終話',episode_labels['final_label']['translation']).replace('話',episode_labels['numbered_suffix']['translation']))
             actual=decode_text(stage_data[0],at,readback,end=at+16)
             require(actual.text==expected and actual.terminator=='nul','chart episode label ISO reread')
             counts['chart_episode_labels' if source else 'chart_empty_labels_preserved']+=1

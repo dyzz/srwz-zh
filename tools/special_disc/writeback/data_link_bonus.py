@@ -52,29 +52,13 @@ SITES = ((FLAG_VA, FLAG_BEFORE, FLAG_AFTER), (MENU_VA, MENU_BEFORE, MENU_AFTER),
 POLICY = 'default_both_z_routes_without_z_save_io'
 # Product behavior override, separate from the faithful original-text corpus.
 # Exactly one existing VT1 page, nine rows of 28 two-byte cells plus LF.
-PAGE_LINES = (
-    '　数据链接',
-    '　本作已默认启用《超级机器人大战Z》',
-    '男、女主角路线的通关奖励。',
-    '　无需读取本篇存档。开始各组剧情时，',
-    '可选择领取资金、BS、PP和强化零件奖励。',
-    '　两条路线的奖励可以同时获得。',
-    '　特别篇自身的通关奖励仍按实际进度获得。',
-    '',
-    '　　　返回剧情选择吗？',
-)
-from pathlib import Path as _Path
-from srwz.build_language import expected_literal as _lit   # Traditional build: the parallel wording
-_ROOT = _Path(__file__).resolve().parents[3]
-PAGE_LINES = tuple(_lit(line, _ROOT) for line in PAGE_LINES)
+from special_disc.runtime_text import runtime_text
+_WORDING = runtime_text()
+PAGE_LINES = tuple(_WORDING['data_link_page'])
 PAGE_TEXT = '\n'.join(PAGE_LINES)
 PAGE_SIZE = 9 * 57
-HINTS = (
-    (0x3C46C0, 0x50, '　已默认启用《超级机器人大战Z》双路线通关奖励。'),
-    (0x3C4710, 0x40, '无需读取本篇存档，开始各组剧情时可选择领取。'),
-    (0x3C4750, 0x2E, '查看奖励说明。'),
-)
-HINTS = tuple((at, size, _lit(text, _ROOT)) for at, size, text in HINTS)
+HINTS = tuple((at, size, _WORDING['data_link_hints'][hex(at)])
+              for at, size in ((0x3C46C0, 0x50), (0x3C4710, 0x40), (0x3C4750, 0x2E)))
 TEXT_OVERRIDES = {'sd/vt1/40/0': PAGE_TEXT,
                   **{f'sd/exe/{at:X}': text for at, _, text in HINTS}}
 

@@ -90,16 +90,16 @@ def build(base_elf: bytes, items: list[dict], outdir: Path, proposal: Path | Non
         return alloc(encode_text(two_byte_visible_spaces(value), table,
                                  overrides=overrides, terminate=True))
 
-    from srwz.build_language import expected_literal          # Traditional build: the parallel wording
-    root = Path(__file__).resolve().parents[3]
-    label = text(expected_literal("名场面集", root))
-    event_help = expected_literal("重温出击、合体等剧情名场面。播放中按×可返回。", root)
+    from special_disc.runtime_text import runtime_text
+    gallery = runtime_text()['gallery']
+    label = text(gallery['heading'])
+    event_help = gallery['help']
     help_text = text(event_help)
     # Native ○ / △ button icons; no space between the items, the icon's own
     # margin separates them and the guide ends inside the heading bar.
     # The metrics come first: icons are placed at default advances plus a few
     # pixels per tag, so tags between them would push the triangle away.
-    list_help = expected_literal("<width:12><space:13><height:08><-1>只看演出<-3>连同对白", root)
+    list_help = gallery['controls']
     assert items and all(item.get("name") for item in items)
     # Keep t and i as ordinary font glyphs; only w has a private raster.
     names = []

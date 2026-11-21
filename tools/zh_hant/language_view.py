@@ -175,7 +175,7 @@ def main() -> None:
         place_sp_support(project)
         bd.prepare_tc(project, a.variant)
         if a.variant != 'tw':
-            sp.sp_shared_from_taiwan(project)
+            sp.sp_shared_pictures(project)
         bd.menu_codebook(project)
         sys.stdout.flush()
         run_stage(project, a.variant, 'font-configs')

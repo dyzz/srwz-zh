@@ -40,7 +40,11 @@ ROOT = HERE.parents[1]
 import os
 DATA = Path(os.environ.get('SRWZ_PREFLIGHT_ROOT') or ROOT)   # where the text is read from (tests point it at a copy)
 sys.path[:0] = [str(HERE), str(ROOT / 'tools'), str(ROOT / 'tools/text_layout')]
-import regional_terms as rt  # noqa: E402
+from functools import lru_cache
+sys.path.insert(0, str(ROOT / "tools/editorial_review"))
+from japanese_sources import resolve_all  # noqa: E402
+
+japanese_sources = lru_cache(maxsize=1)(resolve_all)
 import sync_corpus as sc_mod  # noqa: E402
 
 REGIONS = {'tw': '', 'hk': '-hk'}
@@ -337,7 +341,7 @@ def japanese_for(where: str):
         return m.group(1)
     m = re.search(r'#([^/]+(?:/[^/]+)*?)/translation$', where)
     if m:
-        by_sha, by_id = rt.japanese()
+        by_sha, by_id = japanese_sources()
         return by_id.get(m.group(1)) or _SHA.get(m.group(1))
     return None
 
@@ -354,31 +358,12 @@ def check_stale(rep: Report, region: str):
                 '(tools/zh_hant/port_sc_changes.py)')
 
 
-def check_tool_literals(rep: Report, region: str):
-    """Build-tool constants need each language's own text (config/zh-hant/tool-literals, tool_literals.py)."""
-    sys.path.insert(0, str(ROOT / 'tools/zh_hant'))
-    import build_dual as bd
-    import tool_literals
-    if DATA != ROOT:                        # a test copy: the regional constant files are checked against it
-        tool_literals.STORE = DATA / 'config/zh-hant/tool-literals'
-    literals, ambiguous = tool_literals.corpus_counterparts(region, DATA)
-    for c in tool_literals.missing(region, literals, ambiguous):
-        rep.add('error', 'tool-literals', region, c, 'build-tool constant has no regional text (tools/zh_hant/tool_literals.py draft)')
-
-
 def check_sp_configs(rep: Report, region: str):
-    store = DATA / 'config/zh-hant/sp-configs'
-    known = load(store / 'sources.json') if (store / 'sources.json').exists() else {}
-    for key, digest in known.items():
-        variant, rel = key.split('/', 1)
-        if variant != region:
-            continue
-        if not (store / key).exists():
-            rep.add('error', 'sp-configs', region, rel, 'regional SP config copy missing (tools/zh_hant/sp_configs.py draft)')
-        elif hashlib.sha256((DATA / rel).read_bytes()).hexdigest() != digest:
-            rep.add('error', 'sp-configs', region, rel,
-                    f'Simplified changed since the regional copy: update config/zh-hant/sp-configs/{key} and run '
-                    f'sp_configs.py accept {rel} (or sp_configs.py draft {rel})')
+    from sp_configs import stored_paths
+    store = DATA / 'config/zh-hant/sp-configs' / region
+    for rel in stored_paths():
+        if not (store / rel).is_file():
+            rep.add('error', 'sp-configs', region, rel, 'regional SP config missing')
 
 
 def check_slots(rep: Report, region: str, baseline: str):
@@ -392,7 +377,7 @@ def check_slots(rep: Report, region: str, baseline: str):
                 files.append((f'corpus/zh-hant{suffix}/{rel}', f'corpus/zh/{rel}'))
     files.append((f'corpus/runtime-zh-hant{suffix}/stage-keywords-v1.json', 'corpus/runtime/stage-keywords-v1.json'))
     files.append((f'corpus/zh-hant{suffix}/auto-demo-work-titles.json', 'corpus/zh/auto-demo-work-titles.json'))
-    by_sha, _ = rt.japanese()
+    by_sha, _ = japanese_sources()
     for rel, sc_rel in files:
         if not (DATA / sc_rel).exists():
             continue
@@ -435,7 +420,7 @@ def main() -> int:
     a = p.parse_args()
     rep = Report()
     for region in a.region or sorted(REGIONS, reverse=True):
-        checks = [check_stale, check_sp_configs, check_tool_literals, check_codebook, check_word_lists, check_demo_titles, check_length_bound, check_doubled, check_separators]
+        checks = [check_stale, check_sp_configs, check_codebook, check_word_lists, check_demo_titles, check_length_bound, check_doubled, check_separators]
         for check in checks:
             check(rep, region)
         check_pictures(rep, region, a.baseline)

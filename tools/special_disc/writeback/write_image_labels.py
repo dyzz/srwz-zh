@@ -37,18 +37,18 @@ def main():
     parser.add_argument('--output',type=Path,default=ROOT/'work/build/special-disc/full-text/image-labels')
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
     writer=Writer(baseline_iso('text-canary'),ROOT/'work/build/special-disc/text-candidate/font/proposal.json')
-    frame={r['id']:r for r in writer.frames if r['category']=='image-label'}
-    targets={t:r for r in frame.values() for t in r['locations']}
+    variant = 'tw' if (ROOT/'config/zh-hant/readback-literals.json').is_file() else 'sc'
+    targets = json.loads((ROOT/f'config/assets/special-disc/image-label-text-{variant}.json').read_text())
     font_lock=json.loads((ROOT/'config/fonts/harmonyos-sans-sc-light.lock.json').read_text())['font']
     font=ROOT/font_lock['path'];require(stage.sha256(font.read_bytes())==font_lock['sha256'],'image font drift')
     snapshots=[];old={} if args.refreeze else {r['key']:r for r in json.loads(SNAPSHOT.read_text())['records']}
     outputs={};reports=[]
     def frozen(key,source,logical,w,h,patches):
-        identity=dict(key=key,source_sha256=stage.sha256(source),translations={t:targets[t]['translation'] for t,_ in patches})
+        identity=dict(key=key,source_sha256=stage.sha256(source),translations={t:targets[t] for t,_ in patches})
         if args.refreeze:
             edited=logical;layout=[]
             for target,box in patches:
-                edited,meta=render(edited,w,h,box,targets[target]['translation'],font,26 if w==512 else 20)
+                edited,meta=render(edited,w,h,box,targets[target],font,26 if w==512 else 20)
                 layout.append(dict(target=target,**meta))
             record=dict(**identity,layout=layout,indexes_zlib_base64=base64.b64encode(zlib.compress(edited,9)).decode())
         else:

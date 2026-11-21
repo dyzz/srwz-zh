@@ -3,10 +3,9 @@
 
 Each language keeps its own text: the Taiwan and Hong Kong copies live in config/zh-hant/sp-configs/<tw|hk>/<path>
 and are edited there by hand, like the parallel corpora; a build copies them unchanged into the regional SP view.
-sources.json records the Simplified file each copy follows; when that file changes, the copy is stale and the build
-stops until the copy is updated by hand and the new source accepted.
+sources.json records optional editorial provenance. Each language can be revised independently.
 
-Usage: sp_configs.py status            list missing / stale copies (exit 1 if any)
+Usage: sp_configs.py status            list missing copies (exit 1 if any)
        sp_configs.py accept PATH ...   record the current Simplified file as the source of a hand-updated copy
 """
 from __future__ import annotations
@@ -23,8 +22,6 @@ sys.path[:0] = [str(HERE), str(ROOT / 'tools')]
 STORE = ROOT / 'config/zh-hant/sp-configs'
 SOURCES = STORE / 'sources.json'
 VARIANTS = ('tw', 'hk')
-# stored like the others, but not copied as is: build_dual_sp.sp_name_reference binds it to the corpus names first
-DERIVED = {'config/products/special-disc/shared-name-reference.json'}
 
 
 def stored_paths() -> list[str]:
@@ -41,15 +38,12 @@ def sources() -> dict:
 
 
 def status() -> list[str]:
-    known, problems = sources(), []
+    problems = []
     for variant in VARIANTS:
         for rel in stored_paths():
             copy = STORE / variant / rel
             if not copy.exists():
                 problems.append(f'{variant}: {rel} has no regional copy (write {copy.relative_to(ROOT)} by hand)')
-            elif known.get(f'{variant}/{rel}') != sha(ROOT / rel):
-                problems.append(f'{variant}: {rel} changed in Simplified since the regional copy was made '
-                                f'(update {copy.relative_to(ROOT)} by hand and run sp_configs.py accept {rel})')
     return problems
 
 
