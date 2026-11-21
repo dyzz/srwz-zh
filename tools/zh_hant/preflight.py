@@ -278,18 +278,25 @@ def check_demo_titles(rep: Report, region: str):
 
 
 def check_length_bound(rep: Report, region: str):
+    """SP tutorial / Q&A pages: each language's stored layout (config/zh-hant/sp-configs/<region>) must spell that
+    language's text (build_dual_sp.sp_instruction_layout / sp_qa_layout). Lengths are not tied to Simplified."""
     suffix = REGIONS[region]
-    for rel_tc in json.loads((DATA / 'config/zh-hant/regional-terms.json').read_text(encoding='utf-8')).get('length_bound_files', {}):
-        name = rel_tc.split('/', 2)[2]
-        tc_doc = load(DATA / f'corpus/zh-hant{suffix}/{name}'); sc_doc = load(DATA / f'corpus/zh/{name}')
-        sc = dict(strings(sc_doc, name, frozenset(sc_mod.FROZEN_KEYS | sc_mod.SP_FROZEN)))
-        for where, text in strings(tc_doc, name, frozenset(sc_mod.FROZEN_KEYS | sc_mod.SP_FROZEN)):
-            if 'instructions' not in name and '/qa/' not in where:
-                continue
-            base = sc.get(where)
-            if base is not None and not KANA.search(text) and len(base) != len(text):
-                rep.add('error', 'length-bound', region, where,
-                        f'{len(text)} characters, Simplified {len(base)}: this page is cut at the Simplified lengths')
+    store = DATA / 'config/zh-hant/sp-configs' / region
+    instr = {e['id']: e['translation'] for e in load(DATA / f'corpus/zh-hant{suffix}/special-disc/instructions-overrides.json')['entries']}
+    layout = store / 'config/editorial/special-disc/instructions-layout.json'
+    for page in (load(layout)['pages'] if layout.exists() else []):
+        if ''.join(r['text'] for r in page['records']) != instr.get(page['id'], '').replace('\n', ''):
+            rep.add('error', 'sp-layout', region, page['id'],
+                    f'instruction layout does not spell the text: update {layout.relative_to(DATA)}')
+    native = {e['id']: e['translation'] for e in load(DATA / f'corpus/zh-hant{suffix}/special-disc/native-text.json')['entries']}
+    layout = store / 'config/products/special-disc/qa-layout.json'
+    for page in (load(layout)['pages'] if layout.exists() else []):
+        lines = native.get(page['id'], '').split('\n')
+        if len(lines) != len(page['lines']) or any(
+                l['text'] != t or any(''.join(x['text'] for x in l[k]) != t for k in ('runs', 'cells') if l.get(k))
+                for l, t in zip(page['lines'], lines)):
+            rep.add('error', 'sp-layout', region, page['id'],
+                    f'Q&A layout does not spell the answer: update {layout.relative_to(DATA)}')
 
 
 def check_doubled(rep: Report, region: str):

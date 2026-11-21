@@ -119,14 +119,14 @@ def return_compdata_strings(clone: Path) -> int:
         n = decode_text(jp, off, table).consumed
         if cd[off:off + n] != jp[off:off + n]:
             cd[off:off + n] = jp[off:off + n]; restored += 1
-    sc_cd = decode_production((ROOT / 'work/build/special-disc/components/compdata' / name).read_bytes()).output
-    merged, filled = fill_missing(bytes(cd), sc_cd, jp, Transcoder(clone))
+    strings = SpStrings()
+    merged, filled = fill_missing(bytes(cd), jp, translated_ranges('compdata'), strings)
     cd = bytearray(merged); restored += filled
-    print('COMPDATA strings the Traditional answer key left Japanese, transcoded from Simplified:', filled, flush=True)
+    print('COMPDATA SP-only strings written from config/zh-hant/sp-strings:', filled, flush=True)
     unification = json.loads((clone / 'config/products/special-disc/name-unification-20261017.json').read_text())
     owned_fields = frozenset(e['offset'] for e in unification['entries'])
-    renamed = rename_pilot_fields(cd, sc_cd, Transcoder(clone), owned_fields); restored += renamed
-    print('COMPDATA pilot name fields given their regional names:', renamed, flush=True)
+    renamed = write_pilot_names(cd, strings, owned_fields); restored += renamed
+    print('COMPDATA SP pilot name fields written from config/zh-hant/sp-strings:', renamed, flush=True)
     if restored:
         encoded = reencode_changed_suffix(stored, bytes(cd), strategy='rust-maximum', original_result=result)
         if decode_production(encoded).output != bytes(cd) or len(encoded) > len(stored):
@@ -149,69 +149,85 @@ def runs(a: bytes, b: bytes):
         yield i, j; i = j
 
 
-def sc_guided(tc: bytes, sc: bytes, jp: bytes) -> tuple[bytes, int]:
-    """Traditional bytes only where the Simplified component changed the Japanese; every run the Simplified one
-    left Japanese goes back to Japanese (later writers own those strings, or SP leaves them Japanese)."""
+RANGES = ROOT / 'config/products/special-disc/sp-translated-ranges.json'
+
+
+def translated_ranges(kind: str) -> list:
+    """[start, end) ranges SP translates in every language (config/products/special-disc/sp-translated-ranges.json)."""
+    return [tuple(r) for r in json.loads(RANGES.read_text(encoding='utf-8'))[kind]]
+
+
+def touches(ranges: list, i: int, j: int) -> bool:
+    """True when [i, j) meets one of the sorted, disjoint ranges."""
+    import bisect
+    k = bisect.bisect_right(ranges, (i, float('inf'))) - 1
+    for start, end in ranges[max(k, 0):]:
+        if start >= j: return False
+        if end > i: return True
+    return False
+
+
+def keep_translated(tc: bytes, jp: bytes, ranges: list) -> tuple[bytes, int]:
+    """This language's bytes only inside the ranges SP translates; every other run goes back to Japanese (later
+    writers own those strings, or SP leaves them Japanese)."""
     out = bytearray(tc); reverted = 0
     for i, j in runs(tc, jp):
-        if sc[i:j] == jp[i:j]:
+        if not touches(ranges, i, j):
             out[i:j] = jp[i:j]; reverted += 1
     return bytes(out), reverted
 
 
-class Transcoder:
-    """Simplified stored bytes -> Traditional stored bytes for the strings the Simplified component translated and
-    the Traditional answer key left Japanese (and SP-only pilot name fields). Each language's results are static
-    text in config/zh-hant/sp-transcoded/<variant>.json, maintained by hand like the corpora; a string that is not
-    stored stops the build."""
-    def __init__(self, clone: Path):
-        self.store_path = ROOT / 'config/zh-hant/sp-transcoded' / f'{VARIANT}.json'
-        self.store = (json.loads(self.store_path.read_text(encoding='utf-8'))['strings']
-                      if self.store_path.exists() else {})
-        self.use_names = True
-
-    def __call__(self, data: bytes) -> bytes:
-        key = f"{data.hex().upper()}|{'names' if self.use_names else 'plain'}"
-        if key not in self.store:
-            raise SystemExit(f'SP string {data.hex().upper()} has no stored {VARIANT} form '
-                             f'({self.store_path.relative_to(ROOT)}): add it there')
-        return bytes.fromhex(self.store[key])
-
-
-PILOT_START, PILOT_COUNT, PILOT_STRIDE = 0x2B50, 969, 178
-PILOT_FIELDS = ((2, 21), (23, 23), (46, 23))
+class SpStrings:
+    """This language's SP-only COMPDATA strings (config/zh-hant/sp-strings/<variant>.json, maintained by hand):
+    SP strings the Original build has no counterpart for, and SP pilot name fields."""
+    def __init__(self):
+        import sp_text
+        self.path = ROOT / 'config/zh-hant/sp-strings' / f'{VARIANT}.json'
+        _, self.code_of = sp_text.codebook(ROOT / 'config/zh-hant/encoding/zh-release-font-assignments.json')
+        self.entries = json.loads(self.path.read_text(encoding='utf-8'))['entries']
+        self.strings: dict = {}                       # start -> entries by end (a string can end at several NULs)
+        for e in self.entries:
+            if e['kind'] == 'string':
+                self.strings.setdefault(int(e['offset'], 16), []).append(e)
+        for v in self.strings.values():
+            v.sort(key=lambda e: int(e['end'], 16))
+        self.pilots = [e for e in self.entries if e['kind'] == 'pilot-name']
+        self.encode = lambda e: sp_text.encode(e['text'], self.code_of)
 
 
-def rename_pilot_fields(cd: bytearray, sc: bytes, transcode, owned=frozenset()) -> int:
-    """Pilot name fields SP keeps from its own Simplified baseline hold Simplified bytes that read as the OpenCC form
-    in the Traditional codebook (该隐 -> 該隱). A field whose whole text is one regional name takes that name
-    (config/zh-hant/regional-names.json), as the parallel corpora do."""
-    renamed = 0
-    for n in range(PILOT_COUNT):
-        for delta, capacity in PILOT_FIELDS:
-            at = PILOT_START + n * PILOT_STRIDE + delta
-            field = bytes(cd[at:at + capacity]); end = field.find(b'\0')
-            if at in owned or end <= 0 or sc[at:at + capacity] != field: continue   # owned: a later writer's slot          # empty, or already written by a converter
-            out = transcode(field[:end])
-            transcode.use_names = False; plain = transcode(field[:end]); transcode.use_names = True
-            if out == plain or len(out) >= capacity: continue          # only a regional name changes the field
-            cd[at:at + capacity] = out + bytes(capacity - len(out)); renamed += 1
-    return renamed
-
-
-def fill_missing(tc: bytes, sc: bytes, jp: bytes, transcode) -> tuple[bytes, int]:
-    """Strings the Simplified component translated and the Traditional one left Japanese: the Simplified bytes,
-    transcoded, over whole NUL-delimited strings (so code boundaries hold)."""
+def fill_missing(tc: bytes, jp: bytes, ranges: list, strings: SpStrings) -> tuple[bytes, int]:
+    """Strings SP translates that the Original build gave no text (still Japanese here): this language's stored
+    text over the whole NUL-delimited string."""
     out = bytearray(tc); filled = 0
-    for i, j in list(runs(sc, jp)):
+    for i, j in ranges:
         if tc[i:j] != jp[i:j]: continue
-        start = sc.rfind(b'\0', 0, i) + 1; end = sc.find(b'\0', j)
-        out[start:end] = transcode(sc[start:end]); filled += 1
+        start = jp.rfind(b'\0', 0, i) + 1
+        # the stored span of this run: the first one of this string that reaches the run's end
+        entry = next((e for e in strings.strings.get(start, []) if int(e['end'], 16) >= j), None)
+        if entry is None:
+            raise SystemExit(f'SP string at COMPDATA {start:X} ({jp[start:jp.find(b"\\0", j)].hex()}) has no text in '
+                             f'{strings.path.relative_to(ROOT)}')
+        end = int(entry['end'], 16)
+        out[start:end] = strings.encode(entry); filled += 1
     return bytes(out), filled
 
 
+def write_pilot_names(cd: bytearray, strings: SpStrings, owned=frozenset()) -> int:
+    """SP pilot name fields: this language's stored names (fields a later writer owns are left to it)."""
+    renamed = 0
+    for e in strings.pilots:
+        at, capacity = int(e['offset'], 16), e['capacity']
+        if at in owned: continue
+        b = strings.encode(e)
+        if len(b) >= capacity: raise SystemExit(f'SP pilot name at {at:X} does not fit its {capacity}-byte field')
+        new = b + bytes(capacity - len(b))
+        if cd[at:at + capacity] != new:
+            cd[at:at + capacity] = new; renamed += 1
+    return renamed
+
+
 def guide_flow(clone: Path, root: Path) -> int:
-    """STAGE chunk 0 (scenario chart) of the flow component, guided by the Simplified flow component."""
+    """STAGE chunk 0 (scenario chart) of the flow component: this language's text only where SP translates."""
     import struct
     from srwz.codec import decode_production, reencode_changed_suffix
     from srwz.iso9660 import member_map, scan_iso9660
@@ -222,18 +238,18 @@ def guide_flow(clone: Path, root: Path) -> int:
         with open(iso, 'rb') as f:
             f.seek(m[n].extent_lba * 2048); return f.read(m[n].size)
     slot = struct.unpack_from('<I', member('HEDBDY/HB.BIN'), HB_TABLE + 4)[0]
-    jp_stage = member(name); tc_stage = (clone / rel / name).read_bytes(); sc_stage = (root / rel / name).read_bytes()
-    jp, sc = decode_production(jp_stage[:slot]).output, decode_production(sc_stage[:slot]).output
+    jp_stage = member(name); tc_stage = (clone / rel / name).read_bytes()
+    jp = decode_production(jp_stage[:slot]).output
     tc_result = decode_production(tc_stage[:slot]); tc = tc_result.output
-    if not (len(jp) == len(sc) == len(tc)): raise SystemExit('flow chunk sizes differ')
-    merged, reverted = sc_guided(tc, sc, jp)
+    if len(jp) != len(tc): raise SystemExit('flow chunk sizes differ')
+    merged, reverted = keep_translated(tc, jp, translated_ranges('stage_chunk0'))
     if reverted:
         encoded = reencode_changed_suffix(tc_stage[:tc_result.consumed], merged, strategy='rust-maximum', original_result=tc_result)
         if decode_production(encoded).output != merged or len(encoded) > slot: raise SystemExit('flow re-encode failed')
         out = bytearray(tc_stage); out[:slot] = encoded + bytes(slot - len(encoded))
         (clone / rel / name).write_bytes(bytes(out))
         report = json.loads((clone / rel / 'report.json').read_text())
-        report['files'][name] = sha(bytes(out)); report['zh_hant_sc_guided_reverts'] = reverted
+        report['files'][name] = sha(bytes(out)); report['zh_hant_untranslated_reverts'] = reverted
         (clone / rel / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     return reverted
 
@@ -268,7 +284,7 @@ def main() -> None:
         if step == 'migrate_slps_text':
             print('strings returned to the system-text writer:', return_system_text_strings(c), flush=True)
         if step == 'migrate_flow':
-            print('flow runs back to Japanese (Simplified-guided):', guide_flow(c, ROOT), flush=True)
+            print('flow runs back to Japanese (outside the SP translated ranges):', guide_flow(c, ROOT), flush=True)
         if step == 'migrate_compdata':
             print('COMPDATA strings returned to the system-text writer:', return_compdata_strings(c), flush=True)
     run(c, sys.executable, 'tools/special_disc/writeback/write_system_text.py', '--proposal', PROPOSAL)

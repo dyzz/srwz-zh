@@ -51,7 +51,11 @@ SP_CONFIG_DRAFTS = ['config/editorial/special-disc/stage-context-reuse.json',
                     'config/editorial/special-disc/chart-z-ending-titles.json',
                     'config/products/special-disc/shared-name-reference.json',   # Japanese name -> translations
                     'config/products/special-disc/name-unification-20261017.json',
-                    'config/products/special-disc/event-gallery.json']             # 名场面集 scene names
+                    'config/products/special-disc/event-gallery.json',             # 名场面集 scene names
+                    # styled layouts of the tutorial / Q&A pages: each language's own (records, lines, colour runs
+                    # and cells carry that language's text, at that language's lengths)
+                    'config/editorial/special-disc/instructions-layout.json',
+                    'config/products/special-disc/qa-layout.json']
 
 
 # Main-game asset configs that SP's own image chain applies to SP's atlas (menu restore, bazaar heading). The
@@ -152,22 +156,21 @@ def sp_image_labels_refreeze(tc: Path) -> None:
 
 def sp_instruction_layout(tc: Path) -> None:
     """Tutorial / Q&A instruction pages are bound to styled records (config/editorial/special-disc/
-    instructions-layout.json): rebind each to its Traditional translation, record texts cut at the same lengths."""
+    instructions-layout.json). Each language keeps its own layout (config/zh-hant/sp-configs/<variant>, placed in
+    the clone by sp_config_drafts): its records must spell exactly that language's instruction text."""
     import hashlib
     rel = 'config/editorial/special-disc/instructions-layout.json'
-    doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
-    tc_rows = {e['id']: e for e in json.loads((tc / 'corpus/zh/special-disc/instructions-overrides.json').read_text(encoding='utf-8'))['entries']}
+    doc = json.loads((tc / rel).read_text(encoding='utf-8'))
+    rows = {e['id']: e for e in json.loads((tc / 'corpus/zh/special-disc/instructions-overrides.json').read_text(encoding='utf-8'))['entries']}
     for page in doc['pages']:
-        text = tc_rows[page['id']]['translation']; flat = text.replace('\n', '')
-        if len(flat) != sum(len(r['text']) for r in page['records']):
-            raise SystemExit(f"{page['id']}: Traditional instruction text has another length")
-        pos = 0
-        for r in page['records']:
-            n = len(r['text']); r['text'] = flat[pos:pos + n]; pos += n
+        text = rows[page['id']]['translation']
+        if ''.join(r['text'] for r in page['records']) != text.replace('\n', ''):
+            raise SystemExit(f"{page['id']}: the regional instruction layout does not spell the regional text; update "
+                             f"config/zh-hant/sp-configs/<variant>/{rel}")
         page['translation_sha256'] = hashlib.sha256(text.encode()).hexdigest()
     bd.dump(tc / rel, doc)
     from locks import refresh_locks
-    print('SP instruction layout rebound:', len(doc['pages']), 'pages; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+    print('SP instruction layout checked:', len(doc['pages']), 'pages; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
 def sp_world_map_titles(tc: Path) -> None:
@@ -189,27 +192,25 @@ def sp_world_map_titles(tc: Path) -> None:
 
 
 def sp_qa_layout(tc: Path) -> None:
-    """SP-reviewed Q&A answers are bound to styled lines (config/products/special-disc/qa-layout.json). Rebind each
-    page to its Traditional translation: line texts from the Traditional entry, colour runs and table cells cut
-    at the same character counts (the drafter keeps lengths; anything else stops here)."""
+    """SP-reviewed Q&A answers are bound to styled lines (config/products/special-disc/qa-layout.json). Each language
+    keeps its own layout (config/zh-hant/sp-configs/<variant>): its lines, colour runs and table cells must spell
+    exactly that language's answer text."""
     import hashlib
     rel = 'config/products/special-disc/qa-layout.json'
-    doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
-    tc_native = {e['id']: e for e in json.loads((tc / 'corpus/zh/special-disc/native-text.json').read_text(encoding='utf-8'))['entries']}
+    doc = json.loads((tc / rel).read_text(encoding='utf-8'))
+    native = {e['id']: e for e in json.loads((tc / 'corpus/zh/special-disc/native-text.json').read_text(encoding='utf-8'))['entries']}
     for page in doc['pages']:
-        text = tc_native[page['id']]['translation']; lines = text.split('\n')
-        if len(lines) != len(page['lines']): raise SystemExit(f"{page['id']}: Traditional answer has other lines")
-        for line, new in zip(page['lines'], lines):
-            if len(new) != len(line['text']): raise SystemExit(f"{page['id']}: line length changed: {line['text']} -> {new}")
-            line['text'] = new
-            for key in ('runs', 'cells'):
-                pos = 0
-                for part in line.get(key, []):
-                    n = len(part['text']); part['text'] = new[pos:pos + n]; pos += n
+        text = native[page['id']]['translation']; lines = text.split('\n')
+        bad = len(lines) != len(page['lines']) or any(
+            line['text'] != new or any(''.join(x['text'] for x in line[key]) != new for key in ('runs', 'cells') if line.get(key))
+            for line, new in zip(page['lines'], lines))
+        if bad:
+            raise SystemExit(f"{page['id']}: the regional Q&A layout does not spell the regional answer; update "
+                             f"config/zh-hant/sp-configs/<variant>/{rel}")
         page['translation_sha256'] = hashlib.sha256(text.encode()).hexdigest()
     bd.dump(tc / rel, doc)
     from locks import refresh_locks
-    print('SP Q&A layout rebound:', len(doc['pages']), 'pages; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
+    print('SP Q&A layout checked:', len(doc['pages']), 'pages; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
 def sp_weapon_categories(tc: Path, variant: str = 'tw') -> None:
