@@ -7,6 +7,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 
 
 class SpSchedulingTests(unittest.TestCase):
+    def setUp(self):
+        from unittest.mock import patch
+        import build_multilang as build
+
+        # The scheduler removes stale receipts and writes go/cancel signals.
+        # Running the suite beside a real build must leave its receipts alone.
+        directory = Path(self.enterContext(tempfile.TemporaryDirectory()))
+        self.enterContext(patch.object(build, "EARLY_FRONTENDS", directory))
+        self.enterContext(patch.object(build, "GO", directory / "go"))
+
     def test_sp_only_schedules_components_then_one_disc_writer(self):
         from types import SimpleNamespace
         from unittest.mock import patch
