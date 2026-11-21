@@ -100,7 +100,8 @@ class AssemblyReuseTests(unittest.TestCase):
         import build_multilang as build
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            output = root / 'test.iso'
+            output = root / 'build/iso/test/experiment/test.iso'
+            output.parent.mkdir(parents=True)
             receipt = output.with_suffix('.receipt.json')
             inputs = {'version': '1'}
 
