@@ -251,10 +251,10 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 '“我要把你彻底解体！\n　连一颗螺丝都不留地拆开！！”'
             ),
             "story/014/dialogue/01.03/0001": (
-                '“$n！别兴奋过头一下\n\u3000打到穹顶都市上嗷！”'
+                '“$n！\n\u3000别兴奋过头一下\n\u3000打到穹顶都市上嗷！”'
             ),
             "story/014/dialogue/02.02/0076": (
-                '“总之，停下来很危险。\n\u3000只能勉强维持运转，\n\u3000一边移动一边修理了……”'
+                '“总之，停下来很危险。\n\u3000哪怕只是勉强撑着往前挪，\n\u3000也得一边开一边修……”'
             ),
             "story/015/dialogue/01.19/0003": (
                 '“$n，梅尔！\n　钢铁齿轮，现已抵达！”'
@@ -1202,7 +1202,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 entry["translation"] for entry in stage_014["entries"]
                 if entry["id"] == "story/014/dialogue/02.02/0073"
             ),
-            '“$n！你是个流浪修理工吧！\n\u3000不能想想办法吗！”',
+            '“$n！\n\u3000你不是流浪修理工嘛！\n\u3000不能想想办法吗！”',
         )
 
         for path in paths:

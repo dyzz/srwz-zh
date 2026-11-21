@@ -63,6 +63,12 @@ class PolishFeedbackPilotTest(unittest.TestCase):
         self.assertEqual(honorific["after"], "“住手，胜平！”")
         self.assertEqual(honorific["source_text_sha256"], expected[honorific["corpus_id"]]["expected_source_text_sha256"])
 
+        variants = json.loads((PROJECT_ROOT / "config/editorial/story-unit-name-variants-20261119.json").read_text(encoding="utf-8"))
+        revised = {honorific["corpus_id"]: honorific["after"]}
+        for row in variants["entries"]:
+            if row["file"].startswith("corpus/zh/") and row["id"] in expected:
+                self.assertEqual(row["before"], revised.get(row["id"], expected[row["id"]]["expected_translation"]))
+                revised[row["id"]] = row["after"]
         self.assertEqual(set(actual), set(expected))
         for target_id, target in expected.items():
             self.assertEqual(
@@ -71,7 +77,7 @@ class PolishFeedbackPilotTest(unittest.TestCase):
             )
             self.assertEqual(
                 actual[target_id]["translation"],
-                honorific["after"] if target_id == honorific["corpus_id"] else target["expected_translation"],
+                revised.get(target_id, target["expected_translation"]),
             )
 
     def test_seed_rejects_any_automatic_promotion_permission(self) -> None:
