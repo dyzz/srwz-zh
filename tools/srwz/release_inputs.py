@@ -12,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 
+from .language import SP_REGIONAL_CONFIGS
 from .edition import EditionError, json_bytes, load_json, project_path
 from .file_identity import record_clone, sha256_file
 
@@ -103,6 +104,12 @@ def _clonefile(source: Path, target: Path) -> bool:
 def source_inventory(root: Path, additional_paths: tuple[str, ...] = (), *, language: str | None = None) -> list[dict]:
     root = root.resolve()
     rows = []
+    variant = {"zh-hant-hk": "hk", "zh-hant-tw": "tw"}.get(language)
+    shared = set()
+    if variant == "hk":
+        manifest = load_json(root / "config/zh-hant/hk-uses-taiwan.json")
+        shared = {"corpus/zh-hant/" + path for path in manifest["files"]}
+        shared.add("corpus/zh-hant/menu/stage-names.json")
     for name in SOURCE_ROOTS:
         start = project_path(root, name)
         if not start.is_dir():
@@ -112,6 +119,10 @@ def source_inventory(root: Path, additional_paths: tuple[str, ...] = (), *, lang
             if Path(directory) == root / "corpus" and language is not None:
                 if language != "zh-hant-hk":
                     children[:] = [c for c in children if c not in ("zh-hant-hk", "glossary-zh-hant-hk", "runtime-zh-hant-hk")]
+                if variant:
+                    children[:] = [c for c in children if c not in ("zh", "glossary", "runtime")]
+                if variant == "hk":
+                    children[:] = [c for c in children if c not in ("glossary-zh-hant", "runtime-zh-hant")]
                 if not language:
                     children[:] = [c for c in children if c not in ("zh-hant", "glossary-zh-hant", "runtime-zh-hant")]
             for child in children:
@@ -120,6 +131,18 @@ def source_inventory(root: Path, additional_paths: tuple[str, ...] = (), *, lang
             for name in sorted(files):
                 path = Path(directory) / name
                 relative = path.relative_to(root).as_posix()
+                if variant and relative in SP_REGIONAL_CONFIGS:
+                    continue
+                if variant == "hk" and relative.startswith("corpus/zh-hant/") and relative not in shared:
+                    continue
+                if language is not None and relative.startswith("config/zh-hant/"):
+                    parts = relative.split("/")
+                    if parts[2] in ("main-text", "sp-configs", "sp-strings", "tool-literals"):
+                        if parts[3].removesuffix(".json") != variant:
+                            continue
+                    if parts[2] in ("text-layout", "text-layout-hk"):
+                        if variant != ("hk" if parts[2].endswith("-hk") else "tw"):
+                            continue
                 if not is_build_input(relative):
                     continue
                 if path.is_symlink():
@@ -128,7 +151,7 @@ def source_inventory(root: Path, additional_paths: tuple[str, ...] = (), *, lang
                              "sha256": sha256_file(path), "mode": path.stat().st_mode & 0o777})
     existing = {row["path"] for row in rows}
     for relative in additional_paths:
-        if relative in existing:
+        if relative in existing or (variant and relative in SP_REGIONAL_CONFIGS):
             continue
         path = project_path(root, relative)
         if (root / relative).is_symlink() or not path.is_file():

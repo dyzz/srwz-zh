@@ -17,13 +17,12 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 from srwz.release_inputs import source_inventory, copy_file
 from srwz.sp_edition import locked_sp_inputs
-from srwz.language import _answer_key
+from srwz.language import SP_REGIONAL_CONFIGS, _answer_key, frontend_regions, frontend_options, shared_episode_titles
 from srwz.file_identity import sha256_file
 from special_disc.resource_view import ResourceView, ENV
 from build_editions import edition_lock, phase_environment
 import assemble_dual
 from language_view import place_sp_support
-from build_dual import texture_sources
 
 REGIONS = ("sc", "tw", "hk")
 CACHE = ROOT / "work/build/sp-multilang-resources"
@@ -50,7 +49,7 @@ def input_state(region, badge, component_frontends):
         )
 
     keys = (
-        {r: frontend(r) for r in dict.fromkeys((region, "tw", "sc"))}
+        {r: frontend(r) for r in frontend_regions(region)}
         if language
         else {}
     )
@@ -74,19 +73,18 @@ def input_state(region, badge, component_frontends):
                 "full-text"
             ):
                 continue
+            if language and f.relative_to(ROOT).as_posix() in SP_REGIONAL_CONFIGS:
+                continue
             if f.is_file() and "__pycache__" not in rel.parts:
                 support.append(f)
     support.extend((ROOT / "rom/original.iso", ROOT / SP_ISO))
     external["support"] = [
         (str(f.relative_to(ROOT)), sha256_file(f)) for f in sorted(support)
     ]
-    keyed_rows = rows
-    taiwan_subtitles = "corpus/zh-hant/special-disc/battle-lines.json"
-    if region == "hk" and taiwan_subtitles not in texture_sources():
-        # Hong Kong compiles its own subtitles and Data Link page.
-        keyed_rows = [row for row in rows if row["path"] != taiwan_subtitles]
+    if region == "hk":
+        external["shared_episode_titles"] = shared_episode_titles(ROOT)
     fingerprint = hashlib.sha256(
-        json.dumps([keyed_rows, external, badge], sort_keys=True).encode()
+        json.dumps([rows, external, badge], sort_keys=True).encode()
     ).hexdigest()
     return rows, keys, fingerprint
 
@@ -165,7 +163,7 @@ def compile_region(region, force, badge, component_frontends, await_frontends=Fa
     try:
         if staged:
             process, out = start(*view_tool, "--frontend-receipts", receipts)
-            names = [f"{lang or 'zh'}.json" for lang in dict.fromkeys((language, "zh-hant-tw", ""))]
+            names = [("zh" if r == "sc" else "zh-hant-" + r) + ".json" for r in frontend_regions(region)]
             while not all((receipts / name).is_file() for name in names):
                 if (receipts / "abort").exists() or process.poll() is not None:
                     break
@@ -193,8 +191,7 @@ def compile_region(region, force, badge, component_frontends, await_frontends=Fa
                 return view
             finish(process, out)
         elif region != "sc":
-            run(*view_tool, "--answer-key", keys[region], "--taiwan-answer-key", keys["tw"],
-                "--simplified-answer-key", keys["sc"])
+            run(*view_tool, *frontend_options(region, keys))
         else:
             place_sp_support(project)
         if badge:

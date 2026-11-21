@@ -95,10 +95,11 @@ def texture_sources() -> list:
     return [f'corpus/zh-hant/{rel}' for rel in hk_uses_taiwan()]
 
 
-def overlay_tree(src: Path, dst: Path, shared=()) -> int:
+def overlay_tree(src: Path, dst: Path, shared=(), *, base: Path | None = None) -> int:
     """Install the authored locale tree. A missing regional input must never retain the base wording."""
-    missing = {f.relative_to(dst).as_posix() for f in dst.rglob('*.json')
-               if not (src / f.relative_to(dst)).is_file()} - set(shared)
+    tree = dst if base is None else base
+    expected = {f.relative_to(tree).as_posix() for f in tree.rglob('*.json')}
+    missing = {rel for rel in expected - set(shared) if not (src / rel).is_file()}
     if missing:
         raise ValueError(f'{src}: missing regional corpus files: {sorted(missing)}')
     n = 0
@@ -227,7 +228,8 @@ def prepare_tc(tc: Path, variant: str = 'tw') -> None:
     stats = {}
     for group, prefix in [('zh', ''), ('glossary', 'glossary-'), ('runtime', 'runtime-')]:
         stats[group] = overlay_tree(ROOT / 'corpus' / (prefix + suffix), tc / 'corpus' / group,
-                                    hk_uses_taiwan() if variant == 'hk' and group == 'zh' else ())
+                                    hk_uses_taiwan() if variant == 'hk' and group == 'zh' else (),
+                                    base=ROOT / 'corpus' / group)
         for inputs in VARIANTS.values():
             shutil.rmtree(tc / 'corpus' / (prefix + inputs['suffix']), ignore_errors=True)
     if variant != 'tw':

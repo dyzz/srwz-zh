@@ -243,7 +243,7 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     p.add_argument('clone', type=Path)
     p.add_argument('--answer-key', type=Path, required=True)
-    p.add_argument('--simplified-answer-key', type=Path, required=True,
+    p.add_argument('--simplified-answer-key', type=Path,
                    help='the Simplified Original components built from the same inputs (texture delta)')
     p.add_argument('--variant', choices=('tw', 'hk'), default='tw', help='Traditional variant of the clone (drafting)')
     a = p.parse_args()

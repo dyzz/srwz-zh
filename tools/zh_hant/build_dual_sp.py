@@ -41,24 +41,7 @@ def sp_font(tc: Path) -> None:
     print('SP font locks refreshed:', refresh_locks(tc, SP_FONT_FILES), flush=True)
 
 
-# SP configs that carry translations of their own (corpus-shaped: entries with translation), drafted into the
-# Traditional clone with the corpus sync's converter and SP key rules; their locks follow.
-SP_CONFIG_DRAFTS = ['config/editorial/special-disc/stage-context-reuse.json',
-                    'config/editorial/special-disc/stage-native-overrides.json',
-                    'config/products/special-disc/flow-layout.json',           # protected terms of the flow texts
-                    'config/editorial/special-disc/chart-episode-labels.json',
-                    'config/editorial/special-disc/chart-key-help.json',
-                    'config/editorial/special-disc/chart-z-ending-titles.json',
-                    'config/products/special-disc/shared-name-reference.json',   # Japanese name -> translations
-                    'config/products/special-disc/name-unification-20261017.json',
-                    'config/products/special-disc/event-gallery.json',             # 名场面集 scene names
-                    # styled layouts of the tutorial / Q&A pages: each language's own (records, lines, colour runs
-                    # and cells carry that language's text, at that language's lengths)
-                    'config/editorial/special-disc/instructions-layout.json',
-                    'config/products/special-disc/qa-layout.json',
-                    'config/products/special-disc/runtime-text.json',
-                    'config/products/special-disc/weapon-detail-labels.json',
-                    'config/products/special-disc/event-gallery-talk.json']
+from srwz.language import SP_REGIONAL_CONFIGS as SP_CONFIG_DRAFTS
 
 
 # Main-game asset configs that SP's own image chain applies to SP's atlas (menu restore, bazaar heading). The
@@ -223,7 +206,8 @@ def sp_stage_baseline_atlas(tc: Path, variant: str, answer_key: Path, tw_key: Pa
     # SP's frozen baseline in Traditional: the September converters with the Traditional Original build as the
     # answer key (sp_tc_baseline.py), so inherited text comes from the same parallel corpus as Original.
     started = time.perf_counter()
-    bd.run(sys.executable, HERE / 'sp_tc_baseline.py', tc, '--answer-key', answer_key, '--simplified-answer-key', sc_key,
+    bd.run(sys.executable, HERE / 'sp_tc_baseline.py', tc, '--answer-key', answer_key,
+           *(['--simplified-answer-key', sc_key] if sc_key else []),
            '--variant', variant)
     print(f'[sp-view] baseline-total: {time.perf_counter()-started:.2f}s', flush=True)
     started = time.perf_counter()
@@ -255,8 +239,7 @@ def sp_stage_baseline_atlas(tc: Path, variant: str, answer_key: Path, tw_key: Pa
 
 def sp_shared_pictures(tc: Path) -> None:
     """Bind Hong Kong's picture writers to Taiwan artwork without changing episode or VT1 text."""
-    rel = 'corpus/zh/special-disc/frame-text.json'
-    source = json.loads((ROOT / 'corpus/zh-hant/special-disc/frame-text.json').read_text())
-    pictures = [row for row in source['entries'] if row['category'] == 'episode-title']
+    from srwz.language import shared_episode_titles
+    pictures = shared_episode_titles(ROOT)
     bd.dump(tc / 'config/assets/special-disc/shared-title-text.json',
             {'entries': bd.strip_meta(pictures)})

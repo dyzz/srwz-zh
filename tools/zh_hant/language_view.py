@@ -27,7 +27,8 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path[:0] = [str(HERE), str(ROOT / 'tools')]
 import build_dual as bd  # noqa: E402
-from srwz.release_inputs import copy_file  # noqa: E402
+from srwz.language import SP_REGIONAL_CONFIGS, frontend_regions
+from srwz.release_inputs import copy_file, is_build_input  # noqa: E402
 
 SP_SUPPORT_TREES = ['work/build/special-disc', 'work/disc', 'work/font-source', 'work/toolchain', 'work/writeback']
 
@@ -49,7 +50,7 @@ def place_sp_support(project: Path) -> None:
     for tree in ('config', 'tools'):
         for f in (ROOT / tree).rglob('*'):
             target = project / f.relative_to(ROOT)
-            if f.is_file() and '__pycache__' not in f.parts and not target.exists():
+            if f.is_file() and '__pycache__' not in f.parts and not target.exists() and not is_build_input(f.relative_to(ROOT).as_posix()):
                 copy_file(f, target)
     # the discs, under both names the tools use (rom/ is the repository's alias of build/iso/sources/)
     for iso in ((ROOT / 'rom/original.iso').resolve(), (ROOT / sp.SP_ISO).resolve()):
@@ -69,7 +70,7 @@ def awaited_answer_keys(receipts: Path, variant: str):
         import time
         started = time.perf_counter()
         names = {variant: f'zh-hant-{variant}', 'tw': 'zh-hant-tw', 'sc': 'zh'}
-        paths = {key: receipts / f'{name}.json' for key, name in names.items()}
+        paths = {key: receipts / f'{name}.json' for key, name in names.items() if key in frontend_regions(variant)}
         while not all(path.is_file() for path in paths.values()):
             if (receipts / 'abort').exists():
                 raise SystemExit('the Original frontends were not rebuilt: nothing to compile from')
@@ -79,7 +80,9 @@ def awaited_answer_keys(receipts: Path, variant: str):
         print(f'[sp-view] waited-for-frontends: {time.perf_counter()-started:.2f}s', flush=True)
         key = lambda name: (ROOT / json.loads(paths[name].read_text())['workspace']
                             / 'work/build/zh-release-full-story/components').resolve()
-        return key(variant), key('tw'), key('sc')
+        if 'sc' in paths:
+            return key(variant), key('tw'), key('sc')
+        return key(variant), None, None
     return resolve
 
 
@@ -126,6 +129,8 @@ def run_stage(project: Path, variant: str, stage: str, keys=None) -> None:
     if keys:
         for name, option, key in zip(('self', 'tw', 'sc'),
                                      ('--answer-key', '--taiwan-answer-key', '--simplified-answer-key'), keys):
+            if key is None:
+                continue
             command += [option, str(key)]
             # an Original build's workspace: .../project/work/build/zh-release-full-story/components
             roots[f'frontend-{name}'] = Path(key).resolve().parents[3]
@@ -158,13 +163,18 @@ def main() -> None:
     p.add_argument('--stage', choices=STAGES, help='run one stage of the SP preparation in a prepared project')
     a = p.parse_args()
     project = a.project.resolve()
+    if not a.stage:
+        # Install the active text at the canonical paths before any compiler or lock reader runs.
+        for rel in SP_REGIONAL_CONFIGS:
+            copy_file(ROOT / 'config/zh-hant/sp-configs' / a.variant / rel, project / rel)
+    keys = tuple(path.resolve() if path else None for path in
+                 (a.answer_key, a.taiwan_answer_key, a.simplified_answer_key))
     if a.stage:
         import build_dual_sp as sp
         if a.stage == 'font-configs':
             sp.sp_stage_font_configs(project, a.variant)
         else:
-            sp.sp_stage_baseline_atlas(project, a.variant, a.answer_key.resolve(), a.taiwan_answer_key.resolve(),
-                                       a.simplified_answer_key.resolve())
+            sp.sp_stage_baseline_atlas(project, a.variant, *keys)
         return
     editions = set(a.editions.split(','))
     if 'sp' in editions and editions != {'sp'}:
@@ -181,8 +191,6 @@ def main() -> None:
         run_stage(project, a.variant, 'font-configs')
         if a.frontend_receipts:
             keys = awaited_answer_keys(a.frontend_receipts.resolve(), a.variant)()
-        else:
-            keys = (a.answer_key.resolve(), a.taiwan_answer_key.resolve(), a.simplified_answer_key.resolve())
         sys.stdout.flush()
         run_stage(project, a.variant, 'baseline-atlas', keys)
         from srwz.sp_edition import locked_sp_inputs

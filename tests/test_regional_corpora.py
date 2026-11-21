@@ -82,17 +82,57 @@ class RegionalCorpusTests(unittest.TestCase):
                 picture = stage_titles.title_entries()['episode-title/013']
             self.assertEqual(picture['translation'], tw['episode-title/013']['translation'])
 
-    def test_hong_kong_edit_invalidates_only_its_own_capture(self):
+    def test_hong_kong_sp_waits_only_for_its_own_frontend(self):
+        from language_view import awaited_answer_keys
+        with tempfile.TemporaryDirectory() as tmp, patch.dict('os.environ', SRWZ_FREEZE_SP_PICTURES='0'):
+            receipts = Path(tmp)
+            (receipts / 'zh-hant-hk.json').write_text(json.dumps({'workspace': 'work/test-hk'}))
+            (receipts / 'abort').touch()
+            own, taiwan, simplified = awaited_answer_keys(receipts, 'hk')()
+            self.assertEqual(own, ROOT / 'work/test-hk/work/build/zh-release-full-story/components')
+            self.assertIsNone(taiwan)
+            self.assertIsNone(simplified)
+
+    def test_shared_episode_title_input_excludes_dialogue_in_same_file(self):
+        from srwz.language import shared_episode_titles
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root / 'corpus/zh-hant/special-disc/frame-text.json'
+            path.parent.mkdir(parents=True)
+            title = {'category': 'episode-title', 'translation': '章節'}
+            dialogue = {'category': 'vt1-page', 'translation': '台灣'}
+            path.write_text(json.dumps({'entries': [title, dialogue]}))
+            self.assertEqual(shared_episode_titles(root), [title])
+            dialogue['translation'] = '另一句'
+            path.write_text(json.dumps({'entries': [title, dialogue]}))
+            self.assertEqual(shared_episode_titles(root), [title])
+
+    def test_capture_uses_own_text_and_explicit_shared_picture_inputs(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             for tree in SOURCE_ROOTS:
                 (root / tree).mkdir(parents=True)
-            path = root / 'corpus/zh-hant-hk/a.json'
-            path.parent.mkdir()
-            path.write_text('[]')
-            self.assertFalse(source_inventory(root, language=''))
-            self.assertFalse(source_inventory(root, language='zh-hant-tw'))
-            self.assertEqual(source_inventory(root, language='zh-hant-hk')[0]['path'], 'corpus/zh-hant-hk/a.json')
+            def write(path, data):
+                target = root / path
+                target.parent.mkdir(exist_ok=True, parents=True)
+                target.write_text(json.dumps(data))
+            manifest = 'config/zh-hant/hk-uses-taiwan.json'
+            write(manifest, {'files': ['picture.json']})
+            owners = {}
+            for region, tree in [('sc', 'zh'), ('tw', 'zh-hant'), ('hk', 'zh-hant-hk')]:
+                suffix = '' if region == 'sc' else '-' + tree
+                for group in [tree, 'glossary' + suffix, 'runtime' + suffix]:
+                    owners[f'corpus/{group}/text.json'] = {region}
+                config = 'config/products/special-disc/runtime-text.json'
+                path = config if region == 'sc' else f'config/zh-hant/sp-configs/{region}/{config}'
+                owners[path] = {region}
+            owners['corpus/zh-hant/picture.json'] = {'tw', 'hk'}
+            owners['corpus/zh-hant/special-disc/frame-text.json'] = {'tw'}
+            for path in owners:
+                write(path, 'text')
+            for region, language in [('sc', ''), ('tw', 'zh-hant-tw'), ('hk', 'zh-hant-hk')]:
+                captured = {r['path'] for r in source_inventory(root, language=language)}
+                self.assertEqual(captured & owners.keys(), {p for p, regions in owners.items() if region in regions})
 
 
 class AssemblyReuseTests(unittest.TestCase):

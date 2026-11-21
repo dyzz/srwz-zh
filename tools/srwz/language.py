@@ -46,12 +46,53 @@ def _answer_key(root: Path, language: str, candidate: bool) -> Path:
     return key
 
 
+SP_REGIONAL_CONFIGS = ['config/editorial/special-disc/stage-context-reuse.json',
+                    'config/editorial/special-disc/stage-native-overrides.json',
+                    'config/products/special-disc/flow-layout.json',           # protected terms of the flow texts
+                    'config/editorial/special-disc/chart-episode-labels.json',
+                    'config/editorial/special-disc/chart-key-help.json',
+                    'config/editorial/special-disc/chart-z-ending-titles.json',
+                    'config/products/special-disc/shared-name-reference.json',   # Japanese name -> translations
+                    'config/products/special-disc/name-unification-20261017.json',
+                    'config/products/special-disc/event-gallery.json',             # 名场面集 scene names
+                    # styled layouts of the tutorial / Q&A pages: each language's own (records, lines, colour runs
+                    # and cells carry that language's text, at that language's lengths)
+                    'config/editorial/special-disc/instructions-layout.json',
+                    'config/products/special-disc/qa-layout.json',
+                    'config/products/special-disc/runtime-text.json',
+                    'config/products/special-disc/weapon-detail-labels.json',
+                    'config/products/special-disc/event-gallery-talk.json']
+
+
+def frontend_regions(region: str) -> tuple[str, ...]:
+    if os.environ.get("SRWZ_FREEZE_SP_PICTURES") == "1":
+        return tuple(dict.fromkeys((region, "tw", "sc")))
+    return (region,)
+
+
+def frontend_options(region, keys):
+    options = ["--answer-key", str(keys[region])]
+    if os.environ.get("SRWZ_FREEZE_SP_PICTURES") == "1":
+        options.extend(["--taiwan-answer-key", str(keys["tw"]), "--simplified-answer-key", str(keys["sc"])])
+    return options
+
+
+def shared_episode_titles(root):
+    source = load_json(root / "corpus/zh-hant/special-disc/frame-text.json")
+    return [row for row in source["entries"] if row["category"] == "episode-title"]
+
+
 def view_identity(root: Path, language: str, editions: tuple[str, ...], *, candidate: bool = False) -> str:
     """What a view depends on besides the captured inputs: for SP, the Original builds it reads."""
     if "sp" not in editions:
         return ",".join(editions)
     parts = []
-    for other in dict.fromkeys((language, "zh-hant-tw", "")):
+    if language == "zh-hant-hk":
+        import hashlib
+        data = json.dumps(shared_episode_titles(root), sort_keys=True).encode()
+        parts.append(hashlib.sha256(data).hexdigest())
+    for region in frontend_regions(VIEWS[language][1]):
+        other = "" if region == "sc" else "zh-hant-" + region
         name = ("candidate" if candidate else "current") + (f"-{other}" if other else "")
         receipt = root / f"manifests/editions/original/{name}.json"
         if not receipt.is_file():
@@ -70,9 +111,9 @@ def make_view(root: Path, language: str, editions: tuple[str, ...], *, candidate
         command = [language_python(root), str(root / tool), str(project),
                    "--variant", variant, "--editions", ",".join(editions)]
         if "sp" in editions:
-            command += ["--answer-key", str(_answer_key(root, language, candidate)),
-                        "--taiwan-answer-key", str(_answer_key(root, "zh-hant-tw", candidate)),
-                        "--simplified-answer-key", str(_answer_key(root, "", candidate))]
+            keys = {r: _answer_key(root, "" if r == "sc" else "zh-hant-" + r, candidate)
+                    for r in frontend_regions(variant)}
+            command += frontend_options(variant, keys)
         environment = os.environ.copy()
         environment.setdefault("SRWZ_COMPRESSION_CACHE", str(root / "work/cache/compression"))
         if "sp" in editions and os.environ.get("SRWZ_REHASH", "0") in ("", "0"):
