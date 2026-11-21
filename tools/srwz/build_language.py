@@ -10,16 +10,60 @@ from __future__ import annotations
 
 import json
 from functools import lru_cache
+import hashlib
+import os
 from pathlib import Path
+import sys
 
 LITERALS = Path("config/zh-hant/readback-literals.json")
+# The dictionary is made from every string of the parallel corpora, so its bytes change with any edited line,
+# while a build step asks it for a handful of fixed strings. A step being recorded (srwz.step_memo) is told
+# which entries were asked for and what they answered; the file as a whole is then not one of its reads.
+_TRACED = bool(os.environ.get("SRWZ_STEP_TRACE"))
+
+
+# Every entry a build process asks the dictionary for is also noted in the project it builds
+# (ASKED/<process>.jsonl, one selector per line). The next build of an edited corpus compares exactly those
+# entries between its dictionary and the previous one to decide whether the previous run's component caches
+# still stand (srwz.edition_incremental): the file as a whole differs after any edited line.
+ASKED = Path("work/cache/editions/literals-asked")
+ASKED_COMPLETE = "complete.json"
+_NOTED: set = set()
+_NOTES: dict = {}
+
+
+def _note(project_root: str, selector: list) -> None:
+    process = (os.getpid(), project_root)
+    line = json.dumps(selector, ensure_ascii=False)
+    if (process, line) in _NOTED:
+        return
+    _NOTED.add((process, line))
+    descriptor = _NOTES.get(process)
+    if descriptor is None:
+        directory = Path(project_root) / ASKED
+        directory.mkdir(parents=True, exist_ok=True)
+        descriptor = _NOTES[process] = os.open(directory / f"{os.getpid()}-{os.urandom(4).hex()}.jsonl",
+                                                os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o644)
+    os.write(descriptor, (line + "\n").encode("utf-8"))
+
+
+def _asked(project_root: str, selector: list, value) -> None:
+    if selector[0] != "?exists":
+        _note(project_root, selector)
+    if _TRACED:
+        digest = hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+        sys.audit("srwz.lookup", str(Path(project_root) / LITERALS), json.dumps(selector, ensure_ascii=False), digest)
 
 
 @lru_cache(maxsize=None)
 def _document(project_root: str) -> dict | None:
     path = Path(project_root) / LITERALS
     if not path.is_file():
+        _asked(project_root, ["?exists"], False)
         return None
+    _asked(project_root, ["?exists"], True)
+    if _TRACED:
+        sys.audit("srwz.keyed", str(path))          # the read that follows is answered entry by entry
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -32,9 +76,50 @@ def expected_literal(text, project_root: Path):
     literals = _literals(str(project_root))
     if literals is None or not isinstance(text, str) or not any("㐀" <= c <= "鿿" for c in text):
         return text
+    _asked(str(project_root), ["literals", text], literals.get(text))
     if text not in literals:
+        ambiguous = (_document(str(project_root)) or {}).get("ambiguous", {})
+        if text in ambiguous:
+            raise ValueError(f"readback literal {text!r} is translated more than one way {ambiguous[text]}: "
+                             "check the language's own text at that place (expected_at)")
         raise ValueError(f"readback literal has no Traditional counterpart: {text!r}")
     return literals[text]
+
+
+def expected_at(text: str, stored, project_root: Path):
+    """The readback target of one place: the build's own text stored there (`stored`, read from the corpus
+    document at that place). A Simplified build stores the literal itself; a Traditional build stores one of the
+    literal's Traditional counterparts, or such a counterpart cut to a fixed slot (智慧女神 for 智慧女神號). Any
+    other stored value is an error, so a literal translated several ways is still checked, place by place."""
+    document = _document(str(project_root))
+    if document is None or not isinstance(text, str) or not any("㐀" <= c <= "鿿" for c in text):
+        if stored != text:
+            raise ValueError(f"stored text {stored!r} is not the readback literal {text!r}")
+        return text
+    _asked(str(project_root), ["literals", text], document["literals"].get(text))
+    _asked(str(project_root), ["ambiguous", text], document.get("ambiguous", {}).get(text))
+    allowed = ([document["literals"][text]] if text in document["literals"] else []) + document.get("ambiguous", {}).get(text, [])
+    if not allowed:
+        raise ValueError(f"readback literal has no Traditional counterpart: {text!r}")
+    if isinstance(stored, str) and stored and any(a == stored or a.startswith(stored) for a in allowed):
+        return stored
+    raise ValueError(f"stored text {stored!r} is none of the Traditional counterparts of {text!r}: {allowed}")
+
+
+class AskedLiterals:
+    """The literal dictionary for code that tests and takes arbitrary strings (config localisation): each
+    string asked is one recorded entry, like expected_literal."""
+
+    def __init__(self, project_root: Path):
+        self._root = str(project_root)
+        self._literals = _literals(self._root) or {}
+
+    def __contains__(self, key) -> bool:
+        _asked(self._root, ["literals", key], self._literals.get(key))
+        return key in self._literals
+
+    def __getitem__(self, key):
+        return self._literals[key]
 
 
 def expected_literals(expectations: dict, project_root: Path) -> dict:
@@ -58,6 +143,9 @@ def expected_characters(text, project_root: Path):
     document = _document(str(project_root))
     if document is None or not isinstance(text, str):
         return text
+    _asked(str(project_root), ["literals", text], document["literals"].get(text))
     if text in document["literals"]:
         return document["literals"][text]
+    for c in dict.fromkeys(text):
+        _asked(str(project_root), ["characters", c], document["characters"].get(c))
     return "".join(document["characters"].get(c, c) for c in text)

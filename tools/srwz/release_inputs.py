@@ -59,13 +59,45 @@ def copy_file(source: Path | str, target: Path | str) -> str:
     source, target = Path(source), Path(target)
     target.parent.mkdir(parents=True, exist_ok=True)
     if source.stat().st_size >= 1024 * 1024 and sys.platform == "darwin":
-        result = subprocess.run(["cp", "-c", str(source), str(target)], capture_output=True)
-        if result.returncode == 0:
+        if _clonefile(source, target):
             shutil.copystat(source, target)
             record_clone(source, target)
             return str(target)
-    shutil.copy2(source, target)
+    try:
+        shutil.copy2(source, target)
+    except PermissionError:
+        # A read-only file of an earlier copy (a git pack in a seeded toolchain) is being replaced, not edited.
+        if not target.is_file() or target.is_symlink():
+            raise
+        target.unlink()
+        shutil.copy2(source, target)
     return str(target)
+
+
+_CLONEFILE = None
+
+
+def _clonefile(source: Path, target: Path) -> bool:
+    """APFS clone by the system call `cp -c` makes (no process per file); False when it cannot clone."""
+    global _CLONEFILE
+    if _CLONEFILE is None:
+        try:
+            import ctypes
+            import ctypes.util
+            function = ctypes.CDLL(ctypes.util.find_library("c"), use_errno=True).clonefile
+            function.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+            function.restype = ctypes.c_int
+            _CLONEFILE = function
+        except (OSError, AttributeError):
+            _CLONEFILE = False
+    sys.audit("srwz.clonefile", str(source), str(target))     # a read of source (srwz.step_memo's record)
+    if _CLONEFILE:
+        if target.is_symlink() or target.exists():
+            target.unlink()          # clonefile does not replace; cp -c did
+        if _CLONEFILE(os.fsencode(source.resolve()), os.fsencode(target), 0) == 0:
+            return True
+    result = subprocess.run(["cp", "-c", str(source), str(target)], capture_output=True)
+    return result.returncode == 0
 
 
 def source_inventory(root: Path, additional_paths: tuple[str, ...] = (), *, language: str | None = None) -> list[dict]:

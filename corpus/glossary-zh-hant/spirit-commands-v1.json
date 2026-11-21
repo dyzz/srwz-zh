@@ -24,7 +24,7 @@
       "source_terms": [
         "集中"
       ],
-      "translation": "集中",
+      "translation": "專注",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -32,7 +32,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "一回合内提高命中率与回避率。"
+      "notes": "一回合内提高命中率与回避率。",
+      "deprecated_translations": [
+        "集中"
+      ]
     },
     {
       "id": "spirit/sure-hit",
@@ -69,7 +72,7 @@
       "source_terms": [
         "ひらめき"
       ],
-      "translation": "必閃",
+      "translation": "閃身",
       "category": "system",
       "status": "approved",
       "domains": [
@@ -77,7 +80,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "一次战斗中完全回避敌方攻击；本项目统一采用“必闪”。"
+      "notes": "一次战斗中完全回避敌方攻击；本项目统一采用“必闪”。",
+      "deprecated_translations": [
+        "必閃"
+      ]
     },
     {
       "id": "spirit/indomitable",
@@ -114,7 +120,7 @@
       "source_terms": [
         "根性"
       ],
-      "translation": "根性",
+      "translation": "毅力",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -122,7 +128,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "回复自身 30% 最大 HP。"
+      "notes": "回复自身 30% 最大 HP。",
+      "deprecated_translations": [
+        "根性"
+      ]
     },
     {
       "id": "spirit/great-guts",
@@ -324,7 +333,7 @@
       "source_terms": [
         "気合"
       ],
-      "translation": "氣合",
+      "translation": "氣勢",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -332,7 +341,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "提高自身气力 10；保留系列常用汉字术语。"
+      "notes": "提高自身气力 10；保留系列常用汉字术语。",
+      "deprecated_translations": [
+        "氣合"
+      ]
     },
     {
       "id": "spirit/drive",
@@ -399,7 +411,7 @@
       "source_terms": [
         "脱力"
       ],
-      "translation": "脫力",
+      "translation": "乏力",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -407,7 +419,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "降低一个敌方小队全体驾驶员的气力。"
+      "notes": "降低一个敌方小队全体驾驶员的气力。",
+      "deprecated_translations": [
+        "脫力"
+      ]
     },
     {
       "id": "spirit/disrupt",
@@ -488,14 +503,17 @@
       "source_terms": [
         "応援"
       ],
-      "translation": "應援",
+      "translation": "聲援",
       "category": "system",
       "status": "approved",
       "domains": [
         "menu"
       ],
       "enforce": true,
-      "notes": "本轮人工审核定稿为“应援”；提高指定友方小队全体气力并赋予祝福、应援和友情。"
+      "notes": "本轮人工审核定稿为“应援”；提高指定友方小队全体气力并赋予祝福、应援和友情。",
+      "deprecated_translations": [
+        "應援"
+      ]
     },
     {
       "id": "spirit/resupply",

@@ -748,6 +748,14 @@ def main() -> int:
             kind=CACHE_KIND, paths=_chain_cache_inventory(chain), metadata=cache_metadata)
         print(f"[OK] complete component set: {report['total_seconds']}s; runtime=pending")
         return 0
+    # Every consumer runs from here on: what the Traditional build's dictionary is asked for is noted afresh,
+    # and the notes are marked complete once the whole chain has passed (srwz.build_language,
+    # srwz.edition_incremental).
+    from srwz.build_language import ASKED, ASKED_COMPLETE
+    asked = PROJECT_ROOT / ASKED
+    if asked.is_dir():
+        for path in asked.iterdir():
+            path.unlink()
     if not args.skip_fetch:
         _run("tools/fetch_zh_font.py", "--flavor", chain["font_flavor"])
     refresh = ["--refresh-manifest"] if args.refresh_manifests else []
@@ -839,6 +847,8 @@ def main() -> int:
             f"files={cache['file_count']}",
             f"bytes={cache['byte_count']}",
         )
+        asked.mkdir(parents=True, exist_ok=True)
+        (asked / ASKED_COMPLETE).write_text('{"schema_version": 1}\n', encoding="utf-8")
     return 0
 
 

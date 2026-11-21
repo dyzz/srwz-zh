@@ -72,6 +72,45 @@ class IncrementalSeedTests(unittest.TestCase):
             self.assertTrue(seed_text_update(self.context,SimpleNamespace(files=self.files)))
         self.assertEqual((self.target/'build/iso/zh-release-full-story/current-original.iso').read_bytes(),b'current-original.iso')
 
+    def test_refused_component_seed_still_carries_the_iso_baseline(self):
+        for name in ('current-original.iso','iso-validation-current.json','iso-validation-current.incremental.json'):
+            p=self.source/'build/iso/zh-release-full-story'/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(name.encode())
+        rows=[dict(r,sha256='changed') if r['path']=='config/derived.json' else r for r in self.files]
+        self.assertFalse(seed_text_update(self.context,SimpleNamespace(files=rows)))
+        self.assertEqual((self.target/'build/iso/zh-release-full-story/current-original.iso').read_bytes(),b'current-original.iso')
+        self.assertFalse((self.target/'config').exists())      # no generated metadata, no component caches
+
+    def literals(self, where, literals):
+        path = 'config/zh-hant/readback-literals.json'
+        self.write(f'build/editions/{where}/project/{path}',
+                   {'schema_version': 1, 'literals': literals, 'characters': {'机': '機'}})
+        file = self.root / f'build/editions/{where}/project/{path}'
+        return {'path': path, 'sha256': sha256_file(file), 'size': file.stat().st_size}
+
+    def test_dictionary_edit_seeds_only_while_every_asked_entry_answers_the_same(self):
+        old = self.literals('previous', {'空专用': '空專用', '我可不会输': '我可不會輸'})
+        self.files.append(old)
+        self.write('work/build/shared/old/inputs.json', {'files': self.files})
+        asked = self.source / 'work/cache/editions/literals-asked'
+        asked.mkdir(parents=True)
+        (asked / '1-aa.jsonl').write_text('["literals", "空专用"]\n["characters", "机"]\n', encoding='utf-8')
+        (asked / '2-bb.jsonl').write_text('["literals", "空专用"]\n["literals", "没有这条"]\n', encoding='utf-8')
+
+        def attempt(literals):
+            new = self.literals('next', literals)
+            rows = [new if r['path'] == new['path'] else r for r in self.files]
+            with patch('srwz.edition_incremental.seed_original_caches'):
+                return seed_text_update(self.context, SimpleNamespace(files=rows))
+
+        edited = {'空专用': '空專用', '我可不会输': '我才不會輸'}
+        self.assertFalse(attempt(edited))                    # notes not marked complete: the file as a whole decides
+        (asked / 'complete.json').write_text('{}')
+        self.assertTrue(attempt(edited))                     # an entry nobody asked for changed
+        self.assertEqual(sorted(p.name for p in (self.target / 'work/cache/editions/literals-asked').iterdir()),
+                         ['carried.jsonl', 'complete.json'])
+        self.assertFalse(attempt({'空专用': '空専用', '我可不会输': '我可不會輸'}))    # an asked entry changed
+        self.assertFalse(attempt({**edited, '没有这条': '沒有這條'}))                 # an asked, absent entry appeared
+
     def test_corrupt_generated_metadata_rejects_seed(self):
         (self.source/'config/derived.json').write_text('{}')
         self.assertFalse(seed_text_update(self.context,SimpleNamespace(files=self.files)))

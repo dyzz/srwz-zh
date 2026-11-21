@@ -19,7 +19,7 @@ from srwz.archive import sha256_file
 from srwz.build_layout import PROSE_HANGING_PX, prose_widths
 from srwz import continuation_indent
 from srwz import protagonist_profile
-from srwz.build_language import corpus_language, expected_characters, expected_literal
+from srwz.build_language import corpus_language, expected_at, expected_characters, expected_literal
 from srwz.typography_policy import candidate_enabled as compact_typography_enabled
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
@@ -458,6 +458,19 @@ def _glyph_text(text: str) -> str:
 
 def _expected_values(expectations: dict) -> dict:
     return {key: _expected_text(value) for key, value in expectations.items()}
+
+
+def _expected_at(expectations: dict, stored: dict) -> dict:
+    """Readback targets read at their places: each place's own stored text (this build's corpus document), which
+    must be the place's literal or one of its counterparts in this build's language (srwz.build_language.expected_at).
+    Use it where one Simplified word is translated differently by place (集中: spirit command / formation)."""
+    result = {}
+    for key, literal in expectations.items():
+        try:
+            result[key] = expected_at(literal, stored.get(key), PROJECT_ROOT)
+        except ValueError as error:
+            raise SystemExit(f"{key}: {error}") from error
+    return result
 
 
 def _release_font_capacity():
@@ -3007,7 +3020,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
         for offset in map_formation_name_expectations
-    } != _expected_values(map_formation_name_expectations):
+    } != _expected_at(map_formation_name_expectations, remaining_document["slps_by_offset"]):
         raise SystemExit("map formation-name offset contract drift")
     weapon_effect_1_expectations = {
         "0x3462A0": "SP降低（P系）",
@@ -3035,7 +3048,7 @@ def verify_final_compdata(
     if {
         offset: remaining_document["compdata_direct_by_offset"].get(offset)
         for offset in squad_formation_name_expectations
-    } != _expected_values(squad_formation_name_expectations):
+    } != _expected_at(squad_formation_name_expectations, remaining_document["compdata_direct_by_offset"]):
         raise SystemExit("squad formation-name offset contract drift")
     spirit_acronym_expectations = {
         "0x343FB0": "热魂闪不铁集必加迅觉手狙直努乱分",
@@ -3592,15 +3605,20 @@ def verify_post_release_runtime_surfaces(
         0x31B6EC: "永恒号",
         0x31B700: "拉迪修",
     }
-    expected_auto_roots = _expected_values(expected_auto_roots)
+    # Read at their places: a regional name longer than the fixed slot is stored cut to it (智慧女神 for
+    # 智慧女神號), and expected_at accepts exactly that.
+    expected_auto_roots = _expected_at(
+        expected_auto_roots,
+        {offset: remaining_document["slps_by_offset"].get(f"0x{offset:X}") for offset in expected_auto_roots},
+    )
     auto_root_readbacks = {}
     for offset, translation in expected_auto_roots.items():
         raw_offset = f"0x{offset:X}"
         source = decode_text(original_slps, offset, source_table)
         actual = decode_text(slps, offset, output_table, end=offset + source.consumed)
+        stored = remaining_document["slps_by_offset"].get(raw_offset)
         if (
-            remaining_document["slps_by_offset"].get(raw_offset)
-            != translation
+            stored != translation
             or actual.text != translation
             or actual.consumed > source.consumed
         ):

@@ -10,17 +10,14 @@ Each entry (object with an "id" or an "entry_index") carries
     zh_hant_status   draft (machine, may be redrafted) | edited (changed by hand) | reviewed (approved)
 Documents without entries carry the same two fields in a top-level "zh_hant_meta".
 
-Sync rules, per entry:
-    missing                                 -> draft from the Simplified entry
-    hash unchanged                          -> kept
-    hash changed, status draft              -> redrafted
-    hash changed, status edited / reviewed  -> kept, listed as stale (needs review); never overwritten
-Drafts come from config/zh-hant/bootstrap.json: an OpenCC base conversion (character standard only) plus
-term substitutions protected through it. Every document then gets the Taiwan vocabulary of
-config/zh-hant/regional-terms.json (tools/zh_hant/regional_terms.py), bound to the Simplified and Japanese text. Japanese sources, notes, ids and hashes stay verbatim; strings
-containing kana are treated as Japanese.
+Every language's text is static and maintained by hand: nothing here drafts or converts. Check, per entry:
+    missing     a Simplified entry, field or file the regional tree lacks
+    stale       the Simplified entry changed since the regional one was written (follow it by hand, then set
+                zh_hans_sha256: tools/zh_hant/port_sc_changes.py lists them with the old and new Simplified text)
+    orphan      a regional file with no Simplified counterpart
+for Taiwan (corpus/*-zh-hant) and Hong Kong (corpus/*-zh-hant-hk).
 
-Usage: sync_corpus.py [--check]    (--check: report only, exit 1 when anything is missing or stale)
+Usage: sync_corpus.py [--check]    (report; exit 1 when anything is missing, stale or orphaned)
 Report: build/zh-hant/sync-report.json
 """
 from __future__ import annotations
@@ -33,7 +30,6 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import regional_terms  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 TREES = [('corpus/zh', 'corpus/zh-hant', set()),
@@ -61,53 +57,11 @@ def sha(value) -> str:
     return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True).encode('utf-8')).hexdigest()
 
 
-class Drafter:
-    def __init__(self, bootstrap: Path):
-        from importlib.metadata import PackageNotFoundError, version
-        try:
-            installed = version('OpenCC')
-        except PackageNotFoundError:
-            installed = None
-        if installed != '1.4.2':
-            raise SystemExit('Install OpenCC==1.4.2 in SRWZ_LANGUAGE_PYTHON to use the verified s2tw dictionary')
-        import opencc
-        cfg = json.loads(bootstrap.read_text(encoding='utf-8'))
-        self.cc = opencc.OpenCC(cfg['opencc'])
-        self.terms = sorted(((t['sc'], t['tc']) for t in cfg['terms']), key=lambda t: -len(t[0]))
-        self.frozen = FROZEN_KEYS              # per tree (main() widens it for the SP corpus)
-
-    def text(self, s: str) -> str:
-        if not HAN.search(s) or KANA.search(s):
-            return s
-        source = s
-        slots = []
-        # numeric template keys (＜ｔｍ＞撃墜数＜／ｔｍ＞) are lookup data the executable matches byte for byte
-        for m in TM_SCOPE.findall(s):
-            s = s.replace(m, chr(PRIVATE + len(slots)), 1); slots.append(m)
-        for sc, tc in self.terms:
-            if sc in s:
-                s = s.replace(sc, chr(PRIVATE + len(slots))); slots.append(tc)
-        out = self.cc.convert(s)
-        for i, tc in enumerate(slots):
-            out = out.replace(chr(PRIVATE + i), tc)
-        return regional_terms.apply_string(source, out, regional_terms.DRAFT, 'tw')
-
-    def value(self, v, key=None):
-        if isinstance(v, str):
-            return v if key in self.frozen else self.text(v)
-        if isinstance(v, list):
-            return [self.value(x, key) for x in v]
-        if isinstance(v, dict):
-            return {k: (x if k in self.frozen or k.endswith('_sha256') or k in META else self.value(x, k)) for k, x in v.items()}
-        return v
-
-
 def translation_view(entry: dict) -> dict:
     """The part of a Simplified entry a Traditional entry is written against (no JP source, no notes)."""
     return {k: v for k, v in entry.items() if k not in FROZEN_KEYS and not k.endswith('_sha256') and k not in META}
 
 
-REDRAFT = False
 KEY_FIELDS = ('id', 'entry_index')          # main() adds 'source' for the SP corpus (terrain names have no id)
 
 
@@ -125,91 +79,85 @@ def strip_meta(doc):
     return doc
 
 
-def sync_document(sc: dict, tc: dict | None, drafter: Drafter, rel: str, report: dict):
-    out = _sync_document(sc, tc, drafter, rel, report)
-    if isinstance(out, dict) and isinstance(sc, dict) and sc.get('language') == 'zh-Hans':
-        out['language'] = 'zh-Hant'                 # the document's own tag; the build checks it (srwz.build_language)
+def hk_skips(src_root: str, rel) -> bool:
+    """corpus/zh files Hong Kong takes from Taiwan (config/zh-hant/hk-uses-taiwan.json): no Hong Kong copy."""
+    if src_root != 'corpus/zh':
+        return False
+    path = ROOT / 'config/zh-hant/hk-uses-taiwan.json'
+    return path.exists() and str(rel) in json.loads(path.read_text(encoding='utf-8'))['files']
+
+
+def stale_entries(region: str) -> list[dict]:
+    """Regional entries whose Simplified entry changed since they were written (no OpenCC needed)."""
+    global KEY_FIELDS
+    out = []
+    for src_root, dst_root, excluded in TREES:
+        dst_root = dst_root + ('-hk' if region == 'hk' else '')
+        for f in sorted((ROOT / src_root).rglob('*.json')):
+            rel = f.relative_to(ROOT / src_root)
+            target = ROOT / dst_root / rel
+            if rel.parts[0] in excluded or not target.exists() or (region == 'hk' and hk_skips(src_root, rel)):
+                continue
+            KEY_FIELDS = ('id', 'entry_index', 'source') if rel.parts[0] == SP_TREE and src_root == 'corpus/zh' else ('id', 'entry_index')
+            src = json.loads(f.read_text(encoding='utf-8')); tc = json.loads(target.read_text(encoding='utf-8'))
+            if isinstance(src, dict) and isinstance(src.get('entries'), list):
+                by = {json.dumps(entry_key(e), ensure_ascii=False): e for e in src['entries'] if entry_key(e) is not None}
+                for e in tc.get('entries', []):
+                    k = entry_key(e); s_e = by.get(json.dumps(k, ensure_ascii=False))
+                    if s_e is not None and e.get('zh_hans_sha256') != sha(translation_view(s_e)):
+                        out.append({'file': f'{dst_root}/{rel}', 'id': k, 'status': e.get('zh_hant_status')})
+            else:
+                meta = tc.get('zh_hant_meta') if isinstance(tc, dict) else None
+                if meta and meta.get('zh_hans_sha256') != sha(translation_view(src) if isinstance(src, dict) else src):
+                    out.append({'file': f'{dst_root}/{rel}', 'id': None, 'status': meta.get('zh_hant_status')})
     return out
 
 
-def _sync_document(sc: dict, tc: dict | None, drafter: Drafter, rel: str, report: dict):
-    if isinstance(sc, dict) and isinstance(sc.get('entries'), list):
-        old = {entry_key(e): e for e in (tc or {}).get('entries', []) if entry_key(e) is not None}
-        head = drafter.value({k: v for k, v in sc.items() if k != 'entries'})
-        # Render outputs locked to the Traditional pixels (output_*: written by tools/zh_hant/author_*.py) belong
-        # to the Traditional document; a redraft of the header keeps them.
-        head.update({k: v for k, v in (tc or {}).items() if k.startswith('output_') and k in head})
-        entries = []
-        for e in sc['entries']:
-            key, want = entry_key(e), sha(translation_view(e))
-            prev = old.pop(key, None)
-            if prev is None:
-                new = drafter.value(e); new.update(zh_hans_sha256=want, zh_hant_status='draft')
-                report['drafted' if key is not None else 'unkeyed_drafted'] += 1
-            elif prev.get('zh_hans_sha256') == want and not (REDRAFT and prev.get('zh_hant_status', 'draft') == 'draft'):
-                new = prev; report['kept'] += 1
-            elif prev.get('zh_hant_status', 'draft') == 'draft':
-                new = drafter.value(e); new.update(zh_hans_sha256=want, zh_hant_status='draft'); report['redrafted'] += 1
-            else:
-                new = prev; report['stale'].append({'file': rel, 'id': key, 'status': prev.get('zh_hant_status')})
-            if new.get('zh_hant_status') not in STATUSES: raise SystemExit(f'{rel} {key}: bad zh_hant_status')
-            entries.append(new)
-        report['removed'] += len(old)
-        return {**head, 'entries': entries}
-    want = sha(translation_view(sc) if isinstance(sc, dict) else sc)
-    meta = (tc or {}).get('zh_hant_meta') if isinstance(tc, dict) else None
-    if meta and meta.get('zh_hans_sha256') == want:
-        report['kept'] += 1; return tc
-    if meta and meta.get('zh_hant_status', 'draft') != 'draft':
-        report['stale'].append({'file': rel, 'id': None, 'status': meta.get('zh_hant_status')}); return tc
-    out = drafter.value(sc)
-    if isinstance(out, dict):
-        out['zh_hant_meta'] = {'zh_hans_sha256': want, 'zh_hant_status': 'draft'}
-    report['drafted' if not meta else 'redrafted'] += 1
+def missing_values(region: str) -> list[str]:
+    """Regional files that lack a file, record or field Simplified has (fill_corpora.fill finds them)."""
+    import fill_corpora
+    global KEY_FIELDS
+    out = []
+    for src_root, dst_root, excluded in TREES:
+        dst_root = dst_root + ('-hk' if region == 'hk' else '')
+        for f in sorted((ROOT / src_root).rglob('*.json')):
+            rel = f.relative_to(ROOT / src_root)
+            if rel.parts[0] in excluded or (region == 'hk' and hk_skips(src_root, rel)): continue
+            target = ROOT / dst_root / rel
+            if not target.exists():
+                out.append(f'{dst_root}/{rel} (file missing)'); continue
+            sp = rel.parts[0] == SP_TREE and src_root == 'corpus/zh'
+            keys = ('id', 'entry_index', 'source') if sp else ('id', 'entry_index')
+            old = json.loads(target.read_text(encoding='utf-8'))
+            if fill_corpora.fill(json.loads(f.read_text(encoding='utf-8')), old, keys=keys) != old:
+                out.append(f'{dst_root}/{rel}')
+    return out
+
+
+def orphans(region: str) -> list[str]:
+    out = []
+    for src_root, dst_root, excluded in TREES:
+        dst = ROOT / (dst_root + ('-hk' if region == 'hk' else ''))
+        for f in sorted(dst.rglob('*.json')) if dst.exists() else []:
+            if not (ROOT / src_root / f.relative_to(dst)).exists():
+                out.append(str(f.relative_to(ROOT)))
     return out
 
 
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    p.add_argument('--check', action='store_true')
-    p.add_argument('--redraft', action='store_true', help='re-draft every entry still in draft status (drafter rules changed)')
-    p.add_argument('--bootstrap', type=Path, default=ROOT / 'config/zh-hant/bootstrap.json')
-    a = p.parse_args()
-    global REDRAFT
-    REDRAFT = a.redraft
-    drafter = Drafter(a.bootstrap)
-    report = {'drafted': 0, 'unkeyed_drafted': 0, 'redrafted': 0, 'kept': 0, 'removed': 0, 'stale': [], 'files_written': 0}
-    for src_root, dst_root, excluded in TREES:
-        src, dst = ROOT / src_root, ROOT / dst_root
-        wanted = set()
-        for f in sorted(src.rglob('*.json')):
-            rel = f.relative_to(src)
-            if rel.parts[0] in excluded: continue
-            wanted.add(rel)
-            global KEY_FIELDS
-            sp = rel.parts[0] == SP_TREE and src_root == 'corpus/zh'
-            # review_history keeps earlier translations, which the font allocator also reads: draft them as well
-            drafter.frozen = (FROZEN_KEYS - {'review_history'}) | SP_FROZEN if sp else FROZEN_KEYS
-            KEY_FIELDS = ('id', 'entry_index', 'source') if sp else ('id', 'entry_index')
-            sc = json.loads(f.read_text(encoding='utf-8'))
-            target = dst / rel
-            tc = json.loads(target.read_text(encoding='utf-8')) if target.exists() else None
-            out = sync_document(sc, tc, drafter, f'{dst_root}/{rel}', report)
-            # Taiwan vocabulary (config/zh-hant/regional-terms.json) on every entry, whatever its status; idempotent
-            out = regional_terms.apply_doc(sc, out, 'tw', drafter.frozen, KEY_FIELDS, report.setdefault('regional', {}),
-                                          fixed=regional_terms.length_bound(f'{dst_root}/{rel}'))
-            text = json.dumps(out, ensure_ascii=False, indent=2) + '\n'
-            if not target.exists() or target.read_text(encoding='utf-8') != text:
-                report['files_written'] += 1
-                if not a.check:
-                    target.parent.mkdir(parents=True, exist_ok=True); target.write_text(text, encoding='utf-8')
-        for f in sorted(dst.rglob('*.json')) if dst.exists() else []:
-            if f.relative_to(dst) not in wanted:
-                report.setdefault('orphans', []).append(str(f.relative_to(ROOT)))
+    p.add_argument('--check', action='store_true', help='kept for compatibility: the tool only ever checks')
+    p.parse_args()
+    report = {}
+    for region in ('tw', 'hk'):
+        report[f'missing_{region}'] = missing_values(region)
+        report[f'stale_{region}'] = stale_entries(region)
+        report[f'orphans_{region}'] = orphans(region)
+    report['stale'] = report['stale_tw']               # older readers
     out = ROOT / 'build/zh-hant/sync-report.json'; out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    print(json.dumps({k: (len(v) if isinstance(v, list) else v) for k, v in report.items()}, ensure_ascii=False))
-    if a.check and (report['files_written'] or report['stale'] or report.get('orphans')):
+    print(json.dumps({k: len(v) for k, v in report.items() if k != 'stale'}, ensure_ascii=False))
+    if any(v for k, v in report.items() if k != 'stale'):
         sys.exit(1)
 
 

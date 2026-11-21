@@ -102,6 +102,30 @@ def verify_iso_ranges(before, after, patches):
     edges = [(0, 0)] + spans + [(size, size)]
     unowned, whole, count = hashlib.sha256(), hashlib.sha256(), 0
     block = 4 * 1024 * 1024
+    # A view laid over ``before`` reads every byte it did not store from ``before`` itself. Where none of its
+    # stored ranges reaches into the unowned bytes, they are the base's by construction: they are hashed from
+    # the one pass over the candidate and the base is not read a second time to compare them.
+    layered = (isinstance(after, ResourceView) and
+               (after.base is before or (isinstance(before, ResourceView) and isinstance(after.base, ResourceView)
+                                         and after.base.path == before.path and after.base.spans == before.spans
+                                         and after.base.size == before.size)
+                or (not isinstance(before, ResourceView) and not isinstance(after.base, ResourceView)
+                    and Path(after.base).resolve() == Path(before).resolve())))
+    if layered:
+        # Stored ranges may reach past the declared spans (a whole sector rewritten for a few changed bytes):
+        # those unowned bytes are compared with the base one by one; everything else needs no comparison.
+        reaching = [(max(at, start), min(at + length, end)) for at, length, _, _ in after.spans
+                    for (_, start), (end, _) in zip(edges, edges[1:]) if at < end and at + length > start]
+        if sum(b - a for a, b in reaching) > 256 * 1024 * 1024:
+            layered = False
+        else:
+            with before.open('rb') as left, after.open('rb') as right:
+                for a, b in reaching:
+                    while a < b:
+                        step = min(block, b - a)
+                        left.seek(a); right.seek(a)
+                        require(left.read(step) == right.read(step), f'unowned ISO range changed at {a:X}')
+                        a += step
     with before.open('rb') as left, after.open('rb') as right:
         for (_, start), (end, _) in zip(edges, edges[1:]):
             # Owned span before this unowned range: hash it from the candidate only.
@@ -112,15 +136,21 @@ def verify_iso_ranges(before, after, patches):
             left.seek(start)
             remaining = end - start
             while remaining:
-                a = left.read(min(block, remaining)); b = right.read(len(a))
-                require(bool(a) and a == b, f'unowned ISO range changed at {left.tell()-len(a):X}')
+                if layered:
+                    b = right.read(min(block, remaining)); require(bool(b), 'candidate ISO shorter than its base')
+                    a = b
+                else:
+                    a = left.read(min(block, remaining)); b = right.read(len(a))
+                    require(bool(a) and a == b, f'unowned ISO range changed at {left.tell()-len(a):X}')
                 remaining -= len(a); count += len(a); unowned.update(a); whole.update(b)
         while True:
             b = right.read(block)
             if not b: break
             whole.update(b)
     after_sha256 = whole.hexdigest()
-    if not isinstance(after, ResourceView):
+    if isinstance(after, ResourceView):
+        after.remember(after_sha256)
+    else:
         remember_digest(after, after_sha256, settled=True)
     return dict(bytes=count, sha256=unowned.hexdigest(), after_sha256=after_sha256)
 

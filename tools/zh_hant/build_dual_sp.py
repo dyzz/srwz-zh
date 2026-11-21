@@ -69,12 +69,55 @@ def sp_keep_sc(tc: Path) -> None:
 
 
 def sp_config_drafts(tc: Path, variant: str = 'tw') -> None:
-    from sync_corpus import FROZEN_KEYS, SP_FROZEN
-    drafter = bd.make_drafter(variant)
-    drafter.frozen = (FROZEN_KEYS - {'review_history'}) | SP_FROZEN | {'source_locks'}
-    for rel in SP_CONFIG_DRAFTS:
-        doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
-        bd.dump(tc / rel, drafter.value(doc))
+    """The regional SP configs are kept per language in config/zh-hant/sp-configs/<variant> (sp_configs.py): drafted
+    from Simplified once, then edited there. A build copies them; a stale or missing copy stops it."""
+    import shutil
+    import sp_configs
+    problems = [p for p in sp_configs.status() if p.startswith(f'{variant}:')]
+    if problems:
+        raise SystemExit('regional SP configs need attention:\n' + '\n'.join(problems))
+    for rel in sp_configs.stored_paths():
+        shutil.copyfile(sp_configs.STORE / variant / rel, tc / rel)
+    from locks import refresh_locks
+    print('SP regional configs placed:', len(sp_configs.stored_paths()), 'locks refreshed:',
+          refresh_locks(tc, SP_CONFIG_DRAFTS), flush=True)
+    sp_name_reference(tc, variant)
+
+
+def sp_name_reference(tc: Path, variant: str) -> None:
+    """SP's roster check compares every unit/pilot name on the disc with shared-name-reference.json. The disc takes
+    those names from this language's corpus (unit display names, story speakers, residual names), so the reference
+    takes them from the same place: each Simplified value becomes the regional value the corpus pairs it with."""
+    suffix = '' if variant == 'tw' else '-hk'
+    pairs: dict = {}
+    def add(sc, rg):
+        if isinstance(sc, str) and isinstance(rg, str) and sc and rg: pairs.setdefault(sc, set()).add(rg)
+    sc_u = json.loads((ROOT / 'corpus/zh/display-names/units-full.json').read_text(encoding='utf-8'))['segments']
+    rg_u = json.loads((ROOT / f'corpus/zh-hant{suffix}/display-names/units-full.json').read_text(encoding='utf-8'))['segments']
+    for a, b in zip(sc_u, rg_u):
+        for x, y in zip(a['translations'], b['translations']): add(x, y)
+    sc_s = {e['id']: e['translation'] for e in json.loads((ROOT / 'corpus/zh/story-speakers.json').read_text(encoding='utf-8'))['entries']}
+    for e in json.loads((ROOT / f'corpus/zh-hant{suffix}/story-speakers.json').read_text(encoding='utf-8'))['entries']:
+        add(sc_s.get(e['id']), e['translation'])
+    sc_r = json.loads((ROOT / 'corpus/zh/menu/remaining-ui.json').read_text(encoding='utf-8')).get('display_names_by_source_text', {})
+    rg_r = json.loads((ROOT / f'corpus/zh-hant{suffix}/menu/remaining-ui.json').read_text(encoding='utf-8')).get('display_names_by_source_text', {})
+    for k, v in sc_r.items(): add(v, rg_r.get(k))
+    rel = 'config/products/special-disc/shared-name-reference.json'
+    sc_doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
+    # names without a corpus pair: this language's stored reference (static, config/zh-hant/sp-configs/<variant>)
+    doc = json.loads((bd.ZH_HANT / 'sp-configs' / variant / rel).read_text(encoding='utf-8'))
+    changed = 0
+    for kind in ('units', 'pilots'):
+        for key, values in sc_doc[kind].items():
+            out = list(doc[kind][key])
+            for i, v in enumerate(values):
+                forms = pairs.get(v)
+                if forms and len(forms) == 1 and out[i] not in forms:
+                    out[i] = next(iter(forms)); changed += 1
+            doc[kind][key] = out
+    bd.dump(tc / rel, doc)
+    from locks import refresh_locks
+    print('SP name reference bound to the corpus names:', changed, 'locks refreshed:', refresh_locks(tc, [rel]), flush=True)
     from locks import refresh_locks
     print('SP config drafts:', len(SP_CONFIG_DRAFTS), 'locks refreshed:', refresh_locks(tc, SP_CONFIG_DRAFTS), flush=True)
 
@@ -173,7 +216,8 @@ def sp_weapon_categories(tc: Path, variant: str = 'tw') -> None:
     """SP's weapon-category labels are LUI/ORI immediates like Original's: Traditional label, re-encoded with the
     Traditional codebook (build_dual.reencode_weapon_categories on SP's own contract)."""
     import struct
-    drafter = bd.make_drafter(variant)
+    # the label text is this language's own (the readback literals of the clone, i.e. its parallel corpus), never a draft
+    literals = json.loads((tc / 'config/zh-hant/readback-literals.json').read_text(encoding='utf-8'))['literals']
     rel = 'config/products/special-disc/weapon-detail-labels.json'
     sc_doc = json.loads((ROOT / rel).read_text(encoding='utf-8'))
     doc = json.loads((tc / rel).read_text(encoding='utf-8'))
@@ -183,7 +227,9 @@ def sp_weapon_categories(tc: Path, variant: str = 'tw') -> None:
     pairs = {'melee': ((0, 2), (4, 5), (8, 9), (12, 14)), 'ranged': ((2, 3), (4, 6), (8, 10), (12, 14))}
     for site in doc['runtime_weapon_category_labels']['sites']:
         sc = sc_sites[site['id']]
-        site['translation'] = tc_text = drafter.text(sc['translation'])
+        if sc['translation'] not in literals:
+            raise SystemExit(f"SP weapon category {site['id']}: {sc['translation']!r} has no {variant} text in the corpus")
+        site['translation'] = tc_text = literals[sc['translation']]
         if len(tc_text) != len(sc['translation']): raise SystemExit(f"weapon category {site['id']}: length changes")
         out = bytearray(bytes.fromhex(sc['output_materialized_hex']))
         for i, (x, y) in enumerate(zip(sc['translation'], tc_text)):
@@ -208,7 +254,9 @@ SP_LOCALIZE = ['config/products/special-disc/weapon-detail-labels.json']
 
 
 def sp_localize(tc: Path) -> None:
-    literals = json.loads((tc / 'config/zh-hant/readback-literals.json').read_text(encoding='utf-8'))['literals']
+    sys.path.insert(0, str(ROOT / 'tools'))
+    from srwz.build_language import AskedLiterals
+    literals = AskedLiterals(tc)       # asked string by string: the dictionary changes with every edited line
     n = 0
     for rel in SP_LOCALIZE:
         doc = json.loads((tc / rel).read_text(encoding='utf-8'))
@@ -257,9 +305,19 @@ def sp_stage_titles(tc: Path) -> None:
     print('SP stage titles authored in Traditional; locks refreshed:', refresh_locks(tc, [rel]), flush=True)
 
 
-def sp_prepare(tc: Path, variant: str, answer_key: Path, tw_key: Path, sc_key: Path) -> None:
+def sp_prepare(tc: Path, variant: str, answer_key: Path, tw_key: Path, sc_key: Path, *, answer_keys=None) -> None:
     """SP's own Traditional inputs, in a project that already holds the language's corpus, codebook and menu
-    codebook (build_dual.prepare_tc / menu_codebook) and SP's support trees (work/build/special-disc, discs)."""
+    codebook (build_dual.prepare_tc / menu_codebook) and SP's support trees (work/build/special-disc, discs).
+    Two stages; language_view.py runs each as a process of its own so that srwz.step_memo can reuse them."""
+    sp_stage_font_configs(tc, variant)
+    if answer_keys is not None:
+        answer_key, tw_key, sc_key = answer_keys()
+    sp_stage_baseline_atlas(tc, variant, answer_key, tw_key, sc_key)
+
+
+def sp_stage_font_configs(tc: Path, variant: str) -> None:
+    """Everything that does not read an Original build: SP's font in the Traditional codebook, and the SP
+    configs and image labels rebound to the Traditional texts."""
     started = time.perf_counter()
     sp_keep_sc(tc)
     sp_font(tc)
@@ -273,6 +331,10 @@ def sp_prepare(tc: Path, variant: str, answer_key: Path, tw_key: Path, sc_key: P
     sp_weapon_categories(tc, variant)
     sp_localize(tc)
     print(f'[sp-view] configs-and-labels: {time.perf_counter()-started:.2f}s', flush=True)
+
+
+def sp_stage_baseline_atlas(tc: Path, variant: str, answer_key: Path, tw_key: Path, sc_key: Path) -> None:
+    """Everything that reads the Original builds: the inherited baseline, the assets bound to it and the atlas."""
     # SP's frozen baseline in Traditional: the September converters with the Traditional Original build as the
     # answer key (sp_tc_baseline.py), so inherited text comes from the same parallel corpus as Original.
     started = time.perf_counter()
@@ -324,6 +386,14 @@ def taiwan_data_link_literals():
     import ast, re
     src = (ROOT / 'tools/special_disc/writeback/data_link_bonus.py').read_text(encoding='utf-8')
     lines = ast.literal_eval(re.search(r'^PAGE_LINES = (\(.*?^\))', src, re.S | re.M).group(1))
-    tw_draft = bd.make_drafter('tw')
+    import tool_literals
     tw_lit = bd.literal_pairs(ROOT / 'corpus/zh', ROOT / 'corpus/zh-hant')
-    return {s: tw_lit.get(s) or tw_draft.text(s) for s in lines if s}
+    tw_tool = tool_literals.load('tw')
+    out = {}
+    for s in lines:
+        if not s: continue
+        t = tw_lit.get(s) or tw_tool.get(s)
+        if t is None:
+            raise SystemExit(f'Data Link line {s!r} has no Taiwan text (config/zh-hant/tool-literals/tw.json)')
+        out[s] = t
+    return out

@@ -119,6 +119,19 @@ class FileIdentityTests(unittest.TestCase):
         self.assertFalse(file_identity.record_clone(path, self.aged(clone, path.read_bytes())))
         self.assertEqual(file_identity.sha256_file(clone), hashlib.sha256(path.read_bytes()).hexdigest())
 
+    def test_digests_carried_to_clones_are_written_together(self):
+        source = self.aged(self.root / "big.bin", b"k" * (2 * 1024 * 1024))
+        expected = file_identity.sha256_file(source)
+        with patch.object(file_identity, "_flush_store", wraps=file_identity._flush_store) as writes:
+            clones = [Path(copy_file(source, self.root / f"clone-{n}.bin")) for n in range(40)]
+            self.assertEqual(writes.call_count, 0)              # not one rewrite of the store per clone
+            with patch.object(file_identity, "_hash_range", side_effect=AssertionError("re-hashed")):
+                self.assertEqual({file_identity.sha256_file(clone) for clone in clones}, {expected})
+            file_identity.flush_pending()
+            self.assertEqual(writes.call_count, 1)
+        clones[0].write_bytes(b"edited")                        # a clone is its own file
+        self.assertEqual(source.stat().st_size, 2 * 1024 * 1024)
+
 
 if __name__ == "__main__":
     unittest.main()

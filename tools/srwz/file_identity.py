@@ -28,6 +28,7 @@ every process hash every large file again; the in-process memo stays.
 
 from __future__ import annotations
 
+import atexit
 import fcntl
 import hashlib
 import json
@@ -131,11 +132,50 @@ def _lookup(key: str) -> dict | None:
     return record
 
 
-def _remember(key: str, stat: os.stat_result, record: dict) -> None:
+def _remember(key: str, stat: os.stat_result, record: dict, *, gather: bool = False) -> None:
     record["seen"] = int(time.time())
     _MEMO[key] = record
     if stat.st_size >= PERSIST_MIN_SIZE and _STORE_PATH is not None:
-        _flush_store({key: record})
+        if gather:
+            _queue_store(key, record, stat.st_size)
+        else:
+            # A digest this process hashed is written at once: the next process may need it.
+            flush_pending()
+            _flush_store({key: record})
+
+
+# Writing the store means reading, merging and rewriting the whole JSON file under a lock. A workspace is seeded
+# with hundreds of cloned files of a few MiB each, by several processes at once; the digests carried to those
+# clones (record_clone) are written together. A clone of a disc image is still written at once. A carried record
+# that is not yet written only costs a hash of that clone.
+_PENDING: dict[str, dict] = {}
+_PENDING_SINCE = 0.0
+PROMPT_FLUSH_SIZE = 64 * 1024 * 1024
+MAX_PENDING_ENTRIES = 256
+MAX_PENDING_SECONDS = 2.0
+
+
+def _queue_store(key: str, record: dict, size: int) -> None:
+    global _PENDING_SINCE
+    with _LOCK:
+        if not _PENDING:
+            _PENDING_SINCE = time.monotonic()
+        _PENDING[key] = record
+        if (size >= PROMPT_FLUSH_SIZE or len(_PENDING) >= MAX_PENDING_ENTRIES
+                or time.monotonic() - _PENDING_SINCE >= MAX_PENDING_SECONDS):
+            flush_pending()
+
+
+def flush_pending() -> None:
+    """Write the records gathered so far (also at exit, and before a child process that should see them)."""
+    with _LOCK:
+        if _PENDING:
+            entries = dict(_PENDING)
+            _PENDING.clear()
+            _flush_store(entries)
+
+
+atexit.register(flush_pending)
 
 
 def _stable(stat: os.stat_result, path: Path) -> bool:
@@ -223,7 +263,7 @@ def record_clone(source: Path | str, target: Path | str) -> bool:
         if stat.st_size != source.stat().st_size:
             return False
         record = {"sha256": known["sha256"], "ranges": dict(known.get("ranges", {}))}
-        _remember(identity_key(stat), stat, record)
+        _remember(identity_key(stat), stat, record, gather=True)
     return True
 
 
@@ -283,4 +323,5 @@ def forget_all() -> None:
     global _STORE, _STORE_LOADED_FOR
     with _LOCK:
         _MEMO.clear()
+        _PENDING.clear()
         _STORE, _STORE_LOADED_FOR = None, None

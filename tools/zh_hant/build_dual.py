@@ -21,7 +21,7 @@ Run directly, this file is the authoring side: it makes a prepared Traditional p
 Usage: build_dual.py [--variant tw|hk] [--update-codebook] [--author-textures]
   --update-codebook   append the characters the Traditional corpus needs to the codebook (config/zh-hant/ changes)
   --author-textures   re-author the Traditional pictures when their inputs changed (config/zh-hant/ changes)
-Needs a Python with opencc.
+Every language's text is static (maintained by hand); nothing here converts Simplified to Traditional.
 """
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ TREES = ['config', 'corpus', 'manifests', 'tools', 'vendor/upstream-python', 'sh
          'work/font-source', 'work/disc', 'work/toolchain', 'work/writeback']
 ZH_HANT = ROOT / 'config/zh-hant'
 sys.path.insert(0, str(HERE))
-from sync_corpus import strip_meta, FROZEN_KEYS, META  # noqa: E402
+from sync_corpus import strip_meta, FROZEN_KEYS, META, SP_FROZEN  # noqa: E402
 
 
 def run(*cmd, cwd=ROOT, check=True):
@@ -59,6 +59,10 @@ def prepared_project(name: str, variant: str = 'tw') -> Path:
     for tree in TREES:
         shutil.copytree(ROOT / tree, dst / tree, copy_function=copy_file,
                         ignore=shutil.ignore_patterns('__pycache__', 'target'))
+    # build products are skipped above ('target'), but the production codec binary is an input of the tools
+    codec = 'work/toolchain/srwz-compressor-rs/target/release/srwz-compress'
+    (dst / codec).parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT / codec, dst / codec)
     iso = (ROOT / 'rom/original.iso').resolve()
     for directory in ('rom', 'build/iso/sources'):      # both names the tools use for the source discs
         copy_file(iso, dst / directory / iso.name)
@@ -83,18 +87,18 @@ VARIANTS = {
     'tw': {'suffix': 'zh-hant', 'layout': ZH_HANT / 'text-layout'},
     'hk': {'suffix': 'zh-hant-hk', 'layout': ZH_HANT / 'text-layout-hk'},
 }
-# Texture sources: the two variants share one set of Traditional textures (user, 2026-11-18), so a Hong Kong clone
-# takes the Taiwan text of every file the textures are authored from (author_textures.py fingerprint inputs and the
-# chapter intertitles' render locks).
-TEXTURE_SOURCES_EXTRA = ['corpus/zh-hant/chapter-intertitles.json',
-                         # terrain names live in every map chunk of MAPMODEL (52 MB, compressed per chunk): two Hong
-                         # Kong forms (炮台, 台地) would need a second copy of the whole archive on the disc
-                         'corpus/zh-hant/menu/mapmodel-terrain-names.json']
+# Corpus files Hong Kong takes from Taiwan everywhere (one shared picture set, user 2026-11-21):
+# config/zh-hant/hk-uses-taiwan.json. corpus/zh-hant-hk has no copy of them.
+HK_USES_TAIWAN = ZH_HANT / 'hk-uses-taiwan.json'
+
+
+def hk_uses_taiwan() -> list:
+    """Relative paths (inside a corpus tree) of the files Hong Kong takes from Taiwan."""
+    return json.loads(HK_USES_TAIWAN.read_text(encoding='utf-8'))['files']
 
 
 def texture_sources() -> list:
-    fp = json.loads((ZH_HANT / 'author-fingerprint.json').read_text(encoding='utf-8'))
-    return sorted(({k for k in fp['files'] if k.startswith('corpus/')} | set(TEXTURE_SOURCES_EXTRA)) - TEXTURE_DEFERRED)
+    return [f'corpus/zh-hant/{rel}' for rel in hk_uses_taiwan()]
 
 
 def overlay_tree(src: Path, dst: Path) -> int:
@@ -108,45 +112,40 @@ def overlay_tree(src: Path, dst: Path) -> int:
     return n
 
 
-def make_drafter(variant: str = 'tw'):
-    """The Simplified -> Traditional converter for strings that are not corpus strings (tool constants, SP configs)."""
-    from sync_corpus import Drafter
-    if variant == 'tw':
-        return Drafter(ZH_HANT / 'bootstrap.json')
-    import regional_terms
-    from derive_hk import char_table
-
-    class HKDrafter(Drafter):
-        table = char_table()
-
-        def text(self, s: str) -> str:
-            tw = super().text(s)
-            return regional_terms.apply_string(s, tw, regional_terms.DRAFT, 'hk').translate(self.table)
-    return HKDrafter(ZH_HANT / 'bootstrap.json')
-
-
 def file_pairs(sc: Path, tc: Path) -> dict:
     return literal_pairs(sc.parent, tc.parent, only=tc.name)
 
 
-def literal_pairs(sc_root: Path, tc_root: Path, only: str | None = None) -> dict:
-    """Every translated Simplified string -> the Traditional string at the same place in the parallel file."""
+# Metadata fields that are identifiers, not text (SP scene tags such as 援护攻击 stay Simplified in every language).
+LITERAL_METADATA = SP_FROZEN | {'scene'}
+
+
+def literal_counterparts(sc_root: Path, tc_root: Path, only: str | None = None) -> dict:
+    """Every translated Simplified string -> each Traditional string found at the same place in the parallel
+    files (more than one when the same Simplified words are translated differently by context, e.g. 集中 as the
+    spirit command 專注 and as the formation 集中)."""
     def strings(doc, key=None):
         if isinstance(doc, str):
-            if key not in FROZEN_KEYS: yield doc
+            if key not in FROZEN_KEYS and key not in LITERAL_METADATA: yield doc
         elif isinstance(doc, list):
             for v in doc: yield from strings(v, key)
         elif isinstance(doc, dict):
             for k, v in doc.items():
-                if k not in FROZEN_KEYS and not k.endswith('_sha256') and k not in META and k != 'zh_hant_meta':
+                if k not in FROZEN_KEYS and k not in LITERAL_METADATA and not k.endswith('_sha256') and k not in META and k != 'zh_hant_meta':
                     yield from strings(v, k)
-    pairs = {}
+    pairs: dict = {}
     for f in (tc_root.glob(only) if only else tc_root.rglob('*.json')):
         sc = sc_root / f.relative_to(tc_root)
         if sc.exists():
             for a, b in zip(strings(json.loads(sc.read_text(encoding='utf-8'))), strings(json.loads(f.read_text(encoding='utf-8')))):
-                pairs.setdefault(a, b)
+                pairs.setdefault(a, [])
+                if b not in pairs[a]: pairs[a].append(b)
     return pairs
+
+
+def literal_pairs(sc_root: Path, tc_root: Path, only: str | None = None) -> dict:
+    """Simplified string -> its Traditional string, for strings translated one way only."""
+    return {a: b[0] for a, b in literal_counterparts(sc_root, tc_root, only).items() if len(b) == 1}
 
 
 BUILD_TOOL_SOURCES = ('tools/srwz/*.py', 'tools/build_full_story_components.py', 'tools/verify_full_story_iso_content.py',
@@ -197,6 +196,17 @@ def reencode_weapon_categories(comp: dict, tc: Path) -> None:
             words[ori] = (words[ori] & 0xFFFF0000) | (value & 0xFFFF)
         site['replacement_block_hex'] = struct.pack(f'<{len(words)}I', *words).hex().upper()
         site['output_materialized_hex'] = out.hex().upper()
+
+
+def glyph_table(project: Path) -> Path:
+    """The Traditional glyph table exactly as a build writes it (VT1 chunk 2 with its SLPS offsets): the build's
+    own font preparation and font component steps, run in a prepared Traditional project. Returns the component
+    root (SLPS_258.87, DATA/VT1.BIN), which author_stage_titles.py and stale_stage_titles read like a disc."""
+    raster = 'work/writeback/zh-release-raster.json'
+    run('python3', 'tools/prepare_zh_release_font.py', '--config', 'config/fonts/zh-release-font.json', '--force',
+        '--raster-output', raster, cwd=project)
+    run('python3', 'tools/build_zh_font_component.py', '--raster-input', raster, '--force', cwd=project)
+    return project / 'work/build/zh-release-font/components'
 
 
 def stale_stage_titles(tc_iso: Path) -> list:
@@ -251,35 +261,49 @@ def prepare_tc(tc: Path, variant: str = 'tw') -> None:
     reduced = [t['ordinal'] for t in snap['titles'] if t['quantization_levels'] < 16]
     graphics['expected'].update(full_precision_count=len(snap['titles']) - len(reduced), reduced_precision_ordinals=reduced)
     dump(components, comp)
-    literals = literal_pairs(ROOT / 'corpus/zh', regional)
+    counterparts = literal_counterparts(ROOT / 'corpus/zh', regional)
+    ambiguous = {a: b for a, b in counterparts.items() if len(b) > 1}
+    literals = {a: b[0] for a, b in counterparts.items() if len(b) == 1}
     if variant != 'tw':
         for rel in texture_sources():                     # texture files are the Taiwan ones in this clone
             literals.update(file_pairs(ROOT / 'corpus/zh' / Path(rel).relative_to('corpus/zh-hant'), ROOT / rel))
-    drafter = make_drafter(variant)
     # String constants of the build tools that are not whole corpus strings (layout-protected words, label
-    # fragments) get the bootstrap conversion, so srwz.build_language can answer for every literal a gate names.
+    # fragments): each language keeps their text in config/zh-hant/tool-literals/<variant>.json (tool_literals.py);
+    # a build only reads it, so srwz.build_language can answer for every literal a gate names.
+    import tool_literals
+    gaps = tool_literals.missing(variant, literals, ambiguous)
+    if gaps:
+        raise SystemExit(f'{len(gaps)} build-tool constants have no {variant} text, e.g. {gaps[:5]}: draft them '
+                         'with tools/zh_hant/tool_literals.py draft and review config/zh-hant/tool-literals/')
+    stored = tool_literals.load(variant)
     extra = 0
-    for f in BUILD_TOOL_SOURCES:
-        for path in sorted(ROOT.glob(f)):
-            for m in re.finditer(r'(["\'])([^"\'\n]*[\u4e00-\u9fff][^"\'\n]*)\1', path.read_text(encoding='utf-8')):
-                if m.group(2) not in literals:
-                    literals[m.group(2)] = drafter.text(m.group(2)); extra += 1
+    for c, t in stored.items():                      # tool constants and config labels with no corpus string
+        if c not in literals and c not in ambiguous:
+            literals[c] = t; extra += 1
     forms = {}
     for a, b in literals.items():
         if len(a) == len(b):
             for x, y in zip(a, b):
                 if '\u3400' <= x <= '\u9fff': forms.setdefault(x, {}).setdefault(y, 0); forms[x][y] += 1
     characters = {x: max(c, key=lambda y: (c[y], y == x)) for x, c in sorted(forms.items())}
-    dump(tc / 'config/zh-hant/readback-literals.json', {'schema_version': 1, 'literals': literals, 'characters': characters})
+    # A Simplified string translated more than one way has no single answer: a gate that needs it reads the
+    # language's own text at the place it checks (srwz.build_language.expected_at) and only confirms that text is
+    # one of these counterparts.
+    dump(tc / 'config/zh-hant/readback-literals.json', {'schema_version': 1, 'literals': literals,
+                                                         'ambiguous': dict(sorted(ambiguous.items())), 'characters': characters})
     print('readback literals: corpus', len(literals) - extra, 'tool constants', extra, flush=True)
     # Scenario / mode select labels are composed from release-font glyphs at build time (no pixel lock): they
     # follow the Traditional text. The TTF-rendered, mask-locked tutorial titles wait for M4 like other textures.
     comp = json.loads(components.read_text(encoding='utf-8'))
     for key in ('scenario_select_effect', 'mode_select_effect'):
         effect = comp[key]
-        effect['composed_labels'] = [literals.get(t) or drafter.text(t) for t in effect['composed_labels']]
+        def own(t):
+            if t not in literals:
+                raise SystemExit(f'{key}: label {t!r} has no {variant} text (corpus or config/zh-hant/tool-literals)')
+            return literals[t]
+        effect['composed_labels'] = [own(t) for t in effect['composed_labels']]
         for seg in effect['raster']['segments']:
-            text = literals.get(seg['text']) or drafter.text(seg['text'])
+            text = own(seg['text'])
             if len(text) != len(seg['text']):
                 raise SystemExit(f'{key}: Traditional label changes length: {seg["text"]} -> {text}')
             seg['text'] = text
@@ -391,6 +415,14 @@ def main() -> None:
     project = prepared_project(name, a.variant)
     # Hong Kong characters join the one Traditional codebook: grow it from the Hong Kong text first, then Taiwan.
     codebook_step(project, a.update_codebook)
+    # Stage titles are drawn from the glyph table the build writes (HarmonyOS rasterized through the codebook):
+    # make that table here with the build's own two font steps, so a grown codebook needs no build first.
+    font_root = glyph_table(project)
+    stale = stale_stage_titles(font_root)
+    if stale:
+        if not a.author_textures:
+            raise SystemExit(f'Traditional stage-title pictures are stale ({stale}): rerun with --author-textures')
+        run(sys.executable, HERE / 'author_stage_titles.py', '--iso', font_root)
     from author_textures import stale
     if a.variant == 'tw' and stale(project):
         if not a.author_textures:

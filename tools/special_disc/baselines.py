@@ -254,6 +254,7 @@ def store_resource_baseline(name, base, members, replacements):
                 raise ValueError(f'baseline member size drift: {member}')
             stream.seek(entry.extent_lba * 2048)
             stream.write(payload)
+    view.digest()       # known before the view is saved, so the saved view carries it for its readers
     view.save()
     lock = DIRECTORY / (name + '.json')
     lock.write_text(json.dumps({'iso_sha256': view.digest(), 'iso_size': view.size,

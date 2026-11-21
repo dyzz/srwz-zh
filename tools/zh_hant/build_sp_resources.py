@@ -38,9 +38,14 @@ def input_state(region, badge, component_frontends):
         lang = "" if r == "sc" else "zh-hant-" + r
         if not component_frontends:
             return _answer_key(ROOT, lang, True)
-        receipt = json.loads(
-            (ROOT / f"work/cache/editions/sp-frontends/{lang or 'zh'}.json").read_text()
+        # True: the SP-only frontends; a directory: receipts the Original candidate builds wrote when
+        # their components were ready (build_multilang.py compiles SP beside the rest of those builds)
+        receipts = (
+            ROOT / "work/cache/editions/sp-frontends"
+            if component_frontends is True
+            else Path(component_frontends)
         )
+        receipt = json.loads((receipts / f"{lang or 'zh'}.json").read_text())
         return (
             ROOT / receipt["workspace"] / "work/build/zh-release-full-story/components"
         )
@@ -89,27 +94,52 @@ def input_state(region, badge, component_frontends):
     return rows, keys, fingerprint
 
 
-def compile_region(region, force, badge, component_frontends):
+class FrontendsUnavailable(RuntimeError):
+    """The Original builds did not rebuild their frontends (an `abort` file ended the wait)."""
+
+
+def compile_region(region, force, badge, component_frontends, await_frontends=False):
+    """One region's resources, sealed under the fingerprint of everything they were compiled from.
+
+    ``await_frontends``: the Original frontends named by ``component_frontends`` (a receipt directory) are still
+    being built. A Traditional region then starts in a holding directory, runs every step that does not read
+    them, and takes its fingerprint (and its place in the cache) once they exist."""
     started = time.monotonic()
-    rows, keys, fingerprint = input_state(region, badge, component_frontends)
-    directory = CACHE / region / fingerprint
-    seal = directory / "verified.json"
-    if seal.exists() and not force:
+    language = "" if region == "sc" else "zh-hant-" + region
+    staged = bool(await_frontends) and region != "sc"
+    receipts = Path(component_frontends) if staged else None
+
+    def reusable(directory):
+        seal = directory / "verified.json"
+        if not seal.exists() or force:
+            return None
         try:
             doc = json.loads(seal.read_text())
             view = ResourceView.load(directory / doc["path"])
-            matches = view.digest() == doc["sha256"]
+            matches = view.digest(recompute=True) == doc["sha256"]
         except (OSError, ValueError, KeyError):
             matches = False
-        if matches:
-            seal.touch()
-            print(
-                f"[{region}] verified resources reused {time.monotonic() - started:.2f}s",
-                flush=True,
-            )
+        if not matches:
+            return None
+        seal.touch()
+        print(f"[{region}] verified resources reused {time.monotonic() - started:.2f}s", flush=True)
+        return view
+
+    if staged:
+        rows = source_inventory(ROOT, locked_sp_inputs(ROOT), language=language)
+        (CACHE / region).mkdir(parents=True, exist_ok=True)
+        holding = Path(tempfile.mkdtemp(prefix=".staging-", dir=CACHE / region))
+        project = holding / ("inputs-" + holding.name[len(".staging-"):])
+        directory = keys = fingerprint = None
+    else:
+        rows, keys, fingerprint = input_state(region, badge, component_frontends)
+        directory = CACHE / region / fingerprint
+        view = reusable(directory)
+        if view is not None:
             return view
-    directory.mkdir(parents=True, exist_ok=True)
-    project = Path(tempfile.mkdtemp(prefix="inputs-", dir=directory))
+        directory.mkdir(parents=True, exist_ok=True)
+        holding = None
+        project = Path(tempfile.mkdtemp(prefix="inputs-", dir=directory))
     for row in rows:
         copy_file(ROOT / row["path"], project / row["path"])
     log = project / "build.log"
@@ -120,44 +150,76 @@ def compile_region(region, force, badge, component_frontends):
             ROOT / "work/cache/editions/sp-views" / ("zh-hant-" + region)
         )
 
+    def start(*args):
+        out = log.open("a")
+        return subprocess.Popen([sys.executable, *map(str, args)], cwd=project, env=env,
+                                stdout=out, stderr=subprocess.STDOUT, start_new_session=True), out
+
+    def finish(process, out):
+        code = process.wait()
+        out.close()
+        if code:
+            raise RuntimeError(f"{region}: {log}\n{log.read_text()[-2500:]}")
+
     def run(*args):
-        with log.open("a") as out:
-            if subprocess.run(
-                [sys.executable, *map(str, args)],
-                cwd=project,
-                env=env,
-                stdout=out,
-                stderr=subprocess.STDOUT,
-            ).returncode:
-                raise RuntimeError(f"{region}: {log}\n{log.read_text()[-2500:]}")
+        finish(*start(*args))
 
-    if region != "sc":
+    view_tool = (ROOT / "tools/zh_hant/language_view.py", project, "--variant", region, "--editions", "sp")
+    try:
+        if staged:
+            process, out = start(*view_tool, "--frontend-receipts", receipts)
+            names = [f"{lang or 'zh'}.json" for lang in dict.fromkeys((language, "zh-hant-tw", ""))]
+            while not all((receipts / name).is_file() for name in names):
+                if (receipts / "abort").exists() or process.poll() is not None:
+                    break
+                time.sleep(0.2)
+            if not all((receipts / name).is_file() for name in names):
+                if process.poll() is None:
+                    os.killpg(process.pid, 15)
+                process.wait()
+                out.close()
+                raise FrontendsUnavailable(f"{region}: no Original frontend to compile from")
+            current, keys, fingerprint = input_state(region, badge, component_frontends)
+            if current != rows:
+                os.killpg(process.pid, 15)
+                process.wait()
+                out.close()
+                raise ValueError("build inputs changed during SP compilation")
+            directory = CACHE / region / fingerprint
+            view = reusable(directory)
+            if view is not None:
+                # these inputs were compiled before: the work done so far was only the wait
+                if process.poll() is None:
+                    os.killpg(process.pid, 15)
+                process.wait()
+                out.close()
+                return view
+            finish(process, out)
+        elif region != "sc":
+            run(*view_tool, "--answer-key", keys[region], "--taiwan-answer-key", keys["tw"],
+                "--simplified-answer-key", keys["sc"])
+        else:
+            place_sp_support(project)
+        if badge:
+            from freeze_title_version import refresh_current_badge
+
+            refresh_current_badge(project, text=badge, disc_root=ROOT)
         run(
-            ROOT / "tools/zh_hant/language_view.py",
-            project,
-            "--variant",
-            region,
-            "--editions",
-            "sp",
-            "--answer-key",
-            keys[region],
-            "--taiwan-answer-key",
-            keys["tw"],
-            "--simplified-answer-key",
-            keys["sc"],
+            "tools/special_disc/writeback/build_full_text.py",
+            "--work-directory",
+            "work/build/resource-components",
+            *(["--force-rebuild"] if force else []),
         )
-    else:
-        place_sp_support(project)
-    if badge:
-        from freeze_title_version import refresh_current_badge
-
-        refresh_current_badge(project, text=badge, disc_root=ROOT)
-    run(
-        "tools/special_disc/writeback/build_full_text.py",
-        "--work-directory",
-        "work/build/resource-components",
-        *(["--force-rebuild"] if force else []),
-    )
+        if staged:
+            # resource views name their parts relative to themselves: the project moves as it is
+            directory.mkdir(parents=True, exist_ok=True)
+            final = directory / project.name
+            project.rename(final)
+            project = final
+    finally:
+        if holding is not None:
+            shutil.rmtree(holding, ignore_errors=True)
+    seal = directory / "verified.json"
     path = project / "work/build/resource-components/final.spview"
     view = ResourceView.load(path)
     if input_state(region, badge, component_frontends)[2] != fingerprint:
@@ -209,9 +271,29 @@ def main():
     parser.add_argument("--badge")
     parser.add_argument("--component-frontends", action="store_true")
     parser.add_argument(
+        "--frontend-receipts", type=Path,
+        help="directory of frontend receipts to compile from instead of the Original candidate receipts",
+    )
+    parser.add_argument(
+        "--await-frontends", action="store_true",
+        help="with --frontend-receipts: the receipts are still being written; start the regions now",
+    )
+    parser.add_argument(
+        "--compile-only", action="store_true",
+        help="compile and seal the three regions' resources; write no disc (the build that follows reuses them)",
+    )
+    parser.add_argument(
+        "--publish-when", type=Path,
+        help="compile now, then wait for this file before laying out and publishing the disc; a file of the "
+             "same name with .cancel ends the build without a disc (build_multilang.py: the other editions' "
+             "builds and checks decide)",
+    )
+    parser.add_argument(
         "--out", type=Path, default=ROOT / "build/iso/test/multilang-sp.iso"
     )
     args = parser.parse_args()
+    if args.frontend_receipts:
+        args.component_frontends = args.frontend_receipts.resolve()
     os.environ[ENV] = "1"
     start = time.monotonic()
     args.out = args.out.resolve()
@@ -222,13 +304,36 @@ def main():
         parser.error("SP output must be an ISO in build/iso/test")
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with edition_lock(ROOT / "work/cache/editions/sp-resources.lock"):
+        for region in REGIONS:                       # holding directories an interrupted build left behind
+            for stale in (CACHE / region).glob(".staging-*"):
+                shutil.rmtree(stale, ignore_errors=True)
         with ThreadPoolExecutor(max_workers=3) as pool:
-            sc, tw, hk = pool.map(
-                lambda region: compile_region(
-                    region, args.force_rebuild, args.badge, args.component_frontends
-                ),
-                REGIONS,
-            )
+            jobs = [
+                pool.submit(compile_region, region, args.force_rebuild, args.badge,
+                            args.component_frontends, args.await_frontends)
+                for region in REGIONS
+            ]
+            results, unavailable = [], None
+            for job in jobs:                         # every region ends before anything is reported
+                try:
+                    results.append(job.result())
+                except FrontendsUnavailable as error:
+                    unavailable = error
+            if unavailable is not None:
+                print(f"SP resources not compiled: {unavailable}", flush=True)
+                raise SystemExit(3)
+            sc, tw, hk = results
+        if args.compile_only:
+            print(f"SP resources compiled {time.monotonic() - start:.2f}s", flush=True)
+            return
+        if args.publish_when:
+            print(f"SP resources compiled {time.monotonic() - start:.2f}s", flush=True)
+            cancel = args.publish_when.with_name(args.publish_when.name + ".cancel")
+            while not args.publish_when.exists():
+                if cancel.exists():
+                    print("SP disc not written: the build was cancelled", flush=True)
+                    raise SystemExit(4)
+                time.sleep(0.1)
         with tempfile.TemporaryDirectory(dir=args.out.parent) as temp:
             staged = Path(temp) / "final.iso"
             receipt = Path(temp) / "verified.json"

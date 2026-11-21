@@ -136,6 +136,15 @@ def parse_reply(rows: list[str], command: str) -> Reply:
     return Reply(lines=rows[:-1], frame=frame)
 
 
+# The runner renders offscreen and nothing presents its frames. After roughly 11,500 emulated frames without a
+# screenshot, every later screenshot of the session comes back black (the game itself keeps running: same RAM
+# as a run whose screenshots are fine; measured 2026-11-19, docs/ZH_HANT_HK_TW_PLAN_20261118.md section 6).
+# The session therefore reads the display back itself, well inside that distance; a screenshot does not advance
+# or alter emulation.
+KEEPALIVE_FRAMES = 4000
+KEEPALIVE_NAME = ".keepalive"
+
+
 class Armsx2Session:
     """One running pcsx2-srwzrunner, as a context manager.
 
@@ -171,6 +180,7 @@ class Armsx2Session:
         self._socket: socket.socket | None = None
         self._stream = None
         self.frame = 0
+        self._captured_frame = 0      # frame of the last display readback (screenshot or keep-alive)
 
     def __enter__(self) -> "Armsx2Session":
         self.start()
@@ -214,12 +224,47 @@ class Armsx2Session:
 
         if self._stream is None:
             raise Armsx2RuntimeError("session is not started")
+        words = command.split()
+        if len(words) == 2 and words[0] == "run" and words[1].isdigit():
+            return self._run(int(words[1]))
+        reply = self._send(command)
+        if words and words[0] == "shot":
+            self._captured_frame = self.frame
+        elif words and words[0] != "quit":
+            self._keep_display_alive()
+        return reply
+
+    def _send(self, command: str) -> Reply:
         self._stream.write(command + "\n")
         self._stream.flush()
         reply = parse_reply(read_reply(self._stream), command)
         if reply.frame >= 0:
             self.frame = reply.frame
         return reply
+
+    def _keep_display_alive(self) -> None:
+        if self.frame - self._captured_frame < KEEPALIVE_FRAMES:
+            return
+        try:
+            self._send(f"shot {KEEPALIVE_NAME}")
+        except Armsx2RuntimeError:
+            return                    # no display yet: nothing to keep alive, try again after the next command
+        self._captured_frame = self.frame
+        (self.outdir / f"{KEEPALIVE_NAME}.png").unlink(missing_ok=True)
+
+    def _run(self, frames: int) -> Reply:
+        """`run N`, in pieces short enough that the display is read back in time; one merged reply."""
+        lines: list[str] = []
+        reply = Reply(lines=lines, frame=self.frame)
+        if frames == 0:
+            return self._send("run 0")
+        while frames > 0:
+            step = min(frames, max(1, KEEPALIVE_FRAMES - (self.frame - self._captured_frame)))
+            reply = self._send(f"run {step}")
+            lines.extend(reply.lines)
+            frames -= step
+            self._keep_display_alive()
+        return Reply(lines=lines, frame=reply.frame)
 
     def run(self, frames: int) -> Reply:
         return self.cmd(f"run {frames}")

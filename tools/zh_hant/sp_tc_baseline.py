@@ -20,6 +20,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -122,6 +123,10 @@ def return_compdata_strings(clone: Path) -> int:
     merged, filled = fill_missing(bytes(cd), sc_cd, jp, Transcoder(clone))
     cd = bytearray(merged); restored += filled
     print('COMPDATA strings the Traditional answer key left Japanese, transcoded from Simplified:', filled, flush=True)
+    unification = json.loads((clone / 'config/products/special-disc/name-unification-20261017.json').read_text())
+    owned_fields = frozenset(e['offset'] for e in unification['entries'])
+    renamed = rename_pilot_fields(cd, sc_cd, Transcoder(clone), owned_fields); restored += renamed
+    print('COMPDATA pilot name fields given their regional names:', renamed, flush=True)
     if restored:
         encoded = reencode_changed_suffix(stored, bytes(cd), strategy='rust-maximum', original_result=result)
         if decode_production(encoded).output != bytes(cd) or len(encoded) > len(stored):
@@ -155,36 +160,43 @@ def sc_guided(tc: bytes, sc: bytes, jp: bytes) -> tuple[bytes, int]:
 
 
 class Transcoder:
-    """Simplified stored bytes -> Traditional stored bytes, character by character (Simplified codebook ->
-    character -> Traditional form (corpus drafter) -> Traditional codebook). Used only where the Simplified
-    component translated a string the Traditional answer key left Japanese."""
+    """Simplified stored bytes -> Traditional stored bytes for the strings the Simplified component translated and
+    the Traditional answer key left Japanese (and SP-only pilot name fields). Each language's results are static
+    text in config/zh-hant/sp-transcoded/<variant>.json, maintained by hand like the corpora; a string that is not
+    stored stops the build."""
     def __init__(self, clone: Path):
-        from build_dual import make_drafter
-        self.draft = make_drafter(VARIANT)               # the clone's Traditional variant (Taiwan / Hong Kong)
-        def codes(path):
-            led = json.loads(Path(path).read_text(encoding='utf-8')); out = {}
-            for k in ('assignments', 'primary_assignments', 'surface_alias_assignments', 'source_compatibility_assignments'):
-                for r in led.get(k, []):
-                    for c in (r.get('code'), r.get('primary_code'), r.get('alias_code')):
-                        if c: out.setdefault(int(c, 16), r['character'])
-            return out
-        self.sc = codes(ROOT / PROPOSAL)                     # Simplified SP proposal (the repository's)
-        tc = json.loads((clone / SP_PROPOSAL).read_text(encoding='utf-8'))
-        self.tc = {r['character']: int(r['code'], 16) for r in tc['assignments']}
+        self.store_path = ROOT / 'config/zh-hant/sp-transcoded' / f'{VARIANT}.json'
+        self.store = (json.loads(self.store_path.read_text(encoding='utf-8'))['strings']
+                      if self.store_path.exists() else {})
+        self.use_names = True
 
     def __call__(self, data: bytes) -> bytes:
-        out, i = bytearray(), 0
-        while i < len(data):
-            b = data[i]
-            if b < 0x80: out.append(b); i += 1; continue
-            code = int.from_bytes(data[i:i + 2], 'big'); ch = self.sc.get(code)
-            if ch is None or not ('\u3400' <= ch[0] <= '\u9fff'):     # control / symbol / kana: shared bytes
-                out += data[i:i + 2]; i += 2; continue
-            t = self.draft.text(ch) if len(ch) == 1 else ch
-            if t not in self.tc: t = ch
-            if t not in self.tc: raise SystemExit(f'{ch} has no Traditional code')
-            out += self.tc[t].to_bytes(2, 'big'); i += 2
-        return bytes(out)
+        key = f"{data.hex().upper()}|{'names' if self.use_names else 'plain'}"
+        if key not in self.store:
+            raise SystemExit(f'SP string {data.hex().upper()} has no stored {VARIANT} form '
+                             f'({self.store_path.relative_to(ROOT)}): add it there')
+        return bytes.fromhex(self.store[key])
+
+
+PILOT_START, PILOT_COUNT, PILOT_STRIDE = 0x2B50, 969, 178
+PILOT_FIELDS = ((2, 21), (23, 23), (46, 23))
+
+
+def rename_pilot_fields(cd: bytearray, sc: bytes, transcode, owned=frozenset()) -> int:
+    """Pilot name fields SP keeps from its own Simplified baseline hold Simplified bytes that read as the OpenCC form
+    in the Traditional codebook (该隐 -> 該隱). A field whose whole text is one regional name takes that name
+    (config/zh-hant/regional-names.json), as the parallel corpora do."""
+    renamed = 0
+    for n in range(PILOT_COUNT):
+        for delta, capacity in PILOT_FIELDS:
+            at = PILOT_START + n * PILOT_STRIDE + delta
+            field = bytes(cd[at:at + capacity]); end = field.find(b'\0')
+            if at in owned or end <= 0 or sc[at:at + capacity] != field: continue   # owned: a later writer's slot          # empty, or already written by a converter
+            out = transcode(field[:end])
+            transcode.use_names = False; plain = transcode(field[:end]); transcode.use_names = True
+            if out == plain or len(out) >= capacity: continue          # only a regional name changes the field
+            cd[at:at + capacity] = out + bytes(capacity - len(out)); renamed += 1
+    return renamed
 
 
 def fill_missing(tc: bytes, sc: bytes, jp: bytes, transcode) -> tuple[bytes, int]:
@@ -278,7 +290,8 @@ def main() -> None:
     from srwz.file_identity import sha256_file as filecmp_digest
     changed = []
     for f in (c / 'work/build/special-disc').rglob('*'):
-        if f.is_file() and not f.is_symlink():
+        # logs name this project's directory and are locked nowhere: not a difference to look for
+        if f.is_file() and not f.is_symlink() and f.suffix != '.log':
             rel = f.relative_to(c); o = ROOT / rel
             if not o.exists() or filecmp_digest(o) != filecmp_digest(f): changed.append(str(rel))
     sys.path.insert(0, str(HERE))

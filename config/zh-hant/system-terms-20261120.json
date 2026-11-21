@@ -1,0 +1,768 @@
+{
+  "schema_version": 1,
+  "decided": "2026-11-20",
+  "purpose": "Taiwan / Hong Kong system terms held back from the regional name write-back (work/analysis apply-held.md), settled by the user on a decision page. Applied to corpus/zh-hant*, corpus/runtime-zh-hant*, corpus/glossary-zh-hant* (old form kept in deprecated_translations), config/zh-hant/sp-configs and the layout word lists.",
+  "scopes": {
+    "everywhere": "every regional string (compound terms that never occur as ordinary words)",
+    "name-only": "menus, help and instruction texts only; story, battle lines and library prose keep the ordinary word",
+    "spirit-command-only": "集中 only where it names the spirit command: quoted or ＜＞-bracketed, the spirit lists, a help heading on its own line, entries whose Japanese is 集中 (センター formation entries stay 集中)"
+  },
+  "exceptions": [
+    "大根性 (ド根性) is a different spirit command and keeps its name",
+    "回覆 in the recovery sense is a conversion error (回覆 = reply in Taiwan): every recovery 回覆 became 回復; the one reply-sense line (stage 104 「回覆他們」) stays"
+  ],
+  "terms": [
+    {
+      "id": "system/jamming-function",
+      "ja": "ジャミング機能",
+      "sc": "干扰功能",
+      "decision": "change",
+      "tw": {
+        "from": "干擾功能",
+        "to": "干擾機能"
+      },
+      "hk": {
+        "from": "干擾功能",
+        "to": "干擾機能"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "part/a-adapter",
+      "ja": "Ａ−アダプター",
+      "sc": "A适配器",
+      "decision": "keep",
+      "tw": {
+        "from": "A適配器",
+        "to": "A適配器"
+      },
+      "hk": {
+        "from": "A適配器",
+        "to": "A適配器"
+      },
+      "scope": null,
+      "recommended": "change"
+    },
+    {
+      "id": "part/magnetic-coating",
+      "ja": "マグネットコーティング",
+      "sc": "磁力覆膜",
+      "decision": "change",
+      "tw": {
+        "from": "磁力覆膜",
+        "to": "磁性覆膜"
+      },
+      "hk": {
+        "from": "磁力覆膜",
+        "to": "磁性覆膜"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/sp-recovery",
+      "ja": "ＳＰ回復",
+      "sc": "SP回复",
+      "decision": "change",
+      "tw": {
+        "from": "SP回覆",
+        "to": "SP回復"
+      },
+      "hk": {
+        "from": "SP回覆",
+        "to": "SP回復"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/en-recovery-large",
+      "ja": "ＥＮ回復（大）",
+      "sc": "EN回复（大）",
+      "decision": "change",
+      "tw": {
+        "from": "EN回覆（大）",
+        "to": "EN回復（大）"
+      },
+      "hk": {
+        "from": "EN回覆（大）",
+        "to": "EN回復（大）"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/en-recovery-medium",
+      "ja": "ＥＮ回復（中）",
+      "sc": "EN回复（中）",
+      "decision": "change",
+      "tw": {
+        "from": "EN回覆（中）",
+        "to": "EN回復（中）"
+      },
+      "hk": {
+        "from": "EN回覆（中）",
+        "to": "EN回復（中）"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/en-recovery-small",
+      "ja": "ＥＮ回復（小）",
+      "sc": "EN回复（小）",
+      "decision": "change",
+      "tw": {
+        "from": "EN回覆（小）",
+        "to": "EN回復（小）"
+      },
+      "hk": {
+        "from": "EN回覆（小）",
+        "to": "EN回復（小）"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/hp-recovery-large",
+      "ja": "ＨＰ回復（大）",
+      "sc": "HP回复（大）",
+      "decision": "change",
+      "tw": {
+        "from": "HP回覆（大）",
+        "to": "HP回復（大）"
+      },
+      "hk": {
+        "from": "HP回覆（大）",
+        "to": "HP回復（大）"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/hp-recovery-medium",
+      "ja": "ＨＰ回復（中）",
+      "sc": "HP回复（中）",
+      "decision": "change",
+      "tw": {
+        "from": "HP回覆（中）",
+        "to": "HP回復（中）"
+      },
+      "hk": {
+        "from": "HP回覆（中）",
+        "to": "HP回復（中）"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/hp-recovery-small",
+      "ja": "ＨＰ回復（小）",
+      "sc": "HP回复（小）",
+      "decision": "change",
+      "tw": {
+        "from": "HP回覆（小）",
+        "to": "HP回復（小）"
+      },
+      "hk": {
+        "from": "HP回覆（小）",
+        "to": "HP回復（小）"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "part/s-adapter",
+      "ja": "Ｓ−アダプター",
+      "sc": "S适配器",
+      "decision": "keep",
+      "tw": {
+        "from": "S適配器",
+        "to": "S適配器"
+      },
+      "hk": {
+        "from": "S適配器",
+        "to": "S適配器"
+      },
+      "scope": null,
+      "recommended": "change"
+    },
+    {
+      "id": "skill/b-save",
+      "ja": "Ｂセーブ",
+      "sc": "B节省",
+      "decision": "change",
+      "tw": {
+        "from": "B節省",
+        "to": "B節約"
+      },
+      "hk": {
+        "from": "B節省",
+        "to": "B節約"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/e-save",
+      "ja": "Ｅセーブ",
+      "sc": "E节省",
+      "decision": "change",
+      "tw": {
+        "from": "E節省",
+        "to": "E節約"
+      },
+      "hk": {
+        "from": "E節省",
+        "to": "E節約"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "system/upgrade-level",
+      "ja": "改造段階",
+      "sc": "改造等级",
+      "decision": "change",
+      "tw": {
+        "from": "改造等級",
+        "to": "改造階段"
+      },
+      "hk": {
+        "from": "改造等級",
+        "to": "改造階段"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/en-recovery-range",
+      "ja": "ＥＮ回復（小〜大）",
+      "sc": "EN回复（小～大）",
+      "decision": "change",
+      "tw": {
+        "from": "EN回覆（小～大）",
+        "to": "EN回復（小～大）"
+      },
+      "hk": {
+        "from": "EN回覆（小～大）",
+        "to": "EN回復（小～大）"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/hp-recovery-range",
+      "ja": "ＨＰ回復（小〜大）",
+      "sc": "HP回复（小～大）",
+      "decision": "change",
+      "tw": {
+        "from": "HP回覆（小～大）",
+        "to": "HP回復（小～大）"
+      },
+      "hk": {
+        "from": "HP回覆（小～大）",
+        "to": "HP回復（小～大）"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "spirit/focus",
+      "ja": "集中",
+      "sc": "集中",
+      "decision": "change",
+      "tw": {
+        "from": "集中",
+        "to": "專注"
+      },
+      "hk": {
+        "from": "集中",
+        "to": "專注"
+      },
+      "scope": "spirit-command-only",
+      "recommended": "change"
+    },
+    {
+      "id": "spirit/flash",
+      "ja": "ひらめき",
+      "sc": "必闪",
+      "decision": "change",
+      "tw": {
+        "from": "必閃",
+        "to": "閃身"
+      },
+      "hk": {
+        "from": "必閃",
+        "to": "閃身"
+      },
+      "scope": "name-only",
+      "recommended": "change"
+    },
+    {
+      "id": "spirit/guts",
+      "ja": "根性",
+      "sc": "根性",
+      "decision": "change",
+      "tw": {
+        "from": "根性",
+        "to": "毅力"
+      },
+      "hk": {
+        "from": "根性",
+        "to": "毅力"
+      },
+      "scope": "name-only",
+      "recommended": "change"
+    },
+    {
+      "id": "spirit/cheer",
+      "ja": "応援",
+      "sc": "应援",
+      "decision": "change",
+      "tw": {
+        "from": "應援",
+        "to": "聲援"
+      },
+      "hk": {
+        "from": "應援",
+        "to": "聲援"
+      },
+      "scope": "name-only",
+      "recommended": "change"
+    },
+    {
+      "id": "spirit/fighting-spirit",
+      "ja": "気合",
+      "sc": "气合",
+      "decision": "change",
+      "tw": {
+        "from": "氣合",
+        "to": "氣勢"
+      },
+      "hk": {
+        "from": "氣合",
+        "to": "氣勢"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "spirit/daunt",
+      "ja": "脱力",
+      "sc": "脱力",
+      "decision": "change",
+      "tw": {
+        "from": "脫力",
+        "to": "乏力"
+      },
+      "hk": {
+        "from": "脱力",
+        "to": "乏力"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/intuition",
+      "ja": "見切り",
+      "sc": "看穿",
+      "decision": "change",
+      "tw": {
+        "from": "看穿",
+        "to": "識破"
+      },
+      "hk": {
+        "from": "看穿",
+        "to": "識破"
+      },
+      "scope": "name-only",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/support-defense",
+      "ja": "援護防御",
+      "sc": "援护防御",
+      "decision": "change",
+      "tw": {
+        "from": "援護防禦",
+        "to": "支援防禦"
+      },
+      "hk": {
+        "from": "援護防禦",
+        "to": "支援防禦"
+      },
+      "scope": "everywhere",
+      "recommended": "keep"
+    },
+    {
+      "id": "skill/potential",
+      "ja": "底力",
+      "sc": "底力",
+      "decision": "change",
+      "tw": {
+        "from": "底力",
+        "to": "潛力"
+      },
+      "hk": {
+        "from": "底力",
+        "to": "潛力"
+      },
+      "scope": "name-only",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/cooperative-attack",
+      "ja": "連携攻撃",
+      "sc": "连携攻击",
+      "decision": "change",
+      "tw": {
+        "from": "連攜攻擊",
+        "to": "協助攻擊"
+      },
+      "hk": {
+        "from": "連攜攻擊",
+        "to": "協助攻擊"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/hit-and-away",
+      "ja": "ヒット＆アウェイ",
+      "sc": "一击脱离",
+      "decision": "change",
+      "tw": {
+        "from": "一擊脫離",
+        "to": "打帶跑"
+      },
+      "hk": {
+        "from": "一擊脱離",
+        "to": "打帶跑"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/morale-limit-break",
+      "ja": "気力限界突破",
+      "sc": "气力上限突破",
+      "decision": "change",
+      "tw": {
+        "from": "氣力上限突破",
+        "to": "氣力突破極限"
+      },
+      "hk": {
+        "from": "氣力上限突破",
+        "to": "氣力突破極限"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/sp-up",
+      "ja": "ＳＰアップ",
+      "sc": "SP提升",
+      "decision": "change",
+      "tw": {
+        "from": "SP提升",
+        "to": "SP上昇"
+      },
+      "hk": {
+        "from": "SP提升",
+        "to": "SP上昇"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/newtype-x",
+      "ja": "ニュータイプ（Ｘ）",
+      "sc": "新人类（X）",
+      "decision": "keep",
+      "tw": {
+        "from": "新人類（X）",
+        "to": "新人類（X）"
+      },
+      "hk": {
+        "from": "新人類（X）",
+        "to": "新人類（X）"
+      },
+      "scope": null,
+      "recommended": "keep"
+    },
+    {
+      "id": "skill/ignore-size",
+      "ja": "サイズ差補正無視",
+      "sc": "无视尺寸差修正",
+      "decision": "keep",
+      "tw": {
+        "from": "無視尺寸差修正",
+        "to": "無視尺寸差修正"
+      },
+      "hk": {
+        "from": "無視尺寸差修正",
+        "to": "無視尺寸差修正"
+      },
+      "scope": null,
+      "recommended": "keep"
+    },
+    {
+      "id": "skill/mental-resistance",
+      "ja": "精神耐性",
+      "sc": "精神耐性",
+      "decision": "change",
+      "tw": {
+        "from": "精神耐性",
+        "to": "精神抗性"
+      },
+      "hk": {
+        "from": "精神耐性",
+        "to": "精神抗性"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "skill/very-lucky",
+      "ja": "強運",
+      "sc": "强运",
+      "decision": "change",
+      "tw": {
+        "from": "強運",
+        "to": "鴻運"
+      },
+      "hk": {
+        "from": "強運",
+        "to": "鴻運"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "system/damage",
+      "ja": "ダメージ",
+      "sc": "伤害",
+      "decision": "keep",
+      "tw": {
+        "from": "傷害",
+        "to": "傷害"
+      },
+      "hk": {
+        "from": "傷害",
+        "to": "傷害"
+      },
+      "scope": null,
+      "recommended": "keep"
+    },
+    {
+      "id": "system/evasion",
+      "ja": "回避",
+      "sc": "回避",
+      "decision": "keep",
+      "tw": {
+        "from": "迴避",
+        "to": "迴避"
+      },
+      "hk": {
+        "from": "迴避",
+        "to": "迴避"
+      },
+      "scope": null,
+      "recommended": "keep"
+    },
+    {
+      "id": "system/trinity-energy",
+      "ja": "トリニティエネルギー",
+      "sc": "三位一体能量",
+      "decision": "keep",
+      "tw": {
+        "from": "三位一體能量",
+        "to": "三位一體能量"
+      },
+      "hk": {
+        "from": "三位一體能量",
+        "to": "三位一體能量"
+      },
+      "scope": null,
+      "recommended": "keep"
+    },
+    {
+      "id": "system/skill-stat",
+      "ja": "技量",
+      "sc": "技量",
+      "decision": "keep",
+      "tw": {
+        "from": "技量",
+        "to": "技量"
+      },
+      "hk": {
+        "from": "技量",
+        "to": "技量"
+      },
+      "scope": null,
+      "recommended": "keep"
+    },
+    {
+      "id": "system/negotiation",
+      "ja": "ネゴシエーション",
+      "sc": "交涉",
+      "decision": "keep",
+      "tw": {
+        "from": "交涉",
+        "to": "交涉"
+      },
+      "hk": {
+        "from": "交涉",
+        "to": "交涉"
+      },
+      "scope": null,
+      "recommended": "keep"
+    },
+    {
+      "id": "system/map-weapon",
+      "ja": "ＭＡＰ兵器",
+      "sc": "MAP武器",
+      "decision": "keep",
+      "tw": {
+        "from": "MAP武器",
+        "to": "MAP武器"
+      },
+      "hk": {
+        "from": "MAP武器",
+        "to": "MAP武器"
+      },
+      "scope": null,
+      "recommended": "change"
+    },
+    {
+      "id": "part/vector-machine",
+      "ja": "ベクターマシン",
+      "sc": "矢量战机",
+      "decision": "keep",
+      "tw": {
+        "from": "矢量戰機",
+        "to": "矢量戰機"
+      },
+      "hk": {
+        "from": "矢量戰機",
+        "to": "矢量戰機"
+      },
+      "scope": null,
+      "recommended": "keep"
+    },
+    {
+      "id": "ability/psycho-frame",
+      "ja": "サイコフレーム",
+      "sc": "精神感应框架",
+      "decision": "change",
+      "tw": {
+        "from": "精神感應框架",
+        "to": "精神感應框體"
+      },
+      "hk": {
+        "from": "精神感應框架",
+        "to": "精神感應框架"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "ability/bio-sensor",
+      "ja": "バイオセンサー",
+      "sc": "生物传感器",
+      "decision": "change",
+      "tw": {
+        "from": "生物感測器",
+        "to": "生化感應器"
+      },
+      "hk": {
+        "from": "生物感應器",
+        "to": "生化感應器"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "part/cartridge",
+      "ja": "カートリッジ",
+      "sc": "弹匣",
+      "decision": "change",
+      "tw": {
+        "from": "彈匣",
+        "to": "彈藥筒"
+      },
+      "hk": {
+        "from": "彈匣",
+        "to": "彈藥筒"
+      },
+      "scope": "name-only",
+      "recommended": "change"
+    },
+    {
+      "id": "part/vector-omega",
+      "ja": "ベクターオメガ",
+      "sc": "欧米伽战机",
+      "decision": "change",
+      "tw": {
+        "from": "歐米伽戰機",
+        "to": "歐美加戰機"
+      },
+      "hk": {
+        "from": "歐米伽戰機",
+        "to": "歐美加戰機"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "part/vector-delta",
+      "ja": "ベクターデルタ",
+      "sc": "德尔塔战机",
+      "decision": "change",
+      "tw": {
+        "from": "德爾塔戰機",
+        "to": "戴爾塔戰機"
+      },
+      "hk": {
+        "from": "德爾塔戰機",
+        "to": "戴爾塔戰機"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "part/screw-module",
+      "ja": "スクリューモジュール",
+      "sc": "螺旋桨模块",
+      "decision": "change",
+      "tw": {
+        "from": "螺旋槳模塊",
+        "to": "水中模組"
+      },
+      "hk": {
+        "from": "螺旋槳模塊",
+        "to": "水中模組"
+      },
+      "scope": "everywhere",
+      "recommended": "change"
+    },
+    {
+      "id": "part/chobham-armor",
+      "ja": "チョバムアーマー",
+      "sc": "乔巴姆装甲",
+      "decision": "keep",
+      "tw": {
+        "from": "喬巴姆裝甲",
+        "to": "喬巴姆裝甲"
+      },
+      "hk": {
+        "from": "喬巴姆裝甲",
+        "to": "喬巴姆裝甲"
+      },
+      "scope": null,
+      "recommended": "change"
+    }
+  ]
+}

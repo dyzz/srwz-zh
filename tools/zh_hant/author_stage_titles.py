@@ -4,7 +4,10 @@
 Same method the Simplified snapshot's explicit edits used ("authoring from existing release glyphs", see its
 provenance): glyphs come from the release font a build actually wrote (VT1 chunk 2 of the Traditional integrated
 ISO, looked up through the Traditional codebook), the raster policy and the builder's codec are the Simplified
-snapshot's. Each title tries the policy's quantization levels in order until the stream fits its original slot.
+snapshot's.
+The glyph table is normally the one build_dual.py makes from HarmonyOS and the codebook (glyph_table: the build's
+own font steps in a prepared Traditional project), so authoring never waits for a built disc; --iso also accepts a
+built disc or component directory. Each title tries the policy's quantization levels in order until the stream fits its original slot.
 Placement, selectors and source hashes are the Simplified snapshot's (same original slots).
 
 Output: config/zh-hant/stage-title-graphics-indexed-snapshot.json (build_dual.py puts it into the Traditional

@@ -20,6 +20,16 @@ class LibraryTypographyTests(NativeTypographyTestCase):
         self.assertEqual(CONTROL_NOTATION.sub('',result),CONTROL_NOTATION.sub('',source))
         self.assertIn('<width:0E>',library_typography(source,'DSCR',domain='character'))
 
+    def test_proportional_drops_the_body_baseline_once_no_scope_remains(self):
+        source='<width:16><space:16>高达<width:0E><space:0C>Geo<width:16><space:16>、中文'
+        for text in (source,'<width:15><space:15>'+source):
+            self.assertEqual(library_typography(text,'DSCR',domain='robot',typography='proportional'),'高达Geo、中文')
+        from srwz.build_layout import library_batch
+        key=('ROBO',source)
+        ok,value=library_batch([key],typography='proportional')[key]
+        self.assertTrue(ok)
+        self.assertEqual(value[0].replace('\n',''),'高达Geo、中文')
+
     def test_proportional_library_bridge_accepts_legacy_z_without_reinserting_it(self):
         from srwz.build_layout import library_batch
         key=('CHAR','高达<z>Mk-II</z>与Geo')

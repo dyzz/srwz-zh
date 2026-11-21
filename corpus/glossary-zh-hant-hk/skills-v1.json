@@ -23,7 +23,7 @@
       "source_terms": [
         "底力"
       ],
-      "translation": "底力",
+      "translation": "潛力",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -31,7 +31,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "HP 越低、对应战斗能力越高的系列技能。"
+      "notes": "HP 越低、对应战斗能力越高的系列技能。",
+      "deprecated_translations": [
+        "底力"
+      ]
     },
     {
       "id": "skill/counter",
@@ -86,7 +89,7 @@
       "source_terms": [
         "援護防御"
       ],
-      "translation": "援護防禦",
+      "translation": "支援防禦",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -94,14 +97,17 @@
         "story"
       ],
       "enforce": true,
-      "notes": "替同小队单位或邻接战舰承受攻击。"
+      "notes": "替同小队单位或邻接战舰承受攻击。",
+      "deprecated_translations": [
+        "援護防禦"
+      ]
     },
     {
       "id": "skill/sp-recovery",
       "source_terms": [
         "ＳＰ回復"
       ],
-      "translation": "SP回覆",
+      "translation": "SP回復",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -109,14 +115,17 @@
         "story"
       ],
       "enforce": true,
-      "notes": "每回合回复精神点数。"
+      "notes": "每回合回复精神点数。",
+      "deprecated_translations": [
+        "SP回覆"
+      ]
     },
     {
       "id": "skill/sp-up",
       "source_terms": [
         "ＳＰアップ"
       ],
-      "translation": "SP提升",
+      "translation": "SP上昇",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -124,7 +133,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "提高最大精神点数。"
+      "notes": "提高最大精神点数。",
+      "deprecated_translations": [
+        "SP提升"
+      ]
     },
     {
       "id": "skill/fighting-spirit",
@@ -221,7 +233,7 @@
       "source_terms": [
         "気力限界突破"
       ],
-      "translation": "氣力上限突破",
+      "translation": "氣力突破極限",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -229,14 +241,17 @@
         "story"
       ],
       "enforce": true,
-      "notes": "将气力上限提高至 170。"
+      "notes": "将气力上限提高至 170。",
+      "deprecated_translations": [
+        "氣力上限突破"
+      ]
     },
     {
       "id": "skill/e-save",
       "source_terms": [
         "Ｅセーブ"
       ],
-      "translation": "E節省",
+      "translation": "E節約",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -244,14 +259,17 @@
         "story"
       ],
       "enforce": true,
-      "notes": "降低武器 EN 消耗；字母缩写形式待人工批准。"
+      "notes": "降低武器 EN 消耗；字母缩写形式待人工批准。",
+      "deprecated_translations": [
+        "E節省"
+      ]
     },
     {
       "id": "skill/b-save",
       "source_terms": [
         "Ｂセーブ"
       ],
-      "translation": "B節省",
+      "translation": "B節約",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -259,14 +277,17 @@
         "story"
       ],
       "enforce": true,
-      "notes": "增加武器弹数；字母缩写形式待人工批准。"
+      "notes": "增加武器弹数；字母缩写形式待人工批准。",
+      "deprecated_translations": [
+        "B節省"
+      ]
     },
     {
       "id": "skill/cooperative-attack",
       "source_terms": [
         "連携攻撃"
       ],
-      "translation": "連攜攻擊",
+      "translation": "協助攻擊",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -274,7 +295,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "让援护攻击与再攻击必定暴击。"
+      "notes": "让援护攻击与再攻击必定暴击。",
+      "deprecated_translations": [
+        "連攜攻擊"
+      ]
     },
     {
       "id": "skill/supporting-attack",
@@ -371,9 +395,10 @@
       "source_terms": [
         "見切り"
       ],
-      "translation": "看穿",
+      "translation": "識破",
       "deprecated_translations": [
-        "識破"
+        "識破",
+        "看穿"
       ],
       "category": "system",
       "status": "approved",
@@ -404,9 +429,10 @@
       "source_terms": [
         "精神耐性"
       ],
-      "translation": "精神耐性",
+      "translation": "精神抗性",
       "deprecated_translations": [
-        "精神抗性"
+        "精神抗性",
+        "精神耐性"
       ],
       "category": "system",
       "status": "approved",
@@ -422,7 +448,7 @@
       "source_terms": [
         "ヒット＆アウェイ"
       ],
-      "translation": "一擊脱離",
+      "translation": "打帶跑",
       "category": "system",
       "status": "researched",
       "domains": [
@@ -430,7 +456,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "未移动攻击后仍可移动；采用中文机战资料常见译名。"
+      "notes": "未移动攻击后仍可移动；采用中文机战资料常见译名。",
+      "deprecated_translations": [
+        "一擊脱離"
+      ]
     },
     {
       "id": "skill/repair-skill",
@@ -709,7 +738,7 @@
       "source_terms": [
         "強運"
       ],
-      "translation": "強運",
+      "translation": "鴻運",
       "category": "system",
       "status": "proposed",
       "domains": [
@@ -717,7 +746,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "提高击坠敌方单位时获得的资金。"
+      "notes": "提高击坠敌方单位时获得的资金。",
+      "deprecated_translations": [
+        "強運"
+      ]
     }
   ],
   "zh_hant_meta": {

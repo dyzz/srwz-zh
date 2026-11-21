@@ -22,6 +22,12 @@ VIEWS = {
 ENV_PYTHON = "SRWZ_LANGUAGE_PYTHON"      # interpreter for the view tools (default: the build's own)
 
 
+def language_python(root: Path) -> str:
+    """SRWZ_LANGUAGE_PYTHON, else the checkout's own .venv (NumPy, Pillow), else this interpreter."""
+    local = Path(root) / ".venv/bin/python3"
+    return os.environ.get(ENV_PYTHON) or (str(local) if local.exists() else sys.executable)
+
+
 def require_language(language: str) -> None:
     if language and language not in VIEWS:
         raise EditionError(f"unknown build language: {language} (known: {', '.join(sorted(VIEWS))})")
@@ -61,7 +67,7 @@ def make_view(root: Path, language: str, editions: tuple[str, ...], *, candidate
     tool, variant = VIEWS[language]
 
     def view(project: Path) -> tuple[str, ...]:
-        command = [os.environ.get(ENV_PYTHON) or sys.executable, str(root / tool), str(project),
+        command = [language_python(root), str(root / tool), str(project),
                    "--variant", variant, "--editions", ",".join(editions)]
         if "sp" in editions:
             command += ["--answer-key", str(_answer_key(root, language, candidate)),

@@ -39,3 +39,31 @@ class JsLayoutAdapterTests(unittest.TestCase):
         self.assertNotIn('<z>',value['compiledText'])
         self.assertTrue(all(f['encodedBytes']<=41 for f in value['fields']))
         self.assertEqual(''.join(f['text'] for f in value['fields']),'　Side 3'+'国'*32)
+
+
+class KeptWorkerTests(unittest.TestCase):
+    """The adapter process is kept between batches; a batch gets the same answer either way."""
+
+    REQUESTS=[dict(scene='story',text='目标<z>MS-013</z>已锁定。',options=dict(preserveLineCount=False)),
+              dict(scene='battle',text='这就是我们的回答！',options={})]
+
+    def test_kept_worker_answers_like_a_fresh_process_and_is_reused(self):
+        import os
+        from unittest import mock
+        from srwz import js_layout
+        with mock.patch.dict(os.environ,{'SRWZ_JS_LAYOUT_ONESHOT':'1'}):
+            fresh=js_layout.layout_batch(self.REQUESTS)
+        js_layout._close_idle_workers()
+        with mock.patch.object(js_layout,'_Worker',wraps=js_layout._Worker) as started:
+            kept=[js_layout.layout_batch(self.REQUESTS) for _ in range(5)]
+        self.assertEqual(started.call_count,1)
+        self.assertTrue(all(answer==fresh for answer in kept))
+
+    def test_a_dead_worker_is_replaced_by_a_fresh_process(self):
+        from srwz import js_layout
+        js_layout._close_idle_workers()
+        expected=js_layout.layout_batch(self.REQUESTS)
+        for pool in js_layout._IDLE.values():
+            for worker in pool:worker.process.kill();worker.process.wait()
+        self.assertEqual(js_layout.layout_batch(self.REQUESTS),expected)
+        self.assertEqual(js_layout.layout_batch(self.REQUESTS),expected)

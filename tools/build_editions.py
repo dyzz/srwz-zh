@@ -231,8 +231,31 @@ def reset_relocated_cmake(root: Path, config: dict) -> None:
             shutil.rmtree(directory / "CMakeFiles", ignore_errors=True)
 
 
+def frontend_members(context: BuildContext, snapshot) -> dict:
+    """The Original frontend as SP consumes it: every replaced member, checked against the component
+    validation manifest the components phase has just written."""
+    root = context.project_root
+    config = load_json(root / LEGACY_CONFIG)
+    validation = load_json(root / config["component_validation_manifest"])
+    outputs = validation["outputs"]
+    replacements = config["replacements"]
+    if (validation["status"] != config["component_required_status"] or
+            set(outputs) != {row["member"] for row in replacements}):
+        raise EditionError("Original frontend validation manifest drift")
+    for row in replacements:
+        lock = outputs[row["member"]]
+        path = root / row["source"]
+        if (lock["path"] != row["source"] or path.stat().st_size != lock["size"] or
+                sha256_file(path) != lock["sha256"]):
+            raise EditionError(f"Original frontend member drift: {row['member']}")
+        row.update(size=lock["size"], sha256=lock["sha256"])
+    return {"input_digest": snapshot.digest, "workspace": str(root.relative_to(context.root)),
+            "files": replacements}
+
+
 def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
-                   force_rebuild: bool = False, publish: bool = True, base_ready=None, resources_only=False) -> dict:
+                   force_rebuild: bool = False, publish: bool = True, base_ready=None, resources_only=False,
+                   frontend_ready: Path | None = None) -> dict:
     root = context.project_root
     root.mkdir(parents=True, exist_ok=True)
     snapshot.materialize(root)
@@ -279,22 +302,12 @@ def build_original(context: BuildContext, snapshot, *, legacy_equivalence: bool,
         if extraction is not None:
             extraction.result()
     if resources_only:
-        config = load_json(root / LEGACY_CONFIG)
-        validation = load_json(root / config["component_validation_manifest"])
-        outputs = validation["outputs"]
-        replacements = config["replacements"]
-        if (validation["status"] != config["component_required_status"] or
-                set(outputs) != {row["member"] for row in replacements}):
-            raise EditionError("Original frontend validation manifest drift")
-        for row in replacements:
-            lock = outputs[row["member"]]
-            path = root / row["source"]
-            if (lock["path"] != row["source"] or path.stat().st_size != lock["size"] or
-                    sha256_file(path) != lock["sha256"]):
-                raise EditionError(f"Original frontend member drift: {row['member']}")
-            row.update(size=lock["size"], sha256=lock["sha256"])
-        return {"input_digest": snapshot.digest, "workspace": str(root.relative_to(context.root)),
-                "files": replacements}
+        return frontend_members(context, snapshot)
+    if frontend_ready is not None:
+        # SP compiles its resources from these members; they are final here, so it can start while this
+        # edition goes on to its image, readback and captions (build_multilang.py publishes SP only after
+        # this build has passed).
+        atomic_json(frontend_ready, frontend_members(context, snapshot))
     run_phase(context, "iso", ["tools/build_iso.py", "--config", LEGACY_CONFIG, "--refresh-output-locks",
                                *([] if force_rebuild else ["--incremental"])])
     cfg = load_json(root / LEGACY_CONFIG)
@@ -504,7 +517,8 @@ def build_sp(context: BuildContext, snapshot, *, force_rebuild: bool = False) ->
 
 
 def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = False, legacy_equivalence: bool = False, force_rebuild: bool = False, candidate: bool = False,
-          language: str = "", badge_text: str | None = None, frontend_only=False) -> dict:
+          language: str = "", badge_text: str | None = None, frontend_only=False,
+          frontend_ready: Path | None = None) -> dict:
     started = time.perf_counter()
     started_at = datetime.now(timezone.utc).isoformat()
     root = root.resolve()
@@ -617,6 +631,10 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                             previous.pop("daily_test", None)
                             mode = "verified_current_reuse"
                             print(f"[{context.profile.edition_id}] unchanged inputs and verified current ISO reused", flush=True)
+                            if context.profile.edition_id == "original" and frontend_ready is not None:
+                                # SP compiles beside this build (build_multilang.py): the reused workspace is
+                                # its frontend, announced at once, its members checked as after a real build.
+                                atomic_json(frontend_ready, frontend_members(context, snapshot))
                             return previous
                 result = builder(context, *args, **kwargs)
                 if not publish:
@@ -663,6 +681,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
                             original, build_original, snapshot, legacy_equivalence=legacy_equivalence,
                             force_rebuild=force_rebuild, publish="original" in requested,
                             base_ready=start_best if "best" in contexts else None,
+                            frontend_ready=frontend_ready,
                         )
                     finally:
                         # Record BEST's own outcome even when Original's publication fails.
@@ -709,6 +728,7 @@ def main() -> int:
     parser.add_argument("--single-language", action="store_true", help="Build Simplified only (the default product is a three-language disc).")
     parser.add_argument("--sp-frontend-only", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--frozen-badge", help=argparse.SUPPRESS)
+    parser.add_argument("--frontend-receipt", type=Path, help=argparse.SUPPRESS)
     parser.add_argument("--config", default=DEFAULT_CONFIG)
     parser.add_argument("--editions", default="original,best,sp", help="Comma-separated target editions (default: original,best,sp); Best uses Original as a private frontend unless Original is explicitly requested.")
     parser.add_argument("--candidate", action="store_true", help="Build isolated test ISOs and candidate receipts; leave production outputs unchanged.")
@@ -738,7 +758,8 @@ def main() -> int:
             print(f'[title] version: {badge_text}', flush=True)
         result = build(PROJECT_ROOT, args.config, tuple(x.strip() for x in args.editions.split(",")),
                        plan=args.plan, legacy_equivalence=args.require_legacy_equivalence, force_rebuild=args.force_rebuild, candidate=args.candidate,
-                       language=args.language, badge_text=badge_text if args.language else None, frontend_only=args.sp_frontend_only)
+                       language=args.language, badge_text=badge_text if args.language else None, frontend_only=args.sp_frontend_only,
+                       frontend_ready=args.frontend_receipt)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     except (EditionError, OSError, ValueError, subprocess.SubprocessError) as error:

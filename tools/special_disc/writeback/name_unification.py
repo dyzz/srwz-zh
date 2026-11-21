@@ -12,6 +12,7 @@ import struct
 from pathlib import Path
 
 from srwz.compressed_workspace import decoded_view, write_decoded
+from srwz.build_language import traditional_build
 from srwz.text import decode_text, encode_text, two_byte_visible_spaces
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -56,12 +57,9 @@ def references(data, contract, slot):
     if slot['kind'] != 'string':
         return
     at, size = slot['offset'], slot['capacity']
-    sites = []
-    for site in range(0, len(data) - 3, 4):
-        target = struct.unpack_from('<I', data, site)[0] - contract['runtime_base']
-        if at <= target < at + size:
-            require(target == at, f'SP name-unification interior reference: {at:#x}')
-            sites.append(site)
+    from special_disc.writeback.pointer_scan import sites_into
+    sites, interior = sites_into(data, contract['runtime_base'], at, size)
+    require(not interior, f'SP name-unification interior reference: {at:#x}')
     require(sites == slot['reference_sites'], f'SP name-unification reference drift: {at:#x}')
 
 
@@ -90,7 +88,10 @@ def patch_decoded(data, table, overrides, readback):
         encoded = encode_text(text, table, overrides=overrides, terminate=True)
         require(len(encoded) <= size, f'SP name-unification capacity exceeded: {at:#x}')
         replacement = encoded + bytes(size - len(encoded))
-        require(bytes(data[at:at + size]) in (source, previous, replacement),
+        # Traditional view: the baseline slot holds what the regional Original build wrote for the same Japanese
+        # (肯恩 where the Simplified preimage reads 该隐); the Simplified build of the same inputs holds this guard,
+        # as for the library work-title pool (srwz.library_work_titles).
+        require(bytes(data[at:at + size]) in (source, previous, replacement) or traditional_build(ROOT),
                 f'SP name-unification preimage drift: {at:#x}')
         require(decode_text(replacement, 0, readback, end=size).text == text,
                 'SP name-unification encoding readback mismatch')

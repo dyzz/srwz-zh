@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "review_id": "story-unit-name-variants-20261119",
+  "translation_writeback": true,
+  "purpose": "剧情对话里机体名与日文不符的 8 条，只换名称本身：不带Ｚ的「マジンガー」译成了“魔神Z”→“魔神”（4 条，剧情其余 22 条均作“魔神”）；不带前缀的「グラヴィオン」译成了“格兰维昂”→“超重神”（2 条，术语表 unit/gravion-generic，其余 78 条均作“超重神”）；「デストロイ」作“毁坏高达”→“毁灭高达”（2 条，术语表 unit/destroy-gundam）。繁体两版同步对应名称。",
+  "authorization": "用户 2026-11-19：看过问题列表后回复“只修复语料，同时处理线上意见”。",
+  "online_check": "2026-11-19 线上意见快照里这 8 条没有任何意见；第 7 话 3 条已采纳的“格兰维昂”意见日文都是ゴッドグラヴィオン，不冲突。",
+  "application": {
+    "files": [
+      {
+        "path": "corpus/zh/story-dialogue/stage-006.json",
+        "before_sha256": "0167f9ee04413941f37942ebfa6bd04d248fd0bda037adcd5486279427267075",
+        "after_sha256": "f97eb15763baab54ae23f644694e0fbb210fb1a1c8c84df10efa00552573c2ba"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-047.json",
+        "before_sha256": "2819c0bf0176af8a170d734ea42a05ffdff9ea9b87846e2030e3fe0c1d7f35d2",
+        "after_sha256": "9a93caae53afc96a84da307e45e341a13f732cd815c9b815ddb541e2ede48ef3"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-098.json",
+        "before_sha256": "24bc2fa876345b3dfa622a429e53dd1a74b0a702999597627f0b54a0b1c1b5ff",
+        "after_sha256": "ffcb52458d065aad13db93bcb2da185419dddf0b467c7bd242d62a1b45aa0e52"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-007.json",
+        "before_sha256": "7577b2b8ecf71cbc01b935d3c158ed7994870efd971a84aa44cdb696941861f0",
+        "after_sha256": "30a5a469e8a5ec62e8372a79b705cdb1c6e2ee70b7b218802ad3cd06d25ab1d6"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-140.json",
+        "before_sha256": "1a88279d7a7be53ee99a11307445a179881e8953c48ee4a13b913bb4968afe09",
+        "after_sha256": "96321519386e8f7c47154f0f42927721e809e29f3ed24097c1371b6c18da8a39"
+      },
+      {
+        "path": "corpus/zh-hant/story-dialogue/stage-006.json",
+        "before_sha256": "12bdc9094efcbd94b1747135fbd8fcb790baf84a66f9e944101f6d91fe1d6843",
+        "after_sha256": "8543a3f9a875e749361202c4c5c1fee827148380edba6140544ab41df0930aad"
+      },
+      {
+        "path": "corpus/zh-hant/story-dialogue/stage-047.json",
+        "before_sha256": "37093a3c036313c02de511f03d855532174ddce7a28d420f2e411e76be9a826f",
+        "after_sha256": "0d2f6b5a5c4b744f35544281fc8f0750ad2282217d6022b7f1f45f98a49560ee"
+      },
+      {
+        "path": "corpus/zh-hant/story-dialogue/stage-098.json",
+        "before_sha256": "db0064577c81d1f41dada107126900f4e42123a7b52743d689fe216ff1b449a1",
+        "after_sha256": "9c3e3297889043e676cd9b3dac4e6bcbd4ca037af2ad00dd3285c1c0be95777a"
+      },
+      {
+        "path": "corpus/zh-hant/story-dialogue/stage-007.json",
+        "before_sha256": "494f781697daf31de1d5d6eeefbe10639eca0ef76edfb4a108dabe88f95ddee8",
+        "after_sha256": "fbf2a1d0d94e6329101b1905799cc53127975f49470bf4ab28e84c05d0fd039e"
+      },
+      {
+        "path": "corpus/zh-hant/story-dialogue/stage-140.json",
+        "before_sha256": "fa8696d16c5b70c77b3961a11680a1fcba6a5b94cf83a0e252aec0d75daed798",
+        "after_sha256": "7540df0c7927eec8b250094b584459e83db56d2d08601aca5b676d2dcf6d4a73"
+      },
+      {
+        "path": "corpus/zh-hant-hk/story-dialogue/stage-006.json",
+        "before_sha256": "bc25e42f8e73bd914dbe69e30e5541af7aeab549be89c5a5210f4fa9ccb555c6",
+        "after_sha256": "ae7b4171c8f95257cbc088ab7e1afd0237f13bb9eaffd12d9c23d8a6e59345b8"
+      },
+      {
+        "path": "corpus/zh-hant-hk/story-dialogue/stage-047.json",
+        "before_sha256": "874eae6fa933dccee75610b5038b6b44343d84394c7ea686aaf8ab1a617c0c43",
+        "after_sha256": "2ec8994d79b60a449891ad1c6ded6d2812e771de2b18212871f0683d3d29b258"
+      },
+      {
+        "path": "corpus/zh-hant-hk/story-dialogue/stage-098.json",
+        "before_sha256": "5a062a711fdba3caba128de8faffdd378388184960c94e3d6d22db7005840c0f",
+        "after_sha256": "78f70c083a41b60bcfaa6f4c302f637b8e839d49a5bbac0f79330b9c61bace10"
+      },
+      {
+        "path": "corpus/zh-hant-hk/story-dialogue/stage-007.json",
+        "before_sha256": "2e552abcefd830b6ec2add21848906c48086341eea2a44764209ce6795bfbb98",
+        "after_sha256": "66de3582578b84503b428b9faf7ff27ad86eef21bbd267772298e2a0c0ffcdce"
+      },
+      {
+        "path": "corpus/zh-hant-hk/story-dialogue/stage-140.json",
+        "before_sha256": "3e340edad557067672485c6274e37d865c286a8c3d2213664a2759edd49d1872",
+        "after_sha256": "8f28ce4f5aad834944a6fbe31500074a416f86d54156a01e113b1f4cfa603bbc"
+      }
+    ],
+    "build": false,
+    "site_writeback": false
+  },
+  "entries": [
+    {
+      "file": "corpus/zh/story-dialogue/stage-006.json",
+      "id": "story/006/dialogue/02.01/0086",
+      "kind": "M",
+      "ja": "「マジンガーは光子力の研究のために\n　実験に使われてるんだよ。\n　だから、出撃出来ないんだ」",
+      "before": "“魔神Z正在用于光子力研究的实验。\n　所以没法出击。”",
+      "after": "“魔神正在用于光子力研究的实验。\n　所以没法出击。”"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-047.json",
+      "id": "story/047/dialogue/01.17/0010",
+      "kind": "M",
+      "ja": "「行って、マジンガーに火を…！\n　俺達の魂を入れろ！」",
+      "before": "“去吧，给魔神Z点火……！\n　注入我们的灵魂！”",
+      "after": "“去吧，给魔神点火……！\n　注入我们的灵魂！”"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-047.json",
+      "id": "story/047/dialogue/02.01/0160",
+      "kind": "M",
+      "ja": "「…いいだろう。\n　貴様がそう言うのなら、責任を持って\n　マジンガーを発見してみせよ」",
+      "before": "“……好吧。\n　既然你这么说，\n　就由你负责找出魔神Z。”",
+      "after": "“……好吧。\n　既然你这么说，\n　就由你负责找出魔神。”"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-098.json",
+      "id": "story/098/dialogue/01.142/0000",
+      "kind": "M",
+      "ja": "「手加減は無しでいくぞ、甲児！\n　全弾当てなきゃ、マジンガーの装甲は\n　抜けないからな！」",
+      "before": "“我可不会手下留情，甲儿！\n　非得每一发都打中，\n　才能击穿魔神Z的装甲！”",
+      "after": "“我可不会手下留情，甲儿！\n　非得每一发都打中，\n　才能击穿魔神的装甲！”"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-007.json",
+      "id": "story/007/dialogue/02.02/0112",
+      "kind": "G",
+      "ja": "「そのためにアースガルツと\n　グラヴィオンは存在する」",
+      "before": "“正因为如此，\n　才有了地球战骑队和格兰维昂。”",
+      "after": "“正因为如此，\n　才有了地球战骑队和超重神。”"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-007.json",
+      "id": "story/007/dialogue/02.02/0113",
+      "kind": "G",
+      "ja": "「グラヴィオン…。\n　それが、あのロボットの名前…」",
+      "before": "“格兰维昂……\n　那就是那台机器人的名字……”",
+      "after": "“超重神……\n　那就是那台机器人的名字……”"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-140.json",
+      "id": "story/140/dialogue/01.09/0000",
+      "kind": "D",
+      "ja": "「サイコとデストロイ…。\n　黒い人形…」",
+      "before": "“精神感应高达和毁坏高达……\n　黑色人偶……”",
+      "after": "“精神感应高达和毁灭高达……\n　黑色人偶……”"
+    },
+    {
+      "file": "corpus/zh/story-dialogue/stage-140.json",
+      "id": "story/140/dialogue/01.10/0000",
+      "kind": "D",
+      "ja": "「サイコとデストロイ…。\n　黒い人形とは最悪の趣味だぜ」",
+      "before": "“精神感应高达和毁坏高达……\n　黑色人偶，真是最差的品味。”",
+      "after": "“精神感应高达和毁灭高达……\n　黑色人偶，真是最差的品味。”"
+    },
+    {
+      "file": "corpus/zh-hant/story-dialogue/stage-006.json",
+      "id": "story/006/dialogue/02.01/0086",
+      "kind": "M",
+      "ja": "「マジンガーは光子力の研究のために\n　実験に使われてるんだよ。\n　だから、出撃出来ないんだ」",
+      "before": "“無敵鐵金剛正在用於光子力研究的實驗。\n　所以沒法出擊。”",
+      "after": "“魔神正在用於光子力研究的實驗。\n　所以沒法出擊。”"
+    },
+    {
+      "file": "corpus/zh-hant/story-dialogue/stage-047.json",
+      "id": "story/047/dialogue/01.17/0010",
+      "kind": "M",
+      "ja": "「行って、マジンガーに火を…！\n　俺達の魂を入れろ！」",
+      "before": "“去吧，給無敵鐵金剛點火……！\n　注入我們的靈魂！”",
+      "after": "“去吧，給魔神點火……！\n　注入我們的靈魂！”"
+    },
+    {
+      "file": "corpus/zh-hant/story-dialogue/stage-047.json",
+      "id": "story/047/dialogue/02.01/0160",
+      "kind": "M",
+      "ja": "「…いいだろう。\n　貴様がそう言うのなら、責任を持って\n　マジンガーを発見してみせよ」",
+      "before": "“……好吧。\n　既然你這麼說，\n　就由你負責找出無敵鐵金剛。”",
+      "after": "“……好吧。\n　既然你這麼說，\n　就由你負責找出魔神。”"
+    },
+    {
+      "file": "corpus/zh-hant/story-dialogue/stage-098.json",
+      "id": "story/098/dialogue/01.142/0000",
+      "kind": "M",
+      "ja": "「手加減は無しでいくぞ、甲児！\n　全弾当てなきゃ、マジンガーの装甲は\n　抜けないからな！」",
+      "before": "“我可不會手下留情，甲兒！\n　非得每一發都打中，\n　才能擊穿無敵鐵金剛的裝甲！”",
+      "after": "“我可不會手下留情，甲兒！\n　非得每一發都打中，\n　才能擊穿魔神的裝甲！”"
+    },
+    {
+      "file": "corpus/zh-hant/story-dialogue/stage-007.json",
+      "id": "story/007/dialogue/02.02/0112",
+      "kind": "G",
+      "ja": "「そのためにアースガルツと\n　グラヴィオンは存在する」",
+      "before": "“正因為如此，\n　才有了地球戰騎隊和格蘭維昂。”",
+      "after": "“正因為如此，\n　才有了地球戰騎隊和超重神。”"
+    },
+    {
+      "file": "corpus/zh-hant/story-dialogue/stage-007.json",
+      "id": "story/007/dialogue/02.02/0113",
+      "kind": "G",
+      "ja": "「グラヴィオン…。\n　それが、あのロボットの名前…」",
+      "before": "“格蘭維昂……\n　那就是那臺機器人的名字……”",
+      "after": "“超重神……\n　那就是那臺機器人的名字……”"
+    },
+    {
+      "file": "corpus/zh-hant/story-dialogue/stage-140.json",
+      "id": "story/140/dialogue/01.09/0000",
+      "kind": "D",
+      "ja": "「サイコとデストロイ…。\n　黒い人形…」",
+      "before": "“精神感應鋼彈和毀壞鋼彈……\n　黑色人偶……”",
+      "after": "“精神感應鋼彈和毀滅鋼彈……\n　黑色人偶……”"
+    },
+    {
+      "file": "corpus/zh-hant/story-dialogue/stage-140.json",
+      "id": "story/140/dialogue/01.10/0000",
+      "kind": "D",
+      "ja": "「サイコとデストロイ…。\n　黒い人形とは最悪の趣味だぜ」",
+      "before": "“精神感應鋼彈和毀壞鋼彈……\n　黑色人偶，真是最差的品味。”",
+      "after": "“精神感應鋼彈和毀滅鋼彈……\n　黑色人偶，真是最差的品味。”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/story-dialogue/stage-006.json",
+      "id": "story/006/dialogue/02.01/0086",
+      "kind": "M",
+      "ja": "「マジンガーは光子力の研究のために\n　実験に使われてるんだよ。\n　だから、出撃出来ないんだ」",
+      "before": "“鐵甲萬能俠正在用於光子力研究的實驗。\n　所以沒法出擊。”",
+      "after": "“魔神正在用於光子力研究的實驗。\n　所以沒法出擊。”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/story-dialogue/stage-047.json",
+      "id": "story/047/dialogue/01.17/0010",
+      "kind": "M",
+      "ja": "「行って、マジンガーに火を…！\n　俺達の魂を入れろ！」",
+      "before": "“去吧，給鐵甲萬能俠點火……！\n　注入我們的靈魂！”",
+      "after": "“去吧，給魔神點火……！\n　注入我們的靈魂！”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/story-dialogue/stage-047.json",
+      "id": "story/047/dialogue/02.01/0160",
+      "kind": "M",
+      "ja": "「…いいだろう。\n　貴様がそう言うのなら、責任を持って\n　マジンガーを発見してみせよ」",
+      "before": "“……好吧。\n　既然你這麼説，\n　就由你負責找出鐵甲萬能俠。”",
+      "after": "“……好吧。\n　既然你這麼説，\n　就由你負責找出魔神。”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/story-dialogue/stage-098.json",
+      "id": "story/098/dialogue/01.142/0000",
+      "kind": "M",
+      "ja": "「手加減は無しでいくぞ、甲児！\n　全弾当てなきゃ、マジンガーの装甲は\n　抜けないからな！」",
+      "before": "“我可不會手下留情，甲兒！\n　非得每一發都打中，\n　才能擊穿鐵甲萬能俠的裝甲！”",
+      "after": "“我可不會手下留情，甲兒！\n　非得每一發都打中，\n　才能擊穿魔神的裝甲！”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/story-dialogue/stage-007.json",
+      "id": "story/007/dialogue/02.02/0112",
+      "kind": "G",
+      "ja": "「そのためにアースガルツと\n　グラヴィオンは存在する」",
+      "before": "“正因為如此，\n　才有了地球戰騎隊和格蘭維昂。”",
+      "after": "“正因為如此，\n　才有了地球戰騎隊和超重神。”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/story-dialogue/stage-007.json",
+      "id": "story/007/dialogue/02.02/0113",
+      "kind": "G",
+      "ja": "「グラヴィオン…。\n　それが、あのロボットの名前…」",
+      "before": "“格蘭維昂……\n　那就是那台機械人的名字……”",
+      "after": "“超重神……\n　那就是那台機械人的名字……”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/story-dialogue/stage-140.json",
+      "id": "story/140/dialogue/01.09/0000",
+      "kind": "D",
+      "ja": "「サイコとデストロイ…。\n　黒い人形…」",
+      "before": "“精神感應高達和毀壞高達……\n　黑色人偶……”",
+      "after": "“精神感應高達和毀滅高達……\n　黑色人偶……”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/story-dialogue/stage-140.json",
+      "id": "story/140/dialogue/01.10/0000",
+      "kind": "D",
+      "ja": "「サイコとデストロイ…。\n　黒い人形とは最悪の趣味だぜ」",
+      "before": "“精神感應高達和毀壞高達……\n　黑色人偶，真是最差的品味。”",
+      "after": "“精神感應高達和毀滅高達……\n　黑色人偶，真是最差的品味。”"
+    }
+  ]
+}

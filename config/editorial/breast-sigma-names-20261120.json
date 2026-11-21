@@ -1,0 +1,391 @@
+{
+  "schema_version": 1,
+  "review_id": "breast-sigma-names-20261120",
+  "translation_writeback": true,
+  "purpose": "2026-11-20 武器名复核后的两项决定：ブレストファイヤー／ブレストバーン 分别改为“胸甲火焰”“胸甲爆炎”（此前同为“胸部火焰”）；シグマブレスト 统一为“Σ射线”，与菜单“Σ射线无双剑”一致。每条改写绑定该记录自己的日文原文，只替换名称，不动其他措辞和换行。",
+  "authorization": {
+    "breast": "用户 2026-11-20 在对话中贴出 DD 中文 wiki 的“胸甲火焰”“胸甲爆炎”两页",
+    "sigma-breast": "两边统一成“Σ射线”"
+  },
+  "decisions": [
+    {
+      "id": "breast-fire",
+      "source_text": "ブレストファイヤー",
+      "form": "胸甲火焰",
+      "variants": [
+        "胸部火焰",
+        "胸甲烈焰",
+        "胸甲火焰"
+      ]
+    },
+    {
+      "id": "breast-burn",
+      "source_text": "ブレストバーン",
+      "form": "胸甲爆炎",
+      "variants": [
+        "胸部火焰",
+        "胸甲爆燃",
+        "胸甲爆炎"
+      ]
+    },
+    {
+      "id": "sigma-breast",
+      "source_text": "シグマブレスト",
+      "form": "Σ射线",
+      "variants": [
+        "Σ冲击",
+        "Σ射线"
+      ]
+    }
+  ],
+  "feedback_snapshot_at": "2026-11-20T02:23:50.148535+00:00",
+  "feedback_snapshot_total": 4061,
+  "summary": {
+    "write": 18,
+    "files": 5,
+    "by_group": {
+      "breast-fire": 4,
+      "breast-burn": 2,
+      "sigma-breast": 12
+    },
+    "reviewed": 14,
+    "with_online_opinions": 2,
+    "library_override_edits": 1,
+    "glossary_edits": 3,
+    "leftovers": 0,
+    "online_snapshot_at": "2026-11-20T02:23:50.148535+00:00",
+    "online_snapshot_total": 4061,
+    "gate_errors": 0
+  },
+  "application": {
+    "files": [
+      {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "entries": 7,
+        "before_sha256": "734ab8535a8e9f52b17c8222505f14e39b41fc0c17aa096e512f22b0911c4ee8",
+        "after_sha256": "e773f658beffe51e7b5f9c8d836688c54e64ec8fd1e8e7efdef07f090c06f54c"
+      },
+      {
+        "path": "corpus/zh/library/v0.2-reviewed.json",
+        "entries": 4,
+        "before_sha256": "da41dd11ce980461c2a9ec19a152e4b886d9fd0b6486137da32660dfdae8e103",
+        "after_sha256": "143eca9af95b1fa53e041219f3dcbed84d213e02d2a01f258c14af6e4163ee55"
+      },
+      {
+        "path": "corpus/zh/menu/weapons.json",
+        "entries": 2,
+        "before_sha256": "a54b2b6c21ebcf9deb1909baebaa4ee38a05a8943d2cf6a2eb9e874d06b9c448",
+        "after_sha256": "a3a1e54184d79ffaad2fcbbc24190774692e69bae3b750c1aa0c8b354ddd8aef"
+      },
+      {
+        "path": "corpus/zh/special-disc/story-dialogue.json",
+        "entries": 1,
+        "before_sha256": "8a73f90ff1421adbd2f599d87cbdcb45eecc146ed8bb6c684873044a31952742",
+        "after_sha256": "ca4444a3dcb57f9d10f220d4cf52c6dbf47644cb841559709420d6e829659dff"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-063.json",
+        "entries": 4,
+        "before_sha256": "e44657d0509d05a12332efb746b039394ced6461b16867d2e224c5eabde6729f",
+        "after_sha256": "647b4156a042cbfa199a27a2c6686fd02cf0c22b8a1b5ef567de69d7333cc603"
+      },
+      {
+        "path": "config/library/v0.2-editorial-overrides.json",
+        "entries": 0,
+        "before_sha256": "89b28d49c87ebdaf0e5717898ddb88ac305697ed55e21c910c3d824ff7f7c4d9",
+        "after_sha256": "f346749a1ab4abeca103d8fb22a30cf534a4519cb4b3bd06e209fa1d9b712eb7"
+      },
+      {
+        "path": "corpus/glossary/weapons-v1.json",
+        "entries": 0,
+        "before_sha256": "f145cfbf325c0ad7de0a8242d85f2754c0013022aac2ab5a6ea99e91c06dd572",
+        "after_sha256": "0eeeeb9e2a6a20ef40a4cd366b1d1bf17d6aad1ccdfd0e6614c165ce5e8d414a"
+      }
+    ],
+    "active_lock_updates": [
+      {
+        "file": "config/full-story-components.json",
+        "edits": [
+          {
+            "pointer": "/reviewed_weapons/corpus",
+            "before": {
+              "path": "corpus/zh/menu/weapons.json",
+              "size": 215787,
+              "sha256": "a54b2b6c21ebcf9deb1909baebaa4ee38a05a8943d2cf6a2eb9e874d06b9c448"
+            },
+            "after": {
+              "path": "corpus/zh/menu/weapons.json",
+              "size": 215787,
+              "sha256": "a3a1e54184d79ffaad2fcbbc24190774692e69bae3b750c1aa0c8b354ddd8aef"
+            }
+          },
+          {
+            "pointer": "/srvc_battle_text/corpus",
+            "before": {
+              "path": "corpus/zh/battle/srvc-lines.json",
+              "size": 6989813,
+              "sha256": "734ab8535a8e9f52b17c8222505f14e39b41fc0c17aa096e512f22b0911c4ee8"
+            },
+            "after": {
+              "path": "corpus/zh/battle/srvc-lines.json",
+              "size": 6989813,
+              "sha256": "e773f658beffe51e7b5f9c8d836688c54e64ec8fd1e8e7efdef07f090c06f54c"
+            }
+          }
+        ]
+      }
+    ],
+    "site_writeback": false
+  },
+  "entries": [
+    {
+      "id": "battle:07273",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "breast-fire",
+      "ja": "「ブレストファイヤー！！」",
+      "before": "“胸部火焰！！”",
+      "after": "“胸甲火焰！！”",
+      "online_opinions": [
+        {
+          "id": "200d790e-d8c3-4260-96e0-751c188095bb",
+          "by": "卡洛德",
+          "resolution": "alternative",
+          "proposed": "“胸甲烈焰！！”"
+        },
+        {
+          "id": "abc30a26-8186-43d1-a2dd-8fb218b4de70",
+          "by": "亚伯",
+          "resolution": "alternative",
+          "proposed": "“胸甲烈阳！！”"
+        },
+        {
+          "id": "4ecf972c-7fa5-444f-b1ee-bd35dfa628aa",
+          "by": "亚伯",
+          "resolution": "alternative",
+          "proposed": "“胸甲烈焰！！”"
+        }
+      ],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:07277",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "breast-burn",
+      "ja": "「ブレストバーン！！」",
+      "before": "“胸部火焰！！”",
+      "after": "“胸甲爆炎！！”",
+      "online_opinions": [
+        {
+          "id": "31538188-b4e3-4334-851c-93db7e56ecce",
+          "by": "亚伯",
+          "resolution": "alternative",
+          "proposed": "“胸甲爆炎！！”"
+        }
+      ],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:20161",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "breast-fire",
+      "ja": "「ブレストファイヤー！」",
+      "before": "“胸部火焰！”",
+      "after": "“胸甲火焰！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:24121",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "sigma-breast",
+      "ja": "「よし…！　シグマ・ブレスト！」",
+      "before": "“好……！Σ冲击！”",
+      "after": "“好……！Σ射线！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:24123",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "sigma-breast",
+      "ja": "「シグマブレストだ、闘志也！」",
+      "before": "“是Σ冲击，斗志也！”",
+      "after": "“是Σ射线，斗志也！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:24270",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "sigma-breast",
+      "ja": "「シグマァァァ・ブレェェェストォッ！！」",
+      "before": "“Σ冲击！！”",
+      "after": "“Σ射线！！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "battle:24272",
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "group": "sigma-breast",
+      "ja": "「シグマ・ブレスト…！！」",
+      "before": "“Σ冲击……！！”",
+      "after": "“Σ射线……！！”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/1b2ed9e8e9afc711",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "breast-fire",
+      "ja": "　兜十蔵博士が設計・開発したスーパーロボット。\n　「マジン・ゴー！」の掛け声で汚水処理場から出現した\nところに、甲児のホバーパイルダーが頭部に合体（パイル\nダー・オン）することで完成する。\n　動力は光子力エネルギーで、２０メートルのジャンプ力、\n１５０トンの握力、６５万馬力のパワーを持つ。超合金Ｚ\nで覆われた装甲は強固で、並の攻撃では傷１つ負うことは\nない。\n　ロケット噴射で腕を飛ばす『ロケットパンチ』、胸板か\nら熱エネルギーを発する『ブレストファイヤー』、口部か\nら酸を含んだ強風を放つ『ルストハリケーン』など、多様\nな武装を装備している。だがこれだけに留まらず、以後も\n弓教授達の手によって、次々と新武装の追加、性能の強化\nが図られていった。\n　強化手段の中でも最も有名なのは、飛行補助装置『ジェ\nットスクランダー』によって、空が飛べないという最大の\n弱点を克服したエピソードである。この『翼を手に入れて\n自在に空を飛ぶ』という一連の展開は、神話の時代からの\n人類の憧れを体現しているため、非常に強い印象を残した。\nそのため、以後多くのロボットアニメが形を変えて踏襲し\nている。",
+      "before": "兜十藏博士设计开发的超级机器人。随着“魔神GO！”\n的呼喊，机体从污水处理场升起，甲儿驾驶的悬浮飞翼号\n随后与其头部结合，完成飞翼合体。动力为光子力能源，\n拥有20米的跳跃力、150吨的握力、65万马力的功率。\n覆盖超合金Z的装甲坚固无比，普通攻击无法造成一丝\n损伤。装备有通过火箭喷射将手臂发射的“火箭飞拳”、\n从胸板发出热能量的“胸部火焰”、从口部放出含酸强风\n的“腐蚀飓风”等多种武装。但不仅限于此，此后弓教授等\n人又不断为其追加新武装、强化性能。其中最著名的强化方\n案，是借助飞行辅助装置“喷射飞翼”，克服了无法飞行这\n一最大弱点。这一“获得翅膀、自由翱翔于天空”的情节，\n体现了自神话时代以来人类的憧憬，因此留下了极为深刻的\n印象。此后许多机器人动画都以不同形式沿用了这一设定。",
+      "after": "兜十藏博士设计开发的超级机器人。随着“魔神GO！”\n的呼喊，机体从污水处理场升起，甲儿驾驶的悬浮飞翼号\n随后与其头部结合，完成飞翼合体。动力为光子力能源，\n拥有20米的跳跃力、150吨的握力、65万马力的功率。\n覆盖超合金Z的装甲坚固无比，普通攻击无法造成一丝\n损伤。装备有通过火箭喷射将手臂发射的“火箭飞拳”、\n从胸板发出热能量的“胸甲火焰”、从口部放出含酸强风\n的“腐蚀飓风”等多种武装。但不仅限于此，此后弓教授等\n人又不断为其追加新武装、强化性能。其中最著名的强化方\n案，是借助飞行辅助装置“喷射飞翼”，克服了无法飞行这\n一最大弱点。这一“获得翅膀、自由翱翔于天空”的情节，\n体现了自神话时代以来人类的憧憬，因此留下了极为深刻的\n印象。此后许多机器人动画都以不同形式沿用了这一设定。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/2d6fe9762a6a91e9",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "sigma-breast",
+      "ja": "　最終話『未来への旅立ち』に登場した、ガガーンの操る\n巨大ロボット。\n　ガガーンの要塞の表面が崩壊し、内部の発光物体が変形\nすることで完成した。\n　ゴッドシグマを遥かに上回る巨体と、シグマブレストす\nら防ぐ堅牢な装甲を持つ。右手にアックス、左手にモーニ\nングスターを構え、口からは火炎、胸の８つの穴からは貫\n通レーザーなどを放ち、ゴッドシグマを圧倒した。",
+      "before": "最终话《迈向未来的旅程》中登场，由加根操纵的巨型\n机器人。加根要塞表面崩坏后，内部发光物体变形完成。\n它拥有远超巨神Σ的庞大身躯，以及连“Σ冲击”都能挡\n下的坚固装甲。右手持斧、左手持流星锤，可从口中喷出\n火焰，并从胸前8个孔洞发射贯穿激光，一度压制巨神Σ。",
+      "after": "最终话《迈向未来的旅程》中登场，由加根操纵的巨型\n机器人。加根要塞表面崩坏后，内部发光物体变形完成。\n它拥有远超巨神Σ的庞大身躯，以及连“Σ射线”都能挡\n下的坚固装甲。右手持斧、左手持流星锤，可从口中喷出\n火焰，并从胸前8个孔洞发射贯穿激光，一度压制巨神Σ。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/2e21fd9bd362ca21",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "sigma-breast",
+      "ja": "　最終話『未来への旅立ち』に登場した、ガガーンの操る\n巨大ロボット。\n　ガガーンの要塞の表面が崩壊し、内部の発光物体が変形\nすることで完成した。\n　ゴッドシグマを遥かに上回る巨体と、シグマブレストす\nら防ぐ堅牢な装甲を持つ。右手にアックス、左手にモーニ\nングスターを構え、口からは火炎、胸の８つの穴からは貫\n通レーザーなどを放ち、ゴッドシグマを圧倒した。\n　そして敗北寸前までゴッドシグマを追い詰めたものの、\nビッグウイングを使った捨て身の特攻を受け、ハンマーご\nと首を貫かれ爆発。ゴッドシグマとは相討ちになった。",
+      "before": "最终话《迈向未来的旅程》中登场，由加根操纵的巨型\n机器人。加根要塞表面崩坏后，内部发光物体变形完成。\n它拥有远超巨神Σ的庞大身躯，以及连“Σ冲击”都能挡\n下的坚固装甲。右手持斧、左手持流星锤，可从口中喷出\n火焰，并从胸前8个孔洞发射贯穿激光，一度压制巨神Σ。\n虽然将巨神Σ逼至败北边缘，却遭巨翼发动的舍身突击贯\n穿颈部与流星锤，机体随即爆炸，最终与巨神Σ同归于尽。",
+      "after": "最终话《迈向未来的旅程》中登场，由加根操纵的巨型\n机器人。加根要塞表面崩坏后，内部发光物体变形完成。\n它拥有远超巨神Σ的庞大身躯，以及连“Σ射线”都能挡\n下的坚固装甲。右手持斧、左手持流星锤，可从口中喷出\n火焰，并从胸前8个孔洞发射贯穿激光，一度压制巨神Σ。\n虽然将巨神Σ逼至败北边缘，却遭巨翼发动的舍身突击贯\n穿颈部与流星锤，机体随即爆炸，最终与巨神Σ同归于尽。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "library-text/a1a3382675768fbd",
+      "file": "corpus/zh/library/v0.2-reviewed.json",
+      "group": "sigma-breast",
+      "ja": "　風見博士が開発したスーパーロボット。\n　空雷王が上半身、海鳴王が右足、陸震王が左足になり、\nさらにビッグウィングが空雷王を覆うように胸部と背部に\n合体することで、トリニティ・エネルギーを動力源とする\nスーパーロボット・ゴッドシグマとなる。\n　基本は空雷王・海鳴王・陸震王の３機のパイロットがそ\nのまま操縦者となるが、空雷王のパイロット１人だけで操\n縦することも可能。ただしその場合は、海鳴王と陸震王の\nパワーが十分に活かせなくなってしまうというデメリット\nもある。\n　武装としては、指先からエネルギー弾を発射する『フィ\nンガーニードル』、投擲するほか、手に持って扱う事もで\nきる『ゴッドトマホーク』、サイドスローで放たれるトゲ\n付き円盤『スピンソーサー』などがある。必殺技はビッグ\nウィングに格納された『無双剣』を使った数々の剣術。そ\nのバリエーションは『唐竹割り』、『逆袈裟斬り』、『十\n文字斬り』、『兜割り』、『水平斬り』、『諸刃突き』、\n『諸刃返し』、『諸手斬り』、『電光斬り』、『一文字斬\nり』など、実に多彩である。\n　のちに出現する、特殊メッキでコーティングしたコスモ\nザウルスに対抗するため、ウイングの先端部から放たれる\nメッキをはがす光線『シグマ・ブレスト』が追加された。",
+      "before": "风见博士开发的超级机器人。空雷王组成上半身，海鸣王\n组成右腿，陆震王组成左腿，巨翼则覆盖空雷王，与其胸\n部和背部合体，最终构成以三位一体能量为动力的巨神Σ。\n通常由3台机体的驾驶员分别操纵，也可只由空雷王驾驶员\n1人操纵；但这样无法充分发挥海鸣王与陆震王的力量。\n武装包括从指尖发射能量弹的“指尖钉刺”、可投掷也\n可手持的“神之战斧”，以及以侧投方式掷出的带刺圆盘\n“旋转飞碟”。必杀技是使用收纳在巨翼中的“无双剑”\n施展多种剑技，包括“唐竹斩”、“逆袈裟斩”、“十\n字斩”、“兜割斩”、“水平斩”、“双刃突刺”、“双\n刃回斩”、“双手斩”、“电光斩”和“一文字斩”等，\n变化极为丰富。为对付后来出现的特殊镀层宇宙恐龙，\n后又追加能从巨翼尖端发射、剥离镀层的光线“Σ冲击”。",
+      "after": "风见博士开发的超级机器人。空雷王组成上半身，海鸣王\n组成右腿，陆震王组成左腿，巨翼则覆盖空雷王，与其胸\n部和背部合体，最终构成以三位一体能量为动力的巨神Σ。\n通常由3台机体的驾驶员分别操纵，也可只由空雷王驾驶员\n1人操纵；但这样无法充分发挥海鸣王与陆震王的力量。\n武装包括从指尖发射能量弹的“指尖钉刺”、可投掷也\n可手持的“神之战斧”，以及以侧投方式掷出的带刺圆盘\n“旋转飞碟”。必杀技是使用收纳在巨翼中的“无双剑”\n施展多种剑技，包括“唐竹斩”、“逆袈裟斩”、“十\n字斩”、“兜割斩”、“水平斩”、“双刃突刺”、“双\n刃回斩”、“双手斩”、“电光斩”和“一文字斩”等，\n变化极为丰富。为对付后来出现的特殊镀层宇宙恐龙，\n后又追加能从巨翼尖端发射、剥离镀层的光线“Σ射线”。",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "menu/Compdata/02/0007",
+      "file": "corpus/zh/menu/weapons.json",
+      "group": "breast-fire",
+      "ja": "ブレストファイヤー",
+      "before": "胸部火焰",
+      "after": "胸甲火焰",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "menu/Compdata/02/0020",
+      "file": "corpus/zh/menu/weapons.json",
+      "group": "breast-burn",
+      "ja": "ブレストバーン",
+      "before": "胸部火焰",
+      "after": "胸甲爆炎",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "story/063/dialogue/01.21/0004",
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "group": "sigma-breast",
+      "ja": "「…方法はある…！\n　シグマブレストだ！」",
+      "before": "“……有办法……！\n　用Σ冲击！”",
+      "after": "“……有办法……！\n　用Σ射线！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/063/dialogue/01.21/0005",
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "group": "sigma-breast",
+      "ja": "「シグマブレスト！？」",
+      "before": "“Σ冲击！？”",
+      "after": "“Σ射线！？”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/063/dialogue/01.21/0007",
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "group": "sigma-breast",
+      "ja": "「ですが、博士！\n　この状況を打開するには\n　シグマブレストしかありません！」",
+      "before": "“但是，博士！\n　要打破这个局面，\n　只有Σ冲击了！”",
+      "after": "“但是，博士！\n　要打破这个局面，\n　只有Σ射线了！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "story/063/dialogue/01.21/0008",
+      "file": "corpus/zh/story-dialogue/stage-063.json",
+      "group": "sigma-breast",
+      "ja": "「物質の分子結合を破壊する\n　シグマブレストなら、コーティングを\n　崩壊させる事が出来るはずです！」",
+      "before": "“如果是能破坏物质分子结合的Σ冲击，\n　应该能摧毁那层涂层！”",
+      "after": "“如果是能破坏物质分子结合的Σ射线，\n　应该能摧毁那层涂层！”",
+      "online_opinions": [],
+      "editorial_status": "draft"
+    },
+    {
+      "id": "sd/story/014/dialogue/02.02/0011",
+      "file": "corpus/zh/special-disc/story-dialogue.json",
+      "group": "sigma-breast",
+      "ja": "「そうだ。\n　シグマブレストの実装に取り掛かるぞ」",
+      "before": "“没错。接下来就着手实装Σ冲击。”",
+      "after": "“没错。接下来就着手实装Σ射线。”",
+      "online_opinions": [],
+      "editorial_status": "reviewed"
+    }
+  ],
+  "library_overrides": [
+    {
+      "id": "library-text/1b2ed9e8e9afc711",
+      "before": "兜十藏博士设计开发的超级机器人。随着“魔神GO！”的呼喊，机体从污水处理场升起，甲儿驾驶的悬浮飞翼号随后与其头部结合，完成飞翼合体。动力为光子力能源，拥有20米的跳跃力、150吨的握力、65万马力的功率。覆盖超合金Z的装甲坚固无比，普通攻击无法造成一丝损伤。装备有通过火箭喷射发射手臂的“火箭飞拳”、从胸板发出热能量的“胸部火焰”、从口部放出含酸强风的“腐蚀飓风”等多种武装。但不仅限于此，此后弓教授等人又不断为其追加新武装、强化性能。其中最著名的强化情节，是借助飞行辅助装置“喷射飞翼”，克服了无法飞行这一最大弱点。这一“获得翅膀、自由翱翔于天空”的情节，体现了自神话时代以来人类的憧憬，因此留下了极为深刻的印象。此后许多机器人动画都以不同形式沿用了这一设定。",
+      "after": "兜十藏博士设计开发的超级机器人。随着“魔神GO！”的呼喊，机体从污水处理场升起，甲儿驾驶的悬浮飞翼号随后与其头部结合，完成飞翼合体。动力为光子力能源，拥有20米的跳跃力、150吨的握力、65万马力的功率。覆盖超合金Z的装甲坚固无比，普通攻击无法造成一丝损伤。装备有通过火箭喷射发射手臂的“火箭飞拳”、从胸板发出热能量的“胸甲火焰”、从口部放出含酸强风的“腐蚀飓风”等多种武装。但不仅限于此，此后弓教授等人又不断为其追加新武装、强化性能。其中最著名的强化情节，是借助飞行辅助装置“喷射飞翼”，克服了无法飞行这一最大弱点。这一“获得翅膀、自由翱翔于天空”的情节，体现了自神话时代以来人类的憧憬，因此留下了极为深刻的印象。此后许多机器人动画都以不同形式沿用了这一设定。"
+    }
+  ],
+  "glossary": [
+    {
+      "id": "weapon/0007",
+      "before": {
+        "translation": "胸部火焰",
+        "deprecated": [
+          "胸甲烈焰"
+        ]
+      },
+      "after": "胸甲火焰"
+    },
+    {
+      "id": "weapon/0020",
+      "before": {
+        "translation": "胸部火焰",
+        "deprecated": [
+          "胸甲爆燃",
+          "胸部烈焰"
+        ]
+      },
+      "after": "胸甲爆炎"
+    },
+    {
+      "id": "weapon/sigma-breast",
+      "before": {
+        "translation": "Σ冲击",
+        "deprecated": [
+          "西格玛胸炮",
+          "西格玛·胸炮",
+          "西格玛胸甲"
+        ]
+      },
+      "after": "Σ射线"
+    }
+  ],
+  "leftovers": []
+}

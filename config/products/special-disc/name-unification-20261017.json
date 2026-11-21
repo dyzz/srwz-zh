@@ -132,9 +132,17 @@
    "ids": [
     "golem"
    ]
+  },
+  {
+   "path": "config/editorial/breast-sigma-names-20261120.json",
+   "sha256": "f9326c2c82a6b54597f217c1e86e23f046bf7fda614763fde8536fe58b283ecd",
+   "ids": [
+    "breast-fire",
+    "breast-burn"
+   ]
   }
  ],
- "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。 2026-10-17 本篇旧译统一（main-old-renderings-20261017）追加 SP 继承的 26 个槽位。 2026-11-14 アゲハ隊改定为展翅队（ageha-rename-20261114）追加 SP 继承的 4 个驾驶员名槽位。 2026-11-15 アンダーゴレーム改定为安达葛雷姆（term-leftovers-20261115）追加 SP 继承的 2 个机体名槽位。",
+ "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。 2026-10-17 本篇旧译统一（main-old-renderings-20261017）追加 SP 继承的 26 个槽位。 2026-11-14 アゲハ隊改定为展翅队（ageha-rename-20261114）追加 SP 继承的 4 个驾驶员名槽位。 2026-11-15 アンダーゴレーム改定为安达葛雷姆（term-leftovers-20261115）追加 SP 继承的 2 个机体名槽位。 2026-11-20 ブレストファイヤー／ブレストバーン 改定为胸甲火焰／胸甲爆炎（breast-sigma-names-20261120）追加 SP 继承的 2 个武器名槽位。",
  "entries": [
   {
    "kind": "pilot_field",
@@ -2129,6 +2137,48 @@
    "translation": "安达葛雷姆",
    "decision": "golem",
    "decision_record": "config/editorial/term-leftovers-20261115.json"
+  },
+  {
+   "kind": "string",
+   "offset": 510672,
+   "capacity": 32,
+   "source_text": "ブレストファイヤー",
+   "source_hex": "8375838c835883678374834083438384815b0000000000000000000000000000",
+   "previous_hex": "8bb9959489ce9545000000000000000000000000000000000000000000000000",
+   "reference_sites": [
+    220056,
+    220060,
+    220416,
+    220420,
+    220816,
+    220820,
+    221096,
+    221100
+   ],
+   "translation": "胸甲火焰",
+   "decision": "breast-fire",
+   "decision_record": "config/editorial/breast-sigma-names-20261120.json"
+  },
+  {
+   "kind": "string",
+   "offset": 511096,
+   "capacity": 24,
+   "source_text": "ブレストバーン",
+   "source_hex": "8375838c83588367836f815b839300000000000000000000",
+   "previous_hex": "8bb9959489ce954500000000000000000000000000000000",
+   "reference_sites": [
+    221576,
+    221580,
+    221936,
+    221940,
+    222376,
+    222380,
+    222656,
+    222660
+   ],
+   "translation": "胸甲爆炎",
+   "decision": "breast-burn",
+   "decision_record": "config/editorial/breast-sigma-names-20261120.json"
   }
  ]
 }

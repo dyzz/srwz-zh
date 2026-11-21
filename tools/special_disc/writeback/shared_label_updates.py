@@ -36,13 +36,10 @@ def inputs():
 
 def references(data, contract, slot):
     at, size = slot['offset'], slot['capacity']
-    sites = []
-    for site in range(0, len(data) - 3, 4):
-        target = struct.unpack_from('<I', data, site)[0] - contract['runtime_base']
-        if at <= target < at + size:
-            if target != at:
-                raise ValueError('SP shared-label interior reference drift')
-            sites.append(site)
+    from special_disc.writeback.pointer_scan import sites_into
+    sites, interior = sites_into(data, contract['runtime_base'], at, size)
+    if interior:
+        raise ValueError('SP shared-label interior reference drift')
     if sites != slot['reference_sites']:
         raise ValueError('SP shared-label reference drift')
 

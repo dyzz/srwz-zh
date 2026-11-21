@@ -32,6 +32,7 @@ OWNED = re.compile(r'<width:(?:0E|0C)><space:(?:0A|0C)>(?:<height:[0-9A-Fa-f]{2}
                    r'(?:<height:[0-9A-Fa-f]{2}>)?')
 DOME_OWNED = re.compile(r'<width:10><space:0E>(?:<height:0A>)?D\.O\.M\.E\.G-Bit'
                         r'<width:12><space:12>(?:<height:0A>)?')
+BODY_BASELINE = re.compile(r'\A(?:<width:15><space:15>)+')
 DIMENSION = re.compile(r'<(width|space|height):([0-9A-Fa-f]{2})>\Z')
 BOUNDARY = re.compile(r'＜ｔｍ＞.*?＜／ｔｍ＞|<tm>.*?</tm>|<<[^>]+>>|'
                       + CONTROL_NOTATION.pattern + r'|\\[nrt]|\\u[0-9A-Fa-f]{4}', re.S)
@@ -64,6 +65,14 @@ def library_typography(text: str, tag: str, *, domain: str | None = None, typogr
     if typography == 'proportional':
         # Remove only scopes owned by this compiler. Unknown authored controls
         # remain intact; the shared layout engine validates/removes legacy z.
+        if tag in BODY_TAGS:
+            # The leading 21/21 baseline only existed to restore the native
+            # body state after a compact scope on the first row. Once every
+            # owned scope is gone it restates the default, so drop it; keep it
+            # when an authored width/advance control still follows.
+            body = BODY_BASELINE.sub('', logical)
+            if not re.search(r'<(?:width|space):', body):
+                return body
         return logical
     state = dict(zip(('width', 'space', 'height'), SURFACES[tag]))
     if tag in BODY_TAGS and domain is not None:

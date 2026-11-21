@@ -13,36 +13,25 @@ from srwz.release_inputs import SOURCE_ROOTS, source_inventory
 
 
 class RegionalCorpusTests(unittest.TestCase):
-    def test_missing_file_row_and_field(self):
-        class Dictionary(fill_corpora.sc.Drafter):
-            def __init__(self, path):
-                self.frozen = set()
-
-            def text(self, value):
-                return value.replace('机', '機').replace('发', '發')
-
+    def test_coverage_check_reports_missing_text_and_writes_nothing(self):
+        import sync_corpus
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             src = root / 'corpus/zh/stage.json'
             tw = root / 'corpus/zh-hant/stage.json'
             hk = root / 'corpus/zh-hant-hk/stage.json'
-            src.parent.mkdir(parents=True)
-            tw.parent.mkdir(parents=True)
-            src.write_text(json.dumps({'language': 'zh-Hans', 'entries': [
-                {'id': 'a', 'translation': '出发', 'source': '原机'},
-                {'id': 'b', 'translation': '机体'},
-                {'id': 'c', 'translation': '出发'}]}))
-            tw.write_text(json.dumps({'entries': [{'id': 'c', 'translation': ''},
-                                                   {'id': 'a', 'translation': '編輯定稿'}]}))
-            with patch.object(fill_corpora.sc, 'Drafter', Dictionary):
-                fill_corpora.prepare(root)
-                first = hk.stat().st_mtime_ns
-                fill_corpora.prepare(root)
-            a, b, c = json.loads(tw.read_text())['entries']
-            self.assertEqual((a['translation'], a['source']), ('編輯定稿', '原机'))
-            self.assertEqual((b['translation'], c['translation']), ('機体', '出發'))
-            self.assertEqual(json.loads(hk.read_text())['entries'][0]['translation'], '出發')
-            self.assertEqual(first, hk.stat().st_mtime_ns)
+            for f in (src, tw, hk):
+                f.parent.mkdir(parents=True)
+            src.write_text(json.dumps({'entries': [{'id': 'a', 'translation': '出发'}, {'id': 'b', 'translation': '机体'}]}))
+            tw.write_text(json.dumps({'entries': [{'id': 'a', 'translation': '出發'}]}))
+            hk.write_text(json.dumps({'entries': [{'id': 'a', 'translation': '出發'}, {'id': 'b', 'translation': '機體'}]}))
+            before = (tw.read_bytes(), hk.read_bytes())
+            with patch.object(sync_corpus, 'ROOT', root):
+                with self.assertRaises(SystemExit) as stop:
+                    fill_corpora.prepare(root)
+            self.assertIn('corpus/zh-hant/stage.json', str(stop.exception))
+            self.assertNotIn('zh-hant-hk', str(stop.exception))
+            self.assertEqual(before, (tw.read_bytes(), hk.read_bytes()))
 
     def test_missing_terrain_name_matches_the_japanese_source(self):
         source = [{'source': '甲', 'translation': '第一'}, {'source': '乙', 'translation': '第二'}]

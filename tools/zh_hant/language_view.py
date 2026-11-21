@@ -62,6 +62,89 @@ def place_sp_support(project: Path) -> None:
                 copy_file(iso, target)
 
 
+def awaited_answer_keys(receipts: Path, variant: str):
+    """Answer keys read from frontend receipts that the Original builds write while this view is being made
+    (build_multilang.py): everything before the baseline runs meanwhile. An `abort` file there ends the wait."""
+    def resolve():
+        import time
+        started = time.perf_counter()
+        names = {variant: f'zh-hant-{variant}', 'tw': 'zh-hant-tw', 'sc': 'zh'}
+        paths = {key: receipts / f'{name}.json' for key, name in names.items()}
+        while not all(path.is_file() for path in paths.values()):
+            if (receipts / 'abort').exists():
+                raise SystemExit('the Original frontends were not rebuilt: nothing to compile from')
+            if time.perf_counter() - started > 1800:
+                raise SystemExit('timed out waiting for the Original frontends')
+            time.sleep(0.2)
+        print(f'[sp-view] waited-for-frontends: {time.perf_counter()-started:.2f}s', flush=True)
+        key = lambda name: (ROOT / json.loads(paths[name].read_text())['workspace']
+                            / 'work/build/zh-release-full-story/components').resolve()
+        return key(variant), key('tw'), key('sc')
+    return resolve
+
+
+STAGES = ('font-configs', 'baseline-atlas')
+STAGE_VERSION = 1            # raise when a stage starts to depend on something its record cannot see
+
+
+def stage_scope(project: Path, variant: str, stage: str) -> dict:
+    """What a stage can depend on without opening it through Python (srwz.step_memo): the tool sources, the
+    interpreter and the programs it runs, the settings in the environment, and the files other programs read
+    by name (xdelta3 decodes the baselines from the discs; the compressor is run, not read)."""
+    import hashlib
+    import os
+    from srwz.file_identity import sha256_file
+    tools = hashlib.sha256()
+    for tree in ('tools', 'shared', 'vendor'):
+        for f in sorted((project / tree).rglob('*')):
+            if f.is_file() and '__pycache__' not in f.parts:
+                tools.update(f'{f.relative_to(project).as_posix()}\0{sha256_file(f)}\n'.encode())
+    by_name = {}
+    for pattern in ('work/build/special-disc/baselines/*', 'work/toolchain/srwz-compressor-rs/target/release/srwz-compress',
+                    'rom/*', 'build/iso/sources/*'):
+        for f in sorted(project.glob(pattern)):
+            if f.is_file():
+                by_name[f.relative_to(project).as_posix()] = sha256_file(f.resolve())
+    programs = {}
+    for name in ('node', 'xdelta3', 'python3'):
+        path = shutil.which(name)
+        programs[name] = [path, os.stat(path).st_size, os.stat(path).st_mtime_ns] if path else None
+    settings = {k: v for k, v in sorted(os.environ.items())
+                if k.startswith('SRWZ_') and k not in ('SRWZ_STEP_TRACE', 'SRWZ_SP_STAGE_VERIFY')}
+    return dict(version=STAGE_VERSION, stage=stage, variant=variant, python=[sys.version, sys.executable],
+                tools=tools.hexdigest(), by_name=by_name, programs=programs, settings=settings)
+
+
+def run_stage(project: Path, variant: str, stage: str, keys=None) -> None:
+    """One stage of sp_prepare as a process of its own, or the files it wrote the last time nothing it read
+    has changed. Records live beside the region's view cache; a forced build has none (no SRWZ_SP_VIEW_CACHE)."""
+    import os
+    import subprocess
+    command = [sys.executable, str(Path(__file__).resolve()), str(project), '--variant', variant,
+               '--editions', 'sp', '--stage', stage]
+    roots = {}
+    if keys:
+        for name, option, key in zip(('self', 'tw', 'sc'),
+                                     ('--answer-key', '--taiwan-answer-key', '--simplified-answer-key'), keys):
+            command += [option, str(key)]
+            # an Original build's workspace: .../project/work/build/zh-release-full-story/components
+            roots[f'frontend-{name}'] = Path(key).resolve().parents[3]
+    cache = os.environ.get('SRWZ_SP_VIEW_CACHE')
+    if not cache or os.environ.get('SRWZ_SP_STAGE_MEMO') == '0':
+        subprocess.run(command, cwd=project, check=True)
+        return
+    from srwz.step_memo import Step
+    from srwz.release_font import translation_selection_answer
+    step = Step(f'sp-view-{stage}', Path(cache) / 'stages', project, ROOT, roots=roots,
+                scope=stage_scope(project, variant, stage),
+                # caches and outputs: nothing a stage's result may depend on
+                ignore=('work/cache/', 'build/', 'work/editions/', 'work/build/sp-multilang-resources/'),
+                untracked=('build.log',),      # the region's own log: the stages' output is appended to it
+                probes={'translation-selection': translation_selection_answer},
+                log=lambda line: print(line, flush=True))
+    step.run(command, cwd=project, verify=os.environ.get('SRWZ_SP_STAGE_VERIFY') == '1')
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     p.add_argument('project', type=Path)
@@ -70,8 +153,19 @@ def main() -> None:
     p.add_argument('--answer-key', type=Path, help="this language's Original components (SP)")
     p.add_argument('--taiwan-answer-key', type=Path, help='the Taiwan Original components: shared pictures (SP)')
     p.add_argument('--simplified-answer-key', type=Path, help='the Simplified Original components (SP)')
+    p.add_argument('--frontend-receipts', type=Path,
+                   help='instead of the three answer keys: a directory where the Original builds will write them')
+    p.add_argument('--stage', choices=STAGES, help='run one stage of the SP preparation in a prepared project')
     a = p.parse_args()
     project = a.project.resolve()
+    if a.stage:
+        import build_dual_sp as sp
+        if a.stage == 'font-configs':
+            sp.sp_stage_font_configs(project, a.variant)
+        else:
+            sp.sp_stage_baseline_atlas(project, a.variant, a.answer_key.resolve(), a.taiwan_answer_key.resolve(),
+                                       a.simplified_answer_key.resolve())
+        return
     editions = set(a.editions.split(','))
     if 'sp' in editions and editions != {'sp'}:
         raise SystemExit('a Traditional SP view carries SP-only inputs: build SP on its own')
@@ -83,8 +177,14 @@ def main() -> None:
         if a.variant != 'tw':
             sp.sp_shared_from_taiwan(project)
         bd.menu_codebook(project)
-        sp.sp_prepare(project, a.variant, a.answer_key.resolve(), a.taiwan_answer_key.resolve(),
-                      a.simplified_answer_key.resolve())
+        sys.stdout.flush()
+        run_stage(project, a.variant, 'font-configs')
+        if a.frontend_receipts:
+            keys = awaited_answer_keys(a.frontend_receipts.resolve(), a.variant)()
+        else:
+            keys = (a.answer_key.resolve(), a.taiwan_answer_key.resolve(), a.simplified_answer_key.resolve())
+        sys.stdout.flush()
+        run_stage(project, a.variant, 'baseline-atlas', keys)
         from srwz.sp_edition import locked_sp_inputs
         additional = list(locked_sp_inputs(project))
     else:

@@ -137,6 +137,63 @@ class Armsx2RuntimeTests(unittest.TestCase):
             fake.thread.join(5)
             self.assertEqual(fake.received, ["run 10", "shot title", "poke 3000000 00", "quit"])
 
+    def test_long_stretches_without_a_screenshot_read_the_display_back(self) -> None:
+        from tools.srwz import armsx2_runtime
+
+        class Counting(FakeRunner):
+            """A runner whose frame counter follows the run / press commands it receives."""
+
+            def serve(self) -> None:
+                conn, _ = self.server.accept()
+                stream = conn.makefile("rw")
+                frame = 0
+                for line in stream:
+                    words = line.split()
+                    self.received.append(line.strip())
+                    if words[0] == "run":
+                        frame += int(words[1])
+                    elif words[0] == "press":
+                        frame += int(words[2]) + 2
+                    rows = [f"WATCH frame {frame}"] if words[0] == "run" else []
+                    if words[0] == "shot":
+                        rows = [f"SHOT {words[1]}.png 640x448 luma=1.0"]
+                    stream.write("\n".join([*rows, f"OK frame={frame}"]) + "\n")
+                    stream.flush()
+                    if words[0] == "quit":
+                        break
+                conn.close()
+                self.server.close()
+
+        limit = armsx2_runtime.KEEPALIVE_FRAMES
+        keep = f"shot {armsx2_runtime.KEEPALIVE_NAME}"
+        with tempfile.TemporaryDirectory() as tmp:
+            sock = os.path.join(tmp, "r.sock")
+            fake = Counting(sock, {})
+            session = Armsx2Session(Path("a.iso"), Path("c.ps2"), Path(tmp), socket_path=sock)
+            session._socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            session._socket.connect(sock)
+            session._stream = session._socket.makefile("rw")
+
+            session.run(100)                                   # short work: no readback
+            reply = session.run(2 * limit + 50)                # one long run: split, one merged reply
+            self.assertEqual(reply.frame, 2 * limit + 150)
+            self.assertEqual(len(reply.lines), 3)
+            session.shot("mine")                               # a real screenshot restarts the distance
+            for _ in range(limit // 5 + 1):
+                session.press("circle", 3)
+            session.close()
+            fake.thread.join(5)
+        runs = [c for c in fake.received if c.startswith("run")]
+        self.assertEqual(runs, ["run 100", f"run {limit - 100}", f"run {limit}", "run 150"])
+        self.assertEqual(fake.received.count(keep), 3)         # twice in the long run, once among the presses
+        gap = longest = 0
+        for command in fake.received:
+            words = command.split()
+            gap = 0 if words[0] == "shot" else gap + (int(words[1]) if words[0] == "run" else 5 if words[0] == "press" else 0)
+            longest = max(longest, gap)
+        self.assertLessEqual(longest, limit + 5)
+        self.assertEqual(fake.received[-1], "quit")
+
 
 if __name__ == "__main__":
     unittest.main()

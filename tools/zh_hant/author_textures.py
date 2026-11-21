@@ -30,7 +30,7 @@ HAND_DRAWN = ZH_HANT / 'hand-drawn/original.json'
 HELP_TITLES = {'按键说明': (142, 205, 75, 20), '项目说明': (108, 227, 75, 19)}
 SELECT_HEADING_BANDS = {'plain': (3, 1, 74, 21), 'bold': (2, 24, 77, 23)}
 sys.path.insert(0, str(HERE))
-from sync_corpus import FROZEN_KEYS, Drafter  # noqa: E402
+from sync_corpus import FROZEN_KEYS  # noqa: E402
 
 
 def sha(value) -> str:
@@ -49,7 +49,8 @@ def dump(path: Path, doc) -> None:
 class Author:
     def __init__(self, clone: Path):
         self.clone = clone
-        self.drafter = Drafter(ZH_HANT / 'bootstrap.json')
+        fingerprint = ZH_HANT / 'author-fingerprint.json'
+        self.recorded = load_json(fingerprint).get('texts', {}) if fingerprint.exists() else {}
         literals = clone / 'config/zh-hant/readback-literals.json'
         self.literals = load_json(literals)['literals'] if literals.exists() else {}
         self.sections = load_json(SECTIONS) if SECTIONS.exists() else {}
@@ -57,8 +58,13 @@ class Author:
         self.used = {}
 
     def text(self, s: str) -> str:
-        """A Simplified string's Traditional counterpart: the parallel corpus's when it has one, else a draft."""
-        t = self.literals.get(s) or self.drafter.text(s)
+        """A Simplified string's Traditional counterpart: the parallel corpus's (or a tool constant's,
+        config/zh-hant/tool-literals) when it has one, else the text these pictures were last authored with
+        (author-fingerprint.json). Never a conversion: a string with neither stops the authoring."""
+        t = self.literals.get(s) or self.recorded.get(s)
+        if t is None:
+            raise SystemExit(f'picture text {s!r} has no Traditional text: add it to the corpus or '
+                             f'config/zh-hant/author-fingerprint.json "texts"')
         self.used[s] = t
         return t
 
@@ -97,6 +103,9 @@ class Author:
         entry = self.sections.get(name)
         if entry and (entry['zh_hans_sha256'] == sha(sc) or entry.get('zh_hant_status', 'draft') != 'draft'):
             return entry['value']
+        if entry:
+            raise SystemExit(f'{name}: the Simplified section changed since its Traditional value was written; '
+                             f'update config/zh-hant/sections.json by hand and set its zh_hans_sha256 to {sha(sc)}')
         entry = {'zh_hans_sha256': sha(sc), 'zh_hant_status': 'draft', 'value': self.draft(sc)}
         self.sections[name] = entry
         return entry['value']
@@ -492,7 +501,7 @@ class Author:
 
 
 # Inputs the authored files derive from (besides the texts looked up, recorded with their Traditional values).
-FINGERPRINT_FILES = ['tools/zh_hant/author_textures.py', 'config/zh-hant/bootstrap.json',
+FINGERPRINT_FILES = ['tools/zh_hant/author_textures.py',
                      'config/zh-hant/render-adjustments.json', 'config/library/v0.2.0.json',
                      'config/assets/aid-battle-prompts-zh.json', 'config/assets/tricmn-battle-overlays-zh.json',
                      'config/assets/ui-atlas-suite-zh.json', 'config/assets/ui-headings-zh.json',

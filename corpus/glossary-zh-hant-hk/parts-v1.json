@@ -54,7 +54,7 @@
       "source_terms": [
         "マグネットコーティング"
       ],
-      "translation": "磁力覆膜",
+      "translation": "磁性覆膜",
       "category": "item",
       "status": "approved",
       "domains": [
@@ -62,7 +62,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "采用现代简体中文机战资料常见名称。 本轮人工审核定稿为“磁力覆膜”。"
+      "notes": "采用现代简体中文机战资料常见名称。 本轮人工审核定稿为“磁力覆膜”。",
+      "deprecated_translations": [
+        "磁力覆膜"
+      ]
     },
     {
       "id": "part/inertial-control-system",
@@ -339,7 +342,7 @@
       "source_terms": [
         "スクリューモジュール"
       ],
-      "translation": "螺旋槳模塊",
+      "translation": "水中模組",
       "category": "item",
       "status": "approved",
       "domains": [
@@ -347,7 +350,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "水中推进用部件。 本轮人工审核定稿为“螺旋桨模块”。"
+      "notes": "水中推进用部件。 本轮人工审核定稿为“螺旋桨模块”。",
+      "deprecated_translations": [
+        "螺旋槳模塊"
+      ]
     },
     {
       "id": "part/a-adapter",
@@ -399,9 +405,10 @@
       "source_terms": [
         "カートリッジ"
       ],
-      "translation": "彈匣",
+      "translation": "彈藥筒",
       "deprecated_translations": [
-        "彈藥筒"
+        "彈藥筒",
+        "彈匣"
       ],
       "category": "item",
       "status": "approved",
@@ -688,7 +695,7 @@
       "source_terms": [
         "ベクターオメガ"
       ],
-      "translation": "歐米伽戰機",
+      "translation": "歐美加戰機",
       "category": "item",
       "status": "approved",
       "domains": [
@@ -698,7 +705,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣机械天使》战机名；按用户审核的固定机体显示名统一。"
+      "notes": "《创圣机械天使》战机名；按用户审核的固定机体显示名统一。",
+      "deprecated_translations": [
+        "歐米伽戰機"
+      ]
     },
     {
       "id": "part/vector-sol",
@@ -756,7 +766,7 @@
       "source_terms": [
         "ベクターデルタ"
       ],
-      "translation": "德爾塔戰機",
+      "translation": "戴爾塔戰機",
       "category": "item",
       "status": "approved",
       "domains": [
@@ -766,7 +776,10 @@
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣机械天使》战机名；按用户审核的固定机体显示名统一。"
+      "notes": "《创圣机械天使》战机名；按用户审核的固定机体显示名统一。",
+      "deprecated_translations": [
+        "德爾塔戰機"
+      ]
     },
     {
       "id": "part/vector-alpha",
@@ -1155,7 +1168,7 @@
       "enforce": true,
       "notes": "机体专用换装部件；本轮人工审核已定稿。 2026-10-15 用户指示：脉冲高达的シルエット系统统一译为“魅影”；《返乡战士》的シルエットマシン／エンジン仍为“剪影机／剪影引擎”。",
       "deprecated_translations": [
-        "轟擊型剪影"
+        "爆破型剪影"
       ]
     },
     {
@@ -1191,6 +1204,6 @@
   ],
   "zh_hant_meta": {
     "zh_hans_sha256": "d29b929d3e7db6b3a5bff0d61a0e685ad6920d3d7063e23cafc6deb762aeeac5",
-    "zh_hant_status": "draft"
+    "zh_hant_status": "edited"
   }
 }

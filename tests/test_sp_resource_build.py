@@ -41,103 +41,72 @@ class SpSchedulingTests(unittest.TestCase):
         self.assertIn("/test/multilang-sp.iso", writers[0])
         legacy_assembly.assert_not_called()
 
-
-class SpResourceCacheTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools/zh_hant"))
-        import build_sp_resources
-
-        cls.builder = build_sp_resources
-
-    def test_hong_kong_binds_shared_taiwan_literals_and_its_own_subtitles(self):
+    def test_all_editions_build_sp_beside_the_original_builds_and_release_it_after_the_checks(self):
+        from types import SimpleNamespace
         from unittest.mock import patch
+        import build_multilang as build
 
-        build = self.builder
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            components = root / "components"
-            components.mkdir()
-            member = components / "STAGE.BIN"
-            member.write_text("verified member bytes")
-            config = root / "config/iso/zh-release-current-build.json"
-            config.parent.mkdir(parents=True)
-            config.write_text('{"replacements":[{"member":"STAGE.BIN"}]}')
-            tw = {
-                "path": "corpus/zh-hant/special-disc/battle-lines.json",
-                "sha256": "original",
-            }
-            hk = {
-                "path": "corpus/zh-hant-hk/special-disc/battle-lines.json",
-                "sha256": "original",
-            }
-            with (
-                patch.object(build, "ROOT", root),
-                patch.object(build, "locked_sp_inputs", return_value=()),
-                patch.object(build, "source_inventory", return_value=[tw, hk]),
-                patch.object(build, "_answer_key", return_value=components),
-                patch.object(build, "texture_sources", return_value=[]),
-                patch.object(
-                    build, "taiwan_data_link_literals", return_value={"page": "shared"}
-                ) as shared,
-                patch.object(
-                    build,
-                    "sha256_file",
-                    side_effect=lambda p: p.read_bytes().hex()
-                    if p.is_file()
-                    else "fixed",
-                ),
-            ):
+        args = SimpleNamespace(force_rebuild=True, out_dir=Path("/test"), release_version=None)
+        languages = ["zh-hant-tw", "zh-hant-hk"]
+        events = []
 
-                def fingerprint(region):
-                    return build.input_state(region, "v-test", False)[2]
+        def frontend(edition, language, badge, force, frontend_only=False, early=False):
+            events.append(("build", language, early))
 
-                previous_hk, previous_tw = fingerprint("hk"), fingerprint("tw")
-                tw["sha256"] = "edited"
-                self.assertEqual(fingerprint("hk"), previous_hk)
-                self.assertNotEqual(fingerprint("tw"), previous_tw)
-                shared.return_value = {"page": "changed"}
-                self.assertNotEqual(fingerprint("hk"), previous_hk)
-                shared.return_value = {"page": "shared"}
-                hk["sha256"] = "edited"
-                self.assertNotEqual(fingerprint("hk"), previous_hk)
-                hk["sha256"] = "original"
-                (components / "component-validation.json").write_text(
-                    "updated diagnostic identity"
-                )
-                self.assertEqual(fingerprint("hk"), previous_hk)
-                member.write_text("changed member")
-                self.assertNotEqual(fingerprint("hk"), previous_hk)
+        def sp_early(out, badge, force, langs, done):
+            events.append(("early-started", build.GO.exists()))
+            while not build.GO.exists():          # the real process waits for the go file the same way
+                time.sleep(0.01)
+            events.append(("early-published", str(out)))
+            return True
 
-    def test_pruning_keeps_active_and_two_recent_successes(self):
-        import json
-        import os
+        import time
+        with (
+            patch.object(build.subprocess, "run", return_value=SimpleNamespace(returncode=0)),
+            patch("freeze_title_version.refresh_current_badge", return_value="v-test"),
+            patch.object(build, "build", side_effect=frontend),
+            patch.object(build, "build_sp_early", side_effect=sp_early),
+            patch.object(build, "check_authored", side_effect=lambda *a, **k: events.append(("checked",))),
+            patch.object(build, "run", side_effect=lambda name, cmd: events.append((name, cmd))),
+            patch.object(build, "assemble", side_effect=lambda edition, out, force: events.append(("assemble", edition))),
+        ):
+            build.build_discs(args, ["original", "best", "sp"], languages)
+
+        self.assertCountEqual([e for e in events if e[0] == "build"],
+                              [("build", lang, True) for lang in ("", *languages)])
+        self.assertIn(("early-started", False), events)       # before any go
+        checked = events.index(("checked",))
+        self.assertGreater(events.index(("early-published", "/test/multilang-sp.iso")), checked)
+        self.assertFalse([e for e in events if e[0] == "sp-resources"])   # the disc is not built a second time
+        self.assertCountEqual([e[1] for e in events if e[0] == "assemble"], ["original", "best"])
+        self.assertTrue(all(i > checked for i, e in enumerate(events) if e[0] == "assemble"))
+
+    def test_a_failed_edition_cancels_the_sp_disc(self):
+        from types import SimpleNamespace
         from unittest.mock import patch
+        import time
+        import build_multilang as build
 
-        with tempfile.TemporaryDirectory() as tmp:
-            cache = Path(tmp)
-            region = cache / "tw"
-            roots = [region / f"{i:064x}" for i in range(4)]
-            relative = Path("inputs-good/work/build/resource-components/final.spview")
-            for i, directory in enumerate(roots):
-                view = directory / relative
-                view.parent.mkdir(parents=True)
-                view.touch()
-                seal = directory / "verified.json"
-                seal.write_text(json.dumps({"path": str(relative)}))
-                os.utime(seal, (i + 1, i + 1))
-            superseded = (
-                roots[0] / "inputs-old/work/build/resource-components/final.spview"
-            )
-            superseded.parent.mkdir(parents=True)
-            superseded.touch()
-            pending = region / "unfinished" / "inputs-in-progress"
-            pending.mkdir(parents=True)
+        args = SimpleNamespace(force_rebuild=False, out_dir=Path("/test"), release_version=None)
+        outcome = []
 
-            with patch.object(self.builder, "CACHE", cache):
-                self.builder.prune_resources("tw", roots[0])
+        def sp_early(out, badge, force, langs, done):
+            cancel = build.GO.with_name(build.GO.name + ".cancel")
+            while not (build.GO.exists() or cancel.exists()):
+                time.sleep(0.01)
+            outcome.append("published" if build.GO.exists() else "cancelled")
+            return build.GO.exists()
 
-            self.assertEqual([p.exists() for p in roots], [True, False, True, True])
-            self.assertTrue(all((roots[i] / relative).is_file() for i in (0, 2, 3)))
-            self.assertFalse(superseded.exists())
-            self.assertTrue(pending.exists())
+        with (
+            patch.object(build.subprocess, "run", return_value=SimpleNamespace(returncode=0)),
+            patch("freeze_title_version.refresh_current_badge", return_value="v-test"),
+            patch.object(build, "build"),
+            patch.object(build, "build_sp_early", side_effect=sp_early),
+            patch.object(build, "check_authored", side_effect=SystemExit("stale pictures")),
+            patch.object(build, "run"),
+            patch.object(build, "assemble") as assembly,
+        ):
+            with self.assertRaises(SystemExit):
+                build.build_discs(args, ["original", "best", "sp"], ["zh-hant-tw", "zh-hant-hk"])
+        self.assertEqual(outcome, ["cancelled"])
+        assembly.assert_not_called()

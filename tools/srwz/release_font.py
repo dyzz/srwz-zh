@@ -1113,27 +1113,22 @@ def audit_sound_select_title_glyph_compatibility(
     }
 
 
-def _selection_digest(entries: Mapping[str, Mapping[str, object]]) -> str:
-    digest = hashlib.sha256()
-    for entry_id in sorted(entries):
-        entry = entries[entry_id]
-        row = {
-            "id": entry_id,
-            "source_text_sha256": entry.get("source_text_sha256"),
-            "translation": entry.get("translation"),
-            "editorial_status": entry.get("editorial_status"),
-        }
-        digest.update(
-            json.dumps(
-                row,
-                ensure_ascii=False,
-                sort_keys=True,
-                separators=(",", ":"),
-            ).encode("utf-8")
-        )
-        digest.update(b"\n")
-    return digest.hexdigest()
+def _character_digest(entries: Mapping[str, Mapping[str, object]]) -> str:
+    """What the font depends on in the selected texts: the distinct characters they use.
 
+    The selection used to be identified by every entry's text (and each source by its file hash), so the
+    proposal, manifest and readiness report changed with any edited line although the glyph demand had not.
+    Every consumer that binds those reports by hash then had to be rebuilt. Since 2026-11-20 (user decision)
+    the reports identify the selection by its character set: an edit that neither introduces a character nor
+    drops the last use of one leaves them byte-identical. Per-file provenance of the corpus is the snapshot's
+    (work/build/shared/<digest>/inputs.json), not the font's.
+    """
+    characters = set()
+    for entry in entries.values():
+        translation = entry.get("translation")
+        if isinstance(translation, str):
+            characters.update(translation)
+    return hashlib.sha256("".join(sorted(characters)).encode("utf-8")).hexdigest()
 
 
 def _selection_cache_path(key: str) -> Path | None:
@@ -1144,12 +1139,51 @@ def _selection_cache_path(key: str) -> Path | None:
     return store.parent / "translation-tree-selection" / f"{key}.pickle"
 
 
+def _selection_answer(selection: Mapping[str, object]) -> str:
+    return hashlib.sha256(json.dumps(selection, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def _selection_name(reference: object) -> str:
+    return "translation-selection " + json.dumps(reference, ensure_ascii=False, sort_keys=True)
+
+
+def translation_selection_answer(project_root: Path, name: str) -> str:
+    """What the selection named by a recorded step (srwz.step_memo) answers for this project now."""
+    reference = json.loads(name.split(" ", 1)[1])
+    return _selection_answer(_selected_translation_tree_entries(
+        project_root, {"translation_tree_selection": reference})[2])
+
+
 def selected_translation_tree_entries(
     project_root: Path,
     profile_document: Mapping[str, object],
 ) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
-    """Load every non-empty translation under the registered release tree."""
+    """Load every non-empty translation under the registered release tree.
 
+    The font tools take from it the selection report (the character set, the entry and control-token counts,
+    the source list) and the texts whose characters that report sums up. A step being recorded
+    (srwz.step_memo) is therefore told the report's digest in place of the ~260 corpus files read to make it:
+    the step is run again when the report would differ, not when a line was reworded in the same characters."""
+    import sys
+    traced = bool(os.environ.get("SRWZ_STEP_TRACE"))
+    name = _selection_name(profile_document.get("translation_tree_selection"))
+    if traced:
+        sys.audit("srwz.derive-begin", name)
+    try:
+        result = _selected_translation_tree_entries(project_root, profile_document)
+    except BaseException:
+        if traced:
+            sys.audit("srwz.derive-abort", name)
+        raise
+    if traced:
+        sys.audit("srwz.derive-end", name, str(Path(project_root).resolve()), _selection_answer(result[2]))
+    return result
+
+
+def _selected_translation_tree_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
     reference = profile_document.get("translation_tree_selection")
     if not isinstance(reference, dict):
         raise ReleaseFontError("translation-tree selection is invalid")
@@ -1190,7 +1224,8 @@ def selected_translation_tree_entries(
     # Three font-chain scripts in every batch walk the same ~140k-entry tree;
     # the result is a pure function of the selection contract and the files.
     cache_key = hashlib.sha256(json.dumps(
-        {"contract": reference, "files": [(str(path.relative_to(root)), sha256_file(path)) for path in paths]},
+        {"contract": reference, "selection_format": 2,
+         "files": [(str(path.relative_to(root)), sha256_file(path)) for path in paths]},
         sort_keys=True, ensure_ascii=False).encode()).hexdigest()
     cached = _selection_cache_path(cache_key)
     if cached is not None and cached.is_file():
@@ -1316,7 +1351,6 @@ def selected_translation_tree_entries(
             sources.append(
                 {
                     "path": relative,
-                    "sha256": _hash_file(path),
                     "entry_count": selected_count,
                 }
             )
@@ -1335,10 +1369,7 @@ def selected_translation_tree_entries(
         "exclude_globs": list(exclude_globs),
         "exclude_reason": exclude_reason,
         "excluded_sources": [
-            {
-                "path": str(path.relative_to(project_root.resolve())),
-                "sha256": _hash_file(path),
-            }
+            {"path": str(path.relative_to(project_root.resolve()))}
             for path in excluded_paths
         ],
         "source_count": len(sources),
@@ -1361,7 +1392,8 @@ def selected_translation_tree_entries(
             "entry_count": literal_percent_entry_count,
             "occurrence_count": literal_percent_occurrence_count,
         },
-        "selection_sha256": _selection_digest(entries),
+        "selection_basis": "distinct_characters",
+        "selection_sha256": _character_digest(entries),
     }
     if cached is not None:
         try:

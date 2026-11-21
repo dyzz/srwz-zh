@@ -57,12 +57,9 @@ def check_pointers(data, contract):
         actual = [table['start'] + i * table['stride'] for i in range(table['count'])
                   if struct.unpack_from('<I', data, table['start'] + i * table['stride'])[0] == pointer]
         require(actual == slot['pointer_sites'], f"SP unit-name pointer drift: {slot['id']}")
-        references = []
-        for site in range(0, len(data) - 3, 4):
-            target = struct.unpack_from('<I', data, site)[0] - contract['base_address']
-            if slot['offset'] <= target < slot['offset'] + slot['capacity']:
-                require(target == slot['offset'], f"SP unit-name interior pointer drift: {slot['id']}")
-                references.append(site)
+        from special_disc.writeback.pointer_scan import sites_into
+        references, interior = sites_into(data, contract['base_address'], slot['offset'], slot['capacity'])
+        require(not interior, f"SP unit-name interior pointer drift: {slot['id']}")
         require(references == slot['reference_sites'], f"SP unit-name reference drift: {slot['id']}")
 
 

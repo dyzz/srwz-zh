@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "review_id": "mazinger-bare-name-20261119",
+  "translation_writeback": true,
+  "purpose": "日文只写「マジンガー」（不带Ｚ）的三条战斗台词，译文多加了“Z”（繁体为無敵鐵金剛／鐵甲萬能俠）；按全语料惯例（マジンガーＺ→魔神Z，单独 マジンガー→魔神）改成“魔神”，只动这个词。",
+  "authorization": "用户 2026-11-19：问“阿波罗的战斗台词有魔神Z吗，看看是不是有问题”，看过三条后回复“Yes, change them”。",
+  "evidence": {
+    "ja": {
+      "battle:01588": "「マジンガーか！　相手になるぜっ！！」（阿波罗；对手为魔神／盖塔系标签）",
+      "battle:07328": "「さ、さすがにこれじゃ、\\n　マジンガーでも危ないかも…！」（沙也加）",
+      "battle:22571": "「馬鹿な！　マジンガーの装甲が…！！」（甲儿）"
+    },
+    "online": "battle:01588 线上 2026-11-19 卡琳 4 条待处理建议，均为“魔神吗！我来当你的对手！！”；battle:07328 的 2026-08-30 已采纳意见只改了措辞，这次只换词保留该措辞。"
+  },
+  "application": {
+    "files": [
+      {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "before_sha256": "46efa24ea65f06421b2de65ede1c96e52170c79f1f949bf69ee9157aa6d3428e",
+        "after_sha256": "4eff19cbcc8351244940658274372da88b4365ec187ad5308d8cfd712f302740"
+      },
+      {
+        "path": "corpus/zh-hant/battle/srvc-lines.json",
+        "before_sha256": "9c6a322a33e0601e44f111236ec08b3b221e18ed10458a3f2e24482e4939d6f3",
+        "after_sha256": "48cc9a95adf81d977e5d72a9a584d09c05385fa43993f52d7d361a9255197dce"
+      },
+      {
+        "path": "corpus/zh-hant-hk/battle/srvc-lines.json",
+        "before_sha256": "8858440aa3adf52b8dfcecacd404578f1e3c12ca92abcef19318744bb6babf19",
+        "after_sha256": "4d7b4c5ca37da69d4f31b7450edd5efbed6730a4c4e4e667893675b31af9999d"
+      }
+    ],
+    "input_lock_refresh": [
+      "config/full-story-components.json"
+    ],
+    "site_writeback": false
+  },
+  "entries": [
+    {
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "id": "battle:01588",
+      "before": "“魔神Z吗！我来当你的对手！！”",
+      "after": "“魔神吗！我来当你的对手！！”"
+    },
+    {
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "id": "battle:07328",
+      "before": "“额、都到这个程度了\\n　哪怕是魔神Z可能也危险了…！”",
+      "after": "“额、都到这个程度了\\n　哪怕是魔神可能也危险了…！”"
+    },
+    {
+      "file": "corpus/zh/battle/srvc-lines.json",
+      "id": "battle:22571",
+      "before": "“不可能！魔神Z的装甲……！！”",
+      "after": "“不可能！魔神的装甲……！！”"
+    },
+    {
+      "file": "corpus/zh-hant/battle/srvc-lines.json",
+      "id": "battle:01588",
+      "before": "“無敵鐵金剛嗎！我來當你的對手！！”",
+      "after": "“魔神嗎！我來當你的對手！！”"
+    },
+    {
+      "file": "corpus/zh-hant/battle/srvc-lines.json",
+      "id": "battle:07328",
+      "before": "“額、都到這個程度了\\n　哪怕是無敵鐵金剛可能也危險了…！”",
+      "after": "“額、都到這個程度了\\n　哪怕是魔神可能也危險了…！”"
+    },
+    {
+      "file": "corpus/zh-hant/battle/srvc-lines.json",
+      "id": "battle:22571",
+      "before": "“不可能！無敵鐵金剛的裝甲……！！”",
+      "after": "“不可能！魔神的裝甲……！！”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/battle/srvc-lines.json",
+      "id": "battle:01588",
+      "before": "“鐵甲萬能俠嗎！我來當你的對手！！”",
+      "after": "“魔神嗎！我來當你的對手！！”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/battle/srvc-lines.json",
+      "id": "battle:07328",
+      "before": "“額、都到這個程度了\\n　哪怕是鐵甲萬能俠可能也危險了…！”",
+      "after": "“額、都到這個程度了\\n　哪怕是魔神可能也危險了…！”"
+    },
+    {
+      "file": "corpus/zh-hant-hk/battle/srvc-lines.json",
+      "id": "battle:22571",
+      "before": "“不可能！鐵甲萬能俠的裝甲……！！”",
+      "after": "“不可能！魔神的裝甲……！！”"
+    }
+  ]
+}
