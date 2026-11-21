@@ -19,7 +19,7 @@ from srwz.archive import sha256_file
 from srwz.build_layout import PROSE_HANGING_PX, prose_widths
 from srwz import continuation_indent
 from srwz import protagonist_profile
-from srwz.build_language import corpus_language, expected_at, expected_characters, expected_literal
+from srwz.build_language import corpus_language, expected_at, expected_literal
 from srwz.typography_policy import candidate_enabled as compact_typography_enabled
 from srwz.renderer_metrics import text_extent
 from srwz.chinese_layout import (
@@ -449,11 +449,6 @@ def _expected_text(text: str) -> str:
         return expected_literal(text, PROJECT_ROOT)
     except ValueError as error:
         raise SystemExit(str(error)) from error
-
-
-def _glyph_text(text: str) -> str:
-    """Characters a glyph check needs, in this build's language (srwz.build_language)."""
-    return expected_characters(text, PROJECT_ROOT)
 
 
 def _expected_values(expectations: dict) -> dict:
@@ -927,7 +922,7 @@ def verify_targeted_ui_glyphs(
         "reported_land_dialogue": "哦把自己机体弄坏的那家伙罚你帮忙修理",
         "reported_kejinan_retreat": "今今天只是身体不舒服你们给我记住",
     }
-    target_texts = {key: _glyph_text(value) for key, value in target_texts.items()}
+    target_texts = {key: _expected_text(value) for key, value in target_texts.items()}
     extended = read_extended_glyph_table(slps)
     by_character = {}
     for character in sorted(set("".join(target_texts.values()))):

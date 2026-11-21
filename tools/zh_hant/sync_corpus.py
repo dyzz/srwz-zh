@@ -7,7 +7,7 @@ Traditional text is maintained as its own files, parallel to the Simplified tree
     corpus/runtime   -> corpus/runtime-zh-hant
 Each entry (object with an "id" or an "entry_index") carries
     zh_hans_sha256   sha256 of the Simplified entry's translation-bearing content it was written against
-    zh_hant_status   draft (machine, may be redrafted) | edited (changed by hand) | reviewed (approved)
+    zh_hant_status   draft (awaiting review) | edited (changed by hand) | reviewed (approved)
 Documents without entries carry the same two fields in a top-level "zh_hant_meta".
 
 Every language's text is static and maintained by hand: nothing here drafts or converts. Check, per entry:
@@ -114,7 +114,7 @@ def stale_entries(region: str) -> list[dict]:
 
 
 def missing_values(region: str) -> list[str]:
-    """Regional files that lack a file, record or field Simplified has (fill_corpora.fill finds them)."""
+    """Regional files that lack a file, record or field Simplified has (read-only structural comparison)."""
     import fill_corpora
     global KEY_FIELDS
     out = []
@@ -129,7 +129,7 @@ def missing_values(region: str) -> list[str]:
             sp = rel.parts[0] == SP_TREE and src_root == 'corpus/zh'
             keys = ('id', 'entry_index', 'source') if sp else ('id', 'entry_index')
             old = json.loads(target.read_text(encoding='utf-8'))
-            if fill_corpora.fill(json.loads(f.read_text(encoding='utf-8')), old, keys=keys) != old:
+            if not fill_corpora.covers(json.loads(f.read_text(encoding='utf-8')), old, keys=keys):
                 out.append(f'{dst_root}/{rel}')
     return out
 

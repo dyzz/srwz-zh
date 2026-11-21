@@ -36,7 +36,51 @@ class RegionalCorpusTests(unittest.TestCase):
     def test_missing_terrain_name_matches_the_japanese_source(self):
         source = [{'source': '甲', 'translation': '第一'}, {'source': '乙', 'translation': '第二'}]
         existing = [{'source': '乙', 'translation': '人工譯文'}]
-        self.assertEqual(fill_corpora.fill(source, existing), [source[0], existing[0]])
+        self.assertFalse(fill_corpora.covers(source, existing))
+        self.assertTrue(fill_corpora.covers(source, [source[0], existing[0]]))
+
+    def test_missing_regional_file_cannot_ship_the_simplified_wording(self):
+        from build_dual import overlay_tree
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            src, dst = root / 'hk', root / 'private/corpus/zh'
+            src.mkdir()
+            dst.mkdir(parents=True)
+            (dst / 'menu.json').write_text('{"name": "简体"}')
+            with self.assertRaisesRegex(ValueError, 'menu.json'):
+                overlay_tree(src, dst)
+
+    def test_hong_kong_stage_and_terrain_text_are_not_shared_picture_inputs(self):
+        from build_dual import hk_uses_taiwan
+        for name in ('menu/stage-names.json', 'menu/mapmodel-terrain-names.json'):
+            self.assertNotIn(name, hk_uses_taiwan())
+            self.assertTrue((ROOT / 'corpus/zh-hant-hk' / name).is_file())
+
+    def test_sp_shared_title_art_preserves_hong_kong_text(self):
+        import build_dual_sp
+        from special_disc.writeback import stage_titles
+
+        def rows(tree):
+            doc = json.loads((ROOT / 'corpus' / tree / 'special-disc/frame-text.json').read_text())
+            return {row['id']: row for row in doc['entries']}
+
+        tw, hk = rows('zh-hant'), rows('zh-hant-hk')
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            corpus = root / 'corpus/zh/special-disc/frame-text.json'
+            corpus.parent.mkdir(parents=True)
+            hk['episode-title/013']['translation'] = '香港章節測試'
+            hk['vt1-page/006']['translation'] = '香港任務測試'
+            corpus.write_text(json.dumps({'entries': list(hk.values())}))
+            build_dual_sp.sp_shared_pictures(root)
+            output = {r['id']: r for r in json.loads(corpus.read_text())['entries']}
+            for key, row in hk.items():
+                expected = tw[key] if row['category'] == 'image-label' else row
+                self.assertEqual(output[key]['translation'], expected['translation'], key)
+            snapshot = root / 'config/assets/special-disc/stage-title-graphics.json'
+            with patch.object(stage_titles, 'SNAPSHOT', snapshot), patch.object(stage_titles, 'CORPUS', corpus):
+                picture = stage_titles.title_entries()['episode-title/013']
+            self.assertEqual(picture['translation'], tw['episode-title/013']['translation'])
 
     def test_hong_kong_edit_invalidates_only_its_own_capture(self):
         with tempfile.TemporaryDirectory() as tmp:

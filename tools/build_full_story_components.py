@@ -3431,10 +3431,16 @@ def _apply_full_stage_titles(
     example_id = "menu/Compdata/03/0072"
     if stage_replacements.get(example_id) != expected_literal("被操纵的决战", PROJECT_ROOT):
         raise FullStoryComponentError("stage 38 title decision drift")
+    graphic_entries = stage_entries
+    if picture_source := reference["graphics"].get("stage_names"):
+        _, picture_bytes = _locked_file(picture_source, label="shared stage-title picture text")
+        graphic_entries = json.loads(picture_bytes)["entries"]
+        if [e["id"] for e in graphic_entries] != [e["id"] for e in stage_entries]:
+            raise FullStoryComponentError("shared picture and stage-name corpus IDs differ")
     output_vt1, graphic_report = _apply_full_stage_title_graphics(
         slps_write.data,
         vt1,
-        stage_entries,
+        graphic_entries,
         decoded.output,
         parsed_compdata,
         reference.get("graphics"),

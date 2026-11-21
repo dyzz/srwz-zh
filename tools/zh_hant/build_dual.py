@@ -14,7 +14,7 @@ Traditional sources (repository):
   config/zh-hant/text-layout/*.json                                    Traditional layout word lists
   config/zh-hant/sections.json, overlay/, stage-title snapshot         authored Traditional pictures
 Generated into a Traditional view only:
-  config/zh-hant/readback-literals.json   Simplified readback literals -> Traditional counterparts (parallel corpora)
+  config/zh-hant/readback-literals.json   regional verification targets (main-text/<region>/readback.json for Original/BEST)
 
 Run directly, this file is the authoring side: it makes a prepared Traditional project the picture tools work in
 (build/zh-hant/project-tc; author_textures.py, paint_hand_drawn.py) and, on request, reruns what went stale.
@@ -75,12 +75,6 @@ def dump(path: Path, doc) -> None:
     path.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
 
-# Parallel files the build does not take (see the note below).
-# formation-help-headings feeds the heading cells; every visible one is overwritten by a Traditional clarity or
-# help-title cell (author_textures.kvm_chain), so the build keeps the Simplified file and its heading snapshot.
-TEXTURE_DEFERRED = {'corpus/zh-hant/ui-atlas/formation-help-headings.json'}
-
-
 OVERLAID: list = []       # build paths of the parallel files placed by overlay_tree (their locks are refreshed)
 
 VARIANTS = {
@@ -101,11 +95,14 @@ def texture_sources() -> list:
     return [f'corpus/zh-hant/{rel}' for rel in hk_uses_taiwan()]
 
 
-def overlay_tree(src: Path, dst: Path) -> int:
-    """Replace each file of dst that src has a parallel of (metadata stripped); keep dst's other files."""
+def overlay_tree(src: Path, dst: Path, shared=()) -> int:
+    """Install the authored locale tree. A missing regional input must never retain the base wording."""
+    missing = {f.relative_to(dst).as_posix() for f in dst.rglob('*.json')
+               if not (src / f.relative_to(dst)).is_file()} - set(shared)
+    if missing:
+        raise ValueError(f'{src}: missing regional corpus files: {sorted(missing)}')
     n = 0
     for f in src.rglob('*.json'):
-        if src.name.startswith('zh-hant') and 'corpus/zh-hant/' + str(f.relative_to(src)) in TEXTURE_DEFERRED: continue
         target = dst / f.relative_to(src)
         dump(target, strip_meta(json.loads(f.read_text(encoding='utf-8')))); n += 1
         OVERLAID.append(str(target.relative_to(dst.parents[1])))              # dst is <clone>/corpus/<tree>
@@ -221,12 +218,16 @@ def stale_stage_titles(tc_iso: Path) -> list:
     return [k for k, v in now.items() if prov.get(k) != v]
 
 
+EFFECT_LABEL_IDS = ('ignore-size-correction', 'barrier-pierce')
+
+
 def prepare_tc(tc: Path, variant: str = 'tw') -> None:
     suffix = VARIANTS[variant]['suffix']
     regional = ROOT / 'corpus' / suffix
     stats = {}
     for group, prefix in [('zh', ''), ('glossary', 'glossary-'), ('runtime', 'runtime-')]:
-        stats[group] = overlay_tree(ROOT / 'corpus' / (prefix + suffix), tc / 'corpus' / group)
+        stats[group] = overlay_tree(ROOT / 'corpus' / (prefix + suffix), tc / 'corpus' / group,
+                                    hk_uses_taiwan() if variant == 'hk' and group == 'zh' else ())
         for inputs in VARIANTS.values():
             shutil.rmtree(tc / 'corpus' / (prefix + inputs['suffix']), ignore_errors=True)
     if variant != 'tw':
@@ -260,60 +261,36 @@ def prepare_tc(tc: Path, variant: str = 'tw') -> None:
     graphics['frozen_snapshot'].update(size=snap_path.stat().st_size, sha256=hashlib.sha256(snap_path.read_bytes()).hexdigest())
     reduced = [t['ordinal'] for t in snap['titles'] if t['quantization_levels'] < 16]
     graphics['expected'].update(full_precision_count=len(snap['titles']) - len(reduced), reduced_precision_ordinals=reduced)
-    dump(components, comp)
-    counterparts = literal_counterparts(ROOT / 'corpus/zh', regional)
-    ambiguous = {a: b for a, b in counterparts.items() if len(b) > 1}
-    literals = {a: b[0] for a, b in counterparts.items() if len(b) == 1}
-    if variant != 'tw':
-        for rel in texture_sources():                     # texture files are the Taiwan ones in this clone
-            literals.update(file_pairs(ROOT / 'corpus/zh' / Path(rel).relative_to('corpus/zh-hant'), ROOT / rel))
-    # String constants of the build tools that are not whole corpus strings (layout-protected words, label
-    # fragments): each language keeps their text in config/zh-hant/tool-literals/<variant>.json (tool_literals.py);
-    # a build only reads it, so srwz.build_language can answer for every literal a gate names.
-    import tool_literals
-    gaps = tool_literals.missing(variant, literals, ambiguous)
-    if gaps:
-        raise SystemExit(f'{len(gaps)} build-tool constants have no {variant} text, e.g. {gaps[:5]}: draft them '
-                         'with tools/zh_hant/tool_literals.py draft and review config/zh-hant/tool-literals/')
-    stored = tool_literals.load(variant)
-    extra = 0
-    for c, t in stored.items():                      # tool constants and config labels with no corpus string
-        if c not in literals and c not in ambiguous:
-            literals[c] = t; extra += 1
-    forms = {}
-    for a, b in literals.items():
-        if len(a) == len(b):
-            for x, y in zip(a, b):
-                if '\u3400' <= x <= '\u9fff': forms.setdefault(x, {}).setdefault(y, 0); forms[x][y] += 1
-    characters = {x: max(c, key=lambda y: (c[y], y == x)) for x, c in sorted(forms.items())}
-    # A Simplified string translated more than one way has no single answer: a gate that needs it reads the
-    # language's own text at the place it checks (srwz.build_language.expected_at) and only confirms that text is
-    # one of these counterparts.
-    dump(tc / 'config/zh-hant/readback-literals.json', {'schema_version': 1, 'literals': literals,
-                                                         'ambiguous': dict(sorted(ambiguous.items())), 'characters': characters})
-    print('readback literals: corpus', len(literals) - extra, 'tool constants', extra, flush=True)
-    # Scenario / mode select labels are composed from release-font glyphs at build time (no pixel lock): they
-    # follow the Traditional text. The TTF-rendered, mask-locked tutorial titles wait for M4 like other textures.
-    comp = json.loads(components.read_text(encoding='utf-8'))
-    for key in ('scenario_select_effect', 'mode_select_effect'):
-        effect = comp[key]
-        def own(t):
-            if t not in literals:
-                raise SystemExit(f'{key}: label {t!r} has no {variant} text (corpus or config/zh-hant/tool-literals)')
-            return literals[t]
-        effect['composed_labels'] = [own(t) for t in effect['composed_labels']]
-        for seg in effect['raster']['segments']:
-            text = own(seg['text'])
-            if len(text) != len(seg['text']):
-                raise SystemExit(f'{key}: Traditional label changes length: {seg["text"]} -> {text}')
-            seg['text'] = text
-    # Expected-inventory literals in the component config (translated label lists, ...) are corpus strings:
-    # exact matches follow the parallel corpus. Japanese sources, hashes and pixel-locked texture texts stay.
-    converted = localize_literals(comp, literals)
+    if variant == 'hk':
+        # The graphic writer checks the frozen shared pictures against their Taiwan authoring text.
+        # COMPDATA and the flow writer continue reading the Hong Kong stage-name corpus.
+        rel = 'config/assets/shared-stage-title-text.json'
+        dump(tc / rel, strip_meta(json.loads((ROOT / 'corpus/zh-hant/menu/stage-names.json').read_text())))
+        data = (tc / rel).read_bytes()
+        graphics['stage_names'] = {'path': rel, 'size': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
+    labels_root = ZH_HANT / 'main-text' / variant
+    shutil.copyfile(labels_root / 'readback.json', tc / 'config/zh-hant/readback-literals.json')
+    labels = json.loads((labels_root / 'component-labels.json').read_text())
+    menu = json.loads((tc / 'corpus/zh/menu/remaining-ui.json').read_text())
+    ui = comp['remaining_ui']
+    for row in ui['search_tab_alignment']['patches']:
+        row['label'] = labels['search_tab_alignment'][row['surface']]
+    for row in ui['intermission_library_alignment']['entries']:
+        row['label'] = menu['slps_by_offset'][row['source_string_file_offset']].strip('　')
+    for row in ui['bazaar_top_help_alignment']['patches']:
+        row['text'] = menu['slps_context_ui_by_offset'][row['source_string_file_offset']]
+    ui['command_status_label_alignment']['patch']['translated_text'] = labels['command_status_label_alignment']
+    for key in ('prefix', 'suffix'):
+        ui['remaining_squad_count_alignment'][key]['text'] = labels['remaining_squad_count_alignment'][key]
+    for key in ('runtime_movement_type_labels', 'runtime_weapon_category_labels'):
+        for site in comp[key]['sites']:
+            site['translation'] = labels[key][site['id']]
+    effects = json.loads((tc / 'corpus/zh/menu/weapon-special-effect-2.json').read_text())
+    by_id = {entry['id']: entry['translation'] for entry in effects['entries']}
+    comp['weapon_special_effect_2']['expected']['translated_labels'] = [by_id[k] for k in EFFECT_LABEL_IDS]
     reencode_weapon_categories(comp, tc)
     dump(components, comp)
-    print('component config literals mapped to Traditional:', converted, flush=True)
-    print('Traditional sources placed:', stats, 'readback literals:', len(literals), flush=True)
+    print('Traditional sources placed:', stats, flush=True)
     apply_traditional_assets(tc)
 
 
@@ -410,7 +387,7 @@ def main() -> None:
     if check.returncode:
         raise SystemExit('parallel Traditional corpora are out of sync with the Simplified ones; run '
                          'tools/zh_hant/sync_corpus.py and review build/zh-hant/sync-report.json\n' + check.stdout)
-    run(sys.executable, HERE / 'author_intertitles.py')
+    run(sys.executable, HERE / 'author_intertitles.py', *([] if a.author_textures else ['--check']))
     name = 'project-tc' if a.variant == 'tw' else f'project-{a.variant}'
     project = prepared_project(name, a.variant)
     # Hong Kong characters join the one Traditional codebook: grow it from the Hong Kong text first, then Taiwan.

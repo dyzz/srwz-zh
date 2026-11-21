@@ -8,6 +8,7 @@ Usage: author_intertitles.py
 """
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -21,10 +22,17 @@ TC = ROOT / 'corpus/zh-hant/chapter-intertitles.json'
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--check", action="store_true", help="verify the stored render locks without writing")
+    options = parser.parse_args()
     config = json.loads((ROOT / 'config/full-story-components.json').read_text(encoding='utf-8'))['chapter_intertitles']
     doc = json.loads(TC.read_text(encoding='utf-8'))
     args = ((ROOT / config['original_mtv_prop']['path']).read_bytes(), (ROOT / config['original_slps']['path']).read_bytes(),
             ROOT / config['font']['path'])
+    if options.check:
+        build_mtv_prop_intertitles(*args, strip_meta(doc))
+        print("Traditional chapter intertitle render locks verified")
+        return
     relock: dict = {}
     build_mtv_prop_intertitles(*args, strip_meta(doc), relock=relock)
     by_chunk = {e['chunk_index']: e for e in doc['entries']}

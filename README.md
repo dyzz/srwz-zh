@@ -58,10 +58,10 @@ Redump 校验值为 CRC-32 `0d9deb37`、MD5
 `b8ea8ff82ce2d6e09aa550635a5f61b4`、SHA-1
 `e8dbe37e88afe8f82d48889b0775274ccde3cf99`。
 
-默认构建本篇、The Best 和 SP 的三合一镜像，每版可在标题画面选择简体、台湾繁体和香港繁体。准备三版日文原盘，并使用装有 `OpenCC==1.4.2`、NumPy 和 Pillow 的 Python 运行语言工具。
+默认构建本篇、The Best 和 SP 的三合一镜像，每版可在标题画面选择简体、台湾繁体和香港繁体。准备三版日文原盘，并使用装有 NumPy 和 Pillow 的 Python 运行语言工具。
 
 ```bash
-export SRWZ_LANGUAGE_PYTHON=/path/to/python-with-opencc
+export SRWZ_LANGUAGE_PYTHON="$PWD/.venv/bin/python"
 python3 tools/build_editions.py
 python3 tools/build_editions.py --editions original,best
 python3 tools/build_editions.py --editions sp
@@ -70,7 +70,7 @@ python3 tools/build_editions.py --force-rebuild
 
 三合一镜像与对应的 `.receipt.json` 位于 `build/iso/test/`，镜像名为
 `multilang-original.iso`、`multilang-best.iso` 和 `multilang-sp.iso`。
-简体、台湾繁体、香港繁体译文分别维护在 `corpus/zh`、`corpus/zh-hant`、`corpus/zh-hant-hk`。默认构建优先使用各自的语料，缺译时以简体和 OpenCC 补齐。SP 从日文原盘和锁定补丁并行生成三区资源，最后写一张三合一 ISO。只指定 SP 时，本篇只编译供 SP 继承的资源成员。日常构建可复用已校验的地区资源。`--force-rebuild` 会重建组件，内容寻址的压缩缓存仍可命中。
+简体、台湾繁体、香港繁体译文分别维护在 `corpus/zh`、`corpus/zh-hant`、`corpus/zh-hant-hk`。三份译文分别人工维护。覆盖检查发现缺少文件、条目或译文字段时会停止，需在所属语料中补写。港台共用图片的来源见 `config/zh-hant/hk-uses-taiwan.json`。SP 从日文原盘和锁定补丁并行生成三区资源，最后写一张三合一 ISO。只指定 SP 时，本篇只编译供 SP 继承的资源成员。日常构建可复用已校验的地区资源。`--force-rebuild` 会重建组件，内容寻址的压缩缓存仍可命中。
 合盘和回读流程见 [三合一技术说明](docs/MULTILANG_DISC_TECH_20261119.md)。
 
 SP 需要日文原盘、xdelta3 和锁定的字体／基线组件；准备方法、输出路径、缓存规则与

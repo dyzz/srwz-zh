@@ -121,9 +121,9 @@ class StepMemoTests(unittest.TestCase):
             import sys
             sys.path.insert(0, {tools!r})
             from pathlib import Path
-            from srwz.build_language import expected_literal, expected_characters
+            from srwz.build_language import expected_literal
             project = Path(sys.argv[1])
-            answer = expected_literal("简体", project) + expected_characters("没有这句", project)
+            answer = expected_literal("简体", project) + expected_literal("没有这句", project)
             (project / "work").mkdir(exist_ok=True)
             (project / "work/answer.txt").write_text(answer)
             counter = Path(sys.argv[2]); counter.write_text(str(int(counter.read_text() or 0) + 1))
@@ -132,9 +132,9 @@ class StepMemoTests(unittest.TestCase):
         def build(name, extra):
             project = self.project(name)
             (project / "config/zh-hant").mkdir(parents=True)
-            literals = {"简体": "簡體", **extra}
+            literals = {"简体": "簡體", "没有这句": "沒有這句", **extra}
             (project / "config/zh-hant/readback-literals.json").write_text(json.dumps(
-                {"literals": literals, "characters": {"没": "沒", "这": "這"}}, ensure_ascii=False))
+                {"literals": literals}, ensure_ascii=False))
             step = Step("ask", self.root / "store", project, self.root, scope="v1", ignore=("runs",),
                         log=lambda line: None)
             reused = step.run([sys.executable, str(self.root / "tool/ask.py"), str(project), str(self.counter)],
