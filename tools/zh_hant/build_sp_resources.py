@@ -24,7 +24,6 @@ from build_editions import edition_lock, phase_environment
 import assemble_dual
 from language_view import place_sp_support
 from build_dual import texture_sources
-from build_dual_sp import taiwan_data_link_literals
 
 REGIONS = ("sc", "tw", "hk")
 CACHE = ROOT / "work/build/sp-multilang-resources"
@@ -84,10 +83,8 @@ def input_state(region, badge, component_frontends):
     keyed_rows = rows
     taiwan_subtitles = "corpus/zh-hant/special-disc/battle-lines.json"
     if region == "hk" and taiwan_subtitles not in texture_sources():
-        # HK compiles its own battle lines. Taiwan can still supply a shared
-        # Data Link literal via the bilingual dictionary, so bind those exact values.
+        # Hong Kong compiles its own subtitles and Data Link page.
         keyed_rows = [row for row in rows if row["path"] != taiwan_subtitles]
-        external["taiwan_data_link"] = taiwan_data_link_literals()
     fingerprint = hashlib.sha256(
         json.dumps([keyed_rows, external, badge], sort_keys=True).encode()
     ).hexdigest()
@@ -298,7 +295,7 @@ def main():
     start = time.monotonic()
     args.out = args.out.resolve()
     if (
-        args.out.parent != (ROOT / "build/iso/test").resolve()
+        not args.out.parent.is_relative_to((ROOT / "build/iso/test").resolve())
         or args.out.suffix != ".iso"
     ):
         parser.error("SP output must be an ISO in build/iso/test")

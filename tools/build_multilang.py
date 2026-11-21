@@ -166,7 +166,9 @@ def assembly_inputs(edition: str) -> dict:
 def assemble(edition: str, out: Path, force: bool) -> None:
     from build_editions import atomic_json
     from srwz.file_identity import identity_key
-    cache = ROOT / f"work/cache/editions/multilang/{edition}.json"
+    cache_dir = ROOT / "work/cache/editions/multilang"
+    destination = out.resolve().parent.relative_to((ROOT / "build/iso/test").resolve())
+    cache = cache_dir / destination / f"{edition}.json"
     receipt = out.with_suffix(".receipt.json")
     inputs = assembly_inputs(edition)
     def proof():
@@ -203,8 +205,10 @@ def main() -> None:
     languages = LANGUAGES
     if not editions or set(editions) - {"original", "best", "sp"}:
         raise SystemExit("editions: original, best, sp")
-    if args.out_dir.resolve() != (ROOT / "build/iso/test").resolve():
-        parser.error("the assembler writes to build/iso/test")
+    args.out_dir = args.out_dir.resolve()
+    if not args.out_dir.is_relative_to((ROOT / "build/iso/test").resolve()):
+        parser.error("output directory must be under build/iso/test")
+    args.out_dir.mkdir(parents=True, exist_ok=True)
     from build_editions import edition_lock
     with edition_lock(ROOT / "work/cache/editions/multilang/build.lock"):
         build_discs(args, editions, languages)
@@ -222,7 +226,7 @@ def build_discs(args, editions: list[str], languages: list[str]) -> None:
     if os.environ.get("SRWZ_SKIP_PREFLIGHT") != "1":
         run("text-preflight", [sys.executable, str(ZH_HANT / "preflight.py")])
     # Traditional render locks that live in the parallel corpus follow its text (deterministic, a few seconds).
-    run("author-intertitles", [language_python(), str(ZH_HANT / "author_intertitles.py")])
+    run("check-intertitles", [language_python(), str(ZH_HANT / "author_intertitles.py"), "--check"])
     # One badge refresh before the parallel builds, so none of them rewrites a file another is capturing.
     sys.path.insert(0, str(ROOT / "tools"))
     from freeze_title_version import refresh_current_badge

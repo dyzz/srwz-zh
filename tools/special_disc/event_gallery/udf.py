@@ -166,7 +166,7 @@ class Disc:
             p += length
 
 
-def relocate(imagePath, changes, *, allowed_members=None):
+def relocate(imagePath, changes, *, allowed_members=None, appended_start=None):
     """Update candidate UDF metadata for {path: (absolute_lba, byte_size)}.
 
     Returns an auditable receipt. If files leave the old partition, the image
@@ -186,7 +186,7 @@ def relocate(imagePath, changes, *, allowed_members=None):
                        {"SLPS_732.70", "DATA/MTV_PROS.BIN", "DATA/STAGE.BIN", "HEDBDY/HB.BIN"},
                        {"SLPS_259.20", "DATA/MTZSPROS.BIN", "DATA/STAGE.BIN", "HEDBDY/HB.BIN"}):
         raise ValueError("unknown subtitle relocation profile")
-    if not normalized or not set(normalized) <= allowed:
+    if (not normalized and appended_start is None) or not set(normalized) <= allowed:
         raise ValueError("members are outside the selected relocation profile")
     if path.resolve().parent.name == "rom" or path.name in {"srwz-zh-current.iso", "srwz-sp-zh-current.iso"}:
         raise ValueError("refuses source/production ISO; supply an isolated candidate")
@@ -198,6 +198,15 @@ def relocate(imagePath, changes, *, allowed_members=None):
         total_blocks = original_bytes // BLOCK
         old_partition_end = disc.partition_start + disc.partition_length
         spans = []
+        if appended_start is not None:
+            # VMAP can address language-private sectors that have no directory entry.
+            # Only accept a contiguous append after the complete previous volume.
+            pvd = disc.read(16)
+            if (pvd[:6] != b"\x01CD001" or struct.unpack_from("<I", pvd, 80)[0] != appended_start
+                    or struct.unpack_from(">I", pvd, 84)[0] != appended_start
+                    or not old_partition_end <= appended_start < total_blocks):
+                raise ValueError("language resource tail does not start at the previous volume end")
+            spans.append((appended_start, total_blocks))
         for name, (lba, size) in normalized.items():
             limit = 1 << 30
             if name in OVERSIZE_IN_PLACE and name in disc.files and lba == disc.files[name]["extent_lba"] \

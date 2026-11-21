@@ -274,12 +274,17 @@ def _iter_path_references(value: object) -> Iterable[dict]:
 
 
 def _tracked_config_paths() -> tuple[Path, ...]:
+    # Regional authoring inputs carry locks for their own corpus. A language view
+    # installs active contracts at their normal config paths before this audit.
+    def active(path: str) -> bool:
+        return (path.startswith("config/") and path.endswith(".json")
+                and not path.startswith(("config/editorial/", "config/zh-hant/"))
+                and "special-disc" not in Path(path).parts)
+
     inventory = PROJECT_ROOT / 'work/edition-inputs.json'
     if inventory.is_file():
         return tuple(_project_path(p) for p in _load_object(inventory)['paths']
-                     if p.startswith('config/') and p.endswith('.json')
-                     and not p.startswith('config/editorial/')
-                     and 'special-disc' not in Path(p).parts)
+                     if active(p))
     completed = subprocess.run(
         ["git", "ls-files", "-z", "--", "config"],
         cwd=PROJECT_ROOT,
@@ -290,13 +295,9 @@ def _tracked_config_paths() -> tuple[Path, ...]:
     for raw in completed.stdout.split(b"\0"):
         if not raw:
             continue
-        path = PROJECT_ROOT / raw.decode("utf-8")
-        # Editorial ledgers retain historical before/after file identities.
-        # They are audit evidence, not current production input contracts.
-        if (path.suffix == ".json"
-                and not path.is_relative_to(PROJECT_ROOT / "config/editorial")
-                and "special-disc" not in path.relative_to(PROJECT_ROOT).parts):
-            paths.append(path)
+        relative = raw.decode("utf-8")
+        if active(relative):
+            paths.append(PROJECT_ROOT / relative)
     if not paths:
         raise TextUpdateBuildError("Git has no tracked JSON build configs")
     return tuple(paths)

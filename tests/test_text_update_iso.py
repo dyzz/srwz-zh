@@ -20,6 +20,20 @@ from tools.srwz.text import TextTable
 
 
 class TextUpdateIsoTests(unittest.TestCase):
+    def test_active_config_inventory_excludes_uninstalled_language_overlays(self):
+        paths = ["config/assets/menu.json", "config/zh-hant/overlay/config/assets/menu.json",
+                 "config/zh-hant/sections.json"]
+        with tempfile.TemporaryDirectory() as temp, patch.object(build_text_update_iso, "PROJECT_ROOT", Path(temp).resolve()):
+            root = Path(temp).resolve()
+            (root / "work").mkdir()
+            inventory = root / "work/edition-inputs.json"
+            inventory.write_text(json.dumps({"paths": paths}))
+            self.assertEqual(build_text_update_iso._tracked_config_paths(), (root / paths[0],))
+            inventory.unlink()
+            result = subprocess.CompletedProcess([], 0, stdout="\0".join(paths).encode() + b"\0")
+            with patch.object(subprocess, "run", return_value=result):
+                self.assertEqual(build_text_update_iso._tracked_config_paths(), (root / paths[0],))
+
     def test_fixed_span_translation_can_add_a_locked_storage_control_prefix(self):
         table = TextTable(
             characters={},

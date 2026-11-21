@@ -725,6 +725,7 @@ def build(root: Path, config: str, requested: tuple[str, ...], *, plan: bool = F
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--out-dir", type=Path, help="Multilingual output directory under build/iso/test.")
     parser.add_argument("--single-language", action="store_true", help="Build Simplified only (the default product is a three-language disc).")
     parser.add_argument("--sp-frontend-only", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--frozen-badge", help=argparse.SUPPRESS)
@@ -742,11 +743,15 @@ def main() -> int:
         if not (args.single_language or args.candidate or args.language or args.plan or
                 args.require_legacy_equivalence or args.config != DEFAULT_CONFIG):
             command = [sys.executable, str(PROJECT_ROOT / "tools/build_multilang.py"), "--editions", args.editions]
+            if args.out_dir is not None:
+                command += ["--out-dir", str(args.out_dir)]
             if args.release_version:
                 command += ["--release-version", args.release_version]
             if args.force_rebuild:
                 command.append("--force-rebuild")
             return subprocess.call(command)
+        if args.out_dir is not None:
+            parser.error("--out-dir applies to multilingual builds")
         badge_text = None
         if not args.plan and any(x.strip() in ('original', 'best') for x in args.editions.split(',')):
             from freeze_title_version import refresh_current_badge

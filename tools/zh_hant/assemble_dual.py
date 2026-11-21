@@ -281,7 +281,7 @@ def main() -> None:
     p.add_argument('--work', type=Path, default=ROOT / 'build/zh-hant/assemble')
     p.add_argument('--edition', choices=sorted(EDITIONS), default='original')
     a = p.parse_args()
-    if a.out.resolve().parent != (ROOT / 'build/iso/test').resolve(): raise SystemExit('output must be under build/iso/test')
+    if not a.out.resolve().parent.is_relative_to((ROOT / 'build/iso/test').resolve()): raise SystemExit('output must be under build/iso/test')
     receipt = a.receipt or a.out.with_suffix('.receipt.json')
     if receipt.resolve() in {p.resolve() for p in (a.out, a.sc, a.tc, a.hk) if p}:
         raise SystemExit('receipt aliases a disc')
@@ -392,7 +392,8 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
             n = -(-len(b_b) // 2048)
             # The Traditional theatre artwork changes the whole AID archive. Like VT1,
             # it is read through VMAP and exceeds the space left in the SP dummy member.
-            if ED.key == 'sp' and name == 'AID_DATA/AIDDATA.BIN':
+            if ((ED.key == 'sp' and name == 'AID_DATA/AIDDATA.BIN') or
+                    (tag == 'hk' and name == 'MAP/MAPMODEL.BIN' and sha(b_b) not in placed)):
                 tl = place_tail(label(name), b_b)
             else:
                 tl = place(label(name), b_b)
@@ -552,11 +553,29 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
             f.seek(lba * 2048)
             if f.read(len(data)) != data: raise SystemExit(f'readback appended {name}')
     relocation = None
+    tail_volume = None
     if len(SC.b) != exe_e.size:                             # SP: the executable grew by the cave segment
         from special_disc.iso_relocation import append_members, verify_relocation
         relocation = append_members(staged, sc.m, {EXE: bytes(SC.b)}, catalog_policy='inherit')
         verify_relocation(staged, sc.m, {EXE: bytes(SC.b)}, relocation)
         spans += [tuple(x) for x in relocation['touched_spans']]
+    elif tail_items:
+        from special_disc.event_gallery.udf import relocate
+        first_tail_lba = tail_items[0][1]
+        tail_volume = relocate(staged, {}, appended_start=first_tail_lba)
+        if not tail_volume['partition_extended'] or staged.stat().st_size > 4_700_000_000:
+            raise SystemExit('regional resource tail exceeds the single-layer disc budget')
+        spans.extend((lba * 2048, (lba + 1) * 2048) for lba in tail_volume['metadata_blocks_written']
+                     if lba < first_tail_lba)
+        with staged.open('rb') as f:
+            for lba in range(16, 32):
+                f.seek(lba * 2048)
+                block = f.read(2048)
+                if block[1:6] == b'CD001' and block[0] in (1, 2):
+                    volume_size = tail_volume['image_blocks']
+                    if block[80:88] != struct.pack('<I', volume_size) + struct.pack('>I', volume_size):
+                        raise SystemExit('ISO9660 volume size does not cover the language resource tail')
+                    spans.append((lba * 2048 + 80, lba * 2048 + 88))
     # The executable's span is excluded from the comparison below, so read it back the way the console finds it:
     # through the staged image's own directory. The receipt records the hash of these bytes.
     staged_exe = Disc(staged).read(EXE)
@@ -607,6 +626,8 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
                'patch': patch_report(tw), 'sc_exe_sha256': sha(staged_exe), 'tc_exe_sha256': sha(tw['exe_out'].b), 'edition': ED.key,
                'executable_relocation': relocation and {k: relocation[k] for k in ('changes', 'old_size', 'new_size')},
                **tw['report']}
+    if tail_volume is not None:
+        receipt['tail_volume'] = {k: tail_volume[k] for k in ('image_blocks', 'partition_length', 'anchors_written')}
     if a.hk:
         hk = VS[1]
         receipt['hk'] = {'hk_iso': str(a.hk), 'patch': patch_report(hk), 'hk_exe_sha256': sha(hk['exe_out'].b), **hk['report']}
