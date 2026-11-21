@@ -146,7 +146,6 @@ def build_sp_early(out: Path, badge: str, force_rebuild: bool, languages: list[s
 
 
 def assembly_inputs(edition: str) -> dict:
-    from srwz.file_identity import identity_key
     proofs = {}
     for language in ["", *LANGUAGES]:
         suffix = f"-{language}" if language else ""
@@ -155,6 +154,13 @@ def assembly_inputs(edition: str) -> dict:
         proofs[language] = [receipt["input_digest"], receipt["output"]]
     # The snapshot includes the assembler, hook and both codebooks. The external
     # binutils suite is installed outside the snapshot.
+    proofs.update(binutils_identity())
+    return proofs
+
+
+def binutils_identity():
+    from srwz.file_identity import identity_key
+    proofs = {}
     for tool in ("as", "ld", "objcopy", "objdump", "nm"):
         binary = shutil.which("mipsel-linux-gnu-" + tool)
         if binary is None:

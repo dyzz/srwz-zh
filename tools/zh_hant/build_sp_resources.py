@@ -18,9 +18,10 @@ sys.path.insert(0, str(ROOT / "tools"))
 from srwz.release_inputs import source_inventory, copy_file
 from srwz.sp_edition import locked_sp_inputs
 from srwz.language import SP_REGIONAL_CONFIGS, _answer_key, frontend_regions, frontend_options, shared_episode_titles
-from srwz.file_identity import sha256_file
+from srwz.file_identity import identity_key, sha256_file
 from special_disc.resource_view import ResourceView, ENV
-from build_editions import edition_lock, phase_environment
+from build_editions import atomic_json, edition_lock, phase_environment
+from build_multilang import binutils_identity
 import assemble_dual
 from language_view import place_sp_support
 
@@ -328,29 +329,7 @@ def main():
                     print("SP disc not written: the build was cancelled", flush=True)
                     raise SystemExit(4)
                 time.sleep(0.1)
-        with tempfile.TemporaryDirectory(dir=args.out.parent) as temp:
-            staged = Path(temp) / "final.iso"
-            receipt = Path(temp) / "verified.json"
-            a = SimpleNamespace(
-                edition="sp",
-                sc=sc,
-                tc=tw,
-                hk=hk,
-                out=args.out,
-                work=ROOT / "build/multilang/assemble-sp",
-                codebook=ROOT / "config/encoding/zh-release-font-assignments.json",
-                tc_codebook=ROOT
-                / "config/zh-hant/encoding/zh-release-font-assignments.json",
-            )
-            layout_start = time.monotonic()
-            assemble_dual.assemble(a, staged, receipt)
-            report = json.loads(receipt.read_text())
-            report["resources"] = {
-                region: str(view.path.relative_to(ROOT))
-                for region, view in zip(REGIONS, (sc, tw, hk))
-            }
-            report["source"] = "Japanese retail SP"
-            receipt.write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n")
+        def validate_inputs():
             with ThreadPoolExecutor(max_workers=3) as pool:
                 current = pool.map(
                     lambda region: input_state(
@@ -362,13 +341,60 @@ def main():
                     view.path.parents[4].name for view in (sc, tw, hk)
                 ]:
                     raise ValueError("SP inputs changed before publication")
-            assemble_dual.publish(
-                staged, args.out, receipt, args.out.with_suffix(".receipt.json")
-            )
-            print(
-                f"[sp-layout] write, verify and publish {time.monotonic() - layout_start:.2f}s",
-                flush=True,
-            )
+
+        resources = {region: [str(view.path.relative_to(ROOT)), view.digest()]
+                     for region, view in zip(REGIONS, (sc, tw, hk))}
+        inputs = {"resources": resources, "binutils": binutils_identity()}
+        destination = args.out.relative_to(ROOT / "build/iso/test")
+        cache = ROOT / "work/cache/editions/sp-layout" / destination.with_suffix(".json")
+        published_receipt = args.out.with_suffix(".receipt.json")
+
+        def proof():
+            return {"inputs": inputs, "iso": identity_key(args.out.stat()),
+                    "receipt": identity_key(published_receipt.stat())}
+
+        reused = False
+        if not args.force_rebuild:
+            try:
+                reused = json.loads(cache.read_text()) == proof()
+            except (FileNotFoundError, ValueError):
+                pass
+        if reused:
+            validate_inputs()
+            print("[sp-layout] reused verified ISO", flush=True)
+        else:
+            with tempfile.TemporaryDirectory(dir=args.out.parent) as temp:
+                staged = Path(temp) / "final.iso"
+                receipt = Path(temp) / "verified.json"
+                a = SimpleNamespace(
+                    edition="sp",
+                    sc=sc,
+                    tc=tw,
+                    hk=hk,
+                    out=args.out,
+                    work=ROOT / "build/multilang/assemble-sp",
+                    codebook=ROOT / "config/encoding/zh-release-font-assignments.json",
+                    tc_codebook=ROOT
+                    / "config/zh-hant/encoding/zh-release-font-assignments.json",
+                )
+                layout_start = time.monotonic()
+                assemble_dual.assemble(a, staged, receipt)
+                report = json.loads(receipt.read_text())
+                report["resources"] = {
+                    region: str(view.path.relative_to(ROOT))
+                    for region, view in zip(REGIONS, (sc, tw, hk))
+                }
+                report["source"] = "Japanese retail SP"
+                receipt.write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n")
+                validate_inputs()
+                assemble_dual.publish(
+                    staged, args.out, receipt, args.out.with_suffix(".receipt.json")
+                )
+                print(
+                    f"[sp-layout] write, verify and publish {time.monotonic() - layout_start:.2f}s",
+                    flush=True,
+                )
+            atomic_json(cache, proof())
         for region, view in zip(REGIONS, (sc, tw, hk)):
             try:
                 prune_resources(region, view.path.parents[4])
