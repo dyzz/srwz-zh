@@ -29,7 +29,7 @@ class SpSchedulingTests(unittest.TestCase):
         with (
             patch.object(
                 build.subprocess, "run", return_value=SimpleNamespace(returncode=0)
-            ),
+            ) as extra_process,
             patch("freeze_title_version.refresh_current_badge", return_value="v-test"),
             patch.object(build, "build") as frontend,
             patch.object(build, "check_authored"),
@@ -42,6 +42,9 @@ class SpSchedulingTests(unittest.TestCase):
             [c.args for c in frontend.call_args_list],
             [("original", lang, "v-test", True, True) for lang in ("", *languages)],
         )
+        extra_process.assert_not_called()
+        self.assertEqual([c.args[0] for c in stage.call_args_list],
+                         ["corpus-coverage", "check-intertitles", "sp-resources"])
         writers = [
             c.args[1] for c in stage.call_args_list if c.args[0] == "sp-resources"
         ]

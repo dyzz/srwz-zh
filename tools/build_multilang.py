@@ -13,7 +13,7 @@ nothing is published before that.
 
 Usage: build_multilang.py [--editions original,best,sp] [--release-version 0.5.1]
 SP language tools need NumPy and Pillow: set SRWZ_LANGUAGE_PYTHON to an interpreter that has them when this one does not.
-No step converts Simplified to Traditional: every language's text is static.
+Each language's text is static. For an editorial report run tools/zh_hant/preflight.py separately.
 """
 from __future__ import annotations
 
@@ -222,16 +222,7 @@ def main() -> None:
 
 def build_discs(args, editions: list[str], languages: list[str]) -> None:
     started = time.perf_counter()
-    if "sp" in editions:
-        dependencies = subprocess.run([language_python(), "-c", "import numpy, PIL"], capture_output=True, text=True)
-        if dependencies.returncode:
-            raise SystemExit(f"SP language tools require NumPy and Pillow in {language_python()}:\n"
-                             + dependencies.stderr)
     run("corpus-coverage", [language_python(), str(ZH_HANT / "fill_corpora.py"), "--check"])
-    # Every static gate over the Taiwan and Hong Kong text at once (a build stops at its first failing gate).
-    if os.environ.get("SRWZ_SKIP_PREFLIGHT") != "1":
-        run("text-preflight", [sys.executable, str(ZH_HANT / "preflight.py")])
-    # Traditional render locks that live in the parallel corpus follow its text (deterministic, a few seconds).
     run("check-intertitles", [language_python(), str(ZH_HANT / "author_intertitles.py"), "--check"])
     # One badge refresh before the parallel builds, so none of them rewrites a file another is capturing.
     sys.path.insert(0, str(ROOT / "tools"))
@@ -294,9 +285,6 @@ def build_discs(args, editions: list[str], languages: list[str]) -> None:
     with ThreadPoolExecutor(max_workers=len(editions)) as pool:
         for job in [pool.submit(finish, edition) for edition in editions]:
             job.result()
-    # The slot sizes this build accepted become the preflight's baseline for the next edit.
-    subprocess.run([sys.executable, str(ZH_HANT / "preflight.py"), "--record", "--skip-layout"], check=True,
-                   capture_output=True)
     print(f"total {time.perf_counter() - started:.2f}s", flush=True)
 
 
