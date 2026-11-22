@@ -478,10 +478,8 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
             o_tc = sp_table(exe_tc, len(v_tc))
             tc_glyphs = decode(v_tc[o_tc[SP_FONT_CHUNK]:o_tc[SP_FONT_CHUNK + 1]]).output
             if len(tc_glyphs) % 288 or len(tc_glyphs) > GLYPHS * 288: raise SystemExit('TC font exceeds the font buffer')
-            tc_exe.putw(SP_FONT_BUFFER, GLYPHS * 288)
-            for va in (0x13B3FC, 0x13B400):                     # linear glyph fallback (lead 0x99.. codes), as Original
-                if tc_exe.word(va) != SP_FONT_LOADER[va]: raise SystemExit(f'SP glyph fallback preimage drift at {va:#x}')
-            tc_exe.putw(0x13B3FC, 0x10000002); tc_exe.putw(0x13B400, 0x90240061)
+            from special_disc.writeback.install_font import configure_font_loader
+            configure_font_loader(tc_exe.b, len(tc_glyphs))
             appended_vt1 = v_tc
             report['vt1'] = {'redirect': 'whole member appended after the image', 'bytes': len(v_tc),
                              'font': {'glyphs': len(tc_glyphs) // 288}}

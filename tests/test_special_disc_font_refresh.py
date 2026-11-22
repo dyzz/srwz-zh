@@ -1,17 +1,49 @@
 """Font refresh must not overwrite the neighbouring audio or move archive chunks."""
+import hashlib
 import json
 import struct
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'tools'), str(ROOT / 'tools/special_disc/writeback')]
 from special_disc.writeback import install_font as fonts
 from special_disc.source import CURRENT_ISO
-from srwz.codec import decode_production
+from srwz.codec import decode_production, encode
 from srwz.iso9660 import member_map, scan_iso9660
 from build_text_candidate import read_member
+
+
+class FontLoaderTests(unittest.TestCase):
+    def test_extended_font_installs_and_can_be_reused_by_multilingual_assembly(self):
+        exe = bytearray(fonts.FONT_BUFFER_WORD + 4)
+        struct.pack_into('<I', exe, fonts.FONT_BUFFER_WORD, fonts.STOCK_FONT_BYTES)
+        struct.pack_into('<II', exe, fonts.GLYPH_FALLBACK, 0x1000000C, 0xA4200062)
+        native = bytes(exe)
+        for _ in range(2):
+            fonts.configure_font_loader(exe, 4992 * 288)
+            self.assertEqual(struct.unpack_from('<I', exe, fonts.FONT_BUFFER_WORD), (4992 * 288,))
+            self.assertEqual(struct.unpack_from('<II', exe, fonts.GLYPH_FALLBACK),
+                             (0x10000002, 0x90240061))
+        fonts.configure_font_loader(exe, 4480 * 288)
+        self.assertEqual(exe, native)
+
+    def test_capacity_follows_decoded_size_even_when_compressed_font_already_fits(self):
+        glyphs = bytes(4992 * 288)
+        font = encode(glyphs, strategy='literal')
+        slot = (len(font) + 15) & ~15
+        offsets = (0, 16, 32, 48, 48 + slot, 64 + slot)
+        exe = bytearray(fonts.VT1_TABLE + 24)
+        struct.pack_into('<6I', exe, fonts.VT1_TABLE, *offsets)
+        struct.pack_into('<I', exe, fonts.FONT_BUFFER_WORD, fonts.STOCK_FONT_BYTES)
+        struct.pack_into('<II', exe, fonts.GLYPH_FALLBACK, 0x1000000C, 0xA4200062)
+        with patch.object(fonts, 'FONT_DECODED_SIZE', len(glyphs)):
+            _, installed, report = fonts.replace_font_with_relocation(
+                bytes(offsets[-1]), bytes(exe), font, hashlib.sha256(glyphs).hexdigest())
+        self.assertEqual(report['borrowed_bytes'], 0)
+        self.assertEqual(struct.unpack_from('<I', installed, fonts.FONT_BUFFER_WORD), (len(glyphs),))
 
 
 class SpecialDiscFontRefreshTests(unittest.TestCase):
@@ -48,6 +80,8 @@ class SpecialDiscFontRefreshTests(unittest.TestCase):
         size = (len(self.font) + 15) // 16 * 16
         offsets = [0, 16, 1024, 2048, 2048 + size - 16, 2048 + size + 64]
         exe = bytearray(fonts.VT1_TABLE + 24)
+        exe[fonts.GLYPH_FALLBACK:fonts.GLYPH_FALLBACK+8] = self.exe[fonts.GLYPH_FALLBACK:fonts.GLYPH_FALLBACK+8]
+        struct.pack_into('<I', exe, fonts.FONT_BUFFER_WORD, fonts.STOCK_FONT_BYTES)
         struct.pack_into('<6I', exe, fonts.VT1_TABLE, *offsets)
         vt = bytearray(offsets[-1]); vt[1024:2048] = bytes(range(256)) * 4
         vt[offsets[4]:] = b'Z' * (offsets[-1] - offsets[4])

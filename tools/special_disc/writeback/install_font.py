@@ -98,6 +98,28 @@ def replace_font_slot(vt1: bytes, exe: bytes, font: bytes, expected_sha256: str)
     return output
 
 
+# SP ELF file offsets in the native code/data segment (VA 0x100000 at 0x980).
+FONT_BUFFER_WORD = 0x4524E8 - 0x100000 + 0x980
+GLYPH_FALLBACK = 0x13B3FC - 0x100000 + 0x980
+STOCK_FONT_BYTES = 4480 * 288
+EXTENDED_FONT_BYTES = 4992 * 288
+
+
+def configure_font_loader(executable: bytearray, decoded_bytes: int) -> None:
+    """Match the EE allocation and glyph lookup to the decoded SP font."""
+    if decoded_bytes not in (STOCK_FONT_BYTES, EXTENDED_FONT_BYTES):
+        raise ValueError(f'unsupported SP font size: {decoded_bytes}')
+    capacity, = struct.unpack_from('<I', executable, FONT_BUFFER_WORD)
+    lookup = struct.unpack_from('<II', executable, GLYPH_FALLBACK)
+    native = (0x1000000C, 0xA4200062)
+    linear = (0x10000002, 0x90240061)
+    if capacity not in (STOCK_FONT_BYTES, EXTENDED_FONT_BYTES) or lookup not in (native, linear):
+        raise ValueError('SP font loader preimage drift')
+    struct.pack_into('<I', executable, FONT_BUFFER_WORD, decoded_bytes)
+    struct.pack_into('<II', executable, GLYPH_FALLBACK,
+                     *(linear if decoded_bytes > STOCK_FONT_BYTES else native))
+
+
 def replace_font_with_relocation(vt1: bytes, exe: bytes, font: bytes, expected_sha256: str):
     """Grow only into verified zero padding before the preceding raw audio block."""
     offsets = sp_offsets(exe, VT1_TABLE, len(vt1))
@@ -109,15 +131,16 @@ def replace_font_with_relocation(vt1: bytes, exe: bytes, font: bytes, expected_s
     audio_start, start, end = offsets[AUDIO_CHUNK:FONT_CHUNK + 2]
     needed = (decoded.consumed + 15) // 16 * 16
     borrow = max(0, needed - (end - start))
+    executable = bytearray(exe)
+    configure_font_loader(executable, len(decoded.output))
     if not borrow:
-        return replace_font_slot(vt1, exe, font, expected_sha256), exe, {'borrowed_bytes': 0}
+        return replace_font_slot(vt1, exe, font, expected_sha256), bytes(executable), {'borrowed_bytes': 0}
     if audio_start - borrow < offsets[AUDIO_CHUNK - 1] or any(vt1[audio_start - borrow:audio_start]):
         raise ValueError('SP font growth would overwrite nonzero donor bytes')
     audio = vt1[audio_start:start]
     output = bytearray(vt1)
     output[audio_start - borrow:start - borrow] = audio
     output[start - borrow:end] = font[:decoded.consumed] + bytes(needed - decoded.consumed)
-    executable = bytearray(exe)
     for index in (AUDIO_CHUNK, FONT_CHUNK):
         struct.pack_into('<I', executable, VT1_TABLE + index * 4, offsets[index] - borrow)
     after = sp_offsets(executable, VT1_TABLE, len(output))
@@ -176,6 +199,8 @@ def main() -> None:
     out[audio_start - borrow:audio_end - borrow] = audio
     out[audio_end - borrow:table[FONT_CHUNK + 1]] = font + bytes(needed - len(font))
     assert len(out) == len(vt1), "VT1 changed size"
+
+    configure_font_loader(exe, len(font_decoded.output))
 
     # 4. two table entries move with it
     for index in (AUDIO_CHUNK, FONT_CHUNK):
