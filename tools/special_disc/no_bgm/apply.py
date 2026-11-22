@@ -13,7 +13,7 @@ def apply_no_bgm(elf: bytes, *, workdir: Path, proposal: Path | None = None):
   raise ValueError(hex(addr))
  # Reuse the zero-length ELF end marker in the gap between native overlays and gallery.
  assert hs[70]==(1,0x3cb700,0x81c600,0x81c600,0,0,6,16),hs[70]
- base=0x81e000;limit=0x820000
+ base=0x81fc00;limit=0x820000
  assert all(not(sz or mem) or max(base,v)>=min(limit,v+mem) for t,o,v,pa,sz,mem,fl,al in hs if t==1)
  # This gap is below the gallery heap boundary; neither heap nor gallery data moves.
  assert struct.unpack_from('<I',b,off(0x44e734))[0]>=limit
@@ -37,8 +37,15 @@ def apply_no_bgm(elf: bytes, *, workdir: Path, proposal: Path | None = None):
   (0x418340,[0x2673f2f0],[0x26730000|(syms['option_names']&0xffff)]),
   (0x4185a4,[0x3c03007d],[0x3c030000|((syms['option_help']+0x8000)>>16)]),
   (0x4185b0,[0x2463f300],[0x24630000|(syms['option_help']&0xffff)]),
-  (0x182e30,[0x27bdffa0,0x24020003],[0x08000000|(syms['bgm_sync']>>2),0]),
-  (0x182fc0,[0x27bdff90,0x24020003],[0x08000000|(syms['bgm_async']>>2),0])]:
+  (0x40f848,[0x0c104544],[0x0c000000|(syms['restore_song']>>2)]),
+  (0x411630,[0x27bdffc0,0x24030001],[0x08000000|(syms['auto_song']>>2),0]),
+  (0x411544,[0x862404f4,0x24020066],[0x08000000|(syms['format_song']>>2),0x862404f4]),
+  (0x422070,[0x28420066,0x14400004],[0x08000000|(syms['song_icon']>>2),0]),
+  (0x42fe18,[0x0c0d02d0],[0x0c000000|(syms['select_music_cursor']>>2)]),
+  (0x411478,[0x0c0f0550],[0x0c000000|(syms['resolve']>>2)]),
+  (0x1439e4,[0x0c060b8c],[0x0c000000|(syms['return_music']>>2)]),
+  *((addr,[0x0c063228],[0x0c000000|(syms['volume']>>2)])
+    for addr in (0x18b740,0x18bcf4,0x18be24,0x18beb0,0x18bf3c))]:
   pos=off(addr);old=struct.unpack_from('<'+'I'*len(expected),b,pos);assert old==tuple(expected),(hex(addr),old)
   struct.pack_into('<'+'I'*len(new),b,pos,*new);changes.append({'address':hex(addr),'before':expected,'after':new})
  fo=(len(b)+4095)&~4095;b+=bytes(fo-len(b))+payload;struct.pack_into('<8I',b,ph+70*32,1,fo,base,base,len(payload),len(payload),7,16)
