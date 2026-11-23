@@ -29,7 +29,10 @@ class GravionLabelsTests(unittest.TestCase):
         out, report = labels.patch_decoded(self.data, self.table, self.overrides, self.readback)
         contract, _, _ = labels.inputs()
         owned = {i for r in contract['entries'] for i in range(r['offset'], r['offset'] + r['capacity'])}
-        self.assertEqual(len(report['labels']), 18)
+        self.assertEqual(len(report['labels']), 20)
+        by_offset = {row['offset']: row['translation'] for row in report['labels']}
+        self.assertEqual(by_offset[0x84BF0], '巨神格兰维昂')
+        self.assertEqual(by_offset[0x84DC8], '格兰Σ')
         self.assertTrue(all(a == b for i, (a, b) in enumerate(zip(self.data, out)) if i not in owned))
         self.assertEqual(labels.patch_decoded(out, self.table, self.overrides, self.readback)[0], out)
 
