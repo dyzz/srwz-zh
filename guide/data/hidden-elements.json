@@ -161,12 +161,12 @@
     {
       "id": "character-charles-ray",
       "category": "character",
-      "title": "{{people/charles}}／蕾",
+      "title": "{{people/charles}}／雷",
       "summary": "兰德限定；两人只在最终话作为援军出现，不会编入队伍。",
       "term_refs": ["people/charles", "people/holland", "people/renton"],
       "steps": [
         {"stage": 32, "ordinals": [63], "text": "选择搜寻{{people/renton}}路线。", "evidence_level": "cross-stage"},
-        {"stage": 35, "ordinals": [66], "text": "让{{people/holland}}分别与查尔斯、蕾交战，再由{{people/renton}}分别说得两人，最后由{{people/renton}}击坠两人。", "evidence_level": "stage-static"},
+        {"stage": 35, "ordinals": [66], "text": "让{{people/holland}}分别与查尔斯、雷交战，再由{{people/renton}}分别说得两人，最后由{{people/renton}}击坠两人。", "evidence_level": "stage-static"},
         {"stage": 60, "ordinals": [105, 106], "text": "满足条件后，两人在最终话前半作为援军出现。", "evidence_level": "cross-stage"}
       ]
     },
@@ -298,7 +298,7 @@
       "term_refs": ["weapon/0552", "weapon/0551", "unit/big-o", "people/beck", "people/renton"],
       "steps": [
         {"stage": 32, "ordinals": [63], "text": "选择搜寻{{people/renton}}路线。", "evidence_level": "cross-stage"},
-        {"stage": 34, "ordinals": [65], "text": "让{{unit/big-o}}与{{people/beck}}的贝克大帝RX3交战且双方存活，当场取得两件武器。", "evidence_level": "stage-static"},
+        {"stage": 34, "ordinals": [65], "text": "让{{unit/big-o}}与{{people/beck}}的大贝克RX3交战且双方存活，当场取得两件武器。", "evidence_level": "stage-static"},
         {"stage": 35, "ordinals": [66, 69], "text": "未达成提前条件时在本话自动取得。", "evidence_level": "stage-static"}
       ]
     },
@@ -310,7 +310,7 @@
       "term_refs": ["weapon/0099"],
       "steps": [
         {"stage": 44, "text": "在时限内击坠人工太阳，事件中追加{{weapon/0099}}。", "evidence_level": "stage-static"},
-        {"stage": 54, "text": "漏掉时让{{unit/baldios}}出击并存活，在击坠灵魂加特勒时补取。", "evidence_level": "stage-static"}
+        {"stage": 54, "text": "漏掉时让{{unit/baldios}}出击并存活，在击坠精神·加特勒时补取。", "evidence_level": "stage-static"}
       ]
     },
     {
@@ -446,7 +446,7 @@
       "summary": "一周目第47话后的路线判定；二周目起可直接选择。负分事件也必须计入。",
       "term_refs": ["people/setsuko", "people/rand", "people/alex", "people/athrun", "people/sato", "people/kira", "people/yzak", "people/stella", "people/shinn", "system/sr-point"],
       "steps": [
-        {"stage": 2, "ordinals": [1], "text": "节子：选择“控制被夺走的高达”，＋1。", "evidence_level": "stage-static"},
+        {"stage": 2, "ordinals": [1], "text": "节子：选择“拦截被夺走的高达”，＋1。", "evidence_level": "stage-static"},
         {"stage": 8, "ordinals": [7], "text": "节子：由{{people/alex}}（{{people/athrun}}）击坠{{people/sato}}，＋1。", "evidence_level": "stage-static"},
         {"stage": 16, "ordinals": [24], "text": "太平洋路线：击坠中立的{{people/kira}}，＋1。", "evidence_level": "stage-static"},
         {"stage": 29, "ordinals": [42], "text": "节子：击坠{{people/kira}}，＋1；击坠玛琉，＋1。", "evidence_level": "stage-static"},

@@ -239,5 +239,50 @@ class StageGuideTests(unittest.TestCase):
             self.assertEqual(hashlib.sha256(payload).hexdigest(), lock["sha256"])
 
 
+    def test_three_editions_are_built_and_linked(self):
+        import build as guide_builder
+
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        expected = {
+            "zh": ("srwz-z-flow-guide.html", "zh-Hans", "流程图", "超级机器人大战"),
+            "zh-hant": ("srwz-z-flow-guide-tw.html", "zh-Hant-TW", "流程圖", "超級機器人大戰"),
+            "zh-hant-hk": ("srwz-z-flow-guide-hk.html", "zh-Hant-HK", "流程圖", "超級機械人大戰"),
+        }
+        self.assertEqual(set(manifest["editions"]), set(expected))
+        for code, (name, lang, tab, title) in expected.items():
+            with self.subTest(edition=code):
+                payload = (PROJECT_ROOT / "guide" / name).read_bytes()
+                self.assertEqual(
+                    hashlib.sha256(payload).hexdigest(), manifest["editions"][code]["sha256"]
+                )
+                page = payload.decode("utf-8")
+                self.assertIn(f'<html lang="{lang}">', page)
+                self.assertIn(tab, page)
+                self.assertIn(title, page)
+                self.assertEqual(page.count('<a class="mode-tab'), 10)
+                self.assertEqual(page.count('class="guide-panel"'), 10)
+                self.assertEqual(page.count("data-edition="), 3)
+                self.assertIn(f'href="{name}" data-edition="{code}"', page)
+                self.assertRegex(page, rf'data-edition="{code}"[^>]*aria-current="page"')
+                for ordinal in range(107):
+                    self.assertIn(f'id="stage-{ordinal:03d}"', page)
+                if code != "zh":
+                    for simplified in ("流程图", "隐藏要素", "临时参战", "本话隐藏进度", "合体攻击一览"):
+                        self.assertNotIn(simplified, page)
+                    self.assertIn(f'href="/?lang={code}"', page)
+
+    def test_regional_guide_data_mirror_simplified(self):
+        import build as guide_builder
+
+        try:
+            for code in ("zh-hant", "zh-hant-hk"):
+                with self.subTest(edition=code):
+                    guide_builder._use_edition(code)
+                    status = guide_builder._regional_data_status()
+                    self.assertEqual(set(status), set(guide_builder.GUIDE_DATA_NAMES))
+        finally:
+            guide_builder._use_edition("zh")
+
+
 if __name__ == "__main__":
     unittest.main()

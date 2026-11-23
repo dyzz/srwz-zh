@@ -38,6 +38,24 @@
     "reference_upgrade_carryover_count": 20,
     "used_global_term_count": 378
   },
+  "edition": "zh",
+  "editions": {
+    "zh": {
+      "html": "srwz-z-flow-guide.html",
+      "sha256": "02ef8e4fed1513475f914084b41dd3d03ee5b0b1b67e1f05858bf188c081057f",
+      "used_global_term_count": 378
+    },
+    "zh-hant": {
+      "html": "srwz-z-flow-guide-tw.html",
+      "sha256": "22c1d80af0ae44173f09cb200c15413f40a1dd5c80c9a1a34bca350c637fe883",
+      "used_global_term_count": 378
+    },
+    "zh-hant-hk": {
+      "html": "srwz-z-flow-guide-hk.html",
+      "sha256": "aa2002a42333353d2b13a2bfbed0ef9f65c5c076ee2e8237290dbe79092ceeb8",
+      "used_global_term_count": 378
+    }
+  },
   "generator": "guide/build.py",
   "inputs": {
     "config/display-names/compdata.json": {
@@ -133,20 +151,20 @@
       "size": 125200
     },
     "corpus/glossary/terms-v1.json": {
-      "sha256": "6f6d9c8b02aabb46cebccc15fd7985c4c4c8404783b0e86e40e9829a51a819e1",
-      "size": 82441
+      "sha256": "fd8fd6fcc66321a7a5abd8c487fd2dee302a8239cddcc44e4ed1623417edb7fd",
+      "size": 82337
     },
     "corpus/glossary/weapons-v1.json": {
-      "sha256": "f145cfbf325c0ad7de0a8242d85f2754c0013022aac2ab5a6ea99e91c06dd572",
-      "size": 300648
+      "sha256": "8dc258ab06a84a842c524d8a44e3519fcf46e0da64edfdc80175001a65ef5421",
+      "size": 301121
     },
     "corpus/zh/display-names/units-full.json": {
-      "sha256": "cab83ebfea516f38bbb2b9cea9d446cb3b394062b6304140ef6d33559e41c26a",
-      "size": 15984
+      "sha256": "ed1c024c817949e8b4041222699a9bd7f1f1ca8cd8b19e267994f5a9bfe84ba8",
+      "size": 15991
     },
     "corpus/zh/menu/remaining-ui.json": {
-      "sha256": "28c29cc7f79cfadd0ba1dc7c5efc7255fa2d1339e82760e1e09dd9f6648b4409",
-      "size": 113873
+      "sha256": "1764b7505450a3a2a29fdaf8dfcea055830ae33d889de2fbb0ede9a2028f5130",
+      "size": 113887
     },
     "corpus/zh/menu/stage-names.json": {
       "sha256": "6cbfe2b298bf2dd5a7462c638fa663479779e48f2530fd9adb8ad8c1d11c36f3",
@@ -165,36 +183,36 @@
       "size": 29890
     },
     "corpus/zh/menu/system-ui-special-abilities.json": {
-      "sha256": "97dfe04a23c91c9f537e40e73f289dde2ac44d8a7604dfb6967143903ae2e14b",
-      "size": 55062
+      "sha256": "01ee754ec36c198afc971ecb3fb837bbbc7c9f1321711d691370de8842f4c869",
+      "size": 55086
     },
     "corpus/zh/menu/unclassified.json": {
       "sha256": "d9544daaa7392171fd97fc9d1c5ace6e0802eceb083e35dcd116937e1541e237",
       "size": 114774
     },
     "corpus/zh/menu/weapons.json": {
-      "sha256": "a54b2b6c21ebcf9deb1909baebaa4ee38a05a8943d2cf6a2eb9e874d06b9c448",
-      "size": 215787
+      "sha256": "eac608de424f3c868da47bc40aa94c45828c390ee9e7869bbd82088f43a3e00e",
+      "size": 215781
     },
     "corpus/zh/story-conditions.json": {
-      "sha256": "49ac8d1414dfd1cd0fe15bd25fb580111cc7751177f28d46ac2733cf13040287",
-      "size": 266553
+      "sha256": "6f629df48624a41c1ab75b5b73795ae1d7606485998cf91a9624872c247d8fb3",
+      "size": 266565
     },
     "docs/STAGE_ROUTE_MAP.md": {
       "sha256": "820b77a10f55cf82fc8bd8ecf4678c94d16583c3a35cc0ee054f4d99b26c8192",
       "size": 13086
     },
     "guide/build.py": {
-      "sha256": "867961b4f72267c01abc2f94d4a50d58223db87212ff2c143872c5fd4d3dcf68",
-      "size": 76777
+      "sha256": "a033cdea14cb0bf9ae9f6a393d9e1e623ad14197b9b70054d97539f112b5c869",
+      "size": 100643
     },
     "guide/data/hidden-elements.json": {
-      "sha256": "29b5b71d73ad8e84b429598802c3bd57f2fed4b950c43112c43c2b4bd96662f7",
-      "size": 42044
+      "sha256": "61e918536cec1185f0801404d381457708b79c85f54b13df4bdbc5ee95fc4f1c",
+      "size": 42043
     },
     "guide/data/progression.json": {
-      "sha256": "29dd590178fc5daefb8ce3d59d73ad0f7e13a080f9a97f8250602c5aeb5885c6",
-      "size": 33149
+      "sha256": "ec8a7a157364f53edd29741c9fcd7cf427d8bf9d495269fcd4d023d98f136e69",
+      "size": 33131
     },
     "guide/data/reference.json": {
       "sha256": "de00efeec1891fbf38fae3deb168fb0562191372e0e4c447f71636f6be05d030",

@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-11-15",
+  "source_policy": {
+    "primary": "Game UI text extracted from the original disc and the project's global terminology.",
+    "references": [
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Clear_Bonuses",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Upgrade_Bonus",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Pilot_Skills",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Pilot_Database",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Squad_Leader_Bonus",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Mech_Abilities",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Bazaar_Items",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Team_Attacks",
+      "https://srw.wiki.cre.jp/wiki/特殊技能/Z",
+      "https://s-rpg-navi.com/srw-z/sp-skill/"
+    ],
+    "boundary": "Player-facing rules only. External conflicts are called out, but evidence locations are not rendered."
+  },
+  "carryover": {
+    "rates": [
+      {"playthrough": "二周目", "rate": "50%"},
+      {"playthrough": "三周目", "rate": "75%"},
+      {"playthrough": "四周目起", "rate": "100%"}
+    ],
+    "items": [
+      {"label": "擊墜數", "value": "所有駕駛員的累計擊墜數全部繼承。"},
+      {"label": "資金／BS／PP", "value": "按當前周目比例繼承；機體與武器的改造投入計入結算，不用在最終話前主動退款。"},
+      {"label": "機體狀態", "value": "機體、武器改造段數不會原樣帶入下一周目，需用繼承資金重新改造。"},
+      {"label": "隱藏要素", "value": "隱藏人物、機體、武器、強化零件及點數條件按新周目重新判定。累計擊墜數門檻會直接受繼承值幫助。"},
+      {"label": "路線選擇", "value": "二周目起，第47話後的ZEUTH／ZAFT路線可以直接選擇。"}
+    ],
+    "modes": [
+      {"name": "EX-HARD", "unlock": "任一路線通關一次", "rules": "機體和武器無法改造、駕駛員無法培養、強化零件無法購買；敵方單位帶改造，難度固定為HARD。"},
+      {"name": "SPECIAL", "unlock": "節子與蘭德兩位主人公劇情均通關", "rules": "機體和武器開放15段改造；開始遊戲時持有全套強化零件。"}
+    ],
+    "notes": [
+      "蘭頓與艾蕾卡、{{people/sara-tyrell}}等劇情換位駕駛員存在PP／擊墜數接管規則，以流程卡中的換位說明為準。",
+      "亞歷克斯與阿斯蘭按不同駕駛員資料計算，兩者的擊墜數與PP不會互相轉移。"
+    ],
+    "akurasu_issues": [
+      "Akurasu 的 Clear Bonuses 頁目前把首次通關後的比例寫成25%；遊戲內通關說明明確顯示二周目50%、三周目75%、四周目起100%，本頁採用遊戲內數值。"
+    ]
+  },
+  "upgrade_carryover": [
+    {"from": "{{display-name/unit/0156/name}}", "to": "{{display-name/unit/0161/name}}", "when": "蘭德路線第27話", "keeps_old": true},
+    {"from": "{{display-name/unit/0161/name}}", "to": "{{display-name/unit/0163/name}}", "when": "第33話“尋找蘭頓”路線", "keeps_old": true, "note": "取得後兩機繼續共享改造。"},
+    {"from": "{{display-name/unit/0105/name}}（白）", "to": "{{display-name/unit/0107/name}}", "when": "節子路線第33話“前往直布羅陀基地”", "keeps_old": true},
+    {"from": "{{display-name/unit/0176/name}}（各換裝）", "to": "{{display-name/unit/0193/name}}", "when": "第43話", "keeps_old": true},
+    {"from": "{{display-name/unit/0181/name}}", "to": "{{display-name/unit/0194/name}}", "when": "第43話", "keeps_old": true},
+    {"from": "{{display-name/unit/0087/name}}（第1臺）", "to": "{{display-name/unit/0087/name}}（第2臺）", "when": "蘭德路線第45話交易所", "keeps_old": true},
+    {"from": "{{display-name/unit/0221/name}}（莎拉機）", "to": "{{display-name/unit/0231/name}}", "when": "ZEUTH路線第50話／ZAFT路線第52話", "keeps_old": true},
+    {"from": "{{display-name/unit/0051/name}}", "to": "{{display-name/unit/0049/name}}", "when": "節子路線第7話", "keeps_old": false},
+    {"from": "{{display-name/unit/0039/name}}", "to": "{{display-name/unit/0040/name}}", "when": "第13話", "keeps_old": false},
+    {"from": "{{display-name/unit/0075/name}}", "to": "{{display-name/unit/0068/name}}", "when": "第15話", "keeps_old": false, "note": "第10話可改造前機武器，費用更便宜。"},
+    {"from": "{{display-name/unit/0316/name}}", "to": "{{display-name/unit/0319/name}}", "when": "節子路線第21話", "keeps_old": false},
+    {"from": "{{display-name/unit/0222/name}}", "to": "{{display-name/unit/0223/name}}", "when": "第22話", "keeps_old": false, "note": "先改造前機武器更省資金。"},
+    {"from": "{{display-name/unit/0249/name}}", "to": "{{display-name/unit/0250/name}}", "when": "節子路線第28話", "keeps_old": false},
+    {"from": "{{display-name/unit/0319/name}}", "to": "{{display-name/unit/0320/name}}", "when": "節子路線第32話", "keeps_old": false},
+    {"from": "{{display-name/unit/0297/name}}", "to": "{{display-name/unit/0298/name}}", "when": "蘭德路線第39話", "keeps_old": false},
+    {"from": "{{display-name/unit/0195/name}}", "to": "{{display-name/unit/0196/name}}", "when": "第43話", "keeps_old": false},
+    {"from": "{{display-name/unit/0250/name}}", "to": "{{display-name/unit/0251/name}}", "when": "第44話", "keeps_old": false},
+    {"from": "{{unit/saviour-gundam}}", "to": "{{display-name/unit/0197/name}}", "when": "第46話", "keeps_old": false},
+    {"from": "{{display-name/unit/0302/name}}", "to": "{{display-name/unit/0303/name}}", "when": "第47話後整備", "keeps_old": false},
+    {"from": "{{display-name/unit/0298/name}}", "to": "{{display-name/unit/0299/name}}", "when": "最終話", "keeps_old": false}
+  ],
+  "upgrade_notes": [
+    "改造段數、武器改造和已選擇的全改造獎勵一併繼承；後繼機不能重新選擇全改造獎勵。",
+    "巴爾戈拉（2號機）在第21話結束時、巴爾戈拉（3號機）在第9話結束時返還改造資金。"
+  ],
+  "upgrade_akurasu_issues": [
+    "Akurasu Upgrade Bonus 表把救星鋼彈換乘無限正義鋼彈寫成第45話；實際流程發生在第46話。",
+    "Akurasu 把塔米納斯909換乘塔米納斯303列作第48話；更準確的說法是第47話結束後的路線整備階段。"
+  ],
+  "full_upgrade_bonuses": [
+    "最大HP+10%",
+    "最大EN+10%",
+    "運動性+10%",
+    "瞄準值+10%",
+    "裝甲值+10%",
+    "移動力+1",
+    "獲得干擾機能",
+    "機體與武器地形適應【空】變為S",
+    "機體與武器地形適應【陸】變為S",
+    "機體與武器地形適應【海】變為S",
+    "機體與武器地形適應【宇】變為S",
+    "屏障／裝甲類能力的EN消耗變為0",
+    "武器射程+1（射程1與MAP武器除外）",
+    "武器CT修正+10%"
+  ],
+  "full_upgrade_notes": [
+    "機體五項能力全部改滿後可選擇一項機體全改造獎勵；武器改造不計入解鎖條件。",
+    "可以暫緩選擇；再次進入改造畫面時仍可決定。劇情換機繼承後不能重新選擇。",
+    "SPECIAL模式開放15段改造，但全改造獎勵仍按完整改滿機體能力後取得。"
+  ],
+  "rare_pilot_skills": [
+    {"name": "{{skill/genius}}", "holders": ["{{people/sandman}}（我方常駐）"]},
+    {"name": "{{skill/extreme}}", "holders": ["{{people/ghingham}}（客串友軍；無常駐我方持有者）"]},
+    {"name": "{{skill/cyber-newtype}}", "holders": ["{{people/rosamia}}", "{{people/speaker-242048308cbb}}"]},
+    {"name": "{{skill/newtype-x}}", "holders": ["{{people/speaker-73fc8638fc0c}}", "{{people/lancerow}}", "{{people/speaker-b388eaad3e0f}}"]},
+    {"name": "{{skill/artificial-newtype}}", "holders": ["{{people/speaker-a1763505f7f3}}"]},
+    {"name": "{{skill/category-f}}", "holders": ["{{people/shagia}}", "{{people/olba}}"]},
+    {"name": "{{skill/seed}}", "holders": ["{{people/shinn}}", "{{people/athrun}}", "{{people/kira}}", "{{people/speaker-58ffc6397f82}}"]},
+    {"name": "{{skill/extended}}", "holders": ["{{people/sting}}", "{{people/auel}}", "{{people/stella}}"]},
+    {"name": "{{skill/gamer}}", "holders": ["{{people/gainer}}（升級前）", "{{people/cynthia}}"]},
+    {"name": "{{skill/game-champ}}", "holders": ["{{people/gainer}}（劇情升級後）"]},
+    {"name": "{{skill/negotiator}}", "holders": ["{{people/roger}}"]},
+    {"name": "{{skill/very-lucky}}", "holders": ["{{people/kei}}", "{{people/speaker-5b924f0e102e}}", "{{people/garrod}}", "{{people/speaker-ea256a1b288e}}（客串友軍）", "{{people/beck}}（客串友軍）"]}
+  ],
+  "pilot_skill_notes": [
+    {"name": "{{skill/two-actions}}", "label": "敵方專用", "text": "我方常駐與可控客串角色均無人持有，不計入稀有技能的持有人數。"}
+  ],
+  "pilot_skill_levels": [
+    {
+      "name": "{{skill/potential}}",
+      "columns": ["等級", "開始生效", "HP10%時命中／迴避", "HP10%時暴擊", "HP10%時裝甲"],
+      "rows": [
+        ["L1", "HP≤10%", "+5%", "+8%", "+10%"],
+        ["L2", "HP≤20%", "+10%", "+16%", "+20%"],
+        ["L3", "HP≤30%", "+15%", "+24%", "+30%"],
+        ["L4", "HP≤40%", "+20%", "+32%", "+40%"],
+        ["L5", "HP≤50%", "+25%", "+40%", "+50%"],
+        ["L6", "HP≤60%", "+30%", "+48%", "+60%"],
+        ["L7", "HP≤70%", "+35%", "+56%", "+70%"],
+        ["L8", "HP≤80%", "+40%", "+64%", "+80%"],
+        ["L9", "HP≤90%", "+45%", "+72%", "+90%"]
+      ],
+      "note": "生效後，HP每再降低10%，命中／迴避＋5%、暴擊＋8%、裝甲＋10%；表中末三列是HP降至10%時的最大補正。"
+    },
+    {
+      "name": "{{skill/counter}}",
+      "columns": ["等級", "雙方技量相同時的發動率"],
+      "rows": [
+        ["L1", "6.25%"], ["L2", "12.5%"], ["L3", "18.75%"],
+        ["L4", "25%"], ["L5", "31.25%"], ["L6", "37.5%"],
+        ["L7", "43.75%"], ["L8", "50%"], ["L9", "56.25%"]
+      ],
+      "note": "發動率＝〔技能等級＋（己方技量－敵方技量）÷10〕÷16；表中按雙方技量相同計算。"
+    },
+    {
+      "name": "{{skill/support-attack}}",
+      "columns": ["等級", "每回合次數"],
+      "rows": [["L1", "1次"], ["L2", "2次"], ["L3", "3次"], ["L4", "4次"]]
+    },
+    {
+      "name": "{{skill/support-defense}}",
+      "columns": ["等級", "每回合次數"],
+      "rows": [["L1", "1次"], ["L2", "2次"], ["L3", "3次"], ["L4", "4次"]]
+    },
+    {
+      "name": "{{skill/sp-up}}",
+      "columns": ["等級", "最大SP"],
+      "rows": [
+        ["L1", "+5"], ["L2", "+10"], ["L3", "+15"],
+        ["L4", "+20"], ["L5", "+25"], ["L6", "+30"],
+        ["L7", "+35"], ["L8", "+40"], ["L9", "+45"]
+      ]
+    },
+    {
+      "name": "{{skill/commander}}",
+      "columns": ["等級", "同小隊", "距離1", "距離2", "距離3", "距離4", "距離5"],
+      "rows": [
+        ["L1", "+12%", "+10%", "+8%", "—", "—", "—"],
+        ["L2", "+18%", "+15%", "+12%", "+9%", "—", "—"],
+        ["L3", "+24%", "+20%", "+16%", "+12%", "+8%", "—"],
+        ["L4", "+30%", "+25%", "+20%", "+15%", "+10%", "+5%"]
+      ],
+      "note": "命中與迴避使用同一補正；多個指揮範圍重疊時不疊加，只取較高效果。"
+    },
+    {
+      "name": "{{skill/psychic-power}}",
+      "columns": ["等級", "命中／迴避"],
+      "rows": [
+        ["L1", "+2%"], ["L2", "+4%"], ["L3", "+6%"],
+        ["L4", "+8%"], ["L5", "+10%"], ["L6", "+12%"],
+        ["L7", "+14%"], ["L8", "+16%"], ["L9", "+18%"]
+      ]
+    },
+    {
+      "name": "{{skill/newtype}}",
+      "columns": ["等級", "命中／迴避", "特定武器射程"],
+      "rows": [
+        ["L1", "+0%", "+0"], ["L2", "+5%", "+0"], ["L3", "+10%", "+0"],
+        ["L4", "+15%", "+0"], ["L5", "+20%", "+0"], ["L6", "+25%", "+0"],
+        ["L7", "+30%", "+1"], ["L8", "+30%", "+1"], ["L9", "+30%", "+2"]
+      ]
+    },
+    {
+      "name": "{{skill/cyber-newtype}}",
+      "columns": ["等級", "命中／迴避", "特定武器射程"],
+      "rows": [
+        ["L1", "+0%", "+0"], ["L2", "+4%", "+0"], ["L3", "+8%", "+0"],
+        ["L4", "+12%", "+0"], ["L5", "+15%", "+0"], ["L6", "+20%", "+0"],
+        ["L7", "+20%", "+1"], ["L8", "+25%", "+1"]
+      ],
+      "note": "本作沒有L9資料，最高為L8。"
+    },
+    {
+      "name": "{{skill/newtype-x}}",
+      "columns": ["等級", "命中／迴避"],
+      "rows": [
+        ["L1", "+0%"], ["L2", "+5%"], ["L3", "+10%"],
+        ["L4", "+15%"], ["L5", "+20%"], ["L6", "+25%"],
+        ["L7", "+30%"], ["L8", "+30%"], ["L9", "+30%"]
+      ],
+      "note": "與新人類使用同一命中／迴避補正，但不提供武器射程加成。"
+    },
+    {
+      "name": "{{skill/artificial-newtype}}",
+      "columns": ["等級", "命中／迴避", "特定武器射程"],
+      "rows": [
+        ["L1", "+0%", "+0"], ["L2", "+4%", "+0"], ["L3", "+8%", "+0"],
+        ["L4", "+12%", "+0"], ["L5", "+15%", "+0"], ["L6", "+20%", "+0"],
+        ["L7", "+20%", "+1"], ["L8", "+25%", "+1"]
+      ],
+      "note": "本作沒有L9資料，最高為L8。"
+    },
+    {
+      "name": "{{skill/category-f}}",
+      "columns": ["等級", "命中／迴避", "暴擊"],
+      "rows": [
+        ["L1", "+0%", "+0%"], ["L2", "+4%", "+3%"], ["L3", "+8%", "+6%"],
+        ["L4", "+12%", "+9%"], ["L5", "+15%", "+12%"], ["L6", "+20%", "+15%"],
+        ["L7", "+20%", "+18%"], ["L8", "+25%", "+21%"], ["L9", "+30%", "+24%"]
+      ]
+    },
+    {
+      "name": "{{skill/extended}}",
+      "columns": ["等級", "命中／迴避", "暴擊"],
+      "rows": [
+        ["L1", "+3%", "+2%"], ["L2", "+6%", "+4%"], ["L3", "+9%", "+6%"],
+        ["L4", "+12%", "+8%"], ["L5", "+15%", "+10%"], ["L6", "+18%", "+12%"],
+        ["L7", "+21%", "+14%"]
+      ],
+      "note": "本作沒有L8、L9資料，最高為L7。"
+    },
+    {
+      "name": "{{skill/lift-technique}}",
+      "columns": ["等級", "命中", "暴擊", "完全迴避率"],
+      "rows": [
+        ["L1", "+2%", "+3%", "4%"], ["L2", "+4%", "+6%", "8%"], ["L3", "+6%", "+9%", "12%"],
+        ["L4", "+8%", "+12%", "16%"], ["L5", "+10%", "+15%", "20%"], ["L6", "+12%", "+18%", "24%"],
+        ["L7", "+14%", "+21%", "28%"], ["L8", "+16%", "+24%", "32%"], ["L9", "+18%", "+27%", "36%"]
+      ],
+      "note": "完全迴避會獨立判定，即使機體本身沒有分身能力也能發動，且沒有氣力門檻。"
+    },
+    {
+      "name": "{{skill/oversense}}",
+      "columns": ["等級", "命中／迴避", "特定武器攻擊力", "光子墊減傷"],
+      "rows": [
+        ["L1", "+2%", "+50", "+100"], ["L2", "+4%", "+50", "+200"], ["L3", "+6%", "+100", "+300"],
+        ["L4", "+8%", "+100", "+400"], ["L5", "+10%", "+150", "+500"], ["L6", "+12%", "+150", "+600"],
+        ["L7", "+14%", "+200", "+700"], ["L8", "+24%", "+200", "+800"], ["L9", "+27%", "+250", "+900"]
+      ]
+    }
+  ],
+  "pilot_skill_akurasu_issues": [
+    "Akurasu 把指揮官寫成最高L9；本作實際只有L1～L4，等級與距離的完整補正見表。",
+    "Akurasu 把擴展人概括為最高L9；本作實際只有L1～L7，L8、L9沒有效果資料。"
+  ],
+  "rare_leadership_effects": [
+    {"effect": "{{leadership-effect/0x723B8}}", "holders": ["{{people/ghingham}}"]},
+    {"effect": "{{leadership-effect/0x72410}}", "holders": ["{{people/speaker-2548f866db58}}"]},
+    {"effect": "{{leadership-effect/0x724B0}}", "holders": ["{{people/beck}}"]},
+    {"effect": "{{leadership-effect/0x72510}}", "holders": ["{{people/speaker-03754cfe760d}}"]},
+    {"effect": "{{leadership-effect/0x72570}}", "holders": ["{{people/setsuko}}"]},
+    {"effect": "{{leadership-effect/0x72600}}", "holders": ["{{people/speaker-ec24b8d9e164}}"]},
+    {"effect": "{{leadership-effect/0x72630}}", "holders": ["{{people/sandman}}"]},
+    {"effect": "{{leadership-effect/0x72650}}", "holders": ["{{people/apollo}}"]},
+    {"effect": "{{leadership-effect/0x726D0}}", "holders": ["{{people/speaker-52bd0a2936b4}}"]},
+    {"effect": "{{leadership-effect/0x726F0}}", "holders": ["{{people/speaker-d337215d0c0f}}"]},
+    {"effect": "{{leadership-effect/0x727D0}}", "holders": ["{{people/speaker-bdc0fa70d514}}"]},
+    {"effect": "{{leadership-effect/0x727F0}}", "holders": ["{{people/speaker-9f0da37da623}}"]},
+    {"effect": "{{leadership-effect/0x72820}}", "holders": ["{{people/speaker-ce2a3c67ca70}}"]},
+    {"effect": "{{leadership-effect/0x72850}}", "holders": ["{{people/speaker-ce1e8aeca780}}"]},
+    {"effect": "{{leadership-effect/0x72880}}", "holders": ["{{people/speaker-d34010c02035}}"]},
+    {"effect": "{{leadership-effect/0x728F0}}", "holders": ["{{people/toshiya}}"]},
+    {"effect": "{{leadership-effect/0x72930}}", "holders": ["{{people/rand}}"]},
+    {"effect": "{{leadership-effect/0x72950}}", "holders": ["{{people/jiron}}"]},
+    {"effect": "{{leadership-effect/0x729A0}}", "holders": ["{{people/kappei}}"]}
+  ],
+  "leadership_akurasu_issues": [
+    "Akurasu 的 Pilot Database 把拉克絲的艦長效果寫成相鄰友方命中率＋10%；其 Squad Leader Bonus 頁及實際效果應為相鄰友方攻擊力＋10%。",
+    "Akurasu 的 Squad Leader Bonus 頁漏掉托比效果的“援護時”限定；遊戲內效果為援護時暴擊率＋20%。"
+  ],
+  "mech_ability_akurasu_issues": [
+    "Akurasu 的英文說明把修理裝置、補給裝置帶來的小隊階段回復寫成“數量×3%”；遊戲內說明為每臺裝置10%，本頁採用遊戲內數值。"
+  ],
+  "bazaar_parts": [
+    {"name": "{{part/booster}}", "buy": 100, "sell": 50},
+    {"name": "{{part/mega-booster}}", "buy": 250, "sell": 100},
+    {"name": "{{part/apogee-motor}}", "buy": 120, "sell": 50},
+    {"name": "{{part/magnetic-coating}}", "buy": 40, "sell": 20},
+    {"name": "{{part/inertial-control-system}}", "buy": 100, "sell": 50},
+    {"name": "{{part/vr-helmet}}", "buy": 40, "sell": 20},
+    {"name": "{{part/attuned-helmet}}", "buy": 100, "sell": 50},
+    {"name": "{{part/high-performance-radar}}", "buy": 150, "sell": 50},
+    {"name": "{{part/linear-seat}}", "buy": 300, "sell": 100},
+    {"name": "{{part/chobham-armor}}", "buy": 40, "sell": 20},
+    {"name": "{{part/hybrid-armor}}", "buy": 120, "sell": 50},
+    {"name": "{{part/nano-skin-armor}}", "buy": 200, "sell": 100},
+    {"name": "{{part/solar-panel}}", "buy": 250, "sell": 100},
+    {"name": "{{part/nanomachine-unit}}", "buy": 250, "sell": 100},
+    {"name": "{{part/barrier-field}}", "buy": 300, "sell": 100},
+    {"name": "{{part/thruster-module}}", "buy": 150, "sell": 50},
+    {"name": "{{part/dustproof-device}}", "buy": 120, "sell": 50},
+    {"name": "{{part/screw-module}}", "buy": 80, "sell": 50},
+    {"name": "{{part/a-adapter}}", "buy": 350, "sell": 100},
+    {"name": "{{part/propellant-tank}}", "buy": 30, "sell": 20},
+    {"name": "{{part/cartridge}}", "buy": 30, "sell": 20},
+    {"name": "{{part/repair-kit}}", "buy": 30, "sell": 20},
+    {"name": "{{part/super-repair-kit}}", "buy": 200, "sell": 100},
+    {"name": "{{part/donkey-bread}}", "buy": 80, "sell": 50},
+    {"name": "{{part/pancha-fruit}}", "buy": 250, "sell": 100},
+    {"name": "{{part/tin-goldfish}}", "buy": 120, "sell": 50},
+    {"name": "{{part/sleep-learning-device}}", "buy": 350, "sell": 100},
+    {"name": "{{part/combat-manual}}", "buy": 150, "sell": 50}
+  ],
+  "bazaar_units": [
+    {"name": "{{display-name/unit/0092/name}}", "cost": 100, "availability": "蘭德·加利亞路線第16～19話"},
+    {"name": "{{display-name/unit/0093/name}}", "cost": 120, "availability": "蘭德·加利亞路線第16～19話；匯合後第20～21話"},
+    {"name": "{{display-name/unit/0094/name}}", "cost": 200, "availability": "第20～22話"},
+    {"name": "{{display-name/unit/0225/name}}", "cost": 200, "availability": "匯合後第22～25話；蘭德路線第26～35話"},
+    {"name": "{{display-name/unit/0095/name}}", "cost": 250, "availability": "蘭德路線第26～35話"},
+    {"name": "{{display-name/unit/0096/name}}", "cost": 280, "availability": "蘭德路線第26～39話；匯合後第41～44話"},
+    {"name": "{{display-name/unit/0230/name}}", "cost": 250, "availability": "蘭德第32話後留守路線第33～39話；尋找蘭頓路線第35～39話"},
+    {"name": "{{display-name/unit/0119/name}}", "cost": 200, "availability": "節子第32話後直布羅陀路線第33～39話；周邊警戒路線第35～39話"},
+    {"name": "{{display-name/unit/0165/name}}", "cost": 200, "availability": "蘭德路線第36話；匯合後第41～44話"},
+    {"name": "{{display-name/unit/0228/name}}", "cost": 280, "availability": "第41～47話"},
+    {"name": "{{display-name/unit/0122/name}}", "cost": 240, "availability": "第45～46話、第48～59話"},
+    {"name": "{{display-name/unit/0121/name}}", "cost": 250, "availability": "第45～46話；ZAFT路線第48～50話、ZEUTH路線第48～49話"},
+    {"name": "{{display-name/unit/0150/name}}", "cost": 240, "availability": "第47話"},
+    {"name": "{{display-name/unit/0140/name}}", "cost": 250, "availability": "第47～59話"},
+    {"name": "{{display-name/unit/0098/name}}", "cost": 260, "availability": "ZEUTH路線第50～59話；ZAFT路線第52～59話"}
+  ],
+  "bazaar_notes": [
+    "強化零件表為標準BS價格；部分關卡會打折或提高出售價格。",
+    "每關目錄只出現固定9種強化零件，每種每關限購1個；交易所機體不佔強化零件的9格目錄。",
+    "隱藏素材和合成物仍以“隱藏要素”頁的逐話步驟為準。"
+  ],
+  "team_attacks": [
+    {"name": "{{weapon/0010}}", "units": "{{display-name/unit/0000/name}}＋{{display-name/unit/0002/name}}＋{{display-name/unit/0006/name}}＋{{display-name/unit/0015/name}}", "morale": 140, "range": "1～2"},
+    {"name": "{{weapon/0009}}", "units": "{{display-name/unit/0000/name}}＋{{display-name/unit/0002/name}}＋{{display-name/unit/0006/name}}", "morale": 110, "range": "1～3"},
+    {"name": "{{weapon/0008}}", "units": "{{display-name/unit/0000/name}}＋{{display-name/unit/0002/name}}", "morale": 110, "range": "1～2"},
+    {"name": "{{weapon/0034}}", "units": "{{display-name/unit/0006/name}}＋{{unit/double-spazer}}", "morale": 105, "range": "1～4"},
+    {"name": "{{weapon/0035}}", "units": "{{display-name/unit/0006/name}}＋{{unit/marine-spazer}}", "morale": 105, "range": "1～4"},
+    {"name": "{{weapon/0036}}", "units": "{{display-name/unit/0006/name}}＋{{unit/drill-spazer}}", "morale": 105, "range": "1～4"},
+    {"name": "{{weapon/0141}}", "units": "{{display-name/unit/0065/name}}＋{{unit/zambot-three}}", "morale": 140, "range": "1～3", "note": "第42話事件後開放。"},
+    {"name": "{{weapon/0140}}", "units": "{{unit/zambot-three}}＋{{unit/king-beal}}", "morale": 135, "range": "2～8"},
+    {"name": "{{weapon/0583}}", "units": "{{unit/sol-gravion}}＋{{display-name/unit/0252/name}}", "morale": 145, "range": "2～6"},
+    {"name": "{{weapon/0467}}", "units": "{{display-name/unit/0209/name}}＋{{unit/strike-freedom-gundam}}或{{display-name/unit/0197/name}}", "morale": 130, "range": "3～8"},
+    {"name": "{{weapon/0466}}", "units": "{{display-name/unit/0209/name}}＋{{unit/strike-freedom-gundam}}或{{display-name/unit/0197/name}}", "morale": 130, "range": "1～4"},
+    {"name": "{{weapon/0170}}", "units": "{{display-name/unit/0068/name}}＋{{display-name/unit/0070/name}}", "morale": 120, "range": "1～5", "note": "兩機都不能處於飛行形態。"}
+  ],
+  "team_attack_notes": [
+    "所需機體都必須出擊；氣力門檻按發動機體計算。",
+    "攻擊名稱、機體名稱走專案全局術語；Akurasu 僅用於核對氣力與射程表。"
+  ]
+}

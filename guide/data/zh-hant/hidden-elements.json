@@ -1,0 +1,499 @@
+{
+  "schema_version": 1,
+  "source_policy": {
+    "primary": "Original-disc STAGE.BIN + SLPS_258.87 static parse",
+    "terminology": "corpus/glossary/*.json and corpus/zh/display-names/units-full.json",
+    "comparison_only": "https://akurasu.net/wiki/Super_Robot_Wars/Z/Flow_Chart and /Secrets",
+    "boundary": "STAGE anchors prove scenario/resource ownership; cross-stage counters and Bazaar chains remain explicitly labelled until their non-STAGE owners are decoded."
+  },
+  "entries": [
+    {
+      "id": "character-tekkoki",
+      "category": "character",
+      "title": "{{people/speaker-d34010c02035}}／{{unit/mecha-tekkoki}}",
+      "summary": "兩關連續事件；第25話的三回合決鬥是最終判定。",
+      "term_refs": ["people/speaker-d34010c02035", "unit/mecha-tekkoki", "people/speaker-9f0da37da623"],
+      "steps": [
+        {"stage": 24, "text": "讓{{people/speaker-9f0da37da623}}與{{people/speaker-d34010c02035}}交戰至少一次。", "evidence_level": "stage-static"},
+        {"stage": 25, "text": "清光其他敵人後進入單挑，並在單挑開始後的3回合內擊墜{{people/speaker-d34010c02035}}；過關後加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-athena",
+      "category": "character",
+      "title": "{{people/athena}}（提前加入）",
+      "summary": "不做條件也會在第41話後加入；條件只決定能否在關內提前轉為我方。",
+      "term_refs": ["people/athena", "people/kei", "people/olson"],
+      "steps": [
+        {"stage": 41, "text": "讓{{people/kei}}、{{people/olson}}同時出擊，依次由{{people/kei}}和{{people/olson}}說得{{people/athena}}。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-rubina",
+      "category": "character",
+      "title": "{{people/speaker-b85bd152a7ad}}",
+      "summary": "第44話的撤離存活判定。",
+      "term_refs": ["people/speaker-b85bd152a7ad", "people/speaker-c12dfb53f28b", "people/speaker-ce7a64f1e283"],
+      "steps": [
+        {"stage": 44, "text": "不要擊墜{{people/speaker-b85bd152a7ad}}，讓她成功撤離；擊墜{{people/speaker-c12dfb53f28b}}或{{people/speaker-ce7a64f1e283}}的戰艦也會觸發她撤離。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-yzak",
+      "category": "character",
+      "title": "{{people/yzak}}／{{unit/gouf-ignited}}",
+      "summary": "第43話先做擊墜；漏掉時僅ZAFT路線第48話需要補說得。第56話仍需最終說得。",
+      "term_refs": ["people/yzak", "unit/gouf-ignited", "people/kira", "people/athrun"],
+      "steps": [
+        {"stage": 43, "text": "後半戰讓{{people/kira}}擊墜{{people/yzak}}的{{unit/gouf-ignited}}。", "evidence_level": "stage-static"},
+        {"stage": 48, "ordinals": [89], "text": "若走ZAFT路線且第43話漏掉條件，用{{people/athrun}}說得{{people/yzak}}；ZEUTH路線不需要這一步。", "evidence_level": "cross-stage"},
+        {"stage": 56, "ordinals": [97, 99], "text": "兩條路線都讓{{people/athrun}}出擊並說得{{people/yzak}}，過關後正式加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-haman",
+      "category": "character",
+      "title": "{{people/speaker-c799af3b0540}}",
+      "summary": "路線限定，沒有額外擊墜或說得要求。",
+      "term_refs": ["people/speaker-c799af3b0540"],
+      "steps": [
+        {"stage": 47, "ordinals": [81, 82], "text": "第47話結束時進入ZEUTH路線。", "evidence_level": "cross-stage"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路線第51話結束後自動加入。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-tiffa",
+      "category": "character",
+      "title": "{{people/speaker-68642f8dc73f}}",
+      "summary": "五項前置取四項；不足四項時可用“至少兩項＋40以上SR點數”補足。",
+      "term_refs": ["people/speaker-68642f8dc73f", "people/enil", "people/shagia", "people/olba", "people/garrod", "people/speaker-73fc8638fc0c", "unit/patulia", "part/black-box-f", "system/sr-point"],
+      "steps": [
+        {"stage": 7, "ordinals": [15], "text": "蘭德路線：擊墜{{people/enil}}，並擊墜{{people/shagia}}或{{people/olba}}，共兩項。", "evidence_level": "stage-static"},
+        {"stage": 14, "text": "用{{people/garrod}}說得{{people/enil}}，且不要擊墜她的機體，共兩項。", "evidence_level": "stage-static"},
+        {"stage": 27, "ordinals": [58], "text": "蘭德路線：由{{people/garrod}}或{{people/speaker-73fc8638fc0c}}擊墜{{unit/patulia}}；五項中達成四項會開放{{part/black-box-f}}。", "evidence_level": "cross-stage"},
+        {"stage": 50, "ordinals": [91], "text": "ZAFT路線第50話後半，五項達成四項即可加入；若僅達成至少兩項，則還需超過40 {{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 52, "ordinals": [87], "text": "ZEUTH路線第52話後半採用同一判定：四項，或至少兩項且超過40 {{system/sr-point}}。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-rey-talia",
+      "category": "character",
+      "title": "{{people/rey-za-burrel-short}}／{{people/speaker-aa16fea188ec}}",
+      "summary": "必須先進入ZEUTH路線；第56話按交戰、說得、擊墜的固定順序完成。",
+      "term_refs": ["people/rey-za-burrel-short", "people/speaker-aa16fea188ec", "people/kira", "people/shinn", "display-name/unit/0194/name"],
+      "steps": [
+        {"stage": 47, "ordinals": [81, 82], "text": "第47話結束時進入ZEUTH路線。", "evidence_level": "cross-stage"},
+        {"stage": 56, "ordinals": [97], "text": "讓{{people/kira}}和{{people/shinn}}都與{{people/rey-za-burrel-short}}交戰，再由{{people/shinn}}說得{{people/rey-za-burrel-short}}，最後由{{people/shinn}}擊墜{{display-name/unit/0194/name}}；過關後{{people/rey-za-burrel-short}}與{{people/speaker-aa16fea188ec}}加入。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-tsine",
+      "category": "character",
+      "title": "{{people/tsine}}／{{unit/chaos-capel}}",
+      "summary": "先過結局點數門檻，再在第59話完成兩次交戰、說得和擊墜。",
+      "term_refs": ["people/tsine", "unit/chaos-capel", "people/setsuko", "people/rand", "system/sr-point"],
+      "steps": [
+        {"stage": 58, "text": "過關時結局點數至少15；或至少7點並持有46以上{{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 59, "ordinals": [102, 104], "text": "讓任意角色先與{{people/tsine}}交戰，再讓主人公交戰並說得她，最後任意角色擊墜{{unit/chaos-capel}}；過關後加入。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-stella",
+      "category": "character",
+      "title": "{{people/stella}}／{{display-name/unit/0191/name}}",
+      "summary": "節子限定。第36話擊墜時需8點；或7點並有28以上SR點數。",
+      "term_refs": ["people/stella", "display-name/unit/0191/name", "people/shinn", "people/sting", "people/auel", "people/speaker-242048308cbb", "system/sr-point"],
+      "steps": [
+        {"stage": 3, "ordinals": [2], "text": "擊墜{{people/stella}}：史黛菈點數＋1。", "evidence_level": "stage-static"},
+        {"stage": 15, "text": "{{people/shinn}}與{{people/stella}}交戰：＋1；再擊墜{{people/sting}}、{{people/auel}}和{{people/stella}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 26, "ordinals": [39], "text": "{{people/shinn}}與{{people/stella}}交戰：＋1。", "evidence_level": "stage-static"},
+        {"stage": 29, "ordinals": [42], "text": "由{{people/shinn}}擊墜{{people/stella}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 30, "ordinals": [43], "text": "{{people/speaker-242048308cbb}}在{{people/stella}}仍存活時被擊墜：＋1；由{{people/shinn}}擊墜{{people/stella}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 36, "ordinals": [52], "text": "{{people/shinn}}擊墜{{people/stella}}：＋1；{{people/stella}}在{{people/speaker-242048308cbb}}存活時被擊墜：＋3；若先擊墜{{people/speaker-242048308cbb}}且未達她的加入線：＋2。最終門檻為8點，或7點＋28以上{{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路線在第51話加入。", "evidence_level": "cross-stage"},
+        {"stage": 56, "ordinals": [99], "text": "ZAFT路線在第56話加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-four",
+      "category": "character",
+      "title": "{{people/speaker-242048308cbb}}／{{display-name/unit/0120/name}}",
+      "summary": "節子限定。第36話判定需5點；或4點並有28以上SR點數。",
+      "term_refs": ["people/speaker-242048308cbb", "display-name/unit/0120/name", "people/kamille", "people/stella", "system/sr-point"],
+      "steps": [
+        {"stage": 26, "ordinals": [39], "text": "{{people/kamille}}與{{people/speaker-242048308cbb}}交戰：＋1；由{{people/kamille}}擊墜她：＋1。", "evidence_level": "stage-static"},
+        {"stage": 29, "ordinals": [42], "text": "由{{people/kamille}}擊墜{{people/speaker-242048308cbb}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 30, "ordinals": [43], "text": "讓{{people/kamille}}出擊並擊墜{{people/speaker-242048308cbb}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 36, "ordinals": [52], "text": "{{people/kamille}}擊墜{{people/speaker-242048308cbb}}：＋1；她在{{people/stella}}存活時被擊墜：＋3；若先擊墜{{people/stella}}且未達史黛菈加入線：＋2。最終門檻為5點，或4點＋28以上{{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 38, "ordinals": [54], "text": "滿足門檻後在第38話加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-sarah-reccoa",
+      "category": "character",
+      "title": "{{people/sara}}／{{people/speaker-2f643283052c}}",
+      "summary": "節子、直布羅陀分支限定；多關連續交戰／說得鏈。",
+      "term_refs": ["people/sara", "people/speaker-2f643283052c", "people/speaker-4db10c7578e6", "people/kamille", "people/quattro", "people/speaker-a23753fe36e8", "people/emma"],
+      "steps": [
+        {"stage": 32, "ordinals": [45], "text": "選擇讓節子前往直布羅陀基地。", "evidence_level": "cross-stage"},
+        {"stage": 34, "ordinals": [47], "text": "讓{{people/speaker-4db10c7578e6}}與{{people/sara}}交戰。", "evidence_level": "stage-static"},
+        {"stage": 35, "ordinals": [48], "text": "由{{people/kamille}}或{{people/speaker-4db10c7578e6}}擊墜{{people/sara}}。", "evidence_level": "stage-static"},
+        {"stage": 37, "ordinals": [53], "text": "讓{{people/kamille}}或{{people/speaker-4db10c7578e6}}與{{people/sara}}交戰；漏掉時可在第56話用{{people/kamille}}補說得。", "evidence_level": "cross-stage"},
+        {"stage": 49, "ordinals": [90], "text": "ZAFT路線：由{{people/quattro}}、{{people/kamille}}、{{people/speaker-a23753fe36e8}}或{{people/emma}}與{{people/speaker-2f643283052c}}交戰且雙方存活，再由{{people/kamille}}或{{people/speaker-a23753fe36e8}}說得。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路線執行同一蕾柯亞交戰／說得條件。", "evidence_level": "stage-static"},
+        {"stage": 56, "ordinals": [97, 99], "text": "擊墜{{people/sara}}後，由{{people/kamille}}說得{{people/speaker-2f643283052c}}並讓她存活到過關；滿足全鏈後兩人加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-yassaba",
+      "category": "character",
+      "title": "{{people/speaker-d3320f02b47d}}",
+      "summary": "蘭德限定，與拉什羅德交易鏈共用前置。",
+      "term_refs": ["people/speaker-d3320f02b47d", "unit/rush-rod", "part/om-scrap", "part/overcoat"],
+      "steps": [
+        {"stage": 15, "text": "選擇加利亞大陸路線。", "evidence_level": "cross-stage"},
+        {"stage": 18, "ordinals": [30], "text": "凱納、肯恩、高富利、莎拉、貝羅和阿蒂特的總擊墜數超過100。", "evidence_level": "cross-stage"},
+        {"stage": 18, "ordinals": [30], "text": "過關後在交易所購買{{part/om-scrap}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品組合不屬於戰鬥STAGE文本。"},
+        {"stage": 22, "text": "過關後購買{{part/overcoat}}，與{{part/om-scrap}}合成{{unit/rush-rod}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品組合不屬於戰鬥STAGE文本。"},
+        {"stage": 47, "ordinals": [82], "text": "持有{{unit/rush-rod}}時，{{people/speaker-d3320f02b47d}}過關後正式加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-charles-ray",
+      "category": "character",
+      "title": "{{people/charles}}／雷",
+      "summary": "蘭德限定；兩人只在最終話作為援軍出現，不會編入隊伍。",
+      "term_refs": ["people/charles", "people/holland", "people/renton"],
+      "steps": [
+        {"stage": 32, "ordinals": [63], "text": "選擇搜尋{{people/renton}}路線。", "evidence_level": "cross-stage"},
+        {"stage": 35, "ordinals": [66], "text": "讓{{people/holland}}分別與查爾斯、雷交戰，再由{{people/renton}}分別說得兩人，最後由{{people/renton}}擊墜兩人。", "evidence_level": "stage-static"},
+        {"stage": 60, "ordinals": [105, 106], "text": "滿足條件後，兩人在最終話前半作為援軍出現。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-asakim",
+      "category": "character",
+      "title": "{{people/speaker-c2810db52aa2}}／{{unit/shurouga}}援軍",
+      "summary": "蘭德限定；先招募茲妮，再由蘭德擊墜狩狼牙。僅作為最終戰援軍。",
+      "term_refs": ["people/speaker-c2810db52aa2", "unit/shurouga", "people/tsine", "people/rand", "system/sr-point"],
+      "steps": [
+        {"stage": 58, "text": "結局點數至少15；或至少7點並持有46以上{{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 59, "ordinals": [104], "text": "按茲妮條件招募{{people/tsine}}。", "evidence_level": "cross-stage"},
+        {"stage": 60, "ordinals": [105, 106], "text": "前半戰由{{people/rand}}擊墜{{people/speaker-c2810db52aa2}}的{{unit/shurouga}}；後半戰他會作為援軍出現。", "evidence_level": "stage-static"}
+      ]
+    },
+
+    {
+      "id": "unit-black-mk2",
+      "category": "unit",
+      "title": "黑色{{display-name/unit/0105/name}}",
+      "summary": "節子限定；第3話保留艾瑪機。",
+      "term_refs": ["display-name/unit/0105/name", "people/emma", "people/speaker-0809e902288f"],
+      "steps": [
+        {"stage": 3, "ordinals": [2], "text": "不要擊墜{{people/emma}}的機體。", "evidence_level": "stage-static"},
+        {"stage": 18, "ordinals": [26], "text": "太平洋路線第18話由{{people/speaker-0809e902288f}}駕駛加入；走加利亞路線則在兩隊會合時取得。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "unit-tfo",
+      "category": "unit",
+      "title": "{{display-name/unit/0007/name}}",
+      "summary": "兩件交易所素材合成；漏掉時第24話自動取得。",
+      "term_refs": ["display-name/unit/0007/name", "part/super-alloy-nz-fragment", "part/inertial-control-engineering-manual"],
+      "steps": [
+        {"stage": 13, "text": "讓{{unit/double-spazer}}至少受擊一次；過關後購買{{part/super-alloy-nz-fragment}}。", "evidence_level": "cross-file", "evidence_note": "受擊事件在STAGE；商品開放與合成在交易所系統。"},
+        {"stage": 15, "text": "過關後購買{{part/inertial-control-engineering-manual}}，兩件素材合成{{display-name/unit/0007/name}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品組合不屬於戰鬥STAGE文本。"},
+        {"stage": 24, "text": "未達成前置時在本話自動取得。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "unit-rush-rod",
+      "category": "unit",
+      "title": "{{unit/rush-rod}}",
+      "summary": "蘭德、加利亞路線的交易所組合。",
+      "term_refs": ["unit/rush-rod", "part/om-scrap", "part/overcoat"],
+      "steps": [
+        {"stage": 15, "text": "選擇加利亞大陸路線。", "evidence_level": "cross-stage"},
+        {"stage": 18, "ordinals": [30], "text": "指定六人的總擊墜數超過100，過關後購買{{part/om-scrap}}。", "evidence_level": "cross-file", "evidence_note": "擊墜計數跨關保存；商品組合在交易所系統。"},
+        {"stage": 22, "text": "過關後購買{{part/overcoat}}，與{{part/om-scrap}}合成{{unit/rush-rod}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品組合不屬於戰鬥STAGE文本。"}
+      ]
+    },
+    {
+      "id": "unit-dijeh",
+      "category": "unit",
+      "title": "{{display-name/unit/0110/name}}",
+      "summary": "節子限定；第25話同時檢查九人平均等級和阿姆羅／卡茲擊墜數。",
+      "term_refs": ["display-name/unit/0110/name", "people/kamille", "people/quattro", "people/speaker-0809e902288f", "people/speaker-312cbf08471d", "people/emma", "people/speaker-2f643283052c", "people/apolly", "people/roberto", "people/speaker-4db10c7578e6"],
+      "steps": [
+        {"stage": 25, "text": "{{people/kamille}}、{{people/quattro}}、{{people/speaker-0809e902288f}}、{{people/speaker-312cbf08471d}}、{{people/emma}}、{{people/speaker-2f643283052c}}、{{people/apolly}}、{{people/roberto}}、{{people/speaker-4db10c7578e6}}九人的平均等級至少25。", "evidence_level": "cross-stage"},
+        {"stage": 25, "text": "{{people/speaker-0809e902288f}}與{{people/speaker-4db10c7578e6}}的平均擊墜數至少25（等價於兩人合計至少50）。", "evidence_level": "cross-stage"},
+        {"stage": 26, "ordinals": [39], "text": "滿足條件後在節子第26話開場取得{{display-name/unit/0110/name}}。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "unit-xabungle-2",
+      "category": "unit",
+      "title": "{{unit/xabungle}}2號機",
+      "summary": "蘭德留守分支限定，黑箱與高性能汽油引擎組合。",
+      "term_refs": ["unit/xabungle"],
+      "steps": [
+        {"stage": 32, "ordinals": [63], "text": "選擇留在艦上。", "evidence_level": "cross-stage"},
+        {"stage": 35, "ordinals": [69], "text": "擊墜廷布的{{unit/brockary}}，過關後購買電腦核心。", "evidence_level": "cross-file", "evidence_note": "戰鬥觸發在STAGE；商品開放在交易所系統。"},
+        {"stage": 45, "text": "過關後購買高性能汽油引擎，與電腦核心合成{{unit/xabungle}}2號機。", "evidence_level": "cross-file", "evidence_note": "交易所商品組合不屬於戰鬥STAGE文本。"}
+      ]
+    },
+    {
+      "id": "unit-aquarion-alpha",
+      "category": "unit",
+      "title": "{{unit/aquarion-alpha}}",
+      "summary": "先擊墜Omega與Delta，再處理雙翅／Alpha；漏掉時第53話自動取得。",
+      "term_refs": ["unit/aquarion-alpha", "people/moroha", "part/vector-machine"],
+      "steps": [
+        {"stage": 48, "ordinals": [83], "text": "ZEUTH路線：先擊墜機械天使Omega與Delta，再擊墜{{people/moroha}}的敵機或{{unit/aquarion-alpha}}。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [92], "text": "ZAFT路線執行同一擊墜順序。", "evidence_level": "stage-static"},
+        {"when": "過關後", "text": "在交易所購買{{part/vector-machine}}後取得{{unit/aquarion-alpha}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品組合不屬於戰鬥STAGE文本。"},
+        {"stage": 53, "ordinals": [88, 94], "text": "未達成條件時在第53話自動取得。", "evidence_level": "stage-static"}
+      ]
+    },
+
+    {
+      "id": "weapon-flying-armour",
+      "category": "weapon",
+      "title": "{{weapon/0231}}",
+      "summary": "節子第8話可提前取得；否則過關後自動追加。",
+      "term_refs": ["weapon/0231", "people/speaker-9b760cb1dad1", "display-name/unit/0105/name"],
+      "steps": [
+        {"stage": 8, "ordinals": [7], "text": "擊墜{{people/speaker-9b760cb1dad1}}的卡爾巴迪β，{{display-name/unit/0105/name}}會在關內追加{{weapon/0231}}；漏掉則過關後追加。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-mega-bazooka",
+      "category": "weapon",
+      "title": "{{weapon/0239}}",
+      "summary": "克瓦特羅擊墜數＋太平洋路線＋兩件交易所素材。",
+      "term_refs": ["weapon/0239", "people/quattro", "part/large-energy-pack", "part/mega-condenser"],
+      "steps": [
+        {"stage": 15, "text": "{{people/quattro}}在本話擊墜至少3機，並選擇太平洋路線；分隊後購買{{part/large-energy-pack}}。", "evidence_level": "cross-file", "evidence_note": "擊墜與路線在STAGE／進程；商品組合在交易所系統。"},
+        {"stage": 19, "ordinals": [27], "text": "過關後購買{{part/mega-condenser}}，合成{{weapon/0239}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品組合不屬於戰鬥STAGE文本。"},
+        {"stage": 33, "ordinals": [46, 49], "text": "漏掉前置時，百式歸隊後自動追加武器。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "weapon-great-booster",
+      "category": "weapon",
+      "title": "{{weapon/0022}}",
+      "summary": "節子可提前；蘭德或漏條件時第41話自動取得。",
+      "term_refs": ["weapon/0022", "people/speaker-ad9d3832188b", "part/photon-power-research-report"],
+      "steps": [
+        {"stage": 24, "text": "讓波士機器人移動到光子力研究所西側南端、大魔神撞過屏障的位置，觸發碎片事件。", "evidence_level": "stage-static"},
+        {"stage": 36, "ordinals": [52], "text": "節子路線過關後購買{{part/photon-power-research-report}}，合成{{weapon/0022}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品組合不屬於戰鬥STAGE文本。"},
+        {"stage": 41, "text": "蘭德路線或漏掉條件時自動取得。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-big-o-early",
+      "category": "weapon",
+      "title": "{{weapon/0552}}／{{weapon/0551}}",
+      "summary": "蘭德搜尋蘭頓分支可在第34話提前取得；否則第35話自動追加。",
+      "term_refs": ["weapon/0552", "weapon/0551", "unit/big-o", "people/beck", "people/renton"],
+      "steps": [
+        {"stage": 32, "ordinals": [63], "text": "選擇搜尋{{people/renton}}路線。", "evidence_level": "cross-stage"},
+        {"stage": 34, "ordinals": [65], "text": "讓{{unit/big-o}}與{{people/beck}}的大貝克RX3交戰且雙方存活，當場取得兩件武器。", "evidence_level": "stage-static"},
+        {"stage": 35, "ordinals": [66, 69], "text": "未達成提前條件時在本話自動取得。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-baldirosier",
+      "category": "weapon",
+      "title": "{{weapon/0099}}",
+      "summary": "第44話限時擊破人工太陽；漏掉可在第54話補取。",
+      "term_refs": ["weapon/0099"],
+      "steps": [
+        {"stage": 44, "text": "在時限內擊墜人工太陽，事件中追加{{weapon/0099}}。", "evidence_level": "stage-static"},
+        {"stage": 54, "text": "漏掉時讓{{unit/baldios}}出擊並存活，在擊墜精神·加特勒時補取。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-biosensor",
+      "category": "weapon",
+      "title": "{{ability/bio-sensor}}強化",
+      "summary": "Z鋼彈追加能力與兩招；對應路線關卡可提前，漏掉第56話補取。",
+      "term_refs": ["ability/bio-sensor", "people/kamille"],
+      "steps": [
+        {"stage": 49, "ordinals": [90], "text": "ZAFT路線：讓{{people/kamille}}駕駛Z鋼彈擊墜亞贊。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路線執行同一條件。", "evidence_level": "stage-static"},
+        {"stage": 56, "ordinals": [97, 99], "text": "漏掉時讓卡密兒駕駛Z鋼彈出擊並存活，在擊墜亞贊時補取。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-big-o-final",
+      "category": "weapon",
+      "title": "{{weapon/0553}}",
+      "summary": "擊墜BIG-DUO地獄時提前取得；漏掉可在第58話擊墜BIG-FAU補取。",
+      "term_refs": ["weapon/0553", "unit/big-o"],
+      "steps": [
+        {"stage": 49, "ordinals": [84], "text": "ZEUTH路線：讓{{unit/big-o}}出擊並存活，在擊墜BIG-DUO地獄時取得。", "evidence_level": "stage-static"},
+        {"stage": 53, "ordinals": [94], "text": "ZAFT路線執行同一條件。", "evidence_level": "stage-static"},
+        {"stage": 58, "text": "漏掉時在擊墜BIG-FAU時補取。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-g-bits",
+      "category": "weapon",
+      "title": "{{weapon/0310}}",
+      "summary": "與蒂法共用五項前置；黑箱F可免去高SR點數補救線。",
+      "term_refs": ["weapon/0310", "part/black-box-f", "people/enil", "people/shagia", "people/olba", "people/garrod", "people/speaker-73fc8638fc0c", "unit/patulia", "system/sr-point"],
+      "steps": [
+        {"stage": 7, "ordinals": [15], "text": "蘭德路線：擊墜{{people/enil}}，並擊墜{{people/shagia}}或{{people/olba}}。", "evidence_level": "stage-static"},
+        {"stage": 14, "text": "用{{people/garrod}}說得{{people/enil}}，且不要擊墜她。", "evidence_level": "stage-static"},
+        {"stage": 27, "ordinals": [58], "text": "蘭德路線由{{people/garrod}}或{{people/speaker-73fc8638fc0c}}擊墜{{unit/patulia}}；五項中達成四項後購買{{part/black-box-f}}。", "evidence_level": "cross-file", "evidence_note": "戰鬥前置在STAGE；黑箱F購買在交易所系統。"},
+        {"stage": 50, "ordinals": [91], "text": "ZAFT路線：持有{{part/black-box-f}}即可開放{{weapon/0310}}；否則至少完成兩項且結算時超過50 {{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 52, "ordinals": [87], "text": "ZEUTH路線採用同一最終判定。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "weapon-final-dynamic-special",
+      "category": "weapon",
+      "title": "{{weapon/0010}}",
+      "summary": "四機同時出擊且存活，擊墜布萊大帝觸發合體攻擊。",
+      "term_refs": ["weapon/0010"],
+      "steps": [
+        {"stage": 49, "ordinals": [84], "text": "ZEUTH路線：無敵鐵金剛、大魔神、金剛戰神、蓋特飛龍同時出擊，無敵鐵金剛與大魔神由甲兒、鐵也駕駛；保持存活並擊墜布萊大帝。", "evidence_level": "stage-static"},
+        {"stage": 53, "ordinals": [94], "text": "ZAFT路線執行同一條件；擊墜{{unit/king-of-vega}}也可觸發，但本關仍必須處理布萊大帝。", "evidence_level": "stage-static"}
+      ]
+    },
+
+    {
+      "id": "item-hero-mark",
+      "category": "item",
+      "title": "{{part/hero-mark}}",
+      "summary": "蘭德限定的四段交易所鏈。",
+      "term_refs": ["part/hero-mark", "part/smoked-lizard", "part/natto", "part/smoked-giant-lizard", "people/jiron", "people/apollo"],
+      "steps": [
+        {"stage": 8, "ordinals": [16], "text": "{{people/jiron}}與{{people/apollo}}各擊墜至少1機；過關後購買{{part/smoked-lizard}}。", "evidence_level": "cross-file", "evidence_note": "戰鬥計數在STAGE；商品開放在交易所系統。"},
+        {"stage": 23, "text": "過關後購買{{part/natto}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 28, "ordinals": [59], "text": "過關後購買{{part/smoked-giant-lizard}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 39, "ordinals": [73], "text": "過關後從交易所取得{{part/hero-mark}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"}
+      ]
+    },
+    {
+      "id": "item-steel-soul",
+      "category": "item",
+      "title": "{{part/steel-soul}}",
+      "summary": "蘭德限定；第7話擊墜、加利亞路線與三件交易所物品串聯。",
+      "term_refs": ["part/steel-soul", "part/silver-accessory", "part/makeup-kit", "part/bouquet", "people/shagia", "people/olba"],
+      "steps": [
+        {"stage": 7, "ordinals": [15], "text": "擊墜{{people/shagia}}或{{people/olba}}，過關後購買{{part/silver-accessory}}。", "evidence_level": "cross-file", "evidence_note": "戰鬥觸發在STAGE；商品開放在交易所系統。"},
+        {"stage": 15, "text": "選擇加利亞大陸路線。", "evidence_level": "cross-stage"},
+        {"stage": 19, "ordinals": [31], "text": "過關後購買{{part/makeup-kit}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 47, "ordinals": [82], "text": "過關後購買{{part/bouquet}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 49, "ordinals": [90], "text": "ZAFT路線第49話後從交易所取得{{part/steel-soul}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 53, "ordinals": [88], "text": "ZEUTH路線第53話後從交易所取得{{part/steel-soul}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"}
+      ]
+    },
+    {
+      "id": "item-haro",
+      "category": "item",
+      "title": "{{part/haro}}",
+      "summary": "蘭德限定；加利亞＋搜尋蘭頓路線的交易所鏈。",
+      "term_refs": ["part/haro", "part/ray-out-first-issue", "part/signed-disc", "part/rare-wheel", "people/renton"],
+      "steps": [
+        {"stage": 15, "text": "選擇加利亞大陸路線。", "evidence_level": "cross-stage"},
+        {"stage": 16, "ordinals": [28], "text": "過關後購買{{part/ray-out-first-issue}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 20, "text": "過關後購買{{part/signed-disc}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 32, "ordinals": [63], "text": "選擇搜尋{{people/renton}}路線。", "evidence_level": "cross-stage"},
+        {"stage": 35, "ordinals": [66], "text": "過關後購買{{part/rare-wheel}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 50, "ordinals": [91], "text": "ZAFT路線第50話後從交易所取得{{part/haro}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 52, "ordinals": [87], "text": "ZEUTH路線第52話後從交易所取得{{part/haro}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"}
+      ]
+    },
+    {
+      "id": "item-fallen-angel-wing",
+      "category": "item",
+      "title": "{{part/fallen-angel-wing}}",
+      "summary": "蘭德限定；桂與夏雅擊墜數觸發三件紀念品鏈。",
+      "term_refs": ["part/fallen-angel-wing", "part/hong-kong-video", "part/emaan-pennant", "part/chiram-motorcycle", "people/kei", "people/speaker-7e722f885dfc"],
+      "steps": [
+        {"stage": 26, "ordinals": [57], "text": "{{people/kei}}與{{people/speaker-7e722f885dfc}}合計擊墜至少8機；過關後購買{{part/hong-kong-video}}。", "evidence_level": "cross-file", "evidence_note": "戰鬥計數在STAGE；商品開放在交易所系統。"},
+        {"stage": 29, "ordinals": [60], "text": "過關後購買{{part/emaan-pennant}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 36, "ordinals": [70], "text": "過關後購買{{part/chiram-motorcycle}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"},
+        {"stage": 41, "text": "過關後從交易所取得{{part/fallen-angel-wing}}。", "evidence_level": "cross-file", "evidence_note": "交易所步驟。"}
+      ]
+    },
+
+    {
+      "id": "system-aki-points",
+      "category": "system",
+      "title": "亞紀生存點數",
+      "summary": "節子開局需7點；蘭德開局需4點並有32以上SR點數。成功時第42話{{people/kappei}}以200氣力出擊，並增加1結局點數。",
+      "term_refs": ["people/aki", "people/kappei", "people/speaker-a52075c737b1", "people/setsuko", "people/rand", "faction/zeravire", "system/sr-point"],
+      "steps": [
+        {"stage": 7, "ordinals": [6], "text": "節子：桑波特3登場時，{{people/kappei}}擊墜數至少5，＋1。", "evidence_level": "stage-static"},
+        {"stage": 8, "ordinals": [7], "text": "節子：擊墜{{people/speaker-a52075c737b1}}，＋5。", "evidence_level": "stage-static"},
+        {"stage": 15, "text": "{{people/kappei}}與{{people/speaker-a52075c737b1}}交戰，＋1；擊墜{{people/speaker-a52075c737b1}}，再＋1。", "evidence_level": "stage-static"},
+        {"stage": 18, "ordinals": [30], "text": "加利亞路線：敵方增援到達前擊墜至少2機，＋1。", "evidence_level": "stage-static"},
+        {"stage": 28, "ordinals": [41], "text": "節子：{{faction/zeravire}}出現前清光所有機械獸，＋1。", "evidence_level": "stage-static"},
+        {"stage": 33, "ordinals": [49], "text": "節子周邊警戒路線：完成關卡，＋3。", "evidence_level": "stage-static"},
+        {"stage": 40, "ordinals": [56], "text": "節子：擊墜{{people/speaker-a52075c737b1}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 40, "ordinals": [74], "text": "蘭德：擊墜{{people/speaker-a52075c737b1}}，＋2。", "evidence_level": "stage-static"},
+        {"stage": 42, "text": "開場判定：節子至少7點；蘭德至少4點並有32以上{{system/sr-point}}。滿足時亞紀生存、{{people/kappei}}200氣力出擊、結局點數＋1。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "system-zeuth-points",
+      "category": "system",
+      "title": "ZEUTH路線點數",
+      "summary": "一周目第47話後的路線判定；二周目起可直接選擇。負分事件也必須計入。",
+      "term_refs": ["people/setsuko", "people/rand", "people/alex", "people/athrun", "people/sato", "people/kira", "people/yzak", "people/stella", "people/shinn", "system/sr-point"],
+      "steps": [
+        {"stage": 2, "ordinals": [1], "text": "節子：選擇“控制被奪走的鋼彈”，＋1。", "evidence_level": "stage-static"},
+        {"stage": 8, "ordinals": [7], "text": "節子：由{{people/alex}}（{{people/athrun}}）擊墜{{people/sato}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 16, "ordinals": [24], "text": "太平洋路線：擊墜中立的{{people/kira}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 29, "ordinals": [42], "text": "節子：擊墜{{people/kira}}，＋1；擊墜瑪琉，＋1。", "evidence_level": "stage-static"},
+        {"stage": 29, "ordinals": [60], "text": "蘭德：伊薩克出現後不擊墜任何ZAFT兵再擊墜{{people/yzak}}，＋2；若擊墜伊薩克時仍有至少3個ZAFT兵小隊存活，＋1（與＋2條件不能同時取）。", "evidence_level": "stage-static"},
+        {"stage": 30, "ordinals": [43], "text": "節子：擊墜{{people/kira}}，＋1；擊墜瑪琉，＋1。", "evidence_level": "stage-static"},
+        {"stage": 30, "ordinals": [61], "text": "蘭德：不讓瑪琉、{{people/kira}}、渥特菲德或艾妮爾擊墜任何敵人，＋1。", "evidence_level": "stage-static"},
+        {"stage": 35, "ordinals": [48], "text": "節子直布羅陀路線：完成關卡，＋1。", "evidence_level": "stage-static"},
+        {"stage": 36, "ordinals": [52], "text": "節子：滿足史黛菈加入條件，＋1。", "evidence_level": "cross-stage"},
+        {"stage": 36, "ordinals": [70], "text": "蘭德：{{people/shinn}}與{{people/stella}}交戰，＋1；NPC真擊墜史黛菈，＋2；煌擊墜史黛菈，－1。", "evidence_level": "stage-static"},
+        {"stage": 38, "ordinals": [54], "text": "節子：煌仍在場時真被擊墜，＋2；真從未與煌交戰就擊墜煌，＋1。", "evidence_level": "stage-static"},
+        {"stage": 38, "ordinals": [72], "text": "蘭德：以擊墜真完成關卡，＋1；煌被擊墜，－1。", "evidence_level": "stage-static"},
+        {"stage": 43, "text": "拖到第4回合完成關卡，＋1；真擊墜阿斯蘭，－1。", "evidence_level": "stage-static"},
+        {"stage": 47, "ordinals": [81], "text": "節子：9點以上，或7–8點且至少36 {{system/sr-point}}，自動進入ZEUTH；10點以上且至少36 SR點數時給出選擇。", "evidence_level": "cross-stage"},
+        {"stage": 47, "ordinals": [82], "text": "蘭德：9點以上，或7點且至少36 {{system/sr-point}}，自動進入ZEUTH；8點以上且至少36 SR點數時給出選擇。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "system-ending-points",
+      "category": "system",
+      "title": "結局點數與最終結局",
+      "summary": "從第41話起累計。6點及以下進入低分檔，第59話有兩個選擇。7–17點固定進入較穩定結局。18點及以上可選兩種最佳結局。",
+      "term_refs": ["people/olson", "people/athena", "people/speaker-b85bd152a7ad", "people/holland", "people/jiron", "people/rand", "people/speaker-c2810db52aa2", "people/ghingham", "people/shagia", "people/olba", "people/beck", "people/moroha", "people/quattro", "people/kamille", "people/emma", "people/speaker-a23753fe36e8", "people/speaker-58ffc6397f82", "people/lunamaria", "unit/sol-gravion", "people/speaker-98397dd93972"],
+      "steps": [
+        {"stage": 41, "text": "奇拉姆增援前，除埃曼艦外不擊墜其他埃曼單位：＋1；全滅其他埃曼單位：－1；{{people/olson}}說得{{people/athena}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 42, "text": "亞紀生存：＋1。", "evidence_level": "cross-stage"},
+        {"stage": 43, "text": "拖到第4回合完成關卡：＋1；雷擊墜阿斯蘭：－1。", "evidence_level": "stage-static"},
+        {"stage": 44, "text": "露比娜成功撤離：＋1；{{unit/sol-gravion}}登場後2回合內擊墜人工太陽：＋1；用機械天使擊墜雙翅：＋1。", "evidence_level": "stage-static"},
+        {"stage": 45, "text": "{{people/holland}}或{{people/jiron}}到達標記點：＋1；中立增援無人被擊墜：＋1。", "evidence_level": "stage-static"},
+        {"stage": 46, "text": "4回合內擊墜至少12個敵方小隊：＋1。", "evidence_level": "stage-static"},
+        {"stage": 47, "ordinals": [81], "text": "節子：4回合內擊墜丹賽爾和托比，＋1。", "evidence_level": "stage-static"},
+        {"stage": 47, "ordinals": [82], "text": "蘭德與{{people/speaker-c2810db52aa2}}交戰，＋1。", "evidence_level": "stage-static"},
+        {"stage": 48, "ordinals": [83], "text": "ZEUTH路線擊墜{{people/speaker-98397dd93972}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 48, "ordinals": [89], "text": "ZAFT路線過關時場上沒有敵人，－1。", "evidence_level": "stage-static"},
+        {"stage": 49, "ordinals": [84], "text": "ZEUTH路線擊墜BIG-DUO地獄時{{people/beck}}仍存活，＋1。", "evidence_level": "stage-static"},
+        {"stage": 49, "ordinals": [90], "text": "ZAFT路線由克瓦特羅、卡密兒、花或艾瑪與蕾柯亞交戰且雙方存活，＋1。", "evidence_level": "stage-static"},
+        {"stage": 50, "ordinals": [85], "text": "ZEUTH路線擊墜{{people/moroha}}：＋1；葛林被擊墜：－1；席魯斯存活到過關：－1。", "evidence_level": "stage-static"},
+        {"stage": 50, "ordinals": [91], "text": "ZAFT路線同時擊墜{{people/shagia}}和{{people/olba}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路線蕾柯亞交戰且雙方存活：＋1。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [92], "text": "ZAFT路線擊墜雙翅：＋1；葛林被擊墜：－1。", "evidence_level": "stage-static"},
+        {"stage": 52, "ordinals": [87], "text": "ZEUTH路線同時擊墜夏基亞與歐爾巴：＋1；把金格納HP降到50%以下：＋1。", "evidence_level": "stage-static"},
+        {"stage": 53, "ordinals": [94], "text": "ZAFT路線把風見博士的艦打到2000 HP以下觸發救援：＋1。", "evidence_level": "stage-static"},
+        {"stage": 55, "text": "分別擊墜{{people/ghingham}}、{{people/shagia}}、{{people/olba}}，各＋1。", "evidence_level": "stage-static"},
+        {"stage": 56, "ordinals": [99], "text": "ZAFT路線：真仍在場時由拉克絲說得露娜瑪莉亞，＋1；擊墜哈曼，＋1；露娜瑪莉亞被擊墜，－1。", "evidence_level": "stage-static"},
+        {"stage": 57, "ordinals": [98, 100], "text": "兩條路線同時擊墜音翅與頭翅，＋1。", "evidence_level": "stage-static"},
+        {"stage": 58, "text": "選擇“留在{{place/paradigm-city}}生活”，結局點數－15。", "evidence_level": "stage-static"},
+        {"stage": 59, "ordinals": [102, 104], "text": "6點及以下，選“無法自行決定”進入黑歷史結局，選“希望世界穩定”進入不穩定世界結局。7–17點沒有選項，固定進入較穩定結局。18點及以上，選“希望世界穩定”讓多元世界完全穩定，選“希望一切恢復原樣”讓各個世界恢復原狀。", "evidence_level": "cross-stage"}
+      ]
+    }
+  ]
+}
