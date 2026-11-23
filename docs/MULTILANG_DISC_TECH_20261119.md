@@ -4,7 +4,7 @@
 
 适用版本：本篇 Original（`SLPS_258.87`）、BEST（`SLPS_732.70`）、Special Disc（`SLPS_259.20`）。
 
-过程记录和逐项验证见 `ZH_HANT_HK_TW_PLAN_20261118.md`、`ZH_HANT_SINGLE_DISC_M4_20261117.md`、`ZH_HANT_SP_DUAL_PLAN_20261117.md`。本文只讲现在的最终形态。
+过程记录和逐项验证见 `ZH_HANT_HK_TW_PLAN_20261118.md`（已删除，原文见提交 eb9c1f90）、`ZH_HANT_SINGLE_DISC_M4_20261117.md`（已删除，原文见提交 eb9c1f90）、`ZH_HANT_SP_DUAL_PLAN_20261117.md`（已删除，原文见提交 eb9c1f90）。本文只讲现在的最终形态。
 
 ## 1. 一句话概括
 

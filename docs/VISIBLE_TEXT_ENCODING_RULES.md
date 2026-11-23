@@ -44,7 +44,7 @@ Original／BEST／SP 的两个控制处理块逐字节相同；本轮 BEST 只�
 可见 `%` 后先恢复字距再恢复字宽，避免与 `%<width:XX>` 格式串语法冲突。
 机体名、武器名的列表与详情也已在当前 Original／SP 的 LRPS2 中检查。
 SP 图鉴正文及剧情流程长梗概也已选样验证；正文恢复值分别为 `16/16` 与 `10/10`（十六进制）。
-补充统计及运行对照见 [`COMPACT_SURFACE_CHECK_20260928.md`](COMPACT_SURFACE_CHECK_20260928.md)。
+补充统计及运行对照见 ``COMPACT_SURFACE_CHECK_20260928.md`（已删除，原文见提交 eb9c1f90）`（已删除，原文见提交 eb9c1f90）。
 算法、规则和名称测试见 [`TEXT_WIDTH_LAYOUT_POLICY_20260928.md`](TEXT_WIDTH_LAYOUT_POLICY_20260928.md)。
 首轮结论、恢复值和测试边界见
 [`TEXT_WIDTH_RUNTIME_20260928.md`](special-disc/TEXT_WIDTH_RUNTIME_20260928.md)。

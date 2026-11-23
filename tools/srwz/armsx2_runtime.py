@@ -138,7 +138,7 @@ def parse_reply(rows: list[str], command: str) -> Reply:
 
 # The runner renders offscreen and nothing presents its frames. After roughly 11,500 emulated frames without a
 # screenshot, every later screenshot of the session comes back black (the game itself keeps running: same RAM
-# as a run whose screenshots are fine; measured 2026-11-19, docs/ZH_HANT_HK_TW_PLAN_20261118.md section 6).
+# as a run whose screenshots are fine; measured 2026-11-19, docs/ZH_HANT_HK_TW_PLAN_20261118.md section 6 at git eb9c1f90).
 # The session therefore reads the display back itself, well inside that distance; a screenshot does not advance
 # or alter emulation.
 KEEPALIVE_FRAMES = 4000

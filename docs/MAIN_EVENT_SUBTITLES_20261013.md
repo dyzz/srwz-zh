@@ -62,4 +62,4 @@ V2 比 V1 仅增加本篇额外语音字幕及 effect256 的一行图集；运�
 
 独立交付在 `work/handoff/main-event-subtitles-20261013/`：`srwz-setsuko-stage02-slot6.ps2`、同名PSU、README与来源收据。它是仅保留第6格的干净记忆卡，读档后从中场休息选择下一地图进入第二话。来源为派生测试存档，不声称自然第二话队伍；原数据已在两版V2中加载，清理后做了导入/导出和校验回读，没有再重复整段运行。
 
-SP交接文件：`docs/CLAUDE_HANDOFF_SP_EVENT_FIDELITY_20261013.md`。
+SP交接文件：`CLAUDE_HANDOFF_SP_EVENT_FIDELITY_20261013.md`（已删除，原文见提交 eb9c1f90）。

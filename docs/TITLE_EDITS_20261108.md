@@ -17,7 +17,7 @@
 
 静态检查：21 项标题相关测试通过；正篇 122 条话名与 SP 标题池写入、回读通过。10 张图片均保持原槽大小、调色板和非图像字节；未修改的 118 张图片快照逐项保持一致。第21话和第35话按既有量化策略使用8级灰度以适配原压缩槽。
 
-构建入口：`RUSTC_WRAPPER= /Users/nate/miniconda3/bin/python3 tools/build_editions.py`。最终 ISO 身份由 `manifests/editions/{original,best,sp}/current.json` 记录；源码与当前镜像回执分别提交。
+构建入口：`RUSTC_WRAPPER= python3 tools/build_editions.py`。最终 ISO 身份由 `manifests/editions/{original,best,sp}/current.json` 记录；源码与当前镜像回执分别提交。
 
 ## ARMSX2 runner
 

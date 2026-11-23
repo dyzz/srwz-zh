@@ -5,7 +5,7 @@
 预览和两关文本只作为构建基线，保存在 `work/build/special-disc/baselines/` 的哈希锁定差分中；
 构建时临时还原，进程退出自动清除。原盘、组件、语料、截图和历史回执保留。
 
-这是从 Claude Opus 的工作目录整理出的开发工具集合，目录契约见 [LAYOUT.md](../../docs/special-disc/LAYOUT.md)。原图片预览已接入 11 个组件；另有当前译稿全量文本候选和保留的两关候选入口，详见 [首批候选](../../docs/special-disc/TEXT_CANDIDATE.md)。
+这是从 Claude Opus 的工作目录整理出的开发工具集合，目录契约见 [LAYOUT.md](../../docs/special-disc/LAYOUT.md)。原图片预览已接入 11 个组件；另有当前译稿全量文本候选和保留的两关候选入口，详见 `首批候选`（已删除，原文见提交 eb9c1f90）。
 
 | 目录／入口 | 用途与写入范围 |
 | --- | --- |

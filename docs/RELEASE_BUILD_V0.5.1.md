@@ -13,8 +13,8 @@ Original、The Best 和 SP 同批构建并冻结，输入摘要为 `2cef62d3e840
 - 全套 1,070 项单元测试通过，使用 Unicorn 2.1.4，零跳过。 [测试凭据](../manifests/releases/v0.5.1/tests.json)
 - 三份 xdelta 使用 xdelta3 3.2.0、`-e -9 -S djw -A -a` 生成，各自从锁定的日文原盘实际还原，并核对还原镜像大小和整盘 SHA-256。 [补丁清单](../manifests/releases/v0.5.1/patches.json)
 - ARMSX2 runner（Metal 4×）冷启动三份冻结 ISO。Original 与 The Best 使用空白卡和已有进度卡分别进入资料库，核对标题版本号、四处原生进度指令，检查机体、人物、关键词、剧情流程及第 21 话梗概。SP 进入战斗鉴赏并播放一场战斗。 [运行凭据](../manifests/releases/v0.5.1/runtime.json)
-- 22px 无 hinting 字库在三版图鉴、SP 战斗台词／梗概／滚动剧情中冷启动抽查，SP 镜像即本发布镜像。 [字库抽查记录](FONT_22PX_LIBRARY_RUNTIME_20261115.md)
-- 窗口细线（V050-001）的修复验证见 [v0.5.0 发布后问题](V0.5.0_POST_RELEASE_ISSUES.md#v050-001)。
+- 22px 无 hinting 字库在三版图鉴、SP 战斗台词／梗概／滚动剧情中冷启动抽查，SP 镜像即本发布镜像。 `字库抽查记录`（已删除，原文见提交 eb9c1f90）
+- 窗口细线（V050-001）的修复验证见 `v0.5.0 发布后问题`（已删除，原文见提交 eb9c1f90）。
 - 本轮运行抽查覆盖上述入口与页面。全路线、真机和 PCSX2 手动验证不在本轮范围内。
 
 ## 重建

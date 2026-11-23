@@ -1,6 +1,6 @@
 # 真唱 BGM 替换研究（2026-11-05）
 
-结论：已用 `/Users/nate/gba-sound/test.mp3` 的 30–50 秒片段，在 Original 中文候选 ISO 内通过原生音乐选择播放、循环、重播并退出恢复资料库音乐。证据为 ARMSX2 runner 冷启动及实际 SPU2 混音录音。**这证明短片段采样替换可行，不代表整首真唱、战斗中播放或正式发布已完成。**
+结论：已用 一段本地测试 MP3（`test.mp3`） 的 30–50 秒片段，在 Original 中文候选 ISO 内通过原生音乐选择播放、循环、重播并退出恢复资料库音乐。证据为 ARMSX2 runner 冷启动及实际 SPU2 混音录音。**这证明短片段采样替换可行，不代表整首真唱、战斗中播放或正式发布已完成。**
 
 ## 已验证的资源与加载路径
 
@@ -149,7 +149,7 @@ BGM 声部音量从 0x1946 提升到 0x2928；与上一轮 3–20 秒混音立�
 
 样片为源 test.mp3 的 30–190 秒，160 秒，44.1 kHz 立体声。使用本机 libvorbis 1.3.7 的 managed nominal 96000 bps 模式，最终 Ogg 文件 1,952,536 字节，含封装平均码率 97,626.8 bps，满足 2,000,000 字节上限。使用 Xiph encoder_example 改成目标码率；输入 WAV 已通过 Python wave 写成标准 44 字节头，避免示例程序简化 WAV 扫描误读 FFmpeg 的额外元数据块。
 
-试听 WAV 由 Tremor 源码实际解码生成，没有二次有损编码。路径：`/Users/nate/gba-sound/vorbis-preview-20261105/test-160s-tremor-preview.wav`；Ogg：同目录 `test-160s-96k.ogg`。[编码与验收回执](issue-assets/vorbis-tremor-20261105/receipt.json)。
+试听 WAV 由 Tremor 源码实际解码生成，没有二次有损编码。路径：本地试听目录下的 `test-160s-tremor-preview.wav`；Ogg：同目录 `test-160s-96k.ogg`。[编码与验收回执](issue-assets/vorbis-tremor-20261105/receipt.json)。
 
 采用 https://github.com/citronalco/ps2-libtremor ，commit ae62505aee8f4fc15cce97332133229ed8da0d5a。该仓库的 Makefile.ps2 默认 `_LOW_ACCURACY_`；本实验采用正常精度，关闭此宏。另做了宿主低精度解码对照，低精度相对正常精度的 PCM 差异 SNR 43.82 dB，只说明两种实现输出不同，不是感知音质评分。
 

@@ -2,7 +2,7 @@
 
 ORIGINAL holds the addresses the Original dual disc was built and verified with. SP's were found by a masked
 instruction search of SLPS_259.20 against SLPS_258.87 and by following the matched code's own references
-(docs/ZH_HANT_SP_DUAL_PLAN_20261117.md §2).
+(docs/ZH_HANT_SP_DUAL_PLAN_20261117.md §2 at git eb9c1f90).
 """
 from __future__ import annotations
 

@@ -86,7 +86,7 @@ Original生产槽位、两个版本输出和当前manifest均已同步。两个�
 | 验证 | 双版本静态语义回读及实际ISO批次绑定通过；245项自动测试通过 |
 | 运行证据 | 新镜像未另跑模拟器；下方用户实测验收继续绑定修改前批次 |
 
-详见[人物修正记录](CHARACTER_PERSONALITY_APPLICATION_20260907.md)与[本批双版本构建记录](../manifests/editions/personality-polish-20260907.json)。
+详见`人物修正记录`（已删除，原文见提交 eb9c1f90）与[本批双版本构建记录](../manifests/editions/personality-polish-20260907.json)。
 
 ## 2026-09-07 构建入口改造复验（历史批次）
 

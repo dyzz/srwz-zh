@@ -1,6 +1,6 @@
 # 图鉴 ROBOTS-SPECIFICATIONS 共享字母贴图回归
 
-版本归属：[v0.4.2 发布后问题台账](V0.4.2_POST_RELEASE_ISSUES.md)。
+版本归属：`v0.4.2 发布后问题台账`（已删除，原文见提交 eb9c1f90）。
 
 2026-09-29。当前状态：**已复用 PILOT 的 I 修复共享引用；三版最新 current／daily-test ISO
 已完整构建并回读通过，三份独立 CHD 已压缩、校验及解压哈希比对通过。**

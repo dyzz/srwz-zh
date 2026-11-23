@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SP's Traditional inputs (docs/ZH_HANT_SP_DUAL_PLAN_20261117.md).
+"""SP's Traditional inputs (docs/ZH_HANT_SP_DUAL_PLAN_20261117.md at git eb9c1f90).
 
 Same scheme as build_dual.py (Original): the unchanged pipeline builds SP once per language from this checkout
 (build_editions.py --editions sp --language ...). SP is built on a frozen baseline whose inherited text comes

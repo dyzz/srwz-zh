@@ -38,7 +38,7 @@ THE HEAT / The Big 完整字节、固定槽边界和非目标字节；再调用�
 
 ## ArmsX2 当前卡与自然复现
 
-ArmsX2 设置和运行日志均指向 `/Users/nate/Super-Robot-Wars-Z/work/Mcd001.ps2`，
+ArmsX2 设置和运行日志均指向 `work/Mcd001.ps2`，
 不是模拟器默认 `memcards/` 目录。测试前复制，源卡 SHA-256：
 `a126d7ecce0f6af8e77acab9fed36776a3051a7786dc86f26cdb3f903237496a`。
 卡中是本篇 `BISLPS-25887` 存档，没有 SP 存档；ArmsX2 日志记录的执行文件是 `SLPS_732.70`。
@@ -101,7 +101,7 @@ Original / BEST 已重建，两个最终 ISO 的全量静态回读和构建批�
   这里“热”使用生产字库的安全别名 `97 EC`，保存字段使用主码 `87 4E`，两者都映射“热”。
   不应将不同的有效字库码误报为名称不同步。
 - ArmsX2 可选卡副本已放入当前记忆卡目录：
-  `/Users/nate/Super-Robot-Wars-Z/work/Mcd001-Land-Heat-Man-fixed.ps2`。
+  `work/Mcd001-Land-Heat-Man-fixed.ps2`。
   原始 `Mcd001.ps2` 哈希保持不变。选择此副本后使用“读取 → 第 1 格”；中断存档未迁移。
 
 ![最终 BEST 读档后小队编成](issue-assets/best-land-heat-20261006/land-final.png)
@@ -200,7 +200,7 @@ NISV 第 97 个名称槽全部正确，槽内剩余填充为零；11,583 个默�
 运行验收绑定上列实际 ISO 哈希，不能据此声称仅检出本次提交即可复现整盘完全相同的字节。
 
 原 ArmsX2 卡已有损坏的单字节空格字段，更新 ISO 不会自动改写旧存档。
-已制作专用副本 `/Users/nate/Super-Robot-Wars-Z/work/Mcd001-THE-HEAT-ligature-fixed.ps2`，
+已制作专用副本 `work/Mcd001-THE-HEAT-ligature-fixed.ps2`，
 SHA-256 `396fd930400ce621f8c41c0d0cc41de895636e950aa588cdbfe71964ee94935d`。
 只修改 S0 第 1 格存档的 24 字节小队名槽与校验和，其余卡文件逐字节一致；
 原 `Mcd001.ps2` 哈希仍为 `a126d7ecce0f6af8e77acab9fed36776a3051a7786dc86f26cdb3f903237496a`。

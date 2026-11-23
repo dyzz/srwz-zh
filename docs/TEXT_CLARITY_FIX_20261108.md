@@ -14,4 +14,4 @@
 
 ARMSX2 runner，Metal 4×：original 冷启动进入阵型界面，确认 SELECT-FORMATION / SELECT-SORT；同轮先前捕获 SELECT-ROBO、按键说明与项目说明。SP 同轮先前捕获剧情流程标题，后续恢复菜单标题不改变 HSFC 资源。Best 未运行，只通过静态与 ISO 比对。未声称覆盖全部游戏界面。
 
-最终截图见 [截图说明](issue-assets/text-clarity-fix-20261108/README.md)，更新记录见 [promotion.json](issue-assets/text-clarity-fix-20261108/promotion.json)。
+最终截图见 `截图说明`（已删除，原文见提交 eb9c1f90），更新记录见 [promotion.json](issue-assets/text-clarity-fix-20261108/promotion.json)。

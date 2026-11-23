@@ -1,6 +1,6 @@
 # 本篇／BEST／SP 译名统一（2026-10-17）
 
-承接 [译名一致性审计](MAIN_BEST_SP_NAME_CONSISTENCY_AUDIT_20261016.md)。用户在 [SP 与本篇译名对照页](https://claude.ai/artifact/Uh2pqvmZnscTCH3qdfdoH1) 逐条确认了 85 条，又对 4 个与术语表冲突的问题作了补充回答。完整决定见 `config/editorial/name-unification-20261017.json`。
+承接 `译名一致性审计`（已删除，原文见提交 eb9c1f90）。用户在 [SP 与本篇译名对照页](https://claude.ai/artifact/Uh2pqvmZnscTCH3qdfdoH1) 逐条确认了 85 条，又对 4 个与术语表冲突的问题作了补充回答。完整决定见 `config/editorial/name-unification-20261017.json`。
 
 ## 补充决定
 

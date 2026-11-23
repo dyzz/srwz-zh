@@ -44,7 +44,7 @@
 - 审阅站已部署 `091a3b8-noir-seven-20260921`，使用定名提交对应的语料。12条改名正文、110次相关说话人显示、7个人物条目及14个名称字段全部匹配。
 - 源站8个目标JSON的HTTP响应与生产产物哈希一致；发布前后2611条用户建议逐条相同。数据库部署前在线备份及完整性检查通过。
 - 2026-09-21 16:15（UTC+8）公网HTTP核对：SP人物页、搜索索引及007/008/009/011四个剧情数据均为新版，站点索引和SP索引仍命中旧CDN缓存。
-- 未打开浏览器，未调用CDN连接器或操作控制台。手动刷新清单包含两个索引及本次修改的STAGE 011，共3条；静态资源预热清单10条。副本为 `/Users/nate/Downloads/noir-seven-cdn-refresh-urls.txt` 与 `/Users/nate/Downloads/noir-seven-cdn-prefetch-urls.txt`。
+- 未打开浏览器，未调用CDN连接器或操作控制台。手动刷新清单包含两个索引及本次修改的STAGE 011，共3条；静态资源预热清单10条。清单副本只留在本机。
 
 完整构建和发布证据位于 `work/verification/noir-seven-build-publish-20260921/`。CDN状态为 `manual_pending`，未进行LRPS2或PCSX2运行验收。
 

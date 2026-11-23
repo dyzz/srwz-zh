@@ -169,7 +169,7 @@ COMPDATA_REGION = {
     "abilities 2/buttons": ("05", "帮助说明"),
     "stage names": (None, "关卡名"),  # carried by the episode files
 }
-# image text still to be drawn (docs/SPECIAL_DISC_PLAN.md §2.2, reports/ui.md §4/§6)
+# image text still to be drawn (docs/SPECIAL_DISC_PLAN.md §2.2 at git eb9c1f90, reports/ui.md §4/§6)
 IMAGE_TEXT = (
     ("01", "KVMDATA 块 11", "结算提示图集", ["プロローグ", "遂行中"], "「までクリア！」沿用本篇中文"),
     ("01", "MAPMODEL 成员 195–197", "世界地图标题（新）",
@@ -1610,7 +1610,7 @@ def main() -> None:
     csv_rows.append(("04-中断对话-待写入", sections))
     sections = dict(images=image_rows("05"))
     listing.append(write_common(folder, "05", "05-图片文字", "需要绘制的图片文字", sections,
-                                "程序绘制前需要定下的中文；位置和做法见 docs/SPECIAL_DISC_PLAN.md §2.2。", dict(images="图片文字")))
+                                "程序绘制前需要定下的中文；位置和做法见 docs/SPECIAL_DISC_PLAN.md §2.2（已删除，原文见提交 eb9c1f90）。", dict(images="图片文字")))
     csv_rows.append(("05-图片文字", sections))
     write_csv(folder, csv_rows)
     (folder / "README.md").write_text(index_md(

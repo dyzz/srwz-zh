@@ -39,7 +39,7 @@ MAPMODEL 的 196 个定长 allocation；最后一个值等于 archive 总大小�
 
 - 115 个成员，无缺号；
 - 每个成员是独立 SRWZ 压缩流并带 16-byte 对齐的固定 allocation；
-- member 81 stored 区间为 `[0x020E9440, 0x0211F580)`，allocation 大小
+- member 81 stored 区间为 ``0x020E9440, 0x0211F580)`，allocation 大小
   `0x36140` / 221,504 bytes；
 - member 81 decoded 大小为 `0x14ECE0` / 1,371,360 bytes。
 
@@ -110,7 +110,7 @@ member:      81
 8. 使用 `rust-patch`（2026-10-07 起，地形名同）：保留原盘仍产出相同字节的压缩记号，只改写
    被改字节影响的记号；放不进原 allocation 时，以改动处为中心逐级放大窗口、以
    `min_match_length=2`、`max_match_chain=1024` 重压窗口，仍放不下才整段 `rust-fit` 重压；
-   超过原 allocation 时失败，绝不截断（见 [BUILD_PERFORMANCE_20261007.md](BUILD_PERFORMANCE_20261007.md)）；
+   超过原 allocation 时失败，绝不截断（见 [BUILD_PERFORMANCE_20261007.md（已删除，原文见提交 eb9c1f90）`（已删除，原文见提交 eb9c1f90））；
 9. 在原 allocation 尾部补零，并由 Rust decoder 完整回读。
 
 同文 no-op 标题不经过渲染或重压。重复 raw 共用同一个冻结重绘结果，但每个 member

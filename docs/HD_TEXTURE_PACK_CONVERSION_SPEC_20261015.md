@@ -1,13 +1,13 @@
 # 旧高清包 → PCSX2 2.x 替换文件：裁剪与命名规范
 
-2026-10-15。这是转换器要实现的规则，全部来自同日的研究与验证（[研究记录](HD_TEXTURE_PACK_PCSX2_2X_PORT_20261015.md)、[迁移方案](HD_TEXTURE_PACK_MIGRATION_PLAN_20261015.md)）。每条规则后面标注验证状态：**已验证** = 有实机 dump 逐字节对照；**源码** = 从 PCSX2 v2.8.2 源码读出、尚无 dump 对照。
+2026-10-15。这是转换器要实现的规则，全部来自同日的研究与验证（[研究记录](HD_TEXTURE_PACK_PCSX2_2X_PORT_20261015.md)、`迁移方案`（已删除，原文见提交 eb9c1f90））。每条规则后面标注验证状态：**已验证** = 有实机 dump 逐字节对照；**源码** = 从 PCSX2 v2.8.2 源码读出、尚无 dump 对照。
 
 ## 1. 输入与输出
 
 | 输入 | 位置 |
 | --- | --- |
 | 战斗归档 | `srwz-zh/work/build/zh-release-full-story/iso/original/btl/{twp,trb,tci,tbg}.bin` + 同名 `.seg`（LZSS 块，`srwz.codec.decode_production`） |
-| 旧高清包 | `~/Downloads/机战ZSLPS-25887 SLPS-73270/replacements/{BA,BAC,addition,maps,face,ui}`，名字 `TEX0Hash-CLUTHash-bits.png`，4 倍整图 |
+| 旧高清包 | `<第三方高清包>/replacements/{BA,BAC,addition,maps,face,ui}`，名字 `TEX0Hash-CLUTHash-bits.png`，4 倍整图 |
 | 静态部件清单 | `textures/tools/twp_parts_manifest.json`、`trb_tci_parts_manifest.json`（`twp_parts.py` 生成） |
 | 回归样本 | `textures/tools/verified_dump_rects.tsv`（696 张 2.x dump 的归档块、picture、矩形） |
 

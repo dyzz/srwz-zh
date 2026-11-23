@@ -50,11 +50,11 @@ python3 tools/special_disc/event_gallery/build.py \
 
 静态检查：两次显式作者运行得到相同PNG、picture与CLUT字节；字体锁、字形bbox、原alpha、透明色、黑墨色、CSM1 CLUT及swizzle回读均通过。原5图、5组CLUT及其他记录保持字节一致。ISO9660和UDF的65个成员extent、尺寸一致，原生VMAP的62条记录与ISO对应；AID新位置为LBA1853434、38813扇区。
 
-与[首版流程候选](SP_EVENT_GALLERY_20261013.md)比较，新版ELF高RAM的65,536字节菜单/运行时payload完全相同，整个VEFF成员也相同，因此此次未改变播放脚本或中文字幕资源。首版15次播放覆盖12项的证明保留在原记录中。
+与`首版流程候选`（已删除，原文见提交 eb9c1f90）比较，新版ELF高RAM的65,536字节菜单/运行时payload完全相同，整个VEFF成员也相同，因此此次未改变播放脚本或中文字幕资源。首版15次播放覆盖12项的证明保留在原记录中。
 
 本轮另以新版ISO冷启动LRPS2，检查选中与未选中横幅、进入事件列表、播放脉冲字幕、自然结束回到列表、退出回到特别剧场。运行输入和状态观察见[日志](issue-assets/sp-event-gallery-banner-20261013/commands.jsonl)，新版运行摘要见[验证记录](issue-assets/sp-event-gallery-banner-20261013/validation.json)。本轮未在新版重跑全部12项，PCSX2人工验收仍待进行。
 
-ARMSX2已配置 `RecursivePaths = /Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/`，因此文件移入后即可被扫描，无需修改模拟器配置。移动后完整SHA-256复核一致。
+ARMSX2已配置 `RecursivePaths` 指向 `srwz-zh/build/iso/`，因此文件移入后即可被扫描，无需修改模拟器配置。移动后完整SHA-256复核一致。
 
 已清理本次的首版ISO、重复构建ISO和早期语音鉴赏原型ISO，共3份；保留截图、流程日志、哈希及构建记录。生产SP、原盘及其他问题的验证镜像均保留。清理明细见[ISO清理记录](issue-assets/sp-event-gallery-banner-20261013/iso-cleanup.json)。本次文件管理未启动游戏，也不新增ARMSX2运行验收结论。未提交或推送。
 

@@ -10,8 +10,8 @@
 docs/special-disc/
   README.md                     总入口
   LAYOUT.md                     本文
-  STATUS.md                     进度与后续任务
-  PLAN.md                       详细规划及历史研究记录
+  STATUS.md（已删除，原文见提交 eb9c1f90）                     进度与后续任务
+  PLAN.md（已删除，原文见提交 eb9c1f90）                       详细规划及历史研究记录
 
 tools/special_disc/
   README.md
@@ -98,7 +98,7 @@ build/iso/special-disc/preview/
 | `work/build/sd-<name>-component/` | `work/build/special-disc/components/<name>/` |
 | `work/build/sp-image-preview-20260917/` | `work/build/special-disc/preview/` |
 | `build/iso/sp-image-preview/` | `build/iso/special-disc/preview/` |
-| `docs/SPECIAL_DISC_STATUS.md`、`docs/SPECIAL_DISC_PLAN.md` | 原位置保留入口页，正文为 `docs/special-disc/STATUS.md`、`PLAN.md` |
+| `SPECIAL_DISC_STATUS.md`（已删除，原文见提交 eb9c1f90）、`SPECIAL_DISC_PLAN.md`（已删除，原文见提交 eb9c1f90） | 原位置保留入口页，正文为 `STATUS.md`（已删除，原文见提交 eb9c1f90）、`PLAN.md`（已删除，原文见提交 eb9c1f90） |
 
 9/12、9/17 等历史研究包仍保留原位，由 `work/analysis/special-disc/` 集中索引。其中一次性脚本依赖原目录深度，尚未提升为正式工具；不通过移动它们改写历史证据。预览与组件报告保留生成时的路径，不伪造一次新的构建记录。
 
@@ -121,8 +121,8 @@ build/iso/special-disc/preview/
 
 ## 两关文本候选
 
-`work/build/special-disc/text-candidate/` 保存共享字库的隔离构建输出、SP 字库安装组件和 `stage/` 两关写回组件；`build/iso/special-disc/text-candidate/` 保存独立候选镜像及回读清单。构建入口为 `tools/special_disc/writeback/build_text_candidate.py`，范围与复现见 [TEXT_CANDIDATE.md](TEXT_CANDIDATE.md)。
+`work/build/special-disc/text-candidate/` 保存共享字库的隔离构建输出、SP 字库安装组件和 `stage/` 两关写回组件；`build/iso/special-disc/text-candidate/` 保存独立候选镜像及回读清单。构建入口为 `tools/special_disc/writeback/build_text_candidate.py`，范围与复现见 `TEXT_CANDIDATE.md`（已删除，原文见提交 eb9c1f90）（已删除，原文见提交 eb9c1f90）。
 
 ## 当前译稿全量候选
 
-`work/build/special-disc/full-text/` 保存 `system/`、`stage/`、`srvc/`、`frame/`、`image-labels/`、覆盖和检查日志；`build/iso/special-disc/full-text/` 保存完整文本候选及镜像报告。`build_full_text.py` 是统一入口。新图片文字单独冻结在 `config/assets/special-disc/full-text-image-labels.json`；原 `preview/` 图片快照不变。绑定补充和类型契约分别位于 `config/editorial/special-disc/`、`config/products/special-disc/`。详情见 [全量候选](FULL_TEXT_CANDIDATE.md)。
+`work/build/special-disc/full-text/` 保存 `system/`、`stage/`、`srvc/`、`frame/`、`image-labels/`、覆盖和检查日志；`build/iso/special-disc/full-text/` 保存完整文本候选及镜像报告。`build_full_text.py` 是统一入口。新图片文字单独冻结在 `config/assets/special-disc/full-text-image-labels.json`；原 `preview/` 图片快照不变。绑定补充和类型契约分别位于 `config/editorial/special-disc/`、`config/products/special-disc/`。详情见 `全量候选`（已删除，原文见提交 eb9c1f90）。

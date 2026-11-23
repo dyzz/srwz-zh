@@ -108,5 +108,5 @@ KVPDATA SHA-256：
 ```sh
 python3 tools/build_ui_headings.py
 python3 -m unittest discover -s tests -p 'test_ui_frame_uv.py'
-/Users/nate/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -m unittest discover -s tests -v
+python3 -m unittest discover -s tests -v
 ```

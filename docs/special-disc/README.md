@@ -4,17 +4,9 @@ Special Disc（SP／SD，暂称“特别篇”）使用共享中文语料、码�
 
 | 入口 | 用途 |
 | --- | --- |
-| [UI 遗漏与后续检查](UI_AUDIT_FOLLOWUP_20260922.md) | 5 个术语列表名称已修复并通过 LRPS2 复查；10 组运行检查待补，日文小队名归为存档遗留 |
 | [小队名扫描与翻译](SQUAD_NAMES.md) | 266 个名称、1,451 个字段；独立中文组件回读通过，ISO 未更新 |
-| [Pro 校订合并记录](PRO_REVIEW_IMPORT.md) | 校订稿已合入；282 处现有语料文字更新，190 个新增字段待写回；ISO 未更新 |
 | [Pro 校订疑问处理](PRO_REVIEW_RESOLUTION.md) | 25 条术语疑问结案，同步 1 条索引；7 条误提取已证实为跳转表并排除 |
-| [非关卡文本分类导出](NON_STAGE_TEXT_EXPORT.md) | 仅 SP 新增／修改：主目录 1,940 条，含附录 2,282 条；Markdown＋JSON＋ZIP |
-| [当前译稿全量候选](FULL_TEXT_CANDIDATE.md) | 8,629 条既有译稿写回、排版与新镜像验证 |
-| [首批文本候选](TEXT_CANDIDATE.md) | 两关实际写回、共享字库增补、候选镜像与验证边界 |
 | [目录契约](LAYOUT.md) | 当前实际目录、旧路径兼容、保存边界及后续收敛方式 |
-| [文本写回实施计划](TEXT_WRITEBACK_PLAN.md) | 文本落点、绑定规则、组件合成、两关候选与 WB-01～WB-07 任务依赖 |
-| [进度与后续计划](STATUS.md) | 2026-09-19 盘点，初稿／写回／验收状态分开记录 |
-| [详细规划与研究记录](PLAN.md) | 内容范围、格式研究和早期迁移记录 |
 | [工具说明](../../tools/special_disc/README.md) | 写回、翻译、导出、图片和校验工具入口 |
 | [目录登记](../../config/products/special-disc/workspace.json) | 机器可读路径映射 |
 | [预览图片快照](../../config/assets/special-disc/preview.json) | 18 份图片输入和 3 份调色板的大小、哈希 |
