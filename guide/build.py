@@ -1052,6 +1052,54 @@ CATEGORY_LABELS = {
 def _category_label(category: str) -> str:
     return _t(CATEGORY_LABELS[category])
 
+ART_KINDS = (
+    ("people/", "person"),
+    ("display-name/unit/", "unit"),
+    ("unit/", "unit"),
+    ("weapon/", "weapon"),
+)
+
+
+def _attach_hidden_art(
+    raw_entries: list[dict[str, Any]],
+    entries: list[dict[str, Any]],
+    terms: dict[str, str],
+    source_surfaces: dict[str, list[str]],
+) -> None:
+    """Name the people, units and weapons in each secret's title as picture slots.
+
+    The guide itself carries no game art.  The review site fills the slots
+    from its own portraits and unit art when it publishes the page
+    (srwz-community-web scripts/prepare_guide.mjs): people by Japanese name,
+    units by display-name ID or Japanese name, weapons by their unit.
+    """
+
+    for raw, entry in zip(raw_entries, entries):
+        art = []
+        for term_id in TERM_RE.findall(raw["title"]):
+            kind = next((kind for prefix, kind in ART_KINDS if term_id.startswith(prefix)), None)
+            if kind is None:
+                continue
+            art.append(
+                {
+                    "kind": kind,
+                    "id": term_id,
+                    "ja": (source_surfaces.get(term_id) or [""])[0],
+                    "name": terms[term_id],
+                }
+            )
+        entry["_art"] = art
+
+
+def _art_slots_html(entry: dict[str, Any]) -> str:
+    slots = "".join(
+        f'<span class="art-slot" data-art-kind="{item["kind"]}" data-art-id="{_esc(item["id"])}"'
+        f' data-art-ja="{_esc(item["ja"])}" data-art-name="{_esc(item["name"])}"></span>'
+        for item in entry.get("_art", [])
+    )
+    return f'<div class="secret-art">{slots}</div>' if slots else ""
+
+
 def _hidden_html(entries: list[dict[str, Any]]) -> str:
     cards = []
     for entry in entries:
@@ -1067,7 +1115,7 @@ def _hidden_html(entries: list[dict[str, Any]]) -> str:
         cards.append(
             f'<article class="secret-card" id="secret-{_esc(entry["id"])}" '
             f'data-category="{_esc(entry["category"])}">'
-            f'<header class="secret-header"><div class="secret-kicker">{_esc(_category_label(entry["category"]))}</div>'
+            f'<header class="secret-header">{_art_slots_html(entry)}<div class="secret-kicker">{_esc(_category_label(entry["category"]))}</div>'
             f'<h3>{_esc(entry["title"])}</h3><p class="secret-summary">{_esc(entry.get("summary", ""))}</p></header>'
             f'<ol class="secret-steps">{"".join(steps)}</ol>'
             f'</article>'
@@ -1345,7 +1393,7 @@ _GUIDE_CSS = r"""
 --num:"DIN Alternate","Bahnschrift","Roboto Condensed","Arial Narrow",-apple-system,"Segoe UI",sans-serif;
 --bg:#f5f2ea;--surface:#fffdf8;--surface-2:#efebe1;--ink:#17232b;--ink-2:#3d4b54;--muted:#5f6c75;--line:#dbd5c8;--line-soft:#e8e3d8;
 --band:#10283b;--band-2:#173a54;--band-ink:#fff;--band-muted:rgba(255,255,255,.66);--band-line:rgba(255,255,255,.16);
---accent:#e96c2c;--accent-ink:#b03f12;--chip:#10283b;--chip-ink:#fff;--stage:#10283b;--stage-ink:#fff;
+--art-bg:#10283b;--accent:#e96c2c;--accent-ink:#b03f12;--chip:#10283b;--chip-ink:#fff;--stage:#10283b;--stage-ink:#fff;
 --join:#1c6a8e;--join-bg:#e3eff4;--temp:#6846a0;--temp-bg:#eee8f6;--leave:#b03f12;--leave-bg:#fae8dc;--up:#1f6b54;--up-bg:#e0efe9;--secret:#7d5a08;--secret-bg:#f6edd3;--secret-line:#e3cf94;--warn:#a8241c;--warn-bg:#fbe8e4;--warn-line:#efc0b9;
 --lane-common:#6b7a84;--lane-setsuko:#2b7fa5;--lane-rand:#e96c2c;--lane-a:#2f8a6c;--lane-b:#8a63c2;
 --tabs-h:48px;--bar-h:46px;--wide:1240px;--shadow:0 1px 2px rgba(16,40,59,.05),0 6px 18px rgba(16,40,59,.05)}
@@ -1458,7 +1506,14 @@ main{width:min(var(--wide),100% - 32px);margin:0 auto 72px}
 .category-filters button[data-category]:not([data-category=all])::before,.secret-kicker::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--cat)}
 .secret-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .secret-card{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);scroll-margin-top:calc(var(--tabs-h) + var(--bar-h) + 12px)}
-.secret-header{padding:14px 18px 13px}
+.secret-header{display:flow-root;padding:14px 18px 13px}
+.secret-art{float:right;display:flex;align-items:flex-end;font-size:0}
+.art-slot{display:none}
+.art-slot[data-art-tone]{display:block;flex:none;box-sizing:border-box;width:64px;height:64px;margin:0 0 6px 8px;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--art-bg)}
+.art-slot[data-art-tone=unit]{width:92px;padding:3px 4px;background:var(--surface-2)}
+.art-slot:first-child{margin-left:14px}
+.art-slot img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.art-slot[data-art-tone=unit] img{object-fit:contain;object-position:50% 100%}
 .secret-kicker{display:flex;align-items:center;gap:6px;color:var(--cat);font-size:.72rem;font-weight:750;letter-spacing:.03em}
 .secret-card h3{margin-top:3px;font-size:1.08rem;line-height:1.4;font-weight:750}
 .secret-summary{margin-top:5px;color:var(--ink-2);font-size:.85rem}
@@ -1563,6 +1618,7 @@ main{width:calc(100% - 24px)}
 .stage-header{padding:10px 14px 11px}
 .stage-content{padding:12px 14px 14px}
 .secret-header{padding:13px 15px 12px}.secret-steps{padding:0 15px 6px}
+.art-slot[data-art-tone]{width:52px;height:52px;margin-left:6px;border-radius:7px}.art-slot[data-art-tone=unit]{width:74px}.art-slot:first-child{margin-left:10px}
 .secret-steps>li{grid-template-columns:4.2em minmax(0,1fr);gap:10px}
 .reference-shell{grid-template-columns:minmax(0,1fr);gap:12px;padding-top:16px}
 .reference-card,.reference-notice{padding:15px 15px 16px}
@@ -1599,6 +1655,7 @@ main{width:100%;margin:0}
 .is-hidden{display:block!important}
 .stage-number{position:static;box-shadow:none;background:none;color:#000;border:1px solid #000}
 .flow-row::before{display:none}
+.art-slot[data-art-tone]{background:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .stage-card,.secret-card,.catalog-card,.mode-card,.reference-notice,.reference-table tr{break-inside:avoid}
 .flow-section h2,.reference-card h2{break-after:avoid}
 .table-wrap,.level-table-wrap{overflow:visible}
@@ -1899,6 +1956,7 @@ def _build_edition() -> tuple[str, dict[str, Any]]:
         progression_source, terms
     )
     source_surfaces = _load_term_source_surfaces()
+    _attach_hidden_art(hidden_source["entries"], hidden_entries, terms, source_surfaces)
     progression_by_stage, progression_verification = _attach_progression(
         progression_entries, catalog, source_surfaces
     )

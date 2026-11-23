@@ -262,6 +262,9 @@ class StageGuideTests(unittest.TestCase):
                 self.assertEqual(page.count('<a class="mode-tab'), 10)
                 self.assertEqual(page.count('class="guide-panel"'), 10)
                 self.assertEqual(page.count("data-edition="), 3)
+                # Picture slots only: the site fills them; no game art in this repo.
+                self.assertEqual(page.count('<span class="art-slot"'), 38)
+                self.assertNotIn("data:image/", page)
                 self.assertIn(f'href="{name}" data-edition="{code}"', page)
                 self.assertRegex(page, rf'data-edition="{code}"[^>]*aria-current="page"')
                 for ordinal in range(107):
