@@ -182,10 +182,10 @@ def build_chunk(index, stored, function_address, bindings, table, overrides, rea
     for row, text in zip(map_rows, fit_sp_map_dialogue((row['native_id'], row['output_text']) for row in map_rows), strict=True):
         row['output_text'] = replacements[row['native_id']] = text
     if candidate_enabled():
-        for row, text in zip(story_rows, fit_candidate_stories([row['output_text'] for row in story_rows], profile=profile), strict=True):
+        for row, text in zip(story_rows, fit_candidate_stories([row['output_text'] for row in story_rows], profile=profile, story_ink=False), strict=True):
             row['output_text'] = replacements[row['native_id']] = text
     for scene, group in (('story', story_rows), ('sp_story_map', map_rows)):
-        verify_stored([(row['native_id'], row['output_text'], False) for row in group], scene)
+        verify_stored([(row['native_id'], row['output_text'], False) for row in group], scene, story_ink=False)
     if candidate_enabled():
         # Reports keep corpus text; only the stored bytes carry the indent glyph.
         for row in rows:

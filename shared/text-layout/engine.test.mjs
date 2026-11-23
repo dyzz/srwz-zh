@@ -268,7 +268,9 @@ test('the row solver and the width gate budget the indent that is drawn',()=>{
  const tight='“'+'国'.repeat(22)+'\n　'+'国'.repeat(19)+'。。。。';
  assert.deepEqual(validate(tight,'story',o).rows.map(r=>r.occupiedPx),[478,483]);
  assert.equal(validate(tight,'story',o).valid,true);
- assert.deepEqual(validate(tight,'story',legacy).issues.map(i=>i.code),['width']);
+ // The row solver still budgets column advances, but visible ink fits on the second ADV row.
+ assert.deepEqual(validate(tight,'story',legacy).issues,[]);
+ assert.deepEqual(validate(tight,'story',{...legacy,storyInk:false}).issues.map(i=>i.code),['width']);
  assert.equal(layout('“'+'国'.repeat(41)+'。。。。','story',o).text,tight);
  assert.notEqual(layout('“'+'国'.repeat(41)+'。。。。','story',legacy).text,tight);
 });
@@ -279,4 +281,21 @@ test('battle keeps the opening quote full width so the continuation indent align
  assert.deepEqual(second.glyphs.slice(0,2).map(g=>[g.text,g.x,g.advance]),[['　',0,22],['开',22,22]]);
  assert.equal(second.glyphs.at(-1).advance,17);
  assert.equal(measure('“锁定目标…”','story',o).rows[0].glyphs[0].advance,16);
+});
+
+test('Original ADV measures the same glyphs against each row of its bevel',()=>{
+ const options={typography:'proportional',chinesePunctuation:'compact',inkGeometry:true};
+ const text=Array(3).fill('中'.repeat(24)).join('\n');
+ assert.deepEqual(measure(text,'story',options).rows.map(r=>r.ink.status),['fits','fits','outside']);
+ assert.equal(measure('中','battle',options).rows[0].ink,undefined);
+ assert.equal(measure('中','sp_story_map',options).rows[0].ink,undefined);
+});
+test('map edge uses the last actual strokes and reports ambiguous pixels or dynamic text',()=>{
+ const options={typography:'proportional',chinesePunctuation:'compact',inkGeometry:true};
+ const status=text=>measure(text,'story_map',options).rows[0].ink.status;
+ const prefix='国'.repeat(21);
+ assert.equal(status(prefix+'i”'),'edge');
+ assert.equal(status(prefix+'i。'),'uncertain');
+ assert.equal(status(prefix+'3”'),'clipped');
+ assert.equal(status('国'.repeat(15)+'$F！！'),'uncertain');
 });

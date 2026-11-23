@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
 from srwz.typography_policy import options as typography_options
-from srwz.build_layout import library_batch,verify_stored,reflow_story,runtime_inputs,check_runtime,verify_prose,prose_row_width,PROSE_HANGING_PX,BATTLE_TRAILING_ALLOWANCE_PX
+from srwz.build_layout import RUNTIME_FILES,library_batch,verify_stored,reflow_story,runtime_inputs,check_runtime,verify_prose,prose_row_width,PROSE_HANGING_PX,BATTLE_TRAILING_ALLOWANCE_PX
 from srwz.js_layout import request_layout
 from srwz.chinese_layout import load_layout_profiles
 from srwz.build_fingerprints import is_component_build_definition
@@ -125,7 +125,7 @@ class JsBuildLayoutTests(unittest.TestCase):
   import os,shutil,subprocess,tempfile
   with tempfile.TemporaryDirectory()as temp:
    root=Path(temp);(root/'shared/text-layout').mkdir(parents=True);(root/'tools/srwz').mkdir(parents=True)
-   for name in ['engine.mjs','contracts.mjs','cli.mjs','cli-handler.mjs','proportional-selection.mjs','proportional-metrics.mjs']:shutil.copyfile(ROOT/'shared/text-layout'/name,root/'shared/text-layout'/name)
+   for name in RUNTIME_FILES:shutil.copyfile(ROOT/'shared/text-layout'/name,root/'shared/text-layout'/name)
    for name in ['build_layout.py','js_layout.py','typography_policy.py']:shutil.copyfile(ROOT/'tools/srwz'/name,root/'tools/srwz'/name)
    (root/'tools/srwz/__init__.py').write_text('')
    output=subprocess.check_output([sys.executable,'-c',"from pathlib import Path; from srwz.build_layout import check_runtime; print(check_runtime(Path.cwd())['scenes'])"],cwd=root,env={**os.environ,'PYTHONPATH':str(root/'tools')},text=True)

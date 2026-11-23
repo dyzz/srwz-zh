@@ -1,4 +1,4 @@
-export type SceneId = 'story' | 'battle' | 'main_flow' | 'sp_flow' | 'main_scroll' | 'sp_scroll' | 'main_scroll_strip' | 'library_character' | 'library_robot' | 'library_glossary';
+export type SceneId = 'story' | 'story_map' | 'sp_story_map' | 'battle' | 'main_flow' | 'sp_flow' | 'main_scroll' | 'sp_scroll' | 'main_scroll_strip' | 'library_character' | 'library_robot' | 'library_glossary';
 export interface LayoutOptions {
   chinesePunctuation?: 'native' | 'compact';
   continuationIndent?: 'fullwidth' | 'opener';
@@ -12,13 +12,17 @@ export interface LayoutOptions {
   protectedTerms?: string[];
   packing?: 'max_width' | 'balanced_width';
   resourceId?: string;
+  inkFont?: "hans"|"hant";
+  storyInk?: boolean;
+  inkGeometry?: boolean;
 }
 export interface Glyph { text:string;yOffset?:number;baselineResidual16?:number;x:number;width:number;height:number;advance:number;placeholder:boolean }
 export interface FixedTextField {id?:string;text:string;capacityBytes:number;terminatorBytes:0|1}
 export interface FixedFieldOptions extends LayoutOptions {encodedCharacterBytes:Record<string,number>}
-export interface Row { text:string;advancePx:number;occupiedPx:number;glyphs:Glyph[] }
+export interface StoryInk {status:'fits'|'edge'|'clipped'|'outside'|'uncertain';marginPx:number|null;basis?:'placeholder-reservation'}
+export interface Row { ink?:StoryInk; text:string;advancePx:number;occupiedPx:number;glyphs:Glyph[] }
 export interface FontState { width:number;height:number;step:number }
-export interface Issue { code:string;row?:number;widthPx?:number;limitPx?:number;message?:string }
+export interface Issue { status?:StoryInk["status"];marginPx?:number|null;code:string;row?:number;widthPx?:number;limitPx?:number;message?:string }
 export interface Measured { scene:SceneId;rows:Row[];state:FontState;fontSha256?:string }
 export interface Validated extends Measured { valid:boolean;issues:Issue[] }
 export interface LayoutResult extends Validated { version:string;profile:string;text:string;changed:boolean;widthPx:number;step:number;compiledText:string;selectedWidthPx?:number;widthSelection?:{policy:'uniform_nonfinal';testedWidths:number;spreadPx:number;excessSpreadPx:number;unalignedRows:number;nonfinalWidthsPx:number[];withinTolerance:boolean} }
@@ -34,3 +38,5 @@ export function layout(text:string,scene:SceneId,options?:LayoutOptions):LayoutR
 export function layoutFixedFields(fields:FixedTextField[],scene:SceneId,options:FixedFieldOptions):LayoutResult&{fields:(FixedTextField&{encodedBytes:number})[]};
 export function dispatch(request:{action:'layout_fields';fields:FixedTextField[];scene:SceneId;options:FixedFieldOptions}):LayoutResult&{fields:(FixedTextField&{encodedBytes:number})[]};
 export function dispatch(request:{action?:'layout'|'measure'|'validate'|'expand';text:string;scene:SceneId;options?:LayoutOptions}):LayoutResult|Measured|Validated|{text:string};
+
+export function dispatch(request:{action:'geometry';text:string;scene:SceneId;options?:LayoutOptions}):{rows:Array<{occupiedPx:number;ink?:StoryInk}>,issues:Issue[]};

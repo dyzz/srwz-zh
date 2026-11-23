@@ -1,4 +1,5 @@
 /** Pure SRWZ layout core. No DOM, filesystem, process, or font measurement APIs. */
+import {hasStoryInkProfile,storyRowInk} from './story-ink.mjs';
 import { contracts } from './contracts.mjs';
 import {proportionalMetric,proportionalFontSha256,continuationIndentMetric} from './proportional-selection.mjs';
 export const version = '1.1.0';
@@ -41,7 +42,8 @@ function normalize(text) {
 }
 function checkOptions(options,scene) {
   if(!options||typeof options!=='object'||Array.isArray(options))fail('options','Expected an options object');
-  for(const key of ['preserveLineCount','escapedNewlines','protectWords','keywordLinks'])if(options[key]!==undefined&&typeof options[key]!=='boolean')fail('options',`${key} must be boolean`);
+  for(const key of ['preserveLineCount','escapedNewlines','protectWords','keywordLinks','inkGeometry','storyInk'])if(options[key]!==undefined&&typeof options[key]!=='boolean')fail('options',`${key} must be boolean`);
+  if(options.inkFont!==undefined&&!['hans','hant'].includes(options.inkFont))fail('options','Unknown story font');
   if(options.maxLines!==undefined&&(!Number.isInteger(options.maxLines)||options.maxLines<1||options.maxLines>12000||(scene.maxLines!==null&&options.maxLines>scene.maxLines)))fail('options','maxLines exceeds native scene or input limits');
   if(options.placeholderCells!==undefined&&(!Number.isInteger(options.placeholderCells)||options.placeholderCells<1||options.placeholderCells>64))fail('options','Invalid placeholder reservation');
   if(options.protectedTerms!==undefined&&(!Array.isArray(options.protectedTerms)||options.protectedTerms.length>10000||options.protectedTerms.some(t=>typeof t!=='string'||!t.length||t.length>1000||/[\r\n]/.test(t))))fail('options','Invalid protected terms');
@@ -149,7 +151,7 @@ function measureRow(text, scene, start, options, collectGlyphs = true) {
     if (options.keywordLinks && (ch === '《' || ch === '》')) continue;
     const metric=options.typography==='proportional'?proportionalMetric(text,i-ch.length,scene.id,options,state):null;
     const gx=x-(metric?.bearing||0),width=metric?.width??state.width,advance=metric?.advance??state.step;
-    if(collectGlyphs)glyphs.push({text:ch,yOffset:metric?.yOffset??0,baselineResidual16:metric?.baselineResidual16??0,x:gx,width,height:metric?.height??state.height,advance,placeholder:false});
+    if(collectGlyphs)glyphs.push({text:ch,yOffset:metric?.yOffset??0,baselineResidual16:metric?.baselineResidual16??0,...(metric?.advanceBox?{bank:true}:{}),x:gx,width,height:metric?.height??state.height,advance,placeholder:false});
     // Bank Latin glyphs sit centred in a hanzi-wide cell: their ink ends with the advance.
     if (ch !== ' ' && ch !== '　') right = Math.max(right, metric?.advanceBox ? x + advance : gx + width);
     x += advance;
@@ -182,6 +184,7 @@ export function measure(text, sceneId, options = {}) {
       for (const glyph of row.glyphs.slice(1)) glyph.x -= delta;
       row.advancePx -= delta; row.occupiedPx -= delta;
     }
+    if(options.inkGeometry && hasStoryInkProfile(scene.id,options)) row.ink=storyRowInk(row,i,scene.id,options.inkFont);
     if (scene.trailingPunctuationPx) row.fitPx = fitWidth(row, scene);
     return row;
   });
@@ -355,10 +358,14 @@ function battleTrailingHangs(row,scene,options){
   return allowance!==undefined&&row.advancePx<=scene.widthPx+allowance;
 }
 export function validate(text,sceneId,options={}) {
-  const scene=effectiveScene(sceneId,options),result=measure(text,scene.id,options), issues=[];
+  const scene=effectiveScene(sceneId,options),result=measure(text,scene.id,{...options,inkGeometry:true}), issues=[];
   if(result.rows.length>(options.maxLines??scene.maxLines??Infinity))issues.push({code:'rows',message:'Too many physical rows'});
   result.rows.forEach((row,i)=>{
-    if((row.fitPx??row.occupiedPx)>scene.widthPx&&!battleTrailingHangs(row,scene,options))issues.push({code:'width',row:i+1,widthPx:row.occupiedPx,limitPx:scene.widthPx});
+    if (row.ink) {
+      if (['outside','clipped','uncertain'].includes(row.ink.status))
+        issues.push({code:row.ink.status==='uncertain'?'ink_uncertain':'width',row:i+1,...row.ink});
+    } else if ((row.fitPx??row.occupiedPx)>scene.widthPx&&!battleTrailingHangs(row,scene,options))
+      issues.push({code:'width',row:i+1,widthPx:row.occupiedPx,limitPx:scene.widthPx});
     if(scene.preserveAuthoredRows)return;
     if(scene.kind==='dialogue'&&i>0&&!/^　[^　 ]/.test(row.text))issues.push({code:'indent',row:i+1,message:'Expected one fullwidth continuation indent'});
     const v=visible(row.text).replace(/^[　 ]+/,'');
@@ -584,6 +591,12 @@ export function layoutFixedFields(fields,sceneId,options={}) {
 export function dispatch(request){
   if(!request||typeof request!=='object')fail('input','Expected a JSON request');
   const action=request.action||'layout';if(action==='layout_fields')return layoutFixedFields(request.fields,request.scene,request.options||{});
+  if(action==='geometry') {
+    const checked=validate(request.text,request.scene,request.options||{});
+    // Native structure and kinsoku remain under the corresponding resource owner.
+    return {rows:checked.rows.map(row=>({occupiedPx:row.occupiedPx,ink:row.ink})),
+      issues:checked.issues.filter(issue=>['rows','width','ink_uncertain'].includes(issue.code))};
+  }
   if(!['layout','measure','validate','expand'].includes(action))fail('action','Unknown action');
   if(action==='expand')return {text:expandCompact(request.text,request.scene,request.options||{})};
   return {layout,measure,validate}[action](request.text,request.scene,request.options||{});

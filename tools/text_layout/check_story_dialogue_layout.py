@@ -1,23 +1,15 @@
 #!/usr/bin/env python3
-"""Fail when any story dialogue is not stored in its configured 23-total-cell / 3-line layout.
+"""Check stored main-game dialogue against its locale's font, frame, and structural rules.
 
-This is the same gate the story component builder and the ISO content
-verifier apply.  Run it after every writeback into ``corpus/zh/story-dialogue``
-(community batches, subtitle reviews, terminology sweeps) before building:
-
-    python3 tools/text_layout/check_story_dialogue_layout.py
-    python3 tools/text_layout/check_story_dialogue_layout.py --stage 108 --stage 186
-
-It lists every offending record (overflowing lines, too many lines, or a line
-break inside a word or proper name of the profile's unbroken term list) and
-exits 1.  Fix them with ``rebalance_story_dialogue.py``; the keyword-link flag
-is taken from the Japanese source exactly as the builder does.
+Use --locale all for all three corpora. A near-boundary uncertain ink verdict needs
+a runtime check; it does not establish that a line is clipped.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import sys
 from pathlib import Path
 
@@ -34,11 +26,19 @@ from srwz.build_layout import dialogue_scene, stored_geometry_issues
 from srwz.chinese_layout import dialogue_layout_issues, load_layout_profiles  # noqa: E402
 
 
-def check(stages: set[int] | None) -> list[tuple[str, tuple[str, ...]]]:
-    profile = load_layout_profiles(PROFILES_PATH)["story_dialogue"]
+def check(stages: set[int] | None, locale: str = "zh") -> list[tuple[str, tuple[str, ...]]]:
+    if locale == "zh":
+        profile = load_layout_profiles(PROFILES_PATH)["story_dialogue"]
+    else:
+        from zh_hant.preflight import layout_dir
+        regional = layout_dir("hk" if locale.endswith("-hk") else "tw")
+        try:
+            profile = load_layout_profiles(regional / PROFILES_PATH.name)["story_dialogue"]
+        finally:
+            shutil.rmtree(regional)
     link_ids = keyword_link_ids()
     problems = []
-    for path in sorted(DIALOGUE_ROOT.glob("stage-*.json")):
+    for path in sorted((DIALOGUE_ROOT.parents[1]/locale/"story-dialogue").glob("stage-*.json")):
         stage = int(path.stem.split("-")[1])
         if stages and stage not in stages:
             continue
@@ -47,7 +47,7 @@ def check(stages: set[int] | None) -> list[tuple[str, tuple[str, ...]]]:
         for scene in ("story", "story_map"):
             geometry.update(stored_geometry_issues(
                 [(e["id"], e["translation"], e["id"] in link_ids) for e in entries
-                 if dialogue_scene(e["id"]) == scene], scene))
+                 if dialogue_scene(e["id"]) == scene], scene, ink_font="hans" if locale=="zh" else "hant"))
         for entry in entries:
             issues = dialogue_layout_issues(
                 entry["translation"],
@@ -65,14 +65,16 @@ def main() -> int:
     parser.add_argument(
         "--stage", type=int, action="append", help="limit to these stage file numbers"
     )
+    parser.add_argument("--locale", choices=["zh","zh-hant","zh-hant-hk","all"], default="zh")
     args = parser.parse_args()
-    problems = check(set(args.stage) if args.stage else None)
+    locales = ("zh","zh-hant","zh-hant-hk") if args.locale=="all" else (args.locale,)
+    problems = [(f"{locale} {key}", reasons) for locale in locales
+                for key, reasons in check(set(args.stage) if args.stage else None, locale)]
     for entry_id, issues in problems:
         print(f"{entry_id}: {'; '.join(issues)}")
     if problems:
         print(
-            f"{len(problems)} dialogue records are not in final layout; "
-            "run tools/text_layout/rebalance_story_dialogue.py",
+            f"{len(problems)} dialogue records have geometry or structural findings",
             file=sys.stderr,
         )
         return 1

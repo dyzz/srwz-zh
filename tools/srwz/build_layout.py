@@ -13,7 +13,7 @@ from .js_layout import ROOT, layout_batch, request_layout, JsLayoutError
 from .typography_policy import options as typography_options, candidate_enabled
 
 LIBRARY_SCENES={'CHAR':'library_character','ROBO':'library_robot','KYWD':'library_glossary'}
-RUNTIME_FILES=('engine.mjs','contracts.mjs','cli.mjs','cli-handler.mjs','proportional-selection.mjs','proportional-metrics.mjs')
+RUNTIME_FILES=('engine.mjs','contracts.mjs','cli.mjs','cli-handler.mjs','proportional-selection.mjs','proportional-metrics.mjs','story-ink.mjs','story-ink-data.mjs')
 
 def runtime_inputs(root:Path=ROOT):
     return {f'shared_js_{Path(name).stem.replace("-","_")}':dict(path='shared/text-layout/'+name,
@@ -145,7 +145,8 @@ def dialogue_scene(entry_id, *, edition=None):
         return 'sp_story_map' if edition == 'sp' else 'story_map'
     return 'story'
 
-def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None):
+def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None,
+                           ink_font=None,story_ink=True):
     """Rows are (identity, text, keyword_links); reject geometry without reflow.
 
     Special aligned/choice owners keep their source structure. This gate checks
@@ -155,7 +156,17 @@ def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_p
     rows=list(rows);issues={}
     from .parallel import worker_count
     groups=[rows[start:start+batch_size] for start in range(0,len(rows),batch_size)]
-    batches=[[dict(action='measure',scene=scene,text=text.replace('\\n','\n'),options=dict(keywordLinks=links,typography=typography,chinesePunctuation=chinese_punctuation))for _,text,links in group]for group in groups]
+    calibrated = (story_ink and scene in ('story','story_map') and
+                  typography=='proportional' and chinese_punctuation=='compact')
+    from .build_language import corpus_language
+    if calibrated and ink_font is None:
+        ink_font = 'hant' if corpus_language(ROOT) == 'zh-Hant' else 'hans'
+    options = dict(typography=typography, chinesePunctuation=chinese_punctuation)
+    if calibrated:
+        options['inkFont']=ink_font
+    batches = [[dict(action='geometry' if calibrated else 'measure', scene=scene, text=text.replace('\\n','\n'),
+                     options=dict(options, keywordLinks=links)) for _,text,links in group]
+               for group in groups]
     # The measuring runs in Node child processes, so threads are enough; answers keep batch order.
     if len(batches)>1:
         with ThreadPoolExecutor(max_workers=worker_count(len(batches))) as pool:
@@ -167,9 +178,29 @@ def stored_geometry_issues(rows,scene,*,batch_size=256,typography=None,chinese_p
             if not response['ok']:
                 issues[identity]=(f'JS {response["error"]["message"]}',)
                 continue
-            measured=response['result'];limit=SCENE_WIDTH_LIMITS.get(scene,483);maximum=2 if scene=='battle'else 3
-            if len(measured['rows'])>maximum or any(r.get('fitPx',r['occupiedPx'])>limit and not (scene=='battle' and battle_trailing_hangs(r,limit)) for r in measured['rows']):
-                issues[identity]=(f'shared JS {scene} geometry exceeds {maximum} rows / {limit}px',)
+            if not calibrated:
+                measured=response['result']
+                limit=SCENE_WIDTH_LIMITS.get(scene,483)
+                maximum=2 if scene=='battle' else 3
+                if len(measured['rows'])>maximum or any(
+                    row.get('fitPx',row['occupiedPx'])>limit and
+                    not (scene=='battle' and battle_trailing_hangs(row,limit))
+                    for row in measured['rows']
+                ):
+                    issues[identity]=(f'shared JS {scene} geometry exceeds {maximum} rows / {limit}px',)
+                continue
+            problems=[]
+            for issue in response['result']['issues']:
+                if 'status' in issue:
+                    problems.append(f"shared JS {scene} geometry row {issue['row']}: "
+                                    f"{issue['status']}" + (f" (ink margin {issue['marginPx']:.2f}px)"
+                                    if issue['marginPx'] is not None else " (ink bound unavailable)"))
+                elif issue['code']=='rows':
+                    problems.append(f"shared JS {scene} geometry exceeds row limit")
+                else:
+                    problems.append(f"shared JS {scene} geometry exceeds {issue['limitPx']}px")
+            if problems:
+                issues[identity]=tuple(problems)
     return issues
 
 # Battle subtitles clip at screen X=640. Measured per trailing glyph on Metal 4x, then 2px of margin.
@@ -180,10 +211,10 @@ def battle_trailing_hangs(row,limit):
     allowance=BATTLE_TRAILING_ALLOWANCE_PX.get(glyphs[-1]['text']) if glyphs else None
     return allowance is not None and row['advancePx']<=limit+allowance
 
-def verify_stored(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None):
+def verify_stored(rows,scene,*,batch_size=256,typography=None,chinese_punctuation=None,story_ink=True):
     rows=list(rows)
     issues=stored_geometry_issues(rows,scene,batch_size=batch_size,
-        typography=typography,chinese_punctuation=chinese_punctuation)
+        typography=typography,chinese_punctuation=chinese_punctuation,story_ink=story_ink)
     if issues:
         identity=next(iter(issues))
         raise ValueError(f'{identity}: {"; ".join(issues[identity])}')
@@ -266,7 +297,7 @@ def fit_story(text,*,profile,protected_terms=(),stage_keyword_links=False,**kwar
         return fit_chinese_dialogue_layout(text,profile=profile,protected_terms=protected_terms,stage_keyword_links=stage_keyword_links,**kwargs)
     return reflow_story(text,profile=profile,protected_terms=protected_terms,stage_keyword_links=stage_keyword_links)
 
-def fit_candidate_stories(texts,*,profile,scenes=None):
+def fit_candidate_stories(texts,*,profile,scenes=None,story_ink=True):
     """Batch candidate dialogue; authored rows that fit stay, structured owners always keep theirs."""
     if not candidate_enabled():raise ValueError('Candidate dialogue policy is not enabled')
     texts=list(texts);result=[];scenes=list(scenes) if scenes is not None else ['story']*len(texts)
@@ -276,16 +307,16 @@ def fit_candidate_stories(texts,*,profile,scenes=None):
         owners=scenes[start:start+128];fitting=set()
         for scene in sorted(set(owners)):
             indexed=[(str(i),text,False) for i,text in enumerate(group) if owners[i]==scene]
-            overflowing=stored_geometry_issues(indexed,scene)
+            overflowing=stored_geometry_issues(indexed,scene,story_ink=story_ink)
             fitting.update(int(i) for i,_,_ in indexed if i not in overflowing)
         for i,(text,scene) in enumerate(zip(group,scenes[start:start+128])):
             structured=i in fitting or text.startswith((' ','　')) or bool(re.search(r'”\n[　 ]*“',text))
-            requests.append(dict(text=text,scene=scene,action='measure' if structured else 'layout',options=dict(**({'packing':'balanced_width'} if scene=='story_map' and not structured else {}),typography='proportional',chinesePunctuation='compact',maxLines=profile.maximum_lines)))
+            requests.append(dict(text=text,scene=scene,action='measure' if structured else 'layout',options=dict(**({'packing':'balanced_width'} if scene=='story_map' and not structured else {}),typography='proportional',chinesePunctuation='compact',storyInk=story_ink,maxLines=profile.maximum_lines)))
         for request,response in zip(requests,layout_batch(requests)):
             if not response['ok']:raise JsLayoutError(response['error'])
             r=response['result'];result.append(r['compiledText'] if request['action']=='layout' else '\n'.join(row['text'] for row in r['rows']))
     for scene in sorted(set(scenes)):
-        verify_stored([(str(i),text,False)for i,(text,own) in enumerate(zip(result,scenes)) if own==scene],scene)
+        verify_stored([(str(i),text,False)for i,(text,own) in enumerate(zip(result,scenes)) if own==scene],scene,story_ink=story_ink)
     return result
 
 def check_runtime(root:Path=ROOT):

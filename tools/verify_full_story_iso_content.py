@@ -16,7 +16,7 @@ from srwz.scoped_translations import (
     verify_scoped_translation_coverage,
 )
 from srwz.archive import sha256_file
-from srwz.build_layout import PROSE_HANGING_PX, prose_widths
+from srwz.build_layout import PROSE_HANGING_PX, RUNTIME_FILES, prose_widths
 from srwz import continuation_indent
 from srwz import protagonist_profile
 from srwz.build_language import corpus_language, expected_at, expected_literal
@@ -184,6 +184,7 @@ VERIFICATION_DEFINITION_ROOTS = (
     "tools/native/srwz-codec-rs/Cargo.lock",
     "tools/native/srwz-codec-rs/src",
     "tools/verify_full_story_iso_content.py",
+    *(f"shared/text-layout/{name}" for name in RUNTIME_FILES),
     "config",
     "corpus/ja",
     "corpus/zh",
@@ -6966,15 +6967,20 @@ def main() -> int:
             if candidate_enabled():
                 import math
                 from srwz.js_layout import layout_batch
+                from srwz.build_layout import dialogue_scene
+                ink_font = "hant" if corpus_language(PROJECT_ROOT) == "zh-Hant" else "hans"
                 keys = list(source_entries)
                 for begin in range(0, len(keys), 256):
                     group = keys[begin:begin + 256]
-                    probes = [dict(action='measure', scene='story', text=dialogue[key],
+                    probes = [dict(action='geometry', scene=dialogue_scene(key), text=dialogue[key],
                         options=dict(typography='proportional', chinesePunctuation='compact',
-                                     keywordLinks=('《' in source_entries[key].text))) for key in group]
+                                     inkFont=ink_font, keywordLinks=('《' in source_entries[key].text))) for key in group]
                     for key, response in zip(group, layout_batch(probes)):
                         if not response['ok']:
                             raise SystemExit(f'{key}: candidate measurement failed: {response}')
+                        if response['result']['issues']:
+                            raise SystemExit(f"{key}: final ISO dialogue geometry: {response['result']['issues']}")
+                        # Retain approximate cell counts for historical report fields only.
                         candidate_widths[key] = tuple(math.ceil(row['occupiedPx'] / 21) - (1 if i else 0)
                             for i, row in enumerate(response['result']['rows']))
             for entry_id, source_entry in source_entries.items():
@@ -7109,7 +7115,7 @@ def main() -> int:
                     stage_keyword_links=("《" in source_entry.text),
                     default_advance_px=dialogue_profile.default_advance_px,
                 )
-                if (
+                if not candidate_enabled() and (
                     len(widths) > dialogue_line_limit
                     or (widths and widths[0] > first_line_limit)
                     or max(widths[1:], default=0) > continuation_line_limit
@@ -8068,7 +8074,7 @@ def main() -> int:
             "translation_entry_count_exact": total_entries
             == expected_entry_count,
             "dialogue_layout_profile_exact": (
-                maximum_dialogue_line_width <= max(first_line_limit, continuation_line_limit)
+                (compact_typography_enabled() or maximum_dialogue_line_width <= max(first_line_limit, continuation_line_limit))
                 and maximum_dialogue_line_count <= dialogue_line_limit
             ),
             "runtime_substitution_tokens_raw_ascii": True,

@@ -188,7 +188,9 @@ def check_story_layout(rep: Report, region: str):
     profile = load_layout_profiles(tmp / 'zh-layout-profiles.json')['story_dialogue']
     links = keyword_link_ids()
     tools_sig = [(ROOT / p).read_bytes().hex()[:0] + hashlib.sha256((ROOT / p).read_bytes()).hexdigest()
-                 for p in ('tools/srwz/build_layout.py', 'tools/srwz/chinese_layout.py', 'shared/text-layout/cli.mjs')]
+                 for p in ('tools/srwz/build_layout.py', 'tools/srwz/chinese_layout.py', 'shared/text-layout/cli.mjs', 'shared/text-layout/engine.mjs', 'shared/text-layout/story-ink.mjs',
+                           'shared/text-layout/story-ink-data.mjs', 'shared/text-layout/proportional-selection.mjs',
+                           'shared/text-layout/proportional-metrics.mjs', 'shared/text-layout/contracts.mjs')]
     for path in sorted((DATA / f'corpus/zh-hant{REGIONS[region]}/story-dialogue').glob('stage-*.json')):
         text = path.read_text(encoding='utf-8')
 
@@ -196,7 +198,7 @@ def check_story_layout(rep: Report, region: str):
             entries = json.loads(text)['entries']; geo = {}; out = []
             for scene in ('story', 'story_map'):
                 geo.update(stored_geometry_issues([(e['id'], e['translation'], e['id'] in links) for e in entries
-                                                   if dialogue_scene(e['id']) == scene], scene))
+                                                   if dialogue_scene(e['id']) == scene], scene, ink_font='hant'))
             for e in entries:
                 issues = list(dialogue_layout_issues(e['translation'], profile=profile, stage_keyword_links=e['id'] in links,
                                                      check_width=False)) + list(geo.get(e['id'], ()))

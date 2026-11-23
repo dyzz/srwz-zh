@@ -44,7 +44,7 @@ SKIP_SOURCE_PREFIXES = (
 def is_build_input(relative: str) -> bool:
     """True for files that belong in the frozen build-definition snapshot."""
     if relative.startswith("shared/text-layout/"):
-        return relative in {"shared/text-layout/"+name for name in ("engine.mjs","contracts.mjs","cli.mjs","cli-handler.mjs","proportional-selection.mjs","proportional-metrics.mjs")}
+        return relative in {"shared/text-layout/"+name for name in ("engine.mjs","contracts.mjs","cli.mjs","cli-handler.mjs","proportional-selection.mjs","proportional-metrics.mjs","story-ink.mjs","story-ink-data.mjs")}
     name = relative.rsplit("/", 1)[-1]
     if name in SKIP_PARTS or name.endswith((".pyc", ".pyo")) or relative.endswith(SKIP_SUFFIXES):
         return False

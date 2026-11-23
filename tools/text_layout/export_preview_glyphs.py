@@ -1,53 +1,109 @@
-"""Extract exact 24x24 native glyph cells for browser preview; never rerasterize.
+"""Export the complete Original game font cells and character indices for all locales.
 
-``glyphs`` maps characters to their stock cells; ``latinBank.glyphs`` maps ASCII letters,
-digits and - . ' / to the HarmonyOS bank cells used by the proportional scenes.
+Reads the manifest-verified SLPS, VT1 and proposal in prepared edition projects.
+--hans-project, --tw-project and --hk-project select newer component builds.
+Without overrides, reproduce the workspaces recorded in the published indices.
 """
+import argparse
+import hashlib
+import json
 from pathlib import Path
-import json,hashlib,sys,argparse,math
-R=Path(__file__).resolve().parents[2];sys.path[:0]=[str(R/'tools'),str(R/'tools/special_disc/writeback')]
-from srwz.font import decode_vt1_font_segment,decode_glyph,glyph_index_for_code,read_extended_glyph_table,ascii_glyph_index
-from migrate_slps_text import encoding_tables
-ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,default=R/'shared/text-layout/assets');args=ap.parse_args()
+
 from PIL import Image
-from srwz.iso9660 import member_map,scan_iso9660
-manifest_path=R/'manifests/editions/original/current.json';manifest_raw=manifest_path.read_bytes();m=json.loads(manifest_raw);iso=R/m['output']['path'];h=hashlib.sha256()
-with iso.open('rb')as f:
- for block in iter(lambda:f.read(1<<20),b''):h.update(block)
-assert h.hexdigest()==m['output']['sha256'],'Current ISO identity drift'
-proof_path=R/m['readback']['path'];proof_raw=proof_path.read_bytes();assert hashlib.sha256(proof_raw).hexdigest()==m['readback']['sha256'];proof=json.loads(proof_raw)
-members=member_map(scan_iso9660(iso));inputs={}
-with iso.open('rb')as f:
- for key,name in [('slps','SLPS_258.87'),('vt1','DATA/VT1.BIN')]:
-  entry=members[name];f.seek(entry.extent_lba*2048);inputs[key]=f.read(entry.size)
-font=decode_vt1_font_segment(inputs['slps'],inputs['vt1']).decoded;digest=hashlib.sha256(font).hexdigest();assert digest==proof['font']['decoded_sha256']
-frozen=proof_path.parent.parent
-proposal=frozen/'work/build/special-disc/text-candidate/font/proposal.json'
-assert proposal.exists()
-for name in ['config/encoding/codebook.json','vendor/upstream-python/project/tbl_all.json']:
- assert hashlib.sha256((R/name).read_bytes()).digest()==hashlib.sha256((frozen/name).read_bytes()).digest(),'Frozen encoding identity drift'
-T,_,codes,_=encoding_tables(proposal);extended=read_extended_glyph_table(inputs['slps']);mapping={}
-for ch in sorted(set(T.inverse_characters)|set(codes)):
- if len(ch)!=1:continue
- code=codes.get(ch,T.inverse_characters.get(ch))
- try:index=ascii_glyph_index(code)if 0x20<=code<=0x7e else glyph_index_for_code(code,extended)
- except (ValueError,TypeError):continue
- if index*288+288<=len(font):mapping[ch]=index
-# Production writeback folds fullwidth Latin/digits before encoding.
-for ch in list(mapping):
- if 'Ａ'<=ch<='Ｚ' or 'ａ'<=ch<='ｚ' or '０'<=ch<='９':
-  folded=chr(ord(ch)-0xfee0)
-  if folded in mapping:mapping[ch]=mapping[folded]
-# HarmonyOS Latin bank (srwz.latin_bank): the proportional scenes draw ASCII letters, digits and - . ' /
-# from these 82 cells; fixed-pitch scenes keep the stock glyphs mapped above.
-from srwz import latin_bank
-bank_base=latin_bank.base_glyph_index();bank_indices=latin_bank.glyph_indices();bank_slots=latin_bank.slot_characters()
-assert bank_base==576 and len(bank_indices)==latin_bank.SLOT_COUNT==82 and bank_indices[-1]*288+288<=len(font)
-for slot in bank_slots:assert any(decode_glyph(font,bank_base+slot)),'Latin bank cell is blank: '+bank_slots[slot]
-indices=sorted(set(mapping.values())|set(bank_indices));columns=64;rows=math.ceil(len(indices)/columns);image=Image.new('RGBA',(columns*24,rows*24));positions={}
-for slot,index in enumerate(indices):
- x=slot%columns*24;y=slot//columns*24;positions[index]=[x,y];pixels=decode_glyph(font,index);tile=Image.new('RGBA',(24,24));tile.putdata([(255,255,255,value*17)for value in pixels]);image.paste(tile,(x,y))
-args.output.mkdir(parents=True,exist_ok=True);png=args.output/'native-glyphs.png';image.save(png,optimize=True)
-image_sha=hashlib.sha256(png.read_bytes()).hexdigest();hashed=png.with_name('native-glyphs.'+image_sha[:12]+'.png');png.replace(hashed);png=hashed
-meta=dict(schemaVersion=2,cellSize=24,width=image.width,height=image.height,image=png.name,imageSha256=hashlib.sha256(png.read_bytes()).hexdigest(),fontDecodedSha256=digest,manifestSha256=hashlib.sha256(manifest_raw).hexdigest(),isoSha256=m['output']['sha256'],proposalSha256=hashlib.sha256(proposal.read_bytes()).hexdigest(),glyphs={ch:positions[index]for ch,index in mapping.items()},latinBank=dict(baseGlyphIndex=bank_base,cells=[positions[index]for index in bank_indices],glyphs={ch:positions[bank_base+slot]for slot,ch in sorted(bank_slots.items())},use='Proportional scenes only, where the layout engine returns an advanceBox metric; keys are NFKC-folded ASCII'),source='Exact decoded production 4bpp cells; low nibble left; white RGB and alpha=nibble*17; no trimming, rerasterization or per-character baseline changes')
-(args.output/'native-glyphs.json').write_text(json.dumps(meta,ensure_ascii=False,separators=(',',':'))+'\n');print(len(mapping),'characters',len(indices),'native cells',png.stat().st_size,'PNG bytes',digest)
+from export_story_ink import ROOT, latin_bank, load_font_component
+from srwz.font import GLYPH_SIZE, decode_glyph
+from srwz.text import normalize_original_fullwidth_ascii
+
+ASSETS = ROOT / 'shared/text-layout/assets'
+LOCALES = (
+    ('zh', 'native-glyphs.json', 'hans_project', 'candidate.json'),
+    ('zh-hant', 'native-glyphs.zh-hant.json', 'tw_project', 'candidate-zh-hant-tw.json'),
+    ('zh-hant-hk', 'native-glyphs.zh-hant-hk.json', 'hk_project', 'candidate-zh-hant-hk.json'),
+)
+
+
+def sha256(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def read(path):
+    return json.loads(path.read_bytes())
+
+
+def native_atlas(project, locale, output):
+    traditional = locale != 'zh'
+    font, glyphs, banks, manifest = load_font_component(project, traditional)
+    # A region's prepared view installs its ledger at the same path as Simplified.
+    ledger = project/'config/encoding/zh-release-font-assignments.json'
+    if bool(read(ledger).get('zh_hant')) != traditional:
+        raise ValueError(f'{locale}: incorrect component language')
+    count, partial = divmod(len(font), GLYPH_SIZE)
+    if partial:
+        raise ValueError('Decoded VT1 contains a partial font cell')
+    # Fold stock fullwidth Latin/digits just as the production writer does. A
+    # CP932 identity displaced by a localized assignment must not get its old cell.
+    for ch in '０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ':
+        glyphs[ch] = glyphs[normalize_original_fullwidth_ascii(ch)]
+
+    # Place tiles in native index order, including unassigned slots. Coordinates
+    # are reversible even for glyphs without an authorable Unicode identity.
+    columns = 64
+    def cell(index):
+        return [24 * (index % columns), 24 * (index // columns)]
+
+    image = Image.new('RGBA', (24*columns, 24*((count+columns-1)//columns)), 'white')
+    alpha = Image.new('L', image.size)
+    for index in range(count):
+        pixels = decode_glyph(font, index)
+        tile = Image.frombytes('L', (24,24), bytes(p*17 for p in pixels))
+        alpha.paste(tile, cell(index))
+    image.putalpha(alpha)
+    from io import BytesIO
+    stream = BytesIO()
+    image.save(stream, 'PNG', optimize=True)
+    binary = stream.getvalue()
+    image_sha = sha256(binary)
+    filename = f'native-glyphs.{image_sha[:12]}.png'
+    (output/filename).write_bytes(binary)
+    bank_base = latin_bank.base_glyph_index()
+    # Only expose truly readable cells, apart from genuine whitespace.
+    visible = {ch:cell(i) for ch,i in sorted(glyphs.items())
+               if ch.isspace() or any(font[i*GLYPH_SIZE:(i+1)*GLYPH_SIZE])}
+    for ch,index in banks.items():
+        if not any(font[index*GLYPH_SIZE:(index+1)*GLYPH_SIZE]):
+            raise ValueError(f'{locale}: empty Latin cell for {ch}')
+    badge = read(project/'config/assets/title-menu-zh.json')['version_badge']['text']
+    return dict(
+        schemaVersion=2, locale=locale, cellSize=24, width=image.width, height=image.height,
+        image=filename, imageSha256=image_sha, fontDecodedSha256=sha256(font),
+        manifestSha256=sha256((project/'manifests/zh-release-font-validation.json').read_bytes()),
+        proposalSha256=manifest['proposal']['sha256'], ledgerSha256=sha256(ledger.read_bytes()),
+        componentSha256={k:manifest['font_component'][k]['sha256'] for k in ('slps','vt1')},
+        sourceProject=project.relative_to(ROOT).as_posix() if project.is_relative_to(ROOT) else str(project),
+        edition='Original', buildVersion=badge, glyphCount=count, linearAddressing=traditional,
+        glyphs=visible, latinBank=dict(baseGlyphIndex=bank_base,
+            cells=[cell(i) for i in latin_bank.glyph_indices()],
+            glyphs={ch:cell(i) for ch,i in sorted(banks.items())}),
+        source='Decoded Original VT1 font component; native glyph index order; 24x24 pixels; alpha=nibble*17.',
+    )
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=ASSETS)
+    for flag in ('--hans-project', '--tw-project', '--hk-project'):
+        parser.add_argument(flag, type=Path)
+    args = parser.parse_args()
+    args.output.mkdir(parents=True, exist_ok=True)
+    for locale, name, option, receipt in LOCALES:
+        project = getattr(args, option)
+        if project is None:
+            index = read(ASSETS/name) if (ASSETS/name).exists() else {}
+            project = ROOT/(index.get('sourceProject') or read(ROOT/'manifests/editions/original'/receipt)['workspace'])
+        atlas = native_atlas(project.resolve(), locale, args.output)
+        (args.output/name).write_text(json.dumps(atlas,ensure_ascii=False,separators=(',',':'))+'\n')
+        print(locale, atlas['glyphCount'], 'native cells,', len(atlas['glyphs']), 'mapped characters,', atlas['image'])
+
+
+if __name__ == '__main__':
+    main()
