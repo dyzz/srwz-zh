@@ -28,6 +28,7 @@ from srwz.font import (
     decode_glyph,
     decode_vt1_font_segment,
     font_capacity,
+    configure_original_font_loader,
     encode_glyph,
     glyph_raster_metrics,
     glyph_index_for_code,
@@ -514,7 +515,7 @@ def main() -> int:
         spec,
         rebuilt_offsets,
     )
-    rebuilt_slps = plan.apply(source_slps)
+    rebuilt_slps = configure_original_font_loader(plan.apply(source_slps), capacity)
     extended_alias_reports = []
     if any(
         assignment.get("mapping") == "extended_shared_glyph_alias"

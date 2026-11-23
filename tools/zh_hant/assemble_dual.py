@@ -39,6 +39,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from srwz.font import LINEAR_GLYPH_FALLBACK
 from srwz.iso9660 import scan_iso9660, member_map  # noqa: E402
 from editions import EDITIONS, edition_inc, paths_inc  # noqa: E402
 
@@ -225,6 +226,16 @@ def assemble_hook(work: Path, patches: list, codebooks: dict, options: int):
     code = (work / 'hook.bin').read_bytes()
     if syms['lang_hook'] != CAVE or CAVE + len(code) > CAVE_END: raise SystemExit(f'hook layout: {len(code):#x} bytes')
     return code, syms
+
+
+def verify_main_font_loader(elf: Elf, sites: list) -> None:
+    """Single-language donors use VT1 table loads, with either stock or linear glyph lookup."""
+    for va, word in sites[:-2]:
+        if elf.word(va) != word:
+            raise SystemExit(f'font loader preimage drift at {va:#x}')
+    fallback = tuple(elf.word(va) for va, _ in sites[-2:])
+    if fallback not in (tuple(word for _, word in sites[-2:]), LINEAR_GLYPH_FALLBACK):
+        raise SystemExit('font loader glyph fallback preimage drift')
 
 
 def static_words(elf: Elf, code: bytes, syms: dict):
@@ -437,14 +448,13 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
             # ---- executable ------------------------------------------------------------------------------
             vt1_table = ED.main['vt1_table']
             tc_exe.put(vt1_table, exe_sc.get(vt1_table, VT1_CHUNKS * 4))  # disc keeps the SC VT1
-            for va, w in ED.main['font_loader']:
-                if tc_exe.word(va) != w: raise SystemExit(f'font loader preimage drift at {va:#x}')
+            verify_main_font_loader(tc_exe, ED.main['font_loader'])
             lui = lambda rt, v: 0x3C000000 | rt << 16 | v
             ori = lambda rt, v: 0x34000000 | rt << 21 | rt << 16 | v
             sites = [va for va, _ in ED.main['font_loader']]
             for va, w in zip(sites, [lui(6, len(font) >> 16), ori(6, len(font) & 0xFFFF),
                                      lui(5, font_offset >> 16), ori(5, font_offset & 0xFFFF), 0,
-                                     0x10000002, 0x90240061]):
+                                     *LINEAR_GLYPH_FALLBACK]):
                 tc_exe.putw(va, w)
             if menu_chunk is not None:
                 # The title screen reads chunk 6 at 0x154C8C-0x154CB0: a1 = table[hw 0x3F8668], v0 = table[that + 1],

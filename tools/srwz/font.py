@@ -17,6 +17,7 @@ from typing import Callable, Iterable, Mapping, Optional
 
 from .codec import decode_production as decode
 from .codec_contract import DecodeResult
+from .intermission_font_geometry import va_to_file_offset
 from .iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets
 from .text import TextTable
 
@@ -476,6 +477,42 @@ def font_capacity(config: Mapping) -> FontCapacity:
     ):
         raise ValueError("font_capacity must name a whole linear lead row above 4608 glyphs")
     return FontCapacity(glyph_count=count, linear=True)
+
+
+# Original's allocation size word and the missing-extended-entry branch/delay slot.
+# Linear mode keeps table hits and lets a miss use the ordinary row/column calculation.
+ORIGINAL_FONT_LOADER_SITES = (0x3F7D68, 0x13A95C, 0x13A960)
+STOCK_GLYPH_FALLBACK = (0x1000000C, 0xA4200062)
+LINEAR_GLYPH_FALLBACK = (0x10000002, 0x90240061)
+
+
+def original_font_loader_words(executable: bytes) -> tuple[int, ...]:
+    return tuple(struct.unpack_from("<I", executable, va_to_file_offset(site))[0]
+                 for site in ORIGINAL_FONT_LOADER_SITES)
+
+
+def expected_font_loader_words(capacity: FontCapacity) -> tuple[int, ...]:
+    fallback = LINEAR_GLYPH_FALLBACK if capacity.linear else STOCK_GLYPH_FALLBACK
+    return (capacity.glyph_count * GLYPH_SIZE, *fallback)
+
+
+def configure_original_font_loader(executable: bytes, capacity: FontCapacity) -> bytes:
+    actual = original_font_loader_words(executable)
+    expected = expected_font_loader_words(capacity)
+    if actual == expected:
+        return executable
+    if actual != expected_font_loader_words(FontCapacity()):
+        raise ValueError(f"Original font loader preimage drift: {actual!r}")
+    output = bytearray(executable)
+    for site, word in zip(ORIGINAL_FONT_LOADER_SITES, expected):
+        struct.pack_into("<I", output, va_to_file_offset(site), word)
+    return bytes(output)
+
+
+def verify_original_font_loader(executable: bytes, capacity: FontCapacity, decoded_size: int) -> None:
+    expected = expected_font_loader_words(capacity)
+    if decoded_size != expected[0] or original_font_loader_words(executable) != expected:
+        raise ValueError("Original font loader does not match the release font size and addressing mode")
 
 
 def linear_glyph_index(code: int, *, glyph_count: int) -> int:

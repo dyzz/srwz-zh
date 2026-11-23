@@ -6,7 +6,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT/'tools'), str(ROOT/'tools/special_disc/writeback')]
-from special_disc.writeback.update_current_font import appended_assignments, verify_glyph_delta
+from special_disc.writeback.update_current_font import FONT_DECODED_SIZE, appended_assignments, verify_glyph_delta
 
 
 class FontAppendTests(unittest.TestCase):
@@ -25,7 +25,7 @@ class FontAppendTests(unittest.TestCase):
             appended_assignments(old, new)
 
     def test_rasterizer_may_only_change_new_glyphs(self):
-        old = bytes(1290240); new = bytearray(old)
+        old = bytes(FONT_DECODED_SIZE); new = bytearray(old)
         new[288] = 1
         self.assertEqual(verify_glyph_delta(old, bytes(new), [dict(glyph_index=1)]), [1])
         new[576] = 2

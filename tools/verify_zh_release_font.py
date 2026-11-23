@@ -12,6 +12,7 @@ from srwz.font import (
     GLYPH_SIZE,
     decode_vt1_font_segment,
     font_capacity,
+    verify_original_font_loader,
     read_extended_glyph_table,
     sha256_bytes,
     standard_glyph_index,
@@ -160,6 +161,7 @@ def main() -> int:
     candidate_font = decode_vt1_font_segment(
         candidate_slps, candidate_vt1
     ).decoded
+    verify_original_font_loader(candidate_slps, font_capacity(config), len(candidate_font))
     if sha256_bytes(candidate_font) != component_report["font"][
         "output_decoded_sha256"
     ]:

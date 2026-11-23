@@ -41,6 +41,9 @@ try:
     )
     from srwz.font import (
         ascii_glyph_index,
+        configure_original_font_loader,
+        font_capacity,
+        verify_original_font_loader,
         decode_glyph,
         decode_vt1_font_segment,
         sha256_bytes,
@@ -258,6 +261,9 @@ except ModuleNotFoundError:
     )
     from tools.srwz.font import (
         ascii_glyph_index,
+        configure_original_font_loader,
+        font_capacity,
+        verify_original_font_loader,
         decode_glyph,
         decode_vt1_font_segment,
         sha256_bytes,
@@ -9745,7 +9751,9 @@ def _build_components(
     offset_plan = build_executable_offset_patch_plan(
         original_payloads["slps"], spec, output_offsets
     )
-    output_slps = offset_plan.apply(original_payloads["slps"])
+    capacity = font_capacity(_json(_project_path("config/fonts/zh-release-font.json")))
+    verify_original_font_loader(font_slps, capacity, len(font_decoded.output))
+    output_slps = configure_original_font_loader(offset_plan.apply(original_payloads["slps"]), capacity)
     if read_executable_archive_offsets(output_slps, spec, len(output_vt1)) != output_offsets:
         raise FullStoryComponentError("composed VT1 offsets fail SLPS reread")
     final_font = decode_vt1_font_segment(

@@ -22,9 +22,9 @@ class FontLoaderTests(unittest.TestCase):
         struct.pack_into('<I', exe, fonts.FONT_BUFFER_WORD, fonts.STOCK_FONT_BYTES)
         struct.pack_into('<II', exe, fonts.GLYPH_FALLBACK, 0x1000000C, 0xA4200062)
         native = bytes(exe)
-        for _ in range(2):
-            fonts.configure_font_loader(exe, 4992 * 288)
-            self.assertEqual(struct.unpack_from('<I', exe, fonts.FONT_BUFFER_WORD), (4992 * 288,))
+        for glyph_count in (4800, 4992, 4992, 4800):
+            fonts.configure_font_loader(exe, glyph_count * 288)
+            self.assertEqual(struct.unpack_from('<I', exe, fonts.FONT_BUFFER_WORD), (glyph_count * 288,))
             self.assertEqual(struct.unpack_from('<II', exe, fonts.GLYPH_FALLBACK),
                              (0x10000002, 0x90240061))
         fonts.configure_font_loader(exe, 4480 * 288)
@@ -57,6 +57,13 @@ class SpecialDiscFontRefreshTests(unittest.TestCase):
         cls.vt1 = read_member(CURRENT_ISO, members, fonts.VT1)
         cls.font = (root / 'font.bin').read_bytes()
         cls.digest = json.loads((root / 'report.json').read_text())['font']['decoded_sha256']
+        # This integration fixture can belong to an earlier release profile.
+        decoded = decode_production(cls.font).output
+        if len(decoded) not in fonts.SUPPORTED_FONT_BYTES or hashlib.sha256(decoded).hexdigest() != cls.digest:
+            raise ValueError('SP font fixture disagrees with its verification report')
+        profile = patch.object(fonts, 'FONT_DECODED_SIZE', len(decoded))
+        profile.start()
+        cls.addClassCleanup(profile.stop)
         cls.offsets = fonts.sp_offsets(cls.exe, fonts.VT1_TABLE, len(cls.vt1))
         start, end = cls.offsets[fonts.FONT_CHUNK:fonts.FONT_CHUNK + 2]
         cls.fits_current_slot = decode_production(cls.font).consumed <= end - start

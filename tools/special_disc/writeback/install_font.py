@@ -102,18 +102,18 @@ def replace_font_slot(vt1: bytes, exe: bytes, font: bytes, expected_sha256: str)
 FONT_BUFFER_WORD = 0x4524E8 - 0x100000 + 0x980
 GLYPH_FALLBACK = 0x13B3FC - 0x100000 + 0x980
 STOCK_FONT_BYTES = 4480 * 288
-EXTENDED_FONT_BYTES = 4992 * 288
+SUPPORTED_FONT_BYTES = (STOCK_FONT_BYTES, 4800 * 288, 4992 * 288)
 
 
 def configure_font_loader(executable: bytearray, decoded_bytes: int) -> None:
     """Match the EE allocation and glyph lookup to the decoded SP font."""
-    if decoded_bytes not in (STOCK_FONT_BYTES, EXTENDED_FONT_BYTES):
+    if decoded_bytes not in SUPPORTED_FONT_BYTES:
         raise ValueError(f'unsupported SP font size: {decoded_bytes}')
     capacity, = struct.unpack_from('<I', executable, FONT_BUFFER_WORD)
     lookup = struct.unpack_from('<II', executable, GLYPH_FALLBACK)
     native = (0x1000000C, 0xA4200062)
     linear = (0x10000002, 0x90240061)
-    if capacity not in (STOCK_FONT_BYTES, EXTENDED_FONT_BYTES) or lookup not in (native, linear):
+    if capacity not in SUPPORTED_FONT_BYTES or lookup not in (native, linear):
         raise ValueError('SP font loader preimage drift')
     struct.pack_into('<I', executable, FONT_BUFFER_WORD, decoded_bytes)
     struct.pack_into('<II', executable, GLYPH_FALLBACK,

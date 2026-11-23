@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1917,
+  "allocation_assignment_count": 1930,
   "reraster_existing_assignment_count": 1620,
-  "primary_assignment_count": 3537,
+  "primary_assignment_count": 3550,
   "surface_alias_assignment_count": 54,
-  "primary_mapping_sha256": "bdb6466012dfbf2c057c9da90229b5da692cb899ae683edde09505509eef333b",
+  "primary_mapping_sha256": "80887f45c07af2e0e36187af219e88f727c4d46458b4d4c79a5b3faf48d0c19a",
   "surface_alias_mapping_sha256": "9144c1571b3ee85e66bf339f9d07ae46bca14ede427f91fc52c62d2c432b9133",
   "source_compatibility_assignment_count": 36,
   "source_compatibility_mapping_sha256": "2a01296e8138d6343232359cb3818de870d704222de0d26a0ba53a38319beb62",
-  "remaining_allocation_candidate_count": 8,
-  "remaining_allocation_candidates_sha256": "6558af57372281f30f844c4bb10b98ba4fcc4e0dc0b49610c3062ddebeeed996",
+  "remaining_allocation_candidate_count": 0,
+  "remaining_allocation_candidates_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
   "primary_assignments": [
     {
       "character": "、",
@@ -23880,6 +23880,105 @@
       "mapping": "reclaimed_unique_default_width_candidate",
       "source_character": "練",
       "allocation_width_class": "default_width"
+    },
+    {
+      "character": "卦",
+      "code": "97FC",
+      "glyph_index": 4412,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "聯",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "叙",
+      "code": "9840",
+      "glyph_index": 4416,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "蓮",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "嘁",
+      "code": "9842",
+      "glyph_index": 4418,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "錬",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "慷",
+      "code": "9843",
+      "glyph_index": 4419,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "呂",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "捍",
+      "code": "9845",
+      "glyph_index": 4421,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "櫓",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "捶",
+      "code": "9847",
+      "glyph_index": 4423,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "賂",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "掂",
+      "code": "985C",
+      "glyph_index": 4444,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "禄",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "旱",
+      "code": "9860",
+      "glyph_index": 4448,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "倭",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "柬",
+      "code": "9940",
+      "glyph_index": 4608,
+      "mapping": "linear_area_allocation",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "皎",
+      "code": "9941",
+      "glyph_index": 4609,
+      "mapping": "linear_area_allocation",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "耘",
+      "code": "9942",
+      "glyph_index": 4610,
+      "mapping": "linear_area_allocation",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "莅",
+      "code": "9943",
+      "glyph_index": 4611,
+      "mapping": "linear_area_allocation",
+      "allocation_width_class": "default_width"
+    },
+    {
+      "character": "逾",
+      "code": "9944",
+      "glyph_index": 4612,
+      "mapping": "linear_area_allocation",
+      "allocation_width_class": "default_width"
     }
   ],
   "surface_alias_assignments": [
@@ -24606,56 +24705,7 @@
       "reason": "Preserve the original CP932 glyph used by a stock formation name that may already be stored on a legacy memory card."
     }
   ],
-  "remaining_allocation_candidates": [
-    {
-      "code": "97FC",
-      "glyph_index": 4412,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "聯"
-    },
-    {
-      "code": "9840",
-      "glyph_index": 4416,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "蓮"
-    },
-    {
-      "code": "9842",
-      "glyph_index": 4418,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "錬"
-    },
-    {
-      "code": "9843",
-      "glyph_index": 4419,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "呂"
-    },
-    {
-      "code": "9845",
-      "glyph_index": 4421,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "櫓"
-    },
-    {
-      "code": "9847",
-      "glyph_index": 4423,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "賂"
-    },
-    {
-      "code": "985C",
-      "glyph_index": 4444,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "禄"
-    },
-    {
-      "code": "9860",
-      "glyph_index": 4448,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "倭"
-    }
-  ],
+  "remaining_allocation_candidates": [],
   "migration": {
     "mode": "flattened_release_baseline_with_legacy_save_compatibility",
     "preserved_historical_primary_assignment_count": 3158,
@@ -41629,6 +41679,113 @@
           "glyph_index": 4411,
           "mapping": "reclaimed_unique_default_width_candidate",
           "source_character": "練",
+          "allocation_width_class": "default_width"
+        }
+      ]
+    },
+    {
+      "selection_sha256": "303f4ec4c19258a139460b1904ffa983a4730c63e469ea168f2eb4a18a256981",
+      "assignment_count": 13,
+      "allocation_assignment_count": 13,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "卦",
+          "code": "97FC",
+          "glyph_index": 4412,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "聯",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "叙",
+          "code": "9840",
+          "glyph_index": 4416,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "蓮",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "嘁",
+          "code": "9842",
+          "glyph_index": 4418,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "錬",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "慷",
+          "code": "9843",
+          "glyph_index": 4419,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "呂",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "捍",
+          "code": "9845",
+          "glyph_index": 4421,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "櫓",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "捶",
+          "code": "9847",
+          "glyph_index": 4423,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "賂",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "掂",
+          "code": "985C",
+          "glyph_index": 4444,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "禄",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "旱",
+          "code": "9860",
+          "glyph_index": 4448,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "倭",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "柬",
+          "code": "9940",
+          "glyph_index": 4608,
+          "mapping": "linear_area_allocation",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "皎",
+          "code": "9941",
+          "glyph_index": 4609,
+          "mapping": "linear_area_allocation",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "耘",
+          "code": "9942",
+          "glyph_index": 4610,
+          "mapping": "linear_area_allocation",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "莅",
+          "code": "9943",
+          "glyph_index": 4611,
+          "mapping": "linear_area_allocation",
+          "allocation_width_class": "default_width"
+        },
+        {
+          "character": "逾",
+          "code": "9944",
+          "glyph_index": 4612,
+          "mapping": "linear_area_allocation",
           "allocation_width_class": "default_width"
         }
       ]

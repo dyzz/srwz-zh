@@ -7,7 +7,7 @@
   },
   "allocation_snapshot": {
     "path": "config/encoding/zh-release-font-assignments.json",
-    "sha256": "e66556e803b095bd587cddf6b546847820fa0eb040d432a8a578133083049568",
+    "sha256": "f06a4deb01657f98e4e040b76caeb9881c4bc050ec3bfa7e2578353ed9af5e74",
     "snapshot_id": "srwz-zh-release-font-assignments-v1"
   },
   "formation_compatibility_freeze": {
@@ -97,14 +97,14 @@
     "preserve": "Unselected stock ISO glyphs; source-compatibility glyphs byte-exact at their original codes; all runtime placeholders and lossless control notation; archive size; and executable layout. The renderer binary is not patched."
   },
   "expected": {
-    "primary_assignment_count": 3537,
+    "primary_assignment_count": 3550,
     "surface_alias_assignment_count": 54,
     "source_compatibility_assignment_count": 36,
-    "allocation_assignment_count": 1917,
+    "allocation_assignment_count": 1930,
     "reraster_existing_assignment_count": 1620,
     "historical_primary_assignment_count": 3158,
     "added_global_assignment_count": 49,
-    "remaining_candidate_slot_count": 8
+    "remaining_candidate_slot_count": 0
   },
   "outputs": {
     "readiness": "work/writeback/zh-release-font-readiness.json",
@@ -117,5 +117,10 @@
     "status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "scope": "One flattened HarmonyOS Sans SC font/codebook component for every registered Chinese localization corpus. It does not build an ISO or prove runtime rendering.",
     "runtime_reason": "Static component proof only; new-game and load-game runtime entry remain separate release gates."
+  },
+  "font_capacity": {
+    "glyph_count": 4800,
+    "linear_area": true,
+    "reason": "Reserve the first linear lead row beyond the stock font for reviewed Simplified dialogue."
   }
 }

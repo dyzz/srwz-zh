@@ -45,6 +45,7 @@ from srwz.font import (
     ascii_glyph_index,
     decode_vt1_font_segment,
     font_capacity,
+    verify_original_font_loader,
     glyph_index_for_code,
     read_extended_glyph_table,
     sha256_bytes,
@@ -5549,6 +5550,7 @@ def main() -> int:
     font_index = 2
     font_chunk = vt1[font_offsets[font_index]:font_offsets[font_index + 1]]
     decoded_font = decode(font_chunk)
+    verify_original_font_loader(slps, _release_font_capacity(), len(decoded_font.output))
     font_padding = font_chunk[decoded_font.consumed:]
     expected_font = expected_font_component(
         config,
