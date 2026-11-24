@@ -1476,6 +1476,7 @@ def relocate_stage_texts_to_arena(
     function_address: int,
     replacements: Mapping[str, str],
     speaker_replacements: Mapping[int, str] | None = None,
+    speaker_entry_replacements: Mapping[str, str] | None = None,
     overrides: Mapping[str, int] | None = None,
     alignment: int = 16,
     base_address: int = STAGE_BASE_ADDRESS,
@@ -1518,6 +1519,8 @@ def relocate_stage_texts_to_arena(
     unknown_speakers = sorted(set(speaker_replacements) - known_speakers)
     if unknown_speakers:
         raise WritebackError(f"unknown stage speaker ids: {unknown_speakers!r}")
+    speaker_entry_replacements = dict(speaker_entry_replacements or {})
+    used_speaker_entries: set[str] = set()
 
     output = bytearray(data)
     allocations = []
@@ -1544,6 +1547,9 @@ def relocate_stage_texts_to_arena(
                     entry.speaker_id,
                     speaker.text,
                 )
+                if entry.entry_id in speaker_entry_replacements:
+                    expected_speaker = speaker_entry_replacements[entry.entry_id]
+                    used_speaker_entries.add(entry.entry_id)
                 prefix = (
                     encode_text(
                         expected_speaker,
@@ -1620,6 +1626,9 @@ def relocate_stage_texts_to_arena(
             ):
                 raise WritebackError(f"{allocation.entry_id} speaker reparse mismatch")
 
+    unused_speaker_entries = sorted(set(speaker_entry_replacements) - used_speaker_entries)
+    if unused_speaker_entries:
+        raise WritebackError(f"unused stage line speaker overrides: {unused_speaker_entries!r}")
     return StageBatchWrite(
         data=rebuilt,
         stage_index=stage_index,
@@ -1639,6 +1648,7 @@ def repack_stage_texts_in_place(
     replacements: Mapping[str, str],
     parsed_source: StageParseResult | None = None,
     speaker_replacements: Mapping[int, str] | None = None,
+    speaker_entry_replacements: Mapping[str, str] | None = None,
     overrides: Mapping[str, int] | None = None,
     message_encoders: PreparedStageMessageEncoders | None = None,
     exact_address_contracts: Iterable[StageExactAddressContract] = (),
@@ -1712,6 +1722,8 @@ def repack_stage_texts_in_place(
     unknown_speakers = sorted(set(speaker_replacements) - known_speakers)
     if unknown_speakers:
         raise WritebackError(f"unknown stage speaker ids: {unknown_speakers!r}")
+    speaker_entry_replacements = dict(speaker_entry_replacements or {})
+    used_speaker_entries: set[str] = set()
 
     if message_encoders is None:
         message_encoders = PreparedStageMessageEncoders(table, overrides)
@@ -1742,6 +1754,9 @@ def repack_stage_texts_in_place(
                     entry.speaker_id,
                     speaker.text,
                 )
+                if entry.entry_id in speaker_entry_replacements:
+                    expected_speaker = speaker_entry_replacements[entry.entry_id]
+                    used_speaker_entries.add(entry.entry_id)
                 prefix = (
                     encoder.encode(
                         expected_speaker,
@@ -2016,6 +2031,9 @@ def repack_stage_texts_in_place(
                 f"{actual_message.text!r}"
             )
 
+    unused_speaker_entries = sorted(set(speaker_entry_replacements) - used_speaker_entries)
+    if unused_speaker_entries:
+        raise WritebackError(f"unused stage line speaker overrides: {unused_speaker_entries!r}")
     return StageBatchWrite(
         data=rebuilt,
         stage_index=stage_index,

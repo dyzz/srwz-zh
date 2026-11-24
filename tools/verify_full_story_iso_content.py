@@ -11,7 +11,9 @@ from collections import Counter
 from pathlib import Path
 
 from srwz.scoped_translations import (
+    load_line_speaker_name_overrides,
     load_scoped_translations,
+    load_stage_speaker_name_overrides,
     resolve_scoped_translation,
     verify_scoped_translation_coverage,
 )
@@ -4130,7 +4132,9 @@ def verify_library_scoped_actor_corrections(slps: bytes, archive: bytes, table: 
     """Read corrected actors and other users of their shared source strings."""
     corpus = json.loads((PROJECT_ROOT / "corpus/zh/library/v0.2-reviewed.json").read_text())
     overrides = load_scoped_translations(corpus.get("field_translation_overrides", []))
-    if any(not key.startswith("character/") or not key.endswith("/ACTR") for key in overrides):
+    # Fields read back here: the voice-actor credit and the short name (two characters can share one).
+    fields = sorted({key.rsplit("/", 1)[-1] for key in overrides})
+    if any(not key.startswith("character/") for key in overrides) or not set(fields) <= {"ACTR", "CHNN"}:
         raise SystemExit("LIBRARY scoped readback requires an explicit new field verifier")
     scope = json.loads((PROJECT_ROOT / "config/library/v0.2.0.json").read_text())
     locks = scope["source_member_locks"]
@@ -4146,23 +4150,29 @@ def verify_library_scoped_actor_corrections(slps: bytes, archive: bytes, table: 
     original_offsets = read_executable_archive_offsets(source_elf, spec, len(source_archive))
     final_offsets = read_executable_archive_offsets(slps, spec, len(archive))
     translations = {entry["source_text_sha256"]: entry["translation"] for entry in corpus["entries"]}
-    shared_sources = {row["source_text_sha256"] for row in overrides.values()}
+    shared_sources = {
+        tag: {row["source_text_sha256"] for key, row in overrides.items() if key.endswith("/" + tag)}
+        for tag in fields
+    }
     rows = []
     for index, (start, end) in enumerate(zip(original_offsets, original_offsets[1:])):
         original = parse_zkn_decoded_chunk(decode(source_archive[start:end]).output)
-        source = original.field("ACTR").text
-        source_hash = sha256_bytes(source.encode("utf-8"))
-        entry_id = f"character/{index:03d}/ACTR"
-        if entry_id not in overrides and source_hash not in shared_sources:
-            continue
-        expected = resolve_scoped_translation(overrides, entry_id, source,
-            translations[source_hash], context_text=original.field("CHFN").text)
-        actual_doc = parse_runtime_zkn_decoded_chunk(
-            decode(archive[final_offsets[index]:final_offsets[index + 1]]).output, table)
-        actual = actual_doc.field("ACTR").text
-        if actual != expected:
-            raise SystemExit(f"LIBRARY actor readback mismatch: {entry_id}: {actual!r} != {expected!r}")
-        rows.append({"id": entry_id, "translation": actual, "scoped_correction": entry_id in overrides})
+        actual_doc = None
+        for tag in fields:
+            source = original.field(tag).text
+            source_hash = sha256_bytes(source.encode("utf-8"))
+            entry_id = f"character/{index:03d}/{tag}"
+            if entry_id not in overrides and source_hash not in shared_sources[tag]:
+                continue
+            expected = resolve_scoped_translation(overrides, entry_id, source,
+                translations[source_hash], context_text=original.field("CHFN").text)
+            if actual_doc is None:
+                actual_doc = parse_runtime_zkn_decoded_chunk(
+                    decode(archive[final_offsets[index]:final_offsets[index + 1]]).output, table)
+            actual = actual_doc.field(tag).text
+            if actual != expected:
+                raise SystemExit(f"LIBRARY {tag} readback mismatch: {entry_id}: {actual!r} != {expected!r}")
+            rows.append({"id": entry_id, "translation": actual, "scoped_correction": entry_id in overrides})
     verify_scoped_translation_coverage(overrides, (row["id"] for row in rows))
     return {"entries": rows, "all_exact": True, "shared_source_other_characters_checked": True}
 
@@ -6402,6 +6412,13 @@ def main() -> int:
     speakers = load_translations(
         PROJECT_ROOT / "corpus/zh/story-speakers.json"
     )
+    for entry_id, translation in load_stage_speaker_name_overrides(json.loads(
+        (PROJECT_ROOT / "corpus/zh/story-speakers.json").read_text(encoding="utf-8")
+    )).items():
+        speakers[entry_id] = expand_compact_scopes(normalize_original_fullwidth_ascii(translation))
+    line_speaker_rows = load_line_speaker_name_overrides(json.loads(
+        (PROJECT_ROOT / "corpus/zh/story-speakers.json").read_text(encoding="utf-8")
+    ))
     stage_component_spec = component.get("inputs", {}).get(
         "full_story_stage_report"
     )
@@ -6565,6 +6582,11 @@ def main() -> int:
             stage_speakers = {
                 int(entry_id.split("/")[-1]): translation
                 for entry_id, translation in speakers.items()
+                if stage_index(entry_id) == stage
+            }
+            stage_line_speakers = {
+                entry_id: row
+                for entry_id, row in line_speaker_rows.items()
                 if stage_index(entry_id) == stage
             }
             expected_texts = {
@@ -6910,6 +6932,8 @@ def main() -> int:
                 )
                 if source_prefix.terminator != "newline":
                     continue
+                if source_dialogue.entry_id in stage_line_speakers:
+                    continue  # named per line; checked with the line below
                 output_dialogue = output_entries[source_dialogue.entry_id]
                 assert output_dialogue.text_offset is not None
                 output_speaker = decode_text(
@@ -7000,6 +7024,17 @@ def main() -> int:
                     stop_at_newline=True,
                 )
                 expected_speaker = stage_speakers[source_entry.speaker_id]
+                line_speaker = stage_line_speakers.get(entry_id)
+                if line_speaker is not None:
+                    if (
+                        source_prefix.terminator != "newline"
+                        or sha256_bytes(source_speakers[source_entry.speaker_id].encode("utf-8"))
+                        != line_speaker["source_text_sha256"]
+                    ):
+                        raise SystemExit(f"{entry_id} line speaker override preimage drift")
+                    expected_speaker = expand_compact_scopes(
+                        normalize_original_fullwidth_ascii(line_speaker["translation"])
+                    )
                 if source_prefix.terminator == "newline":
                     if (
                         output_prefix.terminator != "newline"

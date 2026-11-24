@@ -42,6 +42,10 @@ from srwz.stage import (
 from srwz.story_quotes import evaluate_story_quote
 from srwz.stage_formations import discover_stage_formation_pointer_owners
 from srwz.compact_scopes import expand as expand_compact_scopes
+from srwz.scoped_translations import (
+    load_line_speaker_name_overrides,
+    load_stage_speaker_name_overrides,
+)
 from srwz.text import (
     decode_text,
     encode_text,
@@ -406,6 +410,35 @@ def _speaker_translations(path: Path, stages: set[int]) -> dict[int, dict[int, s
             result[stage][int(parts[-1])] = normalize_original_fullwidth_ascii(
                 entry["translation"]
             )
+    try:
+        overrides = load_stage_speaker_name_overrides(document)
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
+    for entry_id, translation in overrides.items():
+        parts = entry_id.split("/")
+        stage = int(parts[1])
+        if stage in result:
+            result[stage][int(parts[-1])] = normalize_original_fullwidth_ascii(translation)
+    return result
+
+
+def _line_speaker_names(rows: Mapping[str, dict], stage: int, parsed) -> dict[str, str]:
+    """Line-level speaker names of one stage, checked against the Japanese speaker of each line."""
+    prefix = f"story/{stage:03d}/dialogue/"
+    selected = {entry_id: row for entry_id, row in rows.items() if entry_id.startswith(prefix)}
+    if not selected:
+        return {}
+    source_speakers = {
+        entry.speaker_id: entry.text for entry in parsed.entries if entry.kind == "speaker"
+    }
+    lines = {entry.entry_id: entry for entry in parsed.entries if entry.kind == "dialogue"}
+    result = {}
+    for entry_id, row in selected.items():
+        line = lines.get(entry_id)
+        source = source_speakers.get(line.speaker_id) if line is not None else None
+        if source is None or hashlib.sha256(source.encode("utf-8")).hexdigest() != row["source_text_sha256"]:
+            raise SystemExit(f"line speaker override preimage drift: {entry_id}")
+        result[entry_id] = normalize_original_fullwidth_ascii(row["translation"])
     return result
 
 
@@ -1052,6 +1085,10 @@ def build(
     )
     conditions = _entry_translations(conditions_path, stages)
     speakers = _speaker_translations(speakers_path, stages)
+    try:
+        line_speaker_rows = load_line_speaker_name_overrides(_json(speakers_path))
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
     dialogue = {
         stage: _entry_translations(path, {stage}, typography=typography)
         for stage, path in stage_files.items()
@@ -1397,6 +1434,9 @@ def build(
             replacements=replacements,
             parsed_source=parsed_source,
             speaker_replacements=speakers[stage],
+            speaker_entry_replacements=_line_speaker_names(
+                line_speaker_rows, stage, parsed_source
+            ),
             overrides=overrides,
             message_encoders=stage_message_encoders,
             exact_address_contracts=exact_address_contracts.values(),

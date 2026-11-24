@@ -47,3 +47,38 @@ def verify_scoped_translation_coverage(overrides: Mapping[str, dict], used: Iter
     missing = set(overrides) - set(used)
     if missing:
         raise ValueError(f"unused scoped translations: {sorted(missing)}")
+
+
+def load_stage_speaker_name_overrides(document: Mapping[str, object]) -> dict[str, str]:
+    """Speaker entries whose name differs from the shared translation of their Japanese name.
+
+    Two unrelated characters can share one Japanese speaker name (レイ: Rey Za Burrel and Ray Beams).
+    ``entries`` keeps the shared name, which also feeds the pilot display-name table; rows under
+    ``stage_name_overrides`` rename the speaker of single stages only.
+    """
+    rows = load_scoped_translations(document.get("stage_name_overrides", []))
+    entries = {entry["id"]: entry for entry in document.get("entries", []) if isinstance(entry, dict)}
+    result = {}
+    for entry_id, row in rows.items():
+        entry = entries.get(entry_id)
+        if entry is None or "/speaker/" not in entry_id:
+            raise ValueError(f"unknown stage speaker override: {entry_id}")
+        if entry.get("source_text_sha256") != row["source_text_sha256"]:
+            raise ValueError(f"stage speaker override preimage drift: {entry_id}")
+        if not entry.get("translation") or entry["translation"] == row["translation"]:
+            raise ValueError(f"stage speaker override changes nothing: {entry_id}")
+        result[entry_id] = row["translation"]
+    return result
+
+
+def load_line_speaker_name_overrides(document: Mapping[str, object]) -> dict[str, dict]:
+    """Dialogue lines whose speaker name differs from their stage speaker entry.
+
+    For a stage in which both namesakes speak: rows under ``line_name_overrides`` are keyed by dialogue
+    entry ID and carry the SHA-256 of the Japanese speaker name the line must have.
+    """
+    rows = load_scoped_translations(document.get("line_name_overrides", []))
+    for entry_id in rows:
+        if "/dialogue/" not in entry_id:
+            raise ValueError(f"line speaker override is not a dialogue entry: {entry_id}")
+    return rows
