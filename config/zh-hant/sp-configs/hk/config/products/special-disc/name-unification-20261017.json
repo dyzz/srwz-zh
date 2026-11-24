@@ -140,6 +140,13 @@
         "breast-fire",
         "breast-burn"
       ]
+    },
+    {
+      "path": "config/editorial/ray-beams-name-20261124.json",
+      "sha256": "56d074454eb02c22ab1825d596a085b7cb3fd20b3a987e2a3d7167448f08f114",
+      "ids": [
+        "r01"
+      ]
     }
   ],
   "policy": "2026-10-17 本篇／BEST／SP 译名统一：只改写决定涉及的 SP 共享名称槽位；原文字节、迁移后字节、指针与容量锁定，写后回读。system-text 已覆盖的槽位不在此列。 2026-10-17 本篇旧译统一（main-old-renderings-20261017）追加 SP 继承的 26 个槽位。 2026-11-14 アゲハ隊改定为展翅队（ageha-rename-20261114）追加 SP 继承的 4 个驾驶员名槽位。 2026-11-15 アンダーゴレーム改定为安达葛雷姆（term-leftovers-20261115）追加 SP 继承的 2 个机体名槽位。 2026-11-20 ブレストファイヤー／ブレストバーン 改定为胸甲火焰／胸甲爆炎（breast-sigma-names-20261120）追加 SP 继承的 2 个武器名槽位。",
@@ -2179,6 +2186,84 @@
       "translation": "胸甲爆炎",
       "decision": "breast-burn",
       "decision_record": "config/editorial/breast-sigma-names-20261120.json"
+    },
+    {
+      "kind": "pilot_field",
+      "pilot_index": 708,
+      "field": "display",
+      "offset": 137114,
+      "capacity": 21,
+      "source_text": "レイ",
+      "source_hex": "838c83430000000000000000000000000000000000",
+      "previous_hex": "978b00000000000000000000000000000000000000",
+      "translation": "蕾",
+      "decision": "r01",
+      "decision_record": "config/editorial/ray-beams-name-20261124.json"
+    },
+    {
+      "kind": "pilot_field",
+      "pilot_index": 708,
+      "field": "given",
+      "offset": 137158,
+      "capacity": 23,
+      "source_text": "レイ",
+      "source_hex": "838c834300000000000000000000000000000000000000",
+      "previous_hex": "978b000000000000000000000000000000000000000000",
+      "translation": "蕾",
+      "decision": "r01",
+      "decision_record": "config/editorial/ray-beams-name-20261124.json"
+    },
+    {
+      "kind": "pilot_field",
+      "pilot_index": 709,
+      "field": "display",
+      "offset": 137292,
+      "capacity": 21,
+      "source_text": "レイ",
+      "source_hex": "838c83430000000000000000000000000000000000",
+      "previous_hex": "978b00000000000000000000000000000000000000",
+      "translation": "蕾",
+      "decision": "r01",
+      "decision_record": "config/editorial/ray-beams-name-20261124.json"
+    },
+    {
+      "kind": "pilot_field",
+      "pilot_index": 709,
+      "field": "given",
+      "offset": 137336,
+      "capacity": 23,
+      "source_text": "レイ",
+      "source_hex": "838c834300000000000000000000000000000000000000",
+      "previous_hex": "978b000000000000000000000000000000000000000000",
+      "translation": "蕾",
+      "decision": "r01",
+      "decision_record": "config/editorial/ray-beams-name-20261124.json"
+    },
+    {
+      "kind": "pilot_field",
+      "pilot_index": 710,
+      "field": "display",
+      "offset": 137470,
+      "capacity": 21,
+      "source_text": "レイ",
+      "source_hex": "838c83430000000000000000000000000000000000",
+      "previous_hex": "978b00000000000000000000000000000000000000",
+      "translation": "蕾",
+      "decision": "r01",
+      "decision_record": "config/editorial/ray-beams-name-20261124.json"
+    },
+    {
+      "kind": "pilot_field",
+      "pilot_index": 710,
+      "field": "given",
+      "offset": 137514,
+      "capacity": 23,
+      "source_text": "レイ",
+      "source_hex": "838c834300000000000000000000000000000000000000",
+      "previous_hex": "978b000000000000000000000000000000000000000000",
+      "translation": "蕾",
+      "decision": "r01",
+      "decision_record": "config/editorial/ray-beams-name-20261124.json"
     }
   ]
 }
