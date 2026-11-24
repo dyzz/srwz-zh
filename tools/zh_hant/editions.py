@@ -34,7 +34,7 @@ class Edition:
 ORIGINAL = Edition(
     key='original', exe='SLPS_258.87',
     cave=(0x78B640, 0x78C4C0),                 # free tail of the Latin-bank segment (payload ends 0x78b610)
-    # 84-byte card / panel buffer in the gap between the overlays' end (0x789D00) and the Latin-bank segment
+    # 96-byte card / panel buffer in the gap between the overlays' end (0x789D00) and the Latin-bank segment
     # (0x789E00): no segment loads there and a full route showed only the loader's zero fill (2026-11-18,
     # work/analysis/zh-hk-tw-20261118/gw1). 0x78C4C0-0x78C6C0 after the cave is the Latin payload's work area.
     runtime_buf=0x789D00,
@@ -50,9 +50,9 @@ ORIGINAL = Edition(
         TEXT_PASS=0x13AC90, KVP_DRAW=0x36B330, MSG_TEXT=0x4171F0, MSG_ATTR=0x42BF90,
         ICON_SYS=0x414080, SAVE_ICON=0x414450, SAVE_ICON_SIZE=11664,
         BOX_X=-0x2F, BOX_Y=-0x2E,
-        ICON_OK=47, ICON_CANCEL=39,             # KVP styles: small lit ○ / × button (45/37 large, +1 dimmed)
+        ICON_SWITCH=81, ICON_OK=47, ICON_CANCEL=39,             # KVP styles: small lit ○ / × button (45/37 large, +1 dimmed)
         ICON_Y=-12,                             # hint row of the panel box (style y: screen ≈ 2y + 226 in 448 lines)
-        ICON_OK_X=-63, ICON_CANCEL_X=17,        # symbol centre ≈ x + 334; over the hint's blanks before 保存 / 取消
+        ICON_SWITCH_X=-127, ICON_OK_X=-11, ICON_CANCEL_X=69,        # symbol centre ≈ x + 334; over the hint's blanks before 保存 / 取消
     ),
     forbidden=((0x3F7D68, 0x3F7D6C), (0x798000, 0x7A0000), (0x789D00, 0x789E00),
                *((a, a + 8) for a in (0x189580, 0x189B70, 0x189600, 0x18AC10)),          # music hooks
@@ -88,8 +88,8 @@ BEST = Edition(
         TEXT_PASS=0x13AC90, KVP_DRAW=0x36B930, MSG_TEXT=0x417970, MSG_ATTR=0x42C7C0,
         ICON_SYS=0x414800, SAVE_ICON=0x414BD0, SAVE_ICON_SIZE=11664,
         BOX_X=-0x2F, BOX_Y=-0x2E,
-        ICON_OK=47, ICON_CANCEL=39,
-        ICON_Y=-12, ICON_OK_X=-63, ICON_CANCEL_X=17,
+        ICON_SWITCH=81, ICON_OK=47, ICON_CANCEL=39,
+        ICON_Y=-12, ICON_SWITCH_X=-127, ICON_OK_X=-11, ICON_CANCEL_X=69,
     ),
     forbidden=((0x3F84E8, 0x3F84EC), (0x798000, 0x7A0000), (0x78A500, 0x78A600),
                *((a, a + 8) for a in (0x189920, 0x189F10, 0x1899A0, 0x18AFB0)),          # music hooks
@@ -119,8 +119,8 @@ SP = Edition(
         TEXT_PASS=0x13B730, KVP_DRAW=0x390BE0, MSG_TEXT=0x4728F0, MSG_ATTR=0x49A7F0,
         ICON_SYS=0x46F210, SAVE_ICON=0x46F5E0, SAVE_ICON_SIZE=13038,
         BOX_X=-0x2F, BOX_Y=-0x2E,
-        ICON_OK=45, ICON_CANCEL=37,             # SP's style table is offset by -2 from Original's
-        ICON_Y=-12, ICON_OK_X=-63, ICON_CANCEL_X=17,
+        ICON_SWITCH=79, ICON_OK=45, ICON_CANCEL=37,             # SP's style table is offset by -2 from Original's
+        ICON_Y=-12, ICON_SWITCH_X=-127, ICON_OK_X=-11, ICON_CANCEL_X=69,
     ),
     forbidden=(                                    # SP payload text (no-BGM labels, gallery names) may differ
                *((a, a + 8) for a in (0x18B1F0, 0x18B7E0, 0x18B270, 0x18C8A0)),         # music hooks

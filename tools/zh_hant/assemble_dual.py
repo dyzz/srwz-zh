@@ -62,8 +62,7 @@ SP_FONT_LOADER = {0x13AC14: 0x84232DE4, 0x13AC24: 0x84222DE6, 0x13AC3C: 0x8C6500
 # (stock 0x81CB). The box centres every line by its code count (0x139B00: font 6 counts 16 for every code, blanks
 # included), so all three rows have the same code count (labels 5 codes, padded on the left if shorter; values padded
 # on the right: 4 codes on a two-language disc, 6 with the regional language names) and line up as a column with the
-# colons aligned. The hint row's second blank and its last middle blank are where lang_hook.S draws the ○ / × button
-# sprites; the extra leading blank moves the row half a code right, under the middle of the column (user, 2026-11-17).
+# colons aligned. The hint row reserves spaces for the native D-pad, circle and cross sprites.
 # Identical fragments are stored once.
 MSG_KEYS = ['cursor', 'blank', 'lbl_lang', 'lbl_zero', 'lbl_quote', 'v_sc', 'v_tc', 'v_dot', 'v_plain', 'v_cn', 'v_jp',
             'hint', 'ok', 'fail', 'nl', 'v_hk']
@@ -72,15 +71,15 @@ MSG_KEYS = ['cursor', 'blank', 'lbl_lang', 'lbl_zero', 'lbl_quote', 'v_sc', 'v_t
 _BASE = {
     'sc': {'cursor': '⇒', 'blank': '　', 'lbl_lang': '游戏语言：', 'lbl_zero': '数字样式：', 'lbl_quote': '对话引号：',
            'v_sc': '简体中文', 'v_tc': '繁体中文', 'v_dot': '\ue000', 'v_plain': '\ue001', 'v_cn': '中文“”', 'v_jp': '日文「」',
-           'hint': '　　保存　　　取消', 'ok': '设定已保存。\n（语言在重新启动游戏后生效）', 'fail': '无法写入记忆卡。', 'nl': '\n',
+           'hint': '　　左右切换　　　保存　　　取消', 'ok': '设定已保存。\n（语言在重新启动游戏后生效）', 'fail': '无法写入记忆卡。', 'nl': '\n',
            'v_tw': '台湾繁体', 'v_hk': '香港繁体'},
     'tc': {'cursor': '⇒', 'blank': '　', 'lbl_lang': '遊戲語言：', 'lbl_zero': '數字樣式：', 'lbl_quote': '對話引號：',
            'v_sc': '簡體中文', 'v_tc': '繁體中文', 'v_dot': '\ue000', 'v_plain': '\ue001', 'v_cn': '中文“”', 'v_jp': '日文「」',
-           'hint': '　　保存　　　取消', 'ok': '設定已保存。\n（語言在重新啟動遊戲後生效）', 'fail': '無法寫入記憶卡。', 'nl': '\n',
+           'hint': '　　左右切換　　　保存　　　取消', 'ok': '設定已保存。\n（語言在重新啟動遊戲後生效）', 'fail': '無法寫入記憶卡。', 'nl': '\n',
            'v_tw': '台灣繁體', 'v_hk': '香港繁體'},
     'hk': {'cursor': '⇒', 'blank': '　', 'lbl_lang': '遊戲語言：', 'lbl_zero': '數字樣式：', 'lbl_quote': '對話引號：',
            'v_sc': '簡體中文', 'v_tc': '繁體中文', 'v_dot': '\ue000', 'v_plain': '\ue001', 'v_cn': '中文“”', 'v_jp': '日文「」',
-           'hint': '　　保存　　　取消', 'ok': '設定已保存。\n（語言在重新啓動遊戲後生效）', 'fail': '無法寫入記憶卡。', 'nl': '\n',
+           'hint': '　　左右切換　　　保存　　　取消', 'ok': '設定已保存。\n（語言在重新啓動遊戲後生效）', 'fail': '無法寫入記憶卡。', 'nl': '\n',
            'v_tw': '台灣繁體', 'v_hk': '香港繁體'},
 }
 
@@ -98,7 +97,7 @@ def panel_messages(langs: int) -> dict:
         rows = [(m[l], vs) for l, vs in (('lbl_lang', [m['v_sc'], m['v_tc']] + ([m['v_hk']] if langs == 3 else [])),
                                           ('lbl_zero', [m['v_dot'], m['v_plain']]), ('lbl_quote', [m['v_cn'], m['v_jp']]))]
         assert {1 + len(l) + len(v) for l, vs in rows for v in vs} == {10}, 'panel rows must be 10 codes'
-        assert 3 * (2 * 10 + 1) + 2 * len(m['hint']) + 1 <= 84, 'panel text exceeds panel_buf'
+        assert 3 * (2 * 10 + 1) + 2 * len(m['hint']) + 1 <= 96, 'panel text exceeds panel_buf'
         out[lang] = {k: m[k] for k in MSG_KEYS}
     return out
 

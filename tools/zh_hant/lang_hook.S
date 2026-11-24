@@ -367,7 +367,11 @@ th_draw:
         addiu   $t1, $zero, 1
         bne     $t0, $t1, 2f                    # result line: no button icons
         move    $s0, $v0
-        move    $a0, $v0                        # panel hint row: the game's ○ / × button sprites (KVP styles)
+        move    $a0, $v0                        # panel hint row: the game's D-pad / ○ / × button sprites (KVP styles)
+        addiu   $a1, $zero, ICON_SWITCH
+        jal     draw_icon
+        addiu   $a2, $zero, ICON_SWITCH_X
+        move    $a0, $v0
         addiu   $a1, $zero, ICON_OK
         jal     draw_icon
         addiu   $a2, $zero, ICON_OK_X
@@ -568,8 +572,7 @@ sp_row: lui     $t9, %hi(panel)
 
 # append(index): copy fragment `index` (pick_msg) to s0 and advance s0 (show_panel's write pointer).
 append:
-        addiu   $sp, $sp, -16
-        sd      $ra, 0($sp)
+        move    $t8, $ra                        # pick_msg only clobbers t0..t2 and a0
         jal     pick_msg
         nop
 1:      lbu     $t0, 0($v0)
@@ -579,20 +582,16 @@ append:
         addiu   $v0, $v0, 1
         b       1b
         addiu   $s0, $s0, 1
-2:      ld      $ra, 0($sp)
-        jr      $ra
-        addiu   $sp, $sp, 16
+2:      jr      $t8
+        nop
 
 # pick_msg(index) -> text fragment in the language on screen (lang word), MSG_KEYS order in assemble_dual.py.
 # Each language's text uses its own codebook.
 pick_msg:
         lui     $t0, %hi(lang)
         lw      $t0, %lo(lang)($t0)
-        sltiu   $t1, $t0, 2                     # Hong Kong (2) shows the Taiwan text set
-        beqz    $t1, 1f
-        addiu   $t2, $zero, 1
-        move    $t2, $t0
-1:      sll     $t0, $t2, 5                     # set * 32 (16 halfword offsets a set)
+        sltu    $t0, $zero, $t0                 # Taiwan and Hong Kong share the Traditional text
+        sll     $t0, $t0, 5                     # 16 halfword offsets per language
         sll     $a0, $a0, 1
         addu    $t0, $t0, $a0
         lui     $t1, %hi(msg_table)
@@ -880,12 +879,12 @@ r2:     ld      $ra, 0($sp)
 hook_data:                              # code ends here (assemble_dual checks the code for $at)
         .if RUNTIME_BUF
         .equ    setting, RUNTIME_BUF            # LANG.BIN buffer and panel text outside the image (runtime only:
-        .equ    panel_buf, RUNTIME_BUF          # cache-line aligned for the card DMA, 84 bytes, see editions.py)
+        .equ    panel_buf, RUNTIME_BUF          # cache-line aligned for the card DMA, 96 bytes, see editions.py)
         .else
         .align  6
 setting:                                # LANG.BIN buffer (cache-line aligned for the card DMA); also the panel
-panel_buf:                              # text (84 bytes at most), rebuilt on every change and never in use while
-        .space  84                      # the card is read (boot) or written (the result line replaces the panel)
+panel_buf:                              # text (96 bytes at most), rebuilt on every change and never in use while
+        .space  96                      # the card is read (boot) or written (the result line replaces the panel)
         .endif
         .include "paths.inc"                                    # lang_path, lang_dir, icon_sys_path, icon_path
         .include "icon_title.inc"                               # icon_title: 64 bytes Shift-JIS
