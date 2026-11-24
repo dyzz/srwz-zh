@@ -244,7 +244,12 @@ def static_words(elf: Elf, code: bytes, syms: dict):
         raise SystemExit('executable preimages drift (hook sites)')
     if ED.main:
         buffer = ED.main['font_buffer']
-        if elf.word(buffer) not in (0x13B000, GLYPHS * 288): raise SystemExit('executable preimage drift (font buffer)')
+        # A single-language donor holds the stock size, this disc's size, or its own configured linear capacity.
+        donor = json.loads((ROOT / 'config/fonts/zh-release-font.json').read_text(encoding='utf-8'))
+        donor_glyphs = (donor.get('font_capacity') or {}).get('glyph_count', 0)
+        if donor_glyphs > GLYPHS: raise SystemExit('single-language font exceeds the multi-language font buffer')
+        if elf.word(buffer) not in (0x13B000, GLYPHS * 288, donor_glyphs * 288):
+            raise SystemExit('executable preimage drift (font buffer)')
         elf.putw(buffer, GLYPHS * 288)
     if any(elf.get(CAVE, CAVE_END - CAVE)): raise SystemExit('hook cave not empty')
     elf.putw(boot, 0x0C000000 | CAVE >> 2)
