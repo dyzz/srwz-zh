@@ -21,6 +21,13 @@
         .set noat
         .include "params.inc"           # PATCH_LBA/SECTORS, PATCH2_LBA/SECTORS, PATCH_MAX, LANGS, SCRATCH, OPTIONS, RUNTIME_BUF
         .include "edition.inc"          # the edition's engine addresses and panel geometry (tools/zh_hant/editions.py)
+        .ifdef WIDE_PANEL
+        .equ PANEL_ROWS, 4
+        .equ PANEL_BYTES, 128
+        .else
+        .equ PANEL_ROWS, 3
+        .equ PANEL_BYTES, 96
+        .endif
         .text
         .globl lang_hook
 lang_hook:
@@ -244,6 +251,12 @@ rs_check:
         srl     $t3, $t0, 15                    # Japanese quotes (bit 16) -> bit 1
         andi    $t3, $t3, 2
         or      $t1, $t1, $t3
+        .ifdef WIDE_PANEL
+        srl     $t3, $t0, 24
+        andi    $t3, $t3, 1
+        lui     $t4, %hi(wide_enabled)
+        sw      $t3, %lo(wide_enabled)($t4)
+        .endif
         lui     $t3, %hi(disp)
         sw      $t1, %lo(disp)($t3)
         andi    $v0, $t0, 0xff                  # language: 0 Simplified, 1 Taiwan, 2 Hong Kong
@@ -358,6 +371,25 @@ th_close:
         b       th_ret
         move    $v0, $s0
 th_draw:
+        .ifdef WIDE_PANEL
+        # Native Report centers each line independently and supplies four row colors.
+        # Align the aspect row to the language rows and give the footer their normal ink.
+        lw      $t0, %lo(dlg_state)($s1)
+        li      $t1, 1
+        bne     $t0, $t1, wide_layout_done
+        nop
+        lw      $t0, REPORT_OBJECT
+        beqz    $t0, wide_layout_done
+        nop
+        lw      $t0, 0($t0)
+        beqz    $t0, wide_layout_done
+        nop
+        lh      $t1, 12+66($t0)
+        sh      $t1, 12+3*0x252+66($t0)
+        lbu     $t1, 12+70($t0)
+        sb      $t1, 12+4*0x252+70($t0)
+wide_layout_done:
+        .endif
         move    $a0, $s0
         addiu   $a1, $zero, BOX_X               # centred on the 640-wide title (mc screens use -0x3a)
         addiu   $a2, $zero, BOX_Y
@@ -391,7 +423,11 @@ th_ret: ld      $ra, 0($sp)
 
 # draw_icon(pkt, style, x) -> pkt: KVP style sprite at (x, ICON_Y), full brightness (0x36B330 t0 = 0, t1 = t2 = 128).
 draw_icon:
+        .ifdef WIDE_PANEL
+        addiu   $a3, $zero, ICON_Y+3
+        .else
         addiu   $a3, $zero, ICON_Y
+        .endif
         move    $t0, $zero
         addiu   $t1, $zero, 128
         j       KVP_DRAW
@@ -416,6 +452,10 @@ open_panel:
         sw      $t2, 8($t9)
         srl     $t2, $t1, 1
         andi    $t2, $t2, 1
+        .ifdef WIDE_PANEL
+        lw      $t3, wide_enabled
+        sw      $t3, 16($t9)
+        .endif
         jal     MB_CREATE                       # create the box
         sw      $t2, 12($t9)
         jal     show_panel
@@ -441,7 +481,7 @@ panel_input:
         lw      $t1, 0($t9)                     # cursor row
         andi    $t0, $a0, 0x1000                # up: row + 2 (mod 3)
         bnez    $t0, pi_row
-        addiu   $t2, $t1, 2
+        addiu   $t2, $t1, PANEL_ROWS-1
         andi    $t0, $a0, 0x4000                # down: row + 1
         bnez    $t0, pi_row
         addiu   $t2, $t1, 1
@@ -462,10 +502,10 @@ panel_input:
         addiu   $t4, $t4, -LANGS
 4:      b       pi_show
         sw      $t4, 4($t2)
-pi_row: sltiu   $t3, $t2, 3
+pi_row: sltiu   $t3, $t2, PANEL_ROWS
         bnez    $t3, 1f
         nop
-        addiu   $t2, $t2, -3
+        addiu   $t2, $t2, -PANEL_ROWS
 1:      sw      $t2, 0($t9)
 pi_show:
         jal     show_panel
@@ -488,6 +528,11 @@ pi_save:
         lw      $t1, 4($t9)
         lui     $t0, %hi(pending)
         sw      $t1, %lo(pending)($t0)
+        .ifdef WIDE_PANEL
+        lw      $t2, 16($t9)
+        lui     $t0, %hi(wide_enabled)
+        sw      $t2, %lo(wide_enabled)($t0)
+        .endif
         lw      $t1, 8($t9)
         lw      $t2, 12($t9)
         sll     $t2, $t2, 1
@@ -532,6 +577,11 @@ sp_row: lui     $t9, %hi(panel)
         move    $a0, $zero                      # cursor ⇒
 1:      jal     append
         nop
+        .ifdef WIDE_PANEL
+        li      $t0, 3
+        beq     $s1, $t0, aspect_row
+        nop
+        .endif
         jal     append
         addiu   $a0, $s1, 2                     # label
         lui     $t9, %hi(panel)
@@ -549,10 +599,30 @@ sp_row: lui     $t9, %hi(panel)
         addiu   $a0, $zero, 15                  # language row, Hong Kong: the last fragment
 6:      jal     append
         nop
+        .ifdef WIDE_PANEL
+        b       row_done
+        nop
+aspect_row:
+        lw      $t0, lang
+        la      $v0, aspect_label_sc
+        beqz    $t0, 1f
+        nop
+        la      $v0, aspect_label_tc
+1:      jal     append_string
+        nop
+        lw      $t0, panel+16
+        la      $v0, aspect_classic
+        beqz    $t0, 1f
+        nop
+        la      $v0, aspect_wide
+1:      jal     append_string
+        nop
+row_done:
+        .endif
         jal     append
         addiu   $a0, $zero, 14                  # line break
         addiu   $s1, $s1, 1
-        sltiu   $t0, $s1, 3
+        sltiu   $t0, $s1, PANEL_ROWS
         bnez    $t0, sp_row
         nop
         jal     append
@@ -575,6 +645,12 @@ append:
         move    $t8, $ra                        # pick_msg only clobbers t0..t2 and a0
         jal     pick_msg
         nop
+        .ifdef WIDE_PANEL
+        b       1f
+        nop
+append_string:
+        move    $t8, $ra
+        .endif
 1:      lbu     $t0, 0($v0)
         beqz    $t0, 2f
         nop
@@ -770,6 +846,11 @@ ws_lang:
         lw      $t3, 12($t2)
         sll     $t3, $t3, 16
         or      $t1, $t1, $t3
+        .ifdef WIDE_PANEL
+        lw      $t3, 16($t2)
+        sll     $t3, $t3, 24
+        or      $t1, $t1, $t3
+        .endif
         sw      $t1, 8($t0)
         nor     $t1, $t1, $zero
         sw      $t1, 12($t0)
@@ -884,12 +965,12 @@ hook_data:                              # code ends here (assemble_dual checks t
         .align  6
 setting:                                # LANG.BIN buffer (cache-line aligned for the card DMA); also the panel
 panel_buf:                              # text (96 bytes at most), rebuilt on every change and never in use while
-        .space  96                      # the card is read (boot) or written (the result line replaces the panel)
+        .space  PANEL_BYTES                      # the card is read (boot) or written (the result line replaces the panel)
         .endif
         .include "paths.inc"                                    # lang_path, lang_dir, icon_sys_path, icon_path
         .include "icon_title.inc"                               # icon_title: 64 bytes Shift-JIS
 attr_panel:
-        .byte   0x02, 0x04, 0xff, 0x05, 0x05, 0x05, 0x05        # notice, 4 lines (3 settings + key hint)
+        .byte   0x02, PANEL_ROWS+1, 0xff, 0x05, 0x05, 0x05, 0x05        # notice, 4 lines (3 settings + key hint)
 attr_ok:
         .byte   0x02, 0x02, 0xff, 0x05, 0x05, 0x05, 0x05        # notice, 2 lines
 attr_fail:
@@ -901,9 +982,16 @@ dlg_state:
 pending:
         .word   -1                      # language the card now asks for (-1: not read yet = lang)
 panel:  .word   0, 0, 0, 0              # cursor row, language, plain zero, Japanese quotes
+        .ifdef WIDE_PANEL
+        .word   0                       # fourth draft value, follows panel[3]
+        .endif
 disp:   .word   0                       # display flags in use: bit 0 plain zero, bit 1 Japanese quotes
 msg_id: .word   22
 lent:   .word   0, 0, 0, 0, 0           # text slot, attribute slot, original pointer, original attributes (7)
         .align  2
         .globl  lang
+        .ifdef SHARED_LANG
+        .equ lang, SHARED_LANG
+        .else
 lang:   .word   0                       # 0 = Simplified, 1 = Traditional (Taiwan), 2 = Traditional (Hong Kong)
+        .endif
