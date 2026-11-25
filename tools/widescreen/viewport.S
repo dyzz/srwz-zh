@@ -1,8 +1,22 @@
 # Classic mode uses the original display registers. In widescreen mode, fixed
 # compositions occupy the central 4:3 area and the tactical map uses the full width.
-.set WIDE_PANEL, 1
 .include "wide.inc"
+.ifdef BITMAP_BEZEL
+.ifdef HD_TEXTURE
+.equ TEXTURE_FIELD_BYTES,236800
+.equ BITMAP_PACKET,80+TEXTURE_FIELD_BYTES
+.else
+.equ BITMAP_PACKET, 80+16+24*40*112*2
+.endif
+.endif
+.ifdef PNACH
+.set noreorder
+.set noat
+.text
+.else
+.set WIDE_PANEL, 1
 .include "lang_hook.S"
+.endif
 .align 2
 
 map_projection:
@@ -128,7 +142,11 @@ movie_wait_gif:
         li      $t0,0x1000a000
         li      $t2,HUD_ARENA
         sw      $t2,16($t0)
+.ifdef BITMAP_BEZEL
+        li      $t2,(32+BITMAP_PACKET)/16
+.else
         li      $t2,(96+128*((bezel_shapes_end-bezel_shapes)/7))/16
+.endif
         sw      $t2,32($t0)
         sync
         li      $t2,257
@@ -186,10 +204,17 @@ restored:
         nop
 .align 2
 movie_ready: .word 0
-wide_enabled: .word 0
+wide_enabled:
+.ifdef PNACH
+        .word 1
+.else
+        .word 0
+.endif
 map_drawn: .word 0
 projection_state: .space 16
+.ifndef PNACH
 .include "aspect_text.inc"
+.endif
 .align 2
 .include "hud.S"
 

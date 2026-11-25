@@ -47,7 +47,11 @@ bezel_shapes_end:
 .align 2
 # Append one GIFtag per trapezoid. REGLIST: PRIM, RGBAQ, XYZ2 x4.
 bezel_append:
+.ifdef BITMAP_BEZEL
+        dli     $t0,0x1000000000008004
+.else
         dli     $t0,0x1000000000008003
+.endif
         sd      $t0,0($a0)
         li      $t0,14
         sd      $t0,8($a0)
@@ -62,6 +66,13 @@ bezel_append:
         li      $t0,0x47                # TEST_1
         sd      $t0,56($a0)
         addiu   $a0,$a0,64
+.ifdef BITMAP_BEZEL
+.ifdef HD_TEXTURE
+        .include "texture.S"
+.else
+        .include "bitmap.S"
+.endif
+.else
         la      $t0,bezel_shapes
         li      $t1,(bezel_shapes_end-bezel_shapes)/7
         dli     $t2,0x6400000000008001 # FLG=REGLIST, NREG=6
@@ -128,3 +139,4 @@ bezel_vertex:
         addiu   $t0,$t0,7
         jr      $ra
         nop
+.endif

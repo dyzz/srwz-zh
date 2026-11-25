@@ -330,7 +330,11 @@ hud_finish:
         b       hud_done
         nop
 hud_fixed:
+.ifdef BITMAP_BEZEL
+        li      $t0,HUD_ARENA+0x30080000-BITMAP_PACKET-16
+.else
         li      $t0,HUD_ARENA+0x30080000-4096
+.endif
         sltu    $t0,$a0,$t0
         beqz    $t0,hud_done
         lw      $t0,16($sp)

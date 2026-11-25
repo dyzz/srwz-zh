@@ -13,6 +13,7 @@ from pathlib import Path
 TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 from build_builtin_cheats import symbols  # noqa: E402
+from special_disc.vocal_bgm.build_image import make_header_room  # noqa: E402
 from special_disc.iso_relocation import append_members, verify_relocation  # noqa: E402
 from zh_hant import assemble_dual as dual  # noqa: E402
 from zh_hant.editions import EDITIONS, edition_inc  # noqa: E402
@@ -57,16 +58,8 @@ def check_variants(source, params, spans):
                 pos += 8 + size + (-size % 4)
 
 
-def build(edition, source, output, work, lang_build):
-    ed = EDITIONS[edition]
-    map_call, update, terrain, unit, display, extra = LAYOUT[edition]
-    start, end = extra or ed.cave
-    disc = dual.Disc(source)
-    elf = dual.Elf(disc.read(ed.exe))
-    old = symbols((lang_build / "symbols.txt").read_text())
-    code = (lang_build / "hook.bin").read_bytes()
-    if elf.get(ed.cave[0], len(code)) != code:
-        raise ValueError("language build differs from the input disc")
+def graphics_layout(edition):
+    map_call, update, terrain, unit, display, _ = LAYOUT[edition]
     hud_call, hud_submit, hud_chain, hud_arena = {
         "original": (0x1434F0, 0x135FD0, 0x523908, 0x49A6D0),
         "best": (0x1434F0, 0x135FD0, 0x524108, 0x49AED0),
@@ -77,11 +70,96 @@ def build(edition, source, output, work, lang_build):
         "best": (0x352B3C, 0x35191C, 0x3FA140),
         "sp": (0x377A5C, 0x37697C, 0x4542F0),
     }[edition]
+    defs = dict(
+        MOVIE_PIXELS={"original": 0x59BF88, "best": 0x59C788, "sp": 0x624E88}[edition],
+        COMPASS_VECTOR=compass_vector,
+        HUD_CHAIN=hud_chain,
+        HUD_ARENA=hud_arena,
+        HUD_SUBMIT=hud_submit,
+        REPORT_OBJECT={"original": 0x6D5D68, "best": 0x6D6568, "sp": 0x762998}[edition],
+        TERRAIN_X=terrain,
+        UNIT_X=unit,
+        PROJECTION_UPDATE=update,
+        DISPLAY_RETURN=display + 8,
+    )
+    hooks = {command: ("right_menu", True), unit_menu: ("right_menu", True),
+             map_call: ("map_projection", True), hud_call: ("hud_submit", True),
+             display: ("display_output", False)}
+    checks = {
+        command: 0x0320F809,
+        unit_menu: 0x0320F809,
+        command + 4: 0x0200282D,
+        unit_menu + 4: 0x0200282D,
+        hud_call: branch(hud_submit),
+        map_call: branch(update),
+        display: 0xFCA30000,
+        display + 4: 0xDE020020,
+    }
+    return defs, hooks, checks
+
+
+def reserve(elf, edition, size_bytes):
+    # These two native heap setup paths and the image-end pointer must agree.
+    if edition == "sp":
+        second, pointer = 0x1410F4, 0x44E734
+    else:
+        second = 0x140644
+        pointer = 0x3F4734 if edition == "best" else 0x3F3FB4
+    pairs = [(0x1001D0, 0x1001D8), (second, second + 12)]
+    base = elf.word(pointer)
+    stock = {"original": 0x789D00, "best": 0x78A500, "sp": 0x81C600}[edition]
+    if base not in (stock, 0x8C0000 if edition == "sp" else 0x7A0000):
+        raise ValueError(f"unsupported heap boundary {base:#x}")
+    if any(
+        v < base + size_bytes and v + size > base for _, _, v, _, _, size, _, _ in elf.loads
+    ):
+        raise ValueError("payload overlaps a loaded segment")
+    end = base + size_bytes
+    writes = {pointer: end}
+    for hi, lo in pairs:
+        upper, lower = elf.word(hi), elf.word(lo)
+        if upper >> 16 != 0x3C04 or lower >> 16 != 0x2484:
+            raise ValueError("unrecognized heap initializer")
+        old = ((upper & 65535) << 16) + struct.unpack(
+            "<h", struct.pack("<H", lower & 65535)
+        )[0]
+        if old != base and not (edition == "sp" and old == base - 65536):
+            raise ValueError("inconsistent heap boundary")
+        # Keep initialization (including the SP scratch area) above the payload.
+        writes[hi] = 0x3C040000 | ((end + 32768) >> 16)
+        writes[lo] = 0x24840000 | (end & 65535)
+    if edition == "sp" and base != stock:
+        writes[pointer] = end + 65536
+    return base, writes
+
+
+def build(edition, source, output, work, lang_build):
+    ed = EDITIONS[edition]
+    _, _, _, _, display, extra = LAYOUT[edition]
+    start, end = extra or ed.cave
+    disc = dual.Disc(source)
+    elf = dual.Elf(disc.read(ed.exe))
+    old = symbols((lang_build / "symbols.txt").read_text())
+    code = (lang_build / "hook.bin").read_bytes()
+    if elf.get(ed.cave[0], len(code)) != code:
+        raise ValueError("language build differs from the input disc")
+    defs, graphics_hooks, checks = graphics_layout(edition)
+    pixels = Path(__file__).with_name("default-bezel.rgbx").read_bytes()
+    if len(pixels) != 2 * 40 * 112 * 4:
+        raise ValueError("expected two 40x112 RGBX bezel panels")
+    # The emulator's Auto mode can recognize this disc even when new artwork
+    # changes its ELF CRC. Keep the versioned descriptor at the heap boundary.
+    descriptor_tag = b"SRWZAR01"
+    descriptor_size = len(descriptor_tag) + 8
+    segment_base, heap_writes = reserve(elf, edition, descriptor_size + len(pixels))
+    pixel_base = segment_base + descriptor_size
+    defs.update(BITMAP_BEZEL=1, BUILTIN_BITMAP=pixel_base)
+    compass_vector = defs["COMPASS_VECTOR"]
     if elf.get(compass_vector, 12) != struct.pack("<3f", 2.6, -88.55, -129):
         raise ValueError("unexpected compass origin")
     if edition == "sp":
         # Expand into the verified blank file padding before the last program,
-        # and into its 512-byte virtual gap. The disc member stays the same size.
+        # and into its 512-byte virtual gap for the settings and graphics code.
         phoff = struct.unpack_from("<I", elf.b, 28)[0]
         stride, count = struct.unpack_from("<HH", elf.b, 42)
         headers = (phoff + stride * i for i in range(count))
@@ -105,18 +183,10 @@ def build(edition, source, output, work, lang_build):
         struct.pack_into("<II", elf.b, entry + 16, size + grow, size + grow)
         elf = dual.Elf(elf.b)
         end += grow
-    checks = {
-        command: 0x0320F809,
-        unit_menu: 0x0320F809,
-        command + 4: 0x0200282D,
-        unit_menu + 4: 0x0200282D,
-        hud_call: branch(hud_submit),
-        map_call: branch(update),
-        display: 0xFCA30000,
-        display + 4: 0xDE020020,
+    checks.update({
         ed.boot_site[0]: branch(old["lang_hook"]),
         ed.title_site[0]: branch(old["title_hook"]),
-    }
+    })
     for addr, word in checks.items():
         if elf.word(addr) != word:
             raise ValueError(f"unexpected instruction at {addr:#x}")
@@ -127,19 +197,10 @@ def build(edition, source, output, work, lang_build):
             r"\.equ\s+(\w+),\s*(\w+)", (lang_build / "params.inc").read_text()
         )
     }
-    check_variants(source, params, [(a, a + 4) for a in checks] + [(start, end), (compass_vector, compass_vector + 4)])
-    defs = dict(
-        MOVIE_PIXELS={"original": 0x59BF88, "best": 0x59C788, "sp": 0x624E88}[edition],
-        COMPASS_VECTOR=compass_vector,
-        HUD_CHAIN=hud_chain,
-        HUD_ARENA=hud_arena,
-        HUD_SUBMIT=hud_submit,
-        REPORT_OBJECT={"original": 0x6D5D68, "best": 0x6D6568, "sp": 0x762998}[edition],
-        TERRAIN_X=terrain,
-        UNIT_X=unit,
-        PROJECTION_UPDATE=update,
-        DISPLAY_RETURN=display + 8,
-    )
+    protected = [(a, a + 4) for a in (*checks, *heap_writes)]
+    protected.extend([(segment_base, pixel_base + len(pixels)), (start, end),
+                      (compass_vector, compass_vector + 4)])
+    check_variants(source, params, protected)
     if extra:
         defs["SHARED_LANG"] = old["lang"]  # existing cheat and language consumers
     (work / "wide.inc").write_text(
@@ -255,36 +316,33 @@ def build(edition, source, output, work, lang_build):
     for addr, label, link in [
         (ed.boot_site[0], "lang_hook", True),
         (ed.title_site[0], "title_hook", True),
-        (command, "right_menu", True),
-        (unit_menu, "right_menu", True),
-        (map_call, "map_projection", True),
-        (hud_call, "hud_submit", True),
-        (display, "display_output", False),
+        *((addr, *target) for addr, target in graphics_hooks.items()),
     ]:
         elf.putw(addr, branch(sy[label], link))
     elf.putw(display + 4, 0)
+    for address, word in heap_writes.items():
+        elf.putw(address, word)
+    ph = struct.unpack_from("<I", elf.b, 28)[0]
+    count = struct.unpack_from("<H", elf.b, 44)[0]
+    headers = [struct.unpack_from("<8I", elf.b, ph + 32 * i) for i in range(count)]
+    image, _ = make_header_room(elf.b, ph, count, headers)
+    segment = descriptor_tag + struct.pack("<II", sy["wide_enabled"], 0) + pixels
+    offset = len(image) + (segment_base - len(image)) % 4096
+    image.extend(bytes(offset - len(image)) + segment)
+    struct.pack_into("<8I", image, ph + 32 * count, 1, offset, segment_base,
+                     segment_base, len(segment), len(segment), 4, 64)
+    struct.pack_into("<H", image, 44, count + 1)
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=output.parent) as temp:
         staged = Path(temp) / "image.iso"
         subprocess.run(["cp", "-c", source, staged], check=True)
-        members = {ed.exe: bytes(elf.b)}
-        if not extra:
-            with staged.open("r+b") as image:
-                image.seek(disc.m[ed.exe].extent_lba * 2048)
-                if len(elf.b) != disc.m[ed.exe].size:
-                    raise ValueError("unexpected SP executable size")
-                image.write(elf.b)
-            if dual.Disc(staged).read(ed.exe) != elf.b:
-                raise ValueError("SP ISO executable readback failed")
-        else:
-            proof = append_members(
-                staged,
-                disc.m,
-                members,
-                allowed_udf={ed.exe, "EFF/VEFF2DX.BIN"},
-                catalog_policy="inherit",
-            )
-            verify_relocation(staged, disc.m, members, proof)
+        members = {ed.exe: bytes(image)}
+        proof = append_members(
+            staged, disc.m, members,
+            allowed_udf={ed.exe, "EFF/VEFF2DX.BIN"} if extra else None,
+            catalog_policy="inherit",
+        )
+        verify_relocation(staged, disc.m, members, proof)
         os.link(staged, output)
     (work / "symbols.json").write_text(json.dumps(sy, indent=2))
     print(output)
