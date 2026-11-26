@@ -258,12 +258,11 @@ def check_pictures(rep: Report, region: str, baseline: str):
         if text is not None and text != t['text'] and region == 'tw':
             rep.add('error', 'pictures', region, t['entry_id'],
                     f'stage title {text!r} differs from its frozen picture {t["text"]!r}: keep the text or re-author the picture')
-    # world-map titles are drawn from the Taiwan text in both variants (shared MAPMODEL): compare the Taiwan file
-    # with the frozen render (config/zh-hant/overlay, author_textures.py world_map)
-    if region != 'tw':
-        return
-    rel = 'corpus/zh-hant/ui-atlas/world-map-titles-v1.json'
-    drawn = {e['id']: e['translation'] for e in load(DATA / 'config/zh-hant/overlay/config/world-map-title-render-snapshot.json')['entries']}
+    suffix = REGIONS[region]
+    overlay = 'overlay-hk' if region == 'hk' else 'overlay'
+    rel = f'corpus/zh-hant{suffix}/ui-atlas/world-map-titles-v1.json'
+    snapshot = DATA / f'config/zh-hant/{overlay}/config/world-map-title-render-snapshot.json'
+    drawn = {e['id']: e['translation'] for e in load(snapshot)['entries']}
     for e in load(DATA / rel)['entries']:
         if e['id'] in drawn and drawn[e['id']] != e['translation']:
             rep.add('error', 'pictures', region, e['id'],

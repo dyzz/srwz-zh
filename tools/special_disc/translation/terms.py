@@ -57,8 +57,7 @@ NON_BINDING = {"ボス": "波士（仅指《魔神Z》的波士本人；泛指�
 
 def all_terms() -> list[dict]:
     """Approved glossary first, then SD-only terms, the rest of the glossary, reference names; one rendering
-    per Japanese form. SD terms may override unapproved glossary entries (organization/orb says 奥布士兵,
-    the main game writes 奥布 in 563 lines)."""
+    per Japanese form. SD terms may override unapproved glossary entries."""
     out, seen = [], set()
     glossary = glossary_terms()
     approved = [t for t in glossary if t.get("status") == "approved"]

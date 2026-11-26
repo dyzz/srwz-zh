@@ -293,10 +293,10 @@ def prepare_tc(tc: Path, variant: str = 'tw') -> None:
     reencode_weapon_categories(comp, tc)
     dump(components, comp)
     print('Traditional sources placed:', stats, flush=True)
-    apply_traditional_assets(tc)
+    apply_traditional_assets(tc, variant)
 
 
-def apply_traditional_assets(tc: Path) -> None:
+def apply_traditional_assets(tc: Path, variant: str = 'tw') -> None:
     """Traditional config sections and file overlays (author_textures.py), then every file lock that names a
     changed file. Locks are {"path", "size", "sha256"} objects in config/ and manifests/ JSON; a refreshed lock
     changes its own file, so this repeats until nothing changes."""
@@ -310,11 +310,14 @@ def apply_traditional_assets(tc: Path) -> None:
         for rel, values in by_file.items():
             doc = json.loads((tc / rel).read_text(encoding='utf-8'))
             doc.update(values); dump(tc / rel, doc); changed.add(rel)
-    overlay = ZH_HANT / 'overlay'
-    for f in sorted(overlay.rglob('*')) if overlay.exists() else []:
-        if f.is_file():
-            rel = str(f.relative_to(overlay)); (tc / rel).parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(f, tc / rel); changed.add(rel)
+    overlays = [ZH_HANT / 'overlay']
+    if variant == 'hk':
+        overlays.append(ZH_HANT / 'overlay-hk')
+    for overlay in overlays:
+        for f in sorted(overlay.rglob('*')):
+            if f.is_file():
+                rel = str(f.relative_to(overlay)); (tc / rel).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(f, tc / rel); changed.add(rel)
     from locks import refresh_locks
     refreshed = refresh_locks(tc, changed)
     print('Traditional assets applied:', sorted(changed), 'locks refreshed:', refreshed, flush=True)

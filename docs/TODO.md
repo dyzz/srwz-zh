@@ -9,7 +9,6 @@
 ### 三语言独立版本改造（来源：`docs/ZH_THREE_EDITIONS_PLAN_20261121.md`，2026-11-21）
 - [ ] 阶段 5 收尾：SP 图像链仍按简体配置封存，最后一步才装入繁体字格（`tools/zh_hant/build_dual_sp.py` 的 `SP_KEEP_SC`、`sp_images_stay_sc`）；按繁体重新封存 7 个配置（结算标签、DATA HELP 項目、菜单还原、清晰度字格、帮助标题、覆盖区、战斗 SELECT）
 - [ ] 繁体构建里仍靠 `traditional_build()` 放行的前像检查改为按本语言基线比对：`name_unification`、`terrain_names`、`qa_native`、`library_work_titles`、`instruction_overrides`
-- [ ] 台湾语料残留旧名「奧布」：`corpus/zh-hant/story-speakers.json`（`story/109/speaker/035` 奧布士兵）、`corpus/zh-hant/special-disc/system-text.json`（奧布士兵（1）（2）…）、奧布保衛戰等约 14 处；`regional-names.json` 定台湾为「歐普士兵」（apply=true）。香港侧也要核对
 - [ ] 上盘文字中原来经字面量映射得来的部分（SP 数据链接页、名场面菜单、移动类型/武器类别标签）是否已全部改为直接读本语言语料；`expected_literal` 仍在 `movement_type_labels.py`、`weapon_category_labels.py` 等处使用（待确认）
 - [ ] 繁体 SP 仍以简体 SP 九月基线组件为起点、`sp-translated-ranges.json` 决定翻译位置；是否要按语言重跑九月基线流程（工作量大，待确认是否要做）
 约束：
@@ -18,8 +17,7 @@
 - 每步完成的验收：三张盘构建、预检、读回全过，运行器里三种语言各看一遍，简体盘字节不变
 
 ### 繁体港台区分（来源：`docs/ZH_HANT_HK_TW_PLAN_20261118.md`，2026-11-18）
-- [ ] 修人名音译「里」被转成「裡/裏」：台湾 弗裡克 61、弗裡德(星) 69、艾裡克 11、裡克 若干；香港 弗裏克 61、弗裏德 12、艾裏克 11（`regional-names.json` 未覆盖，需逐条区分人名与「裡/裏」本义，裡克·迪亞斯 等机体名另判）
-- [ ] 约 100 条搁置的港台译名（单字名、拉丁字母名、并名等，清单在 `work/analysis/zh-hk-tw-names-20261119/apply-held.md`）待用户逐条定
+- [ ] 最后一批 42 个港台译名已逐条复核，19 项至少修改一地，23 项保留现名。仍缺地区出处的写法见本地审校表 `work/handoff/held42/pending.md`。
 - [ ] 香港模式下剧情、战斗台词实机通读
 - [ ] BEST 独有关卡与战斗台词、章节间幕、教学标题、援护提示在台/港模式下实机验证
 - [ ] 音乐包在本篇/BEST 三合一盘上的兼容性实测
@@ -27,7 +25,7 @@
 - [ ] 提速：`sp_tc_baseline.return_compdata_strings` 在缓存未命中时把 COMPDATA 整份再压一遍（每语言约 64 秒）（待确认现状）
 约束：
 - 用词一律用自建表 `config/zh-hant/regional-terms.json`（含按日文绑定规则），不用 OpenCC s2twp 词表；香港字形只取 `hk-characters.json` 里人工挑过的 27 组
-- 香港模式下贴图和地形名沿用台湾字形（盘空间：MAPMODEL、KVMDATA 不另存）；开机按住 SELECT 强制台湾版
+- 香港模式沿用多数台湾贴图，世界地图第 104 项分别装入台湾和香港地名贴图；开机按住 SELECT 强制台湾版
 - 译名原则（11-19 用户定）：香港高达系取香港官网写法；70–80 年代作品不用配音改名；系统用语用官方繁中机战写法（「援護攻撃」「ガード」「カウンター」保留现名）；与已定名冲突逐条确认
 
 ### SP 简繁一张碟（来源：`docs/ZH_HANT_SP_DUAL_PLAN_20261117.md`，2026-11-17）
