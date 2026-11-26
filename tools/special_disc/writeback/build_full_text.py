@@ -287,6 +287,19 @@ def assemble():
     patches.update(components['srvc'])
     source_table,_,stored_overrides,runtime_table=encoding_tables(PROPOSAL)
     dialogue_encoder=PreparedTextEncoder(source_table,stored_overrides)
+    # SP's locked executable already translated the suffix of this menu label.
+    # Regional frontends may have translated the entire string before assembly.
+    menu = load(ROOT / 'corpus/zh/menu/remaining-ui.json')['slps_by_offset']
+    parts_offset = 0x3B40C8
+    native = '装備中のパーツ'.encode('cp932') + bytes(1)
+    legacy = '装備中の部件'.encode('cp932').ljust(len(native), bytes(1))
+    label = dialogue_encoder.encode(menu['0x3413B8'], terminate=True)
+    require(len(label) <= len(native), 'SP equipped parts label exceeds native slot')
+    label = label.ljust(len(native), bytes(1))
+    end = parts_offset + len(native)
+    exe = patches[EXE]
+    require(exe[parts_offset:end] in (native, legacy, label), 'SP equipped parts label preimage drift')
+    patches[EXE] = exe[:parts_offset] + label + exe[end:]
     patches[EXE],dialogue_color_report=apply_dialogue_speaker_prefixes(
         patches[EXE],'sp',encoded_prefixes={text:dialogue_encoder.encode(text,terminate=False)
                                          for text in ('“','（')})

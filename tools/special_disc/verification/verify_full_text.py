@@ -232,6 +232,10 @@ def main(iso=None, work=None):
     require(all(manifest['terrain_names'][k]==v for k,v in terrain.items()),'terrain receipt drift')
     require(file_sha(TERRAIN_CONTRACT)==manifest['terrain_names']['contract_sha256'],'terrain contract drift')
     counts['terrain_names']=terrain['occurrence_count']
+    equipped_parts = decode_text(exe, 0x3B40C8, readback, end=0x3B40D7)
+    require(equipped_parts.terminator == 'nul' and
+            equipped_parts.text == load(ROOT/'corpus/zh/menu/remaining-ui.json')['slps_by_offset']['0x3413B8'],
+            'SP equipped parts label independent readback drift')
     weapon_labels=verify_weapon_detail_labels(exe,readback,table,overrides,font=name_font,proposal=proposal)
     weapon_parentheses=verify_weapon_detail_parentheses(exe,'sp')
     library_body_metrics=verify_library_body_metrics(exe,'sp')
