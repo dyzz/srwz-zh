@@ -39,6 +39,7 @@ from special_disc.writeback.name_unification import apply_name_unification
 from weapon_detail_labels import apply_weapon_detail_labels, verify_weapon_detail_labels
 from migrate_slps_text import encoding_tables
 from special_disc.writeback.terrain_names import apply_terrain_names, verify_terrain_names, MEMBER as TERRAIN_MEMBER
+from special_disc.writeback.title_version import apply_title_version
 from special_disc.writeback.stage_titles import apply_stage_titles, verify_title_bindings
 from special_disc.source import CURRENT_ISO
 from special_disc.writeback.qa_layout import MEMBER as QA_MEMBER
@@ -343,6 +344,8 @@ def assemble():
     patches[VT1],title_report=timed('stage-titles',apply_stage_titles,patches[VT1],patches[EXE])
     patches[EXE],patches[VT1],link_report=apply_data_link_bonus(
         patches[EXE],patches[VT1],source_table,stored_overrides,runtime_table)
+    badge = load(ROOT/'config/assets/title-menu-zh.json')['version_badge']
+    patches[VT1],patches[EXE],version_report=apply_title_version(patches[VT1],patches[EXE],badge)
     patches[EXE],skip_report=apply_skip(patches[EXE])
     patches[EXE],style_scissor_report=apply_style_slot_scissor(patches[EXE],'sp')
     patches,instruction_report=timed('instructions',apply_overrides,patches,read_disc_member,source_table,stored_overrides,runtime_table)
@@ -446,6 +449,7 @@ def assemble():
     report['keyword_list_names']=keyword_report
     report['shared_label_updates']=shared_labels_report
     report['name_unification_20261017']=name_unification_report
+    report['title_version']=version_report
     report['stage_titles']=title_report
     report['world_map_titles']=reports['image-labels']['world_map_titles']
     report['title_atlas']=reports['image-labels']['title_atlas']

@@ -19,3 +19,13 @@
 搜索 BEZEL SHAPES 可以修改几何形状。每组 Shape 有七行，最后一列依次是调色板偏移、顶部 Y、底部 Y、顶边左 X、顶边右 X、底边左 X、底边右 X。所有数字均为十六进制。调色板偏移从 00 到 28，每次加 04。X 范围 00–50，Y 范围 00–E0。保持顶边在底边上方、左端在右端左侧。右侧边框自动镜像。比如把 Shape 28 两个值为 2A 的右端点改为 19，可以缩短中间的通风槽。保存后冷启动查看效果。
 
 维护者可用 python3 tools/widescreen/pnach.py best 镜像路径 输出目录 重新生成补丁；版别参数也可用 original 或 sp。需要 mipsel-linux-gnu 的 as、ld、objcopy 和 nm。
+
+## v0.5.2 三语合盘
+
+在标题菜单按 SELECT 可保存画面比例。ARMSX2 冷启动三版内置宽屏盘的 CRC 如下。
+
+| 版本 | CRC |
+| --- | --- |
+| original | `3DA23CFB` |
+| best | `AFF72EA1` |
+| sp | `A1634095` |

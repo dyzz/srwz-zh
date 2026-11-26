@@ -135,11 +135,17 @@ def freeze(batch_path: Path, version: str, *, xdelta: dict | None = None) -> Pat
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--manifest', type=Path, required=True, help='batch JSON written by build_editions.py')
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument('--multilang-dir', type=Path, help='directory containing verified assembly and widescreen discs')
+    source.add_argument('--manifest', type=Path, help='batch JSON written by build_editions.py')
     parser.add_argument('--version', required=True)
     args = parser.parse_args()
     if not re.fullmatch(r'\d+\.\d+\.\d+', args.version):
         parser.error('version must be a numeric release version')
+    if args.multilang_dir:
+        from srwz.multilang_release import freeze as freeze_multilang
+        print(freeze_multilang(ROOT, args.version, (ROOT / args.multilang_dir).resolve(), latest_xdelta_contract()))
+        return
     manifest = args.manifest if args.manifest.is_absolute() else ROOT / args.manifest
     print(freeze(manifest, args.version))
 

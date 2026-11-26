@@ -39,6 +39,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from special_disc.resource_view import ResourceView
+from srwz.file_identity import sha256_file
 from srwz.font import LINEAR_GLYPH_FALLBACK
 from srwz.iso9660 import scan_iso9660, member_map  # noqa: E402
 from editions import EDITIONS, edition_inc, paths_inc  # noqa: E402
@@ -330,6 +332,12 @@ def publish(staged: Path, output: Path, staged_receipt: Path, receipt: Path) -> 
         if previous_receipt.exists():
             previous_receipt.replace(receipt)
         raise
+
+
+def disc_identity(disc):
+    """Identify the logical ISO bytes, including SP's sparse resource views."""
+    digest = disc.digest() if isinstance(disc, ResourceView) else sha256_file(disc)
+    return {"size": disc.stat().st_size, "sha256": digest}
 
 
 def assemble(a, staged: Path, staged_receipt: Path) -> None:
@@ -631,7 +639,9 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
         return {'lba': V['patch_lba'], 'sectors': V['patch_sectors'], 'bytes': len(V['pf']), 'vmap_rows': len(V['vmap_rows']),
                 'records': len(V['recs']), 'record_bytes': sum(len(d) for _, d in V['recs'])}
     tw = VS[0]
-    receipt = {'sc_iso': str(a.sc), 'tc_iso': str(a.tc), 'iso': str(a.out), 'sc_iso_sha256_head': None, 'languages': langs,
+    receipt = {'sc_iso': str(a.sc), 'tc_iso': str(a.tc), 'iso': str(a.out), 'output': disc_identity(staged),
+               'inputs': {region: disc_identity(path) for region, path in
+                          [('sc', a.sc), ('tw', a.tc), ('hk', a.hk)] if path}, 'languages': langs,
                'hook_bytes': len(code), 'dmy': [{'item': n, 'lba': l, 'bytes': len(d)} for n, l, d in items],
                'dmy_used_bytes': (cur - dmy.extent_lba) * 2048, 'dmy_bytes': dmy.size,
                'tail': [{'item': n, 'lba': l, 'bytes': len(d)} for n, l, d in tail_items],

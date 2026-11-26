@@ -106,6 +106,7 @@ def apply_battle_square_skip(
     executable: bytes,
     raw_contract: Mapping[str, object],
     edition: str = "original",
+    *, file_offset=None,
 ) -> tuple[bytes, dict[str, object]]:
     """Set or verify the configured hook state in ``executable``.
 
@@ -147,7 +148,7 @@ def apply_battle_square_skip(
 
     source = bytes(executable)
     output = bytearray(source)
-    cave_offset = file_base + cave_address - virtual_base
+    cave_offset = file_offset(cave_address, cave_size) if file_offset else file_base + cave_address - virtual_base
     if cave_offset < 0 or cave_offset + cave_size > len(source):
         raise BattleSquareSkipError("square-skip cave is outside the executable")
     observed_cave = source[cave_offset : cave_offset + cave_size]
@@ -161,7 +162,7 @@ def apply_battle_square_skip(
     for site in patches:
         assert isinstance(site, Mapping)
         address = _number(site.get("virtual_address"), "site address")
-        offset = file_base + address - virtual_base
+        offset = file_offset(address, 4) if file_offset else file_base + address - virtual_base
         if offset < 0 or offset + 4 > len(source):
             raise BattleSquareSkipError("square-skip site is outside the executable")
         original = _hex_bytes(site.get("original_instruction_hex"), "original instruction", 4)
@@ -240,9 +241,10 @@ def verify_battle_square_skip(
     raw_contract: Mapping[str, object],
     edition: str = "original",
     component_receipt: Mapping[str, object] | None = None,
+    *, file_offset=None,
 ) -> dict[str, object]:
     """Read-only verification of enabled AND disabled output and its receipt."""
-    output, report = apply_battle_square_skip(executable, raw_contract, edition)
+    output, report = apply_battle_square_skip(executable, raw_contract, edition, file_offset=file_offset)
     if output != executable or not report["configuration_matches_before"]:
         raise BattleSquareSkipError("square-skip output does not match enabled setting")
     if component_receipt is not None:

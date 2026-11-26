@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, subprocess, shutil
 
-def compile_payload(W: Path, TC: Path, tremor: Path, ogg: Path, game="sp"):
+def compile_payload(W: Path, TC: Path, tremor: Path, ogg: Path, game="sp", *, wide_sp=False):
     source = Path(__file__).resolve().parent
     W.mkdir(parents=True, exist_ok=True)
     (W/'iop').mkdir(exist_ok=True)
@@ -31,6 +31,9 @@ def compile_payload(W: Path, TC: Path, tremor: Path, ogg: Path, game="sp"):
      run([cc,*flags,'-c',src/(name+'.c'),'-o',W/(name+'.o')]);objects.append(name+'.o')
     for name in ['player.c','seek.c','arena.c','hooks.S','assets.S']:
      obj=Path(name).stem+'.o';run([cc,*flags,'-c',W/name,'-o',W/obj]);objects.append(obj)
-    run([cc,'-nostartfiles','-nostdlib','-G0','-Wl,--gc-sections','-T',W/'payload.ld','-o',W/'payload.elf',*objects,'-L'+str(SDK/'ports/lib'),'-logg','-lc','-lgcc'])
+    placement = ['-Wl,--defsym,WIDE_SP_BASE=0x8e0000'] if wide_sp else []
+    if wide_sp and game != 'sp':
+        raise ValueError('wide_sp requires the SP profile')
+    run([cc,*placement,'-nostartfiles','-nostdlib','-G0','-Wl,--gc-sections','-T',W/'payload.ld','-o',W/'payload.elf',*objects,'-L'+str(SDK/'ports/lib'),'-logg','-lc','-lgcc'])
     run([TC/'ee/bin/mips64r5900el-ps2-elf-objcopy','-O','binary',W/'payload.elf',W/'payload.bin'])
     (W/'symbols.txt').write_text(subprocess.check_output([str(TC/'ee/bin/mips64r5900el-ps2-elf-nm'),str(W/'payload.elf')],env=env,text=True))

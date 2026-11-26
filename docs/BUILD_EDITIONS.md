@@ -19,19 +19,18 @@ python3 tools/build_editions.py --force-rebuild
 Original 和 The Best 的图鉴与梗概按原版进度解锁，可选全开金手指见 [图鉴／流程全开说明](LIBRARY_UNLOCK_TEST_CHEATS_20261106.md)。
 
 ```bash
-python3 tools/build_editions.py --single-language --release-version <x.y.z>
-python3 tools/verify_editions.py --manifest work/editions/<input_digest>/original-best-sp.json
-python3 tools/freeze_release.py --manifest work/editions/<input_digest>/original-best-sp.json --version <x.y.z>
+python3 tools/build_editions.py --release-version <x.y.z>
+python3 tools/freeze_release.py --multilang-dir build/iso/test --version <x.y.z>
 python3 tools/build_release.py --config config/release/v<x.y.z>.json
 python3 tools/build_release_chd.py --config config/release/v<x.y.z>.json
 ```
 
-冻结器要求同一批次的三版均已验证，并写出 schema 6 配置。
+三语冻结器逐一验证三种语言的候选批次，核对合盘和宽屏盘的整盘身份，并在最终盘上重放港台语言补丁以回读三套 ELF 的快进钩子。冻结结果采用 schema 7。
 标题版本必须与待发布版本一致；发布目录已存在则拒绝覆盖。三份补丁分别绑定各自日文原盘，
 生成后实际还原并核对目标哈希。xdelta 和 CHD 入口都必须显式指定配置，不再默认使用历史 v0.4.2。
 CHD 即使带 `--no-verify` 跳过压缩还原，也仍验证发布证明链与最终 ELF 内的 skip hook。
 
-SP 独立语义回读、比例渲染前 ELF、字体度量表和战斗 SELECT 标题契约随发布证据冻结。
+历史 schema 6 的 SP 独立语义回读、比例渲染前 ELF、字体度量表和战斗 SELECT 标题契约随发布证据冻结。
 钢狮子动画修复前的压缩槽保存在本地冻结镜像目录。发布检查临时 APFS 克隆最终 ISO，先验证动画修复
 只改变指定槽，再用冻结 ELF 和标题契约重新生成比例渲染补丁，核对 ELF、其余区域及整盘哈希。
 最后验证字幕和语义回读的前后绑定，临时镜像检查后删除。

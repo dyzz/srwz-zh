@@ -42,8 +42,16 @@ def build_image(W: Path, src: Path, dst: Path, replace=False, music_prefix=None,
     def patch(a,expect,words):
      o=off(a);old=struct.unpack_from('<'+'I'*len(expect),b,o);assert old==tuple(expect),(hex(a),old,expect)
      struct.pack_into('<'+'I'*len(words),b,o,*words)
-    symbols={l.split()[2]:int(l.split()[0],16) for l in (W/'symbols.txt').read_text().splitlines() if len(l.split())==3}
-    if 'BGM/VOCAL.BIN' in ms:return update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,music_prefix,replace)
+    bezel_base = 0x8c0000 if game == 'sp' else 0x7a0000
+    wide = any(t == 1 and va == bezel_base and n == 0x8c10 and
+               b[offset:offset+8] == b'SRWZAR01' for t,offset,va,_,n,*_ in headers)
+    relocated = wide and game == 'sp'
+    variant = '-wide' if relocated and (W/'symbols-wide.txt').is_file() else ''
+    player_base = 0x8e0000 if relocated else PLAYER_BASE
+    symbols={l.split()[2]:int(l.split()[0],16) for l in (W/f'symbols{variant}.txt').read_text().splitlines() if len(l.split())==3}
+    if symbols.get('__player_base', PLAYER_BASE) != player_base:
+        raise ValueError('Music player link address differs from its load address')
+    if 'BGM/VOCAL.BIN' in ms:return update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,music_prefix,replace,player_base,variant)
     for a,old,name in profile['hooks']:patch(a,old,[0x08000000|(symbols[name]>>2),0])
     # Retain the existing gallery reserve and move the native heap's lower boundary up to the player's end.
     end=reserve_end(symbols)
@@ -55,14 +63,21 @@ def build_image(W: Path, src: Path, dst: Path, replace=False, music_prefix=None,
         allowed=[(0x3c040079,0x2484a500,0x3c040079,0x2484a500,0x78a500) if game=='best' else (0x3c040079,0x24849d00,0x3c040079,0x24849d00,0x789d00),(0x3c04008b,0x24840000,0x3c04008b,0x24840000,0x8c0000),
                  # Chinese builds: the event-caption payload at 0x790000 already moved the heap to 0x7a0000.
                  (0x3c04007a,0x24840000,0x3c04007a,0x24840000,0x7a0000)]
+    if wide:
+        if game == 'sp':
+            allowed.append((0x3c04008d,0x3c04008d,0x8d8c10))
+            for address in (0x1001d8,0x141100):
+                patch(address,[0x24848c10],[0x24840000])
+        else:
+            allowed.append((0x3c04007b,0x24848c10,0x3c04007b,0x24848c10,0x7a8c10))
     if heap not in allowed:raise ValueError('Unsupported '+game+' heap layout: '+repr(heap))
     for a,old,new in zip(addresses,heap,heap_words(game,end)):patch(a,[old],[new])
     for t,o,v,p,n,mem,fl,al in headers:
-        if t==1 and max(v,PLAYER_BASE)<min(v+mem,end):raise ValueError('Existing executable segment overlaps the music player reserve')
+        if t==1 and max(v,player_base)<min(v+mem,end):raise ValueError('Existing executable segment overlaps the music player reserve')
     b,headers=make_header_room(b,ph,num,headers)
-    payload=(W/'payload.bin').read_bytes();fileoff=(len(b)+4095)&~4095;b+=bytes(fileoff-len(b))+payload
+    payload=(W/f'payload{variant}.bin').read_bytes();fileoff=(len(b)+4095)&~4095;b+=bytes(fileoff-len(b))+payload
     assert ph+(num+1)*32<=min(x[1] for x in headers if x[4])
-    struct.pack_into('<8I',b,ph+num*32,1,fileoff,PLAYER_BASE,PLAYER_BASE,len(payload),end-PLAYER_BASE,7,64);struct.pack_into('<H',b,44,num+1)
+    struct.pack_into('<8I',b,ph+num*32,1,fileoff,player_base,player_base,len(payload),end-player_base,7,64);struct.pack_into('<H',b,44,num+1)
     if dst.exists():
      if not replace:raise FileExistsError('Use --replace for an existing test candidate')
      dst.unlink()
@@ -94,14 +109,14 @@ def make_header_room(b,ph,num,headers):
     for i,h in enumerate(headers):struct.pack_into('<8I',b,ph+i*32,*h)
     return b,headers
 
-def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,replace):
+def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,replace,player_base=PLAYER_BASE,variant=""):
     """Update only the reserved container when the installed player matches exactly."""
     from container import CAPACITY,validate_prefix,build_prefix
     from special_disc.iso_relocation import verify_untouched,append_members,verify_relocation
     prefix=prefix if prefix is not None else build_prefix(None);validate_prefix(prefix)
     if len(prefix)!=struct.unpack_from('<I',prefix,32)[0]:raise ValueError('Incomplete music container')
-    payload=(W/'payload.bin').read_bytes()
-    segment=next((h for h in headers if h[0]==1 and h[2]==PLAYER_BASE),None)
+    payload=(W/f'payload{variant}.bin').read_bytes()
+    segment=next((h for h in headers if h[0]==1 and h[2]==player_base),None)
     if segment is None:raise ValueError('缺少播放器保留区')
     installed=bytes(b[segment[1]:segment[1]+segment[4]])
     current=segment[4]==len(payload) and installed==payload
@@ -113,7 +128,7 @@ def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,rep
     reserve=reserve_end(symbols)
     # Legacy entries may name their own reserve end; v1-v5 all used LEGACY_RESERVE_END.
     installed_end=legacy.get('reserve_end',LEGACY_RESERVE_END) if upgrade else reserve
-    if segment[5]!=installed_end-PLAYER_BASE:raise ValueError('播放器保留区大小不匹配')
+    if segment[5]!=installed_end-player_base:raise ValueError('播放器保留区大小不匹配')
     installed_symbols=legacy['hooks'] if upgrade else symbols
     if any(h is not segment and h[0]==1 and max(h[2],segment[2])<min(h[2]+h[5],segment[2]+segment[5]) for h in headers):raise ValueError('Installed player reserve overlaps another executable segment')
     def off(a):
@@ -126,6 +141,8 @@ def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,rep
         for t,o,v,p,n,*_ in headers:
             if t==1 and v<=a<a+4<=v+n:return o+a-v
         raise ValueError('Unsupported installed executable')
+    if player_base != PLAYER_BASE and any(struct.unpack_from('<I',b,word(a))[0] != 0x24840000 for a in (0x1001d8,0x141100)):
+        raise ValueError('Installed SP heap low word was modified')
     if [struct.unpack_from('<I',b,word(a))[0] for a in heap_addresses(game)]!=heap_words(game,installed_end):raise ValueError('Installed heap boundary was modified')
     member=ms['BGM/VOCAL.BIN'];start=member.extent_lba*2048;end=start+member.size
     if member.size!=CAPACITY:raise ValueError('Unsupported container capacity')
@@ -142,7 +159,7 @@ def update_existing_image(W,src,dst,ms,b,headers,symbols,profile,game,prefix,rep
         # Shrink the reserve to the new player and give the rest back to the native heap.
         for address,word_value in zip(heap_addresses(game),heap_words(game,reserve)):struct.pack_into('<I',b,word(address),word_value)
         b=b[:segment[1]]+payload
-        new_segment=list(segment);new_segment[4]=len(payload);new_segment[5]=reserve-PLAYER_BASE
+        new_segment=list(segment);new_segment[4]=len(payload);new_segment[5]=reserve-player_base
         ph=struct.unpack_from('<I',b,28)[0];struct.pack_into('<8I',b,ph+headers.index(segment)*32,*new_segment)
         relocation=append_members(dst,ms,{profile['executable']:bytes(b)},catalog_policy='inherit',allowed_udf=None if game=='sp' else {profile['executable'],'EFF/VEFF2DX.BIN'})
         readback=verify_relocation(dst,ms,{profile['executable']:bytes(b)},relocation)

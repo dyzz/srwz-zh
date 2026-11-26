@@ -2,7 +2,7 @@
 
 import argparse
 import json
-import os
+import hashlib
 import re
 import struct
 import subprocess
@@ -133,7 +133,11 @@ def reserve(elf, edition, size_bytes):
     return base, writes
 
 
-def build(edition, source, output, work, lang_build):
+def build(edition, source, output, work, lang_build, *, replace=False):
+    if output.exists() and not replace:
+        raise FileExistsError(output)
+    if source.resolve() == output.resolve():
+        raise ValueError("widescreen output aliases the input disc")
     ed = EDITIONS[edition]
     _, _, _, _, display, extra = LAYOUT[edition]
     start, end = extra or ed.cave
@@ -313,14 +317,15 @@ def build(edition, source, output, work, lang_build):
         )
         elf = dual.Elf(elf.b)
     elf.put(start, payload)
+    writes = dict(heap_writes)
+    writes[display + 4] = 0
     for addr, label, link in [
         (ed.boot_site[0], "lang_hook", True),
         (ed.title_site[0], "title_hook", True),
         *((addr, *target) for addr, target in graphics_hooks.items()),
     ]:
-        elf.putw(addr, branch(sy[label], link))
-    elf.putw(display + 4, 0)
-    for address, word in heap_writes.items():
+        writes[addr] = branch(sy[label], link)
+    for address, word in writes.items():
         elf.putw(address, word)
     ph = struct.unpack_from("<I", elf.b, 28)[0]
     count = struct.unpack_from("<H", elf.b, 44)[0]
@@ -343,7 +348,25 @@ def build(edition, source, output, work, lang_build):
             catalog_policy="inherit",
         )
         verify_relocation(staged, disc.m, members, proof)
-        os.link(staged, output)
+        final = dual.Disc(staged)
+        final_elf = dual.Elf(final.read(ed.exe))
+        words = {hex(address): final_elf.word(address) for address in writes}
+        if any(words[hex(address)] != value for address, value in writes.items()):
+            raise ValueError("widescreen ELF readback mismatch")
+        default = final_elf.word(sy["wide_enabled"])
+        if default != 0:
+            raise ValueError("unexpected widescreen default")
+        member = "EFF/VEFF2DX.BIN"
+        effect = final.read(member)
+        if effect != disc.read(member):
+            raise ValueError(f"{member} differs from input")
+        report = {"edition": edition, "input": dual.disc_identity(source),
+                  "output": dual.disc_identity(staged), "elf_words": words,
+                  "wide_enabled": {"address": sy["wide_enabled"], "default": default},
+                  "members": {member: {"size": len(effect), "sha256": hashlib.sha256(effect).hexdigest()}}}
+        receipt = Path(temp) / "verified.json"
+        receipt.write_text(json.dumps(report, indent=2) + "\n")
+        dual.publish(staged, output, receipt, output.with_suffix(".receipt.json"))
     (work / "symbols.json").write_text(json.dumps(sy, indent=2))
     print(output)
 
@@ -354,6 +377,7 @@ if __name__ == "__main__":
     for name in ("source", "output", "work"):
         p.add_argument(name, type=Path)
     p.add_argument("--language-build", type=Path)
+    p.add_argument("--replace", action="store_true", help="replace a previous candidate after verifying the new disc")
     args = p.parse_args()
     build(
         args.edition,
@@ -362,4 +386,5 @@ if __name__ == "__main__":
         args.work,
         args.language_build
         or TOOLS.parent / "build/multilang" / ("assemble-" + args.edition),
+        replace=args.replace,
     )

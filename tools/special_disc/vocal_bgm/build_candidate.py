@@ -16,6 +16,7 @@ def main():
     p.add_argument('--source-iso',type=Path,default=None)
     p.add_argument('--output-iso',type=Path,default=root/'build/iso/test/sp-vorbis-full.iso')
     p.add_argument('--replace',action='store_true')
+    p.add_argument('--wide-sp',action='store_true',help='Link SP player above the widescreen bezel segment')
     p.add_argument('--payload-only',action='store_true')
     a=p.parse_args()
     if a.tremor_source is None:a.tremor_source=ensure_tremor()
@@ -23,7 +24,7 @@ def main():
     probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','a:0','-show_entries','stream=codec_name,sample_rate,channels,duration_ts,time_base','-of','json',str(a.ogg)],text=True))['streams'][0]
     if any(probe.get(k)!=v for k,v in {'codec_name':'vorbis','sample_rate':'48000','channels':2,'time_base':'1/48000'}.items()):raise ValueError('Expected 48 kHz stereo Vorbis')
     if not a.payload_only and a.output_iso.exists() and not a.replace:p.error('Candidate exists; use --replace')
-    compile_payload(a.workdir.resolve(),a.toolchain.resolve(),a.tremor_source.resolve(),a.ogg.resolve(),a.game)
+    compile_payload(a.workdir.resolve(),a.toolchain.resolve(),a.tremor_source.resolve(),a.ogg.resolve(),a.game,wide_sp=a.wide_sp)
     if not a.payload_only:
         from container import build_prefix,validate_prefix
         prefix=build_prefix(a.ogg.read_bytes(),int(probe['duration_ts']));validate_prefix(prefix)

@@ -20,7 +20,6 @@
 - [ ] 最后一批 42 个港台译名已逐条复核，19 项至少修改一地，23 项保留现名。仍缺地区出处的写法见本地审校表 `work/handoff/held42/pending.md`。
 - [ ] 香港模式下剧情、战斗台词实机通读
 - [ ] BEST 独有关卡与战斗台词、章节间幕、教学标题、援护提示在台/港模式下实机验证
-- [ ] 音乐包在本篇/BEST 三合一盘上的兼容性实测
 - [ ] Windows 构建障碍：`tools/build_editions.py`、`tools/srwz/file_identity.py` 用 `fcntl`；`tools/zh_hant/sp_tc_baseline.py` 用符号链接指向答案目录；仓库 `rom` 是符号链接
 - [ ] 提速：`sp_tc_baseline.return_compdata_strings` 在缓存未命中时把 COMPDATA 整份再压一遍（每语言约 64 秒）（待确认现状）
 约束：
@@ -32,7 +31,6 @@
 - [ ] 繁体（台/港）模式下 SP 额外关卡、挑战篇的剧情与战斗实机走一遍
 - [ ] 繁体模式下名场面集整套（22 行 △／○）内存回归（S6）
 - [ ] 实机确认繁体贴图：集市、中场休息、DATA HELP、按键说明、结算提示（序章／進行中）、战斗中的 TRI 叠图和援护提示（目前只做了图集层面的核对）
-- [ ] SP 三合一盘（约 4.21 GB）加音乐包后的总大小与兼容性：当初估计单层 DVD 只剩约 30 MB，需实测
 约束：
 - SP 语言设定单独一份 `/BISLPS-25920L/LANG.BIN`，与本篇各自设定
 - 繁体模式把 `DATA/VT1.BIN` 整份重定向到盘尾的繁体 VT1（不平移偏移表，否则额外关卡黑屏）；仍需只在繁体模式加大字库缓冲并启用线性区回退
@@ -41,7 +39,6 @@
 ### 三语交接遗留（来源：`HANDOFF_CODEX_THREE_EDITIONS_20261121.md` §9，2026-11-21，未入库）
 - [ ] 两类简体字格还没有繁体版（本篇和 SP 都有）：第 4 页斜体「按键」（`config/assets/ui-headings-zh.json` 的 `key` 格，page 4 rect [0,80,46,20]，HarmonyOS Regular 19pt、shear 12、stroke 1.1／fill 0.5），以及挤在一起的「菜单」标题格（本篇第 3 页左上，SP 第 6 页「指令」后）。这些格平时被盖住，但用户要求凡简体画过的都要有繁体版；画法用 `tools/zh_hant/kvm_text.py` 的 `fit` + `render`
 - [ ] SP 其他贴图文件（VEFF2DX、AIDDATA、TRICMN）按「简体画了字、繁体与简体相同」的思路逐区域核对；KVMDATA 已核：SP 74 处中 34 处相同（其中 32 处简繁同字），本篇 63 处中 27 处相同
-- [ ] 全量单元测试原有 3 项失败（简体写死的断言：`test_polish_feedback_pilot` 种子、`test_release_workflow` 修复器标签、v030_043），需改为按语言取值或更新断言
 约束：
 - SP 资源缓存会掩盖改动：要真正重跑，先改名 `work/build/sp-multilang-resources/{tw,hk}/*/verified.json`，再用 `SRWZ_SP_STAGE_MEMO=0` 构建
 - 一个简体词对应多个繁体写法时，`expected_literal` 会报错，要改用按位置的 `expected_at`

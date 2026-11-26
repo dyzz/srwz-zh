@@ -753,7 +753,10 @@ def main() -> int:
         if args.out_dir is not None:
             parser.error("--out-dir applies to multilingual builds")
         badge_text = None
-        if not args.plan and any(x.strip() in ('original', 'best') for x in args.editions.split(',')):
+        needs_badge = args.frozen_badge or args.release_version or any(
+            edition.strip() in ("original", "best") for edition in args.editions.split(",")
+        )
+        if not args.plan and needs_badge:
             from freeze_title_version import refresh_current_badge
             import re
             if args.release_version and not re.fullmatch(r'\d+\.\d+\.\d+(?:-rc(?:\.\d+)?)?', args.release_version):

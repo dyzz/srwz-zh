@@ -31,8 +31,9 @@ EDITIONS_BY_SCHEMA = {
     4: ("original", "best", "sp"),
     5: ("best", "sp"),
     6: ("original", "best", "sp"),
+    7: ("original", "best", "sp"),
 }
-BUILT_IN_SKIP_SCHEMAS = (4, 5, 6)
+BUILT_IN_SKIP_SCHEMAS = (4, 5, 6, 7)
 TYPOGRAPHY_SCHEMAS = (5, 6)
 
 
@@ -432,6 +433,13 @@ def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
             raise ReleaseBuildError(f"release requires exactly {edition_names}")
         raise ReleaseBuildError("dual release requires exactly original and best")
     validation = load_json(project_path(config["validation"]))
+    if schema == 7:
+        try:
+            from srwz.multilang_release import verify
+            verify(PROJECT_ROOT, config, validation)
+        except (KeyError, OSError, ValueError) as error:
+            raise ReleaseBuildError(str(error)) from error
+        return validation
     expected_status = ("edition_build_and_static_readback_passed" if current
                        else "dual_edition_build_and_static_readback_passed")
     if (validation.get("status") != expected_status
@@ -588,7 +596,7 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
         for edition, item in config['editions'].items():
             verify_variant(project_path(item['target_iso']['path']),
                            project_path(item['skip_variant']['target_iso']['path']), contract, edition)
-    if config['schema_version'] in BUILT_IN_SKIP_SCHEMAS:
+    if config['schema_version'] in BUILT_IN_SKIP_SCHEMAS and config['schema_version'] != 7:
         for edition, item in config['editions'].items():
             verify_built_in_skip(project_path(item['target_iso']['path']), edition)
     xdelta = config["xdelta"]
@@ -610,6 +618,9 @@ def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
         readme = [f"《超级机器人大战 Z》简体中文补丁 {config['tag']}\n",
                   "按日文原盘版本选一个补丁；不要在旧汉化镜像上重复打补丁。",
                   "操作前备份原盘与存档。本补丁包不包含 ISO 或原版游戏数据。\n"]
+        if config["schema_version"] == 7:
+            readme[0] = f"《超级机器人大战 Z》三语合盘补丁 {config['tag']}\n"
+            readme.append("标题设置中左右选择简体、台湾繁体或香港繁体，保存后重新启动游戏。宽屏项目可切换 4:3 和 16:9，随设置保存。")
         if config["schema_version"] == 3:
             readme.append("默认推荐不带 skip 的补丁；四份补丁均直接用于对应日文原盘。\n"
                           "带 -skip 版：类似《破界篇》引入的快进，战斗动画中按住方块键（□），"

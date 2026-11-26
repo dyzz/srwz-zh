@@ -285,6 +285,22 @@ def build_discs(args, editions: list[str], languages: list[str]) -> None:
     with ThreadPoolExecutor(max_workers=len(editions)) as pool:
         for job in [pool.submit(finish, edition) for edition in editions]:
             job.result()
+    if args.release_version and "sp" in editions:
+        # The resource compiler uses sparse views. Bind their logical images to independent,
+        # single-language SP candidate readbacks before allowing a release freeze.
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            jobs = [pool.submit(build, "sp", language, badge, args.force_rebuild)
+                    for language in ("", *languages)]
+            for job in jobs:
+                job.result()
+    if args.release_version:
+        for edition in editions:
+            run(f"widescreen-{edition}", [
+                language_python(), str(ROOT / "tools/widescreen/build.py"), edition,
+                str(args.out_dir / f"multilang-{edition}.iso"),
+                str(args.out_dir / f"multilang-{edition}-wide.iso"),
+                str(ROOT / f"build/multilang/widescreen-{edition}"), "--replace",
+            ])
     print(f"total {time.perf_counter() - started:.2f}s", flush=True)
 
 
