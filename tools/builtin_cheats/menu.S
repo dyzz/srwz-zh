@@ -60,22 +60,22 @@ screen:
         la $s1,settings
         lhu $t0,PAD_PRESSED
         sh $t0,32($sp)
-        lbu $t1,9($s1)
+        lbu $t1,17($s1)
         bnez $t1,active
         andi $t1,$t0,0x100            # SELECT on this screen
         beqz $t1,with_hint
         nop
-        lw $t0,0($s1)
-        sw $t0,4($s1)
-        sb $zero,8($s1)
+        ld $t0,0($s1)
+        sd $t0,8($s1)
+        sb $zero,16($s1)
         li $t0,1
-        sb $t0,9($s1)
+        sb $t0,17($s1)
         lw $t0,0x6d5d68
-        sw $t0,12($s1)                # preserve the underlying screen's message box
+        sw $t0,20($s1)                # preserve the underlying screen's message box
         jal MB_CREATE
         nop
         lw $t0,0x6d5d68
-        sw $t0,16($s1)
+        sw $t0,24($s1)
         jal refresh
         nop
 active:
@@ -83,7 +83,7 @@ active:
         sh $zero,-2($t0)
         sh $zero,0($t0)
         sh $zero,4($t0)
-        lw $t0,12($s1)
+        lw $t0,20($s1)
         lui $t1,0x6d
         sw $t0,0x5d68($t1)
         move $a0,$s0
@@ -92,7 +92,7 @@ active:
 after_underlying:
         move $s0,$v0
         lui $t1,0x6d
-        lw $t0,16($s1)
+        lw $t0,24($s1)
         sw $t0,0x5d68($t1)
         li $a0,PAD_BUF
         jal MB_INPUT
@@ -102,33 +102,37 @@ after_underlying:
         bnez $t1,close
         andi $t1,$t0,0x20
         beqz $t1,navigate
-        lw $t1,4($s1)
-        sw $t1,0($s1)
+        ld $t1,8($s1)
+        sd $t1,0($s1)
 close:
         jal MB_DESTROY
         nop
         jal LANG_RESTORE
         nop
         lui $t1,0x6d
-        lw $t0,12($s1)
+        lw $t0,20($s1)
         sw $t0,0x5d68($t1)
         b finish
-        sb $zero,9($s1)
+        sb $zero,17($s1)
 navigate:
         andi $t1,$t0,0xf000
         beqz $t1,draw
-        lbu $t2,8($s1)
+        lbu $t2,16($s1)
         andi $t1,$t0,0x5000
         beqz $t1,value
-        li $t4,3
-        addiu $t3,$s1,8
+        li $t4,7
+        addiu $t3,$s1,16
         b step
         andi $t1,$t0,0x1000
 value:
-        addiu $t3,$s1,4
+        addiu $t3,$s1,8
         addu $t3,$t3,$t2
-        sltiu $t4,$t2,2
-        addiu $t4,$t4,2
+        li $t4,2
+        li $t5,1
+        bne $t2,$t5,1f
+        nop
+        li $t4,4
+1:
         lbu $t2,0($t3)
         andi $t1,$t0,0x8000
 step:
@@ -146,24 +150,24 @@ changed:
 draw:
         sd $s0,40($sp)
         li $t0,1
-        sb $t0,10($s1)
+        sb $t0,18($s1)
         move $a0,$s0
         li $a1,BOX_X
-        li $a2,BOX_Y
+        li $a2,BOX_Y+2
         jal MB_DRAW
         move $a3,$zero
-        sb $zero,10($s1)
+        sb $zero,18($s1)
         move $a0,$v0
         li $a1,81                 # Small native D-pad with left and right highlighted
-        jal LANG_ICON
+        jal cheat_icon
         li $a2,-127
         move $a0,$v0
         li $a1,ICON_OK
-        jal LANG_ICON
+        jal cheat_icon
         li $a2,-11
         move $a0,$v0
         li $a1,ICON_CANCEL
-        jal LANG_ICON
+        jal cheat_icon
         li $a2,69
         move $s0,$v0
         jal TEXT_PASS
@@ -185,10 +189,10 @@ with_hint:
         jal 0x260630
         move $a1,$zero
         lw $t0,LANG_ID
-        la $a1,str_sc_9
+        la $a1,hint_sc
         beqz $t0,1f
         nop
-        la $a1,str_tc_9
+        la $a1,hint_tc
 1:
         move $a0,$s0
         li $a2,16
@@ -219,6 +223,12 @@ finish:
         ld $s2,24($sp)
         jr $ra
         addiu $sp,$sp,64
+cheat_icon:
+        li $a3,BOX_Y+2+4+88
+        move $t0,$zero
+        li $t1,128
+        j KVP_DRAW
+        move $t2,$t1
 pass_screen:
         jr $t9
         nop
@@ -300,9 +310,17 @@ fg_return:
 1:      jr $ra
         nop
 
-# The first three native Report rows carry full-width digits 1..3. Their
-# normal per-line font style and y position come from the message component.
-# The renderer positions the cursor, label and value on fixed x anchors.
+# The Report component supplies its own frame, font style and key legend.
+# Only this menu needs a taller frame and seven fixed label/value baselines.
+report_frame:
+        lbu $k0,settings+18
+        beqz $k0,1f
+        nop
+        # Trim one 12-unit row above the first label; keep the lower edge anchored.
+        addiu $a3,$a3,12
+        li $t2,92
+1:      j 0x36b4c0
+        nop
 refresh:
         la $a1,template_sc
         lw $t0,LANG_ID
@@ -313,30 +331,33 @@ refresh:
         j LANG_SET
         nop
 report_text:
-        lbu $k0,settings+10
+        lbu $k0,settings+18
         beqz $k0,stock_text
         nop
         lbu $k0,0($a0)
         li $k1,0x82
-        bne $k0,$k1,stock_text
+        beq $k0,$k1,draw_rows
         nop
-        lbu $k0,1($a0)
-        addiu $k0,$k0,-0x50
-        sltiu $k1,$k0,3
-        beqz $k1,stock_text
-        nop
+        # The native text parser supplies the footer as the second line.
+        j 0x13c5a0
+        addiu $a2,$s7,88
+draw_rows:
         addiu $sp,$sp,-64
         sd $ra,0($sp)
         sd $a2,8($sp)
         sd $t0,16($sp)
-        sw $k0,24($sp)
+        sw $zero,24($sp)
         la $k1,words_sc
         lw $t2,LANG_ID
         beqz $t2,1f
         nop
         la $k1,words_tc
 1:      sw $k1,28($sp)
-        lbu $t2,settings+8
+row_loop:
+        lw $k0,24($sp)
+        ld $a2,8($sp)
+        ld $t0,16($sp)
+        lbu $t2,settings+16
         bne $k0,$t2,label_text
         nop
         la $a0,arrow
@@ -348,42 +369,54 @@ label_text:
         lw $k1,28($sp)
         sll $t2,$k0,2
         addu $t2,$t2,$k1
-        lw $a0,4($t2)
+        lw $a0,0($t2)
         li $a1,-82
         ld $a2,8($sp)
         ld $t0,16($sp)
         jal 0x13c5a0
         move $t1,$zero
         lw $k0,24($sp)
-        la $t2,settings+4
+        la $t2,settings+8
         addu $t2,$t2,$k0
         lbu $t2,0($t2)
-        sltiu $k0,$k0,2
-        bnez $k0,2f
-        nop
-        beqz $t2,2f
-        nop
-        li $t2,3
-2:      lw $k1,28($sp)
+        la $k1,value_offsets
+        addu $k1,$k1,$k0
+        lbu $k0,0($k1)
+        addu $t2,$t2,$k0
+        lw $k1,28($sp)
         sll $t2,$t2,2
         addu $k1,$k1,$t2
-        lw $a0,16($k1)
+        lw $a0,0($k1)
         li $a1,32
         ld $a2,8($sp)
         move $a3,$v0
         ld $t0,16($sp)
         move $t1,$zero
+        jal 0x13c5a0
+        nop
+        move $a3,$v0
+        lw $k0,24($sp)
+        addiu $k0,$k0,1
+        sw $k0,24($sp)
+        ld $t2,8($sp)
+        addiu $t2,$t2,12
+        sd $t2,8($sp)
+        sltiu $k1,$k0,7
+        bnez $k1,row_loop
+        nop
         ld $ra,0($sp)
+        jr $ra
         addiu $sp,$sp,64
 stock_text:
         j 0x13c5a0
         nop
 
 .include "effects.inc"
-.align 2
+.align 3
 settings:
-applied: .word 0
-         .word 0,0,0,0
-attr:    .byte 2,4,255,5,5,5,5
+applied: .space 8
+         .space 20
+value_offsets: .byte 7,9,13,15,17,19,21
+attr:    .byte 2,2,255,5,5,5,5
 arrow:   .byte 0x81,0xcb,0
 .include "cheat_text.inc"

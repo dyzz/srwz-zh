@@ -16,10 +16,17 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "tools/builtin_cheats"
 BASE = 0x78C700  # end of Latin segment; event subtitles start at 0x790000
 SITES = {
+    0x3587D8: ("report_frame", 0x0C0DAD30),
     0x35886C: ("report_text", 0x0C04F168),
     0x141CA4: ("cheat_home", 0x0C061224),
     0x141B54: ("cheat_map", 0x0C04FDF8),
     0x14314C: ("cheat_tick", 0x0C0F89B0),
+    0x253A18: ("bs_reward", 0x00032C7F, 0x8C830008),
+    0x253E08: ("xp_reward", 0x8FA300B0, 0x3C01005A),
+    0x280B4C: ("energy_cost", 0x00431823, 0xA48300F2),
+    0x280BF8: ("ammo_cost", 0x2463FFFF, 0xA2030004),
+    0x282240: ("upgrade_limit", 0x03E00008, 0x00000000),
+    0x276400: ("parts_query", 0x00431021, 0x80420000),
     0x253980: ("money_reward", 0x8C830004, 0x00711821),
     0x253B10: ("pp_reward", 0x30E7FFFF, 0x30A9FFFF),
     0x289704: ("cost_apply", 0x90E20002, 0x0C09DDF8),
@@ -84,18 +91,20 @@ def messages():
         ):
             for row in ledger[group]:
                 codes.setdefault(row["character"], row["code"])
-        strings = [
-            title,
-            cash,
-            pilot + "ＰＰ",
-            "精神指令",
-            "普通",
-            gain + "×４",
-            maximum,
-            "免消耗",
-            "　　" + switch + "　　　" + ok + "　　　" + cancel,
-            "ＳＥＬＥＣＴ　" + title,
+        traditional = key == "tc"
+        labels = [
+            "戰鬥收益" if traditional else "战斗收益", cash + "／ＢＳ", pilot + "ＰＰ",
+            "精神指令", "武器消耗", "改造上限", "強化零件" if traditional else "强化零件",
         ]
+        values = [
+            ["普通", gain + "×４"],
+            ["普通", cash + "最大", "ＢＳ最大", "兩者最大" if traditional else "两者最大"],
+            ["普通", maximum], ["普通", "免消耗"], ["普通", "免消耗"],
+            ["普通", "１５段"], ["普通", "各９９個" if traditional else "各９９个"],
+        ]
+        strings = labels + [v for choices in values for v in choices]
+        footer = "　　" + switch + "　　　" + ok + "　　　" + cancel
+        strings += [footer, "ＳＥＬＥＣＴ　" + title]
         for i, text in enumerate(strings):
             raw = b"".join(
                 char.encode("ascii")
@@ -105,11 +114,12 @@ def messages():
                 else char.encode("cp932")
                 for char in text
             )
-            if i == 8:
-                template = b"\x82\x50\n\x82\x51\n\x82\x52\n" + raw + b"\0"
+            if i == len(strings) - 2:
+                template = b"\x82\x50\n" + raw + b"\0"
                 out.append(f"template_{key}: .byte " + ",".join(map(str, template)))
             out.append(f"str_{key}_{i}: .byte " + ",".join(map(str, raw + b"\0")))
         out += [
+            f"hint_{key} = str_{key}_{len(strings)-1}",
             ".align 2",
             f"words_{key}: .word "
             + ",".join(f"str_{key}_{i}" for i in range(len(strings))),
