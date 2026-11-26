@@ -6,6 +6,7 @@ addressed by id:
   sd/exe/<offset>        a NUL-terminated string in SLPS_259.20
   sd/compdata/<offset>   a string reached by pointers in the decoded COMPDATA
   sd/exe/wallpaper-names one formula, written at every listed offset
+  sd/stage-location/<name>  a scene label at each listed STAGE chunk and offset
   sd/ticker/<hash>       the intermission ticker text, in every STAGE slot holding it
 
 Each string is written inside its own bytes plus the zero alignment after it up
@@ -279,6 +280,13 @@ def main() -> None:
         if value == len(stage):
             break
     ticker_zh = {e["source_text"]: e["translation"] for e in by_kind["ticker"]}
+    locations = collections.defaultdict(list)
+    for row in by_kind["stage-location"]:
+        for chunk_id, offset in row["stage_slots"].items():
+            index = int(chunk_id)
+            if not 1 <= index < len(offsets) - 1:
+                raise ValueError(f"Unknown STAGE location chunk: {index}")
+            locations[index].append((offset, row))
     stage_report, ticker_left = [], []
     stage_archive = (CompressedArchiveWorkspace(STAGE, stage_base, offsets)
                      if args.decoded_overlays else None)
@@ -288,7 +296,11 @@ def main() -> None:
                   else stage_archive.view(index))
         data = bytearray(result.output)
         slots = [(o, t) for o, t in tickers(bytes(data), table) if t in ticker_zh]
-        if not slots:
+        for offset, row in locations.get(index, ()):
+            end = offset + row["capacity_bytes"]
+            if writer.put(data, offset, row["source_text"], row["translation"], [end], row["id"]) is None:
+                raise ValueError(f"STAGE {index}: location exceeds slot")
+        if not slots and index not in locations:
             continue
         for offset, text in slots:
             payload = writer.encode(ticker_zh[text])

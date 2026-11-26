@@ -414,6 +414,12 @@ def main(iso=None, work=None):
                 require(actual.text==formatted,'wallpaper template ISO reread')
                 counts['system_native_controls']+=len(verify_runtime_control_bytes(exe[at:actual.end],readback,formatted))
                 counts['system_writes']+=1
+        elif target.startswith('sd/stage-location/'):
+            for chunk, at in row['stage_slots'].items():
+                actual = decode_text(stage_data[int(chunk)], at, readback, end=at + row['capacity_bytes'])
+                require(actual.terminator == 'nul' and actual.text == expected,
+                        f'STAGE {chunk} location ISO reread: {target}')
+                counts['system_writes'] += 1
         elif target.startswith('sd/ticker/'):
             places=ticker_places[row['source_text']];require(bool(places),f'ticker has no native occurrence: {target}')
             for i,at in places:

@@ -190,7 +190,7 @@ def coverage(reports):
         require(not pending,f'{kind}: unwritten corpus targets: {pending}')
         rows.append(dict(corpus=str(path.relative_to(ROOT)),sha256=file_sha(path),entries=len(entries),targets=targets_count,pending=pending))
     total_entries = sum(row['entries'] for row in rows)
-    require(total_entries == 8632,'SP source corpus scope changed; update explicit contract')
+    require(total_entries == 8633,'SP source corpus scope changed; update explicit contract')
     return dict(corpora=rows,total_entries=total_entries,pending_targets=[],stage_chunks=len(CHUNKS),stage_bindings=len([r for c in stage['chunk_reports'] for r in c['bindings']]),formation_cells=sum(len(r.get('writes',[]))for c in stage['chunk_reports']for r in c['bindings']),frame_bindings=len(frame['bindings']),image_labels=len(reports['image-labels']['bindings']),sp_battle_entries=reports['srvc']['sp_corpus']['entries'],sp_battle_records=reports['srvc']['sp_corpus']['records'])
 
 
