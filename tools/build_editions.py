@@ -759,8 +759,8 @@ def main() -> int:
         if not args.plan and needs_badge:
             from freeze_title_version import refresh_current_badge
             import re
-            if args.release_version and not re.fullmatch(r'\d+\.\d+\.\d+(?:-rc(?:\.\d+)?)?', args.release_version):
-                raise ValueError('release version must be x.y.z or x.y.z-rc[.n]')
+            if args.release_version and not re.fullmatch(r'\d+\.\d+\.\d+(?:\.\d+)?(?:-rc(?:\.\d+)?)?', args.release_version):
+                raise ValueError('release version must be x.y.z[.hotfix] with an optional -rc[.n] suffix')
             text = f'v{args.release_version}' if args.release_version else None
             badge_text = args.frozen_badge or refresh_current_badge(PROJECT_ROOT, text=text)
             print(f'[title] version: {badge_text}', flush=True)

@@ -29,12 +29,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def version_text(root: Path, *, date: str | None = None, release_tag: str | None = None) -> str:
     tags = subprocess.check_output(['git', 'tag', '--points-at', 'HEAD'], cwd=root, text=True).splitlines()
-    tags = [tag for tag in tags if re.fullmatch(r'v\d+\.\d+\.\d+', tag)]
+    tags = [tag for tag in tags if re.fullmatch(r'v\d+\.\d+\.\d+(?:\.\d+)?', tag)]
     if tags:
         return max(tags, key=lambda tag: tuple(map(int, tag[1:].split('.'))))
     if date is None and release_tag is None:
         badge = json.loads((root / 'config/assets/title-menu-zh.json').read_text())['version_badge']
-        if re.fullmatch(r'v\d+\.\d+\.\d+-rc(?:\.\d+)?', badge['text']):
+        if re.fullmatch(r'v\d+\.\d+\.\d+(?:\.\d+)?-rc(?:\.\d+)?', badge['text']):
             return badge['text']
     if release_tag is None:
         try:
@@ -45,7 +45,7 @@ def version_text(root: Path, *, date: str | None = None, release_tag: str | None
             # The checked release identity is retained for offline builds.
             badge = json.loads((root / 'config/assets/title-menu-zh.json').read_text())['version_badge']
             release_tag = badge['latest_release_tag']
-    if not re.fullmatch(r'v\d+\.\d+\.\d+', release_tag):
+    if not re.fullmatch(r'v\d+\.\d+\.\d+(?:\.\d+)?', release_tag):
         raise ValueError('latest release does not have a version tag')
     day = date or datetime.now(ZoneInfo('Asia/Singapore')).strftime('%Y%m%d')
     if not re.fullmatch(r'\d{8}', day):

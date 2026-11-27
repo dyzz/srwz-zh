@@ -33,7 +33,7 @@ def require(condition, message):
 def freeze(root, version, directory, xdelta, *, check_only=False):
     from verify_editions import verify_batch
     from build_editions import edition_lock
-    require(re.fullmatch(r'\d+\.\d+\.\d+', version), 'invalid version')
+    require(re.fullmatch(r'\d+\.\d+\.\d+(?:\.\d+)?', version), 'invalid version')
     tag = 'v' + version
     frozen = root / 'build/iso' / tag
     evidence = root / 'manifests/releases' / tag
@@ -169,7 +169,7 @@ def verify_wide(target, edition, wide, menu=None):
 def verify(root, config, validation, *, staged_images=None, staged_proofs=None):
     tag = config['tag']
     prefix = f'manifests/releases/{tag}/'
-    require(re.fullmatch(r'v\d+\.\d+\.\d+', tag) and config['validation'] == prefix + 'validation.json',
+    require(re.fullmatch(r'v\d+\.\d+\.\d+(?:\.\d+)?', tag) and config['validation'] == prefix + 'validation.json',
             'invalid frozen evidence location')
     require(validation['status'] == 'multilang_widescreen_readback_passed' and config['skip'] == 'built_in',
             'incomplete multilang release')

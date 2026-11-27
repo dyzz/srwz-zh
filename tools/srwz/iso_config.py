@@ -112,7 +112,7 @@ def validate_directory_contract(config: dict) -> None:
     release_tag = config.get("release_tag")
     if release_tag is not None and (
         not isinstance(release_tag, str)
-        or re.fullmatch(r"v\d+\.\d+\.\d+", release_tag) is None
+        or re.fullmatch(r"v\d+\.\d+\.\d+(?:\.\d+)?", release_tag) is None
     ):
         raise IsoBuildError(
             "ISO release_tag must use semantic form vMAJOR.MINOR.PATCH"

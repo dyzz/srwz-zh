@@ -210,8 +210,8 @@ def main() -> None:
     parser.add_argument("--force-rebuild", action="store_true")
     parser.add_argument("--out-dir", type=Path, default=ROOT / "build/iso/test")
     args = parser.parse_args()
-    if args.release_version and not re.fullmatch(r"\d+\.\d+\.\d+(?:-rc(?:\.\d+)?)?", args.release_version):
-        parser.error("release version must be x.y.z or x.y.z-rc[.n]")
+    if args.release_version and not re.fullmatch(r"\d+\.\d+\.\d+(?:\.\d+)?(?:-rc(?:\.\d+)?)?", args.release_version):
+        parser.error("release version must be x.y.z[.hotfix] with an optional -rc[.n] suffix")
     editions = [name for name in args.editions.split(",") if name]
     languages = LANGUAGES
     if not editions or set(editions) - {"original", "best", "sp"}:

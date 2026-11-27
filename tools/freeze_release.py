@@ -140,7 +140,7 @@ def main():
     source.add_argument('--manifest', type=Path, help='batch JSON written by build_editions.py')
     parser.add_argument('--version', required=True)
     args = parser.parse_args()
-    if not re.fullmatch(r'\d+\.\d+\.\d+', args.version):
+    if not re.fullmatch(r'\d+\.\d+\.\d+(?:\.\d+)?', args.version):
         parser.error('version must be a numeric release version')
     if args.multilang_dir:
         from srwz.multilang_release import freeze as freeze_multilang
