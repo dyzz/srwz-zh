@@ -333,9 +333,9 @@ report_text:
         li $k1,0x82
         beq $k0,$k1,draw_rows
         nop
-        # The native text parser supplies the footer as the second line.
+        # Centre the footer glyphs vertically against the native KVP button sprites.
         j TEXT_DRAW
-        addiu $a2,$s7,88
+        addiu $a2,$s7,91
 draw_rows:
         addiu $sp,$sp,-64
         sd $ra,0($sp)
