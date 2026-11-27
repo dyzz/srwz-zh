@@ -12,6 +12,12 @@
 - 生产压缩和解压只使用 `tools/native/srwz-codec-rs/`。
 - 不执行上游 EXE/DLL、Wine 或 Mono，不修改相邻上游仓库。
 
+## 港台系统术语审校
+
+按日文原词、术语 ID、地区和适用语境核对 `config/zh-hant/system-terms-20261120.json`。以 `decision` 和对应地区的 `to` 为准，`keep` 与 `change` 同样有效。地区措辞建议涉及已决术语时，须先取得新的明确决议，再同步地区名称表、术语表、菜单、正文和攻略。
+
+例如，台湾与香港的两件强化零件均定名为「A適配器」「S適配器」，菜单独立名称和促销字幕都沿用全名。台湾的「適性測試」另按其日文和语境审校。运行 `python3 tools/zh_hant/audit_regional_text.py` 可检查语料中的系统术语。
+
 ## 提交前检查
 
 先将测试依赖安装到运行测试的同一个 Python 环境：

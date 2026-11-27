@@ -13,6 +13,44 @@ from srwz.release_inputs import SOURCE_ROOTS, source_inventory
 
 
 class RegionalCorpusTests(unittest.TestCase):
+    def test_regional_names_and_glossaries_follow_system_term_decisions(self):
+        config = ROOT / 'config/zh-hant'
+        decisions = json.loads((config / 'system-terms-20261120.json').read_text())['terms']
+        names = {r['id']: r for r in json.loads((config / 'regional-names.json').read_text())['names']}
+        for region, folder in [('tw', 'glossary-zh-hant'), ('hk', 'glossary-zh-hant-hk')]:
+            glossary = {r['id']: r for path in (ROOT / 'corpus' / folder).glob('*.json')
+                        for r in json.loads(path.read_text()).get('terms', [])}
+            for decision in decisions:
+                term = decision['id']
+                with self.subTest(region=region, term=term):
+                    expected = decision[region]['to']
+                    self.assertEqual(names[term][region]['to'], expected)
+                    self.assertEqual(glossary[term]['translation'], expected)
+                    self.assertNotIn(expected, glossary[term].get('deprecated_translations', []))
+
+    def test_audit_checks_kept_names_in_menus_and_named_mentions(self):
+        import audit_regional_text as audit
+        samples = [
+            ('Ａ−アダプター', 'A适配器', 'A轉接器'),
+            ('Ｓ−アダプター、発売中。', 'S适配器热卖中。', 'S轉接器熱賣中。'),
+            ('適性テスト', '适配测试', '適性測試'),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for folder, column in [('sc', 1), ('tw', 2)]:
+                (root / folder).mkdir()
+                rows = [dict(id=str(i), source_text=row[0], translation=row[column])
+                        for i, row in enumerate(samples)]
+                (root / folder / 'sample.json').write_text(json.dumps(rows))
+            output = root / 'audit.json'
+            with (patch.object(audit, 'ROOT', root), patch.object(audit, 'TREES', [('sc', 'tw', set())]),
+                  patch.object(audit, 'resolve_all', return_value=({}, {})),
+                  patch.object(sys, 'argv', ['audit', '--out', str(output)])):
+                audit.main()
+            findings = json.loads(output.read_text())['findings']
+            self.assertCountEqual([r['expected'] for r in findings if r['rule'] == 'decided-system-term'],
+                                  ['A適配器', 'S適配器'])
+
     def test_coverage_check_reports_missing_text_and_writes_nothing(self):
         import sync_corpus
         with tempfile.TemporaryDirectory() as tmp:

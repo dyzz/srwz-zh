@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import unicodedata
 
 from sync_corpus import FROZEN_KEYS, ROOT, SP_FROZEN, TM_SCOPE, TREES
 
@@ -90,8 +91,7 @@ def main():
         for jp in r['ja']:
             names[jp].append(r)
     terms = load(CONFIG / 'regional-terms.json')['rules']
-    decisions = [r for r in load(CONFIG / 'system-terms-20261120.json')['terms']
-                 if r['decision'] == 'change']
+    decisions = load(CONFIG / 'system-terms-20261120.json')['terms']
     # A settled compound (e.g. 生化感應器) takes precedence over a generic term.
     protected = {}
     for region in ('tw', 'hk'):
@@ -163,10 +163,23 @@ def main():
                                 remaining = compounds.sub('\0', remaining)
                             if old and old in remaining:
                                 flag('regional-term', old, target)
+                    jp_normalized = unicodedata.normalize('NFKC', jp or '')
                     for decision in decisions:
+                        if decision['sc'] not in simplified:
+                            continue
+                        if decision['decision'] == 'keep':
+                            source_name = unicodedata.normalize('NFKC', decision['ja'])
+                            expected = decision[region]['to']
+                            if jp_normalized == source_name and simplified == decision['sc']:
+                                if text != expected:
+                                    flag('decided-system-term', text, expected)
+                            elif (decision.get('check_named_mentions') and source_name in jp_normalized
+                                  and text.count(expected) < simplified.count(decision['sc'])):
+                                flag('decided-system-term', text, expected)
+                            continue
                         forms = decision[region]
                         old, new = forms['from'], forms['to']
-                        if old == new or old not in text or decision['sc'] not in simplified:
+                        if old == new or old not in text:
                             continue
                         if decision['scope'] == 'everywhere' or (jp == decision['ja'] and old == text):
                             flag('decided-system-term', old, new)
