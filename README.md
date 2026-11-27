@@ -1,20 +1,20 @@
-# 《超级机器人大战 Z》简体中文版
+# 《超级机器人大战 Z》中文版
 
-这是《超级机器人大战 Z》PS2 日文版的非官方简体中文化项目。
+这是《超级机器人大战 Z》PS2 日文版的非官方中文化项目，提供简体中文、台湾繁体和香港繁体。
 
-当前版本为 **v0.5.1**，Original（初版）、The Best（廉价版）与 SP 特别盘三版同批更新。
-依赖 Original（初版）金手指的玩家可继续选择 Original 补丁。
-完整内容见 [v0.5.1 发布说明](docs/RELEASE_NOTES_V0.5.1.md)。
+当前版本为 **v0.5.2**，Original（初版）、The Best（廉价版）与 SP 特别盘三版同批更新。
+每个版本一份补丁，内含全部语言。
+完整内容见 [v0.5.2 发布说明](docs/RELEASE_NOTES_V0.5.2.md)。
 
 想了解官方原盘改了什么，见 [初版与 The Best 详细差异（面向玩家）](docs/BEST_VERSION_GUIDE.md)，
 一篇看完程序、战斗演出、音库修正，以及剧情、字幕、说明和图鉴的前后差异。
 
 ## 本次更新
 
-- 修正模拟器小数倍放大时窗口中间的 1 像素细线，以及放大渲染下部分按钮下方的深色线。
-- 剧情对白换行恢复与日文原文逐行对应，滚动文字按面板宽度排满；地图对话、滚动文字等场景的英文与数字改为按比例宽度显示。
-- 汉字字库改为不做 hinting 栅格化；统一展翅队、Turn系机体等一批译名，并吸收审阅站 55 条建议。
-- 三版继续内置方块 skip，战斗动画中按住方块键（□）可跳到下一个阶段。
+- 在标题菜单按 SELECT，选择简体中文、台湾繁体或香港繁体，按 ○ 保存后重启。剧情、机体和武器名按地区校订。
+- 标题设置支持 4:3 和 16:9。选择宽屏时，请把模拟器的显示比例也调为 16:9。
+- 三版均内置七项金手指。在整备主菜单或地图自由移动光标时按 SELECT，可调整战斗收益、资金／蓝石、机师 PP 等。战斗演出中按住 □ 可快进。
+- SP 镜像约 4.46 GB，超过 FAT32 单文件上限。初版和 The Best 装入四曲测试音乐包后也会超过。
 
 [机战 Z 中文化审阅站](https://srwz.dreamquest.club) 支持中日文对照、全文搜索、
 逐条改稿建议和更新追踪。运行问题也可通过 [GitHub Issues](https://github.com/dyzz/srwz-zh/issues)
@@ -22,17 +22,17 @@
 
 ## 下载与使用
 
-前往 [v0.5.1 GitHub Release](https://github.com/dyzz/srwz-zh/releases/tag/v0.5.1)，
+前往 [v0.5.2 GitHub Release](https://github.com/dyzz/srwz-zh/releases/tag/v0.5.2)，
 按自己持有的日文原盘选择 **一个** 补丁：
 
 | 日文原盘 | 补丁 |
 | --- | --- |
-| Original 初版，SLPS-25887 / 1.04 | `srwz-zh-v0.5.1-original.xdelta` |
-| The Best 廉价版，SLPS-73270 / 2.00 | `srwz-zh-v0.5.1-best.xdelta` |
-| SP 特别盘，SLPS-25920 / 1.01 | `srwz-zh-v0.5.1-sp.xdelta` |
+| Original 初版，SLPS-25887 / 1.04 | `srwz-zh-v0.5.2-original.xdelta` |
+| The Best 廉价版，SLPS-73270 / 2.00 | `srwz-zh-v0.5.2-best.xdelta` |
+| SP 特别盘，SLPS-25920 / 1.01 | `srwz-zh-v0.5.2-sp.xdelta` |
 
 请备份原盘与记忆卡存档，直接使用对应的未修改日文 ISO 打补丁。操作示例和校验方式见
-[选择补丁与校验](docs/RELEASE_NOTES_V0.5.1.md#选择补丁与校验)。发行附件为 xdelta 补丁及说明。
+发行附件中的 `README.txt` 和 `SHA256SUMS.txt`。发行附件为 xdelta 补丁及说明。
 
 ## 从源码构建
 
@@ -141,7 +141,7 @@ MIT 许可证发布，见 [LICENSE](LICENSE)。源自原作的游戏文本与语
 本项目是非官方、非商业的爱好者项目，与原作权利方不存在隶属或授权关系。
 《超级机器人大战 Z》及相关作品、角色和名称的权利归各自权利方所有。
 
-发布镜像的精确身份和验收范围见 [v0.5.1 构建与发布记录](docs/RELEASE_BUILD_V0.5.1.md)。
+发布镜像的精确身份和验收范围见 [v0.5.2 构建与发布记录](docs/RELEASE_BUILD_V0.5.2.md)。
 
 开发、构建与验证资料见 [项目文档](docs/README.md)，参与贡献前请阅读
 [贡献与发布约定](CONTRIBUTING.md)。
