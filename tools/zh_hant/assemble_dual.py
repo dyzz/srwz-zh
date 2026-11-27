@@ -297,6 +297,7 @@ def main() -> None:
     p.add_argument('--tc-codebook', type=Path, required=True, help='the Traditional release codebook (message-box text)')
     p.add_argument('--work', type=Path, default=ROOT / 'build/zh-hant/assemble')
     p.add_argument('--edition', choices=sorted(EDITIONS), default='original')
+    p.add_argument('--builtin-cheats', action='store_true', help='install the in-game cheat menu')
     a = p.parse_args()
     if not a.out.resolve().parent.is_relative_to((ROOT / 'build/iso/test').resolve()): raise SystemExit('output must be under build/iso/test')
     receipt = a.receipt or a.out.with_suffix('.receipt.json')
@@ -540,9 +541,17 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
         V['patch_lba'] = place(('patch file' if V['tag'] == 'tc' else 'HK patch file'), V['pf'])
         patches.append((V['patch_lba'], V['patch_sectors']))
     code, syms = assemble_hook(a.work, patches, codebooks, options)
+    menu = None
+    if getattr(a, 'builtin_cheats', False):
+        from build_builtin_cheats import MENU_BASE, menu_sites, compile_menu, install_menu
+        menu, menu_symbols = compile_menu(a.work / 'builtin-cheats', syms, ED)
     for V in VS:
         SC, TC, recs2, pf2 = build_patch(code, syms, V)
         if recs2 != V['recs'] or pf2 != V['pf']: raise SystemExit(f"{V['tag']}: patch depends on the hook bytes")
+        if menu is not None:
+            install_menu(SC, menu, menu_symbols, ED.key)
+            install_menu(TC, menu, menu_symbols, ED.key)
+            SC, TC = Elf(SC.b), Elf(TC.b)
         replay = Elf(bytes(SC.b)); pf = V['pf']; body = pf[32:]; nv, nr = struct.unpack_from('<2I', pf, 8); q = nv * 12
         for _ in range(nr):
             va, n = struct.unpack_from('<2I', body, q); q += 8; replay.put(va, body[q:q + n]); q += n + (-n % 4)
@@ -574,12 +583,7 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
             if f.read(len(data)) != data: raise SystemExit(f'readback appended {name}')
     relocation = None
     tail_volume = None
-    if len(SC.b) != exe_e.size:                             # SP: the executable grew by the cave segment
-        from special_disc.iso_relocation import append_members, verify_relocation
-        relocation = append_members(staged, sc.m, {EXE: bytes(SC.b)}, catalog_policy='inherit')
-        verify_relocation(staged, sc.m, {EXE: bytes(SC.b)}, relocation)
-        spans += [tuple(x) for x in relocation['touched_spans']]
-    elif tail_items:
+    if tail_items and (len(SC.b) == exe_e.size or menu is not None and ED.key != 'sp'):
         from special_disc.event_gallery.udf import relocate
         first_tail_lba = tail_items[0][1]
         tail_volume = relocate(staged, {}, appended_start=first_tail_lba)
@@ -596,6 +600,14 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
                     if block[80:88] != struct.pack('<I', volume_size) + struct.pack('>I', volume_size):
                         raise SystemExit('ISO9660 volume size does not cover the language resource tail')
                     spans.append((lba * 2048 + 80, lba * 2048 + 88))
+    if len(SC.b) != exe_e.size:
+        from special_disc.iso_relocation import append_members, verify_relocation
+        relocation = append_members(staged, sc.m, {EXE: bytes(SC.b)}, allowed_udf={EXE, 'EFF/VEFF2DX.BIN'} if menu is not None and ED.key != 'sp' else None, catalog_policy='inherit')
+        verify_relocation(staged, sc.m, {EXE: bytes(SC.b)}, relocation)
+        base_size = a.sc.stat().st_size
+        spans.extend((start, min(end, base_size)) for start, end in relocation['touched_spans'] if start < base_size)
+        if tail_volume is not None:
+            tail_volume = relocation['udf']
     # The executable's span is excluded from the comparison below, so read it back the way the console finds it:
     # through the staged image's own directory. The receipt records the hash of these bytes.
     staged_exe = Disc(staged).read(EXE)
@@ -648,6 +660,12 @@ def assemble(a, staged: Path, staged_receipt: Path) -> None:
                'patch': patch_report(tw), 'sc_exe_sha256': sha(staged_exe), 'tc_exe_sha256': sha(tw['exe_out'].b), 'edition': ED.key,
                'executable_relocation': relocation and {k: relocation[k] for k in ('changes', 'old_size', 'new_size')},
                **tw['report']}
+    if menu is not None:
+        receipt['builtin_cheats'] = {'address': MENU_BASE[ED.key], 'size': len(menu), 'sha256': sha(menu),
+                                   'hooks': {hex(site): SC.get(site, 4 * (len(spec) - 1)).hex()
+                                             for site, spec in menu_sites(ED.key).items()}}
+        if ED.key == 'sp':
+            receipt['builtin_cheats']['language_imports'] = [syms[key] for key in ('lang','set_msg','restore_msg')]
     if tail_volume is not None:
         receipt['tail_volume'] = {k: tail_volume[k] for k in ('image_blocks', 'partition_length', 'anchors_written')}
     if a.hk:

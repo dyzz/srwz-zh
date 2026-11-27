@@ -154,6 +154,10 @@ def assembly_inputs(edition: str) -> dict:
         proofs[language] = [receipt["input_digest"], receipt["output"]]
     # The snapshot includes the assembler, hook and both codebooks. The external
     # binutils suite is installed outside the snapshot.
+    import hashlib
+    for path in [ROOT / 'tools/build_builtin_cheats.py', *sorted((ROOT / 'tools/builtin_cheats').glob('*'))]:
+        if path.is_file():
+            proofs[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
     proofs.update(binutils_identity())
     return proofs
 
@@ -192,6 +196,7 @@ def assemble(edition: str, out: Path, force: bool) -> None:
                "--tc-codebook", str(ROOT / "config/zh-hant/encoding/zh-release-font-assignments.json"),
                "--hk", str(image(edition, "zh-hant-hk")),
                "--out", str(out), "--work", str(ROOT / f"build/multilang/assemble-{edition}")]
+    command.append("--builtin-cheats")
     run(f"assemble-{edition}", command)
     if assembly_inputs(edition) != inputs:
         raise SystemExit(f"{edition} candidate changed during assembly")

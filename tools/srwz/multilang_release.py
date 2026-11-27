@@ -88,6 +88,7 @@ def freeze(root, version, directory, xdelta, *, check_only=False):
             wide_path = directory / f'multilang-{edition}-wide.receipt.json'
             item = validation['editions'][edition]
             assembly, wide = read(assembly_path), read(wide_path)
+            require(assembly.get('builtin_cheats'), f'{edition} release requires the built-in cheat menu')
             middle = directory / f'multilang-{edition}.iso'
             target = images / f'srwz-zh-{tag}-{edition}.iso'
             copy_file(directory / f'multilang-{edition}-wide.iso', target)
@@ -130,12 +131,27 @@ def freeze(root, version, directory, xdelta, *, check_only=False):
     return config_path
 
 
-def verify_wide(target, edition, wide):
+def verify_wide(target, edition, wide, menu=None):
     from zh_hant.assemble_dual import Disc, Elf
     from zh_hant.editions import EDITIONS as profiles
     disc = Disc(target)
     profile = profiles[edition]
     elf = Elf(disc.read(profile.exe))
+    if menu is not None:
+        from build_builtin_cheats import MENU_BASE, menu_sites
+        BASE, SITES = MENU_BASE[edition], menu_sites(edition)
+        require(menu['address'] == BASE
+                and set(menu['hooks']) == {hex(addr) for addr in SITES},
+                'incorrect built-in cheat menu contract')
+        payload = bytearray(elf.get(BASE, menu['size']))
+        if edition == 'sp':
+            import struct
+            relinked = [wide['elf_words'][hex(BASE + i * 4)] for i in range(3)]
+            require(list(struct.unpack_from('<3I', payload)) == relinked, 'SP menu language imports differ')
+            struct.pack_into('<3I', payload, 0, *menu['language_imports'])
+        require(hashlib.sha256(payload).hexdigest() == menu['sha256']
+                and all(elf.get(site, 4 * (len(spec) - 1)).hex() == menu['hooks'][hex(site)]
+                        for site, spec in SITES.items()), 'built-in cheat menu differs on final disc')
     words = wide['elf_words']
     title_address = hex(profile.title_site[0])
     require(title_address in words and words[title_address] >> 26 == 3,
@@ -193,7 +209,9 @@ def verify(root, config, validation, *, staged_images=None, staged_proofs=None):
         require(assembly['languages'] == 3 and set(assembly['inputs']) == set(REGIONS)
                 and assembly['edition'] == wide['edition'] == edition and assembly['output'] == wide['input']
                 and wide['output'] == identity(item['target_iso']), 'release disc chain mismatch')
-        verify_wide(target, edition, wide)
+        if tag == 'v0.5.2':
+            require(assembly.get('builtin_cheats'), f'v0.5.2 {edition} lacks the built-in cheat menu')
+        verify_wide(target, edition, wide, assembly.get('builtin_cheats'))
         require(checked(entry['skip'], f'{edition}-skip.json') == verify_regional_skip(target, root, edition, assembly),
                 'regional skip readback differs from frozen disc')
         for region, lang in REGIONS.items():

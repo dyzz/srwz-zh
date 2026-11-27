@@ -2,38 +2,51 @@
 .set noreorder
 .include "edition.inc"
 .include "language.inc"
+.include "native.inc"
 .text
+.if SP_EDITION
+# The SP widescreen builder replaces the language program in place and relinks these imports.
+lang_imports: .word LANG_ID, LANG_SET, LANG_RESTORE
+.endif
+.macro menu_language reg
+.if SP_EDITION
+        lw \reg,lang_imports
+        lw \reg,0(\reg)
+.else
+        lw \reg,LANG_ID
+.endif
+.endm
 .globl cheat_home
 cheat_home:
-        li $t9,0x184890
-        lw $t0,0x5957a0
+        li $t9,HOME_DRAW
+        lw $t0,HOME_STATE
         bnez $t0,pass_screen
         nop
-        lw $t0,0x5957a8
+        lw $t0,HOME_ROOT
         beqz $t0,pass_screen
         nop
         lui $t1,1
         addu $t0,$t0,$t1
-        lw $t1,-8436($t0)             # top intermission menu controller
+        lw $t1,HOME_SLOT($t0)             # top intermission menu controller
         sll $t1,$t1,2
         addu $t0,$t0,$t1
-        lw $t0,-8484($t0)
+        lw $t0,HOME_TABLE($t0)
         beqz $t0,pass_screen
         nop
         lw $t0,8($t0)
         lw $t0,20($t0)
-        li $t1,0x287710
+        li $t1,HOME_TOP
         bne $t0,$t1,pass_screen
         nop
         b screen
         nop
 cheat_map:
-        li $t9,0x13f7e0
-        lbu $t0,0x5586e1
+        li $t9,MAP_DRAW
+        lbu $t0,MAP_MODE
         li $t1,1
         bne $t0,$t1,pass_screen
         nop
-        lw $t0,0x42b480
+        lw $t0,CURSOR_ROOT
         beqz $t0,pass_screen
         nop
         lb $t1,4($t0)
@@ -42,10 +55,10 @@ cheat_map:
         lbu $t1,6($t0)                # native free-cursor controller is slot 0
         bnez $t1,pass_screen
         nop
-        lw $t0,0x46e460
-        lw $t1,0x594320
+        lw $t0,MAP_BUSY
+        lw $t1,UNIT_BUSY
         or $t0,$t0,$t1
-        lw $t1,0x594308
+        lw $t1,EVENT_BUSY
         or $t0,$t0,$t1
         bnez $t0,pass_screen
         nop
@@ -70,11 +83,11 @@ screen:
         sb $zero,16($s1)
         li $t0,1
         sb $t0,17($s1)
-        lw $t0,0x6d5d68
+        lw $t0,MSG_PTR
         sw $t0,20($s1)                # preserve the underlying screen's message box
         jal MB_CREATE
         nop
-        lw $t0,0x6d5d68
+        lw $t0,MSG_PTR
         sw $t0,24($s1)
         jal refresh
         nop
@@ -84,16 +97,16 @@ active:
         sh $zero,0($t0)
         sh $zero,4($t0)
         lw $t0,20($s1)
-        lui $t1,0x6d
-        sw $t0,0x5d68($t1)
+        lui $t1,%hi(MSG_PTR)
+        sw $t0,%lo(MSG_PTR)($t1)
         move $a0,$s0
         jalr $s2
         nop
 after_underlying:
         move $s0,$v0
-        lui $t1,0x6d
+        lui $t1,%hi(MSG_PTR)
         lw $t0,24($s1)
-        sw $t0,0x5d68($t1)
+        sw $t0,%lo(MSG_PTR)($t1)
         li $a0,PAD_BUF
         jal MB_INPUT
         nop
@@ -107,11 +120,16 @@ after_underlying:
 close:
         jal MB_DESTROY
         nop
+.if SP_EDITION
+        lw $t9,lang_imports+8
+        jalr $t9
+.else
         jal LANG_RESTORE
+.endif
         nop
-        lui $t1,0x6d
+        lui $t1,%hi(MSG_PTR)
         lw $t0,20($s1)
-        sw $t0,0x5d68($t1)
+        sw $t0,%lo(MSG_PTR)($t1)
         b finish
         sb $zero,17($s1)
 navigate:
@@ -158,7 +176,7 @@ draw:
         move $a3,$zero
         sb $zero,18($s1)
         move $a0,$v0
-        li $a1,81                 # Small native D-pad with left and right highlighted
+        li $a1,ICON_SWITCH                 # Small native D-pad with left and right highlighted
         jal cheat_icon
         li $a2,-127
         move $a0,$v0
@@ -172,8 +190,11 @@ draw:
         move $s0,$v0
         jal TEXT_PASS
         nop
-        li $t0,0x184890
+# SP also depth-tests text behind the map Report window.
+.if !SP_EDITION
+        li $t0,HOME_DRAW
         bne $s2,$t0,finish
+.endif
         ld $a0,40($sp)
         bal foreground
         move $a1,$s0
@@ -186,9 +207,9 @@ with_hint:
         move $s0,$v0
         move $a0,$zero
         sd $s0,40($sp)
-        jal 0x260630
+        jal HINT_STYLE
         move $a1,$zero
-        lw $t0,LANG_ID
+        menu_language $t0
         la $a1,hint_sc
         beqz $t0,1f
         nop
@@ -197,20 +218,23 @@ with_hint:
         move $a0,$s0
         li $a2,16
         li $a3,201
-        li $t0,0x184890
+        li $t0,HOME_DRAW
         bne $s2,$t0,1f
         nop
         li $a2,42
         li $a3,168
 1:
         li $t0,-1
-        jal 0x260d60
+        jal HINT_DRAW
         li $t1,-1
         move $s0,$v0
         jal TEXT_PASS
         nop
-        li $t0,0x184890
+# SP also depth-tests text behind the map Report window.
+.if !SP_EDITION
+        li $t0,HOME_DRAW
         bne $s2,$t0,finish
+.endif
         ld $a0,40($sp)
         bal foreground
         move $a1,$s0
@@ -319,16 +343,21 @@ report_frame:
         # Trim one 12-unit row above the first label; keep the lower edge anchored.
         addiu $a3,$a3,12
         li $t2,92
-1:      j 0x36b4c0
+1:      j FRAME_DRAW
         nop
 refresh:
         la $a1,template_sc
-        lw $t0,LANG_ID
+        menu_language $t0
         beqz $t0,1f
         nop
         la $a1,template_tc
 1:      la $a2,attr
+.if SP_EDITION
+        lw $t9,lang_imports+4
+        jr $t9
+.else
         j LANG_SET
+.endif
         nop
 report_text:
         lbu $k0,settings+18
@@ -339,7 +368,7 @@ report_text:
         beq $k0,$k1,draw_rows
         nop
         # The native text parser supplies the footer as the second line.
-        j 0x13c5a0
+        j TEXT_DRAW
         addiu $a2,$s7,88
 draw_rows:
         addiu $sp,$sp,-64
@@ -348,7 +377,7 @@ draw_rows:
         sd $t0,16($sp)
         sw $zero,24($sp)
         la $k1,words_sc
-        lw $t2,LANG_ID
+        menu_language $t2
         beqz $t2,1f
         nop
         la $k1,words_tc
@@ -361,7 +390,7 @@ row_loop:
         bne $k0,$t2,label_text
         nop
         la $a0,arrow
-        jal 0x13c5a0
+        jal TEXT_DRAW
         li $a1,-113
         move $a3,$v0
 label_text:
@@ -373,7 +402,7 @@ label_text:
         li $a1,-82
         ld $a2,8($sp)
         ld $t0,16($sp)
-        jal 0x13c5a0
+        jal TEXT_DRAW
         move $t1,$zero
         lw $k0,24($sp)
         la $t2,settings+8
@@ -392,7 +421,7 @@ label_text:
         move $a3,$v0
         ld $t0,16($sp)
         move $t1,$zero
-        jal 0x13c5a0
+        jal TEXT_DRAW
         nop
         move $a3,$v0
         lw $k0,24($sp)
@@ -408,7 +437,7 @@ label_text:
         jr $ra
         addiu $sp,$sp,64
 stock_text:
-        j 0x13c5a0
+        j STOCK_TEXT
         nop
 
 .include "effects.inc"

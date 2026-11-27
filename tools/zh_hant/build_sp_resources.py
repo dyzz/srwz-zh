@@ -344,7 +344,8 @@ def main():
 
         resources = {region: [str(view.path.relative_to(ROOT)), view.digest()]
                      for region, view in zip(REGIONS, (sc, tw, hk))}
-        inputs = {"resources": resources, "binutils": binutils_identity()}
+        menu_sources = [ROOT / "tools/build_builtin_cheats.py", *sorted((ROOT / "tools/builtin_cheats").glob("*"))]
+        inputs = {"menu": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in menu_sources if p.is_file()}, "resources": resources, "binutils": binutils_identity()}
         destination = args.out.relative_to(ROOT / "build/iso/test")
         cache = ROOT / "work/cache/editions/sp-layout" / destination.with_suffix(".json")
         published_receipt = args.out.with_suffix(".receipt.json")
@@ -367,7 +368,7 @@ def main():
                 staged = Path(temp) / "final.iso"
                 receipt = Path(temp) / "verified.json"
                 a = SimpleNamespace(
-                    edition="sp",
+                    edition="sp", builtin_cheats=True,
                     sc=sc,
                     tc=tw,
                     hk=hk,

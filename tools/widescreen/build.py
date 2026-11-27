@@ -12,7 +12,7 @@ from pathlib import Path
 
 TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
-from build_builtin_cheats import symbols  # noqa: E402
+from build_builtin_cheats import MENU_BASE, symbols  # noqa: E402
 from special_disc.vocal_bgm.build_image import make_header_room  # noqa: E402
 from special_disc.iso_relocation import append_members, verify_relocation  # noqa: E402
 from zh_hant import assemble_dual as dual  # noqa: E402
@@ -318,6 +318,15 @@ def build(edition, source, output, work, lang_build, *, replace=False):
         elf = dual.Elf(elf.b)
     elf.put(start, payload)
     writes = dict(heap_writes)
+    if edition == "sp":
+        menu_address = MENU_BASE[edition]
+        # Older SP discs end their file-backed gallery segment before this address.
+        if any(v <= menu_address < v + size for _, _, v, _, size, *_ in elf.loads):
+            for i, label in enumerate(("lang", "set_msg", "restore_msg")):
+                address = menu_address + 4*i
+                if elf.word(address) != old[label]:
+                    raise ValueError("SP cheat menu language imports do not match this disc")
+                writes[address] = sy[label]
     writes[display + 4] = 0
     for addr, label, link in [
         (ed.boot_site[0], "lang_hook", True),

@@ -15,24 +15,16 @@ from zh_hant.editions import ORIGINAL, edition_inc
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "tools/builtin_cheats"
 BASE = 0x78C700  # end of Latin segment; event subtitles start at 0x790000
-SITES = {
-    0x3587D8: ("report_frame", 0x0C0DAD30),
-    0x35886C: ("report_text", 0x0C04F168),
-    0x141CA4: ("cheat_home", 0x0C061224),
-    0x141B54: ("cheat_map", 0x0C04FDF8),
-    0x14314C: ("cheat_tick", 0x0C0F89B0),
-    0x253A18: ("bs_reward", 0x00032C7F, 0x8C830008),
-    0x253E08: ("xp_reward", 0x8FA300B0, 0x3C01005A),
-    0x280B4C: ("energy_cost", 0x00431823, 0xA48300F2),
-    0x280BF8: ("ammo_cost", 0x2463FFFF, 0xA2030004),
-    0x282240: ("upgrade_limit", 0x03E00008, 0x00000000),
-    0x276400: ("parts_query", 0x00431021, 0x80420000),
-    0x253980: ("money_reward", 0x8C830004, 0x00711821),
-    0x253B10: ("pp_reward", 0x30E7FFFF, 0x30A9FFFF),
-    0x289704: ("cost_apply", 0x90E20002, 0x0C09DDF8),
-    0x35DF84: ("cost_list", 0x90C30066, 0xA6A30006),
-    0x37F324: ("cost_check", 0x90420066, 0x0062082A),
-}
+MENU_BASE = {"original": BASE, "best": 0x78CF00, "sp": 0x8BF000}
+
+
+def menu_sites(edition):
+    rows = json.loads((SRC / "sites.json").read_text())[edition]
+    return {int(site, 16): (name, *(int(w, 16) for w in words))
+            for site, (name, *words) in rows.items()}
+
+
+SITES = menu_sites("original")
 
 
 def symbols(text):
@@ -127,26 +119,113 @@ def messages():
     return "\n".join(out) + "\n"
 
 
-def grow_latin_segment(elf, payload):
+def grow_latin_segment(elf, payload, edition):
     ph = struct.unpack_from("<I", elf.b, 28)[0]
     count = struct.unpack_from("<H", elf.b, 44)[0]
     latin, subtitle = ph + (count - 2) * 32, ph + (count - 1) * 32
     _, off, addr, _, size, memsize, _, _ = struct.unpack_from("<8I", elf.b, latin)
     _, next_off, next_addr, *_ = struct.unpack_from("<8I", elf.b, subtitle)
     if (
-        addr != 0x789E00
-        or addr + size != BASE
+        addr != {"original": 0x789E00, "best": 0x78A600}[edition]
+        or addr + size != MENU_BASE[edition]
         or size != memsize
-        or next_off != off + size
+        or next_off < off + size
         or next_addr != 0x790000
     ):
         raise ValueError("unsupported executable segment layout")
     payload += bytes(-len(payload) % 128)
-    if BASE + len(payload) > next_addr:
+    if MENU_BASE[edition] + len(payload) > min(next_addr, 0x78DC00):
         raise ValueError("native menu overlaps subtitles")
-    elf.b[next_off:next_off] = payload
+    elf.b[off + size:off + size] = payload
     struct.pack_into("<II", elf.b, latin + 16, size + len(payload), size + len(payload))
     struct.pack_into("<I", elf.b, subtitle + 4, next_off + len(payload))
+
+
+def compile_menu(work, lang, ed=ORIGINAL):
+    work.mkdir(parents=True, exist_ok=True)
+    imports = {
+        "LANG_TITLE": "title_hook",
+        "LANG_DIALOG": "dlg_state",
+        "LANG_ID": "lang",
+        "LANG_ICON": "draw_icon",
+        "LANG_SET": "set_msg",
+        "LANG_RESTORE": "restore_msg",
+    }
+    (work / "language.inc").write_text(
+        "".join(f".equ {name},{lang[sym]:#x}\n" for name, sym in imports.items())
+    )
+    (work / "edition.inc").write_text(edition_inc(ed))
+    (work / "native.inc").write_bytes((SRC / (ed.key + ".inc")).read_bytes())
+    (work / "cheat_text.inc").write_text(messages())
+
+    def tool(name, *args):
+        return subprocess.check_output(
+            ["mipsel-linux-gnu-" + name, *map(str, args)], text=True
+        )
+
+    tool(
+        "as",
+        "-EL",
+        "-mips3",
+        "-mabi=o64",
+        "--fatal-warnings",
+        "-I",
+        work,
+        "-I",
+        SRC,
+        "-o",
+        work / "menu.o",
+        SRC / "menu.S",
+    )
+    tool(
+        "ld",
+        "-EL",
+        f"-Ttext={MENU_BASE[ed.key]:#x}",
+        "-e",
+        "cheat_home",
+        "-o",
+        work / "menu.elf",
+        work / "menu.o",
+    )
+    tool("objcopy", "-O", "binary", "-j", ".text", work / "menu.elf", work / "menu.bin")
+    syms = symbols(tool("nm", work / "menu.elf"))
+    return (work / "menu.bin").read_bytes(), syms
+
+
+def install_menu(elf, payload, syms, edition="original"):
+    sites = menu_sites(edition)
+    for addr, (label, *expected) in sites.items():
+        if [elf.word(addr + i * 4) for i in range(len(expected))] != expected:
+            raise ValueError(f"incompatible instruction at {addr:#x}")
+        call = len(expected) == 1
+        elf.putw(addr, (0x0C000000 if call else 0x08000000) | (syms[label] >> 2))
+        if not call:
+            elf.putw(addr + 4, 0)
+    if edition == "sp":
+        # Back the unused tail beyond the event-gallery roster snapshot (ends at 0x8BEA30).
+        # The language segment must stay last in the file for the widescreen builder.
+        ph = struct.unpack_from("<I", elf.b, 28)[0]
+        count = struct.unpack_from("<H", elf.b, 44)[0]
+        heads = [ph + i * 32 for i in range(count)]
+        h, = [h for h in heads if struct.unpack_from("<II", elf.b, h + 8) == (0x820000, 0x820000)]
+        _, off, va, _, size, mem, _, _ = struct.unpack_from("<8I", elf.b, h)
+        base = MENU_BASE[edition]
+        if size != 0x26000 or va + mem != 0x8C0000 or base + len(payload) > va + mem:
+            raise ValueError("incompatible gallery allocation")
+        extra = bytes(base - va - size) + payload
+        extra += bytes(-len(extra) % 4096)
+        if size + len(extra) > mem:
+            raise ValueError("menu exceeds gallery reservation")
+        elf.b[off + size:off + size] = extra
+        for head in heads:
+            old = struct.unpack_from("<I", elf.b, head + 4)[0]
+            if old >= off + size:
+                struct.pack_into("<I", elf.b, head + 4, old + len(extra))
+        struct.pack_into("<I", elf.b, h + 16, size + len(extra))
+    else:
+        grow_latin_segment(elf, payload, edition)
+    if Elf(elf.b).get(MENU_BASE[edition], len(payload)) != payload:
+        raise ValueError("ELF payload readback failed")
 
 
 def build(source, output, work, lang_work):
@@ -180,63 +259,8 @@ def build(source, output, work, lang_work):
                         f"language record overlaps game hook at {address:#x}"
                     )
                 pos += 8 + size + (-size % 4)
-    work.mkdir(parents=True, exist_ok=True)
-    imports = {
-        "LANG_TITLE": "title_hook",
-        "LANG_DIALOG": "dlg_state",
-        "LANG_ID": "lang",
-        "LANG_ICON": "draw_icon",
-        "LANG_SET": "set_msg",
-        "LANG_RESTORE": "restore_msg",
-    }
-    (work / "language.inc").write_text(
-        "".join(f".equ {name},{lang[sym]:#x}\n" for name, sym in imports.items())
-    )
-    (work / "edition.inc").write_text(edition_inc(ORIGINAL))
-    (work / "cheat_text.inc").write_text(messages())
-
-    def tool(name, *args):
-        return subprocess.check_output(
-            ["mipsel-linux-gnu-" + name, *map(str, args)], text=True
-        )
-
-    tool(
-        "as",
-        "-EL",
-        "-mips3",
-        "-mabi=o64",
-        "--fatal-warnings",
-        "-I",
-        work,
-        "-I",
-        SRC,
-        "-o",
-        work / "menu.o",
-        SRC / "menu.S",
-    )
-    tool(
-        "ld",
-        "-EL",
-        f"-Ttext={BASE:#x}",
-        "-e",
-        "cheat_home",
-        "-o",
-        work / "menu.elf",
-        work / "menu.o",
-    )
-    tool("objcopy", "-O", "binary", "-j", ".text", work / "menu.elf", work / "menu.bin")
-    syms = symbols(tool("nm", work / "menu.elf"))
-    for addr, (label, *expected) in sites.items():
-        if [elf.word(addr + i * 4) for i in range(len(expected))] != expected:
-            raise ValueError(f"incompatible instruction at {addr:#x}")
-        call = len(expected) == 1
-        elf.putw(addr, (0x0C000000 if call else 0x08000000) | (syms[label] >> 2))
-        if not call:
-            elf.putw(addr + 4, 0)
-    payload = (work / "menu.bin").read_bytes()
-    grow_latin_segment(elf, payload)
-    if Elf(elf.b).get(BASE, len(payload)) != payload:
-        raise ValueError("ELF payload readback failed")
+    payload, syms = compile_menu(work, lang)
+    install_menu(elf, payload, syms)
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=output.parent) as temp:
         staged = Path(temp) / "disc.iso"
