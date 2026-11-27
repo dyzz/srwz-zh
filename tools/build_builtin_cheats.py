@@ -40,7 +40,6 @@ def messages():
     localized = {
         "sc": (
             "encoding",
-            "金手指",
             "机师",
             "资金",
             "获取",
@@ -51,7 +50,6 @@ def messages():
         ),
         "tc": (
             "zh-hant/encoding",
-            "金手指",
             "機師",
             "資金",
             "獲取",
@@ -63,7 +61,6 @@ def messages():
     }
     for key, (
         folder,
-        title,
         pilot,
         cash,
         gain,
@@ -96,7 +93,7 @@ def messages():
         ]
         strings = labels + [v for choices in values for v in choices]
         footer = "　　" + switch + "　　　" + ok + "　　　" + cancel
-        strings += [footer, "ＳＥＬＥＣＴ　" + title]
+        strings.append(footer)
         for i, text in enumerate(strings):
             raw = b"".join(
                 char.encode("ascii")
@@ -106,12 +103,11 @@ def messages():
                 else char.encode("cp932")
                 for char in text
             )
-            if i == len(strings) - 2:
+            if i == len(strings) - 1:
                 template = b"\x82\x50\n" + raw + b"\0"
                 out.append(f"template_{key}: .byte " + ",".join(map(str, template)))
             out.append(f"str_{key}_{i}: .byte " + ",".join(map(str, raw + b"\0")))
         out += [
-            f"hint_{key} = str_{key}_{len(strings)-1}",
             ".align 2",
             f"words_{key}: .word "
             + ",".join(f"str_{key}_{i}" for i in range(len(strings))),

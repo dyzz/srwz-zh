@@ -76,7 +76,7 @@ screen:
         lbu $t1,17($s1)
         bnez $t1,active
         andi $t1,$t0,0x100            # SELECT on this screen
-        beqz $t1,with_hint
+        beqz $t1,draw_screen
         nop
         ld $t0,0($s1)
         sd $t0,8($s1)
@@ -200,44 +200,10 @@ draw:
         move $a1,$s0
         b finish
         move $s0,$v0
-with_hint:
+draw_screen:
         move $a0,$s0
         jalr $s2
         move $a1,$zero
-        move $s0,$v0
-        move $a0,$zero
-        sd $s0,40($sp)
-        jal HINT_STYLE
-        move $a1,$zero
-        menu_language $t0
-        la $a1,hint_sc
-        beqz $t0,1f
-        nop
-        la $a1,hint_tc
-1:
-        move $a0,$s0
-        li $a2,16
-        li $a3,201
-        li $t0,HOME_DRAW
-        bne $s2,$t0,1f
-        nop
-        li $a2,42
-        li $a3,168
-1:
-        li $t0,-1
-        jal HINT_DRAW
-        li $t1,-1
-        move $s0,$v0
-        jal TEXT_PASS
-        nop
-# SP also depth-tests text behind the map Report window.
-.if !SP_EDITION
-        li $t0,HOME_DRAW
-        bne $s2,$t0,finish
-.endif
-        ld $a0,40($sp)
-        bal foreground
-        move $a1,$s0
         move $s0,$v0
 finish:
         move $v0,$s0

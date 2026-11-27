@@ -11,8 +11,6 @@
 .equ BS, 0x5dbb68
 .equ PILOTS, 0x5a5080
 .equ HOME_TOP, 0x28e150
-.equ HINT_STYLE, 0x266ee0
-.equ HINT_DRAW, 0x267610
 .equ TEXT_DRAW, 0x13d050
 .equ SP_DEBIT, 0x27e300
 .equ HOME_DRAW, 0x1864e0
