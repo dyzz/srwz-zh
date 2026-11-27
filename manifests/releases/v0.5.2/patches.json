@@ -1,0 +1,197 @@
+{
+  "schema_version": 7,
+  "version": "0.5.2",
+  "tag": "v0.5.2",
+  "channel": "stable",
+  "format": "xdelta3-vcdiff",
+  "patches": {
+    "original": {
+      "filename": "srwz-zh-v0.5.2-original.xdelta",
+      "size": 107261353,
+      "sha256": "80ad273d28fcf44ca32019e19eb9f316a46191af8c01cc6aae970147a4d68946",
+      "source_iso": {
+        "path": "rom/original.iso",
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+        "size": 3758358528
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.2/srwz-zh-v0.5.2-original.iso",
+        "sha256": "499620c6965788c206efc84a93726b02b93b21a6fb8e273fa0a8c8b92f75dc08",
+        "size": 3863324672
+      },
+      "reconstructed_size_matches": true,
+      "reconstructed_sha256_matches": true
+    },
+    "best": {
+      "filename": "srwz-zh-v0.5.2-best.xdelta",
+      "size": 106585910,
+      "sha256": "ab13a80bb9358b2b6ff60f0fa853bfd17ec48b4394ee80cbab96273eab94e69f",
+      "source_iso": {
+        "path": "rom/best.iso",
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+        "size": 3755081728
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.2/srwz-zh-v0.5.2-best.iso",
+        "sha256": "3d578a4bf289c043765d5bed43362516e5ca5eb9550440d8e38f7ab30b13bf4c",
+        "size": 3860060160
+      },
+      "reconstructed_size_matches": true,
+      "reconstructed_sha256_matches": true
+    },
+    "sp": {
+      "filename": "srwz-zh-v0.5.2-sp.xdelta",
+      "size": 606760934,
+      "sha256": "8b7787d96454d98bcd82f38f01b97e367b376d90a37a001d22278c7181fb70a6",
+      "source_iso": {
+        "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+        "sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+        "size": 3791781888
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.2/srwz-zh-v0.5.2-sp.iso",
+        "sha256": "6240ad79f2fcc4ed8289ad1b9428524006b7c5bf4e4bb0f550dccda6b287fa1a",
+        "size": 4459114496
+      },
+      "reconstructed_size_matches": true,
+      "reconstructed_sha256_matches": true
+    }
+  },
+  "input_digest": "ca311fee8667de952d1395e90c12a9c05c6d49a7864e618209ba9ec7ecdc2bc8",
+  "runtime": "not_tested",
+  "tool": {
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw",
+      "-A",
+      "-a"
+    ],
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald"
+  },
+  "iso_in_release_package": false,
+  "evidence": [
+    {
+      "path": "config/release/v0.5.2.json",
+      "sha256": "4d2d9461c2c6a3fe62191cd551874cb48aa3d88a35420531bd08f964f097b535"
+    },
+    {
+      "path": "docs/RELEASE_NOTES_V0.5.2.md",
+      "sha256": "6e43efc7edc449d240554e5f9bb0046954fd9c0231490d79184aa48ce8f667ae"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/best-assembly.json",
+      "sha256": "25db4511fa940976ad77e024ae846dfd044c3cfb651ebe31c459c9f7093920d6"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/best-hk-readback.json",
+      "sha256": "6482e6ffe6b337142df1c914e6340122bc140560441f010229fdeb44e86119b0"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/best-sc-readback.json",
+      "sha256": "5b491bdd8e4fcbb785f588a148933deb9a98ec8a875aa76c8dc685561c22783c"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/best-skip.json",
+      "sha256": "83a1a3c3ddcad0a181ffbce26160815dc5b52bdf400b9f65522326be9b40dd54"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/best-tw-readback.json",
+      "sha256": "1bf98eba37f192e1b43b740f54777ab7704fba8f0a826605efd27d153fdde9a9"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/best-wide.json",
+      "sha256": "e1a89bccfd2a147f0509bcbd2c46e82310885286535aef0572bad7811a017776"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/hk-original-best-batch.json",
+      "sha256": "e2726d70c29e9bd63f4bfa83cecf1d2978bcccc4de50c7db90995baa93f793d8"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/hk-sp-batch.json",
+      "sha256": "3114c26aa10277eaca8a79c2102700d54ea27403e3a4250826cda62a16887b50"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/original-assembly.json",
+      "sha256": "7a7d7de600d6652d2659bce2454f812ee75d0538160b0a25fb03755c1a9bfd32"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/original-hk-readback.json",
+      "sha256": "9baf34e5718590fcb628e461b59eae7ac75d2dff99fd680b1c741684098a3a11"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/original-sc-readback.json",
+      "sha256": "3365c6e49b9faf674c71ef8e557c04fd7bf302639781fc345a826cf5c757a9c5"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/original-skip.json",
+      "sha256": "dbb2a3e3c8e877683f7732d0e7d75136234d8022591b54e3583daad30fe89415"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/original-tw-readback.json",
+      "sha256": "e39cbfdccf0aec6c2b2677f2be9355a2d79a74970a0ae252980c829da4aa9a53"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/original-wide.json",
+      "sha256": "be2bde3368150f95281ad25a97b933a4770fe89945f8e80136920537b8b9e9ae"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sc-original-best-batch.json",
+      "sha256": "b82406c69186c81f65f53ee50bef22331b427bbbe9fe50a6cabd0f54d3c1b4ef"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sc-sp-batch.json",
+      "sha256": "cd3a66cad9ddfd4b8ce0e22d62e5787f8950bc3becf0595d8f883f429e3d6582"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-assembly.json",
+      "sha256": "e0bd4aa7afcfdad88b75c595d26f87d313b5040d9c2b18983627f429737b7273"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-hk-independent.json",
+      "sha256": "bce1fa5b532c3201cebb368c10c24f1d1815e900b96c0b22f24b52d0e6c97a33"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-hk-readback.json",
+      "sha256": "0b11640fec3eccf725fac0fdb74683fe6fa8206b1562d27ab5bd4c3accd7a0d3"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-sc-independent.json",
+      "sha256": "a33546be580063a6bc8edbb42db2af9a27609868a7de2e147c3460b02208a616"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-sc-readback.json",
+      "sha256": "5207b84d4577ff0e18cdb3767d6e21c0d03f8fbe00160a8f54014e411145ca9e"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-skip.json",
+      "sha256": "88c40d80d30391594ae00a7b61e2fec79c0973243fe7f35bb5d9a33970b55595"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-tw-independent.json",
+      "sha256": "605a05358de6029afca373347730cc743053e232ddb437c5442239597a713e04"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-tw-readback.json",
+      "sha256": "dcbd969f625fea343ca180b0c4ecb51cfe8de0a9bfdfca24d87cb475144adcc0"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/sp-wide.json",
+      "sha256": "1b03cff1a79e445adff432e2f63ce13dba1a25018c32cc4955430db8bd812d59"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/tw-original-best-batch.json",
+      "sha256": "f806e02f0a33848aa748f661db102300a7f1026dac6b13b22a0d1b7c55c5b31c"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/tw-sp-batch.json",
+      "sha256": "3b08195b59f1aca2353b69713858889d2ccc60219b77a691e3de218612bea8ae"
+    },
+    {
+      "path": "manifests/releases/v0.5.2/validation.json",
+      "sha256": "8b79ee2d02587e4d2d88e945458f8fc6b6c55a7e3c644c7957286f3192712ec1"
+    }
+  ]
+}

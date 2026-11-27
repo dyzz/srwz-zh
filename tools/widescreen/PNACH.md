@@ -26,6 +26,6 @@
 
 | 版本 | CRC |
 | --- | --- |
-| original | `3DA23CFB` |
-| best | `AFF72EA1` |
-| sp | `A1634095` |
+| original | `AA4C41DB` |
+| best | `38199021` |
+| sp | `184BBC0B` |

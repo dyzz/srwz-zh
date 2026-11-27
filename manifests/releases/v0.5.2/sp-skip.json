@@ -1,0 +1,173 @@
+{
+  "hk": {
+    "sha256": "8082a21591e7feba0ffd9f2097577d33cd2666b59f6f4770845f6ab898b83247",
+    "skip": {
+      "all_replacements_exact": true,
+      "already_applied": true,
+      "cave_file_offset": "0x351180",
+      "cave_preimage_all_zero": false,
+      "cave_size": 2048,
+      "cave_virtual_address": "0x450780",
+      "changed_byte_count": 0,
+      "configuration_matches_before": true,
+      "edition": "sp",
+      "enabled": true,
+      "executable_size_preserved": true,
+      "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+      "hook_size": 1728,
+      "member": "SLPS_259.20",
+      "native_resource_waits_preserved": true,
+      "native_result_processing_preserved": true,
+      "patches": [
+        {
+          "file_offset": "0x1EA648",
+          "id": "battle_step_world_call",
+          "kind": "jal",
+          "original_instruction_hex": "ec390c0c",
+          "replacement_instruction_hex": "e041110c",
+          "state_before": "applied",
+          "surface": "battle step world call",
+          "virtual_address": "0x2E9C48"
+        },
+        {
+          "file_offset": "0x1F2C80",
+          "id": "queue_append_prologue_0",
+          "kind": "j",
+          "original_instruction_hex": "20038290",
+          "replacement_instruction_hex": "20431108",
+          "state_before": "applied",
+          "surface": "queue append prologue 0",
+          "virtual_address": "0x2F2280"
+        },
+        {
+          "file_offset": "0x1F2C84",
+          "id": "queue_append_prologue_1",
+          "kind": "nop",
+          "original_instruction_hex": "c0100200",
+          "replacement_instruction_hex": "00000000",
+          "state_before": "applied",
+          "surface": "queue append prologue 1",
+          "virtual_address": "0x2F2284"
+        }
+      ],
+      "policy": "square_skips_battle_animation_via_native_tail",
+      "site_count": 3,
+      "state_marker": "0x4E540005",
+      "world_steps_per_frame": 1
+    }
+  },
+  "sc": {
+    "sha256": "56a6d93f62820d96873bd7ba781bd5eabd32ef832acf9a46ab92559dbcd16b6f",
+    "skip": {
+      "all_replacements_exact": true,
+      "already_applied": true,
+      "cave_file_offset": "0x351180",
+      "cave_preimage_all_zero": false,
+      "cave_size": 2048,
+      "cave_virtual_address": "0x450780",
+      "changed_byte_count": 0,
+      "configuration_matches_before": true,
+      "edition": "sp",
+      "enabled": true,
+      "executable_size_preserved": true,
+      "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+      "hook_size": 1728,
+      "member": "SLPS_259.20",
+      "native_resource_waits_preserved": true,
+      "native_result_processing_preserved": true,
+      "patches": [
+        {
+          "file_offset": "0x1EA648",
+          "id": "battle_step_world_call",
+          "kind": "jal",
+          "original_instruction_hex": "ec390c0c",
+          "replacement_instruction_hex": "e041110c",
+          "state_before": "applied",
+          "surface": "battle step world call",
+          "virtual_address": "0x2E9C48"
+        },
+        {
+          "file_offset": "0x1F2C80",
+          "id": "queue_append_prologue_0",
+          "kind": "j",
+          "original_instruction_hex": "20038290",
+          "replacement_instruction_hex": "20431108",
+          "state_before": "applied",
+          "surface": "queue append prologue 0",
+          "virtual_address": "0x2F2280"
+        },
+        {
+          "file_offset": "0x1F2C84",
+          "id": "queue_append_prologue_1",
+          "kind": "nop",
+          "original_instruction_hex": "c0100200",
+          "replacement_instruction_hex": "00000000",
+          "state_before": "applied",
+          "surface": "queue append prologue 1",
+          "virtual_address": "0x2F2284"
+        }
+      ],
+      "policy": "square_skips_battle_animation_via_native_tail",
+      "site_count": 3,
+      "state_marker": "0x4E540005",
+      "world_steps_per_frame": 1
+    }
+  },
+  "tw": {
+    "sha256": "683ae391fd444f5d1c7a1b57b0bdd2b9032322472bfc5a2d276986d4d632ed3d",
+    "skip": {
+      "all_replacements_exact": true,
+      "already_applied": true,
+      "cave_file_offset": "0x351180",
+      "cave_preimage_all_zero": false,
+      "cave_size": 2048,
+      "cave_virtual_address": "0x450780",
+      "changed_byte_count": 0,
+      "configuration_matches_before": true,
+      "edition": "sp",
+      "enabled": true,
+      "executable_size_preserved": true,
+      "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+      "hook_size": 1728,
+      "member": "SLPS_259.20",
+      "native_resource_waits_preserved": true,
+      "native_result_processing_preserved": true,
+      "patches": [
+        {
+          "file_offset": "0x1EA648",
+          "id": "battle_step_world_call",
+          "kind": "jal",
+          "original_instruction_hex": "ec390c0c",
+          "replacement_instruction_hex": "e041110c",
+          "state_before": "applied",
+          "surface": "battle step world call",
+          "virtual_address": "0x2E9C48"
+        },
+        {
+          "file_offset": "0x1F2C80",
+          "id": "queue_append_prologue_0",
+          "kind": "j",
+          "original_instruction_hex": "20038290",
+          "replacement_instruction_hex": "20431108",
+          "state_before": "applied",
+          "surface": "queue append prologue 0",
+          "virtual_address": "0x2F2280"
+        },
+        {
+          "file_offset": "0x1F2C84",
+          "id": "queue_append_prologue_1",
+          "kind": "nop",
+          "original_instruction_hex": "c0100200",
+          "replacement_instruction_hex": "00000000",
+          "state_before": "applied",
+          "surface": "queue append prologue 1",
+          "virtual_address": "0x2F2284"
+        }
+      ],
+      "policy": "square_skips_battle_animation_via_native_tail",
+      "site_count": 3,
+      "state_marker": "0x4E540005",
+      "world_steps_per_frame": 1
+    }
+  }
+}
