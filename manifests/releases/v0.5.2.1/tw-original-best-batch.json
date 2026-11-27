@@ -1,0 +1,3715 @@
+{
+  "batch": {
+    "candidate": true,
+    "input_digest": "1c934e3708b7854ad499eab97e2180cbbe3760fe8c60de8cfce6c77bbd2279e0",
+    "input_snapshot": "work/build/shared/1c934e3708b7854ad499eab97e2180cbbe3760fe8c60de8cfce6c77bbd2279e0/inputs.json",
+    "language": "zh-hant-tw",
+    "release_config": "config/release/dual-current.json",
+    "requested_editions": [
+      "original",
+      "best"
+    ],
+    "results": [
+      {
+        "adapter": "original-production-v1",
+        "base_output": {
+          "path": "build/iso/zh-release-full-story/current-original.iso",
+          "sha256": "8018a2787cd69317cdadc2b0ae2ca4a310c7f4ea01765a4843362a2edad0b9ca",
+          "size": 3758358528
+        },
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x2F7A80",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x3F6000",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "original",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "a7e06c224eb8b4c2f546e3251053fc149b8c5165086f86f257509ee9363b849f",
+          "hook_size": 1728,
+          "member": "SLPS_258.87",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1E5874",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "ac200c0c",
+              "replacement_instruction_hex": "00d80f0c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E3DF4"
+            },
+            {
+              "file_offset": "0x1ED990",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "40d90f08",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2EBF10"
+            },
+            {
+              "file_offset": "0x1ED994",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2EBF14"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "edition_contract_sha256": "a8b5b0d5dd0ae4cb1e4174a268ebb8acad72c66aa9d2f63e928e14467f628f54",
+        "edition_id": "original",
+        "event_subtitles": {
+          "base_iso": {
+            "path": "build/iso/zh-release-full-story/current-original.iso",
+            "sha256": "8018a2787cd69317cdadc2b0ae2ca4a310c7f4ea01765a4843362a2edad0b9ca",
+            "size": 3758358528
+          },
+          "iso": {
+            "path": "build/iso/zh-release-full-story/current-original-captioned.iso",
+            "sha256": "24a996e2adab35209b89977804973bd7b5e95c615b285e606af9b00fc036a6f8",
+            "size": 3799459840
+          },
+          "member_readback": {
+            "executable_words": 7,
+            "payload_offset": 3473408,
+            "subtitled_chunks": 12
+          },
+          "members": {
+            "EFF/VEFF2DX.BIN": "4fb1c0c79f5c86db0a128a131665733b27e739940db82d335dc24dbcdffb0bde",
+            "SLPS_258.87": "161be9eecee3b2258637e5273ae4d8b60ec7741ce9ace7d80a3f00e2a4fe7a8e"
+          },
+          "relocation": {
+            "appended_bytes": 40574976,
+            "appended_sha256": "9bb368ba3c4ed11c8f251cf31deed17ac9f7699d3ee07240a3596d315d9e8076",
+            "catalog": {
+              "edits": [
+                {
+                  "new_lba": 1836864,
+                  "new_sectors": 18084,
+                  "old_lba": 1291582,
+                  "old_sectors": 18013,
+                  "path": "EFF/VEFF2DX.BIN",
+                  "record_offset": 624
+                }
+              ],
+              "inherited_non_target_catalog_differences": [
+                {
+                  "catalog": [
+                    1568198,
+                    71
+                  ],
+                  "input_directory": [
+                    1568198,
+                    69
+                  ],
+                  "member": "DATA/COMPDATA.BN",
+                  "preserved_unchanged": true
+                }
+              ],
+              "member": "VMAP.DAT",
+              "not_catalogued": [
+                "SLPS_258.87"
+              ],
+              "policy": "inherit",
+              "records_checked": 63,
+              "sha256": "cdc0c9cfc9ecda4002514e2537589e38f3040e49c06760975a05554a4730bcee"
+            },
+            "changes": {
+              "EFF/VEFF2DX.BIN": [
+                1836864,
+                37035904
+              ],
+              "SLPS_258.87": [
+                1835136,
+                3538944
+              ]
+            },
+            "grown": {},
+            "new_size": 3799459840,
+            "old_size": 3758358528,
+            "touched_spans": [
+              [
+                32848,
+                32856
+              ],
+              [
+                34896,
+                34904
+              ],
+              [
+                69632,
+                71680
+              ],
+              [
+                102400,
+                104448
+              ],
+              [
+                131072,
+                133120
+              ],
+              [
+                534856,
+                534872
+              ],
+              [
+                553058,
+                553074
+              ],
+              [
+                622592,
+                624640
+              ],
+              [
+                651264,
+                653312
+              ],
+              [
+                921600,
+                924672
+              ]
+            ],
+            "udf": {
+              "anchors_written": [
+                1854948,
+                1855204
+              ],
+              "files": [
+                {
+                  "ad_offset": 308,
+                  "fe_lba": 304,
+                  "new_lba": 1835136,
+                  "new_size": 3538944,
+                  "path": "SLPS_258.87",
+                  "previous_lba": 455,
+                  "previous_size": 3471624
+                },
+                {
+                  "ad_offset": 308,
+                  "fe_lba": 318,
+                  "new_lba": 1836864,
+                  "new_size": 37035904,
+                  "path": "EFF/VEFF2DX.BIN",
+                  "previous_lba": 1291582,
+                  "previous_size": 36890512
+                }
+              ],
+              "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-original/4b3f499fef443eff551fbd66804cf18f23e08d91652bfd6c874e65c13e979bc0/project/build/iso/zh-release-full-story/current-original-captioned.iso",
+              "image_blocks": 1855205,
+              "metadata_blocks_written": [
+                34,
+                50,
+                64,
+                304,
+                318,
+                1854948,
+                1855204
+              ],
+              "partition_extended": true,
+              "partition_length": 1854930,
+              "partition_start": 274,
+              "previous_partition_length": 1834861,
+              "unchanged_members_preserved": 64
+            }
+          },
+          "relocation_readback": {
+            "grown_members": [],
+            "relocated_members": [
+              "EFF/VEFF2DX.BIN",
+              "SLPS_258.87"
+            ],
+            "tail_bytes": 41101312,
+            "unchanged_members": 64,
+            "verified": true
+          },
+          "runtime": "not_tested",
+          "schema_version": 1,
+          "subtitles": {
+            "all_stage_scripts_maps_and_audio_members_unchanged": true,
+            "caption_count": 38,
+            "caption_sources": {
+              "config/event-subtitles/main-only-captions.json": "2a66d22f82cb5b22428bd3b7387c27500301c28424fba876f8e7a2c40957b364",
+              "config/products/special-disc/event-subtitles.json": "3060e2dfaad5006f3f30ca31fdeccd8de14086b3371a5b552771fc73f7543461"
+            },
+            "edition": "original",
+            "effects": [
+              255,
+              256,
+              257,
+              258,
+              259,
+              264,
+              265,
+              266,
+              267,
+              269,
+              273,
+              282
+            ],
+            "elf_sha256": "161be9eecee3b2258637e5273ae4d8b60ec7741ce9ace7d80a3f00e2a4fe7a8e",
+            "font": {
+              "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+              "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
+            },
+            "gallery_menu_or_scene_driver_added": false,
+            "input_elf_sha256": "2392bd782914cb9594e0c33a4a068fd1920d07d6e305da13044f352b5a2d9602",
+            "input_veff_sha256": "7d09c88e262ba40e1f25bc50730bfc686ff2814ea7659cc46d1b5f82ad1723d9",
+            "payload": {
+              "address": "0x790000",
+              "offset": 3473408,
+              "size": 65536
+            },
+            "profile": {
+              "path": "config/event-subtitles/original.json",
+              "sha256": "fd94c54bcebce84b65d32269a0679c33901596ba6f576203f9084c29150d7386"
+            },
+            "source_files": {
+              "tools/event_subtitles/apply.py": "16863aee7dc08217e5eb6fedeb5a8cf913599f9e5f3b897c5f775f294f17bec0",
+              "tools/event_subtitles/runtime.S": "489ae4c281bb935c4200d9dfc827bb2a9c58afbf56732326c8270cb02f7446c7"
+            },
+            "subtitles": [
+              {
+                "caption_count": 1,
+                "chunk": 256,
+                "compression": {
+                  "flags": 27,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "b18f908c27af7cba3c9837a314f1488e691d73b787171aa283f5c8077b0db81d",
+                "effect": 255,
+                "font_point_size": 32,
+                "new": 1182256,
+                "new_primitives": 15573,
+                "original_animation_byte_identical": true,
+                "original_primitives": 15573,
+                "packed": 277501,
+                "packed_sha256": "7e3044b5e0b572289a8a439574b3d0f0a4276f1be06eb81b7f71780eea76f4f4",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 4,
+                  "picture": 4,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 1115648,
+                "source_voice_table_sha256": "1beed229084a8349f56bdeae3157c64f8fcc784272b31ed16c22af4476a4ff27",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15320,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 4,
+                  "picture": 4,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 9,
+                "chunk": 257,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "74d43f62be2253897eea24efc32deff4c7ede21fd814b4e95ad4a0f02fbddaa2",
+                "effect": 256,
+                "font_point_size": 32,
+                "new": 2295824,
+                "new_primitives": 55785,
+                "original_animation_byte_identical": true,
+                "original_primitives": 55785,
+                "packed": 768593,
+                "packed_sha256": "a5e552be0007da54c6ed0873f4e8f5a74982e92fa3ce084250ecb67d44b067e8",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 1,
+                  "palette_byte": 56,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2164704,
+                "source_voice_table_sha256": "acfd224c624810932a8e351d1800b175a85c99c5a579367ece2fffe83d885209",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    512
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 4,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15844,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 7,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 1
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 2,
+                "chunk": 258,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "b8ba3c8ebc49a66eea6c7c5bc6c0735d4f74c6d40d42eeea09c656d4f1889ef9",
+                "effect": 257,
+                "font_point_size": 32,
+                "new": 2401200,
+                "new_primitives": 63206,
+                "original_animation_byte_identical": true,
+                "original_primitives": 63206,
+                "packed": 435014,
+                "packed_sha256": "61006a92867efef5f24b5c6a4ed8b2835bade6721a69143a7ea55bb676fcddb4",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 5,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2334592,
+                "source_voice_table_sha256": "c5b935f4e2c9812ebe3a95a5c659322915af9817973641c6dc05ec3792223779",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15580,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 5,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 5,
+                "chunk": 259,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "1902f90801d42e12519fdfbbc877f8facdb842883ec681174530fe7ebe8a59a9",
+                "effect": 258,
+                "font_point_size": 32,
+                "new": 2291600,
+                "new_primitives": 55801,
+                "original_animation_byte_identical": true,
+                "original_primitives": 55801,
+                "packed": 429611,
+                "packed_sha256": "b71945af12cdc2c24d984bdd662255d44accf97e8e32d022f0b56fd9d96db360",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 6,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2160480,
+                "source_voice_table_sha256": "7a59e7e2d9e898dc35a1df7a0343adea119700ddf2f7006b5235997baf37b504",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    256
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15844,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 6,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 3,
+                "chunk": 260,
+                "compression": {
+                  "flags": 27,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "20554410960da8843234bdb221403a1e568bf4eb70c4f00a85e1ea9f7299c6e4",
+                "effect": 259,
+                "font_point_size": 32,
+                "new": 1679664,
+                "new_primitives": 33178,
+                "original_animation_byte_identical": true,
+                "original_primitives": 33178,
+                "packed": 459751,
+                "packed_sha256": "432acbc20863d45878eea882fae11244365b6a42fa81c94a01193b641e5f7750",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 1,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 1614080,
+                "source_voice_table_sha256": "301bdaff2de903d95a56f946ed139eca0e41d423f3cb530da838539f0f6cbd32",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15588,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 1,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 2,
+                "chunk": 265,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "2aff67a1f014a80111d827053ef402c59493037ebd8778c0ab8de87aafba9963",
+                "effect": 264,
+                "font_point_size": 32,
+                "new": 2134304,
+                "new_primitives": 57899,
+                "original_animation_byte_identical": true,
+                "original_primitives": 57899,
+                "packed": 607837,
+                "packed_sha256": "11aa987290f561f033730a71731f59500b4cbd1dbe110638c09fa74c1cfb7b6c",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 1,
+                  "palette_byte": 32,
+                  "picture": 1,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2101488,
+                "source_voice_table_sha256": "d67ba8bf2dd5dd0c8618037e6ad2e660c841bcdedd0e6867c48b5c11af7bab3b",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 4,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 14948,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 4,
+                  "picture": 1,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 1
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 4,
+                "chunk": 266,
+                "compression": {
+                  "flags": 27,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "faf1a9ec3c8a467c6b077b11a39236c830b9cd7ac2f1a3e508e8197c2293fa96",
+                "effect": 265,
+                "font_point_size": 32,
+                "new": 1649968,
+                "new_primitives": 47627,
+                "original_animation_byte_identical": true,
+                "original_primitives": 47627,
+                "packed": 440104,
+                "packed_sha256": "21831c82dd437fd4dde0d89bb2de414a338d170c4aad47d871970873de6c0284",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 1,
+                  "palette_byte": 64,
+                  "picture": 1,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 1584384,
+                "source_voice_table_sha256": "d81a16a63243e6bfe0e4fcb145eaa063eb9025902d9b866395316c6b874e2e10",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    256
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 4,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 14052,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 8,
+                  "picture": 1,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 1
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 3,
+                "chunk": 267,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "0fef51f8ddb931dbe8e90d5f02170315965465b8693bca55ae4fdbb09b2fbfac",
+                "effect": 266,
+                "font_point_size": 32,
+                "new": 2316592,
+                "new_primitives": 59455,
+                "original_animation_byte_identical": true,
+                "original_primitives": 59455,
+                "packed": 599057,
+                "packed_sha256": "c661855fa473bc402a204138a9129b2b263a4aba1738622e7743aaf9931d6776",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 3,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2251008,
+                "source_voice_table_sha256": "8b644d87dfd8e449978dca3938d1815ceb1a416187ab405d570ba820dc14d299",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15584,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 3,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 1,
+                "chunk": 268,
+                "compression": {
+                  "flags": 25,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "77f382402b4fe481442971ae59059f4fc02b89bdb5f6b3079c3295809f91e69f",
+                "effect": 267,
+                "font_point_size": 32,
+                "new": 958368,
+                "new_primitives": 22621,
+                "original_animation_byte_identical": true,
+                "original_primitives": 22621,
+                "packed": 236552,
+                "packed_sha256": "6593dd7a34f2ad29f78c1db2f7d5ee8cb2bf9ac3e6dfb9f032d7297d357b925a",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 3,
+                  "picture": 1,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 892784,
+                "source_voice_table_sha256": "88ca91a2c0f97eecd153f8d8a5125845cde654dfcc06d26ecb99355cd5c56869",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 13788,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 3,
+                  "picture": 1,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 2,
+                "chunk": 270,
+                "compression": {
+                  "flags": 23,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "21ab9d353d2e03bf2aef350c4c13033510f9e0997bb6c8f178b6e364b34c3503",
+                "effect": 269,
+                "font_point_size": 32,
+                "new": 569680,
+                "new_primitives": 7868,
+                "original_animation_byte_identical": true,
+                "original_primitives": 7868,
+                "packed": 232170,
+                "packed_sha256": "211c44ac0e3c572a0c004cf8b1cb466e6bd4303863cca231f3b60c47d31d3dbf",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 4,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 504096,
+                "source_voice_table_sha256": "dea404c4d89085d324ebb58db91f9c7f34caf71bce1f5b61d3390d8e7a1d7a18",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 13656,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 4,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 4,
+                "chunk": 274,
+                "compression": {
+                  "flags": 27,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "77ad08205eda1dd419f04241768fd1194232538160ea979e1c9d7c8cc7dfd8dd",
+                "effect": 273,
+                "font_point_size": 32,
+                "new": 1664272,
+                "new_primitives": 35869,
+                "original_animation_byte_identical": true,
+                "original_primitives": 35869,
+                "packed": 267956,
+                "packed_sha256": "293d59d88d64e9e1a19533c471f48567e156f6ef12f29e103d91f57d2dceb970",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 0,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 1533152,
+                "source_voice_table_sha256": "fd78fab0485a5bc5c986068103b0cd9d28145f620d9023799fad8727c2e3e0b9",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    256
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15328,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 0,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 2,
+                "chunk": 283,
+                "compression": {
+                  "flags": 25,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "54cea87072015ea514f20151edc76784d09bf8130c773825af47eacc269d2ce2",
+                "effect": 282,
+                "font_point_size": 32,
+                "new": 1058960,
+                "new_primitives": 13445,
+                "original_animation_byte_identical": true,
+                "original_primitives": 13445,
+                "packed": 306671,
+                "packed_sha256": "dd3af9ecb610af449a686c48e44a37d8fd241f348cb9429d1c0ffcc40ba0e53b",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 6,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 992352,
+                "source_voice_table_sha256": "12579497bf52a5e7877ba42726b4d4513bac1a511f5d7ad900c42f5cc97332bb",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15072,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 6,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              }
+            ],
+            "veff": {
+              "bytes": 37035904,
+              "edited_chunks": [
+                256,
+                257,
+                258,
+                259,
+                260,
+                265,
+                266,
+                267,
+                268,
+                270,
+                274,
+                283
+              ],
+              "offsets": [
+                0,
+                49936,
+                51056,
+                57584,
+                70800,
+                84016,
+                97232,
+                112592,
+                117824,
+                125600,
+                137920,
+                154384,
+                167904,
+                178624,
+                191920,
+                195360,
+                198784,
+                201680,
+                203296,
+                203408,
+                203520,
+                241248,
+                305024,
+                364032,
+                423952,
+                480720,
+                547984,
+                615232,
+                671632,
+                734368,
+                797120,
+                853344,
+                909376,
+                965424,
+                1014688,
+                1066208,
+                1113408,
+                1160176,
+                1206672,
+                1253440,
+                1308336,
+                1338560,
+                1384512,
+                1434512,
+                1484512,
+                1537952,
+                1590400,
+                1646448,
+                1709264,
+                1768656,
+                1831568,
+                1906688,
+                1944416,
+                1948272,
+                1952208,
+                1958448,
+                1961664,
+                1967904,
+                1973408,
+                1977952,
+                1985504,
+                1994832,
+                2004352,
+                2013024,
+                2020464,
+                2027904,
+                2038000,
+                2048096,
+                2068784,
+                2072624,
+                2082320,
+                2090512,
+                2098704,
+                2106896,
+                2110016,
+                2115792,
+                2120320,
+                2127232,
+                2137200,
+                2154112,
+                2163792,
+                2174160,
+                2187536,
+                2213520,
+                2218176,
+                2226368,
+                2238544,
+                2251232,
+                2312304,
+                2400800,
+                2489376,
+                2576176,
+                2662720,
+                2729872,
+                2797184,
+                2864432,
+                2931680,
+                3050224,
+                3169248,
+                3288272,
+                3406816,
+                3590000,
+                3773184,
+                3956368,
+                4139552,
+                4258208,
+                4376864,
+                4495520,
+                4614176,
+                4732256,
+                4850800,
+                4969344,
+                5087424,
+                5205600,
+                5323776,
+                5441952,
+                5560128,
+                5609696,
+                5659152,
+                5708528,
+                5757824,
+                5816544,
+                5875136,
+                5933712,
+                5992176,
+                6173664,
+                6355216,
+                6530512,
+                6704816,
+                6816608,
+                6938432,
+                7060048,
+                7181872,
+                7303536,
+                7454176,
+                7604624,
+                7755536,
+                7906304,
+                8054992,
+                8203280,
+                8351888,
+                8500736,
+                8560128,
+                8619488,
+                8678912,
+                8738288,
+                8759568,
+                8780848,
+                8802080,
+                8823312,
+                8897008,
+                8977616,
+                9058256,
+                9138864,
+                9219456,
+                9349840,
+                9481264,
+                9612976,
+                9743856,
+                9845952,
+                9948480,
+                10050336,
+                10153296,
+                10270576,
+                10387856,
+                10505216,
+                10622608,
+                10687344,
+                10748720,
+                10809760,
+                10877040,
+                11019216,
+                11082112,
+                11144784,
+                11207472,
+                11270256,
+                11473104,
+                11675952,
+                11878800,
+                12081632,
+                12236224,
+                12391264,
+                12544912,
+                12698528,
+                12917344,
+                13136112,
+                13354704,
+                13573120,
+                13664160,
+                13792160,
+                14079584,
+                14367040,
+                14655344,
+                14943680,
+                15157360,
+                15500240,
+                15843152,
+                16186384,
+                16529632,
+                16813120,
+                16969328,
+                17125488,
+                17282128,
+                17438720,
+                17501712,
+                17598144,
+                17678320,
+                17853360,
+                18013104,
+                18144400,
+                18271984,
+                18399376,
+                18531584,
+                18675824,
+                18819840,
+                18969120,
+                19109152,
+                19254496,
+                19399696,
+                19556816,
+                19719760,
+                19882416,
+                20040704,
+                20215904,
+                20335040,
+                20434368,
+                20533744,
+                20633040,
+                20732384,
+                20831728,
+                20930912,
+                21030112,
+                21129456,
+                21228736,
+                21327920,
+                21429328,
+                21532672,
+                21740160,
+                21767424,
+                22198512,
+                22585168,
+                22644816,
+                22792928,
+                23077264,
+                23228928,
+                23354880,
+                23747504,
+                24028368,
+                24150384,
+                24240224,
+                24404864,
+                24433280,
+                24526080,
+                24573328,
+                24771248,
+                24818112,
+                24857472,
+                25134976,
+                25903584,
+                26338608,
+                26768224,
+                27227984,
+                27736784,
+                27829584,
+                27891856,
+                28312432,
+                28920272,
+                29360384,
+                29959456,
+                30196016,
+                30505232,
+                30737408,
+                30739584,
+                30781392,
+                30814752,
+                31082720,
+                31418432,
+                31476512,
+                31522752,
+                31559152,
+                31598672,
+                31724272,
+                31996176,
+                32165344,
+                32472016,
+                32524880,
+                32695888,
+                32869984,
+                33068992,
+                33262864,
+                33658224,
+                34089072,
+                34692448,
+                34970448,
+                35248112,
+                35525824,
+                35803520,
+                35834176,
+                35866784,
+                36595104,
+                37035888,
+                37035904
+              ],
+              "source_bytes": 36890512,
+              "unmodified_effect_chunks_preserved": true
+            },
+            "veff_sha256": "4fb1c0c79f5c86db0a128a131665733b27e739940db82d335dc24dbcdffb0bde"
+          },
+          "untouched_base_bytes": {
+            "base_bytes": 3758358528,
+            "compared_bytes": 3758345168,
+            "final_sha256": "24a996e2adab35209b89977804973bd7b5e95c615b285e606af9b00fc036a6f8",
+            "sha256": "bfdf1b148b03c78546936694db1ed80d0ae4210ee1a0c6225f74f87fa87d6bfb",
+            "spans": [
+              [
+                32848,
+                32856
+              ],
+              [
+                34896,
+                34904
+              ],
+              [
+                69632,
+                71680
+              ],
+              [
+                102400,
+                104448
+              ],
+              [
+                131072,
+                133120
+              ],
+              [
+                534856,
+                534872
+              ],
+              [
+                553058,
+                553074
+              ],
+              [
+                622592,
+                624640
+              ],
+              [
+                651264,
+                653312
+              ],
+              [
+                921600,
+                924672
+              ]
+            ]
+          }
+        },
+        "gunleon_sprite": {
+          "allocation_bytes": 701376,
+          "changed_decoded_bytes": 12,
+          "chunk": 616,
+          "decoded_sha256": "bfed4ec7e78491d7993a3d197cc076ffb10408d979337ccef0f4c2920cae15c7",
+          "keyframe_offsets": [
+            77274,
+            376078,
+            458374,
+            486546
+          ],
+          "member": "BTL/TWP.BIN",
+          "packed_bytes": 592711,
+          "verification": {
+            "after_sha256": "bad2340218dd23870c21b1405ca52b6172ac258c824e4ab1b17fe2e11ea807d6",
+            "bytes": 3798758464,
+            "sha256": "e84f7c098cbee0b8f17c1c9af4b0c6ebaf8cc6d5d861667cb03e492ee5e39979"
+          }
+        },
+        "input_digest": "1c934e3708b7854ad499eab97e2180cbbe3760fe8c60de8cfce6c77bbd2279e0",
+        "legacy_equivalence": {
+          "baseline_iso_sha256": "6ae9b61605a0491adb6a07c4204bb1cd66563a067bed4fb4faf679a0afcb1b8e",
+          "member_count": 25,
+          "passed": false,
+          "required": false
+        },
+        "output": {
+          "path": "build/iso/test/integrated-original-zh-hant-tw.iso",
+          "sha256": "bad2340218dd23870c21b1405ca52b6172ac258c824e4ab1b17fe2e11ea807d6",
+          "size": 3799459840
+        },
+        "readback": {
+          "path": "build/editions/zh-release-original/4b3f499fef443eff551fbd66804cf18f23e08d91652bfd6c874e65c13e979bc0/project/manifests/zh-release-full-story-iso-content-validation.json",
+          "sha256": "c34c6bd7ff776c0824684662c79ba9e7882ac817e1cfa1ba238ca36973160cf3",
+          "stage_count": 170,
+          "translation_entry_count": 93071
+        },
+        "runtime": "not_tested",
+        "schema_version": 1,
+        "skip_enabled": true,
+        "source_head": "880cec420aa4ad07e073d16a855f5d725d887292",
+        "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+        "status": "edition_iso_static_validated_runtime_pending",
+        "typography": {
+          "input": {
+            "path": "build/iso/zh-release-full-story/current-original-captioned.iso",
+            "sha256": "24a996e2adab35209b89977804973bd7b5e95c615b285e606af9b00fc036a6f8",
+            "size": 3799459840
+          },
+          "verification": {
+            "edition": "original",
+            "executable_sha256": "923e033f101cb3d5af8d98c4b055bbeb6907a175c90ca6f817129a0f15c6edda",
+            "member": "SLPS_258.87",
+            "member_lba": 1835136,
+            "member_size": 3538944,
+            "metrics_sha256": "4b31858d9e09bd78a4285ed47f942fc09f5f9b2af4bb9faa2d7a9298fcaba0ed",
+            "output_sha256": "fcdafdf2d59388553965693265afcc4f80e804d02bf112d9195b3a616b0271a6",
+            "outside_executable_bytes_compared": 3795920896,
+            "payload": {
+              "base": 7904768,
+              "battle_select_titles": {
+                "config_sha256": "3a0ea20e54fd27465144f5757df800d8f6cf18a441fb5f68b2debdb6d725bc2b",
+                "labels": [
+                  "选择阵型",
+                  "排列队员",
+                  "选择机体",
+                  "选择机师"
+                ]
+              },
+              "codeBytes": 5992,
+              "edition": "original",
+              "fontSha256": "446f97ddef48f36c60549443e78045b0e21fb9d375325fe260205d71c1fb9ea1",
+              "metricsSchema": 7,
+              "patches": [
+                {
+                  "address": 1288592,
+                  "after": "f52b1e0800000000",
+                  "before": "0070013c62002294"
+                },
+                {
+                  "address": 1286800,
+                  "after": "7a2c1e0800000000",
+                  "before": "a0ffbd274700013c"
+                },
+                {
+                  "address": 1284864,
+                  "after": "ab2c1e0800000000",
+                  "before": "b0ffbd272d100000"
+                },
+                {
+                  "address": 2233844,
+                  "after": "dc2c1e0c",
+                  "before": "6484060c"
+                },
+                {
+                  "address": 2233896,
+                  "after": "e82c1e0c00000000",
+                  "before": "0200022621904202"
+                },
+                {
+                  "address": 2233916,
+                  "after": "4700013c40e323842da06000",
+                  "before": "422002001818640021a08302"
+                },
+                {
+                  "address": 1291112,
+                  "after": "242d1e0800000000",
+                  "before": "080084241c00e880"
+                },
+                {
+                  "address": 1290052,
+                  "after": "3c2d1e0800000000",
+                  "before": "1c00e88008008424"
+                },
+                {
+                  "address": 1289048,
+                  "after": "162d1e0800000000",
+                  "before": "2400238e140003ae"
+                },
+                {
+                  "address": 1284984,
+                  "after": "c42b1e0800000000",
+                  "before": "00008b9062006011"
+                }
+              ],
+              "payloadBytes": 10496,
+              "payloadSha256": "eae0e6c36dfddada9163763d31afdac9653c4671862650838d2f160ac7f35679",
+              "reservation": {
+                "base": 7904768,
+                "capacity": 10496,
+                "edition": "original",
+                "elfSizeUnchanged": true,
+                "fileOffset": 3462912,
+                "headerSlot": 208,
+                "heapUnchanged": true,
+                "nonloadedSectionMetadataRemoved": true,
+                "payloadBytes": 10496,
+                "resultSha256": "927f24f654370f334e8e87ec8aa5db36e63f9bec3419ca2ff49b88fa221581e7",
+                "runtimeVerified": false,
+                "sourceSha256": "161be9eecee3b2258637e5273ae4d8b60ec7741ce9ace7d80a3f00e2a4fe7a8e"
+              },
+              "resultSha256": "923e033f101cb3d5af8d98c4b055bbeb6907a175c90ca6f817129a0f15c6edda",
+              "routes": [
+                {
+                  "name": "story",
+                  "scene": "story"
+                },
+                {
+                  "name": "sp_story_map",
+                  "scene": "sp_story_map"
+                },
+                {
+                  "name": "battle",
+                  "scene": "battle"
+                },
+                {
+                  "name": "main_flow",
+                  "scene": "main_flow"
+                },
+                {
+                  "name": "main_scroll",
+                  "scene": "main_scroll"
+                },
+                {
+                  "name": "library_robot",
+                  "scene": "library_robot"
+                },
+                {
+                  "name": "keyword_list",
+                  "scene": "keyword_list"
+                },
+                {
+                  "name": "weapon",
+                  "scene": "weapon"
+                },
+                {
+                  "name": "weapon_main",
+                  "scene": "weapon_main"
+                }
+              ],
+              "sceneDispatch": true,
+              "scope": "Native-entry bounded scene geometry dispatch",
+              "sections": [
+                {
+                  "address": 7904768,
+                  "name": "native_draw",
+                  "size": 16
+                },
+                {
+                  "address": 7904784,
+                  "name": "native_measure",
+                  "size": 28
+                },
+                {
+                  "address": 7904812,
+                  "name": "story_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 7904976,
+                  "name": "story_cjk",
+                  "size": 114
+                },
+                {
+                  "address": 7905092,
+                  "name": "story_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7905100,
+                  "name": "sp_story_map_cjk",
+                  "size": 114
+                },
+                {
+                  "address": 7905216,
+                  "name": "sp_story_map_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7905224,
+                  "name": "battle_cjk",
+                  "size": 102
+                },
+                {
+                  "address": 7905328,
+                  "name": "battle_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7905336,
+                  "name": "main_flow_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 7905500,
+                  "name": "main_flow_cjk",
+                  "size": 108
+                },
+                {
+                  "address": 7905608,
+                  "name": "main_flow_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7905616,
+                  "name": "main_scroll_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 7905780,
+                  "name": "main_scroll_cjk",
+                  "size": 108
+                },
+                {
+                  "address": 7905888,
+                  "name": "main_scroll_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7905896,
+                  "name": "library_robot_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7905904,
+                  "name": "keyword_list_cjk",
+                  "size": 108
+                },
+                {
+                  "address": 7906012,
+                  "name": "keyword_list_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7906020,
+                  "name": "weapon_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7906028,
+                  "name": "weapon_main_cjk",
+                  "size": 108
+                },
+                {
+                  "address": 7906136,
+                  "name": "weapon_main_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7906144,
+                  "name": "metric_selection",
+                  "size": 1716
+                },
+                {
+                  "address": 7907860,
+                  "name": "shared_draw",
+                  "size": 492
+                },
+                {
+                  "address": 7908352,
+                  "name": "shared_measure",
+                  "size": 292
+                },
+                {
+                  "address": 7908644,
+                  "name": "scene_descriptors",
+                  "size": 240
+                },
+                {
+                  "address": 7908884,
+                  "name": "draw_routes",
+                  "size": 252
+                },
+                {
+                  "address": 7909136,
+                  "name": "measure_routes",
+                  "size": 184
+                },
+                {
+                  "address": 7909320,
+                  "name": "display_options",
+                  "size": 12
+                },
+                {
+                  "address": 7909332,
+                  "name": "glyph_bank",
+                  "size": 532
+                },
+                {
+                  "address": 7909864,
+                  "name": "draw_source",
+                  "size": 196
+                },
+                {
+                  "address": 7910060,
+                  "name": "measure_source",
+                  "size": 196
+                },
+                {
+                  "address": 7910256,
+                  "name": "underline_copy",
+                  "size": 48
+                },
+                {
+                  "address": 7910304,
+                  "name": "underline_restore",
+                  "size": 40
+                },
+                {
+                  "address": 7910344,
+                  "name": "underline_dispatch",
+                  "size": 144
+                },
+                {
+                  "address": 7910488,
+                  "name": "draw_entry",
+                  "size": 56
+                },
+                {
+                  "address": 7910544,
+                  "name": "sprite_baseline",
+                  "size": 96
+                },
+                {
+                  "address": 7910640,
+                  "name": "outline_baseline",
+                  "size": 120
+                },
+                {
+                  "address": 7914688,
+                  "name": "baseline_sidecar",
+                  "size": 512
+                },
+                {
+                  "address": 7915200,
+                  "name": "selector_globals",
+                  "size": 64
+                }
+              ],
+              "sharedSelection": true,
+              "text_atlas_exhaustion": {
+                "address": "0x13aa34",
+                "after": "5e000010",
+                "before": "2d106002",
+                "capacity_changed": false,
+                "file_offset": 246964,
+                "target": "0x13abb0"
+              }
+            },
+            "runtime": "not_tested",
+            "schema_version": 1,
+            "size": 3799459840,
+            "source_sha256": "24a996e2adab35209b89977804973bd7b5e95c615b285e606af9b00fc036a6f8"
+          }
+        },
+        "version": "v0.5.2.1",
+        "workspace": "build/editions/zh-release-original/4b3f499fef443eff551fbd66804cf18f23e08d91652bfd6c874e65c13e979bc0/project"
+      },
+      {
+        "adapter": "best-current-source-v1",
+        "base_output": {
+          "path": "build/iso/zh-release-best/current-best.iso",
+          "sha256": "9467a632a8b990c4af2cd5400c42d2335cb9031510808ab40881b11aeba8af3f",
+          "size": 3755081728
+        },
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x2F7A80",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x3F6000",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "best",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "938e260abd991e2df4e49b1099f2f3737424bd36f9e1db293bf8e656396a6639",
+          "hook_size": 1728,
+          "member": "SLPS_732.70",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1E5C44",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "a0210c0c",
+              "replacement_instruction_hex": "00d80f0c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E41C4"
+            },
+            {
+              "file_offset": "0x1EDD60",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "40d90f08",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2EC2E0"
+            },
+            {
+              "file_offset": "0x1EDD64",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2EC2E4"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "edition_contract_sha256": "9aa1ca3f6af7b94391303abc1092900ef2ae2ca933b1ba467535061652446686",
+        "edition_id": "best",
+        "event_subtitles": {
+          "base_iso": {
+            "path": "build/iso/zh-release-best/current-best.iso",
+            "sha256": "9467a632a8b990c4af2cd5400c42d2335cb9031510808ab40881b11aeba8af3f",
+            "size": 3755081728
+          },
+          "iso": {
+            "path": "build/iso/zh-release-best/current-best-captioned.iso",
+            "sha256": "9190d1c4f68a34a5846af8cbefd898f5cb73d36e828268b62fd2800fc400d018",
+            "size": 3796187136
+          },
+          "member_readback": {
+            "executable_words": 7,
+            "payload_offset": 3477504,
+            "subtitled_chunks": 12
+          },
+          "members": {
+            "EFF/VEFF2DX.BIN": "e55d5530425d729494aba9c64cdbbb212f0e5d332d6202f2c0759fbab45a3934",
+            "SLPS_732.70": "d4ee22c38fddcf4c324455e42d259fa80de68b00c24cd53399497bc29ee79d70"
+          },
+          "relocation": {
+            "appended_bytes": 40579072,
+            "appended_sha256": "3da9133eedaecc2c15cc31e5bfad9e2e22e0d32857a1f78b20912d2bb4e314fe",
+            "catalog": {
+              "edits": [
+                {
+                  "new_lba": 1835266,
+                  "new_sectors": 18084,
+                  "old_lba": 1289973,
+                  "old_sectors": 18013,
+                  "path": "EFF/VEFF2DX.BIN",
+                  "record_offset": 624
+                }
+              ],
+              "inherited_non_target_catalog_differences": [],
+              "member": "VMAP.DAT",
+              "not_catalogued": [
+                "SLPS_732.70"
+              ],
+              "policy": "inherit",
+              "records_checked": 63,
+              "sha256": "21b64f1357f9fb2def5237c99c20477e1178ae6e67b4210c84cf98ba45a850fb"
+            },
+            "changes": {
+              "EFF/VEFF2DX.BIN": [
+                1835266,
+                37035904
+              ],
+              "SLPS_732.70": [
+                1833536,
+                3543040
+              ]
+            },
+            "grown": {},
+            "new_size": 3796187136,
+            "old_size": 3755081728,
+            "touched_spans": [
+              [
+                32848,
+                32856
+              ],
+              [
+                34896,
+                34904
+              ],
+              [
+                69632,
+                71680
+              ],
+              [
+                102400,
+                104448
+              ],
+              [
+                131072,
+                133120
+              ],
+              [
+                535430,
+                535446
+              ],
+              [
+                553058,
+                553074
+              ],
+              [
+                622592,
+                624640
+              ],
+              [
+                651264,
+                653312
+              ],
+              [
+                921600,
+                924672
+              ]
+            ],
+            "udf": {
+              "anchors_written": [
+                1853350,
+                1853606
+              ],
+              "files": [
+                {
+                  "ad_offset": 308,
+                  "fe_lba": 304,
+                  "new_lba": 1833536,
+                  "new_size": 3543040,
+                  "path": "SLPS_732.70",
+                  "previous_lba": 455,
+                  "previous_size": 3473672
+                },
+                {
+                  "ad_offset": 308,
+                  "fe_lba": 318,
+                  "new_lba": 1835266,
+                  "new_size": 37035904,
+                  "path": "EFF/VEFF2DX.BIN",
+                  "previous_lba": 1289973,
+                  "previous_size": 36890512
+                }
+              ],
+              "image": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/editions/zh-release-best/c7e50d5f08056db8755ed491d6670cbc08526c7b36823211348bb200e45126f1/project/build/iso/zh-release-best/current-best-captioned.iso",
+              "image_blocks": 1853607,
+              "metadata_blocks_written": [
+                34,
+                50,
+                64,
+                304,
+                318,
+                1853350,
+                1853606
+              ],
+              "partition_extended": true,
+              "partition_length": 1853332,
+              "partition_start": 274,
+              "previous_partition_length": 1833261,
+              "unchanged_members_preserved": 64
+            }
+          },
+          "relocation_readback": {
+            "grown_members": [],
+            "relocated_members": [
+              "EFF/VEFF2DX.BIN",
+              "SLPS_732.70"
+            ],
+            "tail_bytes": 41105408,
+            "unchanged_members": 64,
+            "verified": true
+          },
+          "runtime": "not_tested",
+          "schema_version": 1,
+          "subtitles": {
+            "all_stage_scripts_maps_and_audio_members_unchanged": true,
+            "caption_count": 38,
+            "caption_sources": {
+              "config/event-subtitles/main-only-captions.json": "2a66d22f82cb5b22428bd3b7387c27500301c28424fba876f8e7a2c40957b364",
+              "config/products/special-disc/event-subtitles.json": "3060e2dfaad5006f3f30ca31fdeccd8de14086b3371a5b552771fc73f7543461"
+            },
+            "edition": "best",
+            "effects": [
+              255,
+              256,
+              257,
+              258,
+              259,
+              264,
+              265,
+              266,
+              267,
+              269,
+              273,
+              282
+            ],
+            "elf_sha256": "d4ee22c38fddcf4c324455e42d259fa80de68b00c24cd53399497bc29ee79d70",
+            "font": {
+              "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+              "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
+            },
+            "gallery_menu_or_scene_driver_added": false,
+            "input_elf_sha256": "b3be385d5534944ec258135dbec6783967a73641a733733cba5260c7a4242348",
+            "input_veff_sha256": "66f8a4d02d54d2d0f609f42ce7964cccc0e25aa5d51ecad8950a88fce99914f4",
+            "payload": {
+              "address": "0x790000",
+              "offset": 3477504,
+              "size": 65536
+            },
+            "profile": {
+              "path": "config/event-subtitles/best.json",
+              "sha256": "cfa3394eb37bf4111c497c9bbc4534862841a0677f6556726be9a15f12f0744a"
+            },
+            "source_files": {
+              "tools/event_subtitles/apply.py": "16863aee7dc08217e5eb6fedeb5a8cf913599f9e5f3b897c5f775f294f17bec0",
+              "tools/event_subtitles/runtime.S": "489ae4c281bb935c4200d9dfc827bb2a9c58afbf56732326c8270cb02f7446c7"
+            },
+            "subtitles": [
+              {
+                "caption_count": 1,
+                "chunk": 256,
+                "compression": {
+                  "flags": 27,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "b18f908c27af7cba3c9837a314f1488e691d73b787171aa283f5c8077b0db81d",
+                "effect": 255,
+                "font_point_size": 32,
+                "new": 1182256,
+                "new_primitives": 15573,
+                "original_animation_byte_identical": true,
+                "original_primitives": 15573,
+                "packed": 277501,
+                "packed_sha256": "7e3044b5e0b572289a8a439574b3d0f0a4276f1be06eb81b7f71780eea76f4f4",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 4,
+                  "picture": 4,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 1115648,
+                "source_voice_table_sha256": "1beed229084a8349f56bdeae3157c64f8fcc784272b31ed16c22af4476a4ff27",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15320,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 4,
+                  "picture": 4,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 9,
+                "chunk": 257,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "02e2006d2a6990350c7186e929c6b3378c48706962c85cd297b09a473796fd83",
+                "effect": 256,
+                "font_point_size": 32,
+                "new": 2295824,
+                "new_primitives": 55785,
+                "original_animation_byte_identical": true,
+                "original_primitives": 55785,
+                "packed": 768593,
+                "packed_sha256": "e9c2aee4a97734577eb2b63c87794de4d3a8676b3d062874718fa4f7332effbf",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 1,
+                  "palette_byte": 56,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2164704,
+                "source_voice_table_sha256": "07401d9cdf126d971d895e6dfce3a73825e086d006951020a8c5aff9da91f958",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    512
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 4,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15844,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 7,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 1
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 2,
+                "chunk": 258,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "b8ba3c8ebc49a66eea6c7c5bc6c0735d4f74c6d40d42eeea09c656d4f1889ef9",
+                "effect": 257,
+                "font_point_size": 32,
+                "new": 2401200,
+                "new_primitives": 63206,
+                "original_animation_byte_identical": true,
+                "original_primitives": 63206,
+                "packed": 435014,
+                "packed_sha256": "61006a92867efef5f24b5c6a4ed8b2835bade6721a69143a7ea55bb676fcddb4",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 5,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2334592,
+                "source_voice_table_sha256": "c5b935f4e2c9812ebe3a95a5c659322915af9817973641c6dc05ec3792223779",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15580,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 5,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 5,
+                "chunk": 259,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "1902f90801d42e12519fdfbbc877f8facdb842883ec681174530fe7ebe8a59a9",
+                "effect": 258,
+                "font_point_size": 32,
+                "new": 2291600,
+                "new_primitives": 55801,
+                "original_animation_byte_identical": true,
+                "original_primitives": 55801,
+                "packed": 429611,
+                "packed_sha256": "b71945af12cdc2c24d984bdd662255d44accf97e8e32d022f0b56fd9d96db360",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 6,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2160480,
+                "source_voice_table_sha256": "7a59e7e2d9e898dc35a1df7a0343adea119700ddf2f7006b5235997baf37b504",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    256
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15844,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 6,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 3,
+                "chunk": 260,
+                "compression": {
+                  "flags": 27,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "20554410960da8843234bdb221403a1e568bf4eb70c4f00a85e1ea9f7299c6e4",
+                "effect": 259,
+                "font_point_size": 32,
+                "new": 1679664,
+                "new_primitives": 33178,
+                "original_animation_byte_identical": true,
+                "original_primitives": 33178,
+                "packed": 459751,
+                "packed_sha256": "432acbc20863d45878eea882fae11244365b6a42fa81c94a01193b641e5f7750",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 1,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 1614080,
+                "source_voice_table_sha256": "301bdaff2de903d95a56f946ed139eca0e41d423f3cb530da838539f0f6cbd32",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15588,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 1,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 2,
+                "chunk": 265,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "2aff67a1f014a80111d827053ef402c59493037ebd8778c0ab8de87aafba9963",
+                "effect": 264,
+                "font_point_size": 32,
+                "new": 2134304,
+                "new_primitives": 57899,
+                "original_animation_byte_identical": true,
+                "original_primitives": 57899,
+                "packed": 607837,
+                "packed_sha256": "11aa987290f561f033730a71731f59500b4cbd1dbe110638c09fa74c1cfb7b6c",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 1,
+                  "palette_byte": 32,
+                  "picture": 1,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2101488,
+                "source_voice_table_sha256": "d67ba8bf2dd5dd0c8618037e6ad2e660c841bcdedd0e6867c48b5c11af7bab3b",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 4,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 14948,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 4,
+                  "picture": 1,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 1
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 4,
+                "chunk": 266,
+                "compression": {
+                  "flags": 27,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "faf1a9ec3c8a467c6b077b11a39236c830b9cd7ac2f1a3e508e8197c2293fa96",
+                "effect": 265,
+                "font_point_size": 32,
+                "new": 1649968,
+                "new_primitives": 47627,
+                "original_animation_byte_identical": true,
+                "original_primitives": 47627,
+                "packed": 440104,
+                "packed_sha256": "21831c82dd437fd4dde0d89bb2de414a338d170c4aad47d871970873de6c0284",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 1,
+                  "palette_byte": 64,
+                  "picture": 1,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 1584384,
+                "source_voice_table_sha256": "d81a16a63243e6bfe0e4fcb145eaa063eb9025902d9b866395316c6b874e2e10",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    256
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 4,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 14052,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 8,
+                  "picture": 1,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 1
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 3,
+                "chunk": 267,
+                "compression": {
+                  "flags": 29,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "0fef51f8ddb931dbe8e90d5f02170315965465b8693bca55ae4fdbb09b2fbfac",
+                "effect": 266,
+                "font_point_size": 32,
+                "new": 2316592,
+                "new_primitives": 59455,
+                "original_animation_byte_identical": true,
+                "original_primitives": 59455,
+                "packed": 599057,
+                "packed_sha256": "c661855fa473bc402a204138a9129b2b263a4aba1738622e7743aaf9931d6776",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 3,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 2251008,
+                "source_voice_table_sha256": "8b644d87dfd8e449978dca3938d1815ceb1a416187ab405d570ba820dc14d299",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15584,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 3,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 1,
+                "chunk": 268,
+                "compression": {
+                  "flags": 25,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "77f382402b4fe481442971ae59059f4fc02b89bdb5f6b3079c3295809f91e69f",
+                "effect": 267,
+                "font_point_size": 32,
+                "new": 958368,
+                "new_primitives": 22621,
+                "original_animation_byte_identical": true,
+                "original_primitives": 22621,
+                "packed": 236552,
+                "packed_sha256": "6593dd7a34f2ad29f78c1db2f7d5ee8cb2bf9ac3e6dfb9f032d7297d357b925a",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 3,
+                  "picture": 1,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 892784,
+                "source_voice_table_sha256": "88ca91a2c0f97eecd153f8d8a5125845cde654dfcc06d26ecb99355cd5c56869",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 13788,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 3,
+                  "picture": 1,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 2,
+                "chunk": 270,
+                "compression": {
+                  "flags": 23,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "21ab9d353d2e03bf2aef350c4c13033510f9e0997bb6c8f178b6e364b34c3503",
+                "effect": 269,
+                "font_point_size": 32,
+                "new": 569680,
+                "new_primitives": 7868,
+                "original_animation_byte_identical": true,
+                "original_primitives": 7868,
+                "packed": 232170,
+                "packed_sha256": "211c44ac0e3c572a0c004cf8b1cb466e6bd4303863cca231f3b60c47d31d3dbf",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 4,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 504096,
+                "source_voice_table_sha256": "dea404c4d89085d324ebb58db91f9c7f34caf71bce1f5b61d3390d8e7a1d7a18",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 13656,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 4,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 4,
+                "chunk": 274,
+                "compression": {
+                  "flags": 27,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "77ad08205eda1dd419f04241768fd1194232538160ea979e1c9d7c8cc7dfd8dd",
+                "effect": 273,
+                "font_point_size": 32,
+                "new": 1664272,
+                "new_primitives": 35869,
+                "original_animation_byte_identical": true,
+                "original_primitives": 35869,
+                "packed": 267956,
+                "packed_sha256": "293d59d88d64e9e1a19533c471f48567e156f6ef12f29e103d91f57d2dceb970",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 0,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 1533152,
+                "source_voice_table_sha256": "fd78fab0485a5bc5c986068103b0cd9d28145f620d9023799fad8727c2e3e0b9",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    256
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15328,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 0,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              },
+              {
+                "caption_count": 2,
+                "chunk": 283,
+                "compression": {
+                  "flags": 25,
+                  "header_unknown_1": 0,
+                  "strategy": "rust-fit"
+                },
+                "decoded_sha256": "54cea87072015ea514f20151edc76784d09bf8130c773825af47eacc269d2ce2",
+                "effect": 282,
+                "font_point_size": 32,
+                "new": 1058960,
+                "new_primitives": 13445,
+                "original_animation_byte_identical": true,
+                "original_primitives": 13445,
+                "packed": 306671,
+                "packed_sha256": "dd3af9ecb610af449a686c48e44a37d8fd241f348cb9429d1c0ffcc40ba0e53b",
+                "position": "screen bottom center",
+                "runtime_draw": {
+                  "group": 0,
+                  "palette_byte": 6,
+                  "picture": 2,
+                  "row_height": 40,
+                  "width": 508
+                },
+                "screen_rect": [
+                  66,
+                  388,
+                  574,
+                  428
+                ],
+                "source": 992352,
+                "source_voice_table_sha256": "12579497bf52a5e7877ba42726b4d4513bac1a511f5d7ad900c42f5cc97332bb",
+                "style": "white face, black outline and shadow; transparent outside glyphs",
+                "texture": {
+                  "all_original_picture_pixels_byte_identical": true,
+                  "atlas_size": [
+                    512,
+                    128
+                  ],
+                  "authoring_to_native_filter": "4x supersampled, box filtered to (1, 1) texels per display pixel; two or more rows per native row; GS point sampling",
+                  "bits_per_pixel": 8,
+                  "caption_line_texels": [
+                    508,
+                    40
+                  ],
+                  "caption_texture_scale": [
+                    1,
+                    1
+                  ],
+                  "native_vram_end_block": 15072,
+                  "original_used_images_and_clut_bytes_preserved": true,
+                  "palette_bank": 6,
+                  "picture": 2,
+                  "picture_allocation": "append only; all declared quad references treated as live",
+                  "swizzle_roundtrip": true,
+                  "text_supersample_factor": 4,
+                  "texture_group": 0
+                },
+                "voice_and_model_records_byte_identical": true
+              }
+            ],
+            "veff": {
+              "bytes": 37035904,
+              "edited_chunks": [
+                256,
+                257,
+                258,
+                259,
+                260,
+                265,
+                266,
+                267,
+                268,
+                270,
+                274,
+                283
+              ],
+              "offsets": [
+                0,
+                49936,
+                51056,
+                57584,
+                70800,
+                84016,
+                97232,
+                112592,
+                117824,
+                125600,
+                137920,
+                154384,
+                167904,
+                178624,
+                191920,
+                195360,
+                198784,
+                201680,
+                203296,
+                203408,
+                203520,
+                241248,
+                305024,
+                364032,
+                423952,
+                480720,
+                547984,
+                615232,
+                671632,
+                734368,
+                797120,
+                853344,
+                909376,
+                965424,
+                1014688,
+                1066208,
+                1113408,
+                1160176,
+                1206672,
+                1253440,
+                1308336,
+                1338560,
+                1384512,
+                1434512,
+                1484512,
+                1537952,
+                1590400,
+                1646448,
+                1709264,
+                1768656,
+                1831568,
+                1906688,
+                1944416,
+                1948272,
+                1952208,
+                1958448,
+                1961664,
+                1967904,
+                1973408,
+                1977952,
+                1985504,
+                1994832,
+                2004352,
+                2013024,
+                2020464,
+                2027904,
+                2038000,
+                2048096,
+                2068784,
+                2072624,
+                2082320,
+                2090512,
+                2098704,
+                2106896,
+                2110016,
+                2115792,
+                2120320,
+                2127232,
+                2137200,
+                2154112,
+                2163792,
+                2174160,
+                2187536,
+                2213520,
+                2218176,
+                2226368,
+                2238544,
+                2251232,
+                2312304,
+                2400800,
+                2489376,
+                2576176,
+                2662720,
+                2729872,
+                2797184,
+                2864432,
+                2931680,
+                3050224,
+                3169248,
+                3288272,
+                3406816,
+                3590000,
+                3773184,
+                3956368,
+                4139552,
+                4258208,
+                4376864,
+                4495520,
+                4614176,
+                4732256,
+                4850800,
+                4969344,
+                5087424,
+                5205600,
+                5323776,
+                5441952,
+                5560128,
+                5609696,
+                5659152,
+                5708528,
+                5757824,
+                5816544,
+                5875136,
+                5933712,
+                5992176,
+                6173664,
+                6355216,
+                6530512,
+                6704816,
+                6816608,
+                6938432,
+                7060048,
+                7181872,
+                7303536,
+                7454176,
+                7604624,
+                7755536,
+                7906304,
+                8054992,
+                8203280,
+                8351888,
+                8500736,
+                8560128,
+                8619488,
+                8678912,
+                8738288,
+                8759568,
+                8780848,
+                8802080,
+                8823312,
+                8897008,
+                8977616,
+                9058256,
+                9138864,
+                9219456,
+                9349840,
+                9481264,
+                9612976,
+                9743856,
+                9845952,
+                9948480,
+                10050336,
+                10153296,
+                10270576,
+                10387856,
+                10505216,
+                10622608,
+                10687344,
+                10748720,
+                10809760,
+                10877040,
+                11019216,
+                11082112,
+                11144784,
+                11207472,
+                11270256,
+                11473104,
+                11675952,
+                11878800,
+                12081632,
+                12236224,
+                12391264,
+                12544912,
+                12698528,
+                12917344,
+                13136112,
+                13354704,
+                13573120,
+                13664160,
+                13792160,
+                14079584,
+                14367040,
+                14655344,
+                14943680,
+                15157360,
+                15500240,
+                15843152,
+                16186384,
+                16529632,
+                16813120,
+                16969328,
+                17125488,
+                17282128,
+                17438720,
+                17501712,
+                17598144,
+                17678320,
+                17853360,
+                18013104,
+                18144400,
+                18271984,
+                18399376,
+                18531584,
+                18675824,
+                18819840,
+                18969120,
+                19109152,
+                19254496,
+                19399696,
+                19556816,
+                19719760,
+                19882416,
+                20040704,
+                20215904,
+                20335040,
+                20434368,
+                20533744,
+                20633040,
+                20732384,
+                20831728,
+                20930912,
+                21030112,
+                21129456,
+                21228736,
+                21327920,
+                21429328,
+                21532672,
+                21740160,
+                21767424,
+                22198512,
+                22585168,
+                22644816,
+                22792928,
+                23077264,
+                23228928,
+                23354880,
+                23747504,
+                24028368,
+                24150384,
+                24240224,
+                24404864,
+                24433280,
+                24526080,
+                24573328,
+                24771248,
+                24818112,
+                24857472,
+                25134976,
+                25903584,
+                26338608,
+                26768224,
+                27227984,
+                27736784,
+                27829584,
+                27891856,
+                28312432,
+                28920272,
+                29360384,
+                29959456,
+                30196016,
+                30505232,
+                30737408,
+                30739584,
+                30781392,
+                30814752,
+                31082720,
+                31418432,
+                31476512,
+                31522752,
+                31559152,
+                31598672,
+                31724272,
+                31996176,
+                32165344,
+                32472016,
+                32524880,
+                32639552,
+                32757088,
+                32859584,
+                33053456,
+                33448816,
+                33879664,
+                34483040,
+                34761040,
+                35038704,
+                35316416,
+                35594112,
+                35623232,
+                35654976,
+                36383296,
+                36824080,
+                37035904
+              ],
+              "source_bytes": 36890512,
+              "unmodified_effect_chunks_preserved": true
+            },
+            "veff_sha256": "e55d5530425d729494aba9c64cdbbb212f0e5d332d6202f2c0759fbab45a3934"
+          },
+          "untouched_base_bytes": {
+            "base_bytes": 3755081728,
+            "compared_bytes": 3755068368,
+            "final_sha256": "9190d1c4f68a34a5846af8cbefd898f5cb73d36e828268b62fd2800fc400d018",
+            "sha256": "f069245b4b7e2b74813491c3f380a4e37b020cb5c9d4aaf60cf9c889ae232e95",
+            "spans": [
+              [
+                32848,
+                32856
+              ],
+              [
+                34896,
+                34904
+              ],
+              [
+                69632,
+                71680
+              ],
+              [
+                102400,
+                104448
+              ],
+              [
+                131072,
+                133120
+              ],
+              [
+                535430,
+                535446
+              ],
+              [
+                553058,
+                553074
+              ],
+              [
+                622592,
+                624640
+              ],
+              [
+                651264,
+                653312
+              ],
+              [
+                921600,
+                924672
+              ]
+            ]
+          }
+        },
+        "gunleon_sprite": {
+          "allocation_bytes": 701376,
+          "changed_decoded_bytes": 12,
+          "chunk": 616,
+          "decoded_sha256": "bfed4ec7e78491d7993a3d197cc076ffb10408d979337ccef0f4c2920cae15c7",
+          "keyframe_offsets": [
+            77274,
+            376078,
+            458374,
+            486546
+          ],
+          "member": "BTL/TWP.BIN",
+          "packed_bytes": 592711,
+          "verification": {
+            "after_sha256": "80c8473f2131f29c9a11770b680c3f11d48a4a5a4c61b166a84976f6bc31cc9e",
+            "bytes": 3795485760,
+            "sha256": "cd4da864800b4c4dc92b91dd32d6e21c2d300393dbcec67b3b41a988bcb8240a"
+          }
+        },
+        "input_digest": "1c934e3708b7854ad499eab97e2180cbbe3760fe8c60de8cfce6c77bbd2279e0",
+        "output": {
+          "path": "build/iso/test/integrated-best-zh-hant-tw.iso",
+          "sha256": "80c8473f2131f29c9a11770b680c3f11d48a4a5a4c61b166a84976f6bc31cc9e",
+          "size": 3796187136
+        },
+        "readback": {
+          "path": "build/editions/zh-release-best/c7e50d5f08056db8755ed491d6670cbc08526c7b36823211348bb200e45126f1/project/work/build/best-current/iso-readback.json",
+          "sha256": "fdecef5b3b04196116e430dbcb2c57d2bac3826d0b1a236a7d74873bff5bf11c",
+          "stage_count": 205,
+          "translation_entry_count": 84338
+        },
+        "runtime": "not_tested",
+        "schema_version": 1,
+        "shared_frontend": {
+          "edition": "original",
+          "input_digest": "1c934e3708b7854ad499eab97e2180cbbe3760fe8c60de8cfce6c77bbd2279e0",
+          "iso_sha256": "8018a2787cd69317cdadc2b0ae2ca4a310c7f4ea01765a4843362a2edad0b9ca",
+          "readback_sha256": "c34c6bd7ff776c0824684662c79ba9e7882ac817e1cfa1ba238ca36973160cf3"
+        },
+        "skip_enabled": true,
+        "source_head": "880cec420aa4ad07e073d16a855f5d725d887292",
+        "source_iso_sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+        "status": "edition_iso_static_validated_runtime_pending",
+        "typography": {
+          "input": {
+            "path": "build/iso/zh-release-best/current-best-captioned.iso",
+            "sha256": "9190d1c4f68a34a5846af8cbefd898f5cb73d36e828268b62fd2800fc400d018",
+            "size": 3796187136
+          },
+          "verification": {
+            "edition": "best",
+            "executable_sha256": "2e1f2c09aefe7e04f9c86290610f0176f170d0b5baf3c400d00cb5e85cecc804",
+            "member": "SLPS_732.70",
+            "member_lba": 1833536,
+            "member_size": 3543040,
+            "metrics_sha256": "4b31858d9e09bd78a4285ed47f942fc09f5f9b2af4bb9faa2d7a9298fcaba0ed",
+            "output_sha256": "27e52491290eeb5a7de4aa2a9d2a6c0f6b35a1fe7b144773b4d76205a2822f47",
+            "outside_executable_bytes_compared": 3792644096,
+            "payload": {
+              "base": 7906816,
+              "battle_select_titles": {
+                "config_sha256": "3a0ea20e54fd27465144f5757df800d8f6cf18a441fb5f68b2debdb6d725bc2b",
+                "labels": [
+                  "选择阵型",
+                  "排列队员",
+                  "选择机体",
+                  "选择机师"
+                ]
+              },
+              "codeBytes": 5992,
+              "edition": "best",
+              "fontSha256": "446f97ddef48f36c60549443e78045b0e21fb9d375325fe260205d71c1fb9ea1",
+              "metricsSchema": 7,
+              "patches": [
+                {
+                  "address": 1288592,
+                  "after": "f52d1e0800000000",
+                  "before": "0070013c62002294"
+                },
+                {
+                  "address": 1286800,
+                  "after": "7a2e1e0800000000",
+                  "before": "a0ffbd274700013c"
+                },
+                {
+                  "address": 1284864,
+                  "after": "ab2e1e0800000000",
+                  "before": "b0ffbd272d100000"
+                },
+                {
+                  "address": 2234804,
+                  "after": "dc2e1e0c",
+                  "before": "4c85060c"
+                },
+                {
+                  "address": 2234856,
+                  "after": "e82e1e0c00000000",
+                  "before": "0200022621904202"
+                },
+                {
+                  "address": 2234876,
+                  "after": "4700013c40eb23842da06000",
+                  "before": "422002001818640021a08302"
+                },
+                {
+                  "address": 1291112,
+                  "after": "242f1e0800000000",
+                  "before": "080084241c00e880"
+                },
+                {
+                  "address": 1290052,
+                  "after": "3c2f1e0800000000",
+                  "before": "1c00e88008008424"
+                },
+                {
+                  "address": 1289048,
+                  "after": "162f1e0800000000",
+                  "before": "2400238e140003ae"
+                },
+                {
+                  "address": 1284984,
+                  "after": "c42d1e0800000000",
+                  "before": "00008b9062006011"
+                }
+              ],
+              "payloadBytes": 10496,
+              "payloadSha256": "86117e8d43e209bcc699467c04edc02253814bf7d77fefe3d18b9c136c726e81",
+              "reservation": {
+                "base": 7906816,
+                "capacity": 10496,
+                "edition": "best",
+                "elfSizeUnchanged": true,
+                "fileOffset": 3464960,
+                "headerSlot": 208,
+                "heapUnchanged": true,
+                "nonloadedSectionMetadataRemoved": true,
+                "payloadBytes": 10496,
+                "resultSha256": "bb866f395760e8ed4ed0c6fcd28526a267ece5ab2651de018104b8e2b48ce7f4",
+                "runtimeVerified": false,
+                "sourceSha256": "d4ee22c38fddcf4c324455e42d259fa80de68b00c24cd53399497bc29ee79d70"
+              },
+              "resultSha256": "2e1f2c09aefe7e04f9c86290610f0176f170d0b5baf3c400d00cb5e85cecc804",
+              "routes": [
+                {
+                  "name": "story",
+                  "scene": "story"
+                },
+                {
+                  "name": "sp_story_map",
+                  "scene": "sp_story_map"
+                },
+                {
+                  "name": "battle",
+                  "scene": "battle"
+                },
+                {
+                  "name": "main_flow",
+                  "scene": "main_flow"
+                },
+                {
+                  "name": "main_scroll",
+                  "scene": "main_scroll"
+                },
+                {
+                  "name": "library_robot",
+                  "scene": "library_robot"
+                },
+                {
+                  "name": "keyword_list",
+                  "scene": "keyword_list"
+                },
+                {
+                  "name": "weapon",
+                  "scene": "weapon"
+                },
+                {
+                  "name": "weapon_main",
+                  "scene": "weapon_main"
+                }
+              ],
+              "sceneDispatch": true,
+              "scope": "Native-entry bounded scene geometry dispatch",
+              "sections": [
+                {
+                  "address": 7906816,
+                  "name": "native_draw",
+                  "size": 16
+                },
+                {
+                  "address": 7906832,
+                  "name": "native_measure",
+                  "size": 28
+                },
+                {
+                  "address": 7906860,
+                  "name": "story_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 7907024,
+                  "name": "story_cjk",
+                  "size": 114
+                },
+                {
+                  "address": 7907140,
+                  "name": "story_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7907148,
+                  "name": "sp_story_map_cjk",
+                  "size": 114
+                },
+                {
+                  "address": 7907264,
+                  "name": "sp_story_map_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7907272,
+                  "name": "battle_cjk",
+                  "size": 102
+                },
+                {
+                  "address": 7907376,
+                  "name": "battle_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7907384,
+                  "name": "main_flow_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 7907548,
+                  "name": "main_flow_cjk",
+                  "size": 108
+                },
+                {
+                  "address": 7907656,
+                  "name": "main_flow_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7907664,
+                  "name": "main_scroll_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 7907828,
+                  "name": "main_scroll_cjk",
+                  "size": 108
+                },
+                {
+                  "address": 7907936,
+                  "name": "main_scroll_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7907944,
+                  "name": "library_robot_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7907952,
+                  "name": "keyword_list_cjk",
+                  "size": 108
+                },
+                {
+                  "address": 7908060,
+                  "name": "keyword_list_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7908068,
+                  "name": "weapon_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7908076,
+                  "name": "weapon_main_cjk",
+                  "size": 108
+                },
+                {
+                  "address": 7908184,
+                  "name": "weapon_main_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 7908192,
+                  "name": "metric_selection",
+                  "size": 1716
+                },
+                {
+                  "address": 7909908,
+                  "name": "shared_draw",
+                  "size": 492
+                },
+                {
+                  "address": 7910400,
+                  "name": "shared_measure",
+                  "size": 292
+                },
+                {
+                  "address": 7910692,
+                  "name": "scene_descriptors",
+                  "size": 240
+                },
+                {
+                  "address": 7910932,
+                  "name": "draw_routes",
+                  "size": 252
+                },
+                {
+                  "address": 7911184,
+                  "name": "measure_routes",
+                  "size": 184
+                },
+                {
+                  "address": 7911368,
+                  "name": "display_options",
+                  "size": 12
+                },
+                {
+                  "address": 7911380,
+                  "name": "glyph_bank",
+                  "size": 532
+                },
+                {
+                  "address": 7911912,
+                  "name": "draw_source",
+                  "size": 196
+                },
+                {
+                  "address": 7912108,
+                  "name": "measure_source",
+                  "size": 196
+                },
+                {
+                  "address": 7912304,
+                  "name": "underline_copy",
+                  "size": 48
+                },
+                {
+                  "address": 7912352,
+                  "name": "underline_restore",
+                  "size": 40
+                },
+                {
+                  "address": 7912392,
+                  "name": "underline_dispatch",
+                  "size": 144
+                },
+                {
+                  "address": 7912536,
+                  "name": "draw_entry",
+                  "size": 56
+                },
+                {
+                  "address": 7912592,
+                  "name": "sprite_baseline",
+                  "size": 96
+                },
+                {
+                  "address": 7912688,
+                  "name": "outline_baseline",
+                  "size": 120
+                },
+                {
+                  "address": 7916736,
+                  "name": "baseline_sidecar",
+                  "size": 512
+                },
+                {
+                  "address": 7917248,
+                  "name": "selector_globals",
+                  "size": 64
+                }
+              ],
+              "sharedSelection": true,
+              "text_atlas_exhaustion": {
+                "address": "0x13aa34",
+                "after": "5e000010",
+                "before": "2d106002",
+                "capacity_changed": false,
+                "file_offset": 246964,
+                "target": "0x13abb0"
+              }
+            },
+            "runtime": "not_tested",
+            "schema_version": 1,
+            "size": 3796187136,
+            "source_sha256": "9190d1c4f68a34a5846af8cbefd898f5cb73d36e828268b62fd2800fc400d018"
+          }
+        },
+        "version": "v0.5.2.1",
+        "workspace": "build/editions/zh-release-best/c7e50d5f08056db8755ed491d6670cbc08526c7b36823211348bb200e45126f1/project"
+      }
+    ],
+    "runtime": "not_tested",
+    "schema_version": 1,
+    "shared_js_layout": {
+      "engine_version": "1.1.0",
+      "inputs": {
+        "shared_js_cli": {
+          "path": "shared/text-layout/cli.mjs",
+          "sha256": "f0ad52f68338a3c70f4a2b997085385f2ba089da5ccc6984824fdce5bd3a8f52",
+          "size": 563
+        },
+        "shared_js_cli_handler": {
+          "path": "shared/text-layout/cli-handler.mjs",
+          "sha256": "557096b00d7030231da4c0e3aaea2caa50f309c00522902b2e742969ae366be1",
+          "size": 242
+        },
+        "shared_js_contracts": {
+          "path": "shared/text-layout/contracts.mjs",
+          "sha256": "184dab2f37b3a0927ae216bcb6608189dc83003799127e5f39ae5da058a32e9b",
+          "size": 281442
+        },
+        "shared_js_engine": {
+          "path": "shared/text-layout/engine.mjs",
+          "sha256": "26581ced61c8c069648250042a119142a7a407f3948713cb9508e88ce9cd9145",
+          "size": 41426
+        },
+        "shared_js_proportional_metrics": {
+          "path": "shared/text-layout/proportional-metrics.mjs",
+          "sha256": "4b31858d9e09bd78a4285ed47f942fc09f5f9b2af4bb9faa2d7a9298fcaba0ed",
+          "size": 133439
+        },
+        "shared_js_proportional_selection": {
+          "path": "shared/text-layout/proportional-selection.mjs",
+          "sha256": "cd2bfa5f06afebd1b37451755d7dcbae2c7955cb11a40d2535e3737e8b77f343",
+          "size": 2213
+        },
+        "shared_js_story_ink": {
+          "path": "shared/text-layout/story-ink.mjs",
+          "sha256": "78a91f9ea4ff4ffae26959b0d53d87419e560c42bfd47bc6f70747b7e51a5160",
+          "size": 3421
+        },
+        "shared_js_story_ink_data": {
+          "path": "shared/text-layout/story-ink-data.mjs",
+          "sha256": "5e38b3cd96fbcbf13587fc47a26a032fea140bf197c68b8fff02d713ca26764f",
+          "size": 178664
+        }
+      },
+      "scenes": 10
+    },
+    "status": "requested_editions_static_validated_runtime_pending",
+    "timing": {
+      "editions": {
+        "best": {
+          "mode": "build",
+          "phases": {
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 5.038
+            },
+            "native-components-and-iso": {
+              "returncode": 0,
+              "seconds": 14.195
+            },
+            "prepare": {
+              "returncode": 0,
+              "seconds": 1.189
+            },
+            "proof-binding": {
+              "returncode": 0,
+              "seconds": 1.542
+            },
+            "skip-verify": {
+              "returncode": 0,
+              "seconds": 0.047
+            },
+            "sprite-repair-and-publish": {
+              "returncode": 0,
+              "seconds": 3.812
+            },
+            "typography": {
+              "returncode": 0,
+              "seconds": 3.802
+            }
+          },
+          "seconds": 29.634
+        },
+        "original": {
+          "mode": "build",
+          "phases": {
+            "codec": {
+              "returncode": 0,
+              "seconds": 2.36
+            },
+            "components": {
+              "returncode": 0,
+              "seconds": 30.775
+            },
+            "event-subtitles": {
+              "returncode": 0,
+              "seconds": 10.771
+            },
+            "fonts": {
+              "returncode": 0,
+              "seconds": 0.096
+            },
+            "iso": {
+              "returncode": 0,
+              "seconds": 14.511
+            },
+            "iso-toolchain": {
+              "returncode": 0,
+              "seconds": 0.338
+            },
+            "prepare": {
+              "returncode": 0,
+              "seconds": 3.288
+            },
+            "proof-binding": {
+              "returncode": 0,
+              "seconds": 0.451
+            },
+            "readback": {
+              "returncode": 0,
+              "seconds": 10.316
+            },
+            "skip-verify": {
+              "returncode": 0,
+              "seconds": 0.048
+            },
+            "sprite-repair-and-publish": {
+              "returncode": 0,
+              "seconds": 5.027
+            },
+            "typography": {
+              "returncode": 0,
+              "seconds": 6.082
+            }
+          },
+          "seconds": 74.654
+        }
+      },
+      "finished_at": "2026-11-27T13:47:03.937703+00:00",
+      "preflight_and_snapshot_seconds": 2.258,
+      "started_at": "2026-11-27T13:45:26.087648+00:00",
+      "total_seconds": 97.849
+    },
+    "version": "v0.5.2.1"
+  },
+  "verification": {
+    "both_editions": true,
+    "input_digest": "1c934e3708b7854ad499eab97e2180cbbe3760fe8c60de8cfce6c77bbd2279e0",
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes",
+    "status": "edition_batch_receipt_integrity_passed",
+    "verified_editions": [
+      "original",
+      "best"
+    ]
+  }
+}

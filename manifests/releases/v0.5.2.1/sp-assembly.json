@@ -1,0 +1,494 @@
+{
+  "builtin_cheats": {
+    "address": 9170944,
+    "hooks": {
+      "0x1427c4": "1dfc220c",
+      "0x142a0c": "03fc220c",
+      "0x1444b4": "73fd220c",
+      "0x259bb8": "9dfd220800000000",
+      "0x259c50": "d3fd220800000000",
+      "0x259d50": "a5fd220800000000",
+      "0x25a048": "dbfd220800000000",
+      "0x27cf40": "f8fd220800000000",
+      "0x2876dc": "e2fd220800000000",
+      "0x287788": "eafd220800000000",
+      "0x288dd4": "f1fd220800000000",
+      "0x290194": "aefd220800000000",
+      "0x37de38": "09fd220c",
+      "0x37ded4": "20fd220c",
+      "0x3836c4": "bdfd220800000000",
+      "0x3a4f9c": "c8fd220800000000"
+    },
+    "language_imports": [
+      8508656,
+      8506940,
+      8507140
+    ],
+    "sha256": "0d148558a1630852c8d540650ab8a0e8c8f81a5c1f781fcba5f6b306375e8977",
+    "size": 2784
+  },
+  "copied_members": {
+    "AID_DATA/AIDDATA.BIN": {
+      "sc_bytes": 79488848,
+      "tc_bytes": 79485920,
+      "tc_lba": 1913506,
+      "tc_sectors": 38812
+    },
+    "BTL/OP.BIN": {
+      "sc_bytes": 798496,
+      "tc_bytes": 798496,
+      "tc_lba": 1781379,
+      "tc_sectors": 390
+    },
+    "BTL/SRVC.BIN": {
+      "sc_bytes": 3420320,
+      "tc_bytes": 3420320,
+      "tc_lba": 1781769,
+      "tc_sectors": 1671
+    },
+    "BTL/ST.BIN": {
+      "sc_bytes": 489984,
+      "tc_bytes": 489984,
+      "tc_lba": 1783440,
+      "tc_sectors": 240
+    },
+    "BTL/TRICMN.BIN": {
+      "sc_bytes": 677456,
+      "tc_bytes": 677456,
+      "tc_lba": 1783680,
+      "tc_sectors": 331
+    },
+    "DATA/COMPDATA.BN": {
+      "sc_bytes": 177467,
+      "tc_bytes": 177467,
+      "tc_lba": 1784011,
+      "tc_sectors": 87
+    },
+    "DATA/HSFC.BIN": {
+      "sc_bytes": 876768,
+      "tc_bytes": 876768,
+      "tc_lba": 1784098,
+      "tc_sectors": 429
+    },
+    "DATA/MTVZKNKW.BIN": {
+      "sc_bytes": 29936,
+      "tc_bytes": 29936,
+      "tc_lba": 1784527,
+      "tc_sectors": 15
+    },
+    "DATA/MTVZKNPT.BIN": {
+      "sc_bytes": 294592,
+      "tc_bytes": 294592,
+      "tc_lba": 1784542,
+      "tc_sectors": 144
+    },
+    "DATA/MTVZKNRT.BIN": {
+      "sc_bytes": 189760,
+      "tc_bytes": 189760,
+      "tc_lba": 1784686,
+      "tc_sectors": 93
+    },
+    "DATA/MTZSPROS.BIN": {
+      "sc_bytes": 6592,
+      "tc_bytes": 6592,
+      "tc_lba": 1784779,
+      "tc_sectors": 4
+    },
+    "DATA/NISVDATA.BIN": {
+      "sc_bytes": 654784,
+      "tc_bytes": 654784,
+      "tc_lba": 1784783,
+      "tc_sectors": 320
+    },
+    "DATA/STAGE.BIN": {
+      "sc_bytes": 527552,
+      "tc_bytes": 527552,
+      "tc_lba": 1785103,
+      "tc_sectors": 258
+    },
+    "EFF/VEFF2DX.BIN": {
+      "sc_bytes": 38198000,
+      "tc_bytes": 38198096,
+      "tc_lba": 1785361,
+      "tc_sectors": 18652
+    },
+    "KURODATA/KVMDATA.BIN": {
+      "sc_bytes": 4720512,
+      "tc_bytes": 4720512,
+      "tc_lba": 1804013,
+      "tc_sectors": 2305
+    },
+    "MAP/MAPMODEL.BIN": {
+      "sc_bytes": 39561952,
+      "tc_bytes": 39561952,
+      "tc_lba": 1806318,
+      "tc_sectors": 19318
+    },
+    "MAP/MAPNAME.BIN": {
+      "sc_bytes": 51200,
+      "tc_bytes": 51200,
+      "tc_lba": 1825636,
+      "tc_sectors": 25
+    }
+  },
+  "dmy": [
+    {
+      "bytes": 798496,
+      "item": "BTL/OP.BIN",
+      "lba": 1781379
+    },
+    {
+      "bytes": 3420320,
+      "item": "BTL/SRVC.BIN",
+      "lba": 1781769
+    },
+    {
+      "bytes": 489984,
+      "item": "BTL/ST.BIN",
+      "lba": 1783440
+    },
+    {
+      "bytes": 677456,
+      "item": "BTL/TRICMN.BIN",
+      "lba": 1783680
+    },
+    {
+      "bytes": 177467,
+      "item": "DATA/COMPDATA.BN",
+      "lba": 1784011
+    },
+    {
+      "bytes": 876768,
+      "item": "DATA/HSFC.BIN",
+      "lba": 1784098
+    },
+    {
+      "bytes": 29936,
+      "item": "DATA/MTVZKNKW.BIN",
+      "lba": 1784527
+    },
+    {
+      "bytes": 294592,
+      "item": "DATA/MTVZKNPT.BIN",
+      "lba": 1784542
+    },
+    {
+      "bytes": 189760,
+      "item": "DATA/MTVZKNRT.BIN",
+      "lba": 1784686
+    },
+    {
+      "bytes": 6592,
+      "item": "DATA/MTZSPROS.BIN",
+      "lba": 1784779
+    },
+    {
+      "bytes": 654784,
+      "item": "DATA/NISVDATA.BIN",
+      "lba": 1784783
+    },
+    {
+      "bytes": 527552,
+      "item": "DATA/STAGE.BIN",
+      "lba": 1785103
+    },
+    {
+      "bytes": 38198096,
+      "item": "EFF/VEFF2DX.BIN",
+      "lba": 1785361
+    },
+    {
+      "bytes": 4720512,
+      "item": "KURODATA/KVMDATA.BIN",
+      "lba": 1804013
+    },
+    {
+      "bytes": 39561952,
+      "item": "MAP/MAPMODEL.BIN",
+      "lba": 1806318
+    },
+    {
+      "bytes": 51200,
+      "item": "MAP/MAPNAME.BIN",
+      "lba": 1825636
+    },
+    {
+      "bytes": 798496,
+      "item": "HK BTL/OP.BIN",
+      "lba": 1825661
+    },
+    {
+      "bytes": 3420320,
+      "item": "HK BTL/SRVC.BIN",
+      "lba": 1826051
+    },
+    {
+      "bytes": 489984,
+      "item": "HK BTL/ST.BIN",
+      "lba": 1827722
+    },
+    {
+      "bytes": 177467,
+      "item": "HK DATA/COMPDATA.BN",
+      "lba": 1827962
+    },
+    {
+      "bytes": 876768,
+      "item": "HK DATA/HSFC.BIN",
+      "lba": 1828049
+    },
+    {
+      "bytes": 29936,
+      "item": "HK DATA/MTVZKNKW.BIN",
+      "lba": 1828478
+    },
+    {
+      "bytes": 294592,
+      "item": "HK DATA/MTVZKNPT.BIN",
+      "lba": 1828493
+    },
+    {
+      "bytes": 189760,
+      "item": "HK DATA/MTVZKNRT.BIN",
+      "lba": 1828637
+    },
+    {
+      "bytes": 6592,
+      "item": "HK DATA/MTZSPROS.BIN",
+      "lba": 1828730
+    },
+    {
+      "bytes": 654784,
+      "item": "HK DATA/NISVDATA.BIN",
+      "lba": 1828734
+    },
+    {
+      "bytes": 527552,
+      "item": "HK DATA/STAGE.BIN",
+      "lba": 1829054
+    },
+    {
+      "bytes": 51200,
+      "item": "HK MAP/MAPNAME.BIN",
+      "lba": 1829312
+    },
+    {
+      "bytes": 109900,
+      "item": "patch file",
+      "lba": 1829337
+    },
+    {
+      "bytes": 113284,
+      "item": "HK patch file",
+      "lba": 1829391
+    }
+  ],
+  "dmy_bytes": 122558928,
+  "dmy_used_bytes": 98476032,
+  "edition": "sp",
+  "executable_relocation": {
+    "changes": {
+      "SLPS_259.20": [
+        2172226,
+        4651520
+      ]
+    },
+    "new_size": 4453898240,
+    "old_size": 4448718848
+  },
+  "hk": {
+    "copied_members": {
+      "AID_DATA/AIDDATA.BIN": {
+        "sc_bytes": 79488848,
+        "tc_bytes": 79485920,
+        "tc_lba": 1913506,
+        "tc_sectors": 38812
+      },
+      "BTL/OP.BIN": {
+        "sc_bytes": 798496,
+        "tc_bytes": 798496,
+        "tc_lba": 1825661,
+        "tc_sectors": 390
+      },
+      "BTL/SRVC.BIN": {
+        "sc_bytes": 3420320,
+        "tc_bytes": 3420320,
+        "tc_lba": 1826051,
+        "tc_sectors": 1671
+      },
+      "BTL/ST.BIN": {
+        "sc_bytes": 489984,
+        "tc_bytes": 489984,
+        "tc_lba": 1827722,
+        "tc_sectors": 240
+      },
+      "BTL/TRICMN.BIN": {
+        "sc_bytes": 677456,
+        "tc_bytes": 677456,
+        "tc_lba": 1783680,
+        "tc_sectors": 331
+      },
+      "DATA/COMPDATA.BN": {
+        "sc_bytes": 177467,
+        "tc_bytes": 177467,
+        "tc_lba": 1827962,
+        "tc_sectors": 87
+      },
+      "DATA/HSFC.BIN": {
+        "sc_bytes": 876768,
+        "tc_bytes": 876768,
+        "tc_lba": 1828049,
+        "tc_sectors": 429
+      },
+      "DATA/MTVZKNKW.BIN": {
+        "sc_bytes": 29936,
+        "tc_bytes": 29936,
+        "tc_lba": 1828478,
+        "tc_sectors": 15
+      },
+      "DATA/MTVZKNPT.BIN": {
+        "sc_bytes": 294592,
+        "tc_bytes": 294592,
+        "tc_lba": 1828493,
+        "tc_sectors": 144
+      },
+      "DATA/MTVZKNRT.BIN": {
+        "sc_bytes": 189760,
+        "tc_bytes": 189760,
+        "tc_lba": 1828637,
+        "tc_sectors": 93
+      },
+      "DATA/MTZSPROS.BIN": {
+        "sc_bytes": 6592,
+        "tc_bytes": 6592,
+        "tc_lba": 1828730,
+        "tc_sectors": 4
+      },
+      "DATA/NISVDATA.BIN": {
+        "sc_bytes": 654784,
+        "tc_bytes": 654784,
+        "tc_lba": 1828734,
+        "tc_sectors": 320
+      },
+      "DATA/STAGE.BIN": {
+        "sc_bytes": 527552,
+        "tc_bytes": 527552,
+        "tc_lba": 1829054,
+        "tc_sectors": 258
+      },
+      "EFF/VEFF2DX.BIN": {
+        "sc_bytes": 38198000,
+        "tc_bytes": 38198096,
+        "tc_lba": 1785361,
+        "tc_sectors": 18652
+      },
+      "KURODATA/KVMDATA.BIN": {
+        "sc_bytes": 4720512,
+        "tc_bytes": 4720512,
+        "tc_lba": 1804013,
+        "tc_sectors": 2305
+      },
+      "MAP/MAPMODEL.BIN": {
+        "sc_bytes": 39561952,
+        "tc_bytes": 39561952,
+        "tc_lba": 2052613,
+        "tc_sectors": 19318
+      },
+      "MAP/MAPNAME.BIN": {
+        "sc_bytes": 51200,
+        "tc_bytes": 51200,
+        "tc_lba": 1829312,
+        "tc_sectors": 25
+      }
+    },
+    "hk_exe_sha256": "4346c794dd04a6af24766beaf5787e3292bca892a99fe41b10a6b56fa0183ae1",
+    "hk_iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/build/sp-multilang-resources/hk/2c36db601906c3c2c312256565cf75bbe117404f0d2d3e78e726f226257971a8/inputs-hv_xjy4r/work/build/resource-components/final.spview",
+    "identical_members": 44,
+    "patch": {
+      "bytes": 113284,
+      "lba": 1829391,
+      "record_bytes": 83275,
+      "records": 2983,
+      "sectors": 56,
+      "vmap_rows": 18
+    },
+    "vt1": {
+      "bytes": 205402816,
+      "font": {
+        "glyphs": 4992
+      },
+      "lba": 2071931,
+      "redirect": "whole member appended after the image"
+    }
+  },
+  "hook_bytes": 3840,
+  "identical_members": 44,
+  "inputs": {
+    "hk": {
+      "sha256": "196556b77a31ee9f3f7a3565f426f37839d1a7a28371aa1c07275466bd1dbc95",
+      "size": 3918858240
+    },
+    "sc": {
+      "sha256": "3348073f8d8d587d9dd8eba8e80e722e01a3910391c5fc0ba54fe9203a02fcfd",
+      "size": 3918860288
+    },
+    "tw": {
+      "sha256": "b330daf27e6262a51876f936ab3970581d31bb4adeffcd0fff32d645c08062ee",
+      "size": 3918858240
+    }
+  },
+  "iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/test/v0521-final/multilang-sp.iso",
+  "languages": 3,
+  "output": {
+    "sha256": "5b5888f71d27f7415639c6fd5aee7da332f305ad78d1870fdc07818f42e1d48b",
+    "size": 4453898240
+  },
+  "patch": {
+    "bytes": 109900,
+    "lba": 1829337,
+    "record_bytes": 80696,
+    "records": 2935,
+    "sectors": 54,
+    "vmap_rows": 18
+  },
+  "resources": {
+    "hk": "work/build/sp-multilang-resources/hk/2c36db601906c3c2c312256565cf75bbe117404f0d2d3e78e726f226257971a8/inputs-hv_xjy4r/work/build/resource-components/final.spview",
+    "sc": "work/build/sp-multilang-resources/sc/0ed78aa88d344f1491460ee554c45702f4e744c0b511389c6648d093b8e31316/inputs-0lomaycj/work/build/resource-components/final.spview",
+    "tw": "work/build/sp-multilang-resources/tw/fa258d1c9a988cab5f313d9838c49e6d19b2a04aa9110e5d582b185942881e20/inputs-ee273n_g/work/build/resource-components/final.spview"
+  },
+  "sc_exe_sha256": "69f04ae9bbdb4f9d498051d0373fa7b0015ce66a2cfb37b5deab17347b9c56d1",
+  "sc_iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/build/sp-multilang-resources/sc/0ed78aa88d344f1491460ee554c45702f4e744c0b511389c6648d093b8e31316/inputs-0lomaycj/work/build/resource-components/final.spview",
+  "source": "Japanese retail SP",
+  "tail": [
+    {
+      "bytes": 79485920,
+      "item": "AID_DATA/AIDDATA.BIN",
+      "lba": 1913506
+    },
+    {
+      "bytes": 205402816,
+      "item": "DATA/VT1.BIN",
+      "lba": 1952318
+    },
+    {
+      "bytes": 39561952,
+      "item": "HK MAP/MAPMODEL.BIN",
+      "lba": 2052613
+    },
+    {
+      "bytes": 205402816,
+      "item": "HK DATA/VT1.BIN",
+      "lba": 2071931
+    }
+  ],
+  "tc_exe_sha256": "1729150c17843adfec064edfda813f6acbe330a6f0691730cfc03bafbcdcedf7",
+  "tc_iso": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/build/sp-multilang-resources/tw/fa258d1c9a988cab5f313d9838c49e6d19b2a04aa9110e5d582b185942881e20/inputs-ee273n_g/work/build/resource-components/final.spview",
+  "vt1": {
+    "bytes": 205402816,
+    "font": {
+      "glyphs": 4992
+    },
+    "lba": 1952318,
+    "redirect": "whole member appended after the image"
+  }
+}

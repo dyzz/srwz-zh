@@ -1,0 +1,101 @@
+{
+  "channel": "stable",
+  "editions": {
+    "best": {
+      "edition_config": "config/editions/best/edition.json",
+      "patch_filename": "srwz-zh-v0.5.2.1-best.xdelta",
+      "source_iso": {
+        "path": "rom/best.iso",
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+        "size": 3755081728
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.2.1/srwz-zh-v0.5.2.1-best.iso",
+        "sha256": "6e5234333f5e19bbf97b8fa289cd2c4fc85337bf7605a95ced8c9b8599c30325",
+        "size": 3860060160
+      }
+    },
+    "original": {
+      "edition_config": "config/editions/original/edition.json",
+      "patch_filename": "srwz-zh-v0.5.2.1-original.xdelta",
+      "source_iso": {
+        "path": "rom/original.iso",
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+        "size": 3758358528
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.2.1/srwz-zh-v0.5.2.1-original.iso",
+        "sha256": "c6d9def53c094d67b83468b428520b0596c1c790a8c9ce71ee23fb7b92b4d78d",
+        "size": 3863324672
+      }
+    },
+    "sp": {
+      "edition_config": "config/editions/sp/edition.json",
+      "patch_filename": "srwz-zh-v0.5.2.1-sp.xdelta",
+      "source_iso": {
+        "path": "rom/Super Robot Taisen Z - Special Disc [J].iso",
+        "sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+        "size": 3791781888
+      },
+      "target_iso": {
+        "path": "build/iso/v0.5.2.1/srwz-zh-v0.5.2.1-sp.iso",
+        "sha256": "44e0a49afdfe3f07a7935c19e9e032dbf4cfd445354df119d72a61786eb5b005",
+        "size": 4459114496
+      }
+    }
+  },
+  "evidence": [
+    "config/release/v0.5.2.1.json",
+    "docs/RELEASE_NOTES_V0.5.2.1.md",
+    "manifests/releases/v0.5.2.1/best-assembly.json",
+    "manifests/releases/v0.5.2.1/best-hk-readback.json",
+    "manifests/releases/v0.5.2.1/best-sc-readback.json",
+    "manifests/releases/v0.5.2.1/best-skip.json",
+    "manifests/releases/v0.5.2.1/best-tw-readback.json",
+    "manifests/releases/v0.5.2.1/best-wide.json",
+    "manifests/releases/v0.5.2.1/hk-original-best-batch.json",
+    "manifests/releases/v0.5.2.1/hk-sp-batch.json",
+    "manifests/releases/v0.5.2.1/original-assembly.json",
+    "manifests/releases/v0.5.2.1/original-hk-readback.json",
+    "manifests/releases/v0.5.2.1/original-sc-readback.json",
+    "manifests/releases/v0.5.2.1/original-skip.json",
+    "manifests/releases/v0.5.2.1/original-tw-readback.json",
+    "manifests/releases/v0.5.2.1/original-wide.json",
+    "manifests/releases/v0.5.2.1/sc-original-best-batch.json",
+    "manifests/releases/v0.5.2.1/sc-sp-batch.json",
+    "manifests/releases/v0.5.2.1/sp-assembly.json",
+    "manifests/releases/v0.5.2.1/sp-hk-independent.json",
+    "manifests/releases/v0.5.2.1/sp-hk-readback.json",
+    "manifests/releases/v0.5.2.1/sp-sc-independent.json",
+    "manifests/releases/v0.5.2.1/sp-sc-readback.json",
+    "manifests/releases/v0.5.2.1/sp-skip.json",
+    "manifests/releases/v0.5.2.1/sp-tw-independent.json",
+    "manifests/releases/v0.5.2.1/sp-tw-readback.json",
+    "manifests/releases/v0.5.2.1/sp-wide.json",
+    "manifests/releases/v0.5.2.1/tw-original-best-batch.json",
+    "manifests/releases/v0.5.2.1/tw-sp-batch.json",
+    "manifests/releases/v0.5.2.1/validation.json",
+    "manifests/releases/v0.5.2.1/runtime.json"
+  ],
+  "known_limitations": [],
+  "output": {
+    "directory": "build/release/v0.5.2.1"
+  },
+  "schema_version": 7,
+  "skip": "built_in",
+  "tag": "v0.5.2.1",
+  "validation": "manifests/releases/v0.5.2.1/validation.json",
+  "version": "0.5.2.1",
+  "xdelta": {
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw",
+      "-A",
+      "-a"
+    ],
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald"
+  }
+}

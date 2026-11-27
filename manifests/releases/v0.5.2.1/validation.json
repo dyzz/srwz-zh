@@ -1,0 +1,185 @@
+{
+  "batches": {
+    "hk": {
+      "original-best": {
+        "path": "manifests/releases/v0.5.2.1/hk-original-best-batch.json",
+        "sha256": "7915e19a8f8d48c03340a57af1b230a72703935f2c22f864ec565e0d53a319d0",
+        "size": 131586
+      },
+      "sp": {
+        "path": "manifests/releases/v0.5.2.1/hk-sp-batch.json",
+        "sha256": "30608e63fc6d8b03064af35ba328541a81dc8c8ad8b0549a67899cfc20e8f6e0",
+        "size": 20853
+      }
+    },
+    "sc": {
+      "original-best": {
+        "path": "manifests/releases/v0.5.2.1/sc-original-best-batch.json",
+        "sha256": "c6c795ca35068882e2c59d77e874e9ffb9430fd714c0bcb7ded14480f10a87f8",
+        "size": 131536
+      },
+      "sp": {
+        "path": "manifests/releases/v0.5.2.1/sc-sp-batch.json",
+        "sha256": "b2e953f50d9cecd9db5f47545166750d592ba7f2ca40709fbf264e3c2a912c94",
+        "size": 20808
+      }
+    },
+    "tw": {
+      "original-best": {
+        "path": "manifests/releases/v0.5.2.1/tw-original-best-batch.json",
+        "sha256": "bcf71e61752d7b580a1064558e9df97b21eae841eb80cbbc79a7dab425649c79",
+        "size": 131588
+      },
+      "sp": {
+        "path": "manifests/releases/v0.5.2.1/tw-sp-batch.json",
+        "sha256": "ba4caa1bbf161f3fcad64bea46d9355a5f9b388d76ce92ec85e9a269d9ef0a01",
+        "size": 20852
+      }
+    }
+  },
+  "editions": {
+    "best": {
+      "assembly": {
+        "path": "manifests/releases/v0.5.2.1/best-assembly.json",
+        "sha256": "f5cb5ff8402b097d42861713f872515b68a104b499ae926f9c5eafa8470a02a7",
+        "size": 12594
+      },
+      "regions": {
+        "hk": {
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/best-hk-readback.json",
+            "sha256": "1a5d21efdecf5e411729d199cdc118520924c769739a2568110771916a1804ba",
+            "size": 77970
+          }
+        },
+        "sc": {
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/best-sc-readback.json",
+            "sha256": "30b441ef31bc26dc1f3e718a40aca898549ecdb3632658e411ba704f4e7d6a87",
+            "size": 77970
+          }
+        },
+        "tw": {
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/best-tw-readback.json",
+            "sha256": "fdecef5b3b04196116e430dbcb2c57d2bac3826d0b1a236a7d74873bff5bf11c",
+            "size": 77970
+          }
+        }
+      },
+      "skip": {
+        "path": "manifests/releases/v0.5.2.1/best-skip.json",
+        "sha256": "fcdedbccb6352398ef4c4bb28b58d105044bc34710e9dce8d626c364bf1e2f2c",
+        "size": 5937
+      },
+      "wide": {
+        "path": "manifests/releases/v0.5.2.1/best-wide.json",
+        "sha256": "8b624b4fd5b9c46d63669092ff459ab161b9ae98df643fed3f5475226bcdf759",
+        "size": 859
+      }
+    },
+    "original": {
+      "assembly": {
+        "path": "manifests/releases/v0.5.2.1/original-assembly.json",
+        "sha256": "afcd33a479d89b960ce3283bb00fd6e781bf2c5a785f48cf914d8aeaf55d292d",
+        "size": 12169
+      },
+      "regions": {
+        "hk": {
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/original-hk-readback.json",
+            "sha256": "dd35eca5f1b54d9cdf9f0e42b534dd2320449209e5aca12de04a4a9f5bce7503",
+            "size": 416339
+          }
+        },
+        "sc": {
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/original-sc-readback.json",
+            "sha256": "c6b967698b05a1b3c0701caa819058ac503bc63cefdaa23d5877895ac0672471",
+            "size": 416299
+          }
+        },
+        "tw": {
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/original-tw-readback.json",
+            "sha256": "c34c6bd7ff776c0824684662c79ba9e7882ac817e1cfa1ba238ca36973160cf3",
+            "size": 416304
+          }
+        }
+      },
+      "skip": {
+        "path": "manifests/releases/v0.5.2.1/original-skip.json",
+        "sha256": "f1e52deb3b5600bf85b3b85b5de2f46ef35eeeaa6a06c440841d40b725426f96",
+        "size": 5949
+      },
+      "wide": {
+        "path": "manifests/releases/v0.5.2.1/original-wide.json",
+        "sha256": "b87ad0b4090dbe79bbdea681e4373e50b5d717cbe897641a1d0c68062676547c",
+        "size": 863
+      }
+    },
+    "sp": {
+      "assembly": {
+        "path": "manifests/releases/v0.5.2.1/sp-assembly.json",
+        "sha256": "ecccdbf318c2b4046d32622d5577e39d63374fbeadd4280c112f2900ec6f6331",
+        "size": 11877
+      },
+      "regions": {
+        "hk": {
+          "independent": {
+            "path": "manifests/releases/v0.5.2.1/sp-hk-independent.json",
+            "sha256": "0207af71fd55666d06b15288b3df7dec92a6f4d9acc1c6ab4ca772c5de824273",
+            "size": 35713
+          },
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/sp-hk-readback.json",
+            "sha256": "d3876784793defce0ddccf764b746e7556fe02374fade2bdaecc454dc4f45481",
+            "size": 2412886
+          }
+        },
+        "sc": {
+          "independent": {
+            "path": "manifests/releases/v0.5.2.1/sp-sc-independent.json",
+            "sha256": "f1f380442d79935f471b4e6878ca9926123e725cad77929adf2874528ef3b7fc",
+            "size": 35715
+          },
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/sp-sc-readback.json",
+            "sha256": "c4a00a5482364b964cbf96f3e4f12572cd47d634c987133da6f9bfccc0e21eea",
+            "size": 2431929
+          }
+        },
+        "tw": {
+          "independent": {
+            "path": "manifests/releases/v0.5.2.1/sp-tw-independent.json",
+            "sha256": "9f824548a4ff6d86bfa16d2a70dd6de339b00dc7f26f613859166983adbe6f09",
+            "size": 35713
+          },
+          "readback": {
+            "path": "manifests/releases/v0.5.2.1/sp-tw-readback.json",
+            "sha256": "f3521009c947ef8aea3edf17419f299fe77a06d1ae87c9d669f54d8be25fe505",
+            "size": 2411446
+          }
+        }
+      },
+      "skip": {
+        "path": "manifests/releases/v0.5.2.1/sp-skip.json",
+        "sha256": "72aa14b02f77380c52d0e23f0f3e850c9286bb686891f26ac68257a76c465984",
+        "size": 5931
+      },
+      "wide": {
+        "path": "manifests/releases/v0.5.2.1/sp-wide.json",
+        "sha256": "96ace50ba9de2519d5805ddeca41fae5fb9b74d43fb830b47a5febfeac740929",
+        "size": 932
+      }
+    }
+  },
+  "input_digest": "8ad1d2257548bd2a73faa9e21ccc5090cdfa3f7228408137a1e5360bb199ae36",
+  "runtime": "armsx2_frozen_discs_verified",
+  "runtime_evidence": {
+    "path": "manifests/releases/v0.5.2.1/runtime.json",
+    "sha256": "2d03999db423f89e1c726a20ff6ff292449b981cb8114fe2ce0aa04a9cd2a3cb",
+    "size": 7424
+  },
+  "status": "multilang_widescreen_readback_passed"
+}

@@ -1,0 +1,597 @@
+{
+  "batch": {
+    "candidate": true,
+    "input_digest": "6e3ec47c444ff9a6210cbfa4d5adb802d0ebd08575d754f5875c53c6071c6762",
+    "input_snapshot": "work/build/shared/6e3ec47c444ff9a6210cbfa4d5adb802d0ebd08575d754f5875c53c6071c6762/inputs.json",
+    "language": "zh-hant-hk",
+    "release_config": "config/release/dual-current.json",
+    "requested_editions": [
+      "sp"
+    ],
+    "results": [
+      {
+        "adapter": "sp-full-text-v1",
+        "base_output": {
+          "path": "build/iso/special-disc/sp-current.iso",
+          "sha256": "79651d812a97c1290af7b872691beef450701dbb3418a6ed28c0145763bce2dd",
+          "size": 3918858240
+        },
+        "battle_square_skip": {
+          "all_replacements_exact": true,
+          "already_applied": true,
+          "cave_file_offset": "0x351100",
+          "cave_preimage_all_zero": false,
+          "cave_size": 2048,
+          "cave_virtual_address": "0x450780",
+          "changed_byte_count": 0,
+          "configuration_matches_before": true,
+          "edition": "sp",
+          "enabled": true,
+          "executable_size_preserved": true,
+          "hook_sha256": "e9a6bb12407b06029538092027e86fb0ee2be6f8b9008f57758778654848ea4f",
+          "hook_size": 1728,
+          "member": "SLPS_259.20",
+          "native_resource_waits_preserved": true,
+          "native_result_processing_preserved": true,
+          "patches": [
+            {
+              "file_offset": "0x1EA5C8",
+              "id": "battle_step_world_call",
+              "kind": "jal",
+              "original_instruction_hex": "ec390c0c",
+              "replacement_instruction_hex": "e041110c",
+              "state_before": "applied",
+              "surface": "battle step world call",
+              "virtual_address": "0x2E9C48"
+            },
+            {
+              "file_offset": "0x1F2C00",
+              "id": "queue_append_prologue_0",
+              "kind": "j",
+              "original_instruction_hex": "20038290",
+              "replacement_instruction_hex": "20431108",
+              "state_before": "applied",
+              "surface": "queue append prologue 0",
+              "virtual_address": "0x2F2280"
+            },
+            {
+              "file_offset": "0x1F2C04",
+              "id": "queue_append_prologue_1",
+              "kind": "nop",
+              "original_instruction_hex": "c0100200",
+              "replacement_instruction_hex": "00000000",
+              "state_before": "applied",
+              "surface": "queue append prologue 1",
+              "virtual_address": "0x2F2284"
+            }
+          ],
+          "policy": "square_skips_battle_animation_via_native_tail",
+          "site_count": 3,
+          "state_marker": "0x4E540005",
+          "world_steps_per_frame": 1
+        },
+        "component_modes": {
+          "frame": "rebuilt",
+          "image-labels": "rebuilt",
+          "srvc": "rebuilt",
+          "stage": "rebuilt",
+          "system": "rebuilt"
+        },
+        "edition_contract_sha256": "6b9a509967565a206a0c5e2a893cb240bf1fc73475891279408df2afca6f76e7",
+        "edition_id": "sp",
+        "event_gallery": {
+          "caption_count": 37,
+          "elf_sha256": "fa8483d4c15247408b31f06e64422e45e4ba27239314ac4e64f5738097344285",
+          "scene_count": 22
+        },
+        "gunleon_sprite": {
+          "allocation_bytes": 701376,
+          "changed_decoded_bytes": 12,
+          "chunk": 630,
+          "decoded_sha256": "bfed4ec7e78491d7993a3d197cc076ffb10408d979337ccef0f4c2920cae15c7",
+          "keyframe_offsets": [
+            77274,
+            376078,
+            458374,
+            486546
+          ],
+          "member": "BTL/TWP.BIN",
+          "packed_bytes": 592711,
+          "verification": {
+            "after_sha256": "196556b77a31ee9f3f7a3565f426f37839d1a7a28371aa1c07275466bd1dbc95",
+            "bytes": 3918156864,
+            "sha256": "6c18f739d86981d83fadb67e27fa4f99e123f6aea58d62f4776e276bcb6d47a6"
+          }
+        },
+        "input_digest": "6e3ec47c444ff9a6210cbfa4d5adb802d0ebd08575d754f5875c53c6071c6762",
+        "output": {
+          "path": "build/iso/test/integrated-sp-zh-hant-hk.iso",
+          "sha256": "196556b77a31ee9f3f7a3565f426f37839d1a7a28371aa1c07275466bd1dbc95",
+          "size": 3918858240
+        },
+        "readback": {
+          "path": "build/editions/zh-release-sp/52088d1bc65eeb60eccf48833b6019bbee72a079ddc0e1ec926b456c5d582b4f/project/build/iso/special-disc/sp-current.json",
+          "sha256": "d3876784793defce0ddccf764b746e7556fe02374fade2bdaecc454dc4f45481"
+        },
+        "runtime": "not_tested",
+        "schema_version": 1,
+        "skip_enabled": true,
+        "source_head": "46ac8a71e69d982e7eef16e3ef66a6ead6768c94",
+        "source_iso_sha256": "c3bd8c1af4e411e5ab2ae2d4be877170b6ab1ea9b51fa62bc0b91a51ba1a2952",
+        "status": "edition_iso_static_validated_runtime_pending",
+        "typography": {
+          "input": {
+            "path": "build/iso/special-disc/sp-current.iso",
+            "sha256": "79651d812a97c1290af7b872691beef450701dbb3418a6ed28c0145763bce2dd",
+            "size": 3918858240
+          },
+          "verification": {
+            "edition": "sp",
+            "executable_sha256": "a4d4cc8e61d61160e7a1b8398a3e92805842012070fffc8c1ebe4e32a9fdea35",
+            "member": "SLPS_259.20",
+            "member_lba": 1851456,
+            "member_size": 4141840,
+            "metrics_sha256": "4b31858d9e09bd78a4285ed47f942fc09f5f9b2af4bb9faa2d7a9298fcaba0ed",
+            "output_sha256": "3c955ba75c568ab180eb46441d6907b6d772d839b9254ff77aee066d5e309ab2",
+            "outside_executable_bytes_compared": 3914716400,
+            "payload": {
+              "base": 8512000,
+              "battle_select_titles": {
+                "config_sha256": "d69326ff4a5c3fa1c5ebc79a30dfdffde0f8476e769e8c0b644ccd92c3d81828",
+                "labels": [
+                  "選擇陣型",
+                  "排列隊員",
+                  "選擇機體",
+                  "選擇機師",
+                  "選擇戰艦"
+                ]
+              },
+              "codeBytes": 5784,
+              "edition": "sp",
+              "fontSha256": "446f97ddef48f36c60549443e78045b0e21fb9d375325fe260205d71c1fb9ea1",
+              "metricsSchema": 7,
+              "patches": [
+                {
+                  "address": 1291312,
+                  "after": "c17c200800000000",
+                  "before": "0070013c62002294"
+                },
+                {
+                  "address": 1289520,
+                  "after": "467d200800000000",
+                  "before": "a0ffbd274f00013c"
+                },
+                {
+                  "address": 1287584,
+                  "after": "777d200800000000",
+                  "before": "b0ffbd272d100000"
+                },
+                {
+                  "address": 2254220,
+                  "after": "a87d200c",
+                  "before": "9095060c"
+                },
+                {
+                  "address": 2254272,
+                  "after": "b47d200c00000000",
+                  "before": "0200022621904202"
+                },
+                {
+                  "address": 2254292,
+                  "after": "4f00013cc0d523842da06000",
+                  "before": "422002001818640021a08302"
+                },
+                {
+                  "address": 1293832,
+                  "after": "f07d200800000000",
+                  "before": "080084241c00e880"
+                },
+                {
+                  "address": 1292772,
+                  "after": "087e200800000000",
+                  "before": "1c00e88008008424"
+                },
+                {
+                  "address": 1291768,
+                  "after": "e27d200800000000",
+                  "before": "2400238e140003ae"
+                },
+                {
+                  "address": 1287704,
+                  "after": "907c200800000000",
+                  "before": "00008b9062006011"
+                }
+              ],
+              "payloadBytes": 6400,
+              "payloadSha256": "747d8ccbe8cfbda7a5296a088ff76e0920d6a6620ad3cc495a1f903c6dec41c2",
+              "reservation": {
+                "base": 8512000,
+                "capacity": 6400,
+                "edition": "sp",
+                "elfSizeUnchanged": true,
+                "fileOffset": 3979008,
+                "headerSlot": 72,
+                "heapUnchanged": true,
+                "nonloadedSectionMetadataRemoved": true,
+                "payloadBytes": 6400,
+                "resultSha256": "32ced3e2d04d2b96bf48d2e515675226589bba35ee67f50744c047b4c2a2c557",
+                "runtimeVerified": false,
+                "sourceSha256": "46e51fb77ac77af02a87ce5dacaf5266ee6a7588793ff8c809e8c4f76c27314f"
+              },
+              "resultSha256": "a4d4cc8e61d61160e7a1b8398a3e92805842012070fffc8c1ebe4e32a9fdea35",
+              "routes": [
+                {
+                  "name": "story",
+                  "scene": "story"
+                },
+                {
+                  "name": "sp_story_map",
+                  "scene": "sp_story_map"
+                },
+                {
+                  "name": "battle",
+                  "scene": "battle"
+                },
+                {
+                  "name": "sp_flow",
+                  "scene": "sp_flow"
+                },
+                {
+                  "name": "sp_scroll",
+                  "scene": "sp_scroll"
+                },
+                {
+                  "name": "library_robot",
+                  "scene": "library_robot"
+                },
+                {
+                  "name": "keyword_list",
+                  "scene": "keyword_list"
+                },
+                {
+                  "name": "weapon",
+                  "scene": "weapon"
+                }
+              ],
+              "sceneDispatch": true,
+              "scope": "Native-entry bounded scene geometry dispatch",
+              "sections": [
+                {
+                  "address": 8512000,
+                  "name": "native_draw",
+                  "size": 16
+                },
+                {
+                  "address": 8512016,
+                  "name": "native_measure",
+                  "size": 28
+                },
+                {
+                  "address": 8512044,
+                  "name": "story_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 8512208,
+                  "name": "story_cjk",
+                  "size": 110
+                },
+                {
+                  "address": 8512320,
+                  "name": "story_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 8512328,
+                  "name": "sp_story_map_cjk",
+                  "size": 110
+                },
+                {
+                  "address": 8512440,
+                  "name": "sp_story_map_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 8512448,
+                  "name": "battle_cjk",
+                  "size": 98
+                },
+                {
+                  "address": 8512548,
+                  "name": "battle_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 8512556,
+                  "name": "sp_flow_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 8512720,
+                  "name": "sp_flow_cjk",
+                  "size": 104
+                },
+                {
+                  "address": 8512824,
+                  "name": "sp_flow_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 8512832,
+                  "name": "sp_scroll_metrics",
+                  "size": 162
+                },
+                {
+                  "address": 8512996,
+                  "name": "sp_scroll_cjk",
+                  "size": 104
+                },
+                {
+                  "address": 8513100,
+                  "name": "sp_scroll_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 8513108,
+                  "name": "library_robot_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 8513116,
+                  "name": "keyword_list_cjk",
+                  "size": 104
+                },
+                {
+                  "address": 8513220,
+                  "name": "keyword_list_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 8513228,
+                  "name": "weapon_geometry",
+                  "size": 5
+                },
+                {
+                  "address": 8513236,
+                  "name": "metric_selection",
+                  "size": 1716
+                },
+                {
+                  "address": 8514952,
+                  "name": "shared_draw",
+                  "size": 492
+                },
+                {
+                  "address": 8515444,
+                  "name": "shared_measure",
+                  "size": 292
+                },
+                {
+                  "address": 8515736,
+                  "name": "scene_descriptors",
+                  "size": 196
+                },
+                {
+                  "address": 8515932,
+                  "name": "draw_routes",
+                  "size": 228
+                },
+                {
+                  "address": 8516160,
+                  "name": "measure_routes",
+                  "size": 184
+                },
+                {
+                  "address": 8516344,
+                  "name": "display_options",
+                  "size": 12
+                },
+                {
+                  "address": 8516356,
+                  "name": "glyph_bank",
+                  "size": 532
+                },
+                {
+                  "address": 8516888,
+                  "name": "draw_source",
+                  "size": 196
+                },
+                {
+                  "address": 8517084,
+                  "name": "measure_source",
+                  "size": 196
+                },
+                {
+                  "address": 8517280,
+                  "name": "underline_copy",
+                  "size": 48
+                },
+                {
+                  "address": 8517328,
+                  "name": "underline_restore",
+                  "size": 40
+                },
+                {
+                  "address": 8517368,
+                  "name": "underline_dispatch",
+                  "size": 144
+                },
+                {
+                  "address": 8517512,
+                  "name": "draw_entry",
+                  "size": 56
+                },
+                {
+                  "address": 8517568,
+                  "name": "sprite_baseline",
+                  "size": 96
+                },
+                {
+                  "address": 8517664,
+                  "name": "outline_baseline",
+                  "size": 120
+                },
+                {
+                  "address": 8517824,
+                  "name": "baseline_sidecar",
+                  "size": 512
+                },
+                {
+                  "address": 8518336,
+                  "name": "selector_globals",
+                  "size": 64
+                }
+              ],
+              "sharedSelection": true,
+              "sp_tm_spacing": {
+                "writes": [
+                  {
+                    "address": "0x4412dc",
+                    "sha256": "884fffe7fbe3ab398b5833ab1908daf4792c8801adbcd47e5c1cd89c5ab2e9ab",
+                    "size": 4
+                  },
+                  {
+                    "address": "0x441390",
+                    "sha256": "bf05b3f901f396e11578e4e0e8ec4066ffaec98e5d1a67b288d11f849cab2239",
+                    "size": 4
+                  },
+                  {
+                    "address": "0x4413fc",
+                    "sha256": "884fffe7fbe3ab398b5833ab1908daf4792c8801adbcd47e5c1cd89c5ab2e9ab",
+                    "size": 4
+                  },
+                  {
+                    "address": "0x44183c",
+                    "sha256": "169ebd2f2910bbf7c619dede8620345d495be7978da6d8cbe89d47ea9e59e81a",
+                    "size": 8
+                  },
+                  {
+                    "address": "0x822ec0",
+                    "sha256": "ed1bbf36c732293beaef05e161923badae686e9642e526aa90ff2d45f3018596",
+                    "size": 240
+                  }
+                ]
+              },
+              "text_atlas_exhaustion": {
+                "address": "0x13b4d4",
+                "after": "5e000010",
+                "before": "2d106002",
+                "capacity_changed": false,
+                "file_offset": 245332,
+                "target": "0x13b650"
+              }
+            },
+            "runtime": "not_tested",
+            "schema_version": 1,
+            "size": 3918858240,
+            "source_sha256": "79651d812a97c1290af7b872691beef450701dbb3418a6ed28c0145763bce2dd"
+          }
+        },
+        "version": "v0.5.2.1",
+        "workspace": "build/editions/zh-release-sp/52088d1bc65eeb60eccf48833b6019bbee72a079ddc0e1ec926b456c5d582b4f/project"
+      }
+    ],
+    "runtime": "not_tested",
+    "schema_version": 1,
+    "shared_js_layout": {
+      "engine_version": "1.1.0",
+      "inputs": {
+        "shared_js_cli": {
+          "path": "shared/text-layout/cli.mjs",
+          "sha256": "f0ad52f68338a3c70f4a2b997085385f2ba089da5ccc6984824fdce5bd3a8f52",
+          "size": 563
+        },
+        "shared_js_cli_handler": {
+          "path": "shared/text-layout/cli-handler.mjs",
+          "sha256": "557096b00d7030231da4c0e3aaea2caa50f309c00522902b2e742969ae366be1",
+          "size": 242
+        },
+        "shared_js_contracts": {
+          "path": "shared/text-layout/contracts.mjs",
+          "sha256": "184dab2f37b3a0927ae216bcb6608189dc83003799127e5f39ae5da058a32e9b",
+          "size": 281442
+        },
+        "shared_js_engine": {
+          "path": "shared/text-layout/engine.mjs",
+          "sha256": "26581ced61c8c069648250042a119142a7a407f3948713cb9508e88ce9cd9145",
+          "size": 41426
+        },
+        "shared_js_proportional_metrics": {
+          "path": "shared/text-layout/proportional-metrics.mjs",
+          "sha256": "4b31858d9e09bd78a4285ed47f942fc09f5f9b2af4bb9faa2d7a9298fcaba0ed",
+          "size": 133439
+        },
+        "shared_js_proportional_selection": {
+          "path": "shared/text-layout/proportional-selection.mjs",
+          "sha256": "cd2bfa5f06afebd1b37451755d7dcbae2c7955cb11a40d2535e3737e8b77f343",
+          "size": 2213
+        },
+        "shared_js_story_ink": {
+          "path": "shared/text-layout/story-ink.mjs",
+          "sha256": "78a91f9ea4ff4ffae26959b0d53d87419e560c42bfd47bc6f70747b7e51a5160",
+          "size": 3421
+        },
+        "shared_js_story_ink_data": {
+          "path": "shared/text-layout/story-ink-data.mjs",
+          "sha256": "5e38b3cd96fbcbf13587fc47a26a032fea140bf197c68b8fff02d713ca26764f",
+          "size": 178664
+        }
+      },
+      "scenes": 10
+    },
+    "status": "requested_editions_static_validated_runtime_pending",
+    "timing": {
+      "editions": {
+        "sp": {
+          "mode": "build",
+          "phases": {
+            "prepare": {
+              "returncode": 0,
+              "seconds": 1.259
+            },
+            "proof-binding": {
+              "returncode": 0,
+              "seconds": 1.873
+            },
+            "rust-compressor": {
+              "returncode": 0,
+              "seconds": 2.321
+            },
+            "skip-verify": {
+              "returncode": 0,
+              "seconds": 0.043
+            },
+            "sp-full-text": {
+              "returncode": 0,
+              "seconds": 48.464
+            },
+            "sprite-repair-and-publish": {
+              "returncode": 0,
+              "seconds": 3.964
+            },
+            "typography": {
+              "returncode": 0,
+              "seconds": 3.751
+            }
+          },
+          "seconds": 61.729
+        }
+      },
+      "finished_at": "2026-11-27T13:49:14.062670+00:00",
+      "preflight_and_snapshot_seconds": 43.062,
+      "started_at": "2026-11-27T13:47:28.917075+00:00",
+      "total_seconds": 105.144
+    },
+    "version": "v0.5.2.1"
+  },
+  "verification": {
+    "both_editions": false,
+    "input_digest": "6e3ec47c444ff9a6210cbfa4d5adb802d0ebd08575d754f5875c53c6071c6762",
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes",
+    "status": "edition_batch_receipt_integrity_passed",
+    "verified_editions": [
+      "sp"
+    ]
+  }
+}
