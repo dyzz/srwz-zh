@@ -7,6 +7,7 @@ findings. The report contains observed text and review candidates, never writeba
 from __future__ import annotations
 
 import argparse
+import hashlib
 from collections import Counter, defaultdict
 import json
 from pathlib import Path
@@ -103,6 +104,12 @@ def main():
                 if compounds:
                     protected[region, old] = re.compile('|'.join(map(re.escape, compounds)))
     hk_glyphs = load(CONFIG / 'hk-characters.json')['map']
+    kept_entries = load(CONFIG / 'editorial-keeps.json')['entries']
+    def keep_key(row):
+        return tuple(row[k] for k in ('file', 'field', 'region', 'rule', 'match', 'expected',
+                                      'source_sha256', 'translation_sha256'))
+    keeps = {keep_key(row): row for row in kept_entries}
+    retained = []
     findings = []
     coverage = Counter()
     for sc_root, tw_root, _ in TREES:
@@ -129,6 +136,13 @@ def main():
                         row = dict(file=str((roots[1 if region=='tw' else 2]/rel).relative_to(ROOT)),
                                    field='/'.join(map(str,key)), region=region, rule=rule, match=match,
                                    expected=expected, ja=jp, sc=sc_text, **texts)
+                        if jp:
+                            key_for_review = dict(row, source_sha256=hashlib.sha256(jp.encode()).hexdigest(),
+                                                  translation_sha256=hashlib.sha256(raw.encode()).hexdigest())
+                            keep = keeps.get(keep_key(key_for_review))
+                            if keep:
+                                retained.append(keep)
+                                return
                         if args.baseline:
                             row['new_or_changed'] = fingerprint(row) not in previous
                         findings.append(row)
@@ -191,7 +205,7 @@ def main():
                         flag('approved-name', text, next(iter(matches)))
     counts = Counter(row['rule'] for row in findings)
     report = dict(scope='Translation fields in game, glossary and runtime corpora; Hong Kong shared images counted under Taiwan.',
-                  coverage=dict(coverage), counts=dict(counts), findings=findings)
+                  coverage=dict(coverage), counts=dict(counts), findings=findings, retained=retained)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     print(dict(coverage), dict(counts), args.out)
